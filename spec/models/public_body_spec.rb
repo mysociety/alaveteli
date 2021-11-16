@@ -61,7 +61,7 @@ RSpec.describe PublicBody do
 
     it 'update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save! }
       body.reload
 
       expect(body.update('name' => nil)).to eq(false)
@@ -91,7 +91,7 @@ RSpec.describe PublicBody do
 
     it 'blank string update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save! }
       body.reload
 
       expect(body.update('name' => '')).to eq(false)
@@ -357,7 +357,7 @@ RSpec.describe PublicBody do
 
     it 'ignores manually set attributes' do
       subject = FactoryBot.build(:public_body, :version => 21)
-      subject.save
+      subject.save!
       expect(subject.version).to eq(1)
     end
 
@@ -485,7 +485,7 @@ RSpec.describe PublicBody do
 
     it 'gets set on save' do
       subject = FactoryBot.build(:public_body)
-      subject.save
+      subject.save!
       expect(subject.api_key).not_to be_blank
     end
 
@@ -662,7 +662,7 @@ RSpec.describe PublicBody do
         body = FactoryBot.create(:public_body)
         body.translations_attributes = { :es => { :locale => 'es',
                                                   :name => 'El Body' } }
-        body.save
+        body.save!
         body.reload
         expect(body.name(:es)).to eq('El Body')
       end
@@ -671,12 +671,12 @@ RSpec.describe PublicBody do
         body = FactoryBot.create(:public_body)
         body.translations_attributes = { 'es' => { :locale => 'es',
                                                    :name => 'El Body' } }
-        body.save
+        body.save!
 
         body.translations_attributes = { 'es' => { :id => body.translation_for(:es).id,
                                                    :locale => 'es',
                                                    :name => 'Renamed' } }
-        body.save
+        body.save!
         expect(body.name(:es)).to eq('Renamed')
       end
 
@@ -760,19 +760,19 @@ RSpec.describe PublicBody do
   end
 
   describe '#expire_requests' do
-
     it 'calls expire on all associated requests' do
       public_body = FactoryBot.build(:public_body)
-      requests = [double, double]
-      expect(public_body).to receive(:info_requests).and_return(requests)
 
-      requests.each do |request|
-        expect(request).to receive(:expire)
-      end
+      request_1, request_2 = double(:info_request), double(:info_request)
+
+      allow(public_body).to receive_message_chain(:info_requests, :find_each).
+        and_yield(request_1).and_yield(request_2)
+
+      expect(request_1).to receive(:expire)
+      expect(request_2).to receive(:expire)
 
       public_body.expire_requests
     end
-
   end
 
   describe '#short_or_long_name' do
@@ -933,7 +933,7 @@ RSpec.describe PublicBody do
     it 'includes bodies with a translation that has an empty request email' do
       AlaveteliLocalization.with_locale(:es) do
         public_body.request_email = ''
-        public_body.save
+        public_body.save!
       end
       is_expected.to include(blank_body)
     end
@@ -1188,6 +1188,37 @@ RSpec.describe PublicBody, " when saving" do
     expect(@public_body.versions.last.name).to eq('Test')
   end
 
+  it 'reindexes request events when url_name has changed' do
+    body = FactoryBot.create(:public_body, name: 'foo-bar-baz')
+    requests =
+      2.times.map { FactoryBot.create(:info_request, public_body: body) }
+    event_ids = InfoRequestEvent.where(info_request_id: requests.map(&:id))
+
+    ActsAsXapian::ActsAsXapianJob.destroy_all
+
+    body.update!(url_name: 'baz-bar-foo')
+
+    expected_events =
+      ActsAsXapian::ActsAsXapianJob.
+      where(action: 'update', model: 'InfoRequestEvent', model_id: event_ids)
+
+    expect(expected_events.size).to eq(event_ids.size)
+  end
+
+  it 'does not reindex request events when url_name has not changed' do
+    body = FactoryBot.create(:public_body, name: 'foo-bar-baz')
+    FactoryBot.create(:info_request, public_body: body)
+
+    ActsAsXapian::ActsAsXapianJob.destroy_all
+
+    body.update!(notes: 'test')
+
+    expected_events =
+      ActsAsXapian::ActsAsXapianJob.
+      where(action: 'update', model: 'InfoRequestEvent')
+
+    expect(expected_events.count).to eq(0)
+  end
 end
 
 RSpec.describe PublicBody, "when searching" do
@@ -1273,7 +1304,7 @@ RSpec.describe PublicBody, "when destroying" do
   it 'destroys associated translations' do
     AlaveteliLocalization.with_locale(:es) do
       public_body.name = 'El Translation'
-      public_body.save
+      public_body.save!
     end
     expect(PublicBody::Translation.where(:public_body_id => public_body.id)).
       to_not be_empty
@@ -2354,7 +2385,7 @@ RSpec.describe PublicBody::Version do
 
         it 'returns an empty list' do
           public_body.last_edit_comment = 'Just tinkering'
-          public_body.save
+          public_body.save!
           current = public_body.versions.latest
           expect(current.compare(current.previous)).to eq([])
         end
@@ -2366,7 +2397,7 @@ RSpec.describe PublicBody::Version do
         it 'returns a list of changes as hashes with keys :name, :from and
            :to' do
           public_body.request_email = 'new@example.com'
-          public_body.save
+          public_body.save!
           current = public_body.versions.latest
           expected = { :name => "Request email",
                        :from => "request@example.com",
@@ -2394,7 +2425,7 @@ RSpec.describe PublicBody::Version do
 
         it 'returns an empty list' do
           public_body.last_edit_comment = 'Just tinkering'
-          public_body.save
+          public_body.save!
           current = public_body.versions.latest
           expect { |b| current.compare(current.previous, &b) }.
             not_to yield_control
@@ -2407,7 +2438,7 @@ RSpec.describe PublicBody::Version do
         it 'returns a list of changes as hashes with keys :name, :from and
            :to' do
           public_body.request_email = 'new@example.com'
-          public_body.save
+          public_body.save!
           current = public_body.versions.latest
           expected = { :name => "Request email",
                        :from => "request@example.com",

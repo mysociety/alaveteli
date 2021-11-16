@@ -92,11 +92,7 @@ class CensorRule < ApplicationRecord
   private
 
   def single_char_regexp
-    if String.method_defined?(:encode)
-      Regexp.new('.'.force_encoding('ASCII-8BIT'))
-    else
-      Regexp.new('.', nil, 'N')
-    end
+    Regexp.new('.'.force_encoding('ASCII-8BIT'))
   end
 
   def require_valid_regexp
@@ -112,7 +108,7 @@ class CensorRule < ApplicationRecord
   end
 
   def encoded_text(encoding)
-    String.method_defined?(:encode) ? text.dup.force_encoding(encoding) : text
+    text.dup.force_encoding(encoding)
   end
 
   def make_regexp(encoding)

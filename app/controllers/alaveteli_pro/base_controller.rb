@@ -14,32 +14,28 @@ class AlaveteliPro::BaseController < ApplicationController
   def pro_user_authenticated?(reason_params = nil)
     if reason_params.nil?
       reason_params = {
-        web: _("To access {{pro_site_name}}",
-               pro_site_name: AlaveteliConfiguration.pro_site_name),
-        email: _("Then you can access {{pro_site_name}}",
-                 pro_site_name: AlaveteliConfiguration.pro_site_name)
+        web: _('To access {{pro_site_name}}',
+               pro_site_name: pro_site_name),
+        email: _('Then you can access {{pro_site_name}}',
+                 pro_site_name: pro_site_name)
       }
     end
-    if authenticated?(reason_params)
+    if !authenticated?
+      ask_to_login(reason_params)
+    else
       unless current_user.is_pro?
         redirect_to(
           frontpage_path,
           flash: {
-            notice: _("This page is only accessible to {{pro_site_name}}" \
-                      " users",
-                      pro_site_name: AlaveteliConfiguration.pro_site_name)
+            notice: _('This page is only accessible to {{pro_site_name}} ' \
+                      'users',
+                      pro_site_name: pro_site_name)
           }
         )
       end
       return true
     end
     return false
-  end
-
-  # A pro-specific version of authenticated? that sets the `pro: true` param
-  # so that compatible controllers will know to use the pro livery post redirect
-  def pro_authenticated?(reason_params)
-    authenticated?(reason_params.merge(pro: true))
   end
 
   # An override of set_in_pro_area from ApplicationController, because we are

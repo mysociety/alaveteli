@@ -34,9 +34,10 @@ RSpec.describe Projects::DownloadsController, spec_meta do
     context 'when HTML format' do
       include_context 'when authorised to download project'
 
-      it 'is a bad request' do
-        show(format: 'html')
-        expect(response).to have_http_status(:bad_request)
+      it 'raises unknown format error' do
+        expect { show(format: 'html') }.to raise_error(
+          ActionController::UnknownFormat
+        )
       end
     end
 
@@ -59,15 +60,9 @@ RSpec.describe Projects::DownloadsController, spec_meta do
       end
 
       it 'returns content disposition' do
-        if rails_upgrade?
-          expect(response.header['Content-Disposition']).to(
-            eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
-          )
-        else
-          expect(response.header['Content-Disposition']).to(
-            eq 'attachment; filename="NAME"'
-          )
-        end
+        expect(response.header['Content-Disposition']).to(
+          eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
+        )
       end
 
       it 'returns CSV content type' do

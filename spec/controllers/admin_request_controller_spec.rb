@@ -8,19 +8,22 @@ RSpec.describe AdminRequestController, "when administering requests" do
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "is successful" do
-      get :index, session: { :user_id => admin_user.id }
+      sign_in admin_user
+      get :index
       expect(response).to be_successful
     end
 
     it 'assigns all info requests to the view' do
-      get :index, session: { :user_id => admin_user.id }
+      sign_in admin_user
+      get :index
       expect(assigns[:info_requests]).to match_array(InfoRequest.all)
     end
 
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      get :index, session: { :user_id => admin_user.id }
+      sign_in admin_user
+      get :index
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
 
@@ -31,7 +34,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :index, session: { :user_id => admin_user.id }
+          sign_in admin_user
+          get :index
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
       end
@@ -40,7 +44,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
           is a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          get :index, session: { :user_id => pro_admin_user.id }
+          sign_in pro_admin_user
+          get :index
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
@@ -54,8 +59,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'assigns info requests with titles matching the query to the view
           case insensitively' do
-        get :index, params: { :query => 'Cat' },
-                    session: { :user_id => admin_user.id }
+        sign_in admin_user
+        get :index, params: { :query => 'Cat' }
         expect(assigns[:info_requests].include?(dog_request)).to be false
         expect(assigns[:info_requests].include?(cat_request)).to be true
       end
@@ -63,8 +68,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
       it 'does not include embargoed requests if the current user is an
           admin user' do
         cat_request.create_embargo
-        get :index, params: { :query => 'cat' },
-                    session: { :user_id => admin_user.id }
+        sign_in admin_user
+        get :index, params: { :query => 'cat' }
         expect(assigns[:info_requests].include?(cat_request)).to be false
       end
 
@@ -73,8 +78,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
             admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            get :index, params: { :query => 'cat' },
-                        session: { :user_id => admin_user.id }
+            sign_in admin_user
+            get :index, params: { :query => 'cat' }
             expect(assigns[:info_requests].include?(cat_request)).to be false
           end
         end
@@ -83,8 +88,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
             is a pro admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            get :index, params: { :query => 'cat' },
-                        session: { :user_id => pro_admin_user.id }
+            sign_in pro_admin_user
+            get :index, params: { :query => 'cat' }
             expect(assigns[:info_requests].include?(cat_request)).to be true
           end
         end
@@ -103,14 +108,14 @@ RSpec.describe AdminRequestController, "when administering requests" do
     render_views
 
     it "is successful" do
-      get :show, params: { :id => info_request },
-                 session: { :user_id => admin_user.id }
+      sign_in admin_user
+      get :show, params: { :id => info_request }
       expect(response).to be_successful
     end
 
     it 'shows an external info request with no username' do
-      get :show, params: { :id => external_request },
-                 session: { :user_id => admin_user.id }
+      sign_in admin_user
+      get :show, params: { :id => external_request }
       expect(response).to be_successful
     end
 
@@ -122,8 +127,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'raises ActiveRecord::RecordNotFound for an admin user' do
         expect {
-          get :show, params: { :id => info_request.id },
-                     session: { :user_id => admin_user.id }
+          sign_in admin_user
+          get :show, params: { :id => info_request.id }
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
@@ -132,16 +137,16 @@ RSpec.describe AdminRequestController, "when administering requests" do
         it 'raises ActiveRecord::RecordNotFound for an admin user' do
           with_feature_enabled(:alaveteli_pro) do
             expect {
-              get :show, params: { :id => info_request.id },
-                         session: { :user_id => admin_user.id }
+              sign_in admin_user
+              get :show, params: { :id => info_request.id }
             }.to raise_error ActiveRecord::RecordNotFound
           end
         end
 
         it 'is successful for a pro admin user' do
           with_feature_enabled(:alaveteli_pro) do
-            get :show, params: { :id => info_request.id },
-                       session: { :user_id => pro_admin_user.id }
+            sign_in pro_admin_user
+            get :show, params: { :id => info_request.id }
             expect(response).to be_successful
           end
         end

@@ -23,11 +23,7 @@ module AttachmentToHTML
       private
 
       def parse_body
-        %Q(<iframe src="#{ protocol }://docs.google.com/viewer?url=#{ attachment_url }&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
-      end
-
-      def protocol
-        AlaveteliConfiguration.force_ssl ? 'https' : 'http'
+        %Q(<iframe src="https://docs.google.com/viewer?url=#{ attachment_url }&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
       end
     end
   end

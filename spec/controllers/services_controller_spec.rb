@@ -98,11 +98,7 @@ RSpec.describe ServicesController do
     it 'generates plaintext output' do
       get :hidden_user_explanation,
           params: { info_request_id: info_request.id, message: 'not_foi' }
-      if rails_upgrade?
-        expect(response.media_type).to eq 'text/plain'
-      else
-        expect(response.content_type).to eq 'text/plain'
-      end
+      expect(response.media_type).to eq 'text/plain'
     end
 
     it 'does not HTML escape the user or site name' do

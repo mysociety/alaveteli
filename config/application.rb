@@ -8,12 +8,15 @@ require 'active_record/railtie'
 # require 'active_storage/engine'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
+# require 'action_mailbox/engine'
+# require 'action_text/engine'
 require 'action_view/railtie'
 # require 'action_cable/engine'
 require 'sprockets/railtie'
 # require 'rails/test_unit/railtie'
 
 require File.dirname(__FILE__) + '/../lib/configuration'
+require File.dirname(__FILE__) + '/../lib/alaveteli_localization'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -91,20 +94,13 @@ module Alaveteli
     require "#{Rails.root}/lib/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
+    require "#{Rails.root}/lib/deeply_nested_params"
+    config.middleware.insert Rack::Head, DeeplyNestedParams
+
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
-    if AlaveteliConfiguration::force_ssl
-      config.action_mailer.default_url_options[:protocol] = "https"
-    end
-
-    config.after_initialize do
-      AlaveteliLocalization.set_locales(
-        AlaveteliConfiguration.available_locales,
-        AlaveteliConfiguration.default_locale
-      )
-    end
   end
 end

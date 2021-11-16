@@ -175,16 +175,11 @@ RSpec.describe ActsAsXapian::Search do
   describe "#words_to_highlight" do
 
     before do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     before do
       @alice = FactoryBot.create(:public_body, :name => 'alice')
-      update_xapian_index
-    end
-
-    after do
-      @alice.destroy
       update_xapian_index
     end
 
@@ -254,7 +249,7 @@ RSpec.describe ActsAsXapian::Search do
 
     before do
       load_raw_emails_data
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     before do
@@ -263,18 +258,10 @@ RSpec.describe ActsAsXapian::Search do
       update_xapian_index
     end
 
-    after do
-      @alice.destroy
-      @bob.destroy
-      update_xapian_index
-    end
-
     it 'returns a UTF-8 encoded string' do
       s = ActsAsXapian::Search.new([PublicBody], "alece", :limit => 100)
       expect(s.spelling_correction).to eq("alice")
-      if s.spelling_correction.respond_to? :encoding
-        expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
-      end
+      expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
     end
 
     it 'handles non-ASCII characters' do

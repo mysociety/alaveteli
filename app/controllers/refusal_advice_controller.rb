@@ -20,7 +20,8 @@ class RefusalAdviceController < ApplicationController
   private
 
   def authenticate
-    authenticated_as_user?(info_request.user) if info_request
+    return unless info_request
+    authenticated?(as: info_request.user) || ask_to_login(as: info_request.user)
   end
 
   def log_event
@@ -37,15 +38,11 @@ class RefusalAdviceController < ApplicationController
 
     case action.target[:internal]
     when 'followup'
-      redirect_to new_request_followup_path(
-        request_id: info_request.id, anchor: 'followup'
-      )
-
+      redirect_to new_request_followup_path(request_id: info_request.id)
     when 'internal_review'
       redirect_to new_request_followup_path(
-        request_id: info_request.id, internal_review: '1', anchor: 'followup'
+        request_id: info_request.id, internal_review: '1'
       )
-
     when 'new_request'
       redirect_to new_request_to_body_path(
         url_name: info_request.public_body.url_name

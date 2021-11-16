@@ -55,6 +55,7 @@
                locals: {
                  id: 'unclassified',
                  parent: 'public-request-things-to-do',
+                 count: @old_unclassified_count,
                  items: @old_unclassified,
                  label: to_do_list_label
                } %>
@@ -74,8 +75,8 @@
                          parent: 'authority-things-to-do',
                          items: @blank_contacts,
                          count: @blank_contact_count,
-                         label: 'Find missing FOI email for these
-                                 public authorities (try phoning!)' } %>
+                         label: 'Find missing FOI email for these public
+                                 authorities' } %>
 
     <% if @new_body_requests.size > 0 %>
       <div class="accordion-group">

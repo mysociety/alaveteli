@@ -4,19 +4,10 @@
 # Copyright (c) 2013 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org. WWW: http://www.mysociety.org/
 
-PATH=/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:/usr/local/bin:/usr/bin:/bin
-# Uncomment the following line if running under rbenv - we want this cron to run
-# in the context of the ruby version defined for the site
-# PATH=/home/<%= user %>/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
-
-PATH=/usr/local/bin:/usr/bin:/bin
-
 <% if use_rbenv? %>
-RBENV_ROOT="/home/<%= user %>/.rbenv"
-PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
-SET_PATH="cd <%= vhost_dir %>/<%= vcspath %>; rbenv rehash; rbenv local <%= ruby_version %>"
+PATH=/home/<%= user %>/.rbenv/shims:/usr/local/bin:/usr/bin:/bin
 <% else %>
-PATH="/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:$PATH"
+PATH=/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:/usr/local/bin:/usr/bin:/bin
 <% end %>
 
 MAILTO=<%= mailto %>

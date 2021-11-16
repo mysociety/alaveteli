@@ -17,18 +17,14 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
     end
 
     before do
-      session[:user_id] = pro_user.id
+      sign_in pro_user
       update_xapian_index
     end
 
     it "returns json" do
       with_feature_enabled :alaveteli_pro do
         get :index, params: { query: body.name }
-        if rails_upgrade?
-          expect(response.media_type).to eq('application/json')
-        else
-          expect(response.content_type).to eq('application/json')
-        end
+        expect(response.media_type).to eq('application/json')
       end
     end
 

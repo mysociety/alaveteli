@@ -39,6 +39,8 @@ class InfoRequestBatch < ApplicationRecord
   validates_presence_of :user
   validates_presence_of :body
 
+  strip_attributes only: %i[embargo_duration]
+
   def self.send_batches
     where(sent_at: nil).find_each do |info_request_batch|
       AlaveteliLocalization.with_locale(info_request_batch.user.locale) do
@@ -100,9 +102,9 @@ class InfoRequestBatch < ApplicationRecord
   # Create a FOI request for a public body
   def create_request!(public_body)
     filled_body = OutgoingMessage.fill_in_salutation(body, public_body)
-    info_request = InfoRequest.create_from_attributes({ title: title },
-                                                      { body: filled_body },
-                                                      user)
+    info_request = InfoRequest.build_from_attributes({ title: title },
+                                                     { body: filled_body },
+                                                     user)
     info_request.public_body = public_body
     info_request.info_request_batch = self
 
@@ -141,7 +143,7 @@ class InfoRequestBatch < ApplicationRecord
   def example_request
     public_body = self.public_bodies.first
     body = OutgoingMessage.fill_in_salutation(self.body, public_body)
-    info_request = InfoRequest.create_from_attributes(
+    info_request = InfoRequest.build_from_attributes(
       { :title => self.title, :public_body => public_body },
       { :body => body },
       self.user

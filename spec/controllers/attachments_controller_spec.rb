@@ -2,10 +2,16 @@ require 'spec_helper'
 
 RSpec.describe AttachmentsController, type: :controller do
 
+  before do
+    allow(@controller).to receive(:foi_fragment_cache_write)
+  end
+
   describe 'GET show' do
 
     let(:info_request) do
-      FactoryBot.create(:info_request_with_incoming_attachments)
+      FactoryBot.create(
+        :info_request_with_incoming_attachments, public_token: 'ABC'
+      )
     end
 
     let(:default_params) do
@@ -19,23 +25,43 @@ RSpec.describe AttachmentsController, type: :controller do
       get :show, params: default_params.merge(params)
     end
 
+    it 'should be able to find the request using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: 'ABC').
+        and_return(info_request)
+
+      show(public_token: 'ABC', id: nil)
+
+      expect(assigns(:info_request)).to eq(info_request)
+    end
+
+    it 'adds noindex header when using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: 'ABC').
+        and_return(info_request)
+
+      show(public_token: 'ABC', id: nil)
+
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    end
+
     it 'should cache an attachment on a request with normal prominence' do
       expect(@controller).to receive(:foi_fragment_cache_write)
       show
     end
 
     it 'sets the correct read permissions for the new file' do
-      # ensure the cache directory exists
+      # allow file to be written to disk
+      allow(@controller).to receive(:foi_fragment_cache_write).and_call_original
+
+      # write file to disk
       show
 
-      # remove the pre-existing cached file
+      # check the file permissions
       key_path = @controller.send(:cache_key_path)
-      File.delete(key_path)
-
-      # create a new cache file and check the file permissions
-      show
       octal_stat = sprintf("%o", File.stat(key_path).mode)[-4..-1]
       expect(octal_stat).to eq('0644')
+
+      # clean up and remove the file
+      File.delete(key_path)
     end
 
     # This is a regression test for a bug where URLs of this form were causing 500 errors
@@ -151,11 +177,7 @@ RSpec.describe AttachmentsController, type: :controller do
             :file_name => 'interesting.html',
             :skip_cache => 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('text/html')
-      else
-        expect(response.content_type).to eq('text/html')
-      end
+      expect(response.media_type).to eq('text/html')
       expect(response.body).to have_content "Mouse"
     end
 
@@ -173,11 +195,7 @@ RSpec.describe AttachmentsController, type: :controller do
             :file_name => 'interesting.html',
             :skip_cache => 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('text/html')
-      else
-        expect(response.content_type).to eq('text/html')
-      end
+      expect(response.media_type).to eq('text/html')
       expect(response.body).to have_content "Mouse"
     end
 
@@ -200,7 +218,7 @@ RSpec.describe AttachmentsController, type: :controller do
       let(:project) { FactoryBot.create(:project) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         allow(controller).to receive(:current_user).and_return(user)
       end
 
@@ -210,8 +228,9 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       it 'passes project to current ability' do
-        expect(Ability).to receive(:new).with(user, project: project).
-          and_call_original
+        expect(Ability).to receive(:new).with(
+          user, project: project, public_token: false
+        ).and_call_original
         show(project_id: project.id)
       end
     end
@@ -221,7 +240,7 @@ RSpec.describe AttachmentsController, type: :controller do
       let(:project) { FactoryBot.create(:project) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         allow(controller).to receive(:current_user).and_return(user)
       end
 
@@ -231,9 +250,19 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       it 'does not pass project to current ability' do
-        expect(Ability).to receive(:new).with(user, project: nil).
-          and_call_original
+        expect(Ability).to receive(:new).with(
+          user, project: nil, public_token: false
+        ).and_call_original
         show(project_id: project.id)
+      end
+    end
+
+    context 'with public_token params and logged out' do
+      it 'passes project to current ability' do
+        expect(Ability).to receive(:new).with(
+          nil, project: nil, public_token: true
+        ).and_call_original
+        show(public_token: 'ABC')
       end
     end
   end
@@ -248,6 +277,24 @@ RSpec.describe AttachmentsController, type: :controller do
                          :part => 2,
                          :file_name => 'interesting.pdf.html' }
       get :show_as_html, params: default_params.merge(params)
+    end
+
+    it 'should be able to find the request using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: '123').
+        and_return(info_request)
+
+      get_html_attachment(public_token: '123', id: nil)
+
+      expect(assigns(:info_request)).to eq(info_request)
+    end
+
+    it 'adds noindex header when using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: '123').
+        and_return(info_request)
+
+      get_html_attachment(public_token: '123', id: nil)
+
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
 
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do
@@ -284,11 +331,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     type: :controller do
 
   def expect_hidden(hidden_template)
-    if rails_upgrade?
-      expect(response.media_type).to eq('text/html')
-    else
-      expect(response.content_type).to eq('text/html')
-    end
+    expect(response.media_type).to eq('text/html')
     expect(response).to render_template(hidden_template)
     expect(response.code).to eq('403')
   end
@@ -320,7 +363,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
             params: {
@@ -339,7 +382,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     let(:incoming_message) { info_request.incoming_messages.first }
 
     it 'does not cache an attachment when showing an attachment to the requester' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -351,7 +394,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not cache an attachment when showing an attachment to the admin' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -414,7 +457,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not cache an attachment' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -443,7 +486,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not download attachments for the request owner' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -456,7 +499,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'downloads attachments for an admin user' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -465,16 +508,12 @@ RSpec.describe AttachmentsController, 'when handling prominence',
             file_name: 'interesting.pdf',
             skip_cache: 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/pdf')
-      else
-        expect(response.content_type).to eq('application/pdf')
-      end
+      expect(response.media_type).to eq('application/pdf')
       expect(response).to be_successful
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
             params: {
@@ -488,7 +527,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'does not cache an attachment when showing an attachment to the requester or admin' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       expect(@controller).not_to receive(:foi_fragment_cache_write)
       get :show,
           params: {
@@ -517,7 +556,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
     end
 
     it 'downloads attachments for the request owner' do
-      session[:user_id] = info_request.user.id
+      sign_in info_request.user
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -526,16 +565,12 @@ RSpec.describe AttachmentsController, 'when handling prominence',
             file_name: 'interesting.pdf',
             skip_cache: 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/pdf')
-      else
-        expect(response.content_type).to eq('application/pdf')
-      end
+      expect(response.media_type).to eq('application/pdf')
       expect(response).to be_successful
     end
 
     it 'downloads attachments for an admin user' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       get :show,
           params: {
             incoming_message_id: incoming_message.id,
@@ -544,16 +579,12 @@ RSpec.describe AttachmentsController, 'when handling prominence',
             file_name: 'interesting.pdf',
             skip_cache: 1
           }
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/pdf')
-      else
-        expect(response.content_type).to eq('application/pdf')
-      end
+      expect(response.media_type).to eq('application/pdf')
       expect(response).to be_successful
     end
 
     it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
-      session[:user_id] = FactoryBot.create(:admin_user).id
+      sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
             params: {

@@ -82,6 +82,10 @@ class PublicBodyChangeRequest < ApplicationRecord
     public_body ? public_body.name : public_body_name
   end
 
+  def current_public_body_email
+    public_body&.request_email
+  end
+
   def send_message
     mail =
       if add_body_request?

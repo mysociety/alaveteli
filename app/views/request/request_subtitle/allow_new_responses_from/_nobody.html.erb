@@ -1,7 +1,9 @@
 <span class="request-header__closed_to_correspondence">
   <br><br>
-  <%= _('This request has been <strong>closed to new correspondence ' \
-        'from the public body</strong>. <a href="{{url}}"">Contact us</a> ' \
-        'if you think it ought be re-opened.',
-        url: help_contact_path) %>
+  <%=
+    _('This request has been <strong>closed to new correspondence</strong>. ' \
+      '<a href="{{help_contact_url}}">Contact us</a> if you think it should ' \
+      'be reopened.',
+      help_contact_url: help_contact_path)
+  %>
 </span>

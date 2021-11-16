@@ -357,4 +357,25 @@
   });
 
 
+  // work out what hashes we're looking for
+  var IDs = [];
+
+  $("#help_unhappy h2[ID]").each(function(){ 
+    IDs.push(this.id); 
+  });
+  
+  function checkHashes(hash) {
+    if(IDs.includes(hash.slice(1))) {
+      $(hash + ' + details' ).attr('open', '').addClass('flash');
+    }
+  }
+ 
+  // show unrolled details tag if they've come to the page with a known location hash
+  checkHashes(window.location.hash);
+
+   // if the URL hash changes highlight the new hash
+  $(window).on('hashchange', function(e){
+    checkHashes(window.location.hash);
+   });
+
 })(window.jQuery);

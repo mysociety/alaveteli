@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20210928115500
 #
 # Table name: outgoing_message_snippets
 #
 #  id                          :bigint           not null, primary key
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
-#  outgoing_message_snippet_id :integer          not null
+#  outgoing_message_snippet_id :bigint           not null
 #  name                        :string
 #  body                        :text
 #
@@ -31,7 +31,7 @@ RSpec.describe OutgoingMessage::Snippet, type: :model do
   end
 
   describe 'translations' do
-    before { snippet.save }
+    before { snippet.save! }
 
     it 'adds translated name' do
       expect(snippet.name_translations).to_not include(es: 'name')

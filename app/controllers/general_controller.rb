@@ -9,6 +9,8 @@ class GeneralController < ApplicationController
 
   MAX_RESULTS = 500
 
+  skip_before_action :html_response, only: :version
+
   before_action :redirect_pros_to_dashboard, only: :frontpage
 
   # New, improved front page!
@@ -23,8 +25,6 @@ class GeneralController < ApplicationController
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
                            :title => _('Successful requests'),
                            :has_json => true } ]
-
-    respond_to :html
   end
 
   # Display blog entries
@@ -36,8 +36,6 @@ class GeneralController < ApplicationController
     medium_cache
 
     get_blog_content
-
-    respond_to :html
   end
 
   def get_blog_content
@@ -87,15 +85,6 @@ class GeneralController < ApplicationController
   def search
     # TODO: Why is this so complicated with arrays and stuff? Look at the route
     # in config/routes.rb for comments.
-
-    # 404 if the request is a format we don't support (e.g:.json)
-    # 200 if the request is an invalid format (e.g: .invalid). This allows
-    # invalid search terms to render the search results page with a "no results
-    # found" message.
-    if !request.format.nil? && !request.format.html?
-      respond_to { |format| format.any { head :not_found } }
-      return
-    end
 
     combined = params[:combined].split("/")
     @sortby = nil
@@ -218,24 +207,7 @@ class GeneralController < ApplicationController
 
   def version
     respond_to do |format|
-      format.json {
-        render json: {
-          alaveteli_git_commit: alaveteli_git_commit,
-          alaveteli_version: ALAVETELI_VERSION,
-          ruby_version: RUBY_VERSION,
-          visible_public_body_count: PublicBody.visible.count,
-          visible_request_count: InfoRequest.is_searchable.count,
-          private_request_count: InfoRequest.embargoed.count,
-          confirmed_user_count: User.active.where(email_confirmed: true).count,
-          visible_comment_count: Comment.visible.count,
-          track_thing_count: TrackThing.count,
-          widget_vote_count: WidgetVote.count,
-          public_body_change_request_count: PublicBodyChangeRequest.count,
-          request_classification_count: RequestClassification.count,
-          visible_followup_message_count: OutgoingMessage.
-            where(prominence: 'normal', message_type: 'followup').count
-        }
-      }
+      format.json { render json: Statistics::General.new }
     end
   end
 

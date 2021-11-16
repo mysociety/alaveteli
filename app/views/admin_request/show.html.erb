@@ -57,15 +57,12 @@
                   <b><%= name %>:</b>
                 </td>
                 <td>
-                  <% if type == 'datetime' && value %>
-                    <%= value.to_s(:db) %>
-                    (<%= time_ago_in_words(value) %> ago)
-                  <% elsif column_name == 'prominence' %>
+                  <% if column_name == 'prominence' %>
                     <%= h highlight_prominence(value) %>
                   <% elsif column_name == 'allow_new_responses_from' %>
                     <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
-                    <%= h value %>
+                    <%= admin_value(value)%>
                   <% end %>
 
                   <% if column_name == 'described_state' %>
@@ -248,14 +245,8 @@
                 <td>
                   <% if column_name == 'params_yaml' %>
                     <%= render :partial => 'params', :locals => { :params => info_request_event.params_diff } %>
-                  <% elsif value.nil? %>
-                    nil
-                  <% elsif %w(text string).include?(type) %>
-                    <%=h value.humanize %>
-                  <% elsif type == 'datetime' %>
-                    <%= admin_date value %>
                   <% else %>
-                    <%=h value %>
+                    <%= admin_value(value) %>
                   <% end %>
                 </td>
               </tr>
@@ -340,7 +331,7 @@
           <%=incoming_message.id%>
           --
           <%= h(incoming_message.mail_from) %>
-          at <%=admin_value(incoming_message.sent_at) %>
+          at <%= admin_date(incoming_message.sent_at) %>
         <% end %>
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>

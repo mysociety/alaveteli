@@ -7,14 +7,14 @@ RSpec.describe Users::MessagesController do
   let(:sender) { FactoryBot.create(:user, name: 'Bob Smith') }
   let(:recipient) { FactoryBot.create(:user) }
 
-  before { session[:user_id] = sender.id }
+  before { sign_in sender }
 
   describe 'GET contact' do
 
     context 'when not signed in' do
 
       it 'redirects to signin page' do
-        session[:user_id] = nil
+        sign_in nil
         get :contact, params: { url_name: recipient.url_name }
         expect(response).
           to redirect_to(signin_path(token: get_last_post_redirect.token))
@@ -88,7 +88,7 @@ RSpec.describe Users::MessagesController do
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       expect(mail.body).
-        to include("Bob Smith has used #{AlaveteliConfiguration.site_name} " \
+        to include("Bob Smith has used #{site_name} " \
                    "to send you the message below")
       expect(mail.body).to include('Just a test!')
       # TODO: fix some nastiness with quoting name_and_email

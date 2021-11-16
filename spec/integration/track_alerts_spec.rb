@@ -8,7 +8,7 @@ RSpec.describe "When sending track alerts" do
     # associated with fixtures - can be removed when fixtures no longer
     # automatically loaded for all specs
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should send alerts" do

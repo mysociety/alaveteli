@@ -29,7 +29,7 @@ RSpec.describe User do
     end
 
     context 'user was never sent the survey' do
-      before { user.save }
+      before { user.save! }
       it { is_expected.to eq false }
     end
   end
@@ -55,9 +55,9 @@ RSpec.describe User do
       it { is_expected.to eq false }
     end
 
-    context 'the user is not active' do
+    context 'the user should not be emailed' do
       before do
-        allow(user).to receive(:active?).and_return(false)
+        allow(user).to receive(:should_be_emailed?).and_return(false)
       end
 
       it { is_expected.to eq false }

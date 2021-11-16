@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+
+settings = YAML.load_file(
+  File.join(File.dirname(__FILE__), '..', 'config', 'general.yml')
+)
+
+puts settings.fetch(ARGV[0].upcase)

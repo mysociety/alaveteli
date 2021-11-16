@@ -17,9 +17,9 @@ all work together on producing the best possible software, and help
 move towards a world where governments approach transparency as the
 norm, rather than the exception.
 
-Please join our mailing list at
-https://groups.google.com/group/alaveteli-dev and introduce yourself, or
-drop a line to hello@alaveteli.org to let us know that you're using Alaveteli.
+Please join our [developers mailing list](https://groups.google.com/group/alaveteli-dev)
+and introduce yourself, or drop a line to hello@alaveteli.org to let us know
+that you're using Alaveteli.
 
 There's lots of useful information and documentation (including a blog)
 on [the project website](http://alaveteli.org). There's background
@@ -39,6 +39,7 @@ Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platfo
 
 * ruby-2.5
 * ruby-2.6
+* ruby-2.7
 
 If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the Alaveteli team (currently 2.5.8), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
 

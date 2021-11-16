@@ -38,6 +38,7 @@
     <% else %>
       <span class="vertical-navigation-menu__link dashboard-folder__name">
     <% end %>
+    <span class="phase-icon phase-icon--draft"></span>
     <%= _('Drafts') %>
     <span class="dashboard-folder__count">
       <%= @user.phase_counts['draft'] %>

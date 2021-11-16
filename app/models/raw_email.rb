@@ -107,15 +107,9 @@ class RawEmail < ApplicationRecord
   end
 
   def data_as_text
-    text = data
-    if text.respond_to?(:encoding)
-      text = text.encode("UTF-8", :invalid => :replace,
+    data.encode("UTF-8", :invalid => :replace,
                          :undef => :replace,
                          :replace => "")
-    else
-      text = Iconv.conv('UTF-8//IGNORE', 'UTF-8', text)
-    end
-    text
   end
 
   def destroy_file_representation!

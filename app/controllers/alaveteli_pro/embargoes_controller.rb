@@ -20,7 +20,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     if @embargo.save
       flash[:notice] = _("Your request will now be private on " \
                          "{{site_name}} until {{expiry_date}}.",
-                         site_name: AlaveteliConfiguration.site_name,
+                         site_name: site_name,
                          expiry_date: I18n.l(
                            @embargo.publish_at, format: '%d %B %Y'))
     else

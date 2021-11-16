@@ -18,7 +18,7 @@
                     edit_admin_comment_path(comment) %>
       </span>
       <span class="item-metadata">
-        created <%=I18n.l(comment.created_at, :format => "%e %B %Y %H:%M:%S")%>
+        created <%= admin_date(comment.created_at, ago: false) %>
     </span>
     </div>
 
@@ -29,12 +29,7 @@
             <tr>
               <td><b><%= h name %></b></td>
               <td>
-                <% if type == 'datetime' %>
-                  <%= value.to_s(:db) %>
-                  (<%= time_ago_in_words(value) %> ago)
-                <% else %>
-                  <%= h value %>
-                <% end %>
+                <%= admin_value(value) %>
               </td>
             </tr>
           <% end %>

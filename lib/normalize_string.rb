@@ -1,4 +1,3 @@
-require 'iconv' unless String.method_defined?(:encode)
 require 'charlock_holmes'
 require "net/imap"
 
@@ -28,28 +27,19 @@ def normalize_string_to_utf8(s, suggested_character_encoding=nil)
   to_try.push guessed_encoding
 
   to_try.each do |from_encoding|
-    if String.method_defined?(:encode)
-
-      if from_encoding == 'utf-7'
-        return Net::IMAP.decode_utf7(s)
-      else
-        begin
-          s.force_encoding from_encoding
-          return s.encode('UTF-8') if s.valid_encoding?
-        rescue ArgumentError, Encoding::UndefinedConversionError
-          # We get this is there are invalid bytes when
-          # interpreted as from_encoding at the point of
-          # the encode('UTF-8'); move onto the next one...
-        end
-      end
+    if from_encoding == 'utf-7'
+      return Net::IMAP.decode_utf7(s)
     else
       begin
-        converted = Iconv.conv 'UTF-8', from_encoding, s
-        return converted
-      rescue Iconv::Failure
+        s.force_encoding from_encoding
+        return s.encode('UTF-8') if s.valid_encoding?
+      rescue ArgumentError, Encoding::UndefinedConversionError
         # We get this is there are invalid bytes when
         # interpreted as from_encoding at the point of
-        # the Iconv.iconv; move onto the next one...
+        # the encode('UTF-8'); move onto the next one...
+      rescue Encoding::ConverterNotFoundError,
+             Encoding::InvalidByteSequenceError => ex
+        raise EncodingNormalizationError, ex.message
       end
     end
   end
@@ -76,8 +66,7 @@ def convert_string_to_utf8_or_binary(s, suggested_character_encoding=nil)
   begin
     result = normalize_string_to_utf8 s, suggested_character_encoding
   rescue EncodingNormalizationError
-    result = s
-    s.force_encoding 'ASCII-8BIT' if String.method_defined?(:encode)
+    result = s.force_encoding 'ASCII-8BIT'
   end
   result
 end
@@ -97,20 +86,12 @@ def convert_string_to_utf8(s, suggested_character_encoding=nil)
 end
 
 def scrub(string)
-  if String.method_defined?(:encode)
-    string = string.force_encoding("utf-8")
-    string.valid_encoding? ? string : string.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
-  else
-    Iconv.conv('UTF-8//IGNORE', 'UTF-8', string)
-  end
+  string = string.force_encoding("utf-8")
+  string.valid_encoding? ? string : string.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
 end
 
 def log_text_details(message, text)
-  if String.method_defined?(:encode)
-    STDERR.puts "#{message}, we have text: #{text}, of class #{text.class} and encoding #{text.encoding}"
-  else
-    STDERR.puts "#{message}, we have text: #{text}, of class #{text.class}"
-  end
+  STDERR.puts "#{message}, we have text: #{text}, of class #{text.class} and encoding #{text.encoding}"
   filename = "/var/tmp/#{Digest::MD5.hexdigest(text)}.txt"
   File.open(filename, "wb") { |f| f.write text }
   STDERR.puts "#{message}, the filename is: #{filename}"

@@ -52,11 +52,13 @@
     <div class="entirebody">
 
     <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
+      <% unless @render_to_file %>
       <!-- begin popups -->
         <%= render 'general/site_wide_announcement' if site_wide_announcement.present? %>
         <div id="country-message">
         </div>
       <!-- end popups -->
+      <% end %>
 
       <%= render :partial => 'general/responsive_header' %>
 
@@ -81,6 +83,7 @@
       <%= render :partial => 'general/responsive_footer' %>
     </div>
 
+    <% unless @render_to_file %>
     <%= render partial: 'ga_code' unless @user&.is_admin? %>
 
     <%= javascript_include_tag "application" %>
@@ -109,6 +112,7 @@
       </script>
     <% end %>
     <%= content_for :javascript %>
+    <% end %>
 
     <%= render :partial => 'general/before_body_end' %>
 

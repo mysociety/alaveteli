@@ -18,6 +18,7 @@ class AdminUsersSessionsController < AdminController
     @admin_user.confirm!
 
     session[:user_id] = @admin_user.id
+    session[:user_login_token] = @admin_user.login_token
     session[:user_circumstance] = 'login_as'
 
     redirect_to user_path(@admin_user)

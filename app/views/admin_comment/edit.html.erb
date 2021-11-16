@@ -1,6 +1,6 @@
 <h1>Edit annotation</h1>
 
-<%= error_messages_for 'comment' %>
+<%= foi_error_messages_for 'comment' %>
 
 <%= form_tag admin_comment_path(@comment), :method => 'put' do %>
 
@@ -19,7 +19,7 @@
                 ]) %>
   </p>
 
-  <p><%= submit_tag 'Save', :accesskey => 's' %></p>
+  <p><%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %></p>
 <% end %>
 
 <p>
@@ -70,13 +70,8 @@
                                :locals => {
                                   :params => info_request_event.params_diff
                                } %>
-                  <% elsif value.nil? %>
-                    nil
-                  <% elsif %w(text string).include?(type) %>
-                    <%=h value.humanize %>
-                  <% elsif type == 'datetime' %>
-                    <%= admin_date value %>
-                    <%=h value %>
+                  <% else %>
+                    <%= admin_value(value) %>
                   <% end %>
                 </td>
               </tr>

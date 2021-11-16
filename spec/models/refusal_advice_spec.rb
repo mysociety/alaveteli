@@ -230,7 +230,7 @@ RSpec.describe RefusalAdvice do
         params = e.params
         params[:actions].delete(params[:id].to_sym)
         e.params = params
-        e.save
+        e.save!
       end
 
       it { is_expected.to be_empty }

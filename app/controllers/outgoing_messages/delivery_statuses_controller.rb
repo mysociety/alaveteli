@@ -14,8 +14,6 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
         log.line(:redact => !@user.is_admin?)
       end
     end
-
-    respond_to :html
   end
 
   protected

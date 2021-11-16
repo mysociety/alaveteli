@@ -1,6 +1,6 @@
 <h1>Edit basic details of request</h1>
 
-<%= error_messages_for 'info_request' %>
+<%= foi_error_messages_for :info_request %>
 
 <%= form_tag admin_request_path(@info_request), :method => :put do %>
 
@@ -82,7 +82,7 @@
     <%= text_field 'info_request', 'tag_string', :size => 60  %></p>
 
   <p><%= submit_tag 'Save changes', :accesskey => 's',
-                                    :class => 'btn btn-primary',
+                                    :class => 'btn btn-success',
                                     :data => { toggle: 'tooltip' } %>
   </p>
 

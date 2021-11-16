@@ -21,7 +21,7 @@ RSpec.describe ReportsController do
 
     context "when reporting a request (logged in)" do
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it "finds the expected request" do
@@ -167,7 +167,7 @@ RSpec.describe ReportsController do
 
     context "when reporting a comment (logged in)" do
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       let(:comment) do
@@ -319,7 +319,7 @@ RSpec.describe ReportsController do
 
     context "when reporting a request (logged in)" do
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it "finds the expected request" do
@@ -368,7 +368,7 @@ RSpec.describe ReportsController do
       render_views
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       let(:comment) do

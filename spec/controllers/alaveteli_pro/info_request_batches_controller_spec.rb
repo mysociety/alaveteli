@@ -19,7 +19,7 @@ shared_examples_for "an info_request_batch action" do
 
   context "if the current_user doesn't own the specified draft" do
     before do
-      session[:user_id] = other_user.id
+      sign_in other_user
     end
 
     it "raises ActiveRecord::RecordNotFound" do
@@ -61,7 +61,7 @@ shared_examples_for "an info_request_batch action" do
   context "when an embargo_duration is set on the draft" do
     before do
       draft.embargo_duration = "12_months"
-      draft.save
+      draft.save!
     end
 
     it "sets @embargo to an embargo with the same emabrgo_duration" do
@@ -76,7 +76,7 @@ shared_examples_for "an info_request_batch action" do
   context "when the embargo_duration is set to publish immediately on the draft" do
     before do
       draft.embargo_duration = ""
-      draft.save
+      draft.save!
     end
 
     it "does not set @embargo" do
@@ -90,7 +90,7 @@ shared_examples_for "an info_request_batch action" do
   context "when no embargo_duration is set on the draft" do
     before do
       draft.embargo_duration = nil
-      draft.save
+      draft.save!
     end
 
     it "does not set @embargo" do
@@ -116,7 +116,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
   let(:params) { {draft_id: draft.id} }
 
   before do
-    session[:user_id] = user.id
+    sign_in user
   end
 
   describe "#new" do
@@ -150,7 +150,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
       before do
         draft.body = ""
         draft.title = ""
-        draft.save
+        draft.save!
       end
 
       it "removes duplicate errors" do
@@ -241,7 +241,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
       before do
         draft.body = ""
         draft.title = ""
-        draft.save
+        draft.save!
       end
 
       it "removes duplicate errors" do

@@ -351,9 +351,7 @@ RSpec.describe 'when getting attachment attributes' do
     mail = get_fixture_mail('outlook-encoding-rtf.email')
     attribute_hashes = MailHandler.get_attachment_attributes(mail)
     attribute_hashes.each do |attribute_hash|
-      if attribute_hash[:body].respond_to?(:valid_encoding)
-        expect(attribute_hash[:body].valid_encoding?).to eq(true)
-      end
+      expect(attribute_hash[:body].valid_encoding?).to eq(true)
     end
   end
 
@@ -361,9 +359,7 @@ RSpec.describe 'when getting attachment attributes' do
     mail = get_fixture_mail('outlook-encoding-multiple.email')
     attribute_hashes = MailHandler.get_attachment_attributes(mail)
     attribute_hashes.each do |attribute_hash|
-      if attribute_hash[:body].respond_to?(:valid_encoding)
-        expect(attribute_hash[:body].valid_encoding?).to eq(true)
-      end
+      expect(attribute_hash[:body].valid_encoding?).to eq(true)
     end
   end
 

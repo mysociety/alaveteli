@@ -11,7 +11,7 @@
         <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
       </span>
       <span class="item-metadata">
-        updated <%= I18n.l(user.updated_at, :format => "%e %B %Y %H:%M:%S") %>
+        updated <%= admin_date(user.updated_at, ago: false) %>
     </span>
     </div>
     <div id="user_<%= user.id %>" class="accordion-body collapse">
@@ -28,12 +28,7 @@
             <tr>
               <td><b><%= h name %></b></td>
               <td>
-                <% if type == 'datetime' %>
-                  <%= value.to_s(:db) %>
-                  (<%= time_ago_in_words(value) %> ago)
-                <% else %>
-                  <%= h value %>
-                <% end %>
+                <%= admin_value(value) %>
               </td>
             </tr>
           <% end %>

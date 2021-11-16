@@ -380,21 +380,19 @@ RSpec.describe IncomingMessage do
   describe '#_extract_text' do
 
     it 'does not generate incompatible character encodings' do
-      if String.respond_to?(:encode)
-        message = FactoryBot.create(:incoming_message)
-        FactoryBot.create(:body_text,
-                          :body => 'hí',
-                          :incoming_message => message,
-                          :url_part_number => 2)
-        FactoryBot.create(:pdf_attachment,
-                          :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
-                          :incoming_message => message,
-                          :url_part_number => 3)
-        message.reload
+      message = FactoryBot.create(:incoming_message)
+      FactoryBot.create(:body_text,
+                        :body => 'hí',
+                        :incoming_message => message,
+                        :url_part_number => 2)
+      FactoryBot.create(:pdf_attachment,
+                        :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
+                        :incoming_message => message,
+                        :url_part_number => 3)
+      message.reload
 
-        expect { message._extract_text }.
-          to_not raise_error
-      end
+      expect { message._extract_text }.
+        to_not raise_error
     end
 
   end
@@ -511,7 +509,7 @@ RSpec.describe IncomingMessage, "when the prominence is changed" do
                                                   :info_request => request,
                                                   :incoming_message => im)
     im.prominence = 'hidden'
-    im.save
+    im.save!
     expect(request.last_public_response_at).to be_nil
   end
 
@@ -524,7 +522,7 @@ RSpec.describe IncomingMessage, "when the prominence is changed" do
                                                    :info_request => request,
                                                    :incoming_message => im)
     im.prominence = 'normal'
-    im.save
+    im.save!
     expect(request.last_public_response_at).to be_within(1.second).
       of(response_event.created_at)
   end
@@ -1061,12 +1059,10 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
   end
 
   it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
-    if String.method_defined?(:encode)
-      im = incoming_messages(:useless_incoming_message)
-      allow(im).to receive(:extract_text).and_return("\xBF")
+    im = incoming_messages(:useless_incoming_message)
+    allow(im).to receive(:extract_text).and_return("\xBF")
 
-      expect(im._get_attachment_text_internal.valid_encoding?).to be true
-    end
+    expect(im._get_attachment_text_internal.valid_encoding?).to be true
   end
 
 end

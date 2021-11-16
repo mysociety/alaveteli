@@ -101,7 +101,7 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that the public body is late in replying
   def overdue_alert(info_request, user)
-    @url = respond_to_last_url(info_request, anchor: 'followup')
+    @url = respond_to_last_url(info_request)
     @info_request = info_request
 
     set_reply_to_headers(user)
@@ -116,7 +116,7 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that the public body is very late in replying
   def very_overdue_alert(info_request, user)
-    @url = respond_to_last_url(info_request, anchor: 'followup')
+    @url = respond_to_last_url(info_request)
     @info_request = info_request
 
     set_reply_to_headers(user)

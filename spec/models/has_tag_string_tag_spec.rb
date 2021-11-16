@@ -167,7 +167,7 @@ RSpec.describe HasTagString::HasTagStringTag, " when fiddling with tag strings" 
     @tag.model = 'PublicBody'
     @tag.model_id = public_bodies(:geraldine_public_body).id
     @tag.name = "moo"
-    @tag.save
+    @tag.save!
   end
 
 end

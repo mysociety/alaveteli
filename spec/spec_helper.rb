@@ -36,6 +36,7 @@ RSpec.configure do |config|
 
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Capybara::DSL, :type => :request
+  config.include ConfigHelper
   config.include LinkToHelper
   config.include StripAttributes::Matchers
 

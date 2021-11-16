@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
 # Elenor Weijmar, 2018
 # Elenor Weijmar, 2018-2021
@@ -48,9 +49,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-10-26 20:21+0000\n"
-"Last-Translator: Elenor Weijmar\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -530,6 +531,9 @@ msgstr "Anonym användare"
 msgid "Any device"
 msgstr "Någon enhet"
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "Saknar vi en offentlig myndighet?"
 
@@ -637,6 +641,12 @@ msgstr "Bläddra och sök bland förfrågningar"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Bläddra och sök bland förfrågningar (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Bläddra bland förfrågningar"
@@ -851,6 +861,9 @@ msgstr "Beskär din profilbild"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Kulturella platser och byggda strukturer (då de kan ha påverkats av de miljömässiga faktorerna listade ovanför)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr "För närvarande <strong>inväntande till ett svar</strong> från {{public_body_link}}, de måste svara snabbt och"
 
@@ -898,6 +911,9 @@ msgstr "Detaljer om begäran &ldquo;{{request_title}}&rdquo;"
 
 msgid "Did you mean: {{correction}}"
 msgstr "Menade du: {{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr "Inaktivera tvåfaktorsverifiering"
@@ -970,6 +986,9 @@ msgstr "E-posta mig framtida uppdateringar om denna begäran"
 
 msgid "Email:"
 msgstr "E-post:"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr "Aktivera tvåfaktorsautentisering"
@@ -1378,8 +1397,8 @@ msgstr "Om du som tjänsteperson finner denna tjänst användbar, vänligen be d
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Om du fann {{site_name}} användbar, <a href=\"{{donation_url}}\"> gör en donation </a> till den ideella förening som driver den."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Om du fick e-postmeddelandet <strong>för mer än två månader sedan</strong> fungerar inte denna inloggningslänk längre. Försök att göra vad du gjorde från början."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Om du inte redan har gjort det, skriv ett meddelande nedan för tala om för myndigheten att du har dragit tillbaka din förfrågan. Annars kommer de inte att veta den har dragits tillbaka."
@@ -1519,6 +1538,9 @@ msgstr "Senaste ändring i redigerare kan inte vara längre än 255 tecken"
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Senast visade begäran: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Lär dig mer &rarr;"
@@ -2097,6 +2119,9 @@ msgstr "Profilbild för {{user_name}}"
 
 msgid "Project owner"
 msgstr "Projektägare"
+
+msgid "Proposed Email:"
+msgstr ""
 
 msgid "Public Bodies"
 msgstr "Myndigheter"
@@ -2784,6 +2809,9 @@ msgstr "Myndigheten skulle vilja ha delar av begäran förklarad"
 msgid "The public authority would like to / has responded by postal mail"
 msgstr "Myndigheten skulle vilja svara eller har svarat med post"
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "Begäran har <strong>avslagits</strong>"
 
@@ -3073,8 +3101,8 @@ msgstr "Denna begäran har redan blivit rapporterad för administrators uppmärk
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Denna begäran har en <strong>okänd status</strong."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
-msgstr "Denna begäran har <strong>stängts för ny korrespondens från myndigheten.</strong> <a href=\"{{url}}\"\">Kontakta oss</a> om du tycker att den borde öppnas igen."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
+msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Denna begäran har blivit <strong>rapporterad</strong> som i behov av administratörers uppmärksamhet (kanske därför att den är olämplig, eller en begäran om personlig information)"
@@ -3108,6 +3136,9 @@ msgstr "Denna begäran har framträdande plats 'dold'. Du kan bara se den efters
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Denna begäran är dold, så att bara du, den frågande, kan se den. Vänligen <a href=\"{{url}}\">kontakta oss</a> om du är osäker på varför."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr "Den här begäran är del av <a href=\"{{url}}\">en serieförfråga skickad till {{count}} myndigheter</a>"

@@ -91,6 +91,7 @@ module MailHandler
       # Get the body of a mail part
       def get_part_body(part)
         decoded = part.body.decoded
+        decoded = decoded.dup if decoded.frozen?
         if part.content_type =~ /^text\//
           decoded = convert_string_to_utf8_or_binary decoded, part.charset
         end

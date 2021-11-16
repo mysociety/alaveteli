@@ -20,6 +20,25 @@
 require 'spec_helper'
 
 RSpec.describe OutgoingMessage do
+  describe '.is_searchable' do
+    subject { described_class.is_searchable }
+
+    let!(:searchable_message) { FactoryBot.create(:initial_request) }
+    let!(:unsearchable_message) { FactoryBot.create(:initial_request, :hidden) }
+
+    it { is_expected.to include(searchable_message) }
+    it { is_expected.not_to include(unsearchable_message) }
+  end
+
+  describe '.followup' do
+    subject { described_class.followup }
+
+    let!(:followup_message) { FactoryBot.create(:new_information_followup) }
+    let!(:initial_message) { FactoryBot.create(:initial_request) }
+
+    it { is_expected.to include(followup_message) }
+    it { is_expected.not_to include(initial_message) }
+  end
 
   describe '.fill_in_salutation' do
 

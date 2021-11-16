@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
   before_action :set_gettext_locale
   before_action :collect_locales
 
-  protect_from_forgery :if => :user?, :with => :exception
-  skip_before_action :verify_authenticity_token, :unless => :user?
+  protect_from_forgery if: :authenticated?, with: :exception
+  skip_before_action :verify_authenticity_token, unless: :authenticated?
 
   # Deal with access denied errors from CanCan
   rescue_from CanCan::AccessDenied do |exception|
@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
   include AlaveteliPro::PostRedirectHandler
 
   # Note: a filter stops the chain if it redirects or renders something
+  before_action :html_response
   before_action :authentication_check
   before_action :check_in_post_redirect
   before_action :session_remember_me
@@ -46,9 +47,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
   def anonymous_cache(time)
-    if session[:user_id].nil?
-      headers['Cache-Control'] = "max-age=#{time}, public"
-    end
+    return if authenticated?
+
+    headers['Cache-Control'] = "max-age=#{time}, public"
   end
 
   def short_cache
@@ -140,12 +141,21 @@ class ApplicationController < ActionController::Base
   end
 
   def persist_session_timestamp
-    session[:ttl] = Time.zone.now if session[:user_id] && !session[:remember_me]
+    session[:ttl] = Time.zone.now if authenticated? && !session[:remember_me]
+  end
+
+  def sign_in(user, remember_me: nil)
+    remember_me ||= session[:remember_me]
+    clear_session_credentials
+    session[:user_id] = user.id
+    session[:user_login_token] = user.login_token
+    session[:remember_me] = remember_me
   end
 
   # Logout form
   def clear_session_credentials
     session[:user_id] = nil
+    session[:user_login_token] = nil
     session[:user_circumstance] = nil
     session[:remember_me] = false
     session[:using_admin] = nil
@@ -216,18 +226,46 @@ class ApplicationController < ActionController::Base
   private
 
   def user?
-    !session[:user_id].nil?
+    warn 'DEPRECATION: ApplicationController#user? will be removed in 0.41. ' \
+         'It has been replaced with authenticated?'
+
+    authenticated?
   end
 
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
   def form_authenticity_token(*args)
-    super if user?
+    super if authenticated?
   end
 
   # Check the user is logged in
-  def authenticated?(reason_params = {})
-    return true if session[:user_id]
+  def authenticated?(as: nil, **reason_params)
+    unless reason_params.empty?
+      warn 'DEPRECATION: ApplicationController#authenticated?(reason_params) ' \
+           'will be removed in 0.41. It has been replaced with ' \
+           'ApplicationController#authenticated? || ' \
+           'ApplicationController#ask_to_login(**reason_params)'
+      return authenticated?(as: as) || ask_to_login(**reason_params)
+    end
+
+    if as
+      authenticated_user == as
+    else
+      authenticated_user.present?
+    end
+  end
+
+  def ask_to_login(as: nil, **reason_params)
+    if as
+      reason_params[:user_name] = as.name
+      reason_params[:user_url] = show_user_url(url_name: as.url_name)
+
+      if authenticated?
+        # They are already logged in, but as the wrong user
+        @reason_params = reason_params
+        render(template: 'user/wrong_user') && return
+      end
+    end
 
     post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
@@ -237,7 +275,7 @@ class ApplicationController < ActionController::Base
 
     # Make sure this redirect does not get cached - it only applies to this user
     # HTTP 1.1
-    headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    headers['Cache-Control'] = 'private, no-cache, no-store, max-age=0, must-revalidate'
     # HTTP 1.0
     headers['Pragma'] = 'no-cache'
     # Proxies
@@ -246,38 +284,26 @@ class ApplicationController < ActionController::Base
     # 'modal' controls whether the sign-in form will be displayed in the typical
     # full-blown page or on its own, useful for pop-ups
     redirect_to signin_url(token: post_redirect.token, modal: params[:modal])
-    return false
+
+    false
   end
 
-  def authenticated_as_user?(user, reason_params = {})
-    reason_params[:user_name] = user.name
-    reason_params[:user_url] = show_user_url(:url_name => user.url_name)
-    if session[:user_id]
-      if session[:user_id] == user.id
-        # They are logged in as the right user
-        return true
-      else
-        # They are already logged in, but as the wrong user
-        @reason_params = reason_params
-        render :template => 'user/wrong_user'
-        return
-      end
-    end
-    # They are not logged in at all
-    return authenticated?(reason_params)
+  def authenticated_as_user?(user, reason_params = nil)
+    warn 'DEPRECATION: ApplicationController#authenticated_as_user?(user, ' \
+         'reason_params) will be removed in 0.41. It has been replaced with ' \
+         'ApplicationController#authenticated?(as: user) || ' \
+         'ApplicationController#ask_to_login(as: user, **reason_params)'
+
+    authenticated?(as: user) || ask_to_login(as: user, **reason_params)
   end
 
   # Return logged in user
   def authenticated_user
-    if session[:user_id].nil?
-      return nil
-    else
-      begin
-        return User.find(session[:user_id])
-      rescue ActiveRecord::RecordNotFound
-        return nil
-      end
-    end
+    return unless session[:user_id]
+
+    @user ||= User.find_by(
+      id: session[:user_id], login_token: session[:user_login_token]
+    )
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
@@ -345,11 +371,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def html_response
+    respond_to :html
+  end
+
   # Default layout shows user in corner, so needs access to it
   def authentication_check
-    if session[:user_id]
-      @user = authenticated_user
-    end
+    @user ||= authenticated_user
   end
 
   #
@@ -433,16 +461,17 @@ class ApplicationController < ActionController::Base
 
   # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
   def set_last_request(info_request)
-    if !session[:user_id].nil?
-      cookies["last_request_id"] = info_request.id
-      cookies["last_body_id"] = nil
-    end
+    return unless authenticated?
+
+    cookies["last_request_id"] = info_request.id
+    cookies["last_body_id"] = nil
   end
+
   def set_last_body(public_body)
-    if !session[:user_id].nil?
-      cookies["last_request_id"] = nil
-      cookies["last_body_id"] = public_body.id
-    end
+    return unless authenticated?
+
+    cookies["last_request_id"] = nil
+    cookies["last_body_id"] = public_body.id
   end
 
   def country_from_ip
@@ -456,10 +485,6 @@ class ApplicationController < ActionController::Base
     rescue ActionDispatch::RemoteIp::IpSpoofAttackError
       nil
     end
-  end
-
-  def alaveteli_git_commit
-    `git log -1 --format="%H"`.strip
   end
 
   # URL Encode the path parameter for use in render_exception

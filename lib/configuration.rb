@@ -21,7 +21,7 @@ module AlaveteliConfiguration
       ADMIN_USERNAME: '',
       ALLOW_BATCH_REQUESTS: false,
       AUTHORITY_MUST_RESPOND: true,
-      AVAILABLE_LOCALES: '',
+      AVAILABLE_LOCALES: 'en',
       BLACKHOLE_PREFIX: 'do-not-reply-to-this-address',
       BLOCK_RATE_LIMITED_IPS: false,
       BLOCK_RESTRICTED_COUNTRY_IPS: false,
@@ -37,7 +37,7 @@ module AlaveteliConfiguration
       CONTACT_FORM_RECAPTCHA: false,
       CONTACT_NAME: 'Alaveteli',
       DEBUG_RECORD_MEMORY: false,
-      DEFAULT_LOCALE: '',
+      DEFAULT_LOCALE: 'en',
       DISABLE_EMERGENCY_USER: false,
       DOMAIN: 'localhost:3000',
       DONATION_URL: '',
@@ -134,6 +134,15 @@ module AlaveteliConfiguration
       WORKING_OR_CALENDAR_DAYS: 'working'
     }
     # rubocop:enable Layout/LineLength
+  end
+
+  def self.html_to_pdf_command
+    warn <<~DEPRECATION.squish
+      [DEPRECATION] AlaveteliConfiguration.html_to_pdf_command will be removed
+      in 0.41. Please add the directory containing the wkhtmltopdf command to
+      AlaveteliConfiguration.utility_search_path
+    DEPRECATION
+    super
   end
 
   def self.method_missing(name)

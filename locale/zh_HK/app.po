@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
@@ -43,8 +44,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alavete"
 "li/language/zh_HK/)\n"
@@ -523,6 +524,9 @@ msgstr "匿名用户"
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "我們是否沒有包括某個公共機構？"
 
@@ -630,6 +634,12 @@ msgstr "查看及搜尋要求"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "查看及搜尋要求（第{{count}}頁）"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "查看要求"
@@ -844,6 +854,9 @@ msgstr "剪裁你的頭像"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr ""
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -891,6 +904,9 @@ msgstr "要求「{{request_title}}」的詳情"
 
 msgid "Did you mean: {{correction}}"
 msgstr "你是否想找：{{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr "關閉雙重認證"
@@ -963,6 +979,9 @@ msgstr "以電郵通知我關於此要求的更新"
 
 msgid "Email:"
 msgstr "電郵："
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr "啟用雙重認證"
@@ -1371,7 +1390,7 @@ msgstr "如果您認為此服務對於資訊詢問自由權（FOI）官員很有
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr ""
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1510,6 +1529,9 @@ msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "最後已讀要求：{{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -2086,6 +2108,9 @@ msgid "Profile image for {{user_name}}"
 msgstr "{{user_name}}的頭像"
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2776,6 +2801,9 @@ msgstr ""
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "要求遭<strong>拒絕</strong>"
 
@@ -3063,7 +3091,7 @@ msgstr ""
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "此要求<strong>狀態不明</strong>。"
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3097,6 +3125,9 @@ msgid "This request has prominence 'hidden'. You can only see it because you are
 msgstr ""
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr ""
+
+msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"

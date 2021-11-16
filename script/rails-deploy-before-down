@@ -22,16 +22,6 @@ then
     exit 1
 fi
 
-# read config file in for later (STAGING_SITE)
-if [ -e "config/general" ] || [ -e "config/general.yml" ]
-then
-    . commonlib/shlib/deployfns
-    read_conf config/general
-else
-    OPTION_DOMAIN=127.0.0.1:3000
-    OPTION_STAGING_SITE=1
-fi
-
 # Returns 0 if an element is present in a bash array, and 1 otherwise
 # Taken from: http://stackoverflow.com/a/8574392/223092
 contains () {
@@ -42,6 +32,10 @@ contains () {
     done
     return 1
 }
+
+OPTION_SHARED_FILES_PATH=$(bin/config SHARED_FILES_PATH)
+OPTION_SHARED_FILES=($(bin/config SHARED_FILES))
+OPTION_SHARED_DIRECTORIES=($(bin/config SHARED_DIRECTORIES))
 
 if [ x"$OPTION_SHARED_FILES_PATH" != x ]
 then
@@ -79,8 +73,11 @@ EOF
     done
 fi
 
+OPTION_STAGING_SITE=$(bin/config STAGING_SITE)
+STAGING_SITE="${OPTION_STAGING_SITE:-1}"
+
 # Force appropriate environment in production
-if [ "$OPTION_STAGING_SITE" = "0" ]
+if [ "$STAGING_SITE" = "0" ]
 then
     cat <<-END
 
@@ -98,6 +95,7 @@ END
     echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
 fi
 
+OPTION_BUNDLE_PATH=$(bin/config BUNDLE_PATH)
 BUNDLE_PATH="${OPTION_BUNDLE_PATH:-vendor/bundle}"
 
 bundle_install_options="--path $BUNDLE_PATH"
@@ -105,7 +103,7 @@ bundle_install_options="--path $BUNDLE_PATH"
 if [ "$CI" = "true" ]
 then
     bundle_install_options="$bundle_install_options --deployment"
-elif [ "$OPTION_STAGING_SITE" = "0" ]
+elif [ "$STAGING_SITE" = "0" ]
 then
     bundle_install_options="$bundle_install_options --without development debug test --deployment"
 else
@@ -124,7 +122,7 @@ then
   bundle exec rake geoip:download_data
 fi
 
-if [ "$OPTION_STAGING_SITE" = "0" ]
+if [ "$STAGING_SITE" = "0" ]
 then
     bundle exec rake assets:precompile &&
       bundle exec rake assets:link_non_digest

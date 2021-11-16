@@ -5,7 +5,7 @@ RSpec.describe 'highlighting search results' do
   include HighlightHelper
 
   before do
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it 'ignores stopwords' do

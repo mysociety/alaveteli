@@ -54,5 +54,34 @@ RSpec.describe StatisticsController do
         end
       end
     end
+
+    it 'should be able to return structured JSON data' do
+      get :index, params: { format: 'json' }
+      json = JSON.parse(response.body)
+
+      expect(json['public_bodies']).to be_an(Array)
+      expect(json['public_bodies'][0]).to include(
+        'errorbars' => false,
+        'y_values' => [1, 2, 2, 4],
+        'x_values' => [0, 1, 2, 3]
+      )
+      expect(json['public_bodies'][1]).to include(
+        'errorbars' => true,
+        'x_values' => [0, 1, 2, 3],
+        'y_values' => [0, 50, 100, 100]
+      )
+      expect(json['public_bodies'][2]).to include(
+        'errorbars' => true
+      )
+
+      expect(json['users']).to be_a(Hash)
+      expect(json['users'].keys).to match_array(
+        %w[all_time_requesters last_28_day_requesters
+           all_time_commenters last_28_day_commenters]
+      )
+
+      expect(json['requests']).to be_a(Hash)
+      expect(json['requests']['hides_by_week']).to be_an(Array)
+    end
   end
 end

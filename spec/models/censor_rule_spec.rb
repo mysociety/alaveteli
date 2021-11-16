@@ -103,14 +103,14 @@ RSpec.describe CensorRule do
     it 'handles UTF-8 text' do
       rule = FactoryBot.build(:censor_rule, text: 'sécret')
       text = 'Some sécret text'
-      text.force_encoding('UTF-8') if String.method_defined?(:encode)
+      text.force_encoding('UTF-8')
       expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
     end
 
     it 'handles a UTF-8 rule and ASCII-8BIT text' do
       rule = FactoryBot.build(:censor_rule, :text => 'sécret')
       text = 'Some sécret text'
-      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      text.force_encoding('ASCII-8BIT')
       expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
     end
 
@@ -146,7 +146,7 @@ RSpec.describe CensorRule do
       Some private information
       --P‘RIVATE
       EOF
-      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      text.force_encoding('ASCII-8BIT')
 
       expect(rule.apply_to_binary(text)).to eq <<-EOF.strip_heredoc
       Some public information

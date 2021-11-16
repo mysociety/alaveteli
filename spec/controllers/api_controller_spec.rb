@@ -43,11 +43,7 @@ RSpec.describe ApiController, "when using the API" do
              'external_user_name' => 'Bob Smith'
            }.to_json
          }
-    if rails_upgrade?
-      expect(response.media_type).to eq('application/json')
-    else
-      expect(response.content_type).to eq('application/json')
-    end
+    expect(response.media_type).to eq('application/json')
     ActiveSupport::JSON.decode(response.body)['id']
   end
 
@@ -73,11 +69,7 @@ RSpec.describe ApiController, "when using the API" do
            }
       expect(response).to be_successful
 
-      if rails_upgrade?
-        expect(response.media_type).to eq('application/json')
-      else
-        expect(response.content_type).to eq('application/json')
-      end
+      expect(response.media_type).to eq('application/json')
       response_body = ActiveSupport::JSON.decode(response.body)
       expect(response_body['errors']).to be_nil
       expect(response_body['url']).to match(/^http/)
@@ -343,7 +335,13 @@ RSpec.describe ApiController, "when using the API" do
                'sent_at' => Time.zone.now.iso8601,
                'body' => 'Are you joking, or are you serious?'
              }.to_json,
-             :attachments => [fixture_file_upload('/files/tfl.pdf')]
+             :attachments => [
+               if rails_upgrade?
+                 fixture_file_upload('tfl.pdf')
+               else
+                 fixture_file_upload('/files/tfl.pdf')
+               end
+             ]
            }
 
       # Make sure it worked
@@ -372,7 +370,13 @@ RSpec.describe ApiController, "when using the API" do
                'sent_at' => sent_at,
                'body' => response_body
              }.to_json,
-             :attachments => [fixture_file_upload('/files/tfl.pdf')]
+             :attachments => [
+               if rails_upgrade?
+                 fixture_file_upload('tfl.pdf')
+               else
+                 fixture_file_upload('/files/tfl.pdf')
+               end
+             ]
            }
 
       # And make sure it worked

@@ -32,6 +32,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default("0")
+#  public_token                          :string
 #
 
 require 'digest/sha1'
@@ -45,6 +46,7 @@ class InfoRequest < ApplicationRecord
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+  include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 
@@ -180,12 +182,13 @@ class InfoRequest < ApplicationRecord
   ]
 
   after_initialize :set_defaults
-  after_save :update_counter_cache
-  after_destroy :update_counter_cache
-  after_update :reindex_some_request_events
-  before_destroy :expire
-  before_validation :compute_idhash
   before_create :set_use_notifications
+  before_validation :compute_idhash
+  before_validation :set_law_used, on: :create
+  after_save :update_counter_cache
+  after_update :reindex_request_events, if: :reindexable_attribute_changed?
+  before_destroy :expire
+  after_destroy :update_counter_cache
 
   # Return info request corresponding to an incoming email address, or nil if
   # none found. Checks the hash to ensure the email came from the public body -
@@ -341,7 +344,7 @@ class InfoRequest < ApplicationRecord
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    conditions = { title: title, public_body_id: public_body_id }
+    conditions = { title: title&.strip, public_body_id: public_body_id }
 
     InfoRequest.
       includes(:outgoing_messages).
@@ -426,7 +429,7 @@ class InfoRequest < ApplicationRecord
     magic_email
   end
 
-  def self.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+  def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
     info_request = new(info_request_atts)
     default_message_params = {
       :status => 'ready',
@@ -770,16 +773,6 @@ class InfoRequest < ApplicationRecord
   rescue LoadError, NameError
   end
 
-  # If the URL name has changed, then all request: queries will break unless
-  # we update index for every event. Also reindex if prominence changes.
-  def reindex_some_request_events
-    return unless saved_change_to_attribute?(:url_title) ||
-                  saved_change_to_attribute?(:prominence) ||
-                  saved_change_to_attribute?(:user_id)
-
-    reindex_request_events
-  end
-
   def reindex_request_events
     info_request_events.find_each do |event|
       event.xapian_mark_needs_index
@@ -824,7 +817,7 @@ class InfoRequest < ApplicationRecord
     else
       self.last_public_response_at = nil
     end
-    save
+    save!
   end
 
   # Remove spaces from ends (for when used in emails etc.)
@@ -873,12 +866,6 @@ class InfoRequest < ApplicationRecord
   def legislation
     return Legislation.find!(law_used) if law_used
     public_body&.legislation || Legislation.default
-  end
-
-  def law_used_human(key = :full)
-    warn %q([DEPRECATION] InfoRequest#law_used_human will be replaced with
-          InfoRequest#legislation as of 0.40).squish
-    legislation.to_s(key)
   end
 
   def find_existing_outgoing_message(body)
@@ -1423,7 +1410,7 @@ class InfoRequest < ApplicationRecord
       ""
     # If the user can view hidden things, they can view anything, so no need
     # to go any further
-    elsif User.view_hidden?(user)
+    elsif user&.view_hidden?
       "_hidden"
     # If the user can't view hidden things, but owns the request, they can
     # see more than the public, so they get requester_only
@@ -1511,12 +1498,11 @@ class InfoRequest < ApplicationRecord
   # Masks we apply to text associated with this request convert email addresses
   # we know about into textual descriptions of them
   def masks
-    masks = [{ :to_replace => incoming_email,
-               :replacement =>  _('[FOI #{{request}} email]',
-                                  :request => id.to_s) },
-             { :to_replace => AlaveteliConfiguration::contact_email,
-               :replacement => _("[{{site_name}} contact email]",
-                                 :site_name => AlaveteliConfiguration::site_name)} ]
+    masks = [{ to_replace: incoming_email,
+               replacement: _('[FOI #{{request}} email]', request: id.to_s) },
+             { to_replace: AlaveteliConfiguration.contact_email,
+               replacement: _("[{{site_name}} contact email]",
+                              site_name: site_name) }]
     if public_body.is_followupable?
       masks << { :to_replace => public_body.request_email,
                  :replacement => _("[{{public_body}} request email]",
@@ -1871,8 +1857,11 @@ class InfoRequest < ApplicationRecord
       # this should only happen on Model.exists? call. It can be safely ignored.
       # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
     end
+  end
 
-    self.law_used ||= legislation.key if new_record?
+  def set_law_used
+    return if law_used_changed?
+    self.law_used = public_body.legislation.key if public_body
   end
 
   def set_use_notifications
@@ -1886,6 +1875,14 @@ class InfoRequest < ApplicationRecord
   def must_be_valid_state
     unless State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
+    end
+  end
+
+  # If the URL name has changed, then all request: queries will break unless
+  # we update index for every event. Also reindex if prominence changes.
+  def reindexable_attribute_changed?
+    %i[url_title prominence user_id].any? do |attr|
+      saved_change_to_attribute?(attr)
     end
   end
 end

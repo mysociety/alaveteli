@@ -129,8 +129,8 @@ class PublicBody < ApplicationRecord
                  ],
                  :eager_load => [:translations]
 
-  strip_attributes :allow_empty => false, :except => [:request_email]
-  strip_attributes :allow_empty => true, :only => [:request_email]
+  strip_attributes allow_empty: false, except: %i[request_email]
+  strip_attributes allow_empty: true, only: %i[request_email]
 
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
@@ -143,7 +143,8 @@ class PublicBody < ApplicationRecord
   # Cannot be grouped at top as it depends on the `translates` macro
   class Translation
     include PublicBodyDerivedFields
-    strip_attributes :allow_empty => true
+    strip_attributes allow_empty: false, except: %i[request_email]
+    strip_attributes allow_empty: true, only: %i[request_email]
   end
 
   self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
@@ -582,8 +583,14 @@ class PublicBody < ApplicationRecord
           begin
             save!
           rescue ActiveRecord::RecordInvalid
-            errors.full_messages.each do |msg|
-              options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+            if rails_upgrade?
+              errors.each do |error|
+                options[:errors].push "error: line #{ line }: #{ error.full_message } for authority '#{ name }'"
+              end
+            else
+              errors.full_messages.each do |msg|
+                options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+              end
             end
             next
           end
@@ -709,7 +716,7 @@ class PublicBody < ApplicationRecord
   end
 
   def expire_requests
-    info_requests.each { |request| request.expire }
+    info_requests.find_each(&:expire)
   end
 
   def self.where_clause_for_stats(minimum_requests, total_column)
@@ -917,17 +924,10 @@ class PublicBody < ApplicationRecord
 
   private
 
-  # if the URL name has changed, then all requested_from: queries
-  # will break unless we update index for every event for every
-  # request linked to it
+  # If the url_name has changed, then all requested_from: queries will break
+  # unless we update index for every event for every request linked to it.
   def reindex_requested_from
-    return unless saved_change_to_attribute?(:url_name)
-
-    info_requests.find_each do |info_request|
-      info_request.info_request_events.find_each do |info_request_event|
-        info_request_event.xapian_mark_needs_index
-      end
-    end
+    expire_requests if saved_change_to_attribute?(:url_name)
   end
 
   # Read an attribute value (without using locale fallbacks if the

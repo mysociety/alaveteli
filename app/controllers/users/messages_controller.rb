@@ -30,11 +30,10 @@ class Users::MessagesController < UserController
 
   def check_can_send_messages
     # Banned from messaging users?
-    if authenticated_user && !authenticated_user.can_contact_other_users?
-      @details = authenticated_user.can_fail_html
-      render template: 'user/banned'
-      return
-    end
+    return unless authenticated? && !authenticated_user.can_contact_other_users?
+
+    @details = authenticated_user.can_fail_html
+    render template: 'user/banned'
   end
 
   def check_logged_in
@@ -43,7 +42,7 @@ class Users::MessagesController < UserController
     # between the two users)
     #
     # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
+    return unless authenticated? || ask_to_login(
       web: _('To send a message to {{user_name}}',
              user_name: CGI.escapeHTML(@recipient_user.name)),
       email: _('Then you can send a message to {{user_name}}.',

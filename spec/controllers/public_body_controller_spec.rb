@@ -6,7 +6,7 @@ RSpec.describe PublicBodyController, "when showing a body" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should be successful" do
@@ -125,7 +125,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
         result.request_email = "#{locale}@example.org"
         result.last_edit_editor = 'test'
         result.last_edit_comment = ''
-        result.save
+        result.save!
       end
     end
     result
@@ -441,7 +441,7 @@ RSpec.describe PublicBodyController, "when doing type ahead searches" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it 'returns a 400 bad request status code without a query param' do

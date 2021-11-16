@@ -70,7 +70,7 @@ class ProfilePhoto < ApplicationRecord
     end
 
     if altered
-      write_attribute(:data, image.to_blob)
+      self.data = image.to_blob
     end
   end
 

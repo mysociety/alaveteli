@@ -92,7 +92,7 @@ RSpec.describe TypeaheadSearch do
   describe "#xapian_search" do
 
     before do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     def search_info_requests(xapian_search)

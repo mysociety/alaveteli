@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 # Agung Riyadi <ariadi01@gmail.com>, 2012-2013
 # agustriwanto <agus.triwanto@gmail.com>, 2012
@@ -41,8 +42,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/langua"
 "ge/id/)\n"
@@ -553,6 +554,9 @@ msgstr "Pengguna anonim"
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "Adakah otoritas publik yang belum kami cantumkan?"
 
@@ -662,6 +666,12 @@ msgstr "Tampilkan dan cari permintaan"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Tampilkan dan cari permintaan (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Tampilkan permintaan"
@@ -880,6 +890,9 @@ msgstr ""
 "Situs kebudayaan dan bangunan-bangunan yang didirikan (karena mereka mungkin terpengaruh oleh\n"
 "            faktor-faktor lingkungan yang disebutkan di atas)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -927,6 +940,9 @@ msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "Apakah yang Anda maksud: {{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr ""
@@ -1000,6 +1016,9 @@ msgid "Email me future updates to this request"
 msgstr "Email saya update dari permintaan ini"
 
 msgid "Email:"
+msgstr ""
+
+msgid "Enable"
 msgstr ""
 
 msgid "Enable two factor authentication"
@@ -1438,7 +1457,7 @@ msgstr "Jika Anda merasa layanan ini berguna sebagai seorang petugas FOI, silaka
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Jika Anda merasakan {{site_name}} berguna, <a href=\"{{donation_url}}\">berikanlah donasi</a> kepada badan amal yang mengelolanya."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1591,6 +1610,9 @@ msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Permintaan terakhir yang dilihat: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -2181,6 +2203,9 @@ msgid "Profile image for {{user_name}}"
 msgstr ""
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2888,6 +2913,9 @@ msgstr "Otoritas publik menghendaki sebagian dari permintaan untuk dijelaskan"
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "Permintaan sudah <strong>ditolak</strong>"
 
@@ -3189,7 +3217,7 @@ msgstr "Permintaan ini telah dilaporkan untuk menjadi perhatian administrator"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Permintaan ini memiliki <strong>status yang tidak diketahui</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3230,6 +3258,9 @@ msgid "This request is hidden, so that only you the requester can see it. Please
 msgstr ""
 "Permintaan ini disembunyikan, sehingga hanya Anda sang pemhon yang dapat melihatnya. Silakan\n"
 "    <a href=\"{{url}}\">hubungi kami</a> jika Anda tidak yakin mengapa."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""

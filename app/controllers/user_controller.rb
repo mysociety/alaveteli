@@ -9,6 +9,10 @@ require 'set'
 class UserController < ApplicationController
   include UserSpamCheck
 
+  skip_before_action :html_response, only: [
+    :show, :wall, :get_draft_profile_photo, :get_profile_photo
+  ]
+
   layout :select_layout
   before_action :normalize_url_name, :only => :show
   before_action :work_out_post_redirect, :only => [ :signup ]
@@ -135,7 +139,11 @@ class UserController < ApplicationController
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
-      @user_signup.errors[:email].delete_if { |message| message == _("This email is already in use") }
+      if rails_upgrade?
+        @user_signup.errors.delete(:email, :taken)
+      else
+        @user_signup.errors[:email].delete_if { |message| message == _("This email is already in use") }
+      end
     end
     if error || !@user_signup.errors.empty?
       # Show the form
@@ -179,11 +187,14 @@ class UserController < ApplicationController
   # Change your email
   def signchangeemail
     # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
-        :web => _("To change your email address used on {{site_name}}",:site_name=>site_name),
-        :email => _("Then you can change your email address used on {{site_name}}",:site_name=>site_name),
-        :email_subject => _("Change your email address used on {{site_name}}",:site_name=>site_name)
-      )
+    return unless authenticated? || ask_to_login(
+      web: _('To change your email address used on {{site_name}}',
+             site_name: site_name),
+      email: _('Then you can change your email address used on {{site_name}}',
+               site_name: site_name),
+      email_subject: _('Change your email address used on {{site_name}}',
+                       site_name: site_name)
+    )
 
     unless params[:submitted_signchangeemail_do]
       render :action => 'signchangeemail'
@@ -221,12 +232,13 @@ class UserController < ApplicationController
     if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
       # don't store the password in the db
       params[:signchangeemail].delete(:password)
-      post_redirect = PostRedirect.new(:uri => signchangeemail_url,
-                                       :post_params => params,
-                                       :circumstance => "change_email" # special login that lets you change your email
-                                       )
-      post_redirect.user = @user
-      post_redirect.save!
+
+      post_redirect = PostRedirect.create!(
+        uri: signchangeemail_url,
+        post_params: params,
+        user: @user,
+        circumstance: 'change_email'
+      )
 
       url = confirm_url(:email_token => post_redirect.email_token)
       UserMailer.
@@ -245,6 +257,8 @@ class UserController < ApplicationController
     @user.email = @signchangeemail.new_email
     @user.save!
 
+    sign_in(@user)
+
     # Now clear the circumstance
     session[:user_circumstance] = nil
     flash[:notice] = _("You have now changed your email address used on {{site_name}}",:site_name=>site_name)
@@ -260,7 +274,7 @@ class UserController < ApplicationController
 
   def set_profile_photo
     # check they are logged in (the upload photo option is anyway only available when logged in)
-    if authenticated_user.nil?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to change your profile photo.")
       redirect_to frontpage_url
       return
@@ -287,7 +301,7 @@ class UserController < ApplicationController
         render :template => 'user/set_draft_profile_photo'
         return
       end
-      @draft_profile_photo.save
+      @draft_profile_photo.save!
 
       if params[:automatically_crop]
         # no javascript, crop automatically
@@ -325,7 +339,7 @@ class UserController < ApplicationController
   def clear_profile_photo
 
     # check they are logged in (the upload photo option is anyway only available when logged in)
-    if authenticated_user.nil?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to clear your profile photo.")
       redirect_to frontpage_url
       return
@@ -360,7 +374,7 @@ class UserController < ApplicationController
 
   # Change about me text on your profile page
   def set_receive_email_alerts
-    if authenticated_user.nil?
+    unless authenticated?
       flash[:error] = _("You need to be logged in to edit your profile.")
       redirect_to frontpage_url
       return

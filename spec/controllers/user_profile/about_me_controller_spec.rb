@@ -6,7 +6,6 @@ RSpec.describe UserProfile::AboutMeController do
 
     it 'sets the title' do
       get :edit
-      site_name = AlaveteliConfiguration.site_name
       expect(assigns[:title]).
         to eq("Change the text about you on your profile at #{ site_name }")
     end
@@ -14,7 +13,7 @@ RSpec.describe UserProfile::AboutMeController do
     context 'without a logged in user' do
 
       it 'redirects to the home page' do
-        session[:user_id] = nil
+        sign_in nil
         get :edit
         expect(response).to redirect_to(frontpage_path)
       end
@@ -26,19 +25,19 @@ RSpec.describe UserProfile::AboutMeController do
       let(:user) { FactoryBot.create(:user) }
 
       it 'assigns the currently logged in user' do
-        session[:user_id] = user.id
+        sign_in user
         get :edit
         expect(assigns[:user]).to eq(user)
       end
 
       it 'is successful' do
-        session[:user_id] = user.id
+        sign_in user
         get :edit
         expect(response).to be_successful
       end
 
       it 'renders the edit form' do
-        session[:user_id] = user.id
+        sign_in user
         get :edit
         expect(response).to render_template(:edit)
       end
@@ -51,7 +50,6 @@ RSpec.describe UserProfile::AboutMeController do
 
     it 'sets the title' do
       put :update, params: { :user => { :about_me => 'My bio' } }
-      site_name = AlaveteliConfiguration.site_name
       expect(assigns[:title]).
         to eq("Change the text about you on your profile at #{ site_name }")
     end
@@ -59,7 +57,7 @@ RSpec.describe UserProfile::AboutMeController do
     context 'without a logged in user' do
 
       it 'redirects to the sign in page' do
-        session[:user_id] = nil
+        sign_in nil
         put :update, params: { :user => { :about_me => 'My bio' } }
         expect(response).to redirect_to(frontpage_path)
       end
@@ -71,7 +69,7 @@ RSpec.describe UserProfile::AboutMeController do
       let(:banned_user) { FactoryBot.create(:user, :ban_text => 'banned') }
 
       before :each do
-        session[:user_id] = banned_user.id
+        sign_in banned_user
       end
 
       it 'displays an error' do
@@ -91,7 +89,7 @@ RSpec.describe UserProfile::AboutMeController do
       let(:user) { FactoryBot.create(:user) }
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'assigns the currently logged in user' do
@@ -144,7 +142,7 @@ RSpec.describe UserProfile::AboutMeController do
       let(:invalid_text) { 'x' * 1000 }
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'assigns the currently logged in user' do
@@ -169,7 +167,7 @@ RSpec.describe UserProfile::AboutMeController do
       let(:user) { FactoryBot.create(:user, :about_me => 'My bio') }
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'assigns the currently logged in user' do
@@ -195,7 +193,7 @@ RSpec.describe UserProfile::AboutMeController do
       let(:user) { FactoryBot.create(:user) }
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'ignores non-whitelisted attributes' do
@@ -210,7 +208,7 @@ RSpec.describe UserProfile::AboutMeController do
 
       it 'sets whitelisted attributes' do
         user = FactoryBot.create(:user, :name => '1234567')
-        session[:user_id] = user.id
+        sign_in user
         put :update, params: {
                        :user => {
                          :about_me => 'My bio',
@@ -233,7 +231,7 @@ RSpec.describe UserProfile::AboutMeController do
         UserSpamScorer.spam_score_threshold = 1
         UserSpamScorer.score_mappings =
           { :about_me_includes_currency_symbol? => 20 }
-        session[:user_id] = user.id
+        sign_in user
       end
 
       after(:each) { UserSpamScorer.reset }
@@ -274,7 +272,7 @@ RSpec.describe UserProfile::AboutMeController do
         UserSpamScorer.spam_score_threshold = 1
         UserSpamScorer.score_mappings =
           { :about_me_includes_currency_symbol? => 20 }
-        session[:user_id] = user.id
+        sign_in user
       end
 
       after(:each) { UserSpamScorer.reset }
@@ -295,7 +293,7 @@ RSpec.describe UserProfile::AboutMeController do
 
       before :each do
         UserSpamScorer.score_mappings = {}
-        session[:user_id] = user.id
+        sign_in user
         allow(@controller).to receive(:block_spam_about_me_text?).and_return(true)
       end
 
@@ -353,7 +351,7 @@ RSpec.describe UserProfile::AboutMeController do
       end
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
         allow(@controller).to receive(:block_spam_about_me_text?).and_return(false)
       end
 
@@ -375,7 +373,7 @@ RSpec.describe UserProfile::AboutMeController do
       let(:user) { FactoryBot.create(:user, :confirmed_not_spam => true) }
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
         allow(@controller).to receive(:block_spam_about_me_text?).and_return(true)
       end
 

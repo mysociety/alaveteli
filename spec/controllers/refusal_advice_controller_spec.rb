@@ -38,10 +38,7 @@ RSpec.describe RefusalAdviceController do
         it 'redirects to new followup action' do
           post :create, params: params
           expect(response).to redirect_to(
-            new_request_followup_path(
-              request_id: info_request.id,
-              anchor: 'followup'
-            )
+            new_request_followup_path(request_id: info_request.id)
           )
         end
       end
@@ -54,8 +51,7 @@ RSpec.describe RefusalAdviceController do
           expect(response).to redirect_to(
             new_request_followup_path(
               request_id: info_request.id,
-              internal_review: '1',
-              anchor: 'followup'
+              internal_review: '1'
             )
           )
         end
@@ -168,7 +164,7 @@ RSpec.describe RefusalAdviceController do
     end
 
     context 'when logged in as request owner' do
-      before { session[:user_id] = user&.id }
+      before { sign_in user }
 
       context 'valid params' do
         before do
@@ -249,7 +245,7 @@ RSpec.describe RefusalAdviceController do
 
     context 'when logged in as non-request owner' do
       let(:user) { FactoryBot.create(:user) }
-      before { session[:user_id] = user&.id }
+      before { sign_in user }
 
       it 'renders wrong user template' do
         post :create, params: params

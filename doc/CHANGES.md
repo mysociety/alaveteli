@@ -1,3 +1,179 @@
+# 0.40.0.0
+
+## Highlighted Features
+
+* Improve spacing of pro request navigation folders (Gareth Rees)
+* Update daemon templates (Laurent Savaete)
+* Fix incorrect crontab PATH setup (Graeme Porteous)
+* Add support for Debian 11 Bullseye (Graeme Porteous)
+* Add draft icon in the pro dashboard (Lucas Cumsille Montesinos)
+* Fix overflow of pro announcement icon on mobile devices (Lucas Cumsille
+  Montesinos)
+* Use consistent colour for admin interface save buttons (Gareth Rees)
+* Remove dependency on Python (Graeme Porteous)
+* Use human-friendly URLs to body listings (Gareth Rees)
+* Add unsubscribe links to survey mailer (Graeme Porteous)
+* Prepare for the Rails 6.1 version (Graeme Porteous)
+* Add beta script to redact raw emails (Graeme Porteous)
+* Improve phrasing of closed correspondence message (Gareth Rees)
+* Prevent blank attributes being saved to translations (Gareth Rees)
+* Add citation count to general statistics (Gareth Rees)
+* Remove unused followup anchors (Gareth Rees)
+* Display the current public body request email when notifying admins of a
+  change request (Gareth Rees)
+* Fix batch pages breaking due to empty `embargo_duration` value (Gareth Rees,
+  Graeme Porteous)
+* Add quick links to browse latest requests and responses (Gareth Rees)
+* Fix rendering of unsubscribe flash message (Graeme Porteous)
+* Allow external utilities to be found within default environment paths (Graeme
+  Porteous)
+* Make public body notes admin form field larger (Gareth Rees)
+* Upgrade to Rails 6 (Graeme Porteous)
+* Expire sensitive post redirect tokens after use. Thanks to Sohail Ahmed for
+  responsibly disclosing with clear, actionable and thorough reports.
+  https://www.linkedin.com/in/sohail-ahmed-755776184/
+* Expire session on sensitive user profile changes. Thanks to Sohail Ahmed for
+  responsibly disclosing with clear, actionable and thorough reports.
+  https://www.linkedin.com/in/sohail-ahmed-755776184/
+* Add Rack middleware to handle RangeError (Graeme Porteous)
+* Fix PDF request rendering when using wkhtmltopdf 0.11 (Graeme Porteous)
+* Fix text encoding and byte sequences errors (Graeme Porteous)
+* Show true count of old unclassified requests in admin (Gareth Rees)
+* Render newest Citations in request sidebar instead of oldest (Gareth Rees)
+* Consistent display to dates and times in the admin (Graeme Porteous)
+* Add support for Ubuntu Focal (20.04 LTS) (Gareth Rees)
+* Continued code refactoring and improvements (Gareth Rees, Graeme Porteous)
+* Dependencies upgrades (Graeme Porteous)
+
+## Highlighted Pro Features
+
+* Add Share by Link feature to allow Pro users to share embargoed request
+  privately (Graeme Porteous)
+
+## Upgrade Notes
+
+* This release will be the last to support Ruby 2.5 and 2.6. Please upgrade to
+  version 2.7.
+* This release will be the last to support PostgreSQL 9.6. While PostgreSQL 10
+  and 11 are still supported, due to the OSs we plan to support for the next
+  release we would recommend upgrading to version 12 if running Ubuntu Focal,
+  or 13 if running Debian Bullseye.
+* Support for Ubuntu Bionic (18.04 LTS) will be removed in or after the next
+  release.
+* Support for Debian 9 Stretch will be removed in or after the next release.
+* Support for Debian 10 Buster will be removed in or after the next release.
+* We now support "Glass" formatted Xapian databases. We will continue to support
+  existing "Chert" formatted databases for as long as possible. You can convert
+  your database by either:
+  1. Following the guide at https://getting-started-with-xapian.readthedocs.io/en/latest/advanced/admin_notes.html#converting-a-chert-database-to-a-glass-database
+  2. Using our `script/destroy-and-rebuild-xapian-index` script to rebuild from
+     scratch
+
+  **Note**: both of these methods could take long time depending on the number
+  of requests, authorities and users in your database.
+* We will remove the `HTML_TO_PDF_COMMAND` configuration variable in the next
+  release. If you aren't already using `wkhtmltopdf` please switch and ensure
+  the path to this command is include in the `UTILITY_SEARCH_PATH` configuration
+  variable. For release 0.40 we only support the wkhtmltopdf v0.11. Support for
+  the latest v0.12 version will be added in the next release.
+* You might see `git protocol on port 9418 is no longer supported` when
+  deploying. Please switch to `https` for any theme repo URLs in your
+  `config/general.yml` See: https://github.com/mysociety/alaveteli/pull/6630
+* Controller actions now only respond to HTML requests. If your theme includes
+  custom actions which respond to JSON or other formats you will need to skip a
+  `before_action` callback.
+  See: https://github.com/mysociety/alaveteli/blob/6f612bc/app/controllers/general_controller.rb#L12
+* Run `bin/rails temp:nullify_empty_embargo_durations` to fix invalid embargo
+  values.
+* There are some database structure updates so remember to run
+  `bin/rails db:migrate`
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin/outgoing_messages/snippets/index.html.erb
+    app/views/admin_announcements/_form.html.erb
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_comment/index.html.erb
+    app/views/admin_general/_change_request_summary.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_general/stats.html.erb
+    app/views/admin_holiday_imports/new.html.erb
+    app/views/admin_holidays/_form.html.erb
+    app/views/admin_incoming_message/bulk_destroy.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/_one_list.html.erb
+    app/views/admin_public_body/import_csv.html.erb
+    app/views/admin_public_body/new.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/_heading_list.html.erb
+    app/views/admin_public_body_categories/index.html.erb
+    app/views/admin_public_body_headings/_form.html.erb
+    app/views/admin_public_body_headings/new.html.erb
+    app/views/admin_request/_some_annotations.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_spam_addresses/index.html.erb
+    app/views/admin_track/_some_tracks.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/alaveteli_pro/comment/_note.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/followups/_embargoed_form_title.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_request_batches/_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_note.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/campaigners/_marketing_hero.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/campaigners/features/_time.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/campaigners/how_it_works/_embargoes.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/generic/features/_dashboard.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/generic/features/_time.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/journalists/_marketing_hero.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/journalists/features/_time.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/journalists/how_it_works/_embargoes.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/researchers/_marketing_hero.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/researchers/features/_time.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/researchers/how_it_works/_embargoes.html.erb
+    app/views/alaveteli_pro/subscriptions/_cancel_subscription.html.erb
+    app/views/alaveteli_pro/subscriptions/_signup_message.html.erb
+    app/views/classifications/message.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/layouts/default.html.erb
+    app/views/notification_mailer/daily_summary.text.erb
+    app/views/notification_mailer/info_request_batches/messages/_embargo_expiring.text.erb
+    app/views/notification_mailer/info_request_batches/messages/_expire_embargo.text.erb
+    app/views/notification_mailer/info_request_batches/messages/_overdue.text.erb
+    app/views/notification_mailer/info_request_batches/messages/_very_overdue.text.erb
+    app/views/notification_mailer/info_requests/messages/_embargo_expiring.text.erb
+    app/views/notification_mailer/info_requests/messages/_expire_embargo.text.erb
+    app/views/notification_mailer/info_requests/messages/_overdue.text.erb
+    app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
+    app/views/outgoing_messages/delivery_statuses/show.html.erb
+    app/views/public_body/_alphabet.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body_change_request_mailer/update_public_body.text.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/list.html.erb
+    app/views/request/new.html.erb
+    app/views/request/request_subtitle/allow_new_responses_from/_nobody.html.erb
+    app/views/request/show.html.erb
+    app/views/statistics/index.html.erb
+    app/views/track_mailer/event_digest.text.erb
+    app/views/user/bad_token.html.erb
+
 # 0.39.1.8
 
 ## Highlighted Features

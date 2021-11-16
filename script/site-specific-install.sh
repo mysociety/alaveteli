@@ -152,7 +152,7 @@ cat > /etc/postfix/recipients <<EOF
 /^team@/                this-is-ignored
 EOF
 
-if ! egrep '^ */var/log/mail/mail.log *{' /etc/logrotate.d/rsyslog
+if ! egrep '^ */var/log/mail/mail.log *{' /etc/logrotate.d/rsyslog > /dev/null
 then
     cat >> /etc/logrotate.d/rsyslog <<EOF
 /var/log/mail/mail.log {
@@ -181,6 +181,14 @@ postfix reload
 # (end of the Postfix configuration)
 
 install_website_packages
+
+# Ubuntu Focal Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"focal" ]
+then
+  # Install more up-to-date bundler.
+  # Fixes errors described in https://github.com/rails/thor/issues/721.
+  gem install bundler
+fi
 
 # Ensure we have required Ruby version from the current distribution package, if
 # not then install using rbenv
@@ -221,7 +229,7 @@ EOF
 echo $DONE_MSG
 
 export DEVELOPMENT_INSTALL
-su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION' '$USE_RBENV'" "$UNIX_USER"
+su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUBY_VERSION' '$USE_RBENV' '$DEVELOPMENT_INSTALL'" "$UNIX_USER"
 
 # Now that the install-as-user script has loaded the sample data, we
 # no longer need the PostgreSQL user to be a superuser:
@@ -275,6 +283,20 @@ if [ "$DEVELOPMENT_INSTALL" = true ]; then
   # Not in the Gemfile due to conflicts
   # See: https://github.com/sj26/mailcatcher/blob/3079a00/README.md#bundler
   gem install mailcatcher
+fi
+
+if [ "$DEVELOPMENT_INSTALL" = true ] && [ x"$SUDO_USER" = x"vagrant" ]
+then
+  VAGRANT_DEV_INSTALL=true
+fi
+
+if [ "$VAGRANT_DEV_INSTALL" = true ] && [ ! -e "$REPOSITORY/config/xapian.yml" ]
+  then
+    cat > "$REPOSITORY/config/xapian.yml" <<EOF
+# Create test xapian DBs outside of the VirtualBox share to avoid corruption
+test:
+  base_db_path: "/tmp/xapiandbs"
+EOF
 fi
 
 # Set up root's crontab:

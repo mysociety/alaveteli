@@ -6,7 +6,7 @@
   <%= form_tag admin_user_path(@admin_user), :method => 'put', :class => "span12 form form-horizontal" do %>
     <%= render :partial => 'form' %>
     <div class="form-actions">
-      <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-primary" %>
+      <%= submit_tag 'Save', :accesskey => 's', :class => "btn btn-success" %>
     </div>
   <% end %>
 </div>
@@ -33,17 +33,25 @@
           <small>By design, this is extremely difficult to reverse.</small>
         </p>
 
-        <p>
+        <p>Anonymising the account:
           <ul>
             <li>Sets <tt>name</tt> to <code>[Name Removed]</code></li>
             <li>Sets <tt>url_name</tt> to a random string</li>
             <li>Sets <tt>email</tt> to a random string</li>
             <li>Sets <tt>password</tt> to a random string</li>
+            <li>Clears <tt>about_me</tt> text</li>
             <li>Disables email alerts</li>
             <li>Removes user from search index</li>
             <li>Hides requests on the profile page</li>
             <li><strong>Does not</strong> delete or set prominence of the user's requests</li>
             <li>Makes a naive attempt to redact <tt>name</tt> from requests<sup>1</sup></li>
+          </ul>
+        </p>
+
+        <p>Closing the account:
+          <ul>
+            <li>Prevents logging in to the account</li>
+            <li>Prevents rendering of user content on their profile page</li>
           </ul>
         </p>
 

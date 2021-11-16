@@ -20,6 +20,8 @@ RSpec.describe InfoRequestBatch do
   it_behaves_like 'concerns/info_request/title_validation',
                   FactoryBot.build(:info_request_batch)
 
+  it { is_expected.to strip_attribute(:embargo_duration) }
+
   context "when validating" do
     let(:info_request_batch) { FactoryBot.build(:info_request_batch) }
 
@@ -268,7 +270,7 @@ RSpec.describe InfoRequestBatch do
 
       it "fills out the salutation in the body with the public body name" do
         info_request_batch.body = "Dear [Authority name],\n\nSome request"
-        info_request_batch.save
+        info_request_batch.save!
         expected_body = info_request_batch.body.gsub(
           "[Authority name]",
           info_request_batch.public_bodies.first.name)
@@ -303,7 +305,7 @@ RSpec.describe InfoRequestBatch do
 
       it "fills out the salutation in the body with the public body name" do
         info_request_batch.body = "Dear [Authority name],\n\nSome request"
-        info_request_batch.save
+        info_request_batch.save!
         expected_body = info_request_batch.body.gsub(
           "[Authority name]",
           info_request_batch.public_bodies.first.name)

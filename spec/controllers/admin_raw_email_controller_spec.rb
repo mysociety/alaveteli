@@ -38,7 +38,7 @@ RSpec.describe AdminRawEmailController do
             :info_request => InfoRequest.holding_pen_request,
           )
           incoming_message.raw_email.data = raw_email_data
-          incoming_message.raw_email.save
+          incoming_message.raw_email.save!
           incoming_message
         end
 
@@ -91,11 +91,7 @@ RSpec.describe AdminRawEmailController do
     describe 'text version' do
       it 'sends the email as an RFC-822 attachment' do
         get :show, params: { :id => raw_email.id, :format => 'eml' }
-        if rails_upgrade?
-          expect(response.media_type).to eq('message/rfc822')
-        else
-          expect(response.content_type).to eq('message/rfc822')
-        end
+        expect(response.media_type).to eq('message/rfc822')
         expect(response.body).to eq(raw_email.data)
       end
     end

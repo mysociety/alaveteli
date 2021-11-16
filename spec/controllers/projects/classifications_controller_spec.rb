@@ -33,7 +33,7 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
     before do
-      session[:user_id] = user.id
+      sign_in user
       allow(controller).to receive(:current_user).and_return(user)
 
       allow(controller).to receive(:current_ability).and_return(ability)

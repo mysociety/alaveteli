@@ -21,7 +21,7 @@ RSpec.describe FollowupsController do
 
     context "when a pro user is logged in" do
       before do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
       end
 
       it 'finds their own embargoed requests' do
@@ -48,7 +48,7 @@ RSpec.describe FollowupsController do
     end
 
     it "displays 'wrong user' message when not logged in as the request owner" do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       get :new, params: {
                   :request_id => request.id,
                   :incoming_message_id => message_id
@@ -57,7 +57,7 @@ RSpec.describe FollowupsController do
     end
 
     it "does not allow follow ups to external requests" do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       external_request = FactoryBot.create(:external_request)
       get :new, params: { :request_id => external_request.id }
       expect(response).to render_template('followup_bad')
@@ -86,7 +86,7 @@ RSpec.describe FollowupsController do
     context "logged in as the request owner" do
 
       before(:each) do
-        session[:user_id] = request_user.id
+        sign_in request_user
       end
 
       it "shows the followup form" do
@@ -142,14 +142,15 @@ RSpec.describe FollowupsController do
           expect(response).to render_template('request/hidden')
         end
 
-        it 'responds to a json request with a 403' do
+        it 'responds to a json request by raising unknown format error' do
           incoming_message_id = hidden_request.incoming_messages[0].id
-          get :new, params: {
-                      :request_id => hidden_request.id,
-                      :incoming_message_id => incoming_message_id,
-                      :format => 'json'
-                    }
-          expect(response.code).to eq('403')
+          expect do
+            get :new, params: {
+                        :request_id => hidden_request.id,
+                        :incoming_message_id => incoming_message_id,
+                        :format => 'json'
+                      }
+          end.to raise_error ActionController::UnknownFormat
         end
 
       end
@@ -159,7 +160,7 @@ RSpec.describe FollowupsController do
     context 'when viewing a response for an external request' do
 
       it "does not allow follow ups to external requests" do
-        session[:user_id] = FactoryBot.create(:user).id
+        sign_in FactoryBot.create(:user)
         external_request = FactoryBot.create(:external_request)
         get :new, params: { :request_id => external_request.id }
         expect(response).to render_template('followup_bad')
@@ -167,7 +168,7 @@ RSpec.describe FollowupsController do
       end
 
       it 'the response code should be successful' do
-        session[:user_id] = FactoryBot.create(:user).id
+        sign_in FactoryBot.create(:user)
         get :new, params: {
                     :request_id => FactoryBot.create(:external_request).id
                   }
@@ -183,7 +184,7 @@ RSpec.describe FollowupsController do
       end
 
       it "sets @in_pro_area" do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           get :new, params: { :request_id => embargoed_request.id }
           expect(assigns[:in_pro_area]).to eq true
@@ -192,7 +193,7 @@ RSpec.describe FollowupsController do
     end
 
     context 'setting refusal advice' do
-      before { session[:user_id] = request.user.id }
+      before { sign_in request.user }
 
       it 'initialise without internal_review option' do
         expect(RefusalAdvice).to receive(:default).with(
@@ -248,7 +249,7 @@ RSpec.describe FollowupsController do
 
     context "when a pro user is logged in" do
       before do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
       end
 
       it 'finds their own embargoed requests' do
@@ -273,7 +274,7 @@ RSpec.describe FollowupsController do
     end
 
     it "displays a wrong user message when not logged in as the request owner" do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       post :preview, params: {
                        :outgoing_message => dummy_message,
                        :request_id => request.id,
@@ -285,7 +286,7 @@ RSpec.describe FollowupsController do
     context "logged in as the request owner" do
 
       before(:each) do
-        session[:user_id] = request_user.id
+        sign_in request_user
       end
 
       it "displays the edit form with an error when the message body is blank" do
@@ -331,7 +332,7 @@ RSpec.describe FollowupsController do
       end
 
       it "sets @in_pro_area" do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           get :new, params: { :request_id => embargoed_request.id }
           expect(assigns[:in_pro_area]).to eq true
@@ -349,7 +350,7 @@ RSpec.describe FollowupsController do
     end
 
     before(:each) do
-      session[:user_id] = request_user.id
+      sign_in request_user
     end
 
     shared_examples_for 'successful_followup_sent' do
@@ -374,7 +375,7 @@ RSpec.describe FollowupsController do
 
     context "when not logged in" do
       before do
-        session[:user_id] = nil
+        sign_in nil
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
@@ -400,7 +401,7 @@ RSpec.describe FollowupsController do
 
     context "when a pro user is logged in" do
       before do
-        session[:user_id] = pro_user.id
+        sign_in pro_user
       end
 
       it 'finds their own embargoed requests' do
@@ -426,7 +427,7 @@ RSpec.describe FollowupsController do
     end
 
     it "only allows the request owner to make a followup" do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       post :create, params: {
                       :outgoing_message => dummy_message,
                       :request_id => request.id,

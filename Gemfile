@@ -84,8 +84,7 @@ def rails_upgrade?
   %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', rails_upgrade? ? '~> 6.0.3' : '~> 5.2.4'
-  gem 'nio4r', rails_upgrade? ? nil : '< 2.5.3'
+gem 'rails', rails_upgrade? ? '~> 6.1.4' : '~> 6.0.3'
 
 gem 'pg', '~> 1.2.3'
 
@@ -93,57 +92,55 @@ gem 'pg', '~> 1.2.3'
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.16'
-gem 'cancancan', '~> 3.2.2'
+gem 'cancancan', '~> 3.3.0'
 gem 'charlock_holmes', '~> 0.7.7'
-gem 'dalli', '~> 2.7.11'
-gem 'dynamic_form', '~> 1.1.0'
+gem 'dalli', '~> 3.0.4'
 gem 'exception_notification', '~> 4.4.3'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
-gem 'icalendar', '~> 2.5.3'
+gem 'icalendar', '~> 2.7.1'
 gem 'jquery-rails', '~> 4.4.0'
 gem 'jquery-ui-rails', '~> 6.0.0'
-gem 'json', '~> 2.5.1'
-gem 'holidays', '~> 7.1.0'
+gem 'json', '~> 2.6.1'
+gem 'holidays', '~> 8.4.1'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.7.1'
 gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.5'
-gem 'nokogiri', '~> 1.11.7'
+gem 'nokogiri', '~> 1.12.5'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.2.3'
-gem 'rack-ssl', '~> 1.4.0'
 gem 'rack-utf8_sanitizer', '~> 1.7.0'
-gem 'recaptcha', '~> 5.6.0', require: 'recaptcha/rails'
+gem 'recaptcha', '~> 5.8.1', require: 'recaptcha/rails'
 gem 'mini_magick', '~> 4.11.0'
 gem 'rolify', '~> 5.3.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
-gem 'rubyzip', '~> 1.3.0', '< 2.0.0'
-gem 'secure_headers', '~> 6.3.2'
+gem 'rubyzip', '~> 2.3.2'
+gem 'secure_headers', '~> 6.3.3'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
-gem 'stripe', '~> 5.34.0'
+gem 'stripe', '~> 5.39.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.8.1'
 gem 'vpim', '~> 13.11.11'
-gem 'will_paginate', '~> 3.3.0'
+gem 'will_paginate', '~> 3.3.1'
 gem 'xapian-full-alaveteli', '~> 1.4.18.1'
-gem 'xml-simple', '~> 1.1.8', :require => 'xmlsimple'
+gem 'xml-simple', '~> 1.1.9', :require => 'xmlsimple'
 gem 'zip_tricks', '~> 5.6.0'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
-gem 'i18n', '~> 1.8.10'
-gem 'rails-i18n', rails_upgrade? ? '~> 6.0.0' : '~> 5.1.0'
+gem 'i18n', '~> 1.8.11'
+gem 'rails-i18n', '~> 6.0.0'
 gem 'gettext_i18n_rails', '~> 1.8.1'
-  gem 'fast_gettext', '~> 2.0.3'
-gem 'gettext', '~> 3.3.8'
-gem 'globalize', rails_upgrade? ? '~> 5.3.0' : '~> 5.2.0'
+  gem 'fast_gettext', '~> 2.1.0'
+gem 'gettext', '~> 3.4.1'
+gem 'globalize', rails_upgrade? ? '~> 6.0.0' : '~> 5.3.0'
 gem 'locale', '~> 2.1.3'
-gem 'routing-filter', '~> 0.6.2'
+gem 'routing-filter', rails_upgrade? ? '~> 0.7.0' : '~> 0.6.2'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
 gem 'money', '~> 6.16.0'
@@ -154,7 +151,7 @@ gem 'mime-types', '< 3.0.0', require: false
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'mini_racer', '~> 0.4.0'
-gem 'sass-rails', rails_upgrade? ? '~> 5.0.8' : '~> 5.0.7'
+gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '~> 4.2.0'
 
 # Feature flags
@@ -162,23 +159,23 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.13.0'
+  gem 'webmock', '~> 3.14.0'
   gem 'simplecov', '~> 0.17.1'
   gem 'simplecov-lcov', '~> 0.7.0'
-  gem 'capybara', '~> 3.15.1'
+  gem 'capybara', '~> 3.35.3'
   gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
                           ref: '2c925fd'
   gem('rails-controller-testing')
 end
 
 group :test, :development do
-  gem 'bullet', '~> 6.1.4'
-  gem 'factory_bot_rails', '~> 5.2.0'
+  gem 'bullet', '~> 6.1.5'
+  gem 'factory_bot_rails', '~> 6.2.0'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
-  gem 'rspec-rails', '~> 5.0.1'
-  gem 'pry', '~> 0.12.2'
-  gem 'pry-byebug', '~> 3.7.0'
+  gem 'rspec-rails', '~> 5.0.2'
+  gem 'pry', '~> 0.13.0'
+  gem 'pry-byebug', '~> 3.9.0'
 end
 
 group :development do
@@ -187,9 +184,9 @@ group :development do
     gem 'net-ssh', '~> 6.1.0'
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 2.5.0'
-  gem 'listen', '>= 3.0.5', '< 3.5.1'
+  gem 'listen', '>= 3.0.5', '< 3.7.1'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 0.81.0', require: false
-  gem 'rubocop-performance', '~> 1.5.2', require: false
+  gem 'rubocop', '~> 1.22.3', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

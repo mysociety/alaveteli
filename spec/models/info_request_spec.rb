@@ -32,6 +32,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default("0")
+#  public_token                          :string
 #
 
 require 'spec_helper'
@@ -92,25 +93,41 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe 'creating a new request' do
+  describe '#law_used' do
 
-    it 'sets the default law used' do
+    it 'defaults law used to foi' do
       expect(InfoRequest.new.law_used).to eq('foi')
     end
 
-    it 'sets the default law used to the legislation key' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: nil).law_used).to eq('eir')
+    it 'accepts law used attribute' do
+      expect(InfoRequest.new(law_used: 'eir').law_used).to eq('eir')
     end
 
-    it 'does not try to overwrite the existing law used' do
-      legislation = FactoryBot.build(:legislation, key: 'eir')
-      allow_any_instance_of(InfoRequest).to receive(:legislation).
-        and_return(legislation)
-      expect(InfoRequest.new(law_used: 'foi').law_used).to eq('foi')
+    context 'with public body' do
+
+      let(:foi) { FactoryBot.build(:public_body) }
+      let(:eir) { FactoryBot.build(:public_body, :eir_only) }
+
+      it 'sets law used to the public body legislation on validataion' do
+        request = FactoryBot.build(:info_request, public_body: eir)
+
+        expect { request.valid? }.to change(request, :law_used).
+          from('foi').to('eir')
+      end
+
+      it 'does not update law used after request has been created' do
+        request = FactoryBot.create(:info_request, public_body: eir)
+        request.public_body = foi
+
+        expect { request.valid? }.to_not change(request, :law_used).
+          from('eir')
+      end
+
     end
+
+  end
+
+  describe 'creating a new request' do
 
     it "sets the url_title from the supplied title" do
       info_request = FactoryBot.create(:info_request, :title => "Test title")
@@ -462,7 +479,7 @@ RSpec.describe InfoRequest do
       info_request = FactoryBot.create(:info_request,
                                        :awaiting_description => false)
       info_request.described_state = "user_withdrawn"
-      info_request.save
+      info_request.save!
       email, raw_email = email_and_raw_email
       info_request.receive(email, raw_email)
       expect(info_request.awaiting_description).to be false
@@ -1025,10 +1042,7 @@ RSpec.describe InfoRequest do
 
       it 'updates the law_used to the new legislation key' do
         request = FactoryBot.create(:info_request, law_used: 'foi')
-        new_body = FactoryBot.create(:public_body)
-        allow(new_body).to receive(:legislation).and_return(
-          FactoryBot.build(:legislation, key: 'eir')
-        )
+        new_body = FactoryBot.create(:public_body, :eir_only)
 
         expect {
           editor = FactoryBot.create(:user)
@@ -1424,11 +1438,27 @@ RSpec.describe InfoRequest do
         to eq(info_request)
     end
 
-    it 'ignores whitespace when considering duplicates' do
+    it 'ignores whitespace in body when considering duplicates' do
       info_request = FactoryBot.create(:info_request)
       expect(InfoRequest.find_existing(info_request.title,
                                        info_request.public_body_id,
                                        "Some  information\n\nplease")).
+        to eq(info_request)
+    end
+
+    it 'ignores leading whitespace in title when considering duplicates' do
+      info_request = FactoryBot.create(:info_request)
+      expect(InfoRequest.find_existing(' ' + info_request.title,
+                                       info_request.public_body_id,
+                                       "Some information please")).
+        to eq(info_request)
+    end
+
+    it 'ignores trailing whitespace in title when considering duplicates' do
+      info_request = FactoryBot.create(:info_request)
+      expect(InfoRequest.find_existing(info_request.title + ' ',
+                                       info_request.public_body_id,
+                                       "Some information please")).
         to eq(info_request)
     end
 
@@ -2380,7 +2410,7 @@ RSpec.describe InfoRequest do
                                                :info_request => request,
                                                :created_at => recent_date)
         request.awaiting_description = true
-        request.save
+        request.save!
         request
       end
 
@@ -2394,7 +2424,7 @@ RSpec.describe InfoRequest do
                                                :info_request => request,
                                                :created_at => old_date)
         request.awaiting_description = true
-        request.save
+        request.save!
         request
       end
 
@@ -2422,7 +2452,7 @@ RSpec.describe InfoRequest do
                                                :info_request => request,
                                                :created_at => old_date)
         request.awaiting_description = true
-        request.save
+        request.save!
         request
       end
 
@@ -2437,7 +2467,7 @@ RSpec.describe InfoRequest do
                                                :info_request => request,
                                                :created_at => old_date)
         request.awaiting_description = true
-        request.save
+        request.save!
         request
       end
 
@@ -2590,7 +2620,7 @@ RSpec.describe InfoRequest do
         to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
 
       text = '1 3 2'
-      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      text.force_encoding('ASCII-8BIT')
 
       expect(info_request.apply_censor_rules_to_binary(text)).to eq('x 3 x')
     end
@@ -3348,7 +3378,7 @@ RSpec.describe InfoRequest do
   describe InfoRequest, 'when getting similar requests' do
 
     before(:each) do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     it 'returns similar requests' do
@@ -3371,7 +3401,7 @@ RSpec.describe InfoRequest do
   describe InfoRequest, 'when constructing the list of recent requests' do
 
     before(:each) do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     describe 'when there are fewer than five successful requests' do
@@ -3413,7 +3443,7 @@ RSpec.describe InfoRequest do
 
     before(:each) do
       load_raw_emails_data
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     def apply_filters(filters)
@@ -3987,7 +4017,7 @@ RSpec.describe InfoRequest do
     context 'when there is no value stored in the database' do
 
       it 'calculates the date the initial request was last sent' do
-        info_request.send(:write_attribute, :date_initial_request_last_sent_at, nil)
+        info_request.date_initial_request_last_sent_at = nil
         expect(info_request)
           .to receive(:last_event_forming_initial_request)
             .and_call_original
@@ -4028,8 +4058,8 @@ RSpec.describe InfoRequest do
       end
 
       it 'raises an error if the request has never been sent' do
-        info_request.send(:write_attribute, :last_event_forming_initial_request_id,
-                          InfoRequestEvent.maximum(:id)+1)
+        info_request.last_event_forming_initial_request_id =
+          InfoRequestEvent.maximum(:id)+1
         expect { info_request.last_event_forming_initial_request }
           .to raise_error(RuntimeError)
       end
@@ -4050,7 +4080,7 @@ RSpec.describe InfoRequest do
     context 'when there is no value in the database' do
 
       before do
-        info_request.send(:write_attribute, :last_event_forming_initial_request_id, nil)
+        info_request.last_event_forming_initial_request_id = nil
       end
 
       it 'returns the most recent "sent" event' do
@@ -4132,7 +4162,7 @@ RSpec.describe InfoRequest do
 
       it 'returns the date a response is required by' do
         travel_to(Time.zone.parse('2014-12-31')) do
-          info_request.send(:write_attribute, :date_response_required_by, nil)
+          info_request.date_response_required_by = nil
           expect(info_request)
             .to receive(:calculate_date_response_required_by)
               .and_call_original
@@ -4175,7 +4205,7 @@ RSpec.describe InfoRequest do
 
       it 'returns the date a response is very overdue after' do
         travel_to(Time.zone.parse('2014-12-31')) do
-          info_request.send(:write_attribute, :date_very_overdue_after, nil)
+          info_request.date_very_overdue_after = nil
           expect(info_request)
             .to receive(:calculate_date_very_overdue_after)
               .and_call_original

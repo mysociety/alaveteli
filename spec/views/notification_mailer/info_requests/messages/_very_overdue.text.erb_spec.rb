@@ -34,7 +34,7 @@ RSpec.describe("notification_mailer/info_requests/messages/_very_overdue.text.er
   end
 
   it "prints a link for the request" do
-    target = respond_to_last_path(info_request, anchor: 'followup')
+    target = respond_to_last_path(info_request)
     expected_url = signin_url(r: target)
     expect(response).to have_text(expected_url)
   end

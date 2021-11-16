@@ -93,12 +93,15 @@ RSpec.describe Statistics do
 
   describe ".users" do
     it "creates a hash of user statistics" do
-      allow(User).to receive(:all_time_requesters).and_return([])
-      allow(User).to receive(:last_28_day_requesters).and_return([])
-      allow(User).to receive(:all_time_commenters).and_return([])
-      allow(User).to receive(:last_28_day_commenters).and_return([])
+      %i[all_time_requesters
+         last_28_day_requesters
+         all_time_commenters
+         last_28_day_commenters].each do |stat|
+        allow_any_instance_of(Statistics::Leaderboard).
+          to receive(stat).and_return([])
+      end
 
-      expect(Statistics.users).to eql(
+      expect(Statistics.leaderboard).to eql(
         {
           all_time_requesters: [],
           last_28_day_requesters: [],

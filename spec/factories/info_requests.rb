@@ -32,6 +32,7 @@
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default("0")
+#  public_token                          :string
 #
 
 FactoryBot.define do
@@ -45,7 +46,7 @@ FactoryBot.define do
       initial_request = create(:initial_request, :info_request => info_request,
                                                  :created_at => info_request.created_at)
       initial_request.last_sent_at = info_request.created_at
-      initial_request.save
+      initial_request.save!
     end
 
     trait :with_incoming do

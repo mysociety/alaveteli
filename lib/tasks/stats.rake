@@ -64,15 +64,11 @@ namespace :stats do
               where(comment_on_own_request_conditions).
                 count
 
-      followup_conditions = ['message_type = ?
-                               AND prominence = ?
-                               AND created_at >= ?
-                               AND created_at < ?',
-                             'followup',
-                             'normal',
-                             month_start,
-                             month_end + 1]
-      follow_up_count = OutgoingMessage.where(followup_conditions).count
+      followup_date_range =
+        ['created_at >= ? AND created_at < ?', month_start, month_end + 1]
+
+      follow_up_count =
+        OutgoingMessage.followup.is_searchable.where(followup_date_range).count
 
       confirmed_users_count =
         User.active.

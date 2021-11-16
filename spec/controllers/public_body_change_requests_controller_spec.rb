@@ -15,7 +15,7 @@ RSpec.describe PublicBodyChangeRequestsController do
     end
 
     it 'does not instruct the view to render recaptcha if there is a logged in user' do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       get :new
       expect(assigns[:render_recaptcha]).to eq(false)
     end
@@ -63,7 +63,7 @@ RSpec.describe PublicBodyChangeRequestsController do
     end
 
     it 'sets render_recaptcha to false if there is a logged in user' do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       post :create, params: {
                       :public_body_change_request => @change_request_params
                     }

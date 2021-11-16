@@ -1,79 +1,26 @@
 require 'spec_helper'
 
 RSpec.describe GeneralController do
-
   describe 'GET version' do
-
-    it 'renders json stats about the install' do
-      # Clean up fixtures
-      InfoRequest.find_each(&:destroy)
-      Comment.find_each(&:destroy)
-      PublicBody.find_each(&:destroy)
-      TrackThing.find_each(&:destroy)
-      User.find_each(&:destroy)
-
-      # Create some constant God models for other factories
-      user = FactoryBot.create(:user)
-      body = FactoryBot.create(:public_body)
-      banned_user = FactoryBot.create(:user, :ban_text => 'banned')
-      info_request = FactoryBot.create(:info_request,
-                                       :user => user, :public_body => body)
-      default_args = { :info_request => info_request,
-                       :public_body => body,
-                       :user => user }
-
-      # Create the other data we're checking
-      FactoryBot.create(:embargoed_request, user: user, public_body: body)
-      FactoryBot.create(:info_request, :user => user,
-                                       :public_body => body,
-                                       :prominence => 'hidden')
-      FactoryBot.create(:user, :email_confirmed => false)
-      FactoryBot.create(:visible_comment,
-                        default_args.dup.slice!(:public_body))
-      FactoryBot.create(:hidden_comment,
-                        default_args.dup.slice!(:public_body))
-      FactoryBot.create(:search_track, :tracking_user => user)
-      FactoryBot.create(:widget_vote,
-                        default_args.dup.slice!(:user, :public_body))
-      FactoryBot.create(:internal_review_request,
-                        default_args.dup.slice!(:user, :public_body))
-      FactoryBot.create(:internal_review_request,
-                        :info_request => info_request, :prominence => 'hidden')
-      FactoryBot.create(:add_body_request,
-                        default_args.dup.slice!(:info_request))
-      event = FactoryBot.create(:info_request_event,
-                                default_args.dup.slice!(:user, :public_body))
-      FactoryBot.create(:request_classification, :user => user,
-                                                 :info_request_event => event)
-
-      mock_git_commit = Digest::SHA1.hexdigest(Time.now.to_s)
-
-      allow_any_instance_of(ApplicationController).
-        to receive(:alaveteli_git_commit).
-          and_return(mock_git_commit)
-
-      expected = { alaveteli_git_commit: mock_git_commit,
-                   alaveteli_version: ALAVETELI_VERSION,
-                   ruby_version: RUBY_VERSION,
-                   visible_public_body_count: 1,
-                   visible_request_count: 1,
-                   private_request_count: 1,
-                   confirmed_user_count: 1,
-                   visible_comment_count: 1,
-                   track_thing_count: 1,
-                   widget_vote_count: 1,
-                   public_body_change_request_count: 1,
-                   request_classification_count: 1,
-                   visible_followup_message_count: 1 }
-
-      get :version, params: { :format => :json }
-
-      parsed_body = JSON.parse(response.body).symbolize_keys
-      expect(parsed_body).to eq(expected)
+    let(:mock_stats) do
+      double(to_json: { foo: 'x', bar: 'y' }.to_json)
     end
 
-  end
+    before do
+      expect(Statistics::General).to receive(:new).and_return(mock_stats)
+      expect(mock_stats).to receive(:to_json).with(kind_of(Hash))
+      get :version, params: {}, format: :json
+    end
 
+    it 'renders json stats about the install' do
+      parsed_body = JSON.parse(response.body).symbolize_keys
+      expect(parsed_body).to eq({ foo: 'x', bar: 'y' })
+    end
+
+    it 'responds as JSON' do
+      expect(response.media_type).to eq('application/json')
+    end
+  end
 end
 
 RSpec.describe GeneralController, "when trying to show the blog" do
@@ -204,7 +151,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 
   it "doesn't raise an error when there's no user matching the one in the session" do
-    session[:user_id] = 999
+    sign_in double(:user, id: 999, login_token: 'abc')
     get :frontpage
     expect(response).to be_successful
   end
@@ -222,7 +169,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
 
     before do
       @user = FactoryBot.create(:user)
-      session[:user_id] = @user.id
+      sign_in @user
     end
 
     it 'should set a time to live on a non "remember me" session' do
@@ -255,7 +202,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   describe 'when handling pro users' do
     before do
       @user = FactoryBot.create(:pro_user)
-      session[:user_id] = @user.id
+      sign_in @user
       allow(controller).to receive(:feature_enabled?).with(:alaveteli_pro).and_return(true)
     end
 
@@ -275,7 +222,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
   # rebuild xapian index after fixtures loaded
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should redirect from search query URL to pretty URL" do
@@ -426,20 +373,19 @@ RSpec.describe GeneralController, 'when using xapian search' do
 
   context "when passed a non-HTML request" do
 
-    it "responds with a 404" do
-      get :search, params: { :combined => '"fancy dog"', :format => :json }
-      expect(response.status).to eq(404)
-    end
-
-    it "treats invalid formats as html" do
-      get :search, params: { :combined => '"fancy dog"',
-                             :format => "invalid format" }
-      expect(response.status).to eq(200)
+    it "raises unknown format error" do
+      expect do
+        get :search, params: { :combined => '"fancy dog"', :format => :json }
+      end.to raise_error ActionController::UnknownFormat
     end
 
     it "does not call the search" do
       expect(controller).not_to receive(:perform_search)
-      get :search, params: { :combined => '"fancy dog"', :format => :json }
+      begin
+        get :search, params: { :combined => '"fancy dog"', :format => :json }
+      rescue ActionController::UnknownFormat
+        # noop
+      end
     end
 
   end
