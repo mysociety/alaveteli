@@ -1,4 +1,4 @@
-# develop
+# 0.40.0.0
 
 ## Highlighted Features
 
@@ -54,9 +54,14 @@
 
 * This release will be the last to support Ruby 2.5 and 2.6. Please upgrade to
   version 2.7.
+* This release will be the last to support PostgreSQL 9.6. While PostgreSQL 10
+  and 11 are still supported, due to the OSs we plan to support for the next
+  release we would recommend upgrading to version 12 if running Ubuntu Focal,
+  or 13 if running Debian Bullseye.
 * Support for Ubuntu Bionic (18.04 LTS) will be removed in or after the next
   release.
 * Support for Debian 9 Stretch will be removed in or after the next release.
+* Support for Debian 10 Buster will be removed in or after the next release.
 * We now support "Glass" formatted Xapian databases. We will continue to support
   existing "Chert" formatted databases for as long as possible. You can convert
   your database by either:

@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2018,2020-2021
@@ -46,13 +47,14 @@
 # louisecrow <louise@mysociety.org>, 2012
 # steve_mysociety <steve@mysociety.org>, 2017
 # steve_mysociety <steve@mysociety.org>, 2017
+# trendspotter <jirka.p@volny.cz>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-10-31 23:28+0000\n"
-"Last-Translator: trendspotter <jirka.p@volny.cz>\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -550,6 +552,9 @@ msgstr "Nezaregistrovaný uživatel"
 msgid "Any device"
 msgstr "Jakékoliv zařízení"
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "Chybí nám nějaká instituce?"
 
@@ -657,6 +662,12 @@ msgstr "Hledejte dotaz"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Hledejte dotazy (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Zobrazit dotazy"
@@ -873,6 +884,9 @@ msgstr ""
 "Kulturní památky (které mohou být ovlivěny tak, \n"
 "            jak je vyjmenovanáno výše)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr "V současnosti <strong> se čeká na odpověď</strong> od instituce {{public_body_link}}. Musí odpovědět co nejdříve a "
 
@@ -928,6 +942,9 @@ msgstr "Podrobnosti dotazu &ldquo;{{request_title}}&rdquo;"
 
 msgid "Did you mean: {{correction}}"
 msgstr "Chtěli jste {{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr "Zrušte dvoufaktorové ověření "
@@ -1002,6 +1019,9 @@ msgstr "Pošlete mi budoucí aktualizace tohoto dotazu. "
 
 msgid "Email:"
 msgstr "E-mail:"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr "Aktivujte dvoufaktorové ověření"
@@ -1425,8 +1445,8 @@ msgstr "Pokud jste poskytovatelem informací a považujete naši službu za uži
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Pokud považujete stránky {{site_name}} užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr "Pokud jste obdrželi e-mail <strong>před více než dvěma měsíci</strong>, tak tento přihlašovací odkaz již není funkční. Zkuste to znovu od začátku."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Pokud jste tak ještě neučinili, prosíme napište instituci zprávu, že jste svůj dotaz stáhli. Jinak se o stažení dotazu nedozví. "
@@ -1570,6 +1590,9 @@ msgstr "Poslední úprava nemůže být delší než 255 znaků"
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Naposled prohlížený dotaz: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Zjistěte více &rarr;"
@@ -2159,6 +2182,9 @@ msgstr "Profilový obrázek pro {{user_name}}"
 
 msgid "Project owner"
 msgstr "Vlastník projektu "
+
+msgid "Proposed Email:"
+msgstr ""
 
 msgid "Public Bodies"
 msgstr "Veřejné instituce"
@@ -2866,6 +2892,9 @@ msgstr "Instituce potřebuje bližší vysvětlení k dotazu"
 msgid "The public authority would like to / has responded by postal mail"
 msgstr "Veřejná instituce by měla odpovědět/odpověděla poštou"
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "Dotaz byl <strong>zamítnut</strong>"
 
@@ -3168,8 +3197,8 @@ msgstr "Tento dotaz byl již nahlášen."
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Stav tohoto dotazu je <strong>neznámý</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
-msgstr "Tento dotaz byl <strong>uzavřen pro další korespondenci od veřejnosti </strong>. <a href=\"{{url}}\"\">Kontaktujte nás</a> pokud si myslíte, že by měl být znovu otevřen."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
+msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Tento dotaz byl <strong>nahlášen</strong> administrátorům stránek, (pravděpodobně z důvodu nevhodného obsahu)."
@@ -3207,6 +3236,9 @@ msgid "This request is hidden, so that only you the requester can see it. Please
 msgstr ""
 "Tento dotaz je nyní skrytý, a může jej vidět pouze tazatel. Prosíme\n"
 "<a href=\"{{url}}\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr "Tento dotaz je část <a href=\"{{url}}\">série zaslané {{count}} institucím </a>"

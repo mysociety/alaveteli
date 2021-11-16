@@ -3,19 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Lela Merabishvili, 2021
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:12+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/mysociety/teams/"
-"33529/pt_BR/)\n"
+"Last-Translator: Lela Merabishvili, 2021\n"
+"Language-Team: Georgian (https://www.transifex.com/mysociety/teams/33529/ka/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ka\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr ""
@@ -1287,7 +1290,7 @@ msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now pu
 msgstr ""
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
-msgstr ""
+msgstr "შენს მოთხოვნაზე {{public_body_name}} \"{{info_request_title}}\" მოსულია პასუხი."
 
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
 msgstr ""

@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -35,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/e"
 "u/)\n"
@@ -523,6 +524,9 @@ msgstr ""
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr ""
 
@@ -630,6 +634,12 @@ msgstr "Ikusi eta bilatu eskabideak"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Ikusi eta bilatu eskabideak (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Ikusi eskabideak"
@@ -844,6 +854,9 @@ msgstr "Moztu zure profilaren argazkia"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "(Aldez aurretik aipatu diren eragile ingurunekoek jada kutsatuta egon daitezkeen) kultura guneak eta eraikinak"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -891,6 +904,9 @@ msgstr ""
 
 msgid "Did you mean: {{correction}}"
 msgstr "{{correction}} esan nahi al duzu?"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr ""
@@ -962,6 +978,9 @@ msgid "Email me future updates to this request"
 msgstr "Eskabide honen gaurkotzeak emailez jaso nahi ditut"
 
 msgid "Email:"
+msgstr ""
+
+msgid "Enable"
 msgstr ""
 
 msgid "Enable two factor authentication"
@@ -1379,7 +1398,7 @@ msgstr "Informaziorako Sarbidearen arduraduna zaren heinean, zerbitzu honi erabi
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "{{site_name}} erabilgarria izan baldin bada, dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1519,6 +1538,9 @@ msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Ikusi den azken eskabidea: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr ""
@@ -2098,6 +2120,9 @@ msgid "Profile image for {{user_name}}"
 msgstr ""
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2795,6 +2820,9 @@ msgstr "Erakundeak eskabidearen zati baten azalpena eskatu du"
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "Eskabidea <strong>ez da onartu</strong>"
 
@@ -3088,7 +3116,7 @@ msgstr ""
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Eskabide honen egoera <strong>ezezaguna</strong> da."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3125,6 +3153,9 @@ msgstr "Eskabide honen ikusgarritasuna 'ezkutua' da. Zuk ikus dezakezu super-era
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Eskabide hau ezkututa dago, beraz zuk zeuk, sortzaile zaren heinean, ikus dezakezu. Mesedez, zergatik gertatzen den seguru ez bazaude, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""

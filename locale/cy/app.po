@@ -25,6 +25,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Cymrodor <aled@aledpowell.cymru>, 2014,2017
 # Cymrodor <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
@@ -48,8 +49,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 12:40+0100\n"
-"PO-Revision-Date: 2021-09-14 16:15+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy"
 "/)\n"
@@ -520,6 +521,9 @@ msgstr "Defnyddiwr dienw"
 msgid "Any device"
 msgstr ""
 
+msgid "Anyone with the link will be able to view this request."
+msgstr ""
+
 msgid "Are we missing a public authority?"
 msgstr "A oes awdurdod cyhoeddus ar goll gennym?"
 
@@ -627,6 +631,12 @@ msgstr "Gweld a chwilio ceisiadau"
 
 msgid "Browse and search requests (page {{count}})"
 msgstr "Gweld a chwilio ceisiadau (page {{count}})"
+
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
 
 msgid "Browse requests"
 msgstr "Gweld ceisiadau"
@@ -841,6 +851,9 @@ msgstr "Tociwch lun eich proffil"
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
 msgstr "Safleoedd diwylliannol a strwythurau adeiledig (gan y gallant gael eu heffeithio gan y ffactorau amgylcheddol a restrir uchod)"
 
+msgid "Current Email:"
+msgstr ""
+
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr ""
 
@@ -888,6 +901,9 @@ msgstr "Manylion cais &ldquo;{{request_title}}&rdquo;"
 
 msgid "Did you mean: {{correction}}"
 msgstr "A oeddech yn meddwl: {{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr ""
@@ -960,6 +976,9 @@ msgstr "E-bostiwch diweddariadau i'r cais hwn yn y dyfodol ataf"
 
 msgid "Email:"
 msgstr "Ebost:"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr ""
@@ -1376,7 +1395,7 @@ msgstr "Os byddwch fel swyddog Rhyddid Gwybodaeth yn cael y gwasanaeth hwn yn dd
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Os cawsoch {{site_name}} yn ddefnyddiol, <a href=\"{{donation_url}}\">gwnewch gyfraniad</a> i'r elusen sy'n gyfrifol amdani."
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1513,6 +1532,9 @@ msgstr ""
 
 msgid "Last request viewed: {{request_url}}"
 msgstr "Y cais diwethaf edrychwyd arno: {{request_url}}"
+
+msgid "Latest"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Dysgu mwy &rarr;"
@@ -2090,6 +2112,9 @@ msgid "Profile image for {{user_name}}"
 msgstr ""
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2780,6 +2805,9 @@ msgstr "Byddai'r awdurdod cyhoeddus yn hoffi cael eglurhad am ran o'r cais"
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "Mae'r cais wedi cael ei <strong>wrthod</strong>"
 
@@ -3071,7 +3099,7 @@ msgstr "Mae'r cais eisoes wedi cael ei adrodd i gael sylw gweinyddwr"
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Mae gan y cais hwn <strong<statws anhysbys</strong>."
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3106,6 +3134,9 @@ msgstr "'Cudd' yw amlygrwydd y cais hwn. Gallwch ond ei weld oherwydd eich bod w
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
 msgstr "Mae'r cais hwn wedi ei guddio, fel mai dim ond y ceisydd all ei weld. <a href=\"{{url}}\">cysylltwch â ni</a> os nad ydych yn siŵr pam."
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr ""
