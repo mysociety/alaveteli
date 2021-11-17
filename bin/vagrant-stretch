@@ -1,2 +1,0 @@
-#!/bin/sh
-ALAVETELI_VAGRANT_NAME=stretch ALAVETELI_VAGRANT_OS=stretch64 exec vagrant "$@"
