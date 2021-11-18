@@ -72,14 +72,17 @@ class AlaveteliExternalCommand
   def find_program
     return program_name if program_name =~ %r(^/)
 
-    search_path = AlaveteliConfiguration.utility_search_path
-    search_path = ENV['PATH'].split(':') if search_path.empty?
-
-    search_path.each do |d|
+    search_paths.each do |d|
       path = File.join(d, program_name)
       return path if File.file?(path) && File.executable?(path)
     end
 
-    raise "Could not find #{program_name} in any of #{search_path.join(', ')}"
+    raise "Could not find #{program_name} in any of #{search_paths.join(', ')}"
+  end
+
+  def search_paths
+    paths = AlaveteliConfiguration.utility_search_path
+    paths = ENV['PATH'].split(':') if paths.empty?
+    paths
   end
 end
