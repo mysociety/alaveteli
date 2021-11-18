@@ -6,6 +6,9 @@ RSpec.describe HTMLtoPDFConverter do
       allow(described_class).to receive(:base_command).and_return(
         AlaveteliExternalCommand.new('echo')
       )
+      allow(described_class).to receive(:version).and_return(
+        Gem::Version.new('0.11')
+      )
     end
   end
 
@@ -14,6 +17,20 @@ RSpec.describe HTMLtoPDFConverter do
       allow(described_class).to receive(:base_command).and_return(
         AlaveteliExternalCommand.new('echo').add_args('-n')
       )
+      allow(described_class).to receive(:version).and_return(
+        Gem::Version.new('0.11')
+      )
+    end
+  end
+
+  shared_context :valid_command_v0_12 do
+    before do
+      allow(described_class).to receive(:base_command).and_return(
+        AlaveteliExternalCommand.new('echo').add_args('-n')
+      )
+      allow(described_class).to receive(:version).and_return(
+        Gem::Version.new('0.12')
+      )
     end
   end
 
@@ -21,6 +38,9 @@ RSpec.describe HTMLtoPDFConverter do
     before do
       allow(described_class).to receive(:base_command).and_return(
         AlaveteliExternalCommand.new('invalid')
+      )
+      allow(described_class).to receive(:version).and_return(
+        Gem::Version.new('0.11')
       )
     end
   end
@@ -36,6 +56,29 @@ RSpec.describe HTMLtoPDFConverter do
     context 'when command does not exist' do
       include_context :invalid_command
       it { is_expected.to be_a(AlaveteliExternalCommand) }
+    end
+
+    context 'when version less than 0.12' do
+      include_context :valid_command
+
+      it 'does not add command arguments' do
+        expect(subject.command_args).to be_nil
+      end
+    end
+
+    context 'when version greater or equal to 0.12' do
+      include_context :valid_command_v0_12
+
+      it 'add command arguments' do
+        expect(subject.command_args).to match_array(
+          [
+            '--enable-local-file-access',
+            '--no-images',
+            '--load-media-error-handling', 'ignore',
+            '--load-error-handling', 'skip'
+          ]
+        )
+      end
     end
   end
 

@@ -1,8 +1,8 @@
 require 'alaveteli_external_command'
 
 ##
-# Wrapper class for wkhtmltopdf external command. Supports versions <= 0.11
-# only.
+# Wrapper class for wkhtmltopdf external command. Supports versions <= 0.11 and
+# the current 0.12 release.
 #
 class HTMLtoPDFConverter
   def initialize(*args)
@@ -32,10 +32,26 @@ class HTMLtoPDFConverter
     delegate :exist?, to: :base_command
 
     def command
-      base_command
+      if version < Gem::Version.new('0.12')
+        base_command
+      else
+        base_command.add_args(
+          '--enable-local-file-access',
+          '--no-images',
+          '--load-media-error-handling', 'ignore',
+          '--load-error-handling', 'skip'
+        )
+      end
     end
 
     private
+
+    def version
+      return unless exist?
+
+      output = base_command.run('--version')
+      Gem::Version.new(output.scan(/[\d\.]+/)[0])
+    end
 
     def base_command
       AlaveteliExternalCommand.new('wkhtmltopdf')
