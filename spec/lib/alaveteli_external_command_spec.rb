@@ -64,6 +64,20 @@ RSpec.describe AlaveteliExternalCommand do
       end
     end
   end
+
+  describe '#exist?' do
+    subject { command.exist? }
+
+    context 'when command is present' do
+      let(:command) { described_class.new('echo') }
+      it { is_expected.to eq true }
+    end
+
+    context 'when command is missing' do
+      let(:command) { described_class.new('missing_command') }
+      it { is_expected.to eq false }
+    end
+  end
 end
 
 RSpec.describe "when running external commands" do

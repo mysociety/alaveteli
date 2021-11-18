@@ -35,7 +35,7 @@ class AlaveteliExternalCommand
       opts = args.last
     end
 
-    program_path = find_program
+    program_path = find_program!
     xc = ExternalCommand.new(program_path, *args)
     begin
       xc.run
@@ -69,6 +69,12 @@ class AlaveteliExternalCommand
     end
   end
 
+  def exist?
+    find_program.present?
+  end
+
+  private
+
   def find_program
     return program_name if program_name =~ %r(^/)
 
@@ -77,7 +83,13 @@ class AlaveteliExternalCommand
       return path if File.file?(path) && File.executable?(path)
     end
 
-    raise "Could not find #{program_name} in any of #{search_paths.join(', ')}"
+    false
+  end
+
+  def find_program!
+    find_program || raise(
+      "Could not find #{program_name} in any of #{search_paths.join(', ')}"
+    )
   end
 
   def search_paths
