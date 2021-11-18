@@ -15,7 +15,7 @@ class HTMLtoPDFConverter
   end
 
   def to_s
-    [command.program_name, *args].join(' ')
+    [command.program_name, *command.command_args, *args].join(' ')
   end
 
   private

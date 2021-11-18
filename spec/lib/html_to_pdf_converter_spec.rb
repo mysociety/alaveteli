@@ -9,6 +9,14 @@ RSpec.describe HTMLtoPDFConverter do
     end
   end
 
+  shared_context :valid_command_with_args do
+    before do
+      allow(described_class).to receive(:base_command).and_return(
+        AlaveteliExternalCommand.new('echo').add_args('-n')
+      )
+    end
+  end
+
   shared_context :invalid_command do
     before do
       allow(described_class).to receive(:base_command).and_return(
@@ -97,6 +105,14 @@ RSpec.describe HTMLtoPDFConverter do
 
       it 'returns full command string' do
         expect(subject).to eq 'echo -n ./in ./out'
+      end
+    end
+
+    context 'when command already has arguments' do
+      include_context :valid_command_with_args
+
+      it 'returns full command string' do
+        expect(subject).to eq 'echo -n -n ./in ./out'
       end
     end
 

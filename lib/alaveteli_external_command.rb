@@ -5,10 +5,15 @@ class AlaveteliExternalCommand
     new(program_name).run(*args)
   end
 
-  attr_reader :program_name
+  attr_reader :program_name, :command_args
 
   def initialize(program_name)
     @program_name = program_name
+  end
+
+  def add_args(*command_args)
+    @command_args = command_args
+    self
   end
 
   # Final argument can be a hash of options.
@@ -36,7 +41,7 @@ class AlaveteliExternalCommand
     end
 
     program_path = find_program!
-    xc = ExternalCommand.new(program_path, *args)
+    xc = ExternalCommand.new(program_path, *command_args, *args)
     begin
       xc.run
     rescue ExternalCommand::ChildUnterminated => e

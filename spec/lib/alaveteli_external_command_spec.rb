@@ -14,6 +14,21 @@ RSpec.describe AlaveteliExternalCommand do
     end
   end
 
+  describe '#add_args' do
+    subject { command.add_args('-n') }
+
+    let(:command) { described_class.new('echo') }
+
+    it 'returns the command' do
+      expect(subject).to eq(command)
+    end
+
+    it 'assigns the command args attribute' do
+      subject
+      expect(command.command_args).to match_array('-n')
+    end
+  end
+
   describe '#run' do
     subject { command.run }
 
@@ -21,6 +36,19 @@ RSpec.describe AlaveteliExternalCommand do
 
     context 'when command has arguments and returns output' do
       subject { command.run('-n', 'foobar') }
+
+      let(:command) { described_class.new('echo') }
+
+      it { is_expected.to eq('foobar') }
+
+      it 'does not outputs to standard error' do
+        expect($stderr).to_not receive(:puts)
+        command.run
+      end
+    end
+
+    context 'when command has arguments before being run and returns output' do
+      subject { command.add_args('-n').run('foobar') }
 
       let(:command) { described_class.new('echo') }
 
