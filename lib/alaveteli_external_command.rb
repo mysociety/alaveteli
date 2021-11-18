@@ -1,6 +1,16 @@
 require 'external_command'
 
-module AlaveteliExternalCommand
+class AlaveteliExternalCommand
+  def self.run(program_name, *args)
+    new(program_name).run(*args)
+  end
+
+  attr_reader :program_name
+
+  def initialize(program_name)
+    @program_name = program_name
+  end
+
   # Final argument can be a hash of options.
   # Valid options are:
   # :append_to - string to append the output of the process to
@@ -13,7 +23,7 @@ module AlaveteliExternalCommand
   # :memory_limit - maximum amount of memory (in bytes) available to the process
   # :timeout - maximum amount of time (in s) to allow the process to run for
   # :env - hash of environment variables to set for the process
-  def self.run(program_name, *args)
+  def run(*args)
     # Run an external program, and return its output.
     # Standard error is suppressed unless the program
     # fails (i.e. returns a non-zero exit status).
@@ -25,7 +35,7 @@ module AlaveteliExternalCommand
       opts = args.last
     end
 
-    program_path = find_program(program_name)
+    program_path = find_program
     xc = ExternalCommand.new(program_path, *args)
     begin
       xc.run
@@ -59,7 +69,7 @@ module AlaveteliExternalCommand
     end
   end
 
-  def self.find_program(program_name)
+  def find_program
     return program_name if program_name =~ %r(^/)
 
     search_path = AlaveteliConfiguration.utility_search_path
