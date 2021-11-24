@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add donate link to request page sidebar (Lucas Cumsille Montesinos, Gareth
+  Rees)
 * Drop support for Ruby 2.5 (Graeme Porteous)
 * Drop support for Ruby 2.6 (Graeme Porteous)
 * Drop support for Debian 9 Stretch (Graeme Porteous)
