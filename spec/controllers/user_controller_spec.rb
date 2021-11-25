@@ -566,6 +566,99 @@ RSpec.describe UserController do
 
     end
 
+    context 'when the display_user does not have an about_me' do
+      before { user.update(about_me: '') }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when the display_user is banned' do
+      before { user.update(about_me: 'x', ban_text: 'spam') }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when the display_user is inactive' do
+      before { user.update(about_me: 'x', closed_at: Time.zone.now) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when display_user is not confirmed as genuine' do
+      before { user.update(about_me: 'x', confirmed_not_spam: false) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when the display_user is confirmed as genuine' do
+      before { user.update(about_me: 'x', confirmed_not_spam: true) }
+
+      it 'shows the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(true)
+      end
+    end
+
+    context 'when logged in as the display_user' do
+      before { sign_in(user) }
+
+      it 'shows the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(true)
+      end
+    end
+
+    context 'when logged in as a different in user' do
+      before { user.update(about_me: 'x', confirmed_not_spam: false) }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'shows the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(true)
+      end
+    end
+
+    context 'when logged in as a different in user but the display_user has no about_me' do
+      before { user.update(about_me: '') }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when logged in as a different in user but the display_user is inactive' do
+      before { user.update(about_me: 'x', closed_at: Time.zone.now) }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when logged in as a different in user but the display_user is banned' do
+      before { user.update(ban_text: 'spam') }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
   end
 
   describe 'POST set_profile_photo' do
