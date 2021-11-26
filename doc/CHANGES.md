@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add support `ActiveStorage` for raw emails (Graeme Porteous)
 * Upgrade to Rails 6.1 (Graeme Porteous)
 * Reduce attractiveness of Alaveteli to spammers by only showing user "about me"
   profile text to logged in users, or when the user has been manually marked as
@@ -15,6 +16,19 @@
 * Drop support for Debian 9 Stretch (Graeme Porteous)
 * Drop support for Debian 10 Buster (Graeme Porteous)
 * Drop support for Ubuntu 19.04 Bionic (Graeme Porteous)
+
+## Update Notes
+
+* There are some database structure updates so remember to run
+  `bin/rails db:migrate`
+* This release is the last to support the old raw emails file store. Please
+  switch to `ActiveStorage` now by copying `config/storage.yml-example` to
+  `config/storage.yml`. This will use an on disk store as previously, but also
+  adds the option to use a cloud backed storage providers. Edit the
+  configuration if you wish to migrate to cloud storage.
+* Once configured run `bin/rails storage:migrate` to migrate your files. This
+  can happen in the background while the application is running but must be
+  carried out before upgrading to release 0.42.
 
 # 0.40.0.0
 
