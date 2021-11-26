@@ -556,7 +556,6 @@ class IncomingMessage < ApplicationRecord
   end
 
   def extract_attachments!
-    force = true
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachments = []
