@@ -174,14 +174,14 @@ RSpec.describe RawEmail do
 
   describe '#data' do
 
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+
     it 'roundtrips data unchanged' do
-      raw_email = FactoryBot.create(:incoming_message).raw_email
       data = roundtrip_data(raw_email, "Hello, world!")
       expect(data).to eq("Hello, world!")
     end
 
     it 'returns an unchanged binary string with a valid encoding if the data is non-ascii and non-utf-8' do
-      raw_email = FactoryBot.create(:incoming_message).raw_email
       data = roundtrip_data(raw_email, "\xA0")
 
       expect(data.encoding.to_s).to eq('ASCII-8BIT')
