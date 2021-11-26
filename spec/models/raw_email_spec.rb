@@ -174,20 +174,25 @@ RSpec.describe RawEmail do
 
   describe '#data' do
 
-    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+    shared_examples :data_unchanged_examples do
+      it 'roundtrips data unchanged' do
+        data = roundtrip_data(raw_email, "Hello, world!")
+        expect(data).to eq("Hello, world!")
+      end
 
-    it 'roundtrips data unchanged' do
-      data = roundtrip_data(raw_email, "Hello, world!")
-      expect(data).to eq("Hello, world!")
+      it 'returns an unchanged binary string with a valid encoding if the data is non-ascii and non-utf-8' do
+        data = roundtrip_data(raw_email, "\xA0")
+
+        expect(data.encoding.to_s).to eq('ASCII-8BIT')
+        expect(data.valid_encoding?).to be true
+        data = data.force_encoding('UTF-8')
+        expect(data).to eq("\xA0")
+      end
     end
 
-    it 'returns an unchanged binary string with a valid encoding if the data is non-ascii and non-utf-8' do
-      data = roundtrip_data(raw_email, "\xA0")
-
-      expect(data.encoding.to_s).to eq('ASCII-8BIT')
-      expect(data.valid_encoding?).to be true
-      data = data.force_encoding('UTF-8')
-      expect(data).to eq("\xA0")
+    context 'without active storage' do
+      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+      include_examples :data_unchanged_examples
     end
 
   end
@@ -207,17 +212,22 @@ RSpec.describe RawEmail do
 
   describe '#destroy_file_representation!' do
 
-    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+    shared_examples :destory_file_examples do
+      it 'should delete the directory' do
+        raw_email.destroy_file_representation!
+        expect(File.exist?(raw_email.filepath)).to eq(false)
+      end
 
-    it 'should delete the directory' do
-      raw_email.destroy_file_representation!
-      expect(File.exist?(raw_email.filepath)).to eq(false)
+      it 'should only delete the directory if it exists' do
+        expect(File).to receive(:delete).once.and_call_original
+        raw_email.destroy_file_representation!
+        expect { raw_email.destroy_file_representation! }.not_to raise_error
+      end
     end
 
-    it 'should only delete the directory if it exists' do
-      expect(File).to receive(:delete).once.and_call_original
-      raw_email.destroy_file_representation!
-      expect { raw_email.destroy_file_representation! }.not_to raise_error
+    context 'without active storage' do
+      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+      include_examples :destory_file_examples
     end
 
   end
