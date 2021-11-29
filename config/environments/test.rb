@@ -37,21 +37,27 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Print deprecation notices to the stderr.
+  config.active_support.deprecation = :stderr
+
+  # Raises error for missing translations.
+  # config.action_view.raise_on_missing_translations = true
+
+  # CUSTOM CONFIGURATION
+  #
+  # Always place custom environment config at the bottom of the file
+  # to make Rails upgrades easier.
+  # ----------------------------------------------------------------
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
   config.i18n.enforce_available_locales = false
 
-  # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
-
   unless ENV['RAILS_ENABLE_TEST_LOG']
     config.logger = Logger.new(nil)
     config.log_level = :fatal
   end
-
-  # Raises error for missing translations.
-  # config.action_view.raise_on_missing_translations = true
 
   # Raise if unpermitted request params are detected
   config.action_controller.action_on_unpermitted_parameters = :raise

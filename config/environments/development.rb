@@ -33,18 +33,6 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.preview_path = Rails.root.join(
-    'spec', 'mailers', 'previews'
-  )
-
-  # Set LOG_LEVEL in the environment to a valid log level to temporarily run the
-  # application with a non-default setting.
-  config.log_level = ENV.fetch('LOG_LEVEL', :debug)
-
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -68,6 +56,24 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # CUSTOM CONFIGURATION
+  #
+  # Always place custom environment config at the bottom of the file
+  # to make Rails upgrades easier.
+  # ----------------------------------------------------------------
+
+  config.action_mailer.preview_path = Rails.root.join(
+    'spec', 'mailers', 'previews'
+  )
+
+  # Set LOG_LEVEL in the environment to a valid log level to temporarily run the
+  # application with a non-default setting.
+  config.log_level = ENV.fetch('LOG_LEVEL', :debug)
+
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
+  config.i18n.fallbacks = true
 
   if AlaveteliConfiguration.use_mailcatcher_in_development
     # So is queued, rather than giving immediate errors
