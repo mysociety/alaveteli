@@ -180,6 +180,17 @@ class UserController < ApplicationController
     render action: :sign
   end
 
+  # A webserver level redirect can be used to redirect from the signup action to
+  # prevent spam signups from Tor.
+  def tor
+    long_cache
+
+    msg = _('Signups from Tor have been blocked due to extensive misuse. ' \
+            'Please contact us if this is a problem for you.')
+
+    render plain: msg, status: :forbidden
+  end
+
   def ip_rate_limiter
     @ip_rate_limiter ||= AlaveteliRateLimiter::IPRateLimiter.new(:signup)
   end
