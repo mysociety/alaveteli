@@ -1,3 +1,5 @@
+require "active_support/core_ext/integer/time"
+
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
@@ -37,21 +39,42 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Print deprecation notices to the stderr.
+  config.active_support.deprecation = :stderr
+
+  if rails_upgrade?
+    # Raise exceptions for disallowed deprecations.
+    config.active_support.disallowed_deprecation = :raise
+
+    # Tell Active Support which deprecation messages to disallow.
+    config.active_support.disallowed_deprecation_warnings = []
+  end
+
+  # Raises error for missing translations.
+  # if rails_upgrade?
+  #   config.i18n.raise_on_missing_translations = true
+  # else
+  #   config.action_view.raise_on_missing_translations = true
+  # end
+
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # CUSTOM CONFIGURATION
+  #
+  # Always place custom environment config at the bottom of the file
+  # to make Rails upgrades easier.
+  # ----------------------------------------------------------------
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
   config.i18n.enforce_available_locales = false
 
-  # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
-
   unless ENV['RAILS_ENABLE_TEST_LOG']
     config.logger = Logger.new(nil)
     config.log_level = :fatal
   end
-
-  # Raises error for missing translations.
-  # config.action_view.raise_on_missing_translations = true
 
   # Raise if unpermitted request params are detected
   config.action_controller.action_on_unpermitted_parameters = :raise

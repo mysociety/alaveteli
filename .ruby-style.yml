@@ -240,6 +240,14 @@ Layout/LineLength:
     - "^\\s*context\\s+.*do$"
     - "^\\s*describe\\s+.*do$"
     - "^\\s*class\\s+[A-Z].*<.*"
+  Exclude:
+    - bin/setup
+    - config/environments/development.rb
+    - config/environments/production.rb
+    - config/environments/test.rb
+    - config/initializers/backtrace_silencers.rb
+    - config/initializers/content_security_policy.rb
+    - config/initializers/new_framework_defaults*
 
 Layout/MultilineArrayBraceLayout:
   Enabled: true
@@ -1869,6 +1877,18 @@ Style/StringHashKeys:
 
 Style/StringLiterals:
   Enabled: false
+  EnforcedStyle: single_quotes
+  Exclude:
+    - bin/rails
+    - bin/rake
+    - bin/setup
+    - config.ru
+    - config/application.rb
+    - config/boot.rb
+    - config/environment.rb
+    - config/environments/development.rb
+    - config/environments/production.rb
+    - config/environments/test.rb
 
 Style/StringLiteralsInInterpolation:
   Enabled: false
