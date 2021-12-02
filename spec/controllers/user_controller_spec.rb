@@ -575,11 +575,7 @@ RSpec.describe UserController do
       before(:each) do
         @user = FactoryBot.create(:user, :ban_text => 'Causing trouble')
         sign_in @user
-        if rails_upgrade?
-          @uploadedfile = fixture_file_upload("parrot.png")
-        else
-          @uploadedfile = fixture_file_upload("/files/parrot.png")
-        end
+        @uploadedfile = fixture_file_upload("parrot.png")
 
         post :set_profile_photo, params: {
                                    :id => @user.id,
@@ -1127,13 +1123,8 @@ RSpec.describe UserController, "when using profile photos" do
   before do
     @user = users(:bob_smith_user)
 
-    if rails_upgrade?
-      @uploadedfile = fixture_file_upload("parrot.png")
-      @uploadedfile_2 = fixture_file_upload("parrot.png")
-    else
-      @uploadedfile = fixture_file_upload("/files/parrot.png")
-      @uploadedfile_2 = fixture_file_upload("/files/parrot.png")
-    end
+    @uploadedfile = fixture_file_upload("parrot.png")
+    @uploadedfile_2 = fixture_file_upload("parrot.png")
   end
 
   it "should not let you change profile photo if you're not logged in as the user" do

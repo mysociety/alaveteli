@@ -583,14 +583,9 @@ class PublicBody < ApplicationRecord
           begin
             save!
           rescue ActiveRecord::RecordInvalid
-            if rails_upgrade?
-              errors.each do |error|
-                options[:errors].push "error: line #{ line }: #{ error.full_message } for authority '#{ name }'"
-              end
-            else
-              errors.full_messages.each do |msg|
-                options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
-              end
+            errors.each do |error|
+              options[:errors].push "error: line #{ line }: " \
+                "#{ error.full_message } for authority '#{ name }'"
             end
             next
           end

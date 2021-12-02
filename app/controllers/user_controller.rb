@@ -139,11 +139,7 @@ class UserController < ApplicationController
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
-      if rails_upgrade?
-        @user_signup.errors.delete(:email, :taken)
-      else
-        @user_signup.errors[:email].delete_if { |message| message == _("This email is already in use") }
-      end
+      @user_signup.errors.delete(:email, :taken)
     end
     if error || !@user_signup.errors.empty?
       # Show the form
