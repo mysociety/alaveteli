@@ -81,7 +81,7 @@ source 'https://rubygems.org'
 
 # See instructions in Gemfile.rails_next
 def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
+  true
 end
 
 gem 'rails', rails_upgrade? ? '~> 6.1.4' : '~> 6.0.3'
