@@ -11,7 +11,8 @@ class AdminUserController < AdminController
                                           update
                                           show_bounce_message
                                           clear_bounce
-                                          clear_profile_photo]
+                                          clear_profile_photo
+                                          modify_comment_visibility]
 
   before_action :clear_roles,
                 :check_role_authorisation,
@@ -114,7 +115,8 @@ class AdminUserController < AdminController
   def modify_comment_visibility
     desired_visibility = params[:hide_selected] ? false : true
 
-    Comment.
+    @admin_user.
+      comments.
       where(id: params[:comment_ids]).
       where(visible: !desired_visibility).
       find_each { |comment| comment.toggle!(:visible) }
