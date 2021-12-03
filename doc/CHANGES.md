@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Reduce attractiveness of Alaveteli to spammers by only showing user "about me"
+  profile text to logged in users, or when the user has been manually marked as
+  genuine (Gareth Rees)
 * Add `/tor` path for redirecting signups from Tor at the webserver level
   (Gareth Rees)
 * Add donate link to request page sidebar (Lucas Cumsille Montesinos, Gareth
