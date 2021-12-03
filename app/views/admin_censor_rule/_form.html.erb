@@ -39,7 +39,23 @@
 <div class="control-group">
   <label for="censor_rule_replacement" class="control-label">Replacement</label>
   <div class="controls">
-    <%= text_field 'censor_rule', 'replacement', class: 'span6'  %>
+    <% placeholder =
+      if @censor_rule.canned_replacements.any?
+        'Select or add your own'
+      end
+    %>
+
+    <%= text_field 'censor_rule',
+                   'replacement',
+                   class: 'span6',
+                   list: 'canned-replacements',
+                   autocomplete: 'off',
+                   placeholder: placeholder %>
+
+    <datalist id="canned-replacements">
+      <%= options_for_select(@censor_rule.canned_replacements) %>
+    </datalist>
+
     <div class="help-block">
       put it in <strong>[square brackets]</strong>, e.g. [personal information removed]. applies to text in emails and HTML conversions of binaries; binaries themselves must stay the same length and the replacement is just a bunch of 'x's
     </div>
