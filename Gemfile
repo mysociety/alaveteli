@@ -81,10 +81,10 @@ source 'https://rubygems.org'
 
 # See instructions in Gemfile.rails_next
 def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
+  true
 end
 
-gem 'rails', rails_upgrade? ? '~> 6.1.4' : '~> 6.0.3'
+gem 'rails', '~> 6.1.4'
 
 gem 'pg', '~> 1.2.3'
 
@@ -138,9 +138,9 @@ gem 'rails-i18n', '~> 6.0.0'
 gem 'gettext_i18n_rails', '~> 1.8.1'
   gem 'fast_gettext', '~> 2.1.0'
 gem 'gettext', '~> 3.4.1'
-gem 'globalize', rails_upgrade? ? '~> 6.0.0' : '~> 5.3.0'
+gem 'globalize', '~> 6.0.0'
 gem 'locale', '~> 2.1.3'
-gem 'routing-filter', rails_upgrade? ? '~> 0.7.0' : '~> 0.6.2'
+gem 'routing-filter', '~> 0.7.0'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
 gem 'money', '~> 6.16.0'

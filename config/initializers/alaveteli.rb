@@ -60,15 +60,10 @@ require 'alaveteli_mail_poller'
 require 'safe_redirect'
 require 'alaveteli_pro/metrics_report'
 require 'alaveteli_pro/webhook_endpoints'
-require 'patches/active_support/configuration_file'
 
 # Allow tests to be run under a non-superuser database account if required
 if Rails.env.test?
-  if rails_upgrade?
-    test_config = ActiveRecord::Base.configurations.find_db_config(:test).
-      configuration_hash
-  else
-    test_config = ActiveRecord::Base.configurations[:test]
-  end
+  test_config = ActiveRecord::Base.configurations.find_db_config(:test).
+    configuration_hash
   require 'no_constraint_disabling' unless test_config['constraint_disabling']
 end

@@ -42,20 +42,14 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  if rails_upgrade?
-    # Raise exceptions for disallowed deprecations.
-    config.active_support.disallowed_deprecation = :raise
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
 
-    # Tell Active Support which deprecation messages to disallow.
-    config.active_support.disallowed_deprecation_warnings = []
-  end
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
 
   # Raises error for missing translations.
-  # if rails_upgrade?
-  #   config.i18n.raise_on_missing_translations = true
-  # else
-  #   config.action_view.raise_on_missing_translations = true
-  # end
+  # config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true

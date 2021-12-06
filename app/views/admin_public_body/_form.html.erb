@@ -1,16 +1,8 @@
 <% if @public_body.errors.any? %>
   <ul>
-    <% if rails_upgrade? %>
-      <% @public_body.errors.each do |error| %>
-        <% unless error.attribute.to_s.starts_with?('translation') %>
-          <li><%= error.message %></li>
-        <% end %>
-      <% end %>
-    <% else %>
-      <% @public_body.errors.each do |attr, message| %>
-        <% unless attr.to_s.starts_with?('translation') %>
-          <li><%= message %></li>
-        <% end %>
+    <% @public_body.errors.each do |error| %>
+      <% unless error.attribute.to_s.starts_with?('translation') %>
+        <li><%= error.message %></li>
       <% end %>
     <% end %>
   </ul>
@@ -20,14 +12,8 @@
   <% if translation.errors.any? %>
     <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
     <ul>
-      <% if rails_upgrade? %>
-        <% translation.errors.each do |error| %>
-          <li><%= error.message %></li>
-        <% end %>
-      <% else %>
-        <% translation.errors.each do |attr, message| %>
-          <li><%= message %></li>
-        <% end %>
+      <% translation.errors.each do |error| %>
+        <li><%= error.message %></li>
       <% end %>
     </ul>
   <% end %>

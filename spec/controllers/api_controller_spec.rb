@@ -336,11 +336,7 @@ RSpec.describe ApiController, "when using the API" do
                'body' => 'Are you joking, or are you serious?'
              }.to_json,
              :attachments => [
-               if rails_upgrade?
-                 fixture_file_upload('tfl.pdf')
-               else
-                 fixture_file_upload('/files/tfl.pdf')
-               end
+               fixture_file_upload('tfl.pdf')
              ]
            }
 
@@ -371,11 +367,7 @@ RSpec.describe ApiController, "when using the API" do
                'body' => response_body
              }.to_json,
              :attachments => [
-               if rails_upgrade?
-                 fixture_file_upload('tfl.pdf')
-               else
-                 fixture_file_upload('/files/tfl.pdf')
-               end
+               fixture_file_upload('tfl.pdf')
              ]
            }
 
