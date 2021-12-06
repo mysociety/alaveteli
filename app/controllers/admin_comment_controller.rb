@@ -38,24 +38,39 @@ class AdminCommentController < AdminController
     end
 
     if @comment.update(comment_params)
-      update_type = if comment_hidden?
-        'hide_comment'
-      else
-        'edit_comment'
+      if @comment.previous_changes[:body]
+        @comment.info_request.log_event(
+          'edit_comment', {
+            comment_id: @comment.id,
+            editor: admin_current_user,
+            old_body: @comment.body_previously_was,
+            body: @comment.body
+          }
+        )
       end
 
-      @comment.info_request.log_event(
-        update_type, {
-          comment_id: @comment.id,
-          editor: admin_current_user,
-          old_body: @comment.body_previously_was,
-          body: @comment.body,
-          old_visible: @comment.visible_previously_was,
-          visible: @comment.visible,
-          old_attention_requested: @comment.attention_requested_previously_was,
-          attention_requested: @comment.attention_requested
-        }
-      )
+      if @comment.previous_changes[:visible]
+        @comment.info_request.log_event(
+          'hide_comment', {
+            comment_id: @comment.id,
+            editor: admin_current_user,
+            old_visible: @comment.visible_previously_was,
+            visible: @comment.visible
+          }
+        )
+      end
+
+      if @comment.previous_changes[:attention_requested]
+        @comment.info_request.log_event(
+          'report_comment', {
+            comment_id: @comment.id,
+            editor: admin_current_user,
+            old_attention_requested:
+              @comment.attention_requested_previously_was,
+            attention_requested: @comment.attention_requested
+          }
+        )
+      end
 
       flash[:notice] = 'Comment successfully updated.'
       redirect_to admin_request_url(@comment.info_request)
@@ -76,9 +91,5 @@ class AdminCommentController < AdminController
 
   def set_comment
     @comment = Comment.find(params[:id])
-  end
-
-  def comment_hidden?
-    @comment.previous_changes[:visible] && !@comment.previous_changes[:body]
   end
 end
