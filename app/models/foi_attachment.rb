@@ -29,6 +29,8 @@ class FoiAttachment < ApplicationRecord
   belongs_to :incoming_message,
              :inverse_of => :foi_attachments
 
+  has_one_attached :file, service: :attachments
+
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
@@ -42,30 +44,52 @@ class FoiAttachment < ApplicationRecord
   BODY_MAX_DELAY = 5
 
   def directory
+    if file.attached?
+      warn <<~DEPRECATION.squish
+        [DEPRECATION] FoiAttachment#directory shouldn't be used when using
+        `ActiveStorage` backed file stores. This method will be removed
+        in 0.42.
+      DEPRECATION
+      return
+    end
+
     base_dir = File.expand_path(File.join(File.dirname(__FILE__), "../../cache", "attachments_#{Rails.env}"))
     return File.join(base_dir, self.hexdigest[0..2])
   end
 
   def filepath
+    if file.attached?
+      warn <<~DEPRECATION.squish
+        [DEPRECATION] FoiAttachment#filepath shouldn't be used when using
+        `ActiveStorage` backed file stores. This method will be removed
+        in 0.42.
+      DEPRECATION
+      return
+    end
+
     File.join(self.directory, self.hexdigest)
   end
 
   def delete_cached_file!
-    begin
-      @cached_body = nil
-      File.delete(self.filepath)
-    rescue
+    @cached_body = nil
+
+    if file.attached?
+      file.purge
+    elsif File.exist?(filepath)
+      File.delete(filepath)
     end
   end
 
   def body=(d)
     self.hexdigest = Digest::MD5.hexdigest(d)
-    if !File.exist?(self.directory)
-      FileUtils.mkdir_p self.directory
-    end
-    File.open(self.filepath, "wb") { |file|
-      file.write d
-    }
+
+    ensure_filename!
+    file.attach(
+      io: StringIO.new(d.to_s),
+      filename: filename,
+      content_type: content_type
+    )
+
     update_display_size!
     @cached_body = d.force_encoding("ASCII-8BIT")
   end
@@ -76,8 +100,12 @@ class FoiAttachment < ApplicationRecord
       tries = 0
       delay = 1
       begin
-        @cached_body = File.open(filepath, "rb" ) { |file| file.read }
-      rescue Errno::ENOENT
+        if file.attached?
+          @cached_body = file.download
+        else
+          @cached_body = File.open(filepath, "rb" ) { |file| file.read }
+        end
+      rescue Errno::ENOENT, ActiveStorage::FileNotFoundError
         # we've lost our cached attachments for some reason.  Reparse them.
         if tries > BODY_MAX_TRIES
           raise
@@ -89,6 +117,7 @@ class FoiAttachment < ApplicationRecord
         delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
         force = true
         self.incoming_message.parse_raw_email!(force)
+        reload
         retry
       end
     end
