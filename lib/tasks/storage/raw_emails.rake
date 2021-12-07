@@ -9,5 +9,17 @@ namespace :storage do
     task migrate: :environment do
       raw_email_storage.migrate
     end
+
+    task mirror: :environment do
+      raw_email_storage.mirror
+    end
+
+    task promote: :environment do
+      raw_email_storage.promote
+    end
+
+    task unlink: :environment do
+      raw_email_storage.unlink
+    end
   end
 end
