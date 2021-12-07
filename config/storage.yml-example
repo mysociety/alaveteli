@@ -38,3 +38,22 @@ raw_emails_test: &raw_emails_test
 
 raw_emails:
   <<: *raw_emails_<%= Rails.env %>
+
+## Attachments ##
+
+attachments_disk: &attachments_disk
+  service: Disk
+  root: <%= Rails.root.join('storage/attachments') %>
+
+attachments_production: &attachments_production
+  <<: *attachments_disk
+
+attachments_development: &attachments_development
+  <<: *attachments_disk
+
+attachments_test: &attachments_test
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage/attachments') %>
+
+attachments:
+  <<: *attachments_<%= Rails.env %>
