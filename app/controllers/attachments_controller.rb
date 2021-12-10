@@ -82,7 +82,7 @@ class AttachmentsController < ApplicationController
 
   def find_attachment
     @attachment = (
-      @incoming_message.parse_raw_email!
+      @incoming_message.parse_raw_email
 
       IncomingMessage.get_attachment_by_url_part_number_and_filename!(
         @incoming_message.get_attachments_for_display,

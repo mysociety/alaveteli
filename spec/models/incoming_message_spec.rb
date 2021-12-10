@@ -65,6 +65,32 @@ RSpec.describe IncomingMessage do
     it { is_expected.to eq(response_event) }
   end
 
+  describe '#parse_raw_email' do
+    subject { message.parse_raw_email }
+
+    let(:message) { FactoryBot.create(:incoming_message) }
+
+    context 'when the message has not yet been parsed' do
+      before { message.update(last_parsed: nil) }
+      before { expect(message).to receive(:parse_raw_email!).and_call_original }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the message has previously been parsed' do
+      before { message.update(last_parsed: 1.day.ago) }
+      before { expect(message).not_to receive(:parse_raw_email!) }
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when the message does not have an associated RawEmail' do
+      before { message.raw_email = nil }
+
+      it 'raises a runtime error' do
+        expect { subject }.to raise_error(RuntimeError)
+      end
+    end
+  end
+
   describe '#from_name' do
 
     it 'returns the name in the From: field of an email' do
@@ -690,7 +716,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.parse_raw_email!
+    message.parse_raw_email
     expect(message.get_main_body_text_part.charset).to eq("iso-8859-1")
     expect(message.get_main_body_text_internal).to include("política")
   end
@@ -699,7 +725,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('no-part-charset-bad-utf8.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.parse_raw_email!
+    message.parse_raw_email
     expect(message.get_main_body_text_internal).to include("贵公司负责人")
   end
 
@@ -707,7 +733,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('no-part-charset-random-data.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.parse_raw_email!
+    message.parse_raw_email
     expect(message.get_main_body_text_internal).to include("The above text was badly encoded")
   end
 
@@ -715,7 +741,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('dos-linebreaks.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.parse_raw_email!
+    message.parse_raw_email
     expect(message.get_main_body_text_internal).not_to match(/\r\n/)
   end
 
@@ -735,7 +761,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('no-body.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    message.parse_raw_email!
+    message.parse_raw_email
     expect(message.get_main_body_text_internal).
       to eq "[ Email has no body, please see attachments ]"
   end

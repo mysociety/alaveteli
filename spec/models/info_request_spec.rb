@@ -2132,7 +2132,7 @@ RSpec.describe InfoRequest do
 
     it "copes with indexing after item is deleted" do
       load_raw_emails_data
-      IncomingMessage.find_each { |message| message.parse_raw_email! }
+      IncomingMessage.find_each { |message| message.parse_raw_email }
       destroy_and_rebuild_xapian_index
       # delete event from underneath indexing; shouldn't cause error
       info_request_events(:useless_incoming_message_event).save!
