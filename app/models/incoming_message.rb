@@ -89,28 +89,25 @@ class IncomingMessage < ApplicationRecord
 
   def parse_raw_email
     raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
-    parse_raw_email!(true) if last_parsed.nil?
+    parse_raw_email! if last_parsed.nil?
   end
 
-  def parse_raw_email!(force = nil)
+  def parse_raw_email!
     # The following fields may be absent; we treat them as cached
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
-    if self.raw_email.nil?
-      raise "Incoming message id=#{id} has no raw_email"
-    end
-    if (!force.nil? || self.last_parsed.nil?)
-      ActiveRecord::Base.transaction do
-        extract_attachments
-        self.sent_at = raw_email.date || created_at
-        self.subject = raw_email.subject
-        self.from_name = raw_email.from_name
-        self.from_email = raw_email.from_email || ''
-        self.from_email_domain = raw_email.from_email_domain || ''
-        self.valid_to_reply_to = raw_email.valid_to_reply_to?
-        self.last_parsed = Time.zone.now
-        self.save!
-      end
+    raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
+
+    ActiveRecord::Base.transaction do
+      extract_attachments
+      self.sent_at = raw_email.date || created_at
+      self.subject = raw_email.subject
+      self.from_name = raw_email.from_name
+      self.from_email = raw_email.from_email || ''
+      self.from_email_domain = raw_email.from_email_domain || ''
+      self.valid_to_reply_to = raw_email.valid_to_reply_to?
+      self.last_parsed = Time.zone.now
+      self.save!
     end
   end
 

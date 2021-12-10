@@ -103,7 +103,7 @@ RSpec.describe OutgoingMailer, "when working out follow up subjects" do
     om.incoming_message_followup = im
 
     im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: re: Geraldine FOI Code AZXB421")
-    im.parse_raw_email! true
+    im.parse_raw_email!
 
     expect(OutgoingMailer.subject_for_followup(ir, om, :html => false)).to eq("re: Geraldine FOI Code AZXB421")
   end
@@ -116,7 +116,7 @@ RSpec.describe OutgoingMailer, "when working out follow up subjects" do
 
     im.raw_email.data = im.raw_email.data.sub("foiperson@localhost", "postmaster@localhost")
     im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: Delivery Failed")
-    im.parse_raw_email! true
+    im.parse_raw_email!
 
     expect(OutgoingMailer.subject_for_followup(ir, om, :html => false)).to eq("Re: Freedom of Information request - Why do you have & such a fancy dog?")
   end

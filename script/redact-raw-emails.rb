@@ -141,7 +141,7 @@ scope.each do |incoming_message|
   else
     FileUtils.copy(@raw_email.filepath, "#{@raw_email.filepath}.bak")
     @raw_email.data = mail.to_s
-    @incoming_message.parse_raw_email!(true)
+    @incoming_message.parse_raw_email!
     puts " has been updated"
     puts "Backup created at #{@raw_email.filepath}.bak"
   end

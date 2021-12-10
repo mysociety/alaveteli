@@ -116,7 +116,7 @@ RSpec.describe 'when handling incoming mail' do
     expect(page).not_to have_content "Third hello"
 
     # ...but if we explicitly ask for attachments to be extracted, then they should be
-    incoming_message.parse_raw_email!(true)
+    incoming_message.parse_raw_email!
     attachment = IncomingMessage.
                    get_attachment_by_url_part_number_and_filename!(
                      incoming_message.get_attachments_for_display,

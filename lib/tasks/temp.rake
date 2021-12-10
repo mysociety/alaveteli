@@ -44,7 +44,7 @@ namespace :temp do
       where('created_at > ?', since).
       where("cached_main_body_text_folded ILIKE '%Content-Type%'").
       find_each do |message|
-        message.clear_in_database_caches! && message.parse_raw_email!(true)
+        message.clear_in_database_caches! && message.parse_raw_email!
       end
   end
 
@@ -56,7 +56,7 @@ namespace :temp do
       where('created_at > ?', since).
       where("cached_main_body_text_folded ILIKE '%Content-Type%'").
       find_each do |message|
-        message.clear_in_database_caches! && message.parse_raw_email!(true)
+        message.clear_in_database_caches! && message.parse_raw_email!
       end
   end
 

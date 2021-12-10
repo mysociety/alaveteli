@@ -115,7 +115,7 @@ class FoiAttachment < ApplicationRecord
         tries += 1
         delay *= 2
         delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
-        self.incoming_message.parse_raw_email!(true)
+        self.incoming_message.parse_raw_email!
         reload
         retry
       end

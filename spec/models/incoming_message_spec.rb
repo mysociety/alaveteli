@@ -103,7 +103,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.from_name).to eq('FOI Person')
     end
 
@@ -117,7 +117,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.from_name).to be_nil
     end
 
@@ -132,7 +132,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.from_name).
         to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
     end
@@ -151,7 +151,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       message.reload
       FactoryBot.create(:censor_rule,
                         :text => 'Person',
@@ -174,7 +174,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.from_email).to eq('authority@mail.example.com')
     end
 
@@ -187,7 +187,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.from_email).to eq('')
     end
 
@@ -205,7 +205,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.from_email_domain).to eq('mail.example.com')
     end
 
@@ -218,7 +218,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.from_email_domain).to eq('')
     end
 
@@ -236,7 +236,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.subject).to eq('A response')
     end
 
@@ -249,7 +249,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.subject).to be_nil
     end
 
@@ -263,7 +263,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.subject).to eq('Câmara Responde:  Banco de ideias')
     end
 
@@ -282,7 +282,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.sent_at).
         to eq(DateTime.parse('Fri, 9 Dec 2011 10:42:02 -0200').in_time_zone)
     end
@@ -297,7 +297,7 @@ RSpec.describe IncomingMessage do
 
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
+      message.parse_raw_email!
       expect(message.sent_at).to eq(message.created_at)
     end
 
@@ -928,7 +928,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
     allow(raw_email).to receive(:data).and_return(data)
     allow(im).to receive(:raw_email).and_return(raw_email)
     allow(im).to receive(:mail).and_return(mail)
-    im.parse_raw_email!(true)
+    im.parse_raw_email!
     attachments = im.foi_attachments
     expect(attachments.size).to eq(2)
   end
@@ -972,7 +972,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
       populate_raw_email('rfc822-attachment.email')
-      im.parse_raw_email!(true)
+      im.parse_raw_email!
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(1)
       attachment = attachments.first
@@ -1002,7 +1002,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
       populate_raw_email('incoming-request-attachment-headers.email')
-      im.parse_raw_email!(true)
+      im.parse_raw_email!
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(2)
       expect(attachments[0].body).to match('Date: Fri, 23 May 2008')

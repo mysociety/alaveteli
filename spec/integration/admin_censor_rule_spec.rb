@@ -27,7 +27,7 @@ RSpec.describe 'Updating censor rules' do
     incoming_message = FactoryBot.create(:incoming_message,
                                          :info_request => request)
     incoming_message.raw_email.data = raw_email_data
-    incoming_message.parse_raw_email!(true)
+    incoming_message.parse_raw_email!
     InfoRequestEvent.create(:event_type => "response",
                             :incoming_message => incoming_message,
                             :info_request => request,
