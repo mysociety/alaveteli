@@ -36,12 +36,9 @@ class AdminCommentController < AdminController
     if cannot? :admin, @comment
       raise ActiveRecord::RecordNotFound
     end
-    old_body = @comment.body.dup
-    old_visible = @comment.visible
-    old_attention = @comment.attention_requested
 
     if @comment.update(comment_params)
-      update_type = if comment_hidden?(old_visible, old_body)
+      update_type = if comment_hidden?
         'hide_comment'
       else
         'edit_comment'
@@ -51,11 +48,11 @@ class AdminCommentController < AdminController
         update_type, {
           comment_id: @comment.id,
           editor: admin_current_user,
-          old_body: @old_body,
+          old_body: @comment.body_previously_was,
           body: @comment.body,
-          old_visible: @old_visible,
+          old_visible: @comment.visible_previously_was,
           visible: @comment.visible,
-          old_attention_requested: @old_attention,
+          old_attention_requested: @comment.attention_requested_previously_was,
           attention_requested: @comment.attention_requested
         }
       )
@@ -81,7 +78,7 @@ class AdminCommentController < AdminController
     @comment = Comment.find(params[:id])
   end
 
-  def comment_hidden?(old_visibility, old_body)
-    !@comment.visible && old_visibility && old_body == @comment.body
+  def comment_hidden?
+    @comment.previous_changes[:visible] && !@comment.previous_changes[:body]
   end
 end
