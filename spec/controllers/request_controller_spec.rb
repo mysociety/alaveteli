@@ -1572,7 +1572,8 @@ RSpec.describe RequestController, "when creating a new request" do
                      :preview => 0
                    }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+        expect(mail.subject).
+          to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
 
       it 'shows an error message' do
@@ -1654,7 +1655,8 @@ RSpec.describe RequestController, "when creating a new request" do
                      :preview => 0
                    }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+        expect(mail.subject).
+          to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
 
       it 'allows the request' do
