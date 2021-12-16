@@ -7,19 +7,20 @@ on:
 
 jobs:
   rspec:
-    name: Ruby ${{ matrix.ruby }} / ${{ matrix.gemfile || 'Gemfile' }}
+    name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }} / ${{ matrix.gemfile || 'Gemfile' }}
     runs-on: ubuntu-20.04
 
     strategy:
       fail-fast: false
       matrix:
         include:
-        - { ruby: 2.7 }
-        - { ruby: 2.7, gemfile: 'Gemfile.rails_next' }
+        - { ruby: 2.7, postgres: 9.6.24 }
+        - { ruby: 2.7, postgres: 13.5 }
+        - { ruby: 2.7, postgres: 9.6.24, gemfile: 'Gemfile.rails_next' }
 
     services:
       postgres:
-        image: fixmystreet/postgres:latest
+        image: fixmystreet/postgres:${{ matrix.postgres }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
