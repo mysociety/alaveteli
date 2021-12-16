@@ -776,6 +776,22 @@ RSpec.describe User do
     end
   end
 
+  describe '#expire_comments' do
+    it 'calls reindex_request_events on all associated requests' do
+      user = FactoryBot.build(:user)
+
+      comment_1, comment_2 = double(:comment), double(:comment)
+
+      allow(user).to receive_message_chain(:comments, :find_each).
+        and_yield(comment_1).and_yield(comment_2)
+
+      expect(comment_1).to receive(:reindex_request_events)
+      expect(comment_2).to receive(:reindex_request_events)
+
+      user.expire_comments
+    end
+  end
+
   describe '#valid?' do
 
     context 'with require_otp' do

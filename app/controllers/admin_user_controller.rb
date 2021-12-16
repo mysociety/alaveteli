@@ -6,16 +6,17 @@
 
 class AdminUserController < AdminController
 
-  before_action :set_admin_user, :only => [ :show,
-                                            :edit,
-                                            :update,
-                                            :show_bounce_message,
-                                            :clear_bounce,
-                                            :clear_profile_photo ]
+  before_action :set_admin_user, only: %i[show
+                                          edit
+                                          update
+                                          show_bounce_message
+                                          clear_bounce
+                                          clear_profile_photo
+                                          modify_comment_visibility]
 
   before_action :clear_roles,
                 :check_role_authorisation,
-                :check_role_requirements, :only => [ :update ]
+                :check_role_requirements, only: %i[update]
 
   def index
     @query = params[:query].try(:strip)
@@ -112,8 +113,14 @@ class AdminUserController < AdminController
   end
 
   def modify_comment_visibility
-    Comment.where(:id => params[:comment_ids]).
-      update_all(:visible => !params[:hide_selected])
+    desired_visibility = params[:hide_selected] ? false : true
+
+    @admin_user.
+      comments.
+      where(id: params[:comment_ids]).
+      where(visible: !desired_visibility).
+      find_each { |comment| comment.toggle!(:visible) }
+
     redirect_back(fallback_location: admin_users_url)
   end
 
