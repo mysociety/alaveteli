@@ -911,6 +911,45 @@ RSpec.describe OutgoingMessage do
 
   end
 
+  describe '#get_text_for_indexing' do
+    subject { message.get_text_for_indexing(strip_salutation, opts) }
+
+    # Default opts
+    let(:strip_salutation) { true }
+    let(:opts) { {} }
+
+    let(:message) do
+      public_body = FactoryBot.build(:public_body, name: 'Example Body')
+      info_request = FactoryBot.build(:info_request, public_body: public_body)
+      FactoryBot.build(:initial_request, info_request: info_request, body: body)
+    end
+
+    let(:body) { "Dear Example Body,\n\n\r\nSome information please." }
+
+    context 'when stripping salutation' do
+      let(:strip_salutation) { true }
+      it { is_expected.not_to match(/Dear Example Body/) }
+      it { is_expected.not_to start_with(/\s+/) }
+    end
+
+    context 'when stripping localised salutation' do
+      let(:body) { "Estimado Example Body,\n\nAlguna información por favor." }
+
+      around do |example|
+        AlaveteliLocalization.with_locale(:es) do
+          example.run
+        end
+      end
+
+      it { is_expected.not_to match(/Estimado Example Body/) }
+    end
+
+    context 'when not stripping salutation' do
+      let(:strip_salutation) { false }
+      it { is_expected.to match(/Dear Example Body/) }
+    end
+  end
+
   describe '#is_owning_user?' do
 
     it 'returns true if the user is the owning user of the info request' do
