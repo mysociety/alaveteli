@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add canned censor rule replacement reasons (Gareth Rees)
 * Localise stripping of salutations (Gareth Rees)
 * Ensure comments are reindexed after a bulk visibility change (Gareth Rees)
 * Upgrade to Rails 6.1 (Graeme Porteous)
