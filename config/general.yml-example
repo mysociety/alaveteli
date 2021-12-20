@@ -838,6 +838,7 @@ SHARED_FILES_PATH: ''
 SHARED_FILES:
   - config/database.yml
   - config/general.yml
+  - config/storage.yml
   - config/rails_env.rb
   - config/httpd.conf
   - public/foi-live-creation.png
@@ -862,6 +863,7 @@ SHARED_DIRECTORIES:
   - cache/
   - lib/acts_as_xapian/xapiandbs/
   - log/
+  - storage/
   - tmp/pids
   - vendor/bundle
   - public/assets

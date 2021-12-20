@@ -65,9 +65,13 @@ jobs:
           CREATE DATABASE alaveteli_test TEMPLATE template_utf8;
         EOSQL
 
-    - name: Install theme
+    - name: Configure application and storage
       run: |
         cp config/general.yml-example config/general.yml
+        cp config/storage.yml-example config/storage.yml
+
+    - name: Install theme
+      run: |
         bundle exec rake themes:install
 
     - name: Migrate database
