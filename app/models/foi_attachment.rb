@@ -90,8 +90,8 @@ class FoiAttachment < ApplicationRecord
       content_type: content_type
     )
 
-    update_display_size!
     @cached_body = d.force_encoding("ASCII-8BIT")
+    update_display_size!
   end
 
   # raw body, encoded as binary
