@@ -803,6 +803,9 @@ Naming/AsciiIdentifiers:
 Naming/BinaryOperatorParameterName:
   Enabled: false
 
+Naming/BlockForwarding:
+  Enabled: false
+
 Naming/BlockParameterName:
   Enabled: false
 
@@ -1483,6 +1486,12 @@ Style/ExplicitBlockArgument:
 Style/ExponentialNotation:
   Enabled: false
 
+Style/FileRead:
+  Enabled: false
+
+Style/FileWrite:
+  Enabled: false
+
 Style/FloatDivision:
   Enabled: false
 
@@ -1582,6 +1591,9 @@ Style/LambdaCall:
 
 Style/LineEndConcatenation:
   Enabled: true
+
+Style/MapToHash:
+  Enabled: false
 
 Style/MethodCallWithArgsParentheses:
   Enabled: false
