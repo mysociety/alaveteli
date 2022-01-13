@@ -109,7 +109,7 @@ class Storage
   end
 
   def promotable_blobs
-    mirrorable_blobs
+    mirrorable_blobs.where(created_at: (..7.days.ago))
   end
 
   def secondary_blobs
