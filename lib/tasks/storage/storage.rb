@@ -35,10 +35,10 @@ class Storage
   def mirror
     return puts(not_a_mirror) unless mirror_service?
 
-    count = mirrored_blobs.count
+    count = mirrorable_blobs.count
     puts unless count.zero?
 
-    mirrored_blobs.find_each.with_index do |blob, index|
+    mirrorable_blobs.find_each.with_index do |blob, index|
       mirror_service.mirror(blob.key, checksum: blob.checksum)
 
       erase_line
@@ -53,10 +53,10 @@ class Storage
   def promote
     return puts(not_a_mirror) unless mirror_service?
 
-    count = mirrored_blobs.count
+    count = promotable_blobs.count
     puts unless count.zero?
 
-    mirrored_blobs.find_each.with_index do |blob, index|
+    promotable_blobs.find_each.with_index do |blob, index|
       next unless secondary_service.exist?(blob.key)
       blob.update(service_name: secondary_service.name)
 
@@ -104,8 +104,12 @@ class Storage
     )
   end
 
-  def mirrored_blobs
+  def mirrorable_blobs
     blobs.where(service_name: mirror_service.name)
+  end
+
+  def promotable_blobs
+    mirrorable_blobs
   end
 
   def secondary_blobs
