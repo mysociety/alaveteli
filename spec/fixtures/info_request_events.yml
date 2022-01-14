@@ -113,7 +113,7 @@ another_useful_incoming_message_event:
   described_state: successful
   calculated_state: successful
 
-another_comment_event:
+sensible_comment_event:
   id: 909
   info_request_id: 105
   comment_id: 2
