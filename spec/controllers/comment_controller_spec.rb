@@ -125,16 +125,14 @@ RSpec.describe CommentController, "when commenting on a request" do
     expect(response).to redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
   end
 
-  it "should give an error if the same request is submitted twice" do
+  it 'errors if the same comment is submitted twice' do
     sign_in users(:silly_name_user)
 
-    post :new, params: {
-                 :url_title => info_requests(:fancy_dog_request).url_title,
-                 :comment => { :body => comments(:silly_comment).body },
-                 :type => 'request',
-                 :submitted_comment => 1,
-                 :preview => 0
-               }
+    post :new, params: { url_title: info_requests(:fancy_dog_request).url_title,
+                         comment: { body: comments(:silly_comment).body },
+                         type: 'request',
+                         submitted_comment: 1,
+                         preview: 0 }
 
     expect(response).to render_template('new')
   end
@@ -186,19 +184,18 @@ RSpec.describe CommentController, "when commenting on a request" do
     expect(response).to render_template('new')
   end
 
-  it "should not allow comments from banned users" do
-    allow_any_instance_of(User).to receive(:ban_text).and_return('Banned from commenting')
+  it 'does not allow comments from banned users' do
+    allow_any_instance_of(User).
+      to receive(:ban_text).and_return('Banned from commenting')
 
     user = users(:silly_name_user)
     sign_in user
 
-    post :new, params: {
-                 :url_title => info_requests(:fancy_dog_request).url_title,
-                 :comment => { :body => comments(:silly_comment).body },
-                 :type => 'request',
-                 :submitted_comment => 1,
-                 :preview => 0
-               }
+    post :new, params: { url_title: info_requests(:fancy_dog_request).url_title,
+                         comment: { body: comments(:silly_comment).body },
+                         type: 'request',
+                         submitted_comment: 1,
+                         preview: 0 }
 
     expect(response).to render_template('user/banned')
   end
