@@ -33,59 +33,59 @@ class Storage
   end
 
   def mirror
-    return puts(not_a_mirror) unless mirrored_service?
+    return puts(not_a_mirror) unless mirror_service?
 
     count = mirrored_blobs.count
     puts unless count.zero?
 
     mirrored_blobs.find_each.with_index do |blob, index|
-      mirrored_service.mirror(blob.key, checksum: blob.checksum)
+      mirror_service.mirror(blob.key, checksum: blob.checksum)
 
       erase_line
       print "#{prefix}: Mirrored #{index + 1}/#{count}"
     end
 
     erase_line
-    puts "#{prefix}: Mirrored from #{primary.name} to #{secondary.name} " \
-         "completed."
+    puts "#{prefix}: Mirrored from #{primary_service.name} to " \
+         "#{secondary_service.name} completed."
   end
 
   def promote
-    return puts(not_a_mirror) unless mirrored_service?
+    return puts(not_a_mirror) unless mirror_service?
 
     count = mirrored_blobs.count
     puts unless count.zero?
 
     mirrored_blobs.find_each.with_index do |blob, index|
-      next unless secondary.exist?(blob.key)
-      blob.update(service_name: secondary.name)
+      next unless secondary_service.exist?(blob.key)
+      blob.update(service_name: secondary_service.name)
 
       erase_line
       print "#{prefix}: Promote #{index + 1}/#{count}"
     end
 
     erase_line
-    puts "#{prefix}: Promoted blobs in #{primary.name} to #{secondary.name} " \
-         "completed."
+    puts "#{prefix}: Promoted blobs in #{primary_service.name} to " \
+         "#{secondary_service.name} completed."
   end
 
   def unlink
-    return puts(not_a_mirror) unless mirrored_service?
+    return puts(not_a_mirror) unless mirror_service?
 
     count = secondary_blobs.count
     puts unless count.zero?
 
     secondary_blobs.find_each.with_index do |blob, index|
-      next unless primary.exist?(blob.key)
+      next unless primary_service.exist?(blob.key)
 
-      primary.delete(blob.key)
+      primary_service.delete(blob.key)
 
       erase_line
       puts "#{prefix}: Unlink #{index + 1}/#{count}"
     end
 
     erase_line
-    puts "#{prefix}: Unlinked files in #{primary.name} completed."
+    puts "#{prefix}: Unlinked files in #{primary_service.name} completed."
   end
 
   private
@@ -105,11 +105,11 @@ class Storage
   end
 
   def mirrored_blobs
-    blobs.where(service_name: service_name)
+    blobs.where(service_name: mirror_service.name)
   end
 
   def secondary_blobs
-    blobs.where(service_name: secondary.name)
+    blobs.where(service_name: secondary_service.name)
   end
 
   def attachment
@@ -124,12 +124,12 @@ class Storage
     ActiveStorage::Blob.services.fetch(service_name)
   end
 
-  def mirrored_service?
+  def mirror_service?
     service.respond_to?(:mirror)
   end
 
-  def mirrored_service
-    raise not_a_mirror unless mirrored_service?
+  def mirror_service
+    raise not_a_mirror unless mirror_service?
     service
   end
 
@@ -138,12 +138,12 @@ class Storage
     "correct."
   end
 
-  def primary
-    mirrored_service.primary
+  def primary_service
+    mirror_service.primary
   end
 
-  def secondary
-    mirrored_service.mirrors.first
+  def secondary_service
+    mirror_service.mirrors.first
   end
 
   def prefix
