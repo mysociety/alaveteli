@@ -26,6 +26,13 @@ class Storage
 
       erase_line
       print "#{prefix}: Migrated #{index + 1}/#{count}"
+
+    rescue Errno::ENOENT
+      erase_line
+      Kernel.silence_warnings do
+        $stderr.puts "#{prefix};ID=#{file.id}: Missing #{file.filepath}."
+      end
+      puts
     end
 
     erase_line
