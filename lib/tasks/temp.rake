@@ -1,4 +1,11 @@
 namespace :temp do
+  desc 'Remove raw email records not assoicated with an incoming message'
+  task remove_orphan_raw_email_records: :environment do
+    RawEmail.left_joins(:incoming_message).
+      where(incoming_messages: { id: nil }).
+      delete_all
+  end
+
   desc 'Fix invalid embargo attributes'
   task nullify_empty_embargo_durations: :environment do
     classes_attributes = {
