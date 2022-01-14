@@ -113,21 +113,6 @@ another_useful_incoming_message_event:
   described_state: successful
   calculated_state: successful
 
-sensible_comment_event:
-  id: 909
-  info_request_id: 105
-  comment_id: 2
-  params_yaml: "--- \n\
-    :comment_id: 2\n"
-  incoming_message_id:
-  outgoing_message_id:
-  last_described_at:
-  described_state:
-  calculated_state:
-  event_type: comment
-  created_at: 2008-08-12 12:05:12.879634
-
-
 # The spam requests were both successful
 spam_1_outgoing_message_event:
   id: 910
