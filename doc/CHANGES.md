@@ -24,6 +24,9 @@
 
 * There are some database structure updates so remember to run
   `bin/rails db:migrate`
+* Run `bin/rails temp:remove_orphan_raw_email_records` to remove any old raw
+  email records which don't have an associated incoming message or raw file on
+  disk.
 * This release is the last to support the old raw emails file store. Please
   switch to `ActiveStorage` now by copying `config/storage.yml-example` to
   `config/storage.yml`. This will use an on disk store as previously, but also
