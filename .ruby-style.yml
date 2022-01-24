@@ -973,6 +973,9 @@ Performance/Squeeze:
 Performance/StartWith:
   Enabled: false
 
+Performance/StringIdentifierArgument:
+  Enabled: false
+
 Performance/StringInclude:
   Enabled: false
 
