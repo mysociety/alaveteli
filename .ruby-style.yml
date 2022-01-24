@@ -1044,6 +1044,9 @@ Rails/Blank:
 Rails/BulkChangeTable:
   Enabled: false
 
+Rails/CompactBlank:
+  Enabled: false
+
 Rails/ContentTag:
   Enabled: false
 
@@ -1060,6 +1063,9 @@ Rails/Delegate:
   Enabled: false
 
 Rails/DelegateAllowBlank:
+  Enabled: false
+
+Rails/DurationArithmetic:
   Enabled: false
 
 Rails/DynamicFindBy:
@@ -1191,6 +1197,9 @@ Rails/RedundantAllowNil:
 Rails/RedundantForeignKey:
   Enabled: false
 
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
+
 Rails/RedundantReceiverInWithOptions:
   Enabled: false
 
@@ -1224,6 +1233,9 @@ Rails/ReversibleMigration:
 Rails/ReversibleMigrationMethodDefinition:
   Enabled: false
 
+Rails/RootJoinChain:
+  Enabled: false
+
 Rails/SafeNavigation:
   Enabled: false
 
@@ -1231,6 +1243,9 @@ Rails/SafeNavigationWithBlank:
   Enabled: false
 
 Rails/SaveBang:
+  Enabled: false
+
+Rails/SchemaComment:
   Enabled: false
 
 Rails/ScopeArgs:
