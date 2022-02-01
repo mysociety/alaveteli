@@ -23,6 +23,7 @@ RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
 
 WORKDIR /alaveteli/
 
+RUN gem update --system
 RUN gem install mailcatcher
 
 EXPOSE 3000
