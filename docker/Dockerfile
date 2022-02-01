@@ -1,4 +1,4 @@
-FROM ruby:2.6-bullseye
+FROM ruby:2.7-bullseye
 
 ENV DOCKER 1
 ENV DEBIAN_FRONTEND noninteractive
@@ -23,6 +23,7 @@ RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
 
 WORKDIR /alaveteli/
 
+RUN gem update --system
 RUN gem install mailcatcher
 
 EXPOSE 3000
