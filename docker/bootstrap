@@ -30,6 +30,7 @@ success_msg 'done'
 
 notice_msg "Copying example files..."
 [ ! -f config/database.yml ] && cp config/database.yml-example config/database.yml
+[ ! -f config/storage.yml ] && cp config/storage.yml-example config/storage.yml
 [ ! -f config/general-alavetelitheme.yml ] && cp config/general.yml-example config/general-alavetelitheme.yml
 [ ! -L config/general.yml ] && [ ! -f config/general.yml ] && ln -s config/general-alavetelitheme.yml config/general.yml
 success_msg 'done'
