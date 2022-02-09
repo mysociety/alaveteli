@@ -1,3 +1,10 @@
+# 0.40.1.0
+
+## Highlighted Features
+
+* Fixes issue loading translated fields when using locales with underscores
+  (e.g. `en_RW` or `nl_BE`) (Graeme Porteous)
+
 # 0.40.0.1
 
 ## Highlighted Features
