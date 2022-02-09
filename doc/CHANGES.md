@@ -1,3 +1,9 @@
+# 0.40.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.40.0.0
 
 ## Highlighted Features
