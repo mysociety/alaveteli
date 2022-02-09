@@ -291,3 +291,21 @@
   country:
     en: Democratic Republic of the Congo
     es: República Democrática del Congo
+
+- title: Ask Nepal
+  url: https://asknepal.info/
+  image: asknepal.png
+  featured: false
+  pro: false
+  country:
+    en: Nepal
+    es: Nepal
+
+- title: Ask Gov
+  url: https://askgov.ge/
+  image: askgov.png
+  featured: false
+  pro: false
+  country:
+    en: Georgia
+    es: Georgia
