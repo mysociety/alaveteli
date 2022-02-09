@@ -53,8 +53,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:11+0000\n"
-"PO-Revision-Date: 2021-11-12 15:05+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-12-03 20:24+0000\n"
+"Last-Translator: trendspotter <jirka.p@volny.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -553,7 +553,7 @@ msgid "Any device"
 msgstr "Jakékoliv zařízení"
 
 msgid "Anyone with the link will be able to view this request."
-msgstr ""
+msgstr "Tento dotaz si bude moci prohlédnout každý, kdo bude mít k dispozici odkaz."
 
 msgid "Are we missing a public authority?"
 msgstr "Chybí nám nějaká instituce?"
@@ -664,10 +664,10 @@ msgid "Browse and search requests (page {{count}})"
 msgstr "Hledejte dotazy (page {{count}})"
 
 msgid "Browse latest requests"
-msgstr ""
+msgstr "Procházet nejnovější dotazy"
 
 msgid "Browse latest responses"
-msgstr ""
+msgstr "Procházet nejnovější odpovědi"
 
 msgid "Browse requests"
 msgstr "Zobrazit dotazy"
@@ -885,7 +885,7 @@ msgstr ""
 "            jak je vyjmenovanáno výše)"
 
 msgid "Current Email:"
-msgstr ""
+msgstr "Aktuální e-mail:"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr "V současnosti <strong> se čeká na odpověď</strong> od instituce {{public_body_link}}. Musí odpovědět co nejdříve a "
@@ -944,7 +944,7 @@ msgid "Did you mean: {{correction}}"
 msgstr "Chtěli jste {{correction}}"
 
 msgid "Disable"
-msgstr ""
+msgstr "Zakázat"
 
 msgid "Disable two factor authentication"
 msgstr "Zrušte dvoufaktorové ověření "
@@ -1021,7 +1021,7 @@ msgid "Email:"
 msgstr "E-mail:"
 
 msgid "Enable"
-msgstr ""
+msgstr "Povolit"
 
 msgid "Enable two factor authentication"
 msgstr "Aktivujte dvoufaktorové ověření"
@@ -1446,7 +1446,7 @@ msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a do
 msgstr "Pokud považujete stránky {{site_name}} užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>."
 
 msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
-msgstr ""
+msgstr "Pokud jste e-mail obdrželi před <strong>více než dvěma měsíci</strong> nebo <strong>jste aktualizovali svůj profil uživatele</strong>, tento přihlašovací odkaz již nebude fungovat. Zkuste prosím udělat to, co jste dělali od začátku."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Pokud jste tak ještě neučinili, prosíme napište instituci zprávu, že jste svůj dotaz stáhli. Jinak se o stažení dotazu nedozví. "
@@ -1592,7 +1592,7 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Naposled prohlížený dotaz: {{request_url}}"
 
 msgid "Latest"
-msgstr ""
+msgstr "Nejnovější"
 
 msgid "Learn more &rarr;"
 msgstr "Zjistěte více &rarr;"
@@ -2184,7 +2184,7 @@ msgid "Project owner"
 msgstr "Vlastník projektu "
 
 msgid "Proposed Email:"
-msgstr ""
+msgstr "Navržený e-mail:"
 
 msgid "Public Bodies"
 msgstr "Veřejné instituce"
@@ -2893,7 +2893,7 @@ msgid "The public authority would like to / has responded by postal mail"
 msgstr "Veřejná instituce by měla odpovědět/odpověděla poštou"
 
 msgid "The publicly accessible link for this request has now been disabled"
-msgstr ""
+msgstr "Veřejně přístupný odkaz na tento dotaz byl nyní zakázán."
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "Dotaz byl <strong>zamítnut</strong>"
@@ -3198,7 +3198,7 @@ msgid "This request has an <strong>unknown status</strong>."
 msgstr "Stav tohoto dotazu je <strong>neznámý</strong>."
 
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
-msgstr ""
+msgstr "Tento dotaz byl <strong>uzavřen pro novou korespondenci</strong>. Pokud si myslíte, že by měl být znovu otevřen, <a href=\"{{help_contact_url}}\">kontaktujte nás</a>."
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
 msgstr "Tento dotaz byl <strong>nahlášen</strong> administrátorům stránek, (pravděpodobně z důvodu nevhodného obsahu)."
@@ -3238,7 +3238,7 @@ msgstr ""
 "<a href=\"{{url}}\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
 
 msgid "This request is now publicly accessible via {{public_url}}"
-msgstr ""
+msgstr "Tento dotaz je nyní veřejně přístupný prostřednictvím {{public_url}}."
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr "Tento dotaz je část <a href=\"{{url}}\">série zaslané {{count}} institucím </a>"

@@ -29,14 +29,14 @@
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
-# Páll Hilmarsson <pallih@kaninka.net>, 2015-2018,2020
+# Páll Hilmarsson <pallih@kaninka.net>, 2015-2018,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:11+0000\n"
-"PO-Revision-Date: 2021-11-12 15:05+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2021-12-11 22:40+0000\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/mysociety/alavete"
 "li/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -672,7 +672,7 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "Lögum samkvæmt ætti {{public_body_link}} að hafa svarað <strong>svo fljótt sem verða má</strong> og"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Can't find the one you want?"
 msgstr "Finnurðu ekki það sem þú leitar að?"
@@ -738,7 +738,7 @@ msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Flokkaðu upplýsingabeiðni frá {{authority_name}}"
 
 msgid "Classify responses"
-msgstr ""
+msgstr "Flokka svör"
 
 msgid "Clear photo"
 msgstr "Hreinsa mynd"
@@ -756,7 +756,7 @@ msgid "Close"
 msgstr "Loka"
 
 msgid "Close preview"
-msgstr ""
+msgstr "Loka forskoðun"
 
 msgid "Close the request and respond:"
 msgstr "Loka beiðninni og svara:"
@@ -828,10 +828,10 @@ msgid "Cookies not enabled"
 msgstr "Vefkökur ekki virkar"
 
 msgid "Copied!"
-msgstr ""
+msgstr "Afritað!"
 
 msgid "Copy"
-msgstr ""
+msgstr "Afrita"
 
 msgid "Could not identify the request from the email address"
 msgstr "Ekki var hægt að greina beiðnina frá netfanginu"
@@ -867,7 +867,7 @@ msgid "Cultural sites and built structures (as they may be affected by the envir
 msgstr "Staðir og mannvirki með menningarlegt mikilvægi (áhrif ofangreindra umhverfisþátta á þau)"
 
 msgid "Current Email:"
-msgstr ""
+msgstr "Núverandi netfang:"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
 msgstr "<strong>Beðið eftir svari</strong> frá {{public_body_link}}, þau ættu að svara svo fljótt sem auðið er og"
@@ -2623,7 +2623,7 @@ msgid "Subject:"
 msgstr "Innihald:"
 
 msgid "Submit"
-msgstr ""
+msgstr "Senda"
 
 msgid "Submit Search"
 msgstr "Leita"
@@ -2763,7 +2763,7 @@ msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr "Upplýsingalög <strong>eiga ekki við</strong> um"
 
 msgid "The URL where you found the article."
-msgstr ""
+msgstr "Vefslóðin þar sem þú fannst greinina."
 
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "Slóðin þar sem þú fannst netfangið. Ekki er nauðsynlegt að fylla þetta út, en það myndi hjálpa okkur mikið að fá tengil á síðu hjá stjórnvaldinu þar sem þetta netfang kemur fram, þar sem það auðveldar okkur til muna að kanna málið."
