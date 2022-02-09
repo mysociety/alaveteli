@@ -47,7 +47,7 @@
 # Miroslav Schlossberg, 2015,2019-2021
 # Miroslav Schlossberg CfC, 2019
 # Miroslav Schlossberg, 2019
-# Miroslav Schlossberg, 2021
+# Miroslav Schlossberg, 2021-2022
 # Miroslav Schlossberg, 2015
 # Sonja Radočaj <sonjaradocaj@gmail.com>, 2015
 # Stella Kupres, 2020
@@ -59,8 +59,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:11+0000\n"
-"PO-Revision-Date: 2021-11-12 15:05+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2022-01-23 19:10+0000\n"
+"Last-Translator: Miroslav Schlossberg\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +83,7 @@ msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">modera
 msgstr " (<strong>suzdržite se od političkih komentara</strong>, pročitajte naša <a href=\"{{url}}\">pravila moderiranja</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr " (<strong>budite strpljivi</strong>, moglo bi potrajati, posebno za velike datoteke!)"
+msgstr " (<strong>budite strpljivi</strong>, moglo bi potrajati, posebno za velike datoteke!)"
 
 msgid " (you)"
 msgstr " (Vi)"
@@ -3431,7 +3431,7 @@ msgid "Very long – shorter requests are more successful"
 msgstr "Vrlo dugi – kraći zahtjevi su uspješniji"
 
 msgid "Vexatious"
-msgstr "Uznemirujuće"
+msgstr "Zloupraba prava na pristup informacijama"
 
 msgid "Vexatious annotation"
 msgstr "Uznemirujuća bilješka"
