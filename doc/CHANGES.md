@@ -27,6 +27,9 @@
 * Run `bin/rails temp:remove_orphan_raw_email_records` to remove any old raw
   email records which don't have an associated incoming message or raw file on
   disk.
+* Run `bin/rails temp:populate_incoming_message_from_email` to cache incoming
+  from email addresses, this will improve performance by saving unnecessary
+  loading the raw emails files.
 * This release is the last to support the old raw emails file store. Please
   switch to `ActiveStorage` now by copying `config/storage.yml-example` to
   `config/storage.yml`. This will use an on disk store as previously, but also
