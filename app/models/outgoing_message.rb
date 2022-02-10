@@ -143,8 +143,8 @@ class OutgoingMessage < ApplicationRecord
   # Returns a String
   def to
     if replying_to_incoming_message?
-      # calling safe_mail_from from so censor rules are run
-      MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+      # calling safe_from_name from so censor rules are run
+      MailHandler.address_from_name_and_email(incoming_message_followup.safe_from_name,
                                               incoming_message_followup.from_email)
     else
       info_request.recipient_name_and_email
@@ -442,7 +442,7 @@ class OutgoingMessage < ApplicationRecord
   def replying_to_incoming_message?
     message_type == 'followup' &&
       incoming_message_followup &&
-      incoming_message_followup.safe_mail_from &&
+      incoming_message_followup.safe_from_name &&
       incoming_message_followup.valid_to_reply_to?
   end
 

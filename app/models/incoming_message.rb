@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220210120801
 #
 # Table name: incoming_messages
 #
@@ -12,10 +12,10 @@
 #  cached_main_body_text_folded   :text
 #  cached_main_body_text_unfolded :text
 #  subject                        :text
-#  mail_from_domain               :text
+#  from_email_domain              :text
 #  valid_to_reply_to              :boolean
 #  last_parsed                    :datetime
-#  mail_from                      :text
+#  from_name                      :text
 #  sent_at                        :datetime
 #  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
@@ -98,13 +98,13 @@ class IncomingMessage < ApplicationRecord
         self.extract_attachments!
         self.sent_at = raw_email.date || created_at
         self.subject = raw_email.subject
-        self.mail_from = raw_email.from_name
+        self.from_name = raw_email.from_name
         self.from_email = raw_email.from_email || ''
         if raw_email.from_email
-          self.mail_from_domain =
+          self.from_email_domain =
             PublicBody.extract_domain_from_email(raw_email.from_email)
         else
-          self.mail_from_domain = ""
+          self.from_email_domain = ""
         end
         self.valid_to_reply_to = raw_email.valid_to_reply_to?
         self.last_parsed = Time.zone.now
@@ -162,20 +162,26 @@ class IncomingMessage < ApplicationRecord
   end
 
   # Public: The display name of the email sender.
-  # #mail_from overrides the ActiveRecord provided #mail_from
+  # #from_name overrides the ActiveRecord provided #from_name
   #
   # Examples:
   #
   #   # From: John Doe <john@example.com>
-  #   incoming_message.mail_from
+  #   incoming_message.from_name
   #   # => 'John Doe'
   #
   #   # From: john@example.com
-  #   incoming_message.mail_from
+  #   incoming_message.from_name
   #   # => nil
   #
   # Returns a String or nil
   def mail_from
+    warn %q([DEPRECATION] IncomingMessage#mail_from will be removed in 0.42. It
+            has been replaced by IncomingMessage#from_name).squish
+    from_name
+  end
+
+  def from_name
     parse_raw_email!
     super
   end
@@ -187,17 +193,21 @@ class IncomingMessage < ApplicationRecord
   #
   #   # Given a CensorRule that redacts the word 'Person':
   #
-  #   incoming_message.mail_from
+  #   incoming_message.from_name
   #   # => FOI Person
   #
-  #   incoming_message.safe_mail_from
+  #   incoming_message.safe_from_name
   #   # => FOI [REDACTED]
   #
   # Returns a String
   def safe_mail_from
-    if mail_from
-      info_request.apply_censor_rules_to_text(mail_from)
-    end
+    warn %q([DEPRECATION] IncomingMessage#safe_mail_from will be removed in
+            0.42. It has been replaced by IncomingMessage#safe_from_name).squish
+    safe_from_name
+  end
+
+  def safe_from_name
+    info_request.apply_censor_rules_to_text(from_name) if from_name
   end
 
   # Public: The display email of the email sender.
@@ -216,28 +226,35 @@ class IncomingMessage < ApplicationRecord
   end
 
   # Public: The domain part of the email address in the From header.
-  # #mail_from_domain overrides the ActiveRecord provided #mail_from_domain
+  # #from_email_domain overrides the ActiveRecord provided #from_email_domain
   #
   #   # From: John Doe <john@example.com>
-  #   incoming_message.mail_from_domain
+  #   incoming_message.from_email_domain
   #   # => 'example.com'
   #
   #   # No From header
-  #   incoming_message.mail_from_domain
+  #   incoming_message.from_email_domain
   #   # => ''
   #
   # Returns a String
   def mail_from_domain
+    warn %q([DEPRECATION] IncomingMessage#mail_from_domain will be removed in
+            0.42. It has been replaced by
+            IncomingMessage#from_email_domain).squish
+    from_email_domain
+  end
+
+  def from_email_domain
     parse_raw_email!
     super
   end
 
   def specific_from_name?
-    !safe_mail_from.nil? && safe_mail_from.strip != info_request.public_body.name.strip
+    !safe_from_name.nil? && safe_from_name.strip != info_request.public_body.name.strip
   end
 
   def from_public_body?
-    safe_mail_from.nil? || (mail_from_domain == info_request.public_body.request_email_domain)
+    safe_from_name.nil? || (from_email_domain == info_request.public_body.request_email_domain)
   end
 
   # This method updates the cached column of the InfoRequest that

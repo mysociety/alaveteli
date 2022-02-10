@@ -222,12 +222,12 @@ RSpec.describe OutgoingMessage do
 
     context 'when following up to an incoming message' do
 
-      it 'uses the safe_mail_from if the incoming message has a valid address' do
+      it 'uses the safe_from_name if the incoming message has a valid address' do
         message = FactoryBot.build(:internal_review_request)
 
         followup =
           mock_model(IncomingMessage, :from_email => 'specific@example.com',
-                                      :safe_mail_from => 'Specific Person',
+                                      :safe_from_name => 'Specific Person',
                                       :valid_to_reply_to? => true)
         allow(message).to receive(:incoming_message_followup).and_return(followup)
 
@@ -244,7 +244,7 @@ RSpec.describe OutgoingMessage do
 
         followup =
           mock_model(IncomingMessage, :from_email => 'invalid@example',
-                                      :safe_mail_from => 'Specific Person',
+                                      :safe_from_name => 'Specific Person',
                                       :valid_to_reply_to? => false)
         allow(message).to receive(:incoming_message_followup).and_return(followup)
 
@@ -780,7 +780,7 @@ RSpec.describe OutgoingMessage do
                                         title: 'A test title',
                                         public_body: public_body)
         incoming_message =
-          mock_model(IncomingMessage, :safe_mail_from => 'helpdesk',
+          mock_model(IncomingMessage, :safe_from_name => 'helpdesk',
                                       :valid_to_reply_to? => true)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',

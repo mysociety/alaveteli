@@ -330,7 +330,7 @@
         <%= link_to edit_admin_incoming_message_path(incoming_message) do %>
           <%=incoming_message.id%>
           --
-          <%= h(incoming_message.mail_from) %>
+          <%= h(incoming_message.from_name) %>
           at <%= admin_date(incoming_message.sent_at) %>
         <% end %>
         <blockquote class="incoming-message">

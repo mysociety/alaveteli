@@ -47,8 +47,8 @@ class OutgoingMailer < ApplicationMailer
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
       return info_request.recipient_name_and_email
     else
-      # calling safe_mail_from from so censor rules are run
-      return MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+      # calling safe_from_name from so censor rules are run
+      return MailHandler.address_from_name_and_email(incoming_message_followup.safe_from_name,
                                                      incoming_message_followup.from_email)
     end
   end
@@ -57,8 +57,8 @@ class OutgoingMailer < ApplicationMailer
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
       return info_request.public_body.name
     else
-      # calling safe_mail_from from so censor rules are run
-      return incoming_message_followup.safe_mail_from || info_request.public_body.name
+      # calling safe_from_name from so censor rules are run
+      return incoming_message_followup.safe_from_name || info_request.public_body.name
     end
   end
   # Used when making list of followup places to remove duplicates
