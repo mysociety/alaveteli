@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: incoming_messages
 #
@@ -19,6 +19,7 @@
 #  sent_at                        :datetime
 #  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
+#  from_email                     :text
 #
 
 # models/incoming_message.rb:
@@ -74,7 +75,6 @@ class IncomingMessage < ApplicationRecord
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
-  delegate :from_email, to: :raw_email
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
@@ -99,9 +99,10 @@ class IncomingMessage < ApplicationRecord
         self.sent_at = raw_email.date || created_at
         self.subject = raw_email.subject
         self.mail_from = raw_email.from_name
-        if from_email
+        self.from_email = raw_email.from_email || ''
+        if raw_email.from_email
           self.mail_from_domain =
-            PublicBody.extract_domain_from_email(from_email)
+            PublicBody.extract_domain_from_email(raw_email.from_email)
         else
           self.mail_from_domain = ""
         end
@@ -197,6 +198,21 @@ class IncomingMessage < ApplicationRecord
     if mail_from
       info_request.apply_censor_rules_to_text(mail_from)
     end
+  end
+
+  # Public: The display email of the email sender.
+  # #from_email overrides the ActiveRecord provided #from_email
+  #
+  # Examples:
+  #
+  #   # From: John Doe <john@example.com>
+  #   incoming_message.from_email
+  #   # => 'john@example,com'
+  #
+  # Returns a String
+  def from_email
+    parse_raw_email!
+    super
   end
 
   # Public: The domain part of the email address in the From header.

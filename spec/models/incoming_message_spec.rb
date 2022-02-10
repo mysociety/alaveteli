@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: incoming_messages
 #
@@ -19,6 +19,7 @@
 #  sent_at                        :datetime
 #  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
+#  from_email                     :text
 #
 
 require 'spec_helper'
@@ -117,6 +118,37 @@ RSpec.describe IncomingMessage do
                         :info_request => message.info_request)
 
       expect(message.safe_mail_from).to eq('FOI [REDACTED]')
+    end
+
+  end
+
+  describe '#from_email' do
+
+    it 'returns the email address in the From header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      From: FOI Person <authority@mail.example.com>
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryBot.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.from_email).to eq('authority@mail.example.com')
+    end
+
+    it 'returns an empty string if there is no From header' do
+      raw_email_data = <<-EOF.strip_heredoc
+      To: Jane Doe <request-magic-email@example.net>
+      Subject: A response
+      Hello, World
+      EOF
+
+      message = FactoryBot.create(:incoming_message)
+      message.raw_email.data = raw_email_data
+      message.parse_raw_email!(true)
+      expect(message.from_email).to eq('')
     end
 
   end
