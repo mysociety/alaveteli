@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Show who made each edit on public body admin pages (Gareth Rees)
 * Cap number of annotations a user can make in a day (Gareth Rees)
 * Add "select all" button for annotations on admin pages (Gareth Rees)
 * Add support `ActiveStorage` for raw emails (Graeme Porteous)

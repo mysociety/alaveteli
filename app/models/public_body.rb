@@ -217,6 +217,10 @@ class PublicBody < ApplicationRecord
       end
       changes
     end
+
+    def editor
+      User.find_by(url_name: last_edit_editor)
+    end
   end
 
   # Public: Search for Public Bodies whose name, short_name, request_email or

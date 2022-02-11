@@ -2453,4 +2453,18 @@ RSpec.describe PublicBody::Version do
 
   end
 
+  describe '#editor' do
+    subject { described_class.new(last_edit_editor: url_name).editor }
+
+    context 'when a user exists with the given last_edit_editor' do
+      let!(:user) { FactoryBot.create(:user, url_name: url_name) }
+      let(:url_name) { 'test_admin' }
+      it { is_expected.to eq(user) }
+    end
+
+    context 'when no user exists with the given last_edit_editor' do
+      let(:url_name) { 'no_user_with_this_url_name' }
+      it { is_expected.to be_nil }
+    end
+  end
 end

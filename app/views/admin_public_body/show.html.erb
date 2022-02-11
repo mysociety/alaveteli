@@ -81,18 +81,22 @@
       (<%= time_ago_in_words(version.updated_at) %> ago)
     </div>
 
-    <% if i == @versions.length - 1 %>
-      <div class="span6">
-        <p>“<%= h(version.last_edit_comment) %>”</p>
+    <div class="span6">
+      <p>
+        “<%= h(version.last_edit_comment) %>”
 
+        <% if version.editor %>
+          – <%= link_to version.editor.name, admin_user_path(version.editor) %>
+        <% else %>
+          – <%= version.last_edit_editor %>
+        <% end %>
+      </p>
+
+      <% if i == @versions.length - 1 %>
         <ul>
           <li>This is the first version.</li>
         </ul>
-      </div>
-    <% else %>
-      <div class="span6">
-        <p>“<%= h(version.last_edit_comment) %>”</p>
-
+      <% else %>
         <ul>
           <% version.compare(@versions[i+1]) do |change| %>
             <li>
@@ -102,8 +106,8 @@
             </li>
           <% end %>
         </ul>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 
