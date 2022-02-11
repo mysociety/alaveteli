@@ -1,6 +1,6 @@
 <% @title = "Public authority – #{ @public_body.name }" %>
 
-<h1><%=@title%></h1>
+<h1><%= @title %></h1>
 
 <table class="table table-striped table-condensed">
   <tbody>
@@ -10,6 +10,7 @@
           <td>
             <b><%=name%></b>
           </td>
+
           <td>
             <% if ['home_page', 'publication_scheme', 'disclosure_log'].include? column_name %>
               <% if value %>
@@ -27,10 +28,12 @@
         </tr>
       <% end %>
     <% end %>
+
     <tr>
       <td>
         <b>Calculated home page</b>
       </td>
+
       <td>
         <% unless @public_body.calculated_home_page.nil? %>
           <%= link_to(h(@public_body.calculated_home_page), @public_body.calculated_home_page) %>
@@ -39,10 +42,12 @@
         <% end %>
       </td>
     </tr>
+
     <tr>
       <td>
         <b>Tags</b>
       </td>
+
       <td>
         <%= render_tags @public_body.tags,
                         search_target: list_public_bodies_path %>
@@ -50,28 +55,36 @@
     </tr>
   </tbody>
 </table>
+
 <%= link_to 'Edit', edit_admin_body_path(@public_body), class: 'btn btn-primary' %>
+
 <% unless @public_body.url_name.nil? %>
   <%= link_to 'Public page', public_body_path(@public_body), class: 'btn' %>
 <% else %>
   Public page not available
 <% end %>
+
 <hr>
+
 <h2>History</h2>
-  <% @versions.each_with_index do |version, i| %>
+
+<% @versions.each_with_index do |version, i| %>
   <div class="row">
     <div class="span2">
       <b>
         <%= "Version #{ version.version }" %>
       </b>
     </div>
+
     <div class="span4">
       <%= version.updated_at.to_s(:db) %>
       (<%= time_ago_in_words(version.updated_at) %> ago)
     </div>
+
     <% if i == @versions.length - 1 %>
       <div class="span6">
         <p>“<%= h(version.last_edit_comment) %>”</p>
+
         <ul>
           <li>This is the first version.</li>
         </ul>
@@ -79,6 +92,7 @@
     <% else %>
       <div class="span6">
         <p>“<%= h(version.last_edit_comment) %>”</p>
+
         <ul>
           <% version.compare(@versions[i+1]) do |change| %>
             <li>
@@ -92,16 +106,21 @@
     <% end %>
   </div>
 <% end %>
+
 <hr>
+
 <h2>Requests</h2>
+
 <%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @info_requests } %>
 
 <hr>
 
 <h2>Track things</h2>
+
 <%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @public_body.track_things, :include_destroy => true } %>
 
 <hr>
 
 <h2>Censor rules</h2>
+
 <%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @public_body.censor_rules, :public_body => @public_body } %>
