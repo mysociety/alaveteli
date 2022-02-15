@@ -1,8 +1,6 @@
 class AlaveteliLocalization
   class Railtie < Rails::Railtie
     config.before_configuration do
-      require 'rails_i18n/common_pluralizations/one_other'
-
       require 'alaveteli_localization/locale'
       require 'alaveteli_localization/hyphenated_locale'
       require 'alaveteli_localization/underscorred_locale'
