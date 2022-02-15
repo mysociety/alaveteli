@@ -109,8 +109,8 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    annotate (3.1.0)
-      activerecord (>= 3.2, < 7.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
@@ -509,7 +509,7 @@ DEPENDENCIES
   active_model_otp
   acts_as_versioned!
   alaveteli_features!
-  annotate (< 3.1.1)
+  annotate (< 3.2.1)
   aws-sdk-s3
   azure-storage
   bcrypt (~> 3.1.16)
