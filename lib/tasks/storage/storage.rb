@@ -41,6 +41,7 @@ class Storage
 
   def mirror
     return puts(not_a_mirror) unless mirror_service?
+    return puts(mirror_primary_not_disk_service) unless disk_service?
 
     count = mirrorable_blobs.count
     puts unless count.zero?
@@ -53,12 +54,13 @@ class Storage
     end
 
     erase_line
-    puts "#{prefix}: Mirrored from #{primary_service.name} to " \
+    puts "#{prefix}: Mirrored from #{disk_service.name} to " \
          "#{secondary_service.name} completed."
   end
 
   def promote
     return puts(not_a_mirror) unless mirror_service?
+    return puts(mirror_primary_not_disk_service) unless disk_service?
 
     count = promotable_blobs.count
     puts unless count.zero?
@@ -72,27 +74,28 @@ class Storage
     end
 
     erase_line
-    puts "#{prefix}: Promoted blobs in #{primary_service.name} to " \
+    puts "#{prefix}: Promoted blobs in #{disk_service.name} to " \
          "#{secondary_service.name} completed."
   end
 
   def unlink
     return puts(not_a_mirror) unless mirror_service?
+    return puts(mirror_primary_not_disk_service) unless disk_service?
 
     count = secondary_blobs.count
     puts unless count.zero?
 
     secondary_blobs.find_each.with_index do |blob, index|
-      next unless primary_service.exist?(blob.key)
+      next unless disk_service.exist?(blob.key)
 
-      primary_service.delete(blob.key)
+      disk_service.delete(blob.key)
 
       erase_line
       puts "#{prefix}: Unlink #{index + 1}/#{count}"
     end
 
     erase_line
-    puts "#{prefix}: Unlinked files in #{primary_service.name} completed."
+    puts "#{prefix}: Unlinked files in #{disk_service.name} completed."
   end
 
   private
@@ -149,8 +152,18 @@ class Storage
     "correct."
   end
 
-  def primary_service
+  def mirror_primary_not_disk_service
+    "#{prefix}: Mirror primary service is not a disk service, ensure " \
+    "config/storage.yml is correct."
+  end
+
+  def disk_service
+    raise mirror_primary_not_disk_service unless disk_service?
     mirror_service.primary
+  end
+
+  def disk_service?
+    mirror_service.primary.is_a?(ActiveStorage::Service::DiskService)
   end
 
   def secondary_service
