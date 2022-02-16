@@ -623,18 +623,16 @@ class User < ApplicationRecord
   end
 
   def set_defaults
-    if new_record?
-      # make alert emails go out at a random time for each new user, so
-      # overall they are spread out throughout the day.
-      self.last_daily_track_email = User.random_time_in_last_day
-      # Make daily summary emails go out at a random time for each new user
-      # too, if it's not already set
-      if self.daily_summary_hour.nil? && self.daily_summary_minute.nil?
-        random_time = User.random_time_in_last_day
-        self.daily_summary_hour = random_time.hour
-        self.daily_summary_minute = random_time.min
-      end
-    end
+    return unless new_record?
+
+    # make alert emails go out at a random time for each new user, so
+    # overall they are spread out throughout the day.
+    self.last_daily_track_email = self.class.random_time_in_last_day
+
+    # Make daily summary emails go out at a random time for each new user
+    # too, if it's not already set
+    self.daily_summary_hour ||= self.class.random_time_in_last_day.hour
+    self.daily_summary_minute ||= self.class.random_time_in_last_day.min
   end
 
   def email_and_name_are_valid
