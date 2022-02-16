@@ -205,20 +205,17 @@ class User < ApplicationRecord
 
   # The "internal admin" is a special user for internal use.
   def self.internal_admin_user
-    user = User.find_by_email(AlaveteliConfiguration.contact_email)
+    user = find_by(email: AlaveteliConfiguration.contact_email)
+    return user if user
 
-    if user.nil?
-      password = PostRedirect.generate_random_token
-      user = User.new(
-        name: 'Internal admin user',
-        email: AlaveteliConfiguration.contact_email,
-        password: password,
-        password_confirmation: password
-      )
-      user.save!
-    end
+    password = PostRedirect.generate_random_token
 
-    user
+    create!(
+      name: 'Internal admin user',
+      email: AlaveteliConfiguration.contact_email,
+      password: password,
+      password_confirmation: password
+    )
   end
 
   def self.owns_every_request?(user)
