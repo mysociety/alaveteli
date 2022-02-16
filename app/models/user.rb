@@ -368,10 +368,9 @@ class User < ApplicationRecord
   # Returns list of requests which the user hasn't described (and last
   # changed more than a day ago)
   def get_undescribed_requests
-    info_requests.where(
-      "awaiting_description = ? and #{ InfoRequest.last_event_time_clause } < ?",
-      true, 1.day.ago
-    )
+    info_requests.
+      where(awaiting_description: true).
+      where("#{ InfoRequest.last_event_time_clause } < ?", 1.day.ago)
   end
 
   # Does the user magically gain powers as if they owned every request?
