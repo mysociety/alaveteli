@@ -395,9 +395,8 @@ class User < ApplicationRecord
     is_admin?
   end
 
-  # Is it public that they are banned?
   def banned?
-    !ban_text.empty?
+    ban_text.present?
   end
 
   def closed?
