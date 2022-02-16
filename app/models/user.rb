@@ -46,122 +46,121 @@ class User < ApplicationRecord
   include User::Survey
 
   rolify before_add: :setup_pro_account
-  strip_attributes :allow_empty => true
+  strip_attributes allow_empty: true
 
   attr_accessor :no_xapian_reindex
 
   has_many :info_requests,
            -> { order('info_requests.created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :info_request_events,
            -> { reorder('created_at desc') },
-           :through => :info_requests
+           through: :info_requests
   has_many :embargoes,
-           :inverse_of => :user,
-           :through => :info_requests
+           inverse_of: :user,
+           through: :info_requests
   has_many :draft_info_requests,
            -> { order('created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :user_info_request_sent_alerts,
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :post_redirects,
            -> { order('created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :track_things,
            -> { order('created_at desc') },
-           :inverse_of => :tracking_user,
-           :foreign_key => 'tracking_user_id',
-           :dependent => :destroy
+           inverse_of: :tracking_user,
+           foreign_key: 'tracking_user_id',
+           dependent: :destroy
   has_many :citations,
            -> { order('created_at desc') },
            inverse_of: :user,
            dependent: :destroy
   has_many :comments,
            -> { order('created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :public_body_change_requests,
            -> { order('created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_one :profile_photo,
-          :inverse_of => :user,
-          :dependent => :destroy
+          inverse_of: :user,
+          dependent: :destroy
   has_many :censor_rules,
            -> { order('created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :info_request_batches,
            -> { order('created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :draft_info_request_batches,
            -> { order('created_at desc') },
-           :inverse_of => :user,
-           :dependent => :destroy,
-           :class_name => 'AlaveteliPro::DraftInfoRequestBatch'
+           inverse_of: :user,
+           dependent: :destroy,
+           class_name: 'AlaveteliPro::DraftInfoRequestBatch'
   has_many :request_classifications,
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_one :pro_account,
-          :inverse_of => :user,
-          :dependent => :destroy
+          inverse_of: :user,
+          dependent: :destroy
   has_many :request_summaries,
-           :inverse_of => :user,
-           :dependent => :destroy,
-           :class_name => 'AlaveteliPro::RequestSummary'
+           inverse_of: :user,
+           dependent: :destroy,
+           class_name: 'AlaveteliPro::RequestSummary'
   has_many :notifications,
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :track_things_sent_emails,
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :track_things_sent_emails,
-           :dependent => :destroy
+           dependent: :destroy
   has_many :announcements,
-           :inverse_of => :user
+           inverse_of: :user
   has_many :announcement_dismissals,
-           :inverse_of => :user,
-           :dependent => :destroy
+           inverse_of: :user,
+           dependent: :destroy
   has_many :memberships, class_name: 'Project::Membership'
   has_many :projects, through: :memberships
 
   scope :active, -> { not_banned.not_closed }
-  scope :banned, -> { where.not(ban_text: "") }
-  scope :not_banned, -> { where(ban_text: "") }
+  scope :banned, -> { where.not(ban_text: '') }
+  scope :not_banned, -> { where(ban_text: '') }
   scope :closed, -> { where.not(closed_at: nil) }
   scope :not_closed, -> { where(closed_at: nil) }
 
-  validates_presence_of :email, :message => _("Please enter your email address")
-  validates_presence_of :name, :message => _("Please enter your name")
+  validates_presence_of :email, message: _('Please enter your email address')
+  validates_presence_of :name, message: _('Please enter your name')
 
   validates_length_of :about_me,
-    :maximum => 500,
-    :message => _("Please keep it shorter than 500 characters")
+                      maximum: 500,
+                      message: _('Please keep it shorter than 500 characters')
 
-  validates :email, :uniqueness => {
-                      :case_sensitive => false,
-                      :message => _("This email is already in use") }
+  validates :email,
+            uniqueness: { case_sensitive: false,
+                          message: _('This email is already in use') }
 
   validate :email_and_name_are_valid
 
   after_initialize :set_defaults
   after_update :reindex_referencing_models, :update_pro_account
 
-  acts_as_xapian :texts => [ :name, :about_me ],
-    :values => [
-      [ :created_at_numeric, 1, "created_at", :number ] # for sorting
-  ],
-  :terms => [ [ :variety, 'V', "variety" ] ],
-  :if => :indexed_by_search?
-
+  acts_as_xapian texts: [:name, :about_me],
+                 values: [
+                   [:created_at_numeric, 1, 'created_at', :number] # for sorting
+                 ],
+                 terms: [[:variety, 'V', 'variety']],
+                 if: :indexed_by_search?
 
   def self.pro
-    with_role :pro
+    with_role(:pro)
   end
 
   # Return user given login email, password and other form parameters (e.g. name)
@@ -206,14 +205,15 @@ class User < ApplicationRecord
 
   # The "internal admin" is a special user for internal use.
   def self.internal_admin_user
-    user = User.find_by_email(AlaveteliConfiguration::contact_email)
+    user = User.find_by_email(AlaveteliConfiguration.contact_email)
+
     if user.nil?
       password = PostRedirect.generate_random_token
       user = User.new(
-        :name => 'Internal admin user',
-        :email => AlaveteliConfiguration.contact_email,
-        :password => password,
-        :password_confirmation => password
+        name: 'Internal admin user',
+        email: AlaveteliConfiguration.contact_email,
+        password: password,
+        password_confirmation: password
       )
       user.save!
     end
@@ -280,7 +280,7 @@ class User < ApplicationRecord
     return false if user.nil?
 
     user.record_bounce(message) if user.email_bounced_at.nil?
-    return true
+    true
   end
 
   def self.find_similar_named_users(user)
@@ -312,7 +312,7 @@ class User < ApplicationRecord
   end
 
   def variety
-    "user"
+    'user'
   end
 
   # requested_by: and commented_by: search queries also need updating after save
@@ -339,7 +339,7 @@ class User < ApplicationRecord
   def name
     _name = read_attribute(:name)
     if suspended?
-      _name = _("{{user_name}} (Account suspended)", :user_name => _name)
+      _name = _('{{user_name}} (Account suspended)', user_name: _name)
     end
     _name
   end
@@ -384,7 +384,10 @@ class User < ApplicationRecord
   end
 
   def can_admin_roles
-    roles.flat_map { |role| Role.grants_and_revokes(role.name.to_sym) }.compact.uniq
+    roles.
+      flat_map { |role| Role.grants_and_revokes(role.name.to_sym) }.
+      compact.
+      uniq
   end
 
   def can_admin_role?(role)
@@ -485,10 +488,10 @@ class User < ApplicationRecord
     elsif closed?
       text = _('Account closed at user request')
     else
-      raise "Unknown reason for ban"
+      raise 'Unknown reason for ban'
     end
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, :contract => 1)
+    text = MySociety::Format.make_clickable(text, contract: 1)
     text = text.gsub(/\n/, '<br>')
     text.html_safe
   end
@@ -513,7 +516,7 @@ class User < ApplicationRecord
 
   def about_me_already_exists?
     return false if about_me.blank?
-    self.class.where(:about_me => about_me).where.not(id: id).any?
+    self.class.where(about_me: about_me).where.not(id: id).any?
   end
 
   # Return about me text for display as HTML
@@ -521,18 +524,18 @@ class User < ApplicationRecord
   def get_about_me_for_html_display
     text = about_me.strip
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
+    text = MySociety::Format.make_clickable(text, contract: 1, nofollow: true)
     text = text.gsub(/\n/, '<br>')
     text.html_safe
   end
 
   def json_for_api
     {
-      :id => id,
-      :url_name => url_name,
-      :name => name,
-      :ban_text => ban_text,
-      :about_me => about_me,
+      id: id,
+      url_name: url_name,
+      name: name,
+      ban_text: ban_text,
+      about_me: about_me
       # :profile_photo => self.profile_photo # ought to have this, but too hard to get URL out for now
       # created_at / updated_at we only show the year on the main page for privacy reasons, so don't put here
     }
@@ -593,10 +596,8 @@ class User < ApplicationRecord
   end
 
   def daily_summary_time
-    {
-      hour: self.daily_summary_hour,
-      min: self.daily_summary_minute
-    }
+    { hour: daily_summary_hour,
+      min: daily_summary_minute }
   end
 
   # With what frequency does the user want to be notified?
@@ -614,7 +615,7 @@ class User < ApplicationRecord
   # the same table. See:
   # https://github.com/jnunemaker/flipper/blob/master/docs/Gates.md
   def flipper_id
-    return "User;#{id}"
+    "User;#{id}"
   end
 
   private
@@ -659,5 +660,4 @@ class User < ApplicationRecord
   def update_pro_account
     pro_account.update_stripe_customer if pro_account
   end
-
 end
