@@ -246,7 +246,7 @@ class User < ApplicationRecord
   # Should the user be kept logged into their own account
   # if they follow a /c/ redirect link belonging to another user?
   def self.stay_logged_in_on_redirect?(user)
-    !user.nil? && user.is_admin?
+    user&.is_admin?
   end
 
   # Used for default values of last_daily_track_email

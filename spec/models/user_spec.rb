@@ -633,7 +633,7 @@ RSpec.describe User do
   describe '.stay_logged_in_on_redirect?' do
 
     it 'is false if the user is nil' do
-      expect(User.stay_logged_in_on_redirect?(nil)).to eq(false)
+      expect(User.stay_logged_in_on_redirect?(nil)).to be_falsey
     end
 
     it 'is true if the user is an admin' do
