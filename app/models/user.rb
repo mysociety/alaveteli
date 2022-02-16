@@ -537,9 +537,10 @@ class User < ApplicationRecord
   end
 
   def record_bounce(message)
-    self.email_bounced_at = Time.zone.now
-    self.email_bounce_message = convert_string_to_utf8(message).string
-    save!
+    update!(
+      email_bounced_at: Time.zone.now,
+      email_bounce_message: convert_string_to_utf8(message).string
+    )
   end
 
   def confirm(save_record = false)
