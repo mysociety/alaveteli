@@ -15,6 +15,7 @@ Definitions
 -----------
 
 <ul class="definitions">
+  <li><a href="#activestorage">Active Storage</a></li>
   <li><a href="#admin">admin</a></li>
   <li><a href="#admin_interface">admin interface</a></li>
   <li><a href="#advanced-search">advanced search</a></li>
@@ -63,6 +64,16 @@ Definitions
 
 
 <dl class="glossary">
+  <dt>
+    <a name="activestorage">Active Storage</a>
+  </dt>
+  <dd>
+    A component of <a href="#rails" class="glossary__link">Rails</a> which
+    facilitates uploading files to a cloud storage service. It comes with a
+    local disk-based service for development and testing and supports mirroring
+    files to subordinate services for backups and migrations.
+  </dd>
+
   <dt>
     <a name="admin">admin</a> (also: administrator)
   </dt>
