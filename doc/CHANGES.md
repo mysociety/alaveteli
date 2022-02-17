@@ -34,7 +34,8 @@
   switch to `ActiveStorage` now by copying `config/storage.yml-example` to
   `config/storage.yml`. This will use an on disk store as previously, but also
   adds the option to use a cloud backed storage providers. Edit the
-  configuration if you wish to migrate to cloud storage.
+  configuration if you wish to migrate to cloud storage. See
+  https://alaveteli.org/docs/installing/storage
 * Once configured run `bin/rails storage:migrate` to migrate your files. This
   can happen in the background while the application is running but must be
   carried out before upgrading to release 0.42.

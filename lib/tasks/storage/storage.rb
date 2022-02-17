@@ -149,12 +149,14 @@ class Storage
 
   def not_a_mirror
     "#{prefix}: Not using the mirror service, ensure config/storage.yml is " \
-    "correct."
+    "correct. See: " \
+    "https://alaveteli.org/docs/installing/storage/#mirrored-services"
   end
 
   def mirror_primary_not_disk_service
     "#{prefix}: Mirror primary service is not a disk service, ensure " \
-    "config/storage.yml is correct."
+    "config/storage.yml is correct. See: " \
+    "https://alaveteli.org/docs/installing/storage/#mirrored-services"
   end
 
   def disk_service
