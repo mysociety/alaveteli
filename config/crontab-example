@@ -37,7 +37,7 @@ MAILTO=<%= mailto %>
 45 3 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/stop-new-responses-on-old-requests.lock <%= vhost_dir %>/<%= vcspath %>/script/stop-new-responses-on-old-requests || echo "stalled?"
 55 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/update-public-body-stats.lock <%= vhost_dir %>/<%= vcspath %>/script/update-public-body-stats || echo "stalled?"
 0 6 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/send-webhook-digest.lock <%= vhost_dir %>/<%= vcspath %>/script/send-webhook-digest || echo "stalled?"
-30 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/storage-raw-emails.lock <%= vhost_dir %>/<%= vcspath %>/bin/rails storage:raw_emails:mirror storage:raw_emails:promote storage:raw_emails:unlink || echo "stalled?"
+30 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/storage-raw-emails.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails storage:raw_emails:mirror storage:raw_emails:promote storage:raw_emails:unlink" || echo "stalled?"
 
 # Once a day on all servers
 43 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/request-creation-graph
