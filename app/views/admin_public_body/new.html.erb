@@ -20,6 +20,11 @@
     </div>
   </div>
   <div class="span4">
+    <% if @change_request %>
+      <h3>Change Request</h3>
+      <%= render partial: 'admin_general/change_request_summary' %>
+    <% end %>
+
     <% if @public_body.ordered_translations.many? %>
       <div class="alert alert-info">
         <i class="icon-info-sign"></i>
