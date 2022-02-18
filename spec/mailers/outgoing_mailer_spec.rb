@@ -9,7 +9,7 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
     allow(@info_request).to receive_message_chain(:public_body, :name).and_return("Test Authority")
     @incoming_message = mock_model(IncomingMessage,
                                    :from_email => 'specific@example.com',
-                                   :safe_mail_from => 'Specific Person')
+                                   :safe_from_name => 'Specific Person')
   end
 
   describe 'if there is no incoming message being replied to' do
@@ -49,7 +49,7 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
 
     it 'should return the name of the public body if the incoming message does not have
             a safe name' do
-      allow(@incoming_message).to receive(:safe_mail_from).and_return(nil)
+      allow(@incoming_message).to receive(:safe_from_name).and_return(nil)
       expect(OutgoingMailer.name_for_followup(@info_request, @incoming_message)).to eq('Test Authority')
     end
 

@@ -1446,7 +1446,7 @@ class InfoRequest < ApplicationRecord
       if incoming_message == skip_message
         next
       end
-      incoming_message.safe_mail_from
+      incoming_message.safe_from_name
 
       next if ! incoming_message.is_public?
 

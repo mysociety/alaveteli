@@ -2,7 +2,7 @@
   <div class="correspondence__header">
     <span class="correspondence__header__author js-collapsable-trigger">
       <% if incoming_message.specific_from_name? %>
-        <%= incoming_message.safe_mail_from %>,
+        <%= incoming_message.safe_from_name %>,
       <% end %>
       <% if incoming_message.from_public_body? %>
         <%= @info_request.public_body.name %>
