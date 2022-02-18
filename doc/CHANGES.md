@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Show public body change request notes in the admin summary (Gareth Rees)
 * Link to Public Body Change Request source URLs in admin interface (Gareth
   Rees)
 * Improve comment metadata on comment edit page (Gareth Rees)
