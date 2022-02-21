@@ -1736,6 +1736,27 @@ RSpec.describe User do
     end
   end
 
+  describe '#can_file_requests?' do
+    subject { user.can_file_requests? }
+
+    context 'in ordinary circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is inactive' do
+      let(:user) { FactoryBot.build(:user) }
+      before { allow(user).to receive(:active?).and_return(false) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+      before { allow(user).to receive(:exceeded_limit?).and_return(true) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#can_make_comments?' do
     subject { user.can_make_comments? }
 
