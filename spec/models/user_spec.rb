@@ -1758,6 +1758,13 @@ RSpec.describe User do
       expect(user.exceeded_limit?).to eq(true)
     end
 
+    it 'returns false if the user has no limit' do
+      user.no_limit = true
+      allow(AlaveteliConfiguration).
+        to receive(:max_requests_per_user_per_day).and_return(0)
+      expect(user.exceeded_limit?).to eq(false)
+    end
+
     it 'returns false if the user is allowed to make batch requests' do
       user.can_make_batch_requests = true
       allow(AlaveteliConfiguration).
