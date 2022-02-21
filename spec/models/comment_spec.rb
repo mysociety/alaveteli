@@ -216,6 +216,28 @@ RSpec.describe Comment do
 
   end
 
+  describe '#hide' do
+    subject { comment.hide(editor: editor) }
+
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:editor) { FactoryBot.create(:user, :admin) }
+
+    it 'hides the comment' do
+      subject
+      expect(comment).not_to be_visible
+    end
+
+    it 'logs an event on the request' do
+      subject
+      event = comment.info_request.last_event
+      expect(event.event_type).to eq('hide_comment')
+      expect(event.params[:comment_id]).to eq(comment.id)
+      expect(event.params[:editor]).to eq(editor.url_name)
+      expect(event.params[:old_visible]).to eq(true)
+      expect(event.params[:visible]).to eq(false)
+    end
+  end
+
   describe 'for_admin_event_column' do
 
     let(:comment) { FactoryBot.create(:comment) }
