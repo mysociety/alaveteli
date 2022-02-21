@@ -546,37 +546,6 @@ RSpec.describe User, "when emails have bounced" do
 
 end
 
-RSpec.describe User, "when calculating if a user has exceeded the request limit" do
-
-  before do
-    @info_request = FactoryBot.create(:info_request)
-    @user = @info_request.user
-  end
-
-  it 'should return false if no request limit is set' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return nil
-    expect(@user.exceeded_limit?).to be false
-  end
-
-  it 'should return false if the user has not submitted more than the limit' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(2)
-    expect(@user.exceeded_limit?).to be false
-  end
-
-  it 'should return true if the user has submitted more than the limit' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
-    expect(@user.exceeded_limit?).to be true
-  end
-
-  it 'should return false if the user is allowed to make batch requests' do
-    @user.can_make_batch_requests = true
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
-    expect(@user.exceeded_limit?).to be false
-  end
-
-
-end
-
 RSpec.describe User do
 
   describe '.authenticate_from_form' do
@@ -1767,4 +1736,32 @@ RSpec.describe User do
     end
   end
 
+  describe '#exceeded_limit?' do
+
+    before do
+      @info_request = FactoryBot.create(:info_request)
+      @user = @info_request.user
+    end
+
+    it 'should return false if no request limit is set' do
+      allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return nil
+      expect(@user.exceeded_limit?).to be false
+    end
+
+    it 'should return false if the user has not submitted more than the limit' do
+      allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(2)
+      expect(@user.exceeded_limit?).to be false
+    end
+
+    it 'should return true if the user has submitted more than the limit' do
+      allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
+      expect(@user.exceeded_limit?).to be true
+    end
+
+    it 'should return false if the user is allowed to make batch requests' do
+      @user.can_make_batch_requests = true
+      allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
+      expect(@user.exceeded_limit?).to be false
+    end
+  end
 end
