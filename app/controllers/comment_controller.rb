@@ -5,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CommentController < ApplicationController
+  before_action :build_comment, only: [:new]
   before_action :check_read_only, :only => [ :new ]
   before_action :find_info_request, :only => [ :new ]
   before_action :create_track_thing, :only => [ :new ]
@@ -13,10 +14,6 @@ class CommentController < ApplicationController
   before_action :set_in_pro_area, :only => [ :new ]
 
   def new
-    if params[:comment]
-      @comment = Comment.new(comment_params.merge({ :user => @user }))
-    end
-
     if params[:comment]
       # TODO: this check should theoretically be a validation rule in the model
       @existing_comment = Comment.find_existing(@info_request.id, params[:comment][:body])
@@ -81,6 +78,12 @@ class CommentController < ApplicationController
   end
 
   private
+
+  def build_comment
+    if params[:comment]
+      @comment = Comment.new(comment_params.merge(user: @user))
+    end
+  end
 
   def comment_params
     params.require(:comment).permit(:body)

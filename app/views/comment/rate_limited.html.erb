@@ -16,3 +16,14 @@
         "please <a href='{{help_contact_path}}'>get in touch</a>.",
         help_contact_path: help_contact_path) %>
 </p>
+
+<% if @comment %>
+  <p>
+    <%= _('Here is the message you wrote, in case you would like to copy ' \
+          'the text and save it for later.') %>
+  </p>
+
+  <div class="comment_in_request box">
+    <div class="comment_content"><%= @comment.get_body_for_html_display %></div>
+  </div>
+<% end %>
