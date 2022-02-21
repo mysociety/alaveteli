@@ -1736,6 +1736,21 @@ RSpec.describe User do
     end
   end
 
+  describe '#can_make_comments?' do
+    subject { user.can_make_comments? }
+
+    context 'in ordinary circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is inactive' do
+      let(:user) { FactoryBot.build(:user) }
+      before { allow(user).to receive(:active?).and_return(false) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#exceeded_limit?' do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:user) { info_request.user }
