@@ -90,3 +90,30 @@
   });
 
 }).call(this);
+
+$(function() {
+  $('.select_all').click(function (event) {
+    var selectables = $("input[name='" + $(this).data('target') + "']");
+    var state = $(this).data('state');
+
+    if (state == "unchecked") {
+      selectables.each(function () {
+        $(this).prop('checked', true);
+      });
+
+      $(this).data('state', 'checked');
+      $(this).text("Deselect all");
+      return false;
+    } else {
+      selectables.each(function () {
+        $(this).prop('checked', false);
+      });
+
+      $(this).data('state', 'unchecked');
+      $(this).text("Select all");
+      return false;
+    }
+  });
+
+  return false;
+});

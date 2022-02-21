@@ -54,7 +54,9 @@
 
     <%= submit_tag 'Hide selected', :name => 'hide_selected' %>
     <%= submit_tag 'Unhide selected', :name => 'unhide_selected' %>
-
+    <a href="#" class="select_all" data-state="unchecked" data-target="comment_ids[]">
+      Select all
+    </a>
   <% end %>
 <% else %>
   <p>None yet.</p>
