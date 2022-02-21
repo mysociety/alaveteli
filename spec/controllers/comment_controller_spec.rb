@@ -203,6 +203,23 @@ RSpec.describe CommentController, "when commenting on a request" do
     expect(response).to render_template('user/banned')
   end
 
+  it 'prevents comments from users who have reached their rate limit' do
+    allow_any_instance_of(User).
+      to receive(:exceeded_limit?).with(:comments).and_return(true)
+
+    sign_in FactoryBot.create(:user)
+
+    post :new, params: {
+      url_title: FactoryBot.create(:info_request).url_title,
+      comment: { body: 'Rate limited comment' },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
+
+    expect(response).to render_template('comment/rate_limited')
+  end
+
   describe 'when handling a comment that looks like spam' do
 
     let(:user) { FactoryBot.create(:user,

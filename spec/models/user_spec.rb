@@ -1775,6 +1775,17 @@ RSpec.describe User do
       before { allow(user).to receive(:active?).and_return(false) }
       it { is_expected.to eq(false) }
     end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:comments).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
   end
 
   describe '#exceeded_limit?' do
@@ -1812,6 +1823,21 @@ RSpec.describe User do
     context 'limiting info_requests' do
       let(:content) { :info_requests }
       before { FactoryBot.create(:info_request, user: user) }
+
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
+        expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
+      end
+    end
+
+    context 'limiting comments' do
+      let(:content) { :comments }
+      before { FactoryBot.create(:comment, user: user) }
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)

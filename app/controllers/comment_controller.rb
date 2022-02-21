@@ -116,8 +116,12 @@ class CommentController < ApplicationController
   def reject_if_user_banned
     return unless authenticated? && !authenticated_user.can_make_comments?
 
-    @details = authenticated_user.can_fail_html
-    render template: 'user/banned'
+    if authenticated_user.exceeded_limit?(:comments)
+      render template: 'comment/rate_limited'
+    else
+      @details = authenticated_user.can_fail_html
+      render template: 'user/banned'
+    end
   end
 
   # An override of ApplicationController#set_in_pro_area to set the flag

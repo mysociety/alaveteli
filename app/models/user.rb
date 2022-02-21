@@ -46,7 +46,8 @@ class User < ApplicationRecord
   include User::Survey
 
   CONTENT_LIMIT = {
-    info_requests: AlaveteliConfiguration.max_requests_per_user_per_day
+    info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,
+    comments: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
   rolify before_add: :setup_pro_account
@@ -441,7 +442,7 @@ class User < ApplicationRecord
   end
 
   def can_make_comments?
-    active?
+    active? && !exceeded_limit?(:comments)
   end
 
   def can_contact_other_users?
