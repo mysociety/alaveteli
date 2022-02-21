@@ -1714,7 +1714,8 @@ RSpec.describe RequestController, "when making a new request" do
 
   it "should fail if user is banned" do
     allow(@user).to receive(:can_file_requests?).and_return(false)
-    allow(@user).to receive(:exceeded_limit?).and_return(false)
+    allow(@user).
+      to receive(:exceeded_limit?).with(:info_requests).and_return(false)
     expect(@user).to receive(:can_fail_html).and_return('FAIL!')
     sign_in @user
     get :new, params: { :public_body_id => @body.id }

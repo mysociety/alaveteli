@@ -546,37 +546,6 @@ RSpec.describe User, "when emails have bounced" do
 
 end
 
-RSpec.describe User, "when calculating if a user has exceeded the request limit" do
-
-  before do
-    @info_request = FactoryBot.create(:info_request)
-    @user = @info_request.user
-  end
-
-  it 'should return false if no request limit is set' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return nil
-    expect(@user.exceeded_limit?).to be false
-  end
-
-  it 'should return false if the user has not submitted more than the limit' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(2)
-    expect(@user.exceeded_limit?).to be false
-  end
-
-  it 'should return true if the user has submitted more than the limit' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
-    expect(@user.exceeded_limit?).to be true
-  end
-
-  it 'should return false if the user is allowed to make batch requests' do
-    @user.can_make_batch_requests = true
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
-    expect(@user.exceeded_limit?).to be false
-  end
-
-
-end
-
 RSpec.describe User do
 
   describe '.authenticate_from_form' do
@@ -1767,4 +1736,118 @@ RSpec.describe User do
     end
   end
 
+  describe '#can_file_requests?' do
+    subject { user.can_file_requests? }
+
+    context 'in ordinary circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is inactive' do
+      let(:user) { FactoryBot.build(:user) }
+      before { allow(user).to receive(:active?).and_return(false) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:info_requests).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#can_make_comments?' do
+    subject { user.can_make_comments? }
+
+    context 'in ordinary circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is inactive' do
+      let(:user) { FactoryBot.build(:user) }
+      before { allow(user).to receive(:active?).and_return(false) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:comments).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#exceeded_limit?' do
+    subject { user.exceeded_limit?(content) }
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:content) { :stub_class }
+
+    context 'no limit is set' do
+      before do
+        allow(user).to receive(:content_limit).with(content).and_return(nil)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the user has no limit' do
+      before do
+        user.no_limit = true
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the user can make batch requests' do
+      before do
+        user.can_make_batch_requests = true
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'limiting info_requests' do
+      let(:content) { :info_requests }
+      before { FactoryBot.create(:info_request, user: user) }
+
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
+        expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
+      end
+    end
+
+    context 'limiting comments' do
+      let(:content) { :comments }
+      before { FactoryBot.create(:comment, user: user) }
+
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
+        expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
+      end
+    end
+  end
 end
