@@ -1752,7 +1752,12 @@ RSpec.describe User do
 
     context 'when the user has reached their rate limit' do
       let(:user) { FactoryBot.build(:user) }
-      before { allow(user).to receive(:exceeded_limit?).and_return(true) }
+
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:info_requests).and_return(true)
+      end
+
       it { is_expected.to eq(false) }
     end
   end
@@ -1773,39 +1778,50 @@ RSpec.describe User do
   end
 
   describe '#exceeded_limit?' do
-    let(:info_request) { FactoryBot.create(:info_request) }
-    let(:user) { info_request.user }
+    subject { user.exceeded_limit?(content) }
 
-    it 'returns false if no request limit is set' do
-      allow(AlaveteliConfiguration).
-        to receive(:max_requests_per_user_per_day).and_return(nil)
-      expect(user.exceeded_limit?).to eq(false)
+    let(:user) { FactoryBot.create(:user) }
+    let(:content) { :stub_class }
+
+    context 'no limit is set' do
+      before do
+        allow(user).to receive(:content_limit).with(content).and_return(nil)
+      end
+
+      it { is_expected.to eq(false) }
     end
 
-    it 'returns false if the user has not submitted more than the limit' do
-      allow(AlaveteliConfiguration).
-        to receive(:max_requests_per_user_per_day).and_return(2)
-      expect(user.exceeded_limit?).to eq(false)
+    context 'the user has no limit' do
+      before do
+        user.no_limit = true
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+      end
+
+      it { is_expected.to eq(false) }
     end
 
-    it 'returns true if the user has submitted more than the limit' do
-      allow(AlaveteliConfiguration).
-        to receive(:max_requests_per_user_per_day).and_return(0)
-      expect(user.exceeded_limit?).to eq(true)
+    context 'the user can make batch requests' do
+      before do
+        user.can_make_batch_requests = true
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+      end
+
+      it { is_expected.to eq(false) }
     end
 
-    it 'returns false if the user has no limit' do
-      user.no_limit = true
-      allow(AlaveteliConfiguration).
-        to receive(:max_requests_per_user_per_day).and_return(0)
-      expect(user.exceeded_limit?).to eq(false)
-    end
+    context 'limiting info_requests' do
+      let(:content) { :info_requests }
+      before { FactoryBot.create(:info_request, user: user) }
 
-    it 'returns false if the user is allowed to make batch requests' do
-      user.can_make_batch_requests = true
-      allow(AlaveteliConfiguration).
-        to receive(:max_requests_per_user_per_day).and_return(0)
-      expect(user.exceeded_limit?).to eq(false)
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
+        expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
+      end
     end
   end
 end

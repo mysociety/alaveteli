@@ -45,6 +45,10 @@ class User < ApplicationRecord
   include User::OneTimePassword
   include User::Survey
 
+  CONTENT_LIMIT = {
+    info_requests: AlaveteliConfiguration.max_requests_per_user_per_day
+  }.freeze
+
   rolify before_add: :setup_pro_account
   strip_attributes allow_empty: true
 
@@ -429,7 +433,7 @@ class User < ApplicationRecord
 
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
-    active? && !exceeded_limit?
+    active? && !exceeded_limit?(:info_requests)
   end
 
   def can_make_followup?
@@ -444,22 +448,18 @@ class User < ApplicationRecord
     active?
   end
 
-  def exceeded_limit?
-    # Some users have no limit
-    return false if no_limit
-
-    # Batch request users don't have a limit
+  def exceeded_limit?(content)
+    return false if no_limit?
     return false if can_make_batch_requests?
+    return false if content_limit(content).blank?
 
-    # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
-    return false if AlaveteliConfiguration.max_requests_per_user_per_day.blank?
-
-    recent_requests =
-      InfoRequest.
+    # Has the User created too much of the content in the past 24 hours?
+    recent_content =
+      content.to_s.classify.constantize.
         where(["user_id = ? AND created_at > now() - '1 day'::interval", id]).
-          count
+        count
 
-    recent_requests >= AlaveteliConfiguration.max_requests_per_user_per_day
+    recent_content >= content_limit(content)
   end
 
   def next_request_permitted_at
@@ -653,5 +653,9 @@ class User < ApplicationRecord
 
   def update_pro_account
     pro_account.update_stripe_customer if pro_account
+  end
+
+  def content_limit(content)
+    CONTENT_LIMIT[content]
   end
 end

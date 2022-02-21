@@ -292,7 +292,7 @@ class RequestController < ApplicationController
       # logged in and we want to include the text of the request so they
       # can squirrel it away for tomorrow, so we detect this later after
       # we have constructed the InfoRequest.
-      user_exceeded_limit = authenticated_user.exceeded_limit?
+      user_exceeded_limit = authenticated_user.exceeded_limit?(:info_requests)
       if !user_exceeded_limit
         @details = authenticated_user.can_fail_html
         render :template => 'user/banned'
