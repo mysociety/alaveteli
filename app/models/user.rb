@@ -432,6 +432,18 @@ class User < ApplicationRecord
     active? && !exceeded_limit?
   end
 
+  def can_make_followup?
+    active?
+  end
+
+  def can_make_comments?
+    active?
+  end
+
+  def can_contact_other_users?
+    active?
+  end
+
   def exceeded_limit?
     # Some users have no limit
     return false if no_limit
@@ -463,18 +475,6 @@ class User < ApplicationRecord
 
     nth_most_recent_request = n_most_recent_requests[-1]
     nth_most_recent_request.created_at + 1.day
-  end
-
-  def can_make_followup?
-    active?
-  end
-
-  def can_make_comments?
-    active?
-  end
-
-  def can_contact_other_users?
-    active?
   end
 
   def can_fail_html
