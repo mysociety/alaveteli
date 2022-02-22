@@ -1377,7 +1377,7 @@ RSpec.describe RequestController, "when creating a new request" do
     end
 
     context 'when enable_anti_spam is false and block_spam_requests is true' do
-      # double check that block_spam_subject? is behaving as expected
+      # double check that block_spam_content? is behaving as expected
       before do
         allow(AlaveteliConfiguration).to receive(:enable_anti_spam).
           and_return(false)
@@ -1406,10 +1406,10 @@ RSpec.describe RequestController, "when creating a new request" do
 
     end
 
-    context 'when block_spam_subject? is true' do
+    context 'when block_spam_content? is true' do
 
       before do
-        allow(@controller).to receive(:block_spam_subject?).and_return(true)
+        allow(@controller).to receive(:block_spam_content?).and_return(true)
       end
 
       it 'sends an exception notification' do
@@ -1491,10 +1491,10 @@ RSpec.describe RequestController, "when creating a new request" do
 
     end
 
-    context 'when block_spam_subject? is false' do
+    context 'when block_spam_content? is false' do
 
       before do
-        allow(@controller).to receive(:block_spam_subject?).and_return(false)
+        allow(@controller).to receive(:block_spam_content?).and_return(false)
       end
 
       it 'sends an exception notification' do

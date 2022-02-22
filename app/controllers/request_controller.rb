@@ -371,8 +371,12 @@ class RequestController < ApplicationController
 
     @info_request.user = request_user
 
-    if spam_subject?(@outgoing_message.subject, @user)
-      handle_spam_subject(@info_request.user) && return
+    if spam_content?(@outgoing_message.subject, @user)
+      handle_spam_content(@info_request.user) && return
+    end
+
+    if spam_content?(@outgoing_message.body, @user)
+      handle_spam_content(@info_request.user) && return
     end
 
     if blocked_ip?(country_from_ip, @user)
@@ -895,24 +899,24 @@ class RequestController < ApplicationController
     end
   end
 
-  def spam_subject?(message_subject, user)
+  def spam_content?(content, user)
     !user.confirmed_not_spam? &&
-      AlaveteliSpamTermChecker.new.spam?(message_subject.to_ascii)
+      AlaveteliSpamTermChecker.new.spam?(content.to_ascii)
   end
 
-  def block_spam_subject?
+  def block_spam_content?
     AlaveteliConfiguration.block_spam_requests ||
       AlaveteliConfiguration.enable_anti_spam
   end
 
   # Sends an exception and blocks the comment depending on configuration.
-  def handle_spam_subject(user)
+  def handle_spam_content(user)
     if send_exception_notifications?
       e = Exception.new("Spam request from user #{ user.id }")
       ExceptionNotifier.notify_exception(e, :env => request.env)
     end
 
-    if block_spam_subject?
+    if block_spam_content?
       flash.now[:error] = _("Sorry, we're currently unable to send your " \
                             "request. Please try again later.")
       render :action => 'new'
