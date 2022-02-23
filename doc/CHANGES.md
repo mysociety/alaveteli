@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve comment metadata on comment edit page (Gareth Rees)
 * Improve comment metadata on comment listings (Gareth Rees)
 * Add extra common one-click user ban reasons (Gareth Rees)
 * Improve admin page browser tab titles (Gareth Rees)

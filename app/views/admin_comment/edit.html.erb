@@ -2,6 +2,26 @@
 
 <%= foi_error_messages_for 'comment' %>
 
+<div class="row">
+  <div class="span12">
+    <table class="table table-striped table-condensed">
+      <tbody>
+        <tr>
+          <td colspan="2">
+            By <%= user_both_links(@comment.user) %>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            On <%= request_both_links(@comment.info_request) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <%= form_tag admin_comment_path(@comment), :method => 'put' do %>
 
   <p><label for="comment_body">Body of annotation</label><br/>
@@ -21,11 +41,6 @@
 
   <p><%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %></p>
 <% end %>
-
-<p>
-  <%= link_to 'Show request', admin_request_path(@comment.info_request) %> |
-  <%= link_to 'List all requests', admin_requests_path %>
-</p>
 
 <hr>
 <h2>Events</h2>
