@@ -45,10 +45,24 @@ RSpec.describe Statistics::Leaderboard do
   end
 
   describe '#all_time_commenters' do
+    let(:many_comments) { FactoryBot.create(:user) }
+    let(:some_comments) { FactoryBot.create(:user) }
+    let!(:none_comments) { FactoryBot.create(:user) }
+
+    before do
+      FactoryBot.create(:comment, user: many_comments)
+      FactoryBot.create(:comment, user: many_comments)
+      FactoryBot.create(:comment, user: some_comments)
+      FactoryBot.create(:comment, user: many_comments)
+      FactoryBot.create(:comment, user: some_comments)
+      FactoryBot.create(:comment, user: many_comments)
+    end
+
     it 'gets most frequent commenters' do
       # FIXME: This uses fixtures. Change it to use factories when we can.
       expect(statistics.all_time_commenters).
-        to eql({ users(:bob_smith_user) => 1,
+        to eql({ many_comments => 4,
+                 some_comments => 2,
                  users(:silly_name_user) => 1 })
     end
   end
