@@ -20,7 +20,7 @@ module AdminHelper
   end
 
   def request_both_links(info_request)
-    link_to(eye, request_path(info_request), title: 'View request on public website') + ' ' +
+    link_to(prominence_icon(info_request), request_path(info_request), title: 'View request on public website') + ' ' +
       link_to(info_request.title, admin_request_path(info_request), title: 'View full details')
   end
 
