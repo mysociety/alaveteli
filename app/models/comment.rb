@@ -192,6 +192,18 @@ class Comment < ApplicationRecord
     last_report.try(:created_at)
   end
 
+  def hide(editor:)
+    ActiveRecord::Base.transaction do
+      event_params = { comment_id: id,
+                       editor: editor.url_name,
+                       old_visible: visible?,
+                       visible: false }
+
+      update!(visible: false)
+      info_request.log_event('hide_comment', event_params)
+    end
+  end
+
   private
 
   def check_body_has_content
