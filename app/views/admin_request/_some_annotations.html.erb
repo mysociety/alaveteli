@@ -28,7 +28,13 @@
                 <tr>
                   <td colspan="2">
                     By <%= user_both_links(comment.user) %>
-                </td>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="2">
+                    On <%= request_both_links(comment.info_request) %>
+                  </td>
                 </tr>
                 <% comment.for_admin_column do |name, value, type, column_name |%>
                   <tr>
