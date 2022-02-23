@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add extra common one-click user ban reasons (Gareth Rees)
 * Improve admin page browser tab titles (Gareth Rees)
 * Show who made each edit on public body admin pages (Gareth Rees)
 * Cap number of annotations a user can make in a day (Gareth Rees)
