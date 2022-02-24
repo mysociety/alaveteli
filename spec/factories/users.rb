@@ -88,8 +88,16 @@ FactoryBot.define do
       after(:build) { |object| object.enable_otp }
     end
 
+    trait :unconfirmed do
+      email_confirmed { false }
+    end
+
     trait :banned do
       ban_text { 'Banned' }
+    end
+
+    trait :closed do
+      closed_at { Time.zone.now }
     end
   end
 end
