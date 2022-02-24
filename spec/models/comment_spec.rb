@@ -87,6 +87,20 @@ RSpec.describe Comment do
 
   end
 
+  describe '#prominence' do
+    subject { comment.prominence }
+
+    context 'when the comment is visible' do
+      let(:comment) { described_class.new(visible: true) }
+      it { is_expected.to eq('normal') }
+    end
+
+    context 'when the comment is hidden' do
+      let(:comment) { described_class.new(visible: false) }
+      it { is_expected.to eq('hidden') }
+    end
+  end
+
   describe '#hidden?' do
 
     it 'returns true if the comment is not visible' do
