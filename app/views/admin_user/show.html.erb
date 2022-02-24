@@ -59,53 +59,58 @@
 </table>
 
 <div class="row">
-  <div class="span6">
+  <div class="span9">
     <div class="btn-toolbar">
-      <%= link_to 'Edit', edit_admin_user_path(@admin_user), :class => "btn btn-primary" %>
-      <%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
+      <div class="btn-group">
+        <%= link_to 'Edit', edit_admin_user_path(@admin_user), class: 'btn' %>
+        <%= link_to 'Public page', user_path(@admin_user), class: 'btn' %>
+      </div>
+
+      <% if can? :login_as, @admin_user %>
+        <% text = "Log in as #{ @admin_user.name } (also confirms their email)" %>
+        <% opts = { method: :post, class: 'btn btn-info' } %>
+        <%= link_to text, admin_users_sessions_path(id: @admin_user), opts %>
+      <% end %>
     </div>
   </div>
-  <div class="span6 text-right">
-    <div class="btn-group">
-      <% disabled = @admin_user.suspended? %>
 
-      <% submit_class = %w(btn btn-danger) %>
-      <% submit_class << 'disabled' if disabled %>
-      <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: _('Banned for spamming')), class: 'form form-inline' do %>
-        <%= submit_tag 'Ban for spamming', class: submit_class, disabled: disabled %>
-      <% end %>
+  <div class="span3 text-right">
+    <div class="btn-toolbar">
+      <div class="btn-group">
+        <% disabled = @admin_user.suspended? %>
 
-      <button class="<%= submit_class.join(' ') %> dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-      </button>
-
-      <ul class="dropdown-menu">
-        <% submit_class = %w(btn btn-link) %>
-
-        <% canned_ban_reasons = [
-             { button: 'Ban for evading',
-               reason: _('Banned for evading another ban') },
-             { button: 'Ban for misuse',
-               reason: _('Banned for misuse in breach of house rules') }
-           ] %>
-
-        <% canned_ban_reasons.each do |data| %>
-          <li>
-            <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: data[:reason]), class: 'form form-inline' do %>
-              <%= submit_tag data[:button], class: submit_class, disabled: disabled %>
-            <% end %>
-          </li>
+        <% submit_class = %w(btn btn-danger) %>
+        <% submit_class << 'disabled' if disabled %>
+        <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: _('Banned for spamming')), class: 'form form-inline' do %>
+          <%= submit_tag 'Ban for spamming', class: submit_class, disabled: disabled %>
         <% end %>
-      </ul>
+
+        <button class="<%= submit_class.join(' ') %> dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu">
+          <% submit_class = %w(btn btn-link) %>
+
+          <% canned_ban_reasons = [
+               { button: 'Ban for evading',
+                 reason: _('Banned for evading another ban') },
+               { button: 'Ban for misuse',
+                 reason: _('Banned for misuse in breach of house rules') }
+             ] %>
+
+          <% canned_ban_reasons.each do |data| %>
+            <li>
+              <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: data[:reason]), class: 'form form-inline' do %>
+                <%= submit_tag data[:button], class: submit_class, disabled: disabled %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
-
-<% if can? :login_as, @admin_user %>
-  <%= form_tag admin_users_sessions_path(id: @admin_user), :class => "form form-horizontal" do %>
-    <%= submit_tag "Log in as #{@admin_user.name} (also confirms their email)", :class => "btn btn-info" %>
-  <% end %>
-<% end %>
 
 <hr>
 
