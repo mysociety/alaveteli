@@ -97,6 +97,10 @@ class Comment < ApplicationRecord
     ret
   end
 
+  def prominence
+    hidden? ? 'hidden' : 'normal'
+  end
+
   def hidden?
     !visible?
   end
