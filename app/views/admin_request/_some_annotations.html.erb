@@ -15,7 +15,7 @@
             </span>
 
             <span class="item-metadata span6">
-              <%= user_admin_link(comment.user, comment.user.name) %>
+              <%= user_both_links(comment.user) %>
               <%= arrow_right %>
               <%= request_both_links(comment.info_request) %>,
               <%= admin_date(comment.updated_at, ago_only: true) %>
