@@ -114,10 +114,20 @@
 
 <hr>
 
-<h2>Track things</h2>
-<%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @admin_user.track_things, :include_destroy => true } %>
+<h2>Requests</h2>
+
+<%= render partial: 'admin_request/some_requests',
+           locals: { info_requests: @info_requests } %>
 
 <hr>
+
+<h2>Annotations</h2>
+
+<%= render partial: 'admin_request/some_annotations' ,
+           locals: { comments: @comments } %>
+
+<hr>
+
 <% if can? :login_as, @admin_user %>
   <h2>Post redirects</h2>
 
@@ -146,18 +156,16 @@
   <hr>
 <% end %>
 
-<h2>Requests</h2>
-<%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @info_requests } %>
+<h2>Track things</h2>
 
-<hr>
-
-<h2>Annotations</h2>
-
-<%= render partial: 'admin_request/some_annotations' ,
-           locals: { comments: @comments } %>
+<%= render partial: 'admin_track/some_tracks',
+           locals: { track_things: @admin_user.track_things,
+                     include_destroy: true } %>
 
 <hr>
 
 <h2>Censor rules</h2>
-<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @admin_user.censor_rules, :user => @admin_user } %>
 
+<%= render partial: 'admin_censor_rule/show',
+           locals: { censor_rules: @admin_user.censor_rules,
+                     user: @admin_user } %>
