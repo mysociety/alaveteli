@@ -15,7 +15,7 @@ RSpec.describe "When administering the site" do
   it "allows an admin to log in as another user" do
     using_session(@admin) do
       visit admin_user_path bob_smith_user
-      find_button('Log in as Bob Smith (also confirms their email)').click
+      find_link('Log in as Bob Smith (also confirms their email)').click
       expect(page).to have_content 'Bob Smith'
     end
   end
