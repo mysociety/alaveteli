@@ -58,10 +58,12 @@
       <% end %>
     </div>
 
-    <%= submit_tag 'Hide selected', name: 'hide_selected' %>
-    <%= submit_tag 'Unhide selected', name: 'unhide_selected' %>
+    <div class="btn-group">
+      <%= submit_tag 'Hide selected', name: 'hide_selected', class: 'btn' %>
+      <%= submit_tag 'Unhide selected', name: 'unhide_selected', class: 'btn' %>
+    </div>
 
-    <a href="#" class="select_all" data-state="unchecked" data-target="comment_ids[]">
+    <a href="#" class="select_all btn btn-link" data-state="unchecked" data-target="comment_ids[]">
       Select all
     </a>
   <% end %>
