@@ -1,4 +1,6 @@
 module AdminHelper
+  include Admin::ProminenceHelper
+
   def icon(name)
     content_tag(:i, "", :class => "icon-#{name}")
   end
@@ -35,7 +37,7 @@ module AdminHelper
   end
 
   def comment_both_links(comment)
-    link_to(eye, comment_path(comment),
+    link_to(prominence_icon(comment), comment_path(comment),
             :title => "view comment on public website") + " " +
       link_to(h(truncate(comment.body)), edit_admin_comment_path(comment),
               :title => "view full details")

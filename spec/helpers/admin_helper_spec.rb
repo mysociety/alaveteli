@@ -39,6 +39,10 @@ RSpec.describe AdminHelper do
 
     let(:comment) { FactoryBot.create(:comment) }
 
+    it 'includes a prominence icon' do
+      expect(comment_both_links(comment)).to include('icon-prominence')
+    end
+
     it 'includes a link to the comment on the site' do
       expect(comment_both_links(comment)).to include(comment_path(comment))
     end
