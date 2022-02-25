@@ -22,6 +22,14 @@ class User::SignIn < ApplicationRecord
     where('created_at < ?', retention_days.days.ago).destroy_all
   end
 
+  def self.search(query)
+    joins(:user).references(:users).where(<<~SQL, query: query)
+      lower(user_sign_ins.ip::text) LIKE lower('%'||:query||'%') OR
+      lower(users.name) LIKE lower('%'||:query||'%') OR
+      lower(users.email) LIKE lower('%'||:query||'%')
+    SQL
+  end
+
   def self.retain_signins?
     retention_days >= 1
   end

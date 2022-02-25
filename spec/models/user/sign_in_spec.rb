@@ -53,6 +53,66 @@ RSpec.describe User::SignIn, type: :model do
     end
   end
 
+  describe '.search' do
+    subject { described_class.search(query) }
+
+    before do
+      allow(AlaveteliConfiguration).
+        to receive(:user_sign_in_activity_retention_days).and_return(1)
+    end
+
+    let(:sign_in_1) do
+      user = FactoryBot.create(:user, name: 'Alice', email: 'alice@example.com')
+      FactoryBot.create(:user_sign_in, ip: '1.1.1.1', user: user)
+    end
+
+    let(:sign_in_2) do
+      user = FactoryBot.create(:user, name: 'James', email: 'james@example.com')
+      FactoryBot.create(:user_sign_in, ip: '2.2.2.2', user: user)
+    end
+
+    let(:sign_in_3) do
+      user = FactoryBot.create(:user, name: 'Betty', email: 'betty@example.org')
+      ip = '7754:76d4:c7aa:7646:ea68:1abb:4055:4343'
+      FactoryBot.create(:user_sign_in, ip: ip, country: 'XX', user: user)
+    end
+
+    context 'when given an ip' do
+      let(:query) { '1.1.1.1' }
+      it { is_expected.to match_array([sign_in_1]) }
+    end
+
+    context 'when given an ipv6 ip' do
+      let(:query) { '7754:76d4:c7aa:7646:ea68:1abb:4055:4343' }
+      it { is_expected.to match_array([sign_in_3]) }
+    end
+
+    context 'when given a partial ip' do
+      let(:query) { '1.1' }
+      it { is_expected.to match_array([sign_in_1]) }
+    end
+
+    context 'when given a partial ipv6 ip' do
+      let(:query) { '7754:76d4' }
+      it { is_expected.to match_array([sign_in_3]) }
+    end
+
+    context 'when given a user name' do
+      let(:query) { 'Alice' }
+      it { is_expected.to match_array([sign_in_1]) }
+    end
+
+    context 'when given a user email' do
+      let(:query) { 'alice@example.com' }
+      it { is_expected.to match_array([sign_in_1]) }
+    end
+
+    context 'when given an email domain' do
+      let(:query) { 'example.com' }
+      it { is_expected.to match_array([sign_in_2, sign_in_1]) }
+    end
+  end
+
   describe '#save' do
     subject { sign_in.save }
 

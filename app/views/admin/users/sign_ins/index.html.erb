@@ -1,0 +1,17 @@
+<%= render 'admin_user/scopes' %>
+
+<div class="row">
+  <%= form_tag admin_sign_ins_path, method: :get, class: 'form form-search span12' do %>
+    <div class="input-append">
+      <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+      <%= submit_tag 'Search', class: 'btn' %>
+    </div>
+
+    <span class="help-inline">(substring search: names, emails and IP)</span>
+  <% end %>
+</div>
+
+<%= render partial: 'admin/users/sign_in_table',
+           locals: { sign_ins: @sign_ins } %>
+
+<%= will_paginate(@sign_ins, class: 'paginator') %>
