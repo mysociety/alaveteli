@@ -152,6 +152,13 @@ class UserController < ApplicationController
       else
         # New unconfirmed user
 
+        # Block signups from suspicious countries
+        # TODO: Add specs (see RequestController#create)
+        # TODO: Extract to UserSpamScorer?
+        if blocked_ip?(country_from_ip, @user)
+          handle_blocked_ip(@user, user_ip, country_from_ip) && return
+        end
+
         # Rate limit signups
         ip_rate_limiter.record(user_ip)
 
@@ -393,6 +400,31 @@ class UserController < ApplicationController
   end
 
   private
+
+  def block_restricted_country_ips?
+    AlaveteliConfiguration.block_restricted_country_ips ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def blocked_ip?(country, user)
+    AlaveteliConfiguration.restricted_countries.include?(country) &&
+      country != AlaveteliConfiguration.iso_country_code
+  end
+
+  def handle_blocked_ip(user, user_ip, country)
+    if send_exception_notifications?
+      msg = "Possible spam signup (ip_in_blocklist) from " \
+            "#{ user.email }: #{ user_ip } (#{ country })"
+      ExceptionNotifier.notify_exception(Exception.new(msg), env: request.env)
+    end
+
+    if block_restricted_country_ips?
+      flash.now[:error] = _("Sorry, we're currently unable to create your " \
+                            "account. Please try again later.")
+      render action: 'new'
+      true
+    end
+  end
 
   def set_request_from_foreign_country
     @request_from_foreign_country =
