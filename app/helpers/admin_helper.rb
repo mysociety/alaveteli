@@ -1,4 +1,5 @@
 module AdminHelper
+  include Admin::BootstrapHelper
   include Admin::ProminenceHelper
 
   def icon(name)
