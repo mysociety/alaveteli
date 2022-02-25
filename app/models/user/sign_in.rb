@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220225094330
+# Schema version: 20220225214524
 #
 # Table name: user_sign_ins
 #
@@ -8,6 +8,7 @@
 #  ip         :inet
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  country    :string
 #
 
 # Record medadata about User sign in activity
@@ -25,6 +26,7 @@ class User::SignIn < ApplicationRecord
   def self.search(query)
     joins(:user).references(:users).where(<<~SQL, query: query)
       lower(user_sign_ins.ip::text) LIKE lower('%'||:query||'%') OR
+      lower(user_sign_ins.country) LIKE lower('%'||:query||'%') OR
       lower(users.name) LIKE lower('%'||:query||'%') OR
       lower(users.email) LIKE lower('%'||:query||'%')
     SQL

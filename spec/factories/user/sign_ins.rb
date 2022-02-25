@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220225094330
+# Schema version: 20220225214524
 #
 # Table name: user_sign_ins
 #
@@ -8,11 +8,13 @@
 #  ip         :inet
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  country    :string
 #
 FactoryBot.define do
   factory :user_sign_in, class: 'User::SignIn' do
     user
     ip { '0.0.0.0' }
+    country { 'XX' }
 
     trait :ipv4 do
       ip { '0.0.0.0' }

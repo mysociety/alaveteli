@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220225094330
+# Schema version: 20220225214524
 #
 # Table name: user_sign_ins
 #
@@ -8,6 +8,7 @@
 #  ip         :inet
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  country    :string
 #
 require 'spec_helper'
 
@@ -68,7 +69,7 @@ RSpec.describe User::SignIn, type: :model do
 
     let(:sign_in_2) do
       user = FactoryBot.create(:user, name: 'James', email: 'james@example.com')
-      FactoryBot.create(:user_sign_in, ip: '2.2.2.2', user: user)
+      FactoryBot.create(:user_sign_in, ip: '2.2.2.2', country: 'XY', user: user)
     end
 
     let(:sign_in_3) do
@@ -110,6 +111,11 @@ RSpec.describe User::SignIn, type: :model do
     context 'when given an email domain' do
       let(:query) { 'example.com' }
       it { is_expected.to match_array([sign_in_2, sign_in_1]) }
+    end
+
+    context 'when given a country' do
+      let(:query) { 'XY' }
+      it { is_expected.to match_array([sign_in_2]) }
     end
   end
 

@@ -21,6 +21,18 @@
             </tt>
           </td>
 
+          <td>
+            <tt>
+              <% if sign_in.country %>
+                <%= link_to admin_sign_ins_path(query: sign_in.country) do %>
+                  <%= sign_in.country %>
+                <% end %>
+              <% else %>
+                ??
+              <% end %>
+            </tt>
+          </td>
+
           <td><%= admin_date(sign_in.created_at, ago_only: true) %></td>
 
           <td>
