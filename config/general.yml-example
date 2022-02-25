@@ -970,8 +970,8 @@ ENABLE_ANTI_SPAM: false
 # ---
 BLOCK_RATE_LIMITED_IPS: false
 
-# Prevent users making requests if their IP originates in one of the
-# RESTRICTED_COUNTRIES.
+# Prevent users signing up and making requests if their IP originates in one of
+# the RESTRICTED_COUNTRIES.
 #
 # BLOCK_RESTRICTED_COUNTRY_IPS - Boolean (default: false)
 #
