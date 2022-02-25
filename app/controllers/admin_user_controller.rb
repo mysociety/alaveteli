@@ -5,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminUserController < AdminController
+  layout 'admin/users'
 
   before_action :set_admin_user, only: %i[show
                                           edit

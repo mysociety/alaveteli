@@ -1,0 +1,17 @@
+<%= inside_layout 'admin' do %>
+  <div class="row">
+    <div class="span12">
+      <ul class="nav nav-tabs">
+        <%= nav_li(admin_users_path) do %>
+          <%= link_to 'All', admin_users_path %>
+        <% end %>
+
+        <%= nav_li(banned_admin_users_path) do %>
+          <%= link_to 'Banned', banned_admin_users_path %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <%= yield %>
+<% end %>

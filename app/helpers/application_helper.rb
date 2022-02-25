@@ -134,6 +134,10 @@ module ApplicationHelper
     end
   end
 
+  def inside_layout(layout = 'application', &block)
+    render inline: capture(&block), layout: "layouts/#{layout}"
+  end
+
   def render_flash(flash)
     flash = { :plain => flash } if flash.is_a?(String)
     render flash.deep_symbolize_keys
