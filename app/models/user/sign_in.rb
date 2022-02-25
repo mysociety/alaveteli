@@ -38,6 +38,12 @@ class User::SignIn < ApplicationRecord
     AlaveteliConfiguration.user_sign_in_activity_retention_days
   end
 
+  def other_users
+    User.distinct.joins(:sign_ins).
+      where(user_sign_ins: { ip: ip }).
+      where.not(id: user_id)
+  end
+
   private
 
   def create?

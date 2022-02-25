@@ -113,6 +113,38 @@ RSpec.describe User::SignIn, type: :model do
     end
   end
 
+  describe '#other_users' do
+    subject { sign_in.other_users }
+
+    before do
+      allow(AlaveteliConfiguration).
+        to receive(:user_sign_in_activity_retention_days).and_return(1)
+    end
+
+    let(:user_1) { FactoryBot.create(:user) }
+    let(:user_2) { FactoryBot.create(:user) }
+
+    let!(:sign_in_1) do
+      FactoryBot.create(:user_sign_in, user: user_1, ip: '1.1.1.1')
+    end
+
+    let!(:sign_in_2) do
+      FactoryBot.create(:user_sign_in, user: user_2, ip: '1.1.1.1')
+    end
+
+    let!(:sign_in_3) { FactoryBot.create(:user_sign_in, ip: '2.2.2.2') }
+
+    context 'when there are other users using the same IP' do
+      let(:sign_in) { sign_in_1 }
+      it { is_expected.to match_array([user_2]) }
+    end
+
+    context 'when there are no other users using the same IP' do
+      let(:sign_in) { sign_in_3 }
+      it { is_expected.to be_empty }
+    end
+  end
+
   describe '#save' do
     subject { sign_in.save }
 

@@ -22,6 +22,11 @@
           </td>
 
           <td><%= admin_date(sign_in.created_at, ago_only: true) %></td>
+
+          <td>
+            <strong><%= sign_in.other_users.size %></strong> others using this
+            IP
+          </td>
         </tr>
       <% end %>
     </table>
