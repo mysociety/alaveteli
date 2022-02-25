@@ -135,6 +135,11 @@ class User < ApplicationRecord
   has_many :memberships, class_name: 'Project::Membership'
   has_many :projects, through: :memberships
 
+  has_many :sign_ins,
+           class_name: 'User::SignIn',
+           inverse_of: :user,
+           dependent: :destroy
+
   scope :active, -> { not_banned.not_closed }
   scope :banned, -> { where.not(ban_text: '') }
   scope :not_banned, -> { where(ban_text: '') }
@@ -423,17 +428,21 @@ class User < ApplicationRecord
   def close_and_anonymise
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
-    redact_name! if info_requests.any?
+    transaction do
+      redact_name! if info_requests.any?
 
-    update(
-      name: _('[Name Removed]'),
-      email: "#{sha}@invalid",
-      url_name: sha,
-      about_me: '',
-      password: MySociety::Util.generate_token,
-      receive_email_alerts: false,
-      closed_at: Time.zone.now
-    )
+      sign_ins.destroy_all
+
+      update(
+        name: _('[Name Removed]'),
+        email: "#{sha}@invalid",
+        url_name: sha,
+        about_me: '',
+        password: MySociety::Util.generate_token,
+        receive_email_alerts: false,
+        closed_at: Time.zone.now
+      )
+    end
   end
 
   def active?

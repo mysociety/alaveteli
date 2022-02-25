@@ -1309,3 +1309,16 @@ ENABLE_PROJECTS: false
 #
 # ---
 SURVEY_URL: ''
+
+# Retains records of IP addresses used to sign in to user accounts for the
+# configured number of days. This value should be less than or equal to the
+# number of days of logs retained according to your logrotate configuration,
+# otherwise you may hold data in a way that is inconsistent with your privacy
+# policy.
+#
+# Does not record actvity when set to 0.
+#
+# USER_SIGN_IN_ACTIVITY_RETENTION_DAYS – Integer (default: 0)
+#
+# ---
+USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0
