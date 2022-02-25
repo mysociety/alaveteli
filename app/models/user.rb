@@ -432,6 +432,13 @@ class User < ApplicationRecord
     !active?
   end
 
+  def prominence
+    return 'hidden' if banned?
+    return 'backpage' if closed?
+    return 'backpage' unless email_confirmed?
+    'normal'
+  end
+
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
     active? && !exceeded_limit?(:info_requests)

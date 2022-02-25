@@ -1176,6 +1176,35 @@ RSpec.describe User do
 
   end
 
+  describe '#prominence' do
+    subject { user.prominence }
+
+    context 'when the user is banned' do
+      let(:user) { FactoryBot.build(:user, :banned) }
+      it { is_expected.to eq('hidden') }
+    end
+
+    context 'when the user is banned and closed' do
+      let(:user) { FactoryBot.build(:user, :banned, :closed) }
+      it { is_expected.to eq('hidden') }
+    end
+
+    context 'when the user is closed' do
+      let(:user) { FactoryBot.build(:user, :closed) }
+      it { is_expected.to eq('backpage') }
+    end
+
+    context 'when the user is unconfirmed' do
+      let(:user) { FactoryBot.build(:user, :unconfirmed) }
+      it { is_expected.to eq('backpage') }
+    end
+
+    context 'in normal circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq('normal') }
+    end
+  end
+
   describe '.active' do
 
     it 'should not return banned users' do

@@ -4,11 +4,14 @@
     <div class="accordion-heading accordion-toggle">
       <span class="item-title">
         <a href="#user_<%= user.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+
+        <%= user_both_links(user) %>
+
+        <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
+
         <span class="user-labels">
           <%= user_labels(user) %>
         </span>
-        <%= link_to(user.name, admin_user_path(user)) %>
-        <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
       </span>
       <span class="item-metadata">
         updated <%= admin_date(user.updated_at, ago: false) %>
