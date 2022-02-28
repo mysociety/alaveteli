@@ -4,33 +4,28 @@
   <h1 class="span12"><%= @title %></h1>
 </div>
 
-<%= form_tag({}, :method => "get", :class => "form form-search") do %>
-
-  <div class="row">
-    <div class="span12">
-      <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query"} %>
+<div class="row">
+  <%= form_tag admin_users_path, method: :get, class: 'form form-search span12' do %>
+    <div class="input-append">
+      <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
       <%= hidden_field_tag 'sort_order', @sort_order %>
-      <%= submit_tag "Search", :class => "btn" %> (substring search, names, emails and about me)
+      <%= submit_tag 'Search', class: 'btn' %>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="span12">
-      <div class="input-group role-filter">
-        Filter by role:
-        <% Role.where(name: Role.grantable_roles).order(:name).each do |role| %>
-            <label class="checkbox-inline">
-              <%= check_box_tag "roles[]",
-                                role.name,
-                                @roles.include?(role.name) %>
-              <%= role.name.humanize %>
-            </label>
-        <% end %>
-      </div>
+    <span class="help-inline">(substring search, names, emails and about me)</span>
+
+    <div class="input-group role-filter">
+      <span class="help-inline">Filter by role:</span>
+
+      <% Role.where(name: Role.grantable_roles).order(:name).each do |role| %>
+        <label class="checkbox-inline">
+          <%= check_box_tag 'roles[]', role.name, @roles.include?(role.name) %>
+          <%= role.name.humanize %>
+        </label>
+      <% end %>
     </div>
-  </div>
-
-<% end %>
+  <% end %>
+</div>
 
 <div class="row">
   <div class="span12 btn-group sort-order">
