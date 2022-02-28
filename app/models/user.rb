@@ -622,6 +622,36 @@ class User < ApplicationRecord
     "User;#{id}"
   end
 
+  def signed_up_via_banned_user_profile?
+    user = follow_post_redirect_chain
+    user&.banned?
+  end
+
+  def signed_up_via_spam_user_profile?
+    user = follow_post_redirect_chain
+    user&.ban_text == _('Banned for spamming')
+  end
+
+  def follow_post_redirect_chain
+    post_redirect_user&.follow_post_redirect_chain || self
+  end
+
+  def post_redirect_user
+    return nil unless user_profile_post_redirect?
+    regexp = /user\/(?<url_name>.*?)(\z|\/)/
+    match = user_profile_post_redirect.first.uri.match(regexp)
+    url_name = match[:url_name] if match
+    User.find_by(url_name: url_name)
+  end
+
+  def user_profile_post_redirect?
+    user_profile_post_redirect.any?
+  end
+
+  def user_profile_post_redirect
+    PostRedirect.where(user_id: id).where("uri LIKE '%user/%'")
+  end
+
   private
 
   def redact_name!

@@ -14,7 +14,9 @@ class UserSpamScorer
     :about_me_includes_anchor_tag? => 1,
     :about_me_already_exists? => 4,
     :user_agent_is_suspicious? => 5,
-    :ip_range_is_suspicious? => 5
+    :ip_range_is_suspicious? => 5,
+    :signed_up_via_banned_user_profile? => 4,
+    :signed_up_via_spam_user_profile? => 10
   }.freeze
 
   DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
@@ -212,6 +214,14 @@ class UserSpamScorer
   def ip_range_is_suspicious?(user)
     return false unless user.respond_to?(:ip)
     suspicious_ip_ranges.any? { |range| range.include?(user.ip) }
+  end
+
+  def signed_up_via_banned_user_profile?(user)
+    user.signed_up_via_banned_user_profile?
+  end
+
+  def signed_up_via_spam_user_profile?(user)
+    user.signed_up_via_spam_user_profile?
   end
 
   # TODO: Akismet thinks user is spam
