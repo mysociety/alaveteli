@@ -164,11 +164,15 @@ class Storage
   end
 
   def puts(*args)
+    return unless Rake.verbose
+
     erase_line
     $stdout.puts(*args)
   end
 
   def print(*args)
+    return unless Rake.verbose
+
     erase_line
     $stdout.print(*args)
   end
