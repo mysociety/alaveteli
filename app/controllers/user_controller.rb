@@ -421,7 +421,7 @@ class UserController < ApplicationController
     if block_restricted_country_ips?
       flash.now[:error] = _("Sorry, we're currently unable to create your " \
                             "account. Please try again later.")
-      render action: 'new'
+      render action: 'sign'
       true
     end
   end
