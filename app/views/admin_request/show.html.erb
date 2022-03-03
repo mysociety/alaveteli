@@ -389,6 +389,14 @@
            locals: { comments: @info_request.comments } %>
 
 <hr>
+
+<h2>Citations</h2>
+
+<%= render partial: 'admin/citations/table' ,
+           locals: { citations: @info_request.citations } %>
+
+<hr>
+
 <h2>Mail server delivery logs</h2>
 
 <p><i>(Lines containing the request incoming email address, updated hourly.)</i></p>

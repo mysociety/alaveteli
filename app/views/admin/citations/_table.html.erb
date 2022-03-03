@@ -1,0 +1,29 @@
+<% if citations.any? %>
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>Created by</th>
+        <th>Source URL</th>
+        <th>Created at</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% citations.each do |citation| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= user_both_links(citation.user) %></td>
+
+          <td>
+            <tt>
+              <%= link_to citation.source_url, citation.source_url %>
+            </tt>
+          </td>
+
+          <td><%= admin_date(citation.created_at, ago_only: true) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>None yet.</p>
+<% end %>
