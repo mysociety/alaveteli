@@ -117,6 +117,6 @@ namespace :temp do
 
   def erase_line
     # https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences
-    print "\e[1E\e[1A\e[K"
+    print "\e[1G\e[K"
   end
 end

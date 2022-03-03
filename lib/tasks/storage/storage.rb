@@ -17,14 +17,12 @@ class Storage
 
   def migrate
     count = unattached_files.count
-    puts unless count.zero?
 
     unattached_files.find_each.with_index do |file, index|
       Kernel.silence_warnings do
         file.public_send(@setter, file.public_send(@getter))
       end
 
-      erase_line
       print "#{prefix}: Migrated #{index + 1}/#{count}"
 
     rescue Errno::ENOENT
@@ -32,10 +30,8 @@ class Storage
       Kernel.silence_warnings do
         $stderr.puts "#{prefix};ID=#{file.id}: Missing #{file.filepath}."
       end
-      puts
     end
 
-    erase_line
     puts "#{prefix}: Migrated old files storage to #{service_name} completed."
   end
 
@@ -44,16 +40,13 @@ class Storage
     return puts(mirror_primary_not_disk_service) unless disk_service?
 
     count = mirrorable_blobs.count
-    puts unless count.zero?
 
     mirrorable_blobs.find_each.with_index do |blob, index|
       mirror_service.mirror(blob.key, checksum: blob.checksum)
 
-      erase_line
       print "#{prefix}: Mirrored #{index + 1}/#{count}"
     end
 
-    erase_line
     puts "#{prefix}: Mirrored from #{disk_service.name} to " \
          "#{secondary_service.name} completed."
   end
@@ -63,17 +56,14 @@ class Storage
     return puts(mirror_primary_not_disk_service) unless disk_service?
 
     count = promotable_blobs.count
-    puts unless count.zero?
 
     promotable_blobs.find_each.with_index do |blob, index|
       next unless secondary_service.exist?(blob.key)
       blob.update(service_name: secondary_service.name)
 
-      erase_line
       print "#{prefix}: Promote #{index + 1}/#{count}"
     end
 
-    erase_line
     puts "#{prefix}: Promoted blobs in #{disk_service.name} to " \
          "#{secondary_service.name} completed."
   end
@@ -83,18 +73,15 @@ class Storage
     return puts(mirror_primary_not_disk_service) unless disk_service?
 
     count = secondary_blobs.count
-    puts unless count.zero?
 
     secondary_blobs.find_each.with_index do |blob, index|
       next unless disk_service.exist?(blob.key)
 
       disk_service.delete(blob.key)
 
-      erase_line
-      puts "#{prefix}: Unlink #{index + 1}/#{count}"
+      print "#{prefix}: Unlink #{index + 1}/#{count}"
     end
 
-    erase_line
     puts "#{prefix}: Unlinked files in #{disk_service.name} completed."
   end
 
@@ -176,8 +163,22 @@ class Storage
     @klass.to_s
   end
 
+  def puts(*args)
+    return unless Rake.verbose
+
+    erase_line
+    $stdout.puts(*args)
+  end
+
+  def print(*args)
+    return unless Rake.verbose
+
+    erase_line
+    $stdout.print(*args)
+  end
+
   def erase_line
     # https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences
-    print "\e[1E\e[1A\e[K"
+    $stdout.print "\e[1G\e[K"
   end
 end
