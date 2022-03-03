@@ -155,8 +155,8 @@ class UserController < ApplicationController
         # Block signups from suspicious countries
         # TODO: Add specs (see RequestController#create)
         # TODO: Extract to UserSpamScorer?
-        if blocked_ip?(country_from_ip, @user)
-          handle_blocked_ip(@user, user_ip, country_from_ip) && return
+        if blocked_ip?(country_from_ip, @user_signup)
+          handle_blocked_ip(@user_signup, user_ip, country_from_ip) && return
         end
 
         # Rate limit signups
@@ -421,7 +421,7 @@ class UserController < ApplicationController
     if block_restricted_country_ips?
       flash.now[:error] = _("Sorry, we're currently unable to create your " \
                             "account. Please try again later.")
-      render action: 'new'
+      render action: 'sign'
       true
     end
   end
