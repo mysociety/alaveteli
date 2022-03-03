@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Show citations on admin pages (Gareth Rees)
 * Show public body change request notes on body edit page (Gareth Rees)
 * Show public body change request notes in the admin summary (Gareth Rees)
 * Link to Public Body Change Request source URLs in admin interface (Gareth

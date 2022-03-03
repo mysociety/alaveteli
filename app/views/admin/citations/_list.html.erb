@@ -1,0 +1,20 @@
+<div id="citations">
+  <% if citations.any? %>
+    <% citations.each do |citation| %>
+      <div class="row">
+        <span class="item-title span6">
+          <tt><%= link_to citation.source_url, citation.source_url %></tt>
+        </span>
+
+        <span class="item-metadata span6">
+          <%= both_links(citation.user) %>
+          <%= arrow_right %>
+          <%= both_links(citation.citable) %>,
+          <%= admin_date(citation.created_at, ago_only: true) %>
+        </span>
+      </div>
+    <% end %>
+  <% else %>
+    <p>None yet.</p>
+  <% end %>
+</div>

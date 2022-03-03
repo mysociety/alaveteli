@@ -25,6 +25,15 @@ RSpec.describe Admin::LinkHelper do
       it { is_expected.to include(admin_request_path(record)) }
     end
 
+    context 'with an InfoRequestBatch' do
+      let(:record) { FactoryBot.create(:info_request_batch) }
+
+      it { is_expected.to include('icon-prominence') }
+      it { is_expected.to include(info_request_batch_path(record)) }
+      it { is_expected.to include(record.title) }
+      it { is_expected.not_to include('/admin/') }
+    end
+
     context 'with a PublicBody' do
       let(:record) { FactoryBot.create(:public_body) }
 

@@ -12,6 +12,11 @@ module Admin::LinkHelper
       link_to(info_request.title, admin_request_path(info_request), title: 'View full details')
   end
 
+  def info_request_batch_both_links(batch)
+    link_to(prominence_icon(batch), batch, title: 'View batch on public website') + ' ' +
+      batch.title
+  end
+
   def public_body_both_links(public_body)
     link_to(eye, public_body_path(public_body), title: 'View authority on public website') + ' ' +
       link_to(h(public_body.name), admin_body_path(public_body), title: 'View full details')
