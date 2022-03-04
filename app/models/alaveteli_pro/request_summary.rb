@@ -76,12 +76,14 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
   end
 
   def self.attributes_from_request(request)
+    user = request.user.external? ? nil : request.user
+
     {
       title: request.title,
       body: request.request_summary_body,
       public_body_names: request.request_summary_public_body_names,
       summarisable: request,
-      user: request.user,
+      user: user,
       request_summary_categories: request.request_summary_categories,
       request_created_at: request.created_at,
       request_updated_at: request.updated_at,

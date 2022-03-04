@@ -1879,4 +1879,9 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#external?' do
+    subject { FactoryBot.build(:user).external? }
+    it { is_expected.to eq(false) }
+  end
 end

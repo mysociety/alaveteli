@@ -33,8 +33,13 @@ module AdminHelper
   end
 
   def user_both_links(user)
-    link_to(prominence_icon(user.prominence), user_path(user), title: 'View user on public website') + ' ' +
-      link_to(h(user.name), admin_user_path(user), title: 'View full details')
+    if user.external?
+      link_to(prominence_icon(user.prominence), user_path(user), title: 'View user on public website') + ' ' +
+        tag.span(user.name, title: 'External users have no account')
+    else
+      link_to(prominence_icon(user.prominence), user_path(user), title: 'View user on public website') + ' ' +
+        link_to(h(user.name), admin_user_path(user), title: 'View full details')
+    end
   end
 
   def comment_both_links(comment)

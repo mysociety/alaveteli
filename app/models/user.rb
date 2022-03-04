@@ -622,6 +622,10 @@ class User < ApplicationRecord
     "User;#{id}"
   end
 
+  def external?
+    false
+  end
+
   private
 
   def redact_name!

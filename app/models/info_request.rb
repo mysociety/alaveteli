@@ -740,29 +740,25 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def user
+    return User::ExternalUser.new(info_request: self) if is_external?
+    super
+  end
+
   def is_external?
     external_url.nil? ? false : true
   end
 
   def user_name
-    is_external? ? external_user_name : user.name
+    user.name
   end
 
   def user_name_slug
-    if is_external?
-      if external_user_name.nil?
-        fake_slug = "anonymous"
-      else
-        fake_slug = MySociety::Format.simplify_url_part(external_user_name, 'external_user', 32)
-      end
-      (public_body.url_name || "") + "_" + fake_slug
-    else
-      user.url_name
-    end
+    user.url_name
   end
 
   def user_json_for_api
-    is_external? ? { :name => user_name || _("Anonymous user") } : user.json_for_api
+    user.json_for_api
   end
 
   @@custom_states_loaded = false
@@ -1544,10 +1540,10 @@ class InfoRequest < ApplicationRecord
     }
 
     if deep
-      if user
-        ret[:user] = user.json_for_api
+      if external?
+        ret[:user_name] = user.name
       else
-        ret[:user_name] = user_name
+        ret[:user] = user.json_for_api
       end
       ret[:public_body] = public_body.json_for_api
       ret[:info_request_events] = info_request_events.map { |e| e.json_for_api(false) }

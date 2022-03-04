@@ -76,6 +76,22 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#user' do
+    subject { info_request.user }
+
+    context 'with a normal request' do
+      let(:user) { FactoryBot.build(:user) }
+      let(:info_request) { FactoryBot.build(:info_request, user: user) }
+      it { is_expected.to eq(user) }
+    end
+
+    context 'with an external request' do
+      let(:info_request) { FactoryBot.build(:info_request, :external) }
+      it { is_expected.to be_a(User::ExternalUser) }
+    end
+  end
+
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 
