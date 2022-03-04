@@ -8,14 +8,22 @@ class AdminGeneralController < AdminController
 
   def index
     # Tasks to do
-    @requires_admin_requests = InfoRequest.
-      find_in_state('requires_admin').
+    @requires_admin_requests =
+      InfoRequest.
+        find_in_state('requires_admin').
+        where(awaiting_description: false).
         not_embargoed
-    @error_message_requests = InfoRequest.
-      find_in_state('error_message').
+
+    @error_message_requests =
+      InfoRequest.
+        find_in_state('error_message').
+        where(awaiting_description: false).
         not_embargoed
-    @attention_requests = InfoRequest.
-      find_in_state('attention_requested').
+
+    @attention_requests =
+      InfoRequest.
+        find_in_state('attention_requested').
+        where(awaiting_description: false).
         not_embargoed
 
     @old_unclassified_count =
@@ -70,13 +78,16 @@ class AdminGeneralController < AdminController
     if can? :admin, AlaveteliPro::Embargo
       @embargoed_requires_admin_requests = InfoRequest.
                                              find_in_state('requires_admin').
-                                               embargoed
+                                             where(awaiting_description: false).
+                                             embargoed
       @embargoed_error_message_requests = InfoRequest.
                                             find_in_state('error_message').
-                                              embargoed
+                                             where(awaiting_description: false).
+                                            embargoed
       @embargoed_attention_requests = InfoRequest.
                                         find_in_state('attention_requested').
-                                          embargoed
+                                        where(awaiting_description: false).
+                                        embargoed
 
       @embargoed_request_tasks = [
         @embargoed_requires_admin_requests,
