@@ -8,11 +8,13 @@
 # association.
 #
 class Storage
-  def initialize(klass, association, setter: :data=, getter: :data)
+  def initialize(klass, association, setter: :data=, getter: :data,
+                 condition: nil)
     @klass = klass
     @association = association
     @setter = setter
     @getter = getter
+    @condition = condition
   end
 
   def migrate
@@ -20,7 +22,9 @@ class Storage
 
     unattached_files.find_each.with_index do |file, index|
       Kernel.silence_warnings do
-        file.public_send(@setter, file.public_send(@getter))
+        do_migrate = true
+        do_migrate = @condition.call(file) if @condition
+        file.public_send(@setter, file.public_send(@getter)) if do_migrate
       end
 
       print "#{prefix}: Migrated #{index + 1}/#{count}"

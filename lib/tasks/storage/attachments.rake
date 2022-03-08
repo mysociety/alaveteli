@@ -3,7 +3,12 @@ namespace :storage do
     require_relative 'storage'
 
     def attachment_storage
-      Storage.new(FoiAttachment, :file, setter: :body=, getter: :body)
+      Storage.new(
+        FoiAttachment, :file,
+        setter: :body=,
+        getter: :body,
+        condition: -> (a) { File.exist?(a.filepath) }
+      )
     end
 
     task migrate: :environment do
