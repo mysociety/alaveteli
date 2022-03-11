@@ -58,7 +58,8 @@ class IncomingMessage < ApplicationRecord
   has_many :foi_attachments,
            -> { order('id') },
            inverse_of: :incoming_message,
-           dependent: :destroy
+           dependent: :destroy,
+           autosave: true
   # never really has many info_request_events, but could in theory
   has_many :info_request_events,
            :dependent => :destroy,
@@ -599,25 +600,22 @@ class IncomingMessage < ApplicationRecord
       memo
     end
 
-    attachments = []
-    attachment_attributes.each do |hexdigest, attrs|
-      attachment = foi_attachments.find_or_create_by(hexdigest: hexdigest)
-      attachment.update(attrs)
-      attachment.save!
-      attachments << attachment
+    attachments = attachment_attributes.map do |hexdigest, attrs|
+      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+      attachment.attributes = attrs
+      attachment
     end
 
-    # Reload to refresh newly created foi_attachments
-    self.reload
-
-    # get the main body part from the set of attachments we just created,
-    # not from the self.foi_attachments association - some of the total set
-    # of self.foi_attachments may now be obsolete. Sometimes (e.g. when
-    # parsing mail from Apple Mail) we can end up with less attachments
-    # because the hexdigest of an attachment is identical.
+    # Get the main body part from the set of attachments not from the
+    # foi_attachments association - some of the total set of foi_attachments may
+    # now be obsolete. Sometimes (e.g. when parsing mail from Apple Mail) we can
+    # end up with less attachments because the hexdigest of an attachment is
+    # identical.
     main_part = get_main_body_text_part(attachments)
-    # we don't use get_main_body_text_internal, as we want to avoid charset
-    # conversions, since _uudecode_and_save_attachments needs to deal with those.
+
+    # We don't use get_main_body_text_internal, as we want to avoid charset
+    # conversions, since _uudecode_and_save_attachments needs to deal with
+    # those.
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if main_part
       c = _mail.count_first_uudecode_count
@@ -625,14 +623,8 @@ class IncomingMessage < ApplicationRecord
       attachments += uudecode_attachments
     end
 
-    attachment_ids = attachments.map { |attachment| attachment.id }
-    # now get rid of any attachments we no longer have
-    FoiAttachment.
-      where(
-        ["id NOT IN (?) AND incoming_message_id = ?",
-         attachment_ids,
-         self.id]
-      ).destroy_all
+    # Purge old attachments that have been rebuilt with a new hexdigest
+    (foi_attachments - attachments).each(&:mark_for_destruction)
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.
