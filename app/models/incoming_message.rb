@@ -104,7 +104,6 @@ class IncomingMessage < ApplicationRecord
         self.from_email_domain = raw_email.from_email_domain || ''
         self.valid_to_reply_to = raw_email.valid_to_reply_to?
         self.last_parsed = Time.zone.now
-        self.foi_attachments.reload
         self.save!
       end
     end
