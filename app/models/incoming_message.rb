@@ -95,7 +95,7 @@ class IncomingMessage < ApplicationRecord
     end
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
-        extract_attachments!
+        extract_attachments
         self.sent_at = raw_email.date || created_at
         self.subject = raw_email.subject
         self.from_name = raw_email.from_name
@@ -586,6 +586,11 @@ class IncomingMessage < ApplicationRecord
   end
 
   def extract_attachments!
+    extract_attachments
+    save!
+  end
+
+  def extract_attachments
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachments = []
