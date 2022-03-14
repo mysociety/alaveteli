@@ -57,8 +57,9 @@ class IncomingMessage < ApplicationRecord
            :dependent => :nullify
   has_many :foi_attachments,
            -> { order('id') },
-           :inverse_of => :incoming_message,
-           :dependent => :destroy
+           inverse_of: :incoming_message,
+           dependent: :destroy,
+           autosave: true
   # never really has many info_request_events, but could in theory
   has_many :info_request_events,
            :dependent => :destroy,
@@ -95,7 +96,7 @@ class IncomingMessage < ApplicationRecord
     end
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
-        self.extract_attachments!
+        extract_attachments
         self.sent_at = raw_email.date || created_at
         self.subject = raw_email.subject
         self.from_name = raw_email.from_name
@@ -103,7 +104,6 @@ class IncomingMessage < ApplicationRecord
         self.from_email_domain = raw_email.from_email_domain || ''
         self.valid_to_reply_to = raw_email.valid_to_reply_to?
         self.last_parsed = Time.zone.now
-        self.foi_attachments.reload
         self.save!
       end
     end
@@ -545,11 +545,10 @@ class IncomingMessage < ApplicationRecord
   end
 
   # Returns attachments that are uuencoded in main body part
-  def _uudecode_and_save_attachments(text)
+  def _uudecode_attachments(text, start_part_number)
     # Find any uudecoded things buried in it, yeuchly
     uus = text.scan(/^begin.+^`\n^end\n/m)
-    attachments = []
-    uus.each do |uu|
+    uus.map.with_index do |uu, index|
       # Decode the string
       content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
       # Make attachment type from it, working out filename and mime type
@@ -562,14 +561,15 @@ class IncomingMessage < ApplicationRecord
         content_type = 'application/octet-stream'
       end
       hexdigest = Digest::MD5.hexdigest(content)
-      attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
-      attachment.update(:filename => filename,
-                        :content_type => content_type,
-                        :body => content)
-      attachment.save!
-      attachments << attachment
+      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+      attachment.attributes = {
+        filename: filename,
+        content_type: content_type,
+        body: content,
+        url_part_number: start_part_number + index + 1
+      }
+      attachment
     end
-    attachments
   end
 
   def get_attachments_for_display
@@ -584,47 +584,41 @@ class IncomingMessage < ApplicationRecord
   end
 
   def extract_attachments!
+    extract_attachments
+    save!
+  end
+
+  def extract_attachments
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
-    attachments = []
-    attachment_attributes.each do |attrs|
-      attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
-      attachment.update(attrs)
-      attachment.save!
-      attachments << attachment
+    attachment_attributes = attachment_attributes.inject({}) do |memo, attrs|
+      memo[attrs[:hexdigest]] = attrs
+      memo
     end
 
-    # Reload to refresh newly created foi_attachments
-    self.reload
+    attachments = attachment_attributes.map do |hexdigest, attrs|
+      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+      attachment.attributes = attrs
+      attachment
+    end
 
-    # get the main body part from the set of attachments we just created,
-    # not from the self.foi_attachments association - some of the total set
-    # of self.foi_attachments may now be obsolete. Sometimes (e.g. when
-    # parsing mail from Apple Mail) we can end up with less attachments
-    # because the hexdigest of an attachment is identical.
+    # Get the main body part from the set of attachments not from the
+    # foi_attachments association - some of the total set of foi_attachments may
+    # now be obsolete. Sometimes (e.g. when parsing mail from Apple Mail) we can
+    # end up with less attachments because the hexdigest of an attachment is
+    # identical.
     main_part = get_main_body_text_part(attachments)
-    # we don't use get_main_body_text_internal, as we want to avoid charset
-    # conversions, since _uudecode_and_save_attachments needs to deal with those.
+
+    # We don't use get_main_body_text_internal, as we want to avoid charset
+    # conversions, since _uudecode_attachments needs to deal with those.
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
-    if !main_part.nil?
-      uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
+    if main_part
       c = _mail.count_first_uudecode_count
-      for uudecode_attachment in uudecoded_attachments
-        c += 1
-        uudecode_attachment.url_part_number = c
-        uudecode_attachment.save!
-        attachments << uudecode_attachment
-      end
+      attachments += _uudecode_attachments(main_part.body, c)
     end
 
-    attachment_ids = attachments.map { |attachment| attachment.id }
-    # now get rid of any attachments we no longer have
-    FoiAttachment.
-      where(
-        ["id NOT IN (?) AND incoming_message_id = ?",
-         attachment_ids,
-         self.id]
-      ).destroy_all
+    # Purge old attachments that have been rebuilt with a new hexdigest
+    (foi_attachments - attachments).each(&:mark_for_destruction)
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.
