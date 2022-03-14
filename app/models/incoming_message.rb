@@ -545,11 +545,11 @@ class IncomingMessage < ApplicationRecord
   end
 
   # Returns attachments that are uuencoded in main body part
-  def _uudecode_and_save_attachments(text)
+  def _uudecode_and_save_attachments(text, start_part_number)
     # Find any uudecoded things buried in it, yeuchly
     uus = text.scan(/^begin.+^`\n^end\n/m)
     attachments = []
-    uus.each do |uu|
+    uus.each.with_index do |uu, index|
       # Decode the string
       content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
       # Make attachment type from it, working out filename and mime type
@@ -566,7 +566,8 @@ class IncomingMessage < ApplicationRecord
       attachment.update(
         filename: filename,
         content_type: content_type,
-        body: content
+        body: content,
+        url_part_number: start_part_number + index + 1
       )
       attachment.save!
       attachments << attachment
@@ -619,14 +620,9 @@ class IncomingMessage < ApplicationRecord
     # conversions, since _uudecode_and_save_attachments needs to deal with those.
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if main_part
-      uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
       c = _mail.count_first_uudecode_count
-      for uudecode_attachment in uudecoded_attachments
-        c += 1
-        uudecode_attachment.url_part_number = c
-        uudecode_attachment.save!
-        attachments << uudecode_attachment
-      end
+      uudecoded_attachments = _uudecode_and_save_attachments(main_part.body, c)
+      attachments += uudecode_attachments
     end
 
     attachment_ids = attachments.map { |attachment| attachment.id }
