@@ -57,8 +57,8 @@ class IncomingMessage < ApplicationRecord
            :dependent => :nullify
   has_many :foi_attachments,
            -> { order('id') },
-           :inverse_of => :incoming_message,
-           :dependent => :destroy
+           inverse_of: :incoming_message,
+           dependent: :destroy
   # never really has many info_request_events, but could in theory
   has_many :info_request_events,
            :dependent => :destroy,
@@ -95,7 +95,7 @@ class IncomingMessage < ApplicationRecord
     end
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
-        self.extract_attachments!
+        extract_attachments!
         self.sent_at = raw_email.date || created_at
         self.subject = raw_email.subject
         self.from_name = raw_email.from_name
@@ -562,10 +562,12 @@ class IncomingMessage < ApplicationRecord
         content_type = 'application/octet-stream'
       end
       hexdigest = Digest::MD5.hexdigest(content)
-      attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
-      attachment.update(:filename => filename,
-                        :content_type => content_type,
-                        :body => content)
+      attachment = foi_attachments.find_or_create_by(hexdigest: hexdigest)
+      attachment.update(
+        filename: filename,
+        content_type: content_type,
+        body: content
+      )
       attachment.save!
       attachments << attachment
     end
@@ -588,7 +590,7 @@ class IncomingMessage < ApplicationRecord
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachments = []
     attachment_attributes.each do |attrs|
-      attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
+      attachment = foi_attachments.find_or_create_by(hexdigest: attrs[:hexdigest])
       attachment.update(attrs)
       attachment.save!
       attachments << attachment
@@ -606,7 +608,7 @@ class IncomingMessage < ApplicationRecord
     # we don't use get_main_body_text_internal, as we want to avoid charset
     # conversions, since _uudecode_and_save_attachments needs to deal with those.
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
-    if !main_part.nil?
+    if main_part
       uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
       c = _mail.count_first_uudecode_count
       for uudecode_attachment in uudecoded_attachments
