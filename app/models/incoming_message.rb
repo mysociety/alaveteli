@@ -546,11 +546,10 @@ class IncomingMessage < ApplicationRecord
   end
 
   # Returns attachments that are uuencoded in main body part
-  def _uudecode_and_save_attachments(text, start_part_number)
+  def _uudecode_attachments(text, start_part_number)
     # Find any uudecoded things buried in it, yeuchly
     uus = text.scan(/^begin.+^`\n^end\n/m)
-    attachments = []
-    uus.each.with_index do |uu, index|
+    uus.map.with_index do |uu, index|
       # Decode the string
       content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
       # Make attachment type from it, working out filename and mime type
@@ -563,17 +562,15 @@ class IncomingMessage < ApplicationRecord
         content_type = 'application/octet-stream'
       end
       hexdigest = Digest::MD5.hexdigest(content)
-      attachment = foi_attachments.find_or_create_by(hexdigest: hexdigest)
-      attachment.update(
+      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+      attachment.attributes = {
         filename: filename,
         content_type: content_type,
         body: content,
         url_part_number: start_part_number + index + 1
-      )
-      attachment.save!
-      attachments << attachment
+      }
+      attachment
     end
-    attachments
   end
 
   def get_attachments_for_display
@@ -614,13 +611,11 @@ class IncomingMessage < ApplicationRecord
     main_part = get_main_body_text_part(attachments)
 
     # We don't use get_main_body_text_internal, as we want to avoid charset
-    # conversions, since _uudecode_and_save_attachments needs to deal with
-    # those.
+    # conversions, since _uudecode_attachments needs to deal with those.
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if main_part
       c = _mail.count_first_uudecode_count
-      uudecoded_attachments = _uudecode_and_save_attachments(main_part.body, c)
-      attachments += uudecode_attachments
+      attachments += _uudecode_attachments(main_part.body, c)
     end
 
     # Purge old attachments that have been rebuilt with a new hexdigest
