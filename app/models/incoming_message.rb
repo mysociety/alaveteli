@@ -593,9 +593,14 @@ class IncomingMessage < ApplicationRecord
   def extract_attachments
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
+    attachment_attributes = attachment_attributes.inject({}) do |memo, attrs|
+      memo[attrs[:hexdigest]] = attrs
+      memo
+    end
+
     attachments = []
-    attachment_attributes.each do |attrs|
-      attachment = foi_attachments.find_or_create_by(hexdigest: attrs[:hexdigest])
+    attachment_attributes.each do |hexdigest, attrs|
+      attachment = foi_attachments.find_or_create_by(hexdigest: hexdigest)
       attachment.update(attrs)
       attachment.save!
       attachments << attachment
