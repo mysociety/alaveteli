@@ -161,6 +161,8 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.36', require: false
+gem 'activestorage-sftp', git: 'https://github.com/treenewbee/activestorage-sftp.git',
+                          ref: '679fbe1'
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
