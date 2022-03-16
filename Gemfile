@@ -163,6 +163,8 @@ gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.36', require: false
 gem 'activestorage-sftp', git: 'https://github.com/treenewbee/activestorage-sftp.git',
                           ref: '679fbe1'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
