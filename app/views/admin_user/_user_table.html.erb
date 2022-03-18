@@ -5,7 +5,7 @@
       <span class="item-title">
         <a href="#user_<%= user.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
 
-        <%= user_both_links(user) %>
+        <%= both_links(user) %>
 
         <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
 

@@ -86,7 +86,7 @@
                   <%= link_to(eye, @info_request.external_url, :title => "view URL of original request on external website") %>
                   <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || 'an anonymous user') %> (using API)
                 <% else %>
-                  <%= user_both_links(@info_request.user) %>
+                  <%= both_links(@info_request.user) %>
                   <%= link_to 'move...', '#', class: 'btn btn-mini btn-warning toggle-hidden' %>
                   <div style="display:none;">
                     <strong>url_name of new user:</strong>
@@ -101,7 +101,7 @@
                 <b>Public authority:</b>
               </td>
               <td>
-                <%= public_body_both_links(@info_request.public_body) %>
+                <%= both_links(@info_request.public_body) %>
                 <%= link_to "move...", "#", :class => "btn btn-mini btn-warning toggle-hidden" %>
                 <div style="display:none;">
                   <strong>url_name of new authority:</strong>

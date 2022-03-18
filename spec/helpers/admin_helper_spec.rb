@@ -35,6 +35,23 @@ RSpec.describe AdminHelper do
 
   end
 
+  describe '#both_links' do
+    subject { helper.both_links(record) }
+
+    context 'the record is a known class' do
+      let(:record) { FactoryBot.create(:user) }
+      it { is_expected.to eq(helper.send(:user_both_links, record)) }
+    end
+
+    context 'the record is unsupported' do
+      let(:record) { OpenStruct.new }
+
+      it 'raises an NoMethodError' do
+        expect { subject }.to raise_error(NoMethodError)
+      end
+    end
+  end
+
   describe '#comment_both_links' do
 
     let(:comment) { FactoryBot.create(:comment) }

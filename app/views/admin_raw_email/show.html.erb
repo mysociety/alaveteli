@@ -8,7 +8,7 @@
     <br>
     Guessed authority:
     <% @public_bodies.each do |public_body| %>
-      <%= public_body_both_links(public_body) %>
+      <%= both_links(public_body) %>
     <% end %>
 
     (based on From: email domain)
@@ -22,7 +22,7 @@
         <div class="accordion-group">
           <div class="accordion-heading">
             <a href="#info_request_<%= guess.info_request.id %>" data-toggle="collapse"><i class="icon-chevron-right"></i></a>
-            <%= request_both_links(guess.info_request) %>
+            <%= both_links(guess.info_request) %>
           </div>
 
           <div class="accordion-body collapse" id="info_request_<%= guess.info_request.id %>">
