@@ -195,7 +195,7 @@ FactoryBot.define do
 
     trait :external do
       user { nil }
-      external_user_name { 'External User' }
+      external_user_name { 'Eve External' }
       external_url { 'http://www.example.org/request/external' }
     end
 
