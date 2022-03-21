@@ -206,7 +206,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
   end
 
   describe 'DELETE #destroy' do
-    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:info_request) { FactoryBot.create(:info_request, title: 'Gone!') }
 
     it 'calls destroy on the info_request object' do
       allow(InfoRequest).to receive(:find).
@@ -215,10 +215,9 @@ RSpec.describe AdminRequestController, "when administering requests" do
       delete :destroy, params: { :id => info_request.id }
     end
 
-    it 'uses a different flash message to avoid trying to fetch a non existent user record' do
-      info_request = info_requests(:external_request)
-      delete :destroy, params: { :id => info_request.id }
-      expect(request.flash[:notice]).to include('external')
+    it 'conrims the request was destroyed' do
+      delete :destroy, params: { id: info_request.id }
+      expect(request.flash[:notice]).to match(/Request gone has been/)
     end
 
     it 'redirects after destroying a request with incoming_messages' do

@@ -75,13 +75,9 @@ class AdminRequestController < AdminController
   end
 
   def destroy
-    user = @info_request.user
     url_title = @info_request.url_title
-
     @info_request.destroy
-
-    email = user.try(:email) ? user.email : 'This request is external so has no associated user'
-    flash[:notice] = "Request #{ url_title } has been completely destroyed. Email of user who made request: #{ email }"
+    flash[:notice] = "Request #{ url_title } has been completely destroyed."
     redirect_to admin_requests_url
   end
 

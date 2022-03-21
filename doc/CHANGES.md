@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* No longer render user email address in confirmation after destroying a request
+  in the admin interface (Gareth Rees)
 * Improve comment metadata on comment edit page (Gareth Rees)
 * Improve comment metadata on comment listings (Gareth Rees)
 * Add extra common one-click user ban reasons (Gareth Rees)
