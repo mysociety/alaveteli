@@ -235,7 +235,7 @@
         <%= render 'form', f: f %>
       <% else %>
         <div id="request_form_questions">
-          <p><%= _('Are you asking about your, or others\', personal information or personal situation?') %></p>
+          <h2><%= _('What would you like to do?') %></h2>
 
           <% @info_request.public_body.questions.each do |question| %>
             <label for="<%= question.key %>">
