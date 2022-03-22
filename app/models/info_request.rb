@@ -49,6 +49,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
+  include Taggable
 
   @non_admin_columns = %w(title url_title)
   @additional_admin_columns = %w(rejected_incoming_count)
@@ -128,8 +129,6 @@ class InfoRequest < ApplicationRecord
 
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
-
-  has_tag_string
 
   scope :internal, -> { where.not(user_id: nil) }
   scope :external, -> { where(user_id: nil) }
