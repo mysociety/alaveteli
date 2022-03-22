@@ -33,6 +33,15 @@ GIT
     acts_as_versioned (0.6.0)
       activerecord (>= 3.0.9)
 
+GIT
+  remote: https://github.com/treenewbee/activestorage-sftp.git
+  revision: 679fbe1227fff47ab0ba46cfd637927dfcd68210
+  ref: 679fbe1
+  specs:
+    activestorage-sftp (0.2.0)
+      net-sftp (>= 2.1.2)
+      rails (>= 5.2.0)
+
 PATH
   remote: gems/alaveteli_features
   specs:
@@ -139,6 +148,7 @@ GEM
       faraday_middleware (~> 0.10)
       nokogiri (~> 1.6, >= 1.6.8)
     bcrypt (3.1.16)
+    bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
@@ -176,6 +186,7 @@ GEM
     digest-crc (0.6.4)
       rake (>= 12.0.0, < 14.0.0)
     docile (1.3.5)
+    ed25519 (1.3.0)
     erubi (1.10.0)
     eventmachine (1.2.7)
     exception_notification (4.5.0)
@@ -507,12 +518,14 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_otp
+  activestorage-sftp!
   acts_as_versioned!
   alaveteli_features!
   annotate (< 3.2.1)
   aws-sdk-s3
   azure-storage
   bcrypt (~> 3.1.16)
+  bcrypt_pbkdf
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 7.0.1)
   cancancan (~> 3.3.0)
@@ -520,6 +533,7 @@ DEPENDENCIES
   capybara (~> 3.35.3)
   charlock_holmes (~> 0.7.7)
   dalli (~> 3.2.1)
+  ed25519
   exception_notification (~> 4.5.0)
   factory_bot_rails (~> 6.2.0)
   fancybox-rails (~> 0.3.0)
