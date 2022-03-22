@@ -1685,6 +1685,9 @@ Style/NegatedUnless:
 Style/NegatedWhile:
   Enabled: true
 
+Style/NestedFileDirname:
+  Enabled: false
+
 Style/NestedModifier:
   Enabled: true
 
