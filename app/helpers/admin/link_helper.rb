@@ -28,7 +28,7 @@ module Admin::LinkHelper
     icon = eye
 
     link_to(icon, public_body_path(public_body), title: title) + ' ' +
-      link_to(h(public_body.name), admin_body_path(public_body),
+      link_to(public_body.name, admin_body_path(public_body),
               title: admin_title)
   end
 
@@ -37,7 +37,7 @@ module Admin::LinkHelper
     icon = prominence_icon(user)
 
     link_to(icon, user_path(user), title: title) + ' ' +
-      link_to(h(user.name), admin_user_path(user), title: admin_title)
+      link_to(user.name, admin_user_path(user), title: admin_title)
   end
 
   def comment_both_links(comment)
@@ -45,7 +45,7 @@ module Admin::LinkHelper
     icon = prominence_icon(comment)
 
     link_to(icon, comment_path(comment), title: title) + ' ' +
-      link_to(h(truncate(comment.body)), edit_admin_comment_path(comment),
+      link_to(truncate(comment.body), edit_admin_comment_path(comment),
               title: admin_title)
   end
 
