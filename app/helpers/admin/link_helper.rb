@@ -34,7 +34,7 @@ module Admin::LinkHelper
 
   def user_both_links(user)
     title = 'View user on public website'
-    icon = prominence_icon(user.prominence)
+    icon = prominence_icon(user)
 
     link_to(icon, user_path(user), title: title) + ' ' +
       link_to(h(user.name), admin_user_path(user), title: admin_title)
