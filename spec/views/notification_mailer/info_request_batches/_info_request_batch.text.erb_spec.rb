@@ -35,11 +35,12 @@ RSpec.describe(
     notifications
   end
   let(:template) do
-    "notification_mailer/info_request_batches/info_request_batch.text.erb"
+    "notification_mailer/info_request_batches/info_request_batch"
   end
 
   before do
     render partial: template,
+           formats: [:text],
            locals: { info_request_batch: batch_request,
                      notifications: batch_notifications }
   end

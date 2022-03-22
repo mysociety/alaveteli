@@ -6,11 +6,12 @@ RSpec.describe "notification_mailer/info_requests/_info_request.text.erb" do
   let(:incoming_message) { info_request_event.incoming_message }
   let(:info_request) { info_request_event.info_request }
   let(:template) do
-    "notification_mailer/info_requests/info_request.text.erb"
+    "notification_mailer/info_requests/info_request"
   end
 
   before do
     render partial: template,
+           formats: [:text],
            locals: { info_request: info_request,
                      notifications: [notification] }
   end

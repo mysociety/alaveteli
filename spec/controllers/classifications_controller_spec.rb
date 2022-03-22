@@ -121,7 +121,7 @@ RSpec.describe ClassificationsController, type: :controller do
             it 'shows a message thanking the user for a good deed' do
               post_status('rejected')
               expect(flash[:notice][:partial]).to eq(
-                'request_game/thank_you.html.erb'
+                'request_game/thank_you'
               )
               expect(flash[:notice][:locals]).to include(
                 info_request_title: info_request.title

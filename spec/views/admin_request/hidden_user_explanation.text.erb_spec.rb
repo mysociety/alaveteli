@@ -3,11 +3,12 @@ require 'spec_helper'
 RSpec.describe 'admin_request/hidden_user_explanation.text.erb' do
   let(:message) { 'vexatious' }
   let(:template) do
-    'admin_request/hidden_user_explanation.text.erb'
+    'admin_request/hidden_user_explanation'
   end
 
   before do
     render template: template,
+           formats: [:text],
            locals: { name_to: 'Bob Smith',
                      info_request: double(title: 'Foo'),
                      info_request_url: 'https://test.host/request/foo',

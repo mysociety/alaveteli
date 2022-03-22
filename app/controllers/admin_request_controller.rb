@@ -147,7 +147,7 @@ class AdminRequestController < AdminController
     post_redirect.save!
 
     flash[:notice] = {
-      :partial => "upload_email_message.html.erb",
+      :partial => "upload_email_message",
       :locals => {
         :name => name,
         :email => email,

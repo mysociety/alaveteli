@@ -6,11 +6,13 @@ RSpec.describe "alaveteli_pro/info_request_batches/_authority_list.text.erb" do
   let(:other_body_2) { FactoryBot.create(:public_body) }
   let(:public_bodies) { [html_body, other_body, other_body_2] }
   let(:template) do
-    "alaveteli_pro/info_request_batches/authority_list.text.erb"
+    "alaveteli_pro/info_request_batches/authority_list"
   end
 
   def render_text_partial(public_bodies)
-    render partial: template, locals: { public_bodies: public_bodies }
+    render partial: template,
+           formats: [:text],
+           locals: { public_bodies: public_bodies }
   end
 
   it "doesn't escape HTMLEntities in public body names" do

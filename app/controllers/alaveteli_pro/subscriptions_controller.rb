@@ -120,7 +120,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         current_user.add_role(:pro)
 
         flash[:notice] = {
-          partial: 'alaveteli_pro/subscriptions/signup_message.html.erb'
+          partial: 'alaveteli_pro/subscriptions/signup_message'
         }
         flash[:new_pro_user] = true
 

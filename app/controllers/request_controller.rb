@@ -816,7 +816,7 @@ class RequestController < ApplicationController
   def render_new_preview
     if @outgoing_message.contains_email? || @outgoing_message.contains_postcode?
       flash.now[:error] = {
-        :partial => "preview_errors.html.erb",
+        :partial => "preview_errors",
         :locals => {
           :contains_email => @outgoing_message.contains_email?,
           :contains_postcode => @outgoing_message.contains_postcode?,

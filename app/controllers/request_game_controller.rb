@@ -29,7 +29,7 @@ class RequestGameController < ApplicationController
 
     if @missing == 0
       flash.now[:notice] = {
-        :partial => "request_game/game_over.html.erb",
+        :partial => "request_game/game_over",
         :locals => {
           :helpus_url => help_credits_path(:anchor => "helpus"),
           :site_name => site_name
