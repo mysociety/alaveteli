@@ -1,14 +1,13 @@
 # == Schema Information
-# Schema version: 20210928115500
+# Schema version: 20220210114052
 #
 # Table name: outgoing_message_snippets
 #
-#  id                          :bigint           not null, primary key
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  outgoing_message_snippet_id :bigint           not null
-#  name                        :string
-#  body                        :text
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  name       :string
+#  body       :text
 #
 
 ##
