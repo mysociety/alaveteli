@@ -999,6 +999,9 @@ Performance/UriDefaultParser:
 
 #################### Rails ####################
 
+Rails/ActionControllerTestCase:
+  Enabled: false
+
 Rails/ActionFilter:
   Enabled: false
 
@@ -1071,6 +1074,15 @@ Rails/Delegate:
 Rails/DelegateAllowBlank:
   Enabled: false
 
+Rails/DeprecatedActiveModelErrorsMethods:
+  Enabled: false
+
+Rails/DuplicateAssociation:
+  Enabled: false
+
+Rails/DuplicateScope:
+  Enabled: false
+
 Rails/DurationArithmetic:
   Enabled: false
 
@@ -1125,7 +1137,13 @@ Rails/HttpPositionalArguments:
 Rails/HttpStatus:
   Enabled: false
 
+Rails/I18nLazyLookup:
+  Enabled: false
+
 Rails/I18nLocaleAssignment:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
   Enabled: false
 
 Rails/IgnoredSkipActionFilterOption:
@@ -1153,6 +1171,9 @@ Rails/MailerName:
   Enabled: false
 
 Rails/MatchRoute:
+  Enabled: false
+
+Rails/MigrationClassName:
   Enabled: false
 
 Rails/NegateInclude:
@@ -1266,10 +1287,16 @@ Rails/SkipsModelValidations:
 Rails/SquishedSQLHeredocs:
   Enabled: false
 
+Rails/TableNameAssignment:
+  Enabled: false
+
 Rails/TimeZone:
   Enabled: false
 
 Rails/TimeZoneAssignment:
+  Enabled: false
+
+Rails/TransactionExitStatement:
   Enabled: false
 
 Rails/UniqBeforePluck:
