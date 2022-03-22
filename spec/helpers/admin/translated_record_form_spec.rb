@@ -24,7 +24,7 @@ RSpec.describe Admin::TranslatedRecordForm do
           </ul>
           <div class="tab-content">
             <div id="div-locale-en" class="tab-pane">
-              <input value="en" type="hidden" name="public_body_heading[locale]" id="public_body_heading_locale" />
+              <input value="en" autocomplete="off" type="hidden" name="public_body_heading[locale]" id="public_body_heading_locale" />
               <input type="text" value="Foo" name="public_body_heading[name]" id="public_body_heading_name" />
             </div>
           </div>
@@ -53,13 +53,13 @@ RSpec.describe Admin::TranslatedRecordForm do
           </ul>
           <div class="tab-content">
             <div id="div-locale-en" class="tab-pane">
-              <input value="en" type="hidden" name="public_body_heading[locale]" id="public_body_heading_locale" />
+              <input value="en" autocomplete="off" type="hidden" name="public_body_heading[locale]" id="public_body_heading_locale" />
               <input type="text" value="Foo" name="public_body_heading[name]" id="public_body_heading_name" />
             </div>
             <div id="div-locale-es" class="tab-pane">
-              <input value="es" type="hidden" name="mock[translations_attributes][es][locale]" id="mock_translations_attributes_es_locale" />
+              <input value="es" autocomplete="off" type="hidden" name="mock[translations_attributes][es][locale]" id="mock_translations_attributes_es_locale" />
               <input type="text" value="El Foo" name="mock[translations_attributes][es][name]" id="mock_translations_attributes_es_name" />
-              <input type="hidden" value="#{@translation_id}" name="mock[translations_attributes][es][id]" id="mock_translations_attributes_es_id" />
+              <input autocomplete="off" type="hidden" value="#{@translation_id}" name="mock[translations_attributes][es][id]" id="mock_translations_attributes_es_id" />
             </div>
           </div>
         </div>

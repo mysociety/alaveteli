@@ -84,7 +84,7 @@ def rails_upgrade?
   true
 end
 
-gem 'rails', '~> 6.1.4'
+gem 'rails', '~> 6.1.5'
 
 gem 'pg', '~> 1.2.3'
 
