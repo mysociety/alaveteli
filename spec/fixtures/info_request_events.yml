@@ -155,29 +155,6 @@ spam_2_incoming_message_event:
   created_at: 2001-01-03 02:23:45.6789100
   described_state: successful
   calculated_state: successful
-
-external_outgoing_message_event:
-  id: 914
-  params_yaml: "--- \n\
-    :outgoing_message_id: 8\n"
-  outgoing_message_id: 8
-  info_request_id: 109
-  event_type: sent
-  created_at: 2009-01-02 02:23:45.6789100
-  described_state: waiting_response
-  calculated_state: waiting_response
-
-anonymous_external_outgoing_message_event:
-  id: 915
-  params_yaml: "--- \n\
-    :outgoing_message_id: 9\n"
-  outgoing_message_id: 9
-  info_request_id: 110
-  event_type: sent
-  created_at: 2009-01-03 02:23:45.6789100
-  described_state: waiting_response
-  calculated_state: waiting_response
-
 other_request_outgoing_message_event:
   id: 916
   params_yaml: "--- \n\
