@@ -29,20 +29,6 @@ RSpec.describe ApiController, "when using the API" do
     end
   end
 
-  def _create_request
-    post :create_request,
-         params: {
-           :k => public_bodies(:geraldine_public_body).api_key,
-           :request_json => {
-             'title' => 'Tell me about your chickens',
-             'body' => "Dear Sir,\n\nI should like to know about your " \
-                       "chickens.\n\nYours in faith,\nBob\n"
-           }.to_json
-         }
-    expect(response.media_type).to eq('application/json')
-    ActiveSupport::JSON.decode(response.body)['id']
-  end
-
   # POST /api/v2/request/:id/add_correspondence.json
   describe 'adding correspondence to a request' do
     it 'should add a response to a request' do
