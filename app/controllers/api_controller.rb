@@ -27,51 +27,6 @@ class ApiController < ApplicationController
     render :json => @request_data
   end
 
-  def create_request
-    json = ActiveSupport::JSON.decode(params[:request_json])
-    request = InfoRequest.new(
-      :title => json["title"],
-      :public_body_id => @public_body.id,
-      :described_state => "waiting_response"
-    )
-
-    outgoing_message = OutgoingMessage.new(
-      :status => 'ready',
-      :message_type => 'initial_request',
-      :body => json["body"],
-      :last_sent_at => Time.zone.now,
-      :what_doing => 'normal_sort',
-      :info_request => request
-    )
-    request.outgoing_messages << outgoing_message
-
-    # Return an error if the request is invalid
-    # (Can this ever happen?)
-    if !request.valid?
-      render :json => {
-        'errors' => request.errors.full_messages
-      }
-      return
-    end
-
-    # Save the request, and add the corresponding InfoRequestEvent
-    request.save!
-    request.log_event("sent",
-                      :api => true,
-                      :email => nil,
-                      :outgoing_message_id => outgoing_message.id,
-                      :smtp_message_id => nil
-                      )
-
-    request.set_described_state('waiting_response')
-
-    # Return the URL and ID number.
-    render :json => {
-      'url' => make_url("request", request.url_title),
-      'id'  => request.id
-    }
-  end
-
   def add_correspondence
     json = ActiveSupport::JSON.decode(params[:correspondence_json])
     attachments = params[:attachments]

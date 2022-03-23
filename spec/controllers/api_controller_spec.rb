@@ -43,52 +43,6 @@ RSpec.describe ApiController, "when using the API" do
     ActiveSupport::JSON.decode(response.body)['id']
   end
 
-  # POST /api/v2/request.json
-  describe 'creating a request' do
-    it 'should create a new request from a POST' do
-      number_of_requests =
-        InfoRequest.
-          where(:public_body_id => public_bodies(:geraldine_public_body).id).
-            count
-
-      request_data = {
-        'title' => 'Tell me about your chickens',
-        'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n"
-      }
-
-      post :create_request,
-           params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
-             :request_json => request_data.to_json
-           }
-      expect(response).to be_successful
-
-      expect(response.media_type).to eq('application/json')
-      response_body = ActiveSupport::JSON.decode(response.body)
-      expect(response_body['errors']).to be_nil
-      expect(response_body['url']).to match(/^http/)
-
-      updated_count =
-        InfoRequest.
-          where(:public_body_id => public_bodies(:geraldine_public_body).id).
-            count
-      expect(updated_count).to eq(number_of_requests + 1)
-
-      new_request = InfoRequest.find(response_body['id'])
-      expect(new_request.user_id).to be_nil
-      expect(new_request.external_user_name).to eq(request_data['external_user_name'])
-      expect(new_request.external_url).to eq(request_data['external_url'])
-
-      expect(new_request.title).to eq(request_data['title'])
-      expect(new_request.last_event_forming_initial_request.outgoing_message.body).to eq(request_data['body'].strip)
-
-      expect(new_request.public_body_id).to eq(public_bodies(:geraldine_public_body).id)
-      expect(new_request.info_request_events.size).to eq(1)
-      expect(new_request.info_request_events[0].event_type).to eq('sent')
-      expect(new_request.info_request_events[0].calculated_state).to eq('waiting_response')
-    end
-  end
-
   # POST /api/v2/request/:id/add_correspondence.json
   describe 'adding correspondence to a request' do
     it 'should add a response to a request' do
