@@ -2,18 +2,7 @@ require 'spec_helper'
 
 RSpec.describe ClassificationsController, type: :controller do
   describe 'POST create' do
-    describe 'if the request is external' do
-      let(:external_request) { FactoryBot.create(:external_request) }
-
-      it 'should redirect to the request page' do
-        post :create, params: { url_title: external_request.url_title }
-        expect(response).to redirect_to(
-          show_request_path(external_request.url_title)
-        )
-      end
-    end
-
-    describe 'when the request is internal' do
+    describe 'when the request is public' do
       let(:info_request) { FactoryBot.create(:info_request) }
 
       def post_status(status, message: nil)

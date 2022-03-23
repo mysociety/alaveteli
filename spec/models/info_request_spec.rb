@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220323165941
 #
 # Table name: info_requests
 #
@@ -17,8 +17,6 @@
 #  allow_new_responses_from              :string           default("anybody"), not null
 #  handle_rejected_responses             :string           default("bounce"), not null
 #  idhash                                :string           not null
-#  external_user_name                    :string
-#  external_url                          :string
 #  attention_requested                   :boolean          default(FALSE)
 #  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
@@ -41,40 +39,6 @@ require 'models/concerns/info_request/title_validation'
 RSpec.describe InfoRequest do
   it_behaves_like 'concerns/info_request/title_validation',
                   FactoryBot.build(:info_request)
-
-  describe '.internal' do
-    subject { described_class.internal }
-
-    let!(:internal) do
-      FactoryBot.create(:info_request)
-    end
-
-    let!(:external) do
-      FactoryBot.create(:info_request, :external)
-    end
-
-    it 'can scope to internal info requests' do
-      is_expected.to include(internal)
-      is_expected.to_not include(external)
-    end
-  end
-
-  describe '.external' do
-    subject { described_class.external }
-
-    let!(:internal) do
-      FactoryBot.create(:info_request)
-    end
-
-    let!(:external) do
-      FactoryBot.create(:info_request, :external)
-    end
-
-    it 'can scope to external info requests' do
-      is_expected.to_not include(internal)
-      is_expected.to include(external)
-    end
-  end
 
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
@@ -541,19 +505,6 @@ RSpec.describe InfoRequest do
           ActionMailer::Base.deliveries.clear
         end
       end
-
-      context 'when the request is external' do
-        it 'does not email or notify anyone' do
-          info_request = FactoryBot.create(:external_request)
-          email, raw_email = email_and_raw_email
-
-          expect { info_request.receive(email, raw_email) }.
-            not_to change { ActionMailer::Base.deliveries.size }
-          expect { info_request.receive(email, raw_email) }.
-            not_to change { Notification.count }
-        end
-      end
-
     end
 
     describe 'receiving mail from different sources' do
@@ -799,14 +750,6 @@ RSpec.describe InfoRequest do
         info_request.receive(email, raw_email)
         bounce = ActionMailer::Base.deliveries.first
         expect(bounce.to).to include('bounce@example.com')
-        ActionMailer::Base.deliveries.clear
-      end
-
-      it 'does not bounce responses to external requests' do
-        info_request = FactoryBot.create(:external_request)
-        email, raw_email = email_and_raw_email(:from => 'bounce@example.com')
-        info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
         ActionMailer::Base.deliveries.clear
       end
 
@@ -1474,20 +1417,6 @@ RSpec.describe InfoRequest do
 
   end
 
-  describe '#is_external?' do
-
-    it 'returns true if there is an external url' do
-      info_request = InfoRequest.new(:external_url => "demo_url")
-      expect(info_request.is_external?).to eq(true)
-    end
-
-    it 'returns false if there is not an external url' do
-      info_request = InfoRequest.new(:external_url => nil)
-      expect(info_request.is_external?).to eq(false)
-    end
-
-  end
-
   describe '#late_calculator' do
 
     it 'returns a DefaultLateCalculator' do
@@ -1540,22 +1469,6 @@ RSpec.describe InfoRequest do
       it "should not set a followup_bad_reason" do
         request.is_followupable?(dummy_message)
         expect(request.followup_bad_reason).to be_nil
-      end
-
-    end
-
-    context "an external request" do
-
-      let(:info_request) { InfoRequest.new(:external_url => "demo_url") }
-
-      it "returns false" do
-        expect(info_request.is_followupable?(message_without_reply_to)).
-          to eq(false)
-      end
-
-      it "sets followup_bad_reason to 'external'" do
-        info_request.is_followupable?(message_without_reply_to)
-        expect(info_request.followup_bad_reason).to eq("external")
       end
 
     end
@@ -1699,24 +1612,6 @@ RSpec.describe InfoRequest do
       info_request.valid?
       expect(info_request.errors[:prominence]).to include("is not included in the list")
     end
-  end
-
-  describe 'when generating a user name slug' do
-
-    let(:public_body) do
-      FactoryBot.build(:public_body, url_name: 'example_body')
-    end
-
-    let(:info_request) do
-      FactoryBot.build(:external_request,
-                       public_body: public_body,
-                       external_user_name: 'Example User')
-    end
-
-    it 'should generate a slug for an example user name' do
-      expect(info_request.user_name_slug).to eq('example_body_example_user')
-    end
-
   end
 
   describe '.guess_by_incoming_email' do
@@ -2440,22 +2335,6 @@ RSpec.describe InfoRequest do
         request
       end
 
-      def create_old_unclassified_no_user
-        request = FactoryBot.create(:info_request, :user => nil,
-                                                   :external_user_name => 'test_user',
-                                                   :external_url => 'test',
-                                                   :created_at => old_date)
-        message = FactoryBot.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-        FactoryBot.create(:info_request_event, :incoming_message => message,
-                                               :event_type => "response",
-                                               :info_request => request,
-                                               :created_at => old_date)
-        request.awaiting_description = true
-        request.save!
-        request
-      end
-
       def create_old_unclassified_holding_pen
         request = FactoryBot.create(:info_request, :user => user,
                                                    :title => 'Holding pen',
@@ -2589,7 +2468,7 @@ RSpec.describe InfoRequest do
     end
 
     it 'returns true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do
-      expect(@info_request.is_external? || @info_request.is_old_unclassified?).to be true
+      expect(@info_request.is_old_unclassified?).to be true
     end
 
   end
@@ -3006,17 +2885,6 @@ RSpec.describe InfoRequest do
                       :valid_to_reply_to? => true)
       subject = ir.email_subject_followup(:incoming_message => im, :html => false)
       expect(subject).to match(/^Re: Freedom of Information request.*fancy dog/)
-    end
-
-    it "returns a hash with the user's name for an external request" do
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                      :external_user_name => 'External User')
-      expect(@info_request.user_json_for_api).to eq({:name => 'External User'})
-    end
-
-    it 'returns "Anonymous user" for an anonymous external user' do
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com')
-      expect(@info_request.user_json_for_api).to eq({:name => 'Anonymous user'})
     end
 
   end

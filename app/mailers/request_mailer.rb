@@ -33,20 +33,6 @@ class RequestMailer < ApplicationMailer
          :subject => info_request.email_subject_followup(:html => false))
   end
 
-  # Used when a response is uploaded using the API
-  def external_response(info_request, message_body, sent_at, attachment_hashes)
-    @message_body = message_body
-
-    attachment_hashes.each do |attachment_hash|
-      attachments[attachment_hash[:filename]] = {:content => attachment_hash[:body],
-                                                 :content_type => attachment_hash[:content_type]}
-    end
-
-    mail(:from => blackhole_email,
-         :to => info_request.incoming_name_and_email,
-         :date => sent_at)
-  end
-
   # Incoming message arrived for a request, but new responses have been stopped.
   def stopped_responses(info_request, email, raw_email_data)
     headers('Return-Path' => blackhole_email,   # we don't care about bounces, likely from spammers
@@ -472,8 +458,6 @@ class RequestMailer < ApplicationMailer
               references(:info_request_events)
 
     info_requests.each do |info_request|
-      next if info_request.is_external?
-
       # Count number of new comments to alert on
       earliest_unalerted_comment_event = nil
       last_comment_event = nil

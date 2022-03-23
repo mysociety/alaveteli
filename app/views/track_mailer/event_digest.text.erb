@@ -17,11 +17,7 @@
 
         # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
         if event.event_type == 'response'
-          if event.info_request.is_external?
-            user_name = _('An anonymous user')
-          else
-            user_name = event.info_request.user_name
-          end
+          user_name = event.info_request.user_name
           url = incoming_message_url(event.incoming_message, :cachebust => true)
           main_text += _("{{public_body}} sent a response to {{user_name}}",
             :public_body => event.info_request.public_body.name.html_safe,

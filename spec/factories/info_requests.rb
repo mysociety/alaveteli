@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220323165941
 #
 # Table name: info_requests
 #
@@ -17,8 +17,6 @@
 #  allow_new_responses_from              :string           default("anybody"), not null
 #  handle_rejected_responses             :string           default("bounce"), not null
 #  idhash                                :string           not null
-#  external_user_name                    :string
-#  external_url                          :string
 #  attention_requested                   :boolean          default(FALSE)
 #  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
@@ -191,12 +189,6 @@ FactoryBot.define do
         info_request.awaiting_description = true
         info_request.save!
       end
-    end
-
-    trait :external do
-      user { nil }
-      external_user_name { 'External User' }
-      external_url { 'http://www.example.org/request/external' }
     end
 
     trait :hidden do

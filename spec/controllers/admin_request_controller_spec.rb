@@ -101,7 +101,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
   describe 'GET #show' do
     let(:info_request) { FactoryBot.create(:info_request) }
-    let(:external_request) { FactoryBot.create(:external_request) }
     let(:admin_user) { FactoryBot.create(:admin_user) }
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
@@ -110,12 +109,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
     it "is successful" do
       sign_in admin_user
       get :show, params: { :id => info_request }
-      expect(response).to be_successful
-    end
-
-    it 'shows an external info request with no username' do
-      sign_in admin_user
-      get :show, params: { :id => external_request }
       expect(response).to be_successful
     end
 
@@ -215,12 +208,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
       delete :destroy, params: { :id => info_request.id }
     end
 
-    it 'uses a different flash message to avoid trying to fetch a non existent user record' do
-      info_request = info_requests(:external_request)
-      delete :destroy, params: { :id => info_request.id }
-      expect(request.flash[:notice]).to include('external')
-    end
-
     it 'redirects after destroying a request with incoming_messages' do
       incoming_message = FactoryBot.create(:incoming_message_with_html_attachment,
                                            :info_request => info_request)
@@ -259,59 +246,4 @@ RSpec.describe AdminRequestController, "when administering requests" do
                     :reason => "vexatious"
                   }
     end
-
-    context 'when hiding an external request' do
-
-      before do
-        @info_request = mock_model(InfoRequest, :prominence= => nil,
-                                   :log_event => nil,
-                                   :set_described_state => nil,
-                                   :save! => nil,
-                                   :user => nil,
-                                   :user_name => 'External User',
-                                   :is_external? => true)
-        allow(@info_request).to receive(:expire)
-
-        allow(InfoRequest).to receive(:find).with(@info_request.id).
-          and_return(@info_request)
-        @default_params = { :id => @info_request.id,
-                            :explanation => 'Foo',
-                            :reason => 'vexatious' }
-      end
-
-      def make_request(params=@default_params)
-        post :hide, params: params
-      end
-
-      it 'should redirect the the admin page for the request' do
-        make_request
-        expect(response).to redirect_to(:controller => 'admin_request',
-                                        :action => 'show',
-                                        :id => @info_request.id)
-      end
-
-      it 'should set the request prominence to "requester_only"' do
-        expect(@info_request).to receive(:prominence=).with('requester_only')
-        expect(@info_request).to receive(:save!)
-        make_request
-      end
-
-      it 'should not send a notification email' do
-        expect(ContactMailer).not_to receive(:from_admin_message)
-        make_request
-      end
-
-      it 'should add a notice to the flash saying that the request has been hidden' do
-        make_request
-        expect(request.flash[:notice]).to eq("This external request has been hidden")
-      end
-
-      it 'should expire the file cache for the request' do
-        expect(@info_request).to receive(:expire)
-        make_request
-      end
-    end
-
-  end
-
 end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220323165941
 #
 # Table name: info_requests
 #
@@ -17,8 +17,6 @@
 #  allow_new_responses_from              :string           default("anybody"), not null
 #  handle_rejected_responses             :string           default("bounce"), not null
 #  idhash                                :string           not null
-#  external_user_name                    :string
-#  external_url                          :string
 #  attention_requested                   :boolean          default(FALSE)
 #  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
@@ -61,8 +59,6 @@ class InfoRequest < ApplicationRecord
   belongs_to :user,
              :inverse_of => :info_requests,
              :counter_cache => true
-
-  validate :must_be_internal_or_external
 
   belongs_to :public_body,
              :inverse_of => :info_requests,
@@ -129,9 +125,6 @@ class InfoRequest < ApplicationRecord
 
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
-
-  scope :internal, -> { where.not(user_id: nil) }
-  scope :external, -> { where(user_id: nil) }
 
   scope :pro, ProQuery.new
   scope :is_public, Prominence::PublicQuery.new
@@ -723,45 +716,16 @@ class InfoRequest < ApplicationRecord
     prominence(:decorate => true).is_searchable?
   end
 
-  # The request must either be internal, in which case it has
-  # a foreign key reference to a User object and no external_url or external_user_name,
-  # or else be external in which case it has no user_id but does have an external_url,
-  # and may optionally also have an external_user_name.
-  #
-  # External requests are requests that have been added using the API, whereas internal
-  # requests are requests made using the site.
-  def must_be_internal_or_external
-    # We must permit user_id and external_user_name both to be nil, because the system
-    # allows a request to be created by a non-logged-in user.
-    if user_id
-      errors.add(:external_user_name, "must be null for an internal request") unless external_user_name.nil?
-      errors.add(:external_url, "must be null for an internal request") unless external_url.nil?
-    end
-  end
-
-  def is_external?
-    external_url.nil? ? false : true
-  end
-
   def user_name
-    is_external? ? external_user_name : user.name
+    user.name
   end
 
   def user_name_slug
-    if is_external?
-      if external_user_name.nil?
-        fake_slug = "anonymous"
-      else
-        fake_slug = MySociety::Format.simplify_url_part(external_user_name, 'external_user', 32)
-      end
-      (public_body.url_name || "") + "_" + fake_slug
-    else
-      user.url_name
-    end
+    user.url_name
   end
 
   def user_json_for_api
-    is_external? ? { :name => user_name || _("Anonymous user") } : user.json_for_api
+    user.json_for_api
   end
 
   @@custom_states_loaded = false
@@ -909,18 +873,14 @@ class InfoRequest < ApplicationRecord
         incoming_message =
           create_response!(email, raw_email_data, opts[:rejected_reason])
 
-        # Notify the user that a new response has been received, unless the
-        # request is external
-        unless is_external?
-          if use_notifications?
-            info_request_event = info_request_events.find_by(
-              event_type: 'response',
-              incoming_message_id: incoming_message.id
-            )
-            user.notify(info_request_event)
-          else
-            RequestMailer.new_response(self, incoming_message).deliver_now
-          end
+        if use_notifications?
+          info_request_event = info_request_events.find_by(
+            event_type: 'response',
+            incoming_message_id: incoming_message.id
+          )
+          user.notify(info_request_event)
+        else
+          RequestMailer.new_response(self, incoming_message).deliver_now
         end
       end
     end
@@ -993,8 +953,7 @@ class InfoRequest < ApplicationRecord
     end
 
     unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-      RequestMailer.
-        old_unclassified_updated(self).deliver_now unless is_external?
+      RequestMailer.old_unclassified_updated(self).deliver_now
     end
   end
 
@@ -1347,10 +1306,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def is_followupable?(incoming_message)
-    if is_external?
-      @followup_bad_reason = "external"
-      false
-    elsif !OutgoingMailer.is_followupable?(self, incoming_message)
+    if !OutgoingMailer.is_followupable?(self, incoming_message)
       @followup_bad_reason = if public_body.is_requestable?
         "unexpected followupable inconsistency"
       else
@@ -1428,7 +1384,9 @@ class InfoRequest < ApplicationRecord
   end
 
   def is_old_unclassified?
-    !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_public_response_event &&
+    awaiting_description &&
+      url_title != 'holding_pen' &&
+      get_last_public_response_event &&
       Time.zone.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
   end
 

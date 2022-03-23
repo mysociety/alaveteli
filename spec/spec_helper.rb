@@ -199,19 +199,13 @@ end
 # Geraldine Quango altered so that one is hidden and there's a
 # successful one.
 def with_hidden_and_successful_requests
-  external = info_requests(:external_request)
   chicken = info_requests(:naughty_chicken_request)
-  old_external_prominence = external.prominence
   old_chicken_described_state = chicken.described_state
   begin
-    external.prominence = 'hidden'
-    external.save!
     chicken.described_state = 'successful'
     chicken.save!
     yield
   ensure
-    external.prominence = old_external_prominence
-    external.save!
     chicken.described_state = old_chicken_described_state
     chicken.save!
   end

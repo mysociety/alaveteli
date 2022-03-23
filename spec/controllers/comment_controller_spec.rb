@@ -340,26 +340,6 @@ RSpec.describe CommentController, "when commenting on a request" do
 
   end
 
-  describe 'when commenting on an external request' do
-
-    describe 'when responding to a GET request on a successful request' do
-
-      before do
-        @external_request = info_requests(:external_request)
-        @external_request.described_state = 'successful'
-        @external_request.save!
-      end
-
-      it 'should be successful' do
-        get :new, params: { :url_title => @external_request.url_title,
-                            :type => 'request' }
-        expect(response).to be_successful
-      end
-
-    end
-
-  end
-
   context 'when commenting on an embargoed request' do
     let(:pro_user) { FactoryBot.create(:pro_user) }
     let(:embargoed_request) do

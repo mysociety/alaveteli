@@ -149,62 +149,6 @@ RSpec.describe "request/show" do
     end
   end
 
-  describe "when showing an external request" do
-    before :each do
-      allow(mock_request).to receive(:is_external?).and_return("true")
-      allow(mock_request).
-        to receive(:awaiting_description?).and_return("true")
-    end
-
-    context 'when viewing anonymously' do
-      it 'should not display actions the request owner can take' do
-        request_page
-        expect(response.body).not_to have_css('div#owner_actions')
-      end
-    end
-
-    context 'when the request is being viewed by an admin' do
-      before :each do
-        assign :user, admin_user
-      end
-
-      context 'and the request is waiting for a response and very overdue' do
-        before do
-          allow(mock_request).
-            to receive(:calculate_status).
-              and_return('waiting_response_very_overdue')
-          request_page
-        end
-
-        it 'should not give a link to requesting an internal review' do
-          expect(rendered).not_to have_css(
-            'p#request_status',
-            :text => "requesting an internal review")
-        end
-      end
-
-      context 'and the request is waiting clarification' do
-        before do
-          allow(mock_request).
-            to receive(:calculate_status).and_return('waiting_clarification')
-          request_page
-        end
-
-        it 'should not give a link to make a followup' do
-          expect(rendered).not_to have_css(
-            'p#request_status a',
-            :text => "send a follow up message")
-        end
-
-        it 'should not give a link to sign in (in the request status <p>)' do
-          expect(rendered).not_to have_css(
-            'p#request_status a',
-            :text => "sign in")
-        end
-      end
-    end
-  end
-
   describe 'when the authority is not subject to FOI law' do
     before do
       mock_body.add_tag_if_not_already_present('foi_no')

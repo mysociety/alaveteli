@@ -46,17 +46,6 @@ RSpec.describe "track_mailer/event_digest" do
       render
       expect(response).to match("sent a response to Test Us'r")
     end
-
-    context 'when info request is external' do
-      let(:request) { FactoryBot.create(:info_request, :external) }
-
-      it 'uses "An anonymous user" as the user name' do
-        result = { model: event }
-        assign(:email_about_things, [[track, [result], xapian_search]])
-        render
-        expect(response).to match('sent a response to An anonymous user')
-      end
-    end
   end
 
   describe "tracking a followup" do

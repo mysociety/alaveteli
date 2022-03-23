@@ -4,34 +4,32 @@
       <a href="#" class="action-menu__button"><%= _('Actions') %></a>
 
       <ul class="action-menu__menu">
-        <% unless info_request.is_external? %>
-          <li class="action-menu__menu__item">
-            <span class="action-menu__menu__heading">
-              <%= _('{{info_request_user_name}}',
-                    :info_request_user_name => h(info_request.user_name)) %>
-            </span>
+        <li class="action-menu__menu__item">
+          <span class="action-menu__menu__heading">
+            <%= _('{{info_request_user_name}}',
+                  :info_request_user_name => h(info_request.user_name)) %>
+          </span>
 
-            <ul class="action-menu__menu__submenu owner_actions">
-              <li>
-                <% if last_response.nil? %>
-                  <%= link_to _('Send a followup'), new_request_followup_path(request_id: info_request.id) %>
-                <% else %>
-                  <%= link_to _('Write a reply'), new_request_incoming_followup_path(request_id: info_request.id, incoming_message_id: last_response.id) %>
-                <% end %>
-              </li>
-
-              <% if show_owner_update_status_action %>
-                <li>
-                  <%= link_to _('Update the status of this request'), request_path(info_request, update_status: 1) %>
-                </li>
+          <ul class="action-menu__menu__submenu owner_actions">
+            <li>
+              <% if last_response.nil? %>
+                <%= link_to _('Send a followup'), new_request_followup_path(request_id: info_request.id) %>
+              <% else %>
+                <%= link_to _('Write a reply'), new_request_incoming_followup_path(request_id: info_request.id, incoming_message_id: last_response.id) %>
               <% end %>
+            </li>
 
+            <% if show_owner_update_status_action %>
               <li>
-                <%= link_to _('Request an internal review'), new_request_followup_path(request_id: info_request.id, internal_review: '1') %>
+                <%= link_to _('Update the status of this request'), request_path(info_request, update_status: 1) %>
               </li>
-            </ul>
-          </li>
-        <% end %>
+            <% end %>
+
+            <li>
+              <%= link_to _('Request an internal review'), new_request_followup_path(request_id: info_request.id, internal_review: '1') %>
+            </li>
+          </ul>
+        </li>
 
         <li class="action-menu__menu__item">
           <span class="action-menu__menu__heading">

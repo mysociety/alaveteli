@@ -80,7 +80,7 @@ class AdminRequestController < AdminController
 
     @info_request.destroy
 
-    email = user.try(:email) ? user.email : 'This request is external so has no associated user'
+    email = user.email
     flash[:notice] = "Request #{ url_title } has been completely destroyed. Email of user who made request: #{ email }"
     redirect_to admin_requests_url
   end
@@ -173,20 +173,17 @@ class AdminRequestController < AdminController
       @info_request.set_described_state(params[:reason])
       @info_request.save!
 
-      if ! @info_request.is_external?
-        ContactMailer.from_admin_message(
-          @info_request.user.name,
-          @info_request.user.email,
-          subject,
-          params[:explanation].strip.html_safe
-        ).deliver_now
-        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
-                           "been sent",
-                           :recipient_user_name => @info_request.user.
-                                                     name.html_safe)
-      else
-        flash[:notice] = _("This external request has been hidden")
-      end
+      ContactMailer.from_admin_message(
+        @info_request.user.name,
+        @info_request.user.email,
+        subject,
+        params[:explanation].strip.html_safe
+      ).deliver_now
+      flash[:notice] = _("Your message to {{recipient_user_name}} has " \
+                         "been sent",
+                         :recipient_user_name => @info_request.user.
+                                                   name.html_safe)
+
       # expire cached files
       @info_request.expire
       redirect_to admin_request_url(@info_request)

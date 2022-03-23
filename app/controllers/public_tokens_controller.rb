@@ -70,7 +70,6 @@ class PublicTokensController < ApplicationController
     # taken from RequestController#assign_variables_for_show_template
 
     @show_profile_photo = !!(
-      !@info_request.is_external? &&
       @info_request.user.show_profile_photo? &&
       !@render_to_file
     )

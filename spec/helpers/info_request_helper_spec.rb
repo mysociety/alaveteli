@@ -199,31 +199,6 @@ RSpec.describe InfoRequestHelper do
         end
 
       end
-
-      it 'does not add a followup link for external requests' do
-        travel_to(Time.zone.parse('2014-12-31'))
-
-        body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
-
-        allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
-        allow(info_request).to receive(:is_external?).and_return(true)
-
-        response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
-                        'title="2014-12-31 00:00:00 UTC">' \
-                        'December 31, 2014</time>'
-
-        expected = "Response to this request is <strong>long overdue" \
-                   "</strong>. By law, under all circumstances, " \
-                   "#{ body_link } should have responded by now " \
-                   "(<a href=\"/help/requesting#quickly_response\">details" \
-                   "</a>)."
-
-        expect(status_text(info_request)).to eq(expected)
-
-        travel_back
-      end
-
     end
 
     context 'not_held' do
@@ -309,13 +284,6 @@ RSpec.describe InfoRequestHelper do
                              :is_owning_user => false,
                              :redirect_to => '/request/example')
 
-        expect(actual).to eq(expected)
-      end
-
-      it 'does not add a followup link for external requests' do
-        allow(info_request).to receive(:is_external?).and_return(true)
-        expected = 'The request is <strong>waiting for clarification</strong>.'
-        actual = status_text(info_request, :is_owning_user => false)
         expect(actual).to eq(expected)
       end
 
@@ -511,26 +479,6 @@ RSpec.describe InfoRequestHelper do
                                  :render_to_file => false,
                                  :old_unclassified => true)
             expect(actual).to eq(expected)
-          end
-        end
-      end
-
-      context 'external request' do
-        it_behaves_like "when we can't ask the user to update the status" do
-          let(:info_request) { FactoryBot.create(:external_request, awaiting_description: true) }
-          let(:message) do
-            status_text(info_request,
-                        :new_responses_count => 1,
-                        :is_owning_user => true,
-                        :render_to_file => false,
-                        :old_unclassified => false)
-          end
-          let(:plural_message) do
-            status_text(info_request,
-                        :new_responses_count => 3,
-                        :is_owning_user => true,
-                        :render_to_file => false,
-                        :old_unclassified => false)
           end
         end
       end

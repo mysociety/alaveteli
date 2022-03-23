@@ -2,8 +2,6 @@ class ApiController < ApplicationController
   skip_before_action :html_response
 
   before_action :check_api_key
-  before_action :check_external_request,
-    :only => [:add_correspondence, :update_state]
   before_action :check_request_ownership,
     :only => [:add_correspondence, :update_state]
 
@@ -34,9 +32,7 @@ class ApiController < ApplicationController
     request = InfoRequest.new(
       :title => json["title"],
       :public_body_id => @public_body.id,
-      :described_state => "waiting_response",
-      :external_user_name => json["external_user_name"],
-      :external_url => json["external_url"]
+      :described_state => "waiting_response"
     )
 
     outgoing_message = OutgoingMessage.new(
@@ -269,15 +265,6 @@ class ApiController < ApplicationController
     raise PermissionDenied.new("Missing required parameter 'k'") if params[:k].nil?
     @public_body = PublicBody.find_by_api_key(params[:k].gsub(' ', '+'))
     raise PermissionDenied if @public_body.nil?
-  end
-
-  def check_external_request
-    @request = InfoRequest.find_by_id(params[:id])
-    if @request.nil?
-      render :json => { "errors" => ["Could not find request #{params[:id]}"] }, :status => 404
-    elsif !@request.is_external?
-      render :json => { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, :status => 403
-    end
   end
 
   def check_request_ownership

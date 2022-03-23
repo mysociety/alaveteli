@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220323165941
 #
 # Table name: info_requests
 #
@@ -17,8 +17,6 @@
 #  allow_new_responses_from              :string           default("anybody"), not null
 #  handle_rejected_responses             :string           default("bounce"), not null
 #  idhash                                :string           not null
-#  external_user_name                    :string
-#  external_url                          :string
 #  attention_requested                   :boolean          default(FALSE)
 #  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
@@ -132,35 +130,6 @@ spam_2_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 173fd006
-    use_notifications: false
-external_request:
-    id: 109
-    title: Balalas
-    url_title: balalas
-    external_user_name: Bob Smith
-    external_url: http://www.example.org/request/balala
-    public_body_id: 2
-    described_state: waiting_response
-    awaiting_description: false
-    comments_allowed: true
-    created_at: 2001-01-02 02:23:45.6789100
-    updated_at: 2001-01-02 02:23:45.6789100
-    last_public_response_at: 2001-01-03 02:23:45.6789100
-    idhash: a1234567
-    use_notifications: false
-anonymous_external_request:
-    id: 110
-    title: Anonymous request
-    url_title: anonymous_request
-    external_user_name:
-    external_url: http://www.example.org/request/anonymous_requesr
-    public_body_id: 2
-    described_state: waiting_response
-    awaiting_description: false
-    comments_allowed: true
-    idhash: 7654321a
-    created_at: 2010-01-01 01:23:45.6789100
-    updated_at: 2010-01-01 01:23:45.6789100
     use_notifications: false
 other_request:
     id: 111

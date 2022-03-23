@@ -7,9 +7,7 @@ RSpec.describe ApiController, "when using the API" do
       @number_of_requests = InfoRequest.count
       @request_data = {
         'title' => 'Tell me about your chickens',
-        'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
-        'external_url' => 'http://www.example.gov.uk/foi/chickens_23',
-        'external_user_name' => 'Bob Smith'
+        'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n"
       }
     end
 
@@ -38,9 +36,7 @@ RSpec.describe ApiController, "when using the API" do
            :request_json => {
              'title' => 'Tell me about your chickens',
              'body' => "Dear Sir,\n\nI should like to know about your " \
-                       "chickens.\n\nYours in faith,\nBob\n",
-             'external_url' => 'http://www.example.gov.uk/foi/chickens_23',
-             'external_user_name' => 'Bob Smith'
+                       "chickens.\n\nYours in faith,\nBob\n"
            }.to_json
          }
     expect(response.media_type).to eq('application/json')
@@ -57,9 +53,7 @@ RSpec.describe ApiController, "when using the API" do
 
       request_data = {
         'title' => 'Tell me about your chickens',
-        'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
-        'external_url' => 'http://www.example.gov.uk/foi/chickens_23',
-        'external_user_name' => 'Bob Smith',
+        'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n"
       }
 
       post :create_request,

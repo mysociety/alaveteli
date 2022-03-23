@@ -579,8 +579,7 @@ class RequestController < ApplicationController
   end
 
   def can_update_status(info_request)
-    # Don't allow status update on external requests, otherwise accept param
-    info_request.is_external? ? false : params[:update_status] == "1"
+    params[:update_status] == "1"
   end
 
   def assign_variables_for_show_template(info_request)
@@ -601,7 +600,6 @@ class RequestController < ApplicationController
     @last_response = info_request.get_last_public_response
 
     @show_profile_photo = !!(
-      !@info_request.is_external? &&
       @info_request.user.show_profile_photo? &&
       !@render_to_file
     )

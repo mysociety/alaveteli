@@ -30,10 +30,6 @@
   <span class="big">
     <%= content_for :public_warning %>
   </span>
-
-  <% if @info_request.is_external? %>
-    <span class="big"><%= _('Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf.', :public_body_name => @info_request.public_body.name) %></span>
-  <% end %>
 </p>
 
 <%= render :partial => 'comment/comment_form',

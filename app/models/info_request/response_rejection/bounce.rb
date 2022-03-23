@@ -9,13 +9,9 @@ class InfoRequest
           # in a loop if we bounce it.
           true
         else
-          if info_request.is_external?
-            true
-          else
-            RequestMailer.
-              stopped_responses(info_request, email, raw_email_data).
-                deliver_now
-          end
+          RequestMailer.
+            stopped_responses(info_request, email, raw_email_data).
+              deliver_now
         end
       end
     end

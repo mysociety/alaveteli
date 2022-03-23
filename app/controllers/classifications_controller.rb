@@ -103,13 +103,7 @@ class ClassificationsController < ApplicationController
   end
 
   def authorise_info_request
-    # If this is an external request, go to the request page - we don't allow
-    # state change from the front end interface.
-    if @info_request.is_external?
-      redirect_to_info_request
-    else
-      authorize! :update_request_state, @info_request
-    end
+    authorize! :update_request_state, @info_request
   end
 
   def redirect_to_info_request

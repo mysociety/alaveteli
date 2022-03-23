@@ -115,24 +115,11 @@ module LinkToHelper
   end
 
   def user_link_for_request(request, cls=nil)
-    if request.is_external?
-      user_name = request.external_user_name || _("Anonymous user")
-      if !request.external_url.nil?
-        link_to user_name, request.external_url
-      else
-        user_name
-      end
-    else
-      link_to request.user.name, user_path(request.user), :class => cls
-    end
+    link_to request.user.name, user_path(request.user), :class => cls
   end
 
-  def user_admin_link_for_request(request, external_text=nil, internal_text=nil)
-    if request.is_external?
-      external_text || (request.external_user_name || _("Anonymous user")) + " (external)"
-    else
-      link_to(internal_text || request.user.name, admin_user_url(request.user))
-    end
+  def user_admin_link_for_request(request, _external_text=nil, internal_text=nil)
+    link_to(internal_text || request.user.name, admin_user_url(request.user))
   end
 
   def user_link_absolute(user)
@@ -143,33 +130,12 @@ module LinkToHelper
     link_to user.name, user_path(user)
   end
 
-  def external_user_link(request, absolute, text)
-    if request.external_user_name
-      request.external_user_name
-    else
-      if absolute
-        url = help_privacy_url(:anchor => 'anonymous')
-      else
-        url = help_privacy_path(:anchor => 'anonymous')
-      end
-      link_to(text, url)
-    end
+  def request_user_link_absolute(request, _anonymous_text=_("Anonymous user"))
+    user_link_absolute(request.user)
   end
 
-  def request_user_link_absolute(request, anonymous_text=_("Anonymous user"))
-    if request.is_external?
-      external_user_link(request, absolute=true, anonymous_text)
-    else
-      user_link_absolute(request.user)
-    end
-  end
-
-  def request_user_link(request, anonymous_text=_("Anonymous user"))
-    if request.is_external?
-      external_user_link(request, absolute=false, anonymous_text)
-    else
-      user_link(request.user)
-    end
+  def request_user_link(request, _anonymous_text=_("Anonymous user"))
+    user_link(request.user)
   end
 
   def user_or_you_link(user)

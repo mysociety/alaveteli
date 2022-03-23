@@ -82,18 +82,13 @@
                 <b>Created by</b>
               </td>
               <td>
-                <% if @info_request.is_external? %>
-                  <%= link_to(eye, @info_request.external_url, :title => "view URL of original request on external website") %>
-                  <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || 'an anonymous user') %> (using API)
-                <% else %>
-                  <%= user_both_links(@info_request.user) %>
-                  <%= link_to 'move...', '#', class: 'btn btn-mini btn-warning toggle-hidden' %>
-                  <div style="display:none;">
-                    <strong>url_name of new user:</strong>
-                    <%= text_field_tag 'user_url_name', "", { :size => 20 } %>
-                    <%= submit_tag "Move request to user", :class => "btn btn-info" %>
-                  </div>
-                <% end %>
+                <%= user_both_links(@info_request.user) %>
+                <%= link_to 'move...', '#', class: 'btn btn-mini btn-warning toggle-hidden' %>
+                <div style="display:none;">
+                  <strong>url_name of new user:</strong>
+                  <%= text_field_tag 'user_url_name', "", { :size => 20 } %>
+                  <%= submit_tag "Move request to user", :class => "btn btn-info" %>
+                </div>
               </td>
             </tr>
             <tr>
@@ -166,11 +161,7 @@
   </div>
   <%= form_tag hide_admin_request_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
     <div class="control-group">
-      <% if  @info_request.is_external? %>
-        <label class="control-label">Hide the request:</label>
-      <% else %>
-        <label class="control-label">Hide the request and notify the user:</label>
-      <% end %>
+      <label class="control-label">Hide the request and notify the user:</label>
 
       <div class="controls" id="request_hidden_user_explanation_reasons">
         <% if @info_request.prominence(:decorate => true).is_private? %>
@@ -182,23 +173,19 @@
     </div>
 
     <% if !@info_request.prominence(:decorate => true).is_private? %>
-      <% if ! @info_request.is_external? %>
-
-        <div class="control-group" id="request_hidden_user_subject">
-          <label for="request_hidden_user_subject_field" class="control-label">Subject of email:</label>
-          <div class="controls">
-            <%= text_field_tag "subject", _("Your request on {{site_name}} hidden", :site_name => site_name), {:id => "request_hidden_user_subject_field", :cols => 100} %>
-          </div>
+      <div class="control-group" id="request_hidden_user_subject">
+        <label for="request_hidden_user_subject_field" class="control-label">Subject of email:</label>
+        <div class="controls">
+          <%= text_field_tag "subject", _("Your request on {{site_name}} hidden", :site_name => site_name), {:id => "request_hidden_user_subject_field", :cols => 100} %>
         </div>
+      </div>
 
-        <div class="control-group" id="request_hidden_user_explanation">
-          <label for="request_hidden_user_explanation_field" class="control-label">Reason for hiding the request (will be emailed to user):</label>
-          <div class="controls">
-            <%= text_area_tag "explanation", "", {:id => "request_hidden_user_explanation_field"} %>
-          </div>
+      <div class="control-group" id="request_hidden_user_explanation">
+        <label for="request_hidden_user_explanation_field" class="control-label">Reason for hiding the request (will be emailed to user):</label>
+        <div class="controls">
+          <%= text_area_tag "explanation", "", {:id => "request_hidden_user_explanation_field"} %>
         </div>
-
-      <% end %>
+      </div>
       <div class="form-actions" id="request_hide_button">
         <%= submit_tag 'Hide request', class: 'btn' %>
       </div>

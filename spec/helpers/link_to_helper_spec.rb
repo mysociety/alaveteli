@@ -140,56 +140,18 @@ RSpec.describe LinkToHelper do
   end
 
   describe 'when displaying a user link for a request' do
-    context "for external requests" do
-      let(:info_request) do
-        FactoryBot.create(:external_request, :external_user_name => nil)
-      end
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:user) { info_request.user }
 
-      it 'should return the text "Anonymous user" with a link to the privacy
-          help pages when there is no external username' do
-        expected = '<a href="/help/privacy#anonymous">Anonymous user</a>'
-        expect(request_user_link(info_request)).to eq(expected)
-      end
-
-      it 'should return a link with an alternative text if requested' do
-        expected = '<a href="/help/privacy#anonymous">other text</a>'
-        actual = request_user_link(info_request, 'other text')
-        expect(actual).to eq(expected)
-      end
-
-      it 'should display an absolute link if requested' do
-        expected = '<a href="http://test.host/help/privacy#anonymous">' \
-                   'Anonymous user</a>'
-        expect(request_user_link_absolute(info_request)).to eq(expected)
-      end
+    it 'should display a relative link by default' do
+      expected = "<a href=\"/user/#{user.url_name}\">#{user.name}</a>"
+      expect(request_user_link(info_request)).to eq(expected)
     end
 
-    context "for normal requests" do
-      let(:info_request) { FactoryBot.create(:info_request) }
-      let(:user) { info_request.user }
-
-      it 'should display a relative link by default' do
-        expected = "<a href=\"/user/#{user.url_name}\">#{user.name}</a>"
-        expect(request_user_link(info_request)).to eq(expected)
-      end
-
-      it 'should display an absolute link if requested' do
-        expected = "<a href=\"http://test.host/user/#{user.url_name}\">" \
-                   "#{user.name}</a>"
-        expect(request_user_link_absolute(info_request)).to eq(expected)
-      end
-    end
-  end
-
-  describe 'when displaying a user admin link for a request' do
-    let(:info_request) do
-      FactoryBot.create(:external_request, :external_user_name => nil)
-    end
-
-    it 'should return the text "An anonymous user (external)" in the case
-        where there is no external username' do
-      expected = 'Anonymous user (external)'
-      expect(user_admin_link_for_request(info_request)).to eq(expected)
+    it 'should display an absolute link if requested' do
+      expected = "<a href=\"http://test.host/user/#{user.url_name}\">" \
+                 "#{user.name}</a>"
+      expect(request_user_link_absolute(info_request)).to eq(expected)
     end
   end
 

@@ -39,7 +39,7 @@ module InfoRequestHelper
     render_to_file = opts.fetch(:render_to_file, false)
     old_unclassified = opts.fetch(:old_unclassified, false)
 
-    if is_owning_user && !info_request.is_external? && !render_to_file
+    if is_owning_user && !render_to_file
       return status_text_awaiting_description_owner_please_answer(
         new_responses_count)
     else
@@ -110,15 +110,13 @@ module InfoRequestHelper
     str += details_help_link(info_request.public_body)
     str += ")."
 
-    unless info_request.is_external?
-      str += ' '
-      str += _('You can <strong>complain</strong> by')
-      str += ' '
-      str += link_to _('requesting an internal review'),
-                    new_request_followup_path(:request_id => info_request.id) +
-                    '?internal_review=1'
-      str += '.'
-    end
+    str += ' '
+    str += _('You can <strong>complain</strong> by')
+    str += ' '
+    str += link_to _('requesting an internal review'),
+                  new_request_followup_path(:request_id => info_request.id) +
+                  '?internal_review=1'
+    str += '.'
 
     str
   end
@@ -147,7 +145,7 @@ module InfoRequestHelper
 
     str = ''.html_safe
 
-    if is_owning_user && !info_request.is_external?
+    if is_owning_user
       str += _('{{authority_name}} is <strong>waiting for your clarification' \
                '</strong>.',
                :authority_name => info_request.public_body.name)
@@ -160,17 +158,15 @@ module InfoRequestHelper
     else
       str += _('The request is <strong>waiting for clarification</strong>.')
 
-      unless info_request.is_external?
-        redirect_to = opts.fetch(:redirect_to)
+      redirect_to = opts.fetch(:redirect_to)
 
-        str += ' '
-        str += _('If you are {{user_link}}, please',
-                 :user_link => user_link_for_request(info_request))
-        str += ' '
-        str += link_to _("sign in"), signin_path(:r => redirect_to)
-        str += ' '
-        str += _('to send a follow up message.')
-      end
+      str += ' '
+      str += _('If you are {{user_link}}, please',
+               :user_link => user_link_for_request(info_request))
+      str += ' '
+      str += link_to _("sign in"), signin_path(:r => redirect_to)
+      str += ' '
+      str += _('to send a follow up message.')
     end
 
     str

@@ -56,14 +56,6 @@ RSpec.describe FollowupsController do
       expect(response).to render_template('user/wrong_user')
     end
 
-    it "does not allow follow ups to external requests" do
-      sign_in FactoryBot.create(:user)
-      external_request = FactoryBot.create(:external_request)
-      get :new, params: { :request_id => external_request.id }
-      expect(response).to render_template('followup_bad')
-      expect(assigns[:reason]).to eq('external')
-    end
-
     it "redirects to the signin page if not logged in" do
       get :new, params: { :request_id => request.id }
       expect(response).
@@ -153,26 +145,6 @@ RSpec.describe FollowupsController do
           end.to raise_error ActionController::UnknownFormat
         end
 
-      end
-
-    end
-
-    context 'when viewing a response for an external request' do
-
-      it "does not allow follow ups to external requests" do
-        sign_in FactoryBot.create(:user)
-        external_request = FactoryBot.create(:external_request)
-        get :new, params: { :request_id => external_request.id }
-        expect(response).to render_template('followup_bad')
-        expect(assigns[:reason]).to eq('external')
-      end
-
-      it 'the response code should be successful' do
-        sign_in FactoryBot.create(:user)
-        get :new, params: {
-                    :request_id => FactoryBot.create(:external_request).id
-                  }
-        expect(response).to be_successful
       end
 
     end

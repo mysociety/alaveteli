@@ -30,10 +30,6 @@ RSpec.describe Survey::InfoRequestQuery do
     FactoryBot.create(:embargoed_request, created_at: current)
   end
 
-  let!(:external_request) do
-    FactoryBot.create(:external_request, created_at: current)
-  end
-
   let(:user) do
     FactoryBot.build(:user)
   end
@@ -62,10 +58,6 @@ RSpec.describe Survey::InfoRequestQuery do
 
     it 'returns embargoed requests' do
       is_expected.to include(embargoed_request)
-    end
-
-    it 'does not returns external requests' do
-      is_expected.not_to include(external_request)
     end
 
     it 'returns one request per user' do

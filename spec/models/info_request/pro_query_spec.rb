@@ -14,12 +14,5 @@ RSpec.describe InfoRequest::ProQuery do
       info_request = FactoryBot.create(:info_request)
       expect(described_class.new.call.include?(info_request)).to be false
     end
-
-    it 'excludes external requests' do
-      external_request = FactoryBot.create(:external_request)
-      expect(described_class.new.call.include?(external_request))
-        .to be false
-    end
-
   end
 end

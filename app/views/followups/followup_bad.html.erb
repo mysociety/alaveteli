@@ -39,13 +39,6 @@
           '<a href="{{help_url}}">send it to us</a>.',
           :help_url => help_contact_path.html_safe) %>
   </p>
-<% elsif @reason == 'external' %>
-  <p>
-    <%= _("Followups cannot be sent for this request, as it was made " \
-          "externally, and published here by {{public_body_name}} on the " \
-          "requester's behalf.",
-          :public_body_name => @info_request.public_body.name) %>
-  </p>
 <% else %>
   <% raise _("unknown reason ") + @reason %>
 <% end %>

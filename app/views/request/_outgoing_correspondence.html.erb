@@ -32,7 +32,7 @@
     <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
     <p class="event_actions">
-      <% if outgoing_message.status == 'ready' && !@info_request.is_external? %>
+      <% if outgoing_message.status == 'ready' %>
         <%= _('<strong>Warning:</strong> This message has <strong>not yet ' \
                  'been sent</strong> for an unknown reason.') %>
       <% end %>

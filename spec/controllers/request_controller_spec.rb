@@ -209,43 +209,7 @@ RSpec.describe RequestController, "when showing one request" do
     end
   end
 
-  describe 'when showing an external request' do
-    describe 'when viewing anonymously' do
-      it 'should be successful' do
-        sign_in nil
-        get :show, params: { :url_title => 'balalas' }
-        expect(response).to be_successful
-      end
-    end
-
-    describe 'when the request is being viewed by an admin' do
-      def make_request
-        sign_in users(:admin_user)
-        get :show, params: { :url_title => 'balalas' }
-      end
-
-      it 'should be successful' do
-        make_request
-        expect(response).to be_successful
-      end
-    end
-  end
-
   describe 'when handling an update_status parameter' do
-
-    describe 'when the request is external' do
-
-      it 'should assign the "update status" flag to the view as falsey if the parameter is present' do
-        get :show, params: { :url_title => 'balalas', :update_status => 1 }
-        expect(assigns[:update_status]).to be_falsey
-      end
-
-      it 'should assign the "update status" flag to the view as falsey if the parameter is not present' do
-        get :show, params: { :url_title => 'balalas' }
-        expect(assigns[:update_status]).to be_falsey
-      end
-
-    end
 
     it 'should assign the "update status" flag to the view as truthy if the parameter is present' do
       get :show, params: {
