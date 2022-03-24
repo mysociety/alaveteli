@@ -246,4 +246,5 @@ RSpec.describe AdminRequestController, "when administering requests" do
                     :reason => "vexatious"
                   }
     end
+  end
 end
