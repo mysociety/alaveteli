@@ -11,7 +11,7 @@ class Survey
       # This can be simplify when https://github.com/rails/rails/pull/41622 is
       # merged and released
       @relation.from(
-        InfoRequest.internal.
+        InfoRequest.
           where(prominence: 'normal', created_at: Survey.date_range).
           order(:user_id, :created_at).
           arel.distinct_on(@relation.arel_table[:user_id]).as('info_requests')
