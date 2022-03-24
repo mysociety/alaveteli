@@ -2363,12 +2363,6 @@ RSpec.describe InfoRequest do
         expect(results).not_to include(recent_unclassified_request)
       end
 
-      it "only returns records with an associated user" do
-        old_unclassified_no_user = create_old_unclassified_no_user
-        results = InfoRequest.where_old_unclassified
-        expect(results).not_to include(old_unclassified_no_user)
-      end
-
       it "only returns records which are awaiting description" do
         old_unclassified_described = create_old_unclassified_described
         results = InfoRequest.where_old_unclassified
