@@ -87,11 +87,12 @@ class AdminRequestController < AdminController
 
   # change user or public body of a request magically
   def move
+    editor = admin_current_user
+
     if params[:commit] == 'Move request to user' && !params[:user_url_name].blank?
       destination_user = User.find_by_url_name(params[:user_url_name])
 
-      if @info_request.move_to_user(destination_user,
-                                    :editor => admin_current_user)
+      if @info_request.move_to_user(destination_user, editor: editor)
         flash[:notice] = "Message has been moved to new user"
       else
         flash[:error] = "Couldn't find user '#{params[:user_url_name]}'"
@@ -99,10 +100,11 @@ class AdminRequestController < AdminController
 
       redirect_to admin_request_url(@info_request)
     elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
-      destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
+      destination_body = PublicBody.find_by_url_name(
+        params[:public_body_url_name]
+      )
 
-      if @info_request.move_to_public_body(destination_public_body,
-                                          :editor => admin_current_user)
+      if @info_request.move_to_public_body(destination_body, editor: editor)
         flash[:notice] = "Request has been moved to new body"
       else
         flash[:error] = "Couldn't find public body '#{ params[:public_body_url_name] }'"
