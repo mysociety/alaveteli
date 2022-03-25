@@ -91,8 +91,7 @@ class AdminRequestController < AdminController
       destination_user = User.find_by_url_name(params[:user_url_name])
 
       if @info_request.move_to_user(destination_user,
-                                    :editor => admin_current_user,
-                                    :reindex => true)
+                                    :editor => admin_current_user)
         flash[:notice] = "Message has been moved to new user"
       else
         flash[:error] = "Couldn't find user '#{params[:user_url_name]}'"
@@ -103,8 +102,7 @@ class AdminRequestController < AdminController
       destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
 
       if @info_request.move_to_public_body(destination_public_body,
-                                          :editor => admin_current_user,
-                                          :reindex => true)
+                                          :editor => admin_current_user)
         flash[:notice] = "Request has been moved to new body"
       else
         flash[:error] = "Couldn't find public body '#{ params[:public_body_url_name] }'"
