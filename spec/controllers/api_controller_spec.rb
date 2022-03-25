@@ -33,7 +33,8 @@ RSpec.describe ApiController, "when using the API" do
   describe 'adding correspondence to a request' do
     it 'should add a response to a request' do
       # First we need an external request
-      request_id = info_requests(:external_request).id
+      info_request = FactoryBot.create(:info_request)
+      request_id = info_request.id
 
       # Initially it has no incoming messages
       initial_count =
@@ -45,7 +46,7 @@ RSpec.describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
+             :k => info_request.public_body.api_key,
              :id => request_id,
              :correspondence_json => {
                 'direction' => 'response',
@@ -67,7 +68,7 @@ RSpec.describe ApiController, "when using the API" do
 
     it 'should add a followup to a request' do
       # First we need an external request
-      request_id = info_requests(:external_request).id
+      request_id = FactoryBot.create(:info_request).id
 
       # Initially it has one outgoing message
       outgoing_messages =
@@ -79,7 +80,7 @@ RSpec.describe ApiController, "when using the API" do
       followup_body = "Pls answer ASAP.\nkthxbye\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
+             :k => info_request.public_body.api_key,
              :id => request_id,
              :correspondence_json => {
                'direction' => 'request',
@@ -104,7 +105,8 @@ RSpec.describe ApiController, "when using the API" do
 
     it 'should update the status if a valid state is supplied' do
       # First we need an external request
-      request_id = info_requests(:external_request).id
+      info_request = FactoryBot.create(:info_request)
+      request_id = info_request.id
 
       # Initially it has no incoming messages
       actual1 = IncomingMessage.where(:info_request_id => request_id).count
@@ -115,7 +117,7 @@ RSpec.describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
+             :k => info_request.public_body.api_key,
              :id => request_id,
              :state => 'successful',
              :correspondence_json => {
@@ -137,7 +139,8 @@ RSpec.describe ApiController, "when using the API" do
 
     it 'should raise a JSON 500 error if an invalid state is supplied' do
       # First we need an external request
-      request_id = info_requests(:external_request).id
+      info_request = FactoryBot.create(:info_request)
+      request_id = info_request.id
 
       # Initially it has no incoming messages
       initial_count =
@@ -149,7 +152,7 @@ RSpec.describe ApiController, "when using the API" do
       response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
-             :k => public_bodies(:geraldine_public_body).api_key,
+             :k => info_request.public_body.api_key,
              :id => request_id,
              :state => 'random_string',
              :correspondence_json => {
