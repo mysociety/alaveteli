@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Link to Public Body Change Request source URLs in admin interface (Gareth
+  Rees)
 * Improve comment metadata on comment edit page (Gareth Rees)
 * Improve comment metadata on comment listings (Gareth Rees)
 * Add extra common one-click user ban reasons (Gareth Rees)
