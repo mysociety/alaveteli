@@ -88,9 +88,21 @@ class AdminUserController < AdminController
     end
   end
 
+  def active
+    @title = 'Active users'
+    @base_scope = User.active
+    index
+  end
+
   def banned
     @title = 'Banned users'
     @base_scope = User.banned
+    index
+  end
+
+  def closed
+    @title = 'Closed users'
+    @base_scope = User.closed
     index
   end
 

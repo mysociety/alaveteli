@@ -624,7 +624,9 @@ Rails.application.routes.draw do
     resources :users,
       :controller => 'admin_user',
     :except => [:new, :create, :destroy] do
+      get 'active', :on => :collection
       get 'banned', :on => :collection
+      get 'closed', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
       post 'clear_profile_photo', :on => :member
