@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'general/_log_in_bar.html.erb' do
+RSpec.describe 'general/_log_in_bar' do
   let(:user) { FactoryBot.create(:user) }
   let(:pro_user) { FactoryBot.create(:pro_user) }
 

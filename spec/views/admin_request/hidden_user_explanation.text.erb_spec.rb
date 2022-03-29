@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'admin_request/hidden_user_explanation.text.erb' do
+RSpec.describe 'admin_request/hidden_user_explanation' do
   let(:message) { 'vexatious' }
   let(:template) do
     'admin_request/hidden_user_explanation'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'comment/rate_limited.html.erb' do
+RSpec.describe 'comment/rate_limited' do
   context 'with a comment' do
     let(:comment) { FactoryBot.build(:comment, body: 'The comment body') }
 
