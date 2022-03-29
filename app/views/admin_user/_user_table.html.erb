@@ -20,7 +20,7 @@
     <div id="user_<%= user.id %>" class="accordion-body collapse">
       <table class="table table-striped table-condensed">
         <tbody>
-          <% if banned_column %>
+          <% if user.banned? %>
             <tr>
               <td><b>Ban text</b></td>
               <td><%= h user.ban_text %></td>
