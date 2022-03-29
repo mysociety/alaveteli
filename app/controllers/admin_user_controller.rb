@@ -27,7 +27,7 @@ class AdminUserController < AdminController
     @sort_order =
       @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
-    users = User
+    users = @base_scope || User
 
     if @query.present?
       users = users.where(
@@ -89,10 +89,9 @@ class AdminUserController < AdminController
   end
 
   def banned
-    @banned_users =
-      User.banned.
-        order('name ASC').
-          paginate(:page => params[:page], :per_page => 100)
+    @title = 'Banned users'
+    @base_scope = User.banned
+    index
   end
 
   def show_bounce_message
