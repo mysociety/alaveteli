@@ -8,6 +8,7 @@
           <% if session[:user_circumstance] == 'login_as' %>
 
           <li><%= link_to "Logged in as #{current_user.name}", user_path(current_user) %></li>
+          <li><%= link_to 'Revert back to admin', admin_users_sessions_path, method: :delete %></li>
 
           <% else %>
 

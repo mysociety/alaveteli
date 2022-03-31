@@ -24,4 +24,12 @@ class AdminUsersSessionsController < AdminController
 
     redirect_to user_path(@user_to_login_as)
   end
+
+  def destroy
+    @admin_to_revert_to = User.find(session[:admin_id])
+
+    sign_in(@admin_to_revert_to)
+
+    redirect_to admin_user_path(current_user)
+  end
 end

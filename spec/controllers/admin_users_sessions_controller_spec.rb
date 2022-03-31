@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe AdminUsersSessionsController do
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:target_user) { FactoryBot.create(:user) }
 
   describe 'POST #create' do
-    let(:admin_user) { FactoryBot.create(:admin_user) }
-    let(:target_user) { FactoryBot.create(:user) }
 
     before do
       sign_in admin_user
@@ -71,6 +71,39 @@ RSpec.describe AdminUsersSessionsController do
         end
       end
 
+    end
+
+  end
+
+  describe 'DELETE #destroy' do
+
+    before do
+      sign_in target_user
+    end
+
+    it 'clears the current admin' do
+      delete :destroy, session: { admin_id: admin_user.id }
+      expect(session[:admin_id]).to be_nil
+    end
+
+    it 'logs in as admin user' do
+      delete :destroy, session: { admin_id: admin_user.id }
+      expect(session[:user_id]).to eq(admin_user.id)
+    end
+
+    it 'sets the login token' do
+      delete :destroy, session: { admin_id: admin_user.id }
+      expect(session[:user_login_token]).to eq(admin_user.login_token)
+    end
+
+    it 'clears the user_circumstance' do
+      delete :destroy, session: { admin_id: admin_user.id }
+      expect(session[:user_circumstance]).to be_nil
+    end
+
+    it 'redirects to the target admin user page' do
+      delete :destroy, session: { admin_id: admin_user.id }
+      expect(response).to redirect_to(admin_user_path(target_user))
     end
 
   end
