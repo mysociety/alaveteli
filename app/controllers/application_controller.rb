@@ -154,6 +154,7 @@ class ApplicationController < ActionController::Base
 
   # Logout form
   def clear_session_credentials
+    session[:admin_id] = nil
     session[:user_id] = nil
     session[:user_login_token] = nil
     session[:user_circumstance] = nil

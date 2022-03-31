@@ -17,6 +17,7 @@ class AdminUsersSessionsController < AdminController
 
     @user_to_login_as.confirm!
 
+    session[:admin_id] = current_user.id
     session[:user_id] = @user_to_login_as.id
     session[:user_login_token] = @user_to_login_as.login_token
     session[:user_circumstance] = 'login_as'

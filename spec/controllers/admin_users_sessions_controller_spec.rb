@@ -10,6 +10,11 @@ RSpec.describe AdminUsersSessionsController do
       sign_in admin_user
     end
 
+    it 'remembers the current admin' do
+      post :create, params: { id: target_user.id }
+      expect(session[:admin_id]).to eq(admin_user.id)
+    end
+
     it 'logs in as another user' do
       post :create, params: { id: target_user.id }
       expect(session[:user_id]).to eq(target_user.id)
