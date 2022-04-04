@@ -1,4 +1,34 @@
 namespace :temp do
+  desc 'Populate pro flag on past events related to requests made by an ' \
+       'active paying pro subscribers'
+  task record_pro_requests: :environment do
+    unless AlaveteliFeatures.backend.enabled?(:pro_pricing)
+      puts 'Unable to populate pro flag on past events without pro pricing ' \
+        'being enabled.'
+      next
+    end
+
+    ProAccount.where.not(stripe_customer_id: nil).find_each do |pro_account|
+      user = pro_account.user
+      next if user.info_requests.count == 0
+
+      subscriptions = Stripe::Subscription.list(
+        status: 'all', customer: pro_account.stripe_customer_id
+      )
+      ranges = subscriptions.map do |s|
+        started_at = Time.at(s.created)
+        ended_at = Time.at(s.ended_at) if s.ended_at
+        ended_at ||= Time.now
+
+        started_at..ended_at
+      end
+
+      user.info_request_events.where(
+        info_request_events: { created_at: ranges, pro: false }
+      ).unscope(:order).update_all(pro: true)
+    end
+  end
+
   desc 'Populate incoming message from email'
   task populate_incoming_message_from_email: :environment do
     scope = IncomingMessage.where(from_email: nil)
