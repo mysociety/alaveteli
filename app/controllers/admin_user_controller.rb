@@ -28,15 +28,7 @@ class AdminUserController < AdminController
       @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
     users = @base_scope || User
-
-    if @query.present?
-      users = users.where(
-        "lower(users.name) LIKE lower('%'||:query||'%') OR " \
-        "lower(users.email) LIKE lower('%'||:query||'%') OR " \
-        "lower(users.about_me) LIKE lower('%'||:query||'%')",
-        query: @query
-      )
-    end
+    users = users.search(@query) if @query.present?
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
