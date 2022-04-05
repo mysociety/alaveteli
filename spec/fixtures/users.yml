@@ -77,7 +77,7 @@ admin_user:
   hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
   updated_at: 2007-11-01 10:39:15.491593
   created_at: 2007-11-01 10:39:15.491593
-  email_confirmed: false
+  email_confirmed: true
   ban_text: ''
   locale: ''
   about_me: ''
