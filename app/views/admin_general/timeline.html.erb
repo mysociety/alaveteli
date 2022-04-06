@@ -49,7 +49,7 @@
       <% if event.info_request.embargo && cannot?(:admin, AlaveteliPro::Embargo) %>
         An embargoed request
       <% else %>
-        <%= request_both_links(event.info_request) %>
+        <%= both_links(event.info_request) %>
       <% end %>
 
       <% if lookup_context.template_exists?(event.event_type, ['admin_general'], true) %>
@@ -59,7 +59,7 @@
       <% end %>
 
     <% else %>
-      <%= public_body_both_links(event.public_body) %>
+      <%= both_links(event.public_body) %>
       <% if event.previous %>
       was updated by administrator <strong><%= event.last_edit_editor %></strong>.
       Changed fields:

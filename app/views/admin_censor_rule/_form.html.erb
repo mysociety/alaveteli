@@ -3,13 +3,13 @@
 <div class="well">
   Applies to
   <% unless info_request.nil? %>
-    <%= request_both_links(info_request) %>
+    <%= both_links(info_request) %>
   <% end %>
   <% unless user.nil? %>
-    <%= user_both_links(user) %>
+    <%= both_links(user) %>
   <% end %>
   <% unless public_body.nil? %>
-    <%= public_body_both_links(public_body) %>
+    <%= both_links(public_body) %>
   <% end %>
   <% if info_request.nil? && user.nil? && public_body.nil? %>
     <strong>everything</strong>

@@ -287,4 +287,8 @@ class InfoRequestBatch < ApplicationRecord
     return false unless user
     user.id == user_id || user.owns_every_request?
   end
+
+  def prominence
+    'normal'
+  end
 end

@@ -610,4 +610,10 @@ RSpec.describe InfoRequestBatch do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe '#prominence' do
+    subject { info_request_batch.prominence }
+    let(:info_request_batch) { FactoryBot.build(:info_request_batch) }
+    it { is_expected.to eq('normal') }
+  end
 end

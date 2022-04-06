@@ -11,13 +11,13 @@
                 <%= chevron_right %>
               </a>
 
-              <%= comment_both_links(comment) %>
+              <%= both_links(comment) %>
             </span>
 
             <span class="item-metadata span6">
-              <%= user_both_links(comment.user) %>
+              <%= both_links(comment.user) %>
               <%= arrow_right %>
-              <%= request_both_links(comment.info_request) %>,
+              <%= both_links(comment.info_request) %>,
               <%= admin_date(comment.updated_at, ago_only: true) %>
             </span>
           </div>
@@ -27,13 +27,13 @@
               <tbody>
                 <tr>
                   <td colspan="2">
-                    By <%= user_both_links(comment.user) %>
+                    By <%= both_links(comment.user) %>
                   </td>
                 </tr>
 
                 <tr>
                   <td colspan="2">
-                    On <%= request_both_links(comment.info_request) %>
+                    On <%= both_links(comment.info_request) %>
                   </td>
                 </tr>
 

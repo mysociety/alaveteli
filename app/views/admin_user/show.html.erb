@@ -128,6 +128,13 @@
 
 <hr>
 
+<h2>Citations</h2>
+
+<%= render partial: 'admin/citations/list' ,
+           locals: { citations: @admin_user.citations } %>
+
+<hr>
+
 <% if can? :login_as, @admin_user %>
   <h2>Post redirects</h2>
 
