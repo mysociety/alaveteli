@@ -19,7 +19,7 @@ RSpec.describe 'request/incoming_correspondence' do
   context 'the current_user cannot read the request' do
     before { ability.cannot :read, incoming_message }
 
-    it 'renders _hidden_correspondence if the current user cannot read the request' do
+    it 'renders hidden_correspondence partial if the current user cannot read the request' do
       render partial: self.class.top_level_description,
              locals: stub_locals
 

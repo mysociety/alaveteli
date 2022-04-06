@@ -1273,7 +1273,7 @@ RSpec.describe UserController, "when using profile photos" do
            }
 
       expect(flash[:notice][:partial]).
-        to eq("user/update_profile_photo.html.erb")
+        to eq("user/update_profile_photo")
     end
 
   end

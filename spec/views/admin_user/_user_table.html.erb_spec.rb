@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "admin_user/_user_table.html.erb" do
+RSpec.describe "admin_user/_user_table" do
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:users) do
     user_array = [
@@ -13,7 +13,7 @@ RSpec.describe "admin_user/_user_table.html.erb" do
 
   it 'does not double escape apostrophes' do
     allow(controller).to receive(:current_user).and_return(admin_user)
-    render partial: 'admin_user/user_table.html.erb',
+    render partial: 'admin_user/user_table',
            locals: { users: users,
                      banned_column: false }
     expect(rendered).to match("O&#39;Toole")

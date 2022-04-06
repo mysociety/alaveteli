@@ -622,7 +622,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'welcomes the new user' do
           authorise
-          partial_file = "alaveteli_pro/subscriptions/signup_message.html.erb"
+          partial_file = "alaveteli_pro/subscriptions/signup_message"
           expect(flash[:notice]).to eq(partial: partial_file)
         end
 

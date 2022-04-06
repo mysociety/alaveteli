@@ -124,7 +124,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
 
     it_behaves_like "an info_request_batch action"
 
-    it "renders alaveteli_pro/info_requests/new.html.erb" do
+    it "renders alaveteli_pro/info_requests/new" do
       with_feature_enabled(:alaveteli_pro) do
         action
         expect(response).to render_template("alaveteli_pro/info_requests/new")
@@ -138,7 +138,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
     it_behaves_like "an info_request_batch action"
 
     context "when everything is valid" do
-      it "renders alaveteli_pro/info_requests/preview.html.erb" do
+      it "renders alaveteli_pro/info_requests/preview" do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(response).to render_template("alaveteli_pro/info_requests/preview")
@@ -163,7 +163,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         end
       end
 
-      it "renders alaveteli_pro/info_requests/new.html.erb" do
+      it "renders alaveteli_pro/info_requests/new" do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(response).to render_template("alaveteli_pro/info_requests/new")
@@ -254,7 +254,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         end
       end
 
-      it "renders alaveteli_pro/info_requests/new.html.erb" do
+      it "renders alaveteli_pro/info_requests/new" do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(response).to render_template("alaveteli_pro/info_requests/new")

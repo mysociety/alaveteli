@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'alaveteli_pro/public_bodies/_search_result.html.erb' do
+RSpec.describe 'alaveteli_pro/public_bodies/_search_result' do
   let(:public_body) do
     FactoryBot.create(:public_body, notes: "Some notes about the body",
                                     info_requests_visible_count: 1)

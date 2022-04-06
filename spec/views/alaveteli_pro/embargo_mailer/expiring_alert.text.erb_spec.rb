@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "alaveteli_pro/embargo_mailer/expiring_alert.text.erb" do
+RSpec.describe "alaveteli_pro/embargo_mailer/expiring_alert" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:expiring_1) do
     FactoryBot.create(:embargo_expiring_request, user: pro_user)

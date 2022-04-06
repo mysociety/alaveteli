@@ -385,7 +385,7 @@ class ApplicationController < ActionController::Base
     if !AlaveteliConfiguration::read_only.empty?
       if feature_enabled?(:annotations)
         flash[:notice] = {
-          :partial => "general/read_only_annotations.html.erb",
+          :partial => "general/read_only_annotations",
           :locals => {
             :site_name => site_name,
             :read_only => AlaveteliConfiguration.read_only
@@ -393,7 +393,7 @@ class ApplicationController < ActionController::Base
         }
       else
         flash[:notice] = {
-          :partial => "general/read_only.html.erb",
+          :partial => "general/read_only",
           :locals => {
             :site_name => site_name,
             :read_only => AlaveteliConfiguration.read_only

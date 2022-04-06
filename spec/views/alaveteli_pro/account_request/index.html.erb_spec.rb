@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'alaveteli_pro/account_request/index.html.erb' do
+RSpec.describe 'alaveteli_pro/account_request/index' do
 
   before { render }
 

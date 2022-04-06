@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "admin_request/show.html.erb" do
+RSpec.describe "admin_request/show" do
 
   before do
     assign :info_request, info_request
