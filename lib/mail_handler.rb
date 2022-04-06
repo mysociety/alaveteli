@@ -4,8 +4,8 @@ require 'tmpdir'
 module MailHandler
 
   require 'mail'
-  require 'backends/mail_extensions'
-  require 'backends/mail_backend'
+  require 'mail_handler/backends/mail_extensions'
+  require 'mail_handler/backends/mail_backend'
   include Backends::MailBackend
 
   class TNEFParsingError < StandardError

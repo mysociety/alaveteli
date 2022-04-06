@@ -1,6 +1,6 @@
-require 'health_checkable'
+require 'health_checks/health_checkable'
 
-Dir[File.dirname(__FILE__) + '/checks/*.rb'].each do |file|
+Dir[File.dirname(__FILE__) + '/health_checks/checks/*.rb'].each do |file|
   require file
 end
 

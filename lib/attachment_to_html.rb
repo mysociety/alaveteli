@@ -1,8 +1,8 @@
-require 'view'
+require 'attachment_to_html/view'
 
 require 'attachment_to_html/adapter'
 
-Dir[File.dirname(__FILE__) + '/adapters/*.rb'].each do |file|
+Dir[File.dirname(__FILE__) + '/attachment_to_html/adapters/*.rb'].each do |file|
   require file
 end
 
