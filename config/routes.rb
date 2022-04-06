@@ -648,9 +648,9 @@ Rails.application.routes.draw do
 
   #### AdminUsersSessions controller
   scope '/admin', :as => 'admin' do
-    resources :users_sessions,
+    resource :users_sessions,
       :controller => 'admin_users_sessions',
-      :only => [:create]
+      :only => [:create, :destroy]
   end
   ####
 
