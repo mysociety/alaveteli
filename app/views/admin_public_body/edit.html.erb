@@ -36,6 +36,11 @@
 
   </div>
   <div class="span4">
+    <% if @change_request %>
+      <h3>Change Request</h3>
+      <%= render partial: 'admin_general/change_request_summary' %>
+    <% end %>
+
     <%= render :partial => 'tag_help' %>
   </div>
 </div>
