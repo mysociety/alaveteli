@@ -19,6 +19,8 @@ class AdminUserController < AdminController
                 :check_role_requirements, only: %i[update]
 
   def index
+    @title ||= 'Listing users'
+
     @query = params[:query].try(:strip)
 
     @roles = params[:roles] || []

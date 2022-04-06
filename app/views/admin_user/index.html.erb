@@ -1,9 +1,3 @@
-<% @title ||= 'Listing users' %>
-
-<div class="row">
-  <h1 class="span12"><%= @title %></h1>
-</div>
-
 <div class="row">
   <%= form_tag nil, method: :get, class: 'form form-search span12' do %>
     <div class="input-append">
@@ -44,4 +38,3 @@
     <%= render :partial => 'user_table', :locals => { :users => @admin_users } %>
   </div>
 </div>
-

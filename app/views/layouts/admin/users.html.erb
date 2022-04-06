@@ -1,5 +1,9 @@
 <%= inside_layout 'admin' do %>
   <div class="row">
+    <h1 class="span12"><%= @title %></h1>
+  </div>
+
+  <div class="row">
     <div class="span12">
       <ul class="nav nav-tabs">
         <%= nav_li(admin_users_path) do %>
