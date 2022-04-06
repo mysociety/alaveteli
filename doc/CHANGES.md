@@ -31,6 +31,9 @@
 
 ## Update Notes
 
+* **IMPORTANT! We no longer support PostgreSQL 9.6**. Please upgrade to at least
+  version 13.5 before upgrading Alaveteli.
+  See: https://www.postgresql.org/docs/13/release-13-5.html
 * There are some database structure updates so remember to run
   `bin/rails db:migrate`
 * Run `bin/rails temp:remove_orphan_raw_email_records` to remove any old raw
