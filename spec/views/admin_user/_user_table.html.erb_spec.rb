@@ -14,8 +14,7 @@ RSpec.describe "admin_user/_user_table" do
   it 'does not double escape apostrophes' do
     allow(controller).to receive(:current_user).and_return(admin_user)
     render partial: 'admin_user/user_table',
-           locals: { users: users,
-                     banned_column: false }
+           locals: { users: users }
     expect(rendered).to match("O&#39;Toole")
   end
 end

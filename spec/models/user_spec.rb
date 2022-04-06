@@ -547,6 +547,49 @@ RSpec.describe User, "when emails have bounced" do
 end
 
 RSpec.describe User do
+  describe '.search' do
+    subject { described_class.search(query) }
+
+    let(:user_1) do
+      attrs = { name: 'Alice', email: 'alice@example.com', about_me: 'foo bar' }
+      FactoryBot.create(:user, attrs)
+    end
+
+    let(:user_2) do
+      attrs = { name: 'James', email: 'james@example.com', about_me: 'bar' }
+      FactoryBot.create(:user, attrs)
+    end
+
+    context 'when given a name' do
+      let(:query) { 'Alice' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given a partial name' do
+      let(:query) { 'lic' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given an email' do
+      let(:query) { 'alice@example.com' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given a partial email' do
+      let(:query) { 'alice@' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given an about_me matching a single user' do
+      let(:query) { 'foo' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given an about_me matching multiple users' do
+      let(:query) { 'bar' }
+      it { is_expected.to match_array([user_1, user_2]) }
+    end
+  end
 
   describe '.authenticate_from_form' do
     let(:empty_user) { described_class.new }

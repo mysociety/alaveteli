@@ -164,6 +164,14 @@ class User < ApplicationRecord
                  terms: [[:variety, 'V', 'variety']],
                  if: :indexed_by_search?
 
+  def self.search(query)
+    where(<<~SQL, query: query)
+      lower(users.name) LIKE lower('%'||:query||'%') OR
+      lower(users.email) LIKE lower('%'||:query||'%') OR
+      lower(users.about_me) LIKE lower('%'||:query||'%')
+    SQL
+  end
+
   def self.pro
     with_role(:pro)
   end

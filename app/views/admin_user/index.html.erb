@@ -1,11 +1,11 @@
-<% @title = 'Listing users' %>
+<% @title ||= 'Listing users' %>
 
 <div class="row">
   <h1 class="span12"><%= @title %></h1>
 </div>
 
 <div class="row">
-  <%= form_tag admin_users_path, method: :get, class: 'form form-search span12' do %>
+  <%= form_tag nil, method: :get, class: 'form form-search span12' do %>
     <div class="input-append">
       <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
       <%= hidden_field_tag 'sort_order', @sort_order %>
@@ -40,8 +40,8 @@
 </div>
 
 <div class="row">
-  <div class="span12"
-    <%= render :partial => 'user_table', :locals => { :users => @admin_users, :banned_column => false } %>
+  <div class="span12">
+    <%= render :partial => 'user_table', :locals => { :users => @admin_users } %>
   </div>
 </div>
 
