@@ -1,7 +1,5 @@
 <% @title = "User – #{ @admin_user.name }" %>
 
-<h1><%=@title%></h1>
-
 <% if @admin_user.profile_photo %>
   <div class="user_photo_on_admin">
     <%= form_tag clear_profile_photo_admin_user_path(@admin_user), :multipart => true, :class => "form" do %>
