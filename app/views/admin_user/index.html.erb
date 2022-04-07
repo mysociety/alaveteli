@@ -1,3 +1,5 @@
+<%= render 'scopes' %>
+
 <div class="row">
   <%= form_tag nil, method: :get, class: 'form form-search span12' do %>
     <div class="input-append">
@@ -25,7 +27,7 @@
   <div class="span12 btn-group sort-order">
     <% @sort_options.keys.each do |sort_order| %>
       <%=
-        link_to_unless(@sort_order == sort_order, sort_order_humanized(sort_order), admin_users_path(:sort_order => sort_order, :query => @query), :class => 'btn') do
+        link_to_unless(@sort_order == sort_order, sort_order_humanized(sort_order), url_for(:sort_order => sort_order, :query => @query), :class => 'btn') do
           link_to sort_order_humanized(sort_order), '#', :class => 'btn disabled'
         end
        %>
