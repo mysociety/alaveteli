@@ -18,9 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - { ruby: 2.7, postgres: 9.6.24 }
         - { ruby: 2.7, postgres: 13.5 }
-        - { ruby: 2.7, postgres: 9.6.24, gemfile: 'Gemfile.rails_next' }
+        - { ruby: 2.7, postgres: 13.5, gemfile: 'Gemfile.rails_next' }
 
     services:
       postgres:
