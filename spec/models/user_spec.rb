@@ -1140,6 +1140,15 @@ RSpec.describe User do
 
   end
 
+  describe '#close' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'closes the user account' do
+      user.close
+      expect(user).to be_closed
+    end
+  end
+
   describe '#closed?' do
     let(:user) { FactoryBot.build(:user) }
 
