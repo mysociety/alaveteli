@@ -316,6 +316,18 @@ class InfoRequestEvent < ApplicationRecord
 
   # We store YAML version of parameters in the database
   def params=(new_params)
+    new_params = new_params.inject({}) do |memo, (k, v)|
+      v = v.url_name if v.is_a?(User)
+
+      if v.is_a?(ApplicationRecord)
+        v = v.to_param
+        k = "#{k}_id" unless k =~ /_id$/
+      end
+
+      memo[k] = v
+      memo
+    end
+
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
     if new_params[:incoming_message_id]

@@ -61,7 +61,7 @@ RSpec.describe ReportsController do
         expect(last_event.params).
           to match(
             request_id: info_request.id,
-            editor: user,
+            editor: user.url_name,
             reason: 'my reason',
             message: '',
             old_attention_requested: false,

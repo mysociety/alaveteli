@@ -1035,7 +1035,7 @@ RSpec.describe InfoRequest do
         event = request.info_request_events.last
 
         expect(event.event_type).to eq('move_request')
-        expect(event.params[:editor]).to eq(editor)
+        expect(event.params[:editor]).to eq(editor.url_name)
         expect(event.params[:public_body_url_name]).to eq(new_body.url_name)
         expect(event.params[:old_public_body_url_name]).to eq(old_body.url_name)
       end
@@ -1211,7 +1211,7 @@ RSpec.describe InfoRequest do
         event = request.info_request_events.last
 
         expect(event.event_type).to eq('move_request')
-        expect(event.params[:editor]).to eq(editor)
+        expect(event.params[:editor]).to eq(editor.url_name)
         expect(event.params[:user_url_name]).to eq(new_user.url_name)
         expect(event.params[:old_user_url_name]).to eq(old_user.url_name)
       end
@@ -1610,7 +1610,7 @@ RSpec.describe InfoRequest do
       expect(last_event.params).
         to match(
           request_id: info_request.id,
-          editor: user,
+          editor: user.url_name,
           reason: 'test',
           message: 'Test message',
           old_attention_requested: false,
