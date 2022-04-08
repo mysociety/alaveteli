@@ -364,7 +364,6 @@ class InfoRequestEvent < ApplicationRecord
     ignore = {}
     for key, value in params
       key = key.to_s
-      value = value.url_name if value.is_a?(User)
       if key.match(/^old_(.*)$/)
         if params[$1.to_sym] == value
           ignore[$1.to_sym] = ''
