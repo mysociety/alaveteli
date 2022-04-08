@@ -1044,7 +1044,9 @@ RSpec.describe InfoRequest do
         event = request.info_request_events.last
 
         expect(event.event_type).to eq('move_request')
-        expect(event.params[:editor]).to eq(editor)
+        expect(event.params).to include(
+          editor: { gid: editor.to_global_id.to_s }
+        )
         expect(event.params[:public_body_url_name]).to eq(new_body.url_name)
         expect(event.params[:old_public_body_url_name]).to eq(old_body.url_name)
       end
@@ -1220,7 +1222,9 @@ RSpec.describe InfoRequest do
         event = request.info_request_events.last
 
         expect(event.event_type).to eq('move_request')
-        expect(event.params[:editor]).to eq(editor)
+        expect(event.params).to include(
+          editor: { gid: editor.to_global_id.to_s }
+        )
         expect(event.params[:user_url_name]).to eq(new_user.url_name)
         expect(event.params[:old_user_url_name]).to eq(old_user.url_name)
       end
@@ -1618,8 +1622,8 @@ RSpec.describe InfoRequest do
       expect(last_event.event_type).to eq('report_request')
       expect(last_event.params).
         to match(
-          request_id: info_request.id,
-          editor: user,
+          request: { gid: info_request.to_global_id.to_s },
+          editor: { gid: user.to_global_id.to_s },
           reason: 'test',
           message: 'Test message',
           old_attention_requested: false,
@@ -4582,15 +4586,17 @@ RSpec.describe InfoRequest do
       it 'returns the last "set_embargo" event' do
         last_embargo_set_event = embargo.info_request.last_embargo_set_event
         expect(last_embargo_set_event.event_type).to eq 'set_embargo'
-        expect(last_embargo_set_event.params[:embargo_id]).
-          to eq embargo.id
-        expect(last_embargo_set_event.params[:embargo_extension_id]).
+        expect(last_embargo_set_event.params).to include(
+          embargo: { gid: embargo.to_global_id.to_s }
+        )
+        expect(last_embargo_set_event.params[:embargo_extension]).
           to be_nil
         embargo.extend(embargo_extension)
         last_embargo_set_event = embargo.info_request.last_embargo_set_event
         expect(last_embargo_set_event.event_type).to eq 'set_embargo'
-        expect(last_embargo_set_event.params[:embargo_extension_id]).
-          to eq embargo_extension.id
+        expect(last_embargo_set_event.params).to include(
+          embargo_extension: { gid: embargo_extension.to_global_id.to_s }
+        )
       end
 
     end

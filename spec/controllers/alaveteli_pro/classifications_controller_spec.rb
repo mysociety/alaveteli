@@ -64,7 +64,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'successful'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params[:user]).to eq(user)
       end
 
       it 'should call set_described_state on the request' do
@@ -117,7 +117,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         expect(event.params[:described_state]).to eq 'error_message'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params[:user]).to eq(user)
       end
 
       it 'should call set_described_state on the request' do
@@ -158,7 +158,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         expect(event.params[:described_state]).to eq 'requires_admin'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params[:user]).to eq(user)
       end
 
       it 'should call set_described_state on the request' do

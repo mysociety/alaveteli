@@ -79,7 +79,7 @@ RSpec.describe ClassificationsController, type: :controller do
           end
 
           it 'should log a status update event' do
-            expected_params = { user_id: other_user.id,
+            expected_params = { user: { gid: other_user.to_global_id.to_s },
                                 old_described_state: 'waiting_response',
                                 described_state: 'rejected' }
             post_status('rejected')
@@ -178,7 +178,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should log a status update event' do
-          expected_params = { user_id: admin_user.id,
+          expected_params = { user: { gid: admin_user.to_global_id.to_s },
                               old_described_state: 'waiting_response',
                               described_state: 'rejected' }
           post_status('rejected')
@@ -233,7 +233,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should log a status update event' do
-          expected_params = { user_id: admin_user.id,
+          expected_params = { user: { gid: admin_user.to_global_id.to_s },
                               old_described_state: 'waiting_response',
                               described_state: 'rejected' }
           post_status('rejected')
@@ -318,7 +318,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should log a status update event' do
-          expected_params = { user_id: info_request.user_id,
+          expected_params = { user: { gid: info_request.user.to_global_id.to_s },
                               old_described_state: 'waiting_response',
                               described_state: 'rejected' }
           post_status('rejected')

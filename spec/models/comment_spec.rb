@@ -246,7 +246,7 @@ RSpec.describe Comment do
       subject
       event = comment.info_request.last_event
       expect(event.event_type).to eq('hide_comment')
-      expect(event.params[:comment_id]).to eq(comment.id)
+      expect(event.params[:comment]).to eq(comment)
       expect(event.params[:editor]).to eq(editor.url_name)
       expect(event.params[:old_visible]).to eq(true)
       expect(event.params[:visible]).to eq(false)

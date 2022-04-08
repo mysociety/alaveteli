@@ -52,11 +52,43 @@ RSpec.describe InfoRequestEvent do
     end
 
     it "should store the incoming_message, outgoing_messsage and comment ids" do
+      comment = FactoryBot.create(:comment)
       example_params = {:incoming_message_id => 1,
                         :outgoing_message_id => 2,
-                        :comment_id => 3}
+                        :comment_id => comment.id}
       ire.params = example_params
-      expect(ire.params).to eq(example_params)
+      expect(ire.incoming_message_id).to eq(1)
+      expect(ire.outgoing_message_id).to eq(2)
+      expect(ire.comment_id).to eq(comment.id)
+    end
+
+    it 'stores keys suffixed with ID as GID' do
+      comment = FactoryBot.create(:comment)
+      ire.params = { comment_id: comment.id }
+      expect(ire.params).to include(
+        comment: { gid: comment.to_global_id.to_s }
+      )
+    end
+
+    it 'stores model instances as GID' do
+      comment = FactoryBot.create(:comment)
+      ire.params = { annotation: comment }
+      expect(ire.params).to include(
+        annotation: { gid: comment.to_global_id.to_s }
+      )
+    end
+
+    it 'stores correct class GID for AlaveteliPro models' do
+      ire.params = { embargo_id: 4 }
+
+      expect(ire.params).to include(
+        embargo: { gid: 'gid://app/AlaveteliPro::Embargo/4' }
+      )
+    end
+
+    it "stores key/value as-is if they can't be mapped to the correct class" do
+      ire.params = { foo_id: 4 }
+      expect(ire.params).to include(foo_id: 4)
     end
 
     it "should allow params_yaml to be blank" do
@@ -309,22 +341,22 @@ RSpec.describe InfoRequestEvent do
       expected_hash = {
         new: { foo: 'stuff' },
         old: { foo: 'this is stuff' },
-        other: { bar: '84' }
+        other: { bar: 84 }
       }
       expect(ire.params_diff).to eq(expected_hash)
     end
 
     it 'should drop matching old and new values' do
       ire.params = {:old_foo => 'stuff', :foo => 'stuff', :bar => 84}
-      expected_hash = { new: {}, old: {}, other: { bar: '84' } }
+      expected_hash = { new: {}, old: {}, other: { bar: 84 } }
       expect(ire.params_diff).to eq(expected_hash)
     end
 
     it 'returns a url_name if passed a User' do
-      user = FactoryBot.build(:user)
+      user = FactoryBot.create(:user)
       ire.params = {:old_foo => "", :foo => user}
       expected_hash = {
-        new: { foo: user.url_name },
+        new: { foo: { gid: user.to_global_id.to_s } },
         old: { foo: '' },
         other: {}
       }
