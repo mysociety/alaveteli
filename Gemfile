@@ -166,6 +166,11 @@ gem 'activestorage-sftp', git: 'https://github.com/treenewbee/activestorage-sftp
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
 
+if rails_upgrade? && RUBY_VERSION < '3.1'
+  gem 'net-http', '0.1.1'
+  gem 'uri', '0.10.0'
+end
+
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.14.0'
