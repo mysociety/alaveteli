@@ -159,9 +159,9 @@ module HasTagString
           search.
             includes(:translations).
             references(:translations).
-            merge(translation_class.order(name: :asc))
+            merge(translation_class.order(:name))
         else
-          search.order(name: :asc)
+          search.order(:name)
         end
 
       ordered.distinct

@@ -262,7 +262,7 @@ class OutgoingMessage < ApplicationRecord
   # Returns an Array
   def smtp_message_ids
     info_request_events.
-      order(created_at: :asc).
+      order(:created_at).
         map { |event| event.params[:smtp_message_id] }.
           compact.
             map do |smtp_id|

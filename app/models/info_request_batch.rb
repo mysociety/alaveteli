@@ -32,7 +32,7 @@ class InfoRequestBatch < ApplicationRecord
   has_and_belongs_to_many :public_bodies, -> {
     AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
       joins(:translations).preload(:translations).
-        merge(PublicBody::Translation.order(name: :asc))
+        merge(PublicBody::Translation.order(:name))
     end
   }, :inverse_of => :info_request_batches
 

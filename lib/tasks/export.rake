@@ -8,7 +8,7 @@ namespace :export do
     self.table_name = "info_request_batches_public_bodies"
     belongs_to :info_request_batch
     belongs_to :public_body
-    default_scope -> { order(info_request_batch_id: :asc, public_body_id: :asc) }
+    default_scope -> { order(:info_request_batch_id, :public_body_id) }
   end
 
   class PublicBodyCategoryTranslation < ActiveRecord::Base

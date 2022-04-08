@@ -18,7 +18,7 @@ class PublicBodyHeading < ApplicationRecord
            -> { merge(PublicBodyCategoryLink.order(:category_display_order)) },
            :through => :public_body_category_links
 
-  scope :by_display_order, -> { order(display_order: :asc) }
+  scope :by_display_order, -> { order(:display_order) }
 
   translates :name
 
