@@ -315,19 +315,19 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   # We store YAML version of parameters in the database
-  def params=(params)
+  def params=(new_params)
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
-    if params[:incoming_message_id]
-      self.incoming_message_id = params[:incoming_message_id]
+    if new_params[:incoming_message_id]
+      self.incoming_message_id = new_params[:incoming_message_id]
     end
-    if params[:outgoing_message_id]
-      self.outgoing_message_id = params[:outgoing_message_id]
+    if new_params[:outgoing_message_id]
+      self.outgoing_message_id = new_params[:outgoing_message_id]
     end
-    if params[:comment_id]
-      self.comment_id = params[:comment_id]
+    if new_params[:comment_id]
+      self.comment_id = new_params[:comment_id]
     end
-    self.params_yaml = params.to_yaml
+    self.params_yaml = new_params.to_yaml
   end
 
   def params
