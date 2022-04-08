@@ -415,7 +415,7 @@ RSpec.describe ApiController, "when using the API" do
       last_event = request.info_request_events.last
       expect(last_event.event_type).to eq('status_update')
       expect(last_event.described_state).to eq('partially_successful')
-      expect(last_event.params_yaml).to match(
+      expect(last_event.params).to match(
         /script: Geraldine Quango on behalf of requester via API/
       )
     end

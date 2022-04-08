@@ -22,7 +22,7 @@ FactoryBot.define do
   factory :info_request_event do
     info_request
     event_type { 'edit' }
-    params_yaml { '' }
+    params { {} }
 
     factory :sent_event do
       event_type { 'sent' }
@@ -37,7 +37,7 @@ FactoryBot.define do
 
     factory :failed_sent_request_event do
       event_type { 'send_error' }
-      params_yaml { "---\n:reason: Connection timed out" }
+      params { { reason: 'Connection timed out' } }
 
       after(:build) do |event|
         event.outgoing_message ||= build(
@@ -47,7 +47,9 @@ FactoryBot.define do
       end
 
       after(:create) do |evnt, evaluator|
-        evnt.params_yaml += "\noutgoing_message_id: #{evnt.outgoing_message.id}"
+        evnt.params = evnt.params.merge(
+          outgoing_message_id: evnt.outgoing_message.id
+        )
         evnt.outgoing_message.status = 'failed'
         evnt.info_request.described_state = 'error_message'
       end
@@ -96,7 +98,7 @@ FactoryBot.define do
 
     factory :failed_sent_followup_event do
       event_type { 'send_error' }
-      params_yaml { "---\n:reason: Connection timed out" }
+      params { { reason: 'Connection timed out' } }
 
       after(:build) do |event|
         event.outgoing_message ||= build(
@@ -106,7 +108,9 @@ FactoryBot.define do
       end
 
       after(:create) do |evnt, evaluator|
-        evnt.params_yaml += "\noutgoing_message_id: #{evnt.outgoing_message.id}"
+        evnt.params = evnt.params.merge(
+          outgoing_message_id: evnt.outgoing_message.id
+        )
         evnt.outgoing_message.status = 'failed'
         evnt.info_request.described_state = 'error_message'
       end

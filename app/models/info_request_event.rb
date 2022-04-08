@@ -485,7 +485,7 @@ class InfoRequestEvent < ApplicationRecord
     ret = {
       :id => id,
       :event_type => event_type,
-      # params_yaml has possibly sensitive data in it, don't include it
+      # params has possibly sensitive data in it, don't include it
       :created_at => created_at,
       :described_state => described_state,
       :calculated_state => calculated_state,
