@@ -354,7 +354,7 @@ class RequestMailer < ApplicationMailer
     info_requests = InfoRequest.
       where_old_unclassified(days_since).
         where(use_notifications: false).
-          order('info_requests.id').
+          order(:id).
             includes(:user)
 
     info_requests.each do |info_request|
@@ -405,7 +405,7 @@ class RequestMailer < ApplicationMailer
                              Time.zone.now - 3.days,
                              false
                             ).
-                      includes(:user).order("info_requests.id")
+                      includes(:user).order(:id)
     for info_request in info_requests
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
@@ -468,7 +468,7 @@ class RequestMailer < ApplicationMailer
       InfoRequest.
         includes(:info_request_events => :user_info_request_sent_alerts).
           where(conditions).
-            order('info_requests.id, info_request_events.created_at').
+            order(:id).merge(InfoRequestEvent.order(:created_at)).
               references(:info_request_events)
 
     info_requests.each do |info_request|

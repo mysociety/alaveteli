@@ -59,26 +59,26 @@ class PublicBody < ApplicationRecord
   end
 
   has_many :info_requests,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body
   has_many :track_things,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :censor_rules,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :track_things_sent_emails,
-           -> { order('created_at DESC') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :public_body_change_requests,
-           -> { order('created_at DESC') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :draft_info_requests,
-           -> { order('created_at DESC') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body
 
   has_and_belongs_to_many :info_request_batches,
@@ -254,7 +254,7 @@ class PublicBody < ApplicationRecord
     with_translations(AlaveteliLocalization.locale).
       where("lower(public_body_translations.request_email) " \
             "like lower('%'||?||'%')", domain).
-        order('public_body_translations.name')
+        merge(PublicBody::Translation.order(:name))
   end
 
   def set_api_key
@@ -811,7 +811,7 @@ class PublicBody < ApplicationRecord
         bodies = visible.
                   where('public_body_translations.locale = ?',
                          underscore_locale).
-                    order("info_requests_visible_count desc").
+                    order(info_requests_visible_count: :desc).
                       limit(32).
                         joins(:translations)
       else
@@ -875,7 +875,7 @@ class PublicBody < ApplicationRecord
         where("(#{get_public_body_list_translated_condition('current_locale', has_first_letter)}) OR " \
               "(#{get_public_body_list_translated_condition('default_locale', has_first_letter)}) ", where_parameters).
         where('COALESCE(current_locale.name, default_locale.name) IS NOT NULL').
-        order('display_name')
+        order(:display_name)
     else
       # The simpler case where we're just searching in the current locale:
       where_condition = get_public_body_list_translated_condition('public_body_translations', has_first_letter, true)
@@ -887,7 +887,7 @@ class PublicBody < ApplicationRecord
       else
         where(where_condition, where_parameters).
           joins(:translations).
-          order('public_body_translations.name')
+            merge(PublicBody::Translation.order(:name))
       end
     end
   end

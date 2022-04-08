@@ -249,7 +249,7 @@ def get_last_post_redirect
   # TODO: yeuch - no other easy way of getting the token so we can check
   # the redirect URL, as it is by definition opaque to the controller
   # apart from in the place that it redirects to.
-  post_redirects = PostRedirect.order("id DESC").first
+  post_redirects = PostRedirect.order(id: :desc).first
 end
 
 RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|

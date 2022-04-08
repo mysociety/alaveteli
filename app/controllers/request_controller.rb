@@ -222,8 +222,8 @@ class RequestController < ApplicationController
       @public_bodies =
         PublicBody.
           where(:id => params[:public_body_ids]).
-            includes(:translations).
-              order('public_body_translations.name')
+            joins(:translations).preload(:translations).
+              merge(PublicBody::Translation.order(:name))
     end
 
     if params[:submitted_new_request].nil? || params[:reedit]

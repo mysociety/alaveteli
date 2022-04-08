@@ -18,13 +18,13 @@ class AdminPublicBodyController < AdminController
     @locale = AlaveteliLocalization.locale
     AlaveteliLocalization.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
-      info_requests = @public_body.info_requests.order('created_at DESC')
+      info_requests = @public_body.info_requests.order(created_at: :desc)
       if cannot? :admin, AlaveteliPro::Embargo
         info_requests = info_requests.not_embargoed
       end
       @info_requests = info_requests.paginate(:page => params[:page],
                                               :per_page => 100)
-      @versions = @public_body.versions.order('version DESC')
+      @versions = @public_body.versions.order(version: :desc)
       render
     end
   end
@@ -276,7 +276,7 @@ class AdminPublicBodyController < AdminController
         PublicBody.
           joins(:translations).
             where(query).
-              order('public_body_translations.name').
+              merge(PublicBody::Translation.order(:name)).
                 paginate(:page => @page, :per_page => 100)
     end
 

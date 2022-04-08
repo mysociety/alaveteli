@@ -189,7 +189,7 @@ RSpec.describe ClassificationsController, type: :controller do
         it 'should record a classification' do
           post_status('rejected')
           last_event = info_request.reload.info_request_events.last
-          classification = RequestClassification.order('created_at DESC').last
+          classification = RequestClassification.order(created_at: :desc).last
           expect(classification.user_id).to eq(admin_user.id)
           expect(classification.info_request_event).to eq(last_event)
         end

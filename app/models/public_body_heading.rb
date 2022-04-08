@@ -15,10 +15,10 @@ class PublicBodyHeading < ApplicationRecord
            :inverse_of => :public_body_heading,
            :dependent => :destroy
   has_many :public_body_categories,
-           -> { order('public_body_category_links.category_display_order') },
+           -> { merge(PublicBodyCategoryLink.order(:category_display_order)) },
            :through => :public_body_category_links
 
-  scope :by_display_order, -> { order('display_order ASC') }
+  scope :by_display_order, -> { order(display_order: :asc) }
 
   translates :name
 

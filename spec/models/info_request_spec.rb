@@ -2059,7 +2059,7 @@ RSpec.describe InfoRequest do
     let(:last_event) do
       InfoRequestEvent.
         where(info_request_id: info_request.id).
-        order('created_at DESC').
+        order(created_at: :desc).
         first
     end
 

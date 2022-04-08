@@ -23,7 +23,7 @@ class RequestClassification < ApplicationRecord
   def self.league_table(size, conditions=nil)
     query = select('user_id, count(*) as cnt').
       group('user_id').
-        order('cnt desc').
+        order(cnt: :desc).
           limit(size).
             includes(:user)
     query = query.where(*conditions) if conditions
