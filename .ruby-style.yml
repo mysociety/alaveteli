@@ -632,6 +632,9 @@ Lint/RedundantWithIndex:
 Lint/RedundantWithObject:
   Enabled: false
 
+Lint/RefinementImportMethods:
+  Enabled: false
+
 Lint/RegexpAsCondition:
   Enabled: false
 
@@ -1831,6 +1834,9 @@ Style/RedundantFileExtensionInRequire:
 
 Style/RedundantFreeze:
   Enabled: true
+
+Style/RedundantInitialize:
+  Enabled: false
 
 Style/RedundantInterpolation:
   Enabled: true
