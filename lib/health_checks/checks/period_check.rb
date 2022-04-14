@@ -1,12 +1,12 @@
 module HealthChecks
   module Checks
-    class DaysAgoCheck
+    class PeriodCheck
       include HealthChecks::HealthCheckable
 
-      attr_reader :days, :subject
+      attr_reader :period, :subject
 
       def initialize(args = {}, &block)
-        @days = args.fetch(:days) { 1 }
+        @period = args.fetch(:period) { 1.day }
         @subject = block
         super(args)
       end
@@ -20,9 +20,8 @@ module HealthChecks
       end
 
       def ok?
-        subject.call >= days.days.ago
+        subject.call >= period.ago
       end
-
     end
   end
 end
