@@ -719,7 +719,7 @@ module ActsAsXapian
       raise "aborting incremental index update while full index rebuild happens; found existing #{new_path}"
     end
 
-    ActsAsXapianJob.pluck(:id).each do |id|
+    ActsAsXapianJob.order(:created_at).pluck(:id).each do |id|
       job = nil
       begin
         ActiveRecord::Base.transaction do

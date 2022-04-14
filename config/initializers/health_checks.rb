@@ -20,15 +20,15 @@ Rails.application.config.after_initialize do
     OutgoingMessage.last.created_at
   end
 
-  xapian_queue_limit = 500
-  xapian_queue_check = HealthChecks::Checks::LimitCheck.new(
-    limit: xapian_queue_limit,
-    failure_message: _('The number of Xapian index jobs, older than 30 ' \
-                       'minutes, is over {{limit}}', limit: xapian_queue_limit),
-    success_message: _('The number of Xapian index jobs, older than 30 ' \
-                       'minutes, is under {{limit}}', limit: xapian_queue_limit)
+  xapian_queue_check = HealthChecks::Checks::PeriodCheck.new(
+    period: 30.minutes,
+    failure_message: _('The oldest Xapian index job, has been idle for more ' \
+                       'than 30 minutes'),
+    success_message: _('The oldest Xapian index job, hasn\'t been idle for ' \
+                       'more than 30 minutes')
   ) do
-    ActsAsXapian::ActsAsXapianJob.where(created_at: (...30.minutes.ago)).count
+    oldest_job = ActsAsXapian::ActsAsXapianJob.order(:created_at).first
+    oldest_job&.created_at || Time.zone.now
   end
 
   HealthChecks.add user_last_created
