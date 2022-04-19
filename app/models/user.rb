@@ -412,6 +412,10 @@ class User < ApplicationRecord
     ban_text.present?
   end
 
+  def close
+    update(closed_at: Time.zone.now)
+  end
+
   def closed?
     closed_at.present?
   end
