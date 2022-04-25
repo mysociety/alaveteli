@@ -1328,6 +1328,9 @@ Rails/WhereNot:
 
 #################### Security ####################
 
+Security/CompoundHash:
+  Enabled: false
+
 Security/Eval:
   Enabled: false
 
@@ -1532,6 +1535,9 @@ Style/ExplicitBlockArgument:
   Enabled: false
 
 Style/ExponentialNotation:
+  Enabled: false
+
+Style/FetchEnvVar:
   Enabled: false
 
 Style/FileRead:
@@ -1755,6 +1761,9 @@ Style/NumericLiterals:
   Enabled: true
 
 Style/NumericPredicate:
+  Enabled: false
+
+Style/ObjectThen:
   Enabled: false
 
 Style/OneLineConditional:
