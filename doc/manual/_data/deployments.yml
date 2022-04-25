@@ -293,7 +293,7 @@
     es: República Democrática del Congo
 
 - title: Ask Nepal
-  url: https://asknepal.info/
+  url: https://asknepal.info
   image: asknepal.png
   featured: false
   pro: false
@@ -302,7 +302,7 @@
     es: Nepal
 
 - title: Ask Gov
-  url: https://askgov.ge/
+  url: https://askgov.ge
   image: askgov.png
   featured: false
   pro: false
