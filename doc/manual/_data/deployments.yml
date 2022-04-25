@@ -309,3 +309,12 @@
   country:
     en: Georgia
     es: Georgia
+
+- title: Ia Statul la Întrebări
+  url: http://iastatullaintrebari.ro
+  image: iastatullaintrebari.jpg
+  featured: false
+  pro: false
+  country:
+    en: Romania
+    es: Romania
