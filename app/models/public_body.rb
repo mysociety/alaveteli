@@ -168,7 +168,7 @@ class PublicBody < ApplicationRecord
   # We could add an `extend_version_class` option pretty trivially by
   # following the pattern for the existing `extend` option.
   #
-  # [1] http://git.io/vIetK
+  # [1] https://github.com/technoweenie/acts_as_versioned/blob/63b1fc8529/lib/acts_as_versioned.rb#L98-L118
   class Version
     before_save :copy_translated_attributes
 
