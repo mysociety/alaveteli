@@ -56,7 +56,7 @@ class IncomingMessage < ApplicationRecord
            :class_name => 'OutgoingMessage',
            :dependent => :nullify
   has_many :foi_attachments,
-           -> { order('id') },
+           -> { order(:id) },
            inverse_of: :incoming_message,
            dependent: :destroy,
            autosave: true

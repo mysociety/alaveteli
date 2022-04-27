@@ -1079,7 +1079,7 @@ RSpec.describe RequestController, "when creating a new request" do
          }
 
     ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?").
-                            order("id")
+                            order(:id)
     expect(ir_array.size).to eq(2)
 
     ir = ir_array[0]

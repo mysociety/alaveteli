@@ -43,7 +43,8 @@ module AlaveteliPro
                    q: "%#{ search }%")
               .references(:request_summary_categories)
       request_summaries = filter_results(request_summaries)
-      request_summaries.reorder("request_summaries.#{order_value}")
+      request_summaries.
+        merge(RequestSummary.order(order_value))
     end
 
     def filter_results(results)

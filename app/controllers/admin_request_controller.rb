@@ -25,7 +25,7 @@ class AdminRequestController < AdminController
       info_requests = info_requests.not_embargoed
     end
 
-    @info_requests = info_requests.order('created_at DESC').paginate(
+    @info_requests = info_requests.order(created_at: :desc).paginate(
       :page => params[:page],
       :per_page => 100)
   end

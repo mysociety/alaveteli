@@ -37,10 +37,10 @@ class PublicBodyChangeRequest < ApplicationRecord
   validate :body_email_format, :unless => proc { |change_request| change_request.public_body_email.blank? }
 
   scope :new_body_requests, -> {
-    where(public_body_id: nil).order("created_at")
+    where(public_body_id: nil).order(:created_at)
   }
   scope :body_update_requests, -> {
-    where("public_body_id IS NOT NULL").order("created_at")
+    where("public_body_id IS NOT NULL").order(:created_at)
   }
 
   singleton_class.undef_method :open # Undefine Kernel.open to avoid warning

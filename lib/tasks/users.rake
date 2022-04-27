@@ -120,7 +120,7 @@ namespace :users do
 
     query = User::WithActivityQuery.new
     query = between ? query.call(between) : query.call
-    users = query.pro.order('activity DESC')
+    users = query.pro.order(activity: :desc)
 
     # We can't `#pluck` activity because its not a real attribute, so we fall
     # back to a slower `#map`.

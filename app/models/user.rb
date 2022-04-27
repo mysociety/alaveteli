@@ -56,56 +56,56 @@ class User < ApplicationRecord
   attr_accessor :no_xapian_reindex
 
   has_many :info_requests,
-           -> { order('info_requests.created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_many :info_request_events,
-           -> { reorder('created_at desc') },
+           -> { reorder(created_at: :desc) },
            through: :info_requests
   has_many :embargoes,
            inverse_of: :user,
            through: :info_requests
   has_many :draft_info_requests,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_many :user_info_request_sent_alerts,
            inverse_of: :user,
            dependent: :destroy
   has_many :post_redirects,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_many :track_things,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :tracking_user,
            foreign_key: 'tracking_user_id',
            dependent: :destroy
   has_many :citations,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_many :comments,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_many :public_body_change_requests,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_one :profile_photo,
           inverse_of: :user,
           dependent: :destroy
   has_many :censor_rules,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_many :info_request_batches,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy
   has_many :draft_info_request_batches,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            inverse_of: :user,
            dependent: :destroy,
            class_name: 'AlaveteliPro::DraftInfoRequestBatch'
@@ -488,7 +488,7 @@ class User < ApplicationRecord
     n_most_recent_requests =
       InfoRequest.
         where(["user_id = ? AND created_at > now() - '1 day'::interval", id]).
-          order('created_at DESC').
+          order(created_at: :desc).
             limit(AlaveteliConfiguration.max_requests_per_user_per_day)
 
     return nil if n_most_recent_requests.size < AlaveteliConfiguration::max_requests_per_user_per_day
