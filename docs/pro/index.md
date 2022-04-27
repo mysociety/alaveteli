@@ -19,7 +19,7 @@ translations are presented as an
 [independent resource](https://www.transifex.com/mysociety/alaveteli/alaveteli-pro/)
 to translate.
 
-Enabling Alaveteli Pro also enables [a new help page](https://git.io/JJodZ) that
+Enabling Alaveteli Pro also enables [a new help page](https://github.com/mysociety/alavetelitheme/blob/master/lib/views/help/pro.html.erb) that
 you’ll need to translate in the
 [usual way]({{ page.baseurl }}/docs/customising/translation/).
 

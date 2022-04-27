@@ -172,8 +172,8 @@ irb(main):002:0> AlaveteliFeatures.backend.enable(:pro_pricing, user)
 
 ## Translations
 
-Enabling Pricing also enables [a “legal” page](https://git.io/JJoFI) and
-[counterpart sidebar](https://git.io/JJoFq) that you’ll need to translate in the
+Enabling Pricing also enables [a “legal” page](https://github.com/mysociety/alaveteli/blob/master/app/views/alaveteli_pro/pages/_legal.html.erb) and
+[counterpart sidebar](https://github.com/mysociety/alaveteli/blob/master/app/views/alaveteli_pro/pages/legal.html.erb) that you’ll need to translate in the
 [same way as help pages]({{ page.baseurl }}/docs/customising/translation/). In
 this case you must locate the templates in `lib/views/alaveteli_pro/pages` in
 your theme.
