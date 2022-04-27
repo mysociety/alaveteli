@@ -1672,7 +1672,7 @@ to match the new templates.
 * This release deprecates non-responsive stylesheets. Please make sure your site
   works with `RESPONSIVE_STYLING` set to `true`.
 * This is likely to be the last release that supports Ruby 1.9.x. We have some
-  [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
+  [notes](https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-ruby-1.8.7) on migrating away from 1.8.7; migrating to
   Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
   packaged versions of Ruby 2+.
 
@@ -2795,9 +2795,9 @@ to match the new templates.
   testing package installation on Squeeze and that OS security updates will no
   longer be produced by Debian after Feb 2016.
 * The install script `site-specific-install.sh` sets the default ruby to 1.9. You
-  can do this manually with the same commands http://git.io/vlDpb
+  can do this manually with the same commands https://github.com/mysociety/alaveteli/commit/82e9593f7a95ec23d6aa893fd43bdfb8a10575c3
 * If you are running Debian Wheezy, install poppler-utils from wheezy-backports:
-  http://git.io/vlD1k
+  https://github.com/mysociety/alaveteli/commit/ac05def6383165a93c7564d7a692a1422f1b615b
 * This release adds `geoip-database` to the list of required packages. You can
   install it with `sudo apt-get install geoip-database`. If you don't want to
   or can't use a local GeoIP database, set `GEOIP_DATABASE' to an empty string in
@@ -3062,8 +3062,9 @@ to match the new templates.
 
 * **Version 0.22 is the last release to support Ruby 1.8.7.**
 
-  We have an evolving [upgrade guide](http://git.io/vLNg0) on the wiki, and
-  we're always available on the [alaveteli-dev mailing list](https://goo.gl/6u67Jg).
+  We have an evolving [upgrade guide](https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-ruby-1.8.7)
+  on the wiki, and we're always available on the
+  [alaveteli-dev mailing list](https://goo.gl/6u67Jg).
 * Ruby version files are ignored – these are delegated to people's development
   or deployment environments. See https://goo.gl/01MCCi and e5180fa89.
 * Ensure all overridden Ruby source files have encoding specifier. See
