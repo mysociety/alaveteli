@@ -38,6 +38,8 @@ module Alaveteli
 
     if rails_upgrade?
       config.autoloader = :zeitwerk
+      config.active_record.legacy_connection_handling = false
+      config.active_support.use_rfc4122_namespaced_uuids = true
     end
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
