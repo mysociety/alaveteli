@@ -10,6 +10,7 @@
 # Pascal Romain <aka.keronos@gmail.com>, 2020
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2021
 # Laurent S, 2021
+# Eda <eda@mutu.net>, 2022
 #
 msgid ""
 msgstr ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:12+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Laurent S, 2021\n"
+"Last-Translator: Eda <eda@mutu.net>, 2022\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +159,7 @@ msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: 
 msgstr "Une liste des tâches pour suivre l'état d'avancement de vos demandes et agir"
 
 msgid "About {{public_body_name}}"
-msgstr "A propos de {{public_body_name}}"
+msgstr "À propos de {{public_body_name}}"
 
 msgid "Account"
 msgstr "Compte"
@@ -703,7 +704,7 @@ msgid "Please enter your email address"
 msgstr "Merci d'indiquer votre adresse email"
 
 msgid "Please include links to some examples of your journalism or blogging if you can."
-msgstr "Merci d'ajouter des liens vers certains de vos articles ou blogs."
+msgstr "Merci d'ajouter des liens vers certains de vos articles (journaux, médias, sites web, blog ...). "
 
 msgid "Please tell us if you want to get updates"
 msgstr "Merci d'indiquer si vous souhaitez recevoir des mises à jour"
@@ -786,7 +787,7 @@ msgstr[0] "Publiez cette demande ou gardez-la privée pour longtemps."
 msgstr[1] "Publiez ces demandes ou gardez-les privées pour longtemps."
 
 msgid "Read blog"
-msgstr "Lire le blog"
+msgstr "Blog"
 
 msgid "Ready to go public"
 msgstr "Prêt.e à rendre public"

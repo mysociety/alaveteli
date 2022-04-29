@@ -37,7 +37,7 @@
 # David Cabo <david.cabo@gmail.com>, 2013
 # Doryan R, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
-# Eda <eda@mutu.net>, 2021
+# Eda <eda@mutu.net>, 2021-2022
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Laurent S, 2019
@@ -57,8 +57,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:11+0000\n"
-"PO-Revision-Date: 2021-11-23 08:45+0000\n"
-"Last-Translator: Pascal Romain <aka.keronos@gmail.com>\n"
+"PO-Revision-Date: 2011-03-09 17:48+0000\n"
+"Last-Translator: Eda <eda@mutu.net>, 2021-2022\n"
 "Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -407,7 +407,7 @@ msgid "API"
 msgstr "API"
 
 msgid "About you:"
-msgstr "A propos de vous :"
+msgstr "À propos de vous :"
 
 msgid "About {{count}} FOI requests found"
 msgstr "Environ {{count}} demandes d'accès à l'information trouvées"
@@ -1490,9 +1490,7 @@ msgid "In the News"
 msgstr "Dans les médias"
 
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
-msgstr ""
-"Intégrez des liens pertinants vers votre blog, un compte twitter,... Les liens seront rendus cliquables. \n"
-" e.g"
+msgstr "Intégrez des liens pertinents vers votre blog, compte twitter, fédiverse, etc. Les liens seront rendus cliquables. e.g."
 
 msgid "Incoming message has a spam score above the configured threshold ({{spam_threshold}})."
 msgstr "Le message entrant a un score de spam supérieur au seuil défini ({{spam_threshold}})."
@@ -1764,7 +1762,7 @@ msgid "Next, crop your photo &gt;&gt;"
 msgstr "Ensuite, recadrez votre photo"
 
 msgid "Nice work! How about having another try at the requests you skipped?"
-msgstr "Joli travail ! Que diriez-vous d'essayer à nouveau les requêtes que vous avez sautées ?"
+msgstr "Joli travail! Que diriez-vous d'essayer à nouveau les requêtes que vous avez sautées?"
 
 msgid "No"
 msgstr "Non"
@@ -2234,7 +2232,7 @@ msgid "Read about <a href=\"{{advanced_search_url}}\">advanced search operators<
 msgstr "En savoir plus sur les <a href=\"{{advanced_search_url}}\">opérateurs de recherche avancée</a>, tels que proximité et valeur joker."
 
 msgid "Read blog"
-msgstr "Lire le blog"
+msgstr "Blog"
 
 msgid "Read more"
 msgstr "Lire plus"
@@ -4488,7 +4486,7 @@ msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} correspondant à '{{query}}'"
 
 msgid "{{site_name}} blog and tweets"
-msgstr "{{site_name}} blog et tweets"
+msgstr "{{site_name}} blog"
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
