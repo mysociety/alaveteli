@@ -55,6 +55,12 @@
   can happen in the background while the application is running but must be
   carried out before upgrading to release 0.42.
 
+# 0.40.1.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.40.1.0
 
 ## Highlighted Features

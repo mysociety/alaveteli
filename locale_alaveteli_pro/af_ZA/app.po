@@ -3,12 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# FOI Monkey, 2022
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:12+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: FOI Monkey, 2022\n"
 "Language-Team: Afrikaans (South Africa) (https://www.transifex.com/mysociety/t"
 "eams/33529/af_ZA/)\n"
 "MIME-Version: 1.0\n"
@@ -32,25 +36,25 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "(no title)"
-msgstr ""
+msgstr "(geen titel)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr ""
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 maande"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29 April 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3 Julie 2017"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 maande"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 maande"
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
 msgstr ""
@@ -149,7 +153,7 @@ msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: 
 msgstr ""
 
 msgid "About {{public_body_name}}"
-msgstr ""
+msgstr "Oor {{public_body_name}}"
 
 msgid "Account"
 msgstr ""
@@ -158,10 +162,10 @@ msgid "Activist Doug Paulley uncovered councils across the UK who, through inact
 msgstr ""
 
 msgid "Activity"
-msgstr ""
+msgstr "Aktiwiteit"
 
 msgid "Add"
-msgstr ""
+msgstr "Voeg by"
 
 msgid "Add Card Details"
 msgstr ""
@@ -212,7 +216,7 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Is jy seker?"
 
 msgid "Automate FOI request management"
 msgstr ""
@@ -263,7 +267,7 @@ msgid "Browse public requests"
 msgstr ""
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Campaigners"
 msgstr ""
@@ -272,7 +276,7 @@ msgid "Campaigning for better wheelchair accessibility"
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Kanselleer"
 
 msgid "Cancel subscription"
 msgstr ""
@@ -326,7 +330,7 @@ msgid "Dashboard and workflow features"
 msgstr ""
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Geagte {{user_name}}"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr ""
@@ -362,7 +366,7 @@ msgid "Edit your request"
 msgstr ""
 
 msgid "Email address"
-msgstr ""
+msgstr "E-posadres"
 
 msgid "Email doesn't look like a valid address"
 msgstr ""
@@ -455,7 +459,7 @@ msgid "Hard to keep track of your many requests?"
 msgstr ""
 
 msgid "Help"
-msgstr ""
+msgstr "Hulp"
 
 msgid "Helping startups find the best location for their business"
 msgstr ""
@@ -599,7 +603,7 @@ msgid "Next payment"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 msgid "No bodies selected"
 msgstr ""
@@ -713,10 +717,10 @@ msgid "Pricing"
 msgstr ""
 
 msgid "Privacy"
-msgstr ""
+msgstr "Privaatheid"
 
 msgid "Private"
-msgstr ""
+msgstr "Privaat"
 
 msgid "Private FOI requests"
 msgstr ""
@@ -746,7 +750,7 @@ msgid "Professional"
 msgstr ""
 
 msgid "Profile"
-msgstr ""
+msgstr "Profiel"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
@@ -790,7 +794,7 @@ msgid "Remove"
 msgstr ""
 
 msgid "Replies"
-msgstr ""
+msgstr "Antwoorde"
 
 msgid "Request access to {{pro_site_name}}"
 msgstr ""
@@ -810,7 +814,7 @@ msgid "Request to"
 msgstr ""
 
 msgid "Requests"
-msgstr ""
+msgstr "Versoeke"
 
 msgid "Requests can stay completely private until you’re ready to go public with your story."
 msgstr ""
@@ -846,7 +850,7 @@ msgid "Save time managing FOI requests"
 msgstr ""
 
 msgid "Search"
-msgstr ""
+msgstr "Soek"
 
 msgid "Search by name"
 msgstr ""
@@ -884,7 +888,7 @@ msgid "Send a reply to {{person_or_body}}"
 msgstr ""
 
 msgid "Send message"
-msgstr ""
+msgstr "Stuur boodskap"
 
 msgid "Send request"
 msgstr ""
@@ -901,7 +905,7 @@ msgid "Sending..."
 msgstr ""
 
 msgid "Sent"
-msgstr ""
+msgstr "Gestuur"
 
 msgid "Settings"
 msgstr ""
@@ -915,7 +919,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Sign up"
-msgstr ""
+msgstr "Registreer"
 
 msgid "Simple, affordable pricing"
 msgstr ""
@@ -954,13 +958,13 @@ msgid "Status"
 msgstr ""
 
 msgid "Subject"
-msgstr ""
+msgstr "Onderwerp"
 
 msgid "Submit Search"
 msgstr ""
 
 msgid "Subscribe"
-msgstr ""
+msgstr "Teken in"
 
 msgid "Subscription began"
 msgstr ""
@@ -972,7 +976,7 @@ msgid "Subscription ends"
 msgstr ""
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Bepalings en voorwaardes"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
 msgstr ""
@@ -1066,10 +1070,10 @@ msgid "Tired of the fiddly details that add time to your investigation?"
 msgstr ""
 
 msgid "Title (A-Z)"
-msgstr ""
+msgstr "Titel (A-Z)"
 
 msgid "To"
-msgstr ""
+msgstr "Aan"
 
 msgid "To access {{pro_site_name}}"
 msgstr ""
@@ -1102,7 +1106,7 @@ msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact deta
 msgstr ""
 
 msgid "Update"
-msgstr ""
+msgstr "Opdateer"
 
 msgid "Update Card Details"
 msgstr ""
@@ -1113,7 +1117,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Updated"
-msgstr ""
+msgstr "Opgedateer"
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
 msgstr ""
@@ -1185,7 +1189,7 @@ msgid "Write request"
 msgstr ""
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
@@ -1317,10 +1321,10 @@ msgid "You’ve got plenty of other things to think about, so you don’t want t
 msgstr ""
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "all requests"
-msgstr ""
+msgstr "alle versoeke"
 
 msgid "drafts"
 msgstr ""
