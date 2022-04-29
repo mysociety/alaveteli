@@ -32,8 +32,8 @@
 # Nir Hirshman <nirshman99@gmail.com>, 2013-2014
 # Nir Hirshman <nirshman99@gmail.com>, 2013
 # Ram Ezrach <ram.ezrach@gmail.com>, 2013
-# rshlo <r@roishlomi.com>, 2013
-# rshlo <r@roishlomi.com>, 2013
+# Roi, 2013
+# Roi, 2013
 # Yair Uziel <yair.uziel@gmail.com>, 2013-2014
 # Yair Uziel <yair.uziel@gmail.com>, 2013
 # yehuda <yehudab@gmail.com>, 2013-2015
@@ -48,8 +48,8 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:11+0000\n"
-"PO-Revision-Date: 2021-11-12 15:05+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"PO-Revision-Date: 2011-03-09 17:48+0000\n"
+"Last-Translator: Z.D <zdevir@gmail.com>, 2013\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/l"
 "anguage/he_IL/)\n"
 "MIME-Version: 1.0\n"
