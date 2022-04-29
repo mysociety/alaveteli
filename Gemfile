@@ -195,7 +195,7 @@ group :test, :development do
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
-  gem 'rspec-rails', '~> 5.1.1'
+  gem 'rspec-rails', '~> 5.1.2'
   gem 'pry', '~> 0.13.0'
   gem 'pry-byebug', '~> 3.9.0'
 end
