@@ -81,10 +81,14 @@ source 'https://rubygems.org'
 
 # See instructions in Gemfile.rails_next
 def rails_upgrade?
-  true
+  %w[1 true].include?(ENV['RAILS_UPGRADE'])
 end
 
-gem 'rails', '~> 6.1.5'
+if rails_upgrade?
+  gem 'rails', '~> 7.0.2'
+else
+  gem 'rails', '~> 6.1.5'
+end
 
 gem 'pg', '~> 1.3.5'
 
@@ -119,7 +123,11 @@ gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git',
 gem 'rubyzip', '~> 2.3.2'
 gem 'secure_headers', '~> 6.3.3'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
+if rails_upgrade?
+  gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
+else
+  gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
+end
 gem 'stripe', '~> 5.49.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.8.1'
@@ -165,6 +173,11 @@ gem 'activestorage-sftp', git: 'https://github.com/treenewbee/activestorage-sftp
                           ref: '679fbe1'
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
+
+if rails_upgrade? && RUBY_VERSION < '3.1'
+  gem 'net-http', '0.1.1'
+  gem 'uri', '0.10.0'
+end
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
