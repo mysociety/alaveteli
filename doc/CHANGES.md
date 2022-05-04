@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Use correct mime type for cached CSV attachments
 * Protect mass-tag update buttons in admin bodies lists (Gareth Rees)
 
 ## Highlighted Pro Features
