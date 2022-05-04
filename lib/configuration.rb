@@ -58,7 +58,6 @@ module AlaveteliConfiguration
       FORWARD_NONBOUNCE_RESPONSES_TO: 'user-support@localhost',
       FORWARD_PRO_NONBOUNCE_RESPONSES_TO: 'pro-user-support@localhost',
       FRONTPAGE_PUBLICBODY_EXAMPLES: '',
-      GAZE_URL: '',
       GA_CODE: '',
       GEOIP_DATABASE: 'vendor/data/GeoLite2-Country.mmdb',
       HTML_TO_PDF_COMMAND: '',
