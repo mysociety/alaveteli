@@ -40,9 +40,9 @@ end
 
 RSpec.describe PublicBodyCategoryLink do
   describe '.for_heading' do
-    subject { described_class.for_heading(heading_id) }
+    subject { described_class.for_heading(public_body_heading) }
 
-    let(:heading_id) { heading_1.id }
+    let(:public_body_heading) { heading_1 }
 
     let(:heading_1) { FactoryBot.create(:public_body_heading) }
 

@@ -27,15 +27,16 @@ class PublicBodyCategoryLink < ApplicationRecord
 
   before_validation on: :create do
     self.category_display_order ||=
-      self.class.next_display_order(public_body_heading_id)
+      self.class.next_display_order(public_body_heading)
   end
 
-  scope :for_heading, ->(heading_id) do
-    where(public_body_heading_id: heading_id).order(:category_display_order)
+  scope :for_heading, ->(public_body_heading) do
+    where(public_body_heading: public_body_heading).
+      order(:category_display_order)
   end
 
-  def self.next_display_order(heading_id)
-    last_record = for_heading(heading_id).last
+  def self.next_display_order(public_body_heading)
+    last_record = for_heading(public_body_heading).last
 
     if last_record
       last_record.category_display_order + 1
