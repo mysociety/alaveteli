@@ -38,6 +38,35 @@ RSpec.describe PublicBodyHeading, 'when validating' do
 
 end
 
+RSpec.describe PublicBodyCategoryLink do
+  describe '.for_heading' do
+    subject { described_class.for_heading(heading_id) }
+
+    let(:heading_id) { heading_1.id }
+
+    let(:heading_1) { FactoryBot.create(:public_body_heading) }
+
+    let(:link_1) do
+      FactoryBot.create(:public_body_category_link,
+                        public_body_heading: heading_1,
+                        category_display_order: 1)
+    end
+
+    let(:link_2) do
+      FactoryBot.create(:public_body_category_link,
+                        public_body_heading: heading_1,
+                        category_display_order: 2)
+    end
+
+    before do
+      link_1.update!(category_display_order: 2)
+      link_2.update!(category_display_order: 1)
+    end
+
+    it { is_expected.to match_array([link_2, link_1]) }
+  end
+end
+
 RSpec.describe PublicBodyCategoryLink, 'when setting a category display order' do
 
   it 'should return 0 if there are no public body headings' do
