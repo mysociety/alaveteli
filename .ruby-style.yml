@@ -53,6 +53,9 @@ Bundler/OrderedGems:
 Gemspec/DateAssignment:
   Enabled: false
 
+Gemspec/DependencyVersion:
+  Enabled: false
+
 Gemspec/DuplicatedAssignment:
   Enabled: false
 
@@ -741,9 +744,6 @@ Lint/UselessAccessModifier:
   Enabled: true
 
 Lint/UselessAssignment:
-  Enabled: false
-
-Lint/UselessElseWithoutRescue:
   Enabled: false
 
 Lint/UselessMethodDefinition:
@@ -1520,6 +1520,9 @@ Style/EndBlock:
   Enabled: true
 
 Style/EndlessMethod:
+  Enabled: false
+
+Style/EnvHome:
   Enabled: false
 
 Style/EvalWithLocation:
