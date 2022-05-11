@@ -631,6 +631,13 @@ class User < ApplicationRecord
     AlaveteliPro::Feature.with_user(self)
   end
 
+  def pro_features=(extra_pro_features)
+    AlaveteliPro::Feature.enable_user_features(
+      user: self,
+      extra_features: extra_pro_features
+    )
+  end
+
   # Define an id number for use with the Flipper gem's user-by-user feature
   # flagging. We prefix with the class because features can be enabled for
   # other types of objects (e.g Roles) in the same way and will be stored in

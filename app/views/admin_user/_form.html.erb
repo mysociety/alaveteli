@@ -53,6 +53,23 @@
   </div>
 </div>
 
+<% if feature_enabled?(:alaveteli_pro) && current_user.can_admin_role?(:pro_admin) %>
+  <div class="control-group">
+    <div class="control-label">Pro features</div>
+    <div class="controls">
+      <% @admin_user.pro_features.each do |feature| %>
+        <div>
+          <label class="checkbox-inline">
+            <%= check_box_tag 'admin_user[pro_features][]', feature.key,
+              feature.enabled? %>
+            <%= feature.label %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <div class="control-group">
   <label for="ban_text" class="control-label">Ban text</label>
   <div class="controls">
