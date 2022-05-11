@@ -631,6 +631,10 @@ class User < ApplicationRecord
     AlaveteliPro::Feature.with_user(self)
   end
 
+  def extra_pro_features
+    pro_features.select(&:extra?)
+  end
+
   def pro_features=(extra_pro_features)
     AlaveteliPro::Feature.enable_user_role_features(
       user: self,

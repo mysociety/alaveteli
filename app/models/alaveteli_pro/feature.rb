@@ -89,6 +89,14 @@ module AlaveteliPro
       self
     end
 
+    def roles
+      self.class.feature_roles(feature: key)
+    end
+
+    def extra?
+      roles.empty?
+    end
+
     def enabled?
       raise NoUserDefinedError unless @user
       feature_enabled?(key, @user)
