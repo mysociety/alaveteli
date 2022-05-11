@@ -1783,7 +1783,7 @@ RSpec.describe User do
       it 'enables user role features' do
         features = double(:features)
         allow(user).to receive(:features).and_return(features)
-        expect(features).to receive(:enable_role_features)
+        expect(features).to receive(:assign_role_features)
         user.add_role(:unknown)
       end
 
@@ -1794,7 +1794,7 @@ RSpec.describe User do
       it 'enables user role features' do
         features = double(:features)
         allow(user).to receive(:features).and_return(features)
-        expect(features).to receive(:enable_role_features)
+        expect(features).to receive(:assign_role_features)
         user.add_role(:pro)
       end
 

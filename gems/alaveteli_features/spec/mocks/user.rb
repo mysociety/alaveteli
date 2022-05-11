@@ -1,8 +1,9 @@
 class MockUser # :nodoc:
-  attr_reader :id
+  attr_reader :id, :roles
 
-  def initialize(id)
+  def initialize(id, roles = [])
     @id = id
+    @roles = roles
   end
 
   # Must respond to flipper_id

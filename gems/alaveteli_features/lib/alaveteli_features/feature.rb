@@ -28,13 +28,40 @@ module AlaveteliFeatures
       def assign_features(new_features)
         keys = new_features.map(&:to_sym)
 
-        all.each do |feature|
+        all_non_role_features.each do |feature|
           if keys.include?(feature.to_sym)
             feature.enable
           else
             feature.disable
           end
         end
+      end
+
+      def assign_role_features
+        keys = role_features.map(&:to_sym)
+
+        all_role_features.each do |feature|
+          if keys.include?(feature.to_sym)
+            feature.enable
+          else
+            feature.disable
+          end
+        end
+      end
+
+      private
+
+      def all_non_role_features
+        all.reject(&:roles?)
+      end
+
+      def all_role_features
+        all.select(&:roles?)
+      end
+
+      def role_features
+        raise ActorNotDefinedError unless actor
+        select { |feature| (feature.roles & actor.roles).any? }
       end
     end
 

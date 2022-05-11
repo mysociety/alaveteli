@@ -50,7 +50,9 @@ class User < ApplicationRecord
     comments: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
-  rolify before_add: :setup_pro_account
+  rolify before_add: :setup_pro_account,
+         after_add: :assign_role_features,
+         after_remove: :assign_role_features
   strip_attributes allow_empty: true
 
   attr_accessor :no_xapian_reindex
@@ -682,6 +684,10 @@ class User < ApplicationRecord
     if MySociety::Validate.is_valid_email(name)
       errors.add(:name, _("Please enter your name, not your email address, in the name field."))
     end
+  end
+
+  def assign_role_features(_role)
+    features.assign_role_features
   end
 
   def setup_pro_account(role)
