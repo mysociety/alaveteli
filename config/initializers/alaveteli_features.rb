@@ -26,16 +26,27 @@ features.each do |feature|
 end
 
 Rails.configuration.after_initialize do
-  AlaveteliFeatures.features.add(
+  poller = AlaveteliFeatures.features.add(
     :accept_mail_from_poller,
     label: 'Receive response via the POP poller'
   )
-  AlaveteliFeatures.features.add(
+  notifications = AlaveteliFeatures.features.add(
     :notifications,
     label: 'Daily email notification digests'
   )
-  AlaveteliFeatures.features.add(
+  batch_category = AlaveteliFeatures.features.add(
     :pro_batch_category_ui,
     label: 'Batch category user interface'
+  )
+
+  base = AlaveteliFeatures.groups.add(
+    :base,
+    features: [poller, notifications]
+  )
+
+  AlaveteliFeatures.groups.add(
+    :beta,
+    includes: [base],
+    features: [batch_category]
   )
 end

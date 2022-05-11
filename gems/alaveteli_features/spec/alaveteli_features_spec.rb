@@ -18,6 +18,18 @@ RSpec.describe AlaveteliFeatures do
     end
   end
 
+  describe '.groups' do
+    it 'returns a Collection' do
+      expect(AlaveteliFeatures.groups).to be_a(AlaveteliFeatures::Collection)
+    end
+
+    it 'returns a collection which created Group instances' do
+      expect(AlaveteliFeatures.groups.add(:test_feature)).to be_a(
+        AlaveteliFeatures::Group
+      )
+    end
+  end
+
   describe '.backend' do
     it 'should allow you to access the backend' do
       expect(AlaveteliFeatures.backend).not_to be_nil
