@@ -23,6 +23,17 @@ RSpec.describe AlaveteliFeatures::Feature do
     end
   end
 
+  describe '#condition' do
+    it 'default to black evaluating to true when initializing' do
+      expect(instance.condition.call).to eq(true)
+    end
+
+    it 'takes optional argument when initializing' do
+      instance = described_class.new(key: :eature, condition: -> { false })
+      expect(instance.condition.call).to eq(false)
+    end
+  end
+
   describe '#to_sym' do
     subject { instance.to_sym }
     it { is_expected.to eq(:feature) }

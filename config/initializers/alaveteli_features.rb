@@ -28,7 +28,10 @@ end
 Rails.configuration.after_initialize do
   poller = AlaveteliFeatures.features.add(
     :accept_mail_from_poller,
-    label: 'Receive response via the POP poller'
+    label: 'Receive response via the POP poller',
+    condition: -> {
+      AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
+    }
   )
   notifications = AlaveteliFeatures.features.add(
     :notifications,

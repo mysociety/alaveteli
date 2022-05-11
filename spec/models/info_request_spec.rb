@@ -606,6 +606,9 @@ RSpec.describe InfoRequest do
             AlaveteliFeatures.
               backend[:accept_mail_from_poller].
                 enable_actor info_request.user
+            allow(AlaveteliConfiguration).to(
+              receive(:production_mailer_retriever_method).and_return('pop')
+            )
           end
 
           it 'processes mail from the poller' do

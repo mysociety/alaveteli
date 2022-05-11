@@ -38,11 +38,12 @@ module AlaveteliFeatures
       end
     end
 
-    attr_reader :key, :label, :actor
+    attr_reader :key, :label, :condition, :actor
 
-    def initialize(key:, label: nil)
+    def initialize(key:, label: nil, condition: -> { true })
       @key = key
       @label = label || key
+      @condition = condition
     end
 
     def to_sym
@@ -56,7 +57,7 @@ module AlaveteliFeatures
 
     def enabled?
       raise ActorNotDefinedError unless actor
-      feature_enabled?(key, actor)
+      feature_enabled?(key, actor) && condition.call
     end
 
     def disabled?
