@@ -50,7 +50,9 @@ class User < ApplicationRecord
     comments: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
-  rolify before_add: :setup_pro_account
+  rolify before_add: :setup_pro_account,
+         after_add: :set_pro_features,
+         after_remove: :set_pro_features
   strip_attributes allow_empty: true
 
   attr_accessor :no_xapian_reindex
@@ -682,10 +684,16 @@ class User < ApplicationRecord
     end
   end
 
+  def set_pro_features(_role)
+    AlaveteliPro::Feature.enable_user_role_features(
+      user: self,
+      extra_features: extra_pro_features.select(&:enabled?)
+    )
+  end
+
   def setup_pro_account(role)
     return unless role == Role.pro_role
     pro_account || build_pro_account if feature_enabled?(:pro_pricing)
-    AlaveteliPro::Access.grant(self)
   end
 
   def update_pro_account

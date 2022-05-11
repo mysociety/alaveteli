@@ -84,6 +84,10 @@ module AlaveteliPro
       @label = label
     end
 
+    def to_sym
+      key.to_sym
+    end
+
     def with_user(user)
       @user = user
       self

@@ -1734,8 +1734,8 @@ RSpec.describe User do
 
     context 'adding unknown role' do
 
-      it 'should not call grant pro access' do
-        expect(AlaveteliPro::Access).to_not receive(:grant)
+      it 'should enable user role features' do
+        expect(AlaveteliPro::Feature).to receive(:enable_user_role_features)
         user.add_role(:unknown)
       end
 
@@ -1743,8 +1743,8 @@ RSpec.describe User do
 
     context 'adding pro role' do
 
-      it 'should call grant pro access' do
-        expect(AlaveteliPro::Access).to receive(:grant).with(user)
+      it 'should enable user role features' do
+        expect(AlaveteliPro::Feature).to receive(:enable_user_role_features)
         user.add_role(:pro)
       end
 
