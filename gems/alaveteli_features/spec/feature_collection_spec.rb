@@ -52,4 +52,29 @@ RSpec.describe AlaveteliFeatures::Feature::CollectionMethods do
       end
     end
   end
+
+  describe '#assign_features' do
+    context 'without actor' do
+      it 'raises ActorNotDefinedError' do
+        expect { base_collection.assign_features([:feature_2]) }.to raise_error(
+          AlaveteliFeatures::Feature::ActorNotDefinedError
+        )
+      end
+    end
+
+    context 'with actor' do
+      let(:collection) { base_collection.with_actor(actor) }
+
+      it 'enabled features' do
+        expect { collection.enable_features([:feature_2]) }.to \
+          change { collection.enabled?(:feature_2) }.from(false).to(true)
+      end
+
+      it 'disable other features' do
+        AlaveteliFeatures.backend.enable_actor(:feature_1, actor)
+        expect { collection.enable_features([:feature_2]) }.to \
+          change { collection.enabled?(:feature_1) }.from(true).to(false)
+      end
+    end
+  end
 end

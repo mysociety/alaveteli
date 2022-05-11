@@ -94,4 +94,51 @@ RSpec.describe AlaveteliFeatures::Feature do
       it { is_expected.to eq(true) }
     end
   end
+
+  describe '#enable' do
+    let(:instance) { described_class.new(key: :feature).with_actor(actor) }
+    let(:actor) { MockUser.new(1) }
+
+    context 'without actor' do
+      let(:actor) {}
+
+      it 'raises ActorNotDefinedError' do
+        expect { instance.enable }.to raise_error(
+          AlaveteliFeatures::Feature::ActorNotDefinedError
+        )
+      end
+    end
+
+    context 'with actor' do
+      it 'enables feature for actor' do
+        expect { instance.enable }.to \
+          change { AlaveteliFeatures.backend.enabled?(:feature, actor) }.
+          from(false).to(true)
+      end
+    end
+  end
+
+  describe '#disable' do
+    let(:instance) { described_class.new(key: :feature).with_actor(actor) }
+    let(:actor) { MockUser.new(1) }
+
+    context 'without actor' do
+      let(:actor) {}
+
+      it 'raises ActorNotDefinedError' do
+        expect { instance.disable }.to raise_error(
+          AlaveteliFeatures::Feature::ActorNotDefinedError
+        )
+      end
+    end
+
+    context 'with actor' do
+      it 'disables feature for actor' do
+        AlaveteliFeatures.backend.enable_actor(:feature, actor)
+        expect { instance.disable }.to \
+          change { AlaveteliFeatures.backend.enabled?(:feature, actor) }.
+          from(true).to(false)
+      end
+    end
+  end
 end
