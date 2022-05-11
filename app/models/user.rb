@@ -632,7 +632,7 @@ class User < ApplicationRecord
   end
 
   def pro_features=(extra_pro_features)
-    AlaveteliPro::Feature.enable_user_features(
+    AlaveteliPro::Feature.enable_user_role_features(
       user: self,
       extra_features: extra_pro_features
     )
