@@ -26,9 +26,22 @@ module AlaveteliPro
       pro: :base
     }.freeze
 
+    ##
+    # Extend array so we can quickly access a feature using the #[] method.
+    #
+    class FeatureCollection < Array
+      def [](key)
+        find { |f| f.key == key }
+      end
+
+      def map(*args)
+        FeatureCollection.new(super)
+      end
+    end
+
     class << self
       def all
-        FEATURES.map { |feature| new(**feature) }
+        FeatureCollection.new(FEATURES.map { |feature| new(**feature) })
       end
 
       def with_user(user)
