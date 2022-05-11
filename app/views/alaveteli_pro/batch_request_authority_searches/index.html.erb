@@ -10,7 +10,7 @@
 
   <div class="inner-canvas-body">
 
-    <% if feature_enabled? :pro_batch_category_ui, current_user %>
+    <% if current_user.pro_features[:pro_batch_category_ui].enabled? %>
       <div class="batch-builder-mode">
         <ul class="tabs" data-tab="">
           <li class="tab-title <%= 'active' if mode == 'search' %> js-batch-builder-mode" data-mode="search">

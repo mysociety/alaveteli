@@ -620,7 +620,7 @@ class User < ApplicationRecord
 
   # With what frequency does the user want to be notified?
   def notification_frequency
-    if feature_enabled? :notifications, self
+    if pro_features[:notifications].enabled?
       Notification::DAILY
     else
       Notification::INSTANTLY

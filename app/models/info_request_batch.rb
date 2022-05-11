@@ -93,7 +93,7 @@ class InfoRequestBatch < ApplicationRecord
       # Sleep between requests in production, in case we're sending a huge
       # batch which may result in a torrent of auto-replies coming back to
       # us and overloading the server.
-      uses_poller = feature_enabled?(:accept_mail_from_poller, user)
+      uses_poller = user.pro_features[:accept_mail_from_poller].enabled?
       sleep 60 if Rails.env.production? && !uses_poller
     end
     reload
