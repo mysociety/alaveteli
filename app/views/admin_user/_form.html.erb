@@ -61,7 +61,8 @@
         <div>
           <label class="checkbox-inline">
             <%= check_box_tag 'admin_user[pro_features][]', feature.key,
-              feature.enabled? %>
+              feature.enabled?,
+              disabled: feature.role_feature_or_disabled? %>
             <%= feature.label %>
           </label>
         </div>

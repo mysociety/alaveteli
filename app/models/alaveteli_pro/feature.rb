@@ -8,7 +8,10 @@ module AlaveteliPro
     FEATURES = [
       {
         key: :accept_mail_from_poller,
-        label: 'Receive response via the POP poller'
+        label: 'Receive response via the POP poller',
+        condition: -> {
+          AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
+        }
       },
       { key: :notifications, label: 'Daily email notification digests' },
       { key: :pro_batch_category_ui, label: 'Batch category user interface' }
@@ -77,11 +80,12 @@ module AlaveteliPro
 
     NoUserDefinedError = Class.new(StandardError)
 
-    attr_reader :key, :label
+    attr_reader :key, :label, :condition
 
-    def initialize(key:, label:)
+    def initialize(key:, label:, condition: -> { true })
       @key = key
       @label = label
+      @condition = condition
     end
 
     def to_sym
@@ -101,9 +105,14 @@ module AlaveteliPro
       roles.empty?
     end
 
+    def role_feature_or_disabled?
+      raise NoUserDefinedError unless @user
+      !(extra? && condition.call)
+    end
+
     def enabled?
       raise NoUserDefinedError unless @user
-      feature_enabled?(key, @user)
+      feature_enabled?(key, @user) && condition.call
     end
 
     def enable
