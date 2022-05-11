@@ -1744,6 +1744,17 @@ RSpec.describe User do
     end
   end
 
+  describe '#features' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'delegates to AlaveteliFeatures' do
+      features = double(:features)
+      expect(AlaveteliFeatures).to receive(:features).and_return(features)
+      expect(features).to receive(:with_actor).with(user)
+      user.features
+    end
+  end
+
   describe "#flipper_id" do
     let(:user) { FactoryBot.create(:user) }
 

@@ -9,6 +9,12 @@ RSpec.describe AlaveteliFeatures::Collection do
     it 'requires argument when initializing' do
       expect(collection.klass).to eq(MockCollectionObject)
     end
+
+    it 'extends the collection' do
+      expect { collection.with_actor('bob') }.to_not raise_error
+      expect(collection.with_actor('bob')).to eq(collection)
+      expect(collection.actor).to eq('bob')
+    end
   end
 
   describe '#add' do
@@ -30,6 +36,14 @@ RSpec.describe AlaveteliFeatures::Collection do
     it 'includes added instances' do
       instance = collection.add(:test_feature)
       is_expected.to include(instance)
+    end
+  end
+
+  describe '#each' do
+    before { collection.add(:test_feature) }
+
+    it 'loops over all added instances' do
+      expect(collection.map(&:key)).to match([:test_feature])
     end
   end
 end

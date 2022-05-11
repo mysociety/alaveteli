@@ -54,6 +54,16 @@
         <% end %>
       </td>
     </tr>
+    <tr>
+      <td>
+        <b>Features</b>
+      </td>
+      <td>
+        <% @admin_user.features.select(&:enabled?).each do |feature| %>
+          <%= feature.key %>
+        <% end %>
+      </td>
+    </tr>
   </tbody>
 </table>
 
