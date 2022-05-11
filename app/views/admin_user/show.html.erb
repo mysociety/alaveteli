@@ -53,6 +53,18 @@
         <% end %>
       </td>
     </tr>
+    <% if feature_enabled?(:alaveteli_pro) && current_user.can_admin_role?(:pro_admin) %>
+      <tr>
+        <td>
+          <b>Pro features</b>
+        </td>
+        <td>
+          <% @admin_user.pro_features.select(&:enabled?).each do |feature| %>
+            <%= feature.key %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
