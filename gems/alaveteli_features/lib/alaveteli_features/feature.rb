@@ -39,11 +39,13 @@ module AlaveteliFeatures
     end
 
     attr_reader :key, :label, :condition, :actor
+    attr_accessor :roles
 
     def initialize(key:, label: nil, condition: -> { true })
       @key = key
       @label = label || key
       @condition = condition
+      @roles = []
     end
 
     def to_sym
@@ -53,6 +55,10 @@ module AlaveteliFeatures
     def with_actor(actor)
       @actor = actor
       self
+    end
+
+    def roles?
+      !roles.empty?
     end
 
     def enabled?

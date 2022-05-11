@@ -52,6 +52,34 @@ RSpec.describe AlaveteliFeatures::Feature do
     end
   end
 
+  describe '#roles=' do
+    let(:roles) { [double] }
+
+    it 'sets roles' do
+      expect { instance.roles = roles }.to \
+        change(instance, :roles).from([]).to(roles)
+    end
+  end
+
+  describe '#roles' do
+    it 'defaults to an empty array' do
+      expect(instance.roles).to eq([])
+    end
+  end
+
+  describe '#roles?' do
+    subject { instance.roles? }
+
+    context 'with roles' do
+      before { instance.roles = [double] }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'without roles' do
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#enabled?' do
     subject { instance.enabled? }
 

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'alaveteli_features/group'
+require_relative 'mocks/role'
 
 RSpec.describe AlaveteliFeatures::Group do
   let(:instance) { described_class.new(key: :group, features: [feature]) }
@@ -27,6 +28,28 @@ RSpec.describe AlaveteliFeatures::Group do
     it 'takes optional argument when initializing' do
       instance = described_class.new(key: :group, includes: [other_group])
       expect(instance.includes).to include(other_group)
+    end
+  end
+
+  describe '#roles' do
+    let(:role) { MockRole.new(:admin) }
+
+    it 'default to empty array when initializing' do
+      instance = described_class.new(key: :group)
+      expect(instance.roles).to eq([])
+    end
+
+    it 'takes optional argument when initializing' do
+      instance = described_class.new(key: :group, roles: [role])
+      expect(instance.roles).to include(role)
+    end
+
+    it 'updates features with roles' do
+      expect do
+        described_class.new(
+          key: :group, features: [feature], roles: [role]
+        )
+      end.to change(feature, :roles).from([]).to([role])
     end
   end
 

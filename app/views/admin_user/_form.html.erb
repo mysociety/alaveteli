@@ -61,7 +61,11 @@
         <label class="checkbox-inline">
           <%= check_box_tag "admin_user[features][]",
                             feature.key,
-                            feature.enabled? %>
+                            feature.enabled?,
+                            :disabled => feature.roles? %>
+          <% if feature.roles? && feature.enabled? %>
+            <%= hidden_field_tag "admin_user[features][]", feature.key %>
+          <% end %>
           <%= feature.label %>
         </label>
       </div>

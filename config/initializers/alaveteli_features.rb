@@ -42,8 +42,11 @@ Rails.configuration.after_initialize do
     label: 'Batch category user interface'
   )
 
+  next unless ActiveRecord::Base.connection.data_source_exists?(:roles)
+
   base = AlaveteliFeatures.groups.add(
     :base,
+    roles: [Role.pro_role],
     features: [poller, notifications]
   )
 
