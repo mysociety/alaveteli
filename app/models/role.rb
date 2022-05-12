@@ -27,9 +27,18 @@ class Role < ApplicationRecord
 
   scopify
 
-  ROLES = %w[admin].freeze
-  PRO_ROLES = %w[pro pro_admin].freeze
-  PROJECT_ROLES = %w[project_owner project_contributor].freeze
+  ROLES = %i[admin].freeze
+  PRO_ROLES = %i[pro pro_admin].freeze
+  PROJECT_ROLES = %i[project_owner project_contributor].freeze
+
+  GRANTS_AND_REVOKES = {
+    admin: [:admin],
+    pro_admin: [:pro, :admin, :pro_admin]
+  }.freeze
+
+  ROLES_REQUIRE = {
+    pro_admin: [:pro]
+  }.freeze
 
   def self.allowed_roles
     [].tap do |allowed|
@@ -76,11 +85,7 @@ class Role < ApplicationRecord
   #
   # Returns an Array
   def self.grants_and_revokes(role)
-    grants_and_revokes = {
-      admin: [:admin],
-      pro_admin: [:pro, :admin, :pro_admin]
-    }
-    grants_and_revokes[role] || []
+    GRANTS_AND_REVOKES[role] || []
   end
 
   # Public: Returns an array of symbols of the names of the roles
@@ -90,6 +95,6 @@ class Role < ApplicationRecord
   #
   # Returns an Array
   def self.requires(role)
-    { pro_admin: [:admin] }[role] || []
+    ROLES_REQUIRE[role] || []
   end
 end
