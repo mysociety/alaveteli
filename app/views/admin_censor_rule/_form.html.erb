@@ -1,19 +1,7 @@
 <%= foi_error_messages_for :censor_rule %>
 
 <div class="well">
-  Applies to
-  <% unless info_request.nil? %>
-    <%= both_links(info_request) %>
-  <% end %>
-  <% unless user.nil? %>
-    <%= both_links(user) %>
-  <% end %>
-  <% unless public_body.nil? %>
-    <%= both_links(public_body) %>
-  <% end %>
-  <% if info_request.nil? && user.nil? && public_body.nil? %>
-    <strong>everything</strong>
-  <% end %>
+  Applies to <%= censor_rule_applies_to(@censor_rule) %>
 </div>
 
 <div class="control-group">
