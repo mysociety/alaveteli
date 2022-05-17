@@ -130,6 +130,7 @@ module AlaveteliConfiguration
       USE_DEFAULT_BROWSER_LANGUAGE: true,
       USE_GHOSTSCRIPT_COMPRESSION: false,
       USE_MAILCATCHER_IN_DEVELOPMENT: true,
+      USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0,
       UTILITY_SEARCH_PATH: ['/usr/bin', '/usr/local/bin'],
       WORKING_OR_CALENDAR_DAYS: 'working'
     }

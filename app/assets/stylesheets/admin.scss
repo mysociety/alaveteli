@@ -260,3 +260,16 @@ body.admin {
     margin-left: 0.4em;
   }
 }
+
+/* Bootstrap Extensions */
+/* These must come last because we @import bootstrap in .admin  */
+
+.alert.alert-disabled {
+  color: #6b6d70;
+  background-color: #f7f7f9;
+  border-color: #e1e1e8;
+
+  h4 {
+    color: #6b6d70;
+  }
+}

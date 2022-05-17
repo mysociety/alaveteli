@@ -1,0 +1,48 @@
+<div id="sign-ins">
+  <% unless User::SignIn.retain_signins? %>
+    <div class="alert alert-block alert-disabled">
+      <h4>Sign In Retention Disabled</h4>
+      To enable sign in retention set
+      <tt>USER_SIGN_IN_ACTIVITY_RETENTION_DAYS</tt> to a value greater than
+      <tt>0</tt> in Alaveteli’s configuration. Any existing records below will
+      soon be purged and no further sign ins will be tracked.
+    </div>
+  <% end %>
+
+  <% if sign_ins.any? %>
+    <table class="table table-condensed table-striped">
+      <% sign_ins.each do |sign_in| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= user_both_links(sign_in.user) %></td>
+
+          <td>
+            <tt>
+              <%= link_to sign_in.ip, admin_sign_ins_path(query: sign_in.ip) %>
+            </tt>
+          </td>
+
+          <td>
+            <tt>
+              <% if sign_in.country %>
+                <%= link_to admin_sign_ins_path(query: sign_in.country) do %>
+                  <%= sign_in.country %>
+                <% end %>
+              <% else %>
+                ??
+              <% end %>
+            </tt>
+          </td>
+
+          <td><%= admin_date(sign_in.created_at, ago_only: true) %></td>
+
+          <td>
+            <strong><%= sign_in.other_users.size %></strong> others using this
+            IP
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% elsif User::SignIn.retain_signins? %>
+    <p>None yet.</p>
+  <% end %>
+</div>

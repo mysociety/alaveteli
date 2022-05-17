@@ -654,6 +654,14 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Users::SignIns controller
+  namespace :admin do
+    scope module: 'users' do
+      resources :sign_ins, only: [:index]
+    end
+  end
+  ####
+
   #### AdminTrack controller
   scope '/admin', :as => 'admin' do
     resources :tracks,

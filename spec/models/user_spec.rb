@@ -660,6 +660,22 @@ RSpec.describe User do
 
   end
 
+  describe '#sign_ins' do
+    subject { user.sign_ins }
+
+    context 'sort order is most recent first' do
+      let(:user) { FactoryBot.create(:user) }
+
+      let!(:sign_ins) do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+        FactoryBot.create_list(:user_sign_in, 2, user: user)
+      end
+
+      it { is_expected.to match_array(sign_ins.reverse) }
+    end
+  end
+
   describe '#locale' do
     subject { user.locale }
 
@@ -1087,6 +1103,9 @@ RSpec.describe User do
     before do
       allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
       allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
+      allow(AlaveteliConfiguration).
+        to receive(:user_sign_in_activity_retention_days).and_return(1)
+      FactoryBot.create(:user_sign_in, user: user)
     end
 
     it 'creates a censor rule for user name if the user has info requests' do
@@ -1101,6 +1120,11 @@ RSpec.describe User do
     it 'does not create a censor rule for user name if the user does not have info requests' do
       user.close_and_anonymise
       expect(user.censor_rules).to be_empty
+    end
+
+    it 'destroys any sign_ins' do
+      user.close_and_anonymise
+      expect(user.sign_ins).to be_empty
     end
 
     it 'should anonymise user name' do

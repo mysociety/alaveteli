@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Track IP addresses associated with User signins if configured (Gareth Rees)
 * Show citations on admin pages (Gareth Rees)
 * Show public body change request notes on body edit page (Gareth Rees)
 * Show public body change request notes in the admin summary (Gareth Rees)
@@ -51,6 +52,9 @@
   adds the option to use a cloud backed storage providers. Edit the
   configuration if you wish to migrate to cloud storage. See
   https://alaveteli.org/docs/installing/storage
+* Set `USER_SIGN_IN_ACTIVITY_RETENTION_DAYS` to a value greater than 0 to record
+  IP addresses of user sign ins. There's an associated `config/crontab-example`
+  update to purge records outside of the retention period.
 * Once configured run `bin/rails storage:migrate` to migrate your files. This
   can happen in the background while the application is running but must be
   carried out before upgrading to release 0.42.

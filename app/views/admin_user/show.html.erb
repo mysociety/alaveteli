@@ -161,6 +161,13 @@
   <hr>
 <% end %>
 
+<h2>Sign Ins</h2>
+
+<%= render partial: 'admin/users/sign_in_table',
+           locals: { sign_ins: @admin_user.sign_ins } %>
+
+<hr>
+
 <h2>Track things</h2>
 
 <%= render partial: 'admin_track/some_tracks',
