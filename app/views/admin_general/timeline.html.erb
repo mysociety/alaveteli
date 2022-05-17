@@ -33,7 +33,10 @@
         <p>
       <% end %>
 
-      <h3><%= simple_date(event_at) %></h3>
+      <h3 class="timeline_date">
+        <%= simple_date(event_at) %>
+        <span class="timeline_day"><%= event_at.strftime('%A') %></span>
+      </h3>
 
       <p>
     <% else %>
