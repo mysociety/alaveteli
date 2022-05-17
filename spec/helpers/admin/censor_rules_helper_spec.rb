@@ -27,4 +27,28 @@ RSpec.describe Admin::CensorRulesHelper do
       it { is_expected.to eq('<strong>everything</strong>') }
     end
   end
+
+  describe '#censor_rule_applicable_class' do
+    subject { censor_rule_applicable_class(censor_rule) }
+
+    context 'with an info_request censor rule' do
+      let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
+      it { is_expected.to eq('InfoRequest') }
+    end
+
+    context 'with an public_body censor rule' do
+      let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
+      it { is_expected.to eq('PublicBody') }
+    end
+
+    context 'with a user censor rule' do
+      let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
+      it { is_expected.to eq('User') }
+    end
+
+    context 'with a global censor rule' do
+      let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
+      it { is_expected.to eq('Global') }
+    end
+  end
 end
