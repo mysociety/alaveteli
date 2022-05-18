@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Show day of week in admin timeline (Gareth Rees)
 * Improve admin CSV upload error prominence (Gareth Rees)
 * Show all applicable censor rules on admin request pages (Gareth Rees)
 * Track IP addresses associated with User signins if configured (Gareth Rees)
