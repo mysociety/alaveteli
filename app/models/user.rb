@@ -693,7 +693,6 @@ class User < ApplicationRecord
   def setup_pro_account(role)
     return unless role == Role.pro_role
     pro_account || build_pro_account if feature_enabled?(:pro_pricing)
-    AlaveteliPro::Access.grant(self)
   end
 
   def update_pro_account
