@@ -6,6 +6,18 @@ RSpec.describe AlaveteliFeatures do
     expect(AlaveteliFeatures::VERSION).not_to be_nil
   end
 
+  describe '.features' do
+    it 'returns a Collection' do
+      expect(AlaveteliFeatures.features).to be_a(AlaveteliFeatures::Collection)
+    end
+
+    it 'returns a collection which creates Feature instances' do
+      expect(AlaveteliFeatures.features.add(:test_feature)).to be_a(
+        AlaveteliFeatures::Feature
+      )
+    end
+  end
+
   describe '.backend' do
     it 'should allow you to access the backend' do
       expect(AlaveteliFeatures.backend).not_to be_nil

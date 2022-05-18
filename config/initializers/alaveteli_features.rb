@@ -24,3 +24,18 @@ features.each do |feature|
     backend.disable(feature)
   end
 end
+
+Rails.configuration.after_initialize do
+  AlaveteliFeatures.features.add(
+    :accept_mail_from_poller,
+    label: 'Receive response via the POP poller'
+  )
+  AlaveteliFeatures.features.add(
+    :notifications,
+    label: 'Daily email notification digests'
+  )
+  AlaveteliFeatures.features.add(
+    :pro_batch_category_ui,
+    label: 'Batch category user interface'
+  )
+end
