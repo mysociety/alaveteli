@@ -2,11 +2,12 @@
 
 <h1><%=@title%></h1>
 
-<% if not @notes.empty? %>
-  <pre id="notice"><%=@notes %></pre>
+<% if @notes.present? %>
+  <pre id="notice" class="info"><%= @notes %></pre>
 <% end %>
-<% if not @errors.empty? %>
-  <pre id="error"><%=@errors %></pre>
+
+<% if @errors.present? %>
+  <pre id="error" class="error"><%= @errors %></pre>
 <% end %>
 
 <%= form_tag 'import_csv', :multipart => true do %>
