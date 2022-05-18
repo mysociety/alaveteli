@@ -1,22 +1,11 @@
 require 'spec_helper'
 require 'flipper/adapters/memory'
 require 'alaveteli_features/helpers'
+require_relative '../mocks/user'
 
 RSpec.describe AlaveteliFeatures::Helpers do
   let(:instance) { Class.new { include AlaveteliFeatures::Helpers }.new }
   let(:test_backend) { Flipper.new(Flipper::Adapters::Memory.new) }
-
-  # A test class to let us test the actor-based feature flipping
-  class MockUser
-    attr_reader :id
-
-    def initialize(id)
-      @id = id
-    end
-
-    # Must respond to flipper_id
-    alias flipper_id id
-  end
 
   around do |example|
     old_backend = AlaveteliFeatures.backend
