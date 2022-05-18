@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Show all applicable censor rules on admin request pages (Gareth Rees)
 * Track IP addresses associated with User signins if configured (Gareth Rees)
 * Show citations on admin pages (Gareth Rees)
 * Show public body change request notes on body edit page (Gareth Rees)

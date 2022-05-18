@@ -1,5 +1,6 @@
 module AdminHelper
   include Admin::BootstrapHelper
+  include Admin::CensorRulesHelper
   include Admin::LinkHelper
   include Admin::ProminenceHelper
 

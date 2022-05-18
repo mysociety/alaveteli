@@ -102,6 +102,10 @@ class CensorRule < ApplicationRecord
     end
   end
 
+  def censorable
+    info_request || user || public_body || nil
+  end
+
   private
 
   def single_char_regexp
