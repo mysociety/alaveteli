@@ -25,10 +25,10 @@
 class CensorRule < ApplicationRecord
   DEFAULT_CANNED_REPLACEMENTS = [
     _('[Personally Identifiable Information removed]'),
-    _('[Name removed]'),
-    _('[Extraneous material removed]'),
-    _('[Potentially defamatory material removed]'),
-    _('[Extraneous and potentially defamatory material removed]')
+    _('[name removed]'),
+    _('[extraneous material removed]'),
+    _('[potentially defamatory material removed]'),
+    _('[extraneous and potentially defamatory material removed]')
   ].freeze
 
   include AdminColumn
