@@ -3,7 +3,6 @@
 <% else %>
   <ul class="batch-builder__list">
   <% PublicBodyCategoryLink.by_display_order.group_by(&:public_body_heading).each do |heading, category_links| %>
-    <% opened = heading.public_body_categories.map(&:category_tag).include?(category_tag) %>
     <li class="batch-builder__list__group">
       <div class="batch-builder__list__item">
         <span class="batch-builder__list__item__anchor">
