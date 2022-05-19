@@ -114,4 +114,17 @@ RSpec.describe PublicBodyCategoryLink, '.by_display_order' do
 
     is_expected.to match_array([link_3, link_1, link_2])
   end
+
+  it 'hides headings and categoies without requestable public bodies' do
+    PublicBodyCategoryLink.create(
+      public_body_heading: heading_1, public_body_category: cat_1,
+      category_display_order: 1
+    )
+
+    FactoryBot.create(:public_body, tag_string: 'defunct tag_1')
+    FactoryBot.create(:public_body, tag_string: 'not_apply tag_1')
+    FactoryBot.create(:blank_email_public_body, tag_string: 'tag_1')
+
+    is_expected.to eq([])
+  end
 end

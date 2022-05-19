@@ -54,6 +54,8 @@ class PublicBodyCategoryLink < ApplicationRecord
       select(headings_table[:display_order], links_table[Arel.star]).
       joins(:public_body_heading).
       merge(PublicBodyHeading.by_display_order).
+      joins(public_body_category: :public_bodies).
+      merge(PublicBody.is_requestable).
       order(:category_display_order).
       preload(
         public_body_heading: :translations,
