@@ -2,7 +2,7 @@
   <div class="blank-slate"><%= _('No more authorities can be added to this batch request.') %></div>
 <% else %>
   <ul class="batch-builder__list">
-  <% PublicBodyHeading.by_display_order.each do |heading| %>
+  <% PublicBodyCategoryLink.by_display_order.group_by(&:public_body_heading).each do |heading, category_links| %>
     <% opened = heading.public_body_categories.map(&:category_tag).include?(category_tag) %>
     <li class="batch-builder__list__group">
       <div class="batch-builder__list__item">
@@ -13,7 +13,8 @@
         </span>
       </div>
       <ul>
-      <% heading.public_body_categories.each do |category| %>
+      <% category_links.each do |category_link| %>
+        <% category = category_link.public_body_category %>
         <% next if category.category_tag == 'school' #FIXME quickfix to preventing loading of large category %>
         <% selected = category.category_tag == category_tag %>
         <li class="batch-builder__list__group <%= 'batch-builder__list__group--closed' unless selected %>">
@@ -54,6 +55,6 @@
       <% end %>
       </ul>
     </li>
-    <% end %>
+  <% end %>
   </ul>
 <% end %>

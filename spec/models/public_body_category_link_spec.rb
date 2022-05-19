@@ -84,3 +84,34 @@ RSpec.describe PublicBodyCategoryLink, 'when setting a category display order' d
   end
 
 end
+
+RSpec.describe PublicBodyCategoryLink, '.by_display_order' do
+  subject { described_class.by_display_order }
+
+  before { PublicBodyCategoryLink.destroy_all }
+
+  let(:heading_1) { FactoryBot.build(:public_body_heading, display_order: 2) }
+  let(:heading_2) { FactoryBot.build(:public_body_heading, display_order: 1) }
+  let(:cat_1) { FactoryBot.build(:public_body_category, category_tag: 'tag_1') }
+  let(:cat_2) { FactoryBot.build(:public_body_category, category_tag: 'tag_2') }
+
+  it 'orders headings and categoies by display orders' do
+    link_1 = PublicBodyCategoryLink.create(
+      public_body_heading: heading_1, public_body_category: cat_1,
+      category_display_order: 1
+    )
+    link_2 = PublicBodyCategoryLink.create(
+      public_body_heading: heading_1, public_body_category: cat_2,
+      category_display_order: 2
+    )
+    link_3 = PublicBodyCategoryLink.create(
+      public_body_heading: heading_2, public_body_category: cat_2,
+      category_display_order: 1
+    )
+
+    FactoryBot.create(:public_body, tag_string: 'tag_1')
+    FactoryBot.create(:public_body, tag_string: 'tag_2')
+
+    is_expected.to match_array([link_3, link_1, link_2])
+  end
+end
