@@ -1,6 +1,7 @@
 <% if !request.xhr? && draft_batch_request.public_bodies.count >= AlaveteliConfiguration.pro_batch_authority_limit %>
   <div class="blank-slate"><%= _('No more authorities can be added to this batch request.') %></div>
 <% else %>
+  <% show_add_all = feature_enabled?(:pro_batch_category_add_all, current_user) %>
   <ul class="batch-builder__list">
   <% PublicBodyCategoryLink.by_display_order.group_by(&:public_body_heading).each do |heading, category_links| %>
     <li class="batch-builder__list__group">
@@ -32,13 +33,15 @@
                   <%= hidden_field_tag(:mode, mode) %>
                   <%= hidden_field_tag(:category_tag, category.category_tag) %>
                   <%= f.hidden_field(:draft_id, value: draft_batch_request.id, class: 'js-draft-id') %>
-                  <%= f.hidden_field(:action, value: 'add-all') %>
-                  <button type="submit"
-                          class="add-authority-to-batch__form__submit
-                                 js-add-authority-to-batch-submit
-                                 button button--add">
-                    <%= _('Add all') %>
-                  </button>
+                  <% if show_add_all %>
+                    <%= f.hidden_field(:action, value: 'add-all') %>
+                    <button type="submit"
+                            class="add-authority-to-batch__form__submit
+                                   js-add-authority-to-batch-submit
+                                   button button--add">
+                      <%= _('Add all') %>
+                    </button>
+                  <% end %>
                 <% end %>
               </div>
             </div>
