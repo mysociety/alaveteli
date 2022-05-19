@@ -239,7 +239,7 @@ class PublicBody < ApplicationRecord
       OR lower(has_tag_string_tags.name) like lower('%'||?||'%' )
     )
     AND has_tag_string_tags.model_id = public_bodies.id
-    AND has_tag_string_tags.model = 'PublicBody'
+    AND has_tag_string_tags.model_type = 'PublicBody'
     AND (public_body_translations.locale = ?)
     SQL
 
@@ -722,7 +722,7 @@ class PublicBody < ApplicationRecord
     # exclude any that are tagged with 'test' - we use a
     # sub-select to find the IDs of those public bodies.
     test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
-      " WHERE model = 'PublicBody' AND name = 'test'"
+      " WHERE model_type = 'PublicBody' AND name = 'test'"
     "#{total_column} >= #{minimum_requests} " \
     "AND id NOT IN (#{test_tagged_query})"
   end

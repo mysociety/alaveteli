@@ -16,7 +16,7 @@ module HasTagString
 
     # Return instance of the model that this tag tags
     def tagged_model
-      model.constantize.find(model_id)
+      model_type.constantize.find(model_id)
     end
 
     # For display purposes, returns the name and value as a:b, or
@@ -60,7 +60,7 @@ module HasTagString
           name, value = HasTagStringTag.split_tag_into_name_value(tag)
 
           tag = HasTagStringTag.new(
-            model: self.class.base_class.to_s,
+            model_type: self.class.base_class.to_s,
             model_id: id,
             name: name, value: value
           )
@@ -134,13 +134,13 @@ module HasTagString
     def find_by_tag(tag_as_string)
       join_sql = <<-EOF.strip_heredoc.squish
       LEFT JOIN has_tag_string_tags
-      ON has_tag_string_tags.model = '#{ self }'
+      ON has_tag_string_tags.model_type = '#{ self }'
       AND has_tag_string_tags.model_id = #{ table_name }.id
       EOF
 
       search =
         joins(join_sql).
-        where(has_tag_string_tags: { name: tag_as_string, model: to_s }).
+        where(has_tag_string_tags: { name: tag_as_string, model_type: to_s }).
         references(:has_tag_string_tags)
 
       ordered =
@@ -162,8 +162,8 @@ module HasTagString
   module HasMethods
     def has_tag_string # rubocop:disable Naming/PredicateName
       klass = to_s
-      has_many :tags, -> { where(model: klass) },
-               foreign_key: 'model_id',
+      has_many :tags, -> { where(model_type: klass) },
+               foreign_key: "model_id",
                class_name: 'HasTagString::HasTagStringTag'
 
       include InstanceMethods
