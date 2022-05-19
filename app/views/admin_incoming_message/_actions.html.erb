@@ -1,5 +1,20 @@
 <fieldset class="form-horizontal">
 <legend>Actions</legend>
+
+<% if incoming_message.response_event.described_state != 'waiting_clarification' %>
+  <%= form_tag admin_info_request_event_path(incoming_message.response_event), method: :put, class: 'form form-inline' do %>
+    <div class="control-group">
+      <label class="control-label" for="url_title_<%= incoming_message.id %>">
+        Mark as clarification request. This resets the timer.
+      </label>
+    </div>
+
+    <div class="controls">
+      <%= submit_tag 'Was clarification request', class: 'btn' %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= form_tag  redeliver_admin_incoming_message_path(incoming_message), :class => "form form-inline" do %>
   <div class="control-group">
     <label class="control-label" for="url_title_<%= incoming_message.id %>">Redeliver message to one or more other requests</label>
