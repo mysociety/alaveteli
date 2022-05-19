@@ -19,6 +19,16 @@ class PublicBodyCategory < ApplicationRecord
   has_many :public_body_headings,
            through: :public_body_category_links
 
+  has_many :tags,
+           foreign_key: :name,
+           primary_key: :category_tag,
+           class_name: 'HasTagString::HasTagStringTag'
+
+  has_many :public_bodies,
+           through: :tags,
+           source: :model,
+           source_type: 'PublicBody'
+
   translates :title, :description
 
   validates_uniqueness_of :category_tag, message: 'Tag is already taken'

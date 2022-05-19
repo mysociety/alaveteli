@@ -12,6 +12,8 @@ module HasTagString
   class HasTagStringTag < ActiveRecord::Base
     # TODO: strip_attributes
 
+    belongs_to :model, polymorphic: true
+
     validates_presence_of :name
 
     # Return instance of the model that this tag tags
