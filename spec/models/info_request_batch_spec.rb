@@ -132,6 +132,22 @@ RSpec.describe InfoRequestBatch do
                                           first_public_body])
     end
 
+    it 'returns a distinct list of associated public bodies' do
+      public_body = FactoryBot.create(
+        :public_body,
+        translations_attributes: {
+          'en' => { locale: 'en', name: 'Welsh Government' },
+          'cy' => { locale: 'cy', name: 'Llywodraeth Cymru' }
+        }
+      )
+      batch = FactoryBot.create(
+        :info_request_batch, public_bodies: [public_body]
+      )
+
+      expect(batch.public_bodies.count).to eq(1)
+      expect(batch.public_bodies).to match_array([public_body])
+    end
+
     context "when embargo_duration is set" do
       it 'should set an embargo on each request' do
         info_request_batch.embargo_duration = '3_months'
