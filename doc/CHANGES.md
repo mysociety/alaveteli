@@ -63,6 +63,9 @@
 * Once configured run `bin/rails storage:migrate` to migrate your files. This
   can happen in the background while the application is running but must be
   carried out before upgrading to release 0.42.
+* This will be the last release to support Vagrant as a development environment.
+  Please switch to using Docker and Docker Compose. See
+  https://alaveteli.org/docs/installing/docker
 
 # 0.40.1.1
 
