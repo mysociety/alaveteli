@@ -52,17 +52,18 @@
   from email addresses, this will improve performance by saving unnecessary
   loading the raw emails files.
 * This release is the last to support the old raw emails file store. Please
-  switch to `ActiveStorage` now by copying `config/storage.yml-example` to
-  `config/storage.yml`. This will use an on disk store as previously, but also
-  adds the option to use a cloud backed storage providers. Edit the
-  configuration if you wish to migrate to cloud storage. See
-  https://alaveteli.org/docs/installing/storage
+  switch to `ActiveStorage` now by:
+  1. creating `config/storage.yml` from `config/storage.yml-example`. By
+     default this will use an on disk store as previously, but also adds the
+     option to use a cloud backed storage providers.
+  2. Edit the configuration if you wish to migrate to cloud storage. See
+     https://alaveteli.org/docs/installing/storage
+  3. Once configured run `bin/rails storage:migrate` to migrate your files.
+     This can happen in the background while the application is running but
+     must be carried out before upgrading to release 0.42.
 * Set `USER_SIGN_IN_ACTIVITY_RETENTION_DAYS` to a value greater than 0 to record
   IP addresses of user sign ins. There's an associated `config/crontab-example`
   update to purge records outside of the retention period.
-* Once configured run `bin/rails storage:migrate` to migrate your files. This
-  can happen in the background while the application is running but must be
-  carried out before upgrading to release 0.42.
 
 # 0.40.1.1
 
