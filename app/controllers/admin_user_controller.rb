@@ -14,7 +14,7 @@ class AdminUserController < AdminController
                                           clear_bounce
                                           clear_profile_photo]
 
-  before_action :clear_roles,
+  before_action :clear_roles, :clear_features,
                 :check_role_authorisation,
                 :check_role_requirements, only: %i[update]
 
@@ -136,7 +136,8 @@ class AdminUserController < AdminController
     if params[:admin_user]
       params.require(:admin_user).permit(:name,
                                          :email,
-                                         {:role_ids => []},
+                                         { role_ids: [] },
+                                         { features: [] },
                                          :ban_text,
                                          :about_me,
                                          :no_limit,
@@ -150,6 +151,11 @@ class AdminUserController < AdminController
   def clear_roles
     # Clear roles if none checked
     params[:admin_user][:role_ids] ||= []
+  end
+
+  def clear_features
+    # Clear features if none checked
+    params[:admin_user][:features] ||= []
   end
 
   # Check all changed roles exist, current user can grant and revoke them

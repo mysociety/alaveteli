@@ -1716,7 +1716,7 @@ RSpec.describe User do
       end
 
       it 'returns Notification::DAILY' do
-        expect(user.notification_frequency).to eq (Notification::DAILY)
+        expect(user.notification_frequency).to eq(Notification::DAILY)
       end
     end
 
@@ -1724,7 +1724,7 @@ RSpec.describe User do
       let(:user) { FactoryBot.create(:user) }
 
       it 'returns Notification::INSTANTLY' do
-        expect(user.notification_frequency).to eq (Notification::INSTANTLY)
+        expect(user.notification_frequency).to eq(Notification::INSTANTLY)
       end
     end
   end
@@ -1744,6 +1744,28 @@ RSpec.describe User do
     end
   end
 
+  describe '#features' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'delegates to AlaveteliFeatures' do
+      features = double(:features)
+      expect(AlaveteliFeatures).to receive(:features).and_return(features)
+      expect(features).to receive(:with_actor).with(user)
+      user.features
+    end
+  end
+
+  describe '#features=' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'enables features' do
+      features = double(:features)
+      allow(user).to receive(:features).and_return(features)
+      expect(features).to receive(:assign_features).with([:new_feature])
+      user.features = [:new_feature]
+    end
+  end
+
   describe "#flipper_id" do
     let(:user) { FactoryBot.create(:user) }
 
@@ -1758,8 +1780,10 @@ RSpec.describe User do
 
     context 'adding unknown role' do
 
-      it 'should not call grant pro access' do
-        expect(AlaveteliPro::Access).to_not receive(:grant)
+      it 'enables user role features' do
+        features = double(:features)
+        allow(user).to receive(:features).and_return(features)
+        expect(features).to receive(:assign_role_features)
         user.add_role(:unknown)
       end
 
@@ -1767,8 +1791,10 @@ RSpec.describe User do
 
     context 'adding pro role' do
 
-      it 'should call grant pro access' do
-        expect(AlaveteliPro::Access).to receive(:grant).with(user)
+      it 'enables user role features' do
+        features = double(:features)
+        allow(user).to receive(:features).and_return(features)
+        expect(features).to receive(:assign_role_features)
         user.add_role(:pro)
       end
 

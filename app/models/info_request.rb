@@ -1758,12 +1758,10 @@ class InfoRequest < ApplicationRecord
       true
     elsif feature_enabled?(:accept_mail_from_anywhere)
       true
+    elsif user.features.enabled?(:accept_mail_from_poller)
+      source == :poller
     else
-      if feature_enabled?(:accept_mail_from_poller, user)
-        source == :poller
-      else
-        source == :mailin
-      end
+      source == :mailin
     end
   end
 
@@ -1863,7 +1861,8 @@ class InfoRequest < ApplicationRecord
 
   def set_use_notifications
     if use_notifications.nil?
-      self.use_notifications = feature_enabled?(:notifications, user) && \
+      self.use_notifications = user &&
+                               user.features.enabled?(:notifications) && \
                                info_request_batch_id.present?
     end
     return true

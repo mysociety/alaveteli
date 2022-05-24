@@ -14,16 +14,16 @@ RSpec.describe AlaveteliFeatures::Helpers do
     AlaveteliFeatures.backend = old_backend
   end
 
-  describe '#enable_actor' do
+  describe '#disable_actor' do
     let(:user) { MockUser.new(1) }
 
-    it 'should respond true when an actor already enabled' do
-      AlaveteliFeatures.backend.enable_actor(:test_feature, user)
-      expect(instance.enable_actor(:test_feature, user)).to eq(true)
+    it 'should respond true when an actor already disabled' do
+      AlaveteliFeatures.backend.disable_actor(:test_feature, user)
+      expect(instance.disable_actor(:test_feature, user)).to eq(true)
     end
 
-    it 'should respond true when an actor is enabled' do
-      expect(instance.enable_actor(:test_feature, user)).to eq(true)
+    it 'should respond true when an actor is disabled' do
+      expect(instance.disable_actor(:test_feature, user)).to eq(true)
     end
 
     context 'persisted backend' do
@@ -32,9 +32,11 @@ RSpec.describe AlaveteliFeatures::Helpers do
         Flipper.new(Flipper::Adapters::ActiveRecord.new)
       end
 
-      it 'does not raise PG::UniqueViolation if actor is already enabled' do
-        AlaveteliFeatures.backend.enable_actor(:test_feature, user)
-        expect { instance.enable_actor(:test_feature, user) }.not_to raise_error
+      it 'does not raise PG::UniqueViolation if actor is already disabled' do
+        AlaveteliFeatures.backend.disable_actor(:test_feature, user)
+        expect {
+          instance.disable_actor(:test_feature, user)
+        }.not_to raise_error
       end
     end
   end

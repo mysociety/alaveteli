@@ -50,7 +50,9 @@ class User < ApplicationRecord
     comments: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
-  rolify before_add: :setup_pro_account
+  rolify before_add: :setup_pro_account,
+         after_add: :assign_role_features,
+         after_remove: :assign_role_features
   strip_attributes allow_empty: true
 
   attr_accessor :no_xapian_reindex
@@ -627,11 +629,21 @@ class User < ApplicationRecord
 
   # With what frequency does the user want to be notified?
   def notification_frequency
-    if feature_enabled? :notifications, self
+    if features.enabled?(:notifications)
       Notification::DAILY
     else
       Notification::INSTANTLY
     end
+  end
+
+  def features
+    # Will return enabled and disabled features. Call #enabled? to see the
+    # current state
+    AlaveteliFeatures.features.with_actor(self)
+  end
+
+  def features=(new_features)
+    features.assign_features(new_features)
   end
 
   # Define an id number for use with the Flipper gem's user-by-user feature
@@ -674,10 +686,13 @@ class User < ApplicationRecord
     end
   end
 
+  def assign_role_features(_role)
+    features.assign_role_features
+  end
+
   def setup_pro_account(role)
     return unless role == Role.pro_role
     pro_account || build_pro_account if feature_enabled?(:pro_pricing)
-    AlaveteliPro::Access.grant(self)
   end
 
   def update_pro_account
