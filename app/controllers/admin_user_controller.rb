@@ -136,7 +136,7 @@ class AdminUserController < AdminController
     if params[:admin_user]
       params.require(:admin_user).permit(:name,
                                          :email,
-                                         {:role_ids => []},
+                                         { role_ids: [] },
                                          :ban_text,
                                          :about_me,
                                          :no_limit,

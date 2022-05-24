@@ -1716,7 +1716,7 @@ RSpec.describe User do
       end
 
       it 'returns Notification::DAILY' do
-        expect(user.notification_frequency).to eq (Notification::DAILY)
+        expect(user.notification_frequency).to eq(Notification::DAILY)
       end
     end
 
@@ -1724,7 +1724,7 @@ RSpec.describe User do
       let(:user) { FactoryBot.create(:user) }
 
       it 'returns Notification::INSTANTLY' do
-        expect(user.notification_frequency).to eq (Notification::INSTANTLY)
+        expect(user.notification_frequency).to eq(Notification::INSTANTLY)
       end
     end
   end

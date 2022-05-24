@@ -1758,12 +1758,10 @@ class InfoRequest < ApplicationRecord
       true
     elsif feature_enabled?(:accept_mail_from_anywhere)
       true
+    elsif feature_enabled?(:accept_mail_from_poller, user)
+      source == :poller
     else
-      if feature_enabled?(:accept_mail_from_poller, user)
-        source == :poller
-      else
-        source == :mailin
-      end
+      source == :mailin
     end
   end
 
