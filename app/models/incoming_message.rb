@@ -81,10 +81,10 @@ class IncomingMessage < ApplicationRecord
   delegate :parts, to: :raw_email
   delegate :legislation, to: :info_request
 
-  # Given that there are in theory many info request events, a convenience method for
-  # getting the response event
+  # Given that there are in theory many info request events, a convenience
+  # method for getting the response event.
   def response_event
-    self.info_request_events.detect { |e| e.event_type == 'response' }
+    info_request_events.where(event_type: 'response').first
   end
 
   def parse_raw_email!(force = nil)
