@@ -146,6 +146,29 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(response).to be_successful
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :edit, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :edit, params: { id: info_request }
+          expect(response).to be_successful
+        end
+      end
+    end
+
   end
 
   describe 'PUT #update' do
@@ -187,6 +210,35 @@ RSpec.describe AdminRequestController, "when administering requests" do
                     }
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :update, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          post :update, params: { id: info_request, info_request: {
+            title: 'Renamed',
+            prominence: 'normal',
+            described_state: 'waiting_response',
+            awaiting_description: false,
+            allow_new_responses_from: 'anybody',
+            handle_rejected_responses: 'bounce'
+          } }
+          expect(response).to redirect_to admin_request_url(info_request)
+        end
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -215,6 +267,28 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(response).to redirect_to(admin_requests_url)
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            delete :destroy, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to requests index admin' do
+          delete :destroy, params: { id: info_request }
+          expect(response).to redirect_to admin_requests_url
+        end
+      end
+    end
   end
 
   describe 'POST #hide' do
@@ -292,6 +366,32 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :hide, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          post :hide, params: {
+            id: info_request,
+            explanation: 'Foo',
+            reason: 'vexatious'
+          }
+          expect(response).to redirect_to admin_request_url(info_request)
+        end
+      end
+    end
   end
 
 end

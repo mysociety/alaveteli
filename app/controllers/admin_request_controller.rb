@@ -6,13 +6,10 @@
 
 class AdminRequestController < AdminController
 
-  before_action :set_info_request, :only => [ :show,
-                                              :edit,
-                                              :update,
-                                              :destroy,
-                                              :move,
-                                              :generate_upload_url,
-                                              :hide ]
+  before_action :set_info_request, :check_info_request, only: %i[
+    show edit update destroy move generate_upload_url hide
+  ]
+
   def index
     @query = params[:query]
     if @query
@@ -31,9 +28,6 @@ class AdminRequestController < AdminController
   end
 
   def show
-    if cannot? :admin, @info_request
-      raise ActiveRecord::RecordNotFound
-    end
   end
 
   def edit
@@ -214,4 +208,9 @@ class AdminRequestController < AdminController
     @info_request = InfoRequest.find(params[:id].to_i)
   end
 
+  def check_info_request
+    return if can? :admin, @info_request
+
+    raise ActiveRecord::RecordNotFound
+  end
 end

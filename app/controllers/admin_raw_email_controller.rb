@@ -8,6 +8,7 @@ class AdminRawEmailController < AdminController
   skip_before_action :html_response
 
   before_action :set_raw_email, only: [:show]
+  before_action :set_info_request, :check_info_request
 
   def show
     respond_to do |format|
@@ -47,6 +48,16 @@ class AdminRawEmailController < AdminController
 
   def set_raw_email
     @raw_email = RawEmail.find(params[:id])
+  end
+
+  def set_info_request
+    @info_request = @raw_email.incoming_message.info_request
+  end
+
+  def check_info_request
+    return if can? :admin, @info_request
+
+    raise ActiveRecord::RecordNotFound
   end
 
   def in_holding_pen?(raw_email)

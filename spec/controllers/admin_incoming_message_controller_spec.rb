@@ -37,6 +37,28 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       post :destroy, params: { :id => @im.id }
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        @im.info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :destroy, params: { id: @im }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'rediects to request admin' do
+          post :destroy, params: { id: @im }
+          expect(response).to redirect_to admin_request_url(@im.info_request)
+        end
+      end
+    end
   end
 
   describe 'when redelivering an incoming message' do
@@ -84,7 +106,35 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       expect(response).to redirect_to admin_request_url(incoming_message.info_request)
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        incoming_message.info_request.create_embargo
+      end
 
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :redeliver, params: {
+              id: incoming_message,
+              url_title: destination_info_request.url_title
+            }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to destination request admin' do
+          post :redeliver, params: {
+            id: incoming_message,
+            url_title: destination_info_request.url_title
+          }
+          expect(response).to redirect_to \
+            admin_request_url(destination_info_request)
+        end
+      end
+    end
   end
 
   describe 'when editing an incoming message' do
@@ -104,6 +154,28 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       expect(assigns[:incoming_message]).to eq(@incoming)
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        @incoming.info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :edit, params: { id: @incoming }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :edit, params: { id: @incoming }
+          expect(response).to be_successful
+        end
+      end
+    end
   end
 
   describe 'when updating an incoming message' do
@@ -177,6 +249,30 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         expect(response).to render_template("edit")
       end
 
+    end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        @incoming.info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            make_request
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          make_request
+          expect(response).to redirect_to \
+            admin_request_url(@incoming.info_request)
+        end
+      end
     end
   end
 
@@ -288,6 +384,33 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         expect(response).to redirect_to(admin_request_url(request))
       end
 
+    end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :bulk_destroy, params: {
+              request_id: request, ids: spam_ids.join(","), commit: 'Yes'
+            }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          post :bulk_destroy, params: {
+            request_id: request, ids: spam_ids.join(","), commit: 'Yes'
+          }
+          expect(response).to redirect_to admin_request_url(request)
+        end
+      end
     end
 
   end

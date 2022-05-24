@@ -1,6 +1,7 @@
 class AdminOutgoingMessageController < AdminController
 
   before_action :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
+  before_action :set_info_request, :check_info_request
   before_action :set_is_initial_message, :only => [:edit, :destroy]
 
   def edit
@@ -89,6 +90,16 @@ class AdminOutgoingMessageController < AdminController
 
   def set_outgoing_message
     @outgoing_message = OutgoingMessage.find(params[:id])
+  end
+
+  def set_info_request
+    @info_request = @outgoing_message.info_request
+  end
+
+  def check_info_request
+    return if can? :admin, @info_request
+
+    raise ActiveRecord::RecordNotFound
   end
 
   def set_is_initial_message

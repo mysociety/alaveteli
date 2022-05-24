@@ -102,6 +102,27 @@ RSpec.describe AdminRawEmailController do
       end
     end
 
-  end
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        raw_email.incoming_message.info_request.create_embargo
+      end
 
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :show, params: { id: raw_email }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :show, params: { id: raw_email }
+          expect(response).to be_successful
+        end
+      end
+    end
+  end
 end
