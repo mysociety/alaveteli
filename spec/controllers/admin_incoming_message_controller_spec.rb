@@ -113,7 +113,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       it 'raises ActiveRecord::RecordNotFound for an admin user' do
         expect {
           sign_in admin_user
-          get :edit, params: { :id => @incoming.id }
+          get :edit, params: { id: @incoming.id }
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
@@ -123,7 +123,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
           with_feature_enabled(:alaveteli_pro) do
             expect {
               sign_in admin_user
-              get :edit, params: { :id => @incoming.id }
+              get :edit, params: { id: @incoming.id }
             }.to raise_error ActiveRecord::RecordNotFound
           end
         end
@@ -131,7 +131,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         it 'is successful for a pro admin user' do
           with_feature_enabled(:alaveteli_pro) do
             sign_in pro_admin_user
-            get :edit, params: { :id => @incoming.id }
+            get :edit, params: { id: @incoming.id }
             expect(response).to be_successful
           end
         end

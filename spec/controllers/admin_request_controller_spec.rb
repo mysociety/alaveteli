@@ -173,7 +173,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
       it 'raises ActiveRecord::RecordNotFound for an admin user' do
         expect {
           sign_in admin_user
-          get :edit, params: { :id => info_request.id }
+          get :edit, params: { id: info_request.id }
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
@@ -183,7 +183,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
           with_feature_enabled(:alaveteli_pro) do
             expect {
               sign_in admin_user
-              get :edit, params: { :id => info_request.id }
+              get :edit, params: { id: info_request.id }
             }.to raise_error ActiveRecord::RecordNotFound
           end
         end
@@ -191,7 +191,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
         it 'is successful for a pro admin user' do
           with_feature_enabled(:alaveteli_pro) do
             sign_in pro_admin_user
-            get :edit, params: { :id => info_request.id }
+            get :edit, params: { id: info_request.id }
             expect(response).to be_successful
           end
         end
