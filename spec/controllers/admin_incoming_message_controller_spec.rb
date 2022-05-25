@@ -90,6 +90,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
     before do
       @incoming = FactoryBot.create(:incoming_message)
+      admin_user = FactoryBot.create(:admin_user)
+      pro_admin_user = FactoryBot.create(:pro_admin_user)
     end
 
     it 'should be successful' do
