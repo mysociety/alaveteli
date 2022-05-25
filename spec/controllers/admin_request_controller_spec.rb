@@ -158,6 +158,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
   describe 'GET #edit' do
     let(:info_request) { FactoryBot.create(:info_request) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "is successful" do
       get :edit, params: { :id => info_request }
