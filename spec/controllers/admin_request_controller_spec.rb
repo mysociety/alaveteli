@@ -196,6 +196,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
           end
         end
       end
+    end
 
   end
 
