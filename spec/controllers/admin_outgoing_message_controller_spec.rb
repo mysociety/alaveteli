@@ -34,6 +34,7 @@ RSpec.describe AdminOutgoingMessageController do
         get :edit, params: { :id => outgoing.id }
         expect(assigns[:is_initial_message]).to eq(false)
       end
+    end
 
     context 'if the request is embargoed' do
 
@@ -67,7 +68,6 @@ RSpec.describe AdminOutgoingMessageController do
           end
         end
       end
-
     end
 
   end
