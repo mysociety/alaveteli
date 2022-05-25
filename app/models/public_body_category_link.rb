@@ -44,4 +44,22 @@ class PublicBodyCategoryLink < ApplicationRecord
       0
     end
   end
+
+  def self.by_display_order
+    headings_table = Arel::Table.new(:public_body_headings)
+    links_table = Arel::Table.new(:public_body_category_links)
+
+    PublicBodyCategoryLink.
+      distinct.
+      select(headings_table[:display_order], links_table[Arel.star]).
+      joins(:public_body_heading).
+      merge(PublicBodyHeading.by_display_order).
+      joins(public_body_category: :public_bodies).
+      merge(PublicBody.is_requestable).
+      order(:category_display_order).
+      preload(
+        public_body_heading: :translations,
+        public_body_category: :translations
+      )
+  end
 end

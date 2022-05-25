@@ -41,6 +41,10 @@ Rails.configuration.after_initialize do
     :pro_batch_category_ui,
     label: 'Batch category user interface'
   )
+  batch_add_all = AlaveteliFeatures.features.add(
+    :pro_batch_category_add_all,
+    label: 'Batch category "add all" button'
+  )
 
   next unless ActiveRecord::Base.connection.data_source_exists?(:roles)
 
@@ -53,6 +57,6 @@ Rails.configuration.after_initialize do
   AlaveteliFeatures.groups.add(
     :beta,
     includes: [base],
-    features: [batch_category]
+    features: [batch_category, batch_add_all]
   )
 end

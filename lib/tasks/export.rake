@@ -56,7 +56,7 @@ namespace :export do
     DataExport.csv_export(InfoRequestBatchPublicBody, to_run)
     DataExport.csv_export(HasTagStringTag,
                           to_run,
-                          HasTagStringTag.where(model: "PublicBody"))
+                          HasTagStringTag.where(model_type: "PublicBody"))
 
     #export public body information
     DataExport.csv_export( PublicBody,
