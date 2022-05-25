@@ -10,6 +10,9 @@ class AdminRawEmailController < AdminController
   before_action :set_raw_email, only: [:show]
 
   def show
+    if cannot? :admin, @raw_email.incoming_message.info_request
+      raise ActiveRecord::RecordNotFound
+    end
     respond_to do |format|
       format.html do
         @holding_pen = in_holding_pen?(@raw_email) ? true : false

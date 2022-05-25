@@ -37,6 +37,9 @@ class AdminRequestController < AdminController
   end
 
   def edit
+    if cannot? :admin, @info_request
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def update

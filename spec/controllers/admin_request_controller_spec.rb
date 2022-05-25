@@ -164,6 +164,39 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(response).to be_successful
     end
 
+    context 'if the request is embargoed' do
+
+      before do
+        info_request.create_embargo
+      end
+
+      it 'raises ActiveRecord::RecordNotFound for an admin user' do
+        expect {
+          sign_in admin_user
+          get :edit, params: { :id => info_request.id }
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+
+      context 'with pro enabled' do
+
+        it 'raises ActiveRecord::RecordNotFound for an admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            expect {
+              sign_in admin_user
+              get :edit, params: { :id => info_request.id }
+            }.to raise_error ActiveRecord::RecordNotFound
+          end
+        end
+
+        it 'is successful for a pro admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            sign_in pro_admin_user
+            get :edit, params: { :id => info_request.id }
+            expect(response).to be_successful
+          end
+        end
+      end
+
   end
 
   describe 'PUT #update' do

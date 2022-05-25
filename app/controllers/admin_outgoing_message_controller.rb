@@ -4,6 +4,15 @@ class AdminOutgoingMessageController < AdminController
   before_action :set_is_initial_message, :only => [:edit, :destroy]
 
   def edit
+    if cannot? :admin, @outgoing_message.info_request
+      raise ActiveRecord::RecordNotFound
+    end
+  end
+
+  def show
+    if cannot? :admin, @outgoing_message.info_request
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def destroy

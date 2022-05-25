@@ -3,6 +3,9 @@ class AdminIncomingMessageController < AdminController
   before_action :set_incoming_message, :only => [:edit, :update, :destroy, :redeliver]
 
   def edit
+    if cannot? :admin, @incoming_message.info_request
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def update

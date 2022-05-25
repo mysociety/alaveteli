@@ -102,6 +102,40 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       expect(assigns[:incoming_message]).to eq(@incoming)
     end
 
+    context 'if the request is embargoed' do
+
+      before do
+        @incoming.info_request.create_embargo
+      end
+
+      it 'raises ActiveRecord::RecordNotFound for an admin user' do
+        expect {
+          sign_in admin_user
+          get :edit, params: { :id => @incoming.id }
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+
+      context 'with pro enabled' do
+
+        it 'raises ActiveRecord::RecordNotFound for an admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            expect {
+              sign_in admin_user
+              get :edit, params: { :id => @incoming.id }
+            }.to raise_error ActiveRecord::RecordNotFound
+          end
+        end
+
+        it 'is successful for a pro admin user' do
+          with_feature_enabled(:alaveteli_pro) do
+            sign_in pro_admin_user
+            get :edit, params: { :id => @incoming.id }
+            expect(response).to be_successful
+          end
+        end
+      end
+
+    end
   end
 
   describe 'when updating an incoming message' do
