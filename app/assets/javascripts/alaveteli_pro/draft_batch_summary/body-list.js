@@ -34,6 +34,11 @@
     DraftBatchSummary.draftId = $(summarySelector, $draft).data('draft-id');
     if (previousDraftId != DraftBatchSummary.draftId) {
       $('.js-draft-id').val(DraftBatchSummary.draftId);
+
+      // update address bar with new draft ID
+      url = DraftBatchSummary.urlWithDraftID(window.location.href);
+      window.history.pushState({}, '', url);
+
       $draft.trigger(DraftEvents.updatedDraftID);
     }
   };
