@@ -372,7 +372,7 @@ GEM
       pry (~> 0.13.0)
     public_suffix (4.0.7)
     racc (1.6.0)
-    rack (2.2.3)
+    rack (2.2.3.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack-utf8_sanitizer (1.7.0)
