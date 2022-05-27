@@ -50,12 +50,13 @@ class HelpController < ApplicationController
     end
     @contact = ContactValidator.new(params[:contact])
 
-    if @recaptcha_required &&
-       !params[:remove] &&
-       !verify_recaptcha
+    if params[:remove]
+      @contact.errors.clear
+
+    elsif @recaptcha_required && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
                             'Please try again.')
-    elsif @contact.valid? && !params[:remove]
+    elsif @contact.valid?
       ContactMailer.to_admin_message(
         params[:contact][:name],
         params[:contact][:email],
@@ -67,10 +68,7 @@ class HelpController < ApplicationController
       flash[:notice] = _("Your message has been sent. Thank you for getting " \
                          "in touch! We'll get back to you soon.")
       redirect_to frontpage_url
-      return
     end
-
-    @contact.errors.clear if params[:remove]
   end
 
   private
