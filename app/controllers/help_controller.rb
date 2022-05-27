@@ -3,14 +3,13 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
-
 class HelpController < ApplicationController
-
-  # we don't even have a control subroutine for most help pages, just see their templates
+  # we don't even have a control subroutine for most help pages, just see their
+  # templates
 
   before_action :long_cache
-  before_action :catch_spam, :only => [:contact]
-  before_action :set_recaptcha_required, :only => [:contact]
+  before_action :catch_spam, only: [:contact]
+  before_action :set_recaptcha_required, only: [:contact]
 
   def index
     redirect_to help_about_path
@@ -20,79 +19,75 @@ class HelpController < ApplicationController
     @country_code = AlaveteliConfiguration.iso_country_code
     @info_request = nil
     if params[:url_title]
-      @info_request = InfoRequest
-        .not_embargoed
-          .find_by_url_title!(params[:url_title])
+      @info_request = InfoRequest.
+        not_embargoed.
+          find_by_url_title!(params[:url_title])
     end
 
     @refusal_advice = RefusalAdvice.default(@info_request)
   end
 
   def contact
-    @contact_email = AlaveteliConfiguration::contact_email
+    @contact_email = AlaveteliConfiguration.contact_email
     if feature_enabled?(:alaveteli_pro) && @user && @user.is_pro?
-      @contact_email = AlaveteliConfiguration::pro_contact_email
+      @contact_email = AlaveteliConfiguration.pro_contact_email
     end
 
     # if they clicked remove for link to request/body, remove it
     if params[:remove]
       @last_request = nil
-      cookies["last_request_id"] = nil
-      cookies["last_body_id"] = nil
+      cookies['last_request_id'] = nil
+      cookies['last_body_id'] = nil
     end
 
     # look up link to request/body
-    request = InfoRequest.find_by(id: cookies["last_request_id"].to_i)
+    request = InfoRequest.find_by(id: cookies['last_request_id'].to_i)
     @last_request = request if can?(:read, request)
 
-    @last_body = PublicBody.find_by(id: cookies["last_body_id"].to_i)
+    @last_body = PublicBody.find_by(id: cookies['last_body_id'].to_i)
 
     # submit form
-    if params[:submitted_contact_form]
-      if @user
-        params[:contact][:email] = @user.email
-        params[:contact][:name] = @user.name
-      end
-      @contact = ContactValidator.new(params[:contact])
+    return unless params[:submitted_contact_form]
 
-      if (@recaptcha_required &&
-          !params[:remove] &&
-          !verify_recaptcha)
-        flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
-                              'Please try again.')
-      elsif @contact.valid? && !params[:remove]
-        ContactMailer.to_admin_message(
-          params[:contact][:name],
-          params[:contact][:email],
-          params[:contact][:subject],
-          params[:contact][:message],
-          @user,
-          @last_request, @last_body
-        ).deliver_now
-        flash[:notice] = _("Your message has been sent. Thank you for getting in touch! We'll get back to you soon.")
-        redirect_to frontpage_url
-        return
-      end
+    if @user
+      params[:contact][:email] = @user.email
+      params[:contact][:name] = @user.name
+    end
+    @contact = ContactValidator.new(params[:contact])
 
-      if params[:remove]
-        @contact.errors.clear
-      end
+    if @recaptcha_required &&
+       !params[:remove] &&
+       !verify_recaptcha
+      flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
+                            'Please try again.')
+    elsif @contact.valid? && !params[:remove]
+      ContactMailer.to_admin_message(
+        params[:contact][:name],
+        params[:contact][:email],
+        params[:contact][:subject],
+        params[:contact][:message],
+        @user,
+        @last_request, @last_body
+      ).deliver_now
+      flash[:notice] = _("Your message has been sent. Thank you for getting " \
+                         "in touch! We'll get back to you soon.")
+      redirect_to frontpage_url
+      return
     end
 
+    @contact.errors.clear if params[:remove]
   end
 
   private
 
   def catch_spam
-    if request.post? && params[:contact]
-      if !params[:contact][:comment].blank? || !params[:contact].key?(:comment)
-        redirect_to frontpage_url
-      end
-    end
+    return unless request.post? && params[:contact]
+    return if params[:contact].fetch(:comment, '').blank?
+
+    redirect_to frontpage_url
   end
 
   def set_recaptcha_required
     @recaptcha_required = AlaveteliConfiguration.contact_form_recaptcha
   end
-
 end
