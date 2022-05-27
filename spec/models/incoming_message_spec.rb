@@ -51,6 +51,20 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#response_event' do
+    subject { message.response_event }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    %i[comment_event response_event].each do |event_type|
+      let!(event_type) do
+        FactoryBot.create(event_type, incoming_message: message)
+      end
+    end
+
+    it { is_expected.to eq(response_event) }
+  end
+
   describe '#from_name' do
 
     it 'returns the name in the From: field of an email' do
@@ -515,18 +529,6 @@ RSpec.describe IncomingMessage, 'when validating' do
                                            :info_request => InfoRequest.new,
                                            :prominence => 'norman')
     expect(incoming_message.valid?).to be false
-  end
-
-end
-
-RSpec.describe IncomingMessage, 'when getting a response event' do
-
-  it 'should return an event with event_type "response"' do
-    incoming_message = IncomingMessage.new
-    ['comment', 'response'].each do |event_type|
-      incoming_message.info_request_events << InfoRequestEvent.new(:event_type => event_type)
-    end
-    expect(incoming_message.response_event.event_type).to eq('response')
   end
 
 end
