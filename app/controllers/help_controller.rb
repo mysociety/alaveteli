@@ -48,23 +48,15 @@ class HelpController < ApplicationController
       params[:contact][:email] = @user.email
       params[:contact][:name] = @user.name
     end
-    @contact = ContactValidator.new(params[:contact])
 
     if params[:remove]
-      @contact.errors.clear
+      contact_validator.errors.clear
 
     elsif @recaptcha_required && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
                             'Please try again.')
-    elsif @contact.valid?
-      ContactMailer.to_admin_message(
-        params[:contact][:name],
-        params[:contact][:email],
-        params[:contact][:subject],
-        params[:contact][:message],
-        @user,
-        @last_request, @last_body
-      ).deliver_now
+    elsif contact_validator.valid?
+      contact_mailer.deliver_now
       flash[:notice] = _("Your message has been sent. Thank you for getting " \
                          "in touch! We'll get back to you soon.")
       redirect_to frontpage_url
@@ -72,6 +64,26 @@ class HelpController < ApplicationController
   end
 
   private
+
+  def contact_validator
+    @contact_validator ||= ContactValidator.new(contact_params)
+  end
+
+  def contact_mailer
+    ContactMailer.to_admin_message(
+      contact_params[:name],
+      contact_params[:email],
+      contact_params[:subject],
+      contact_params[:message],
+      @user, @last_request, @last_body
+    )
+  end
+
+  def contact_params
+    params.require(:contact).except(:comment).permit(
+      :name, :email, :subject, :message
+    )
+  end
 
   def catch_spam
     return unless request.post? && params[:contact]
