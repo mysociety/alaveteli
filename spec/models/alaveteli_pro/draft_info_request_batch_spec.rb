@@ -44,5 +44,21 @@ RSpec.describe AlaveteliPro::DraftInfoRequestBatch do
     expect(draft.public_bodies).to eq ([public_body2, public_body1])
   end
 
+  it 'returns a distinct list of associated public bodies' do
+    public_body = FactoryBot.create(
+      :public_body,
+      translations_attributes: {
+        'en' => { locale: 'en', name: 'Welsh Government' },
+        'cy' => { locale: 'cy', name: 'Llywodraeth Cymru' }
+      }
+    )
+    draft = FactoryBot.create(
+      :draft_info_request_batch, public_bodies: [public_body]
+    )
+
+    expect(draft.public_bodies.count).to eq(1)
+    expect(draft.public_bodies).to match_array([public_body])
+  end
+
   it_behaves_like "RequestSummaries"
 end

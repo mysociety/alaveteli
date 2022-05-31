@@ -20,8 +20,8 @@ class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
              :inverse_of => :draft_info_request_batches
   has_and_belongs_to_many :public_bodies, -> {
     AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
-      joins(:translations).preload(:translations).
-        merge(PublicBody::Translation.order(:name))
+      includes(:translations).
+        reorder('public_body_translations.name asc')
     end
   }, :inverse_of => :draft_info_request_batches
 
