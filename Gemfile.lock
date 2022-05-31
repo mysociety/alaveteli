@@ -393,7 +393,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.10.0)
       json
-    regexp_parser (2.4.0)
+    regexp_parser (2.5.0)
     representable (3.1.1)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -439,7 +439,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.18.0)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.13.3)
+    rubocop-performance (1.14.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     rubocop-rails (2.14.2)
