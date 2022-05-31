@@ -56,6 +56,9 @@ Gemspec/DateAssignment:
 Gemspec/DependencyVersion:
   Enabled: false
 
+Gemspec/DeprecatedAttributeAssignment:
+  Enabled: false
+
 Gemspec/DuplicatedAssignment:
   Enabled: false
 
@@ -1648,6 +1651,9 @@ Style/LambdaCall:
 
 Style/LineEndConcatenation:
   Enabled: true
+
+Style/MapCompactWithConditionalBlock:
+  Enabled: false
 
 Style/MapToHash:
   Enabled: false
