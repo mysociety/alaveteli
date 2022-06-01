@@ -58,18 +58,22 @@ class InfoRequestBatch < ApplicationRecord
     end
   end
 
-  #  When constructing a new batch, use this to check user hasn't double submitted.
+  # When constructing a new batch, use this to check user hasn't double
+  # submitted.
   def self.find_existing(user, title, body, public_body_ids)
     conditions = {
-      :user_id => user,
-      :title => title,
-      :body => body,
-      :info_request_batches_public_bodies => {
-        :public_body_id => public_body_ids
+      user_id: user,
+      title: title,
+      body: body,
+      info_request_batches_public_bodies: {
+        public_body_id: public_body_ids
       }
     }
 
-    includes(:public_bodies).where(conditions).references(:public_bodies).first
+    includes(:public_bodies).
+      where(conditions).
+      references(:public_bodies).
+      first
   end
 
   # Create a new batch from the supplied draft version
