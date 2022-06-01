@@ -6,7 +6,9 @@ RSpec.describe InfoRequestBatchMailer do
 
     before do
       @user = FactoryBot.create(:user)
-      @info_request_batch = FactoryBot.create(:info_request_batch)
+      @info_request_batch = FactoryBot.create(
+        :info_request_batch, title: 'Example title'
+      )
       @public_body = FactoryBot.create(:public_body)
       @unrequestable = [@public_body]
       @mail = InfoRequestBatchMailer.batch_sent(@info_request_batch, @unrequestable, @user)

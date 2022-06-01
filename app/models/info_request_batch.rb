@@ -38,6 +38,7 @@ class InfoRequestBatch < ApplicationRecord
 
   validates_presence_of :user
   validates_presence_of :body
+  validates_absence_of :existing_batch
 
   strip_attributes only: %i[embargo_duration]
 
@@ -60,7 +61,7 @@ class InfoRequestBatch < ApplicationRecord
 
   # When constructing a new batch, use this to check user hasn't double
   # submitted.
-  def self.find_existing(user, title, body, public_body_ids)
+  def self.find_existing(user, title, body, public_body_ids, id: nil)
     conditions = {
       user_id: user,
       title: title,
@@ -70,10 +71,13 @@ class InfoRequestBatch < ApplicationRecord
       }
     }
 
-    includes(:public_bodies).
+    scope = includes(:public_bodies).
       where(conditions).
-      references(:public_bodies).
-      first
+      references(:public_bodies)
+
+    scope = scope.where.not(id: id) if id
+
+    scope.first
   end
 
   # Create a new batch from the supplied draft version
@@ -83,6 +87,10 @@ class InfoRequestBatch < ApplicationRecord
              :title => draft.title,
              :body => draft.body,
              :embargo_duration => draft.embargo_duration)
+  end
+
+  def existing_batch
+    self.class.find_existing(user, title, body, public_body_ids, id: id)
   end
 
   # Create a batch of information requests and sends them to public bodies
