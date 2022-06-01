@@ -59,13 +59,17 @@ class InfoRequestBatch < ApplicationRecord
     end
   end
 
+  def self.with_body(body)
+    where("regexp_replace(info_request_batches.body, '[[:space:]]', '', 'g') =
+           regexp_replace(?, '[[:space:]]', '', 'g')", body)
+  end
+
   # When constructing a new batch, use this to check user hasn't double
   # submitted.
   def self.find_existing(user, title, body, public_body_ids, id: nil)
     conditions = {
       user_id: user,
       title: title,
-      body: body,
       info_request_batches_public_bodies: {
         public_body_id: public_body_ids
       }
@@ -73,6 +77,7 @@ class InfoRequestBatch < ApplicationRecord
 
     scope = includes(:public_bodies).
       where(conditions).
+      with_body(body).
       references(:public_bodies)
 
     scope = scope.where.not(id: id) if id

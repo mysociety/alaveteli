@@ -46,6 +46,30 @@ RSpec.describe InfoRequestBatch do
     end
   end
 
+  context '.with_body' do
+    let(:batch) do
+      FactoryBot.create(:info_request_batch, body: "foo\n\nbar")
+    end
+
+    it 'returns batch if body matches exactly' do
+      expect(InfoRequestBatch.with_body("foo\r\nbar")).to include(batch)
+    end
+
+    it 'matchs batch body when whitespace is ignored' do
+      ['foobar', 'foo bar', "foo\nbar"].each do |str|
+        expect(InfoRequestBatch.with_body(str)).to include(batch)
+      end
+    end
+
+    it 'matchs whole batch body' do
+      strings = ['foo', 'foobarbaz', 'foo bar baz', "foo\nbar\nbaz",
+                 "foo\r\nbar\r\nbaz"]
+      strings.each do |str|
+        expect(InfoRequestBatch.with_body(str)).to_not include(batch)
+      end
+    end
+  end
+
   context "when finding an existing batch" do
     let(:first_body) { FactoryBot.create(:public_body) }
     let(:second_body) { FactoryBot.create(:public_body) }
