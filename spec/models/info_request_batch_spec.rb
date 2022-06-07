@@ -37,12 +37,22 @@ RSpec.describe InfoRequestBatch do
       expect(info_request_batch.errors.full_messages).to eq(["Body can't be blank"])
     end
 
-    it 'requires batch to be unique without an existing batch' do
-      allow(info_request_batch).to receive(:existing_batch).and_return(double)
-      expect(info_request_batch.valid?).to eq false
-      expect(info_request_batch.errors.full_messages).to eq(
-        ['Existing batch must be blank']
-      )
+    context 'without ignore_existing_batch argument being set' do
+      it 'requires batch to be unique without an existing batch' do
+        allow(info_request_batch).to receive(:existing_batch).and_return(double)
+        expect(info_request_batch.valid?).to eq false
+        expect(info_request_batch.errors.full_messages).to eq(
+          ['Existing batch must be blank']
+        )
+      end
+    end
+
+    context 'with ignore_existing_batch argument being set' do
+      it 'requires batch to be unique without an existing batch' do
+        info_request_batch.ignore_existing_batch = true
+        allow(info_request_batch).to receive(:existing_batch).and_return(double)
+        expect(info_request_batch.valid?).to eq true
+      end
     end
   end
 

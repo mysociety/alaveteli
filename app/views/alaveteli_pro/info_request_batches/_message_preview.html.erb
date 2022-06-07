@@ -31,8 +31,9 @@
         <p>
           <%=
             _('You can view the ' \
-              '<a href="{{existing_batch_url}}">existing batch</a>, or ' \
-              '<a href="{{edit_batch_url}}">edit your request</a>.',
+              '<a href="{{existing_batch_url}}">existing batch</a>, ' \
+              '<a href="{{edit_batch_url}}">edit your request</a>, or ignore ' \
+              'this warning by confirming you want to proceed anyway.',
               existing_batch_url: info_request_batch_path(
                 @info_request_batch.existing_batch
               ),
@@ -49,6 +50,11 @@
               terms_url: pro_page_path(id: 'legal'))
           %>
         </p>
+
+        <%= label_tag :ignore_existing_batch do %>
+          <%= check_box_tag :ignore_existing_batch %>
+          <%= _('Send this batch anyway?') %>
+        <% end %>
       </div>
     <% end %>
 
