@@ -39,6 +39,7 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include MessageProminence
   include CacheAttributesFromRawEmail
+  include Taggable
 
   strip_attributes only: [:prominence_reason]
 

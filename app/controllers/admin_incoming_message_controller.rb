@@ -9,6 +9,7 @@ class AdminIncomingMessageController < AdminController
   def update
     old_prominence = @incoming_message.prominence
     old_prominence_reason = @incoming_message.prominence_reason
+    old_tag_string = @incoming_message.tag_string
     if @incoming_message.update(incoming_message_params)
       @incoming_message.info_request.log_event(
         'edit_incoming',
@@ -17,7 +18,9 @@ class AdminIncomingMessageController < AdminController
         old_prominence: old_prominence,
         prominence: @incoming_message.prominence,
         old_prominence_reason: old_prominence_reason,
-        prominence_reason: @incoming_message.prominence_reason
+        prominence_reason: @incoming_message.prominence_reason,
+        old_tag_string: old_tag_string,
+        tag_string: @incoming_message.tag_string
       )
       @incoming_message.info_request.expire
       flash[:notice] = 'Incoming message successfully updated.'
@@ -121,7 +124,9 @@ class AdminIncomingMessageController < AdminController
 
   def incoming_message_params
     if params[:incoming_message]
-      params.require(:incoming_message).permit(:prominence, :prominence_reason)
+      params.require(:incoming_message).permit(
+        :prominence, :prominence_reason, :tag_string
+      )
     else
       {}
     end
