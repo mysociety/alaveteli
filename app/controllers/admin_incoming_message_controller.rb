@@ -118,7 +118,9 @@ class AdminIncomingMessageController < AdminController
 
   def incoming_message_params
     if params[:incoming_message]
-      params.require(:incoming_message).permit(:prominence, :prominence_reason)
+      params.require(:incoming_message).permit(
+        :prominence, :prominence_reason, :tag_string
+      )
     else
       {}
     end

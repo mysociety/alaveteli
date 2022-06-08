@@ -39,6 +39,7 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include AdminColumn
   include MessageProminence
+  include Taggable
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
