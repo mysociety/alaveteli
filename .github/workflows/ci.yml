@@ -9,10 +9,16 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   rspec:
     name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }} / ${{ matrix.gemfile || 'Gemfile' }}
     runs-on: ubuntu-20.04
+
+    permissions:
+      checks: write # for coverallsapp/github-action to create new checks
 
     strategy:
       fail-fast: false
@@ -94,6 +100,8 @@ jobs:
         parallel: true
 
   coveralls:
+    permissions:
+      checks: write
     name: Coveralls
     needs: rspec
     runs-on: ubuntu-20.04
