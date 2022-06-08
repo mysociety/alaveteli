@@ -5,7 +5,7 @@ class AlaveteliSpamTermChecker
     /\[Full-Watch\]/i,
     /free-watch/i,
     /Online Full 2016/i,
-    /HD | Special ".*?" Online/i,
+    /\bHD | Special ".*?" Online/i,
     /FULL .O?N?_?L?I?N?E? ?\.?MOVIE/i,
     /\[Full 20x5\]/i,
     /Putlocker/i,
