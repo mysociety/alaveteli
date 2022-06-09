@@ -23,9 +23,10 @@
 #
 
 require 'spec_helper'
-
+require 'models/concerns/taggable'
 
 RSpec.describe IncomingMessage do
+  it_behaves_like 'concerns/taggable'
 
   describe '.unparsed' do
     subject { described_class.unparsed }

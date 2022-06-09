@@ -11,8 +11,11 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/taggable'
 
 RSpec.describe OutgoingMessage::Snippet, type: :model do
+  it_behaves_like 'concerns/taggable'
+
   let(:snippet) { FactoryBot.build(:outgoing_message_snippet) }
 
   describe 'validations' do
