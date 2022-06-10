@@ -28,14 +28,13 @@
 <% end %>
 </div>
 
-<%= form_tag(mass_tag_add_admin_bodies_path, :method => "post", :class => "form form-inline" ) do %>
-  <p>
-    <%= text_field_tag 'new_tag', params[:new_tag], { :size => 15, :id => "mass_add_tag_new_tag_" + table_name } %>
-    <%= hidden_field_tag(:query, params[:query], { :id => "mass_add_tag_query_" + table_name } ) %>
-    <%= hidden_field_tag(:page, params[:page], { :id => "mass_add_page_" + table_name } ) %>
-    <%= hidden_field_tag(:table_name, table_name, { :id => "mass_add_tag_table_name_" + table_name } ) %>
-    <%= submit_tag "Add tag to all", :class => "btn btn-primary" %>
-    <span class="help-inline">(in table just above)</span>
-  </p>
-<% end %>
-
+<div>
+  <%= form_tag(mass_tag_add_admin_bodies_path, method: "post", class: "form form-inline" ) do %>
+    <%= text_field_tag 'new_tag', params[:new_tag], { size: 15, id: "mass_add_tag_new_tag_" + table_name } %>
+    <%= hidden_field_tag(:query, params[:query], { id: "mass_add_tag_query_" + table_name } ) %>
+    <%= hidden_field_tag(:page, params[:page], { id: "mass_add_page_" + table_name } ) %>
+    <%= hidden_field_tag(:table_name, table_name, { id: "mass_add_tag_table_name_" + table_name } ) %>
+    <%= submit_tag "Add tag to all", class: "btn btn-primary" %>
+  <% end %>
+  <span class="help-inline">(in table just above)</span>
+</div>

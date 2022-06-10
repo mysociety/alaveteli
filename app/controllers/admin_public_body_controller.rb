@@ -135,10 +135,8 @@ class AdminPublicBodyController < AdminController
       else
         raise "Unknown table_name #{params[:table_name]}"
       end
-      for body in bodies
-        body.add_tag_if_not_already_present(params[:new_tag])
-      end
-      flash[:notice] = "Added tag to table of bodies."
+      bodies.each { |body| body.add_tag_if_not_already_present(params[:new_tag]) }
+      flash[:notice] = 'Added tag to table of bodies.'
     end
 
     redirect_to admin_bodies_url(:query => @query, :page => @page)
