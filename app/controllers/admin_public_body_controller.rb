@@ -144,22 +144,6 @@ class AdminPublicBodyController < AdminController
     redirect_to admin_bodies_url(:query => @query, :page => @page)
   end
 
-  def missing_scheme
-    # There might be a way to do this in ActiveRecord, but I can't find it
-    @public_bodies = PublicBody.find_by_sql("
-            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany
-              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id
-             WHERE a.publication_scheme = ''
-             GROUP BY a.id, a.name, a.url_name
-             ORDER BY howmany DESC
-             LIMIT 20
-        ")
-    @stats = {
-      "total" => PublicBody.count,
-      "entered" => PublicBody.where("publication_scheme != ''").count
-    }
-  end
-
   def import_csv
     @notes = ""
     @errors = ""
