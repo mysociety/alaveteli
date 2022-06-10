@@ -490,7 +490,7 @@ Rails.application.routes.draw do
     resources :bodies,
     :controller => 'admin_public_body' do
       get 'missing_scheme', :on => :collection
-      post 'mass_tag_add', on: :collection
+      post 'mass_tag', on: :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
       resources :censor_rules,

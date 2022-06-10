@@ -124,7 +124,7 @@ class AdminPublicBodyController < AdminController
     redirect_to admin_bodies_url
   end
 
-  def mass_tag_add
+  def mass_tag
     lookup_query
 
     if params[:new_tag] and params[:new_tag] != ""
