@@ -128,6 +128,12 @@ module HasTagString
       return tag_string if has_tag?(tag_as_string)
       self.tag_string = tag_string + ' ' + tag_as_string
     end
+
+    # Removes tag to the model
+    def remove_tag(tag_as_string)
+      return tag_string unless has_tag?(tag_as_string)
+      self.tag_string = tag_string.sub(/\b#{tag_as_string}\b/, '').strip
+    end
   end
 
   # Methods which are added to the model class being tagged

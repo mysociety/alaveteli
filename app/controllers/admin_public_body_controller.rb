@@ -135,8 +135,14 @@ class AdminPublicBodyController < AdminController
       else
         raise "Unknown table_name #{params[:table_name]}"
       end
-      bodies.each { |body| body.add_tag_if_not_already_present(params[:tag]) }
-      flash[:notice] = 'Added tag to table of bodies.'
+
+      if request.post?
+        bodies.each { |body| body.add_tag_if_not_already_present(params[:tag]) }
+        flash[:notice] = 'Added tag to table of bodies.'
+      elsif request.delete?
+        bodies.each { |body| body.remove_tag(params[:tag]) }
+        flash[:notice] = 'Removed tag from table of bodies.'
+      end
     end
 
     redirect_to admin_bodies_url(:query => @query, :page => @page)

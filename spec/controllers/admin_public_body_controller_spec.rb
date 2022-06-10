@@ -673,6 +673,20 @@ RSpec.describe AdminPublicBodyController do
     end
   end
 
+  describe "DELETE #mass_tag" do
+    it "mass removed tags" do
+      body = FactoryBot.create(:public_body, tag_string: 'department foo')
+      expect(PublicBody.find_by_tag("department").count).to eq(1)
+      delete :mass_tag, params: {
+        tag: "department", query: "department", table_name: "exact"
+      }
+      expect(request.flash[:notice]).to eq("Removed tag from table of bodies.")
+      expect(response).to redirect_to admin_bodies_path(query: 'department')
+      expect { body.reload }.to change(body, :tag_string).to("foo")
+      expect(PublicBody.find_by_tag("department").count).to eq(0)
+    end
+  end
+
   describe "GET #import_csv" do
 
     describe 'when handling a GET request' do
