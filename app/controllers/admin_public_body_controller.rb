@@ -127,7 +127,7 @@ class AdminPublicBodyController < AdminController
   def mass_tag
     lookup_query
 
-    if params[:new_tag] and params[:new_tag] != ""
+    if params[:tag] and params[:tag] != ""
       if params[:table_name] == 'exact'
         bodies = @public_bodies_by_tag
       elsif params[:table_name] == 'substring'
@@ -135,7 +135,7 @@ class AdminPublicBodyController < AdminController
       else
         raise "Unknown table_name #{params[:table_name]}"
       end
-      bodies.each { |body| body.add_tag_if_not_already_present(params[:new_tag]) }
+      bodies.each { |body| body.add_tag_if_not_already_present(params[:tag]) }
       flash[:notice] = 'Added tag to table of bodies.'
     end
 

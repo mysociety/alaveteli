@@ -666,7 +666,7 @@ RSpec.describe AdminPublicBodyController do
     it "mass assigns tags" do
       condition = "public_body_translations.locale = ?"
       n = PublicBody.joins(:translations).where([condition, "en"]).count
-      post :mass_tag, params: { new_tag: "department", table_name: "substring" }
+      post :mass_tag, params: { tag: "department", table_name: "substring" }
       expect(request.flash[:notice]).to eq("Added tag to table of bodies.")
       expect(response).to redirect_to admin_bodies_path
       expect(PublicBody.find_by_tag("department").count).to eq(n)
