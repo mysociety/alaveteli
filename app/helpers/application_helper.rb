@@ -138,9 +138,9 @@ module ApplicationHelper
     render inline: capture(&block), layout: "layouts/#{layout}"
   end
 
-  def render_flash(flash)
-    flash = { :plain => flash } if flash.is_a?(String)
-    render flash.deep_symbolize_keys
+  def render_flash(message)
+    message = { plain: message } if message.is_a?(String)
+    render message.deep_symbolize_keys
   end
 
   # We only want to cache request lists that have a reasonable chance of not expiring
