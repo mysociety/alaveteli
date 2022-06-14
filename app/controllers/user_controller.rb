@@ -156,7 +156,7 @@ class UserController < ApplicationController
         # TODO: Add specs (see RequestController#create)
         # TODO: Extract to UserSpamScorer?
         if blocked_ip?(country_from_ip, @user_signup)
-          handle_blocked_ip(@user_signup, user_ip, country_from_ip) && return
+          handle_blocked_ip(@user_signup) && return
         end
 
         # Rate limit signups
@@ -411,10 +411,10 @@ class UserController < ApplicationController
       country != AlaveteliConfiguration.iso_country_code
   end
 
-  def handle_blocked_ip(user, user_ip, country)
+  def handle_blocked_ip(user)
     if send_exception_notifications?
       msg = "Possible spam signup (ip_in_blocklist) from " \
-            "#{ user.email }: #{ user_ip } (#{ country })"
+            "#{user.email}: #{user_ip} (#{country_from_ip})"
       ExceptionNotifier.notify_exception(Exception.new(msg), env: request.env)
     end
 

@@ -933,8 +933,8 @@ class RequestController < ApplicationController
 
   def handle_blocked_ip(info_request)
     if send_exception_notifications?
-      msg = "Possible spam (ip_in_blocklist) from " \
-            "User##{ info_request.user_id }: #{ info_request.title }"
+      msg = "Possible spam request (ip_in_blocklist) from " \
+            "User##{info_request.user_id}: #{user_ip} (#{country_from_ip})"
       ExceptionNotifier.notify_exception(Exception.new(msg), env: request.env)
     end
 
