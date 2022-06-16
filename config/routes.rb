@@ -489,7 +489,6 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :bodies,
     :controller => 'admin_public_body' do
-      get 'missing_scheme', :on => :collection
       post 'mass_tag_add', :on => :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
