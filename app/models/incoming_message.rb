@@ -759,10 +759,6 @@ class IncomingMessage < ApplicationRecord
     end
     return ret.keys.join(" ")
   end
-  # Return space separated list of all file extensions known
-  def self.get_all_file_extensions
-    return AlaveteliFileTypes.all_extensions.join(" ")
-  end
 
   def refusals
     legislation_references.select(&:refusal?).map(&:parent).uniq(&:to_s)
