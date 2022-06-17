@@ -39,6 +39,7 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include AdminColumn
   include MessageProminence
+  include CacheAttributesFromRawEmail
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
@@ -75,6 +76,10 @@ class IncomingMessage < ApplicationRecord
 
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
+
+  cache_from_raw_email :subject, :sent_at,
+                       :from_name, :from_email, :from_email_domain,
+                       :valid_to_reply_to
 
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
@@ -113,72 +118,12 @@ class IncomingMessage < ApplicationRecord
     raw_email.destroy_file_representation!
   end
 
-  # The cached fields mentioned in the previous comment
-
-  # Public: Can this message be replied to?
-  # Caches the value set by raw_email.valid_to_reply_to? in #parse_raw_email!
-  # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
-  #
-  # Returns a Boolean
-  def valid_to_reply_to
-    parse_raw_email!
-    super
-  end
-
   alias_method :valid_to_reply_to?, :valid_to_reply_to
 
-  # Public: The date and time the email was sent. Uses the Date header if
-  # present in the email, otherwise uses the record's created_at attribute.
-  # #sent_at overrides the ActiveRecord provided #sent_at
-  #
-  # Returns an ActiveSupport::TimeWithZone
-  def sent_at
-    parse_raw_email!
-    super
-  end
-
-  # Public: The subject of an email.
-  # #subject overrides the ActiveRecord provided #subject
-  #
-  # Examples:
-  #
-  #   # Subject: A response to your FOI request
-  #   incoming_message.subject
-  #   # => 'A response to your FOI request'
-  #
-  #   # No subject header
-  #   incoming_message.subject
-  #   # => nil
-  #
-  # Returns a String or nil
-  def subject
-    parse_raw_email!
-    super
-  end
-
-  # Public: The display name of the email sender.
-  # #from_name overrides the ActiveRecord provided #from_name
-  #
-  # Examples:
-  #
-  #   # From: John Doe <john@example.com>
-  #   incoming_message.from_name
-  #   # => 'John Doe'
-  #
-  #   # From: john@example.com
-  #   incoming_message.from_name
-  #   # => nil
-  #
-  # Returns a String or nil
   def mail_from
     warn %q([DEPRECATION] IncomingMessage#mail_from will be removed in 0.42. It
             has been replaced by IncomingMessage#from_name).squish
     from_name
-  end
-
-  def from_name
-    parse_raw_email!
-    super
   end
 
   # Public: The display name of the email sender with the associated
@@ -205,43 +150,11 @@ class IncomingMessage < ApplicationRecord
     info_request.apply_censor_rules_to_text(from_name) if from_name
   end
 
-  # Public: The display email of the email sender.
-  # #from_email overrides the ActiveRecord provided #from_email
-  #
-  # Examples:
-  #
-  #   # From: John Doe <john@example.com>
-  #   incoming_message.from_email
-  #   # => 'john@example,com'
-  #
-  # Returns a String
-  def from_email
-    parse_raw_email!
-    super
-  end
-
-  # Public: The domain part of the email address in the From header.
-  # #from_email_domain overrides the ActiveRecord provided #from_email_domain
-  #
-  #   # From: John Doe <john@example.com>
-  #   incoming_message.from_email_domain
-  #   # => 'example.com'
-  #
-  #   # No From header
-  #   incoming_message.from_email_domain
-  #   # => ''
-  #
-  # Returns a String
   def mail_from_domain
     warn %q([DEPRECATION] IncomingMessage#mail_from_domain will be removed in
             0.42. It has been replaced by
             IncomingMessage#from_email_domain).squish
     from_email_domain
-  end
-
-  def from_email_domain
-    parse_raw_email!
-    super
   end
 
   def specific_from_name?
