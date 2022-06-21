@@ -14,6 +14,8 @@ module AlaveteliPro
       # Create a draft for the new request, then send the user to the new form
       # with their data prefilled and a message about creating an embargo.
       params = post_redirect.post_params
+      return new_alaveteli_pro_info_request_path if params.empty?
+
       draft = DraftInfoRequest.create(
         user: user,
         title: params['info_request']['title'],
