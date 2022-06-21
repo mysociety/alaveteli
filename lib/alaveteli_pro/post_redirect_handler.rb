@@ -29,7 +29,7 @@ module AlaveteliPro
                          "add an embargo before sending it. You can " \
                          "set that (or just send it straight away) " \
                          "using the form below.")
-      "#{new_alaveteli_pro_info_request_path}?draft_id=#{draft.id}"
+      new_alaveteli_pro_info_request_path(draft_id: draft.id)
     end
   end
 end
