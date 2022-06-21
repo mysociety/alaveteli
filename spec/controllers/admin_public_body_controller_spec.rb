@@ -661,18 +661,29 @@ RSpec.describe AdminPublicBodyController do
   end
 
 
-  describe "POST #mass_tag_add" do
+  describe "POST #mass_tag" do
 
     it "mass assigns tags" do
       condition = "public_body_translations.locale = ?"
       n = PublicBody.joins(:translations).where([condition, "en"]).count
-      post :mass_tag_add, params: {
-                            :new_tag => "department",
-                            :table_name => "substring"
-                          }
+      post :mass_tag, params: { tag: "department", table_name: "substring" }
       expect(request.flash[:notice]).to eq("Added tag to table of bodies.")
       expect(response).to redirect_to admin_bodies_path
       expect(PublicBody.find_by_tag("department").count).to eq(n)
+    end
+  end
+
+  describe "DELETE #mass_tag" do
+    it "mass removed tags" do
+      body = FactoryBot.create(:public_body, tag_string: 'department foo')
+      expect(PublicBody.find_by_tag("department").count).to eq(1)
+      delete :mass_tag, params: {
+        tag: "department", query: "department", table_name: "exact"
+      }
+      expect(request.flash[:notice]).to eq("Removed tag from table of bodies.")
+      expect(response).to redirect_to admin_bodies_path(query: 'department')
+      expect { body.reload }.to change(body, :tag_string).to("foo")
+      expect(PublicBody.find_by_tag("department").count).to eq(0)
     end
   end
 

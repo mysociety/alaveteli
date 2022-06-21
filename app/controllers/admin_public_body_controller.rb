@@ -124,10 +124,10 @@ class AdminPublicBodyController < AdminController
     redirect_to admin_bodies_url
   end
 
-  def mass_tag_add
+  def mass_tag
     lookup_query
 
-    if params[:new_tag] and params[:new_tag] != ""
+    if params[:tag] and params[:tag] != ""
       if params[:table_name] == 'exact'
         bodies = @public_bodies_by_tag
       elsif params[:table_name] == 'substring'
@@ -135,10 +135,14 @@ class AdminPublicBodyController < AdminController
       else
         raise "Unknown table_name #{params[:table_name]}"
       end
-      for body in bodies
-        body.add_tag_if_not_already_present(params[:new_tag])
+
+      if request.post?
+        bodies.each { |body| body.add_tag_if_not_already_present(params[:tag]) }
+        flash[:notice] = 'Added tag to table of bodies.'
+      elsif request.delete?
+        bodies.each { |body| body.remove_tag(params[:tag]) }
+        flash[:notice] = 'Removed tag from table of bodies.'
       end
-      flash[:notice] = "Added tag to table of bodies."
     end
 
     redirect_to admin_bodies_url(:query => @query, :page => @page)

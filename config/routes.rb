@@ -489,7 +489,8 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :bodies,
     :controller => 'admin_public_body' do
-      post 'mass_tag_add', :on => :collection
+      post 'mass_tag', on: :collection
+      delete 'mass_tag', on: :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
       resources :censor_rules,
