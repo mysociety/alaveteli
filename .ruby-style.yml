@@ -1083,6 +1083,9 @@ Rails/DelegateAllowBlank:
 Rails/DeprecatedActiveModelErrorsMethods:
   Enabled: false
 
+Rails/DotSeparatedKeys:
+  Enabled: false
+
 Rails/DuplicateAssociation:
   Enabled: false
 
@@ -1269,6 +1272,9 @@ Rails/ReversibleMigrationMethodDefinition:
 Rails/RootJoinChain:
   Enabled: false
 
+Rails/RootPublicPath:
+  Enabled: false
+
 Rails/SafeNavigation:
   Enabled: false
 
@@ -1293,6 +1299,9 @@ Rails/SkipsModelValidations:
 Rails/SquishedSQLHeredocs:
   Enabled: false
 
+Rails/StripHeredoc:
+  Enabled: false
+
 Rails/TableNameAssignment:
   Enabled: false
 
@@ -1300,6 +1309,9 @@ Rails/TimeZone:
   Enabled: false
 
 Rails/TimeZoneAssignment:
+  Enabled: false
+
+Rails/ToFormattedS:
   Enabled: false
 
 Rails/TransactionExitStatement:
