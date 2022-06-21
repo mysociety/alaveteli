@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add drag and drop handles to admin category interface (Gareth Rees)
 * Add clarification request button to incoming message admin actions (Gareth
   Rees)
 * Show day of week in admin timeline (Gareth Rees)

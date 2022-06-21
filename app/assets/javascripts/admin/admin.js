@@ -2,10 +2,10 @@
   jQuery(function() {
     $('.locales a:first').tab('show');
     $('.accordion-body').on('hidden', function() {
-      return $(this).prev().find('i').first().removeClass().addClass('icon-chevron-right');
+      return $(this).prev().find('i.icon-chevron-down').first().removeClass().addClass('icon-chevron-right');
     });
     $('.accordion-body').on('shown', function() {
-      return $(this).prev().find('i').first().removeClass().addClass('icon-chevron-down');
+      return $(this).prev().find('i.icon-chevron-right').first().removeClass().addClass('icon-chevron-down');
     });
     $('.toggle-hidden').on('click', function() {
       $(this).parents('td').find('div:hidden').show();
