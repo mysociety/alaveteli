@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fixes some colour contrast accessibility issues (Lucas Cumsille Montesinos)
 * Clarify `foi_no` special tag usage in admin UI (Gareth Rees)
 * Add drag and drop handles to admin category interface (Gareth Rees)
 * Add clarification request button to incoming message admin actions (Gareth
