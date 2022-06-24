@@ -264,17 +264,10 @@ RSpec.describe AdminRequestController, "when administering requests" do
     context 'when hiding an external request' do
 
       before do
-        @info_request = mock_model(InfoRequest, :prominence= => nil,
-                                   :log_event => nil,
-                                   :set_described_state => nil,
-                                   :save! => nil,
-                                   :user => nil,
-                                   :user_name => 'External User',
-                                   :is_external? => true)
-        allow(@info_request).to receive(:expire)
-
+        @info_request = FactoryBot.create(:external_request)
         allow(InfoRequest).to receive(:find).with(@info_request.id).
           and_return(@info_request)
+
         @default_params = { :id => @info_request.id,
                             :explanation => 'Foo',
                             :reason => 'vexatious' }
@@ -292,9 +285,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
 
       it 'should set the request prominence to "requester_only"' do
-        expect(@info_request).to receive(:prominence=).with('requester_only')
-        expect(@info_request).to receive(:save!)
-        make_request
+        expect { make_request }.to change(@info_request, :prominence).
+          to('requester_only')
       end
 
       it 'should not send a notification email' do
