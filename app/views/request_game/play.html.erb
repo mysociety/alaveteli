@@ -19,12 +19,12 @@
       <tr>
         <td> <%= index += 1 %>. </td>
         <td> <%= user_link(classifications.user) %> </td>
-        <td>
-
-        <%= n_("{{number_of_requests}} request",
-               "{{number_of_requests}} requests",
-               classifications.cnt,
-               :number_of_requests => classifications.cnt) %> </td>
+        <%= tag.td class: { milestone: user_classification_milestone?(classifications.cnt) } do %>
+          <%= n_('{{number_of_requests}} request',
+                 '{{number_of_requests}} requests',
+                 classifications.cnt,
+                 number_of_requests: classifications.cnt) %>
+        <% end %>
       </tr>
     <% end %>
   </table>
@@ -35,10 +35,12 @@
       <tr>
         <td> <%= index += 1 %>. </td>
         <td> <%= user_link(classifications.user) %> </td>
-        <td> <%= n_("{{number_of_requests}} request",
-                    "{{number_of_requests}} requests",
-                    classifications.cnt,
-                    :number_of_requests => classifications.cnt) %> </td>
+        <%= tag.td class: { milestone: user_classification_milestone?(classifications.cnt) } do %>
+          <%= n_('{{number_of_requests}} request',
+                 '{{number_of_requests}} requests',
+                 classifications.cnt,
+                 number_of_requests: classifications.cnt) %>
+        <% end %>
       </tr>
     <% end %>
   </table>

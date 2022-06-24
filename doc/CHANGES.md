@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add simple classification game milestone celebration (Gareth Rees)
+
 ## Upgrade Notes
 
 ### Changed Templates
