@@ -43,11 +43,13 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       load_raw_emails_data
     end
 
+    let(:previous_info_request) { FactoryBot.build(:info_request) }
+    let(:incoming_message) do
+      FactoryBot.create(:incoming_message, info_request: previous_info_request)
+    end
+    let(:destination_info_request) { FactoryBot.create(:info_request) }
+
     it 'expires the file cache for the previous request' do
-      previous_info_request = FactoryBot.create(:info_request)
-      destination_info_request = info_requests(:naughty_chicken_request)
-      incoming_message = incoming_messages(:useless_incoming_message)
-      allow(incoming_message).to receive(:info_request).and_return(previous_info_request)
       allow(IncomingMessage).to receive(:find).and_return(incoming_message)
       expect(previous_info_request).to receive(:expire)
       post :redeliver, params: {
@@ -59,9 +61,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     it 'should succeed, even if a duplicate xapian indexing job is created' do
 
       with_duplicate_xapian_job_creation do
-        current_info_request = info_requests(:fancy_dog_request)
-        destination_info_request = info_requests(:naughty_chicken_request)
-        incoming_message = incoming_messages(:useless_incoming_message)
         post :redeliver, params: {
                            :id => incoming_message.id,
                            :url_title => destination_info_request.url_title
@@ -71,7 +70,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it 'shouldn\'t do anything if no message_id is supplied' do
-      incoming_message = FactoryBot.create(:incoming_message)
       post :redeliver, params: {
                          :id => incoming_message.id,
                          :url_title => ''
