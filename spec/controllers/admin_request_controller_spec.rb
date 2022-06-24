@@ -1,20 +1,20 @@
 require 'spec_helper'
 
 RSpec.describe AdminRequestController, "when administering requests" do
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
   describe 'GET #index' do
     let(:info_request) { FactoryBot.create(:info_request) }
-    let(:admin_user) { FactoryBot.create(:admin_user) }
-    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+    before { sign_in(admin_user) }
 
     it "is successful" do
-      sign_in admin_user
       get :index
       expect(response).to be_successful
     end
 
     it 'assigns all info requests to the view' do
-      sign_in admin_user
       get :index
       expect(assigns[:info_requests]).to match_array(InfoRequest.all)
     end
@@ -22,7 +22,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      sign_in admin_user
       get :index
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
@@ -34,7 +33,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          sign_in admin_user
           get :index
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
@@ -59,7 +57,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'assigns info requests with titles matching the query to the view
           case insensitively' do
-        sign_in admin_user
         get :index, params: { :query => 'Cat' }
         expect(assigns[:info_requests].include?(dog_request)).to be false
         expect(assigns[:info_requests].include?(cat_request)).to be true
@@ -68,7 +65,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
       it 'does not include embargoed requests if the current user is an
           admin user' do
         cat_request.create_embargo
-        sign_in admin_user
         get :index, params: { :query => 'cat' }
         expect(assigns[:info_requests].include?(cat_request)).to be false
       end
@@ -78,7 +74,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
             admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            sign_in admin_user
             get :index, params: { :query => 'cat' }
             expect(assigns[:info_requests].include?(cat_request)).to be false
           end
@@ -102,19 +97,17 @@ RSpec.describe AdminRequestController, "when administering requests" do
   describe 'GET #show' do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:external_request) { FactoryBot.create(:external_request) }
-    let(:admin_user) { FactoryBot.create(:admin_user) }
-    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+    before { sign_in(admin_user) }
 
     render_views
 
     it "is successful" do
-      sign_in admin_user
       get :show, params: { :id => info_request }
       expect(response).to be_successful
     end
 
     it 'shows an external info request with no username' do
-      sign_in admin_user
       get :show, params: { :id => external_request }
       expect(response).to be_successful
     end
@@ -159,6 +152,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
   describe 'GET #edit' do
     let(:info_request) { FactoryBot.create(:info_request) }
 
+    before { sign_in(admin_user) }
+
     it "is successful" do
       get :edit, params: { :id => info_request }
       expect(response).to be_successful
@@ -168,6 +163,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
   describe 'PUT #update' do
     let(:info_request) { FactoryBot.create(:info_request) }
+
+    before { sign_in(admin_user) }
 
     it "saves edits to a request" do
       post :update, params: {
@@ -208,6 +205,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
   describe 'DELETE #destroy' do
     let(:info_request) { FactoryBot.create(:info_request) }
 
+    before { sign_in(admin_user) }
+
     it 'calls destroy on the info_request object' do
       allow(InfoRequest).to receive(:find).
         with(info_request.id).and_return(info_request)
@@ -233,6 +232,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
   describe 'POST #hide' do
     let(:info_request) { FactoryBot.create(:info_request) }
+
+    before { sign_in(admin_user) }
 
     it "hides requests and sends a notification email that it has done so" do
       post :hide, params: {

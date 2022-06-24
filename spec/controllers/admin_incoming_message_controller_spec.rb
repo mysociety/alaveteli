@@ -2,10 +2,13 @@ require 'spec_helper'
 
 RSpec.describe AdminIncomingMessageController, "when administering incoming messages" do
 
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
   describe 'when destroying an incoming message' do
 
     before(:each) do
-      basic_auth_login @request
+      sign_in(admin_user)
       load_raw_emails_data
     end
 
@@ -39,7 +42,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   describe 'when redelivering an incoming message' do
 
     before(:each) do
-      basic_auth_login @request
+      sign_in(admin_user)
       load_raw_emails_data
     end
 
@@ -87,6 +90,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   describe 'when editing an incoming message' do
 
     before do
+      sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message)
     end
 
@@ -105,6 +109,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   describe 'when updating an incoming message' do
 
     before do
+      sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message, :prominence => 'normal')
       @default_params = {:id => @incoming.id,
                          :incoming_message => {:prominence => 'hidden',
@@ -186,6 +191,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
                     :subject => "Best cheap w@tches!!1!",
                     :info_request => request) }
     let(:spam_ids) { [spam1.id, spam2.id] }
+
+    before { sign_in(admin_user) }
 
     context "the user confirms deletion" do
 

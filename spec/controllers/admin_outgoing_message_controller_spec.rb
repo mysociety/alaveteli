@@ -2,7 +2,12 @@ require 'spec_helper'
 
 RSpec.describe AdminOutgoingMessageController do
 
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
   describe 'GET #edit' do
+
+    before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
@@ -40,6 +45,8 @@ RSpec.describe AdminOutgoingMessageController do
   end
 
   describe 'DELETE #destroy' do
+
+    before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) do
@@ -135,6 +142,8 @@ RSpec.describe AdminOutgoingMessageController do
 
   describe 'PUT #update' do
 
+    before { sign_in(admin_user) }
+
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
     let(:default_params) do
@@ -225,6 +234,8 @@ RSpec.describe AdminOutgoingMessageController do
   end
 
   describe 'POST #resend' do
+    before { sign_in(admin_user) }
+
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
 
