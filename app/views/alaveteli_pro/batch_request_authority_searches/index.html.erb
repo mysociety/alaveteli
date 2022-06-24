@@ -82,6 +82,8 @@
         </div>
       </div>
       <div class="batch-builder__actions">
+        <%= batch_authority_count %>
+
         <%= form_tag new_alaveteli_pro_info_request_batch_path, method: :get do %>
           <%= hidden_field_tag :draft_id,
                                @draft_batch_request.id,
