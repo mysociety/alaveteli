@@ -19,6 +19,7 @@ RSpec.describe "public_body/show" do
     allow(@pb).to receive(:has_notes?).and_return(false)
     allow(@pb).to receive(:has_tag?).and_return(false)
     allow(@pb).to receive(:tag_string).and_return('')
+    allow(@pb).to receive(:legislation).and_return(Legislation.default)
     @xap = double(ActsAsXapian::Search, :matches_estimated => 2)
     allow(@xap).to receive(:results).and_return([
       { :model => mock_event },
@@ -67,6 +68,12 @@ RSpec.describe "public_body/show" do
     expect(response).to match "The search index is currently offline"
   end
 
+  it 'allows the user to make an FOI request' do
+    render
+    expect(rendered).
+      to have_content('Make a Freedom of Information request to this authority')
+  end
+
   context 'the public body is tagged as "foi_no"' do
 
     let(:public_body) { FactoryBot.build(:public_body, tag_string: 'foi_no') }
@@ -93,6 +100,13 @@ RSpec.describe "public_body/show" do
                         'about the environment from this authority')
     end
 
+    it 'allows the user to make an EIR request' do
+      assign(:public_body, public_body)
+      render
+      expect(rendered).
+        to have_content('Make an Environmental Information Regulations ' \
+                        'request to this authority')
+    end
   end
 
   context 'the public body is tagged as "eir_only" and "foi_no"' do
