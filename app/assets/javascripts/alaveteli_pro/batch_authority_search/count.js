@@ -34,6 +34,9 @@
     messageTemplateOne = $count.data('message-template-one');
     messageTemplateMany = $count.data('message-template-many');
 
+    // not count element present, escape before binding events
+    if (!$count.get(0)) { return }
+
     updateCount();
 
     $draft.on(DraftEvents.bodyAdded, updateCount);
