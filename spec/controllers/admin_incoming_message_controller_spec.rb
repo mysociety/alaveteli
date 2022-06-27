@@ -2,10 +2,13 @@ require 'spec_helper'
 
 RSpec.describe AdminIncomingMessageController, "when administering incoming messages" do
 
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
   describe 'when destroying an incoming message' do
 
     before(:each) do
-      basic_auth_login @request
+      sign_in(admin_user)
       load_raw_emails_data
     end
 
@@ -34,20 +37,44 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       post :destroy, params: { :id => @im.id }
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        @im.info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :destroy, params: { id: @im }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'rediects to request admin' do
+          post :destroy, params: { id: @im }
+          expect(response).to redirect_to admin_request_url(@im.info_request)
+        end
+      end
+    end
   end
 
   describe 'when redelivering an incoming message' do
 
     before(:each) do
-      basic_auth_login @request
+      sign_in(admin_user)
       load_raw_emails_data
     end
 
+    let(:previous_info_request) { FactoryBot.build(:info_request) }
+    let(:incoming_message) do
+      FactoryBot.create(:incoming_message, info_request: previous_info_request)
+    end
+    let(:destination_info_request) { FactoryBot.create(:info_request) }
+
     it 'expires the file cache for the previous request' do
-      previous_info_request = FactoryBot.create(:info_request)
-      destination_info_request = info_requests(:naughty_chicken_request)
-      incoming_message = incoming_messages(:useless_incoming_message)
-      allow(incoming_message).to receive(:info_request).and_return(previous_info_request)
       allow(IncomingMessage).to receive(:find).and_return(incoming_message)
       expect(previous_info_request).to receive(:expire)
       post :redeliver, params: {
@@ -59,9 +86,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     it 'should succeed, even if a duplicate xapian indexing job is created' do
 
       with_duplicate_xapian_job_creation do
-        current_info_request = info_requests(:fancy_dog_request)
-        destination_info_request = info_requests(:naughty_chicken_request)
-        incoming_message = incoming_messages(:useless_incoming_message)
         post :redeliver, params: {
                            :id => incoming_message.id,
                            :url_title => destination_info_request.url_title
@@ -71,7 +95,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it 'shouldn\'t do anything if no message_id is supplied' do
-      incoming_message = FactoryBot.create(:incoming_message)
       post :redeliver, params: {
                          :id => incoming_message.id,
                          :url_title => ''
@@ -83,12 +106,41 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       expect(response).to redirect_to admin_request_url(incoming_message.info_request)
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        incoming_message.info_request.create_embargo
+      end
 
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :redeliver, params: {
+              id: incoming_message,
+              url_title: destination_info_request.url_title
+            }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to destination request admin' do
+          post :redeliver, params: {
+            id: incoming_message,
+            url_title: destination_info_request.url_title
+          }
+          expect(response).to redirect_to \
+            admin_request_url(destination_info_request)
+        end
+      end
+    end
   end
 
   describe 'when editing an incoming message' do
 
     before do
+      sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message)
     end
 
@@ -102,11 +154,34 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       expect(assigns[:incoming_message]).to eq(@incoming)
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        @incoming.info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :edit, params: { id: @incoming }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :edit, params: { id: @incoming }
+          expect(response).to be_successful
+        end
+      end
+    end
   end
 
   describe 'when updating an incoming message' do
 
     before do
+      sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message, :prominence => 'normal')
       @default_params = {:id => @incoming.id,
                          :incoming_message => {:prominence => 'hidden',
@@ -175,6 +250,30 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       end
 
     end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        @incoming.info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            make_request
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          make_request
+          expect(response).to redirect_to \
+            admin_request_url(@incoming.info_request)
+        end
+      end
+    end
   end
 
   describe "when destroying multiple incoming messages" do
@@ -188,6 +287,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
                     :subject => "Best cheap w@tches!!1!",
                     :info_request => request) }
     let(:spam_ids) { [spam1.id, spam2.id] }
+
+    before { sign_in(admin_user) }
 
     context "the user confirms deletion" do
 
@@ -283,6 +384,33 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         expect(response).to redirect_to(admin_request_url(request))
       end
 
+    end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :bulk_destroy, params: {
+              request_id: request, ids: spam_ids.join(","), commit: 'Yes'
+            }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          post :bulk_destroy, params: {
+            request_id: request, ids: spam_ids.join(","), commit: 'Yes'
+          }
+          expect(response).to redirect_to admin_request_url(request)
+        end
+      end
     end
 
   end

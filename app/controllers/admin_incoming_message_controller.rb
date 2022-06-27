@@ -1,6 +1,7 @@
 class AdminIncomingMessageController < AdminController
 
   before_action :set_incoming_message, :only => [:edit, :update, :destroy, :redeliver]
+  before_action :set_info_request, :check_info_request
 
   def edit
   end
@@ -128,4 +129,15 @@ class AdminIncomingMessageController < AdminController
     @incoming_message = IncomingMessage.find(params[:id])
   end
 
+  def set_info_request
+    @info_request = @incoming_message&.info_request || InfoRequest.find(
+      params[:request_id]
+    )
+  end
+
+  def check_info_request
+    return if can? :admin, @info_request
+
+    raise ActiveRecord::RecordNotFound
+  end
 end
