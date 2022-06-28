@@ -2,20 +2,35 @@
 
 ## Highlighted Features
 
+* Improve admin authorisation for embargoed content (Laurent Savaete, Graeme
+  Porteous)
 * Fixes some colour contrast accessibility issues (Lucas Cumsille Montesinos)
 * Clarify `foi_no` special tag usage in admin UI (Gareth Rees)
+* Make law used clearer on authority page (Gareth Rees)
+* Add mass "delete tag" button for authorities in admin UI (Graeme Porteous)
 * Add drag and drop handles to admin category interface (Gareth Rees)
+* Improve spam notification messages with IP and country (Gareth Rees, Graeme
+  Porteous)
+* Remove Gaze support (Graeme Porteous)
+* GitHub Action permission (Naveen Srinivasan, Graeme Porteous)
 * Add clarification request button to incoming message admin actions (Gareth
   Rees)
 * Show day of week in admin timeline (Gareth Rees)
 * Improve admin CSV upload error prominence (Gareth Rees)
 * Show all applicable censor rules on admin request pages (Gareth Rees)
-* Track IP addresses associated with User signins if configured (Gareth Rees)
+* Track IP addresses associated with User sign ins if configured (Gareth Rees)
+* Improve authorities questions radio button styling (Lucas Cumsille Montesinos)
+* Add Xapian Job count health check (Graeme Porteous)
+* Add "revert log in as" feature for admins (Graeme Porteous)
+* Add admin user scopes tabs (Gareth Rees, Graeme Porteous)
 * Show citations on admin pages (Gareth Rees)
 * Show public body change request notes on body edit page (Gareth Rees)
 * Show public body change request notes in the admin summary (Gareth Rees)
 * Link to Public Body Change Request source URLs in admin interface (Gareth
   Rees)
+* Admin styles for page printing or saving as PDF (Lucas Cumsille Montesinos)
+* Add support `ActiveStorage` for attachments (Graeme Porteous)
+* Block sign ups from restricted countries (Gareth Rees)
 * Improve comment metadata on comment edit page (Gareth Rees)
 * Improve comment metadata on comment listings (Gareth Rees)
 * Add extra common one-click user ban reasons (Gareth Rees)
@@ -23,25 +38,38 @@
 * Show who made each edit on public body admin pages (Gareth Rees)
 * Cap number of annotations a user can make in a day (Gareth Rees)
 * Add "select all" button for annotations on admin pages (Gareth Rees)
+* Fix rendering of refusal advice overflow (Lucas Cumsille Montesinos)
 * Add support `ActiveStorage` for raw emails (Graeme Porteous)
 * Add canned censor rule replacement reasons (Gareth Rees)
 * Localise stripping of salutations (Gareth Rees)
 * Ensure comments are reindexed after a bulk visibility change (Gareth Rees)
-* Upgrade to Rails 6.1 (Graeme Porteous)
 * Reduce attractiveness of Alaveteli to spammers by only showing user "about me"
   profile text to logged in users, or when the user has been manually marked as
   genuine (Gareth Rees)
-* Add `/tor` path for redirecting signups from Tor at the webserver level
+* Add `/tor` path for redirecting sign ups from Tor at the webserver level
   (Gareth Rees)
 * Add donate link to request page sidebar (Lucas Cumsille Montesinos, Gareth
   Rees)
+* Upgrade to Rails 6.1 (Graeme Porteous)
+* Preparation for Rails 7.0 upgrade (Graeme Porteous)
 * Drop support for Ruby 2.5 (Graeme Porteous)
 * Drop support for Ruby 2.6 (Graeme Porteous)
 * Drop support for Debian 9 Stretch (Graeme Porteous)
 * Drop support for Debian 10 Buster (Graeme Porteous)
 * Drop support for Ubuntu 18.04 Bionic (Graeme Porteous)
+* Continued code refactoring and improvements (Gareth Rees, Graeme Porteous)
+* Dependencies upgrades (Graeme Porteous)
 
-## Update Notes
+## Highlighted Pro Features
+
+* Add batch authority count (Graeme Porteous)
+* Improve batch duplication detection (Graeme Porteous)
+* Add batch category UI improvements (Graeme Porteous)
+* Add batch category performance improvements (Graeme Porteous)
+* Add feature groups to grant access to multiple features based on user roles
+  (Graeme Porteous)
+
+## Upgrade Notes
 
 * **IMPORTANT! We no longer support PostgreSQL 9.6**. Please upgrade to at least
   version 13.5 before upgrading Alaveteli.
@@ -54,8 +82,8 @@
 * Run `bin/rails temp:populate_incoming_message_from_email` to cache incoming
   from email addresses, this will improve performance by saving unnecessary
   loading the raw emails files.
-* This release is the last to support the old raw emails file store. Please
-  switch to `ActiveStorage` now by:
+* This release is the last to support the old raw emails and attachment file
+  stores. Please switch to `ActiveStorage` now by:
   1. creating `config/storage.yml` from `config/storage.yml-example`. By
      default this will use an on disk store as previously, but also adds the
      option to use a cloud backed storage providers.
@@ -67,6 +95,66 @@
 * Set `USER_SIGN_IN_ACTIVITY_RETENTION_DAYS` to a value greater than 0 to record
   IP addresses of user sign ins. There's an associated `config/crontab-example`
   update to purge records outside of the retention period.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/_show.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_comment/index.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/_change_request_summary.html.erb
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_general/stats.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_incoming_message/_intro.html.erb
+    app/views/admin_incoming_message/bulk_destroy.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_public_body/_one_list.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_public_body/import_csv.html.erb
+    app/views/admin_public_body/index.html.erb
+    app/views/admin_public_body/missing_scheme.html.erb
+    app/views/admin_public_body/new.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_public_body_categories/_category_list_item.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/_heading_list.html.erb
+    app/views/admin_public_body_headings/_form.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/_some_annotations.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_track/_some_tracks.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/banned.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_browse.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_public_bodies.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/index.html.erb
+    app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_form.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_incoming_correspondence.text.erb
+    app/views/request/_outgoing_correspondence.text.erb
+    app/views/request/new.html.erb
+    app/views/request/show.text.erb
+    app/views/track/atom_feed.atom.erb
+    app/views/track_mailer/event_digest.text.erb
+    app/views/user/_show_user_info.html.erb
 
 # 0.40.1.1
 
