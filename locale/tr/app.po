@@ -26,6 +26,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -40,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Senol Kaya <kayasenolk@gmail.com>, 2018\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/"
@@ -305,6 +306,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Açıklık getirilmesi</strong>istendi"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -541,9 +545,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "Aradığım kurumu bulamıyorum"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "İki aşamalı doğrulamayı devreden çıkarmak istediğinize emin misiniz?"
 
@@ -616,6 +617,15 @@ msgid "Awaiting response."
 msgstr "Cevap bekleniyor"
 
 msgid "Back to content"
+msgstr ""
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
 msgstr ""
 
 msgid "Banned from this site"
@@ -1616,11 +1626,17 @@ msgstr "Bu kurumlara bilgi edinme başvurusu yapın"
 msgid "Make a request to this authority"
 msgstr "Bu kuruma bilgi edinme başvurusu yapın"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Bir  {{law_used_short}} başvurusu yapın"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "'{{public_body_name}}' adlı kuruma bir  {{law_used_short}} başvurusu  yapın"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Bilgi Edinme Başvurusu yapın ve yapılmış olan başvuruları inceleyin"
@@ -2530,6 +2546,9 @@ msgstr "Hesabınızdan çıkış yapın"
 msgid "Sign up"
 msgstr "Hesap oluşturun"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Basit arama"
 
@@ -2580,6 +2599,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Özür dileriz, bu sayfa bulunamadı"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2832,6 +2854,12 @@ msgstr "En son kullanıcı son bir günde oluşturuldu"
 msgid "The last user was created over a day ago"
 msgstr "En son kullanıcı oluşturulalı bir günden fazla oldu"
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Böyle bir sayfa yok. Şunları deneyebilirsiniz:"
 
@@ -2997,6 +3025,9 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "{{law_used_short}} başvurunuza  {{count}} yeni not eklendi. Notta ne yazıldığını görmek için bu bağlantıyı takip edin. "
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3346,6 +3377,9 @@ msgstr "Nereye:"
 msgid "Today"
 msgstr "Bugün"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Çok fazla sayıda başvuru"
 
@@ -3654,6 +3688,9 @@ msgstr "Şimdi ne olacak?"
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3824,6 +3861,9 @@ msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Bir bug buldunuz.  Lütfen <a href=\"{{contact_url}}\">bizimle iletişime geçip</a> bu sorunu anlatın."
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Yeni başvurulara uygulanan sınıra eriştiniz. Kullancılar normal koşullarda 24 saatlik bir süre zarfında en çok {{max_requests_per_user_per_day}} başvuru yapabilir.   {{can_make_another_request}} sonra yeni bir başvuru yapabilirsiniz. "
@@ -4124,7 +4164,22 @@ msgstr "[Bilgi Edinme Başvuruları  #{{request}} email]"
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
+msgstr ""
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
 msgstr ""
 
 msgid "[{{public_body}} request email]"

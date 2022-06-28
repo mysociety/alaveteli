@@ -26,6 +26,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
@@ -34,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>, 2020-2021\n"
+"Last-Translator: Ölvir Gíslason <olvirg@gmail.com>, 2016\n"
 "Language-Team: Icelandic (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/is/)\n"
 "MIME-Version: 1.0\n"
@@ -294,6 +295,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Útskýringar</strong> hefur verið óskað"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -540,9 +544,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "Vantar stjórnvald?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Ertu viss um að þú viljir slökkva á tvíþættri sannvottun?"
 
@@ -616,6 +617,15 @@ msgstr "Bíður eftir svari."
 
 msgid "Back to content"
 msgstr "Aftur í efni"
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
+msgstr ""
 
 msgid "Banned from this site"
 msgstr "Í banni á þessum vef"
@@ -1613,11 +1623,17 @@ msgstr "Senda upplýsingabeiðnir á þessi stjórnvöld"
 msgid "Make a request to this authority"
 msgstr "Senda upplýsingabeiðni á þetta stjórnvald"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Senda beiðni varðandi {{law_used_short}}"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Senda beiðni varðandi {{law_used_short}} til '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Senda og skoða upplýsingabeiðnir"
@@ -2525,6 +2541,9 @@ msgstr "Útskrá"
 msgid "Sign up"
 msgstr "Nýskrá"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Einföld leit"
 
@@ -2576,6 +2595,9 @@ msgstr "Afsakið en við gátum ekki fundið umbeðna síðu"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
 msgstr "Því miður getum við ekki bætt við athugasemd þinni núna. Reyndu aftur síðar."
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Því miður getum við ekki send beiðnina þína núna. Reyndu aftur síðar."
@@ -2825,6 +2847,12 @@ msgstr "Síðasti notandi var stofnaður á síðasta sólarhring"
 msgid "The last user was created over a day ago"
 msgstr "Nýjasti notandinn var stofnaður fyrir meira en degi síðan"
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Síðan er ekki til. Þú getur reynt þetta:"
 
@@ -2996,6 +3024,9 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "Það eru {{count}} nýjar athugasemdir við beiðnina {{law_used_short}}. Fylgdu þessum tengli til að sjá hvað var skrifað."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3328,6 +3359,9 @@ msgstr "Til:"
 msgid "Today"
 msgstr "Í dag"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Of margar beiðnir"
 
@@ -3631,6 +3665,9 @@ msgstr "Hvað næst?"
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr "Það sem hefur gerst:"
 
@@ -3801,6 +3838,9 @@ msgstr "Þú hefur fengið svar við {{law_used_full}} '{{request_title}}' sem �
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Þú hefur fundið villu. <a href=\"{{contact_url}}\">Hafðu samband</a> við okkur og segðu frá vandamálinu"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Þú hefur náð hámarksfjölda nýrra beiðna. Takmarkið fyrir notendur er yfirleitt {{max_requests_per_user_per_day}} beiðnir á hverjum sólarhring. Þú getur lagt fram nýja beiðni eftir {{can_make_another_request}}."
@@ -4092,8 +4132,23 @@ msgstr "[Upplýsingabeiðni #{{request}} tölvupóstur]"
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[FJARLÆGT]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}} tölvupóstur um beiðni]"

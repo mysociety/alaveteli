@@ -26,6 +26,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 2b81488fecf64b01474cdd73adee6da4_f428fa4 <168fddc5dd8708c6cc0c28446af80acb_220254>, 2017
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
@@ -51,7 +52,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: pere <pere-transifex@hungry.com>, 2013,2015\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/mysociety/alaveteli/"
@@ -321,6 +322,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Klargjøring</strong> har blitt forespurt"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -567,9 +571,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "Skal vi legge til flere myndigheter?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Er du sikker på at du vil skru av to-faktor autentisering?"
 
@@ -643,6 +644,15 @@ msgstr "Venter på svar."
 
 msgid "Back to content"
 msgstr "Tilbake til innhold"
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
+msgstr ""
 
 msgid "Banned from this site"
 msgstr "Utestengt fra nettstedet"
@@ -1659,11 +1669,17 @@ msgstr "Lag en henvendelse til disse myndighetene"
 msgid "Make a request to this authority"
 msgstr "Lag en henvendelse til denne myndigheten"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Lag en {{law_used_short}}-henvendelse"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Lag en {{law_used_short}} henvendelse til '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Lag og bla igjennom innsynshenvendelser"
@@ -2582,6 +2598,9 @@ msgstr "Logg ut"
 msgid "Sign up"
 msgstr "Lag konto"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Enkelt søk"
 
@@ -2634,6 +2653,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Beklager, vi fant ikke den siden"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2890,6 +2912,12 @@ msgstr "Den siste brukeren ble laget i løpet av dagen"
 msgid "The last user was created over a day ago"
 msgstr "Den siste brukeren ble laget for mer enn en dag siden"
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Siden finnes ikke. Det du kan forsøke nå:"
 
@@ -3062,6 +3090,9 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "Det er {{count}} nye merknader på din henvendelse {{law_used_short}}. Følg denne lenken for å se hva de har skrevet."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3406,6 +3437,9 @@ msgstr "Til:"
 msgid "Today"
 msgstr "Idag"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "For mange henvendelser"
 
@@ -3720,6 +3754,9 @@ msgstr "Hva er det neste?"
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3892,6 +3929,9 @@ msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Du har funnet en feil.  Vennligst <a href=\"{{contact_url}}\">kontakt oss</a> for å fortelle oss om problemet"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Du har truffet grensen for antall nye henvendelser. Brukere er ordinært begrenset til {{max_requests_per_user_per_day}} henvendelser i en 24-timers periode. Du kan gjøre en ny henvendelse {{can_make_another_request}}."
@@ -4197,8 +4237,23 @@ msgstr "[Innsyns-e-postadresse #{{request}}]"
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[SLADDET]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}} henvendelses-e-postadresse]"

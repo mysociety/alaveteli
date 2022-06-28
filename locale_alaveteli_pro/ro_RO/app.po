@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:12+0000\n"
+"POT-Creation-Date: 2022-06-28 18:01+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Language-Team: Romanian (Romania) (https://www.transifex.com/mysociety/teams/3"
 "3529/ro_RO/)\n"
@@ -111,6 +111,9 @@ msgid "<strong>Reasonable</strong> We know that researchers can be on a limited 
 msgstr ""
 
 msgid "<strong>Thank</strong> the public authority."
+msgstr ""
+
+msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
 msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
@@ -288,6 +291,9 @@ msgid "Card details"
 msgstr ""
 
 msgid "Change privacy"
+msgstr ""
+
+msgid "Change privacy or <strong>publish now</strong>"
 msgstr ""
 
 msgid "Change status"
@@ -689,6 +695,9 @@ msgstr ""
 msgid "Please include links to some examples of your journalism or blogging if you can."
 msgstr ""
 
+msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+msgstr ""
+
 msgid "Please tell us if you want to get updates"
 msgstr ""
 
@@ -888,6 +897,9 @@ msgid "Send message"
 msgstr ""
 
 msgid "Send request"
+msgstr ""
+
+msgid "Send this batch anyway?"
 msgstr ""
 
 msgid "Send {{count}} requests"
@@ -1206,6 +1218,9 @@ msgstr ""
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr ""
 
+msgid "You can view the <a href=\"{{existing_batch_url}}\">existing batch</a>, <a href=\"{{edit_batch_url}}\">edit your request</a>, or ignore this warning by confirming you want to proceed anyway."
+msgstr ""
+
 msgid "You don't currently have a Pro subscription"
 msgstr ""
 
@@ -1355,6 +1370,11 @@ msgstr ""
 
 msgid "{{count}} Pending"
 msgstr ""
+
+msgid "{{count}} of {{limit}} authorities"
+msgid_plural "{{count}} of {{limit}} authorities"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"

@@ -26,6 +26,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Cymrodor <aled@aledpowell.cymru>, 2014,2017
 # Cymrodor <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
@@ -49,7 +50,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: PerryX <wyeboy@gmail.com>, 2013\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy"
@@ -299,6 +300,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "Ceisiwyd <strong>eglurhad</strong>"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -527,9 +531,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "A oes awdurdod cyhoeddus ar goll gennym?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Ydych yn siŵr eich bod am analluogi dilysiad dwy ffactor?"
 
@@ -601,6 +602,15 @@ msgstr "Yn aros am ymateb."
 
 msgid "Back to content"
 msgstr "Nôl i'r cynnwys"
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
+msgstr ""
 
 msgid "Banned from this site"
 msgstr "Wedi ei wahardd o'r safle hwn"
@@ -1587,11 +1597,17 @@ msgstr "Gwneud cais i'r awdurdodau hyn"
 msgid "Make a request to this authority"
 msgstr "Gwnewch cais i'r awdurdod hwn"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Gwneud cais {{law_used_short}}"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Gwnewch gais {{law_used_short}} i '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Gwneud a phori ceisiadau Rhyddid Gwybodaeth"
@@ -2496,6 +2512,9 @@ msgstr "Allgofnodwch"
 msgid "Sign up"
 msgstr "Cofrestrwch"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Chwiliad syml"
 
@@ -2542,6 +2561,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Mae'n ddrwg gennym, ni allem ddod o hyd i'r dudalen honno"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2790,6 +2812,12 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Nid yw'r dudalen yn bodoli. Pethau y gallwch roi cynnig arnynt yn awr:"
 
@@ -2953,6 +2981,9 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "Mae {{count}} anodiad newydd ar eich cais {{law_used_short}}. Dilynwch y ddolen hon i weld beth ysgrifennwyd."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3285,6 +3316,9 @@ msgstr "I:"
 msgid "Today"
 msgstr "Heddiw"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Gormod o geisiadau"
 
@@ -3583,6 +3617,9 @@ msgstr "Beth nesaf?"
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3753,6 +3790,9 @@ msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Rydych wedi dod o hyd i fyg. <a href=\"{{contact_url}}\">Cysylltwch  â ni </a> i ddweud wrthym am y broblem"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Rydych chi wedi cyrraedd y terfyn cyfradd ar geisiadau newydd. Fel arfer cyfyngir defnyddwyr i {{max_requests_per_user_per_day}}  cais mewn unrhyw gyfnod treigl 24-awr. Byddwch yn gallu gwneud cais arall ymhen {{ can_make_another_request}}."
@@ -4042,8 +4082,23 @@ msgstr "[Cais Rhyddid Gwybodaeth e-bost #{{request}} ]"
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[WEDI EI DILEU]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr "[E-bost cais {{public_body}}]"

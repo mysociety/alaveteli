@@ -26,8 +26,10 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
+# Dohány Tamás, 2021-2022
 # Dohány Tamás, 2022
 # Orsolya Batta <orsibatta@gmail.com>, 2013
 # Graeme Porteous <graeme@mysociety.org>, 2022
@@ -41,9 +43,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Dohány Tamás, 2022\n"
+"Last-Translator: Dohány Tamás, 2021-2022\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alavete"
 "li/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -310,6 +312,9 @@ msgstr "<strong>Elutasításban részesülsz?</strong> Van itt néhány tipp, am
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Pontosítást</strong> kértek "
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>Újságíró? Akadémikus? Vagy talán profi felhasználó?</strong>A {{pro_site_link}}  egy integrált FOI eszköz, ideértve mindent, amit szükséges fenntartanod egy komplex FOI vezérelt kutatáshoz."
 
@@ -548,9 +553,6 @@ msgstr "Bárki - a hivatkozás birtokában - meg tudja tekinteni ezt a kérést.
 msgid "Are we missing a public authority?"
 msgstr "Are we missing a public authority?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr "A saját vagy mások személyes adataira vagy személyes helyzetére kérdez rá?"
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Biztosan letiltja a két faktoros hitelesítést?"
 
@@ -624,6 +626,15 @@ msgstr "Válaszra vár"
 
 msgid "Back to content"
 msgstr "Vissza a tartalomhoz"
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
+msgstr ""
 
 msgid "Banned from this site"
 msgstr "Kitiltva az oldalról"
@@ -1655,11 +1666,17 @@ msgstr "Kérés létrehozása ezeknek a hatóságoknak"
 msgid "Make a request to this authority"
 msgstr "Kérés létrehozása ennek a hatóságnak"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Készít egy {{law_used_short}} kérést"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "{{law_used_short}} igénylés létrehozása a(z) '{{public_body_name}}' részére "
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Közérdekűadat-igénylések létrehozása és böngészése "
@@ -2578,6 +2595,9 @@ msgstr "Kijelentkezés"
 msgid "Sign up"
 msgstr "Regisztráció"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Egyszerű keresés "
 
@@ -2631,6 +2651,9 @@ msgstr "Nem található az oldal "
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
 msgstr "Sajnáljuk, jelenleg nem tudjuk hozzáadni a kommentjét. Kérlek, próbáld újra később."
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Sajnáljuk, jelenleg nem tudjuk elküldeni kérését. Kérlek, próbáld újra később."
@@ -2888,6 +2911,12 @@ msgstr "Az utolsó felhasználó az utolsó napon jött létre"
 msgid "The last user was created over a day ago"
 msgstr "Az utolsó felhasználó több mint egy napja jött létre"
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Az oldal nem létezik. Amit megpróbálhat: "
 
@@ -3061,6 +3090,9 @@ msgstr "{{count}} új hozzászólás érkezett a(z) {{law_used_short}} igénylé
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
 msgstr "<strong>Egynél több személy</strong> használja ezt az oldalt és rendelkezik ezzel a névvel. Más felhasználók keresése \"{{search_user_link}}\""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Ennek a korlátozásnak az az oka hogy nem szeretnénk ha nagy mennyiségű inadekvát adatigényléssel árasztaná el az adatgazdákat valaki. Ha úgy érzi hogy nyomós oka van ennél több adatigénylést kezdeményezni rövid időn belül, kérjük, <a href='{{help_contact_path}}'>lépjen kapcsolatba</a> velünk."
@@ -3412,6 +3444,9 @@ msgstr "Címzett: "
 msgid "Today"
 msgstr "Ma "
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Túl sok igénylés"
 
@@ -3724,6 +3759,9 @@ msgstr "Mi a következő?"
 msgid "What type of article is it?"
 msgstr "Milyen típusú cikkről van szó?"
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr "Mi történt:"
 
@@ -3900,6 +3938,9 @@ msgstr "Új válasz érkezett a {{law_used_full}} „{{request_title}}” kéré
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Hibát talált. Kérjük, <a href=\"{{contact_url}}\">lépjen velünk kapcsolatba</a>, és tájékoztasson bennünket a problémáról "
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Felhasználóink 24 órán belül legfeljebb {{max_requests_per_user_per_day}} új adatigénylést kezdeményezhetnek. Ön elérte ezt a számot, ezért a következő adatigénylését legkorábban kb. {{can_make_another_request}} óra múlva küldheti el."
@@ -4207,8 +4248,23 @@ msgstr "[FOI #{{request}} e-mail]"
 msgid "[Name Removed]"
 msgstr "[Név eltávolítva]"
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[MEGOLDVA]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}} kérő e-mail]"

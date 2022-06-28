@@ -26,6 +26,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Aleksandar Krstić <krsta1987@gmail.com>, 2015
 # Goran Rakic <grakic@devbase.net>, 2013
 # Goran Vučković <vucko@acm.org>, 2013
@@ -42,7 +43,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Goran Vučković <vucko@acm.org>, 2013\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/mysociety/alaveteli/l"
@@ -314,6 +315,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Objašnjenje</strong> je zatraženo"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -563,9 +567,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "Da li nam nedostaje neka ustanova?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr ""
 
@@ -638,6 +639,15 @@ msgid "Awaiting response."
 msgstr "Čeka odgovor."
 
 msgid "Back to content"
+msgstr ""
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
 msgstr ""
 
 msgid "Banned from this site"
@@ -1673,11 +1683,17 @@ msgstr ""
 msgid "Make a request to this authority"
 msgstr "Podnesite zahtev ovoj instituciji"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Podnesi {{law_used_short}} zahtev javnoj ustanovi '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Podnesi ili pretražuj zahteve po Zakonu o slobodnom pristupu informacijama od javnog značaja (ZOSPIOJ)"
@@ -2596,6 +2612,9 @@ msgstr "Odjavite se"
 msgid "Sign up"
 msgstr "Registrujte se"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Jednostavna pretraga"
 
@@ -2648,6 +2667,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Žalimo, nismo mogli pronaći tu stranicu"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2907,6 +2929,12 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Stranica ne postoji. Stvari koje sada možete probati:"
 
@@ -3079,6 +3107,9 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "Postoje {{count}} nove napomene na Vašem {{law_used_short}} zahtevu. Pratite ovaj link da pogledate šta je napisano."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3432,6 +3463,9 @@ msgstr "Za:"
 msgid "Today"
 msgstr "Danas"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Previše zahteva"
 
@@ -3747,6 +3781,9 @@ msgstr ""
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3921,6 +3958,9 @@ msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Pronašli ste programsku grešku.  Molimo <a href=\"{{contact_url}}\">kontaktirajte nas</a> da nam objasnite šta je izazvalo problem"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Dostigli ste limit broja unetih zahteva dnevno. Uobičajeni limit za korisnike sistema je {{max_requests_per_user_per_day}} podnetih zahteva u periodu od 24h. Novi zahtev ćete moći podneti {{can_make_another_request}}."
@@ -4233,7 +4273,22 @@ msgstr "[E-mail za zahtev #{{request}}]"
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
+msgstr ""
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
 msgstr ""
 
 msgid "[{{public_body}} request email]"
