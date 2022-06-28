@@ -169,10 +169,6 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.36', require: false
-gem 'activestorage-sftp', git: 'https://github.com/treenewbee/activestorage-sftp.git',
-                          ref: '679fbe1'
-gem 'ed25519'
-gem 'bcrypt_pbkdf'
 
 if rails_upgrade? && RUBY_VERSION < '3.1'
   gem 'net-http', '0.1.1'
