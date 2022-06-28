@@ -4,13 +4,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Catia Guerreiro <CatiaGuerreiro1980@hotmail.com>, 2019
-# 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
-# Pascal Romain <aka.keronos@gmail.com>, 2020
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2021
 # Laurent S, 2021
 # Eda <eda@mutu.net>, 2022
+# Catia Guerreiro <CatiaGuerreiro1980@hotmail.com>, 2022
+# 1bb8f5eb4bc72723d4109decfd20c765, 2022
+# Pascal Romain <aka.keronos@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
@@ -18,14 +18,15 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:12+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Eda <eda@mutu.net>, 2022\n"
+"Last-Translator: Pascal Romain <aka.keronos@gmail.com>, 2022\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 100000"
+"0 == 0 ? 1 : 2;\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr "<strong>Résumez</strong> le contenu de toute information renvoyée."
@@ -40,6 +41,7 @@ msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
 msgstr[0] "(incluant [[count]] anciens souscripteurs)"
 msgstr[1] "(incluant {{count}} anciens souscripteurs)"
+msgstr[2] "(incluant {{count}} anciens souscripteurs)"
 
 msgid "(no title)"
 msgstr "(sans titre)"
@@ -785,6 +787,7 @@ msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] "Publiez cette demande ou gardez-la privée pour longtemps."
 msgstr[1] "Publiez ces demandes ou gardez-les privées pour longtemps."
+msgstr[2] "Publiez ces demandes ou gardez-les privées pour longtemps."
 
 msgid "Read blog"
 msgstr "Blog"
@@ -820,6 +823,7 @@ msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
 msgstr[0] "Demander une reconsidération (ou envoyer un autre message de suivi)."
 msgstr[1] "Demander des recours (ou envoyer d'autres messages de suivi)."
+msgstr[2] "Demander des recours (ou envoyer d'autres messages de suivi)."
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Effectuer un recours auprès de {{person_or_body}}"
@@ -891,6 +895,7 @@ msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
 msgstr[0] "Envoyer un message de suivi (ou demander une reconsidération)."
 msgstr[1] "Envoyer des messages de suivi (ou effectuer un recours)."
+msgstr[2] "Envoyer des messages de suivi (ou effectuer un recours)."
 
 msgid "Send a follow up message to {{person_or_body}}"
 msgstr "Envoyer un message de suivi à {{person_or_body}}"
@@ -911,6 +916,7 @@ msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
 msgstr[0] "Envoyer {{count}} demande"
 msgstr[1] "Envoyer {{count}} demandes"
+msgstr[2] "Envoyer {{count}} demandes"
 
 msgid "Sending to multiple authorities at once?"
 msgstr "Transmettre à plusieurs autorités publiques d'un coup ?"
@@ -931,6 +937,7 @@ msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
 msgstr[0] "Montrer les détails de {{count}} demande"
 msgstr[1] "Montrer les détails de {{count}} demandes"
+msgstr[2] "Montrer les détails de {{count}} demandes"
 
 msgid "Sign up"
 msgstr "Inscrivez-vous"
@@ -1014,11 +1021,13 @@ msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
 msgstr[0] "La demande suivante a été publiée sur {{site_name}} cette semaine. "
 msgstr[1] "Les demandes suivantes ont été publiées sur {{site_name}} cette semaine. "
+msgstr[2] "Les demandes suivantes ont été publiées sur {{site_name}} cette semaine. "
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] "La demande suivante sera rendue publique sur {{site_name}} la semaine prochaine. Si vous ne voulez pas que cette demande soit rendue publique à ce moment, merci de cliquer sur le lien ci-dessous pour la garder confidentielle plus longtemps."
 msgstr[1] "Les demandes suivantes seront rendues publiques sur {{site_name}} la semaine prochaine. Si vous ne souhaitez qu'aucunes de ces demandes ne soient rendues publiques, merci de cliquer sur le lien ci-dessous pour les garder confidentielles plus longtemps."
+msgstr[2] "Les demandes suivantes seront rendues publiques sur {{site_name}} la semaine prochaine. Si vous ne souhaitez qu'aucunes de ces demandes ne soient rendues publiques, merci de cliquer sur le lien ci-dessous pour les garder confidentielles plus longtemps."
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
 msgstr "Le projet ‘Data Scores as Governance’ a utilisé les fonctionnalités avancées d'Alaveteli Pro pour examiner <a href=\"{{story_url}}\">l'utilisation de notations sociales basées sur des données dans le but de catégoriser les citoyen.nes.s</a>, de leur allouer des services et d'anticiper leurs comportements."
@@ -1129,6 +1138,7 @@ msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Mettre à jour son statut"
 msgstr[1] "Mettre à jour les statuts"
+msgstr[2] "Mettre à jour les statuts"
 
 msgid "Updated"
 msgstr "Mis à jour"
@@ -1377,41 +1387,49 @@ msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
 msgstr[0] "{{count}} destinataire, <a href=\"{{url}}\">montrez</a>"
 msgstr[1] "{{count}} destinataires, <a href=\"{{url}}\">montrez-les tous</a>"
+msgstr[2] "{{count}} destinataires, <a href=\"{{url}}\">montrez-les tous</a>"
 
 msgid "{{count}} recipient, {{first_public_body}}"
 msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
 msgstr[0] "{{count}} destinataire, {{first_public_body}}"
 msgstr[1] "{{count}} destinataires, comprenant {{first_public_body}} et {{second_public_body}}"
+msgstr[2] "{{count}} destinataires, comprenant {{first_public_body}} et {{second_public_body}}"
 
 msgid "{{count}} reply"
 msgid_plural "{{count}} replies"
 msgstr[0] "{{count}} réponse"
 msgstr[1] "{{count}} réponses"
+msgstr[2] "{{count}} réponses"
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
 msgstr[0] "{{count}} demande a reçu une réponse."
 msgstr[1] "{{count}} demandes ont reçu une réponse."
+msgstr[2] "{{count}} demandes ont reçu une réponse."
 
 msgid "{{count}} request is delayed."
 msgid_plural "{{count}} requests are delayed."
 msgstr[0] "{{count}} demande est en retard."
 msgstr[1] "{{count}} demandes sont en retard."
+msgstr[2] "{{count}} demandes sont en retard."
 
 msgid "{{count}} request is long overdue."
 msgid_plural "{{count}} requests are long overdue."
 msgstr[0] "{{count}} demande est très en retard."
 msgstr[1] "{{count}} demandes sont très en retard."
+msgstr[2] "{{count}} demandes sont très en retard."
 
 msgid "{{count}} request made"
 msgid_plural "{{count}} requests made"
 msgstr[0] "{{count}} demande effectuée"
 msgstr[1] "{{count}} demandes effectuées"
+msgstr[2] "{{count}} demandes effectuées"
 
 msgid "{{count}} request will be made public this week."
 msgid_plural "{{count}} requests will be made public this week."
 msgstr[0] "{{count}} demande sera rendue publique cette semaine."
 msgstr[1] "{{count}} demandes seront rendues publiques cette semaine."
+msgstr[2] "{{count}} demandes seront rendues publiques cette semaine."
 
 msgid "{{count}} {{phase}}"
 msgstr "{{count}} {{phase}}"

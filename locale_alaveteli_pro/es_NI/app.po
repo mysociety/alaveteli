@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# louisecrow <louise@mysociety.org>, 2017
+# louisecrow <louise@mysociety.org>, 2022
 #
 msgid ""
 msgstr ""
@@ -12,14 +12,15 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:12+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
+"Last-Translator: louisecrow <louise@mysociety.org>, 2022\n"
 "Language-Team: Spanish (Nicaragua) (https://www.transifex.com/mysociety/teams/"
 "33529/es_NI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es_NI\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 :"
+" 2;\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr "<Strong> Resumiendo </ strong> el contenido de cualquier información devuelta."
@@ -771,6 +772,7 @@ msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] "Publique estas solicitudes o manténgalas privadas por más tiempo."
 msgstr[1] "Publique estas solicitudes o manténgalas privadas por más tiempo."
+msgstr[2] "Publique estas solicitudes o manténgalas privadas por más tiempo."
 
 msgid "Read blog"
 msgstr "Leer el blog"
@@ -806,6 +808,7 @@ msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
 msgstr[0] "Solicite solicitud internas (o envíe otras solicitudes)."
 msgstr[1] "Solicite solicitud internas (o envíe otras solicitudes)."
+msgstr[2] "Solicite solicitud internas (o envíe otras solicitudes)."
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Solicitar una solicitud interna de {{person_or_body}}"
@@ -877,6 +880,7 @@ msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
 msgstr[0] "Enviar seguimiento (o solicitar una solicitud)."
 msgstr[1] "Enviar seguimiento (o solicitar solicitud)."
+msgstr[2] "Enviar seguimiento (o solicitar solicitud)."
 
 msgid "Send a follow up message to {{person_or_body}}"
 msgstr "Enviar un mensaje de seguimiento a {{person_or_body}}"
@@ -1005,6 +1009,7 @@ msgid "The following request will be made public on {{site_name}} in the next we
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] "Las siguientes solicitudes se harán públicas en {{site_name}} en la próxima semana. Si no desea que ninguna de estas solicitudes se publique, haga clic en los enlaces a continuación para ampliarlas."
 msgstr[1] "Las siguientes solicitudes se harán públicas en {{site_name}} en la próxima semana. Si no desea que ninguna de estas solicitudes se publique, haga clic en los enlaces a continuación para ampliarlas."
+msgstr[2] "Las siguientes solicitudes se harán públicas en {{site_name}} en la próxima semana. Si no desea que ninguna de estas solicitudes se publique, haga clic en los enlaces a continuación para ampliarlas."
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
 msgstr ""
@@ -1115,6 +1120,7 @@ msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Actualizar Status"
 msgstr[1] "Actualizar Status"
+msgstr[2] "Actualizar Status"
 
 msgid "Updated"
 msgstr "Actualizar"
@@ -1378,26 +1384,31 @@ msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
 msgstr[0] "Las solicitudes {{count}} han recibido una respuesta."
 msgstr[1] "Las solicitudes {{count}} han recibido una respuesta."
+msgstr[2] "Las solicitudes {{count}} han recibido una respuesta."
 
 msgid "{{count}} request is delayed."
 msgid_plural "{{count}} requests are delayed."
 msgstr[0] "Las solicitudes {{count}} se retrasan."
 msgstr[1] "Las solicitudes {{count}} se retrasan."
+msgstr[2] "Las solicitudes {{count}} se retrasan."
 
 msgid "{{count}} request is long overdue."
 msgid_plural "{{count}} requests are long overdue."
 msgstr[0] "Las solicitudes {{count}} están atrasadas."
 msgstr[1] "Las solicitudes {{count}} están atrasadas."
+msgstr[2] "Las solicitudes {{count}} están atrasadas."
 
 msgid "{{count}} request made"
 msgid_plural "{{count}} requests made"
 msgstr[0] "{{Count}} solicitudes hechas"
 msgstr[1] "{{Count}} solicitudes hechas"
+msgstr[2] "{{Count}} solicitudes hechas"
 
 msgid "{{count}} request will be made public this week."
 msgid_plural "{{count}} requests will be made public this week."
 msgstr[0] "Las solicitudes {{count}} se harán públicas esta semana."
 msgstr[1] "Las solicitudes {{count}} se harán públicas esta semana."
+msgstr[2] "Las solicitudes {{count}} se harán públicas esta semana."
 
 msgid "{{count}} {{phase}}"
 msgstr ""

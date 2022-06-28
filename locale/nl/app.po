@@ -32,13 +32,14 @@
 # Infwolf <infwolf@gmail.com>, 2014
 # Infwolf <infwolf@gmail.com>, 2014
 # Liset Hamming <elhamming@gmail.com>, 2019-2020,2022
+# Luis Villegas, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:11+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Liset Hamming <elhamming@gmail.com>, 2019-2020,2022\n"
+"Last-Translator: Luis Villegas, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -652,10 +653,10 @@ msgid "Browse and search requests (page {{count}})"
 msgstr "Bekijk en doorzoek de lijst met Wob- en Woo-verzoeken (page {{count}})"
 
 msgid "Browse latest requests"
-msgstr ""
+msgstr "Doorzoek alle zichtbare verzoeken"
 
 msgid "Browse latest responses"
-msgstr ""
+msgstr "Doorzoek alle zichtbare reacties"
 
 msgid "Browse requests"
 msgstr "Bekijk de Wob- en Woo-verzoeken"
@@ -764,7 +765,7 @@ msgid "Close"
 msgstr "Sluiten"
 
 msgid "Close preview"
-msgstr ""
+msgstr "Voorvertoning afsluiten"
 
 msgid "Close the request and respond:"
 msgstr "Sluit het verzoek en reageer:"
@@ -830,13 +831,13 @@ msgid "Contains personal information"
 msgstr "Bevat persoonlijke informatie"
 
 msgid "Contribute"
-msgstr ""
+msgstr "Bijdragen"
 
 msgid "Cookies not enabled"
 msgstr "Cookies niet geactiveerd"
 
 msgid "Copied!"
-msgstr ""
+msgstr "Gekopieerd!"
 
 msgid "Copy"
 msgstr ""

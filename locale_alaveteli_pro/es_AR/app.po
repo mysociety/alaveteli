@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Graeme Porteous <graeme@mysociety.org>, 2020
+# Graeme Porteous <graeme@mysociety.org>, 2022
 #
 msgid ""
 msgstr ""
@@ -12,14 +12,15 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-12 13:12+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2020\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2022\n"
 "Language-Team: Spanish (Argentina) (https://www.transifex.com/mysociety/teams/"
 "33529/es_AR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es_AR\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 :"
+" 2;\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
 msgstr " <strong>Resumiendo</strong> el contenido de cualquier información devuelta. "
@@ -773,6 +774,7 @@ msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] "Publique esta solicitud o manténgala privada durante más tiempo."
 msgstr[1] "Publique estas solicitudes o manténgalas privadas por más tiempo."
+msgstr[2] "Publique estas solicitudes o manténgalas privadas por más tiempo."
 
 msgid "Read blog"
 msgstr "Leer el blog"
@@ -808,6 +810,7 @@ msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
 msgstr[0] "Solicitar una revisión interna (o enviar otro seguimiento)."
 msgstr[1] "Solicitar revisiones internas (o enviar otros seguimientos)."
+msgstr[2] "Solicitar revisiones internas (o enviar otros seguimientos)."
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Solicitar una revisión interna de {{person_or_body}}"
@@ -879,6 +882,7 @@ msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
 msgstr[0] "Enviar seguimiento (o solicitar revisión interna)."
 msgstr[1] "Enviar seguimientos (o solicitar revisiones internas)."
+msgstr[2] "Enviar seguimientos (o solicitar revisiones internas)."
 
 msgid "Send a follow up message to {{person_or_body}}"
 msgstr "Enviar mensaje de seguimiento a {{person_or_body}}"
@@ -1007,6 +1011,7 @@ msgid "The following request will be made public on {{site_name}} in the next we
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] "Las siguiente solicitud se hará pública en {{site_name}} la próxima semana. Si no desea que esta solicitud se publique en ese tiempo, haga clic en el enlace a continuación para mantenerla en privado por mas tiempo."
 msgstr[1] "Las siguientes solicitudes se harán públicas en {{site_name}} en la próxima semana. Si no desea que ninguna de estas solicitudes se publique, haga clic en los enlaces a continuación para ampliarlas."
+msgstr[2] "Las siguientes solicitudes se harán públicas en {{site_name}} en la próxima semana. Si no desea que ninguna de estas solicitudes se publique, haga clic en los enlaces a continuación para ampliarlas."
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
 msgstr ""
@@ -1117,6 +1122,7 @@ msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Actualizar su estado."
 msgstr[1] "Actualizar estados."
+msgstr[2] "Actualizar estados."
 
 msgid "Updated"
 msgstr "Actualizada"
