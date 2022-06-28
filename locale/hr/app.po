@@ -480,7 +480,7 @@ msgid "Alter your subscription"
 msgstr "Promijenite Vašu pretplatu"
 
 msgid "Although all responses are automatically published, we depend on you, the original requester, to evaluate them."
-msgstr "Iako su svi odgovori automatski objavljeni, računamo na vas da ih ocijenite."
+msgstr "Iako su svi odgovori automatski objavljeni, računamo na vas da ažurirate status predmeta."
 
 msgid "Although not legally required to do so, we would have expected {{public_body_link}} to have responded by "
 msgstr "Iako nisu zakonski obvezni, mi smo očekivali {{public_body_link}} da će odgovoriti do"
@@ -3599,7 +3599,7 @@ msgid "What's happened:"
 msgstr "Što se dogodilo:"
 
 msgid "When you get there, please update the status to say if the response contains any useful information."
-msgstr "Kada ga pregledate, molimo ažurirajte status da nam kažete je li odgovor sadržavao korisne informacije."
+msgstr "Putem linka označite da li odgovor sadrži tražene informacije."
 
 msgid "When you receive the paper response, please help others find out what it says:"
 msgstr "Kada dobijete odgovor u papirnatom obliku, molimo pomozite drugima da saznaju njen sadržaj:"
