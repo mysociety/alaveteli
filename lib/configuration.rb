@@ -60,7 +60,6 @@ module AlaveteliConfiguration
       FRONTPAGE_PUBLICBODY_EXAMPLES: '',
       GA_CODE: '',
       GEOIP_DATABASE: 'vendor/data/GeoLite2-Country.mmdb',
-      HTML_TO_PDF_COMMAND: '',
       INCLUDE_DEFAULT_LOCALE_IN_URLS: true,
       INCOMING_EMAIL_DOMAIN: 'localhost',
       INCOMING_EMAIL_PREFIX: 'foi+',
@@ -134,15 +133,6 @@ module AlaveteliConfiguration
       WORKING_OR_CALENDAR_DAYS: 'working'
     }
     # rubocop:enable Layout/LineLength
-  end
-
-  def self.html_to_pdf_command
-    warn <<~DEPRECATION.squish
-      [DEPRECATION] AlaveteliConfiguration.html_to_pdf_command will be removed
-      in 0.41. Please add the directory containing the wkhtmltopdf command to
-      AlaveteliConfiguration.utility_search_path
-    DEPRECATION
-    super
   end
 
   def self.raw_emails_location

@@ -238,31 +238,6 @@ class User < ApplicationRecord
     )
   end
 
-  def self.owns_every_request?(user)
-    warn %q([DEPRECATION] User#owns_every_request? will be removed in 0.41.
-            It has been replaced by User#owns_every_request?).squish
-    user&.owns_every_request?
-  end
-
-  def self.view_hidden?(user)
-    warn %q([DEPRECATION] User.view_hidden? will be removed in 0.41.
-            It has been replaced by User#view_hidden?).squish
-    user&.view_hidden?
-  end
-
-  def self.view_embargoed?(user)
-    warn %q([DEPRECATION] User.view_embargoed? will be removed in 0.41.
-            It has been replaced by User#view_embargoed?).squish
-    user&.view_embargoed?
-  end
-
-  def self.view_hidden_and_embargoed?(user)
-    warn %q([DEPRECATION] User.view_hidden_and_embargoed? will be removed in
-            0.41. It has been replaced by User#view_hidden_and_embargoed?).
-            squish
-    user&.view_hidden_and_embargoed?
-  end
-
   # Should the user be kept logged into their own account
   # if they follow a /c/ redirect link belonging to another user?
   def self.stay_logged_in_on_redirect?(user)
