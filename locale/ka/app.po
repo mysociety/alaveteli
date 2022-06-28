@@ -180,7 +180,7 @@ msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_b
 msgstr "<a href=\"{{new_request_link}}\">გარემოსდაცვითი ინფორმაციის გამოთხოვა</a> საჯარო დაწესებულებისგან - {{public_body_name}}"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr "<a href=\"{{new_request_link}}\">ახალი საჯარო ინფორმაციის მოთხოვნის გაგზავნა</a> შემდეგ ადრესატთან: {{public_body_name}}"
+msgstr "<a href=\"{{new_request_link}}\">ან მოითხოვე საჯარო ინფორმაცია დაწესებულებისგან</a> {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
 msgstr "<a href=\"{{sign_in_link}}\">შედი</a>, რომ მიიღო ინფორმაცია თემებზე, რომლებიც გამოწერილი გაქვს ან თავიდან გააქტიურო ელ. ფოსტის შეტყობინებები. "
@@ -611,7 +611,7 @@ msgid "Browse all authorities &rarr;"
 msgstr "ნახე ყველა საჯარო დაწესებულება &rarr;"
 
 msgid "Browse all requests &rarr;"
-msgstr "გაეცანი ყველა გამოთხოვილ ინფორმაციას &rarr;"
+msgstr "ყველა განცხადების ნახვა &rarr;"
 
 msgid "Browse and search requests"
 msgstr "მოძებნე გამოთხოვილი ინფორმაცია "
@@ -629,7 +629,7 @@ msgid "Browse requests"
 msgstr "გაეცანი გამოთხოვილ ინფორმაციას"
 
 msgid "By law, they have to respond."
-msgstr "კანონი მათ ავალდებულებთ, რომ გიპასუხონ. "
+msgstr "კანონი მათ ავალდებულებთ, რომ საჯარო ინფორმაცია გასცენ დაუყონებლივ ან არა უგვიანეს 10 დღისა."
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
 msgstr "კანონის თანახმად, ამ დროისთვის, საჯარო დაწესებულებას {{public_body_link}} საპასუხო წერილი უკვე უნდა გამოეგზავნა"
@@ -716,10 +716,10 @@ msgid "Clear photo"
 msgstr "გაასუფთავე ფოტო"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why response to the request has been so slow."
-msgstr "დააკლიკე ქვემოთ მოცემულ ბმულზე, რათა შეტყობინება გაუგზავნო საჯარო დაწესებულებას {{public_body_name}} და მოუწოდო, უპასუხონ შენს მოთხოვნას. შეგიძლია ადრესატს შიდა გასაუბრება მოთხოვო ან ჰკითხო, რატომ აგვიანებენ პასუხს შენს განაცხადზე."
+msgstr "ჩვენი რჩევაა, რომ საჯარო დაწესებულებას \"{{public_body_name}}\" დამატებითი წერილი გაუგზავნო და ინფორმაციის გაცემის ვალდებულება შეახსენო."
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
-msgstr "დააკლიკე ქვემოთ მოცემულ ბმულზე, რათა შეტყობინება გაუგზავნო საჯარო დაწესებულებას {{public_body_name}} და მოუწოდო, რომ უპასუხონ შენს მოთხოვნას. შეგიძლია ადრესატს შიდა გასაუბრება მოთხოვო ან ჰკითხო, რატომ აგვიანებენ პასუხს შენს განაცხადზე."
+msgstr "დააკლიკე ქვემოთ მოცემულ ბმულზე, რათა შეტყობინება გაუგზავნო საჯარო დაწესებულებას \"{{public_body_name}}\" და მოუწოდო, უპასუხონ შენს მოთხოვნას. შეგიძლია ადრესატს შიდა გასაუბრება მოთხოვო ან ჰკითხო, რატომ აგვიანებენ პასუხს განაცხადზე."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
 msgstr "დააკლიკე ქვემოთ მოცემულ ბმულზე, რათა შეტყობინება გაუგზავნო საჯარო დაწესებულებას {{public_body}} და შენს მოთხოვნაზე პასუხის გაცემა შეახსენო."
@@ -1330,7 +1330,7 @@ msgid "I've received an error message"
 msgstr "შეცდომის შესახებ მივიღე შეტყობინება"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
-msgstr "თუ მისამართი შეცდომითაა მითითებული ან იცი ზუსტი მისამართის შესახებ, გთხოვთ <a href=\"{{url}}\">დაგვიკავშირდი</a>."
+msgstr "თუ ფიქრობ, რომ მისამართი შეცდომითაა მითითებული <a href=\"{{url}}\">დაგვიკავშირდი</a>."
 
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr "თუ შეცდომის მიზეზი მისამართზე მიწოდების პრობლემა იყო და საჯარო დაწესებულების სწორი ელ-ფოსტა მოიპოვე,  გთხოვ გამოგვიგზავნო ქვემოთ მოცემული ფორმის გამოყენებით."
@@ -2972,7 +2972,7 @@ msgid "They have not replied to your {{law_used_short}} request {{title}} prompt
 msgstr "საჯარო დაწესებულებამ არ გამოგიგზავნა პასუხი {{law_used_short}}ზე {{title}} კანონით დადგენილ ვადებში."
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "საჯარო დაწესებულებამ არ გამოგზავნა პასუხი {{law_used_short}}ზე {{title}}, კანონით დადგენილ ვადებში"
+msgstr "საჯარო დაწესებულებამ არ გამოგზავნა პასუხი {{law_used_short}}ზე \"{{title}}\", კანონით დადგენილ ვადებში"
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "მათ ჯერ კიდევ არ უპასუხიათ შენს {{law_used_short}}ზე {{title}}, კანონით დადგენილ ვადებში"
@@ -3387,7 +3387,7 @@ msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Li
 msgstr "გამოიყენე ციტატები, როცა ზუსტი ფრაზის პოვნა გინდა, მაგალითად <strong><code>\"თელავის საკრებულო\"</code></strong>"
 
 msgid "Use this site to make your request for information – we'll show you how."
-msgstr "გამოიყენე ეს ვებგვერდი საჯარო ინფორმაციის გამოსათხოვად – ამაში ჩვენ დაგეხმარებით."
+msgstr "შეარჩიე საჯარო დაწესებულება, შეავსე ინფორმაციის მოთხოვნის მარტივი ფორმა და გაუგზავნე ადრესატს."
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "მომხმარებლებს არ აქვთ მოთხოვნის რამდენიმე სერიის გაგზავნის უფლება ერთდროულად რამდენიმე საჯარო დაწესებულებასთან, რადგან ვცდილობთ უწყებებს შეუსაბამო წერილები არ გაეგზავნის. <a href=\"{{url}}\">დაგვიკავშირდი</a> თუ ფფიქრობ, რომ ლეგიტიმური მიზეზი გაქვს ლიმიტის გასაზრდელად."
@@ -3477,7 +3477,7 @@ msgid "We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to
 msgstr "ჩვენ რამდენიმე <a href=\"{{other_means_url}}\">რჩევა</a> გვაქვს შენს კითხვებზე საპასუხოდ."
 
 msgid "We publish it all online. Great! Now you have your answer, and everybody else can access it too."
-msgstr "რადგან ყველაფერს ონლაინ ვაქვეყნებთ, როდესაც პასუხს მიიღებ, სხვა ადამიანებსაც ექნებათ მასზე წვდომა."
+msgstr "მიღებულ მონაცემებს საჯაროდ გამოვაქვეყნებთ, რომ მასზე წვდომა სხვებსაც ჰქონდეთ. საჯარო ინფორმაცია ხომ ყველასია!"
 
 msgid "We will not reveal your email address to anybody unless <a href=\"{{url}}\">you or the law tell us to</a>."
 msgstr "ჩვენ არსად არ გამოვაჩენთ შენი ელ. ფოსტის მისამართს, თუ <a href=\"{{url}}\">ამას თვითონ არ გვთხოვ ან კანონი არ დაგვავალდებულებს</a>."
@@ -3492,7 +3492,7 @@ msgid "We would like to know more about you, and your experience making a Freedo
 msgstr "გვინდა შენს შესახებ მეტი ვიცოდეთ, მათ შორის შენს გამოცდილებაზე საჯარო ინფორმაციის გამოთხოვასთან დაკავშირებით."
 
 msgid "We'll drop you an email as soon as your request gets a response."
-msgstr "როგორც კი შენს მოთხოვნაზე პასუხი მოვა, ელ. ფოსტაზე შეგატყობინებთ. "
+msgstr "როგორც კი საჯარო დაწესებულება პასუხს მოგწერთ, ელ-ფოსტაზე შეგატყობინებთ."
 
 msgid "We're glad you got all the information that you wanted."
 msgstr "მოხარული ვართ, რომ ყველა ინფორმაცია მიიღე, რაც გჭირდებოდა. "
@@ -3577,7 +3577,7 @@ msgid "Which of these is happening?"
 msgstr "ჩამოთვლილთაგან, რომელი ხდება?"
 
 msgid "Who can I request information from?"
-msgstr "საიდან შეგიძლია ინფორმაციის გამოთხოვა"
+msgstr "საიდან შემიძლია ინფორმაციის მოთხოვნა?"
 
 msgid "Why specifically do you consider this request unsuitable?"
 msgstr "უფრო ზუსტად, რატომ მიიჩნევ ამ მოთხოვნას შეუსაბამოდ?"
@@ -3724,7 +3724,7 @@ msgid "You can't update your profile text at this time."
 msgstr "პროფილის ტექსტის განახლება, ამ ეტაპზე, შეუძლებელია."
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
-msgstr "ახალი პასუხი მოგივიდათ {{law_used_full}}ზე '{{request_title}}' საჯარო დაწესებულებისგან - {{public_body_name}}."
+msgstr "ახალი პასუხი მოგივიდათ {{law_used_fullზე}} \"{{request_title}}\", საჯარო დაწესებულებისგან - \"{{public_body_name}}\"."
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "ბაგი იპოვე.  <a href=\"{{contact_url}}\">დაგვიკავშირდი</a> და მოგვიყევი პრობლემის შესახებ"
@@ -3745,7 +3745,7 @@ msgid "You have now changed your email address used on {{site_name}}"
 msgstr "შენი ელ-ფოსტა საიტზე {{site_name}} შეიცვალა"
 
 msgid "You have the <strong>right</strong> to request information from any publicly-funded body, and get answers. {{site_name}} helps you make a Freedom of Information request. It also publishes all requests online."
-msgstr "შენ <strong>უფლება</strong> გაქვს გამოითხოვო ინფორმაცია ნებისმიერი საჯარო დაწესებულებიდან და მიიღო მათგან პასუხი. {{site_name}} გეხმარება საჯარო ინფორმაციის გამოთხოვაში და ამავდროულად, უკვე გამოთხოვილ ინფორმაციას ყველასთვის ხელმისაწვდომს ხდის."
+msgstr "ყველას აქვს<strong>უფლება</strong> მოითხოვოს საჯარო ინფორმაცია ნებისმიერი ადმინისტრაციული, სახელმწიფო, მუნიციპალური ორგანოსგან ან ბიუჯეტიდან დაფინანსებული საჯარო დაწესებულებისგან. {{site_name}} ამ უფლების რეალიზაციაში გეხმარება - გთავაზობს ინფორმაციის მოთხოვნის მარტივ ფორმას. პორტალის მეშვეობით მიღებული ყველა მონაცემი საჯარო ხდება, რაც დაინტერესებულ პირებს საკითხის კვლევაში, საჯარო დაწესებულებებს კი ანგარიშვალდებულებისა და გამჭვირვალობის გაზრდაში ეხმარება."
 
 msgid "You just tried to sign up to {{site_name}}, when you already have an account. Your name and password have been left as they previously were. Please click on the link below."
 msgstr "ახლახანს სცადე რეგისტრაცია საიტზე {{site_name}}, თუმცა ანგარიში უკვე გაქვს. შენი სახელი და პაროლი ისევ იგივეა, რაც აქამდე იყო. დააკლიკე ქვემოთ მოცემულ ბმულზე"
@@ -4050,7 +4050,7 @@ msgid "anything matching text '{{query}}'"
 msgstr "ყველა ტექსტი, რომელიც ემთხვევა '{{query}}'"
 
 msgid "are long overdue."
-msgstr "საჯარო ინფორმაციის მოწოდებას გამოგზავნას აგვიანებს."
+msgstr "საჯარო ინფორმაციის გამოგზავნას აგვიანებს."
 
 msgid "authorities"
 msgstr "საჯარო უწყებები"
@@ -4404,7 +4404,7 @@ msgstr "{{site_name}} ბლოგი და ტვიტები"
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "{{site_name}} ვებგვერდი ფარავს {{number_of_authorities}} საჯარო დაწესებულებას, მათ შორის:"
-msgstr[1] "{{site_name}} აერთიანებს გაგზავნილ მოთხოვნას {{number_of_authorities}} საჯარო დაწესებულებასთან, მათ შორის:"
+msgstr[1] "{{site_name}} {{number_of_authorities}} საჯარო დაწესებულებას აერთიანებს. ინფორმაციის მოთხოვნით, ყველაზე ხშირად, მოქალაქეებმა შემდეგ დაწესებულებებს მიმართეს:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 msgstr "{{site_name}}-მ აღმოაჩინა, რომ უწყებამ -{{authority_name}} შესაძლოა უარყო ნაწილი ან მთლიანად შენი მოთხოვნა <strong>{{refusals}}</strong>."
@@ -4413,12 +4413,12 @@ msgid "{{site_name}} login link"
 msgstr "{{site_name}} ავტორიზაციის ბმული"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
-msgstr "{{site_name}} უგზავნის ახალ მოთხოვნებს ელ-ფოსტაზე <strong>{{request_email}}</strong> ამ საჯარო უწყებას."
+msgstr "{{site_name}} ინფორმაციის მოთხოვნის გასაგზავნად იყენებს საჯარო დაწესებულების შემდეგ ელ-ფოსტას: <strong>{{request_email}}."
 
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
-msgstr[1] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
+msgstr[1] "{{site_name}}-ის მომხმარებლებმა უკვე გაგზავნეს ინფორმაციის {{number_of_requests}} მოთხოვნა, მათ შორის:"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - საჯარო ინფორმაციის მოთხოვნა {{public_body}}"
