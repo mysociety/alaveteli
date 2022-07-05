@@ -67,6 +67,15 @@ RSpec.describe FoiAttachment do
       expect(main.body).to eq(orig_body)
     end
 
+    it 'can parse raw email and read attachment inside DB transaction' do
+      im = FactoryBot.create(:plain_incoming_message)
+      FoiAttachment.transaction do
+        expect { im.get_text_for_indexing_full }.to_not raise_error
+        main_part = im.get_main_body_text_part
+        expect(main_part.body).to match(/That's so totally a rubbish question/)
+      end
+    end
+
   end
 
   describe '#body' do

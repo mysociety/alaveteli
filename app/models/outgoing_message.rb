@@ -61,6 +61,8 @@ class OutgoingMessage < ApplicationRecord
            :inverse_of => :outgoing_message,
            :dependent => :destroy
 
+  delegate :public_body, to: :info_request, private: true, allow_nil: true
+
   after_initialize :set_default_letter
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
@@ -141,8 +143,8 @@ class OutgoingMessage < ApplicationRecord
   # Returns a String
   def to
     if replying_to_incoming_message?
-      # calling safe_mail_from from so censor rules are run
-      MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+      # calling safe_from_name from so censor rules are run
+      MailHandler.address_from_name_and_email(incoming_message_followup.safe_from_name,
                                               incoming_message_followup.from_email)
     else
       info_request.recipient_name_and_email
@@ -260,7 +262,7 @@ class OutgoingMessage < ApplicationRecord
   # Returns an Array
   def smtp_message_ids
     info_request_events.
-      order('created_at ASC').
+      order(:created_at).
         map { |event| event.params[:smtp_message_id] }.
           compact.
             map do |smtp_id|
@@ -342,8 +344,10 @@ class OutgoingMessage < ApplicationRecord
       text = body(opts).strip
     end
 
-    # Remove salutation
-    text.sub!(/Dear .+,/, "") if strip_salutation
+    if strip_salutation && public_body
+      salutation = self.class.default_salutation(public_body)
+      text.sub!(/#{Regexp.escape(salutation)}\s*/, '')
+    end
 
     # Remove email addresses from display/index etc.
     self.remove_privacy_sensitive_things!(text)
@@ -427,7 +431,7 @@ class OutgoingMessage < ApplicationRecord
         OutgoingMailer.
           name_for_followup(info_request, incoming_message_followup)
       else
-        info_request.try(:public_body).try(:name)
+        public_body&.name
       end
 
     opts[:letter] = default_letter if default_letter
@@ -438,7 +442,7 @@ class OutgoingMessage < ApplicationRecord
   def replying_to_incoming_message?
     message_type == 'followup' &&
       incoming_message_followup &&
-      incoming_message_followup.safe_mail_from &&
+      incoming_message_followup.safe_from_name &&
       incoming_message_followup.valid_to_reply_to?
   end
 

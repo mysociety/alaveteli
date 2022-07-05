@@ -22,10 +22,12 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-postgres
-    volumes:
-      - postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=password
+    ports:
+      - 6432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
 
 volumes:
   bundle: {}

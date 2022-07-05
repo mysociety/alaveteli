@@ -18,6 +18,7 @@
 /config/memcached.yml
 /config/newrelic.yml
 /config/rails_env.rb
+/config/storage.yml
 /config/user_spam_scorer.yml
 /config/xapian.yml
 /coverage/
@@ -39,6 +40,7 @@
 /public/foi-user-use.png
 /public/google*.html
 /public/wordpress
+/storage/
 /tmp/
 /vendor/bundle/
 /vendor/data/

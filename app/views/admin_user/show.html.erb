@@ -1,7 +1,5 @@
 <% @title = "User – #{ @admin_user.name }" %>
 
-<h1><%=@title%></h1>
-
 <% if @admin_user.profile_photo %>
   <div class="user_photo_on_admin">
     <%= form_tag clear_profile_photo_admin_user_path(@admin_user), :multipart => true, :class => "form" do %>
@@ -37,9 +35,10 @@
           <% else %>
             <%=h admin_value(value)%>
           <% end %>
-          <% if column_name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
-            <%= form_tag clear_bounce_admin_user_path(@admin_user), :class => "form form-inline" do %>
-              <input type="submit" name="action" value="Clear bounce" class="btn btn-info">
+
+          <% if column_name == 'email_bounced_at' && @admin_user.email_bounced_at %>
+            <%= form_tag clear_bounce_admin_user_path(@admin_user), class: 'form form-inline' do %>
+              <%= submit_tag 'Clear bounce', class: 'btn btn-info btn-small' %>
             <% end %>
           <% end %>
         </td>
@@ -55,38 +54,96 @@
         <% end %>
       </td>
     </tr>
+    <tr>
+      <td>
+        <b>Features</b>
+      </td>
+      <td>
+        <% @admin_user.features.select(&:enabled?).each do |feature| %>
+          <%= feature.key %>
+        <% end %>
+      </td>
+    </tr>
   </tbody>
 </table>
 
 <div class="row">
-  <div class="span6">
+  <div class="span9">
     <div class="btn-toolbar">
-      <%= link_to 'Edit', edit_admin_user_path(@admin_user), :class => "btn btn-primary" %>
-      <%= link_to 'Public page', user_path(@admin_user), :class => "btn" %>
+      <div class="btn-group">
+        <%= link_to 'Edit', edit_admin_user_path(@admin_user), class: 'btn' %>
+        <%= link_to 'Public page', user_path(@admin_user), class: 'btn' %>
+      </div>
+
+      <% if can? :login_as, @admin_user %>
+        <% text = "Log in as #{ @admin_user.name } (also confirms their email)" %>
+        <% opts = { method: :post, class: 'btn btn-info' } %>
+        <%= link_to text, admin_users_sessions_path(id: @admin_user), opts %>
+      <% end %>
     </div>
   </div>
-  <div class="span6 text-right">
-    <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: 'Banned for spamming'), class: 'form form-inline' do %>
-      <% disabled = @admin_user.suspended? %>
-      <% submit_class = %w(btn btn-danger) %>
-      <% submit_class << 'disabled' if disabled %>
-      <%= submit_tag 'Ban for spamming', class: submit_class, disabled: disabled %>
-    <% end %>
+
+  <div class="span3 text-right">
+    <div class="btn-toolbar">
+      <div class="btn-group">
+        <% disabled = @admin_user.suspended? %>
+
+        <% submit_class = %w(btn btn-danger) %>
+        <% submit_class << 'disabled' if disabled %>
+        <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: _('Banned for spamming')), class: 'form form-inline' do %>
+          <%= submit_tag 'Ban for spamming', class: submit_class, disabled: disabled %>
+        <% end %>
+
+        <button class="<%= submit_class.join(' ') %> dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu">
+          <% submit_class = %w(btn btn-link) %>
+
+          <% canned_ban_reasons = [
+               { button: 'Ban for evading',
+                 reason: _('Banned for evading another ban') },
+               { button: 'Ban for misuse',
+                 reason: _('Banned for misuse in breach of house rules') }
+             ] %>
+
+          <% canned_ban_reasons.each do |data| %>
+            <li>
+              <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: data[:reason]), class: 'form form-inline' do %>
+                <%= submit_tag data[:button], class: submit_class, disabled: disabled %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
-<% if can? :login_as, @admin_user %>
-  <%= form_tag admin_users_sessions_path(id: @admin_user), :class => "form form-horizontal" do %>
-    <%= submit_tag "Log in as #{@admin_user.name} (also confirms their email)", :class => "btn btn-info" %>
-  <% end %>
-<% end %>
+<hr>
+
+<h2>Requests</h2>
+
+<%= render partial: 'admin_request/some_requests',
+           locals: { info_requests: @info_requests } %>
 
 <hr>
 
-<h2>Track things</h2>
-<%= render :partial => 'admin_track/some_tracks', :locals => { :track_things => @admin_user.track_things, :include_destroy => true } %>
+<h2>Annotations</h2>
+
+<%= render partial: 'admin_request/some_annotations' ,
+           locals: { comments: @comments } %>
 
 <hr>
+
+<h2>Citations</h2>
+
+<%= render partial: 'admin/citations/list' ,
+           locals: { citations: @admin_user.citations } %>
+
+<hr>
+
 <% if can? :login_as, @admin_user %>
   <h2>Post redirects</h2>
 
@@ -115,17 +172,23 @@
   <hr>
 <% end %>
 
-<h2>Requests</h2>
-<%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @info_requests } %>
+<h2>Sign Ins</h2>
+
+<%= render partial: 'admin/users/sign_in_table',
+           locals: { sign_ins: @admin_user.sign_ins } %>
 
 <hr>
 
-<h2>Annotations</h2>
+<h2>Track things</h2>
 
-<%= render :partial => 'admin_request/some_annotations' , :locals => { :comments => @comments } %>
+<%= render partial: 'admin_track/some_tracks',
+           locals: { track_things: @admin_user.track_things,
+                     include_destroy: true } %>
 
 <hr>
 
 <h2>Censor rules</h2>
-<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @admin_user.censor_rules, :user => @admin_user } %>
 
+<%= render partial: 'admin_censor_rule/show',
+           locals: { censor_rules: @admin_user.censor_rules,
+                     user: @admin_user } %>

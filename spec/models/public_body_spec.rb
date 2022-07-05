@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: public_bodies
 #
@@ -11,14 +11,13 @@
 #  updated_at                             :datetime         not null
 #  home_page                              :text
 #  api_key                                :string           not null
-#  info_requests_count                    :integer          default("0"), not null
+#  info_requests_count                    :integer          default(0), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer          default("0"), not null
-#  public_body_id                         :integer          not null
+#  info_requests_visible_count            :integer          default(0), not null
 #  name                                   :text
 #  short_name                             :text
 #  request_email                          :text
@@ -2453,4 +2452,18 @@ RSpec.describe PublicBody::Version do
 
   end
 
+  describe '#editor' do
+    subject { described_class.new(last_edit_editor: url_name).editor }
+
+    context 'when a user exists with the given last_edit_editor' do
+      let!(:user) { FactoryBot.create(:user, url_name: url_name) }
+      let(:url_name) { 'test_admin' }
+      it { is_expected.to eq(user) }
+    end
+
+    context 'when no user exists with the given last_edit_editor' do
+      let(:url_name) { 'no_user_with_this_url_name' }
+      it { is_expected.to be_nil }
+    end
+  end
 end

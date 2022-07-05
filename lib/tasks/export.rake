@@ -8,7 +8,7 @@ namespace :export do
     self.table_name = "info_request_batches_public_bodies"
     belongs_to :info_request_batch
     belongs_to :public_body
-    default_scope -> { order("info_request_batch_id ASC, public_body_id ASC") }
+    default_scope -> { order(:info_request_batch_id, :public_body_id) }
   end
 
   class PublicBodyCategoryTranslation < ActiveRecord::Base
@@ -56,7 +56,7 @@ namespace :export do
     DataExport.csv_export(InfoRequestBatchPublicBody, to_run)
     DataExport.csv_export(HasTagStringTag,
                           to_run,
-                          HasTagStringTag.where(model: "PublicBody"))
+                          HasTagStringTag.where(model_type: "PublicBody"))
 
     #export public body information
     DataExport.csv_export( PublicBody,

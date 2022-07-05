@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "alaveteli_pro/info_requests/new.html.erb" do
+RSpec.describe "alaveteli_pro/info_requests/new" do
   let!(:public_body) { FactoryBot.create(:public_body) }
   let(:draft_info_request) { FactoryBot.create(:draft_info_request) }
   let(:info_request) { InfoRequest.from_draft(draft_info_request) }
@@ -42,6 +42,7 @@ RSpec.describe "alaveteli_pro/info_requests/new.html.erb" do
     assign_variables
     render
     expected_input = "<input class=\"js-public-body-id\" " \
+                     "autocomplete=\"off\" " \
                      "type=\"hidden\" " \
                      "value=\"#{info_request.public_body.id}\" " \
                      "name=\"info_request\\[public_body_id\\]\" " \

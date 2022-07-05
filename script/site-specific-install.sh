@@ -65,29 +65,6 @@ install_daemon() {
 
 update_mysociety_apt_sources
 
-# Ubuntu Bionic Fixes
-if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"bionic" ]
-then
-  # Remove old cosmic repo that's no longer available
-  rm --force /etc/apt/sources.list.d/ubuntu-cosmic.list
-
-  # Add focal repo to get pdftk-java
-  cat > /etc/apt/sources.list.d/ubuntu-focal.list <<EOF
-deb http://archive.ubuntu.com/ubuntu/ focal universe
-deb-src http://archive.ubuntu.com/ubuntu/ focal universe
-EOF
-
-  # De-prioritise all packages from focal. We only add the repo to install
-  # pdftk-java, as pdftk is not available in bionic.
-  cat > /etc/apt/preferences.d/ubuntu-focal.pref <<EOF
-Package: *
-Pin: release n=focal
-Pin-Priority: 50
-EOF
-
-  apt-get -qq update
-fi
-
 apt-get -y update
 
 echo 'Setting hostname...'

@@ -37,6 +37,47 @@ RSpec.describe InfoRequestBatch do
       expect(info_request_batch.errors.full_messages).to eq(["Body can't be blank"])
     end
 
+    context 'without ignore_existing_batch argument being set' do
+      it 'requires batch to be unique without an existing batch' do
+        allow(info_request_batch).to receive(:existing_batch).and_return(double)
+        expect(info_request_batch.valid?).to eq false
+        expect(info_request_batch.errors.full_messages).to eq(
+          ['Existing batch must be blank']
+        )
+      end
+    end
+
+    context 'with ignore_existing_batch argument being set' do
+      it 'requires batch to be unique without an existing batch' do
+        info_request_batch.ignore_existing_batch = true
+        allow(info_request_batch).to receive(:existing_batch).and_return(double)
+        expect(info_request_batch.valid?).to eq true
+      end
+    end
+  end
+
+  context '.with_body' do
+    let(:batch) do
+      FactoryBot.create(:info_request_batch, body: "foo\n\nbar")
+    end
+
+    it 'returns batch if body matches exactly' do
+      expect(InfoRequestBatch.with_body("foo\r\nbar")).to include(batch)
+    end
+
+    it 'matchs batch body when whitespace is ignored' do
+      ['foobar', 'foo bar', "foo\nbar"].each do |str|
+        expect(InfoRequestBatch.with_body(str)).to include(batch)
+      end
+    end
+
+    it 'matchs whole batch body' do
+      strings = ['foo', 'foobarbaz', 'foo bar baz', "foo\nbar\nbaz",
+                 "foo\r\nbar\r\nbaz"]
+      strings.each do |str|
+        expect(InfoRequestBatch.with_body(str)).to_not include(batch)
+      end
+    end
   end
 
   context "when finding an existing batch" do
@@ -78,6 +119,86 @@ RSpec.describe InfoRequestBatch do
                                             [first_body])).to be_nil
     end
 
+    it 'should not return a batch with a matching ID' do
+      expect(
+        InfoRequestBatch.find_existing(
+          info_request_batch.user,
+          info_request_batch.title,
+          info_request_batch.body,
+          info_request_batch.public_bodies,
+          id: info_request_batch.id
+        )
+      ).to be_nil
+    end
+
+  end
+
+  context '#existing_batch' do
+    let(:user) { existing_batch.user }
+    let(:title) { existing_batch.title }
+    let(:body) { existing_batch.body }
+    let(:public_bodies) { existing_batch.public_bodies }
+
+    let!(:existing_batch) do
+      FactoryBot.create(
+        :info_request_batch,
+        title: 'Batch title',
+        body: 'Batch body',
+        public_bodies: [
+          FactoryBot.build(:public_body),
+          FactoryBot.build(:public_body)
+        ]
+      )
+    end
+
+    let(:info_request_batch) do
+      FactoryBot.build(
+        :info_request_batch,
+        user: user, title: title, body: body,
+        public_bodies: public_bodies
+      )
+    end
+
+    subject { info_request_batch.existing_batch }
+
+    context 'with same user, title, body and public bodies' do
+      it 'returns the existing batch' do
+        is_expected.to eq(existing_batch)
+      end
+    end
+
+    context 'with any of the existing public bodies' do
+      let(:public_bodies) { [existing_batch.public_bodies.first] }
+
+      it 'returns the existing batch' do
+        is_expected.to eq(existing_batch)
+      end
+    end
+
+    context 'with a different public bodies' do
+      let(:public_bodies) { [FactoryBot.build(:public_body)] }
+      it { is_expected.to be_nil }
+    end
+
+    context 'with a different user' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to be_nil }
+    end
+
+    context 'with a different title' do
+      let(:title) { 'New title' }
+      it { is_expected.to be_nil }
+    end
+
+    context 'with a different body' do
+      let(:body) { 'New body' }
+      it { is_expected.to be_nil }
+    end
+
+    context 'as the same batch' do
+      let(:info_request_batch) { existing_batch }
+      it { is_expected.to be_nil }
+    end
   end
 
   context "when creating a batch" do
@@ -132,6 +253,22 @@ RSpec.describe InfoRequestBatch do
                                           first_public_body])
     end
 
+    it 'returns a distinct list of associated public bodies' do
+      public_body = FactoryBot.create(
+        :public_body,
+        translations_attributes: {
+          'en' => { locale: 'en', name: 'Welsh Government' },
+          'cy' => { locale: 'cy', name: 'Llywodraeth Cymru' }
+        }
+      )
+      batch = FactoryBot.create(
+        :info_request_batch, public_bodies: [public_body]
+      )
+
+      expect(batch.public_bodies.count).to eq(1)
+      expect(batch.public_bodies).to match_array([public_body])
+    end
+
     context "when embargo_duration is set" do
       it 'should set an embargo on each request' do
         info_request_batch.embargo_duration = '3_months'
@@ -154,7 +291,8 @@ RSpec.describe InfoRequestBatch do
     let!(:info_request_batch) do
       FactoryBot.create(
         :info_request_batch,
-        :public_bodies => [first_public_body, second_public_body])
+        title: 'Example title',
+        public_bodies: [first_public_body, second_public_body])
     end
     let!(:sent_batch) do
       FactoryBot.create(
@@ -609,5 +747,11 @@ RSpec.describe InfoRequestBatch do
       let(:user) { mock_model(User, owns_every_request?: false) }
       it { is_expected.to eq(false) }
     end
+  end
+
+  describe '#prominence' do
+    subject { info_request_batch.prominence }
+    let(:info_request_batch) { FactoryBot.build(:info_request_batch) }
+    it { is_expected.to eq('normal') }
   end
 end

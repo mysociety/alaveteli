@@ -203,7 +203,7 @@ class ApiController < ApplicationController
       joins(:info_request).
         where("public_body_id = ?", @public_body.id).
           includes([{:info_request => :user}, :outgoing_message]).
-            order('info_request_events.created_at DESC')
+            order(created_at: :desc)
 
     if since_date_str
       begin

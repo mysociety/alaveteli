@@ -1,43 +1,15 @@
 <h1><%= @title %></h1>
 
-<%= form_tag({}, :method => :get, :class => 'form form-search') do %>
-  <%= text_field_tag 'query', params[:query], { :size => 30, :class => 'input-large search-query' } %>
-  <%= submit_tag 'Search', :class => 'btn' %> (substring search, body)
-<% end %>
-
-<div class="accordion" id="users">
-<% @comments.each do |comment| %>
-  <div class="accordion-group">
-    <div class="accordion-heading accordion-toggle">
-      <span class="item-title">
-        <a href="#comment_<%= comment.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
-        <span class="comment-labels">
-          <%= comment_labels(comment) %>
-        </span>
-        <%= link_to "#{ h(truncate(comment.body, :length => 100)) }",
-                    edit_admin_comment_path(comment) %>
-      </span>
-      <span class="item-metadata">
-        created <%= admin_date(comment.created_at, ago: false) %>
-    </span>
-    </div>
-
-    <div id="comment_<%= comment.id %>" class="accordion-body collapse">
-      <table class="table table-striped table-condensed">
-        <tbody>
-          <% comment.for_admin_column do |name, value, type|%>
-            <tr>
-              <td><b><%= h name %></b></td>
-              <td>
-                <%= admin_value(value) %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+<%= form_tag({}, method: :get, class: 'form form-search') do %>
+  <div class="input-append">
+    <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+    <%= submit_tag 'Search', class: 'btn' %>
   </div>
-<% end %>
-</div>
 
-<%= will_paginate(@comments, :class => "paginator") %>
+  <span class="help-inline">(substring search, body)</span>
+<% end %>
+
+<%= render partial: 'admin_request/some_annotations' ,
+           locals: { comments: @comments } %>
+
+<%= will_paginate(@comments, class: 'paginator') %>

@@ -1,4 +1,27 @@
 namespace :temp do
+  desc 'Populate incoming message from email'
+  task populate_incoming_message_from_email: :environment do
+    scope = IncomingMessage.where(from_email: nil)
+    count = scope.count
+
+    scope.includes(:raw_email).find_each.with_index do |message, index|
+      message.update_columns(from_email: message.raw_email.from_email || '')
+
+      erase_line
+      print "Populated IncomingMessage#from_email #{index + 1}/#{count}"
+    end
+
+    erase_line
+    puts "Populated IncomingMessage#from_email completed."
+  end
+
+  desc 'Remove raw email records not assoicated with an incoming message'
+  task remove_orphan_raw_email_records: :environment do
+    RawEmail.left_joins(:incoming_message).
+      where(incoming_messages: { id: nil }).
+      delete_all
+  end
+
   desc 'Fix invalid embargo attributes'
   task nullify_empty_embargo_durations: :environment do
     classes_attributes = {
@@ -90,5 +113,10 @@ namespace :temp do
         end
       end
     end
+  end
+
+  def erase_line
+    # https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences
+    print "\e[1G\e[K"
   end
 end

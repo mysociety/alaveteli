@@ -96,7 +96,16 @@ span#to_public_body {
 
 .js-loaded {
   #request_form_questions {
-    label { font-size: 1.1em; }
+    label {
+      font-size: 1.1em;
+      padding-left: 20px;
+
+      input[type="radio"] {
+        // Margin-left: Prevents double line questions to have an uneven vertical aligment.
+        // Margin-bottom: Fixes the large gap between a question with two lines.
+        margin: 0 3px 0 -20px;
+      }
+    }
   }
   .request_form_response {
     display: none;

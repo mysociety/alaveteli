@@ -102,7 +102,7 @@ DEFAULTS = {
   'public_network' => false,
   'memory' => 1536,
   'themes_dir' => '../alaveteli-themes',
-  'os' => 'stretch64',
+  'os' => 'bullseye64',
   'name' => 'default',
   'use_nfs' => false,
   'show_settings' => false,
@@ -124,21 +124,9 @@ else
 end
 
 SUPPORTED_OPERATING_SYSTEMS = {
-  'bionic64' => {
-    box: 'ubuntu/bionic64',
-    box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
-  },
   'focal64' => {
     box: 'ubuntu/focal64',
     box_url: 'https://app.vagrantup.com/ubuntu/boxes/focal64'
-  },
-  'stretch64' => {
-    box: 'debian/stretch64',
-    box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
-  },
-  'buster64' => {
-    box: 'debian/buster64',
-    box_url: 'https://app.vagrantup.com/debian/boxes/buster64'
   },
   'bullseye64' => {
     box: 'debian/bullseye64',

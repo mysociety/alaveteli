@@ -222,8 +222,8 @@ class RequestController < ApplicationController
       @public_bodies =
         PublicBody.
           where(:id => params[:public_body_ids]).
-            includes(:translations).
-              order('public_body_translations.name')
+            joins(:translations).preload(:translations).
+              merge(PublicBody::Translation.order(:name))
     end
 
     if params[:submitted_new_request].nil? || params[:reedit]
@@ -292,7 +292,7 @@ class RequestController < ApplicationController
       # logged in and we want to include the text of the request so they
       # can squirrel it away for tomorrow, so we detect this later after
       # we have constructed the InfoRequest.
-      user_exceeded_limit = authenticated_user.exceeded_limit?
+      user_exceeded_limit = authenticated_user.exceeded_limit?(:info_requests)
       if !user_exceeded_limit
         @details = authenticated_user.can_fail_html
         render :template => 'user/banned'
@@ -677,28 +677,28 @@ class RequestController < ApplicationController
 
   def make_request_summary_file(info_request)
     done = false
-    convert_command = AlaveteliConfiguration::html_to_pdf_command
     @render_to_file = true
     assign_variables_for_show_template(info_request)
-    if !convert_command.blank? && File.exist?(convert_command)
+    if HTMLtoPDFConverter.exist?
       html_output = render_to_string(:template => 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)
       tmp_input.close
       tmp_output = Tempfile.new('foihtml2pdf-output')
-      output = AlaveteliExternalCommand.run(convert_command, tmp_input.path, tmp_output.path)
+      command = HTMLtoPDFConverter.new(tmp_input, tmp_output)
+      output = command.run
       if !output.nil?
         file_info = { :filename => 'correspondence.pdf',
                       :data => File.open(tmp_output.path).read }
         done = true
       else
-        logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'")
+        logger.error("Could not convert info request #{info_request.id} to PDF with command '#{command}'")
       end
       tmp_output.close
       tmp_input.delete
       tmp_output.delete
     else
-      logger.warn("No HTML -> PDF converter found at #{convert_command}")
+      logger.warn("No HTML -> PDF converter found")
     end
     if !done
       file_info = { :filename => 'correspondence.txt',
@@ -816,7 +816,7 @@ class RequestController < ApplicationController
   def render_new_preview
     if @outgoing_message.contains_email? || @outgoing_message.contains_postcode?
       flash.now[:error] = {
-        :partial => "preview_errors.html.erb",
+        :partial => "preview_errors",
         :locals => {
           :contains_email => @outgoing_message.contains_email?,
           :contains_postcode => @outgoing_message.contains_postcode?,
@@ -933,8 +933,9 @@ class RequestController < ApplicationController
 
   def handle_blocked_ip(info_request)
     if send_exception_notifications?
-      e = Exception.new("Possible spam (ip_in_blocklist) from #{ info_request.user_id }: #{ info_request.title }")
-      ExceptionNotifier.notify_exception(e, :env => request.env)
+      msg = "Possible spam request (ip_in_blocklist) from " \
+            "User##{info_request.user_id}: #{user_ip} (#{country_from_ip})"
+      ExceptionNotifier.notify_exception(Exception.new(msg), env: request.env)
     end
 
     if block_restricted_country_ips?

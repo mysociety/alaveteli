@@ -14,9 +14,9 @@ class AdminCommentController < AdminController
 
     comments = if @query
       Comment.where(["lower(body) LIKE lower('%'||?||'%')", @query]).
-        order('created_at DESC')
+        order(created_at: :desc)
     else
-      Comment.order('created_at DESC')
+      Comment.order(created_at: :desc)
     end
 
     if cannot? :admin, AlaveteliPro::Embargo

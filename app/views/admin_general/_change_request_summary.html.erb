@@ -34,7 +34,7 @@
       <b>Source</b>
     </td>
     <td>
-      <%= @change_request.source_url %>
+      <tt><%= link_to nil, @change_request.source_url %></tt>
     </td>
   </tr>
 
@@ -44,6 +44,15 @@
     </td>
     <td>
       <%= @change_request.get_user_name %> (<%= @change_request.get_user_email %>)
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <b>Notes</b>
+    </td>
+    <td>
+      <%= @change_request.notes %>
     </td>
   </tr>
 

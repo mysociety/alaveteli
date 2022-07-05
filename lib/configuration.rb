@@ -58,10 +58,8 @@ module AlaveteliConfiguration
       FORWARD_NONBOUNCE_RESPONSES_TO: 'user-support@localhost',
       FORWARD_PRO_NONBOUNCE_RESPONSES_TO: 'pro-user-support@localhost',
       FRONTPAGE_PUBLICBODY_EXAMPLES: '',
-      GAZE_URL: '',
       GA_CODE: '',
       GEOIP_DATABASE: 'vendor/data/GeoLite2-Country.mmdb',
-      HTML_TO_PDF_COMMAND: '',
       INCLUDE_DEFAULT_LOCALE_IN_URLS: true,
       INCOMING_EMAIL_DOMAIN: 'localhost',
       INCOMING_EMAIL_PREFIX: 'foi+',
@@ -130,17 +128,19 @@ module AlaveteliConfiguration
       USE_DEFAULT_BROWSER_LANGUAGE: true,
       USE_GHOSTSCRIPT_COMPRESSION: false,
       USE_MAILCATCHER_IN_DEVELOPMENT: true,
+      USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0,
       UTILITY_SEARCH_PATH: ['/usr/bin', '/usr/local/bin'],
       WORKING_OR_CALENDAR_DAYS: 'working'
     }
     # rubocop:enable Layout/LineLength
   end
 
-  def self.html_to_pdf_command
+  def self.raw_emails_location
     warn <<~DEPRECATION.squish
-      [DEPRECATION] AlaveteliConfiguration.html_to_pdf_command will be removed
-      in 0.41. Please add the directory containing the wkhtmltopdf command to
-      AlaveteliConfiguration.utility_search_path
+      [DEPRECATION] AlaveteliConfiguration.raw_emails_location will be removed
+      in 0.42. You should have `ActiveStorage` configured but you still haven't
+      migrated all your old files. Please run `bin/rails storage:migrate` to
+      migrate
     DEPRECATION
     super
   end

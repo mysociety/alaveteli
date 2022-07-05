@@ -129,7 +129,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
               @info_request.public_body.is_requestable?
 
     reason = @info_request.public_body.not_requestable_reason
-    view = "request/new_#{reason}.html.erb"
+    view = "request/new_#{reason}"
     render view
   end
 end

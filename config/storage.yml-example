@@ -1,0 +1,59 @@
+# See https://guides.rubyonrails.org/active_storage_overview.html for the guide
+# on how to configure your storage.
+#
+# amazon:
+#   service: S3
+#   access_key_id: ''
+#   secret_access_key: ''
+#   region: ''
+#   bucket: ''
+#
+# azure:
+#   service: AzureStorage
+#   storage_account_name: ''
+#   storage_access_key: ''
+#   container: ''
+#
+# google:
+#   service: GCS
+#   credentials:
+#   project: ''
+#   bucket: ''
+
+## Raw Emails ##
+
+raw_emails_disk: &raw_emails_disk
+  service: Disk
+  root: <%= Rails.root.join('storage/raw_emails') %>
+
+raw_emails_production: &raw_emails_production
+  <<: *raw_emails_disk
+
+raw_emails_development: &raw_emails_development
+  <<: *raw_emails_disk
+
+raw_emails_test: &raw_emails_test
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage/raw_emails') %>
+
+raw_emails:
+  <<: *raw_emails_<%= Rails.env %>
+
+## Attachments ##
+
+attachments_disk: &attachments_disk
+  service: Disk
+  root: <%= Rails.root.join('storage/attachments') %>
+
+attachments_production: &attachments_production
+  <<: *attachments_disk
+
+attachments_development: &attachments_development
+  <<: *attachments_disk
+
+attachments_test: &attachments_test
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage/attachments') %>
+
+attachments:
+  <<: *attachments_<%= Rails.env %>

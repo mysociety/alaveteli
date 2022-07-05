@@ -26,8 +26,11 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Aida Martinez <amartinez@antai.gob.pa>, 2016
 # fabrizioscrollini <fabrizio.scrollini@gmail.com>, 2012
+# Gaba <gaba@torproject.org>, 2012,2014
 # Gaba <gaba@torproject.org>, 2012,2014
 # Gaba <gaba@torproject.org>, 2012,2014
 # Gareth Rees <gareth@mysociety.org>, 2016
@@ -45,7 +48,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Victor Diaz <victor.diaz@cwpanama.net>, 2014\n"
 "Language-Team: Spanish (Panama) (http://www.transifex.com/mysociety/alaveteli/"
@@ -317,6 +320,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Un comentario</strong> ha sido solicitado"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -565,9 +571,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "¿Nos falta alguna institución pública?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "¿Está seguro que desea inhabilitar dos factores de autenticación?"
 
@@ -640,6 +643,15 @@ msgid "Awaiting response."
 msgstr "Esperando respuesta."
 
 msgid "Back to content"
+msgstr ""
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
 msgstr ""
 
 msgid "Banned from this site"
@@ -1671,11 +1683,17 @@ msgstr "Enviar una solicitud a estas instituciones públicas"
 msgid "Make a request to this authority"
 msgstr "Enviar una solicitud a esta institución pública"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Realizar una {{law_used_short}} solicitud"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Hacer una solicitud {{law_used_short}} a '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Realice una solicitud de acceso a la información (SAI) o revise las ya realizadas"
@@ -2591,6 +2609,9 @@ msgstr "Cerrar sesión"
 msgid "Sign up"
 msgstr "Registrarse"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Búsqueda básica"
 
@@ -2643,6 +2664,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Lo sentimos, no hemos podido encontrar esa página"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2901,6 +2925,12 @@ msgstr "El último usuario fue creado en el día anterior"
 msgid "The last user was created over a day ago"
 msgstr "El último usuario fue creado hace más de un día"
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "La página no existe. Puede intentar lo siguiente:"
 
@@ -3068,6 +3098,9 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "Hay {{count}} comentarios en su solicitud {{law_used_short}}. Siga este enlace para leer lo que dicen."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3414,6 +3447,9 @@ msgstr "Para:"
 msgid "Today"
 msgstr "Hoy"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Demasiadas solicitudes"
 
@@ -3727,6 +3763,9 @@ msgstr "Qué sigue?"
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3899,6 +3938,9 @@ msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Ha encontrado un error.  Por favor <a href=\"{{contact_url}}\">contáctenos</a> para informarnos del problema"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Ha alcanzado el límite de solicitudes en un día, que es de {{max_requests_per_user_per_day}} solicitudes en un plazo de 24 horas. Podrá enviar una nueva solicitud en {{can_make_another_request}}."
@@ -4207,8 +4249,23 @@ msgstr "[Dirección de correo de la solicitud de acceso a la información #{{req
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[REDACTAR]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr "[Dirección de correo de la institución pública {{public_body}}]"

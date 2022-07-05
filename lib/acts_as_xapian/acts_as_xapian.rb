@@ -719,7 +719,7 @@ module ActsAsXapian
       raise "aborting incremental index update while full index rebuild happens; found existing #{new_path}"
     end
 
-    ActsAsXapianJob.pluck(:id).each do |id|
+    ActsAsXapianJob.order(:created_at).pluck(:id).each do |id|
       job = nil
       begin
         ActiveRecord::Base.transaction do
@@ -894,7 +894,7 @@ module ActsAsXapian
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
           STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
-          model_class.limit(batch_size).offset(i).order('id').each do |model|
+          model_class.limit(batch_size).offset(i).order(:id).each do |model|
             STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}") if verbose
             model.xapian_index(terms, values, texts)
           end

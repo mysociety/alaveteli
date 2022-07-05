@@ -5,23 +5,31 @@ on:
     branches: [master, develop]
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   rspec:
-    name: Ruby ${{ matrix.ruby }} / ${{ matrix.gemfile || 'Gemfile' }}
+    name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }} / ${{ matrix.gemfile || 'Gemfile' }}
     runs-on: ubuntu-20.04
+
+    permissions:
+      checks: write # for coverallsapp/github-action to create new checks
 
     strategy:
       fail-fast: false
       matrix:
         include:
-        - { ruby: 2.5 }
-        - { ruby: 2.6 }
-        - { ruby: 2.7 }
-        - { ruby: 2.7, gemfile: 'Gemfile.rails_next' }
+        - { ruby: 2.7, postgres: 13.5 }
+        - { ruby: 2.7, postgres: 13.5, gemfile: 'Gemfile.rails_next' }
 
     services:
       postgres:
-        image: fixmystreet/postgres:latest
+        image: fixmystreet/postgres:${{ matrix.postgres }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -42,6 +50,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: true
+        fetch-depth: 0
 
     - name: Install packages
       env:
@@ -55,7 +64,6 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-        bundler: ${{ matrix.bundler || '2.1.4' }}
         bundler-cache: true
 
     - name: Setup database
@@ -66,9 +74,13 @@ jobs:
           CREATE DATABASE alaveteli_test TEMPLATE template_utf8;
         EOSQL
 
-    - name: Install theme
+    - name: Configure application and storage
       run: |
         cp config/general.yml-example config/general.yml
+        cp config/storage.yml-example config/storage.yml
+
+    - name: Install theme
+      run: |
         bundle exec rake themes:install
 
     - name: Migrate database
@@ -88,6 +100,8 @@ jobs:
         parallel: true
 
   coveralls:
+    permissions:
+      checks: write
     name: Coveralls
     needs: rspec
     runs-on: ubuntu-20.04

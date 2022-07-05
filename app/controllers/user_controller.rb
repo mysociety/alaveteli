@@ -34,6 +34,7 @@ class UserController < ApplicationController
     set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
+    @show_about_me = show_about_me?
 
     set_show_requests if @show_requests
 
@@ -62,7 +63,7 @@ class UserController < ApplicationController
       # All tracks for the user
       @track_things = TrackThing.
         where(:tracking_user_id => @display_user, :track_medium => 'email_daily').
-          order('created_at desc')
+          order(created_at: :desc)
       @track_things_grouped = @track_things.group_by(&:track_type)
       # Requests you need to describe
       @undescribed_requests = @display_user.get_undescribed_requests
@@ -101,7 +102,7 @@ class UserController < ApplicationController
       @track_things = TrackThing.
         where(:tracking_user_id => @display_user.id,
               :track_medium => 'email_daily').
-          order('created_at desc')
+          order(created_at: :desc)
       @track_things.each do |track_thing|
         # TODO: factor out of track_mailer.rb
         xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
@@ -139,11 +140,7 @@ class UserController < ApplicationController
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
-      if rails_upgrade?
-        @user_signup.errors.delete(:email, :taken)
-      else
-        @user_signup.errors[:email].delete_if { |message| message == _("This email is already in use") }
-      end
+      @user_signup.errors.delete(:email, :taken)
     end
     if error || !@user_signup.errors.empty?
       # Show the form
@@ -154,6 +151,13 @@ class UserController < ApplicationController
         return
       else
         # New unconfirmed user
+
+        # Block signups from suspicious countries
+        # TODO: Add specs (see RequestController#create)
+        # TODO: Extract to UserSpamScorer?
+        if blocked_ip?(country_from_ip, @user_signup)
+          handle_blocked_ip(@user_signup) && return
+        end
 
         # Rate limit signups
         ip_rate_limiter.record(user_ip)
@@ -178,6 +182,17 @@ class UserController < ApplicationController
   rescue ActionController::ParameterMissing
     flash[:error] = _('Invalid form submission')
     render action: :sign
+  end
+
+  # A webserver level redirect can be used to redirect from the signup action to
+  # prevent spam signups from Tor.
+  def tor
+    long_cache
+
+    msg = _('Signups from Tor have been blocked due to extensive misuse. ' \
+            'Please contact us if this is a problem for you.')
+
+    render plain: msg, status: :forbidden
   end
 
   def ip_rate_limiter
@@ -325,7 +340,7 @@ class UserController < ApplicationController
 
 
       if @user.get_about_me_for_html_display.empty?
-        flash[:notice] = { :partial => "user/update_profile_photo.html.erb" }
+        flash[:notice] = { :partial => "user/update_profile_photo" }
         redirect_to edit_profile_about_me_url
       else
         flash[:notice] = _("Thank you for updating your profile photo")
@@ -385,6 +400,31 @@ class UserController < ApplicationController
   end
 
   private
+
+  def block_restricted_country_ips?
+    AlaveteliConfiguration.block_restricted_country_ips ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def blocked_ip?(country, user)
+    AlaveteliConfiguration.restricted_countries.include?(country) &&
+      country != AlaveteliConfiguration.iso_country_code
+  end
+
+  def handle_blocked_ip(user)
+    if send_exception_notifications?
+      msg = "Possible spam signup (ip_in_blocklist) from " \
+            "#{user.email}: #{user_ip} (#{country_from_ip})"
+      ExceptionNotifier.notify_exception(Exception.new(msg), env: request.env)
+    end
+
+    if block_restricted_country_ips?
+      flash.now[:error] = _("Sorry, we're currently unable to create your " \
+                            "account. Please try again later.")
+      render action: 'sign'
+      true
+    end
+  end
 
   def set_request_from_foreign_country
     @request_from_foreign_country =
@@ -535,6 +575,15 @@ class UserController < ApplicationController
 
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
+  end
+
+  def show_about_me?
+    return true if @is_you
+    return false unless @display_user.get_about_me_for_html_display.present?
+    return false unless @display_user.active?
+    return true if @display_user.confirmed_not_spam?
+    return true if @user
+    false
   end
 
   # Redirects to front page later if nothing else specified

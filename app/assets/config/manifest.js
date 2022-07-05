@@ -19,6 +19,7 @@
 //= link new-request.js
 //= link time_series.js
 //= link admin.css
+//= link admin/print.css
 //= link bootstrap-dropdown.js
 //= link widget.css
 //= link request-attachments.js

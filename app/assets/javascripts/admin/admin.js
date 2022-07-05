@@ -2,10 +2,10 @@
   jQuery(function() {
     $('.locales a:first').tab('show');
     $('.accordion-body').on('hidden', function() {
-      return $(this).prev().find('i').first().removeClass().addClass('icon-chevron-right');
+      return $(this).prev().find('i.icon-chevron-down').first().removeClass().addClass('icon-chevron-right');
     });
     $('.accordion-body').on('shown', function() {
-      return $(this).prev().find('i').first().removeClass().addClass('icon-chevron-down');
+      return $(this).prev().find('i.icon-chevron-right').first().removeClass().addClass('icon-chevron-down');
     });
     $('.toggle-hidden').on('click', function() {
       $(this).parents('td').find('div:hidden').show();
@@ -90,3 +90,30 @@
   });
 
 }).call(this);
+
+$(function() {
+  $('.select_all').click(function (event) {
+    var selectables = $("input[name='" + $(this).data('target') + "']");
+    var state = $(this).data('state');
+
+    if (state == "unchecked") {
+      selectables.each(function () {
+        $(this).prop('checked', true);
+      });
+
+      $(this).data('state', 'checked');
+      $(this).text("Deselect all");
+      return false;
+    } else {
+      selectables.each(function () {
+        $(this).prop('checked', false);
+      });
+
+      $(this).data('state', 'unchecked');
+      $(this).text("Select all");
+      return false;
+    }
+  });
+
+  return false;
+});

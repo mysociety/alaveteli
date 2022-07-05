@@ -24,3 +24,39 @@ features.each do |feature|
     backend.disable(feature)
   end
 end
+
+Rails.configuration.after_initialize do
+  poller = AlaveteliFeatures.features.add(
+    :accept_mail_from_poller,
+    label: 'Receive response via the POP poller',
+    condition: -> {
+      AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
+    }
+  )
+  notifications = AlaveteliFeatures.features.add(
+    :notifications,
+    label: 'Daily email notification digests'
+  )
+  batch_category = AlaveteliFeatures.features.add(
+    :pro_batch_category_ui,
+    label: 'Batch category user interface'
+  )
+  batch_add_all = AlaveteliFeatures.features.add(
+    :pro_batch_category_add_all,
+    label: 'Batch category "add all" button'
+  )
+
+  next unless ActiveRecord::Base.connection.data_source_exists?(:roles)
+
+  base = AlaveteliFeatures.groups.add(
+    :base,
+    roles: [Role.pro_role],
+    features: [poller, notifications]
+  )
+
+  AlaveteliFeatures.groups.add(
+    :beta,
+    includes: [base],
+    features: [batch_category, batch_add_all]
+  )
+end

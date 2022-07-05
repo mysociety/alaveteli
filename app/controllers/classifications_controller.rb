@@ -50,7 +50,7 @@ class ClassificationsController < ApplicationController
 
       # Don't give advice on what to do next, as it isn't their request
       if session[:request_game]
-        flash[:notice] = { partial: 'request_game/thank_you.html.erb',
+        flash[:notice] = { partial: 'request_game/thank_you',
                            locals: {
                              info_request_title: @info_request.title,
                              url: request_path(@info_request)

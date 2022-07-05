@@ -37,10 +37,13 @@ MAILTO=<%= mailto %>
 45 3 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/stop-new-responses-on-old-requests.lock <%= vhost_dir %>/<%= vcspath %>/script/stop-new-responses-on-old-requests || echo "stalled?"
 55 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/update-public-body-stats.lock <%= vhost_dir %>/<%= vcspath %>/script/update-public-body-stats || echo "stalled?"
 0 6 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/send-webhook-digest.lock <%= vhost_dir %>/<%= vcspath %>/script/send-webhook-digest || echo "stalled?"
+30 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/storage-raw-emails.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails --quiet storage:raw_emails:mirror storage:raw_emails:promote storage:raw_emails:unlink" || echo "stalled?"
+30 5 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/storage-attachments.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails --quiet storage:attachments:mirror storage:attachments:promote storage:attachments:unlink" || echo "stalled?"
 
 # Once a day on all servers
 43 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/request-creation-graph
 48 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/user-use-graph
+40 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/users-signins-purge.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails users:sign_ins:purge" || echo "stalled?"
 
 # Once a week (very early Monday morning)
 54 2 * * 1 <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/cleanup-holding-pen

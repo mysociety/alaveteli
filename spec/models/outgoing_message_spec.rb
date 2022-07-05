@@ -222,12 +222,12 @@ RSpec.describe OutgoingMessage do
 
     context 'when following up to an incoming message' do
 
-      it 'uses the safe_mail_from if the incoming message has a valid address' do
+      it 'uses the safe_from_name if the incoming message has a valid address' do
         message = FactoryBot.build(:internal_review_request)
 
         followup =
           mock_model(IncomingMessage, :from_email => 'specific@example.com',
-                                      :safe_mail_from => 'Specific Person',
+                                      :safe_from_name => 'Specific Person',
                                       :valid_to_reply_to? => true)
         allow(message).to receive(:incoming_message_followup).and_return(followup)
 
@@ -244,7 +244,7 @@ RSpec.describe OutgoingMessage do
 
         followup =
           mock_model(IncomingMessage, :from_email => 'invalid@example',
-                                      :safe_mail_from => 'Specific Person',
+                                      :safe_from_name => 'Specific Person',
                                       :valid_to_reply_to? => false)
         allow(message).to receive(:incoming_message_followup).and_return(followup)
 
@@ -780,7 +780,7 @@ RSpec.describe OutgoingMessage do
                                         title: 'A test title',
                                         public_body: public_body)
         incoming_message =
-          mock_model(IncomingMessage, :safe_mail_from => 'helpdesk',
+          mock_model(IncomingMessage, :safe_from_name => 'helpdesk',
                                       :valid_to_reply_to? => true)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
@@ -909,6 +909,45 @@ RSpec.describe OutgoingMessage do
       expect(@outgoing_message.indexed_by_search?).to be true
     end
 
+  end
+
+  describe '#get_text_for_indexing' do
+    subject { message.get_text_for_indexing(strip_salutation, opts) }
+
+    # Default opts
+    let(:strip_salutation) { true }
+    let(:opts) { {} }
+
+    let(:message) do
+      public_body = FactoryBot.build(:public_body, name: 'Example Body')
+      info_request = FactoryBot.build(:info_request, public_body: public_body)
+      FactoryBot.build(:initial_request, info_request: info_request, body: body)
+    end
+
+    let(:body) { "Dear Example Body,\n\n\r\nSome information please." }
+
+    context 'when stripping salutation' do
+      let(:strip_salutation) { true }
+      it { is_expected.not_to match(/Dear Example Body/) }
+      it { is_expected.not_to start_with(/\s+/) }
+    end
+
+    context 'when stripping localised salutation' do
+      let(:body) { "Estimado Example Body,\n\nAlguna información por favor." }
+
+      around do |example|
+        AlaveteliLocalization.with_locale(:es) do
+          example.run
+        end
+      end
+
+      it { is_expected.not_to match(/Estimado Example Body/) }
+    end
+
+    context 'when not stripping salutation' do
+      let(:strip_salutation) { false }
+      it { is_expected.to match(/Dear Example Body/) }
+    end
   end
 
   describe '#is_owning_user?' do

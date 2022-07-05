@@ -18,13 +18,13 @@ class AdminPublicBodyController < AdminController
     @locale = AlaveteliLocalization.locale
     AlaveteliLocalization.with_locale(@locale) do
       @public_body = PublicBody.find(params[:id])
-      info_requests = @public_body.info_requests.order('created_at DESC')
+      info_requests = @public_body.info_requests.order(created_at: :desc)
       if cannot? :admin, AlaveteliPro::Embargo
         info_requests = info_requests.not_embargoed
       end
       @info_requests = info_requests.paginate(:page => params[:page],
                                               :per_page => 100)
-      @versions = @public_body.versions.order('version DESC')
+      @versions = @public_body.versions.order(version: :desc)
       render
     end
   end
@@ -124,10 +124,10 @@ class AdminPublicBodyController < AdminController
     redirect_to admin_bodies_url
   end
 
-  def mass_tag_add
+  def mass_tag
     lookup_query
 
-    if params[:new_tag] and params[:new_tag] != ""
+    if params[:tag] and params[:tag] != ""
       if params[:table_name] == 'exact'
         bodies = @public_bodies_by_tag
       elsif params[:table_name] == 'substring'
@@ -135,29 +135,17 @@ class AdminPublicBodyController < AdminController
       else
         raise "Unknown table_name #{params[:table_name]}"
       end
-      for body in bodies
-        body.add_tag_if_not_already_present(params[:new_tag])
+
+      if request.post?
+        bodies.each { |body| body.add_tag_if_not_already_present(params[:tag]) }
+        flash[:notice] = 'Added tag to table of bodies.'
+      elsif request.delete?
+        bodies.each { |body| body.remove_tag(params[:tag]) }
+        flash[:notice] = 'Removed tag from table of bodies.'
       end
-      flash[:notice] = "Added tag to table of bodies."
     end
 
     redirect_to admin_bodies_url(:query => @query, :page => @page)
-  end
-
-  def missing_scheme
-    # There might be a way to do this in ActiveRecord, but I can't find it
-    @public_bodies = PublicBody.find_by_sql("
-            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany
-              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id
-             WHERE a.publication_scheme = ''
-             GROUP BY a.id, a.name, a.url_name
-             ORDER BY howmany DESC
-             LIMIT 20
-        ")
-    @stats = {
-      "total" => PublicBody.count,
-      "entered" => PublicBody.where("publication_scheme != ''").count
-    }
   end
 
   def import_csv
@@ -276,7 +264,7 @@ class AdminPublicBodyController < AdminController
         PublicBody.
           joins(:translations).
             where(query).
-              order('public_body_translations.name').
+              merge(PublicBody::Translation.order(:name)).
                 paginate(:page => @page, :per_page => 100)
     end
 

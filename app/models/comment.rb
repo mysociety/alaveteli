@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: comments
 #
@@ -7,11 +7,11 @@
 #  user_id             :integer          not null
 #  info_request_id     :integer
 #  body                :text             not null
-#  visible             :boolean          default("true"), not null
+#  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  locale              :text             default(""), not null
-#  attention_requested :boolean          default("false"), not null
+#  attention_requested :boolean          default(FALSE), not null
 #
 
 # models/comments.rb:
@@ -63,7 +63,7 @@ class Comment < ApplicationRecord
             references(:embargoes)
   }
 
-  after_save :event_xapian_update
+  after_save :reindex_request_events
 
   default_url_options[:host] = AlaveteliConfiguration.domain
 
@@ -97,13 +97,22 @@ class Comment < ApplicationRecord
     ret
   end
 
+  def prominence
+    hidden? ? 'hidden' : 'normal'
+  end
+
   def hidden?
     !visible?
   end
 
-  # So when takes changes it updates, or when made invisble it vanishes
-  def event_xapian_update
+  def reindex_request_events
     info_request_events.find_each(&:xapian_mark_needs_index)
+  end
+
+  def event_xapian_update
+    warn 'DEPRECATION: Comment#event_xapian_update will be removed in 0.42. ' \
+         'It has been replaced with Comment#reindex_request_events'
+    reindex_request_events
   end
 
   # Return body for display as HTML
@@ -185,6 +194,18 @@ class Comment < ApplicationRecord
 
   def last_reported_at
     last_report.try(:created_at)
+  end
+
+  def hide(editor:)
+    ActiveRecord::Base.transaction do
+      event_params = { comment_id: id,
+                       editor: editor.url_name,
+                       old_visible: visible?,
+                       visible: false }
+
+      update!(visible: false)
+      info_request.log_event('hide_comment', event_params)
+    end
   end
 
   private

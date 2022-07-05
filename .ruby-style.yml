@@ -4,7 +4,7 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
   RubyInterpreters:
     - ruby
     - rake
@@ -53,10 +53,19 @@ Bundler/OrderedGems:
 Gemspec/DateAssignment:
   Enabled: false
 
+Gemspec/DependencyVersion:
+  Enabled: false
+
+Gemspec/DeprecatedAttributeAssignment:
+  Enabled: false
+
 Gemspec/DuplicatedAssignment:
   Enabled: false
 
 Gemspec/OrderedDependencies:
+  Enabled: false
+
+Gemspec/RequireMFA:
   Enabled: false
 
 Gemspec/RequiredRubyVersion:
@@ -237,6 +246,14 @@ Layout/LineLength:
     - "^\\s*context\\s+.*do$"
     - "^\\s*describe\\s+.*do$"
     - "^\\s*class\\s+[A-Z].*<.*"
+  Exclude:
+    - bin/setup
+    - config/environments/development.rb
+    - config/environments/production.rb
+    - config/environments/test.rb
+    - config/initializers/backtrace_silencers.rb
+    - config/initializers/content_security_policy.rb
+    - config/initializers/new_framework_defaults*
 
 Layout/MultilineArrayBraceLayout:
   Enabled: true
@@ -621,6 +638,9 @@ Lint/RedundantWithIndex:
 Lint/RedundantWithObject:
   Enabled: false
 
+Lint/RefinementImportMethods:
+  Enabled: false
+
 Lint/RegexpAsCondition:
   Enabled: false
 
@@ -729,10 +749,10 @@ Lint/UselessAccessModifier:
 Lint/UselessAssignment:
   Enabled: false
 
-Lint/UselessElseWithoutRescue:
+Lint/UselessMethodDefinition:
   Enabled: false
 
-Lint/UselessMethodDefinition:
+Lint/UselessRuby2Keywords:
   Enabled: false
 
 Lint/UselessSetterCall:
@@ -787,6 +807,9 @@ Naming/AsciiIdentifiers:
   Enabled: true
 
 Naming/BinaryOperatorParameterName:
+  Enabled: false
+
+Naming/BlockForwarding:
   Enabled: false
 
 Naming/BlockParameterName:
@@ -959,6 +982,9 @@ Performance/Squeeze:
 Performance/StartWith:
   Enabled: false
 
+Performance/StringIdentifierArgument:
+  Enabled: false
+
 Performance/StringInclude:
   Enabled: false
 
@@ -978,6 +1004,9 @@ Performance/UriDefaultParser:
   Enabled: false
 
 #################### Rails ####################
+
+Rails/ActionControllerTestCase:
+  Enabled: false
 
 Rails/ActionFilter:
   Enabled: false
@@ -1030,6 +1059,9 @@ Rails/Blank:
 Rails/BulkChangeTable:
   Enabled: false
 
+Rails/CompactBlank:
+  Enabled: false
+
 Rails/ContentTag:
   Enabled: false
 
@@ -1046,6 +1078,21 @@ Rails/Delegate:
   Enabled: false
 
 Rails/DelegateAllowBlank:
+  Enabled: false
+
+Rails/DeprecatedActiveModelErrorsMethods:
+  Enabled: false
+
+Rails/DotSeparatedKeys:
+  Enabled: false
+
+Rails/DuplicateAssociation:
+  Enabled: false
+
+Rails/DuplicateScope:
+  Enabled: false
+
+Rails/DurationArithmetic:
   Enabled: false
 
 Rails/DynamicFindBy:
@@ -1099,7 +1146,13 @@ Rails/HttpPositionalArguments:
 Rails/HttpStatus:
   Enabled: false
 
+Rails/I18nLazyLookup:
+  Enabled: false
+
 Rails/I18nLocaleAssignment:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
   Enabled: false
 
 Rails/IgnoredSkipActionFilterOption:
@@ -1127,6 +1180,9 @@ Rails/MailerName:
   Enabled: false
 
 Rails/MatchRoute:
+  Enabled: false
+
+Rails/MigrationClassName:
   Enabled: false
 
 Rails/NegateInclude:
@@ -1177,6 +1233,9 @@ Rails/RedundantAllowNil:
 Rails/RedundantForeignKey:
   Enabled: false
 
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
+
 Rails/RedundantReceiverInWithOptions:
   Enabled: false
 
@@ -1210,6 +1269,12 @@ Rails/ReversibleMigration:
 Rails/ReversibleMigrationMethodDefinition:
   Enabled: false
 
+Rails/RootJoinChain:
+  Enabled: false
+
+Rails/RootPublicPath:
+  Enabled: false
+
 Rails/SafeNavigation:
   Enabled: false
 
@@ -1217,6 +1282,9 @@ Rails/SafeNavigationWithBlank:
   Enabled: false
 
 Rails/SaveBang:
+  Enabled: false
+
+Rails/SchemaComment:
   Enabled: false
 
 Rails/ScopeArgs:
@@ -1231,10 +1299,22 @@ Rails/SkipsModelValidations:
 Rails/SquishedSQLHeredocs:
   Enabled: false
 
+Rails/StripHeredoc:
+  Enabled: false
+
+Rails/TableNameAssignment:
+  Enabled: false
+
 Rails/TimeZone:
   Enabled: false
 
 Rails/TimeZoneAssignment:
+  Enabled: false
+
+Rails/ToFormattedS:
+  Enabled: false
+
+Rails/TransactionExitStatement:
   Enabled: false
 
 Rails/UniqBeforePluck:
@@ -1262,6 +1342,9 @@ Rails/WhereNot:
   Enabled: false
 
 #################### Security ####################
+
+Security/CompoundHash:
+  Enabled: false
 
 Security/Eval:
   Enabled: false
@@ -1454,6 +1537,9 @@ Style/EndBlock:
 Style/EndlessMethod:
   Enabled: false
 
+Style/EnvHome:
+  Enabled: false
+
 Style/EvalWithLocation:
   Enabled: false
 
@@ -1467,6 +1553,15 @@ Style/ExplicitBlockArgument:
   Enabled: false
 
 Style/ExponentialNotation:
+  Enabled: false
+
+Style/FetchEnvVar:
+  Enabled: false
+
+Style/FileRead:
+  Enabled: false
+
+Style/FileWrite:
   Enabled: false
 
 Style/FloatDivision:
@@ -1569,6 +1664,12 @@ Style/LambdaCall:
 Style/LineEndConcatenation:
   Enabled: true
 
+Style/MapCompactWithConditionalBlock:
+  Enabled: false
+
+Style/MapToHash:
+  Enabled: false
+
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
@@ -1641,6 +1742,9 @@ Style/NegatedUnless:
 Style/NegatedWhile:
   Enabled: true
 
+Style/NestedFileDirname:
+  Enabled: false
+
 Style/NestedModifier:
   Enabled: true
 
@@ -1680,7 +1784,13 @@ Style/NumericLiterals:
 Style/NumericPredicate:
   Enabled: false
 
+Style/ObjectThen:
+  Enabled: false
+
 Style/OneLineConditional:
+  Enabled: false
+
+Style/OpenStructUse:
   Enabled: false
 
 Style/OptionHash:
@@ -1754,6 +1864,9 @@ Style/RedundantFileExtensionInRequire:
 
 Style/RedundantFreeze:
   Enabled: true
+
+Style/RedundantInitialize:
+  Enabled: false
 
 Style/RedundantInterpolation:
   Enabled: true
@@ -1860,6 +1973,18 @@ Style/StringHashKeys:
 
 Style/StringLiterals:
   Enabled: false
+  EnforcedStyle: single_quotes
+  Exclude:
+    - bin/rails
+    - bin/rake
+    - bin/setup
+    - config.ru
+    - config/application.rb
+    - config/boot.rb
+    - config/environment.rb
+    - config/environments/development.rb
+    - config/environments/production.rb
+    - config/environments/test.rb
 
 Style/StringLiteralsInInterpolation:
   Enabled: false

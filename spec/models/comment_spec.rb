@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: comments
 #
@@ -7,11 +7,11 @@
 #  user_id             :integer          not null
 #  info_request_id     :integer
 #  body                :text             not null
-#  visible             :boolean          default("true"), not null
+#  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  locale              :text             default(""), not null
-#  attention_requested :boolean          default("false"), not null
+#  attention_requested :boolean          default(FALSE), not null
 #
 
 require 'spec_helper'
@@ -85,6 +85,20 @@ RSpec.describe Comment do
       expect(Comment.not_embargoed.include?(@request_comment)).to be true
     end
 
+  end
+
+  describe '#prominence' do
+    subject { comment.prominence }
+
+    context 'when the comment is visible' do
+      let(:comment) { described_class.new(visible: true) }
+      it { is_expected.to eq('normal') }
+    end
+
+    context 'when the comment is hidden' do
+      let(:comment) { described_class.new(visible: false) }
+      it { is_expected.to eq('hidden') }
+    end
   end
 
   describe '#hidden?' do
@@ -214,6 +228,28 @@ RSpec.describe Comment do
         to be_within(3.seconds).of(expected)
     end
 
+  end
+
+  describe '#hide' do
+    subject { comment.hide(editor: editor) }
+
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:editor) { FactoryBot.create(:user, :admin) }
+
+    it 'hides the comment' do
+      subject
+      expect(comment).not_to be_visible
+    end
+
+    it 'logs an event on the request' do
+      subject
+      event = comment.info_request.last_event
+      expect(event.event_type).to eq('hide_comment')
+      expect(event.params[:comment_id]).to eq(comment.id)
+      expect(event.params[:editor]).to eq(editor.url_name)
+      expect(event.params[:old_visible]).to eq(true)
+      expect(event.params[:visible]).to eq(false)
+    end
   end
 
   describe 'for_admin_event_column' do

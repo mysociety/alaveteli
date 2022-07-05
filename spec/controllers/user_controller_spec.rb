@@ -566,6 +566,99 @@ RSpec.describe UserController do
 
     end
 
+    context 'when the display_user does not have an about_me' do
+      before { user.update(about_me: '') }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when the display_user is banned' do
+      before { user.update(about_me: 'x', ban_text: 'spam') }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when the display_user is inactive' do
+      before { user.update(about_me: 'x', closed_at: Time.zone.now) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when display_user is not confirmed as genuine' do
+      before { user.update(about_me: 'x', confirmed_not_spam: false) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when the display_user is confirmed as genuine' do
+      before { user.update(about_me: 'x', confirmed_not_spam: true) }
+
+      it 'shows the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(true)
+      end
+    end
+
+    context 'when logged in as the display_user' do
+      before { sign_in(user) }
+
+      it 'shows the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(true)
+      end
+    end
+
+    context 'when logged in as a different in user' do
+      before { user.update(about_me: 'x', confirmed_not_spam: false) }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'shows the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(true)
+      end
+    end
+
+    context 'when logged in as a different in user but the display_user has no about_me' do
+      before { user.update(about_me: '') }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when logged in as a different in user but the display_user is inactive' do
+      before { user.update(about_me: 'x', closed_at: Time.zone.now) }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
+
+    context 'when logged in as a different in user but the display_user is banned' do
+      before { user.update(ban_text: 'spam') }
+      before { sign_in(FactoryBot.create(:user)) }
+
+      it 'does not show the about_me' do
+        get :show, params: { url_name: user.url_name }
+        expect(assigns[:show_about_me]).to eq(false)
+      end
+    end
   end
 
   describe 'POST set_profile_photo' do
@@ -575,11 +668,7 @@ RSpec.describe UserController do
       before(:each) do
         @user = FactoryBot.create(:user, :ban_text => 'Causing trouble')
         sign_in @user
-        if rails_upgrade?
-          @uploadedfile = fixture_file_upload("parrot.png")
-        else
-          @uploadedfile = fixture_file_upload("/files/parrot.png")
-        end
+        @uploadedfile = fixture_file_upload("parrot.png")
 
         post :set_profile_photo, params: {
                                    :id => @user.id,
@@ -989,6 +1078,26 @@ RSpec.describe UserController do
 
     # TODO: need to do bob@localhost signup and check that sends different email
   end
+
+  describe 'GET tor' do
+    subject { get :tor }
+
+    before { subject }
+
+    it 'returns a 403 status' do
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'sets long cache headers' do
+      expect(response.headers['Cache-Control']).to eq('max-age=86400, public')
+    end
+
+    it 'renders a plain text message' do
+      msg = 'Signups from Tor have been blocked due to extensive misuse. ' \
+            'Please contact us if this is a problem for you.'
+      expect(response.body).to eq(msg)
+    end
+  end
 end
 
 RSpec.describe UserController, "when changing email address" do
@@ -1107,13 +1216,8 @@ RSpec.describe UserController, "when using profile photos" do
   before do
     @user = users(:bob_smith_user)
 
-    if rails_upgrade?
-      @uploadedfile = fixture_file_upload("parrot.png")
-      @uploadedfile_2 = fixture_file_upload("parrot.png")
-    else
-      @uploadedfile = fixture_file_upload("/files/parrot.png")
-      @uploadedfile_2 = fixture_file_upload("/files/parrot.png")
-    end
+    @uploadedfile = fixture_file_upload("parrot.png")
+    @uploadedfile_2 = fixture_file_upload("parrot.png")
   end
 
   it "should not let you change profile photo if you're not logged in as the user" do
@@ -1169,7 +1273,7 @@ RSpec.describe UserController, "when using profile photos" do
            }
 
       expect(flash[:notice][:partial]).
-        to eq("user/update_profile_photo.html.erb")
+        to eq("user/update_profile_photo")
     end
 
   end

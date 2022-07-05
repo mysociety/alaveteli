@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.40.1.1'
+ALAVETELI_VERSION = '0.41.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -35,7 +35,10 @@ require 'core_ext/warning'
 require 'use_spans_for_errors.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
+require 'html_to_pdf_converter.rb'
 require 'quiet_opener.rb'
+require 'attachment_to_html'
+require 'health_checks'
 require 'mail_handler'
 require 'ability'
 require 'normalize_string'
@@ -59,15 +62,10 @@ require 'alaveteli_mail_poller'
 require 'safe_redirect'
 require 'alaveteli_pro/metrics_report'
 require 'alaveteli_pro/webhook_endpoints'
-require 'patches/active_support/configuration_file'
 
 # Allow tests to be run under a non-superuser database account if required
 if Rails.env.test?
-  if rails_upgrade?
-    test_config = ActiveRecord::Base.configurations.find_db_config(:test).
-      configuration_hash
-  else
-    test_config = ActiveRecord::Base.configurations[:test]
-  end
+  test_config = ActiveRecord::Base.configurations.find_db_config(:test).
+    configuration_hash
   require 'no_constraint_disabling' unless test_config['constraint_disabling']
 end

@@ -80,12 +80,11 @@
    */
 
   [data-block="exemption"] fieldset {
-    max-height: 16em;
+    height: 16em;
     @include respond-min( 35em ) {
-      max-height: 8.3em; 
+      height: 8.3em;
     }
-  
-    transition: max-height 0.2s ease-out;
+    transition: height 0.2s ease-out;
     overflow: hidden;
    }
 
@@ -93,8 +92,11 @@
     /*
     * We're toggling the .expanded class with JS
     */
-    max-height: none;
-    transition: max-height 0.2s ease-out;
+    height: auto;
+    transition: height 0.2s ease-out;
+    @include respond-min( 35em ) {
+      height: 16em;
+    }
   }
 
   .maximise-questions {

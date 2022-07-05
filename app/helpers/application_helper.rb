@@ -51,14 +51,8 @@ module ApplicationHelper
     error_messages = "".html_safe
 
     objects.each do |object|
-      if rails_upgrade?
-        object.errors.each do |error|
-          error_messages << content_tag(:li, h(error.message))
-        end
-      else
-        object.errors.each do |attr, message|
-          error_messages << content_tag(:li, h(message))
-        end
+      object.errors.each do |error|
+        error_messages << content_tag(:li, h(error.message))
       end
     end
 
@@ -140,9 +134,13 @@ module ApplicationHelper
     end
   end
 
-  def render_flash(flash)
-    flash = { :plain => flash } if flash.is_a?(String)
-    render flash.deep_symbolize_keys
+  def inside_layout(layout = 'application', &block)
+    render inline: capture(&block), layout: "layouts/#{layout}"
+  end
+
+  def render_flash(message)
+    message = { plain: message } if message.is_a?(String)
+    render message.deep_symbolize_keys
   end
 
   # We only want to cache request lists that have a reasonable chance of not expiring

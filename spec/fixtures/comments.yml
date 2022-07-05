@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: comments
 #
@@ -7,11 +7,11 @@
 #  user_id             :integer          not null
 #  info_request_id     :integer
 #  body                :text             not null
-#  visible             :boolean          default("true"), not null
+#  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  locale              :text             default(""), not null
-#  attention_requested :boolean          default("false"), not null
+#  attention_requested :boolean          default(FALSE), not null
 #
 
 silly_comment: 
@@ -22,13 +22,3 @@ silly_comment:
   info_request_id: "101"
   user_id: "2"
   created_at: 2008-08-13 01:25:17.486939
-
-sensible_comment:
-  id: 2
-  body: This a wise and helpful annotation.
-  info_request_id: 105
-  visible: t
-  user_id: 1
-  created_at: 2008-08-13 01:25:17.486939
-  updated_at: 2008-08-13 01:25:17.486939
-

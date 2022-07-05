@@ -3,33 +3,40 @@
     <div class="accordion" id="comments">
       <% comments.each do |comment| %>
         <div class="accordion-group">
-          <div class="accordion-heading">
-            <%= check_box_tag 'comment_ids[]', comment.id %>
+          <div class="accordion-heading accordion-toggle row">
+            <span class="item-title span6">
+              <%= check_box_tag 'comment_ids[]', comment.id %>
 
-            <a href="#comment_<%= comment.id %>" data-toggle="collapse" data-parent="#comments"><%= chevron_right %></a>
+              <a href="#comment_<%= comment.id %>" data-toggle="collapse" data-parent="comments">
+                <%= chevron_right %>
+              </a>
 
-            <%= link_to edit_admin_comment_path(comment) do %>
-              #<%= comment.id %>
-            --
-            <%= h(comment.user.name) %>
-            <%= admin_date(comment.created_at) %>
-          <% end %>
+              <%= both_links(comment) %>
+            </span>
 
-          <%= comment_visibility(comment) %>
-
-          <blockquote class="incoming-message">
-            <%= truncate(comment.body, :length => 400) %>
-          </blockquote>
+            <span class="item-metadata span6">
+              <%= both_links(comment.user) %>
+              <%= arrow_right %>
+              <%= both_links(comment.info_request) %>,
+              <%= admin_date(comment.updated_at, ago_only: true) %>
+            </span>
           </div>
 
-          <div id="comment_<%= comment.id %>" class="accordion-body collapse">
-            <table class="table table-striped table-condensed">
+          <div id="comment_<%= comment.id %>" class="item-detail accordion-body collapse row">
+            <table class="span12 table table-striped table-condensed">
               <tbody>
                 <tr>
                   <td colspan="2">
-                    By <%= user_both_links(comment.user) %>
-                </td>
+                    By <%= both_links(comment.user) %>
+                  </td>
                 </tr>
+
+                <tr>
+                  <td colspan="2">
+                    On <%= both_links(comment.info_request) %>
+                  </td>
+                </tr>
+
                 <% comment.for_admin_column do |name, value, type, column_name |%>
                   <tr>
                     <td>
@@ -47,14 +54,18 @@
               </tbody>
             </table>
           </div>
-
         </div>
       <% end %>
     </div>
 
-    <%= submit_tag 'Hide selected', :name => 'hide_selected' %>
-    <%= submit_tag 'Unhide selected', :name => 'unhide_selected' %>
+    <div class="btn-group">
+      <%= submit_tag 'Hide selected', name: 'hide_selected', class: 'btn' %>
+      <%= submit_tag 'Unhide selected', name: 'unhide_selected', class: 'btn' %>
+    </div>
 
+    <a href="#" class="select_all btn btn-link" data-state="unchecked" data-target="comment_ids[]">
+      Select all
+    </a>
   <% end %>
 <% else %>
   <p>None yet.</p>

@@ -1079,7 +1079,7 @@ RSpec.describe RequestController, "when creating a new request" do
          }
 
     ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?").
-                            order("id")
+                            order(:id)
     expect(ir_array.size).to eq(2)
 
     ir = ir_array[0]
@@ -1572,7 +1572,8 @@ RSpec.describe RequestController, "when creating a new request" do
                      :preview => 0
                    }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+        expect(mail.subject).
+          to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
 
       it 'shows an error message' do
@@ -1654,7 +1655,8 @@ RSpec.describe RequestController, "when creating a new request" do
                      :preview => 0
                    }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+        expect(mail.subject).
+          to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
 
       it 'allows the request' do
@@ -1712,7 +1714,8 @@ RSpec.describe RequestController, "when making a new request" do
 
   it "should fail if user is banned" do
     allow(@user).to receive(:can_file_requests?).and_return(false)
-    allow(@user).to receive(:exceeded_limit?).and_return(false)
+    allow(@user).
+      to receive(:exceeded_limit?).with(:info_requests).and_return(false)
     expect(@user).to receive(:can_fail_html).and_return('FAIL!')
     sign_in @user
     get :new, params: { :public_body_id => @body.id }
@@ -1806,11 +1809,7 @@ RSpec.describe RequestController, "authority uploads a response from the web int
     sign_in @normal_user
 
     # post up a photo of the parrot
-    if rails_upgrade?
-      parrot_upload = fixture_file_upload('parrot.png','image/png')
-    else
-      parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
-    end
+    parrot_upload = fixture_file_upload('parrot.png', 'image/png')
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
@@ -1842,11 +1841,7 @@ RSpec.describe RequestController, "authority uploads a response from the web int
     sign_in @foi_officer_user
 
     # post up a photo of the parrot
-    if rails_upgrade?
-      parrot_upload = fixture_file_upload('parrot.png', 'image/png')
-    else
-      parrot_upload = fixture_file_upload('/files/parrot.png', 'image/png')
-    end
+    parrot_upload = fixture_file_upload('parrot.png', 'image/png')
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
@@ -2296,7 +2291,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
   it "shows a flash message to alert the user" do
     get :new
     expect(flash[:notice][:partial]).
-      to eq "general/read_only_annotations.html.erb"
+      to eq "general/read_only_annotations"
   end
 
   context "when annotations are disabled" do
@@ -2306,7 +2301,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
 
     it "doesn't mention annotations in the flash message" do
       get :new
-      expect(flash[:notice][:partial]).to eq "general/read_only.html.erb"
+      expect(flash[:notice][:partial]).to eq "general/read_only"
     end
   end
 end

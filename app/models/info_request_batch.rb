@@ -36,8 +36,11 @@ class InfoRequestBatch < ApplicationRecord
     end
   }, :inverse_of => :info_request_batches
 
+  attr_accessor :ignore_existing_batch
+
   validates_presence_of :user
   validates_presence_of :body
+  validates_absence_of :existing_batch, unless: -> { ignore_existing_batch }
 
   strip_attributes only: %i[embargo_duration]
 
@@ -58,18 +61,30 @@ class InfoRequestBatch < ApplicationRecord
     end
   end
 
-  #  When constructing a new batch, use this to check user hasn't double submitted.
-  def self.find_existing(user, title, body, public_body_ids)
+  def self.with_body(body)
+    where("regexp_replace(info_request_batches.body, '[[:space:]]', '', 'g') =
+           regexp_replace(?, '[[:space:]]', '', 'g')", body)
+  end
+
+  # When constructing a new batch, use this to check user hasn't double
+  # submitted.
+  def self.find_existing(user, title, body, public_body_ids, id: nil)
     conditions = {
-      :user_id => user,
-      :title => title,
-      :body => body,
-      :info_request_batches_public_bodies => {
-        :public_body_id => public_body_ids
+      user_id: user,
+      title: title,
+      info_request_batches_public_bodies: {
+        public_body_id: public_body_ids
       }
     }
 
-    includes(:public_bodies).where(conditions).references(:public_bodies).first
+    scope = includes(:public_bodies).
+      where(conditions).
+      with_body(body).
+      references(:public_bodies)
+
+    scope = scope.where.not(id: id) if id
+
+    scope.first
   end
 
   # Create a new batch from the supplied draft version
@@ -79,6 +94,10 @@ class InfoRequestBatch < ApplicationRecord
              :title => draft.title,
              :body => draft.body,
              :embargo_duration => draft.embargo_duration)
+  end
+
+  def existing_batch
+    self.class.find_existing(user, title, body, public_body_ids, id: id)
   end
 
   # Create a batch of information requests and sends them to public bodies
@@ -93,7 +112,7 @@ class InfoRequestBatch < ApplicationRecord
       # Sleep between requests in production, in case we're sending a huge
       # batch which may result in a torrent of auto-replies coming back to
       # us and overloading the server.
-      uses_poller = feature_enabled?(:accept_mail_from_poller, user)
+      uses_poller = user.features.enabled?(:accept_mail_from_poller)
       sleep 60 if Rails.env.production? && !uses_poller
     end
     reload
@@ -286,5 +305,9 @@ class InfoRequestBatch < ApplicationRecord
   def is_owning_user?(user)
     return false unless user
     user.id == user_id || user.owns_every_request?
+  end
+
+  def prominence
+    'normal'
   end
 end

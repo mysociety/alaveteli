@@ -566,19 +566,6 @@ GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb
 # ---
 MAXMIND_LICENSE_KEY: ''
 
-# In the absence of a GeoIP database (see above), Alaveteli can use Gaze,
-# mySociety's gazeteer, to determine the country from the IP address of an HTTP
-# request to the site. You shouldn't normally need to change this.
-#
-# GAZE_URL - String (default: http://gaze.mysociety.org)
-#
-# Examples:
-#
-#   GAZE_URL: http://gaze.example.org
-#
-# ---
-GAZE_URL: http://gaze.mysociety.org
-
 # The email address to which non-bounce responses to emails sent out by
 # Alaveteli should be forwarded
 #
@@ -602,24 +589,6 @@ FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
 #
 # ---
 FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
-
-# Path to a program that converts an HTML page in a file to PDF. Also used to
-# download a zip file of all the correspondence for a request. It should take
-# two arguments: the URL, and a path to an output file.
-#
-# A static binary of wkhtmltopdf is recommended:
-# https://github.com/wkhtmltopdf/packaging/releases
-# If the command is not present, a text-only version will be rendered
-# instead.
-#
-# HTML_TO_PDF_COMMAND - String (default: nil)
-#
-# Examples:
-#
-#   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
-#
-# ---
-HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
 
 # Email address used for sending exception notifications.
 #
@@ -838,6 +807,7 @@ SHARED_FILES_PATH: ''
 SHARED_FILES:
   - config/database.yml
   - config/general.yml
+  - config/storage.yml
   - config/rails_env.rb
   - config/httpd.conf
   - public/foi-live-creation.png
@@ -862,6 +832,7 @@ SHARED_DIRECTORIES:
   - cache/
   - lib/acts_as_xapian/xapiandbs/
   - log/
+  - storage/
   - tmp/pids
   - vendor/bundle
   - public/assets
@@ -968,8 +939,8 @@ ENABLE_ANTI_SPAM: false
 # ---
 BLOCK_RATE_LIMITED_IPS: false
 
-# Prevent users making requests if their IP originates in one of the
-# RESTRICTED_COUNTRIES.
+# Prevent users signing up and making requests if their IP originates in one of
+# the RESTRICTED_COUNTRIES.
 #
 # BLOCK_RESTRICTED_COUNTRY_IPS - Boolean (default: false)
 #
@@ -1307,3 +1278,16 @@ ENABLE_PROJECTS: false
 #
 # ---
 SURVEY_URL: ''
+
+# Retains records of IP addresses used to sign in to user accounts for the
+# configured number of days. This value should be less than or equal to the
+# number of days of logs retained according to your logrotate configuration,
+# otherwise you may hold data in a way that is inconsistent with your privacy
+# policy.
+#
+# Does not record actvity when set to 0.
+#
+# USER_SIGN_IN_ACTIVITY_RETENTION_DAYS – Integer (default: 0)
+#
+# ---
+USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0

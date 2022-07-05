@@ -245,6 +245,9 @@ Rails.application.routes.draw do
         :via => :get
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
+
+  match '/tor' => 'user#tor', via: :get
+
   match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
         :via => :get
@@ -486,8 +489,8 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :bodies,
     :controller => 'admin_public_body' do
-      get 'missing_scheme', :on => :collection
-      post 'mass_tag_add', :on => :collection
+      post 'mass_tag', on: :collection
+      delete 'mass_tag', on: :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
       resources :censor_rules,
@@ -621,7 +624,9 @@ Rails.application.routes.draw do
     resources :users,
       :controller => 'admin_user',
     :except => [:new, :create, :destroy] do
+      get 'active', :on => :collection
       get 'banned', :on => :collection
+      get 'closed', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
       post 'clear_profile_photo', :on => :member
@@ -643,9 +648,17 @@ Rails.application.routes.draw do
 
   #### AdminUsersSessions controller
   scope '/admin', :as => 'admin' do
-    resources :users_sessions,
+    resource :users_sessions,
       :controller => 'admin_users_sessions',
-      :only => [:create]
+      :only => [:create, :destroy]
+  end
+  ####
+
+  #### Admin::Users::SignIns controller
+  namespace :admin do
+    scope module: 'users' do
+      resources :sign_ins, only: [:index]
+    end
   end
   ####
 

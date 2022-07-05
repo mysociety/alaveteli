@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210120801
 #
 # Table name: incoming_messages
 #
@@ -12,13 +12,14 @@
 #  cached_main_body_text_folded   :text
 #  cached_main_body_text_unfolded :text
 #  subject                        :text
-#  mail_from_domain               :text
+#  from_email_domain              :text
 #  valid_to_reply_to              :boolean
 #  last_parsed                    :datetime
-#  mail_from                      :text
+#  from_name                      :text
 #  sent_at                        :datetime
 #  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
+#  from_email                     :text
 #
 
 # models/incoming_message.rb:
@@ -38,6 +39,7 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include AdminColumn
   include MessageProminence
+  include CacheAttributesFromRawEmail
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
@@ -55,9 +57,10 @@ class IncomingMessage < ApplicationRecord
            :class_name => 'OutgoingMessage',
            :dependent => :nullify
   has_many :foi_attachments,
-           -> { order('id') },
-           :inverse_of => :incoming_message,
-           :dependent => :destroy
+           -> { order(:id) },
+           inverse_of: :incoming_message,
+           dependent: :destroy,
+           autosave: true
   # never really has many info_request_events, but could in theory
   has_many :info_request_events,
            :dependent => :destroy,
@@ -74,16 +77,19 @@ class IncomingMessage < ApplicationRecord
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
-  delegate :from_email, to: :raw_email
+  cache_from_raw_email :subject, :sent_at,
+                       :from_name, :from_email, :from_email_domain,
+                       :valid_to_reply_to
+
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
   delegate :legislation, to: :info_request
 
-  # Given that there are in theory many info request events, a convenience method for
-  # getting the response event
+  # Given that there are in theory many info request events, a convenience
+  # method for getting the response event.
   def response_event
-    self.info_request_events.detect { |e| e.event_type == 'response' }
+    info_request_events.where(event_type: 'response').first
   end
 
   def parse_raw_email!(force = nil)
@@ -95,19 +101,14 @@ class IncomingMessage < ApplicationRecord
     end
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
-        self.extract_attachments!
+        extract_attachments
         self.sent_at = raw_email.date || created_at
         self.subject = raw_email.subject
-        self.mail_from = raw_email.from_name
-        if from_email
-          self.mail_from_domain =
-            PublicBody.extract_domain_from_email(from_email)
-        else
-          self.mail_from_domain = ""
-        end
+        self.from_name = raw_email.from_name
+        self.from_email = raw_email.from_email || ''
+        self.from_email_domain = raw_email.from_email_domain || ''
         self.valid_to_reply_to = raw_email.valid_to_reply_to?
         self.last_parsed = Time.zone.now
-        self.foi_attachments.reload
         self.save!
       end
     end
@@ -117,66 +118,12 @@ class IncomingMessage < ApplicationRecord
     raw_email.destroy_file_representation!
   end
 
-  # The cached fields mentioned in the previous comment
-
-  # Public: Can this message be replied to?
-  # Caches the value set by raw_email.valid_to_reply_to? in #parse_raw_email!
-  # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
-  #
-  # Returns a Boolean
-  def valid_to_reply_to
-    parse_raw_email!
-    super
-  end
-
   alias_method :valid_to_reply_to?, :valid_to_reply_to
 
-  # Public: The date and time the email was sent. Uses the Date header if
-  # present in the email, otherwise uses the record's created_at attribute.
-  # #sent_at overrides the ActiveRecord provided #sent_at
-  #
-  # Returns an ActiveSupport::TimeWithZone
-  def sent_at
-    parse_raw_email!
-    super
-  end
-
-  # Public: The subject of an email.
-  # #subject overrides the ActiveRecord provided #subject
-  #
-  # Examples:
-  #
-  #   # Subject: A response to your FOI request
-  #   incoming_message.subject
-  #   # => 'A response to your FOI request'
-  #
-  #   # No subject header
-  #   incoming_message.subject
-  #   # => nil
-  #
-  # Returns a String or nil
-  def subject
-    parse_raw_email!
-    super
-  end
-
-  # Public: The display name of the email sender.
-  # #mail_from overrides the ActiveRecord provided #mail_from
-  #
-  # Examples:
-  #
-  #   # From: John Doe <john@example.com>
-  #   incoming_message.mail_from
-  #   # => 'John Doe'
-  #
-  #   # From: john@example.com
-  #   incoming_message.mail_from
-  #   # => nil
-  #
-  # Returns a String or nil
   def mail_from
-    parse_raw_email!
-    super
+    warn %q([DEPRECATION] IncomingMessage#mail_from will be removed in 0.42. It
+            has been replaced by IncomingMessage#from_name).squish
+    from_name
   end
 
   # Public: The display name of the email sender with the associated
@@ -186,42 +133,36 @@ class IncomingMessage < ApplicationRecord
   #
   #   # Given a CensorRule that redacts the word 'Person':
   #
-  #   incoming_message.mail_from
+  #   incoming_message.from_name
   #   # => FOI Person
   #
-  #   incoming_message.safe_mail_from
+  #   incoming_message.safe_from_name
   #   # => FOI [REDACTED]
   #
   # Returns a String
   def safe_mail_from
-    if mail_from
-      info_request.apply_censor_rules_to_text(mail_from)
-    end
+    warn %q([DEPRECATION] IncomingMessage#safe_mail_from will be removed in
+            0.42. It has been replaced by IncomingMessage#safe_from_name).squish
+    safe_from_name
   end
 
-  # Public: The domain part of the email address in the From header.
-  # #mail_from_domain overrides the ActiveRecord provided #mail_from_domain
-  #
-  #   # From: John Doe <john@example.com>
-  #   incoming_message.mail_from_domain
-  #   # => 'example.com'
-  #
-  #   # No From header
-  #   incoming_message.mail_from_domain
-  #   # => ''
-  #
-  # Returns a String
+  def safe_from_name
+    info_request.apply_censor_rules_to_text(from_name) if from_name
+  end
+
   def mail_from_domain
-    parse_raw_email!
-    super
+    warn %q([DEPRECATION] IncomingMessage#mail_from_domain will be removed in
+            0.42. It has been replaced by
+            IncomingMessage#from_email_domain).squish
+    from_email_domain
   end
 
   def specific_from_name?
-    !safe_mail_from.nil? && safe_mail_from.strip != info_request.public_body.name.strip
+    !safe_from_name.nil? && safe_from_name.strip != info_request.public_body.name.strip
   end
 
   def from_public_body?
-    safe_mail_from.nil? || (mail_from_domain == info_request.public_body.request_email_domain)
+    safe_from_name.nil? || (from_email_domain == info_request.public_body.request_email_domain)
   end
 
   # This method updates the cached column of the InfoRequest that
@@ -517,11 +458,10 @@ class IncomingMessage < ApplicationRecord
   end
 
   # Returns attachments that are uuencoded in main body part
-  def _uudecode_and_save_attachments(text)
+  def _uudecode_attachments(text, start_part_number)
     # Find any uudecoded things buried in it, yeuchly
     uus = text.scan(/^begin.+^`\n^end\n/m)
-    attachments = []
-    uus.each do |uu|
+    uus.map.with_index do |uu, index|
       # Decode the string
       content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
       # Make attachment type from it, working out filename and mime type
@@ -534,14 +474,15 @@ class IncomingMessage < ApplicationRecord
         content_type = 'application/octet-stream'
       end
       hexdigest = Digest::MD5.hexdigest(content)
-      attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
-      attachment.update(:filename => filename,
-                        :content_type => content_type,
-                        :body => content)
-      attachment.save!
-      attachments << attachment
+      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+      attachment.attributes = {
+        filename: filename,
+        content_type: content_type,
+        body: content,
+        url_part_number: start_part_number + index + 1
+      }
+      attachment
     end
-    attachments
   end
 
   def get_attachments_for_display
@@ -556,48 +497,41 @@ class IncomingMessage < ApplicationRecord
   end
 
   def extract_attachments!
-    force = true
+    extract_attachments
+    save!
+  end
+
+  def extract_attachments
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
-    attachments = []
-    attachment_attributes.each do |attrs|
-      attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
-      attachment.update(attrs)
-      attachment.save!
-      attachments << attachment
+    attachment_attributes = attachment_attributes.inject({}) do |memo, attrs|
+      memo[attrs[:hexdigest]] = attrs
+      memo
     end
 
-    # Reload to refresh newly created foi_attachments
-    self.reload
+    attachments = attachment_attributes.map do |hexdigest, attrs|
+      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+      attachment.attributes = attrs
+      attachment
+    end
 
-    # get the main body part from the set of attachments we just created,
-    # not from the self.foi_attachments association - some of the total set
-    # of self.foi_attachments may now be obsolete. Sometimes (e.g. when
-    # parsing mail from Apple Mail) we can end up with less attachments
-    # because the hexdigest of an attachment is identical.
+    # Get the main body part from the set of attachments not from the
+    # foi_attachments association - some of the total set of foi_attachments may
+    # now be obsolete. Sometimes (e.g. when parsing mail from Apple Mail) we can
+    # end up with less attachments because the hexdigest of an attachment is
+    # identical.
     main_part = get_main_body_text_part(attachments)
-    # we don't use get_main_body_text_internal, as we want to avoid charset
-    # conversions, since _uudecode_and_save_attachments needs to deal with those.
+
+    # We don't use get_main_body_text_internal, as we want to avoid charset
+    # conversions, since _uudecode_attachments needs to deal with those.
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
-    if !main_part.nil?
-      uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
+    if main_part
       c = _mail.count_first_uudecode_count
-      for uudecode_attachment in uudecoded_attachments
-        c += 1
-        uudecode_attachment.url_part_number = c
-        uudecode_attachment.save!
-        attachments << uudecode_attachment
-      end
+      attachments += _uudecode_attachments(main_part.body, c)
     end
 
-    attachment_ids = attachments.map { |attachment| attachment.id }
-    # now get rid of any attachments we no longer have
-    FoiAttachment.
-      where(
-        ["id NOT IN (?) AND incoming_message_id = ?",
-         attachment_ids,
-         self.id]
-      ).destroy_all
+    # Purge old attachments that have been rebuilt with a new hexdigest
+    (foi_attachments - attachments).each(&:mark_for_destruction)
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.
@@ -737,10 +671,6 @@ class IncomingMessage < ApplicationRecord
       ret[ext] = 1 if !ext.nil?
     end
     return ret.keys.join(" ")
-  end
-  # Return space separated list of all file extensions known
-  def self.get_all_file_extensions
-    return AlaveteliFileTypes.all_extensions.join(" ")
   end
 
   def refusals

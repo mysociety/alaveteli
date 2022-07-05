@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: info_requests
 #
@@ -10,7 +10,7 @@
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  described_state                       :string           not null
-#  awaiting_description                  :boolean          default("false"), not null
+#  awaiting_description                  :boolean          default(FALSE), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
 #  law_used                              :string           default("foi"), not null
@@ -19,19 +19,19 @@
 #  idhash                                :string           not null
 #  external_user_name                    :string
 #  external_url                          :string
-#  attention_requested                   :boolean          default("false")
-#  comments_allowed                      :boolean          default("true"), not null
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
 #  last_public_response_at               :datetime
-#  reject_incoming_at_mta                :boolean          default("false"), not null
-#  rejected_incoming_count               :integer          default("0")
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
 #  date_initial_request_last_sent_at     :date
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
-#  incoming_messages_count               :integer          default("0")
+#  incoming_messages_count               :integer          default(0)
 #  public_token                          :string
 #
 
@@ -49,6 +49,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
+  include Taggable
 
   @non_admin_columns = %w(title url_title)
   @additional_admin_columns = %w(rejected_incoming_count)
@@ -73,22 +74,22 @@ class InfoRequest < ApplicationRecord
                                       :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
 
   has_many :info_request_events,
-           -> { order('created_at, id') },
+           -> { order(:created_at, :id) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :outgoing_messages,
-           -> { order('created_at') },
+           -> { order(:created_at) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :incoming_messages,
-           -> { order('created_at') },
+           -> { order(:created_at) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :user_info_request_sent_alerts,
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :track_things,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :widget_votes,
@@ -100,11 +101,11 @@ class InfoRequest < ApplicationRecord
            inverse_of: :citable,
            dependent: :destroy
   has_many :comments,
-           -> { order('created_at') },
+           -> { order(:created_at) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :censor_rules,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :mail_server_logs,
@@ -128,8 +129,6 @@ class InfoRequest < ApplicationRecord
 
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
-
-  has_tag_string
 
   scope :internal, -> { where.not(user_id: nil) }
   scope :external, -> { where(user_id: nil) }
@@ -631,7 +630,7 @@ class InfoRequest < ApplicationRecord
 
   def self.find_in_state(state)
     where(:described_state => state).
-      order('last_event_time')
+      order(:last_event_time)
   end
 
   def self.log_overdue_events
@@ -774,9 +773,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each do |event|
-      event.xapian_mark_needs_index
-    end
+    info_request_events.find_each(&:xapian_mark_needs_index)
   end
 
   # Force reindex when tag string changes
@@ -1208,14 +1205,14 @@ class InfoRequest < ApplicationRecord
   def last_embargo_set_event
     info_request_events.
       where(:event_type => 'set_embargo').
-        reorder('created_at DESC').
+        reorder(created_at: :desc).
           first
   end
 
   def last_embargo_expire_event
     info_request_events.
       where(:event_type => 'expire_embargo').
-        reorder('created_at DESC').
+        reorder(created_at: :desc).
           first
   end
 
@@ -1448,7 +1445,7 @@ class InfoRequest < ApplicationRecord
       if incoming_message == skip_message
         next
       end
-      incoming_message.safe_mail_from
+      incoming_message.safe_from_name
 
       next if ! incoming_message.is_public?
 
@@ -1761,12 +1758,10 @@ class InfoRequest < ApplicationRecord
       true
     elsif feature_enabled?(:accept_mail_from_anywhere)
       true
+    elsif user.features.enabled?(:accept_mail_from_poller)
+      source == :poller
     else
-      if feature_enabled?(:accept_mail_from_poller, user)
-        source == :poller
-      else
-        source == :mailin
-      end
+      source == :mailin
     end
   end
 
@@ -1866,7 +1861,8 @@ class InfoRequest < ApplicationRecord
 
   def set_use_notifications
     if use_notifications.nil?
-      self.use_notifications = feature_enabled?(:notifications, user) && \
+      self.use_notifications = user &&
+                               user.features.enabled?(:notifications) && \
                                info_request_batch_id.present?
     end
     return true
