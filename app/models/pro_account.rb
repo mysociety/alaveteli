@@ -33,6 +33,12 @@ class ProAccount < ApplicationRecord
     )
   end
 
+  def invoices
+    @invoices ||= AlaveteliPro::InvoiceCollection.for_customer(
+      stripe_customer
+    )
+  end
+
   def stripe_customer
     @stripe_customer ||= stripe_customer!
   end

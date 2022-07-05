@@ -803,6 +803,7 @@ Rails.application.routes.draw do
       resources :plans, only: [:show]
 
       scope path: :profile do
+        resources :invoices, only: [:index]
         resources :subscriptions, only: [:index, :create, :destroy] do
           collection do
             resource :payment_method, only: [:update]

@@ -1,0 +1,38 @@
+<div class="inner-canvas settings">
+
+  <div class="inner-canvas-header">
+    <div class="row">
+      <h1><%= _("Invoices") %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <div class="settings-left-column">
+        <%= render partial: 'alaveteli_pro/general/log_in_bar' %>
+      </div>
+      <div class="settings-right-column">
+        <% if @invoices.open.any? %>
+          <div class="settings-section">
+            <h3><%= _('Open') %></h3>
+            <ul>
+              <%= render partial: 'invoice', collection: @invoices.open %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if @invoices.paid.any? %>
+          <div class="settings-section">
+            <h3><%= _('Paid') %></h3>
+            <ul>
+              <%= render partial: 'invoice', collection: @invoices.paid %>
+            </ul>
+          </div>
+        <% end %>
+      </div>  <!-- .settings-right-column -->
+
+    </div>  <!-- .row -->
+
+  </div>  <!-- .inner-canvas-body -->
+
+</div>  <!-- .inner-canvas -->

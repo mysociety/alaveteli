@@ -1,6 +1,9 @@
 <ul class="vertical-navigation-menu">
-  <li class="vertical-navigation-menu__item vertical-navigation-menu__item--current-item">
+  <li class="vertical-navigation-menu__item<% if current_page?(controller: 'subscriptions') %> vertical-navigation-menu__item--current-item<% end %>">
     <%= link_to _("Account"), subscriptions_path, :class => "vertical-navigation-menu__link" %>
+  </li>
+  <li class="vertical-navigation-menu__item<% if current_page?(controller: 'invoices') %> vertical-navigation-menu__item--current-item<% end %>">
+    <%= link_to _("Invoices"), invoices_path, :class => "vertical-navigation-menu__link" %>
   </li>
   <li class="vertical-navigation-menu__item">
     <%= link_to _("Profile"), show_user_path(:url_name => @user.url_name), :class => "vertical-navigation-menu__link" %>
