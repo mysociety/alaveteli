@@ -590,24 +590,6 @@ FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
 # ---
 FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 
-# Path to a program that converts an HTML page in a file to PDF. Also used to
-# download a zip file of all the correspondence for a request. It should take
-# two arguments: the URL, and a path to an output file.
-#
-# A static binary of wkhtmltopdf is recommended:
-# https://github.com/wkhtmltopdf/packaging/releases
-# If the command is not present, a text-only version will be rendered
-# instead.
-#
-# HTML_TO_PDF_COMMAND - String (default: nil)
-#
-# Examples:
-#
-#   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
-#
-# ---
-HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
-
 # Email address used for sending exception notifications.
 #
 # EXCEPTION_NOTIFICATIONS_FROM - String (default: nil)

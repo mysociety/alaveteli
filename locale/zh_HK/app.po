@@ -26,9 +26,12 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
+# Ethel S T Sha, 2022
 # Ethel S T Sha, 2022
 # gensitu <pstew892@protonmail.com>, 2018,2020
 # Hailey Zhang <s1132151@s.eduhk.hk>, 2020
@@ -45,9 +48,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Ethel S T Sha, 2022\n"
+"Last-Translator: Yan Hin So <syhin812@gmail.com>, 2020\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alavete"
 "li/language/zh_HK/)\n"
 "MIME-Version: 1.0\n"
@@ -294,6 +297,9 @@ msgstr "<strong>正在質疑拒絕要求的決定？</strong>這裡有些摘錄�
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "已要求<strong>澄清</strong>"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>記者、學者或高級用戶？</strong>{{pro_site_link}}是一個整體全面的資訊自由工具包，內含你需要的所有資訊，協助進行以資訊自由主導的複雜調查。"
 
@@ -522,9 +528,6 @@ msgstr "任何擁有這連結的人都能夠看到這則要求。"
 msgid "Are we missing a public authority?"
 msgstr "我們是否沒有包括某個公共機構？"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr "你是否在查問你或其他人的個人資料或個人處況？"
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "你確定要關閉雙重認證？"
 
@@ -596,6 +599,15 @@ msgstr "正等待回應。"
 
 msgid "Back to content"
 msgstr "返回內容"
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
+msgstr ""
 
 msgid "Banned from this site"
 msgstr "禁止進入本網站"
@@ -1570,11 +1582,17 @@ msgstr "向這些公共機構提出要求"
 msgid "Make a request to this authority"
 msgstr "向此公共機構提出要求"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "提出{{law_used_short}}要求"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "向{{public_body_name}}提出{{law_used_short}}要求"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "發出及瀏覽索取資料的要求"
@@ -2475,6 +2493,9 @@ msgstr "登出"
 msgid "Sign up"
 msgstr "登記"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "簡單搜尋"
 
@@ -2522,6 +2543,9 @@ msgstr "抱歉，我們找不到該頁"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
 msgstr "抱歉，我們現時無法加入你的備註，請稍後再作備註。"
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "抱歉，我們現時無法寄出你的要求，請稍後再寄。"
@@ -2769,6 +2793,12 @@ msgstr "最後一位用戶在前一天建立"
 msgid "The last user was created over a day ago"
 msgstr "最後一位用戶在多於一天前建立"
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "本頁不存在。你可以："
 
@@ -2933,6 +2963,9 @@ msgstr "你就{{law_used_short}}提出的要求有{{count}}個新備註。按入
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
 msgstr "有<strong>多過一個人</strong>利用此網站及擁有此名稱。搜尋其他稱作「{{search_user_link}}」的用戶。"
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "因為我們不希望公共機構收到過量不恰當的要求，所以你每天能夠提出的要求設有上限。如果你認為有足夠理由要求撤銷上限, 請<a href='{{help_contact_path}}'>聯絡我們</a>。"
@@ -3260,6 +3293,9 @@ msgstr "致："
 msgid "Today"
 msgstr "今天"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "過多要求"
 
@@ -3556,6 +3592,9 @@ msgstr "下一步是甚麼？"
 msgid "What type of article is it?"
 msgstr "這文章屬於哪個類別？"
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr "事件："
 
@@ -3723,6 +3762,9 @@ msgstr "有一則來自{{public_body_name}}的新回應，就你對{{law_used_fu
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "發現錯誤。請<a href=\"{{contact_url}}\">聯絡我們</a>反映。"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "你已達到發出新要求的上限。一般用戶只可在連續24小時內提出最多{{max_requests_per_user_per_day}}個請求。你可於{{can_make_another_request}}再提出請求。"
@@ -4004,8 +4046,23 @@ msgstr "[索取資料要求電郵#{{request}}]"
 msgid "[Name Removed]"
 msgstr "[已移除姓名]"
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[已編輯]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}}供索取資料的電郵]"

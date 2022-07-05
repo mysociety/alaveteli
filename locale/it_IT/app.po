@@ -26,6 +26,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Giancarlo <pinet@pinet.it>, 2015
 # guido romeo <guido.romeo@gmail.com>, 2015
 # 1bb8f5eb4bc72723d4109decfd20c765, 2017-2018
@@ -34,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Marco Giustini <info@marcogiustini.info>, 2013\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/mysociety/alaveteli/l"
@@ -293,6 +295,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "È stato richiesto un <strong>chiarimento</strong>"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -528,9 +533,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "Non abbiamo inserito una pubblica amministrazione?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Sei sicuro di voler disattivare l'autenticazione a due fattori?"
 
@@ -601,6 +603,15 @@ msgid "Awaiting response."
 msgstr "In attesa di risposta."
 
 msgid "Back to content"
+msgstr ""
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
 msgstr ""
 
 msgid "Banned from this site"
@@ -1597,11 +1608,17 @@ msgstr "Invia una richiesta di accesso a queste amministrazioni"
 msgid "Make a request to this authority"
 msgstr "Invia una richiesta di accesso"
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Invia una richiesta di {{law_used_short}} "
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Invia una richiesta di {{law_used_short}} a '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Invia una richiesta di accesso o guarda quelle già inviate"
@@ -2511,6 +2528,9 @@ msgstr "Esci"
 msgid "Sign up"
 msgstr "Registrati"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Ricerca semplice"
 
@@ -2559,6 +2579,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr "Ci dispiace, non troviamo quella pagina"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2807,6 +2830,12 @@ msgstr "L'ultimo profilo utente è stato creato nelle ultime 24 ore"
 msgid "The last user was created over a day ago"
 msgstr "L'ultimo profilo utente è stato creato più di un giorno fa"
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "La pagina non esiste. Ecco cosa puoi fare:"
 
@@ -2974,6 +3003,9 @@ msgstr ""
 "Clicca su questo link per leggerle."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3307,6 +3339,9 @@ msgstr "A:"
 msgid "Today"
 msgstr "Oggi"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Troppe richieste"
 
@@ -3607,6 +3642,9 @@ msgstr "E ora?"
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3777,6 +3815,9 @@ msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Hai trovato un bug del sistema. Per favore <a href=\"{{contact_url}}\">contattaci</a> e segnalaci il problema."
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Hai raggiunto il limite di nuove richieste. Gli utenti possono inviare non più di  {{max_requests_per_user_per_day}} richieste in un periodo di 24 ore. Potrai inviare una nuova richiesta tra {{can_make_another_request}}."
@@ -4073,8 +4114,23 @@ msgstr "[diritto di accesso #{{request}} email]"
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[OSCURATO]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr "[email per le richieste di accesso a \"{{public_body}}\"]"

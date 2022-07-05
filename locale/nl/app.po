@@ -26,6 +26,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
 # Gareth Rees <gareth@mysociety.org>, 2020
 # Graeme Porteous <graeme@mysociety.org>, 2019,2021
@@ -33,11 +35,12 @@
 # Infwolf <infwolf@gmail.com>, 2014
 # Liset Hamming <elhamming@gmail.com>, 2019-2020,2022
 # Luis Villegas, 2022
+# Luis Villegas, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Luis Villegas, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/mysociety/alaveteli/language/nl"
@@ -302,6 +305,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Opheldering</strong>is om verzocht"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>Ben je journalist?</strong> {{pro_site_link}} biedt de mogelijkheid om bulkverzoeken te doen en je Woo-verzoek(en) af te schermen."
 
@@ -545,9 +551,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr "Zijn we een overheidsinstantie vergeten?"
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr "Verzoek je om persoonlijke informatie over jezelf of anderen?"
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr "Weet je zeker dat je tweevoudige authenticatie wil uitschakelen?"
 
@@ -621,6 +624,15 @@ msgstr "In afwachting van een antwoord."
 
 msgid "Back to content"
 msgstr "Terug naar de inhoud"
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
+msgstr ""
 
 msgid "Banned from this site"
 msgstr "Uitgesloten van deze site"
@@ -1637,11 +1649,17 @@ msgstr "Doe een Woo-verzoek bij deze overheidsinstanties"
 msgid "Make a request to this authority"
 msgstr "Dien een Woo-verzoek in bij deze overheidsinstantie "
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr "Doe een verzoek in het kader van {{law_used_short}}"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Doe een verzoek in het kader van {{law_used_short}} aan '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Maak en bekijk Woo-verzoeken"
@@ -2548,6 +2566,9 @@ msgstr "Log uit"
 msgid "Sign up"
 msgstr "Schrijf je in"
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr "Eenvoudig zoeken"
 
@@ -2595,6 +2616,9 @@ msgstr "Sorry, we konden deze pagina niet vinden"
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
 msgstr "Tot onze spijt kunnen wij je opmerking niet plaatsen. Probeer het later alsjeblieft nog een keer."
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Tot onze spijt kunnen wij je Woo-verzoek niet verzenden. Probeer het later alsjeblieft opnieuw."
@@ -2846,6 +2870,12 @@ msgstr "De laatste gebruiker is de afgelopen dag aangemaakt."
 msgid "The last user was created over a day ago"
 msgstr "De laatste gebruiker is langer dan een dag geleden aangemaakt."
 
+msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "De pagina bestaat niet.  Je kunt proberen om:"
 
@@ -3009,6 +3039,9 @@ msgid "There are {{count}} new annotations on your {{law_used_short}} request. F
 msgstr "Er zijn {{count}} nieuwe opmerkingen bij je verzoek inzake {{law_used_short}}. Klik op deze link om ze te lezen."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3368,6 +3401,9 @@ msgstr "Aan:"
 msgid "Today"
 msgstr "Vandaag"
 
+msgid "Too many annotations"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Te veel verzoeken"
 
@@ -3673,6 +3709,9 @@ msgstr "Wat nog meer?"
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr "Wat is er gebeurd:"
 
@@ -3845,6 +3884,9 @@ msgstr "Je hebt een nieuw bericht op je verzoek '{{request_title}}' in het kader
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Je hebt een technisch probleem vastgesteld. Neem <a href=\"{{contact_url}}\">contact met ons op</a> om het probleem te melden"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Je hebt het maximaal toegestane aantal verzoeken verstuurd. Het aantal verzoeken is beperkt tot {{max_requests_per_user_per_day}} per 24u. Je kunt weer een nieuw verzoek doen op {{can_make_another_request}}."
@@ -4132,8 +4174,23 @@ msgstr "[Woo #{{request}} e-mail]"
 msgid "[Name Removed]"
 msgstr "[Naam verwijderd]"
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
 msgstr "[GEREDIGEERD]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
+msgstr ""
 
 msgid "[{{public_body}} request email]"
 msgstr " [{{public_body}} vraag e-mailadres]"
