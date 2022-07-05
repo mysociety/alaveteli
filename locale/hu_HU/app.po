@@ -27,6 +27,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Dohány Tamás, 2021-2022

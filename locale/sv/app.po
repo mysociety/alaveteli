@@ -27,6 +27,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
 # Elenor Weijmar, 2018
 # Elenor Weijmar, 2018-2022
@@ -52,7 +53,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Mattias Axell <mattias@libertador.es>, 2015,2019-2021\n"
+"Last-Translator: Elenor Weijmar, 2018-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -309,7 +310,7 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Förtydligande</strong> har blivit begärd"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
-msgstr ""
+msgstr "<strong>Donera</strong> till {{site_name}}"
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>Journalist, Akademiker eller Superanvändare?</strong> {{pro_site_link}} är en allt-i-ett verktyg för offentlighetsprincipen inklusive allt du behöver för att hålla dig uppdaterad om komplicerade undersökningar som drivs med hjälp av offentlighetsprincipen."
@@ -620,7 +621,7 @@ msgid "Banned for misuse in breach of house rules"
 msgstr ""
 
 msgid "Banned for spamming"
-msgstr ""
+msgstr "Banad för spam"
 
 msgid "Banned from this site"
 msgstr "Bannlysta från denna hemsida"
@@ -2988,7 +2989,7 @@ msgid "There is <strong>more than one person</strong> who uses this site and has
 msgstr "Det finns <strong>fler än en person</strong> som använder denna sida och har detta namn. Sök efter andra kallade \"{{search_user_link}}\""
 
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
-msgstr ""
+msgstr "Det finns en gräns för antalet kommentarer du kan göra på en dag. Om du känner att du har en bra anledning att begära att gränsen hävs i ditt fall, vänligen <a href='{{help_contact_path}}'>hör av dig</a>."
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Det finns en gräns för antalet förfrågningar som du kan göra på en dag. Detta eftersom myndigheterna inte ska överbelastas med för stort antal förfrågningar. Om du har en bra anledning att få begränsningen borttagen i ditt fall, vänligen <a href='{{help_contact_path}}'>ta kontakt med oss</a>."
@@ -3319,7 +3320,7 @@ msgid "Today"
 msgstr "Idag"
 
 msgid "Too many annotations"
-msgstr ""
+msgstr "För många kommentarer"
 
 msgid "Too many requests"
 msgstr "För många förfrågningar"
@@ -3620,7 +3621,7 @@ msgid "What type of article is it?"
 msgstr "Vilken typ av artikel är det?"
 
 msgid "What would you like to do?"
-msgstr ""
+msgstr "Vad skulle du vilja göra?"
 
 msgid "What's happened:"
 msgstr "Vad som hänt:"
@@ -3794,7 +3795,7 @@ msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> 
 msgstr "Du har råkat ut för ett programfel. Vänligen <a href=\"{{contact_url}}\">kontakta oss</a> för att berätta för oss om problemet"
 
 msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
-msgstr ""
+msgstr "Du har nått gränsen för anteckningar/kommentarer. Användare är vanligtvis begränsade till {{comment_limit}} kommentarer per dag."
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Du har nått gränsen för att göra nya förfrågningar. Användare är vanligtvis begränsade till {{max_requests_per_user_per_day}} förfrågningar under en 24-timmarsperiod. Du kommer att kunna göra förfrågningar igen om {{can_make_another_request}}."
@@ -4081,22 +4082,22 @@ msgid "[Name Removed]"
 msgstr "[Namn borttaget]"
 
 msgid "[Personally Identifiable Information removed]"
-msgstr ""
+msgstr "[Personlig identifierbar information borttagen]"
 
 msgid "[REDACTED]"
 msgstr "[MASKERAT]"
 
 msgid "[extraneous and potentially defamatory material removed]"
-msgstr ""
+msgstr "[potentiellt ärekränkande material borttaget]"
 
 msgid "[extraneous material removed]"
 msgstr ""
 
 msgid "[name removed]"
-msgstr ""
+msgstr "[namn borttaget]"
 
 msgid "[potentially defamatory material removed]"
-msgstr ""
+msgstr "[potentiellt ärekränkande material borttaget]"
 
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}} e-postadress för begäran om allmän handling]"

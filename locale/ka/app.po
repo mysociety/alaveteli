@@ -27,6 +27,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jubo Beridzishvili, 2021-2022
 # Lela Merabishvili, 2021
 # Lela Merabishvili, 2021
