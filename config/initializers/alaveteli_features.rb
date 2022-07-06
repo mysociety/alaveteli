@@ -54,12 +54,12 @@ Rails.configuration.after_initialize do
   base = AlaveteliFeatures.groups.add(
     :base,
     roles: [Role.pro_role],
-    features: [poller, notifications]
+    features: [poller, notifications, batch_category]
   )
 
   AlaveteliFeatures.groups.add(
     :beta,
     includes: [base],
-    features: [batch_category, batch_add_all]
+    features: [batch_add_all]
   )
 end
