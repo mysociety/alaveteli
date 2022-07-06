@@ -837,15 +837,6 @@ SHARED_DIRECTORIES:
   - vendor/bundle
   - public/assets
 
-# Allow some users to make batch requests to multiple authorities. Once
-# this is set to true, you can enable batch requests for an individual
-# user via the user admin page.
-#
-# ALLOW_BATCH_REQUESTS - Boolean (default: false)
-#
-# ---
-ALLOW_BATCH_REQUESTS: false
-
 # Define the mailer delivery method to be used only in the production environment.
 # By default, use sendmail.
 #
