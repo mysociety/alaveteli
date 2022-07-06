@@ -50,9 +50,6 @@ Bundler/OrderedGems:
 
 #################### Gemspec ####################
 
-Gemspec/DateAssignment:
-  Enabled: false
-
 Gemspec/DependencyVersion:
   Enabled: false
 
@@ -232,6 +229,12 @@ Layout/LeadingCommentSpace:
   Enabled: true
 
 Layout/LeadingEmptyLines:
+  Enabled: false
+
+Layout/LineContinuationLeadingSpace:
+  Enabled: false
+
+Layout/LineContinuationSpacing:
   Enabled: false
 
 Layout/LineEndStringConcatenationIndentation:
@@ -422,6 +425,9 @@ Lint/CircularArgumentReference:
 Lint/ConstantDefinitionInBlock:
   Enabled: false
 
+Lint/ConstantOverwrittenInRescue:
+  Enabled: false
+
 Lint/ConstantResolution:
   Enabled: false
 
@@ -573,6 +579,9 @@ Lint/NextWithoutAccumulator:
   Enabled: true
 
 Lint/NoReturnInBeginEndBlocks:
+  Enabled: false
+
+Lint/NonAtomicFileOperation:
   Enabled: false
 
 Lint/NonDeterministicRequireOrder:
@@ -747,6 +756,9 @@ Lint/UselessAccessModifier:
   Enabled: true
 
 Lint/UselessAssignment:
+  Enabled: false
+
+Lint/UselessElseWithoutRescue:
   Enabled: false
 
 Lint/UselessMethodDefinition:

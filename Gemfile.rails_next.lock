@@ -442,7 +442,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rubocop (1.30.1)
+    rubocop (1.31.1)
+      json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -604,7 +605,7 @@ DEPENDENCIES
   routing-filter (~> 0.7.0)
   rspec-activemodel-mocks (~> 1.1.0)
   rspec-rails (~> 5.1.2)
-  rubocop (~> 1.30.1)
+  rubocop (~> 1.31.1)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
