@@ -43,4 +43,23 @@ RSpec.describe ClassificationsHelper do
       it { is_expected.to match('for="successful3"') }
     end
   end
+
+  describe '#user_classification_milestone?' do
+    subject { user_classification_milestone?(classifications) }
+
+    context 'when the count is below a milestone' do
+      let(:classifications) { 99 }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the count is at a milestone' do
+      let(:classifications) { 100 }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the count is above a milestone' do
+      let(:classifications) { 101 }
+      it { is_expected.to eq(false) }
+    end
+  end
 end
