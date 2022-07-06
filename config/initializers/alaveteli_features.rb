@@ -39,7 +39,10 @@ Rails.configuration.after_initialize do
   )
   batch_category = AlaveteliFeatures.features.add(
     :pro_batch_category_ui,
-    label: 'Batch category user interface'
+    label: 'Batch category user interface',
+    condition: -> {
+      PublicBodyCategory.joins(:public_bodies).any?
+    }
   )
   batch_add_all = AlaveteliFeatures.features.add(
     :pro_batch_category_add_all,
