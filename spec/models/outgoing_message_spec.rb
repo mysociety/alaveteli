@@ -733,28 +733,6 @@ RSpec.describe OutgoingMessage do
 
     end
 
-    context 'a batch request template' do
-
-      it 'produces the expected text for a batch request template' do
-        public_body = FactoryBot.build(:public_body,
-                                       name: 'a test public body')
-        info_request = FactoryBot.build(:info_request,
-                                        title: 'A test title',
-                                        public_body: public_body)
-        allow(info_request).
-          to receive(:is_batch_request_template?).and_return(true)
-        outgoing_message =
-          OutgoingMessage.new(:status => 'ready',
-                              :message_type => 'initial_request',
-                              :what_doing => 'normal_sort',
-                              :info_request => info_request)
-
-        expected_text = "Dear [Authority name],\n\n\n\nYours faithfully,\n\n"
-        expect(outgoing_message.get_default_message).to eq(expected_text)
-      end
-
-    end
-
     context 'a followup' do
 
       it 'produces the expected text for a followup' do

@@ -1689,14 +1689,6 @@ RSpec.describe InfoRequest do
       expect(info_request.errors[:public_body]).to include("Please select an authority")
     end
 
-    it 'does not require a public body if it is a batch request template' do
-      info_request = InfoRequest.new
-      info_request.is_batch_request_template = true
-
-      info_request.valid?
-      expect(info_request.errors[:public_body]).to be_empty
-    end
-
     it 'rejects an invalid prominence' do
       info_request = InfoRequest.new(:prominence => 'something')
       info_request.valid?

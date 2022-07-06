@@ -408,8 +408,6 @@ class OutgoingMessage < ApplicationRecord
     @letter_template ||=
       if what_doing == 'internal_review'
         Template::InternalReview.new
-      elsif info_request.is_batch_request_template?
-        Template::BatchRequest.new
       elsif replying_to_incoming_message?
         Template::IncomingMessageFollowup.new
       else
