@@ -13,7 +13,7 @@ class DeeplyNestedParams
   def call(env)
     Rack::Utils.parse_query(env['QUERY_STRING'])
     @app.call(env)
-  rescue RangeError
+  rescue Rack::QueryParser::ParamsTooDeepError
     [400, { 'Content-Type' => 'text/plain' }, ['Bad Request']]
   end
 end
