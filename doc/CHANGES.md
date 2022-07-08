@@ -4,7 +4,14 @@
 
 * Add simple classification game milestone celebration (Gareth Rees)
 
+## Highlighted Pro Features
+
+* Enable the batch category picker for all new Pro users (Graeme Porteous)
+
 ## Upgrade Notes
+
+* To enable the batch category picker for current Pro users you can run
+  `bin/rails users:pro:enable_features`.
 
 ### Changed Templates
 
