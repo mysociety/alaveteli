@@ -70,8 +70,7 @@ class InfoRequest < ApplicationRecord
   belongs_to :info_request_batch,
              :inverse_of => :info_requests
 
-  validates_presence_of :public_body, :message => N_("Please select an authority"),
-                                      :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+  validates_presence_of :public_body, message: N_("Please select an authority")
 
   has_many :info_request_events,
            -> { order(:created_at, :id) },
@@ -127,7 +126,6 @@ class InfoRequest < ApplicationRecord
            -> { extraction },
            class_name: 'Project::Submission'
 
-  attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
   scope :internal, -> { where.not(user_id: nil) }
@@ -713,10 +711,6 @@ class InfoRequest < ApplicationRecord
   # Returns a StateCalculator
   def state(opts = {})
     State::Calculator.new(self)
-  end
-
-  def is_batch_request_template?
-    is_batch_request_template == true
   end
 
   def indexed_by_search?

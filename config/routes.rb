@@ -85,18 +85,12 @@ Rails.application.routes.draw do
   match '/select_authority' => 'request#select_authority',
         :as => :select_authority,
         :via => :get
-  match '/select_authorities' => 'request#select_authorities',
-        :as => :select_authorities,
-        :via => [:get, :post]
 
   match '/new' => 'request#new',
         :as => :new_request,
         :via => [:get, :post]
   match '/new/:url_name' => 'request#new',
         :as => :new_request_to_body,
-        :via => [:get, :post]
-  match '/new_batch' => 'request#new_batch',
-        :as => :new_batch,
         :via => [:get, :post]
 
   match '/request/search_ahead' => 'request#search_typeahead',
