@@ -3,6 +3,7 @@
 ## Highlighted Features
 
 * Add simple classification game milestone celebration (Gareth Rees)
+* Remove legacy batch request interface (Graeme Porteous)
 
 ## Upgrade Notes
 
