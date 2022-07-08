@@ -58,7 +58,12 @@
       <% if lookup_context.template_exists?(event.event_type, ['admin_general'], true) %>
       <%= render :partial => event.event_type, :locals => { :event => event } %>
       <% else %>
-      had '<%=event.event_type%>' done to it, parameters <%= event.params_yaml %>.
+
+        <% if event.info_request.embargo && can?(:admin, AlaveteliPro::Embargo) %>
+          had '<%= event.event_type %>' done to it, parameters <%= event.params_yaml %>.
+        <% else %>
+          had '<%= event.event_type %>' done to it, parameters hidden.
+        <% end %>
       <% end %>
 
     <% else %>

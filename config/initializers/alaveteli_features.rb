@@ -39,7 +39,10 @@ Rails.configuration.after_initialize do
   )
   batch_category = AlaveteliFeatures.features.add(
     :pro_batch_category_ui,
-    label: 'Batch category user interface'
+    label: 'Batch category user interface',
+    condition: -> {
+      PublicBodyCategory.joins(:public_bodies).any?
+    }
   )
   batch_add_all = AlaveteliFeatures.features.add(
     :pro_batch_category_add_all,
@@ -51,12 +54,12 @@ Rails.configuration.after_initialize do
   base = AlaveteliFeatures.groups.add(
     :base,
     roles: [Role.pro_role],
-    features: [poller, notifications]
+    features: [poller, notifications, batch_category]
   )
 
   AlaveteliFeatures.groups.add(
     :beta,
     includes: [base],
-    features: [batch_category, batch_add_all]
+    features: [batch_add_all]
   )
 end

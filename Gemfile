@@ -114,14 +114,14 @@ gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.5'
 gem 'nokogiri', '~> 1.13.6'
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 2.2.3'
+gem 'rack', '~> 2.2.4'
 gem 'rack-utf8_sanitizer', '~> 1.7.0'
 gem 'recaptcha', '~> 5.10.0', require: 'recaptcha/rails'
 gem 'mini_magick', '~> 4.11.0'
 gem 'rolify', '~> 5.3.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'rubyzip', '~> 2.3.2'
-gem 'secure_headers', '~> 6.3.3'
+gem 'secure_headers', '~> 6.3.4'
 gem 'statistics2', '~> 0.54'
 if rails_upgrade?
   gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
@@ -142,7 +142,7 @@ gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', '~> 1.10.0'
-gem 'rails-i18n', '~> 7.0.3'
+gem 'rails-i18n', '~> 7.0.5'
 gem 'gettext_i18n_rails', '~> 1.8.1'
   gem 'fast_gettext', '~> 2.2.0'
 gem 'gettext', '~> 3.4.3'
@@ -168,7 +168,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 # Storage backends
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
-gem 'google-cloud-storage', '~> 1.36', require: false
+gem 'google-cloud-storage', '~> 1.37', require: false
 
 if rails_upgrade? && RUBY_VERSION < '3.1'
   gem 'net-http', '0.1.1'
@@ -204,7 +204,7 @@ group :development do
   gem 'launchy', '< 2.5.0'
   gem 'listen', '>= 3.0.5', '< 3.7.2'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.30.1', require: false
+  gem 'rubocop', '~> 1.31.1', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

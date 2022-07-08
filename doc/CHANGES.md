@@ -1,3 +1,26 @@
+# 0.41.1.0
+
+## Highlighted Features
+
+* Add simple classification game milestone celebration (Gareth Rees)
+* Remove legacy batch request interface (Graeme Porteous)
+* Dependencies upgrades (Graeme Porteous)
+
+## Highlighted Pro Features
+
+* Enable the batch category picker for all new Pro users (Graeme Porteous)
+
+## Upgrade Notes
+
+* To enable the batch category picker for current Pro users you can run
+  `bin/rails users:pro:enable_features`.
+
+### Changed Templates
+
+    app/views/admin_general/timeline.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request_game/play.html.erb
+
 # 0.41.0.0
 
 ## Highlighted Features

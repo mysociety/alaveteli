@@ -9,4 +9,8 @@ module ClassificationsHelper
     id = "#{ state }#{ id_suffix }"
     label_tag(id, text)
   end
+
+  def user_classification_milestone?(count)
+    RequestClassification::MILESTONES.include?(count)
+  end
 end
