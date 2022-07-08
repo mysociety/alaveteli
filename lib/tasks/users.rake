@@ -1,4 +1,10 @@
 namespace :users do
+  namespace :pro do
+    desc 'Ensure all pro have the correct features enabled'
+    task enable_features: :environment do
+      User.pro.map { |u| u.features.assign_role_features }
+    end
+  end
 
   desc "Lists email domains, most popular first"
   task :count_per_domain => :environment do
