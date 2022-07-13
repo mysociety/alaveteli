@@ -135,14 +135,14 @@ class Comment < ApplicationRecord
 
     columns.each do |column|
       name = column.name
-      yield(name, send(name), name)
+      yield(name, send(name))
     end
   end
 
   def for_admin_event_column(event)
     return unless event
 
-    columns = event.for_admin_column { |name, value, column_name| }
+    columns = event.for_admin_column { |name, value| }
 
     columns = columns.map do |c|
       c if %w(event_type params_yaml created_at).include?(c.name)
@@ -150,8 +150,7 @@ class Comment < ApplicationRecord
 
     columns.compact.each do |column|
       yield(column.name,
-            event.send(column.name),
-            column.name)
+            event.send(column.name))
     end
   end
 

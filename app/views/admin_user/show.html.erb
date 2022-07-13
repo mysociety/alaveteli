@@ -20,15 +20,15 @@
         <%=@admin_user.id%>
       </td>
     </tr>
-    <% @admin_user.for_admin_column(:complete => true) do |name, value, column_name| %>
+    <% @admin_user.for_admin_column(:complete => true) do |name, value| %>
       <tr>
         <td>
           <b><%= name.humanize %></b>
         </td>
         <td>
-          <% if column_name == 'email' %>
+          <% if name == 'email' %>
             <%=link_to @admin_user.email, "mailto:#{h @admin_user.email}"%>
-          <% elsif column_name == 'email_bounce_message' %>
+          <% elsif name == 'email_bounce_message' %>
             <% unless @admin_user.email_bounce_message.empty? %>
               <%= link_to 'See bounce message', show_bounce_message_admin_user_path(@admin_user) %>
             <% end %>
@@ -36,7 +36,7 @@
             <%=h admin_value(value)%>
           <% end %>
 
-          <% if column_name == 'email_bounced_at' && @admin_user.email_bounced_at %>
+          <% if name == 'email_bounced_at' && @admin_user.email_bounced_at %>
             <%= form_tag clear_bounce_admin_user_path(@admin_user), class: 'form form-inline' do %>
               <%= submit_tag 'Clear bounce', class: 'btn btn-info btn-small' %>
             <% end %>
