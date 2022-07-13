@@ -23,7 +23,6 @@ module AdminColumn
     reject_non_admin_columns(columns).each do |column|
       yield(column.name.humanize,
             send(column.name),
-            column.type.to_s,
             column.name)
     end
   end

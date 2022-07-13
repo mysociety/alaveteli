@@ -17,7 +17,7 @@
   </div>
 
   <div id="request_<%=info_request.id%>" class="item-detail accordion-body collapse row">
-    <% info_request.for_admin_column do | name, value, type | %>
+    <% info_request.for_admin_column do |name, value| %>
       <div>
         <span class="span6">
           <%= h name %>

@@ -51,7 +51,7 @@
               </tr>
             <% end %>
 
-            <% @info_request.for_admin_column do |name, value, type, column_name| %>
+            <% @info_request.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td>
                   <b><%= name %>:</b>
@@ -237,7 +237,7 @@
               <td></td>
             </tr>
 
-            <% info_request_event.for_admin_column do |name, value, type, column_name| %>
+            <% info_request_event.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td>
                   <b><%=h name%></b>
@@ -284,7 +284,7 @@
                 <% end %>
               </td>
             </tr>
-            <% outgoing_message.for_admin_column do |name, value, type, column_name| %>
+            <% outgoing_message.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td class="span3">
                   <b><%= name %></b>
@@ -349,7 +349,7 @@
             </tr>
           </thead>
           <tbody>
-            <% incoming_message.for_admin_column do |name, value, type, column_name| %>
+            <% incoming_message.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td>
                   <b><%=name%></b>

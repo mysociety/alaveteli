@@ -265,7 +265,7 @@ RSpec.describe Comment do
     it "returns a subset of the event's for_admin_column data" do
       comment.report!("Vexatious comment", "reported", user)
       columns = comment.for_admin_event_column(comment.last_report) {
-                  |name, value, type, column_name| }
+                  |name, value, column_name| }
 
       expect(columns[0].name).to eq("event_type")
       expect(columns[1].name).to eq("params_yaml")
