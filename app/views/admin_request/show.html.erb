@@ -51,21 +51,21 @@
               </tr>
             <% end %>
 
-            <% @info_request.for_admin_column do |name, value, column_name| %>
+            <% @info_request.for_admin_column do |name, value| %>
               <tr>
                 <td>
                   <b><%= name.humanize %>:</b>
                 </td>
                 <td>
-                  <% if column_name == 'prominence' %>
+                  <% if name == 'prominence' %>
                     <%= h highlight_prominence(value) %>
-                  <% elsif column_name == 'allow_new_responses_from' %>
+                  <% elsif name == 'allow_new_responses_from' %>
                     <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
                     <%= admin_value(value)%>
                   <% end %>
 
-                  <% if column_name == 'described_state' %>
+                  <% if name == 'described_state' %>
                     <ul>
                       <li><strong>Request status:</strong> <%= @info_request.calculate_status %></li>
                       <li><strong>Date initial request last sent at:</strong> <%= @info_request.date_initial_request_last_sent_at %></li>
@@ -237,13 +237,13 @@
               <td></td>
             </tr>
 
-            <% info_request_event.for_admin_column do |name, value, column_name| %>
+            <% info_request_event.for_admin_column do |name, value| %>
               <tr>
                 <td>
                   <b><%= name.humanize %></b>
                 </td>
                 <td>
-                  <% if column_name == 'params_yaml' %>
+                  <% if name == 'params_yaml' %>
                     <%= render :partial => 'params', :locals => { :params => info_request_event.params_diff } %>
                   <% else %>
                     <%= admin_value(value) %>
@@ -284,17 +284,17 @@
                 <% end %>
               </td>
             </tr>
-            <% outgoing_message.for_admin_column do |name, value, column_name| %>
+            <% outgoing_message.for_admin_column do |name, value| %>
               <tr>
                 <td class="span3">
                   <b><%= name.humanize %></b>
                 </td>
                 <td>
-                  <% if column_name == 'body' %>
+                  <% if name == 'body' %>
                     <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
                     <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
-                  <% elsif column_name == 'prominence' %>
+                  <% elsif name == 'prominence' %>
                     <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= admin_value(value) %>
@@ -349,17 +349,17 @@
             </tr>
           </thead>
           <tbody>
-            <% incoming_message.for_admin_column do |name, value, column_name| %>
+            <% incoming_message.for_admin_column do |name, value| %>
               <tr>
                 <td>
                   <b><%= name.humanize %></b>
                 </td>
                 <td>
-                  <% if column_name =~ /^cached_.*?$/ %>
+                  <% if name =~ /^cached_.*?$/ %>
                     <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
                     <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
-                  <% elsif column_name == 'prominence' %>
+                  <% elsif name == 'prominence' %>
                     <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= simple_format(value.to_s) %>

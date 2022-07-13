@@ -22,8 +22,7 @@ module AdminColumn
 
     reject_non_admin_columns(columns).each do |column|
       yield(column.name,
-            send(column.name),
-            column.name)
+            send(column.name))
     end
   end
 
