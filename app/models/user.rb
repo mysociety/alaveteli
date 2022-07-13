@@ -569,14 +569,12 @@ class User < ApplicationRecord
 
   def for_admin_column(complete = false)
     if complete
-      columns = self.class.content_columns
+      columns = self.class.content_columns.map(&:name)
     else
-      columns = self.class.content_columns.map do |c|
-        c if %w(created_at updated_at email_confirmed).include?(c.name)
-      end.compact
+      columns = %w(created_at updated_at email_confirmed)
     end
-    columns.each do |column|
-      yield(column.name, send(column.name))
+    columns.each do |name|
+      yield(name, send(name))
     end
   end
 
