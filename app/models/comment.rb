@@ -135,7 +135,7 @@ class Comment < ApplicationRecord
 
     columns.each do |column|
       name = column.name
-      yield(name.humanize, send(name), name)
+      yield(name, send(name), name)
     end
   end
 
@@ -149,7 +149,7 @@ class Comment < ApplicationRecord
     end
 
     columns.compact.each do |column|
-      yield(column.name.humanize,
+      yield(column.name,
             event.send(column.name),
             column.name)
     end

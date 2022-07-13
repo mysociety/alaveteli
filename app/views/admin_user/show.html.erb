@@ -23,7 +23,7 @@
     <% @admin_user.for_admin_column(:complete => true) do |name, value, column_name| %>
       <tr>
         <td>
-          <b><%= name %></b>
+          <b><%= name.humanize %></b>
         </td>
         <td>
           <% if column_name == 'email' %>

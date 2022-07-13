@@ -8,7 +8,7 @@
       <% unless (column_name == 'api_key' && cannot?(:read, :api_key)) %>
         <tr>
           <td>
-            <b><%=name%></b>
+            <b><%= name.humanize %></b>
           </td>
 
           <td>
