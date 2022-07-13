@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220408125559
 #
 # Table name: info_request_events
 #
@@ -15,6 +15,7 @@
 #  outgoing_message_id :integer
 #  comment_id          :integer
 #  updated_at          :datetime
+#  params              :jsonb
 #
 
 # models/info_request_event.rb:
@@ -327,10 +328,15 @@ class InfoRequestEvent < ApplicationRecord
     if new_params[:comment_id]
       self.comment_id = new_params[:comment_id]
     end
+
+    super(new_params)
     self.params_yaml = new_params.to_yaml
   end
 
   def params
+    params_jsonb = super
+    return param_hash = params_jsonb.deep_symbolize_keys if params_jsonb
+
     param_hash = YAMLCompatibility.load(params_yaml) || {}
     param_hash.each do |key, value|
       param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)

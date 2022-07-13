@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220408125559
 #
 # Table name: info_request_events
 #
@@ -15,6 +15,7 @@
 #  outgoing_message_id :integer
 #  comment_id          :integer
 #  updated_at          :datetime
+#  params              :jsonb
 #
 
 FactoryBot.define do
