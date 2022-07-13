@@ -196,7 +196,7 @@ do
 done
 
 # add storage.yml
-cp config/storage.yml-example > config/storage.yml
+cp config/storage.yml-example config/storage.yml
 
 echo Running rails-post-deploy
 script/rails-post-deploy
