@@ -77,7 +77,7 @@
                  |name, value, column_name| %>
               <tr>
                 <td>
-                  <b><%=h name%></b>
+                  <b><%= name.humanize %></b>
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>

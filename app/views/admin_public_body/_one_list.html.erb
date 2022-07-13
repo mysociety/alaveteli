@@ -16,7 +16,7 @@
       <% public_body.for_admin_column do |name, value| %>
         <div>
           <span class="span6">
-            <b><%=name%></b>
+            <b><%= name.humanize %></b>
           </span>
           <span class="span6">
             <%= admin_value(value) %>

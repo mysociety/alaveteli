@@ -576,7 +576,7 @@ class User < ApplicationRecord
       end.compact
     end
     columns.each do |column|
-      yield(column.name.humanize, send(column.name), column.name)
+      yield(column.name, send(column.name), column.name)
     end
   end
 

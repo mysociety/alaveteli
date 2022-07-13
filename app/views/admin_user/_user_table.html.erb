@@ -29,7 +29,7 @@
 
           <% user.for_admin_column do |name, value| %>
             <tr>
-              <td><b><%= h name %></b></td>
+              <td><b><%= name.humanize %></b></td>
               <td>
                 <%= admin_value(value) %>
               </td>

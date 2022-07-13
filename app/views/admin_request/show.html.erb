@@ -54,7 +54,7 @@
             <% @info_request.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td>
-                  <b><%= name %>:</b>
+                  <b><%= name.humanize %>:</b>
                 </td>
                 <td>
                   <% if column_name == 'prominence' %>
@@ -240,7 +240,7 @@
             <% info_request_event.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td>
-                  <b><%=h name%></b>
+                  <b><%= name.humanize %></b>
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>
@@ -287,7 +287,7 @@
             <% outgoing_message.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td class="span3">
-                  <b><%= name %></b>
+                  <b><%= name.humanize %></b>
                 </td>
                 <td>
                   <% if column_name == 'body' %>
@@ -352,7 +352,7 @@
             <% incoming_message.for_admin_column do |name, value, column_name| %>
               <tr>
                 <td>
-                  <b><%=name%></b>
+                  <b><%= name.humanize %></b>
                 </td>
                 <td>
                   <% if column_name =~ /^cached_.*?$/ %>

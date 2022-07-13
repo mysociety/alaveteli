@@ -40,7 +40,7 @@
                 <% comment.for_admin_column do |name, value, column_name| %>
                   <tr>
                     <td>
-                      <b><%= name %></b>
+                      <b><%= name.humanize %></b>
                     </td>
                     <td>
                       <% if column_name == 'body' && !comment.visible %>
