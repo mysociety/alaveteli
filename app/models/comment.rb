@@ -126,15 +126,12 @@ class Comment < ApplicationRecord
 
   def for_admin_column(complete = false)
     if complete
-      columns = self.class.content_columns
+      columns = self.class.content_columns.map(&:name)
     else
-      columns = self.class.content_columns.map do |c|
-        c if %w(body visible created_at updated_at).include?(c.name)
-      end.compact
+      columns = %w(body visible created_at updated_at)
     end
 
-    columns.each do |column|
-      name = column.name
+    columns.each do |name|
       yield(name, send(name))
     end
   end
@@ -142,15 +139,10 @@ class Comment < ApplicationRecord
   def for_admin_event_column(event)
     return unless event
 
-    columns = event.for_admin_column { |name, value| }
+    columns = %w(event_type params_yaml created_at)
 
-    columns = columns.map do |c|
-      c if %w(event_type params_yaml created_at).include?(c.name)
-    end
-
-    columns.compact.each do |column|
-      yield(column.name,
-            event.send(column.name))
+    columns.compact.each do |name|
+      yield(name, event.send(name))
     end
   end
 
