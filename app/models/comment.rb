@@ -123,28 +123,6 @@ class Comment < ApplicationRecord
     text.html_safe
   end
 
-  def for_admin_column(complete = false)
-    if complete
-      columns = self.class.content_columns.map(&:name)
-    else
-      columns = %w(body visible created_at updated_at)
-    end
-
-    columns.each do |name|
-      yield(name, send(name))
-    end
-  end
-
-  def for_admin_event_column(event)
-    return unless event
-
-    columns = %w(event_type params_yaml created_at)
-
-    columns.compact.each do |name|
-      yield(name, event.send(name))
-    end
-  end
-
   def report_reasons
     [_('Annotation contains defamatory material'),
      _('Annotation contains personal information'),

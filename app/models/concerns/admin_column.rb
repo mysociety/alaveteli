@@ -10,13 +10,14 @@ module AdminColumn
     @additional_admin_columns = []
   end
 
-  def for_admin_column
-    columns = translated_columns +
-              self.class.content_columns.map(&:name) +
-              self.class.additional_admin_columns
+  def for_admin_column(*columns)
+    if columns.empty?
+      columns = translated_columns +
+                self.class.content_columns.map(&:name) +
+                self.class.additional_admin_columns
+    end
 
-
-    reject_non_admin_columns(columns).each do |name|
+    reject_non_admin_columns(columns.map(&:to_s)).each do |name|
       yield(name, send(name))
     end
   end

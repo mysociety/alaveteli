@@ -20,7 +20,7 @@
         <%=@admin_user.id%>
       </td>
     </tr>
-    <% @admin_user.for_admin_column(:complete => true) do |name, value| %>
+    <% @admin_user.for_admin_column do |name, value| %>
       <tr>
         <td>
           <b><%= name.humanize %></b>

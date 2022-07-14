@@ -37,7 +37,9 @@
                   </td>
                 </tr>
 
-                <% comment.for_admin_column do |name, value| %>
+                <% comment.for_admin_column(
+                     :body, :visible, :created_at, :updated_at
+                   ) do |name, value| %>
                   <tr>
                     <td>
                       <b><%= name.humanize %></b>

@@ -567,17 +567,6 @@ class User < ApplicationRecord
     email_confirmed && active?
   end
 
-  def for_admin_column(complete = false)
-    if complete
-      columns = self.class.content_columns.map(&:name)
-    else
-      columns = %w(created_at updated_at email_confirmed)
-    end
-    columns.each do |name|
-      yield(name, send(name))
-    end
-  end
-
   # Notify a user about an info_request_event, allowing the user's preferences
   # to determine how that notification is delivered.
   def notify(info_request_event)
