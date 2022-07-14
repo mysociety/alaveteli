@@ -3,37 +3,33 @@ module AdminColumn
 
   included do
     class << self
-      attr_reader :non_admin_columns, :additional_admin_columns
-    end
+      def admin_columns
+        translated_columns +
+          content_columns_names +
+          additional_admin_columns -
+          non_admin_columns
+      end
 
-    @non_admin_columns = []
-    @additional_admin_columns = []
+      def translated_columns
+        translates? ? translated_attribute_names.map(&:to_s) : []
+      end
+
+      def content_columns_names
+        table_exists? ? content_columns.map(&:name) : []
+      end
+
+      def additional_admin_columns
+        @additional_admin_columns&.map(&:to_s) || []
+      end
+
+      def non_admin_columns
+        @non_admin_columns&.map(&:to_s) || []
+      end
+    end
   end
 
   def for_admin_column(*columns)
-    if columns.empty?
-      columns = translated_columns +
-                self.class.content_columns.map(&:name) +
-                self.class.additional_admin_columns
-    end
-
-    reject_non_admin_columns(columns.map(&:to_s)).each do |name|
-      yield(name, send(name))
-    end
+    columns = self.class.admin_columns if columns.empty?
+    columns.map(&:to_s).each { |name| yield(name, send(name)) }
   end
-
-  private
-
-  def reject_non_admin_columns(columns)
-    columns.reject { |name| self.class.non_admin_columns.include?(name) }
-  end
-
-  def translated_columns
-    if self.class.translates?
-      self.class.translated_attribute_names.map(&:to_s)
-    else
-      []
-    end
-  end
-
 end
