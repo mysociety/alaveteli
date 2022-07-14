@@ -51,11 +51,9 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::TitleValidation
   include Taggable
 
-  @additional_admin_columns = %w(rejected_incoming_count)
-
   def self.admin_column_sets
     all = all_admin_columns
-    { all: all - %w(title url_title) }
+    { all: all - %w(title url_title) + %w(rejected_incoming_count) }
   end
 
   strip_attributes :allow_empty => true

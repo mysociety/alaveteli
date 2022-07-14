@@ -3,12 +3,8 @@ module AdminColumn
 
   included do
     class << self
-      attr_reader :additional_admin_columns
-
       def all_admin_columns
-        translated_columns +
-          content_columns.map(&:name) +
-          additional_admin_columns
+        translated_columns + content_columns.map(&:name)
       end
 
       def admin_column_sets
@@ -23,8 +19,6 @@ module AdminColumn
         end
       end
     end
-
-    @additional_admin_columns = []
   end
 
   def for_admin_column(set = :all)
