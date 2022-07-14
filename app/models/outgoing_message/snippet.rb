@@ -14,13 +14,8 @@
 # Predefined helpful text snippets which can added to outgoing messages
 #
 class OutgoingMessage::Snippet < ApplicationRecord
-  include AdminColumn
+  include OutgoingMessage::Snippet::AdminColumn
   include Taggable
-
-  def self.admin_column_sets
-    all = all_admin_columns
-    { all: all - %w(name) }
-  end
 
   translates :name, :body
   include Translatable # include after call to translates

@@ -42,19 +42,14 @@ class InfoRequest < ApplicationRecord
   Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
-  include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+  include InfoRequest::AdminColumn
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
   include Taggable
-
-  def self.admin_column_sets
-    all = all_admin_columns
-    { all: all - %w(title url_title) + %w(rejected_incoming_count) }
-  end
 
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],

@@ -25,15 +25,8 @@
 require 'yaml_compatibility'
 
 class InfoRequestEvent < ApplicationRecord
-  include AdminColumn
+  include InfoRequestEvent::AdminColumn
   extend XapianQueries
-
-  def self.admin_column_sets
-    {
-      all: all_admin_columns,
-      minimal: %w(event_type params_yaml created_at)
-    }
-  end
 
   EVENT_TYPES = [
     'sent',

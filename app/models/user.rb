@@ -38,9 +38,9 @@
 #
 
 class User < ApplicationRecord
-  include AdminColumn
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
+  include User::AdminColumn
   include User::Authentication
   include User::LoginToken
   include User::OneTimePassword
@@ -566,13 +566,6 @@ class User < ApplicationRecord
 
   def indexed_by_search?
     email_confirmed && active?
-  end
-
-  def self.admin_column_sets
-    {
-      all: all_admin_columns,
-      minimal: %w(created_at updated_at email_confirmed)
-    }
   end
 
   # Notify a user about an info_request_event, allowing the user's preferences

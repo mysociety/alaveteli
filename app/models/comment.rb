@@ -21,7 +21,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ApplicationRecord
-  include AdminColumn
+  include Comment::AdminColumn
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -122,13 +122,6 @@ class Comment < ApplicationRecord
     text = MySociety::Format.make_clickable(text, contract: 1, nofollow: true)
     text = text.gsub(/\n/, '<br>')
     text.html_safe
-  end
-
-  def self.admin_column_sets
-    {
-      all: all_admin_columns,
-      minimal: %w(body visible created_at updated_at)
-    }
   end
 
   def report_reasons
