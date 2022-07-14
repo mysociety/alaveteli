@@ -3,7 +3,7 @@ module AdminColumn
 
   included do
     class << self
-      attr_reader :non_admin_columns, :additional_admin_columns
+      attr_reader :additional_admin_columns
 
       def all_admin_columns
         translated_columns +
@@ -24,21 +24,11 @@ module AdminColumn
       end
     end
 
-    @non_admin_columns = []
     @additional_admin_columns = []
   end
 
   def for_admin_column(set = :all)
     columns = self.class.admin_column_sets[set]
-
-    reject_non_admin_columns(columns).each do |name|
-      yield(name, send(name))
-    end
-  end
-
-  private
-
-  def reject_non_admin_columns(columns)
-    columns.reject { |name| self.class.non_admin_columns.include?(name) }
+    columns.each { |name| yield(name, send(name)) }
   end
 end

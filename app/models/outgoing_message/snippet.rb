@@ -17,7 +17,10 @@ class OutgoingMessage::Snippet < ApplicationRecord
   include AdminColumn
   include Taggable
 
-  @non_admin_columns = %w(name)
+  def self.admin_column_sets
+    all = all_admin_columns
+    { all: all - %w(name) }
+  end
 
   translates :name, :body
   include Translatable # include after call to translates

@@ -39,7 +39,10 @@ class PublicBody < ApplicationRecord
 
   class ImportCSVDryRun < StandardError; end
 
-  @non_admin_columns = %w(name last_edit_comment)
+  def self.admin_column_sets
+    all = all_admin_columns
+    { all: all - %w(name last_edit_editor) }
+  end
 
   attr_accessor :no_xapian_reindex
 
