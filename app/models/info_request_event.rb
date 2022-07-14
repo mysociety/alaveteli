@@ -28,6 +28,13 @@ class InfoRequestEvent < ApplicationRecord
   include AdminColumn
   extend XapianQueries
 
+  def self.admin_column_sets
+    {
+      all: all_admin_columns,
+      minimal: %w(event_type params_yaml created_at)
+    }
+  end
+
   EVENT_TYPES = [
     'sent',
     'resent',
@@ -549,5 +556,4 @@ class InfoRequestEvent < ApplicationRecord
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'
     events = self.class.where(:info_request_id => info_request_id).order(order)
   end
-
 end

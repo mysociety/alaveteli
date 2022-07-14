@@ -38,6 +38,7 @@
 #
 
 class User < ApplicationRecord
+  include AdminColumn
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
   include User::Authentication
@@ -567,14 +568,18 @@ class User < ApplicationRecord
     email_confirmed && active?
   end
 
-  def for_admin_column(complete = false)
+  def self.admin_column_sets
+    {
+      all: all_admin_columns,
+      minimal: %w(created_at updated_at email_confirmed)
+    }
+  end
+
+  def for_admin_column(complete = false, &block)
     if complete
-      columns = self.class.content_columns.map(&:name)
+      super(:all, &block)
     else
-      columns = %w(created_at updated_at email_confirmed)
-    end
-    columns.each do |name|
-      yield(name, send(name))
+      super(:minimal, &block)
     end
   end
 
