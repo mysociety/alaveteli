@@ -4,17 +4,32 @@ module AdminColumn
   included do
     class << self
       attr_reader :non_admin_columns, :additional_admin_columns
+
+      def all_admin_columns
+        translated_columns +
+          content_columns.map(&:name) +
+          additional_admin_columns
+      end
+
+      def admin_column_sets
+        { all: all_admin_columns }
+      end
+
+      def translated_columns
+        if translates?
+          translated_attribute_names.map(&:to_s)
+        else
+          []
+        end
+      end
     end
 
     @non_admin_columns = []
     @additional_admin_columns = []
   end
 
-  def for_admin_column
-    columns = translated_columns +
-              self.class.content_columns.map(&:name) +
-              self.class.additional_admin_columns
-
+  def for_admin_column(set = :all)
+    columns = self.class.admin_column_sets[set]
 
     reject_non_admin_columns(columns).each do |name|
       yield(name, send(name))
@@ -26,13 +41,4 @@ module AdminColumn
   def reject_non_admin_columns(columns)
     columns.reject { |name| self.class.non_admin_columns.include?(name) }
   end
-
-  def translated_columns
-    if self.class.translates?
-      self.class.translated_attribute_names.map(&:to_s)
-    else
-      []
-    end
-  end
-
 end
