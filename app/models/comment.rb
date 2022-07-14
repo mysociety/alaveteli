@@ -131,18 +131,6 @@ class Comment < ApplicationRecord
     }
   end
 
-  def for_admin_column(complete = false, &block)
-    if complete
-      super(:all, &block)
-    else
-      super(:minimal, &block)
-    end
-  end
-
-  def for_admin_event_column(event, &block)
-    event&.for_admin_column(:minimal, &block)
-  end
-
   def report_reasons
     [_('Annotation contains defamatory material'),
      _('Annotation contains personal information'),

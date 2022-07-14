@@ -73,8 +73,7 @@
               <td></td>
             </tr>
 
-            <% @comment.for_admin_event_column(info_request_event) do
-                 |name, value| %>
+            <% info_request_event.for_admin_column(:minimal) do |name, value| %>
               <tr>
                 <td>
                   <b><%= name.humanize %></b>

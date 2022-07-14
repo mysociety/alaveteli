@@ -575,14 +575,6 @@ class User < ApplicationRecord
     }
   end
 
-  def for_admin_column(complete = false, &block)
-    if complete
-      super(:all, &block)
-    else
-      super(:minimal, &block)
-    end
-  end
-
   # Notify a user about an info_request_event, allowing the user's preferences
   # to determine how that notification is delivered.
   def notify(info_request_event)
