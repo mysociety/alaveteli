@@ -39,7 +39,7 @@ class PublicBody < ApplicationRecord
 
   class ImportCSVDryRun < StandardError; end
 
-  @non_admin_columns = %w(name last_edit_comment)
+  admin_columns exclude: %i[name last_edit_editor]
 
   def self.admin_title
     'Authority'

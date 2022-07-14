@@ -3,11 +3,14 @@ module AdminColumn
 
   included do
     class << self
-      def admin_columns
+      def admin_columns(exclude: nil, include: nil)
+        @excluded_admin_columns = exclude || @excluded_admin_columns
+        @included_admin_columns = include || @included_admin_columns
+
         translated_columns +
           content_columns_names +
-          additional_admin_columns -
-          non_admin_columns
+          included_admin_columns -
+          excluded_admin_columns
       end
 
       def translated_columns
@@ -18,12 +21,12 @@ module AdminColumn
         table_exists? ? content_columns.map(&:name) : []
       end
 
-      def additional_admin_columns
-        @additional_admin_columns&.map(&:to_s) || []
+      def included_admin_columns
+        @included_admin_columns&.map(&:to_s) || []
       end
 
-      def non_admin_columns
-        @non_admin_columns&.map(&:to_s) || []
+      def excluded_admin_columns
+        @excluded_admin_columns&.map(&:to_s) || []
       end
     end
   end

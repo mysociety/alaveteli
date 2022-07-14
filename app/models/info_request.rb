@@ -50,8 +50,8 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::TitleValidation
   include Taggable
 
-  @non_admin_columns = %w(title url_title)
-  @additional_admin_columns = %w(rejected_incoming_count)
+  admin_columns exclude: %i[title url_title],
+                include: %i[rejected_incoming_count]
 
   def self.admin_title
     'Request'
