@@ -5,7 +5,8 @@ RSpec.describe PublicBodyCSV do
   describe '.default_fields' do
 
     it 'has a default set of fields' do
-      defaults = [:name,
+      defaults = [:id,
+                  :name,
                   :short_name,
                   :url_name,
                   :tag_string,
@@ -23,7 +24,8 @@ RSpec.describe PublicBodyCSV do
   describe '.default_headers' do
 
     it 'has a default set of headers' do
-      defaults = ['Name',
+      defaults = ['Internal ID',
+                  'Name',
                   'Short name',
                   'URL name',
                   'Tags',
@@ -39,13 +41,13 @@ RSpec.describe PublicBodyCSV do
   end
 
   describe '.export' do
-    it 'should return a valid CSV file with the right number of rows' do
+    it 'should return a valid CSV file with the right number of rows/columns' do
       all_data = CSV.parse(PublicBodyCSV.export)
       expect(all_data.length).to eq(7)
       # Check that the header has the right number of columns:
-      expect(all_data[0].length).to eq(11)
+      expect(all_data[0].length).to eq(12)
       # And an actual line of data:
-      expect(all_data[1].length).to eq(11)
+      expect(all_data[1].length).to eq(12)
     end
 
     it 'only includes visible bodies' do
@@ -125,7 +127,7 @@ RSpec.describe PublicBodyCSV do
       csv = PublicBodyCSV.new
       csv << body
 
-      expected = ["Exported to CSV,CSV,csv,exported,https://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
+      expected = ["#{body.id},Exported to CSV,CSV,csv,exported,https://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
       expect(csv.rows).to eq(expected)
     end
 
