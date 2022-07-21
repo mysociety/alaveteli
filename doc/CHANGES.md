@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Protect mass-tag update buttons in admin bodies lists (Gareth Rees)
+
 ## Highlighted Pro Features
 
 ## Upgrade Notes
