@@ -28,6 +28,8 @@
 <% end %>
 </div>
 
+<hr />
+
 <div>
   <%= form_tag(mass_tag_admin_bodies_path, method: "post", class: "form form-inline" ) do %>
     <%= text_field_tag 'tag', params[:tag], { size: 15, id: "mass_tag_tag_" + table_name } %>
