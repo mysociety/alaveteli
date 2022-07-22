@@ -479,6 +479,12 @@ Rails.application.routes.draw do
   resources :announcements, :only => [:destroy]
   ####
 
+  #### AdminTag controller
+  namespace :admin do
+    resources :tags, param: :tag, only: [:index]
+  end
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,

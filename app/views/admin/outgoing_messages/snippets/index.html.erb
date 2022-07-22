@@ -4,6 +4,9 @@
   <div class="btn-group">
     <%= link_to 'New snippet', new_admin_snippet_path, class: 'btn btn-primary' %>
   </div>
+  <div class="btn-group">
+    <%= link_to 'View tags', admin_tags_path(model_type: OutgoingMessage::Snippet), class: 'btn' %>
+  </div>
 </div>
 
 <% if @snippets.empty? %>
