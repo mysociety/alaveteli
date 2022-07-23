@@ -109,7 +109,7 @@ class FollowupsController < ApplicationController
         :email_subject => _("Write your FOI follow up message to {{authority_name}}",
                             :authority_name => info_request.public_body.name) }
     else
-      { :web => _("To reply to {{authority_name}}.",
+      { :web => _("To reply to {{authority_name}}",
                   :authority_name => info_request.public_body.name),
         :email => _("Then you can write your reply to {{authority_name}}.",
                     :authority_name => info_request.public_body.name),
