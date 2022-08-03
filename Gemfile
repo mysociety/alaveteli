@@ -121,7 +121,7 @@ gem 'mini_magick', '~> 4.11.0'
 gem 'rolify', '~> 5.3.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'rubyzip', '~> 2.3.2'
-gem 'secure_headers', '~> 6.3.4'
+gem 'secure_headers', '~> 6.4.0'
 gem 'statistics2', '~> 0.54'
 if rails_upgrade?
   gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
@@ -204,7 +204,7 @@ group :development do
   gem 'launchy', '< 2.5.0'
   gem 'listen', '>= 3.0.5', '< 3.7.2'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.31.1', require: false
+  gem 'rubocop', '~> 1.31.2', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end
