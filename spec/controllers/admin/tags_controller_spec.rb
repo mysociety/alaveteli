@@ -53,6 +53,39 @@ RSpec.describe Admin::TagsController do
         expect(tags).to include('bar')
       end
     end
+
+    context 'with query' do
+      before do
+        FactoryBot.create(:public_body, tag_string: 'bar')
+        FactoryBot.create(:public_body, tag_string: 'bar:123')
+        FactoryBot.create(:public_body, tag_string: 'bar:124')
+        FactoryBot.create(:public_body, tag_string: 'baz:123')
+      end
+
+      it 'filter tags with tag name query' do
+        get :index, params: { model_type: 'PublicBody', query: 'bar' }
+        expect(tags).to include('bar')
+        expect(tags).to include('bar:123')
+        expect(tags).to include('bar:124')
+        expect(tags).to_not include('baz:123')
+      end
+
+      it 'filter tags with tag name/value query' do
+        get :index, params: { model_type: 'PublicBody', query: 'bar:123' }
+        expect(tags).to_not include('bar')
+        expect(tags).to include('bar:123')
+        expect(tags).to_not include('bar:124')
+        expect(tags).to_not include('baz:123')
+      end
+
+      it 'filter tags with tag value query' do
+        get :index, params: { model_type: 'PublicBody', query: ':123' }
+        expect(tags).to_not include('bar')
+        expect(tags).to include('bar:123')
+        expect(tags).to_not include('bar:124')
+        expect(tags).to include('baz:123')
+      end
+    end
   end
 
   describe 'GET show' do
@@ -106,6 +139,37 @@ RSpec.describe Admin::TagsController do
 
         get :show, params: { model_type: 'InfoRequest', tag: 'bar' }
         expect(taggings).to include(info_request)
+      end
+    end
+
+    context 'with query' do
+      let!(:pb_1) { FactoryBot.create(:public_body, tag_string: 'foo') }
+      let!(:pb_2) { FactoryBot.create(:public_body, tag_string: 'foo bar:123') }
+      let!(:pb_3) { FactoryBot.create(:public_body, tag_string: 'foo bar:124') }
+      let!(:pb_4) { FactoryBot.create(:public_body, tag_string: 'foo baz:123') }
+
+      it 'filter taggings with tag name query' do
+        get :show, params: { model_type: 'PublicBody', tag: 'foo', query: 'bar' }
+        expect(taggings).to_not include(pb_1)
+        expect(taggings).to include(pb_2)
+        expect(taggings).to include(pb_3)
+        expect(taggings).to_not include(pb_4)
+      end
+
+      it 'filter taggings with tag name/value query' do
+        get :show, params: { model_type: 'PublicBody', tag: 'foo', query: 'bar:123' }
+        expect(taggings).to_not include(pb_1)
+        expect(taggings).to include(pb_2)
+        expect(taggings).to_not include(pb_3)
+        expect(taggings).to_not include(pb_4)
+      end
+
+      it 'filter taggings with tag value query' do
+        get :show, params: { model_type: 'PublicBody', tag: 'foo', query: ':123' }
+        expect(taggings).to_not include(pb_1)
+        expect(taggings).to include(pb_2)
+        expect(taggings).to_not include(pb_3)
+        expect(taggings).to include(pb_4)
       end
     end
   end

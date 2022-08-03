@@ -10,6 +10,8 @@ class Admin::TagsController < AdminController
       where(model_type: current_klass.name).
       order(:name, :value)
 
+    scope = apply_filters(scope)
+
     @tags = scope.paginate(page: params[:page], per_page: 50)
   end
 
@@ -21,10 +23,28 @@ class Admin::TagsController < AdminController
     )
 
     @taggings = current_klass.with_tag(@tag).distinct.
+      joins(:tags).merge(
+        apply_filters(HasTagString::HasTagStringTag.all)
+      ).
       paginate(page: params[:page], per_page: 50)
   end
 
   private
+
+  def apply_filters(scope)
+    @query = params[:query]
+    return scope if @query.blank?
+
+    name, value = HasTagString::HasTagStringTag.
+      split_tag_into_name_value(@query)
+
+    scope = scope.where('has_tag_string_tags.name LIKE ?', "%#{name}%") if name
+    if value
+      scope = scope.where('has_tag_string_tags.value LIKE ?', "%#{value}%")
+    end
+
+    scope
+  end
 
   helper_method :current_klass
   def current_klass
