@@ -40,7 +40,9 @@ class InfoRequestBatch < ApplicationRecord
 
   validates_presence_of :user
   validates_presence_of :body
-  validates_absence_of :existing_batch, unless: -> { ignore_existing_batch }
+  validates_absence_of :existing_batch,
+                       unless: -> { ignore_existing_batch },
+                       on: :create
 
   strip_attributes only: %i[embargo_duration]
 

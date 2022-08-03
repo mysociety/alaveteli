@@ -47,8 +47,17 @@ RSpec.describe InfoRequestBatch do
       end
     end
 
+    context 'when batch has already been saved' do
+      let(:info_request_batch) { FactoryBot.create(:info_request_batch) }
+
+      it 'valid when an existing batch is found' do
+        allow(info_request_batch).to receive(:existing_batch).and_return(double)
+        expect(info_request_batch.valid?).to eq true
+      end
+    end
+
     context 'with ignore_existing_batch argument being set' do
-      it 'requires batch to be unique without an existing batch' do
+      it 'valid when an existing batch is found' do
         info_request_batch.ignore_existing_batch = true
         allow(info_request_batch).to receive(:existing_batch).and_return(double)
         expect(info_request_batch.valid?).to eq true
