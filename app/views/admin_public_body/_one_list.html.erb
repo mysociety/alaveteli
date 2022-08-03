@@ -28,13 +28,15 @@
 <% end %>
 </div>
 
+<hr />
+
 <div>
   <%= form_tag(mass_tag_admin_bodies_path, method: "post", class: "form form-inline" ) do %>
     <%= text_field_tag 'tag', params[:tag], { size: 15, id: "mass_tag_tag_" + table_name } %>
     <%= hidden_field_tag(:query, params[:query], { id: "mass_tag_query_" + table_name } ) %>
     <%= hidden_field_tag(:page, params[:page], { id: "mass_page_" + table_name } ) %>
     <%= hidden_field_tag(:table_name, table_name, { id: "mass_tag_table_name_" + table_name } ) %>
-    <%= submit_tag "Add tag to all", class: "btn btn-primary" %>
+    <%= submit_tag 'Add tag to all', class: 'btn btn-warning', data: { confirm: 'Are you sure you want to add the new tag to these authorities?' } %>
   <% end %>
 
   <% if table_name == 'exact' %>
@@ -43,7 +45,7 @@
       <%= hidden_field_tag(:query, params[:query], { id: "mass_tag_query_" + table_name } ) %>
       <%= hidden_field_tag(:page, params[:page], { id: "mass_page_" + table_name } ) %>
       <%= hidden_field_tag(:table_name, table_name, { id: "mass_tag_table_name_" + table_name } ) %>
-      <%= submit_tag "Remove '#{params[:query].html_safe}' tag from all", class: "btn btn-primary" %>
+      <%= submit_tag "Remove '#{params[:query].html_safe}' tag from all", class: 'btn btn-warning', data: { confirm: 'Are you sure you want to remove the tag from these authorities?' } %>
     <% end %>
   <% end %>
 

@@ -8,22 +8,27 @@
 
 <div class="btn-toolbar">
   <div class="btn-group">
-    <%= link_to 'New public authority', new_admin_body_path, :class => "btn btn-primary" %>
+    <%= link_to 'New public authority', new_admin_body_path, class: 'btn btn-primary' %>
   </div>
   <div class="btn-group">
-    <%= link_to 'Import from CSV file', import_csv_admin_bodies_path, :class => "btn btn-warning" %>
+    <%= link_to 'Import from CSV file', import_csv_admin_bodies_path, class: 'btn' %>
   </div>
 </div>
 
-<%= form_tag({}, :method => "get", :class => "form form-search") do %>
-  <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query" } %>
-  <%= submit_tag "Search", :class => "btn" %>
-  <% if !@query.nil? %>
-    <%= link_to 'Show all', admin_bodies_path, :class => "btn" %>
-  <% end %><br>
-  <span class="help-inline">(substring search in names and emails; exact match of tags)</span>
-<% end %>
+<div class="row">
+  <%= form_tag nil, method: :get, class: 'form form-search span12' do %>
+    <div class="input-append">
+      <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+      <%= submit_tag 'Search', class: 'btn' %>
+    </div>
 
+    <% if @query %>
+      <%= link_to 'Show all', admin_bodies_path, class: 'btn' %>
+    <% end %>
+
+    <span class="help-inline">(substring search in names and emails; exact match of tags)</span>
+  <% end %>
+</div>
 
 <% if @public_bodies_by_tag.size > 0 %>
   <h2>Exact tag matches (<%= @public_bodies_by_tag.size %> total)</h2>
