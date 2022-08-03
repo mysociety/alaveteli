@@ -13,6 +13,17 @@ class Admin::TagsController < AdminController
     @tags = scope.paginate(page: params[:page], per_page: 50)
   end
 
+  # GET /admin/tags/:tag
+  def show
+    @tag = params[:tag]
+    @name, @value = HasTagString::HasTagStringTag.split_tag_into_name_value(
+      @tag
+    )
+
+    @taggings = current_klass.with_tag(@tag).distinct.
+      paginate(page: params[:page], per_page: 50)
+  end
+
   private
 
   helper_method :current_klass

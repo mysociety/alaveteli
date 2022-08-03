@@ -16,10 +16,14 @@ module Admin::TagHelper
   private
 
   def render_tag_href(record_tag)
-    str = link_to h(record_tag.name), "##{record_tag.name}"
+    path = admin_tag_path(record_tag.name, model_type: record_tag.model_type)
+
+    str = link_to h(record_tag.name), path
 
     if record_tag.value
-      path = "##{record_tag.name_and_value}"
+      path = admin_tag_path(
+        record_tag.name_and_value, model_type: record_tag.model_type
+      )
       str += ':'
       str += link_to h(record_tag.value), path
     end

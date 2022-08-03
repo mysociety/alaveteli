@@ -1,0 +1,19 @@
+<% case tagging %>
+<% when PublicBody %>
+  <%= render partial: 'admin_public_body/public_body', locals: {
+    public_body: tagging
+  } %>
+
+<% when InfoRequest %>
+  <%= render partial: 'admin_request/info_request', locals: {
+    info_request: tagging
+  } %>
+
+<% when OutgoingMessage::Snippet %>
+  <%= render partial: 'admin/outgoing_messages/snippets/snippet', locals: {
+    snippet: tagging
+  } %>
+
+<% else %>
+  <pre><%= tagging.to_json %></pre>
+<% end %>

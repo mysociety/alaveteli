@@ -54,4 +54,59 @@ RSpec.describe Admin::TagsController do
       end
     end
   end
+
+  describe 'GET show' do
+    it 'renders the show template' do
+      get :show, params: { tag: 'foo' }
+      expect(response).to render_template('show')
+    end
+
+    it 'responds successfully' do
+      get :show, params: { tag: 'foo' }
+      expect(response).to be_successful
+    end
+
+    it 'raise 404 for unknown types' do
+      expect { get :show, params: { model_type: 'unknown', tag: 'foo' } }.to(
+        raise_error ApplicationController::RouteNotFound
+      )
+    end
+
+    def taggings
+      assigns[:taggings]
+    end
+
+    it 'loads distinct taggings' do
+      public_body = FactoryBot.create(:public_body, tag_string: 'foo foo:123')
+
+      get :show, params: { model_type: 'PublicBody', tag: 'foo' }
+      expect(taggings).to include(public_body).once
+    end
+
+    context 'with taggable model type' do
+      let!(:public_body) { FactoryBot.create(:public_body, tag_string: 'bar') }
+
+      it 'loads taggings with correct type' do
+        get :show, params: { model_type: 'PublicBody', tag: 'bar' }
+        expect(taggings).to include(public_body)
+
+        get :show, params: { model_type: 'InfoRequest', tag: 'bar' }
+        expect(taggings).to_not include(public_body)
+      end
+    end
+
+    context 'with a different taggable model type' do
+      let!(:info_request) do
+        FactoryBot.create(:info_request, tag_string: 'bar')
+      end
+
+      it 'loads taggings with correct type' do
+        get :show, params: { model_type: 'PublicBody', tag: 'bar' }
+        expect(taggings).to_not include(info_request)
+
+        get :show, params: { model_type: 'InfoRequest', tag: 'bar' }
+        expect(taggings).to include(info_request)
+      end
+    end
+  end
 end

@@ -5,11 +5,15 @@ RSpec.describe Admin::TagHelper, type: :helper do
 
   describe '#render_tag' do
     let(:tag_without_value) do
-      HasTagString::HasTagStringTag.new(name: 'foo')
+      HasTagString::HasTagStringTag.new(
+        model_type: 'PublicBody', name: 'foo'
+      )
     end
 
     let(:tag_with_value) do
-      HasTagString::HasTagStringTag.new(name: 'foo', value: 'bar')
+      HasTagString::HasTagStringTag.new(
+        model_type: 'PublicBody', name: 'foo', value: 'bar'
+      )
     end
 
     context 'tag with no value' do
@@ -17,7 +21,7 @@ RSpec.describe Admin::TagHelper, type: :helper do
 
       it 'renders the tag with a link' do
         expected = '<span class="label label-info tag">' \
-                   '<a href="#foo">foo</a>' \
+                   '<a href="/admin/tags/foo?model_type=PublicBody">foo</a>' \
                    '</span>'
         expect(helper.render_tag(record_tag)).
           to eq(expected)
@@ -28,10 +32,11 @@ RSpec.describe Admin::TagHelper, type: :helper do
       let(:record_tag) { tag_with_value }
 
       it 'renders the tag and its value with links' do
-        expected = '<span class="label label-info tag">' \
-                   '<a href="#foo">foo</a>:' \
-                   '<a href="#foo:bar">bar</a>' \
-                   '</span>'
+        expected =
+          '<span class="label label-info tag">' \
+          '<a href="/admin/tags/foo?model_type=PublicBody">foo</a>:' \
+          '<a href="/admin/tags/foo:bar?model_type=PublicBody">bar</a>' \
+          '</span>'
 
         expect(helper.render_tag(record_tag)).
           to eq(expected)
