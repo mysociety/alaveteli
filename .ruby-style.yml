@@ -244,7 +244,7 @@ Layout/LineLength:
   Enabled: true
   Max: 80
   IgnoreCopDirectives: false
-  IgnoredPatterns:
+  AllowedPatterns:
     - "^\\s*it\\s+.*do$"
     - "^\\s*context\\s+.*do$"
     - "^\\s*describe\\s+.*do$"
