@@ -485,6 +485,16 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminNote controller
+  namespace :admin do
+    resources :notes, except: [:index, :show]
+  end
+
+  direct :admin_note_parent do |note|
+    admin_general_index_path
+  end
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,
