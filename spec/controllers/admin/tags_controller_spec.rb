@@ -105,6 +105,15 @@ RSpec.describe Admin::TagsController do
       )
     end
 
+    it 'loads notes' do
+      note = FactoryBot.create(:note, notable_tag: 'foo')
+      other_note = FactoryBot.create(:note, notable_tag: 'bar')
+
+      get :show, params: { tag: 'foo' }
+      expect(assigns[:notes]).to include(note).once
+      expect(assigns[:notes]).to_not include(other_note)
+    end
+
     def taggings
       assigns[:taggings]
     end

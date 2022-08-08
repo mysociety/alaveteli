@@ -25,9 +25,18 @@ RSpec.describe Note, type: :model do
       expect(note).not_to be_valid
     end
 
-    it 'requires notable' do
+    it 'requires notable or notable_tag' do
       note.notable = nil
+      note.notable_tag = nil
       expect(note).not_to be_valid
+
+      note.notable = nil
+      note.notable_tag = 'foo'
+      expect(note).to be_valid
+
+      note.notable = PublicBody.first
+      note.notable_tag = nil
+      expect(note).to be_valid
     end
   end
 

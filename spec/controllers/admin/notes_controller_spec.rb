@@ -60,6 +60,24 @@ RSpec.describe Admin::NotesController do
       end
     end
 
+    context 'on a successful create of tagged note' do
+      include_context 'successful create'
+
+      let!(:note) { FactoryBot.create(:note, :tagged) }
+      let(:tag) { note.notable_tag }
+
+      let(:params) do
+        {
+          id: note.id,
+          note: { body: 'New body', notable_tag: tag }
+        }
+      end
+
+      it 'redirects to the tag admin' do
+        expect(response).to redirect_to(admin_tag_path(tag))
+      end
+    end
+
     context 'on an unsuccessful create' do
       let(:params) do
         { note: { body: '' } }
@@ -140,6 +158,24 @@ RSpec.describe Admin::NotesController do
       end
     end
 
+    context 'on a successful update of tagged note' do
+      include_context 'successful update'
+
+      let!(:note) { FactoryBot.create(:note, :tagged) }
+      let(:tag) { note.notable_tag }
+
+      let(:params) do
+        {
+          id: note.id,
+          note: { body: 'New body', notable_tag: tag }
+        }
+      end
+
+      it 'redirects to the tag admin' do
+        expect(response).to redirect_to(admin_tag_path(tag))
+      end
+    end
+
     context 'on an unsuccessful update' do
       let(:params) do
         { id: note.id, note: { body: '' } }
@@ -180,6 +216,16 @@ RSpec.describe Admin::NotesController do
       it 'redirects to the public body admin' do
         delete :destroy, params: { id: note.id }
         expect(response).to redirect_to(admin_public_body_path(public_body))
+      end
+    end
+
+    context 'when tagged note' do
+      let!(:note) { FactoryBot.create(:note, :tagged) }
+      let(:tag) { note.notable_tag }
+
+      it 'redirects to the public body admin' do
+        delete :destroy, params: { id: note.id }
+        expect(response).to redirect_to(admin_tag_path(tag))
       end
     end
   end

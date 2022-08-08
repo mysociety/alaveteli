@@ -1,5 +1,7 @@
 <h1><%= @title = "Tag – #{@tag}" %></h1>
 
+<%= render partial: 'notes', locals: { notes: @notes, title: 'Notes' } %>
+
 <div class="row">
   <div class="span12">
     <h2>Taggings</h2>

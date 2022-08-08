@@ -21,5 +21,11 @@ class Note < ApplicationRecord
   belongs_to :notable, polymorphic: true
 
   validates :body, presence: true
-  validates :notable, presence: true
+  validates :notable_or_notable_tag, presence: true
+
+  private
+
+  def notable_or_notable_tag
+    notable || notable_tag
+  end
 end

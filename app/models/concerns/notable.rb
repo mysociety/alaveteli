@@ -10,6 +10,16 @@ module Notable
   end
 
   def all_notes
-    concrete_notes.with_translations
+    concrete_notes.with_translations + tagged_notes.with_translations
+  end
+
+  def tagged_notes
+    Note.where(notable_tag: notable_tags)
+  end
+
+  private
+
+  def notable_tags
+    tags.map(&:name_and_value)
   end
 end
