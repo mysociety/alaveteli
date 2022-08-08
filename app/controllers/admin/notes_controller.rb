@@ -44,14 +44,14 @@ class Admin::NotesController < AdminController
   private
 
   def scope
-    Note.where(params.slice(:notable_id, :notable_type).permit!)
+    Note.where(params.slice(:notable_tag, :notable_id, :notable_type).permit!)
   end
 
   def note_params
     translatable_params(
       params.require(:note),
       translated_keys: [:locale, :body],
-      general_keys: [:notable_id, :notable_type]
+      general_keys: [:notable_tag, :notable_id, :notable_type]
     )
   end
 end

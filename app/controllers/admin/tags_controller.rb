@@ -22,6 +22,9 @@ class Admin::TagsController < AdminController
       @tag
     )
 
+    @notes = Note.distinct.where(notable_tag: @tag).
+      paginate(page: params[:page], per_page: 50)
+
     @taggings = current_klass.with_tag(@tag).distinct.
       joins(:tags).merge(
         apply_filters(HasTagString::HasTagStringTag.all)

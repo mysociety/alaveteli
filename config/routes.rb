@@ -491,7 +491,9 @@ Rails.application.routes.draw do
   end
 
   direct :admin_note_parent do |note|
-    if note.notable
+    if note.notable_tag
+      admin_tag_path(tag: note.notable_tag)
+    elsif note.notable
       url_for([:admin, note.notable])
     else
       admin_general_index_path

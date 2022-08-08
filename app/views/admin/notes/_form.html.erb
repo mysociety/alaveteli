@@ -1,9 +1,14 @@
 <%= foi_error_messages_for :note %>
 
 <div class="well">
-  Applies to <%= both_links(@note.notable) %>
-  <%= f.hidden_field :notable_id %>
-  <%= f.hidden_field :notable_type %>
+  <% if @note.notable %>
+    Applies to <%= both_links(@note.notable) %>
+    <%= f.hidden_field :notable_id %>
+    <%= f.hidden_field :notable_type %>
+  <% else %>
+    Applies to objects tagged with <%= render_tag @note.notable_tag %>
+    <%= f.hidden_field :notable_tag %>
+  <% end %>
 </div>
 
 <div id="div-locales">
