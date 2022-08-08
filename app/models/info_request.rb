@@ -54,6 +54,10 @@ class InfoRequest < ApplicationRecord
   @non_admin_columns = %w(title url_title)
   @additional_admin_columns = %w(rejected_incoming_count)
 
+  def self.admin_title
+    'Request'
+  end
+
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],
                    :replace_newlines => true, :collapse_spaces => true

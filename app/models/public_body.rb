@@ -41,6 +41,10 @@ class PublicBody < ApplicationRecord
 
   @non_admin_columns = %w(name last_edit_comment)
 
+  def self.admin_title
+    'Authority'
+  end
+
   attr_accessor :no_xapian_reindex
 
   # Default fields available for importing from CSV, in the format
