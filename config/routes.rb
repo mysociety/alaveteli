@@ -498,6 +498,9 @@ Rails.application.routes.draw do
         :only => [:new, :create]
     end
   end
+  direct :admin_public_body do |pb|
+    admin_body_path(pb)
+  end
   ####
 
   #### AdminPublicBodyCategory controller
@@ -568,6 +571,9 @@ Rails.application.routes.draw do
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
     end
+  end
+  direct :admin_info_request do |ir|
+    admin_request_path(ir)
   end
   ####
 
