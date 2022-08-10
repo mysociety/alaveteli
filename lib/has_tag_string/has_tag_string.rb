@@ -16,6 +16,11 @@ module HasTagString
 
     validates_presence_of :name
 
+    def self.from_string(tag)
+      name, value = split_tag_into_name_value(tag)
+      new(name: name, value: value)
+    end
+
     # Return instance of the model that this tag tags
     def tagged_model
       model_type.constantize.find(model_id)
