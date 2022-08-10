@@ -56,7 +56,7 @@ class User < ApplicationRecord
          after_remove: :assign_role_features
   strip_attributes allow_empty: true
 
-  admin_columns minimal: %i[created_at updated_at email_confirmed]
+  admin_columns
 
   attr_accessor :no_xapian_reindex
 

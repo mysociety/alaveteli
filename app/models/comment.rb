@@ -27,7 +27,7 @@ class Comment < ApplicationRecord
 
   strip_attributes allow_empty: true
 
-  admin_columns minimal: %i[body visible created_at updated_at]
+  admin_columns
 
   belongs_to :user,
              inverse_of: :comments,

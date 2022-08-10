@@ -2,22 +2,15 @@ module AdminColumn
   extend ActiveSupport::Concern
 
   class_methods do
-    def admin_columns(attrs)
-      attrs.each do |set, columns|
-        admin_column_sets[set] = columns.map(&:to_s)
-      end
+    def admin_columns(columns = default_admin_columns)
+      @admin_columns = columns.map(&:to_s)
     end
   end
 
   included do
     class << self
       def default_admin_columns
-        { all: translated_columns + content_columns.map(&:name),
-          minimal: translated_columns + content_columns.map(&:name) }
-      end
-
-      def admin_column_sets
-        @admin_column_sets ||= default_admin_columns
+        translated_columns + content_columns.map(&:name)
       end
 
       def translated_columns
@@ -30,8 +23,8 @@ module AdminColumn
     end
   end
 
-  def for_admin_column(set = :all)
-    columns = self.class.admin_column_sets[set]
-    columns.each { |name| yield(name, send(name)) }
+  def for_admin_column(*columns)
+    columns = columns.empty? ? self.class.admin_columns : columns
+    columns.map(&:to_s).each { |name| yield(name, send(name)) }
   end
 end

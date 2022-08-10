@@ -73,7 +73,7 @@
               <td></td>
             </tr>
 
-            <% info_request_event.for_admin_column(:minimal) do |name, value| %>
+            <% info_request_event.for_admin_column(:event_type, :params_yaml, :created_at) do |name, value| %>
               <tr>
                 <td>
                   <b><%= name.humanize %></b>

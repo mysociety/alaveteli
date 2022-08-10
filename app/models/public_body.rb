@@ -39,7 +39,7 @@ class PublicBody < ApplicationRecord
 
   class ImportCSVDryRun < StandardError; end
 
-  admin_columns all: default_admin_columns[:all] - %i[name last_edit_editor]
+  admin_columns default_admin_columns - %i[name last_edit_editor]
 
   attr_accessor :no_xapian_reindex
 

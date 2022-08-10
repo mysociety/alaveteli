@@ -55,7 +55,7 @@ class InfoRequest < ApplicationRecord
   strip_attributes :only => [:title],
                    :replace_newlines => true, :collapse_spaces => true
 
-  admin_columns all: default_admin_columns[:all] - %w(title url_title) + %w(rejected_incoming_count)
+  admin_columns default_admin_columns - %i[title url_title] + %i[rejected_incoming_count]
 
   belongs_to :user,
              :inverse_of => :info_requests,

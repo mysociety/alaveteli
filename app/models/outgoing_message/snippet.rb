@@ -20,7 +20,7 @@ class OutgoingMessage::Snippet < ApplicationRecord
   translates :name, :body
   include Translatable # include after call to translates
 
-  admin_columns all: default_admin_columns[:all] - %i[name]
+  admin_columns all: default_admin_columns - %i[name]
 
   validates :name, :body, presence: true
 end

@@ -59,7 +59,7 @@ class InfoRequestEvent < ApplicationRecord
     'public_token' # has the shareable public token been generated or not
   ].freeze
 
-  admin_columns minimal: %i[event_type params_yaml created_at]
+  admin_columns
 
   belongs_to :info_request,
              :inverse_of => :info_request_events
