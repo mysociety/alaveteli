@@ -40,7 +40,7 @@
 class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
-  include User::AdminColumn
+  include AdminColumn
   include User::Authentication
   include User::LoginToken
   include User::OneTimePassword
@@ -55,6 +55,8 @@ class User < ApplicationRecord
          after_add: :assign_role_features,
          after_remove: :assign_role_features
   strip_attributes allow_empty: true
+
+  admin_columns minimal: %i[created_at updated_at email_confirmed]
 
   attr_accessor :no_xapian_reindex
 

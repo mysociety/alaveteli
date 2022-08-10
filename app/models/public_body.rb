@@ -34,10 +34,12 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
-  include PublicBody::AdminColumn
+  include AdminColumn
   include Taggable
 
   class ImportCSVDryRun < StandardError; end
+
+  admin_columns all: default_admin_columns[:all] - %i[name last_edit_editor]
 
   attr_accessor :no_xapian_reindex
 

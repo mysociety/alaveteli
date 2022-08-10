@@ -45,7 +45,7 @@ class InfoRequest < ApplicationRecord
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
-  include InfoRequest::AdminColumn
+  include AdminColumn
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
@@ -54,6 +54,8 @@ class InfoRequest < ApplicationRecord
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],
                    :replace_newlines => true, :collapse_spaces => true
+
+  admin_columns all: default_admin_columns[:all] - %w(title url_title) + %w(rejected_incoming_count)
 
   belongs_to :user,
              :inverse_of => :info_requests,

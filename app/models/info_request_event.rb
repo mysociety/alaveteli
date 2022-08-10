@@ -25,7 +25,7 @@
 require 'yaml_compatibility'
 
 class InfoRequestEvent < ApplicationRecord
-  include InfoRequestEvent::AdminColumn
+  include AdminColumn
   extend XapianQueries
 
   EVENT_TYPES = [
@@ -58,6 +58,8 @@ class InfoRequestEvent < ApplicationRecord
     'refusal_advice', # the results of completing the refusal advice wizard
     'public_token' # has the shareable public token been generated or not
   ].freeze
+
+  admin_columns minimal: %i[event_type params_yaml created_at]
 
   belongs_to :info_request,
              :inverse_of => :info_request_events

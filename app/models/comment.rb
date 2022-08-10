@@ -21,11 +21,13 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ApplicationRecord
-  include Comment::AdminColumn
+  include AdminColumn
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
   strip_attributes allow_empty: true
+
+  admin_columns minimal: %i[body visible created_at updated_at]
 
   belongs_to :user,
              inverse_of: :comments,
