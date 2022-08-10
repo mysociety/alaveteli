@@ -24,6 +24,11 @@ RSpec.describe Note, type: :model do
       note.body = nil
       expect(note).not_to be_valid
     end
+
+    it 'requires notable' do
+      note.notable = nil
+      expect(note).not_to be_valid
+    end
   end
 
   describe 'translations' do

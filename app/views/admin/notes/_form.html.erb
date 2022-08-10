@@ -1,5 +1,11 @@
 <%= foi_error_messages_for :note %>
 
+<div class="well">
+  Applies to <%= both_links(@note.notable) %>
+  <%= f.hidden_field :notable_id %>
+  <%= f.hidden_field :notable_type %>
+</div>
+
 <div id="div-locales">
   <ul class="locales nav nav-tabs">
     <% @note.ordered_translations.each do |translation| %>

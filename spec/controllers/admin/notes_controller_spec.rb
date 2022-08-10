@@ -24,11 +24,7 @@ RSpec.describe Admin::NotesController do
       post :create, params: params
     end
 
-    context 'on a successful create' do
-      let(:params) do
-        { note: { body: 'New body' } }
-      end
-
+    shared_context 'successful create' do
       it 'assigns the note' do
         expect(assigns[:note]).to be_a(Note)
       end
@@ -40,9 +36,27 @@ RSpec.describe Admin::NotesController do
       it 'sets a notice' do
         expect(flash[:notice]).to eq('Note successfully created.')
       end
+    end
 
-      it 'redirects to the general index' do
-        expect(response).to redirect_to(admin_general_index_path)
+    context 'on a successful create of concrete note' do
+      include_context 'successful create'
+
+      let!(:note) { FactoryBot.create(:note, :for_public_body) }
+      let(:public_body) { note.notable }
+
+      let(:params) do
+        {
+          id: note.id,
+          note: {
+            body: 'New body',
+            notable_id: public_body.id,
+            notable_type: public_body.class.name
+          }
+        }
+      end
+
+      it 'redirects to the public body admin' do
+        expect(response).to redirect_to(admin_public_body_path(public_body))
       end
     end
 
@@ -90,11 +104,7 @@ RSpec.describe Admin::NotesController do
       patch :update, params: params
     end
 
-    context 'on a successful update' do
-      let(:params) do
-        { id: note.id, note: { body: 'New body' } }
-      end
-
+    shared_context 'successful update' do
       it 'assigns the note' do
         expect(assigns[:note]).to eq(note)
       end
@@ -106,9 +116,27 @@ RSpec.describe Admin::NotesController do
       it 'sets a notice' do
         expect(flash[:notice]).to eq('Note successfully updated.')
       end
+    end
 
-      it 'redirects to the general index' do
-        expect(response).to redirect_to(admin_general_index_path)
+    context 'on a successful update of concrete note' do
+      include_context 'successful update'
+
+      let!(:note) { FactoryBot.create(:note, :for_public_body) }
+      let(:public_body) { note.notable }
+
+      let(:params) do
+        {
+          id: note.id,
+          note: {
+            body: 'New body',
+            notable_id: public_body.id,
+            notable_type: public_body.class.name
+          }
+        }
+      end
+
+      it 'redirects to the public body admin' do
+        expect(response).to redirect_to(admin_public_body_path(public_body))
       end
     end
 
@@ -145,9 +173,14 @@ RSpec.describe Admin::NotesController do
       expect(flash[:notice]).to eq('Note successfully destroyed.')
     end
 
-    it 'redirects to the general index' do
-      delete :destroy, params: { id: note.id }
-      expect(response).to redirect_to(admin_general_index_path)
+    context 'when concrete note' do
+      let!(:note) { FactoryBot.create(:note, :for_public_body) }
+      let(:public_body) { note.notable }
+
+      it 'redirects to the public body admin' do
+        delete :destroy, params: { id: note.id }
+        expect(response).to redirect_to(admin_public_body_path(public_body))
+      end
     end
   end
 end

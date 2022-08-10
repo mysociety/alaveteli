@@ -3,12 +3,12 @@ class Admin::NotesController < AdminController
   include TranslatableParams
 
   def new
-    @note = Note.new
+    @note = scope.build
     @note.build_all_translations
   end
 
   def create
-    @note = Note.new(note_params)
+    @note = scope.build(note_params)
     if @note.save
       notice = 'Note successfully created.'
       redirect_to admin_note_parent_path(@note), notice: notice
@@ -19,12 +19,12 @@ class Admin::NotesController < AdminController
   end
 
   def edit
-    @note = Note.find(params[:id])
+    @note = scope.find(params[:id])
     @note.build_all_translations
   end
 
   def update
-    @note = Note.find(params[:id])
+    @note = scope.find(params[:id])
     if @note.update(note_params)
       notice = 'Note successfully updated.'
       redirect_to admin_note_parent_path(@note), notice: notice
@@ -42,6 +42,10 @@ class Admin::NotesController < AdminController
   end
 
   private
+
+  def scope
+    Note.where(params.slice(:notable_id, :notable_type).permit!)
+  end
 
   def note_params
     translatable_params(

@@ -15,6 +15,7 @@
 FactoryBot.define do
   factory :note do
     body { 'Test note' }
+    association :notable, factory: :public_body
 
     trait :for_public_body do
       association :notable, factory: :public_body

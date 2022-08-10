@@ -29,8 +29,10 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/notable'
 
 RSpec.describe PublicBody do
+  it_behaves_like 'concerns/notable', FactoryBot.build(:public_body)
 
   describe <<-EOF.squish do
     temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
