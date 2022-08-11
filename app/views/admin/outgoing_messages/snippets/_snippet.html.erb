@@ -1,0 +1,28 @@
+<div class="accordion-group">
+  <div class="accordion-heading accordion-toggle row">
+    <span class="item-title span6">
+      <a href="#snippet_<%= snippet.id %>" data-toggle="collapse" data-parent="snippets">
+        <%= chevron_right %>
+      </a>
+      <%= link_to snippet.name, edit_admin_snippet_path(snippet) %>
+    </span>
+
+    <span class="item-metadata span6">
+      <%= render_tags snippet.tags %>
+    </span>
+  </div>
+
+  <div id="snippet_<%= snippet.id %>" class="item-detail accordion-body collapse row">
+    <% snippet.for_admin_column do |name, value, type| %>
+      <div>
+        <span class="span6">
+          <b><%= name %></b>
+        </span>
+
+        <span class="span6">
+          <%= admin_value(value) %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>

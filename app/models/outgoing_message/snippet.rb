@@ -19,6 +19,10 @@ class OutgoingMessage::Snippet < ApplicationRecord
 
   @non_admin_columns = %w(name)
 
+  def self.admin_title
+    'Snippet'
+  end
+
   translates :name, :body
   include Translatable # include after call to translates
 
