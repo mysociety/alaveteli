@@ -1,6 +1,24 @@
 require 'spec_helper'
 
 RSpec.describe HasTagString::HasTagStringTag do
+  describe '.from_string' do
+    subject { described_class.from_string(tag) }
+
+    context 'with a name' do
+      let(:tag) { 'foo' }
+      it { is_expected.to be_a(described_class) }
+      it { is_expected.to have_attributes(name: 'foo', value: nil) }
+    end
+
+    context 'with a name and value' do
+      let(:tag) { 'foo:bar' }
+      it { is_expected.to be_a(described_class) }
+      it { is_expected.to have_attributes(name: 'foo', value: 'bar') }
+    end
+  end
+end
+
+RSpec.describe HasTagString::HasTagStringTag, 'taggable model' do
 
   class ModelWithTag < ApplicationRecord
     has_tag_string
