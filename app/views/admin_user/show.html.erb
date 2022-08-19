@@ -153,6 +153,7 @@
       <% for column in PostRedirect.content_columns %>
         <th><%= column.name.humanize %></th>
       <% end %>
+      <th></th>
     </tr>
 
     <% @admin_user.post_redirects.each do |post_redirect| %>
@@ -165,6 +166,15 @@
             <td><%=h post_redirect.send(column) %></td>
           <% end %>
         <% end %>
+
+        <td>
+          <%= link_to 'Destroy', admin_post_redirect_path(post_redirect),
+                      method: :delete,
+                      accesskey: 'd',
+                      class: 'btn btn-small btn-danger',
+                      data: { confirm: 'Destroying a post redirect is ' \
+                                       'permanent. Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </table>

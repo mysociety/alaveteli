@@ -501,6 +501,12 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::PostRedirectsController
+  namespace :admin do
+    resources :post_redirects, only: [:destroy]
+  end
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,
