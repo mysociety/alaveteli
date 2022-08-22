@@ -193,7 +193,7 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 5.1.2'
   gem 'pry', '~> 0.13.0'
-  gem 'pry-byebug', '~> 3.9.0'
+  gem 'pry-byebug', '~> 3.10.1'
 end
 
 group :development do
