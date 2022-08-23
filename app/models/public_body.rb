@@ -677,12 +677,6 @@ class PublicBody < ApplicationRecord
     end
   end
 
-  # TODO: Deprecate this method. Its only used in a couple of views so easy to
-  # update to just call PublicBody#notes
-  def notes_as_html
-    notes
-  end
-
   def json_for_api
     {
       :id => id,
