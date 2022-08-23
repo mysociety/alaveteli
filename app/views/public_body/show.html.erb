@@ -40,9 +40,7 @@
         @public_body.special_not_requestable_reason? %>
     <div id="stepwise_make_request" class="stepwise_make_request">
       <% if @public_body.has_notes? %>
-        <p class="authority__header__notes">
-          <%= @public_body.notes.html_safe %>
-        </p>
+        <%= render_notes(@public_body.notes, class: 'authority__header__notes') %>
       <% end %>
 
       <% if !@public_body.is_requestable? &&

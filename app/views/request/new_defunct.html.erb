@@ -16,7 +16,5 @@
           "about '{{authority_name}}':",
           :authority_name => @info_request.public_body.name) %>
   </p>
-  <p>
-    <%= @info_request.public_body.notes %>
-  </p>
+  <%= render_notes(@info_request.public_body.notes) %>
 <% end %>
