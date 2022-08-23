@@ -11,12 +11,12 @@
     <%= link_to highlight_words(public_body.name, @highlight_words), public_body_path(public_body) %>
   </div>
   <div class="desc body-listing__description">
-    <% if !public_body.short_name.blank? || !public_body.notes_without_html.empty? %>
+    <% if !public_body.short_name.blank? || public_body.has_notes? %>
       <% if !public_body.short_name.blank? %>
         <%= _("Also called {{other_name}}.",
               :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
       <% end %>
-      <% if !public_body.notes_without_html.empty? %>
+      <% if public_body.has_notes? %>
         <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
       <% end %>
       <br>
