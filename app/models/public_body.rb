@@ -671,12 +671,6 @@ class PublicBody < ApplicationRecord
     notes.present?
   end
 
-  # TODO: Deprecate this method. Its only used in a couple of views so easy to
-  # update to just call PublicBody#notes
-  def notes_as_html
-    notes
-  end
-
   def notes_without_html
     # assume notes are reasonably behaved HTML, so just use simple regexp
     # on this
