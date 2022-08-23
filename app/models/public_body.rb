@@ -671,12 +671,6 @@ class PublicBody < ApplicationRecord
     notes.present?
   end
 
-  def notes_without_html
-    # assume notes are reasonably behaved HTML, so just use simple regexp
-    # on this
-    @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
-  end
-
   def json_for_api
     {
       :id => id,
