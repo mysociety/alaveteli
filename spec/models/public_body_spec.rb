@@ -1944,18 +1944,6 @@ RSpec.describe PublicBody do
     end
   end
 
-  describe 'when asked for notes without html' do
-
-    before do
-      @public_body = PublicBody.new(:notes => 'some <a href="/notes">notes</a>')
-    end
-
-    it 'should remove simple tags from notes' do
-      expect(@public_body.notes_without_html).to eq('some notes')
-    end
-
-  end
-
   describe '#site_administration?' do
 
     it 'is true when the body has the site_administration tag' do

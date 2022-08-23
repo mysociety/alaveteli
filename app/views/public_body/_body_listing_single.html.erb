@@ -17,7 +17,7 @@
               :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
       <% end %>
       <% if public_body.has_notes? %>
-        <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
+        <%= highlight_and_excerpt(strip_tags(public_body.notes), @highlight_words, 150) %>
       <% end %>
       <br>
       <% if public_body.special_not_requestable_reason? %>
