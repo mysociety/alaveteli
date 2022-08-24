@@ -595,27 +595,18 @@ RSpec.describe PublicBody do
       expect(subject.has_notes?).to eq(true)
     end
 
-    context 'when the authority is tagged with the tag option' do
+  end
 
-      it 'returns true if the authority has notes' do
-        subject = PublicBody.new(:notes => 'x', :tag_string => 'popular')
-        expect(subject.has_notes?(tag: 'popular')).to eq(true)
-      end
+  describe '#has_important_notes?' do
 
-      it 'returns false if the authority does not have notes' do
-        subject = PublicBody.new(:notes => nil, :tag_string => 'popular')
-        expect(subject.has_notes?(tag: 'popular')).to eq(false)
-      end
-
+    it 'is true when the body has the important_notes tag' do
+      p = FactoryBot.build(:public_body, tag_string: 'important_notes')
+      expect(p.has_important_notes?).to be true
     end
 
-    context 'when the authority is not tagged with the tag option' do
-
-      it 'returns false' do
-        subject = PublicBody.new(:notes => 'x', :tag_string => 'useless')
-        expect(subject.has_notes?(tag: 'popular')).to eq(false)
-      end
-
+    it 'is false when the body does not have the important_notes tag' do
+      p = FactoryBot.build(:public_body)
+      expect(p.has_important_notes?).to be false
     end
 
   end
@@ -1947,18 +1938,6 @@ RSpec.describe PublicBody do
       public_body.home_page = "https://example.com"
       expect(public_body.calculated_home_page).to eq("https://example.com")
     end
-  end
-
-  describe 'when asked for notes without html' do
-
-    before do
-      @public_body = PublicBody.new(:notes => 'some <a href="/notes">notes</a>')
-    end
-
-    it 'should remove simple tags from notes' do
-      expect(@public_body.notes_without_html).to eq('some notes')
-    end
-
   end
 
   describe '#site_administration?' do

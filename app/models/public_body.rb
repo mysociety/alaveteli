@@ -668,26 +668,8 @@ class PublicBody < ApplicationRecord
     $1.nil? ? nil : $1.downcase
   end
 
-  def has_notes?(opts = {})
-    tag = opts[:tag]
-
-    if tag
-      notes.present? && has_tag?(tag)
-    else
-      notes.present?
-    end
-  end
-
-  # TODO: Deprecate this method. Its only used in a couple of views so easy to
-  # update to just call PublicBody#notes
-  def notes_as_html
-    notes
-  end
-
-  def notes_without_html
-    # assume notes are reasonably behaved HTML, so just use simple regexp
-    # on this
-    @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
+  def has_notes?
+    notes.present?
   end
 
   def json_for_api
