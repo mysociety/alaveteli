@@ -667,14 +667,8 @@ class PublicBody < ApplicationRecord
     $1.nil? ? nil : $1.downcase
   end
 
-  def has_notes?(opts = {})
-    tag = opts[:tag]
-
-    if tag
-      notes.present? && has_tag?(tag)
-    else
-      notes.present?
-    end
+  def has_notes?
+    notes.present?
   end
 
   def json_for_api
