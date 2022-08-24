@@ -11,7 +11,7 @@
             <%= authority.name %>
           </span>
 
-          <% if authority.has_notes?(tag: 'important_notes') %>
+          <% if authority.has_notes? && authority.has_tag?('important_notes') %>
             <details class="batch-builder__list__item__notes">
               <summary>
                 <%= _('Important info about requests to this authority') %>

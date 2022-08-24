@@ -9,7 +9,7 @@
       <%= public_body.name %>
     </span>
 
-    <% if public_body.has_notes?(tag: 'important_notes') %>
+    <% if public_body.has_notes? && public_body.has_tag?('important_notes') %>
       <details class="batch-builder__list__item__notes">
         <summary>
           <%= _('Important info about requests to this authority') %>
