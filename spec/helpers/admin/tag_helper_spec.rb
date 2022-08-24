@@ -42,5 +42,30 @@ RSpec.describe Admin::TagHelper, type: :helper do
           to eq(expected)
       end
     end
+
+    context 'tag with no value, as a string' do
+      let(:record_tag) { 'foo' }
+
+      it 'renders the tag with a link' do
+        expected = '<span class="label label-info tag">' \
+                   '<a href="/admin/tags/foo">foo</a>' \
+                   '</span>'
+        expect(helper.render_tag(record_tag)).
+          to eq(expected)
+      end
+    end
+
+    context 'tag with a value, as a string' do
+      let(:record_tag) { 'foo:bar' }
+
+      it 'renders the tag with a link' do
+        expected = '<span class="label label-info tag">' \
+                   '<a href="/admin/tags/foo">foo</a>:' \
+                   '<a href="/admin/tags/foo:bar">bar</a>' \
+                   '</span>'
+        expect(helper.render_tag(record_tag)).
+          to eq(expected)
+      end
+    end
   end
 end

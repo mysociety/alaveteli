@@ -9,6 +9,10 @@ module Admin::TagHelper
 
   def render_tag(record_tag)
     tag.span class: 'label label-info tag' do
+      if record_tag.is_a?(String)
+        record_tag = HasTagString::HasTagStringTag.from_string(record_tag)
+      end
+
       render_tag_href(record_tag)
     end
   end

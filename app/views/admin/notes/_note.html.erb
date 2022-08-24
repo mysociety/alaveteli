@@ -1,0 +1,24 @@
+<div class="accordion-group">
+  <div class="accordion-heading accordion-toggle row">
+    <span class="item-title span6">
+      <%= link_to chevron_right, "##{dom_id(note)}", data: { toggle: 'collapse', parent: 'notes' } %>
+      <%= link_to(note.body, edit_admin_note_path(note), title: 'view full details') %>
+    </span>
+
+    <span class="item-metadata span6">
+      <%= render_tag note.notable_tag if note.notable_tag %>
+    </span>
+  </div>
+  <%= tag.div id: dom_id(note), class: 'item-detail accordion-body collapse row' do %>
+    <% note.for_admin_column do |name, value, type| %>
+      <div>
+        <span class="span6">
+          <b><%= name %></b>
+        </span>
+        <span class="span6">
+          <%= admin_value(value) %>
+        </span>
+      </div>
+    <% end %>
+  <% end %>
+</div>

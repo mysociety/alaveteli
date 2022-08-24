@@ -36,6 +36,7 @@ require 'confidence_intervals'
 class PublicBody < ApplicationRecord
   include AdminColumn
   include Taggable
+  include Notable
 
   class ImportCSVDryRun < StandardError; end
 
