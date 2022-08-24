@@ -50,6 +50,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
   include Taggable
+  include Notable
 
   @non_admin_columns = %w(title url_title)
   @additional_admin_columns = %w(rejected_incoming_count)

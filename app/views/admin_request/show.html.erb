@@ -416,3 +416,11 @@
 <%= render partial: 'admin_censor_rule/show',
            locals: { censor_rules: @info_request.applicable_censor_rules,
                      info_request: @info_request } %>
+
+<hr>
+
+<h2>Notes</h2>
+
+<%= render partial: 'admin/notes/show',
+  locals: { notes: @info_request.all_notes,
+            notable: @info_request } %>
