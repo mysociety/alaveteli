@@ -1,12 +1,19 @@
 module NotesHelper
   def render_notes(notes, batch: false, **options)
-    tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
+    @notes_allowed_tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
 
-    render partial: 'notes/note',
-           locals: {
-             note: sanitize(notes, tags: tags),
-             note_class: options[:class]
-           }
+    tag.aside options.merge(id: 'notes') do
+      render partial: 'notes/note',
+             collection: notes,
+             locals: {
+               note_class: ['note'],
+               batch: batch
+             }
+    end
+  end
+
+  def sanitized_note(note)
+    sanitize(note.body, tags: @notes_allowed_tags)
   end
 
   def notes_allowed_tags
@@ -17,5 +24,11 @@ module NotesHelper
 
   def batch_notes_allowed_tags
     notes_allowed_tags - %w(pre h1 h2 h3 h4 h5 h6 img blockquote font iframe)
+  end
+
+  def note_class(note)
+    klasses = ['note']
+    klasses << "tag-#{note.notable_tag}" if note.notable_tag
+    klasses
   end
 end

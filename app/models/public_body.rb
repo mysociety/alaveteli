@@ -121,7 +121,7 @@ class PublicBody < ApplicationRecord
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes],
+  acts_as_xapian :texts => [:name, :short_name, :notes_as_string],
                  :values => [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
@@ -672,6 +672,24 @@ class PublicBody < ApplicationRecord
     notes.present?
   end
 
+  def notes
+    [old_note] + all_notes
+  end
+
+  def notes_as_string
+    notes.map(&:body).join
+  end
+
+  def old_note
+    Note.new(notable: self) do |note|
+      AlaveteliLocalization.available_locales.each do |locale|
+        AlaveteliLocalization.with_locale(locale) do
+          note.body = read_attribute(:notes)
+        end
+      end
+    end
+  end
+
   def json_for_api
     {
       :id => id,
@@ -686,7 +704,7 @@ class PublicBody < ApplicationRecord
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes.to_s,
+      :notes => notes_as_string.to_s,
       :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {

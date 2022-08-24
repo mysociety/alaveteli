@@ -21,6 +21,8 @@
               <% unless @public_body.is_requestable? %>
                 <%= "not requestable due to: #{ @public_body.not_requestable_reason }" %><% if @public_body.is_followupable? %>; but followupable<% end %>
               <% end %>
+            <% elsif column_name == 'notes' %>
+              <%=h @public_body.old_note.body %>
             <% else %>
               <%=h value %>
             <% end %>
