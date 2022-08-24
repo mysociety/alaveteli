@@ -3,7 +3,9 @@ module NotesHelper
     allowed_tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
 
     tag.p options do
-      sanitize(notes, tags: allowed_tags)
+      notes.each do |note|
+        concat sanitize(note.body, tags: allowed_tags)
+      end
     end
   end
 
