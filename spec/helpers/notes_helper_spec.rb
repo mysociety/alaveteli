@@ -10,7 +10,13 @@ RSpec.describe NotesHelper do
       subject { render_notes([note], class: 'notes') }
 
       it 'allows more tags' do
-        is_expected.to eq('<p class="notes"><h1>title</h1></p>')
+        is_expected.to eq(
+          '<aside class="notes" id="notes">' \
+            '<article id="new_note" class="note tag-some_tag">' \
+              '<h1>title</h1>' \
+            '</article>' \
+          '</aside>'
+        )
       end
     end
 
@@ -18,7 +24,13 @@ RSpec.describe NotesHelper do
       subject { render_notes([note], batch: true, class: 'notes') }
 
       it 'removes more tags' do
-        is_expected.to eq('<p class="notes">title</p>')
+        is_expected.to eq(
+          '<aside class="notes" id="notes">' \
+            '<article id="new_note" class="note tag-some_tag">' \
+              'title' \
+            '</article>' \
+          '</aside>'
+        )
       end
     end
   end
