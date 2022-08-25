@@ -12,7 +12,7 @@ RSpec.describe PublicBodyCSV do
                   :calculated_home_page,
                   :publication_scheme,
                   :disclosure_log,
-                  :notes,
+                  :notes_as_string,
                   :created_at,
                   :updated_at,
                   :version]
@@ -134,7 +134,7 @@ RSpec.describe PublicBodyCSV do
 
       # Miss out the tags field because the specs keep changing the order
       # that the tags are returned in
-      fields = [:name, :short_name, :url_name, :calculated_home_page, :publication_scheme, :disclosure_log, :notes, :created_at, :updated_at, :version]
+      fields = [:name, :short_name, :url_name, :calculated_home_page, :publication_scheme, :disclosure_log, :notes_as_string, :created_at, :updated_at, :version]
       headers = ['Name', 'Short name', 'URL name', 'Home page', 'Publication scheme', 'Disclosure log', 'Notes', 'Created at', 'Updated at', 'Version']
 
       csv = PublicBodyCSV.new(:fields => fields, :headers => headers)

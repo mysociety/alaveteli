@@ -120,7 +120,7 @@ class PublicBody < ApplicationRecord
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes],
+  acts_as_xapian :texts => [:name, :short_name, :notes_as_string],
                  :values => [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
@@ -671,6 +671,10 @@ class PublicBody < ApplicationRecord
     notes.present?
   end
 
+  def notes_as_string
+    notes.to_s
+  end
+
   def json_for_api
     {
       :id => id,
@@ -685,7 +689,7 @@ class PublicBody < ApplicationRecord
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes.to_s,
+      :notes => notes_as_string,
       :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {
