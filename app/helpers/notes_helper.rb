@@ -12,4 +12,8 @@ module NotesHelper
       %w(th time u font iframe) -
       %w(html head body style)
   end
+
+  def batch_notes_allowed_tags
+    notes_allowed_tags - %w(pre h1 h2 h3 h4 h5 h6 img blockquote font iframe)
+  end
 end
