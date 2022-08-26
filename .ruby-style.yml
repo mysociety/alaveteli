@@ -288,6 +288,9 @@ Layout/MultilineMethodCallIndentation:
 Layout/MultilineMethodDefinitionBraceLayout:
   Enabled: true
 
+Layout/MultilineMethodParameterLineBreaks:
+  Enabled: false
+
 Layout/MultilineOperationIndentation:
   Enabled: true
 
@@ -655,6 +658,9 @@ Lint/RegexpAsCondition:
 
 Lint/RequireParentheses:
   Enabled: true
+
+Lint/RequireRangeParentheses:
+  Enabled: false
 
 Lint/RequireRelativeSelfPath:
   Enabled: false
@@ -1531,6 +1537,9 @@ Style/EmptyCaseCondition:
 Style/EmptyElse:
   Enabled: true
 
+Style/EmptyHeredoc:
+  Enabled: false
+
 Style/EmptyLambdaParameter:
   Enabled: false
 
@@ -1675,6 +1684,9 @@ Style/LambdaCall:
 
 Style/LineEndConcatenation:
   Enabled: true
+
+Style/MagicCommentFormat:
+  Enabled: false
 
 Style/MapCompactWithConditionalBlock:
   Enabled: false
