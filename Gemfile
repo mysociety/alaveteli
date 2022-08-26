@@ -168,7 +168,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 # Storage backends
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
-gem 'google-cloud-storage', '~> 1.37', require: false
+gem 'google-cloud-storage', '~> 1.39', require: false
 
 if rails_upgrade? && RUBY_VERSION < '3.1'
   gem 'net-http', '0.1.1'
