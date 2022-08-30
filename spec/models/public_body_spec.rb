@@ -192,6 +192,34 @@ RSpec.describe PublicBody do
 
   end
 
+  describe '#save' do
+    subject { public_body.save }
+
+    context 'when a request email is added' do
+      let!(:public_body) do
+        FactoryBot.create(:blank_email_public_body, tag_string: 'missing_email')
+      end
+
+      before { public_body.request_email = 'added@example.com' }
+
+      it 'removes the missing email tag' do
+        subject
+        expect(public_body).not_to be_tagged('missing_email')
+      end
+    end
+
+    context 'when a request email is removed' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      before { public_body.request_email = '' }
+
+      it 'adds the missing email tag' do
+        subject
+        expect(public_body).to be_tagged('missing_email')
+      end
+    end
+  end
+
   describe '#name' do
 
     it 'is invalid when nil' do
