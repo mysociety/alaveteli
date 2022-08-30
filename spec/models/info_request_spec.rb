@@ -39,8 +39,7 @@ require 'spec_helper'
 require 'models/concerns/info_request/title_validation'
 
 RSpec.describe InfoRequest do
-  it_behaves_like 'concerns/info_request/title_validation',
-                  FactoryBot.build(:info_request)
+  it_behaves_like 'concerns/info_request/title_validation', :info_request
 
   describe '.internal' do
     subject { described_class.internal }

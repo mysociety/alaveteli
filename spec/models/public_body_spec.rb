@@ -33,9 +33,8 @@ require 'models/concerns/notable'
 require 'models/concerns/notable_and_taggable'
 
 RSpec.describe PublicBody do
-  it_behaves_like 'concerns/notable', FactoryBot.build(:public_body)
-  it_behaves_like 'concerns/notable_and_taggable',
-                  FactoryBot.build(:public_body)
+  it_behaves_like 'concerns/notable', :public_body
+  it_behaves_like 'concerns/notable_and_taggable', :public_body
 
   describe <<-EOF.squish do
     temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute

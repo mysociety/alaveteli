@@ -1,4 +1,6 @@
-RSpec.shared_examples 'concerns/notable_and_taggable' do |record|
+RSpec.shared_examples 'concerns/notable_and_taggable' do |factory_opts|
+  let(:record) { FactoryBot.build(*factory_opts) }
+
   describe '#all_notes' do
     subject { record.all_notes }
 

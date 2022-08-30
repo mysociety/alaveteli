@@ -17,7 +17,7 @@ require 'models/concerns/info_request/draft_title_validation'
 
 RSpec.describe AlaveteliPro::DraftInfoRequestBatch do
   it_behaves_like 'concerns/info_request/draft_title_validation',
-                  FactoryBot.build(:draft_info_request_batch)
+                  :draft_info_request_batch
 
   it { is_expected.to strip_attribute(:embargo_duration) }
 
