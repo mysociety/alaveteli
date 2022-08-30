@@ -14,6 +14,11 @@
     snippet: tagging
   } %>
 
+<% when Note %>
+  <%= render partial: 'admin/notes/note', locals: {
+    note: tagging
+  } %>
+
 <% else %>
   <pre><%= tagging.to_json %></pre>
 <% end %>

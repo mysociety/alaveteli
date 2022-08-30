@@ -485,6 +485,22 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminNote controller
+  namespace :admin do
+    resources :notes, except: [:index, :show]
+  end
+
+  direct :admin_note_parent do |note|
+    if note.notable_tag
+      admin_tag_path(tag: note.notable_tag)
+    elsif note.notable
+      url_for([:admin, note.notable])
+    else
+      admin_general_index_path
+    end
+  end
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,
@@ -497,6 +513,9 @@ Rails.application.routes.draw do
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
     end
+  end
+  direct :admin_public_body do |pb|
+    admin_body_path(pb)
   end
   ####
 
@@ -568,6 +587,9 @@ Rails.application.routes.draw do
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
     end
+  end
+  direct :admin_info_request do |ir|
+    admin_request_path(ir)
   end
   ####
 

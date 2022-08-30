@@ -131,3 +131,11 @@
 <h2>Censor rules</h2>
 
 <%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @public_body.censor_rules, :public_body => @public_body } %>
+
+<hr>
+
+<h2>Notes</h2>
+
+<%= render partial: 'admin/notes/show',
+  locals: { notes: @public_body.all_notes,
+            notable: @public_body } %>
