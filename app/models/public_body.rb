@@ -121,7 +121,7 @@ class PublicBody < ApplicationRecord
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes],
+  acts_as_xapian :texts => [:name, :short_name, :notes_as_string],
                  :values => [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
@@ -668,26 +668,12 @@ class PublicBody < ApplicationRecord
     $1.nil? ? nil : $1.downcase
   end
 
-  def has_notes?(opts = {})
-    tag = opts[:tag]
-
-    if tag
-      notes.present? && has_tag?(tag)
-    else
-      notes.present?
-    end
+  def has_notes?
+    notes.present?
   end
 
-  # TODO: Deprecate this method. Its only used in a couple of views so easy to
-  # update to just call PublicBody#notes
-  def notes_as_html
-    notes
-  end
-
-  def notes_without_html
-    # assume notes are reasonably behaved HTML, so just use simple regexp
-    # on this
-    @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
+  def notes_as_string
+    notes.to_s
   end
 
   def json_for_api
@@ -704,7 +690,7 @@ class PublicBody < ApplicationRecord
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes.to_s,
+      :notes => notes_as_string,
       :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {

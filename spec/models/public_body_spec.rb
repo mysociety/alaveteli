@@ -595,29 +595,6 @@ RSpec.describe PublicBody do
       expect(subject.has_notes?).to eq(true)
     end
 
-    context 'when the authority is tagged with the tag option' do
-
-      it 'returns true if the authority has notes' do
-        subject = PublicBody.new(:notes => 'x', :tag_string => 'popular')
-        expect(subject.has_notes?(tag: 'popular')).to eq(true)
-      end
-
-      it 'returns false if the authority does not have notes' do
-        subject = PublicBody.new(:notes => nil, :tag_string => 'popular')
-        expect(subject.has_notes?(tag: 'popular')).to eq(false)
-      end
-
-    end
-
-    context 'when the authority is not tagged with the tag option' do
-
-      it 'returns false' do
-        subject = PublicBody.new(:notes => 'x', :tag_string => 'useless')
-        expect(subject.has_notes?(tag: 'popular')).to eq(false)
-      end
-
-    end
-
   end
 
   describe '#publication_scheme' do
@@ -1947,18 +1924,6 @@ RSpec.describe PublicBody do
       public_body.home_page = "https://example.com"
       expect(public_body.calculated_home_page).to eq("https://example.com")
     end
-  end
-
-  describe 'when asked for notes without html' do
-
-    before do
-      @public_body = PublicBody.new(:notes => 'some <a href="/notes">notes</a>')
-    end
-
-    it 'should remove simple tags from notes' do
-      expect(@public_body.notes_without_html).to eq('some notes')
-    end
-
   end
 
   describe '#site_administration?' do

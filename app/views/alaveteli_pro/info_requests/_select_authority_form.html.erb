@@ -28,7 +28,7 @@
 
 <% if @info_request.public_body && @info_request.public_body.has_notes? %>
   <div class="to_public_body_notes js-public-body-notes">
-    <p><%= @info_request.public_body.notes.html_safe %></p>
+    <%= render_notes(@info_request.public_body.notes) %>
   </div>
 <% else %>
   <div class="to_public_body_notes js-public-body-notes"

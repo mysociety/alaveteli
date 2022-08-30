@@ -10,13 +10,11 @@
         "different authority.",
         :authority_name => @info_request.public_body.name) %>
 </p>
-<% unless @info_request.public_body.notes.blank? %>
+<% if @info_request.public_body.has_notes? %>
   <p>
     <%= _("You might find some useful information in the notes we hold " \
           "about '{{authority_name}}':",
           :authority_name => @info_request.public_body.name) %>
   </p>
-  <p>
-    <%= @info_request.public_body.notes %>
-  </p>
+  <%= render_notes(@info_request.public_body.notes) %>
 <% end %>

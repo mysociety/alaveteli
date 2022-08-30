@@ -9,7 +9,7 @@ RSpec.describe 'alaveteli_pro/public_bodies/_search_result' do
   let(:result) do
     {
       name: public_body.name,
-      notes: public_body.notes,
+      notes: public_body.notes_as_string,
       info_requests_visible_count: public_body.info_requests_visible_count
     }
   end
@@ -25,7 +25,7 @@ RSpec.describe 'alaveteli_pro/public_bodies/_search_result' do
 
   it "includes the body notes" do
     render_view
-    expect(rendered).to have_text public_body.notes
+    expect(rendered).to have_text public_body.notes_as_string
   end
 
   it "truncates the body notes to 150 chars" do
@@ -37,7 +37,7 @@ RSpec.describe 'alaveteli_pro/public_bodies/_search_result' do
     expected_notes = "This are some extravagantly long notes about a body " \
                      "which will need to be trimmed down somewhat before " \
                      "they're suitable for inclusion in a small am..."
-    expect(rendered).not_to have_text public_body.notes
+    expect(rendered).not_to have_text public_body.notes_as_string
     expect(rendered).to have_text expected_notes
   end
 

@@ -26,7 +26,7 @@ class PublicBodyCSV
      :calculated_home_page,
      :publication_scheme,
      :disclosure_log,
-     :notes,
+     :notes_as_string,
      :created_at,
      :updated_at,
      :version]
