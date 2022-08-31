@@ -196,7 +196,8 @@ RSpec.describe AdminOutgoingMessageController do
         outgoing_message: {
           prominence: 'hidden',
           prominence_reason: 'dull',
-          body: 'changed body'
+          body: 'changed body',
+          tag_string: 'foo'
         }
       }
     end
@@ -223,6 +224,12 @@ RSpec.describe AdminOutgoingMessageController do
       expect(outgoing.prominence_reason).to eq('dull')
     end
 
+    it 'should save a tag string for the message' do
+      make_request
+      outgoing.reload
+      expect(outgoing.tag_string).to eq('foo')
+    end
+
     it 'should log an "edit_outgoing" event on the info_request' do
       allow(@controller).to receive(:admin_current_user).and_return("Admin user")
       make_request
@@ -237,7 +244,9 @@ RSpec.describe AdminOutgoingMessageController do
         old_prominence: 'normal',
         prominence: 'hidden',
         old_prominence_reason: nil,
-        prominence_reason: 'dull'
+        prominence_reason: 'dull',
+        old_tag_string: '',
+        tag_string: 'foo'
       )
     end
 

@@ -18,8 +18,11 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/taggable'
 
 RSpec.describe OutgoingMessage do
+  it_behaves_like 'concerns/taggable', :initial_request
+
   describe '.is_searchable' do
     subject { described_class.is_searchable }
 

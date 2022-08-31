@@ -28,6 +28,7 @@ class OutgoingMessage < ApplicationRecord
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include Taggable
 
   strip_attributes only: [:prominence_reason]
 

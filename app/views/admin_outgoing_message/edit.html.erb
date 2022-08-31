@@ -4,6 +4,17 @@
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'put' do %>
   <fieldset class="form-horizontal">
+    <legend>Attributes</legend>
+      <div class="control-group">
+        <label class="control-label" for="outgoing_message_tag_string">Tag string</label>
+
+        <div class="controls">
+          <%= text_field 'outgoing_message', 'tag_string', class: 'span6' %>
+        </div>
+      </div>
+  </fieldset>
+
+  <fieldset class="form-horizontal">
     <legend>Prominence</legend>
 
     <div class="control-group">
