@@ -40,6 +40,8 @@ class IncomingMessage < ApplicationRecord
   include MessageProminence
   include CacheAttributesFromRawEmail
 
+  strip_attributes only: [:prominence_reason]
+
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
   belongs_to :info_request,
