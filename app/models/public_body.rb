@@ -34,7 +34,6 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
-  include AdminColumn
   include Taggable
   include Notable
 

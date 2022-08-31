@@ -21,7 +21,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ApplicationRecord
-  include AdminColumn
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
