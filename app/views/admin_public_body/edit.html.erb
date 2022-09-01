@@ -1,6 +1,12 @@
 <h1><%=@title%></h1>
 
 <div class="row">
+  <ul class="breadcrumb">
+    <li class="active">Public Body: <%= both_links(@public_body) %></li>
+  </ul>
+</div>
+
+<div class="row">
   <div class="span8">
     <div id="public_body_form">
       <%= form_for @public_body, :url => admin_body_path(@public_body),  :method => 'put', :html => { :class => "form form-horizontal" } do |f| %>
