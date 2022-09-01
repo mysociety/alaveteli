@@ -113,8 +113,10 @@ class PublicBody < ApplicationRecord
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  after_update :reindex_requested_from
 
+  after_save :update_missing_email_tag
+
+  after_update :reindex_requested_from
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
@@ -974,5 +976,17 @@ class PublicBody < ApplicationRecord
       result += " AND #{table}.locale = :locale"
     end
     result
+  end
+
+  def update_missing_email_tag
+    if missing_email?
+      add_tag_if_not_already_present('missing_email')
+    else
+      remove_tag('missing_email')
+    end
+  end
+
+  def missing_email?
+    !has_request_email?
   end
 end

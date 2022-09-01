@@ -111,6 +111,8 @@ module HasTagString
       false
     end
 
+    alias tagged? has_tag?
+
     class TagNotFound < StandardError
     end
 
