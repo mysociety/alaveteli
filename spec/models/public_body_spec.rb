@@ -31,11 +31,12 @@
 require 'spec_helper'
 require 'models/concerns/notable'
 require 'models/concerns/notable_and_taggable'
+require 'models/concerns/taggable'
 
 RSpec.describe PublicBody do
-  it_behaves_like 'concerns/notable', FactoryBot.build(:public_body)
-  it_behaves_like 'concerns/notable_and_taggable',
-                  FactoryBot.build(:public_body)
+  it_behaves_like 'concerns/notable', :public_body
+  it_behaves_like 'concerns/notable_and_taggable', :public_body
+  it_behaves_like 'concerns/taggable', :public_body
 
   describe <<-EOF.squish do
     temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
@@ -141,7 +142,6 @@ RSpec.describe PublicBody do
   end
 
   describe '.with_tag' do
-
     it 'should returns all authorities' do
       pbs = PublicBody.with_tag('all')
       expect(pbs).to match_array([
@@ -164,68 +164,6 @@ RSpec.describe PublicBody do
         public_bodies(:other_public_body)
       ])
     end
-
-    it 'should return authorities with key/value categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
-
-      pbs = PublicBody.with_tag('eats_cheese')
-      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
-
-      pbs = PublicBody.with_tag('eats_cheese:jarlsberg')
-      expect(pbs).to be_empty
-
-      pbs = PublicBody.with_tag('eats_cheese:stilton')
-      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
-    end
-
-    it 'should return authorities with categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
-
-      pbs = PublicBody.with_tag('mycategory')
-      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
-
-      pbs = PublicBody.with_tag('myothercategory')
-      expect(pbs).to be_empty
-    end
-
-  end
-
-  describe '.without_tag' do
-
-    it 'should not return authorities with key/value categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
-
-      pbs = PublicBody.without_tag('eats_cheese')
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-
-      pbs = PublicBody.without_tag('eats_cheese:stilton')
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-
-      pbs = PublicBody.without_tag('eats_cheese:jarlsberg')
-      expect(pbs).to include(public_bodies(:humpadink_public_body))
-    end
-
-    it 'should not return authorities with categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
-
-      pbs = PublicBody.without_tag('mycategory')
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-
-      pbs = PublicBody.without_tag('myothercategory')
-      expect(pbs).to include(public_bodies(:humpadink_public_body))
-    end
-
-    it 'should be chainable to exclude more than one tag' do
-      public_bodies(:geraldine_public_body).tag_string = 'council'
-      public_bodies(:humpadink_public_body).tag_string = 'defunct'
-      public_bodies(:forlorn_public_body).tag_string = 'not_apply'
-
-      pbs = PublicBody.without_tag('defunct').without_tag('not_apply')
-      expect(pbs).to include(public_bodies(:geraldine_public_body))
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-      expect(pbs).to_not include(public_bodies(:forlorn_public_body))
-    end
-
   end
 
   describe '.with_query' do

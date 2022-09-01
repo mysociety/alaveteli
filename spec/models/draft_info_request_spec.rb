@@ -19,7 +19,7 @@ require 'models/concerns/info_request/draft_title_validation'
 RSpec.describe DraftInfoRequest do
   it_behaves_like 'RequestSummaries'
   it_behaves_like 'concerns/info_request/draft_title_validation',
-                  FactoryBot.build(:draft_info_request)
+                  :draft_info_request
 
   describe '#valid?' do
     subject { record.valid? }
