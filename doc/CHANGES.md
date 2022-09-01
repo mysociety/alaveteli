@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve linking from outgoing & incoming message admin pages (Gareth Rees)
 * Allow admins to destroy user post redirects (Gareth Rees)
 * Use correct mime type for cached CSV attachments
 * Protect mass-tag update buttons in admin bodies lists (Gareth Rees)

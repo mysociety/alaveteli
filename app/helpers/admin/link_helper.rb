@@ -16,6 +16,26 @@ module Admin::LinkHelper
               title: admin_title)
   end
 
+  def outgoing_message_both_links(outgoing_message)
+    title = 'View outgoing message on public website'
+    icon = prominence_icon(outgoing_message)
+    info_request = outgoing_message.info_request
+
+    link_to(icon, outgoing_message_path(outgoing_message), title: title) + ' ' +
+      link_to(info_request.title, edit_admin_outgoing_message_path(outgoing_message),
+              title: admin_title)
+  end
+
+  def incoming_message_both_links(incoming_message)
+    title = 'View incoming message on public website'
+    icon = prominence_icon(incoming_message)
+    info_request = incoming_message.info_request
+
+    link_to(icon, incoming_message_path(incoming_message), title: title) + ' ' +
+      link_to(info_request.title, edit_admin_incoming_message_path(incoming_message),
+              title: admin_title)
+  end
+
   def info_request_batch_both_links(batch)
     title = 'View batch on public website'
     icon = prominence_icon(batch)

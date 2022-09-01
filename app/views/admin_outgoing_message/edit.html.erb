@@ -1,4 +1,4 @@
-<h1>Edit outgoing message</h1>
+<%= render partial: 'intro', locals: { outgoing_message: @outgoing_message } %>
 
 <%= foi_error_messages_for :outgoing_message %>
 
@@ -47,11 +47,6 @@
     </div>
   </div>
 <% end %>
-
-<p>
-  <%= link_to 'Show', admin_request_path(@outgoing_message.info_request) %> |
-  <%= link_to 'List all', admin_requests_path %>
-</p>
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
   <div class="control-group">
