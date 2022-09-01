@@ -4,19 +4,19 @@
 
 <table class="table table-striped table-condensed">
   <tbody>
-    <% @public_body.for_admin_column do |name, value, type, column_name| %>
-      <% unless (column_name == 'api_key' && cannot?(:read, :api_key)) %>
+    <% @public_body.for_admin_column do |name, value| %>
+      <% unless (name == 'api_key' && cannot?(:read, :api_key)) %>
         <tr>
           <td>
-            <b><%=name%></b>
+            <b><%= name.humanize %></b>
           </td>
 
           <td>
-            <% if ['home_page', 'publication_scheme', 'disclosure_log'].include? column_name %>
+            <% if ['home_page', 'publication_scheme', 'disclosure_log'].include? name %>
               <% if value %>
                 <%= link_to h(value), value  %>
               <% end %>
-            <% elsif column_name == 'request_email' %>
+            <% elsif name == 'request_email' %>
               <%= link_to(h(value), "mailto:#{value}")  %>
               <% unless @public_body.is_requestable? %>
                 <%= "not requestable due to: #{ @public_body.not_requestable_reason }" %><% if @public_body.is_followupable? %>; but followupable<% end %>

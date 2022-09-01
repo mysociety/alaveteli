@@ -13,10 +13,10 @@
   </div>
 
   <div id="snippet_<%= snippet.id %>" class="item-detail accordion-body collapse row">
-    <% snippet.for_admin_column do |name, value, type| %>
+    <% snippet.for_admin_column do |name, value| %>
       <div>
         <span class="span6">
-          <b><%= name %></b>
+          <b><%= name.humanize %></b>
         </span>
 
         <span class="span6">

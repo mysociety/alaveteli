@@ -21,7 +21,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ApplicationRecord
-  include AdminColumn
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -122,38 +121,6 @@ class Comment < ApplicationRecord
     text = MySociety::Format.make_clickable(text, contract: 1, nofollow: true)
     text = text.gsub(/\n/, '<br>')
     text.html_safe
-  end
-
-  def for_admin_column(complete = false)
-    if complete
-      columns = self.class.content_columns
-    else
-      columns = self.class.content_columns.map do |c|
-        c if %w(body visible created_at updated_at).include?(c.name)
-      end.compact
-    end
-
-    columns.each do |column|
-      name = column.name
-      yield(name.humanize, send(name), column.type.to_s, name)
-    end
-  end
-
-  def for_admin_event_column(event)
-    return unless event
-
-    columns = event.for_admin_column { |name, value, type, column_name| }
-
-    columns = columns.map do |c|
-      c if %w(event_type params_yaml created_at).include?(c.name)
-    end
-
-    columns.compact.each do |column|
-      yield(column.name.humanize,
-            event.send(column.name),
-            column.type.to_s,
-            column.name)
-    end
   end
 
   def report_reasons

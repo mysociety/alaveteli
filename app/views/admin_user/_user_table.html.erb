@@ -27,9 +27,11 @@
             </tr>
           <% end %>
 
-          <% user.for_admin_column do |name, value, type|%>
+          <% user.for_admin_column(
+               :created_at, :updated_at, :email_confirmed
+             ) do |name, value| %>
             <tr>
-              <td><b><%= h name %></b></td>
+              <td><b><%= name.humanize %></b></td>
               <td>
                 <%= admin_value(value) %>
               </td>

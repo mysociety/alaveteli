@@ -34,13 +34,12 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
-  include AdminColumn
   include Taggable
   include Notable
 
   class ImportCSVDryRun < StandardError; end
 
-  @non_admin_columns = %w(name last_edit_comment)
+  admin_columns exclude: %i[name last_edit_editor]
 
   def self.admin_title
     'Authority'

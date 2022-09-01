@@ -25,7 +25,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ApplicationRecord
-  include AdminColumn
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper

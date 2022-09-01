@@ -37,7 +37,6 @@ require 'rexml/document'
 require 'zip'
 
 class IncomingMessage < ApplicationRecord
-  include AdminColumn
   include MessageProminence
   include CacheAttributesFromRawEmail
 

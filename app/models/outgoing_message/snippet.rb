@@ -14,10 +14,9 @@
 # Predefined helpful text snippets which can added to outgoing messages
 #
 class OutgoingMessage::Snippet < ApplicationRecord
-  include AdminColumn
   include Taggable
 
-  @non_admin_columns = %w(name)
+  admin_columns exclude: %i[name]
 
   def self.admin_title
     'Snippet'

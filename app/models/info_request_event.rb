@@ -25,7 +25,6 @@
 require 'yaml_compatibility'
 
 class InfoRequestEvent < ApplicationRecord
-  include AdminColumn
   extend XapianQueries
 
   EVENT_TYPES = [
