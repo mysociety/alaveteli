@@ -4,19 +4,33 @@ RSpec.describe NotesHelper do
   include NotesHelper
 
   describe '#render_notes' do
+    let(:note) { FactoryBot.build(:note, body: '<h1>title</h1>') }
+
     context 'when not a batch' do
-      subject { render_notes('<h1>title</h1>', class: 'note') }
+      subject { render_notes([note], class: 'notes') }
 
       it 'allows more tags' do
-        is_expected.to eq('<p class="note"><h1>title</h1></p>')
+        is_expected.to eq(
+          '<aside class="notes" id="notes">' \
+            '<article id="new_note" class="note tag-some_tag">' \
+              '<h1>title</h1>' \
+            '</article>' \
+          '</aside>'
+        )
       end
     end
 
     context 'when batch' do
-      subject { render_notes('<h1>title</h1>', batch: true, class: 'note') }
+      subject { render_notes([note], batch: true, class: 'notes') }
 
       it 'removes more tags' do
-        is_expected.to eq('<p class="note">title</p>')
+        is_expected.to eq(
+          '<aside class="notes" id="notes">' \
+            '<article id="new_note" class="note tag-some_tag">' \
+              'title' \
+            '</article>' \
+          '</aside>'
+        )
       end
     end
   end

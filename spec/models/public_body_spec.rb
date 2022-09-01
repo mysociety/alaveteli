@@ -564,18 +564,82 @@ RSpec.describe PublicBody do
   end
 
   describe '#notes' do
+    subject(:notes) { public_body.notes }
 
-    it 'is valid when nil' do
-      subject = PublicBody.new(:notes => nil)
-      subject.valid?
-      expect(subject.errors[:notes]).to be_empty
+    let(:public_body) do
+      FactoryBot.build(:public_body, notes: 'foo', tag_string: 'important')
     end
 
-    it 'strips blank attributes' do
-      subject = FactoryBot.create(:public_body, :notes => '')
-      expect(subject.notes).to be_nil
+    let!(:concrete_note) do
+      FactoryBot.create(:note, :for_public_body, notable: public_body)
     end
 
+    let!(:tagged_note) do
+      FactoryBot.create(:note, :tagged, notable_tag: 'important')
+    end
+
+    it 'returns an array' do
+      is_expected.to be_an Array
+      expect(notes.count).to eq 3
+    end
+
+    it 'combined notable notes with legacy note' do
+      expect(notes[0].body).to eq 'foo'
+      expect(notes[1]).to eq concrete_note
+      expect(notes[2]).to eq tagged_note
+    end
+  end
+
+  describe '#notes_as_string' do
+    subject(:notes) { public_body.notes_as_string }
+
+    let(:public_body) do
+      FactoryBot.build(:public_body, notes: 'foo', tag_string: 'important')
+    end
+
+    let!(:concrete_note) do
+      FactoryBot.create(:note, :for_public_body,
+                        body: 'bar', notable: public_body)
+    end
+
+    let!(:tagged_note) do
+      FactoryBot.create(:note, :tagged, body: 'baz', notable_tag: 'important')
+    end
+
+    it 'concaterates note bodies' do
+      is_expected.to eq('foo bar baz')
+    end
+  end
+
+  describe '#legacy_note' do
+    subject(:legacy_note) { public_body.legacy_note }
+
+    context 'without legacy translated attributes' do
+      let(:public_body) { FactoryBot.build(:public_body) }
+      it { is_expected.to be_nil }
+    end
+
+    context 'with legacy translated attributes' do
+      let(:public_body) do
+        FactoryBot.build(
+          :public_body,
+          notes: 'foo',
+          translations_attributes: { es: { locale: 'es', notes: 'bar' } }
+        )
+      end
+
+      it 'builds new note instance' do
+        is_expected.to be_a Note
+        expect(legacy_note.body).to eq 'foo'
+        AlaveteliLocalization.with_locale('es') do
+          expect(legacy_note.body).to eq 'bar'
+        end
+      end
+
+      it 'assigns body as notable' do
+        expect(legacy_note.notable).to eq public_body
+      end
+    end
   end
 
   describe '#has_notes?' do

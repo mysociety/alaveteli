@@ -667,12 +667,28 @@ class PublicBody < ApplicationRecord
     $1.nil? ? nil : $1.downcase
   end
 
-  def has_notes?
-    notes.present?
+  def notes
+    [legacy_note].compact + all_notes
   end
 
   def notes_as_string
-    notes.to_s
+    notes.map(&:body).join(' ')
+  end
+
+  def legacy_note
+    return unless read_attribute(:notes).present?
+
+    Note.new(notable: self) do |note|
+      AlaveteliLocalization.available_locales.each do |locale|
+        AlaveteliLocalization.with_locale(locale) do
+          note.body = read_attribute(:notes)
+        end
+      end
+    end
+  end
+
+  def has_notes?
+    notes.present?
   end
 
   def json_for_api
