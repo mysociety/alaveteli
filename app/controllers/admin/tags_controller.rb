@@ -41,9 +41,15 @@ class Admin::TagsController < AdminController
     name, value = HasTagString::HasTagStringTag.
       split_tag_into_name_value(@query)
 
-    scope = scope.where('has_tag_string_tags.name LIKE ?', "%#{name}%") if name
-    if value
-      scope = scope.where('has_tag_string_tags.value LIKE ?', "%#{value}%")
+    if @query.include?(':')
+      scope = scope.where('has_tag_string_tags.name = ?', name) if name.present?
+      if value.present?
+        scope = scope.where('has_tag_string_tags.value LIKE ?', "#{value}%")
+      end
+    elsif name.present?
+      scope = scope.where('has_tag_string_tags.name LIKE ?', "%#{name}%").or(
+        scope.where('has_tag_string_tags.value LIKE ?', "%#{name}%")
+      )
     end
 
     scope
