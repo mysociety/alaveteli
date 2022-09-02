@@ -1,20 +1,22 @@
 <div class="holding_pen">
-  This is in the holding pen because: <strong><%= @rejected_reason %></strong>
+  <p class="lead text-warning">
+    This is in the holding pen because: <strong><%= @rejected_reason %></strong>
+  </p>
 
   <% if @public_bodies.size > 0 %>
-    <br>
-    Guessed authority:
-    <% @public_bodies.each do |public_body| %>
-      <%= both_links(public_body) %>
-    <% end %>
+    <p>Guessed authority <small>(based on From: email domain)</small>:</p>
 
-    (based on From: email domain)
+    <ul class="unstyled">
+      <% @public_bodies.each do |public_body| %>
+        <li><%= both_links(public_body) %></li>
+      <% end %>
+    </ul>
   <% end %>
 
   <% if @guessed_info_requests.any? %>
   <div class="row">
-    <div class="accordion span12" id="guessed-requests">
-      Guessed request:
+    <div class="accordion span11" id="guessed-requests">
+      <p>Guessed request:</p>
       <% @guessed_info_requests.each do |guess|  %>
         <div class="accordion-group">
           <div class="accordion-heading">
