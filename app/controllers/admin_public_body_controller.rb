@@ -275,7 +275,7 @@ class AdminPublicBodyController < AdminController
     translatable_params(
       params[:public_body],
       translated_keys: [:locale, :name, :short_name, :request_email,
-                        :publication_scheme, :notes],
+                        :publication_scheme],
       general_keys: [:tag_string, :home_page, :disclosure_log,
                      :last_edit_comment, :last_edit_editor]
     )
