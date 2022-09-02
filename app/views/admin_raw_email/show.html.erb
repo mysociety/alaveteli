@@ -1,4 +1,4 @@
-<%= render :partial => 'admin_incoming_message/intro', :locals => { :incoming_message => @raw_email.incoming_message } %>
+<%= render partial: 'admin_raw_email/intro', locals: { raw_email: @raw_email } %>
 
 <% if @holding_pen %>
   <%= render partial: 'admin_raw_email/holding_pen' %>
