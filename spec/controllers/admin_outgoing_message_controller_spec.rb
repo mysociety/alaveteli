@@ -191,10 +191,14 @@ RSpec.describe AdminOutgoingMessageController do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
     let(:default_params) do
-      { :id => outgoing.id,
-        :outgoing_message => { :prominence => 'hidden',
-                               :prominence_reason => 'dull',
-                               :body => 'changed body' } }
+      {
+        id: outgoing.id,
+        outgoing_message: {
+          prominence: 'hidden',
+          prominence_reason: 'dull',
+          body: 'changed body'
+        }
+      }
     end
 
     def make_request(params = default_params)
@@ -225,15 +229,16 @@ RSpec.describe AdminOutgoingMessageController do
       info_request.reload
       last_event = info_request.info_request_events.last
       expect(last_event.event_type).to eq('edit_outgoing')
-      expect(last_event.params).
-        to eq({ outgoing_message_id: outgoing.id,
-                editor: 'Admin user',
-                old_prominence: 'normal',
-                prominence: 'hidden',
-                old_prominence_reason: nil,
-                old_body: 'Some information please',
-                body: 'changed body',
-                prominence_reason: 'dull' })
+      expect(last_event.params).to eq(
+        outgoing_message_id: outgoing.id,
+        editor: 'Admin user',
+        old_body: 'Some information please',
+        body: 'changed body',
+        old_prominence: 'normal',
+        prominence: 'hidden',
+        old_prominence_reason: nil,
+        prominence_reason: 'dull'
+      )
     end
 
     it 'should expire the file cache for the info request' do

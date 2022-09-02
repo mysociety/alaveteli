@@ -183,9 +183,13 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     before do
       sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message, :prominence => 'normal')
-      @default_params = {:id => @incoming.id,
-                         :incoming_message => {:prominence => 'hidden',
-                                               :prominence_reason => 'dull'} }
+      @default_params = {
+        id: @incoming.id,
+        incoming_message: {
+          prominence: 'hidden',
+          prominence_reason: 'dull'
+        }
+      }
     end
 
     def make_request(params=@default_params)
@@ -210,12 +214,14 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       @incoming.reload
       last_event = @incoming.info_request_events.last
       expect(last_event.event_type).to eq('edit_incoming')
-      expect(last_event.params).to eq({ :incoming_message_id => @incoming.id,
-                                    :editor => "Admin user",
-                                    :old_prominence => "normal",
-                                    :prominence => "hidden",
-                                    :old_prominence_reason => nil,
-                                    :prominence_reason => "dull" })
+      expect(last_event.params).to eq(
+        incoming_message_id: @incoming.id,
+        editor: 'Admin user',
+        old_prominence: 'normal',
+        prominence: 'hidden',
+        old_prominence_reason: nil,
+        prominence_reason: 'dull'
+      )
     end
 
     it 'should expire the file cache for the info request' do
