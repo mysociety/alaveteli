@@ -1,68 +1,70 @@
-This is in the holding pen because: <strong><%= @rejected_reason %></strong>
+<div class="holding_pen">
+  This is in the holding pen because: <strong><%= @rejected_reason %></strong>
 
-<% if @public_bodies.size > 0 %>
-  <br>
-  Guessed authority:
-  <% @public_bodies.each do |public_body| %>
-    <%= both_links(public_body) %>
+  <% if @public_bodies.size > 0 %>
+    <br>
+    Guessed authority:
+    <% @public_bodies.each do |public_body| %>
+      <%= both_links(public_body) %>
+    <% end %>
+
+    (based on From: email domain)
   <% end %>
 
-  (based on From: email domain)
-<% end %>
+  <% if @guessed_info_requests.any? %>
+  <div class="row">
+    <div class="accordion span12" id="guessed-requests">
+      Guessed request:
+      <% @guessed_info_requests.each do |guess|  %>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a href="#info_request_<%= guess.info_request.id %>" data-toggle="collapse"><i class="icon-chevron-right"></i></a>
+            <%= both_links(guess.info_request) %>
+          </div>
 
-<% if @guessed_info_requests.any? %>
-<div class="row">
-  <div class="accordion span12" id="guessed-requests">
-    Guessed request:
-    <% @guessed_info_requests.each do |guess|  %>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a href="#info_request_<%= guess.info_request.id %>" data-toggle="collapse"><i class="icon-chevron-right"></i></a>
-          <%= both_links(guess.info_request) %>
+          <div class="accordion-body collapse" id="info_request_<%= guess.info_request.id %>">
+            <table class="table table-striped table-condensed">
+              <tr>
+                <td><strong>Last outgoing message:</strong></td>
+                <td><%= guess.info_request.outgoing_messages.last.body %></td>
+              </tr>
+
+              <tr>
+                <td><strong>Created by:</strong></td>
+                <td><%= both_links(guess.info_request.user) %></td>
+              </tr>
+
+              <tr>
+                <td><strong>Authority:</strong></td>
+                <td>
+                  <%= both_links(guess.info_request.public_body) %>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>url_title:</strong></td>
+                <td><%= guess.info_request.url_title %></td>
+              </tr>
+            </table>
+
+            <p>
+              This request was guessed based on
+              <code><%= guess.match_method %></code>
+              <% if guess.match_method == :subject %>
+                because the incoming message has a subject of
+                <strong><%= guess.matched_value %></strong>
+              <% else %>
+                because it has an incoming email address
+                of <strong><%= guess.info_request.incoming_email %></strong>
+                and this incoming message was sent to
+              <strong><%= guess.matched_value %></strong>.
+              <% end %>
+
+            </p>
+          </div>
         </div>
-
-        <div class="accordion-body collapse" id="info_request_<%= guess.info_request.id %>">
-          <table class="table table-striped table-condensed">
-            <tr>
-              <td><strong>Last outgoing message:</strong></td>
-              <td><%= guess.info_request.outgoing_messages.last.body %></td>
-            </tr>
-
-            <tr>
-              <td><strong>Created by:</strong></td>
-              <td><%= both_links(guess.info_request.user) %></td>
-            </tr>
-
-            <tr>
-              <td><strong>Authority:</strong></td>
-              <td>
-                <%= both_links(guess.info_request.public_body) %>
-              </td>
-            </tr>
-
-            <tr>
-              <td><strong>url_title:</strong></td>
-              <td><%= guess.info_request.url_title %></td>
-            </tr>
-          </table>
-
-          <p>
-            This request was guessed based on
-            <code><%= guess.match_method %></code>
-            <% if guess.match_method == :subject %>
-              because the incoming message has a subject of
-              <strong><%= guess.matched_value %></strong>
-            <% else %>
-              because it has an incoming email address
-              of <strong><%= guess.info_request.incoming_email %></strong>
-              and this incoming message was sent to
-            <strong><%= guess.matched_value %></strong>.
-            <% end %>
-
-          </p>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+    </div>
+  <% end %>
+</div>

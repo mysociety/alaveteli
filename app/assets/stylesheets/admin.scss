@@ -269,6 +269,14 @@ body.admin {
   }
 }
 
+/* RawEmails */
+
+.holding_pen {
+  border: 12px solid #c09853;
+  border-radius: 5px;
+  padding: 2em;
+}
+
 /* Bootstrap Extensions */
 /* These must come last because we @import bootstrap in .admin  */
 
