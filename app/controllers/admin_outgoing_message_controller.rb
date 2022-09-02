@@ -27,18 +27,21 @@ class AdminOutgoingMessageController < AdminController
     old_body = @outgoing_message.raw_body
     old_prominence = @outgoing_message.prominence
     old_prominence_reason = @outgoing_message.prominence_reason
+    old_tag_string = @outgoing_message.tag_string
     if @outgoing_message.update(outgoing_message_params)
-      @outgoing_message.
-        info_request.
-          log_event("edit_outgoing",
-                    { outgoing_message_id: @outgoing_message.id,
-                      editor: admin_current_user,
-                      old_body: old_body,
-                      body: @outgoing_message.raw_body,
-                      old_prominence: old_prominence,
-                      old_prominence_reason: old_prominence_reason,
-                      prominence: @outgoing_message.prominence,
-                      prominence_reason: @outgoing_message.prominence_reason })
+      @outgoing_message.info_request.log_event(
+        "edit_outgoing",
+        outgoing_message_id: @outgoing_message.id,
+        editor: admin_current_user,
+        old_body: old_body,
+        body: @outgoing_message.raw_body,
+        old_prominence: old_prominence,
+        old_prominence_reason: old_prominence_reason,
+        old_tag_string: old_tag_string,
+        prominence: @outgoing_message.prominence,
+        prominence_reason: @outgoing_message.prominence_reason,
+        tag_string: @outgoing_message.tag_string
+      )
       flash[:notice] = 'Outgoing message successfully updated.'
       @outgoing_message.info_request.expire
       redirect_to admin_request_url(@outgoing_message.info_request)
@@ -82,7 +85,7 @@ class AdminOutgoingMessageController < AdminController
   def outgoing_message_params
     if params[:outgoing_message]
       params.require(:outgoing_message).
-        permit(:prominence, :prominence_reason, :body)
+        permit(:prominence, :prominence_reason, :body, :tag_string)
     else
       {}
     end

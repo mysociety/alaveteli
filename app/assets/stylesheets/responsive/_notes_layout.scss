@@ -1,0 +1,27 @@
+#notes {
+  // Variables to keep consistency speacilly with the spacing.
+  $padding-x: 1em;
+  $border: 1px solid rgba(0, 0, 0, 0.1);
+
+  padding: 0 $padding-x;
+  margin-bottom: 2em;
+
+  border-top: 8px solid $primary-color;
+
+  article {
+    margin: 0 -#{$padding-x};
+    padding: $padding-x $padding-x;
+    border: $border;
+    border-top: none;
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0.5em;
+      margin-top: 0;
+    }
+
+    p:last-child {
+      // Get rid of the odd space of the last paragraph
+      margin-bottom: 0;
+    }
+  }
+}

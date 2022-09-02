@@ -1,3 +1,26 @@
+# develop
+
+## Highlighted Features
+
+* Automatically apply `missing_email` tag to bodies who are missing a request
+  email so that they can be found in a public list (Gareth Rees)
+* Improve linking from outgoing & incoming message admin pages (Gareth Rees)
+* Allow admins to destroy user post redirects (Gareth Rees)
+* Use correct mime type for cached CSV attachments
+* Protect mass-tag update buttons in admin bodies lists (Gareth Rees)
+
+## Highlighted Pro Features
+
+## Upgrade Notes
+
+* _Optional:_ Bodies missing a request email will automatically get tagged
+  `missing_email` as they are updated. If you want to automatically tag them all
+  in one go, run the following from the app root directory:
+
+      bin/rails runner "PublicBody.without_request_email.each(&:save)"
+
+### Changed Templates
+
 # 0.41.1.0
 
 ## Highlighted Features

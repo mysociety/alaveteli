@@ -10,7 +10,7 @@ RSpec.describe AlaveteliPro::PublicBodiesHelper, type: :helper do
         id: public_body.id,
         name: public_body.name,
         short_name: public_body.short_name,
-        notes: public_body.notes,
+        notes: public_body.notes_as_string,
         info_requests_visible_count: public_body.info_requests_visible_count,
         about: _('About {{public_body_name}}',
                  public_body_name: public_body.name),

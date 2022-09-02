@@ -34,12 +34,16 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
-  include AdminColumn
   include Taggable
+  include Notable
 
   class ImportCSVDryRun < StandardError; end
 
-  @non_admin_columns = %w(name last_edit_comment)
+  admin_columns exclude: %i[name last_edit_editor]
+
+  def self.admin_title
+    'Authority'
+  end
 
   attr_accessor :no_xapian_reindex
 
@@ -109,14 +113,16 @@ class PublicBody < ApplicationRecord
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  after_update :reindex_requested_from
 
+  after_save :update_missing_email_tag
+
+  after_update :reindex_requested_from
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes],
+  acts_as_xapian :texts => [:name, :short_name, :notes_as_string],
                  :values => [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
@@ -663,26 +669,28 @@ class PublicBody < ApplicationRecord
     $1.nil? ? nil : $1.downcase
   end
 
-  def has_notes?(opts = {})
-    tag = opts[:tag]
+  def notes
+    [legacy_note].compact + all_notes
+  end
 
-    if tag
-      notes.present? && has_tag?(tag)
-    else
-      notes.present?
+  def notes_as_string
+    notes.map(&:body).join(' ')
+  end
+
+  def legacy_note
+    return unless read_attribute(:notes).present?
+
+    Note.new(notable: self) do |note|
+      AlaveteliLocalization.available_locales.each do |locale|
+        AlaveteliLocalization.with_locale(locale) do
+          note.body = read_attribute(:notes)
+        end
+      end
     end
   end
 
-  # TODO: Deprecate this method. Its only used in a couple of views so easy to
-  # update to just call PublicBody#notes
-  def notes_as_html
-    notes
-  end
-
-  def notes_without_html
-    # assume notes are reasonably behaved HTML, so just use simple regexp
-    # on this
-    @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
+  def has_notes?
+    notes.present?
   end
 
   def json_for_api
@@ -699,7 +707,7 @@ class PublicBody < ApplicationRecord
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes.to_s,
+      :notes => notes_as_string,
       :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {
@@ -968,5 +976,17 @@ class PublicBody < ApplicationRecord
       result += " AND #{table}.locale = :locale"
     end
     result
+  end
+
+  def update_missing_email_tag
+    if missing_email?
+      add_tag_if_not_already_present('missing_email')
+    else
+      remove_tag('missing_email')
+    end
+  end
+
+  def missing_email?
+    !has_request_email?
   end
 end

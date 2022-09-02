@@ -4,7 +4,13 @@
 module Taggable
   extend ActiveSupport::Concern
 
+  def self.models
+    @models ||= []
+  end
+
   included do
+    Taggable.models << self
+
     has_tag_string
 
     def self.with_tag(tag)

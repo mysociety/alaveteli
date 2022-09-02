@@ -25,10 +25,12 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ApplicationRecord
-  include AdminColumn
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include Taggable
+
+  strip_attributes only: [:prominence_reason]
 
   STATUS_TYPES = %w(ready sent failed).freeze
   MESSAGE_TYPES = %w(initial_request followup).freeze

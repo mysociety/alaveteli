@@ -31,8 +31,6 @@ class CensorRule < ApplicationRecord
     _('[extraneous and potentially defamatory material removed]')
   ].freeze
 
-  include AdminColumn
-
   belongs_to :info_request,
              :inverse_of => :censor_rules
   belongs_to :user,

@@ -3,45 +3,36 @@ module AdminColumn
 
   included do
     class << self
-      attr_reader :non_admin_columns
+      def admin_columns(exclude: nil, include: nil)
+        @excluded_admin_columns = exclude || @excluded_admin_columns
+        @included_admin_columns = include || @included_admin_columns
 
-      def additional_admin_columns
-        columns.select { |c| @additional_admin_columns.include?(c.name) }
+        translated_columns +
+          content_columns_names +
+          included_admin_columns -
+          excluded_admin_columns
+      end
+
+      def translated_columns
+        translates? ? translated_attribute_names.map(&:to_s) : []
+      end
+
+      def content_columns_names
+        table_exists? ? content_columns.map(&:name) : []
+      end
+
+      def included_admin_columns
+        @included_admin_columns&.map(&:to_s) || []
+      end
+
+      def excluded_admin_columns
+        @excluded_admin_columns&.map(&:to_s) || []
       end
     end
-
-    @non_admin_columns = []
-    @additional_admin_columns = []
   end
 
-  def for_admin_column
-    columns = translated_columns +
-              self.class.content_columns +
-              self.class.additional_admin_columns
-
-
-    reject_non_admin_columns(columns).each do |column|
-      yield(column.name.humanize,
-            send(column.name),
-            column.type.to_s,
-            column.name)
-    end
+  def for_admin_column(*columns)
+    columns = self.class.admin_columns if columns.empty?
+    columns.map(&:to_s).each { |name| yield(name, send(name)) }
   end
-
-  private
-
-  def reject_non_admin_columns(columns)
-    columns.reject { |c| self.class.non_admin_columns.include?(c.name) }
-  end
-
-  def translated_columns
-    if self.class.translates?
-      translated_attrs = self.class.translated_attribute_names.map(&:to_s)
-      self.class::Translation.content_columns.
-        select { |c| translated_attrs.include?(c.name) }
-    else
-      []
-    end
-  end
-
 end

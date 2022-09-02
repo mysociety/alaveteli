@@ -29,8 +29,14 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/notable'
+require 'models/concerns/notable_and_taggable'
+require 'models/concerns/taggable'
 
 RSpec.describe PublicBody do
+  it_behaves_like 'concerns/notable', :public_body
+  it_behaves_like 'concerns/notable_and_taggable', :public_body
+  it_behaves_like 'concerns/taggable', :public_body
 
   describe <<-EOF.squish do
     temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
@@ -136,7 +142,6 @@ RSpec.describe PublicBody do
   end
 
   describe '.with_tag' do
-
     it 'should returns all authorities' do
       pbs = PublicBody.with_tag('all')
       expect(pbs).to match_array([
@@ -159,68 +164,6 @@ RSpec.describe PublicBody do
         public_bodies(:other_public_body)
       ])
     end
-
-    it 'should return authorities with key/value categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
-
-      pbs = PublicBody.with_tag('eats_cheese')
-      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
-
-      pbs = PublicBody.with_tag('eats_cheese:jarlsberg')
-      expect(pbs).to be_empty
-
-      pbs = PublicBody.with_tag('eats_cheese:stilton')
-      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
-    end
-
-    it 'should return authorities with categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
-
-      pbs = PublicBody.with_tag('mycategory')
-      expect(pbs).to match_array([public_bodies(:humpadink_public_body)])
-
-      pbs = PublicBody.with_tag('myothercategory')
-      expect(pbs).to be_empty
-    end
-
-  end
-
-  describe '.without_tag' do
-
-    it 'should not return authorities with key/value categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'eats_cheese:stilton'
-
-      pbs = PublicBody.without_tag('eats_cheese')
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-
-      pbs = PublicBody.without_tag('eats_cheese:stilton')
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-
-      pbs = PublicBody.without_tag('eats_cheese:jarlsberg')
-      expect(pbs).to include(public_bodies(:humpadink_public_body))
-    end
-
-    it 'should not return authorities with categories' do
-      public_bodies(:humpadink_public_body).tag_string = 'mycategory'
-
-      pbs = PublicBody.without_tag('mycategory')
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-
-      pbs = PublicBody.without_tag('myothercategory')
-      expect(pbs).to include(public_bodies(:humpadink_public_body))
-    end
-
-    it 'should be chainable to exclude more than one tag' do
-      public_bodies(:geraldine_public_body).tag_string = 'council'
-      public_bodies(:humpadink_public_body).tag_string = 'defunct'
-      public_bodies(:forlorn_public_body).tag_string = 'not_apply'
-
-      pbs = PublicBody.without_tag('defunct').without_tag('not_apply')
-      expect(pbs).to include(public_bodies(:geraldine_public_body))
-      expect(pbs).to_not include(public_bodies(:humpadink_public_body))
-      expect(pbs).to_not include(public_bodies(:forlorn_public_body))
-    end
-
   end
 
   describe '.with_query' do
@@ -247,6 +190,34 @@ RSpec.describe PublicBody do
       ])
     end
 
+  end
+
+  describe '#save' do
+    subject { public_body.save }
+
+    context 'when a request email is added' do
+      let!(:public_body) do
+        FactoryBot.create(:blank_email_public_body, tag_string: 'missing_email')
+      end
+
+      before { public_body.request_email = 'added@example.com' }
+
+      it 'removes the missing email tag' do
+        subject
+        expect(public_body).not_to be_tagged('missing_email')
+      end
+    end
+
+    context 'when a request email is removed' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      before { public_body.request_email = '' }
+
+      it 'adds the missing email tag' do
+        subject
+        expect(public_body).to be_tagged('missing_email')
+      end
+    end
   end
 
   describe '#name' do
@@ -559,18 +530,82 @@ RSpec.describe PublicBody do
   end
 
   describe '#notes' do
+    subject(:notes) { public_body.notes }
 
-    it 'is valid when nil' do
-      subject = PublicBody.new(:notes => nil)
-      subject.valid?
-      expect(subject.errors[:notes]).to be_empty
+    let(:public_body) do
+      FactoryBot.build(:public_body, notes: 'foo', tag_string: 'important')
     end
 
-    it 'strips blank attributes' do
-      subject = FactoryBot.create(:public_body, :notes => '')
-      expect(subject.notes).to be_nil
+    let!(:concrete_note) do
+      FactoryBot.create(:note, :for_public_body, notable: public_body)
     end
 
+    let!(:tagged_note) do
+      FactoryBot.create(:note, :tagged, notable_tag: 'important')
+    end
+
+    it 'returns an array' do
+      is_expected.to be_an Array
+      expect(notes.count).to eq 3
+    end
+
+    it 'combined notable notes with legacy note' do
+      expect(notes[0].body).to eq 'foo'
+      expect(notes[1]).to eq concrete_note
+      expect(notes[2]).to eq tagged_note
+    end
+  end
+
+  describe '#notes_as_string' do
+    subject(:notes) { public_body.notes_as_string }
+
+    let(:public_body) do
+      FactoryBot.build(:public_body, notes: 'foo', tag_string: 'important')
+    end
+
+    let!(:concrete_note) do
+      FactoryBot.create(:note, :for_public_body,
+                        body: 'bar', notable: public_body)
+    end
+
+    let!(:tagged_note) do
+      FactoryBot.create(:note, :tagged, body: 'baz', notable_tag: 'important')
+    end
+
+    it 'concaterates note bodies' do
+      is_expected.to eq('foo bar baz')
+    end
+  end
+
+  describe '#legacy_note' do
+    subject(:legacy_note) { public_body.legacy_note }
+
+    context 'without legacy translated attributes' do
+      let(:public_body) { FactoryBot.build(:public_body) }
+      it { is_expected.to be_nil }
+    end
+
+    context 'with legacy translated attributes' do
+      let(:public_body) do
+        FactoryBot.build(
+          :public_body,
+          notes: 'foo',
+          translations_attributes: { es: { locale: 'es', notes: 'bar' } }
+        )
+      end
+
+      it 'builds new note instance' do
+        is_expected.to be_a Note
+        expect(legacy_note.body).to eq 'foo'
+        AlaveteliLocalization.with_locale('es') do
+          expect(legacy_note.body).to eq 'bar'
+        end
+      end
+
+      it 'assigns body as notable' do
+        expect(legacy_note.notable).to eq public_body
+      end
+    end
   end
 
   describe '#has_notes?' do
@@ -588,29 +623,6 @@ RSpec.describe PublicBody do
     it 'returns true if notes are present' do
       subject = PublicBody.new(:notes => 'x')
       expect(subject.has_notes?).to eq(true)
-    end
-
-    context 'when the authority is tagged with the tag option' do
-
-      it 'returns true if the authority has notes' do
-        subject = PublicBody.new(:notes => 'x', :tag_string => 'popular')
-        expect(subject.has_notes?(tag: 'popular')).to eq(true)
-      end
-
-      it 'returns false if the authority does not have notes' do
-        subject = PublicBody.new(:notes => nil, :tag_string => 'popular')
-        expect(subject.has_notes?(tag: 'popular')).to eq(false)
-      end
-
-    end
-
-    context 'when the authority is not tagged with the tag option' do
-
-      it 'returns false' do
-        subject = PublicBody.new(:notes => 'x', :tag_string => 'useless')
-        expect(subject.has_notes?(tag: 'popular')).to eq(false)
-      end
-
     end
 
   end
@@ -1942,18 +1954,6 @@ RSpec.describe PublicBody do
       public_body.home_page = "https://example.com"
       expect(public_body.calculated_home_page).to eq("https://example.com")
     end
-  end
-
-  describe 'when asked for notes without html' do
-
-    before do
-      @public_body = PublicBody.new(:notes => 'some <a href="/notes">notes</a>')
-    end
-
-    it 'should remove simple tags from notes' do
-      expect(@public_body.notes_without_html).to eq('some notes')
-    end
-
   end
 
   describe '#site_administration?' do

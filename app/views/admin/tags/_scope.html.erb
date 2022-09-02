@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+  <% Taggable.models.sort_by(&:admin_title).each do |klass| %>
+    <li class="<%= 'active' if current_klass == klass %>">
+      <%= link_to klass.admin_title.pluralize, url_for(model_type: klass.name, query: params[:query]) %>
+    </li>
+  <% end %>
+</ul>

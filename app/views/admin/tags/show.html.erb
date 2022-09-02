@@ -1,0 +1,38 @@
+<h1><%= @title = "Tag – #{@tag}" %></h1>
+
+<%= render partial: 'notes', locals: { notes: @notes } %>
+
+<div class="row">
+  <div class="span12">
+    <h2>Taggings</h2>
+
+    <%= render partial: 'scope' %>
+
+    <div class="btn-toolbar">
+      <div class="btn-group">
+        <%= link_to 'All tags', admin_tags_path(model_type: current_klass), class: 'btn' %>
+        <%= link_to @name, admin_tag_path(tag: @name, model_type: current_klass), class: 'btn' if @value %>
+      </div>
+      <% if current_klass == PublicBody %>
+        <div class="btn-group">
+          <%= link_to 'Public page', list_public_bodies_by_tag_path(@tag), class: 'btn' %>
+        </div>
+      <% end %>
+      <% if current_klass == InfoRequest %>
+        <div class="btn-group">
+          <%= link_to 'Public page', search_general_path(["tag:#{@tag}", 'requests']), class: 'btn' %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= render partial: 'filters' %>
+
+    <% if @taggings.empty? %>
+      <p>No taggings.</p>
+    <% else %>
+      <%= render partial: 'tagging', collection: @taggings %>
+    <% end %>
+  </div>
+</div>
+
+<%= will_paginate(@taggings, class: 'paginator') %>

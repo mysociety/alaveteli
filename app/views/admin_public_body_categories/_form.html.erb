@@ -62,6 +62,10 @@
          cannot be modified.
        </span>
      <% end %>
+
+     <% if @public_body_category.category_tag %>
+       <%= link_to 'Tag admin page', admin_tag_path(tag: @public_body_category.category_tag), class: 'btn' %>
+     <% end %>
   </div>
 </div>
 

@@ -1,0 +1,20 @@
+<h1><%= @title = "#{current_klass.admin_title} tags" %></h1>
+
+<div class="row">
+  <div class="span12">
+    <%= render partial: 'scope' %>
+    <%= render partial: 'filters' %>
+
+    <% if @tags.empty? %>
+      <p>No tags.</p>
+    <% else %>
+      <ul>
+        <% @tags.each do |record_tag| %>
+          <li><%= render_tag(record_tag) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+<%= will_paginate(@tags, class: 'paginator') %>
