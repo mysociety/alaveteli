@@ -30,8 +30,10 @@
         end
       %>
 
-      <%= text_field_tag 'url_title', redeliver_to, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
-      <%= submit_tag 'Redeliver to another request', class: 'btn' %>
+      <div class="input-append">
+        <%= text_field_tag 'url_title', redeliver_to, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
+        <%= submit_tag 'Redeliver to another request', class: 'btn' %>
+      </div>
 
       <p class="help-block">
         <code>id</code> or <code>url_title</code>; you can supply more than one,
