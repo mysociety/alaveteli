@@ -39,6 +39,9 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include MessageProminence
   include CacheAttributesFromRawEmail
+  include Taggable
+
+  strip_attributes only: [:prominence_reason]
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 

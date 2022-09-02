@@ -1,10 +1,21 @@
 <%= render partial: 'intro', locals: { incoming_message: @incoming_message } %>
 <%= render partial: 'actions', locals: { incoming_message: @incoming_message } %>
 
-<fieldset class="form-horizontal">
-  <legend>Prominence</legend>
+<%= form_tag admin_incoming_message_path(@incoming_message), method: 'put', class: 'form form-inline' do %>
+  <fieldset class="form-horizontal">
+    <legend>Attributes</legend>
+      <div class="control-group">
+        <label class="control-label" for="incoming_message_tag_string">Tag string</label>
 
-  <%= form_tag admin_incoming_message_path(@incoming_message), method: 'put', class: 'form form-inline' do %>
+        <div class="controls">
+          <%= text_field 'incoming_message', 'tag_string', class: 'span6' %>
+        </div>
+      </div>
+  </fieldset>
+
+  <fieldset class="form-horizontal">
+    <legend>Prominence</legend>
+
     <div class="control-group">
       <label class="control-label" for="incoming_message_prominence">Prominence</label>
 
@@ -20,12 +31,12 @@
         <%= text_area 'incoming_message', 'prominence_reason', rows: 5, class: 'span6' %>
       </div>
     </div>
+  </fieldset>
 
-    <div class="form-actions" >
-      <%= submit_tag 'Save', class: 'btn' %>
-    </div>
-  <% end %>
-</fieldset>
+  <div class="form-actions" >
+    <%= submit_tag 'Save', class: 'btn' %>
+  </div>
+<% end %>
 
 <%= render partial: 'foi_attachments',
            locals: { foi_attachments: @incoming_message.foi_attachments } %>

@@ -183,9 +183,14 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     before do
       sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message, :prominence => 'normal')
-      @default_params = {:id => @incoming.id,
-                         :incoming_message => {:prominence => 'hidden',
-                                               :prominence_reason => 'dull'} }
+      @default_params = {
+        id: @incoming.id,
+        incoming_message: {
+          prominence: 'hidden',
+          prominence_reason: 'dull',
+          tag_string: 'foo'
+        }
+      }
     end
 
     def make_request(params=@default_params)
@@ -204,18 +209,28 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       expect(@incoming.prominence_reason).to eq('dull')
     end
 
+    it 'should save a tag string for the message' do
+      make_request
+      @incoming.reload
+      expect(@incoming.tag_string).to eq('foo')
+    end
+
     it 'should log an "edit_incoming" event on the info_request' do
       allow(@controller).to receive(:admin_current_user).and_return("Admin user")
       make_request
       @incoming.reload
       last_event = @incoming.info_request_events.last
       expect(last_event.event_type).to eq('edit_incoming')
-      expect(last_event.params).to eq({ :incoming_message_id => @incoming.id,
-                                    :editor => "Admin user",
-                                    :old_prominence => "normal",
-                                    :prominence => "hidden",
-                                    :old_prominence_reason => nil,
-                                    :prominence_reason => "dull" })
+      expect(last_event.params).to eq(
+        incoming_message_id: @incoming.id,
+        editor: 'Admin user',
+        old_prominence: 'normal',
+        prominence: 'hidden',
+        old_prominence_reason: nil,
+        prominence_reason: 'dull',
+        old_tag_string: '',
+        tag_string: 'foo'
+      )
     end
 
     it 'should expire the file cache for the info request' do
