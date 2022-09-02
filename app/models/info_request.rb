@@ -49,6 +49,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
   include Taggable
+  include Notable
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
