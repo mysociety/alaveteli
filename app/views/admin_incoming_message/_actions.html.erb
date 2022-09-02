@@ -21,13 +21,16 @@
     </label>
 
     <div class="controls">
-      <% if @guessed_info_requests && @guessed_info_requests.one? %>
-        <% info_request = @guessed_info_requests.first.info_request %>
-        <%= text_field_tag 'url_title', info_request.url_title, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
-      <% else %>
-        <%= text_field_tag 'url_title', '', size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
-      <% end %>
+      <%
+        redeliver_to =
+        if @guessed_info_requests&.one?
+          @guessed_info_requests.first.info_request.url_title
+        else
+            ''
+        end
+      %>
 
+      <%= text_field_tag 'url_title', redeliver_to, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
       <%= submit_tag 'Redeliver to another request', class: 'btn' %>
 
       <p class="help-block">
