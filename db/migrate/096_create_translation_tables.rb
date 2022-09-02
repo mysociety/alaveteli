@@ -1,4 +1,10 @@
 class CreateTranslationTables < ActiveRecord::Migration[4.2] # 2.3
+  class ::PublicBody
+    # This has been removed from the model but is needed for this old migration
+    # to work
+    translates :notes
+  end
+
   def self.up
     fields = { :name => :text,
                :short_name => :text,

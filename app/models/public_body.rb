@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220928093559
 #
 # Table name: public_bodies
 #
@@ -22,7 +22,6 @@
 #  short_name                             :text
 #  request_email                          :text
 #  url_name                               :text
-#  notes                                  :text
 #  first_letter                           :string
 #  publication_scheme                     :text
 #  disclosure_log                         :text
@@ -136,7 +135,8 @@ class PublicBody < ApplicationRecord
   strip_attributes allow_empty: false, except: %i[request_email]
   strip_attributes allow_empty: true, only: %i[request_email]
 
-  translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
+  translates :name, :short_name, :request_email, :url_name, :first_letter,
+             :publication_scheme
 
   # Cannot be grouped at top as it depends on the `translates` macro
   include Translatable
@@ -439,7 +439,6 @@ class PublicBody < ApplicationRecord
                     :short_name => "",
                     :request_email => AlaveteliConfiguration.contact_email,
                     :home_page => nil,
-                    :notes => nil,
                     :publication_scheme => nil,
                     :last_edit_editor => "internal_admin",
                     :last_edit_comment =>
@@ -669,23 +668,11 @@ class PublicBody < ApplicationRecord
   end
 
   def notes
-    [legacy_note].compact + all_notes
+    all_notes
   end
 
   def notes_as_string
     notes.map(&:body).join(' ')
-  end
-
-  def legacy_note
-    return unless read_attribute(:notes).present?
-
-    Note.new(notable: self) do |note|
-      AlaveteliLocalization.available_locales.each do |locale|
-        AlaveteliLocalization.with_locale(locale) do
-          note.body = read_attribute(:notes)
-        end
-      end
-    end
   end
 
   def has_notes?
@@ -966,8 +953,7 @@ class PublicBody < ApplicationRecord
 
   def self.get_public_body_list_translated_condition(table, has_first_letter=false, locale=nil)
     result = "(upper(#{table}.name) LIKE upper(:query)" \
-      " OR upper(#{table}.notes) LIKE upper(:query)" \
-        " OR upper(#{table}.short_name) LIKE upper(:query))"
+      " OR upper(#{table}.short_name) LIKE upper(:query))"
     if has_first_letter
       result += " AND #{table}.first_letter = :first_letter"
     end

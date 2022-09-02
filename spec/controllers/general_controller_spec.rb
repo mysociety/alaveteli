@@ -303,15 +303,13 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it 'should prioritise direct matches of public body names' do
-    FactoryBot.
-      create(:public_body,
-             name: 'Cardiff Business Technology Centre Limited',
-             notes: 'Something something cardiff council something else.')
+    FactoryBot.create(:public_body, :with_note,
+                      name: 'Cardiff Business Technology Centre Limited',
+                      note_body: 'Something cardiff council something else.')
 
-    FactoryBot.
-      create(:public_body,
-             name: 'Cardiff and Vale of Glamorgan Community Health Council',
-             notes: 'Another notes mentioning Cardiff Council.')
+    FactoryBot.create(:public_body, :with_note,
+                      name: 'Cardiff and Vale of Glamorgan Health Council',
+                      note_body: 'Another notes mentioning Cardiff Council.')
 
     FactoryBot.create(:public_body, name: 'Cardiff Council')
 
