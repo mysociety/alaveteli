@@ -54,7 +54,6 @@ class PublicBody < ApplicationRecord
       ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
       ['short_name', '(i18n)'],
       ['request_email', '(i18n)'],
-      ['notes', '(i18n)'],
       ['publication_scheme', '(i18n)'],
       ['disclosure_log', '(i18n)'],
       ['home_page', ''],
