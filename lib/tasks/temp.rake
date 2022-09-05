@@ -6,7 +6,7 @@ namespace :temp do
 
     scope.with_translations.find_each.with_index do |body, index|
       PublicBody.transaction do
-        body.legacy_note.save
+        body.legacy_note&.save
         body.translations.update(notes: nil)
       end
 
