@@ -22,6 +22,13 @@ module AlaveteliPro::PublicBodiesHelper
       locals: { result: result }
     )
 
+    result[:notes_as_html] = public_send(
+      render_method,
+      partial: 'alaveteli_pro/public_bodies/notes',
+      layout: false,
+      locals: { notes: body.notes }
+    )
+
     result
   end
 end
