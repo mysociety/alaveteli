@@ -103,18 +103,18 @@ class FollowupsController < ApplicationController
   def get_login_params(is_incoming, info_request)
     if is_incoming
       { :web => _("To send a follow up message to {{authority_name}}",
-                  :authority_name => info_request.public_body.name),
+                  :authority_name => info_request.public_body.name.html_safe),
         :email => _("Then you can write follow up message to {{authority_name}}.",
-                    :authority_name => info_request.public_body.name),
+                    :authority_name => info_request.public_body.name.html_safe),
         :email_subject => _("Write your FOI follow up message to {{authority_name}}",
-                            :authority_name => info_request.public_body.name) }
+                            :authority_name => info_request.public_body.name.html_safe) }
     else
-      { :web => _("To reply to {{authority_name}}.",
-                  :authority_name => info_request.public_body.name),
+      { :web => _("To reply to {{authority_name}}",
+                  :authority_name => info_request.public_body.name.html_safe),
         :email => _("Then you can write your reply to {{authority_name}}.",
-                    :authority_name => info_request.public_body.name),
+                    :authority_name => info_request.public_body.name.html_safe),
         :email_subject => _("Write a reply to {{authority_name}}",
-                            :authority_name => info_request.public_body.name) }
+                            :authority_name => info_request.public_body.name.html_safe) }
     end
   end
 
