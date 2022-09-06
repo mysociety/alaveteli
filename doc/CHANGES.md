@@ -2,16 +2,30 @@
 
 ## Highlighted Features
 
+* Improved notes feature, allowing multiple notes to be associated with bodies
+  and requests. Association can either be direct or via a tag. Tagged notes are
+  useful for displaying one note to a subset of bodies or requests which are all
+  tagged with the same tag (Gareth Rees, Graeme Porteous, Lucas Cumsille
+  Montesinos)
+* Add administration UI for notes (Graeme Porteous)
+* Add administration UI for tags (Graeme Porteous)
+* Allow outgoing messages, incoming messages to be tagged (Graeme Porteous)
 * Automatically apply `missing_email` tag to bodies who are missing a request
   email so that they can be found in a public list (Gareth Rees)
 * Improve linking from outgoing & incoming message admin pages (Gareth Rees)
 * Allow admins to destroy user post redirects (Gareth Rees)
-* Use correct mime type for cached CSV attachments
+* Use correct mime type for cached CSV attachments (Gareth Rees)
 * Protect mass-tag update buttons in admin bodies lists (Gareth Rees)
 
 ## Highlighted Pro Features
 
 ## Upgrade Notes
+
+* _Required:_ Bodies with existing notes will need to be migrated to the new
+  notes model. This has to be done, before release 0.43, by running the
+  following from the app root directory:
+
+      bin/rails temp:migrate_public_body_notes
 
 * _Optional:_ Bodies missing a request email will automatically get tagged
   `missing_email` as they are updated. If you want to automatically tag them all
