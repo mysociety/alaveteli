@@ -45,7 +45,7 @@
 
     <% last_date = event_at.to_date %>
 
-    <%= simple_time(event_at) %>
+    <%= time_tag event_at, simple_time(event_at), title: event_at %>
 
     <% if event.is_a? InfoRequestEvent %>
 
