@@ -1,5 +1,7 @@
 module NotesHelper
   def render_notes(notes, batch: false, **options)
+    return unless notes.present?
+
     allowed_tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
 
     tag.aside options.merge(id: 'notes') do
