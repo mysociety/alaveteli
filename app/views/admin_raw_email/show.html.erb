@@ -34,13 +34,13 @@
 
               <tr>
                 <td><strong>Created by:</strong></td>
-                <td><%= user_admin_link_for_request(guess.info_request) %></td>
+                <td><%= both_links(guess.info_request.user) %></td>
               </tr>
 
               <tr>
                 <td><strong>Authority:</strong></td>
                 <td>
-                  <%= link_to(guess.info_request.public_body.name, admin_body_path(guess.info_request.public_body)) %>
+                  <%= both_links(guess.info_request.public_body) %>
                 </td>
               </tr>
 
