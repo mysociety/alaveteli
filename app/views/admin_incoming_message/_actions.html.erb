@@ -14,22 +14,35 @@
   <% end %>
 <% end %>
 
-<%= form_tag  redeliver_admin_incoming_message_path(incoming_message), :class => "form form-inline" do %>
+<%= form_tag redeliver_admin_incoming_message_path(incoming_message), class: 'form form-inline' do %>
   <div class="control-group">
-    <label class="control-label" for="url_title_<%= incoming_message.id %>">Redeliver message to one or more other requests</label>
-    <div class="controls">
-      <% if @guessed_info_requests && @guessed_info_requests.size == 1 %>
-        <% info_request = @guessed_info_requests.first.info_request %>
-        <%= text_field_tag 'url_title', info_request.url_title, { size: 20, id: "url_title_#{ incoming_message.id }", required: true } %>
-      <% else %>
-        <%= text_field_tag 'url_title', "", { size: 20, id: "url_title_#{ incoming_message.id }", required: true } %>
-      <% end %>
+    <label class="control-label" for="url_title_<%= incoming_message.id %>">
+      Redeliver message to one or more other requests
+    </label>
 
-      <%= submit_tag "Redeliver to another request", :class => "btn" %>
-      <p class="help-block"><code>id</code> or <code>url_title</code>; you can supply more than one, separated by commas</p>
+    <div class="controls">
+      <%
+        redeliver_to =
+        if @guessed_info_requests&.one?
+          @guessed_info_requests.first.info_request.url_title
+        else
+            ''
+        end
+      %>
+
+      <div class="input-append">
+        <%= text_field_tag 'url_title', redeliver_to, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
+        <%= submit_tag 'Redeliver to another request', class: 'btn' %>
+      </div>
+
+      <p class="help-block">
+        <code>id</code> or <code>url_title</code>; you can supply more than one,
+        separated by commas
+      </p>
     </div>
   </div>
 <% end %>
+
 <div class="control-group">
   <label class="control-label">Generate FOI officer upload URL</label>
   <div class="controls">
