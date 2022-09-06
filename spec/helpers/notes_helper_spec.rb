@@ -33,6 +33,14 @@ RSpec.describe NotesHelper do
         )
       end
     end
+
+    context 'without notes' do
+      subject { render_notes([], class: 'notes') }
+
+      it 'renders nothing' do
+        is_expected.to be_nil
+      end
+    end
   end
 
   describe '#notes_allowed_tags' do
