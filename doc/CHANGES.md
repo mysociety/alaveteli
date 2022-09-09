@@ -16,6 +16,7 @@
 * Allow admins to destroy user post redirects (Gareth Rees)
 * Use correct mime type for cached CSV attachments (Gareth Rees)
 * Protect mass-tag update buttons in admin bodies lists (Gareth Rees)
+* Update `all-authorities.csv` download to cache file nightly (Graeme Porteous)
 
 ## Highlighted Pro Features
 
@@ -32,6 +33,9 @@
   in one go, run the following from the app root directory:
 
       bin/rails runner "PublicBody.without_request_email.each(&:save)"
+
+* The crontab needs to be regenerated to include the new modifications:
+  http://alaveteli.org/docs/installing/manual_install/#generate-crontab
 
 ### Changed Templates
 

@@ -38,6 +38,32 @@ RSpec.describe PublicBodyCSV do
     end
   end
 
+  describe '.export' do
+    it 'should return a valid CSV file with the right number of rows' do
+      all_data = CSV.parse(PublicBodyCSV.export)
+      expect(all_data.length).to eq(7)
+      # Check that the header has the right number of columns:
+      expect(all_data[0].length).to eq(11)
+      # And an actual line of data:
+      expect(all_data[1].length).to eq(11)
+    end
+
+    it 'only includes visible bodies' do
+      PublicBody.internal_admin_body
+      all_data = CSV.parse(PublicBodyCSV.export)
+      expect(all_data.map(&:first)).to_not include('Internal admin authority')
+    end
+
+    it 'does not include site_administration bodies' do
+      FactoryBot.create(
+        :public_body, name: 'Site Admin Body', tag_string: 'site_administration'
+      )
+
+      all_data = CSV.parse(PublicBodyCSV.export)
+      expect(all_data.map(&:first)).to_not include('Site Admin Body')
+    end
+  end
+
   describe '#fields' do
 
     it 'has a default set of fields' do

@@ -47,6 +47,17 @@ class PublicBodyCSV
      'Version']
   end
 
+  def self.export
+    csv = new
+
+    PublicBody.includes(:translations, :tags).visible.find_each do |public_body|
+      next if public_body.site_administration?
+      csv << public_body
+    end
+
+    csv.generate
+  end
+
   attr_reader :fields, :headers, :rows
 
   def initialize(args = {})
