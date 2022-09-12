@@ -872,6 +872,9 @@ Naming/VariableName:
 Naming/VariableNumber:
   Enabled: false
 
+Performance:
+  Enabled: false
+
 #################### Performance ####################
 
 Performance/AncestorsInclude:
