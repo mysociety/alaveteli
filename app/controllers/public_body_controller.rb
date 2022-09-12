@@ -207,10 +207,10 @@ class PublicBodyController < ApplicationController
 
     # Send the file
     send_file(output_filename,
-              :type => 'text/csv; charset=utf-8; header=present',
-              :filename => 'all-authorities.csv',
-              :disposition =>'attachment',
-              :encoding => 'utf8')
+              type: 'text/csv; charset=utf-8; header=present',
+              filename: 'all-authorities.csv',
+              disposition: 'attachment',
+              encoding: 'utf8')
   end
 
   # Type ahead search
