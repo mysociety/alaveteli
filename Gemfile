@@ -85,9 +85,9 @@ def rails_upgrade?
 end
 
 if rails_upgrade?
-  gem 'rails', '~> 7.0.3'
+  gem 'rails', '~> 7.0.4'
 else
-  gem 'rails', '~> 6.1.6'
+  gem 'rails', '~> 6.1.7'
 end
 
 gem 'pg', '~> 1.4.4'
