@@ -1021,7 +1021,13 @@ Performance/UnfreezeString:
 Performance/UriDefaultParser:
   Enabled: false
 
+Rails:
+  Enabled: false
+
 #################### Rails ####################
+
+Rails/ActionControllerFlashBeforeRender:
+  Enabled: false
 
 Rails/ActionControllerTestCase:
   Enabled: false
@@ -1039,6 +1045,9 @@ Rails/ActiveRecordOverride:
   Enabled: false
 
 Rails/ActiveSupportAliases:
+  Enabled: false
+
+Rails/ActiveSupportOnLoad:
   Enabled: false
 
 Rails/AddColumnIndex:
@@ -1147,6 +1156,9 @@ Rails/FindById:
   Enabled: false
 
 Rails/FindEach:
+  Enabled: false
+
+Rails/FreezeTime:
   Enabled: false
 
 Rails/HasAndBelongsToMany:
@@ -1290,6 +1302,9 @@ Rails/ReversibleMigrationMethodDefinition:
 Rails/RootJoinChain:
   Enabled: false
 
+Rails/RootPathnameMethods:
+  Enabled: false
+
 Rails/RootPublicPath:
   Enabled: false
 
@@ -1332,6 +1347,12 @@ Rails/TimeZoneAssignment:
 Rails/ToFormattedS:
   Enabled: false
 
+Rails/ToSWithArgument:
+  Enabled: false
+
+Rails/TopLevelHashWithIndifferentAccess:
+  Enabled: false
+
 Rails/TransactionExitStatement:
   Enabled: false
 
@@ -1354,6 +1375,9 @@ Rails/WhereEquals:
   Enabled: false
 
 Rails/WhereExists:
+  Enabled: false
+
+Rails/WhereMissing:
   Enabled: false
 
 Rails/WhereNot:
