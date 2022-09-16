@@ -151,8 +151,10 @@
     </div>
   </div>
 <% end %>
+
 <fieldset class="form-horizontal">
   <legend>Actions</legend>
+
   <div class="control-group">
     <label class="control-label">
       FOI officer upload URL
@@ -207,7 +209,9 @@
 </fieldset>
 
 <hr>
+
 <h2>Events</h2>
+
 <div class="accordion" id="events">
   <% @info_request.info_request_events.each do |info_request_event| %>
     <div class="accordion-group">
@@ -257,8 +261,11 @@
     </div>
   <% end %>
 </div>
+
 <hr>
+
 <h2>Outgoing messages</h2>
+
 <div class="accordion" id="outgoing_messages">
   <% @info_request.outgoing_messages.each do |outgoing_message| %>
     <div class="accordion-group">
@@ -319,8 +326,11 @@
     </div>
   <% end %>
 </div>
+
 <hr>
+
 <h2>Incoming messages</h2>
+
 <div class="accordion" id="incoming_messages">
   <% for incoming_message in @info_request.incoming_messages %>
     <div class="accordion-group">
@@ -382,7 +392,9 @@
     <% end %>
   <% end %>
 </div>
+
 <hr>
+
 <h2>Annotations</h2>
 
 <%= render partial: 'admin_request/some_annotations' ,
