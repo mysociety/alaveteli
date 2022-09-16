@@ -24,6 +24,12 @@ class RawEmail < ApplicationRecord
 
   before_destroy :destroy_file_representation!
 
+  # Completely destroy any material the associated IncomingMessage has cached
+  # from this RawEmail (attachments, content)
+  before_destroy do |raw_email|
+    raw_email.incoming_message.expire!
+  end
+
   delegate :date, to: :mail
   delegate :message_id, to: :mail
   delegate :multipart?, to: :mail

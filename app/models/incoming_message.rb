@@ -72,6 +72,24 @@ class IncomingMessage < ApplicationRecord
              :inverse_of => :incoming_message,
              :dependent => :destroy
 
+  def raw_email
+    super || null_raw_email
+  end
+
+  def null_raw_email
+    OpenStruct.new(
+      sent_at: nil,
+      subject: nil,
+      from_name: nil,
+      from_email: nil,
+      from_email_domain: nil,
+      valid_to_reply_to?: nil,
+      message_id: nil,
+      multipart?: false,
+      parts: []
+    )
+  end
+
   after_destroy :update_request
   after_update :update_request
 
@@ -86,6 +104,12 @@ class IncomingMessage < ApplicationRecord
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
   delegate :legislation, to: :info_request
+
+  def expire!
+    foi_attachments.destroy_all!
+    clear_in_database_caches!
+    info_request.expire
+  end
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
@@ -499,6 +523,8 @@ class IncomingMessage < ApplicationRecord
   end
 
   def extract_attachments
+    return if raw_email.is_a?(OpenStruct)
+
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachment_attributes = attachment_attributes.inject({}) do |memo, attrs|
