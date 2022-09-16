@@ -137,14 +137,6 @@ class RawEmail < ApplicationRecord
                          :replace => "")
   end
 
-  def destroy_file_representation!
-    if file.attached?
-      file.purge
-    elsif File.exist?(filepath)
-      File.delete(filepath)
-    end
-  end
-
   def from_name
     MailHandler.get_from_name(mail)
   end
@@ -177,5 +169,13 @@ class RawEmail < ApplicationRecord
 
   def incoming_message_id
     incoming_message.id.to_s
+  end
+
+  def destroy_file_representation!
+    if file.attached?
+      file.purge
+    elsif File.exist?(filepath)
+      File.delete(filepath)
+    end
   end
 end
