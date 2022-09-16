@@ -235,33 +235,6 @@ RSpec.describe RawEmail do
 
   end
 
-  describe '#destroy_file_representation!' do
-
-    shared_examples :destory_file_examples do
-      it 'should delete the directory' do
-        raw_email.destroy_file_representation!
-        expect(File.exist?(raw_email.filepath)).to eq(false)
-      end
-
-      it 'should only delete the directory if it exists' do
-        expect(File).to receive(:delete).once.and_call_original
-        raw_email.destroy_file_representation!
-        expect { raw_email.destroy_file_representation! }.not_to raise_error
-      end
-    end
-
-    context 'with active storage' do
-      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
-      include_examples :destory_file_examples
-    end
-
-    context 'without active storage' do
-      let(:raw_email) { legacy_raw_email }
-      include_examples :destory_file_examples
-    end
-
-  end
-
   describe '#from_email_domain' do
     subject { raw_email.from_email_domain }
 
@@ -275,5 +248,35 @@ RSpec.describe RawEmail do
     end
 
     it { is_expected.to eq('example.net') }
+  end
+
+  # TODO: #destroy_file_representation! is now private. Re-write these to test
+  # #destroy instead. At present we can't call #destroy in this context as it
+  # results in a violation of the database constraint on `incoming_messages`
+  # checking that the `raw_email_id` foreign key is present in `raw_emails`.
+  describe '#destroy_file_representation!' do
+    shared_examples :destory_file_examples do
+      it 'should delete the directory' do
+        raw_email.send(:destroy_file_representation!)
+        expect(File.exist?(raw_email.filepath)).to eq(false)
+      end
+
+      it 'should only delete the directory if it exists' do
+        expect(File).to receive(:delete).once.and_call_original
+        raw_email.send(:destroy_file_representation!)
+        expect { raw_email.send(:destroy_file_representation!) }.
+          not_to raise_error
+      end
+    end
+
+    context 'with active storage' do
+      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+      include_examples :destory_file_examples
+    end
+
+    context 'without active storage' do
+      let(:raw_email) { legacy_raw_email }
+      include_examples :destory_file_examples
+    end
   end
 end
