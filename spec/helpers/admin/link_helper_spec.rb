@@ -29,6 +29,7 @@ RSpec.describe Admin::LinkHelper do
       let(:record) { FactoryBot.create(:initial_request) }
 
       it { is_expected.to include('icon-prominence') }
+      it { is_expected.to include("#outgoing-#{record.id}") }
       it { is_expected.to include(outgoing_message_path(record)) }
       it { is_expected.to include(edit_admin_outgoing_message_path(record)) }
     end
@@ -37,6 +38,7 @@ RSpec.describe Admin::LinkHelper do
       let(:record) { FactoryBot.create(:incoming_message) }
 
       it { is_expected.to include('icon-prominence') }
+      it { is_expected.to include("#incoming-#{record.id}") }
       it { is_expected.to include(incoming_message_path(record)) }
       it { is_expected.to include(edit_admin_incoming_message_path(record)) }
     end
