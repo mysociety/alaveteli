@@ -22,6 +22,8 @@ class RawEmail < ApplicationRecord
 
   has_one_attached :file, service: :raw_emails
 
+  before_destroy :destroy_file_representation!
+
   delegate :date, to: :mail
   delegate :message_id, to: :mail
   delegate :multipart?, to: :mail

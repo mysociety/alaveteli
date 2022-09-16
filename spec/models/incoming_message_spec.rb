@@ -619,14 +619,7 @@ RSpec.describe 'when destroying a message' do
         FoiAttachment.where(:incoming_message_id => incoming_with_attachment.id)
       ).to be_empty
     end
-
-    it 'should destroy the file representation of the raw email' do
-      raw_email = incoming_with_attachment.raw_email
-      expect(raw_email).to receive(:destroy_file_representation!)
-      incoming_with_attachment.destroy
-    end
   end
-
 end
 
 RSpec.describe 'when asked if it is indexed by search' do

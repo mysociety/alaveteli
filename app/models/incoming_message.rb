@@ -74,7 +74,6 @@ class IncomingMessage < ApplicationRecord
 
   after_destroy :update_request
   after_update :update_request
-  before_destroy :destroy_email_file
 
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
@@ -114,10 +113,6 @@ class IncomingMessage < ApplicationRecord
         self.save!
       end
     end
-  end
-
-  def destroy_email_file
-    raw_email.destroy_file_representation!
   end
 
   alias_method :valid_to_reply_to?, :valid_to_reply_to
