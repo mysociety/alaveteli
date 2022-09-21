@@ -271,9 +271,14 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
-        <%= link_to edit_admin_outgoing_message_path(outgoing_message) do %>
-          #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
-      <% end %>
+        <%= both_links(outgoing_message) %>
+
+        <span class="muted">
+          --
+          <%= outgoing_message.status.humanize %>
+          <%= outgoing_message.message_type.humanize %>
+        </span>
+
       <blockquote>
         <%= truncate(outgoing_message.body, :length => 400) %>
       </blockquote>
@@ -337,12 +342,14 @@
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
         <%= check_box_tag "message_id_#{incoming_message.id}", incoming_message.id, false, :class => "delete-checkbox" %>
-        <%= link_to edit_admin_incoming_message_path(incoming_message) do %>
-          <%=incoming_message.id%>
+        <%= both_links(incoming_message) %>
+
+        <span class="muted">
           --
           <%= h(incoming_message.from_name) %>
           at <%= admin_date(incoming_message.sent_at) %>
-        <% end %>
+        </span>
+
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
             <%= truncate(incoming_message.cached_main_body_text_folded.gsub('FOLDED_QUOTED_SECTION', ''), :length => 400) %>
