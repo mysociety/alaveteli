@@ -12,7 +12,7 @@
 
     <ul class="list-of-attachments">
       <% attachments.each do |a| %>
-        <li class="attachment">
+        <%= tag.li class: 'attachment', id: dom_id(a) do %>
           <%= attachment_link(incoming_message, a) %>
 
           <p class="attachment__name">
@@ -27,7 +27,7 @@
             <% end %>
             <%= a.extra_note %>
           </p>
-        </li>
+        <% end %>
       <% end %>
     </ul>
 
@@ -35,4 +35,5 @@
   </div>
 <% end %>
 
-<%= tag.div incoming_message.get_body_for_html_display(@collapse_quotes) %>
+<%= tag.div incoming_message.get_body_for_html_display(@collapse_quotes),
+            id: dom_id(incoming_message.get_main_body_text_part) %>

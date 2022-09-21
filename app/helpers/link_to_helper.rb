@@ -314,6 +314,8 @@ module LinkToHelper
       param_key = 'incoming'
     when OutgoingMessage
       param_key = 'outgoing'
+    when FoiAttachment
+      param_key = 'attachment'
     else
       return super
     end
