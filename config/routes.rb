@@ -647,6 +647,13 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminFoiAttachment controller
+  namespace :admin do
+    resources :foi_attachments, path: :attachments,
+                                only: [:edit, :update]
+  end
+  ####
+
   #### AdminUser controller
   scope '/admin', :as => 'admin' do
     resources :users,
