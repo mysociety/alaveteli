@@ -1,4 +1,4 @@
-<div class="outgoing correspondence js-collapsable" id="outgoing-<%= outgoing_message.id %>">
+<div class="outgoing correspondence js-collapsable" id="<%= dom_id(outgoing_message) %>">
   <%- if cannot?(:read, outgoing_message) %>
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
   <%- else %>

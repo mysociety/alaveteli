@@ -22,7 +22,7 @@ module Admin::LinkHelper
     info_request = outgoing_message.info_request
 
     link_to(icon, outgoing_message_path(outgoing_message), title: title) + ' ' +
-      link_to("#{info_request.title} #outgoing-#{outgoing_message.id}",
+      link_to("#{info_request.title} ##{dom_id(outgoing_message)}",
               edit_admin_outgoing_message_path(outgoing_message),
               title: admin_title)
   end
@@ -33,7 +33,7 @@ module Admin::LinkHelper
     info_request = incoming_message.info_request
 
     link_to(icon, incoming_message_path(incoming_message), title: title) + ' ' +
-      link_to("#{info_request.title} #incoming-#{incoming_message.id}",
+      link_to("#{info_request.title} ##{dom_id(incoming_message)}",
               edit_admin_incoming_message_path(incoming_message),
               title: admin_title)
   end
