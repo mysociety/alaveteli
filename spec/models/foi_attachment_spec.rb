@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220916134847
 #
 # Table name: foi_attachments
 #
@@ -14,11 +14,16 @@
 #  hexdigest             :string(32)
 #  created_at            :datetime
 #  updated_at            :datetime
+#  prominence            :string           default("normal")
+#  prominence_reason     :text
 #
 
 require 'spec_helper'
+require 'models/concerns/message_prominence'
 
 RSpec.describe FoiAttachment do
+  it_behaves_like 'concerns/message_prominence', :body_text
+
   describe '.binary' do
     subject { described_class.binary }
 
