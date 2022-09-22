@@ -50,7 +50,7 @@ RSpec.describe Admin::LinkHelper do
       let(:incoming_message) { info_request.incoming_messages.first }
       let!(:record) { incoming_message.foi_attachments.first }
 
-      it { is_expected.to include('icon-eye-open') }
+      it { is_expected.to include('icon-prominence') }
       it { is_expected.to include(record.filename) }
       it { is_expected.to include(foi_attachment_path(record)) }
       it { is_expected.to include(edit_admin_foi_attachment_path(record)) }

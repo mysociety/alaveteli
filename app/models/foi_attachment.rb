@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220916134847
 #
 # Table name: foi_attachments
 #
@@ -14,6 +14,8 @@
 #  hexdigest             :string(32)
 #  created_at            :datetime
 #  updated_at            :datetime
+#  prominence            :string           default("normal")
+#  prominence_reason     :text
 #
 
 # models/foi_attachment.rb:
@@ -26,6 +28,10 @@
 require 'digest'
 
 class FoiAttachment < ApplicationRecord
+  include MessageProminence
+
+  strip_attributes only: [:prominence_reason]
+
   belongs_to :incoming_message,
              :inverse_of => :foi_attachments
 

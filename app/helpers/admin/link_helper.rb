@@ -40,7 +40,7 @@ module Admin::LinkHelper
 
   def foi_attachment_both_links(foi_attachment)
     title = 'View attachment on public website'
-    icon = eye
+    icon = prominence_icon(foi_attachment)
     info_request = foi_attachment.incoming_message.info_request
 
     link_to(icon, foi_attachment_path(foi_attachment), title: title) + ' ' +
