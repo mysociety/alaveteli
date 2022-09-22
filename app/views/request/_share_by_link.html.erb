@@ -1,6 +1,6 @@
 <% if can? :share, info_request %>
   <div class="sidebar__section share-private-url">
-    <h2>Share with private link</h2>
+    <h2><%= _('Share with private link') %></h2>
 
     <% if info_request.public_token? %>
       <%= text_field_tag 'share_by_link',
