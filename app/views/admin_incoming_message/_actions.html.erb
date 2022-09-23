@@ -76,21 +76,15 @@
 <% if @raw_email.nil? %>
   <%# we're not on the raw_email page itself %>
   <div class="control-group">
-    <label class="control-label">Inspect email</label>
+    <label class="control-label">Inspect raw email</label>
 
     <div class="controls">
-      <%= link_to 'View raw email', admin_raw_email_path(incoming_message.raw_email_id), class: 'btn' %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <label class="control-label">Download</label>
-
-    <div class="controls">
-      <%= link_to 'Download', admin_raw_email_path(incoming_message.raw_email, format: 'eml'), class: 'btn' %>
+      <div class="btn-group">
+        <%= link_to 'View', admin_raw_email_path(incoming_message.raw_email_id), class: 'btn' %>
+        <%= link_to 'Download', admin_raw_email_path(incoming_message.raw_email, format: 'eml'), class: 'btn' %>
+      </div>
     </div>
   </div>
 <% end %>
-
 
 </fieldset>
