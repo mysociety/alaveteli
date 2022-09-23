@@ -1,0 +1,18 @@
+<p class="attachment__meta">
+  <%- if !attachment.prominence_reason.blank? %>
+    <%= _('This attachment has been hidden.') %>
+    <%= attachment.prominence_reason %>
+    <%= _('Please <a href="{{url}}">contact us</a> if you have any questions.',
+          url: help_contact_path.html_safe) %>
+  <%- else %>
+    <%= _("This attachment has been hidden. There are various reasons why we " \
+             "might have done this, sorry we can't be more specific here.") %>
+    <%= _('Please <a href="{{url}}">contact us</a> if you have any questions.',
+          url: help_contact_path.html_safe) %>
+  <%- end %>
+  <% if attachment.prominence == 'requester_only' %>
+    <%= _('If you are the requester, then you may ' \
+          '<a href="{{url}}">sign in</a> to view the attachment.',
+          url: signin_url(r: request.fullpath).html_safe) %>
+  <% end %>
+</p>

@@ -13,20 +13,27 @@
     <ul class="list-of-attachments">
       <% attachments.each do |a| %>
         <%= tag.li class: 'attachment', id: dom_id(a) do %>
-          <%= attachment_link(incoming_message, a) %>
+          <% if cannot?(:read, a) %>
+            <img class="attachment__image" alt="Attachment" src="/assets/content_type/icon_unknown.png"></a>
+            <%= render partial: 'request/hidden_attachment', locals: { attachment: a } %>
+          <% else %>
+            <%= render partial: 'request/restricted_attachment', locals: { attachment: a } %>
 
-          <p class="attachment__name">
-            <%= h a.display_filename %>
-          </p>
+            <%= attachment_link(incoming_message, a) %>
 
-          <p class="attachment__meta">
-            <%= a.display_size %>
-            <%= link_to "Download", attachment_path(a) %>
-            <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
-              <%= link_to "View as HTML", attachment_path(a, :html => true) %>
-            <% end %>
-            <%= a.extra_note %>
-          </p>
+            <p class="attachment__name">
+              <%= h a.display_filename %>
+            </p>
+
+            <p class="attachment__meta">
+              <%= a.display_size %>
+              <%= link_to "Download", attachment_path(a) %>
+              <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
+                <%= link_to "View as HTML", attachment_path(a, :html => true) %>
+              <% end %>
+              <%= a.extra_note %>
+            </p>
+          <% end %>
         <% end %>
       <% end %>
     </ul>
@@ -35,5 +42,13 @@
   </div>
 <% end %>
 
-<%= tag.div incoming_message.get_body_for_html_display(@collapse_quotes),
-            id: dom_id(incoming_message.get_main_body_text_part) %>
+<%= tag.div class: 'attachment', id: dom_id(incoming_message.get_main_body_text_part) do %>
+  <% if cannot?(:read, incoming_message.get_main_body_text_part) %>
+    <%= render partial: 'request/hidden_attachment',
+               locals: { attachment: incoming_message.get_main_body_text_part } %>
+  <% else %>
+    <%= render partial: 'request/restricted_attachment',
+               locals: { attachment: incoming_message.get_main_body_text_part } %>
+    <%= incoming_message.get_body_for_html_display(@collapse_quotes) %>
+  <% end %>
+<% end %>

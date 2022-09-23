@@ -1,0 +1,27 @@
+<% if attachment.prominence == 'hidden' %>
+  <p class="attachment__meta">
+    <%- if !attachment.prominence_reason.blank? %>
+      <%= _('This attachment has prominence \'hidden\'. {{reason}} You can ' \
+            'only see it because you are logged in as a super user.',
+            reason: attachment.prominence_reason) %>
+    <%- else %>
+      <%= _('This attachment has prominence \'hidden\'. You can only see it ' \
+            'because you are logged in as a super user.') %>
+    <%- end %>
+  </p>
+<% end %>
+
+<% if attachment.prominence == 'requester_only' %>
+  <p class="attachment__meta">
+    <%- if !attachment.prominence_reason.blank? %>
+      <%= _('This attachment is hidden, so that only you, the requester, can ' \
+            'see it. {{reason}}',
+            reason: attachment.prominence_reason) %>
+    <%- else %>
+      <%= _('This attachment is hidden, so that only you, the requester, can ' \
+            'see it. Please <a href="{{url}}">contact us</a> if you are not ' \
+            'sure why.',
+            url: help_requesting_path.html_safe) %>
+    <%- end %>
+  </p>
+<% end %>
