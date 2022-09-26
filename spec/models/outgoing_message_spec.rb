@@ -18,9 +18,11 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/message_prominence'
 require 'models/concerns/taggable'
 
 RSpec.describe OutgoingMessage do
+  it_behaves_like 'concerns/message_prominence', :initial_request
   it_behaves_like 'concerns/taggable', :initial_request
 
   describe '.is_searchable' do
@@ -864,30 +866,6 @@ RSpec.describe OutgoingMessage do
       expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
       @outgoing_message.body = split_line
       expect(@outgoing_message.get_body_for_html_display).to include(expected)
-    end
-
-  end
-
-  describe '#indexed_by_search?' do
-
-    before do
-      @info_request = FactoryBot.create(:info_request)
-      @outgoing_message = @info_request.outgoing_messages.first
-    end
-
-    it 'should return false if it has prominence "hidden"' do
-      @outgoing_message.prominence = 'hidden'
-      expect(@outgoing_message.indexed_by_search?).to be false
-    end
-
-    it 'should return false if it has prominence "requester_only"' do
-      @outgoing_message.prominence = 'requester_only'
-      expect(@outgoing_message.indexed_by_search?).to be false
-    end
-
-    it 'should return true if it has prominence "normal"' do
-      @outgoing_message.prominence = 'normal'
-      expect(@outgoing_message.indexed_by_search?).to be true
     end
 
   end

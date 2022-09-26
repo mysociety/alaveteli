@@ -23,9 +23,11 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/message_prominence'
 require 'models/concerns/taggable'
 
 RSpec.describe IncomingMessage do
+  it_behaves_like 'concerns/message_prominence', :incoming_message
   it_behaves_like 'concerns/taggable', :incoming_message
 
   describe '.unparsed' do
@@ -514,26 +516,6 @@ RSpec.describe IncomingMessage do
   end
 end
 
-RSpec.describe IncomingMessage, 'when validating' do
-
-  it 'should be valid with valid prominence values' do
-    ['hidden', 'requester_only', 'normal'].each do |prominence|
-      incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
-                                             :info_request => InfoRequest.new,
-                                             :prominence => prominence)
-      expect(incoming_message.valid?).to be true
-    end
-  end
-
-  it 'should not be valid with an invalid prominence value' do
-    incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
-                                           :info_request => InfoRequest.new,
-                                           :prominence => 'norman')
-    expect(incoming_message.valid?).to be false
-  end
-
-end
-
 RSpec.describe IncomingMessage, "when the prominence is changed" do
   let(:request) { FactoryBot.create(:info_request) }
 
@@ -627,29 +609,6 @@ RSpec.describe 'when destroying a message' do
       expect(raw_email).to receive(:destroy_file_representation!)
       incoming_with_attachment.destroy
     end
-  end
-
-end
-
-RSpec.describe 'when asked if it is indexed by search' do
-
-  before do
-    @incoming_message = IncomingMessage.new
-  end
-
-  it 'should return false if it has prominence "hidden"' do
-    @incoming_message.prominence = 'hidden'
-    expect(@incoming_message.indexed_by_search?).to be false
-  end
-
-  it 'should return false if it has prominence "requester_only"' do
-    @incoming_message.prominence = 'requester_only'
-    expect(@incoming_message.indexed_by_search?).to be false
-  end
-
-  it 'should return true if it has prominence "normal"' do
-    @incoming_message.prominence = 'normal'
-    expect(@incoming_message.indexed_by_search?).to be true
   end
 
 end
