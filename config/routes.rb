@@ -110,14 +110,16 @@ Rails.application.routes.draw do
         :as => :similar_request,
         :via => :get
 
-  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'attachments#show_as_html',
+  match '/request/:id/response/:incoming_message_id/attach/html/(:part(/*file_name))' => 'attachments#show_as_html',
         :format => false,
         :as => :get_attachment_as_html,
-        :via => :get
+        :via => :get,
+        :constraints => { :part => /\d+/ }
   match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'attachments#show',
         :format => false,
         :as => :get_attachment,
-        :via => :get
+        :via => :get,
+        :constraints => { :part => /\d+/ }
 
   match '/request_event/:info_request_event_id' => 'request#show_request_event',
         :as => :info_request_event,
