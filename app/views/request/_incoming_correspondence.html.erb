@@ -24,10 +24,10 @@
                  locals: { incoming_message: incoming_message } %>
     <% end %>
 
-    <%= render :partial => 'request/bubble',
-               :locals => { :incoming_message => incoming_message,
-                            :body => incoming_message.get_body_for_html_display(@collapse_quotes),
-                            :attachments => incoming_message.get_attachments_for_display }  %>
+    <%= render partial: 'request/bubble',
+               locals: { incoming_message: incoming_message,
+                         body: incoming_message.get_body_for_html_display(@collapse_quotes),
+                         attachments: incoming_message.get_attachments_for_display }  %>
 
     <p class="event_actions">
       <% if !@user.nil? && @user.admin_page_links? %>
