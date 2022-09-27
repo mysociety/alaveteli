@@ -346,6 +346,12 @@ RSpec.describe AttachmentsController, 'when handling prominence',
                       prominence: prominence)
   end
 
+  let(:attachment) do
+    FactoryBot.create(:pdf_attachment,
+                      prominence: prominence,
+                      incoming_message: FactoryBot.build(:incoming_message))
+  end
+
   context 'when the request is hidden' do
     let(:prominence) { 'hidden' }
     let(:incoming_message) { info_request.incoming_messages.first }
@@ -553,6 +559,137 @@ RSpec.describe AttachmentsController, 'when handling prominence',
             skip_cache: 1
           }
       expect_hidden('request/hidden_correspondence')
+    end
+
+    it 'downloads attachments for the request owner' do
+      sign_in info_request.user
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect(response.media_type).to eq('application/pdf')
+      expect(response).to be_successful
+    end
+
+    it 'downloads attachments for an admin user' do
+      sign_in FactoryBot.create(:admin_user)
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect(response.media_type).to eq('application/pdf')
+      expect(response).to be_successful
+    end
+
+    it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
+      sign_in FactoryBot.create(:admin_user)
+      expect do
+        get :show_as_html,
+            params: {
+              incoming_message_id: incoming_message.id,
+              id: info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf',
+              skip_cache: 1
+            }
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  context 'when the attachment has prominence hidden' do
+    let(:prominence) { 'hidden' }
+    let(:info_request) { incoming_message.info_request }
+    let(:incoming_message) { attachment.incoming_message }
+
+    it 'does not download attachments for a non-logged in user' do
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect_hidden('request/hidden_attachment')
+    end
+
+    it 'does not download attachments for the request owner' do
+      sign_in info_request.user
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect_hidden('request/hidden_attachment')
+    end
+
+    it 'downloads attachments for an admin user' do
+      sign_in FactoryBot.create(:admin_user)
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect(response.media_type).to eq('application/pdf')
+      expect(response).to be_successful
+    end
+
+    it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
+      sign_in FactoryBot.create(:admin_user)
+      expect do
+        get :show_as_html,
+            params: {
+              incoming_message_id: incoming_message.id,
+              id: info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf',
+              skip_cache: 1
+            }
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'does not cache an attachment when showing an attachment to the requester or admin' do
+      sign_in info_request.user
+      expect(@controller).not_to receive(:foi_fragment_cache_write)
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf'
+          }
+    end
+  end
+
+  context 'when the attachment has prominence requester_only' do
+    let(:prominence) { 'requester_only' }
+    let(:info_request) { incoming_message.info_request }
+    let(:incoming_message) { attachment.incoming_message }
+
+    it 'does not download attachments for a non-logged in user' do
+      get :show,
+          params: {
+            incoming_message_id: incoming_message.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.pdf',
+            skip_cache: 1
+          }
+      expect_hidden('request/hidden_attachment')
     end
 
     it 'downloads attachments for the request owner' do

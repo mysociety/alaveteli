@@ -498,6 +498,10 @@ class IncomingMessage < ApplicationRecord
     return attachments
   end
 
+  def get_attachments_for_search_index
+    get_attachments_for_display.select(&:indexed_by_search?)
+  end
+
   def extract_attachments!
     extract_attachments
     save!
@@ -623,7 +627,7 @@ class IncomingMessage < ApplicationRecord
 
   def _extract_text
     # Extract text from each attachment
-    self.get_attachments_for_display.reduce('') { |memo, attachment|
+    get_attachments_for_search_index.reduce('') { |memo, attachment|
       memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                        attachment.default_body,
                                                        attachment.charset)

@@ -1,0 +1,7 @@
+<%- if !attachment.prominence_reason.blank? %>
+  <%= _('This attachment has been hidden.') %>
+  <%= attachment.prominence_reason %>
+<%- else %>
+  <%= _("This attachment has been hidden. There are various reasons why we " \
+        "might have done this, sorry we can't be more specific here.") %>
+<%- end %>

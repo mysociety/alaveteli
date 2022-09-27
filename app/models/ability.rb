@@ -43,7 +43,8 @@ class Ability
 
     # Viewing messages with prominence
     can :read, FoiAttachment do |attachment|
-      can_view_with_prominence?(attachment.prominence, attachment.incoming_message.info_request)
+      can_view_with_prominence?(attachment.prominence,
+                                attachment.incoming_message.info_request)
     end
 
     can :read, [IncomingMessage, OutgoingMessage] do |msg|
