@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220928093559
 #
 # Table name: info_requests
 #
@@ -33,6 +33,7 @@
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default(0)
 #  public_token                          :string
+#  prominence_reason                     :text
 #
 
 FactoryBot.define do

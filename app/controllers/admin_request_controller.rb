@@ -36,6 +36,7 @@ class AdminRequestController < AdminController
   def update
     old_title = @info_request.title
     old_prominence = @info_request.prominence
+    old_prominence_reason = @info_request.prominence_reason
     old_described_state = @info_request.described_state
     old_awaiting_description = @info_request.awaiting_description
     old_allow_new_responses_from = @info_request.allow_new_responses_from
@@ -52,6 +53,8 @@ class AdminRequestController < AdminController
         title: @info_request.title,
         old_prominence: old_prominence,
         prominence: @info_request.prominence,
+        old_prominence_reason: old_prominence_reason,
+        prominence_reason: @info_request.prominence_reason,
         old_described_state: old_described_state,
         described_state: params[:info_request][:described_state],
         old_awaiting_description: old_awaiting_description,
@@ -203,6 +206,7 @@ class AdminRequestController < AdminController
     if params[:info_request]
       params.require(:info_request).permit(:title,
                                            :prominence,
+                                           :prominence_reason,
                                            :described_state,
                                            :awaiting_description,
                                            :allow_new_responses_from,

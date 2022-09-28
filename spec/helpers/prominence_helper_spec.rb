@@ -13,8 +13,8 @@ RSpec.describe ProminenceHelper do
     FactoryBot.build(
       :info_request,
       user: requester,
-      prominence: prominence
-      # prominence_reason: prominence_reason
+      prominence: prominence,
+      prominence_reason: prominence_reason
     )
   end
 
@@ -132,8 +132,7 @@ RSpec.describe ProminenceHelper do
       end
     end
 
-    # Enable with #6746
-    xcontext 'request with hidden prominence and reason as admin' do
+    context 'request with hidden prominence and reason as admin' do
       let(:object) { info_request }
       let(:prominence) { 'hidden' }
       let(:prominence_reason) { 'Spam.' }
