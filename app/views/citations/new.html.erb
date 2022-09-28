@@ -32,6 +32,16 @@
       <%= f.radio_button :type, 'academic_paper' %>
       <%= _('Academic paper') %>
     </label>
+    
+        <label for="citation_type_book" class="form_label">
+      <%= f.radio_button :type, 'book' %>
+      <%= _('Book') %>
+    </label>
+    
+        <label for="citation_type_online_encyclopedia" class="form_label">
+      <%= f.radio_button :type, 'online_encyclopedia' %>
+      <%= _('Online encyclopedia') %>
+    </label>
 
     <label for="citation_type_other" class="form_label">
       <%= f.radio_button :type, 'other' %>
