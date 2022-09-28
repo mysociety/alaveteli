@@ -1,9 +1,7 @@
 <div class="outgoing correspondence js-collapsable" id="<%= dom_id(outgoing_message) %>">
-  <%- if cannot?(:read, outgoing_message) %>
-    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
-  <%- else %>
-    <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
+  <%= render partial: 'request/prominence', locals: { message: outgoing_message } %>
 
+  <%- if can?(:read, outgoing_message) %>
     <% delivery_status = outgoing_message.delivery_status %>
 
     <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %>">

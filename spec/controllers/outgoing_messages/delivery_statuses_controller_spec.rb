@@ -49,7 +49,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, params: { :outgoing_message_id => message.id }
-      expect(response).to render_template('request/_hidden_correspondence')
+      expect(response).to render_template('request/_prominence')
     end
 
     it 'renders hidden when the request cannot be viewed' do
@@ -65,7 +65,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
       allow(OutgoingMessage).
         to receive(:find).with(message.id).and_return(message)
       get :show, params: { :outgoing_message_id => message.id }
-      expect(response).to render_template('request/_hidden_correspondence')
+      expect(response).to render_template('request/_prominence')
     end
 
     it 'sets the title' do
