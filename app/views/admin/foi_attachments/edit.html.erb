@@ -26,15 +26,15 @@
     <legend>Prominence</legend>
 
     <div class="control-group">
-      <label class="control-label" for="incoming_message_prominence">Prominence</label>
+      <label class="control-label" for="foi_attachment_prominence">Prominence</label>
 
       <div class="controls">
-        <%= select 'foi_attachment', 'prominence', IncomingMessage.prominence_states %>
+        <%= select 'foi_attachment', 'prominence', FoiAttachment.prominence_states %>
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="incoming_message_prominence_reason">Reason for prominence</label>
+      <label class="control-label" for="foi_attachment_prominence_reason">Reason for prominence</label>
 
       <div class="controls">
         <%= text_area 'foi_attachment', 'prominence_reason', rows: 5, class: 'span6' %>
