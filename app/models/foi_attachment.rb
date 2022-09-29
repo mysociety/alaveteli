@@ -30,8 +30,6 @@ require 'digest'
 class FoiAttachment < ApplicationRecord
   include MessageProminence
 
-  strip_attributes only: [:prominence_reason]
-
   belongs_to :incoming_message,
              :inverse_of => :foi_attachments
 
