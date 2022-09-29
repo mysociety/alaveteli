@@ -30,8 +30,6 @@ class OutgoingMessage < ApplicationRecord
   include LinkToHelper
   include Taggable
 
-  strip_attributes only: [:prominence_reason]
-
   STATUS_TYPES = %w(ready sent failed).freeze
   MESSAGE_TYPES = %w(initial_request followup).freeze
   WHAT_DOING_VALUES = %w(normal_sort
