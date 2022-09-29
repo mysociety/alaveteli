@@ -112,10 +112,7 @@ class AttachmentsController < ApplicationController
     if @attachment
       if cannot?(:read, @attachment)
         request.format = :html
-        render_hidden(
-          'request/hidden_attachment',
-          locals: { attachment: @attachment }
-        )
+        render_hidden('request/hidden_attachment')
       end
     elsif params[:file_name]
       # If we can't find the right attachment, redirect to the incoming message:
