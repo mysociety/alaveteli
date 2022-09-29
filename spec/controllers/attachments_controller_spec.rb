@@ -648,7 +648,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
       expect(response).to be_successful
     end
 
-    it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
+    it 'should not generate an HTML version of an attachment whose prominence is hidden even for an admin but should return a 404' do
       sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
@@ -720,7 +720,7 @@ RSpec.describe AttachmentsController, 'when handling prominence',
       expect(response).to be_successful
     end
 
-    it 'should not generate an HTML version of an attachment for a request whose prominence is hidden even for an admin but should return a 404' do
+    it 'should not generate an HTML version of an attachment whose prominence is hidden even for an admin but should return a 404' do
       sign_in FactoryBot.create(:admin_user)
       expect do
         get :show_as_html,
