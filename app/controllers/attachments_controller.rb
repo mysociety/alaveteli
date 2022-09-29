@@ -104,13 +104,9 @@ class AttachmentsController < ApplicationController
       request.format = :html
       return render_hidden
     end
-
     if cannot?(:read, @incoming_message)
       request.format = :html
-      return render_hidden(
-        'request/hidden_correspondence',
-        locals: { message: @incoming_message }
-      )
+      return render_hidden('request/hidden_correspondence')
     end
 
     return if @attachment
