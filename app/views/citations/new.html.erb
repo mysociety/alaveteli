@@ -33,6 +33,11 @@
       <%= _('Academic paper') %>
     </label>
     
+        <label for="citation_type_journal_or_periodical" class="form_label">
+      <%= f.radio_button :type, 'journal_or_periodical' %>
+      <%= _('Journal or periodical') %>
+    </label>
+    
         <label for="citation_type_book" class="form_label">
       <%= f.radio_button :type, 'book' %>
       <%= _('Book') %>
