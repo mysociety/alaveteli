@@ -15,7 +15,7 @@
 
 ##
 # A Citation of an InfoRequest or InfoRequestBatch in news stories or an
-# academic paper
+# academic paper, a journal/periodical, an online encyclopedia or other document/publication.
 #
 class Citation < ApplicationRecord
   self.inheritance_column = nil
@@ -29,7 +29,7 @@ class Citation < ApplicationRecord
                                    message: _('Source URL is too long') },
                          format: { with: /\Ahttps?:\/\/.*\z/,
                                    message: _('Please enter a Source URL') }
-  validates :type, inclusion: { in: %w(news_story academic_paper other),
+  validates :type, inclusion: { in: %w(news_story academic_paper journal_or_periodical book online_encyclopedia other),
                                 message: _('Please select a type') }
 
   scope :newest, ->(limit = 1) do
