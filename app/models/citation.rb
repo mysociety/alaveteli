@@ -15,7 +15,8 @@
 
 ##
 # A Citation of an InfoRequest or InfoRequestBatch in news stories or an
-# academic paper, a journal/periodical, an online encyclopedia or other document/publication.
+# academic paper, a journal/periodical, 
+# an online encyclopedia or other document/publication.
 #
 class Citation < ApplicationRecord
   self.inheritance_column = nil
