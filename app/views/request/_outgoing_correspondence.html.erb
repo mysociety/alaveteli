@@ -1,4 +1,4 @@
-<div class="outgoing correspondence js-collapsable" id="outgoing-<%= outgoing_message.id %>">
+<div class="outgoing correspondence js-collapsable" id="<%= dom_id(outgoing_message) %>">
   <%- if cannot?(:read, outgoing_message) %>
     <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
   <%- else %>
@@ -29,7 +29,9 @@
       <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_delivery_status_path(outgoing_message), :target => '_blank' %></p>
     </div>
 
-    <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
+    <div class="correspondence_text">
+      <div><%= outgoing_message.get_body_for_html_display %></div>
+    </div>
 
     <p class="event_actions">
       <% if outgoing_message.status == 'ready' && !@info_request.is_external? %>

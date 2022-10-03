@@ -294,15 +294,12 @@ module LinkToHelper
 
   # Private: Generate a request_url linking to the new correspondence
   def message_url(message, options = {})
-    message_type = message.class.to_s.gsub('Message', '').downcase
-    anchor = "#{ message_type }-#{ message.id }"
+    anchor = dom_id(message)
 
     return "##{anchor}" if options[:anchor_only]
     default_options = { anchor: anchor }
 
-    if options.delete(:cachebust)
-      default_options.merge!(:nocache => "#{ message_type }-#{ message.id }")
-    end
+    default_options[:nocache] = anchor if options.delete(:cachebust)
 
     request_url(message.info_request, options.merge(default_options))
   end
@@ -311,4 +308,18 @@ module LinkToHelper
     message_url(message, options.merge(:only_path => true))
   end
 
+  def dom_id(record, prefix = nil)
+    case record
+    when IncomingMessage
+      param_key = 'incoming'
+    when OutgoingMessage
+      param_key = 'outgoing'
+    when FoiAttachment
+      param_key = 'attachment'
+    else
+      return super
+    end
+
+    [prefix, param_key, record.to_param].compact.join('-')
+  end
 end

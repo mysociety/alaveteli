@@ -1,4 +1,4 @@
-<div class="incoming correspondence <%= incoming_message.prominence %> js-collapsable" id="incoming-<%= incoming_message.id %>">
+<div class="incoming correspondence <%= incoming_message.prominence %> js-collapsable" id="<%= dom_id(incoming_message) %>">
   <div class="correspondence__header">
     <span class="correspondence__header__author js-collapsable-trigger">
       <% if incoming_message.specific_from_name? %>
@@ -24,10 +24,10 @@
                  locals: { incoming_message: incoming_message } %>
     <% end %>
 
-    <%= render :partial => 'request/bubble',
-               :locals => { :incoming_message => incoming_message,
-                            :body => incoming_message.get_body_for_html_display(@collapse_quotes),
-                            :attachments => incoming_message.get_attachments_for_display }  %>
+    <div class="correspondence_text">
+      <%= render partial: 'request/attachments',
+                 locals: { incoming_message: incoming_message } %>
+    </div>
 
     <p class="event_actions">
       <% if !@user.nil? && @user.admin_page_links? %>
