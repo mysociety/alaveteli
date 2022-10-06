@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add count of requests in each prominence state to body and user admin pages
+  (Gareth Rees)
 * Improved notes feature, allowing multiple notes to be associated with bodies
   and requests. Association can either be direct or via a tag. Tagged notes are
   useful for displaying one note to a subset of bodies or requests which are all
