@@ -57,15 +57,20 @@ class ServicesController < ApplicationController
   end
 
   def hidden_user_explanation
-    render template: "admin_request/hidden_user_explanation",
-           formats: [:text],
-           layout: false,
-           locals: {
-             name_to: @info_request.user_name.html_safe,
-             info_request: @info_request,
-             message: params[:message],
-             info_request_url: request_url(@info_request),
-             site_name: site_name.html_safe }
+    render json: {
+      explanation: render_to_string(
+        template: "admin_request/hidden_user_explanation",
+        formats: [:text],
+        layout: false,
+        locals: {
+          name_to: @info_request.user_name.html_safe,
+          info_request: @info_request,
+          message: params[:message],
+          info_request_url: request_url(@info_request),
+          site_name: site_name.html_safe
+        }
+      )
+    }
   end
 
   private
