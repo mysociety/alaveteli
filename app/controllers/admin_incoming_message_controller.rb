@@ -32,9 +32,11 @@ class AdminIncomingMessageController < AdminController
 
   def destroy
     @incoming_message.destroy
-    @incoming_message.info_request.log_event("destroy_incoming",
-                                             { :editor => admin_current_user,
-                                              :deleted_incoming_message_id => @incoming_message.id })
+    @incoming_message.info_request.log_event(
+      'destroy_incoming',
+      editor: admin_current_user,
+      deleted_incoming_message_id: @incoming_message.id
+    )
     # expire cached files
     @incoming_message.info_request.expire(:preserve_database_cache => true)
     flash[:notice] = 'Incoming message successfully destroyed.'
@@ -54,9 +56,11 @@ class AdminIncomingMessageController < AdminController
       @incoming_messages.each do |message|
         begin
           message.destroy
-          info_request.log_event("destroy_incoming",
-                                 { :editor => admin_current_user,
-                                   :deleted_incoming_message_id => message.id })
+          info_request.log_event(
+            'destroy_incoming',
+            editor: admin_current_user,
+            deleted_incoming_message_id: message.id
+          )
         rescue
           errors << message.id
         end
@@ -105,11 +109,12 @@ class AdminIncomingMessageController < AdminController
                   raw_email_data,
                   { :override_stop_new_responses => true })
 
-        @incoming_message.info_request.log_event("redeliver_incoming", {
-                                                  :editor => admin_current_user,
-                                                  :destination_request => destination_request.id,
-                                                  :deleted_incoming_message_id => @incoming_message.id
-        })
+        @incoming_message.info_request.log_event(
+          'redeliver_incoming',
+          editor: admin_current_user,
+          destination_request: destination_request.id,
+          deleted_incoming_message_id: @incoming_message.id
+        )
 
         flash[:notice] = "Message has been moved to request(s). Showing the last one:"
       end

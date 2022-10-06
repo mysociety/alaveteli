@@ -57,8 +57,10 @@ FactoryBot.define do
       after(:create) do |info_request, evaluator|
         incoming_message = create(evaluator.incoming_message_factory,
                                   info_request: info_request)
-        info_request.log_event("response",
-                               { incoming_message_id: incoming_message.id })
+        info_request.log_event(
+          'response',
+          incoming_message_id: incoming_message.id
+        )
       end
     end
 
@@ -139,13 +141,15 @@ FactoryBot.define do
 
     trait :attention_requested do
       after(:create) do |info_request, _evaluator|
-        info_request.log_event('report_request',
-                               request_id: info_request.id,
-                               editor: info_request.user,
-                               reason: 'Not a valid request',
-                               message: 'Useful info',
-                               old_attention_requested: false,
-                               attention_requested: true)
+        info_request.log_event(
+          'report_request',
+          request_id: info_request.id,
+          editor: info_request.user,
+          reason: 'Not a valid request',
+          message: 'Useful info',
+          old_attention_requested: false,
+          attention_requested: true
+        )
         info_request.set_described_state('attention_requested')
       end
     end
@@ -180,7 +184,7 @@ FactoryBot.define do
 
     trait :embargo_expired do
       after(:create) do |info_request, evaluator|
-        info_request.log_event("expire_embargo", info_request: info_request)
+        info_request.log_event('expire_embargo', info_request: info_request)
         info_request.reload
       end
     end

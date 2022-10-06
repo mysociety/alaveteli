@@ -128,8 +128,9 @@ module AlaveteliPro
         info_request = embargo.info_request
         event = info_request.log_event(
           'embargo_expiring',
-          { :event_created_at => Time.zone.now },
-          { :created_at => embargo.expiring_notification_at })
+          { event_created_at: Time.zone.now },
+          created_at: embargo.expiring_notification_at
+        )
         if info_request.use_notifications?
           info_request.user.notify(event)
         end

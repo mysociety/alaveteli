@@ -144,14 +144,15 @@ class Comment < ApplicationRecord
 
       RequestMailer.requires_admin(info_request, user, message).deliver_now
 
-      info_request.
-        log_event('report_comment',
-                  comment_id: id,
-                  editor: user,
-                  reason: reason,
-                  message: raw_message,
-                  old_attention_requested: old_attention,
-                  attention_requested: true)
+      info_request.log_event(
+        'report_comment',
+        comment_id: id,
+        editor: user,
+        reason: reason,
+        message: raw_message,
+        old_attention_requested: old_attention,
+        attention_requested: true
+      )
     end
   end
 
@@ -165,10 +166,12 @@ class Comment < ApplicationRecord
 
   def hide(editor:)
     ActiveRecord::Base.transaction do
-      event_params = { comment_id: id,
-                       editor: editor.url_name,
-                       old_visible: visible?,
-                       visible: false }
+      event_params = {
+        comment_id: id,
+        editor: editor.url_name,
+        old_visible: visible?,
+        visible: false
+      }
 
       update!(visible: false)
       info_request.log_event('hide_comment', event_params)
