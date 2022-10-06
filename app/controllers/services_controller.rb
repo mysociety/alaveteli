@@ -4,6 +4,10 @@ class ServicesController < ApplicationController
 
   skip_before_action :html_response
 
+  before_action :set_info_request, :check_info_request, only: %i[
+    hidden_user_explanation
+  ]
+
   def other_country_message
     flash.keep
 
@@ -53,19 +57,28 @@ class ServicesController < ApplicationController
   end
 
   def hidden_user_explanation
-    info_request = InfoRequest.find(params[:info_request_id])
     render template: "admin_request/hidden_user_explanation",
            formats: [:text],
            layout: false,
            locals: {
-             name_to: info_request.user_name.html_safe,
-             info_request: info_request,
+             name_to: @info_request.user_name.html_safe,
+             info_request: @info_request,
              message: params[:message],
-             info_request_url: request_url(info_request),
+             info_request_url: request_url(@info_request),
              site_name: site_name.html_safe }
   end
 
   private
+
+  def set_info_request
+    @info_request = InfoRequest.find(params[:info_request_id])
+  end
+
+  def check_info_request
+    return if can? :admin, @info_request
+
+    raise ActiveRecord::RecordNotFound
+  end
 
   def user_site_and_eu_site_msg(country_name, country_link)
     _("Hello! You can make Freedom of Information requests within " \
