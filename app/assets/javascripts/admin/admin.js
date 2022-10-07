@@ -19,12 +19,12 @@
       $('#request_hidden_user_explanation_field').val("[loading default text...]");
       return $.ajax("/hidden_user_explanation?message=" + message + "&info_request_id=" + info_request_id, {
         type: "GET",
-        dataType: "text",
+        dataType: "json",
         error: function(data, textStatus, jqXHR) {
           return $('#request_hidden_user_explanation_field').val("Error: " + textStatus);
         },
         success: function(data, textStatus, jqXHR) {
-          return $('#request_hidden_user_explanation_field').val(data);
+          return $('#request_hidden_user_explanation_field').val(data.explanation);
         }
       });
     });
