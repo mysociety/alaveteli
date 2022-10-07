@@ -234,8 +234,9 @@ RSpec.describe TrackMailer do
         tracking_user: user)
       info_request.log_event(
         'sent',
-        :outgoing_message_id => info_request.outgoing_messages.first.id,
-        :email => info_request.public_body.request_email)
+        outgoing_message_id: info_request.outgoing_messages.first.id,
+        email: info_request.public_body.request_email
+      )
 
       ActionMailer::Base.deliveries.clear
       update_xapian_index

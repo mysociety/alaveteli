@@ -2041,8 +2041,10 @@ RSpec.describe InfoRequest do
     it 'returns the last undescribed event id' do
       incoming_message = FactoryBot.create(:incoming_message,
                                            info_request: info_request)
-      info_request.
-        log_event('response', incoming_message_id: incoming_message.id)
+      info_request.log_event(
+        'response',
+        incoming_message_id: incoming_message.id
+      )
 
       expect(subject).to eq incoming_message.info_request_events.last.id
     end
@@ -2160,7 +2162,10 @@ RSpec.describe InfoRequest do
         request = FactoryBot.create(:info_request, :public_body => public_body)
         incoming_message = FactoryBot.create(:plain_incoming_message,
                                              :info_request => request)
-        request.log_event("response", {:incoming_message_id => incoming_message.id})
+        request.log_event(
+          'response',
+          incoming_message_id: incoming_message.id
+        )
         expect(request.postal_email).to eq("bob@example.com")
       end
 
@@ -2187,7 +2192,10 @@ RSpec.describe InfoRequest do
         request = FactoryBot.create(:info_request, :public_body => public_body)
         incoming_message = FactoryBot.create(:plain_incoming_message,
                                              :info_request => request)
-        request.log_event("response", {:incoming_message_id => incoming_message.id})
+        request.log_event(
+          'response',
+          incoming_message_id: incoming_message.id
+        )
         expect(request.postal_email_name).to eq("Bob Responder")
       end
 
@@ -3055,7 +3063,7 @@ RSpec.describe InfoRequest do
           # A response is received
           # This is normally done in InfoRequest#receive
           request.awaiting_description = true
-          request.log_event("response", {})
+          request.log_event('response', {})
 
           events = request.info_request_events
           expect(events.count).to eq(2)
@@ -3076,10 +3084,10 @@ RSpec.describe InfoRequest do
           request.set_described_state('waiting_response')
           # A response is received
           request.awaiting_description = true
-          request.log_event("response", {})
+          request.log_event('response', {})
           # The request is classified by the requesting user
           # This is normally done in RequestController#describe_state
-          request.log_event("status_update", {})
+          request.log_event('status_update', {})
           request.set_described_state("waiting_response")
 
           events = request.info_request_events
@@ -3101,9 +3109,9 @@ RSpec.describe InfoRequest do
           request.set_described_state('waiting_response')
           # A response is received
           request.awaiting_description = true
-          request.log_event("response", {})
+          request.log_event('response', {})
           # The request is classified by the requesting user
-          request.log_event("status_update", {})
+          request.log_event('status_update', {})
           request.set_described_state("waiting_response")
           # A normal follow up is sent
           # This is normally done in
@@ -3133,15 +3141,15 @@ RSpec.describe InfoRequest do
           request.set_described_state('waiting_response')
           # A response is received
           request.awaiting_description = true
-          request.log_event("response", {})
+          request.log_event('response', {})
           # The request is classified by the requesting user
-          request.log_event("status_update", {})
+          request.log_event('status_update', {})
           request.set_described_state("waiting_response")
           # A normal follow up is sent
           request.log_event('followup_sent', {})
           request.set_described_state('waiting_response')
           # The request is classified by the requesting user
-          request.log_event("status_update", {})
+          request.log_event('status_update', {})
           request.set_described_state("waiting_response")
 
           events = request.info_request_events
@@ -3193,7 +3201,7 @@ RSpec.describe InfoRequest do
           request.log_event('followup_sent', {})
           request.set_described_state('internal_review')
           # The user marks the request as rejected
-          request.log_event("status_update", {})
+          request.log_event('status_update', {})
           request.set_described_state("rejected")
 
           events = request.info_request_events
@@ -3219,7 +3227,7 @@ RSpec.describe InfoRequest do
           request.set_described_state('waiting_response')
           # The user marks the request as successful (I know silly but someone did
           # this in https://www.whatdotheyknow.com/request/family_support_worker_redundanci)
-          request.log_event("status_update", {})
+          request.log_event('status_update', {})
           request.set_described_state("successful")
 
           events = request.info_request_events
@@ -3239,10 +3247,10 @@ RSpec.describe InfoRequest do
 
           # A response is received
           request.awaiting_description = true
-          request.log_event("response", {})
+          request.log_event('response', {})
 
           # The user marks the request as successful
-          request.log_event("status_update", {})
+          request.log_event('status_update', {})
           request.set_described_state("successful")
 
           events = request.info_request_events
@@ -3268,7 +3276,7 @@ RSpec.describe InfoRequest do
           request.set_described_state('waiting_response')
           # An admin sets the status of the request to 'gone postal' using
           # the admin interface
-          request.log_event("edit", {})
+          request.log_event('edit', {})
           request.set_described_state("gone_postal")
 
           events = request.info_request_events
@@ -3803,7 +3811,7 @@ RSpec.describe InfoRequest do
 
           info_request.log_event(
             'overdue',
-            event_created_at: Time.zone.now,
+            { event_created_at: Time.zone.now },
             created_at: Time.zone.now - 1.day
           )
 
@@ -3826,7 +3834,7 @@ RSpec.describe InfoRequest do
 
           info_request.log_event(
             'overdue',
-            event_created_at: Time.zone.now,
+            { event_created_at: Time.zone.now },
             created_at: Time.zone.now - 1.day
           )
 
@@ -3846,10 +3854,11 @@ RSpec.describe InfoRequest do
     it "updates the request summary when the status is updated" do
       expect(summary.request_summary_categories).to match_array([received])
       info_request.log_event(
-        "status_update",
+        'status_update',
         user_id: info_request.user.id,
         old_described_state: info_request.described_state,
-        described_state: 'successful')
+        described_state: 'successful'
+      )
       info_request.set_described_state('successful')
       expect(summary.reload.request_summary_categories).
         to match_array([complete])
@@ -4234,7 +4243,7 @@ RSpec.describe InfoRequest do
     let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'creates an event with the type and params passed' do
-      info_request.log_event("resent", :param => 'value')
+      info_request.log_event('resent', param: 'value')
       event = info_request.info_request_events.reload.last
       expect(event.event_type).to eq 'resent'
       expect(event.params).to eq :param => 'value'
@@ -4244,7 +4253,7 @@ RSpec.describe InfoRequest do
 
       it 'sets :created_at on the event using the :created_at param' do
         time = Time.zone.now.beginning_of_day
-        event = info_request.log_event("overdue", {}, { :created_at => time })
+        event = info_request.log_event('overdue', {}, { created_at: time })
         expect(event.created_at).to eq time
       end
 
@@ -4257,7 +4266,7 @@ RSpec.describe InfoRequest do
         travel_to(Time.zone.parse('2014-12-31')) { info_request }
 
         travel_to(Time.zone.parse('2015-01-01')) do
-          event = info_request.log_event("resent", :param => 'value')
+          event = info_request.log_event('resent', param: 'value')
           expect(info_request.last_event_forming_initial_request_id)
             .to eq event.id
           expect(info_request.date_initial_request_last_sent_at)
@@ -4274,7 +4283,7 @@ RSpec.describe InfoRequest do
             info request' do
       it 'sets the last_event_time on the info request to the event
           creation time' do
-        event = info_request.log_event("resent", :param => 'value')
+        event = info_request.log_event('resent', param: 'value')
         expect(info_request.last_event_time).to eq(event.created_at)
       end
     end
@@ -4285,7 +4294,7 @@ RSpec.describe InfoRequest do
           creation time' do
         info_request.last_event_time = nil
         info_request.save!
-        event = info_request.log_event("resent", :param => 'value')
+        event = info_request.log_event('resent', param: 'value')
         expect(info_request.last_event_time).to eq(event.created_at)
       end
     end
@@ -4294,9 +4303,11 @@ RSpec.describe InfoRequest do
              the info request' do
       it 'does not set the last event time to the event creation
           time' do
-        event = info_request.log_event("resent",
-                                       { :param => 'value' },
-                                       { :created_at => Time.now - 1.day })
+        event = info_request.log_event(
+          'resent',
+          { param: 'value' },
+          created_at: Time.now - 1.day
+        )
         expect(info_request.last_event_time).
           not_to eq(event.reload.created_at)
       end

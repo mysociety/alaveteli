@@ -574,8 +574,10 @@ RSpec.describe 'when destroying a message' do
 
   it 'should destroy the related info_request_event' do
     info_request = incoming_message.info_request
-    info_request.log_event('response',
-                           :incoming_message_id => incoming_message.id)
+    info_request.log_event(
+      'response',
+      incoming_message_id: incoming_message.id
+    )
     incoming_message.reload
     incoming_message.destroy
     expect(InfoRequestEvent.where(:incoming_message_id => incoming_message.id)).

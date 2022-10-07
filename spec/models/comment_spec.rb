@@ -198,12 +198,13 @@ RSpec.describe Comment do
 
     it 'returns the last report event' do
       comment.report!("Vexatious comment", "report", user)
-      comment.info_request.log_event("edit_comment",
-                             { :comment_id => comment.id,
-                               :editor => user,
-                               :old_body => comment.body,
-                               :body => 'fake change'
-                             })
+      comment.info_request.log_event(
+        'edit_comment',
+        comment_id: comment.id,
+        editor: user,
+        old_body: comment.body,
+        body: 'fake change'
+      )
       comment.reload
 
       expect(comment.info_request_events.last.event_type).to eq("edit_comment")

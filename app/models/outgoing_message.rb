@@ -224,8 +224,11 @@ class OutgoingMessage < ApplicationRecord
     self.status = 'failed'
     save!
 
-    info_request.log_event('send_error', reason: failure_reason,
-                                         outgoing_message_id: id)
+    info_request.log_event(
+      'send_error',
+      reason: failure_reason,
+      outgoing_message_id: id
+    )
     set_info_request_described_state
   end
 
@@ -236,9 +239,12 @@ class OutgoingMessage < ApplicationRecord
 
     log_event_type = "followup_#{ log_event_type }" if message_type == 'followup'
 
-    info_request.log_event(log_event_type, { :email => to_addrs,
-                                             :outgoing_message_id => id,
-                                             :smtp_message_id => message_id })
+    info_request.log_event(
+      log_event_type,
+      email: to_addrs,
+      outgoing_message_id: id,
+      smtp_message_id: message_id
+    )
     set_info_request_described_state
   end
 
