@@ -498,9 +498,11 @@ class IncomingMessage < ApplicationRecord
     return attachments
   end
 
+  # rubocop:disable Naming/AccessorMethodName
   def get_attachments_for_search_index
     get_attachments_for_display.select(&:indexed_by_search?)
   end
+  # rubocop:enable Naming/AccessorMethodName
 
   def extract_attachments!
     extract_attachments
