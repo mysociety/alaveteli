@@ -11,7 +11,7 @@ RSpec.describe "request_mailer/new_response_reminder_alert" do
   it "does not add HTMLEntities to the request title" do
     assign(:info_request, request)
     render
-    expect(response).to match("Your request was called Apostrophe's")
+    expect(response).to match("Your request was called 'Apostrophe's'")
   end
 
   it "does not add HTMLEntities to the site name" do

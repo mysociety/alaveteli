@@ -28,7 +28,7 @@ RSpec.describe "request_mailer/stopped_responses" do
   it "does not add HTMLEntities to the request title" do
     assign(:info_request, request)
     render
-    expect(response).to match("Request apostrophe's data is an old request")
+    expect(response).to match("'Request apostrophe's data' is an old request")
   end
 
   it "does not add HTMLEntities to the user name" do
