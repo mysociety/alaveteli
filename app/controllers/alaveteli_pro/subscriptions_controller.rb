@@ -3,7 +3,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   skip_before_action :html_response, only: [:create, :authorise]
   skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
+
   before_action :authenticate, only: [:create, :authorise]
+  before_action :check_allowed_to_subscribe_to_pro, only: [:create]
   before_action :prevent_duplicate_submission, only: [:create]
   before_action :check_plan_exists, only: [:create]
   before_action :check_has_current_subscription, only: [:index]
@@ -187,6 +189,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       email: _('Then you can upgrade your account'),
       email_subject: _('To upgrade your account')
     )
+  end
+
+  def check_allowed_to_subscribe_to_pro
+    return if current_user.active?
+
+    flash[:error] = _("Sorry, you can't sign up to {{pro_site_name}} at this " \
+                      "time.", pro_site_name: pro_site_name)
+    json_redirect_to pro_plans_path
   end
 
   def check_has_current_subscription
