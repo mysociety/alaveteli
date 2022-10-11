@@ -290,6 +290,11 @@ module LinkToHelper
     url_for(sanitized_params.merge(format: :json, only_path: true))
   end
 
+  def incoming_message_dom_id(incoming_message)
+    body = incoming_message.get_main_body_text_part
+    dom_id(body) if body
+  end
+
   private
 
   # Private: Generate a request_url linking to the new correspondence
