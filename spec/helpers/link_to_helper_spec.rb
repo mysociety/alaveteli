@@ -249,4 +249,21 @@ RSpec.describe LinkToHelper do
       expect(current_path_as_json).to eq '/body/welsh_government.json'
     end
   end
+
+  describe '#incoming_message_dom_id' do
+    subject { incoming_message_dom_id(incoming_message) }
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    context 'incoming message with main body part' do
+      it 'returns main body part attachment dom ID' do
+        main_body_part = incoming_message.get_main_body_text_part
+        is_expected.to eq "attachment-#{main_body_part.to_param}"
+      end
+    end
+
+    context 'incoming message without main body part' do
+      before { allow(incoming_message).to receive(:get_main_body_text_part) }
+      it { is_expected.to be_nil }
+    end
+  end
 end
