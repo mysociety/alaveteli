@@ -52,7 +52,7 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
 
-  admin_columns exclude: %i[title url_title],
+  admin_columns exclude: %i[title url_title prominence prominence_reason],
                 include: %i[rejected_incoming_count]
 
   def self.admin_title
