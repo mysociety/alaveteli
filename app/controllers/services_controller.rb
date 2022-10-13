@@ -57,7 +57,13 @@ class ServicesController < ApplicationController
   end
 
   def hidden_user_explanation
+    reason = render_to_string(
+      partial: "admin_request/hidden_user_explanation/#{params[:message]}",
+      formats: [:text]
+    )
+
     render json: {
+      prominence_reason: reason,
       explanation: render_to_string(
         template: "admin_request/hidden_user_explanation",
         formats: [:text],
@@ -65,7 +71,7 @@ class ServicesController < ApplicationController
         locals: {
           name_to: @info_request.user_name.html_safe,
           info_request: @info_request,
-          message: params[:message],
+          reason: reason,
           info_request_url: request_url(@info_request),
           site_name: site_name.html_safe
         }
