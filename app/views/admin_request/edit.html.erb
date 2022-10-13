@@ -66,6 +66,11 @@
 
   <p><label for="info_request_prominence_reason"><strong>Reason for prominence</strong></label>
     <%= text_area 'info_request', 'prominence_reason', rows: 5, class: 'span6' %>
+
+    <span class="help-block">
+      This reason is shown in public. If left blank a generic reason of
+      "<%= ProminenceHelper::Base.default_prominence_reason %>" will be shown.
+    </span>
   </p>
 
   <p><label for="info_request_described_state"><strong>Described state</strong></label>
