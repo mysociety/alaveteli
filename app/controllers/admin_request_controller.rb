@@ -167,14 +167,22 @@ class AdminRequestController < AdminController
     ActiveRecord::Base.transaction do
       subject = params[:subject]
       explanation = params[:explanation]
+
+      old_prominence = @info_request.prominence
+      old_prominence_reason = @info_request.prominence_reason
       @info_request.prominence = "requester_only"
+      @info_request.prominence_reason = params[:prominence_reason]
 
       @info_request.log_event(
         'hide',
         editor: admin_current_user,
         reason: params[:reason],
         subject: subject,
-        explanation: explanation
+        explanation: explanation,
+        old_prominence: old_prominence,
+        prominence: @info_request.prominence,
+        old_prominence_reason: old_prominence_reason,
+        prominence_reason: @info_request.prominence_reason
       )
 
       @info_request.set_described_state(params[:reason])

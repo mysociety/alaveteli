@@ -200,6 +200,13 @@
           </div>
         </div>
 
+        <div class="control-group" id="request_hidden_user_prominence_reason">
+          <label for="request_hidden_user_prominence_reason_field" class="control-label">Prominence Reason:</label>
+          <div class="controls">
+            <%= text_area_tag "prominence_reason", "", {:id => "request_hidden_user_prominence_reason_field"} %>
+          </div>
+        </div>
+
       <% end %>
       <div class="form-actions" id="request_hide_button">
         <%= submit_tag 'Hide request', class: 'btn' %>
