@@ -25,6 +25,11 @@ module ProminenceHelper
     delegate :current_user, :request, :link_to,
              :help_contact_path, :signin_path, to: :@helper
 
+    def self.default_prominence_reason
+      _("There are various reasons why we might have done this, sorry we " \
+        "can't be more specific here.")
+    end
+
     def initialize(helper, prominenceable)
       @helper = helper
       @prominenceable = prominenceable
@@ -83,18 +88,12 @@ module ProminenceHelper
     end
 
     def reason
-      if prominenceable.respond_to?(:prominence_reason) &&
-         prominenceable.prominence_reason.present?
-        prominenceable.prominence_reason
-      else
-        default_prominence_reason
-      end
+      prominenceable.prominence_reason.presence || default_prominence_reason
     end
 
     def default_prominence_reason
       return '' if current_user&.is_admin?
-      _("There are various reasons why we might have done this, sorry we " \
-        "can't be more specific here.")
+      self.class.default_prominence_reason
     end
   end
 
