@@ -984,10 +984,14 @@ class PublicBody < ApplicationRecord
   end
 
   def update_not_many_requests_tag
-    if info_requests.is_searchable.size < not_many_public_requests_size
+    if is_requestable? && not_many_public_requests?
       add_tag_if_not_already_present('not_many_requests')
     else
       remove_tag('not_many_requests')
     end
+  end
+
+  def not_many_public_requests?
+    info_requests.is_searchable.size < not_many_public_requests_size
   end
 end

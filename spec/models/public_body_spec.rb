@@ -267,6 +267,18 @@ RSpec.describe PublicBody do
         expect(public_body).not_to be_tagged('not_many_requests')
       end
     end
+
+    context 'when a not_requestable body is is tagged not_many_requests' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      before { public_body.add_tag_if_not_already_present('not_many_requests') }
+      before { public_body.update(request_email: '') }
+
+      it 'removes the not many requests tag' do
+        subject
+        expect(public_body).not_to be_tagged('not_many_requests')
+      end
+    end
   end
 
   describe '#name' do
