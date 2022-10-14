@@ -8,13 +8,12 @@
   <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
 </div>
 
-<h2>Raw email</h2>
-
-<p><%= link_to "Download",  admin_raw_email_path(@raw_email, :format => 'eml'), :class => 'btn' %></p>
-
 <h2>Preview</h2>
 
-<p>For an exact rendering of this email, use the "Download" link.</p>
+<p>
+  <%= link_to 'Download', admin_raw_email_path(@raw_email, format: 'eml'), class: 'btn' %>
+  <span class="muted">Download the email for an exact rendering.</span>
+</p>
 
 <table class="table table-striped table-condensed table-hover">
   <thead>
