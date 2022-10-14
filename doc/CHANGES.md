@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Automatically apply `not_many_requests` tag to bodies who don't have many
+  public requests so that they can be found in a public list or have tag-based
+  notes applied (Gareth Rees)
 * Signpost key user administration contributions for requests on request list
   pages (Gareth Rees)
 * Signpost users to find new contact details for requests with delivery errors
@@ -9,6 +12,15 @@
 * Add admin view of unmasked version of main body part attachments (Gareth Rees)
 * Add internal ID number to authority CSV download (Alex Parsons, Graeme
   Porteous)
+
+
+## Upgrade Notes
+
+* _Optional:_ Bodies with not many requests will automatically get tagged
+  `not_many_requests` as they are updated. If you want to automatically tag them
+  all in one go, run the following from the app root directory:
+
+      bin/rails runner "PublicBody.where('info_requests_visible_count < ?', PublicBody.not_many_public_requests_size).each(&:save)"
 
 # 0.44.0.0
 

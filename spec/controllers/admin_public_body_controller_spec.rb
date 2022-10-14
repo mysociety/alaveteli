@@ -673,6 +673,10 @@ RSpec.describe AdminPublicBodyController do
   end
 
   describe "DELETE #mass_tag" do
+    around do |example|
+      disable_not_many_requests_auto_tagging { example.run }
+    end
+
     it "mass removed tags" do
       body = FactoryBot.create(:public_body, tag_string: 'department foo')
       expect(PublicBody.find_by_tag("department").count).to eq(1)

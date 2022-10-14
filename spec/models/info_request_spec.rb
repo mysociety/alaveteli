@@ -3655,6 +3655,17 @@ RSpec.describe InfoRequest do
       expect(info_request).to receive(:update_counter_cache)
       info_request.save!
     end
+
+    it 'notifies the public body when created' do
+      expect(info_request.public_body).to receive(:request_created)
+      info_request.save!
+    end
+
+    it 'does not notify the public body when updated' do
+      info_request.save!
+      expect(info_request.public_body).not_to receive(:request_created)
+      info_request.save!
+    end
   end
 
   describe 'when changing a described_state' do
