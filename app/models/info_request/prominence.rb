@@ -1,10 +1,10 @@
 class InfoRequest
   module Prominence
-
-    VALUES = [ 'normal',
-               'backpage',
-               'hidden',
-               'requester_only' ]
-
+    VALUES = %w(
+      normal
+      backpage
+      requester_only
+      hidden
+    )
   end
 end
