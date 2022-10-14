@@ -51,7 +51,7 @@
               </tr>
             <% end %>
 
-            <% @info_request.for_admin_column(:prominence, :prominence_reason) do |name, value| %>
+            <% @info_request.for_admin_column do |name, value| %>
               <tr>
                 <td>
                   <b><%= name.humanize %>:</b>
@@ -59,20 +59,7 @@
                 <td>
                   <% if name == 'prominence' %>
                     <%= h highlight_prominence(value) %>
-                  <% else %>
-                    <%= admin_value(value)%>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-
-            <% @info_request.for_admin_column do |name, value| %>
-              <tr>
-                <td>
-                  <b><%= name.humanize %>:</b>
-                </td>
-                <td>
-                  <% if name == 'allow_new_responses_from' %>
+                  <% elsif name == 'allow_new_responses_from' %>
                     <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
                     <%= admin_value(value)%>
