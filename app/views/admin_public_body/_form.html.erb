@@ -54,7 +54,9 @@
     <%= f.text_field :tag_string, :class => "span4" %>
     <div class="help-block">
       <p>Space separated – see list of tags on the right.</p>
-      <p>Special tags:</p>
+
+      <p>Special tags that change behaviour:</p>
+
       <ul>
         <li><code>not_apply</code>: if FOI and EIR no longer apply to authority and prevents further requests from being sent</li>
         <li><code>foi_no</code>: FOI does not apply but we list the authority to campaign for it to be subject to FOI</li>
@@ -62,8 +64,13 @@
         <li><code>defunct</code> if the authority no longer exists</li>
         <li><code>charity:NUMBER</code> if a registered charity</li>
         <li><code>important_notes</code> if the notes have major implications on making a request to this authority</li>
-        <li><code>missing_email</code> is automatically applied (and removed) so that users can help source missing request addresses via a <%= link_to 'public search', list_public_bodies_by_tag_path('missing_email') %>.</li>
-        <li><code>not_many_requests</code> is automatically applied (and removed) so that users can find low-transparency bodies via a <%= link_to 'public search', list_public_bodies_by_tag_path('not_many_requests') %>.</li>
+      </ul>
+
+      <p>Automatically applied and removed tags:</p>
+
+      <ul>
+        <li><code>missing_email</code> users can help source missing request addresses via a <%= link_to 'public search', list_public_bodies_by_tag_path('missing_email') %>.</li>
+        <li><code>not_many_requests</code> users can find low-transparency bodies via a <%= link_to 'public search', list_public_bodies_by_tag_path('not_many_requests') %>.</li>
       </ul>
     </div>
   </div>
