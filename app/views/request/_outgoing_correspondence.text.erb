@@ -1,6 +1,6 @@
 <%= render partial:  'request/prominence',
            formats: [:text],
-           locals: { message: outgoing_message } %>
+           locals: { prominenceable: outgoing_message } %>
 <% if can?(:read, outgoing_message) %>
 <%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
 <%= _('To:') %> <%= @info_request.public_body.name %>
