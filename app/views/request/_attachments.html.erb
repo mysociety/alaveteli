@@ -15,10 +15,9 @@
         <%= tag.li class: 'attachment', id: dom_id(a) do %>
           <% if cannot?(:read, a) %>
             <img class="attachment__image" alt="Attachment" src="/assets/content_type/icon_unknown.png"></a>
-            <%= render partial: 'request/hidden_attachment', locals: { attachment: a } %>
-          <% else %>
-            <%= render partial: 'request/restricted_attachment', locals: { attachment: a } %>
-
+          <% end %>
+          <%= render_prominence(a) %>
+          <% if can?(:read, a) %>
             <%= attachment_link(incoming_message, a) %>
 
             <p class="attachment__name">
@@ -43,12 +42,8 @@
 <% end %>
 
 <%= tag.div class: 'attachment', id: dom_id(incoming_message.get_main_body_text_part) do %>
-  <% if cannot?(:read, incoming_message.get_main_body_text_part) %>
-    <%= render partial: 'request/hidden_attachment',
-               locals: { attachment: incoming_message.get_main_body_text_part } %>
-  <% else %>
-    <%= render partial: 'request/restricted_attachment',
-               locals: { attachment: incoming_message.get_main_body_text_part } %>
+  <%= render_prominence(incoming_message.get_main_body_text_part) %>
+  <% if can?(:read, incoming_message.get_main_body_text_part) %>
     <%= incoming_message.get_body_for_html_display(@collapse_quotes) %>
   <% end %>
 <% end %>
