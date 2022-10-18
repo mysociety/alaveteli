@@ -389,7 +389,9 @@ class IncomingMessage < ApplicationRecord
   # Given a main text part, converts it to text
   def _convert_part_body_to_text(part)
     if part.nil?
-      text = "[ Email has no body, please see attachments ]"
+      return "[ Email has no body, please see attachments ]"
+    elsif Ability.guest.cannot?(:read, part)
+      return ''
     else
       # whatever kind of attachment it is, get the UTF-8 encoded text
       text = part.body_as_text.string
@@ -628,6 +630,8 @@ class IncomingMessage < ApplicationRecord
   def _extract_text
     # Extract text from each attachment
     get_attachments_for_search_index.reduce('') { |memo, attachment|
+      return memo if Ability.guest.cannot?(:read, attachment)
+
       memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                        attachment.default_body,
                                                        attachment.charset)

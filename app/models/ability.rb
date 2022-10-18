@@ -4,6 +4,10 @@ class Ability
 
   attr_reader :user, :project, :public_token
 
+  def self.guest
+    new(nil)
+  end
+
   def initialize(user, project: nil, public_token: false)
     # Define abilities for the passed in user here. For example:
     #
@@ -43,8 +47,7 @@ class Ability
 
     # Viewing messages with prominence
     can :read, FoiAttachment do |attachment|
-      can_view_with_prominence?(attachment.prominence,
-                                attachment.incoming_message.info_request)
+      can_view_with_prominence?(attachment.prominence, attachment.incoming_message.info_request)
     end
 
     can :read, [IncomingMessage, OutgoingMessage] do |msg|
