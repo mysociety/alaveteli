@@ -14,7 +14,7 @@
     <% end %>
   </div>
 
-  <%= render partial: 'request/prominence', locals: { message: incoming_message } %>
+  <%= render partial: 'request/prominence', locals: { prominenceable: incoming_message } %>
 
   <%- if can?(:read, incoming_message) %>
     <% if feature_enabled?(:refusal_identification) %>

@@ -1,5 +1,5 @@
 <div class="outgoing correspondence js-collapsable" id="<%= dom_id(outgoing_message) %>">
-  <%= render partial: 'request/prominence', locals: { message: outgoing_message } %>
+  <%= render partial: 'request/prominence', locals: { prominenceable: outgoing_message } %>
 
   <%- if can?(:read, outgoing_message) %>
     <% delivery_status = outgoing_message.delivery_status %>
