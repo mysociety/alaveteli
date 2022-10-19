@@ -6,14 +6,16 @@ module AdminColumn
       def admin_columns(exclude: nil, include: nil)
         @excluded_admin_columns = exclude || @excluded_admin_columns
         @included_admin_columns = include || @included_admin_columns
-        sorted_columns
+        ordered_columns
       end
 
       # Ensure prominence_reason immediately follows prominence
-      def sorted_columns
+      def ordered_columns
         return all_columns unless prominenceable_admin_columns?
-        index = all_columns.index('prominence') + 1
-        all_columns.insert(index, all_columns.delete('prominence_reason'))
+
+        columns = all_columns
+        index = columns.index('prominence') + 1
+        columns.insert(index, columns.delete('prominence_reason'))
       end
 
       def prominenceable_admin_columns?
