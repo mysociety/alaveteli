@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update request base calculated status for internal reviews (Graeme Porteous)
 * Automatically apply `not_many_requests` tag to bodies who don't have many
   public requests so that they can be found in a public list or have tag-based
   notes applied (Gareth Rees)
