@@ -14,7 +14,7 @@
           <% elsif name == 'prominence' %>
             <%= h highlight_prominence(value) %>
           <% else %>
-            <%= simple_format(value.to_s) %>
+            <%= admin_value(value) %>
           <% end %>
         </td>
       </tr>
