@@ -461,6 +461,9 @@ Lint/DuplicateElsifCondition:
 Lint/DuplicateHashKey:
   Enabled: true
 
+Lint/DuplicateMagicComment:
+  Enabled: false
+
 Lint/DuplicateMethods:
   Enabled: true
 
@@ -1853,6 +1856,9 @@ Style/OneLineConditional:
 Style/OpenStructUse:
   Enabled: false
 
+Style/OperatorMethodCall:
+  Enabled: false
+
 Style/OptionHash:
   Enabled: false
 
@@ -1959,6 +1965,9 @@ Style/RedundantSort:
   Enabled: false
 
 Style/RedundantSortBy:
+  Enabled: false
+
+Style/RedundantStringEscape:
   Enabled: false
 
 Style/RegexpLiteral:
