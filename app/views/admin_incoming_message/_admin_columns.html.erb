@@ -8,7 +8,7 @@
 
         <td>
           <% if name =~ /^cached_.*?$/ %>
-            <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+            <% truncated_value = truncate(h(value&.squish), length: 100, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
             <%= simple_format(truncated_value) %>
             <div style="display:none;"><%= simple_format(value) %></div>
           <% elsif name == 'prominence' %>
