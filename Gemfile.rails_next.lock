@@ -407,7 +407,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.12.3)
       json
-    regexp_parser (2.5.0)
+    regexp_parser (2.6.0)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -442,17 +442,17 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.11.1)
-    rubocop (1.36.0)
+    rubocop (1.37.1)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.20.1, < 2.0)
+      rubocop-ast (>= 1.23.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.22.0)
+    rubocop-ast (1.23.0)
       parser (>= 3.1.1.0)
     rubocop-performance (1.15.0)
       rubocop (>= 1.7.0, < 2.0)
@@ -605,7 +605,7 @@ DEPENDENCIES
   routing-filter (~> 0.7.0)
   rspec-activemodel-mocks (~> 1.1.0)
   rspec-rails (~> 6.0.0)
-  rubocop (~> 1.36.0)
+  rubocop (~> 1.37.0)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
