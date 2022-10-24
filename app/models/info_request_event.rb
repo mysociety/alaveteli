@@ -42,6 +42,7 @@ class InfoRequestEvent < ApplicationRecord
     'destroy_outgoing', # deleted an outgoing message (in admin interface)
     'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
     'edit_incoming', # incoming message edited (in admin interface)
+    'edit_attachment', # attachment edited (in admin interface)
     'move_request', # changed user or public body (in admin interface)
     'hide', # hid a request (in admin interface)
     'manual', # you did something in the db by hand

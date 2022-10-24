@@ -9,10 +9,31 @@ class Admin::FoiAttachmentsController < AdminController
   end
 
   def update
-    redirect_to edit_admin_incoming_message_path(@incoming_message)
+    if @foi_attachment.update(foi_attachment_params)
+      @info_request.log_event(
+        'edit_attachment',
+        attachment_id: @foi_attachment.id,
+        editor: admin_current_user,
+        old_prominence: @foi_attachment.prominence_previously_was,
+        prominence: @foi_attachment.prominence,
+        old_prominence_reason: @foi_attachment.prominence_reason_previously_was,
+        prominence_reason: @foi_attachment.prominence_reason
+      )
+      @info_request.expire
+
+      flash[:notice] = 'Attachment successfully updated.'
+      redirect_to edit_admin_incoming_message_path(@incoming_message)
+
+    else
+      render action: 'edit'
+    end
   end
 
   private
+
+  def foi_attachment_params
+    params.require(:foi_attachment).permit(:prominence, :prominence_reason)
+  end
 
   def set_foi_attachment
     @foi_attachment = FoiAttachment.find(params[:id])

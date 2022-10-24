@@ -20,6 +20,26 @@
 </table>
 
 <%= form_tag admin_foi_attachment_path(@foi_attachment), method: 'put', class: 'form form-inline' do %>
+  <fieldset class="form-horizontal">
+    <legend>Prominence</legend>
+
+    <div class="control-group">
+      <label class="control-label" for="foi_attachment_prominence">Prominence</label>
+
+      <div class="controls">
+        <%= select 'foi_attachment', 'prominence', FoiAttachment.prominence_states %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="foi_attachment_prominence_reason">Reason for prominence</label>
+
+      <div class="controls">
+        <%= text_area 'foi_attachment', 'prominence_reason', rows: 5, class: 'span6' %>
+      </div>
+    </div>
+  </fieldset>
+
   <div class="form-actions">
     <%= submit_tag 'Save', class: 'btn btn-success' %>
   </div>
