@@ -1,0 +1,26 @@
+<%= render partial: 'intro', locals: {
+  info_request: @info_request,
+  incoming_message: @incoming_message,
+  foi_attachment: @foi_attachment
+} %>
+
+<table class="table table-striped table-condensed">
+  <tbody>
+    <% @foi_attachment.for_admin_column do |name, value| %>
+      <tr>
+        <td>
+          <b><%= name.humanize %></b>
+        </td>
+        <td>
+          <%= admin_value(value) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_tag admin_foi_attachment_path(@foi_attachment), method: 'put', class: 'form form-inline' do %>
+  <div class="form-actions">
+    <%= submit_tag 'Save', class: 'btn btn-success' %>
+  </div>
+<% end %>

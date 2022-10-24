@@ -1,0 +1,8 @@
+<% @title = "Attachment #{foi_attachment.id} of FOI request '#{info_request.title}'" %>
+<h1>Attachment <%= foi_attachment.id %></h1>
+
+<ul class="breadcrumb">
+  <li>FOI request: <%= both_links(info_request) %> <span class="divider">/</span></li>
+  <li>Message: <%= both_links(incoming_message) %> <span class="divider">/</span></li>
+  <li class="active">Attachment: <%= both_links(foi_attachment) %></li>
+</ul>

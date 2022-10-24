@@ -43,6 +43,17 @@ module LinkToHelper
     message_path(outgoing_message, options)
   end
 
+  def foi_attachment_url(foi_attachment, options = {})
+    incoming_message_url(
+      foi_attachment.incoming_message,
+      options.merge(anchor: dom_id(foi_attachment))
+    )
+  end
+
+  def foi_attachment_path(foi_attachment, options = {})
+    foi_attachment_url(foi_attachment, options.merge(only_path: true))
+  end
+
   def comment_url(comment, options = {})
     request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
   end
@@ -299,7 +310,8 @@ module LinkToHelper
 
   # Private: Generate a request_url linking to the new correspondence
   def message_url(message, options = {})
-    anchor = dom_id(message)
+    anchor = options[:anchor]
+    anchor ||= dom_id(message)
 
     return "##{anchor}" if options[:anchor_only]
     default_options = { anchor: anchor }

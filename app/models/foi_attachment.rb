@@ -40,6 +40,8 @@ class FoiAttachment < ApplicationRecord
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
 
+  admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest]
+
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 

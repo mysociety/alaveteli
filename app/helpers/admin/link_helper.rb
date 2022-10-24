@@ -38,6 +38,17 @@ module Admin::LinkHelper
               title: admin_title)
   end
 
+  def foi_attachment_both_links(foi_attachment)
+    title = 'View attachment on public website'
+    icon = eye
+    info_request = foi_attachment.incoming_message.info_request
+
+    link_to(icon, foi_attachment_path(foi_attachment), title: title) + ' ' +
+      link_to("#{info_request.title} #{foi_attachment.filename}",
+              edit_admin_foi_attachment_path(foi_attachment),
+              title: admin_title)
+  end
+
   def info_request_batch_both_links(batch)
     title = 'View batch on public website'
     icon = prominence_icon(batch)

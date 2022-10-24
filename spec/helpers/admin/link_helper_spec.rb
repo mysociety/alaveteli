@@ -43,6 +43,19 @@ RSpec.describe Admin::LinkHelper do
       it { is_expected.to include(edit_admin_incoming_message_path(record)) }
     end
 
+    context 'with a FoiAttachment' do
+      let(:info_request) do
+        FactoryBot.create(:info_request, :with_plain_incoming)
+      end
+      let(:incoming_message) { info_request.incoming_messages.first }
+      let!(:record) { incoming_message.foi_attachments.first }
+
+      it { is_expected.to include('icon-eye-open') }
+      it { is_expected.to include(record.filename) }
+      it { is_expected.to include(foi_attachment_path(record)) }
+      it { is_expected.to include(edit_admin_foi_attachment_path(record)) }
+    end
+
     context 'with an InfoRequestBatch' do
       let(:record) { FactoryBot.create(:info_request_batch) }
 
