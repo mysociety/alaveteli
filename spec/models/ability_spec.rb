@@ -61,6 +61,22 @@ RSpec.shared_examples_for "a class with message prominence" do
 end
 
 RSpec.describe Ability do
+  describe '.guest' do
+    it 'returns Ability instance with no user' do
+      guest = Ability.guest
+      expect(guest).to be_an(Ability)
+      expect(guest.user).to eq nil
+    end
+
+    it 'allows project or public_token arguments' do
+      project = double('Project')
+      public_token = double('Token')
+      guest = Ability.guest(project: project, public_token: public_token)
+      expect(guest.project).to eq(project)
+      expect(guest.public_token).to eq(public_token)
+    end
+  end
+
   describe "reading IncomingMessages" do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
     let!(:resource) { info_request.incoming_messages.first }
@@ -293,7 +309,7 @@ RSpec.describe Ability do
     let(:request) { FactoryBot.build(:info_request) }
 
     context 'when logged out' do
-      let(:ability) { Ability.new(nil) }
+      let(:ability) { Ability.guest }
 
       it 'should return false' do
         expect(ability).not_to be_able_to(:share, request)
@@ -379,7 +395,7 @@ RSpec.describe Ability do
       let(:request) { FactoryBot.create(:old_unclassified_request) }
 
       context "when logged out" do
-        let(:ability) { Ability.new(nil) }
+        let(:ability) { Ability.guest }
 
         it "should return false" do
           expect(ability).not_to be_able_to(:update_request_state, request)
@@ -409,7 +425,7 @@ RSpec.describe Ability do
       let(:request) { FactoryBot.create(:info_request) }
 
       context "when logged out" do
-        let(:ability) { Ability.new(nil) }
+        let(:ability) { Ability.guest }
 
         it "should return false" do
           expect(ability).not_to be_able_to(:update_request_state, request)
@@ -451,7 +467,7 @@ RSpec.describe Ability do
       let(:request) { project.info_requests.first }
 
       context 'when logged out' do
-        let(:ability) { Ability.new(nil, project: project) }
+        let(:ability) { Ability.guest(project: project) }
 
         it 'should return false' do
           expect(ability).not_to be_able_to(:update_request_state, request)
@@ -571,7 +587,7 @@ RSpec.describe Ability do
           pro_user_ability,
           other_user_ability,
           Ability.new(resource.user),
-          Ability.new(nil) # Even an anon user should be able to read it
+          Ability.guest # Even an anon user should be able to read it
         ]
       end
 
@@ -877,7 +893,7 @@ RSpec.describe Ability do
 
     it "doesnt allow anonymous users to update it" do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:update, embargo)
       end
     end
@@ -931,7 +947,7 @@ RSpec.describe Ability do
 
     it "doesnt allow anonymous users to destroy it" do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:destroy, embargo)
       end
     end
@@ -987,7 +1003,7 @@ RSpec.describe Ability do
 
     it "doesnt allow anonymous users to destroy it" do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:destroy_embargo, batch)
       end
     end
@@ -1189,7 +1205,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, info_request)
         end
       end
@@ -1229,7 +1245,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, info_request)
         end
       end
@@ -1278,7 +1294,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, comment)
         end
       end
@@ -1320,7 +1336,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, comment)
         end
       end
@@ -1363,7 +1379,7 @@ RSpec.describe Ability do
 
     it 'does not allow no user to administer' do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
       end
     end
@@ -1394,7 +1410,7 @@ RSpec.describe Ability do
       end
 
       it 'does not allow no user to read' do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:read, :api_key)
       end
 
@@ -1432,7 +1448,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to read' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:read, :api_key)
         end
       end

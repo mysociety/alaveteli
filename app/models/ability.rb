@@ -4,6 +4,10 @@ class Ability
 
   attr_reader :user, :project, :public_token
 
+  def self.guest(*args)
+    new(nil, *args)
+  end
+
   def initialize(user, project: nil, public_token: false)
     # Define abilities for the passed in user here. For example:
     #
