@@ -1,7 +1,7 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-shared_examples_for "a class with message prominence" do
+RSpec.shared_examples_for "a class with message prominence" do
   let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
   let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
