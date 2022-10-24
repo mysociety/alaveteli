@@ -13,10 +13,10 @@ class AttachmentsController < ApplicationController
 
   include ProminenceHeaders
 
-  around_action :cache_attachments
-
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
+
+  around_action :cache_attachments
 
   def show
     # Prevent spam to magic request address. Note that the binary
@@ -111,8 +111,12 @@ class AttachmentsController < ApplicationController
 
     return if @attachment
 
-    # If we can't find the right attachment, redirect to the incoming message:
-    redirect_to incoming_message_url(@incoming_message), status: 303
+    if params[:file_name]
+      # If we can't find the right attachment, redirect to the incoming message:
+      redirect_to incoming_message_url(@incoming_message), status: 303
+    else
+      render plain: 'Directory listing not allowed', status: 403
+    end
   end
 
   def authenticate_attachment_as_html
@@ -132,12 +136,8 @@ class AttachmentsController < ApplicationController
       if foi_fragment_cache_exists?(cache_key_path)
         logger.info("Reading cache for #{cache_key_path}")
 
-        if File.directory?(cache_key_path)
-          render plain: 'Directory listing not allowed', status: 403
-        else
-          render body: foi_fragment_cache_read(cache_key_path),
-                 content_type: content_type
-        end
+        render body: foi_fragment_cache_read(cache_key_path),
+               content_type: content_type
         return
       end
 
@@ -162,6 +162,8 @@ class AttachmentsController < ApplicationController
 
   def original_filename
     filename = params[:file_name]
+    return unless filename
+
     if action_name == 'show_as_html'
       filename.gsub(/\.html$/, '')
     else
