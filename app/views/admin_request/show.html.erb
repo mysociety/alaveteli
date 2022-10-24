@@ -372,16 +372,12 @@
       </div>
 
       <div id="incoming_<%= incoming_message.id %>" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <thead>
-            <tr>
-              <td colspan="2" class="well">
-                <%= render partial: 'admin_incoming_message/actions',
-                           locals: { incoming_message: incoming_message } %>
-              </td>
-            </tr>
-          </thead>
+        <div class="well">
+          <%= render partial: 'admin_incoming_message/actions',
+                     locals: { incoming_message: incoming_message } %>
+        </div>
 
+        <table class="table table-striped table-condensed">
           <tbody>
             <% incoming_message.for_admin_column do |name, value| %>
               <tr>
