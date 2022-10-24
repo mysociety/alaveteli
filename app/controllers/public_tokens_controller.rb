@@ -54,15 +54,11 @@ class PublicTokensController < ApplicationController
   end
 
   def can_view_info_request
-    if guest.can?(:read, @info_request)
+    if Ability.guest.can?(:read, @info_request)
       redirect_to show_request_path(@info_request.url_title)
     elsif cannot?(:read, @info_request)
       render_hidden
     end
-  end
-
-  def guest
-    @guest ||= Ability.new(nil)
   end
 
   # rubocop:disable all
