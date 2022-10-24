@@ -218,6 +218,18 @@ RSpec.describe PublicBody do
         expect(public_body).to be_tagged('missing_email')
       end
     end
+
+    context 'when a defunct body is is tagged missing_email' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      before { public_body.add_tag_if_not_already_present('defunct') }
+      before { public_body.update(request_email: '') }
+
+      it 'removes the missing email tag' do
+        subject
+        expect(public_body).not_to be_tagged('missing_email')
+      end
+    end
   end
 
   describe '#name' do

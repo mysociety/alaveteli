@@ -978,7 +978,7 @@ class PublicBody < ApplicationRecord
   end
 
   def update_missing_email_tag
-    if missing_email?
+    if missing_email? && !defunct?
       add_tag_if_not_already_present('missing_email')
     else
       remove_tag('missing_email')
