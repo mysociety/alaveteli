@@ -370,21 +370,25 @@
           <% end %>
         </blockquote>
       </div>
-      <div id="incoming_<%=incoming_message.id%>" class="accordion-body collapse">
+
+      <div id="incoming_<%= incoming_message.id %>" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
           <thead>
             <tr>
               <td colspan="2" class="well">
-                <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => incoming_message } %>
+                <%= render partial: 'admin_incoming_message/actions',
+                           locals: { incoming_message: incoming_message } %>
               </td>
             </tr>
           </thead>
+
           <tbody>
             <% incoming_message.for_admin_column do |name, value| %>
               <tr>
                 <td>
                   <b><%= name.humanize %></b>
                 </td>
+
                 <td>
                   <% if name =~ /^cached_.*?$/ %>
                     <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
