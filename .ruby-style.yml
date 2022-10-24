@@ -1038,6 +1038,9 @@ Rails/ActionControllerTestCase:
 Rails/ActionFilter:
   Enabled: false
 
+Rails/ActionOrder:
+  Enabled: false
+
 Rails/ActiveRecordAliases:
   Enabled: false
 
@@ -1186,6 +1189,9 @@ Rails/I18nLocaleAssignment:
   Enabled: false
 
 Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/IgnoredColumnsAssignment:
   Enabled: false
 
 Rails/IgnoredSkipActionFilterOption:
@@ -1384,6 +1390,9 @@ Rails/WhereMissing:
   Enabled: false
 
 Rails/WhereNot:
+  Enabled: false
+
+Rails/WhereNotWithMultipleConditions:
   Enabled: false
 
 #################### Security ####################
