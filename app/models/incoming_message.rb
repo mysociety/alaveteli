@@ -579,6 +579,10 @@ class IncomingMessage < ApplicationRecord
     text.html_safe
   end
 
+  def get_body_for_indexing # rubocop:disable Naming/AccessorMethodName
+    return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
+    get_body_for_quoting
+  end
 
   # Returns text of email for using in quoted section when replying
   def get_body_for_quoting
@@ -622,6 +626,8 @@ class IncomingMessage < ApplicationRecord
   def _extract_text
     # Extract text from each attachment
     self.get_attachments_for_display.reduce('') { |memo, attachment|
+      return memo if Ability.guest.cannot?(:read, attachment)
+
       memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                        attachment.default_body,
                                                        attachment.charset)
@@ -634,11 +640,11 @@ class IncomingMessage < ApplicationRecord
 
   # Returns text for indexing
   def get_text_for_indexing_full
-    return get_body_for_quoting + "\n\n" + get_attachment_text_full
+    return get_body_for_indexing + "\n\n" + get_attachment_text_full
   end
   # Used for excerpts in search results, when loading full text would be too slow
   def get_text_for_indexing_clipped
-    return get_body_for_quoting + "\n\n" + get_attachment_text_clipped
+    return get_body_for_indexing + "\n\n" + get_attachment_text_clipped
   end
 
   # Has message arrived "recently"?
