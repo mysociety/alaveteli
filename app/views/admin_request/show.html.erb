@@ -299,19 +299,17 @@
       </div>
 
       <div id="outgoing_<%= outgoing_message.id %>" class="accordion-body collapse">
+        <div class="well">
+          <%= form_tag resend_admin_outgoing_message_path(outgoing_message), class: 'admin-table-form' do %>
+            <% msg = 'Are you sure you want to resend this message ' \
+                     'to the authority?' %>
+            <%= submit_tag 'Resend', class: 'btn btn-warning',
+                                     data: { confirm: msg } %>
+          <% end %>
+        </div>
+
         <table class="table table-striped table-condensed">
           <tbody>
-            <tr>
-              <td colspan="2">
-                <%= form_tag resend_admin_outgoing_message_path(outgoing_message), class: 'admin-table-form' do %>
-                  <% msg = 'Are you sure you want to resend this message ' \
-                           'to the authority?' %>
-                  <%= submit_tag 'Resend', class: 'btn btn-warning',
-                                           data: { confirm: msg } %>
-                <% end %>
-              </td>
-            </tr>
-
             <% outgoing_message.for_admin_column do |name, value| %>
               <tr>
                 <td class="span3">
