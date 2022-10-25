@@ -45,14 +45,46 @@ class Ability
       can_update_request_state?(request)
     end
 
-    # Viewing messages with prominence
-    can :read, [IncomingMessage, OutgoingMessage] do |msg|
-      can_view_with_prominence?(msg.prominence, msg.info_request)
+    # Viewing requests & messages as Pro admin
+    if user&.view_hidden_and_embargoed?
+      can :_read, InfoRequest
+      can :_read, OutgoingMessage
+      can :_read, IncomingMessage
     end
 
-    # Viewing requests with prominence
-    can :read, InfoRequest do |request|
-      can_view_with_prominence?(request.prominence, request)
+    # Viewing requests & messages as admin
+    if user&.view_hidden?
+      can :_read, InfoRequest.not_embargoed
+      can :_read, OutgoingMessage, info_request: InfoRequest.not_embargoed
+      can :_read, IncomingMessage, info_request: InfoRequest.not_embargoed
+    end
+
+    # Viewing requests & messages with public prominence
+    can :_read, InfoRequest.not_embargoed, prominence: %w[normal backpage]
+    can :_read, OutgoingMessage, prominence: 'normal'
+    can :_read, IncomingMessage, prominence: 'normal'
+
+    if user
+      # Viewing their own embargoed requests with public prominence
+      can :_read, InfoRequest.embargoed, user: user, prominence: %w[normal backpage]
+
+      # Viewing their own request with requester only prominence
+      can :_read, InfoRequest.not_embargoed, user: user, prominence: 'requester_only'
+      can :_read, InfoRequest.embargoed, user: user, prominence: 'requester_only'
+      can :_read, OutgoingMessage, info_request: { user: user }, prominence: 'requester_only'
+      can :_read, IncomingMessage, info_request: { user: user }, prominence: 'requester_only'
+    end
+
+    # Reading messages with prominence
+    can :read, [IncomingMessage, OutgoingMessage] do |message|
+      can?(:_read, message) && can?(:read, message.info_request)
+    end
+
+    # Reading requests with prominence or via a project or public token
+    can :read, InfoRequest do |info_request|
+      can?(:_read, info_request) ||
+        project&.member?(user) ||
+        public_token
     end
 
     can :manage, OutgoingMessage::Snippet do |request|
@@ -191,31 +223,5 @@ class Ability
 
   def requester_or_admin?(request)
     user == request.user || user.is_admin?
-  end
-
-  def can_view_with_prominence?(prominence, info_request)
-    if info_request.embargo
-      case prominence
-      when 'hidden'
-        user&.view_hidden_and_embargoed?
-      when 'requester_only'
-        info_request.is_actual_owning_user?(user) ||
-          user&.view_hidden_and_embargoed?
-      else
-        info_request.is_actual_owning_user?(user) ||
-          user&.view_embargoed? ||
-          project&.member?(user) ||
-          public_token
-      end
-    else
-      case prominence
-      when 'hidden'
-        user&.view_hidden?
-      when 'requester_only'
-        info_request.is_actual_owning_user?(user) || user&.view_hidden?
-      else
-        true
-      end
-    end
   end
 end

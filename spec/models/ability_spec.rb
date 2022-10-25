@@ -6,9 +6,7 @@ RSpec.shared_examples_for "a class with message prominence" do
   let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
   context 'if the prominence is hidden' do
-    before do
-      resource.prominence = 'hidden'
-    end
+    let(:prominence) { 'hidden' }
 
     it 'should return true for an admin user' do
       expect(admin_ability).to be_able_to(:read, resource)
@@ -24,9 +22,7 @@ RSpec.shared_examples_for "a class with message prominence" do
   end
 
   context 'if the prominence is requester_only' do
-    before do
-      resource.prominence = 'requester_only'
-    end
+    let(:prominence) { 'requester_only' }
 
     it 'should return true if the user owns the right resource' do
       expect(owner_ability).to be_able_to(:read, resource)
@@ -42,9 +38,7 @@ RSpec.shared_examples_for "a class with message prominence" do
   end
 
   context 'if the prominence is normal' do
-    before do
-      resource.prominence = 'normal'
-    end
+    let(:prominence) { 'normal' }
 
     it 'should return true for a non-admin user' do
       expect(other_user_ability).to be_able_to(:read, resource)
@@ -82,6 +76,10 @@ RSpec.describe Ability do
     let!(:resource) { info_request.incoming_messages.first }
     let!(:owner_ability) { Ability.new(info_request.user) }
 
+    before do
+      resource.update(prominence: prominence)
+    end
+
     it_behaves_like "a class with message prominence"
   end
 
@@ -107,25 +105,27 @@ RSpec.describe Ability do
     let!(:resource) { info_request.outgoing_messages.first }
     let!(:owner_ability) { Ability.new(info_request.user) }
 
+    before do
+      resource.update(prominence: prominence)
+    end
+
     it_behaves_like "a class with message prominence"
   end
 
   describe "reading InfoRequests" do
-    let!(:resource) { FactoryBot.create(:info_request) }
+    let!(:resource) { FactoryBot.create(:info_request, prominence: prominence) }
     let!(:owner_ability) { Ability.new(resource.user) }
 
     it_behaves_like "a class with message prominence"
 
     context 'when the request is embargoed' do
-      let!(:resource) { FactoryBot.create(:embargoed_request) }
+      let!(:resource) { FactoryBot.create(:embargoed_request, prominence: prominence) }
       let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
       let(:pro_admin_ability) { Ability.new(FactoryBot.create(:pro_admin_user)) }
       let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
       context 'if the prominence is hidden' do
-        before do
-          resource.prominence = 'hidden'
-        end
+        let(:prominence) { 'hidden' }
 
         it 'should return false for an admin user' do
           expect(admin_ability).not_to be_able_to(:read, resource)
@@ -156,9 +156,7 @@ RSpec.describe Ability do
       end
 
       context 'if the prominence is requester_only' do
-        before do
-          resource.prominence = 'requester_only'
-        end
+        let(:prominence) { 'requester_only' }
 
         it 'should return true if the user owns the right resource' do
           expect(owner_ability).to be_able_to(:read, resource)
@@ -190,9 +188,7 @@ RSpec.describe Ability do
       end
 
       context 'if the prominence is normal' do
-        before do
-          resource.prominence = 'normal'
-        end
+        let(:prominence) { 'normal' }
 
         it 'should return false for a non-admin user' do
           expect(other_user_ability).not_to be_able_to(:read, resource)
