@@ -284,7 +284,7 @@
   <% @info_request.outgoing_messages.each do |outgoing_message| %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
+        <a href="#outgoing_<%= outgoing_message.id %>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
         <%= both_links(outgoing_message) %>
 
         <span class="muted">
@@ -293,23 +293,25 @@
           <%= outgoing_message.message_type.humanize %>
         </span>
 
-      <blockquote>
-        <%= truncate(outgoing_message.body, :length => 400) %>
-      </blockquote>
+        <blockquote>
+          <%= truncate(outgoing_message.body, length: 400) %>
+        </blockquote>
       </div>
-      <div id="outgoing_<%=outgoing_message.id%>" class="accordion-body collapse">
+
+      <div id="outgoing_<%= outgoing_message.id %>" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
           <tbody>
             <tr>
               <td colspan="2">
-                <%= form_tag resend_admin_outgoing_message_path(outgoing_message), :class => "admin-table-form" do %>
-                  <% msg = "Are you sure you want to resend this message " \
-                           "to the authority?" %>
-                  <%= submit_tag "Resend", :class => "btn btn-warning",
-                                           :data => { :confirm => msg } %>
+                <%= form_tag resend_admin_outgoing_message_path(outgoing_message), class: 'admin-table-form' do %>
+                  <% msg = 'Are you sure you want to resend this message ' \
+                           'to the authority?' %>
+                  <%= submit_tag 'Resend', class: 'btn btn-warning',
+                                           data: { confirm: msg } %>
                 <% end %>
               </td>
             </tr>
+
             <% outgoing_message.for_admin_column do |name, value| %>
               <tr>
                 <td class="span3">
@@ -328,6 +330,7 @@
                 </td>
               </tr>
             <% end %>
+
             <tr>
               <td class="span3">
                 <b>Raw body</b>
