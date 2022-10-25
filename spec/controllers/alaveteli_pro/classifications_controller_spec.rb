@@ -56,9 +56,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
       before { ability.can :update_request_state, info_request }
     end
 
-    context 'user is allowed to update the request' do
-      include_context 'user can classify request'
-
+    shared_examples 'classify request as successful' do
       it 'should create status_update log' do
         post_status('successful')
 
@@ -80,6 +78,18 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
           show_alaveteli_pro_request_path(url_title: info_request.url_title)
         )
       end
+    end
+
+    context 'user is allowed to update the request' do
+      include_context 'user can classify request'
+      include_examples 'classify request as successful'
+    end
+
+    context 'non-pro is allowed to update the request' do
+      let(:user) { FactoryBot.create(:user) }
+
+      include_context 'user can classify request'
+      include_examples 'classify request as successful'
     end
 
     context 'user sets the request as error_message without a message' do
