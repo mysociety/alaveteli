@@ -81,6 +81,18 @@ RSpec.describe Ability do
     end
 
     it_behaves_like "a class with message prominence"
+
+    context 'when resource is readable but info request is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, info_request).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
   end
 
   describe 'managing OutgoingMessage::Snippet' do
@@ -110,6 +122,18 @@ RSpec.describe Ability do
     end
 
     it_behaves_like "a class with message prominence"
+
+    context 'when resource is readable but info request is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, info_request).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
   end
 
   describe "reading InfoRequests" do
