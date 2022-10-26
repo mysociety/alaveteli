@@ -45,34 +45,43 @@ class Ability
       can_update_request_state?(request)
     end
 
-    # Viewing requests & messages as Pro admin
+    # Viewing requests, messages & attachments as Pro admin
     if user&.view_hidden_and_embargoed?
       can :_read, InfoRequest
       can :_read, OutgoingMessage
       can :_read, IncomingMessage
+      can :_read, FoiAttachment
     end
 
-    # Viewing requests & messages as admin
+    # Viewing requests, messages & attachments as admin
     if user&.view_hidden?
       can :_read, InfoRequest.not_embargoed
       can :_read, OutgoingMessage, info_request: InfoRequest.not_embargoed
       can :_read, IncomingMessage, info_request: InfoRequest.not_embargoed
+      can :_read, FoiAttachment, incoming_message: { info_request: InfoRequest.not_embargoed }
     end
 
-    # Viewing requests & messages with public prominence
+    # Viewing requests, messages & attachments with public prominence
     can :_read, InfoRequest.not_embargoed, prominence: %w[normal backpage]
     can :_read, OutgoingMessage, prominence: 'normal'
     can :_read, IncomingMessage, prominence: 'normal'
+    can :_read, FoiAttachment, prominence: 'normal'
 
     if user
       # Viewing their own embargoed requests with public prominence
       can :_read, InfoRequest.embargoed, user: user, prominence: %w[normal backpage]
 
-      # Viewing their own request with requester only prominence
+      # Viewing their own request, messages & attachments with requester only prominence
       can :_read, InfoRequest.not_embargoed, user: user, prominence: 'requester_only'
       can :_read, InfoRequest.embargoed, user: user, prominence: 'requester_only'
       can :_read, OutgoingMessage, info_request: { user: user }, prominence: 'requester_only'
       can :_read, IncomingMessage, info_request: { user: user }, prominence: 'requester_only'
+      can :_read, FoiAttachment, incoming_message: { info_request: { user: user } }, prominence: 'requester_only'
+    end
+
+    # Reading attachments with prominence
+    can :read, FoiAttachment do |attachment|
+      can?(:_read, attachment) && can?(:read, attachment.incoming_message)
     end
 
     # Reading messages with prominence

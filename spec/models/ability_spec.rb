@@ -71,6 +71,43 @@ RSpec.describe Ability do
     end
   end
 
+  describe "reading FoiAttachment" do
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+    let!(:resource) { incoming_message.foi_attachments.first }
+    let!(:owner_ability) { Ability.new(info_request.user) }
+
+    before do
+      resource.update(prominence: prominence)
+    end
+
+    it_behaves_like "a class with message prominence"
+
+    context 'when resource is readable but incoming message is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, incoming_message).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
+
+    context 'when resource is readable but info request is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, info_request).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
+  end
+
   describe "reading IncomingMessages" do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
     let!(:resource) { info_request.incoming_messages.first }
