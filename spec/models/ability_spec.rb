@@ -1270,7 +1270,92 @@ RSpec.describe Ability do
         end
       end
     end
+  end
 
+  describe 'administering InfoRequestBatch' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+    context 'when the batch is embargoed' do
+      let(:batch) { FactoryBot.create(:info_request_batch, :embargoed) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.guest
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+    end
+
+    context 'when the batch is not embargoed' do
+      let(:batch) { FactoryBot.create(:info_request_batch) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.guest
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+    end
   end
 
   describe 'administering comments' do
