@@ -471,6 +471,22 @@ RSpec.describe InfoRequestBatch do
 
   it_behaves_like "RequestSummaries"
 
+  describe '#embargoed?' do
+    subject { batch.embargoed? }
+
+    let(:batch) { FactoryBot.build(:info_request_batch) }
+
+    context 'when the batch has an embargo_duration' do
+      before { batch.embargo_duration = '12_months' }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the batch has no embargo_duration' do
+      before { batch.embargo_duration = nil }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe "#embargo_expiring?" do
     let(:first_public_body) { FactoryBot.create(:public_body) }
     let(:second_public_body) { FactoryBot.create(:public_body) }
