@@ -53,7 +53,10 @@ module Admin::LinkHelper
     title = 'View batch on public website'
     icon = prominence_icon(batch)
 
-    link_to(icon, batch, title: title) + ' ' + batch.title
+    link_to(icon, batch, title: title) + ' ' +
+      link_to(batch.title,
+              admin_info_request_batch_path(batch),
+              title: admin_title)
   end
 
   def public_body_both_links(public_body)
