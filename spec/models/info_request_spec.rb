@@ -3866,6 +3866,20 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#embargoed?' do
+    subject { info_request.embargoed? }
+
+    context 'when the request has an embargo' do
+      let(:info_request) { FactoryBot.create(:info_request, :embargoed) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the request does not have an embargo' do
+      let(:info_request) { FactoryBot.build(:info_request) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#embargo_expired?' do
 
     context 'when the embargo has expired' do

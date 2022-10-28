@@ -1658,6 +1658,13 @@ class InfoRequest < ApplicationRecord
     return_val
   end
 
+  # Is the request currently embargoed?
+  #
+  # Returns Boolean
+  def embargoed?
+    embargo.present?
+  end
+
   # Is the attached embargo expiring soon?
   #
   # Returns boolean
