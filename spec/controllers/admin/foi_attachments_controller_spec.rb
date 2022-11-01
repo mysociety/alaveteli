@@ -51,12 +51,49 @@ RSpec.describe Admin::FoiAttachmentsController do
   end
 
   describe 'PATCH #update' do
-    let(:params) { { id: attachment.id } }
+    let(:params) do
+      {
+        id: attachment.id,
+        foi_attachment: {
+          prominence: 'hidden',
+          prominence_reason: 'This was accidentally published'
+        }
+      }
+    end
 
     shared_context 'successful update' do
       it 'assigns the attachment' do
         patch :update, params: params
         expect(assigns[:foi_attachment]).to eq(attachment)
+      end
+
+      it 'updates the attachment' do
+        patch :update, params: params
+        expect(attachment.reload.prominence).to eq('hidden')
+      end
+
+      it 'sets a notice' do
+        patch :update, params: params
+        expect(flash[:notice]).to eq('Attachment successfully updated.')
+      end
+
+      it 'should log an "edit_attachment" event on the info_request' do
+        allow(@controller).to receive(:admin_current_user).
+          and_return("Admin user")
+
+        patch :update, params: params
+
+        info_request.reload
+        last_event = info_request.info_request_events.last
+        expect(last_event.event_type).to eq('edit_attachment')
+        expect(last_event.params).to eq(
+          editor: 'Admin user',
+          attachment_id: attachment.id,
+          old_prominence: 'normal',
+          prominence: 'hidden',
+          old_prominence_reason: nil,
+          prominence_reason: 'This was accidentally published'
+        )
       end
     end
 
@@ -68,6 +105,28 @@ RSpec.describe Admin::FoiAttachmentsController do
         expect(response).to redirect_to(
           edit_admin_incoming_message_path(incoming_message)
         )
+      end
+    end
+
+    context 'on an unsuccessful update' do
+      before do
+        allow(FoiAttachment).to receive(:find).and_return(attachment)
+        allow(attachment).to receive(:update).and_return(false)
+      end
+
+      it 'assigns the attachment' do
+        patch :update, params: params
+        expect(assigns[:foi_attachment]).to eq(attachment)
+      end
+
+      it 'does not update the attachment' do
+        patch :update, params: params
+        expect(attachment.reload.prominence).not_to be_blank
+      end
+
+      it 'renders the form again' do
+        patch :update, params: params
+        expect(response).to render_template(:edit)
       end
     end
 

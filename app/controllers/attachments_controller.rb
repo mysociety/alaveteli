@@ -109,9 +109,12 @@ class AttachmentsController < ApplicationController
       return render_hidden('request/hidden_correspondence')
     end
 
-    return if @attachment
-
-    if params[:file_name]
+    if @attachment
+      if cannot?(:read, @attachment)
+        request.format = :html
+        render_hidden('request/hidden_attachment')
+      end
+    elsif params[:file_name]
       # If we can't find the right attachment, redirect to the incoming message:
       redirect_to incoming_message_url(@incoming_message), status: 303
     else
@@ -123,7 +126,7 @@ class AttachmentsController < ApplicationController
     # The conversion process can generate files in the cache directory that can
     # be served up directly by the webserver according to httpd.conf, so don't
     # allow it unless that's OK.
-    return if message_is_public?
+    return if attachment_is_public?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
   end
@@ -148,7 +151,7 @@ class AttachmentsController < ApplicationController
         # various fragment cache functions using Ruby Marshall to write the file
         # which adds a header, so isn't compatible with images that have been
         # extracted elsewhere from PDFs)
-        if message_is_cacheable?
+        if attachment_is_cacheable?
           logger.info("Writing cache for #{cache_key_path}")
           foi_fragment_cache_write(cache_key_path, response.body)
         end
@@ -178,16 +181,20 @@ class AttachmentsController < ApplicationController
       'application/octet-stream'
   end
 
-  def message_is_public?
-    # If this a request and message public then it can be served up without
-    # authentication
-    prominence.is_public? && @incoming_message.is_public?
+  def attachment_is_public?
+    # If this a request, message and attachment are public then it can be served
+    # up without authentication
+    prominence.is_public? &&
+      @incoming_message.is_public? &&
+      @attachment.is_public?
   end
 
-  def message_is_cacheable?
-    # If this a request searchable and message public then we can cache any
-    # attachments as there are no custom response headers (EG X-Robots-Tag)
-    prominence.is_searchable? && message_is_public?
+  def attachment_is_cacheable?
+    # If this a request, message and attachment are searchable then we can cache
+    # as there are no custom response headers (EG X-Robots-Tag)
+    prominence.is_searchable? &&
+      @incoming_message.indexed_by_search? &&
+      @attachment.indexed_by_search?
   end
 
   def cache_key_path

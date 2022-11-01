@@ -403,6 +403,30 @@ RSpec.describe IncomingMessage do
 
   end
 
+  describe '#get_body_for_indexing' do
+    subject { incoming_message.get_body_for_indexing }
+
+    let(:incoming_message) { FactoryBot.build(:incoming_message) }
+
+    context 'guest can read main body part' do
+      it 'returns body for text display' do
+        is_expected.to eq('hereisthetext')
+      end
+    end
+
+    context 'guest cannot read main body part' do
+      before do
+        ability = Object.new.extend(CanCan::Ability)
+        ability.cannot :read, incoming_message.get_main_body_text_part
+        allow(Ability).to receive(:guest).and_return(ability)
+      end
+
+      it 'returns blank string' do
+        is_expected.to eq ''
+      end
+    end
+  end
+
   describe '#get_body_for_quoting' do
 
     it 'does not incorrectly cache without the FOLDED_QUOTED_SECTION marker' do

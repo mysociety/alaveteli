@@ -164,4 +164,37 @@ module ProminenceHelper
   end
 
   ::OutgoingMessage::Prominence::Helper = IncomingMessage::Prominence::Helper
+
+  class FoiAttachment::Prominence::Helper < Base # :nodoc:
+    def user
+      prominenceable.incoming_message.info_request.user
+    end
+
+    def hidden_notice
+      if current_user&.is_admin?
+        _('This attachment has prominence "hidden". {{reason}} You can only ' \
+          'see it because you are logged in as a super user.', reason: reason)
+      else
+        _('This attachment has been hidden. {{reason}}', reason: reason)
+      end
+    end
+
+    def requester_only_notice
+      if current_user && current_user == user
+        _('This attachment is hidden, so that only you, the requester, can ' \
+          'see it. {{reason}}', reason: reason)
+      elsif current_user&.is_admin?
+        _('This attachment has prominence "requester_only". {{reason}} You ' \
+          'can only see it because you are logged in as a super user.',
+          reason: reason)
+      else
+        _('This attachment has been hidden. {{reason}}', reason: reason)
+      end
+    end
+
+    def sign_in_notice(*args)
+      _('If you are the requester, then you may {{sign_in_link}} to view the ' \
+        'attachment.', *args)
+    end
+  end
 end
