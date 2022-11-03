@@ -55,6 +55,8 @@ class User < ApplicationRecord
          after_remove: :assign_role_features
   strip_attributes allow_empty: true
 
+  admin_columns exclude: [:otp_secret_key]
+
   attr_accessor :no_xapian_reindex
 
   has_many :info_requests,
