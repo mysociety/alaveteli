@@ -1,4 +1,5 @@
 <div class="accordion" id="requests">
   <%= render partial: 'admin_request/info_request', collection: info_requests %>
 </div>
-<%= will_paginate(info_requests, :class => "paginator") %>
+
+<%= will_paginate(info_requests) %>

@@ -47,4 +47,4 @@
   <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies, :table_name => 'substring' } %>
 <% end %>
 
-<%= will_paginate(@public_bodies, :class => "paginator") %>
+<%= will_paginate(@public_bodies) %>
