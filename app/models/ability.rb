@@ -55,25 +55,35 @@ class Ability
 
     # Viewing requests, messages & attachments as admin
     if user&.view_hidden?
-      can :_read, InfoRequest.not_embargoed
-      can :_read, OutgoingMessage, info_request: InfoRequest.not_embargoed
-      can :_read, IncomingMessage, info_request: InfoRequest.not_embargoed
-      can :_read, FoiAttachment, incoming_message: { info_request: InfoRequest.not_embargoed }
+      can :_read, InfoRequest do |info_request|
+        !info_request.embargo
+      end
+      can :_read, [IncomingMessage, OutgoingMessage] do |message|
+        !message.info_request.embargo
+      end
+      can :_read, FoiAttachment do |attachment|
+        !attachment.incoming_message.info_request.embargo
+      end
     end
 
-    # Viewing requests, messages & attachments with public prominence
-    can :_read, InfoRequest.not_embargoed, prominence: %w[normal backpage]
+    can :_read, InfoRequest do |info_request|
+      !info_request.embargo &&
+        %w[normal backpage].include?(info_request.prominence)
+    end
     can :_read, OutgoingMessage, prominence: 'normal'
     can :_read, IncomingMessage, prominence: 'normal'
     can :_read, FoiAttachment, prominence: 'normal'
 
     if user
       # Viewing their own embargoed requests with public prominence
-      can :_read, InfoRequest.embargoed, user: user, prominence: %w[normal backpage]
+      can :_read, InfoRequest do |info_request|
+        info_request.embargo &&
+          info_request.user == user &&
+          %w[normal backpage].include?(info_request.prominence)
+      end
 
       # Viewing their own request, messages & attachments with requester only prominence
-      can :_read, InfoRequest.not_embargoed, user: user, prominence: 'requester_only'
-      can :_read, InfoRequest.embargoed, user: user, prominence: 'requester_only'
+      can :_read, InfoRequest, user: user, prominence: 'requester_only'
       can :_read, OutgoingMessage, info_request: { user: user }, prominence: 'requester_only'
       can :_read, IncomingMessage, info_request: { user: user }, prominence: 'requester_only'
       can :_read, FoiAttachment, incoming_message: { info_request: { user: user } }, prominence: 'requester_only'
