@@ -1,5 +1,8 @@
 <div class="accordion" id="requests">
-  <%= render partial: 'admin_request/info_request', collection: info_requests %>
+  <% if info_requests.any? %>
+    <%= render partial: 'admin_request/info_request', collection: info_requests %>
+    <%= will_paginate(info_requests) %>
+  <% else %>
+    <p>None yet.</p>
+  <% end %>
 </div>
-
-<%= will_paginate(info_requests) %>
