@@ -153,7 +153,7 @@
   <table class="table table-condensed table-striped">
     <tr>
       <th>Id</th>
-      <% for column in PostRedirect.content_columns %>
+      <% PostRedirect.content_columns.each do |column| %>
         <th><%= column.name.humanize %></th>
       <% end %>
       <th></th>
@@ -162,9 +162,14 @@
     <% @admin_user.post_redirects.each do |post_redirect| %>
       <tr class="<%= cycle('odd', 'even') %>">
         <td><%=h post_redirect.id %></td>
-        <% for column in PostRedirect.content_columns.map { |c| c.name } %>
+
+        <% PostRedirect.content_columns.map(&:name).each do |column| %>
           <% if column == 'email_token' %>
-            <td><%=link_to truncate(post_redirect.send(column)), confirm_path(:email_token => post_redirect.send(column)) %></td>
+            <td>
+              <%= link_to confirm_path(email_token: post_redirect.public_send(column)) do %>
+                <%= truncate(post_redirect.public_send(column)) %>
+              <% end %>
+            </td>
           <% else %>
             <td><%=h post_redirect.send(column) %></td>
           <% end %>
