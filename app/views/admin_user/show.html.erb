@@ -150,42 +150,8 @@
 <% if can? :login_as, @admin_user %>
   <h2>Post redirects</h2>
 
-  <table class="table table-condensed table-striped">
-    <tr>
-      <th>Id</th>
-      <% PostRedirect.content_columns.each do |column| %>
-        <th><%= column.name.humanize %></th>
-      <% end %>
-      <th></th>
-    </tr>
-
-    <% @admin_user.post_redirects.each do |post_redirect| %>
-      <tr class="<%= cycle('odd', 'even') %>">
-        <td><%=h post_redirect.id %></td>
-
-        <% PostRedirect.content_columns.map(&:name).each do |column| %>
-          <% if column == 'email_token' %>
-            <td>
-              <%= link_to confirm_path(email_token: post_redirect.public_send(column)) do %>
-                <%= truncate(post_redirect.public_send(column)) %>
-              <% end %>
-            </td>
-          <% else %>
-            <td><%=h post_redirect.send(column) %></td>
-          <% end %>
-        <% end %>
-
-        <td>
-          <%= link_to 'Destroy', admin_post_redirect_path(post_redirect),
-                      method: :delete,
-                      accesskey: 'd',
-                      class: 'btn btn-small btn-danger',
-                      data: { confirm: 'Destroying a post redirect is ' \
-                                       'permanent. Are you sure?' } %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <%= render partial: 'admin_user/post_redirects' ,
+             locals: { post_redirects: @admin_user.post_redirects } %>
 
   <hr>
 <% end %>
