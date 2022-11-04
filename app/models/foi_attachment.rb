@@ -141,6 +141,10 @@ class FoiAttachment < ApplicationRecord
     text_type? ? body_as_text.string : body
   end
 
+  def main_body_part?
+    self == incoming_message.get_main_body_text_part
+  end
+
   # List of DSN codes taken from RFC 3463
   # http://tools.ietf.org/html/rfc3463
   DsnToMessage = {
