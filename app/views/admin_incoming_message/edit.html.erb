@@ -1,4 +1,8 @@
 <%= render partial: 'intro', locals: { incoming_message: @incoming_message } %>
+
+<%= render partial: 'admin_incoming_message/admin_columns',
+           locals: { incoming_message: @incoming_message } %>
+
 <%= render partial: 'actions', locals: { incoming_message: @incoming_message } %>
 
 <%= form_tag admin_incoming_message_path(@incoming_message), method: 'put', class: 'form form-inline' do %>
