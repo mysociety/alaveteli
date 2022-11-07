@@ -69,6 +69,8 @@ class OutgoingMessage < ApplicationRecord
 
   strip_attributes :allow_empty => true
 
+  admin_columns include: [:to, :from, :subject]
+
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 
   scope :followup, -> { where(message_type: 'followup') }

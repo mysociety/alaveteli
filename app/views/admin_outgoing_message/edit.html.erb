@@ -2,6 +2,9 @@
 
 <%= foi_error_messages_for :outgoing_message %>
 
+<%= render partial: 'admin_outgoing_message/admin_columns',
+           locals: { outgoing_message: @outgoing_message } %>
+
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'put' do %>
   <fieldset class="form-horizontal">
     <legend>Attributes</legend>
