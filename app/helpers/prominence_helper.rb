@@ -3,12 +3,12 @@
 # depending on the context (prominence value, current user, format)
 #
 module ProminenceHelper
-  def conceled_prominence?(prominenceable)
+  def concealed_prominence?(prominenceable)
     %w[hidden requester_only].include?(prominenceable&.prominence)
   end
 
   def render_prominence(prominenceable, format: :html)
-    return unless conceled_prominence?(prominenceable)
+    return unless concealed_prominence?(prominenceable)
 
     klass = prominenceable.class::Prominence::Helper
     prominence = klass.new(self, prominenceable)

@@ -29,8 +29,8 @@ RSpec.describe ProminenceHelper do
 
   let(:object) { incoming_message }
 
-  describe '#conceled_prominence?' do
-    subject { conceled_prominence?(prominenceable) }
+  describe '#concealed_prominence?' do
+    subject { concealed_prominence?(prominenceable) }
 
     context 'object with normal prominence' do
       let(:prominence) { 'normal' }

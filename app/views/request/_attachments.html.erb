@@ -16,7 +16,7 @@
           <% if cannot?(:read, a) %>
             <%= image_tag('content_type/icon_unknown.png', class: 'attachment__image') %>
           <% end %>
-          <% if conceled_prominence?(a) %>
+          <% if concealed_prominence?(a) %>
             <span class="hidden_attachment"><%= render_prominence(a) %></span>
           <% end %>
           <% if can?(:read, a) %>
@@ -45,7 +45,7 @@
 
 <%= tag.div incoming_message.get_body_for_html_display(@collapse_quotes),
             id: incoming_message_dom_id(incoming_message) do %>
-  <% if conceled_prominence?(incoming_message.get_main_body_text_part) %>
+  <% if concealed_prominence?(incoming_message.get_main_body_text_part) %>
     <p class="hidden_attachment">
       <%= render_prominence(incoming_message.get_main_body_text_part) %>
     </p>
