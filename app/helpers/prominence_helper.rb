@@ -4,7 +4,7 @@
 #
 module ProminenceHelper
   def conceled_prominence?(prominenceable)
-    %w{hidden requester_only}.include?(prominenceable.prominence)
+    %w[hidden requester_only].include?(prominenceable&.prominence)
   end
 
   def render_prominence(prominenceable, format: :html)
