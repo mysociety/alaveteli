@@ -178,6 +178,13 @@ class InfoRequestBatch < ApplicationRecord
     info_request
   end
 
+  # Is the batch currently embargoed?
+  #
+  # Returns Boolean
+  def embargoed?
+    embargo_duration.present?
+  end
+
   # Do any of the requests in this batch have an embargo which is expiring
   # soon?
   #

@@ -488,6 +488,11 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::InfoRequestBatches controller
+  namespace :admin do
+    resources :info_request_batches, path: :batches, only: [:show]
+  end
+
   #### AdminNote controller
   namespace :admin do
     resources :notes, except: [:index, :show]
