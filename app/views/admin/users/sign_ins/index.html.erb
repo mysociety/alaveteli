@@ -16,4 +16,4 @@
 <%= render partial: 'admin/users/sign_in_table',
            locals: { sign_ins: @sign_ins } %>
 
-<%= will_paginate(@sign_ins, class: 'paginator') %>
+<%= will_paginate(@sign_ins) %>
