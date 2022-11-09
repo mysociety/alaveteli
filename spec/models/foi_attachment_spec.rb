@@ -144,6 +144,22 @@ RSpec.describe FoiAttachment do
 
   end
 
+  describe '#main_body_part?' do
+    subject { attachment.main_body_part? }
+
+    let(:message) { FactoryBot.build(:incoming_message_with_attachments) }
+
+    context 'when the attachment is the main body' do
+      let(:attachment) { message.get_main_body_text_part }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the attachment is not the main body' do
+      let(:attachment) { message.get_attachments_for_display.first }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#filename=' do
     it 'strips null bytes' do
       attachment = FactoryBot.build(:pdf_attachment)
