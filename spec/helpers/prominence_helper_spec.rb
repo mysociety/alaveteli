@@ -29,22 +29,30 @@ RSpec.describe ProminenceHelper do
 
   let(:object) { incoming_message }
 
-  describe '#conceled_prominence?' do
-    subject { conceled_prominence?(info_request) }
+  describe '#concealed_prominence?' do
+    subject { concealed_prominence?(prominenceable) }
 
     context 'object with normal prominence' do
       let(:prominence) { 'normal' }
+      let(:prominenceable) { info_request }
       it { is_expected.to eq false }
     end
 
     context 'object with hidden prominence' do
       let(:prominence) { 'hidden' }
+      let(:prominenceable) { info_request }
       it { is_expected.to eq true }
     end
 
     context 'object with requester_only prominence' do
       let(:prominence) { 'requester_only' }
+      let(:prominenceable) { info_request }
       it { is_expected.to eq true }
+    end
+
+    context 'non-prominenceable object' do
+      let(:prominenceable) { nil }
+      it { is_expected.to eq false }
     end
   end
 
