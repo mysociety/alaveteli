@@ -28,7 +28,7 @@
           <% end %>
 
           <% user.for_admin_column(
-               :created_at, :updated_at, :email_confirmed
+               :created_at, :updated_at, :email_confirmed, :about_me
              ) do |name, value| %>
             <tr>
               <td><b><%= name.humanize %></b></td>
