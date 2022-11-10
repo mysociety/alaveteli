@@ -39,6 +39,32 @@ RSpec.describe RawEmail do
     raw_email.data
   end
 
+  describe 'before destroy callbacks' do
+    shared_examples :destory_file_examples do
+      it 'should delete the directory' do
+        raw_email.run_callbacks(:destroy)
+        expect(File.exist?(raw_email.filepath)).to eq(false)
+      end
+
+      it 'should only delete the directory if it exists' do
+        expect(File).to receive(:delete).once.and_call_original
+        raw_email.run_callbacks(:destroy)
+        expect { raw_email.run_callbacks(:destroy) }.
+          not_to raise_error
+      end
+    end
+
+    context 'with active storage' do
+      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+      include_examples :destory_file_examples
+    end
+
+    context 'without active storage' do
+      let(:raw_email) { legacy_raw_email }
+      include_examples :destory_file_examples
+    end
+  end
+
   describe '#valid_to_reply_to?' do
     def test_email(result, email, empty_return_path, autosubmitted = nil)
       stubs = { :from_email => email,
@@ -231,33 +257,6 @@ RSpec.describe RawEmail do
       expect(data_as_text).to eq("ccc")
       expect(data_as_text.encoding.to_s).to eq('UTF-8')
       expect(data_as_text.valid_encoding?).to be true
-    end
-
-  end
-
-  describe '#destroy_file_representation!' do
-
-    shared_examples :destory_file_examples do
-      it 'should delete the directory' do
-        raw_email.destroy_file_representation!
-        expect(File.exist?(raw_email.filepath)).to eq(false)
-      end
-
-      it 'should only delete the directory if it exists' do
-        expect(File).to receive(:delete).once.and_call_original
-        raw_email.destroy_file_representation!
-        expect { raw_email.destroy_file_representation! }.not_to raise_error
-      end
-    end
-
-    context 'with active storage' do
-      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
-      include_examples :destory_file_examples
-    end
-
-    context 'without active storage' do
-      let(:raw_email) { legacy_raw_email }
-      include_examples :destory_file_examples
     end
 
   end
