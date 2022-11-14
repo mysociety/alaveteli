@@ -97,6 +97,10 @@ class InfoRequestEvent < ApplicationRecord
   # user described state (also update in info_request)
   validate :must_be_valid_state
 
+  EVENT_TYPES.each do |event_type|
+    scope "#{event_type}_events", -> { where(event_type: event_type) }
+  end
+
   def must_be_valid_state
     if described_state and !InfoRequest::State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
