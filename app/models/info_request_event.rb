@@ -101,12 +101,6 @@ class InfoRequestEvent < ApplicationRecord
     scope "#{event_type}_events", -> { where(event_type: event_type) }
   end
 
-  def must_be_valid_state
-    if described_state && !InfoRequest::State.all.include?(described_state)
-      errors.add(:described_state, "is not a valid state")
-    end
-  end
-
   attr_accessor :no_xapian_reindex
 
   # Full text search indexing
@@ -150,49 +144,9 @@ class InfoRequestEvent < ApplicationRecord
     where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort
   end
 
-  def requested_by
-    info_request.user_name_slug
-  end
-
-  def requested_from
-    # acts_as_xapian will detect translated fields via Globalize and add all the
-    # available locales to the index. But 'requested_from' is not translated directly,
-    # although it relies on a translated field in PublicBody. Hence, we need to
-    # manually add all the localized values to the index (Xapian can handle a list
-    # of values in a term, btw)
-    info_request.public_body.translations.map(&:url_name)
-  end
-
-  def commented_by
-    if event_type == 'comment'
-      comment.user.url_name
-    else
-      ''
-    end
-  end
-
+  # TODO: Can possibly be made private
   def request
     info_request.url_title
-  end
-
-  def latest_variety
-    sibling_events(reverse: true).each do |event|
-      return event.variety unless event.variety.blank?
-    end
-  end
-
-  def latest_status
-    sibling_events(reverse: true).each do |event|
-      return event.calculated_state unless event.calculated_state.blank?
-    end
-  end
-
-  def waiting_classification
-    info_request.awaiting_description == true ? "yes" : "no"
-  end
-
-  def request_title_collapse
-    info_request.url_title(collapse: true)
   end
 
   def described_at
@@ -203,16 +157,6 @@ class InfoRequestEvent < ApplicationRecord
     last_described_at || created_at
   end
 
-  def described_at_numeric
-    # format it here as no datetime support in Xapian's value ranges
-    described_at.strftime("%Y%m%d%H%M%S")
-  end
-
-  def created_at_numeric
-    # format it here as no datetime support in Xapian's value ranges
-    created_at.strftime("%Y%m%d%H%M%S")
-  end
-
   def incoming_message_selective_columns(fields)
     message = IncomingMessage.select("#{ fields }, incoming_messages.info_request_id").
       joins('INNER JOIN info_request_events ON incoming_messages.id = incoming_message_id').
@@ -221,26 +165,6 @@ class InfoRequestEvent < ApplicationRecord
     message = message[0]
     message.info_request = InfoRequest.find(message.info_request_id) if message
     message
-  end
-
-  def get_clipped_response_efficiently
-    # TODO: this ugly code is an attempt to not always load all the
-    # columns for an incoming message, which can be *very* large
-    # (due to all the cached text).  We care particularly in this
-    # case because it's called for every search result on a page
-    # (to show the search snippet). Actually, we should review if we
-    # need all this data to be cached in the database at all, and
-    # then we won't need this horrid workaround.
-    message = incoming_message_selective_columns("cached_attachment_text_clipped, cached_main_body_text_folded")
-    clipped_body = message.cached_main_body_text_folded
-    clipped_attachment = message.cached_attachment_text_clipped
-    if clipped_body.nil? || clipped_attachment.nil?
-      # we're going to have to load it anyway
-      text = incoming_message.get_text_for_indexing_clipped
-    else
-      text = clipped_body.gsub("FOLDED_QUOTED_SECTION", " ").strip + "\n\n" + clipped_attachment
-    end
-    text + "\n\n"
   end
 
   # clipped = true - means return shorter text. It is used for snippets fore
@@ -263,6 +187,7 @@ class InfoRequestEvent < ApplicationRecord
     text
   end
 
+  # TODO: Can possibly be made private
   def title
     if event_type == 'sent'
       info_request.title
@@ -271,40 +196,10 @@ class InfoRequestEvent < ApplicationRecord
     end
   end
 
-  def filetype
-    if event_type == 'response'
-      unless incoming_message
-        raise "event type is 'response' but no incoming message for event id #{id}"
-      end
-
-      incoming_message.get_present_file_extensions
-    else
-      ''
-    end
-  end
-
+  # TODO: Can possibly be made private
   def tags
     # this returns an array of strings, each gets indexed as separate term by acts_as_xapian
     info_request.tag_array_for_search
-  end
-
-  def request_public_body_tags
-    info_request.public_body.tag_array_for_search
-  end
-
-  def indexed_by_search?
-    if %w[sent followup_sent response comment].include?(event_type)
-      return false unless info_request.indexed_by_search?
-      if event_type == 'response' && !incoming_message.indexed_by_search?
-        return false
-      end
-      if %w[sent followup_sent].include?(event_type) && !outgoing_message.indexed_by_search?
-        return false
-      end
-      return false if event_type == 'comment' && !comment.visible
-      return true
-    end
-    false
   end
 
   def variety
@@ -457,13 +352,6 @@ class InfoRequestEvent < ApplicationRecord
     event_type == 'response'
   end
 
-  def only_editing_prominence_to_hide?
-    event_type == 'edit' &&
-      params_diff[:new].keys == [:prominence] &&
-      params_diff[:old][:prominence] == "normal" &&
-      %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
-  end
-
   # This method updates the cached column of the InfoRequest that
   # stores the last created_at date of relevant events
   # when saving or destroying an InfoRequestEvent associated with the request
@@ -520,6 +408,12 @@ class InfoRequestEvent < ApplicationRecord
       self.last_described_at = Time.zone.now
       save!
     end
+  end
+
+  protected
+
+  def variety
+    event_type
   end
 
   private
@@ -585,5 +479,122 @@ class InfoRequestEvent < ApplicationRecord
       memo[key.to_sym] = value || v
       memo
     end
+  end
+
+  def only_editing_prominence_to_hide?
+    event_type == 'edit' &&
+      params_diff[:new].keys == [:prominence] &&
+      params_diff[:old][:prominence] == "normal" &&
+      %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
+  end
+
+  def get_clipped_response_efficiently
+    # TODO: this ugly code is an attempt to not always load all the
+    # columns for an incoming message, which can be *very* large
+    # (due to all the cached text).  We care particularly in this
+    # case because it's called for every search result on a page
+    # (to show the search snippet). Actually, we should review if we
+    # need all this data to be cached in the database at all, and
+    # then we won't need this horrid workaround.
+    message = incoming_message_selective_columns("cached_attachment_text_clipped, cached_main_body_text_folded")
+    clipped_body = message.cached_main_body_text_folded
+    clipped_attachment = message.cached_attachment_text_clipped
+    if clipped_body.nil? || clipped_attachment.nil?
+      # we're going to have to load it anyway
+      text = incoming_message.get_text_for_indexing_clipped
+    else
+      text = clipped_body.gsub("FOLDED_QUOTED_SECTION", " ").strip + "\n\n" + clipped_attachment
+    end
+    text + "\n\n"
+  end
+
+  def must_be_valid_state
+    if described_state && !InfoRequest::State.all.include?(described_state)
+      errors.add(:described_state, "is not a valid state")
+    end
+  end
+
+  # INDEXING HELPERS
+
+  def indexed_by_search?
+    if %w[sent followup_sent response comment].include?(event_type)
+      return false unless info_request.indexed_by_search?
+      if event_type == 'response' && !incoming_message.indexed_by_search?
+        return false
+      end
+      if %w[sent followup_sent].include?(event_type) && !outgoing_message.indexed_by_search?
+        return false
+      end
+      return false if event_type == 'comment' && !comment.visible
+      return true
+    end
+    false
+  end
+
+  def requested_by
+    info_request.user_name_slug
+  end
+
+  def requested_from
+    # acts_as_xapian will detect translated fields via Globalize and add all the
+    # available locales to the index. But 'requested_from' is not translated directly,
+    # although it relies on a translated field in PublicBody. Hence, we need to
+    # manually add all the localized values to the index (Xapian can handle a list
+    # of values in a term, btw)
+    info_request.public_body.translations.map(&:url_name)
+  end
+
+  def commented_by
+    if event_type == 'comment'
+      comment.user.url_name
+    else
+      ''
+    end
+  end
+
+  def request_title_collapse
+    info_request.url_title(collapse: true)
+  end
+
+  def described_at_numeric
+    # format it here as no datetime support in Xapian's value ranges
+    described_at.strftime("%Y%m%d%H%M%S")
+  end
+
+  def created_at_numeric
+    # format it here as no datetime support in Xapian's value ranges
+    created_at.strftime("%Y%m%d%H%M%S")
+  end
+
+  def waiting_classification
+    info_request.awaiting_description == true ? "yes" : "no"
+  end
+
+  def latest_variety
+    sibling_events(reverse: true).each do |event|
+      return event.variety unless event.variety.blank?
+    end
+  end
+
+  def latest_status
+    sibling_events(reverse: true).each do |event|
+      return event.calculated_state unless event.calculated_state.blank?
+    end
+  end
+
+  def filetype
+    if event_type == 'response'
+      unless incoming_message
+        raise "event type is 'response' but no incoming message for event id #{id}"
+      end
+
+      incoming_message.get_present_file_extensions
+    else
+      ''
+    end
+  end
+
+  def request_public_body_tags
+    info_request.public_body.tag_array_for_search
   end
 end

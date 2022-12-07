@@ -93,64 +93,6 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
-  describe 'when deciding if it is indexed by search' do
-
-    it 'returns a falsey value for a comment that is not visible' do
-      comment = FactoryBot.create(:hidden_comment)
-      comment_event = FactoryBot.build(:comment_event, comment: comment)
-      expect(comment_event.indexed_by_search?).to be_falsey
-    end
-
-    it 'returns a truthy value for a comment that is visible' do
-      comment = FactoryBot.create(:comment)
-      comment_event = FactoryBot.build(:comment_event, comment: comment)
-      expect(comment_event.indexed_by_search?).to be_truthy
-    end
-
-    it 'returns a falsey value for an incoming message that is not indexed by search' do
-      incoming_message = FactoryBot.create(:incoming_message, :hidden)
-      response_event = FactoryBot.build(:response_event,
-                                        incoming_message: incoming_message)
-      expect(response_event.indexed_by_search?).to be_falsey
-    end
-
-    it 'returns a truthy value for an incoming message that is indexed by search' do
-      incoming_message = FactoryBot.create(:incoming_message)
-      response_event = FactoryBot.build(:response_event,
-                                        incoming_message: incoming_message)
-      expect(response_event.indexed_by_search?).to be_truthy
-    end
-
-    it 'returns a falsey value for an outgoing message that is not indexed by search' do
-      outgoing_message = FactoryBot.create(:hidden_followup)
-      followup_event = FactoryBot.build(:followup_sent_event,
-                                        outgoing_message: outgoing_message)
-      expect(followup_event.indexed_by_search?).to be_falsey
-    end
-
-    it 'returns a truthy value for an outgoing message that is indexed by search' do
-      outgoing_message = FactoryBot.create(:new_information_followup)
-      followup_event = FactoryBot.build(:followup_sent_event,
-                                        outgoing_message: outgoing_message)
-      expect(followup_event.indexed_by_search?).to be_truthy
-    end
-
-    it 'returns a falsey value for an overdue event' do
-      overdue_event = FactoryBot.build(:overdue_event)
-      expect(overdue_event.indexed_by_search?).to be_falsey
-    end
-
-    it 'returns a falsey value for a very overdue event' do
-      very_overdue_event = FactoryBot.build(:very_overdue_event)
-      expect(very_overdue_event.indexed_by_search?).to be_falsey
-    end
-
-    it 'returns a falsey value for an embargo expiry event' do
-      expire_embargo_event = FactoryBot.build(:expire_embargo_event)
-      expect(expire_embargo_event.indexed_by_search?).to be_falsey
-    end
-  end
-
   describe '.count_of_hides_by_week' do
     it 'counts hide events by week' do
       FactoryBot.create(:hide_event, created_at: Time.utc(2016, 1, 24))
@@ -181,73 +123,6 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
-  describe '#requested_by' do
-    it "should return the slug of the associated request's user" do
-      ire = FactoryBot.create(:info_request_event)
-      expect(ire.requested_by).to eq(ire.info_request.user_name_slug)
-    end
-  end
-
-  describe '#requested_from' do
-    it "should return an array of translated public body url_name values" do
-      ire = FactoryBot.create(:info_request_event)
-      public_body = ire.info_request.public_body
-      expect(ire.requested_from).to eq([public_body.url_name])
-    end
-  end
-
-  describe '#commented_by' do
-    context 'if it is a comment event' do
-      it "should return the commenter's url_name" do
-        user = FactoryBot.create(:user)
-        comment = FactoryBot.create(:comment, user: user)
-        ire = FactoryBot.create(:info_request_event,
-                                event_type: 'comment',
-                                comment: comment)
-        expect(ire.commented_by).to eq(user.url_name)
-      end
-    end
-
-    context 'if it is not a comment event' do
-      it 'should return a blank string' do
-        ire = FactoryBot.create(:info_request_event)
-        expect(ire.commented_by).to eq('')
-      end
-    end
-  end
-
-  describe '#variety' do
-    it 'should be an alias for event_type' do
-      ire = FactoryBot.create(:info_request_event)
-      expect(ire.variety).to eq(ire.event_type)
-    end
-  end
-
-  describe '#latest_variety' do
-    it 'should return the variety for the most recent event of the related request' do
-      ire = FactoryBot.create(:info_request_event)
-      request = ire.info_request
-      new_event = FactoryBot.create(:info_request_event,
-                                    event_type: 'comment',
-                                    info_request: request)
-      request.reload
-      expect(ire.latest_variety).to eq('comment')
-    end
-  end
-
-  describe '#latest_status' do
-    it 'should return the calculated_state of the most recent event of the related request' do
-      ire = FactoryBot.create(:info_request_event)
-      request = ire.info_request
-      new_event = FactoryBot.create(:info_request_event,
-                                    event_type: 'comment',
-                                    info_request: request)
-      new_event.set_calculated_state!('internal_review')
-      request.reload
-      expect(ire.latest_status).to eq('internal_review')
-    end
-  end
-
   describe '#title' do
     context 'a sent event' do
       it 'should return the related info_request title' do
@@ -264,38 +139,6 @@ RSpec.describe InfoRequestEvent do
       it 'should return a blank string' do
         ire = FactoryBot.create(:info_request_event)
         expect(ire.title).to eq('')
-      end
-    end
-  end
-
-  describe '#filetype' do
-    context 'a response event' do
-      let(:ire) { ire = FactoryBot.create(:response_event) }
-
-      it 'should raise an error if there is not incoming_message' do
-        ire.incoming_message = nil
-        expect { ire.filetype }.to raise_error.
-          with_message(/event type is 'response' but no incoming message for event/)
-      end
-
-      it 'should return a blank string if there are no attachments' do
-        info_request = ire.info_request
-        expect(ire.filetype).to eq('')
-      end
-
-      it 'should return a space separated list of the attachment file types' do
-        info_request = ire.info_request
-        incoming = FactoryBot.create(:incoming_message_with_attachments,
-                                     info_request: info_request)
-        ire.incoming_message = incoming
-        expect(ire.filetype).to eq('pdf')
-      end
-    end
-
-    context 'not a response event' do
-      it 'should return a blank string' do
-        ire = FactoryBot.create(:info_request_event, event_type: 'comment')
-        expect(ire.filetype).to eq('')
       end
     end
   end
@@ -614,109 +457,6 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
-  describe "#only_editing_prominence_to_hide?" do
-    let(:unchanged_params) do
-      { editor: "henare",
-        old_title: "How much wood does a woodpecker peck?",
-        title: "How much wood does a woodpecker peck?",
-        old_described_state: "rejected",
-        described_state: "rejected",
-        old_awaiting_description: false,
-        awaiting_description: false,
-        old_allow_new_responses_from: "anybody",
-        allow_new_responses_from: "anybody",
-        old_handle_rejected_responses: "bounce",
-        handle_rejected_responses: "bounce",
-        old_tag_string: "",
-        tag_string: "",
-        old_comments_allowed: true,
-        comments_allowed: true }
-    end
-
-    it "should be false if it's not an edit" do
-      ire = InfoRequestEvent.new(event_type: "resent")
-
-      expect(ire.only_editing_prominence_to_hide?).to be false
-    end
-
-    it "should be false if it's already a hide event" do
-      ire = InfoRequestEvent.new(event_type: "hide")
-
-      expect(ire.only_editing_prominence_to_hide?).to be false
-    end
-
-    it "should be false if editing multiple conditions" do
-      params = unchanged_params.merge({ old_prominence: "normal",
-                                        prominence: "backpage",
-                                        old_comments_allowed: true,
-                                        comments_allowed: false })
-
-      ire = InfoRequestEvent.new(event_type: "edit", params: params)
-
-      expect(ire.only_editing_prominence_to_hide?).to be false
-    end
-
-    context "when only editing prominence to hidden" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "hidden"}) }
-
-      it do
-        ire = InfoRequestEvent.new(event_type: "edit", params: params)
-
-        expect(ire.only_editing_prominence_to_hide?).to be true
-      end
-    end
-
-    context "when only editing prominence to requester_only" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "requester_only"}) }
-
-      it "should be true if only editing prominence to requester_only" do
-        ire = InfoRequestEvent.new(event_type: "edit", params: params)
-
-        expect(ire.only_editing_prominence_to_hide?).to be true
-      end
-    end
-
-    context "when only editing prominence to backpage" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "backpage"}) }
-
-      it "should be true if only editing prominence to backpage" do
-        ire = InfoRequestEvent.new(event_type: "edit", params: params)
-
-        expect(ire.only_editing_prominence_to_hide?).to be true
-      end
-    end
-
-    context "when the old prominence was hidden" do
-      let(:params) { unchanged_params.merge({old_prominence: "hidden", prominence: "requester_only"}) }
-
-      it do
-        ire = InfoRequestEvent.new(event_type: "edit", params: params)
-
-        expect(ire.only_editing_prominence_to_hide?).to be false
-      end
-    end
-
-    context "when the old prominence was requester_only" do
-      let(:params) { unchanged_params.merge({old_prominence: "requester_only", prominence: "hidden"}) }
-
-      it do
-        ire = InfoRequestEvent.new(event_type: "edit", params: params)
-
-        expect(ire.only_editing_prominence_to_hide?).to be false
-      end
-    end
-
-    context "when the old prominence was backpage" do
-      let(:params) { unchanged_params.merge({old_prominence: "backpage", prominence: "hidden"}) }
-
-      it do
-        ire = InfoRequestEvent.new(event_type: "edit", params: params)
-
-        expect(ire.only_editing_prominence_to_hide?).to be false
-      end
-    end
-  end
-
   describe '#resets_due_dates?' do
 
     it 'returns true if the event is a sending of the request' do
@@ -869,6 +609,274 @@ RSpec.describe InfoRequestEvent do
 
     end
 
+  end
+
+  # Testing a private callback helper
+  describe "#only_editing_prominence_to_hide?" do
+    let(:unchanged_params) do
+      { editor: "henare",
+        old_title: "How much wood does a woodpecker peck?",
+        title: "How much wood does a woodpecker peck?",
+        old_described_state: "rejected",
+        described_state: "rejected",
+        old_awaiting_description: false,
+        awaiting_description: false,
+        old_allow_new_responses_from: "anybody",
+        allow_new_responses_from: "anybody",
+        old_handle_rejected_responses: "bounce",
+        handle_rejected_responses: "bounce",
+        old_tag_string: "",
+        tag_string: "",
+        old_comments_allowed: true,
+        comments_allowed: true }
+    end
+
+    it "should be false if it's not an edit" do
+      ire = InfoRequestEvent.new(event_type: "resent")
+
+      expect(ire.send(:only_editing_prominence_to_hide?)).to be false
+    end
+
+    it "should be false if it's already a hide event" do
+      ire = InfoRequestEvent.new(event_type: "hide")
+
+      expect(ire.send(:only_editing_prominence_to_hide?)).to be false
+    end
+
+    it "should be false if editing multiple conditions" do
+      params = unchanged_params.merge({ old_prominence: "normal",
+                                        prominence: "backpage",
+                                        old_comments_allowed: true,
+                                        comments_allowed: false })
+
+      ire = InfoRequestEvent.new(event_type: "edit", params: params)
+
+      expect(ire.send(:only_editing_prominence_to_hide?)).to be false
+    end
+
+    context "when only editing prominence to hidden" do
+      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "hidden"}) }
+
+      it do
+        ire = InfoRequestEvent.new(event_type: "edit", params: params)
+
+        expect(ire.send(:only_editing_prominence_to_hide?)).to be true
+      end
+    end
+
+    context "when only editing prominence to requester_only" do
+      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "requester_only"}) }
+
+      it "should be true if only editing prominence to requester_only" do
+        ire = InfoRequestEvent.new(event_type: "edit", params: params)
+
+        expect(ire.send(:only_editing_prominence_to_hide?)).to be true
+      end
+    end
+
+    context "when only editing prominence to backpage" do
+      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "backpage"}) }
+
+      it "should be true if only editing prominence to backpage" do
+        ire = InfoRequestEvent.new(event_type: "edit", params: params)
+
+        expect(ire.send(:only_editing_prominence_to_hide?)).to be true
+      end
+    end
+
+    context "when the old prominence was hidden" do
+      let(:params) { unchanged_params.merge({old_prominence: "hidden", prominence: "requester_only"}) }
+
+      it do
+        ire = InfoRequestEvent.new(event_type: "edit", params: params)
+
+        expect(ire.send(:only_editing_prominence_to_hide?)).to be false
+      end
+    end
+
+    context "when the old prominence was requester_only" do
+      let(:params) { unchanged_params.merge({old_prominence: "requester_only", prominence: "hidden"}) }
+
+      it do
+        ire = InfoRequestEvent.new(event_type: "edit", params: params)
+
+        expect(ire.send(:only_editing_prominence_to_hide?)).to be false
+      end
+    end
+
+    context "when the old prominence was backpage" do
+      let(:params) { unchanged_params.merge({old_prominence: "backpage", prominence: "hidden"}) }
+
+      it do
+        ire = InfoRequestEvent.new(event_type: "edit", params: params)
+
+        expect(ire.send(:only_editing_prominence_to_hide?)).to be false
+      end
+    end
+  end
+
+
+  # INDEXING HELPERS
+  #
+  # Technically don't need to test because these are private, but we want to
+  # ensure we're populating the search index with the correct values so these
+  # currently call the method via `send`.
+
+  describe 'when deciding if it is indexed by search' do
+    it 'returns a falsey value for a comment that is not visible' do
+      comment = FactoryBot.create(:hidden_comment)
+      comment_event = FactoryBot.build(:comment_event, comment: comment)
+      expect(comment_event.send(:indexed_by_search?)).to be_falsey
+    end
+
+    it 'returns a truthy value for a comment that is visible' do
+      comment = FactoryBot.create(:comment)
+      comment_event = FactoryBot.build(:comment_event, comment: comment)
+      expect(comment_event.send(:indexed_by_search?)).to be_truthy
+    end
+
+    it 'returns a falsey value for an incoming message that is not indexed by search' do
+      incoming_message = FactoryBot.create(:incoming_message, :hidden)
+      response_event = FactoryBot.build(:response_event,
+                                        incoming_message: incoming_message)
+      expect(response_event.send(:indexed_by_search?)).to be_falsey
+    end
+
+    it 'returns a truthy value for an incoming message that is indexed by search' do
+      incoming_message = FactoryBot.create(:incoming_message)
+      response_event = FactoryBot.build(:response_event,
+                                        incoming_message: incoming_message)
+      expect(response_event.send(:indexed_by_search?)).to be_truthy
+    end
+
+    it 'returns a falsey value for an outgoing message that is not indexed by search' do
+      outgoing_message = FactoryBot.create(:hidden_followup)
+      followup_event = FactoryBot.build(:followup_sent_event,
+                                        outgoing_message: outgoing_message)
+      expect(followup_event.send(:indexed_by_search?)).to be_falsey
+    end
+
+    it 'returns a truthy value for an outgoing message that is indexed by search' do
+      outgoing_message = FactoryBot.create(:new_information_followup)
+      followup_event = FactoryBot.build(:followup_sent_event,
+                                        outgoing_message: outgoing_message)
+      expect(followup_event.send(:indexed_by_search?)).to be_truthy
+    end
+
+    it 'returns a falsey value for an overdue event' do
+      overdue_event = FactoryBot.build(:overdue_event)
+      expect(overdue_event.send(:indexed_by_search?)).to be_falsey
+    end
+
+    it 'returns a falsey value for a very overdue event' do
+      very_overdue_event = FactoryBot.build(:very_overdue_event)
+      expect(very_overdue_event.send(:indexed_by_search?)).to be_falsey
+    end
+
+    it 'returns a falsey value for an embargo expiry event' do
+      expire_embargo_event = FactoryBot.build(:expire_embargo_event)
+      expect(expire_embargo_event.send(:indexed_by_search?)).to be_falsey
+    end
+  end
+
+  describe '#requested_by' do
+    it "should return the slug of the associated request's user" do
+      ire = FactoryBot.create(:info_request_event)
+      expect(ire.send(:requested_by)).to eq(ire.info_request.user_name_slug)
+    end
+  end
+
+
+  describe '#requested_from' do
+    it "should return an array of translated public body url_name values" do
+      ire = FactoryBot.create(:info_request_event)
+      public_body = ire.info_request.public_body
+      expect(ire.send(:requested_from)).to eq([public_body.url_name])
+    end
+  end
+
+  describe '#commented_by' do
+    context 'if it is a comment event' do
+      it "should return the commenter's url_name" do
+        user = FactoryBot.create(:user)
+        comment = FactoryBot.create(:comment, user: user)
+        ire = FactoryBot.create(:info_request_event,
+                                event_type: 'comment',
+                                comment: comment)
+        expect(ire.send(:commented_by)).to eq(user.url_name)
+      end
+    end
+
+    context 'if it is not a comment event' do
+      it 'should return a blank string' do
+        ire = FactoryBot.create(:info_request_event)
+        expect(ire.send(:commented_by)).to eq('')
+      end
+    end
+  end
+
+  describe '#variety' do
+    it 'should be an alias for event_type' do
+      ire = FactoryBot.create(:info_request_event)
+      expect(ire.send(:variety)).to eq(ire.event_type)
+    end
+  end
+
+  describe '#latest_variety' do
+    it 'should return the variety for the most recent event of the related request' do
+      ire = FactoryBot.create(:info_request_event)
+      request = ire.info_request
+      new_event = FactoryBot.create(:info_request_event,
+                                    event_type: 'comment',
+                                    info_request: request)
+      request.reload
+      expect(ire.send(:latest_variety)).to eq('comment')
+    end
+  end
+
+  describe '#latest_status' do
+    it 'should return the calculated_state of the most recent event of the related request' do
+      ire = FactoryBot.create(:info_request_event)
+      request = ire.info_request
+      new_event = FactoryBot.create(:info_request_event,
+                                    event_type: 'comment',
+                                    info_request: request)
+      new_event.set_calculated_state!('internal_review')
+      request.reload
+      expect(ire.send(:latest_status)).to eq('internal_review')
+    end
+  end
+
+  describe '#filetype' do
+    context 'a response event' do
+      let(:ire) { ire = FactoryBot.create(:response_event) }
+
+      it 'should raise an error if there is not incoming_message' do
+        ire.incoming_message = nil
+        expect { ire.send(:filetype) }.to raise_error.
+          with_message(/event type is 'response' but no incoming message for event/)
+      end
+
+      it 'should return a blank string if there are no attachments' do
+        info_request = ire.info_request
+        expect(ire.send(:filetype)).to eq('')
+      end
+
+      it 'should return a space separated list of the attachment file types' do
+        info_request = ire.info_request
+        incoming = FactoryBot.create(:incoming_message_with_attachments,
+                                     info_request: info_request)
+        ire.incoming_message = incoming
+        expect(ire.send(:filetype)).to eq('pdf')
+      end
+    end
+
+    context 'not a response event' do
+      it 'should return a blank string' do
+        ire = FactoryBot.create(:info_request_event, event_type: 'comment')
+        expect(ire.send(:filetype)).to eq('')
+      end
+    end
   end
 
 end
