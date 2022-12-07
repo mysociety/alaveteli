@@ -110,28 +110,41 @@ class InfoRequestEvent < ApplicationRecord
   attr_accessor :no_xapian_reindex
 
   # Full text search indexing
-  acts_as_xapian texts: [ :search_text_main, :title ],
-                 values: [
-                   [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
-                   [ :created_at_numeric, 1, "created_at", :number ], # for sorting
-                   [ :described_at_numeric, 2, "described_at", :number ], # TODO: using :number for lack of :datetime support in Xapian values
-                   [ :request, 3, "request_collapse", :string ],
-                   [ :request_title_collapse, 4, "request_title_collapse", :string ]
-                 ],
-                 terms: [ [ :calculated_state, 'S', "status" ],
-                             [ :requested_by, 'B', "requested_by" ],
-                             [ :requested_from, 'F', "requested_from" ],
-                             [ :commented_by, 'C', "commented_by" ],
-                             [ :request, 'R', "request" ],
-                             [ :variety, 'V', "variety" ],
-                             [ :latest_variety, 'K', "latest_variety" ],
-                             [ :latest_status, 'L', "latest_status" ],
-                             [ :waiting_classification, 'W', "waiting_classification" ],
-                             [ :filetype, 'T', "filetype" ],
-                             [ :tags, 'U', "tag" ],
-                             [ :request_public_body_tags, 'X', "request_public_body_tag" ] ],
-                 if: :indexed_by_search?,
-                 eager_load: [ :outgoing_message, :comment, { info_request: [ :user, :public_body, :censor_rules ] } ]
+  acts_as_xapian \
+    texts: [
+      :search_text_main,
+      :title
+    ],
+    values: [
+      # for QueryParser range searches e.g. 01/01/2008..14/01/2008:
+      [:created_at, 0, 'range_search', :date],
+      # for sorting:
+      [:created_at_numeric, 1, 'created_at', :number],
+      # TODO: using :number for lack of :datetime support in Xapian values:
+      [:described_at_numeric, 2, 'described_at', :number],
+      [:request, 3, 'request_collapse', :string],
+      [:request_title_collapse, 4, 'request_title_collapse', :string]
+    ],
+    terms: [
+      [:calculated_state, 'S', 'status'],
+      [:requested_by, 'B', 'requested_by'],
+      [:requested_from, 'F', 'requested_from'],
+      [:commented_by, 'C', 'commented_by'],
+      [:request, 'R', 'request'],
+      [:variety, 'V', 'variety'],
+      [:latest_variety, 'K', 'latest_variety'],
+      [:latest_status, 'L', 'latest_status'],
+      [:waiting_classification, 'W', 'waiting_classification'],
+      [:filetype, 'T', 'filetype'],
+      [:tags, 'U', 'tag'],
+      [:request_public_body_tags, 'X', 'request_public_body_tag']
+    ],
+    eager_load: [
+      :outgoing_message,
+      :comment,
+      { info_request: [:user, :public_body, :censor_rules] }
+    ],
+    if: :indexed_by_search?
 
   def self.count_of_hides_by_week
     where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort
