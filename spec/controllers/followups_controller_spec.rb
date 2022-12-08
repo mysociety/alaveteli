@@ -100,6 +100,15 @@ RSpec.describe FollowupsController do
         expect(response).to render_template('new')
       end
 
+      context 'the request is still embargoed but the user is no longer pro' do
+        before { request.create_embargo!(embargo_duration: '3_months') }
+
+        it 'shows the followup form' do
+          get :new, params: { request_id: request.id }
+          expect(response).to render_template('new')
+        end
+      end
+
       context 'the request has responses' do
         let(:message_id) { request.incoming_messages[0].id }
 

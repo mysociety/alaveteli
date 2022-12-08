@@ -188,10 +188,11 @@ class FollowupsController < ApplicationController
   end
 
   def set_info_request
-    if current_user && current_user.is_pro?
+    if current_user
       @info_request =
         current_user.info_requests.find_by(id: params[:request_id].to_i)
     end
+
     @info_request ||= InfoRequest.not_embargoed.find(params[:request_id].to_i)
   end
 
