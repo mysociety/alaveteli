@@ -1441,6 +1441,9 @@ Style/ArgumentsForwarding:
 Style/ArrayCoercion:
   Enabled: false
 
+Style/ArrayIntersect:
+  Enabled: false
+
 Style/ArrayJoin:
   Enabled: true
 
@@ -1919,6 +1922,12 @@ Style/RedundantCondition:
 Style/RedundantConditional:
   Enabled: false
 
+Style/RedundantConstantBase:
+  Enabled: false
+
+Style/RedundantEach:
+  Enabled: false
+
 Style/RedundantException:
   Enabled: true
 
@@ -1971,6 +1980,9 @@ Style/RedundantStringEscape:
   Enabled: false
 
 Style/RegexpLiteral:
+  Enabled: false
+
+Style/RequireOrder:
   Enabled: false
 
 Style/RescueModifier:
