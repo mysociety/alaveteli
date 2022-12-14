@@ -222,7 +222,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       last_event = @incoming.info_request_events.last
       expect(last_event.event_type).to eq('edit_incoming')
       expect(last_event.params).to eq(
-        incoming_message_id: @incoming.id,
+        incoming_message: { gid: @incoming.to_global_id.to_s },
         editor: 'Admin user',
         old_prominence: 'normal',
         prominence: 'hidden',

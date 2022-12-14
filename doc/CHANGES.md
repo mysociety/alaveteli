@@ -20,6 +20,7 @@
 * Use correct mime type for cached CSV attachments (Gareth Rees)
 * Protect mass-tag update buttons in admin bodies lists (Gareth Rees)
 * Update `all-authorities.csv` download to cache file nightly (Graeme Porteous)
+* Improve storage of event parameter data (Graeme Porteous)
 
 ## Highlighted Pro Features
 
@@ -39,6 +40,13 @@
 
 * The crontab needs to be regenerated to include the new modifications:
   http://alaveteli.org/docs/installing/manual_install/#generate-crontab
+
+* There are some database structure updates so remember to run
+  `bin/rails db:migrate`
+
+* Run `bin/rails temp:sanitise_and_populate_events_params_json` to populate new
+  event data database column. This will ensure old data is correctly sanitised
+  so raw Ruby objects aren't stored.
 
 ### Changed Templates
 
