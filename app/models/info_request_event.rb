@@ -106,6 +106,8 @@ class InfoRequestEvent < ApplicationRecord
     end
   end
 
+  attr_accessor :no_xapian_reindex
+
   # Full text search indexing
   acts_as_xapian :texts => [ :search_text_main, :title ],
                  :values => [

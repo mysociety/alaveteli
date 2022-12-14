@@ -5,6 +5,7 @@ namespace :temp do
     count = scope.count
 
     scope.find_each.with_index do |event, index|
+      event.no_xapian_reindex = true
       event.update(params: event.params)
 
       erase_line
