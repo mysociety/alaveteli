@@ -60,7 +60,7 @@
       <% else %>
 
         <% if event.info_request.embargo && can?(:admin, AlaveteliPro::Embargo) %>
-          had '<%= event.event_type %>' done to it, parameters <%= event.params_yaml %>.
+          had '<%= event.event_type %>' done to it, parameters <%= event.params %>.
         <% else %>
           had '<%= event.event_type %>' done to it, parameters hidden.
         <% end %>

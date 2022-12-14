@@ -237,7 +237,7 @@ RSpec.describe AdminOutgoingMessageController do
       last_event = info_request.info_request_events.last
       expect(last_event.event_type).to eq('edit_outgoing')
       expect(last_event.params).to eq(
-        outgoing_message_id: outgoing.id,
+        outgoing_message: { gid: outgoing.to_global_id.to_s },
         editor: 'Admin user',
         old_body: 'Some information please',
         body: 'changed body',

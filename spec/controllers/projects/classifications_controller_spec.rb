@@ -120,7 +120,9 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'successful'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
-        expect(event.params[:user_id]).to eq user.id
+        expect(event.params).to include(
+          user: { gid: info_request.user.to_global_id.to_s }
+        )
       end
 
       it 'call set_described_state on the request' do
@@ -169,7 +171,9 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         expect(event.params[:described_state]).to eq 'error_message'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params).to include(
+          user: { gid: info_request.user.to_global_id.to_s }
+        )
       end
 
       it 'call set_described_state on the request' do
@@ -209,7 +213,9 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         expect(event.params[:described_state]).to eq 'requires_admin'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params).to include(
+          user: { gid: info_request.user.to_global_id.to_s }
+        )
       end
 
       it 'call set_described_state on the request' do

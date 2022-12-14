@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220408125559
 #
 # Table name: info_request_events
 #
@@ -15,6 +15,7 @@
 #  outgoing_message_id :integer
 #  comment_id          :integer
 #  updated_at          :datetime
+#  params              :jsonb
 #
 
 # models/info_request_event.rb:
@@ -314,23 +315,38 @@ class InfoRequestEvent < ApplicationRecord
     end
   end
 
-  # We store YAML version of parameters in the database
-  def params=(params)
+  def params=(new_params)
+    super(params_for_jsonb(new_params))
+    self.params_yaml = params_for_yaml(new_params)
+
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
-    if params[:incoming_message_id]
-      self.incoming_message_id = params[:incoming_message_id]
+    if params[:incoming_message]
+      self.incoming_message = params[:incoming_message]
     end
-    if params[:outgoing_message_id]
-      self.outgoing_message_id = params[:outgoing_message_id]
+    if params[:outgoing_message]
+      self.outgoing_message = params[:outgoing_message]
     end
-    if params[:comment_id]
-      self.comment_id = params[:comment_id]
+    if params[:comment]
+      self.comment = params[:comment]
     end
-    self.params_yaml = params.to_yaml
+  end
+
+  # A hash to lazy load Global ID reference models
+  class Params < Hash
+    def [](key)
+      value = super
+      return value unless value.is_a?(Hash) && value[:gid]
+
+      instance = GlobalID::Locator.locate(value[:gid])
+      self[key] = instance
+    end
   end
 
   def params
+    params_jsonb = super
+    return Params[params_jsonb.deep_symbolize_keys] if params_jsonb
+
     param_hash = YAMLCompatibility.load(params_yaml) || {}
     param_hash.each do |key, value|
       param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
@@ -346,17 +362,16 @@ class InfoRequestEvent < ApplicationRecord
     ignore = {}
     for key, value in params
       key = key.to_s
-      value = value.url_name if value.is_a?(User)
       if key.match(/^old_(.*)$/)
         if params[$1.to_sym] == value
           ignore[$1.to_sym] = ''
         else
-          old_params[$1.to_sym] = value.to_s.strip
+          old_params[$1.to_sym] = value
         end
       elsif params.include?(("old_" + key).to_sym)
-        new_params[key.to_sym] = value.to_s.strip
+        new_params[key.to_sym] = value
       else
-        other_params[key.to_sym] = value.to_s.strip
+        other_params[key.to_sym] = value
       end
     end
     new_params.delete_if { |key, value| ignore.keys.include?(key) }
@@ -485,7 +500,7 @@ class InfoRequestEvent < ApplicationRecord
     ret = {
       :id => id,
       :event_type => event_type,
-      # params_yaml has possibly sensitive data in it, don't include it
+      # params has possibly sensitive data in it, don't include it
       :created_at => created_at,
       :described_state => described_state,
       :calculated_state => calculated_state,
@@ -550,4 +565,46 @@ class InfoRequestEvent < ApplicationRecord
     events = self.class.where(:info_request_id => info_request_id).order(order)
   end
 
+  def params_for_jsonb(params)
+    params.inject({}) do |memo, (k, v)|
+      key = k.to_s
+
+      # look for keys ending in `_id` and attempt to map to a Ruby class
+      key = key.sub(/_id$/, '')
+      if Regexp.last_match
+        klass_str = key.classify
+        klass = klass_str.safe_constantize
+        klass ||= "AlaveteliPro::#{klass_str}".safe_constantize
+        klass ||= InfoRequest if klass_str == 'Request'
+        if klass
+          # attempt to load the object by ID
+          object = klass.find_by(id: v)
+
+          # if object can't be loading, eg, deleted from DB, manually build
+          # ID/type hash
+          value = { gid: "gid://app/#{klass}/#{v}" } unless object
+
+        else
+          # without a class, probably not a application model, EG email message
+          # ID, so revert the change to the key to re-add the `_id`
+          key = k
+        end
+      end
+
+      object ||= v if v.is_a?(ApplicationRecord)
+      if object
+        # if we have an object, map to a ID/type hash - including version if
+        # present
+        value = { gid: object.to_global_id.to_s }
+        value[:version] = object.version if object.respond_to?(:version)
+      end
+
+      memo[key.to_sym] = value || v
+      memo
+    end
+  end
+
+  def params_for_yaml(params)
+    params.to_yaml
+  end
 end

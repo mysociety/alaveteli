@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220408125559
 #
 # Table name: info_request_events
 #
@@ -15,12 +15,15 @@
 #  outgoing_message_id :integer
 #  comment_id          :integer
 #  updated_at          :datetime
+#  params              :jsonb
 #
 
 useless_outgoing_message_event:
   id: 900
   params_yaml: "--- \n\
     :outgoing_message_id: 1\n"
+  params:
+    outgoing_message_id: 1
   info_request_id: 101
   event_type: sent
   created_at: 2007-10-12 01:56:58.586598
@@ -30,6 +33,8 @@ silly_outgoing_message_event:
   id: 901
   params_yaml: "--- \n\
     :outgoing_message_id: 2\n"
+  params:
+    outgoing_message_id: 2
   info_request_id: 103
   event_type: sent
   created_at: 2007-10-14 10:41:12.686264
@@ -41,6 +46,8 @@ useless_incoming_message_event:
   id: 902
   params_yaml: "--- \n\
     :incoming_message_id: 1\n"
+  params:
+    incoming_message_id: 1
   info_request_id: 101
   event_type: response
   created_at: 2007-11-13 18:09:20.042061
@@ -50,6 +57,8 @@ silly_comment_event:
   id: 903
   params_yaml: "--- \n\
     :comment_id: 1\n"
+  params:
+    comment_id: 1
   incoming_message_id:
   last_described_at:
   described_state:
@@ -63,6 +72,8 @@ badger_outgoing_message_event:
   id: 904
   params_yaml: "--- \n\
     :outgoing_message_id: 3\n"
+  params:
+    outgoing_message_id: 3
   info_request_id: 104
   event_type: sent
   created_at: 2011-10-12 01:56:58.586598
@@ -75,6 +86,8 @@ boring_outgoing_message_event:
   id: 905
   params_yaml: "--- \n\
     :outgoing_message_id: 4\n"
+  params:
+    outgoing_message_id: 4
   outgoing_message_id: 4
   info_request_id: 105
   event_type: sent
@@ -85,6 +98,8 @@ useful_incoming_message_event:
   id: 906
   params_yaml: "--- \n\
     :incoming_message_id: 2\n"
+  params:
+    incoming_message_id: 2
   incoming_message_id: 2
   info_request_id: 105
   event_type: response
@@ -96,6 +111,8 @@ another_boring_outgoing_message_event:
   id: 907
   params_yaml: "--- \n\
     :outgoing_message_id: 5\n"
+  params:
+    outgoing_message_id: 5
   outgoing_message_id: 5
   info_request_id: 106
   event_type: sent
@@ -106,6 +123,8 @@ another_useful_incoming_message_event:
   id: 908
   params_yaml: "--- \n\
     :incoming_message_id: 3\n"
+  params:
+    incoming_message_id: 3
   incoming_message_id: 3
   info_request_id: 106
   event_type: response
@@ -118,6 +137,8 @@ spam_1_outgoing_message_event:
   id: 910
   params_yaml: "--- \n\
     :outgoing_message_id: 6\n"
+  params:
+    outgoing_message_id: 6
   outgoing_message_id: 6
   info_request_id: 107
   event_type: sent
@@ -128,6 +149,8 @@ spam_1_incoming_message_event:
   id: 911
   params_yaml: "--- \n\
     :incoming_message_id: 4\n"
+  params:
+    incoming_message_id: 4
   incoming_message_id: 4
   info_request_id: 107
   event_type: response
@@ -139,6 +162,8 @@ spam_2_outgoing_message_event:
   id: 912
   params_yaml: "--- \n\
     :outgoing_message_id: 7\n"
+  params:
+    outgoing_message_id: 7
   outgoing_message_id: 7
   info_request_id: 108
   event_type: sent
@@ -149,6 +174,8 @@ spam_2_incoming_message_event:
   id: 913
   params_yaml: "--- \n\
     :incoming_message_id: 5\n"
+  params:
+    incoming_message_id: 5
   incoming_message_id: 5
   info_request_id: 108
   event_type: response
@@ -160,6 +187,8 @@ external_outgoing_message_event:
   id: 914
   params_yaml: "--- \n\
     :outgoing_message_id: 8\n"
+  params:
+    outgoing_message_id: 8
   outgoing_message_id: 8
   info_request_id: 109
   event_type: sent
@@ -171,6 +200,8 @@ anonymous_external_outgoing_message_event:
   id: 915
   params_yaml: "--- \n\
     :outgoing_message_id: 9\n"
+  params:
+    outgoing_message_id: 9
   outgoing_message_id: 9
   info_request_id: 110
   event_type: sent
@@ -182,6 +213,8 @@ other_request_outgoing_message_event:
   id: 916
   params_yaml: "--- \n\
     :outgoing_message_id: 10\n"
+  params:
+    outgoing_message_id: 10
   outgoing_message_id: 10
   info_request_id: 111
   event_type: sent

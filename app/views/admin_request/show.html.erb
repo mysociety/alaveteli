@@ -261,7 +261,7 @@
                   <b><%= name.humanize %></b>
                 </td>
                 <td>
-                  <% if name == 'params_yaml' %>
+                  <% if name == 'params' %>
                     <%= render :partial => 'params', :locals => { :params => info_request_event.params_diff } %>
                   <% else %>
                     <%= admin_value(value) %>
