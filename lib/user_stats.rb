@@ -7,18 +7,22 @@ class UserStats
   # number of signups for each, ordered by popularity (most popular first)
   def self.list_user_domains(params={})
     sql = if params[:start_date]
-      "SELECT substring(email, position('@' in email)+1) AS domain, " \
-      "COUNT(id) AS count " \
-      "FROM users " \
-      "WHERE created_at >= '#{params[:start_date]}' " \
-      "GROUP BY domain " \
-      "ORDER BY count DESC "
+      <<~SQL
+      SELECT substring(email, position('@' in email)+1) AS domain,
+      COUNT(id) AS count
+      FROM users
+      WHERE created_at >= '#{params[:start_date]}'
+      GROUP BY domain
+      ORDER BY count DESC
+      SQL
     else
-      "SELECT substring(email, position('@' in email)+1) AS domain, " \
-      "COUNT(id) AS count " \
-      "FROM users " \
-      "GROUP BY domain " \
-      "ORDER BY count DESC "
+      <<~SQL
+      SELECT substring(email, position('@' in email)+1) AS domain,
+      COUNT(id) AS count
+      FROM users
+      GROUP BY domain
+      ORDER BY count DESC
+      SQL
     end
     sql = "#{sql} LIMIT #{params[:limit]}" if params[:limit]
 
