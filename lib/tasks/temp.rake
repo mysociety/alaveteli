@@ -1,4 +1,34 @@
 namespace :temp do
+  desc 'Convert old Syck YAML to Psych YAML'
+  task convert_syck_to_psych_yaml: :environment do
+    require 'syck'
+
+    # requiring Syck redefines the YAML constant, we need to reset this back to
+    # Psych otherwise we can't load the InfoRequestEvent instances.
+    Object.send(:remove_const, :YAML)
+    YAML = Psych
+
+    scope = InfoRequestEvent.where(params: nil)
+    count = scope.count
+
+    scope.find_each.with_index do |event, index|
+      begin
+        Psych.parse(event.params_yaml)
+      rescue Psych::SyntaxError
+        yaml = Syck.load(event.params_yaml)
+
+        event.no_xapian_reindex = true
+        event.update(params_yaml: Psych.dump(yaml))
+      end
+
+      erase_line
+      print "Converted InfoRequestEvent#param_yaml #{index + 1}/#{count}"
+    end
+
+    erase_line
+    puts "Converted InfoRequestEvent#params_yaml completed."
+  end
+
   desc 'Sanitise and populate events params json column from yaml'
   task sanitise_and_populate_events_params_json: :environment do
     scope = InfoRequestEvent.where(params: nil)
