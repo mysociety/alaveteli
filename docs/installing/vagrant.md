@@ -2,6 +2,14 @@
 layout: page
 title: Vagrant
 ---
+
+<div class="attention-box danger">
+  <p>
+    Installing Alaveteli using Vagrant has been depreciated. We recommend using
+    <a href="{{ page.baseurl }}/docs/installing/docker/">Docker</a> instead.
+  </p>
+</div>
+
 # Installing Alaveteli using Vagrant
 
 <p class="lead">
@@ -24,7 +32,7 @@ it's the best and easiest way to install it for
 
 The included steps will use Vagrant to create a development environment
 where you can run the test suite and the development server, make
-changes to the codebase and — significantly for 
+changes to the codebase and — significantly for
 [customising Alaveteli]({{ page.baseurl }}/docs/customising/) —
 create your own <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossary__link">theme</a>.
 
