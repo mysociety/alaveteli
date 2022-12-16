@@ -42,6 +42,11 @@
 
       bin/rails temp:convert_syck_to_psych_yaml
 
+* _Required:_ Fix objects stored as YAML data which can't be decoded correctly.
+  This has to be done, before release 0.43, by running:
+
+      bin/rails temp:fix_old_objects_in_yaml
+
 * _Required:_ Populate new event data database column. This will ensure old
   data is correctly sanitised so raw Ruby objects aren't stored. This has to be
   done, before release 0.43, by running:
