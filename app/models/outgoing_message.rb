@@ -25,10 +25,10 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ApplicationRecord
-  include AdminColumn
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include Taggable
 
   STATUS_TYPES = %w(ready sent failed).freeze
   MESSAGE_TYPES = %w(initial_request followup).freeze
@@ -68,6 +68,8 @@ class OutgoingMessage < ApplicationRecord
   after_update :xapian_reindex_after_update
 
   strip_attributes :allow_empty => true
+
+  admin_columns include: [:to, :from, :subject]
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 
@@ -222,8 +224,11 @@ class OutgoingMessage < ApplicationRecord
     self.status = 'failed'
     save!
 
-    info_request.log_event('send_error', reason: failure_reason,
-                                         outgoing_message_id: id)
+    info_request.log_event(
+      'send_error',
+      reason: failure_reason,
+      outgoing_message_id: id
+    )
     set_info_request_described_state
   end
 
@@ -234,9 +239,12 @@ class OutgoingMessage < ApplicationRecord
 
     log_event_type = "followup_#{ log_event_type }" if message_type == 'followup'
 
-    info_request.log_event(log_event_type, { :email => to_addrs,
-                                             :outgoing_message_id => id,
-                                             :smtp_message_id => message_id })
+    info_request.log_event(
+      log_event_type,
+      email: to_addrs,
+      outgoing_message_id: id,
+      smtp_message_id: message_id
+    )
     set_info_request_described_state
   end
 

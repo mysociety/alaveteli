@@ -90,7 +90,7 @@ else
   gem 'rails', '~> 6.1.6'
 end
 
-gem 'pg', '~> 1.4.1'
+gem 'pg', '~> 1.4.4'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
@@ -103,25 +103,25 @@ gem 'exception_notification', '~> 4.5.0'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
-gem 'icalendar', '~> 2.7.1'
+gem 'icalendar', '~> 2.8.0'
 gem 'jquery-rails', '~> 4.5.0'
 gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', '~> 2.6.2'
-gem 'holidays', '~> 8.5.0'
+gem 'holidays', '~> 8.6.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.7.1'
 gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.5'
-gem 'nokogiri', '~> 1.13.6'
+gem 'nokogiri', '~> 1.13.9'
 gem 'open4', '~> 1.3.0'
 gem 'rack', '~> 2.2.4'
 gem 'rack-utf8_sanitizer', '~> 1.7.0'
-gem 'recaptcha', '~> 5.10.0', require: 'recaptcha/rails'
+gem 'recaptcha', '~> 5.12.3', require: 'recaptcha/rails'
 gem 'mini_magick', '~> 4.11.0'
 gem 'rolify', '~> 5.3.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'rubyzip', '~> 2.3.2'
-gem 'secure_headers', '~> 6.3.4'
+gem 'secure_headers', '~> 6.4.0'
 gem 'statistics2', '~> 0.54'
 if rails_upgrade?
   gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
@@ -141,9 +141,9 @@ gem 'zip_tricks', '~> 5.6.0'
 gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
-gem 'i18n', '~> 1.10.0'
+gem 'i18n', '~> 1.12.0'
 gem 'rails-i18n', '~> 7.0.5'
-gem 'gettext_i18n_rails', '~> 1.8.1'
+gem 'gettext_i18n_rails', '~> 1.9.0'
   gem 'fast_gettext', '~> 2.2.0'
 gem 'gettext', '~> 3.4.3'
 gem 'globalize', '~> 6.2.1'
@@ -158,7 +158,7 @@ gem 'mime-types', '< 3.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
-gem 'mini_racer', '~> 0.6.2'
+gem 'mini_racer', '~> 0.6.3'
 gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '~> 4.2.0'
 
@@ -168,7 +168,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 # Storage backends
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
-gem 'google-cloud-storage', '~> 1.37', require: false
+gem 'google-cloud-storage', '~> 1.43', require: false
 
 if rails_upgrade? && RUBY_VERSION < '3.1'
   gem 'net-http', '0.1.1'
@@ -177,7 +177,7 @@ end
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.14.0'
+  gem 'webmock', '~> 3.18.1'
   gem 'simplecov', '~> 0.17.1'
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.37.1'
@@ -187,24 +187,24 @@ group :test do
 end
 
 group :test, :development do
-  gem 'bullet', '~> 7.0.2'
+  gem 'bullet', '~> 7.0.3'
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
-  gem 'rspec-rails', '~> 5.1.2'
-  gem 'pry', '~> 0.13.0'
-  gem 'pry-byebug', '~> 3.9.0'
+  gem 'rspec-rails', '~> 6.0.0'
+  gem 'pry', '~> 0.14.1'
+  gem 'pry-byebug', '~> 3.10.1'
 end
 
 group :development do
   gem 'annotate', '< 3.2.1'
   gem 'capistrano', '~> 2.15.0', '< 3.0.0'
-    gem 'net-ssh', '~> 6.1.0'
+    gem 'net-ssh', '~> 7.0.1'
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 2.5.0'
   gem 'listen', '>= 3.0.5', '< 3.7.2'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.31.1', require: false
+  gem 'rubocop', '~> 1.37.0', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

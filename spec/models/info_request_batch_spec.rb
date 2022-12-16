@@ -17,8 +17,7 @@ require 'spec_helper'
 require 'models/concerns/info_request/title_validation'
 
 RSpec.describe InfoRequestBatch do
-  it_behaves_like 'concerns/info_request/title_validation',
-                  FactoryBot.build(:info_request_batch)
+  it_behaves_like 'concerns/info_request/title_validation', :info_request_batch
 
   it { is_expected.to strip_attribute(:embargo_duration) }
 
@@ -47,8 +46,17 @@ RSpec.describe InfoRequestBatch do
       end
     end
 
+    context 'when batch has already been saved' do
+      let(:info_request_batch) { FactoryBot.create(:info_request_batch) }
+
+      it 'valid when an existing batch is found' do
+        allow(info_request_batch).to receive(:existing_batch).and_return(double)
+        expect(info_request_batch.valid?).to eq true
+      end
+    end
+
     context 'with ignore_existing_batch argument being set' do
-      it 'requires batch to be unique without an existing batch' do
+      it 'valid when an existing batch is found' do
         info_request_batch.ignore_existing_batch = true
         allow(info_request_batch).to receive(:existing_batch).and_return(double)
         expect(info_request_batch.valid?).to eq true
@@ -462,6 +470,22 @@ RSpec.describe InfoRequestBatch do
   end
 
   it_behaves_like "RequestSummaries"
+
+  describe '#embargoed?' do
+    subject { batch.embargoed? }
+
+    let(:batch) { FactoryBot.build(:info_request_batch) }
+
+    context 'when the batch has an embargo_duration' do
+      before { batch.embargo_duration = '12_months' }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the batch has no embargo_duration' do
+      before { batch.embargo_duration = nil }
+      it { is_expected.to eq(false) }
+    end
+  end
 
   describe "#embargo_expiring?" do
     let(:first_public_body) { FactoryBot.create(:public_body) }

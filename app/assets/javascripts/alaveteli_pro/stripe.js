@@ -136,14 +136,15 @@ function stripeForm(form, options) {
         url: $(that.form).attr('action'),
         data: $(that.form).serialize(),
         dataType: 'json',
-        success: that.handleStripeCallback
+        complete: that.handleStripeCallback
       });
     } else {
       that.form.submit();
     }
   };
 
-  that.handleStripeCallback = function(data) {
+  that.handleStripeCallback = function(jqXHR, textStatus) {
+    var data = jqXHR.responseJSON;
     if (data.url) {
       location.href = data.url;
     } else if (data.payment_intent) {
@@ -158,7 +159,7 @@ function stripeForm(form, options) {
       $.ajax({
         url: callbackUrl,
         dataType: 'json',
-        success: that.handleStripeCallback
+        complete: that.handleStripeCallback
       })
     });
   };

@@ -73,14 +73,15 @@
               <td></td>
             </tr>
 
-            <% @comment.for_admin_event_column(info_request_event) do
-                 |name, value, type, column_name| %>
+            <% info_request_event.for_admin_column(
+                 :event_type, :params_yaml, :created_at
+               ) do |name, value| %>
               <tr>
                 <td>
-                  <b><%=h name%></b>
+                  <b><%= name.humanize %></b>
                 </td>
                 <td>
-                  <% if column_name == 'params_yaml' %>
+                  <% if name == 'params' %>
                     <%= render :partial => 'params',
                                :locals => {
                                   :params => info_request_event.params_diff

@@ -13,7 +13,7 @@ class RequestGameController < ApplicationController
       where_old_unclassified.
         is_searchable.
           count
-    @total = InfoRequest.count
+    @total = InfoRequest.is_searchable.count
     @done = @total - @missing
     @percentage = if @total > 0
       (@done.to_f / @total.to_f * 10000).round / 100.0

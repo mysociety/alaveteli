@@ -36,6 +36,7 @@ class AdminRequestController < AdminController
   def update
     old_title = @info_request.title
     old_prominence = @info_request.prominence
+    old_prominence_reason = @info_request.prominence_reason
     old_described_state = @info_request.described_state
     old_awaiting_description = @info_request.awaiting_description
     old_allow_new_responses_from = @info_request.allow_new_responses_from
@@ -45,17 +46,28 @@ class AdminRequestController < AdminController
 
 
     if @info_request.update(info_request_params)
-      @info_request.log_event("edit",
-                              { :editor => admin_current_user,
-                                :old_title => old_title, :title => @info_request.title,
-                                :old_prominence => old_prominence, :prominence => @info_request.prominence,
-                                :old_described_state => old_described_state, :described_state => params[:info_request][:described_state],
-                                :old_awaiting_description => old_awaiting_description, :awaiting_description => @info_request.awaiting_description,
-                                :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
-                                :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
-                                :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string,
-                                :old_comments_allowed => old_comments_allowed, :comments_allowed => @info_request.comments_allowed
-                                })
+      @info_request.log_event(
+        'edit',
+        editor: admin_current_user,
+        old_title: old_title,
+        title: @info_request.title,
+        old_prominence: old_prominence,
+        prominence: @info_request.prominence,
+        old_prominence_reason: old_prominence_reason,
+        prominence_reason: @info_request.prominence_reason,
+        old_described_state: old_described_state,
+        described_state: params[:info_request][:described_state],
+        old_awaiting_description: old_awaiting_description,
+        awaiting_description: @info_request.awaiting_description,
+        old_allow_new_responses_from: old_allow_new_responses_from,
+        allow_new_responses_from: @info_request.allow_new_responses_from,
+        old_handle_rejected_responses: old_handle_rejected_responses,
+        handle_rejected_responses: @info_request.handle_rejected_responses,
+        old_tag_string: old_tag_string,
+        tag_string: @info_request.tag_string,
+        old_comments_allowed: old_comments_allowed,
+        comments_allowed: @info_request.comments_allowed
+      )
       if @info_request.described_state != params[:info_request][:described_state]
         @info_request.set_described_state(params[:info_request][:described_state])
       end
@@ -155,14 +167,23 @@ class AdminRequestController < AdminController
     ActiveRecord::Base.transaction do
       subject = params[:subject]
       explanation = params[:explanation]
-      @info_request.prominence = "requester_only"
 
-      @info_request.log_event("hide", {
-                               :editor => admin_current_user,
-                               :reason => params[:reason],
-                               :subject => subject,
-                               :explanation => explanation
-      })
+      old_prominence = @info_request.prominence
+      old_prominence_reason = @info_request.prominence_reason
+      @info_request.prominence = "requester_only"
+      @info_request.prominence_reason = params[:prominence_reason]
+
+      @info_request.log_event(
+        'hide',
+        editor: admin_current_user,
+        reason: params[:reason],
+        subject: subject,
+        explanation: explanation,
+        old_prominence: old_prominence,
+        prominence: @info_request.prominence,
+        old_prominence_reason: old_prominence_reason,
+        prominence_reason: @info_request.prominence_reason
+      )
 
       @info_request.set_described_state(params[:reason])
       @info_request.save!
@@ -193,6 +214,7 @@ class AdminRequestController < AdminController
     if params[:info_request]
       params.require(:info_request).permit(:title,
                                            :prominence,
+                                           :prominence_reason,
                                            :described_state,
                                            :awaiting_description,
                                            :allow_new_responses_from,

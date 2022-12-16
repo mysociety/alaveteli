@@ -163,3 +163,17 @@ peter_pro_admin_user:
   locale: 'en'
   about_me: ''
   receive_email_alerts: true
+ollie_foi_officer_user:
+  id: 10
+  name: Ollie Officer
+  url_name: ollie_officer
+  email: ollie@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: 'An FOI Officer at all authorities'
+  receive_email_alerts: false

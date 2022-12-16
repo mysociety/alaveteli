@@ -5,17 +5,20 @@
       :full_url => "http://#{AlaveteliConfiguration::domain}#{show_request_path(:url_title=>@info_request.url_title)}") %>.
 
 <% @info_request.info_request_events.each do |info_request_event| %>
-  <% if info_request_event.visible %>
-    <% case info_request_event.event_type %>
-    <% when 'response' %>
-      <%= render :partial => 'request/incoming_correspondence', :formats => [:text], :locals => { :incoming_message => info_request_event.incoming_message } %>
-    <% when 'sent', 'followup_sent' %>
-      <%= render :partial => 'request/outgoing_correspondence', :formats => [:text], :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
-    <% when 'resent', 'followup_resent' %>
-      <%= render :partial => 'request/resent_outgoing_correspondence', :formats => [:text], :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event }%>
-    <% when 'comment' %>
-      <%= render :partial => 'comment/single_comment', :formats => [:text], :locals => { :comment => info_request_event.comment } %>
-    <% end %>
+<% if info_request_event.visible %>
+<% case info_request_event.event_type %>
+<% when 'response' %>
 -------------------------------
-  <% end %>
+<%= render :partial => 'request/incoming_correspondence', :formats => [:text], :locals => { :incoming_message => info_request_event.incoming_message } %>
+<% when 'sent', 'followup_sent' %>
+-------------------------------
+<%= render :partial => 'request/outgoing_correspondence', :formats => [:text], :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event } %>
+<% when 'resent', 'followup_resent' %>
+-------------------------------
+<%= render :partial => 'request/resent_outgoing_correspondence', :formats => [:text], :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event } %>
+<% when 'comment' %>
+-------------------------------
+<%= render :partial => 'comment/single_comment', :formats => [:text], :locals => { :comment => info_request_event.comment } %>
+<% end %>
+<% end %>
 <% end %>

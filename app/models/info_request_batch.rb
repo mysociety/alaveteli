@@ -40,7 +40,9 @@ class InfoRequestBatch < ApplicationRecord
 
   validates_presence_of :user
   validates_presence_of :body
-  validates_absence_of :existing_batch, unless: -> { ignore_existing_batch }
+  validates_absence_of :existing_batch,
+                       unless: -> { ignore_existing_batch },
+                       on: :create
 
   strip_attributes only: %i[embargo_duration]
 
@@ -174,6 +176,13 @@ class InfoRequestBatch < ApplicationRecord
       )
     end
     info_request
+  end
+
+  # Is the batch currently embargoed?
+  #
+  # Returns Boolean
+  def embargoed?
+    embargo_duration.present?
   end
 
   # Do any of the requests in this batch have an embargo which is expiring

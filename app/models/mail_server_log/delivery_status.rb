@@ -21,10 +21,6 @@ class MailServerLog::DeliveryStatus
     to_sym == :unknown
   end
 
-  def simple
-    to_sym
-  end
-
   def humanize
     TranslatedConstants.humanized[to_sym]
   end

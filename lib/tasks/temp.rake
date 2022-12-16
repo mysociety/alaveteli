@@ -1,4 +1,40 @@
 namespace :temp do
+  desc 'Sanitise and populate events params json column from yaml'
+  task sanitise_and_populate_events_params_json: :environment do
+    scope = InfoRequestEvent.where(params: nil)
+    count = scope.count
+
+    scope.find_each.with_index do |event, index|
+      event.no_xapian_reindex = true
+      event.update(params: event.params)
+
+      erase_line
+      print "Populated InfoRequestEvent#param #{index + 1}/#{count}"
+    end
+
+    erase_line
+    puts "Populated InfoRequestEvent#params completed."
+  end
+
+  desc 'Migrate PublicBody notes into Note model'
+  task migrate_public_body_notes: :environment do
+    scope = PublicBody.where.not(notes: nil)
+    count = scope.count
+
+    scope.with_translations.find_each.with_index do |body, index|
+      PublicBody.transaction do
+        body.legacy_note&.save
+        body.translations.update(notes: nil)
+      end
+
+      erase_line
+      print "Migrated PublicBody#notes #{index + 1}/#{count}"
+    end
+
+    erase_line
+    puts "Migrated PublicBody#notes completed."
+  end
+
   desc 'Populate incoming message from email'
   task populate_incoming_message_from_email: :environment do
     scope = IncomingMessage.where(from_email: nil)

@@ -244,7 +244,7 @@ Layout/LineLength:
   Enabled: true
   Max: 80
   IgnoreCopDirectives: false
-  IgnoredPatterns:
+  AllowedPatterns:
     - "^\\s*it\\s+.*do$"
     - "^\\s*context\\s+.*do$"
     - "^\\s*describe\\s+.*do$"
@@ -287,6 +287,9 @@ Layout/MultilineMethodCallIndentation:
 
 Layout/MultilineMethodDefinitionBraceLayout:
   Enabled: true
+
+Layout/MultilineMethodParameterLineBreaks:
+  Enabled: false
 
 Layout/MultilineOperationIndentation:
   Enabled: true
@@ -457,6 +460,9 @@ Lint/DuplicateElsifCondition:
 
 Lint/DuplicateHashKey:
   Enabled: true
+
+Lint/DuplicateMagicComment:
+  Enabled: false
 
 Lint/DuplicateMethods:
   Enabled: true
@@ -655,6 +661,9 @@ Lint/RegexpAsCondition:
 
 Lint/RequireParentheses:
   Enabled: true
+
+Lint/RequireRangeParentheses:
+  Enabled: false
 
 Lint/RequireRelativeSelfPath:
   Enabled: false
@@ -866,6 +875,9 @@ Naming/VariableName:
 Naming/VariableNumber:
   Enabled: false
 
+Performance:
+  Enabled: false
+
 #################### Performance ####################
 
 Performance/AncestorsInclude:
@@ -1015,12 +1027,21 @@ Performance/UnfreezeString:
 Performance/UriDefaultParser:
   Enabled: false
 
+Rails:
+  Enabled: false
+
 #################### Rails ####################
+
+Rails/ActionControllerFlashBeforeRender:
+  Enabled: false
 
 Rails/ActionControllerTestCase:
   Enabled: false
 
 Rails/ActionFilter:
+  Enabled: false
+
+Rails/ActionOrder:
   Enabled: false
 
 Rails/ActiveRecordAliases:
@@ -1033,6 +1054,9 @@ Rails/ActiveRecordOverride:
   Enabled: false
 
 Rails/ActiveSupportAliases:
+  Enabled: false
+
+Rails/ActiveSupportOnLoad:
   Enabled: false
 
 Rails/AddColumnIndex:
@@ -1143,6 +1167,9 @@ Rails/FindById:
 Rails/FindEach:
   Enabled: false
 
+Rails/FreezeTime:
+  Enabled: false
+
 Rails/HasAndBelongsToMany:
   Enabled: false
 
@@ -1165,6 +1192,9 @@ Rails/I18nLocaleAssignment:
   Enabled: false
 
 Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/IgnoredColumnsAssignment:
   Enabled: false
 
 Rails/IgnoredSkipActionFilterOption:
@@ -1284,6 +1314,9 @@ Rails/ReversibleMigrationMethodDefinition:
 Rails/RootJoinChain:
   Enabled: false
 
+Rails/RootPathnameMethods:
+  Enabled: false
+
 Rails/RootPublicPath:
   Enabled: false
 
@@ -1326,6 +1359,12 @@ Rails/TimeZoneAssignment:
 Rails/ToFormattedS:
   Enabled: false
 
+Rails/ToSWithArgument:
+  Enabled: false
+
+Rails/TopLevelHashWithIndifferentAccess:
+  Enabled: false
+
 Rails/TransactionExitStatement:
   Enabled: false
 
@@ -1350,7 +1389,13 @@ Rails/WhereEquals:
 Rails/WhereExists:
   Enabled: false
 
+Rails/WhereMissing:
+  Enabled: false
+
 Rails/WhereNot:
+  Enabled: false
+
+Rails/WhereNotWithMultipleConditions:
   Enabled: false
 
 #################### Security ####################
@@ -1531,6 +1576,9 @@ Style/EmptyCaseCondition:
 Style/EmptyElse:
   Enabled: true
 
+Style/EmptyHeredoc:
+  Enabled: false
+
 Style/EmptyLambdaParameter:
   Enabled: false
 
@@ -1676,6 +1724,9 @@ Style/LambdaCall:
 Style/LineEndConcatenation:
   Enabled: true
 
+Style/MagicCommentFormat:
+  Enabled: false
+
 Style/MapCompactWithConditionalBlock:
   Enabled: false
 
@@ -1805,6 +1856,9 @@ Style/OneLineConditional:
 Style/OpenStructUse:
   Enabled: false
 
+Style/OperatorMethodCall:
+  Enabled: false
+
 Style/OptionHash:
   Enabled: false
 
@@ -1911,6 +1965,9 @@ Style/RedundantSort:
   Enabled: false
 
 Style/RedundantSortBy:
+  Enabled: false
+
+Style/RedundantStringEscape:
   Enabled: false
 
 Style/RegexpLiteral:

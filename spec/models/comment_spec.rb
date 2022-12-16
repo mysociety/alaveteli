@@ -198,12 +198,13 @@ RSpec.describe Comment do
 
     it 'returns the last report event' do
       comment.report!("Vexatious comment", "report", user)
-      comment.info_request.log_event("edit_comment",
-                             { :comment_id => comment.id,
-                               :editor => user,
-                               :old_body => comment.body,
-                               :body => 'fake change'
-                             })
+      comment.info_request.log_event(
+        'edit_comment',
+        comment_id: comment.id,
+        editor: user,
+        old_body: comment.body,
+        body: 'fake change'
+      )
       comment.reload
 
       expect(comment.info_request_events.last.event_type).to eq("edit_comment")
@@ -245,34 +246,11 @@ RSpec.describe Comment do
       subject
       event = comment.info_request.last_event
       expect(event.event_type).to eq('hide_comment')
-      expect(event.params[:comment_id]).to eq(comment.id)
+      expect(event.params[:comment]).to eq(comment)
       expect(event.params[:editor]).to eq(editor.url_name)
       expect(event.params[:old_visible]).to eq(true)
       expect(event.params[:visible]).to eq(false)
     end
   end
-
-  describe 'for_admin_event_column' do
-
-    let(:comment) { FactoryBot.create(:comment) }
-    let(:user) { FactoryBot.create(:user) }
-
-    it "returns nil unless passed an event" do
-      # shouldn't happen but just in case
-      expect(comment.for_admin_event_column(nil)).to be_nil
-    end
-
-    it "returns a subset of the event's for_admin_column data" do
-      comment.report!("Vexatious comment", "reported", user)
-      columns = comment.for_admin_event_column(comment.last_report) {
-                  |name, value, type, column_name| }
-
-      expect(columns[0].name).to eq("event_type")
-      expect(columns[1].name).to eq("params_yaml")
-      expect(columns[2].name).to eq("created_at")
-    end
-
-  end
-
 
 end

@@ -52,11 +52,8 @@
 
     var updatePublicBodyNotes = function updatePublicBodyNotes(value) {
       var option = $selectizeInstance.options[value];
-      if (option.notes && option.notes !== '') {
-        $publicBodyNotes.html(
-          '<h3>' + option.about + '</h3>' +
-          '<p>' + option.notes + '</p>'
-        );
+      if (option.notes_as_html && option.notes_as_html !== '') {
+        $publicBodyNotes.html(option.notes_as_html);
         $publicBodyNotes.show();
       }
     };

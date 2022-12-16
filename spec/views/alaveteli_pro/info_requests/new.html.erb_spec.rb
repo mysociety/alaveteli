@@ -19,7 +19,7 @@ RSpec.describe "alaveteli_pro/info_requests/new" do
       id: public_body.id,
       name: public_body.name,
       short_name: public_body.short_name,
-      notes: public_body.notes,
+      notes: public_body.notes_as_string,
       info_requests_visible_count: public_body.info_requests_visible_count
     }
     expect(view).to receive(:public_body_search_attributes)

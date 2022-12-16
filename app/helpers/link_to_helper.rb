@@ -43,6 +43,17 @@ module LinkToHelper
     message_path(outgoing_message, options)
   end
 
+  def foi_attachment_url(foi_attachment, options = {})
+    incoming_message_url(
+      foi_attachment.incoming_message,
+      options.merge(anchor: dom_id(foi_attachment))
+    )
+  end
+
+  def foi_attachment_path(foi_attachment, options = {})
+    foi_attachment_url(foi_attachment, options.merge(only_path: true))
+  end
+
   def comment_url(comment, options = {})
     request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
   end
@@ -290,19 +301,22 @@ module LinkToHelper
     url_for(sanitized_params.merge(format: :json, only_path: true))
   end
 
+  def incoming_message_dom_id(incoming_message)
+    body = incoming_message.get_main_body_text_part
+    dom_id(body) if body
+  end
+
   private
 
   # Private: Generate a request_url linking to the new correspondence
   def message_url(message, options = {})
-    message_type = message.class.to_s.gsub('Message', '').downcase
-    anchor = "#{ message_type }-#{ message.id }"
+    anchor = options[:anchor]
+    anchor ||= dom_id(message)
 
     return "##{anchor}" if options[:anchor_only]
     default_options = { anchor: anchor }
 
-    if options.delete(:cachebust)
-      default_options.merge!(:nocache => "#{ message_type }-#{ message.id }")
-    end
+    default_options[:nocache] = anchor if options.delete(:cachebust)
 
     request_url(message.info_request, options.merge(default_options))
   end
@@ -311,4 +325,18 @@ module LinkToHelper
     message_url(message, options.merge(:only_path => true))
   end
 
+  def dom_id(record, prefix = nil)
+    case record
+    when IncomingMessage
+      param_key = 'incoming'
+    when OutgoingMessage
+      param_key = 'outgoing'
+    when FoiAttachment
+      param_key = 'attachment'
+    else
+      return super
+    end
+
+    [prefix, param_key, record.to_param].compact.join('-')
+  end
 end

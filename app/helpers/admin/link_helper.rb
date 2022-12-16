@@ -16,11 +16,47 @@ module Admin::LinkHelper
               title: admin_title)
   end
 
+  def outgoing_message_both_links(outgoing_message)
+    title = 'View outgoing message on public website'
+    icon = prominence_icon(outgoing_message)
+    info_request = outgoing_message.info_request
+
+    link_to(icon, outgoing_message_path(outgoing_message), title: title) + ' ' +
+      link_to("#{info_request.title} ##{dom_id(outgoing_message)}",
+              edit_admin_outgoing_message_path(outgoing_message),
+              title: admin_title)
+  end
+
+  def incoming_message_both_links(incoming_message)
+    title = 'View incoming message on public website'
+    icon = prominence_icon(incoming_message)
+    info_request = incoming_message.info_request
+
+    link_to(icon, incoming_message_path(incoming_message), title: title) + ' ' +
+      link_to("#{info_request.title} ##{dom_id(incoming_message)}",
+              edit_admin_incoming_message_path(incoming_message),
+              title: admin_title)
+  end
+
+  def foi_attachment_both_links(foi_attachment)
+    title = 'View attachment on public website'
+    icon = prominence_icon(foi_attachment)
+    info_request = foi_attachment.incoming_message.info_request
+
+    link_to(icon, foi_attachment_path(foi_attachment), title: title) + ' ' +
+      link_to("#{info_request.title} #{foi_attachment.filename}",
+              edit_admin_foi_attachment_path(foi_attachment),
+              title: admin_title)
+  end
+
   def info_request_batch_both_links(batch)
     title = 'View batch on public website'
     icon = prominence_icon(batch)
 
-    link_to(icon, batch, title: title) + ' ' + batch.title
+    link_to(icon, batch, title: title) + ' ' +
+      link_to(batch.title,
+              admin_info_request_batch_path(batch),
+              title: admin_title)
   end
 
   def public_body_both_links(public_body)

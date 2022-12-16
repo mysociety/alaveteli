@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220916134847
 #
 # Table name: foi_attachments
 #
@@ -14,6 +14,8 @@
 #  hexdigest             :string(32)
 #  created_at            :datetime
 #  updated_at            :datetime
+#  prominence            :string           default("normal")
+#  prominence_reason     :text
 #
 
 # models/foi_attachment.rb:
@@ -26,6 +28,8 @@
 require 'digest'
 
 class FoiAttachment < ApplicationRecord
+  include MessageProminence
+
   belongs_to :incoming_message,
              :inverse_of => :foi_attachments
 
@@ -39,6 +43,8 @@ class FoiAttachment < ApplicationRecord
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
+
+  admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest]
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
@@ -133,6 +139,10 @@ class FoiAttachment < ApplicationRecord
   # raw binary
   def default_body
     text_type? ? body_as_text.string : body
+  end
+
+  def main_body_part?
+    self == incoming_message.get_main_body_text_part
   end
 
   # List of DSN codes taken from RFC 3463

@@ -5,7 +5,11 @@
       <b>Authority</b>
     </td>
     <td>
-      <%= @change_request.get_public_body_name %>
+      <% if @change_request.public_body %>
+        <%= both_links(@change_request.public_body) %>
+      <% else %>
+        <%= @change_request.get_public_body_name %>
+      <% end %>
     </td>
   </tr>
 

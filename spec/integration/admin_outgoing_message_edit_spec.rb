@@ -61,10 +61,10 @@ RSpec.describe 'Editing the OutgoingMessage body' do
       end
 
       event = ogm.reload.info_request_events.last
-      expect(event.params_yaml).
-        to include('old_body: Some information please')
-      expect(event.params_yaml).
-        to include('body: Some information please. And a biscuit.')
+      expect(event.params).
+        to include(old_body: 'Some information please')
+      expect(event.params).
+        to include(body: 'Some information please. And a biscuit.')
     end
 
   end

@@ -55,6 +55,8 @@ class User < ApplicationRecord
          after_remove: :assign_role_features
   strip_attributes allow_empty: true
 
+  admin_columns exclude: [:otp_secret_key]
+
   attr_accessor :no_xapian_reindex
 
   has_many :info_requests,
@@ -565,19 +567,6 @@ class User < ApplicationRecord
 
   def indexed_by_search?
     email_confirmed && active?
-  end
-
-  def for_admin_column(complete = false)
-    if complete
-      columns = self.class.content_columns
-    else
-      columns = self.class.content_columns.map do |c|
-        c if %w(created_at updated_at email_confirmed).include?(c.name)
-      end.compact
-    end
-    columns.each do |column|
-      yield(column.name.humanize, send(column.name), column.type.to_s, column.name)
-    end
   end
 
   # Notify a user about an info_request_event, allowing the user's preferences

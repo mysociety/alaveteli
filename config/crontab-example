@@ -44,6 +44,7 @@ MAILTO=<%= mailto %>
 43 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/request-creation-graph
 48 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/user-use-graph
 40 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/users-signins-purge.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails users:sign_ins:purge" || echo "stalled?"
+38 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/public-body-export.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails public_body:export" || echo "stalled?"
 
 # Once a week (very early Monday morning)
 54 2 * * 1 <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/cleanup-holding-pen

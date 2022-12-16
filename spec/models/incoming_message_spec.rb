@@ -23,9 +23,12 @@
 #
 
 require 'spec_helper'
-
+require 'models/concerns/message_prominence'
+require 'models/concerns/taggable'
 
 RSpec.describe IncomingMessage do
+  it_behaves_like 'concerns/message_prominence', :incoming_message
+  it_behaves_like 'concerns/taggable', :incoming_message
 
   describe '.unparsed' do
     subject { described_class.unparsed }
@@ -400,6 +403,30 @@ RSpec.describe IncomingMessage do
 
   end
 
+  describe '#get_body_for_indexing' do
+    subject { incoming_message.get_body_for_indexing }
+
+    let(:incoming_message) { FactoryBot.build(:incoming_message) }
+
+    context 'guest can read main body part' do
+      it 'returns body for text display' do
+        is_expected.to eq('hereisthetext')
+      end
+    end
+
+    context 'guest cannot read main body part' do
+      before do
+        ability = Object.new.extend(CanCan::Ability)
+        ability.cannot :read, incoming_message.get_main_body_text_part
+        allow(Ability).to receive(:guest).and_return(ability)
+      end
+
+      it 'returns blank string' do
+        is_expected.to eq ''
+      end
+    end
+  end
+
   describe '#get_body_for_quoting' do
 
     it 'does not incorrectly cache without the FOLDED_QUOTED_SECTION marker' do
@@ -513,26 +540,6 @@ RSpec.describe IncomingMessage do
   end
 end
 
-RSpec.describe IncomingMessage, 'when validating' do
-
-  it 'should be valid with valid prominence values' do
-    ['hidden', 'requester_only', 'normal'].each do |prominence|
-      incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
-                                             :info_request => InfoRequest.new,
-                                             :prominence => prominence)
-      expect(incoming_message.valid?).to be true
-    end
-  end
-
-  it 'should not be valid with an invalid prominence value' do
-    incoming_message = IncomingMessage.new(:raw_email => RawEmail.new,
-                                           :info_request => InfoRequest.new,
-                                           :prominence => 'norman')
-    expect(incoming_message.valid?).to be false
-  end
-
-end
-
 RSpec.describe IncomingMessage, "when the prominence is changed" do
   let(:request) { FactoryBot.create(:info_request) }
 
@@ -573,8 +580,10 @@ RSpec.describe 'when destroying a message' do
 
   it 'should destroy the related info_request_event' do
     info_request = incoming_message.info_request
-    info_request.log_event('response',
-                           :incoming_message_id => incoming_message.id)
+    info_request.log_event(
+      'response',
+      incoming_message_id: incoming_message.id
+    )
     incoming_message.reload
     incoming_message.destroy
     expect(InfoRequestEvent.where(:incoming_message_id => incoming_message.id)).
@@ -618,37 +627,7 @@ RSpec.describe 'when destroying a message' do
         FoiAttachment.where(:incoming_message_id => incoming_with_attachment.id)
       ).to be_empty
     end
-
-    it 'should destroy the file representation of the raw email' do
-      raw_email = incoming_with_attachment.raw_email
-      expect(raw_email).to receive(:destroy_file_representation!)
-      incoming_with_attachment.destroy
-    end
   end
-
-end
-
-RSpec.describe 'when asked if it is indexed by search' do
-
-  before do
-    @incoming_message = IncomingMessage.new
-  end
-
-  it 'should return false if it has prominence "hidden"' do
-    @incoming_message.prominence = 'hidden'
-    expect(@incoming_message.indexed_by_search?).to be false
-  end
-
-  it 'should return false if it has prominence "requester_only"' do
-    @incoming_message.prominence = 'requester_only'
-    expect(@incoming_message.indexed_by_search?).to be false
-  end
-
-  it 'should return true if it has prominence "normal"' do
-    @incoming_message.prominence = 'normal'
-    expect(@incoming_message.indexed_by_search?).to be true
-  end
-
 end
 
 RSpec.describe IncomingMessage, " when dealing with incoming mail" do

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220928093559
 #
 # Table name: info_requests
 #
@@ -33,6 +33,7 @@
 #  last_event_time                       :datetime
 #  incoming_messages_count               :integer          default(0)
 #  public_token                          :string
+#  prominence_reason                     :text
 #
 
 require 'digest/sha1'
@@ -42,7 +43,6 @@ class InfoRequest < ApplicationRecord
   Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
-  include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
@@ -50,9 +50,14 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
   include Taggable
+  include Notable
 
-  @non_admin_columns = %w(title url_title)
-  @additional_admin_columns = %w(rejected_incoming_count)
+  admin_columns exclude: %i[title url_title],
+                include: %i[rejected_incoming_count]
+
+  def self.admin_title
+    'Request'
+  end
 
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],
@@ -375,7 +380,11 @@ class InfoRequest < ApplicationRecord
       ir.outgoing_messages << om
       om.info_request = ir
       ir.save!
-      ir.log_event('sent', { :outgoing_message_id => om.id, :email => ir.public_body.request_email })
+      ir.log_event(
+        'sent',
+        outgoing_message_id: om.id,
+        email: ir.public_body.request_email
+      )
     end
     ir
   end
@@ -667,9 +676,11 @@ class InfoRequest < ApplicationRecord
     query.find_each(:batch_size => 100) do |info_request|
       # Date to DateTime representing beginning of day
       created_at = info_request.send(date_field).beginning_of_day + 1.day
-      event = info_request.log_event(event_type,
-                                     { :event_created_at => Time.zone.now },
-                                     { :created_at => created_at })
+      event = info_request.log_event(
+        event_type,
+        { event_created_at: Time.zone.now },
+        created_at: created_at
+      )
       if info_request.use_notifications?
         info_request.user.notify(event)
       end
@@ -935,7 +946,7 @@ class InfoRequest < ApplicationRecord
       comment.info_request = self
       comment.save!
 
-      log_event("comment", { :comment_id => comment.id })
+      log_event('comment', comment_id: comment.id)
       save!
     end
     comment
@@ -948,13 +959,15 @@ class InfoRequest < ApplicationRecord
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
-      log_event('report_request',
-                request_id: id,
-                editor: user,
-                reason: reason,
-                message: message,
-                old_attention_requested: attention_requested,
-                attention_requested: true)
+      log_event(
+        'report_request',
+        request_id: id,
+        editor: user,
+        reason: reason,
+        message: message,
+        old_attention_requested: attention_requested,
+        attention_requested: true
+      )
 
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
@@ -1599,15 +1612,17 @@ class InfoRequest < ApplicationRecord
     end
 
     return_val = if update(attrs)
-      log_event('move_request',
-                :editor => editor,
-                :public_body_url_name => public_body.url_name,
-                :old_public_body_url_name => old_body.url_name)
+                   log_event(
+                     'move_request',
+                     editor: editor,
+                     public_body_url_name: public_body.url_name,
+                     old_public_body_url_name: old_body.url_name
+                   )
 
-      reindex_request_events
+                   reindex_request_events
 
-      public_body
-    end
+                   public_body
+                 end
 
     # HACK: Manually reset counter caches
     # https://github.com/rails/rails/issues/10865
@@ -1624,21 +1639,30 @@ class InfoRequest < ApplicationRecord
     editor = opts.fetch(:editor)
 
     return_val = if update(:user => destination_user)
-      log_event('move_request',
-                :editor => editor,
-                :user_url_name => user.url_name,
-                :old_user_url_name => old_user.url_name)
+                   log_event(
+                     'move_request',
+                     editor: editor,
+                     user_url_name: user.url_name,
+                     old_user_url_name: old_user.url_name
+                   )
 
-      reindex_request_events
+                   reindex_request_events
 
-      user
-    end
+                   user
+                 end
 
     # HACK: Manually reset counter caches
     # https://github.com/rails/rails/issues/10865
     old_user.class.reset_counters(old_user.id, :info_requests)
     user.class.reset_counters(user.id, :info_requests)
     return_val
+  end
+
+  # Is the request currently embargoed?
+  #
+  # Returns Boolean
+  def embargoed?
+    embargo.present?
   end
 
   # Is the attached embargo expiring soon?
@@ -1815,7 +1839,7 @@ class InfoRequest < ApplicationRecord
 
       params = { :incoming_message_id => incoming_message.id }
       params[:rejected_reason] = rejected_reason.to_s if rejected_reason
-      log_event("response", params)
+      log_event('response', params)
 
       save!
     end

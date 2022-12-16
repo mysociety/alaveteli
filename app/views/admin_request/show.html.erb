@@ -51,21 +51,21 @@
               </tr>
             <% end %>
 
-            <% @info_request.for_admin_column do |name, value, type, column_name| %>
+            <% @info_request.for_admin_column do |name, value| %>
               <tr>
                 <td>
-                  <b><%= name %>:</b>
+                  <b><%= name.humanize %>:</b>
                 </td>
                 <td>
-                  <% if column_name == 'prominence' %>
+                  <% if name == 'prominence' %>
                     <%= h highlight_prominence(value) %>
-                  <% elsif column_name == 'allow_new_responses_from' %>
+                  <% elsif name == 'allow_new_responses_from' %>
                     <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
                     <%= admin_value(value)%>
                   <% end %>
 
-                  <% if column_name == 'described_state' %>
+                  <% if name == 'described_state' %>
                     <ul>
                       <li><strong>Request status:</strong> <%= @info_request.calculate_status %></li>
                       <li><strong>Date initial request last sent at:</strong> <%= @info_request.date_initial_request_last_sent_at %></li>
@@ -117,7 +117,7 @@
                   <b>Info Request Batch:</b>
                 </td>
                 <td>
-                  <%= @info_request.info_request_batch_id %>
+                  <%= both_links(@info_request.info_request_batch) %>
                 </td>
               </tr>
             <% end %>
@@ -151,8 +151,10 @@
     </div>
   </div>
 <% end %>
+
 <fieldset class="form-horizontal">
   <legend>Actions</legend>
+
   <div class="control-group">
     <label class="control-label">
       FOI officer upload URL
@@ -198,6 +200,20 @@
           </div>
         </div>
 
+        <div class="control-group" id="request_hidden_user_prominence_reason">
+          <label for="request_hidden_user_prominence_reason_field" class="control-label">Prominence Reason:</label>
+
+          <div class="controls">
+            <%= text_area_tag "prominence_reason", "", {:id => "request_hidden_user_prominence_reason_field"} %>
+
+            <span class="help-block">
+              This reason is shown in public. If left blank a generic reason of
+              "<%= ProminenceHelper::Base.default_prominence_reason %>" will be
+              shown.
+            </span>
+          </div>
+        </div>
+
       <% end %>
       <div class="form-actions" id="request_hide_button">
         <%= submit_tag 'Hide request', class: 'btn' %>
@@ -207,7 +223,9 @@
 </fieldset>
 
 <hr>
+
 <h2>Events</h2>
+
 <div class="accordion" id="events">
   <% @info_request.info_request_events.each do |info_request_event| %>
     <div class="accordion-group">
@@ -237,13 +255,13 @@
               <td></td>
             </tr>
 
-            <% info_request_event.for_admin_column do |name, value, type, column_name| %>
+            <% info_request_event.for_admin_column do |name, value| %>
               <tr>
                 <td>
-                  <b><%=h name%></b>
+                  <b><%= name.humanize %></b>
                 </td>
                 <td>
-                  <% if column_name == 'params_yaml' %>
+                  <% if name == 'params' %>
                     <%= render :partial => 'params', :locals => { :params => info_request_event.params_diff } %>
                   <% else %>
                     <%= admin_value(value) %>
@@ -257,118 +275,79 @@
     </div>
   <% end %>
 </div>
+
 <hr>
+
 <h2>Outgoing messages</h2>
+
 <div class="accordion" id="outgoing_messages">
   <% @info_request.outgoing_messages.each do |outgoing_message| %>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
-        <%= link_to edit_admin_outgoing_message_path(outgoing_message) do %>
-          #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
-      <% end %>
-      <blockquote>
-        <%= truncate(outgoing_message.body, :length => 400) %>
-      </blockquote>
+        <a href="#outgoing_<%= outgoing_message.id %>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
+        <%= both_links(outgoing_message) %>
+
+        <span class="muted">
+          --
+          <%= outgoing_message.status.humanize %>
+          <%= outgoing_message.message_type.humanize %>
+        </span>
+
+        <blockquote>
+          <%= truncate(outgoing_message.body, length: 400) %>
+        </blockquote>
       </div>
-      <div id="outgoing_<%=outgoing_message.id%>" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <tbody>
-            <tr>
-              <td colspan="2">
-                <%= form_tag resend_admin_outgoing_message_path(outgoing_message), :class => "admin-table-form" do %>
-                  <% msg = "Are you sure you want to resend this message " \
-                           "to the authority?" %>
-                  <%= submit_tag "Resend", :class => "btn btn-warning",
-                                           :data => { :confirm => msg } %>
-                <% end %>
-              </td>
-            </tr>
-            <% outgoing_message.for_admin_column do |name, value, type, column_name| %>
-              <tr>
-                <td class="span3">
-                  <b><%= name %></b>
-                </td>
-                <td>
-                  <% if column_name == 'body' %>
-                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
-                    <%= simple_format(truncated_value) %>
-                    <div style="display:none;"><%= simple_format(value) %></div>
-                  <% elsif column_name == 'prominence' %>
-                    <%= h highlight_prominence(value) %>
-                  <% else %>
-                    <%= admin_value(value) %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-            <tr>
-              <td class="span3">
-                <b>Raw body</b>
-              <td>
-                <% truncated_value = truncate(h(outgoing_message.raw_body), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
-                <%= simple_format(truncated_value) %>
-                <div style="display:none;">
-                  <%= simple_format(outgoing_message.raw_body) %>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+      <div id="outgoing_<%= outgoing_message.id %>" class="accordion-body collapse">
+        <div class="well">
+          <%= form_tag resend_admin_outgoing_message_path(outgoing_message), class: 'admin-table-form' do %>
+            <% msg = 'Are you sure you want to resend this message ' \
+                     'to the authority?' %>
+            <%= submit_tag 'Resend', class: 'btn btn-warning',
+                                     data: { confirm: msg } %>
+          <% end %>
+        </div>
+
+        <%= render partial: 'admin_outgoing_message/admin_columns',
+                   locals: { outgoing_message: outgoing_message } %>
       </div>
     </div>
   <% end %>
 </div>
+
 <hr>
+
 <h2>Incoming messages</h2>
+
 <div class="accordion" id="incoming_messages">
   <% for incoming_message in @info_request.incoming_messages %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
         <%= check_box_tag "message_id_#{incoming_message.id}", incoming_message.id, false, :class => "delete-checkbox" %>
-        <%= link_to edit_admin_incoming_message_path(incoming_message) do %>
-          <%=incoming_message.id%>
+        <%= both_links(incoming_message) %>
+
+        <span class="muted">
           --
           <%= h(incoming_message.from_name) %>
           at <%= admin_date(incoming_message.sent_at) %>
-        <% end %>
+        </span>
+
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
             <%= truncate(incoming_message.cached_main_body_text_folded.gsub('FOLDED_QUOTED_SECTION', ''), :length => 400) %>
           <% end %>
         </blockquote>
       </div>
-      <div id="incoming_<%=incoming_message.id%>" class="accordion-body collapse">
-        <table class="table table-striped table-condensed">
-          <thead>
-            <tr>
-              <td colspan="2" class="well">
-                <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => incoming_message } %>
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <% incoming_message.for_admin_column do |name, value, type, column_name| %>
-              <tr>
-                <td>
-                  <b><%=name%></b>
-                </td>
-                <td>
-                  <% if column_name =~ /^cached_.*?$/ %>
-                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
-                    <%= simple_format(truncated_value) %>
-                    <div style="display:none;"><%= simple_format(value) %></div>
-                  <% elsif column_name == 'prominence' %>
-                    <%= h highlight_prominence(value) %>
-                  <% else %>
-                    <%= simple_format(value.to_s) %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+
+      <div id="incoming_<%= incoming_message.id %>" class="accordion-body collapse">
+        <div class="well">
+          <%= render partial: 'admin_incoming_message/actions',
+                     locals: { incoming_message: incoming_message } %>
+        </div>
+
+        <%= render partial: 'admin_incoming_message/admin_columns',
+                   locals: { incoming_message: incoming_message } %>
       </div>
     </div>
   <% end %>
@@ -382,7 +361,9 @@
     <% end %>
   <% end %>
 </div>
+
 <hr>
+
 <h2>Annotations</h2>
 
 <%= render partial: 'admin_request/some_annotations' ,
@@ -416,3 +397,11 @@
 <%= render partial: 'admin_censor_rule/show',
            locals: { censor_rules: @info_request.applicable_censor_rules,
                      info_request: @info_request } %>
+
+<hr>
+
+<h2>Notes</h2>
+
+<%= render partial: 'admin/notes/show',
+  locals: { notes: @info_request.all_notes,
+            notable: @info_request } %>

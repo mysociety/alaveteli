@@ -44,6 +44,24 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
     end
 
+    context 'with a banned user' do
+      let(:user) { FactoryBot.create(:user, :banned) }
+
+      before do
+        sign_in user
+        post :create
+      end
+
+      it 'redirects to pro plans' do
+        expect(response).to redirect_to(pro_plans_path)
+      end
+
+      it 'renders error message' do
+        expect(flash[:error]).to eq("Sorry, you can't sign up to Alaveteli " \
+                                    "Professional at this time.")
+      end
+    end
+
     context 'with a signed-in user' do
       let(:token) { stripe_helper.generate_card_token }
       let(:user) { FactoryBot.create(:user) }

@@ -99,7 +99,7 @@ RSpec.describe "When errors occur" do
 
       # make a fake cache
       cache_key_path = Rails.root.join(
-        "cache/views/request/#{prefix}/#{id}/response/#{msg_id}/attach/0/1"
+        "cache/views/request/#{prefix}/#{id}/response/#{msg_id}/attach/html/1"
       )
       FileUtils.mkdir_p(cache_key_path)
 

@@ -25,13 +25,44 @@ RSpec.describe Admin::LinkHelper do
       it { is_expected.to include(admin_request_path(record)) }
     end
 
+    context 'with an OutgoingMessage' do
+      let(:record) { FactoryBot.create(:initial_request) }
+
+      it { is_expected.to include('icon-prominence') }
+      it { is_expected.to include("#outgoing-#{record.id}") }
+      it { is_expected.to include(outgoing_message_path(record)) }
+      it { is_expected.to include(edit_admin_outgoing_message_path(record)) }
+    end
+
+    context 'with an IncomingMessage' do
+      let(:record) { FactoryBot.create(:incoming_message) }
+
+      it { is_expected.to include('icon-prominence') }
+      it { is_expected.to include("#incoming-#{record.id}") }
+      it { is_expected.to include(incoming_message_path(record)) }
+      it { is_expected.to include(edit_admin_incoming_message_path(record)) }
+    end
+
+    context 'with a FoiAttachment' do
+      let(:info_request) do
+        FactoryBot.create(:info_request, :with_plain_incoming)
+      end
+      let(:incoming_message) { info_request.incoming_messages.first }
+      let!(:record) { incoming_message.foi_attachments.first }
+
+      it { is_expected.to include('icon-prominence') }
+      it { is_expected.to include(record.filename) }
+      it { is_expected.to include(foi_attachment_path(record)) }
+      it { is_expected.to include(edit_admin_foi_attachment_path(record)) }
+    end
+
     context 'with an InfoRequestBatch' do
       let(:record) { FactoryBot.create(:info_request_batch) }
 
       it { is_expected.to include('icon-prominence') }
-      it { is_expected.to include(info_request_batch_path(record)) }
       it { is_expected.to include(record.title) }
-      it { is_expected.not_to include('/admin/') }
+      it { is_expected.to include(info_request_batch_path(record)) }
+      it { is_expected.to include(admin_info_request_batch_path(record)) }
     end
 
     context 'with a PublicBody' do

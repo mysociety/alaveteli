@@ -1,32 +1,8 @@
 <div class="accordion" id="bodies">
-<% for public_body in bodies %>
-  <div class="accordion-group">
-    <div class="accordion-heading accordion-toggle row">
-      <span class="item-title span6">
-        <a href="#body_<%=public_body.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
-        <%= link_to(public_body.name, admin_body_path(public_body), :title => "view full details")%>
-      </span>
-
-      <span class="item-metadata span6">
-        <%= render_tags public_body.tags,
-                        search_target: list_public_bodies_path %>
-      </span>
-    </div>
-    <div id="body_<%=public_body.id%>" class="item-detail accordion-body collapse row">
-      <% public_body.for_admin_column do |name, value, type| %>
-        <div>
-          <span class="span6">
-            <b><%=name%></b>
-          </span>
-          <span class="span6">
-            <%= admin_value(value) %>
-          </span>
-        </div>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+  <%= render partial: 'admin_public_body/public_body', collection: bodies %>
 </div>
+
+<hr />
 
 <div>
   <%= form_tag(mass_tag_admin_bodies_path, method: "post", class: "form form-inline" ) do %>
@@ -34,7 +10,7 @@
     <%= hidden_field_tag(:query, params[:query], { id: "mass_tag_query_" + table_name } ) %>
     <%= hidden_field_tag(:page, params[:page], { id: "mass_page_" + table_name } ) %>
     <%= hidden_field_tag(:table_name, table_name, { id: "mass_tag_table_name_" + table_name } ) %>
-    <%= submit_tag "Add tag to all", class: "btn btn-primary" %>
+    <%= submit_tag 'Add tag to all', class: 'btn btn-warning', data: { confirm: 'Are you sure you want to add the new tag to these authorities?' } %>
   <% end %>
 
   <% if table_name == 'exact' %>
@@ -43,7 +19,7 @@
       <%= hidden_field_tag(:query, params[:query], { id: "mass_tag_query_" + table_name } ) %>
       <%= hidden_field_tag(:page, params[:page], { id: "mass_page_" + table_name } ) %>
       <%= hidden_field_tag(:table_name, table_name, { id: "mass_tag_table_name_" + table_name } ) %>
-      <%= submit_tag "Remove '#{params[:query].html_safe}' tag from all", class: "btn btn-primary" %>
+      <%= submit_tag "Remove '#{params[:query].html_safe}' tag from all", class: 'btn btn-warning', data: { confirm: 'Are you sure you want to remove the tag from these authorities?' } %>
     <% end %>
   <% end %>
 
