@@ -6,23 +6,17 @@ namespace :users do
     end
   end
 
-  desc "Lists email domains, most popular first"
-  task :count_per_domain => :environment do
+  desc 'CSV containing count of users per email domain, most popular first'
+  task count_per_domain: :environment do
     from = ENV["START_DATE"]
 
-    results = UserStats.list_user_domains(:start_date => from)
+    results = UserStats.list_user_domains(start_date: from)
 
-    column1_width = results.map { |x| x["domain"].length }.sort.last
-
-    p "Since #{from}..." if from
-
-    p " domain ".ljust(column1_width + 2, " ") + " | " + " count "
-    p "--------".ljust(column1_width + 2, "-") + " | " + "-------"
+    puts %w(domain count_of_users).to_csv
 
     results.each do |result|
-      p " #{result["domain"].ljust(column1_width, " ")}  |  #{result["count"]}"
+      puts [result['domain'], result['count']].to_csv
     end
-
   end
 
   desc "Lists per domain stats"

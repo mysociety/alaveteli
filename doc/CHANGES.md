@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Use CSV output and ignore case for `users:count_per_domain` stats (Gareth
+  Rees)
 * Fix categorisation game total requests count (Gareth Rees)
 * Add count of requests in each prominence state to body and user admin pages
   (Gareth Rees)
