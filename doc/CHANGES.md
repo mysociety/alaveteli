@@ -55,7 +55,7 @@
 
 * _Required:_ The crontab needs to be regenerated to include the new
   modifications:
-  http://alaveteli.org/docs/installing/manual_install/#generate-crontab
+  https://alaveteli.org/docs/installing/cron_and_daemons/#generate-crontab
 
 * _Optional:_ Bodies missing a request email will automatically get tagged
   `missing_email` as they are updated. If you want to automatically tag them all
