@@ -7,7 +7,7 @@ title: Installing
 
 <p class="lead">
   There are a number of ways to install Alaveteli, but we recommend
-  you begin with the Vagrant installation to get a development
+  you begin with the Docker installation to get a development
   site up and running.
 </p>
 
@@ -19,7 +19,7 @@ This is important: there is a difference between installing Alaveteli for
 
 You *always* start with a **development** site. This is one you're going to change, customise, and
 perhaps experiment while you get it up and running. Every Alaveteli installation requires some customisation (it's designed this way!)
-including creating your own 
+including creating your own
 <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossary__link">theme</a>. In this environment you can see debug messages, and you don't need to
 worry too much about the efficiency and performance of the site (because it's
 not really getting lots of traffic).
@@ -38,8 +38,8 @@ on the remote server where you want the website to run. You _must_
 it running in a development environment first — and that nearly always
 means on your local machine.
 
-So the best way to get started is to 
-[install locally using Vagrant]({{ page.baseurl }}/docs/installing/vagrant/)
+So the best way to get started is to
+[install locally using Docker]({{ page.baseurl }}/docs/installing/docker/)
 — that's easiest because it takes care of local dependencies for you.
 In order to customise your installation, you'll need to make your own
 <a href="{{ page.baseurl }}/docs/glossary/#theme"  class="glossary__link">theme</a>
@@ -56,25 +56,26 @@ Depending on the resources you have available, it might be that your staging ser
 
 ## How to install the Alaveteli code
 
-* [Install into a Vagrant virtual development environment]({{ page.baseurl }}/docs/installing/vagrant/)
+* [Install into a Docker development container]({{ page.baseurl }}/docs/installing/docker/)
   -- the easiest way to get a development version up and running
 
 <div class="attention-box info">
-    Although we recommend Vagrant for development, there are of course other ways
-    to install Alaveteli. Vagrant is never suitable for production (but remember
-    that you won't need a production site until you've done a development
-    deployment). For your own server, there's an installation script which does
-    most of the work for you, or you can follow the manual installation
-    instructions.
+    Although we recommend Docker for development, there are of course other ways
+    to install Alaveteli. Our Dockerdile is not suitable for production (but
+    remember that you won't need a production site until you've done a
+    development deployment). For your own server, there's an installation script
+    which does most of the work for you, or you can follow the manual
+    installation instructions.
 </div>
 <div class="attention-box helpful-hint">
     <strong>
       If you're not sure which one you want,
-      <a href="{{ page.baseurl }}/docs/installing/vagrant/">install using
-      Vagrant</a> first!
+      <a href="{{ page.baseurl }}/docs/installing/docker/">install using
+      Docker</a> first!
     </strong>
 </div>
 
+* ~~[Install into a Vagrant virtual development environment]({{ page.baseurl }}/docs/installing/vagrant/)~~ We no longer support Vagrant
 * ~~[Install on Amazon EC2]({{ page.baseurl }}/docs/installing/ami/) using our AMI~~ We no longer support the Amazon AMI
 * [Use the installation script]({{ page.baseurl }}/docs/installing/script/) which does the full installation on your own server
 * [Manual installation]({{ page.baseurl }}/docs/installing/manual_install/) -- step-by-step instructions
