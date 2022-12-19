@@ -28,27 +28,40 @@
 
 ## Upgrade Notes
 
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
 * _Required:_ Bodies with existing notes will need to be migrated to the new
-  notes model. This has to be done, before release 0.43, by running the
-  following from the app root directory:
+  notes model. This has to be done, before release 0.43, by running:
 
       bin/rails temp:migrate_public_body_notes
 
+* _Required:_ Convert YAML data which can't be parsed by Ruby's new YAML
+  library. This has to be done, before release 0.43, by running:
+
+      bin/rails temp:convert_syck_to_psych_yaml
+
+* _Required:_ Fix objects stored as YAML data which can't be decoded correctly.
+  This has to be done, before release 0.43, by running:
+
+      bin/rails temp:fix_old_objects_in_yaml
+
+* _Required:_ Populate new event data database column. This will ensure old
+  data is correctly sanitised so raw Ruby objects aren't stored. This has to be
+  done, before release 0.43, by running:
+
+      bin/rails temp:sanitise_and_populate_events_params_json
+
+* _Required:_ The crontab needs to be regenerated to include the new
+  modifications:
+  https://alaveteli.org/docs/installing/cron_and_daemons/#generate-crontab
+
 * _Optional:_ Bodies missing a request email will automatically get tagged
   `missing_email` as they are updated. If you want to automatically tag them all
-  in one go, run the following from the app root directory:
+  in one go, run:
 
       bin/rails runner "PublicBody.without_request_email.each(&:save)"
-
-* The crontab needs to be regenerated to include the new modifications:
-  http://alaveteli.org/docs/installing/manual_install/#generate-crontab
-
-* There are some database structure updates so remember to run
-  `bin/rails db:migrate`
-
-* Run `bin/rails temp:sanitise_and_populate_events_params_json` to populate new
-  event data database column. This will ensure old data is correctly sanitised
-  so raw Ruby objects aren't stored.
 
 ### Changed Templates
 
