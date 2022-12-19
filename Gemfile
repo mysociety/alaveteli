@@ -172,11 +172,6 @@ gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.43', require: false
 
-if rails_upgrade? && RUBY_VERSION < '3.1'
-  gem 'net-http', '0.1.1'
-  gem 'uri', '0.10.0'
-end
-
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.18.1'

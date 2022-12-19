@@ -311,9 +311,6 @@ GEM
       i18n (>= 0.6.4, <= 2)
     multi_json (1.15.0)
     multipart-post (2.2.3)
-    net-http (0.1.1)
-      net-protocol
-      uri
     net-imap (0.2.3)
       digest
       net-protocol
@@ -516,7 +513,6 @@ GEM
     unicode-display_width (2.3.0)
     unidecoder (1.1.2)
     uniform_notifier (1.16.0)
-    uri (0.10.0)
     vpim (13.11.11)
     web-console (4.2.0)
       actionview (>= 6.0.0)
@@ -591,7 +587,6 @@ DEPENDENCIES
   mini_magick (~> 4.11.0)
   mini_racer (~> 0.6.3)
   money (~> 6.16.0)
-  net-http (= 0.1.1)
   net-ssh (~> 7.0.1)
   net-ssh-gateway (>= 1.1.0, < 3.0.0)
   nokogiri (~> 1.13.10)
@@ -628,7 +623,6 @@ DEPENDENCIES
   uglifier (~> 4.2.0)
   unicode (~> 0.4.4)
   unidecoder (~> 1.1.0)
-  uri (= 0.10.0)
   vpim (~> 13.11.11)
   web-console (>= 3.3.0)
   webmock (~> 3.18.1)
