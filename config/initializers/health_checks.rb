@@ -21,11 +21,11 @@ Rails.application.config.after_initialize do
   end
 
   xapian_queue_check = HealthChecks::Checks::PeriodCheck.new(
-    period: 30.minutes,
+    period: 1.hour,
     failure_message: _('The oldest Xapian index job, has been idle for more ' \
-                       'than 30 minutes'),
+                       'than 1 hour'),
     success_message: _('The oldest Xapian index job, hasn\'t been idle for ' \
-                       'more than 30 minutes')
+                       'more than 1 hour')
   ) do
     oldest_job = ActsAsXapian::ActsAsXapianJob.order(:created_at).first
     oldest_job&.created_at || Time.zone.now
