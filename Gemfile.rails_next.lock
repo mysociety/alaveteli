@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/mysociety/acts_as_versioned.git
+  revision: 13e928b8227349461205c2fa22d0bc3dbe2f1135
+  ref: 13e928b
+  specs:
+    acts_as_versioned (0.6.0)
+      activerecord (>= 3.0.9)
+
+GIT
   remote: https://github.com/mysociety/ruby-msg.git
   revision: fae72e547299ab1f8b23239a79f5a1d353426b40
   branch: ascii-encoding
@@ -24,14 +32,6 @@ GIT
       dante (>= 0.2.0)
       multi_json (~> 1.0)
       stripe (> 5, < 6)
-
-GIT
-  remote: https://github.com/technoweenie/acts_as_versioned.git
-  revision: 63b1fc8529d028fae632fe80ec0cb25df56cd76b
-  ref: 63b1fc8529d028
-  specs:
-    acts_as_versioned (0.6.0)
-      activerecord (>= 3.0.9)
 
 PATH
   remote: gems/alaveteli_features
@@ -152,7 +152,6 @@ GEM
     bullet (7.0.4)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
-    byebug (11.1.3)
     cancancan (3.4.0)
     capistrano (2.15.9)
       highline
@@ -283,6 +282,8 @@ GEM
       addressable (~> 2.3)
     libv8-node (16.10.0.0)
     libv8-node (16.10.0.0-aarch64-linux)
+    libv8-node (16.10.0.0-arm64-darwin)
+    libv8-node (16.10.0.0-x86_64-darwin)
     libv8-node (16.10.0.0-x86_64-linux)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -340,6 +341,10 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.10-aarch64-linux)
       racc (~> 1.4)
+    nokogiri (1.13.10-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.10-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
     oink (0.10.1)
@@ -357,9 +362,6 @@ GEM
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.10.1)
-      byebug (~> 11.0)
-      pry (>= 0.13, < 0.15)
     public_suffix (5.0.0)
     racc (1.6.2)
     rack (2.2.4)
@@ -540,7 +542,9 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  arm64-darwin
   ruby
+  x86_64-darwin
   x86_64-linux
 
 DEPENDENCIES
@@ -595,7 +599,6 @@ DEPENDENCIES
   open4 (~> 1.3.0)
   pg (~> 1.4.4)
   pry (~> 0.14.1)
-  pry-byebug (~> 3.10.1)
   rack (~> 2.2.4)
   rack-utf8_sanitizer (~> 1.7.0)
   rails (~> 7.0.4)

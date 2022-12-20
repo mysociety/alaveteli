@@ -93,7 +93,8 @@ end
 gem 'pg', '~> 1.4.4'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
-gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
+gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
+                         ref: '13e928b'
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.18'
 gem 'cancancan', '~> 3.4.0'
@@ -194,7 +195,6 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 6.0.0'
   gem 'pry', '~> 0.14.1'
-  gem 'pry-byebug', '~> 3.10.1'
 end
 
 group :development do
