@@ -31,14 +31,14 @@
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Dohány Tamás, 2021-2022
-# Dohány Tamás, 2022
+# iamdtms, 2022
 # Orsolya Batta <orsibatta@gmail.com>, 2013
 # Graeme Porteous <graeme@mysociety.org>, 2022
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
 # Orsolya Batta <orsibatta@gmail.com>, 2013
-# Dohány Tamás, 2021
+# iamdtms, 2021
 # zala krisztina <zalakri@gmail.com>, 2021-2022
 msgid ""
 msgstr ""

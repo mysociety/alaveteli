@@ -3,12 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Luis Villegas, 2022
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-28 18:01+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Luis Villegas, 2022\n"
 "Language-Team: Papiamento (https://www.transifex.com/mysociety/teams/33529/pap"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -18,13 +22,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Resumi</strong> e contenido di cualkier informacion debolbi."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Splica con bo <strong>uza e informacion</strong>, cu enlacenan si ta posibel."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Estadisticanan di crimen den districto Noord'"
 
 msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
