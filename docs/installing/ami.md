@@ -3,7 +3,7 @@ layout: page
 title: Installation from AMI
 ---
 
-<div class="attention-box warning">
+<div class="attention-box danger">
   <p>
     We no longer support or maintain the Amazon AMI.
   </p>
@@ -24,7 +24,7 @@ To help you try out Alaveteli, we have created an AMI with a basic installation
 of Alaveteli, which you can use to create a running server on an Amazon EC2
 instance. This creates an instance that runs as a
 <a href="{{ page.baseurl }}/docs/glossary/#development" class="glossary__link">development site</a>.
-If you want to use this for a 
+If you want to use this for a
 <a href="{{ page.baseurl }}/docs/glossary/#production" class="glossary__link">production site</a>,
 you must
 [change the configuration]({{ page.baseurl }}/docs/customising/config/#staging_site).
@@ -32,7 +32,7 @@ you must
 <div class="attention-box">
   <p>
     <strong>What's in the AMI?</strong>
-    The AMI gives you exactly the same thing as the 
+    The AMI gives you exactly the same thing as the
     <a href="{{ page.baseurl }}/docs/installing/script/">installation script</a>
     does. You get an Alaveteli website powered by Rails running the Thin
     application server under nginx, using a postgreSQL database. All this
@@ -137,7 +137,7 @@ When you log into your instance's command line shell, you must do so as the
 `ubuntu` user. This user can `sudo` freely to run commands as root. However,
 the code is actually owned by (and runs as) the `alaveteli` user.
 
-You will need to 
+You will need to
 [customise the site's configuration]({{ page.baseurl }}/docs/customising/config/).
 Do this by logging into your EC2 server and editing the `general.yml`
 configuration file.
