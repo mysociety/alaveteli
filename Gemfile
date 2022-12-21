@@ -183,8 +183,8 @@ group :test do
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.38.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
-                          ref: '2c925fd'
-  gem('rails-controller-testing')
+                          ref: '6ceea96'
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do
