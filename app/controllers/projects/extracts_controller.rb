@@ -37,7 +37,7 @@ class Projects::ExtractsController < Projects::BaseController
     authorize! :read, @project
 
     @value_set = Dataset::ValueSet.new(extract_params)
-    submission = @project.submissions.new(submission_params)
+    submission = @project.submissions.new(**submission_params)
 
     if submission.save
       redirect_to project_extract_path

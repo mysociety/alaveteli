@@ -21,7 +21,7 @@ class AlaveteliPro::BaseController < ApplicationController
       }
     end
     if !authenticated?
-      ask_to_login(reason_params)
+      ask_to_login(**reason_params)
     else
       unless current_user.is_pro?
         redirect_to(

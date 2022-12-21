@@ -20,8 +20,8 @@ namespace :config_files do
     end
   end
 
-  def convert_erb(file, replacements)
-    ExampleERBRenderer.new(file, replacements).lines
+  def convert_erb(file, **replacements)
+    ExampleERBRenderer.new(file, **replacements).lines
   end
 
   def daemons(only_active = false)
@@ -67,7 +67,7 @@ namespace :config_files do
     }
 
     # Generate the template for potential further processing
-    convert_erb(ENV['SCRIPT_FILE'], replacements).each do |line|
+    convert_erb(ENV['SCRIPT_FILE'], **replacements).each do |line|
       puts line
     end
   end
@@ -102,7 +102,7 @@ namespace :config_files do
     replacements.update(:daemon_name => "#{ replacements[:site] }-#{ daemon_name }")
 
     # Generate the template for potential further processing
-    converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
+    converted = convert_erb(ENV['SCRIPT_FILE'], **replacements)
 
     # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
@@ -143,7 +143,7 @@ namespace :config_files do
     }
 
     lines = []
-    convert_erb(ENV['CRONTAB'], replacements).each do |line|
+    convert_erb(ENV['CRONTAB'], **replacements).each do |line|
       lines << line
     end
 
@@ -167,7 +167,7 @@ namespace :config_files do
     }
 
     # Generate the template for potential further processing
-    converted = convert_erb(ENV['SCRIPT_FILE'], replacements)
+    converted = convert_erb(ENV['SCRIPT_FILE'], **replacements)
 
     # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
