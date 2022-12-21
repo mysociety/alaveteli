@@ -28,13 +28,14 @@
 # Translators:
 # Translators:
 # Translators:
+# Luis Villegas, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
+"Last-Translator: Luis Villegas, 2022\n"
 "Language-Team: Papiamento (http://www.transifex.com/mysociety/alaveteli/langua"
 "ge/pap/)\n"
 "MIME-Version: 1.0\n"
@@ -48,99 +49,102 @@ msgid ""
 "\n"
 "[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr ""
+"\n"
+"\n"
+"[ {{site_name}} nota: E texto akiriba a wordo codifica incorectamente, el a wordo kita. ]"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr ""
+msgstr " (<strong>no tin nodo di bringa</strong> bo por lesa nos <a href=\"{{url}}\">politica di moderacion</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr ""
+msgstr " (<strong>tene pasenshi</strong>, specialmente pa filenan grandi, e lo por tarda)"
 
 msgid " (you)"
-msgstr ""
+msgstr " (abo)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr " - pidi pa gobierno haci documentonan publico cu e Ordenansa Nacional Maneho Transparente y wak cua peticionnan hende a haci den pasado"
 
 msgid " < "
-msgstr ""
+msgstr " < "
 
 msgid " << "
-msgstr ""
+msgstr " << "
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr ""
+msgstr " <strong>Nota di privacidad:</strong> Bo adres di email lo wordo duna na"
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Resumi</strong> e contenido di cualkier informacion debolbi."
 
 msgid " > "
-msgstr ""
+msgstr " > "
 
 msgid " >> "
-msgstr ""
+msgstr " >> "
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr " Conseha con pa <strong>miho clarifica</strong> e peticion."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr ""
+msgstr "Ideanan riba ki<strong>otro documentonan  bo por pidi</strong> cu e autoridad lo por tin. "
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
-msgstr ""
+msgstr " Inclui un enlace na e informacion cu a wordo pidi, si e ta <strong>disponibel caba</strong> riba Internet. "
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr ""
+msgstr " Ofrece miho maneranan pa <strong>splica e peticion</strong> pa haya e informacion. "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Splica con bo <strong>uza e informacion</strong>, cu enlacenan si ta posibel."
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr " Sugeri <strong>unda otro</strong> e persona pidiendo documento por haya e informacion. "
 
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr "Ya bo ta ricibiendo actualisacionnan tocante e peticion."
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "Bo tambe lo haya actualisacionnan tocante e peticion via email."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "filtra a base di status: '{{status}}'"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "ora bo manda e mensahe aki."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "&#8592; Previo"
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Estadisticanan di crimen den districto Noord'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'Desaroyo di nivelnan di polucion na Parkietenbos'"
 
 msgid "'{{authority_name}}' is defunct"
-msgstr ""
+msgstr "'{{authority_name}}' no ta traha mas"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', un autoridad publico"
 
 msgid "'{{link_to_request}}', a request"
-msgstr ""
+msgstr "'{{link_to_request}}', un peticion"
 
 msgid "'{{link_to_user}}', a person"
-msgstr ""
+msgstr "'{{link_to_user}}', un persona"
 
 msgid "(You will be asked to sign in as {{user_name}})"
-msgstr ""
+msgstr "(Bo lo wordo pidi pa ingresa manera {{user_name}})"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(sconde)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(of <a href=\"{{url}}\">ingresa</a>)"
 
 msgid "(show)"
-msgstr ""
+msgstr "(mustra)"
 
 msgid ""
 ",\n"
@@ -151,42 +155,49 @@ msgid ""
 "\n"
 "{{user_name}}"
 msgstr ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Atentamente,\n"
+"\n"
+"{{user_name}}"
 
 msgid "12 characters minimum. 72 characters maximum."
 msgstr ""
 
 msgid "5 minutes+"
-msgstr ""
+msgstr "mas cu 5 minuut"
 
 msgid "60 minutes+"
-msgstr ""
+msgstr "mas cu 60 minuut"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
-msgstr ""
+msgstr "<a href=\"{{browse_url}}\">Mira tur</a> of <a href=\"{{add_url}}\">pidi nos pa agrega un</a>."
 
 msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Haci un peticion di Lob nobo</a> cerca {{public_body_name}}"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Haci un peticion di Lob nobo</a> cerca {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{sign_in_link}}\">Ingresa</a> pa ricibi actualidadnan riba loke bo ta sigui of bolbe activa alertanan via e-mail."
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Bo kier pidi bo propio informacion priva? </a>"
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
-msgstr ""
+msgstr "<a href=\"{{url}}\">Manten'e <strong>enfoca</strong></a>, lo tin mas chens cu bo lo haya kico bo ta buscando."
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Ingresa</a> pa cambia bo clave, abona y mas ({{user_name}} solamente)"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Bo ta pensando di uza un otro nomber bou cual bo lo haci peticionnan?</a>"
 
 msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{wall_link}}\">Bishita bo Wall</a>pa ricibi actualidadnan riba loke bo ta sigui of bolbe activa alertanan via e-mail."
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -194,43 +205,43 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
-msgstr ""
+msgstr "<p>Ful cla! Masha danki pa bo ayudo.</p><p>Esaki ta <a href=\"{{helpus_url}}\">mas cosnan cu bo por haci</a> pa yuda {{site_name}}.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr ""
+msgstr "<p>Danki pa cambia e texto tocante bo mes den bo perfil.</p><p><strong>Proximamente...</strong> Bo por upload un potret di perfil tambe.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr ""
+msgstr "<p>Danki pa cambia e potret riba bo perfil.</p><p><strong>Proximamente...</strong> Bo por pone texto tocante bo mes y bo investigacion riba bo perfil.</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>Nos ta recomenda pa bo edita bo peticion y kita bo adres di e-mail. Si bo lag'e, e adres lo wordo manda na e autoridad, pero no lo wordo mustra riba e website.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Bo no tin cu inclui bo adres di e-mail den bo peticion pa por haya un contesta (<a href=\"{{url}}\">detayenan</a>).</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Bo no tin cu inclui bo adres di e-mail den bo peticion pa por haya un contesta, pasobra den e proximo pagina nos lo pidi p'e (<a href=\"{{url}}\">detayenan</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr ""
+msgstr "<p>Bo peticion ta contene un <strong>adres</strong>. Si e no ta esencial pa bo peticion, por fabor kita cualkier adres pasobra e lo <strong>aparece publicamente riba Internet</strong>.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}} actualmente ta bou mantencion. Bo solamente por wak peticionnan cu a wordo haci caba. Bo no por haci peticionnan nobo, bolbe tuma contacto of agrega anotacionnan, of cambia e base di datonan di cualkier manera.</p> <p>{{read_only}}</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}} actualmente ta bou mantencion. Bo por solamente mira peticionnan cu a wordo haci caba. Bo no por haci peticionnan nobo, bolbe tuma contacto of agrega anotacionnan, of cambia e base di datonan di cualkier manera.</p> <p>{{read_only}}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr ""
 
 msgid "<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
-msgstr ""
+msgstr "<strong><code>filetype:pdf</code></strong> pa haya tur contesta adhunta cu filenan den formato PDF. Of purba esakinan: <code>{{list_of_file_extensions}}</code>"
 
 msgid "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
-msgstr ""
+msgstr "<strong><code>request:</code></strong> pa restringi e buskeda na un peticion specifico, skirbiendo e titulo mescos cu den e URL. "
 
 msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
-msgstr ""
+msgstr "<strong><code>request_public_body_tag:charity</code></strong> pa haya un peticion na un autoridad cu un tag specifico."
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
 msgstr ""

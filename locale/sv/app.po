@@ -43,7 +43,7 @@
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
 # Mattias Axell <mattias@libertador.es>, 2015-2017
-# Mattias Axell <mattias@libertador.es>, 2015,2019-2021
+# Mattias Axell <mattias@libertador.es>, 2015,2019-2022
 # Mattias Axell <mattias@libertador.es>, 2015,2017-2018
 # Mattias OKFSE, 2015
 # Mattias Axell <mattias@libertador.es>, 2015
@@ -111,7 +111,7 @@ msgid " Link to the information requested, if it is <strong>already available</s
 msgstr "Länk till den begärda informationen, om den <strong>redan är tillgänglig</strong> på Internet."
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr "Erbjud bättre sätt att <strong>uttrycka begäran</strong> för att få informationen. "
+msgstr "Ställ frågan <strong>på ett annat sätt</strong> för att få informationen. "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
 msgstr "Berätta hur du har <strong>använt informationen</strong>, med länkar om möjligt."
@@ -120,7 +120,7 @@ msgid " Suggest <strong>where else</strong> the requester might find the informa
 msgstr "Föreslå <strong>var annars</strong> den frågande kan hitta informationen."
 
 msgid " You are already being emailed updates about the request."
-msgstr "Du får redan uppdateringar via e-post om begäran."
+msgstr "Du får redan uppdateringar via e-post om dina förfrågningar."
 
 msgid " You will also be emailed updates about the request."
 msgstr "Du kommer även att få uppdateringar via e-post angående begäran."
@@ -173,7 +173,8 @@ msgid ""
 "\n"
 "{{user_name}}"
 msgstr ""
-",\n"
+"Om utlämnandet är förknippat med en kostnad vill jag ha information om\n"
+"villkoren för avgiften innan utlämnandet sker.\n"
 "\n"
 "\n"
 "\n"
@@ -194,7 +195,7 @@ msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask 
 msgstr "<a href=\"{{browse_url}}\">Bläddra bland alla</a> eller <a href=\"{{add_url}}\">be oss om att lägga till en</a>."
 
 msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr "<a href=\"{{new_request_link}}\">Gör en ny begäran om miljöinformation</a> till {{public_body_name}}"
+msgstr "<a href=\"{{new_request_link}}\">Gör en ny begäran</a> till {{public_body_name}}"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
 msgstr "<a href=\"{{new_request_link}}\">Gör en ny begäran om allmän handling</a> till {{public_body_name}}"
@@ -238,16 +239,16 @@ msgstr ""
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
 msgstr ""
 "<p>Vi rekommenderar att du redigerar din begäran och tar bort e-postadressen.\n"
-" Om du lämnar den, kommer den e-postadressen att skickas till myndigheten, men kommer inte att visas på webbplatsen.</p>"
+" E-postadressen att skickas till myndigheten, men kommer inte att visas på webbplatsen.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
-msgstr "<p>Du behöver inte inkludera din e-post i begäran för att få ett svar (<a href=\"{{url}}\">detaljer</a>).</p>"
+msgstr "<p>Du behöver inte inkludera din e-post i begäran för att få ett svar (<a href=\"{{url}}\">se mer</a>).</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr "<p>Du behöver inte inkludera din e-post i begäran för att få ett svar, då vi kommer att be om det på nästa skärm (<a href=\"{{url}}\">detaljer</a>).</p>"
+msgstr "<p>Du behöver inte inkludera din e-post i begäran för att få ett svar, då vi kommer att be om det på nästa sida (<a href=\"{{url}}\">detaljer</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr "<p>Din begäran innehåller ett <strong>postnummer</strong>. Om det inte är relevant till ämnet för din begäran, ta bort alla adresser eftersom det kommer att <strong>visas offentligt på Internet</strong>.</p>"
+msgstr "<p>Din begäran innehåller ett <strong>postnummer</strong>. Om det inte är relevant för din begäran, ta bort alla adresser eftersom det kommer att <strong>visas offentligt på Internet</strong>.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr "<p>{{site_name}} är för närvarande i underhåll. Du kan bara se existerande förfrågningar. Du kan inte göra några nya, lägga till uppföljningar eller kommentarer.</p> <p>{{read_only}}</p>"
@@ -301,7 +302,7 @@ msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}
 msgstr "<strong> Kan jag begära information om mig själv?</strong> <a href=\"{{url}}\">Nej!</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr "<strong>Användaren förvarnas!</strong> Om du vill använda dessa data på ett hedersamt sätt, kommer du behöva en god intern kunskap om användarnas beteende på {{site_name}}. Hur,varför och av vem begäran kategoriseras är inte helt lätt, och det kommer att finnas felanvändning och tvetydighet. Du kommer också att behöva förstå offentlighets- och sekretesslagen, och hur myndigheterna använder det. Plus att du måste vara en elitstatistiker. <a href=\"{{contact_path}}\">Kontakta oss</a> med frågor."
+msgstr "<strong>Användaren förvarnas!</strong> Om du vill använda dessa data på ett hedersamt sätt, kommer du behöva en god intern kunskap om användarnas beteende på {{site_name}}. Hur,varför och av vem begäran kategoriseras är inte helt lätt, och det kommer att finnas felanvändning och tvetydighet. Du kommer också att behöva förstå offentlighets- och sekretesslagen, och hur myndigheterna använder det. <a href=\"{{contact_path}}\">Kontakta oss</a> med frågor."
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
 msgstr "<strong>Överklaga ett avslag?</strong> Här är några utdrag som kan hjälpa dig:"
@@ -369,7 +370,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr "En <strong>sammanfattning</strong> av svaret om du har fått den med post."
 
 msgid "A Freedom of Information request"
-msgstr "En begäran om allmän handling"
+msgstr "Begäran om allmän handling enligt offentlighetsprincipen / vidareutnyttjande av data enligt datalagen"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
 msgstr "En fullständig historik över min fråga och all korrespondens finns tillgänglig på Internet via den här adressen: {{url}}"
@@ -393,7 +394,7 @@ msgid "A strange response, required attention by the {{site_name}} team"
 msgstr "Ett konstigt svar, som behöver granskas av {{site_name}}s team"
 
 msgid "A survey about your recent Freedom of Information request"
-msgstr "En enkät om din senaste offentlighetsprincipen begäran"
+msgstr "En enkät om din senaste användning av Handlingar.se"
 
 msgid "A {{site_name}} user"
 msgstr "En {{site_name}}-användare"
@@ -615,10 +616,10 @@ msgid "Back to content"
 msgstr "Tillbaka till innehåll"
 
 msgid "Banned for evading another ban"
-msgstr ""
+msgstr "Avstängd baserat på tidigare avstängning"
 
 msgid "Banned for misuse in breach of house rules"
-msgstr ""
+msgstr "Avstängd efter att ha brutit mot användarvillkor"
 
 msgid "Banned for spamming"
 msgstr "Banad för spam"
@@ -1074,7 +1075,7 @@ msgid "Filter"
 msgstr "Filtrera"
 
 msgid "Filter by Request Status (optional)"
-msgstr "Filtrera enligt Begärans Status (valfritt)"
+msgstr "Filtrera med begärans status (valfritt)"
 
 msgid "Find an authority"
 msgstr "Hitta en myndighet"
@@ -1295,7 +1296,7 @@ msgid "Here's your daily request summary from {{site_name}}"
 msgstr "Här är din dagliga sammanfattning från {{site_name}}"
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
-msgstr "Hej! Vi behöver din hjälp. Personen som gjorde följande begäran har inte berättat för oss om den var lyckad eller inte. Skulle du ha något emot att för ett kort ögonblick läsa den och hjälpa oss att hålla stället snyggt och prydligt för alla? Tack."
+msgstr "Vi behöver din hjälp. Personen som gjorde följande begäran har inte angett om den var lyckad eller inte. Skulle du ha något emot att ta ett kort ögonblick och läsa den för att sätta en lämplig status? Tack!"
 
 msgid "Hidden"
 msgstr "Dold"
@@ -1605,7 +1606,7 @@ msgid "Make a request to this authority"
 msgstr "Gör en begäran till den här myndigheten"
 
 msgid "Make a {{legislation}} request to this authority"
-msgstr ""
+msgstr "Skicka begäran enligt {{legislation}} till denna myndighet"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Gör en begäran enligt {{law_used_short}}"
@@ -1614,7 +1615,7 @@ msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Gör en begäran enligt {{law_used_short}} till '{{public_body_name}}'"
 
 msgid "Make an {{legislation}} request to this authority"
-msgstr ""
+msgstr "Gör en begäran enligt {{legislation}} till denna myndighet"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Gör och skapa förfrågningar om allmänna handlingar"
@@ -1725,7 +1726,7 @@ msgid "Next &#8594;"
 msgstr "Nästa &#8594;"
 
 msgid "Next Step: Preview your public request"
-msgstr "Nästa Steg: Förhandsvisa din offentliga begäran"
+msgstr "Nästa steg: Förhandsvisa din offentliga begäran"
 
 msgid "Next message"
 msgstr "Nästa meddelande"
@@ -2060,7 +2061,10 @@ msgid "Please update the status of your request - {{request_title}}"
 msgstr "Uppdatera status på din begäran - {{request_title}}"
 
 msgid "Please use this email address for all replies to this request:"
-msgstr "Lämna gärna ut allmänna handlingar elektroniskt men maska personnummer. Vänligen använd denna e-postadress för alla svar till denna begäran: "
+msgstr ""
+"Begäran om tillgängliggörande av data för vidareutnyttjande Lag (2022:818) om den offentliga sektorns tillgängliggörande av data https://www.riksdagen.se/sv/dokument-lagar/dokument/svensk-forfattningssamling/lag-2022818-om-den-offentliga-sektorns_sfs-2022-818\n"
+"\n"
+"Lämna gärna ut allmänna handlingar elektroniskt för att spara tid och pengar med Handlingar.se. Vänligen använd denna e-postadress för alla svar till denna begäran: "
 
 msgid "Please write a summary with some text in it"
 msgstr "Skriv en kortfattad sammanfattning."
@@ -2518,7 +2522,7 @@ msgid "Sign up"
 msgstr "Registrera dig"
 
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
-msgstr ""
+msgstr "Registreringar från Tor har blockerats på grund av extensiva missbruk. Vänligen kontakta oss anonymt om detta är ett problem för dig."
 
 msgid "Simple search"
 msgstr "Enkel sökning"
@@ -2569,7 +2573,7 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Ursäkta, vi kan för närvarande inte lägga till din anteckning. Vänligen försök igen senare."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
-msgstr ""
+msgstr "Förlåt, vi kan för närvarande inte skapa ditt konto. Vänligen försök igen senare."
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Ursäkta, vi kan för närvarande inte skicka din begäran. Vänligen försök igen senare."
@@ -2818,10 +2822,10 @@ msgid "The last user was created over a day ago"
 msgstr "Den senaste användaren skapades för mer än en dag sedan"
 
 msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
-msgstr ""
+msgstr "Den äldsta Xapian-indexeringen har varit vilande i mer än 30 minuter"
 
 msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
-msgstr ""
+msgstr "Den äldsta Xapian-indexeringen har inte varit aktivt på mer än 30 minuter"
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Sidan finns inte. Saker som du kan prova nu:"
@@ -2842,7 +2846,7 @@ msgid "The publicly accessible link for this request has now been disabled"
 msgstr "Den offentligt tillgängliga länken för denna begäran har nu inaktiverats"
 
 msgid "The request has been <strong>refused</strong>"
-msgstr "Begäran har <strong>avslagits</strong>"
+msgstr "Begäran har blivit <strong>nekad</strong> för utlämnade"
 
 msgid "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
 msgstr "Begäran har uppdaterats sedan du ursprungligen laddade den här sidan. Vänligen kontrollera om det finns några nya inkommande meddelanden nedan och försök igen."
@@ -4058,10 +4062,20 @@ msgid "Your {{site_name}} email alert"
 msgstr "Din {{site_name}} e-postbevakning"
 
 msgid "Yours faithfully,"
-msgstr "Med vänlig hälsning,"
+msgstr ""
+"Om utlämnandet är förknippat med en kostnad vill jag ha information om\n"
+"villkoren för avgiften innan utlämnandet sker.\n"
+"\n"
+"\n"
+"Med vänlig hälsning,"
 
 msgid "Yours sincerely,"
-msgstr "Med vänliga hälsningar,"
+msgstr ""
+"Om utlämnandet är förknippat med en kostnad vill jag ha information om\n"
+"villkoren för avgiften innan utlämnandet sker.\n"
+"\n"
+"\n"
+"Med vänliga hälsningar,"
 
 msgid "Yours,"
 msgstr "Hälsningar,"
@@ -4091,7 +4105,7 @@ msgid "[extraneous and potentially defamatory material removed]"
 msgstr "[potentiellt ärekränkande material borttaget]"
 
 msgid "[extraneous material removed]"
-msgstr ""
+msgstr "[överflödigt material borttaget]"
 
 msgid "[name removed]"
 msgstr "[namn borttaget]"

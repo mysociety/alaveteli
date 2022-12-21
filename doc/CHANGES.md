@@ -65,6 +65,12 @@
 
 ### Changed Templates
 
+# 0.41.1.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.41.1.0
 
 ## Highlighted Features
