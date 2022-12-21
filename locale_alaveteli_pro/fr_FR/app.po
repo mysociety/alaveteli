@@ -4,13 +4,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
+# Catia Guerreiro <CatiaGuerreiro1980@hotmail.com>, 2019
+# 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
+# Pascal Romain <aka.keronos@gmail.com>, 2020
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2021
-# Laurent S, 2021
 # Eda <eda@mutu.net>, 2022
-# Catia Guerreiro <CatiaGuerreiro1980@hotmail.com>, 2022
-# 1bb8f5eb4bc72723d4109decfd20c765, 2022
-# Pascal Romain <aka.keronos@gmail.com>, 2022
+# Laurent S, 2022
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-28 18:01+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Pascal Romain <aka.keronos@gmail.com>, 2022\n"
+"Last-Translator: Laurent S, 2022\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -146,7 +146,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr "Un <strong>résumé</strong> de la réponse si vous l'avez reçue par courrier postal."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "Une ligne de résumé de l'information que vous avez demandée, par exemple."
+msgstr "Un résumé d'une ligne de l'information que vous demandez, par exemple:"
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
 msgstr "La possibilité de rechercher dans le contenu des demandes et réponses"
@@ -305,7 +305,7 @@ msgid "Change privacy"
 msgstr "Changer la confidentialité"
 
 msgid "Change privacy or <strong>publish now</strong>"
-msgstr ""
+msgstr "Changer la confidentialité ou <strong>publier maintenant</strong>"
 
 msgid "Change status"
 msgstr "Changer le statut"
@@ -376,7 +376,7 @@ msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are s
 msgstr "Ne vous inquiétez pas – <a href=\"{{signup_link}}\">nos comptes gratuits</a> sont toujours disponibles et le seront toujours."
 
 msgid "Download a zip file of all correspondence"
-msgstr "Téléchargez un fichier zip de toute la correspondance"
+msgstr "Télécharger un fichier zip de toute la correspondance"
 
 msgid "Draft"
 msgstr "Brouillon"
@@ -544,13 +544,13 @@ msgid "Journalists"
 msgstr "Journalistes"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
-msgstr "Garder les demandes et réponses privées le temps de votre investigation ou travail de recherche."
+msgstr "Garder les demandes et réponses privées le temps de votre enquête ou travail de recherche."
 
 msgid "Keep private for a further:"
-msgstr "Garder privé pour une période : "
+msgstr "Garder privé pour encore : "
 
 msgid "Keep private for:"
-msgstr "Restez privé pour:"
+msgstr "Garder en privé pour :"
 
 msgid "Keep track of FOI requests"
 msgstr "Gardez un œil sur vos requêtes d'accès à l'information"
@@ -598,7 +598,7 @@ msgid "Need to keep things under wraps?"
 msgstr "Besoin de garder vos recherches secrètes ?"
 
 msgid "Need to keep your requests private?"
-msgstr "Besoin de garder votre requêtes secrètes ?"
+msgstr "Besoin de garder vos demandes privées ?"
 
 msgid "Need to protect your research?"
 msgstr "Besoin de protéger vos recherches ?"
@@ -748,13 +748,13 @@ msgid "Private"
 msgstr "Privé"
 
 msgid "Private FOI requests"
-msgstr "Requêtes privées d'accès à l'information"
+msgstr "Demandes d'accès aux documents administratifs privées"
 
 msgid "Private Requests"
-msgstr "Requêtes privées"
+msgstr "Demandes d'accès aux documents administratifs privées"
 
 msgid "Private requests for information"
-msgstr "Requêtes privées de demandes d'information"
+msgstr "Demande d'accès aux documents administratifs privées"
 
 msgid "Private until {{date}}"
 msgstr "Privé jusqu'au {{date}}"
@@ -796,7 +796,7 @@ msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] "Publiez cette demande ou gardez-la privée pour longtemps."
 msgstr[1] "Publiez ces demandes ou gardez-les privées pour longtemps."
-msgstr[2] "Publiez ces demandes ou gardez-les privées pour longtemps."
+msgstr[2] "Publiez ces demandes ou gardez-les privées plus longtemps."
 
 msgid "Read blog"
 msgstr "Blog"
@@ -844,13 +844,13 @@ msgid "Requests"
 msgstr "Demandes"
 
 msgid "Requests can stay completely private until you’re ready to go public with your story."
-msgstr "Les requêtes peuvent rester complètement privées jusqu'à ce que vous décidiez de la rendre publique."
+msgstr "Les demandes peuvent rester privées jusqu'à ce que vous décidiez de les rendre publiques."
 
 msgid "Requests can stay completely private until you’re ready to go public."
-msgstr "Les requêtes peuvent rester complètement privées jusqu'à ce que vous soyez prêt.e à les rendre publiques"
+msgstr "Les demandes peuvent rester privées jusqu'à ce que vous décidiez de les rendre publiques."
 
 msgid "Requests can stay completely private until you’re ready to publish your research."
-msgstr "Les requêtes peuvent rester complètement privées jusqu'à ce que vous décidiez de rendre publiques vos recherches."
+msgstr "Les demandes peuvent rester privées jusqu'à ce que vous décidiez de rendre publiques vos recherches."
 
 msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
 msgstr "Les demandes dans ce groupe sont privées jusqu' au <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
@@ -943,7 +943,7 @@ msgid "Settings"
 msgstr "Paramètres"
 
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
-msgstr "Partager le code {{discount_code}} avec un ami pour leur donner {{discount_terms}} à l'inscription"
+msgstr "Partager le code {{discount_code}} avec un ami pour leur offrir {{discount_terms}} à l'inscription"
 
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
@@ -1039,7 +1039,7 @@ msgid "The following request will be made public on {{site_name}} in the next we
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
 msgstr[0] "La demande suivante sera rendue publique sur {{site_name}} la semaine prochaine. Si vous ne voulez pas que cette demande soit rendue publique à ce moment, merci de cliquer sur le lien ci-dessous pour la garder confidentielle plus longtemps."
 msgstr[1] "Les demandes suivantes seront rendues publiques sur {{site_name}} la semaine prochaine. Si vous ne souhaitez qu'aucunes de ces demandes ne soient rendues publiques, merci de cliquer sur le lien ci-dessous pour les garder confidentielles plus longtemps."
-msgstr[2] "Les demandes suivantes seront rendues publiques sur {{site_name}} la semaine prochaine. Si vous ne souhaitez qu'aucunes de ces demandes ne soient rendues publiques, merci de cliquer sur le lien ci-dessous pour les garder confidentielles plus longtemps."
+msgstr[2] "Les demandes suivantes seront rendues publiques sur {{site_name}} la semaine prochaine. Si vous ne souhaitez pas qu'elles soient rendues publiques, merci de cliquer sur le lien ci-dessous pour les garder privées plus longtemps."
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
 msgstr "Le projet ‘Data Scores as Governance’ a utilisé les fonctionnalités avancées d'Alaveteli Pro pour examiner <a href=\"{{story_url}}\">l'utilisation de notations sociales basées sur des données dans le but de catégoriser les citoyen.nes.s</a>, de leur allouer des services et d'anticiper leurs comportements."
@@ -1189,7 +1189,7 @@ msgid "We are processing your payment. You can access your subscription settings
 msgstr "Nous traitons votre paiement.  Vous pouvez accéder aux paramètres de votre abonnement et de votre compte via le lien \"Mon abonnement\" dans votre menu d'utilisateur (accessible via le menu déroulant à côté de de votre nom, au-dessus)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr "Nous vous rappellerons par email et sur le site lorsque votre demande va être rendue publique, et, si vous le souhaitez, vous aurez la possibilité de la garder confidentielle pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
+msgstr "Nous vous rappellerons par email et sur le site lorsque votre demande va être rendue publique, et, si vous le souhaitez, vous aurez la possibilité de la garder privée pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
 msgstr "Indicateurs mensuels d'usage de Madada ++ pour la période  {{start_date}} - {{end_date}}"
@@ -1204,7 +1204,7 @@ msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "Nous avons essayé de facturer votre carte, mais le paiement a échoué."
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Lorsqu'une demande est confidentielle nous garantissons qu'elle sera uniquement visible sur {{site_name}} à l'issue de la période que vous sélectionnez. Les administrateurs de {{pro_site_name}} pourront également voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème avec votre demande (par exemple une erreur d'adressage à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande dans un registre."
+msgstr "Lorsqu'une demande est privée, elle ne sera uniquement visible sur {{site_name}} uniquement à l'issue de la période d'embargo sélectionnée. Les administrateurs de {{pro_site_name}} pourront voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème avec  celle-ci (par exemple une erreur d'adressage à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande de son côté."
 
 msgid "When the current billing period ends:"
 msgstr "Lorsque la période de facturation se termine:"
@@ -1234,13 +1234,13 @@ msgid "You are already subscribed to this plan"
 msgstr "Vous êtes déja abonné à ce plan"
 
 msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
-msgstr "Vous pouvez choisir de conserver vos requêtes privées sur le site pendant un an, uniquement visible par vous. Nous vous informerons quand ce délai sera sur le point de se terminer et vous aurez toujours la possibilité de rallonger ce délai si votre enquête ne peut pas encore être rendue publique."
+msgstr "Vous pouvez choisir de garder vos demandes d'accès aux documents administratifs privées sur le site pendant un an, elles sont alors uniquement visibles par vous. Nous vous informerons quand ce délai sera sur le point d'expirer et vous aurez alors la possibilité de rallonger ce délai ou pas."
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
-msgstr "Vous pouvez choisir de conserver vos requêtes privées sur le site pendant un an, uniquement visible par vous. Nous vous informerons quand ce délai sera sur le point de se terminer et vous aurez toujours la possibilité de rallonger ce délai si votre enquête ne peut pas encore être rendue publique."
+msgstr "Vous pouvez choisir de garder vos demandes d'accès aux documents administratifs privées sur le site pendant un an, elles sont alors uniquement visibles par vous. Nous vous informerons quand ce délai sera sur le point d'expirer et vous aurez alors la possibilité de rallonger ce délai ou pas."
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
-msgstr "Vous pouvez choisir de conserver vos requêtes privées sur le site pendant un an, uniquement visible par vous. Nous vous informerons quand ce délai sera sur le point de se terminer et vous aurez toujours la possibilité de rallonger ce délai si votre enquête ne peut pas encore être rendue publique."
+msgstr "Vous pouvez choisir de garder vos demandes d'accès aux documents administratifs privées sur le site pendant un an, elles sont alors uniquement visibles par vous. Nous vous informerons quand ce délai sera sur le point d'expirer et vous aurez alors la possibilité de rallonger ce délai ou pas."
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr "Vous pouvez vous ré-abonner à n'importe quel moment et votre accès complet à ces fonctionnalités sera rétabli."
@@ -1276,7 +1276,7 @@ msgid "You will be able to extend this privacy period from {{embargo_extend_from
 msgstr "Vous pourrez prolonger cette période de non-publication (embargo) à partir de {{embargo_extend_from}}."
 
 msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
-msgstr "Vous pourrez toujours voir vos demandes qui sont encore sous embargo, mais vous ne pourrez plus garder privées vos nouvelles demandes (ou prolonger l'embargo sur celles venant à échéance). Ces demandes seront donc visisbles à la fin de la période d'embargo."
+msgstr "Vous pourrez toujours voir vos demandes qui sont actuellement privées, mais vous ne pourrez plus rendre privées vos nouvelles demandes, ou prolonger l'embargo sur celles venant à échéance. Ces demandes seront donc visibles à la fin de la période d'embargo."
 
 msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
 msgstr "Vous ne pourrez plus accéder aux outils de  {{pro_site_name}} comme le tableau de bord et les outils de gestion des requêtes."
@@ -1333,7 +1333,7 @@ msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received 
 msgstr "Votre demande \"{{info_request_title}}\" à l'autorité publique {{public_body_name}} a reçu une nouvelle réponse."
 
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
-msgstr "Votre demande est maintenant confidentielle sur {{site_name}} jusqu'au {{expiry_date}}."
+msgstr "Votre demande est maintenant privée sur {{site_name}} jusqu'au {{expiry_date}}."
 
 msgid "Your request will now be private until {{expiry_date}}."
 msgstr "Votre demande est maintenant privée jusqu'au {{expiry_date}}. "

@@ -62,7 +62,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-28 18:00+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Žana Počuča <zana.fakin@gmail.com>, 2015,2021\n"
+"Last-Translator: Miroslav Schlossberg, 2021-2022\n"
 "Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -752,13 +752,13 @@ msgid "Clear photo"
 msgstr "Obrišite sliku"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why response to the request has been so slow."
-msgstr "Kliknite na poveznicu ispod da biste poslali poruku za {{public_body_name}} koja će ih podsjetiti da odgovore na vaš zahtjev. Ako nisu odgovorili u roku, možete ih požuriti i istovremeno pokrenuti postupak žalbe radi šutnje uprave kod Povjerenika za informiranje."
+msgstr "Kliknite na poveznicu ispod da biste poslali požurnicu za {{public_body_name}} kojom ćete ih podsjetiti da odgovore na vaš zahtjev."
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
-msgstr "Kliknite na poveznicu ispod da biste poslali poruku za {{public_body_name}} koja će ih podsjetiti da odgovore na Vaš zahtjev. Ako ne odgovore, možete tražiti požurnicu ili podnijeti žalbu radi šutnje tijela javne vlasti povjereniku za informiranje."
+msgstr "Kliknite na poveznicu ispod da biste poslali požurnicu za {{public_body_name}} kojom ćete ih podsjetiti da odgovore na vaš zahtjev."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
-msgstr "Kliknite na poveznicu ispod da biste poslali poruku {{public_body}} koja će ih podsjetiti da odgovore na Vaš zahtjev. Ako ne odgovore, možda želite poslati žalbu Povjerniku za informiranje navodeći link na Vaš zahtjev."
+msgstr "Kliknite na poveznicu ispod da biste poslali požurnicu za {{public_body}} kojom ćete ih podsjetiti da odgovore na vaš zahtjev."
 
 msgid "Close"
 msgstr "Zatvorite"
@@ -1235,7 +1235,7 @@ msgid "Get help to challenge it."
 msgstr ""
 
 msgid "Getting long – remember to keep it focussed"
-msgstr "Postaje dugačko - zapamtite da ostanete fokusirani "
+msgstr "Postaje predugačko – ostanete fokusirani na temu"
 
 msgid "Go back to refusal advice questions"
 msgstr ""
@@ -4481,7 +4481,7 @@ msgid "{{public_body_name}} have not replied to your {{law_used_short}} request 
 msgstr "{{public_body_name}} nisu odgovorili na Vaš {{law_used_short}} zahtjev {{title}} pravovremeno, kako je predviđeno zakonom. Kliknite na poveznicu ispod da biste ih podsjetili da odgovore. "
 
 msgid "{{public_body_name}} have still not replied to your {{law_used_short}} request {{title}}, as normally required by law. Click on the link below to tell them to reply. You might like to ask for an internal review, asking them to find out why their response to the request has been so slow."
-msgstr "{{public_body_name}} još uvijek nije odgovorio na vaš {{law_used_short}} zahtjev {{title}}, kako je predviđeno zakonom. Kliknite na poveznicu ispod da biste ih podsjetili da odgovore. Ako ne odgovore, možda želite tražiti požurnicu, ili žalbu radi šutnje tijela javne vlasti Povjereniku za informiranje. "
+msgstr "{{public_body_name}} još uvijek nije odgovorio na vaš {{law_used_short}} zahtjev {{title}}, kako je predviđeno zakonom. Kliknite na poveznicu ispod da biste ih podsjetili da odgovore putem požurnice. Ako ne odgovore, možda želite podnijeti žalbu radi šutnje tijela javne vlasti Povjereniku za informiranje. "
 
 msgid "{{public_body_name}} no longer exists. From the request page, try replying to a particular message, rather than sending a general followup. If you need to make a general followup, and know an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
 msgstr "{{public_body_name}} više ne postoji. Pokušajte odgovoriti na određenu poruku na stranici sa zahtjevima, radije nego da šaljete općeniti upit. Ako morate poslati općeniti upit i znate e-mail adresu, molimo <a href=\"{{url}}\">pošaljite nam je</a>."
