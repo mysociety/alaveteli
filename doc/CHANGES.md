@@ -1,12 +1,20 @@
-# develop
+# 0.42.0.0
 
 ## Highlighted Features
 
 * Use CSV output and ignore case for `users:count_per_domain` stats (Gareth
   Rees)
+* Improve storage of event parameter data (Graeme Porteous)
+* Allow admins to destroy post redirects (Gareth Rees)
+* Add initial administration UI for batch requests (Gareth Rees)
+* Add ability to hide individual attachments using prominence (Graeme Porteous)
+* Refactor requests, outgoing messages, incoming messages and attachments
+  prominence to be consistent and reusable (Graeme Porteous)
 * Fix categorisation game total requests count (Gareth Rees)
 * Add count of requests in each prominence state to body and user admin pages
   (Gareth Rees)
+* Update `all-authorities.csv` endpoint to download and cache file nightly
+  (Graeme Porteous)
 * Improved notes feature, allowing multiple notes to be associated with bodies
   and requests. Association can either be direct or via a tag. Tagged notes are
   useful for displaying one note to a subset of bodies or requests which are all
@@ -20,13 +28,19 @@
 * Improve linking from outgoing & incoming message admin pages (Gareth Rees)
 * Allow admins to destroy user post redirects (Gareth Rees)
 * Use correct mime type for cached CSV attachments (Gareth Rees)
+* Improvements to the admin object columns listings (Gareth Rees, Graeme
+  Porteous)
 * Protect mass-tag update buttons in admin bodies lists (Gareth Rees)
-* Update `all-authorities.csv` download to cache file nightly (Graeme Porteous)
-* Improve storage of event parameter data (Graeme Porteous)
+* Dependencies upgrades (Alexander Griffen, Graeme Porteous)
 
 ## Highlighted Pro Features
 
+* Allow former pro to classify embargo requests (Graeme Porteous)
+
 ## Upgrade Notes
+
+* This will the last release to support Vagrant development boxes. Please switch
+  to using Docker. See: https://alaveteli.org/docs/installing/docker/
 
 * _Required:_ There are some database structure updates so remember to run:
 
@@ -53,6 +67,15 @@
 
       bin/rails temp:sanitise_and_populate_events_params_json
 
+  After running these tasks all of your `InfoRequestEvent` objects should have a
+  populated `param` column. This can be checked by running:
+
+      bin/rails runner "p InfoRequestEvent.where(params: nil).count"
+
+  If this does not return `0` or the tasks error then
+  [please message us](https://groups.google.com/forum/#!forum/alaveteli-dev) as
+  the old `params_yaml` will be removed in the next release.
+
 * _Required:_ The crontab needs to be regenerated to include the new
   modifications:
   https://alaveteli.org/docs/installing/cron_and_daemons/#generate-crontab
@@ -64,6 +87,63 @@
       bin/rails runner "PublicBody.without_request_email.each(&:save)"
 
 ### Changed Templates
+
+    app/views/admin/outgoing_messages/snippets/index.html.erb
+    app/views/admin/users/sign_ins/index.html.erb
+    app/views/admin_announcements/index.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_comment/index.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/_change_request_summary.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_incoming_message/_foi_attachments.html.erb
+    app/views/admin_incoming_message/_intro.html.erb
+    app/views/admin_incoming_message/edit.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/_one_list.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_public_body/index.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/edit.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/_some_annotations.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_track/index.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_search_result.html.erb
+    app/views/alaveteli_pro/draft_info_request_batches/_summary.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_note.html.erb
+    app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
+    app/views/notification_mailer/expire_embargo_notification.text.erb
+    app/views/outgoing_messages/delivery_statuses/show.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_attention_requested.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_hidden_correspondence.html.erb
+    app/views/request/_hidden_correspondence.text.erb
+    app/views/request/_hidden_request_messages.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_incoming_correspondence.text.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.text.erb
+    app/views/request/_restricted_correspondence.html.erb
+    app/views/request/_share_by_link.html.erb
+    app/views/request/hidden.html.erb
+    app/views/request/hidden_correspondence.html.erb
+    app/views/request/new.html.erb
+    app/views/request/new_defunct.html.erb
+    app/views/request/show.html.erb
+    app/views/request/show.text.erb
 
 # 0.41.1.1
 
