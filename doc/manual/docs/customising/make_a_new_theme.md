@@ -26,14 +26,8 @@ configuration settings and translations — in addition to the changes you can
 make to the theme.
 
 But if you've just installed the software (for example, you've just completed a
-[Vagrant installation]({{ page.baseurl }}/docs/installing/vagrant)), follow
+[Docker installation]({{ page.baseurl }}/docs/installing/docker)), follow
 these steps to make your Alaveteli site your own.
-
-<div class="attention-box helpful-hint">
-  If you're using Vagrant, remember that you log into the virtual machine's
-  shell by <code>cd</code>ing into the root directory of your Alaveteli 
-  installation, and then issuing <code>vagrant&nbsp;ssh</code>.
-</div>
 
 ## 1. Fork the Alaveteli theme
 
@@ -82,23 +76,14 @@ Set it to the URL of your uniquely named repo, for example:
          - 'https://github.com/yourgithub/abcexample-theme.git'
 
 
-<div class="attention-box helpful-hint">
-  <p>
-    Other types of git urls are available but are much harder to get up and
-    running inside a Vagrant box. Github maintains a
-    <a href="https://help.github.com/articles/which-remote-url-should-i-use/">useful
-    guide to git url formats</a> if you would like to read more about this.
-  </p>
-</div>
-
 ## 4. Tell Alaveteli to get its theme
 
 Next, tell Alaveteli to pull the repo down from the URL in `THEMES_URL`, and
 install it as the theme your installation will use.
 
-Do this by issuing this command within your Vagrant virtual machine:
+Do this by issuing this command:
 
-    bundle exec rake themes:install
+    docker compose run --rm app bundle exec rails themes:install
 
 Alaveteli will connect to GitHub, pull down your theme repo and put it in the
 right place within your Alaveteli installation.
@@ -112,10 +97,10 @@ the repo) has been reproduced in `lib/themes/`.
     interest in saving the changes you're about to make, you can skip this bit!
   </p>
   <p>
-    On the command line (back on your own machine rather than inside Vagrant
-    box), <code>cd</code> to your theme's folder inside <code>lib/themes/</code>. 
-    This is where your theme code will live, and is where you should issue your 
-    git commands from to commit and push your changes.
+    On the command line, <code>cd</code> to your theme's folder inside
+    <code>lib/themes/</code>. This is where your theme code will live, and is
+    where you should issue your git commands from to commit and push your
+    changes.
   </p>
   <p>
     You now need to issue this command:
@@ -123,8 +108,8 @@ the repo) has been reproduced in `lib/themes/`.
     <pre><code>git checkout master</code></pre>
 
     This is needed because, unless you've told it explicitly to do otherwise,
-    the rake task won't checkout a branch (instead, it leaves you in a 
-    "detached HEAD" state) -- see the 
+    the rake task won't checkout a branch (instead, it leaves you in a
+    "detached HEAD" state) -- see the
     <a href="#branches-within-your-theme-repo">note about branches</a> below.
 
     You are now all set to be able to push your changes back to Github when
@@ -159,16 +144,15 @@ the Sass, containing the new colour you've picked.
 ## 6. See the new colour!
 
 Before trying to look at the site, make sure the development server is running.
-Within the Vagrant VM, do this to start it:
 
-    bundle exec rails server
+    docker compose run --rm app bundle exec rails server
 
 Now if you look at the home page on your development server, you'll
 see the new colour.
 
 <div class="attention-box helpful-hint">
   If you change the colour again, and it doesn't update when you refresh the
-  browser, you <em>might</em> need to delete everything in 
+  browser, you <em>might</em> need to delete everything in
   <code>/tmp/cache</code> within your installation to force this
   behaviour.
 </div>
@@ -204,15 +188,8 @@ put the URL of your theme in your `THEME_URLS` config setting for your
 production server, just like you have done for this development one).
 
 There are different ways to commit your changes, but here's one method:
-<div class="attention-box helpful-hint">
-  Note that <em>inside</em> your Vagrant virtual machine, you won't be able to
-  access GitHub with your user settings, and so on. So you will need to do this
-  from "outside" the VM. This can trip you up because the command shell looks
-  very similar when you are inside a <code>vagrant&nbsp;ssh</code> session,
-  and when you are not.
-</div>
 
-    git commit -a -m "changed colour and logo to match brand style" 
+    git commit -a -m "changed colour and logo to match brand style"
 
 The `-a` option of the `commit` command commits all the files you've changed,
 and the `-m` option adds a message describing what you did and why.
@@ -274,7 +251,7 @@ whenever we release a newer version without that update colliding with your
 changes.
 
 See
-[changing the help pages]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages) 
+[changing the help pages]({{ page.baseurl }}/docs/customising/themes/#customising-the-help-pages)
 for details.
 
 As usual, whenever you make changes, commit them and be sure to push them
