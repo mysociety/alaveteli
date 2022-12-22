@@ -12,26 +12,6 @@ require 'spec_helper'
 
 RSpec.describe RawEmail do
 
-  # DEPRECATION: remove for release 0.42
-  class LegacyRawEmail < RawEmail
-    # This replicates how we used to store RawEmail before switching to
-    # ActiveStorage
-    def data=(d)
-      FileUtils.mkdir_p(directory) unless File.exist?(directory)
-      File.atomic_write(filepath) do |file|
-        file.binmode
-        file.write(d)
-      end
-    end
-  end
-
-  let(:legacy_raw_email) do
-    LegacyRawEmail.create!(
-      incoming_message: FactoryBot.create(:incoming_message),
-      data: 'Hello world'
-    )
-  end
-
   def roundtrip_data(raw_email, data)
     raw_email.data = data
     raw_email.save!
@@ -40,28 +20,13 @@ RSpec.describe RawEmail do
   end
 
   describe 'before destroy callbacks' do
-    shared_examples :destory_file_examples do
-      it 'should delete the directory' do
-        raw_email.run_callbacks(:destroy)
-        expect(File.exist?(raw_email.filepath)).to eq(false)
-      end
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
-      it 'should only delete the directory if it exists' do
-        expect(File).to receive(:delete).once.and_call_original
-        raw_email.run_callbacks(:destroy)
-        expect { raw_email.run_callbacks(:destroy) }.
-          not_to raise_error
-      end
-    end
-
-    context 'with active storage' do
-      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
-      include_examples :destory_file_examples
-    end
-
-    context 'without active storage' do
-      let(:raw_email) { legacy_raw_email }
-      include_examples :destory_file_examples
+    it 'should only delete the directory if it exists' do
+      expect(File).to receive(:delete).once.and_call_original
+      raw_email.run_callbacks(:destroy)
+      expect { raw_email.run_callbacks(:destroy) }.
+        not_to raise_error
     end
   end
 
@@ -219,33 +184,21 @@ RSpec.describe RawEmail do
   end
 
   describe '#data' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
-    shared_examples :data_unchanged_examples do
-      it 'roundtrips data unchanged' do
-        data = roundtrip_data(raw_email, "Hello, world!")
-        expect(data).to eq("Hello, world!")
-      end
-
-      it 'returns an unchanged binary string with a valid encoding if the data is non-ascii and non-utf-8' do
-        data = roundtrip_data(raw_email, "\xA0")
-
-        expect(data.encoding.to_s).to eq('ASCII-8BIT')
-        expect(data.valid_encoding?).to be true
-        data = data.force_encoding('UTF-8')
-        expect(data).to eq("\xA0")
-      end
+    it 'roundtrips data unchanged' do
+      data = roundtrip_data(raw_email, "Hello, world!")
+      expect(data).to eq("Hello, world!")
     end
 
-    context 'with active storage' do
-      let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
-      include_examples :data_unchanged_examples
-    end
+    it 'returns an unchanged binary string with a valid encoding if the data is non-ascii and non-utf-8' do
+      data = roundtrip_data(raw_email, "\xA0")
 
-    context 'without active storage' do
-      let(:raw_email) { legacy_raw_email }
-      include_examples :data_unchanged_examples
+      expect(data.encoding.to_s).to eq('ASCII-8BIT')
+      expect(data.valid_encoding?).to be true
+      data = data.force_encoding('UTF-8')
+      expect(data).to eq("\xA0")
     end
-
   end
 
   describe '#data_as_text' do
