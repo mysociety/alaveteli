@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # David Cabo <david.cabo@gmail.com>, 2012
 # sroberto <ertoba@yahoo.es>, 2012
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -38,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: sroberto <ertoba@yahoo.es>, 2012\n"
 "Language-Team: Basque (http://www.transifex.com/mysociety/alaveteli/language/e"
@@ -570,6 +573,9 @@ msgstr "Orrialde honen amaieran, idatz ezazu erantzuna, eskanea dezaten konbentz
 
 msgid "Attachment (optional):"
 msgstr "Gehigarriak (aukerakoa):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Gehigarria:"
@@ -1382,11 +1388,14 @@ msgstr "Erakunde publikotik jaso duzun erantzunarekin pozik ez bazaude, apelatze
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Oraindik arazoak baldin badituzu, mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
 msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Eskabidea zurea baldin bada, <a href=\"{{url}}\">saio bat zabaldu</a> ahal duzu ikusteko."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Zu {{user_link}} baldin bazara, mesedez"
@@ -1588,9 +1597,6 @@ msgstr "Oso atzeratua."
 
 msgid "Made between"
 msgstr "Data hauen artean eginak"
-
-msgid "Make a batch request"
-msgstr ""
 
 msgid "Make a request"
 msgstr "Bidali eskabidea"
@@ -1838,9 +1844,6 @@ msgstr "Erakundeak bakarrik erantzun diezaioke eskabide honi, baina ez dago \"Fr
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr ""
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr ""
-
 msgid "Original request sent"
 msgstr "Eskabide originala bidalita"
 
@@ -1906,9 +1909,6 @@ msgstr "Eskabideak sailkatzeko jolasean aritu nahi?"
 
 msgid "Please"
 msgstr "Mesedez"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Mesedez, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>, hau konpon dezagun."
@@ -2078,6 +2078,9 @@ msgstr "Mesedez, idatz ezazu zure mezua beheko azalpen nahitaezkoak erabiliz."
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Mesedez, idatz ezazu zure mezua hizki larri eta xehe erabiliz, irakurketa errazte aldera."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Aipa itzazu baliagarriak izan daitezkeen <strong>lotutako informazioa</strong>, ekimenak edo foroak."
@@ -2471,6 +2474,9 @@ msgstr "Aldatu profilaren argazkia"
 msgid "Share on Facebook"
 msgstr ""
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr ""
 
@@ -2828,10 +2834,10 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2872,9 +2878,6 @@ msgstr "Eskabidea <strong>arrakastatsua</strong> izan da."
 
 msgid "The request was refused by the public authority"
 msgstr "_____ erakundeak ez du eskabidea onartu."
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Ikusi nahi izan duzun eskabidea ezabatuta dago. Honetarako hainbat arrazoi daude, baina hemen izan gaitezke zehatzagoak. Mesedez, galderarik egin nahi baduzu jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Eskabide honetako sortzaileak zerbait dela eta ezabatu du"
@@ -2937,9 +2940,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr ""
 
-msgid "Then you can make a batch request"
-msgstr ""
-
 msgid "Then you can play the request categorisation game."
 msgstr "Orduan eskabideak sailkatzeko jolasean jokatu ahal izango duzu."
 
@@ -2997,6 +2997,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Badaude {{count}} iruzkin zure {{law_used_short}} eskabidean. Jarraitu esteka honi esaten dutena irakurtzeko."
 
@@ -3042,11 +3045,14 @@ msgstr "<strong>Ez daukate</strong> informazioa<small> (agian esango dute nork d
 msgid "They have been given the following explanation:"
 msgstr "Ondoko azalpena jaso dute:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Ez diote erantzun zure {{law_used_short}} {{title}} eskabideari legeak agintzen duen bezain azkar."
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3058,6 +3064,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3084,8 +3102,8 @@ msgstr "Hau \"{{request_title}}\" informazio eskabidearen testua-soilik bertsioa
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Hau informaziorako sarbidearen eskabide baten ondoko fitxategi baten HTML bertsioa da"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Hau gertatzen da {{title}} eskabide zaharra delako, erantzun gehiago jaso ez dezan markatuta."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Hauxe da zure eskabidea, horregatik erantzun berriak heltzen direnean automatikoki emailak jasoko dituzu."
@@ -3105,16 +3123,16 @@ msgstr ""
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr ""
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
@@ -3151,13 +3169,16 @@ msgstr "Eskabide honen egoera <strong>ezezaguna</strong> da."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
 msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Eskabide hau sortu zuen pertsonak <strong>kendu du</strong>. \n"
 "        \t   Ondoko mezuetan egon daiteke honen azalpena."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3180,11 +3201,14 @@ msgstr "Administratzaileak eskabide hau konfiguratu du \"inoren erantzunak ez ba
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Eskabide honek erantzun ez-ohikoa jaso du eta {{site_name}}-ko taldearen <strong>parte hartzea behar du</strong>."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Eskabide honen ikusgarritasuna 'ezkutua' da. Zuk ikus dezakezu super-erabiltzaile bezala identifikatu zarelako."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Eskabide hau ezkututa dago, beraz zuk zeuk, sortzaile zaren heinean, ikus dezakezu. Mesedez, zergatik gertatzen den seguru ez bazaude, jar zaitez gurekin <a href=\"{{url}}\">harremanetan</a>."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3272,8 +3296,8 @@ msgstr ""
 msgid "To follow the request '{{request_title}}'"
 msgstr ""
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "Web orrialdea ordenean mantentzen laguntzeko, norbaitek {{public_body}}-ri egin diozun {{law_used_full}} {{title}} eskabidearen egoera gaurkotu du, \"{{display_status}}\". Sailkapen honekin ados ez bazaude, mesedez jar ezazu zuk zeuk egoki deritzozun egoera."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr ""
 
 msgid "To join this project"
 msgstr ""
@@ -3285,9 +3309,6 @@ msgid "To let everyone know, follow this link and then select the appropriate bo
 msgstr ""
 
 msgid "To log into the administrative interface"
-msgstr ""
-
-msgid "To make a batch request"
 msgstr ""
 
 msgid "To play the request categorisation game"
@@ -4045,8 +4066,8 @@ msgstr ""
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Zure eskabidearen izenburua  {{info_request}} zen. Jakinarazi informazioa jaso duzun, kontrolatzen laguntzearren."
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -4187,6 +4208,9 @@ msgid "comments"
 msgstr "iruzkinak"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

@@ -28,18 +28,22 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Jubo Beridzishvili, 2021-2022
 # Lela Merabishvili, 2021
 # Lela Merabishvili, 2021-2022
+# Milana Khubua, 2022
 # Milana Khubua, 2022
 # Natalie Hiirulainen <murahoid@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Milana Khubua, 2022\n"
+"Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>, 2021\n"
 "Language-Team: Georgian (http://www.transifex.com/mysociety/alaveteli/language"
 "/ka/)\n"
 "MIME-Version: 1.0\n"
@@ -553,6 +557,9 @@ msgstr "ამ გვერდის ბოლოს, დაწერე პა�
 
 msgid "Attachment (optional):"
 msgstr "თანდართული ფაილები (ნებაყოფლობითია):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "თანდართული ფაილი:"
@@ -1363,11 +1370,14 @@ msgstr "თუ უკმაყოფილო ხარ პასუხით, �
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "თუ პრობლემას კვლავ გადააწყდი, გთხოვ <a href=\"{{url}}\">დაგვიკავშირდი</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "თუ მოთხოვნის ავტორი ხარ, შეტყობინების სანახავად <a href=\"{{url}}\">გაიარე ავტორიზაცია</a>."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "თუ განცხადების ავტორი ხარ, გაიარე <a href=\"{{url}}\">ავტორიზაცია</a> მოთხოვნის სანახავად."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "თუ შენ ხარ მომხმარებელი {{user_link}}, გთხოვთ"
@@ -1566,9 +1576,6 @@ msgstr "პასუხი არ მოსულა"
 
 msgid "Made between"
 msgstr "დროის მონაკვეთი"
-
-msgid "Make a batch request"
-msgstr "მოთხოვნის სერიის გაკეთება"
 
 msgid "Make a request"
 msgstr "გამოითხოვე ინფორმაცია"
@@ -1819,9 +1826,6 @@ msgstr "ამ მოთხოვნაზე პასუხის გაცე
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "პაროლის შესაცვლელად დაადასტურეთ ანგარიში ელ-ფოსტაზე შემოსული წერილით და შეიყვანეთ ერთჯერადი კოდი."
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "ან გაუგზავნე <a href=\"{{url}}\">მოთხოვნების სერია</a> <strong>სხვადასხვა საჯარო დაწესებულებას</strong> ერთდროულად."
-
 msgid "Original request sent"
 msgstr "თავდაპირველი მოთხოვნა"
 
@@ -1887,9 +1891,6 @@ msgstr "ითამაშე კატეგორიზაციის თა�
 
 msgid "Please"
 msgstr "გთხოვთ"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "გთხოვთ, <a href=\"{{url}}\">დაგვიკავშირდი</a> დამატებითი კითხვების არსებობის შემთხვევაში."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "გთხოვთ, <a href=\"{{url}}\">დაგვიკავშირდი,</a> რათა გამოვასწოროთ."
@@ -2062,6 +2063,9 @@ msgstr "ქვემოთ დაწერე საპასუხო წერ
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "დაწერე წერილი სტრუქტურულად, რათა სხვები მას მარტივად გაეცნონ."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "მიუთითე <strong>შესაბამისი ინფორმაცია</strong>, კამპანიები ან ფორუმები, რომლებიც შესაძლოა, მნიშვნელოვანი აღმოჩნდეს."
@@ -2452,6 +2456,9 @@ msgstr "პროფილის ფოტოს დაყენება"
 msgid "Share on Facebook"
 msgstr "ფეისბუქზე"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "მოთხოვნის სერიის გაზიარება"
 
@@ -2803,10 +2810,10 @@ msgstr "უკანასკნელი მომხმარებლის �
 msgid "The last user was created over a day ago"
 msgstr "უკანასკნელი მომხმარებლის ანგარიში ერთ დღეზე მეტია, რაც შეიქმნა"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2847,9 +2854,6 @@ msgstr "<strong>წარმატებული</strong> მოთხოვნ
 
 msgid "The request was refused by the public authority"
 msgstr "დაწესებულებამ უარი განაცხადა საჯარო ინფორმაციის გაცემაზე"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "მოთხოვნა, რომლის ნახვასაც ცდილობ, წაშლილია. ამის სხვადასხვა მიზეზი შეიძლება არსებობდეს და ბოდიშს ვიხდით, რომ ვერ ვაკონკრეტებთ. <a href=\"{{url}}\">დაგვიკავშირდი</a> დამატებითი კითხვების არსებობის შემთხვევაში."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "მოთხოვნის ავტორმა განცხადება გააუქმა, გაურკვეველი მიზეზის გამო"
@@ -2908,9 +2912,6 @@ msgstr "შემდეგ, შეეგიძლია ეს პროექ�
 msgid "Then you can log into the administrative interface"
 msgstr "შემდეეგ, შეგიძლია ადმინისტრაციულ ინტერფეისში შეხვიდე"
 
-msgid "Then you can make a batch request"
-msgstr "შემდეგ, შეგეიძლია მოთხოვნების სერია შექმნა"
-
 msgid "Then you can play the request categorisation game."
 msgstr "შემდეგ, შეგიძლია მოთხოვნის კატეგორიზაციის თამაში ითამაშო."
 
@@ -2968,6 +2969,9 @@ msgstr "უკვე ყველა მოთხოვნა კლასიფ
 msgid "There are no requests to extract right now. Great job!"
 msgstr "ექსტრაქტირებისთვის მოთხოვნები აღარ დარჩა. ყოჩაღ!"
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "დაემატა {{count}} ახალი ანოტაცია შენს {{law_used_short}}ს. სანახავად, მიჰყევი ბმულს."
 
@@ -3013,11 +3017,14 @@ msgstr "მათ <strong>არ გააჩნიათ</strong> მოთხ�
 msgid "They have been given the following explanation:"
 msgstr "მათ შემდეგი განმარტება გადაეცათ:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "კანონით დადგენილი ვადების გადაცილებით, საჯარო დაწესებულებამ დაარღვია ვალდებულება, უზრუნველყოს საჯარო ინფორმაციის გაცემა დაუყონებლივ ან არაუგვიანეს 10 სამუშაო დღეში."
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "კანონით დადგენილი ვადების გადაცილებით, საჯარო დაწესებულებამ დაარღვია მოქალაქის {{law_used_short}}. საჯარო ინფორმაცია განცხადებაზე \"{{title}}\" უნდა გაცემულიყო დაუყონებლივ ან არაუგვიანეს 10 სამუშაო დღეში."
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "კანონით დადგენილი ვადების გადაცილებით, საჯარო დაწესებულებამ დაარღვია მოქალაქის {{law_used_short}}. საჯარო ინფორმაცია განცხადებაზე \"{{title}}\" უნდა გაცემულიყო დაუყონებლივ ან არაუგვიანეს 10 სამუშაო დღეში."
@@ -3030,6 +3037,18 @@ msgstr "ესე ანგარიში დახურულია."
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "ეს ანოტაცია გასაჩივრებულია და მოითხოვს ადმინისტრატორის ყურადღებას"
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "მოცემულ საჯარო დაწესებულებაზე არ ვრცელდება საჯარო ინფორმაციის შესახებ კანონმდებლობა, რის გამოც, პასუხის გაცემის ვალდებულება არ გააჩნიათ"
@@ -3055,8 +3074,8 @@ msgstr "ეს მოთხოვნის \"{{request_title}}\". ტექს�
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "ეს ინფორმაციის მოთხოვნაზე დანართის HTML ვერსიაა"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "მიზეზი არის ის, რომ {{title}} ძველი მოთხოვნაა და მოინიშნა იმგვარად, რომ დამატებითი პასუხები ვეღარ მიიღოს."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "ეს შენი მოთხოვნაა, ამიტომ, როგორც კი პასუხი გამოიგზავნება, ელ-ფოსტა ავტომატურად მოგივა."
@@ -3076,17 +3095,17 @@ msgstr "წერილი დაფარულია."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "წერილი დაფარულია. ამის რამდენიმე მიზეზი შეიძლება არსებობდეს და ბოდიშს გიხდით, რომ მეტად ვერ დავაკონკრეტებთ."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "წერილი გაგზავნილია."
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "წერილის სტატუსია 'დაფარული'. ამას ხედავთ მხოლოდ იმიტომ, რომ სისტემაში ავტორიზებული ხართ სუპერ მომხმარებლის სტატუსით."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "წერილის სტატუსია 'დაფარული'. {{reason}} ამას ხედავთ მხოლოდ იმიტომ, რომ სისტემაში ავტორიზებული ხართ სუპერ მომხმარებლის სტატუსით."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "წერილი დაფარულია,  რადგან მხოლოდ შენ, განმცხადებელმა შეძლო მისი ნახვა. გთხოვთ, <a href=\"{{url}}\">დაგვიკავშირდე</a> თუ მეტი დეტალის მიღება გსურს."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "წერილი დაფარულია, რათა მხოლოდ შენ, მოთხოვნის ავტორმა ნახო მისი ნახვა. {{reason}}"
@@ -3122,11 +3141,14 @@ msgstr "ამ მოთხოვნის <strong>სტატუსია 'უ
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr "ეს მოთხოვნა <strong>დახურულია ახალი მიმოწერისთვის</strong>. <a href=\"{{help_contact_url}}\">დაგვიკავშირდი</a> თუ ფიქრობ, რომ იგი უნდა გაიხსნას."
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "აღნიშნული მოთხოვნა <strong>გასაჩივრდა</strong> ადმინისტრატორთან (შესაძლოა, ის შეურაცხმყოფელი იყო, ან პერსონალური ინფორმაციის გაცემას მოითხოვდა)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "ეს განცხადება <strong>უკან გამოითხოვა</strong> ავტორმა. მიზეზი, შესაძლოა ქვემოთ, მიმოწერაში იხილო."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "ამ მოთხოვნის სტატუსი გახდა საჯარო, ვებგვერდზე {{site_name}}."
@@ -3149,11 +3171,14 @@ msgstr "მოთხოვნის სტატუსი შეიცვალ�
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "ამ მოთხოვნამ უჩვეულო პასუხი მიიღო და <strong>მოითხოვს ყურადღებას</strong> პორტალის {{site_name}} გუნდისგან."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "ამ მოთხოვნის სტატუსია 'დამალული'. ამის ხილვა შეგიძლია მხოლოდ იმიტომ, რომ სისტემაში შესული ხარ, როგორც სუპერ მომხმარებელი"
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "ეს მოთხოვნა დამალულია და მხოლოდ შენ, ავტორს შეგიძლია მისი ნახვა. <a href=\"{{url}}\">დაგვიკავშირდი</a> თუ გსურს, რომ მიზეზი გაარკვიო."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr "მოთხოვნა უკვე საჯაროდაა ხელმისაწვდომი ბმულზე - {{public_url}}"
@@ -3239,8 +3264,8 @@ msgstr "რომ გამოიწერო მოთხოვნები, �
 msgid "To follow the request '{{request_title}}'"
 msgstr "რომ გამოიწერო მოთხოვნა '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "დახმარების მიზნით, ერთ-ერთმა მომხმარებელმა განაახლა სტატუსი {{law_used_full}}ზე -  {{title}}, რომელიც შენ გაუგზავნე საჯარო უწყებას - {{public_body}}. ახალი სტატუსია: \"{{display_status}}\" თუ არ ეთანხმები ამ კატეგორიზაციას, შეგიძლია თავად განაახლო განცხადების სტატუსი."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr ""
 
 msgid "To join this project"
 msgstr "რომ შეუერთდე ამ პროექტს"
@@ -3253,9 +3278,6 @@ msgstr "იმისათვის, რომ განცხადების
 
 msgid "To log into the administrative interface"
 msgstr "რომ შეხვიდე ადმინისტრატორის ინტერფეისში"
-
-msgid "To make a batch request"
-msgstr "რომ გააკეთო მოთხოვნების სერია"
 
 msgid "To play the request categorisation game"
 msgstr "რომ \"ითამაშო\" მოთხოვნების კატეგორიზაცია"
@@ -4001,8 +4023,8 @@ msgstr "საჯარო დაწესებულების დამა�
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "მოთხოვნა საჯარო დაწესებულებისთვის - {{public_body_name}} ელ-ფოსტის განსაახლებლად გაგზავნილია. მადლობას გიხდით დახმარებისთვის! მალე გიპასუხებთ."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "შენი განცხადების სახელწოდებაა - {{info_request}}. სტატუსის განახლება დაგვეხმარება დავაკვირდეთ საჯარო დაწესებულებას -  "
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "შენი მოთხოვნები მალე <strong>გაიგზავნება</strong> "
@@ -4144,6 +4166,9 @@ msgstr "კომენტარები"
 
 msgid "complete"
 msgstr "შესრულება"
+
+msgid "contact us"
+msgstr ""
 
 msgid "delivered"
 msgstr "მიღებულია"

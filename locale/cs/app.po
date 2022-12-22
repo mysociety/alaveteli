@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2012
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2018,2020-2021
@@ -54,9 +57,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: trendspotter <jirka.p@volny.cz>, 2021-2022\n"
+"Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -598,6 +601,9 @@ msgstr "Ve spodní části této stránky jim napište odpověď a požádejte j
 
 msgid "Attachment (optional):"
 msgstr "Příloha (nepovinná):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Příloha:"
@@ -1427,11 +1433,14 @@ msgstr "Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce,
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Pokud máte stále problémy <a href=\"{{url}}\">kontaktujte nás</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Pokud jste žadatel, můžete se <a href=\"{{url}}\">sign in</a> pro prohlížení zprávy. "
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Pokud jste tazatel, můžete se <a href=\"{{url}}\">přihlásit</a> a podívat se na svůj dotaz."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Pokud jste {{user_link}}, prosíme"
@@ -1642,9 +1651,6 @@ msgstr "Velké zpoždění."
 
 msgid "Made between"
 msgstr "Vloženo mezi"
-
-msgid "Make a batch request"
-msgstr "Vzneste hromadný dotaz"
 
 msgid "Make a request"
 msgstr "Vzneste dotaz"
@@ -1892,9 +1898,6 @@ msgstr "Pouze instituce může odpovědět na váš dotaz, ale v políčku \"Od\
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "Změnit heslo můžete pouze pokud potvrdíte svůj účet v zaslané e-mailové zprávě a vložíte jednorázový přístupový kód."
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Nebo vzneste <a href=\"{{url}}\">hromadný dotaz</a> to <strong>na více institucí</strong> najednou."
-
 msgid "Original request sent"
 msgstr "Původní dotaz odeslán"
 
@@ -1960,9 +1963,6 @@ msgstr "Hrajte hru na kategorizaci dotazů!"
 
 msgid "Please"
 msgstr "Prosíme"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Prosím <a href=\"{{url}}\">kontaktujte nás</a> pokud máte nějaké otázky."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Prosíme <a href=\"{{url}}\">kontaktujte nás</a> abychom to mohli upravit."
@@ -2139,6 +2139,9 @@ msgstr "Níže napište svou odpověď s požadovaným vysvětlením. "
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Ve zprávě je třeba použít text s malými i velkými písmeny. Bude se tak lépe číst i ostatním. "
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Odkažte na <strong>podobné informace</strong>, kampaně či fóra, která by mohla být užitečná."
@@ -2534,6 +2537,9 @@ msgstr "Nastavte své profilové foto"
 msgid "Share on Facebook"
 msgstr "Sdílet na Facebooku"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "Vzneste hromadný dotaz"
 
@@ -2900,10 +2906,10 @@ msgstr "Poslední uživatelský účet byl vytvořen během posledních 24 hodin
 msgid "The last user was created over a day ago"
 msgstr "Poslední uživatelský účet byl vytvořen před více než 24 hodinami"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2944,14 +2950,6 @@ msgstr "Dotaz byl <strong>úspěšný</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "Dotaz byl institucí zamítnut"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"Dotaz, který jste si chtěli přečíst, byl odstraněn. Existují\n"
-"různé důvody, proč se tak stalo a omlouváme se, že je zde \n"
-"nemůžeme vysvětlit. \n"
-"Prosíme <a⏎\n"
-"    href=\"{{url}}\">kontaktujte nás,</a> pokud máte nějaké otázky."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Tazatel z nějakého důvodu tento dotaz opustil ??"
@@ -3012,9 +3010,6 @@ msgstr "Můžete tento projekt opustit"
 msgid "Then you can log into the administrative interface"
 msgstr "Poté se můžete přihlásit do administrátorské sekce."
 
-msgid "Then you can make a batch request"
-msgstr "Pak můžete vznést hromadný dotaz"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Poté si můžete zahrát hru na kategorizaci dotazů. "
 
@@ -3072,6 +3067,9 @@ msgstr "Teď tu nejsou žádné projekty ke klasifikaci. Dobrá práce!"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "Teď tu nejsou žádné dotazy k vypsání. Dobrá práce!"
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Jsou tu {{count}} nové anotace, vztahující se ka vašemu dotazu. Pro jejich přečtení použijte tento odkaz."
 
@@ -3117,11 +3115,14 @@ msgstr "<strong>Nemohou poskytnout</strong> požadovanou informaci<small>(možn�
 msgid "They have been given the following explanation:"
 msgstr "Obdrželi následující vysvětlení:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Neodpověděli na dotaz {{title}} v zákonem daném termínu"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "Neposkytli vám odpověď {{law_used_short}} na dotaz {{title}} v termínu, který je vymezen zákonem"
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "Neposkytli vám odpověď {{law_used_short}} na dotaz {{title}} v termínu, který je obvyle vymezen zákonem"
@@ -3134,6 +3135,18 @@ msgstr "Tento účet byl uzavřen."
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "Tato poznámka byla nahlášena administrátorovi"
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "Tato instituce nepodléhá zákonu o svobodném přístupu k informacím, a tudíž není povinna odpovědět"
@@ -3161,8 +3174,8 @@ msgstr "Toto je neformátovaná textová verze dotazu \"{{request_title}}\".  Po
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Toto je HTML verze přílohy k vznesenému dotazu. "
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Důvodem je, že dotaz s názvem {{title}} je staršího data a byl uzavřen, tudíž, na něj již nelze odpovědět."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Toto je váš vlastní dotaz, proto budete odpovědi dostávat e-mailem automaticky."
@@ -3182,17 +3195,17 @@ msgstr "Tato zpráva byla skryta."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Tato zpráva byla skryta. Jsou různé důvody, proč se tak mohlo stát, omlouváme se, že nemůžeme poskytnout bližší informace. "
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "Zpráva byla odeslána. "
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Tato zpráva byla skryta. Můžete ji vidět pouze proto, že jste registrováni jako \"super user\". "
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Tato zpráva byla skryta protože {{reason}}. Můžete ji vidět pouze proto, že jste registrováni jako \"super user\". "
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Tato zpráva je skryta, proto jen vy, žadatel, ji můžete vidět. Prosím <a href=\"{{url}}\">contact us</a> pokud si nejste jisti proč. "
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Tato správa byla skryta, pouze vy, jako žadatel, ji můžete vidět. {{reason}}"
@@ -3232,13 +3245,16 @@ msgstr "Stav tohoto dotazu je <strong>neznámý</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr "Tento dotaz byl <strong>uzavřen pro novou korespondenci</strong>. Pokud si myslíte, že by měl být znovu otevřen, <a href=\"{{help_contact_url}}\">kontaktujte nás</a>."
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Tento dotaz byl <strong>nahlášen</strong> administrátorům stránek, (pravděpodobně z důvodu nevhodného obsahu)."
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Dotaz byl <strong>stažen</strong> tazatelem. \n"
 "Bližší vysvětlení můžete najít v níže uvedené korespondenci."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "Tento dotaz byl uveřejněn na stránkách {{site_name}}."
@@ -3261,13 +3277,14 @@ msgstr "Tento dotaz byl poslán administrátorovi, aby \"povolil nové odpovědi
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "S dotazem byla provedena neznámá operace, která <strong>vyžaduje pozornost</strong>administrátorů stránek {{site_name}}."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Tento dotaz má status \"skrytý\". Můžete jej vidět jenom proto, že jste zalogován/a jako \"super user\". "
-
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Tento dotaz je nyní skrytý, a může jej vidět pouze tazatel. Prosíme\n"
-"<a href=\"{{url}}\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
+
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr "Tento dotaz je nyní veřejně přístupný prostřednictvím {{public_url}}."
@@ -3359,8 +3376,8 @@ msgstr "Sledovat dotazy vznesené prostřednictvím stránek {{site_name}} na in
 msgid "To follow the request '{{request_title}}'"
 msgstr "Sledovat dotaz '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "Abychom udržovali stránky přehledné, někdo jiný upravil status vašeho dotazu {{title}} vznesený na instituci {{public_body}}, na \"{{display_status}}\". Pokud s touto úpravou nesouhlasíte, prosíme aktualizujte tento status tak, jak si myslíte, že je to správné. "
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr ""
 
 msgid "To join this project"
 msgstr "Připojit se k tomuto projektu"
@@ -3373,9 +3390,6 @@ msgstr "Stav svého dotazu můžete sdílet s ostatními na internetu – stač�
 
 msgid "To log into the administrative interface"
 msgstr "Přihlásit se do administrace"
-
-msgid "To make a batch request"
-msgstr "Vznést hromadný dotaz"
 
 msgid "To play the request categorisation game"
 msgstr "Zahrát si hru na kategorizaci dotazů"
@@ -4170,8 +4184,8 @@ msgstr "Vaše žádost o přidání instituce byla odeslána. Děkujeme vám! Oz
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Vaše žádost o změnu adresy {{public_body_name}} byla odeslána. Děkujeme! Ozveme se brzy. "
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Informace se týká vašeho dotazu {{info_request}}. Můžete všechny informovat, zda jste požadovanou informaci obdrželi a bude tak přehled o odpovědích této instituce"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Vaše žádost bude hned<strong>poslána</strong>!"
@@ -4319,6 +4333,9 @@ msgstr "komentáře / komentářů"
 
 msgid "complete"
 msgstr "hotovo"
+
+msgid "contact us"
+msgstr ""
 
 msgid "delivered"
 msgstr "doručeno"

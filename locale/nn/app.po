@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # andreli <andre@lindhjem.net>, 2013
 # Hans-Petter Fjeld <atluxity@1kb.no>, 2014
 # b99f4c81950a40007b4adaea695ecb99_1c02644 <ed6c5c9e95edf158e92faab246523c32_310134>, 2015
@@ -52,7 +55,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: velmont <odin.omdal@gmail.com>, 2015\n"
 "Language-Team: Norwegian Nynorsk (http://www.transifex.com/mysociety/alaveteli"
@@ -608,6 +611,9 @@ msgstr ""
 
 msgid "Attachment (optional):"
 msgstr "Vedlegg (valfritt):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Vedlegg:"
@@ -1433,11 +1439,14 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Viss du enno har problem, ver så snill å <a href=\"{{url}}\">ta kontakt</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Viss du er innsenderen, så kan du  <a href=\"{{url}}\">logga inn</a> for å sjå på meldinga."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Viss du er innsenderen, så kan det hendet du må <a href=\"{{url}}\">logga inn</a> for å sjå på førespurnaden."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Viss du er {{user_link}}, ver venleg og"
@@ -1653,9 +1662,6 @@ msgstr "Svært forseinka."
 
 msgid "Made between"
 msgstr "Oppretta mellom"
-
-msgid "Make a batch request"
-msgstr "Lag eit samlekrav"
 
 msgid "Make a request"
 msgstr "Lag førespurnad"
@@ -1903,9 +1909,6 @@ msgstr "Berre styresmakta kan svara på denne førespurnaden, men det er ikkje n
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "Berre ein korrekt kombinasjon av epost-konfirmasjon og å skriva inn eingongspasskoden vil la deg endra passordet for kontoen din."
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Eller lag eit <a href=\"{{url}}\">samlekrav</a> til <strong>fleire styresmakter</strong> på ein gong."
-
 msgid "Original request sent"
 msgstr "Opphavleg førespurnad send"
 
@@ -1971,9 +1974,6 @@ msgstr "Delta i spelet om kategorisering av førespurnader!"
 
 msgid "Please"
 msgstr "Ver venleg og"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Vennlegast <a href=\"{{url}}\">kontakt oss</a> dersom du har spurnad."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Ta kontakt</a> med oss slik at vi kan fiksa det."
@@ -2154,6 +2154,9 @@ msgstr "Vennlegast skriv ein oppfølgingsbeskjed som belyser oppklaringspunktene
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Vennlegast nytte store og små bokstavar i meldinga di. Då vert det enklare for andre å lesa."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Referer til <strong>relatert informasjon</strong>, kampanjar eller forum som kan vera til nytte."
@@ -2547,6 +2550,9 @@ msgstr "Vel profilet ditt-bilete"
 msgid "Share on Facebook"
 msgstr "Del på Facebook"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "Del ditt samlekrav"
 
@@ -2912,10 +2918,10 @@ msgstr "Den siste brukaren vart laga i løpet av dagen"
 msgid "The last user was created over a day ago"
 msgstr "Den siste brukaren vart laga for meir enn ein dag sidan"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2956,12 +2962,6 @@ msgstr "Innsynsførespurnaden var <strong>vellukka</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "Førespurnaden vart avvist av styresmakta"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"Førespurnaden du har freista å sjå på er fjerna.  Det er ulike\n"
-" grunnar til kvifor vi kan ha gjort dette, beklagar at vi ikkje kan vera meir spesifikke her.\n"
-"  <a href=\"{{url}}\">Ta kontakt med oss</a> viss du lurer på noko."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Forespørrer har av einkvan grunn gjeve opp denne førespurnaden"
@@ -3026,9 +3026,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "Deretter kan du logga deg på det admininstrative grensesnittet"
 
-msgid "Then you can make a batch request"
-msgstr "Då kan du laga ein samlekrav"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Då kan du delta i spelet om kategorisering av førespurnader."
 
@@ -3086,6 +3083,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Det er {{count}} nye merknader på din førespurnad {{law_used_short}}. Følg denne lenkja for å sjå kva dei har skrive."
 
@@ -3131,11 +3131,14 @@ msgstr "Dei <strong>har ikkje</strong> informasjonen <small>(veit dei kven som h
 msgid "They have been given the following explanation:"
 msgstr "Dei har fått følgjande forklaring:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Dei har ikkje svara på din {{law_used_short}} om «{{title}}» innan kort tid, som er det som normalt vert kravt i følgje lovverket"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3147,6 +3150,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3175,10 +3190,8 @@ msgstr "Det er ei tekst-versjon av krav om innsyn «{{request_title}}».  Den si
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Dette er HTML-utgåva av eit vedlegg til innsynskravet"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"Dette er på grunn av at {{title}} er ein gammal førespurnad\n"
-" som har vorte markert til å ikkje lenger motta svar."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Dette er din eigen førespurnad, så du vil automatisk få e-post når nye svar kjem inn."
@@ -3198,17 +3211,17 @@ msgstr "Denne meldinga har vorte skjult."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Denne meldinga har vorte skjult.  Det er ulike årsaker til at vi kan ha gjort dette, og vi beklagar at vi ikkje kan vera meir spesifikk her."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Denne meldinga er fremhevet som «skjult».  Du kan berre sjå han på grunn av at du er logga inn som suparnytter."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Denne meldinga er framheva som «skjult».  {{reason}} Du kan berre sjå han på grunn av at du er logga inn som superbrukar."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Denne meldinga er skjult, slik at berre du, innsenderen, kan sjå henne.  <a href=\"{{url}}\">Ta kontakt</a> viss du er usikker på kvifor."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Denne meldinga er skjult slik at berre du, innsenderen, kan sjå henne.  "
@@ -3244,13 +3257,16 @@ msgstr "Denne førespurnaden har ein <strong>ukjend status</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Denne førespurnaden er vorte <strong>rapportert</ strong> då han treng merksemd frå administrator (kanskje fordi han er sjikanøs, eller er ein førespurnad om personopplysningar)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Denne førespurnaden har vorte <strong>trekt tilbake</strong> av personen som laga henne.\n"
 " Det kan vera forklaring i korrespondansen under."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3273,13 +3289,14 @@ msgstr "Denne førespurnaden har vorte markert av ein administrator til å \"ikk
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Denne førespurnaden har eit uvanleg svar, og <strong>krev merksemd</strong> frå {{site_name}}-gruppa."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Denne meldinga er fremhevet som «skjult».  Du kan berre sjå han på grunn av at\n"
-" du er logga inn som suparnytter."
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Denne førespurnaden er skjult, slik at berre du som innsender kan sjå henne.  Ver så snill <a href=\"{{url}}\">å ta kontakt</a> viss du er usikker på kvifor."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3372,8 +3389,8 @@ msgstr "For å følgje med på førespurnader oppretta med {{site_name}} til den
 msgid "To follow the request '{{request_title}}'"
 msgstr "For å følgje med på førespurnaden «{{request_title}}»"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "For å hjelpa oss å halda denne nettstaden ryddig, har nokre andre oppdatert statusen for {{law_used_full}}-førespurnaden som du laga til {{public_body}} slik at han er «{{display_status}}»..  Viss du er usamd i dykkar kategorisering, ver så snill å oppdater statusen på nytt sjølv til det du meiner vil vera meir presist."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr ""
 
 msgid "To join this project"
 msgstr ""
@@ -3386,9 +3403,6 @@ msgstr "For å orientera alle, følg denne linken og vel den aktuelle boksen."
 
 msgid "To log into the administrative interface"
 msgstr "For å logga deg på admin grensesnittet"
-
-msgid "To make a batch request"
-msgstr "For å lage ein samlekrav"
 
 msgid "To play the request categorisation game"
 msgstr "For å spela spelet om kategorisering av førespurnadskrav"
@@ -4168,8 +4182,8 @@ msgstr "Din førespurnad om å leggja til ei styresmakt er sendt.  Takk for at d
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Din førespurnad om å oppdatera adressa til {{public_body_name}} er sendt.  Takk for at du tok kontakt.  Vi vil snart koma tilbake til deg."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Din førespurnad vart kalla {{info_request}}. Ved å la alle vita i kva grad du fekk informasjonen vil du hjelpa oss å halda reie på"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Din førespurnad vert straks <strong>sendt</strong>!"
@@ -4310,6 +4324,9 @@ msgid "comments"
 msgstr "kommentarar"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

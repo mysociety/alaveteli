@@ -28,11 +28,14 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: English (http://www.transifex.com/mysociety/alaveteli/language/"
@@ -550,6 +553,9 @@ msgstr "At the bottom of this page, write a reply to them trying to persuade the
 
 msgid "Attachment (optional):"
 msgstr "Attachment (optional):"
+
+msgid "Attachment has been removed"
+msgstr "Attachment has been removed"
 
 msgid "Attachment:"
 msgstr "Attachment:"
@@ -1354,11 +1360,14 @@ msgstr "If you are dissatisfied by the response you got from the public authorit
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr "If you are the requester, then you may {{sign_in_link}} to view the attachment."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr "If you are the requester, then you may {{sign_in_link}} to view the message."
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr "If you are the requester, then you may {{sign_in_link}} to view the request."
 
 msgid "If you are {{user_link}}, please"
 msgstr "If you are {{user_link}}, please"
@@ -1557,9 +1566,6 @@ msgstr "Long overdue."
 
 msgid "Made between"
 msgstr "Made between"
-
-msgid "Make a batch request"
-msgstr "Make a batch request"
 
 msgid "Make a request"
 msgstr "Make a request"
@@ -1807,9 +1813,6 @@ msgstr "Only the authority can reply to this request, but there is no \"From\" a
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-
 msgid "Original request sent"
 msgstr "Original request sent"
 
@@ -1875,9 +1878,6 @@ msgstr "Play the request categorisation game!"
 
 msgid "Please"
 msgstr "Please"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
@@ -2045,6 +2045,9 @@ msgstr "Please write your follow up message containing the necessary clarificati
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr "Please {{contact_us_link}} if you have any questions."
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Point to <strong>related information</strong>, campaigns or forums which may be useful."
@@ -2435,6 +2438,9 @@ msgstr "Set your profile photo"
 msgid "Share on Facebook"
 msgstr "Share on Facebook"
 
+msgid "Share with private link"
+msgstr "Share with private link"
+
 msgid "Share your batch request"
 msgstr "Share your batch request"
 
@@ -2786,11 +2792,11 @@ msgstr "The last user was created in the last day"
 msgid "The last user was created over a day ago"
 msgstr "The last user was created over a day ago"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
-msgstr "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
+msgstr "The oldest Xapian index job, has been idle for more than 1 hour"
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
-msgstr "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
+msgstr "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "The page doesn't exist. Things you can try now:"
@@ -2830,9 +2836,6 @@ msgstr "The request was <strong>successful</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "The request was refused by the public authority"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "The requester has abandoned this request for some reason"
@@ -2891,9 +2894,6 @@ msgstr "Then you can leave this project"
 msgid "Then you can log into the administrative interface"
 msgstr "Then you can log into the administrative interface"
 
-msgid "Then you can make a batch request"
-msgstr "Then you can make a batch request"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Then you can play the request categorisation game."
 
@@ -2951,6 +2951,9 @@ msgstr "There are no requests to classify right now. Great job!"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "There are no requests to extract right now. Great job!"
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr "There are various reasons why we might have done this, sorry we can't be more specific here."
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 
@@ -2996,11 +2999,14 @@ msgstr "They do <strong>not have</strong> the information <small>(maybe they say
 msgid "They have been given the following explanation:"
 msgstr "They have been given the following explanation:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
@@ -3013,6 +3019,18 @@ msgstr "This account has been closed."
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "This annotation has been reported for administrator attention"
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr "This attachment has been hidden. {{reason}}"
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3038,8 +3056,8 @@ msgstr "This is a plain-text version of the Freedom of Information request \"{{r
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "This is an HTML version of an attachment to the Freedom of Information request"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "This is your own request, so you will be automatically emailed when new responses arrive."
@@ -3059,17 +3077,17 @@ msgstr "This message has been hidden."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr "This message has been hidden. {{reason}}"
+
 msgid "This message has been sent."
 msgstr "This message has been sent."
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "This message is hidden, so that only you, the requester, can see it. {{reason}}"
@@ -3105,11 +3123,14 @@ msgstr "This request has an <strong>unknown status</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr "This request has been <strong>reported</strong> as needing administrator attention."
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr "This request has been hidden. {{reason}}"
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "This request has been made public on {{site_name}}."
@@ -3132,11 +3153,14 @@ msgstr "This request has been set by an administrator to \"allow new responses f
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr "This request is hidden, so that only you, the requester, can see it. {{reason}}"
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr "This request is now publicly accessible via {{public_url}}"
@@ -3222,8 +3246,8 @@ msgstr "To follow requests made using {{site_name}} to the public authority '{{p
 msgid "To follow the request '{{request_title}}'"
 msgstr "To follow the request '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 
 msgid "To join this project"
 msgstr "To join this project"
@@ -3236,9 +3260,6 @@ msgstr "To let everyone know, follow this link and then select the appropriate b
 
 msgid "To log into the administrative interface"
 msgstr "To log into the administrative interface"
-
-msgid "To make a batch request"
-msgstr "To make a batch request"
 
 msgid "To play the request categorisation game"
 msgstr "To play the request categorisation game"
@@ -3984,8 +4005,8 @@ msgstr "Your request to add an authority has been sent. Thank you for getting in
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Your requests will be <strong>sent</strong> shortly!"
@@ -4127,6 +4148,9 @@ msgstr "comments"
 
 msgid "complete"
 msgstr "complete"
+
+msgid "contact us"
+msgstr "contact us"
 
 msgid "delivered"
 msgstr "delivered"

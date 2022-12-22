@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:01+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Miroslav Schlossberg, 2021\n"
 "Language-Team: Croatian (https://www.transifex.com/mysociety/teams/33529/hr/)\n"
@@ -966,6 +966,9 @@ msgstr "Žao nam je, nešto je pošlo krivo prilikom ažuriranja postavki privat
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr "Žao nam je, nešto je pošlo krivo prilikom ažuriranja postavki privatnosti zahtjeva, molimo pokušajte ponovo."
 
+msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
+msgstr ""
+
 msgid "Sort by"
 msgstr "Poredajte po"
 
@@ -1191,8 +1194,8 @@ msgstr "Pokušat ćemo ponovo naplatiti iznos s vaše kartice tijekom sljedećih
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "Pokušali smo naplatiti račun s vaše kartice, ali je pokušaj bio neuspješan."
 
-msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Kada je zahtjev privatan, jamčimo da će biti vidljiv samo na {{site_name}} u razdoblju koje vi odredite. Administratori na {{pro_site_name}} će također moći vidjeti vaš zahtjev, ali će to činiti samo u slučaju da je potrebno riješiti problem (npr. neuspješna isporuka tijelu javne vlasti). Neće otkrivati sadržaj vašeg zahtjeva niti bilo kakve odgovore trećim osobama. Tijelo javne vlasti ga može prikazati u svojoj evidenciji upisnika, kao i obično."
+msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr ""
 
 msgid "When the current billing period ends:"
 msgstr "Kada istječe trenutno razdoblje naplate:"
