@@ -25,7 +25,7 @@ RSpec.describe "request_mailer/overdue_alert" do
   it "does not add HTMLEntities to the request title" do
     assign(:info_request, request)
     render
-    expect(response).to match("your FOI request Request apostrophe's data")
+    expect(response).to match("your FOI request 'Request apostrophe's data'")
   end
 
   it "does not add HTMLEntities to the public body name" do
