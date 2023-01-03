@@ -10,5 +10,8 @@
             :count => @info_request.info_request_batch.public_bodies.count) %>
       </span>
     </p>
+
+    <%= render partial: 'info_request_batch/pagination',
+               locals: { info_request: @info_request } %>
   </div>
 <% end %>

@@ -8,5 +8,8 @@
             url: info_request_batch_path(info_request.info_request_batch),
             count: info_request.info_request_batch.public_bodies.size) %>
     </p>
+
+    <%= render partial: 'info_request_batch/pagination',
+               locals: { info_request: info_request } %>
   </div>
 <% end %>
