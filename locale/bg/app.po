@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Anton Stoychev <antitoxic@gmail.com>, 2013
 # Liz Conlan <liz@mysociety.org>, 2018
@@ -38,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>, 2014\n"
 "Language-Team: Bulgarian (http://www.transifex.com/mysociety/alaveteli/languag"
@@ -592,6 +595,9 @@ msgstr ""
 
 msgid "Attachment (optional):"
 msgstr "Прикачени файлове (незадължително):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Прикачени файлове:"
@@ -1421,11 +1427,14 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Ако все още се затруднявате, моля <a href=\"{{url}}\">пишете ни</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Ако заявителят сте Вие, <a href=\"{{url}}\">влезте</a> за да видите съобщението."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Ако Вие сте заявителя, може да <a href=\"{{url}}\">влезете</a> за да видите заявлението."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Ако Вие сте {{user_link}}, моля"
@@ -1649,9 +1658,6 @@ msgstr "Значително пресрочено."
 
 msgid "Made between"
 msgstr "Направено между"
-
-msgid "Make a batch request"
-msgstr "Направете размножено заявление"
 
 msgid "Make a request"
 msgstr "Създаване на заявление"
@@ -1899,9 +1905,6 @@ msgstr "Само органът може да отговори на това з�
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr ""
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Или направете <a href=\"{{url}}\">размножено заявление</a> до <strong>няколко органа</strong> наведнъж."
-
 msgid "Original request sent"
 msgstr "Оригиналното заявление е изпратено"
 
@@ -1967,9 +1970,6 @@ msgstr "Изиграйте едно категоризиране на заявл
 
 msgid "Please"
 msgstr "Молим"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Моля, <a href=\"{{url}}\">свържете се с нас</a> ако имате някакви въпроси."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Молим, <a href=\"{{url}}\">дръжте ни в течение</a>, за да можем да го оправим."
@@ -2150,6 +2150,9 @@ msgstr "Моля, по-долу напишете пояснителното си
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Моля, във Вашето съобщение използвайте и малки и главни букви. Това прави четенето лесно за другите."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Посочете <strong>свързана с това информация</strong>, кампании или форуми, които може да са полезни."
@@ -2543,6 +2546,9 @@ msgstr "Задайте снимка за профила Ви"
 msgid "Share on Facebook"
 msgstr ""
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr ""
 
@@ -2910,10 +2916,10 @@ msgstr "Последният потребител е бил създаден п�
 msgid "The last user was created over a day ago"
 msgstr "Последният потребител е бил създаден преди повече от един ден"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2954,12 +2960,6 @@ msgstr "Заявлението беше <strong>успешно</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "Заявлението беше отхвърлено от публичния орган"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"Заявлението, което се опитвате да видите, беше премахнато. Има\n"
-"различни причини, поради които може да сме го направили, но за съжаление, тук не можем да сме по-конкретни. Молим <a\n"
-"    href=\"{{url}}\">свържете се с нас</a> ако имате въпроси."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Това заявление беше изоставено от заявителя поради някаква причина"
@@ -3024,9 +3024,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "След това ще можете да влезете в административния интерфейс"
 
-msgid "Then you can make a batch request"
-msgstr "След това ще можете да направите размножено заявление"
-
 msgid "Then you can play the request categorisation game."
 msgstr "След това ще можете да изиграете категоризирането на заявления."
 
@@ -3084,6 +3081,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Има {{count}} нови коментари по заявлението Ви {{law_used_short}}. Последвайте тази връзка за да видите какво са написали."
 
@@ -3129,11 +3129,14 @@ msgstr "Те <strong>не притежават</strong> информацията
 msgid "They have been given the following explanation:"
 msgstr "Те са дали следното обяснение:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Те не са отговорили на заявлението Ви за {{law_used_short}} {{title}} навреме, както нормално се изисква по закон"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3145,6 +3148,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3173,10 +3188,8 @@ msgstr "Това е текстова версия на Заявлението з
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Това е HTML версия на прикачен файл към Заявление за Достъп до информация"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"Причината е, че {{title}} е старо Заявление и е маркирано\n"
-"като неприемащо вече отговори."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Това е Ваше собствено заявление, така че автоматично ще Ви уведомяваме с имейл при пристигане на нови отговори."
@@ -3196,17 +3209,17 @@ msgstr "Това съобщение беше скрито."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Това съобщение беше скрито. Има различни причини, поради които скриваме съобщения. За съжаление не можем да бъдем по-конкретни."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Това съобщение е отбелязано като 'скрито'. Вие го виждате, понеже сте влезли като супер-потребител."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Това съобщение е отбелязано като 'скрито'. {{reason}} Вие го виждате, понеже сте влезли като супер-потребител."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Това съобщение е скрито, така че само Вие, заявителят, може да го види. Моля, <a href=\"{{url}}\">свържете се с нас</a> ако не сте сигурни за причината."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Това съобщение е скрито, така че само Вие, заявителят, може да го видите. {{reason}}"
@@ -3242,13 +3255,16 @@ msgstr "Това заявление е в <strong>неизвестно съст�
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Това заявление беше <strong>докладвано</strong> на вниманието на администратор (вероятно защото е неоснователно или е заявление за лична информация)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Това Заявление беше <strong>оттеглено</strong> от потребителя, който го е създал.\n"
 " Вероятно има обяснение в кореспонденцията по-долу."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3271,15 +3287,14 @@ msgstr "От администратор е зададено това заявл�
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Отговорът на това заявление е необичаен и <strong>изисква вниманието</strong> на екипа на {{site_name}}."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Това съобщение е отбелязано като 'скрито'. Вие го виждате, понеже сте влезли\n"
-" като супер-потребител."
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Това Заявление е скрито, така че само Вие, заявителят, може да го види. Молим\n"
-"    <a href=\"{{url}}\">свържете се с нас</a> ако не сте сигурни защо."
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3377,10 +3392,8 @@ msgstr "За да следвате заявления направени чре�
 msgid "To follow the request '{{request_title}}'"
 msgstr "За да следвате заявлението '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"За да ни помогне да поддържаме нещата подредени, някой е сменил състоянието на вашетп \n"
-"Заявление  {{title}} за {{law_used_full}} до {{public_body}} на \"{{display_status}}\". Ако не сте съгласни с тази категоризация, молим, променете състоянието му отново така, както Вие смятате за правилно."
 
 msgid "To join this project"
 msgstr ""
@@ -3393,9 +3406,6 @@ msgstr "За да научат всички, последвайте тази в�
 
 msgid "To log into the administrative interface"
 msgstr "За да влезете в административния панел"
-
-msgid "To make a batch request"
-msgstr "За да създадете размножено заявление"
 
 msgid "To play the request categorisation game"
 msgstr "За да играете играта по категоризиране на заявления"
@@ -4187,8 +4197,8 @@ msgstr "Вашата заявка за добавяне на орган беше
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Вашата заявка за обновяване адреса на {{public_body_name}} беше изпратена. Благодарим Ви, че ни пишете! Ще се постараем да Ви отговорим скоро."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Вашето Заявление беше наречено {{info_request}}. Като уведомите всички, че сте получили исканата информация, ще ни помогнете да следим "
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -4329,6 +4339,9 @@ msgid "comments"
 msgstr "коментари"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

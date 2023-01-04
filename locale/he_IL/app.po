@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
@@ -50,7 +53,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Z.D <zdevir@gmail.com>, 2013\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/mysociety/alaveteli/l"
@@ -607,6 +610,9 @@ msgstr ""
 
 msgid "Attachment (optional):"
 msgstr "קובץ מצורף (לא חובה):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "קובץ מצורף: "
@@ -1428,11 +1434,14 @@ msgstr "אם אתם לא מרוצים מהתגובה שקיבלתם מהגוף �
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "אם עדיין נתקלתם בבעיה אנא <a href=\"{{url}}\">צרו איתנו קשר</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "אם אתם מגישי הבקשה, תרצו אולי <a href=\"{{url}}\">להתחבר</a> כדי לצפות בהודעה."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "אם אתם מגישי הבקשה, תרצו אולי <a href=\"{{url}}\">להתחבר</a> כדי לצפות בבקשה."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "אם אתה המשתמש {{user_link}}, בבקשה"
@@ -1645,9 +1654,6 @@ msgstr "הבקשה מתעכבת מאוד."
 
 msgid "Made between"
 msgstr "הוגשה בין"
-
-msgid "Make a batch request"
-msgstr "צרו בקשה קבוצתית"
 
 msgid "Make a request"
 msgstr "בקשה חדשה"
@@ -1895,9 +1901,6 @@ msgstr "רק הרשות יכולה להשיב לבקשה זו, אבל לא קי�
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr ""
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr ""
-
 msgid "Original request sent"
 msgstr "בקשה מקורית נשלחה"
 
@@ -1963,9 +1966,6 @@ msgstr "שחקו במשחק סיווג בקשות המידע!"
 
 msgid "Please"
 msgstr "בבקשה"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "נא <a href=\"{{url}}\">צרו איתנו קשר</a> שנוכל לטפל בכך."
@@ -2144,6 +2144,9 @@ msgstr "כתבו את בקשת ההמשך שלכם בצורה בהירה ומת�
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "כתבו את ההודעה בצורה בהירה ומתומצתת."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "הצביעו על <strong>מידע שקשור</strong>, קמפיינים או פורומים שיוכלו לסייע."
@@ -2536,6 +2539,9 @@ msgstr "הגדירו תמונת פרופיל"
 msgid "Share on Facebook"
 msgstr ""
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr ""
 
@@ -2901,10 +2907,10 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2945,12 +2951,6 @@ msgstr "הבקשה <strong>נענתה</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "הבקשה סורבה על-ידי רשות ציבורית"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"הבקשה בה ניסיתם לצפות נמחקה. יש\n"
-"מגוון סיבות לצעד כזה ולצערנו לא נוכל לפרט. נא <a\n"
-"    href=\"{{url}}\">צרו איתנו קשר</a>אם יש לכם שאלות."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "מגיש הבקשה נסוג ממנה מסיבה כלשהי"
@@ -3014,9 +3014,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "לאחר מכן תוכלו להתחבר לממשק הניהול"
 
-msgid "Then you can make a batch request"
-msgstr ""
-
 msgid "Then you can play the request categorisation game."
 msgstr "אז תוכלו לשחק במשחק סיווג הבקשות"
 
@@ -3074,6 +3071,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "ישנן {{count}} הערות חדשות על בקשת ה- {{law_used_short}} שלכם. הקליקו על קישור זה לראות אותן."
 
@@ -3119,11 +3119,14 @@ msgstr " <strong>אין להם</strong> את המידע <small>(ייתכן וה�
 msgid "They have been given the following explanation:"
 msgstr "ניתן להם ההסבר הבא:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "לא התקבלה תגובה לבקשת {{law_used_short}} \"{{title}}\", כפי שקבוע בתקנות."
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3135,6 +3138,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3163,10 +3178,8 @@ msgstr "זוהי גרסת טקסט של בקשת המידע \"{{request_title}}\
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "זו גרסת HTML של נספח לבקשת המידע "
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"מצב זה קורה מכיוון ש{{title}} היא בקשה ישנה\n"
-" שלא מקבלת תגובות יותר."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "זו בקשה שלכם, כך שתקבלו דוא\"ל מייד כשיגיעו תגובות חדשות."
@@ -3186,16 +3199,16 @@ msgstr ""
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr ""
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
@@ -3234,13 +3247,16 @@ msgstr "לבקשה זו <strong>סטטוס לא ידוע</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "הבקשה <strong>דווחה</strong> כזקוקה לתשומת לב של מנהלי האתר (יתכן שהיא בלתי מוצדקת, או כוללת דרישה למידע אישי)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "בקשה זו <strong>הוסרה</strong> ע\"י האדם שהגיש אותה.\n"
 " יכול להיות שיהיה לכך הסבר בהתכתבות שלהלן. "
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3263,13 +3279,14 @@ msgstr "בקשה זו סווגה על-יד מנהל כ\"ללא אפשרות תג
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "בקשה זו קיבלה תגובה יוצאת דופן <strong>המצריכה את תשומת לב</strong>אנשי האתר {{site_name}} team."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "הבקשה סומנה כ'נסתרת'. אתה יכול לראות אותה רק מכיוון שאתה מחוברn\\ כמנהל"
-
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"בקשה זו הוסתרה, כך שרק המבקש יכול לראות אותה.\n"
-" <a href=\"{{url}}\">צור קשר</a> אם אינך בטוח מדוע מזה כך. "
+
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3363,10 +3380,8 @@ msgstr "לעקוב אחר בקשות שנעשו באמצעות {{site_name}} ל�
 msgid "To follow the request '{{request_title}}'"
 msgstr "לעקוב אחר הבקשה '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"במטרה לעזור לנו לשמור על הסדר באתר, מישהו אחר עדכן את סטטוס \n"
-"{{law_used_full}} הבקשה {{title}} שהפניתם ל-{{public_body}}, to \"{{display_status}}\" אם אינכם מסכימים עם אפיון זה, אנא עדכנו את הסטטוס שוב למצב שהינו יותר מדויק בעיניכם."
 
 msgid "To join this project"
 msgstr ""
@@ -3379,9 +3394,6 @@ msgstr "כדי לשתף, ליחצו על הלינק וסמנו את התיבה �
 
 msgid "To log into the administrative interface"
 msgstr "להתחברות לממשק הניהול"
-
-msgid "To make a batch request"
-msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr "כדי לשחק במשחק סיווג הקטגוריות"
@@ -4168,8 +4180,8 @@ msgstr ""
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "הבקשה שלכם נקראת {{info_request}}. אם תודיעו זאת לאחרים נוכל לעדכן את התווית"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -4322,6 +4334,9 @@ msgid "comments"
 msgstr "הערות"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"
