@@ -1,7 +1,7 @@
 # Welcome to Alaveteli!
 
-[![CI](https://img.shields.io/github/workflow/status/mysociety/alaveteli/CI?label=CI)](http://github.com/mysociety/alaveteli/actions?query=workflow%3ACI)
-[![RuboCop](https://img.shields.io/github/workflow/status/mysociety/alaveteli/RuboCop?label=RuboCop)](https://github.com/mysociety/alaveteli/actions?query=workflow%3ARuboCop)
+[![CI](https://img.shields.io/github/actions/workflow/status/mysociety/alaveteli/ci.yml?label=CI)](http://github.com/mysociety/alaveteli/actions?query=workflow%3ACI)
+[![RuboCop](https://img.shields.io/github/actions/workflow/status/mysociety/alaveteli/rubocop.yml?label=RuboCop)](https://github.com/mysociety/alaveteli/actions?query=workflow%3ARuboCop)
 [![Coverage Status](https://img.shields.io/coveralls/github/mysociety/alaveteli/develop)](https://coveralls.io/r/mysociety/alaveteli)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability-percentage/mysociety/alaveteli)](https://codeclimate.com/github/mysociety/alaveteli)
 [![Installability: Gold](http://img.shields.io/badge/installability-gold-ffd700.svg "Installability: Gold")](http://mysociety.github.io/installation-standards.html)
