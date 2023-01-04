@@ -41,7 +41,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
         get :index, params: { query: body.name }
         results = JSON.parse(response.body)
         expected_keys = %w{id name notes info_requests_visible_count short_name
-                           weight about html}
+                           weight about html notes_as_html}
         expect(results[0].keys).to match_array(expected_keys)
       end
     end

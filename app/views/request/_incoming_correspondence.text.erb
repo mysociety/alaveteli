@@ -1,12 +1,16 @@
-<%- if cannot?(:read, incoming_message) %>
-  <%= render :partial =>  'request/hidden_correspondence', :formats => [:text], :locals => { :message => incoming_message }%>
-<%- else %>
-  <%= _('From:') %><% if incoming_message.specific_from_name? %> <%= incoming_message.safe_from_name %><% end %><% if incoming_message.from_public_body? %>, <%= @info_request.public_body.name %><% end %>
-  <%= _('To:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
-  <%= _('Date:') %> <%= simple_date(incoming_message.sent_at, format: :text) %>
+<%= render partial:  'request/prominence',
+           formats: [:text],
+           locals: { prominenceable: incoming_message } %>
+<% if can?(:read, incoming_message) %>
+<%= _('From:') %><% if incoming_message.specific_from_name? %> <%= incoming_message.safe_from_name %><% end %><% if incoming_message.from_public_body? %>, <%= @info_request.public_body.name %><% end %>
+<%= _('To:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
+<%= _('Date:') %> <%= simple_date(incoming_message.sent_at, format: :text) %>
 
-  <%= incoming_message.get_body_for_quoting %>
-  <% incoming_message.get_attachments_for_display.each do |a| %>
-    <%= _('Attachment:') %> <%= a.display_filename %> (<%= a.display_size %>)
-  <% end %>
+<%= render_prominence(incoming_message.get_main_body_text_part, format: :text) -%>
+<% if can?(:read, incoming_message.get_main_body_text_part) %>
+<%= incoming_message.get_body_for_quoting %>
+<% end %>
+<% incoming_message.get_attachments_for_display.each do |a| %>
+<%= _('Attachment:') %> <% if can?(:read, a) %><%= a.display_filename %> (<%= a.display_size %>)<% end %> <%= render_prominence(a, format: :text) -%>
+<% end %>
 <% end %>

@@ -4,6 +4,8 @@
 class AlaveteliPro::ClassificationsController < AlaveteliPro::BaseController
   include Classifiable
 
+  skip_before_action :pro_user_authenticated?
+
   def create
     set_described_state
 

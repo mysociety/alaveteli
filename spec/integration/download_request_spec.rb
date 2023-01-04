@@ -80,7 +80,7 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.pdf')
           expect(correspondence_text).not_to match('hereisthetext')
-          expected_text = "This message has been hidden.\n    boring"
+          expected_text = 'This message has been hidden. boring'
           expect(correspondence_text).to match(expected_text)
         end
 
@@ -129,7 +129,7 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.pdf')
           expect(correspondence_text).not_to match('Some information please')
-          expected_text = "This message has been hidden.\n    boring"
+          expected_text = 'This message has been hidden. boring'
           expect(correspondence_text).to match(expected_text)
         end
 

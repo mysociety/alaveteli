@@ -1,8 +1,10 @@
-<%- if cannot?(:read, outgoing_message) %>
-  <%= render :partial =>  'request/hidden_correspondence', :formats => [:text], :locals => { :message => outgoing_message }%>
-<%- else %>
-  <%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
-  <%= _('To:') %> <%= @info_request.public_body.name %>
-  <%= _('Date:') %> <%= simple_date(info_request_event.created_at, :format => :text) %>
-  <%= outgoing_message.get_body_for_text_display %>
-<%- end %>
+<%= render partial:  'request/prominence',
+           formats: [:text],
+           locals: { prominenceable: outgoing_message } %>
+<% if can?(:read, outgoing_message) %>
+<%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
+<%= _('To:') %> <%= @info_request.public_body.name %>
+<%= _('Date:') %> <%= simple_date(info_request_event.created_at, :format => :text) %>
+
+<%= outgoing_message.get_body_for_text_display %>
+<% end %>

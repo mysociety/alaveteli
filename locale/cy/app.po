@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Cymrodor <aled@aledpowell.cymru>, 2014,2017
 # Cymrodor <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
@@ -51,7 +54,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: PerryX <wyeboy@gmail.com>, 2013\n"
 "Language-Team: Welsh (http://www.transifex.com/mysociety/alaveteli/language/cy"
@@ -567,6 +570,9 @@ msgstr "Ar waelod y dudalen hon, ysgrifennwch ateb iddynt i geisio eu perswadio 
 
 msgid "Attachment (optional):"
 msgstr "Atodiad (dewisol)"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Atodiad:"
@@ -1379,11 +1385,14 @@ msgstr "Os ydych yn anfodlon â'r ymateb a gawsoch gan yr awdurdod cyhoeddus, ma
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Os ydych yn dal i gael trafferth, <a href=\"{{url}}\">cysylltwch â ni</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Os chi sy'n gwneud y cais, gallwch <a href=\"{{url}}\">fewngofnodi</a> i weld y neges."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Os chi sy'n gwneud y cais, gallwch <a href=\"{{url}}\">fewngofnodi</a> i weld y cais."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Os {{user_link}} ydych chi, os gwelwch yn dda, "
@@ -1582,9 +1591,6 @@ msgstr "Yn hwyr iawn"
 
 msgid "Made between"
 msgstr "A wnaed rhwng"
-
-msgid "Make a batch request"
-msgstr "Gwneud cais swp"
 
 msgid "Make a request"
 msgstr "Gwneud cais"
@@ -1832,9 +1838,6 @@ msgstr "Dim ond yr awdurdod a all ymateb i'r cais hwn, ond nid oes cyfeiriad \"O
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr ""
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Neu wneud <a href=\"{{url}}\"> swp </a> cais i <strong> lluosog awdurdodau </ strong> ar unwaith."
-
 msgid "Original request sent"
 msgstr " Anfonwyd y cais gwreiddiol"
 
@@ -1900,9 +1903,6 @@ msgstr "Chwaraewch y gêm categoreiddio cais!"
 
 msgid "Please"
 msgstr "Os gwelwch yn dda"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "<a href=\"{{url}}\">Cysylltwch â ni</a> os oes gennych gwestiynau."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "<a href=\"{{url}}\">Cysylltwch â ni</a> gyda ni fel y gallwn ei drwsio."
@@ -2070,6 +2070,9 @@ msgstr "Ysgrifennwch eich neges ddilynol gan gynnwys yr esboniadau angenrheidiol
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Ysgrifennwch eich neges gan ddefnyddio cymysgedd o brif lythrennau a llythrennau bach. Mae hyn yn ei wneud yn haws i eraill ei ddarllen."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Pwyntiwch at <strong>wybodaeth berthnasol</strong>, ymgyrchoedd neu fforymau a all fod yn ddefnyddiol."
@@ -2462,6 +2465,9 @@ msgstr "Gosodwch lun eich proffil"
 msgid "Share on Facebook"
 msgstr "Rhannu ar Facebook"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr ""
 
@@ -2813,10 +2819,10 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2857,9 +2863,6 @@ msgstr "Roedd y cais yn <strong>llwyddiannus</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "Gwrthodwyd y cais gan yr awdurdod cyhoeddus"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Mae'r cais yr ydych wedi ceisio ei weld wedi cael ei ddileu. Mae amryw o resymau pam y gallem fod wedi gwneud hyn. Mae'n ddrwg gennym na allwn fod yn fwy penodol yma. <a href=\"{{url}}\">Cysylltwch â ni</a> os oes gennych unrhyw gwestiynau."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Mae'r ceisydd wedi rhoi'r gorau i'r cais hwn am ryw reswm"
@@ -2918,9 +2921,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "Yna gallwch logio i mewn i'r rhyngwyneb gweinyddol"
 
-msgid "Then you can make a batch request"
-msgstr "Yna gallwch wneud cais swp"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Yna gallwch chi chwarae y gêm categoreiddio cais."
 
@@ -2978,6 +2978,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Mae {{count}} anodiad newydd ar eich cais {{law_used_short}}. Dilynwch y ddolen hon i weld beth ysgrifennwyd."
 
@@ -3023,11 +3026,14 @@ msgstr "<strong>Nid</strong> yw'r wybodaeth ganddynt <small>(efallai eu bod yn d
 msgid "They have been given the following explanation:"
 msgstr "Maent wedi cael yr esboniad canlynol:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Nid ydynt wedi ymateb i'ch cais {{title}} {{law_used_short}} yn brydlon, fel sy'n ofynnol fel arfer yn ôl y gyfraith"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3039,6 +3045,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3065,8 +3083,8 @@ msgstr "Mae hwn yn fersiwn destun plaen y cais Rhyddid Gwybodaeth \"{{request_ti
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Mae hwn yn fersiwn HTML o atodiad i'r cais Rhyddid Gwybodaeth"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Mae hyn oherwydd bod {{title}} yn hen gais sydd wedi ei nodi i beidio â derbyn ymatebion mwyach."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Dyma'ch eich cais eich hun, felly byddwch yn cael e-bost yn awtomatig pan fydd ymatebion newydd yn cyrraedd."
@@ -3086,17 +3104,17 @@ msgstr "Mae'r neges hon wedi cael ei chuddio."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Mae'r neges hon wedi cael ei chuddio. Mae yna amryw o resymau pam y gallem fod wedi gwneud hyn, mae'n ddrwg gennym na allwn fod yn fwy penodol yma."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "Cafodd y neges hon ei hanfon."
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "'Cudd' yw amlygrwydd y cais hwn. Gallwch ond ei gweld oherwydd eich bod wedi mewngofnodi fel arch-ddefnyddiwr."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "'Cudd' yw amlygrwydd y cais hwn. {{reason}} Gallwch ond ei gweld oherwydd eich bod wedi mewngofnodi fel arch-ddefnyddiwr."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Mae'r cais hwn wedi ei guddio, fel mai dim ond chi y ceisydd all ei weld. <a href=\"{{url}}\">cysylltwch â ni</a> os nad ydych yn siŵr pam."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Mae'r cais hwn wedi ei guddio, fel mai dim ond chi y ceisydd all ei weld. {{reason}} "
@@ -3134,11 +3152,14 @@ msgstr "Mae gan y cais hwn <strong<statws anhysbys</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Mae adroddiad am y cais hwn <strong<wedi cael ei anfon<strong> gan ddweud bod angen sylw gweinyddwr arno (efallai am ei fod yn flinderus, neu'n gais am wybodaeth bersonol)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Mae'r cais hwn <strong>wedi cael ei dynnu'n ôl</strong> gan y sawl a'i wnaeth. Efallai y bydd esboniad yn yr ohebiaeth isod."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3161,11 +3182,14 @@ msgstr "Mae'r cais hwn wedi cael ei osod gan weinyddwr fel \"na chaniateir ymate
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Mae'r cais hwn wedi derbyn ymateb anarferol, ac mae <strong>angen sylw</strong> arno gan dîm {{site_name}}."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "'Cudd' yw amlygrwydd y cais hwn. Gallwch ond ei weld oherwydd eich bod wedi mewngofnodi fel arch-ddefnyddiwr."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Mae'r cais hwn wedi ei guddio, fel mai dim ond y ceisydd all ei weld. <a href=\"{{url}}\">cysylltwch â ni</a> os nad ydych yn siŵr pam."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3251,8 +3275,8 @@ msgstr "I ddilyn ceisiadau a wnaed gan ddefnyddio {{site_name}} i'r awdurdod cyh
 msgid "To follow the request '{{request_title}}'"
 msgstr "I ddilyn y cais '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "I'n helpu ni i gadw'r wefan yn daclus, mae rhywun arall wedi diweddaru statws y cais  {{law_used_full}} {{title}} a wnaethoch i {{public_body}} , i \"{{display_status}}\" Os ydych yn anghytuno â'u categoreiddio, diweddarwch y statws unwaith eto eich hun i'r hyn y credwch i fod yn fwy cywir."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr ""
 
 msgid "To join this project"
 msgstr ""
@@ -3265,9 +3289,6 @@ msgstr "I adael i bawb wybod, dilynwch y ddolen hon ac yna dewiswch y blwch prio
 
 msgid "To log into the administrative interface"
 msgstr "I fewngofnodi i'r rhyngwyneb gweinyddol"
-
-msgid "To make a batch request"
-msgstr "I wneud cais swp"
 
 msgid "To play the request categorisation game"
 msgstr "I chwarae'r gêm categoreiddio cais"
@@ -4013,8 +4034,8 @@ msgstr "Mae'ch cais i ychwanegu awdurdod wedi ei anfon. Diolch am gysylltu. Bydd
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Mae'ch cais i ddiweddaru'r cyfeiriad ar gyfer {{public_body_name}} wedi ei anfon. Diolch am gysylltu! Byddwn yn eich ateb yn fuan."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Cafodd eich cais ei alw'n {{info_request}}. Bydd gadael i bawb wybod a gawsoch y wybodaeth yn ein helpu i gadw golwg"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Caiff eich ceisiadau eu <strong>hanfon</strong> yn fuan!"
@@ -4160,6 +4181,9 @@ msgstr "sylwadau"
 
 msgid "complete"
 msgstr "yn gyflawn"
+
+msgid "contact us"
+msgstr ""
 
 msgid "delivered"
 msgstr "wedi anfon"

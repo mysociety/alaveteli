@@ -395,8 +395,7 @@ RSpec.describe InfoRequestHelper do
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("attention_requested")
         expected = 'This request has been <strong>reported</strong> as ' \
-                   'needing administrator attention (perhaps because it is ' \
-                   'vexatious, or a request for personal information)'
+                   'needing administrator attention.'
         expect(status_text(info_request)).to eq(expected)
       end
 

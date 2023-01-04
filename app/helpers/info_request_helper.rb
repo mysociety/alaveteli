@@ -206,8 +206,7 @@ module InfoRequestHelper
 
   def status_text_attention_requested(info_request, opts = {})
     _('This request has been <strong>reported</strong> as needing ' \
-      'administrator attention (perhaps because it is vexatious, or a ' \
-      'request for personal information)')
+      'administrator attention.')
   end
 
   def status_text_vexatious(info_request, opts = {})

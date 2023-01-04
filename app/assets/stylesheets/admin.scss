@@ -159,9 +159,14 @@ body.admin {
     width: 100%;
     height: 15em;
   }
+  #request_hidden_user_prominence_reason_field {
+    width: 100%;
+    height: 5em;
+  }
   #request_hidden_user_subject,
   #request_hide_button,
-  #request_hidden_user_explanation {
+  #request_hidden_user_explanation,
+  #request_hidden_user_prominence_reason {
     display: none;
   }
 
@@ -267,6 +272,14 @@ body.admin {
   .label ~ .label {
     margin-left: 0.4em;
   }
+}
+
+/* RawEmails */
+
+.holding_pen {
+  border: 12px solid #c09853;
+  border-radius: 5px;
+  padding: 2em;
 }
 
 /* Bootstrap Extensions */

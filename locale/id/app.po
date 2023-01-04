@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Agung Riyadi <ariadi01@gmail.com>, 2013
 # Agung Riyadi <ariadi01@gmail.com>, 2012-2013
 # agustriwanto <agus.triwanto@gmail.com>, 2012
@@ -44,7 +47,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Agung Riyadi <ariadi01@gmail.com>, 2012-2013\n"
 "Language-Team: Indonesian (http://www.transifex.com/mysociety/alaveteli/langua"
@@ -602,6 +605,9 @@ msgstr ""
 
 msgid "Attachment (optional):"
 msgstr "Lampiran (opsional):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Lampiran:"
@@ -1436,11 +1442,14 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Jika Anda masih mengalami kesulitan, silakan <a href=\"{{url}}\">hubungi kami</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
 msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Jika Anda adalah sang pemohon, maka Anda dapat <a href=\"{{url}}\">mendaftar</a> untuk menampilkan permintaan tersebut."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Jika Anda adalah {{user_link}}, silakan"
@@ -1662,9 +1671,6 @@ msgstr "Lama terlambat."
 
 msgid "Made between"
 msgstr "Dibuat antara"
-
-msgid "Make a batch request"
-msgstr ""
 
 msgid "Make a request"
 msgstr "Buat permintaan"
@@ -1912,9 +1918,6 @@ msgstr "Hanya otoritas yang dapat menjawab permintaan ini, tapi tidak ada alamat
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr ""
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr ""
-
 msgid "Original request sent"
 msgstr "Permintaan asli sudah dikirim"
 
@@ -1980,9 +1983,6 @@ msgstr "Mainkan permainan kategorisasi permintaan!"
 
 msgid "Please"
 msgstr "Silakan"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Silakan<a href=\"{{url}}\">berhubungan</a> dengan kami sehingga kami dapat memperbaikinya."
@@ -2161,6 +2161,9 @@ msgstr "Silakan tulis pesan tindak lanjut Anda berisi klarifikasi yang diperluka
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Silakan menulis pesan Anda menggunakan campuran huruf kapital dan huruf kecil. Ini untuk membuat yang lain lebih mudah membacanya."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Poin kepada<strong>informasi terkait</strong>, kampanye atau forum yang mungkin dapat berguna."
@@ -2554,6 +2557,9 @@ msgstr "Mengatur foto profil Anda"
 msgid "Share on Facebook"
 msgstr ""
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr ""
 
@@ -2921,10 +2927,10 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2965,12 +2971,6 @@ msgstr "Permintaan <strong>berhasil</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "Permintaan ditolak oleh otoritas publik"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"Permintaan yang Anda coba untuk tampilkan telah dihapus. Ada\n"
-"berbagai alasan mengapa kami mungkin melakukan hal ini, maaf kami tidak dapat lebih spesifik lagi di sini. Silakan <a\n"
-"    href=\"{{url}}\">hubungi kami</a> jika Anda memiliki pertanyaan apapun."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Pemohon telah mengabaikan permintaan ini karena beberapa alasan"
@@ -3035,9 +3035,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "Kemudian Anda dapat masuk ke tampilan administrasi"
 
-msgid "Then you can make a batch request"
-msgstr ""
-
 msgid "Then you can play the request categorisation game."
 msgstr "Maka Anda dapat memainkan permainan kategorisasi permintaan."
 
@@ -3095,6 +3092,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Ada {{count}} anotasi baru pada permintaan {{law_used_short}} Anda. Ikuti tautan ini untuk melihat apa yang mereka tulis."
 
@@ -3140,11 +3140,14 @@ msgstr "Mereka <strong>tidak memiliki</strong> informasi tersebut <small>(mungki
 msgid "They have been given the following explanation:"
 msgstr "Mereka telah diberikan penjelasan berikut:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Mereka belum membalas kepada permintaan {{law_used_short}} Anda {{title}} dengan segera, sebagaimana yang umumnya disyaratkan oleh undang-undang"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3156,6 +3159,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3184,10 +3199,8 @@ msgstr "Ini merupakan versi teks biasa dari permintaan Freedom of Information \"
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Ini adalah versi HTML dari sebuah lampiran kepada permintaan the Freedom of Information"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"Ini karena {{title}} merupakan permintaan lama yang sudah\n"
-"ditandai untuk tidak lagi menerima respon."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Ini adalah permintaan Anda sendiri, sehingga Anda akan secara otomatis dikirimi email ketika respon baru diterima."
@@ -3207,16 +3220,16 @@ msgstr ""
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr ""
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
@@ -3252,13 +3265,16 @@ msgstr "Permintaan ini memiliki <strong>status yang tidak diketahui</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Permintaan ini telah <strong>dilaporkan</strong> sebagai keperluan untuk diperhatikan administrator (mungkin karena permintaan ini tidak sesuai, atau sebuah permintaan pribadi)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Permintaan ini telah <strong>ditarik</strong> oleh orang yang membuatnya. \n"
 "        \t   Mungkin ada penjelasan dalam korespondensi di bawah."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3281,15 +3297,14 @@ msgstr "Permintaan ini telah diatur oleh administrator untuk \"tidak mengizinkan
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Permintaan ini telah mendapatkan respon yang tidak biasa, dan <strong>membutuhkan perhatian</strong> dari {{site_name}} tim."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Permintaan ini memiliki keulungan 'tersembunyi'. Anda hanya dapat melihatnya karena Anda masuk\n"
-"    sebagai pengguna super."
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Permintaan ini disembunyikan, sehingga hanya Anda sang pemhon yang dapat melihatnya. Silakan\n"
-"    <a href=\"{{url}}\">hubungi kami</a> jika Anda tidak yakin mengapa."
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3387,10 +3402,8 @@ msgstr "Untuk mengikuti permintaan yang dibuat menggunakan {{site_name}} kepada 
 msgid "To follow the request '{{request_title}}'"
 msgstr "Untuk mengikuti permintaan '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"Untuk membantu kami menjaga situs ini tetap rapi, orang lain telah memperbarui status dari \n"
-"{{law_used_full}} permintaan {{title}} yang Anda buat kepada {{public_body}}, untuk \"{{display_status}}\" Jika Anda tidak setuju dengan penggolongan mereka, silakan perbarui status itu lagi sendiri menjadi apa yang menurut Anda lebih akurat."
 
 msgid "To join this project"
 msgstr ""
@@ -3403,9 +3416,6 @@ msgstr "Agar semua orang tahu, ikuti tautanini dan kemudian pilih kotak yang ses
 
 msgid "To log into the administrative interface"
 msgstr "Untuk masuk ke tampilan administrasi"
-
-msgid "To make a batch request"
-msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr "Untuk memainkan permainan kategorisasi permintaan"
@@ -4197,8 +4207,8 @@ msgstr ""
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Permintaan Anda disebut {{info_request}}. Memberitahukan semua orang apakah Anda memperoleh informasi tersebut akan membantu kami mengawasi"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -4338,6 +4348,9 @@ msgid "comments"
 msgstr "komentar"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

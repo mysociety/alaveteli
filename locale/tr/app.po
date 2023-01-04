@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -42,7 +45,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Senol Kaya <kayasenolk@gmail.com>, 2018\n"
 "Language-Team: Turkish (http://www.transifex.com/mysociety/alaveteli/language/"
@@ -583,6 +586,9 @@ msgstr ""
 
 msgid "Attachment (optional):"
 msgstr "Ek (tercihe bağlı)"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Ek:"
@@ -1401,11 +1407,14 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Hala sorun yaşıyorsanız,  lütfen bizimle <a href=\"{{url}}\">iletişime</a> geçin"
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Başvuruyu yapan kişi sizseniz, mesajı görüntülemek için <a href=\"{{url}}\">giriş</a> yapabilirsiniz."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Başvuruyu yapan kişi sizseniz, başvuruyu görüntülemek için <a href=\"{{url}}\">giriş</a> yapabilirsiniz."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Eğer {{user_link}} sizseniz, lütfen"
@@ -1611,9 +1620,6 @@ msgstr "Son cevap verme tarihinden bu yana çok süre geçmiş."
 
 msgid "Made between"
 msgstr "Şu tarihler arasında yapılan:"
-
-msgid "Make a batch request"
-msgstr "Çoklu başvuruda bulunun"
 
 msgid "Make a request"
 msgstr "Bilgi edinme başvurusu yapın"
@@ -1861,9 +1867,6 @@ msgstr "Bu başvuruya yalnızca bilgi edinme isteğinin yapıldığı kurum ceva
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "Hesabınıza ait şifrenin değişmesi için email doğrulaması aşamasını gerçekleştirmeniz ve tek kullanımlık giriş kodunuzu doğru olarak girmeniz gereklidir. "
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Ya da  <strong>birçok kurum veya kuruluşa</strong> bir defada <a href=\"{{url}}\">toplu bilgi edinme başvurusu</a> yapın. "
-
 msgid "Original request sent"
 msgstr "Asıl başvuru gönderildi"
 
@@ -1929,9 +1932,6 @@ msgstr "Başvuru sınıflandıma oyunu oynayın!"
 
 msgid "Please"
 msgstr "Lütfen"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Sorularınız varsa lütfen bizimle <a href=\"{{url}}\">iletişime geçin</a>"
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Lütfen bizimle <a href=\"{{url}}\">iletişime geçin</a>. Böylece sorunu giderebiliriz. "
@@ -2101,6 +2101,9 @@ msgstr "Lütfen gerekli açıklamaları ekleyerek takip mesajınızı aşağıda
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Lütfen mesajınızı küçük ve büyük harfler kullanarak yazın. Bu, diğerlerinin mesajınızı okumasını kolaylaştırır."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Başvurunuzla ilgili kampanyalar, forumlar gibi <strong>ilgili bilgilere</strong> yönlendirme yapın"
@@ -2496,6 +2499,9 @@ msgstr "Profil resminizi yerleştirin"
 msgid "Share on Facebook"
 msgstr "Facebook'ta paylaş"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "Toplu bilgi edinme başvurunuzu paylaşın"
 
@@ -2855,10 +2861,10 @@ msgstr "En son kullanıcı son bir günde oluşturuldu"
 msgid "The last user was created over a day ago"
 msgstr "En son kullanıcı oluşturulalı bir günden fazla oldu"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2899,11 +2905,6 @@ msgstr "Başvuru <strong>kısmen olumlu</strong> sonuçlandı."
 
 msgid "The request was refused by the public authority"
 msgstr "Bu başvuru gönderildiği kamu kuruluşu tarafından reddedildi"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"Görüntülemek istediğiniz başvuru siteden kaldırılmıştır. Bunu birçok farklı nedenden dolayı yapmış olabiliriz, şu an tam olarak söyleyemiyoruz. Lütfen sorularınız varsa bizimle <a\n"
-" href=\"{{url}}\">iletişime geçin</a>"
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Başvuruyu yapan kişi bir nedenle bu başvurudan vazgeçti"
@@ -2962,9 +2963,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "Sonra yönetici arayüzüne giriş yapabilirsiniz "
 
-msgid "Then you can make a batch request"
-msgstr "Sonra toplu başvuru yapabilirsiniz"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Sonra bilgi edinme başvurusu kategorize etme oyununu oynayabilirsiniz"
 
@@ -3022,6 +3020,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{law_used_short}} başvurunuza  {{count}} yeni not eklendi. Notta ne yazıldığını görmek için bu bağlantıyı takip edin. "
 
@@ -3067,11 +3068,14 @@ msgstr "Bu bilgi <strong>ellerinde yok</strong> <small>(belki kimin elinde bulun
 msgid "They have been given the following explanation:"
 msgstr "Aşağıdaki açıklama verildi:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr " {{law_used_short}} başvurunuza {{title}} yasanın gerektirdiği süre içinde cevap vermediler "
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3083,6 +3087,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3109,8 +3125,8 @@ msgstr "Bu,  \"{{request_title}}\" başlıklı Bilgi Edinme Başvurusunun sade m
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Bu, Bilgi Edinme Başvurusunda bulunan ek dosyasnın HTML sürümü"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Bu {{title}} eski bir başvuru olduğundan ve artık cevap almamak üzere işaretlendiği için oluyor. "
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Bu sizin yaptğınız bir başvuru, bu yüzden yeni cevaplar geldiğinde kendiliğinden email alacaksınız. "
@@ -3130,17 +3146,17 @@ msgstr "Bu mesaj gizlendi"
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Bu mesaj gizlendi. Bunu neden yapmış olabileceğimizin birçok nedeni olabilir. Burada daha fazla detay sağlayamadığımız için özür dileriz"
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Bu mesajın önem durumu 'gizli' olarak işaretlenmiş. Bu mesajı görebiliyor olmanızın nedeni süper kullanıcı olarak giriş yapmış olmanız. "
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Bu mesajın önem durumu 'gizli' olarak seçili. {{reason}} Bu mesajı görebilmenizin tek nedeni süper kullanıcı olarak giriş yapmış olmanız."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Bu mesaj başvuruyu yapan kişi olarak sadece sizin görebileceğiniz şekilde gizlendi. Lütfen bunun neden olduğuna dair emin değilseniz <a href=\"{{url}}\">bizimle iletişime geçin</a>."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Bu mesaj başvuruyu yapan kişi olarak sadece sizin görebileceğiniz şekilde gizlendi. {{reason}}"
@@ -3176,13 +3192,16 @@ msgstr "Bu başvurunun <strong>durumu bilinmiyor</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Bu başvuru site yöneticisinin bakması için <strong>rapor edildi</strong> (belki taciz edici bulundu, belki de kişisel bilgi içeriyor)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Bu başvuru, bilgi edinme isteğini yapan kişi tarafından <strong>geri çekildi</strong>\n"
 " Aşağıdaki yazışmalarda bunun nedenine dair bir açıklama olabilir. "
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3205,13 +3224,14 @@ msgstr "Bu başvuru site yöneticileri tarafından \"hiç kimseden yeni cevap ka
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Bu başvuruya sıradışı bir cevap geldi ve {{site_name}} ekibi tarafından <strong>gözden geçirilmesi</strong> gerekiyor."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Bu başvurunun önem derecesi \"gizli\" olarak seçilmiş. Bu başvuruyu görebiliyorsunuz çünkü süper kullanıcı olarak giriş yapmış durumdasınız. "
-
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Bu başvuru sadece yapan kişinin görebileceği şekilde gizlendi. Neden böyle olduğu konusunda sorularınız varsa lütfen\n"
-" <a href=\"{{url}}\">bize yazın</a>."
+
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3310,10 +3330,8 @@ msgstr " {{site_name}} üzerinde '{{public_body_name}}' adlı kuruluşa yapılm�
 msgid "To follow the request '{{request_title}}'"
 msgstr " '{{request_title}}' başvurusunu takip etmek için"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"Siteyi derli toplu tutmamıza yardım etme amacıyla başka biri\n"
-" {{public_body}} adlı kuruluşa yapmış olduğunuz {{law_used_full}} başvuruyu {{title}}, \"{{display_status}}\"  olarak işaretledi. Bu kategorizasyona katılmıyorsanız lütfen daha doğru olduğunu düşündüğünüz sınıflandırmayı seçerek başvurunuzun durumunu tekrar güncelleyin. "
 
 msgid "To join this project"
 msgstr ""
@@ -3326,9 +3344,6 @@ msgstr "Herkesin bilmesi için, bu bağlantıyı takip edin ve uygun kutucuğu i
 
 msgid "To log into the administrative interface"
 msgstr "Yönetici arayüzüne giriş yapmak için"
-
-msgid "To make a batch request"
-msgstr "Toplu başvuruda bulunmak için"
 
 msgid "To play the request categorisation game"
 msgstr "Başvuru sınıflandırma oyunu oynamak için"
@@ -4099,8 +4114,8 @@ msgstr "Bir kamu kuruluşunu veritabanımıza ekleme isteğiniz gönderildi. Biz
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "{{public_body_name}}  kuruluşunun adresini güncelleme isteğiniz gönderildi. Bizimle iletişime geçtiğiniz için teşekkürler! Kısa sürede yanıt vereceğiz. "
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Başvurunuzu başlığı şuydu: {{info_request}}. İstediğiniz bilgiyi alıp almadığınız hakkında herkese bilgi vermeniz bizim de bu kuruluşun performansını izlememize yardımcı olur"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Başvurularınız kısa süre içinde <strong>gönderilecek</strong>!"
@@ -4241,6 +4256,9 @@ msgid "comments"
 msgstr "yorumlar"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

@@ -37,16 +37,18 @@
                   </td>
                 </tr>
 
-                <% comment.for_admin_column do |name, value, type, column_name |%>
+                <% comment.for_admin_column(
+                     :body, :visible, :created_at, :updated_at
+                   ) do |name, value| %>
                   <tr>
                     <td>
-                      <b><%= name %></b>
+                      <b><%= name.humanize %></b>
                     </td>
                     <td>
-                      <% if column_name == 'body' && !comment.visible %>
-                        <s><%= h comment.send(column_name) %></s>
+                      <% if name == 'body' && !comment.visible %>
+                        <s><%= h comment.send(name) %></s>
                       <% else %>
-                        <%= h comment.send(column_name) %>
+                        <%= h comment.send(name) %>
                       <% end %>
                     </td>
                   </tr>

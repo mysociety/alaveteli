@@ -12,4 +12,4 @@
 <%= render partial: 'admin_request/some_annotations' ,
            locals: { comments: @comments } %>
 
-<%= will_paginate(@comments, class: 'paginator') %>
+<%= will_paginate(@comments) %>

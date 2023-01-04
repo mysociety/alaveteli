@@ -1,4 +1,4 @@
-class SurveyMailer::SurveyAlert < ActionMailer::Preview
+class SurveyMailerPreview < ActionMailer::Preview
   def survey_alert
     SurveyMailer.survey_alert(info_request)
   end

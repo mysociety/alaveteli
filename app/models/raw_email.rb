@@ -22,6 +22,8 @@ class RawEmail < ApplicationRecord
 
   has_one_attached :file, service: :raw_emails
 
+  before_destroy :destroy_file_representation!
+
   delegate :date, to: :mail
   delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
@@ -67,45 +69,6 @@ class RawEmail < ApplicationRecord
     mail.from_addrs.nil? || mail.from_addrs.size == 0
   end
 
-  def directory
-    if file.attached?
-      warn <<~DEPRECATION.squish
-        [DEPRECATION] RawEmail#directory shouldn't be used when using
-        `ActiveStorage` backed file stores. This method will be removed
-        in 0.42.
-      DEPRECATION
-      return
-    end
-
-    if request_id.empty?
-      raise "Failed to find the id number of the associated request: has it been saved?"
-    end
-
-    if Rails.env.test?
-      File.join(Rails.root, 'files/raw_email_test')
-    else
-      File.join(AlaveteliConfiguration::raw_emails_location,
-                request_id[0..2], request_id)
-    end
-  end
-
-  def filepath
-    if file.attached?
-      warn <<~DEPRECATION.squish
-        [DEPRECATION] RawEmail#filepath shouldn't be used when using
-        `ActiveStorage` backed file stores. This method will be removed
-        in 0.42.
-      DEPRECATION
-      return
-    end
-
-    if incoming_message_id.empty?
-      raise "Failed to find the id number of the associated incoming message: has it been saved?"
-    end
-
-    File.join(directory, incoming_message_id)
-  end
-
   def mail
     @mail ||= mail!
   end
@@ -124,23 +87,13 @@ class RawEmail < ApplicationRecord
   end
 
   def data
-    return @data ||= file.download if file.attached?
-
-    File.open(filepath, "rb").read
+    @data ||= file.download if file.attached?
   end
 
   def data_as_text
     data.encode("UTF-8", :invalid => :replace,
                          :undef => :replace,
                          :replace => "")
-  end
-
-  def destroy_file_representation!
-    if file.attached?
-      file.purge
-    elsif File.exist?(filepath)
-      File.delete(filepath)
-    end
   end
 
   def from_name
@@ -175,5 +128,9 @@ class RawEmail < ApplicationRecord
 
   def incoming_message_id
     incoming_message.id.to_s
+  end
+
+  def destroy_file_representation!
+    file.purge if file.attached?
   end
 end

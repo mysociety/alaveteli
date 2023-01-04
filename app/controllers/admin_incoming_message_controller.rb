@@ -9,14 +9,19 @@ class AdminIncomingMessageController < AdminController
   def update
     old_prominence = @incoming_message.prominence
     old_prominence_reason = @incoming_message.prominence_reason
+    old_tag_string = @incoming_message.tag_string
     if @incoming_message.update(incoming_message_params)
-      @incoming_message.info_request.log_event('edit_incoming',
-                                               :incoming_message_id => @incoming_message.id,
-                                               :editor => admin_current_user,
-                                               :old_prominence => old_prominence,
-                                               :prominence => @incoming_message.prominence,
-                                               :old_prominence_reason => old_prominence_reason,
-                                               :prominence_reason => @incoming_message.prominence_reason)
+      @incoming_message.info_request.log_event(
+        'edit_incoming',
+        incoming_message_id: @incoming_message.id,
+        editor: admin_current_user,
+        old_prominence: old_prominence,
+        prominence: @incoming_message.prominence,
+        old_prominence_reason: old_prominence_reason,
+        prominence_reason: @incoming_message.prominence_reason,
+        old_tag_string: old_tag_string,
+        tag_string: @incoming_message.tag_string
+      )
       @incoming_message.info_request.expire
       flash[:notice] = 'Incoming message successfully updated.'
       redirect_to admin_request_url(@incoming_message.info_request)
@@ -27,9 +32,11 @@ class AdminIncomingMessageController < AdminController
 
   def destroy
     @incoming_message.destroy
-    @incoming_message.info_request.log_event("destroy_incoming",
-                                             { :editor => admin_current_user,
-                                              :deleted_incoming_message_id => @incoming_message.id })
+    @incoming_message.info_request.log_event(
+      'destroy_incoming',
+      editor: admin_current_user,
+      deleted_incoming_message_id: @incoming_message.id
+    )
     # expire cached files
     @incoming_message.info_request.expire(:preserve_database_cache => true)
     flash[:notice] = 'Incoming message successfully destroyed.'
@@ -49,9 +56,11 @@ class AdminIncomingMessageController < AdminController
       @incoming_messages.each do |message|
         begin
           message.destroy
-          info_request.log_event("destroy_incoming",
-                                 { :editor => admin_current_user,
-                                   :deleted_incoming_message_id => message.id })
+          info_request.log_event(
+            'destroy_incoming',
+            editor: admin_current_user,
+            deleted_incoming_message_id: message.id
+          )
         rescue
           errors << message.id
         end
@@ -100,11 +109,12 @@ class AdminIncomingMessageController < AdminController
                   raw_email_data,
                   { :override_stop_new_responses => true })
 
-        @incoming_message.info_request.log_event("redeliver_incoming", {
-                                                  :editor => admin_current_user,
-                                                  :destination_request => destination_request.id,
-                                                  :deleted_incoming_message_id => @incoming_message.id
-        })
+        @incoming_message.info_request.log_event(
+          'redeliver_incoming',
+          editor: admin_current_user,
+          destination_request: destination_request.id,
+          deleted_incoming_message_id: @incoming_message.id
+        )
 
         flash[:notice] = "Message has been moved to request(s). Showing the last one:"
       end
@@ -119,7 +129,9 @@ class AdminIncomingMessageController < AdminController
 
   def incoming_message_params
     if params[:incoming_message]
-      params.require(:incoming_message).permit(:prominence, :prominence_reason)
+      params.require(:incoming_message).permit(
+        :prominence, :prominence_reason, :tag_string
+      )
     else
       {}
     end

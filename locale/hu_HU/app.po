@@ -28,12 +28,16 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Dohány Tamás, 2021-2022
 # iamdtms, 2022
 # Orsolya Batta <orsibatta@gmail.com>, 2013
 # Graeme Porteous <graeme@mysociety.org>, 2022
+# iamdtms, 2021-2022
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
@@ -44,9 +48,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Dohány Tamás, 2021-2022\n"
+"Last-Translator: iamdtms, 2021-2022\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/mysociety/alavete"
 "li/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -591,6 +595,9 @@ msgstr ""
 
 msgid "Attachment (optional):"
 msgstr "Melléklet (opcionális): "
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Melléklet: "
@@ -1424,11 +1431,14 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Ha továbbra is fennáll a probléma, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>. "
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Ha Ön a kérelmező, akkor <a href=\"{{url}}\">bejelentkezhet</a> az üzenet megtekintéséhez."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Ha ön az igénylő, az igénylés megtekintéséhez <a href=\"{{url}}\">bejelentkezhet</a>. "
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Ha ön {{user_link}}, kérjük, "
@@ -1651,9 +1661,6 @@ msgstr "Régóta lejárt"
 
 msgid "Made between"
 msgstr "Készült:"
-
-msgid "Make a batch request"
-msgstr "Készítsen kötegelt kérést"
 
 msgid "Make a request"
 msgstr "Új igénylés"
@@ -1901,9 +1908,6 @@ msgstr "Csak az adatgazda válaszolhat erre az igénylésre, de nem található 
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "Csak a fiók e-mail tokennel történő megerősítése és a helyes egyszeri jelszó megadása teszi lehetővé a fiók jelszavának megváltoztatását."
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Vagy készítsen <a href=\"{{url}}\">kötegelt kérelmet </a> egyszerre <strong>több jogosultság</strong> számára."
-
 msgid "Original request sent"
 msgstr "Eredeti igénylés elküldve "
 
@@ -1969,9 +1973,6 @@ msgstr "Kérjük, hajtsa végre az igénylések besorolását. "
 
 msgid "Please"
 msgstr "Kérjük, "
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Kérjük <a href=\"{{url}}\">lépjen velünk kapcsolatba </a>ha van bármilyen kérdése."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Kérjük, <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>, hogy kijavítsuk a hibát. "
@@ -2152,6 +2153,9 @@ msgstr "Írja le nyomon követési üzenetét, amelyben szerepelnek az alábbi p
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Kérjük, nagybetűk és kisbetűk használatával írja le üzenetét. Így a szöveget mások is egyszerűbben el tudják olvasni. "
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Hívja fel a figyelmet az ön által hasznosnak tartott <strong>kapcsolódó információkra</strong>, kampányokra vagy fórumokra!"
@@ -2545,6 +2549,9 @@ msgstr "Profilkép beállítása "
 msgid "Share on Facebook"
 msgstr "Megosztás a Facebookon"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "Ossza meg kötegelt kérését"
 
@@ -2912,10 +2919,10 @@ msgstr "Az utolsó felhasználó az utolsó napon jött létre"
 msgid "The last user was created over a day ago"
 msgstr "Az utolsó felhasználó több mint egy napja jött létre"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2956,12 +2963,6 @@ msgstr "Az igénylés <strong>sikeres volt</strong>. "
 
 msgid "The request was refused by the public authority"
 msgstr "Az adatgazda az igénylést elutasította"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"A megtekinteni kívánt igénylés el lett távolítva. Ennek\n"
-"különböző okai lehetnek, de erről bővebb információval itt nem szolgálhatunk. Amennyiben kérdése van, <a\n"
-"    href=\"{{url}}\">lépjen velünk kapcsolatba</a>. "
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Az igénylő valami miatt felhagyott igénylésével"
@@ -3026,9 +3027,6 @@ msgstr "Ezután kiléphet ebből a projektből"
 msgid "Then you can log into the administrative interface"
 msgstr "Ezután bejelentkezhet az adminisztrátori interfészre"
 
-msgid "Then you can make a batch request"
-msgstr "Ezután kötegelt kérést tehet"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Ezután elvégezheti az igénylés besorolását. "
 
@@ -3086,6 +3084,9 @@ msgstr "Jelenleg nincsenek besorolási kérelmek. Nagyszerű munka!"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "Jelenleg nincsenek kivonatolási kérelmek. Nagyszerű munka!"
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "{{count}} új hozzászólás érkezett a(z) {{law_used_short}} igényléséhez. A hivatkozásra kattintva elolvashatja ezeket. "
 
@@ -3131,11 +3132,14 @@ msgstr "<strong>Nem rendelkeznek</strong> az információval <small>(de lehet, h
 msgid "They have been given the following explanation:"
 msgstr "A következő magyarázatot kapták: "
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Nem válaszoltak az ön {{title}} tárgyú {{law_used_short}} igénylésére, pedig a jogszabály ezt előírja"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "Nem válaszoltak a {{law_used_short}} {{title}} kérelmére, ahogy azt általában a törvény előírja"
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "Még mindig nem válaszoltak a {{law_used_short}} {{title}} kérelmére, ahogy azt általában a törvény előírja."
@@ -3148,6 +3152,18 @@ msgstr "Ezt a fiókot lezárták."
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "Ezt a megjegyzést a rendszergazda figyelmébe ajánljuk"
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "Ez a hatóság nem tartozik az FOI törvény hatálya alá, így jogilag nem köteles válaszolni"
@@ -3175,10 +3191,8 @@ msgstr "Ez a közérdekűadat-igénylés egyszerű szöveges változata \"{{requ
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Ez a közérdekűadat-igénylés csatolmányának HTML formátumú változata "
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"Ennek az a magyarázata, hogy a(z) {{title}} igénylés már régi,\n"
-"amelyre jelölése miatt már nem érkezik válasz. "
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Ez az ön saját igénylése, így automatikusan e-mail üzenetet kap, ha válasz érkezik. "
@@ -3198,17 +3212,17 @@ msgstr "Ezt az üzenetet elrejtették."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Ezt az üzenetet elrejtették. Több oka is lehet annak, hogy ezt megtettük, de sajnos nem tudunk pontosabbat mondani."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "Ezt az üzenet el lett küldve."
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Ennek az üzenetnek a feltűnősége „rejtett”. Csak azért láthatod, mert szuper felhasználóként vagy bejelentkezve."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Ennek az üzenetnek a feltűnősége „rejtett”. {{reason}} Csak azért láthatod, mert szuper felhasználóként vagy bejelentkezve."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Ez az üzenet rejtett, így csak Ön, a kérelmező láthatja. Kérjük, <a href=\"{{url}}\">vegye fel velünk a kapcsolatot</a> ha nem tudja, miért."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Ez az üzenet rejtett, így csak Ön, a kérelmező láthatja. {{reason}}"
@@ -3244,13 +3258,16 @@ msgstr "Ennek az igénylésnek <strong>ismeretlen az állapota</strong>. "
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr "Ezt a kérést lezártuk <strong>az új levelezés előtt</strong>. <a href=\"{{help_contact_url}}\">Vegye fel velünk a kapcsolatot</a> ihogy újra meg kell nyitnia."
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Ezt az igénylést <strong>jelentették</strong> az adminisztrátornak (valószínűleg azért, mert zaklató jellegű vagy személyes információra irányult)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Ezt az igénylést <strong>visszavonta</strong> az azt benyújtó személy. \n"
 "        \t   Előfordulhat, hogy az alábbi levelezésben megtalálja ennek magyarázatát."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "Ezt a kérést nyilvánossá tették a {{site_name}} webhelyen."
@@ -3273,15 +3290,14 @@ msgstr "Az adminisztrátor erre az igénylésre \"új választ senki sem küldhe
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Erre az igénylésre szokatlan válasz érkezett, és emiatt azt a {{site_name}} csapatának <strong>meg kell vizsgálnia</strong>. "
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Ennek az igénylésnek a népszerűsége el van 'rejtve'. Csak azért láthatja, mert kiemelt felhasználóként\n"
-"    jelentkezett be. "
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Ez az igénylés el van rejtve, és azt kizárólag az igénylő láthatja. Ha nem tudja ennek okát,\n"
-"   <a href=\"{{url}}\">lépjen velünk kapcsolatba</a>"
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr "Ez a kérelem mostantól nyilvánosan elérhető a következőn keresztül: {{public_url}}"
@@ -3377,10 +3393,8 @@ msgstr "{{site_name}} weboldalon a(z) '{{public_body_name}}' részére küldött
 msgid "To follow the request '{{request_title}}'"
 msgstr "A(z) '{{request_title}}' igénylés követése"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"A weboldal rendben tartása érdekében valaki frissítette az ön által a(z) {{public_body}} adatgazda részére benyújtott \n"
-"{{law_used_full}} {{title}} című igénylést. A frissítés következtében ennek állapota: \"{{display_status}}\". Ha nem ért egyet ezzel a besorolással, frissítse ön is az állapotot olyan értékre, amely ön szerint pontosabb. "
 
 msgid "To join this project"
 msgstr "Csatlakozni ehhez a projekthez"
@@ -3393,9 +3407,6 @@ msgstr "Ha tájékoztatni szeretne mindenkit, kattintson a hivatkozásra, majd j
 
 msgid "To log into the administrative interface"
 msgstr "Bejelentkezés az adminisztrátori interfészre"
-
-msgid "To make a batch request"
-msgstr "Kötegelt kérés elkészítéséhez"
 
 msgid "To play the request categorisation game"
 msgstr "Ha osztályozni szeretné az igénylést "
@@ -4183,8 +4194,8 @@ msgstr "Hatóság felvételére vonatkozó kérelmét elküldtük. Köszönöm, 
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "{{public_body_name}} címének frissítésére vonatkozó kérését elküldtük. Köszönöm, hogy felvetted a kapcsolatot! Hamarosan jelentkezünk."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Igénylésének címe: {{info_request}}. Ha megkapta az információt, és ezt közzéteszi, azzal segít nekünk is, hogy követni tudjuk az eseményeket "
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Kéréseit hamarosan <strong>elküldjük</strong>!"
@@ -4326,6 +4337,9 @@ msgstr "megjegyzések"
 
 msgid "complete"
 msgstr "befejezett"
+
+msgid "contact us"
+msgstr ""
 
 msgid "delivered"
 msgstr "kézbesített"

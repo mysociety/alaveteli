@@ -1,0 +1,31 @@
+<div class="row">
+  <% if notes.size > 0 %>
+    <table class="table table-condensed table-hover span12 censor-rule-list">
+      <tr>
+        <th>ID</th>
+        <th>Notable ID</th>
+        <th>Notable type</th>
+        <th>Notable tag</th>
+        <th>Actions</th>
+      </tr>
+
+      <% notes.each do |note| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td class="id"><%= h note.id %></td>
+          <td class="notable_id"><%= h note.notable_id %></td>
+          <td class="notable_type"><%= h note.notable_type %></td>
+          <td class="notable_tag"><%= h note.notable_tag %></td>
+          <td><%= link_to "Edit", edit_admin_note_path(note) %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p class="span12">None yet.</p>
+  <% end %>
+</div>
+
+<div class="row">
+  <p class="span12">
+    <%= link_to "New note", new_admin_note_path(notable_type: notable.class, notable_id: notable), class: "btn btn-info" %>
+  </p>
+</div>

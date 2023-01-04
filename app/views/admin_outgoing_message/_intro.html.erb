@@ -1,0 +1,8 @@
+<% @title = "Outgoing message #{outgoing_message.id} of FOI request '#{outgoing_message.info_request.title}'" %>
+
+<h1>Outgoing message <%= outgoing_message.id %></h1>
+
+<ul class="breadcrumb">
+  <li>FOI request: <%= both_links(outgoing_message.info_request) %> <span class="divider">/</span></li>
+  <li class="active">Message: <%= both_links(outgoing_message) %></li>
+</ul>

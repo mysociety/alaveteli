@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Amit Shrestha <amitshrestha37@gmail.com>, 2017
 # Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
@@ -62,7 +65,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Yudeep Rajbhandari <endlessveins@gmail.com>, 2017\n"
 "Language-Team: Nepali (http://www.transifex.com/mysociety/alaveteli/language/n"
@@ -601,6 +604,9 @@ msgstr "यस पानाको पुच्छारमा, उनीहर�
 
 msgid "Attachment (optional):"
 msgstr "सङ्लग्न (ऐच्छिक):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "सङ्लग्न:"
@@ -1428,11 +1434,14 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "यदि तपाइलाइ अझै समस्या भैरहेको छ भने, कृपया <a href=\"{{url}}\">हामीलाइ सम्पर्क गर्नुहोला</a>।"
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "यदि तपाइ अनुरोधकर्ता हो भने, सन्देश हेर्नको लागि <a href=\"{{url}}\">साइन इन</a> गर्न सक्नुहुन्छ।"
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "यदि तपाइ अनुरोधकर्ता हो भने, अनुरोध हेर्नको लागि <a href=\"{{url}}\">साइन इन</a> गर्न सक्नुहुन्छ।"
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "यदि तपाइ {{user_link}} हो भने, कृपया"
@@ -1645,9 +1654,6 @@ msgstr "लामो बाँकी । "
 
 msgid "Made between"
 msgstr "बिच"
-
-msgid "Make a batch request"
-msgstr "एक ब्याच अनुरोध गरनुहोस।"
 
 msgid "Make a request"
 msgstr "अनुरोध गरनुहोस"
@@ -1895,9 +1901,6 @@ msgstr "केवल अधिकारिक निकायले यस अ�
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "सही एक समय पासकोड आफ्नो खाता पासवर्ड अनुमति दिन्छ इमेल टोकन मार्फत आफ्नो खाता पुष्टि र प्रवेश मात्र सही संयोजन परिवर्तन गर्न।"
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "अथवा धेरै <strong>आधिकारिक निकायहरूलाई</strong> एकैसाथ <a href=\"{{url}}\">ब्याच अनुरोध</a> गर्नुहोस्।"
-
 msgid "Original request sent"
 msgstr "मूल अनुरोध पठाइयो"
 
@@ -1963,9 +1966,6 @@ msgstr "अनुरोध गरिएको  वर्गीकरण खे�
 
 msgid "Please"
 msgstr "कृपया"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "तपाईँसँग केही प्रश्नहरू भए कृपया <a href=\"{{url}}\">मा सम्पर्क गर्नुहोला |"
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "कृपया  <a href=\"{{url}}\"> हामी संग सम्पर्कमा रहनुहोस </a>ताकि हामी  यसलाई समाधान गर्न सक्छौ"
@@ -2135,6 +2135,9 @@ msgstr "कृपया तलको आवश्यक स्पष्टिक
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "कृपया आफ्नो सन्देश राजधानी र कम अक्षरहरूको मिश्रण प्रयोगगरी लेख्नुहोस्। यसले अरूलाई पढ्नको लागि सजिलो बनाउँछ।"
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "पोइन्ट गर्छ <strong>सम्बन्धित जानकारी</strong>, अभियान वा  फोरम जुनचाई काम लाग्नसक्छ। "
@@ -2528,6 +2531,9 @@ msgstr "अाफ्नो प्रोफाईल तस्बिर राख
 msgid "Share on Facebook"
 msgstr "फेस्‌बूकमा बाँड्नुहोस्।  "
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "श्रृंखलाबद्ध अनुरोध साझेदारी गर्नुहोस् ।"
 
@@ -2887,10 +2893,10 @@ msgstr "पछिल्लो प्रयोगकर्ता अन्ति�
 msgid "The last user was created over a day ago"
 msgstr "अन्तिम प्रयोगकर्ता एकदिन अगाडी बनेको थियो "
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2931,11 +2937,6 @@ msgstr "अनुरोध <strong> सफल भयछ </strong>"
 
 msgid "The request was refused by the public authority"
 msgstr "सार्बाजानिक निकायद्वारा अनुरोध अस्विकार गरिएको छ "
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"यो सन्देश लुकाइएको छ। यसका धेरै कारनहरु हुन सक्छन, खुलासा गर्न नमिलेको मा माफी मग्दचम । कृपया हाम्लाई   <a\n"
-" href=\"{{url}}\">contact us</a> कुनै कुरा सोध्नछ भने ।"
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "अनुरोधकर्ताद्वारा यो अनुरोध केहि कारणबस निषेध गरिएको छ"
@@ -2994,9 +2995,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "त्यस पछि तपाईँ व्यवस्थापन इन्टरफेसमा लग इन गर्न सक्नुहुन्छ"
 
-msgid "Then you can make a batch request"
-msgstr "त्यस पछि तपाईँ लामवद्ध अनुरोध गर्न सक्नुहुन्छ"
-
 msgid "Then you can play the request categorisation game."
 msgstr "त्यस पछि तपाईँ अनुरोध वर्गिकरण खेल सुरु गर्न सक्नुहुन्छ।"
 
@@ -3054,6 +3052,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "There are {{count}} new annotations on your {{law_used_short}} request. यो लिङ्कमा क्लिक गरेर उहाँले के लेख्नु भयो भ्ने हेर्नुहोस्"
 
@@ -3099,11 +3100,14 @@ msgstr "तिनीहरूसंग <strong>जानकारी</strong> �
 msgid "They have been given the following explanation:"
 msgstr "उनीहरूलाई उल्लिखित विवरण दिएयको छ:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "सामान्य कानुनी जरुरत अनुसारको {{law_used_short}} अनुरोधलाई{{title}}  , उनीहरूले जवाफ द्रुतरुपमा जवाफ दिएका छैनन् |"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3115,6 +3119,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3143,10 +3159,8 @@ msgstr "यो \"{{request_title}}\" को सादा पाठ संस्�
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "यो सूचनाकको हकक अनुरोधको  संलग्नको HTML संस्करण हो"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"{{title}} पुरानो अनुरोध भएकाले\n"
-"नया प्रतिक्रिया लिन नमिल्ने भनेर चिनाइएको छ"
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "यो तपाइको आफ्नै अनुरोध हो, त्यसैले जब नया प्रतिक्रिया आउछ तपाइलाई स्वोचालित रुपमा इमेल गरिनेछ |"
@@ -3166,17 +3180,17 @@ msgstr "यो सन्देश लुकाइएको छ।"
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "यो सन्देश लुकाइएको छ। There are various reasons why we might have done this, sorry we can't be more specific here."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "यो सन्देश पठाइएको छ|"
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "यो सन्देशको प्रतिष्ठा 'लुकईएको' छ | तपाई super user को रुपमा लग इन हुनुभएकाले मात्र तपाईले यो देख्न सक्नु भएको छ | "
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "यो सन्देशको प्रतिष्ठा 'लुकईएको' छ | {{reason}} तपाई super user को रुपमा लग इन हुनुभएकाले मात्र तपाईले यो देख्न सक्नु भएको छ | "
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "यो सन्देश लुकाइएको छ ,ताकि तपाईं,अनुरोध्कर्ताले हेर्न सक्नुहुन्छ . यदि  तपाईं पक्का हुनुहुन्न  भने कृपया   <a href=\"{{url}}\">हामीलाई सम्पर्क गर्नुहोस् </a> "
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "यो सन्देश लुकाइएको छ , त्यसैले आभेधकले हेर्न सक्छ  {{reason}}"
@@ -3212,13 +3226,16 @@ msgstr "यो अनुरोध को  <strong>अज्ञात स्थ�
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "प्रशासक को ध्यान चाहिएको संधर्वमा यो अनुरोधलाई <strong>गुनासो</strong> गरिएको छ (सायद किनभने,यो  रिसउठ्दो छ, वा यो व्यक्तिगत जानकारी को अनुरोध हुनसक्छ )"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "तपाइको अनुरोध बनाउने कर्ताले <strong> फिर्ता लिएको</strong> छ |\n"
 " यसको व्याख्याको पत्राचार तल गरिएको छ | "
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3241,13 +3258,14 @@ msgstr "यो अनुरोध \"कसैको नयाँ  प्रत�
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "यस अनुरोधमा एक असामान्य प्रतिक्रिया छ, र  {{site_name}} टोलीको <strong> ध्यान आवश्यक छ । </strong> "
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"यो अनुरोधको प्रतिष्ठा 'लुकेाइएको' छ। तपाई एक सुपर प्रयोगकर्ताको रूपमा लग इन हुनुभएकोले\n"
-" यसलाइ तपाइले मात्र देख्नुभएको छ।"
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr " यो अनुरोध लुकेको छ, त्यसैले तपाईं अनुरोधकर्ताले मात्र यसलाई हेर्न सक्नुहुनेछ ।कृपया तपाईं निरधक्क हुनुहुन्न भने हामीलाई \\ n <a href=\"{{url}}\"> सम्पर्क </a> गर्नुहोला ।"
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3341,11 +3359,8 @@ msgstr "आधिकारिक निकाय '{{public_body_name}}' मा {
 msgid "To follow the request '{{request_title}}'"
 msgstr "अनुरोध पालनागर्नको लागि '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"साइटलाई सफा राख्न, कसैले  \n"
-"{{law_used_full}} \n"
-" तपाईँले  {{public_body}} लाई गर्नु भएको अनुरोध {{title}} , लाई \"{{display_status}}\" मा परिवर्तन गर्नु भएको छ, यदि तपाईँ यससँग सहमत हुनुहुन्न भने कृपया यस अनुरोधको लागि मिल्दो वर्गिकरण राख्नुहोस्"
 
 msgid "To join this project"
 msgstr ""
@@ -3358,9 +3373,6 @@ msgstr "सबैलाई थाहा दिनको लागि, यो ल
 
 msgid "To log into the administrative interface"
 msgstr "प्रवन्धकीय इन्टरफेसमा लगइन गर्नको लागि"
-
-msgid "To make a batch request"
-msgstr "एक मुष्ट अनुरोध पेश गर्न को लागि"
 
 msgid "To play the request categorisation game"
 msgstr "अनुरोध वर्गीकरण खेल खेल्नको लागि "
@@ -4130,8 +4142,8 @@ msgstr "आधिकारिक निकाय थप्नको लागि
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "तपाइको {{public_body_name}}को ठेगाना अद्यावधिक गर्ने अनुरोध पठाइएको छ। हामीसंग सम्पर्कमा रहनुभएकोमा धन्यवाद! हामी चाँडै तपाइहरुलाइ प्रतिक्रिया दिनेछाै।"
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "तपाईको अनुरोधलाइ {{info_request}} भनिएको थियो। तपाइले जानकारी पाउनुभयो कि भएन भनेर सबैलाइ थाहा दिदा हामीलाइ ट्याबहरू खुल्ला राख्न सहयोग गर्छ"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "तपाइको अनुरोधहरू छिटैनै <strong>पठाईने छ</strong>"
@@ -4273,6 +4285,9 @@ msgstr "टिप्पणीहरू"
 
 msgid "complete"
 msgstr "पूर्ण"
+
+msgid "contact us"
+msgstr ""
 
 msgid "delivered"
 msgstr "उपलब्ध गराइयो"

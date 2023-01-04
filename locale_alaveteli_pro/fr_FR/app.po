@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:01+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Laurent S, 2022\n"
 "Language-Team: French (France) (https://www.transifex.com/mysociety/teams/3352"
@@ -978,6 +978,9 @@ msgstr "Désolé, quelque chose s'est mal passé lors de l'actualisation des par
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr "Désolé, un problème est survenu lors de la mise à jour des paramètres de confidentialité de vos demandes, merci de réessayer."
 
+msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
+msgstr ""
+
 msgid "Sort by"
 msgstr "Classé par"
 
@@ -1203,8 +1206,8 @@ msgstr "Nous essaierons de facturer votre carte à nouveau au cours des prochain
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "Nous avons essayé de facturer votre carte, mais le paiement a échoué."
 
-msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Lorsqu'une demande est privée, elle ne sera uniquement visible sur {{site_name}} uniquement à l'issue de la période d'embargo sélectionnée. Les administrateurs de {{pro_site_name}} pourront voir votre demande mais ils ne le feront qu'au cas où ils doivent régler un problème avec  celle-ci (par exemple une erreur d'adressage à l'autorité publique). Ils ne révéleront à personne le contenu de votre demande ou de toute réponse obtenue. Il est toutefois possible que l'autorité publie votre demande de son côté."
+msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr ""
 
 msgid "When the current billing period ends:"
 msgstr "Lorsque la période de facturation se termine:"

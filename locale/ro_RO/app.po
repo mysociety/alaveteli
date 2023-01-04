@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Andra Ciuraru <andra.ciuraru@gmail.com>, 2016
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
 # Andrei Cristian Petcu <andreip@posteo.net>, 2012-2013
@@ -57,7 +60,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Vitalie Zama <vitalie.zama@gmail.com>, 2016\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/mysociety/alavetel"
@@ -609,6 +612,9 @@ msgstr "În josul acestei pagini, scrie un răspuns către aceștia, prin care s
 
 msgid "Attachment (optional):"
 msgstr "Ataşamente (optional):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Ataşament:"
@@ -1449,11 +1455,14 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Dacă aveţi în continuare probleme, vă rugăm <a href=\"{{url}}\"> să ne contactaţi</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Dacă sunteți solicitantul, atunci vă poți <a href=\"{{url}}\">autentifica</a> pentru a vedea mesajul."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Dacă sunteţi solicitantul, atunci trebuie să <a href=\"{{url}}\">vă autentificați</a> pentru a vedea solicitarea."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Dacă sunteţi {{user_link}}, vă rugăm"
@@ -1677,9 +1686,6 @@ msgstr "Aşteptat de mult timp"
 
 msgid "Made between"
 msgstr "Făcut între"
-
-msgid "Make a batch request"
-msgstr "Creează un grup de solicitări"
 
 msgid "Make a request"
 msgstr "Creează o solicitare"
@@ -1927,9 +1933,6 @@ msgstr "Numai autoritatea poate să răspundă la această cerere.  Nu există o
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "Doar combinația corectă din confirmarea contului tău printrun cod email și introducerea parolei de unică folosință îți va permite schimbarea parolei."
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Sau creează un <a href=\"{{url}}\">grup de solicitări</a> către <strong>mai multe autorități</strong> în același timp"
-
 msgid "Original request sent"
 msgstr "Solicitarea originală trimisă"
 
@@ -1995,9 +1998,6 @@ msgstr "Jucaţi categorisirea cerută!"
 
 msgid "Please"
 msgstr "Vă rugăm"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Te rugăm <a href=\"{{url}}\">contactează-ne</a> dacă ai întrebări"
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Vă rugăm <a href=\"{{url}}\"> staţi în legătură</a>  cu noi, ca să o rezolvăm."
@@ -2178,6 +2178,9 @@ msgstr "Te rugăm să scrii mesajul tău de follow up conţinând clarificările
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Te rugăm să scrii mesajul tău utilizând atât litere mici cât şi litere mari, după caz. Astfel va fi mai uşor de citit."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Îndrumaţi către <strong>informaţii în legătură cu</strong>, campanii sau forumuri care ar putea fi utile."
@@ -2572,6 +2575,9 @@ msgstr "Alege poza de profil"
 msgid "Share on Facebook"
 msgstr "Publică pe Facebook"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "Publică grupul de solicitări"
 
@@ -2932,10 +2938,10 @@ msgstr "Ultimul utilizator a fost creat în ziua curentă"
 msgid "The last user was created over a day ago"
 msgstr "Ultimul utilizator a fost creat cu mai mult de o zi în urmă"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2976,12 +2982,6 @@ msgstr "Solicitarea a fost <strong>reuşită</strong>"
 
 msgid "The request was refused by the public authority"
 msgstr "Solicitarea a fost refuzată de către autoritatea publică"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
-"Solicitarea pe care ai încercat să o vizualizezi a fost ștearsă. Există \n"
-"diverse motive pentru care am fi ales să faem asta, ne cerem scuze că nu putem oferi detalii exacte. Te rugăm <a\n"
-" href=\"{{url}}\">să ne contactezi</a> dacă ai întrebări."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Solicitantul şi-a abandonat solicitarea din anumite motive"
@@ -3046,9 +3046,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "Apoi vă puteţi conecta la interfaţa administrativă"
 
-msgid "Then you can make a batch request"
-msgstr "Creează un grup de solicitări"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Apoi puteţi să jucaţi jocul de categorisire  a cererii."
 
@@ -3106,6 +3103,9 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Sunt {{count}} adnotări noi la solicitarea ta {{law_used_short}}. Urmează acest link pentru a vedea ce au scris."
 
@@ -3151,11 +3151,14 @@ msgstr "Ei  <strong>nu au</strong> informaţiile <small>(probabil vor spune cine
 msgid "They have been given the following explanation:"
 msgstr "Ei au oferit următoarea explicaţie"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Ei nu au răspuns prompt la solicitarea ta {{title}}  {{law_used_short}}  aşa cum este  prevăzut in mod normal prin lege"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3167,6 +3170,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3195,10 +3210,8 @@ msgstr "Aceasta este o versiune text-simplu a solicitării  \"{{request_title}}\
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Aceasta este o versiune HTML  a unui ataşament la solicitarea de acces la informații"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"Aceasta este din cauză că  {{title}} este o solicitare veche ce a fost \n"
-"marcată pentru a nu mai primi răspunsuri."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Aceasta este solicitarea proprie, aşa că ți se va comunica automat prin email când va sosi un răspuns."
@@ -3218,17 +3231,17 @@ msgstr "Această solicitare a fost ascunsă"
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Acest mesaj a fost ascuns. Există motive variate pentru care am făcut asta, ne cerem scuze dar nu putem fi mai specifici."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "Aceasta solicitare a fost expediata."
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Această solicitare este evidenţiată ca \"ascunsă\". O puteți vedea doar pentru că sunteți autentificat ca super utilizator."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Această solicitare este evidenţiată ca \"ascunsă\". O puteți vedea doar pentru că sunteți autentificat ca super utilizator."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Acest răspuns este ascuns, astfel încât doar solicitantul poate avea acces la el. Vă rugăm <a href=\"{{url}}\">să ne contactați</a> dacă sunteți sigur de ce."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Acest mesaj este ascuns, astfel încât doar dumneavoastră, solicitantul, să îl puteți vedea. {{reason}}"
@@ -3265,13 +3278,16 @@ msgstr "Aceasta cerere are un status <strong>necunoscut</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Această cerere a fost <strong>raportată  </strong> ca având nevoie de  atenţia administratorului (probabil pentru că este ofensatoare sau solicită informaţii personale)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "Această solicitare a fost <strong>retrasă</strong> de către persoana care a făcut-o. \n"
 " S-ar putea să fie o explicaţie în corespondenţa de mai jos."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3294,15 +3310,14 @@ msgstr "Această cerere a fost setată de către administrator să \" nu permit�
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Această cerere are un raăspuns neobişnuit şi <strong> necesită  atenţie </strong> din partea echipei {{site_name}} ."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Această solicitare este evidenţiată ca \"ascunsă\". O poţi vedea doar pentru că eşti autentificat \n"
-" ca super user."
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"Acest răspuns este ascuns, astfel încât doar solicitantul poate avea acces la el. Te rugăm\n"
-" <a href=\"{{url}}\">să ne contactezi</a> dacă nu eşti sigur de ce."
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3398,10 +3413,8 @@ msgstr "Pentru  a urmări solicitările făcute utilizând  {{site_name}} către
 msgid "To follow the request '{{request_title}}'"
 msgstr "Pentru a urmări solicitarea '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"Pentru a ne ajuta să ţinem site-ul curat, altcineva a actualizat statusul \n"
-"{{law_used_full}}solicitării{{title}} pe care ai făcut-o către {{public_body}}, în \"{{display_status}}\". Dacă nu eşti de acord cu această categorisire, te rugăm să actualizezi statusul din nou  în ceea ce consideri că este mai potrivit."
 
 msgid "To join this project"
 msgstr ""
@@ -3414,9 +3427,6 @@ msgstr "Pentru a afla orişicine, urmaţi acest link şi selectaţi căsuţa cor
 
 msgid "To log into the administrative interface"
 msgstr "Pentru a vă conecta la interfaţa administrativă"
-
-msgid "To make a batch request"
-msgstr "Pentru a crea un grup de solicitări"
 
 msgid "To play the request categorisation game"
 msgstr "Pentru a juca jocu categorisirea cererii"
@@ -4210,8 +4220,8 @@ msgstr "Solicitarea ta de a adăuga o instituție a fost trimisă. Îți mulțum
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Solicitarea ta de a actualiza adresa  {{public_body_name}} a fost trimisă. Îți mulțumim! Revenim în cel mai scurt timp."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Solicitarea ta a fost numită {{info_request}}. Permiţând tuturor să afle dacă ai obţinut informaţiile, ne ajuţi să menţinem o evidenţă"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Solicitarea ta va fi <strong> transmisă </strong> în cel mai scurt timp!"
@@ -4354,6 +4364,9 @@ msgid "comments"
 msgstr "comentarii"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

@@ -177,40 +177,15 @@ class PublicBodyController < ApplicationController
   #
   # Returns all public bodies (except for the internal admin authority) as CSV
   def list_all_csv
-    # FIXME: this is just using the download directory for zip
-    # archives, since we know that is allowed for X-Sendfile and
-    # the filename can't clash with the numeric subdirectory names
-    # used for the zips.  However, really there should be a
-    # generically named downloads directory that contains all
-    # kinds of downloadable assets.
-    download_directory = File.join(InfoRequest.download_zip_dir, 'download')
-    FileUtils.mkdir_p(download_directory)
-    output_leafname = 'all-authorities.csv'
-    output_filename = File.join(download_directory, output_leafname)
-    # Create a temporary file in the same directory, so we can
-    # rename it atomically to the intended filename:
-    tmp = Tempfile.new(output_leafname, download_directory)
-    tmp.close
-
-    # Create the CSV
-    csv = PublicBodyCSV.new
-    PublicBody.includes(:translations, :tags).visible.find_each do |public_body|
-      next if public_body.site_administration?
-      csv << public_body
-    end
-
-    # Export all the public bodies to that temporary path, make it readable,
-    # and rename it
-    File.open(tmp.path, 'w') { |file| file.write(csv.generate) }
-    FileUtils.chmod(0644, tmp.path)
-    File.rename(tmp.path, output_filename)
+    output = Rails.root.join('cache', 'all-authorities.csv')
+    return head :no_content unless output.exist?
 
     # Send the file
-    send_file(output_filename,
-              :type => 'text/csv; charset=utf-8; header=present',
-              :filename => 'all-authorities.csv',
-              :disposition =>'attachment',
-              :encoding => 'utf8')
+    send_file(output,
+              type: 'text/csv; charset=utf-8; header=present',
+              filename: File.basename(output),
+              disposition: 'attachment',
+              encoding: 'utf8')
   end
 
   # Type ahead search

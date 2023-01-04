@@ -37,9 +37,9 @@ require 'rexml/document'
 require 'zip'
 
 class IncomingMessage < ApplicationRecord
-  include AdminColumn
   include MessageProminence
   include CacheAttributesFromRawEmail
+  include Taggable
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
@@ -72,7 +72,6 @@ class IncomingMessage < ApplicationRecord
 
   after_destroy :update_request
   after_update :update_request
-  before_destroy :destroy_email_file
 
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
@@ -112,10 +111,6 @@ class IncomingMessage < ApplicationRecord
         self.save!
       end
     end
-  end
-
-  def destroy_email_file
-    raw_email.destroy_file_representation!
   end
 
   alias_method :valid_to_reply_to?, :valid_to_reply_to
@@ -579,6 +574,10 @@ class IncomingMessage < ApplicationRecord
     text.html_safe
   end
 
+  def get_body_for_indexing # rubocop:disable Naming/AccessorMethodName
+    return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
+    get_body_for_quoting
+  end
 
   # Returns text of email for using in quoted section when replying
   def get_body_for_quoting
@@ -622,6 +621,8 @@ class IncomingMessage < ApplicationRecord
   def _extract_text
     # Extract text from each attachment
     self.get_attachments_for_display.reduce('') { |memo, attachment|
+      return memo if Ability.guest.cannot?(:read, attachment)
+
       memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                        attachment.default_body,
                                                        attachment.charset)
@@ -634,11 +635,11 @@ class IncomingMessage < ApplicationRecord
 
   # Returns text for indexing
   def get_text_for_indexing_full
-    return get_body_for_quoting + "\n\n" + get_attachment_text_full
+    return get_body_for_indexing + "\n\n" + get_attachment_text_full
   end
   # Used for excerpts in search results, when loading full text would be too slow
   def get_text_for_indexing_clipped
-    return get_body_for_quoting + "\n\n" + get_attachment_text_clipped
+    return get_body_for_indexing + "\n\n" + get_attachment_text_clipped
   end
 
   # Has message arrived "recently"?

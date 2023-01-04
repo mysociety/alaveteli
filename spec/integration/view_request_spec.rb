@@ -126,7 +126,7 @@ RSpec.describe "When viewing requests" do
       using_session(admin_user) do
         browse_request(@info_request.url_title)
         expect(page).to have_content('hereisthetext')
-        expect(page).to have_content("This message has prominence 'hidden'.")
+        expect(page).to have_content('This message has prominence "hidden".')
         expect(page).to have_content("It is too irritating.")
         expect(page).to have_content("You can only see it because you are logged in as a super user.")
       end
@@ -170,8 +170,8 @@ RSpec.describe "When viewing requests" do
       using_session(admin_user) do
         browse_request(@info_request.url_title)
         expect(page).to have_content('hereisthetext')
-        expect(page).not_to have_content("This message has been hidden.")
-        expect(page).to have_content("This message is hidden, so that only you, the requester, can see it.")
+        expect(page).to have_content('This message has prominence "requester_only".')
+        expect(page).to have_content('You can only see it because you are logged in as a super user.')
       end
     end
 
@@ -213,8 +213,8 @@ RSpec.describe "When viewing requests" do
       using_session(admin_user) do
         browse_request(@info_request.url_title)
         expect(page).to have_content('Some information please')
-        expect(page).not_to have_content("This message has been hidden.")
-        expect(page).to have_content("This message is hidden, so that only you, the requester, can see it.")
+        expect(page).to have_content('This message has prominence "requester_only".')
+        expect(page).to have_content('You can only see it because you are logged in as a super user.')
       end
     end
 

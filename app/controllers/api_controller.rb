@@ -60,12 +60,13 @@ class ApiController < ApplicationController
 
     # Save the request, and add the corresponding InfoRequestEvent
     request.save!
-    request.log_event("sent",
-                      :api => true,
-                      :email => nil,
-                      :outgoing_message_id => outgoing_message.id,
-                      :smtp_message_id => nil
-                      )
+    request.log_event(
+      'sent',
+      api: true,
+      email: nil,
+      outgoing_message_id: outgoing_message.id,
+      smtp_message_id: nil
+    )
 
     request.set_described_state('waiting_response')
 
@@ -123,12 +124,13 @@ class ApiController < ApplicationController
       )
       @request.outgoing_messages << outgoing_message
       @request.save!
-      @request.log_event("followup_sent",
-                         :api => true,
-                         :email => nil,
-                         :outgoing_message_id => outgoing_message.id,
-                         :smtp_message_id => nil
-                         )
+      @request.log_event(
+        'followup_sent',
+        api: true,
+        email: nil,
+        outgoing_message_id: outgoing_message.id,
+        smtp_message_id: nil
+      )
     else
       # In the 'response' direction, i.e. what we (Alaveteli) regard as incoming
       attachment_hashes = []
@@ -152,11 +154,12 @@ class ApiController < ApplicationController
       if new_state
         # we've already checked above that the status is valid
         # so no need to check a second time
-        event = @request.log_event("status_update",
-                                   { :script => "#{@public_body.name} via API",
-                                     :old_described_state => @request.described_state,
-                                     :described_state => new_state,
-                                     })
+        event = @request.log_event(
+          'status_update',
+          script: "#{@public_body.name} via API",
+          old_described_state: @request.described_state,
+          described_state: new_state
+        )
         @request.set_described_state(new_state)
       end
     end
@@ -170,11 +173,12 @@ class ApiController < ApplicationController
 
     if InfoRequest.allowed_incoming_states.include?(new_state)
       ActiveRecord::Base.transaction do
-        event = @request.log_event("status_update",
-                                   { :script => "#{@public_body.name} on behalf of requester via API",
-                                     :old_described_state => @request.described_state,
-                                     :described_state => new_state,
-                                     })
+        event = @request.log_event(
+          'status_update',
+          script: "#{@public_body.name} on behalf of requester via API",
+          old_described_state: @request.described_state,
+          described_state: new_state
+        )
         @request.set_described_state(new_state)
       end
     else

@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
@@ -48,7 +51,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Yan Hin So <syhin812@gmail.com>, 2020\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alavete"
@@ -563,6 +566,9 @@ msgstr "在本頁底部，請寫下回覆以請求他們將之掃描進去（<a 
 
 msgid "Attachment (optional):"
 msgstr "附件（可選填寫）："
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "附件："
@@ -1363,11 +1369,14 @@ msgstr "如果你不滿公共機構的回應，你有權投訴（<a href=\"{{url
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "如果你仍遇到困難，請<a href=\"{{url}}\">聯絡我們</a>。"
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "如果你是申請人，你可以<a href=\"{{url}}\">登入</a>後檢視此訊息。"
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "如果你是申請人，你可以<a href=\"{{url}}\">登入</a>後檢視此索取資料要求。"
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "如果你是{{user_link}}，請"
@@ -1566,9 +1575,6 @@ msgstr "嚴重逾期。"
 
 msgid "Made between"
 msgstr "要求提出日期"
-
-msgid "Make a batch request"
-msgstr "提出多項要求"
 
 msgid "Make a request"
 msgstr "提出要求"
@@ -1816,9 +1822,6 @@ msgstr "只有公共機構可以回覆此要求，但是沒有「發件人」地
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "要成功更改帳戶密碼，必須同時藉使電郵代碼確認帳戶和輸入正確的單次有效密碼。"
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "或者一次過向<strong>多個公共機構</strong>提出<a href=\"{{url}}\">多項請求</a>。"
-
 msgid "Original request sent"
 msgstr "已發出原本的索取資料要求"
 
@@ -1884,9 +1887,6 @@ msgstr "參與要求分類遊戲！"
 
 msgid "Please"
 msgstr "請"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "如有任何問題，請<a href=\"{{url}}\">聯絡我們</a>。"
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "請與我們<a href=\"{{url}}\">保持聯絡</a>以便修復。"
@@ -2053,6 +2053,9 @@ msgstr "請在下面寫上跟進訊息以作澄清。"
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "在寫留言時，請使用標點符號，這使得其他人更容易閱讀。"
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "指向可能有用的<strong>相關信息</strong>，例如活動或論壇。"
@@ -2442,6 +2445,9 @@ msgstr "設立頭像"
 msgid "Share on Facebook"
 msgstr "分享至Facebook"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "分享你的多項要求"
 
@@ -2793,10 +2799,10 @@ msgstr "最後一位用戶在前一天建立"
 msgid "The last user was created over a day ago"
 msgstr "最後一位用戶在多於一天前建立"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2837,9 +2843,6 @@ msgstr "要求<strong>成功</strong>。"
 
 msgid "The request was refused by the public authority"
 msgstr "公共機構已拒絕要求"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "你嘗試瀏覽的要求已被刪除，箇中有不同原因，但很抱歉我們不能在此詳述。如有任何疑問，請<a href=\"{{url}}\">聯絡我們</a>。"
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "申請者因某些原因放棄此要求"
@@ -2898,9 +2901,6 @@ msgstr "然後你可以離開此項目"
 msgid "Then you can log into the administrative interface"
 msgstr "然後你可以登入管理介面"
 
-msgid "Then you can make a batch request"
-msgstr "然後你可以提出一批要求"
-
 msgid "Then you can play the request categorisation game."
 msgstr "然後你可以玩要求分類遊戲"
 
@@ -2958,6 +2958,9 @@ msgstr "現時沒有要求需作分類。做得好！"
 msgid "There are no requests to extract right now. Great job!"
 msgstr "現時不需要提取要求。做得好！"
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "你就{{law_used_short}}提出的要求有{{count}}個新備註。按入此連結查看他們寫了甚麼。"
 
@@ -3003,11 +3006,14 @@ msgstr "它們<strong>沒有</strong>所需的資料<small>（它們可能會告
 msgid "They have been given the following explanation:"
 msgstr "他們給予以下解釋："
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "他們尚未按法律要求盡快回覆你就{{law_used_short}}提出的請求{{title}}"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "他們尚未按法律要求回覆你就{{law_used_short}}提出的請求{{title}}"
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "他們尚未按法律要求回覆你就{{law_used_short}}提出的請求{{title}}"
@@ -3020,6 +3026,18 @@ msgstr "此賬戶已停用。"
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "已向管理員舉報這項備註，要求關注"
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "這個公共機構不受資訊自由法管制，因此法律上沒有責任回應"
@@ -3045,8 +3063,8 @@ msgstr "這是索取資料要求「{{request_title}}」的純文字版。最新�
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "這是索取資料要求的附件的HTML版本"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "因為{{title}}是項舊要求，已標為不再接收回覆。"
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "這是你的要求，所以你會自動收到新回覆的電郵通知。"
@@ -3066,17 +3084,17 @@ msgstr "此訊息已隱藏。"
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "已隱藏此訊息。我們有不同原因如此做，抱歉我們未能在此詳述。"
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "訊息已發出。"
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "已隱藏這訊息的重要部份。你只有以超級用戶身份登入才可以看到。"
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "已隱藏這訊息的重要部份。{{reason}}你只有以超級用戶身份登入才可以看到。"
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "已隱藏這訊息，因此只有身為申請者的你看得到。如你不肯定原因，請<a href=\"{{url}}\">聯絡我們</a>。"
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "已隱藏這訊息，因此只有身為申請者的你看得到。{{reason}}"
@@ -3110,11 +3128,14 @@ msgstr "此要求<strong>狀態不明</strong>。"
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr "這要求已<strong>不接受新回應</strong>。如你認為要重開此要求，<a href=\"{{help_contact_url}}\">聯絡我們</a>。"
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "<strong>已舉報</strong>此要求，請管理員注意（或因其無理纏繞，或要求索取個人資料）"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "提出此要求的人<strong>已撤走</strong>這項要求，相關解釋如下。"
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "這要求已公開刋於{{site_name}}。"
@@ -3137,11 +3158,14 @@ msgstr "管理員設定這要求「不容任何新回覆」"
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "這要求收到不尋常的回覆，請{{site_name}}團隊<strong>留意</strong>。"
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "已隱藏這訊息的重要部份。你只有以超級用戶身份登入才可以看到。"
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "已隱藏這訊息，因此只有身為申請者的你看得到。如你不肯定原因，請<a href=\"{{url}}\">聯絡我們</a>。"
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr "現可藉{{public_url}}查看這要求"
@@ -3227,8 +3251,8 @@ msgstr "利用{{site_name}}關注向公共機構「{{public_body_name}}」提出
 msgid "To follow the request '{{request_title}}'"
 msgstr "關注「{{request_title}}」的請求"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "為保持網站整齊，已有人更新你按{{law_used_full}}向{{public_body}}提出的要求的狀態至「{{display_status}}」。如你不同意此分類，請自行更新至你認為更準確的狀態。"
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr ""
 
 msgid "To join this project"
 msgstr "要加入此項目"
@@ -3241,9 +3265,6 @@ msgstr "要讓大家知道，請按此連結並選擇合適方格"
 
 msgid "To log into the administrative interface"
 msgstr "如要登入管理介面"
-
-msgid "To make a batch request"
-msgstr "如要提出多項要求"
 
 msgid "To play the request categorisation game"
 msgstr "如要參與要求分類遊戲"
@@ -3983,8 +4004,8 @@ msgstr "已發出新增公共機構的要求。感謝聯絡！我們會盡快回
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "你已通知我們更新{{public_body_name}}的電郵地址，我們會保持聯絡，儘快回覆。"
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "你的要求叫作{{info_request}}。讓大家知道你有否得到資訊，可以幫助保持標簽活躍"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "你的索取資料要求即將<strong>送出</strong>！"
@@ -4123,6 +4144,9 @@ msgstr "意見"
 
 msgid "complete"
 msgstr "完成"
+
+msgid "contact us"
+msgstr ""
 
 msgid "delivered"
 msgstr "已送達"

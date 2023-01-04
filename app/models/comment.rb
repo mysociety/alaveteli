@@ -21,7 +21,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ApplicationRecord
-  include AdminColumn
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -124,38 +123,6 @@ class Comment < ApplicationRecord
     text.html_safe
   end
 
-  def for_admin_column(complete = false)
-    if complete
-      columns = self.class.content_columns
-    else
-      columns = self.class.content_columns.map do |c|
-        c if %w(body visible created_at updated_at).include?(c.name)
-      end.compact
-    end
-
-    columns.each do |column|
-      name = column.name
-      yield(name.humanize, send(name), column.type.to_s, name)
-    end
-  end
-
-  def for_admin_event_column(event)
-    return unless event
-
-    columns = event.for_admin_column { |name, value, type, column_name| }
-
-    columns = columns.map do |c|
-      c if %w(event_type params_yaml created_at).include?(c.name)
-    end
-
-    columns.compact.each do |column|
-      yield(column.name.humanize,
-            event.send(column.name),
-            column.type.to_s,
-            column.name)
-    end
-  end
-
   def report_reasons
     [_('Annotation contains defamatory material'),
      _('Annotation contains personal information'),
@@ -177,14 +144,15 @@ class Comment < ApplicationRecord
 
       RequestMailer.requires_admin(info_request, user, message).deliver_now
 
-      info_request.
-        log_event('report_comment',
-                  comment_id: id,
-                  editor: user,
-                  reason: reason,
-                  message: raw_message,
-                  old_attention_requested: old_attention,
-                  attention_requested: true)
+      info_request.log_event(
+        'report_comment',
+        comment_id: id,
+        editor: user,
+        reason: reason,
+        message: raw_message,
+        old_attention_requested: old_attention,
+        attention_requested: true
+      )
     end
   end
 
@@ -198,10 +166,12 @@ class Comment < ApplicationRecord
 
   def hide(editor:)
     ActiveRecord::Base.transaction do
-      event_params = { comment_id: id,
-                       editor: editor.url_name,
-                       old_visible: visible?,
-                       visible: false }
+      event_params = {
+        comment_id: id,
+        editor: editor.url_name,
+        old_visible: visible?,
+        visible: false
+      }
 
       update!(visible: false)
       info_request.log_event('hide_comment', event_params)

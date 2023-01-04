@@ -134,16 +134,6 @@ module AlaveteliConfiguration
     # rubocop:enable Layout/LineLength
   end
 
-  def self.raw_emails_location
-    warn <<~DEPRECATION.squish
-      [DEPRECATION] AlaveteliConfiguration.raw_emails_location will be removed
-      in 0.42. You should have `ActiveStorage` configured but you still haven't
-      migrated all your old files. Please run `bin/rails storage:migrate` to
-      migrate
-    DEPRECATION
-    super
-  end
-
   def self.method_missing(name)
     key = name.to_s.upcase
     if DEFAULTS.has_key?(key.to_sym)

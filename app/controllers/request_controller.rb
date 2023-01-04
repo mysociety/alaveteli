@@ -569,6 +569,7 @@ class RequestController < ApplicationController
         next unless can?(:read, message)
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
+          next unless can?(:read, attachment)
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
             body = message.apply_masks(attachment.default_body, attachment.content_type)

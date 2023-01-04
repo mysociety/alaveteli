@@ -1,57 +1,79 @@
-<h1>Edit outgoing message</h1>
+<%= render partial: 'intro', locals: { outgoing_message: @outgoing_message } %>
 
 <%= foi_error_messages_for :outgoing_message %>
 
+<%= render partial: 'admin_outgoing_message/admin_columns',
+           locals: { outgoing_message: @outgoing_message } %>
+
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'put' do %>
-  <div class="control-group">
-    <label class="control-label" for="outgoing_message_prominence"> Prominence</label>
-    <div class="controls">
-      <%= select('outgoing_message', "prominence", OutgoingMessage.prominence_states) %>
-    </div>
-  </div>
+  <fieldset class="form-horizontal">
+    <legend>Attributes</legend>
+      <div class="control-group">
+        <label class="control-label" for="outgoing_message_tag_string">Tag string</label>
 
-  <div class="control-group">
-    <label class="control-label" for="outgoing_message_prominence_reason">Reason for prominence</label>
-    <div class="controls">
-      <%= text_area "outgoing_message", "prominence_reason", :rows => 5, :class => "span6" %>
-    </div>
-  </div>
+        <div class="controls">
+          <%= text_field 'outgoing_message', 'tag_string', class: 'span6' %>
+        </div>
+      </div>
+  </fieldset>
 
-  <div class="control-group">
-    <label class="control-label" for="outgoing_message_body">Body of message</label>
-    <div class="controls">
-      <%= text_area_tag 'outgoing_message[body]',
-                        @outgoing_message.raw_body,
-                        id: 'outgoing_message_body',
-                        rows: 10,
-                        cols: 60 %>
+  <fieldset class="form-horizontal">
+    <legend>Prominence</legend>
+
+    <div class="control-group">
+      <label class="control-label" for="outgoing_message_prominence">Prominence</label>
+      <div class="controls">
+        <%= select('outgoing_message', "prominence", OutgoingMessage.prominence_states) %>
+      </div>
     </div>
 
-    <p><strong>Note:</strong> This is mainly to be used to excise information
-      that users inadvertently put in their messages, not realising it would be
-      public. It will already have been sent to the public authority, and their
-      reply may also include that information and be automatically published on
-      this site. You could also use this to edit a message before resending it, but
-      only the edited version will be shown on the public page if you do that.</p>
-
-    <div class="form-actions" >
-      <%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %>
-      <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
-                  :class => 'btn btn-warning',
-                  :method => :post,
-                  :data => { :confirm => "Are you sure you want to resend " \
-                                         "this message to the " \
-                                         "authority?" } do %>
-        Resend
-      <% end %>
+    <div class="control-group">
+      <label class="control-label" for="outgoing_message_prominence_reason">Reason for prominence</label>
+      <div class="controls">
+        <%= text_area "outgoing_message", "prominence_reason", :rows => 5, :class => "span6" %>
+      </div>
     </div>
-  </div>
+  </fieldset>
+
+  <fieldset class="form-horizontal">
+    <legend>Message</legend>
+
+    <div class="control-group">
+      <label class="control-label" for="outgoing_message_body">Body</label>
+      <div class="controls">
+        <%= text_area_tag 'outgoing_message[body]',
+                          @outgoing_message.raw_body,
+                          id: 'outgoing_message_body',
+                          rows: 10,
+                          cols: 60 %>
+
+        <div class="help-block">
+          <p>
+            <strong>Note:</strong> This is mainly to be used to excise
+            information that users inadvertently put in their messages, not
+            realising it would be public. It will already have been sent to the
+            public authority, and their reply may also include that information
+            and be automatically published on this site. You could also use this
+            to edit a message before resending it, but only the edited version
+            will be shown on the public page if you do that.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-actions" >
+        <%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %>
+        <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
+                    :class => 'btn btn-warning',
+                    :method => :post,
+                    :data => { :confirm => "Are you sure you want to resend " \
+                                           "this message to the " \
+                                           "authority?" } do %>
+          Resend
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
 <% end %>
-
-<p>
-  <%= link_to 'Show', admin_request_path(@outgoing_message.info_request) %> |
-  <%= link_to 'List all', admin_requests_path %>
-</p>
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>
   <div class="control-group">

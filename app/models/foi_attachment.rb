@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220916134847
 #
 # Table name: foi_attachments
 #
@@ -14,6 +14,8 @@
 #  hexdigest             :string(32)
 #  created_at            :datetime
 #  updated_at            :datetime
+#  prominence            :string           default("normal")
+#  prominence_reason     :text
 #
 
 # models/foi_attachment.rb:
@@ -26,6 +28,8 @@
 require 'digest'
 
 class FoiAttachment < ApplicationRecord
+  include MessageProminence
+
   belongs_to :incoming_message,
              :inverse_of => :foi_attachments
 
@@ -40,44 +44,14 @@ class FoiAttachment < ApplicationRecord
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
 
+  admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest]
+
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
-  def directory
-    if file.attached?
-      warn <<~DEPRECATION.squish
-        [DEPRECATION] FoiAttachment#directory shouldn't be used when using
-        `ActiveStorage` backed file stores. This method will be removed
-        in 0.42.
-      DEPRECATION
-      return
-    end
-
-    base_dir = File.expand_path(File.join(File.dirname(__FILE__), "../../cache", "attachments_#{Rails.env}"))
-    return File.join(base_dir, self.hexdigest[0..2])
-  end
-
-  def filepath
-    if file.attached?
-      warn <<~DEPRECATION.squish
-        [DEPRECATION] FoiAttachment#filepath shouldn't be used when using
-        `ActiveStorage` backed file stores. This method will be removed
-        in 0.42.
-      DEPRECATION
-      return
-    end
-
-    File.join(self.directory, self.hexdigest)
-  end
-
   def delete_cached_file!
     @cached_body = nil
-
-    if file.attached?
-      file.purge
-    elsif File.exist?(filepath)
-      File.delete(filepath)
-    end
+    file.purge if file.attached?
   end
 
   def body=(d)
@@ -95,33 +69,21 @@ class FoiAttachment < ApplicationRecord
   end
 
   # raw body, encoded as binary
-  def body
-    if @cached_body.nil?
-      tries = 0
-      delay = 1
-      begin
-        if file.attached?
-          @cached_body = file.download
-        else
-          @cached_body = File.open(filepath, "rb" ) { |file| file.read }
-        end
-      rescue Errno::ENOENT, ActiveStorage::FileNotFoundError
-        # we've lost our cached attachments for some reason.  Reparse them.
-        if tries > BODY_MAX_TRIES
-          raise
-        else
-          sleep delay
-        end
-        tries += 1
-        delay *= 2
-        delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
-        force = true
-        self.incoming_message.parse_raw_email!(force)
-        reload
-        retry
-      end
+  def body(tries: 0, delay: 1)
+    return @cached_body if @cached_body
+
+    if file.attached?
+      @cached_body = file.download
+    else
+      # we've lost our cached attachments for some reason.  Reparse them.
+      raise if tries > BODY_MAX_TRIES
+      sleep [delay, BODY_MAX_DELAY].min
+
+      self.incoming_message.parse_raw_email!(true)
+      reload
+
+      body(tries: tries + 1, delay: delay * 2)
     end
-    return @cached_body
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
@@ -133,6 +95,10 @@ class FoiAttachment < ApplicationRecord
   # raw binary
   def default_body
     text_type? ? body_as_text.string : body
+  end
+
+  def main_body_part?
+    self == incoming_message.get_main_body_text_part
   end
 
   # List of DSN codes taken from RFC 3463

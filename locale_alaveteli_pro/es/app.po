@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:01+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Anatoli Pena <djanatoli@gmail.com>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/mysociety/teams/33529/es/)\n"
@@ -963,6 +963,9 @@ msgstr "Lo sentimos, se ha producido un error al actualizar la configuración de
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr ""
 
+msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
+msgstr ""
+
 msgid "Sort by"
 msgstr "Ordenar por"
 
@@ -1187,8 +1190,8 @@ msgstr ""
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr ""
 
-msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Cuando una solicitud es privada, garantizamos que sólo será visible en {{site_name}} durante el período que seleccione. Los administradores de {{pro_site_name}} también podrán ver su solicitud, pero solo lo harán en caso de que necesiten solucionar un problema con ella (por ejemplo, entrega fallida a la autoridad). Ellos no revelarán el contenido de su solicitud o cualquier respuesta que obtenga a otra persona. La autoridad todavía puede publicarla en un registro de divulgación como de costumbre."
+msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr ""
 
 msgid "When the current billing period ends:"
 msgstr ""

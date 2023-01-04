@@ -28,6 +28,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Maria Nathanail <marianathanail@gmail.com>, 2021
@@ -39,7 +42,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 18:00+0100\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: ΜΑΡΙΑ ΝΑΘΑΝΑΗΛ <memcommunication@gmail.com>, 2021\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/alaveteli/language/el"
@@ -557,6 +560,9 @@ msgstr "Στο κάτω μέρος αυτής της σελίδας, γράψτ�
 
 msgid "Attachment (optional):"
 msgstr "Επισύναψη (προαιρετικό):"
+
+msgid "Attachment has been removed"
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Επισύναψη:"
@@ -1361,11 +1367,14 @@ msgstr "Εαν είστε δυσαρεστημένος από την απάντ�
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr "Εάν αντιμετωπίζετε ακόμα πρόβλημα, παρακαλούμε <a href=\"{{url}}\">επικοινωνήστε μαζί μας</a>."
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr "Εαν είστε ο/η αιτών/-ούσα, τότε μπορείτε να <a href=\"{{url}}\">συνδεθείτε</a> για να δείτε το μήνυμα."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
+msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr "Εάν είστε ο/η αιτών/-ούσα, τότε μπορείτε να <a href=\"{{url}}\">συνδεθείτε</a> για να δείτε το αίτημα."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Εάν είστε ο/η {{user_link}}, παρακαλούμε"
@@ -1569,9 +1578,6 @@ msgstr "Πολύ εκπρόθεσμο"
 
 msgid "Made between"
 msgstr "Έγινε μεταξύ"
-
-msgid "Make a batch request"
-msgstr "Κάντε ένα πολλαπλό αίτημα "
 
 msgid "Make a request"
 msgstr "Κάντε ένα αίτημα"
@@ -1819,9 +1825,6 @@ msgstr "Μόνο η αρμόδια αρχή μπορεί να απαντήσει
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr "Μόνο ο σωστός συνδυασμός επιβεβαίωσης του λογαριασμού σας μέσω ενός κουπονιού στο ηλεκτρονικό σας ταχυδρομείο και η εισαγωγή του σωστού κωδικού πρόσβασης μιας χρήσης, θα σας επιτρέψει την αλλαγή του κωδικού πρόσβασης στον λογαριασμό σας."
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr "Ή κάντε ένα <a href=\"{{url}}\">πολλαπλό αίτημα </a>σε <strong>πολλαπλές δημόσιες αρχές </strong>ταυτόχρονα."
-
 msgid "Original request sent"
 msgstr "Αρχικό αίτημα εστάλη "
 
@@ -1887,9 +1890,6 @@ msgstr "Παίξτε το παιχνίδι ταξινόμησης αιτημάτ
 
 msgid "Please"
 msgstr "Παρακαλούμε"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Παρακαλούμε <a href=\"{{url}}\">επικοινωνήστε μαζί μας</a> εαν έχετε ερωτήσεις."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr "Παρακαλούμε <a href=\"{{url}}\">επικοινωνήστε μαζί μας</a> ώστε να το διορθώσουμε."
@@ -2057,6 +2057,9 @@ msgstr "Παρακαλώ γράψτε το επόμενο μήνυμά σας σ
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "Παρακαλώ γράψτε το μήνυμά σας, χρησιμοποιώντας κεφαλαία και πεζά γράμματα. Αυτό διευκολύνει τους υπόλοιπους να το διαβάσουν."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Κατευθύνετε προς τις εκστρατείες για </strong>σχετικές πληροφορίες </strong>, ή στα forum που θα είναι χρήσιμο."
@@ -2447,6 +2450,9 @@ msgstr "Καταχωρήστε φωτογραφία προφίλ"
 msgid "Share on Facebook"
 msgstr "Μοιραστείτε στο Facebook"
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr "Μοιραστείτε το αίτημά σας για παρτίδα"
 
@@ -2798,10 +2804,10 @@ msgstr "Ο τελευταίος χρήστης δημιουργήθηκε την
 msgid "The last user was created over a day ago"
 msgstr "Ο τελευταίος χρήστης δημιουργήθηκε πριν από μία ημέρα"
 
-msgid "The oldest Xapian index job, has been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
 msgstr ""
 
-msgid "The oldest Xapian index job, hasn't been idle for more than 30 minutes"
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -2842,9 +2848,6 @@ msgstr "Το αίτημα ήταν <strong>επιτυχές </strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "Το αίτημα απορρίφθηκε από τη δημόσια αρχή."
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr "Το αίτημα που προσπαθήσατε να δείτε έχει αποσυρθεί. Υπάρχουν διάφοροι λόγοι για τους οποίους θα μπορούσαμε να το έχουμε κάνει αυτό, συγγνώμη που δεν μπορούμε να είμαστε πιο συγκεκριμένοι. Παρακαλώ <a href=\"{{url}}\"> ελάτε σε επαφή μαζί μας </a>εάν έχετε οποιεσδήποτε ερωτήσεις."
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "Ο/η αιτών/-ούσα έχει εγκαταλείψει το αίτημά του/της για κάποιο λόγο"
@@ -2903,9 +2906,6 @@ msgstr "Στη συνέχεια, μπορείτε να εγκαταλείψετ�
 msgid "Then you can log into the administrative interface"
 msgstr "Τότε μπορείτε να συνδεθείτε στην κονσόλα διαχειριστή"
 
-msgid "Then you can make a batch request"
-msgstr "Στη συνέχεια, μπορείτε να υποβάλετε ένα πολλαπλό αίτημα"
-
 msgid "Then you can play the request categorisation game."
 msgstr "Τότε μπορείτε να παίξετε το παιχνίδι ταξινόμησης."
 
@@ -2963,6 +2963,9 @@ msgstr "Δεν υπάρχουν αιτήματα για ταξινόμηση α�
 msgid "There are no requests to extract right now. Great job!"
 msgstr "Δεν υπάρχουν αιτήματα για εξαγωγή αυτή τη στιγμή. Εξαιρετική δουλειά!"
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Υπάρχουν {{count}} νέοι σχολιασμοί στο αίτημά σας για {{law_used_short}}. Ακολουθείστε αυτόν τον σύνδεσμο για να δείτε τι έχουν γράψει. "
 
@@ -3008,11 +3011,14 @@ msgstr "Αυτοί <strong>δεν έχουν </strong> τις πληροφορί
 msgid "They have been given the following explanation:"
 msgstr "Τους έχει δοθεί η παρακάτω εξήγηση:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "Δεν έχουν απαντήσει στο {{law_used_short}} αίτημα {{title}} αμέσως, όπως συνήθως απαιτεί ο νόμος"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr "Δεν έχουν απαντήσει στο {{law_used_short}} αίτημα σας {{title}}, όπως προβλέπει ο νόμος "
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr "Ακόμα δεν έχουν απαντήσει στο {{law_used_short}} αίτημα σας {{title}}, όπως απαιτεί κανονικά ο νόμος "
@@ -3025,6 +3031,18 @@ msgstr "Αυτός ο λογαριασμός έχει κλείσει."
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "Το σχόλιο αυτό έχει παραπεμφθεί προς έλεγχο από τον διαχειριστή "
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "Η αρχή δεν υπόκειται στον νόμο περί ΑΚΕ και πρόσβαση στη ΔΠ, συνεπώς δεν υποχρεούται νομικά να απαντήσει"
@@ -3050,8 +3068,8 @@ msgstr "Αυτή είναι μια γραπτή εκδοχή του αιτήμα
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr "Αυτή είναι μια HTML εκδοχή ενός επισυναπτόμενου Αιτήματος Κατάθεσης Εγγράφων και Πρόσβασης στη Δημόσια Πληροφορία "
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
-msgstr "Αυτό συμβαίνει επειδή το {{title}} είναι ένα παλιό αίτημα που έχει επισημανθεί ότι δεν λαμβάνει πλέον απαντήσεις."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
+msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Αυτό είναι το δικό σας αίτημα, θα σας σταλεί email αυτόματα όταν ληφθούν νέες απαντήσεις."
@@ -3071,17 +3089,17 @@ msgstr "Αυτό το μήνυμα έχει γίνει κρυφό."
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr "Αυτό το μήνυμα έχει γίνει κρυφό. Υπάρχουν διάφοροι λόγοι που μπορεί να το κάναμε αυτό, ζητούμε συγνώμη που δεν μπορούμε να γίνουμε πιο συγκεκριμένοι."
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr "Αυτό το μήνυμα έχει σταλεί."
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Αυτό το μήνυμα έχει εξέχουσα θέση «κρυφό». Μπορείτε να το δείτε μόνο επειδή είστε συνδεδεμένος/-η ως σούπερ χρήστης/-ρια."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr "Αυτό το μήνυμα έχει εξέχουσα θέση «κρυφό». {{reason}} μπορείτε να το δείτε μόνο επειδή είστε συνδεδεμένος/-η ως σούπερ χρήστης/-ρια."
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Αυτό το μήνυμα είναι κρυμμένο, έτσι ώστε μόνο εσείς, ο/η αιτών/-ούσα, να το δείτε. <a href=\"{{url}}\">Παρακαλούμε επικοινωνήστε μαζί μας αν δεν είστε σίγουρος/-η γιατί."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Αυτό το μήνυμα είναι κρυμμένο, έτσι ώστε μόνο εσείς, ο/η αιτών/-ούσα, να το δείτε. {{reason}}"
@@ -3117,11 +3135,14 @@ msgstr "Αυτό το αίτημα έχει <strong>άγνωστη κατάστ�
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "Το αίτημα έχει <strong>αναφερθεί </strong>επειδή χρειάζεται την προσοχή της ομάδας διαχείρισης (ίσως γιατί είναι κακόβουλο ή είναι αίτημα για προσωπικά δεδομένα)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Το αίτημα αυτό <strong>έχει αποσυρθεί </strong>από το πρόσωπο που το υπέβαλε. Μπορεί να υπάρχει μια εξήγηση στην παρακάτω αλληλογραφία."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "Αυτό το αίτημα έχει δημοσιοποιηθεί στο {{site_name}}."
@@ -3144,11 +3165,14 @@ msgstr "Αυτό το αίτημα έχει επισημανθεί από την
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "Αυτό το αίτημα έχει λάβει μια ασυνήθιστη απάντηση και <strong>χρειάζεται προσοχή</strong> από την ομάδα του {{site_name}}."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr "Το αίτημα αυτό έχει τη διάκριση του \"κρυφού\". Μπορείτε να το δείτε μόνο επειδή είστε συνδεδεμένος/-η ως σούπερ χρήστης/-ρια."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "Αυτό το αίτημα είναι κρυμμένο, έτσι ώστε μόνο εσείς, ο/η αιτών/-ούσα να μπορείτε να το δείτε. Παρακαλούμε <a href=\"{{url}}\">επικοινωνήστε μαζί μας </a>αν δεν είστε σίγουρος/-η γιατί."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3234,8 +3258,8 @@ msgstr "Για να παρακολουθήσετε αιτήσεις μέσω τ�
 msgid "To follow the request '{{request_title}}'"
 msgstr "Για να παρακολουθήσετε την αίτηση '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "Για να μας βοηθήσετε να διατηρούμε τον ιστότοπο τακτοποιημένο, κάποιος άλλος έχει ενημερώσει την κατάσταση του αιτήματος {{law_used_full}} {{title}} που κάνατε στο {{public_body}}, στο\" {{display_status}} \" εάν διαφωνείτε με την κατηγοριοποίησή τους, ενημερώστε ξανά την κατάσταση από μόνοι σας ώστε να εκφράζει αυτό που πιστεύετε ότι είναι πιο ακριβές."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgstr ""
 
 msgid "To join this project"
 msgstr "Για να συμμετάσχετε σε αυτό το έργο"
@@ -3248,9 +3272,6 @@ msgstr "Για να γνωστοποιήσετε την υπόθεση, ακολ
 
 msgid "To log into the administrative interface"
 msgstr "Για να συνδεθείτε στην κονσόλα διαχειριστή"
-
-msgid "To make a batch request"
-msgstr "Για να υποβάλετε ένα πολλαπλό αίτημα "
 
 msgid "To play the request categorisation game"
 msgstr "Για να παίξετε το παιχνίδι ταξινόμησης αιτημάτων."
@@ -3996,8 +4017,8 @@ msgstr "Το αίτημά σας να προσθέσετε μια αρχή έχ�
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr "Το αίτημά σας για ενημέρωση της διεύθυνσης για το {{public_body_name}} έχει σταλεί. Σας ευχαριστούμε που ήρθατε σε επαφή! Θα επικοινωνήσουμε μαζί σας σύντομα."
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "Το αίτημά σας έχει χαρακτηριστεί ως {{info_request}}. Η δημοσιοποίηση της υπόθεσής σας και το αν λάβατε τις πληροφορίες που ζητήσατε, θα μας βοηθήσει να την παρακολουθούμε στενά."
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Οι αιτήσεις σας θα <strong>αποσταλλούν </strong>σύντομα!"
@@ -4139,6 +4160,9 @@ msgstr "σχόλια"
 
 msgid "complete"
 msgstr "ολοκληρωμένο"
+
+msgid "contact us"
+msgstr ""
 
 msgid "delivered"
 msgstr "παραδόθηκε"
