@@ -34,14 +34,14 @@
 # Finnur Magnusson <gommit@gmail.com>, 2015
 # Liz Conlan <liz@mysociety.org>, 2018
 # Ölvir Gíslason <olvirg@gmail.com>, 2016
-# Páll Hilmarsson <pallih@kaninka.net>, 2020-2021
+# Páll Hilmarsson <pallih@kaninka.net>, 2020-2021,2023
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Ölvir Gíslason <olvirg@gmail.com>, 2016\n"
+"Last-Translator: Páll Hilmarsson <pallih@kaninka.net>, 2020-2021,2023\n"
 "Language-Team: Icelandic (http://www.transifex.com/mysociety/alaveteli/languag"
 "e/is/)\n"
 "MIME-Version: 1.0\n"
@@ -1631,7 +1631,7 @@ msgid "Make a request to this authority"
 msgstr "Senda upplýsingabeiðni á þetta stjórnvald"
 
 msgid "Make a {{legislation}} request to this authority"
-msgstr ""
+msgstr "Senda upplýsingabeiðni á þetta stjórnvald"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Senda beiðni varðandi {{law_used_short}}"
@@ -1640,7 +1640,7 @@ msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Senda beiðni varðandi {{law_used_short}} til '{{public_body_name}}'"
 
 msgid "Make an {{legislation}} request to this authority"
-msgstr ""
+msgstr "Senda upplýsingabeiðni á þetta stjórnvald"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Senda og skoða upplýsingabeiðnir"
@@ -1751,7 +1751,7 @@ msgid "Next &#8594;"
 msgstr ""
 
 msgid "Next Step: Preview your public request"
-msgstr ""
+msgstr "Næst: Forskoðaðu upplýsingabeiðnina"
 
 msgid "Next message"
 msgstr ""
@@ -1895,7 +1895,7 @@ msgid "Password is too long (maximum is 72 characters)"
 msgstr ""
 
 msgid "Password is too short (minimum is 12 characters)"
-msgstr ""
+msgstr "Lykilorð er of stutt (það þarf að vera a.m.k. 12 stafabil)"
 
 msgid "Password:"
 msgstr "Lykilorð:"
