@@ -15,7 +15,7 @@ notice_msg() { printf "\033[33m%s\033[0m " "$*"; }
 success_msg() { printf "\033[32m%s\033[0m\n" "$*"; }
 
 notice_msg 'Installing Ruby gems...'
-bundle install >/dev/null
+bundle install
 success_msg 'done'
 
 if [ -L config/general.yml ]; then
