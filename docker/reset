@@ -4,18 +4,24 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-while true
-do
-  read -r -p 'This will remove your development database. Do you want to continue? ' choice
-  case "$choice" in
-    n|N) exit;;
-    y|Y) break;;
-    *) echo 'Response not valid';;
-  esac
-done
-
 docker compose down
-docker volume rm "$(basename $(pwd))_postgres"
+
+db_volume="$(basename $(pwd))_postgres"
+if docker volume ls | grep $db_volume >/dev/null; then
+  while true
+  do
+    read -r -p 'Do you also want to reset your development database? ' choice
+    case "$choice" in
+      n|N) break;;
+      y|Y)
+        docker volume rm $db_volume >/dev/null
+        data_reset=true
+        break;;
+      *) echo 'Response not valid';;
+    esac
+  done
+fi
+
 docker compose build --pull
 
-./docker/setup
+./docker/setup $data_reset
