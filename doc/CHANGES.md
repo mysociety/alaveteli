@@ -1,3 +1,16 @@
+# develop
+
+## Highlighted Features
+
+* Add support for Ruby 3 (Graeme Porteous)
+* Drop support for Ruby 2.7 (Graeme Porteous)
+
+## Upgrade Notes
+
+* To upgrade the Ruby version in your development Docker container please run:
+
+      docker/reset
+
 # 0.42.0.0
 
 ## Highlighted Features
