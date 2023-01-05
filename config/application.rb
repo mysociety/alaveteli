@@ -35,12 +35,9 @@ module Alaveteli
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    if rails_upgrade?
-      config.autoloader = :zeitwerk
-      config.active_record.legacy_connection_handling = false
-      config.active_support.use_rfc4122_namespaced_uuids = true
-    end
+    config.autoloader = :zeitwerk
+    config.active_record.legacy_connection_handling = false
+    config.active_support.use_rfc4122_namespaced_uuids = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]

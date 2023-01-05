@@ -84,11 +84,7 @@ def rails_upgrade?
   true
 end
 
-if rails_upgrade?
-  gem 'rails', '~> 7.0.4'
-else
-  gem 'rails', '~> 6.1.7'
-end
+gem 'rails', '~> 7.0.4'
 
 gem 'pg', '~> 1.4.4'
 
@@ -124,11 +120,7 @@ gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git',
 gem 'rubyzip', '~> 2.3.2'
 gem 'secure_headers', '~> 6.4.0'
 gem 'statistics2', '~> 0.54'
-if rails_upgrade?
-  gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
-else
-  gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
-end
+gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
 gem 'stripe', '~> 5.55.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
