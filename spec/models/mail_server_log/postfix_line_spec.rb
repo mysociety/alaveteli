@@ -13,7 +13,7 @@ RSpec.describe MailServerLog::PostfixLine do
   describe '#to_s' do
 
     it 'returns the log line' do
-      line = 'Oct  2 08:57:45 vagrant-ubuntu-precise-64 postfix/pickup[7843]: E9B4F420D5: uid=1001 from=<foi+request-117-c99ae4f3@localhost>'
+      line = 'Oct  2 08:57:45 ubuntu-precise-64 postfix/pickup[7843]: E9B4F420D5: uid=1001 from=<foi+request-117-c99ae4f3@localhost>'
       expect(described_class.new(line).to_s).to eq(line)
     end
 

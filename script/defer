@@ -8,8 +8,8 @@
 # In /var/www/alaveteli/config/aliases, swap the filter to mailin to send to
 # the defer script.
 #
-#   # ^foi\\+.*: "|/home/vagrant/alaveteli/script/mailin"
-#   ^foi\\+.*: "|/home/vagrant/alaveteli/script/defer"
+#   # ^foi\\+.*: "|/home/alaveteli/script/mailin"
+#   ^foi\\+.*: "|/home/alaveteli/script/defer"
 #
 # If you have Alaveteli set up to filter messages to site admin addresses,
 # redirect that to the defer script too.
