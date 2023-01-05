@@ -70,7 +70,19 @@ class PostRedirect < ApplicationRecord
 
   def post_params
     return {} if post_params_yaml.nil?
-    YAML.load(post_params_yaml)
+
+    if RUBY_VERSION < "3.1"
+      YAML.load(post_params_yaml)
+    else
+      YAML.load(
+        post_params_yaml,
+        permitted_classes: [
+          ActionController::Parameters,
+          ActiveSupport::HashWithIndifferentAccess,
+          Symbol
+        ]
+      )
+    end
   end
 
   # We store YAML version of textual "reason for redirect" parameters
