@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export RUBYOPT="-W0"
+
 # Wire this script to receive incoming email for request responses.
 
 INPUT=$(mktemp -t foi-mailin-mail-XXXXXXXX)
