@@ -81,7 +81,7 @@ source 'https://rubygems.org'
 
 # See instructions in Gemfile.rails_next
 def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
+  true
 end
 
 if rails_upgrade?
