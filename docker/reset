@@ -18,4 +18,4 @@ docker compose down
 docker volume rm "$(basename $(pwd))_postgres"
 docker compose build --pull
 
-./docker/bootstrap
+./docker/setup
