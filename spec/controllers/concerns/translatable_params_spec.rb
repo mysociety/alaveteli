@@ -25,14 +25,14 @@ RSpec.describe TranslatableParams do
                         :name => 'Other name' } } }
 
       params = ActionController::Parameters.new(params)
-      expect(translatable_params(params, keys)).
+      expect(translatable_params(params, **keys)).
         to eq(ActionController::Parameters.new(expected).permit!)
     end
 
     context 'when there are no params' do
 
       it 'returns an empty hash' do
-        expect(translatable_params(nil, keys)).to eq({})
+        expect(translatable_params(nil, **keys)).to eq({})
       end
 
     end
@@ -56,8 +56,9 @@ RSpec.describe TranslatableParams::WhitelistedParams do
                    :status => 'good' }
 
       params = ActionController::Parameters.new(params)
-      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
-        to eq(ActionController::Parameters.new(expected).permit!)
+      expect(
+        TranslatableParams::WhitelistedParams.new(**keys).whitelist(params)
+      ).to eq(ActionController::Parameters.new(expected).permit!)
     end
 
     it 'allows id in the translation params' do
@@ -69,8 +70,9 @@ RSpec.describe TranslatableParams::WhitelistedParams do
       expected = ActionController::Parameters.new(params).permit!
 
       params = params = ActionController::Parameters.new(params)
-      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params.dup)).
-        to eq(expected)
+      expect(
+        TranslatableParams::WhitelistedParams.new(**keys).whitelist(params.dup)
+      ).to eq(expected)
     end
 
     it 'removes a non-whitelisted translation param' do
@@ -85,8 +87,9 @@ RSpec.describe TranslatableParams::WhitelistedParams do
                       :name => 'Other name' } } }
 
       params = ActionController::Parameters.new(params)
-      expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
-        to eq(ActionController::Parameters.new(expected).permit!)
+      expect(
+        TranslatableParams::WhitelistedParams.new(**keys).whitelist(params)
+      ).to eq(ActionController::Parameters.new(expected).permit!)
     end
 
   end

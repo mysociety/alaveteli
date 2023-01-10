@@ -231,7 +231,7 @@ class ApplicationController < ActionController::Base
 
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
-  def form_authenticity_token(*args)
+  def form_authenticity_token(**args)
     super if authenticated?
   end
 

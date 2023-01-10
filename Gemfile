@@ -93,7 +93,8 @@ end
 gem 'pg', '~> 1.4.4'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
-gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
+gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
+                         ref: '13e928b'
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.18'
 gem 'cancancan', '~> 3.4.0'
@@ -171,11 +172,6 @@ gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.43', require: false
 
-if rails_upgrade? && RUBY_VERSION < '3.1'
-  gem 'net-http', '0.1.1'
-  gem 'uri', '0.10.0'
-end
-
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.18.1'
@@ -183,8 +179,8 @@ group :test do
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.38.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
-                          ref: '2c925fd'
-  gem('rails-controller-testing')
+                          ref: '6ceea96'
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do
@@ -194,7 +190,6 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 6.0.0'
   gem 'pry', '~> 0.14.1'
-  gem 'pry-byebug', '~> 3.10.1'
 end
 
 group :development do

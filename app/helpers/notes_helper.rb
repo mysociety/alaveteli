@@ -4,7 +4,7 @@ module NotesHelper
 
     allowed_tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
 
-    tag.aside options.merge(id: 'notes') do
+    tag.aside(**options.merge(id: 'notes')) do
       notes.each do |note|
         note_classes = ['note']
         note_classes << "tag-#{note.notable_tag}" if note.notable_tag

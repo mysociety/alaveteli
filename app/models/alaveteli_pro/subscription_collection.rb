@@ -18,7 +18,8 @@ module AlaveteliPro
     def build
       AlaveteliPro::Subscription.new(
         Stripe::Subscription.new.tap do |subscription|
-          subscription.update_attributes(customer: @customer)
+          params = { customer: @customer }
+          subscription.update_attributes(params)
         end
       )
     end

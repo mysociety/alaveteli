@@ -247,10 +247,8 @@ RSpec.describe Users::SessionsController do
       end
 
       def do_signin(email, password)
-        post :create, {
-          params: {
-            :user_signin => { :email => email, :password => password }
-          }
+        post :create, params: {
+          user_signin: { email: email, password: password }
         }
       end
 
