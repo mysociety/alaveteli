@@ -78,11 +78,7 @@
     </div>
 
     <div class="span4">
-      <% if rails_upgrade? %>
-        <%= version.updated_at.to_fs(:db) %>
-      <% else %>
-        <%= version.updated_at.to_s(:db) %>
-      <% end %>
+      <%= version.updated_at.to_fs(:db) %>
       (<%= time_ago_in_words(version.updated_at) %> ago)
     </div>
 

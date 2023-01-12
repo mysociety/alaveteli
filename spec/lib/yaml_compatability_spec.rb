@@ -6,14 +6,6 @@ RSpec.describe YAMLCompatibility do
     subject(:output_hash) { described_class.load(content) }
     let(:hash) { YAML.load(yaml_compatibility_fixture('5_1')) }
 
-    context 'with Rails 4.2 YAML file' do
-      let(:content) { yaml_compatibility_fixture('4_2') }
-
-      it 'correctly loads YAML file' do
-        is_expected.to eq hash unless rails_upgrade?
-      end
-    end
-
     context 'with Rails 5.0 YAML file' do
       let(:content) { yaml_compatibility_fixture('5_0') }
 
