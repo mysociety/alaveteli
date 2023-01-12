@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module AlaveteliTextMasker
   include ConfigHelper
 
@@ -47,10 +49,22 @@ module AlaveteliTextMasker
   private
 
   def uncompress_pdf(text)
-    AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
+    temp = Tempfile.new('pdftk', './tmp', encoding: 'ascii-8bit')
+    temp.write(text)
+    temp.close
+
+    AlaveteliExternalCommand.run(
+      "pdftk", temp.path, "output", "-", "uncompress"
+    )
+  ensure
+    temp.unlink
   end
 
   def compress_pdf(text)
+    temp = Tempfile.new('pdftk', './tmp', encoding: 'ascii-8bit')
+    temp.write(text)
+    temp.close
+
     if AlaveteliConfiguration::use_ghostscript_compression
       command = ["gs",
                  "-sDEVICE=pdfwrite",
@@ -60,11 +74,13 @@ module AlaveteliTextMasker
                  "-dQUIET",
                  "-dBATCH",
                  "-sOutputFile=-",
-                 "-"]
+                 temp.path]
     else
-      command = ["pdftk", "-", "output", "-", "compress"]
+      command = ["pdftk", temp.path, "output", "-", "compress"]
     end
-    AlaveteliExternalCommand.run(*(command + [ :stdin_string => text ]))
+    AlaveteliExternalCommand.run(*command)
+  ensure
+    temp.unlink
   end
 
   def apply_pdf_masks(text, options = {})

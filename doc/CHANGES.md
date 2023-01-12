@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve processing of large PDF attachments (Graeme Porteous)
 * Add support for Ruby 3 (Graeme Porteous)
 * Drop support for Ruby 2.7 (Graeme Porteous)
 
