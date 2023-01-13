@@ -2,8 +2,8 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'alaveteli_features/version'
 
-def rails_upgrade?
-  true
+def dependencies_next?
+  ENV['DEPENDENCIES_NEXT']
 end
 
 Gem::Specification.new do |spec|

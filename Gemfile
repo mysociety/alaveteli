@@ -79,9 +79,8 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-# See instructions in Gemfile.rails_next
-def rails_upgrade?
-  true
+def dependencies_next?
+  ENV['DEPENDENCIES_NEXT']
 end
 
 gem 'rails', '~> 7.0.4'
@@ -196,3 +195,7 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end
+
+plugin 'bootboot', '~> 0.2.1'
+Plugin.send(:load_plugin, 'bootboot') if Plugin.installed?('bootboot')
+enable_dual_booting if Plugin.installed?('bootboot') && dependencies_next?
