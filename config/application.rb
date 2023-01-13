@@ -22,8 +22,8 @@ require File.dirname(__FILE__) + '/../lib/alaveteli_localization'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-def rails_upgrade?
-  true
+def dependencies_next?
+  ENV['DEPENDENCIES_NEXT']
 end
 
 module Alaveteli

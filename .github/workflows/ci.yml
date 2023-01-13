@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   rspec:
-    name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }} / ${{ matrix.gemfile || 'Gemfile' }}
+    name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }} / ${{ matrix.dependencies }}
     runs-on: ubuntu-20.04
 
     permissions:
@@ -24,8 +24,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - { ruby: '3.0', postgres: 13.5 }
-        - { ruby: '3.0', postgres: 13.5, gemfile: 'Gemfile.rails_next' }
+        - { ruby: '3.0', postgres: 13.5, dependencies: 'Current'}
+        - { ruby: '3.0', postgres: 13.5, dependencies: 'Next' }
 
     services:
       postgres:
@@ -41,11 +41,16 @@ jobs:
           --health-retries 5
 
     env:
-      BUNDLE_GEMFILE: ${{ matrix.gemfile || 'Gemfile' }}
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/alaveteli_test
       RAILS_ENV: test
 
     steps:
+    - name: Conditionally set environment variable
+      run: |
+        if [[ ${{ matrix.dependencies }} == 'Next' ]]; then
+          echo "DEPENDENCIES_NEXT=1" >> "$GITHUB_ENV"
+        fi
+
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
