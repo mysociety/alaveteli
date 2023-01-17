@@ -137,9 +137,7 @@
 
       <% unless @batch %>
         <% if @info_request.public_body.has_notes? %>
-          <div id="request_header_text" class="request_header_text">
-            <%= render_notes(@info_request.public_body.notes) %>
-          </div>
+          <%= render_notes(@info_request.public_body.notes) %>
         <% end %>
       <% end %>
 
