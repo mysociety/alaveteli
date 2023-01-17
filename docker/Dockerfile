@@ -1,4 +1,5 @@
-FROM ruby:3.0-bullseye
+ARG RUBY_VERSION=3.0
+FROM ruby:${RUBY_VERSION}-bullseye
 
 ENV DOCKER 1
 ENV DEBIAN_FRONTEND noninteractive
