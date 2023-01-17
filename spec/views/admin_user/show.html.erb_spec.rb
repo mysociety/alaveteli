@@ -6,6 +6,7 @@ RSpec.describe "admin_user/show" do
     info_requests = []
     allow(info_requests).to receive(:total_pages).and_return(0)
     assign :info_requests, info_requests
+    assign :info_request_batches, []
     assign :admin_user, user_being_viewed
     assign :comments, []
   end
