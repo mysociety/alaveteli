@@ -64,6 +64,16 @@ RSpec.describe InfoRequestBatch do
     end
   end
 
+  describe '.not_embargoed' do
+    subject { described_class.not_embargoed }
+
+    let(:not_embargoed) { FactoryBot.create(:info_request_batch) }
+    let(:embargoed) { FactoryBot.create(:info_request_batch, :embargoed) }
+
+    it { is_expected.to include(not_embargoed) }
+    it { is_expected.not_to include(embargoed) }
+  end
+
   context '.with_body' do
     let(:batch) do
       FactoryBot.create(:info_request_batch, body: "foo\n\nbar")
