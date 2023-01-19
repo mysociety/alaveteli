@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add support for Ruby 3.2 (Graeme Porteous)
 * Add support for Ruby 3.1 (Graeme Porteous)
 * Upgrade to Rails 7 (Graeme Porteous)
 * Improve processing of large PDF attachments (Graeme Porteous)
