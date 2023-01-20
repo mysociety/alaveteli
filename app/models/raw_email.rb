@@ -22,8 +22,6 @@ class RawEmail < ApplicationRecord
 
   has_one_attached :file, service: :raw_emails
 
-  before_destroy :destroy_file_representation!
-
   delegate :date, to: :mail
   delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
@@ -128,9 +126,5 @@ class RawEmail < ApplicationRecord
 
   def incoming_message_id
     incoming_message.id.to_s
-  end
-
-  def destroy_file_representation!
-    file.purge if file.attached?
   end
 end
