@@ -34,7 +34,13 @@ def default_config
 
     File.write(tmp_path, Net::HTTP.get(uri)) unless File.exist?(tmp_path)
 
-    m.deep_merge!(YAML.load_file(tmp_path))
+    if RUBY_VERSION < "3.1"
+      yaml = YAML.load_file(tmp_path)
+    else
+      yaml = YAML.load_file(tmp_path, permitted_classes: [Regexp, Symbol])
+    end
+
+    m.deep_merge!(yaml)
   end
 end
 
