@@ -158,7 +158,7 @@ gem 'alaveteli_features', :path => 'gems/alaveteli_features'
 # Storage backends
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
-gem 'google-cloud-storage', '~> 1.43', require: false
+gem 'google-cloud-storage', '~> 1.44', require: false
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
