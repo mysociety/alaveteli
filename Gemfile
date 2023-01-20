@@ -177,7 +177,7 @@ group :test, :development do
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 6.0.0'
-  gem 'pry', '~> 0.14.1'
+  gem 'pry', '~> 0.14.2'
 end
 
 group :development do
