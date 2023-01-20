@@ -773,6 +773,9 @@ Lint/UselessElseWithoutRescue:
 Lint/UselessMethodDefinition:
   Enabled: false
 
+Lint/UselessRescue:
+  Enabled: false
+
 Lint/UselessRuby2Keywords:
   Enabled: false
 
@@ -1441,6 +1444,9 @@ Style/ArgumentsForwarding:
 Style/ArrayCoercion:
   Enabled: false
 
+Style/ArrayIntersect:
+  Enabled: false
+
 Style/ArrayJoin:
   Enabled: true
 
@@ -1519,6 +1525,9 @@ Style/CommentAnnotation:
   Enabled: true
 
 Style/CommentedKeyword:
+  Enabled: false
+
+Style/ConcatArrayLiterals:
   Enabled: false
 
 Style/ConditionalAssignment:
@@ -1733,6 +1742,9 @@ Style/MapCompactWithConditionalBlock:
 Style/MapToHash:
   Enabled: false
 
+Style/MapToSet:
+  Enabled: false
+
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
@@ -1746,6 +1758,9 @@ Style/MethodDefParentheses:
   Enabled: true
 
 Style/MinMax:
+  Enabled: false
+
+Style/MinMaxComparison:
   Enabled: false
 
 Style/MissingElse:
@@ -1919,6 +1934,15 @@ Style/RedundantCondition:
 Style/RedundantConditional:
   Enabled: false
 
+Style/RedundantConstantBase:
+  Enabled: false
+
+Style/RedundantDoubleSplatHashBraces:
+  Enabled: false
+
+Style/RedundantEach:
+  Enabled: false
+
 Style/RedundantException:
   Enabled: true
 
@@ -1971,6 +1995,9 @@ Style/RedundantStringEscape:
   Enabled: false
 
 Style/RegexpLiteral:
+  Enabled: false
+
+Style/RequireOrder:
   Enabled: false
 
 Style/RescueModifier:
@@ -2140,6 +2167,9 @@ Style/WordArray:
   Enabled: true
 
 Style/YodaCondition:
+  Enabled: false
+
+Style/YodaExpression:
   Enabled: false
 
 Style/ZeroLengthPredicate:
