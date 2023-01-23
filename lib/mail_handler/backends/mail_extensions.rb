@@ -1,6 +1,6 @@
 require 'mail/message'
 require 'mail/part'
-require 'mail/fields/common/parameter_hash'
+require 'mail/fields/parameter_hash'
 module Mail
   class Message
     attr_accessor :url_part_number
@@ -22,7 +22,7 @@ module Mail
           value = Mail::Encodings.param_encode(value)
           key_name = "#{key_name}*"
         end
-        %Q{#{key_name}=#{quote_token(value)}}
+        %Q{#{key_name}=#{Mail::Utilities.quote_token(value)}}
       end.join(";\r\n\s")
     end
   end
