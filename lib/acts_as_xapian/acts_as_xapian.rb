@@ -432,7 +432,7 @@ module ActsAsXapian
 
       # Log time taken, excluding database lookups below which will be displayed separately by ActiveRecord
       if ActiveRecord::Base.logger
-        ActiveRecord::Base.logger.add(Logger::DEBUG, "  Xapian query (#{'%.5fs' % self.runtime}) #{log_description}")
+        ActiveRecord::Base.logger.add(Logger::DEBUG, format("  Xapian query (%.5fs) %s", self.runtime, self.log_description))
       end
 
       # Look up without too many SQL queries
