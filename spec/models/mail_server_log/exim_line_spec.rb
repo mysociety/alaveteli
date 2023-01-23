@@ -41,7 +41,7 @@ RSpec.describe MailServerLog::EximLine do
 
     it 'returns the default format' do
       subject = described_class.new('log line')
-      obj_id = "0x00%x" % (subject.object_id << 1)
+      obj_id = format("0x00%x", (subject.object_id << 1))
       expected =
         %Q(#<#{described_class}:#{obj_id} @line="log line">)
       expect(subject.inspect).to eq(expected)
