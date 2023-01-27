@@ -166,7 +166,9 @@ class User < ApplicationRecord
   after_initialize :set_defaults
   after_update :reindex_referencing_models, :update_pro_account
 
-  acts_as_xapian texts: [:name, :about_me],
+  acts_as_xapian texts: [
+                   [:name, 200], [:about_me, 100]
+                 ],
                  values: [
                    [:created_at_numeric, 1, 'created_at', :number] # for sorting
                  ],

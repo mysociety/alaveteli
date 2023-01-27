@@ -1064,12 +1064,9 @@ module ActsAsXapian
         ActsAsXapian.term_generator.document = doc
         for text in texts_to_index
           ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-          # The "100" here is a weight that could be varied for a boost
-          # function. A lower number represents a higher weight, so we set the
-          # default to a relatively low weight to give us flexibility either
-          # side.
-          xapian_value = xapian_value(text, nil, true)
-          ActsAsXapian.term_generator.index_text(xapian_value, 100)
+          xapian_value = xapian_value(text[0], nil, true)
+          weight = text[1]
+          ActsAsXapian.term_generator.index_text(xapian_value, weight)
         end
       end
 

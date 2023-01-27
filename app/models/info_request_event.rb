@@ -109,7 +109,9 @@ class InfoRequestEvent < ApplicationRecord
   attr_accessor :no_xapian_reindex
 
   # Full text search indexing
-  acts_as_xapian :texts => [ :search_text_main, :title ],
+  acts_as_xapian :texts => [
+                   [ :search_text_main, 100 ], [ :title, 100 ],
+                 ],
                  :values => [
                    [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
                    [ :created_at_numeric, 1, "created_at", :number ], # for sorting

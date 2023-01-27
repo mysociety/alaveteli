@@ -121,7 +121,11 @@ class PublicBody < ApplicationRecord
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes_as_string],
+  acts_as_xapian :texts => [
+                   [:name, 300],
+                   [:short_name, 200],
+                   [:notes_as_string, 100]
+                 ],
                  :values => [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
