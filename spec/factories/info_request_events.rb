@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20220408125559
+# Schema version: 20230127132719
 #
 # Table name: info_request_events
 #
 #  id                  :integer          not null, primary key
 #  info_request_id     :integer          not null
 #  event_type          :text             not null
-#  params_yaml         :text             not null
 #  created_at          :datetime         not null
 #  described_state     :string
 #  calculated_state    :string

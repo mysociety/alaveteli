@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20220408125559
+# Schema version: 20230127132719
 #
 # Table name: info_request_events
 #
 #  id                  :integer          not null, primary key
 #  info_request_id     :integer          not null
 #  event_type          :text             not null
-#  params_yaml         :text             not null
 #  created_at          :datetime         not null
 #  described_state     :string
 #  calculated_state    :string
@@ -41,14 +40,7 @@ RSpec.describe InfoRequestEvent do
     it "should convert event parameters into YAML and back successfully" do
       example_params = { :foo => 'this is stuff', :bar => 83, :humbug => "yikes!!!" }
       ire.params = example_params
-      expect(ire.params_yaml).to eq(example_params.to_yaml)
       expect(ire.params).to eq(example_params)
-    end
-
-    it "should restore UTF8-heavy params stored under ruby 1.8 as UTF-8" do
-      utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
-      ire.params_yaml = utf8_params
-      expect(ire.params[:foo].encoding.to_s).to eq('UTF-8')
     end
 
     it "should store the incoming_message, outgoing_messsage and comment ids" do
@@ -89,12 +81,6 @@ RSpec.describe InfoRequestEvent do
     it "stores key/value as-is if they can't be mapped to the correct class" do
       ire.params = { foo_id: 4 }
       expect(ire.params).to include(foo_id: 4)
-    end
-
-    it "should allow params_yaml to be blank" do
-      ire.params_yaml = ''
-
-      expect(ire.params).to eql({})
     end
   end
 
@@ -321,15 +307,6 @@ RSpec.describe InfoRequestEvent do
         ire = FactoryBot.create(:info_request_event)
         expect(ire.visible).to eq(true)
       end
-    end
-  end
-
-  describe '#params' do
-    it 'should not error with Rails 5.0 params' do
-      ire = InfoRequestEvent.new(
-        params_yaml: load_file_fixture('yaml_compatibility_5_0.yml')
-      )
-      expect { ire.params }.to_not raise_error
     end
   end
 
