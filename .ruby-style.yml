@@ -56,6 +56,9 @@ Gemspec/DependencyVersion:
 Gemspec/DeprecatedAttributeAssignment:
   Enabled: false
 
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
 Gemspec/DuplicatedAssignment:
   Enabled: false
 
@@ -1527,6 +1530,9 @@ Style/CommentAnnotation:
 Style/CommentedKeyword:
   Enabled: false
 
+Style/ComparableClamp:
+  Enabled: false
+
 Style/ConcatArrayLiterals:
   Enabled: false
 
@@ -1715,6 +1721,9 @@ Style/InlineComment:
   Enabled: false
 
 Style/InverseMethods:
+  Enabled: false
+
+Style/InvertibleUnlessCondition:
   Enabled: false
 
 Style/IpAddresses:
