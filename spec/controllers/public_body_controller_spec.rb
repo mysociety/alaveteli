@@ -416,7 +416,7 @@ RSpec.describe PublicBodyController, "when asked to export public bodies as CSV"
 
     it 'sends CSV file as response' do
       get :list_all_csv
-      response.body.should eq IO.binread(fixture)
+      expect(response.body).to eq IO.binread(fixture)
     end
   end
 
