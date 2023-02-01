@@ -531,18 +531,23 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def self.requests_old_after_months
+    AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
+  end
+
+  def self.requests_very_old_after_months
+    requests_old_after_months * 4
+  end
+
   # This is called from cron regularly.
   def self.stop_new_responses_on_old_requests
-    old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
-    very_old = old * 4
-
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
     InfoRequest
       .been_published
       .where(allow_new_responses_from: 'anybody')
       .where.not(url_title: 'holding_pen')
-      .updated_before(old.months.ago.to_date)
+      .updated_before(requests_old_after_months.months.ago.to_date)
       .find_in_batches do |batch|
         batch.each do |info_request|
           old_allow_new_responses_from = info_request.allow_new_responses_from
@@ -565,7 +570,7 @@ class InfoRequest < ApplicationRecord
       .been_published
       .where(allow_new_responses_from: %w[anybody authority_only])
       .where.not(url_title: 'holding_pen')
-      .updated_before(very_old.months.ago.to_date)
+      .updated_before(requests_very_old_after_months.months.ago.to_date)
       .find_in_batches do |batch|
         batch.each do |info_request|
           old_allow_new_responses_from = info_request.allow_new_responses_from

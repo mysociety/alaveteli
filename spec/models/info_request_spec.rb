@@ -82,6 +82,30 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '.requests_old_after_months' do
+    subject { described_class.requests_old_after_months }
+
+    before do
+      allow(AlaveteliConfiguration).
+        to receive(:restrict_new_responses_on_old_requests_after_months).
+        and_return(1)
+    end
+
+    it { is_expected.to eq(1) }
+  end
+
+  describe '.requests_very_old_after_months' do
+    subject { described_class.requests_very_old_after_months }
+
+    before do
+      allow(AlaveteliConfiguration).
+        to receive(:restrict_new_responses_on_old_requests_after_months).
+        and_return(1)
+    end
+
+    it { is_expected.to eq(4) }
+  end
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 
