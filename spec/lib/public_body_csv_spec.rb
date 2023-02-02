@@ -117,10 +117,10 @@ RSpec.describe PublicBodyCSV do
                 :short_name => 'CSV',
                 :request_email => 'csv@localhost',
                 :tag_string => 'exported',
-                :notes => 'An exported authority',
+                :note_body => 'An exported authority',
                 :created_at => '2007-10-25 10:51:01 UTC',
                 :updated_at => '2007-10-25 10:51:01 UTC' }
-      body = FactoryBot.create(:public_body, attrs)
+      body = FactoryBot.create(:public_body, :with_note, attrs)
 
       csv = PublicBodyCSV.new
       csv << body
@@ -138,19 +138,19 @@ RSpec.describe PublicBodyCSV do
                  :short_name => 'CSV1',
                  :request_email => 'csv1@localhost',
                  :tag_string => 'exported',
-                 :notes => 'An exported authority',
+                 :note_body => 'An exported authority',
                  :created_at => '2007-10-25 10:51:01 UTC',
                  :updated_at => '2007-10-25 10:51:01 UTC' }
-      body1 = FactoryBot.create(:public_body, attrs1)
+      body1 = FactoryBot.create(:public_body, :with_note, attrs1)
 
       attrs2 = { :name => 'Exported to CSV 2',
                  :short_name => 'CSV2',
                  :request_email => 'csv2@localhost',
                  :tag_string => 'exported',
-                 :notes => 'Exported authority',
+                 :note_body => 'Exported authority',
                  :created_at => '2011-01-26 14:11:02 UTC',
                  :updated_at => '2011-01-26 14:11:02 UTC' }
-      body2 = FactoryBot.create(:public_body, attrs2)
+      body2 = FactoryBot.create(:public_body, :with_note, attrs2)
 
       expected = <<-CSV.strip_heredoc
       Name,Short name,URL name,Home page,Publication scheme,Disclosure log,Notes,Created at,Updated at,Version

@@ -63,7 +63,9 @@ RSpec.configure do |config|
                            :public_body_category_translations,
                            :public_body_headings,
                            :public_body_heading_translations,
-                           :public_body_category_links
+                           :public_body_category_links,
+                           :notes,
+                           :note_translations
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

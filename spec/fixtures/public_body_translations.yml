@@ -7,7 +7,6 @@ geraldine_es_public_body_translation:
   short_name: eTGQ
   url_name: etgq
   locale: es
-  notes: ""
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639
@@ -22,7 +21,6 @@ geraldine_en_public_body_translation:
   short_name: TGQ
   url_name: tgq
   locale: en
-  notes: ""
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639
@@ -37,7 +35,6 @@ humpadink_es_public_body_translation:
   short_name: eDfH
   url_name: edfh
   locale: es
-  notes: Baguette
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639
@@ -52,7 +49,6 @@ humpadink_en_public_body_translation:
   short_name: DfH
   url_name: dfh
   locale: en
-  notes: An albatross told me!!!
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639
@@ -67,7 +63,6 @@ forlorn_en_public_body_translation:
   short_name: DoL
   url_name: lonely
   locale: en
-  notes: A very lonely public body that no one has corresponded with
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639
@@ -82,7 +77,6 @@ silly_walks_en_public_body_translation:
   request_email: silly-walks-requests@localhost
   short_name: MSW
   url_name: msw
-  notes: You know the one.
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639
@@ -97,7 +91,6 @@ sensible_walks_en_public_body_translation:
   request_email: sensible-walks-requests@localhost
   short_name: SenseWalk
   url_name: sensible_walks
-  notes: I bet you’ve never heard of it.
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2008-10-25 10:51:01.161639
@@ -112,7 +105,6 @@ other_public_body_translation:
   request_email: other@localhost
   short_name: Another Public Body
   url_name: another_public_body
-  notes: More notes
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2008-10-25 10:51:01.161639
@@ -127,7 +119,6 @@ humpadink_he_IL_public_body_translation:
   short_name: DfH
   url_name: dfh
   locale: he_IL
-  notes: An albatross told me!!!
   publication_scheme: ""
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639

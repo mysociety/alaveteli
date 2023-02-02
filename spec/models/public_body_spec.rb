@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20220928093559
 #
 # Table name: public_bodies
 #
@@ -22,7 +22,6 @@
 #  short_name                             :text
 #  request_email                          :text
 #  url_name                               :text
-#  notes                                  :text
 #  first_letter                           :string
 #  publication_scheme                     :text
 #  disclosure_log                         :text
@@ -545,7 +544,7 @@ RSpec.describe PublicBody do
     subject(:notes) { public_body.notes }
 
     let(:public_body) do
-      FactoryBot.build(:public_body, notes: 'foo', tag_string: 'important')
+      FactoryBot.build(:public_body, tag_string: 'important')
     end
 
     let!(:concrete_note) do
@@ -558,13 +557,12 @@ RSpec.describe PublicBody do
 
     it 'returns an array' do
       is_expected.to be_an Array
-      expect(notes.count).to eq 3
+      expect(notes.count).to eq 2
     end
 
     it 'combined notable notes with legacy note' do
-      expect(notes[0].body).to eq 'foo'
-      expect(notes[1]).to eq concrete_note
-      expect(notes[2]).to eq tagged_note
+      expect(notes[0]).to eq concrete_note
+      expect(notes[1]).to eq tagged_note
     end
   end
 
@@ -572,7 +570,7 @@ RSpec.describe PublicBody do
     subject(:notes) { public_body.notes_as_string }
 
     let(:public_body) do
-      FactoryBot.build(:public_body, notes: 'foo', tag_string: 'important')
+      FactoryBot.build(:public_body, tag_string: 'important')
     end
 
     let!(:concrete_note) do
@@ -585,56 +583,28 @@ RSpec.describe PublicBody do
     end
 
     it 'concaterates note bodies' do
-      is_expected.to eq('foo bar baz')
-    end
-  end
-
-  describe '#legacy_note' do
-    subject(:legacy_note) { public_body.legacy_note }
-
-    context 'without legacy translated attributes' do
-      let(:public_body) { FactoryBot.build(:public_body) }
-      it { is_expected.to be_nil }
-    end
-
-    context 'with legacy translated attributes' do
-      let(:public_body) do
-        FactoryBot.build(
-          :public_body,
-          notes: 'foo',
-          translations_attributes: { es: { locale: 'es', notes: 'bar' } }
-        )
-      end
-
-      it 'builds new note instance' do
-        is_expected.to be_a Note
-        expect(legacy_note.body).to eq 'foo'
-        AlaveteliLocalization.with_locale('es') do
-          expect(legacy_note.body).to eq 'bar'
-        end
-      end
-
-      it 'assigns body as notable' do
-        expect(legacy_note.notable).to eq public_body
-      end
+      is_expected.to eq('bar baz')
     end
   end
 
   describe '#has_notes?' do
 
+    subject { public_body.has_notes? }
+    let(:public_body) { PublicBody.new }
+
     it 'returns false if notes is nil' do
-      subject = PublicBody.new(:notes => nil)
-      expect(subject.has_notes?).to eq(false)
+      allow(public_body).to receive(:notes).and_return(nil)
+      is_expected.to eq(false)
     end
 
-    it 'returns false if notes is blank' do
-      subject = PublicBody.new(:notes => '')
-      expect(subject.has_notes?).to eq(false)
+    it 'returns false if notes is empty' do
+      allow(public_body).to receive(:notes).and_return([])
+      is_expected.to eq(false)
     end
 
     it 'returns true if notes are present' do
-      subject = PublicBody.new(:notes => 'x')
-      expect(subject.has_notes?).to eq(true)
+      allow(public_body).to receive(:notes).and_return([double(:note)])
+      is_expected.to eq(true)
     end
 
   end
@@ -1234,7 +1204,7 @@ RSpec.describe PublicBody, " when saving" do
 
     ActsAsXapian::ActsAsXapianJob.destroy_all
 
-    body.update!(notes: 'test')
+    body.update!(request_email: 'other@localhost')
 
     expected_events =
       ActsAsXapian::ActsAsXapianJob.

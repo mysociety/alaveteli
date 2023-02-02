@@ -1,0 +1,63 @@
+geraldine_es_note_translation:
+  id: 1
+  note_id: 2
+  locale: es
+  body:
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+geraldine_en_note_translation:
+  id: 2
+  note_id: 2
+  locale: en
+  body:
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+humpadink_es_note_translation:
+  id: 3
+  note_id: 3
+  locale: es
+  body: Baguette
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+humpadink_en_note_translation:
+  id: 4
+  note_id: 3
+  locale: en
+  body: An albatross told me!!!
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+silly_walks_en_note_translation:
+  id: 6
+  note_id: 5
+  locale: en
+  body: You know the one.
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+sensible_walks_en_note_translation:
+  id: 7
+  note_id: 6
+  locale: en
+  body: I bet you’ve never heard of it.
+  created_at: 2008-10-25 10:51:01.161639
+  updated_at: 2008-10-25 10:51:01.161639
+
+other_note_translation:
+  id: 8
+  note_id: 7
+  locale: en
+  body: More notes
+  created_at: 2008-10-25 10:51:01.161639
+  updated_at: 2008-10-25 10:51:01.161639
+
+humpadink_he_IL_note_translation:
+  id: 9
+  note_id: 3
+  locale: he_IL
+  body: An albatross told me!!!
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639

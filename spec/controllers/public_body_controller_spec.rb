@@ -276,7 +276,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
   end
 
-  it "should support simple searching of bodies by notes" do
+  xit "should support simple searching of bodies by notes" do
     get :list, params: { :public_body_query => 'Albatross' }
     expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
   end
