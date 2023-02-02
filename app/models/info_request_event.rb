@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20220408125559
+# Schema version: 20230127132719
 #
 # Table name: info_request_events
 #
 #  id                  :integer          not null, primary key
 #  info_request_id     :integer          not null
 #  event_type          :text             not null
-#  params_yaml         :text             not null
 #  created_at          :datetime         not null
 #  described_state     :string
 #  calculated_state    :string
@@ -22,8 +21,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
-
-require 'yaml_compatibility'
 
 class InfoRequestEvent < ApplicationRecord
   extend XapianQueries
@@ -319,7 +316,6 @@ class InfoRequestEvent < ApplicationRecord
 
   def params=(new_params)
     super(params_for_jsonb(new_params))
-    self.params_yaml = params_for_yaml(new_params)
 
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
@@ -347,13 +343,7 @@ class InfoRequestEvent < ApplicationRecord
 
   def params
     params_jsonb = super
-    return Params[params_jsonb.deep_symbolize_keys] if params_jsonb
-
-    param_hash = YAMLCompatibility.load(params_yaml) || {}
-    param_hash.each do |key, value|
-      param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
-    end
-    param_hash
+    Params[params_jsonb.deep_symbolize_keys] if params_jsonb
   end
 
   def params_diff
@@ -604,9 +594,5 @@ class InfoRequestEvent < ApplicationRecord
       memo[key.to_sym] = value || v
       memo
     end
-  end
-
-  def params_for_yaml(params)
-    params.to_yaml
   end
 end

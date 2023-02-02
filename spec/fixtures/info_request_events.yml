@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20220408125559
+# Schema version: 20230127132719
 #
 # Table name: info_request_events
 #
 #  id                  :integer          not null, primary key
 #  info_request_id     :integer          not null
 #  event_type          :text             not null
-#  params_yaml         :text             not null
 #  created_at          :datetime         not null
 #  described_state     :string
 #  calculated_state    :string
@@ -20,8 +19,6 @@
 
 useless_outgoing_message_event:
   id: 900
-  params_yaml: "--- \n\
-    :outgoing_message_id: 1\n"
   params:
     outgoing_message_id: 1
   info_request_id: 101
@@ -31,8 +28,6 @@ useless_outgoing_message_event:
   outgoing_message_id: 1
 silly_outgoing_message_event:
   id: 901
-  params_yaml: "--- \n\
-    :outgoing_message_id: 2\n"
   params:
     outgoing_message_id: 2
   info_request_id: 103
@@ -44,8 +39,6 @@ silly_outgoing_message_event:
   last_described_at: 2007-10-14 10:41:12.686264
 useless_incoming_message_event:
   id: 902
-  params_yaml: "--- \n\
-    :incoming_message_id: 1\n"
   params:
     incoming_message_id: 1
   info_request_id: 101
@@ -55,8 +48,6 @@ useless_incoming_message_event:
   incoming_message_id: 1
 silly_comment_event:
   id: 903
-  params_yaml: "--- \n\
-    :comment_id: 1\n"
   params:
     comment_id: 1
   incoming_message_id:
@@ -70,8 +61,6 @@ silly_comment_event:
   created_at: 2008-08-12 23:05:12.500942
 badger_outgoing_message_event:
   id: 904
-  params_yaml: "--- \n\
-    :outgoing_message_id: 3\n"
   params:
     outgoing_message_id: 3
   info_request_id: 104
@@ -84,8 +73,6 @@ badger_outgoing_message_event:
 # These in chronological order
 boring_outgoing_message_event:
   id: 905
-  params_yaml: "--- \n\
-    :outgoing_message_id: 4\n"
   params:
     outgoing_message_id: 4
   outgoing_message_id: 4
@@ -96,8 +83,6 @@ boring_outgoing_message_event:
   calculated_state: waiting_response
 useful_incoming_message_event:
   id: 906
-  params_yaml: "--- \n\
-    :incoming_message_id: 2\n"
   params:
     incoming_message_id: 2
   incoming_message_id: 2
@@ -109,8 +94,6 @@ useful_incoming_message_event:
 
 another_boring_outgoing_message_event:
   id: 907
-  params_yaml: "--- \n\
-    :outgoing_message_id: 5\n"
   params:
     outgoing_message_id: 5
   outgoing_message_id: 5
@@ -121,8 +104,6 @@ another_boring_outgoing_message_event:
   calculated_state: waiting_response
 another_useful_incoming_message_event:
   id: 908
-  params_yaml: "--- \n\
-    :incoming_message_id: 3\n"
   params:
     incoming_message_id: 3
   incoming_message_id: 3
@@ -135,8 +116,6 @@ another_useful_incoming_message_event:
 # The spam requests were both successful
 spam_1_outgoing_message_event:
   id: 910
-  params_yaml: "--- \n\
-    :outgoing_message_id: 6\n"
   params:
     outgoing_message_id: 6
   outgoing_message_id: 6
@@ -147,8 +126,6 @@ spam_1_outgoing_message_event:
   calculated_state: waiting_response
 spam_1_incoming_message_event:
   id: 911
-  params_yaml: "--- \n\
-    :incoming_message_id: 4\n"
   params:
     incoming_message_id: 4
   incoming_message_id: 4
@@ -160,8 +137,6 @@ spam_1_incoming_message_event:
 
 spam_2_outgoing_message_event:
   id: 912
-  params_yaml: "--- \n\
-    :outgoing_message_id: 7\n"
   params:
     outgoing_message_id: 7
   outgoing_message_id: 7
@@ -172,8 +147,6 @@ spam_2_outgoing_message_event:
   calculated_state: waiting_response
 spam_2_incoming_message_event:
   id: 913
-  params_yaml: "--- \n\
-    :incoming_message_id: 5\n"
   params:
     incoming_message_id: 5
   incoming_message_id: 5
@@ -185,8 +158,6 @@ spam_2_incoming_message_event:
 
 external_outgoing_message_event:
   id: 914
-  params_yaml: "--- \n\
-    :outgoing_message_id: 8\n"
   params:
     outgoing_message_id: 8
   outgoing_message_id: 8
@@ -198,8 +169,6 @@ external_outgoing_message_event:
 
 anonymous_external_outgoing_message_event:
   id: 915
-  params_yaml: "--- \n\
-    :outgoing_message_id: 9\n"
   params:
     outgoing_message_id: 9
   outgoing_message_id: 9
@@ -211,8 +180,6 @@ anonymous_external_outgoing_message_event:
 
 other_request_outgoing_message_event:
   id: 916
-  params_yaml: "--- \n\
-    :outgoing_message_id: 10\n"
   params:
     outgoing_message_id: 10
   outgoing_message_id: 10
