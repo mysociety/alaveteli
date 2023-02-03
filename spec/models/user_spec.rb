@@ -792,7 +792,8 @@ RSpec.describe User do
     it 'calls expire on all associated requests' do
       user = FactoryBot.build(:user)
 
-      request_1, request_2 = double(:info_request), double(:info_request)
+      request_1 = double(:info_request)
+      request_2 = double(:info_request)
 
       allow(user).to receive_message_chain(:info_requests, :find_each).
         and_yield(request_1).and_yield(request_2)
@@ -808,7 +809,8 @@ RSpec.describe User do
     it 'calls reindex_request_events on all associated requests' do
       user = FactoryBot.build(:user)
 
-      comment_1, comment_2 = double(:comment), double(:comment)
+      comment_1 = double(:comment)
+      comment_2 = double(:comment)
 
       allow(user).to receive_message_chain(:comments, :find_each).
         and_yield(comment_1).and_yield(comment_2)

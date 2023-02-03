@@ -16,7 +16,8 @@ class TrackMailer < ApplicationMailer
   end
 
   def event_digest(user, email_about_things)
-    @user, @email_about_things = user, email_about_things
+    @user = user
+    @email_about_things = email_about_things
 
     headers(
       # http://tools.ietf.org/html/rfc3834

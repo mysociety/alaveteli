@@ -7,7 +7,8 @@
 class InfoRequestBatchMailer < ApplicationMailer
 
   def batch_sent(info_request_batch, unrequestable, user)
-    @info_request_batch, @unrequestable = info_request_batch, unrequestable
+    @info_request_batch = info_request_batch
+    @unrequestable = unrequestable
     @url = info_request_batch_url(@info_request_batch)
 
     set_reply_to_headers(user)

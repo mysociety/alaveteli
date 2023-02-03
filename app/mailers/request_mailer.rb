@@ -85,7 +85,8 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that a new response has arrived
   def new_response(info_request, incoming_message)
-    @incoming_message, @info_request = incoming_message, info_request
+    @incoming_message = incoming_message
+    @info_request = info_request
 
     set_reply_to_headers(info_request.user)
     set_auto_generated_headers
@@ -179,7 +180,8 @@ class RequestMailer < ApplicationMailer
 
   # Tell requester that somebody add an annotation to their request
   def comment_on_alert(info_request, comment)
-    @comment, @info_request = comment, info_request
+    @comment = comment
+    @info_request = info_request
     @url = comment_url(comment)
 
     set_reply_to_headers(info_request.user)
@@ -194,7 +196,8 @@ class RequestMailer < ApplicationMailer
   # Tell requester that somebody added annotations to more than one of
   # their requests
   def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
-    @count, @info_request = count, info_request
+    @count = count
+    @info_request = info_request
     @url = comment_url(earliest_unalerted_comment)
 
     set_reply_to_headers(info_request.user)

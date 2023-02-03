@@ -9,7 +9,10 @@ class ContactMailer < ApplicationMailer
 
   # Send message to administrator
   def to_admin_message(name, email, subject, message, logged_in_user, last_request, last_body)
-    @message, @logged_in_user, @last_request, @last_body = message, logged_in_user, last_request, last_body
+    @message = message
+    @logged_in_user = logged_in_user
+    @last_request = last_request
+    @last_body = last_body
 
     reply_to_address = MailHandler.address_from_name_and_email(name, email)
     set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
@@ -22,7 +25,10 @@ class ContactMailer < ApplicationMailer
 
   # Send message to another user
   def user_message(from_user, recipient_user, from_user_url, subject, message)
-    @message, @from_user, @recipient_user, @from_user_url = message, from_user, recipient_user, from_user_url
+    @message = message
+    @from_user = from_user
+    @recipient_user = recipient_user
+    @from_user_url = from_user_url
 
     set_reply_to_headers(nil, 'Reply-To' => from_user.name_and_email)
 
@@ -35,7 +41,8 @@ class ContactMailer < ApplicationMailer
   # Send message to a user from the administrator
   def from_admin_message(recipient_name, recipient_email, subject, message)
     @message = message
-    @recipient_name, @recipient_email = recipient_name, recipient_email
+    @recipient_name = recipient_name
+    @recipient_email = recipient_email
 
     recipient_user = User.find_by_email(recipient_email)
 

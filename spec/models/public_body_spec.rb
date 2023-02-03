@@ -756,7 +756,8 @@ RSpec.describe PublicBody do
     it 'calls expire on all associated requests' do
       public_body = FactoryBot.build(:public_body)
 
-      request_1, request_2 = double(:info_request), double(:info_request)
+      request_1 = double(:info_request)
+      request_2 = double(:info_request)
 
       allow(public_body).to receive_message_chain(:info_requests, :find_each).
         and_yield(request_1).and_yield(request_2)
