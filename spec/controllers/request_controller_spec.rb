@@ -19,7 +19,7 @@ RSpec.describe RequestController, "when listing recent requests" do
   it "should return 404 for pages we don't want to serve up" do
     xap_results = double(ActsAsXapian::Search,
                        :results => (1..25).to_a.map { |m| { :model => m } },
-                       :matches_estimated => 1000000)
+                       :matches_estimated => 1_000_000)
     expect {
       get :list, params: { :view => 'all', :page => 100 }
     }.to raise_error(ActiveRecord::RecordNotFound)

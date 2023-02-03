@@ -1789,8 +1789,8 @@ RSpec.describe InfoRequest do
     end
 
     context 'email with an id mistyped using letters and missing punctuation' do
-      before { InfoRequest.where(id: 1231014).destroy_all }
-      let!(:info_request) { FactoryBot.create(:info_request, id: 1231014) }
+      before { InfoRequest.where(id: 1_231_014).destroy_all }
+      let!(:info_request) { FactoryBot.create(:info_request, id: 1_231_014) }
       let(:email) { 'request-123loL4abcdefgh@example.com' }
       let(:guess) { described_class::Guess.new(info_request, email, :id) }
       it { is_expected.to include(guess) }
@@ -3669,7 +3669,7 @@ RSpec.describe InfoRequest do
 
     context "when the request is public" do
       let(:request) do
-        FactoryBot.create(:info_request_with_incoming, id: 123456,
+        FactoryBot.create(:info_request_with_incoming, id: 123_456,
                                                        title: "Test")
       end
 
@@ -3682,7 +3682,7 @@ RSpec.describe InfoRequest do
 
     context "when the request is hidden" do
       let(:request) do
-        FactoryBot.create(:info_request_with_incoming, id: 123456,
+        FactoryBot.create(:info_request_with_incoming, id: 123_456,
                                                        title: "Test",
                                                        prominence: "hidden")
       end
@@ -3694,7 +3694,7 @@ RSpec.describe InfoRequest do
       let(:request) do
         FactoryBot.create(
           :info_request_with_incoming,
-          id: 123456,
+          id: 123_456,
           title: "Test",
           prominence: "requester_only"
         )

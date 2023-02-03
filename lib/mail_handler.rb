@@ -83,7 +83,7 @@ module MailHandler
                          :timeout => 1200 }
       if content_type == 'application/vnd.ms-word'
         AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
-                                     { :memory_limit => 536870912, :timeout => 120 } )
+                                     { :memory_limit => 536_870_912, :timeout => 120 } )
         # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
         if not File.exist?(tempfile.path + ".txt")
           AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)

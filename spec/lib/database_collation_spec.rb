@@ -35,7 +35,7 @@ RSpec.describe DatabaseCollation do
 
     it 'does not support collation if the postgresql version is too old' do
       database = DatabaseCollation.
-                 new(mock_connection(:postgresql_version => 90111))
+                 new(mock_connection(:postgresql_version => 90111)) # rubocop:disable Style/NumericLiterals
       expect(database.supports?('en_GB')).to be false
     end
 
@@ -66,7 +66,7 @@ end
 def mock_connection(connection_double_opts = {})
   # Connection must be PostgreSQL 90112 or greater
   default_double_opts = { :adapter_name => 'PostgreSQL',
-                          :postgresql_version => 90112 }
+                          :postgresql_version => 90112 } # rubocop:disable Style/NumericLiterals
 
   connection_double_opts = default_double_opts.merge(connection_double_opts)
 

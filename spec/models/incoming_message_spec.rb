@@ -1138,9 +1138,9 @@ RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
     incoming_message = FactoryBot.build(:incoming_message)
     # This character is 2 bytes so the string should get sliced unless
     # we are handling multibyte chars correctly
-    multibyte_string = "å" * 500002
+    multibyte_string = "å" * 500_002
     allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
-    expect(incoming_message.get_attachment_text_clipped.length).to eq(500002)
+    expect(incoming_message.get_attachment_text_clipped.length).to eq(500_002)
   end
 
 end
@@ -1152,7 +1152,7 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
     before do
       @incoming_message = FactoryBot.create(:incoming_message)
       allow(@incoming_message).to receive(:get_main_body_text_internal).
-        and_return("x" * 1000010)
+        and_return("x" * 1_000_010)
     end
 
     it 'raises an exception' do

@@ -41,7 +41,7 @@ class IncomingMessage < ApplicationRecord
   include CacheAttributesFromRawEmail
   include Taggable
 
-  MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
+  MAX_ATTACHMENT_TEXT_CLIPPED = 1_000_000 # 1Mb ish
 
   belongs_to :info_request,
              inverse_of: :incoming_messages,
@@ -343,7 +343,7 @@ class IncomingMessage < ApplicationRecord
     # - this also effectively does a .dup as well, so text mods don't alter original
     text = text.split(/^begin.+^`\n^end\n/m).join(" ")
 
-    if text.size > 1000000 # 1 MB ish
+    if text.size > 1_000_000 # 1 MB ish
       raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
     end
 
