@@ -31,7 +31,7 @@ class AlaveteliFileTypes
 
   class << self
     def all_extensions
-      return FileExtensionToMimeType.keys
+      FileExtensionToMimeType.keys
     end
 
     # Given file name and its content, return most likely type
@@ -57,7 +57,7 @@ class AlaveteliFileTypes
       mahoro_type.match(/([a-z0-9.-]+\/[a-z0-9.-]+)/)
       return $1 if $1
       # otherwise we got junk back from mahoro
-      return nil
+      nil
     end
 
     def filename_to_mimetype(filename)
@@ -68,14 +68,14 @@ class AlaveteliFileTypes
           return FileExtensionToMimeType[lext]
         end
       end
-      return nil
+      nil
     end
 
     def mimetype_to_extension(mimetype)
       if FileExtensionToMimeTypeRev.include?(mimetype)
         return FileExtensionToMimeTypeRev[mimetype]
       end
-      return nil
+      nil
     end
   end
 end

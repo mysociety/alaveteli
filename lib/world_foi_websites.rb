@@ -142,12 +142,12 @@ class WorldFOIWebsites
         country_iso_code: 'AR',
         url: 'https://derechoaldato.com.ar/' },
     ]
-    return world_foi_websites
+    world_foi_websites
   end
 
   def self.by_code(code)
     result = world_foi_websites.find { |x| x[:country_iso_code].downcase == code.downcase }
-    return result
+    result
   end
 
   def self.can_ask_the_eu?(code)

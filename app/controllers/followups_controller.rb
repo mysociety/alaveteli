@@ -36,7 +36,7 @@ class FollowupsController < ApplicationController
     @internal_review = true if @outgoing_message.what_doing == 'internal_review'
     unless @outgoing_message.valid?
       render action: 'new'
-      return
+      nil
     end
   end
 
@@ -46,7 +46,7 @@ class FollowupsController < ApplicationController
     unless @info_request.is_followupable?(@incoming_message)
       @reason = @info_request.followup_bad_reason
       render action: 'followup_bad'
-      return
+      nil
     end
   end
 
@@ -58,7 +58,7 @@ class FollowupsController < ApplicationController
   def check_reedit
     if params[:reedit]
       render action: 'new'
-      return
+      nil
     end
   end
 
@@ -76,7 +76,7 @@ class FollowupsController < ApplicationController
                             locals: {
                             help_contact_path: help_contact_path } }
       render action: 'new'
-      return
+      nil
     end
   end
 

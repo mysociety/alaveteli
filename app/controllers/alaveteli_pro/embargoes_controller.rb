@@ -44,7 +44,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
       flash[:error] = _("Sorry, something went wrong publishing your " \
                         "request, please try again.")
     end
-    return redirect_to request_url(@info_request)
+    redirect_to request_url(@info_request)
   end
 
   def destroy_batch

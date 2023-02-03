@@ -407,7 +407,7 @@ class RequestController < ApplicationController
                            "link to your response has been emailed to {{user_name}}.",
                          user_name: @info_request.user.name.html_safe)
       redirect_to request_url(@info_request)
-      return
+      nil
     end
   end
 
@@ -679,7 +679,7 @@ class RequestController < ApplicationController
         redirect_to public_body_url(@info_request.public_body)
       end
     end
-    return
+    nil
 
   end
 

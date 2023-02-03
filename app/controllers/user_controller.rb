@@ -152,7 +152,7 @@ class UserController < ApplicationController
     else
       if user_alreadyexists
         already_registered_mail user_alreadyexists
-        return
+        nil
       else
         # New unconfirmed user
 
@@ -180,7 +180,7 @@ class UserController < ApplicationController
         @user_signup.email_confirmed = false
         @user_signup.save!
         send_confirmation_mail @user_signup
-        return
+        nil
       end
     end
   rescue ActionController::ParameterMissing
@@ -333,7 +333,7 @@ class UserController < ApplicationController
       end
 
       render template: 'user/set_crop_profile_photo'
-      return
+      nil
     elsif params[:submitted_crop_profile_photo].present?
       # crop the draft photo according to jquery parameters and set it as the users photo
       draft_profile_photo = ProfilePhoto.find(params[:draft_profile_photo_id])

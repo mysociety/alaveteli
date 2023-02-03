@@ -45,10 +45,9 @@ module AlaveteliFeatures
   def self.tables_exist?
     begin
       ActiveRecord::Base.establish_connection
-      return ActiveRecord::Base.
-               connection.data_source_exists?(:flipper_features)
+      ActiveRecord::Base.connection.data_source_exists?(:flipper_features)
     rescue
-      return false
+      false
     end
   end
 end

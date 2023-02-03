@@ -57,7 +57,7 @@ class AdminPublicBodyHeadingsController < AdminController
     transaction = reorder_categories_for_heading(params[:id], params[:categories])
     if transaction[:success]
       head :ok
-      return
+      nil
     else
       render plain: transaction[:error], status: :unprocessable_entity
     end

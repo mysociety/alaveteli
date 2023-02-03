@@ -46,10 +46,10 @@ class Notification < ApplicationRecord
   def self.reject_and_mark_expired(notifications)
     expired_ids = notifications.select(&:expired).map(&:id)
     if expired_ids.empty?
-      return notifications
+      notifications
     else
       Notification.where(id: expired_ids).update_all(expired: true)
-      return notifications.reject { |n| expired_ids.include?(n.id) }
+      notifications.reject { |n| expired_ids.include?(n.id) }
     end
   end
 

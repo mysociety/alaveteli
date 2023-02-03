@@ -397,7 +397,7 @@ module ActsAsXapian
           ret = true if term[1..1] == term[1..1].downcase
         end
       end
-      return ret
+      ret
     end
 
     # Estimate total number of results
@@ -466,7 +466,7 @@ module ActsAsXapian
         end
       end
       self.cached_results = results
-      return results
+      results
     end
   end
 
@@ -969,7 +969,7 @@ module ActsAsXapian
       else
         value = single_xapian_value(field, type = type)
       end
-      return value
+      value
     end
 
     # Extract value of a field from the model

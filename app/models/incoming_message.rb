@@ -220,11 +220,7 @@ class IncomingMessage < ApplicationRecord
 
 
     # http://www.whatdotheyknow.com/request/229/response/809
-    text.gsub!(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/im, "\n\n" + replacement)
-
-
-    return text
-
+    text.gsub(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/im, "\n\n" + replacement)
   end
 
 
@@ -300,9 +296,7 @@ class IncomingMessage < ApplicationRecord
     # Some silly Microsoft XML gets into parts marked as plain text.
     # e.g. http://www.whatdotheyknow.com/request/are_traffic_wardens_paid_commiss#incoming-401
     # Don't replace with "replacement" as it's pretty messy
-    text.gsub!(/<\?xml:namespace[^>]*\/>/, " ")
-
-    return text
+    text.gsub(/<\?xml:namespace[^>]*\/>/, " ")
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -343,17 +337,17 @@ class IncomingMessage < ApplicationRecord
   # TODO: returns a .dup of the text, so calling functions can in place modify it
   def get_main_body_text_folded
     _cache_main_body_text if cached_main_body_text_folded.nil?
-    return cached_main_body_text_folded
+    cached_main_body_text_folded
   end
   def get_main_body_text_unfolded
     _cache_main_body_text if cached_main_body_text_unfolded.nil?
-    return cached_main_body_text_unfolded
+    cached_main_body_text_unfolded
   end
   # Returns body text from main text part of email, converted to UTF-8
   def get_main_body_text_internal
     parse_raw_email!
     main_part = get_main_body_text_part
-    return _convert_part_body_to_text(main_part)
+    _convert_part_body_to_text(main_part)
   end
 
   # Given a main text part, converts it to text
@@ -383,9 +377,7 @@ class IncomingMessage < ApplicationRecord
     # Compress extra spaces down to save space, and to stop regular expressions
     # breaking in strange extreme cases. e.g. for
     # http://www.whatdotheyknow.com/request/spending_on_consultants
-    text = text.gsub(/ +/, " ")
-
-    return text
+    text.gsub(/ +/, " ")
   end
 
   # Returns part which contains main body text, or nil if there isn't one,
@@ -422,7 +414,7 @@ class IncomingMessage < ApplicationRecord
     # like binary/octet-stream, or the like, which are really text - TODO: if
     # you find an example, put URL here - perhaps we should be always returning
     # nil in this case)
-    return p
+    p
   end
 
   # Returns attachments that are uuencoded in main body part
@@ -461,7 +453,7 @@ class IncomingMessage < ApplicationRecord
     for attachment in foi_attachments
       attachments << attachment if attachment != main_part
     end
-    return attachments
+    attachments
   end
 
   def extract_attachments!
@@ -557,7 +549,7 @@ class IncomingMessage < ApplicationRecord
     text.gsub!("FOLDED_QUOTED_SECTION", " ")
     text.strip!
     raise "internal error" if text.nil?
-    return text
+    text
   end
 
   # Returns text version of attachment text
@@ -575,7 +567,7 @@ class IncomingMessage < ApplicationRecord
       save!
     end
 
-    return text
+    text
   end
   # Returns a version reduced to a sensible maximum size - this
   # is for performance reasons when showing snippets in search results.
@@ -586,7 +578,7 @@ class IncomingMessage < ApplicationRecord
       raise "internal error" if cached_attachment_text_clipped.nil?
     end
 
-    return cached_attachment_text_clipped
+    cached_attachment_text_clipped
   end
 
   def _extract_text
@@ -606,11 +598,11 @@ class IncomingMessage < ApplicationRecord
 
   # Returns text for indexing
   def get_text_for_indexing_full
-    return get_body_for_indexing + "\n\n" + get_attachment_text_full
+    get_body_for_indexing + "\n\n" + get_attachment_text_full
   end
   # Used for excerpts in search results, when loading full text would be too slow
   def get_text_for_indexing_clipped
-    return get_body_for_indexing + "\n\n" + get_attachment_text_clipped
+    get_body_for_indexing + "\n\n" + get_attachment_text_clipped
   end
 
   # Has message arrived "recently"?
@@ -632,7 +624,7 @@ class IncomingMessage < ApplicationRecord
       end
     end
 
-    return nil
+    nil
   end
 
   # Returns space separated list of file extensions of attachments to this message. Defaults to
@@ -646,7 +638,7 @@ class IncomingMessage < ApplicationRecord
       end
       ret[ext] = 1 if !ext.nil?
     end
-    return ret.keys.join(" ")
+    ret.keys.join(" ")
   end
 
   def refusals

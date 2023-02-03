@@ -597,9 +597,9 @@ class InfoRequest < ApplicationRecord
     list_results = xapian_object.results.map { |r| r[:model] }
     matches_estimated = xapian_object.matches_estimated
     show_no_more_than = [matches_estimated, max_results].min
-    return { results: list_results,
-             matches_estimated: matches_estimated,
-             show_no_more_than: show_no_more_than }
+    { results: list_results,
+      matches_estimated: matches_estimated,
+      show_no_more_than: show_no_more_than }
   end
 
   def self.recent_requests
@@ -1027,7 +1027,7 @@ class InfoRequest < ApplicationRecord
     Time.zone.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
     Time.zone.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
-    return 'waiting_response'
+    'waiting_response'
   end
 
   # 'described_state' can be populated on any info_request_event but is only
@@ -1874,7 +1874,7 @@ class InfoRequest < ApplicationRecord
                                user.features.enabled?(:notifications) && \
                                info_request_batch_id.present?
     end
-    return true
+    true
   end
 
   def must_be_valid_state

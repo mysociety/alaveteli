@@ -35,7 +35,7 @@ class AlaveteliPro::BaseController < ApplicationController
       end
       return true
     end
-    return false
+    false
   end
 
   # An override of set_in_pro_area from ApplicationController, because we are

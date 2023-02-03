@@ -325,7 +325,7 @@ class ApplicationController < ActionController::Base
         uri += "?post_redirect=1"
       end
     end
-    return uri
+    uri
   end
 
   # If we are in a faked redirect to POST request, then set post params.
@@ -386,13 +386,13 @@ class ApplicationController < ActionController::Base
   # Convert URL name for sort by order, to Xapian query
   def order_to_sort_by(sortby)
     if sortby.nil?
-      return [nil, nil]
+      [nil, nil]
     elsif sortby == 'newest'
-      return ['created_at', true]
+      ['created_at', true]
     elsif sortby == 'described'
-      return ['described_at', true] # use this for some RSS
+      ['described_at', true] # use this for some RSS
     elsif sortby == 'relevant'
-      return [nil, nil]
+      [nil, nil]
     else
       raise "Unknown sort order " + @sortby
     end
@@ -419,13 +419,13 @@ class ApplicationController < ActionController::Base
                                       )
     result.results # Touch the results to load them, otherwise accessing them from the view
     # might fail later if the database has subsequently been reopened.
-    return result
+    result
   end
 
   def get_search_page_from_params
     page = (params[:page] || "1").to_i
     page = 1 if page < 1
-    return page
+    page
   end
 
   def typeahead_search(query, options)

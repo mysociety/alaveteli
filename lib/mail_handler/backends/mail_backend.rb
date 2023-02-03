@@ -103,9 +103,9 @@ module MailHandler
           begin
             mail[:from].addrs[0]
             mail[:from].decoded
-            return mail[:from].addrs[0]
+            mail[:from].addrs[0]
           rescue
-            return mail[:from].value
+            mail[:from].value
           end
         else
           nil
@@ -117,12 +117,12 @@ module MailHandler
         first_from = first_from(mail)
         if first_from
           if first_from.is_a?(String)
-            return nil
+            nil
           else
-            return first_from.address
+            first_from.address
           end
         else
-          return nil
+          nil
         end
       end
 
@@ -131,12 +131,12 @@ module MailHandler
         first_from = first_from(mail)
         if first_from
           if first_from.is_a?(String)
-            return nil
+            nil
           else
-            return (first_from.display_name || nil)
+            (first_from.display_name || nil)
           end
         else
-          return nil
+          nil
         end
       end
 
@@ -153,7 +153,7 @@ module MailHandler
       def empty_return_path?(mail)
         return false if mail['return-path'].nil?
         return true if mail['return-path'].value.blank?
-        return false
+        false
       end
 
       def get_auto_submitted(mail)
@@ -175,7 +175,7 @@ module MailHandler
         if filename && AlaveteliFileTypes.filename_to_mimetype(filename) == 'application/vnd.ms-outlook'
           return true
         end
-        return false
+        false
       end
 
       # Convert a mail part which is an attached mail in one of
@@ -281,11 +281,11 @@ module MailHandler
       def choose_best_alternative(mail)
         return mail.parts.detect(&:multipart?) if mail.parts.any?(&:multipart?)
         if mail.html_part
-          return mail.html_part
+          mail.html_part
         elsif mail.text_part
-          return mail.text_part
+          mail.text_part
         else
-          return mail.parts.first
+          mail.parts.first
         end
       end
 
@@ -298,7 +298,7 @@ module MailHandler
         leaves = _get_attachment_leaves_recursive(mail, nil, mail)
         mail.count_parts_count = 0
         count_parts(mail, mail)
-        return leaves
+        leaves
       end
 
       # Recurse through a mail part, selecting the best part wherever there is
@@ -339,7 +339,7 @@ module MailHandler
             leaves_found += [part]
           end
         end
-        return leaves_found
+        leaves_found
       end
 
       # Add selected useful headers from an attached message to its body

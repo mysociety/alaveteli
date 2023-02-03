@@ -147,11 +147,11 @@ class TrackController < ApplicationController
             user_receive_email_alerts: @user.receive_email_alerts,
             user_url_name: @user.url_name,
             track_thing_id: @track_thing.id } }
-      return true
+      true
     else
       # this will most likely be tripped by a single error - probably track_query length
       flash[:error] = @track_thing.errors.map(&:message).join(", ")
-      return false
+      false
     end
   end
 

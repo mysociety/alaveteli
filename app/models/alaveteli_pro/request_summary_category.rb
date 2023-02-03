@@ -15,38 +15,38 @@ class AlaveteliPro::RequestSummaryCategory < ApplicationRecord
                           inverse_of: :request_summary_categories
 
   def self.draft
-    return find_by(slug: "draft")
+    find_by(slug: "draft")
   end
 
   def self.complete
-    return find_by(slug: 'complete')
+    find_by(slug: 'complete')
   end
 
   def self.clarification_needed
-    return find_by(slug: 'clarification_needed')
+    find_by(slug: 'clarification_needed')
   end
 
   def self.awaiting_response
-    return find_by(slug: 'awaiting_response')
+    find_by(slug: 'awaiting_response')
   end
 
   def self.response_received
-    return find_by(slug: 'response_received')
+    find_by(slug: 'response_received')
   end
 
   def self.overdue
-    return find_by(slug: 'overdue')
+    find_by(slug: 'overdue')
   end
 
   def self.very_overdue
-    return find_by(slug: 'very_overdue')
+    find_by(slug: 'very_overdue')
   end
 
   def self.other
-    return find_by(slug: 'other')
+    find_by(slug: 'other')
   end
 
   def self.embargo_expiring
-    return find_by(slug: 'embargo_expiring')
+    find_by(slug: 'embargo_expiring')
   end
 end

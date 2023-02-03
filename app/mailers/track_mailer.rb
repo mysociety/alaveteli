@@ -131,7 +131,7 @@ class TrackMailer < ApplicationMailer
       user.save!(touch: false)
       done_something = true
     end
-    return done_something
+    done_something
   end
 
   def self.alert_tracks_loop
