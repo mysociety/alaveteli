@@ -31,9 +31,7 @@ namespace :themes do
 
   def uninstall(theme_name, verbose=false)
     possible_theme_dirs(theme_name).each do |dir|
-      if File.directory?(dir)
-        run_hook(theme_name, 'uninstall', verbose)
-      end
+      run_hook(theme_name, 'uninstall', verbose) if File.directory?(dir)
     end
   end
 
@@ -164,9 +162,7 @@ namespace :themes do
     locale_extensions(locale).each do |locale_extension|
       filename = "#{template_name}#{locale_extension}.html.erb"
       filepath = "lib/themes/#{theme_name}/lib/views/help/#{filename}"
-      if File.exist?(filepath)
-        return filepath
-      end
+      return filepath if File.exist?(filepath)
     end
     nil
   end
@@ -258,9 +254,7 @@ EOF
             missing = true
           end
         end
-        if !missing
-          puts "No missing templates or sections"
-        end
+        puts "No missing templates or sections" if !missing
       end
     end
 

@@ -13,11 +13,18 @@ module RoutingFilter
     # what FastGettext and other POSIX-based systems use, and will
     # look like `en_US`
     def around_generate(*args, &block)
-      params = args.extract_options!                              # this is because we might get a call like forum_topics_path(forum, topic, :locale => :en)
-
-      locale = params.delete(:locale)                             # extract the passed :locale option
-      locale = AlaveteliLocalization.locale if locale.nil?        # default to underscore locale when locale is nil (could also be false)
-      locale = nil unless valid_locale?(locale)                   # reset to no locale when locale is not valid
+      # this is because we might get a call like forum_topics_path(forum, topic, :locale => :en)
+      params = args.extract_options!
+      # extract the passed :locale option
+      locale = params.delete(:locale)
+      if locale.nil?
+        # default to underscore locale when locale is nil (could also be false)
+        locale = AlaveteliLocalization.locale
+      end
+      unless valid_locale?(locale)
+        # reset to no locale when locale is not valid
+        locale = nil
+      end
       args << params
 
       yield.tap do |result|

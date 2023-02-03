@@ -118,12 +118,8 @@ class PublicBodyChangeRequest < ApplicationRecord
 
   def comment_for_public_body
     comments = ["Requested by: #{get_user_name} (#{get_user_email})"]
-    if !source_url.blank?
-      comments << "Source URL: #{source_url}"
-    end
-    if !notes.blank?
-      comments << "Notes: #{notes}"
-    end
+    comments << "Source URL: #{source_url}" if !source_url.blank?
+    comments << "Notes: #{notes}" if !notes.blank?
     comments.join("\n")
   end
 

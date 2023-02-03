@@ -69,9 +69,7 @@ class PasswordChangesController < ApplicationController
   end
 
   def update
-    if @pretoken
-      @pretoken_redirect = PostRedirect.find_by(:token => @pretoken)
-    end
+    @pretoken_redirect = PostRedirect.find_by(:token => @pretoken) if @pretoken
 
     if @password_change_user
       @password_change_user.password = params[:password_change_user][:password]

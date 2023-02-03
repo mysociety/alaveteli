@@ -66,9 +66,7 @@ module MailHandler
 
       def get_subject(mail)
         subject = mail.subject
-        if subject
-          convert_string_to_utf8(subject).string
-        end
+        convert_string_to_utf8(subject).string if subject
       end
 
       def get_within_rfc822_subject(leaf)
@@ -252,17 +250,13 @@ module MailHandler
             part_body = get_part_body(part)
             calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_filename,
                                                                             part_body)
-            if calc_mime
-              part.content_type = calc_mime
-            end
+            part.content_type = calc_mime if calc_mime
           end
 
           # Use standard content types for Word documents etc.
           part.content_type = normalise_content_type(get_content_type(part))
           decode_attached_part(part, parent_mail)
-          if original_charset
-            part.charset = original_charset
-          end
+          part.charset = original_charset if original_charset
         end
       end
 
@@ -285,9 +279,7 @@ module MailHandler
 
       # Choose the best part from alternatives
       def choose_best_alternative(mail)
-        if mail.parts.any?(&:multipart?)
-          return mail.parts.detect(&:multipart?)
-        end
+        return mail.parts.detect(&:multipart?) if mail.parts.any?(&:multipart?)
         if mail.html_part
           return mail.html_part
         elsif mail.text_part
@@ -397,9 +389,7 @@ module MailHandler
         if !MySociety::Validate.is_valid_email(email)
           raise "invalid email " + email + " passed to address_from_name_and_email"
         end
-        if name.nil?
-          return Mail::Address.new(email.dup).to_s
-        end
+        return Mail::Address.new(email.dup).to_s if name.nil?
         address = Mail::Address.new
         address.display_name = name.dup
         address.address = email.dup

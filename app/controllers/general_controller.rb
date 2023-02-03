@@ -101,9 +101,7 @@ class GeneralController < ApplicationController
       @sort_postfix = combined.pop
       @sortby = @sort_postfix
     end
-    if !params[:view].nil?
-      combined += [params[:view]]
-    end
+    combined += [params[:view]] if !params[:view].nil?
     if combined.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(combined[-1]))
       @variety_postfix = combined.pop
       case @variety_postfix
@@ -124,9 +122,7 @@ class GeneralController < ApplicationController
       end
     end
     @query = combined.join("/")
-    if params[:query].nil?
-      params[:query] = @query
-    end
+    params[:query] = @query if params[:query].nil?
     if @variety_postfix != "all" && @requests
       @query = InfoRequestEvent.make_query_from_params(params)
     end

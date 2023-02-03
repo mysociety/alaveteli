@@ -55,9 +55,7 @@ module AttachmentToHTML
 
         invalid = %Q(<!DOCTYPE html PUBLIC -//W3C//DTD HTML 4.01 Transitional//EN>)
         valid   = %Q(<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN>")
-        if html.include?(invalid)
-          html.sub!(invalid, valid)
-        end
+        html.sub!(invalid, valid) if html.include?(invalid)
         html
       end
     end

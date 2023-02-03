@@ -188,9 +188,7 @@ namespace :config_files do
     example = 'rake config_files:set_reject_incoming_at_mta REJECTED_THRESHOLD=5 AGE_IN_MONTHS=12'
     check_for_env_vars(['REJECTED_THRESHOLD', 'AGE_IN_MONTHS'], example)
     dryrun = ENV['DRYRUN'] != '0'
-    if dryrun
-      STDERR.puts "Only a dry run; info_requests will not be updated"
-    end
+    STDERR.puts "Only a dry run; info_requests will not be updated" if dryrun
     options = {:rejection_threshold => ENV['REJECTED_THRESHOLD'],
                :age_in_months => ENV['AGE_IN_MONTHS'],
                :dryrun => dryrun}

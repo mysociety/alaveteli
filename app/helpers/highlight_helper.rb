@@ -5,7 +5,9 @@ module HighlightHelper
   # the phrases parameter.
   # https://github.com/rails/rails/pull/11793
   def highlight_matches(text, phrases, options = {})
-    text = ActionController::Base.helpers.sanitize(text).try(:html_safe) if options.fetch(:sanitize, true)
+    if options.fetch(:sanitize, true)
+      text = ActionController::Base.helpers.sanitize(text).try(:html_safe)
+    end
 
     if text.blank? || phrases.blank?
       text
@@ -34,9 +36,7 @@ module HighlightHelper
 
   def highlight_and_excerpt(t, words, excount, html = true)
     newt = excerpt(t, words[0], :radius => excount)
-    if not newt
-      newt = excerpt(t, '', :radius => excount)
-    end
+    newt = excerpt(t, '', :radius => excount) if not newt
     t = newt
     t = highlight_words(t, words, html)
     return t

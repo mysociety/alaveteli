@@ -3431,9 +3431,7 @@ RSpec.describe InfoRequest do
         request_events, request_events_all_successful = InfoRequest.recent_requests
         previous = nil
         request_events.each do |event|
-          if previous
-            expect(previous.created_at).to be >= event.created_at
-          end
+          expect(previous.created_at).to be >= event.created_at if previous
           expect(['sent', 'response'].include?(event.event_type)).to be true
           if event.event_type == 'response'
             expect(['successful', 'partially_successful'].include?(event.calculated_state)).to be true

@@ -190,9 +190,7 @@ class AdminPublicBodyController < AdminController
                                          admin_current_user,
                                          AlaveteliLocalization.
                                            available_locales)
-            if errors.size != 0
-              raise "dry run mismatched real run"
-            end
+            raise "dry run mismatched real run" if errors.size != 0
             notes.push("Import was successful.")
           end
         end
@@ -234,13 +232,9 @@ class AdminPublicBodyController < AdminController
     @locale = AlaveteliLocalization.locale
     AlaveteliLocalization.with_locale(@locale) do
       @query = params[:query]
-      if @query == ""
-        @query = nil
-      end
+      @query = nil if @query == ""
       @page = params[:page]
-      if @page == ""
-        @page = nil
-      end
+      @page = nil if @page == ""
 
       query = if @query
         query_str = <<-EOF.strip_heredoc

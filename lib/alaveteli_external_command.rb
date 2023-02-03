@@ -36,9 +36,7 @@ class AlaveteliExternalCommand
     # TODO: calling code should be able to specify error stream - may want to log it or
     # otherwise act upon it.
     opts = {}
-    if !args.empty? && args.last.is_a?(Hash)
-      opts = args.last
-    end
+    opts = args.last if !args.empty? && args.last.is_a?(Hash)
 
     program_path = find_program!
     xc = ExternalCommand.new(program_path, *command_args, *args)

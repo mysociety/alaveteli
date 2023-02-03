@@ -5,9 +5,7 @@ namespace :import do
   desc 'Import public bodies from CSV provided on standard input'
   task :import_csv => :environment do
     dryrun = ENV['DRYRUN'] != '0'
-    if dryrun
-      STDERR.puts 'Only a dry run; public bodies will not be created'
-    end
+    STDERR.puts 'Only a dry run; public bodies will not be created' if dryrun
 
     tmp_csv = nil
     Tempfile.open('alaveteli') do |f|

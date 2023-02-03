@@ -58,9 +58,7 @@ class TypeaheadSearch
     end
 
     # don't run a search if there's no query
-    if @query.blank?
-      @run_search = false
-    end
+    @run_search = false if @query.blank?
 
   end
 

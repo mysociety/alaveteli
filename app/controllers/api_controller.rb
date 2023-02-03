@@ -196,7 +196,9 @@ class ApiController < ApplicationController
 
   def body_request_events
     feed_type = params[:feed_type]
-    raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
+    if @public_body.id != params[:id].to_i
+      raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}")
+    end
 
     since_date_str = params[:since_date]
     since_event_id = params[:since_event_id]
@@ -256,9 +258,7 @@ class ApiController < ApplicationController
           :body => event.outgoing_message.body,
           :user_name => request.user_name,
         }
-        if request.user
-          this_event[:user_url] = user_url(request.user)
-        end
+        this_event[:user_url] = user_url(request.user) if request.user
 
         @event_data.push(this_event)
       end
@@ -270,7 +270,9 @@ class ApiController < ApplicationController
 
   protected
   def check_api_key
-    raise PermissionDenied.new("Missing required parameter 'k'") if params[:k].nil?
+    if params[:k].nil?
+      raise PermissionDenied.new("Missing required parameter 'k'")
+    end
     @public_body = PublicBody.find_by_api_key(params[:k].gsub(' ', '+'))
     raise PermissionDenied if @public_body.nil?
   end

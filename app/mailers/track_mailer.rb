@@ -85,9 +85,15 @@ class TrackMailer < ApplicationMailer
             raise "need to add other types to TrackMailer.alert_tracks (unalerted)"
           end
 
-          next if track_thing.created_at >= result[:model].described_at # made before the track was created
-          next if result[:model].described_at < one_week_ago # older than 1 week (see 14 days / 7 days in comment above)
-          next if done_info_request_events.include?(result[:model].id) # definitely already done
+          if track_thing.created_at >= result[:model].described_at  # made before the track was created
+            next
+          end
+          if result[:model].described_at < one_week_ago  # older than 1 week (see 14 days / 7 days in comment above)
+            next
+          end
+          if done_info_request_events.include?(result[:model].id)  # definitely already done
+            next
+          end
 
           # OK alert this one
           alert_results.push(result)

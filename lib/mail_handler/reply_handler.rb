@@ -64,32 +64,18 @@ module MailHandler
 
       subject = MailHandler.get_header_string("Subject", message).downcase
       if MailHandler.empty_return_path?(message)
-        if subject.start_with? "out of office: "
-          return true
-        end
-        if subject.start_with? "automatic reply: "
-          return true
-        end
+        return true if subject.start_with? "out of office: "
+        return true if subject.start_with? "automatic reply: "
       end
 
       if MailHandler.get_header_string("Auto-Submitted", message) == "auto-generated"
-        if subject =~ /out of( the)? office/
-          return true
-        end
+        return true if subject =~ /out of( the)? office/
       end
 
-      if subject.start_with? "out of office autoreply:"
-        return true
-      end
-      if subject == "out of office"
-        return true
-      end
-      if subject == "out of office reply"
-        return true
-      end
-      if subject.end_with? "is out of the office"
-        return true
-      end
+      return true if subject.start_with? "out of office autoreply:"
+      return true if subject == "out of office"
+      return true if subject == "out of office reply"
+      return true if subject.end_with? "is out of the office"
       return false
     end
 

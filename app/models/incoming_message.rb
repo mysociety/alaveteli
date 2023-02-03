@@ -95,9 +95,7 @@ class IncomingMessage < ApplicationRecord
     # The following fields may be absent; we treat them as cached
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
-    if self.raw_email.nil?
-      raise "Incoming message id=#{id} has no raw_email"
-    end
+    raise "Incoming message id=#{id} has no raw_email" if self.raw_email.nil?
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
         extract_attachments
@@ -363,15 +361,11 @@ class IncomingMessage < ApplicationRecord
   # (marked with FOLDED_QUOTED_SECTION)
   # TODO: returns a .dup of the text, so calling functions can in place modify it
   def get_main_body_text_folded
-    if self.cached_main_body_text_folded.nil?
-      self._cache_main_body_text
-    end
+    self._cache_main_body_text if self.cached_main_body_text_folded.nil?
     return self.cached_main_body_text_folded
   end
   def get_main_body_text_unfolded
-    if self.cached_main_body_text_unfolded.nil?
-      self._cache_main_body_text
-    end
+    self._cache_main_body_text if self.cached_main_body_text_unfolded.nil?
     return self.cached_main_body_text_unfolded
   end
   # Returns body text from main text part of email, converted to UTF-8
@@ -432,9 +426,7 @@ class IncomingMessage < ApplicationRecord
 
     # Otherwise first part which is any sort of text
     leaves.each do |p|
-      if p.content_type.match(/^text/)
-        return p
-      end
+      return p if p.content_type.match(/^text/)
     end
 
     # ... or if none, consider first part
@@ -540,9 +532,7 @@ class IncomingMessage < ApplicationRecord
     # links, without escaping them. Rather than using some proper parser
     # making a tree structure (I don't know of one that is to hand, that
     # works well in this kind of situation, such as with regexps).
-    if collapse_quoted_sections
-      text = folded_quoted_text
-    end
+    text = folded_quoted_text if collapse_quoted_sections
     text = MySociety::Format.simplify_angle_bracketed_urls(text)
     text = CGI.escapeHTML(text)
     text = MySociety::Format.make_clickable(text, :contract => 1)
@@ -651,7 +641,9 @@ class IncomingMessage < ApplicationRecord
   def self.find_all_unknown_mime_types
     IncomingMessage.find_each do |incoming_message|
       for attachment in incoming_message.get_attachments_for_display
-        raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
+        if attachment.content_type.nil?
+          raise "internal error incoming_message " + incoming_message.id.to_s
+        end
         if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?
           $stderr.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
           $stderr.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s
@@ -668,7 +660,9 @@ class IncomingMessage < ApplicationRecord
     ret = {}
     for attachment in self.get_attachments_for_display
       ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
-      ext = File.extname(attachment.filename).gsub(/^[.]/, "") if ext.nil? && !attachment.filename.nil?
+      if ext.nil? && !attachment.filename.nil?
+        ext = File.extname(attachment.filename).gsub(/^[.]/, "")
+      end
       ret[ext] = 1 if !ext.nil?
     end
     return ret.keys.join(" ")

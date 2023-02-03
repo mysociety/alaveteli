@@ -93,7 +93,9 @@ class PostRedirect < ApplicationRecord
   def reason_params
     param_hash = YAML.load(reason_params_yaml)
     param_hash.each do |key, value|
-      param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
+      if value.respond_to?(:force_encoding)
+        param_hash[key] = value.force_encoding('UTF-8')
+      end
     end
     param_hash
   end

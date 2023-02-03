@@ -20,9 +20,7 @@ module MailHandler
       IO.popen("tnef -K -C #{dir} 2> /dev/null", "wb") do |f|
         f.write(content)
         f.close
-        if $?.signaled?
-          raise IOError, "tnef exited with signal #{$?.termsig}"
-        end
+        raise IOError, "tnef exited with signal #{$?.termsig}" if $?.signaled?
         if $?.exited? && $?.exitstatus != 0
           raise TNEFParsingError, "tnef exited with status #{$?.exitstatus}"
         end
@@ -36,9 +34,7 @@ module MailHandler
           found += 1
         end
       end
-      if found == 0
-        raise TNEFParsingError, "tnef produced no attachments"
-      end
+      raise TNEFParsingError, "tnef produced no attachments" if found == 0
     end
     attachments
   end

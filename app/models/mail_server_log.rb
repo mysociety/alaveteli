@@ -40,7 +40,9 @@ class MailServerLog < ApplicationRecord
     file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
 
     modified = File.stat(file_name).mtime
-    raise "MailServerLog.load_file: file not found " + file_name if modified.nil?
+    if modified.nil?
+      raise "MailServerLog.load_file: file not found " + file_name
+    end
 
     ActiveRecord::Base.transaction do
       # see if we already have it

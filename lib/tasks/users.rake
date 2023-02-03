@@ -99,9 +99,7 @@ namespace :users do
       end
 
     end_date =
-      if ENV['END_DATE']
-        Time.zone.parse(ENV['END_DATE']).at_end_of_day
-      end
+      (Time.zone.parse(ENV['END_DATE']).at_end_of_day if ENV['END_DATE'])
 
     # Only auto-calculate missing dates if one has been provided without the
     # other

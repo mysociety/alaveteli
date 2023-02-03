@@ -17,9 +17,7 @@ class WidgetsController < ApplicationController
     @user_owns_request = @info_request.user && @info_request.user == @user
 
     @existing_track =
-      if @user
-        TrackThing.find_existing(@user, @track_thing)
-      end
+      (TrackThing.find_existing(@user, @track_thing) if @user)
 
     @existing_vote =
       unless @existing_track

@@ -19,23 +19,17 @@ class AdminCommentController < AdminController
       Comment.order(created_at: :desc)
     end
 
-    if cannot? :admin, AlaveteliPro::Embargo
-      comments = comments.not_embargoed
-    end
+    comments = comments.not_embargoed if cannot? :admin, AlaveteliPro::Embargo
 
     @comments = comments.paginate :page => params[:page], :per_page => 100
   end
 
   def edit
-    if cannot? :admin, @comment
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound if cannot? :admin, @comment
   end
 
   def update
-    if cannot? :admin, @comment
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound if cannot? :admin, @comment
     old_body = @comment.body.dup
     old_visible = @comment.visible
     old_attention = @comment.attention_requested

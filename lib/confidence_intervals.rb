@@ -19,9 +19,7 @@
 require 'statistics2'
 
 def ci_bounds(successes, total, power)
-  if total == 0
-    raise RuntimeError, "Can't calculate the CI for 0 observations"
-  end
+  raise RuntimeError, "Can't calculate the CI for 0 observations" if total == 0
   z = Statistics2.pnormaldist(1 - power/2)
   phat = successes.to_f/total
   offset = z*Math.sqrt((phat*(1 - phat) + z*z/(4*total))/total)

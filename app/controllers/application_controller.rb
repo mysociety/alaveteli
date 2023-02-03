@@ -172,9 +172,7 @@ class ApplicationController < ActionController::Base
   def render_exception(exception)
     # In development let Rails handle the exception with its stack trace
     # templates.
-    if Rails.application.config.consider_all_requests_local
-      raise exception
-    end
+    raise exception if Rails.application.config.consider_all_requests_local
 
     @exception_backtrace = exception.backtrace.join("\n")
     @exception_class = exception.class.to_s
@@ -473,7 +471,9 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def sanitize_path(params)
-    params.merge!(:path => Rack::Utils.escape(params[:path])) if params.key?(:path)
+    if params.key?(:path)
+      params.merge!(:path => Rack::Utils.escape(params[:path]))
+    end
   end
 
   # Collect the current and available locales for the locale switcher

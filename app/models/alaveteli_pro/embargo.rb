@@ -131,9 +131,7 @@ module AlaveteliPro
           { event_created_at: Time.zone.now },
           created_at: embargo.expiring_notification_at
         )
-        if info_request.use_notifications?
-          info_request.user.notify(event)
-        end
+        info_request.user.notify(event) if info_request.use_notifications?
       end
     end
 
@@ -144,9 +142,7 @@ module AlaveteliPro
       yield
       if publish_at_changed
         params = { :embargo_id => self.id }
-        if extension
-          params[:embargo_extension_id] = extension.id
-        end
+        params[:embargo_extension_id] = extension.id if extension
         info_request.log_event('set_embargo', params)
       end
     end

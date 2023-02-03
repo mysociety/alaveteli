@@ -111,7 +111,9 @@ module ActsAsXapian
 
     # barf if we can't figure out the environment
     environment = (ENV['RAILS_ENV'] or Rails.env)
-    raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not environment
+    if not environment
+      raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database"
+    end
 
     # check for a config file
     config_file = Rails.root.join("config","xapian.yml")
@@ -141,8 +143,12 @@ module ActsAsXapian
   # TODO: we perhaps don't need to rebuild database and enquire and queryparser -
   # but db.reopen wasn't enough by itself, so just do everything it's easier.
   def self.readable_init
-    raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
-    raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
+    unless ActsAsXapian.bindings_available
+      raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed")
+    end
+    if @@init_values.empty?
+      raise "acts_as_xapian hasn't been called in any models"
+    end
 
     prepare_environment
 
@@ -151,9 +157,7 @@ module ActsAsXapian
     # only speculate about at the moment. (It is easy to reproduce this by
     # changing the code below to use reopen rather than open followed by
     # close, and running rake spec.)
-    if !@@db.nil?
-      @@db.close
-    end
+    @@db.close if !@@db.nil?
 
     # basic Xapian objects
     begin
@@ -207,7 +211,9 @@ module ActsAsXapian
 
   def self.init_values(values)
     values.each do |method, index, prefix, value_type|
-      raise "Value index '#{index}' must be an Integer, is #{index.class}" unless index.is_a? Integer
+      unless index.is_a? Integer
+        raise "Value index '#{index}' must be an Integer, is #{index.class}"
+      end
       if @@values_by_number.include?(index) && @@values_by_number[index] != prefix
         raise "Already have value index '#{index}' in another model " \
           "but with different prefix '#{@@values_by_number[index]}'"
@@ -239,9 +245,15 @@ module ActsAsXapian
 
   def self.init_terms(terms)
     terms.each do |method, term_code, prefix|
-      raise "Use a single capital letter for term code" if not term_code.match(/^[A-Z]$/)
-      raise "M and I are reserved for use as the model/id term" if term_code == "M" || term_code == "I"
-      raise "model and modelid are reserved for use as the model/id prefixes" if prefix == "model" || prefix == "modelid"
+      if not term_code.match(/^[A-Z]$/)
+        raise "Use a single capital letter for term code"
+      end
+      if term_code == "M" || term_code == "I"
+        raise "M and I are reserved for use as the model/id term"
+      end
+      if prefix == "model" || prefix == "modelid"
+        raise "model and modelid are reserved for use as the model/id prefixes"
+      end
       raise "Z is reserved for stemming terms" if term_code == "Z"
       if @@terms_by_capital.include?(term_code) && @@terms_by_capital[term_code] != prefix
         raise "Already have code '#{term_code}' in another model but with different prefix " \
@@ -257,8 +269,12 @@ module ActsAsXapian
   end
 
   def self.writable_init(suffix = "")
-    raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
-    raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
+    unless ActsAsXapian.bindings_available
+      raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed")
+    end
+    if @@init_values.empty?
+      raise "acts_as_xapian hasn't been called in any models"
+    end
 
     # if DB is not nil, then we're already initialised, so don't do it
     # again TODO: reopen it each time, xapian_spec.rb needs this so database
@@ -295,9 +311,7 @@ module ActsAsXapian
       self.runtime = 0.0
 
       ActsAsXapian.readable_init
-      if ActsAsXapian.db.nil?
-        raise "ActsAsXapian not initialized"
-      end
+      raise "ActsAsXapian not initialized" if ActsAsXapian.db.nil?
     end
 
     MSET_MAX_TRIES = 5
@@ -309,7 +323,9 @@ module ActsAsXapian
       self.runtime += Benchmark::realtime {
         offset = options[:offset] || 0; offset = offset.to_i
         limit = options[:limit]
-        raise "please specifiy maximum number of results to return with parameter :limit" if not limit
+        if not limit
+          raise "please specifiy maximum number of results to return with parameter :limit"
+        end
         limit = limit.to_i
         sort_by_prefix = options[:sort_by_prefix] || nil
         sort_by_ascending = options[:sort_by_ascending].nil? ? true : options[:sort_by_ascending]
@@ -321,14 +337,18 @@ module ActsAsXapian
           ActsAsXapian.enquire.sort_by_relevance!
         else
           value = ActsAsXapian.values_by_prefix[sort_by_prefix]
-          raise "couldn't find prefix '" + sort_by_prefix.to_s + "'" if value.nil?
+          if value.nil?
+            raise "couldn't find prefix '" + sort_by_prefix.to_s + "'"
+          end
           ActsAsXapian.enquire.sort_by_value_then_relevance!(value, sort_by_ascending)
         end
         if collapse_by_prefix.nil?
           ActsAsXapian.enquire.collapse_key = Xapian::BAD_VALUENO
         else
           value = ActsAsXapian.values_by_prefix[collapse_by_prefix]
-          raise "couldn't find prefix '" + collapse_by_prefix + "'" if value.nil?
+          if value.nil?
+            raise "couldn't find prefix '" + collapse_by_prefix + "'"
+          end
           ActsAsXapian.enquire.collapse_key = value
         end
 
@@ -374,9 +394,7 @@ module ActsAsXapian
         #x = x + term.to_yaml + term.size.to_s + term[0..0] + "*"
         if term.size >= 2 && term[0..0] == 'Z'
           # normal terms begin Z (for stemmed), then have no capital letter prefix
-          if term[1..1] == term[1..1].downcase
-            ret = true
-          end
+          ret = true if term[1..1] == term[1..1].downcase
         end
       end
       return ret
@@ -390,18 +408,14 @@ module ActsAsXapian
     # Return query string with spelling correction
     def spelling_correction
       correction = ActsAsXapian.query_parser.get_corrected_query_string
-      if correction.empty?
-        return nil
-      end
+      return nil if correction.empty?
       correction.force_encoding('UTF-8')
     end
 
     # Return array of models found
     def results
       # If they've already pulled out the results, just return them.
-      if !self.cached_results.nil?
-        return self.cached_results
-      end
+      return self.cached_results if !self.cached_results.nil?
 
       docs = []
       self.runtime += Benchmark::realtime {
@@ -476,7 +490,9 @@ module ActsAsXapian
       new_model_classes = []
       model_classes = [model_classes] if model_classes.class != Array
       for model_class in model_classes
-        raise "pass in the model class itself, or a string containing its name" if model_class.class != Class && model_class.class != String
+        if model_class.class != Class && model_class.class != String
+          raise "pass in the model class itself, or a string containing its name"
+        end
         model_class = model_class.constantize if model_class.class == String
         new_model_classes.push(model_class)
       end
@@ -513,11 +529,15 @@ module ActsAsXapian
       # Reject all prefixes other than Z, which we know is reserved for stems
       terms = query.terms.reject { |t| t.term.first.match(/^[A-Y]$/) }
       # Collect the stems including the Z prefix
-      raw_stems = terms.map { |t| t.term if t.term.start_with?('Z') }.compact.uniq.sort
+      raw_stems = terms.map { |t| if t.term.start_with?('Z')
+                                    t.term
+                                  end }.compact.uniq.sort
       # Collect stems, chopping the Z prefix off
       stems = raw_stems.map { |t| t[1..-1] }.compact.sort
       # Collect the non-stem terms
-      words = terms.map { |t| t.term unless t.term.start_with?('Z') }.compact.sort
+      words = terms.map { |t| unless t.term.start_with?('Z')
+                                t.term
+                              end }.compact.sort
 
       # Add the unstemmed words from the original query
       # Sometimes stems can be unhelpful with the :regex option, for example
@@ -756,7 +776,9 @@ module ActsAsXapian
   end
 
   def self.run_job(job, flush, verbose)
-    STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
+    if verbose
+      STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}")
+    end
 
     begin
       if job.action == 'update'
@@ -776,9 +798,7 @@ module ActsAsXapian
       job.action = 'destroy'
       retry
     end
-    if flush
-      ActsAsXapian.writable_db.flush
-    end
+    ActsAsXapian.writable_db.flush if flush
     job.destroy
   end
 
@@ -817,12 +837,12 @@ module ActsAsXapian
     new_path = ActsAsXapian.db_path + ".new"
     old_path = ActsAsXapian.db_path
     if File.exist?(new_path)
-      raise "found existing " + new_path + " which is not Xapian chert or glass database, please delete for me" if not ActsAsXapian._is_xapian_db(new_path)
+      if not ActsAsXapian._is_xapian_db(new_path)
+        raise "found existing " + new_path + " which is not Xapian chert or glass database, please delete for me"
+      end
       FileUtils.rm_r(new_path)
     end
-    if update_existing
-      FileUtils.cp_r(old_path, new_path)
-    end
+    FileUtils.cp_r(old_path, new_path) if update_existing
     ActsAsXapian.writable_init
     ActsAsXapian.writable_db.close # just to make an empty one to read
     # Index everything
@@ -833,9 +853,13 @@ module ActsAsXapian
       ActsAsXapian.writable_init
       # Save time by running the indexing in one go and in-process
       for model_class in model_classes
-        STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class.to_s}") if verbose
+        if verbose
+          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class.to_s}")
+        end
         model_class.find_each do |model|
-          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}") if verbose
+          if verbose
+            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}")
+          end
           model.xapian_index(terms, values, texts)
         end
       end
@@ -847,12 +871,12 @@ module ActsAsXapian
     temp_path = old_path + ".tmp"
     if File.exist?(temp_path)
       @@db_path = old_path
-      raise "temporary database found " + temp_path + " which is not Xapian chert or glass database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
+      if not ActsAsXapian._is_xapian_db(temp_path)
+        raise "temporary database found " + temp_path + " which is not Xapian chert or glass database, please delete for me"
+      end
       FileUtils.rm_r(temp_path)
     end
-    if File.exist?(old_path)
-      FileUtils.mv old_path, temp_path
-    end
+    FileUtils.mv old_path, temp_path if File.exist?(old_path)
     FileUtils.mv new_path, old_path
 
     # Delete old database
@@ -883,9 +907,7 @@ module ActsAsXapian
         pid = Process.fork # TODO: this will only work on Unix, tough
         if pid
           Process.waitpid(pid)
-          if not $?.success?
-            raise "batch fork child failed, exiting also"
-          end
+          raise "batch fork child failed, exiting also" if not $?.success?
           # database connection doesn't survive a fork, rebuild it
         else
           # fully reopen the database each time (with a new object)
@@ -893,9 +915,13 @@ module ActsAsXapian
           ActiveRecord::Base.establish_connection
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
-          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
+          if verbose
+            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}")
+          end
           model_class.limit(batch_size).offset(i).order(:id).each do |model|
-            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}") if verbose
+            if verbose
+              STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}")
+            end
             model.xapian_index(terms, values, texts)
           end
           ActsAsXapian.writable_db.flush
@@ -1092,7 +1118,9 @@ module ActsAsXapian
 
     # Allow reindexing to be skipped if a flag is set
     def xapian_mark_needs_index_if_reindex
-      return true if (self.respond_to?(:no_xapian_reindex) && self.no_xapian_reindex == true)
+      if (self.respond_to?(:no_xapian_reindex) && self.no_xapian_reindex == true)
+        return true
+      end
       xapian_mark_needs_index
     end
 
@@ -1110,7 +1138,9 @@ module ActsAsXapian
       rescue ActiveRecord::RecordNotUnique => e
         # Given the error handling in ActsAsXapian::update_index, we can just fail silently if
         # another process has inserted an acts_as_xapian_jobs record for this model.
-        raise unless (e.message =~ /duplicate key value violates unique constraint "index_acts_as_xapian_jobs_on_model_and_model_id"/)
+        unless (e.message =~ /duplicate key value violates unique constraint "index_acts_as_xapian_jobs_on_model_and_model_id"/)
+          raise
+        end
       end
     end
 
@@ -1127,9 +1157,7 @@ module ActsAsXapian
     # See top of this file for docs
     def acts_as_xapian(options)
       # Give error only on queries if bindings not available
-      if not ActsAsXapian.bindings_available
-        return
-      end
+      return if not ActsAsXapian.bindings_available
 
       include InstanceMethods
 

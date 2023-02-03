@@ -3,17 +3,13 @@ namespace :cleanup do
   desc 'Clean up all message redelivery and destroy actions from the holding pen to make admin actions there faster'
   task :holding_pen => :environment do
     dryrun = ENV['DRYRUN'] != '0' if ENV['DRYRUN']
-    if dryrun
-      $stderr.puts "This is a dryrun - nothing will be deleted"
-    end
+    $stderr.puts "This is a dryrun - nothing will be deleted" if dryrun
     holding_pen = InfoRequest.holding_pen_request
     holding_pen.info_request_events.
       where(:event_type => %w(redeliver_incoming destroy_incoming)).
         find_each do |event|
       $stderr.puts event.inspect if verbose or dryrun
-      if not dryrun
-        event.destroy
-      end
+      event.destroy if not dryrun
     end
   end
 

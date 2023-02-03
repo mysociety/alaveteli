@@ -49,9 +49,7 @@ class RequestController < ApplicationController
     medium_cache
     AlaveteliLocalization.with_locale(locale) do
       # Test for whole request being hidden
-      if cannot?(:read, @info_request)
-        return render_hidden
-      end
+      return render_hidden if cannot?(:read, @info_request)
 
       # Always show the pro livery if a request is embargoed. This makes it
       # clear to admins and ex-pro users that the `InfoRequest` is still
@@ -107,9 +105,7 @@ class RequestController < ApplicationController
   def details
     long_cache
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-    if cannot?(:read, @info_request)
-      return render_hidden
-    end
+    return render_hidden if cannot?(:read, @info_request)
     @columns = ['id',
                 'event_type',
                 'created_at',
@@ -130,9 +126,7 @@ class RequestController < ApplicationController
     end
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
-    if cannot?(:read, @info_request)
-      return render_hidden
-    end
+    return render_hidden if cannot?(:read, @info_request)
     @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent],
                                                @info_request.info_request_events,
                                                :offset => (@page - 1) * @per_page,
@@ -145,7 +139,9 @@ class RequestController < ApplicationController
   def list
     medium_cache
     @view = params[:view]
-    @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+    if !@page # used in cache case, as perform_search sets @page as side effect
+      @page = get_search_page_from_params
+    end
     @per_page = PER_PAGE
     @max_results = MAX_RESULTS
     if @view == "recent"
@@ -169,9 +165,7 @@ class RequestController < ApplicationController
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
     # Don't let robots go more than 20 pages in
-    if @page > 20
-      @no_crawl = true
-    end
+    @no_crawl = true if @page > 20
   end
 
   # Page new form posts to
@@ -258,9 +252,7 @@ class RequestController < ApplicationController
     end
 
     # Show preview page, if it is a preview
-    if params[:preview].to_i == 1
-      return render_new_preview
-    end
+    return render_new_preview if params[:preview].to_i == 1
 
     if user_exceeded_limit
       render :template => 'user/rate_limited'
@@ -443,9 +435,7 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       # Check for access and hide emargoed requests immediately, so that we
       # don't leak any info to people who can't access them
-      if @info_request.embargo && cannot?(:read, @info_request)
-        render_hidden
-      end
+      render_hidden if @info_request.embargo && cannot?(:read, @info_request)
       if !authenticated?
         ask_to_login(
           web: _('To download the zip file'),
@@ -458,9 +448,7 @@ class RequestController < ApplicationController
         )
       else
         # Test for whole request being hidden or requester-only
-        if cannot?(:read, @info_request)
-          return render_hidden
-        end
+        return render_hidden if cannot?(:read, @info_request)
         cache_file_path = @info_request.make_zip_cache_path(@user)
         if !File.exist?(cache_file_path)
           FileUtils.mkdir_p(File.dirname(cache_file_path))
@@ -625,7 +613,9 @@ class RequestController < ApplicationController
           PublicBody.find(params[:url_name]).id
         else
           public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-          raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # TODO: proper 404
+          if public_body.nil?  # TODO: proper 404
+            raise ActiveRecord::RecordNotFound.new("None found")
+          end
           public_body.id
         end
       elsif params[:public_body_id]
@@ -657,7 +647,9 @@ class RequestController < ApplicationController
       end
 
     message_params[:outgoing_message][:body] ||= params[:body] if params[:body]
-    message_params[:outgoing_message][:default_letter] ||= params[:default_letter] if params[:default_letter]
+    if params[:default_letter]
+      message_params[:outgoing_message][:default_letter] ||= params[:default_letter]
+    end
 
     message_params = ActionController::Parameters.new(message_params)
     permitted = message_params.
@@ -717,9 +709,7 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find(params[:url_title].to_i)
       # We don't want to leak the title of embargoed or hidden requests, so
       # don't even redirect on if the user can't access the request
-      if cannot?(:read, @info_request)
-        return render_hidden
-      end
+      return render_hidden if cannot?(:read, @info_request)
       redirect_to request_url(@info_request, :format => params[:format])
     end
   end
@@ -742,9 +732,7 @@ class RequestController < ApplicationController
     # page, so that pro's seem them in that context after they publish them
     if feature_enabled?(:alaveteli_pro) && params[:pro] == "1"
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-      unless @info_request.embargo
-        redirect_to request_url(@info_request)
-      end
+      redirect_to request_url(@info_request) unless @info_request.embargo
     end
   end
 

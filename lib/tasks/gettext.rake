@@ -121,7 +121,9 @@ namespace :gettext do
           lines << line
         end
       end
-      puts "Mappings unused in #{po_file}: #{lang_mappings.keys}" unless lang_mappings.empty?
+      unless lang_mappings.empty?
+        puts "Mappings unused in #{po_file}: #{lang_mappings.keys}"
+      end
       File.open(po_file, "w") { |f| f.puts(lines) }
     end
   end

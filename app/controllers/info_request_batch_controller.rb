@@ -20,9 +20,7 @@ class InfoRequestBatchController < ApplicationController
 
   def load_and_authorise_resource
     @info_request_batch = InfoRequestBatch.find(params[:id])
-    if cannot?(:read, @info_request_batch)
-      raise ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound if cannot?(:read, @info_request_batch)
   end
 
   def redirect_embargoed_requests_for_pro_users

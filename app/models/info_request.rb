@@ -242,9 +242,7 @@ class InfoRequest < ApplicationRecord
   def self.guess_by_incoming_email(*emails)
     guesses = emails.flatten.reduce([]) do |memo, email|
       id, idhash = _extract_id_hash_from_email(email)
-      if idhash.nil? || id.nil?
-        id, idhash = _guess_idhash_from_email(email)
-      end
+      id, idhash = _guess_idhash_from_email(email) if idhash.nil? || id.nil?
       memo << Guess.new(find_by_id(id), email, :id)
       memo << Guess.new(find_by_idhash(idhash), email, :idhash)
     end
@@ -265,9 +263,7 @@ class InfoRequest < ApplicationRecord
       # try to grab the last 8 chars of the local part of the address instead
       local_part = incoming_email[0..incoming_email.index('@')-1]
       id_hash =
-        if local_part.length >= 8
-          _clean_idhash(local_part[-8..-1])
-        end
+        (_clean_idhash(local_part[-8..-1]) if local_part.length >= 8)
     end
 
     [id, id_hash]
@@ -481,7 +477,9 @@ class InfoRequest < ApplicationRecord
   # Used to find when event last changed
   def self.last_event_time_clause(event_type=nil, join_table=nil, join_clause=nil)
     event_type_clause = ''
-    event_type_clause = " AND info_request_events.event_type = '#{event_type}'" if event_type
+    if event_type
+      event_type_clause = " AND info_request_events.event_type = '#{event_type}'"
+    end
     tables = ['info_request_events']
     tables << join_table if join_table
     join_clause = "AND #{join_clause}" if join_clause
@@ -681,9 +679,7 @@ class InfoRequest < ApplicationRecord
         { event_created_at: Time.zone.now },
         created_at: created_at
       )
-      if info_request.use_notifications?
-        info_request.user.notify(event)
-      end
+      info_request.user.notify(event) if info_request.use_notifications?
     end
 
   end
@@ -739,8 +735,12 @@ class InfoRequest < ApplicationRecord
     # We must permit user_id and external_user_name both to be nil, because the system
     # allows a request to be created by a non-logged-in user.
     if user_id
-      errors.add(:external_user_name, "must be null for an internal request") unless external_user_name.nil?
-      errors.add(:external_url, "must be null for an internal request") unless external_url.nil?
+      unless external_user_name.nil?
+        errors.add(:external_user_name, "must be null for an internal request")
+      end
+      unless external_url.nil?
+        errors.add(:external_url, "must be null for an internal request")
+      end
     end
   end
 
@@ -826,9 +826,7 @@ class InfoRequest < ApplicationRecord
   # Needed for legacy reasons, even though we call strip_attributes now
   def title
     _title = read_attribute(:title)
-    if _title
-      _title.strip!
-    end
+    _title.strip! if _title
     _title
   end
 
@@ -877,14 +875,10 @@ class InfoRequest < ApplicationRecord
   # Has this email already been received here? Based just on message id.
   def already_received?(email, raw_email_data)
     message_id = email.message_id
-    if message_id.nil?
-      raise "No message id for this message"
-    end
+    raise "No message id for this message" if message_id.nil?
 
     for im in incoming_messages
-      if message_id == im.message_id
-        return true
-      end
+      return true if message_id == im.message_id
     end
 
     false
@@ -1051,9 +1045,7 @@ class InfoRequest < ApplicationRecord
     for event in info_request_events.reverse
       event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
       if curr_state.nil?
-        if event.described_state
-          curr_state = event.described_state
-        end
+        curr_state = event.described_state if event.described_state
       end
 
       if curr_state && event.event_type == 'response'
@@ -1264,7 +1256,9 @@ class InfoRequest < ApplicationRecord
   end
 
   def get_last_public_response
-    get_last_public_response_event.incoming_message if get_last_public_response_event
+    if get_last_public_response_event
+      get_last_public_response_event.incoming_message
+    end
   end
 
   def public_outgoing_events
@@ -1316,9 +1310,7 @@ class InfoRequest < ApplicationRecord
     last_email = nil
     for e in info_request_events
       if ((info_request_event.is_sent_sort? && e.is_sent_sort?) || (info_request_event.is_followup_sort? && e.is_followup_sort?)) && e.outgoing_message_id == info_request_event.outgoing_message_id
-        if e.id == info_request_event.id
-          break
-        end
+        break if e.id == info_request_event.id
         last_email = e.params[:email]
       end
     end
@@ -1449,9 +1441,7 @@ class InfoRequest < ApplicationRecord
       end
     end
     for incoming_message in incoming_messages.reverse
-      if incoming_message == skip_message
-        next
-      end
+      next if incoming_message == skip_message
       incoming_message.safe_from_name
 
       next if ! incoming_message.is_public?
@@ -1476,9 +1466,7 @@ class InfoRequest < ApplicationRecord
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
     applicable_rules = [censor_rules, CensorRule.global]
-    unless public_body.blank?
-      applicable_rules << public_body.censor_rules
-    end
+    applicable_rules << public_body.censor_rules unless public_body.blank?
     applicable_rules << user.censor_rules if user
     applicable_rules.flatten
   end
@@ -1863,9 +1851,7 @@ class InfoRequest < ApplicationRecord
 
   def set_defaults
     begin
-      if described_state.nil?
-        self.described_state = 'waiting_response'
-      end
+      self.described_state = 'waiting_response' if described_state.nil?
     rescue ActiveModel::MissingAttributeError
       # this should only happen on Model.exists? call. It can be safely ignored.
       # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/

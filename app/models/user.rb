@@ -479,7 +479,9 @@ class User < ApplicationRecord
           order(created_at: :desc).
             limit(AlaveteliConfiguration.max_requests_per_user_per_day)
 
-    return nil if n_most_recent_requests.size < AlaveteliConfiguration::max_requests_per_user_per_day
+    if n_most_recent_requests.size < AlaveteliConfiguration::max_requests_per_user_per_day
+      return nil
+    end
 
     nth_most_recent_request = n_most_recent_requests[-1]
     nth_most_recent_request.created_at + 1.day

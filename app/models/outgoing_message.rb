@@ -127,9 +127,7 @@ class OutgoingMessage < ApplicationRecord
   def set_signature_name(name)
     # We compare against raw_body as body strips linebreaks and applies
     # censor rules
-    if raw_body == get_default_message
-      self.body = get_default_message + name
-    end
+    self.body = get_default_message + name if raw_body == get_default_message
   end
 
   # Public: The value to be used in the From: header of an OutgoingMailer
@@ -237,7 +235,9 @@ class OutgoingMessage < ApplicationRecord
     self.status = 'sent'
     save!
 
-    log_event_type = "followup_#{ log_event_type }" if message_type == 'followup'
+    if message_type == 'followup'
+      log_event_type = "followup_#{ log_event_type }"
+    end
 
     info_request.log_event(
       log_event_type,

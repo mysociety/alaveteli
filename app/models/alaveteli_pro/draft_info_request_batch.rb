@@ -37,9 +37,7 @@ class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
       template_options = {}
       template_options[:info_request_title] = title if title
       self.body = template.body(template_options)
-      if self.user
-        self.body += self.user.name
-      end
+      self.body += self.user.name if self.user
     end
   end
 

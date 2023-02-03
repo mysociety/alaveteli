@@ -94,8 +94,12 @@ class UserController < ApplicationController
       @xapian_comments = nil
     end
 
-    feed_results += @xapian_requests.results.map { |x| x[:model] } if @xapian_requests
-    feed_results += @xapian_comments.results.map { |x| x[:model] } if @xapian_comments
+    if @xapian_requests
+      feed_results += @xapian_requests.results.map { |x| x[:model] }
+    end
+    if @xapian_comments
+      feed_results += @xapian_comments.results.map { |x| x[:model] }
+    end
 
     # All tracks for the user
     if @is_you
@@ -360,9 +364,7 @@ class UserController < ApplicationController
       return
     end
 
-    if @user.profile_photo
-      @user.profile_photo.destroy
-    end
+    @user.profile_photo.destroy if @user.profile_photo
 
     flash[:notice] = _("You've now cleared your profile photo")
     redirect_to user_url(@user)

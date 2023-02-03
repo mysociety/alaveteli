@@ -158,9 +158,7 @@ class FoiAttachment < ApplicationRecord
     # For delivery status notification attachments, extract the status and
     # look up what it means in the DSN table.
     if @content_type == 'message/delivery-status'
-      if !@body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
-        return ""
-      end
+      return "" if !@body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
       dsn = $1
       dsn_part = 'X.' + $2
 
@@ -214,9 +212,7 @@ class FoiAttachment < ApplicationRecord
   def ensure_filename!
     if self.filename.blank?
       calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
-      if !calc_ext
-        calc_ext = "bin"
-      end
+      calc_ext = "bin" if !calc_ext
       if !self.within_rfc822_subject.nil?
         computed = self.within_rfc822_subject + "." + calc_ext
       else

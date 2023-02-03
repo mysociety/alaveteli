@@ -298,7 +298,9 @@ class PublicBody < ApplicationRecord
 
     # Maybe return the first one, so we show something relevant,
     # rather than throwing an error?
-    raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
+    if old.size > 1
+      raise "Two bodies with the same historical URL name: #{name}"
+    end
     return unless old.size == 1
     # does acts_as_versioned provide a method that returns the current version?
     PublicBody.find(old.first)
@@ -547,9 +549,7 @@ class PublicBody < ApplicationRecord
         end
 
         # Rollback if a dry run, or we had errors
-        if dry_run or errors.size > 0
-          raise ImportCSVDryRun
-        end
+        raise ImportCSVDryRun if dry_run or errors.size > 0
       end
     rescue ImportCSVDryRun
       # Ignore
@@ -954,12 +954,8 @@ class PublicBody < ApplicationRecord
   def self.get_public_body_list_translated_condition(table, has_first_letter=false, locale=nil)
     result = "(upper(#{table}.name) LIKE upper(:query)" \
       " OR upper(#{table}.short_name) LIKE upper(:query))"
-    if has_first_letter
-      result += " AND #{table}.first_letter = :first_letter"
-    end
-    if locale
-      result += " AND #{table}.locale = :locale"
-    end
+    result += " AND #{table}.first_letter = :first_letter" if has_first_letter
+    result += " AND #{table}.locale = :locale" if locale
     result
   end
 

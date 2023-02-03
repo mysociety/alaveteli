@@ -160,17 +160,13 @@ class InfoRequestEvent < ApplicationRecord
 
   def latest_variety
     sibling_events(:reverse => true).each do |event|
-      unless event.variety.blank?
-        return event.variety
-      end
+      return event.variety unless event.variety.blank?
     end
   end
 
   def latest_status
     sibling_events(:reverse => true).each do |event|
-      unless event.calculated_state.blank?
-        return event.calculated_state
-      end
+      return event.calculated_state unless event.calculated_state.blank?
     end
   end
 
@@ -206,9 +202,7 @@ class InfoRequestEvent < ApplicationRecord
       where('info_request_events.id = ?', id)
 
     message = message[0]
-    if message
-      message.info_request = InfoRequest.find(message.info_request_id)
-    end
+    message.info_request = InfoRequest.find(message.info_request_id) if message
     message
   end
 
@@ -285,18 +279,14 @@ class InfoRequestEvent < ApplicationRecord
 
   def indexed_by_search?
     if ['sent', 'followup_sent', 'response', 'comment'].include?(event_type)
-      if !info_request.indexed_by_search?
-        return false
-      end
+      return false if !info_request.indexed_by_search?
       if event_type == 'response' && !incoming_message.indexed_by_search?
         return false
       end
       if ['sent', 'followup_sent'].include?(event_type) && !outgoing_message.indexed_by_search?
         return false
       end
-      if event_type == 'comment' && !comment.visible
-        return false
-      end
+      return false if event_type == 'comment' && !comment.visible
       return true
     end
     false
@@ -325,9 +315,7 @@ class InfoRequestEvent < ApplicationRecord
     if params[:outgoing_message]
       self.outgoing_message = params[:outgoing_message]
     end
-    if params[:comment]
-      self.comment = params[:comment]
-    end
+    self.comment = params[:comment] if params[:comment]
   end
 
   # A hash to lazy load Global ID reference models
@@ -402,9 +390,7 @@ class InfoRequestEvent < ApplicationRecord
         waiting_clarification = true
         break
       end
-      if event.event_type == 'followup_sent'
-        break
-      end
+      break if event.event_type == 'followup_sent'
     end
     waiting_clarification && event_type == 'followup_sent'
   end
@@ -413,9 +399,7 @@ class InfoRequestEvent < ApplicationRecord
   # on the request and resets them if so
   def recheck_due_dates
     subsequent_events.each do |event|
-      if event.resets_due_dates?
-        info_request.set_due_dates(event)
-      end
+      info_request.set_due_dates(event) if event.resets_due_dates?
     end
   end
 
@@ -429,12 +413,8 @@ class InfoRequestEvent < ApplicationRecord
     if is_outgoing_message?
       status = calculated_state
       if status
-        if status == 'internal_review'
-          return _("Internal review request")
-        end
-        if status == 'waiting_response'
-          return _("Clarification")
-        end
+        return _("Internal review request") if status == 'internal_review'
+        return _("Clarification") if status == 'waiting_response'
         raise _("unknown status {{status}}", :status => status)
       end
       # TRANSLATORS: "Follow up" in this context means a further
@@ -479,12 +459,8 @@ class InfoRequestEvent < ApplicationRecord
   def same_email_as_previous_send?
     prev_addr = info_request.get_previous_email_sent_to(self)
     curr_addr = params[:email]
-    if prev_addr.nil? && curr_addr.nil?
-      return true
-    end
-    if prev_addr.nil? || curr_addr.nil?
-      return false
-    end
+    return true if prev_addr.nil? && curr_addr.nil?
+    return false if prev_addr.nil? || curr_addr.nil?
     MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
   end
 

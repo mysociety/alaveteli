@@ -49,9 +49,7 @@ class ProfilePhoto < ApplicationRecord
     # draft images are before the user has cropped them
     if !draft && (image.width != WIDTH || image.height != HEIGHT)
       # do any exact cropping (taken from Jcrop interface)
-      if w && h
-        image.crop("#{ w }x#{ h }+#{ x }+#{ y }")
-      end
+      image.crop("#{ w }x#{ h }+#{ x }+#{ y }") if w && h
       # do any further cropping
       # resize_to_fill!
       image.combine_options do |c|
@@ -69,9 +67,7 @@ class ProfilePhoto < ApplicationRecord
       altered = true
     end
 
-    if altered
-      self.data = image.to_blob
-    end
+    self.data = image.to_blob if altered
   end
 
   private
@@ -103,9 +99,7 @@ class ProfilePhoto < ApplicationRecord
       raise "Internal error, draft pictures must not have a user"
     end
 
-    if !draft && !user_id
-      raise "Internal error, real pictures must have a user"
-    end
+    raise "Internal error, real pictures must have a user" if !draft && !user_id
   end
 
   # Convert binary data blob into ImageMagick image when assigned

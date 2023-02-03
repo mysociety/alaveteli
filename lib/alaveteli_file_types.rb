@@ -38,9 +38,7 @@ class AlaveteliFileTypes
     def filename_and_content_to_mimetype(filename, content)
       # Try filename
       ret = filename_to_mimetype(filename)
-      if !ret.nil?
-        return ret
-      end
+      return ret if !ret.nil?
 
       # Otherwise look inside the file to work out the type.
       # Mahoro is a Ruby binding for libmagic.
@@ -49,29 +47,21 @@ class AlaveteliFileTypes
       mahoro_type.strip!
       # TODO: we shouldn't have to check empty? here, but Mahoro sometimes returns a blank line :(
       # e.g. for InfoRequestEvent 17930
-      if mahoro_type.nil? || mahoro_type.empty?
-        return nil
-      end
+      return nil if mahoro_type.nil? || mahoro_type.empty?
       # text/plain types sometimes come with a charset
       mahoro_type.match(/^(.*);/)
-      if $1
-        mahoro_type = $1
-      end
+      mahoro_type = $1 if $1
       # see if looks like a content type, or has something in it that does
       # and return that
       # mahoro returns junk "\012- application/msword" as mime type.
       mahoro_type.match(/([a-z0-9.-]+\/[a-z0-9.-]+)/)
-      if $1
-        return $1
-      end
+      return $1 if $1
       # otherwise we got junk back from mahoro
       return nil
     end
 
     def filename_to_mimetype(filename)
-      if !filename
-        return nil
-      end
+      return nil if !filename
       if filename.match(/\.([^.]+)$/i)
         lext = $1.downcase
         if FileExtensionToMimeType.include?(lext)

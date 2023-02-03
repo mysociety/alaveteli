@@ -113,13 +113,9 @@ class AlaveteliMailPoller
 
     yield pop3
   rescue StandardError => error
-    if send_exception_notifications?
-      ExceptionNotifier.notify_exception(error)
-    end
+    ExceptionNotifier.notify_exception(error) if send_exception_notifications?
   ensure
-    if defined?(pop3) && pop3 && pop3.started?
-      pop3.finish
-    end
+    pop3.finish if defined?(pop3) && pop3 && pop3.started?
   end
 
   def default_pop3

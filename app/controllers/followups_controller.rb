@@ -33,9 +33,7 @@ class FollowupsController < ApplicationController
 
   def preview
     @outgoing_message.info_request = @info_request
-    if @outgoing_message.what_doing == 'internal_review'
-       @internal_review = true
-    end
+    @internal_review = true if @outgoing_message.what_doing == 'internal_review'
     unless @outgoing_message.valid?
       render :action => 'new'
       return
@@ -54,9 +52,7 @@ class FollowupsController < ApplicationController
 
   def set_internal_review
     @internal_review = false
-    if params[:internal_review]
-      @internal_review = true
-    end
+    @internal_review = true if params[:internal_review]
   end
 
   def check_reedit

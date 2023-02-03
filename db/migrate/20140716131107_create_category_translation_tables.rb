@@ -16,9 +16,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
     PublicBodyCategory.where(:locale => default_locale).each do |category|
       category.translated_attributes.each do |a, default|
         value = category.read_attribute(a)
-        unless value.nil?
-          category.send(:"#{a}=", value)
-        end
+        category.send(:"#{a}=", value) unless value.nil?
       end
       category.save!
     end
@@ -54,9 +52,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
     PublicBodyHeading.where(:locale => default_locale).each do |heading|
       heading.translated_attributes.each do |a, default|
         value = heading.read_attribute(a)
-        unless value.nil?
-          heading.send(:"#{a}=", value)
-        end
+        heading.send(:"#{a}=", value) unless value.nil?
       end
       heading.save!
     end

@@ -36,9 +36,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     authorize! :destroy, @embargo
     @info_request = @embargo.info_request
     # Embargoes cannot be updated individually on batch requests
-    if @info_request.info_request_batch_id
-      raise PermissionDenied
-    end
+    raise PermissionDenied if @info_request.info_request_batch_id
     if @embargo.destroy
       @info_request.log_event('expire_embargo', {})
       flash[:notice] = _("Your request is now public!")

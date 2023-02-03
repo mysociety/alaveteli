@@ -111,9 +111,7 @@ class AdminUserController < AdminController
   end
 
   def clear_profile_photo
-    if @admin_user.profile_photo
-      @admin_user.profile_photo.destroy
-    end
+    @admin_user.profile_photo.destroy if @admin_user.profile_photo
 
     flash[:notice] = "Profile photo cleared"
     redirect_to admin_user_url(@admin_user)

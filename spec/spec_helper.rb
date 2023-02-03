@@ -86,9 +86,7 @@ RSpec.configure do |config|
   # Clean up raw emails directory
   config.after(:suite) do
     raw_email_dir = File.join(Rails.root, 'files/raw_email_test')
-    if File.directory?(raw_email_dir)
-      FileUtils.rm_rf(raw_email_dir)
-    end
+    FileUtils.rm_rf(raw_email_dir) if File.directory?(raw_email_dir)
     FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
   end
 
@@ -101,9 +99,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     if ENV['ALAVETELI_USE_OINK']
       oink_log = Rails.root + 'log/oink.log'
-      if File.exist?(oink_log)
-        File.write(oink_log, '')
-      end
+      File.write(oink_log, '') if File.exist?(oink_log)
     end
 
     BCrypt::Engine.cost = 1
@@ -129,11 +125,15 @@ RSpec.configure do |config|
   # Turn routing-filter off in functional and unit tests as per
   # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
   config.before(:each) do |example|
-    RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
+    if [:controller, :helper, :model].include? example.metadata[:type]
+      RoutingFilter.active = false
+    end
   end
 
   config.after(:each) do |example|
-    RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
+    if [:controller, :helper, :model].include? example.metadata[:type]
+      RoutingFilter.active = true
+    end
   end
 
   # This section makes the garbage collector run less often to speed up tests

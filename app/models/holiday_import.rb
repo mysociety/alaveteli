@@ -60,7 +60,9 @@ class HolidayImport
   private
 
   def all_holidays_valid
-    errors.add(:base, 'These holidays could not be imported') unless holidays.all?(&:valid?)
+    unless holidays.all?(&:valid?)
+      errors.add(:base, 'These holidays could not be imported')
+    end
   end
 
   def populate_from_ical_feed

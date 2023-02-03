@@ -159,9 +159,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = os[:box_url]
   config.vm.hostname = "alaveteli-#{ SETTINGS['os'] }"
 
-  if SETTINGS['public_network']
-    config.vm.network :public_network
-  end
+  config.vm.network :public_network if SETTINGS['public_network']
 
   config.vm.network :private_network, ip: SETTINGS['ip']
 

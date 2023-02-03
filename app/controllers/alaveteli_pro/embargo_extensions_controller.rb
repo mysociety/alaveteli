@@ -13,13 +13,9 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
     @info_request = @embargo.info_request
 
     # Embargoes cannot be updated individually on batch requests
-    if @info_request.info_request_batch_id
-      raise PermissionDenied
-    end
+    raise PermissionDenied if @info_request.info_request_batch_id
 
-    unless @embargo.expiring_soon?
-      raise PermissionDenied
-    end
+    raise PermissionDenied unless @embargo.expiring_soon?
 
     @embargo_extension =
       AlaveteliPro::EmbargoExtension.new(embargo_extension_params)

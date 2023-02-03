@@ -39,7 +39,9 @@ namespace :xapian do
         return arg
       end
     end
-    raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
+    if ENV['models'].nil?
+      raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter"
+    end
     ActsAsXapian.destroy_and_rebuild_index(
                                ENV['models'].split(" ").map { |m| m.constantize },
                                coerce_arg(ENV['verbose'], false),
@@ -52,7 +54,9 @@ namespace :xapian do
   # collapse_by_prefix
   desc 'Run a query, return YAML of results'
   task :query => :environment do
-    raise "specify models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
+    if ENV['models'].nil?
+      raise "specify models=\"ModelName1 ModelName2\" as parameter"
+    end
     raise "specify query=\"your terms\" as parameter" if ENV['query'].nil?
     s = ActsAsXapian::Search.new(ENV['models'].split(" ").map { |m| m.constantize },
                                  ENV['query'],

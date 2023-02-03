@@ -77,9 +77,7 @@ class PublicBodyController < ApplicationController
 
       @track_thing = TrackThing.create_track_for_public_body(@public_body)
 
-      if @user
-        @existing_track = TrackThing.find_existing(@user, @track_thing)
-      end
+      @existing_track = TrackThing.find_existing(@user, @track_thing) if @user
 
       @follower_count = TrackThing.where(:public_body_id => @public_body.id).count
 
