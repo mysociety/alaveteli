@@ -1,0 +1,22 @@
+[Unit]
+Description=<%= daemon_name %>
+After=syslog.target network.target
+
+[Service]
+Type=notify
+
+WatchdogSec=10
+
+User=<%= user %>
+Group=<%= user %>
+UMask=0002
+
+WorkingDirectory=<%= vhost_dir %>/<%= vcspath %>
+
+ExecStart=/bin/bash -lc 'bundle exec sidekiq -e <%= rails_env %>'
+
+RestartSec=1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

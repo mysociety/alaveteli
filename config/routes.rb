@@ -4,6 +4,8 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require 'sidekiq/web'
+
 include AlaveteliFeatures::Constraints
 
 # Allow easy extension from themes. Note these will have the highest priority.
@@ -11,8 +13,18 @@ $alaveteli_route_extensions.each do |f|
   load File.join('config', f)
 end
 
+class AdminConstraint # :nodoc:
+  def matches?(request)
+    user = User.find_by(
+      id: request.session[:user_id],
+      login_token: request.session[:user_login_token]
+    )
+    user && user.is_admin?
+  end
+end
+
 Rails.application.routes.draw do
-  admin_constraint = lambda { |request| request.session[:using_admin] }
+  mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   root to: 'general#frontpage'
 

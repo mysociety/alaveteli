@@ -64,6 +64,12 @@ namespace :config_files do
         condition: -> do
           AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
         end
+      },
+      {
+        path: '/etc/systemd/system',
+        name: 'sidekiq.service',
+        template: 'config/sidekiq.service.example',
+        condition: -> { AlaveteliConfiguration.background_jobs == 'server' }
       }
     ]
   end
