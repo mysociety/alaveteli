@@ -30,13 +30,13 @@ namespace :xapian do
   task destroy_and_rebuild_index: :environment do
     def coerce_arg(arg, default)
       if arg == "false"
-        return false
+        false
       elsif arg == "true"
-        return true
+        true
       elsif arg.nil?
-        return default
+        default
       else
-        return arg
+        arg
       end
     end
     if ENV['models'].nil?

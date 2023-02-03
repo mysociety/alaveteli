@@ -193,9 +193,9 @@ module LinkToHelper
 
   def user_or_you_capital(user)
     if @user && user == @user
-      return h("You")
+      h("You")
     else
-      return h(user.name)
+      h(user.name)
     end
   end
 
@@ -261,9 +261,7 @@ module LinkToHelper
     # and also 3.3 of http://www.ietf.org/rfc/rfc2396.txt
     # It turns out this is a regression in Rails 2.1, caused by this bug fix:
     #   http://rails.lighthouseapp.com/projects/8994/tickets/144-patch-bug-in-rails-route-globbing
-    url = url.gsub("%2F", "/")
-
-    return url
+    url.gsub("%2F", "/")
   end
 
   def search_path(query, options = {})
@@ -281,9 +279,9 @@ module LinkToHelper
 
   def unhappy_url(info_request = nil, options = {})
     if info_request.nil?
-      return help_general_url(options.merge(template: 'unhappy'))
+      help_general_url(options.merge(template: 'unhappy'))
     else
-      return help_unhappy_url(options.merge(url_title: info_request.url_title))
+      help_unhappy_url(options.merge(url_title: info_request.url_title))
     end
   end
 

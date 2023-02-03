@@ -40,14 +40,14 @@ module InfoRequestHelper
     old_unclassified = opts.fetch(:old_unclassified, false)
 
     if is_owning_user && !info_request.is_external? && !render_to_file
-      return status_text_awaiting_description_owner_please_answer(
+      status_text_awaiting_description_owner_please_answer(
         new_responses_count)
     else
       if old_unclassified
-        return status_text_awaiting_description_old_unclassified(
+        status_text_awaiting_description_old_unclassified(
           new_responses_count)
       else
-        return status_text_awaiting_description_other(info_request,
+        status_text_awaiting_description_other(info_request,
                                                       new_responses_count)
       end
     end

@@ -169,7 +169,7 @@ class FoiAttachment < ApplicationRecord
 
       return "<br><em>DSN: " + dsn + dsn_message + "</em>"
     end
-    return ""
+    ""
   end
 
   # Called by controller so old filenames still work
@@ -179,9 +179,7 @@ class FoiAttachment < ApplicationRecord
     # Convert weird spaces (e.g. \n) to normal ones
     filename = filename.gsub(/\s/, " ")
     # Remove slashes, they mess with URLs
-    filename = filename.gsub(/\//, "-")
-
-    return filename
+    filename.gsub(/\//, "-")
   end
 
   # TODO: changing this will break existing URLs, so have a care - maybe
@@ -203,9 +201,7 @@ class FoiAttachment < ApplicationRecord
     filename = filename.gsub(/\s*\.\s*/, ".")
     # Compress adjacent spaces down to a single one
     filename = filename.gsub(/\s+/, " ")
-    filename = filename.strip
-
-    return filename
+    filename.strip
   end
 
 

@@ -190,8 +190,7 @@ class PublicBody < ApplicationRecord
       text = last_edit_comment.strip
       text = CGI.escapeHTML(text)
       text = MySociety::Format.make_clickable(text)
-      text = text.gsub(/\n/, '<br>')
-      return text
+      text.gsub(/\n/, '<br>')
     end
 
     def compare(previous = nil, &block)
@@ -554,7 +553,7 @@ class PublicBody < ApplicationRecord
       # Ignore
     end
 
-    return [errors, notes]
+    [errors, notes]
   end
 
   def self.localized_csv_field_name(locale, field_name)
@@ -733,7 +732,7 @@ class PublicBody < ApplicationRecord
                           to_a
     public_bodies.reverse! if highest
     y_values = public_bodies.map { |pb| pb.info_requests_visible_count }
-    return {
+    {
       'public_bodies' => public_bodies,
       'y_values' => y_values,
       'y_max' => y_values.max,
@@ -780,7 +779,7 @@ class PublicBody < ApplicationRecord
     [y_values, cis_below, cis_above].each { |l|
       l.map! { |v| 100 * v }
     }
-    return {
+    {
       'public_bodies' => public_bodies,
       'y_values' => y_values,
       'cis_below' => cis_below,
@@ -813,7 +812,7 @@ class PublicBody < ApplicationRecord
                   joins(:translations)
       end
     end
-    return bodies
+    bodies
   end
 
   class << self

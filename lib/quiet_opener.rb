@@ -21,5 +21,5 @@ def quietly_try_to_open(url, timeout=60)
     Rails.logger.warn(e.message)
     result = ""
   end
-  return result
+  result
 end

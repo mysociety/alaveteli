@@ -59,7 +59,7 @@ module MailHandler
       content_type = 'application/pdf'
     end
 
-    return content_type
+    content_type
   end
 
   def get_attachment_text_one_file(content_type, body, charset = 'utf-8')
@@ -137,7 +137,7 @@ module MailHandler
       tempfile.close
     end
 
-    return text
+    text
   end
   def get_attachment_text_from_zip_file(zip_file)
 
@@ -165,7 +165,7 @@ module MailHandler
         text += get_attachment_text_one_file(content_type, body)
       end
     end
-    return text
+    text
   end
 
   # Turn instance methods into class methods

@@ -37,9 +37,7 @@ module HighlightHelper
   def highlight_and_excerpt(t, words, excount, html = true)
     newt = excerpt(t, words[0], radius: excount)
     newt = excerpt(t, '', radius: excount) if not newt
-    t = newt
-    t = highlight_words(t, words, html)
-    return t
+    highlight_words(newt, words, html)
   end
 
   def excerpt(text, phrase, options = {})
@@ -93,6 +91,6 @@ module HighlightHelper
       part.first(radius)
     end
 
-    return affix, part.join(separator)
+    [affix, part.join(separator)]
   end
 end

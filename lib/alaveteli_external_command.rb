@@ -55,19 +55,19 @@ class AlaveteliExternalCommand
         $stderr.puts(%Q[External Command: "#{program_name} #{args.join(' ')}" exited abnormally])
       end
       $stderr.print(xc.err)
-      return nil
+      nil
 
     elsif xc.status != 0
       # Error
       $stderr.puts(%Q[External Command: Error from command "#{program_name} #{args.join(' ')}":])
       $stderr.print(xc.err)
-      return nil
+      nil
     else
       if opts.has_key? :append_to
         opts[:append_to] << "\n\n"
       else
 
-        return xc.out
+        xc.out
       end
     end
   end

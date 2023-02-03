@@ -209,7 +209,7 @@ class AdminPublicBodyController < AdminController
     tempfile = File.new(File.join(Dir::tmpdir, tempfile_name), 'w')
     tempfile.write(csv_contents)
     tempfile.close
-    return tempfile_name
+    tempfile_name
   end
 
   # Get csv contents from the file whose name is passed, as long as the
@@ -225,7 +225,7 @@ class AdminPublicBodyController < AdminController
     end
     csv_contents = File.read(tempfile_path)
     File.delete(tempfile_path)
-    return csv_contents
+    csv_contents
   end
 
   def lookup_query

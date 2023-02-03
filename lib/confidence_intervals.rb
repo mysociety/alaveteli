@@ -24,6 +24,6 @@ def ci_bounds(successes, total, power)
   phat = successes.to_f/total
   offset = z*Math.sqrt((phat*(1 - phat) + z*z/(4*total))/total)
   denominator = 1 + z*z/total
-  return [(phat + z*z/(2*total) - offset)/denominator,
-          (phat + z*z/(2*total) + offset)/denominator]
+  [(phat + z*z/(2*total) - offset)/denominator,
+   (phat + z*z/(2*total) + offset)/denominator]
 end

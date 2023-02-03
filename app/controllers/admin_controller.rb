@@ -29,18 +29,18 @@ class AdminController < ApplicationController
     # Hence the second clause which reads X-Forwarded-User header if available.
     # See the rewrite rules in conf/httpd.conf which set X-Forwarded-User
     if request.env["REMOTE_USER"]
-      return request.env["REMOTE_USER"]
+      request.env["REMOTE_USER"]
     elsif request.env["HTTP_X_FORWARDED_USER"]
-      return request.env["HTTP_X_FORWARDED_USER"]
+      request.env["HTTP_X_FORWARDED_USER"]
     else
-      return "*unknown*";
+      "*unknown*";
     end
   end
 
   def authenticate
     if AlaveteliConfiguration::skip_admin_auth
       session[:using_admin] = 1
-      return
+      nil
     else
       if session[:using_admin].nil? || session[:admin_name].nil?
         if params[:emergency].nil? || AlaveteliConfiguration::disable_emergency_user

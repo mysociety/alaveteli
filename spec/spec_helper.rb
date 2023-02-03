@@ -245,8 +245,7 @@ FactoryBot.reload
 
 def normalise_whitespace(s)
   s = s.gsub(/\A\s+|\s+\Z/, "")
-  s = s.gsub(/\s+/, " ")
-  return s
+  s.gsub(/\s+/, " ")
 end
 
 def get_last_post_redirect

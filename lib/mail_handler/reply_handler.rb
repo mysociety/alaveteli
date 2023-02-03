@@ -52,7 +52,7 @@ module MailHandler
         end
       end
 
-      return []
+      []
     end
 
     def self.is_oof?(message)
@@ -76,7 +76,7 @@ module MailHandler
       return true if subject == "out of office"
       return true if subject == "out of office reply"
       return true if subject.end_with? "is out of the office"
-      return false
+      false
     end
 
     def self.forward_on(raw_message, message = nil)

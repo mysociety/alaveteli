@@ -251,9 +251,9 @@ class OutgoingMessage < ApplicationRecord
   def sendable?
     if status == 'ready'
       if message_type == 'initial_request'
-        return true
+        true
       elsif message_type == 'followup'
-        return true
+        true
       else
         raise "Message id #{id} has type '#{message_type}' which cannot be sent"
       end

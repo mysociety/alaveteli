@@ -21,7 +21,7 @@ module XapianQueries
       end
     end
     query = " (#{varieties.join(' OR ')})" if !varieties.empty?
-    return query
+    query
   end
 
   def get_status_from_params(params)
@@ -54,7 +54,7 @@ module XapianQueries
       end
       query = " (#{statuses.join(' OR ')})" if !statuses.empty?
     end
-    return query
+    query
   end
 
   def get_date_range_from_params(params)
@@ -68,7 +68,7 @@ module XapianQueries
     if params.has_key?(:request_date_after)
       query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
     end
-    return query
+    query
   end
 
   def make_query_from_params(params)
