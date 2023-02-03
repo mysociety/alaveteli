@@ -185,22 +185,22 @@ RSpec.describe ActsAsXapian::Search do
 
     it "should return a list of words used in the search" do
       s = ActsAsXapian::Search.new([PublicBody], "albatross words", limit: 100)
-      expect(s.words_to_highlight).to eq(["albatross", "word"])
+      expect(s.words_to_highlight).to eq(%w[albatross word])
     end
 
     it "should remove any operators" do
       s = ActsAsXapian::Search.new([PublicBody], "albatross words tag:mice", limit: 100)
-      expect(s.words_to_highlight).to eq(["albatross", "word"])
+      expect(s.words_to_highlight).to eq(%w[albatross word])
     end
 
     it "should separate punctuation" do
       s = ActsAsXapian::Search.new([PublicBody], "The doctor's patient", limit: 100)
-      expect(s.words_to_highlight).to eq(["the", "doctor", "patient"].sort)
+      expect(s.words_to_highlight).to eq(%w[the doctor patient].sort)
     end
 
     it "should handle non-ascii characters" do
       s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", limit: 100)
-      expect(s.words_to_highlight).to eq(["adatigénylé", "word"])
+      expect(s.words_to_highlight).to eq(%w[adatigénylé word])
     end
 
     it "should ignore stopwords" do
@@ -210,17 +210,17 @@ RSpec.describe ActsAsXapian::Search do
 
     it "uses stemming" do
       s = ActsAsXapian::Search.new([PublicBody], 'department of humpadinking', limit: 100)
-      expect(s.words_to_highlight).to eq(["depart", "humpadink"])
+      expect(s.words_to_highlight).to eq(%w[depart humpadink])
     end
 
     it "doesn't stem proper nouns" do
       s = ActsAsXapian::Search.new([PublicBody], 'department of Humpadinking', limit: 1)
-      expect(s.words_to_highlight).to eq(["depart", "humpadinking"])
+      expect(s.words_to_highlight).to eq(%w[depart humpadinking])
     end
 
     it "includes the original search terms if requested" do
       s = ActsAsXapian::Search.new([PublicBody], 'boring', limit: 1)
-      expect(s.words_to_highlight(include_original: true)).to eq(['bore', 'boring'])
+      expect(s.words_to_highlight(include_original: true)).to eq(%w[bore boring])
     end
 
     it "does not return duplicate terms" do

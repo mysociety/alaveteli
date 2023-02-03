@@ -278,12 +278,12 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def indexed_by_search?
-    if ['sent', 'followup_sent', 'response', 'comment'].include?(event_type)
+    if %w[sent followup_sent response comment].include?(event_type)
       return false if !info_request.indexed_by_search?
       if event_type == 'response' && !incoming_message.indexed_by_search?
         return false
       end
-      if ['sent', 'followup_sent'].include?(event_type) && !outgoing_message.indexed_by_search?
+      if %w[sent followup_sent].include?(event_type) && !outgoing_message.indexed_by_search?
         return false
       end
       return false if event_type == 'comment' && !comment.visible
@@ -375,7 +375,7 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def is_request_sending?
-    ['sent', 'resent'].include?(event_type) ||
+    %w[sent resent].include?(event_type) ||
     (event_type == 'send_error' &&
      outgoing_message.message_type == 'initial_request')
   end
@@ -427,15 +427,15 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def is_sent_sort?
-    ['sent', 'resent'].include?(event_type)
+    %w[sent resent].include?(event_type)
   end
 
   def is_followup_sort?
-    ['followup_sent', 'followup_resent'].include?(event_type)
+    %w[followup_sent followup_resent].include?(event_type)
   end
 
   def outgoing?
-    ['sent', 'followup_sent'].include?(event_type)
+    %w[sent followup_sent].include?(event_type)
   end
 
   def response?

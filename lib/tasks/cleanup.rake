@@ -63,14 +63,14 @@ namespace :cleanup do
   task spam_requests: :environment do
     str = CSV.generate do |csv|
       # Make headers
-      csv << [
-        'info_request_id',
-        'info_request_title',
-        'user_id',
-        'public_body_id',
-        'public_body_name',
-        'public_body_request_email',
-        'created_at',
+      csv << %w[
+        info_request_id
+        info_request_title
+        user_id
+        public_body_id
+        public_body_name
+        public_body_request_email
+        created_at
       ]
 
       # Add rows

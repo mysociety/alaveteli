@@ -521,7 +521,7 @@ RSpec.describe ApiController, "when using the API" do
       assigns[:events].each do |event|
         expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
         expect(event.outgoing_message).not_to be_nil
-        expect(event.event_type).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event.event_type).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
       end
     end
 
@@ -538,12 +538,12 @@ RSpec.describe ApiController, "when using the API" do
       assigns[:events].each do |event|
         expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
         expect(event.outgoing_message).not_to be_nil
-        expect(event.event_type).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event.event_type).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
       end
 
       expect(assigns[:event_data].size).to eq(assigns[:events].size)
       assigns[:event_data].each do |event_record|
-        expect(event_record[:event_type]).to satisfy { |x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x) }
+        expect(event_record[:event_type]).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
       end
     end
 

@@ -294,7 +294,7 @@ namespace :stats do
         puts "\n#{title}\n"
         list.each do |request|
           request_line = "#{admin_request_url(request, host: AlaveteliConfiguration::domain)}"
-          if ['vexatious', 'not_foi'].include? request.described_state
+          if %w[vexatious not_foi].include? request.described_state
             request_line << "\t#{request.described_state}"
           end
           puts "#{request_line}\n"
@@ -306,7 +306,7 @@ namespace :stats do
   desc 'Output all the requests made to the top 20 public bodies'
   task get_top20_body_requests: :environment do
     require 'csv'
-    puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
+    puts CSV.generate_line(%w[public_body_id public_body_name request_created_timestamp request_title request_body])
 
     PublicBody.limit(20).order(info_requests_visible_count: :desc).each do |body|
       body.info_requests.is_searchable.find_each do |request|

@@ -156,7 +156,7 @@ EOF
     it 'highlights with a block' do
       assert_equal(
         "<b>one</b> <b>two</b> <b>three</b>",
-        highlight_matches("one two three", ["one", "two", "three"]) { |word| "<b>#{word}</b>" }
+        highlight_matches("one two three", %w[one two three]) { |word| "<b>#{word}</b>" }
       )
     end
 

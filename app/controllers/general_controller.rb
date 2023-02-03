@@ -73,7 +73,7 @@ class GeneralController < ApplicationController
       render action: "search"
     else
       query_parts = @query.split("/")
-      if !['bodies', 'requests', 'users', 'all'].include?(query_parts[-1])
+      if !%w[bodies requests users all].include?(query_parts[-1])
         redirect_to search_url([@query, "all"], params)
       else
         redirect_to search_url(@query, params)
@@ -97,12 +97,12 @@ class GeneralController < ApplicationController
     end
     # TODO: currently /described isn't linked to anywhere, just used in RSS and for /list/successful
     # This is because it's confusingly different from /newest - but still useful for power users.
-    if combined.size > 0 && (['newest', 'described', 'relevant'].include?(combined[-1]))
+    if combined.size > 0 && (%w[newest described relevant].include?(combined[-1]))
       @sort_postfix = combined.pop
       @sortby = @sort_postfix
     end
     combined += [params[:view]] if !params[:view].nil?
-    if combined.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(combined[-1]))
+    if combined.size > 0 && (%w[bodies requests users all].include?(combined[-1]))
       @variety_postfix = combined.pop
       case @variety_postfix
       when 'bodies'

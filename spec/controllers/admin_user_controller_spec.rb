@@ -130,7 +130,7 @@ RSpec.describe AdminUserController do
       admin_user = FactoryBot.create(:admin_user)
       pro_user = FactoryBot.create(:pro_user)
       user = FactoryBot.create(:user)
-      get :index, params: { roles: [ 'admin', 'pro' ] }
+      get :index, params: { roles: %w[admin pro] }
       expect(assigns[:admin_users]).to eq([admin_user, pro_user])
     end
 

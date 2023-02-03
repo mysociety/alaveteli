@@ -52,8 +52,7 @@ module InfoRequestCustomStates
     end
 
     def theme_extra_states
-      ['deadline_extended',
-              'wrong_response']
+      %w[deadline_extended wrong_response]
     end
   end
 end

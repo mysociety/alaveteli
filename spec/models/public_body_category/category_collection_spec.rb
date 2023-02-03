@@ -7,7 +7,7 @@ RSpec.describe PublicBodyCategory::CategoryCollection do
       data = [ "Local and regional",
                [ "local_council", "Local councils", "a local council" ],
                "Miscellaneous",
-               [ "other", "Miscellaneous", "miscellaneous" ] ]
+               %w[other Miscellaneous miscellaneous] ]
       @categories = PublicBodyCategory::CategoryCollection.new
       data.each { |item| @categories << item }
     end
@@ -27,9 +27,9 @@ RSpec.describe PublicBodyCategory::CategoryCollection do
         expected_categories = ["Local and regional", ["local_council",
                                                       "Local councils",
                                                       "a local council"],
-                               "Miscellaneous", ["other",
-                                                 "Miscellaneous",
-                                                 "miscellaneous"]]
+                               "Miscellaneous", %w[other
+                                                   Miscellaneous
+                                                   miscellaneous]]
         expect(@categories.with_headings).to eq(expected_categories)
       end
     end
@@ -56,7 +56,7 @@ RSpec.describe PublicBodyCategory::CategoryCollection do
 
     describe 'when asked for tags' do
       it 'should return a list of tags' do
-        expect(@categories.tags).to eq(["local_council", "other"])
+        expect(@categories.tags).to eq(%w[local_council other])
       end
     end
 

@@ -6,14 +6,13 @@ class InfoRequest
       end
 
       def call
-        @relation.where(described_state: ['gone_postal',
-                                          'internal_review',
-                                          'error_message',
-                                          'requires_admin',
-                                          'attention_requested',
-                                          'vexatious',
-                                          'not_foi'],
-                        awaiting_description: false)
+        @relation.where(
+          described_state: %w[
+            gone_postal internal_review error_message requires_admin
+            attention_requested vexatious not_foi
+          ],
+          awaiting_description: false
+        )
       end
     end
   end

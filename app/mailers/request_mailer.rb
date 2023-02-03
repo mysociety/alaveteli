@@ -292,7 +292,7 @@ class RequestMailer < ApplicationMailer
       alert_event_id = info_request.last_event_forming_initial_request.id
       # Only overdue requests
       calculated_status = info_request.calculate_status
-      if ['waiting_response_overdue', 'waiting_response_very_overdue'].include?(calculated_status)
+      if %w[waiting_response_overdue waiting_response_very_overdue].include?(calculated_status)
         if calculated_status == 'waiting_response_overdue'
           alert_type = 'overdue_1'
         elsif calculated_status == 'waiting_response_very_overdue'

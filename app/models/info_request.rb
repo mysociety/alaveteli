@@ -221,11 +221,11 @@ class InfoRequest < ApplicationRecord
 
   # Subset of states accepted via the API
   def self.allowed_incoming_states
-    [
-      'waiting_response',
-      'rejected',
-      'successful',
-      'partially_successful'
+    %w[
+      waiting_response
+      rejected
+      successful
+      partially_successful
     ]
   end
 
@@ -1073,7 +1073,7 @@ class InfoRequest < ApplicationRecord
         # as that might already be set to waiting_clarification / a
         # success status, which we want to know about.
         curr_state = nil
-      elsif curr_state && (['edit', 'status_update'].include? event.event_type)
+      elsif curr_state && (%w[edit status_update].include? event.event_type)
         # A status update or edit event should get the same calculated state as described state
         # so that the described state is always indexed (and will be the latest_status
         # for the request immediately after it has been described, regardless of what

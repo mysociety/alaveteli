@@ -25,7 +25,7 @@ namespace :config_files do
   end
 
   def daemons(only_active = false)
-    daemons = [ 'alert-tracks', 'send-notifications' ]
+    daemons = %w[alert-tracks send-notifications]
     if AlaveteliConfiguration.production_mailer_retriever_method == 'pop' ||
        !only_active
       daemons << 'poll-for-incoming'
@@ -59,8 +59,7 @@ namespace :config_files do
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
   task convert_wrapper: :environment do
     example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
-    check_for_env_vars(['DEPLOY_USER',
-                        'SCRIPT_FILE'], example)
+    check_for_env_vars(%w[DEPLOY_USER SCRIPT_FILE], example)
 
     replacements = {
       user: ENV['DEPLOY_USER'],
@@ -82,9 +81,7 @@ namespace :config_files do
               'SCRIPT_FILE=config/alert-tracks-debian.example ' \
               'RUBY_VERSION=3.0.4 ' \
               'USE_RBENV=false '
-    check_for_env_vars(['DEPLOY_USER',
-                        'VHOST_DIR',
-                        'SCRIPT_FILE'], example)
+    check_for_env_vars(%w[DEPLOY_USER VHOST_DIR SCRIPT_FILE], example)
 
     replacements = {
       user: ENV['DEPLOY_USER'],
@@ -127,11 +124,7 @@ namespace :config_files do
               'MAILTO=cron-alaveteli@example.org ' \
               'RUBY_VERSION=3.0.4 '
               'USE_RBENV=false '
-    check_for_env_vars(['DEPLOY_USER',
-                        'VHOST_DIR',
-                        'VCSPATH',
-                        'SITE',
-                        'CRONTAB'], example)
+    check_for_env_vars(%w[DEPLOY_USER VHOST_DIR VCSPATH SITE CRONTAB], example)
     replacements = {
       user: ENV['DEPLOY_USER'],
       vhost_dir: ENV['VHOST_DIR'],
@@ -186,7 +179,7 @@ namespace :config_files do
   desc 'Set reject_incoming_at_mta on old requests that are rejecting incoming mail'
   task set_reject_incoming_at_mta: :environment do
     example = 'rake config_files:set_reject_incoming_at_mta REJECTED_THRESHOLD=5 AGE_IN_MONTHS=12'
-    check_for_env_vars(['REJECTED_THRESHOLD', 'AGE_IN_MONTHS'], example)
+    check_for_env_vars(%w[REJECTED_THRESHOLD AGE_IN_MONTHS], example)
     dryrun = ENV['DRYRUN'] != '0'
     STDERR.puts "Only a dry run; info_requests will not be updated" if dryrun
     options = {rejection_threshold: ENV['REJECTED_THRESHOLD'],
@@ -239,7 +232,7 @@ namespace :config_files do
     example = 'rake config_files:generate_mta_rejection_list MTA=(exim|postfix)'
     check_for_env_vars(['MTA'], example)
     mta = ENV['MTA'].downcase
-    unless ['postfix', 'exim'].include? mta
+    unless %w[postfix exim].include? mta
       puts "Error: Unrecognised MTA"
       exit 1
     end

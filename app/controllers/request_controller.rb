@@ -106,12 +106,10 @@ class RequestController < ApplicationController
     long_cache
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
     return render_hidden if cannot?(:read, @info_request)
-    @columns = ['id',
-                'event_type',
-                'created_at',
-                'described_state',
-                'last_described_at',
-                'calculated_state' ]
+    @columns = %w[
+      id event_type created_at described_state last_described_at
+      calculated_state
+    ]
   end
 
   # Requests similar to this one

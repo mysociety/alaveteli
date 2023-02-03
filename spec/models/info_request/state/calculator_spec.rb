@@ -56,7 +56,7 @@ RSpec.describe InfoRequest::State::Calculator do
         }
       end
 
-      let(:admin_states) { ['not_foi', 'vexatious'] }
+      let(:admin_states) { %w[not_foi vexatious] }
 
       it "always returns an empty hash" do
         admin_states.each do |state|
@@ -171,13 +171,13 @@ RSpec.describe InfoRequest::State::Calculator do
       context "and the user is the owner" do
         it_behaves_like(
           "#transitions for an owner",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal])
       end
 
       context "and the user is some other user" do
         it_behaves_like(
           "#transitions for some other user",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal])
       end
     end
 
@@ -185,13 +185,13 @@ RSpec.describe InfoRequest::State::Calculator do
       context "and the user is the owner" do
         it_behaves_like(
           "#transitions for an owner",
-          ['not_held', 'partially_successful', 'successful', 'rejected'])
+          %w[not_held partially_successful successful rejected])
       end
 
       context "and the user is some other user" do
         it_behaves_like(
           "#transitions for some other user",
-          ['not_held', 'partially_successful', 'successful', 'rejected'])
+          %w[not_held partially_successful successful rejected])
       end
     end
 
@@ -205,7 +205,7 @@ RSpec.describe InfoRequest::State::Calculator do
           transitions = calculator.transitions(
             is_owning_user: true,
             user_asked_to_update_status: false)
-          expected = ["internal_review", "gone_postal"]
+          expected = %w[internal_review gone_postal]
           expect(transitions[:pending].keys).to eq(expected)
         end
 
@@ -223,7 +223,7 @@ RSpec.describe InfoRequest::State::Calculator do
           transitions = calculator.transitions(
             is_owning_user: false,
             user_asked_to_update_status: false)
-          expected = ["internal_review", "gone_postal"]
+          expected = %w[internal_review gone_postal]
           expect(transitions[:pending].keys).to eq(expected)
         end
 
@@ -241,13 +241,13 @@ RSpec.describe InfoRequest::State::Calculator do
       context "and the user is the owner" do
         it_behaves_like(
           "#transitions for an owner",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal])
       end
 
       context "and the user is some other user" do
         it_behaves_like(
           "#transitions for some other user",
-          ['waiting_response', 'waiting_clarification', 'gone_postal'])
+          %w[waiting_response waiting_clarification gone_postal])
       end
     end
   end

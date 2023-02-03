@@ -237,7 +237,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
     expect(assigns[:xapian_requests].results.size).to eq(1)
     expect(assigns[:xapian_requests].results[0][:model]).to eq(info_request_events(:useless_outgoing_message_event))
 
-    assigns[:xapian_requests].words_to_highlight == ["fancy", "dog"]
+    assigns[:xapian_requests].words_to_highlight == %w[fancy dog]
   end
 
   it "should find public body and incoming message when searching for 'geraldine quango'" do
