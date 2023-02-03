@@ -91,7 +91,7 @@ class InfoRequestBatch < ApplicationRecord
 
   # Create a new batch from the supplied draft version
   def self.from_draft(draft)
-    self.new(:user => draft.user,
+    new(:user => draft.user,
              :public_bodies => draft.public_bodies,
              :title => draft.title,
              :body => draft.body,
@@ -162,17 +162,17 @@ class InfoRequestBatch < ApplicationRecord
 
   # Build an InfoRequest object which is an example of this batch.
   def example_request
-    public_body = self.public_bodies.first
+    public_body = public_bodies.first
     body = OutgoingMessage.fill_in_salutation(self.body, public_body)
     info_request = InfoRequest.build_from_attributes(
-      { :title => self.title, :public_body => public_body },
+      { :title => title, :public_body => public_body },
       { :body => body },
-      self.user
+      user
     )
-    unless self.embargo_duration.blank?
+    unless embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.new(
         :info_request => info_request,
-        :embargo_duration => self.embargo_duration
+        :embargo_duration => embargo_duration
       )
     end
     info_request
@@ -223,41 +223,41 @@ class InfoRequestBatch < ApplicationRecord
     {
       :in_progress => {
         :label => _('In progress'),
-        :count => self.info_requests.in_progress.count
+        :count => info_requests.in_progress.count
       },
       :action_needed => {
         :label => _('Action needed'),
-        :count => self.info_requests.action_needed.count
+        :count => info_requests.action_needed.count
       },
       :complete => {
         :label => _('Complete'),
-        :count => self.info_requests.complete.count
+        :count => info_requests.complete.count
       },
       :other => {
         :label => _('Other'),
-        :count => self.info_requests.other.count
+        :count => info_requests.other.count
       }
     }
   end
 
   # @see RequestSummaries#request_summary_body
   def request_summary_body
-    self.body
+    body
   end
 
   # @see RequestSummaries#request_summary_public_body_names
   def request_summary_public_body_names
-    self.public_bodies.pluck(:name).join(" ")
+    public_bodies.pluck(:name).join(" ")
   end
 
   # @see RequestSummaries#request_summary_categories
   def request_summary_categories
     categories = []
-    if self.embargo_expiring?
+    if embargo_expiring?
       categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
     end
-    if self.sent_at
-      phase_slugs = self.request_phases.map(&:to_s).uniq
+    if sent_at
+      phase_slugs = request_phases.map(&:to_s).uniq
       phases = AlaveteliPro::RequestSummaryCategory.where(slug: phase_slugs)
       categories.concat phases
     else

@@ -19,7 +19,7 @@ module AlaveteliFeatures
 
   def self.backend
     return @backend if @backend
-    if self.tables_exist?
+    if tables_exist?
       @backend = Flipper.new(Flipper::Adapters::ActiveRecord.new)
     else
       if defined?(Rails)

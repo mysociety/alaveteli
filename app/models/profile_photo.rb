@@ -42,7 +42,7 @@ class ProfilePhoto < ApplicationRecord
     # convert to PNG if it isn't, and to right size
     altered = false
     if image.type != 'PNG'
-      self.image.format('PNG')
+      image.format('PNG')
       altered = true
     end
 

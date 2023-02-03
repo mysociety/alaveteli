@@ -138,10 +138,10 @@ module AlaveteliPro
     private
 
     def add_set_embargo_event
-      publish_at_changed = self.publish_at_changed?
+      publish_at_changed = publish_at_changed?
       yield
       if publish_at_changed
-        params = { :embargo_id => self.id }
+        params = { :embargo_id => id }
         params[:embargo_extension_id] = extension.id if extension
         info_request.log_event('set_embargo', params)
       end
@@ -154,7 +154,7 @@ module AlaveteliPro
     end
 
     def set_expiring_notification_at
-      unless self.expiring_notification_at.present?
+      unless expiring_notification_at.present?
         self.expiring_notification_at = calculate_expiring_notification_at
       end
     end

@@ -151,11 +151,11 @@ class PublicBody < ApplicationRecord
     strip_attributes allow_empty: true, only: %i[request_email]
   end
 
-  self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
-  self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
-  self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
-  self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
-  self.non_versioned_columns << 'info_requests_overdue_count' << 'info_requests_visible_count'
+  non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
+  non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
+  non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
+  non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
+  non_versioned_columns << 'info_requests_overdue_count' << 'info_requests_visible_count'
 
   # Cannot be defined directly under `include` statements as this is opening
   # the PublicBody::Version class dynamically defined by  the
@@ -187,7 +187,7 @@ class PublicBody < ApplicationRecord
     end
 
     def last_edit_comment_for_html_display
-      text = self.last_edit_comment.strip
+      text = last_edit_comment.strip
       text = CGI.escapeHTML(text)
       text = MySociety::Format.make_clickable(text)
       text = text.gsub(/\n/, '<br>')
@@ -206,7 +206,7 @@ class PublicBody < ApplicationRecord
                     created_at
                     updated_at).include?(c.name)
             from = previous.send(c.name)
-            to = self.send(c.name)
+            to = send(c.name)
             memo << { :name => c.name.humanize,
                       :from => from,
                       :to => to } if from != to
@@ -938,8 +938,8 @@ class PublicBody < ApplicationRecord
 
   def request_email_if_requestable
     # Request_email can be blank, meaning we don't have details
-    if self.is_requestable?
-      unless MySociety::Validate.is_valid_email(self.request_email)
+    if is_requestable?
+      unless MySociety::Validate.is_valid_email(request_email)
         errors.add(:request_email,
                    "Request email doesn't look like a valid email address")
       end

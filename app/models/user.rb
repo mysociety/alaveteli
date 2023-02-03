@@ -222,7 +222,7 @@ class User < ApplicationRecord
   # Case-insensitively find a user from their email
   def self.find_user_by_email(email)
     return nil if email.blank?
-    self.where('lower(email) = lower(?)', email.strip).first
+    where('lower(email) = lower(?)', email.strip).first
   end
 
   # The "internal admin" is a special user for internal use.
@@ -576,14 +576,14 @@ class User < ApplicationRecord
   def notify(info_request_event)
     Notification.create(
       info_request_event: info_request_event,
-      frequency: Notification.frequencies[self.notification_frequency],
+      frequency: Notification.frequencies[notification_frequency],
       user: self
     )
   end
 
   # Return a timestamp for the next time a user should be sent a daily summary
   def next_daily_summary_time
-    summary_time = Time.zone.now.change(self.daily_summary_time)
+    summary_time = Time.zone.now.change(daily_summary_time)
     summary_time += 1.day if summary_time < Time.zone.now
     summary_time
   end

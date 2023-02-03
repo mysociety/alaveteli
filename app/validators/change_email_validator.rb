@@ -32,7 +32,7 @@ class ChangeEmailValidator
   end
 
   def changing_email
-    self.user_circumstance == 'change_email'
+    user_circumstance == 'change_email'
   end
 
   private

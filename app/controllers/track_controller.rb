@@ -19,7 +19,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set
+    if track_set
       if AlaveteliConfiguration.enable_widgets && cookies[:widget_vote]
         @info_request.
           widget_votes.
@@ -45,7 +45,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
+    if track_set || @track_thing.errors.any?
       redirect_to request_list_url(:view => @view)
     end
   end
@@ -68,7 +68,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
+    if track_set || @track_thing.errors.any?
       redirect_to public_body_url(@public_body)
     end
   end
@@ -81,7 +81,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
+    if track_set || @track_thing.errors.any?
       redirect_to user_url(@track_user)
     end
   end
@@ -100,7 +100,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if self.track_set || @track_thing.errors.any?
+    if track_set || @track_thing.errors.any?
       if @query.scan("variety").length == 1
         # we're making a track for a simple filter, for which
         # there's an expression in the UI (rather than relying

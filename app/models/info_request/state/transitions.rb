@@ -52,7 +52,7 @@ class InfoRequest
       def self.labelled_hash(states, opts = {})
         hash = {}
         states.each do |state|
-          hash[state] = self.transition_label(state, opts)
+          hash[state] = transition_label(state, opts)
         end
         hash
       end

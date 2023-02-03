@@ -59,7 +59,7 @@ class AdminController < ApplicationController
               session[:using_admin] = nil
               session[:user_id] = nil
               session[:admin_name] = nil
-              self.authenticate
+              authenticate
             end
           end
         else

@@ -71,7 +71,7 @@ class OutgoingMessage < ApplicationRecord
 
   admin_columns include: [:to, :from, :subject]
 
-  self.default_url_options[:host] = AlaveteliConfiguration.domain
+  default_url_options[:host] = AlaveteliConfiguration.domain
 
   scope :followup, -> { where(message_type: 'followup') }
   scope :is_searchable, -> { where(prominence: 'normal') }
@@ -358,7 +358,7 @@ class OutgoingMessage < ApplicationRecord
     end
 
     # Remove email addresses from display/index etc.
-    self.remove_privacy_sensitive_things!(text)
+    remove_privacy_sensitive_things!(text)
 
     text
   end
@@ -366,7 +366,7 @@ class OutgoingMessage < ApplicationRecord
   # Return body for display as HTML
   def get_body_for_html_display
     text = body.strip
-    self.remove_privacy_sensitive_things!(text)
+    remove_privacy_sensitive_things!(text)
     text = CGI.escapeHTML(text)
     text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')

@@ -17,16 +17,16 @@ module Mail
     alias_method :old_cc, :cc
 
     def clean_addresses(old_method, val)
-      old_result = self.send(old_method, val)
+      old_result = send(old_method, val)
       old_result.class == Mail::AddressContainer ? old_result : nil
     end
 
     def to(val = nil)
-      self.clean_addresses :old_to, val
+      clean_addresses :old_to, val
     end
 
     def cc(val = nil)
-      self.clean_addresses :old_cc, val
+      clean_addresses :old_cc, val
     end
 
   end

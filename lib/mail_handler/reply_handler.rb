@@ -80,7 +80,7 @@ module MailHandler
     end
 
     def self.forward_on(raw_message, message = nil)
-      forward_to = self.get_forward_to_address(message)
+      forward_to = get_forward_to_address(message)
       IO.popen(%Q(/usr/sbin/sendmail -i "#{forward_to}"), 'wb') do |f|
         f.write(raw_message);
         f.close;
@@ -132,7 +132,7 @@ module MailHandler
     end
 
     def self.record_bounce(email_address, bounce_message)
-      self.load_rails
+      load_rails
       User.record_bounce_for_email(email_address, bounce_message)
     end
   end

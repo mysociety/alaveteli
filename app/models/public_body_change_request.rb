@@ -139,19 +139,19 @@ class PublicBodyChangeRequest < ApplicationRecord
 
   def close!
     self.is_open = false
-    self.save!
+    save!
   end
 
   private
 
   def body_email_format
-    unless MySociety::Validate.is_valid_email(self.public_body_email)
+    unless MySociety::Validate.is_valid_email(public_body_email)
       errors.add(:public_body_email, _("The authority email doesn't look like a valid address"))
     end
   end
 
   def user_email_format
-    unless MySociety::Validate.is_valid_email(self.user_email)
+    unless MySociety::Validate.is_valid_email(user_email)
       errors.add(:user_email, _("Your email doesn't look like a valid address"))
     end
   end

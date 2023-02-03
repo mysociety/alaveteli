@@ -8,7 +8,7 @@ class OutgoingMessage
 
       def self.placeholder_salutation
         _('Dear {{placeholder_body_name}},',
-          placeholder_body_name: self.placeholder_body_name)
+          placeholder_body_name: placeholder_body_name)
       end
 
       # Separate so that it can be referred to directly elsewhere (e.g. to

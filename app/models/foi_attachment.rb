@@ -79,7 +79,7 @@ class FoiAttachment < ApplicationRecord
       raise if tries > BODY_MAX_TRIES
       sleep [delay, BODY_MAX_DELAY].min
 
-      self.incoming_message.parse_raw_email!(true)
+      incoming_message.parse_raw_email!(true)
       reload
 
       body(tries: tries + 1, delay: delay * 2)
@@ -188,7 +188,7 @@ class FoiAttachment < ApplicationRecord
   # make another old_display_filename see above
   def display_filename
     filename = self.filename
-    if !self.incoming_message.nil?
+    if !incoming_message.nil?
       filename = incoming_message.info_request.apply_censor_rules_to_text(filename)
     end
     # Sometimes filenames have e.g. %20 in - no point butchering that
@@ -210,11 +210,11 @@ class FoiAttachment < ApplicationRecord
 
 
   def ensure_filename!
-    if self.filename.blank?
-      calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
+    if filename.blank?
+      calc_ext = AlaveteliFileTypes.mimetype_to_extension(content_type)
       calc_ext = "bin" if !calc_ext
-      if !self.within_rfc822_subject.nil?
-        computed = self.within_rfc822_subject + "." + calc_ext
+      if !within_rfc822_subject.nil?
+        computed = within_rfc822_subject + "." + calc_ext
       else
         computed = "attachment." + calc_ext
       end
@@ -224,7 +224,7 @@ class FoiAttachment < ApplicationRecord
 
   def filename=(filename)
     filename.try(:delete!, "\0")
-    calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
+    calc_ext = AlaveteliFileTypes.mimetype_to_extension(content_type)
     # Put right extension on if missing
     if !filename.nil? && !filename.match(/\.#{calc_ext}$/) && calc_ext
       computed = filename + "." + calc_ext
@@ -236,7 +236,7 @@ class FoiAttachment < ApplicationRecord
 
   # Size to show next to the download link for the attachment
   def update_display_size!
-    s = self.body.size
+    s = body.size
 
     if s > 1024 * 1024
       self.display_size = sprintf("%.1f", s.to_f / 1024 / 1024) + 'M'
@@ -289,7 +289,7 @@ class FoiAttachment < ApplicationRecord
 
       'application/vnd.ms-excel' => "Excel spreadsheet",
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet",
-    }[self.content_type]
+    }[content_type]
   end
 
   # For "View as HTML" of attachment

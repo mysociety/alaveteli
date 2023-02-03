@@ -27,12 +27,12 @@ class DraftInfoRequest < ApplicationRecord
 
   # @see RequestSummaries#request_summary_body
   def request_summary_body
-    self.body
+    body
   end
 
   # @see RequestSummaries#request_summary_public_body_names
   def request_summary_public_body_names
-    self.public_body.name unless self.public_body.blank?
+    public_body.name unless public_body.blank?
   end
 
   # @see RequestSummaries#request_summary_categories

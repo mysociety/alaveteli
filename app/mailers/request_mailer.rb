@@ -242,7 +242,7 @@ class RequestMailer < ApplicationMailer
     opts = { :source => source }
 
     # Find which info requests the email is for
-    reply_info_requests = self.requests_matching_email(email)
+    reply_info_requests = requests_matching_email(email)
 
     # Nothing found, so save in holding pen
     if reply_info_requests.size == 0
@@ -348,7 +348,7 @@ class RequestMailer < ApplicationMailer
   # it goes out 3 days after last update of event, then after 10, then after 24.
   def self.alert_new_response_reminders
     AlaveteliConfiguration::new_response_reminder_after_days.each_with_index do |days, i|
-      self.alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
+      alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
     end
   end
   def self.alert_new_response_reminders_internal(days_since, type_code)

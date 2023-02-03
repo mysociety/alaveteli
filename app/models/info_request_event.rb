@@ -89,7 +89,7 @@ class InfoRequestEvent < ApplicationRecord
   end
   after_create :update_request, :if => :response?
 
-  after_commit -> { self.info_request.create_or_update_request_summary },
+  after_commit -> { info_request.create_or_update_request_summary },
                   :on => [:create]
 
   validates_inclusion_of :event_type, :in => EVENT_TYPES
@@ -514,7 +514,7 @@ class InfoRequestEvent < ApplicationRecord
     events = self.
                class.
                  where(:info_request_id => info_request_id).
-                   where('created_at < ?', self.created_at).
+                   where('created_at < ?', created_at).
                      order(order)
 
   end
@@ -524,7 +524,7 @@ class InfoRequestEvent < ApplicationRecord
     events = self.
                class.
                  where(:info_request_id => info_request_id).
-                   where('created_at > ?', self.created_at).
+                   where('created_at > ?', created_at).
                      order(order)
   end
 

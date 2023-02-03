@@ -7,7 +7,7 @@ RSpec.describe ApplicationMailer do
 
     def set_base_views
       ApplicationMailer.class_eval do
-        @previous_view_paths = self.view_paths.dup
+        @previous_view_paths = view_paths.dup
         self.view_paths = [File.join(Rails.root, 'spec', 'fixtures', 'theme_views', 'core')]
       end
     end

@@ -41,7 +41,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
   end
 
   def self.not_category(category_slug)
-    summary_ids_to_exclude = self.category(category_slug).pluck(:id)
+    summary_ids_to_exclude = category(category_slug).pluck(:id)
     results = includes(:request_summary_categories)
     unless summary_ids_to_exclude.blank?
       results = results.
@@ -61,7 +61,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
       request.request_summary.update_from(request)
       request.request_summary
     else
-      self.create_from(request)
+      create_from(request)
     end
   end
 
@@ -72,7 +72,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
   private
 
   def self.create_from(request)
-    self.create(attributes_from_request(request))
+    create(attributes_from_request(request))
   end
 
   def self.attributes_from_request(request)

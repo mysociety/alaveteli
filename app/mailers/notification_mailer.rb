@@ -53,8 +53,8 @@ class NotificationMailer < ApplicationMailer
   end
 
   def self.send_notifications
-    sent_instant_notifications = self.send_instant_notifications
-    sent_daily_notifications = self.send_daily_notifications
+    sent_instant_notifications = send_instant_notifications
+    sent_daily_notifications = send_daily_notifications
     sent_instant_notifications || sent_daily_notifications
   end
 
@@ -95,7 +95,7 @@ class NotificationMailer < ApplicationMailer
   def instant_notification(notification)
     event_type = notification.info_request_event.event_type
     method = "#{event_type}_notification".to_sym
-    self.send(method, notification)
+    send(method, notification)
   end
 
   def response_notification(notification)
