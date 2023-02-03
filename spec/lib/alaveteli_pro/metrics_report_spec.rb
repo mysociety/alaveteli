@@ -149,7 +149,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
         subscription = Stripe::Subscription.create(customer: customer,
                                                    plan: pro_plan.id)
 
-        # note - in later API versions, at_period_end is no longer
+        # NOTE: - in later API versions, at_period_end is no longer
         # available for delete so we'd have to call something like
         # this instead:
         # Stripe::Subscription.update(subscription.id,

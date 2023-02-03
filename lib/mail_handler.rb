@@ -67,7 +67,7 @@ module MailHandler
   end
 
   def get_attachment_text_one_file(content_type, body, charset = 'utf-8')
-    # note re. charset: TMail always tries to convert email bodies
+    # NOTE: re. charset: TMail always tries to convert email bodies
     # to UTF8 by default, so normally it should already be that.
     text = ''
     # TODO: - tell all these command line tools to return utf-8

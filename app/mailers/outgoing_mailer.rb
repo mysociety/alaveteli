@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-# Note: The layout for this wraps messages by lines rather than (blank line
+# NOTE: The layout for this wraps messages by lines rather than (blank line
 # separated) paragraphs, as is the convention for all the other mailers. This
 # turned out to fit better with user exepectations when formatting messages.
 #

@@ -1522,7 +1522,7 @@ RSpec.describe User do
     end
 
     it "returns all of the user's events" do
-      # Note: there is a fourth "sent" event created automatically
+      # NOTE: there is a fourth "sent" event created automatically
       expect(user.info_request_events.count).to eq 4
     end
   end

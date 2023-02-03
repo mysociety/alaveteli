@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
 
-  # Note: a filter stops the chain if it redirects or renders something
+  # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response
   before_action :authentication_check
   before_action :check_in_post_redirect
