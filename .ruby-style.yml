@@ -24,6 +24,8 @@ AllCops:
     - node_modules/**/*
     - vendor/**/*
     - ".git/**/*"
+    - "bin/bundle"
+    - "bin/rubocop"
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
