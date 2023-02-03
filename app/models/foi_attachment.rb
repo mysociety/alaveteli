@@ -239,7 +239,7 @@ class FoiAttachment < ApplicationRecord
     s = body.size
 
     if s > 1024 * 1024
-      self.display_size = sprintf("%.1f", s.to_f / 1024 / 1024) + 'M'
+      self.display_size = format("%.1f", s.to_f / 1024 / 1024) + 'M'
     else
       self.display_size = (s / 1024).to_s + 'K'
     end

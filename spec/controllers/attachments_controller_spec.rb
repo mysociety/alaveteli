@@ -57,7 +57,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
       # check the file permissions
       key_path = @controller.send(:cache_key_path)
-      octal_stat = sprintf("%o", File.stat(key_path).mode)[-4..-1]
+      octal_stat = format("%o", File.stat(key_path).mode)[-4..-1]
       expect(octal_stat).to eq('0644')
 
       # clean up and remove the file
