@@ -213,9 +213,9 @@ EOF
     end
 
     help_templates_info = [{name: 'about',
-                            sections: ['whybother_them',
-                                          'reporting',
-                                          'reporting_unavailable']},
+                            sections: %w[whybother_them
+                                            reporting
+                                            reporting_unavailable]},
                            {name: 'alaveteli',
                             sections: []},
                            {name: 'api',
@@ -227,19 +227,19 @@ EOF
                            {name: 'officers',
                             sections: ['copyright']},
                            {name: 'privacy',
-                            sections: ['email_address',
-                                          'full_address',
-                                          'postal_answer',
-                                          'public_request',
-                                          'real_name']},
+                            sections: %w[email_address
+                                            full_address
+                                            postal_answer
+                                            public_request
+                                            real_name]},
                            {name: 'requesting',
-                            sections: ['focused',
-                                          'data_protection',
-                                          'missing_body',
-                                          'quickly_response',]},
+                            sections: %w[focused
+                                            data_protection
+                                            missing_body
+                                            quickly_response]},
                            {name: 'unhappy',
-                            sections: ['internal_review',
-                                          'other_means']},
+                            sections: %w[internal_review
+                                            other_means]},
                            {name: '_why_they_should_reply_by_email',
                             sections: []}]
 

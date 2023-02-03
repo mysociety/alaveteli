@@ -349,7 +349,7 @@ module MailHandler
         # RFC822 message and it is text, if so add headers.
         if leaf.within_rfc822_attachment == leaf && get_content_type(leaf) == 'text/plain'
           headers = ""
-          [ 'Date', 'Subject', 'From', 'To', 'Cc' ].each do |header|
+          %w[Date Subject From To Cc].each do |header|
             if header_value = get_header_string(header, leaf.within_rfc822_attachment)
               if !header_value.blank?
                 headers = headers + header + ": " + header_value.to_s + "\n"

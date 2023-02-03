@@ -181,7 +181,7 @@ RSpec.describe TrackController do
       get :track_search_query, params: { query_array: "bob variety:sent",
                                          feed: 'track' }
       expect(response).to redirect_to(controller: 'general', action: 'search',
-                                      combined: ["bob", "requests"])
+                                      combined: %w[bob requests])
     end
 
     it 'sets the flash message partial for a successful track' do
@@ -235,7 +235,7 @@ RSpec.describe TrackController do
                                }
       expect(flash[:error]).to match('too long')
       expect(response).to redirect_to(controller: 'general', action: 'search',
-                                      combined: ["bob", "requests"])
+                                      combined: %w[bob requests])
     end
   end
 

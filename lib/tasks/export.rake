@@ -59,121 +59,72 @@ namespace :export do
                           HasTagStringTag.where(model_type: "PublicBody"))
 
     #export public body information
-    DataExport.csv_export( PublicBody,
-                to_run,
-                PublicBody.where("created_at < ?", cut_off_date),
-                ["id",
-                "name",
-                "short_name",
-                "created_at",
-                "updated_at",
-                "url_name",
-                "home_page",
-                "info_requests_count",
-                "info_requests_successful_count",
-                "info_requests_not_held_count",
-                "info_requests_overdue_count",
-                "info_requests_visible_classified_count",
-                "info_requests_visible_count"])
+    DataExport.csv_export(
+      PublicBody, to_run, PublicBody.where("created_at < ?", cut_off_date),
+      %w[id name short_name created_at updated_at url_name home_page
+         info_requests_count info_requests_successful_count
+         info_requests_not_held_count info_requests_overdue_count
+         info_requests_visible_classified_count info_requests_visible_count]
+    )
 
     #export non-personal user fields
-    DataExport.csv_export( User,
-                to_run,
-                User.active.
-                  where("updated_at < ?", cut_off_date),
-                ["id",
-                "name",
-                "info_requests_count",
-                "track_things_count",
-                "request_classifications_count",
-                "public_body_change_requests_count",
-                "info_request_batches_count"],
-                override = {
-                 "name" => DataExport.gender_lambda,
-                },
-                header_map = {
-                "name" => "gender",
-                }
-                )
+    DataExport.csv_export(
+      User, to_run, User.active.where("updated_at < ?", cut_off_date),
+      %w[id name info_requests_count track_things_count
+         request_classifications_count public_body_change_requests_count
+         info_request_batches_count],
+      override = { "name" => DataExport.gender_lambda, },
+      header_map = { "name" => "gender", }
+    )
 
     #export InfoRequest Fields
-    DataExport.csv_export(InfoRequest,
-               to_run,
-               DataExport.exportable_requests(cut_off_date),
-               ["id",
-                "title",
-                "user_id",
-                "public_body_id",
-                "created_at",
-                "updated_at",
-                "described_state",
-                "awaiting_description",
-                "url_title",
-                "law_used",
-                "last_public_response_at",
-                "info_request_batch_id"])
+    DataExport.csv_export(
+      InfoRequest, to_run, DataExport.exportable_requests(cut_off_date),
+      %w[id title user_id public_body_id created_at updated_at described_state
+         awaiting_description url_title law_used last_public_response_at
+         info_request_batch_id]
+    )
 
-    DataExport.csv_export(InfoRequestBatch,
-                 to_run,
-                 InfoRequestBatch.where("updated_at < ?", cut_off_date),
-                 ["id",
-                  "title",
-                  "user_id",
-                  "sent_at",
-                  "created_at",
-                  "updated_at"])
+    DataExport.csv_export(
+      InfoRequestBatch, to_run,
+      InfoRequestBatch.where("updated_at < ?", cut_off_date),
+      %w[id title user_id sent_at created_at updated_at]
+    )
 
     #export incoming messages - only where normal prominence,
     # allow name_censor to some fields
-    DataExport.csv_export(IncomingMessage,
-               to_run,
-               DataExport.exportable_incoming_messages(cut_off_date),
-               ["id",
-                "info_request_id",
-                "created_at",
-                "updated_at",
-                "raw_email_id",
-                "cached_attachment_text_clipped",
-                "cached_main_body_text_folded",
-                "cached_main_body_text_unfolded",
-                "subject",
-                "sent_at",
-                "prominence"],
-                override = {
-                  "cached_attachment_text_clipped" => DataExport.name_censor_lambda('cached_attachment_text_clipped'),
-                  "cached_main_body_text_folded" => DataExport.name_censor_lambda('cached_main_body_text_folded'),
-                  "cached_main_body_text_unfolded" => DataExport.name_censor_lambda('cached_main_body_text_unfolded'),
-                })
+    DataExport.csv_export(
+      IncomingMessage, to_run,
+      DataExport.exportable_incoming_messages(cut_off_date),
+      %w[id info_request_id created_at updated_at raw_email_id
+         cached_attachment_text_clipped cached_main_body_text_folded
+         cached_main_body_text_unfolded subject sent_at prominence],
+      override = {
+        "cached_attachment_text_clipped" =>
+          DataExport.name_censor_lambda('cached_attachment_text_clipped'),
+        "cached_main_body_text_folded" =>
+          DataExport.name_censor_lambda('cached_main_body_text_folded'),
+        "cached_main_body_text_unfolded" =>
+          DataExport.name_censor_lambda('cached_main_body_text_unfolded'),
+      }
+    )
 
     #export incoming messages - only where normal prominence, allow name_censor to some fields
-    DataExport.csv_export(OutgoingMessage,
-               to_run,
-               DataExport.exportable_outgoing_messages(cut_off_date),
-               ["id",
-                "info_request_id",
-                "created_at",
-                "updated_at",
-                "body",
-                "message_type",
-                "subject",
-                "last_sent_at",
-                "incoming_message_followup_id"],
-               override = {
-                 "body" => DataExport.name_censor_lambda('body'),
-               })
+    DataExport.csv_export(
+      OutgoingMessage, to_run,
+      DataExport.exportable_outgoing_messages(cut_off_date),
+      %w[id info_request_id created_at updated_at body message_type subject
+         last_sent_at incoming_message_followup_id],
+      override = { "body" => DataExport.name_censor_lambda('body') }
+    )
 
     #export incoming messages - only where normal prominence, allow name_censor to some fields
-    DataExport.csv_export(FoiAttachment,
-               to_run,
-               DataExport.exportable_foi_attachments(cut_off_date),
-               ["id",
-                "content_type",
-                "filename",
-                "charset",
-                "url_part_number",
-                "incoming_message_id",
-                "within_rfc822_subject"])
-
+    DataExport.csv_export(
+      FoiAttachment, to_run,
+      DataExport.exportable_foi_attachments(cut_off_date),
+      %w[id content_type filename charset url_part_number incoming_message_id
+         within_rfc822_subject]
+    )
   end
 
 end

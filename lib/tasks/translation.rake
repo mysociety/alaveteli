@@ -27,12 +27,12 @@ namespace :translation do
 
   desc "Create previews of translated emails"
   task preview_emails: :environment do
-    check_for_env_vars(['INFO_REQUEST_ID',
-                        'FOLLOW_UP_ID',
-                        'INCOMING_MESSAGE_ID',
-                        'COMMENT_ID',
-                        'TRACK_THING_ID',
-                        'DIR'], nil)
+    check_for_env_vars(%w[INFO_REQUEST_ID
+                          FOLLOW_UP_ID
+                          INCOMING_MESSAGE_ID
+                          COMMENT_ID
+                          TRACK_THING_ID
+                          DIR], nil)
     info_request = InfoRequest.find(ENV['INFO_REQUEST_ID'])
     if info_request.outgoing_messages.empty?
       raise "Info request #{info_request.id} does not have any outgoing messages"

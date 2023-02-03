@@ -88,7 +88,7 @@ class ApiController < ApplicationController
 
     errors = []
 
-    if !["request", "response"].include?(direction)
+    if !%w[request response].include?(direction)
       errors << "The direction parameter must be 'request' or 'response'"
     end
 

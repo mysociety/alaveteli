@@ -50,7 +50,7 @@ RSpec.describe ApplicationHelper do
 
   describe '#theme_installed?' do
 
-    let(:paths) { ['theme_path', 'app_path'] }
+    let(:paths) { %w[theme_path app_path] }
 
     let(:view_paths) { double(ActionView::PathSet, paths: paths) }
 

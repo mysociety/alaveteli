@@ -1409,7 +1409,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
 
     expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq([])
     expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['scottish'])
-    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(%w[aTag fake])
 
     # Import again to check the 'add' tag functionality works
     new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
@@ -1417,8 +1417,8 @@ RSpec.describe PublicBody, " when loading CSV files" do
 
     # Check tags were added successfully
     expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq(['aTag'])
-    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['aTag', 'scottish'])
-    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
+    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(%w[aTag scottish])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(%w[aTag fake])
   end
 
   it "should import tags successfully when the import tag is set" do
@@ -1427,17 +1427,17 @@ RSpec.describe PublicBody, " when loading CSV files" do
 
     # Check new bodies were imported successfully
     expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq(['fake'])
-    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['fake', 'scottish'])
-    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
+    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(%w[fake scottish])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(%w[aTag fake])
 
     # Import again to check the 'replace' tag functionality works
     new_tags_file = load_file_fixture('fake-authority-add-tags.csv')
     errors, notes = PublicBody.import_csv(new_tags_file, 'fake', 'replace', false, 'someadmin') # false means real run
 
     # Check tags were added successfully
-    expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq(['aTag', 'fake'])
-    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(['aTag', 'fake'])
-    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(['aTag', 'fake'])
+    expect(PublicBody.find_by_name('North West Fake Authority').tag_array_for_search).to eq(%w[aTag fake])
+    expect(PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search).to eq(%w[aTag fake])
+    expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(%w[aTag fake])
   end
 
 
@@ -1732,7 +1732,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
     # the way categories are loaded every time from the PublicBody class. For now we just
     # test some translation was done.
     body = PublicBody.find_by_name('North West Fake Authority')
-    expect(body.translated_locales.map { |l|l.to_s }.sort).to eq(["en", "es"])
+    expect(body.translated_locales.map { |l|l.to_s }.sort).to eq(%w[en es])
   end
 
   it "should not fail if a locale is not found in the input file" do
@@ -1865,7 +1865,7 @@ CSV
 
     csv_contents = load_file_fixture("multiple-locales-same-name.csv")
 
-    errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', 'es']) # true means dry run
+    errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', %w[en es]) # true means dry run
     expect(errors).to eq([])
     expect(notes.size).to eq(3)
     expect(notes[0..1]).to eq([

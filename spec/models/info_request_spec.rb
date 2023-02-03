@@ -3456,9 +3456,9 @@ RSpec.describe InfoRequest do
         previous = nil
         request_events.each do |event|
           expect(previous.created_at).to be >= event.created_at if previous
-          expect(['sent', 'response'].include?(event.event_type)).to be true
+          expect(%w[sent response].include?(event.event_type)).to be true
           if event.event_type == 'response'
-            expect(['successful', 'partially_successful'].include?(event.calculated_state)).to be true
+            expect(%w[successful partially_successful].include?(event.calculated_state)).to be true
           end
           previous = event
         end

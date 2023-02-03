@@ -2013,12 +2013,12 @@ RSpec.describe RequestController do
 
     it 'assigns columns' do
       get :details, params: { url_title: info_request.url_title }
-      expected_columns = ['id',
-                          'event_type',
-                          'created_at',
-                          'described_state',
-                          'last_described_at',
-                          'calculated_state' ]
+      expected_columns = %w[id
+                            event_type
+                            created_at
+                            described_state
+                            last_described_at
+                            calculated_state]
       expect(assigns[:columns]).to eq expected_columns
     end
 

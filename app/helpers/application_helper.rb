@@ -148,7 +148,7 @@ module ApplicationHelper
   # or anything except the first page of results, just the first page of the default
   # views
   def request_list_cache_key
-    cacheable_param_list = ['controller', 'action', 'locale', 'view']
+    cacheable_param_list = %w[controller action locale view]
     if params.keys.all? { |key| cacheable_param_list.include?(key) }
       "request-list-#{@view}-#{@locale}"
     else

@@ -240,7 +240,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
 
         it 'returns the subscription ids for cancelled users' do
           expect(subject[:canceled_users][:subs]).
-            to eq(['su_00000000000000', 'su_00000000000000'])
+            to eq(%w[su_00000000000000 su_00000000000000])
         end
       end
     end

@@ -148,7 +148,7 @@ RSpec.describe AlaveteliLocalization do
     it 'handles being passed hyphenated strings as available_locales' do
       AlaveteliLocalization.set_locales('en-GB nl-BE es', :es)
       expect(AlaveteliLocalization.available_locales).
-        to eq(['en_GB', 'nl_BE', 'es'])
+        to eq(%w[en_GB nl_BE es])
     end
 
   end
@@ -265,7 +265,7 @@ RSpec.describe AlaveteliLocalization do
 
     it 'returns an array of available locales' do
       AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
-      expect(AlaveteliLocalization.available_locales).to eq(['en_GB', 'es'])
+      expect(AlaveteliLocalization.available_locales).to eq(%w[en_GB es])
     end
 
   end

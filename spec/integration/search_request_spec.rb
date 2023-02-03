@@ -79,7 +79,7 @@ RSpec.describe "When searching" do
 
     get "/search/requests", params: {
                               query: "daftest",
-                              request_variety: ['response', 'sent']
+                              request_variety: %w[response sent]
                             }
     expect(response.body).to include("no results matching your query")
   end
