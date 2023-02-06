@@ -13,7 +13,7 @@ MySociety::Config.load_default
 # TODO: Make this return different values depending on the current rails environment
 
 module AlaveteliConfiguration
-  if !const_defined?(:DEFAULTS)
+  unless const_defined?(:DEFAULTS)
 
     # rubocop:disable Layout/LineLength
     DEFAULTS = {

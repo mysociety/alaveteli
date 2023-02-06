@@ -177,7 +177,7 @@ namespace :themes do
     else
       contents = File.read(template_file)
       help_template_info[:sections].each do |section|
-        if !contents.include?("##{section}")
+        unless contents.include?("##{section}")
           missing_sections << section
           puts "Missing section: #{section} in template #{help_template_info[:name]}"
         end
@@ -254,7 +254,7 @@ EOF
             missing = true
           end
         end
-        puts "No missing templates or sections" if !missing
+        puts "No missing templates or sections" unless missing
       end
     end
 

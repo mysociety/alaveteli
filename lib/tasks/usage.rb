@@ -12,7 +12,7 @@ module Usage
     env_vars.each do |env_var|
       missing << env_var unless ENV[env_var]
     end
-    if !missing.empty?
+    unless missing.empty?
       usage = "Usage: This task requires #{env_vars.to_sentence} - missing #{missing.to_sentence}"
       usage += "\nExample: #{example}" if example
       usage_message usage

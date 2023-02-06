@@ -8,7 +8,7 @@ module MailHandler
 
         # Check for Exim’s X-Failed-Recipients header
         failed_recipients = MailHandler.get_header_string("X-Failed-Recipients", message)
-        if !failed_recipients.nil?
+        unless failed_recipients.nil?
           # The X-Failed-Recipients header contains the email address that failed
           # Check for the words "This is a permanent error." in the body, to indicate
           # a permanent failure
@@ -36,7 +36,7 @@ module MailHandler
               end
             end
           end
-          if !permanently_failed_recipients.empty?
+          unless permanently_failed_recipients.empty?
             return permanently_failed_recipients
           end
         end

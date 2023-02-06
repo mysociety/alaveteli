@@ -36,7 +36,7 @@ module HighlightHelper
 
   def highlight_and_excerpt(t, words, excount, html = true)
     newt = excerpt(t, words[0], radius: excount)
-    newt = excerpt(t, '', radius: excount) if not newt
+    newt = excerpt(t, '', radius: excount) unless newt
     highlight_words(newt, words, html)
   end
 

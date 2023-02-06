@@ -99,7 +99,7 @@ module ActsAsXapian
   ######################################################################
   # Initialisation
   def self.init(classname = nil, options = nil)
-    if not classname.nil?
+    unless classname.nil?
       # store class and options for use later, when we open the db in readable_init
       @@init_values.push([classname,options])
     end
@@ -111,7 +111,7 @@ module ActsAsXapian
 
     # barf if we can't figure out the environment
     environment = (ENV['RAILS_ENV'] or Rails.env)
-    if not environment
+    unless environment
       raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database"
     end
 
@@ -157,7 +157,7 @@ module ActsAsXapian
     # only speculate about at the moment. (It is easy to reproduce this by
     # changing the code below to use reopen rather than open followed by
     # close, and running rake spec.)
-    @@db.close if !@@db.nil?
+    @@db.close unless @@db.nil?
 
     # basic Xapian objects
     begin
@@ -245,7 +245,7 @@ module ActsAsXapian
 
   def self.init_terms(terms)
     terms.each do |method, term_code, prefix|
-      if not term_code.match(/^[A-Z]$/)
+      unless term_code.match(/^[A-Z]$/)
         raise "Use a single capital letter for term code"
       end
       if term_code == "M" || term_code == "I"
@@ -323,7 +323,7 @@ module ActsAsXapian
       self.runtime += Benchmark::realtime {
         offset = options[:offset] || 0; offset = offset.to_i
         limit = options[:limit]
-        if not limit
+        unless limit
           raise "please specifiy maximum number of results to return with parameter :limit"
         end
         limit = limit.to_i
@@ -415,7 +415,7 @@ module ActsAsXapian
     # Return array of models found
     def results
       # If they've already pulled out the results, just return them.
-      return cached_results if !cached_results.nil?
+      return cached_results unless cached_results.nil?
 
       docs = []
       self.runtime += Benchmark::realtime {
@@ -837,7 +837,7 @@ module ActsAsXapian
     new_path = ActsAsXapian.db_path + ".new"
     old_path = ActsAsXapian.db_path
     if File.exist?(new_path)
-      if not ActsAsXapian._is_xapian_db(new_path)
+      unless ActsAsXapian._is_xapian_db(new_path)
         raise "found existing " + new_path + " which is not Xapian chert or glass database, please delete for me"
       end
       FileUtils.rm_r(new_path)
@@ -871,7 +871,7 @@ module ActsAsXapian
     temp_path = old_path + ".tmp"
     if File.exist?(temp_path)
       @@db_path = old_path
-      if not ActsAsXapian._is_xapian_db(temp_path)
+      unless ActsAsXapian._is_xapian_db(temp_path)
         raise "temporary database found " + temp_path + " which is not Xapian chert or glass database, please delete for me"
       end
       FileUtils.rm_r(temp_path)
@@ -881,7 +881,7 @@ module ActsAsXapian
 
     # Delete old database
     if File.exist?(temp_path)
-      if not ActsAsXapian._is_xapian_db(temp_path)
+      unless ActsAsXapian._is_xapian_db(temp_path)
         @@db_path = old_path
         raise "old database now at " + temp_path + " is not Xapian chert or glass database, please delete for me"
       end
@@ -907,7 +907,7 @@ module ActsAsXapian
         pid = Process.fork # TODO: this will only work on Unix, tough
         if pid
           Process.waitpid(pid)
-          raise "batch fork child failed, exiting also" if not $?.success?
+          raise "batch fork child failed, exiting also" unless $?.success?
           # database connection doesn't survive a fork, rebuild it
         else
           # fully reopen the database each time (with a new object)
@@ -1000,7 +1000,7 @@ module ActsAsXapian
       # if we have a conditional function for indexing, call it and destroy object if failed
       if self.class.xapian_options.include?(:if)
         if_value = xapian_value(self.class.xapian_options[:if], :boolean)
-        if not if_value
+        unless if_value
           xapian_destroy
           return
         end
@@ -1054,7 +1054,7 @@ module ActsAsXapian
         term_prefixes_to_index = terms_to_index.map { |x| x[1] }
         for existing_term in doc.terms
           first_letter = existing_term.term[0...1]
-          if !"MI".include?(first_letter) # it's not one of the reserved value
+          unless "MI".include?(first_letter) # it's not one of the reserved value
             if first_letter.match("^[A-Z]+") # it's a "value" (rather than indexed text)
               if term_prefixes_to_index.include?(first_letter) # it's a value that we've been asked to index
                 doc.remove_term(existing_term.term)
@@ -1157,7 +1157,7 @@ module ActsAsXapian
     # See top of this file for docs
     def acts_as_xapian(options)
       # Give error only on queries if bindings not available
-      return if not ActsAsXapian.bindings_available
+      return unless ActsAsXapian.bindings_available
 
       include InstanceMethods
 

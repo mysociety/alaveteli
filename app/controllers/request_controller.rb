@@ -37,7 +37,7 @@ class RequestController < ApplicationController
       )
       return
     end
-    if !params[:query].nil?
+    unless params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
       @xapian_requests = typeahead_search(query, model: PublicBody)
@@ -137,7 +137,7 @@ class RequestController < ApplicationController
   def list
     medium_cache
     @view = params[:view]
-    if !@page # used in cache case, as perform_search sets @page as side effect
+    unless @page # used in cache case, as perform_search sets @page as side effect
       @page = get_search_page_from_params
     end
     @per_page = PER_PAGE
@@ -169,7 +169,7 @@ class RequestController < ApplicationController
   # Page new form posts to
   def new
     # All new requests are of normal_sort
-    if !params[:outgoing_message].nil?
+    unless params[:outgoing_message].nil?
       params[:outgoing_message][:what_doing] = 'normal_sort'
     end
 
@@ -195,7 +195,7 @@ class RequestController < ApplicationController
       # can squirrel it away for tomorrow, so we detect this later after
       # we have constructed the InfoRequest.
       user_exceeded_limit = authenticated_user.exceeded_limit?(:info_requests)
-      if !user_exceeded_limit
+      unless user_exceeded_limit
         @details = authenticated_user.can_fail_html
         render template: 'user/banned'
         return
@@ -368,7 +368,7 @@ class RequestController < ApplicationController
         return false
       end
 
-      if !@info_request.public_body.is_foi_officer?(@user)
+      unless @info_request.public_body.is_foi_officer?(@user)
         domain_required = @info_request.public_body.foi_officer_domain_required
         if domain_required.nil?
           render template: 'user/wrong_user_unknown_email'
@@ -382,7 +382,7 @@ class RequestController < ApplicationController
     if params[:submitted_upload_response]
       file_name = nil
       file_content = nil
-      if !params[:file_1].nil?
+      unless params[:file_1].nil?
         file_name = params[:file_1].original_filename
         file_content = params[:file_1].read
       end
@@ -448,7 +448,7 @@ class RequestController < ApplicationController
         # Test for whole request being hidden or requester-only
         return render_hidden if cannot?(:read, @info_request)
         cache_file_path = @info_request.make_zip_cache_path(@user)
-        if !File.exist?(cache_file_path)
+        unless File.exist?(cache_file_path)
           FileUtils.mkdir_p(File.dirname(cache_file_path))
           make_request_zip(@info_request, cache_file_path)
           File.chmod(0644, cache_file_path)
@@ -591,7 +591,7 @@ class RequestController < ApplicationController
     else
       logger.warn("No HTML -> PDF converter found")
     end
-    if !done
+    unless done
       file_info = { filename: 'correspondence.txt',
                     data: render_to_string(template: 'request/show',
                                               layout: false,
@@ -601,7 +601,7 @@ class RequestController < ApplicationController
   end
 
   def render_new_compose
-    params[:info_request] = { } if !params[:info_request]
+    params[:info_request] = { } unless params[:info_request]
 
     # Reconstruct the params
     # first the public body (by URL name or id)
@@ -620,7 +620,7 @@ class RequestController < ApplicationController
         params[:public_body_id]
       end
 
-    if !params[:info_request][:public_body_id]
+    unless params[:info_request][:public_body_id]
       # compulsory to have a body by here, or go to front page which is start
       # of process
       redirect_to frontpage_url
@@ -664,7 +664,7 @@ class RequestController < ApplicationController
     if permitted[:outgoing_message][:what_doing]
       @outgoing_message.what_doing = permitted[:outgoing_message][:what_doing]
     end
-    @outgoing_message.set_signature_name(@user.name) if !@user.nil?
+    @outgoing_message.set_signature_name(@user.name) unless @user.nil?
 
     if @info_request.public_body.is_requestable?
       render action: 'new'

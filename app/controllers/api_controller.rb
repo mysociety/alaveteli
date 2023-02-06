@@ -51,7 +51,7 @@ class ApiController < ApplicationController
 
     # Return an error if the request is invalid
     # (Can this ever happen?)
-    if !request.valid?
+    unless request.valid?
       render json: {
         'errors' => request.errors.full_messages
       }
@@ -88,7 +88,7 @@ class ApiController < ApplicationController
 
     errors = []
 
-    if !%w[request response].include?(direction)
+    unless %w[request response].include?(direction)
       errors << "The direction parameter must be 'request' or 'response'"
     end
 
@@ -106,7 +106,7 @@ class ApiController < ApplicationController
       errors << "'#{new_state}' is not a valid request state"
     end
 
-    if !errors.empty?
+    unless errors.empty?
       render json: { "errors" => errors }, status: 500
       return
     end

@@ -20,7 +20,7 @@ module XapianQueries
         varieties << ['variety:comment']
       end
     end
-    query = " (#{varieties.join(' OR ')})" if !varieties.empty?
+    query = " (#{varieties.join(' OR ')})" unless varieties.empty?
     query
   end
 
@@ -52,7 +52,7 @@ module XapianQueries
       if params[:latest_status].include? "gone_postal"
         statuses << ['latest_status:gone_postal']
       end
-      query = " (#{statuses.join(' OR ')})" if !statuses.empty?
+      query = " (#{statuses.join(' OR ')})" unless statuses.empty?
     end
     query
   end

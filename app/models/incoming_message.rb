@@ -636,7 +636,7 @@ class IncomingMessage < ApplicationRecord
       if ext.nil? && !attachment.filename.nil?
         ext = File.extname(attachment.filename).gsub(/^[.]/, "")
       end
-      ret[ext] = 1 if !ext.nil?
+      ret[ext] = 1 unless ext.nil?
     end
     ret.keys.join(" ")
   end

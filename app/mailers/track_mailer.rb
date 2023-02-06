@@ -65,7 +65,7 @@ class TrackMailer < ApplicationMailer
         done_info_request_events = {}
         tt_sent = track_thing.track_things_sent_emails.where('created_at > ?', now - 14.days)
         for t in tt_sent
-          if not t.info_request_event_id.nil?
+          unless t.info_request_event_id.nil?
             done_info_request_events[t.info_request_event_id] = 1
           end
         end
