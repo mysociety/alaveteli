@@ -413,7 +413,7 @@ GEM
       rack (>= 1.4)
     retriable (3.1.2)
     rexml (3.2.5)
-    rolify (5.3.0)
+    rolify (6.0.1)
     rotp (6.2.0)
     routing-filter (0.7.0)
       actionpack (>= 6.1)
@@ -599,7 +599,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 7.0.5)
   recaptcha (~> 5.12.3)
-  rolify (~> 5.3.0)
+  rolify (~> 6.0.1)
   routing-filter (~> 0.7.0)
   rspec-activemodel-mocks (~> 1.1.0)
   rspec-rails (~> 6.0.0)
