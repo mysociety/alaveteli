@@ -165,7 +165,7 @@ class AdminPublicBodyController < AdminController
         csv_contents = retrieve_csv_data(params[:temporary_csv_file])
         @original_csv_file = params[:original_csv_file]
       end
-      if !csv_contents.nil?
+      unless csv_contents.nil?
         # Try with dry run first
         errors, notes = PublicBody.
                           import_csv(csv_contents,
@@ -216,11 +216,11 @@ class AdminPublicBodyController < AdminController
   # name is of the expected form.
   # Delete the file, return the contents.
   def retrieve_csv_data(tempfile_name)
-    if not /csv_upload-\d{8}-\d{1,5}/.match(tempfile_name)
+    unless /csv_upload-\d{8}-\d{1,5}/.match(tempfile_name)
       raise "Invalid filename in upload_csv: #{tempfile_name}"
     end
     tempfile_path = File.join(Dir.tmpdir, tempfile_name)
-    if !File.exist?(tempfile_path)
+    unless File.exist?(tempfile_path)
       raise "Missing file in upload_csv: #{tempfile_name}"
     end
     csv_contents = File.read(tempfile_path)

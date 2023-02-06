@@ -158,7 +158,7 @@ class FoiAttachment < ApplicationRecord
     # For delivery status notification attachments, extract the status and
     # look up what it means in the DSN table.
     if @content_type == 'message/delivery-status'
-      return "" if !@body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
+      return "" unless @body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
       dsn = $1
       dsn_part = 'X.' + $2
 
@@ -186,7 +186,7 @@ class FoiAttachment < ApplicationRecord
   # make another old_display_filename see above
   def display_filename
     filename = self.filename
-    if !incoming_message.nil?
+    unless incoming_message.nil?
       filename = incoming_message.info_request.apply_censor_rules_to_text(filename)
     end
     # Sometimes filenames have e.g. %20 in - no point butchering that
@@ -208,7 +208,7 @@ class FoiAttachment < ApplicationRecord
   def ensure_filename!
     if filename.blank?
       calc_ext = AlaveteliFileTypes.mimetype_to_extension(content_type)
-      calc_ext = "bin" if !calc_ext
+      calc_ext = "bin" unless calc_ext
       if !within_rfc822_subject.nil?
         computed = within_rfc822_subject + "." + calc_ext
       else

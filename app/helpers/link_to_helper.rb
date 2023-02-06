@@ -240,7 +240,7 @@ module LinkToHelper
                     action: 'search',
                     combined: query,
                     view: nil}
-    routing_info = options.merge(routing_info) if !options.nil?
+    routing_info = options.merge(routing_info) unless options.nil?
 
     if routing_info.kind_of?(Hash)
       routing_info = ActionController::Parameters.new(routing_info)

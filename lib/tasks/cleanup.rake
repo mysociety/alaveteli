@@ -9,7 +9,7 @@ namespace :cleanup do
       where(event_type: %w(redeliver_incoming destroy_incoming)).
         find_each do |event|
       $stderr.puts event.inspect if verbose or dryrun
-      event.destroy if not dryrun
+      event.destroy unless dryrun
     end
   end
 

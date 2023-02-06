@@ -38,7 +38,7 @@ class AlaveteliFileTypes
     def filename_and_content_to_mimetype(filename, content)
       # Try filename
       ret = filename_to_mimetype(filename)
-      return ret if !ret.nil?
+      return ret unless ret.nil?
 
       # Otherwise look inside the file to work out the type.
       # Mahoro is a Ruby binding for libmagic.
@@ -61,7 +61,7 @@ class AlaveteliFileTypes
     end
 
     def filename_to_mimetype(filename)
-      return nil if !filename
+      return nil unless filename
       if filename.match(/\.([^.]+)$/i)
         lext = $1.downcase
         if FileExtensionToMimeType.include?(lext)

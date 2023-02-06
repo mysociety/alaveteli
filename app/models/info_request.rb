@@ -1329,7 +1329,7 @@ class InfoRequest < ApplicationRecord
   # Called by incoming_email - and used to be called to generate separate
   # envelope from address until we abandoned it.
   def magic_email(prefix_part)
-    raise "id required to create a magic email" if not id
+    raise "id required to create a magic email" unless id
     InfoRequest.magic_email_for_id(prefix_part, id)
   end
 
@@ -1449,18 +1449,18 @@ class InfoRequest < ApplicationRecord
       next if incoming_message == skip_message
       incoming_message.safe_from_name
 
-      next if ! incoming_message.is_public?
+      next unless incoming_message.is_public?
 
       email = OutgoingMailer.email_for_followup(self, incoming_message)
       name = OutgoingMailer.name_for_followup(self, incoming_message)
 
-      if !done.include?(email.downcase)
+      unless done.include?(email.downcase)
         ret = ret + [[name, email, incoming_message.id]]
       end
       done[email.downcase] = 1
     end
 
-    if !done.include?(public_body.request_email.downcase)
+    unless done.include?(public_body.request_email.downcase)
       ret = ret + [[public_body.name, public_body.request_email, nil]]
     end
     done[public_body.request_email.downcase] = 1

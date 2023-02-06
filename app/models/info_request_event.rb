@@ -283,7 +283,7 @@ class InfoRequestEvent < ApplicationRecord
 
   def indexed_by_search?
     if %w[sent followup_sent response comment].include?(event_type)
-      return false if !info_request.indexed_by_search?
+      return false unless info_request.indexed_by_search?
       if event_type == 'response' && !incoming_message.indexed_by_search?
         return false
       end

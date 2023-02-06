@@ -120,7 +120,7 @@ module MailHandler
                                            tempfile.path,
                                            "word/document.xml",
                                            {binary_output: false})
-        if !xml.nil?
+        unless xml.nil?
           doc = REXML::Document.new(xml)
           text += doc.each_element( './/text()' ) {}.join(" ")
         end

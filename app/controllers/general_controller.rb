@@ -45,14 +45,14 @@ class GeneralController < ApplicationController
     @feed_url = "#{ @feed_url }#{ separator }lang=" \
                 "#{ AlaveteliLocalization.html_lang }"
     @blog_items = []
-    if not @feed_url.empty?
+    unless @feed_url.empty?
       timeout = if AlaveteliConfiguration.blog_timeout.blank?
         60
       else
         AlaveteliConfiguration.blog_timeout
       end
       content = quietly_try_to_open(@feed_url, timeout)
-      if !content.empty?
+      unless content.empty?
         @data = XmlSimple.xml_in(content)
         @channel = @data['channel'][0]
         @blog_items = @channel.fetch('item') { [] }
@@ -101,7 +101,7 @@ class GeneralController < ApplicationController
       @sort_postfix = combined.pop
       @sortby = @sort_postfix
     end
-    combined += [params[:view]] if !params[:view].nil?
+    combined += [params[:view]] unless params[:view].nil?
     if combined.size > 0 && (%w[bodies requests users all].include?(combined[-1]))
       @variety_postfix = combined.pop
       case @variety_postfix
@@ -188,7 +188,7 @@ class GeneralController < ApplicationController
 
     # Spelling and highight words are same for all three queries
     @highlight_words = @request_for_spelling.words_to_highlight(regex: true, include_original: true)
-    if !(@request_for_spelling.spelling_correction =~ /[a-z]+:/)
+    unless (@request_for_spelling.spelling_correction =~ /[a-z]+:/)
       @spelling_correction = @request_for_spelling.spelling_correction
     end
 

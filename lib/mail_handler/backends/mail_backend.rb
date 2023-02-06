@@ -351,7 +351,7 @@ module MailHandler
           headers = ""
           %w[Date Subject From To Cc].each do |header|
             if header_value = get_header_string(header, leaf.within_rfc822_attachment)
-              if !header_value.blank?
+              unless header_value.blank?
                 headers = headers + header + ": " + header_value.to_s + "\n"
               end
             end
@@ -386,7 +386,7 @@ module MailHandler
 
       # Format
       def address_from_name_and_email(name, email)
-        if !MySociety::Validate.is_valid_email(email)
+        unless MySociety::Validate.is_valid_email(email)
           raise "invalid email " + email + " passed to address_from_name_and_email"
         end
         return Mail::Address.new(email.dup).to_s if name.nil?

@@ -134,12 +134,12 @@ class AdminRequestController < AdminController
     end
 
     user = User.find_user_by_email(email)
-    if not user
+    unless user
       user = User.new(name: name, email: email, password: PostRedirect.generate_random_token)
       user.save!
     end
 
-    if !@info_request.public_body.is_foi_officer?(user)
+    unless @info_request.public_body.is_foi_officer?(user)
       flash[:notice] = user.email + " is not an email at the domain @" + @info_request.public_body.foi_officer_domain_required + ", so won't be able to upload."
       redirect_to admin_request_url(@info_request)
       return

@@ -360,7 +360,7 @@ class ApplicationController < ActionController::Base
 
   #
   def check_read_only
-    if !AlaveteliConfiguration::read_only.empty?
+    unless AlaveteliConfiguration::read_only.empty?
       if feature_enabled?(:annotations)
         flash[:notice] = {
           partial: "general/read_only_annotations",

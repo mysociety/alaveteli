@@ -34,7 +34,7 @@ class AdminUserController < AdminController
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
-    if !@roles.empty?
+    unless @roles.empty?
       users = users.with_any_role(*@roles)
       users = User.where(id: users.map { |user| user.id })
     end
