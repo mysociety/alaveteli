@@ -131,7 +131,9 @@
 
 <h2>Censor rules</h2>
 
-<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @public_body.censor_rules, :public_body => @public_body } %>
+<%= render partial: 'admin_censor_rule/list',
+           locals: { censor_rules: @public_body.censor_rules,
+                     public_body: @public_body } %>
 
 <hr>
 
