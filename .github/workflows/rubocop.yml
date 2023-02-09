@@ -20,6 +20,7 @@ jobs:
       uses: reviewdog/action-rubocop@v1
       with:
         github_token: ${{ secrets.github_token }}
+        rubocop_flags: -DES
         rubocop_version: gemfile
         rubocop_extensions: rubocop-performance:gemfile rubocop-rails:gemfile
         level: warning
