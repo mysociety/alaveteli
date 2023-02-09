@@ -108,12 +108,6 @@ class Comment < ApplicationRecord
     info_request_events.find_each(&:xapian_mark_needs_index)
   end
 
-  def event_xapian_update
-    warn 'DEPRECATION: Comment#event_xapian_update will be removed in 0.42. ' \
-         'It has been replaced with Comment#reindex_request_events'
-    reindex_request_events
-  end
-
   # Return body for display as HTML
   def get_body_for_html_display
     text = body.strip

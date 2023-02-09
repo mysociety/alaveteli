@@ -113,12 +113,6 @@ class IncomingMessage < ApplicationRecord
 
   alias_method :valid_to_reply_to?, :valid_to_reply_to
 
-  def mail_from
-    warn %q([DEPRECATION] IncomingMessage#mail_from will be removed in 0.42. It
-            has been replaced by IncomingMessage#from_name).squish
-    from_name
-  end
-
   # Public: The display name of the email sender with the associated
   # InfoRequest's censor rules applied.
   #
@@ -133,21 +127,8 @@ class IncomingMessage < ApplicationRecord
   #   # => FOI [REDACTED]
   #
   # Returns a String
-  def safe_mail_from
-    warn %q([DEPRECATION] IncomingMessage#safe_mail_from will be removed in
-            0.42. It has been replaced by IncomingMessage#safe_from_name).squish
-    safe_from_name
-  end
-
   def safe_from_name
     info_request.apply_censor_rules_to_text(from_name) if from_name
-  end
-
-  def mail_from_domain
-    warn %q([DEPRECATION] IncomingMessage#mail_from_domain will be removed in
-            0.42. It has been replaced by
-            IncomingMessage#from_email_domain).squish
-    from_email_domain
   end
 
   def specific_from_name?
