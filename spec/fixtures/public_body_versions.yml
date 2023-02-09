@@ -19,7 +19,6 @@ humpadink_public_body_update:
   request_email: humpadink-requests@localhost
   public_body_id: "3"
   id: "6"
-  notes: "An albatross told me!!!"
   version: "2"
   last_edit_editor: "francis"
   short_name: DfH
@@ -33,7 +32,6 @@ geraldine_public_body_initial:
   request_email: geraldine-requests@localhost
   public_body_id: "2"
   id: 1
-  notes: "-"
   version: "1"
   last_edit_editor: "mark"
   short_name: TGQ
@@ -47,7 +45,6 @@ forlorn_public_body_initial:
   request_email: forlorn-requests@localhost
   public_body_id: "4"
   id: 2
-  notes: A very lonely public body that no one has corresponded with
   version: "1"
   last_edit_editor: "robin"
   short_name: DoL
@@ -61,7 +58,6 @@ silly_walks_public_body_intitial:
   request_email: silly-walks-requests@localhost
   public_body_id: 5
   id: 3
-  notes: You know the one.
   version: 1
   last_edit_editor: robin
   short_name: MSW
@@ -75,7 +71,6 @@ sensible_walks_public_body_initial:
   request_email: sensible-walks-requests@localhost
   public_body_id: 6
   id: 4
-  notes: I bet you’ve never heard of it.
   version: 1
   last_edit_editor: robin
   short_name: SenseWalk
@@ -89,7 +84,6 @@ other_public_body_initial:
   request_email: other@localhost
   public_body_id: 7
   id: 7
-  notes: More notes
   version: 1
   last_edit_editor: louise
   short_name: Another Public Body

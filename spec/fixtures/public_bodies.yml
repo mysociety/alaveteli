@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220928093559
+# Schema version: 20230209094128
 #
 # Table name: public_bodies
 #
