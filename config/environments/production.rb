@@ -118,8 +118,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = AlaveteliConfiguration.production_mailer_delivery_method.to_sym
 
-  case AlaveteliConfiguration.production_mailer_delivery_method.to_sym
-  when :smtp
+  if AlaveteliConfiguration.production_mailer_delivery_method.to_sym == :smtp
     config.action_mailer.smtp_settings = {
       :address => AlaveteliConfiguration.smtp_mailer_address,
       :port => AlaveteliConfiguration.smtp_mailer_port,
@@ -128,11 +127,6 @@ Rails.application.configure do
       :password => AlaveteliConfiguration.smtp_mailer_password,
       :authentication => AlaveteliConfiguration.smtp_mailer_authentication,
       :enable_starttls_auto => AlaveteliConfiguration.smtp_mailer_enable_starttls_auto
-    }
-  when :sendmail
-    config.action_mailer.sendmail_settings = {
-      location: '/usr/sbin/sendmail',
-      arguments: %w[-i]
     }
   end
 
