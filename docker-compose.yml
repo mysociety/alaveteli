@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+      args:
+        RUBY_VERSION: '${RUBY_VERSION:-3.0}'
     environment:
       - BUNDLE_PATH=/bundle/vendor
       - DATABASE_URL=postgres://postgres:password@db/

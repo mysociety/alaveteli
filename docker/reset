@@ -4,6 +4,8 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+source docker/env
+
 docker compose down
 
 db_volume="$(basename $(pwd))_postgres"
