@@ -67,7 +67,7 @@ accessible via the hostname you supplied to the script. So, for this example, yo
 
 The server will also be configured to accept replies to information request emails (as long as the MX record for the domain is pointing at the server). Incoming mail handling is set up using Postfix as the MTA.
 
-##What next?
+## What next?
 
 Check out the [next steps]({{ page.baseurl }}/docs/installing/next_steps/).
 
