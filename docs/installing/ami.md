@@ -162,6 +162,6 @@ Your site will be running at the public URL again, which is of the form
 If you have any problems or questions, please ask on the [Alaveteli developer mailing list](https://groups.google.com/forum/#!forum/alaveteli-dev) or [report an issue](https://github.com/mysociety/alaveteli/issues?state=open).
 
 
-##What next?
+## What next?
 
 Check out the [next steps]({{ page.baseurl }}/docs/installing/next_steps/).
