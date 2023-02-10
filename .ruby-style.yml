@@ -25,6 +25,8 @@ AllCops:
     - vendor/**/*
     - ".git/**/*"
     - bin/bundle
+    - bin/puma
+    - bin/pumactl
     - bin/rubocop
   DisplayCopNames: false
   StyleGuideCopsOnly: false
