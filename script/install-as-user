@@ -110,24 +110,6 @@ if [ $USE_RBENV = true ]; then
   gem install bundler
 fi
 
-# Prevent extreme deprecation warnings on Ruby 2.7.0 provided by Ubuntu Focal
-# (Fixed in Ruby 2.7.2). ensure_line_present is not available here, so just do
-# this as it's pretty temporary.
-RUBY27_OPT_COMMENT="Set Ruby options for Ruby 2.7"
-RUBY27_OPT_START="# START $RUBY27_OPT_COMMENT"
-RUBY27_OPT_END="# END $RUBY27_OPT_COMMENT"
-if ruby -v | grep "2.7.[01]" > /dev/null && ! grep "$RUBY27_OPT_START" "$BASHRC" > /dev/null
-then
-  cat >>$BASHRC <<EOF
-
-$RUBY27_OPT_START
-if [ -x \$(which ruby) ] && ruby -v | grep "2.7.[01]" > /dev/null; then
-  export RUBYOPT='-W:no-deprecated -W:no-experimental'
-fi
-$RUBY27_OPT_END
-EOF
-fi
-
 # Speed up the installation of gems:
 echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
 
