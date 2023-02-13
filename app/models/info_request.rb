@@ -812,7 +812,7 @@ class InfoRequest < ApplicationRecord
 
   # Removes anything cached about the object in the database, and saves
   def clear_in_database_caches!
-    for incoming_message in incoming_messages
+    incoming_messages.each do |incoming_message|
       incoming_message.clear_in_database_caches!
     end
   end
@@ -882,7 +882,7 @@ class InfoRequest < ApplicationRecord
     message_id = email.message_id
     raise "No message id for this message" if message_id.nil?
 
-    for im in incoming_messages
+    incoming_messages.each do |im|
       return true if message_id == im.message_id
     end
 
@@ -1047,7 +1047,7 @@ class InfoRequest < ApplicationRecord
   # of the info_request.
   def calculate_event_states
     curr_state = nil
-    for event in info_request_events.reverse
+    info_request_events.reverse.each do |event|
       event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
       if curr_state.nil?
         curr_state = event.described_state if event.described_state
@@ -1313,7 +1313,7 @@ class InfoRequest < ApplicationRecord
   # Get previous email sent to
   def get_previous_email_sent_to(info_request_event)
     last_email = nil
-    for e in info_request_events
+    info_request_events.each do |e|
       if ((info_request_event.is_sent_sort? && e.is_sent_sort?) || (info_request_event.is_followup_sort? && e.is_followup_sort?)) && e.outgoing_message_id == info_request_event.outgoing_message_id
         break if e.id == info_request_event.id
         last_email = e.params[:email]
@@ -1445,7 +1445,7 @@ class InfoRequest < ApplicationRecord
         done[email.downcase] = 1
       end
     end
-    for incoming_message in incoming_messages.reverse
+    incoming_messages.reverse.each do |incoming_message|
       next if incoming_message == skip_message
       incoming_message.safe_from_name
 

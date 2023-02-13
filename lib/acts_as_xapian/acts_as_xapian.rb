@@ -389,7 +389,7 @@ module ActsAsXapian
     def has_normal_search_terms?
       ret = false
       #x = ''
-      for t in query.terms
+      query.terms.each do |t|
         term = t.term
         #x = x + term.to_yaml + term.size.to_s + term[0..0] + "*"
         if term.size >= 2 && term[0..0] == 'Z'
@@ -438,18 +438,18 @@ module ActsAsXapian
       # Look up without too many SQL queries
       lhash = {}
       lhash.default = []
-      for doc in docs
+      docs.each do |doc|
         k = doc[:data].split('-')
         lhash[k[0]] = lhash[k[0]] + [k[1]]
       end
       # for each class, look up all ids
       chash = {}
-      for cls, ids in lhash
+      lhash.each do |cls, ids|
         found = cls.constantize.
           includes(cls.constantize.xapian_options[:eager_load]).
             where("#{cls.constantize.table_name}.#{cls.constantize.primary_key}
                    in (?)", ids)
-        for f in found
+        found.each do |f|
           chash[[cls, f.id]] = f
         end
       end
@@ -489,7 +489,7 @@ module ActsAsXapian
       # Check parameters, convert to actual array of model classes
       new_model_classes = []
       model_classes = [model_classes] if model_classes.class != Array
-      for model_class in model_classes
+      model_classes.each do |model_class|
         if model_class.class != Class && model_class.class != String
           raise "pass in the model class itself, or a string containing its name"
         end
@@ -852,7 +852,7 @@ module ActsAsXapian
       @@db_path = ActsAsXapian.db_path + ".new"
       ActsAsXapian.writable_init
       # Save time by running the indexing in one go and in-process
-      for model_class in model_classes
+      model_classes.each do |model_class|
         if verbose
           STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class.to_s}")
         end
@@ -895,7 +895,7 @@ module ActsAsXapian
 
   def self._destroy_and_rebuild_index_safely(model_classes, verbose, terms, values, texts)
     batch_size = 1000
-    for model_class in model_classes
+    model_classes.each do |model_class|
       model_class_count = model_class.count
       0.step(model_class_count, batch_size) do |i|
         # We fork here, so each batch is run in a different process. This is
@@ -953,7 +953,7 @@ module ActsAsXapian
           value = single_xapian_value(field, type = type)
         else
           values = []
-          for locale in translations.map { |x| x.locale }
+          translations.map { |x| x.locale }.each do |locale|
             AlaveteliLocalization.with_locale(locale) do
               values << single_xapian_value(field, type=type)
             end
@@ -1052,7 +1052,7 @@ module ActsAsXapian
         doc.add_term("I" + doc.data)
       else
         term_prefixes_to_index = terms_to_index.map { |x| x[1] }
-        for existing_term in doc.terms
+        doc.terms.each do |existing_term|
           first_letter = existing_term.term[0...1]
           unless "MI".include?(first_letter) # it's not one of the reserved value
             if first_letter.match("^[A-Z]+") # it's a "value" (rather than indexed text)
@@ -1066,10 +1066,10 @@ module ActsAsXapian
         end
       end
 
-      for term in terms_to_index
+      terms_to_index.each do |term|
         value = xapian_value(term[0])
         if value.kind_of?(Array)
-          for v in value
+          value.each do |v|
             doc.add_term(term[1] + v)
             doc.add_posting(term[1] + v, 1, Integer(term[3])) if term[3]
           end
@@ -1081,14 +1081,14 @@ module ActsAsXapian
 
       if values
         doc.clear_values
-        for value in values_to_index
+        values_to_index.each do |value|
           doc.add_value(value[1], xapian_value(value[0], value[3]))
         end
       end
 
       if texts
         ActsAsXapian.term_generator.document = doc
-        for text in texts_to_index
+        texts_to_index.each do |text|
           ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
           # The "100" here is a weight that could be varied for a boost
           # function. A lower number represents a higher weight, so we set the

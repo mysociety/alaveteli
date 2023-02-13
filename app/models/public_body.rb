@@ -483,7 +483,7 @@ class PublicBody < ApplicationRecord
         AlaveteliLocalization.
           with_locale(AlaveteliLocalization.default_locale) do
           bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
-          for existing_body in bodies
+          bodies.each do |existing_body|
             # Hide InternalAdminBody from import notes
             next if existing_body.id == internal_admin_body_id
 

@@ -450,7 +450,7 @@ class IncomingMessage < ApplicationRecord
     # return what user would consider attachments, i.e. not the main body
     main_part = get_main_body_text_part
     attachments = []
-    for attachment in foi_attachments
+    foi_attachments.each do |attachment|
       attachments << attachment if attachment != main_part
     end
     attachments
@@ -613,7 +613,7 @@ class IncomingMessage < ApplicationRecord
   # Search all info requests for
   def self.find_all_unknown_mime_types
     IncomingMessage.find_each do |incoming_message|
-      for attachment in incoming_message.get_attachments_for_display
+      incoming_message.get_attachments_for_display.each do |attachment|
         if attachment.content_type.nil?
           raise "internal error incoming_message " + incoming_message.id.to_s
         end
@@ -631,7 +631,7 @@ class IncomingMessage < ApplicationRecord
   # the normal extension for known mime type, otherwise uses other extensions.
   def get_present_file_extensions
     ret = {}
-    for attachment in get_attachments_for_display
+    get_attachments_for_display.each do |attachment|
       ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
       if ext.nil? && !attachment.filename.nil?
         ext = File.extname(attachment.filename).gsub(/^[.]/, "")

@@ -344,7 +344,7 @@ class InfoRequestEvent < ApplicationRecord
     new_params = {}
     other_params = {}
     ignore = {}
-    for key, value in params
+    params.each do |key, value|
       key = key.to_s
       if key.match(/^old_(.*)$/)
         if params[$1.to_sym] == value

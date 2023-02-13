@@ -142,7 +142,7 @@ module MailHandler
   def get_attachment_text_from_zip_file(zip_file)
 
     text = ""
-    for entry in zip_file
+    zip_file.each do |entry|
       if entry.file?
         filename = entry.to_s
         begin

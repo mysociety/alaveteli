@@ -288,7 +288,7 @@ class RequestMailer < ApplicationMailer
                   AND info_request_id = info_requests.id)
                 ) IS NULL", false, false).includes(:user)
 
-    for info_request in info_requests
+    info_requests.each do |info_request|
       alert_event_id = info_request.last_event_forming_initial_request.id
       # Only overdue requests
       calculated_status = info_request.calculate_status
@@ -407,7 +407,7 @@ class RequestMailer < ApplicationMailer
                              false
                             ).
                       includes(:user).order(:id)
-    for info_request in info_requests
+    info_requests.each do |info_request|
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
       next if alert_event_id.nil?
@@ -479,7 +479,7 @@ class RequestMailer < ApplicationMailer
       earliest_unalerted_comment_event = nil
       last_comment_event = nil
       count = 0
-      for e in info_request.info_request_events.reverse
+      info_request.info_request_events.reverse.each do |e|
         # alert on comments, which were not made by the user who originally made the request
         if e.event_type == 'comment' && e.comment.user_id != info_request.user_id
           last_comment_event = e if last_comment_event.nil?

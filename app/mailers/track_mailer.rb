@@ -54,7 +54,7 @@ class TrackMailer < ApplicationMailer
       email_about_things = []
       track_things = TrackThing.where(tracking_user_id: user.id,
                                       track_medium: 'email_daily')
-      for track_thing in track_things
+      track_things.each do |track_thing|
         # What have we alerted on already?
         #
         # We only use track_things_sent_emails records which are less than 14 days old.
@@ -64,7 +64,7 @@ class TrackMailer < ApplicationMailer
         # for a whole week, then they will miss some items. Tough.
         done_info_request_events = {}
         tt_sent = track_thing.track_things_sent_emails.where('created_at > ?', now - 14.days)
-        for t in tt_sent
+        tt_sent.each do |t|
           unless t.info_request_event_id.nil?
             done_info_request_events[t.info_request_event_id] = 1
           end
@@ -80,7 +80,7 @@ class TrackMailer < ApplicationMailer
                                                  limit: 100)
         # Go through looking for unalerted things
         alert_results = []
-        for result in xapian_object.results
+        xapian_object.results.each do |result|
           if result[:model].class.to_s != "InfoRequestEvent"
             raise "need to add other types to TrackMailer.alert_tracks (unalerted)"
           end
@@ -114,8 +114,8 @@ class TrackMailer < ApplicationMailer
       end
 
       # Record that we've now sent those alerts to that user
-      for track_thing, alert_results in email_about_things
-        for result in alert_results
+      email_about_things.each do |track_thing, alert_results|
+        alert_results.each do |result|
           track_things_sent_email = TrackThingsSentEmail.new
           track_things_sent_email.track_thing_id = track_thing.id
           if result[:model].class.to_s == "InfoRequestEvent"

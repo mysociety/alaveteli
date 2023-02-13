@@ -91,7 +91,7 @@ class AdminIncomingMessageController < AdminController
     end
 
     ActiveRecord::Base.transaction do
-      for m in message_ids
+      message_ids.each do |m|
         if m.match(/^[0-9]+$/)
           destination_request = InfoRequest.find_by_id(m.to_i)
         else
