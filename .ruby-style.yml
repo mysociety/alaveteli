@@ -24,8 +24,8 @@ AllCops:
     - node_modules/**/*
     - vendor/**/*
     - ".git/**/*"
-    - "bin/bundle"
-    - "bin/rubocop"
+    - bin/bundle
+    - bin/rubocop
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
@@ -1965,6 +1965,9 @@ Style/RedundantFileExtensionInRequire:
 
 Style/RedundantFreeze:
   Enabled: true
+
+Style/RedundantHeredocDelimiterQuotes:
+  Enabled: false
 
 Style/RedundantInitialize:
   Enabled: false
