@@ -18,7 +18,7 @@ class PublicBodyController < ApplicationController
 
     # Later pages are very expensive to load
     if @page > MAX_RESULTS / requests_per_page
-      raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
+      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
     end
 
     if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
@@ -30,7 +30,7 @@ class PublicBodyController < ApplicationController
 
     AlaveteliLocalization.with_locale(@locale) do
       @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-      raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+      raise ActiveRecord::RecordNotFound, "None found" if @public_body.nil?
 
       if @public_body.url_name.nil?
         redirect_back(fallback_location: root_path)
@@ -95,7 +95,7 @@ class PublicBodyController < ApplicationController
 
   def view_email
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-    raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+    raise ActiveRecord::RecordNotFound, "None found" if @public_body.nil?
 
     AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
       if params[:submitted_view_email]

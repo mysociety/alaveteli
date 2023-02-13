@@ -382,7 +382,7 @@ class UserController < ApplicationController
     long_cache
     @display_user = set_display_user
     unless @display_user.profile_photo
-      raise ActiveRecord::RecordNotFound.new("user has no profile photo, url_name=" + params[:url_name])
+      raise ActiveRecord::RecordNotFound, "user has no profile photo, url_name=" + params[:url_name]
     end
 
     render body: @display_user.profile_photo.data,

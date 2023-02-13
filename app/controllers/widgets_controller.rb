@@ -38,7 +38,7 @@ class WidgetsController < ApplicationController
 
   def check_widget_config
     unless AlaveteliConfiguration.enable_widgets
-      raise ActiveRecord::RecordNotFound.new("Page not enabled")
+      raise ActiveRecord::RecordNotFound, "Page not enabled"
     end
   end
 

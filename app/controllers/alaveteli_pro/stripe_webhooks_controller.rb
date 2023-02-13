@@ -97,7 +97,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   def check_for_event_type
     unless @stripe_event.respond_to?(:type)
       msg = "undefined method `type' for #{ @stripe_event.inspect }"
-      raise MissingTypeStripeWebhookError.new(msg)
+      raise MissingTypeStripeWebhookError, msg
     end
   end
 

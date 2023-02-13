@@ -105,7 +105,7 @@ class AlaveteliMailPoller
   def start(&block)
     # Start a POP3 session and ensure that it will be closed in any case.
     unless block_given?
-      raise ArgumentError.new("AlaveteliMailPoller#start takes a block")
+      raise ArgumentError, "AlaveteliMailPoller#start takes a block"
     end
 
     pop3.enable_ssl(OpenSSL::SSL::VERIFY_NONE) if settings[:enable_ssl]

@@ -47,7 +47,7 @@ class OneTimePasswordsController < ApplicationController
 
   def check_two_factor_config
     unless AlaveteliConfiguration.enable_two_factor_auth
-      raise ActiveRecord::RecordNotFound.new('Page not enabled')
+      raise ActiveRecord::RecordNotFound, 'Page not enabled'
     end
   end
 

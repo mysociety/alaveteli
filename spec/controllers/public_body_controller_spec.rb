@@ -120,7 +120,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
           result = PublicBody.new(name: 'GB English',
                                   short_name: 'GB')
         else
-          raise StandardError.new "Unknown locale #{locale}"
+          raise StandardError, "Unknown locale #{locale}"
         end
         result.request_email = "#{locale}@example.org"
         result.last_edit_editor = 'test'

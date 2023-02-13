@@ -42,7 +42,7 @@ class Legislation
     legislation = find(key)
     return legislation if legislation
 
-    raise UnknownLegislation.new("Unknown legislation #{key}.")
+    raise UnknownLegislation, "Unknown legislation #{key}."
   end
 
   def self.keys
@@ -76,9 +76,7 @@ class Legislation
   def to_s(variant = :short)
     @variants.fetch(variant)
   rescue KeyError
-    raise UnknownLegislationVariant.new(
-      "Unknown variant #{variant} in legislation #{key}."
-    )
+    raise UnknownLegislationVariant, "Unknown variant #{variant} in legislation #{key}."
   end
 
   def ==(other)

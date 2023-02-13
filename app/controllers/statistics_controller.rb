@@ -3,7 +3,7 @@ class StatisticsController < ApplicationController
 
   def index
     unless AlaveteliConfiguration.public_body_statistics_page
-      raise ActiveRecord::RecordNotFound.new("Page not enabled")
+      raise ActiveRecord::RecordNotFound, "Page not enabled"
     end
 
     @public_bodies = Statistics.public_bodies

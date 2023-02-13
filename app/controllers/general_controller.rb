@@ -30,7 +30,7 @@ class GeneralController < ApplicationController
   # Display blog entries
   def blog
     if AlaveteliConfiguration.blog_feed.empty?
-      raise ActiveRecord::RecordNotFound.new("Page not enabled")
+      raise ActiveRecord::RecordNotFound, "Page not enabled"
     end
 
     medium_cache
@@ -154,7 +154,7 @@ class GeneralController < ApplicationController
 
     # Later pages are very expensive to load
     if @page > MAX_RESULTS / requests_per_page
-      raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / requests_per_page}.")
+      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
     end
 
     @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0

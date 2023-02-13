@@ -144,7 +144,7 @@ module ActsAsXapian
   # but db.reopen wasn't enough by itself, so just do everything it's easier.
   def self.readable_init
     unless ActsAsXapian.bindings_available
-      raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed")
+      raise NoXapianRubyBindingsError, "Xapian Ruby bindings not installed"
     end
     if @@init_values.empty?
       raise "acts_as_xapian hasn't been called in any models"
@@ -270,7 +270,7 @@ module ActsAsXapian
 
   def self.writable_init(suffix = "")
     unless ActsAsXapian.bindings_available
-      raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed")
+      raise NoXapianRubyBindingsError, "Xapian Ruby bindings not installed"
     end
     if @@init_values.empty?
       raise "acts_as_xapian hasn't been called in any models"

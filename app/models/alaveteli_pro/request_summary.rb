@@ -52,9 +52,9 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
 
   def self.create_or_update_from(request)
     unless ALLOWED_REQUEST_CLASSES.include?(request.class.name)
-      raise ArgumentError.new("Can't create a RequestSummary from " \
+      raise ArgumentError, "Can't create a RequestSummary from " \
                               "#{request.class.name} instances. Only " \
-                              "#{ALLOWED_REQUEST_CLASSES} are allowed.")
+                              "#{ALLOWED_REQUEST_CLASSES} are allowed."
     end
     request.reload
     if request.request_summary

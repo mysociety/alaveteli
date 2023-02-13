@@ -120,7 +120,7 @@ class RequestController < ApplicationController
 
     # Later pages are very expensive to load
     if @page > MAX_RESULTS / PER_PAGE
-      raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
+      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
@@ -148,7 +148,7 @@ class RequestController < ApplicationController
 
     # Later pages are very expensive to load
     if @page > MAX_RESULTS / PER_PAGE
-      raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
+      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
 
     @filters = params.merge(latest_status: @view)
@@ -612,7 +612,7 @@ class RequestController < ApplicationController
         else
           public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
           if public_body.nil?  # TODO: proper 404
-            raise ActiveRecord::RecordNotFound.new("None found")
+            raise ActiveRecord::RecordNotFound, "None found"
           end
           public_body.id
         end
