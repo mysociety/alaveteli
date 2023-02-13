@@ -62,7 +62,7 @@ namespace :config_files do
     check_for_env_vars(%w[DEPLOY_USER SCRIPT_FILE], example)
 
     replacements = {
-      user: ENV['DEPLOY_USER'],
+      user: ENV['DEPLOY_USER']
     }
 
     # Generate the template for potential further processing

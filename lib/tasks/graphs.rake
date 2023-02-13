@@ -255,7 +255,7 @@ namespace :graphs do
           linewidth: 1,
           title: "cumulative total number of requests",
           using: "1:3",
-          axes: "x1y2",
+          axes: "x1y2"
         })
         plot_data_from_columns(all_requests, options, plot.data)
       end

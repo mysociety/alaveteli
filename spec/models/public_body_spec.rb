@@ -985,7 +985,7 @@ RSpec.describe PublicBody do
                 requests_successful_count: 2,
                 requests_not_held_count: 2,
                 requests_overdue_count: 3,
-                requests_visible_classified_count: 3,
+                requests_visible_classified_count: 3
               }
             })
     end

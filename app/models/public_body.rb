@@ -700,7 +700,7 @@ class PublicBody < ApplicationRecord
         requests_not_held_count: info_requests_not_held_count,
         requests_overdue_count: info_requests_overdue_count,
         requests_visible_classified_count:           info_requests_visible_classified_count
-      },
+      }
     }
   end
 

@@ -479,7 +479,7 @@ class InfoRequestEvent < ApplicationRecord
       last_described_at: last_described_at,
       incoming_message_id: incoming_message_id,
       outgoing_message_id: outgoing_message_id,
-      comment_id: comment_id,
+      comment_id: comment_id
 
       # TODO: would be nice to add links here, but alas the
       # code to make them is in views only. See views/request/details.html.erb

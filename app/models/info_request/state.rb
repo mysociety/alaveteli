@@ -50,7 +50,7 @@ class InfoRequest
             'attention_requested'           => _("Reported"),
             'user_withdrawn'                => _("Withdrawn"),
             'vexatious'                     => _("Vexatious"),
-            'not_foi'                       => _("Not an FOI request"),
+            'not_foi'                       => _("Not an FOI request")
           }
       if descriptions[state]
         descriptions[state]

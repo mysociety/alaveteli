@@ -73,8 +73,8 @@ namespace :export do
       %w[id name info_requests_count track_things_count
          request_classifications_count public_body_change_requests_count
          info_request_batches_count],
-      override = { "name" => DataExport.gender_lambda, },
-      header_map = { "name" => "gender", }
+      override = { "name" => DataExport.gender_lambda },
+      header_map = { "name" => "gender" }
     )
 
     #export InfoRequest Fields
@@ -105,7 +105,7 @@ namespace :export do
         "cached_main_body_text_folded" =>
           DataExport.name_censor_lambda('cached_main_body_text_folded'),
         "cached_main_body_text_unfolded" =>
-          DataExport.name_censor_lambda('cached_main_body_text_unfolded'),
+          DataExport.name_censor_lambda('cached_main_body_text_unfolded')
       }
     )
 

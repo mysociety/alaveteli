@@ -100,7 +100,7 @@ module AlaveteliPro
         'Return-Path' => blackhole_email,
         'Reply-To' => pro_contact_from_name_and_email, # not much we can do if the user's email is broken
         'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-        'X-Auto-Response-Suppress' => 'OOF',
+        'X-Auto-Response-Suppress' => 'OOF'
       })
     end
 
@@ -108,7 +108,7 @@ module AlaveteliPro
       mail({
         from: pro_contact_from_name_and_email,
         to: user.name_and_email,
-        subject: subject,
+        subject: subject
       })
     end
   end

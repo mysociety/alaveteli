@@ -20,7 +20,7 @@ class ApiController < ApplicationController
       status: @request.calculate_status,
       public_body_url: make_url("body", @request.public_body.url_name),
       request_email: @request.incoming_email,
-      request_text: @request.last_event_forming_initial_request.outgoing_message.body,
+      request_text: @request.last_event_forming_initial_request.outgoing_message.body
     }
     if @request.user
       @request_data[:requestor_url] = make_url("user", @request.user.url_name)
@@ -164,7 +164,7 @@ class ApiController < ApplicationController
       end
     end
     render json: {
-      'url' => make_url("request", @request.url_title),
+      'url' => make_url("request", @request.url_title)
     }
   end
 
@@ -190,7 +190,7 @@ class ApiController < ApplicationController
     end
 
     render json: {
-      'url' => make_url("request", @request.url_title),
+      'url' => make_url("request", @request.url_title)
     }
   end
 
@@ -256,7 +256,7 @@ class ApiController < ApplicationController
           request_email: request.incoming_email,
           title: request.title,
           body: event.outgoing_message.body,
-          user_name: request.user_name,
+          user_name: request.user_name
         }
         this_event[:user_url] = user_url(request.user) if request.user
 

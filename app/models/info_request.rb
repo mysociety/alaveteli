@@ -412,7 +412,7 @@ class InfoRequest < ApplicationRecord
       'vexatious'                     => _("Considered by administrators as " \
                                            "vexatious."),
       'not_foi'                       => _("Considered by administrators as " \
-                                           "not an FOI request."),
+                                           "not an FOI request.")
     }
     if descriptions[status]
       descriptions[status]
@@ -1535,7 +1535,7 @@ class InfoRequest < ApplicationRecord
       awaiting_description: awaiting_description,
       prominence: prominence,
       law_used: law_used,
-      tags: tag_array,
+      tags: tag_array
 
       # not sure we need to make these, mainly anti-spam, admin params public
       # allow_new_responses_from

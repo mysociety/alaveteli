@@ -84,7 +84,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
       user: request.user,
       request_summary_categories: request.request_summary_categories,
       request_created_at: request.created_at,
-      request_updated_at: request.updated_at,
+      request_updated_at: request.updated_at
     }
   end
 end

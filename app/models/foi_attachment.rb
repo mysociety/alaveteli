@@ -284,7 +284,7 @@ class FoiAttachment < ApplicationRecord
       'application/vnd.openxmlformats-officedocument.presentationml.presentation' => "PowerPoint presentation",
 
       'application/vnd.ms-excel' => "Excel spreadsheet",
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet",
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet"
     }[content_type]
   end
 

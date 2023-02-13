@@ -106,7 +106,7 @@ RSpec.describe InfoRequest::State::Calculator do
             "rejected"              => "My request has been <strong>refused</strong>"
           },
           other: {
-            "error_message"  => "I've received an <strong>error message</strong>",
+            "error_message"  => "I've received an <strong>error message</strong>"
           }
         }
       end

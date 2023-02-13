@@ -933,7 +933,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       let(:customer) do
         customer = Stripe::Customer.create({
           email: user.email,
-          source: stripe_helper.generate_card_token,
+          source: stripe_helper.generate_card_token
         })
         user.pro_account.update!(stripe_customer_id: customer.id)
         customer
@@ -971,7 +971,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         let(:other_subscription) do
           customer = Stripe::Customer.create({
             email: 'test@example.org',
-            source: stripe_helper.generate_card_token,
+            source: stripe_helper.generate_card_token
           })
           Stripe::Subscription.create(customer: customer, plan: plan.id)
         end

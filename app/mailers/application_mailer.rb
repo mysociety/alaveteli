@@ -32,7 +32,7 @@ class ApplicationMailer < ActionMailer::Base
     default_opts = {
       from: contact_for_user(user),
       to: user.name_and_email,
-      subject: subject,
+      subject: subject
     }
     default_opts.merge!(opts)
     mail(default_opts)
@@ -51,7 +51,7 @@ class ApplicationMailer < ActionMailer::Base
   def set_auto_generated_headers(opts = {})
     headers({
       'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-      'X-Auto-Response-Suppress' => 'OOF',
+      'X-Auto-Response-Suppress' => 'OOF'
     })
   end
 
