@@ -141,6 +141,12 @@ RANDOM_EMAIL_SECRET=$(random_alphanumerics 32)
 RANDOM_EMERGENCY_PASSWORD=$(random_alphanumerics 10)
 RANDOM_COOKIE_SECRET=$(random_alphanumerics 100)
 
+if [ "$DEVELOPMENT_INSTALL" = true ]; then
+  STAGING_SITE=1
+else
+  STAGING_SITE=0
+fi
+
 if ! [ -f config/general.yml ]
 then
     sed -r \
@@ -158,6 +164,7 @@ then
         -e "s,^( *CONTACT_EMAIL:).*,\\1 'postmaster@$HOST'," \
         -e "s,^( *TRACK_SENDER_EMAIL:).*,\\1 'postmaster@$HOST'," \
         -e "s,^( *SECRET_KEY_BASE:).*,\\1 '$RANDOM_COOKIE_SECRET'," \
+        -e "s,^( *STAGING_SITE:).*,\\1 '$STAGING_SITE'," \
         -e "s,^( *FORWARD_NONBOUNCE_RESPONSES_TO:).*,\\1 'user-support@$HOST'," \
         -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/local/bin/wkhtmltopdf'," \
         -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \
