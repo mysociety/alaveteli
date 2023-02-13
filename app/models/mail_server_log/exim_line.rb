@@ -68,7 +68,7 @@ class MailServerLog::EximLine
   end
 
   def inspect
-    %Q(#<#{self.class}:#{"0x00%x" % (object_id << 1)} @line="#{ line }">)
+    %Q(#<#{self.class}:#{format("0x00%x", (object_id << 1))} @line="#{ line }">)
   end
 
   private

@@ -56,7 +56,7 @@ RSpec.describe MailServerLog::DeliveryStatus do
 
     it 'returns the default format' do
       subject = described_class.new(:delivered)
-      obj_id = "0x00%x" % (subject.object_id << 1)
+      obj_id = format("0x00%x", (subject.object_id << 1))
       expected =
         %Q(#<#{described_class}:#{obj_id} @status=:delivered>)
       expect(subject.inspect).to eq(expected)
