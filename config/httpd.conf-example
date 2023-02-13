@@ -23,7 +23,6 @@
     # App server configuration
     <IfModule mod_passenger.c>
         PassengerAppRoot /var/www/alaveteli
-        PassengerResolveSymlinksInDocumentRoot on
 
         # Uncomment the following line if you want to run Alaveteli
         # with the ruby set by rbenv
@@ -149,7 +148,7 @@
     </IfModule>
 
     # Include optional configuration
-    Include vhost.d/alaveteli/*.conf
+    IncludeOptional vhost.d/alaveteli/*.conf
 
 </VirtualHost>
 
