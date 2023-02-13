@@ -27,7 +27,7 @@ ALAVETELI_VERSION = '0.42.0.0'
 
 
 # Domain for URLs (so can work for scripts, not just web pages)
-ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
+ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration.domain
 
 # Load monkey patches and other things from lib/
 require 'core_ext/warning'

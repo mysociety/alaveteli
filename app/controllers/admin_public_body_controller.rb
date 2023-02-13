@@ -206,7 +206,7 @@ class AdminPublicBodyController < AdminController
   # the file to persist between requests. Return the name of the file.
   def store_csv_data(csv_contents)
     tempfile_name = "csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-#{SecureRandom.random_number(10_000)}"
-    tempfile = File.new(File.join(Dir::tmpdir, tempfile_name), 'w')
+    tempfile = File.new(File.join(Dir.tmpdir, tempfile_name), 'w')
     tempfile.write(csv_contents)
     tempfile.close
     tempfile_name

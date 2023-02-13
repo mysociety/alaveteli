@@ -61,7 +61,7 @@ namespace :themes do
 
   def committishes_to_try
     result = []
-    theme_branch = AlaveteliConfiguration::theme_branch
+    theme_branch = AlaveteliConfiguration.theme_branch
     result.push "origin/#{theme_branch}" if theme_branch
     result.push usage_tag(ALAVETELI_VERSION)
     hotfix_match = /^(\d+\.\d+\.\d+)(\.\d+)+/.match(ALAVETELI_VERSION)

@@ -320,7 +320,7 @@ module ActsAsXapian
     def initialize_query(options)
       #raise options.to_yaml
 
-      self.runtime += Benchmark::realtime {
+      self.runtime += Benchmark.realtime {
         offset = options[:offset] || 0; offset = offset.to_i
         limit = options[:limit]
         unless limit
@@ -418,7 +418,7 @@ module ActsAsXapian
       return cached_results unless cached_results.nil?
 
       docs = []
-      self.runtime += Benchmark::realtime {
+      self.runtime += Benchmark.realtime {
         # Pull out all the results
         iter = matches._begin
         while not iter.equals(matches._end)
@@ -585,7 +585,7 @@ module ActsAsXapian
     def initialize(model_classes, query_models, options = {})
       initialize_db
 
-      self.runtime += Benchmark::realtime {
+      self.runtime += Benchmark.realtime {
         # Case of an array, searching for models similar to those models in the array
         self.query_models = query_models
 

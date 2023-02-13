@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
   # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
   around_action :record_memory
   def record_memory
-    record_memory = AlaveteliConfiguration::debug_record_memory
+    record_memory = AlaveteliConfiguration.debug_record_memory
     if record_memory
       logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
       File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
@@ -360,7 +360,7 @@ class ApplicationController < ActionController::Base
 
   #
   def check_read_only
-    unless AlaveteliConfiguration::read_only.empty?
+    unless AlaveteliConfiguration.read_only.empty?
       if feature_enabled?(:annotations)
         flash[:notice] = {
           partial: "general/read_only_annotations",
@@ -454,7 +454,7 @@ class ApplicationController < ActionController::Base
 
   def country_from_ip
     return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
-    AlaveteliConfiguration::iso_country_code
+    AlaveteliConfiguration.iso_country_code
   end
 
   def user_ip

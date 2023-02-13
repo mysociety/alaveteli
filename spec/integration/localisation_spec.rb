@@ -74,7 +74,7 @@ RSpec.describe "when generating urls" do
 
       before do
         @default_lang_home_link = /href=".*\/en\//
-        @old_include_default_locale_in_urls = AlaveteliConfiguration::include_default_locale_in_urls
+        @old_include_default_locale_in_urls = AlaveteliConfiguration.include_default_locale_in_urls
       end
 
       after do

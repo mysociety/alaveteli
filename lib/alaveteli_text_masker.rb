@@ -65,7 +65,7 @@ module AlaveteliTextMasker
     temp.write(text)
     temp.close
 
-    if AlaveteliConfiguration::use_ghostscript_compression
+    if AlaveteliConfiguration.use_ghostscript_compression
       command = ["gs",
                  "-sDEVICE=pdfwrite",
                  "-dCompatibilityLevel=1.4",

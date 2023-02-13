@@ -1,7 +1,7 @@
 ::SecureHeaders::Configuration.default do |config|
 
   # https://tools.ietf.org/html/rfc6797
-  if AlaveteliConfiguration::force_ssl
+  if AlaveteliConfiguration.force_ssl
     config.hsts = "max-age=#{20.years.to_i}; includeSubdomains"
   else
     config.hsts = SecureHeaders::OPT_OUT #don't send on non https sites

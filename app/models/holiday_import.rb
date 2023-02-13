@@ -24,7 +24,7 @@ class HolidayImport
     @end_date = Date.civil(end_year, 12, 31)
     @source = opts.fetch(:source, 'suggestions')
     @ical_feed_url = opts.fetch(:ical_feed_url, nil)
-    @country_code = AlaveteliConfiguration::iso_country_code.downcase
+    @country_code = AlaveteliConfiguration.iso_country_code.downcase
     self.holidays_attributes = opts.fetch(:holidays_attributes, [])
   end
 

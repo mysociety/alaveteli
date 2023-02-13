@@ -159,7 +159,7 @@ namespace :translation do
     write_email(event_digest_email, 'Alerts on things the user is tracking', output_file)
 
     # user mailer
-    site_name = AlaveteliConfiguration::site_name
+    site_name = AlaveteliConfiguration.site_name
     reasons = {
       web: "",
       email: _("Then you can sign in to {{site_name}}", site_name: site_name),

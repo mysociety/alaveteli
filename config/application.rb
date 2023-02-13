@@ -63,11 +63,11 @@ module Alaveteli
     # Note that having set a zone, the Active Record
     # time_zone_aware_attributes flag is on, so times from models
     # will be in this time zone
-    config.time_zone = ::AlaveteliConfiguration::time_zone
+    config.time_zone = ::AlaveteliConfiguration.time_zone
 
     # Set the cache to use a memcached backend
     config.cache_store = :mem_cache_store,
-      { namespace: "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
+      { namespace: "#{AlaveteliConfiguration.domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
@@ -96,6 +96,6 @@ module Alaveteli
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # Allow the generation of full URLs in emails
-    config.action_mailer.default_url_options = { host: AlaveteliConfiguration::domain }
+    config.action_mailer.default_url_options = { host: AlaveteliConfiguration.domain }
   end
 end

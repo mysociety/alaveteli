@@ -36,7 +36,7 @@ RSpec.describe RequestMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
+      expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
       deliveries.clear
     end
 
@@ -86,7 +86,7 @@ RSpec.describe RequestMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
+      expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
       deliveries.clear
     end
 
@@ -106,7 +106,7 @@ RSpec.describe RequestMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
+      expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
       deliveries.clear
     end
 
@@ -126,7 +126,7 @@ RSpec.describe RequestMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
+      expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
       deliveries.clear
     end
 
@@ -233,7 +233,7 @@ RSpec.describe RequestMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      expect(mail.to).to eq([ AlaveteliConfiguration::contact_email ])
+      expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
       deliveries.clear
     end
 

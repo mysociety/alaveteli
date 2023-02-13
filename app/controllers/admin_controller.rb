@@ -15,7 +15,7 @@ class AdminController < ApplicationController
 
   # For administration interface, return display name of authenticated user
   def admin_current_user
-    if AlaveteliConfiguration::skip_admin_auth
+    if AlaveteliConfiguration.skip_admin_auth
       admin_http_auth_user
     else
       session[:admin_name]
@@ -38,12 +38,12 @@ class AdminController < ApplicationController
   end
 
   def authenticate
-    if AlaveteliConfiguration::skip_admin_auth
+    if AlaveteliConfiguration.skip_admin_auth
       session[:using_admin] = 1
       nil
     else
       if session[:using_admin].nil? || session[:admin_name].nil?
-        if params[:emergency].nil? || AlaveteliConfiguration::disable_emergency_user
+        if params[:emergency].nil? || AlaveteliConfiguration.disable_emergency_user
           if !authenticated?
             ask_to_login(
               web: _('To log into the administrative interface'),
@@ -64,7 +64,7 @@ class AdminController < ApplicationController
           end
         else
           authenticate_or_request_with_http_basic do |user_name, password|
-            if user_name == AlaveteliConfiguration::admin_username && password == AlaveteliConfiguration::admin_password
+            if user_name == AlaveteliConfiguration.admin_username && password == AlaveteliConfiguration.admin_password
               session[:using_admin] = 1
               session[:admin_name] = user_name
             else

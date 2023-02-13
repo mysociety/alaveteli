@@ -60,7 +60,7 @@ module ApplicationHelper
   end
 
   def locale_name(locale)
-    LanguageNames::get_language_name(locale)
+    LanguageNames.get_language_name(locale)
   end
 
   def admin_value(v)
@@ -127,7 +127,7 @@ module ApplicationHelper
   end
 
   def cache_if_caching_fragments(*args, &block)
-    if AlaveteliConfiguration::cache_fragments
+    if AlaveteliConfiguration.cache_fragments
       cache(*args) { yield }
     else
       yield

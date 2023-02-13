@@ -407,7 +407,7 @@ class PublicBody < ApplicationRecord
   # in an instance variable
   def calculated_home_page
     if home_page && !home_page.empty?
-      home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
+      home_page[URI.regexp(%w(http https))] ? home_page : "http://#{home_page}"
     elsif request_email_domain
       "http://www.#{request_email_domain}"
     end
@@ -842,7 +842,7 @@ class PublicBody < ApplicationRecord
       first_letter: tag
     }
 
-    if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
+    if AlaveteliConfiguration.public_body_list_fallback_to_default_locale
       # Unfortunately, when we might fall back to the
       # default locale, this is a rather complex query:
       if DatabaseCollation.supports?(underscore_locale)

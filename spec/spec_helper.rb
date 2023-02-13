@@ -118,8 +118,8 @@ RSpec.configure do |config|
   # the locale in your tests and not even realising it. So, let's make things easier for
   # ourselves and just always restore the locale for all tests.
   config.after(:each) do
-    AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
-                                      AlaveteliConfiguration::default_locale)
+    AlaveteliLocalization.set_locales(AlaveteliConfiguration.available_locales,
+                                      AlaveteliConfiguration.default_locale)
   end
 
   # Turn routing-filter off in functional and unit tests as per
@@ -235,9 +235,9 @@ ensure
 end
 
 def basic_auth_login(request, username = nil, password = nil)
-  username = AlaveteliConfiguration::admin_username if username.nil?
-  password = AlaveteliConfiguration::admin_password if password.nil?
-  request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
+  username = AlaveteliConfiguration.admin_username if username.nil?
+  password = AlaveteliConfiguration.admin_password if password.nil?
+  request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64.encode64("#{username}:#{password}")
 end
 
 FactoryBot.definition_file_paths = [ Rails.root.join('spec', 'factories') ]

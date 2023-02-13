@@ -29,7 +29,7 @@ class GeneralController < ApplicationController
 
   # Display blog entries
   def blog
-    if AlaveteliConfiguration::blog_feed.empty?
+    if AlaveteliConfiguration.blog_feed.empty?
       raise ActiveRecord::RecordNotFound.new("Page not enabled")
     end
 
@@ -40,7 +40,7 @@ class GeneralController < ApplicationController
 
   def get_blog_content
     @feed_autodetect = []
-    @feed_url = AlaveteliConfiguration::blog_feed
+    @feed_url = AlaveteliConfiguration.blog_feed
     separator = @feed_url.include?('?') ? '&' : '?'
     @feed_url = "#{ @feed_url }#{ separator }lang=" \
                 "#{ AlaveteliLocalization.html_lang }"

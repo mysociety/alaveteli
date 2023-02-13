@@ -53,7 +53,7 @@ class RequestMailer < ApplicationMailer
             'Auto-Submitted' => 'auto-replied') # http://tools.ietf.org/html/rfc3834
 
     @info_request = info_request
-    @contact_email = AlaveteliConfiguration::contact_email
+    @contact_email = AlaveteliConfiguration.contact_email
 
     mail(to: email.from_addrs[0].to_s,
          from: contact_from_name_and_email,
@@ -347,7 +347,7 @@ class RequestMailer < ApplicationMailer
   # Send email alerts for new responses which haven't been classified. By default,
   # it goes out 3 days after last update of event, then after 10, then after 24.
   def self.alert_new_response_reminders
-    AlaveteliConfiguration::new_response_reminder_after_days.each_with_index do |days, i|
+    AlaveteliConfiguration.new_response_reminder_after_days.each_with_index do |days, i|
       alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
     end
   end

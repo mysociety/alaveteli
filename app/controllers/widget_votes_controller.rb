@@ -32,7 +32,7 @@ class WidgetVotesController < ApplicationController
   private
 
   def check_widget_config
-    unless AlaveteliConfiguration::enable_widgets
+    unless AlaveteliConfiguration.enable_widgets
       raise ActiveRecord::RecordNotFound.new("Page not enabled")
     end
   end

@@ -30,7 +30,7 @@ if Rails.env == "test"
   # so they don't interfere with core Alaveteli tests
   require_theme(ALAVETELI_TEST_THEME) if defined? ALAVETELI_TEST_THEME
 else
-  for url in AlaveteliConfiguration::theme_urls.reverse
+  for url in AlaveteliConfiguration.theme_urls.reverse
     require_theme theme_url_to_theme_name(url)
   end
 end

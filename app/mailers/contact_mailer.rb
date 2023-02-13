@@ -48,7 +48,7 @@ class ContactMailer < ApplicationMailer
 
     mail(from: contact_for_user(recipient_user),
          to: MailHandler.address_from_name_and_email(@recipient_name, @recipient_email),
-         bcc: AlaveteliConfiguration::contact_email,
+         bcc: AlaveteliConfiguration.contact_email,
          subject: subject)
   end
 end

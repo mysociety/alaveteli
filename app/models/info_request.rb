@@ -424,10 +424,10 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.magic_email_for_id(prefix_part, id)
-    magic_email = AlaveteliConfiguration::incoming_email_prefix
+    magic_email = AlaveteliConfiguration.incoming_email_prefix
     magic_email += prefix_part + id.to_s
     magic_email += "-" + InfoRequest.hash_from_id(id)
-    magic_email += "@" + AlaveteliConfiguration::incoming_email_domain
+    magic_email += "@" + AlaveteliConfiguration.incoming_email_domain
     magic_email
   end
 
@@ -471,7 +471,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.hash_from_id(id)
-    Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
+    Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration.incoming_email_secret)[0,8]
   end
 
   # Used to find when event last changed

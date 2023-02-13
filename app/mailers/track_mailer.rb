@@ -12,7 +12,7 @@ class TrackMailer < ApplicationMailer
   # Note that this is different from all the other mailers, as tracks are
   # sent from a different email address and have different bounce handling.
   def contact_from_name_and_email
-    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
+    "#{AlaveteliConfiguration.track_sender_name} <#{AlaveteliConfiguration.track_sender_email}>"
   end
 
   def event_digest(user, email_about_things)

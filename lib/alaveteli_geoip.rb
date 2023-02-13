@@ -21,11 +21,11 @@ class AlaveteliGeoIP
   end
 
   def initialize(database = nil)
-    database = AlaveteliConfiguration::geoip_database unless database
+    database = AlaveteliConfiguration.geoip_database unless database
     if database.present? && File.file?(database)
       @geoip = MaxMind::DB.new(database, mode: MaxMind::DB::MODE_MEMORY)
     end
-    @current_code = AlaveteliConfiguration::iso_country_code
+    @current_code = AlaveteliConfiguration.iso_country_code
   end
 
   # Public: Return the country code of the country indicated by
