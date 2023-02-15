@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'Updating censor rules' do
+  include ActiveJob::TestHelper
+
   let!(:admin) do
     confirm(:admin_user)
     login(:admin_user)
@@ -57,6 +59,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Create'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a rubbish answer for you"
       expect(page).to have_content "I have [REDACTED] for you"
@@ -81,6 +85,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Save'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish [REDACTED] for you"
@@ -101,6 +107,8 @@ RSpec.describe 'Updating censor rules' do
         visit edit_admin_censor_rule_path(rule.id)
         click_link 'Destroy censor rule'
       end
+
+      perform_enqueued_jobs
 
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
@@ -125,6 +133,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Create'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a rubbish answer for you"
       expect(page).to have_content "I have [REDACTED] for you"
@@ -149,6 +159,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Save'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish [REDACTED] for you"
@@ -169,6 +181,8 @@ RSpec.describe 'Updating censor rules' do
         visit edit_admin_censor_rule_path(rule.id)
         click_link 'Destroy censor rule'
       end
+
+      perform_enqueued_jobs
 
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
@@ -194,6 +208,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Create'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a rubbish answer for you"
       expect(page).to have_content "I have [REDACTED] for you"
@@ -219,6 +235,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Save'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish [REDACTED] for you"
@@ -240,6 +258,8 @@ RSpec.describe 'Updating censor rules' do
         visit edit_admin_censor_rule_path(rule.id)
         click_link 'Destroy censor rule'
       end
+
+      perform_enqueued_jobs
 
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
@@ -264,6 +284,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Create'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a rubbish answer for you"
       expect(page).to have_content "I have [REDACTED] for you"
@@ -287,6 +309,8 @@ RSpec.describe 'Updating censor rules' do
         click_button 'Save'
       end
 
+      perform_enqueued_jobs
+
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish [REDACTED] for you"
@@ -306,6 +330,8 @@ RSpec.describe 'Updating censor rules' do
         visit edit_admin_censor_rule_path(rule.id)
         click_link 'Destroy censor rule'
       end
+
+      perform_enqueued_jobs
 
       visit show_request_path url_title: url_title
       expect(page).not_to have_content "I have a [REDACTED] answer for you"

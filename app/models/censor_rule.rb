@@ -74,15 +74,13 @@ class CensorRule < ApplicationRecord
 
   def expire_requests
     if info_request
-      info_request.expire
+      InfoRequestExpireJob.perform_later(info_request)
     elsif user
-      user.expire_requests
+      InfoRequestExpireJob.perform_later(user, :info_requests)
     elsif public_body
-      public_body.expire_requests
+      InfoRequestExpireJob.perform_later(public_body, :info_requests)
     else # global rule
-      InfoRequest.find_in_batches do |group|
-        group.each(&:expire)
-      end
+      InfoRequestExpireJob.perform_later(InfoRequest, :all)
     end
   end
 
