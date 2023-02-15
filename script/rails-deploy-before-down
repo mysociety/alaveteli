@@ -97,18 +97,22 @@ fi
 
 OPTION_BUNDLE_PATH=$(bin/config BUNDLE_PATH)
 BUNDLE_PATH="${OPTION_BUNDLE_PATH:-vendor/bundle}"
-
-bundle_install_options="--path $BUNDLE_PATH"
+bundle config set --local path $BUNDLE_PATH
 
 if [ "$STAGING_SITE" = "0" ]
 then
-    bundle_install_options="$bundle_install_options --without development debug test --deployment"
+    bundle config set --local deployment 'true'
+    bundle config set --local without 'development debug test'
 else
-    bundle_install_options="$bundle_install_options"
+    bundle config unset --local deployment
+    bundle config unset --local without
 fi
 
-echo "Running bundle install with options: $bundle_install_options"
-bundle install $bundle_install_options
+echo "Bundle install options:"
+bundle config list
+
+echo "Running bundle install:"
+bundle install
 
 bundle exec rake submodules:check
 
