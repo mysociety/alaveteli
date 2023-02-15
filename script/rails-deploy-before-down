@@ -100,10 +100,7 @@ BUNDLE_PATH="${OPTION_BUNDLE_PATH:-vendor/bundle}"
 
 bundle_install_options="--path $BUNDLE_PATH"
 
-if [ "$CI" = "true" ]
-then
-    bundle_install_options="$bundle_install_options --deployment"
-elif [ "$STAGING_SITE" = "0" ]
+if [ "$STAGING_SITE" = "0" ]
 then
     bundle_install_options="$bundle_install_options --without development debug test --deployment"
 else
@@ -117,10 +114,7 @@ bundle exec rake submodules:check
 
 bundle exec rake themes:install
 
-if ! [ "$CI" = "true" ]
-then
-  bundle exec rake geoip:download_data
-fi
+bundle exec rake geoip:download_data
 
 if [ "$STAGING_SITE" = "0" ]
 then
