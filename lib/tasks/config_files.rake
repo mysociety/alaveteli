@@ -93,13 +93,37 @@ namespace :config_files do
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR SCRIPT_FILE], example)
 
-    # Use the filename for the $daemon_name ugly variable
-    daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.example')
+    daemon_name = ENV.fetch('DAEMON_NAME') do
+      File.basename(ENV['SCRIPT_FILE'], '-debian.example')
+    end
+
     replacements = default_replacements.merge(
       daemon_name: "#{default_replacements[:site]}-#{daemon_name}"
     )
 
     convert_erb(ENV['SCRIPT_FILE'], **replacements)
+  end
+
+  desc 'Convert example daemon in config to a form suitable for installing ' \
+       'on a server'
+  task convert_daemon: :environment do
+    example = 'rake config_files:convert_daemon ' \
+              'DEPLOY_USER=deploy ' \
+              'VHOST_DIR=/dir/above/alaveteli ' \
+              'VCSPATH=alaveteli ' \
+              'SITE=alaveteli ' \
+              'DAEMON=alert-tracks ' \
+              'RUBY_VERSION=3.0.4 ' \
+              'USE_RBENV=false '
+    check_for_env_vars(%w[DEPLOY_USER VHOST_DIR DAEMON], example)
+
+    daemon = daemons.find { |d| d[:name] == ENV['DAEMON'] }
+    raise 'Unknown daemon' unless daemon
+
+    ENV['SCRIPT_FILE'] = daemon[:template]
+    ENV['DAEMON_NAME'] = daemon[:name]
+
+    Rake::Task['config_files:convert_init_script'].invoke
   end
 
   desc 'Convert Debian example crontab file in config to a form suitable for installing in /etc/cron.d'
