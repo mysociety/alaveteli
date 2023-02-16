@@ -21,7 +21,7 @@ namespace :config_files do
   end
 
   def convert_erb(file, **replacements)
-    ExampleERBRenderer.new(file, **replacements).lines
+    puts ExampleERBRenderer.new(file, **replacements).lines
   end
 
   def default_replacements
@@ -64,9 +64,7 @@ namespace :config_files do
     example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
     check_for_env_vars(%w[DEPLOY_USER SCRIPT_FILE], example)
 
-    convert_erb(ENV['SCRIPT_FILE'], **default_replacements).each do |line|
-      puts line
-    end
+    convert_erb(ENV['SCRIPT_FILE'], **default_replacements)
   end
 
   desc 'Convert Debian example init script in config to a form suitable for installing in /etc/init.d'
@@ -87,11 +85,7 @@ namespace :config_files do
       daemon_name: "#{default_replacements[:site]}-#{daemon_name}"
     )
 
-    converted = convert_erb(ENV['SCRIPT_FILE'], **replacements)
-
-    converted.each do |line|
-      puts line
-    end
+    convert_erb(ENV['SCRIPT_FILE'], **replacements)
   end
 
   desc 'Convert Debian example crontab file in config to a form suitable for installing in /etc/cron.d'
@@ -104,27 +98,14 @@ namespace :config_files do
               'RUBY_VERSION=3.0.4 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR VCSPATH SITE CRONTAB], example)
-
-    lines = []
-    convert_erb(ENV['CRONTAB'], **default_replacements).each do |line|
-      lines << line
-    end
-
-    lines.each do |line|
-      puts line
-    end
+    convert_erb(ENV['CRONTAB'], **default_replacements)
   end
 
   desc 'Convert miscellaneous example scripts. This does not check for required environment variables for the script, so please check the script file itself.'
   task convert_script: :environment do
     example = 'rake config_files:convert_script SCRIPT_FILE=config/run-with-rbenv-path.example'
     check_for_env_vars(['SCRIPT_FILE'], example)
-
-    converted = convert_erb(ENV['SCRIPT_FILE'], **default_replacements)
-
-    converted.each do |line|
-      puts line
-    end
+    convert_erb(ENV['SCRIPT_FILE'], **default_replacements)
   end
 
   desc 'Set reject_incoming_at_mta on old requests that are rejecting incoming mail'
