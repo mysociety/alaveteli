@@ -39,24 +39,38 @@ namespace :config_files do
     }
   end
 
-  def daemons(only_active = false)
-    daemons = %w[alert-tracks send-notifications]
-    if AlaveteliConfiguration.production_mailer_retriever_method == 'pop' ||
-       !only_active
-      daemons << 'poll-for-incoming'
-    end
-    daemons
+  def daemons
+    [
+      {
+        name: 'alert-tracks',
+        template: 'config/alert-tracks-debian.example'
+      },
+      {
+        name: 'send-notifications',
+        template: 'config/send-notifications-debian.example'
+      },
+      {
+        name: 'poll-for-incoming',
+        template: 'config/poll-for-incoming-debian.example',
+        condition: -> do
+          AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
+        end
+      }
+    ]
   end
 
   desc 'Return list of daemons to install based on the settings defined
         in general.yml'
   task active_daemons: :environment do
-    puts daemons(true)
+    puts daemons.
+      select { |d| d.fetch(:condition, -> { true }).call }.
+      map { |d| d[:name] }
   end
 
   desc 'Return list of all daemons the application defines'
   task all_daemons: :environment do
-    puts daemons
+    puts daemons.
+      map { |d| d[:name] }
   end
 
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
