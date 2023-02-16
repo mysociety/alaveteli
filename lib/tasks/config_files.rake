@@ -24,6 +24,20 @@ namespace :config_files do
     ExampleERBRenderer.new(file, **replacements).lines
   end
 
+  def default_replacements
+    {
+      cpus: ENV.fetch('CPUS') { '1' },
+      mailto: ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
+      rails_env: ENV.fetch('RAILS_ENV') { 'development' },
+      ruby_version: ENV.fetch('RUBY_VERSION') { '3.0.4' },
+      site: ENV.fetch('SITE') { 'foi' },
+      user: ENV.fetch('DEPLOY_USER') { 'alaveteli' },
+      vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
+      vhost_dir: ENV.fetch('VHOST_DIR') { '/var/www/alaveteli' },
+      use_rbenv?: ENV.fetch('USE_RBENV', 'false') == 'true'
+    }
+  end
+
   def daemons(only_active = false)
     daemons = %w[alert-tracks send-notifications]
     if AlaveteliConfiguration.production_mailer_retriever_method == 'pop' ||
@@ -49,12 +63,7 @@ namespace :config_files do
     example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
     check_for_env_vars(%w[DEPLOY_USER SCRIPT_FILE], example)
 
-    replacements = {
-      user: ENV['DEPLOY_USER']
-    }
-
-    # Generate the template for potential further processing
-    convert_erb(ENV['SCRIPT_FILE'], **replacements).each do |line|
+    convert_erb(ENV['SCRIPT_FILE'], **default_replacements).each do |line|
       puts line
     end
   end
@@ -71,22 +80,12 @@ namespace :config_files do
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR SCRIPT_FILE], example)
 
-    replacements = {
-      user: ENV['DEPLOY_USER'],
-      vhost_dir: ENV['VHOST_DIR'],
-      vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
-      site: ENV.fetch('SITE') { 'foi' },
-      cpus: ENV.fetch('CPUS') { '1' },
-      rails_env: ENV.fetch('RAILS_ENV') { 'development' },
-      ruby_version: ENV.fetch('RUBY_VERSION') { '' },
-      use_rbenv?: ENV['USE_RBENV'] == 'true'
-    }
-
     # Use the filename for the $daemon_name ugly variable
     daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.example')
-    replacements.update(daemon_name: "#{ replacements[:site] }-#{ daemon_name }")
+    replacements = default_replacements.merge(
+      daemon_name: "#{default_replacements[:site]}-#{daemon_name}"
+    )
 
-    # Generate the template for potential further processing
     converted = convert_erb(ENV['SCRIPT_FILE'], **replacements)
 
     # uncomment RAILS_ENV in to the generated template if its not set by the
@@ -113,18 +112,9 @@ namespace :config_files do
               'RUBY_VERSION=3.0.4 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR VCSPATH SITE CRONTAB], example)
-    replacements = {
-      user: ENV['DEPLOY_USER'],
-      vhost_dir: ENV['VHOST_DIR'],
-      vcspath: ENV['VCSPATH'],
-      site: ENV['SITE'],
-      mailto: ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
-      ruby_version: ENV.fetch('RUBY_VERSION') { '' },
-      use_rbenv?: ENV['USE_RBENV'] == 'true'
-    }
 
     lines = []
-    convert_erb(ENV['CRONTAB'], **replacements).each do |line|
+    convert_erb(ENV['CRONTAB'], **default_replacements).each do |line|
       lines << line
     end
 
@@ -138,17 +128,7 @@ namespace :config_files do
     example = 'rake config_files:convert_script SCRIPT_FILE=config/run-with-rbenv-path.example'
     check_for_env_vars(['SCRIPT_FILE'], example)
 
-    replacements = {
-      user: ENV.fetch('DEPLOY_USER') { 'alaveteli' },
-      vhost_dir: ENV.fetch('VHOST_DIR') { '/var/www/alaveteli' },
-      vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
-      site: ENV.fetch('SITE') { 'foi' },
-      cpus: ENV.fetch('CPUS') { '1' },
-      rails_env: ENV.fetch('RAILS_ENV') { 'development' }
-    }
-
-    # Generate the template for potential further processing
-    converted = convert_erb(ENV['SCRIPT_FILE'], **replacements)
+    converted = convert_erb(ENV['SCRIPT_FILE'], **default_replacements)
 
     # uncomment RAILS_ENV in to the generated template if its not set by the
     # hard coded config file
