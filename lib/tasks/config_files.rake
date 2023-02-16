@@ -122,7 +122,7 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
               'SITE=alaveteli CRONTAB=config/crontab-example ' \
               'MAILTO=cron-alaveteli@example.org ' \
-              'RUBY_VERSION=3.0.4 '
+              'RUBY_VERSION=3.0.4 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR VCSPATH SITE CRONTAB], example)
     replacements = {
@@ -199,7 +199,7 @@ namespace :config_files do
   desc 'Set reject_incoming_at_mta on a list of requests identified by ' \
        'request address'
   task set_reject_incoming_at_mta_from_list: :environment do
-    example = 'rake temp:set_reject_incoming_at_mta_from_list ' \
+    example = 'rake config_files:set_reject_incoming_at_mta_from_list ' \
               'FILE=/tmp/rejection_list.txt'
 
     check_for_env_vars(['FILE'], example)
