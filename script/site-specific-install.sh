@@ -213,7 +213,7 @@ su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUB
 echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
 
 
-RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:get_config_value KEY=PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
+RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bin/config PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
 if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
 
   # Install dovecot
