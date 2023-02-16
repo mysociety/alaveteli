@@ -42,19 +42,23 @@ namespace :config_files do
   def daemons
     [
       {
+        path: '/etc/init.d',
         name: 'thin',
         template: 'config/sysvinit-thin.example',
         condition: -> { ENV['RAILS_ENV'] == 'production' }
       },
       {
+        path: '/etc/init.d',
         name: 'alert-tracks',
         template: 'config/alert-tracks-debian.example'
       },
       {
+        path: '/etc/init.d',
         name: 'send-notifications',
         template: 'config/send-notifications-debian.example'
       },
       {
+        path: '/etc/init.d',
         name: 'poll-for-incoming',
         template: 'config/poll-for-incoming-debian.example',
         condition: -> do
@@ -65,16 +69,24 @@ namespace :config_files do
   end
 
   desc 'Return list of daemons to install based on the settings defined
-        in general.yml'
+        in general.yml for a given path'
   task active_daemons: :environment do
+    example = 'rake config_files:active_daemons PATH=/etc/init.d'
+    check_for_env_vars(['PATH'], example)
+
     puts daemons.
+      select { |d| d[:path] == ENV['PATH'] }.
       select { |d| d.fetch(:condition, -> { true }).call }.
       map { |d| d[:name] }
   end
 
-  desc 'Return list of all daemons the application defines'
+  desc 'Return list of all daemons the application defines for a given path'
   task all_daemons: :environment do
+    example = 'rake config_files:all_daemons PATH=/etc/init.d'
+    check_for_env_vars(['PATH'], example)
+
     puts daemons.
+      select { |d| d[:path] == ENV['PATH'] }.
       map { |d| d[:name] }
   end
 

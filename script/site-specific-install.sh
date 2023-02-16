@@ -27,20 +27,28 @@ install_mailutils() {
 }
 
 clear_daemon() {
-  echo -n "Removing /etc/init.d/$SITE-$1... "
-  rm -f "/etc/init.d/$SITE-$1"
+  path=$1
+  if [ $path = "/etc/init.d" ]; then name="$SITE-$2"; fi
+  if [ $path = "/etc/systemd/system" ]; then name="$SITE.$2"; fi
+
+  echo -n "Removing $path/$name... "
+  rm -f "$path/$name"
   echo $DONE_MSG
 }
 
 install_daemon() {
-  echo -n "Creating /etc/init.d/$SITE-$1... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_daemon DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' RAILS_ENV_DEFINED='$RAILS_ENV_DEFINED' DAEMON=$1" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
-  chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
-  chmod 754 /etc/init.d/"$SITE-$1"
+  path=$1
+  if [ $path = "/etc/init.d" ]; then name="$SITE-$2"; fi
+  if [ $path = "/etc/systemd/system" ]; then name="$SITE.$2"; fi
+
+  echo -n "Creating $path/$name... "
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_daemon DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' RAILS_ENV_DEFINED='$RAILS_ENV_DEFINED' DAEMON=$2" "$UNIX_USER") > $path/$name
+  chgrp "$UNIX_USER" $path/$name
+  chmod 754 $path/$name
 
   if which systemctl > /dev/null
   then
-    systemctl enable "$SITE-$1"
+    systemctl enable "$name"
   fi
 
   echo $DONE_MSG
@@ -300,20 +308,22 @@ then
   echo $DONE_MSG
 fi
 
-# Clear existing daemons
-all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons" "$UNIX_USER")
-echo "Clearing any existing daemons"
-for daemon in $all_daemons
-do
-  clear_daemon $daemon
-done
+for path in "/etc/init.d" "/etc/systemd/system"; do
+  # Clear existing daemons
+  all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons PATH='$path'" "$UNIX_USER")
+  echo "Clearing any existing $path daemons"
+  for daemon in $all_daemons
+  do
+    clear_daemon $path $daemon
+  done
 
-# Install required daemons
-active_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:active_daemons" "$UNIX_USER")
-echo "Creating daemons for active daemons"
-for daemon in $active_daemons
-do
-  install_daemon $daemon
+  # Install required daemons
+  active_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:active_daemons PATH='$path'" "$UNIX_USER")
+  echo "Creating daemons for active $path daemons"
+  for daemon in $active_daemons
+  do
+    install_daemon $path $daemon
+  done
 done
 
 if which systemctl > /dev/null
