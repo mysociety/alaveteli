@@ -34,7 +34,8 @@ namespace :config_files do
       user: ENV.fetch('DEPLOY_USER') { 'alaveteli' },
       vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
       vhost_dir: ENV.fetch('VHOST_DIR') { '/var/www/alaveteli' },
-      use_rbenv?: ENV.fetch('USE_RBENV', 'false') == 'true'
+      use_rbenv?: ENV.fetch('USE_RBENV', 'false') == 'true',
+      rails_env_defined?: ENV['RAILS_ENV_DEFINED'] == 'true'
     }
   end
 
@@ -88,15 +89,6 @@ namespace :config_files do
 
     converted = convert_erb(ENV['SCRIPT_FILE'], **replacements)
 
-    # uncomment RAILS_ENV in to the generated template if its not set by the
-    # hard coded config file
-    unless File.exist?("#{ Rails.root }/config/rails_env.rb")
-      converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
-        line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
-      end
-    end
-
     converted.each do |line|
       puts line
     end
@@ -129,15 +121,6 @@ namespace :config_files do
     check_for_env_vars(['SCRIPT_FILE'], example)
 
     converted = convert_erb(ENV['SCRIPT_FILE'], **default_replacements)
-
-    # uncomment RAILS_ENV in to the generated template if its not set by the
-    # hard coded config file
-    unless File.exist?("#{ Rails.root }/config/rails_env.rb")
-      converted.each do |line|
-        line.gsub!(/^#\s*RAILS_ENV=/, "RAILS_ENV=")
-        line.gsub!(/^#\s*export RAILS_ENV/, "export RAILS_ENV")
-      end
-    end
 
     converted.each do |line|
       puts line
