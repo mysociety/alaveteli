@@ -20,6 +20,15 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequestEvent do
+  describe 'event_type scopes' do
+    described_class::EVENT_TYPES.each do |event_type|
+      it "for '#{event_type}' events" do
+        expect(described_class.public_send("#{event_type}_events").to_sql).
+          to eq(described_class.where(event_type: event_type).to_sql)
+      end
+    end
+  end
+
   describe "when checking for a valid state" do
     it 'should add an error message for described_state if it is not valid' do
       ire = InfoRequestEvent.new(described_state: 'nope')
