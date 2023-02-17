@@ -20,7 +20,7 @@ RSpec.describe "When creating requests" do
     # Now log in as an admin user, then follow the confirmation link in the
     # email that was sent to the unconfirmed user
     using_session(admin_user_session) do
-      visit confirm_path(:email_token => post_redirect.email_token)
+      visit confirm_path(email_token: post_redirect.email_token)
 
       expect(current_url).to match(%r(/request/(.+)))
       current_url =~ %r(/request/(.+))
@@ -45,7 +45,7 @@ RSpec.describe "When creating requests" do
 
     it 'does not HTML escape the apostrophe in the request form' do
       using_session(user_session) do
-        visit show_public_body_path(:url_name => public_body.url_name)
+        visit show_public_body_path(url_name: public_body.url_name)
         click_link('Make a Freedom of Information request to this authority')
 
         expect(page).not_to have_content "Test&#39;s Authority"
@@ -55,7 +55,7 @@ RSpec.describe "When creating requests" do
 
     it 'appends the user name' do
       using_session(user_session) do
-        visit show_public_body_path(:url_name => public_body.url_name)
+        visit show_public_body_path(url_name: public_body.url_name)
         click_link('Make a Freedom of Information request to this authority')
 
         expect(page.source).
@@ -66,7 +66,7 @@ RSpec.describe "When creating requests" do
     it 'handles other special characters correctly' do
       public_body.update_attribute(:name, 'Test ("special" chars)')
       using_session(user_session) do
-        visit show_public_body_path(:url_name => public_body.url_name)
+        visit show_public_body_path(url_name: public_body.url_name)
         click_link('Make a Freedom of Information request to this authority')
 
         expect(page).to have_content 'Dear Test ("special" chars)'
@@ -76,9 +76,9 @@ RSpec.describe "When creating requests" do
     it 'does not render authority name HTML on the preview page' do
       public_body.update_attribute(:name, "Test's <sup>html</sup> authority")
       using_session(user_session) do
-        visit show_public_body_path(:url_name => public_body.url_name)
+        visit show_public_body_path(url_name: public_body.url_name)
         click_link('Make a Freedom of Information request to this authority')
-        fill_in 'Summary', :with => "HTML test"
+        fill_in 'Summary', with: "HTML test"
         find_button('Next Step: Preview your public request').click
 
         expect(page).to have_content("Dear Test's <sup>html</sup> authority")

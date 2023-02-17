@@ -12,7 +12,7 @@ RSpec.describe 'when handling incoming mail' do
     mail = deliveries[0]
     expect(mail.to).to eq([info_request.user.email])
     expect(mail.body).to match(/You have a new response to the Freedom of Information request/)
-    visit show_request_path :url_title => info_request.url_title
+    visit show_request_path url_title: info_request.url_title
     expect(page).to have_content("No way!")
   end
 
@@ -20,20 +20,20 @@ RSpec.describe 'when handling incoming mail' do
     receive_incoming_mail('incoming-request-two-same-name.email',
                           info_request.incoming_email)
     visit get_attachment_path(
-      :incoming_message_id => info_request.incoming_messages.first.id,
-      :id => info_request.id,
-      :part => 2,
-      :file_name => 'hello world.txt',
-      :skip_cache => 1)
+      incoming_message_id: info_request.incoming_messages.first.id,
+      id: info_request.id,
+      part: 2,
+      file_name: 'hello world.txt',
+      skip_cache: 1)
     expect(page.response_headers['Content-Type']).to eq("text/plain; charset=utf-8")
     expect(page).to have_content "Second hello"
 
     visit get_attachment_path(
-     :incoming_message_id => info_request.incoming_messages.first.id,
-     :id => info_request.id,
-     :part => 3,
-     :file_name => 'hello world.txt',
-     :skip_cache => 1)
+     incoming_message_id: info_request.incoming_messages.first.id,
+     id: info_request.id,
+     part: 3,
+     file_name: 'hello world.txt',
+     skip_cache: 1)
     expect(page.response_headers['Content-Type']).to eq("text/plain; charset=utf-8")
     expect(page).to have_content "First hello"
   end
@@ -41,7 +41,7 @@ RSpec.describe 'when handling incoming mail' do
   it "converts message body to UTF8" do
     receive_incoming_mail('iso8859_2_raw_email.email',
                           info_request.incoming_email)
-    visit show_request_path :url_title => info_request.url_title
+    visit show_request_path url_title: info_request.url_title
     expect(page).to have_content "tënde"
   end
 
@@ -49,11 +49,11 @@ RSpec.describe 'when handling incoming mail' do
     receive_incoming_mail('incoming-request-two-same-name.email',
                           info_request.incoming_email)
     visit get_attachment_as_html_path(
-      :incoming_message_id => info_request.incoming_messages.first.id,
-      :id => info_request.id,
-      :part => 2,
-      :file_name => 'hello world.txt.html',
-      :skip_cache => 1)
+      incoming_message_id: info_request.incoming_messages.first.id,
+      id: info_request.id,
+      part: 2,
+      file_name: 'hello world.txt.html',
+      skip_cache: 1)
     expect(page.response_headers['Content-Type']).to eq("text/html; charset=utf-8")
     expect(page).to have_content "Second hello"
   end
@@ -62,11 +62,11 @@ RSpec.describe 'when handling incoming mail' do
     receive_incoming_mail('incoming-request-pdf-attachment.email',
                           info_request.incoming_email)
     visit get_attachment_as_html_path(
-      :incoming_message_id => info_request.incoming_messages.first.id,
-      :id => info_request.id,
-      :part => 2,
-      :file_name => 'fs 50379341.pdf.html',
-      :skip_cache => 1)
+      incoming_message_id: info_request.incoming_messages.first.id,
+      id: info_request.id,
+      part: 2,
+      file_name: 'fs 50379341.pdf.html',
+      skip_cache: 1)
     expect(page.response_headers['Content-Type']).to eq("text/html; charset=utf-8")
     expect(page).to have_content "Walberswick Parish Council"
   end
@@ -90,11 +90,11 @@ RSpec.describe 'when handling incoming mail' do
     # asking for an attachment by the wrong filename should result in redirecting
     # back to the incoming message, but shouldn't cause a reparse:
     visit get_attachment_as_html_path(
-      :incoming_message_id => incoming_message.id,
-      :id => info_request.id,
-      :part => 2,
-      :file_name => 'hello world.txt.baz.html',
-      :skip_cache => 1
+      incoming_message_id: incoming_message.id,
+      id: info_request.id,
+      part: 2,
+      file_name: 'hello world.txt.baz.html',
+      skip_cache: 1
     )
 
     attachment = IncomingMessage.
@@ -107,11 +107,11 @@ RSpec.describe 'when handling incoming mail' do
 
     # ...nor should asking for it by its correct filename...
     visit get_attachment_as_html_path(
-      :incoming_message_id => incoming_message.id,
-      :id => info_request.id,
-      :part => 2,
-      :file_name => 'hello world.txt.html',
-      :skip_cache => 1
+      incoming_message_id: incoming_message.id,
+      id: info_request.id,
+      part: 2,
+      file_name: 'hello world.txt.html',
+      skip_cache: 1
     )
     expect(page).not_to have_content "Third hello"
 
@@ -126,11 +126,11 @@ RSpec.describe 'when handling incoming mail' do
                    )
     expect(attachment.body).to match "Third hello"
     visit get_attachment_as_html_path(
-      :incoming_message_id => incoming_message.id,
-      :id => info_request.id,
-      :part => 2,
-      :file_name => 'hello world.txt.html',
-      :skip_cache => 1
+      incoming_message_id: incoming_message.id,
+      id: info_request.id,
+      part: 2,
+      file_name: 'hello world.txt.html',
+      skip_cache: 1
     )
     expect(page).to have_content "Third hello"
   end
@@ -139,11 +139,11 @@ RSpec.describe 'when handling incoming mail' do
     receive_incoming_mail('incoming-request-attachment-unknown-extension.email',
                           info_request.incoming_email)
     visit get_attachment_path(
-      :incoming_message_id => info_request.incoming_messages.first.id,
-      :id => info_request.id,
-      :part => 2,
-      :file_name => 'hello.qwglhm',
-      :skip_cache => 1
+      incoming_message_id: info_request.incoming_messages.first.id,
+      id: info_request.id,
+      part: 2,
+      file_name: 'hello.qwglhm',
+      skip_cache: 1
     )
     expect(page.response_headers['Content-Type']).to eq("application/octet-stream; charset=utf-8")
     expect(page).to have_content "an unusual sort of file"

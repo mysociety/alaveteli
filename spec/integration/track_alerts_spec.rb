@@ -14,7 +14,7 @@ RSpec.describe "When sending track alerts" do
   it "should send alerts" do
 
     info_request = FactoryBot.create(:info_request)
-    user = FactoryBot.create(:user, :last_daily_track_email => 3.days.ago)
+    user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
     user_session = login(user)
     using_session(user_session) do
       visit "track/request/#{info_request.url_title}"
@@ -24,7 +24,7 @@ RSpec.describe "When sending track alerts" do
     other_user_session = login(other_user)
     using_session(other_user_session) do
       visit "en/annotate/request/#{info_request.url_title}"
-      fill_in "comment[body]", :with => 'test comment'
+      fill_in "comment[body]", with: 'test comment'
       click_button 'Preview your annotation'
       click_button 'Post annotation'
     end
@@ -65,18 +65,18 @@ RSpec.describe "When sending track alerts" do
 
   it "should send localised alerts" do
     info_request = FactoryBot.create(:info_request)
-    user = FactoryBot.create(:user, :last_daily_track_email => 3.days.ago,
-                                     :locale => 'es')
+    user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago,
+                                     locale: 'es')
     user_session = login(user)
     using_session(user_session) do
       visit "es/track/request/#{info_request.url_title}"
     end
 
-    other_user = FactoryBot.create(:user, :locale => 'en')
+    other_user = FactoryBot.create(:user, locale: 'en')
     other_user_session = login(other_user)
     using_session(other_user_session) do
       visit "annotate/request/#{info_request.url_title}"
-      fill_in "comment[body]", :with => 'test comment'
+      fill_in "comment[body]", with: 'test comment'
       click_button 'Preview your annotation'
       click_button 'Post annotation'
     end
