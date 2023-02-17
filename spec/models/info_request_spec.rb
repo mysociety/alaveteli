@@ -160,31 +160,31 @@ RSpec.describe InfoRequest do
   describe 'creating a new request' do
 
     it "sets the url_title from the supplied title" do
-      info_request = FactoryBot.create(:info_request, :title => "Test title")
+      info_request = FactoryBot.create(:info_request, title: "Test title")
       expect(info_request.url_title).to eq("test_title")
     end
 
     it "ignores any supplied url_title and sets it from the title instead" do
-      info_request = FactoryBot.create(:info_request, :title => "Real title",
-                                                      :url_title => "ignore_me")
+      info_request = FactoryBot.create(:info_request, title: "Real title",
+                                                      url_title: "ignore_me")
       expect(info_request.url_title).to eq("real_title")
     end
 
     it "adds the next sequential number to the url_title to make it unique" do
-      2.times { FactoryBot.create(:info_request, :title => 'Test title') }
-      info_request = InfoRequest.new(:title => "Test title")
+      2.times { FactoryBot.create(:info_request, title: 'Test title') }
+      info_request = InfoRequest.new(title: "Test title")
       expect(info_request.url_title).to eq("test_title_3")
     end
 
     it "strips line breaks from the title" do
       info_request = FactoryBot.create(:info_request,
-                                       :title => "Title\rwith\nline\r\nbreaks")
+                                       title: "Title\rwith\nline\r\nbreaks")
       expect(info_request.title).to eq("Title with line breaks")
     end
 
     it "strips extra spaces from the title" do
       info_request = FactoryBot.create(:info_request,
-                                       :title => "Title\rwith\nline\r\n breaks")
+                                       title: "Title\rwith\nline\r\n breaks")
       expect(info_request.title).to eq("Title with line breaks")
     end
 
@@ -195,10 +195,10 @@ RSpec.describe InfoRequest do
       it "picks the next available url_title instead of failing" do
         public_body = FactoryBot.create(:public_body)
         user = FactoryBot.create(:user)
-        first_request = InfoRequest.new(:title => "Test title",
-                                        :user => user,
-                                        :public_body => public_body)
-        second_request = FactoryBot.create(:info_request, :title => "Test title")
+        first_request = InfoRequest.new(title: "Test title",
+                                        user: user,
+                                        public_body: public_body)
+        second_request = FactoryBot.create(:info_request, title: "Test title")
         first_request.save!
         expect(first_request.url_title).to eq("test_title_2")
       end
@@ -307,7 +307,7 @@ RSpec.describe InfoRequest do
     context 'when the holding pen exists' do
 
       it 'finds a request with title "Holding pen"' do
-        holding_pen = FactoryBot.create(:info_request, :title => 'Holding pen')
+        holding_pen = FactoryBot.create(:info_request, title: 'Holding pen')
         expect(InfoRequest.holding_pen_request).to eq(holding_pen)
       end
 
@@ -316,7 +316,7 @@ RSpec.describe InfoRequest do
     context 'when no holding pen exists' do
 
       before do
-        InfoRequest.where(:title => 'Holding pen').destroy_all
+        InfoRequest.where(title: 'Holding pen').destroy_all
         @holding_pen = InfoRequest.holding_pen_request
       end
 
@@ -353,16 +353,16 @@ RSpec.describe InfoRequest do
 
     before do
       @request = FactoryBot.create(:info_request)
-      @request.update(:updated_at => 6.months.ago,
-                      :rejected_incoming_count => 3,
-                      :allow_new_responses_from => 'nobody')
-      @options = {:rejection_threshold => 2,
-                  :age_in_months => 5,
-                  :dryrun => true}
+      @request.update(updated_at: 6.months.ago,
+                      rejected_incoming_count: 3,
+                      allow_new_responses_from: 'nobody')
+      @options = {rejection_threshold: 2,
+                  age_in_months: 5,
+                  dryrun: true}
     end
 
     it 'returns an count of requests updated ' do
-      expect(InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))).
+      expect(InfoRequest.reject_incoming_at_mta(@options.merge(dryrun: false))).
         to eq(1)
     end
 
@@ -372,14 +372,14 @@ RSpec.describe InfoRequest do
     end
 
     it 'sets reject_incoming_at_mta on a request meeting the criteria passed' do
-      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false))
+      InfoRequest.reject_incoming_at_mta(@options.merge(dryrun: false))
       expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be true
     end
 
     it 'does not set reject_incoming_at_mta on a request not meeting the
         criteria passed' do
-      InfoRequest.reject_incoming_at_mta(@options.merge(:dryrun => false,
-                                                        :age_in_months => 7))
+      InfoRequest.reject_incoming_at_mta(@options.merge(dryrun: false,
+                                                        age_in_months: 7))
       expect(InfoRequest.find(@request.id).reject_incoming_at_mta).to be false
     end
 
@@ -507,7 +507,7 @@ RSpec.describe InfoRequest do
 
     it 'does not mark requests marked as withdrawn as awaiting description' do
       info_request = FactoryBot.create(:info_request,
-                                       :awaiting_description => false)
+                                       awaiting_description: false)
       info_request.described_state = "user_withdrawn"
       info_request.save!
       email, raw_email = email_and_raw_email
@@ -531,7 +531,7 @@ RSpec.describe InfoRequest do
       info_request.
         receive(email,
                 raw_email,
-                :rejected_reason => 'rejected for testing')
+                rejected_reason: 'rejected for testing')
       expect(info_request.info_request_events.last.params[:rejected_reason]).
         to eq('rejected for testing')
     end
@@ -610,7 +610,7 @@ RSpec.describe InfoRequest do
         it 'processes mail from the poller' do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
-            info_request.receive(email, raw_email, :source => :poller)
+            info_request.receive(email, raw_email, source: :poller)
             expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
@@ -619,7 +619,7 @@ RSpec.describe InfoRequest do
         it 'processes mail from mailin' do
           with_feature_enabled(:accept_mail_from_anywhere) do
             email, raw_email = email_and_raw_email
-            info_request.receive(email, raw_email, :source => :poller)
+            info_request.receive(email, raw_email, source: :poller)
             expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
@@ -643,14 +643,14 @@ RSpec.describe InfoRequest do
 
           it 'processes mail from the poller' do
             email, raw_email = email_and_raw_email
-            info_request.receive(email, raw_email, :source => :poller)
+            info_request.receive(email, raw_email, source: :poller)
             expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
 
           it 'ignores mail from mailin' do
             email, raw_email = email_and_raw_email
-            info_request.receive(email, raw_email, :source => :mailin)
+            info_request.receive(email, raw_email, source: :mailin)
             expect(info_request.incoming_messages.count).to eq(0)
           end
 
@@ -661,13 +661,13 @@ RSpec.describe InfoRequest do
 
           it 'ignores mail from the poller' do
             email, raw_email = email_and_raw_email
-            info_request.receive(email, raw_email, :source => :poller)
+            info_request.receive(email, raw_email, source: :poller)
             expect(info_request.incoming_messages.count).to eq(0)
           end
 
           it 'processes mail from mailin' do
             email, raw_email = email_and_raw_email
-            info_request.receive(email, raw_email, :source => :mailin)
+            info_request.receive(email, raw_email, source: :mailin)
             expect(info_request.incoming_messages.count).to eq(1)
             expect(info_request.incoming_messages.last).to be_persisted
           end
@@ -681,8 +681,8 @@ RSpec.describe InfoRequest do
       it 'from nobody' do
         travel_to(5.days.ago)
 
-        attrs = { :allow_new_responses_from => 'nobody',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'nobody',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
         travel_back
@@ -704,8 +704,8 @@ RSpec.describe InfoRequest do
       end
 
       it 'from anybody' do
-        attrs = { :allow_new_responses_from => 'anybody',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'anybody',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
@@ -713,10 +713,10 @@ RSpec.describe InfoRequest do
       end
 
       it 'from authority_only receives if the mail is from the authority' do
-        attrs = { :allow_new_responses_from => 'authority_only',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'authority_only',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request_with_incoming, attrs)
-        email, raw_email = email_and_raw_email(:from => 'bob@example.com')
+        email, raw_email = email_and_raw_email(from: 'bob@example.com')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.count).to eq(2)
       end
@@ -724,14 +724,14 @@ RSpec.describe InfoRequest do
       it 'from authority_only rejects if there is no from address' do
         travel_to(5.days.ago)
 
-        attrs = { :allow_new_responses_from => 'authority_only',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'authority_only',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
         travel_back
 
         updated_at = info_request.updated_at
-        email, raw_email = email_and_raw_email(:from => '')
+        email, raw_email = email_and_raw_email(from: '')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
@@ -748,14 +748,14 @@ RSpec.describe InfoRequest do
       it 'from authority_only rejects if the mail is not from the authority' do
         travel_to(5.days.ago)
 
-        attrs = { :allow_new_responses_from => 'authority_only',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'authority_only',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
 
         travel_back
 
         updated_at = info_request.updated_at
-        email, raw_email = email_and_raw_email(:from => 'spam@example.net')
+        email, raw_email = email_and_raw_email(from: 'spam@example.net')
         info_request.receive(email, raw_email)
         expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
@@ -779,21 +779,21 @@ RSpec.describe InfoRequest do
       end
 
       it 'can override the stop new responses status of a request' do
-        attrs = { :allow_new_responses_from => 'nobody',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'nobody',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email,
                              raw_email,
-                             :override_stop_new_responses => true)
+                             override_stop_new_responses: true)
         expect(info_request.incoming_messages.count).to eq(1)
       end
 
       it 'does not check spam when overriding the stop new responses status of a request' do
         mocked_default_config = {
-          :spam_action => 'holding_pen',
-          :spam_header => 'X-Spam-Score',
-          :spam_threshold => 100
+          spam_action: 'holding_pen',
+          spam_header: 'X-Spam-Score',
+          spam_threshold: 100
         }
 
         const = 'InfoRequest::' \
@@ -810,13 +810,13 @@ RSpec.describe InfoRequest do
         Plz buy my spam
         EOF
 
-        attrs = { :allow_new_responses_from => 'nobody',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'nobody',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
-        email, raw_email = email_and_raw_email(:raw_email => spam_email)
+        email, raw_email = email_and_raw_email(raw_email: spam_email)
         info_request.receive(email,
                              raw_email,
-                             :override_stop_new_responses => true)
+                             override_stop_new_responses: true)
         expect(info_request.incoming_messages.count).to eq(1)
       end
 
@@ -825,10 +825,10 @@ RSpec.describe InfoRequest do
     context 'handling rejected responses' do
 
       it 'bounces rejected responses if the mail has a from address' do
-        attrs = { :allow_new_responses_from => 'nobody',
-                  :handle_rejected_responses => 'bounce' }
+        attrs = { allow_new_responses_from: 'nobody',
+                  handle_rejected_responses: 'bounce' }
         info_request = FactoryBot.create(:info_request, attrs)
-        email, raw_email = email_and_raw_email(:from => 'bounce@example.com')
+        email, raw_email = email_and_raw_email(from: 'bounce@example.com')
         info_request.receive(email, raw_email)
         bounce = ActionMailer::Base.deliveries.first
         expect(bounce.to).to include('bounce@example.com')
@@ -837,25 +837,25 @@ RSpec.describe InfoRequest do
 
       it 'does not bounce responses to external requests' do
         info_request = FactoryBot.create(:external_request)
-        email, raw_email = email_and_raw_email(:from => 'bounce@example.com')
+        email, raw_email = email_and_raw_email(from: 'bounce@example.com')
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
         ActionMailer::Base.deliveries.clear
       end
 
       it 'discards rejected responses if the mail has no from address' do
-        attrs = { :allow_new_responses_from => 'nobody',
-                  :handle_rejected_responses => 'bounce' }
+        attrs = { allow_new_responses_from: 'nobody',
+                  handle_rejected_responses: 'bounce' }
         info_request = FactoryBot.create(:info_request, attrs)
-        email, raw_email = email_and_raw_email(:from => '')
+        email, raw_email = email_and_raw_email(from: '')
         info_request.receive(email, raw_email)
         expect(ActionMailer::Base.deliveries).to be_empty
         ActionMailer::Base.deliveries.clear
       end
 
       it 'sends rejected responses to the holding pen' do
-        attrs = { :allow_new_responses_from => 'nobody',
-                  :handle_rejected_responses => 'holding_pen' }
+        attrs = { allow_new_responses_from: 'nobody',
+                  handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
@@ -867,8 +867,8 @@ RSpec.describe InfoRequest do
       end
 
       it 'discards rejected responses' do
-        attrs = { :allow_new_responses_from => 'nobody',
-                  :handle_rejected_responses => 'blackhole' }
+        attrs = { allow_new_responses_from: 'nobody',
+                  handle_rejected_responses: 'blackhole' }
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
@@ -878,7 +878,7 @@ RSpec.describe InfoRequest do
       end
 
       it 'raises an error if there is an unknown handle_rejected_responses' do
-        attrs = { :allow_new_responses_from => 'nobody' }
+        attrs = { allow_new_responses_from: 'nobody' }
         info_request = FactoryBot.create(:info_request, attrs)
         info_request.update_attribute(:handle_rejected_responses, 'unknown_value')
         email, raw_email = email_and_raw_email
@@ -891,8 +891,8 @@ RSpec.describe InfoRequest do
 
     it "uses instance-specific spam handling first" do
       info_request = FactoryBot.create(:info_request)
-      info_request.update!(:handle_rejected_responses => 'bounce',
-                           :allow_new_responses_from => 'nobody')
+      info_request.update!(handle_rejected_responses: 'bounce',
+                           allow_new_responses_from: 'nobody')
       allow(AlaveteliConfiguration).
         to receive(:incoming_email_spam_action).and_return('holding_pen')
       allow(AlaveteliConfiguration).
@@ -917,9 +917,9 @@ RSpec.describe InfoRequest do
       info_request = FactoryBot.create(:info_request)
 
       mocked_default_config = {
-        :spam_action => 'holding_pen',
-        :spam_header => 'X-Spam-Score',
-        :spam_threshold => 100
+        spam_action: 'holding_pen',
+        spam_header: 'X-Spam-Score',
+        spam_threshold: 100
       }
 
       const = 'InfoRequest::' \
@@ -946,9 +946,9 @@ RSpec.describe InfoRequest do
       info_request = FactoryBot.create(:info_request)
 
       mocked_default_config = {
-        :spam_action => 'discard',
-        :spam_header => 'X-Spam-Score',
-        :spam_threshold => 10
+        spam_action: 'discard',
+        spam_header: 'X-Spam-Score',
+        spam_threshold: 10
       }
 
       const = 'InfoRequest::' \
@@ -1022,14 +1022,14 @@ RSpec.describe InfoRequest do
   end
 
   describe "#url_title" do
-    let(:request) { FactoryBot.create(:info_request, :title => "Test 101") }
+    let(:request) { FactoryBot.create(:info_request, title: "Test 101") }
 
     it "returns the url_title" do
       expect(request.url_title).to eq('test_101')
     end
 
     it "collapses the url title if requested" do
-      expect(request.url_title(:collapse => true)).to eq("test")
+      expect(request.url_title(collapse: true)).to eq("test")
     end
   end
 
@@ -1053,7 +1053,7 @@ RSpec.describe InfoRequest do
         request = FactoryBot.create(:info_request)
         new_body = FactoryBot.create(:public_body)
         editor = FactoryBot.create(:user)
-        request.move_to_public_body(new_body, :editor => editor)
+        request.move_to_public_body(new_body, editor: editor)
         request.reload
         expect(request.public_body).to eq(new_body)
       end
@@ -1063,7 +1063,7 @@ RSpec.describe InfoRequest do
         old_body = request.public_body
         new_body = FactoryBot.create(:public_body)
         editor = FactoryBot.create(:user)
-        request.move_to_public_body(new_body, :editor => editor)
+        request.move_to_public_body(new_body, editor: editor)
         request.reload
         event = request.info_request_events.last
 
@@ -1089,14 +1089,14 @@ RSpec.describe InfoRequest do
         request = FactoryBot.create(:info_request)
         new_body = FactoryBot.create(:public_body)
         editor = FactoryBot.create(:user)
-        expect(request.move_to_public_body(new_body, :editor => editor)).to eq(new_body)
+        expect(request.move_to_public_body(new_body, editor: editor)).to eq(new_body)
       end
 
       it 'retains the existing body if the new body does not exist' do
         request = FactoryBot.create(:info_request)
         editor = FactoryBot.create(:user)
         existing_body = request.public_body
-        request.move_to_public_body(nil, :editor => editor)
+        request.move_to_public_body(nil, editor: editor)
         request.reload
         expect(request.public_body).to eq(existing_body)
       end
@@ -1106,7 +1106,7 @@ RSpec.describe InfoRequest do
         new_body = FactoryBot.build(:public_body)
         editor = FactoryBot.create(:user)
         existing_body = request.public_body
-        request.move_to_public_body(new_body, :editor => editor)
+        request.move_to_public_body(new_body, editor: editor)
         request.reload
         expect(request.public_body).to eq(existing_body)
       end
@@ -1114,7 +1114,7 @@ RSpec.describe InfoRequest do
       it 'returns nil if the body cannot be updated' do
         request = FactoryBot.create(:info_request)
         editor = FactoryBot.create(:user)
-        expect(request.move_to_public_body(nil, :editor => editor)).to eq(nil)
+        expect(request.move_to_public_body(nil, editor: editor)).to eq(nil)
       end
 
       it 'reindexes the info request' do
@@ -1122,14 +1122,14 @@ RSpec.describe InfoRequest do
         new_body = FactoryBot.create(:public_body)
         editor = FactoryBot.create(:user)
         reindex_job = ActsAsXapian::ActsAsXapianJob.
-          where(:model => 'InfoRequestEvent').
+          where(model: 'InfoRequestEvent').
           delete_all
 
-        request.move_to_public_body(new_body, :editor => editor)
+        request.move_to_public_body(new_body, editor: editor)
         request.reload
 
         reindex_job = ActsAsXapian::ActsAsXapianJob.
-          where(:model => 'InfoRequestEvent').
+          where(model: 'InfoRequestEvent').
           last
         expect(reindex_job.model_id).to eq(request.info_request_events.last.id)
       end
@@ -1142,65 +1142,65 @@ RSpec.describe InfoRequest do
         let(:editor) { FactoryBot.create(:user) }
 
         it "increments the new authority's info_requests_count " do
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { new_body.reload.info_requests_count }.from(0).to(1)
         end
 
         it "decrements the old authority's info_requests_count " do
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { old_body.reload.info_requests_count }.from(1).to(0)
         end
 
         it "increments the new authority's info_requests_visible_count " do
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { new_body.reload.info_requests_visible_count }.
               from(0).to(1)
         end
 
         it "decrements the old authority's info_requests_visible_count " do
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { old_body.reload.info_requests_visible_count }.
               from(1).to(0)
         end
 
         it "increments the new authority's info_requests_successful_count " do
-          request.update!(:described_state => 'successful')
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          request.update!(described_state: 'successful')
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { new_body.reload.info_requests_successful_count }.
               from(nil).to(1)
         end
 
         it "decrements the old authority's info_requests_successful_count " do
-          request.update!(:described_state => 'successful')
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          request.update!(described_state: 'successful')
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { old_body.reload.info_requests_successful_count }.
               from(1).to(0)
         end
 
         it "increments the new authority's info_requests_not_held_count " do
-          request.update!(:described_state => 'not_held')
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          request.update!(described_state: 'not_held')
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { new_body.reload.info_requests_not_held_count }.
               from(nil).to(1)
         end
 
         it "decrements the old authority's info_requests_not_held_count " do
-          request.update!(:described_state => 'not_held')
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          request.update!(described_state: 'not_held')
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { old_body.reload.info_requests_not_held_count }.
               from(1).to(0)
         end
 
         it "increments the new authority's info_requests_visible_classified_count " do
-          request.update!(:awaiting_description => false)
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          request.update!(awaiting_description: false)
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { new_body.reload.info_requests_visible_classified_count }.
               from(nil).to(1)
         end
 
         it "decrements the old authority's info_requests_visible_classified_count " do
-          request.update!(:awaiting_description => false)
-          expect { request.move_to_public_body(new_body, :editor => editor) }.
+          request.update!(awaiting_description: false)
+          expect { request.move_to_public_body(new_body, editor: editor) }.
             to change { old_body.reload.info_requests_visible_classified_count }.
               from(1).to(0)
         end
@@ -1231,7 +1231,7 @@ RSpec.describe InfoRequest do
         request = FactoryBot.create(:info_request)
         new_user = FactoryBot.create(:user)
         editor = FactoryBot.create(:user)
-        request.move_to_user(new_user, :editor => editor)
+        request.move_to_user(new_user, editor: editor)
         request.reload
         expect(request.user).to eq(new_user)
       end
@@ -1241,7 +1241,7 @@ RSpec.describe InfoRequest do
         old_user = request.user
         new_user = FactoryBot.create(:user)
         editor = FactoryBot.create(:user)
-        request.move_to_user(new_user, :editor => editor)
+        request.move_to_user(new_user, editor: editor)
         request.reload
         event = request.info_request_events.last
 
@@ -1257,7 +1257,7 @@ RSpec.describe InfoRequest do
         request = FactoryBot.create(:info_request)
         new_user = FactoryBot.create(:user)
         editor = FactoryBot.create(:user)
-        expect(request.move_to_user(new_user, :editor => editor)).
+        expect(request.move_to_user(new_user, editor: editor)).
           to eq(new_user)
       end
 
@@ -1265,7 +1265,7 @@ RSpec.describe InfoRequest do
         request = FactoryBot.create(:info_request)
         editor = FactoryBot.create(:user)
         existing_user = request.user
-        request.move_to_user(nil, :editor => editor)
+        request.move_to_user(nil, editor: editor)
         request.reload
         expect(request.user).to eq(existing_user)
       end
@@ -1275,7 +1275,7 @@ RSpec.describe InfoRequest do
         new_user = FactoryBot.build(:user)
         editor = FactoryBot.create(:user)
         existing_user = request.user
-        request.move_to_user(new_user, :editor => editor)
+        request.move_to_user(new_user, editor: editor)
         request.reload
         expect(request.user).to eq(existing_user)
       end
@@ -1283,7 +1283,7 @@ RSpec.describe InfoRequest do
       it 'returns nil if the user cannot be updated' do
         request = FactoryBot.create(:info_request)
         editor = FactoryBot.create(:user)
-        expect(request.move_to_user(nil, :editor => editor)).to eq(nil)
+        expect(request.move_to_user(nil, editor: editor)).to eq(nil)
       end
 
       it 'reindexes the info request' do
@@ -1291,14 +1291,14 @@ RSpec.describe InfoRequest do
         new_user = FactoryBot.create(:user)
         editor = FactoryBot.create(:user)
         reindex_job = ActsAsXapian::ActsAsXapianJob.
-          where(:model => 'InfoRequestEvent').
+          where(model: 'InfoRequestEvent').
           delete_all
 
-        request.move_to_user(new_user, :editor => editor)
+        request.move_to_user(new_user, editor: editor)
         request.reload
 
         reindex_job = ActsAsXapian::ActsAsXapianJob.
-          where(:model => 'InfoRequestEvent').
+          where(model: 'InfoRequestEvent').
           last
         expect(reindex_job.model_id).to eq(request.info_request_events.last.id)
       end
@@ -1310,7 +1310,7 @@ RSpec.describe InfoRequest do
           new_user = FactoryBot.create(:user)
           editor = FactoryBot.create(:user)
 
-          expect { request.move_to_user(new_user, :editor => editor) }.
+          expect { request.move_to_user(new_user, editor: editor) }.
             to change { new_user.reload.info_requests_count }.from(0).to(1)
         end
 
@@ -1320,7 +1320,7 @@ RSpec.describe InfoRequest do
           new_user = FactoryBot.create(:user)
           editor = FactoryBot.create(:user)
 
-          expect { request.move_to_user(new_user, :editor => editor) }.
+          expect { request.move_to_user(new_user, editor: editor) }.
             to change { old_user.reload.info_requests_count }.from(1).to(0)
         end
 
@@ -1345,62 +1345,62 @@ RSpec.describe InfoRequest do
     end
 
     it 'destroys associated widget_votes' do
-      info_request.widget_votes.create(:cookie => 'x' * 20)
+      info_request.widget_votes.create(cookie: 'x' * 20)
       info_request.destroy
-      expect(WidgetVote.where(:info_request_id => info_request.id)).to be_empty
+      expect(WidgetVote.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated censor_rules' do
-      censor_rule = FactoryBot.create(:censor_rule, :info_request => info_request)
+      censor_rule = FactoryBot.create(:censor_rule, info_request: info_request)
       info_request.reload
       info_request.destroy
-      expect(CensorRule.where(:info_request_id => info_request.id)).to be_empty
+      expect(CensorRule.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated comments' do
-      comment = FactoryBot.create(:comment, :info_request => info_request)
+      comment = FactoryBot.create(:comment, info_request: info_request)
       info_request.reload
       info_request.destroy
-      expect(Comment.where(:info_request_id => info_request.id)).to be_empty
+      expect(Comment.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated info_request_events' do
       info_request.destroy
-      expect(InfoRequestEvent.where(:info_request_id => info_request.id)).to be_empty
+      expect(InfoRequestEvent.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated outgoing_messages' do
       info_request.destroy
-      expect(OutgoingMessage.where(:info_request_id => info_request.id)).to be_empty
+      expect(OutgoingMessage.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated incoming_messages' do
       ir_with_incoming = FactoryBot.create(:info_request_with_incoming)
       ir_with_incoming.destroy
-      expect(IncomingMessage.where(:info_request_id => ir_with_incoming.id)).to be_empty
+      expect(IncomingMessage.where(info_request_id: ir_with_incoming.id)).to be_empty
     end
 
     it 'destroys associated mail_server_logs' do
-      MailServerLog.create(:line => 'hi!', :order => 1, :info_request => info_request)
+      MailServerLog.create(line: 'hi!', order: 1, info_request: info_request)
       info_request.destroy
-      expect(MailServerLog.where(:info_request_id => info_request.id)).to be_empty
+      expect(MailServerLog.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated track_things' do
       FactoryBot.create(:request_update_track,
-                        :track_medium => 'email_daily',
-                        :info_request => info_request,
-                        :track_query => 'Example Query')
+                        track_medium: 'email_daily',
+                        info_request: info_request,
+                        track_query: 'Example Query')
       info_request.destroy
-      expect(TrackThing.where(:info_request_id => info_request.id)).to be_empty
+      expect(TrackThing.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated user_info_request_sent_alerts' do
-      UserInfoRequestSentAlert.create(:info_request => info_request,
-                                      :user => info_request.user,
-                                      :alert_type => 'comment_1')
+      UserInfoRequestSentAlert.create(info_request: info_request,
+                                      user: info_request.user,
+                                      alert_type: 'comment_1')
       info_request.destroy
-      expect(UserInfoRequestSentAlert.where(:info_request_id => info_request.id)).to be_empty
+      expect(UserInfoRequestSentAlert.where(info_request_id: info_request.id)).to be_empty
     end
 
     it 'destroys associated embargoes' do
@@ -1422,7 +1422,7 @@ RSpec.describe InfoRequest do
 
     it "does not clear the database caches if passed the preserve_database_cache option" do
       expect(info_request).not_to receive(:clear_in_database_caches!)
-      info_request.expire(:preserve_database_cache => true)
+      info_request.expire(preserve_database_cache: true)
     end
 
     it 'updates the search index' do
@@ -1514,12 +1514,12 @@ RSpec.describe InfoRequest do
   describe '#is_external?' do
 
     it 'returns true if there is an external url' do
-      info_request = InfoRequest.new(:external_url => "demo_url")
+      info_request = InfoRequest.new(external_url: "demo_url")
       expect(info_request.is_external?).to eq(true)
     end
 
     it 'returns false if there is not an external url' do
-      info_request = InfoRequest.new(:external_url => nil)
+      info_request = InfoRequest.new(external_url: nil)
       expect(info_request.is_external?).to eq(false)
     end
 
@@ -1542,7 +1542,7 @@ RSpec.describe InfoRequest do
 
     let(:message_without_reply_to) { FactoryBot.create(:incoming_message) }
     let(:valid_request) { FactoryBot.create(:info_request) }
-    let(:unfollowupable_body) { FactoryBot.create(:public_body, :request_email => "") }
+    let(:unfollowupable_body) { FactoryBot.create(:public_body, request_email: "") }
 
     context "it is possible to reply to the public body" do
 
@@ -1562,7 +1562,7 @@ RSpec.describe InfoRequest do
     context "the message has a valid reply address" do
 
       let(:request) do
-        FactoryBot.create(:info_request, :public_body => unfollowupable_body)
+        FactoryBot.create(:info_request, public_body: unfollowupable_body)
       end
       let(:dummy_message) { double(IncomingMessage) }
 
@@ -1583,7 +1583,7 @@ RSpec.describe InfoRequest do
 
     context "an external request" do
 
-      let(:info_request) { InfoRequest.new(:external_url => "demo_url") }
+      let(:info_request) { InfoRequest.new(external_url: "demo_url") }
 
       it "returns false" do
         expect(info_request.is_followupable?(message_without_reply_to)).
@@ -1600,7 +1600,7 @@ RSpec.describe InfoRequest do
     context "belongs to an unfollowupable PublicBody" do
 
       let(:request) do
-        FactoryBot.create(:info_request, :public_body => unfollowupable_body)
+        FactoryBot.create(:info_request, public_body: unfollowupable_body)
       end
 
       it "returns false" do
@@ -1724,7 +1724,7 @@ RSpec.describe InfoRequest do
     end
 
     it 'rejects an invalid prominence' do
-      info_request = InfoRequest.new(:prominence => 'something')
+      info_request = InfoRequest.new(prominence: 'something')
       info_request.valid?
       expect(info_request.errors[:prominence]).to include("is not included in the list")
     end
@@ -2173,13 +2173,13 @@ RSpec.describe InfoRequest do
   describe "#postal_email" do
 
     let(:public_body) do
-      FactoryBot.create(:public_body, :request_email => "test@localhost")
+      FactoryBot.create(:public_body, request_email: "test@localhost")
     end
 
     context "there is no list of incoming messages to followup" do
 
       it "returns the public body's request_email" do
-        request = FactoryBot.create(:info_request, :public_body => public_body)
+        request = FactoryBot.create(:info_request, public_body: public_body)
         expect(request.postal_email).to eq("test@localhost")
       end
 
@@ -2188,9 +2188,9 @@ RSpec.describe InfoRequest do
     context "there is a list of incoming messages to followup" do
 
       it "returns the email address from the last message in the chain" do
-        request = FactoryBot.create(:info_request, :public_body => public_body)
+        request = FactoryBot.create(:info_request, public_body: public_body)
         incoming_message = FactoryBot.create(:plain_incoming_message,
-                                             :info_request => request)
+                                             info_request: request)
         request.log_event(
           'response',
           incoming_message_id: incoming_message.id
@@ -2204,12 +2204,12 @@ RSpec.describe InfoRequest do
 
   describe "#postal_email_name" do
 
-    let(:public_body) { FactoryBot.create(:public_body, :name => "Ministry of Test") }
+    let(:public_body) { FactoryBot.create(:public_body, name: "Ministry of Test") }
 
     context "there is no list of incoming messages to followup" do
 
       it "returns the public body name" do
-        request = FactoryBot.create(:info_request, :public_body => public_body)
+        request = FactoryBot.create(:info_request, public_body: public_body)
         expect(request.postal_email_name).to eq("Ministry of Test")
       end
 
@@ -2218,9 +2218,9 @@ RSpec.describe InfoRequest do
     context "there is a list of incoming messages to followup" do
 
       it "returns the email name from the last message in the chain" do
-        request = FactoryBot.create(:info_request, :public_body => public_body)
+        request = FactoryBot.create(:info_request, public_body: public_body)
         incoming_message = FactoryBot.create(:plain_incoming_message,
-                                             :info_request => request)
+                                             info_request: request)
         request.log_event(
           'response',
           incoming_message_id: incoming_message.id
@@ -2383,7 +2383,7 @@ RSpec.describe InfoRequest do
 
     before do
       @mock_user = mock_model(User)
-      @info_request = InfoRequest.new(:user => @mock_user)
+      @info_request = InfoRequest.new(user: @mock_user)
       @other_mock_user = mock_model(User)
     end
 
@@ -2438,71 +2438,71 @@ RSpec.describe InfoRequest do
       let(:user) { FactoryBot.create(:user) }
 
       def create_recent_unclassified_request
-        request = FactoryBot.create(:info_request, :user => user,
-                                                   :created_at => recent_date)
-        message = FactoryBot.create(:incoming_message, :created_at => recent_date,
-                                                       :info_request => request)
-        FactoryBot.create(:info_request_event, :incoming_message => message,
-                                               :event_type => "response",
-                                               :info_request => request,
-                                               :created_at => recent_date)
+        request = FactoryBot.create(:info_request, user: user,
+                                                   created_at: recent_date)
+        message = FactoryBot.create(:incoming_message, created_at: recent_date,
+                                                       info_request: request)
+        FactoryBot.create(:info_request_event, incoming_message: message,
+                                               event_type: "response",
+                                               info_request: request,
+                                               created_at: recent_date)
         request.awaiting_description = true
         request.save!
         request
       end
 
       def create_old_unclassified_request
-        request = FactoryBot.create(:info_request, :user => user,
-                                                   :created_at => old_date)
-        message = FactoryBot.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-        FactoryBot.create(:info_request_event, :incoming_message => message,
-                                               :event_type => "response",
-                                               :info_request => request,
-                                               :created_at => old_date)
+        request = FactoryBot.create(:info_request, user: user,
+                                                   created_at: old_date)
+        message = FactoryBot.create(:incoming_message, created_at: old_date,
+                                                       info_request: request)
+        FactoryBot.create(:info_request_event, incoming_message: message,
+                                               event_type: "response",
+                                               info_request: request,
+                                               created_at: old_date)
         request.awaiting_description = true
         request.save!
         request
       end
 
       def create_old_unclassified_described
-        request = FactoryBot.create(:info_request, :user => user,
-                                                   :created_at => old_date)
-        message = FactoryBot.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-        FactoryBot.create(:info_request_event, :incoming_message => message,
-                                               :event_type => "response",
-                                               :info_request => request,
-                                               :created_at => old_date)
+        request = FactoryBot.create(:info_request, user: user,
+                                                   created_at: old_date)
+        message = FactoryBot.create(:incoming_message, created_at: old_date,
+                                                       info_request: request)
+        FactoryBot.create(:info_request_event, incoming_message: message,
+                                               event_type: "response",
+                                               info_request: request,
+                                               created_at: old_date)
         request
       end
 
       def create_old_unclassified_no_user
-        request = FactoryBot.create(:info_request, :user => nil,
-                                                   :external_user_name => 'test_user',
-                                                   :external_url => 'test',
-                                                   :created_at => old_date)
-        message = FactoryBot.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-        FactoryBot.create(:info_request_event, :incoming_message => message,
-                                               :event_type => "response",
-                                               :info_request => request,
-                                               :created_at => old_date)
+        request = FactoryBot.create(:info_request, user: nil,
+                                                   external_user_name: 'test_user',
+                                                   external_url: 'test',
+                                                   created_at: old_date)
+        message = FactoryBot.create(:incoming_message, created_at: old_date,
+                                                       info_request: request)
+        FactoryBot.create(:info_request_event, incoming_message: message,
+                                               event_type: "response",
+                                               info_request: request,
+                                               created_at: old_date)
         request.awaiting_description = true
         request.save!
         request
       end
 
       def create_old_unclassified_holding_pen
-        request = FactoryBot.create(:info_request, :user => user,
-                                                   :title => 'Holding pen',
-                                                   :created_at => old_date)
-        message = FactoryBot.create(:incoming_message, :created_at => old_date,
-                                                       :info_request => request)
-        FactoryBot.create(:info_request_event, :incoming_message => message,
-                                               :event_type => "response",
-                                               :info_request => request,
-                                               :created_at => old_date)
+        request = FactoryBot.create(:info_request, user: user,
+                                                   title: 'Holding pen',
+                                                   created_at: old_date)
+        message = FactoryBot.create(:incoming_message, created_at: old_date,
+                                                       info_request: request)
+        FactoryBot.create(:info_request_event, incoming_message: message,
+                                               event_type: "response",
+                                               info_request: request,
+                                               created_at: old_date)
         request.awaiting_description = true
         request.save!
         request
@@ -2548,20 +2548,20 @@ RSpec.describe InfoRequest do
       dog_request = info_requests(:fancy_dog_request)
       old_unclassified =
         InfoRequest.where_old_unclassified.
-          where(:prominence => 'normal').limit(1).order(Arel.sql('random()'))
+          where(prominence: 'normal').limit(1).order(Arel.sql('random()'))
       expect(old_unclassified.length).to eq(1)
       expect(old_unclassified.first).to eq(dog_request)
       dog_request.prominence = 'requester_only'
       dog_request.save!
       old_unclassified =
         InfoRequest.where_old_unclassified.
-          where(:prominence => 'normal').limit(1).order(Arel.sql('random()'))
+          where(prominence: 'normal').limit(1).order(Arel.sql('random()'))
       expect(old_unclassified.length).to eq(0)
       dog_request.prominence = 'hidden'
       dog_request.save!
       old_unclassified =
         InfoRequest.where_old_unclassified.
-          where(:prominence => 'normal').limit(1).order(Arel.sql('random()'))
+          where(prominence: 'normal').limit(1).order(Arel.sql('random()'))
       expect(old_unclassified.length).to eq(0)
     end
 
@@ -2572,17 +2572,17 @@ RSpec.describe InfoRequest do
     it "does not return requests that don't have normal prominence" do
       dog_request = info_requests(:fancy_dog_request)
       old_unclassified = InfoRequest.where_old_unclassified.
-        where(:prominence => 'normal').count
+        where(prominence: 'normal').count
       expect(old_unclassified).to eq(1)
       dog_request.prominence = 'requester_only'
       dog_request.save!
       old_unclassified = InfoRequest.where_old_unclassified.
-        where(:prominence => 'normal').count
+        where(prominence: 'normal').count
       expect(old_unclassified).to eq(0)
       dog_request.prominence = 'hidden'
       dog_request.save!
       old_unclassified = InfoRequest.where_old_unclassified.
-        where(:prominence => 'normal').count
+        where(prominence: 'normal').count
       expect(old_unclassified).to eq(0)
     end
 
@@ -2593,20 +2593,20 @@ RSpec.describe InfoRequest do
     before do
       allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
       @info_request = FactoryBot.create(:info_request,
-                                        :prominence => 'normal',
-                                        :awaiting_description => true)
+                                        prominence: 'normal',
+                                        awaiting_description: true)
       @comment_event = FactoryBot.create(:info_request_event,
-                                         :created_at => Time.zone.now - 23.days,
-                                         :event_type => 'comment',
-                                         :info_request => @info_request)
+                                         created_at: Time.zone.now - 23.days,
+                                         event_type: 'comment',
+                                         info_request: @info_request)
       @incoming_message = FactoryBot.create(:incoming_message,
-                                            :prominence => 'normal',
-                                            :info_request => @info_request)
+                                            prominence: 'normal',
+                                            info_request: @info_request)
       @response_event = FactoryBot.create(:info_request_event,
-                                          :info_request => @info_request,
-                                          :created_at => Time.zone.now - 22.days,
-                                          :event_type => 'response',
-                                          :incoming_message => @incoming_message)
+                                          info_request: @info_request,
+                                          created_at: Time.zone.now - 22.days,
+                                          event_type: 'response',
+                                          incoming_message: @incoming_message)
       @info_request.update_attribute(:awaiting_description, true)
     end
 
@@ -2634,8 +2634,8 @@ RSpec.describe InfoRequest do
   describe '#apply_censor_rules_to_text' do
 
     it 'applies each censor rule to the text' do
-      rule_1 = FactoryBot.build(:censor_rule, :text => '1')
-      rule_2 = FactoryBot.build(:censor_rule, :text => '2')
+      rule_1 = FactoryBot.build(:censor_rule, text: '1')
+      rule_2 = FactoryBot.build(:censor_rule, text: '2')
       info_request = FactoryBot.build(:info_request)
       allow(info_request).
         to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
@@ -2650,8 +2650,8 @@ RSpec.describe InfoRequest do
   describe '#apply_censor_rules_to_binary' do
 
     it 'applies each censor rule to the text' do
-      rule_1 = FactoryBot.build(:censor_rule, :text => '1')
-      rule_2 = FactoryBot.build(:censor_rule, :text => '2')
+      rule_1 = FactoryBot.build(:censor_rule, text: '1')
+      rule_2 = FactoryBot.build(:censor_rule, text: '2')
       info_request = FactoryBot.build(:info_request)
       allow(info_request).
         to receive(:applicable_censor_rules).and_return([rule_1, rule_2])
@@ -2669,16 +2669,16 @@ RSpec.describe InfoRequest do
     before(:each) do
       @request = FactoryBot.create(:info_request)
 
-      @default_opts = { :last_edit_editor => 'unknown',
-                        :last_edit_comment => 'none' }
+      @default_opts = { last_edit_editor: 'unknown',
+                        last_edit_comment: 'none' }
     end
 
     it 'replaces text with global censor rules' do
       data = 'There was a mouse called Stilton, he wished that he was blue'
       expected = 'There was a mouse called Stilton, he said that he was blue'
 
-      opts = { :text => 'wished',
-               :replacement => 'said' }.merge(@default_opts)
+      opts = { text: 'wished',
+               replacement: 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
       result = @request.apply_masks(data, 'text/plain')
@@ -2691,8 +2691,8 @@ RSpec.describe InfoRequest do
       expected = 'There was a cat called Jarlsberg.'
 
       rules = [
-        { :text => 'Stilton', :replacement => 'Jarlsberg' },
-        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+        { text: 'Stilton', replacement: 'Jarlsberg' },
+        { text: 'm[a-z][a-z][a-z]e', regexp: true, replacement: 'cat' }
       ]
 
       rules.each do |rule|
@@ -2708,8 +2708,8 @@ RSpec.describe InfoRequest do
       expected = 'There was a cat called Jarlsberg.'
 
       rules = [
-        { :text => 'Stilton', :replacement => 'Jarlsberg' },
-        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+        { text: 'Stilton', replacement: 'Jarlsberg' },
+        { text: 'm[a-z][a-z][a-z]e', regexp: true, replacement: 'cat' }
       ]
 
       rules.each do |rule|
@@ -2754,7 +2754,7 @@ RSpec.describe InfoRequest do
     context ':decorate option is true' do
 
       it 'returns a prominence calculator' do
-        expect(InfoRequest.new.prominence(:decorate => true))
+        expect(InfoRequest.new.prominence(decorate: true))
           .to be_a(InfoRequest::Prominence::Calculator)
       end
 
@@ -2799,37 +2799,37 @@ RSpec.describe InfoRequest do
     end
 
     it 'sets last_public_response_at when a public response is added' do
-      request = FactoryBot.create(:info_request, :user => user)
-      message = FactoryBot.create(:incoming_message, :info_request => request)
+      request = FactoryBot.create(:info_request, user: user)
+      message = FactoryBot.create(:incoming_message, info_request: request)
       event =
-        FactoryBot.create(:info_request_event, :info_request => request,
-                                               :incoming_message => message,
-                                               :event_type => 'response')
+        FactoryBot.create(:info_request_event, info_request: request,
+                                               incoming_message: message,
+                                               event_type: 'response')
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event.created_at)
     end
 
     it 'does not set last_public_response_at when a hidden response is added' do
-      request = FactoryBot.create(:info_request, :user => user)
-      message = FactoryBot.create(:incoming_message, :info_request => request,
-                                                     :prominence => 'hidden')
+      request = FactoryBot.create(:info_request, user: user)
+      message = FactoryBot.create(:incoming_message, info_request: request,
+                                                     prominence: 'hidden')
       event =
-        FactoryBot.create(:info_request_event, :info_request => request,
-                                               :incoming_message => message,
-                                               :event_type => 'response')
+        FactoryBot.create(:info_request_event, info_request: request,
+                                               incoming_message: message,
+                                               event_type: 'response')
 
       expect(request.last_public_response_at).to be_nil
     end
 
     it 'sets last_public_response_at to nil when the only response is hidden' do
-      request = FactoryBot.create(:info_request, :user => user)
-      message = FactoryBot.create(:incoming_message, :info_request => request)
-      FactoryBot.create(:info_request_event, :info_request => request,
-                                             :incoming_message => message,
-                                             :event_type => 'response')
+      request = FactoryBot.create(:info_request, user: user)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      FactoryBot.create(:info_request_event, info_request: request,
+                                             incoming_message: message,
+                                             event_type: 'response')
 
-      message.update(:prominence => 'hidden')
+      message.update(prominence: 'hidden')
 
       expect(request.last_public_response_at).to be_nil
     end
@@ -2837,39 +2837,39 @@ RSpec.describe InfoRequest do
     it 'reverts last_public_response_at when the latest response is hidden' do
       travel_to(21.days.ago)
 
-      request = FactoryBot.create(:info_request, :user => user)
-      message1 = FactoryBot.create(:incoming_message, :info_request => request)
+      request = FactoryBot.create(:info_request, user: user)
+      message1 = FactoryBot.create(:incoming_message, info_request: request)
       event1 =
-        FactoryBot.create(:info_request_event, :info_request => request,
-                                               :incoming_message => message1,
-                                               :event_type => 'response')
+        FactoryBot.create(:info_request_event, info_request: request,
+                                               incoming_message: message1,
+                                               event_type: 'response')
 
       travel_back
       travel_to(2.days.ago)
 
-      message2 = FactoryBot.create(:incoming_message, :info_request => request)
+      message2 = FactoryBot.create(:incoming_message, info_request: request)
       event2 =
-        FactoryBot.create(:info_request_event, :info_request => request,
-                                               :incoming_message => message2,
-                                               :event_type => 'response')
+        FactoryBot.create(:info_request_event, info_request: request,
+                                               incoming_message: message2,
+                                               event_type: 'response')
 
       travel_back
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event2.created_at)
 
-      message2.update(:prominence => 'hidden')
+      message2.update(prominence: 'hidden')
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event1.created_at)
     end
 
     it 'sets last_public_response_at to nil when the only response is destroyed' do
-      request = FactoryBot.create(:info_request, :user => user)
-      message = FactoryBot.create(:incoming_message, :info_request => request)
-      FactoryBot.create(:info_request_event, :info_request => request,
-                                             :incoming_message => message,
-                                             :event_type => 'response')
+      request = FactoryBot.create(:info_request, user: user)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      FactoryBot.create(:info_request_event, info_request: request,
+                                             incoming_message: message,
+                                             event_type: 'response')
       message.destroy
       expect(request.last_public_response_at).to be_nil
     end
@@ -2877,21 +2877,21 @@ RSpec.describe InfoRequest do
     it 'reverts last_public_response_at when the latest response is destroyed' do
       travel_to(21.days.ago)
 
-      request = FactoryBot.create(:info_request, :user => user)
-      message1 = FactoryBot.create(:incoming_message, :info_request => request)
+      request = FactoryBot.create(:info_request, user: user)
+      message1 = FactoryBot.create(:incoming_message, info_request: request)
       event1 =
-        FactoryBot.create(:info_request_event, :info_request => request,
-                                               :incoming_message => message1,
-                                               :event_type => 'response')
+        FactoryBot.create(:info_request_event, info_request: request,
+                                               incoming_message: message1,
+                                               event_type: 'response')
 
       travel_back
       travel_to(2.days.ago)
 
-      message2 = FactoryBot.create(:incoming_message, :info_request => request)
+      message2 = FactoryBot.create(:incoming_message, info_request: request)
       event2 =
-        FactoryBot.create(:info_request_event, :info_request => request,
-                                               :incoming_message => message2,
-                                               :event_type => 'response')
+        FactoryBot.create(:info_request_event, info_request: request,
+                                               incoming_message: message2,
+                                               event_type: 'response')
 
       travel_back
 
@@ -2907,16 +2907,16 @@ RSpec.describe InfoRequest do
     it 'sets last_public_response_at when a hidden response is unhidden' do
       travel_to(21.days.ago)
 
-      request = FactoryBot.create(:info_request, :user => user)
-      message = FactoryBot.create(:incoming_message, :info_request => request,
-                                                     :prominence => 'hidden')
+      request = FactoryBot.create(:info_request, user: user)
+      message = FactoryBot.create(:incoming_message, info_request: request,
+                                                     prominence: 'hidden')
       event =
-        FactoryBot.create(:info_request_event, :info_request => request,
-                                               :incoming_message => message,
-                                               :event_type => 'response')
+        FactoryBot.create(:info_request_event, info_request: request,
+                                               incoming_message: message,
+                                               event_type: 'response')
       travel_back
 
-      message.update(:prominence => 'normal')
+      message.update(prominence: 'normal')
 
       expect(request.last_public_response_at).
         to be_within(1.second).of(event.created_at)
@@ -3006,20 +3006,20 @@ RSpec.describe InfoRequest do
   describe 'when generating json for the api' do
 
     before do
-      @user = mock_model(User, :json_for_api => { :id => 20,
-                                                  :url_name => 'alaveteli_user',
-                                                  :name => 'Alaveteli User',
-                                                  :ban_text => '',
-                                                  :about_me => 'Hi' })
+      @user = mock_model(User, json_for_api: { id: 20,
+                                                  url_name: 'alaveteli_user',
+                                                  name: 'Alaveteli User',
+                                                  ban_text: '',
+                                                  about_me: 'Hi' })
     end
 
     it 'returns full user info for an internal request' do
-      @info_request = InfoRequest.new(:user => @user)
-      expect(@info_request.user_json_for_api).to eq({ :id => 20,
-                                                  :url_name => 'alaveteli_user',
-                                                  :name => 'Alaveteli User',
-                                                  :ban_text => '',
-                                                  :about_me => 'Hi' })
+      @info_request = InfoRequest.new(user: @user)
+      expect(@info_request.user_json_for_api).to eq({ id: 20,
+                                                  url_name: 'alaveteli_user',
+                                                  name: 'Alaveteli User',
+                                                  ban_text: '',
+                                                  about_me: 'Hi' })
     end
 
   end
@@ -3039,21 +3039,21 @@ RSpec.describe InfoRequest do
     it "is not confused by an nil subject in the incoming message" do
       ir = info_requests(:fancy_dog_request)
       im = mock_model(IncomingMessage,
-                      :subject => nil,
-                      :valid_to_reply_to? => true)
-      subject = ir.email_subject_followup(:incoming_message => im, :html => false)
+                      subject: nil,
+                      valid_to_reply_to?: true)
+      subject = ir.email_subject_followup(incoming_message: im, html: false)
       expect(subject).to match(/^Re: Freedom of Information request.*fancy dog/)
     end
 
     it "returns a hash with the user's name for an external request" do
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
-                                      :external_user_name => 'External User')
-      expect(@info_request.user_json_for_api).to eq({:name => 'External User'})
+      @info_request = InfoRequest.new(external_url: 'http://www.example.com',
+                                      external_user_name: 'External User')
+      expect(@info_request.user_json_for_api).to eq({name: 'External User'})
     end
 
     it 'returns "Anonymous user" for an anonymous external user' do
-      @info_request = InfoRequest.new(:external_url => 'http://www.example.com')
-      expect(@info_request.user_json_for_api).to eq({:name => 'Anonymous user'})
+      @info_request = InfoRequest.new(external_url: 'http://www.example.com')
+      expect(@info_request.user_json_for_api).to eq({name: 'Anonymous user'})
     end
 
   end
@@ -3062,9 +3062,9 @@ RSpec.describe InfoRequest do
 
     context "a request" do
 
-      let(:request) { InfoRequest.create!(:title => "My request",
-                                          :public_body => public_bodies(:geraldine_public_body),
-                                          :user => users(:bob_smith_user)) }
+      let(:request) { InfoRequest.create!(title: "My request",
+                                          public_body: public_bodies(:geraldine_public_body),
+                                          user: users(:bob_smith_user)) }
 
       context "a series of events on a request" do
 
@@ -3345,11 +3345,11 @@ RSpec.describe InfoRequest do
       old_successful_count = pb.info_requests_successful_count
       old_not_held_count = pb.info_requests_not_held_count
       old_visible_count = pb.info_requests_visible_count
-      ir = InfoRequest.new(:external_url => 'http://www.example.com',
-                           :external_user_name => 'Example User',
-                           :title => 'Some request or other',
-                           :described_state => 'partially_successful',
-                           :public_body => pb)
+      ir = InfoRequest.new(external_url: 'http://www.example.com',
+                           external_user_name: 'Example User',
+                           title: 'Some request or other',
+                           described_state: 'partially_successful',
+                           public_body: pb)
       ir.save!
       expect(pb.info_requests_successful_count).to eq(old_successful_count + 1)
       expect(pb.info_requests_visible_count).to eq(old_visible_count + 1)
@@ -3381,11 +3381,11 @@ RSpec.describe InfoRequest do
       old_successful_count = pb.info_requests_successful_count
       old_not_held_count = pb.info_requests_not_held_count
       old_visible_count = pb.info_requests_visible_count
-      ir = InfoRequest.new(:external_url => 'http://www.example.com',
-                           :external_user_name => 'Example User',
-                           :title => 'Some request or other',
-                           :described_state => 'partially_successful',
-                           :public_body => pb)
+      ir = InfoRequest.new(external_url: 'http://www.example.com',
+                           external_user_name: 'Example User',
+                           title: 'Some request or other',
+                           described_state: 'partially_successful',
+                           public_body: pb)
       ir.save!
       expect(pb.info_requests_successful_count).to eq(old_successful_count + 1)
       expect(pb.info_requests_visible_count).to eq(old_visible_count + 1)
@@ -3487,7 +3487,7 @@ RSpec.describe InfoRequest do
     end
 
     it "filters requests" do
-      expect(apply_filters(:latest_status => 'all')).to match_array(InfoRequest.all)
+      expect(apply_filters(latest_status: 'all')).to match_array(InfoRequest.all)
 
       # default sort order is the request with the most recently created event first
       order_sql = <<-EOF.strip_heredoc
@@ -3496,7 +3496,7 @@ RSpec.describe InfoRequest do
        WHERE info_request_events.info_request_id = info_requests.id)
        DESC
       EOF
-      expect(apply_filters(:latest_status => 'all')).
+      expect(apply_filters(latest_status: 'all')).
         to eq(InfoRequest.all.order(Arel.sql(order_sql)))
 
       conditions = <<-EOF.strip_heredoc
@@ -3514,14 +3514,14 @@ RSpec.describe InfoRequest do
         IN ('successful', 'partially_successful')
       )
       EOF
-      expect(apply_filters(:latest_status => 'successful')).
+      expect(apply_filters(latest_status: 'successful')).
         to match_array(InfoRequest.where(conditions))
     end
 
     it "filters requests by date" do
       # The semantics of the search are that it finds any InfoRequest
       # that has any InfoRequestEvent created in the specified range
-      filters = {:latest_status => 'all', :request_date_before => '13/10/2007'}
+      filters = {latest_status: 'all', request_date_before: '13/10/2007'}
       conditions1 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events
@@ -3530,7 +3530,7 @@ RSpec.describe InfoRequest do
       expect(apply_filters(filters)).
         to match_array(InfoRequest.where(conditions1))
 
-      filters = {:latest_status => 'all', :request_date_after => '13/10/2007'}
+      filters = {latest_status: 'all', request_date_after: '13/10/2007'}
       conditions2 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events
@@ -3539,9 +3539,9 @@ RSpec.describe InfoRequest do
       expect(apply_filters(filters)).
         to match_array(InfoRequest.where(conditions2))
 
-      filters = {:latest_status => 'all',
-                 :request_date_after => '13/10/2007',
-                 :request_date_before => '01/11/2007'}
+      filters = {latest_status: 'all',
+                 request_date_after: '13/10/2007',
+                 request_date_before: '01/11/2007'}
       conditions3 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events
@@ -3556,7 +3556,7 @@ RSpec.describe InfoRequest do
       # This doesn’t precisely duplicate the logic of the actual
       # query, but it is close enough to give the same result with
       # the current set of test data.
-      results = apply_filters(:latest_status => 'awaiting')
+      results = apply_filters(latest_status: 'awaiting')
       conditions = <<-EOF
       id IN (
         SELECT info_request_id
@@ -3583,7 +3583,7 @@ RSpec.describe InfoRequest do
       event.described_state = event.calculated_state = "internal_review"
       event.save!
       destroy_and_rebuild_xapian_index
-      results = apply_filters(:latest_status => 'awaiting')
+      results = apply_filters(latest_status: 'awaiting')
       expect(results.include?(info_requests(:fancy_dog_request))).to eq(true)
     end
 
@@ -4157,11 +4157,11 @@ RSpec.describe InfoRequest do
       info_request.set_described_state('waiting_clarification')
 
       # Followup message is sent
-      outgoing_message = OutgoingMessage.new(:status => 'ready',
-                                             :message_type => 'followup',
-                                             :info_request_id => info_request.id,
-                                             :body => 'Some text',
-                                             :what_doing => 'normal_sort')
+      outgoing_message = OutgoingMessage.new(status: 'ready',
+                                             message_type: 'followup',
+                                             info_request_id: info_request.id,
+                                             body: 'Some text',
+                                             what_doing: 'normal_sort')
       outgoing_message.record_email_delivery('', '')
       followup_event = info_request.
                          info_request_events.reload.
@@ -4287,7 +4287,7 @@ RSpec.describe InfoRequest do
       info_request.log_event('resent', param: 'value')
       event = info_request.info_request_events.reload.last
       expect(event.event_type).to eq 'resent'
-      expect(event.params).to eq :param => 'value'
+      expect(event.params).to eq param: 'value'
     end
 
     context 'if options are passed' do
@@ -4405,7 +4405,7 @@ RSpec.describe InfoRequest do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events.reload.
-                               where(:event_type => 'overdue')
+                               where(event_type: 'overdue')
           expect(overdue_events.size).to eq 0
         end
       end
@@ -4422,7 +4422,7 @@ RSpec.describe InfoRequest do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events.reload.
-                               where(:event_type => 'overdue')
+                               where(event_type: 'overdue')
           expect(overdue_events.size).to eq 1
           overdue_event = overdue_events.first
           expect(overdue_event.created_at).to eq Time.zone.parse('2015-01-29').beginning_of_day
@@ -4473,7 +4473,7 @@ RSpec.describe InfoRequest do
           InfoRequest.log_overdue_events
           overdue_events = info_request.
                              info_request_events.reload.
-                               where(:event_type => 'overdue')
+                               where(event_type: 'overdue')
           expect(overdue_events.size).to eq 2
           overdue_event = overdue_events.first
           expect(overdue_event.created_at)
@@ -4506,7 +4506,7 @@ RSpec.describe InfoRequest do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events.reload.
-                                    where(:event_type => 'very_overdue')
+                                    where(event_type: 'very_overdue')
           expect(very_overdue_events.size).to eq 0
         end
       end
@@ -4522,7 +4522,7 @@ RSpec.describe InfoRequest do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events.reload.
-                                    where(:event_type => 'very_overdue')
+                                    where(event_type: 'very_overdue')
           expect(very_overdue_events.size).to eq 1
           very_overdue_event = very_overdue_events.first
           expect(very_overdue_event.created_at).
@@ -4574,7 +4574,7 @@ RSpec.describe InfoRequest do
           InfoRequest.log_very_overdue_events
           very_overdue_events = info_request.
                                   info_request_events.reload.
-                                    where(:event_type => 'very_overdue')
+                                    where(event_type: 'very_overdue')
           expect(very_overdue_events.size).to eq 2
           very_overdue_event = very_overdue_events.first
           expect(very_overdue_event.created_at).

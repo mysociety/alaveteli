@@ -10,7 +10,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
     end
 
     it 'allows a custom spam_action' do
-      expect(described_class.new(:spam_action => 'x').spam_action).to eq('x')
+      expect(described_class.new(spam_action: 'x').spam_action).to eq('x')
     end
 
     it 'sets a default spam_header' do
@@ -19,7 +19,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
     end
 
     it 'allows a custom spam_header' do
-      expect(described_class.new(:spam_header => 'x').spam_header).to eq('x')
+      expect(described_class.new(spam_header: 'x').spam_header).to eq('x')
     end
 
     it 'sets a default spam_threshold' do
@@ -28,7 +28,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
     end
 
     it 'allows a custom spam_threshold' do
-      expect(described_class.new(:spam_threshold => 'x').spam_threshold).
+      expect(described_class.new(spam_threshold: 'x').spam_threshold).
         to eq('x')
     end
 
@@ -37,7 +37,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
   describe '#spam_action' do
 
     it 'returns the spam_action' do
-      expect(described_class.new(:spam_action => 'x').spam_action).to eq('x')
+      expect(described_class.new(spam_action: 'x').spam_action).to eq('x')
     end
 
   end
@@ -54,7 +54,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
   describe '#spam_header' do
 
     it 'returns the spam_header' do
-      expect(described_class.new(:spam_header => 'x').spam_header).to eq('x')
+      expect(described_class.new(spam_header: 'x').spam_header).to eq('x')
     end
 
   end
@@ -62,7 +62,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
   describe '#spam_threshold' do
 
     it 'returns the spam_threshold' do
-      expect(described_class.new(:spam_threshold => 'x').spam_threshold).
+      expect(described_class.new(spam_threshold: 'x').spam_threshold).
         to eq('x')
     end
 
@@ -79,8 +79,8 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Plz buy my spam
       EOF
       email = MailHandler.mail_from_raw_email(spam_email)
-      attrs = { :spam_header => nil,
-                :spam_threshold => 100 }
+      attrs = { spam_header: nil,
+                spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
       expect(gatekeeper.allow?(email)).to eq(true)
     end
@@ -94,9 +94,9 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Hello, World
       EOF
       email = MailHandler.mail_from_raw_email(raw_email)
-      attrs = { :spam_header => 'X-Spam-Score',
-                :spam_threshold => 100,
-                :spam_action => 'discard' }
+      attrs = { spam_header: 'X-Spam-Score',
+                spam_threshold: 100,
+                spam_action: 'discard' }
       gatekeeper = described_class.new(attrs)
       expect(gatekeeper.allow?(email)).to eq(true)
     end
@@ -110,9 +110,9 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Plz buy my spam
       EOF
       email = MailHandler.mail_from_raw_email(spam_email)
-      attrs = { :spam_header => 'X-Spam-Score',
-                :spam_threshold => 100,
-                :spam_action => 'discard' }
+      attrs = { spam_header: 'X-Spam-Score',
+                spam_threshold: 100,
+                spam_action: 'discard' }
       gatekeeper = described_class.new(attrs)
       expect(gatekeeper.allow?(email)).to eq(false)
     end
@@ -121,7 +121,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
   describe '#reason' do
 
     it 'returns the reason that the email was rejected' do
-      gatekeeper = described_class.new(:spam_threshold => 10.0)
+      gatekeeper = described_class.new(spam_threshold: 10.0)
       message = 'Incoming message has a spam score above the configured ' \
                 'threshold (10.0).'
       expect(gatekeeper.reason).to eq(message)
@@ -140,8 +140,8 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Plz buy my spam
       EOF
       email = MailHandler.mail_from_raw_email(spam_email)
-      attrs = { :spam_header => 'X-Spam-Score',
-                :spam_threshold => 100 }
+      attrs = { spam_header: 'X-Spam-Score',
+                spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
       expect(gatekeeper.spam?(email)).to eq(true)
     end
@@ -155,8 +155,8 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Hello, World
       EOF
       email = MailHandler.mail_from_raw_email(spam_email)
-      attrs = { :spam_header => 'X-Spam-Score',
-                :spam_threshold => 100 }
+      attrs = { spam_header: 'X-Spam-Score',
+                spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
       expect(gatekeeper.spam?(email)).to eq(false)
     end
@@ -169,8 +169,8 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Hello, World
       EOF
       email = MailHandler.mail_from_raw_email(spam_email)
-      attrs = { :spam_header => 'X-Spam-Score',
-                :spam_threshold => 100 }
+      attrs = { spam_header: 'X-Spam-Score',
+                spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
       expect(gatekeeper.spam?(email)).to eq(false)
     end
@@ -188,7 +188,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Plz buy my spam
       EOF
       email = MailHandler.mail_from_raw_email(spam_email)
-      gatekeeper = described_class.new(:spam_header => 'X-Spam-Score')
+      gatekeeper = described_class.new(spam_header: 'X-Spam-Score')
       expect(gatekeeper.spam_score(email)).to eq(1000.4)
     end
 
@@ -209,24 +209,24 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
   describe '#configured?' do
 
     it 'requires a spam_action to be configured' do
-      gatekeeper = described_class.new(:spam_action => nil)
+      gatekeeper = described_class.new(spam_action: nil)
       expect(gatekeeper).to_not be_configured
     end
 
     it 'requires a spam_header to be configured' do
-      gatekeeper = described_class.new(:spam_header => nil)
+      gatekeeper = described_class.new(spam_header: nil)
       expect(gatekeeper).to_not be_configured
     end
 
     it 'requires a spam_threshold to be configured' do
-      gatekeeper = described_class.new(:spam_threshold => nil)
+      gatekeeper = described_class.new(spam_threshold: nil)
       expect(gatekeeper).to_not be_configured
     end
 
     it 'is configured if a spam_action, spam_header and spam_threshold exist' do
-      attrs = { :spam_action => 'discard',
-                :spam_header => 'X-Spam-Score',
-                :spam_threshold => 10.0 }
+      attrs = { spam_action: 'discard',
+                spam_header: 'X-Spam-Score',
+                spam_threshold: 10.0 }
       expect(described_class.new(attrs)).to be_configured
     end
 
