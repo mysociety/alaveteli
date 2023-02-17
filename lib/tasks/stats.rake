@@ -1,7 +1,7 @@
 namespace :stats do
 
   desc 'Produce monthly transaction stats for a period starting START_YEAR'
-  task :show => :environment do
+  task show: :environment do
     example = 'rake stats:show START_YEAR=2009 [START_MONTH=3 END_YEAR=2012 END_MONTH=10]'
     check_for_env_vars(['START_YEAR'], example)
     start_year = (ENV['START_YEAR']).to_i
@@ -72,13 +72,13 @@ namespace :stats do
 
       confirmed_users_count =
         User.active.
-          where(:email_confirmed => true).
+          where(email_confirmed: true).
             where(date_conditions).
               count
 
       pro_confirmed_users_count =
         User.pro.active.
-          where(:email_confirmed => true).
+          where(email_confirmed: true).
             where('users.created_at >= ?
                    AND users.created_at < ?',
                    month_start, month_end+1).
@@ -112,7 +112,7 @@ namespace :stats do
   end
 
   desc 'Produce stats on volume of requests to authorities matching a set of tags. Specify tags as TAGS=tagone,tagtwo'
-  task :volumes_by_authority_tag => :environment do
+  task volumes_by_authority_tag: :environment do
     tags = ENV['TAGS'].split(',')
     first_request_datetime = InfoRequest.minimum(:created_at)
     start_year = first_request_datetime.strftime("%Y").to_i
@@ -168,7 +168,7 @@ namespace :stats do
   Prints the per-quarter number of created FOI Requests made to each Public Body found by the query.
     Specify the search query as QUERY='london school'
   DESC
-  task :number_of_requests_created => :environment do
+  task number_of_requests_created: :environment do
     query = ENV['QUERY']
     start_at = PublicBody.minimum(:created_at)
     finish_at = PublicBody.maximum(:created_at)
@@ -195,7 +195,7 @@ namespace :stats do
   Prints the per-quarter number of successful FOI Requests made to each Public Body found by the query.
     Specify the search query as QUERY='london school'
   DESC
-  task :number_of_requests_successful => :environment do
+  task number_of_requests_successful: :environment do
     query = ENV['QUERY']
     start_at = PublicBody.minimum(:created_at)
     finish_at = PublicBody.maximum(:created_at)
@@ -220,9 +220,9 @@ namespace :stats do
   end
 
   desc 'Update statistics in the public_bodies table'
-  task :update_public_bodies_stats => :environment do
+  task update_public_bodies_stats: :environment do
     verbose = ENV['VERBOSE'] == '1'
-    PublicBody.find_each(:batch_size => 10) do |public_body|
+    PublicBody.find_each(batch_size: 10) do |public_body|
       puts "Counting overdue requests for #{public_body.name}" if verbose
 
       # Look for values of 'waiting_response_overdue' and
@@ -231,11 +231,11 @@ namespace :stats do
       overdue_count = 0
       very_overdue_count = 0
 
-      conditions = { :public_body_id => public_body.id,
-                     :awaiting_description => false }
+      conditions = { public_body_id: public_body.id,
+                     awaiting_description: false }
 
       InfoRequest.
-        is_searchable.where(conditions).find_each(:batch_size => 200) do |ir|
+        is_searchable.where(conditions).find_each(batch_size: 200) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
           very_overdue_count += 1
@@ -253,35 +253,35 @@ namespace :stats do
 
   desc 'Add InfoRequestEvents for the points when requests became overdue
         and very overdue'
-  task :update_overdue_info_request_events => :environment do
+  task update_overdue_info_request_events: :environment do
     InfoRequest.log_overdue_events
     InfoRequest.log_very_overdue_events
   end
 
   desc 'Add InfoRequestEvents for the points when requests embargoes began to
         expire'
-  task :update_expiring_embargo_info_request_events => :environment do
+  task update_expiring_embargo_info_request_events: :environment do
     AlaveteliPro::Embargo.log_expiring_events
   end
 
   desc 'Print a list of the admin URLs of requests with hidden material'
-  task :list_hidden => :environment do
+  task list_hidden: :environment do
     include Rails.application.routes.url_helpers
-    hidden_requests = InfoRequest.where(:prominence => 'hidden')
-    requester_only_requests = InfoRequest.where(:prominence => 'requester_only')
+    hidden_requests = InfoRequest.where(prominence: 'hidden')
+    requester_only_requests = InfoRequest.where(prominence: 'requester_only')
 
     hidden_incoming = InfoRequest.joins(:incoming_messages).
-      where(:incoming_messages => {:prominence => 'hidden'}).uniq
+      where(incoming_messages: {prominence: 'hidden'}).uniq
     requester_only_incoming = InfoRequest.joins(:incoming_messages).
-      where(:incoming_messages => {:prominence => 'requester_only'}).uniq
+      where(incoming_messages: {prominence: 'requester_only'}).uniq
 
     hidden_outgoing = InfoRequest.joins(:outgoing_messages).
-      where(:outgoing_messages => {:prominence => 'hidden'}).uniq
+      where(outgoing_messages: {prominence: 'hidden'}).uniq
     requester_only_outgoing = InfoRequest.joins(:outgoing_messages).
-      where(:outgoing_messages => {:prominence => 'requester_only'}).uniq
+      where(outgoing_messages: {prominence: 'requester_only'}).uniq
 
     hidden_comments = InfoRequest.joins(:comments).
-      where(:comments => {:visible => false}).uniq
+      where(comments: {visible: false}).uniq
 
     [['Hidden requests', hidden_requests],
      ['Requester-only requests', requester_only_requests],
@@ -293,7 +293,7 @@ namespace :stats do
       unless list.empty?
         puts "\n#{title}\n"
         list.each do |request|
-          request_line = "#{admin_request_url(request, :host => AlaveteliConfiguration::domain)}"
+          request_line = "#{admin_request_url(request, host: AlaveteliConfiguration::domain)}"
           if ['vexatious', 'not_foi'].include? request.described_state
             request_line << "\t#{request.described_state}"
           end
@@ -304,7 +304,7 @@ namespace :stats do
   end
 
   desc 'Output all the requests made to the top 20 public bodies'
-  task :get_top20_body_requests => :environment do
+  task get_top20_body_requests: :environment do
     require 'csv'
     puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
 

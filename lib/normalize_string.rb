@@ -87,7 +87,7 @@ end
 
 def scrub(string)
   string = string.force_encoding("utf-8")
-  string.valid_encoding? ? string : string.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+  string.valid_encoding? ? string : string.encode("utf-16le", invalid: :replace, replace: "").encode("utf-8")
 end
 
 def log_text_details(message, text)

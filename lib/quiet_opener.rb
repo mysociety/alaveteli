@@ -16,7 +16,7 @@ def quietly_try_to_open(url, timeout=60)
     if !AlaveteliConfiguration.exception_notifications_from.blank? &&
        !AlaveteliConfiguration.exception_notifications_to.blank? &&
        defined?(request)
-      ExceptionNotifier.notify_exception(e, :env => request.env)
+      ExceptionNotifier.notify_exception(e, env: request.env)
     end
     Rails.logger.warn(e.message)
     result = ""

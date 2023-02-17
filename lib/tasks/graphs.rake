@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), '../graphs')
 namespace :graphs do
   include Graphs
 
-  task :generate_user_use_graph => :environment do
+  task generate_user_use_graph: :environment do
     minimum_data_size = ENV.fetch('MINIMUM_DATA_SIZE', 1).to_i
 
     # set the local font path for the current task
@@ -68,29 +68,29 @@ namespace :graphs do
 
         state_list = [
                        {
-                          :title => "users each day ... who registered",
-                          :colour => :lightblue
+                          title: "users each day ... who registered",
+                          colour: :lightblue
                         },
                         {
-                          :title => "... and since confirmed their email",
-                          :with => "impulses",
-                          :linewidth => 15,
-                          :colour => :mauve,
-                          :sql => confirmed_users
+                          title: "... and since confirmed their email",
+                          with: "impulses",
+                          linewidth: 15,
+                          colour: :mauve,
+                          sql: confirmed_users
                         },
                         {
-                          :title => "...who made an FOI request",
-                          :with => "lines",
-                          :linewidth => 1,
-                          :colour => :red,
-                          :sql => active_users
+                          title: "...who made an FOI request",
+                          with: "lines",
+                          linewidth: 1,
+                          colour: :red,
+                          sql: active_users
                         }
                       ]
 
         # plot all users
-        options = {:with => "impulses",
-                   :linecolor => COLOURS[state_list[0][:colour]],
-                   :linewidth => 15, :title => state_list[0][:title]}
+        options = {with: "impulses",
+                   linecolor: COLOURS[state_list[0][:colour]],
+                   linewidth: 15, title: state_list[0][:title]}
         all_users = select_as_columns(aggregate_signups)
 
         # nothing to do, bail
@@ -110,10 +110,10 @@ namespace :graphs do
             graph_param_sets << GraphParams.new(
               state_info[:sql],
               options.merge({
-                :title => state_info[:title],
-                :linecolor => COLOURS[state_info[:colour]],
-                :with => state_info[:with],
-                :linewidth => state_info[:linewidth]})
+                title: state_info[:title],
+                linecolor: COLOURS[state_info[:colour]],
+                with: state_info[:with],
+                linewidth: state_info[:linewidth]})
             )
           end
         end
@@ -125,19 +125,19 @@ namespace :graphs do
         if all_users[0].size > 1
           # plot cumulative user totals
           options.merge!({
-            :title => "cumulative total number of users",
-            :axes => "x1y2",
-            :with => "lines",
-            :linewidth => 1,
-            :linecolor => COLOURS[:lightgreen],
-            :using => "1:3"})
+            title: "cumulative total number of users",
+            axes: "x1y2",
+            with: "lines",
+            linewidth: 1,
+            linecolor: COLOURS[:lightgreen],
+            using: "1:3"})
           plot_data_from_columns(all_users, options, plot.data)
         end
       end
     end
   end
 
-  task :generate_request_creation_graph => :environment do
+  task generate_request_creation_graph: :environment do
     minimum_data_size = ENV.fetch('MINIMUM_DATA_SIZE', 2).to_i
 
     # set the local font path for the current task
@@ -189,21 +189,21 @@ namespace :graphs do
 
         # get the data, plot the graph
 
-        state_list = [ {:state => 'waiting_response', :colour => :darkblue},
-                   {:state => 'waiting_clarification', :colour => :lightblue},
-                   {:state => 'not_held', :colour => :yellow},
-                   {:state => 'rejected', :colour => :red},
-                   {:state => 'successful', :colour => :lightgreen},
-                   {:state => 'partially_successful', :colour => :darkgreen},
-                   {:state => 'requires_admin', :colour => :cyan},
-                   {:state => 'gone_postal', :colour => :darkyellow},
-                   {:state => 'internal_review', :colour => :mauve},
-                   {:state => 'error_message', :colour => :redbrown},
-                   {:state => 'user_withdrawn', :colour => :pink} ]
+        state_list = [ {state: 'waiting_response', colour: :darkblue},
+                   {state: 'waiting_clarification', colour: :lightblue},
+                   {state: 'not_held', colour: :yellow},
+                   {state: 'rejected', colour: :red},
+                   {state: 'successful', colour: :lightgreen},
+                   {state: 'partially_successful', colour: :darkgreen},
+                   {state: 'requires_admin', colour: :cyan},
+                   {state: 'gone_postal', colour: :darkyellow},
+                   {state: 'internal_review', colour: :mauve},
+                   {state: 'error_message', colour: :redbrown},
+                   {state: 'user_withdrawn', colour: :pink} ]
 
-        options = {:with => "impulses",
-                   :linecolor => COLOURS[state_list[0][:colour]],
-                   :linewidth => 4, :title => state_list[0][:state]}
+        options = {with: "impulses",
+                   linecolor: COLOURS[state_list[0][:colour]],
+                   linewidth: 4, title: state_list[0][:state]}
 
         # here be database-specific dragons...
         # this uses a window function which is not supported by MySQL, but
@@ -239,8 +239,8 @@ namespace :graphs do
             graph_param_sets << GraphParams.new(
               assemble_sql(state_exclusion_sql(previous_states)),
               options.merge({
-                :title => state_info[:state],
-                :linecolor => COLOURS[state_info[:colour]]})
+                title: state_info[:state],
+                linecolor: COLOURS[state_info[:colour]]})
             )
           end
           previous_states << state_list[index][:state]
@@ -250,12 +250,12 @@ namespace :graphs do
 
         # plot the cumulative counts
         options.merge!({
-          :with => "lines",
-          :linecolor => COLOURS[:lightgreen],
-          :linewidth => 1,
-          :title => "cumulative total number of requests",
-          :using => "1:3",
-          :axes => "x1y2",
+          with: "lines",
+          linecolor: COLOURS[:lightgreen],
+          linewidth: 1,
+          title: "cumulative total number of requests",
+          using: "1:3",
+          axes: "x1y2",
         })
         plot_data_from_columns(all_requests, options, plot.data)
       end

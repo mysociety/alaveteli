@@ -80,7 +80,7 @@ RSpec.describe PublicBodyCSV do
 
     it 'allows custom fields to be set on instantiation' do
       custom_fields = [:name, :short_name]
-      csv = PublicBodyCSV.new(:fields => custom_fields)
+      csv = PublicBodyCSV.new(fields: custom_fields)
       expect(csv.fields).to eq(custom_fields)
     end
 
@@ -95,7 +95,7 @@ RSpec.describe PublicBodyCSV do
 
     it 'allows custom headers to be set on instantiation' do
       custom_headers = ['Name', 'Short Name']
-      csv = PublicBodyCSV.new(:headers => custom_headers)
+      csv = PublicBodyCSV.new(headers: custom_headers)
       expect(csv.headers).to eq(custom_headers)
     end
 
@@ -113,13 +113,13 @@ RSpec.describe PublicBodyCSV do
   describe '#<<' do
 
     it 'adds an elements attributes to the rows collection' do
-      attrs = { :name => 'Exported to CSV',
-                :short_name => 'CSV',
-                :request_email => 'csv@localhost',
-                :tag_string => 'exported',
-                :note_body => 'An exported authority',
-                :created_at => '2007-10-25 10:51:01 UTC',
-                :updated_at => '2007-10-25 10:51:01 UTC' }
+      attrs = { name: 'Exported to CSV',
+                short_name: 'CSV',
+                request_email: 'csv@localhost',
+                tag_string: 'exported',
+                note_body: 'An exported authority',
+                created_at: '2007-10-25 10:51:01 UTC',
+                updated_at: '2007-10-25 10:51:01 UTC' }
       body = FactoryBot.create(:public_body, :with_note, attrs)
 
       csv = PublicBodyCSV.new
@@ -134,22 +134,22 @@ RSpec.describe PublicBodyCSV do
   describe '#generate' do
 
     it 'generates the csv' do
-      attrs1 = { :name => 'Exported to CSV 1',
-                 :short_name => 'CSV1',
-                 :request_email => 'csv1@localhost',
-                 :tag_string => 'exported',
-                 :note_body => 'An exported authority',
-                 :created_at => '2007-10-25 10:51:01 UTC',
-                 :updated_at => '2007-10-25 10:51:01 UTC' }
+      attrs1 = { name: 'Exported to CSV 1',
+                 short_name: 'CSV1',
+                 request_email: 'csv1@localhost',
+                 tag_string: 'exported',
+                 note_body: 'An exported authority',
+                 created_at: '2007-10-25 10:51:01 UTC',
+                 updated_at: '2007-10-25 10:51:01 UTC' }
       body1 = FactoryBot.create(:public_body, :with_note, attrs1)
 
-      attrs2 = { :name => 'Exported to CSV 2',
-                 :short_name => 'CSV2',
-                 :request_email => 'csv2@localhost',
-                 :tag_string => 'exported',
-                 :note_body => 'Exported authority',
-                 :created_at => '2011-01-26 14:11:02 UTC',
-                 :updated_at => '2011-01-26 14:11:02 UTC' }
+      attrs2 = { name: 'Exported to CSV 2',
+                 short_name: 'CSV2',
+                 request_email: 'csv2@localhost',
+                 tag_string: 'exported',
+                 note_body: 'Exported authority',
+                 created_at: '2011-01-26 14:11:02 UTC',
+                 updated_at: '2011-01-26 14:11:02 UTC' }
       body2 = FactoryBot.create(:public_body, :with_note, attrs2)
 
       expected = <<-CSV.strip_heredoc
@@ -163,7 +163,7 @@ RSpec.describe PublicBodyCSV do
       fields = [:name, :short_name, :url_name, :calculated_home_page, :publication_scheme, :disclosure_log, :notes_as_string, :created_at, :updated_at, :version]
       headers = ['Name', 'Short name', 'URL name', 'Home page', 'Publication scheme', 'Disclosure log', 'Notes', 'Created at', 'Updated at', 'Version']
 
-      csv = PublicBodyCSV.new(:fields => fields, :headers => headers)
+      csv = PublicBodyCSV.new(fields: fields, headers: headers)
       csv << body1
       csv << body2
       expect(csv.generate).to eq(expected)

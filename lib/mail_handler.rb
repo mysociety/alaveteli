@@ -29,8 +29,8 @@ module MailHandler
       Dir.new(dir).sort.each do |file| # sort for deterministic behaviour
         if file != "." && file != ".."
           file_content = File.open("#{dir}/#{file}", "rb").read
-          attachments << { :content => file_content,
-                           :filename => file }
+          attachments << { content: file_content,
+                           filename: file }
           found += 1
         end
       end
@@ -74,12 +74,12 @@ module MailHandler
       tempfile.binmode
       tempfile.print body
       tempfile.flush
-      default_params = { :append_to => text,
-                         :binary_output => false,
-                         :timeout => 1200 }
+      default_params = { append_to: text,
+                         binary_output: false,
+                         timeout: 1200 }
       if content_type == 'application/vnd.ms-word'
         AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
-                                     { :memory_limit => 536_870_912, :timeout => 120 } )
+                                     { memory_limit: 536_870_912, timeout: 120 } )
         # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
         if not File.exist?(tempfile.path + ".txt")
           AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
@@ -99,7 +99,7 @@ module MailHandler
                                      "-dump-charset", "utf-8",
                                      "-force-html", "-dump",
                                      tempfile.path,
-                                     default_params.merge(:env => {"LANG" => "C"}))
+                                     default_params.merge(env: {"LANG" => "C"}))
       elsif content_type == 'application/vnd.ms-excel'
         # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
         # py_xls2txt only extract text from cells, not from floating
@@ -119,7 +119,7 @@ module MailHandler
                                            "-c",
                                            tempfile.path,
                                            "word/document.xml",
-                                           {:binary_output => false})
+                                           {binary_output: false})
         if !xml.nil?
           doc = REXML::Document.new(xml)
           text += doc.each_element( './/text()' ) {}.join(" ")

@@ -422,10 +422,10 @@ module ActsAsXapian
         # Pull out all the results
         iter = matches._begin
         while not iter.equals(matches._end)
-          docs.push({:data => iter.document.data,
-                     :percent => iter.percent,
-                     :weight => iter.weight,
-                     :collapse_count => iter.collapse_count})
+          docs.push({data: iter.document.data,
+                     percent: iter.percent,
+                     weight: iter.weight,
+                     collapse_count: iter.collapse_count})
           iter.next
         end
       }
@@ -459,10 +459,10 @@ module ActsAsXapian
         k = doc[:data].split('-')
         model_instance = chash[[k[0], k[1].to_i]]
         if model_instance
-          results << { :model => model_instance,
-                       :percent => doc[:percent],
-                       :weight => doc[:weight],
-                       :collapse_count => doc[:collapse_count] }
+          results << { model: model_instance,
+                       percent: doc[:percent],
+                       weight: doc[:weight],
+                       collapse_count: doc[:collapse_count] }
         end
       end
       self.cached_results = results
@@ -523,7 +523,7 @@ module ActsAsXapian
     # date ranges or similar. Use this for cheap highlighting with
     # TextHelper::highlight, and excerpt.
     def words_to_highlight(opts = {})
-      default_opts = { :include_original => false, :regex => false }
+      default_opts = { include_original: false, regex: false }
       opts = default_opts.merge(opts)
 
       # Reject all prefixes other than Z, which we know is reserved for stems
@@ -1126,14 +1126,14 @@ module ActsAsXapian
 
     def xapian_create_job(action, model, model_id)
       begin
-        ActiveRecord::Base.transaction(:requires_new => true) do
+        ActiveRecord::Base.transaction(requires_new: true) do
           ActsAsXapianJob.
             where([ "model = ? and model_id = ?", model, model_id]).
               delete_all
           xapian_before_create_job_hook(action, model, model_id)
-          ActsAsXapianJob.create!(:model => model,
-                                  :model_id => model_id,
-                                  :action => action)
+          ActsAsXapianJob.create!(model: model,
+                                  model_id: model_id,
+                                  action: action)
         end
       rescue ActiveRecord::RecordNotUnique => e
         # Given the error handling in ActsAsXapian::update_index, we can just fail silently if

@@ -3,7 +3,7 @@ require 'tempfile'
 
 namespace :import do
   desc 'Import public bodies from CSV provided on standard input'
-  task :import_csv => :environment do
+  task import_csv: :environment do
     dryrun = ENV['DRYRUN'] != '0'
     STDERR.puts 'Only a dry run; public bodies will not be created' if dryrun
 

@@ -35,17 +35,17 @@ namespace :config_files do
 
   desc 'Return list of daemons to install based on the settings defined
         in general.yml'
-  task :active_daemons => :environment do
+  task active_daemons: :environment do
     puts daemons(true)
   end
 
   desc 'Return list of all daemons the application defines'
-  task :all_daemons => :environment do
+  task all_daemons: :environment do
     puts daemons
   end
 
   desc 'Return the value of a config param'
-  task :get_config_value => :environment do
+  task get_config_value: :environment do
     example = 'rake config_files:get_config_value ' \
               'KEY=PRODUCTION_MAILER_RETRIEVER_METHOD'
     check_for_env_vars(['KEY'], example)
@@ -57,13 +57,13 @@ namespace :config_files do
   end
 
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
-  task :convert_wrapper => :environment do
+  task convert_wrapper: :environment do
     example = 'rake config_files:convert_wrapper DEPLOY_USER=deploy SCRIPT_FILE=config/run-with-rbenv-path.example'
     check_for_env_vars(['DEPLOY_USER',
                         'SCRIPT_FILE'], example)
 
     replacements = {
-      :user => ENV['DEPLOY_USER'],
+      user: ENV['DEPLOY_USER'],
     }
 
     # Generate the template for potential further processing
@@ -73,7 +73,7 @@ namespace :config_files do
   end
 
   desc 'Convert Debian example init script in config to a form suitable for installing in /etc/init.d'
-  task :convert_init_script => :environment do
+  task convert_init_script: :environment do
     example = 'rake config_files:convert_init_script ' \
               'DEPLOY_USER=deploy ' \
               'VHOST_DIR=/dir/above/alaveteli ' \
@@ -87,19 +87,19 @@ namespace :config_files do
                         'SCRIPT_FILE'], example)
 
     replacements = {
-      :user => ENV['DEPLOY_USER'],
-      :vhost_dir => ENV['VHOST_DIR'],
-      :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
-      :site => ENV.fetch('SITE') { 'foi' },
-      :cpus => ENV.fetch('CPUS') { '1' },
-      :rails_env => ENV.fetch('RAILS_ENV') { 'development' },
-      :ruby_version => ENV.fetch('RUBY_VERSION') { '' },
-      :use_rbenv? => ENV['USE_RBENV'] == 'true'
+      user: ENV['DEPLOY_USER'],
+      vhost_dir: ENV['VHOST_DIR'],
+      vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
+      site: ENV.fetch('SITE') { 'foi' },
+      cpus: ENV.fetch('CPUS') { '1' },
+      rails_env: ENV.fetch('RAILS_ENV') { 'development' },
+      ruby_version: ENV.fetch('RUBY_VERSION') { '' },
+      use_rbenv?: ENV['USE_RBENV'] == 'true'
     }
 
     # Use the filename for the $daemon_name ugly variable
     daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.example')
-    replacements.update(:daemon_name => "#{ replacements[:site] }-#{ daemon_name }")
+    replacements.update(daemon_name: "#{ replacements[:site] }-#{ daemon_name }")
 
     # Generate the template for potential further processing
     converted = convert_erb(ENV['SCRIPT_FILE'], **replacements)
@@ -119,7 +119,7 @@ namespace :config_files do
   end
 
   desc 'Convert Debian example crontab file in config to a form suitable for installing in /etc/cron.d'
-  task :convert_crontab => :environment do
+  task convert_crontab: :environment do
     example = 'rake config_files:convert_crontab ' \
               'DEPLOY_USER=deploy ' \
               'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
@@ -133,13 +133,13 @@ namespace :config_files do
                         'SITE',
                         'CRONTAB'], example)
     replacements = {
-      :user => ENV['DEPLOY_USER'],
-      :vhost_dir => ENV['VHOST_DIR'],
-      :vcspath => ENV['VCSPATH'],
-      :site => ENV['SITE'],
-      :mailto => ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
-      :ruby_version => ENV.fetch('RUBY_VERSION') { '' },
-      :use_rbenv? => ENV['USE_RBENV'] == 'true'
+      user: ENV['DEPLOY_USER'],
+      vhost_dir: ENV['VHOST_DIR'],
+      vcspath: ENV['VCSPATH'],
+      site: ENV['SITE'],
+      mailto: ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
+      ruby_version: ENV.fetch('RUBY_VERSION') { '' },
+      use_rbenv?: ENV['USE_RBENV'] == 'true'
     }
 
     lines = []
@@ -153,17 +153,17 @@ namespace :config_files do
   end
 
   desc 'Convert miscellaneous example scripts. This does not check for required environment variables for the script, so please check the script file itself.'
-  task :convert_script => :environment do
+  task convert_script: :environment do
     example = 'rake config_files:convert_script SCRIPT_FILE=config/run-with-rbenv-path.example'
     check_for_env_vars(['SCRIPT_FILE'], example)
 
     replacements = {
-      :user => ENV.fetch('DEPLOY_USER') { 'alaveteli' },
-      :vhost_dir => ENV.fetch('VHOST_DIR') { '/var/www/alaveteli' },
-      :vcspath => ENV.fetch('VCSPATH') { 'alaveteli' },
-      :site => ENV.fetch('SITE') { 'foi' },
-      :cpus => ENV.fetch('CPUS') { '1' },
-      :rails_env => ENV.fetch('RAILS_ENV') { 'development' }
+      user: ENV.fetch('DEPLOY_USER') { 'alaveteli' },
+      vhost_dir: ENV.fetch('VHOST_DIR') { '/var/www/alaveteli' },
+      vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
+      site: ENV.fetch('SITE') { 'foi' },
+      cpus: ENV.fetch('CPUS') { '1' },
+      rails_env: ENV.fetch('RAILS_ENV') { 'development' }
     }
 
     # Generate the template for potential further processing
@@ -184,14 +184,14 @@ namespace :config_files do
   end
 
   desc 'Set reject_incoming_at_mta on old requests that are rejecting incoming mail'
-  task :set_reject_incoming_at_mta => :environment do
+  task set_reject_incoming_at_mta: :environment do
     example = 'rake config_files:set_reject_incoming_at_mta REJECTED_THRESHOLD=5 AGE_IN_MONTHS=12'
     check_for_env_vars(['REJECTED_THRESHOLD', 'AGE_IN_MONTHS'], example)
     dryrun = ENV['DRYRUN'] != '0'
     STDERR.puts "Only a dry run; info_requests will not be updated" if dryrun
-    options = {:rejection_threshold => ENV['REJECTED_THRESHOLD'],
-               :age_in_months => ENV['AGE_IN_MONTHS'],
-               :dryrun => dryrun}
+    options = {rejection_threshold: ENV['REJECTED_THRESHOLD'],
+               age_in_months: ENV['AGE_IN_MONTHS'],
+               dryrun: dryrun}
 
     updated_count = InfoRequest.reject_incoming_at_mta(options) do |ids|
       puts "Info Request\tRejected incoming count\tLast updated"
@@ -219,7 +219,7 @@ namespace :config_files do
   end
 
   desc 'Unset reject_incoming_at_mta on a request'
-  task :unset_reject_incoming_at_mta => :environment do
+  task unset_reject_incoming_at_mta: :environment do
     example = 'rake config_files:unset_reject_incoming_at_mta REQUEST_ID=4'
     check_for_env_vars(['REQUEST_ID'], example)
     info_request = InfoRequest.find(ENV['REQUEST_ID'])
@@ -235,7 +235,7 @@ namespace :config_files do
   end
 
   desc 'Produce a list of email addresses for which the MTA should reject messages at RCPT time'
-  task :generate_mta_rejection_list => :environment do
+  task generate_mta_rejection_list: :environment do
     example = 'rake config_files:generate_mta_rejection_list MTA=(exim|postfix)'
     check_for_env_vars(['MTA'], example)
     mta = ENV['MTA'].downcase
@@ -243,7 +243,7 @@ namespace :config_files do
       puts "Error: Unrecognised MTA"
       exit 1
     end
-    InfoRequest.where(:reject_incoming_at_mta => true).each do |info_request|
+    InfoRequest.where(reject_incoming_at_mta: true).each do |info_request|
       if mta == 'postfix'
         puts "#{info_request.incoming_email} REJECT"
       else
