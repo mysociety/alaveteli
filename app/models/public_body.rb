@@ -731,7 +731,7 @@ class PublicBody < ApplicationRecord
                         limit(n).
                           to_a
     public_bodies.reverse! if highest
-    y_values = public_bodies.map { |pb| pb.info_requests_visible_count }
+    y_values = public_bodies.map(&:info_requests_visible_count)
     {
       'public_bodies' => public_bodies,
       'y_values' => y_values,

@@ -43,7 +43,7 @@ namespace :xapian do
       raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter"
     end
     ActsAsXapian.destroy_and_rebuild_index(
-                               ENV['models'].split(" ").map { |m| m.constantize },
+                               ENV['models'].split(" ").map(&:constantize),
                                coerce_arg(ENV['verbose'], false),
                                coerce_arg(ENV['terms'], true),
                                coerce_arg(ENV['values'], true),
@@ -58,7 +58,7 @@ namespace :xapian do
       raise "specify models=\"ModelName1 ModelName2\" as parameter"
     end
     raise "specify query=\"your terms\" as parameter" if ENV['query'].nil?
-    s = ActsAsXapian::Search.new(ENV['models'].split(" ").map { |m| m.constantize },
+    s = ActsAsXapian::Search.new(ENV['models'].split(" ").map(&:constantize),
                                  ENV['query'],
                                  offset: (ENV['offset'] || 0), limit: (ENV['limit'] || 10),
                                  sort_by_prefix: (ENV['sort_by_prefix'] || nil),

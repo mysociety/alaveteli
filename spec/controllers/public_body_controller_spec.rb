@@ -156,7 +156,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   it "if fallback is requested, make sure that there are no duplicates listed" do
     allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).and_return(true)
     get :list, params: { locale: 'es' }
-    pb_ids = assigns[:public_bodies].map { |pb| pb.id }
+    pb_ids = assigns[:public_bodies].map(&:id)
     unique_pb_ids = pb_ids.uniq
     expect(pb_ids.sort).to be === unique_pb_ids.sort
   end
@@ -188,7 +188,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     get :list, params: { locale: 'es' }
     parsed = Nokogiri::HTML(response.body)
     public_body_names = parsed.xpath '//span[@class="head"]/a/text()'
-    public_body_names = public_body_names.map { |pb| pb.to_s }
+    public_body_names = public_body_names.map(&:to_s)
     expect(public_body_names).to eq(public_body_names.sort)
   end
 

@@ -85,7 +85,7 @@ FactoryBot.define do
     end
 
     trait :enable_otp do
-      after(:build) { |object| object.enable_otp }
+      after(:build, &:enable_otp)
     end
 
     trait :unconfirmed do

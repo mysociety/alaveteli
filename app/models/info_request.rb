@@ -812,9 +812,7 @@ class InfoRequest < ApplicationRecord
 
   # Removes anything cached about the object in the database, and saves
   def clear_in_database_caches!
-    incoming_messages.each do |incoming_message|
-      incoming_message.clear_in_database_caches!
-    end
+    incoming_messages.each(&:clear_in_database_caches!)
   end
 
   def update_last_public_response_at
@@ -1519,8 +1517,8 @@ class InfoRequest < ApplicationRecord
 
   def all_correspondence_is_public?
     prominence(decorate: true).is_public? &&
-      incoming_messages.all? { |message| message.is_public? } &&
-      outgoing_messages.all? { |message| message.is_public? }
+      incoming_messages.all?(&:is_public?) &&
+      outgoing_messages.all?(&:is_public?)
   end
 
   def json_for_api(deep)

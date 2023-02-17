@@ -124,9 +124,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
         end
       end
     end
-    new_categories.each do |cat|
-      cat.save!
-    end
+    new_categories.each(&:save!)
 
     new_headings = []
     PublicBodyHeading.all.each do |heading|
@@ -148,9 +146,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
         end
       end
     end
-    new_headings.each do |heading|
-      heading.save!
-    end
+    new_headings.each(&:save!)
 
     # drop the translation tables
     PublicBodyCategory.drop_translation_table!

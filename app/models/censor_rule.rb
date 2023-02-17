@@ -81,7 +81,7 @@ class CensorRule < ApplicationRecord
       public_body.expire_requests
     else # global rule
       InfoRequest.find_in_batches do |group|
-        group.each { |request| request.expire }
+        group.each(&:expire)
       end
     end
   end

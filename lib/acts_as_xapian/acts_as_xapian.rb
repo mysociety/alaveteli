@@ -728,7 +728,7 @@ module ActsAsXapian
     # Before calling writable_init we have to make sure every model class has been initialized.
     # i.e. has had its class code loaded, so acts_as_xapian has been called inside it, and
     # we have the info from acts_as_xapian.
-    model_classes = ActsAsXapianJob.distinct.pluck(:model).map { |a| a.constantize }
+    model_classes = ActsAsXapianJob.distinct.pluck(:model).map(&:constantize)
     # If there are no models in the queue, then nothing to do
     return if model_classes.empty?
 
@@ -953,16 +953,16 @@ module ActsAsXapian
           value = single_xapian_value(field, type = type)
         else
           values = []
-          translations.map { |x| x.locale }.each do |locale|
+          translations.map(&:locale).each do |locale|
             AlaveteliLocalization.with_locale(locale) do
               values << single_xapian_value(field, type=type)
             end
           end
           if values[0].kind_of?(Array)
             values = values.flatten
-            value = values.reject { |x| x.nil? }
+            value = values.reject(&:nil?)
           else
-            values = values.reject { |x| x.nil? }
+            values = values.reject(&:nil?)
             value = values.join(" ")
           end
         end
@@ -988,7 +988,7 @@ module ActsAsXapian
       else
         # Arrays are for terms which require multiple of them, e.g. tags
         if value.kind_of?(Array)
-          value.map { |v| v.to_s }
+          value.map(&:to_s)
         else
           value.to_s
         end
