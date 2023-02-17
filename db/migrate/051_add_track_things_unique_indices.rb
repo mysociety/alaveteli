@@ -1,6 +1,6 @@
 class AddTrackThingsUniqueIndices < ActiveRecord::Migration[4.2] # 2.0
   def self.up
-    add_index :track_things, [:tracking_user_id, :track_query], :unique => true
+    add_index :track_things, [:tracking_user_id, :track_query], unique: true
     # GRRR - this index confuses Rails migrations, and it makes part of the index but not all
     # of it for the schema.rb, and hence in test databases, and the test databases fail.
     # I guess the query in ./activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb

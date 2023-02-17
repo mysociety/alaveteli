@@ -6,13 +6,13 @@ class CreateTranslationTables < ActiveRecord::Migration[4.2] # 2.3
   end
 
   def self.up
-    fields = { :name => :text,
-               :short_name => :text,
-               :request_email => :text,
-               :url_name => :text,
-               :notes => :text,
-               :first_letter => :string,
-               :publication_scheme => :text }
+    fields = { name: :text,
+               short_name: :text,
+               request_email: :text,
+               url_name: :text,
+               notes: :text,
+               first_letter: :string,
+               publication_scheme: :text }
     PublicBody.create_translation_table!(fields)
 
     # copy current values across to default locale
