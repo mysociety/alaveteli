@@ -17,14 +17,14 @@ class GeneralController < ApplicationController
   def frontpage
     medium_cache
     @locale = AlaveteliLocalization.locale
-    successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
+    successful_query = InfoRequestEvent.make_query_from_params( latest_status: ['successful'] )
     @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
     @number_of_requests = InfoRequest.is_searchable.count
     @number_of_authorities = PublicBody.visible.count
-    @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
-                           :title => _('Successful requests'),
-                           :has_json => true } ]
+    @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'),
+                           title: _('Successful requests'),
+                           has_json: true } ]
   end
 
   # Display blog entries
@@ -56,7 +56,7 @@ class GeneralController < ApplicationController
         @data = XmlSimple.xml_in(content)
         @channel = @data['channel'][0]
         @blog_items = @channel.fetch('item') { [] }
-        @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
+        @feed_autodetect = [{url: @feed_url, title: "#{site_name} blog"}]
       end
     end
     @twitter_user = AlaveteliConfiguration.twitter_username
@@ -70,7 +70,7 @@ class GeneralController < ApplicationController
       @query = nil
       @page = 1
       @advanced = !params[:advanced].nil?
-      render :action => "search"
+      render action: "search"
     else
       query_parts = @query.split("/")
       if !['bodies', 'requests', 'users', 'all'].include?(query_parts[-1])
@@ -132,7 +132,7 @@ class GeneralController < ApplicationController
       # structured query which should show newest first, rather than a free text search
       # where we want most relevant as default.
       begin
-        dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+        dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, limit: 1)
       rescue => e
         flash[:error] = "Your query was not quite right. #{e.message}"
         redirect_to search_url("")
@@ -187,13 +187,13 @@ class GeneralController < ApplicationController
     end
 
     # Spelling and highight words are same for all three queries
-    @highlight_words = @request_for_spelling.words_to_highlight(:regex => true, :include_original => true)
+    @highlight_words = @request_for_spelling.words_to_highlight(regex: true, include_original: true)
     if !(@request_for_spelling.spelling_correction =~ /[a-z]+:/)
       @spelling_correction = @request_for_spelling.spelling_correction
     end
 
     @track_thing = TrackThing.create_track_for_search_query(@query, @variety_postfix)
-    @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+    @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'), title: @track_thing.params[:title_in_rss], has_json: true } ]
   end
 
   # Handle requests for non-existent URLs - will be handled by ApplicationController::render_exception

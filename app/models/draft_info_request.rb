@@ -20,8 +20,8 @@ class DraftInfoRequest < ApplicationRecord
   validates_presence_of :user
 
   belongs_to :user,
-             :inverse_of => :draft_info_requests
-  belongs_to :public_body, :inverse_of => :draft_info_requests
+             inverse_of: :draft_info_requests
+  belongs_to :public_body, inverse_of: :draft_info_requests
 
   strip_attributes
 

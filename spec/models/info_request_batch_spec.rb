@@ -92,9 +92,9 @@ RSpec.describe InfoRequestBatch do
     let(:first_body) { FactoryBot.create(:public_body) }
     let(:second_body) { FactoryBot.create(:public_body) }
     let(:info_request_batch) do
-      FactoryBot.create(:info_request_batch, :title => 'Matched title',
-                                             :body => 'Matched body',
-                                             :public_bodies => [first_body,
+      FactoryBot.create(:info_request_batch, title: 'Matched title',
+                                             body: 'Matched body',
+                                             public_bodies: [first_body,
                                                                 second_body])
     end
 
@@ -215,8 +215,8 @@ RSpec.describe InfoRequestBatch do
     let(:info_request_batch) do
       FactoryBot.create(
         :info_request_batch,
-        :body => "Dear [Authority name],\nA message\nYours faithfully,\nRequester",
-        :public_bodies => [first_public_body, second_public_body])
+        body: "Dear [Authority name],\nA message\nYours faithfully,\nRequester",
+        public_bodies: [first_public_body, second_public_body])
     end
 
     it 'should substitute authority name for the placeholder in each request' do
@@ -251,10 +251,10 @@ RSpec.describe InfoRequestBatch do
 
     it "it imposes an alphabetical sort order on associated public bodies" do
       third_public_body = FactoryBot.create(:public_body,
-                                            :name => "Another Body")
+                                            name: "Another Body")
       batch = FactoryBot.create(
         :info_request_batch,
-        :public_bodies => [first_public_body,
+        public_bodies: [first_public_body,
                            third_public_body])
       batch.reload
       expect(batch.public_bodies).to eq ([third_public_body,
@@ -305,8 +305,8 @@ RSpec.describe InfoRequestBatch do
     let!(:sent_batch) do
       FactoryBot.create(
         :info_request_batch,
-        :public_bodies => [first_public_body, second_public_body],
-        :sent_at => Time.zone.now)
+        public_bodies: [first_public_body, second_public_body],
+        sent_at: Time.zone.now)
     end
 
     it 'should send requests and notifications for only unsent batch requests' do
@@ -362,7 +362,7 @@ RSpec.describe InfoRequestBatch do
     let(:draft) do
       FactoryBot.create(
         :draft_info_request_batch,
-        :public_bodies => [first_public_body, second_public_body])
+        public_bodies: [first_public_body, second_public_body])
     end
 
     it "copies across all of the attributes from the draft" do
@@ -401,8 +401,8 @@ RSpec.describe InfoRequestBatch do
       let(:info_request_batch) do
         FactoryBot.create(
           :info_request_batch,
-          :public_bodies => [first_public_body, second_public_body],
-          :embargo_duration => "3_months")
+          public_bodies: [first_public_body, second_public_body],
+          embargo_duration: "3_months")
       end
       let(:example) { info_request_batch.example_request }
 
@@ -437,7 +437,7 @@ RSpec.describe InfoRequestBatch do
       let(:info_request_batch) do
         FactoryBot.create(
           :info_request_batch,
-          :public_bodies => [first_public_body, second_public_body])
+          public_bodies: [first_public_body, second_public_body])
       end
       let(:example) { info_request_batch.example_request }
 
@@ -493,7 +493,7 @@ RSpec.describe InfoRequestBatch do
     let(:info_request_batch) do
       FactoryBot.create(
         :info_request_batch,
-        :public_bodies => [first_public_body, second_public_body])
+        public_bodies: [first_public_body, second_public_body])
     end
 
     before do
@@ -549,7 +549,7 @@ RSpec.describe InfoRequestBatch do
   describe "#request_phases" do
     let(:public_bodies) { FactoryBot.create_list(:public_body, 3) }
     let(:info_request_batch) do
-      FactoryBot.create(:info_request_batch, :public_bodies => public_bodies)
+      FactoryBot.create(:info_request_batch, public_bodies: public_bodies)
     end
 
     before do
@@ -571,7 +571,7 @@ RSpec.describe InfoRequestBatch do
   describe "#request_phases_summary" do
     let(:public_bodies) { FactoryBot.create_list(:public_body, 10) }
     let(:info_request_batch) do
-      FactoryBot.create(:info_request_batch, :public_bodies => public_bodies)
+      FactoryBot.create(:info_request_batch, public_bodies: public_bodies)
     end
 
     before do
@@ -592,21 +592,21 @@ RSpec.describe InfoRequestBatch do
 
     it "returns summarised counts of each request phase grouping" do
       expected = {
-        :in_progress => {
-          :label => _('In progress'),
-          :count => 4
+        in_progress: {
+          label: _('In progress'),
+          count: 4
         },
-        :action_needed => {
-          :label => _('Action needed'),
-          :count => 3
+        action_needed: {
+          label: _('Action needed'),
+          count: 3
         },
-        :complete => {
-          :label => _('Complete'),
-          :count => 2
+        complete: {
+          label: _('Complete'),
+          count: 2
         },
-        :other => {
-          :label => _('Other'),
-          :count => 1
+        other: {
+          label: _('Other'),
+          count: 1
         }
       }
       expect(info_request_batch.request_phases_summary).to eq expected
@@ -729,7 +729,7 @@ RSpec.describe InfoRequestBatch do
   describe "#log_event" do
     let(:public_bodies) { FactoryBot.create_list(:public_body, 3) }
     let(:info_request_batch) do
-      FactoryBot.create(:info_request_batch, :public_bodies => public_bodies)
+      FactoryBot.create(:info_request_batch, public_bodies: public_bodies)
     end
 
     before do

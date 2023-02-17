@@ -374,13 +374,13 @@ module MailHandler
             body = extract_attached_message_headers(leaf)
           end
 
-          leaf_attributes = { :url_part_number => leaf.url_part_number,
-                              :content_type => get_content_type(leaf),
-                              :filename => get_part_file_name(leaf),
-                              :charset => leaf.charset,
-                              :within_rfc822_subject => within_rfc822_subject,
-                              :body => body,
-                              :hexdigest => Digest::MD5.hexdigest(body) }
+          leaf_attributes = { url_part_number: leaf.url_part_number,
+                              content_type: get_content_type(leaf),
+                              filename: get_part_file_name(leaf),
+                              charset: leaf.charset,
+                              within_rfc822_subject: within_rfc822_subject,
+                              body: body,
+                              hexdigest: Digest::MD5.hexdigest(body) }
         end
       end
 

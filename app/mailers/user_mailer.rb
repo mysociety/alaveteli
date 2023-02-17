@@ -30,9 +30,9 @@ class UserMailer < ApplicationMailer
     @new_email = new_email
 
     set_reply_to_headers(user)
-    mail(:from => contact_for_user(user),
-         :to => new_email,
-         :subject => _("Confirm your new email address on {{site_name}}", :site_name => site_name))
+    mail(from: contact_for_user(user),
+         to: new_email,
+         subject: _("Confirm your new email address on {{site_name}}", site_name: site_name))
   end
 
   def changeemail_already_used(old_email, new_email)
@@ -41,8 +41,8 @@ class UserMailer < ApplicationMailer
     user = User.find_by_email(@old_email)
 
     set_reply_to_headers(user)
-    mail(:from => contact_for_user(user),
-         :to => new_email,
-         :subject => _("Unable to change email address on {{site_name}}", :site_name=>site_name))
+    mail(from: contact_for_user(user),
+         to: new_email,
+         subject: _("Unable to change email address on {{site_name}}", site_name: site_name))
   end
 end

@@ -2,9 +2,9 @@ class InfoRequest
   module ResponseGatekeeper
     class SpamChecker
       DEFAULT_CONFIGURATION = {
-        :spam_action => ::AlaveteliConfiguration.incoming_email_spam_action,
-        :spam_header => ::AlaveteliConfiguration.incoming_email_spam_header,
-        :spam_threshold => ::AlaveteliConfiguration.incoming_email_spam_threshold
+        spam_action: ::AlaveteliConfiguration.incoming_email_spam_action,
+        spam_header: ::AlaveteliConfiguration.incoming_email_spam_header,
+        spam_threshold: ::AlaveteliConfiguration.incoming_email_spam_threshold
       }
 
       attr_reader :spam_action, :spam_header, :spam_threshold
@@ -22,7 +22,7 @@ class InfoRequest
 
       def reason
         _('Incoming message has a spam score above the configured threshold ' \
-          '({{spam_threshold}}).', :spam_threshold => spam_threshold)
+          '({{spam_threshold}}).', spam_threshold: spam_threshold)
       end
 
       def spam?(email)

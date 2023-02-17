@@ -112,11 +112,11 @@ gem 'recaptcha', '~> 5.12.3', require: 'recaptcha/rails'
 gem 'matrix', '~> 0.4.2'
 gem 'mini_magick', '~> 4.12.0'
 gem 'rolify', '~> 6.0.1'
-gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
+gem 'ruby-msg', '~> 1.5.0', git: 'https://github.com/mysociety/ruby-msg.git', branch: 'ascii-encoding'
 gem 'rubyzip', '~> 2.3.2'
 gem 'secure_headers', '~> 6.5.0'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
+gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails7'
 gem 'stripe', '~> 5.55.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
@@ -124,7 +124,7 @@ gem 'thin', '~> 1.8.1'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.3.1'
 gem 'xapian-full-alaveteli', '~> 1.4.21.1'
-gem 'xml-simple', '~> 1.1.9', :require => 'xmlsimple'
+gem 'xml-simple', '~> 1.1.9', require: 'xmlsimple'
 gem 'zip_tricks', '~> 5.6.0'
 
 # Gems only used by the research export task
@@ -153,7 +153,7 @@ gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '~> 4.2.0'
 
 # Feature flags
-gem 'alaveteli_features', :path => 'gems/alaveteli_features'
+gem 'alaveteli_features', path: 'gems/alaveteli_features'
 
 # Storage backends
 gem 'aws-sdk-s3', require: false

@@ -8,7 +8,7 @@ class RequestMailer < ApplicationMailer
   include AlaveteliFeatures::Helpers
 
   before_action :set_footer_template,
-                :only => [
+                only: [
                   :new_response, :overdue_alert, :very_overdue_alert,
                   :new_response_reminder_alert, :old_unclassified_updated,
                   :not_clarified_alert, :comment_on_alert,
@@ -24,13 +24,13 @@ class RequestMailer < ApplicationMailer
     if !attachment_name.nil? && !attachment_content.nil?
       content_type = AlaveteliFileTypes.filename_to_mimetype(attachment_name) || 'application/octet-stream'
 
-      attachments[attachment_name] = {:content => attachment_content,
-                                      :content_type => content_type}
+      attachments[attachment_name] = {content: attachment_content,
+                                      content_type: content_type}
     end
 
-    mail(:from => from_user.name_and_email,
-         :to => info_request.incoming_name_and_email,
-         :subject => info_request.email_subject_followup(:html => false))
+    mail(from: from_user.name_and_email,
+         to: info_request.incoming_name_and_email,
+         subject: info_request.email_subject_followup(html: false))
   end
 
   # Used when a response is uploaded using the API
@@ -38,13 +38,13 @@ class RequestMailer < ApplicationMailer
     @message_body = message_body
 
     attachment_hashes.each do |attachment_hash|
-      attachments[attachment_hash[:filename]] = {:content => attachment_hash[:body],
-                                                 :content_type => attachment_hash[:content_type]}
+      attachments[attachment_hash[:filename]] = {content: attachment_hash[:body],
+                                                 content_type: attachment_hash[:content_type]}
     end
 
-    mail(:from => blackhole_email,
-         :to => info_request.incoming_name_and_email,
-         :date => sent_at)
+    mail(from: blackhole_email,
+         to: info_request.incoming_name_and_email,
+         date: sent_at)
   end
 
   # Incoming message arrived for a request, but new responses have been stopped.
@@ -55,10 +55,10 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
     @contact_email = AlaveteliConfiguration::contact_email
 
-    mail(:to => email.from_addrs[0].to_s,
-         :from => contact_from_name_and_email,
-         :reply_to => contact_from_name_and_email,
-         :subject => _("Your response to an FOI request was not delivered"))
+    mail(to: email.from_addrs[0].to_s,
+         from: contact_from_name_and_email,
+         reply_to: contact_from_name_and_email,
+         subject: _("Your response to an FOI request was not delivered"))
   end
 
   # An FOI response is outside the scope of the system, and needs admin attention
@@ -72,15 +72,15 @@ class RequestMailer < ApplicationMailer
     set_reply_to_headers(nil, 'Reply-To' => user.name_and_email)
 
     # From is an address we control so that strict DMARC senders don't get refused
-    mail(:from => MailHandler.address_from_name_and_email(
+    mail(from: MailHandler.address_from_name_and_email(
                     user.name,
                     blackhole_email
                   ),
-         :to => contact_for_user(user),
-         :subject => _("FOI response requires admin ({{reason}}) - " \
+         to: contact_for_user(user),
+         subject: _("FOI response requires admin ({{reason}}) - " \
                         "{{request_title}}",
-                       :reason => info_request.described_state,
-                       :request_title => info_request.title.html_safe))
+                       reason: info_request.described_state,
+                       request_title: info_request.title.html_safe))
   end
 
   # Tell the requester that a new response has arrived
@@ -92,11 +92,11 @@ class RequestMailer < ApplicationMailer
     set_auto_generated_headers
 
     mail(
-      :from => contact_for_user(info_request.user),
-      :to => info_request.user.name_and_email,
-      :subject => _("New response to your FOI request - {{request_title}}",
-                    :request_title => info_request.title.html_safe),
-      :charset => "UTF-8"
+      from: contact_for_user(info_request.user),
+      to: info_request.user.name_and_email,
+      subject: _("New response to your FOI request - {{request_title}}",
+                    request_title: info_request.title.html_safe),
+      charset: "UTF-8"
     )
   end
 
@@ -111,7 +111,7 @@ class RequestMailer < ApplicationMailer
     mail_user(
       user,
       _("Delayed response to your FOI request - {{request_title}}",
-        :request_title => info_request.title.html_safe)
+        request_title: info_request.title.html_safe)
     )
   end
 
@@ -126,7 +126,7 @@ class RequestMailer < ApplicationMailer
     mail_user(
       user,
       _("You're long overdue a response to your FOI request - {{request_title}}",
-        :request_title => info_request.title.html_safe)
+        request_title: info_request.title.html_safe)
     )
   end
 
@@ -162,9 +162,9 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that they need to clarify their request
   def not_clarified_alert(info_request, incoming_message)
-    respond_url = new_request_incoming_followup_url(:request_id => info_request.id,
-                                                    :incoming_message_id => incoming_message.id,
-                                                    :anchor => 'followup')
+    respond_url = new_request_incoming_followup_url(request_id: info_request.id,
+                                                    incoming_message_id: incoming_message.id,
+                                                    anchor: 'followup')
     @url = respond_url
     @incoming_message = incoming_message
     @info_request = info_request
@@ -174,7 +174,7 @@ class RequestMailer < ApplicationMailer
     mail_user(
       info_request.user,
       _("Clarify your FOI request - {{request_title}}",
-        :request_title => info_request.title.html_safe)
+        request_title: info_request.title.html_safe)
     )
   end
 
@@ -189,7 +189,7 @@ class RequestMailer < ApplicationMailer
     mail_user(
       info_request.user,
       _("Somebody added a note to your FOI request - {{request_title}}",
-        :request_title => info_request.title.html_safe)
+        request_title: info_request.title.html_safe)
     )
   end
 
@@ -205,7 +205,7 @@ class RequestMailer < ApplicationMailer
     mail_user(
       info_request.user,
       _("Some notes have been added to your FOI request - {{request_title}}",
-        :request_title => info_request.title.html_safe)
+        request_title: info_request.title.html_safe)
     )
   end
 
@@ -239,7 +239,7 @@ class RequestMailer < ApplicationMailer
 
   # Member function, called on the new class made in self.receive above
   def receive(email, raw_email, source = :mailin)
-    opts = { :source => source }
+    opts = { source: source }
 
     # Find which info requests the email is for
     reply_info_requests = requests_matching_email(email)
@@ -467,7 +467,7 @@ class RequestMailer < ApplicationMailer
 
     info_requests =
       InfoRequest.
-        includes(:info_request_events => :user_info_request_sent_alerts).
+        includes(info_request_events: :user_info_request_sent_alerts).
           where(conditions).
             order(:id).merge(InfoRequestEvent.order(:created_at)).
               references(:info_request_events)

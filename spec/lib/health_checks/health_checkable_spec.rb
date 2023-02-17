@@ -12,12 +12,12 @@ RSpec.describe HealthChecks::HealthCheckable do
   describe '#initialize' do
 
     it 'allows a custom failure message to be set' do
-      @subject = MockCheck.new(:failure_message => 'F')
+      @subject = MockCheck.new(failure_message: 'F')
       expect(@subject.failure_message).to eq('F')
     end
 
     it 'allows a custom success message to be set' do
-      @subject = MockCheck.new(:success_message => 'S')
+      @subject = MockCheck.new(success_message: 'S')
       expect(@subject.success_message).to eq('S')
     end
 
@@ -78,7 +78,7 @@ RSpec.describe HealthChecks::HealthCheckable do
     context 'if the check succeeds' do
 
       before(:each) do
-        allow(@subject).to receive_messages(:ok? => true)
+        allow(@subject).to receive_messages(ok?: true)
       end
 
       it 'returns the default success message' do
@@ -95,7 +95,7 @@ RSpec.describe HealthChecks::HealthCheckable do
     context 'if the check fails' do
 
       before(:each) do
-        allow(@subject).to receive_messages(:ok? => false)
+        allow(@subject).to receive_messages(ok?: false)
       end
 
       it 'returns the default failure message' do

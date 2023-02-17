@@ -25,7 +25,7 @@ RSpec.describe "when generating urls" do
   end
 
   it 'falls back to the default if the requested locale is unavailable' do
-    get '/', params: { :locale => "unknown" }
+    get '/', params: { locale: "unknown" }
     expect(response.body).to match /href="\/en\//
     expect(response.body).not_to match /href="\/unknown\//
   end
@@ -40,7 +40,7 @@ RSpec.describe "when generating urls" do
 
     before do
       AlaveteliLocalization.set_locales('es en', 'en')
-      body = FactoryBot.create(:public_body, :short_name => 'english_short')
+      body = FactoryBot.create(:public_body, short_name: 'english_short')
       AlaveteliLocalization.with_locale('es') do
         body.short_name = 'spanish_short'
         body.save!
@@ -106,7 +106,7 @@ RSpec.describe "when generating urls" do
 
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
-          get '/', headers: { :locale => 'es' }
+          get '/', headers: { locale: 'es' }
           expect(response.body).to match /class="current-locale">English/
         end
       end

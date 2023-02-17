@@ -23,8 +23,8 @@ class AdminRequestController < AdminController
     end
 
     @info_requests = info_requests.order(created_at: :desc).paginate(
-      :page => params[:page],
-      :per_page => 100)
+      page: params[:page],
+      per_page: 100)
   end
 
   def show
@@ -76,7 +76,7 @@ class AdminRequestController < AdminController
       flash[:notice] = 'Request successfully updated.'
       redirect_to admin_request_url(@info_request)
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -135,7 +135,7 @@ class AdminRequestController < AdminController
 
     user = User.find_user_by_email(email)
     if not user
-      user = User.new(:name => name, :email => email, :password => PostRedirect.generate_random_token)
+      user = User.new(name: name, email: email, password: PostRedirect.generate_random_token)
       user.save!
     end
 
@@ -148,16 +148,16 @@ class AdminRequestController < AdminController
     # Bejeeps, look, sometimes a URL is something that belongs in a controller, jesus.
     # TODO: hammer this square peg into the round MVC hole
     post_redirect = PostRedirect.new(
-      :uri => upload_response_url(:url_title => @info_request.url_title),
-    :user_id => user.id)
+      uri: upload_response_url(url_title: @info_request.url_title),
+    user_id: user.id)
     post_redirect.save!
 
     flash[:notice] = {
-      :partial => "upload_email_message",
-      :locals => {
-        :name => name,
-        :email => email,
-        :url => confirm_url(:email_token => post_redirect.email_token)
+      partial: "upload_email_message",
+      locals: {
+        name: name,
+        email: email,
+        url: confirm_url(email_token: post_redirect.email_token)
       }
     }
     redirect_to admin_request_url(@info_request)
@@ -197,7 +197,7 @@ class AdminRequestController < AdminController
         ).deliver_now
         flash[:notice] = _("Your message to {{recipient_user_name}} has " \
                            "been sent",
-                           :recipient_user_name => @info_request.user.
+                           recipient_user_name: @info_request.user.
                                                      name.html_safe)
       else
         flash[:notice] = _("This external request has been hidden")

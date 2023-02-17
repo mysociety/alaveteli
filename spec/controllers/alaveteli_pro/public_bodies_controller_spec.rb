@@ -4,7 +4,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
   describe "#index" do
     let!(:pro_user) { FactoryBot.create(:pro_user) }
-    let!(:body) { FactoryBot.create(:public_body, :name => 'example') }
+    let!(:body) { FactoryBot.create(:public_body, name: 'example') }
     let!(:defunct_body) do
       FactoryBot.create(:public_body, :defunct, name: 'defunct')
     end
@@ -12,8 +12,8 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
       FactoryBot.create(:public_body, :not_apply, name: 'not_apply')
     end
     let!(:not_requestable_body) do
-      FactoryBot.create(:public_body, :name => 'not_requestable',
-                                      :request_email => 'blank')
+      FactoryBot.create(:public_body, name: 'not_requestable',
+                                      request_email: 'blank')
     end
 
     before do

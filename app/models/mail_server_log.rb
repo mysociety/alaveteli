@@ -24,9 +24,9 @@ class MailServerLog < ApplicationRecord
   serialize :delivery_status, DeliveryStatusSerializer
 
   belongs_to :info_request,
-             :inverse_of => :mail_server_logs
+             inverse_of: :mail_server_logs
   belongs_to :mail_server_log_done,
-             :inverse_of => :mail_server_logs
+             inverse_of: :mail_server_logs
 
   before_create :calculate_delivery_status
 
@@ -55,7 +55,7 @@ class MailServerLog < ApplicationRecord
           MailServerLog.where("mail_server_log_done_id = ?", done.id).delete_all
         end
       else
-        done = MailServerLogDone.new(:filename => file_name_db)
+        done = MailServerLogDone.new(filename: file_name_db)
       end
       done.last_stat = modified
       # update done structure so we know when we last read this file
@@ -262,7 +262,7 @@ class MailServerLog < ApplicationRecord
 
   # attempt to parse the status from the log line and store if successful
   def set_delivery_status(force = false)
-    decorated = line(:decorate => true)
+    decorated = line(decorate: true)
     if decorated && decorated.delivery_status
       if force
         force_delivery_status(decorated.delivery_status)
@@ -293,7 +293,7 @@ class MailServerLog < ApplicationRecord
       if info_request
         info_request.
           mail_server_logs.
-          create!(:line => line, :order => order, :mail_server_log_done => done)
+          create!(line: line, order: order, mail_server_log_done: done)
       end
     end
   end

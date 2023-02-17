@@ -90,7 +90,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
 
   def draft_params_multiple_bodies
     params.require(:alaveteli_pro_draft_info_request_batch).
-      permit(:title, :body, :embargo_duration, :public_body_ids => [])
+      permit(:title, :body, :embargo_duration, public_body_ids: [])
   end
 
   def update_bodies_params

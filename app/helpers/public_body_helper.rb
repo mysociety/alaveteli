@@ -23,8 +23,8 @@ module PublicBodyHelper
       # Make the authority appear requestable to encourage users to help find
       # the authority's email address
       msg = link_to _("Make a request to this authority"),
-        new_request_to_body_path(:url_name => public_body.url_name),
-        :class => "link_button_green"
+        new_request_to_body_path(url_name: public_body.url_name),
+        class: "link_button_green"
 
       reasons.push(msg)
     end
@@ -48,7 +48,7 @@ module PublicBodyHelper
     end
 
     if types.any?
-      types.to_sentence(:last_word_connector => ' and ').html_safe
+      types.to_sentence(last_word_connector: ' and ').html_safe
     else
       _("A public authority")
     end

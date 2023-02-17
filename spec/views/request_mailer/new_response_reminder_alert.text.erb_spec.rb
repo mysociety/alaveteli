@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe "request_mailer/new_response_reminder_alert" do
-  let(:request) { FactoryBot.create(:info_request, :title => "Apostrophe's") }
+  let(:request) { FactoryBot.create(:info_request, title: "Apostrophe's") }
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

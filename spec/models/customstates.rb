@@ -37,7 +37,7 @@ module InfoRequestCustomStates
       elsif status == 'wrong_response'
         _("Wrong Response.")
       else
-        raise _("unknown status {{status}}", :status => status)
+        raise _("unknown status {{status}}", status: status)
       end
     end
 
@@ -47,7 +47,7 @@ module InfoRequestCustomStates
       elsif status == 'wrong_response'
         _("Wrong Response")
       else
-        raise _("unknown status {{status}}", :status => status)
+        raise _("unknown status {{status}}", status: status)
       end
     end
 

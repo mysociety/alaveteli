@@ -16,14 +16,14 @@ require 'spec_helper'
 RSpec.describe Role do
 
   it 'validates the role name is in the allowed roles' do
-    role = Role.new(:name => 'test')
+    role = Role.new(name: 'test')
     role.valid?
     expect(role.errors[:name]).to eq(["is not included in the list"])
   end
 
   it 'validates the role is unique within the context of a resource_type' do
     with_feature_enabled(:alaveteli_pro) do
-      role = Role.new(:name => 'pro')
+      role = Role.new(name: 'pro')
       role.valid?
       expect(role.errors[:name]).to eq(["has already been taken"])
     end

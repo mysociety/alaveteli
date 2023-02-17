@@ -10,13 +10,13 @@ class RequestController < ApplicationController
   skip_before_action :html_response, only: [:show, :select_authorities]
 
   before_action :check_read_only, only: [:new, :upload_response]
-  before_action :set_render_recaptcha, :only => [ :new ]
-  before_action :redirect_numeric_id_to_url_title, :only => [:show]
+  before_action :set_render_recaptcha, only: [ :new ]
+  before_action :redirect_numeric_id_to_url_title, only: [:show]
   before_action :set_info_request, only: [:show]
-  before_action :redirect_embargoed_requests_for_pro_users, :only => [:show]
-  before_action :redirect_public_requests_from_pro_context, :only => [:show]
-  before_action :redirect_new_form_to_pro_version, :only => [:select_authority, :new]
-  before_action :set_in_pro_area, :only => [:select_authority, :show]
+  before_action :redirect_embargoed_requests_for_pro_users, only: [:show]
+  before_action :redirect_public_requests_from_pro_context, only: [:show]
+  before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
+  before_action :set_in_pro_area, only: [:select_authority, :show]
 
   helper_method :state_transitions_empty?
 
@@ -40,7 +40,7 @@ class RequestController < ApplicationController
     if !params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
-      @xapian_requests = typeahead_search(query, :model => PublicBody)
+      @xapian_requests = typeahead_search(query, model: PublicBody)
     end
     medium_cache
   end
@@ -92,11 +92,11 @@ class RequestController < ApplicationController
 
       # Track corresponding to this page
       @track_thing = TrackThing.create_track_for_request(@info_request)
-      @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+      @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'), title: @track_thing.params[:title_in_rss], has_json: true } ]
 
       respond_to do |format|
-        format.html { @has_json = true; render :template => 'request/show' }
-        format.json { render :json => @info_request.json_for_api(true) }
+        format.html { @has_json = true; render template: 'request/show' }
+        format.json { render json: @info_request.json_for_api(true) }
       end
     end
   end
@@ -129,9 +129,9 @@ class RequestController < ApplicationController
     return render_hidden if cannot?(:read, @info_request)
     @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent],
                                                @info_request.info_request_events,
-                                               :offset => (@page - 1) * @per_page,
-                                               :limit => @per_page,
-                                               :collapse_by_prefix => 'request_collapse')
+                                               offset: (@page - 1) * @per_page,
+                                               limit: @per_page,
+                                               collapse_by_prefix: 'request_collapse')
     @matches_estimated = @xapian_object.matches_estimated
     @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
   end
@@ -145,7 +145,7 @@ class RequestController < ApplicationController
     @per_page = PER_PAGE
     @max_results = MAX_RESULTS
     if @view == "recent"
-      return redirect_to request_list_all_url(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
+      return redirect_to request_list_all_url(action: "list", view: "all", page: @page), status: :moved_permanently
     end
 
     # Later pages are very expensive to load
@@ -153,16 +153,16 @@ class RequestController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
     end
 
-    @filters = params.merge(:latest_status => @view)
+    @filters = params.merge(latest_status: @view)
 
     if (@page > 1)
-      @title = _("Browse and search requests (page {{count}})", :count => @page)
+      @title = _("Browse and search requests (page {{count}})", count: @page)
     else
       @title = _('Browse and search requests')
     end
 
     @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
-    @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+    @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'), title: @track_thing.params[:title_in_rss], has_json: true } ]
 
     # Don't let robots go more than 20 pages in
     @no_crawl = true if @page > 20
@@ -183,7 +183,7 @@ class RequestController < ApplicationController
     if !@user.nil? && params[:submitted_new_request].nil?
       @undescribed_requests = @user.get_undescribed_requests
       if @undescribed_requests.size > 1
-        render :action => 'new_please_describe'
+        render action: 'new_please_describe'
         return
       end
     end
@@ -199,7 +199,7 @@ class RequestController < ApplicationController
       user_exceeded_limit = authenticated_user.exceeded_limit?(:info_requests)
       if !user_exceeded_limit
         @details = authenticated_user.can_fail_html
-        render :template => 'user/banned'
+        render template: 'user/banned'
         return
       end
       # User did exceed limit
@@ -209,7 +209,7 @@ class RequestController < ApplicationController
     # First time we get to the page, just display it
     if params[:submitted_new_request].nil? || params[:reedit]
       if user_exceeded_limit
-        render :template => 'user/rate_limited'
+        render template: 'user/rate_limited'
         return
       end
       return render_new_compose
@@ -236,7 +236,7 @@ class RequestController < ApplicationController
 
     # Maybe we lost the address while they're writing it
     unless @info_request.public_body.is_requestable?
-      render :action => "new_#{ @info_request.public_body.not_requestable_reason }"
+      render action: "new_#{ @info_request.public_body.not_requestable_reason }"
       return
     end
 
@@ -247,7 +247,7 @@ class RequestController < ApplicationController
       # describing the reason it is invalid.
       @info_request.errors.delete(:outgoing_messages)
 
-      render :action => 'new'
+      render action: 'new'
       return
     end
 
@@ -255,7 +255,7 @@ class RequestController < ApplicationController
     return render_new_preview if params[:preview].to_i == 1
 
     if user_exceeded_limit
-      render :template => 'user/rate_limited'
+      render template: 'user/rate_limited'
       return
     end
 
@@ -288,10 +288,10 @@ class RequestController < ApplicationController
 
         if send_exception_notifications?
           e = Exception.new("Possible blocked non-spam (recaptcha) from #{@info_request.user_id}: #{@info_request.title}")
-          ExceptionNotifier.notify_exception(e, :env => request.env)
+          ExceptionNotifier.notify_exception(e, env: request.env)
         end
 
-        render :action => 'new'
+        render action: 'new'
         return
       end
     end
@@ -331,7 +331,7 @@ class RequestController < ApplicationController
       end
     end
 
-    redirect_to show_request_path(:url_title => @info_request.url_title)
+    redirect_to show_request_path(url_title: @info_request.url_title)
   end
 
   # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to
@@ -342,12 +342,12 @@ class RequestController < ApplicationController
       raise ActiveRecord::RecordNotFound
     end
     if @info_request_event.is_incoming_message?
-      redirect_to incoming_message_url(@info_request_event.incoming_message), :status => :moved_permanently
+      redirect_to incoming_message_url(@info_request_event.incoming_message), status: :moved_permanently
     elsif @info_request_event.is_outgoing_message?
-      redirect_to outgoing_message_url(@info_request_event.outgoing_message), :status => :moved_permanently
+      redirect_to outgoing_message_url(@info_request_event.outgoing_message), status: :moved_permanently
     else
       # TODO: maybe there are better URLs for some events than this
-      redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently
+      redirect_to request_url(@info_request_event.info_request), status: :moved_permanently
     end
   end
 
@@ -373,11 +373,11 @@ class RequestController < ApplicationController
       if !@info_request.public_body.is_foi_officer?(@user)
         domain_required = @info_request.public_body.foi_officer_domain_required
         if domain_required.nil?
-          render :template => 'user/wrong_user_unknown_email'
+          render template: 'user/wrong_user_unknown_email'
           return
         end
         @reason_params[:user_name] = "an email @" + domain_required
-        render :template => 'user/wrong_user'
+        render template: 'user/wrong_user'
         return
       end
     end
@@ -401,11 +401,11 @@ class RequestController < ApplicationController
       @info_request.
         receive(mail,
                 mail.encoded,
-                :override_stop_new_responses => true)
+                override_stop_new_responses: true)
       flash[:notice] = _("Thank you for responding to this FOI request! " \
                            "Your response has been published below, and a " \
                            "link to your response has been emailed to {{user_name}}.",
-                         :user_name => @info_request.user.name.html_safe)
+                         user_name: @info_request.user.name.html_safe)
       redirect_to request_url(@info_request)
       return
     end
@@ -425,9 +425,9 @@ class RequestController < ApplicationController
 
     @query << params[:q].to_s
     @xapian_requests = typeahead_search(@query,
-                                        { :model => InfoRequestEvent,
-                                          :per_page => @per_page })
-    render :partial => "request/search_ahead"
+                                        { model: InfoRequestEvent,
+                                          per_page: @per_page })
+    render partial: "request/search_ahead"
   end
 
   def download_entire_request
@@ -455,7 +455,7 @@ class RequestController < ApplicationController
           make_request_zip(@info_request, cache_file_path)
           File.chmod(0644, cache_file_path)
         end
-        send_file(cache_file_path, :filename => "#{@info_request.url_title}.zip")
+        send_file(cache_file_path, filename: "#{@info_request.url_title}.zip")
       end
     end
   end
@@ -573,7 +573,7 @@ class RequestController < ApplicationController
     @render_to_file = true
     assign_variables_for_show_template(info_request)
     if HTMLtoPDFConverter.exist?
-      html_output = render_to_string(:template => 'request/show')
+      html_output = render_to_string(template: 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)
       tmp_input.close
@@ -581,8 +581,8 @@ class RequestController < ApplicationController
       command = HTMLtoPDFConverter.new(tmp_input, tmp_output)
       output = command.run
       if !output.nil?
-        file_info = { :filename => 'correspondence.pdf',
-                      :data => File.open(tmp_output.path).read }
+        file_info = { filename: 'correspondence.pdf',
+                      data: File.open(tmp_output.path).read }
         done = true
       else
         logger.error("Could not convert info request #{info_request.id} to PDF with command '#{command}'")
@@ -594,10 +594,10 @@ class RequestController < ApplicationController
       logger.warn("No HTML -> PDF converter found")
     end
     if !done
-      file_info = { :filename => 'correspondence.txt',
-                    :data => render_to_string(:template => 'request/show',
-                                              :layout => false,
-                                              :formats => [:text]) }
+      file_info = { filename: 'correspondence.txt',
+                    data: render_to_string(template: 'request/show',
+                                              layout: false,
+                                              formats: [:text]) }
     end
     file_info
   end
@@ -641,9 +641,9 @@ class RequestController < ApplicationController
     # non-standard arrangement.
     message_params =
       if params[:outgoing_message]
-        { :outgoing_message => params[:outgoing_message] }
+        { outgoing_message: params[:outgoing_message] }
       else
-        { :outgoing_message => {} }
+        { outgoing_message: {} }
       end
 
     message_params[:outgoing_message][:body] ||= params[:body] if params[:body]
@@ -653,9 +653,9 @@ class RequestController < ApplicationController
 
     message_params = ActionController::Parameters.new(message_params)
     permitted = message_params.
-      permit(:outgoing_message => [:body, :default_letter, :what_doing])
+      permit(outgoing_message: [:body, :default_letter, :what_doing])
 
-    @outgoing_message = OutgoingMessage.new(:info_request => @info_request)
+    @outgoing_message = OutgoingMessage.new(info_request: @info_request)
 
     if permitted[:outgoing_message][:body]
       @outgoing_message.body = permitted[:outgoing_message][:body]
@@ -669,10 +669,10 @@ class RequestController < ApplicationController
     @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
     if @info_request.public_body.is_requestable?
-      render :action => 'new'
+      render action: 'new'
     else
       if @info_request.public_body.not_requestable_reason == 'bad_contact'
-        render :action => 'new_bad_contact'
+        render action: 'new_bad_contact'
       else
         # if not requestable because defunct or not_apply, redirect to main page
         # (which doesn't link to the /new/ URL)
@@ -686,16 +686,16 @@ class RequestController < ApplicationController
   def render_new_preview
     if @outgoing_message.contains_email? || @outgoing_message.contains_postcode?
       flash.now[:error] = {
-        :partial => "preview_errors",
-        :locals => {
-          :contains_email => @outgoing_message.contains_email?,
-          :contains_postcode => @outgoing_message.contains_postcode?,
-          :help_link => help_privacy_path(:anchor => "email_address"),
-          :user => @user
+        partial: "preview_errors",
+        locals: {
+          contains_email: @outgoing_message.contains_email?,
+          contains_postcode: @outgoing_message.contains_postcode?,
+          help_link: help_privacy_path(anchor: "email_address"),
+          user: @user
         }
       }
     end
-    render :action => 'preview'
+    render action: 'preview'
   end
 
   def set_render_recaptcha
@@ -710,7 +710,7 @@ class RequestController < ApplicationController
       # We don't want to leak the title of embargoed or hidden requests, so
       # don't even redirect on if the user can't access the request
       return render_hidden if cannot?(:read, @info_request)
-      redirect_to request_url(@info_request, :format => params[:format])
+      redirect_to request_url(@info_request, format: params[:format])
     end
   end
 
@@ -722,7 +722,7 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
       if @info_request.is_actual_owning_user?(current_user) && @info_request.embargo
         redirect_to show_alaveteli_pro_request_url(
-          :url_title => @info_request.url_title)
+          url_title: @info_request.url_title)
       end
     end
   end
@@ -775,13 +775,13 @@ class RequestController < ApplicationController
   def handle_spam_subject(user)
     if send_exception_notifications?
       e = Exception.new("Spam request from user #{ user.id }")
-      ExceptionNotifier.notify_exception(e, :env => request.env)
+      ExceptionNotifier.notify_exception(e, env: request.env)
     end
 
     if block_spam_subject?
       flash.now[:error] = _("Sorry, we're currently unable to send your " \
                             "request. Please try again later.")
-      render :action => 'new'
+      render action: 'new'
       true
     end
   end
@@ -807,7 +807,7 @@ class RequestController < ApplicationController
     if block_restricted_country_ips?
       flash.now[:error] = _("Sorry, we're currently unable to send your " \
                             "request. Please try again later.")
-      render :action => 'new'
+      render action: 'new'
       true
     end
   end

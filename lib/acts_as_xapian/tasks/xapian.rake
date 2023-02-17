@@ -8,7 +8,7 @@ namespace :xapian do
   # after each model that is updated. This is safer, but slower. Specify
   # "verbose=true" to print model name as it is run.
   desc 'Updates Xapian search index with changes to models since last call'
-  task :update_index => :environment do
+  task update_index: :environment do
     ActsAsXapian.update_index(ENV['flush'], ENV['verbose'])
   end
 
@@ -27,7 +27,7 @@ namespace :xapian do
   # index the two terms I and V (and "terms=false" will index none,
   # and "terms=true", the default, will index all)
   desc 'Completely rebuilds Xapian search index (must specify all models)'
-  task :destroy_and_rebuild_index => :environment do
+  task destroy_and_rebuild_index: :environment do
     def coerce_arg(arg, default)
       if arg == "false"
         return false
@@ -53,16 +53,16 @@ namespace :xapian do
   # Parameters - are models, query, offset, limit, sort_by_prefix,
   # collapse_by_prefix
   desc 'Run a query, return YAML of results'
-  task :query => :environment do
+  task query: :environment do
     if ENV['models'].nil?
       raise "specify models=\"ModelName1 ModelName2\" as parameter"
     end
     raise "specify query=\"your terms\" as parameter" if ENV['query'].nil?
     s = ActsAsXapian::Search.new(ENV['models'].split(" ").map { |m| m.constantize },
                                  ENV['query'],
-                                 :offset => (ENV['offset'] || 0), :limit => (ENV['limit'] || 10),
-                                 :sort_by_prefix => (ENV['sort_by_prefix'] || nil),
-                                 :collapse_by_prefix => (ENV['collapse_by_prefix'] || nil)
+                                 offset: (ENV['offset'] || 0), limit: (ENV['limit'] || 10),
+                                 sort_by_prefix: (ENV['sort_by_prefix'] || nil),
+                                 collapse_by_prefix: (ENV['collapse_by_prefix'] || nil)
                                  )
     STDOUT.puts(s.results.to_yaml)
   end

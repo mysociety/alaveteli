@@ -38,7 +38,7 @@ RSpec.describe HealthChecks::Checks::PeriodCheck do
     end
 
     it 'includes the check subject in a custom message' do
-      params = { :failure_message => 'This check failed' }
+      params = { failure_message: 'This check failed' }
       subject = 2.days.ago
       check = HealthChecks::Checks::PeriodCheck.new(params) { subject }
       expect(check.failure_message).to include(subject.to_s)
@@ -55,7 +55,7 @@ RSpec.describe HealthChecks::Checks::PeriodCheck do
     end
 
     it 'includes the check subject in a custom message' do
-      params = { :success_message => 'This check succeeded' }
+      params = { success_message: 'This check succeeded' }
       subject = Time.zone.now
       check = HealthChecks::Checks::PeriodCheck.new(params) { subject }
       expect(check.success_message).to include(subject.to_s)

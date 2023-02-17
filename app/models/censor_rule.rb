@@ -32,13 +32,13 @@ class CensorRule < ApplicationRecord
   ].freeze
 
   belongs_to :info_request,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
   belongs_to :user,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
   belongs_to :public_body,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
 
-  validate :require_valid_regexp, :if => proc { |rule| rule.regexp? == true }
+  validate :require_valid_regexp, if: proc { |rule| rule.regexp? == true }
 
   validates_presence_of :text,
                         :replacement,

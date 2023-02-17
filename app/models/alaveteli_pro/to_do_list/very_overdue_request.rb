@@ -6,7 +6,7 @@ module AlaveteliPro
         n_("{{count}} request is long overdue.",
            "{{count}} requests are long overdue.",
            count,
-           :count => count)
+           count: count)
       end
 
       def items

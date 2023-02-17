@@ -36,7 +36,7 @@ namespace :export do
   # file using something like `tee`
   #  nice -n 19 [task] 1> exports/stdout.log 2> >(tee -a exports/stderr.log >&2)
   desc 'exports all non-personal information to export folder'
-  task :research_export => :environment do
+  task research_export: :environment do
     cut_off_date = ENV["CUTOFF_DATE"]
     to_run = ENV["MODELS"]
 

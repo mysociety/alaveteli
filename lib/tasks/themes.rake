@@ -133,7 +133,7 @@ namespace :themes do
   end
 
   desc "Install themes specified in the config file's THEME_URLS"
-  task :install => :environment do
+  task install: :environment do
     verbose = true
     theme_urls.each do |theme_url|
       install_theme(theme_url, verbose)
@@ -191,7 +191,7 @@ namespace :themes do
   end
 
   desc "Check that all help sections referred to in the application are present in theme"
-  task :check_help_sections => :environment do
+  task check_help_sections: :environment do
 
     intro_message = <<-EOF
 
@@ -212,36 +212,36 @@ EOF
       theme_url_to_theme_name(theme_url)
     end
 
-    help_templates_info = [{:name => 'about',
-                            :sections => ['whybother_them',
+    help_templates_info = [{name: 'about',
+                            sections: ['whybother_them',
                                           'reporting',
                                           'reporting_unavailable']},
-                           {:name => 'alaveteli',
-                            :sections => []},
-                           {:name => 'api',
-                            :sections => []},
-                           {:name => 'contact',
-                            :sections => []},
-                           {:name => 'credits',
-                            :sections => ['helpus']},
-                           {:name => 'officers',
-                            :sections => ['copyright']},
-                           {:name => 'privacy',
-                            :sections => ['email_address',
+                           {name: 'alaveteli',
+                            sections: []},
+                           {name: 'api',
+                            sections: []},
+                           {name: 'contact',
+                            sections: []},
+                           {name: 'credits',
+                            sections: ['helpus']},
+                           {name: 'officers',
+                            sections: ['copyright']},
+                           {name: 'privacy',
+                            sections: ['email_address',
                                           'full_address',
                                           'postal_answer',
                                           'public_request',
                                           'real_name']},
-                           {:name => 'requesting',
-                            :sections => ['focused',
+                           {name: 'requesting',
+                            sections: ['focused',
                                           'data_protection',
                                           'missing_body',
                                           'quickly_response',]},
-                           {:name => 'unhappy',
-                            :sections => ['internal_review',
+                           {name: 'unhappy',
+                            sections: ['internal_review',
                                           'other_means']},
-                           {:name => '_why_they_should_reply_by_email',
-                            :sections => []}]
+                           {name: '_why_they_should_reply_by_email',
+                            sections: []}]
 
     theme_names.each do |theme_name|
       AlaveteliLocalization.available_locales.each do |locale|

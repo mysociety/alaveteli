@@ -22,7 +22,7 @@ class PublicBodyController < ApplicationController
     end
 
     if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
-      redirect_to :url_name => MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently
+      redirect_to url_name: MySociety::Format.simplify_url_part(params[:url_name], 'body'), status: :moved_permanently
       return
     end
 
@@ -39,7 +39,7 @@ class PublicBodyController < ApplicationController
 
       # If found by historic name, or alternate locale name, redirect to new name
       if @public_body.url_name != params[:url_name]
-        redirect_to :url_name => @public_body.url_name
+        redirect_to url_name: @public_body.url_name
         return
       end
 
@@ -56,7 +56,7 @@ class PublicBodyController < ApplicationController
 
       @view = params[:view]
 
-      query = InfoRequestEvent.make_query_from_params(params.merge(:latest_status => @view))
+      query = InfoRequestEvent.make_query_from_params(params.merge(latest_status: @view))
       query += " requested_from:#{@public_body.url_name}"
 
       # Use search query for this so can collapse and paginate easily
@@ -79,15 +79,15 @@ class PublicBodyController < ApplicationController
 
       @existing_track = TrackThing.find_existing(@user, @track_thing) if @user
 
-      @follower_count = TrackThing.where(:public_body_id => @public_body.id).count
+      @follower_count = TrackThing.where(public_body_id: @public_body.id).count
 
-      @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
-                             :title => @track_thing.params[:title_in_rss],
-                             :has_json => true } ]
+      @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'),
+                             title: @track_thing.params[:title_in_rss],
+                             has_json: true } ]
 
       respond_to do |format|
-        format.html { @has_json = true; render :template => "public_body/show" }
-        format.json { render :json => @public_body.json_for_api }
+        format.html { @has_json = true; render template: "public_body/show" }
+        format.json { render json: @public_body.json_for_api }
       end
 
     end
@@ -101,13 +101,13 @@ class PublicBodyController < ApplicationController
       if params[:submitted_view_email]
         if verify_recaptcha
           flash.discard(:error)
-          render :template => "public_body/view_email"
+          render template: "public_body/view_email"
           return
         end
         flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
                               'Please try again.')
       end
-      render :template => "public_body/view_email_captcha"
+      render template: "public_body/view_email_captcha"
     end
   end
 
@@ -131,15 +131,15 @@ class PublicBodyController < ApplicationController
           n_('Found {{count}} public authority',
              'Found {{count}} public authorities',
              @public_bodies.total_entries,
-             :count => @public_bodies.total_entries)
+             count: @public_bodies.total_entries)
         elsif @tag.size == 1
           n_('Found {{count}} public authority beginning with ' \
              '‘{{first_letter}}’',
              'Found {{count}} public authorities beginning with ' \
              '‘{{first_letter}}’',
              @public_bodies.total_entries,
-             :count => @public_bodies.total_entries,
-             :first_letter => @tag)
+             count: @public_bodies.total_entries,
+             first_letter: @tag)
         else
           category_name = PublicBodyCategory.get.by_tag[@tag]
           if category_name.nil?
@@ -148,27 +148,27 @@ class PublicBodyController < ApplicationController
                'Found {{count}} public authorities matching the tag ' \
                '‘{{tag_name}}’',
                @public_bodies.total_entries,
-               :count => @public_bodies.total_entries,
-               :tag_name => @tag)
+               count: @public_bodies.total_entries,
+               tag_name: @tag)
           else
             n_('Found {{count}} public authority in the category ' \
                '‘{{category_name}}’',
                'Found {{count}} public authorities in the category ' \
                '‘{{category_name}}’',
                @public_bodies.total_entries,
-               :count => @public_bodies.total_entries,
-               :category_name => category_name)
+               count: @public_bodies.total_entries,
+               category_name: category_name)
           end
         end
 
-      render :template => 'public_body/list'
+      render template: 'public_body/list'
     end
   end
 
   # Used so URLs like /local/islington work, for use e.g. writing to a local paper.
   def list_redirect
     @tag = params[:tag]
-    redirect_to list_public_bodies_url(:tag => @tag)
+    redirect_to list_public_bodies_url(tag: @tag)
   end
 
   # GET /body/all-authorities.csv
@@ -191,8 +191,8 @@ class PublicBodyController < ApplicationController
     query = params[:query]
     return head :bad_request unless query
     flash[:search_params] = params.slice(:query, :bodies, :page)
-    @xapian_requests = typeahead_search(query, :model => PublicBody)
-    render :partial => "public_body/search_ahead"
+    @xapian_requests = typeahead_search(query, model: PublicBody)
+    render partial: "public_body/search_ahead"
   end
 
 end

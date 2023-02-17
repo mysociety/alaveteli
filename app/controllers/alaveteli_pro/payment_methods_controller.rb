@@ -21,7 +21,7 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
            Stripe::StripeError => e
 
       if send_exception_notifications?
-        ExceptionNotifier.notify_exception(e, :env => request.env)
+        ExceptionNotifier.notify_exception(e, env: request.env)
       end
 
       flash[:error] = _('There was a problem updating your payment details. ' \

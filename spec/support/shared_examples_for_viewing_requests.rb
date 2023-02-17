@@ -65,7 +65,7 @@ shared_examples_for 'a request with response' do
 
   before do
     incoming_message = FactoryBot.create(:plain_incoming_message,
-                                         :info_request => info_request)
+                                         info_request: info_request)
     info_request.log_event(
       'response',
       incoming_message_id: incoming_message.id

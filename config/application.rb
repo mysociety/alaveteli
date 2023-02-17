@@ -67,13 +67,13 @@ module Alaveteli
 
     # Set the cache to use a memcached backend
     config.cache_store = :mem_cache_store,
-      { :namespace => "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
+      { namespace: "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
       # Add a catch-all route to force routing errors to be handled by the application,
       # rather than by middleware.
-      app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
+      app.routes.append { match '*path', to: 'general#not_found', via: [:get, :post] }
     end
 
     config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
@@ -87,7 +87,7 @@ module Alaveteli
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/strip_empty_sessions"
-    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, key: '_wdtk_cookie_session', path: "/", httponly: true
 
     require "#{Rails.root}/lib/deeply_nested_params"
     config.middleware.insert Rack::Head, DeeplyNestedParams
@@ -96,6 +96,6 @@ module Alaveteli
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # Allow the generation of full URLs in emails
-    config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
+    config.action_mailer.default_url_options = { host: AlaveteliConfiguration::domain }
   end
 end

@@ -67,7 +67,7 @@ class PublicBodyCSV
   end
 
   def <<(public_body)
-      rows << CSV.generate_line(collect_public_body_attributes(public_body), :row_sep => '')
+      rows << CSV.generate_line(collect_public_body_attributes(public_body), row_sep: '')
   end
 
   # TODO: Just use CSV.generate

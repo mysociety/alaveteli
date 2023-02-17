@@ -23,11 +23,11 @@ class WidgetsController < ApplicationController
       unless @existing_track
         @info_request.
           widget_votes.
-            where(:cookie => cookies[:widget_vote]).
+            where(cookie: cookies[:widget_vote]).
               any?
       end
 
-    render :action => 'show', :layout => false
+    render action: 'show', layout: false
   end
 
   def new
@@ -47,7 +47,7 @@ class WidgetsController < ApplicationController
   end
 
   def check_prominence
-    unless @info_request.prominence(:decorate => true).is_searchable?
+    unless @info_request.prominence(decorate: true).is_searchable?
       head :forbidden
     end
   end

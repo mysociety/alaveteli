@@ -3,15 +3,15 @@ require 'spec_helper'
 RSpec.describe "public_body/list" do
   before do
     @pb = mock_model(PublicBody,
-      :name => 'Test Quango',
-      :short_name => 'tq',
-      :url_name => 'testquango',
-      :has_notes? => false,
-      :created_at => Time.now.utc,
-      :tags => [],
-      :special_not_requestable_reason? => false,
-      :eir_only? => nil,
-      :publication_scheme => '')
+      name: 'Test Quango',
+      short_name: 'tq',
+      url_name: 'testquango',
+      has_notes?: false,
+      created_at: Time.now.utc,
+      tags: [],
+      special_not_requestable_reason?: false,
+      eir_only?: nil,
+      publication_scheme: '')
     pb_info_requests = [1, 2, 3, 4]
     allow(pb_info_requests).to receive(:is_searchable).and_return([2, 3, 4])
 
@@ -35,7 +35,7 @@ RSpec.describe "public_body/list" do
 
   it "should show the body's name" do
     render
-    expect(response).to have_css('div.head', :text => "Test Quango")
+    expect(response).to have_css('div.head', text: "Test Quango")
   end
 
   it "should show total number visible of requests" do

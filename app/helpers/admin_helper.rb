@@ -5,7 +5,7 @@ module AdminHelper
   include Admin::ProminenceHelper
 
   def icon(name)
-    content_tag(:i, "", :class => "icon-#{name}")
+    content_tag(:i, "", class: "icon-#{name}")
   end
 
   def eye

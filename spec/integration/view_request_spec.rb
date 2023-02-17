@@ -20,9 +20,9 @@ RSpec.describe "When viewing requests" do
       browse_request("#{@info_request.url_title}?unfold=1")
       expected_link = "/en/request/#{@info_request.url_title}.json?unfold=1"
       expect(page).to have_css("head link[href='#{expected_link}']",
-                                  :visible => false)
+                                  visible: false)
       expect(page).not_to have_css("head link[href='#{expected_link}.json']",
-                                      :visible => false)
+                                      visible: false)
     end
   end
 

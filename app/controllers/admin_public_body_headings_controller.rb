@@ -2,7 +2,7 @@ class AdminPublicBodyHeadingsController < AdminController
 
   include TranslatableParams
 
-  before_action :set_public_body_heading, :only => [:edit, :update, :destroy]
+  before_action :set_public_body_heading, only: [:edit, :update, :destroy]
 
   def new
     @public_body_heading = PublicBodyHeading.new
@@ -17,7 +17,7 @@ class AdminPublicBodyHeadingsController < AdminController
         redirect_to admin_categories_url
       else
         @public_body_heading.build_all_translations
-        render :action => 'new'
+        render action: 'new'
       end
     end
   end
@@ -33,7 +33,7 @@ class AdminPublicBodyHeadingsController < AdminController
         redirect_to edit_admin_heading_path(@public_body_heading)
       else
         @public_body_heading.build_all_translations
-        render :action => 'edit'
+        render action: 'edit'
       end
     end
   end
@@ -49,7 +49,7 @@ class AdminPublicBodyHeadingsController < AdminController
     if transaction[:success]
       head :ok
     else
-      render :plain => transaction[:error], :status => :unprocessable_entity
+      render plain: transaction[:error], status: :unprocessable_entity
     end
   end
 
@@ -59,7 +59,7 @@ class AdminPublicBodyHeadingsController < AdminController
       head :ok
       return
     else
-      render :plain => transaction[:error], :status => :unprocessable_entity
+      render plain: transaction[:error], status: :unprocessable_entity
     end
   end
 
@@ -82,15 +82,15 @@ class AdminPublicBodyHeadingsController < AdminController
         end
       end
     end
-    { :success => error.nil?, :error => error }
+    { success: error.nil?, error: error }
   end
 
   def reorder_categories_for_heading(heading_id, categories)
     error = nil
     ActiveRecord::Base.transaction do
       categories.each_with_index do |category_id, index|
-        conditions = { :public_body_category_id => category_id,
-                       :public_body_heading_id => heading_id }
+        conditions = { public_body_category_id: category_id,
+                       public_body_heading_id: heading_id }
         link = PublicBodyCategoryLink.where(conditions).first
         unless link
           error = "Couldn't find PublicBodyCategoryLink for category #{category_id}, heading #{heading_id}"
@@ -103,7 +103,7 @@ class AdminPublicBodyHeadingsController < AdminController
         end
       end
     end
-    { :success => error.nil?, :error => error }
+    { success: error.nil?, error: error }
   end
 
   private

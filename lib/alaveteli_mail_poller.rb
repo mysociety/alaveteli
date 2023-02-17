@@ -67,7 +67,7 @@ class AlaveteliMailPoller
       if send_exception_notifications?
         ExceptionNotifier.notify_exception(
           error,
-          :data => { mail: raw_email,
+          data: { mail: raw_email,
                      unique_id: unique_id }
         )
       end

@@ -8,12 +8,12 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
   def up
     default_locale = AlaveteliLocalization.default_locale
 
-    fields = {:title => :text,
-              :description => :text}
+    fields = {title: :text,
+              description: :text}
     PublicBodyCategory.create_translation_table!(fields)
 
     # copy current values across to the default locale
-    PublicBodyCategory.where(:locale => default_locale).each do |category|
+    PublicBodyCategory.where(locale: default_locale).each do |category|
       category.translated_attributes.each do |a, default|
         value = category.read_attribute(a)
         category.send(:"#{a}=", value) unless value.nil?
@@ -45,11 +45,11 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
       end
     end
 
-    fields = { :name => :text }
+    fields = { name: :text }
     PublicBodyHeading.create_translation_table!(fields)
 
     # copy current values across to the default locale
-    PublicBodyHeading.where(:locale => default_locale).each do |heading|
+    PublicBodyHeading.where(locale: default_locale).each do |heading|
       heading.translated_attributes.each do |a, default|
         value = heading.read_attribute(a)
         heading.send(:"#{a}=", value) unless value.nil?
@@ -89,7 +89,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
     remove_column :public_body_categories, :description
 
     # and set category_tag to be unique
-    add_index :public_body_categories, :category_tag, :unique => true
+    add_index :public_body_categories, :category_tag, unique: true
   end
 
   def down

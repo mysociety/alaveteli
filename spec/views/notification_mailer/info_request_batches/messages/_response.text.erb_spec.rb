@@ -54,7 +54,7 @@ RSpec.describe(
       info_request = notification.info_request_event.info_request
       public_body_name = info_request.public_body.name
       incoming_message = notification.info_request_event.incoming_message
-      expected_url = incoming_message_url(incoming_message, :cachebust => true)
+      expected_url = incoming_message_url(incoming_message, cachebust: true)
       expected_text = "#{public_body_name}: #{expected_url}"
       expect(response).to have_text(expected_text)
     end

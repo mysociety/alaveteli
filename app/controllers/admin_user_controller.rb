@@ -36,12 +36,12 @@ class AdminUserController < AdminController
     # so we need to requery in order to paginate
     if !@roles.empty?
       users = users.with_any_role(*@roles)
-      users = User.where(:id => users.map { |user| user.id })
+      users = User.where(id: users.map { |user| user.id })
     end
 
     @admin_users =
       users.order(@sort_options[@sort_order]).
-        paginate(:page => params[:page], :per_page => 100)
+        paginate(page: params[:page], per_page: 100)
 
     render action: :index
   end
@@ -53,8 +53,8 @@ class AdminUserController < AdminController
       @info_requests = @info_requests.not_embargoed
       @comments = @admin_user.comments.not_embargoed
     end
-    @info_requests = @info_requests.paginate(:page => params[:page],
-                                             :per_page => 100)
+    @info_requests = @info_requests.paginate(page: params[:page],
+                                             per_page: 100)
   end
 
   def edit
@@ -78,7 +78,7 @@ class AdminUserController < AdminController
         redirect_to admin_user_url(@admin_user)
       end
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -160,12 +160,12 @@ class AdminUserController < AdminController
   # and requirements are met
   def check_role_authorisation
     all_allowed = changed_role_ids.all? do |role_id|
-      role = Role.where(:id => role_id).first
+      role = Role.where(id: role_id).first
       role && @user.can_admin_role?(role.name.to_sym)
     end
     unless all_allowed
       flash[:error] = "Not permitted to change roles"
-      render :action => 'edit' and return false
+      render action: 'edit' and return false
     end
   end
 
@@ -177,7 +177,7 @@ class AdminUserController < AdminController
 
   def check_role_requirements
     role_names = Role.
-                   where(:id => params[:admin_user][:role_ids]).
+                   where(id: params[:admin_user][:role_ids]).
                      pluck(:name).map { |role| role.to_sym }
     missing_required = Hash.new { |h, k| h[k] = [] }
     role_names.each do |role_name|
@@ -192,7 +192,7 @@ class AdminUserController < AdminController
       missing_required.each do |key, value|
         flash[:error] += " #{key} requires #{value.to_sentence}"
       end
-      render :action => 'edit' and return false
+      render action: 'edit' and return false
     end
 
   end

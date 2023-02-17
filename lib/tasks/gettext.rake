@@ -64,17 +64,17 @@ namespace :gettext do
 
   Rake::Task['find'].clear
   desc "Update pot/po files."
-  task :find => :environment do
+  task find: :environment do
     find(files: files_to_translate, root: locale_path)
   end
 
   desc "Update pot/po files for Alaveteli Pro."
-  task :find_alaveteli_pro => :environment do
+  task find_alaveteli_pro: :environment do
     find(files: pro_files_to_translate, root: pro_locale_path)
   end
 
   desc "Update pot/po files for a theme."
-  task :find_theme => :environment do
+  task find_theme: :environment do
     find(files: theme_files_to_translate, root: theme_locale_path)
   end
 

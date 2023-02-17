@@ -18,8 +18,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     request_summaries = @request_filter.results(current_user)
     @page = params[:page] || 1
     @per_page = 10
-    @request_summaries = request_summaries.paginate :page => @page,
-                                                    :per_page => @per_page
+    @request_summaries = request_summaries.paginate page: @page,
+                                                    per_page: @per_page
 
   end
 

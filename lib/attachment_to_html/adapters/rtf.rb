@@ -39,7 +39,7 @@ module AttachmentToHTML
           tempfile = create_tempfile(text)
 
           html = AlaveteliExternalCommand.run("unrtf", "--html",
-                                              tempfile.path, :timeout => 120
+                                              tempfile.path, timeout: 120
                                               )
 
           cleanup_tempfile(tempfile)

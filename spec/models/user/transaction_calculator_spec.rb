@@ -19,14 +19,14 @@ RSpec.describe User::TransactionCalculator do
 
     it 'allows a list of custom transaction associations' do
       list = [:comments, :info_requests]
-      calc = described_class.new(user, :transaction_associations => list)
+      calc = described_class.new(user, transaction_associations: list)
       expect(calc.transaction_associations).to eq(list)
     end
 
     it 'raises an error if a transaction association is invalid' do
       list = [:invalid_method, :info_requests]
       expect {
-        described_class.new(user, :transaction_associations => list)
+        described_class.new(user, transaction_associations: list)
       }.to raise_error(NoMethodError)
     end
 
@@ -46,8 +46,8 @@ RSpec.describe User::TransactionCalculator do
 
       it 'sums the total transactions made by the user' do
         3.times do
-          FactoryBot.create(:comment, :user => user)
-          FactoryBot.create(:info_request, :user => user)
+          FactoryBot.create(:comment, user: user)
+          FactoryBot.create(:info_request, user: user)
         end
         expect(subject.total).to eq(6)
       end
@@ -58,16 +58,16 @@ RSpec.describe User::TransactionCalculator do
 
       it 'sums the total transactions made by the user during the range' do
         travel_to(1.year.ago) do
-          FactoryBot.create(:comment, :user => user)
-          FactoryBot.create(:info_request, :user => user)
+          FactoryBot.create(:comment, user: user)
+          FactoryBot.create(:info_request, user: user)
         end
 
         travel_to(3.days.ago) do
-          FactoryBot.create(:comment, :user => user)
-          FactoryBot.create(:info_request, :user => user)
+          FactoryBot.create(:comment, user: user)
+          FactoryBot.create(:info_request, user: user)
         end
 
-        FactoryBot.create(:comment, :user => user)
+        FactoryBot.create(:comment, user: user)
 
         expect(subject.total(10.days.ago..1.day.ago)).to eq(2)
       end
@@ -78,15 +78,15 @@ RSpec.describe User::TransactionCalculator do
 
       it ':last_7_days sums the total transactions made by the user in the last 7 days' do
         travel_to(8.days.ago) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(7.days.ago) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(6.days.ago) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         expect(subject.total(:last_7_days)).to eq(2)
@@ -94,15 +94,15 @@ RSpec.describe User::TransactionCalculator do
 
       it ':last_30_days sums the total transactions made by the user in the last 30 days' do
         travel_to(31.days.ago) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(30.days.ago) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(29.days.ago) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         expect(subject.total(:last_30_days)).to eq(2)
@@ -110,19 +110,19 @@ RSpec.describe User::TransactionCalculator do
 
       it ':last_quarter sums the total transactions made by the user in the last quarter' do
         travel_to(Time.zone.parse('2014-12-31')) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(Time.zone.parse('2015-01-01')) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(Time.zone.parse('2015-03-31')) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(Time.zone.parse('2015-04-01')) do
-          FactoryBot.create(:comment, :user => user)
+          FactoryBot.create(:comment, user: user)
         end
 
         travel_to(Time.zone.parse('2015-04-01')) do
@@ -147,19 +147,19 @@ RSpec.describe User::TransactionCalculator do
 
     it 'returns a hash containing the total transactions grouped by month' do
       travel_to(Time.zone.parse('2016-01-05')) do
-        FactoryBot.create(:comment, :user => user)
+        FactoryBot.create(:comment, user: user)
       end
 
       travel_to(Time.zone.parse('2016-01-05')) do
-        FactoryBot.create(:info_request, :user => user)
+        FactoryBot.create(:info_request, user: user)
       end
 
       travel_to(Time.zone.parse('2016-01-05') + 1.hour) do
-        FactoryBot.create(:info_request, :user => user)
+        FactoryBot.create(:info_request, user: user)
       end
 
       travel_to(Time.zone.parse('2016-03-06')) do
-        FactoryBot.create(:comment, :user => user)
+        FactoryBot.create(:comment, user: user)
       end
 
       expect(subject.total_per_month).
@@ -176,11 +176,11 @@ RSpec.describe User::TransactionCalculator do
       travel_back
 
       travel_to(Time.zone.parse('2016-02-01')) do
-        3.times { FactoryBot.create(:comment, :user => user) }
+        3.times { FactoryBot.create(:comment, user: user) }
       end
 
       travel_to(Time.zone.parse('2016-04-01')) do
-        3.times { FactoryBot.create(:comment, :user => user) }
+        3.times { FactoryBot.create(:comment, user: user) }
       end
 
       subject = described_class.new(user)
@@ -201,8 +201,8 @@ RSpec.describe User::TransactionCalculator do
     it 'returns true if the transactions are in a different order' do
       list1 = [:comments, :info_requests]
       list2 = [:info_requests, :comments]
-      calc1 = described_class.new(user, :transaction_associations => list1)
-      calc2 = described_class.new(user, :transaction_associations => list2)
+      calc1 = described_class.new(user, transaction_associations: list1)
+      calc2 = described_class.new(user, transaction_associations: list2)
       expect(calc1).to eq(calc2)
     end
 
@@ -213,8 +213,8 @@ RSpec.describe User::TransactionCalculator do
     it 'returns false if the transactions are different' do
       list1 = [:comments, :info_requests]
       list2 = [:comments]
-      calc1 = described_class.new(user, :transaction_associations => list1)
-      calc2 = described_class.new(user, :transaction_associations => list2)
+      calc1 = described_class.new(user, transaction_associations: list1)
+      calc2 = described_class.new(user, transaction_associations: list2)
       expect(calc1).not_to eq(calc2)
     end
 

@@ -45,7 +45,7 @@ module AttachmentToHTML
     end
 
     def create_tempfile(text)
-      tempfile = Tempfile.new('foiextract', '.', :encoding => text.encoding)
+      tempfile = Tempfile.new('foiextract', '.', encoding: text.encoding)
       tempfile.print(text)
       tempfile.flush
       tempfile

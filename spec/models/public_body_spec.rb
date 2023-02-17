@@ -234,20 +234,20 @@ RSpec.describe PublicBody do
   describe '#name' do
 
     it 'is invalid when nil' do
-      subject = described_class.new(:name => nil)
+      subject = described_class.new(name: nil)
       subject.valid?
       expect(subject.errors[:name]).to eq(["Name can't be blank"])
     end
 
     it 'is invalid when blank' do
-      subject = described_class.new(:name => '')
+      subject = described_class.new(name: '')
       subject.valid?
       expect(subject.errors[:name]).to eq(["Name can't be blank"])
     end
 
     it 'is invalid when not unique' do
       existing = FactoryBot.create(:public_body)
-      subject = described_class.new(:name => existing.name)
+      subject = described_class.new(name: existing.name)
       subject.valid?
       expect(subject.errors[:name]).to eq(["Name is already taken"])
     end
@@ -257,14 +257,14 @@ RSpec.describe PublicBody do
   describe '#short_name' do
 
     it 'is invalid when not unique' do
-      existing = FactoryBot.create(:public_body, :short_name => 'xyz')
-      subject = described_class.new(:short_name => existing.short_name)
+      existing = FactoryBot.create(:public_body, short_name: 'xyz')
+      subject = described_class.new(short_name: existing.short_name)
       subject.valid?
       expect(subject.errors[:short_name]).to eq(["Short name is already taken"])
     end
 
     it 'is valid when blank' do
-      subject = described_class.new(:short_name => '')
+      subject = described_class.new(short_name: '')
       subject.valid?
       expect(subject.errors[:short_name]).to be_empty
     end
@@ -274,7 +274,7 @@ RSpec.describe PublicBody do
   describe '#request_email' do
 
     it 'is invalid when nil' do
-      subject = described_class.new(:request_email => nil)
+      subject = described_class.new(request_email: nil)
       subject.valid?
       expect(subject.errors[:request_email]).
         to eq(["Request email can't be nil"])
@@ -284,7 +284,7 @@ RSpec.describe PublicBody do
 
       subject(:public_body) do
         FactoryBot.build(:public_body,
-                         :request_email => "request@example.com")
+                         request_email: "request@example.com")
       end
 
       it "should return the set email address" do
@@ -303,7 +303,7 @@ RSpec.describe PublicBody do
     context "when no email is set" do
 
       subject(:public_body) do
-        FactoryBot.build(:public_body, :request_email => "")
+        FactoryBot.build(:public_body, request_email: "")
       end
 
       it "should return a blank email address" do
@@ -320,14 +320,14 @@ RSpec.describe PublicBody do
     end
 
     it 'is invalid with an unrequestable email' do
-      subject = PublicBody.new(:request_email => 'invalid@')
+      subject = PublicBody.new(request_email: 'invalid@')
       subject.valid?
       expect(subject.errors[:request_email]).
         to eq(["Request email doesn't look like a valid email address"])
     end
 
     it 'is valid with a requestable email' do
-      subject = PublicBody.new(:request_email => 'valid@example.com')
+      subject = PublicBody.new(request_email: 'valid@example.com')
       subject.valid?
       expect(subject.errors[:request_email]).to be_empty
     end
@@ -337,7 +337,7 @@ RSpec.describe PublicBody do
   describe '#version' do
 
     it 'ignores manually set attributes' do
-      subject = FactoryBot.build(:public_body, :version => 21)
+      subject = FactoryBot.build(:public_body, version: 21)
       subject.save!
       expect(subject.version).to eq(1)
     end
@@ -347,31 +347,31 @@ RSpec.describe PublicBody do
   describe '#url_name' do
 
     it 'is invalid when nil' do
-      subject = PublicBody.new(:url_name => nil)
+      subject = PublicBody.new(url_name: nil)
       subject.valid?
       expect(subject.errors[:url_name]).to eq(["URL name can't be blank"])
     end
 
     it 'is invalid when blank' do
-      subject = PublicBody.new(:url_name => '')
+      subject = PublicBody.new(url_name: '')
       subject.valid?
       expect(subject.errors[:url_name]).to eq(["URL name can't be blank"])
     end
 
     it 'is invalid when not unique' do
-      existing = FactoryBot.create(:public_body, :url_name => 'xyz')
-      subject = described_class.new(:url_name => existing.url_name)
+      existing = FactoryBot.create(:public_body, url_name: 'xyz')
+      subject = described_class.new(url_name: existing.url_name)
       subject.valid?
       expect(subject.errors[:url_name]).to eq(["URL name is already taken"])
     end
 
     it 'replaces spaces and makes lower case' do
-      subject = PublicBody.new(:name => 'Some Authority')
+      subject = PublicBody.new(name: 'Some Authority')
       expect(subject.url_name).to eq('some_authority')
     end
 
     it 'does not allow a numeric name' do
-      subject = PublicBody.new(:name => '1234')
+      subject = PublicBody.new(name: '1234')
       expect(subject.url_name).to eq('body')
     end
 
@@ -394,13 +394,13 @@ RSpec.describe PublicBody do
     context 'short_name has been set' do
 
       it 'does not update the url_name when name is changed' do
-        subject = PublicBody.new(:short_name => 'Test Name')
+        subject = PublicBody.new(short_name: 'Test Name')
         subject.name = 'Some Authority'
         expect(subject.url_name).to eq('test_name')
       end
 
       it 'updates the url_name when short_name is changed' do
-        subject = PublicBody.new(:short_name => 'Test Name')
+        subject = PublicBody.new(short_name: 'Test Name')
         subject.short_name = 'Short Name'
         expect(subject.url_name).to eq('short_name')
       end
@@ -417,13 +417,13 @@ RSpec.describe PublicBody do
     end
 
     it 'gets set on save' do
-      subject = FactoryBot.build(:public_body, :name => 'Body')
+      subject = FactoryBot.build(:public_body, name: 'Body')
       subject.save!
       expect(subject.first_letter).to eq('B')
     end
 
     it 'gets updated on save' do
-      subject = FactoryBot.create(:public_body, :name => 'Body')
+      subject = FactoryBot.create(:public_body, name: 'Body')
       subject.name = 'Authority'
       expect(subject.first_letter).to eq('B')
       subject.save!
@@ -431,13 +431,13 @@ RSpec.describe PublicBody do
     end
 
     it 'sets the first letter to a multibyte character' do
-      subject = FactoryBot.build(:public_body, :name => 'åccents')
+      subject = FactoryBot.build(:public_body, name: 'åccents')
       subject.save!
       expect(subject.first_letter).to eq('Å')
     end
 
     it 'should save the first letter of a translation' do
-      subject = FactoryBot.build(:public_body, :name => 'Body')
+      subject = FactoryBot.build(:public_body, name: 'Body')
       AlaveteliLocalization.with_locale(:es) do
         subject.name = 'Prueba body'
         subject.save!
@@ -447,7 +447,7 @@ RSpec.describe PublicBody do
 
     it 'saves the first letter of a translation, even when it is the same as the
           first letter in the default locale' do
-      subject = FactoryBot.build(:public_body, :name => 'Body')
+      subject = FactoryBot.build(:public_body, name: 'Body')
       AlaveteliLocalization.with_locale(:es) do
         subject.name = 'Body ES'
         subject.save!
@@ -482,28 +482,28 @@ RSpec.describe PublicBody do
   describe '#last_edit_editor' do
 
     it 'is invalid when nil' do
-      subject = PublicBody.new(:last_edit_editor => nil)
+      subject = PublicBody.new(last_edit_editor: nil)
       subject.valid?
       expect(subject.errors[:last_edit_editor]).
         to eq(["Last edit editor can't be blank"])
     end
 
     it 'is invalid when blank' do
-      subject = PublicBody.new(:last_edit_editor => '')
+      subject = PublicBody.new(last_edit_editor: '')
       subject.valid?
       expect(subject.errors[:last_edit_editor]).
         to eq(["Last edit editor can't be blank"])
     end
 
     it 'is invalid when over 255 characters' do
-      subject = PublicBody.new(:last_edit_editor => 'x' * 256)
+      subject = PublicBody.new(last_edit_editor: 'x' * 256)
       subject.valid?
       expect(subject.errors[:last_edit_editor]).
         to eq(["Last edit editor can't be longer than 255 characters"])
     end
 
     it 'is valid up to 255 characters' do
-      subject = PublicBody.new(:last_edit_editor => 'x' * 255)
+      subject = PublicBody.new(last_edit_editor: 'x' * 255)
       subject.valid?
       expect(subject.errors[:last_edit_editor]).to be_empty
     end
@@ -513,13 +513,13 @@ RSpec.describe PublicBody do
   describe '#last_edit_comment' do
 
     it 'is valid when nil' do
-      subject = PublicBody.new(:last_edit_comment => nil)
+      subject = PublicBody.new(last_edit_comment: nil)
       subject.valid?
       expect(subject.errors[:last_edit_comment]).to be_empty
     end
 
     it 'strips blank attributes' do
-      subject = FactoryBot.create(:public_body, :last_edit_comment => '')
+      subject = FactoryBot.create(:public_body, last_edit_comment: '')
       expect(subject.last_edit_comment).to be_nil
     end
 
@@ -528,13 +528,13 @@ RSpec.describe PublicBody do
   describe '#home_page' do
 
     it 'is valid when nil' do
-      subject = PublicBody.new(:home_page => nil)
+      subject = PublicBody.new(home_page: nil)
       subject.valid?
       expect(subject.errors[:home_page]).to be_empty
     end
 
     it 'strips blank attributes' do
-      subject = FactoryBot.create(:public_body, :home_page => '')
+      subject = FactoryBot.create(:public_body, home_page: '')
       expect(subject.home_page).to be_nil
     end
 
@@ -612,13 +612,13 @@ RSpec.describe PublicBody do
   describe '#publication_scheme' do
 
     it 'is valid when nil' do
-      subject = PublicBody.new(:publication_scheme => nil)
+      subject = PublicBody.new(publication_scheme: nil)
       subject.valid?
       expect(subject.errors[:publication_scheme]).to be_empty
     end
 
     it 'strips blank attributes' do
-      subject = FactoryBot.create(:public_body, :publication_scheme => '')
+      subject = FactoryBot.create(:public_body, publication_scheme: '')
       expect(subject.publication_scheme).to be_nil
     end
 
@@ -627,13 +627,13 @@ RSpec.describe PublicBody do
   describe '#disclosure_log' do
 
     it 'is valid when nil' do
-      subject = PublicBody.new(:disclosure_log => nil)
+      subject = PublicBody.new(disclosure_log: nil)
       subject.valid?
       expect(subject.errors[:disclosure_log]).to be_empty
     end
 
     it 'strips blank attributes' do
-      subject = FactoryBot.create(:public_body, :disclosure_log => '')
+      subject = FactoryBot.create(:public_body, disclosure_log: '')
       expect(subject.disclosure_log).to be_nil
     end
 
@@ -645,16 +645,16 @@ RSpec.describe PublicBody do
 
       it 'does not persist translations' do
         body = FactoryBot.create(:public_body)
-        body.translations_attributes = { :es => { :locale => 'es',
-                                                  :name => 'El Body' } }
+        body.translations_attributes = { es: { locale: 'es',
+                                                  name: 'El Body' } }
 
         expect(PublicBody.find(body.id).translations.size).to eq(1)
       end
 
       it 'creates a new translation' do
         body = FactoryBot.create(:public_body)
-        body.translations_attributes = { :es => { :locale => 'es',
-                                                  :name => 'El Body' } }
+        body.translations_attributes = { es: { locale: 'es',
+                                                  name: 'El Body' } }
         body.save!
         body.reload
         expect(body.name(:es)).to eq('El Body')
@@ -662,30 +662,30 @@ RSpec.describe PublicBody do
 
       it 'updates an existing translation' do
         body = FactoryBot.create(:public_body)
-        body.translations_attributes = { 'es' => { :locale => 'es',
-                                                   :name => 'El Body' } }
+        body.translations_attributes = { 'es' => { locale: 'es',
+                                                   name: 'El Body' } }
         body.save!
 
-        body.translations_attributes = { 'es' => { :id => body.translation_for(:es).id,
-                                                   :locale => 'es',
-                                                   :name => 'Renamed' } }
+        body.translations_attributes = { 'es' => { id: body.translation_for(:es).id,
+                                                   locale: 'es',
+                                                   name: 'Renamed' } }
         body.save!
         expect(body.name(:es)).to eq('Renamed')
       end
 
       it 'updates an existing translation and creates a new translation' do
         body = FactoryBot.create(:public_body)
-        body.translations.create(:locale => 'es',
-                                 :name => 'El Body')
+        body.translations.create(locale: 'es',
+                                 name: 'El Body')
 
         expect(body.translations.size).to eq(2)
 
         body.translations_attributes = {
-          'es' => { :id => body.translation_for(:es).id,
-                    :locale => 'es',
-                    :name => 'Renamed' },
-          'fr' => { :locale => 'fr',
-                    :name => 'Le Body' }
+          'es' => { id: body.translation_for(:es).id,
+                    locale: 'es',
+                    name: 'Renamed' },
+          'fr' => { locale: 'fr',
+                    name: 'Le Body' }
         }
 
         expect(body.translations.size).to eq(3)
@@ -699,16 +699,16 @@ RSpec.describe PublicBody do
 
       it 'skips empty translations' do
         body = FactoryBot.create(:public_body)
-        body.translations.create(:locale => 'es',
-                                 :name => 'El Body')
+        body.translations.create(locale: 'es',
+                                 name: 'El Body')
 
         expect(body.translations.size).to eq(2)
 
         body.translations_attributes = {
-          'es' => { :id => body.translation_for(:es).id,
-                    :locale => 'es',
-                    :name => 'Renamed' },
-          'fr' => { :locale => 'fr' }
+          'es' => { id: body.translation_for(:es).id,
+                    locale: 'es',
+                    name: 'Renamed' },
+          'fr' => { locale: 'fr' }
         }
 
         expect(body.translations.size).to eq(2)
@@ -727,7 +727,7 @@ RSpec.describe PublicBody do
 
     it 'does not overwrite an existing API key' do
       allow(SecureRandom).to receive(:base64).and_return('APIKEY')
-      body = PublicBody.new(:api_key => 'EXISTING')
+      body = PublicBody.new(api_key: 'EXISTING')
       body.set_api_key
       expect(body.api_key).to eq('EXISTING')
     end
@@ -745,7 +745,7 @@ RSpec.describe PublicBody do
 
     it 'overwrites an existing API key' do
       allow(SecureRandom).to receive(:base64).and_return('APIKEY')
-      body = PublicBody.new(:api_key => 'EXISTING')
+      body = PublicBody.new(api_key: 'EXISTING')
       body.set_api_key!
       expect(body.api_key).to eq('APIKEY')
     end
@@ -772,12 +772,12 @@ RSpec.describe PublicBody do
   describe '#short_or_long_name' do
 
     it 'returns the short_name if it has been set' do
-      public_body = PublicBody.new(:name => 'Test Name', :short_name => "Test")
+      public_body = PublicBody.new(name: 'Test Name', short_name: "Test")
       expect(public_body.short_or_long_name).to eq('Test')
     end
 
     it 'returns the name if short_name has not been set' do
-      public_body = PublicBody.new(:name => 'Test Name')
+      public_body = PublicBody.new(name: 'Test Name')
       expect(public_body.short_or_long_name).to eq('Test Name')
     end
 
@@ -786,7 +786,7 @@ RSpec.describe PublicBody do
   describe '#set_first_letter' do
 
     it 'sets first_letter to the first letter of the name if the name is set' do
-      public_body = PublicBody.new(:name => 'Test Name')
+      public_body = PublicBody.new(name: 'Test Name')
       public_body.set_first_letter
       expect(public_body.first_letter).to eq('T')
     end
@@ -798,13 +798,13 @@ RSpec.describe PublicBody do
     end
 
     it 'handles mutlibyte characters correctly' do
-      public_body = PublicBody.new(:name => 'Åccented')
+      public_body = PublicBody.new(name: 'Åccented')
       public_body.set_first_letter
       expect(public_body.first_letter).to eq('Å')
     end
 
     it 'upcases the first character' do
-      public_body = PublicBody.new(:name => 'åccented')
+      public_body = PublicBody.new(name: 'åccented')
       public_body.set_first_letter
       expect(public_body.first_letter).to eq('Å')
     end
@@ -954,38 +954,38 @@ RSpec.describe PublicBody do
 
     let(:public_body) do
       FactoryBot.create(:public_body,
-                        :name => 'Marmot Appreciation Society',
-                        :short_name => 'MAS',
-                        :request_email => 'marmots@flourish.org',
-                        :last_edit_editor => 'test',
-                        :last_edit_comment => '',
-                        :info_requests_count => 10,
-                        :info_requests_successful_count => 2,
-                        :info_requests_not_held_count   => 2,
-                        :info_requests_overdue_count    => 3,
-                        :info_requests_visible_classified_count => 3)
+                        name: 'Marmot Appreciation Society',
+                        short_name: 'MAS',
+                        request_email: 'marmots@flourish.org',
+                        last_edit_editor: 'test',
+                        last_edit_comment: '',
+                        info_requests_count: 10,
+                        info_requests_successful_count: 2,
+                        info_requests_not_held_count: 2,
+                        info_requests_overdue_count: 3,
+                        info_requests_visible_classified_count: 3)
     end
 
     it 'should return info about request counts' do
       expect(public_body.json_for_api).
         to eq(
             {
-              :name => 'Marmot Appreciation Society',
-              :notes => "",
-              :publication_scheme => "",
-              :short_name => "MAS",
-              :tags => [],
-              :updated_at => public_body.updated_at,
-              :url_name => "mas",
-              :created_at => public_body.created_at,
-              :home_page => "http://www.flourish.org",
-              :id => public_body.id,
-              :info => {
-                :requests_count => 10,
-                :requests_successful_count => 2,
-                :requests_not_held_count   => 2,
-                :requests_overdue_count    => 3,
-                :requests_visible_classified_count => 3,
+              name: 'Marmot Appreciation Society',
+              notes: "",
+              publication_scheme: "",
+              short_name: "MAS",
+              tags: [],
+              updated_at: public_body.updated_at,
+              url_name: "mas",
+              created_at: public_body.created_at,
+              home_page: "http://www.flourish.org",
+              id: public_body.id,
+              info: {
+                requests_count: 10,
+                requests_successful_count: 2,
+                requests_not_held_count: 2,
+                requests_overdue_count: 3,
+                requests_visible_classified_count: 3,
               }
             })
     end
@@ -996,11 +996,11 @@ end
 
 RSpec.describe PublicBody, " using tags" do
   before do
-    @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
-                                  :short_name => 'AMS',
-                                  :request_email => 'foo@flourish.org',
-                                  :last_edit_editor => 'test',
-                                  :last_edit_comment => '')
+    @public_body = PublicBody.new(name: 'Aardvark Monitoring Service',
+                                  short_name: 'AMS',
+                                  request_email: 'foo@flourish.org',
+                                  last_edit_editor: 'test',
+                                  last_edit_comment: '')
   end
 
   it 'should correctly convert a tag string into tags' do
@@ -1052,11 +1052,11 @@ end
 
 RSpec.describe PublicBody, " using machine tags" do
   before do
-    @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
-                                  :short_name => 'AMS',
-                                  :request_email => 'foo@flourish.org',
-                                  :last_edit_editor => 'test',
-                                  :last_edit_comment => '')
+    @public_body = PublicBody.new(name: 'Aardvark Monitoring Service',
+                                  short_name: 'AMS',
+                                  request_email: 'foo@flourish.org',
+                                  last_edit_editor: 'test',
+                                  last_edit_comment: '')
   end
 
   it 'should parse machine tags' do
@@ -1138,9 +1138,9 @@ RSpec.describe PublicBody, " when saving" do
   end
 
   it 'should create a url_name for a translation' do
-    existing = FactoryBot.create(:public_body, :first_letter => 'T', :short_name => 'Test body')
+    existing = FactoryBot.create(:public_body, first_letter: 'T', short_name: 'Test body')
     AlaveteliLocalization.with_locale(:es) do
-      existing.update :short_name => 'Prueba', :name => 'Prueba body'
+      existing.update short_name: 'Prueba', name: 'Prueba body'
       expect(existing.url_name).to eq('prueba')
     end
   end
@@ -1277,22 +1277,22 @@ RSpec.describe PublicBody, "when destroying" do
 
   it 'should destroy the public_body' do
     public_body.destroy
-    expect(PublicBody.where(:id => public_body.id)).to be_empty
+    expect(PublicBody.where(id: public_body.id)).to be_empty
   end
 
   it 'should destroy the associated track_things' do
     FactoryBot.create(:public_body_track,
-                      :public_body => public_body,
-                      :track_medium => 'email_daily',
-                      :track_query => 'test')
+                      public_body: public_body,
+                      track_medium: 'email_daily',
+                      track_query: 'test')
     public_body.destroy
-    expect(TrackThing.where(:public_body_id => public_body.id)).to be_empty
+    expect(TrackThing.where(public_body_id: public_body.id)).to be_empty
   end
 
   it 'should destroy the associated censor_rules' do
-    FactoryBot.create(:censor_rule, :public_body => public_body)
+    FactoryBot.create(:censor_rule, public_body: public_body)
     public_body.destroy
-    expect(CensorRule.where(:public_body_id => public_body.id)).to be_empty
+    expect(CensorRule.where(public_body_id: public_body.id)).to be_empty
   end
 
   it 'destroys associated translations' do
@@ -1300,15 +1300,15 @@ RSpec.describe PublicBody, "when destroying" do
       public_body.name = 'El Translation'
       public_body.save!
     end
-    expect(PublicBody::Translation.where(:public_body_id => public_body.id)).
+    expect(PublicBody::Translation.where(public_body_id: public_body.id)).
       to_not be_empty
     public_body.destroy
-    expect(PublicBody::Translation.where(:public_body_id => public_body.id)).
+    expect(PublicBody::Translation.where(public_body_id: public_body.id)).
       to be_empty
   end
 
   it 'should raise an error if there are associated info_requests' do
-    FactoryBot.create(:info_request, :public_body => public_body)
+    FactoryBot.create(:info_request, public_body: public_body)
     public_body.reload
     expect { public_body.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
   end
@@ -1502,7 +1502,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
     context 'an existing body without tags' do
 
       before do
-        @body = FactoryBot.create(:public_body, :name => 'Existing Body')
+        @body = FactoryBot.create(:public_body, name: 'Existing Body')
       end
 
       it 'will not import if there is an existing body without the tag' do
@@ -1523,7 +1523,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
     context 'an existing body with tags' do
 
       before do
-        @body = FactoryBot.create(:public_body, :tag_string => 'imported first_tag second_tag')
+        @body = FactoryBot.create(:public_body, tag_string: 'imported first_tag second_tag')
       end
 
       it 'created with tags, different tags in csv, add import tag' do
@@ -1676,7 +1676,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
     describe 'with an existing body with tags' do
 
       before do
-        @body = FactoryBot.create(:public_body, :tag_string => 'first_tag second_tag')
+        @body = FactoryBot.create(:public_body, tag_string: 'first_tag second_tag')
       end
 
       it 'created with tags, different tags in csv, add tags' do
@@ -1940,7 +1940,7 @@ RSpec.describe PublicBody do
   describe '#site_administration?' do
 
     it 'is true when the body has the site_administration tag' do
-      p = FactoryBot.build(:public_body, :tag_string => 'site_administration')
+      p = FactoryBot.build(:public_body, tag_string: 'site_administration')
       expect(p.site_administration?).to be true
     end
 
@@ -1954,7 +1954,7 @@ RSpec.describe PublicBody do
   describe '#has_request_email?' do
 
     before do
-      @body = PublicBody.new(:request_email => 'test@example.com')
+      @body = PublicBody.new(request_email: 'test@example.com')
     end
 
     it 'should return false if request_email is nil' do
@@ -2135,7 +2135,7 @@ RSpec.describe PublicBody do
   describe '#is_requestable?' do
 
     before do
-      @body = PublicBody.new(:request_email => 'test@example.com')
+      @body = PublicBody.new(request_email: 'test@example.com')
     end
 
     it 'should return false if the body is defunct' do
@@ -2193,7 +2193,7 @@ RSpec.describe PublicBody do
   describe '#is_followupable?' do
 
     before do
-      @body = PublicBody.new(:request_email => 'test@example.com')
+      @body = PublicBody.new(request_email: 'test@example.com')
     end
 
     it 'should return false there is no request_email' do
@@ -2210,7 +2210,7 @@ RSpec.describe PublicBody do
   describe '#not_requestable_reason' do
 
     before do
-      @body = PublicBody.new(:request_email => 'test@example.com')
+      @body = PublicBody.new(request_email: 'test@example.com')
     end
 
     it 'should return "defunct" if the body is defunct' do
@@ -2338,7 +2338,7 @@ RSpec.describe PublicBody::Translation do
 
   it 'is valid if all required attributes are assigned' do
     translation = PublicBody::Translation.new(
-      :locale => AlaveteliLocalization.default_locale
+      locale: AlaveteliLocalization.default_locale
     )
     expect(translation).to be_valid
   end
@@ -2379,9 +2379,9 @@ RSpec.describe PublicBody::Version do
           public_body.request_email = 'new@example.com'
           public_body.save!
           current = public_body.versions.latest
-          expected = { :name => "Request email",
-                       :from => "request@example.com",
-                       :to => "new@example.com" }
+          expected = { name: "Request email",
+                       from: "request@example.com",
+                       to: "new@example.com" }
           expect(current.compare(current.previous)).to eq([ expected ])
         end
 
@@ -2420,9 +2420,9 @@ RSpec.describe PublicBody::Version do
           public_body.request_email = 'new@example.com'
           public_body.save!
           current = public_body.versions.latest
-          expected = { :name => "Request email",
-                       :from => "request@example.com",
-                       :to => "new@example.com" }
+          expected = { name: "Request email",
+                       from: "request@example.com",
+                       to: "new@example.com" }
           expect { |b| current.compare(current.previous, &b) }.
             to yield_with_args(expected)
         end

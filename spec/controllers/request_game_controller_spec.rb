@@ -48,7 +48,7 @@ RSpec.describe RequestGameController do
 
       render_views
 
-      let(:test_url) { help_credits_path(:anchor => "helpus") }
+      let(:test_url) { help_credits_path(anchor: "helpus") }
 
       it 'shows the game homepage' do
         get :play
@@ -60,8 +60,8 @@ RSpec.describe RequestGameController do
         expect(flash.now[:notice][:partial]).
           to eq("request_game/game_over")
         expect(flash.now[:notice][:locals]).to include({
-          :helpus_url => test_url,
-          :site_name => site_name
+          helpus_url: test_url,
+          site_name: site_name
         })
       end
 
@@ -71,7 +71,7 @@ RSpec.describe RequestGameController do
         expect(response.body).
           to have_content('All done! Thank you very much for your help')
         expect(response.body).
-          to have_link('more things you can do', :href => test_url)
+          to have_link('more things you can do', href: test_url)
       end
 
     end

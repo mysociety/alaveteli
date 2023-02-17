@@ -15,12 +15,12 @@
 module AlaveteliPro
   class Embargo < ApplicationRecord
     belongs_to :info_request,
-               :inverse_of => :embargo
+               inverse_of: :embargo
     has_many :embargo_extensions,
-             :inverse_of => :embargo
+             inverse_of: :embargo
     has_one :user,
-            :inverse_of => :embargoes,
-            :through => :info_request
+            inverse_of: :embargoes,
+            through: :info_request
 
     validates_presence_of :info_request
     validates_presence_of :publish_at
@@ -141,7 +141,7 @@ module AlaveteliPro
       publish_at_changed = publish_at_changed?
       yield
       if publish_at_changed
-        params = { :embargo_id => id }
+        params = { embargo_id: id }
         params[:embargo_extension_id] = extension.id if extension
         info_request.log_event('set_embargo', params)
       end

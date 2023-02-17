@@ -6,7 +6,7 @@ module AlaveteliPro
         n_("{{count}} request has received a response.",
            "{{count}} requests have received a response.",
            count,
-           :count => count)
+           count: count)
       end
 
       def items

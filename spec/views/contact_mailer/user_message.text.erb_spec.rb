@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe "contact_mailer/user_message" do
-  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
+  let(:user) { FactoryBot.create(:user, name: "Test Us'r") }
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

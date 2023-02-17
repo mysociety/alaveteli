@@ -34,13 +34,13 @@ class TypeaheadSearch
 
   def options
     {
-      :offset => (@page - 1) * @per_page,
-      :limit => @per_page,
-      :sort_by_prefix => nil,
-      :sort_by_ascending => true,
-      :collapse_by_prefix => collapse?,
-      :wildcard => @wildcard,
-      :model => @model
+      offset: (@page - 1) * @per_page,
+      limit: @per_page,
+      sort_by_prefix: nil,
+      sort_by_ascending: true,
+      collapse_by_prefix: collapse?,
+      wildcard: @wildcard,
+      model: @model
     }
   end
 

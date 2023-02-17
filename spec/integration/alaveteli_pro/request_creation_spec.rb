@@ -3,7 +3,7 @@ require 'integration/alaveteli_dsl'
 
 RSpec.describe "creating requests in alaveteli_pro" do
   context "when writing a new request from scratch" do
-    let!(:public_body) { FactoryBot.create(:public_body, :name => 'example') }
+    let!(:public_body) { FactoryBot.create(:public_body, name: 'example') }
     let!(:pro_user) { FactoryBot.create(:pro_user) }
     let!(:pro_user_session) { login(pro_user) }
 
@@ -74,9 +74,9 @@ RSpec.describe "creating requests in alaveteli_pro" do
     it 'does not render HTML on the preview page' do
       public_body.update_attribute(:name, "Test's <sup>html</sup> authority")
       using_pro_session(pro_user_session) do
-        visit show_public_body_path(:url_name => public_body.url_name)
+        visit show_public_body_path(url_name: public_body.url_name)
         click_link('Make a Freedom of Information request to this authority')
-        fill_in 'Subject', :with => "HTML test"
+        fill_in 'Subject', with: "HTML test"
         click_button "Preview and send"
 
         expect(page).to have_content("Dear Test's <sup>html</sup> authority")

@@ -8,7 +8,7 @@ class AdminPublicBodyController < AdminController
 
   include TranslatableParams
 
-  before_action :set_public_body, :only => [:edit, :update, :destroy]
+  before_action :set_public_body, only: [:edit, :update, :destroy]
 
   def index
     lookup_query
@@ -22,8 +22,8 @@ class AdminPublicBodyController < AdminController
       if cannot? :admin, AlaveteliPro::Embargo
         info_requests = info_requests.not_embargoed
       end
-      @info_requests = info_requests.paginate(:page => params[:page],
-                                              :per_page => 100)
+      @info_requests = info_requests.paginate(page: params[:page],
+                                              per_page: 100)
       @versions = @public_body.versions.order(version: :desc)
       render
     end
@@ -37,13 +37,13 @@ class AdminPublicBodyController < AdminController
       @change_request = PublicBodyChangeRequest.find(params[:change_request_id])
     end
     if @change_request
-      @change_request_user_response = render_to_string(:template => "admin_public_body_change_requests/add_accepted",
-                                                       :formats => [:text])
+      @change_request_user_response = render_to_string(template: "admin_public_body_change_requests/add_accepted",
+                                                       formats: [:text])
       @public_body.name = @change_request.public_body_name
       @public_body.request_email = @change_request.public_body_email
       @public_body.last_edit_comment = @change_request.comment_for_public_body
     end
-    render :formats => [:html]
+    render formats: [:html]
   end
 
   def create
@@ -56,7 +56,7 @@ class AdminPublicBodyController < AdminController
       if @public_body.save
         if @change_request
           response_text = params[:response].gsub(_("[Authority URL will be inserted here]"),
-                                                 public_body_url(@public_body, :only_path => false))
+                                                 public_body_url(@public_body, only_path: false))
           @change_request.close!
           @change_request.send_response(params[:subject], response_text)
         end
@@ -64,7 +64,7 @@ class AdminPublicBodyController < AdminController
         redirect_to admin_body_url(@public_body)
       else
         @public_body.build_all_translations
-        render :action => 'new'
+        render action: 'new'
       end
     end
   end
@@ -106,7 +106,7 @@ class AdminPublicBodyController < AdminController
         redirect_to admin_body_url(@public_body)
       else
         @public_body.build_all_translations
-        render :action => 'edit'
+        render action: 'edit'
       end
     end
   end
@@ -145,7 +145,7 @@ class AdminPublicBodyController < AdminController
       end
     end
 
-    redirect_to admin_bodies_url(:query => @query, :page => @page)
+    redirect_to admin_bodies_url(query: @query, page: @page)
   end
 
   def import_csv
@@ -259,7 +259,7 @@ class AdminPublicBodyController < AdminController
           joins(:translations).
             where(query).
               merge(PublicBody::Translation.order(:name)).
-                paginate(:page => @page, :per_page => 100)
+                paginate(page: @page, per_page: 100)
     end
 
     @public_bodies_by_tag = PublicBody.find_by_tag(@query)

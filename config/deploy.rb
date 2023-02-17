@@ -16,7 +16,7 @@ set :use_sudo, false
 set :rails_env, configuration['rails_env']
 set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
-server configuration['server'], :app, :web, :db, :primary => true
+server configuration['server'], :app, :web, :db, primary: true
 
 set(:rbenv_ruby_version) do
   command = "cat #{shared_path}/rbenv-version 2>/dev/null || true"
@@ -51,7 +51,7 @@ namespace :deploy do
 
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
-    task t, :roles => :app, :except => { :no_release => true } do
+    task t, roles: :app, except: { no_release: true } do
       run "/etc/init.d/#{ daemon_name } #{ t }"
     end
   end

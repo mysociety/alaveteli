@@ -18,7 +18,7 @@ RSpec.describe "admin_public_body/show" do
     it 'does not display the API key' do
       with_feature_enabled(:alaveteli_pro) do
         allow(controller).to receive(:current_user).and_return(current_user)
-        render :template => 'admin_public_body/show', :locals => { :current_user => current_user }
+        render template: 'admin_public_body/show', locals: { current_user: current_user }
         expect(rendered).not_to match(Regexp.escape(public_body.api_key))
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe "admin_public_body/show" do
     it 'displays the API key' do
       with_feature_enabled(:alaveteli_pro) do
         allow(controller).to receive(:current_user).and_return(current_user)
-        render :template => 'admin_public_body/show', :locals => { :current_user => current_user }
+        render template: 'admin_public_body/show', locals: { current_user: current_user }
         expect(rendered).to match(Regexp.escape(public_body.api_key))
       end
     end

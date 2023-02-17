@@ -26,15 +26,15 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     it 'asks the incoming message to destroy itself' do
       allow(IncomingMessage).to receive(:find).and_return(@im)
       expect(@im).to receive(:destroy)
-      post :destroy, params: { :id => @im.id }
+      post :destroy, params: { id: @im.id }
     end
 
     it 'expires the file cache for the associated info_request' do
       info_request = FactoryBot.create(:info_request)
       allow(@im).to receive(:info_request).and_return(info_request)
       allow(IncomingMessage).to receive(:find).and_return(@im)
-      expect(@im.info_request).to receive(:expire).with(:preserve_database_cache => true)
-      post :destroy, params: { :id => @im.id }
+      expect(@im.info_request).to receive(:expire).with(preserve_database_cache: true)
+      post :destroy, params: { id: @im.id }
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -78,8 +78,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       allow(IncomingMessage).to receive(:find).and_return(incoming_message)
       expect(previous_info_request).to receive(:expire)
       post :redeliver, params: {
-                         :id => incoming_message.id,
-                         :url_title => destination_info_request.url_title
+                         id: incoming_message.id,
+                         url_title: destination_info_request.url_title
                        }
     end
 
@@ -87,8 +87,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
       with_duplicate_xapian_job_creation do
         post :redeliver, params: {
-                           :id => incoming_message.id,
-                           :url_title => destination_info_request.url_title
+                           id: incoming_message.id,
+                           url_title: destination_info_request.url_title
                          }
       end
 
@@ -96,8 +96,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
     it 'shouldn\'t do anything if no message_id is supplied' do
       post :redeliver, params: {
-                         :id => incoming_message.id,
-                         :url_title => ''
+                         id: incoming_message.id,
+                         url_title: ''
                        }
       # It shouldn't delete this message
       assert_equal IncomingMessage.exists?(incoming_message.id), true
@@ -145,12 +145,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it 'should be successful' do
-      get :edit, params: { :id => @incoming.id }
+      get :edit, params: { id: @incoming.id }
       expect(response).to be_successful
     end
 
     it 'should assign the incoming message to the view' do
-      get :edit, params: { :id => @incoming.id }
+      get :edit, params: { id: @incoming.id }
       expect(assigns[:incoming_message]).to eq(@incoming)
     end
 
@@ -182,7 +182,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
     before do
       sign_in(admin_user)
-      @incoming = FactoryBot.create(:incoming_message, :prominence => 'normal')
+      @incoming = FactoryBot.create(:incoming_message, prominence: 'normal')
       @default_params = {
         id: @incoming.id,
         incoming_message: {
@@ -258,9 +258,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     context 'if the incoming message is not valid' do
 
       it 'should render the edit template' do
-        make_request({:id => @incoming.id,
-                      :incoming_message => {:prominence => 'fantastic',
-                                            :prominence_reason => 'dull'}})
+        make_request({id: @incoming.id,
+                      incoming_message: {prominence: 'fantastic',
+                                            prominence_reason: 'dull'}})
         expect(response).to render_template("edit")
       end
 
@@ -295,12 +295,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     let(:request) { FactoryBot.create(:info_request) }
     let(:spam1) { FactoryBot.create(
                     :incoming_message,
-                    :subject => "Buy a watch!1!!",
-                    :info_request => request) }
+                    subject: "Buy a watch!1!!",
+                    info_request: request) }
     let(:spam2) { FactoryBot.create(
                     :incoming_message,
-                    :subject => "Best cheap w@tches!!1!",
-                    :info_request => request) }
+                    subject: "Best cheap w@tches!!1!",
+                    info_request: request) }
     let(:spam_ids) { [spam1.id, spam2.id] }
 
     before { sign_in(admin_user) }
@@ -309,29 +309,29 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
       it "destroys the selected messages" do
         post :bulk_destroy, params: {
-                              :request_id => request.id,
-                              :ids => spam_ids.join(","),
-                              :commit => "Yes"
+                              request_id: request.id,
+                              ids: spam_ids.join(","),
+                              commit: "Yes"
                             }
 
-        expect(IncomingMessage.where(:id => spam_ids)).to be_empty
+        expect(IncomingMessage.where(id: spam_ids)).to be_empty
       end
 
       it 'expires the file cache for the associated info_request' do
         allow(InfoRequest).to receive(:find).and_return(request)
-        expect(request).to receive(:expire).with(:preserve_database_cache => true)
+        expect(request).to receive(:expire).with(preserve_database_cache: true)
         post :bulk_destroy, params: {
-                              :request_id => request.id,
-                              :ids => spam_ids.join(","),
-                              :commit => "Yes"
+                              request_id: request.id,
+                              ids: spam_ids.join(","),
+                              commit: "Yes"
                             }
       end
 
       it "redirects back to the admin page for the request" do
         post :bulk_destroy, params: {
-                              :request_id => request.id,
-                              :ids => spam_ids.join(","),
-                              :commit => "Yes"
+                              request_id: request.id,
+                              ids: spam_ids.join(","),
+                              commit: "Yes"
                             }
 
         expect(response).to redirect_to(admin_request_url(request))
@@ -339,9 +339,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
       it "sets a success message in flash" do
         post :bulk_destroy, params: {
-                              :request_id => request.id,
-                              :ids => spam_ids.join(","),
-                              :commit => "Yes"
+                              request_id: request.id,
+                              ids: spam_ids.join(","),
+                              commit: "Yes"
                             }
 
         expect(response).to redirect_to(admin_request_url(request))
@@ -350,12 +350,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
       it "only destroys selected messages" do
         post :bulk_destroy, params: {
-                              :request_id => request.id,
-                              :ids => spam2.id,
-                              :commit => "Yes"
+                              request_id: request.id,
+                              ids: spam2.id,
+                              commit: "Yes"
                             }
 
-        expect(IncomingMessage.where(:id => spam_ids)).to eq([spam1])
+        expect(IncomingMessage.where(id: spam_ids)).to eq([spam1])
       end
 
       context "not all the messages can be destroyed" do
@@ -365,9 +365,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
           allow(IncomingMessage).to receive(:where).and_return([spam1, spam2])
           msg = "Incoming Messages #{spam2.id} could not be destroyed"
           post :bulk_destroy, params: {
-                                :request_id => request.id,
-                                :ids => spam_ids.join(","),
-                                :commit => "Yes"
+                                request_id: request.id,
+                                ids: spam_ids.join(","),
+                                commit: "Yes"
                               }
 
           expect(flash[:error]).to match(msg)
@@ -381,19 +381,19 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
       it "does not destroy the messages" do
         post :bulk_destroy, params: {
-                              :request_id => request.id,
-                              :ids => spam_ids.split(","),
-                              :commit => "No"
+                              request_id: request.id,
+                              ids: spam_ids.split(","),
+                              commit: "No"
                             }
 
-        expect(IncomingMessage.where(:id => spam_ids)).to match_array([spam1, spam2])
+        expect(IncomingMessage.where(id: spam_ids)).to match_array([spam1, spam2])
       end
 
       it "redirects back to the admin page for the request" do
         post :bulk_destroy, params: {
-                              :request_id => request.id,
-                              :ids => spam_ids.join(","),
-                              :commit => "No"
+                              request_id: request.id,
+                              ids: spam_ids.join(","),
+                              commit: "No"
                             }
 
         expect(response).to redirect_to(admin_request_url(request))

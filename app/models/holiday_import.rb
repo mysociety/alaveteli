@@ -12,9 +12,9 @@ class HolidayImport
     :populated
 
   validate :all_holidays_valid
-  validates_inclusion_of :source, :in => %w( suggestions feed )
+  validates_inclusion_of :source, in: %w( suggestions feed )
   validates_presence_of :ical_feed_url,
-    :if => proc { |holiday_import| holiday_import.source == 'feed' }
+    if: proc { |holiday_import| holiday_import.source == 'feed' }
 
   def initialize(opts = {})
     @populated = false
@@ -89,8 +89,8 @@ class HolidayImport
 
   def populate_from_ical_event(cal_event)
     if cal_event.dtstart >= start_date and cal_event.dtstart <= end_date
-      holidays << Holiday.new(:description => cal_event.summary,
-                              :day => cal_event.dtstart)
+      holidays << Holiday.new(description: cal_event.summary,
+                              day: cal_event.dtstart)
     end
   end
 
@@ -98,8 +98,8 @@ class HolidayImport
     begin
       holiday_info = Holidays.between(start_date, end_date, @country_code.to_sym, :observed)
       holiday_info.each do |holiday_info_hash|
-        holidays << Holiday.new(:description => holiday_info_hash[:name],
-                                :day => holiday_info_hash[:date])
+        holidays << Holiday.new(description: holiday_info_hash[:name],
+                                day: holiday_info_hash[:date])
       end
     rescue Holidays::InvalidRegion
       []

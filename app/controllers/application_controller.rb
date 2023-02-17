@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   # assign our own handler method for non-local exceptions
-  rescue_from Exception, :with => :render_exception
+  rescue_from Exception, with: :render_exception
 
   # Standard headers, footers and navigation for whole site
   layout "default"
@@ -191,12 +191,12 @@ class ApplicationController < ActionController::Base
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
       if send_exception_notifications?
-        ExceptionNotifier.notify_exception(exception, :env => request.env)
+        ExceptionNotifier.notify_exception(exception, env: request.env)
       end
       @status = 500
     end
     respond_to do |format|
-      format.html { render :template => "general/exception_caught", :status => @status }
+      format.html { render template: "general/exception_caught", status: @status }
       format.any { head @status }
     end
   end
@@ -207,7 +207,7 @@ class ApplicationController < ActionController::Base
     raise ActiveRecord::RecordNotFound if @info_request && @info_request.embargo
 
     response_code = opts.delete(:response_code) { 403 } # forbidden
-    options = { :template => template, :status => response_code }.merge(opts)
+    options = { template: template, status: response_code }.merge(opts)
 
     respond_to do |format|
       format.html { render(options) }
@@ -363,18 +363,18 @@ class ApplicationController < ActionController::Base
     if !AlaveteliConfiguration::read_only.empty?
       if feature_enabled?(:annotations)
         flash[:notice] = {
-          :partial => "general/read_only_annotations",
-          :locals => {
-            :site_name => site_name,
-            :read_only => AlaveteliConfiguration.read_only
+          partial: "general/read_only_annotations",
+          locals: {
+            site_name: site_name,
+            read_only: AlaveteliConfiguration.read_only
           }
         }
       else
         flash[:notice] = {
-          :partial => "general/read_only",
-          :locals => {
-            :site_name => site_name,
-            :read_only => AlaveteliConfiguration.read_only
+          partial: "general/read_only",
+          locals: {
+            site_name: site_name,
+            read_only: AlaveteliConfiguration.read_only
           }
         }
       end
@@ -411,11 +411,11 @@ class ApplicationController < ActionController::Base
     @page = this_page || get_search_page_from_params
 
     result = ActsAsXapian::Search.new(models, @query,
-                                      :offset => (@page - 1) * @per_page,
-                                      :limit => @per_page,
-                                      :sort_by_prefix => order,
-                                      :sort_by_ascending => ascending,
-                                      :collapse_by_prefix => collapse
+                                      offset: (@page - 1) * @per_page,
+                                      limit: @per_page,
+                                      sort_by_prefix: order,
+                                      sort_by_ascending: ascending,
+                                      collapse_by_prefix: collapse
                                       )
     result.results # Touch the results to load them, otherwise accessing them from the view
     # might fail later if the database has subsequently been reopened.
@@ -431,8 +431,8 @@ class ApplicationController < ActionController::Base
   def typeahead_search(query, options)
     @page = get_search_page_from_params
     @per_page = options[:per_page] || 25
-    options.merge!( :page => @page,
-                    :per_page => @per_page )
+    options.merge!( page: @page,
+                    per_page: @per_page )
     typeahead_search = TypeaheadSearch.new(query, options)
     typeahead_search.xapian_search
   end
@@ -472,7 +472,7 @@ class ApplicationController < ActionController::Base
   # Returns a Hash
   def sanitize_path(params)
     if params.key?(:path)
-      params.merge!(:path => Rack::Utils.escape(params[:path]))
+      params.merge!(path: Rack::Utils.escape(params[:path]))
     end
   end
 
@@ -480,7 +480,7 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def collect_locales
-    @locales = { :current => AlaveteliLocalization.locale, :available => [] }
+    @locales = { current: AlaveteliLocalization.locale, available: [] }
     AlaveteliLocalization.available_locales.each do |possible_locale|
       if possible_locale == AlaveteliLocalization.locale
         @locales[:current] = possible_locale

@@ -62,46 +62,46 @@ class PublicBody < ApplicationRecord
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
-           :inverse_of => :public_body
+           inverse_of: :public_body
   has_many :track_things,
            -> { order(created_at: :desc) },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :track_things_sent_emails,
            -> { order(created_at: :desc) },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :public_body_change_requests,
            -> { order(created_at: :desc) },
-           :inverse_of => :public_body,
-           :dependent => :destroy
+           inverse_of: :public_body,
+           dependent: :destroy
   has_many :draft_info_requests,
            -> { order(created_at: :desc) },
-           :inverse_of => :public_body
+           inverse_of: :public_body
 
   has_and_belongs_to_many :info_request_batches,
-                          :inverse_of => :public_bodies
+                          inverse_of: :public_bodies
   has_and_belongs_to_many :draft_info_request_batches,
-                          :class_name => 'AlaveteliPro::DraftInfoRequestBatch',
-                          :inverse_of => :public_bodies
+                          class_name: 'AlaveteliPro::DraftInfoRequestBatch',
+                          inverse_of: :public_bodies
 
-  validates_presence_of :name, :message => N_("Name can't be blank")
-  validates_presence_of :url_name, :message => N_("URL name can't be blank")
+  validates_presence_of :name, message: N_("Name can't be blank")
+  validates_presence_of :url_name, message: N_("URL name can't be blank")
   validates_presence_of :last_edit_editor,
-                        :message => N_("Last edit editor can't be blank")
+                        message: N_("Last edit editor can't be blank")
 
   validates :request_email,
             not_nil: { message: N_("Request email can't be nil") }
 
   validates_uniqueness_of :short_name,
-                          :message => N_("Short name is already taken"),
-                          :allow_blank => true
-  validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
-  validates_uniqueness_of :name, :message => N_("Name is already taken")
+                          message: N_("Short name is already taken"),
+                          allow_blank: true
+  validates_uniqueness_of :url_name, message: N_("URL name is already taken")
+  validates_uniqueness_of :name, message: N_("Name is already taken")
 
   validates :last_edit_editor,
             length: { maximum: 255,
@@ -110,7 +110,7 @@ class PublicBody < ApplicationRecord
 
   validate :request_email_if_requestable
 
-  before_save :set_api_key!, :unless => :api_key
+  before_save :set_api_key!, unless: :api_key
 
   after_save :update_missing_email_tag
 
@@ -120,17 +120,17 @@ class PublicBody < ApplicationRecord
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes_as_string],
-                 :values => [
+  acts_as_xapian texts: [:name, :short_name, :notes_as_string],
+                 values: [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
                  ],
-                 :terms => [
+                 terms: [
                    [:name_for_search, 'N', 'name'],
                    [:variety, 'V', "variety"],
                    [:tag_array_for_search, 'U', "tag"]
                  ],
-                 :eager_load => [:translations]
+                 eager_load: [:translations]
 
   strip_attributes allow_empty: false, except: %i[request_email]
   strip_attributes allow_empty: true, only: %i[request_email]
@@ -207,9 +207,9 @@ class PublicBody < ApplicationRecord
                     updated_at).include?(c.name)
             from = previous.send(c.name)
             to = send(c.name)
-            memo << { :name => c.name.humanize,
-                      :from => from,
-                      :to => to } if from != to
+            memo << { name: c.name.humanize,
+                      from: from,
+                      to: to } if from != to
           end
           memo
         }
@@ -292,7 +292,7 @@ class PublicBody < ApplicationRecord
     # If none found, then search the history of short names and find unique
     # public bodies in it
     old = PublicBody::Version.
-      where(:url_name => name).
+      where(url_name: name).
       distinct.
       pluck(:public_body_id)
 
@@ -437,14 +437,13 @@ class PublicBody < ApplicationRecord
         AlaveteliLocalization.
           with_locale(AlaveteliLocalization.default_locale) do
           default_scoped.
-            create!(:name => 'Internal admin authority',
-                    :short_name => "",
-                    :request_email => AlaveteliConfiguration.contact_email,
-                    :home_page => nil,
-                    :publication_scheme => nil,
-                    :last_edit_editor => "internal_admin",
-                    :last_edit_comment =>
-                      "Made by PublicBody.internal_admin_body")
+            create!(name: 'Internal admin authority',
+                    short_name: "",
+                    request_email: AlaveteliConfiguration.contact_email,
+                    home_page: nil,
+                    publication_scheme: nil,
+                    last_edit_editor: "internal_admin",
+                    last_edit_comment:                       "Made by PublicBody.internal_admin_body")
         end
       end
     elsif matching_pbs.length == 1
@@ -499,13 +498,13 @@ class PublicBody < ApplicationRecord
         field_names = { 'name' => 1, 'request_email' => 2 }
         line = 0
 
-        import_options = {:field_names => field_names,
-                          :available_locales => available_locales,
-                          :tag => tag,
-                          :tag_behaviour => tag_behaviour,
-                          :editor => editor,
-                          :notes => notes,
-                          :errors => errors }
+        import_options = {field_names: field_names,
+                          available_locales: available_locales,
+                          tag: tag,
+                          tag_behaviour: tag_behaviour,
+                          editor: editor,
+                          notes: notes,
+                          errors: errors }
 
         CSV.foreach(csv_filename) do |row|
           line = line + 1
@@ -534,9 +533,9 @@ class PublicBody < ApplicationRecord
             next
           end
 
-          public_body = bodies_by_name[name] || PublicBody.new(:name => "",
-                                                               :short_name => "",
-                                                               :request_email => "")
+          public_body = bodies_by_name[name] || PublicBody.new(name: "",
+                                                               short_name: "",
+                                                               request_email: "")
 
           public_body.import_values_from_csv_row(row, line, name, import_options)
           set_of_importing.add(name)
@@ -570,11 +569,11 @@ class PublicBody < ApplicationRecord
   def import_values_from_csv_row(row, line, name, options)
     is_new = new_record?
     edit_info = if is_new
-      { :action => "creating new authority",
-        :comment => 'Created from spreadsheet' }
+      { action: "creating new authority",
+        comment: 'Created from spreadsheet' }
     else
-      { :action => "updating authority",
-        :comment => 'Updated from spreadsheet' }
+      { action: "updating authority",
+        comment: 'Updated from spreadsheet' }
     end
     locales = options[:available_locales]
     locales = [AlaveteliLocalization.default_locale] if locales.empty?
@@ -681,28 +680,27 @@ class PublicBody < ApplicationRecord
 
   def json_for_api
     {
-      :id => id,
-      :url_name => url_name,
-      :name => name,
-      :short_name => short_name,
+      id: id,
+      url_name: url_name,
+      name: name,
+      short_name: short_name,
       # :request_email  # we hide this behind a captcha, to stop people
       # doing bulk requests easily
-      :created_at => created_at,
-      :updated_at => updated_at,
+      created_at: created_at,
+      updated_at: updated_at,
       # don't add the history as some edit comments contain sensitive
       # information
       # :version, :last_edit_editor, :last_edit_comment
-      :home_page => calculated_home_page,
-      :notes => notes_as_string,
-      :publication_scheme => publication_scheme.to_s,
-      :tags => tag_array,
-      :info => {
-        :requests_count => info_requests_count,
-        :requests_successful_count => info_requests_successful_count,
-        :requests_not_held_count   => info_requests_not_held_count,
-        :requests_overdue_count    => info_requests_overdue_count,
-        :requests_visible_classified_count =>
-          info_requests_visible_classified_count
+      home_page: calculated_home_page,
+      notes: notes_as_string,
+      publication_scheme: publication_scheme.to_s,
+      tags: tag_array,
+      info: {
+        requests_count: info_requests_count,
+        requests_successful_count: info_requests_successful_count,
+        requests_not_held_count: info_requests_not_held_count,
+        requests_overdue_count: info_requests_overdue_count,
+        requests_visible_classified_count:           info_requests_visible_classified_count
       },
     }
   end

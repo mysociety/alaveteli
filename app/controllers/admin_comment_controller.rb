@@ -6,7 +6,7 @@
 
 class AdminCommentController < AdminController
 
-  before_action :set_comment, :only => [:edit, :update]
+  before_action :set_comment, only: [:edit, :update]
 
   def index
     @title = 'Listing comments'
@@ -21,7 +21,7 @@ class AdminCommentController < AdminController
 
     comments = comments.not_embargoed if cannot? :admin, AlaveteliPro::Embargo
 
-    @comments = comments.paginate :page => params[:page], :per_page => 100
+    @comments = comments.paginate page: params[:page], per_page: 100
   end
 
   def edit
@@ -54,7 +54,7 @@ class AdminCommentController < AdminController
       flash[:notice] = 'Comment successfully updated.'
       redirect_to admin_request_url(@comment.info_request)
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

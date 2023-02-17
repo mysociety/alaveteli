@@ -77,7 +77,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
           _('Coupon code has expired.')
         else
           if send_exception_notifications?
-            ExceptionNotifier.notify_exception(e, :env => request.env)
+            ExceptionNotifier.notify_exception(e, env: request.env)
           end
 
           _('There was a problem submitting your payment. You ' \
@@ -171,7 +171,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::APIConnectionError,
            Stripe::StripeError => e
       if send_exception_notifications?
-        ExceptionNotifier.notify_exception(e, :env => request.env)
+        ExceptionNotifier.notify_exception(e, env: request.env)
       end
 
       flash[:error] = _('There was a problem cancelling your account. Please ' \

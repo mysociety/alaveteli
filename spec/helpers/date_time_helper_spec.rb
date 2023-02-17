@@ -15,12 +15,12 @@ RSpec.describe DateTimeHelper do
     it 'formats a date in the specified format' do
       time = Time.utc(2012, 11, 07, 21, 30, 26)
       expect(self).to receive(:simple_date_text).with(time)
-      simple_date(time, :format => :text)
+      simple_date(time, format: :text)
     end
 
     it 'raises an argument error if given an unrecognized format' do
       time = Time.utc(2012, 11, 07, 21, 30, 26)
-      expect { simple_date(time, :format => :unknown) }.to raise_error(ArgumentError)
+      expect { simple_date(time, format: :unknown) }.to raise_error(ArgumentError)
     end
 
   end

@@ -20,13 +20,13 @@
 
 class TrackThingsSentEmail < ApplicationRecord
   belongs_to :info_request_event,
-             :inverse_of => :track_things_sent_emails
+             inverse_of: :track_things_sent_emails
   belongs_to :user,
-             :inverse_of => :track_things_sent_emails
+             inverse_of: :track_things_sent_emails
   belongs_to :public_body,
-             :inverse_of => :track_things_sent_emails
+             inverse_of: :track_things_sent_emails
   belongs_to :track_thing,
-             :inverse_of => :track_things_sent_emails
+             inverse_of: :track_things_sent_emails
 
   # Called from cron job delete-old-things
   def self.delete_old_track_things_sent_email

@@ -4,7 +4,7 @@ RSpec.describe AttachmentToHTML::Adapters::GoogleDocsViewer do
 
   let(:attachment) { FactoryBot.build(:pdf_attachment) }
   let(:adapter) do
-    AttachmentToHTML::Adapters::GoogleDocsViewer.new(attachment, :attachment_url => 'http://example.com/test.pdf')
+    AttachmentToHTML::Adapters::GoogleDocsViewer.new(attachment, attachment_url: 'http://example.com/test.pdf')
   end
 
   describe :title do
