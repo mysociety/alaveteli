@@ -1,6 +1,6 @@
 class AdminIncomingMessageController < AdminController
 
-  before_action :set_incoming_message, :only => [:edit, :update, :destroy, :redeliver]
+  before_action :set_incoming_message, only: [:edit, :update, :destroy, :redeliver]
   before_action :set_info_request, :check_info_request
 
   def edit
@@ -26,7 +26,7 @@ class AdminIncomingMessageController < AdminController
       flash[:notice] = 'Incoming message successfully updated.'
       redirect_to admin_request_url(@incoming_message.info_request)
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -38,7 +38,7 @@ class AdminIncomingMessageController < AdminController
       deleted_incoming_message_id: @incoming_message.id
     )
     # expire cached files
-    @incoming_message.info_request.expire(:preserve_database_cache => true)
+    @incoming_message.info_request.expire(preserve_database_cache: true)
     flash[:notice] = 'Incoming message successfully destroyed.'
     redirect_to admin_request_url(@incoming_message.info_request)
   end
@@ -49,7 +49,7 @@ class AdminIncomingMessageController < AdminController
     end
 
     @incoming_messages = IncomingMessage.
-                           where(:id => params[:ids].split(",").flatten)
+                           where(id: params[:ids].split(",").flatten)
     if params[:commit] == "Yes"
       errors = []
       info_request = InfoRequest.find(params[:request_id])
@@ -65,7 +65,7 @@ class AdminIncomingMessageController < AdminController
           errors << message.id
         end
       end
-      info_request.expire(:preserve_database_cache => true)
+      info_request.expire(preserve_database_cache: true)
       if errors.empty?
         flash[:notice] = "Incoming messages successfully destroyed."
       else
@@ -107,7 +107,7 @@ class AdminIncomingMessageController < AdminController
         destination_request.
           receive(mail,
                   raw_email_data,
-                  { :override_stop_new_responses => true })
+                  { override_stop_new_responses: true })
 
         @incoming_message.info_request.log_event(
           'redeliver_incoming',

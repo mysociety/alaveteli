@@ -5,8 +5,8 @@ class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
 
   def index
     query = params[:query] || ""
-    xapian_results = typeahead_search(query, :model => PublicBody,
-                                             :exclude_tags => [ 'defunct',
+    xapian_results = typeahead_search(query, model: PublicBody,
+                                             exclude_tags: [ 'defunct',
                                                                 'not_apply' ])
     results = xapian_results.present? ? xapian_results.results : []
     # Exclude any bodies we can't make a request to (in addition to the ones

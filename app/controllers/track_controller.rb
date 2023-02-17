@@ -23,7 +23,7 @@ class TrackController < ApplicationController
       if AlaveteliConfiguration.enable_widgets && cookies[:widget_vote]
         @info_request.
           widget_votes.
-            where(:cookie => cookies[:widget_vote]).
+            where(cookie: cookies[:widget_vote]).
               destroy_all
       end
 
@@ -46,7 +46,7 @@ class TrackController < ApplicationController
     return atom_feed_internal if params[:feed] == 'feed'
 
     if track_set || @track_thing.errors.any?
-      redirect_to request_list_url(:view => @view)
+      redirect_to request_list_url(view: @view)
     end
   end
 
@@ -56,7 +56,7 @@ class TrackController < ApplicationController
     raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
     # If found by historic name, or alternate locale name, redirect to new name
     if @public_body.url_name != params[:url_name]
-      redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed], :event_type => params[:event_type])
+      redirect_to track_public_body_url(url_name: @public_body.url_name, feed: params[:feed], event_type: params[:event_type])
       return
     end
 
@@ -127,8 +127,8 @@ class TrackController < ApplicationController
       @existing_track = TrackThing.find_existing(@user, @track_thing)
       if @existing_track
         flash[:notice] =
-          { :partial => 'track/already_tracking',
-            :locals => { :track_thing_id => @existing_track.id } }
+          { partial: 'track/already_tracking',
+            locals: { track_thing_id: @existing_track.id } }
         return true
       end
     end
@@ -142,11 +142,11 @@ class TrackController < ApplicationController
     @track_thing.tracking_user_id = @user.id
     if @track_thing.save
       flash[:notice] =
-        { :partial => 'track/track_set',
-          :locals => {
-            :user_receive_email_alerts => @user.receive_email_alerts,
-            :user_url_name => @user.url_name,
-            :track_thing_id => @track_thing.id } }
+        { partial: 'track/track_set',
+          locals: {
+            user_receive_email_alerts: @user.receive_email_alerts,
+            user_url_name: @user.url_name,
+            track_thing_id: @track_thing.id } }
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length
@@ -165,7 +165,7 @@ class TrackController < ApplicationController
     if @track_thing.track_medium != 'feed'
       raise "can only view feeds for feed tracks, not email ones"
     end
-    redirect_to do_track_url(@track_thing, 'feed'), :status => :moved_permanently
+    redirect_to do_track_url(@track_thing, 'feed'), status: :moved_permanently
   end
 
   def atom_feed_internal
@@ -177,21 +177,21 @@ class TrackController < ApplicationController
     # so set that as the default, regardless of content negotiation
     request.format = params[:format] || 'xml'
     respond_to do |format|
-      format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
+      format.json { render json: @xapian_object.results.map { |r| r[:model].json_for_api(true,
                                                                                             lambda do |t|
                                                                                               view_context.highlight_and_excerpt(
                                                                                                 t,
                                                                                                 @xapian_object.words_to_highlight(
-                                                                                                  :regex => true,
-                                                                                                :include_original => true),
+                                                                                                  regex: true,
+                                                                                                include_original: true),
                                                                                                 150
                                                                                               )
                                                                                             end
                                                                                             ) } }
-      format.any { render :template => 'track/atom_feed',
-                   :formats => [:atom],
-                   :layout => false,
-                   :content_type => 'application/atom+xml' }
+      format.any { render template: 'track/atom_feed',
+                   formats: [:atom],
+                   layout: false,
+                   content_type: 'application/atom+xml' }
     end
   end
 
@@ -245,7 +245,7 @@ class TrackController < ApplicationController
 
     flash[:notice] = _("You will no longer be emailed updates for those alerts")
     TrackThing.
-      where(:track_type => track_type, :tracking_user_id => user_id).
+      where(track_type: track_type, tracking_user_id: user_id).
         destroy_all
     redirect_to SafeRedirect.new(params[:r]).path
   end

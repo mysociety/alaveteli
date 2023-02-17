@@ -29,10 +29,10 @@ class RequestGameController < ApplicationController
 
     if @missing == 0
       flash.now[:notice] = {
-        :partial => "request_game/game_over",
-        :locals => {
-          :helpus_url => help_credits_path(:anchor => "helpus"),
-          :site_name => site_name
+        partial: "request_game/game_over",
+        locals: {
+          helpus_url: help_credits_path(anchor: "helpus"),
+          site_name: site_name
         }
       }
     end
@@ -53,7 +53,7 @@ class RequestGameController < ApplicationController
       )
       return
     end
-    redirect_to show_request_url(:url_title => url_title)
+    redirect_to show_request_url(url_title: url_title)
   end
 
   def stop

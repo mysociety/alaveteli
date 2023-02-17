@@ -1,5 +1,5 @@
 class PublicBodyChangeRequestsController < ApplicationController
-  before_action :catch_spam, :only => [:create]
+  before_action :catch_spam, only: [:create]
   before_action :set_render_recaptcha
 
   def new
@@ -14,7 +14,7 @@ class PublicBodyChangeRequestsController < ApplicationController
     @title =
       if @change_request.public_body
         _('Ask us to update the email address for {{public_body_name}}',
-          :public_body_name => @change_request.public_body.name)
+          public_body_name: @change_request.public_body.name)
       else
         _('Ask us to add an authority')
       end
@@ -28,8 +28,8 @@ class PublicBodyChangeRequestsController < ApplicationController
     verified =
       if @render_recaptcha
         recaptcha_args = {
-          :model => @change_request,
-          :message => _('There was an error with the reCAPTCHA. ' \
+          model: @change_request,
+          message: _('There was an error with the reCAPTCHA. ' \
                         'Please try again.')
         }
 
@@ -40,9 +40,9 @@ class PublicBodyChangeRequestsController < ApplicationController
 
     if verified && @change_request.save
       @change_request.send_message
-      redirect_to frontpage_url, :notice => @change_request.thanks_notice
+      redirect_to frontpage_url, notice: @change_request.thanks_notice
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 

@@ -12,9 +12,9 @@ class FollowupsController < ApplicationController
                 :set_refusal_advice,
                 :set_in_pro_area
 
-  before_action :check_reedit, :only => [:preview, :create]
+  before_action :check_reedit, only: [:preview, :create]
 
-  before_action :check_responses_allowed, :only => [:create]
+  before_action :check_responses_allowed, only: [:create]
 
   def new
   end
@@ -28,14 +28,14 @@ class FollowupsController < ApplicationController
       send_followup
       redirect_to request_url(@info_request) and return
     end
-    render :action => 'new'
+    render action: 'new'
   end
 
   def preview
     @outgoing_message.info_request = @info_request
     @internal_review = true if @outgoing_message.what_doing == 'internal_review'
     unless @outgoing_message.valid?
-      render :action => 'new'
+      render action: 'new'
       return
     end
   end
@@ -45,7 +45,7 @@ class FollowupsController < ApplicationController
   def check_can_followup
     unless @info_request.is_followupable?(@incoming_message)
       @reason = @info_request.followup_bad_reason
-      render :action => 'followup_bad'
+      render action: 'followup_bad'
       return
     end
   end
@@ -57,7 +57,7 @@ class FollowupsController < ApplicationController
 
   def check_reedit
     if params[:reedit]
-      render :action => 'new'
+      render action: 'new'
       return
     end
   end
@@ -72,10 +72,10 @@ class FollowupsController < ApplicationController
 
   def check_responses_allowed
     if @info_request.allow_new_responses_from == "nobody"
-      flash.now[:error] = { :partial => "followup_not_sent",
-                            :locals => {
-                            :help_contact_path => help_contact_path } }
-      render :action => 'new'
+      flash.now[:error] = { partial: "followup_not_sent",
+                            locals: {
+                            help_contact_path: help_contact_path } }
+      render action: 'new'
       return
     end
   end
@@ -90,7 +90,7 @@ class FollowupsController < ApplicationController
     end
     if authenticated? && !authenticated_user.can_make_followup?
       @details = authenticated_user.can_fail_html
-      render :template => 'user/banned'
+      render template: 'user/banned'
       return
     end
     render_hidden if authenticated? && cannot?(:read, @info_request)
@@ -98,19 +98,19 @@ class FollowupsController < ApplicationController
 
   def get_login_params(is_incoming, info_request)
     if is_incoming
-      { :web => _("To send a follow up message to {{authority_name}}",
-                  :authority_name => info_request.public_body.name),
-        :email => _("Then you can write follow up message to {{authority_name}}.",
-                    :authority_name => info_request.public_body.name),
-        :email_subject => _("Write your FOI follow up message to {{authority_name}}",
-                            :authority_name => info_request.public_body.name) }
+      { web: _("To send a follow up message to {{authority_name}}",
+                  authority_name: info_request.public_body.name),
+        email: _("Then you can write follow up message to {{authority_name}}.",
+                    authority_name: info_request.public_body.name),
+        email_subject: _("Write your FOI follow up message to {{authority_name}}",
+                            authority_name: info_request.public_body.name) }
     else
-      { :web => _("To reply to {{authority_name}}.",
-                  :authority_name => info_request.public_body.name),
-        :email => _("Then you can write your reply to {{authority_name}}.",
-                    :authority_name => info_request.public_body.name),
-        :email_subject => _("Write a reply to {{authority_name}}",
-                            :authority_name => info_request.public_body.name) }
+      { web: _("To reply to {{authority_name}}.",
+                  authority_name: info_request.public_body.name),
+        email: _("Then you can write your reply to {{authority_name}}.",
+                    authority_name: info_request.public_body.name),
+        email_subject: _("Write a reply to {{authority_name}}",
+                            authority_name: info_request.public_body.name) }
     end
   end
 

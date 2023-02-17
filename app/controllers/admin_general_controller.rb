@@ -25,7 +25,7 @@ class AdminGeneralController < AdminController
                                       limit(20).
                                         is_searchable
     @holding_pen_messages = InfoRequest.
-      includes(:incoming_messages => :raw_email).
+      includes(incoming_messages: :raw_email).
         holding_pen_request.
           incoming_messages
     @public_request_tasks = [ @holding_pen_messages,
@@ -85,7 +85,7 @@ class AdminGeneralController < AdminController
       ].any? { |to_do_list| ! to_do_list.empty? }
 
       @embargoed_attention_comments = Comment.
-                                        where(:attention_requested => true).
+                                        where(attention_requested: true).
                                           embargoed
 
       @embargoed_comment_tasks = [
@@ -119,7 +119,7 @@ class AdminGeneralController < AdminController
       end
       # get all the models in the slice, eagerly loading the associations we use in the view
       public_body_versions = PublicBody.versioned_class.
-        includes(:public_body => :translations).
+        includes(public_body: :translations).
           find(public_body_version_ids.keys)
       info_request_events = InfoRequestEvent.
         includes(:info_request).
