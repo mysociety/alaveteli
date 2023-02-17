@@ -30,9 +30,9 @@ class ApplicationMailer < ActionMailer::Base
 
   def mail_user(user, subject, opts = {})
     default_opts = {
-      :from => contact_for_user(user),
-      :to => user.name_and_email,
-      :subject => subject,
+      from: contact_for_user(user),
+      to: user.name_and_email,
+      subject: subject,
     }
     default_opts.merge!(opts)
     mail(default_opts)

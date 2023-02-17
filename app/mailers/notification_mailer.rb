@@ -106,7 +106,7 @@ class NotificationMailer < ApplicationMailer
     set_auto_generated_headers
 
     subject = _("New response to your FOI request - {{request_title}}",
-                :request_title => @info_request.title.html_safe)
+                request_title: @info_request.title.html_safe)
     mail_user(@info_request.user,
               subject,
               template_name: 'response_notification')
@@ -156,7 +156,7 @@ class NotificationMailer < ApplicationMailer
     set_auto_generated_headers
 
     subject = _("Delayed response to your FOI request - {{request_title}}",
-                :request_title => @info_request.title.html_safe)
+                request_title: @info_request.title.html_safe)
 
     mail_user(@info_request.user,
               subject,
@@ -172,7 +172,7 @@ class NotificationMailer < ApplicationMailer
 
     subject = _("You're long overdue a response to your FOI request " \
                 "- {{request_title}}",
-                :request_title => @info_request.title.html_safe)
+                request_title: @info_request.title.html_safe)
 
     mail_user(@info_request.user,
               subject,

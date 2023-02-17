@@ -7,7 +7,7 @@
 class TrackMailer < ApplicationMailer
   helper UnsubscribeHelper
 
-  before_action :set_footer_template, :only => :event_digest
+  before_action :set_footer_template, only: :event_digest
 
   # Note that this is different from all the other mailers, as tracks are
   # sent from a different email address and have different bounce handling.
@@ -31,10 +31,10 @@ class TrackMailer < ApplicationMailer
     # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
     # etc. don't decide we are spammers.)
 
-    mail(:from => contact_from_name_and_email,
-         :to => user.name_and_email,
-         :subject => _("Your {{site_name}} email alert",
-                       :site_name => site_name.html_safe))
+    mail(from: contact_from_name_and_email,
+         to: user.name_and_email,
+         subject: _("Your {{site_name}} email alert",
+                       site_name: site_name.html_safe))
   end
 
   # Send email alerts for tracked things.  Never more than one email
@@ -52,8 +52,8 @@ class TrackMailer < ApplicationMailer
       next unless user.should_be_emailed?
 
       email_about_things = []
-      track_things = TrackThing.where(:tracking_user_id => user.id,
-                                      :track_medium => 'email_daily')
+      track_things = TrackThing.where(tracking_user_id: user.id,
+                                      track_medium: 'email_daily')
       for track_thing in track_things
         # What have we alerted on already?
         #
@@ -74,10 +74,10 @@ class TrackMailer < ApplicationMailer
         # ordering, so we catch anything new (before described), or
         # anything whose new status has been described.
         xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
-                                                 :sort_by_prefix => 'described_at',
-                                                 :sort_by_ascending => true,
-                                                 :collapse_by_prefix => nil,
-                                                 :limit => 100)
+                                                 sort_by_prefix: 'described_at',
+                                                 sort_by_ascending: true,
+                                                 collapse_by_prefix: nil,
+                                                 limit: 100)
         # Go through looking for unalerted things
         alert_results = []
         for result in xapian_object.results

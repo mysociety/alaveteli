@@ -20,9 +20,9 @@ class OutgoingMailer < ApplicationMailer
     @contact_email = AlaveteliConfiguration.contact_email
     headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(:from => @outgoing_message.from,
-         :to => @outgoing_message.to,
-         :subject => @outgoing_message.subject)
+    mail(from: @outgoing_message.from,
+         to: @outgoing_message.to,
+         subject: @outgoing_message.subject)
   end
 
   # Later message to public body regarding existing request
@@ -33,9 +33,9 @@ class OutgoingMailer < ApplicationMailer
     @contact_email = AlaveteliConfiguration.contact_email
     headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(:from => @outgoing_message.from,
-         :to => @outgoing_message.to,
-         :subject => @outgoing_message.subject)
+    mail(from: @outgoing_message.from,
+         to: @outgoing_message.to,
+         subject: @outgoing_message.subject)
   end
 
   # TODO: the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
@@ -72,10 +72,10 @@ class OutgoingMailer < ApplicationMailer
   # Subject to use for followup
   def self.subject_for_followup(info_request, outgoing_message, options = {})
     if outgoing_message.what_doing == 'internal_review'
-      return _("Internal review of {{email_subject}}", :email_subject => info_request.email_subject_request(:html => options[:html]))
+      return _("Internal review of {{email_subject}}", email_subject: info_request.email_subject_request(html: options[:html]))
     else
-      return info_request.email_subject_followup(:incoming_message => outgoing_message.incoming_message_followup,
-                                                 :html => options[:html])
+      return info_request.email_subject_followup(incoming_message: outgoing_message.incoming_message_followup,
+                                                 html: options[:html])
     end
   end
   # Whether we have a valid email address for a followup

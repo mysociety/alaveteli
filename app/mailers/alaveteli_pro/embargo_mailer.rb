@@ -106,9 +106,9 @@ module AlaveteliPro
 
     def mail_user(user, subject)
       mail({
-        :from => pro_contact_from_name_and_email,
-        :to => user.name_and_email,
-        :subject => subject,
+        from: pro_contact_from_name_and_email,
+        to: user.name_and_email,
+        subject: subject,
       })
     end
   end
