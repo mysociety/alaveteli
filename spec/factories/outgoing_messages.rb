@@ -70,11 +70,11 @@ FactoryBot.define do
     # to update it. Because after_initialize executes before assigning the
     # attributes, loads of stuff fails because whatever after_initialize is
     # doing expects some of the attributes to be there.
-    initialize_with { OutgoingMessage.new({ :status => status,
-                                            :message_type => message_type,
-                                            :body => body,
-                                            :what_doing => what_doing,
-                                            :prominence => prominence }) }
+    initialize_with { OutgoingMessage.new({ status: status,
+                                            message_type: message_type,
+                                            body: body,
+                                            what_doing: what_doing,
+                                            prominence: prominence }) }
 
     after(:create) do |outgoing_message|
       outgoing_message.sendable?

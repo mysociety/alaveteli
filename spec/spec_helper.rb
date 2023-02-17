@@ -19,8 +19,8 @@ load "#{Rails.root}/db/seeds.rb"
 # Use test-specific translations
 locale_path = File.join(File.dirname(__FILE__), 'fixtures', 'locale')
 repos = [ FastGettext::TranslationRepository.build('app',
-                                                   :path => locale_path,
-                                                   :type => :po) ]
+                                                   path: locale_path,
+                                                   type: :po) ]
 AlaveteliLocalization.set_default_text_domain('app', repos)
 
 RSpec.configure do |config|
@@ -35,7 +35,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include Capybara::DSL, :type => :request
+  config.include Capybara::DSL, type: :request
   config.include ConfigHelper
   config.include LinkToHelper
   config.include StripAttributes::Matchers
@@ -167,9 +167,9 @@ include AlaveteliFeatures::SpecHelpers
 def with_duplicate_xapian_job_creation
   InfoRequestEvent.module_eval do
     def xapian_before_create_job_hook(action, model, model_id)
-      ActsAsXapian::ActsAsXapianJob.create!(:model => model,
-                                            :model_id => model_id,
-                                            :action => action)
+      ActsAsXapian::ActsAsXapianJob.create!(model: model,
+                                            model_id: model_id,
+                                            action: action)
     end
   end
   yield

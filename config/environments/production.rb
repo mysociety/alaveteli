@@ -120,13 +120,13 @@ Rails.application.configure do
 
   if AlaveteliConfiguration.production_mailer_delivery_method.to_sym == :smtp
     config.action_mailer.smtp_settings = {
-      :address => AlaveteliConfiguration.smtp_mailer_address,
-      :port => AlaveteliConfiguration.smtp_mailer_port,
-      :domain => AlaveteliConfiguration.smtp_mailer_domain,
-      :user_name => AlaveteliConfiguration.smtp_mailer_user_name,
-      :password => AlaveteliConfiguration.smtp_mailer_password,
-      :authentication => AlaveteliConfiguration.smtp_mailer_authentication,
-      :enable_starttls_auto => AlaveteliConfiguration.smtp_mailer_enable_starttls_auto
+      address: AlaveteliConfiguration.smtp_mailer_address,
+      port: AlaveteliConfiguration.smtp_mailer_port,
+      domain: AlaveteliConfiguration.smtp_mailer_domain,
+      user_name: AlaveteliConfiguration.smtp_mailer_user_name,
+      password: AlaveteliConfiguration.smtp_mailer_password,
+      authentication: AlaveteliConfiguration.smtp_mailer_authentication,
+      enable_starttls_auto: AlaveteliConfiguration.smtp_mailer_enable_starttls_auto
     }
   end
 

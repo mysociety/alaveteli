@@ -44,8 +44,8 @@ FactoryBot.define do
     user
 
     after(:create) do |info_request, evaluator|
-      initial_request = create(:initial_request, :info_request => info_request,
-                                                 :created_at => info_request.created_at)
+      initial_request = create(:initial_request, info_request: info_request,
+                                                 created_at: info_request.created_at)
       initial_request.last_sent_at = info_request.created_at
       initial_request.save!
     end
@@ -157,20 +157,20 @@ FactoryBot.define do
 
     trait :with_internal_review_request do
       after(:create) do |info_request, evaluator|
-        outgoing_message = create(:internal_review_request, :info_request => info_request)
+        outgoing_message = create(:internal_review_request, info_request: info_request)
       end
     end
 
     trait :embargoed do
       after(:create) do |info_request, evaluator|
-        create(:embargo, :info_request => info_request)
+        create(:embargo, info_request: info_request)
         info_request.reload
       end
     end
 
     trait :embargo_expiring do
       after(:create) do |info_request, evaluator|
-        create(:expiring_embargo, :info_request => info_request)
+        create(:expiring_embargo, info_request: info_request)
         info_request.reload
       end
     end
@@ -178,7 +178,7 @@ FactoryBot.define do
     trait :re_embargoed do
       after(:create) do |info_request, evaluator|
         info_request.log_event('expire_embargo', {})
-        create(:embargo, :info_request => info_request)
+        create(:embargo, info_request: info_request)
         info_request
       end
     end
