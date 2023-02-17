@@ -67,18 +67,18 @@ module AlaveteliPro
 
     def order_attributes
       [
-       { :param => 'updated_at_desc',
-         :value => 'request_updated_at DESC',
-         :label => _('last updated'),
-         :capital_label => _('Last updated') },
-       { :param => 'created_at_asc',
-         :value => 'request_created_at ASC',
-         :label => _('first created'),
-         :capital_label => _('First created') },
-       { :param => 'title_asc',
-         :value => 'title ASC',
-         :label => _('title (A-Z)'),
-         :capital_label => _('Title (A-Z)') }
+       { param: 'updated_at_desc',
+         value: 'request_updated_at DESC',
+         label: _('last updated'),
+         capital_label: _('Last updated') },
+       { param: 'created_at_asc',
+         value: 'request_created_at ASC',
+         label: _('first created'),
+         capital_label: _('First created') },
+       { param: 'title_asc',
+         value: 'title ASC',
+         label: _('title (A-Z)'),
+         capital_label: _('Title (A-Z)') }
       ]
     end
 
@@ -104,27 +104,27 @@ module AlaveteliPro
 
     def default_filters
       [
-        { :param => nil,
-          :value => nil,
-          :label => _('all requests'),
-          :capital_label => _('All requests') },
-        { :param => 'draft',
-          :value => :draft,
-          :label => _('drafts'),
-          :capital_label => _('Drafts') },
-        { :param => 'embargoes_expiring',
-          :value => :embargo_expiring,
-          :label => _('requests that will be made public soon'),
-          :capital_label => _('Requests that will be made public soon')
+        { param: nil,
+          value: nil,
+          label: _('all requests'),
+          capital_label: _('All requests') },
+        { param: 'draft',
+          value: :draft,
+          label: _('drafts'),
+          capital_label: _('Drafts') },
+        { param: 'embargoes_expiring',
+          value: :embargo_expiring,
+          label: _('requests that will be made public soon'),
+          capital_label: _('Requests that will be made public soon')
         }
       ]
     end
 
     def phase_filters
-      InfoRequest::State.phases.map { |phase| { :param => phase[:scope].to_s,
-                                               :value => phase[:scope],
-                                               :label => phase[:label],
-                                               :capital_label => phase[:capital_label] } }
+      InfoRequest::State.phases.map { |phase| { param: phase[:scope].to_s,
+                                               value: phase[:scope],
+                                               label: phase[:label],
+                                               capital_label: phase[:capital_label] } }
     end
 
     def filter_attributes

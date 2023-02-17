@@ -41,25 +41,25 @@ class OutgoingMessage < ApplicationRecord
   attr_accessor :default_letter
 
   validates_presence_of :info_request
-  validates_inclusion_of :status, :in => STATUS_TYPES
-  validates_inclusion_of :message_type, :in => MESSAGE_TYPES
+  validates_inclusion_of :status, in: STATUS_TYPES
+  validates_inclusion_of :message_type, in: MESSAGE_TYPES
   validate :template_changed
   validate :body_uses_mixed_capitals
   validate :body_has_signature
   validate :what_doing_value
 
   belongs_to :info_request,
-             :inverse_of => :outgoing_messages
+             inverse_of: :outgoing_messages
   belongs_to :incoming_message_followup,
-             :inverse_of => :outgoing_message_followups,
-             :foreign_key => 'incoming_message_followup_id',
-             :class_name => 'IncomingMessage'
+             inverse_of: :outgoing_message_followups,
+             foreign_key: 'incoming_message_followup_id',
+             class_name: 'IncomingMessage'
 
   # can have many events, for items which were resent by site admin e.g. if
   # contact address changed
   has_many :info_request_events,
-           :inverse_of => :outgoing_message,
-           :dependent => :destroy
+           inverse_of: :outgoing_message,
+           dependent: :destroy
 
   delegate :public_body, to: :info_request, private: true, allow_nil: true
 
@@ -67,7 +67,7 @@ class OutgoingMessage < ApplicationRecord
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
 
-  strip_attributes :allow_empty => true
+  strip_attributes allow_empty: true
 
   admin_columns include: [:to, :from, :subject]
 
@@ -96,7 +96,7 @@ class OutgoingMessage < ApplicationRecord
   end
 
   def self.default_salutation(public_body)
-    _("Dear {{public_body_name}},", :public_body_name => public_body.name)
+    _("Dear {{public_body_name}},", public_body_name: public_body.name)
   end
 
   def self.fill_in_salutation(text, public_body)
@@ -159,14 +159,14 @@ class OutgoingMessage < ApplicationRecord
     if message_type == 'followup'
       if what_doing == 'internal_review'
         _("Internal review of {{email_subject}}",
-          :email_subject => info_request.email_subject_request(:html => false))
+          email_subject: info_request.email_subject_request(html: false))
       else
         info_request.
-          email_subject_followup(:incoming_message => incoming_message_followup,
-                                 :html => false)
+          email_subject_followup(incoming_message: incoming_message_followup,
+                                 html: false)
       end
     else
-      info_request.email_subject_request(:html => false)
+      info_request.email_subject_request(html: false)
     end
   end
 
@@ -368,7 +368,7 @@ class OutgoingMessage < ApplicationRecord
     text = body.strip
     remove_privacy_sensitive_things!(text)
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
+    text = MySociety::Format.make_clickable(text, { contract: 1, nofollow: true })
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
     text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
@@ -480,7 +480,7 @@ class OutgoingMessage < ApplicationRecord
 
   def body_has_signature
     if raw_body =~ /#{template_regex(letter_template.signoff(default_message_replacements))}\s*\Z/m
-      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", :signoff => letter_template.signoff(default_message_replacements)))
+      errors.add(:body, _("Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature", signoff: letter_template.signoff(default_message_replacements)))
     end
   end
 
@@ -517,7 +517,7 @@ class OutgoingMessage < ApplicationRecord
     end
 
     smarthost_mta_ids = logs.flat_map do |log|
-      line = log.line(:decorate => true)
+      line = log.line(decorate: true)
       if line.delivery_status.try(:delivered?)
         match = line.to_s.match(/C=".*?id=(?<message_id>\w+-\w+-\w+).*"/)
         match[:message_id] if match

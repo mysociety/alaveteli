@@ -19,10 +19,10 @@ class InfoRequestBatch < ApplicationRecord
   include InfoRequest::TitleValidation
 
   has_many :info_requests,
-           :inverse_of => :info_request_batch
+           inverse_of: :info_request_batch
   belongs_to :user,
-             :inverse_of => :info_request_batches,
-             :counter_cache => true
+             inverse_of: :info_request_batches,
+             counter_cache: true
   has_many :citations,
            -> (batch) { unscope(:where).for_batch(batch) },
            as: :citable,
@@ -34,7 +34,7 @@ class InfoRequestBatch < ApplicationRecord
       includes(:translations).
         reorder('public_body_translations.name asc')
     end
-  }, :inverse_of => :info_request_batches
+  }, inverse_of: :info_request_batches
 
   attr_accessor :ignore_existing_batch
 
@@ -91,11 +91,11 @@ class InfoRequestBatch < ApplicationRecord
 
   # Create a new batch from the supplied draft version
   def self.from_draft(draft)
-    new(:user => draft.user,
-             :public_bodies => draft.public_bodies,
-             :title => draft.title,
-             :body => draft.body,
-             :embargo_duration => draft.embargo_duration)
+    new(user: draft.user,
+             public_bodies: draft.public_bodies,
+             title: draft.title,
+             body: draft.body,
+             embargo_duration: draft.embargo_duration)
   end
 
   def existing_batch
@@ -165,14 +165,14 @@ class InfoRequestBatch < ApplicationRecord
     public_body = public_bodies.first
     body = OutgoingMessage.fill_in_salutation(self.body, public_body)
     info_request = InfoRequest.build_from_attributes(
-      { :title => title, :public_body => public_body },
-      { :body => body },
+      { title: title, public_body: public_body },
+      { body: body },
       user
     )
     unless embargo_duration.blank?
       info_request.embargo = AlaveteliPro::Embargo.new(
-        :info_request => info_request,
-        :embargo_duration => embargo_duration
+        info_request: info_request,
+        embargo_duration: embargo_duration
       )
     end
     info_request
@@ -221,21 +221,21 @@ class InfoRequestBatch < ApplicationRecord
   # Returns hash of string group names mapped to an integer
   def request_phases_summary
     {
-      :in_progress => {
-        :label => _('In progress'),
-        :count => info_requests.in_progress.count
+      in_progress: {
+        label: _('In progress'),
+        count: info_requests.in_progress.count
       },
-      :action_needed => {
-        :label => _('Action needed'),
-        :count => info_requests.action_needed.count
+      action_needed: {
+        label: _('Action needed'),
+        count: info_requests.action_needed.count
       },
-      :complete => {
-        :label => _('Complete'),
-        :count => info_requests.complete.count
+      complete: {
+        label: _('Complete'),
+        count: info_requests.complete.count
       },
-      :other => {
-        :label => _('Other'),
-        :count => info_requests.other.count
+      other: {
+        label: _('Other'),
+        count: info_requests.other.count
       }
     }
   end

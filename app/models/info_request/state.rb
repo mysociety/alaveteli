@@ -57,7 +57,7 @@ class InfoRequest
       elsif InfoRequest.respond_to?(:theme_short_description)
         InfoRequest.theme_short_description(state)
       else
-        raise _("unknown status {{state}}", :state => state)
+        raise _("unknown status {{state}}", state: state)
       end
     end
 

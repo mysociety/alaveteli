@@ -6,7 +6,7 @@ module AlaveteliPro
         n_("{{count}} request is delayed.",
            "{{count}} requests are delayed.",
            count,
-           :count => count)
+           count: count)
       end
 
       def items

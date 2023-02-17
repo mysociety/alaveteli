@@ -13,9 +13,9 @@ module AlaveteliPro
       end
 
       def description_urls
-        { :public_body_name => { :text => body_name, :url => body_path },
-          :info_request_title => { :text => info_request_title, :url => info_request_path },
-          :commenter_name => { :text => event.comment.user.name, :url => user_path(event.comment.user) } }
+        { public_body_name: { text: body_name, url: body_path },
+          info_request_title: { text: info_request_title, url: info_request_path },
+          commenter_name: { text: event.comment.user.name, url: user_path(event.comment.user) } }
       end
 
       def call_to_action_url

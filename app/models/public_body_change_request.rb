@@ -19,22 +19,22 @@
 
 class PublicBodyChangeRequest < ApplicationRecord
   belongs_to :user,
-             :inverse_of => :public_body_change_requests,
-             :counter_cache => true
+             inverse_of: :public_body_change_requests,
+             counter_cache: true
   belongs_to :public_body,
-             :inverse_of => :public_body_change_requests
+             inverse_of: :public_body_change_requests
 
   validates_presence_of :public_body_name,
-                        :message => N_("Please enter the name of the authority"),
-                        :unless => proc { |change_request| change_request.public_body }
+                        message: N_("Please enter the name of the authority"),
+                        unless: proc { |change_request| change_request.public_body }
   validates_presence_of :user_name,
-                        :message => N_("Please enter your name"),
-                        :unless => proc { |change_request| change_request.user }
+                        message: N_("Please enter your name"),
+                        unless: proc { |change_request| change_request.user }
   validates_presence_of :user_email,
-                        :message => N_("Please enter your email address"),
-                        :unless => proc { |change_request| change_request.user }
-  validate :user_email_format, :unless => proc { |change_request| change_request.user_email.blank? }
-  validate :body_email_format, :unless => proc { |change_request| change_request.public_body_email.blank? }
+                        message: N_("Please enter your email address"),
+                        unless: proc { |change_request| change_request.user }
+  validate :user_email_format, unless: proc { |change_request| change_request.user_email.blank? }
+  validate :body_email_format, unless: proc { |change_request| change_request.public_body_email.blank? }
 
   scope :new_body_requests, -> {
     where(public_body_id: nil).order(:created_at)
@@ -105,7 +105,7 @@ class PublicBodyChangeRequest < ApplicationRecord
       _("Your request to update the address for {{public_body_name}} has " \
         "been sent. Thank you for getting in touch! We'll get back to you " \
         "soon.",
-        :public_body_name => get_public_body_name)
+        public_body_name: get_public_body_name)
     end
   end
 
@@ -126,10 +126,10 @@ class PublicBodyChangeRequest < ApplicationRecord
   def request_subject
     if add_body_request?
       _("Add authority - {{public_body_name}}",
-        :public_body_name => public_body_name.html_safe).to_str
+        public_body_name: public_body_name.html_safe).to_str
     else
       _("Update email address - {{public_body_name}}",
-        :public_body_name => public_body.name.html_safe).to_str
+        public_body_name: public_body.name.html_safe).to_str
     end
   end
 

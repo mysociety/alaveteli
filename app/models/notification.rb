@@ -16,9 +16,9 @@
 
 class Notification < ApplicationRecord
   belongs_to :info_request_event,
-             :inverse_of => :notifications
+             inverse_of: :notifications
   belongs_to :user,
-             :inverse_of => :notifications
+             inverse_of: :notifications
 
   INSTANTLY = :instantly
   DAILY = :daily

@@ -31,7 +31,7 @@ class FoiAttachment < ApplicationRecord
   include MessageProminence
 
   belongs_to :incoming_message,
-             :inverse_of => :foi_attachments
+             inverse_of: :foi_attachments
 
   has_one_attached :file, service: :attachments
 
@@ -39,7 +39,7 @@ class FoiAttachment < ApplicationRecord
   validates_presence_of :filename
   validates_presence_of :display_size
 
-  before_validation :ensure_filename!, :only => [:filename]
+  before_validation :ensure_filename!, only: [:filename]
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
@@ -295,7 +295,7 @@ class FoiAttachment < ApplicationRecord
   # For "View as HTML" of attachment
   def body_as_html(dir, opts = {})
     attachment_url = opts.fetch(:attachment_url, nil)
-    to_html_opts = opts.merge(:tmpdir => dir, :attachment_url => attachment_url)
+    to_html_opts = opts.merge(tmpdir: dir, attachment_url: attachment_url)
     AttachmentToHTML.to_html(self, to_html_opts)
   end
 

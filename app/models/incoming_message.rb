@@ -52,10 +52,10 @@ class IncomingMessage < ApplicationRecord
   validates_presence_of :raw_email
 
   has_many :outgoing_message_followups,
-           :inverse_of => :incoming_message_followup,
-           :foreign_key => 'incoming_message_followup_id',
-           :class_name => 'OutgoingMessage',
-           :dependent => :nullify
+           inverse_of: :incoming_message_followup,
+           foreign_key: 'incoming_message_followup_id',
+           class_name: 'OutgoingMessage',
+           dependent: :nullify
   has_many :foi_attachments,
            -> { order(:id) },
            inverse_of: :incoming_message,
@@ -63,12 +63,12 @@ class IncomingMessage < ApplicationRecord
            autosave: true
   # never really has many info_request_events, but could in theory
   has_many :info_request_events,
-           :dependent => :destroy,
-           :inverse_of => :incoming_message
+           dependent: :destroy,
+           inverse_of: :incoming_message
 
   belongs_to :raw_email,
-             :inverse_of => :incoming_message,
-             :dependent => :destroy
+             inverse_of: :incoming_message,
+             dependent: :destroy
 
   after_destroy :update_request
   after_update :update_request
@@ -201,8 +201,8 @@ class IncomingMessage < ApplicationRecord
   end
 
   def apply_masks(text, content_type)
-    mask_options = { :censor_rules => info_request.applicable_censor_rules,
-                     :masks => info_request.masks }
+    mask_options = { censor_rules: info_request.applicable_censor_rules,
+                     masks: info_request.masks }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
@@ -516,7 +516,7 @@ class IncomingMessage < ApplicationRecord
     text = folded_quoted_text if collapse_quoted_sections
     text = MySociety::Format.simplify_angle_bracketed_urls(text)
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, :contract => 1)
+    text = MySociety::Format.make_clickable(text, contract: 1)
 
     # add a helpful link to email addresses and mobile numbers removed
     # by apply_masks

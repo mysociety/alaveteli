@@ -17,10 +17,10 @@ class RequestClassification < ApplicationRecord
   ].freeze
 
   belongs_to :user,
-             :inverse_of => :request_classifications,
-             :counter_cache => true
+             inverse_of: :request_classifications,
+             counter_cache: true
   belongs_to :info_request_event,
-             :inverse_of => :request_classification
+             inverse_of: :request_classification
 
   # return classification instances representing the top n
   # users, with a 'cnt' attribute representing the number

@@ -350,7 +350,7 @@ class User < ApplicationRecord
     unique_url_name = url_name
     suffix_num = 2 # as there's already one without numeric suffix
     conditions = id ? ["id <> ?", id] : []
-    while !User.where(:url_name => unique_url_name).where(conditions).first.nil?
+    while !User.where(url_name: unique_url_name).where(conditions).first.nil?
       unique_url_name = url_name + "_" + suffix_num.to_s
       suffix_num = suffix_num + 1
     end

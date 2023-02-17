@@ -18,7 +18,7 @@ class RawEmail < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw email properly
 
   has_one :incoming_message,
-          :inverse_of => :raw_email
+          inverse_of: :raw_email
 
   has_one_attached :file, service: :raw_emails
 
@@ -89,9 +89,9 @@ class RawEmail < ApplicationRecord
   end
 
   def data_as_text
-    data.encode("UTF-8", :invalid => :replace,
-                         :undef => :replace,
-                         :replace => "")
+    data.encode("UTF-8", invalid: :replace,
+                         undef: :replace,
+                         replace: "")
   end
 
   def from_name

@@ -25,7 +25,7 @@ class ProfilePhoto < ApplicationRecord
   MAX_DRAFT = 500 # keep even pre-cropped images reasonably small
 
   belongs_to :user,
-             :inverse_of => :profile_photo
+             inverse_of: :profile_photo
 
   validate :data_and_draft_checks
 
@@ -89,10 +89,10 @@ class ProfilePhoto < ApplicationRecord
 
     if !draft && (image.width != WIDTH || image.height != HEIGHT)
       errors.add(:data, _("Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}",
-                          :cols => image.width,
-                          :rows => image.height,
-                          :width => WIDTH,
-                          :height => HEIGHT))
+                          cols: image.width,
+                          rows: image.height,
+                          width: WIDTH,
+                          height: HEIGHT))
     end
 
     if draft && user_id

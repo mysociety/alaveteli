@@ -59,46 +59,46 @@ class InfoRequest < ApplicationRecord
     'Request'
   end
 
-  strip_attributes :allow_empty => true
-  strip_attributes :only => [:title],
-                   :replace_newlines => true, :collapse_spaces => true
+  strip_attributes allow_empty: true
+  strip_attributes only: [:title],
+                   replace_newlines: true, collapse_spaces: true
 
   belongs_to :user,
-             :inverse_of => :info_requests,
-             :counter_cache => true
+             inverse_of: :info_requests,
+             counter_cache: true
 
   validate :must_be_internal_or_external
 
   belongs_to :public_body,
-             :inverse_of => :info_requests,
-             :counter_cache => true
+             inverse_of: :info_requests,
+             counter_cache: true
   belongs_to :info_request_batch,
-             :inverse_of => :info_requests
+             inverse_of: :info_requests
 
   validates_presence_of :public_body, message: N_("Please select an authority")
 
   has_many :info_request_events,
            -> { order(:created_at, :id) },
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :outgoing_messages,
            -> { order(:created_at) },
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :incoming_messages,
            -> { order(:created_at) },
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :user_info_request_sent_alerts,
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :track_things,
            -> { order(created_at: :desc) },
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :widget_votes,
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :citations,
            -> (info_request) { unscope(:where).for_request(info_request) },
            as: :citable,
@@ -106,20 +106,20 @@ class InfoRequest < ApplicationRecord
            dependent: :destroy
   has_many :comments,
            -> { order(:created_at) },
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_many :mail_server_logs,
            -> { order(:mail_server_log_done_id, :order) },
-           :inverse_of => :info_request,
-           :dependent => :destroy
+           inverse_of: :info_request,
+           dependent: :destroy
   has_one :embargo,
-          :inverse_of => :info_request,
-          :class_name => 'AlaveteliPro::Embargo',
-          :dependent => :destroy
+          inverse_of: :info_request,
+          class_name: 'AlaveteliPro::Embargo',
+          dependent: :destroy
 
   has_many :foi_attachments, through: :incoming_messages
 
@@ -166,18 +166,18 @@ class InfoRequest < ApplicationRecord
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
-  validates_inclusion_of :prominence, :in => Prominence::VALUES
+  validates_inclusion_of :prominence, in: Prominence::VALUES
 
   validates_inclusion_of :law_used, in: Legislation.keys
 
   # who can send new responses
-  validates_inclusion_of :allow_new_responses_from, :in => [
+  validates_inclusion_of :allow_new_responses_from, in: [
     'anybody', # anyone who knows the request email address
     'authority_only', # only people from authority domains
     'nobody'
   ]
   # what to do with refused new responses
-  validates_inclusion_of :handle_rejected_responses, :in => [
+  validates_inclusion_of :handle_rejected_responses, in: [
     'bounce', # return them to sender
     'holding_pen', # put them in the holding pen
     'blackhole' # just dump them
@@ -358,19 +358,19 @@ class InfoRequest < ApplicationRecord
     ir = InfoRequest.find_by_url_title("holding_pen")
     if ir.nil?
       ir = InfoRequest.new(
-        :user => User.internal_admin_user,
-        :public_body => PublicBody.internal_admin_body,
-        :title => 'Holding pen',
-        :described_state => 'waiting_response',
-        :awaiting_description => false,
-        :prominence  => 'hidden'
+        user: User.internal_admin_user,
+        public_body: PublicBody.internal_admin_body,
+        title: 'Holding pen',
+        described_state: 'waiting_response',
+        awaiting_description: false,
+        prominence: 'hidden'
       )
       om = OutgoingMessage.new({
-        :status => 'ready',
-        :message_type => 'initial_request',
-        :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-        :last_sent_at => Time.zone.now,
-        :what_doing => 'normal_sort'
+        status: 'ready',
+        message_type: 'initial_request',
+        body: 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
+        last_sent_at: Time.zone.now,
+        what_doing: 'normal_sort'
 
       })
       ir.outgoing_messages << om
@@ -419,7 +419,7 @@ class InfoRequest < ApplicationRecord
     elsif respond_to?(:theme_display_status)
       theme_display_status(status)
     else
-      raise _("unknown status {{status}}", :status => status)
+      raise _("unknown status {{status}}", status: status)
     end
   end
 
@@ -434,9 +434,9 @@ class InfoRequest < ApplicationRecord
   def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
     info_request = new(info_request_atts)
     default_message_params = {
-      :status => 'ready',
-      :message_type => 'initial_request',
-      :what_doing => 'normal_sort'
+      status: 'ready',
+      message_type: 'initial_request',
+      what_doing: 'normal_sort'
     }
 
     attrs = outgoing_message_atts.merge(default_message_params)
@@ -453,18 +453,18 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.from_draft(draft)
-    info_request = new(:title => draft.title,
-                       :user => draft.user,
-                       :public_body => draft.public_body)
-    info_request.outgoing_messages.new(:body => draft.body,
-                                       :status => 'ready',
-                                       :message_type => 'initial_request',
-                                       :what_doing => 'normal_sort',
-                                       :info_request => info_request)
+    info_request = new(title: draft.title,
+                       user: draft.user,
+                       public_body: draft.public_body)
+    info_request.outgoing_messages.new(body: draft.body,
+                                       status: 'ready',
+                                       message_type: 'initial_request',
+                                       what_doing: 'normal_sort',
+                                       info_request: info_request)
     if draft.embargo_duration
       info_request.embargo = AlaveteliPro::Embargo.new(
-        :embargo_duration => draft.embargo_duration,
-        :info_request => info_request
+        embargo_duration: draft.embargo_duration,
+        info_request: info_request
       )
     end
     info_request
@@ -525,7 +525,7 @@ class InfoRequest < ApplicationRecord
     if options[:dryrun]
       0
     else
-      query.update_all(:reject_incoming_at_mta => true)
+      query.update_all(reject_incoming_at_mta: true)
     end
   end
 
@@ -589,17 +589,17 @@ class InfoRequest < ApplicationRecord
   def self.request_list(filters, page, per_page, max_results)
     query = InfoRequestEvent.make_query_from_params(filters)
     search_options = {
-      :limit => 25,
-      :offset => (page - 1) * per_page,
-      :collapse_by_prefix => 'request_collapse' }
+      limit: 25,
+      offset: (page - 1) * per_page,
+      collapse_by_prefix: 'request_collapse' }
 
     xapian_object = search_events(query, search_options)
     list_results = xapian_object.results.map { |r| r[:model] }
     matches_estimated = xapian_object.matches_estimated
     show_no_more_than = [matches_estimated, max_results].min
-    return { :results => list_results,
-             :matches_estimated => matches_estimated,
-             :show_no_more_than => show_no_more_than }
+    return { results: list_results,
+             matches_estimated: matches_estimated,
+             show_no_more_than: show_no_more_than }
   end
 
   def self.recent_requests
@@ -610,8 +610,8 @@ class InfoRequest < ApplicationRecord
       query = 'variety:response (status:successful OR status:partially_successful)'
       max_count = 5
       search_options = {
-        :limit => max_count,
-        :collapse_by_prefix => 'request_title_collapse' }
+        limit: max_count,
+        collapse_by_prefix: 'request_title_collapse' }
 
       xapian_object = search_events(query, search_options)
       xapian_object.results
@@ -639,7 +639,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.find_in_state(state)
-    where(:described_state => state).
+    where(described_state: state).
       order(:last_event_time)
   end
 
@@ -676,7 +676,7 @@ class InfoRequest < ApplicationRecord
               Time.zone.today,
               event_type])
 
-    query.find_each(:batch_size => 100) do |info_request|
+    query.find_each(batch_size: 100) do |info_request|
       # Date to DateTime representing beginning of day
       created_at = info_request.send(date_field).beginning_of_day + 1.day
       event = info_request.log_event(
@@ -726,7 +726,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def indexed_by_search?
-    prominence(:decorate => true).is_searchable?
+    prominence(decorate: true).is_searchable?
   end
 
   # The request must either be internal, in which case it has
@@ -771,7 +771,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def user_json_for_api
-    is_external? ? { :name => user_name || _("Anonymous user") } : user.json_for_api
+    is_external? ? { name: user_name || _("Anonymous user") } : user.json_for_api
   end
 
   @@custom_states_loaded = false
@@ -858,7 +858,7 @@ class InfoRequest < ApplicationRecord
     incoming_message = opts.fetch(:incoming_message, nil)
     html = opts.fetch(:html, true)
     if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
-      'Re: ' + email_subject_request(:html => html)
+      'Re: ' + email_subject_request(html: html)
     else
       if incoming_message.subject.match(/^Re:/i)
         incoming_message.subject
@@ -890,9 +890,9 @@ class InfoRequest < ApplicationRecord
   end
 
   def receive(email, raw_email_data, *args)
-    defaults = { :override_stop_new_responses => false,
-                 :rejected_reason => nil,
-                 :source => :internal }
+    defaults = { override_stop_new_responses: false,
+                 rejected_reason: nil,
+                 source: :internal }
 
     opts = if args.first.is_a?(Hash)
       defaults.merge(args.shift)
@@ -1139,7 +1139,7 @@ class InfoRequest < ApplicationRecord
 
   # Log an event to the history of some things that have happened to this request
   def log_event(type, params, options = {})
-    event = info_request_events.create!(:event_type => type, :params => params)
+    event = info_request_events.create!(event_type: type, params: params)
     set_due_dates(event) if event.resets_due_dates?
     if options[:created_at]
       event.update_column(:created_at, options[:created_at])
@@ -1208,14 +1208,14 @@ class InfoRequest < ApplicationRecord
 
   def last_embargo_set_event
     info_request_events.
-      where(:event_type => 'set_embargo').
+      where(event_type: 'set_embargo').
         reorder(created_at: :desc).
           first
   end
 
   def last_embargo_expire_event
     info_request_events.
-      where(:event_type => 'expire_embargo').
+      where(event_type: 'expire_embargo').
         reorder(created_at: :desc).
           first
   end
@@ -1278,7 +1278,7 @@ class InfoRequest < ApplicationRecord
   # Text from the the initial request, for use in summary display
   def initial_request_text
     return '' if outgoing_messages.empty?
-    body_opts = { :censor_rules => applicable_censor_rules }
+    body_opts = { censor_rules: applicable_censor_rules }
     first_message = outgoing_messages.first
     first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
   end
@@ -1487,8 +1487,8 @@ class InfoRequest < ApplicationRecord
   end
 
   def apply_masks(text, content_type)
-    mask_options = { :censor_rules => applicable_censor_rules,
-                     :masks => masks }
+    mask_options = { censor_rules: applicable_censor_rules,
+                     masks: masks }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
@@ -1501,9 +1501,9 @@ class InfoRequest < ApplicationRecord
                replacement: _("[{{site_name}} contact email]",
                               site_name: site_name) }]
     if public_body.is_followupable?
-      masks << { :to_replace => public_body.request_email,
-                 :replacement => _("[{{public_body}} request email]",
-                                   :public_body => public_body.short_or_long_name) }
+      masks << { to_replace: public_body.request_email,
+                 replacement: _("[{{public_body}} request email]",
+                                   public_body: public_body.short_or_long_name) }
     end
   end
 
@@ -1518,24 +1518,24 @@ class InfoRequest < ApplicationRecord
   end
 
   def all_correspondence_is_public?
-    prominence(:decorate => true).is_public? &&
+    prominence(decorate: true).is_public? &&
       incoming_messages.all? { |message| message.is_public? } &&
       outgoing_messages.all? { |message| message.is_public? }
   end
 
   def json_for_api(deep)
     ret = {
-      :id => id,
-      :url_title => url_title,
-      :title => title,
-      :created_at => created_at,
-      :updated_at => updated_at,
-      :described_state => described_state,
-      :display_status => display_status,
-      :awaiting_description => awaiting_description,
-      :prominence => prominence,
-      :law_used => law_used,
-      :tags => tag_array,
+      id: id,
+      url_title: url_title,
+      title: title,
+      created_at: created_at,
+      updated_at: updated_at,
+      described_state: described_state,
+      display_status: display_status,
+      awaiting_description: awaiting_description,
+      prominence: prominence,
+      law_used: law_used,
+      tags: tag_array,
 
       # not sure we need to make these, mainly anti-spam, admin params public
       # allow_new_responses_from
@@ -1581,8 +1581,8 @@ class InfoRequest < ApplicationRecord
         xapian_similar =
           ActsAsXapian::Similar.new([InfoRequestEvent],
                                     info_request_events,
-                                    :limit => limit,
-                                    :collapse_by_prefix => 'request_collapse')
+                                    limit: limit,
+                                    collapse_by_prefix: 'request_collapse')
         xapian_similar_more = (xapian_similar.matches_estimated > limit)
         ids = xapian_similar.results.map do |result|
           result[:model].info_request_id
@@ -1598,7 +1598,7 @@ class InfoRequest < ApplicationRecord
     old_body = public_body
     editor = opts.fetch(:editor)
 
-    attrs = { :public_body => destination_public_body }
+    attrs = { public_body: destination_public_body }
 
     if destination_public_body
       attrs[:law_used] = destination_public_body.legislation.key
@@ -1631,7 +1631,7 @@ class InfoRequest < ApplicationRecord
     old_user = user
     editor = opts.fetch(:editor)
 
-    return_val = if update(:user => destination_user)
+    return_val = if update(user: destination_user)
                    log_event(
                      'move_request',
                      editor: editor,
@@ -1755,10 +1755,10 @@ class InfoRequest < ApplicationRecord
 
   def self.search_events(query, opts = {})
     defaults = {
-      :offset => 0,
-      :limit => 20,
-      :sort_by_prefix => 'created_at',
-      :sort_by_ascending => true
+      offset: 0,
+      limit: 20,
+      sort_by_prefix: 'created_at',
+      sort_by_ascending: true
     }
     ActsAsXapian::Search.new([InfoRequestEvent], query, defaults.merge(opts))
   end
@@ -1830,7 +1830,7 @@ class InfoRequest < ApplicationRecord
         self.awaiting_description = true
       end
 
-      params = { :incoming_message_id => incoming_message.id }
+      params = { incoming_message_id: incoming_message.id }
       params[:rejected_reason] = rejected_reason.to_s if rejected_reason
       log_event('response', params)
 

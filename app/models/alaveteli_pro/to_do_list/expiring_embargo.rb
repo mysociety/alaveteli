@@ -6,7 +6,7 @@ module AlaveteliPro
         n_("{{count}} request will be made public this week.",
            "{{count}} requests will be made public this week.",
            count,
-           :count => count)
+           count: count)
       end
 
       def items

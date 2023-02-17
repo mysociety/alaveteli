@@ -4,11 +4,11 @@ module AlaveteliPro
     extend ActiveSupport::Concern
 
     included do
-      has_one :request_summary, :as => :summarisable,
-                                :class_name => "AlaveteliPro::RequestSummary",
-                                :dependent => :destroy
+      has_one :request_summary, as: :summarisable,
+                                class_name: "AlaveteliPro::RequestSummary",
+                                dependent: :destroy
       after_commit :create_or_update_request_summary,
-                   :on => [:create, :update]
+                   on: [:create, :update]
     end
 
     # Creates a RequestSummary item for this model on first save, or updates
