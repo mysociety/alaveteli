@@ -24,7 +24,7 @@ RSpec.describe 'reports/new' do
   context "reporting a comment" do
 
     let(:comment) do
-      FactoryBot.build(:comment, :info_request => info_request)
+      FactoryBot.build(:comment, info_request: info_request)
     end
 
     before :each do

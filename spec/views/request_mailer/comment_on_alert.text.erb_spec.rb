@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe "request_mailer/comment_on_alert" do
   let(:request) { FactoryBot.create(:info_request) }
-  let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
-  let(:comment) { FactoryBot.create(:comment, :user => user) }
+  let(:user) { FactoryBot.create(:user, name: "Test Us'r") }
+  let(:comment) { FactoryBot.create(:comment, user: user) }
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

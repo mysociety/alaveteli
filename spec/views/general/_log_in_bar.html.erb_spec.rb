@@ -5,7 +5,7 @@ RSpec.describe 'general/_log_in_bar' do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   def render_view
-    render :partial => 'general/log_in_bar'
+    render partial: 'general/log_in_bar'
   end
 
   describe 'user menu links', feature: :alaveteli_pro do
