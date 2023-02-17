@@ -54,7 +54,7 @@ RSpec.describe AdminGeneralController do
     it 'assigns messages sent to the holding pen to the view' do
       undeliverable = FactoryBot.
                         create(:incoming_message,
-                               :info_request => InfoRequest.holding_pen_request)
+                               info_request: InfoRequest.holding_pen_request)
       sign_in admin_user
       get :index
       expect(assigns[:holding_pen_messages]).to eq([undeliverable])
@@ -65,8 +65,7 @@ RSpec.describe AdminGeneralController do
       it 'assigns public_request_tasks to true' do
         undeliverable = FactoryBot.
                           create(:incoming_message,
-                                 :info_request =>
-                                   InfoRequest.holding_pen_request)
+                                 info_request:                                    InfoRequest.holding_pen_request)
         sign_in admin_user
         get :index
         expect(assigns[:public_request_tasks]).to be true
@@ -329,7 +328,7 @@ RSpec.describe AdminGeneralController do
       public_body.save!
       public_body.reload
       @second_public_body_version = public_body.versions.latest
-      get :timeline, params: { :all => 1 }
+      get :timeline, params: { all: 1 }
     end
 
     it 'assigns an array of events in order of descending date to the view' do
@@ -347,8 +346,8 @@ RSpec.describe AdminGeneralController do
 
       before do
         get :timeline, params: {
-                         :all => 1,
-                         :event_type => 'info_request_event'
+                         all: 1,
+                         event_type: 'info_request_event'
                        }
       end
 
@@ -366,7 +365,7 @@ RSpec.describe AdminGeneralController do
     context 'when event_type is authority_change' do
 
       before do
-        get :timeline, params: { :all => 1, :event_type => 'authority_change' }
+        get :timeline, params: { all: 1, event_type: 'authority_change' }
       end
 
       it 'assigns an array of public body versions in order of descending

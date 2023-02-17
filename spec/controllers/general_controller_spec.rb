@@ -91,16 +91,16 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   render_views
 
   before do
-    public_body = mock_model(PublicBody, :name => "Example Public Body",
-                             :url_name => 'example_public_body')
-    info_request = mock_model(InfoRequest, :public_body => public_body,
-                              :title => 'Example Request',
-                              :url_title => 'example_request')
-    info_request_event = mock_model(InfoRequestEvent, :created_at => Time.zone.now,
-                                    :info_request => info_request,
-                                    :described_at => Time.zone.now,
-                                    :search_text_main => 'example text')
-    xapian_result = double('xapian result', :results => [{:model => info_request_event}])
+    public_body = mock_model(PublicBody, name: "Example Public Body",
+                             url_name: 'example_public_body')
+    info_request = mock_model(InfoRequest, public_body: public_body,
+                              title: 'Example Request',
+                              url_title: 'example_request')
+    info_request_event = mock_model(InfoRequestEvent, created_at: Time.zone.now,
+                                    info_request: info_request,
+                                    described_at: Time.zone.now,
+                                    search_text_main: 'example text')
+    xapian_result = double('xapian result', results: [{model: info_request_event}])
     allow(controller).to receive(:perform_search).and_return(xapian_result)
   end
 
@@ -159,7 +159,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   describe 'when using locales' do
 
     it "should use our test PO files rather than the application one" do
-      get :frontpage, params: { :locale => 'es' }
+      get :frontpage, params: { locale: 'es' }
       expect(response.body).to match /XOXO/
     end
 
@@ -193,7 +193,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
 
     it "should render the front page successfully with post_redirect if post_params is not set" do
       session[:post_redirect_token] = 'orphaned_token'
-      get :frontpage, params: { :post_redirect => 1 }
+      get :frontpage, params: { post_redirect: 1 }
       expect(response).to be_successful
     end
 
@@ -226,12 +226,12 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it "should redirect from search query URL to pretty URL" do
-    post :search_redirect, params: { :query => "mouse" } # query hidden in POST parameters
-    expect(response).to redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
+    post :search_redirect, params: { query: "mouse" } # query hidden in POST parameters
+    expect(response).to redirect_to(action: 'search', combined: "mouse", view: "all") # URL /search/:query/all
   end
 
   it "should find info request when searching for '\"fancy dog\"'" do
-    get :search, params: { :combined => '"fancy dog"' }
+    get :search, params: { combined: '"fancy dog"' }
     expect(response).to render_template('search')
     expect(assigns[:xapian_requests].matches_estimated).to eq(1)
     expect(assigns[:xapian_requests].results.size).to eq(1)
@@ -241,7 +241,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it "should find public body and incoming message when searching for 'geraldine quango'" do
-    get :search, params: { :combined => 'geraldine quango' }
+    get :search, params: { combined: 'geraldine quango' }
     expect(response).to render_template('search')
 
     expect(assigns[:xapian_requests].matches_estimated).to eq(1)
@@ -254,7 +254,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it "should filter results based on end of URL being 'all'" do
-    get :search, params: { :combined => "bob/all" }
+    get :search, params: { combined: "bob/all" }
     expect(assigns[:xapian_requests].results.map { |x| x[:model] }).to match_array([
       info_request_events(:useless_outgoing_message_event),
       info_request_events(:silly_outgoing_message_event),
@@ -266,25 +266,25 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it "should filter results based on end of URL being 'users'" do
-    get :search, params: { :combined => "bob/users" }
+    get :search, params: { combined: "bob/users" }
     expect(assigns[:xapian_requests]).to eq(nil)
     expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies]).to eq(nil)
   end
 
   it 'should highlight words for a user-only request' do
-    get :search, params: { :combined => "bob/users" }
+    get :search, params: { combined: "bob/users" }
     expect(assigns[:highlight_words]).to eq([/\b(bob)\w*\b/iu, /\b(bob)\b/iu])
   end
 
   it 'should show spelling corrections for a user-only request' do
-    get :search, params: { :combined => "rob/users" }
+    get :search, params: { combined: "rob/users" }
     expect(assigns[:spelling_correction]).to eq('bob')
     expect(response.body).to include('did_you_mean')
   end
 
   it "should filter results based on end of URL being 'requests'" do
-    get :search, params: { :combined => "bob/requests" }
+    get :search, params: { combined: "bob/requests" }
     expect(assigns[:xapian_requests].results.map { |x|x[:model] }).to match_array([
       info_request_events(:useless_outgoing_message_event),
       info_request_events(:silly_outgoing_message_event),
@@ -296,7 +296,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it "should filter results based on end of URL being 'bodies'" do
-    get :search, params: { :combined => "quango/bodies" }
+    get :search, params: { combined: "quango/bodies" }
     expect(assigns[:xapian_requests]).to eq(nil)
     expect(assigns[:xapian_users]).to eq(nil)
     expect(assigns[:xapian_bodies].results.map { |x|x[:model] }).to eq([public_bodies(:geraldine_public_body)])
@@ -323,19 +323,19 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it 'should show "Browse all" link if there are no results for a search restricted to bodies' do
-    get :search, params: { :combined => "noresultsshouldbefound/bodies" }
+    get :search, params: { combined: "noresultsshouldbefound/bodies" }
     expect(response.body).to include('Browse all')
   end
 
   it "should show help when searching for nothing" do
-    get :search_redirect, params: { :query => nil }
+    get :search_redirect, params: { query: nil }
     expect(response).to render_template('search')
     expect(assigns[:total_hits]).to be_nil
     expect(assigns[:query]).to be_nil
   end
 
   it "should not show unconfirmed users" do
-    get :search, params: { :combined => "unconfirmed/users" }
+    get :search, params: { combined: "unconfirmed/users" }
     expect(response).to render_template('search')
     expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([])
   end
@@ -346,41 +346,41 @@ RSpec.describe GeneralController, 'when using xapian search' do
     u.save!
     update_xapian_index
 
-    get :search, params: { :combined => "unconfirmed/users" }
+    get :search, params: { combined: "unconfirmed/users" }
     expect(response).to render_template('search')
     expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([u])
   end
 
   it "should show tracking links for requests-only searches" do
-    get :search, params: { :combined => "bob/requests" }
+    get :search, params: { combined: "bob/requests" }
     expect(response.body).to include('Track this search')
   end
 
   it 'should not show high page offsets as these are extremely slow to generate' do
     expect {
-      get :search, params: { :combined => 'bob/all', :page => 25 }
+      get :search, params: { combined: 'bob/all', page: 25 }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'should pass xapian error messages to flash and redirect to a blank search page' do
     error_text = "Your query was not quite right. QueryParserError: Syntax: <expression> AND <expression>"
-    get :search, params: { :combined => "test AND" }
+    get :search, params: { combined: "test AND" }
     expect(flash[:error]).to eq(error_text)
-    expect(response).to redirect_to(:action => 'search', :combined => "")
+    expect(response).to redirect_to(action: 'search', combined: "")
   end
 
   context "when passed a non-HTML request" do
 
     it "raises unknown format error" do
       expect do
-        get :search, params: { :combined => '"fancy dog"', :format => :json }
+        get :search, params: { combined: '"fancy dog"', format: :json }
       end.to raise_error ActionController::UnknownFormat
     end
 
     it "does not call the search" do
       expect(controller).not_to receive(:perform_search)
       begin
-        get :search, params: { :combined => '"fancy dog"', :format => :json }
+        get :search, params: { combined: '"fancy dog"', format: :json }
       rescue ActionController::UnknownFormat
         # noop
       end

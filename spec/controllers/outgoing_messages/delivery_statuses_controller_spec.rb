@@ -10,7 +10,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
       2015-11-22 00:37:00 [17619] 1a0IeK-0004aB-Na <= request@example.com U=alaveteli P=local S=3973 id=ogm-jh217mwec@example.com@localhost T="RE: An FOI Request about Potatoes 15" from <request@example.com> for body@example.com body@example.com\n
     EOF
     lines.map do |line|
-      mock_model(MailServerLog, line: line, :is_owning_user? => true)
+      mock_model(MailServerLog, line: line, is_owning_user?: true)
     end
   end
 

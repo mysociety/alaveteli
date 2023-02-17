@@ -6,11 +6,11 @@ RSpec.describe InfoRequestBatchController do
     let(:second_public_body) { FactoryBot.create(:public_body) }
     let(:bodies) { [first_public_body, second_public_body] }
     let!(:info_request_batch) do
-      FactoryBot.create(:info_request_batch, :title => 'Matched title',
-                                             :body => 'Matched body',
-                                             :public_bodies => bodies)
+      FactoryBot.create(:info_request_batch, title: 'Matched title',
+                                             body: 'Matched body',
+                                             public_bodies: bodies)
     end
-    let(:params) { {:id => info_request_batch.id} }
+    let(:params) { {id: info_request_batch.id} }
     let(:action) { get :show, params: params }
     let(:pro_user) { FactoryBot.create(:pro_user) }
 
@@ -34,18 +34,18 @@ RSpec.describe InfoRequestBatchController do
     describe 'assigning @info_requests' do
       context 'when the batch has been sent' do
         let!(:first_request) do
-          FactoryBot.create(:info_request, :info_request_batch => info_request_batch,
-                                           :public_body => first_public_body)
+          FactoryBot.create(:info_request, info_request_batch: info_request_batch,
+                                           public_body: first_public_body)
         end
         let!(:second_request) do
-          FactoryBot.create(:info_request, :info_request_batch => info_request_batch,
-                                           :public_body => second_public_body)
+          FactoryBot.create(:info_request, info_request_batch: info_request_batch,
+                                           public_body: second_public_body)
         end
         let!(:hidden_request) do
-          FactoryBot.create(:hidden_request, :info_request_batch => info_request_batch)
+          FactoryBot.create(:hidden_request, info_request_batch: info_request_batch)
         end
         let!(:backpage_request) do
-          FactoryBot.create(:backpage_request, :info_request_batch => info_request_batch)
+          FactoryBot.create(:backpage_request, info_request_batch: info_request_batch)
         end
 
         before do

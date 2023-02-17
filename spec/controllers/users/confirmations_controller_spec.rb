@@ -7,7 +7,7 @@ RSpec.describe Users::ConfirmationsController do
     context 'if the post redirect cannot be found' do
 
       it 'renders bad_token' do
-        get :confirm, params: { :email_token => '' }
+        get :confirm, params: { email_token: '' }
         expect(response).to render_template(:bad_token)
       end
 
@@ -88,11 +88,11 @@ RSpec.describe Users::ConfirmationsController do
 
       before :each do
         @admin = FactoryBot.create(:admin_user)
-        @user = FactoryBot.create(:user, :email_confirmed => false)
-        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+        @user = FactoryBot.create(:user, email_confirmed: false)
+        @post_redirect = PostRedirect.create(uri: '/', user: @user)
 
         sign_in @admin
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
       end
 
       it 'does not confirm the post redirect user' do
@@ -119,11 +119,11 @@ RSpec.describe Users::ConfirmationsController do
     EOF
 
       before :each do
-        @user = FactoryBot.create(:user, :email_confirmed => false)
-        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+        @user = FactoryBot.create(:user, email_confirmed: false)
+        @post_redirect = PostRedirect.create(uri: '/', user: @user)
 
         sign_in @user
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
       end
 
       it 'confirms the post redirect user' do
@@ -150,11 +150,11 @@ RSpec.describe Users::ConfirmationsController do
     EOF
       before :each do
         @current_user = FactoryBot.create(:user)
-        @user = FactoryBot.create(:user, :email_confirmed => false)
-        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+        @user = FactoryBot.create(:user, email_confirmed: false)
+        @post_redirect = PostRedirect.create(uri: '/', user: @user)
 
         sign_in @current_user
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
       end
 
       it 'confirms the post redirect user' do
@@ -179,10 +179,10 @@ RSpec.describe Users::ConfirmationsController do
     context 'if there is no logged in user' do
 
       before :each do
-        @user = FactoryBot.create(:user, :email_confirmed => false)
-        @post_redirect = PostRedirect.create(:uri => '/', :user => @user)
+        @user = FactoryBot.create(:user, email_confirmed: false)
+        @post_redirect = PostRedirect.create(uri: '/', user: @user)
 
-        get :confirm, params: { :email_token => @post_redirect.email_token }
+        get :confirm, params: { email_token: @post_redirect.email_token }
       end
 
       it 'confirms the post redirect user' do
