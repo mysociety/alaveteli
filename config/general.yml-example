@@ -952,6 +952,13 @@ BLOCK_SPAM_ABOUT_ME_TEXT: false
 # ---
 BLOCK_SPAM_COMMENTS: false
 
+# Prevent users submitting user to user messages that appear to be spam.
+#
+# BLOCK_SPAM_USER_MESSAGES - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_USER_MESSAGES: false
+
 # Prevent user signups from spam email domains or names which appear to be spam.
 #
 # BLOCK_SPAM_SIGNUPS - Boolean (default: false)
