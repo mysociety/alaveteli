@@ -64,7 +64,7 @@ class RawEmail < ApplicationRecord
   end
 
   def empty_from_field?
-    mail.from_addrs.nil? || mail.from_addrs.size == 0
+    mail.from_addrs.nil? || mail.from_addrs.empty?
   end
 
   def mail

@@ -298,7 +298,7 @@ module MailHandler
       def _get_attachment_leaves_recursive(part, within_rfc822_attachment, parent_mail)
         leaves_found = []
         if part.multipart?
-          if part.parts.size == 0
+          if part.parts.empty?
             # This is typically caused by a missing final
             # MIME boundary, in which case the text of the
             # message (including the opening MIME

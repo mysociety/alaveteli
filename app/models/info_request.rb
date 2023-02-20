@@ -1365,7 +1365,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def postal_email
-    if who_can_followup_to.size == 0
+    if who_can_followup_to.empty?
       public_body.request_email
     else
       who_can_followup_to[-1][1]
@@ -1373,7 +1373,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def postal_email_name
-    if who_can_followup_to.size == 0
+    if who_can_followup_to.empty?
       public_body.name
     else
       who_can_followup_to[-1][0]

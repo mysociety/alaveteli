@@ -29,7 +29,7 @@ class Users::SessionsController < UserController
         User.authenticate_from_form(user_signin_params,
                                     @post_redirect.reason_params[:user_name])
     end
-    if @post_redirect.nil? || @user_signin.errors.size > 0
+    if @post_redirect.nil? || !@user_signin.errors.empty?
       # Failed to authenticate
       clear_session_credentials
       render template: 'user/sign'

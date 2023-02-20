@@ -245,7 +245,7 @@ class RequestMailer < ApplicationMailer
     reply_info_requests = requests_matching_email(email)
 
     # Nothing found, so save in holding pen
-    if reply_info_requests.size == 0
+    if reply_info_requests.empty?
       opts[:rejected_reason] =
         _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request

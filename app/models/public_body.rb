@@ -542,12 +542,12 @@ class PublicBody < ApplicationRecord
 
         # Give an error listing ones that are to be deleted
         deleted_ones = set_of_existing - set_of_importing
-        if deleted_ones.size > 0
+        if !deleted_ones.empty?
           notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).sort.join("\n    ") + "\nYou may want to delete them manually.\n"
         end
 
         # Rollback if a dry run, or we had errors
-        raise ImportCSVDryRun if dry_run || (errors.size > 0)
+        raise ImportCSVDryRun if dry_run || (!errors.empty?)
       end
     rescue ImportCSVDryRun
       # Ignore
