@@ -41,35 +41,31 @@ class AdminController < ApplicationController
     if AlaveteliConfiguration.skip_admin_auth
       session[:using_admin] = 1
       nil
-    else
-      if session[:using_admin].nil? || session[:admin_name].nil?
-        if params[:emergency].nil? || AlaveteliConfiguration.disable_emergency_user
-          if !authenticated?
-            ask_to_login(
-              web: _('To log into the administrative interface'),
-              email: _('Then you can log into the administrative interface'),
-              email_subject: _('Log into the admin interface'),
-              user_name: 'a superuser'
-            )
-          else
-            if !@user.nil? && @user.is_admin?
-              session[:using_admin] = 1
-              session[:admin_name] = @user.url_name
-            else
-              session[:using_admin] = nil
-              session[:user_id] = nil
-              session[:admin_name] = nil
-              authenticate
-            end
-          end
+    elsif session[:using_admin].nil? || session[:admin_name].nil?
+      if params[:emergency].nil? || AlaveteliConfiguration.disable_emergency_user
+        if !authenticated?
+          ask_to_login(
+            web: _('To log into the administrative interface'),
+            email: _('Then you can log into the administrative interface'),
+            email_subject: _('Log into the admin interface'),
+            user_name: 'a superuser'
+          )
+        elsif !@user.nil? && @user.is_admin?
+          session[:using_admin] = 1
+          session[:admin_name] = @user.url_name
         else
-          authenticate_or_request_with_http_basic do |user_name, password|
-            if user_name == AlaveteliConfiguration.admin_username && password == AlaveteliConfiguration.admin_password
-              session[:using_admin] = 1
-              session[:admin_name] = user_name
-            else
-              request_http_basic_authentication
-            end
+          session[:using_admin] = nil
+          session[:user_id] = nil
+          session[:admin_name] = nil
+          authenticate
+        end
+      else
+        authenticate_or_request_with_http_basic do |user_name, password|
+          if user_name == AlaveteliConfiguration.admin_username && password == AlaveteliConfiguration.admin_password
+            session[:using_admin] = 1
+            session[:admin_name] = user_name
+          else
+            request_http_basic_authentication
           end
         end
       end

@@ -80,8 +80,8 @@ namespace :themes do
         Git.checkout theme_directory, committish
         all_failed = false
         break
-      else
-        puts "Failed to find #{committish}; skipping..." if verbose
+      elsif verbose
+        puts "Failed to find #{committish}; skipping..."
       end
     end
     puts "Falling to using HEAD instead" if all_failed && verbose

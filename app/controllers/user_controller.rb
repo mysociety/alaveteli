@@ -155,26 +155,26 @@ class UserController < ApplicationController
       else
         # New unconfirmed user
 
-        # Block signups from suspicious countries
-        # TODO: Add specs (see RequestController#create)
-        # TODO: Extract to UserSpamScorer?
-        if blocked_ip?(country_from_ip, @user_signup)
-          handle_blocked_ip(@user_signup) && return
-        end
+      # Block signups from suspicious countries
+      # TODO: Add specs (see RequestController#create)
+      # TODO: Extract to UserSpamScorer?
+      if blocked_ip?(country_from_ip, @user_signup)
+        handle_blocked_ip(@user_signup) && return
+      end
 
-        # Rate limit signups
-        ip_rate_limiter.record(user_ip)
+      # Rate limit signups
+      ip_rate_limiter.record(user_ip)
 
-        if ip_rate_limiter.limit?(user_ip)
-          handle_rate_limited_signup(user_ip, @user_signup.email) && return
-        end
+      if ip_rate_limiter.limit?(user_ip)
+        handle_rate_limited_signup(user_ip, @user_signup.email) && return
+      end
 
-        # Prevent signups from potential spammers
-        if spam_user?(@user_signup)
-          handle_spam_user(@user_signup) do
-            render action: 'sign'
-          end && return
-        end
+      # Prevent signups from potential spammers
+      if spam_user?(@user_signup)
+        handle_spam_user(@user_signup) do
+          render action: 'sign'
+        end && return
+      end
 
         @user_signup.email_confirmed = false
         @user_signup.save!

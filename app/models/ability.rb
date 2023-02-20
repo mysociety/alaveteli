@@ -209,8 +209,8 @@ class Ability
 
     if feature_enabled? :alaveteli_pro
       can :read, :api_key if user && user.is_pro_admin?
-    else
-      can :read, :api_key if user && user.is_admin?
+    elsif user && user.is_admin?
+      can :read, :api_key
     end
 
     if feature_enabled? :projects

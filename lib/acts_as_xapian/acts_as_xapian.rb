@@ -987,13 +987,11 @@ module ActsAsXapian
         end
       elsif type == :boolean
         value ? true : false
-      else
+      elsif value.kind_of?(Array)
         # Arrays are for terms which require multiple of them, e.g. tags
-        if value.is_a?(Array)
-          value.map(&:to_s)
-        else
-          value.to_s
-        end
+        value.map(&:to_s)
+      else
+        value.to_s
       end
     end
 

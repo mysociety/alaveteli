@@ -94,17 +94,15 @@ class PasswordChangesController < ApplicationController
             redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
                         notice: _('Your password has been changed.')
           end
-        else
-          if otp_enabled?(@password_change_user)
-                msg = _("Your password has been changed. " \
+        elsif otp_enabled?(@password_change_user)
+          msg = _("Your password has been changed. " \
                         "You also have a new one time passcode which you'll " \
                         "need next time you want to change your password")
                 redirect_to one_time_password_path, notice: msg
-          else
-            msg = _('Your password has been changed.')
-            redirect_to show_user_profile_path(@password_change_user.url_name),
-                        notice: msg
-          end
+        else
+          msg = _('Your password has been changed.')
+          redirect_to show_user_profile_path(@password_change_user.url_name),
+                      notice: msg
         end
       else
         render :edit

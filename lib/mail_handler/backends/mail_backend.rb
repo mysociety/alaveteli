@@ -260,13 +260,11 @@ module MailHandler
       def count_parts(part, parent_mail)
         if part.multipart?
           part.parts.each { |p| count_parts(p, parent_mail) }
+        elsif part.rfc822_attachment
+          count_parts(part.rfc822_attachment, parent_mail)
         else
-          if part.rfc822_attachment
-            count_parts(part.rfc822_attachment, parent_mail)
-          else
-            parent_mail.count_parts_count += 1
-            part.url_part_number = parent_mail.count_parts_count
-          end
+          parent_mail.count_parts_count += 1
+          part.url_part_number = parent_mail.count_parts_count
         end
         parent_mail.count_first_uudecode_count = parent_mail.count_parts_count
       end
@@ -321,17 +319,15 @@ module MailHandler
                                                                parent_mail)
             end
           end
-        else
+        elsif part.rfc822_attachment
           # Add all the parts of a decoded attached message
-          if part.rfc822_attachment
-            leaves_found += _get_attachment_leaves_recursive(part.rfc822_attachment,
-                                                             part.rfc822_attachment,
-                                                             parent_mail)
-          else
-            # Store leaf
-            part.within_rfc822_attachment = within_rfc822_attachment
-            leaves_found += [part]
-          end
+          leaves_found += _get_attachment_leaves_recursive(part.rfc822_attachment,
+                                                           part.rfc822_attachment,
+                                                           parent_mail)
+        else
+          # Store leaf
+          part.within_rfc822_attachment = within_rfc822_attachment
+          leaves_found += [part]
         end
         leaves_found
       end

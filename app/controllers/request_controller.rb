@@ -671,14 +671,12 @@ class RequestController < ApplicationController
 
     if @info_request.public_body.is_requestable?
       render action: 'new'
+    elsif @info_request.public_body.not_requestable_reason == 'bad_contact'
+      render action: 'new_bad_contact'
     else
-      if @info_request.public_body.not_requestable_reason == 'bad_contact'
-        render action: 'new_bad_contact'
-      else
-        # if not requestable because defunct or not_apply, redirect to main page
-        # (which doesn't link to the /new/ URL)
-        redirect_to public_body_url(@info_request.public_body)
-      end
+      # if not requestable because defunct or not_apply, redirect to main page
+      # (which doesn't link to the /new/ URL)
+      redirect_to public_body_url(@info_request.public_body)
     end
     nil
 

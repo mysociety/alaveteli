@@ -858,12 +858,10 @@ class InfoRequest < ApplicationRecord
     html = opts.fetch(:html, true)
     if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
       'Re: ' + email_subject_request(html: html)
+    elsif incoming_message.subject.match(/^Re:/i)
+      incoming_message.subject
     else
-      if incoming_message.subject.match(/^Re:/i)
-        incoming_message.subject
-      else
-        'Re: ' + incoming_message.subject
-      end
+      'Re: ' + incoming_message.subject
     end
   end
 

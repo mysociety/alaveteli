@@ -522,10 +522,8 @@ class IncomingMessage < ApplicationRecord
       end
       # and display link for quoted stuff
       text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
-    else
-      if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-        text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
-      end
+    elsif folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
+      text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
     end
     text.strip!
 

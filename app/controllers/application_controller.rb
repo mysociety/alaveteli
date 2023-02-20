@@ -318,12 +318,10 @@ class ApplicationController < ActionController::Base
       else
         uri += "&post_redirect=1"
       end
+    elsif uri.include?("#")
+      uri.sub!("#", "?post_redirect=1#")
     else
-      if uri.include?("#")
-        uri.sub!("#", "?post_redirect=1#")
-      else
-        uri += "?post_redirect=1"
-      end
+      uri += "?post_redirect=1"
     end
     uri
   end
