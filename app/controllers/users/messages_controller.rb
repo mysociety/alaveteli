@@ -13,6 +13,10 @@ class Users::MessagesController < UserController
                             'Please try again.')
     else
       if @contact.valid?
+        if spam_user_message?(params[:contact][:message], @user)
+          handle_spam_user_message(@user) && return
+        end
+
         send_message(@user, @recipient_user)
         flash[:notice] = _('Your message to {{recipient_user_name}} has ' \
                            'been sent!',
@@ -79,4 +83,28 @@ class Users::MessagesController < UserController
     ).deliver_now
   end
 
+  def spam_user_message?(message_body, user)
+    !user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(message_body)
+  end
+
+  def block_spam_user_messages?
+    AlaveteliConfiguration.block_spam_user_messages ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  # Sends an exception and blocks the message depending on configuration.
+  def handle_spam_user_message(user)
+    if send_exception_notifications?
+      e = Exception.new("Possible spam user message from user #{ user.id }")
+      ExceptionNotifier.notify_exception(e, env: request.env)
+    end
+
+    if block_spam_user_messages?
+      flash.now[:error] = _("Sorry, we're currently unable to send your " \
+                            "message. Please try again later.")
+      render action: 'contact'
+      true
+    end
+  end
 end
