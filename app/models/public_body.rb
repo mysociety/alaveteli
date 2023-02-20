@@ -56,7 +56,7 @@ class PublicBody < ApplicationRecord
       ['publication_scheme', '(i18n)'],
       ['disclosure_log', '(i18n)'],
       ['home_page', ''],
-      ['tag_string', '(tags separated by spaces)'],
+      ['tag_string', '(tags separated by spaces)']
     ]
   end
 

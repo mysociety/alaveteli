@@ -1397,7 +1397,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
     expect(notes[0..2]).to eq([
       "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"\}",
       "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"\}",
-      "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"\}",
+      "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"\}"
     ])
     expect(notes[3]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
@@ -1723,7 +1723,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
       "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
       "line 3: creating new authority 'Scottish Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad Escocesa\"}",
       "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
-      "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: es):\n\t{\"name\":\"Autoridad Irlandesa\"}",
+      "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: es):\n\t{\"name\":\"Autoridad Irlandesa\"}"
     ])
     expect(notes[6]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
@@ -1749,7 +1749,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
     expect(notes[0..2]).to eq([
       "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
       "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
-      "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
+      "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}"
     ])
     expect(notes[3]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 
@@ -1819,7 +1819,7 @@ CSV
       ['publication_scheme', '(i18n)'],
       ['disclosure_log', '(i18n)'],
       ['home_page', ''],
-      ['tag_string', '(tags separated by spaces)'],
+      ['tag_string', '(tags separated by spaces)']
     ]
 
     expect(PublicBody.csv_import_fields).to eq(expected_fields)
@@ -1829,7 +1829,7 @@ CSV
     old_csv_import_fields = PublicBody.csv_import_fields.clone
     expected_fields = [
       ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
-      ['short_name', '(i18n)'],
+      ['short_name', '(i18n)']
     ]
 
     PublicBody.csv_import_fields = expected_fields
@@ -1850,7 +1850,7 @@ CSV
       ['disclosure_log', '(i18n)'],
       ['home_page', ''],
       ['tag_string', '(tags separated by spaces)'],
-      ['a_new_field', ''],
+      ['a_new_field', '']
     ]
 
     PublicBody.csv_import_fields << ['a_new_field', '']
@@ -1871,7 +1871,7 @@ CSV
     expect(notes.size).to eq(3)
     expect(notes[0..1]).to eq([
       "line 2: creating new authority 'Test' (locale: en):\n\t{\"name\":\"Test\",\"request_email\":\"test@test.es\",\"home_page\":\"http://www.test.es/\",\"tag_string\":\"37\"}",
-      "line 2: creating new authority 'Test' (locale: es):\n\t{\"name\":\"Test\"}",
+      "line 2: creating new authority 'Test' (locale: es):\n\t{\"name\":\"Test\"}"
     ])
     expect(notes[2]).to match(/Notes: Some  bodies are in database, but not in CSV file:\n(    .+\n)*You may want to delete them manually.\n/)
 

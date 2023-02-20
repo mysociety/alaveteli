@@ -81,7 +81,7 @@ namespace :cleanup do
          request.public_body_id,
          request.public_body.name,
          request.public_body.request_email,
-         request.created_at.to_s,
+         request.created_at.to_s
         ]
       end
     end
