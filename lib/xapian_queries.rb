@@ -59,13 +59,13 @@ module XapianQueries
 
   def get_date_range_from_params(params)
     query = ""
-    if params.has_key?(:request_date_after) && !params.has_key?(:request_date_before)
+    if params.key?(:request_date_after) && !params.key?(:request_date_before)
       params[:request_date_before] = Time.zone.now.strftime("%d/%m/%Y")
       query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
-    elsif !params.has_key?(:request_date_after) && params.has_key?(:request_date_before)
+    elsif !params.key?(:request_date_after) && params.key?(:request_date_before)
       params[:request_date_after] = "01/01/2001"
     end
-    if params.has_key?(:request_date_after)
+    if params.key?(:request_date_after)
       query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
     end
     query

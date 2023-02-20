@@ -62,7 +62,7 @@ class AlaveteliExternalCommand
       $stderr.puts(%Q[External Command: Error from command "#{program_name} #{args.join(' ')}":])
       $stderr.print(xc.err)
       nil
-    elsif opts.has_key? :append_to
+    elsif opts.key? :append_to
       opts[:append_to] << "\n\n"
     else
 

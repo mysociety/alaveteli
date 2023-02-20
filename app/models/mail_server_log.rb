@@ -92,7 +92,7 @@ class MailServerLog < ApplicationRecord
       sanitised_line = scrub(line)
       order += 1
       queue_id = extract_postfix_queue_id_from_syslog_line(sanitised_line)
-      if emails.has_key?(queue_id)
+      if emails.key?(queue_id)
         create_mail_server_logs(emails[queue_id], sanitised_line, order, done)
       end
     end
@@ -103,7 +103,7 @@ class MailServerLog < ApplicationRecord
     f.each do |line|
       emails = email_addresses_on_line(line)
       queue_id = extract_postfix_queue_id_from_syslog_line(line)
-      result[queue_id] = [] unless result.has_key?(queue_id)
+      result[queue_id] = [] unless result.key?(queue_id)
       result[queue_id] = (result[queue_id] + emails).uniq
     end
     result
