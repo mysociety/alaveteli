@@ -94,7 +94,7 @@ namespace :graphs do
         all_users = select_as_columns(aggregate_signups)
 
         # nothing to do, bail
-        unless all_users and all_users[0].size >= minimum_data_size
+        unless all_users && (all_users[0].size >= minimum_data_size)
           if verbose
             exit "warning: no request data to graph, skipping task"
           else
@@ -219,7 +219,7 @@ namespace :graphs do
 
         # nothing to do, bail
         # (both nil and a single datapoint will result in an undrawable graph)
-        unless all_requests and all_requests[0].size >= minimum_data_size
+        unless all_requests && (all_requests[0].size >= minimum_data_size)
           if verbose
             abort "warning: no request data to graph, skipping task"
           else

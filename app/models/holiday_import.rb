@@ -88,7 +88,7 @@ class HolidayImport
   end
 
   def populate_from_ical_event(cal_event)
-    if cal_event.dtstart >= start_date and cal_event.dtstart <= end_date
+    if (cal_event.dtstart >= start_date) && (cal_event.dtstart <= end_date)
       holidays << Holiday.new(description: cal_event.summary,
                               day: cal_event.dtstart)
     end

@@ -8,7 +8,7 @@ namespace :cleanup do
     holding_pen.info_request_events.
       where(event_type: %w(redeliver_incoming destroy_incoming)).
         find_each do |event|
-      $stderr.puts event.inspect if verbose or dryrun
+      $stderr.puts event.inspect if verbose || dryrun
       event.destroy unless dryrun
     end
   end

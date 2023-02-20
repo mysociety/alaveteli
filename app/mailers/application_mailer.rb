@@ -39,7 +39,7 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def contact_for_user(user = nil)
-    if feature_enabled?(:alaveteli_pro) and user and user.is_pro?
+    if feature_enabled?(:alaveteli_pro) && user && user.is_pro?
       pro_contact_from_name_and_email
     else
       contact_from_name_and_email

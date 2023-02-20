@@ -388,7 +388,7 @@ class IncomingMessage < ApplicationRecord
     # instead use the first text attachment
     # e.g. http://www.whatdotheyknow.com/request/list_of_public_authorties)
     leaves.each do |p|
-      if p.content_type == 'text/plain' or p.content_type == 'text/html'
+      if (p.content_type == 'text/plain') || (p.content_type == 'text/html')
         return p
       end
     end

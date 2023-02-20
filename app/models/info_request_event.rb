@@ -102,7 +102,7 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def must_be_valid_state
-    if described_state and !InfoRequest::State.all.include?(described_state)
+    if described_state && !InfoRequest::State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end

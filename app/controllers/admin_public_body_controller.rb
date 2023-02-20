@@ -127,7 +127,7 @@ class AdminPublicBodyController < AdminController
   def mass_tag
     lookup_query
 
-    if params[:tag] and params[:tag] != ""
+    if params[:tag] && (params[:tag] != "")
       if params[:table_name] == 'exact'
         bodies = @public_bodies_by_tag
       elsif params[:table_name] == 'substring'

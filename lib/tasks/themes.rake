@@ -84,7 +84,7 @@ namespace :themes do
         puts "Failed to find #{committish}; skipping..." if verbose
       end
     end
-    puts "Falling to using HEAD instead" if all_failed and verbose
+    puts "Falling to using HEAD instead" if all_failed && verbose
   end
 
   def install_theme(theme_url, verbose, deprecated=false)
