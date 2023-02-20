@@ -176,7 +176,7 @@ class TrackController < ApplicationController
     request.format = params[:format] || 'xml'
     respond_to do |format|
       format.json { render json: @xapian_object.results.map { |r| r[:model].json_for_api(true,
-                                                                                            lambda do |t|
+                                                                                            ->(t) do
                                                                                               view_context.highlight_and_excerpt(
                                                                                                 t,
                                                                                                 @xapian_object.words_to_highlight(

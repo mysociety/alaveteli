@@ -1066,7 +1066,7 @@ RSpec.describe PublicBody, " using machine tags" do
     expect(@public_body.get_tag_values('cheese')).to eq(['green'])
 
     expect(@public_body.get_tag_values('wondrous')).to eq([])
-    lambda {
+    -> {
       expect(@public_body.get_tag_values('notthere')).to raise_error(PublicBody::TagNotFound)
     }
   end

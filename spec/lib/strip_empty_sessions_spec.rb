@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe StripEmptySessions do
   def make_response(session_data, response_headers)
-    app = lambda do |env|
+    app = ->(env) do
       env['rack.session'] = session_data
       return [200, response_headers, ['content']]
     end
