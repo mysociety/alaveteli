@@ -58,6 +58,7 @@
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     font-size: 1em;
   }
+
   .advice-panel {
     margin-top: 1.5em;
   }
@@ -76,6 +77,12 @@
       margin:0 0 1em;
     }
   }
+}
+
+.advice-panel.advice-panel--warning {
+  background: #fff08a;
+  border: 1px solid #baad1d;
+  padding: 0.1em 0.5em;
 }
 
 #request_search_ahead_results {
