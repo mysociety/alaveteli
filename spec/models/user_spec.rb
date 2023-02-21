@@ -1982,5 +1982,13 @@ RSpec.describe User do
         expect(subject).to eq(true)
       end
     end
+
+    context 'limiting user messages' do
+      let(:content) { :user_messages }
+
+      it 'always returns false' do
+        expect(subject).to eq(false)
+      end
+    end
   end
 end

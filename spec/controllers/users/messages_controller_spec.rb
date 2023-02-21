@@ -35,6 +35,14 @@ RSpec.describe Users::MessagesController do
       }.to raise_error ActiveRecord::RecordNotFound
     end
 
+    it 'prevents messages from users who have reached their rate limit' do
+      allow_any_instance_of(User).
+        to receive(:exceeded_limit?).with(:user_messages).and_return(true)
+
+      get :contact, params: { url_name: recipient.url_name }
+
+      expect(response).to render_template('users/messages/rate_limited')
+    end
   end
 
   describe 'POST contact' do
@@ -49,6 +57,22 @@ RSpec.describe Users::MessagesController do
                        submitted_contact_form: 1
                      }
       expect(response).to render_template('contact')
+    end
+
+    it 'prevents messages from users who have reached their rate limit' do
+      allow_any_instance_of(User).
+        to receive(:exceeded_limit?).with(:user_messages).and_return(true)
+
+      post :contact, params: {
+        url_name: recipient.url_name,
+        contact: {
+          subject: 'Foo',
+          message: 'Bar'
+        },
+        submitted_contact_form: 1
+      }
+
+      expect(response).to render_template('users/messages/rate_limited')
     end
 
     context 'the site is configured to require a captcha' do
