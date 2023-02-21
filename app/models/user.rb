@@ -453,7 +453,7 @@ class User < ApplicationRecord
   end
 
   def can_contact_other_users?
-    active?
+    active? && !exceeded_limit?(:user_messages)
   end
 
   def exceeded_limit?(content)
