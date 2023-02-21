@@ -232,11 +232,20 @@
 
         <ul>
           <li>
-            <%= raw(_('Everything that you enter on this page, including ' \
-                      '<strong>your name</strong>, will be <strong>displayed ' \
-                      'publicly</strong> on this website ' \
-                      '<a href="{{url}}">forever</a>',
-                      :url => help_privacy_path(:anchor => "public_request").html_safe)) %>.
+            <% if @user %>
+              <%= raw(_('Everything that you enter on this page, including ' \
+                        '<strong>your name</strong> ({{user_name}}), will ' \
+                        'be <strong>displayed publicly</strong> on this ' \
+                        'website <a href="{{url}}">forever</a>',
+                        user_name: @user.name,
+                        url: help_privacy_path(anchor: 'public_request').html_safe)) %>.
+            <% else %>
+              <%= raw(_('Everything that you enter on this page, including ' \
+                        '<strong>your name</strong>, will be <strong>displayed ' \
+                        'publicly</strong> on this website ' \
+                        '<a href="{{url}}">forever</a>',
+                        :url => help_privacy_path(:anchor => "public_request").html_safe)) %>.
+            <% end %>
           </li>
 
           <% unless @user %>
@@ -245,7 +254,6 @@
                         :url => help_privacy_path(:anchor => "real_name").html_safe)) %>
             </li>
           <% end %>
-
         </ul>
       </div>
     </div>
