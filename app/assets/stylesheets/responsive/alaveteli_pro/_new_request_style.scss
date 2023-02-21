@@ -9,13 +9,24 @@
   }
 }
 
-#to_public_body {
-  font-size: 1em;
+.alaveteli-pro .request-to-header {
+  border-bottom: 1px solid #ccc;
+  border-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 2em;
+}
+
+.alaveteli-pro .public-body-query {
+  font-size: 0.85em;
   font-weight: normal;
 }
 
-.to_public_body_label {
-  color: #333;
+.alaveteli-pro .request-to-header form.new_info_request {
+  margin-bottom: 1.25em
+}
+
+.request-to-header .pro_batch_link {
+  font-size: 0.85em;
+  font-weight: normal;
 }
 
 // Overrides for selectize plugin
