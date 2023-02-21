@@ -133,6 +133,11 @@
           <span class="to_public_body_label"><%= _('To') %></span>
           <%= h(@info_request.public_body.name) %>
         </p>
+
+        <p id="from_user" class="from_user">
+          <span class="from_user_label"><%= _('From') %></span>
+          <%= @user&.name || '…' %>
+        </p>
       <% end %>
 
       <% unless @batch %>

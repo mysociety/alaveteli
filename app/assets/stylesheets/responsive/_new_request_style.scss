@@ -33,13 +33,15 @@
 
 }
 
-.to_public_body {
+.to_public_body,
+.from_user {
   font-weight: bold;
   font-size: 1.3em;
   margin-bottom: 0.5em;
 }
 
-.to_public_body_label {
+.to_public_body_label,
+.from_user_label {
   color: #777;
   font-weight: normal;
 }
