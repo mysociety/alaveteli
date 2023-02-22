@@ -18,6 +18,8 @@ class Users::MessagesController < UserController
         end
 
         send_message(@user, @recipient_user)
+        @user.user_messages.create
+
         flash[:notice] = _('Your message to {{recipient_user_name}} has ' \
                            'been sent!',
                            recipient_user_name: @recipient_user.name.html_safe)
