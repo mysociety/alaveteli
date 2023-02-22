@@ -1917,6 +1917,11 @@ RSpec.describe User do
       before do
         allow(user).
           to receive(:exceeded_limit?).with(:comments).and_return(true)
+
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
       end
 
       it { is_expected.to eq(true) }
@@ -1929,6 +1934,11 @@ RSpec.describe User do
       before do
         allow(user).
           to receive(:exceeded_limit?).with(:comments).and_return(true)
+
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
       end
 
       it { is_expected.to eq(true) }
@@ -1940,6 +1950,32 @@ RSpec.describe User do
       before do
         allow(user).
           to receive(:exceeded_limit?).with(:comments).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has not reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
       end
 
       it { is_expected.to eq(false) }
