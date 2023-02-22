@@ -117,7 +117,7 @@ class CommentController < ApplicationController
 
   # Banned from adding comments?
   def reject_if_user_banned
-    return unless authenticated? && !authenticated_user.can_make_comments?
+    return if !authenticated? || authenticated_user.can_make_comments?
 
     if authenticated_user.exceeded_limit?(:comments)
       render template: 'comment/rate_limited'
