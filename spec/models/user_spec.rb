@@ -1934,7 +1934,7 @@ RSpec.describe User do
       it { is_expected.to eq(true) }
     end
 
-    context 'when the user has reached their rate limit' do
+    context 'when the user has reached their daily limit' do
       let(:user) { FactoryBot.build(:user) }
 
       before do
