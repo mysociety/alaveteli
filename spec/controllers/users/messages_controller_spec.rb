@@ -122,6 +122,18 @@ RSpec.describe Users::MessagesController do
       expect(mail.header['Reply-To'].to_s).to match(sender.email)
     end
 
+    it 'records the message' do
+      post :contact, params: {
+        url_name: recipient.url_name,
+        contact: {
+          subject: 'Dearest you',
+          message: 'Just a test!'
+        },
+        submitted_contact_form: 1
+      }
+
+      expect(UserMessage.last.user).to eq(sender)
+    end
   end
 
   describe 'when sending a message that looks like spam' do
