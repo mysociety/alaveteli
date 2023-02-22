@@ -81,7 +81,7 @@ module Admin::LinkHelper
     icon = prominence_icon(comment)
 
     link_to(icon, comment_path(comment), title: title) + ' ' +
-      link_to(truncate(comment.body), edit_admin_comment_path(comment),
+      link_to(truncate(comment.body, length: 60), edit_admin_comment_path(comment),
               title: admin_title)
   end
 
