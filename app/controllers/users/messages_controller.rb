@@ -1,8 +1,12 @@
 # Allowing users to send user-to-user messages
 class Users::MessagesController < UserController
 
-  before_action :set_recipient, :check_can_send_messages, :check_logged_in,
-                :set_contact, :set_recaptcha_required
+  before_action :set_recipient,
+                :check_recipient_accepts_messages,
+                :check_can_send_messages,
+                :check_logged_in,
+                :set_contact,
+                :set_recaptcha_required
 
   # Send a message to another user
   def contact
@@ -32,6 +36,12 @@ class Users::MessagesController < UserController
 
   def set_recipient
     @recipient_user = User.find_by!(url_name: params[:url_name])
+  end
+
+  def check_recipient_accepts_messages
+    return if @recipient_user.receive_user_messages?
+
+    render template: 'users/messages/opted_out'
   end
 
   def check_can_send_messages

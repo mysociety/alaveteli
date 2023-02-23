@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20230223145243
 #
 # Table name: users
 #
@@ -35,6 +35,7 @@
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
 #  login_token                       :string
+#  receive_user_messages             :boolean          default(TRUE), not null
 #
 
 require 'spec_helper'
