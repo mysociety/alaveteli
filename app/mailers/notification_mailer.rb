@@ -63,7 +63,7 @@ class NotificationMailer < ApplicationMailer
     # nothing to do
     while true
       sleep_seconds = 1
-      while !send_notifications
+      until send_notifications
         sleep sleep_seconds
         sleep_seconds *= 2
         sleep_seconds = 300 if sleep_seconds > 300

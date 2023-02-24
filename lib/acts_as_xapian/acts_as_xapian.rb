@@ -422,7 +422,7 @@ module ActsAsXapian
       self.runtime += Benchmark.realtime {
         # Pull out all the results
         iter = matches._begin
-        while not iter.equals(matches._end)
+        until iter.equals(matches._end)
           docs.push({data: iter.document.data,
                      percent: iter.percent,
                      weight: iter.weight,
@@ -598,7 +598,7 @@ module ActsAsXapian
         # Get set of relevant terms for those documents
         selection = Xapian::RSet.new
         iter = matches._begin
-        while not iter.equals(matches._end)
+        until iter.equals(matches._end)
           selection.add_document(iter)
           iter.next
         end
@@ -612,7 +612,7 @@ module ActsAsXapian
         # Do main search for them
         self.important_terms = []
         iter = eset._begin
-        while not iter.equals(eset._end)
+        until iter.equals(eset._end)
           important_terms.push(iter.term)
           iter.next
         end

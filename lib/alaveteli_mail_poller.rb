@@ -37,7 +37,7 @@ class AlaveteliMailPoller
       Rails.logger.info "Starting #{ poller } polling loop"
       while true
         sleep_seconds = 1
-        while !poller.poll_for_incoming
+        until poller.poll_for_incoming
           Rails.logger.debug "#{ poller } sleeping for #{ sleep_seconds }"
           sleep sleep_seconds
           sleep_seconds *= 2
