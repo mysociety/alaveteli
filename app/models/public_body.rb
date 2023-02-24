@@ -506,7 +506,7 @@ class PublicBody < ApplicationRecord
                           errors: errors }
 
         CSV.foreach(csv_filename) do |row|
-          line = line + 1
+          line += 1
 
           # Parse the first line as a field list if it starts with '#'
           if line==1 and row.first.to_s =~ /^#(.*)$/

@@ -240,7 +240,7 @@ class InfoRequestEvent < ApplicationRecord
       text = text + outgoing_message.get_text_for_indexing + "\n\n"
     elsif event_type == 'response'
       if clipped
-        text = text + get_clipped_response_efficiently
+        text += get_clipped_response_efficiently
       else
         text = text + incoming_message.get_text_for_indexing_full + "\n\n"
       end

@@ -490,7 +490,7 @@ class RequestMailer < ApplicationMailer
                     info_request.user_id).
               first
           if alerted_for.nil?
-            count = count + 1
+            count += 1
             earliest_unalerted_comment_event = e
           else
             break

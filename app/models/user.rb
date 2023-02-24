@@ -361,7 +361,7 @@ class User < ApplicationRecord
     conditions = id ? ["id <> ?", id] : []
     while !User.where(url_name: unique_url_name).where(conditions).first.nil?
       unique_url_name = url_name + "_" + suffix_num.to_s
-      suffix_num = suffix_num + 1
+      suffix_num += 1
     end
     self.url_name = unique_url_name
   end

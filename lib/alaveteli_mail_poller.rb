@@ -23,7 +23,7 @@ class AlaveteliMailPoller
     start do |pop3|
       pop3.each_mail do |popmail|
         received = get_mail(popmail)
-        found_mail = found_mail || received
+        found_mail ||= received
       end
     end
     found_mail

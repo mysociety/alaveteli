@@ -233,7 +233,7 @@ module LinkToHelper
   # General pages.
   def search_url(query, options = nil)
     if query.kind_of?(Array)
-      query = query - ["", nil]
+      query -= ["", nil]
       query = query.join("/")
     end
     routing_info = {controller: 'general',
