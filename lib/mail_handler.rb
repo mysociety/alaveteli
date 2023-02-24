@@ -81,7 +81,7 @@ module MailHandler
         AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
                                      { memory_limit: 536_870_912, timeout: 120 } )
         # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
-        if not File.exist?(tempfile.path + ".txt")
+        if !File.exist?(tempfile.path + ".txt")
           AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
         else
           text += File.read(tempfile.path + ".txt") + "\n\n"
