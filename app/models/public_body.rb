@@ -655,7 +655,7 @@ class PublicBody < ApplicationRecord
     PublicBody.extract_domain_from_email(request_email)
   end
 
-  alias_method :foi_officer_domain_required, :request_email_domain
+  alias foi_officer_domain_required request_email_domain
 
   # Return the canonicalised domain part of an email address
   #

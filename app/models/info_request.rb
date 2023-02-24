@@ -160,7 +160,7 @@ class InfoRequest < ApplicationRecord
   scope :surveyable, Survey::InfoRequestQuery.new
 
   class << self
-    alias_method :in_progress, :awaiting_response
+    alias in_progress awaiting_response
   end
   scope :action_needed, State::ActionNeededQuery.new
   scope :updated_before, ->(ts) { where('"info_requests"."updated_at" < ?', ts) }
@@ -788,7 +788,7 @@ class InfoRequest < ApplicationRecord
   end
 
   # Force reindex when tag string changes
-  alias_method :orig_tag_string=, :tag_string=
+  alias orig_tag_string= tag_string=
   def tag_string=(tag_string)
     ret = self.orig_tag_string=(tag_string)
     reindex_request_events

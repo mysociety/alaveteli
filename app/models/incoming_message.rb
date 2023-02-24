@@ -111,7 +111,7 @@ class IncomingMessage < ApplicationRecord
     end
   end
 
-  alias_method :valid_to_reply_to?, :valid_to_reply_to
+  alias valid_to_reply_to? valid_to_reply_to
 
   # Public: The display name of the email sender with the associated
   # InfoRequest's censor rules applied.

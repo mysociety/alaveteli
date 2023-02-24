@@ -8,7 +8,7 @@ class InfoRequest
       }
 
       attr_reader :spam_action, :spam_header, :spam_threshold
-      alias_method :rejection_action, :spam_action
+      alias rejection_action spam_action
 
       def initialize(opts = {})
         @spam_action = opts[:spam_action] || DEFAULT_CONFIGURATION[:spam_action]
