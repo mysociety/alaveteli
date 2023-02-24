@@ -152,7 +152,6 @@ class UserController < ApplicationController
     else
       if user_alreadyexists
         already_registered_mail user_alreadyexists
-        nil
       else
         # New unconfirmed user
 
@@ -180,8 +179,8 @@ class UserController < ApplicationController
         @user_signup.email_confirmed = false
         @user_signup.save!
         send_confirmation_mail @user_signup
-        nil
       end
+      nil
     end
   rescue ActionController::ParameterMissing
     flash[:error] = _('Invalid form submission')
