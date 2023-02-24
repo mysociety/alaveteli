@@ -1168,11 +1168,18 @@ RSpec.describe User do
   end
 
   describe '#close' do
+    subject { user.close }
+
     let(:user) { FactoryBot.build(:user) }
 
-    it 'closes the user account' do
-      user.close
+    before { subject }
+
+    it 'closes the account' do
       expect(user).to be_closed
+    end
+
+    it 'sets closed_at' do
+      expect(user.closed_at).to be_present
     end
   end
 
