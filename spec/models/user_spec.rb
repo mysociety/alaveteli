@@ -1181,6 +1181,10 @@ RSpec.describe User do
     it 'sets closed_at' do
       expect(user.closed_at).to be_present
     end
+
+    it 'disables email alerts' do
+      expect(user.receive_email_alerts).to eq(false)
+    end
   end
 
   describe '#closed?' do
