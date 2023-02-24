@@ -30,7 +30,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     else
       create_initial_objects
     end
-    check_public_body_is_requestable; return if performed?
+    check_public_body_is_requestable
+    return if performed?
   end
 
   def preview

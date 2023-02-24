@@ -321,7 +321,8 @@ module ActsAsXapian
       #raise options.to_yaml
 
       self.runtime += Benchmark.realtime {
-        offset = options[:offset] || 0; offset = offset.to_i
+        offset = options[:offset] || 0
+        offset = offset.to_i
         limit = options[:limit]
         unless limit
           raise "please specifiy maximum number of results to return with parameter :limit"

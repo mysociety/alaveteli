@@ -122,12 +122,12 @@ RSpec.describe PostRedirect, " when constructing" do
 
   it "should generate a URL friendly token" do
     pr = PostRedirect.new
-    expect(pr.token).to match(/[a-z0-9]+/);
+    expect(pr.token).to match(/[a-z0-9]+/)
   end
 
   it "should generate an email friendly email token" do
     pr = PostRedirect.new
-    expect(pr.email_token).to match(/[a-z0-9]+/);
+    expect(pr.email_token).to match(/[a-z0-9]+/)
   end
 
   context 'when normal circumstance' do

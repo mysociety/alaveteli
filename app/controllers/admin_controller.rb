@@ -33,7 +33,7 @@ class AdminController < ApplicationController
     elsif request.env["HTTP_X_FORWARDED_USER"]
       request.env["HTTP_X_FORWARDED_USER"]
     else
-      "*unknown*";
+      "*unknown*"
     end
   end
 

@@ -86,7 +86,10 @@ class PublicBodyController < ApplicationController
                              has_json: true } ]
 
       respond_to do |format|
-        format.html { @has_json = true; render template: "public_body/show" }
+        format.html do
+          @has_json = true
+          render template: "public_body/show"
+        end
         format.json { render json: @public_body.json_for_api }
       end
 

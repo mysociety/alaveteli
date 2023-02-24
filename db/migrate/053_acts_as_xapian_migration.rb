@@ -11,7 +11,10 @@ class ActsAsXapianMigration < ActiveRecord::Migration[4.2] # 2.0
     remove_index :info_requests, :solr_up_to_date
     remove_column :info_requests, :solr_up_to_date
 
-    InfoRequest.find_each { |i| i.calculate_event_states; STDERR.puts "calculate_event_states " + i.id.to_s }
+    InfoRequest.find_each do |i|
+      i.calculate_event_states
+      STDERR.puts "calculate_event_states " + i.id.to_s
+    end
   end
 
   def self.down

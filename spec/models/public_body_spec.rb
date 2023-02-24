@@ -65,7 +65,10 @@ RSpec.describe PublicBody do
 
     it 'update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save! }
+      AlaveteliLocalization.with_locale(:es) do
+        body.name = 'hola'
+        body.save!
+      end
       body.reload
 
       expect(body.update('name' => nil)).to eq(false)
@@ -95,7 +98,10 @@ RSpec.describe PublicBody do
 
     it 'blank string update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save! }
+      AlaveteliLocalization.with_locale(:es) do
+        body.name = 'hola'
+        body.save!
+      end
       body.reload
 
       expect(body.update('name' => '')).to eq(false)
