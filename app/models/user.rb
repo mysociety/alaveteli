@@ -403,7 +403,13 @@ class User < ApplicationRecord
   end
 
   def close
-    update(closed_at: Time.zone.now, receive_email_alerts: false)
+    close!
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def close!
+    update!(closed_at: Time.zone.now, receive_email_alerts: false)
   end
 
   def closed?

@@ -1172,18 +1172,62 @@ RSpec.describe User do
 
     let(:user) { FactoryBot.build(:user) }
 
-    before { subject }
+    context 'the update is successful' do
+      before do
+        expect(user).to receive(:close!).and_call_original
+        subject
+      end
 
-    it 'closes the account' do
-      expect(user).to be_closed
+      it { is_expected.to eq(true) }
+
+      it 'closes the account' do
+        expect(user).to be_closed
+      end
     end
 
-    it 'sets closed_at' do
-      expect(user.closed_at).to be_present
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:close!).and_raise(ActiveRecord::RecordInvalid)
+        subject
+      end
+
+      it { is_expected.to eq(false) }
+
+      it 'does not close the account' do
+        expect(user).not_to be_closed
+      end
+    end
+  end
+
+  describe '#close!' do
+    subject { user.close! }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'the update is successful' do
+      before { subject }
+
+      it 'closes the account' do
+        expect(user).to be_closed
+      end
+
+      it 'sets closed_at' do
+        expect(user.closed_at).to be_present
+      end
+
+      it 'disables email alerts' do
+        expect(user.receive_email_alerts).to eq(false)
+      end
     end
 
-    it 'disables email alerts' do
-      expect(user.receive_email_alerts).to eq(false)
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an ActiveRecord::RecordInvalid error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
     end
   end
 
