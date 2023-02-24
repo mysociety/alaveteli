@@ -509,7 +509,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.download_zip_dir
-    File.join(Rails.root, "cache", "zips", "#{Rails.env}")
+    File.join(Rails.root, "cache", "zips", Rails.env)
   end
 
   def self.reject_incoming_at_mta(options)
