@@ -456,11 +456,9 @@ class ApplicationController < ActionController::Base
   end
 
   def user_ip
-    begin
-      request.remote_ip
-    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-      nil
-    end
+    request.remote_ip
+  rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+    nil
   end
 
   # URL Encode the path parameter for use in render_exception

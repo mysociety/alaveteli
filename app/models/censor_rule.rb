@@ -109,11 +109,9 @@ class CensorRule < ApplicationRecord
   end
 
   def require_valid_regexp
-    begin
-      make_regexp('UTF-8')
-    rescue RegexpError => e
-      errors.add(:text, e.message)
-    end
+    make_regexp('UTF-8')
+  rescue RegexpError => e
+    errors.add(:text, e.message)
   end
 
   def to_replace(encoding)

@@ -1852,12 +1852,10 @@ class InfoRequest < ApplicationRecord
   end
 
   def set_defaults
-    begin
-      self.described_state = 'waiting_response' if described_state.nil?
-    rescue ActiveModel::MissingAttributeError
-      # this should only happen on Model.exists? call. It can be safely ignored.
-      # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
-    end
+    self.described_state = 'waiting_response' if described_state.nil?
+  rescue ActiveModel::MissingAttributeError
+    # this should only happen on Model.exists? call. It can be safely ignored.
+    # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
   end
 
   def set_law_used
