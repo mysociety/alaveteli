@@ -169,8 +169,6 @@ class IncomingMessage < ApplicationRecord
       }
       if attachments_by_filename.length == 1
         attachments_by_filename[0]
-      else
-        nil
       end
     end
   end

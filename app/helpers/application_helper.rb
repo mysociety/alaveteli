@@ -151,8 +151,6 @@ module ApplicationHelper
     cacheable_param_list = %w[controller action locale view]
     if params.keys.all? { |key| cacheable_param_list.include?(key) }
       "request-list-#{@view}-#{@locale}"
-    else
-      nil
     end
   end
 

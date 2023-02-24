@@ -107,8 +107,6 @@ module MailHandler
           rescue
             mail[:from].value
           end
-        else
-          nil
         end
       end
 
@@ -121,8 +119,6 @@ module MailHandler
           else
             first_from.address
           end
-        else
-          nil
         end
       end
 
@@ -135,8 +131,6 @@ module MailHandler
           else
             (first_from.display_name || nil)
           end
-        else
-          nil
         end
       end
 

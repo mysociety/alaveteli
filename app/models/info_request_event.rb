@@ -246,8 +246,6 @@ class InfoRequestEvent < ApplicationRecord
       end
     elsif event_type == 'comment'
       text = text + comment.body + "\n\n"
-    else
-      # nothing
     end
     text
   end
