@@ -416,6 +416,31 @@ class User < ApplicationRecord
     closed_at.present?
   end
 
+  def erase
+    erase!
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def erase!
+    raise ActiveRecord::RecordInvalid unless closed?
+
+    sha = Digest::SHA1.hexdigest(rand.to_s)
+
+    transaction do
+      sign_ins.destroy_all
+      profile_photo&.destroy!
+
+      update!(
+        name: _('[Name Removed]'),
+        email: "#{sha}@invalid",
+        url_name: sha,
+        about_me: '',
+        password: MySociety::Util.generate_token
+      )
+    end
+  end
+
   def close_and_anonymise
     sha = Digest::SHA1.hexdigest(rand.to_s)
 

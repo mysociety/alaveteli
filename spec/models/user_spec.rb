@@ -1246,6 +1246,112 @@ RSpec.describe User do
 
   end
 
+  describe '#erase' do
+    subject { user.erase }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'the update is successful' do
+      before do
+        user.close!
+        expect(user).to receive(:erase!).and_call_original
+        subject
+      end
+
+      it { is_expected.to eq(true) }
+
+      it 'erases the account' do
+        expect(user.name).to match(/Name Removed/)
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:erase!).and_raise(ActiveRecord::RecordInvalid)
+        subject
+      end
+
+      it { is_expected.to eq(false) }
+
+      it 'does not erase the account' do
+        expect(user.name).not_to match(/Name Removed/)
+      end
+    end
+  end
+
+  describe '#erase!' do
+    subject { user.erase! }
+
+    context 'the user account is not closed' do
+      let(:user) { FactoryBot.build(:user, about_me: 'Hi') }
+
+      it 'raises an ActiveRecord::RecordInvalid' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
+    context 'the update is successful' do
+      let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
+
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+        FactoryBot.create(:user_sign_in, user: user)
+        FactoryBot.create(:profile_photo, user: user)
+
+        allow(Digest::SHA1).to receive(:hexdigest).and_return('a1b2c3d4')
+        allow(MySociety::Util).
+          to receive(:generate_token).and_return('r@nd0m-pa$$w0rd')
+
+        subject
+
+        user.reload
+      end
+
+      it 'erases the name' do
+        # #name currently appends "(Account suspended)". Here we specifically
+        # only care about the data we hold.
+        expect(user.read_attribute(:name)).to eq('[Name Removed]')
+      end
+
+      it 'erases the url_name' do
+        expect(user.url_name).to eq('a1b2c3d4')
+      end
+
+      it 'erases the email' do
+        expect(user.email).to eq('a1b2c3d4@invalid')
+      end
+
+      it 'erases the password' do
+        expect(user.password).to eq('r@nd0m-pa$$w0rd')
+      end
+
+      it 'erases the about_me' do
+        expect(user.about_me).to be_empty
+      end
+
+      it 'destroys any sign_ins' do
+        expect(user.sign_ins).to be_empty
+      end
+
+      it 'destroys any profile photo' do
+        expect(user.profile_photo).to be_nil
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
+
+      before do
+        expect(user).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an ActiveRecord::RecordInvalid error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+  end
+
   describe '.closed' do
 
     it 'should not return users with closed_at timestamp' do
