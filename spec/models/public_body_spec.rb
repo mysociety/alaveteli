@@ -1449,7 +1449,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
 
-        expected = %W(imported)
+        expected = %w(imported)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
 
@@ -1462,7 +1462,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
 
-        expected = %W(first_tag imported second_tag)
+        expected = %w(first_tag imported second_tag)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
 
@@ -1475,7 +1475,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
 
-        expected = %W(imported)
+        expected = %w(imported)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
 
@@ -1488,7 +1488,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
 
-        expected = %W(first_tag imported second_tag)
+        expected = %w(first_tag imported second_tag)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
 
@@ -1509,7 +1509,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         errors, notes = PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
 
-        expected = %W(imported)
+        expected = %w(imported)
         expect(errors).to include("error: line 2: Name Name is already taken for authority 'Existing Body'")
       end
 
@@ -1529,7 +1529,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
 
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, 'imported', 'add', false, 'someadmin')
-        expected = %W(first_tag imported new_tag second_tag)
+        expected = %w(first_tag imported new_tag second_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
 
@@ -1542,7 +1542,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, 'imported', 'replace', false, 'someadmin')
 
-        expected = %W(first_tag imported new_tag)
+        expected = %w(first_tag imported new_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
 
@@ -1576,7 +1576,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
 
-        expected = %W(first_tag)
+        expected = %w(first_tag)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
 
@@ -1602,7 +1602,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
 
-        expected = %W(first_tag)
+        expected = %w(first_tag)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
 
@@ -1636,7 +1636,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
 
-        expected = %W(new_tag)
+        expected = %w(new_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
 
@@ -1662,7 +1662,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
 
-        expected = %W(new_tag)
+        expected = %w(new_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
 
@@ -1683,7 +1683,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, '', 'add', false, 'someadmin')
 
-        expected = %W(first_tag new_tag second_tag)
+        expected = %w(first_tag new_tag second_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
 
@@ -1696,7 +1696,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         # csv, tag, tag_behaviour, dry_run, editor
         PublicBody.import_csv(csv, '', 'replace', false, 'someadmin')
 
-        expected = %W(first_tag new_tag)
+        expected = %w(first_tag new_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
 
