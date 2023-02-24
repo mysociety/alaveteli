@@ -959,7 +959,7 @@ module ActsAsXapian
               values << single_xapian_value(field, type=type)
             end
           end
-          if values[0].kind_of?(Array)
+          if values[0].is_a?(Array)
             values = values.flatten
             value = values.reject(&:nil?)
           else
@@ -977,9 +977,9 @@ module ActsAsXapian
     def single_xapian_value(field, type = nil)
       value = send(field.to_sym) || self[field]
       if type == :date
-        if value.kind_of?(Time)
+        if value.is_a?(Time)
           value.utc.strftime("%Y%m%d")
-        elsif value.kind_of?(Date)
+        elsif value.is_a?(Date)
           value.to_time.utc.strftime("%Y%m%d")
         else
           raise "Only Time or Date types supported by acts_as_xapian for :date fields, got " + value.class.to_s
@@ -988,7 +988,7 @@ module ActsAsXapian
         value ? true : false
       else
         # Arrays are for terms which require multiple of them, e.g. tags
-        if value.kind_of?(Array)
+        if value.is_a?(Array)
           value.map(&:to_s)
         else
           value.to_s
@@ -1069,7 +1069,7 @@ module ActsAsXapian
 
       terms_to_index.each do |term|
         value = xapian_value(term[0])
-        if value.kind_of?(Array)
+        if value.is_a?(Array)
           value.each do |v|
             doc.add_term(term[1] + v)
             doc.add_posting(term[1] + v, 1, Integer(term[3])) if term[3]
