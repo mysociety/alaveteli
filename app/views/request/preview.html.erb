@@ -35,8 +35,13 @@
             <% else %>
               <%=h(@info_request.public_body.name)%>
             <% end %>
-
           </p>
+
+          <p class="preview_from">
+            <strong><%= _('From') %></strong>
+            <%= @user&.name || '…' %>
+          </p>
+
           <p class="preview_subject">
             <strong><%= _('Subject') %></strong> <%= @info_request.email_subject_request %>
           </p>

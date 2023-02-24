@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make it clearer that usernames are published (Gareth Rees)
 * Add spam term checking to user to user messages (Gareth Rees)
 * Add support for Ruby 3.2 (Graeme Porteous)
 * Add support for Ruby 3.1 (Graeme Porteous)

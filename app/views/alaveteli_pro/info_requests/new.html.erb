@@ -42,6 +42,11 @@
           <%= render partial: 'alaveteli_pro/info_requests/select_authority_form',
                      locals: { info_request: @info_request } %>
         <% end %>
+
+        <p id="from_user" class="from_user">
+          <span class="from_user_label"><%= _('From') %></span>
+          <%= @user&.name || '…' %>
+        </p>
       </div> <!-- .request-to-header -->
 
 
