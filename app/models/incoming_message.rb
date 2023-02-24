@@ -283,10 +283,10 @@ class IncomingMessage < ApplicationRecord
     # http://www.whatdotheyknow.com/request/235/response/513
     # http://www.whatdotheyknow.com/request/445/response/743
     original_message =
-      '(' + '''----* This is a copy of the message, including all the headers. ----*''' +
-      '|' + '''----*\s*Original Message\s*----*''' +
-      '|' + '''----*\s*Forwarded message.+----*''' +
-      '|' + '''----*\s*Forwarded by.+----*''' +
+      '(' + '''----* This is a copy of the message, including all the headers. ----*''' \
+      '|' + '''----*\s*Original Message\s*----*''' \
+      '|' + '''----*\s*Forwarded message.+----*''' \
+      '|' + '''----*\s*Forwarded by.+----*''' \
       ')'
     # Could have a ^ at start here, but see messed up formatting here:
     # http://www.whatdotheyknow.com/request/refuse_and_recycling_collection#incoming-842
