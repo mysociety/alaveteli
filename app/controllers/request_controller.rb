@@ -156,7 +156,7 @@ class RequestController < ApplicationController
 
     @filters = params.merge(latest_status: @view)
 
-    if (@page > 1)
+    if @page > 1
       @title = _("Browse and search requests (page {{count}})", count: @page)
     else
       @title = _('Browse and search requests')

@@ -188,7 +188,7 @@ class GeneralController < ApplicationController
 
     # Spelling and highight words are same for all three queries
     @highlight_words = @request_for_spelling.words_to_highlight(regex: true, include_original: true)
-    unless (@request_for_spelling.spelling_correction =~ /[a-z]+:/)
+    unless @request_for_spelling.spelling_correction =~ /[a-z]+:/
       @spelling_correction = @request_for_spelling.spelling_correction
     end
 

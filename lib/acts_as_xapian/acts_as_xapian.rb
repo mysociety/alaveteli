@@ -1119,7 +1119,7 @@ module ActsAsXapian
 
     # Allow reindexing to be skipped if a flag is set
     def xapian_mark_needs_index_if_reindex
-      if (respond_to?(:no_xapian_reindex) && no_xapian_reindex == true)
+      if respond_to?(:no_xapian_reindex) && no_xapian_reindex == true
         return true
       end
       xapian_mark_needs_index
@@ -1139,7 +1139,7 @@ module ActsAsXapian
       rescue ActiveRecord::RecordNotUnique => e
         # Given the error handling in ActsAsXapian::update_index, we can just fail silently if
         # another process has inserted an acts_as_xapian_jobs record for this model.
-        unless (e.message =~ /duplicate key value violates unique constraint "index_acts_as_xapian_jobs_on_model_and_model_id"/)
+        unless e.message =~ /duplicate key value violates unique constraint "index_acts_as_xapian_jobs_on_model_and_model_id"/
           raise
         end
       end

@@ -96,7 +96,7 @@ class IncomingMessage < ApplicationRecord
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
     raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
-    if (!force.nil? || last_parsed.nil?)
+    if !force.nil? || last_parsed.nil?
       ActiveRecord::Base.transaction do
         extract_attachments
         self.sent_at = raw_email.date || created_at
