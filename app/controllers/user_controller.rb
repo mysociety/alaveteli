@@ -285,9 +285,13 @@ class UserController < ApplicationController
 
   # River of News: What's happening with your tracked things
   def river
-    @results = @user.nil? ? [] : @user.track_things.collect { |thing|
+    @results = if @user.nil?
+  []
+else
+  @user.track_things.collect { |thing|
       perform_search([InfoRequestEvent], thing.track_query, thing.params[:feed_sortby], nil).results
     }.flatten.sort { |a,b| b[:model].created_at <=> a[:model].created_at }.first(20)
+end
   end
 
   def set_profile_photo
