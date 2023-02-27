@@ -247,7 +247,7 @@ class UserController < ApplicationController
 
     # if not already, send a confirmation link to the new email address which logs
     # them into the old email's user account, but with special user_circumstance
-    if (!(session[:user_circumstance])) or (session[:user_circumstance] != "change_email")
+    if !session[:user_circumstance] or (session[:user_circumstance] != "change_email")
       # don't store the password in the db
       params[:signchangeemail].delete(:password)
 
