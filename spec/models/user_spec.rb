@@ -1105,7 +1105,8 @@ RSpec.describe User do
 
     before do
       allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
-      allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
+      allow(MySociety::Util).
+        to receive(:generate_token).and_return('r@nd0m-pa$$w0rd')
       allow(AlaveteliConfiguration).
         to receive(:user_sign_in_activity_retention_days).and_return(1)
       FactoryBot.create(:user_sign_in, user: user)
@@ -1152,7 +1153,7 @@ RSpec.describe User do
 
     it 'should anonymise user password' do
       expect { user.close_and_anonymise }.
-        to change(user, :password).to('ABCD')
+        to change(user, :password).to('r@nd0m-pa$$w0rd')
     end
 
     it 'should set user to not receive email alerts' do

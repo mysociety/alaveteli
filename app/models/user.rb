@@ -444,29 +444,17 @@ class User < ApplicationRecord
   def anonymise!
     return if info_requests.none?
 
-    censor_rules.create!(text: name,
+    censor_rules.create!(text: read_attribute(:name),
                          replacement: _('[Name Removed]'),
                          last_edit_editor: 'User#anonymise!',
                          last_edit_comment: 'User#anonymise!')
   end
 
   def close_and_anonymise
-    sha = Digest::SHA1.hexdigest(rand.to_s)
-
     transaction do
-      redact_name! if info_requests.any?
-
-      sign_ins.destroy_all
-
-      update(
-        name: _('[Name Removed]'),
-        email: "#{sha}@invalid",
-        url_name: sha,
-        about_me: '',
-        password: MySociety::Util.generate_token,
-        receive_email_alerts: false,
-        closed_at: Time.zone.now
-      )
+      close!
+      anonymise!
+      erase!
     end
   end
 
@@ -670,13 +658,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def redact_name!
-    censor_rules.create!(text: name,
-                         replacement: _('[Name Removed]'),
-                         last_edit_editor: 'User#close_and_anonymise',
-                         last_edit_comment: 'User#close_and_anonymise')
-  end
 
   def set_defaults
     return unless new_record?
