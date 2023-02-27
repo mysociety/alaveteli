@@ -13,7 +13,7 @@ module HighlightHelper
       text
     else
       match = Array(phrases).map do |p|
-        Regexp === p ? p.to_s : Regexp.escape(p)
+        p.is_a?(Regexp) ? p.to_s : Regexp.escape(p)
       end.join('|')
 
       if block_given?
