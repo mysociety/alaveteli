@@ -1352,6 +1352,32 @@ RSpec.describe User do
     end
   end
 
+  describe '#anonymise!' do
+    subject { user.anonymise! }
+
+    let(:user) { FactoryBot.build(:user, name: 'Bob Smith') }
+
+    context 'when the user has info requests' do
+      before { FactoryBot.create(:info_request, user: user) }
+
+      it 'creates a censor rule for user name if the user has info requests' do
+        subject
+        censor_rule = user.censor_rules.last
+        expect(censor_rule.text).to eq(user.name)
+        expect(censor_rule.replacement).to eq ('[Name Removed]')
+        expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
+        expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
+      end
+    end
+
+    context 'when the user has no info requests' do
+      it 'does not create a censor rule' do
+        subject
+        expect(user.censor_rules).to be_empty
+      end
+    end
+  end
+
   describe '.closed' do
 
     it 'should not return users with closed_at timestamp' do

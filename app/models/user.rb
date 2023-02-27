@@ -441,6 +441,15 @@ class User < ApplicationRecord
     end
   end
 
+  def anonymise!
+    return if info_requests.none?
+
+    censor_rules.create!(text: name,
+                         replacement: _('[Name Removed]'),
+                         last_edit_editor: 'User#anonymise!',
+                         last_edit_comment: 'User#anonymise!')
+  end
+
   def close_and_anonymise
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
