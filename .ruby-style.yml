@@ -1313,6 +1313,9 @@ Rails/RequestReferer:
 Rails/RequireDependency:
   Enabled: false
 
+Rails/ResponseParsedBody:
+  Enabled: false
+
 Rails/ReversibleMigration:
   Enabled: false
 
