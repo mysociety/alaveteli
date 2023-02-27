@@ -12,6 +12,7 @@
 
 # Make it so if Xapian isn't installed, the Rails app doesn't fail completely,
 # just when somebody does a search.
+require 'English'
 begin
   require 'xapian'
   $acts_as_xapian_bindings_available = true
@@ -908,7 +909,7 @@ module ActsAsXapian
         pid = Process.fork # TODO: this will only work on Unix, tough
         if pid
           Process.waitpid(pid)
-          raise "batch fork child failed, exiting also" unless $?.success?
+          raise "batch fork child failed, exiting also" unless $CHILD_STATUS.success?
           # database connection doesn't survive a fork, rebuild it
         else
           # fully reopen the database each time (with a new object)

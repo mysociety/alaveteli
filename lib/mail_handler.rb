@@ -1,4 +1,5 @@
 # Handles the parsing of email
+require 'English'
 require 'tmpdir'
 
 module MailHandler
@@ -20,9 +21,9 @@ module MailHandler
       IO.popen("tnef -K -C #{dir} 2> /dev/null", "wb") do |f|
         f.write(content)
         f.close
-        raise IOError, "tnef exited with signal #{$?.termsig}" if $?.signaled?
-        if $?.exited? && $?.exitstatus != 0
-          raise TNEFParsingError, "tnef exited with status #{$?.exitstatus}"
+        raise IOError, "tnef exited with signal #{$CHILD_STATUS.termsig}" if $CHILD_STATUS.signaled?
+        if $CHILD_STATUS.exited? && $CHILD_STATUS.exitstatus != 0
+          raise TNEFParsingError, "tnef exited with status #{$CHILD_STATUS.exitstatus}"
         end
       end
       found = 0
@@ -131,7 +132,7 @@ module MailHandler
           text += get_attachment_text_from_zip_file(zip_file)
           zip_file.close
         rescue
-          $stderr.puts("Error processing zip file: #{$!.inspect}")
+          $stderr.puts("Error processing zip file: #{$ERROR_INFO.inspect}")
         end
       end
       tempfile.close

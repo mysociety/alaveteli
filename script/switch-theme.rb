@@ -72,7 +72,7 @@ end
 if ARGV.length == 1
   requested_theme = ARGV[0]
 else
-  STDERR.puts "Usage: #{$0} <THEME-NAME>"
+  STDERR.puts "Usage: #{$PROGRAM_NAME} <THEME-NAME>"
   show_themes
   exit 1
 end
