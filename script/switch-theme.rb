@@ -100,7 +100,7 @@ unless requested_theme == $no_theme_name || File.exist?(theme_filename)
   exit 1
 end
 
-def symlink target, link_directory, link_name
+def symlink(target, link_directory, link_name)
   tmp = Tempfile.new link_name, link_directory
   full_link_name = File.join(link_directory, link_name)
   target = Pathname.new(target).relative_path_from(File.dirname(full_link_name))
