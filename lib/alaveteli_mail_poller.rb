@@ -35,7 +35,7 @@ class AlaveteliMailPoller
     if AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
       poller = new
       Rails.logger.info "Starting #{ poller } polling loop"
-      while true
+      loop do
         sleep_seconds = 1
         until poller.poll_for_incoming
           Rails.logger.debug "#{ poller } sleeping for #{ sleep_seconds }"

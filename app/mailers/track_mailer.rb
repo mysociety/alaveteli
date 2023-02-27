@@ -136,7 +136,7 @@ class TrackMailer < ApplicationMailer
 
   def self.alert_tracks_loop
     # Run alert_tracks in an endless loop, sleeping when there is nothing to do
-    while true
+    loop do
       sleep_seconds = 1
       until alert_tracks
         sleep sleep_seconds
