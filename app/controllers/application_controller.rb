@@ -471,9 +471,7 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def sanitize_path(params)
-    if params.key?(:path)
-      params.merge!(path: Rack::Utils.escape(params[:path]))
-    end
+    params.merge!(path: Rack::Utils.escape(params[:path])) if params.key?(:path)
   end
 
   # Collect the current and available locales for the locale switcher

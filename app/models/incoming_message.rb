@@ -167,9 +167,7 @@ class IncomingMessage < ApplicationRecord
       attachments_by_filename = attachments.select { |a|
         a.display_filename == display_filename
       }
-      if attachments_by_filename.length == 1
-        attachments_by_filename[0]
-      end
+      attachments_by_filename[0] if attachments_by_filename.length == 1
     end
   end
 

@@ -81,9 +81,7 @@ class TrackController < ApplicationController
 
     return atom_feed_internal if params[:feed] == 'feed'
 
-    if track_set || @track_thing.errors.any?
-      redirect_to user_url(@track_user)
-    end
+    redirect_to user_url(@track_user) if track_set || @track_thing.errors.any?
   end
 
   # Track a search term
