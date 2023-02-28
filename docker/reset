@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-source docker/env
+. docker/env
 
 docker compose down
 
