@@ -22,7 +22,8 @@ RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
     chmod +x /tmp/wait-for-it/wait-for-it.sh && \
     ln -s /tmp/wait-for-it/wait-for-it.sh /bin/wait-for-it
 
-WORKDIR /alaveteli/
+WORKDIR /alaveteli
+RUN git config --global --add safe.directory /alaveteli
 
 RUN gem update --system
 RUN gem install mailcatcher
