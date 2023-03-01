@@ -10,5 +10,6 @@
 #
 class UserMessage < ApplicationRecord
   belongs_to :user,
-             inverse_of: :user_messages
+             inverse_of: :user_messages,
+             counter_cache: true
 end

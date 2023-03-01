@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230223145243
+# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -36,6 +36,7 @@
 #  closed_at                         :datetime
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
+#  user_messages_count               :integer          default(0), not null
 #
 
 require 'spec_helper'
