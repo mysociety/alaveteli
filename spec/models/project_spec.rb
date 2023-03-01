@@ -47,7 +47,13 @@ RSpec.describe Project, type: :model, feature: :projects do
         described_state: 'successful'
       )
     end
-    let(:extracted_request) { FactoryBot.build(:info_request) }
+    let(:extracted_request) do
+      FactoryBot.build(
+        :info_request,
+        awaiting_description: false,
+        described_state: 'successful'
+      )
+    end
 
     before do
       FactoryBot.create(
