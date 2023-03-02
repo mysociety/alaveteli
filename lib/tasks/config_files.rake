@@ -39,24 +39,55 @@ namespace :config_files do
     }
   end
 
-  def daemons(only_active = false)
-    daemons = %w[alert-tracks send-notifications]
-    if AlaveteliConfiguration.production_mailer_retriever_method == 'pop' ||
-       !only_active
-      daemons << 'poll-for-incoming'
-    end
-    daemons
+  def daemons
+    [
+      {
+        path: '/etc/init.d',
+        name: 'thin',
+        template: 'config/sysvinit-thin.example',
+        condition: -> { ENV['RAILS_ENV'] == 'production' }
+      },
+      {
+        path: '/etc/init.d',
+        name: 'alert-tracks',
+        template: 'config/alert-tracks-debian.example'
+      },
+      {
+        path: '/etc/init.d',
+        name: 'send-notifications',
+        template: 'config/send-notifications-debian.example'
+      },
+      {
+        path: '/etc/init.d',
+        name: 'poll-for-incoming',
+        template: 'config/poll-for-incoming-debian.example',
+        condition: -> do
+          AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
+        end
+      }
+    ]
   end
 
   desc 'Return list of daemons to install based on the settings defined
-        in general.yml'
+        in general.yml for a given path'
   task active_daemons: :environment do
-    puts daemons(true)
+    example = 'rake config_files:active_daemons PATH=/etc/init.d'
+    check_for_env_vars(['PATH'], example)
+
+    puts daemons.
+      select { |d| d[:path] == ENV['PATH'] }.
+      select { |d| d.fetch(:condition, -> { true }).call }.
+      map { |d| d[:name] }
   end
 
-  desc 'Return list of all daemons the application defines'
+  desc 'Return list of all daemons the application defines for a given path'
   task all_daemons: :environment do
-    puts daemons
+    example = 'rake config_files:all_daemons PATH=/etc/init.d'
+    check_for_env_vars(['PATH'], example)
+
+    puts daemons.
+      select { |d| d[:path] == ENV['PATH'] }.
+      map { |d| d[:name] }
   end
 
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
@@ -79,13 +110,37 @@ namespace :config_files do
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR SCRIPT_FILE], example)
 
-    # Use the filename for the $daemon_name ugly variable
-    daemon_name = File.basename(ENV['SCRIPT_FILE'], '-debian.example')
+    daemon_name = ENV.fetch('DAEMON_NAME') do
+      File.basename(ENV['SCRIPT_FILE'], '-debian.example')
+    end
+
     replacements = default_replacements.merge(
       daemon_name: "#{default_replacements[:site]}-#{daemon_name}"
     )
 
     convert_erb(ENV['SCRIPT_FILE'], **replacements)
+  end
+
+  desc 'Convert example daemon in config to a form suitable for installing ' \
+       'on a server'
+  task convert_daemon: :environment do
+    example = 'rake config_files:convert_daemon ' \
+              'DEPLOY_USER=deploy ' \
+              'VHOST_DIR=/dir/above/alaveteli ' \
+              'VCSPATH=alaveteli ' \
+              'SITE=alaveteli ' \
+              'DAEMON=alert-tracks ' \
+              'RUBY_VERSION=3.0.4 ' \
+              'USE_RBENV=false '
+    check_for_env_vars(%w[DEPLOY_USER VHOST_DIR DAEMON], example)
+
+    daemon = daemons.find { |d| d[:name] == ENV['DAEMON'] }
+    raise 'Unknown daemon' unless daemon
+
+    ENV['SCRIPT_FILE'] = daemon[:template]
+    ENV['DAEMON_NAME'] = daemon[:name]
+
+    Rake::Task['config_files:convert_init_script'].invoke
   end
 
   desc 'Convert Debian example crontab file in config to a form suitable for installing in /etc/cron.d'
