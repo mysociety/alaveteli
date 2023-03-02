@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230223145243
+# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -36,6 +36,7 @@
 #  closed_at                         :datetime
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
+#  user_messages_count               :integer          default(0), not null
 #
 
 class User < ApplicationRecord
@@ -56,7 +57,8 @@ class User < ApplicationRecord
          after_remove: :assign_role_features
   strip_attributes allow_empty: true
 
-  admin_columns exclude: [:otp_secret_key]
+  admin_columns include: [:user_messages_count],
+                exclude: [:otp_secret_key]
 
   attr_accessor :no_xapian_reindex
 
