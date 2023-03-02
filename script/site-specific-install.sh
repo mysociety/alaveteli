@@ -34,7 +34,7 @@ clear_daemon() {
 
 install_daemon() {
   echo -n "Creating /etc/init.d/$SITE-$1... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' RAILS_ENV_DEFINED='$RAILS_ENV_DEFINED' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
   chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
   chmod 754 /etc/init.d/"$SITE-$1"
 
@@ -213,7 +213,7 @@ su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUB
 echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
 
 
-RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:get_config_value KEY=PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
+RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bin/config PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
 if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
 
   # Install dovecot
@@ -249,6 +249,12 @@ if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
 fi
 
 cd "$REPOSITORY"
+
+if [ -f config/rails_env.rb ]; then
+  RAILS_ENV_DEFINED=$(ruby -r ./config/rails_env.rb -e "puts ENV.keys.include?('RAILS_ENV')")
+else
+  RAILS_ENV_DEFINED=false
+fi
 
 if [ "$DEVELOPMENT_INSTALL" = true ]; then
   RAILS_ENV=development
@@ -287,7 +293,7 @@ echo $DONE_MSG
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo -n "Creating /etc/init.d/$SITE... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' RAILS_ENV_DEFINED='$RAILS_ENV_DEFINED' SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
   chgrp "$UNIX_USER" /etc/init.d/"$SITE"
   chmod 754 /etc/init.d/"$SITE"
   echo $DONE_MSG
