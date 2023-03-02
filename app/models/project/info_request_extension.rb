@@ -15,14 +15,25 @@ class Project
     end
 
     def extractable
-      where(described_state: EXTRACTABLE_STATES).
+      scope = where(described_state: EXTRACTABLE_STATES).
         left_joins(:extraction_project_submissions).
-        where(project_submissions: { id: nil }).
         classified
+
+      scope.where(project_submissions: { id: nil }).or(
+        scope.where.not(project_submissions: { project: project })
+      )
     end
 
     def extracted
-      joins(:extraction_project_submissions).distinct
+      joins(:extraction_project_submissions).
+        where(project_submissions: { project: project }).
+        distinct
+    end
+
+    private
+
+    def project
+      proxy_association.owner
     end
   end
 end
