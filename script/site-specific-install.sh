@@ -291,11 +291,12 @@ sed -r \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
 
-if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
-  echo -n "Creating /etc/init.d/$SITE... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' RAILS_ENV_DEFINED='$RAILS_ENV_DEFINED' SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
-  chgrp "$UNIX_USER" /etc/init.d/"$SITE"
-  chmod 754 /etc/init.d/"$SITE"
+# Clear existing legacy daemons if present
+if [ -f /etc/init.d/$SITE ]
+then
+  echo "Clearing any legacy daemons"
+  echo -n "Removing /etc/init.d/$SITE... "
+  rm -f "/etc/init.d/$SITE"
   echo $DONE_MSG
 fi
 

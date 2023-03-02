@@ -42,6 +42,11 @@ namespace :config_files do
   def daemons
     [
       {
+        name: 'thin',
+        template: 'config/sysvinit-thin.example',
+        condition: -> { ENV['RAILS_ENV'] == 'production' }
+      },
+      {
         name: 'alert-tracks',
         template: 'config/alert-tracks-debian.example'
       },
