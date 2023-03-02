@@ -10,15 +10,16 @@ services:
     environment:
       - BUNDLE_PATH=/bundle/vendor
       - DATABASE_URL=postgres://postgres:password@db/
+      - SMTP_URL=smtp://smtp:1025
     ports:
       - 3000:3000
-      - 1080:1080
     volumes:
       - ./:/alaveteli
       - ../alaveteli-themes:/alaveteli-themes
       - bundle:/bundle
     depends_on:
       - db
+      - smtp
 
   db:
     build:
@@ -30,6 +31,11 @@ services:
       - 6432:5432
     volumes:
       - postgres:/var/lib/postgresql/data
+
+  smtp:
+    image: mailhog/mailhog
+    ports:
+      - 1080:8025
 
 volumes:
   bundle: {}

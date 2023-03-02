@@ -92,7 +92,8 @@ Rails.application.configure do
   if AlaveteliConfiguration.use_mailcatcher_in_development
     # So is queued, rather than giving immediate errors
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
+    smtp = URI.parse(ENV.fetch('SMTP_URL', 'smtp://localhost:1025'))
+    config.action_mailer.smtp_settings = { address: smtp.host, port: smtp.port }
   else
     config.action_mailer.delivery_method = :sendmail
   end
