@@ -77,9 +77,8 @@ OPTION_STAGING_SITE=$(bin/config STAGING_SITE)
 STAGING_SITE="${OPTION_STAGING_SITE:-1}"
 
 # Force appropriate environment in production
-if [ "$STAGING_SITE" = "0" ]
-then
-    cat <<-END
+if [ ! -f config/rails_env.rb ]; then
+    [ "$STAGING_SITE" = "0" ] && cat <<-END
 
     *****************************************************************
     WARNING: About to make config/rails_env.rb which, via special
@@ -92,7 +91,19 @@ then
     *****************************************************************
 
 END
-    echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
+
+else
+    RAILS_ENV=$(ruby -r ./config/rails_env.rb -e "puts ENV['RAILS_ENV']")
+    if ([ "$STAGING_SITE" = "0" ] && [ "$RAILS_ENV" != "production" ]) ||
+      ([ "$STAGING_SITE" = "1" ] && [ "$RAILS_ENV" = "production" ]); then
+        # STAGING_SITE and RAILS_ENV mismatch - remove line
+        sed -i "/^ENV\['RAILS_ENV'\]/d" config/rails_env.rb
+    fi
+fi
+
+if [ "$STAGING_SITE" = "0" ] && [ "$RAILS_ENV" != "production" ]; then
+    # Set RAILS_ENV to production
+    echo "ENV['RAILS_ENV'] ||= 'production'" >> config/rails_env.rb
 fi
 
 OPTION_BUNDLE_PATH=$(bin/config BUNDLE_PATH)
