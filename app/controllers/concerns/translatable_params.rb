@@ -44,7 +44,7 @@ module TranslatableParams
     end
 
     def slice_translations_params(sliced_params)
-      if translation_params = sliced_params[:translations_attributes]
+      if (translation_params = sliced_params[:translations_attributes])
         translation_params.each do |locale, attributes|
           translation_params[locale] = attributes.slice(*translation_keys)
         end

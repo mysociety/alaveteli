@@ -161,7 +161,7 @@ module AlaveteliPro
 
     def notify_expiration
       if info_request.use_notifications?
-        if event = info_request.last_embargo_expire_event
+        if (event = info_request.last_embargo_expire_event)
           info_request.user.notify(event)
         end
       end

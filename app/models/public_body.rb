@@ -422,8 +422,8 @@ class PublicBody < ApplicationRecord
 
     if matching_pbs.empty?
       # "internal admin" exists but has the wrong default locale - fix & return
-      if invalid_locale = PublicBody::Translation.
-                            find_by_url_name('internal_admin_authority')
+      if (invalid_locale = PublicBody::Translation.
+                             find_by_url_name('internal_admin_authority'))
         found_pb = PublicBody.find(invalid_locale.public_body_id)
         AlaveteliLocalization.
           with_locale(AlaveteliLocalization.default_locale) do

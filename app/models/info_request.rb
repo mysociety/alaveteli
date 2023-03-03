@@ -1440,7 +1440,7 @@ class InfoRequest < ApplicationRecord
     ret = []
     done = {}
     if skip_message
-      if email = OutgoingMailer.email_for_followup(self, skip_message)
+      if (email = OutgoingMailer.email_for_followup(self, skip_message))
         done[email.downcase] = 1
       end
     end
