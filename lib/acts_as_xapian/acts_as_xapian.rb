@@ -777,7 +777,7 @@ module ActsAsXapian
 
   def self.run_job(job, flush, verbose)
     if verbose
-      STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}")
+      STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id} #{Time.now}")
     end
 
     begin
@@ -854,7 +854,7 @@ module ActsAsXapian
       # Save time by running the indexing in one go and in-process
       model_classes.each do |model_class|
         if verbose
-          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class.to_s}")
+          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class}")
         end
         model_class.find_each do |model|
           if verbose
@@ -916,7 +916,7 @@ module ActsAsXapian
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
           if verbose
-            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}")
+            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid}")
           end
           model_class.limit(batch_size).offset(i).order(:id).each do |model|
             if verbose

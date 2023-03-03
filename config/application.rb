@@ -79,8 +79,8 @@ module Alaveteli
       app.routes.append { match '*path', to: 'general#not_found', via: [:get, :post] }
     end
 
-    config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
-    config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
+    config.autoload_paths << "#{Rails.root}/app/controllers/concerns"
+    config.autoload_paths << "#{Rails.root}/app/models/concerns"
 
     config.enable_dependency_loading = true
 

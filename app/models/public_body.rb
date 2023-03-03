@@ -528,7 +528,7 @@ class PublicBody < ApplicationRecord
           email.strip! unless email.nil?
 
           if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
-            errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
+            errors.push "error: line #{line}: invalid email '#{email}' for authority '#{name}'"
             next
           end
 

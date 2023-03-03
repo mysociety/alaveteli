@@ -11,7 +11,7 @@ RSpec.describe 'when creating a mail object from raw data' do
   it "should be able to parse a large email without raising an exception" do
     m = Mail.new
     m.add_file(filename: "attachment.data", content: "a" * (8 * 1024 * 1024))
-    raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m.to_s}"
+    raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m}"
     expect { Mail::Message.new(raw_email) }.not_to raise_error
   end
 
