@@ -71,6 +71,28 @@ install_daemon() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
+if [ -f $REPOSITORY/config/general.yml ]; then
+    STAGING_SITE=$(su -l -c "cd '$REPOSITORY' && bin/config STAGING_SITE" "$UNIX_USER")
+    if ([ "$STAGING_SITE" = "0" ] && [ "$DEVELOPMENT_INSTALL" = "true" ]) ||
+      ([ "$STAGING_SITE" = "1" ] && [ "$DEVELOPMENT_INSTALL" != "true" ]); then
+        cat <<-END
+
+    *****************************************************************
+    ERROR: Configuration mismatch
+
+    In config/general.yml you have STAGING_SITE set to $STAGING_SITE but you're
+    running the install script with DEVELOPMENT_INSTALL set to $DEVELOPMENT_INSTALL
+
+    Please either update config/general.yml or change the flags used
+    when invoking the install script
+    *****************************************************************
+
+END
+
+        exit 1
+    fi
+fi
+
 update_mysociety_apt_sources
 
 apt-get -y update
