@@ -267,7 +267,7 @@ RSpec.describe InfoRequestBatch do
         public_bodies: [first_public_body,
                            third_public_body])
       batch.reload
-      expect(batch.public_bodies).to eq ([third_public_body,
+      expect(batch.public_bodies).to eq([third_public_body,
                                           first_public_body])
     end
 

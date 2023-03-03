@@ -315,7 +315,7 @@ RSpec.describe RequestController, "when showing one request" do
 
     it "should set @sidebar_template to the pro sidebar" do
       expect(assigns[:sidebar_template]).
-        to eq ("alaveteli_pro/info_requests/sidebar")
+        to eq("alaveteli_pro/info_requests/sidebar")
     end
   end
 
@@ -329,7 +329,7 @@ RSpec.describe RequestController, "when showing one request" do
     end
 
     it "should set @sidebar_template to the normal sidebar" do
-      expect(assigns[:sidebar_template]).to eq ("sidebar")
+      expect(assigns[:sidebar_template]).to eq("sidebar")
     end
   end
 

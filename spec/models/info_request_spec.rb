@@ -3614,28 +3614,28 @@ RSpec.describe InfoRequest do
 
     shared_examples_for "a situation when everything is public" do
       it "doesn't add a suffix for anyone" do
-        expect(request.make_zip_cache_path(nil)).to eq (path)
-        expect(request.make_zip_cache_path(non_owner)).to eq (path)
-        expect(request.make_zip_cache_path(admin)).to eq (path)
-        expect(request.make_zip_cache_path(owner)).to eq (path)
+        expect(request.make_zip_cache_path(nil)).to eq(path)
+        expect(request.make_zip_cache_path(non_owner)).to eq(path)
+        expect(request.make_zip_cache_path(admin)).to eq(path)
+        expect(request.make_zip_cache_path(owner)).to eq(path)
       end
     end
 
     shared_examples_for "a situation when anything is not public" do
       it "doesn't add a suffix for anonymous users" do
-        expect(request.make_zip_cache_path(nil)).to eq (path)
+        expect(request.make_zip_cache_path(nil)).to eq(path)
       end
 
       it "doesn't add a suffix for non owner users" do
-        expect(request.make_zip_cache_path(non_owner)).to eq (path)
+        expect(request.make_zip_cache_path(non_owner)).to eq(path)
       end
 
       it "adds a _hidden suffix for admin users" do
-        expect(request.make_zip_cache_path(admin)).to eq (hidden_path)
+        expect(request.make_zip_cache_path(admin)).to eq(hidden_path)
       end
 
       it "adds a requester_only suffix for owner users" do
-        expect(request.make_zip_cache_path(owner)).to eq (requester_only_path)
+        expect(request.make_zip_cache_path(owner)).to eq(requester_only_path)
       end
     end
 

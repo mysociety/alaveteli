@@ -41,7 +41,7 @@ RSpec.describe AlaveteliPro::DraftInfoRequestBatch do
                               public_bodies: [public_body1, public_body2],
                               user: pro_user)
     draft.reload
-    expect(draft.public_bodies).to eq ([public_body2, public_body1])
+    expect(draft.public_bodies).to eq([public_body2, public_body1])
   end
 
   it 'returns a distinct list of associated public bodies' do
