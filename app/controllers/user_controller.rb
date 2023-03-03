@@ -408,7 +408,7 @@ class UserController < ApplicationController
       AlaveteliConfiguration.enable_anti_spam
   end
 
-  def blocked_ip?(country, user)
+  def blocked_ip?(country, _user)
     AlaveteliConfiguration.restricted_countries.include?(country) &&
       country != AlaveteliConfiguration.iso_country_code
   end

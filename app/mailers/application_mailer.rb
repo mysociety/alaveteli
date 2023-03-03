@@ -48,7 +48,7 @@ class ApplicationMailer < ActionMailer::Base
 
   # Set headers that mark an email as being auto-generated and suppress out of
   # office responses to them
-  def set_auto_generated_headers(opts = {})
+  def set_auto_generated_headers(_opts = {})
     headers({
       'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
       'X-Auto-Response-Suppress' => 'OOF'

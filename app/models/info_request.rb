@@ -722,7 +722,7 @@ class InfoRequest < ApplicationRecord
 
   # opts = Hash of options (default: {})
   # Returns a StateCalculator
-  def state(opts = {})
+  def state(_opts = {})
     State::Calculator.new(self)
   end
 
@@ -877,7 +877,7 @@ class InfoRequest < ApplicationRecord
   end
 
   # Has this email already been received here? Based just on message id.
-  def already_received?(email, raw_email_data)
+  def already_received?(email, _raw_email_data)
     message_id = email.message_id
     raise "No message id for this message" if message_id.nil?
 
@@ -1811,7 +1811,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def create_response!(email, raw_email_data, rejected_reason = nil)
+  def create_response!(_email, raw_email_data, rejected_reason = nil)
     incoming_message = incoming_messages.build
 
     # To avoid a deadlock when simultaneously dealing with two

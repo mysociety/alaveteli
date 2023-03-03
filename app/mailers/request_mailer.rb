@@ -48,7 +48,7 @@ class RequestMailer < ApplicationMailer
   end
 
   # Incoming message arrived for a request, but new responses have been stopped.
-  def stopped_responses(info_request, email, raw_email_data)
+  def stopped_responses(info_request, email, _raw_email_data)
     headers('Return-Path' => blackhole_email,   # we don't care about bounces, likely from spammers
             'Auto-Submitted' => 'auto-replied') # http://tools.ietf.org/html/rfc3834
 

@@ -193,7 +193,7 @@ class PublicBody < ApplicationRecord
       text.gsub(/\n/, '<br>')
     end
 
-    def compare(previous = nil, &block)
+    def compare(previous = nil)
       if previous.nil?
         changes = []
       else

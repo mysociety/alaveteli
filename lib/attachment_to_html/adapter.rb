@@ -7,7 +7,7 @@ module AttachmentToHTML
     # attachment - the FoiAttachment to convert to HTML
     # opts       - a Hash of options (default: {}):
     #              No options currently accepted
-    def initialize(attachment, opts = {})
+    def initialize(attachment, _opts = {})
       @attachment = attachment
     end
 
