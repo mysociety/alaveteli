@@ -50,7 +50,7 @@ class HolidayImport
   end
 
   def holidays_attributes=(incoming_data)
-    incoming_data.each { |offset, incoming| holidays << Holiday.new(incoming) }
+    incoming_data.each { |_offset, incoming| holidays << Holiday.new(incoming) }
   end
 
   def holidays

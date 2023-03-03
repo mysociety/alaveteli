@@ -26,7 +26,7 @@ FactoryBot.define do
     trait :embargoed do
       embargo_duration { '3_months' }
 
-      after(:build) do |batch, evaluator|
+      after(:build) do |batch, _evaluator|
         batch.info_requests.each do |request|
           request.embargo = build(:embargo)
         end

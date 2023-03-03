@@ -199,7 +199,7 @@ module ActsAsXapian
     @@values_by_prefix = {}
     @@value_ranges_store = []
 
-    @@init_values.each do |classname, options|
+    @@init_values.each do |_classname, options|
       # go through the various field types, and tell query parser about them,
       # and error check them - i.e. check for consistency between models
       @@query_parser.add_boolean_prefix("model", "M")
@@ -210,7 +210,7 @@ module ActsAsXapian
   end
 
   def self.init_values(values)
-    values.each do |method, index, prefix, value_type|
+    values.each do |_method, index, prefix, value_type|
       unless index.is_a? Integer
         raise "Value index '#{index}' must be an Integer, is #{index.class}"
       end
@@ -244,7 +244,7 @@ module ActsAsXapian
   end
 
   def self.init_terms(terms)
-    terms.each do |method, term_code, prefix|
+    terms.each do |_method, term_code, prefix|
       unless term_code.match(/^[A-Z]$/)
         raise "Use a single capital letter for term code"
       end

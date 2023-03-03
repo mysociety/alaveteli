@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, unless: :authenticated?
 
   # Deal with access denied errors from CanCan
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do |_exception|
     raise PermissionDenied
   end
 

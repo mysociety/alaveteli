@@ -603,7 +603,7 @@ class PublicBody < ApplicationRecord
   def set_locale_fields_from_csv_row(is_new, locale, row, options)
     changed = ActiveSupport::OrderedHash.new
     csv_field_names = options[:field_names]
-    csv_import_fields.each do |field_name, field_notes|
+    csv_import_fields.each do |field_name, _field_notes|
       localized_field_name = self.class.localized_csv_field_name(locale, field_name)
       column = csv_field_names[localized_field_name]
       value = column && row[column]

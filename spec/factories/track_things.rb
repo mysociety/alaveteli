@@ -26,7 +26,7 @@ FactoryBot.define do
     factory :user_track do
       association :tracked_user, factory: :user
       track_type { 'user_updates' }
-      after(:create) do |track_thing, evaluator|
+      after(:create) do |track_thing, _evaluator|
         track_thing.track_query = "requested_by:#{ user.url_name }" \
                                   " OR commented_by: #{ user.url_name }"
         track_thing.save!
@@ -35,7 +35,7 @@ FactoryBot.define do
     factory :public_body_track do
       association :public_body, factory: :public_body
       track_type { 'public_body_updates' }
-      after(:create) do |track_thing, evaluator|
+      after(:create) do |track_thing, _evaluator|
         track_thing.track_query = "requested_from:" \
                                   "#{ track_thing.public_body.url_name }"
         track_thing.save!
@@ -44,7 +44,7 @@ FactoryBot.define do
     factory :request_update_track do
       association :info_request, factory: :info_request
       track_type { 'request_updates' }
-      after(:create) do |track_thing, evaluator|
+      after(:create) do |track_thing, _evaluator|
         track_thing.track_query = "request:" \
                                   "#{ track_thing.info_request.url_title }"
         track_thing.save!

@@ -134,7 +134,7 @@ class ApiController < ApplicationController
     else
       # In the 'response' direction, i.e. what we (Alaveteli) regard as incoming
       attachment_hashes = []
-      (attachments || []).each_with_index do |attachment, i|
+      (attachments || []).each_with_index do |attachment, _i|
         filename = File.basename(attachment.original_filename)
         attachment_body = attachment.read
         content_type = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, attachment_body) || 'application/octet-stream'
