@@ -23,7 +23,7 @@ namespace :import do
     name_count = Hash.new { 0 }
     reader = CSV.open(tmp_csv.path, 'r')
     header_line = reader.shift
-    headers = header_line.map { |h| h.gsub /^#/, '' }
+    headers = header_line.map { |h| h.gsub(/^#/, '') }
 
     reader.each do |row_array|
       row = Hash[headers.zip row_array]

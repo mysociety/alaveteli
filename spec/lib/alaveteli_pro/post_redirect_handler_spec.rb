@@ -28,7 +28,7 @@ RSpec.describe AlaveteliPro::PostRedirectHandler, type: :controller do
       it "overrides the uri" do
         expect(
           controller.override_post_redirect_for_pro(uri, post_redirect, user)
-        ).to match /#{new_alaveteli_pro_info_request_path}\?draft_id=\d+/
+        ).to match(/#{new_alaveteli_pro_info_request_path}\?draft_id=\d+/)
       end
     end
 

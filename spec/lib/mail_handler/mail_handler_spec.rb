@@ -34,7 +34,7 @@ RSpec.describe 'when creating a mail object from raw data' do
 
   it 'should convert an iso8859 email to utf8' do
     mail = get_fixture_mail('iso8859_2_raw_email.email')
-    expect(mail.subject).to match /gjatë/u
+    expect(mail.subject).to match(/gjatë/u)
     expect(MailHandler.get_part_body(mail).is_utf8?).to eq(true)
   end
 
