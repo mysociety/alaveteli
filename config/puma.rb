@@ -1,6 +1,7 @@
 require 'concurrent-ruby'
 
 require File.expand_path('load_env.rb', __dir__)
+require File.expand_path('../lib/configuration.rb', __dir__)
 
 # This configuration file will be evaluated by Puma. The top-level methods that
 # are invoked here are part of Puma's configuration DSL. For more information
@@ -41,3 +42,22 @@ pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+# preloading the application is necessary to ensure the configuration in your
+# initializer runs before the boot callback below.
+preload_app!
+
+if AlaveteliConfiguration.background_jobs == 'embedded'
+  embedded = nil
+
+  on_worker_boot do
+    embedded = Sidekiq.configure_embed do |config|
+      config.concurrency = 1
+    end
+    embedded.run
+  end
+
+  on_worker_shutdown do
+    embedded&.stop
+  end
+end

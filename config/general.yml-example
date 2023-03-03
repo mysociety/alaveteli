@@ -1299,6 +1299,10 @@ USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0
 #   default option up until Alaveteli 0.42 and doesn't require Redis to be.
 #   installed. Due to issues with requests with web requests timing out this has
 #   been superseded by the other options.
+# - 'embedded' to process job embedded server within the web application
+#   process, this is the zero-config option which doesn't require an extra
+#   daemon to be run. This only works when STAGING_SITE is set to "0" for
+#   production deploys.
 # - 'server' to process job by a server running as a system daemon.
 #
 # BACKGROUND_JOBS – String (default: 'server')

@@ -24,3 +24,19 @@ end
 Sidekiq.configure_server do |config|
   config.redis = redis_config
 end
+
+if AlaveteliConfiguration.background_jobs == 'embedded' &&
+    defined?(PhusionPassenger)
+
+  embedded = Sidekiq.configure_embed do |config|
+    config.concurrency = 1
+  end
+
+  PhusionPassenger.on_event(:starting_worker_process) do |forked|
+    embedded&.run if forked
+  end
+
+  PhusionPassenger.on_event(:stopping_worker_process) do
+    embedded&.stop
+  end
+end

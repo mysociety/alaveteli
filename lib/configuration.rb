@@ -138,7 +138,7 @@ module AlaveteliConfiguration
 
   def self.background_jobs
     value = MySociety::Config.get('BACKGROUND_JOBS', DEFAULTS[:BACKGROUND_JOBS])
-    return value if %w[inline server].include?(value)
+    return value if %w[inline embedded server].include?(value)
     raise 'Unknown value for BACKGROUND_JOBS. Please check config/general.yml'
   end
 
