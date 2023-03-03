@@ -167,8 +167,6 @@ class DataExport
     to_run.include?(model_name)
   end
 
-  private
-
   def self.handle_error(err, data)
     p "---"
     puts "Error processing data:"

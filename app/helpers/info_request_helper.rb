@@ -300,8 +300,6 @@ module InfoRequestHelper
     link_to _('details'), help_requesting_path(anchor: anchor)
   end
 
-  private
-
   def attachment_params(attachment, options = {})
     attach_params = {
       incoming_message_id: attachment.incoming_message_id,

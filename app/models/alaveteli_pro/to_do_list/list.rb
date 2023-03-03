@@ -16,8 +16,6 @@ module AlaveteliPro
         items.select { |item| item.count > 0 }
       end
 
-      private
-
       def self.item_types
         [ ToDoList::NewResponse,
           ToDoList::ExpiringEmbargo,

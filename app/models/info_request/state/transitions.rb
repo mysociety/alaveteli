@@ -57,8 +57,6 @@ class InfoRequest
         hash
       end
 
-      private
-
       def self.owner_waiting_response_transition_label(_opts = {})
         _("I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>")
       end
