@@ -1911,12 +1911,72 @@ RSpec.describe User do
       it { is_expected.to eq(false) }
     end
 
-    context 'when the user has reached their rate limit' do
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:user, :admin) }
+
+      # Irrespective of how many comments they've made
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:comments).and_return(true)
+
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+
+      # Irrespective of how many comments they've made
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:comments).and_return(true)
+
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user has reached their daily limit' do
       let(:user) { FactoryBot.build(:user) }
 
       before do
         allow(user).
           to receive(:exceeded_limit?).with(:comments).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has not reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
       end
 
       it { is_expected.to eq(false) }

@@ -24,6 +24,19 @@ class Comment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  DEFAULT_CREATION_RATE_LIMITS = {
+    1 => 2.seconds,
+    2 => 5.minutes,
+    4 => 30.minutes,
+    6 => 1.hour
+  }.freeze
+
+  cattr_accessor :creation_rate_limits,
+                 instance_reader: false,
+                 instance_writer: false,
+                 instance_accessor: false,
+                 default: DEFAULT_CREATION_RATE_LIMITS
+
   strip_attributes allow_empty: true
 
   belongs_to :user,
@@ -84,6 +97,14 @@ class Comment < ApplicationRecord
       # For other databases (e.g. SQLite) not the end of the world being
       # space-sensitive for this check
       Comment.where(info_request_id: info_request_id, body: body).first
+    end
+  end
+
+  def self.exceeded_creation_rate?(comments)
+    comments = comments.reorder(created_at: :desc)
+
+    creation_rate_limits.any? do |limit, duration|
+      comments.where(created_at: duration.ago..).size >= limit
     end
   end
 

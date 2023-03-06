@@ -125,6 +125,10 @@ RSpec.describe CommentController, "when commenting on a request" do
 
   it 'errors if the same comment is submitted twice' do
     user = FactoryBot.build(:user)
+
+    # Ignore rate limiting
+    allow_any_instance_of(User).to receive(:can_make_comments?).and_return(true)
+
     info_request = FactoryBot.build(:info_request, user: user)
     comment =
       FactoryBot.create(:comment, info_request: info_request, user: user)

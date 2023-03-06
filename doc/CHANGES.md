@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add rate limiting to comment creation (Gareth Rees)
 * Fix bug preventing ex-pro users follow up to still-private requests (Gareth
   Rees, Graeme Porteous)
 * Make it clearer that usernames are published (Gareth Rees)

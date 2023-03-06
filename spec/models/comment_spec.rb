@@ -87,6 +87,107 @@ RSpec.describe Comment do
 
   end
 
+  # rubocop:disable Layout/FirstArrayElementIndentation
+  describe '.exceeded_creation_rate?' do
+    subject { described_class.exceeded_creation_rate?(comments) }
+
+    context 'when there are no comments' do
+      let(:comments) { described_class.where(id: nil) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last comment was created in the last 2 seconds' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last comment was created a few seconds ago' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 3.seconds.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last 2 comments were created in the last 5 minutes' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 4 comments were created in the last 30 minutes' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 5.minutes.ago),
+          FactoryBot.create(:comment, created_at: 10.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 6 comments were created in the last hour' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 5.minutes.ago),
+          FactoryBot.create(:comment, created_at: 10.minutes.ago),
+          FactoryBot.create(:comment, created_at: 40.minutes.ago),
+          FactoryBot.create(:comment, created_at: 50.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the comments are reasonably spaced' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 15.minutes.ago),
+          FactoryBot.create(:comment, created_at: 12.minutes.ago),
+          FactoryBot.create(:comment, created_at: 40.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.hours.ago),
+          FactoryBot.create(:comment, created_at: 8.hours.ago),
+          FactoryBot.create(:comment, created_at: 1.day.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the comments are provided out of order' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 3.days.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 1.second.ago)
+        ]).order(created_at: :asc)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+  # rubocop:enable Layout/FirstArrayElementIndentation
+
   describe '#prominence' do
     subject { comment.prominence }
 
