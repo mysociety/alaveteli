@@ -152,7 +152,7 @@ GEM
     bullet (7.0.7)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
-    cancancan (3.4.0)
+    cancancan (3.5.0)
     capistrano (2.15.9)
       highline
       net-scp (>= 1.0.0)
@@ -551,7 +551,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.18)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 7.0.7)
-  cancancan (~> 3.4.0)
+  cancancan (~> 3.5.0)
   capistrano (~> 2.15.0, < 3.0.0)
   capybara (~> 3.38.0)
   charlock_holmes (~> 0.7.7)
