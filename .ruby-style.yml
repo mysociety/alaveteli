@@ -809,6 +809,9 @@ Metrics/BlockNesting:
 Metrics/ClassLength:
   Enabled: false
 
+Metrics/CollectionLiteralLength:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
@@ -1561,6 +1564,9 @@ Style/DefWithParentheses:
 Style/Dir:
   Enabled: false
 
+Style/DirEmpty:
+  Enabled: false
+
 Style/DisableCopsWithinSourceCodeDirective:
   Enabled: false
 
@@ -1638,6 +1644,9 @@ Style/ExponentialNotation:
   Enabled: false
 
 Style/FetchEnvVar:
+  Enabled: false
+
+Style/FileEmpty:
   Enabled: false
 
 Style/FileRead:
