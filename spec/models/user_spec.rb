@@ -2039,9 +2039,16 @@ RSpec.describe User do
 
     context 'limiting user messages' do
       let(:content) { :user_messages }
+      before { FactoryBot.create(:user_message, user: user) }
 
-      it 'always returns false' do
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
         expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
       end
     end
   end

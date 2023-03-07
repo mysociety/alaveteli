@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add daily limit to user message creation (Gareth Rees)
 * Add rate limiting to comment creation (Gareth Rees)
 * Fix bug preventing ex-pro users follow up to still-private requests (Gareth
   Rees, Graeme Porteous)

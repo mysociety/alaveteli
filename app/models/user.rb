@@ -49,7 +49,8 @@ class User < ApplicationRecord
 
   CONTENT_LIMIT = {
     info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,
-    comments: AlaveteliConfiguration.max_requests_per_user_per_day
+    comments: AlaveteliConfiguration.max_requests_per_user_per_day,
+    user_messages: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
   rolify before_add: :setup_pro_account,
@@ -469,8 +470,6 @@ class User < ApplicationRecord
   end
 
   def exceeded_limit?(content)
-    return exceeded_user_message_limit? if content == :user_messages
-
     return false if no_limit?
     return false if can_make_batch_requests?
     return false if content_limit(content).blank?
@@ -681,9 +680,5 @@ class User < ApplicationRecord
 
   def content_limit(content)
     CONTENT_LIMIT[content]
-  end
-
-  def exceeded_user_message_limit?
-    false
   end
 end
