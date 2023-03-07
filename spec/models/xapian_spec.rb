@@ -67,6 +67,8 @@ end
 
 RSpec.describe PublicBody, " when indexing requests by body they are to" do
 
+  include ActiveJob::TestHelper
+
   before(:each) do
     load_raw_emails_data
     update_xapian_index
@@ -88,6 +90,7 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
     body.short_name = 'GQ'
     body.save!
     expect(body.url_name).to eq('gq')
+    perform_enqueued_jobs
     update_xapian_index
 
     # check we get results expected
@@ -108,6 +111,7 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
     body.short_name = 'The Uncensored, Complete Name of the Quasi-Autonomous Public Body Also Known As Geraldine'
     body.save!
     expect(body.url_name.size).to be > 70
+    perform_enqueued_jobs
     update_xapian_index
 
     # check we get results expected
@@ -122,6 +126,8 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
 end
 
 RSpec.describe User, " when indexing requests by user they are from" do
+  include ActiveJob::TestHelper
+
   before(:each) do
     load_raw_emails_data
     update_xapian_index
@@ -243,6 +249,7 @@ RSpec.describe User, " when indexing requests by user they are from" do
     u.name = 'Robert Smith'
     u.save!
     expect(u.url_name).to eq('robert_smith')
+    perform_enqueued_jobs
     update_xapian_index
 
     # check we get results expected

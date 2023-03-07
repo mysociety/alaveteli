@@ -753,18 +753,10 @@ RSpec.describe PublicBody do
   end
 
   describe '#expire_requests' do
-    it 'calls expire on all associated requests' do
+    it 'create expire job for the public body' do
       public_body = FactoryBot.build(:public_body)
-
-      request_1 = double(:info_request)
-      request_2 = double(:info_request)
-
-      allow(public_body).to receive_message_chain(:info_requests, :find_each).
-        and_yield(request_1).and_yield(request_2)
-
-      expect(request_1).to receive(:expire)
-      expect(request_2).to receive(:expire)
-
+      expect(InfoRequestExpireJob).to receive(:perform_later).
+        with(public_body, :info_requests)
       public_body.expire_requests
     end
   end
@@ -1109,6 +1101,8 @@ RSpec.describe PublicBody, "when finding_by_tags" do
 end
 
 RSpec.describe PublicBody, " when saving" do
+  include ActiveJob::TestHelper
+
   before do
     @public_body = PublicBody.new
   end
@@ -1191,6 +1185,7 @@ RSpec.describe PublicBody, " when saving" do
     ActsAsXapian::ActsAsXapianJob.destroy_all
 
     body.update!(url_name: 'baz-bar-foo')
+    perform_enqueued_jobs
 
     expected_events =
       ActsAsXapian::ActsAsXapianJob.

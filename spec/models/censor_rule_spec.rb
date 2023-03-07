@@ -160,37 +160,34 @@ RSpec.describe CensorRule do
 
   describe '#expire_requests' do
 
-    it 'calls expire on the request if it is a request rule' do
+    it 'create expire job for the request if it is a request rule' do
       request = FactoryBot.create(:info_request)
       rule = FactoryBot.create(:info_request_censor_rule,
                                info_request: request)
-      expect(request).to receive(:expire)
+      expect(InfoRequestExpireJob).to receive(:perform_later).with(request)
       rule.expire_requests
     end
 
-    it 'calls expire_requests on the user if it is a user rule' do
+    it 'create expire job for the user if it is a user rule' do
       user = FactoryBot.create(:user)
       rule = FactoryBot.create(:user_censor_rule, user: user)
-      expect(user).to receive(:expire_requests)
+      expect(InfoRequestExpireJob).to receive(:perform_later).
+        with(user, :info_requests)
       rule.expire_requests
     end
 
-    it 'calls expire_requests on the public body if it is a public body rule' do
+    it 'create expire job for the public body if it is a public body rule' do
       body = FactoryBot.create(:public_body)
       rule = FactoryBot.create(:public_body_censor_rule, public_body: body)
-      expect(body).to receive(:expire_requests)
+      expect(InfoRequestExpireJob).to receive(:perform_later).
+        with(body, :info_requests)
       rule.expire_requests
     end
 
-    it 'calls expire on all public requests if it is a global rule' do
+    it 'create expire job for all requests if it is a global rule' do
       rule = FactoryBot.build(:global_censor_rule)
-      requests = [double, double]
-      expect(InfoRequest).to receive(:find_in_batches).and_yield(requests)
-
-      requests.each do |request|
-        expect(request).to receive(:expire)
-      end
-
+      expect(InfoRequestExpireJob).to receive(:perform_later).
+        with(InfoRequest, :all)
       rule.expire_requests
     end
 

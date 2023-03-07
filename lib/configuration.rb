@@ -21,6 +21,7 @@ module AlaveteliConfiguration
       ADMIN_USERNAME: '',
       AUTHORITY_MUST_RESPOND: true,
       AVAILABLE_LOCALES: 'en',
+      BACKGROUND_JOBS: 'server',
       BLACKHOLE_PREFIX: 'do-not-reply-to-this-address',
       BLOCK_RATE_LIMITED_IPS: false,
       BLOCK_RESTRICTED_COUNTRY_IPS: false,
@@ -133,6 +134,12 @@ module AlaveteliConfiguration
       WORKING_OR_CALENDAR_DAYS: 'working'
     }
     # rubocop:enable Layout/LineLength
+  end
+
+  def self.background_jobs
+    value = MySociety::Config.get('BACKGROUND_JOBS', DEFAULTS[:BACKGROUND_JOBS])
+    return value if %w[inline server].include?(value)
+    raise 'Unknown value for BACKGROUND_JOBS. Please check config/general.yml'
   end
 
   def self.method_missing(name)

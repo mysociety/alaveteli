@@ -26,6 +26,8 @@ AllCops:
     - ".git/**/*"
     - bin/bundle
     - bin/rubocop
+    - bin/sidekiq
+    - bin/sidekiqmon
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true

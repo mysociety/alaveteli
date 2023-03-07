@@ -170,7 +170,8 @@ GEM
       xpath (~> 3.2)
     charlock_holmes (0.7.7)
     coderay (1.1.3)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
+    connection_pool (2.3.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -207,7 +208,7 @@ GEM
     flipper-active_record (0.24.1)
       activerecord (>= 4.2, < 8)
       flipper (~> 0.24.1)
-    forwardable (1.3.2)
+    forwardable (1.3.3)
     gender_detector (2.0.0)
     gettext (3.4.3)
       erubi
@@ -404,6 +405,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.12.3)
       json
+    redis (4.8.1)
     regexp_parser (2.7.0)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -469,6 +471,10 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     secure_headers (6.5.0)
+    sidekiq (6.5.8)
+      connection_pool (>= 2.2.5, < 3)
+      rack (~> 2.0)
+      redis (>= 4.5.0, < 5)
     signet (0.17.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -599,6 +605,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 7.0.5)
   recaptcha (~> 5.12.3)
+  redis (~> 4.8.1)
   rolify (~> 6.0.1)
   routing-filter (~> 0.7.0)
   rspec-activemodel-mocks (~> 1.1.0)
@@ -610,6 +617,7 @@ DEPENDENCIES
   rubyzip (~> 2.3.2)
   sass-rails (~> 5.0.8)
   secure_headers (~> 6.5.0)
+  sidekiq (~> 6.5.8)
   simplecov (~> 0.22.0)
   simplecov-lcov (~> 0.7.0)
   statistics2 (~> 0.54)

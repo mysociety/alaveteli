@@ -791,18 +791,10 @@ RSpec.describe User do
   end
 
   describe '#expire_requests' do
-    it 'calls expire on all associated requests' do
+    it 'create expire job for the user' do
       user = FactoryBot.build(:user)
-
-      request_1 = double(:info_request)
-      request_2 = double(:info_request)
-
-      allow(user).to receive_message_chain(:info_requests, :find_each).
-        and_yield(request_1).and_yield(request_2)
-
-      expect(request_1).to receive(:expire)
-      expect(request_2).to receive(:expire)
-
+      expect(InfoRequestExpireJob).to receive(:perform_later).
+        with(user, :info_requests)
       user.expire_requests
     end
   end

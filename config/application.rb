@@ -3,7 +3,7 @@ require_relative "boot"
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-# require "active_job/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
@@ -69,6 +69,9 @@ module Alaveteli
     config.cache_store = :mem_cache_store,
       { namespace: "#{AlaveteliConfiguration.domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
+
+    # Use a real queuing backend for Active Job
+    config.active_job.queue_adapter = :sidekiq
 
     config.after_initialize do |app|
       # Add a catch-all route to force routing errors to be handled by the application,
