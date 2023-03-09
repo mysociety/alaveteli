@@ -29,9 +29,7 @@ class GeneralController < ApplicationController
 
   # Display blog entries
   def blog
-    if AlaveteliConfiguration.blog_feed.empty?
-      raise ActiveRecord::RecordNotFound, "Page not enabled"
-    end
+    raise(ActiveRecord::RecordNotFound, "Page not enabled") unless Blog.enabled?
 
     medium_cache
 
