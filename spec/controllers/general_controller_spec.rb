@@ -23,16 +23,22 @@ RSpec.describe GeneralController do
   end
 
   describe 'GET blog' do
+    let(:blog) { Blog.new }
+
+    before do
+      allow(Blog).to receive(:new).and_return(blog)
+    end
+
     context 'when feed is configured' do
       before do
         allow(AlaveteliConfiguration).to receive(:blog_feed).
           and_return('http://blog.example.com')
-        allow(controller).to receive(:quietly_try_to_open).and_return('')
+        allow(blog).to receive(:quietly_try_to_open).and_return('')
       end
 
       it 'adds lang query param correctly' do
         get :blog
-        expect(assigns[:feed_url]).to eq('http://blog.example.com?lang=en')
+        expect(assigns[:blog].feed_url).to eq('http://blog.example.com?lang=en')
       end
     end
 
@@ -40,12 +46,12 @@ RSpec.describe GeneralController do
       before do
         allow(AlaveteliConfiguration).to receive(:blog_feed).
           and_return('http://blog.example.com?alt=rss')
-        allow(controller).to receive(:quietly_try_to_open).and_return('')
+        allow(blog).to receive(:quietly_try_to_open).and_return('')
       end
 
       it 'adds lang query param correctly' do
         get :blog
-        expect(assigns[:feed_url]).to eq(
+        expect(assigns[:blog].feed_url).to eq(
           'http://blog.example.com?alt=rss&lang=en'
         )
       end
@@ -57,13 +63,13 @@ RSpec.describe GeneralController do
       before do
         allow(AlaveteliConfiguration).to receive(:blog_feed).
           and_return('http://blog.example.com')
-        allow(controller).to receive(:quietly_try_to_open).
+        allow(blog).to receive(:quietly_try_to_open).
           and_return(load_file_fixture('blog_feed.atom'))
       end
 
       it 'parses item from an example feed' do
         get :blog
-        expect(assigns[:blog_items].count).to eq(1)
+        expect(assigns[:blog].items.count).to eq(1)
       end
 
       it 'escapes any javascript from the entries' do
@@ -84,7 +90,7 @@ RSpec.describe GeneralController do
       it 'should fail silently if the blog is returning an error' do
         get :blog
         expect(response.status).to eq(200)
-        expect(assigns[:blog_items].count).to eq(0)
+        expect(assigns[:blog].items.count).to eq(0)
       end
     end
 

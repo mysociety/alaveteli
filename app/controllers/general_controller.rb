@@ -32,33 +32,10 @@ class GeneralController < ApplicationController
     raise(ActiveRecord::RecordNotFound, "Page not enabled") unless Blog.enabled?
 
     medium_cache
-
-    get_blog_content
-  end
-
-  def get_blog_content
-    @feed_autodetect = []
-    @feed_url = AlaveteliConfiguration.blog_feed
-    separator = @feed_url.include?('?') ? '&' : '?'
-    @feed_url = "#{ @feed_url }#{ separator }lang=" \
-                "#{ AlaveteliLocalization.html_lang }"
-    @blog_items = []
-    unless @feed_url.empty?
-      timeout = if AlaveteliConfiguration.blog_timeout.blank?
-        60
-      else
-        AlaveteliConfiguration.blog_timeout
-      end
-      content = quietly_try_to_open(@feed_url, timeout)
-      unless content.empty?
-        @data = XmlSimple.xml_in(content)
-        @channel = @data['channel'][0]
-        @blog_items = @channel.fetch('item') { [] }
-        @feed_autodetect = [{url: @feed_url, title: "#{site_name} blog"}]
-      end
-    end
+    @blog = Blog.new
     @twitter_user = AlaveteliConfiguration.twitter_username
     @facebook_user = AlaveteliConfiguration.facebook_username
+    @feed_autodetect = @blog.feeds
   end
 
   # Just does a redirect from ?query= search to /query

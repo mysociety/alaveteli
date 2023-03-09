@@ -4,7 +4,7 @@ RSpec.describe 'general/blog' do
   subject { rendered }
 
   before do
-    assign :blog_items, blog_items
+    assign :blog, double(items: blog_items)
     assign :twitter_user, double.as_null_object
     assign :facebook_user, double.as_null_object
     render
