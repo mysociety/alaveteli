@@ -15,13 +15,17 @@ class Project
     end
 
     def extractable
-      scope = where(described_state: EXTRACTABLE_STATES).
-        left_joins(:extraction_project_submissions).
+      where(described_state: EXTRACTABLE_STATES).
+        joins(
+          <<~SQL.squish
+            LEFT OUTER JOIN "project_submissions" ON
+            "project_submissions"."resource_type" = 'Dataset::ValueSet' AND
+            "project_submissions"."info_request_id" = "info_requests"."id" AND
+            "project_submissions"."project_id" = #{project.id}
+          SQL
+        ).
+        where(project_submissions: { id: nil }).
         classified
-
-      scope.where(project_submissions: { id: nil }).or(
-        scope.where.not(project_submissions: { project: project })
-      )
     end
 
     def extracted
