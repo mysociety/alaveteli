@@ -35,14 +35,14 @@ RSpec.describe Project, type: :model, feature: :projects do
       FactoryBot.create(
         :project, requests: [
           unclassified_request, classified_request, extracted_request,
-          other_project_extracted_request
+          other_project_extracted_request, both_projects_extracted_request
         ]
       )
     end
     let(:other_project) do
       FactoryBot.create(
         :project, requests: [
-          other_project_extracted_request
+          other_project_extracted_request, both_projects_extracted_request
         ]
       )
     end
@@ -69,6 +69,13 @@ RSpec.describe Project, type: :model, feature: :projects do
         described_state: 'successful'
       )
     end
+    let(:both_projects_extracted_request) do
+      FactoryBot.build(
+        :info_request,
+        awaiting_description: false,
+        described_state: 'successful'
+      )
+    end
 
     before do
       FactoryBot.create(
@@ -82,6 +89,14 @@ RSpec.describe Project, type: :model, feature: :projects do
       FactoryBot.create(
         :project_submission, :for_extraction,
         project: other_project, info_request: other_project_extracted_request
+      )
+      FactoryBot.create(
+        :project_submission, :for_extraction,
+        project: project, info_request: both_projects_extracted_request
+      )
+      FactoryBot.create(
+        :project_submission, :for_extraction,
+        project: other_project, info_request: both_projects_extracted_request
       )
     end
   end
@@ -363,6 +378,10 @@ RSpec.describe Project, type: :model, feature: :projects do
 
     it 'includes requests extracted in other projects' do
       is_expected.to include other_project_extracted_request
+    end
+
+    it 'excludes requests extracted in both projects' do
+      is_expected.not_to include both_projects_extracted_request
     end
   end
 
