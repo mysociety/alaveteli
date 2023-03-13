@@ -42,10 +42,16 @@ namespace :config_files do
   def daemons
     [
       {
+        path: '/etc/systemd/system',
+        name: 'puma.service',
+        template: 'config/puma.service.example',
+        condition: -> { ENV['RAILS_ENV'] == 'production' }
+      },
+      {
+        # this exists to ensure old services are removed
         path: '/etc/init.d',
         name: 'thin',
-        template: 'config/sysvinit-thin.example',
-        condition: -> { ENV['RAILS_ENV'] == 'production' }
+        condition: -> { false }
       },
       {
         path: '/etc/init.d',
