@@ -13,6 +13,10 @@ class Blog
     AlaveteliConfiguration.blog_feed.present?
   end
 
+  def self.table_name_prefix
+    'blog_'
+  end
+
   def posts
     return [] if content.empty?
 
