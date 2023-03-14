@@ -4,18 +4,18 @@
   <h1><%=@title %></h1>
 
   <div id="blog" class="blog">
-    <% @blog.items.each do |item| %>
+    <% @blog.posts.each do |post| %>
       <div class="blog_post">
-        <% date = Time.zone.parse(item['pubDate'][0]) %>
+        <% date = Time.zone.parse(post['pubDate'][0]) %>
 
         <h2 id="<%= date.to_i %>">
-          <a href="<%= item['link'][0] %>">
-            <%=h item['title'][0] %>
+          <a href="<%= post['link'][0] %>">
+            <%=h post['title'][0] %>
           </a>
         </h2>
 
         <% author =
-          item['creator'] ? item['creator']&.first : item['author']&.first %>
+          post['creator'] ? post['creator']&.first : post['author']&.first %>
 
         <% if author && date %>
           <p class="subtitle">
@@ -30,20 +30,20 @@
         <% end %>
 
         <div>
-          <% if item['encoded'] %>
-            <%= sanitize(raw item['encoded'][0]) %>
-          <% elsif item['description'] %>
-            <%= sanitize(raw item['description'][0]) %>
+          <% if post['encoded'] %>
+            <%= sanitize(raw post['encoded'][0]) %>
+          <% elsif post['description'] %>
+            <%= sanitize(raw post['description'][0]) %>
           <% end %>
         </div>
         <p>
           <em>
-            <% if item['comments'] %>
-              <a href="<%=item['comments'][0]%>"><%= n_(
+            <% if post['comments'] %>
+              <a href="<%=post['comments'][0]%>"><%= n_(
                 "{{number_of_comments}} comment",
                 "{{number_of_comments}} comments",
-                item['comments'][1],
-                :number_of_comments=>item['comments'][1]) %></a>
+                post['comments'][1],
+                :number_of_comments=>post['comments'][1]) %></a>
             <% end %>
           </em>
         </p>

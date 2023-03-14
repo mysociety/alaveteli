@@ -13,7 +13,7 @@ class Blog
     AlaveteliConfiguration.blog_feed.present?
   end
 
-  def items
+  def posts
     return [] if content.empty?
 
     data = XmlSimple.xml_in(content)

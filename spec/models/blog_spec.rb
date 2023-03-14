@@ -22,9 +22,9 @@ RSpec.describe Blog do
     end
   end
 
-  describe '#items' do
+  describe '#posts' do
     let(:blog) { described_class.new }
-    subject(:items) { blog.items }
+    subject(:posts) { blog.posts }
 
     context 'when feed is fetched successfully' do
       before do
@@ -36,7 +36,7 @@ RSpec.describe Blog do
       end
 
       it 'parses an item from an example feed' do
-        expect(items.count).to eq(1)
+        expect(posts.count).to eq(1)
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Blog do
       end
 
       it 'should fail silently if the blog is returning an error' do
-        expect(items.count).to eq(0)
+        expect(posts.count).to eq(0)
       end
     end
   end
