@@ -4,7 +4,7 @@
       <a href="#<%= dom_id(blog_post) %>" data-toggle="collapse" data-parent="blog_posts">
         <%= chevron_right %>
       </a>
-      <%= blog_post.title %>
+      <%= link_to blog_post.title, edit_admin_blog_post_path(blog_post) %>
     </span>
   </div>
 

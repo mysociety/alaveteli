@@ -497,7 +497,7 @@ Rails.application.routes.draw do
 
   #### Admin::BlogPosts controller
   namespace :admin do
-    resources :blog_posts, only: [:index]
+    resources :blog_posts, only: [:index, :edit, :update]
   end
   ####
 
