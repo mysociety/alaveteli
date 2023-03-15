@@ -1,0 +1,24 @@
+<div class="accordion-group">
+  <div class="accordion-heading accordion-toggle row">
+    <span class="item-title span6">
+      <a href="#<%= dom_id(blog_post) %>" data-toggle="collapse" data-parent="blog_posts">
+        <%= chevron_right %>
+      </a>
+      <%= blog_post.title %>
+    </span>
+  </div>
+
+  <div id="<%= dom_id(blog_post) %>" class="item-detail accordion-body collapse row">
+    <% blog_post.for_admin_column do |name, value| %>
+      <div>
+        <span class="span6">
+          <b><%= name.humanize %></b>
+        </span>
+
+        <span class="span6">
+          <%= admin_value(value) %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>

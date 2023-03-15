@@ -1,0 +1,21 @@
+<% @title = 'Blog Posts' %>
+
+<h1><%= @title %></h1>
+
+<% if Blog.enabled? %>
+  <% if @blog_posts.size > 0 %>
+    <%= render partial: 'admin/blog_posts/blog_post', collection: @blog_posts %>
+  <% else %>
+    <div class="row">
+      <p class="span12">None yet.</p>
+    </div>
+  <% end %>
+
+  <%= will_paginate(@blog_posts) %>
+<% else %>
+  <div class="alert alert-block alert-disabled">
+    <h4>Blog Posts Disabled</h4>
+    To enable blog posts set <tt>BLOG_FEED</tt> to the URL of your external blog
+    feed in Alaveteli’s configuration.
+  </div>
+<% end %>
