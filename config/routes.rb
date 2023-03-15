@@ -209,6 +209,7 @@ Rails.application.routes.draw do
         resources :contributors, only: [:destroy]
 
         resource :download, only: [:show], format: true
+        resource :leaderboard, only: [:show], format: true
       end
     end
   end
