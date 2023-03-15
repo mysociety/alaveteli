@@ -6,6 +6,10 @@
       </a>
       <%= both_links(blog_post) %>
     </span>
+
+    <span class="item-metadata span6">
+      <%= render_tags blog_post.tags %>
+    </span>
   </div>
 
   <div id="<%= dom_id(blog_post) %>" class="item-detail accordion-body collapse row">

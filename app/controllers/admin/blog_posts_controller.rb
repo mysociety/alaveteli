@@ -30,6 +30,8 @@ class Admin::BlogPostsController < AdminController
   end
 
   def blog_post_params
-    {}
+    params.require(:blog_post).permit(
+      :tag_string
+    )
   end
 end

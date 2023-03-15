@@ -70,6 +70,7 @@ RSpec.describe Admin::BlogPostsController do
 
   describe 'PATCH #update' do
     let(:blog_post) { FactoryBot.build(:blog_post, id: 1) }
+    let(:params) { { tag_string: 'foo' } }
 
     before do
       allow(Blog::Post).to receive(:find).and_return(blog_post)
@@ -81,17 +82,17 @@ RSpec.describe Admin::BlogPostsController do
       end
 
       it 'assigns the blog post' do
-        patch :update, params: { id: blog_post.id }
+        patch :update, params: { id: blog_post.id, blog_post: params }
         expect(assigns[:blog_post]).to eq(blog_post)
       end
 
       it 'sets a notice' do
-        patch :update, params: { id: blog_post.id }
+        patch :update, params: { id: blog_post.id, blog_post: params }
         expect(flash[:notice]).to eq('Blog Post successfully updated.')
       end
 
       it 'redirects to the blog posts admin' do
-        patch :update, params: { id: blog_post.id }
+        patch :update, params: { id: blog_post.id, blog_post: params }
         expect(response).to redirect_to(admin_blog_posts_path)
       end
     end
@@ -102,12 +103,12 @@ RSpec.describe Admin::BlogPostsController do
       end
 
       it 'assigns the blog post' do
-        patch :update, params: { id: blog_post.id }
+        patch :update, params: { id: blog_post.id, blog_post: params }
         expect(assigns[:blog_post]).to eq(blog_post)
       end
 
       it 'renders the form again' do
-        patch :update, params: { id: blog_post.id }
+        patch :update, params: { id: blog_post.id, blog_post: params }
         expect(response).to render_template(:edit)
       end
     end
