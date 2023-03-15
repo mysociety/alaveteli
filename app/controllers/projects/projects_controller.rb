@@ -4,6 +4,7 @@ class Projects::ProjectsController < Projects::BaseController
 
   def show
     authorize! :read, @project
+    @leaderboard = Project::Leaderboard.new(@project)
   end
 
   private
