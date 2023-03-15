@@ -38,6 +38,36 @@ RSpec.describe Blog do
       it 'parses an item from an example feed' do
         expect(posts.count).to eq(1)
       end
+
+      it 'returns Blog::Post objects' do
+        expect(posts).to all be_a(Blog::Post)
+      end
+
+      it 'maps feed title to model title' do
+        expect(posts.first.title).to eq('Example Post')
+      end
+
+      it 'maps feed link to model url' do
+        expect(posts.first.url).to eq('http://www.example.com/example-post')
+      end
+
+      it 'maps feed to model data' do
+        expect(posts.first.data).to include(
+          'category' => ['FOI'],
+          'creator' => ['Example Blogger'],
+          'comments' => ['http://www.example.com/example-post#comments', '2'],
+          'pubDate' => ['Mon, 01 Apr 2013 19:26:08 +0000']
+        )
+      end
+
+      it 'updates existing Blog::Post object when URL matches' do
+        existing = FactoryBot.create(
+          :blog_post, url: 'http://www.example.com/example-post'
+        )
+        expect { posts }.to change { existing.reload.title }.
+          from('My fancy blog post - part 1').
+          to('Example Post')
+      end
     end
 
     context 'when feed returns an error' do
