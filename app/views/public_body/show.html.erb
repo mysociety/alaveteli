@@ -153,13 +153,13 @@
     <% end %>
   </div>
 
-  <div class="authority__body__sidebar"role="complementary">
+  <div class="authority__body__sidebar" role="complementary">
     <% if @number_of_visible_requests > 4 %>
       <%= render :partial => 'request/request_search_form' %>
     <% end %>
 
-    <%= render :partial => 'more_info', :locals => { :public_body => @public_body } %>
-
+    <div class="sidebar__section more_info">
+      <%= render :partial => 'more_info', :locals => { :public_body => @public_body } %>
+    </div>
   </div>
-
 </div>
