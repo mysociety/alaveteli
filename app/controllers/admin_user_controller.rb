@@ -48,13 +48,16 @@ class AdminUserController < AdminController
 
   def show
     @info_requests = @admin_user.info_requests
+    @info_request_batches = @admin_user.info_request_batches
     @comments = @admin_user.comments
+
     if cannot? :admin, AlaveteliPro::Embargo
       @info_requests = @info_requests.not_embargoed
+      @info_request_batches = @info_request_batches.not_embargoed
       @comments = @admin_user.comments.not_embargoed
     end
-    @info_requests = @info_requests.paginate(page: params[:page],
-                                             per_page: 100)
+
+    @info_requests = @info_requests.paginate(page: params[:page], per_page: 100)
   end
 
   def edit
