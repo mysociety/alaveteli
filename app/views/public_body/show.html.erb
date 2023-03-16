@@ -161,5 +161,6 @@
     <div class="sidebar__section more_info">
       <%= render :partial => 'more_info', :locals => { :public_body => @public_body } %>
     </div>
+    <%= render :partial => 'blog_posts/blog_posts', :locals => { :taggable => @public_body } %>
   </div>
 </div>
