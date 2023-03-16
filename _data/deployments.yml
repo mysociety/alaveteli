@@ -113,7 +113,7 @@
     es: Croacia
 
 - title: Ki Mit Tud
-  url: https://kimittud.atlatszo.hu
+  url: https://kimittud.hu/
   image: ki-mit-tud.jpg
   featured: false
   pro: false
@@ -140,7 +140,7 @@
     es: Noruega
 
 - title: arthro5A.gr
-  url: https://arthro5a.gr
+  url: https://www.arthro5a.gr
   image: arthro5a.jpg
   featured: false
   pro: true
@@ -158,7 +158,7 @@
     es: Moldavia
 
 - title: Bilmehakki
-  url: http://bilmehakki.org
+  url: https://bilmehakki.org
   image: bilmehakki.jpg
   featured: false
   pro: false
@@ -248,7 +248,7 @@
     es: Nicaragua
 
 - title: InfoLib
-  url: http://infolib.org.lr
+  url: https://infolib.org.lr
   image: infolib.jpg
   featured: false
   pro: false
