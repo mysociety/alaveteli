@@ -1111,7 +1111,7 @@ RSpec.describe User do
       user.close_and_anonymise
       censor_rule = user.censor_rules.last
       expect(censor_rule.text).to eq(user_name)
-      expect(censor_rule.replacement).to eq ('[Name Removed]')
+      expect(censor_rule.replacement).to eq('[Name Removed]')
     end
 
     it 'does not create a censor rule for user name if the user does not have info requests' do
@@ -1358,7 +1358,7 @@ RSpec.describe User do
         subject
         censor_rule = user.censor_rules.last
         expect(censor_rule.text).to eq(user.name)
-        expect(censor_rule.replacement).to eq ('[Name Removed]')
+        expect(censor_rule.replacement).to eq('[Name Removed]')
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
       end
