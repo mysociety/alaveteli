@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add ability to paginate through requests in a batch (Gareth Rees)
 * Add list of batch requests to admin user page (Gareth Rees)
 * Add daily limit to user message creation (Gareth Rees)
 * Add rate limiting to comment creation (Gareth Rees)
