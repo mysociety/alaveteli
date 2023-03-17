@@ -1098,7 +1098,8 @@ RSpec.describe User do
 
     before do
       allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
-      allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
+      allow(MySociety::Util).
+        to receive(:generate_token).and_return('r@nd0m-pa$$w0rd')
       allow(AlaveteliConfiguration).
         to receive(:user_sign_in_activity_retention_days).and_return(1)
       FactoryBot.create(:user_sign_in, user: user)
@@ -1145,7 +1146,7 @@ RSpec.describe User do
 
     it 'should anonymise user password' do
       expect { user.close_and_anonymise }.
-        to change(user, :password).to('ABCD')
+        to change(user, :password).to('r@nd0m-pa$$w0rd')
     end
 
     it 'should set user to not receive email alerts' do
@@ -1161,11 +1162,66 @@ RSpec.describe User do
   end
 
   describe '#close' do
+    subject { user.close }
+
     let(:user) { FactoryBot.build(:user) }
 
-    it 'closes the user account' do
-      user.close
-      expect(user).to be_closed
+    context 'the update is successful' do
+      before do
+        expect(user).to receive(:close!).and_call_original
+        subject
+      end
+
+      it { is_expected.to eq(true) }
+
+      it 'closes the account' do
+        expect(user).to be_closed
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:close!).and_raise(ActiveRecord::RecordInvalid)
+        subject
+      end
+
+      it { is_expected.to eq(false) }
+
+      it 'does not close the account' do
+        expect(user).not_to be_closed
+      end
+    end
+  end
+
+  describe '#close!' do
+    subject { user.close! }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'the update is successful' do
+      before { subject }
+
+      it 'closes the account' do
+        expect(user).to be_closed
+      end
+
+      it 'sets closed_at' do
+        expect(user.closed_at).to be_present
+      end
+
+      it 'disables email alerts' do
+        expect(user.receive_email_alerts).to eq(false)
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an ActiveRecord::RecordInvalid error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
     end
   end
 
@@ -1182,6 +1238,138 @@ RSpec.describe User do
       expect(user).to_not be_closed
     end
 
+  end
+
+  describe '#erase' do
+    subject { user.erase }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'the update is successful' do
+      before do
+        user.close!
+        expect(user).to receive(:erase!).and_call_original
+        subject
+      end
+
+      it { is_expected.to eq(true) }
+
+      it 'erases the account' do
+        expect(user.name).to match(/Name Removed/)
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:erase!).and_raise(ActiveRecord::RecordInvalid)
+        subject
+      end
+
+      it { is_expected.to eq(false) }
+
+      it 'does not erase the account' do
+        expect(user.name).not_to match(/Name Removed/)
+      end
+    end
+  end
+
+  describe '#erase!' do
+    subject { user.erase! }
+
+    context 'the user account is not closed' do
+      let(:user) { FactoryBot.build(:user, about_me: 'Hi') }
+
+      it 'raises an ActiveRecord::RecordInvalid' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
+    context 'the update is successful' do
+      let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
+
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+        FactoryBot.create(:user_sign_in, user: user)
+        FactoryBot.create(:profile_photo, user: user)
+
+        allow(Digest::SHA1).to receive(:hexdigest).and_return('a1b2c3d4')
+        allow(MySociety::Util).
+          to receive(:generate_token).and_return('r@nd0m-pa$$w0rd')
+
+        subject
+
+        user.reload
+      end
+
+      it 'erases the name' do
+        # #name currently appends "(Account suspended)". Here we specifically
+        # only care about the data we hold.
+        expect(user.read_attribute(:name)).to eq('[Name Removed]')
+      end
+
+      it 'erases the url_name' do
+        expect(user.url_name).to eq('a1b2c3d4')
+      end
+
+      it 'erases the email' do
+        expect(user.email).to eq('a1b2c3d4@invalid')
+      end
+
+      it 'erases the password' do
+        expect(user.password).to eq('r@nd0m-pa$$w0rd')
+      end
+
+      it 'erases the about_me' do
+        expect(user.about_me).to be_empty
+      end
+
+      it 'destroys any sign_ins' do
+        expect(user.sign_ins).to be_empty
+      end
+
+      it 'destroys any profile photo' do
+        expect(user.profile_photo).to be_nil
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
+
+      before do
+        expect(user).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an ActiveRecord::RecordInvalid error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+  end
+
+  describe '#anonymise!' do
+    subject { user.anonymise! }
+
+    let(:user) { FactoryBot.build(:user, name: 'Bob Smith') }
+
+    context 'when the user has info requests' do
+      before { FactoryBot.create(:info_request, user: user) }
+
+      it 'creates a censor rule for user name if the user has info requests' do
+        subject
+        censor_rule = user.censor_rules.last
+        expect(censor_rule.text).to eq(user.name)
+        expect(censor_rule.replacement).to eq ('[Name Removed]')
+        expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
+        expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
+      end
+    end
+
+    context 'when the user has no info requests' do
+      it 'does not create a censor rule' do
+        subject
+        expect(user.censor_rules).to be_empty
+      end
+    end
   end
 
   describe '.closed' do

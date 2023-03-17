@@ -100,6 +100,7 @@ FactoryBot.define do
 
     trait :closed do
       closed_at { Time.zone.now }
+      receive_email_alerts { false }
     end
   end
 end

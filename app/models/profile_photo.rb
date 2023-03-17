@@ -32,7 +32,7 @@ class ProfilePhoto < ApplicationRecord
   attr_accessor :x, :y, :w, :h
   attr_accessor :image
 
-  after_initialize :convert_data_to_image
+  before_validation :convert_data_to_image
 
   # make image valid format and size
   def convert_image

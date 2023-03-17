@@ -406,30 +406,58 @@ class User < ApplicationRecord
   end
 
   def close
-    update(closed_at: Time.zone.now)
+    close!
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def close!
+    update!(closed_at: Time.zone.now, receive_email_alerts: false)
   end
 
   def closed?
     closed_at.present?
   end
 
-  def close_and_anonymise
+  def erase
+    erase!
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def erase!
+    raise ActiveRecord::RecordInvalid unless closed?
+
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
     transaction do
-      redact_name! if info_requests.any?
-
       sign_ins.destroy_all
+      profile_photo&.destroy!
 
-      update(
+      update!(
         name: _('[Name Removed]'),
         email: "#{sha}@invalid",
         url_name: sha,
         about_me: '',
-        password: MySociety::Util.generate_token,
-        receive_email_alerts: false,
-        closed_at: Time.zone.now
+        password: MySociety::Util.generate_token
       )
+    end
+  end
+
+  def anonymise!
+    return if info_requests.none?
+
+    censor_rules.create!(text: read_attribute(:name),
+                         replacement: _('[Name Removed]'),
+                         last_edit_editor: 'User#anonymise!',
+                         last_edit_comment: 'User#anonymise!')
+  end
+
+  def close_and_anonymise
+    transaction do
+      close!
+      anonymise!
+      erase!
     end
   end
 
@@ -635,13 +663,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def redact_name!
-    censor_rules.create!(text: name,
-                         replacement: _('[Name Removed]'),
-                         last_edit_editor: 'User#close_and_anonymise',
-                         last_edit_comment: 'User#close_and_anonymise')
-  end
 
   def set_defaults
     return unless new_record?
