@@ -380,7 +380,7 @@ RSpec.describe NotificationMailer do
     it "sets the right subject line" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       expect(mail.subject).
-        to eq ("Your daily request summary from Alaveteli Professional")
+        to eq("Your daily request summary from Alaveteli Professional")
     end
 
     it "matches the expected message" do

@@ -53,7 +53,7 @@ module InfoRequestHelper
     end
   end
 
-  def status_text_waiting_response(info_request, opts = {})
+  def status_text_waiting_response(info_request, _opts = {})
     str = _('Currently <strong>waiting for a response</strong> from ' \
             '{{public_body_link}}, they should respond promptly and',
             public_body_link: public_body_link(info_request.public_body))
@@ -70,7 +70,7 @@ module InfoRequestHelper
     str += ")."
   end
 
-  def status_text_waiting_response_overdue(info_request, opts = {})
+  def status_text_waiting_response_overdue(info_request, _opts = {})
     str = _('Response to this request is <strong>delayed</strong>.')
     str += ' '
     if info_request.public_body.not_subject_to_law?
@@ -93,7 +93,7 @@ module InfoRequestHelper
     str += ")"
   end
 
-  def status_text_waiting_response_very_overdue(info_request, opts = {})
+  def status_text_waiting_response_very_overdue(info_request, _opts = {})
     str = _('Response to this request is <strong>long overdue</strong>.')
     str += ' '
     if info_request.public_body.not_subject_to_law?
@@ -123,22 +123,22 @@ module InfoRequestHelper
     str
   end
 
-  def status_text_not_held(info_request, opts = {})
+  def status_text_not_held(info_request, _opts = {})
     _('{{authority_name}} <strong>did not have</strong> the information ' \
       'requested.',
       authority_name: public_body_link(info_request.public_body))
   end
 
-  def status_text_rejected(info_request, opts = {})
+  def status_text_rejected(info_request, _opts = {})
     _('The request was <strong>refused</strong> by {{authority_name}}.',
       authority_name: public_body_link(info_request.public_body))
   end
 
-  def status_text_successful(info_request, opts = {})
+  def status_text_successful(_info_request, _opts = {})
     _('The request was <strong>successful</strong>.')
   end
 
-  def status_text_partially_successful(info_request, opts = {})
+  def status_text_partially_successful(_info_request, _opts = {})
     _('The request was <strong>partially successful</strong>.')
   end
 
@@ -176,50 +176,50 @@ module InfoRequestHelper
     str
   end
 
-  def status_text_gone_postal(info_request, opts = {})
+  def status_text_gone_postal(_info_request, _opts = {})
     _('The authority would like to / has <strong>responded by ' \
       'postal mail</strong> to this request.')
   end
 
-  def status_text_internal_review(info_request, opts = {})
+  def status_text_internal_review(info_request, _opts = {})
     _('Waiting for an <strong>internal review</strong> by ' \
       '{{public_body_link}} of their handling of this request.',
       public_body_link: public_body_link(info_request.public_body))
   end
 
-  def status_text_error_message(info_request, opts = {})
+  def status_text_error_message(_info_request, _opts = {})
     _('There was a <strong>delivery error</strong> or similar, which ' \
       'needs fixing by the {{site_name}} team.',
       site_name: site_name)
   end
 
-  def status_text_requires_admin(info_request, opts = {})
+  def status_text_requires_admin(_info_request, _opts = {})
     _('This request has had an unusual response, and <strong>requires ' \
       'attention</strong> from the {{site_name}} team.',
       site_name: site_name)
   end
 
-  def status_text_user_withdrawn(info_request, opts = {})
+  def status_text_user_withdrawn(_info_request, _opts = {})
     _('This request has been <strong>withdrawn</strong> by the person ' \
       'who made it. There may be an explanation in the correspondence below.')
   end
 
-  def status_text_attention_requested(info_request, opts = {})
+  def status_text_attention_requested(_info_request, _opts = {})
     _('This request has been <strong>reported</strong> as needing ' \
       'administrator attention.')
   end
 
-  def status_text_vexatious(info_request, opts = {})
+  def status_text_vexatious(_info_request, _opts = {})
     _('This request has been reviewed by an administrator and is ' \
        'considered to be vexatious')
   end
 
-  def status_text_not_foi(info_request, opts = {})
+  def status_text_not_foi(_info_request, _opts = {})
     _('This request has been reviewed by an administrator and is ' \
       'considered not to be an FOI request')
   end
 
-  def custom_state_description(info_request, opts = {})
+  def custom_state_description(info_request, _opts = {})
     render partial: 'general/custom_state_descriptions',
            locals: { status: info_request.calculate_status }
   end
@@ -258,7 +258,7 @@ module InfoRequestHelper
        user: user_link_for_request(info_request))
   end
 
-  def attachment_link(incoming_message, attachment)
+  def attachment_link(_incoming_message, attachment)
     img_filename = "icon_#{attachment.content_type.sub('/', '_')}_large.png"
     full_filename = File.expand_path(Rails.root.join('app',
                                                      'assets',
@@ -299,8 +299,6 @@ module InfoRequestHelper
       public_body.not_subject_to_law? ? 'authorities' : 'quickly_response'
     link_to _('details'), help_requesting_path(anchor: anchor)
   end
-
-  private
 
   def attachment_params(attachment, options = {})
     attach_params = {

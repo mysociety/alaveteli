@@ -277,7 +277,7 @@ RSpec.describe "request/show" do
         assign :track_thing, TrackThing.create_track_for_request(request_with_attachment)
         render
         expect(rendered).to have_css(".attachment .attachment__name") do |s|
-          expect(s).to contain /interesting.pdf/m
+          expect(s).to contain(/interesting.pdf/m)
         end
       end
     end
@@ -300,7 +300,7 @@ RSpec.describe "request/show" do
         # Note that the censor rule applies to the original filename,
         # not the display_filename:
         expect(rendered).to have_css(".attachment .attachment__name") do |s|
-          expect(s).to contain /Mouse.pdf/m
+          expect(s).to contain(/Mouse.pdf/m)
         end
       end
     end

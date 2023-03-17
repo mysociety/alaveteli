@@ -51,7 +51,7 @@ module HighlightHelper
       regex = /#{Regexp.escape(phrase)}/i
     end
 
-    return unless matches = text.match(regex)
+    return unless (matches = text.match(regex))
     phrase = matches[0]
 
     unless separator.empty?

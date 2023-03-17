@@ -14,7 +14,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
 
     # copy current values across to the default locale
     PublicBodyCategory.where(locale: default_locale).each do |category|
-      category.translated_attributes.each do |a, default|
+      category.translated_attributes.each do |a, _default|
         value = category.read_attribute(a)
         category.send(:"#{a}=", value) unless value.nil?
       end
@@ -25,7 +25,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
     PublicBodyCategory.where('locale != ?', default_locale).each do |category|
       default_category = PublicBodyCategory.find_by_category_tag_and_locale(category.category_tag, default_locale)
       AlaveteliLocalization.with_locale(category.locale) do
-        category.translated_attributes.each do |a, default|
+        category.translated_attributes.each do |a, _default|
           value = category.read_attribute(a)
           unless value.nil?
             if default_category
@@ -50,7 +50,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
 
     # copy current values across to the default locale
     PublicBodyHeading.where(locale: default_locale).each do |heading|
-      heading.translated_attributes.each do |a, default|
+      heading.translated_attributes.each do |a, _default|
         value = heading.read_attribute(a)
         heading.send(:"#{a}=", value) unless value.nil?
       end
@@ -61,7 +61,7 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
     PublicBodyHeading.where('locale != ?', default_locale).each do |heading|
       default_heading = PublicBodyHeading.find_by_name_and_locale(heading.name, default_locale)
       AlaveteliLocalization.with_locale(heading.locale) do
-        heading.translated_attributes.each do |a, default|
+        heading.translated_attributes.each do |a, _default|
           value = heading.read_attribute(a)
           unless value.nil?
             if default_heading

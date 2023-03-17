@@ -46,7 +46,7 @@ FactoryBot.define do
         event.info_request = event.outgoing_message.info_request
       end
 
-      after(:create) do |evnt, evaluator|
+      after(:create) do |evnt, _evaluator|
         evnt.params = evnt.params.merge(
           outgoing_message_id: evnt.outgoing_message.id
         )
@@ -107,7 +107,7 @@ FactoryBot.define do
         event.info_request = event.outgoing_message.info_request
       end
 
-      after(:create) do |evnt, evaluator|
+      after(:create) do |evnt, _evaluator|
         evnt.params = evnt.params.merge(
           outgoing_message_id: evnt.outgoing_message.id
         )

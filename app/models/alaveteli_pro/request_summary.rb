@@ -69,8 +69,6 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
     update(self.class.attributes_from_request(request))
   end
 
-  private
-
   def self.create_from(request)
     create(attributes_from_request(request))
   end

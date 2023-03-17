@@ -106,7 +106,7 @@ class Ability
         public_token
     end
 
-    can :manage, OutgoingMessage::Snippet do |request|
+    can :manage, OutgoingMessage::Snippet do |_request|
       user && user.is_admin?
     end
 

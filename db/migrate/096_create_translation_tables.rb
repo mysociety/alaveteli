@@ -17,7 +17,7 @@ class CreateTranslationTables < ActiveRecord::Migration[4.2] # 2.3
 
     # copy current values across to default locale
     PublicBody.all.each do |publicbody|
-      publicbody.translated_attributes.each do |a, default|
+      publicbody.translated_attributes.each do |a, _default|
         value = publicbody.read_attribute(a)
         publicbody.send(:"#{a}=", value) unless value.nil?
       end

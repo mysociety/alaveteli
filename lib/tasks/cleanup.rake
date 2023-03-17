@@ -33,10 +33,11 @@ namespace :cleanup do
       user.with_lock do
         display_user(user, spam_score)
 
-        begin
+        loop do
           puts "Is this a spam account? [(Y)es/(n)o/(s)kip]"
           input = $stdin.gets.strip
-        end until %w(Y n s).include?(input)
+          break if %w(Y n s).include?(input)
+        end
 
         case input
         when 'Y'

@@ -17,7 +17,7 @@ RSpec::Matchers.define :have_xml do |xpath, text|
     "expected to find xml tag #{xpath} in:\n#{body}"
   end
 
-  failure_message_when_negated do |response|
+  failure_message_when_negated do |_response|
     "expected not to find xml tag #{xpath} in:\n#{body}"
   end
 

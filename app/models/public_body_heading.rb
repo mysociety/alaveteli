@@ -45,7 +45,7 @@ class PublicBodyHeading < ApplicationRecord
   end
 
   def self.next_display_order
-    if max = maximum(:display_order)
+    if (max = maximum(:display_order))
       max + 1
     else
       0

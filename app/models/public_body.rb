@@ -193,7 +193,7 @@ class PublicBody < ApplicationRecord
       text.gsub(/\n/, '<br>')
     end
 
-    def compare(previous = nil, &block)
+    def compare(previous = nil)
       if previous.nil?
         changes = []
       else
@@ -422,8 +422,8 @@ class PublicBody < ApplicationRecord
 
     if matching_pbs.empty?
       # "internal admin" exists but has the wrong default locale - fix & return
-      if invalid_locale = PublicBody::Translation.
-                            find_by_url_name('internal_admin_authority')
+      if (invalid_locale = PublicBody::Translation.
+                             find_by_url_name('internal_admin_authority'))
         found_pb = PublicBody.find(invalid_locale.public_body_id)
         AlaveteliLocalization.
           with_locale(AlaveteliLocalization.default_locale) do
@@ -528,7 +528,7 @@ class PublicBody < ApplicationRecord
           email.strip! unless email.nil?
 
           if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
-            errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
+            errors.push "error: line #{line}: invalid email '#{email}' for authority '#{name}'"
             next
           end
 
@@ -603,7 +603,7 @@ class PublicBody < ApplicationRecord
   def set_locale_fields_from_csv_row(is_new, locale, row, options)
     changed = ActiveSupport::OrderedHash.new
     csv_field_names = options[:field_names]
-    csv_import_fields.each do |field_name, field_notes|
+    csv_import_fields.each do |field_name, _field_notes|
       localized_field_name = self.class.localized_csv_field_name(locale, field_name)
       column = csv_field_names[localized_field_name]
       value = column && row[column]

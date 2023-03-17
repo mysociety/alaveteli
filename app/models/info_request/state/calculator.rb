@@ -144,7 +144,7 @@ class InfoRequest
         states
       end
 
-      def complete_states(opts = {})
+      def complete_states(_opts = {})
         # States from which a request can go no further, because it's complete
         %w[
           not_held
@@ -154,7 +154,7 @@ class InfoRequest
         ]
       end
 
-      def admin_states(opts = {})
+      def admin_states(_opts = {})
         # States which only an admin can put a request into, and from which
         # a normal user can't get the request out again
         %w[not_foi vexatious]

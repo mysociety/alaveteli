@@ -102,7 +102,7 @@ class AlaveteliMailPoller
     !failed?(unique_id) || retry?(unique_id)
   end
 
-  def start(&block)
+  def start()
     # Start a POP3 session and ensure that it will be closed in any case.
     unless block_given?
       raise ArgumentError, "AlaveteliMailPoller#start takes a block"

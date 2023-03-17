@@ -12,7 +12,7 @@ module RoutingFilter
     # internally and may look like `en-US`, whereas the former is
     # what FastGettext and other POSIX-based systems use, and will
     # look like `en_US`
-    def around_generate(*args, &block)
+    def around_generate(*args)
       # this is because we might get a call like forum_topics_path(forum, topic, :locale => :en)
       params = args.extract_options!
       # extract the passed :locale option
@@ -48,7 +48,7 @@ module RoutingFilter
 end
 
 ActionDispatch::Routing::RouteSet::NamedRouteCollection::UrlHelper.class_eval do
-  def self.optimize_helper?(route)
+  def self.optimize_helper?(_route)
     false
   end
 end

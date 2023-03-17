@@ -40,7 +40,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
 
   private
 
-  def respond_or_redirect(draft)
+  def respond_or_redirect(_draft)
     @query = params[:authority_query]
     @page = params[:page]
     if request.xhr?

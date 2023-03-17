@@ -7,7 +7,7 @@ RSpec.describe ActsAsXapian do
   describe '.update_index' do
 
     it 'processes jobs that were queued after a job that errors' do
-      job1, job2 = Array.new(2) do |i|
+      job1, job2 = Array.new(2) do |_i|
         body = FactoryBot.create(:public_body)
         body.xapian_mark_needs_index
         ActsAsXapian::ActsAsXapianJob.

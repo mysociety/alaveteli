@@ -23,7 +23,7 @@ namespace :import do
     name_count = Hash.new { 0 }
     reader = CSV.open(tmp_csv.path, 'r')
     header_line = reader.shift
-    headers = header_line.map { |h| h.gsub /^#/, '' }
+    headers = header_line.map { |h| h.gsub(/^#/, '') }
 
     reader.each do |row_array|
       row = Hash[headers.zip row_array]
@@ -59,7 +59,7 @@ namespace :import do
     import_args = [tmp_csv.path, tag, tag_behaviour, dryrun, editor, locales]
 
     errors, notes =
-      PublicBody.import_csv_from_file(*import_args) do |row_number, fields|
+      PublicBody.import_csv_from_file(*import_args) do |row_number, _fields|
         percent_complete = (100 * row_number.to_f / number_of_rows).to_i
         STDERR.print "#{row_number} out of #{number_of_rows} "
         STDERR.puts "(#{percent_complete}% complete)"

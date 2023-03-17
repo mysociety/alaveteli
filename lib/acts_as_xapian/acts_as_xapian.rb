@@ -199,7 +199,7 @@ module ActsAsXapian
     @@values_by_prefix = {}
     @@value_ranges_store = []
 
-    @@init_values.each do |classname, options|
+    @@init_values.each do |_classname, options|
       # go through the various field types, and tell query parser about them,
       # and error check them - i.e. check for consistency between models
       @@query_parser.add_boolean_prefix("model", "M")
@@ -210,7 +210,7 @@ module ActsAsXapian
   end
 
   def self.init_values(values)
-    values.each do |method, index, prefix, value_type|
+    values.each do |_method, index, prefix, value_type|
       unless index.is_a? Integer
         raise "Value index '#{index}' must be an Integer, is #{index.class}"
       end
@@ -244,7 +244,7 @@ module ActsAsXapian
   end
 
   def self.init_terms(terms)
-    terms.each do |method, term_code, prefix|
+    terms.each do |_method, term_code, prefix|
       unless term_code.match(/^[A-Z]$/)
         raise "Use a single capital letter for term code"
       end
@@ -777,7 +777,7 @@ module ActsAsXapian
 
   def self.run_job(job, flush, verbose)
     if verbose
-      STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}")
+      STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id} #{Time.now}")
     end
 
     begin
@@ -854,7 +854,7 @@ module ActsAsXapian
       # Save time by running the indexing in one go and in-process
       model_classes.each do |model_class|
         if verbose
-          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class.to_s}")
+          STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class}")
         end
         model_class.find_each do |model|
           if verbose
@@ -916,7 +916,7 @@ module ActsAsXapian
           @@db_path = ActsAsXapian.db_path + ".new"
           ActsAsXapian.writable_init
           if verbose
-            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}")
+            STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: New batch. #{model_class} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid}")
           end
           model_class.limit(batch_size).offset(i).order(:id).each do |model|
             if verbose

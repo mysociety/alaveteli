@@ -43,7 +43,7 @@ FactoryBot.define do
     public_body
     user
 
-    after(:create) do |info_request, evaluator|
+    after(:create) do |info_request, _evaluator|
       initial_request = create(:initial_request, info_request: info_request,
                                                  created_at: info_request.created_at)
       initial_request.last_sent_at = info_request.created_at
@@ -156,27 +156,27 @@ FactoryBot.define do
     end
 
     trait :with_internal_review_request do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         outgoing_message = create(:internal_review_request, info_request: info_request)
       end
     end
 
     trait :embargoed do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         create(:embargo, info_request: info_request)
         info_request.reload
       end
     end
 
     trait :embargo_expiring do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         create(:expiring_embargo, info_request: info_request)
         info_request.reload
       end
     end
 
     trait :re_embargoed do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event('expire_embargo', {})
         create(:embargo, info_request: info_request)
         info_request
@@ -184,7 +184,7 @@ FactoryBot.define do
     end
 
     trait :embargo_expired do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.log_event('expire_embargo', info_request: info_request)
         info_request.reload
       end
@@ -213,13 +213,13 @@ FactoryBot.define do
     end
 
     trait :waiting_clarification do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.set_described_state('waiting_clarification')
       end
     end
 
     trait :successful do
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.set_described_state('successful')
       end
     end
@@ -244,7 +244,7 @@ FactoryBot.define do
 
     trait :overdue do
       date_response_required_by { Time.zone.now - 1.day }
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.date_response_required_by = Time.zone.now - 1.day
         info_request.save!
       end
@@ -253,7 +253,7 @@ FactoryBot.define do
     trait :very_overdue do
       date_response_required_by { Time.zone.now - 21.days }
       date_very_overdue_after { Time.zone.now - 1.days }
-      after(:create) do |info_request, evaluator|
+      after(:create) do |info_request, _evaluator|
         info_request.date_response_required_by = Time.zone.now - 21.days
         info_request.date_very_overdue_after = Time.zone.now - 1.day
         info_request.save!

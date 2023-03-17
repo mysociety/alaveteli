@@ -358,7 +358,7 @@ class InfoRequestEvent < ApplicationRecord
         other_params[key.to_sym] = value
       end
     end
-    new_params.delete_if { |key, value| ignore.keys.include?(key) }
+    new_params.delete_if { |key, _value| ignore.keys.include?(key) }
     {new: new_params, old: old_params, other: other_params}
   end
 
