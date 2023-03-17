@@ -80,11 +80,11 @@ namespace :themes do
         Git.checkout theme_directory, committish
         all_failed = false
         break
-      else
-        puts "Failed to find #{committish}; skipping..." if verbose
+      elsif verbose
+        puts "Failed to find #{committish}; skipping..."
       end
     end
-    puts "Falling to using HEAD instead" if all_failed and verbose
+    puts "Falling to using HEAD instead" if all_failed && verbose
   end
 
   def install_theme(theme_url, verbose, deprecated=false)

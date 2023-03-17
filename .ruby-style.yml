@@ -1882,7 +1882,7 @@ Style/NumericLiteralPrefix:
   Enabled: true
 
 Style/NumericLiterals:
-  Enabled: true
+  Enabled: false
 
 Style/NumericPredicate:
   Enabled: false

@@ -92,7 +92,7 @@ class MailServerLog < ApplicationRecord
       sanitised_line = scrub(line)
       order += 1
       queue_id = extract_postfix_queue_id_from_syslog_line(sanitised_line)
-      if emails.has_key?(queue_id)
+      if emails.key?(queue_id)
         create_mail_server_logs(emails[queue_id], sanitised_line, order, done)
       end
     end
@@ -103,7 +103,7 @@ class MailServerLog < ApplicationRecord
     f.each do |line|
       emails = email_addresses_on_line(line)
       queue_id = extract_postfix_queue_id_from_syslog_line(line)
-      result[queue_id] = [] unless result.has_key?(queue_id)
+      result[queue_id] = [] unless result.key?(queue_id)
       result[queue_id] = (result[queue_id] + emails).uniq
     end
     result
@@ -232,30 +232,28 @@ class MailServerLog < ApplicationRecord
   end
 
   def delivery_status
-    begin
-      unless attributes['delivery_status'].present?
-        # attempt to parse the status from the log line and store if successful
-        set_delivery_status
-      end
-
-      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
-    # TODO: This rescue can be removed when there are no more cached
-    # MTA-specific statuses
-    rescue ArgumentError
-      warn %q(MailServerLog#delivery_status rescuing from invalid delivery
-              status. Run bundle exec rake temp:cache_delivery_status to update
-              cached values. This error handling will be removed soon.).
-              squish unless Rails.env.test?
-
-      # re-try setting the delivery status, forcing the write by avoiding the
-      # Rails 4.2 call to old_attribute_value hidden inside write_attribute as
-      # that will re-raise the 'Invalid delivery status' ArgumentError we're
-      # attempting to rescue
-      # https://apidock.com/rails/v4.2.7/ActiveRecord/AttributeMethods/Dirty/write_attribute
-      set_delivery_status(true)
-      save!
-      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+    unless attributes['delivery_status'].present?
+      # attempt to parse the status from the log line and store if successful
+      set_delivery_status
     end
+
+    DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+  # TODO: This rescue can be removed when there are no more cached
+  # MTA-specific statuses
+  rescue ArgumentError
+    warn %q(MailServerLog#delivery_status rescuing from invalid delivery
+            status. Run bundle exec rake temp:cache_delivery_status to update
+            cached values. This error handling will be removed soon.).
+            squish unless Rails.env.test?
+
+    # re-try setting the delivery status, forcing the write by avoiding the
+    # Rails 4.2 call to old_attribute_value hidden inside write_attribute as
+    # that will re-raise the 'Invalid delivery status' ArgumentError we're
+    # attempting to rescue
+    # https://apidock.com/rails/v4.2.7/ActiveRecord/AttributeMethods/Dirty/write_attribute
+    set_delivery_status(true)
+    save!
+    DeliveryStatusSerializer.load(read_attribute(:delivery_status))
   end
 
   private

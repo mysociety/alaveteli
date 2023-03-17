@@ -56,7 +56,7 @@ class PublicBody < ApplicationRecord
       ['publication_scheme', '(i18n)'],
       ['disclosure_log', '(i18n)'],
       ['home_page', ''],
-      ['tag_string', '(tags separated by spaces)'],
+      ['tag_string', '(tags separated by spaces)']
     ]
   end
 
@@ -509,7 +509,7 @@ class PublicBody < ApplicationRecord
           line += 1
 
           # Parse the first line as a field list if it starts with '#'
-          if line==1 and row.first.to_s =~ /^#(.*)$/
+          if (line==1) && row.first.to_s =~(/^#(.*)$/)
             row[0] = row[0][1..-1] # Remove the # sign on first field
             row.each_with_index { |field, i| field_names[field] = i }
             next
@@ -542,12 +542,12 @@ class PublicBody < ApplicationRecord
 
         # Give an error listing ones that are to be deleted
         deleted_ones = set_of_existing - set_of_importing
-        if deleted_ones.size > 0
+        if !deleted_ones.empty?
           notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).sort.join("\n    ") + "\nYou may want to delete them manually.\n"
         end
 
         # Rollback if a dry run, or we had errors
-        raise ImportCSVDryRun if dry_run or errors.size > 0
+        raise ImportCSVDryRun if dry_run || (!errors.empty?)
       end
     rescue ImportCSVDryRun
       # Ignore

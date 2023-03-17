@@ -899,7 +899,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
-      'bah.txt',
+      'bah.txt'
     ])
   end
 
@@ -946,7 +946,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
     expect(attachments.map(&:display_filename)).to eq([
       'Same attachment twice.txt',
       'hello.txt',
-      'hello.txt',
+      'hello.txt'
     ])
   end
 
@@ -985,7 +985,7 @@ RSpec.describe IncomingMessage, "when Outlook messages are attached to messages"
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
       'test.html', # picks HTML rather than text by default, as likely to render better
-      'attach.txt',
+      'attach.txt'
     ])
   end
 end
@@ -1011,7 +1011,7 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
       'FOI 09 02976i.doc',
-      'FOI 09 02976iii.doc',
+      'FOI 09 02976iii.doc'
     ])
   end
 

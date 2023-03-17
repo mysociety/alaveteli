@@ -42,14 +42,12 @@ module InfoRequestHelper
     if is_owning_user && !info_request.is_external? && !render_to_file
       status_text_awaiting_description_owner_please_answer(
         new_responses_count)
+    elsif old_unclassified
+      status_text_awaiting_description_old_unclassified(
+        new_responses_count)
     else
-      if old_unclassified
-        status_text_awaiting_description_old_unclassified(
-          new_responses_count)
-      else
-        status_text_awaiting_description_other(info_request,
-                                                      new_responses_count)
-      end
+      status_text_awaiting_description_other(info_request,
+                                                    new_responses_count)
     end
   end
 

@@ -133,7 +133,7 @@ RSpec.describe TypeaheadSearch do
       expect(search_info_requests(search)).to match_array([
         info_requests(:fancy_dog_request),
         info_requests(:naughty_chicken_request),
-        info_requests(:another_boring_request),
+        info_requests(:another_boring_request)
       ])
     end
 

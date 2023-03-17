@@ -388,7 +388,7 @@ class IncomingMessage < ApplicationRecord
     # instead use the first text attachment
     # e.g. http://www.whatdotheyknow.com/request/list_of_public_authorties)
     leaves.each do |p|
-      if p.content_type == 'text/plain' or p.content_type == 'text/html'
+      if (p.content_type == 'text/plain') || (p.content_type == 'text/html')
         return p
       end
     end
@@ -522,10 +522,8 @@ class IncomingMessage < ApplicationRecord
       end
       # and display link for quoted stuff
       text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
-    else
-      if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-        text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
-      end
+    elsif folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
+      text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
     end
     text.strip!
 

@@ -81,7 +81,7 @@ class AdminGeneralController < AdminController
       @embargoed_request_tasks = [
         @embargoed_requires_admin_requests,
         @embargoed_error_message_requests,
-        @embargoed_attention_requests,
+        @embargoed_attention_requests
       ].any? { |to_do_list| ! to_do_list.empty? }
 
       @embargoed_attention_comments = Comment.

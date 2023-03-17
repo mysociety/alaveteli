@@ -54,16 +54,14 @@ class AdminIncomingMessageController < AdminController
       errors = []
       info_request = InfoRequest.find(params[:request_id])
       @incoming_messages.each do |message|
-        begin
-          message.destroy
-          info_request.log_event(
-            'destroy_incoming',
-            editor: admin_current_user,
-            deleted_incoming_message_id: message.id
-          )
-        rescue
-          errors << message.id
-        end
+        message.destroy
+        info_request.log_event(
+          'destroy_incoming',
+          editor: admin_current_user,
+          deleted_incoming_message_id: message.id
+        )
+      rescue
+        errors << message.id
       end
       info_request.expire(preserve_database_cache: true)
       if errors.empty?

@@ -99,13 +99,13 @@ class TrackMailer < ApplicationMailer
           alert_results.push(result)
         end
         # If there were more alerts for this track, then store them
-        if alert_results.size > 0
+        if !alert_results.empty?
           email_about_things.push([track_thing, alert_results, xapian_object])
         end
       end
 
       # If we have anything to send, then send everything for the user in one mail
-      if email_about_things.size > 0
+      if !email_about_things.empty?
         # Send the email
 
         AlaveteliLocalization.with_locale(user.locale) do

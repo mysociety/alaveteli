@@ -259,7 +259,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
       info_request_events(:useless_outgoing_message_event),
       info_request_events(:silly_outgoing_message_event),
       info_request_events(:useful_incoming_message_event),
-      info_request_events(:another_useful_incoming_message_event),
+      info_request_events(:another_useful_incoming_message_event)
     ])
     expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies].results).to eq([])
@@ -289,7 +289,7 @@ RSpec.describe GeneralController, 'when using xapian search' do
       info_request_events(:useless_outgoing_message_event),
       info_request_events(:silly_outgoing_message_event),
       info_request_events(:useful_incoming_message_event),
-      info_request_events(:another_useful_incoming_message_event),
+      info_request_events(:another_useful_incoming_message_event)
     ])
     expect(assigns[:xapian_users]).to eq(nil)
     expect(assigns[:xapian_bodies]).to eq(nil)

@@ -29,31 +29,28 @@ class Users::SessionsController < UserController
         User.authenticate_from_form(user_signin_params,
                                     @post_redirect.reason_params[:user_name])
     end
-    if @post_redirect.nil? || @user_signin.errors.size > 0
+    if @post_redirect.nil? || !@user_signin.errors.empty?
       # Failed to authenticate
       clear_session_credentials
       render template: 'user/sign'
-    else
+    elsif @user_signin.email_confirmed
       # Successful login
-      if @user_signin.email_confirmed
-
+      if spam_user?(@user_signin)
         # Prevent signins from potential spammers
-        if spam_user?(@user_signin)
-          handle_spam_user(@user_signin) do
-            render template: 'user/sign'
-          end && return
-        end
-
-        sign_in(@user_signin, remember_me: params[:remember_me].present?)
-
-        if is_modal_dialog
-          render template: 'users/sessions/show'
-        else
-          do_post_redirect @post_redirect, @user_signin
-        end
-      else
-        send_confirmation_mail @user_signin
+        handle_spam_user(@user_signin) do
+          render template: 'user/sign'
+        end && return
       end
+
+      sign_in(@user_signin, remember_me: params[:remember_me].present?)
+
+      if is_modal_dialog
+        render template: 'users/sessions/show'
+      else
+        do_post_redirect @post_redirect, @user_signin
+      end
+    else
+      send_confirmation_mail @user_signin
     end
   rescue ActionController::ParameterMissing
     flash[:error] = _('Invalid form submission')

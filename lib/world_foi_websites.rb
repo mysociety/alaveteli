@@ -140,7 +140,7 @@ class WorldFOIWebsites
       { name: 'Derecho al Dato',
         country_name: 'Argentina',
         country_iso_code: 'AR',
-        url: 'https://derechoaldato.com.ar/' },
+        url: 'https://derechoaldato.com.ar/' }
     ]
     world_foi_websites
   end

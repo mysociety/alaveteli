@@ -50,7 +50,7 @@ module AdminHelper
     if can?(:admin, AlaveteliPro::Embargo) || !event.info_request.embargo
       diff = event.params_diff
       significant_event_params(event).each do |key|
-        if diff[:new].has_key? key
+        if diff[:new].key? key
           text += "Changed #{key} from '#{diff[:old][key]}' to '#{diff[:new][key]}'. "
          end
       end

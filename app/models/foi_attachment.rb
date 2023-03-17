@@ -256,7 +256,7 @@ class FoiAttachment < ApplicationRecord
       "application/vnd.openxmlformats-officedocument.presentationml.presentation", # .pptx
 
       "application/vnd.ms-excel", # .xls
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", # .xlsx
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
     ].include?(content_type)
   end
 
@@ -264,7 +264,7 @@ class FoiAttachment < ApplicationRecord
   def has_body_as_html?
     [
       "text/plain",
-      "application/rtf",
+      "application/rtf"
     ].include?(content_type) || has_google_docs_viewer?
   end
 

@@ -35,7 +35,7 @@ class MemoryProfiler
 
           ObjectSpace.each_object do |o|
             curr[o.class] += 1 #Marshal.dump(o).size rescue 1
-            curr_strings.push o if opt[:string_debug] and o.class == String
+            curr_strings.push o if opt[:string_debug] && (o.class == String)
           end
 
           if opt[:string_debug]

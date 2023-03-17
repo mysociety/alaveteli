@@ -127,7 +127,7 @@ class AdminPublicBodyController < AdminController
   def mass_tag
     lookup_query
 
-    if params[:tag] and params[:tag] != ""
+    if params[:tag] && (params[:tag] != "")
       if params[:table_name] == 'exact'
         bodies = @public_bodies_by_tag
       elsif params[:table_name] == 'substring'
@@ -175,7 +175,7 @@ class AdminPublicBodyController < AdminController
                                      admin_current_user,
                                      AlaveteliLocalization.available_locales)
 
-        if errors.size == 0
+        if errors.empty?
           if dry_run_only
             notes.push("Dry run was successful, real run would do as above.")
             # Store the csv file for ease of performing the real run
@@ -190,7 +190,7 @@ class AdminPublicBodyController < AdminController
                                          admin_current_user,
                                          AlaveteliLocalization.
                                            available_locales)
-            raise "dry run mismatched real run" if errors.size != 0
+            raise "dry run mismatched real run" if !errors.empty?
             notes.push("Import was successful.")
           end
         end

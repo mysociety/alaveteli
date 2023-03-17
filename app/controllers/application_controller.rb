@@ -318,12 +318,10 @@ class ApplicationController < ActionController::Base
       else
         uri += "&post_redirect=1"
       end
+    elsif uri.include?("#")
+      uri.sub!("#", "?post_redirect=1#")
     else
-      if uri.include?("#")
-        uri.sub!("#", "?post_redirect=1#")
-      else
-        uri += "?post_redirect=1"
-      end
+      uri += "?post_redirect=1"
     end
     uri
   end
@@ -458,11 +456,9 @@ class ApplicationController < ActionController::Base
   end
 
   def user_ip
-    begin
-      request.remote_ip
-    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-      nil
-    end
+    request.remote_ip
+  rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+    nil
   end
 
   # URL Encode the path parameter for use in render_exception

@@ -858,12 +858,10 @@ class InfoRequest < ApplicationRecord
     html = opts.fetch(:html, true)
     if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
       'Re: ' + email_subject_request(html: html)
+    elsif incoming_message.subject.match(/^Re:/i)
+      incoming_message.subject
     else
-      if incoming_message.subject.match(/^Re:/i)
-        incoming_message.subject
-      else
-        'Re: ' + incoming_message.subject
-      end
+      'Re: ' + incoming_message.subject
     end
   end
 
@@ -1367,7 +1365,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def postal_email
-    if who_can_followup_to.size == 0
+    if who_can_followup_to.empty?
       public_body.request_email
     else
       who_can_followup_to[-1][1]
@@ -1375,7 +1373,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def postal_email_name
-    if who_can_followup_to.size == 0
+    if who_can_followup_to.empty?
       public_body.name
     else
       who_can_followup_to[-1][0]
@@ -1854,12 +1852,10 @@ class InfoRequest < ApplicationRecord
   end
 
   def set_defaults
-    begin
-      self.described_state = 'waiting_response' if described_state.nil?
-    rescue ActiveModel::MissingAttributeError
-      # this should only happen on Model.exists? call. It can be safely ignored.
-      # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
-    end
+    self.described_state = 'waiting_response' if described_state.nil?
+  rescue ActiveModel::MissingAttributeError
+    # this should only happen on Model.exists? call. It can be safely ignored.
+    # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
   end
 
   def set_law_used

@@ -66,43 +66,39 @@ class HolidayImport
   end
 
   def populate_from_ical_feed
-    begin
-      cal_file = open(ical_feed_url)
-      cal_parser = Icalendar::Parser.new(cal_file)
-      cals = cal_parser.parse
-      cal = cals.first
-      unless cal
-        errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
-        return
-      end
-      cal.events.each { |cal_event| populate_from_ical_event(cal_event) }
-    rescue Errno::ENOENT, Exception => e
-      if e.message == 'Invalid line in calendar string!'
-        errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
-      elsif e.message =~ /^No such file or directory/
-        errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
-      else
-        raise e
-      end
+    cal_file = open(ical_feed_url)
+    cal_parser = Icalendar::Parser.new(cal_file)
+    cals = cal_parser.parse
+    cal = cals.first
+    unless cal
+      errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
+      return
+    end
+    cal.events.each { |cal_event| populate_from_ical_event(cal_event) }
+  rescue Errno::ENOENT, Exception => e
+    if e.message == 'Invalid line in calendar string!'
+      errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
+    elsif e.message =~ /^No such file or directory/
+      errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
+    else
+      raise e
     end
   end
 
   def populate_from_ical_event(cal_event)
-    if cal_event.dtstart >= start_date and cal_event.dtstart <= end_date
+    if (cal_event.dtstart >= start_date) && (cal_event.dtstart <= end_date)
       holidays << Holiday.new(description: cal_event.summary,
                               day: cal_event.dtstart)
     end
   end
 
   def populate_from_suggestions
-    begin
-      holiday_info = Holidays.between(start_date, end_date, @country_code.to_sym, :observed)
-      holiday_info.each do |holiday_info_hash|
-        holidays << Holiday.new(description: holiday_info_hash[:name],
-                                day: holiday_info_hash[:date])
-      end
-    rescue Holidays::InvalidRegion
-      []
+    holiday_info = Holidays.between(start_date, end_date, @country_code.to_sym, :observed)
+    holiday_info.each do |holiday_info_hash|
+      holidays << Holiday.new(description: holiday_info_hash[:name],
+                              day: holiday_info_hash[:date])
     end
+  rescue Holidays::InvalidRegion
+    []
   end
 end

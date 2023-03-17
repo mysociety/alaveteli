@@ -144,7 +144,7 @@ module AlaveteliConfiguration
 
   def self.method_missing(name)
     key = name.to_s.upcase
-    if DEFAULTS.has_key?(key.to_sym)
+    if DEFAULTS.key?(key.to_sym)
       MySociety::Config.get(key, DEFAULTS[key.to_sym])
     else
       super

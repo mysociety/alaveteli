@@ -120,20 +120,18 @@ module AlaveteliPro
       count = 0
       sub_ids = []
       stripe_plans.each do |plan_id|
-        begin
-          Stripe::Subscription.list(
-            'created[gte]': report_start.to_i,
-            'created[lte]': report_end.to_i,
-            plan: plan_id
-          ).auto_paging_each do |item|
-            if item.plan.id == plan_id
-              count += 1
-              sub_ids << item.id
-            end
+        Stripe::Subscription.list(
+          'created[gte]': report_start.to_i,
+          'created[lte]': report_end.to_i,
+          plan: plan_id
+        ).auto_paging_each do |item|
+          if item.plan.id == plan_id
+            count += 1
+            sub_ids << item.id
           end
-        rescue Stripe::InvalidRequestError
-          # tried to fetch a plan that's not set up
         end
+      rescue Stripe::InvalidRequestError
+        # tried to fetch a plan that's not set up
       end
       { new_and_returning_users: { count: count, subs: sub_ids } }
     end

@@ -8,7 +8,7 @@ namespace :cleanup do
     holding_pen.info_request_events.
       where(event_type: %w(redeliver_incoming destroy_incoming)).
         find_each do |event|
-      $stderr.puts event.inspect if verbose or dryrun
+      $stderr.puts event.inspect if verbose || dryrun
       event.destroy unless dryrun
     end
   end
@@ -81,7 +81,7 @@ namespace :cleanup do
          request.public_body_id,
          request.public_body.name,
          request.public_body.request_email,
-         request.created_at.to_s,
+         request.created_at.to_s
         ]
       end
     end

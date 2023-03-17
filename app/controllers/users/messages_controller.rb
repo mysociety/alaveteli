@@ -15,20 +15,18 @@ class Users::MessagesController < UserController
     if @recaptcha_required && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
                             'Please try again.')
-    else
-      if @contact.valid?
-        if spam_user_message?(params[:contact][:message], @user)
-          handle_spam_user_message(@user) && return
-        end
-
-        send_message(@user, @recipient_user)
-        @user.user_messages.create
-
-        flash[:notice] = _('Your message to {{recipient_user_name}} has ' \
-                           'been sent!',
-                           recipient_user_name: @recipient_user.name.html_safe)
-        redirect_to user_url(@recipient_user)
+    elsif @contact.valid?
+      if spam_user_message?(params[:contact][:message], @user)
+        handle_spam_user_message(@user) && return
       end
+
+      send_message(@user, @recipient_user)
+      @user.user_messages.create
+
+      flash[:notice] = _('Your message to {{recipient_user_name}} has ' \
+                         'been sent!',
+                         recipient_user_name: @recipient_user.name.html_safe)
+      redirect_to user_url(@recipient_user)
     end
   end
 

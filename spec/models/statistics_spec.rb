@@ -25,7 +25,7 @@ RSpec.describe Statistics do
                                                      percentages=false,
                                                      {} )
       expect(to_draw['public_bodies'][0].class).to eq(Hash)
-      expect(to_draw['public_bodies'][0].has_key?('request_email')).to be false
+      expect(to_draw['public_bodies'][0].key?('request_email')).to be false
     end
 
     it "should generate the expected id" do
@@ -76,7 +76,7 @@ RSpec.describe Statistics do
                          y_values]
         # These should be all be arrays with one element per public body:
         per_pb_keys.each do |key|
-          if to_draw.has_key? key
+          if to_draw.key? key
             expect(to_draw[key].class).to eq(Array)
             expect(to_draw[key].length).to eq(3), "for key #{key}"
           end

@@ -951,7 +951,7 @@ module ActsAsXapian
 
     def xapian_value(field, type = nil, index_translations = false)
       if index_translations && respond_to?("translations")
-        if type == :date or type == :boolean
+        if (type == :date) || (type == :boolean)
           value = single_xapian_value(field, type = type)
         else
           values = []
@@ -987,13 +987,11 @@ module ActsAsXapian
         end
       elsif type == :boolean
         value ? true : false
-      else
+      elsif value.kind_of?(Array)
         # Arrays are for terms which require multiple of them, e.g. tags
-        if value.is_a?(Array)
-          value.map(&:to_s)
-        else
-          value.to_s
-        end
+        value.map(&:to_s)
+      else
+        value.to_s
       end
     end
 
@@ -1024,7 +1022,7 @@ module ActsAsXapian
       # 1. Which terms to index?  We allow the user to specify particular ones
       terms_to_index = []
       drop_all_terms = false
-      if terms and xapian_options[:terms]
+      if terms && xapian_options[:terms]
         terms_to_index = xapian_options[:terms].dup
         if terms.is_a?(String)
           terms_to_index.reject! { |term| !terms.include?(term[1]) }
@@ -1037,12 +1035,12 @@ module ActsAsXapian
       end
       # 2. Texts to index?  Currently, it's all or nothing
       texts_to_index = []
-      if texts and xapian_options[:texts]
+      if texts && xapian_options[:texts]
         texts_to_index = xapian_options[:texts]
       end
       # 3. Values to index?  Currently, it's all or nothing
       values_to_index = []
-      if values and xapian_options[:values]
+      if values && xapian_options[:values]
         values_to_index = xapian_options[:values]
       end
 

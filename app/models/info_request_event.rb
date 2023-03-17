@@ -102,7 +102,7 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   def must_be_valid_state
-    if described_state and !InfoRequest::State.all.include?(described_state)
+    if described_state && !InfoRequest::State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end
@@ -116,7 +116,7 @@ class InfoRequestEvent < ApplicationRecord
                    [ :created_at_numeric, 1, "created_at", :number ], # for sorting
                    [ :described_at_numeric, 2, "described_at", :number ], # TODO: using :number for lack of :datetime support in Xapian values
                    [ :request, 3, "request_collapse", :string ],
-                   [ :request_title_collapse, 4, "request_title_collapse", :string ],
+                   [ :request_title_collapse, 4, "request_title_collapse", :string ]
                  ],
                  terms: [ [ :calculated_state, 'S', "status" ],
                              [ :requested_by, 'B', "requested_by" ],

@@ -63,7 +63,7 @@ class FollowupsController < ApplicationController
   end
 
   def check_request_matches_incoming_message
-    if @incoming_message and @info_request != @incoming_message.info_request
+    if @incoming_message && (@info_request != @incoming_message.info_request)
       raise ActiveRecord::RecordNotFound, "Incoming message #{@incoming_message.id} does not belong " \
                     "to request #{@info_request.id}"
     end

@@ -65,7 +65,7 @@ namespace :import do
         STDERR.puts "(#{percent_complete}% complete)"
       end
 
-    if errors.length > 0
+    if !errors.empty?
       STDERR.puts 'Import failed, with the following errors:'
 
       errors.each do |error|

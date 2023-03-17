@@ -25,7 +25,7 @@ module AlaveteliPro
     validates_presence_of :info_request
     validates_presence_of :publish_at
     validates_inclusion_of :embargo_duration,
-                           in: lambda { |e| e.allowed_durations },
+                           in: ->(e) { e.allowed_durations },
                            allow_nil: true
     after_initialize :set_default_duration,
                      :set_publish_at_from_duration,
