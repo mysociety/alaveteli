@@ -1,6 +1,6 @@
 module Usage
 
-  def usage_message message
+  def usage_message(message)
     puts ''
     puts message
     puts ''

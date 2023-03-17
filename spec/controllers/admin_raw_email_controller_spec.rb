@@ -39,7 +39,7 @@ RSpec.describe AdminRawEmailController do
         let(:incoming_message) do
           incoming_message = FactoryBot.create(
             :plain_incoming_message,
-            info_request: InfoRequest.holding_pen_request,
+            info_request: InfoRequest.holding_pen_request
           )
           incoming_message.raw_email.data = raw_email_data
           incoming_message.raw_email.save!

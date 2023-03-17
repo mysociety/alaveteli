@@ -160,7 +160,7 @@ class InfoRequest < ApplicationRecord
   scope :surveyable, Survey::InfoRequestQuery.new
 
   class << self
-    alias_method :in_progress, :awaiting_response
+    alias in_progress awaiting_response
   end
   scope :action_needed, State::ActionNeededQuery.new
   scope :updated_before, ->(ts) { where('"info_requests"."updated_at" < ?', ts) }
@@ -509,7 +509,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.download_zip_dir
-    File.join(Rails.root, "cache", "zips", "#{Rails.env}")
+    File.join(Rails.root, "cache", "zips", Rails.env)
   end
 
   def self.reject_incoming_at_mta(options)
@@ -788,7 +788,7 @@ class InfoRequest < ApplicationRecord
   end
 
   # Force reindex when tag string changes
-  alias_method :orig_tag_string=, :tag_string=
+  alias orig_tag_string= tag_string=
   def tag_string=(tag_string)
     ret = self.orig_tag_string=(tag_string)
     reindex_request_events
@@ -1454,13 +1454,13 @@ class InfoRequest < ApplicationRecord
       name = OutgoingMailer.name_for_followup(self, incoming_message)
 
       unless done.include?(email.downcase)
-        ret = ret + [[name, email, incoming_message.id]]
+        ret += [[name, email, incoming_message.id]]
       end
       done[email.downcase] = 1
     end
 
     unless done.include?(public_body.request_email.downcase)
-      ret = ret + [[public_body.name, public_body.request_email, nil]]
+      ret += [[public_body.name, public_body.request_email, nil]]
     end
     done[public_body.request_email.downcase] = 1
 

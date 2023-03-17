@@ -78,7 +78,7 @@ class MailServerLog < ApplicationRecord
   def self.load_exim_log_data(f, done)
     order = 0
     f.each do |line|
-      order = order + 1
+      order += 1
       create_exim_log_line(line, done, order)
     end
   end
@@ -90,7 +90,7 @@ class MailServerLog < ApplicationRecord
     f.rewind
     f.each do |line|
       sanitised_line = scrub(line)
-      order = order + 1
+      order += 1
       queue_id = extract_postfix_queue_id_from_syslog_line(sanitised_line)
       if emails.has_key?(queue_id)
         create_mail_server_logs(emails[queue_id], sanitised_line, order, done)

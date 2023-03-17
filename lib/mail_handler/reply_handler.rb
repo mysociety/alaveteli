@@ -82,8 +82,8 @@ module MailHandler
     def self.forward_on(raw_message, message = nil)
       forward_to = get_forward_to_address(message)
       IO.popen(%Q(/usr/sbin/sendmail -i "#{forward_to}"), 'wb') do |f|
-        f.write(raw_message);
-        f.close;
+        f.write(raw_message)
+        f.close
       end
     end
 

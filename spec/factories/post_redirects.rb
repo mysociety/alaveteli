@@ -38,7 +38,7 @@ FactoryBot.define do
           },
           "info_request" => {
             "title" => "Testing the post redirect to pro things",
-            "public_body_id" => "#{public_body.id}"
+            "public_body_id" => public_body.id.to_s
           },
           "submitted_new_request" => "1",
           "preview" => "0",

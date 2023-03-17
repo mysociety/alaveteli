@@ -14,9 +14,7 @@ module AlaveteliGetText
             end
             # multiline msgstr
             if /^msgstr ""/.match(lines[index+1])
-              while /^".+"/.match(lines[index+2])
-                lines.delete_at(index+2)
-              end
+              lines.delete_at(index+2) while /^".+"/.match(lines[index+2])
               lines.delete_at(index-1)
             end
             # plural msgstr

@@ -1,7 +1,7 @@
 # Public: Validates that we can reply to a ReplyTo address.
 class ReplyToAddressValidator
   DEFAULT_NO_REPLY_REGEXP =
-    /^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/.freeze
+    /^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.?reply)$/
 
   DEFAULT_INVALID_REPLY_ADDRESSES = [].freeze
 

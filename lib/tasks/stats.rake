@@ -293,7 +293,7 @@ namespace :stats do
       unless list.empty?
         puts "\n#{title}\n"
         list.each do |request|
-          request_line = "#{admin_request_url(request, host: AlaveteliConfiguration.domain)}"
+          request_line = admin_request_url(request, host: AlaveteliConfiguration.domain)
           if %w[vexatious not_foi].include? request.described_state
             request_line << "\t#{request.described_state}"
           end

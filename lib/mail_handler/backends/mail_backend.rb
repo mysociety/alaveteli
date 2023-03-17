@@ -13,8 +13,8 @@ module Mail
     # string as an ActiveSupport::Multibyte::Chars, whereas
     # previously TMail would return nil.
 
-    alias_method :old_to, :to
-    alias_method :old_cc, :cc
+    alias old_to to
+    alias old_cc cc
 
     def clean_addresses(old_method, val)
       old_result = send(old_method, val)
@@ -107,8 +107,6 @@ module MailHandler
           rescue
             mail[:from].value
           end
-        else
-          nil
         end
       end
 
@@ -121,8 +119,6 @@ module MailHandler
           else
             first_from.address
           end
-        else
-          nil
         end
       end
 
@@ -135,8 +131,6 @@ module MailHandler
           else
             (first_from.display_name || nil)
           end
-        else
-          nil
         end
       end
 

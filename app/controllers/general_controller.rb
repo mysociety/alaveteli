@@ -89,7 +89,7 @@ class GeneralController < ApplicationController
     combined = params[:combined].split("/")
     @sortby = nil
     @bodies = @requests = @users = true
-    if combined.size > 0 && (['advanced'].include?(combined[-1]))
+    if combined.size > 0 && ['advanced'].include?(combined[-1])
       combined.pop
       @advanced = true
     else
@@ -97,12 +97,12 @@ class GeneralController < ApplicationController
     end
     # TODO: currently /described isn't linked to anywhere, just used in RSS and for /list/successful
     # This is because it's confusingly different from /newest - but still useful for power users.
-    if combined.size > 0 && (%w[newest described relevant].include?(combined[-1]))
+    if combined.size > 0 && %w[newest described relevant].include?(combined[-1])
       @sort_postfix = combined.pop
       @sortby = @sort_postfix
     end
     combined += [params[:view]] unless params[:view].nil?
-    if combined.size > 0 && (%w[bodies requests users all].include?(combined[-1]))
+    if combined.size > 0 && %w[bodies requests users all].include?(combined[-1])
       @variety_postfix = combined.pop
       case @variety_postfix
       when 'bodies'
@@ -188,7 +188,7 @@ class GeneralController < ApplicationController
 
     # Spelling and highight words are same for all three queries
     @highlight_words = @request_for_spelling.words_to_highlight(regex: true, include_original: true)
-    unless (@request_for_spelling.spelling_correction =~ /[a-z]+:/)
+    unless @request_for_spelling.spelling_correction =~ /[a-z]+:/
       @spelling_correction = @request_for_spelling.spelling_correction
     end
 

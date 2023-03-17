@@ -285,7 +285,7 @@ class ApplicationController < ActionController::Base
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
-  alias_method :current_user, :authenticated_user
+  alias current_user authenticated_user
   helper_method :current_user
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
@@ -471,9 +471,7 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def sanitize_path(params)
-    if params.key?(:path)
-      params.merge!(path: Rack::Utils.escape(params[:path]))
-    end
+    params.merge!(path: Rack::Utils.escape(params[:path])) if params.key?(:path)
   end
 
   # Collect the current and available locales for the locale switcher

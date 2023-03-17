@@ -64,7 +64,7 @@ class PublicBodyController < ApplicationController
       sortby = "described"
       begin
         @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', requests_per_page)
-        if (@page > 1)
+        if @page > 1
           @page_desc = " (page #{ @page })"
         else
           @page_desc = ""
@@ -86,7 +86,10 @@ class PublicBodyController < ApplicationController
                              has_json: true } ]
 
       respond_to do |format|
-        format.html { @has_json = true; render template: "public_body/show" }
+        format.html do
+          @has_json = true
+          render template: "public_body/show"
+        end
         format.json { render json: @public_body.json_for_api }
       end
 

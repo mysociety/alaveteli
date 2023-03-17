@@ -232,8 +232,8 @@ module LinkToHelper
 
   # General pages.
   def search_url(query, options = nil)
-    if query.kind_of?(Array)
-      query = query - ["", nil]
+    if query.is_a?(Array)
+      query -= ["", nil]
       query = query.join("/")
     end
     routing_info = {controller: 'general',
@@ -242,7 +242,7 @@ module LinkToHelper
                     view: nil}
     routing_info = options.merge(routing_info) unless options.nil?
 
-    if routing_info.kind_of?(Hash)
+    if routing_info.is_a?(Hash)
       routing_info = ActionController::Parameters.new(routing_info)
     end
 

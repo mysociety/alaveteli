@@ -160,7 +160,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
 
       let!(:past_due_sub) do
         subscription = Stripe::Subscription.create(customer: customer,
-                                                   plan: pro_plan.id,)
+                                                   plan: pro_plan.id)
         StripeMock.mark_subscription_as_past_due(subscription)
         subscription
       end

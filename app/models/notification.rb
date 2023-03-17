@@ -73,8 +73,8 @@ class Notification < ApplicationRecord
   def embargo_expiring_expired
     # If someone has changed the embargo date on the request, or published it,
     # they might not need this notification any more.
-    if (info_request_event.info_request.embargo_expiring? ||
-        info_request_event.info_request.embargo_pending_expiry?)
+    if info_request_event.info_request.embargo_expiring? ||
+        info_request_event.info_request.embargo_pending_expiry?
       false
     else
       true

@@ -61,9 +61,9 @@ class NotificationMailer < ApplicationMailer
   def self.send_notifications_loop
     # Run send_notifications in an endless loop, sleeping when there is
     # nothing to do
-    while true
+    loop do
       sleep_seconds = 1
-      while !send_notifications
+      until send_notifications
         sleep sleep_seconds
         sleep_seconds *= 2
         sleep_seconds = 300 if sleep_seconds > 300

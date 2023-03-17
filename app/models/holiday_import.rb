@@ -38,7 +38,7 @@ class HolidayImport
   end
 
   def period
-    start_year == end_year ? "#{start_year}" : "#{start_year}-#{end_year}"
+    start_year == end_year ? start_year.to_s : "#{start_year}-#{end_year}"
   end
 
   def save

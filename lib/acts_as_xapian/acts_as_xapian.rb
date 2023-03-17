@@ -12,6 +12,7 @@
 
 # Make it so if Xapian isn't installed, the Rails app doesn't fail completely,
 # just when somebody does a search.
+require 'English'
 begin
   require 'xapian'
   $acts_as_xapian_bindings_available = true
@@ -321,7 +322,8 @@ module ActsAsXapian
       #raise options.to_yaml
 
       self.runtime += Benchmark.realtime {
-        offset = options[:offset] || 0; offset = offset.to_i
+        offset = options[:offset] || 0
+        offset = offset.to_i
         limit = options[:limit]
         unless limit
           raise "please specifiy maximum number of results to return with parameter :limit"
@@ -421,7 +423,7 @@ module ActsAsXapian
       self.runtime += Benchmark.realtime {
         # Pull out all the results
         iter = matches._begin
-        while not iter.equals(matches._end)
+        until iter.equals(matches._end)
           docs.push({data: iter.document.data,
                      percent: iter.percent,
                      weight: iter.weight,
@@ -597,7 +599,7 @@ module ActsAsXapian
         # Get set of relevant terms for those documents
         selection = Xapian::RSet.new
         iter = matches._begin
-        while not iter.equals(matches._end)
+        until iter.equals(matches._end)
           selection.add_document(iter)
           iter.next
         end
@@ -611,7 +613,7 @@ module ActsAsXapian
         # Do main search for them
         self.important_terms = []
         iter = eset._begin
-        while not iter.equals(eset._end)
+        until iter.equals(eset._end)
           important_terms.push(iter.term)
           iter.next
         end
@@ -907,7 +909,7 @@ module ActsAsXapian
         pid = Process.fork # TODO: this will only work on Unix, tough
         if pid
           Process.waitpid(pid)
-          raise "batch fork child failed, exiting also" unless $?.success?
+          raise "batch fork child failed, exiting also" unless $CHILD_STATUS.success?
           # database connection doesn't survive a fork, rebuild it
         else
           # fully reopen the database each time (with a new object)
@@ -958,7 +960,7 @@ module ActsAsXapian
               values << single_xapian_value(field, type=type)
             end
           end
-          if values[0].kind_of?(Array)
+          if values[0].is_a?(Array)
             values = values.flatten
             value = values.reject(&:nil?)
           else
@@ -976,9 +978,9 @@ module ActsAsXapian
     def single_xapian_value(field, type = nil)
       value = send(field.to_sym) || self[field]
       if type == :date
-        if value.kind_of?(Time)
+        if value.is_a?(Time)
           value.utc.strftime("%Y%m%d")
-        elsif value.kind_of?(Date)
+        elsif value.is_a?(Date)
           value.to_time.utc.strftime("%Y%m%d")
         else
           raise "Only Time or Date types supported by acts_as_xapian for :date fields, got " + value.class.to_s
@@ -987,7 +989,7 @@ module ActsAsXapian
         value ? true : false
       else
         # Arrays are for terms which require multiple of them, e.g. tags
-        if value.kind_of?(Array)
+        if value.is_a?(Array)
           value.map(&:to_s)
         else
           value.to_s
@@ -1068,7 +1070,7 @@ module ActsAsXapian
 
       terms_to_index.each do |term|
         value = xapian_value(term[0])
-        if value.kind_of?(Array)
+        if value.is_a?(Array)
           value.each do |v|
             doc.add_term(term[1] + v)
             doc.add_posting(term[1] + v, 1, Integer(term[3])) if term[3]
@@ -1118,7 +1120,7 @@ module ActsAsXapian
 
     # Allow reindexing to be skipped if a flag is set
     def xapian_mark_needs_index_if_reindex
-      if (respond_to?(:no_xapian_reindex) && no_xapian_reindex == true)
+      if respond_to?(:no_xapian_reindex) && no_xapian_reindex == true
         return true
       end
       xapian_mark_needs_index
@@ -1138,7 +1140,7 @@ module ActsAsXapian
       rescue ActiveRecord::RecordNotUnique => e
         # Given the error handling in ActsAsXapian::update_index, we can just fail silently if
         # another process has inserted an acts_as_xapian_jobs record for this model.
-        unless (e.message =~ /duplicate key value violates unique constraint "index_acts_as_xapian_jobs_on_model_and_model_id"/)
+        unless e.message =~ /duplicate key value violates unique constraint "index_acts_as_xapian_jobs_on_model_and_model_id"/
           raise
         end
       end

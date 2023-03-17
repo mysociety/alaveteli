@@ -43,9 +43,9 @@ module AlaveteliPro
     TWELVE_MONTHS = 364.days
 
     DURATIONS = {
-      "3_months" => Proc.new { THREE_MONTHS },
-      "6_months" => Proc.new { SIX_MONTHS },
-      "12_months" => Proc.new { TWELVE_MONTHS }
+      "3_months" => proc { THREE_MONTHS },
+      "6_months" => proc { SIX_MONTHS },
+      "12_months" => proc { TWELVE_MONTHS }
     }.freeze
 
     scope :expiring, -> { where("publish_at <= ?", expiring_soon_time) }

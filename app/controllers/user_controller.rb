@@ -152,7 +152,6 @@ class UserController < ApplicationController
     else
       if user_alreadyexists
         already_registered_mail user_alreadyexists
-        nil
       else
         # New unconfirmed user
 
@@ -180,8 +179,8 @@ class UserController < ApplicationController
         @user_signup.email_confirmed = false
         @user_signup.save!
         send_confirmation_mail @user_signup
-        nil
       end
+      nil
     end
   rescue ActionController::ParameterMissing
     flash[:error] = _('Invalid form submission')
@@ -248,7 +247,7 @@ class UserController < ApplicationController
 
     # if not already, send a confirmation link to the new email address which logs
     # them into the old email's user account, but with special user_circumstance
-    if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
+    if !session[:user_circumstance] or (session[:user_circumstance] != "change_email")
       # don't store the password in the db
       params[:signchangeemail].delete(:password)
 
@@ -286,9 +285,16 @@ class UserController < ApplicationController
 
   # River of News: What's happening with your tracked things
   def river
-    @results = @user.nil? ? [] : @user.track_things.collect { |thing|
-      perform_search([InfoRequestEvent], thing.track_query, thing.params[:feed_sortby], nil).results
-    }.flatten.sort { |a,b| b[:model].created_at <=> a[:model].created_at }.first(20)
+    @results = if @user.nil?
+      []
+    else
+      @user.
+        track_things.
+        collect { |thing| perform_search([InfoRequestEvent], thing.track_query, thing.params[:feed_sortby], nil).results }.
+        flatten.
+        sort { |a,b| b[:model].created_at <=> a[:model].created_at }.
+        first(20)
+    end
   end
 
   def set_profile_photo

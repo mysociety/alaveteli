@@ -95,7 +95,10 @@ class RequestController < ApplicationController
       @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'), title: @track_thing.params[:title_in_rss], has_json: true } ]
 
       respond_to do |format|
-        format.html { @has_json = true; render template: 'request/show' }
+        format.html do
+          @has_json = true
+          render template: 'request/show'
+        end
         format.json { render json: @info_request.json_for_api(true) }
       end
     end
@@ -153,7 +156,7 @@ class RequestController < ApplicationController
 
     @filters = params.merge(latest_status: @view)
 
-    if (@page > 1)
+    if @page > 1
       @title = _("Browse and search requests (page {{count}})", count: @page)
     else
       @title = _('Browse and search requests')

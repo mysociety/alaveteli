@@ -158,7 +158,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     get :list, params: { locale: 'es' }
     pb_ids = assigns[:public_bodies].map(&:id)
     unique_pb_ids = pb_ids.uniq
-    expect(pb_ids.sort).to be === unique_pb_ids.sort
+    expect(pb_ids.sort).to eq(unique_pb_ids.sort)
   end
 
   it 'should show public body names in the selected locale language if present' do

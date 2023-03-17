@@ -23,7 +23,7 @@ class AlaveteliMailPoller
     start do |pop3|
       pop3.each_mail do |popmail|
         received = get_mail(popmail)
-        found_mail = found_mail || received
+        found_mail ||= received
       end
     end
     found_mail
@@ -35,9 +35,9 @@ class AlaveteliMailPoller
     if AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
       poller = new
       Rails.logger.info "Starting #{ poller } polling loop"
-      while true
+      loop do
         sleep_seconds = 1
-        while !poller.poll_for_incoming
+        until poller.poll_for_incoming
           Rails.logger.debug "#{ poller } sleeping for #{ sleep_seconds }"
           sleep sleep_seconds
           sleep_seconds *= 2

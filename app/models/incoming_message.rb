@@ -96,7 +96,7 @@ class IncomingMessage < ApplicationRecord
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
     raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
-    if (!force.nil? || last_parsed.nil?)
+    if !force.nil? || last_parsed.nil?
       ActiveRecord::Base.transaction do
         extract_attachments
         self.sent_at = raw_email.date || created_at
@@ -111,7 +111,7 @@ class IncomingMessage < ApplicationRecord
     end
   end
 
-  alias_method :valid_to_reply_to?, :valid_to_reply_to
+  alias valid_to_reply_to? valid_to_reply_to
 
   # Public: The display name of the email sender with the associated
   # InfoRequest's censor rules applied.
@@ -167,11 +167,7 @@ class IncomingMessage < ApplicationRecord
       attachments_by_filename = attachments.select { |a|
         a.display_filename == display_filename
       }
-      if attachments_by_filename.length == 1
-        attachments_by_filename[0]
-      else
-        nil
-      end
+      attachments_by_filename[0] if attachments_by_filename.length == 1
     end
   end
 
@@ -283,10 +279,10 @@ class IncomingMessage < ApplicationRecord
     # http://www.whatdotheyknow.com/request/235/response/513
     # http://www.whatdotheyknow.com/request/445/response/743
     original_message =
-      '(' + '''----* This is a copy of the message, including all the headers. ----*''' +
-      '|' + '''----*\s*Original Message\s*----*''' +
-      '|' + '''----*\s*Forwarded message.+----*''' +
-      '|' + '''----*\s*Forwarded by.+----*''' +
+      '(' + '''----* This is a copy of the message, including all the headers. ----*''' \
+      '|' + '''----*\s*Original Message\s*----*''' \
+      '|' + '''----*\s*Forwarded message.+----*''' \
+      '|' + '''----*\s*Forwarded by.+----*''' \
       ')'
     # Could have a ^ at start here, but see messed up formatting here:
     # http://www.whatdotheyknow.com/request/refuse_and_recycling_collection#incoming-842

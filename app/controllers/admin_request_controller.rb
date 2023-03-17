@@ -104,7 +104,6 @@ class AdminRequestController < AdminController
         flash[:error] = "Couldn't find user '#{params[:user_url_name]}'"
       end
 
-      redirect_to admin_request_url(@info_request)
     elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
       destination_body = PublicBody.find_by_url_name(
         params[:public_body_url_name]
@@ -116,11 +115,10 @@ class AdminRequestController < AdminController
         flash[:error] = "Couldn't find public body '#{ params[:public_body_url_name] }'"
       end
 
-      redirect_to admin_request_url(@info_request)
     else
       flash[:error] = "Please enter the user or authority to move the request to"
-      redirect_to admin_request_url(@info_request)
     end
+    redirect_to admin_request_url(@info_request)
   end
 
   def generate_upload_url
