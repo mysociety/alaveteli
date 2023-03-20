@@ -88,7 +88,7 @@ gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.gi
                          ref: '13e928b'
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.18'
-gem 'cancancan', '~> 3.4.0'
+gem 'cancancan', '~> 3.5.0'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 3.2.4'
 gem 'exception_notification', '~> 4.5.0'
