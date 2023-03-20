@@ -3,6 +3,26 @@ require 'spec_helper'
 RSpec.describe BlogHelper do
   include BlogHelper
 
+  describe '#blog_posts_for_frontpage' do
+    subject(:posts) { blog_posts_for_frontpage }
+
+    before do
+      4.times { FactoryBot.create(:blog_post) }
+    end
+
+    it { is_expected.to all be_a(Blog::Post) }
+
+    it 'returns maximum 4 posts' do
+      FactoryBot.create(:blog_post)
+      expect(posts.count).to eq(4)
+    end
+
+    it 'includes the latest post' do
+      latest = FactoryBot.create(:blog_post)
+      expect(posts).to include(latest)
+    end
+  end
+
   describe '#blog_posts_for_taggable' do
     let(:taggable) { FactoryBot.create(:public_body, tag_string: 'foo') }
 

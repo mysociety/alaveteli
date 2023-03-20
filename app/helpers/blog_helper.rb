@@ -2,6 +2,10 @@
 # Helper methods for returning blog posts to be rendered
 #
 module BlogHelper
+  def blog_posts_for_frontpage
+    Blog::Post.order(id: :desc).limit(4)
+  end
+
   def blog_posts_for_taggable(taggable:, limit: 3)
     return [] unless Blog.enabled?
 

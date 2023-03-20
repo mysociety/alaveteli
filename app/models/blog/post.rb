@@ -19,4 +19,8 @@ class Blog::Post < ApplicationRecord
 
   validates_presence_of :title, :url
   validates_uniqueness_of :url
+
+  def description
+    CGI.unescapeHTML(data['description'][0].to_s)
+  end
 end

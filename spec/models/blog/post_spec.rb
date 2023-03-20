@@ -37,4 +37,28 @@ RSpec.describe Blog::Post, type: :model do
       expect(post).not_to be_valid
     end
   end
+
+  describe '#description' do
+    subject { post.description }
+
+    let(:description) { 'Post description' }
+
+    let(:post) do
+      FactoryBot.build(
+        :blog_post, data: { 'description' => [description, 'secondary'] }
+      )
+    end
+
+    it 'returns first description from data' do
+      is_expected.to eq('Post description')
+    end
+
+    context 'when description contains escaped HTML entities' do
+      let(:description) { 'Foo &amp; Bar' }
+
+      it 'unescapes HTML entities' do
+        is_expected.to eq('Foo & Bar')
+      end
+    end
+  end
 end
