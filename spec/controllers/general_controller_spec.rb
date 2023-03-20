@@ -21,69 +21,54 @@ RSpec.describe GeneralController do
       expect(response.media_type).to eq('application/json')
     end
   end
-end
 
-RSpec.describe GeneralController, "when trying to show the blog" do
-  it "should fail silently if the blog is returning an error" do
-    allow(AlaveteliConfiguration).to receive(:blog_feed).
-      and_return("http://blog.example.com")
-    stub_request(:get, %r|blog.example.com|).to_return(status: 500)
-    get :blog
-    expect(response.status).to eq(200)
-    expect(assigns[:blog_items].count).to eq(0)
-  end
-end
-
-RSpec.describe GeneralController, 'when getting the blog feed' do
-
-  before do
-    allow(AlaveteliConfiguration).to receive(:blog_feed).and_return("http://blog.example.com")
-    # Don't call out to external url during tests
-    allow(controller).to receive(:quietly_try_to_open).and_return('')
-  end
-
-  it 'should add a lang param correctly to a url with no querystring' do
-    get :blog
-    expect(assigns[:feed_url]).to eq("http://blog.example.com?lang=en")
-  end
-
-  it 'should add a lang param correctly to a url with an existing querystring' do
-    allow(AlaveteliConfiguration).to receive(:blog_feed).and_return("http://blog.example.com?alt=rss")
-    get :blog
-    expect(assigns[:feed_url]).to eq("http://blog.example.com?alt=rss&lang=en")
-  end
-
-  it 'should parse an item from an example feed' do
-    allow(controller).to receive(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
-    get :blog
-    expect(assigns[:blog_items].count).to eq(1)
-  end
-
-  context 'if no feed is configured' do
+  describe 'GET blog' do
+    let(:blog) { Blog.new }
 
     before do
-      allow(AlaveteliConfiguration).to receive(:blog_feed).and_return('')
+      allow(Blog).to receive(:new).and_return(blog)
     end
 
-    it 'should raise an ActiveRecord::RecordNotFound error' do
-      expect {
+    context 'when feed is configured' do
+      render_views
+
+      before do
+        allow(AlaveteliConfiguration).to receive(:blog_feed).
+          and_return('http://blog.example.com')
+        allow(blog).to receive(:quietly_try_to_open).
+          and_return(load_file_fixture('blog_feed.atom'))
+      end
+
+      it 'assigns blog' do
         get :blog
-      }.to raise_error(ActiveRecord::RecordNotFound)
+        expect(assigns[:blog]).to eq(blog)
+      end
+
+      it 'assigns feed_autodetect' do
+        get :blog
+        expect(assigns[:feed_autodetect]).to eq(blog.feeds)
+      end
+
+      it 'escapes any javascript from the entries' do
+        get :blog
+        expect(response.body).not_to include(
+          '<script>alert("exciting!")</script>'
+        )
+      end
+    end
+
+    context 'when feed is not configured' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:blog_feed).and_return('')
+      end
+
+      it 'should raise an ActiveRecord::RecordNotFound error' do
+        expect {
+          get :blog
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
-
-  context 'when the blog has entries' do
-
-    render_views
-
-    it 'should escape any javascript from the entries' do
-      allow(controller).to receive(:quietly_try_to_open).and_return(load_file_fixture("blog_feed.atom"))
-      get :blog
-      expect(response.body).not_to include('<script>alert("exciting!")</script>')
-    end
-
-  end
-
 end
 
 RSpec.describe GeneralController, "when showing the frontpage" do

@@ -4,7 +4,7 @@
   <h1><%=@title %></h1>
 
   <div id="blog" class="blog">
-    <% @blog_items.each do |item| %>
+    <% @blog.items.each do |item| %>
       <div class="blog_post">
         <% date = Time.zone.parse(item['pubDate'][0]) %>
 
