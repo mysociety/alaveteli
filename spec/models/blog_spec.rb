@@ -62,10 +62,12 @@ RSpec.describe Blog do
 
       it 'updates existing Blog::Post object when URL matches' do
         existing = FactoryBot.create(
-          :blog_post, url: 'http://www.example.com/example-post'
+          :blog_post,
+          title: 'My fancy blog post',
+          url: 'http://www.example.com/example-post'
         )
         expect { posts }.to change { existing.reload.title }.
-          from('My fancy blog post - part 1').
+          from('My fancy blog post').
           to('Example Post')
       end
     end
