@@ -25,3 +25,7 @@ sidekiq_failed_jobs <%= @sidekiq_stats.failed %>
 # HELP sidekiq_processed_jobs Number of jobs that need manual intervention to retry
 # TYPE sidekiq_dead_jobs gauge
 sidekiq_dead_jobs <%= @sidekiq_stats.dead_size %>
+
+# HELP xapian_queued_jobs The number of jobs in the Xapian queue
+# TYPE xapian_queued_jobs gauge
+xapian_queued_jobs <%= @xapian_queued_jobs %>
