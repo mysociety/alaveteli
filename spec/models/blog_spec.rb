@@ -22,9 +22,9 @@ RSpec.describe Blog do
     end
   end
 
-  describe '#items' do
+  describe '#posts' do
     let(:blog) { described_class.new }
-    subject(:items) { blog.items }
+    subject(:posts) { blog.posts }
 
     context 'when feed is fetched successfully' do
       before do
@@ -36,7 +36,37 @@ RSpec.describe Blog do
       end
 
       it 'parses an item from an example feed' do
-        expect(items.count).to eq(1)
+        expect(posts.count).to eq(1)
+      end
+
+      it 'returns Blog::Post objects' do
+        expect(posts).to all be_a(Blog::Post)
+      end
+
+      it 'maps feed title to model title' do
+        expect(posts.first.title).to eq('Example Post')
+      end
+
+      it 'maps feed link to model url' do
+        expect(posts.first.url).to eq('http://www.example.com/example-post')
+      end
+
+      it 'maps feed to model data' do
+        expect(posts.first.data).to include(
+          'category' => ['FOI'],
+          'creator' => ['Example Blogger'],
+          'comments' => ['http://www.example.com/example-post#comments', '2'],
+          'pubDate' => ['Mon, 01 Apr 2013 19:26:08 +0000']
+        )
+      end
+
+      it 'updates existing Blog::Post object when URL matches' do
+        existing = FactoryBot.create(
+          :blog_post, url: 'http://www.example.com/example-post'
+        )
+        expect { posts }.to change { existing.reload.title }.
+          from('My fancy blog post - part 1').
+          to('Example Post')
       end
     end
 
@@ -48,7 +78,7 @@ RSpec.describe Blog do
       end
 
       it 'should fail silently if the blog is returning an error' do
-        expect(items.count).to eq(0)
+        expect(posts.count).to eq(0)
       end
     end
   end

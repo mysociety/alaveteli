@@ -13,12 +13,19 @@ class Blog
     AlaveteliConfiguration.blog_feed.present?
   end
 
-  def items
+  def self.table_name_prefix
+    'blog_'
+  end
+
+  def posts
     return [] if content.empty?
 
-    data = XmlSimple.xml_in(content)
-    channel = data['channel'][0]
-    channel.fetch('item') { [] }
+    posts = XmlSimple.xml_in(content)['channel'][0].fetch('item', []).reverse
+    posts.map do |data|
+      Blog::Post.find_or_initialize_by(url: data['link'][0]).tap do |post|
+        post.update(title: data['title'][0], data: data)
+      end
+    end
   end
 
   def feeds
