@@ -495,6 +495,12 @@ Rails.application.routes.draw do
   resources :announcements, :only => [:destroy]
   ####
 
+  #### Admin::BlogPosts controller
+  namespace :admin do
+    resources :blog_posts, only: [:index, :edit, :update]
+  end
+  ####
+
   #### AdminTag controller
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show]

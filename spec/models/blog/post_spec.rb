@@ -11,8 +11,11 @@
 #  updated_at :datetime         not null
 #
 require 'spec_helper'
+require 'models/concerns/taggable'
 
 RSpec.describe Blog::Post, type: :model do
+  it_behaves_like 'concerns/taggable', :blog_post
+
   let(:post) { FactoryBot.build(:blog_post) }
 
   describe 'validations' do

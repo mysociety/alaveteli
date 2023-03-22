@@ -11,6 +11,12 @@
 #  updated_at :datetime         not null
 #
 class Blog::Post < ApplicationRecord
+  include Taggable
+
+  def self.admin_title
+    'Blog Post'
+  end
+
   validates_presence_of :title, :url
   validates_uniqueness_of :url
 end
