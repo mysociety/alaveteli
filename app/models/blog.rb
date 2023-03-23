@@ -25,7 +25,7 @@ class Blog
       Blog::Post.find_or_initialize_by(url: data['link'][0]).tap do |post|
         post.update(title: data['title'][0], data: data)
       end
-    end
+    end.reverse
   end
 
   def feeds
