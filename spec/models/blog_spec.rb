@@ -36,7 +36,7 @@ RSpec.describe Blog do
       end
 
       it 'parses an item from an example feed' do
-        expect(posts.count).to eq(1)
+        expect(posts.count).to eq(2)
       end
 
       it 'returns Blog::Post objects' do
@@ -69,6 +69,11 @@ RSpec.describe Blog do
         expect { posts }.to change { existing.reload.title }.
           from('My fancy blog post').
           to('Example Post')
+      end
+
+      it 'returns BLog::Post in the same order as the feed' do
+        expect(posts.first.title).to eq('Example Post')
+        expect(posts.second.title).to eq('Other Post')
       end
     end
 

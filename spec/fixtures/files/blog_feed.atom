@@ -33,6 +33,23 @@
 ]]></content:encoded>
             <wfw:commentRss>http://www.example.com/feed/</wfw:commentRss>
         <slash:comments>2</slash:comments>
+      </item>
+
+        <item>
+        <title>Other Post</title>
+        <link>http://www.example.com/other-post</link>
+        <comments>http://www.example.com/other-post#comments</comments>
+        <pubDate>Mon, 01 Mar 2013 12:00:00 +0000</pubDate>
+        <dc:creator>Example Blogger</dc:creator>
+                <category><![CDATA[FOI]]></category>
+
+        <guid isPermaLink="false">http://www.example.com/?id=332</guid>
+        <description><![CDATA[Another example post [...]]]></description>
+            <content:encoded><![CDATA[<h3>A blog post</h3>
+<p>Another example post</p>
+]]></content:encoded>
+            <wfw:commentRss>http://www.example.com/feed/</wfw:commentRss>
+        <slash:comments>0</slash:comments>
         </item>
 
     </channel>
