@@ -11,9 +11,9 @@ services:
       - BUNDLE_PATH=/bundle/vendor
       - DATABASE_URL=postgres://postgres:password@db/
       - REDIS_URL=redis://redis:6379
+      - SMTP_URL=smtp://smtp:1025
     ports:
       - 3000:3000
-      - 1080:1080
     volumes:
       - ./:/alaveteli
       - ../alaveteli-themes:/alaveteli-themes
@@ -21,6 +21,7 @@ services:
     depends_on:
       - db
       - redis
+      - smtp
 
   sidekiq:
     build:
@@ -37,9 +38,11 @@ services:
       - BUNDLE_PATH=/bundle/vendor
       - DATABASE_URL=postgres://postgres:password@db/
       - REDIS_URL=redis://redis:6379
+      - SMTP_URL=smtp://smtp:1025
     depends_on:
-      - 'db'
-      - 'redis'
+      - db
+      - redis
+      - smtp
 
   db:
     build:
@@ -57,6 +60,11 @@ services:
     command: redis-server
     volumes:
       - redis:/data
+
+  smtp:
+    image: mailhog/mailhog
+    ports:
+      - 1080:8025
 
 volumes:
   bundle: {}

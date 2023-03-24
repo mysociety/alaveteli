@@ -26,8 +26,6 @@ WORKDIR /alaveteli
 RUN git config --global --add safe.directory /alaveteli
 
 RUN gem update --system
-RUN gem install mailcatcher
 
 EXPOSE 3000
-EXPOSE 1080
 CMD wait-for-it db:5432 --strict -- ./docker/entrypoint.sh
