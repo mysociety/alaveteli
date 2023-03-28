@@ -112,53 +112,12 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(response.status).to eq(303)
     end
 
-    context 'when attachment is a HTML file' do
-      let(:attachment) do
-        FactoryBot.create(
-          :html_attachment,
-          incoming_message: message,
-          prominence: attachment_prominence
-        )
-      end
-
-      it 'should sanitise the output' do
-        show
-
-        # Nokogiri adds the meta tag; see
-        # https://github.com/sparklemotion/nokogiri/issues/1008
-        expected = <<-EOF.squish
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          </head>
-          <body>dull
-          </body>
-        </html>
-        EOF
-
-        expect(response.body.squish).to eq(expected)
-      end
-    end
-
-    it 'censors attachments downloaded directly' do
-      info_request.censor_rules.create!(
-        text: 'hereisthetext', replacement: 'Mouse',
-        last_edit_editor: 'unknown', last_edit_comment: 'none'
-      )
+    it 'returns body from FoiAttachmentMaskJob' do
+      expect(FoiAttachmentMaskJob).to receive(:perform_now).
+        with(attachment).
+        and_return('Monkey')
       show
-      expect(response.media_type).to eq('text/plain')
-      expect(response.body).to have_content 'Mouse'
-    end
-
-    it 'should censor with rules on the user (rather than the request)' do
-      info_request.user.censor_rules.create!(
-        text: 'hereisthetext', replacement: 'Mouse',
-        last_edit_editor: 'unknown', last_edit_comment: 'none'
-      )
-      show
-      expect(response.media_type).to eq('text/plain')
-      expect(response.body).to have_content 'Mouse'
+      expect(response.body).to match('Monkey')
     end
 
     context 'when request is embargoed' do

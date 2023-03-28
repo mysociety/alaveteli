@@ -19,20 +19,7 @@ class AttachmentsController < ApplicationController
   around_action :cache_attachments
 
   def show
-    # Prevent spam to magic request address. Note that the binary
-    # substitution method used depends on the content type
-    body = @incoming_message.apply_masks(
-      @attachment.default_body,
-      @attachment.content_type
-    )
-
-    if content_type == 'text/html'
-      body =
-        Loofah.scrub_document(body, :prune).
-        to_html(encoding: 'UTF-8').
-        try(:html_safe)
-    end
-
+    body = FoiAttachmentMaskJob.perform_now(@attachment)
     render body: body, content_type: content_type
   end
 
