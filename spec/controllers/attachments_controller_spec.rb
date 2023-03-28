@@ -125,19 +125,45 @@ RSpec.describe AttachmentsController, type: :controller do
         )
       end
 
-      it 'queues FoiAttachmentMaskJob' do
-        expect(FoiAttachmentMaskJob).to receive(:perform_later).
-          with(attachment)
-        show
+      context 'when masked attachment is avaliable before timing out' do
+        before do
+          allow(IncomingMessage).to receive(
+            :get_attachment_by_url_part_number_and_filename!
+          ).and_return(attachment)
+          allow(attachment).to receive(:masked?).and_return(false, true)
+        end
+
+        it 'queues FoiAttachmentMaskJob' do
+          expect(FoiAttachmentMaskJob).to receive(:perform_later).
+            with(attachment)
+          show
+        end
+
+        it 'redirects to show action' do
+          show
+          expect(response).to redirect_to(request.fullpath)
+        end
       end
 
-      it 'redirects to wait for attachment mask route' do
-        allow_any_instance_of(FoiAttachment).to receive(:to_signed_global_id).
-          and_return('ABC')
-        show
-        expect(response).to redirect_to(
-          wait_for_attachment_mask_path('ABC', referer: request.fullpath)
-        )
+      context 'when response times out waiting for masked attachment' do
+        before do
+          allow(Timeout).to receive(:timeout).and_raise(Timeout::Error)
+        end
+
+        it 'queues FoiAttachmentMaskJob' do
+          expect(FoiAttachmentMaskJob).to receive(:perform_later).
+            with(attachment)
+          show
+        end
+
+        it 'redirects to wait for attachment mask route' do
+          allow_any_instance_of(FoiAttachment).to receive(:to_signed_global_id).
+            and_return('ABC')
+          show
+          expect(response).to redirect_to(
+            wait_for_attachment_mask_path('ABC', referer: request.fullpath)
+          )
+        end
       end
     end
 

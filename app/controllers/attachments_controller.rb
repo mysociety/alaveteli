@@ -24,11 +24,20 @@ class AttachmentsController < ApplicationController
     else
       FoiAttachmentMaskJob.perform_later(@attachment)
 
-      redirect_to wait_for_attachment_mask_path(
-        @attachment.to_signed_global_id,
-        referer: request.fullpath
-      )
+      Timeout.timeout(5) do
+        until @attachment.masked?
+          sleep 0.5
+          @attachment.reload
+        end
+        redirect_to(request.fullpath)
+      end
     end
+
+  rescue Timeout::Error
+    redirect_to wait_for_attachment_mask_path(
+      @attachment.to_signed_global_id,
+      referer: request.fullpath
+    )
   end
 
   def show_as_html
