@@ -9,11 +9,25 @@ class AttachmentMasksController < ApplicationController
 
   def wait
     if @attachment.masked?
-      redirect_to params[:referer]
+      redirect_to done_attachment_mask_path(
+        id: @attachment.to_signed_global_id,
+        referer: params[:referer]
+      )
 
     else
       FoiAttachmentMaskJob.perform_later(@attachment)
     end
+  end
+
+  def done
+    unless @attachment.masked?
+      redirect_to wait_for_attachment_mask_path(
+        id: @attachment.to_signed_global_id,
+        referer: params[:referer]
+      )
+    end
+
+    @show_attachment_path = params[:referer]
   end
 
   private

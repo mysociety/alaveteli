@@ -137,6 +137,7 @@ Rails.application.routes.draw do
   #### Attachment controller
   resources :attachment_masks, only: [], path: :attachments do
     get 'wait', on: :member, as: :wait_for
+    get 'done', on: :member
   end
   ####
 
