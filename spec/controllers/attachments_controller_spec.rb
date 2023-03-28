@@ -23,7 +23,10 @@ RSpec.describe AttachmentsController, type: :controller do
 
   let(:attachment) do
     FactoryBot.create(
-      :body_text, incoming_message: message, prominence: attachment_prominence
+      :body_text,
+      body: 'hereisthemaskedtext',
+      incoming_message: message,
+      prominence: attachment_prominence
     )
   end
 
@@ -105,7 +108,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
     it 'should find a uniquely named filename even if the URL part number was wrong' do
       show(part: 5)
-      expect(response.body).to match('hereisthetext')
+      expect(response.body).to match('hereisthemaskedtext')
     end
 
     it 'should not download attachments with wrong file name' do
@@ -113,10 +116,29 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(response.status).to eq(303)
     end
 
-    it 'perfoms a FoiAttachmentMaskJob' do
-      expect(FoiAttachmentMaskJob).to receive(:perform_now).
-        with(attachment)
-      show
+    context 'when attachment has not been masked' do
+      let(:attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked,
+          incoming_message: message,
+          prominence: attachment_prominence
+        )
+      end
+
+      it 'queues FoiAttachmentMaskJob' do
+        expect(FoiAttachmentMaskJob).to receive(:perform_later).
+          with(attachment)
+        show
+      end
+
+      it 'redirects to wait for attachment mask route' do
+        allow_any_instance_of(FoiAttachment).to receive(:to_signed_global_id).
+          and_return('ABC')
+        show
+        expect(response).to redirect_to(
+          wait_for_attachment_mask_path('ABC', referer: request.fullpath)
+        )
+      end
     end
 
     context 'when request is embargoed' do
@@ -245,7 +267,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
         it 'attachment is viewable' do
           show
-          expect(response.body).to include('hereisthetext')
+          expect(response.body).to include('hereisthemaskedtext')
         end
 
         it 'does not cache an attachment' do

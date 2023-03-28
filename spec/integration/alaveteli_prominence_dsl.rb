@@ -3,16 +3,24 @@ require 'integration/alaveteli_dsl'
 RSpec.shared_context 'prominence context' do
   let!(:event) do
     FactoryBot.create(
-      :response_event, :with_attachments,
-      incoming_message_factory: :incoming_message_with_html_attachment
+      :response_event,
+      info_request: info_request,
+      incoming_message: incoming_message
     )
   end
 
-  let(:info_request) { event.info_request }
-  let(:incoming_message) { event.incoming_message }
+  let(:info_request) { FactoryBot.create(:info_request) }
+
+  let(:incoming_message) do
+    FactoryBot.create(:incoming_message, info_request: info_request)
+  end
 
   let(:attachment) do
-    incoming_message.foi_attachments.find_by(url_part_number: 2)
+    FactoryBot.create(
+      :html_attachment,
+      body: 'dull',
+      incoming_message: incoming_message
+    )
   end
 
   let(:requester) { info_request.user }

@@ -19,12 +19,15 @@ class AttachmentsController < ApplicationController
   around_action :cache_attachments
 
   def show
-    FoiAttachmentMaskJob.perform_now(@attachment)
-
     if @attachment.masked?
       render body: @attachment.body, content_type: content_type
     else
-      # TODO: perform job in the background
+      FoiAttachmentMaskJob.perform_later(@attachment)
+
+      redirect_to wait_for_attachment_mask_path(
+        @attachment.to_signed_global_id,
+        referer: request.fullpath
+      )
     end
   end
 
