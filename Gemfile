@@ -87,6 +87,7 @@ gem 'pg', '~> 1.5.3'
 gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
                          ref: '13e928b'
 gem 'active_model_otp'
+gem 'activejob-uniqueness'
 gem 'bcrypt', '~> 3.1.19'
 gem 'cancancan', '~> 3.5.0'
 gem 'charlock_holmes', '~> 0.7.7'
