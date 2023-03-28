@@ -71,68 +71,20 @@ RSpec.describe 'when handling incoming mail' do
     expect(page).to have_content "Walberswick Parish Council"
   end
 
-  it "does not cause a reparsing of the raw email, even when the attachment can't be found" do
+  it "redirects back to incoming message when the attachment can't be found" do
     receive_incoming_mail('incoming-request-two-same-name.email',
                           email_to: info_request.incoming_email)
-    incoming_message = info_request.incoming_messages.first
-    attachment = IncomingMessage.
-                   get_attachment_by_url_part_number_and_filename!(
-                     incoming_message.get_attachments_for_display,
-                     2,
-                     'hello world.txt'
-                   )
-    expect(attachment.body).to match "Second hello"
-
-    # change the raw_email associated with the message; this should only be
-    # reparsed when explicitly asked for
-    incoming_message.raw_email.data = incoming_message.raw_email.data.sub("Second", "Third")
-    incoming_message.save!
-    # asking for an attachment by the wrong filename should result in redirecting
-    # back to the incoming message, but shouldn't cause a reparse:
+    # asking for an attachment by the wrong filename should result in
+    # redirecting back to the incoming message
     visit get_attachment_as_html_path(
-      incoming_message_id: incoming_message.id,
+      incoming_message_id: info_request.incoming_messages.first.id,
       id: info_request.id,
       part: 2,
       file_name: 'hello world.txt.baz.html',
       skip_cache: 1
     )
 
-    attachment = IncomingMessage.
-                   get_attachment_by_url_part_number_and_filename!(
-                     incoming_message.get_attachments_for_display,
-                     2,
-                     'hello world.txt'
-                   )
-    expect(attachment.body).to match "Second hello"
-
-    # ...nor should asking for it by its correct filename...
-    visit get_attachment_as_html_path(
-      incoming_message_id: incoming_message.id,
-      id: info_request.id,
-      part: 2,
-      file_name: 'hello world.txt.html',
-      skip_cache: 1
-    )
-    expect(page).not_to have_content "Third hello"
-
-    # ...but if we explicitly ask for attachments to be extracted, then they should be
-    force = true
-    incoming_message.parse_raw_email!(force)
-    attachment = IncomingMessage.
-                   get_attachment_by_url_part_number_and_filename!(
-                     incoming_message.get_attachments_for_display,
-                     2,
-                     'hello world.txt'
-                   )
-    expect(attachment.body).to match "Third hello"
-    visit get_attachment_as_html_path(
-      incoming_message_id: incoming_message.id,
-      id: info_request.id,
-      part: 2,
-      file_name: 'hello world.txt.html',
-      skip_cache: 1
-    )
-    expect(page).to have_content "Third hello"
+    expect(current_path).to eq(show_request_path(info_request.url_title))
   end
 
   it "treats attachments with unknown extensions as binary" do

@@ -97,20 +97,14 @@ class FoiAttachment < ApplicationRecord
   end
 
   # raw body, encoded as binary
-  def body(tries: 0, delay: 1)
+  def body
     return @cached_body if @cached_body
 
-    if file.attached?
+    if masked?
       @cached_body = file.download
     else
-      # we've lost our cached attachments for some reason.  Reparse them.
-      raise if tries > BODY_MAX_TRIES
-      sleep [delay, BODY_MAX_DELAY].min
-
-      incoming_message.parse_raw_email!(true)
-      reload
-
-      body(tries: tries + 1, delay: delay * 2)
+      FoiAttachmentMaskJob.perform_now(self)
+      body
     end
   end
 
