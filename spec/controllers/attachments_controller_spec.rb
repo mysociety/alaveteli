@@ -48,27 +48,6 @@ RSpec.describe AttachmentsController, type: :controller do
       get :show, params: default_params.merge(params)
     end
 
-    it 'should cache an attachment on a request with normal prominence' do
-      expect(@controller).to receive(:foi_fragment_cache_write)
-      show
-    end
-
-    it 'sets the correct read permissions for the new file' do
-      # allow file to be written to disk
-      allow(@controller).to receive(:foi_fragment_cache_write).and_call_original
-
-      # write file to disk
-      show
-
-      # check the file permissions
-      key_path = @controller.send(:cache_key_path)
-      octal_stat = format('%o', File.stat(key_path).mode)[-4..-1]
-      expect(octal_stat).to eq('0644')
-
-      # clean up and remove the file
-      File.delete(key_path)
-    end
-
     # This is a regression test for a bug where URLs of this form were causing
     # 500 errors instead of 404s.
     #
