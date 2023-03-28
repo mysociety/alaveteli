@@ -1,6 +1,8 @@
 FactoryBot.define do
 
   factory :foi_attachment do
+    sequence(:url_part_number) { |n| n + 1 }
+
     factory :body_text do
       content_type { 'text/plain' }
       body { 'hereisthetext' }
