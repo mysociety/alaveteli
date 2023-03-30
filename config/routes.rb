@@ -215,7 +215,11 @@ Rails.application.routes.draw do
   end
   ####
 
-  resources :health_checks, :only => [:index]
+  namespace :health do
+    resources :checks, :only => [:index]
+    resources :metrics, :only => [:index], :defaults => { :format => 'txt' }
+  end
+  get '/health_checks' => redirect('/health/checks')
 
   resources :request, :only => [] do
     resource :report, :only => [:new, :create]
