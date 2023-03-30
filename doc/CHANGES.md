@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Reduce the visual prominence of defunct bodies in lists (Gareth Rees)
 * Add ability to paginate through requests in a batch (Gareth Rees)
 * Add list of batch requests to admin user page (Gareth Rees)
 * Add daily limit to user message creation (Gareth Rees)
