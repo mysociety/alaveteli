@@ -6,5 +6,6 @@
     <%= render partial: 'frontpage_requests_list' %>
   </div>
 
+  <%= render partial: 'frontpage_blog' if Blog.enabled? %>
   <%= render partial: 'frontpage_extra' %>
 <% end %>

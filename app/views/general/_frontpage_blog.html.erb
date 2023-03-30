@@ -1,0 +1,14 @@
+<% if blog_posts_for_frontpage.any? %>
+  <div class="frontpage__blog">
+    <h2><%= _('Latest news and campaigns') %></h2>
+
+    <% blog_posts_for_frontpage.each do |post| %>
+      <div class="blog__post">
+        <h3><%= link_to post.title, post.url %></h3>
+        <p><%= post.description %></p>
+      </div>
+    <% end %>
+
+    <%= link_to _('See all &rarr;'), blog_path, class: 'button-secondary' %>
+  </div>
+<% end %>

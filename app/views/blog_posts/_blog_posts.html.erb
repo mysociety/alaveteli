@@ -1,0 +1,11 @@
+<% blog_posts = blog_posts_for_taggable(taggable: taggable) %>
+
+<% if blog_posts.any? %>
+  <div class="sidebar__section blog-posts">
+    <h2><%= _('Related blog posts') %></h2>
+
+    <ul class="blog-posts-list">
+      <%= render partial: 'blog_posts/blog_post', collection: blog_posts %>
+    </ul>
+  </div>
+<% end %>
