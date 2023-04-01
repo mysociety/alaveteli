@@ -442,4 +442,50 @@ RSpec.describe AdminUserController do
       }.to change(ActsAsXapian::ActsAsXapianJob, :count).by(1)
     end
   end
+
+  describe 'POST #destroy_comment' do
+    let(:user) { FactoryBot.create(:user, :admin) }
+
+    before(:each) do
+      request.env['HTTP_REFERER'] = admin_user_path(user)
+    end
+
+    it 'destroys the selected comments' do
+      comments = FactoryBot.create_list(:visible_comment, 3, user: user)
+      comment_ids = comments.map(&:id)
+
+      expect {
+        post :destroy_comment, params: {
+          id: user.id,
+          comment_ids: comment_ids
+        }
+      }.to change(Comment, :count).by(-3)
+    end
+
+    it 'logs destroy_comment events for the deleted comments' do
+      allow(controller).to receive(:admin_current_user).and_return(@admin_user)
+
+      comments = FactoryBot.create_list(:visible_comment, 3, user: user)
+      comment_ids = comments.map(&:id)
+
+      sign_in @admin_user
+
+      expect {
+        post :destroy_comment, params: {
+          id: user.id,
+          comment_ids: comment_ids
+        }
+      }.to change(InfoRequestEvent, :count).by(3)
+
+      deleted_comment_events =
+        InfoRequestEvent.where(event_type: 'destroy_comment')
+
+      expect(deleted_comment_events.count).to eq(3)
+
+      deleted_comment_events.each do |event|
+        expect(event.params[:deleted_comment_id]).to be_in(comment_ids)
+        expect(event.params[:editor]).to eq(@admin_user)
+      end
+    end
+  end
 end

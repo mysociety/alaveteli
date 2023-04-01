@@ -120,6 +120,20 @@ class AdminUserController < AdminController
     redirect_to admin_user_url(@admin_user)
   end
 
+  def destroy_comment
+    Comment.where(id: params[:comment_ids]).each do |comment|
+      if comment.destroy
+        comment.info_request.log_event(
+          'destroy_comment',
+          editor: admin_current_user,
+          deleted_comment_id: comment.id
+        )
+      end
+    end
+    flash[:notice] = "Selected comments destroyed."
+    redirect_back(fallback_location: admin_users_url)
+  end
+
   def modify_comment_visibility
     desired_visibility = params[:hide_selected] ? false : true
 
@@ -128,6 +142,8 @@ class AdminUserController < AdminController
       where(visible: !desired_visibility).
       find_each { |comment| comment.toggle!(:visible) }
 
+    action = desired_visibility ? "unhidden" : "hidden"
+    flash[:notice] = "Selected comments #{action}."
     redirect_back(fallback_location: admin_users_url)
   end
 
