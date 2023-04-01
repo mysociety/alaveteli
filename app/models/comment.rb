@@ -194,6 +194,20 @@ class Comment < ApplicationRecord
     end
   end
 
+  def destroy_and_log_event(event: {})
+    return false unless destroy
+
+    info_request.log_event(
+      'destroy_comment',
+      event.merge(
+        comment: self,
+        comment_user: user,
+        comment_created_at: created_at,
+        comment_updated_at: updated_at
+      )
+    )
+  end
+
   def cached_urls
     [
       request_path(info_request),

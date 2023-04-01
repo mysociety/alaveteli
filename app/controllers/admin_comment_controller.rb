@@ -58,6 +58,18 @@ class AdminCommentController < AdminController
     end
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+
+    if @comment.destroy_and_log_event(event: { editor: admin_current_user })
+      flash[:notice] = 'Comment successfully destroyed.'
+      redirect_to admin_request_url(@comment.info_request)
+    else
+      flash[:error] = 'Could not destroy the comment.'
+      redirect_to edit_admin_comment_path(@comment)
+    end
+  end
+
   private
 
   def comment_params

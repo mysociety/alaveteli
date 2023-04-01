@@ -345,4 +345,46 @@ RSpec.describe Comment do
       expect(event.params[:visible]).to eq(false)
     end
   end
+
+  describe '#destroy_and_log_event' do
+    let(:comment) { FactoryBot.create(:comment) }
+
+    def last_event
+      comment.info_request.info_request_events.last
+    end
+
+    it 'destroy and logs destroy_comment event' do
+      expect(comment).to receive(:destroy).and_call_original
+
+      expect do
+        comment.destroy_and_log_event
+      end.to change { last_event }
+
+      expect(last_event.event_type).to eq('destroy_comment')
+    end
+
+    it 'logs key comment attributes' do
+      comment.destroy_and_log_event
+
+      expect(last_event.comment).to be_nil
+      expect(last_event.params).to include(
+        comment: { gid: comment.to_gid.to_s },
+        comment_user: { gid: comment.user.to_gid.to_s },
+        comment_created_at: comment.created_at.utc.iso8601(3),
+        comment_updated_at: comment.updated_at.utc.iso8601(3)
+      )
+    end
+
+    it 'logs additional event data' do
+      comment.destroy_and_log_event(event: { editor: 'me' })
+      expect(last_event.params).to include(editor: 'me')
+    end
+
+    it 'does not log event if update fails' do
+      allow(comment).to receive(:destroy).and_return(false)
+      expect do
+        comment.destroy_and_log_event
+      end.to_not change { last_event }
+    end
+  end
 end
