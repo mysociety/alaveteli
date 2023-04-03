@@ -1,0 +1,4 @@
+<h1>Citations</h1>
+
+<%= render partial: 'admin/citations/list', 
+locals: {citations: @admin_user_citations} %>
