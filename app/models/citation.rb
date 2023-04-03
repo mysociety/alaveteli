@@ -32,6 +32,20 @@ class Citation < ApplicationRecord
   validates :type, inclusion: { in: %w(news_story academic_paper other),
                                 message: _('Please select a type') }
 
+    scope :embargoed, -> {
+  joins(info_request: :embargo).
+    where('embargoes.id IS NOT NULL').
+    references(:embargoes)
+}
+
+  scope :not_embargoed, -> {
+    joins(:info_request).
+      select('comments.*').
+        joins('LEFT OUTER JOIN embargoes
+                                             ON embargoes.info_request_id = info_requests.id').
+          where('embargoes.id IS NULL').
+            references(:embargoes)
+  }
   scope :newest, ->(limit = 1) do
     order(created_at: :desc).limit(limit)
   end
