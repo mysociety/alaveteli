@@ -122,7 +122,7 @@ gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git'
 gem 'stripe', '~> 5.55.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
-gem 'thin', '~> 1.8.1'
+gem 'thin', '~> 1.8.2'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.3.1'
 gem 'xapian-full-alaveteli', '~> 1.4.22.1'
