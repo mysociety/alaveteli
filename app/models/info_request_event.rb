@@ -55,6 +55,7 @@ class InfoRequestEvent < ApplicationRecord
     'send_error', # an error during sending
     'refusal_advice', # the results of completing the refusal advice wizard
     'public_token' # has the shareable public token been generated or not
+    'destroy_citation' # a citation is deleted by an admin
   ].freeze
 
   belongs_to :info_request,
