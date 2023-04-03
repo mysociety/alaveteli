@@ -763,6 +763,16 @@ Rails.application.routes.draw do
     end
   end
   ####
+  
+  #### Admin::Citations contoller
+  namespace :admin do
+    resources :citations, only: [:index] do
+      collection do
+      delete :destroy
+      end
+    end
+  end   
+  ####
 
   #### Api controller
   match '/api/v2/request.json' => 'api#create_request',
