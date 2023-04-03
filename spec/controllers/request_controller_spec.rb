@@ -1732,8 +1732,8 @@ RSpec.describe RequestController, "when viewing comments" do
     sign_in users(:bob_smith_user)
     get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response.body).to have_css("div#comment-1 h2") do |s|
-      expect(s).to contain(/Silly.*left an annotation/m)
-      expect(s).not_to contain(/You.*left an annotation/m)
+      expect(s).to have_text(/Silly.*left an annotation/m)
+      expect(s).not_to have_text(/You.*left an annotation/m)
     end
   end
 
@@ -1741,8 +1741,8 @@ RSpec.describe RequestController, "when viewing comments" do
     sign_in users(:silly_name_user)
     get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response.body).to have_css("div#comment-1 h2") do |s|
-      expect(s).to contain(/Silly.*left an annotation/m)
-      expect(s).not_to contain(/You.*left an annotation/m)
+      expect(s).to have_text(/Silly.*left an annotation/m)
+      expect(s).not_to have_text(/You.*left an annotation/m)
     end
   end
 
