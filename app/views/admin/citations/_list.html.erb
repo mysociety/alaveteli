@@ -1,20 +1,39 @@
-<div id="citations">
-  <% if citations.any? %>
-    <% citations.each do |citation| %>
-      <div class="row">
-        <span class="item-title span6">
-          <tt><%= link_to citation.source_url, citation.source_url %></tt>
-        </span>
+<% if @citations.any? %>
+  <%= form_tag admin_citations_path, method: :delete do %>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ID</th>
+          <th>URL</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @citations.each do |citation| %>
+          <tr>
+            <td><%= check_box_tag 'citation_ids[]', citation.id %></td>
+            <td><%= citation.id %></td>
+            <td><tt><%= link_to citation.source_url, citation.source_url %></tt></td>
+            <td>
+            <%= both_links(citation.user) %>
+            <%= arrow_right %>
+            <%= both_links(citation.citable) %>,
+            <%= admin_date(citation.created_at, ago_only: true) %>
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-        <span class="item-metadata span6">
-          <%= both_links(citation.user) %>
-          <%= arrow_right %>
-          <%= both_links(citation.citable) %>,
-          <%= admin_date(citation.created_at, ago_only: true) %>
-        </span>
-      </div>
-    <% end %>
-  <% else %>
-    <p>None yet.</p>
+    <div class="btn-group">
+      <%= submit_tag 'Destroy selected', name: 'destroy', class: 'btn btn-danger' %>
+    </div>
+
+    <a href="#" class="select_all btn btn-link" data-state="unchecked" data-target="citation_ids[]">
+      Select all
+    </a>
   <% end %>
-</div>
+<% else %>
+  <p>None yet.</p>
+<% end %>
