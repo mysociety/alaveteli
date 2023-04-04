@@ -14,7 +14,7 @@ class Project::Export
   end
 
   def data
-    @data ||= project.info_requests.extracted.map do |info_request|
+    @data ||= project.info_requests.map do |info_request|
       Project::Export::InfoRequest.new(project, info_request).data
     end
   end
