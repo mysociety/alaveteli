@@ -1,31 +1,25 @@
 <% @title = "Timeline" %>
 <div class="btn-toolbar">
   <div class="btn-group">
-    <% time_filters = { hour: 1, day: 1, week: 1, month: 1, all: 1 } %>
-    <% time_filters.each do |key, value| %>
-      <%= link_to key.to_s.humanize,
-                  admin_timeline_path(key => value, event_type: params[:event_type]),
-                  class: "btn #{'active' if params[key].present?}" %>
+    <% @time_filters.each do |time_key, time_value| %>
+      <%= link_to time_key.to_s.humanize,
+                  admin_timeline_path(time_key => time_value, event_type: params[:event_type]),
+                  class: "btn #{'active' if params[time_key].present?}" %>
     <% end %>
   </div>
-  
   <div class="btn-group">
-    <% event_types = { 'authority_change' => 'Authority changes',
-                       'info_request_event' => 'Request events',
-                       '' => 'All' } %>
-    <% event_types.each do |key, value| %>
-      <%= link_to value,
-                  admin_timeline_path(event_type: key,
+    <% @event_types.each do |event_key, event_name| %>
+      <%= link_to event_name,
+                  admin_timeline_path(event_type: event_key,
                                       hour: params[:hour],
                                       day: params[:day],
                                       week: params[:week],
                                       month: params[:month],
                                       all: params[:all]),
-                  class: "btn #{'active' if params[:event_type] == key}" %>
+                  class: "btn #{'active' if params[:event_type].to_s == event_key.to_s}" %>
     <% end %>
   </div>
 </div>
-
 <div class="row">
   <div class="span12">
     <h1><%= @events_title %></h1>
