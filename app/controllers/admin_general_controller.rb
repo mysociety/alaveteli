@@ -5,7 +5,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminGeneralController < AdminController
-
+  include TimelineHelper
+  
   def index
     # Tasks to do
     @requires_admin_requests = InfoRequest.
