@@ -45,6 +45,7 @@ class User < ApplicationRecord
   include User::Authentication
   include User::LoginToken
   include User::OneTimePassword
+  include User::Slug
   include User::Survey
 
   DEFAULT_CONTENT_LIMITS = {
@@ -352,20 +353,6 @@ class User < ApplicationRecord
   # When name is changed, also change the url name
   def name=(name)
     write_attribute(:name, name.try(:strip))
-    update_url_name
-  end
-
-  def update_url_name
-    url_name = MySociety::Format.simplify_url_part(read_attribute(:name), 'user', 32)
-    # For user with same name as others, add on arbitary numeric identifier
-    unique_url_name = url_name
-    suffix_num = 2 # as there's already one without numeric suffix
-    conditions = id ? ["id <> ?", id] : []
-    until User.where(url_name: unique_url_name).where(conditions).first.nil?
-      unique_url_name = url_name + "_" + suffix_num.to_s
-      suffix_num += 1
-    end
-    self.url_name = unique_url_name
   end
 
   # For use in to/from in email messages
