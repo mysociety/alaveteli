@@ -11,11 +11,11 @@ RSpec.describe Project::Export do
     let(:info_request_b) { instance_double('InfoRequest') }
 
     before do
-      allow(project).to receive_message_chain(:info_requests, :extracted).
+      allow(project).to receive_message_chain(:info_requests).
         and_return([info_request_a, info_request_b])
     end
 
-    it 'individualy exports info requests' do
+    it 'individually exports info requests' do
       expect(Project::Export::InfoRequest).to receive(:new).
         with(project, info_request_a).
         and_return(double(data: { header: 'DATA A' }))
