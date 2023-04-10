@@ -1555,6 +1555,9 @@ Style/ConstantVisibility:
 Style/Copyright:
   Enabled: false
 
+Style/DataInheritance:
+  Enabled: false
+
 Style/DateTime:
   Enabled: false
 
@@ -1988,6 +1991,9 @@ Style/RedundantInitialize:
 
 Style/RedundantInterpolation:
   Enabled: true
+
+Style/RedundantLineContinuation:
+  Enabled: false
 
 Style/RedundantParentheses:
   Enabled: true
