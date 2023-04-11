@@ -1366,6 +1366,9 @@ Rails/StripHeredoc:
 Rails/TableNameAssignment:
   Enabled: false
 
+Rails/ThreeStateBooleanColumn:
+  Enabled: false
+
 Rails/TimeZone:
   Enabled: false
 
