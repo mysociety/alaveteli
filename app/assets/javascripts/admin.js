@@ -9,5 +9,6 @@
 //= require bootstrap-tooltip
 //= require admin/admin
 //= require admin/category-order
+//= require admin/censor-rules
 //= require admin/holidays
 //= require jquery_ujs
