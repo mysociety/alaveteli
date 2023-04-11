@@ -202,10 +202,6 @@ class InfoRequestEvent < ApplicationRecord
     info_request.tag_array_for_search
   end
 
-  def variety
-    event_type
-  end
-
   def visible
     if event_type == 'comment'
       comment.visible
