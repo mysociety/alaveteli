@@ -241,23 +241,8 @@ class FoiAttachment < ApplicationRecord
     end
   end
 
-  # Whether this type can be shown in the Google Docs Viewer.
-  # The full list of supported types can be found at
-  #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
   def has_google_docs_viewer?
-    [
-      "application/pdf", # .pdf
-      "image/tiff", # .tiff
-
-      "application/vnd.ms-word", # .doc
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", # .docx
-
-      "application/vnd.ms-powerpoint", # .ppt
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation", # .pptx
-
-      "application/vnd.ms-excel", # .xls
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
-    ].include?(content_type)
+    AttachmentToHTML::Adapters::GoogleDocsViewer.viewable?(content_type)
   end
 
   # Whether this type has a "View as HTML"

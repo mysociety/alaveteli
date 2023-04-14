@@ -7,6 +7,26 @@ module AttachmentToHTML
     # constructed iframe (which is tested) that Google will make this
     # Just Work.
     class GoogleDocsViewer < Adapter
+      # rubocop:disable Style/LineLength
+      VIEWABLE_CONTENT_TYPPES = [
+        'application/pdf', # .pdf
+        'image/tiff', # .tiff
+        'application/vnd.ms-word', # .doc
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', # .docx
+        'application/vnd.ms-powerpoint', # .ppt
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation', # .pptx
+        'application/vnd.ms-excel', # .xls
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' # .xlsx
+      ].freeze
+      # rubocop:enable Style/LineLength
+
+      # Whether this type can be shown in the Google Docs Viewer.
+      # The full list of supported types can be found at
+      #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
+      def self.viewable?(content_type)
+        VIEWABLE_CONTENT_TYPPES.include?(content_type)
+      end
+
       attr_reader :attachment_url
 
       # Public: Initialize a GoogleDocsViewer converter
