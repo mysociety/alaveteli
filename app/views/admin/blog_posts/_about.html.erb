@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="span12">
+    <div class="alert alert-info">
+      <h3>About Blog Posts</h3>
+
+      <p>
+        Alaveteli automatically imports posts from the configured
+        <a href="https://alaveteli.org/docs/customising/config/#blog_feed">
+        <tt>BLOG_FEED</tt></a> to display around the site.
+      </p>
+
+      <p>
+        By default blog posts are listed by recency. When they're presented
+        alongside <%= link_to 'taggable content', admin_tags_path %>, Alaveteli
+        attempts to render relevant posts through matching tags. For example,
+        blog posts tagged with "<tt>climate</tt>" would be matched with records
+        (requests, authorities, etc) also tagged "<tt>climate</tt>".
+      </p>
+    </div>
+  </div>
+</div>
