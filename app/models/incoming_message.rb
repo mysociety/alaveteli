@@ -235,7 +235,7 @@ class IncomingMessage < ApplicationRecord
     # http://www.whatdotheyknow.com/request/71/response/108
     # http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
     # http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
-    multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d(?::\d\d)?\s*>>>''' + ')'
+    multiline_original_message = '(>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d(?::\d\d)?\s*>>>)'
     text.gsub!(/^(#{multiline_original_message}\n.*)$/m, replacement)
 
     # On Thu, Nov 28, 2013 at 9:08 AM, A User
@@ -278,12 +278,13 @@ class IncomingMessage < ApplicationRecord
     # http://www.whatdotheyknow.com/request/123/response/192
     # http://www.whatdotheyknow.com/request/235/response/513
     # http://www.whatdotheyknow.com/request/445/response/743
-    original_message =
-      '(' + '''----* This is a copy of the message, including all the headers. ----*''' \
-      '|' + '''----*\s*Original Message\s*----*''' \
-      '|' + '''----*\s*Forwarded message.+----*''' \
-      '|' + '''----*\s*Forwarded by.+----*''' \
-      ')'
+    message_section_strings = [
+      '----* This is a copy of the message, including all the headers. ----*',
+      '----*\s*Original Message\s*----*',
+      '----*\s*Forwarded message.+----*',
+      '----*\s*Forwarded by.+----*'
+    ]
+    original_message = "(#{message_section_strings.join('|')})"
     # Could have a ^ at start here, but see messed up formatting here:
     # http://www.whatdotheyknow.com/request/refuse_and_recycling_collection#incoming-842
     text.gsub!(/(#{original_message}\n.*)$/mi, replacement)
