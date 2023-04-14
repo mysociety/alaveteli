@@ -273,10 +273,7 @@ class FoiAttachment < ApplicationRecord
 
   # Whether this type has a "View as HTML"
   def has_body_as_html?
-    [
-      "text/plain",
-      "application/rtf"
-    ].include?(content_type) || has_google_docs_viewer?
+    AttachmentToHTML.extractable?(self)
   end
 
   # Name of type of attachment type - only valid for things that
@@ -297,5 +294,4 @@ class FoiAttachment < ApplicationRecord
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
   end
-
 end

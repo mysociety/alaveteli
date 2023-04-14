@@ -28,6 +28,10 @@ module AttachmentToHTML
     end
   end
 
+  def extractable?(attachment)
+    adapter_for(attachment) != Adapters::CouldNotConvert
+  end
+
   private
 
   def adapter_for(attachment)
