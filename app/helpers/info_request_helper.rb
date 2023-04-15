@@ -112,7 +112,7 @@ module InfoRequestHelper
 
     unless info_request.is_external?
       str += ' '
-      str += _('You can <strong>complain</strong> by')
+      str += _('The person who made the request can <strong>complain</strong> by')
       str += ' '
       str += link_to _('requesting an internal review'),
                     new_request_followup_path(:request_id => info_request.id) +
