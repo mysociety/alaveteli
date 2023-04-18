@@ -18,8 +18,8 @@ module LinkToHelper
     request_url(info_request, options.merge(only_path: true))
   end
 
-  def request_link(info_request, cls=nil)
-    link_to info_request.title, request_path(info_request), class: cls
+  def request_link(info_request)
+    link_to info_request.title, request_path(info_request)
   end
 
   def request_details_path(info_request)
@@ -104,8 +104,8 @@ module LinkToHelper
     link_to public_body.short_or_long_name, public_body_path(public_body)
   end
 
-  def public_body_link(public_body, cls=nil)
-    link_to public_body.name, public_body_path(public_body), class: cls
+  def public_body_link(public_body)
+    link_to public_body.name, public_body_path(public_body)
   end
 
   def public_body_link_absolute(public_body) # e.g. for in RSS
@@ -121,11 +121,11 @@ module LinkToHelper
     user_url(user, options.merge(only_path: true))
   end
 
-  def user_link(user, cls=nil)
-    link_to user.name, user_path(user), class: cls
+  def user_link(user)
+    link_to user.name, user_path(user)
   end
 
-  def user_link_for_request(request, cls=nil)
+  def user_link_for_request(request)
     if request.is_external?
       user_name = request.external_user_name || _("Anonymous user")
       if !request.external_url.nil?
@@ -134,7 +134,7 @@ module LinkToHelper
         user_name
       end
     else
-      link_to request.user.name, user_path(request.user), class: cls
+      link_to request.user.name, user_path(request.user)
     end
   end
 
@@ -203,8 +203,8 @@ module LinkToHelper
     link_to user_or_you_capital(user), user_path(user)
   end
 
-  def user_admin_link(user, name="admin", cls=nil)
-    link_to name, admin_user_url(user), class: cls
+  def user_admin_link(user, name="admin")
+    link_to name, admin_user_url(user)
   end
 
   # Tracks. feed can be 'track' or 'feed'
