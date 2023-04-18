@@ -121,6 +121,10 @@ module LinkToHelper
     user_url(user, options.merge(only_path: true))
   end
 
+  def user_link_absolute(user)
+    link_to user.name, user_url(user)
+  end
+
   def user_link(user)
     link_to user.name, user_path(user)
   end
@@ -144,14 +148,6 @@ module LinkToHelper
     else
       link_to(internal_text || request.user.name, admin_user_url(request.user))
     end
-  end
-
-  def user_link_absolute(user)
-    link_to user.name, user_url(user)
-  end
-
-  def user_link(user)
-    link_to user.name, user_path(user)
   end
 
   def external_user_link(request, text)
