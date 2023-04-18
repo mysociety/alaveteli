@@ -670,6 +670,26 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe '#safe_from_name' do
+    subject { outgoing_message.safe_from_name }
+
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    let(:outgoing_message) do
+      OutgoingMessage.new(info_request: info_request, from_name: 'Bob')
+    end
+
+    it 'applies censor rules to from_name' do
+      FactoryBot.create(:global_censor_rule, text: 'Bob', replacement: 'Robert')
+      is_expected.to eq('Robert')
+    end
+
+    context 'when request is external' do
+      let(:info_request) { FactoryBot.build(:info_request, :external) }
+      it { is_expected.to eq('External User') }
+    end
+  end
+
   describe '#apply_masks' do
 
     before(:each) do
