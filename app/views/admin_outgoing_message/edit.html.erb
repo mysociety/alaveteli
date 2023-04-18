@@ -39,6 +39,14 @@
     <legend>Message</legend>
 
     <div class="control-group">
+      <label class="control-label" for="outgoing_message_from_name">From name</label>
+
+      <div class="controls">
+        <%= text_field 'outgoing_message', 'from_name', class: 'span6' %>
+      </div>
+    </div>
+
+    <div class="control-group">
       <label class="control-label" for="outgoing_message_body">Body</label>
       <div class="controls">
         <%= text_area_tag 'outgoing_message[body]',

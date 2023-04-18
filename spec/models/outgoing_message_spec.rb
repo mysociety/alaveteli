@@ -664,9 +664,24 @@ RSpec.describe OutgoingMessage do
       it { is_expected.to eq('Bob') }
     end
 
+    context 'when attribute is blank' do
+      it 'ensures value is presence' do
+        outgoing_message.from_name = ''
+        outgoing_message.valid?
+        expect(outgoing_message.errors[:from_name]).to include("can't be blank")
+      end
+    end
+
     context 'when request is external' do
       let(:info_request) { FactoryBot.build(:info_request, :external) }
+
       it { is_expected.to eq('External User') }
+
+      it 'allows blank value' do
+        outgoing_message.from_name = ''
+        outgoing_message.valid?
+        expect(outgoing_message.errors[:from_name]).to be_empty
+      end
     end
   end
 
