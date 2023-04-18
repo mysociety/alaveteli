@@ -154,22 +154,25 @@ module LinkToHelper
     link_to user.name, user_path(user)
   end
 
-  def external_user_link(request, absolute, text)
+  def external_user_link(request, text)
     if request.external_user_name
       request.external_user_name
     else
-      if absolute
-        url = help_privacy_url(anchor: 'anonymous')
-      else
-        url = help_privacy_path(anchor: 'anonymous')
-      end
-      link_to(text, url)
+      link_to(text, help_privacy_path(anchor: 'anonymous'))
+    end
+  end
+
+  def external_user_link_absolute(request, text)
+    if request.external_user_name
+      request.external_user_name
+    else
+      link_to(text, help_privacy_url(anchor: 'anonymous'))
     end
   end
 
   def request_user_link_absolute(request, anonymous_text=_("Anonymous user"))
     if request.is_external?
-      external_user_link(request, absolute=true, anonymous_text)
+      external_user_link_absolute(request, anonymous_text)
     else
       user_link_absolute(request.user)
     end
@@ -177,7 +180,7 @@ module LinkToHelper
 
   def request_user_link(request, anonymous_text=_("Anonymous user"))
     if request.is_external?
-      external_user_link(request, absolute=false, anonymous_text)
+      external_user_link(request, anonymous_text)
     else
       user_link(request.user)
     end
