@@ -471,6 +471,9 @@ Lint/DuplicateHashKey:
 Lint/DuplicateMagicComment:
   Enabled: false
 
+Lint/DuplicateMatchPattern:
+  Enabled: false
+
 Lint/DuplicateMethods:
   Enabled: true
 
