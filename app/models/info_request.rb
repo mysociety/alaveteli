@@ -759,6 +759,16 @@ class InfoRequest < ApplicationRecord
     user&.name
   end
 
+  def from_name
+    return external_user_name if is_external?
+    outgoing_messages.first&.from_name || user_name
+  end
+
+  def safe_from_name
+    return external_user_name if is_external?
+    apply_censor_rules_to_text(from_name)
+  end
+
   def user_name_slug
     if is_external?
       if external_user_name.nil?
