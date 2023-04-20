@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # develop
 
 ## Highlighted Features
