@@ -31,7 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
-# Jiří Vírava <appukonrad@gmail.com>, 2012
+# Appukonrad <appukonrad@gmail.com>, 2012
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2018,2020-2021
 # Hana Huntova <>, 2012-2015
@@ -41,26 +41,26 @@
 # janakneschke <jana.kneschke@gmail.com>, 2013
 # janakneschke <jana.kneschke@gmail.com>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
-# Jiří Vírava <appukonrad@gmail.com>, 2012,2015-2017
-# trendspotter <jirka.p@volny.cz>, 2021-2022
+# Appukonrad <appukonrad@gmail.com>, 2012,2015-2017
+# Jiří Podhorecký, 2021-2022
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
-# Jiří Vírava <appukonrad@gmail.com>, 2012
+# Appukonrad <appukonrad@gmail.com>, 2012
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2012-2013
 # louisecrow <louise@mysociety.org>, 2013-2016
 # louisecrow <louise@mysociety.org>, 2012
 # steve_mysociety <steve@mysociety.org>, 2017
 # steve_mysociety <steve@mysociety.org>, 2017
-# trendspotter <jirka.p@volny.cz>, 2021
+# Jiří Podhorecký, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
-"Language-Team: Czech (http://www.transifex.com/mysociety/alaveteli/language/cs"
+"Last-Translator: Jiří Podhorecký, 2021\n"
+"Language-Team: Czech (http://app.transifex.com/mysociety/alaveteli/language/cs"
 "/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

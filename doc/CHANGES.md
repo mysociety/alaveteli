@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # develop
 
 ## Highlighted Features
@@ -23,6 +24,12 @@
 * To upgrade the Ruby version in your development Docker container please run:
 
       docker/reset
+
+# 0.42.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
 
 # 0.42.0.0
 

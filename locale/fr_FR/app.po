@@ -46,7 +46,7 @@
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Laurent S, 2019
-# Laurent S, 2019-2022
+# Laurent S, 2019-2023
 # louisecrow <louise@mysociety.org>, 2013,2017
 # mySociety <transifex@mysociety.org>, 2016
 # Pascal Romain <aka.keronos@gmail.com>, 2019-2021
@@ -64,8 +64,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: vickyanderica <victoria@access-info.org>, 2011\n"
-"Language-Team: French (France) (http://www.transifex.com/mysociety/alaveteli/l"
+"Last-Translator: Laurent S, 2019-2023\n"
+"Language-Team: French (France) (http://app.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -931,25 +931,29 @@ msgstr "Cher/Chère {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
 msgstr ""
-"Cher/Chère {{placeholder_body_name}},\n"
+"Madame, Monsieur,\n"
 "\n"
-"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaite recevoir communication des documents administratifs suivants:\n"
+"Au titre du droit d’accès aux documents administratifs, tel que prévu notamment par le Livre III du Code des relations entre le public et l'administration, je sollicite auprès de vous la communication des documents suivants :\n"
+"\n"
 "-\n"
 "-\n"
 "\n"
-"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
-"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié la personne qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
+"Je souhaite recevoir ces documents  sous forme électronique, dans un standard ouvert, aisément réutilisable et exploitable par un système de traitement automatisé, comme le prévoit l’article L300-4 du Code des relations entre le public et l’administration. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"\n"
+"Comme l’article L311-2 du Code précité le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{public_body_name}},"
 msgstr ""
-"Cher/Chère {{public_body_name}},\n"
+"Madame, Monsieur,\n"
 "\n"
-"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaite recevoir communication des documents administratifs suivants: \n"
+"Au titre du droit d’accès aux documents administratifs, tel que prévu notamment par le Livre III du Code des relations entre le public et l'administration, je sollicite auprès de vous la communication des documents suivants :\n"
 "\n"
+"-\n"
+"-\n"
 "\n"
-"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"Je souhaite recevoir ces documents  sous forme électronique, dans un standard ouvert, aisément réutilisable et exploitable par un système de traitement automatisé, comme le prévoit l’article L300-4 du Code des relations entre le public et l’administration. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
 "\n"
-"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
+"Comme l’article L311-2 du Code précité le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{user_name}},"
 msgstr "Cher/Chère {{user_name}},"
