@@ -52,7 +52,7 @@
 # Miroslav Schlossberg, 2015,2019-2021
 # Miroslav Schlossberg CfC, 2019
 # Miroslav Schlossberg, 2019
-# Miroslav Schlossberg, 2021-2022
+# Miroslav Schlossberg, 2021-2023
 # Miroslav Schlossberg, 2015
 # Sonja Radočaj <sonjaradocaj@gmail.com>, 2015
 # Stella Kupres, 2020
@@ -65,8 +65,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Žana Počuča <zana.fakin@gmail.com>, 2015,2021\n"
-"Language-Team: Croatian (http://www.transifex.com/mysociety/alaveteli/language"
+"Last-Translator: Miroslav Schlossberg, 2021-2023\n"
+"Language-Team: Croatian (http://app.transifex.com/mysociety/alaveteli/language"
 "/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -377,7 +377,7 @@ msgid "A Freedom of Information request"
 msgstr "Zahtjev za pristup informacijama"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
-msgstr "Potpuna povijest mog zahtjeva za pristup informacijama i sva korespondencija dostupna je javno na ovoj internetskoj adresi: {{url}}"
+msgstr "Uvid u potpunu povijest mog zahtjeva za pristup informacijama i cijela korespondencija s tijelom javne vlasti dostupni su javno na ovoj internetskoj adresi: {{url}}"
 
 msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Novi zahtjev s naslovom <em><a href=\"{{request_url}}\">{{request_title}}</a></em> poslan je {{public_body_name}} od strane {{info_request_user}} dana {{date}}."
@@ -605,19 +605,19 @@ msgid "Awaiting classification"
 msgstr "Čeka klasifikaciju"
 
 msgid "Awaiting classification."
-msgstr "Čeka klasifikaciju."
+msgstr "Čeka klasifikaciju"
 
 msgid "Awaiting internal review"
 msgstr "Čeka odgovor na požurnicu"
 
 msgid "Awaiting internal review."
-msgstr "Čeka odgovor na požurnicu."
+msgstr "Čeka odgovor na požurnicu"
 
 msgid "Awaiting response"
 msgstr "Čeka odgovor"
 
 msgid "Awaiting response."
-msgstr "Čeka odgovor."
+msgstr "Čeka odgovor"
 
 msgid "Back to content"
 msgstr "Nazad na sadržaj"
@@ -683,7 +683,7 @@ msgid "By law, you should have got a response promptly, and normally before the 
 msgstr "Prema zakonu, trebali biste ubrzo dobiti odgovor, do <strong>{{date_response_required_by}}</strong>."
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
-msgstr "Po zakonu, {{public_body_link}} je trebala odgovoriti <strong>brzo</strong> i"
+msgstr "Po zakonu, {{public_body_link}} je <strong>trebao odgovoriti</strong>"
 
 msgid "CSV"
 msgstr "CSV"
@@ -884,7 +884,7 @@ msgid "Current Email:"
 msgstr ""
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
-msgstr "Trenutno <strong>čeka odgovor</strong>  {{public_body_link}}, trebali bi odgovoriti brzo i"
+msgstr "Trenutno <strong>čeka odgovor</strong> od {{public_body_link}}, trebaju odgovoriti"
 
 msgid "Data interpretation"
 msgstr "Tumačenje podataka"
@@ -908,7 +908,7 @@ msgid "Dear {{user_name}},"
 msgstr "Poštovani {{user_name}},"
 
 msgid "Defunct."
-msgstr "Defunkc."
+msgstr "Ukinuto."
 
 msgid "Delayed"
 msgstr "Odgođeno"
@@ -953,7 +953,7 @@ msgid "Don't have a superuser account yet?"
 msgstr "Još nemate račun super korisnika?"
 
 msgid "Don't want to address your message to {{person_or_body}}?  You can also write to:"
-msgstr "Ne želite poruku poslati na adresu {{person_or_body}}? Možete pisati i:"
+msgstr "Ako vaš odgovor nije za \"{{person_or_body}}\" izaberite niže drugog primatelja vašeg odgovora:"
 
 msgid "Done"
 msgstr "Završeno"
@@ -1256,13 +1256,13 @@ msgid "Handled by postal mail"
 msgstr "Riješen poštom"
 
 msgid "Handled by postal mail."
-msgstr "Riješen poštom."
+msgstr "Obrađuje se poštanskim putem"
 
 msgid "Has this request been referenced in a news article or academic paper?"
-msgstr ""
+msgstr "Je li ovaj zahtjev spomenut u novinskom članku ili akademskom radu?"
 
 msgid "Has this request been referenced in a news article or academic paper? Let us know:"
-msgstr ""
+msgstr "Je li ovaj zahtjev spomenut u novinskom članku ili akademskom radu? Javite nam:"
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "Dobrodošli! Imamo  <a href=\"{{url}}\">važnu poruku</a> za posjetitelje izvan {{country_name}}"
@@ -1337,7 +1337,7 @@ msgid "I am requesting an <strong>internal review</strong>"
 msgstr "Tražim <strong>požurnicu</strong>"
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
-msgstr "Obraćam se sa zahtjevom da požurite postupak u tijelu javne vlasti {{public_body_name}} koje se bavi mojim zahtjevom za pristup informacijama '{{info_request_title}}'."
+msgstr "Prošao je zakonski rok za dostavljanje odgovora za zahtjev za pristup informacijama '{{info_request_title}}' stoga vam se obraćam da požurite postupak u tijelu javne vlasti {{public_body_name}} koje je dužno odgovoriti na moj zahtjev za pristup informacijama."
 
 msgid "I don't like these ones &mdash; give me some more!"
 msgstr "Ne sviđaju mi se ove &mdash; dajte mi više!"
@@ -1352,13 +1352,13 @@ msgid "I would like to <strong>withdraw this request</strong>"
 msgstr "Želio/la bih <strong>povući ovaj zahtjev</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information <small>(maybe you got an acknowledgement)</small>"
-msgstr "Još uvijek <strong>čekam</strong> svoje informacije <small>(možda ste samo dobili potvrdu primitka)</small>"
+msgstr "Još uvijek <strong>čekam</strong> dostavu informacija <small>(možda su potvrdili primitak)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
 msgstr "Još uvijek <strong>čekam</strong> odgovor na požurnicu"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr "Čekam odgovor <strong>internog pregleda</strong>"
+msgstr "Čekam odgovor na <strong>požurnicu</strong>"
 
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr "Zamoljen/a sam da <strong>objasnim</strong> svoj zahtjev"
@@ -1481,7 +1481,7 @@ msgid "Information not held"
 msgstr "Ne posjedujemo informacije"
 
 msgid "Information not held."
-msgstr "Ne posjedujemo informacije."
+msgstr "Ne posjeduju informacije"
 
 msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
 msgstr "Informacije o emisijama i ispuštanjima u okoliš (npr. buka, energija, zračenje, otpadni materijali)"
@@ -1508,7 +1508,7 @@ msgid "Invalid token"
 msgstr "Neispravan token"
 
 msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "Je li {{email_address}} pogrešna adresa za {{law_used_full}} zahtjeve za {{public_body_name}}? Ako da, molimo kontaktirajte nas koristeći ovaj obrazac:"
+msgstr "Ukoliko je {{email_address}} pogrešna adresa za {{public_body_name}}  zahtjeve za {{law_used_full}} dojavite nam putem ove poveznice:"
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr "Izgleda da je došlo do pogreške prilikom slanja ove poruke. To bi mogao biti tehnički problem ili problem s adresom e-pošte koju imamo za tijelo javne vlasti."
@@ -1559,7 +1559,7 @@ msgid "Last edit editor can't be longer than 255 characters"
 msgstr "Polje za uređivanje zadnjeg uređivanja ne može biti duže od 255 znakova"
 
 msgid "Last request viewed: {{request_url}}"
-msgstr "Zadnji pregledani zahtjev: {{request_url}}"
+msgstr "Zadnje pregledani zahtjev: {{request_url}}"
 
 msgid "Latest"
 msgstr ""
@@ -1592,10 +1592,10 @@ msgid "Log into the admin interface"
 msgstr "Prijavite se u administratorsko sučelje"
 
 msgid "Long overdue"
-msgstr "Kašnjenja"
+msgstr "Jako kasni"
 
 msgid "Long overdue."
-msgstr "Kašnjenja"
+msgstr "Jako kasni"
 
 msgid "Made between"
 msgstr "Napravljen između"
@@ -1640,7 +1640,7 @@ msgid "Message has been removed"
 msgstr "Poruka je uklonjena"
 
 msgid "Message sent using {{site_name}} contact form, "
-msgstr "Poruka poslana koristeći {{site_name}} formular za kontakt, "
+msgstr "Poruka poslana koristeći {{site_name}}."
 
 msgid "Message {{current_message}} of {{total_messages}}"
 msgstr "Poruka {{current_message}} od {{total_messages}}"
@@ -1712,7 +1712,7 @@ msgid "New response to your FOI request - {{request_title}}"
 msgstr "Odgovor na Vaš zahtjev za pristup informacijama - {{request_title}}"
 
 msgid "New response to your request"
-msgstr "Novi odgovor na Vaš zahtjev"
+msgstr "Novi odgovor na zahtjev"
 
 msgid "New response to {{law_used_short}} request"
 msgstr "Novi odgovor na zahtjev za {{law_used_short}}"
@@ -1811,7 +1811,7 @@ msgid "Offensive? Unsuitable?"
 msgstr "Uvredljivo? Neprikladno?"
 
 msgid "Oh no! Sorry to hear that your request was refused. Here is what to do now."
-msgstr "Žao nam je što je Vaš zahtjev odbijen. Prijedlog za Vaše slijedeće akcije."
+msgstr "Žao nam je što je vaš zahtjev odbijen ili odbačen. Pogledajte prijedloge za slijedeće korake koje možete poduzeti."
 
 msgid "Old e-mail:"
 msgstr "Stara adresa e-pošte:"
@@ -2228,7 +2228,7 @@ msgid "Refused"
 msgstr "Odbijen"
 
 msgid "Refused."
-msgstr "Odbijen."
+msgstr "Odbačeno / odbijeno"
 
 msgid "Regenerate one time passcode"
 msgstr "Ponovno generiraj jednokratnu zaporku"
@@ -2369,10 +2369,10 @@ msgid "Response to this request is <strong>delayed</strong>."
 msgstr "Odgovor na ovaj zahtjev <strong>kasni</strong>."
 
 msgid "Response to this request is <strong>long overdue</strong>."
-msgstr "Odgovor na ovaj zahtjev <strong>kasni</strong>."
+msgstr "Odgovor na ovaj zahtjev <strong>jako kasni</strong>."
 
 msgid "Response to your request"
-msgstr "Odgovor na Vaš zahtjev"
+msgstr "Odgovor za zahtjev"
 
 msgid "Response to {{law_used_short}} request"
 msgstr "Odgovor na zahtjev za {{law_used_short}}"
@@ -2435,7 +2435,7 @@ msgid "Send a public follow up message to {{person_or_body}}"
 msgstr "Poslati javnu dodatnu poruku za {{person_or_body}}"
 
 msgid "Send a public reply to {{person_or_body}}"
-msgstr "Poslati javni odgovor {{person_or_body}}"
+msgstr "Pošaljite javni odgovor na: {{person_or_body}}"
 
 msgid "Send and publish message"
 msgstr "Pošaljite i objavite poruku"
@@ -2879,7 +2879,7 @@ msgid "The response to your request has been <strong>delayed</strong>. Although 
 msgstr "Odgovor na vaš zahtjev <strong>kasni</strong>. Iako tijelo javne vlasti nema zakonsku obvezu odgovoriti, trebali bi obično odgovoriti do <strong> {{date}}</strong>"
 
 msgid "The response to your request has been <strong>delayed</strong>. You can say that, by law, the authority should normally have responded <strong>promptly</strong> and by <strong>{{date}}</strong>"
-msgstr "Odgovor na vaš zahtjev <strong>kasni</strong>. Može se reći da je po zakonu tijelo javne vlasti trebalo odgovoriti <strong>brzo</strong> i ne kasnije od <strong>{{date}}</strong> "
+msgstr "Odgovor na vaš zahtjev <strong>kasni</strong>. Po zakonu, tijelo javne vlasti trebalo je <strong>odgovoriti</strong> do <strong>{{date}}</strong>"
 
 msgid "The response to your request is <strong>long overdue</strong>. Although the authority has no legal obligation to reply, they should have responded by now"
 msgstr "Odgovor na vaš zahtjev je <strong>u velikom kašnjenju</strong>. Iako tijelo javne vlasti nema zakonsku obvezu odgovoriti, trebali su do sada odgovoriti"
@@ -3029,7 +3029,7 @@ msgid "They are going to reply <strong>by postal mail</strong>"
 msgstr "Odgovorit će <strong>poštanskim putem</strong>"
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "Oni <strong>ne posjeduju</strong> informaciju <small>(možda mogu reći tko je posjeduje)</small>"
+msgstr "Oni <strong>ne posjeduju</strong> informaciju"
 
 msgid "They have been given the following explanation:"
 msgstr "Dano im je sljedeće objašnjenje:"
@@ -3071,7 +3071,7 @@ msgid "This authority is not subject to FOI law, so is not legally obliged to re
 msgstr "Ovo tijelo ne podliježe ZPPI-u, tako da nema zakonsku obvezu odgovoriti na zahtjev"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
-msgstr "Ovo tijelo javne vlasti više ne postoji, zato joj nije moguće podnijeti zahtjev. "
+msgstr "Ovo tijelo javne vlasti više ne postoji. Zato nije moguće podnijeti novi zahtjev, ali možete pretraživati zahtjeve ranije poslane ovom tijelu."
 
 msgid "This covers a very wide spectrum of information about the state of the <strong>natural and built environment</strong>, such as:"
 msgstr "Ovo pokriva širok raspon informacija o stanju<strong>prirodnog i izgrađenog okoliša</strong>, poput:"
@@ -3518,7 +3518,7 @@ msgid "View your two factor authentication one time passcode"
 msgstr "Pogledajte svoju jednokratnu zaporku za dvofaktorsku provjeru autentičnosti"
 
 msgid "Waiting clarification."
-msgstr "Čekamo objašnjenje."
+msgstr "Čeka objašnjenje"
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Čeka se odgovor na <strong>požurnicu</strong> {{public_body_link}} za rješavanje ovog zahtjeva."
@@ -3680,7 +3680,7 @@ msgid "Withdrawn"
 msgstr "Povučeno"
 
 msgid "Withdrawn by the requester."
-msgstr "Povučeno od strane podnositelja zahtjeva."
+msgstr "Povučeno od strane podnositelja zahtjeva"
 
 msgid "Wk"
 msgstr "Wk"
@@ -3788,7 +3788,7 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr "Sada <a href=\"{{wall_url_user}}\">pratite</a> ažuriranja o <a href=\"{{successful_requests_url}}\">uspješnim zahtjevima</a>."
 
 msgid "You can <strong>complain</strong> by"
-msgstr "Možete se <strong>žaliti</strong> tako što ćete"
+msgstr "Možete ih <strong>požuriti</strong> tako da"
 
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Možete promijeniti zahtjeve i korisnike koje pratite na <a href=\"{{profile_url}}\">stranici Vašeg profila</a>."
@@ -4178,7 +4178,7 @@ msgid "awaiting response"
 msgstr "čeka odgovor"
 
 msgid "by"
-msgstr "od strane"
+msgstr "do"
 
 msgid "by {{user_link_absolute}}"
 msgstr "od strane {{user_link_absolute}}"
@@ -4238,7 +4238,7 @@ msgid "internal reviews"
 msgstr "požurnice"
 
 msgid "logged in as user {{user_name}}"
-msgstr "prijavljen kao korisnik {{user_name}}"
+msgstr "Korisnik {{user_name}}"
 
 msgid "messages from authorities"
 msgstr "poruke od tijela javne vlasti"
@@ -4256,13 +4256,13 @@ msgid "new requests"
 msgstr "novi zahtjevi"
 
 msgid "no later than"
-msgstr "ne kasnije od"
+msgstr "do"
 
 msgid "normally"
-msgstr "uobičajeno"
+msgstr "nominalno"
 
 msgid "not logged in"
-msgstr "nije prijavljen"
+msgstr "Pošiljatelj nije korisnik."
 
 msgid "other"
 msgstr "ostalo"
@@ -4274,7 +4274,7 @@ msgid "request hide events"
 msgstr "zahtjev za skrivanje događanja"
 
 msgid "requesting an internal review"
-msgstr "zahtjeva požurnicu"
+msgstr "pošaljete požurnicu"
 
 msgid "requests"
 msgstr "zahtjevi"
@@ -4321,7 +4321,7 @@ msgid "the {{site_name}} team"
 msgstr "{{site_name}} tim"
 
 msgid "to send a follow up message."
-msgstr "poslati dodatnu poruku."
+msgstr "kako biste poslati dodatnu poruku u kojom dopunjavate vaš zahtjev."
 
 msgid "type your search term here"
 msgstr "upišite izraz za pretraživanje"
@@ -4611,16 +4611,16 @@ msgid "{{username}} left an annotation:"
 msgstr "{{username}} je ostavio/la bilješku:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr "{{user}} ({{user_admin_link}}) je podnio/la ovaj zahtjev za {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) za {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
+msgstr "Zahtjev za pristup informacijama od {{user}} za {{public_body_link}}</p><p class=\"request-header__subtitle\" style=\"background-color:rgba(255, 99, 71, 0.5);\">Administracija: <a href=\"{{request_admin_url}}\">admin zahtjeva</a> | {{user_admin_link}} korisnika | <a href=\"{{public_body_admin_url}}\">admin tijela javne vlasti</a>"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr "{{user}} ({{user_admin_link}}) je podnio/la ovaj zahtjev za {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) za {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>) kao dio <a href=\"{{url}}\">skupine poslane na {{count}} tijela javne vlasti</a>"
+msgstr "Zahtjev za pristup informacijama od {{user}} za {{public_body_link}} kao dio <a href=\"{{url}}\">skupine poslane na {{count}} tijela javne vlasti</a></p><p class=\"request-header__subtitle\" style=\"background-color:rgba(255, 99, 71, 0.5);\">Administracija: <a href=\"{{request_admin_url}}\">admin zahtjeva</a> | {{user_admin_link}} korisnika | <a href=\"{{public_body_admin_url}}\">admin tijela javne vlasti</a>"
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
-msgstr "{{user}} je podnio/la ovaj zahtjev za {{law_used_full}} za {{public_body}}"
+msgstr "Zahtjev za pristup informacijama od {{user}} za {{public_body}}"
 
 msgid "{{user}} made this {{law_used_full}} request to {{public_body}} as part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr "{{user}} je podnio/la ovaj zahtjev za {{law_used_full}} za {{public_body}} kao dio <a href=\"{{url}}\">skupine poslane na {{count}} tijela javne vlasti</a>"
+msgstr "Zahtjev za pristup informacijama od {{user}} za {{public_body}} kao dio <a href=\"{{url}}\">skupine poslane na {{count}} tijela javne vlasti</a>"
 
 msgid "« Back to search results"
 msgstr "« Povratak na rezultate pretrage"

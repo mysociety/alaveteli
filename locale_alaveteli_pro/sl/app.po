@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Jernej Trebežnik, 2023
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Language-Team: Slovenian (https://www.transifex.com/mysociety/teams/33529/sl/)"
+"Last-Translator: Jernej Trebežnik, 2023\n"
+"Language-Team: Slovenian (https://app.transifex.com/mysociety/teams/33529/sl/)"
 "\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,13 +23,13 @@ msgstr ""
 "100==4 ? 2 : 3);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr "<strong>Povzemite</strong> vsebino morebitnih prejetih informacij."
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Opišite, kako ste <strong>uporabili informacije</strong>. Če je mogoče, dodajte spletno povezavo."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Statistika kaznivih dejanj po občinah'"
 
 msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
@@ -39,19 +43,19 @@ msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr ""
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 mesecev"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29. april 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3. julij 2017"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 mesece"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 mesecev"
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
 msgstr ""
@@ -81,19 +85,21 @@ msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Ustvarite zahtevek za več organov</strong>: kliknite na organ, ki ga želite izbrati"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Upravljajte z večjim številom odzivov</strong>: imejte pod nadzorom status vsakega zahtevka"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Shranite kot osnutek</strong> in nadaljujte kasneje "
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Poenostavljen proces</strong> za zahtevanje notranjih revizij"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr ""
+"<strong>Ali lahko zahtevam informacije o sebi?</strong>\n"
+"\t\t\t<a href=\"{{url}}\">Ne! (Kliknite tu za pojasnila)</a>"
 
 msgid "<strong>Easy</strong> One fee covers all Pro features, with no complex tiers or options to worry about."
 msgstr ""
@@ -111,10 +117,10 @@ msgid "<strong>Reasonable</strong> We know that researchers can be on a limited 
 msgstr ""
 
 msgid "<strong>Thank</strong> the public authority."
-msgstr ""
+msgstr "<strong>Zahvalite se</strong> javnemu organu"
 
 msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
-msgstr ""
+msgstr "Nekaterim navedenim organom ste na {{date}} <strong>že poslali zahtevek</strong>."
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr ""
@@ -213,10 +219,10 @@ msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr ""
 
 msgid "Are you sure you want to publish this request?"
-msgstr ""
+msgstr "Ste prepričani, da želite objaviti ta zahtevek?"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Ste prepričani?"
 
 msgid "Automate FOI request management"
 msgstr ""
@@ -264,7 +270,7 @@ msgid "Browse by category"
 msgstr ""
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "Brskajte med zadnjimi zahtevki"
 
 msgid "CSV"
 msgstr ""
@@ -333,7 +339,7 @@ msgid "Dashboard and workflow features"
 msgstr ""
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Dragi {{public_body_name}},"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr ""
@@ -555,7 +561,7 @@ msgid "Make a batch request"
 msgstr ""
 
 msgid "Make a request"
-msgstr ""
+msgstr "Ustvarite zahtevek"
 
 msgid "Make a request to multiple authorities and manage the responses."
 msgstr ""
@@ -859,13 +865,13 @@ msgid "Search"
 msgstr ""
 
 msgid "Search by name"
-msgstr ""
+msgstr "Iščite po nazivu"
 
 msgid "Search for an authority"
-msgstr ""
+msgstr "Najdite organ"
 
 msgid "Search for an authority by name"
-msgstr ""
+msgstr "Iščite po nazivu organa"
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
@@ -934,10 +940,10 @@ msgid "Simple, affordable pricing"
 msgstr ""
 
 msgid "Sorry, no authorities matched that search"
-msgstr ""
+msgstr "Oprostite, našli nismo nobenega organa s tem nazivom"
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
-msgstr ""
+msgstr "Oprostite, nekaj je šlo narobe. Poskusite spet kasneje."
 
 msgid "Sorry, something went wrong publishing your request, please try again."
 msgstr ""
