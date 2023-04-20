@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Christophe Van Gheluwe <info@vg-webdesign.be>, 2017
 # claude transparencia <audit.citoyen.quartier@gmail.com>, 2017-2018,2021
 # Edwin Bosveld <edwin@inwy.nl>, 2013,2016
@@ -43,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
 "Language-Team: Dutch (Belgium) (http://app.transifex.com/mysociety/alaveteli/l"
@@ -478,6 +479,9 @@ msgstr "Alle opties hieronder kunnen voor de dubbele punt <strong>variety</stron
 msgid "All time"
 msgstr "Altijd"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "All time beste spelers"
 
@@ -644,6 +648,9 @@ msgstr "Uitgesloten van deze site"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Batch-aanvraag aangemaakt door {{info_request_user}} op {{date}}"
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Te beginnen met"
 
@@ -706,6 +713,9 @@ msgstr "Annuleer sommige waarschuwingen van {{site_name}}"
 
 msgid "Cancel, return to your profile page"
 msgstr "Annuleer, en ga terug naar uw profielpagina"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Wijzig uw e-mail op {{site_name}}"
@@ -975,6 +985,9 @@ msgstr "Gereed &gt;&gt;"
 msgid "Download Data"
 msgstr ""
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Download zip-bestand van alle correspondentie"
 
@@ -1047,6 +1060,9 @@ msgstr "Historiek van events"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Elke burger heeft het recht op informatie in het bezit is van overheidsinstellingen."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
@@ -1608,6 +1624,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Laatst bekeken aanvraag: {{request_url}}"
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2290,6 +2309,9 @@ msgstr ""
 msgid "Rejected"
 msgstr "Geweigerd"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Aangemeld blijven (gebruik dit niet op een openbare computer)"
 
@@ -2479,6 +2501,9 @@ msgstr "Zoek uw bijdragen"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Verzend een opvolgbericht"
 
@@ -2514,6 +2539,30 @@ msgstr "Zend het bericht aan {{user_name}}, enkel om te zien hoe het werkt"
 
 msgid "Sending..."
 msgstr "Wordt verzonden..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2580,6 +2629,9 @@ msgstr "Deconnecteer"
 msgid "Sign up"
 msgstr "Schrijf u in"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2636,6 +2688,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Tot onze spijt kunnen wij uw commentaar thans niet toevoegen. Probeer a.u.b. later opnieuw."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3065,8 +3120,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Er staat een limiet op het aantal aanvragen dat u per dag kunt uitvoeren, omdat we niet willen dat de overheidsinstellingen gebombardeerd worden met een ongepast aantal aanvragen.  Als u meent dat u een goede reden heeft om deze limiet voor u te verhogen, gelieve dan <a href='{{help_contact_path}}'>ons te contacteren</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Er is voorlopig nog niets te tonen."
@@ -3294,6 +3355,9 @@ msgstr ""
 "Deze tabel toont de technische details van de interne gebeurtenissen m.b.t. deze aanvraag uitgevoerd via {{site_name}}. Deze gegevens zouden kunnen gebruikt worden om informatie op te stellen aangaande de \n"
 " snelheid waarmee de overheidsinstellingen antwoorden, het aantal aanvragen die een antwoord per post vereisen en veel meer."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr ""
 
@@ -3426,8 +3490,14 @@ msgstr "Vandaag"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Te veel aanvragen"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "De meest recente spelers"
@@ -3786,6 +3856,9 @@ msgstr "Formuleer uw WOB follow-up bericht aan {{authority_name}}"
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formuleer uw vraag <strong>eenvoudig en nauwkeurig</strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr ""
 
@@ -3914,6 +3987,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "U heeft de limiet voor nieuwe aanvragen bereikt. De gebruikers zijn beperkt tot {{max_requests_per_user_per_day}} aanvragen per 24u. U kan een nieuwe aanvraag  doen op {{can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr ""
@@ -4542,6 +4618,11 @@ msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
 msgstr[0] "{{number_of_comments}} commentaar"
 msgstr[1] "{{number_of_comments}} commentaren"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

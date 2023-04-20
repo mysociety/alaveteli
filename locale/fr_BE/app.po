@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 0c5d54599df8b711a7a254a114ba48aa, 2011
 # Adrien Chauvet, 2013
 # Adrien Chauvet, 2013
@@ -61,7 +62,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: vickyanderica <victoria@access-info.org>, 2011\n"
 "Language-Team: French (Belgium) (http://app.transifex.com/mysociety/alaveteli/"
@@ -485,6 +486,9 @@ msgstr "Toutes les options ci-dessous peuvent utiliser <strong>variety</strong> 
 msgid "All time"
 msgstr "Tout le temps"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Palmarès des meilleurs acteurs"
 
@@ -647,6 +651,9 @@ msgstr "Banni de ce site"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Groupe créé par {{info_request_user}} le {{date}}"
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Commence par"
 
@@ -709,6 +716,9 @@ msgstr "Annuler certaines alertes de {{site_name}} "
 
 msgid "Cancel, return to your profile page"
 msgstr "Annuler et retourner à votre page de profil"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Changer l'email utilisé sur {{site_name}}"
@@ -974,6 +984,9 @@ msgstr "C'est fait"
 msgid "Download Data"
 msgstr "Télécharger les données"
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Télécharger un fichier zip de toute la correspondance"
 
@@ -1042,6 +1055,9 @@ msgstr "Historique des événements"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Chaque citoyen a le droit d'accéder aux informations détenues par les autorités publiques."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Tout ce que vous indiquez dans cette page, y compris <strong>votre nom</strong>, sera <strong>public</strong> sur ce site (<a href=\"{{url}}\">pourquoi?</a>)."
@@ -1577,6 +1593,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Dernière demande consultée : {{request_url}}"
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2254,6 +2273,9 @@ msgstr ""
 msgid "Rejected"
 msgstr "Rejeté"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Souvenez-vous de moi (vous permet de rester connecté, ne pas utiliser sur un ordinateur public)"
 
@@ -2440,6 +2462,9 @@ msgstr "Rechercher vos contributions"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Envoyer un message de suivi"
 
@@ -2475,6 +2500,30 @@ msgstr "Envoyer un message à {{user_name}} juste pour voir comment cela fonctio
 
 msgid "Sending..."
 msgstr "Envoi..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2542,6 +2591,9 @@ msgstr "Se déconnecter"
 msgid "Sign up"
 msgstr "S'inscrire"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2596,6 +2648,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Désolé, nous sommes actuellement dans l'impossibilité d'ajouter votre commentaire. Merci d'essayer ultérieurement."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3015,8 +3070,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Il y a une limite concernant le nombre de demandes que vous pouvez effectuer en une journée, parce que nous ne voulons pas que les autorités publiques soient bombardées avec un grand nombre de demandes inappropriées. Si vous estimez que vous avez une bonne raison de demander que la limite soit augmentée pour vous, veuillez <a href='{{help_contact_path}}'>nous contacter</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "A ce stade, il n'y a rien à afficher."
@@ -3240,6 +3301,9 @@ msgstr "Cette section sur les statistiques de l'organisme public est actuellemen
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Ce tableau présente les détails techniques des événements internes concernant cette demande faite via {{site_name}}. Ces données pourraient être utilisées pour générer des informations sur la vitesse avec laquelle les autorités répondent aux demandes, le nombre de demandes qui nécessitent une réponse postale et bien plus encore."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Cet utilisateur a été suspendu de {{site_name}}"
 
@@ -3366,8 +3430,14 @@ msgstr "Aujourd'hui"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Trop de demandes "
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "Palmarès des acteurs récents"
@@ -3720,6 +3790,9 @@ msgstr "Ecrivez votre message de suivi à {{authority_name}}"
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formulez votre demande en langage <strong>simple et précis</strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr "Oui"
 
@@ -3851,6 +3924,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Vous avez atteint la limite maximale de nouvelles demandes. Les utilisateurs sont limités à {{max_requests_per_user_per_day}} demandes par période de 24h. Vous pourrez faire une autre demande dans {{can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr "Vous avez quitté le projet."
@@ -4488,6 +4564,11 @@ msgid_plural "{{number_of_comments}} comments"
 msgstr[0] "{{number_of_comments}} commentaire"
 msgstr[1] "{{number_of_comments}} commentaires"
 msgstr[2] "{{number_of_comments}} commentaires"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

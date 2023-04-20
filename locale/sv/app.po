@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # 03992e16f8df6e39b9d1cc0ff635887e, 2016
 # Elenor Weijmar, 2018
 # Elenor Weijmar, 2018-2022
@@ -54,7 +55,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Mattias Axell <mattias@libertador.es>, 2015,2019-2022\n"
 "Language-Team: Swedish (http://app.transifex.com/mysociety/alaveteli/language/"
@@ -474,6 +475,9 @@ msgstr "Alla alternativen nedan kan använda <strong>variety</strong> eller <str
 msgid "All time"
 msgstr "Sedan start"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Hjälpsamma användare över tid"
 
@@ -636,6 +640,9 @@ msgstr "Bannlysta från denna hemsida"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Bunten skapades av {{info_request_user}} den {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Börjar med"
 
@@ -698,6 +705,9 @@ msgstr "Stäng av några notifieringar från {{site_name}}"
 
 msgid "Cancel, return to your profile page"
 msgstr "Avbryt och återgå till din profilsida"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Byt e-postadress på {{site_name}}"
@@ -963,6 +973,9 @@ msgstr "Färdigt &gt;&gt;"
 msgid "Download Data"
 msgstr "Ladda ner data"
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Ladda ned en zip-fil för all korrespondens"
 
@@ -1031,6 +1044,9 @@ msgstr "Händelsehistorik"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Alla människor har rätt att få tillgång till information som myndigheter har."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Allt som du anger på denna sida, inklusive <strong>ditt namn</strong>, kommer att <strong>visas offentligt</strong> på denna hemsida <a href=\"{{url}}\">för evigt</a>"
@@ -1562,6 +1578,9 @@ msgstr "Senast visade begäran: {{request_url}}"
 
 msgid "Latest"
 msgstr "Senaste"
+
+msgid "Latest news and campaigns"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Lär dig mer &rarr;"
@@ -2240,6 +2259,9 @@ msgstr "Reglering"
 msgid "Rejected"
 msgstr "Nekad"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Kom ihåg mig (håller dig inloggad längre; använd inte i en publik dator i offentlig miljö)"
 
@@ -2426,6 +2448,9 @@ msgstr "Sök dina bidrag"
 msgid "Section"
 msgstr "Sektion"
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Skicka en uppföljning"
 
@@ -2461,6 +2486,30 @@ msgstr "Skicka meddelande till {{user_name}} bara för att se hur det fungerar"
 
 msgid "Sending..."
 msgstr "Skickar..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2527,6 +2576,9 @@ msgstr "Logga ut"
 msgid "Sign up"
 msgstr "Registrera dig"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr "Registreringar från Tor har blockerats på grund av extensiva missbruk. Vänligen kontakta oss anonymt om detta är ett problem för dig."
 
@@ -2580,6 +2632,9 @@ msgstr "Ursäkta, vi kan för närvarande inte lägga till din anteckning. Vänl
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr "Förlåt, vi kan för närvarande inte skapa ditt konto. Vänligen försök igen senare."
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Ursäkta, vi kan för närvarande inte skicka din begäran. Vänligen försök igen senare."
@@ -2998,8 +3053,14 @@ msgstr "Det finns <strong>fler än en person</strong> som använder denna sida o
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Det finns en gräns för antalet kommentarer du kan göra på en dag. Om du känner att du har en bra anledning att begära att gränsen hävs i ditt fall, vänligen <a href='{{help_contact_path}}'>hör av dig</a>."
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Det finns en gräns för antalet förfrågningar som du kan göra på en dag. Detta eftersom myndigheterna inte ska överbelastas med för stort antal förfrågningar. Om du har en bra anledning att få begränsningen borttagen i ditt fall, vänligen <a href='{{help_contact_path}}'>ta kontakt med oss</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Det finns inget att visa än."
@@ -3221,6 +3282,9 @@ msgstr "Denna sida för statistik om förfrågningar och myndigheter på Handlin
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Denna tabell visar de tekniska detaljerna av de interna händelser som hänt denna begäran på {{site_name}}. Detta kan användas för att generera information om den hastighet myndigheter har för att svara på förfrågningar, antalet förfrågningar som kräver ett postsvar och mycket mer."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Denna användare har blivit avstängd från {{site_name}} "
 
@@ -3347,8 +3411,14 @@ msgstr "Idag"
 msgid "Too many annotations"
 msgstr "För många kommentarer"
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "För många förfrågningar"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "Nyligen hjälpsamma användare"
@@ -3696,6 +3766,9 @@ msgstr "Skriv ditt uppföljningssvar angående begäran om allmän handling till
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Skriv din begäran i <strong>enkelt, tydligt språk</strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr "Ja"
 
@@ -3824,6 +3897,9 @@ msgstr "Du har nått gränsen för anteckningar/kommentarer. Användare är vanl
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Du har nått gränsen för att göra nya förfrågningar. Användare är vanligtvis begränsade till {{max_requests_per_user_per_day}} förfrågningar under en 24-timmarsperiod. Du kommer att kunna göra förfrågningar igen om {{can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr "Du har lämnat projektet."
@@ -4454,6 +4530,11 @@ msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
 msgstr[0] "{{number_of_comments}} kommentar"
 msgstr[1] "{{number_of_comments}} kommentarer"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

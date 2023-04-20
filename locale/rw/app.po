@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014-2015
 # Gareth Rees <gareth@mysociety.org>, 2015
 # Graeme Porteous <graeme@mysociety.org>, 2020
@@ -44,7 +45,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Stephen Abbott Pugh <stephen@openownership.org>, 2015\n"
 "Language-Team: Kinyarwanda (http://app.transifex.com/mysociety/alaveteli/langu"
@@ -491,6 +492,9 @@ msgstr "Amahitamo yose akurikira ashobora gukoreshwaho <strong>impinduka</strong
 msgid "All time"
 msgstr "Igihe cyose"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Abakinyi beza b'igihe cyose"
 
@@ -659,6 +663,9 @@ msgstr "Yaciwe gukoresha urubuga"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Urutonde rwakozwe na {{info_request_user}} kuwa {{date}}"
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Duhereye kuri"
 
@@ -721,6 +728,9 @@ msgstr "Kuraho zimwe mu mbuzi za {{site_name}} "
 
 msgid "Cancel, return to your profile page"
 msgstr "Hagarika, subira kuri paji ikuranga"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Hindura imeli kuri {{site_name}}"
@@ -990,6 +1000,9 @@ msgstr "Warangije &gt;&gt;"
 msgid "Download Data"
 msgstr ""
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Kurura dosiye y'abantu bose muvugana"
 
@@ -1062,6 +1075,9 @@ msgstr "Amateka y'ibyabaye"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Buri muntu wese afite uburenganzira bwo kumenya amakuru afitwe n'ibigo bya leta"
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
@@ -1636,6 +1652,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Ikibazo giheruka kurebwa: {{request_url}}"
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2327,6 +2346,9 @@ msgstr ""
 msgid "Rejected"
 msgstr "Cyanzwe"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Munyibuke (ituma ukomeza kuba ku murongo igihe kirekire; ntuyikoreshe kuri mudasobwa rusange)"
 
@@ -2516,6 +2538,9 @@ msgstr "Shaka inyunganizi zawe"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Ohereza ubutumwa bwo gurikirana"
 
@@ -2551,6 +2576,30 @@ msgstr "Oherereza ubutumwa {{user_name}} kureba gusa uko ikora "
 
 msgid "Sending..."
 msgstr "Inyandiko irikugenda…"
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2617,6 +2666,9 @@ msgstr "Sohoka"
 msgid "Sign up"
 msgstr "Funguza"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2675,6 +2727,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Mutwihanganire ntidushoboye kongeraho ubusobanuro.Muze kongere mu gihe kiri imbere."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3110,8 +3165,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Hari umubare ntarengwa w'ibibazo ushobora kubaza ku munsi, kuberako tutifuza ko abayobozi babazwa ibibazo byinshi bidakwiye. Niba wumva ifite impamvu ifatika yatuma usaba guhabwa umubare w'ibibazo birenze, ushobora <a href='{{help_contact_path}}'>kutwandikira</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Nta kintu cyo kugaragaza kiraboneka."
@@ -3341,6 +3402,9 @@ msgstr ""
 "gihe abayobozi bafata mu gusubiza ibibazo, umubare w'ibibazo\n"
 "bisubizwa hakoreshejwe iposita n'ibindi byinshi."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr ""
 
@@ -3475,8 +3539,14 @@ msgstr "Uyu munsi"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Ibibazo byinshi cyane"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "Abakinyi bitwaye neze mu buryo buhambaye"
@@ -3844,6 +3914,9 @@ msgstr "Andika ubutumwa bukurikirana  ibyo wasabye kuri {{authority_name}}"
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Andika ikibazo cyawe <strong>mu magambo yoroshye kandi urasa ku ntego</strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr ""
 
@@ -3972,6 +4045,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Wagejeje umubare w'ibibazo ntarengwa. Abakoresha uru rubuga basanzwe bemerewe ibibazo {{max_requests_per_user_per_day}} mu gihe cy'amasaha 24. Ushobora kubaza ikindi kibazo mu {{can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr ""
@@ -4620,6 +4696,11 @@ msgstr "{{length_of_time}} ishize"
 
 msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
 msgstr[0] ""
 msgstr[1] ""
 

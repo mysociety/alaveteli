@@ -31,6 +31,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Appukonrad <appukonrad@gmail.com>, 2012
 # Appukonrad <appukonrad@gmail.com>, 2012
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Hana Hunt <hana@hana-hunt.cz>, 2016-2018,2020-2021
@@ -41,6 +43,7 @@
 # janakneschke <jana.kneschke@gmail.com>, 2013
 # janakneschke <jana.kneschke@gmail.com>, 2012-2013
 # janakneschke <jana.kneschke@gmail.com>, 2013
+# Jiří Podhorecký, 2021
 # Appukonrad <appukonrad@gmail.com>, 2012,2015-2017
 # Jiří Podhorecký, 2021-2022
 # josefpospisil <josef.pospisil@laststar.eu>, 2012
@@ -57,7 +60,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Jiří Podhorecký, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/mysociety/alaveteli/language/cs"
@@ -492,6 +495,9 @@ msgstr "Všechny níže uvedené možnosti <strong>variety</strong> or <strong>l
 msgid "All time"
 msgstr "Vždy"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Nejlepší hráči"
 
@@ -656,6 +662,9 @@ msgstr "Odstraněno s těchto stránek"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Dávka vytvořena {{info_request_user}} dne {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Začínající na"
 
@@ -718,6 +727,9 @@ msgstr "Zrušte tato upozornění stránek {{site_name}}"
 
 msgid "Cancel, return to your profile page"
 msgstr "Zrušit, návrat zpět do stránky s profilem"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Změnit e-mail na stránkách {{site_name}}"
@@ -993,6 +1005,9 @@ msgstr "Hotovo &gt;&gt;"
 msgid "Download Data"
 msgstr "Stažená data"
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Stáhnout zazipovaný soubor celé korespondence"
 
@@ -1063,6 +1078,9 @@ msgstr "Historie případu"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Každý občan má právo na přístup k informacím veřejných institucí"
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Veškeré informace, které vložíte na tuto stránku, včetně <strong>vašeho jména</strong>, budou <a href=\"{{url}}\">trvale</a> <strong>uveřejněny</strong> na tomto webu."
@@ -1613,6 +1631,9 @@ msgstr "Naposled prohlížený dotaz: {{request_url}}"
 
 msgid "Latest"
 msgstr "Nejnovější"
+
+msgid "Latest news and campaigns"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Zjistěte více &rarr;"
@@ -2299,6 +2320,9 @@ msgstr "Nařízení"
 msgid "Rejected"
 msgstr "Zamítnuto"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Zapamatovat mé údaje (zašrktněte, pokud chcete být déle přihlášeni; nezaškrtávejte, pokud jste na veřejně přístupném počítači)."
 
@@ -2488,6 +2512,9 @@ msgstr "Prohledávat vlastní příspěvky"
 msgid "Section"
 msgstr "Sekce"
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Odpovědět"
 
@@ -2523,6 +2550,30 @@ msgstr "Vznést dotaz na uživatele {{user_name}}. Tímto způsobem si můžete 
 
 msgid "Sending..."
 msgstr "Odesílá se..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2591,6 +2642,9 @@ msgstr "Odhlásit"
 msgid "Sign up"
 msgstr "Registrovat"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2648,6 +2702,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Omlouváme se, teď nelze přídávat nové komentáře. Prosím zkuste to později. "
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3079,8 +3136,14 @@ msgstr "Tuto stránku používá <strong>více než jedna osoba</strong> s tímt
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Počet dotazů za jeden den je limitován. Nechceme, aby byly instituce bombardovány velkým množstvím nerelevantních dotazů. Pokud máte dobrý důvod, proč by měl být váš limit navýšen, prosíme<a href='{{help_contact_path}}'>kontaktujte nás</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Zatím tu nic není"
@@ -3310,6 +3373,9 @@ msgstr "Sekce se statistickými informacemi o institucích je v současnosti v t
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Tato tabulka ukazuje technické detaily související s tímto dotazem vzneseným na stránkách {{site_name}}. Tento přehled lze použít k analýze rychlosti, s jakou instituce odpovídají na dotazy, počtu dotazů, které byly zodpovězeny poštou atd. "
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Tomuto uživateli byl zablokován přístup na stránky {{site_name}} "
 
@@ -3442,8 +3508,14 @@ msgstr "Dnes"
 msgid "Too many annotations"
 msgstr "Příliš mnoho poznámek"
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Příliš mnoho dotazů"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "Nejlepší hráči"
@@ -3813,6 +3885,9 @@ msgstr ""
 "Svůj dotaz formulujte v jasných bodech. \n"
 "Pokud žádáte o více nesouvisejících informací, rozdělte je do více dotazů. "
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr "Ano"
 
@@ -3947,6 +4022,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Dosáhli jste početního limitu stanoveného pro nové dotazy. Uživatelé mohou podat {{max_requests_per_user_per_day}} dotazů během 24 hodin. Nový dotaz můžete podat za {{can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr "Opustili jste tento projekt"
@@ -4620,6 +4698,11 @@ msgstr[0] "{{number_of_comments}} připomínka"
 msgstr[1] "{{number_of_comments}} připomínky"
 msgstr[2] "{{number_of_comments}} připomínek"
 msgstr[3] "{{number_of_comments}} připomínek"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"
