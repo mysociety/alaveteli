@@ -191,7 +191,7 @@ class OutgoingMessage < ApplicationRecord
       info_request.try(:applicable_censor_rules) or []
     end
 
-    censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
+    censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
   end
 
   def raw_body

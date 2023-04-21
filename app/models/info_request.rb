@@ -1475,12 +1475,12 @@ class InfoRequest < ApplicationRecord
 
   def apply_censor_rules_to_text(text)
     applicable_censor_rules.
-      reduce(text) { |text, rule| rule.apply_to_text(text) }
+      reduce(text) { |t, rule| rule.apply_to_text(t) }
   end
 
   def apply_censor_rules_to_binary(text)
     applicable_censor_rules.
-      reduce(text) { |text, rule| rule.apply_to_binary(text) }
+      reduce(text) { |t, rule| rule.apply_to_binary(t) }
   end
 
   def apply_masks(text, content_type)

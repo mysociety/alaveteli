@@ -244,18 +244,18 @@ class ApiController < ApplicationController
       render template: "api/request_events", formats: [:atom], layout: false
     elsif feed_type == "json"
       @event_data = []
-      @events.each do |event|
+      @events.each do |json_event|
 
-        request = event.info_request
+        request = json_event.info_request
         this_event = {
           request_id: request.id,
-          event_id: event.id,
-          created_at: event.created_at.iso8601,
-          event_type: event.event_type,
+          event_id: json_event.id,
+          created_at: json_event.created_at.iso8601,
+          event_type: json_event.event_type,
           request_url: request_url(request),
           request_email: request.incoming_email,
           title: request.title,
-          body: event.outgoing_message.body,
+          body: json_event.outgoing_message.body,
           user_name: request.user_name
         }
         this_event[:user_url] = user_url(request.user) if request.user
