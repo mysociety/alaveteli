@@ -295,6 +295,7 @@ class MailServerLog < ApplicationRecord
       end
     end
   end
+  private_class_method :create_mail_server_logs
 
   def line_decorator
     mta = AlaveteliConfiguration.mta_log_type.to_sym

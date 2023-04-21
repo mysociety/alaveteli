@@ -147,7 +147,7 @@ module AlaveteliTextMasker
 
     # Replace censor items
     censor_rules = options[:censor_rules] || []
-    text = censor_rules.reduce(text) { |text, rule| rule.apply_to_binary(text) }
+    text = censor_rules.reduce(text) { |t, rule| rule.apply_to_binary(t) }
     raise "internal error in apply_binary_masks" if text.bytesize != orig_size
 
     text
@@ -173,7 +173,7 @@ module AlaveteliTextMasker
       memo.gsub(mask[:to_replace], mask[:replacement])
     end
 
-    censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
+    censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
   end
 
 end

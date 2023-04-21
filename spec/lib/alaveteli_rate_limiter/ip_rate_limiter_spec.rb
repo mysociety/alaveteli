@@ -19,8 +19,8 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
       defaults = AlaveteliRateLimiter::IPRateLimiter::Defaults.
         new(whitelist: whitelist)
 
-      described_class.set_defaults do |defaults|
-        defaults.whitelist = whitelist
+      described_class.set_defaults do |d|
+        d.whitelist = whitelist
       end
 
       expect(described_class.defaults).to eq(defaults)

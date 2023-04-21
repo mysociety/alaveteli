@@ -955,6 +955,7 @@ class PublicBody < ApplicationRecord
     result += " AND #{table}.locale = :locale" if locale
     result
   end
+  private_class_method :get_public_body_list_translated_condition
 
   def update_missing_email_tag
     if missing_email? && !defunct?
