@@ -424,10 +424,10 @@ module ActsAsXapian
         # Pull out all the results
         iter = matches._begin
         until iter.equals(matches._end)
-          docs.push({data: iter.document.data,
+          docs.push({ data: iter.document.data,
                      percent: iter.percent,
                      weight: iter.weight,
-                     collapse_count: iter.collapse_count})
+                     collapse_count: iter.collapse_count })
           iter.next
         end
       }

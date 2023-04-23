@@ -212,36 +212,36 @@ EOF
       theme_url_to_theme_name(theme_url)
     end
 
-    help_templates_info = [{name: 'about',
+    help_templates_info = [{ name: 'about',
                             sections: %w[whybother_them
                                             reporting
-                                            reporting_unavailable]},
-                           {name: 'alaveteli',
-                            sections: []},
-                           {name: 'api',
-                            sections: []},
-                           {name: 'contact',
-                            sections: []},
-                           {name: 'credits',
-                            sections: ['helpus']},
-                           {name: 'officers',
-                            sections: ['copyright']},
-                           {name: 'privacy',
+                                            reporting_unavailable] },
+                           { name: 'alaveteli',
+                            sections: [] },
+                           { name: 'api',
+                            sections: [] },
+                           { name: 'contact',
+                            sections: [] },
+                           { name: 'credits',
+                            sections: ['helpus'] },
+                           { name: 'officers',
+                            sections: ['copyright'] },
+                           { name: 'privacy',
                             sections: %w[email_address
                                             full_address
                                             postal_answer
                                             public_request
-                                            real_name]},
-                           {name: 'requesting',
+                                            real_name] },
+                           { name: 'requesting',
                             sections: %w[focused
                                             data_protection
                                             missing_body
-                                            quickly_response]},
-                           {name: 'unhappy',
+                                            quickly_response] },
+                           { name: 'unhappy',
                             sections: %w[internal_review
-                                            other_means]},
-                           {name: '_why_they_should_reply_by_email',
-                            sections: []}]
+                                            other_means] },
+                           { name: '_why_they_should_reply_by_email',
+                            sections: [] }]
 
     theme_names.each do |theme_name|
       AlaveteliLocalization.available_locales.each do |locale|

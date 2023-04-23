@@ -88,9 +88,9 @@ namespace :graphs do
                       ]
 
         # plot all users
-        options = {with: "impulses",
+        options = { with: "impulses",
                    linecolor: COLOURS[state_list[0][:colour]],
-                   linewidth: 15, title: state_list[0][:title]}
+                   linewidth: 15, title: state_list[0][:title] }
         all_users = select_as_columns(aggregate_signups)
 
         # nothing to do, bail
@@ -113,7 +113,7 @@ namespace :graphs do
                 title: state_info[:title],
                 linecolor: COLOURS[state_info[:colour]],
                 with: state_info[:with],
-                linewidth: state_info[:linewidth]})
+                linewidth: state_info[:linewidth] })
             )
           end
         end
@@ -130,7 +130,7 @@ namespace :graphs do
             with: "lines",
             linewidth: 1,
             linecolor: COLOURS[:lightgreen],
-            using: "1:3"})
+            using: "1:3" })
           plot_data_from_columns(all_users, options, plot.data)
         end
       end
@@ -189,21 +189,21 @@ namespace :graphs do
 
         # get the data, plot the graph
 
-        state_list = [ {state: 'waiting_response', colour: :darkblue},
-                   {state: 'waiting_clarification', colour: :lightblue},
-                   {state: 'not_held', colour: :yellow},
-                   {state: 'rejected', colour: :red},
-                   {state: 'successful', colour: :lightgreen},
-                   {state: 'partially_successful', colour: :darkgreen},
-                   {state: 'requires_admin', colour: :cyan},
-                   {state: 'gone_postal', colour: :darkyellow},
-                   {state: 'internal_review', colour: :mauve},
-                   {state: 'error_message', colour: :redbrown},
-                   {state: 'user_withdrawn', colour: :pink} ]
+        state_list = [ { state: 'waiting_response', colour: :darkblue },
+                   { state: 'waiting_clarification', colour: :lightblue },
+                   { state: 'not_held', colour: :yellow },
+                   { state: 'rejected', colour: :red },
+                   { state: 'successful', colour: :lightgreen },
+                   { state: 'partially_successful', colour: :darkgreen },
+                   { state: 'requires_admin', colour: :cyan },
+                   { state: 'gone_postal', colour: :darkyellow },
+                   { state: 'internal_review', colour: :mauve },
+                   { state: 'error_message', colour: :redbrown },
+                   { state: 'user_withdrawn', colour: :pink } ]
 
-        options = {with: "impulses",
+        options = { with: "impulses",
                    linecolor: COLOURS[state_list[0][:colour]],
-                   linewidth: 4, title: state_list[0][:state]}
+                   linewidth: 4, title: state_list[0][:state] }
 
         # here be database-specific dragons...
         # this uses a window function which is not supported by MySQL, but
@@ -240,7 +240,7 @@ namespace :graphs do
               assemble_sql(state_exclusion_sql(previous_states)),
               options.merge({
                 title: state_info[:state],
-                linecolor: COLOURS[state_info[:colour]]})
+                linecolor: COLOURS[state_info[:colour]] })
             )
           end
           previous_states << state_list[index][:state]

@@ -100,7 +100,7 @@ module MailHandler
                                      "-dump-charset", "utf-8",
                                      "-force-html", "-dump",
                                      tempfile.path,
-                                     default_params.merge(env: {"LANG" => "C"}))
+                                     default_params.merge(env: { "LANG" => "C" }))
       elsif content_type == 'application/vnd.ms-excel'
         # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
         # py_xls2txt only extract text from cells, not from floating
@@ -120,7 +120,7 @@ module MailHandler
                                            "-c",
                                            tempfile.path,
                                            "word/document.xml",
-                                           {binary_output: false})
+                                           { binary_output: false })
         unless xml.nil?
           doc = REXML::Document.new(xml)
           text += doc.each_element( './/text()' ) {}.join(" ")
