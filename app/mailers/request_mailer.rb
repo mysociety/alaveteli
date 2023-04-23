@@ -24,8 +24,8 @@ class RequestMailer < ApplicationMailer
     if !attachment_name.nil? && !attachment_content.nil?
       content_type = AlaveteliFileTypes.filename_to_mimetype(attachment_name) || 'application/octet-stream'
 
-      attachments[attachment_name] = {content: attachment_content,
-                                      content_type: content_type}
+      attachments[attachment_name] = { content: attachment_content,
+                                      content_type: content_type }
     end
 
     mail(from: from_user.name_and_email,
@@ -38,8 +38,8 @@ class RequestMailer < ApplicationMailer
     @message_body = message_body
 
     attachment_hashes.each do |attachment_hash|
-      attachments[attachment_hash[:filename]] = {content: attachment_hash[:body],
-                                                 content_type: attachment_hash[:content_type]}
+      attachments[attachment_hash[:filename]] = { content: attachment_hash[:body],
+                                                 content_type: attachment_hash[:content_type] }
     end
 
     mail(from: blackhole_email,

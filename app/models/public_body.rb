@@ -497,7 +497,7 @@ class PublicBody < ApplicationRecord
         field_names = { 'name' => 1, 'request_email' => 2 }
         line = 0
 
-        import_options = {field_names: field_names,
+        import_options = { field_names: field_names,
                           available_locales: available_locales,
                           tag: tag,
                           tag_behaviour: tag_behaviour,
@@ -736,7 +736,7 @@ class PublicBody < ApplicationRecord
       'public_bodies' => public_bodies,
       'y_values' => y_values,
       'y_max' => y_values.max,
-    'totals' => y_values}
+    'totals' => y_values }
   end
 
   # Return data for the 'n' public bodies with the highest (or
@@ -785,7 +785,7 @@ class PublicBody < ApplicationRecord
       'cis_below' => cis_below,
       'cis_above' => cis_above,
       'y_max' => 100,
-    'totals' => original_totals}
+    'totals' => original_totals }
   end
 
   def self.popular_bodies(locale)
@@ -894,7 +894,7 @@ class PublicBody < ApplicationRecord
                                       described_state: 'not_held' },
       info_requests_successful_count: { awaiting_description: false,
                                         described_state: success_states },
-      info_requests_visible_classified_count: { awaiting_description: false},
+      info_requests_visible_classified_count: { awaiting_description: false },
       info_requests_visible_count: {}
     }
 
