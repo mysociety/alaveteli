@@ -32,12 +32,12 @@ RSpec.describe Statistics do
       to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
                                                      column='blah_blah',
                                                      percentages=false,
-                                                     {highest: true} )
+                                                     { highest: true } )
       expect(to_draw['id']).to eq("blah_blah-highest")
       to_draw = Statistics.simplify_stats_for_graphs(raw_count_data,
                                                      column='blah_blah',
                                                      percentages=false,
-                                                     {highest: false} )
+                                                     { highest: false } )
       expect(to_draw['id']).to eq("blah_blah-lowest")
     end
 

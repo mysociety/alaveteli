@@ -54,9 +54,9 @@ RSpec.describe InfoRequestEvent do
 
     it "should store the incoming_message, outgoing_messsage and comment ids" do
       comment = FactoryBot.create(:comment)
-      example_params = {incoming_message_id: 1,
+      example_params = { incoming_message_id: 1,
                         outgoing_message_id: 2,
-                        comment_id: comment.id}
+                        comment_id: comment.id }
       ire.params = example_params
       expect(ire.incoming_message_id).to eq(1)
       expect(ire.outgoing_message_id).to eq(2)
@@ -166,7 +166,7 @@ RSpec.describe InfoRequestEvent do
     let(:ire) { InfoRequestEvent.new }
 
     it "should return old, new and other params" do
-      ire.params = {old_foo: 'this is stuff', foo: 'stuff', bar: 84}
+      ire.params = { old_foo: 'this is stuff', foo: 'stuff', bar: 84 }
       expected_hash = {
         new: { foo: 'stuff' },
         old: { foo: 'this is stuff' },
@@ -176,14 +176,14 @@ RSpec.describe InfoRequestEvent do
     end
 
     it 'should drop matching old and new values' do
-      ire.params = {old_foo: 'stuff', foo: 'stuff', bar: 84}
+      ire.params = { old_foo: 'stuff', foo: 'stuff', bar: 84 }
       expected_hash = { new: {}, old: {}, other: { bar: 84 } }
       expect(ire.params_diff).to eq(expected_hash)
     end
 
     it 'returns a url_name if passed a User' do
       user = FactoryBot.create(:user)
-      ire.params = {old_foo: "", foo: user}
+      ire.params = { old_foo: "", foo: user }
       expected_hash = {
         new: { foo: { gid: user.to_global_id.to_s } },
         old: { foo: '' },
@@ -427,7 +427,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     it "should change type to hidden when only editing prominence to hidden" do
-      params = unchanged_params.merge({old_prominence: "normal", prominence: "hidden"})
+      params = unchanged_params.merge({ old_prominence: "normal", prominence: "hidden" })
 
       ire = InfoRequestEvent.create!(info_request: FactoryBot.create(:info_request),
                                      event_type: "edit",
@@ -437,7 +437,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     it "should change type to hidden when only editing prominence to requester_only" do
-      params = unchanged_params.merge({old_prominence: "normal", prominence: "requester_only"})
+      params = unchanged_params.merge({ old_prominence: "normal", prominence: "requester_only" })
 
       ire = InfoRequestEvent.create!(info_request: FactoryBot.create(:info_request),
                                      event_type: "edit",
@@ -447,7 +447,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     it "should change type to hidden when only editing prominence to backpage" do
-      params = unchanged_params.merge({old_prominence: "normal", prominence: "backpage"})
+      params = unchanged_params.merge({ old_prominence: "normal", prominence: "backpage" })
 
       ire = InfoRequestEvent.create!(info_request: FactoryBot.create(:info_request),
                                      event_type: "edit",
@@ -655,7 +655,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when only editing prominence to hidden" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "hidden"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "normal", prominence: "hidden" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -665,7 +665,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when only editing prominence to requester_only" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "requester_only"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "normal", prominence: "requester_only" }) }
 
       it "should be true if only editing prominence to requester_only" do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -675,7 +675,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when only editing prominence to backpage" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "backpage"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "normal", prominence: "backpage" }) }
 
       it "should be true if only editing prominence to backpage" do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -685,7 +685,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when the old prominence was hidden" do
-      let(:params) { unchanged_params.merge({old_prominence: "hidden", prominence: "requester_only"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "hidden", prominence: "requester_only" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -695,7 +695,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when the old prominence was requester_only" do
-      let(:params) { unchanged_params.merge({old_prominence: "requester_only", prominence: "hidden"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "requester_only", prominence: "hidden" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -705,7 +705,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when the old prominence was backpage" do
-      let(:params) { unchanged_params.merge({old_prominence: "backpage", prominence: "hidden"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "backpage", prominence: "hidden" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
