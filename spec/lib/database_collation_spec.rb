@@ -73,7 +73,7 @@ def mock_connection(connection_double_opts = {})
   connection = double('ActiveRecord::FakeConnection', connection_double_opts)
 
   installed_collations = [
-    { "collname" => "default", "collencoding" => "-1"},
+    { "collname" => "default", "collencoding" => "-1" },
     { "collname" => "C", "collencoding" => "-1" },
     { "collname" => "POSIX", "collencoding" => "-1" },
     { "collname" => "C.UTF-8", "collencoding" => "6" },
