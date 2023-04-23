@@ -52,7 +52,7 @@ RSpec.describe AdminRawEmailController do
             event_type: 'response',
             info_request: InfoRequest.holding_pen_request,
             incoming_message: incoming_message,
-            params: {rejected_reason: 'Too dull'}
+            params: { rejected_reason: 'Too dull' }
           )
         end
 

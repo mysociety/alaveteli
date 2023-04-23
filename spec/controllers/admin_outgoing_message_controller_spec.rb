@@ -280,10 +280,10 @@ RSpec.describe AdminOutgoingMessageController do
     context 'if the incoming message is not valid' do
 
       it 'should render the edit template' do
-        make_request({id: outgoing.id,
-                      outgoing_message: {prominence: 'fantastic',
+        make_request({ id: outgoing.id,
+                      outgoing_message: { prominence: 'fantastic',
                                             prominence_reason: 'dull',
-                                            body: 'Some information please'}})
+                                            body: 'Some information please' } })
         expect(response).to render_template("edit")
       end
 

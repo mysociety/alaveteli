@@ -127,7 +127,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
                       public_bodies: bodies,
                       user: user)
   end
-  let(:params) { {draft_id: draft.id} }
+  let(:params) { { draft_id: draft.id } }
 
   before do
     sign_in user
@@ -197,7 +197,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
 
 
   describe "#create" do
-    let(:params) { {draft_id: draft.id} }
+    let(:params) { { draft_id: draft.id } }
     let(:action) { post :create, params: params }
 
     shared_examples "when batch is created" do
