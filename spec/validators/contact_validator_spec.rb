@@ -31,7 +31,7 @@ RSpec.describe ContactValidator do
     end
 
     it 'validates email format' do
-      valid_params.merge!({email: 'not-an-email'})
+      valid_params.merge!({ email: 'not-an-email' })
       validator = ContactValidator.new(valid_params)
       validator.valid?
       expect(validator.errors[:email]).to include("Email doesn't look like a valid address")
