@@ -18,8 +18,8 @@ module LinkToHelper
     request_url(info_request, options.merge(only_path: true))
   end
 
-  def request_link(info_request, cls=nil)
-    link_to info_request.title, request_path(info_request), class: cls
+  def request_link(info_request)
+    link_to info_request.title, request_path(info_request)
   end
 
   def request_details_path(info_request)
@@ -104,8 +104,8 @@ module LinkToHelper
     link_to public_body.short_or_long_name, public_body_path(public_body)
   end
 
-  def public_body_link(public_body, cls=nil)
-    link_to public_body.name, public_body_path(public_body), class: cls
+  def public_body_link(public_body)
+    link_to public_body.name, public_body_path(public_body)
   end
 
   def public_body_link_absolute(public_body) # e.g. for in RSS
@@ -121,11 +121,15 @@ module LinkToHelper
     user_url(user, options.merge(only_path: true))
   end
 
-  def user_link(user, cls=nil)
-    link_to user.name, user_path(user), class: cls
+  def user_link_absolute(user)
+    link_to user.name, user_url(user)
   end
 
-  def user_link_for_request(request, cls=nil)
+  def user_link(user)
+    link_to user.name, user_path(user)
+  end
+
+  def user_link_for_request(request)
     if request.is_external?
       user_name = request.external_user_name || _("Anonymous user")
       if !request.external_url.nil?
@@ -134,7 +138,7 @@ module LinkToHelper
         user_name
       end
     else
-      link_to request.user.name, user_path(request.user), class: cls
+      link_to request.user.name, user_path(request.user)
     end
   end
 
@@ -146,38 +150,35 @@ module LinkToHelper
     end
   end
 
-  def user_link_absolute(user)
-    link_to user.name, user_url(user)
-  end
-
-  def user_link(user)
-    link_to user.name, user_path(user)
-  end
-
-  def external_user_link(request, absolute, text)
+  def external_user_link(request, text = nil)
     if request.external_user_name
       request.external_user_name
     else
-      if absolute
-        url = help_privacy_url(anchor: 'anonymous')
-      else
-        url = help_privacy_path(anchor: 'anonymous')
-      end
-      link_to(text, url)
+      text ||= _("Anonymous user")
+      link_to(text, help_privacy_path(anchor: 'anonymous'))
     end
   end
 
-  def request_user_link_absolute(request, anonymous_text=_("Anonymous user"))
+  def external_user_link_absolute(request, text = nil)
+    if request.external_user_name
+      request.external_user_name
+    else
+      text ||= _("Anonymous user")
+      link_to(text, help_privacy_url(anchor: 'anonymous'))
+    end
+  end
+
+  def request_user_link_absolute(request, anonymous_text = nil)
     if request.is_external?
-      external_user_link(request, absolute=true, anonymous_text)
+      external_user_link_absolute(request, anonymous_text)
     else
       user_link_absolute(request.user)
     end
   end
 
-  def request_user_link(request, anonymous_text=_("Anonymous user"))
+  def request_user_link(request, anonymous_text = nil)
     if request.is_external?
-      external_user_link(request, absolute=false, anonymous_text)
+      external_user_link(request, anonymous_text)
     else
       user_link(request.user)
     end
@@ -203,8 +204,8 @@ module LinkToHelper
     link_to user_or_you_capital(user), user_path(user)
   end
 
-  def user_admin_link(user, name="admin", cls=nil)
-    link_to name, admin_user_url(user), class: cls
+  def user_admin_link(user, name="admin")
+    link_to name, admin_user_url(user)
   end
 
   # Tracks. feed can be 'track' or 'feed'
