@@ -8,4 +8,11 @@ class ApplicationRecord < ActiveRecord::Base
   def self.admin_title
     name
   end
+
+  def self.created_between(from:, to:)
+    from = Time.zone.parse(from).at_beginning_of_day
+    to = Time.zone.parse(to).at_end_of_day
+
+    where(created_at: from..to)
+  end
 end
