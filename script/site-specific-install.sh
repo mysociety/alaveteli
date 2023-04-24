@@ -199,7 +199,11 @@ fi
 
 # Ensure we have required Ruby version from the current distribution package, if
 # not then install using rbenv
-required_ruby="$(cat $REPOSITORY/.ruby-version.example)"
+if [ -f $REPOSITORY/.ruby-version ]; then
+  required_ruby="$(cat $REPOSITORY/.ruby-version)"
+else
+  required_ruby="$(cat $REPOSITORY/.ruby-version.example)"
+fi
 current_ruby="$(ruby --version | awk 'match($0, /[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')"
 if [ "$(printf '%s\n' "$required_ruby" "$current_ruby" | sort -V | head -n1)" = "$required_ruby" ]; then
   echo "Current Ruby (${current_ruby}) is greater than or equal to required version (${required_ruby})"
