@@ -144,6 +144,8 @@ class InfoRequest < ApplicationRecord
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
   scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
   scope :embargo_expired_today, Prominence::EmbargoExpiredTodayQuery.new
+  scope :embargoed_ever, Prominence::EmbargoedEverQuery.new
+  scope :embargoed_never, Prominence::EmbargoedNeverQuery.new
   scope :visible_to_requester, Prominence::VisibleToRequesterQuery.new
   scope :been_published, Prominence::BeenPublishedQuery.new
 
