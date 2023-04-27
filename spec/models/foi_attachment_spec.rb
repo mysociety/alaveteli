@@ -179,20 +179,6 @@ RSpec.describe FoiAttachment do
 
   end
 
-  describe '#has_google_docs_viewer?' do
-    subject { foi_attachment.has_google_docs_viewer? }
-
-    context 'with a supported attachment' do
-      let(:foi_attachment) { FactoryBot.build(:pdf_attachment) }
-      it { is_expected.to eq(true) }
-    end
-
-    context 'with an unsupported attachment' do
-      let(:foi_attachment) { FactoryBot.build(:html_attachment) }
-      it { is_expected.to eq(false) }
-    end
-  end
-
   describe '#has_body_as_html?' do
 
     it 'should be true for a pdf attachment' do

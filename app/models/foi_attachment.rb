@@ -267,10 +267,6 @@ class FoiAttachment < ApplicationRecord
     end
   end
 
-  def has_google_docs_viewer?
-    AttachmentToHTML::Adapters::GoogleDocsViewer.viewable?(content_type)
-  end
-
   # Whether this type has a "View as HTML"
   def has_body_as_html?
     AttachmentToHTML.extractable?(self)
