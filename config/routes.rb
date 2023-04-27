@@ -304,6 +304,10 @@ Rails.application.routes.draw do
         as: :disable_email_alerts
   end
 
+  namespace :users, path: 'profile' do
+    resource :name, only: [:edit, :update]
+  end
+
   namespace :profile, :module => 'user_profile' do
     resource :about_me, :only => [:edit, :update], :controller => 'about_me'
   end
