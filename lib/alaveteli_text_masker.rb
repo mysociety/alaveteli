@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module AlaveteliTextMasker
   include ConfigHelper
 
@@ -47,11 +49,23 @@ module AlaveteliTextMasker
   private
 
   def uncompress_pdf(text)
-    AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
+    temp = Tempfile.new('pdftk', './tmp', encoding: 'ascii-8bit')
+    temp.write(text)
+    temp.close
+
+    AlaveteliExternalCommand.run(
+      "pdftk", temp.path, "output", "-", "uncompress"
+    )
+  ensure
+    temp.unlink
   end
 
   def compress_pdf(text)
-    if AlaveteliConfiguration::use_ghostscript_compression
+    temp = Tempfile.new('pdftk', './tmp', encoding: 'ascii-8bit')
+    temp.write(text)
+    temp.close
+
+    if AlaveteliConfiguration.use_ghostscript_compression
       command = ["gs",
                  "-sDEVICE=pdfwrite",
                  "-dCompatibilityLevel=1.4",
@@ -60,11 +74,13 @@ module AlaveteliTextMasker
                  "-dQUIET",
                  "-dBATCH",
                  "-sOutputFile=-",
-                 "-"]
+                 temp.path]
     else
-      command = ["pdftk", "-", "output", "-", "compress"]
+      command = ["pdftk", temp.path, "output", "-", "compress"]
     end
-    AlaveteliExternalCommand.run(*(command + [ :stdin_string => text ]))
+    AlaveteliExternalCommand.run(*command)
+  ensure
+    temp.unlink
   end
 
   def apply_pdf_masks(text, options = {})
@@ -131,7 +147,7 @@ module AlaveteliTextMasker
 
     # Replace censor items
     censor_rules = options[:censor_rules] || []
-    text = censor_rules.reduce(text) { |text, rule| rule.apply_to_binary(text) }
+    text = censor_rules.reduce(text) { |t, rule| rule.apply_to_binary(t) }
     raise "internal error in apply_binary_masks" if text.bytesize != orig_size
 
     text
@@ -157,7 +173,7 @@ module AlaveteliTextMasker
       memo.gsub(mask[:to_replace], mask[:replacement])
     end
 
-    censor_rules.reduce(text) { |text, rule| rule.apply_to_text(text) }
+    censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
   end
 
 end

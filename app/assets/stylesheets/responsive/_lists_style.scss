@@ -15,6 +15,14 @@
   }
 }
 
+.body_listing.tag--defunct {
+  color: grey;
+
+  a {
+    color: grey;
+  }
+}
+
 .request_listing{
   .bottomline {
     background-position:top left;

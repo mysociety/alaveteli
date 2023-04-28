@@ -1,6 +1,6 @@
 module Usage
 
-  def usage_message message
+  def usage_message(message)
     puts ''
     puts message
     puts ''
@@ -10,15 +10,11 @@ module Usage
   def check_for_env_vars(env_vars, example)
     missing = []
     env_vars.each do |env_var|
-      unless ENV[env_var]
-        missing << env_var
-      end
+      missing << env_var unless ENV[env_var]
     end
-    if !missing.empty?
+    unless missing.empty?
       usage = "Usage: This task requires #{env_vars.to_sentence} - missing #{missing.to_sentence}"
-      if example
-        usage += "\nExample: #{example}"
-      end
+      usage += "\nExample: #{example}" if example
       usage_message usage
     end
   end

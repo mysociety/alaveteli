@@ -1,0 +1,48 @@
+# == Schema Information
+# Schema version: 20220928093559
+#
+# Table name: notes
+#
+#  id           :bigint           not null, primary key
+#  notable_type :string
+#  notable_id   :bigint
+#  notable_tag  :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  body         :text
+#
+
+geraldine_note:
+  id: 2
+  notable_type: PublicBody
+  notable_id: 2
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+humpadink_note:
+  id: 3
+  notable_type: PublicBody
+  notable_id: 3
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+silly_walks_note:
+  id: 5
+  notable_type: PublicBody
+  notable_id: 5
+  created_at: 2007-10-24 10:51:01.161639
+  updated_at: 2007-10-24 10:51:01.161639
+
+sensible_walks_note:
+  id: 6
+  notable_type: PublicBody
+  notable_id: 6
+  created_at: 2008-10-25 10:51:01.161639
+  updated_at: 2008-10-25 10:51:01.161639
+
+other_note:
+  id: 7
+  notable_type: PublicBody
+  notable_id: 7
+  created_at: 2008-10-25 10:51:01.161639
+  updated_at: 2008-10-25 10:51:01.161639

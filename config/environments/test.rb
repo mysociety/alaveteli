@@ -26,6 +26,9 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
+  # Use inline processing for Active Job
+  config.active_job.queue_adapter = :test
+
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
 
@@ -75,9 +78,9 @@ Rails.application.configure do
 
   if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
     middleware.use ExceptionNotification::Rack,
-      :email => {
-        :sender_address => AlaveteliConfiguration.exception_notifications_from,
-        :exception_recipients => AlaveteliConfiguration.exception_notifications_to
+      email: {
+        sender_address: AlaveteliConfiguration.exception_notifications_from,
+        exception_recipients: AlaveteliConfiguration.exception_notifications_to
       }
   end
 end

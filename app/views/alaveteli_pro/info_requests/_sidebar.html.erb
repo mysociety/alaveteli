@@ -21,6 +21,9 @@
   <%= render partial: 'request/share_by_link',
              locals: { info_request: @info_request } %>
 
+  <%= render partial: 'blog_posts/blog_posts',
+             locals: { taggable: info_request } %>
+
   <% unless state_transitions_empty?(@state_transitions) %>
     <div class="sidebar__section update-status">
       <h2><%= _("Status") %></h2>

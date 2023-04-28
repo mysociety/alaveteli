@@ -1,24 +1,20 @@
 namespace :cleanup do
 
   desc 'Clean up all message redelivery and destroy actions from the holding pen to make admin actions there faster'
-  task :holding_pen => :environment do
+  task holding_pen: :environment do
     dryrun = ENV['DRYRUN'] != '0' if ENV['DRYRUN']
-    if dryrun
-      $stderr.puts "This is a dryrun - nothing will be deleted"
-    end
+    $stderr.puts "This is a dryrun - nothing will be deleted" if dryrun
     holding_pen = InfoRequest.holding_pen_request
     holding_pen.info_request_events.
-      where(:event_type => %w(redeliver_incoming destroy_incoming)).
+      where(event_type: %w(redeliver_incoming destroy_incoming)).
         find_each do |event|
-      $stderr.puts event.inspect if verbose or dryrun
-      if not dryrun
-        event.destroy
-      end
+      $stderr.puts event.inspect if verbose || dryrun
+      event.destroy unless dryrun
     end
   end
 
   desc 'Interactively cleanup spam user users'
-  task :spam_users => :environment do
+  task spam_users: :environment do
     spam_scorer = UserSpamScorer.new
 
     results = {}
@@ -37,18 +33,19 @@ namespace :cleanup do
       user.with_lock do
         display_user(user, spam_score)
 
-        begin
+        loop do
           puts "Is this a spam account? [(Y)es/(n)o/(s)kip]"
           input = $stdin.gets.strip
-        end until %w(Y n s).include?(input)
+          break if %w(Y n s).include?(input)
+        end
 
         case input
         when 'Y'
           puts "Banning #{ user.id }\n\n"
-          user.update!(:ban_text => 'Banned for spamming')
+          user.update!(ban_text: 'Banned for spamming')
         when 'n'
           puts "Marking #{ user.id } as genuine\n\n"
-          user.update!(:confirmed_not_spam => true)
+          user.update!(confirmed_not_spam: true)
         when 's'
           puts "Skipping #{ user.id }\n\n"
         end
@@ -57,28 +54,26 @@ namespace :cleanup do
   end
 
   desc 'Reindex banned users'
-  task :reindex_banned_users => :environment do
-    User.banned.find_each do |user|
-      user.xapian_mark_needs_index
-    end
+  task reindex_banned_users: :environment do
+    User.banned.find_each(&:xapian_mark_needs_index)
   end
 
   desc 'Export of last 2 days of requests to search for spam'
-  task :spam_requests => :environment do
+  task spam_requests: :environment do
     str = CSV.generate do |csv|
       # Make headers
-      csv << [
-        'info_request_id',
-        'info_request_title',
-        'user_id',
-        'public_body_id',
-        'public_body_name',
-        'public_body_request_email',
-        'created_at',
+      csv << %w[
+        info_request_id
+        info_request_title
+        user_id
+        public_body_id
+        public_body_name
+        public_body_request_email
+        created_at
       ]
 
       # Add rows
-      InfoRequest.where(:created_at => [2.days.ago..Time.zone.now]).find_each do |request|
+      InfoRequest.where(created_at: [2.days.ago..Time.zone.now]).find_each do |request|
         csv << [
          request.id,
          request.title,
@@ -86,7 +81,7 @@ namespace :cleanup do
          request.public_body_id,
          request.public_body.name,
          request.public_body.request_email,
-         request.created_at.to_s,
+         request.created_at.to_s
         ]
       end
     end

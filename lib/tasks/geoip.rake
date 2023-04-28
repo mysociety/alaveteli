@@ -38,29 +38,25 @@ namespace :geoip do
       downloaded_location = File.join(tmp_dir, 'geodata.tar.gz')
 
       File.open(downloaded_location, "wb") do |saved_file|
-        begin
-          URI.open(link, "rb") do |read_file|
-            saved_file.write(read_file.read)
-          end
-
-        rescue OpenURI::HTTPError => ex
-          log 'Error downloading MaxMind geoip data file'
-          log "  #{ex.message}"
-
-          if ex.message == '401 Unauthorized'
-            log 'Please check the MAXMIND_LICENSE_KEY setting in ' \
-                'config/general.yml'
-          end
-
-          exit
+        URI.open(link, "rb") do |read_file|
+          saved_file.write(read_file.read)
         end
+
+      rescue OpenURI::HTTPError => ex
+        log 'Error downloading MaxMind geoip data file'
+        log "  #{ex.message}"
+
+        if ex.message == '401 Unauthorized'
+          log 'Please check the MAXMIND_LICENSE_KEY setting in ' \
+              'config/general.yml'
+        end
+
+        exit
       end
 
       `tar -xzf #{downloaded_location} -C #{tmp_dir}`
 
-      unless File.exist?(target_dir)
-        FileUtils.mkdir target_dir
-      end
+      FileUtils.mkdir target_dir unless File.exist?(target_dir)
 
       extracted_folder = Dir["#{tmp_dir}/GeoLite2-Country_*"].last
       FileUtils.mv("#{extracted_folder}/GeoLite2-Country.mmdb", destination)

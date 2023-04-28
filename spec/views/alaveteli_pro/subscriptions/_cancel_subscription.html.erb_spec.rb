@@ -13,7 +13,7 @@ RSpec.describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
     let(:subscription) do
       double(id: 'sub_BWb9jBSSO0nafs',
              cancel_at_period_end: false,
-             current_period_end: 1509882971)
+             current_period_end: 1_509_882_971)
     end
 
     it 'sets the section heading' do
@@ -47,7 +47,7 @@ RSpec.describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
     let(:subscription) do
       double(id: 'sub_BWb9jBSSO0nafs',
              cancel_at_period_end: true,
-             current_period_end: 1509882971)
+             current_period_end: 1_509_882_971)
     end
 
     it 'sets the section heading' do

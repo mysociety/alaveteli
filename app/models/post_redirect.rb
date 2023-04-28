@@ -34,9 +34,9 @@ class PostRedirect < ApplicationRecord
 
   # Optional, does a login confirm before redirect for use in email links.
   belongs_to :user,
-             :inverse_of => :post_redirects
+             inverse_of: :post_redirects
 
-  validates :circumstance, :inclusion => CIRCUMSTANCES
+  validates :circumstance, inclusion: CIRCUMSTANCES
 
   after_initialize :generate_token
   after_initialize :generate_email_token
@@ -70,7 +70,19 @@ class PostRedirect < ApplicationRecord
 
   def post_params
     return {} if post_params_yaml.nil?
-    YAML.load(post_params_yaml)
+
+    if RUBY_VERSION < "3.1"
+      YAML.load(post_params_yaml)
+    else
+      YAML.load(
+        post_params_yaml,
+        permitted_classes: [
+          ActionController::Parameters,
+          ActiveSupport::HashWithIndifferentAccess,
+          Symbol
+        ]
+      )
+    end
   end
 
   # We store YAML version of textual "reason for redirect" parameters
@@ -81,7 +93,9 @@ class PostRedirect < ApplicationRecord
   def reason_params
     param_hash = YAML.load(reason_params_yaml)
     param_hash.each do |key, value|
-      param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
+      if value.respond_to?(:force_encoding)
+        param_hash[key] = value.force_encoding('UTF-8')
+      end
     end
     param_hash
   end

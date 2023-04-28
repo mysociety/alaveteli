@@ -18,7 +18,7 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
   end
 
   context 'if show_owner_update_status_action is true' do
-    before { locals.merge(show_owner_update_status_action: true) }
+    before { locals.merge!(show_owner_update_status_action: true) }
 
     it 'displays a link for the request owner to update the status of the request' do
       render partial: 'request/after_actions', locals: locals
@@ -30,7 +30,7 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
   end
 
   context 'if show_owner_update_status_action is false' do
-    before { locals.merge(show_owner_update_status_action: false) }
+    before { locals.merge!(show_owner_update_status_action: false) }
 
     it 'does not display a link for the request owner to update the status of the request' do
       render partial: 'request/after_actions', locals: locals
@@ -43,7 +43,7 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
   end
 
   context 'if show_other_user_update_status_action is true' do
-    before { locals.merge(show_other_user_update_status_action: true) }
+    before { locals.merge!(show_other_user_update_status_action: true) }
 
     it 'displays a link for anyone to update the status of the request' do
       render partial: 'request/after_actions', locals: locals
@@ -55,7 +55,7 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
   end
 
   context 'if show_other_user_update_status_action is false' do
-    before { locals.merge(show_other_user_update_status_action: false) }
+    before { locals.merge!(show_other_user_update_status_action: false) }
 
     it 'does not display a link for anyone to update the status of the request' do
       render partial: 'request/after_actions', locals: locals
@@ -90,8 +90,7 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
       render partial: 'request/after_actions', locals: locals
 
       expect(response.body).to have_css('ul.anyone_actions') do |div|
-        text = 'Add an annotation (to help the requester or others)'
-        expect(div).to have_css('a', text: text)
+        expect(div).to have_css('a', text: 'Add an annotation')
       end
     end
   end
@@ -103,8 +102,7 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
       render partial: 'request/after_actions', locals: locals
 
       expect(response.body).to have_css('ul.anyone_actions') do |div|
-        text = 'Add an annotation (to help the requester or others)'
-        expect(div).not_to have_css('a', text: text)
+        expect(div).not_to have_css('a', text: 'Add an annotation')
       end
     end
   end
@@ -114,8 +112,7 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
       render partial: 'request/after_actions', locals: locals
 
       expect(response.body).to have_css('ul.anyone_actions') do |div|
-        text = 'Add an annotation (to help the requester or others)'
-        expect(div).not_to have_css('a', text: text)
+        expect(div).not_to have_css('a', text: 'Add an annotation')
       end
     end
   end

@@ -4,7 +4,7 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.0
   RubyInterpreters:
     - ruby
     - rake
@@ -24,6 +24,10 @@ AllCops:
     - node_modules/**/*
     - vendor/**/*
     - ".git/**/*"
+    - bin/bundle
+    - bin/rubocop
+    - bin/sidekiq
+    - bin/sidekiqmon
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   DisabledByDefault: true
@@ -54,6 +58,9 @@ Gemspec/DependencyVersion:
   Enabled: false
 
 Gemspec/DeprecatedAttributeAssignment:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
   Enabled: false
 
 Gemspec/DuplicatedAssignment:
@@ -464,6 +471,9 @@ Lint/DuplicateHashKey:
 Lint/DuplicateMagicComment:
   Enabled: false
 
+Lint/DuplicateMatchPattern:
+  Enabled: false
+
 Lint/DuplicateMethods:
   Enabled: true
 
@@ -773,6 +783,9 @@ Lint/UselessElseWithoutRescue:
 Lint/UselessMethodDefinition:
   Enabled: false
 
+Lint/UselessRescue:
+  Enabled: false
+
 Lint/UselessRuby2Keywords:
   Enabled: false
 
@@ -797,6 +810,9 @@ Metrics/BlockNesting:
   Enabled: false
 
 Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CollectionLiteralLength:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
@@ -1305,6 +1321,9 @@ Rails/RequestReferer:
 Rails/RequireDependency:
   Enabled: false
 
+Rails/ResponseParsedBody:
+  Enabled: false
+
 Rails/ReversibleMigration:
   Enabled: false
 
@@ -1348,6 +1367,9 @@ Rails/StripHeredoc:
   Enabled: false
 
 Rails/TableNameAssignment:
+  Enabled: false
+
+Rails/ThreeStateBooleanColumn:
   Enabled: false
 
 Rails/TimeZone:
@@ -1441,6 +1463,9 @@ Style/ArgumentsForwarding:
 Style/ArrayCoercion:
   Enabled: false
 
+Style/ArrayIntersect:
+  Enabled: false
+
 Style/ArrayJoin:
   Enabled: true
 
@@ -1521,6 +1546,12 @@ Style/CommentAnnotation:
 Style/CommentedKeyword:
   Enabled: false
 
+Style/ComparableClamp:
+  Enabled: false
+
+Style/ConcatArrayLiterals:
+  Enabled: false
+
 Style/ConditionalAssignment:
   Enabled: false
 
@@ -1530,6 +1561,9 @@ Style/ConstantVisibility:
 Style/Copyright:
   Enabled: false
 
+Style/DataInheritance:
+  Enabled: false
+
 Style/DateTime:
   Enabled: false
 
@@ -1537,6 +1571,9 @@ Style/DefWithParentheses:
   Enabled: true
 
 Style/Dir:
+  Enabled: false
+
+Style/DirEmpty:
   Enabled: false
 
 Style/DisableCopsWithinSourceCodeDirective:
@@ -1616,6 +1653,9 @@ Style/ExponentialNotation:
   Enabled: false
 
 Style/FetchEnvVar:
+  Enabled: false
+
+Style/FileEmpty:
   Enabled: false
 
 Style/FileRead:
@@ -1708,6 +1748,9 @@ Style/InlineComment:
 Style/InverseMethods:
   Enabled: false
 
+Style/InvertibleUnlessCondition:
+  Enabled: false
+
 Style/IpAddresses:
   Enabled: false
 
@@ -1733,6 +1776,9 @@ Style/MapCompactWithConditionalBlock:
 Style/MapToHash:
   Enabled: false
 
+Style/MapToSet:
+  Enabled: false
+
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
@@ -1746,6 +1792,9 @@ Style/MethodDefParentheses:
   Enabled: true
 
 Style/MinMax:
+  Enabled: false
+
+Style/MinMaxComparison:
   Enabled: false
 
 Style/MissingElse:
@@ -1842,7 +1891,7 @@ Style/NumericLiteralPrefix:
   Enabled: true
 
 Style/NumericLiterals:
-  Enabled: true
+  Enabled: false
 
 Style/NumericPredicate:
   Enabled: false
@@ -1919,6 +1968,15 @@ Style/RedundantCondition:
 Style/RedundantConditional:
   Enabled: false
 
+Style/RedundantConstantBase:
+  Enabled: false
+
+Style/RedundantDoubleSplatHashBraces:
+  Enabled: false
+
+Style/RedundantEach:
+  Enabled: false
+
 Style/RedundantException:
   Enabled: true
 
@@ -1931,11 +1989,17 @@ Style/RedundantFileExtensionInRequire:
 Style/RedundantFreeze:
   Enabled: true
 
+Style/RedundantHeredocDelimiterQuotes:
+  Enabled: false
+
 Style/RedundantInitialize:
   Enabled: false
 
 Style/RedundantInterpolation:
   Enabled: true
+
+Style/RedundantLineContinuation:
+  Enabled: false
 
 Style/RedundantParentheses:
   Enabled: true
@@ -1971,6 +2035,9 @@ Style/RedundantStringEscape:
   Enabled: false
 
 Style/RegexpLiteral:
+  Enabled: false
+
+Style/RequireOrder:
   Enabled: false
 
 Style/RescueModifier:
@@ -2140,6 +2207,9 @@ Style/WordArray:
   Enabled: true
 
 Style/YodaCondition:
+  Enabled: false
+
+Style/YodaExpression:
   Enabled: false
 
 Style/ZeroLengthPredicate:

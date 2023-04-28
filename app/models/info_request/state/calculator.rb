@@ -130,12 +130,12 @@ class InfoRequest
       def pending_states(opts)
         # Which pending states can we transition into
         if opts.fetch(:in_internal_review, false)
-          states = ['internal_review', 'gone_postal']
+          states = %w[internal_review gone_postal]
         else
-          states = [
-            'waiting_response',
-            'waiting_clarification',
-            'gone_postal'
+          states = %w[
+            waiting_response
+            waiting_clarification
+            gone_postal
           ]
           if opts.fetch(:user_asked_to_update_status, false)
             states += ['internal_review']
@@ -144,20 +144,20 @@ class InfoRequest
         states
       end
 
-      def complete_states(opts = {})
+      def complete_states(_opts = {})
         # States from which a request can go no further, because it's complete
-        [
-          'not_held',
-          'partially_successful',
-          'successful',
-          'rejected'
+        %w[
+          not_held
+          partially_successful
+          successful
+          rejected
         ]
       end
 
-      def admin_states(opts = {})
+      def admin_states(_opts = {})
         # States which only an admin can put a request into, and from which
         # a normal user can't get the request out again
-        ['not_foi', 'vexatious']
+        %w[not_foi vexatious]
       end
 
       def other_states(opts = {})
@@ -165,7 +165,7 @@ class InfoRequest
         user_asked_to_update_status = opts.fetch(:user_asked_to_update_status, false)
         states = ['error_message']
         if user_asked_to_update_status && is_owning_user
-          states += ['requires_admin', 'user_withdrawn']
+          states += %w[requires_admin user_withdrawn]
         end
         states
       end

@@ -24,7 +24,7 @@ module UserSpamCheck
       true
     elsif send_exception_notifications?
       e = Exception.new(msg)
-      ExceptionNotifier.notify_exception(e, :env => request.env)
+      ExceptionNotifier.notify_exception(e, env: request.env)
 
       false
     end

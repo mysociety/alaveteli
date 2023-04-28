@@ -8,9 +8,9 @@ RSpec.describe 'changing your email address' do
 
     using_session(login(user)) do
       visit signchangeemail_path
-      fill_in "signchangeemail_old_email", :with => user.email
-      fill_in "signchangeemail_password", :with => 'jonespassword'
-      fill_in "signchangeemail_new_email", :with => 'newbob@localhost'
+      fill_in "signchangeemail_old_email", with: user.email
+      fill_in "signchangeemail_password", with: 'jonespassword'
+      fill_in "signchangeemail_new_email", with: 'newbob@localhost'
       click_button "Change email on Alaveteli"
 
       expect(page).to have_content('Now check your email!')

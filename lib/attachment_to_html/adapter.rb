@@ -7,7 +7,7 @@ module AttachmentToHTML
     # attachment - the FoiAttachment to convert to HTML
     # opts       - a Hash of options (default: {}):
     #              No options currently accepted
-    def initialize(attachment, opts = {})
+    def initialize(attachment, _opts = {})
       @attachment = attachment
     end
 
@@ -45,7 +45,7 @@ module AttachmentToHTML
     end
 
     def create_tempfile(text)
-      tempfile = Tempfile.new('foiextract', '.', :encoding => text.encoding)
+      tempfile = Tempfile.new('foiextract', '.', encoding: text.encoding)
       tempfile.print(text)
       tempfile.flush
       tempfile

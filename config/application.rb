@@ -3,7 +3,7 @@ require_relative "boot"
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-# require "active_job/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
@@ -22,10 +22,6 @@ require File.dirname(__FILE__) + '/../lib/alaveteli_localization'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
-end
-
 module Alaveteli
   class Application < Rails::Application
     # Configuration for the application, engines, and railties goes here.
@@ -35,12 +31,9 @@ module Alaveteli
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    if rails_upgrade?
-      config.autoloader = :zeitwerk
-      config.active_record.legacy_connection_handling = false
-      config.active_support.use_rfc4122_namespaced_uuids = true
-    end
+    config.autoloader = :zeitwerk
+    config.active_record.legacy_connection_handling = false
+    config.active_support.use_rfc4122_namespaced_uuids = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -70,21 +63,24 @@ module Alaveteli
     # Note that having set a zone, the Active Record
     # time_zone_aware_attributes flag is on, so times from models
     # will be in this time zone
-    config.time_zone = ::AlaveteliConfiguration::time_zone
+    config.time_zone = ::AlaveteliConfiguration.time_zone
 
     # Set the cache to use a memcached backend
     config.cache_store = :mem_cache_store,
-      { :namespace => "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
+      { namespace: "#{AlaveteliConfiguration.domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
+
+    # Use a real queuing backend for Active Job
+    config.active_job.queue_adapter = :sidekiq
 
     config.after_initialize do |app|
       # Add a catch-all route to force routing errors to be handled by the application,
       # rather than by middleware.
-      app.routes.append { match '*path', :to => 'general#not_found', :via => [:get, :post] }
+      app.routes.append { match '*path', to: 'general#not_found', via: [:get, :post] }
     end
 
-    config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
-    config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
+    config.autoload_paths << "#{Rails.root}/app/controllers/concerns"
+    config.autoload_paths << "#{Rails.root}/app/models/concerns"
 
     config.enable_dependency_loading = true
 
@@ -94,7 +90,7 @@ module Alaveteli
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
     require "#{Rails.root}/lib/strip_empty_sessions"
-    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, key: '_wdtk_cookie_session', path: "/", httponly: true
 
     require "#{Rails.root}/lib/deeply_nested_params"
     config.middleware.insert Rack::Head, DeeplyNestedParams
@@ -103,6 +99,6 @@ module Alaveteli
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # Allow the generation of full URLs in emails
-    config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
+    config.action_mailer.default_url_options = { host: AlaveteliConfiguration.domain }
   end
 end

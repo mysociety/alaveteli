@@ -10,12 +10,12 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "searches for 'humpa'" do
-      get :index, params: { :query => "humpa" }
+      get :index, params: { query: "humpa" }
       expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
     end
 
     it "searches for 'humpa' in another locale" do
-      get :index, params: { :query => "humpa", :locale => "es" }
+      get :index, params: { query: "humpa", locale: "es" }
       expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
     end
 
@@ -24,19 +24,19 @@ RSpec.describe AdminPublicBodyController do
   describe 'GET #show' do
     let(:public_body) { FactoryBot.create(:public_body) }
     let(:info_request) { FactoryBot.create(:info_request,
-                                          :public_body => public_body) }
+                                          public_body: public_body) }
     let(:admin_user) { FactoryBot.create(:admin_user) }
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "returns successfully" do
       sign_in admin_user
-      get :show, params: { :id => public_body.id }
+      get :show, params: { id: public_body.id }
       expect(response).to be_successful
     end
 
     it "sets a using_admin flag" do
       sign_in admin_user
-      get :show, params: { :id => public_body.id}
+      get :show, params: { id: public_body.id}
       expect(session[:using_admin]).to eq(1)
     end
 
@@ -46,7 +46,7 @@ RSpec.describe AdminPublicBodyController do
         public_body.save!
       end
       sign_in admin_user
-      get :show, params: { :id => public_body.id, :locale => "es" }
+      get :show, params: { id: public_body.id, locale: "es" }
       expect(assigns[:public_body].name).to eq 'El Public Body'
     end
 
@@ -54,7 +54,7 @@ RSpec.describe AdminPublicBodyController do
         not a pro admin user' do
       info_request.create_embargo
       sign_in admin_user
-      get :show, params: { :id => public_body.id }
+      get :show, params: { id: public_body.id }
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
 
@@ -65,7 +65,7 @@ RSpec.describe AdminPublicBodyController do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
           sign_in admin_user
-          get :show, params: { :id => public_body.id }
+          get :show, params: { id: public_body.id }
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
       end
@@ -76,7 +76,7 @@ RSpec.describe AdminPublicBodyController do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
           sign_in pro_admin_user
-          get :show, params: { :id => public_body.id }
+          get :show, params: { id: public_body.id }
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
@@ -116,7 +116,7 @@ RSpec.describe AdminPublicBodyController do
 
       it 'should populate the name, email address and last edit comment on the public body' do
         change_request = FactoryBot.create(:add_body_request)
-        get :new, params: { :change_request_id => change_request.id }
+        get :new, params: { change_request_id: change_request.id }
         expect(assigns[:public_body].name).to eq(change_request.public_body_name)
         expect(assigns[:public_body].request_email).to eq(change_request.public_body_email)
         expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
@@ -124,7 +124,7 @@ RSpec.describe AdminPublicBodyController do
 
       it 'should assign a default response text to the view' do
         change_request = FactoryBot.create(:add_body_request)
-        get :new, params: { :change_request_id => change_request.id }
+        get :new, params: { change_request_id: change_request.id }
         expect(assigns[:change_request_user_response]).to match("Thanks for your suggestion to add A New Body")
       end
 
@@ -137,11 +137,11 @@ RSpec.describe AdminPublicBodyController do
     context 'on success' do
 
       before(:each) do
-        @params = { :public_body => { :name => 'New Quango',
-                                      :short_name => 'nq',
-                                      :request_email => 'newquango@localhost',
-                                      :tag_string => 'spec',
-                                      :last_edit_comment => 'From test code' } }
+        @params = { public_body: { name: 'New Quango',
+                                      short_name: 'nq',
+                                      request_email: 'newquango@localhost',
+                                      tag_string: 'spec',
+                                      last_edit_comment: 'From test code' } }
       end
 
       it 'creates a new body in the default locale' do
@@ -177,15 +177,15 @@ RSpec.describe AdminPublicBodyController do
     context 'on success for multiple locales' do
 
       before(:each) do
-        @params = { :public_body => { :name => 'New Quango',
-                                      :short_name => 'nq',
-                                      :request_email => 'newquango@localhost',
-                                      :tag_string => 'spec',
-                                      :last_edit_comment => 'From test code',
-                                      :translations_attributes => {
-                                        'es' => { :locale => 'es',
-                                                  :name => 'Los Quango',
-                                                  :short_name => 'lq' }
+        @params = { public_body: { name: 'New Quango',
+                                      short_name: 'nq',
+                                      request_email: 'newquango@localhost',
+                                      tag_string: 'spec',
+                                      last_edit_comment: 'From test code',
+                                      translations_attributes: {
+                                        'es' => { locale: 'es',
+                                                  name: 'Los Quango',
+                                                  short_name: 'lq' }
         } } }
       end
 
@@ -227,9 +227,9 @@ RSpec.describe AdminPublicBodyController do
 
       it 'renders the form if creating the record was unsuccessful' do
         post :create, params: {
-                        :public_body => {
-                          :name => '',
-                          :translations_attributes => {}
+                        public_body: {
+                          name: '',
+                          translations_attributes: {}
                         }
                       }
         expect(response).to render_template('new')
@@ -237,10 +237,10 @@ RSpec.describe AdminPublicBodyController do
 
       it 'is rebuilt with the given params' do
         post :create, params: {
-                        :public_body => {
-                          :name => '',
-                          :request_email => 'newquango@localhost',
-                          :translations_attributes => {}
+                        public_body: {
+                          name: '',
+                          request_email: 'newquango@localhost',
+                          translations_attributes: {}
                         }
                       }
         expect(assigns(:public_body).request_email).to eq('newquango@localhost')
@@ -251,11 +251,11 @@ RSpec.describe AdminPublicBodyController do
     context 'on failure for multiple locales' do
 
       before(:each) do
-        @params = { :public_body => { :name => '',
-                                      :request_email => 'newquango@localhost',
-                                      :translations_attributes => {
-                                        'es' => { :locale => 'es',
-                                                  :name => 'Los Quango' }
+        @params = { public_body: { name: '',
+                                      request_email: 'newquango@localhost',
+                                      translations_attributes: {
+                                        'es' => { locale: 'es',
+                                                  name: 'Los Quango' }
         } } }
       end
 
@@ -282,17 +282,16 @@ RSpec.describe AdminPublicBodyController do
         @change_request = FactoryBot.create(:add_body_request)
         post :create,
              params: {
-               :public_body => {
-                 :name => "New Quango",
-                 :short_name => "",
-                 :tag_string => "blah",
-                 :request_email => 'newquango@localhost',
-                 :last_edit_comment => 'From test code'
+               public_body: {
+                 name: "New Quango",
+                 short_name: "",
+                 tag_string: "blah",
+                 request_email: 'newquango@localhost',
+                 last_edit_comment: 'From test code'
                },
-               :change_request_id => @change_request.id,
-               :subject => 'Adding a new body',
-               :response =>
-                 'The URL will be [Authority URL will be inserted here]'
+               change_request_id: @change_request.id,
+               subject: 'Adding a new body',
+               response:                  'The URL will be [Authority URL will be inserted here]'
              }
       end
 
@@ -324,27 +323,27 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it 'responds successfully' do
-      get :edit, params: { :id => @body.id }
+      get :edit, params: { id: @body.id }
       expect(response).to be_successful
     end
 
     it 'finds the requested body' do
-      get :edit, params: { :id => @body.id }
+      get :edit, params: { id: @body.id }
       expect(assigns[:public_body]).to eq(@body)
     end
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
-      get :edit, params: { :id => @body.id }
+      get :edit, params: { id: @body.id }
       expect(assigns[:public_body].translations.map(&:locale)).to include(:fr)
     end
 
     it 'renders the edit template' do
-      get :edit, params: { :id => @body.id }
+      get :edit, params: { id: @body.id }
       expect(response).to render_template('edit')
     end
 
     it "edits a public body in another locale" do
-      get :edit, params: { :id => 3, :locale => :en }
+      get :edit, params: { id: 3, locale: :en }
 
       # When editing a body, the controller returns all available translations
       expect(assigns[:public_body].find_translation_by_locale("es").name).to eq('El Department for Humpadinking')
@@ -358,16 +357,16 @@ RSpec.describe AdminPublicBodyController do
       before do
         @change_request = FactoryBot.create(:update_body_request)
         get :edit, params: {
-                     :id => @change_request.public_body_id,
-                     :change_request_id => @change_request.id
+                     id: @change_request.public_body_id,
+                     change_request_id: @change_request.id
                    }
       end
 
       it 'should populate the email address and last edit comment on the public body' do
         change_request = FactoryBot.create(:update_body_request)
         get :edit, params: {
-                     :id => change_request.public_body_id,
-                     :change_request_id => change_request.id
+                     id: change_request.public_body_id,
+                     change_request_id: change_request.id
                    }
         expect(assigns[:public_body].request_email).to eq(@change_request.public_body_email)
         expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
@@ -389,16 +388,16 @@ RSpec.describe AdminPublicBodyController do
         @body.save!
       end
 
-      @params = { :id => @body.id,
-                  :public_body => { :name => 'Renamed',
-                                    :short_name => @body.short_name,
-                                    :request_email => @body.request_email,
-                                    :tag_string => @body.tag_string,
-                                    :last_edit_comment => 'From test code',
-                                    :translations_attributes => {
-                                      'es' => { :id => @body.translation_for(:es).id,
-                                                :locale => 'es',
-                                                :title => @body.name(:es) }
+      @params = { id: @body.id,
+                  public_body: { name: 'Renamed',
+                                    short_name: @body.short_name,
+                                    request_email: @body.request_email,
+                                    tag_string: @body.tag_string,
+                                    last_edit_comment: 'From test code',
+                                    translations_attributes: {
+                                      'es' => { id: @body.translation_for(:es).id,
+                                                locale: 'es',
+                                                title: @body.name(:es) }
       } } }
     end
 
@@ -432,14 +431,14 @@ RSpec.describe AdminPublicBodyController do
       it 'saves edits to a public body heading in another locale' do
         expect(@body.name(:es)).to eq('Los Quango')
         post :update, params: {
-                        :id => @body.id,
-                        :public_body => {
-                          :name => @body.name(:en),
-                          :translations_attributes => {
+                        id: @body.id,
+                        public_body: {
+                          name: @body.name(:en),
+                          translations_attributes: {
                             'es' => {
-                              :id => @body.translation_for(:es).id,
-                              :locale => 'es',
-                              :name => 'Renamed'
+                              id: @body.translation_for(:es).id,
+                              locale: 'es',
+                              name: 'Renamed'
                             }
                           }
                         }
@@ -455,13 +454,13 @@ RSpec.describe AdminPublicBodyController do
         @body.reload
 
         put :update, params: {
-                       :id => @body.id,
-                       :public_body => {
-                         :name => @body.name(:en),
-                         :translations_attributes => {
+                       id: @body.id,
+                       public_body: {
+                         name: @body.name(:en),
+                         translations_attributes: {
                            'es' => {
-                             :locale => "es",
-                             :name => "Example Public Body ES"
+                             locale: "es",
+                             name: "Example Public Body ES"
                            }
                          }
                        }
@@ -479,9 +478,9 @@ RSpec.describe AdminPublicBodyController do
       it 'creates a new translation for the default locale' do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
         put :update, params: {
-                       :id => @body.id,
-                       :public_body => {
-                         :name => "Example Public Body en_GB"
+                       id: @body.id,
+                       public_body: {
+                         name: "Example Public Body en_GB"
                        }
                      }
 
@@ -494,17 +493,17 @@ RSpec.describe AdminPublicBodyController do
         @body.reload
 
         post :update, params: {
-                        :id => @body.id,
-                        :public_body => {
-                          :name => @body.name(:en),
-                          :translations_attributes => {
+                        id: @body.id,
+                        public_body: {
+                          name: @body.name(:en),
+                          translations_attributes: {
                             'es' => {
-                              :locale => "es",
-                              :name => "Example Public Body ES"
+                              locale: "es",
+                              name: "Example Public Body ES"
                             },
                             'fr' => {
-                              :locale => "fr",
-                              :name => "Example Public Body FR"
+                              locale: "fr",
+                              name: "Example Public Body FR"
                             }
                           }
                         }
@@ -524,17 +523,17 @@ RSpec.describe AdminPublicBodyController do
 
       it 'updates an existing translation and adds a third translation' do
         post :update, params: {
-          :id => @body.id,
-          :public_body => {
-            :name => @body.name(:en),
-            :translations_attributes => {
+          id: @body.id,
+          public_body: {
+            name: @body.name(:en),
+            translations_attributes: {
               # Update existing translation
-              'es' => { :id => @body.translation_for(:es).id,
-                        :locale => "es",
-                        :name => "Renamed Example Public Body ES" },
+              'es' => { id: @body.translation_for(:es).id,
+                        locale: "es",
+                        name: "Renamed Example Public Body ES" },
               # Add new translation
-              'fr' => { :locale => "fr",
-                        :name => "Example Public Body FR" }
+              'fr' => { locale: "fr",
+                        name: "Example Public Body FR" }
             }
           }
         }
@@ -557,10 +556,10 @@ RSpec.describe AdminPublicBodyController do
 
       it 'renders the form if creating the record was unsuccessful' do
         post :update, params: {
-                        :id => @body.id,
-                        :public_body => {
-                          :name => '',
-                          :translations_attributes => {}
+                        id: @body.id,
+                        public_body: {
+                          name: '',
+                          translations_attributes: {}
                         }
                       }
         expect(response).to render_template('edit')
@@ -568,11 +567,11 @@ RSpec.describe AdminPublicBodyController do
 
       it 'is rebuilt with the given params' do
         post :update, params: {
-                        :id => @body.id,
-                        :public_body => {
-                          :name => '',
-                          :request_email => 'updated@localhost',
-                          :translations_attributes => {}
+                        id: @body.id,
+                        public_body: {
+                          name: '',
+                          request_email: 'updated@localhost',
+                          translations_attributes: {}
                         }
                       }
         expect(assigns(:public_body).request_email).to eq('updated@localhost')
@@ -583,12 +582,12 @@ RSpec.describe AdminPublicBodyController do
     context 'on failure for multiple locales' do
 
       before(:each) do
-        @params = { :id => @body.id,
-                    :public_body => { :name => '',
-                                      :translations_attributes => {
-                                        'es' => { :id => @body.translation_for(:es).id,
-                                                  :locale => 'es',
-                                                  :name => 'Mi Nuevo Body' }
+        @params = { id: @body.id,
+                    public_body: { name: '',
+                                      translations_attributes: {
+                                        'es' => { id: @body.translation_for(:es).id,
+                                                  locale: 'es',
+                                                  name: 'Mi Nuevo Body' }
         } } }
       end
 
@@ -612,16 +611,16 @@ RSpec.describe AdminPublicBodyController do
       before do
         @change_request = FactoryBot.create(:update_body_request)
         post :update, params: {
-                        :id => @change_request.public_body_id,
-                        :public_body => {
-                          :name => "New Quango",
-                          :short_name => "",
-                          :request_email => 'newquango@localhost',
-                          :last_edit_comment => 'From test code'
+                        id: @change_request.public_body_id,
+                        public_body: {
+                          name: "New Quango",
+                          short_name: "",
+                          request_email: 'newquango@localhost',
+                          last_edit_comment: 'From test code'
                         },
-                        :change_request_id => @change_request.id,
-                        :subject => 'Body update',
-                        :response => 'Done.'
+                        change_request_id: @change_request.id,
+                        subject: 'Body update',
+                        response: 'Done.'
                       }
       end
 
@@ -646,14 +645,14 @@ RSpec.describe AdminPublicBodyController do
     it "does not destroy a public body that has associated requests" do
       id = public_bodies(:humpadink_public_body).id
       n = PublicBody.count
-      post :destroy, params: { :id => id }
-      expect(response).to redirect_to(:controller=>'admin_public_body', :action=>'show', :id => id)
+      post :destroy, params: { id: id }
+      expect(response).to redirect_to(controller: 'admin_public_body', action: 'show', id: id)
       expect(PublicBody.count).to eq(n)
     end
 
     it "destroys a public body" do
       n = PublicBody.count
-      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(response).to redirect_to admin_bodies_path
       expect(PublicBody.count).to eq(n - 1)
     end
@@ -706,7 +705,7 @@ RSpec.describe AdminPublicBodyController do
       end
 
       it 'should handle a nil csv file param' do
-        post :import_csv, params: { :commit => 'Dry run' }
+        post :import_csv, params: { commit: 'Dry run' }
         expect(response).to be_successful
       end
 
@@ -714,8 +713,8 @@ RSpec.describe AdminPublicBodyController do
 
         it 'should assign the original filename to the view' do
           post :import_csv, params: {
-                              :csv_file => @file_object,
-                              :commit => 'Dry run'
+                              csv_file: @file_object,
+                              commit: 'Dry run'
                             }
           expect(assigns[:original_csv_file]).to eq('fake-authority-type.csv')
         end
@@ -728,16 +727,16 @@ RSpec.describe AdminPublicBodyController do
           expect(@controller).to receive(:retrieve_csv_data).with('csv_upload-2046-12-31-394')
           post :import_csv,
                params: {
-                 :temporary_csv_file => 'csv_upload-2046-12-31-394',
-                 :original_csv_file => 'original_contents.txt',
-                 :commit => 'Dry run'
+                 temporary_csv_file: 'csv_upload-2046-12-31-394',
+                 original_csv_file: 'original_contents.txt',
+                 commit: 'Dry run'
                }
         end
 
         it 'should raise an error on an invalid temp file name' do
-          params = { :temporary_csv_file => 'bad_name',
-                     :original_csv_file => 'original_contents.txt',
-                     :commit => 'Dry run'}
+          params = { temporary_csv_file: 'bad_name',
+                     original_csv_file: 'original_contents.txt',
+                     commit: 'Dry run'}
           expected_error = "Invalid filename in upload_csv: bad_name"
           expect {
             post :import_csv, params: params
@@ -746,9 +745,9 @@ RSpec.describe AdminPublicBodyController do
 
         it 'should raise an error if the temp file does not exist' do
           temp_name = "csv_upload-20461231-394"
-          params = { :temporary_csv_file => temp_name,
-                     :original_csv_file => 'original_contents.txt',
-                     :commit => 'Dry run'}
+          params = { temporary_csv_file: temp_name,
+                     original_csv_file: 'original_contents.txt',
+                     commit: 'Dry run'}
           expected_error = "Missing file in upload_csv: csv_upload-20461231-394"
           expect {
             post :import_csv, params: params
@@ -757,8 +756,8 @@ RSpec.describe AdminPublicBodyController do
 
         it 'should assign the temporary filename to the view' do
           post :import_csv, params: {
-                              :csv_file => @file_object,
-                              :commit => 'Dry run'
+                              csv_file: @file_object,
+                              commit: 'Dry run'
                             }
           temporary_filename = assigns[:temporary_csv_file]
           expect(temporary_filename).to match(/csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-\d{1,5}/)
@@ -792,9 +791,9 @@ RSpec.describe AdminPublicBodyController do
     it "disallows non-authenticated users to do anything" do
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, params: { :id => 3 }
+      post :destroy, params: { id: 3 }
       expect(response).
-        to redirect_to(signin_path(:token => get_last_post_redirect.token))
+        to redirect_to(signin_path(token: get_last_post_redirect.token))
       expect(PublicBody.count).to eq(n)
       expect(session[:using_admin]).to eq(nil)
     end
@@ -804,7 +803,7 @@ RSpec.describe AdminPublicBodyController do
       config['SKIP_ADMIN_AUTH'] = true
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(PublicBody.count).to eq(n - 1)
       expect(session[:using_admin]).to eq(1)
     end
@@ -813,9 +812,9 @@ RSpec.describe AdminPublicBodyController do
       setup_emergency_credentials('biz', 'fuz')
       n = PublicBody.count
       basic_auth_login(@request, "baduser", "badpassword")
-      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(response).
-        to redirect_to(signin_path(:token => get_last_post_redirect.token))
+        to redirect_to(signin_path(token: get_last_post_redirect.token))
       expect(PublicBody.count).to eq(n)
       expect(session[:using_admin]).to eq(nil)
     end
@@ -825,12 +824,12 @@ RSpec.describe AdminPublicBodyController do
       n = PublicBody.count
       basic_auth_login(@request, "biz", "fuz")
       post :show, params: {
-                    :id => public_bodies(:humpadink_public_body).id,
-                    :emergency => 1
+                    id: public_bodies(:humpadink_public_body).id,
+                    emergency: 1
                   }
       expect(session[:using_admin]).to eq(1)
       n = PublicBody.count
-      post :destroy, params: {:id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: {id: public_bodies(:forlorn_public_body).id }
       expect(session[:using_admin]).to eq(1)
       expect(PublicBody.count).to eq(n - 1)
     end
@@ -840,11 +839,11 @@ RSpec.describe AdminPublicBodyController do
       allow(AlaveteliConfiguration).to receive(:disable_emergency_user).and_return(true)
       n = PublicBody.count
       basic_auth_login(@request, "biz", "fuz")
-      post :show, params: { :id => public_bodies(:humpadink_public_body).id,
-                            :emergency => 1 }
+      post :show, params: { id: public_bodies(:humpadink_public_body).id,
+                            emergency: 1 }
       expect(session[:using_admin]).to eq(nil)
       n = PublicBody.count
-      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(session[:using_admin]).to eq(nil)
       expect(PublicBody.count).to eq(n)
     end
@@ -853,7 +852,7 @@ RSpec.describe AdminPublicBodyController do
       sign_in users(:admin_user)
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(PublicBody.count).to eq(n - 1)
       expect(session[:using_admin]).to eq(1)
     end
@@ -862,9 +861,9 @@ RSpec.describe AdminPublicBodyController do
       sign_in users(:robin_user)
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
-      post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(response).
-        to redirect_to(signin_path(:token => get_last_post_redirect.token))
+        to redirect_to(signin_path(token: get_last_post_redirect.token))
       expect(PublicBody.count).to eq(n)
       expect(session[:using_admin]).to eq(nil)
     end
@@ -874,15 +873,15 @@ RSpec.describe AdminPublicBodyController do
       it 'returns the emergency account name for someone who logged in with the emergency account' do
         setup_emergency_credentials('biz', 'fuz')
         basic_auth_login(@request, "biz", "fuz")
-        post :show, params: { :id => public_bodies(:humpadink_public_body).id,
-                              :emergency => 1 }
+        post :show, params: { id: public_bodies(:humpadink_public_body).id,
+                              emergency: 1 }
         expect(controller.send(:admin_current_user)).to eq('biz')
       end
 
       it 'returns the current user url_name for a superuser' do
         sign_in users(:admin_user)
         @request.env["HTTP_AUTHORIZATION"] = ""
-        post :show, params: { :id => public_bodies(:humpadink_public_body).id }
+        post :show, params: { id: public_bodies(:humpadink_public_body).id }
         expect(controller.send(:admin_current_user)).to eq(users(:admin_user).url_name)
       end
 
@@ -891,7 +890,7 @@ RSpec.describe AdminPublicBodyController do
         config['SKIP_ADMIN_AUTH'] = true
         @request.env["HTTP_AUTHORIZATION"] = ""
         @request.env["REMOTE_USER"] = "i_am_admin"
-        post :show, params: { :id => public_bodies(:humpadink_public_body).id }
+        post :show, params: { id: public_bodies(:humpadink_public_body).id }
         expect(controller.send(:admin_current_user)).to eq("i_am_admin")
       end
 

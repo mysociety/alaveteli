@@ -11,19 +11,19 @@ module LinkToHelper
 
   # Requests
   def request_url(info_request, options = {})
-    show_request_url({:url_title => info_request.url_title}.merge(options))
+    show_request_url({url_title: info_request.url_title}.merge(options))
   end
 
   def request_path(info_request, options = {})
-    request_url(info_request, options.merge(:only_path => true))
+    request_url(info_request, options.merge(only_path: true))
   end
 
-  def request_link(info_request, cls=nil)
-    link_to info_request.title, request_path(info_request), :class => cls
+  def request_link(info_request)
+    link_to info_request.title, request_path(info_request)
   end
 
   def request_details_path(info_request)
-    details_request_path(:url_title => info_request.url_title)
+    details_request_path(url_title: info_request.url_title)
   end
 
   # Incoming / outgoing messages
@@ -55,11 +55,11 @@ module LinkToHelper
   end
 
   def comment_url(comment, options = {})
-    request_url(comment.info_request, options.merge(:anchor => "comment-#{comment.id}"))
+    request_url(comment.info_request, options.merge(anchor: "comment-#{comment.id}"))
   end
 
   def comment_path(comment, options = {})
-    comment_url(comment, options.merge(:only_path => true))
+    comment_url(comment, options.merge(only_path: true))
   end
 
   # Used in mailers where we want to give a link to a new response
@@ -67,13 +67,13 @@ module LinkToHelper
     if info_request.user.is_pro?
       # Pro users will always need to log in, so we have to give them a link
       # which forces that
-      message_url = incoming_message_url(incoming_message, :cachebust => true)
-      signin_url(:r => message_url)
+      message_url = incoming_message_url(incoming_message, cachebust: true)
+      signin_url(r: message_url)
     else
       # For normal users, we try not to use a login link here, just the
       # actual URL. This is because people tend to forward these emails
       # amongst themselves.
-      incoming_message_url(incoming_message, :cachebust => true)
+      incoming_message_url(incoming_message, cachebust: true)
     end
   end
 
@@ -81,31 +81,31 @@ module LinkToHelper
   def respond_to_last_url(info_request, options = {})
     last_response = info_request.get_last_public_response
     if last_response.nil?
-      new_request_followup_url(options.merge(:request_id => info_request.id))
+      new_request_followup_url(options.merge(request_id: info_request.id))
     else
-      new_request_incoming_followup_url(options.merge(:request_id => info_request.id, :incoming_message_id => last_response.id))
+      new_request_incoming_followup_url(options.merge(request_id: info_request.id, incoming_message_id: last_response.id))
     end
   end
 
   def respond_to_last_path(info_request, options = {})
-    respond_to_last_url(info_request, options.merge(:only_path => true))
+    respond_to_last_url(info_request, options.merge(only_path: true))
   end
 
   # Public bodies
   def public_body_url(public_body, options = {})
-    public_body.url_name.nil? ? '' : show_public_body_url(options.merge(:url_name => public_body.url_name))
+    public_body.url_name.nil? ? '' : show_public_body_url(options.merge(url_name: public_body.url_name))
   end
 
   def public_body_path(public_body, options = {})
-    public_body_url(public_body, options.merge(:only_path => true))
+    public_body_url(public_body, options.merge(only_path: true))
   end
 
   def public_body_link_short(public_body)
     link_to public_body.short_or_long_name, public_body_path(public_body)
   end
 
-  def public_body_link(public_body, cls=nil)
-    link_to public_body.name, public_body_path(public_body), :class => cls
+  def public_body_link(public_body)
+    link_to public_body.name, public_body_path(public_body)
   end
 
   def public_body_link_absolute(public_body) # e.g. for in RSS
@@ -114,18 +114,22 @@ module LinkToHelper
 
   # Users
   def user_url(user, options = {})
-    show_user_url(options.merge(:url_name => user.url_name))
+    show_user_url(options.merge(url_name: user.url_name))
   end
 
   def user_path(user, options = {})
-    user_url(user, options.merge(:only_path => true))
+    user_url(user, options.merge(only_path: true))
   end
 
-  def user_link(user, cls=nil)
-    link_to user.name, user_path(user), :class => cls
+  def user_link_absolute(user)
+    link_to user.name, user_url(user)
   end
 
-  def user_link_for_request(request, cls=nil)
+  def user_link(user)
+    link_to user.name, user_path(user)
+  end
+
+  def user_link_for_request(request)
     if request.is_external?
       user_name = request.external_user_name || _("Anonymous user")
       if !request.external_url.nil?
@@ -134,7 +138,7 @@ module LinkToHelper
         user_name
       end
     else
-      link_to request.user.name, user_path(request.user), :class => cls
+      link_to request.user.name, user_path(request.user)
     end
   end
 
@@ -146,38 +150,35 @@ module LinkToHelper
     end
   end
 
-  def user_link_absolute(user)
-    link_to user.name, user_url(user)
-  end
-
-  def user_link(user)
-    link_to user.name, user_path(user)
-  end
-
-  def external_user_link(request, absolute, text)
+  def external_user_link(request, text = nil)
     if request.external_user_name
       request.external_user_name
     else
-      if absolute
-        url = help_privacy_url(:anchor => 'anonymous')
-      else
-        url = help_privacy_path(:anchor => 'anonymous')
-      end
-      link_to(text, url)
+      text ||= _("Anonymous user")
+      link_to(text, help_privacy_path(anchor: 'anonymous'))
     end
   end
 
-  def request_user_link_absolute(request, anonymous_text=_("Anonymous user"))
+  def external_user_link_absolute(request, text = nil)
+    if request.external_user_name
+      request.external_user_name
+    else
+      text ||= _("Anonymous user")
+      link_to(text, help_privacy_url(anchor: 'anonymous'))
+    end
+  end
+
+  def request_user_link_absolute(request, anonymous_text = nil)
     if request.is_external?
-      external_user_link(request, absolute=true, anonymous_text)
+      external_user_link_absolute(request, anonymous_text)
     else
       user_link_absolute(request.user)
     end
   end
 
-  def request_user_link(request, anonymous_text=_("Anonymous user"))
+  def request_user_link(request, anonymous_text = nil)
     if request.is_external?
-      external_user_link(request, absolute=false, anonymous_text)
+      external_user_link(request, anonymous_text)
     else
       user_link(request.user)
     end
@@ -193,9 +194,9 @@ module LinkToHelper
 
   def user_or_you_capital(user)
     if @user && user == @user
-      return h("You")
+      h("You")
     else
-      return h(user.name)
+      h(user.name)
     end
   end
 
@@ -203,48 +204,46 @@ module LinkToHelper
     link_to user_or_you_capital(user), user_path(user)
   end
 
-  def user_admin_link(user, name="admin", cls=nil)
-    link_to name, admin_user_url(user), :class => cls
+  def user_admin_link(user, name="admin")
+    link_to name, admin_user_url(user)
   end
 
   # Tracks. feed can be 'track' or 'feed'
   def do_track_url(track_thing, feed = 'track', options = {})
     if track_thing.track_type == 'request_updates'
-      track_request_url(options.merge(:url_title => track_thing.info_request.url_title, :feed => feed))
+      track_request_url(options.merge(url_title: track_thing.info_request.url_title, feed: feed))
     elsif track_thing.track_type == 'all_new_requests'
-      track_list_url(options.merge(:view => 'recent', :feed => feed))
+      track_list_url(options.merge(view: 'recent', feed: feed))
     elsif track_thing.track_type == 'all_successful_requests'
-      track_list_url(options.merge(:view => 'successful', :feed => feed))
+      track_list_url(options.merge(view: 'successful', feed: feed))
     elsif track_thing.track_type == 'public_body_updates'
-      track_public_body_url(options.merge(:url_name => track_thing.public_body.url_name, :feed => feed))
+      track_public_body_url(options.merge(url_name: track_thing.public_body.url_name, feed: feed))
     elsif track_thing.track_type == 'user_updates'
-      track_user_url(options.merge(:url_name => track_thing.tracked_user.url_name, :feed => feed))
+      track_user_url(options.merge(url_name: track_thing.tracked_user.url_name, feed: feed))
     elsif track_thing.track_type == 'search_query'
-      track_search_url(options.merge(:query_array => track_thing.track_query, :feed => feed))
+      track_search_url(options.merge(query_array: track_thing.track_query, feed: feed))
     else
       raise "unknown tracking type " + track_thing.track_type
     end
   end
 
   def do_track_path(track_thing, feed = 'track', options = {})
-    do_track_url(track_thing, feed, options.merge(:only_path => true))
+    do_track_url(track_thing, feed, options.merge(only_path: true))
   end
 
   # General pages.
   def search_url(query, options = nil)
-    if query.kind_of?(Array)
-      query = query - ["", nil]
+    if query.is_a?(Array)
+      query -= ["", nil]
       query = query.join("/")
     end
-    routing_info = {:controller => 'general',
-                    :action => 'search',
-                    :combined => query,
-                    :view => nil}
-    if !options.nil?
-      routing_info = options.merge(routing_info)
-    end
+    routing_info = {controller: 'general',
+                    action: 'search',
+                    combined: query,
+                    view: nil}
+    routing_info = options.merge(routing_info) unless options.nil?
 
-    if routing_info.kind_of?(Hash)
+    if routing_info.is_a?(Hash)
       routing_info = ActionController::Parameters.new(routing_info)
     end
 
@@ -263,13 +262,11 @@ module LinkToHelper
     # and also 3.3 of http://www.ietf.org/rfc/rfc2396.txt
     # It turns out this is a regression in Rails 2.1, caused by this bug fix:
     #   http://rails.lighthouseapp.com/projects/8994/tickets/144-patch-bug-in-rails-route-globbing
-    url = url.gsub("%2F", "/")
-
-    return url
+    url.gsub("%2F", "/")
   end
 
   def search_path(query, options = {})
-    search_url(query, options.merge(:only_path => true))
+    search_url(query, options.merge(only_path: true))
   end
 
   def search_link(query)
@@ -283,9 +280,9 @@ module LinkToHelper
 
   def unhappy_url(info_request = nil, options = {})
     if info_request.nil?
-      return help_general_url(options.merge(template: 'unhappy'))
+      help_general_url(options.merge(template: 'unhappy'))
     else
-      return help_unhappy_url(options.merge(url_title: info_request.url_title))
+      help_unhappy_url(options.merge(url_title: info_request.url_title))
     end
   end
 
@@ -322,7 +319,7 @@ module LinkToHelper
   end
 
   def message_path(message, options = {})
-    message_url(message, options.merge(:only_path => true))
+    message_url(message, options.merge(only_path: true))
   end
 
   def dom_id(record, prefix = nil)

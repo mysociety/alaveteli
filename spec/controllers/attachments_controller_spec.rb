@@ -57,7 +57,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
       # check the file permissions
       key_path = @controller.send(:cache_key_path)
-      octal_stat = sprintf("%o", File.stat(key_path).mode)[-4..-1]
+      octal_stat = format("%o", File.stat(key_path).mode)[-4..-1]
       expect(octal_stat).to eq('0644')
 
       # clean up and remove the file
@@ -76,20 +76,20 @@ RSpec.describe AttachmentsController, type: :controller do
     # https://github.com/mysociety/alaveteli/issues/351
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do
       ugly_id = "55195"
-      expect { show(:id => ugly_id) }
+      expect { show(id: ugly_id) }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return 404 when incoming message and request ids
         don't match" do
-      expect { show(:id => info_request.id + 1) }
+      expect { show(id: info_request.id + 1) }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return 404 for ugly URLs contain a request id that isn't an
         integer, even if the integer prefix refers to an actual request" do
       ugly_id = "#{FactoryBot.create(:info_request).id}95"
-      expect { show(:id => ugly_id) }
+      expect { show(id: ugly_id) }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -103,7 +103,7 @@ RSpec.describe AttachmentsController, type: :controller do
           'interesting.pdf'
         )
       expect(attachment).to be_nil
-      show(:part => 5)
+      show(part: 5)
       expect(response.status).to eq(303)
       new_location = response.header['Location']
       expect(new_location)
@@ -114,11 +114,11 @@ RSpec.describe AttachmentsController, type: :controller do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :show,
            params: {
-             :incoming_message_id => info_request.incoming_messages.first.id,
-             :id => info_request.id,
-             :part => 5,
-             :file_name => 'interesting.html',
-             :skip_cache => 1
+             incoming_message_id: info_request.incoming_messages.first.id,
+             id: info_request.id,
+             part: 5,
+             file_name: 'interesting.html',
+             skip_cache: 1
            }
       expect(response.body).to match('dull')
     end
@@ -127,11 +127,11 @@ RSpec.describe AttachmentsController, type: :controller do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :show,
            params: {
-             :incoming_message_id => info_request.incoming_messages.first.id,
-             :id => info_request.id,
-             :part => 2,
-             :file_name => 'http://trying.to.hack',
-             :skip_cache => 1
+             incoming_message_id: info_request.incoming_messages.first.id,
+             id: info_request.id,
+             part: 2,
+             file_name: 'http://trying.to.hack',
+             skip_cache: 1
            }
       expect(response.status).to eq(303)
     end
@@ -140,11 +140,11 @@ RSpec.describe AttachmentsController, type: :controller do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
       get :show,
           params: {
-            :incoming_message_id => info_request.incoming_messages.first.id,
-            :id => info_request.id,
-            :part => 2,
-            :file_name => 'interesting.html',
-            :skip_cache => 1
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.html',
+            skip_cache: 1
           }
 
       # Nokogiri adds the meta tag; see
@@ -165,17 +165,17 @@ RSpec.describe AttachmentsController, type: :controller do
 
     it "censors attachments downloaded directly" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
-      info_request.censor_rules.create!(:text => 'dull',
-                                       :replacement => "Mouse",
-                                       :last_edit_editor => 'unknown',
-                                       :last_edit_comment => 'none')
+      info_request.censor_rules.create!(text: 'dull',
+                                       replacement: "Mouse",
+                                       last_edit_editor: 'unknown',
+                                       last_edit_comment: 'none')
       get :show,
           params: {
-            :incoming_message_id => info_request.incoming_messages.first.id,
-            :id => info_request.id,
-            :part => 2,
-            :file_name => 'interesting.html',
-            :skip_cache => 1
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.html',
+            skip_cache: 1
           }
       expect(response.media_type).to eq('text/html')
       expect(response.body).to have_content "Mouse"
@@ -183,17 +183,17 @@ RSpec.describe AttachmentsController, type: :controller do
 
     it "should censor with rules on the user (rather than the request)" do
       info_request = FactoryBot.create(:info_request_with_html_attachment)
-      info_request.user.censor_rules.create!(:text => 'dull',
-                                       :replacement => "Mouse",
-                                       :last_edit_editor => 'unknown',
-                                       :last_edit_comment => 'none')
+      info_request.user.censor_rules.create!(text: 'dull',
+                                       replacement: "Mouse",
+                                       last_edit_editor: 'unknown',
+                                       last_edit_comment: 'none')
       get :show,
           params: {
-            :incoming_message_id => info_request.incoming_messages.first.id,
-            :id => info_request.id,
-            :part => 2,
-            :file_name => 'interesting.html',
-            :skip_cache => 1
+            incoming_message_id: info_request.incoming_messages.first.id,
+            id: info_request.id,
+            part: 2,
+            file_name: 'interesting.html',
+            skip_cache: 1
           }
       expect(response.media_type).to eq('text/html')
       expect(response.body).to have_content "Mouse"
@@ -204,11 +204,11 @@ RSpec.describe AttachmentsController, type: :controller do
       expect {
         get :show,
             params: {
-              :incoming_message_id => info_request.incoming_messages.first.id,
-              :id => info_request.id,
-              :part => 2,
-              :file_name => 'interesting.pdf',
-              :skip_cache => 1
+              incoming_message_id: info_request.incoming_messages.first.id,
+              id: info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf',
+              skip_cache: 1
             }
       }.to raise_error ActiveRecord::RecordNotFound
     end
@@ -271,11 +271,10 @@ RSpec.describe AttachmentsController, type: :controller do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming_attachments) }
 
     def get_html_attachment(params = {})
-      default_params = { :incoming_message_id =>
-                           info_request.incoming_messages.first.id,
-                         :id => info_request.id,
-                         :part => 2,
-                         :file_name => 'interesting.pdf.html' }
+      default_params = { incoming_message_id:                            info_request.incoming_messages.first.id,
+                         id: info_request.id,
+                         part: 2,
+                         file_name: 'interesting.pdf.html' }
       get :show_as_html, params: default_params.merge(params)
     end
 
@@ -299,14 +298,14 @@ RSpec.describe AttachmentsController, type: :controller do
 
     it "should return 404 for ugly URLs containing a request id that isn't an integer" do
       ugly_id = "55195"
-      expect { get_html_attachment(:id => ugly_id) }
+      expect { get_html_attachment(id: ugly_id) }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return 404 for ugly URLs contain a request id that isn't an
         integer, even if the integer prefix refers to an actual request" do
       ugly_id = "#{FactoryBot.create(:info_request).id}95"
-      expect { get_html_attachment(:id => ugly_id) }
+      expect { get_html_attachment(id: ugly_id) }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -315,10 +314,10 @@ RSpec.describe AttachmentsController, type: :controller do
       expect {
         get :show_as_html,
             params: {
-              :incoming_message_id => info_request.incoming_messages.first.id,
-              :id => info_request.id,
-              :part => 2,
-              :file_name => 'interesting.pdf.html'
+              incoming_message_id: info_request.incoming_messages.first.id,
+              id: info_request.id,
+              part: 2,
+              file_name: 'interesting.pdf.html'
             }
       }.to raise_error ActiveRecord::RecordNotFound
     end

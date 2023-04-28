@@ -1,7 +1,7 @@
 
 namespace :reminder do
   desc 'Send reminder email about public holiday data'
-  task :public_holidays => :environment do
+  task public_holidays: :environment do
     config = MySociety::Config.load_default
 
     ReminderMailer.public_holidays(

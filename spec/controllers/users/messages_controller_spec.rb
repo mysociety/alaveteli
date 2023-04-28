@@ -9,6 +9,8 @@ RSpec.describe Users::MessagesController do
 
   before { sign_in sender }
 
+  after { ActionMailer::Base.deliveries.clear }
+
   describe 'GET contact' do
 
     context 'when not signed in' do
@@ -33,6 +35,23 @@ RSpec.describe Users::MessagesController do
       }.to raise_error ActiveRecord::RecordNotFound
     end
 
+    context 'when the recipient has opted out' do
+      before { recipient.update!(receive_user_messages: false) }
+
+      it 'prevents user messages' do
+        get :contact, params: { url_name: recipient.url_name }
+        expect(response).to render_template('users/messages/opted_out')
+      end
+    end
+
+    it 'prevents messages from users who have reached their rate limit' do
+      allow_any_instance_of(User).
+        to receive(:exceeded_limit?).with(:user_messages).and_return(true)
+
+      get :contact, params: { url_name: recipient.url_name }
+
+      expect(response).to render_template('users/messages/rate_limited')
+    end
   end
 
   describe 'POST contact' do
@@ -47,6 +66,40 @@ RSpec.describe Users::MessagesController do
                        submitted_contact_form: 1
                      }
       expect(response).to render_template('contact')
+    end
+
+    context 'when the recipient has opted out' do
+      before { recipient.update!(receive_user_messages: false) }
+
+      it 'prevents the submission' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Hi',
+            message: 'Gah'
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(response).to render_template('users/messages/opted_out')
+      end
+    end
+
+    it 'prevents messages from users who have reached their rate limit' do
+      allow_any_instance_of(User).
+        to receive(:exceeded_limit?).with(:user_messages).and_return(true)
+
+      post :contact, params: {
+        url_name: recipient.url_name,
+        contact: {
+          subject: 'Foo',
+          message: 'Bar'
+        },
+        submitted_contact_form: 1
+      }
+
+      expect(response).to render_template('users/messages/rate_limited')
     end
 
     context 'the site is configured to require a captcha' do
@@ -96,6 +149,126 @@ RSpec.describe Users::MessagesController do
       expect(mail.header['Reply-To'].to_s).to match(sender.email)
     end
 
+    it 'records the message' do
+      post :contact, params: {
+        url_name: recipient.url_name,
+        contact: {
+          subject: 'Dearest you',
+          message: 'Just a test!'
+        },
+        submitted_contact_form: 1
+      }
+
+      expect(UserMessage.last.user).to eq(sender)
+    end
   end
 
+  describe 'when sending a message that looks like spam' do
+    let(:sender) { FactoryBot.create(:user, confirmed_not_spam: false) }
+    let(:recipient) { FactoryBot.create(:user) }
+    let(:spam_content) { '[HD] Watch Jason Bourne Online free MOVIE Full-HD' }
+
+    context 'when block_spam_user_messages? is true' do
+      before do
+        allow(@controller).
+          to receive(:block_spam_user_messages?).and_return(true)
+        sign_in(sender)
+      end
+
+      it 'sends an exception notification' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Dearest you',
+            message: spam_content
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(ActionMailer::Base.deliveries.first.subject).
+          to match(/spam user message from user #{ sender.id }/)
+      end
+
+      it 'shows an error message' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Dearest you',
+            message: spam_content
+          },
+          submitted_contact_form: 1
+        }
+
+        msg = "Sorry, we're currently unable to send your message. " \
+              "Please try again later."
+
+        expect(flash[:error]).to eq(msg)
+      end
+
+      it 'renders the compose interface' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Dearest you',
+            message: spam_content
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(response).to render_template('contact')
+      end
+
+      it 'allows the message if the sender is confirmed not spam' do
+        sender.update!(confirmed_not_spam: true)
+
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Dearest you',
+            message: spam_content
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(response).to redirect_to(user_url(recipient))
+        expect(ActionMailer::Base.deliveries.first.subject).to match(/Dearest/)
+      end
+    end
+
+    context 'when block_spam_user_messages? is false' do
+      before do
+        allow(@controller).
+          to receive(:block_spam_user_messages?).and_return(false)
+        sign_in(sender)
+      end
+
+      it 'sends an exception notification' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Dearest you',
+            message: spam_content
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(ActionMailer::Base.deliveries.first.subject).
+          to match(/spam user message from user #{ sender.id }/)
+      end
+
+      it 'sends the message' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Dearest you',
+            message: spam_content
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(response).to redirect_to(user_url(recipient))
+        expect(ActionMailer::Base.deliveries.last.subject).to match(/Dearest/)
+      end
+    end
+  end
 end

@@ -53,17 +53,17 @@ class NotificationMailer < ApplicationMailer
   end
 
   def self.send_notifications
-    sent_instant_notifications = self.send_instant_notifications
-    sent_daily_notifications = self.send_daily_notifications
+    sent_instant_notifications = send_instant_notifications
+    sent_daily_notifications = send_daily_notifications
     sent_instant_notifications || sent_daily_notifications
   end
 
   def self.send_notifications_loop
     # Run send_notifications in an endless loop, sleeping when there is
     # nothing to do
-    while true
+    loop do
       sleep_seconds = 1
-      while !send_notifications
+      until send_notifications
         sleep sleep_seconds
         sleep_seconds *= 2
         sleep_seconds = 300 if sleep_seconds > 300
@@ -95,7 +95,7 @@ class NotificationMailer < ApplicationMailer
   def instant_notification(notification)
     event_type = notification.info_request_event.event_type
     method = "#{event_type}_notification".to_sym
-    self.send(method, notification)
+    send(method, notification)
   end
 
   def response_notification(notification)
@@ -106,7 +106,7 @@ class NotificationMailer < ApplicationMailer
     set_auto_generated_headers
 
     subject = _("New response to your FOI request - {{request_title}}",
-                :request_title => @info_request.title.html_safe)
+                request_title: @info_request.title.html_safe)
     mail_user(@info_request.user,
               subject,
               template_name: 'response_notification')
@@ -156,7 +156,7 @@ class NotificationMailer < ApplicationMailer
     set_auto_generated_headers
 
     subject = _("Delayed response to your FOI request - {{request_title}}",
-                :request_title => @info_request.title.html_safe)
+                request_title: @info_request.title.html_safe)
 
     mail_user(@info_request.user,
               subject,
@@ -172,7 +172,7 @@ class NotificationMailer < ApplicationMailer
 
     subject = _("You're long overdue a response to your FOI request " \
                 "- {{request_title}}",
-                :request_title => @info_request.title.html_safe)
+                request_title: @info_request.title.html_safe)
 
     mail_user(@info_request.user,
               subject,

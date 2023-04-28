@@ -5,7 +5,7 @@ module AlaveteliFeatures
     class_option :migrate, type: :boolean, default: true, banner: 'Run AlaveteliFeatures migrations'
 
     def self.source_paths
-      paths = self.superclass.source_paths
+      paths = superclass.source_paths
       paths << File.expand_path('../templates', "../../#{__FILE__}")
       paths << File.expand_path('../templates', "../#{__FILE__}")
       paths << File.expand_path('../templates', __FILE__)

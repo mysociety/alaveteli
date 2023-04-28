@@ -79,63 +79,54 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-# See instructions in Gemfile.rails_next
-def rails_upgrade?
-  %w[1 true].include?(ENV['RAILS_UPGRADE'])
-end
+gem 'rails', '~> 7.0.4'
 
-if rails_upgrade?
-  gem 'rails', '~> 7.0.4'
-else
-  gem 'rails', '~> 6.1.7'
-end
-
-gem 'pg', '~> 1.4.4'
+gem 'pg', '~> 1.4.6'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
-gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versioned.git', :ref => '63b1fc8529d028'
+gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
+                         ref: '13e928b'
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.18'
-gem 'cancancan', '~> 3.4.0'
+gem 'cancancan', '~> 3.5.0'
 gem 'charlock_holmes', '~> 0.7.7'
-gem 'dalli', '~> 3.2.3'
+gem 'dalli', '~> 3.2.4'
 gem 'exception_notification', '~> 4.5.0'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
 gem 'icalendar', '~> 2.8.0'
-gem 'jquery-rails', '~> 4.5.0'
+gem 'jquery-rails', '~> 4.5.1'
 gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', '~> 2.6.2'
 gem 'holidays', '~> 8.6.0'
 gem 'iso_country_codes', '~> 0.7.8'
-gem 'mail', '~> 2.7.1'
+gem 'mail', '~> 2.8.1'
 gem 'maxmind-db', '~> 1.0.0'
 gem 'mahoro', '~> 0.5'
-gem 'nokogiri', '~> 1.13.10'
+gem 'nokogiri', '~> 1.14.3'
 gem 'open4', '~> 1.3.0'
-gem 'rack', '~> 2.2.4'
-gem 'rack-utf8_sanitizer', '~> 1.7.0'
-gem 'recaptcha', '~> 5.12.3', require: 'recaptcha/rails'
-gem 'mini_magick', '~> 4.11.0'
-gem 'rolify', '~> 5.3.0'
-gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
+gem 'rack', '~> 2.2.6'
+gem 'rack-utf8_sanitizer', '~> 1.8.0'
+gem 'recaptcha', '~> 5.14.0', require: 'recaptcha/rails'
+gem 'matrix', '~> 0.4.2'
+gem 'mini_magick', '~> 4.12.0'
+gem 'redis', '~> 4.8.1'
+gem 'rolify', '~> 6.0.1'
+gem 'ruby-msg', '~> 1.5.0', git: 'https://github.com/mysociety/ruby-msg.git', branch: 'ascii-encoding'
 gem 'rubyzip', '~> 2.3.2'
-gem 'secure_headers', '~> 6.4.0'
+gem 'secure_headers', '~> 6.5.0'
+gem 'sidekiq', '~> 6.5.8'
 gem 'statistics2', '~> 0.54'
-if rails_upgrade?
-  gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
-else
-  gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
-end
+gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails7'
 gem 'stripe', '~> 5.55.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
-gem 'thin', '~> 1.8.1'
+gem 'thin', '~> 1.8.2'
 gem 'vpim', '~> 13.11.11'
 gem 'will_paginate', '~> 3.3.1'
-gem 'xapian-full-alaveteli', '~> 1.4.18.1'
-gem 'xml-simple', '~> 1.1.9', :require => 'xmlsimple'
+gem 'xapian-full-alaveteli', '~> 1.4.22.1'
+gem 'xml-simple', '~> 1.1.9', require: 'xmlsimple'
 gem 'zip_tricks', '~> 5.6.0'
 
 # Gems only used by the research export task
@@ -144,8 +135,8 @@ gem 'gender_detector', '~> 2.0.0'
 # Gems related to internationalisation
 gem 'i18n', '~> 1.12.0'
 gem 'rails-i18n', '~> 7.0.5'
-gem 'gettext_i18n_rails', '~> 1.9.0'
-  gem 'fast_gettext', '~> 2.2.0'
+gem 'gettext_i18n_rails', '~> 1.10.0'
+  gem 'fast_gettext', '~> 2.3.0'
 gem 'gettext', '~> 3.4.3'
 gem 'globalize', '~> 6.2.1'
 gem 'locale', '~> 2.1.3'
@@ -164,48 +155,41 @@ gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '~> 4.2.0'
 
 # Feature flags
-gem 'alaveteli_features', :path => 'gems/alaveteli_features'
+gem 'alaveteli_features', path: 'gems/alaveteli_features'
 
 # Storage backends
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
-gem 'google-cloud-storage', '~> 1.43', require: false
-
-if rails_upgrade? && RUBY_VERSION < '3.1'
-  gem 'net-http', '0.1.1'
-  gem 'uri', '0.10.0'
-end
+gem 'google-cloud-storage', '~> 1.44', require: false
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.18.1'
-  gem 'simplecov', '~> 0.17.1'
+  gem 'simplecov', '~> 0.22.0'
   gem 'simplecov-lcov', '~> 0.7.0'
-  gem 'capybara', '~> 3.38.0'
+  gem 'capybara', '~> 3.39.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
-                          ref: '2c925fd'
-  gem('rails-controller-testing')
+                          ref: '6ceea96'
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do
-  gem 'bullet', '~> 7.0.4'
+  gem 'bullet', '~> 7.0.7'
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.1.0'
   gem 'rspec-rails', '~> 6.0.0'
-  gem 'pry', '~> 0.14.1'
-  gem 'pry-byebug', '~> 3.10.1'
+  gem 'pry', '~> 0.14.2'
 end
 
 group :development do
   gem 'annotate', '< 3.2.1'
   gem 'capistrano', '~> 2.15.0', '< 3.0.0'
-    gem 'net-ssh', '~> 7.0.1'
+    gem 'net-ssh', '~> 7.1.0'
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
-  gem 'launchy', '< 2.5.0'
-  gem 'listen', '>= 3.0.5', '< 3.7.2'
+  gem 'launchy', '< 2.6.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.37.0', require: false
+  gem 'rubocop', '~> 1.50.2', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

@@ -16,13 +16,28 @@ class Project
 
     def extractable
       where(described_state: EXTRACTABLE_STATES).
-        left_joins(:extraction_project_submissions).
+        joins(
+          <<~SQL.squish
+            LEFT OUTER JOIN "project_submissions" ON
+            "project_submissions"."resource_type" = 'Dataset::ValueSet' AND
+            "project_submissions"."info_request_id" = "info_requests"."id" AND
+            "project_submissions"."project_id" = #{project.id}
+          SQL
+        ).
         where(project_submissions: { id: nil }).
         classified
     end
 
     def extracted
-      joins(:extraction_project_submissions).distinct
+      joins(:extraction_project_submissions).
+        where(project_submissions: { project: project }).
+        distinct
+    end
+
+    private
+
+    def project
+      proxy_association.owner
     end
   end
 end

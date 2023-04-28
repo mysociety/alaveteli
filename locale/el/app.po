@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Andreas Nedelkos <vandreas2004@yahoo.gr>, 2017
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Maria Nathanail <marianathanail@gmail.com>, 2021
@@ -42,7 +43,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: ΜΑΡΙΑ ΝΑΘΑΝΑΗΛ <memcommunication@gmail.com>, 2021\n"
 "Language-Team: Greek (http://app.transifex.com/mysociety/alaveteli/language/el"
@@ -453,6 +454,9 @@ msgstr "Όλες οι επιλογές παρακάτω μπορούν να χρ
 msgid "All time"
 msgstr "Όλων των εποχών"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Καλύτεροι παίκτες όλων των εποχών"
 
@@ -615,6 +619,9 @@ msgstr "Έχει εκδιωχτεί από αυτό το site"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Παρτίδα που δημιουργήθηκε από {{info_request_user}} στις {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Ξεκινώντας με"
 
@@ -677,6 +684,9 @@ msgstr "Ακυρώστε κάποιες ειδοποιήσεις από το {{s
 
 msgid "Cancel, return to your profile page"
 msgstr "Ακυρώστε, επιστρέψτε στη σελίδα του προφίλ σας"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Αλλάξτε email στο {{site_name}}"
@@ -942,6 +952,9 @@ msgstr "Ολοκληρώθηκε &gt;&gt;"
 msgid "Download Data"
 msgstr "Κατεβάστε δεδομένα"
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Κατεβάστε ένα αρχείο zip με όλη την αλληλογραφία"
 
@@ -1010,6 +1023,9 @@ msgstr "Ιστορικό συμβάντων"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Κάθε πολίτης έχει το δικαίωμα να αποκτήσει πληροφορίες από δημόσιους οργανισμούς."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Οτιδήποτε εισάγετε σε αυτή την σελίδα, συμπεριλαμβανομένου του <strong>ονόματός σας</strong>, θα <strong>εμφανίζετε δημόσια</strong> σε αυτή την ιστοσελίδα <a href=\"{{url}}\">για πάντα</a>"
@@ -1541,6 +1557,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Τελευταία αίτηση που είδατε: {{request_url}}"
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2217,6 +2236,9 @@ msgstr ""
 msgid "Rejected"
 msgstr "Έχει απορριφθεί"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Να με θυμάσαι (σας κρατά συνδεδεμένο για μεγαλύτερο χρονικό διάστημα, μην το χρησιμοποιείτε σε δημόσιο υπολογιστή)"
 
@@ -2403,6 +2425,9 @@ msgstr "Αναζητήστε τις συνεισφορές σας"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Στείλτε ένα followup"
 
@@ -2438,6 +2463,30 @@ msgstr "Αποστολή μηνύματος στον {{user_name}} για να �
 
 msgid "Sending..."
 msgstr "Αποστολή..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2504,6 +2553,9 @@ msgstr "Αποσύνδεση"
 msgid "Sign up"
 msgstr "Δημιουργία λογαριασμού"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2556,6 +2608,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Λυπούμαστε, αυτή τη στιγμή είναι αδύνατον να προσθέσουμε το σχόλιο σας. Παρακαλούμε δοκιμάστε ξανά αργότερα."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2975,8 +3030,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Υπάρχει ένα όριο στον αριθμό αιτημάτων που μπορείτε να κάνετε σε μια μέρα, γιατί δεν θέλουμε οι δημόσιες αρχές να βομβαρδίζονται με μεγάλο αριθμό ανάρμοστων αιτημάτων. Αν πιστεύετε ότι έχετε καλό λόγο να ζητήσετε αύξηση του ορίου στην περίπτωσή σας, παρακαλούμε <a href='{{help_contact_path}}'>επικοινωνήστε </a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Δεν υπάρχει τίποτα για να εμφανιστεί ακόμα."
@@ -3198,6 +3259,9 @@ msgstr "Αυτό το τμήμα σχετικά με τις στατιστικέ
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Αυτός ο πίνακας δείχνει τις τεχνικές λεπτομέρειες των εσωτερικών διεργασιών που συνέβησαν με αυτό το αίτημα στο {{site_name}}. Αυτό θα μπορούσε να παρέχει πληροφορίες σχετικά με την ταχύτητα με την οποία οι αρχές ανταποκρίνονται στα αιτήματα, τον αριθμό των αιτήσεων που απαιτούν ταχυδρομική απάντηση και πολλά άλλα."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Ο χρήστης αυτός έχει τεθεί σε αναστολή από το {{site_name}}"
 
@@ -3324,8 +3388,14 @@ msgstr "Σήμερα"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Πάρα πολλά αιτήματα"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "Κορυφαίοι πρόσφατοι παίκτες"
@@ -3673,6 +3743,9 @@ msgstr "Γράψτε ένα απαντητικό μήνυμα για το Αίτ
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Γράψτε ένα αίτημα σε <strong>απλή, συγκεκριμένη γλώσσα </strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr "Ναι"
 
@@ -3801,6 +3874,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Φτάσατε το όριο νέων αιτημάτων. Οι χρήστες/-ριες συνήθως περιορίζονται σε {{max_requests_per_user_per_day}} αιτήματα σε κάθε 24ωρο. Θα μπορείτε να καταθέσετε νέο αίτημα σε {{can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr "Εγκαταλείψατε το σχέδιο "
@@ -4421,6 +4497,11 @@ msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
 msgstr[0] "{{number_of_comments}} σχόλιο"
 msgstr[1] "{{number_of_comments}} σχόλια"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

@@ -1,9 +1,9 @@
 class Users::SessionsController < UserController
   include UserSpamCheck
 
-  before_action :work_out_post_redirect, :only => [ :new, :create ]
-  before_action :set_request_from_foreign_country, :only => [ :new, :create ]
-  before_action :set_in_pro_area, :only => [ :new, :create ]
+  before_action :work_out_post_redirect, only: [ :new, :create ]
+  before_action :set_request_from_foreign_country, only: [ :new, :create ]
+  before_action :set_in_pro_area, only: [ :new, :create ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -11,7 +11,7 @@ class Users::SessionsController < UserController
   # tries to sign in or sign up. There's little CSRF potential here as
   # these actions only sign in or up users with valid credentials. The
   # user_id in the session is not expected, and gives no extra privilege
-  skip_before_action :verify_authenticity_token, :only => [:new, :create]
+  skip_before_action :verify_authenticity_token, only: [:new, :create]
 
   def new
     if @user
@@ -20,7 +20,7 @@ class Users::SessionsController < UserController
       return
     end
 
-    render :template => 'user/sign'
+    render template: 'user/sign'
   end
 
   def create
@@ -29,31 +29,28 @@ class Users::SessionsController < UserController
         User.authenticate_from_form(user_signin_params,
                                     @post_redirect.reason_params[:user_name])
     end
-    if @post_redirect.nil? || @user_signin.errors.size > 0
+    if @post_redirect.nil? || !@user_signin.errors.empty?
       # Failed to authenticate
       clear_session_credentials
-      render :template => 'user/sign'
-    else
+      render template: 'user/sign'
+    elsif @user_signin.email_confirmed
       # Successful login
-      if @user_signin.email_confirmed
-
+      if spam_user?(@user_signin)
         # Prevent signins from potential spammers
-        if spam_user?(@user_signin)
-          handle_spam_user(@user_signin) do
-            render template: 'user/sign'
-          end && return
-        end
-
-        sign_in(@user_signin, remember_me: params[:remember_me].present?)
-
-        if is_modal_dialog
-          render :template => 'users/sessions/show'
-        else
-          do_post_redirect @post_redirect, @user_signin
-        end
-      else
-        send_confirmation_mail @user_signin
+        handle_spam_user(@user_signin) do
+          render template: 'user/sign'
+        end && return
       end
+
+      sign_in(@user_signin, remember_me: params[:remember_me].present?)
+
+      if is_modal_dialog
+        render template: 'users/sessions/show'
+      else
+        do_post_redirect @post_redirect, @user_signin
+      end
+    else
+      send_confirmation_mail @user_signin
     end
   rescue ActionController::ParameterMissing
     flash[:error] = _('Invalid form submission')

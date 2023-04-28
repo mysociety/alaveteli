@@ -1,4 +1,5 @@
-FROM ruby:2.7-bullseye
+ARG RUBY_VERSION=3.0
+FROM ruby:${RUBY_VERSION}-bullseye
 
 ENV DOCKER 1
 ENV DEBIAN_FRONTEND noninteractive
@@ -21,11 +22,10 @@ RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
     chmod +x /tmp/wait-for-it/wait-for-it.sh && \
     ln -s /tmp/wait-for-it/wait-for-it.sh /bin/wait-for-it
 
-WORKDIR /alaveteli/
+WORKDIR /alaveteli
+RUN git config --global --add safe.directory /alaveteli
 
 RUN gem update --system
-RUN gem install mailcatcher
 
 EXPOSE 3000
-EXPOSE 1080
 CMD wait-for-it db:5432 --strict -- ./docker/entrypoint.sh

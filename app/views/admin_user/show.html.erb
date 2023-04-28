@@ -133,6 +133,13 @@
 
 <hr>
 
+<h2>Batch Requests</h2>
+
+<%= render partial: 'admin/info_request_batches/list',
+           locals: { info_request_batches: @info_request_batches } %>
+
+<hr>
+
 <h2>Annotations</h2>
 
 <%= render partial: 'admin_request/some_annotations' ,
@@ -173,6 +180,6 @@
 
 <h2>Censor rules</h2>
 
-<%= render partial: 'admin_censor_rule/show',
+<%= render partial: 'admin_censor_rule/list',
            locals: { censor_rules: @admin_user.censor_rules,
                      user: @admin_user } %>

@@ -103,7 +103,7 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
       AlaveteliPro::EmbargoMailer.alert_expiring
 
       mails = ActionMailer::Base.deliveries
-      mail = mails.detect { |mail| mail.to == [pro_user_3.email] }
+      mail = mails.detect { |m| m.to == [pro_user_3.email] }
       expect(mail).to be nil
     end
   end
@@ -228,7 +228,7 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
       AlaveteliPro::EmbargoMailer.alert_expired
 
       mails = ActionMailer::Base.deliveries
-      mail = mails.detect { |mail| mail.to == [pro_user_3.email] }
+      mail = mails.detect { |m| m.to == [pro_user_3.email] }
       expect(mail).to be nil
     end
   end

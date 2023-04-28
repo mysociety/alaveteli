@@ -7,8 +7,8 @@ module AlaveteliFeatures
         @feature = feature
       end
 
-      def matches?(request)
-        return feature_enabled? @feature
+      def matches?(_request)
+        feature_enabled? @feature
       end
     end
   end

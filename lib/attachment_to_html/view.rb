@@ -5,8 +5,8 @@ module AttachmentToHTML
       @template || "#{ File.dirname(__FILE__) }/template.html.erb"
     end
 
-    def self.template=(path)
-      @template = path
+    class << self
+      attr_writer :template
     end
 
     attr_accessor :title, :body, :template, :wrapper

@@ -2,8 +2,8 @@ class StatisticsController < ApplicationController
   skip_before_action :html_response
 
   def index
-    unless AlaveteliConfiguration::public_body_statistics_page
-      raise ActiveRecord::RecordNotFound.new("Page not enabled")
+    unless AlaveteliConfiguration.public_body_statistics_page
+      raise ActiveRecord::RecordNotFound, "Page not enabled"
     end
 
     @public_bodies = Statistics.public_bodies

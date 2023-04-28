@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Jubo Beridzishvili, 2021-2023
 # Lela Merabishvili, 2021
 # Lela Merabishvili, 2021-2022
@@ -41,9 +42,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Jubo Beridzishvili, 2021-2023\n"
+"Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>, 2021,2023\n"
 "Language-Team: Georgian (http://app.transifex.com/mysociety/alaveteli/language"
 "/ka/)\n"
 "MIME-Version: 1.0\n"
@@ -449,6 +450,9 @@ msgstr "ქვემოთ მოცემულ ყველა ვარია
 msgid "All time"
 msgstr "ყველა დროის"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "ყველა დროის საუკეთესო მოთამაშეები"
 
@@ -611,6 +615,9 @@ msgstr "დაბლოკილია ვებგვერდიდან"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "შექმნილია მომხმარებლის მიერ {{info_request_user}} თარიღით {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "რომლებიც იწყება"
 
@@ -673,6 +680,9 @@ msgstr "ვებგვერდის {{site_name}} ზოგიერთი �
 
 msgid "Cancel, return to your profile page"
 msgstr "გააუქმე, ან დაბრუნდი შენი პროფილის გვერდზე"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "შეცვალე ელ-ფოსტა ვებგვერდისთვის {{site_name}}"
@@ -944,6 +954,9 @@ msgstr "დასრულება &gt;&gt;"
 msgid "Download Data"
 msgstr "მონაცემების გადმოწერა"
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "მიმოწერის ისტორიის ZIP ფორმატით გადმოწერა"
 
@@ -1012,6 +1025,9 @@ msgstr "მოქმედებების ისტორია"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "ყველა მოქალაქეს აქვს უფლება გამოითხოვოს ინფორმაცია, რომელსაც საჯარო დაწესებულებები ფლობენ.  "
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "ამ გვერდზე მითითებული ყველა ინფორმაცია, მათ შორის <strong>შენი სახელი</strong>, პორტალზე <strong>საჯაროდ,</strong> <a href=\"{{url}}\">განუსაზღვრელი ვადით</a> განთავსდება"
@@ -1539,6 +1555,9 @@ msgstr "ბოლოს ნანახი მოთხოვნა: {{request_u
 
 msgid "Latest"
 msgstr "უკანასკნელი"
+
+msgid "Latest news and campaigns"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "გაიგე მეტი &rarr;"
@@ -2222,6 +2241,9 @@ msgstr "რეგულაცია"
 msgid "Rejected"
 msgstr "უარყოფილია"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "დამახსოვრება (არ გამოიყენო საჯარო კომპიუტერზე)"
 
@@ -2408,6 +2430,9 @@ msgstr "ძებნა"
 msgid "Section"
 msgstr "სექცია"
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "პასუხის გაგზავნა"
 
@@ -2443,6 +2468,30 @@ msgstr "წერილის გაგზავნა მომხმარე�
 
 msgid "Sending..."
 msgstr "იგზავნება..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2509,6 +2558,9 @@ msgstr "გამოსვლა"
 msgid "Sign up"
 msgstr "რეგისტრაცია"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2561,6 +2613,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "ბოდიში, ამ ეტაპზე შენს ანოტაციას ვერ ვამატებთ. გთხოვთ, მოგვიანებით სცადო."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2980,8 +3035,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "ლიმიტის დაწესებით ვცდილობთ, რომ საჯარო დაწესებულებები დიდი ოდენობით შეუსაბამო განცხადებების მიღებისგან დავაზღვიოთ. თუ ფიქრობ, რომ ლეგიტიმური მიზეზი გაქვს ლიმიტის გასაზრდელად,  <a href='{{help_contact_path}}'>დაგვიკავშირდი</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "საჩვენებელი არაფერია"
@@ -3203,6 +3264,9 @@ msgstr "საჯარო უწყების სტატისტიკა�
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "მოცემული ცხრილი აღნიშნავს მოთხოვნის ირგვლივ განხორციელებული მოქმედებების ისტორიას პორტალზე {{site_name}}. ცხრილის გამოყენება შეიძლება იმის გასარკვევად, თუ რა სისწრაფით პასუხობდნენ საჯარო დაწესებულებები მოთხოვნებს, რამდენი განაცხადი მოითხოვდა პასუხს საფოსტო მომსახურებით და ა.შ."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr "მომხმარებელი დაბლოკილია საიტიდან {{site_name}} "
 
@@ -3329,8 +3393,14 @@ msgstr "დღეს"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "უპს. განცხადებების დღიური ლიმიტი ამოიწურა"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "ბოლო დროის საუკეთესო მოთამაშეები"
@@ -3678,6 +3748,9 @@ msgstr "გაუგზავნე საპასუხო წერილი 
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr " <strong>მოკლე და მკაფიო მესიჯებით მიმართვა</strong> საჯარო დაწესებულებებს გაუმარტივებს უკეთ აღიქვან შენი მოთხოვნილი ინფორმაციის შინაარსი, რაც ნიშნავს, რომ პასუხს უფრო მალე დაგიბრუნებენ."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr "დიახ"
 
@@ -3806,6 +3879,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "სამწუხაროდ, 24 საათის მანძილზე არაუმეტეს  {{max_requests_per_user_per_day}} განცხადების გაგზავნა შეგიძლია."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr "შენ ეს პროექტი დატოვე"
@@ -4426,6 +4502,11 @@ msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
 msgstr[0] "{{number_of_comments}} კომენტარი"
 msgstr[1] "{{number_of_comments}} კომენტარი"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

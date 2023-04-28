@@ -1404,7 +1404,7 @@ RSpec.describe Ability do
     context "when the comment's request is embargoed" do
       let(:info_request) { FactoryBot.create(:embargoed_request) }
       let(:comment) { FactoryBot.create(:comment,
-                                       :info_request => info_request) }
+                                       info_request: info_request) }
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do
@@ -1446,7 +1446,7 @@ RSpec.describe Ability do
     context 'when the request is not embargoed' do
       let(:info_request) { FactoryBot.create(:info_request) }
       let(:comment) { FactoryBot.create(:comment,
-                                       :info_request => info_request) }
+                                       info_request: info_request) }
 
       it 'allows a pro admin user to administer' do
         with_feature_enabled(:alaveteli_pro) do

@@ -149,7 +149,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
         subscription = Stripe::Subscription.create(customer: customer,
                                                    plan: pro_plan.id)
 
-        # note - in later API versions, at_period_end is no longer
+        # NOTE: - in later API versions, at_period_end is no longer
         # available for delete so we'd have to call something like
         # this instead:
         # Stripe::Subscription.update(subscription.id,
@@ -160,7 +160,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
 
       let!(:past_due_sub) do
         subscription = Stripe::Subscription.create(customer: customer,
-                                                   plan: pro_plan.id,)
+                                                   plan: pro_plan.id)
         StripeMock.mark_subscription_as_past_due(subscription)
         subscription
       end
@@ -240,7 +240,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
 
         it 'returns the subscription ids for cancelled users' do
           expect(subject[:canceled_users][:subs]).
-            to eq(['su_00000000000000', 'su_00000000000000'])
+            to eq(%w[su_00000000000000 su_00000000000000])
         end
       end
     end

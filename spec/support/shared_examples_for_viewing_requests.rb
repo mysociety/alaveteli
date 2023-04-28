@@ -65,7 +65,7 @@ shared_examples_for 'a request with response' do
 
   before do
     incoming_message = FactoryBot.create(:plain_incoming_message,
-                                         :info_request => info_request)
+                                         info_request: info_request)
     info_request.log_event(
       'response',
       incoming_message_id: incoming_message.id
@@ -122,7 +122,7 @@ shared_examples_for 'a request with response' do
         click_button("Update")
       end
       expect(info_request.reload.described_state).
-        to eq ("partially_successful")
+        to eq("partially_successful")
       expect(page).to have_content("Your request has been updated!")
       # The form should still be there to allow us to go back if we
       # updated by mistake

@@ -30,9 +30,9 @@ class ReportsController < ApplicationController
   def new
     @title = if @comment
       _("Report annotation on request: {{title}}",
-        :title => @info_request.title)
+        title: @info_request.title)
     else
-      _("Report request: {{title}}", :title => @info_request.title)
+      _("Report request: {{title}}", title: @info_request.title)
     end
 
     return if authenticated?
@@ -56,7 +56,7 @@ class ReportsController < ApplicationController
 
   def set_comment
     @comment = unless params[:comment_id].blank?
-      @info_request.comments.where(:id => params[:comment_id]).first!
+      @info_request.comments.where(id: params[:comment_id]).first!
     end
   end
 

@@ -4,6 +4,8 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require 'sidekiq/web'
+
 include AlaveteliFeatures::Constraints
 
 # Allow easy extension from themes. Note these will have the highest priority.
@@ -11,8 +13,18 @@ $alaveteli_route_extensions.each do |f|
   load File.join('config', f)
 end
 
+class AdminConstraint # :nodoc:
+  def matches?(request)
+    user = User.find_by(
+      id: request.session[:user_id],
+      login_token: request.session[:user_login_token]
+    )
+    user && user.is_admin?
+  end
+end
+
 Rails.application.routes.draw do
-  admin_constraint = lambda { |request| request.session[:using_admin] }
+  mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   root to: 'general#frontpage'
 
@@ -197,12 +209,17 @@ Rails.application.routes.draw do
         resources :contributors, only: [:destroy]
 
         resource :download, only: [:show], format: true
+        resource :leaderboard, only: [:show], format: true
       end
     end
   end
   ####
 
-  resources :health_checks, :only => [:index]
+  namespace :health do
+    resources :checks, :only => [:index]
+    resources :metrics, :only => [:index], :defaults => { :format => 'txt' }
+  end
+  get '/health_checks' => redirect('/health/checks')
 
   resources :request, :only => [] do
     resource :report, :only => [:new, :create]
@@ -480,6 +497,12 @@ Rails.application.routes.draw do
 
   #### Announcement controller
   resources :announcements, :only => [:destroy]
+  ####
+
+  #### Admin::BlogPosts controller
+  namespace :admin do
+    resources :blog_posts, only: [:index, :edit, :update]
+  end
   ####
 
   #### AdminTag controller

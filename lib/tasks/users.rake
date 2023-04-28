@@ -20,7 +20,7 @@ namespace :users do
   end
 
   desc "Lists per domain stats"
-  task :stats_by_domain => :environment do
+  task stats_by_domain: :environment do
     raise "must supply a DOMAIN value" unless ENV["DOMAIN"]
     domain = ENV["DOMAIN"]
     from = ENV["START_DATE"]
@@ -52,7 +52,7 @@ namespace :users do
   end
 
   desc "Bans all users for a specific domain"
-  task :ban_by_domain => :environment do
+  task ban_by_domain: :environment do
     raise "must supply a DOMAIN value" unless ENV["DOMAIN"]
     domain = ENV["DOMAIN"]
     from = ENV["START_DATE"]
@@ -70,7 +70,7 @@ namespace :users do
     if input.downcase == "y"
       to_ban = UserStats.unbanned_by_domain(domain, from)
       count = to_ban.
-        update_all(:ban_text => "Banned for spamming")
+        update_all(ban_text: "Banned for spamming")
       p "#{count} accounts banned"
     else
       p "No action taken"
@@ -85,7 +85,7 @@ namespace :users do
   FIELDS: A CSV list of User attributes to print
           (default: "id,name,email,activity")
   EOF
-  task :pro_activity => :environment do
+  task pro_activity: :environment do
     fields =
       if ENV['FIELDS']
         ENV['FIELDS'].split(',').map(&:strip)
@@ -99,9 +99,7 @@ namespace :users do
       end
 
     end_date =
-      if ENV['END_DATE']
-        Time.zone.parse(ENV['END_DATE']).at_end_of_day
-      end
+      (Time.zone.parse(ENV['END_DATE']).at_end_of_day if ENV['END_DATE'])
 
     # Only auto-calculate missing dates if one has been provided without the
     # other

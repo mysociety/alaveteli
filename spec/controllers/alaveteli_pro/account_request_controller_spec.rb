@@ -46,7 +46,7 @@ RSpec.describe AlaveteliPro::AccountRequestController do
         post :create, params: { account_request: account_request_params }
         expect(ActionMailer::Base.deliveries.size).to eq 1
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.to.first).to eq AlaveteliConfiguration::pro_contact_email
+        expect(mail.to.first).to eq AlaveteliConfiguration.pro_contact_email
       end
 
     end

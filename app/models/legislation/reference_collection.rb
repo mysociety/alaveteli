@@ -30,13 +30,11 @@ class Legislation
         type = capture[0]
 
         parse_matches(capture[1]).each do |reference|
-          begin
-            references << Legislation::Reference.new(
-              legislation: legislation, reference: "#{type} #{reference}"
-            )
-          rescue Legislation::InvalidReferenceType
-            # noop
-          end
+          references << Legislation::Reference.new(
+            legislation: legislation, reference: "#{type} #{reference}"
+          )
+        rescue Legislation::InvalidReferenceType
+          # noop
         end
 
         references

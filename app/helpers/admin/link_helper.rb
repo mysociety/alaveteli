@@ -1,8 +1,8 @@
 # Helpers for rendering record links in the admin interface
 module Admin::LinkHelper
   def both_links(record)
-    method = "#{record.class.to_s.underscore}_both_links"
-    send(method, record)
+    type = record.class.to_s.underscore.parameterize(separator: '_')
+    send("#{type}_both_links", record)
   end
 
   private
@@ -81,7 +81,16 @@ module Admin::LinkHelper
     icon = prominence_icon(comment)
 
     link_to(icon, comment_path(comment), title: title) + ' ' +
-      link_to(truncate(comment.body), edit_admin_comment_path(comment),
+      link_to(truncate(comment.body, length: 60), edit_admin_comment_path(comment),
+              title: admin_title)
+  end
+
+  def blog_post_both_links(blog_post)
+    title = 'View blog post'
+    icon = eye
+
+    link_to(icon, blog_post.url, title: title) + ' ' +
+      link_to(blog_post.title, edit_admin_blog_post_path(blog_post),
               title: admin_title)
   end
 

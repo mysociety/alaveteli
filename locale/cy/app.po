@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Cymrodor <aled@aledpowell.cymru>, 2014,2017
 # Cymrodor <aled@aledpowell.cymru>, 2014
 # skenaja <alex@alexskene.com>, 2011-2012
@@ -54,7 +55,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: PerryX <wyeboy@gmail.com>, 2013\n"
 "Language-Team: Welsh (http://app.transifex.com/mysociety/alaveteli/language/cy"
@@ -463,6 +464,9 @@ msgstr "Gall yr holl opsiynau isod defnyddio <strong>variety</strong> neu <stron
 msgid "All time"
 msgstr "Erioed"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Chwaraewyr gorau erioed"
 
@@ -625,6 +629,9 @@ msgstr "Wedi ei wahardd o'r safle hwn"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Swp a grëwyd gan {{info_request_user}} ar {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Yn dechrau gyda"
 
@@ -687,6 +694,9 @@ msgstr "Diddymu rhai rhybuddion {{site_name}} "
 
 msgid "Cancel, return to your profile page"
 msgstr "Diddymu, dychwelwch i dudalen eich proffil"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Newid cyfeiriad ebost ar {{site_name}}"
@@ -952,6 +962,9 @@ msgstr "Done >>"
 msgid "Download Data"
 msgstr ""
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Lawrlwytho ffeil zip o bob gohebiaeth"
 
@@ -1019,6 +1032,9 @@ msgid "Event history"
 msgstr "Hanes y digwyddiad"
 
 msgid "Every citizen has the right to access information held by public authorities."
+msgstr ""
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
@@ -1554,6 +1570,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Y cais diwethaf edrychwyd arno: {{request_url}}"
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2230,6 +2249,9 @@ msgstr ""
 msgid "Rejected"
 msgstr "Gwrthodwyd"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr ""
 
@@ -2416,6 +2438,9 @@ msgstr "Chwilio eich cyfraniadau"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Anfon neges ddilynol"
 
@@ -2451,6 +2476,30 @@ msgstr "Anfon neges i {{user_name}} dim ond i weld sut mae'n gweithio"
 
 msgid "Sending..."
 msgstr "Yn anfon..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2519,6 +2568,9 @@ msgstr "Allgofnodwch"
 msgid "Sign up"
 msgstr "Cofrestrwch"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2571,6 +2623,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr ""
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2990,8 +3045,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Mae cyfyngiad ar y nifer o geisiadau y gallwch eu gwneud mewn diwrnod, oherwydd nid ydym am i awdurdodau cyhoeddus gael eu peledu gyda nifer fawr o geisiadau amhriodol. Os ydych yn teimlo bod gennych reswm da dros ofyn i'r terfyn gael ei godi yn eich achos chi, <a href='{{help_contact_path}}'>cysylltwch â ni</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Does dim i'w ddangos eto."
@@ -3215,6 +3276,9 @@ msgstr ""
 msgid "This table shows the technical details of the internal events that happened to this request on {{site_name}}. This could be used to generate information about the speed with which authorities respond to requests, the number of requests which require a postal response and much more."
 msgstr "Mae'r tabl hwn yn dangos manylion technegol y digwyddiadau mewnol a ddigwyddodd  i'r cais hwn ar {{site_name}}. Gallai hwn gael ei ddefnyddio i gynhyrchu gwybodaeth am ba mor gyflym y mae awdurdodau yn ymateb i geisiadau, nifer y ceisiadau sy'n gofyn am ymateb drwy'r post a llawer mwy."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr ""
 
@@ -3341,8 +3405,14 @@ msgstr "Heddiw"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Gormod o geisiadau"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr ""
@@ -3690,6 +3760,9 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Ysgrifennwch eich cais mewn <strong>iaith syml, gryno</strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr ""
 
@@ -3818,6 +3891,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Rydych chi wedi cyrraedd y terfyn cyfradd ar geisiadau newydd. Fel arfer cyfyngir defnyddwyr i {{max_requests_per_user_per_day}}  cais mewn unrhyw gyfnod treigl 24-awr. Byddwch yn gallu gwneud cais arall ymhen {{ can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr ""
@@ -4454,6 +4530,11 @@ msgstr[0] "{{number_of_comments}} sylw"
 msgstr[1] "{{number_of_comments}} sylw"
 msgstr[2] "{{number_of_comments}} sylw"
 msgstr[3] "{{number_of_comments}} sylw"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

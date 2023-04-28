@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe TypeaheadSearch do
-  let(:options) { { :model => InfoRequestEvent } }
+  let(:options) { { model: InfoRequestEvent } }
 
   describe "#initialize" do
 
@@ -14,7 +14,7 @@ RSpec.describe TypeaheadSearch do
     end
 
     it 'assigns the page' do
-      opts = options.merge(:page => 5)
+      opts = options.merge(page: 5)
       expect(TypeaheadSearch.new("chicken", opts).page).to eq(5)
     end
 
@@ -23,7 +23,7 @@ RSpec.describe TypeaheadSearch do
     end
 
     it 'assigns per_page' do
-      opts = options.merge(:per_page => 10)
+      opts = options.merge(per_page: 10)
       expect(TypeaheadSearch.new("chicken", opts).per_page).to eq(10)
     end
 
@@ -44,7 +44,7 @@ RSpec.describe TypeaheadSearch do
   describe '#options' do
 
     it 'sets the offset based on the page and per_page settings' do
-      opts = options.merge(:page => 2, :per_page => 10)
+      opts = options.merge(page: 2, per_page: 10)
       expect(TypeaheadSearch.new("chicken", opts).options[:offset]).
         to eq(10)
     end
@@ -55,19 +55,19 @@ RSpec.describe TypeaheadSearch do
     end
 
     it 'sets collapse_by_prefix to nil for PublicBody queries' do
-      opts = options.merge(:model => PublicBody)
+      opts = options.merge(model: PublicBody)
       expect(TypeaheadSearch.new("chicken", opts).options[:collapse_by_prefix]).
         to be nil
     end
 
     it 'sets the limit to the per_page setting' do
-      opts = options.merge(:per_page => 10)
+      opts = options.merge(per_page: 10)
       expect(TypeaheadSearch.new("chicken", opts).options[:limit]).
         to eq(10)
     end
 
     it 'sets the model' do
-      opts = options.merge(:model => PublicBody)
+      opts = options.merge(model: PublicBody)
       expect(TypeaheadSearch.new("chicken", opts).options[:model]).
         to eq(PublicBody)
     end
@@ -108,7 +108,7 @@ RSpec.describe TypeaheadSearch do
     end
 
     it "returns a search with results of the appropriate model type" do
-      opts = options.merge(:model => PublicBody)
+      opts = options.merge(model: PublicBody)
       search = TypeaheadSearch.new("geraldine", opts).xapian_search
       expect(search_bodies(search)).
         to match_array([public_bodies(:geraldine_public_body)])
@@ -116,7 +116,7 @@ RSpec.describe TypeaheadSearch do
 
     it "returns results matching the given keywords in any of their locales" do
       # part of the spanish notes
-      opts = options.merge(:model => PublicBody)
+      opts = options.merge(model: PublicBody)
       search = TypeaheadSearch.new("baguette", opts).xapian_search
       expect(search_bodies(search)).
         to match_array([public_bodies(:humpadink_public_body)])
@@ -133,7 +133,7 @@ RSpec.describe TypeaheadSearch do
       expect(search_info_requests(search)).to match_array([
         info_requests(:fancy_dog_request),
         info_requests(:naughty_chicken_request),
-        info_requests(:another_boring_request),
+        info_requests(:another_boring_request)
       ])
     end
 
@@ -220,8 +220,8 @@ RSpec.describe TypeaheadSearch do
     context 'when the exclude_tags option is used' do
 
       it "returns a search excluding results with those tags" do
-        opts = options.merge( :model => PublicBody,
-                              :exclude_tags => [ 'lonely_agency' ])
+        opts = options.merge( model: PublicBody,
+                              exclude_tags: [ 'lonely_agency' ])
         search = TypeaheadSearch.new("lonely", opts).xapian_search
         expect(search.results).to match_array([])
       end

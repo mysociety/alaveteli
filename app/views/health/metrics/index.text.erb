@@ -1,0 +1,31 @@
+# HELP sidekiq_processed_jobs The total number of processed jobs.
+# TYPE sidekiq_processed_jobs gauge
+sidekiq_processed_job <%= @sidekiq_stats.processed %>
+
+# HELP sidekiq_busy_workers The number of workers performing a job.
+# TYPE sidekiq_busy_workers gauge
+sidekiq_busy_workers <%= @sidekiq_stats.workers_size %>
+
+# HELP sidekiq_enqueued_jobs The number of enqueued jobs waiting to be processed.
+# TYPE sidekiq_enqueued_jobs gauge
+sidekiq_enqueued_jobs <%= @sidekiq_stats.enqueued %>
+
+# HELP sidekiq_retry_jobs The number of failed jobs scheduled for a retry.
+# TYPE sidekiq_retry_jobs gauge
+sidekiq_retry_jobs <%= @sidekiq_stats.retry_size %>
+
+# HELP sidekiq_scheduled_jobs The number of jobs scheduled for a future execution.
+# TYPE sidekiq_scheduled_jobs gauge
+sidekiq_scheduled_jobs <%= @sidekiq_stats.scheduled_size %>
+
+# HELP sidekiq_failed_jobs The total number of failed jobs; these will be retried automatically.
+# TYPE sidekiq_failed_jobs gauge
+sidekiq_failed_jobs <%= @sidekiq_stats.failed %>
+
+# HELP sidekiq_processed_jobs Number of jobs that need manual intervention to retry
+# TYPE sidekiq_dead_jobs gauge
+sidekiq_dead_jobs <%= @sidekiq_stats.dead_size %>
+
+# HELP xapian_queued_jobs The number of jobs in the Xapian queue
+# TYPE xapian_queued_jobs gauge
+xapian_queued_jobs <%= @xapian_queued_jobs %>

@@ -1,5 +1,5 @@
 # MySociety specific helper functions
-$:.push(File.join(File.dirname(__FILE__), '../../commonlib/rblib'))
+$LOAD_PATH.push(File.join(File.dirname(__FILE__), '../../commonlib/rblib'))
 # ... if these fail to include, you need the commonlib submodule from git
 # (type "git submodule update --init" in the whatdotheyknow directory)
 
@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.42.0.1'
+ALAVETELI_VERSION = '0.43.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -27,7 +27,7 @@ ALAVETELI_VERSION = '0.42.0.1'
 
 
 # Domain for URLs (so can work for scripts, not just web pages)
-ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
+ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration.domain
 
 # Load monkey patches and other things from lib/
 require 'core_ext/warning'

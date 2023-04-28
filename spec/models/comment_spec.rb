@@ -23,22 +23,22 @@ RSpec.describe Comment do
 
   describe '.visible' do
     before(:each) do
-      @visible_request = FactoryBot.create(:info_request, :prominence => "normal")
-      @hidden_request = FactoryBot.create(:info_request, :prominence => "hidden")
+      @visible_request = FactoryBot.create(:info_request, prominence: "normal")
+      @hidden_request = FactoryBot.create(:info_request, prominence: "hidden")
     end
 
     it 'should treat new comments to be visible by default' do
-      comment = FactoryBot.create(:comment, :info_request => @visible_request)
+      comment = FactoryBot.create(:comment, info_request: @visible_request)
       expect(@visible_request.comments.visible).to eq([comment])
     end
 
     it 'should treat comments which have be hidden as not visible' do
-      comment = FactoryBot.create(:hidden_comment, :info_request => @visible_request)
+      comment = FactoryBot.create(:hidden_comment, info_request: @visible_request)
       expect(@visible_request.comments.visible).to eq([])
     end
 
     it 'should treat visible comments attached to a hidden request as not visible' do
-      comment = FactoryBot.create(:comment, :info_request => @hidden_request)
+      comment = FactoryBot.create(:comment, info_request: @hidden_request)
       expect(comment.visible).to eq(true)
       expect(@hidden_request.comments.visible).to eq([])
     end
@@ -50,10 +50,10 @@ RSpec.describe Comment do
     before(:each) do
       @info_request = FactoryBot.create(:info_request)
       @request_comment = FactoryBot.create(:comment,
-                                           :info_request => @info_request)
+                                           info_request: @info_request)
       @embargoed_request = FactoryBot.create(:embargoed_request)
       @embargoed_comment = FactoryBot.create(:comment,
-                                             :info_request => @embargoed_request)
+                                             info_request: @embargoed_request)
     end
 
     it 'includes comments on embargoed requests' do
@@ -71,10 +71,10 @@ RSpec.describe Comment do
     before(:each) do
       @info_request = FactoryBot.create(:info_request)
       @request_comment = FactoryBot.create(:comment,
-                                           :info_request => @info_request)
+                                           info_request: @info_request)
       @embargoed_request = FactoryBot.create(:embargoed_request)
       @embargoed_comment = FactoryBot.create(:comment,
-                                             :info_request => @embargoed_request)
+                                             info_request: @embargoed_request)
     end
 
     it 'does not include comments on embargoed requests' do
@@ -86,6 +86,107 @@ RSpec.describe Comment do
     end
 
   end
+
+  # rubocop:disable Layout/FirstArrayElementIndentation
+  describe '.exceeded_creation_rate?' do
+    subject { described_class.exceeded_creation_rate?(comments) }
+
+    context 'when there are no comments' do
+      let(:comments) { described_class.where(id: nil) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last comment was created in the last 2 seconds' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last comment was created a few seconds ago' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 3.seconds.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last 2 comments were created in the last 5 minutes' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 4 comments were created in the last 30 minutes' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 5.minutes.ago),
+          FactoryBot.create(:comment, created_at: 10.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 6 comments were created in the last hour' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 1.second.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 5.minutes.ago),
+          FactoryBot.create(:comment, created_at: 10.minutes.ago),
+          FactoryBot.create(:comment, created_at: 40.minutes.ago),
+          FactoryBot.create(:comment, created_at: 50.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the comments are reasonably spaced' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 15.minutes.ago),
+          FactoryBot.create(:comment, created_at: 12.minutes.ago),
+          FactoryBot.create(:comment, created_at: 40.minutes.ago),
+          FactoryBot.create(:comment, created_at: 3.hours.ago),
+          FactoryBot.create(:comment, created_at: 8.hours.ago),
+          FactoryBot.create(:comment, created_at: 1.day.ago),
+          FactoryBot.create(:comment, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the comments are provided out of order' do
+      let(:comments) do
+        described_class.where(id: [
+          FactoryBot.create(:comment, created_at: 3.days.ago),
+          FactoryBot.create(:comment, created_at: 2.minutes.ago),
+          FactoryBot.create(:comment, created_at: 1.second.ago)
+        ]).order(created_at: :asc)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+  # rubocop:enable Layout/FirstArrayElementIndentation
 
   describe '#prominence' do
     subject { comment.prominence }
@@ -104,12 +205,12 @@ RSpec.describe Comment do
   describe '#hidden?' do
 
     it 'returns true if the comment is not visible' do
-      comment = Comment.new(:visible => false)
+      comment = Comment.new(visible: false)
       expect(comment.hidden?).to eq(true)
     end
 
     it 'returns false if the comment is visible' do
-      comment = Comment.new(:visible => true)
+      comment = Comment.new(visible: true)
       expect(comment.hidden?).to eq(false)
     end
 
@@ -165,7 +266,7 @@ RSpec.describe Comment do
     it "includes a note about the comment in the admin email" do
       expected =
         "The user wishes to draw attention to the comment: " \
-        "#{comment_url(comment, :host => AlaveteliConfiguration.domain)}"
+        "#{comment_url(comment, host: AlaveteliConfiguration.domain)}"
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
       notification = ActionMailer::Base.deliveries.last
       expect(notification.body).to match(expected)
@@ -173,16 +274,16 @@ RSpec.describe Comment do
 
     it 'logs the report_comment event' do
       comment.info_request_events.
-        where(:event_type => 'report_comment').destroy_all
+        where(event_type: 'report_comment').destroy_all
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
       comment.reload
       most_recent_event = comment.info_request_events.last
 
       expect(most_recent_event.event_type).to eq('report_comment')
       expect(most_recent_event.params).
-        to include(:reason => "Vexatious comment")
+        to include(reason: "Vexatious comment")
       expect(most_recent_event.params).
-        to include(:message => "Comment is bad, please hide")
+        to include(message: "Comment is bad, please hide")
     end
 
   end

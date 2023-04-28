@@ -77,9 +77,8 @@ OPTION_STAGING_SITE=$(bin/config STAGING_SITE)
 STAGING_SITE="${OPTION_STAGING_SITE:-1}"
 
 # Force appropriate environment in production
-if [ "$STAGING_SITE" = "0" ]
-then
-    cat <<-END
+if [ ! -f config/rails_env.rb ]; then
+    [ "$STAGING_SITE" = "0" ] && cat <<-END
 
     *****************************************************************
     WARNING: About to make config/rails_env.rb which, via special
@@ -92,35 +91,45 @@ then
     *****************************************************************
 
 END
-    echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
+
+else
+    RAILS_ENV=$(ruby -r ./config/rails_env.rb -e "puts ENV['RAILS_ENV']")
+    if ([ "$STAGING_SITE" = "0" ] && [ "$RAILS_ENV" != "production" ]) ||
+      ([ "$STAGING_SITE" = "1" ] && [ "$RAILS_ENV" = "production" ]); then
+        # STAGING_SITE and RAILS_ENV mismatch - remove line
+        sed -i "/^ENV\['RAILS_ENV'\]/d" config/rails_env.rb
+    fi
+fi
+
+if [ "$STAGING_SITE" = "0" ] && [ "$RAILS_ENV" != "production" ]; then
+    # Set RAILS_ENV to production
+    echo "ENV['RAILS_ENV'] ||= 'production'" >> config/rails_env.rb
 fi
 
 OPTION_BUNDLE_PATH=$(bin/config BUNDLE_PATH)
 BUNDLE_PATH="${OPTION_BUNDLE_PATH:-vendor/bundle}"
+bundle config set --local path $BUNDLE_PATH
 
-bundle_install_options="--path $BUNDLE_PATH"
-
-if [ "$CI" = "true" ]
+if [ "$STAGING_SITE" = "0" ]
 then
-    bundle_install_options="$bundle_install_options --deployment"
-elif [ "$STAGING_SITE" = "0" ]
-then
-    bundle_install_options="$bundle_install_options --without development debug test --deployment"
+    bundle config set --local deployment 'true'
+    bundle config set --local without 'development debug test'
 else
-    bundle_install_options="$bundle_install_options"
+    bundle config unset --local deployment
+    bundle config unset --local without
 fi
 
-echo "Running bundle install with options: $bundle_install_options"
-bundle install $bundle_install_options
+echo "Bundle install options:"
+bundle config list
+
+echo "Running bundle install:"
+bundle install
 
 bundle exec rake submodules:check
 
 bundle exec rake themes:install
 
-if ! [ "$CI" = "true" ]
-then
-  bundle exec rake geoip:download_data
-fi
+bundle exec rake geoip:download_data
 
 if [ "$STAGING_SITE" = "0" ]
 then

@@ -5,7 +5,7 @@ RSpec.describe 'general/_responsive_topnav' do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   def render_view
-    render :partial => 'general/responsive_topnav'
+    render partial: 'general/responsive_topnav'
   end
 
   describe 'showing the Dashboard link', feature: :alaveteli_pro do

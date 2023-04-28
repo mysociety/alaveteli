@@ -39,8 +39,8 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
     context 'when a search is passed' do
 
       it 'applies the search' do
-        get :index, params: { :alaveteli_pro_request_filter => {
-                                :search => 'foo'
+        get :index, params: { alaveteli_pro_request_filter: {
+                                search: 'foo'
                               }
                             }
         expect(assigns[:request_summaries].size).to eq 1

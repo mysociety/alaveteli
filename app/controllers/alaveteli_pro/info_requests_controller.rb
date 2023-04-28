@@ -18,8 +18,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     request_summaries = @request_filter.results(current_user)
     @page = params[:page] || 1
     @per_page = 10
-    @request_summaries = request_summaries.paginate :page => @page,
-                                                    :per_page => @per_page
+    @request_summaries = request_summaries.paginate page: @page,
+                                                    per_page: @per_page
 
   end
 
@@ -30,7 +30,8 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     else
       create_initial_objects
     end
-    check_public_body_is_requestable; return if performed?
+    check_public_body_is_requestable
+    return if performed?
   end
 
   def preview

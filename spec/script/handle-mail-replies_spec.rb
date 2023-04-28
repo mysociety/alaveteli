@@ -4,7 +4,7 @@ require "external_command"
 def mail_reply_test(email_filename)
   Dir.chdir Rails.root do
     xc = ExternalCommand.new("script/handle-mail-replies", "--test",
-                             :stdin_string => load_file_fixture(email_filename))
+                             stdin_string: load_file_fixture(email_filename))
     xc.run
     expect(xc.err).to eq("")
     return xc
@@ -17,14 +17,14 @@ RSpec.describe "When filtering" do
 
     it "should not fail handling a bounce mail" do
       xc = ExternalCommand.new("script/handle-mail-replies",
-                               { :stdin_string => load_file_fixture("track-response-exim-bounce.email") })
+                               { stdin_string: load_file_fixture("track-response-exim-bounce.email") })
       xc.run
       expect(xc.err).to eq("")
     end
 
     it 'should not fail handling a UTF8 encoded mail' do
       xc = ExternalCommand.new("script/handle-mail-replies",
-                               { :stdin_string => load_file_fixture("russian.email") })
+                               { stdin_string: load_file_fixture("russian.email") })
       xc.run
       expect(xc.err).to eq("")
     end

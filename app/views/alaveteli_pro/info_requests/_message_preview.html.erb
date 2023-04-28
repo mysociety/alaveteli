@@ -2,8 +2,13 @@
   <p class="preview_to">
     <strong><%= _('To') %></strong>
       <%= @info_request.public_body.name %>
-
   </p>
+
+  <p class="preview_from">
+    <strong><%= _('From') %></strong>
+    <%= @user&.name || '…' %>
+  </p>
+
   <p class="preview_subject">
     <strong><%= _('Subject') %></strong> <%= @info_request.title %>
   </p>

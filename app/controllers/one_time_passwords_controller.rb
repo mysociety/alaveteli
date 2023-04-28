@@ -14,7 +14,7 @@ class OneTimePasswordsController < ApplicationController
 
     if @user.save
       redirect_to one_time_password_path,
-                  :notice => _('Two factor authentication enabled')
+                  notice: _('Two factor authentication enabled')
     else
       flash.now[:error] = _('Two factor authentication could not be enabled')
       render :show
@@ -24,7 +24,7 @@ class OneTimePasswordsController < ApplicationController
   def update
     if @user.increment!(:otp_counter)
       redirect_to one_time_password_path,
-                  :notice => _('Two factor one time passcode updated')
+                  notice: _('Two factor one time passcode updated')
     else
       flash.now[:error] = _('Could not update your two factor one time passcode')
       render :show
@@ -36,7 +36,7 @@ class OneTimePasswordsController < ApplicationController
 
     if @user.save
       redirect_to one_time_password_path,
-                  :notice => _('Two factor authentication disabled')
+                  notice: _('Two factor authentication disabled')
     else
       flash.now[:error] = _('Two factor authentication could not be disabled')
       render :show
@@ -47,7 +47,7 @@ class OneTimePasswordsController < ApplicationController
 
   def check_two_factor_config
     unless AlaveteliConfiguration.enable_two_factor_auth
-      raise ActiveRecord::RecordNotFound.new('Page not enabled')
+      raise ActiveRecord::RecordNotFound, 'Page not enabled'
     end
   end
 

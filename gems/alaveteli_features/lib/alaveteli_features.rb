@@ -19,7 +19,7 @@ module AlaveteliFeatures
 
   def self.backend
     return @backend if @backend
-    if self.tables_exist?
+    if tables_exist?
       @backend = Flipper.new(Flipper::Adapters::ActiveRecord.new)
     else
       if defined?(Rails)
@@ -43,12 +43,9 @@ module AlaveteliFeatures
   # We just want to know if our tables exist, but we can't do that without
   # risking an error
   def self.tables_exist?
-    begin
-      ActiveRecord::Base.establish_connection
-      return ActiveRecord::Base.
-               connection.data_source_exists?(:flipper_features)
-    rescue
-      return false
-    end
+    ActiveRecord::Base.establish_connection
+    ActiveRecord::Base.connection.data_source_exists?(:flipper_features)
+  rescue
+    false
   end
 end

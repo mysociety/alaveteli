@@ -76,18 +76,16 @@ StringConversionResult = Struct.new(:string, :scrubbed) do
 end
 
 def convert_string_to_utf8(s, suggested_character_encoding=nil)
-  begin
-    result = normalize_string_to_utf8 s, suggested_character_encoding
-    StringConversionResult.new(result, false)
-  rescue EncodingNormalizationError
-    result = scrub(s)
-    StringConversionResult.new(result, true)
-  end
+  result = normalize_string_to_utf8 s, suggested_character_encoding
+  StringConversionResult.new(result, false)
+rescue EncodingNormalizationError
+  result = scrub(s)
+  StringConversionResult.new(result, true)
 end
 
 def scrub(string)
   string = string.force_encoding("utf-8")
-  string.valid_encoding? ? string : string.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
+  string.valid_encoding? ? string : string.encode("utf-16le", invalid: :replace, replace: "").encode("utf-8")
 end
 
 def log_text_details(message, text)

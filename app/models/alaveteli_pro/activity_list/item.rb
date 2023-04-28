@@ -33,8 +33,8 @@ module AlaveteliPro
       end
 
       def description_urls
-        { :public_body_name => { :text => body_name, :url => body_path },
-          :info_request_title => { :text => info_request_title, :url => info_request_path } }
+        { public_body_name: { text: body_name, url: body_path },
+          info_request_title: { text: info_request_title, url: info_request_path } }
       end
 
       def event_time

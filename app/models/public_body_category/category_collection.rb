@@ -47,9 +47,7 @@ class PublicBodyCategory::CategoryCollection
   def headings
     output = []
     @categories.each do |row|
-      unless row.is_a?(Array)
-        output << row
-      end
+      output << row unless row.is_a?(Array)
     end
     output
   end

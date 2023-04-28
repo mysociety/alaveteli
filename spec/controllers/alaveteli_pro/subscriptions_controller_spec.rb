@@ -39,7 +39,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       it 'redirects to the login form' do
         expect(response).
-          to redirect_to(signin_path(:token => PostRedirect.last.token))
+          to redirect_to(signin_path(token: PostRedirect.last.token))
       end
 
     end
@@ -197,7 +197,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           customer =
             Stripe::Customer.create(email: user.email,
                                     source: stripe_helper.generate_card_token)
-          user.create_pro_account(:stripe_customer_id => customer.id)
+          user.create_pro_account(stripe_customer_id: customer.id)
 
           post :create, params: {
             'stripe_token' => token,
@@ -472,7 +472,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when invalid params are submitted' do
 
         it 'redirects to the plan page if there is a plan' do
-          post :create, params: { :plan_id => 'pro' }
+          post :create, params: { plan_id: 'pro' }
           expect(response).to redirect_to(plan_path('pro'))
         end
 
@@ -768,7 +768,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       it 'redirects to the login form' do
         expect(response).
-          to redirect_to(signin_path(:token => PostRedirect.last.token))
+          to redirect_to(signin_path(token: PostRedirect.last.token))
       end
 
     end
@@ -900,7 +900,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       it 'redirects to the login form' do
         expect(response).
-          to redirect_to(signin_path(:token => PostRedirect.last.token))
+          to redirect_to(signin_path(token: PostRedirect.last.token))
       end
 
     end
@@ -933,7 +933,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       let(:customer) do
         customer = Stripe::Customer.create({
           email: user.email,
-          source: stripe_helper.generate_card_token,
+          source: stripe_helper.generate_card_token
         })
         user.pro_account.update!(stripe_customer_id: customer.id)
         customer
@@ -971,7 +971,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         let(:other_subscription) do
           customer = Stripe::Customer.create({
             email: 'test@example.org',
-            source: stripe_helper.generate_card_token,
+            source: stripe_helper.generate_card_token
           })
           Stripe::Subscription.create(customer: customer, plan: plan.id)
         end
@@ -1102,7 +1102,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when invalid params are submitted' do
 
         it 'redirects to the plan page if there is a plan' do
-          delete :destroy, params: { :id => 'unknown' }
+          delete :destroy, params: { id: 'unknown' }
           expect(response).to redirect_to(subscriptions_path)
         end
 

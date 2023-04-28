@@ -82,9 +82,7 @@ class Holiday < ApplicationRecord
     start_date = start_date.to_date
 
     response_required_by = start_date + days
-    while weekend_or_holiday?(response_required_by)
-      response_required_by += 1
-    end
+    response_required_by += 1 while weekend_or_holiday?(response_required_by)
     response_required_by
   end
 end

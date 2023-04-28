@@ -58,7 +58,7 @@ class DataExport
   end
 
   def self.gender_lambda
-    lambda { |x| detects_gender(x.name) }
+    ->(x) { detects_gender(x.name) }
   end
 
   # Remove all instances of user's name (if there is a user), otherwise
@@ -78,7 +78,7 @@ class DataExport
 
   # Returns a lambda to pass to export function that censors x.property
   def self.name_censor_lambda(property)
-    lambda do |x|
+    ->(x) do
       if x.respond_to?(:info_request)
         case_insensitive_user_censor(x.send(property), x.info_request.user)
       else
@@ -166,8 +166,6 @@ class DataExport
     return true unless to_run
     to_run.include?(model_name)
   end
-
-  private
 
   def self.handle_error(err, data)
     p "---"

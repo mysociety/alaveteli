@@ -91,7 +91,9 @@ def main(in_test_mode)
     return 2 if MailHandler::ReplyHandler.is_oof?(message)
 
     # Otherwise forward the message on
-    MailHandler::ReplyHandler.forward_on(raw_message, message) unless in_test_mode
+    unless in_test_mode
+      MailHandler::ReplyHandler.forward_on(raw_message, message)
+    end
     return 0
   end
 end

@@ -7,7 +7,7 @@ class Projects::ClassificationsController < Projects::BaseController
   include Classifiable
 
   def create
-    @project.submissions.create(submission_params)
+    @project.submissions.create(**submission_params)
 
     flash[:notice] = _('Thank you for updating this request!')
     redirect_to project_classify_path(@project)

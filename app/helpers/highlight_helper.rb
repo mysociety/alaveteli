@@ -5,13 +5,15 @@ module HighlightHelper
   # the phrases parameter.
   # https://github.com/rails/rails/pull/11793
   def highlight_matches(text, phrases, options = {})
-    text = ActionController::Base.helpers.sanitize(text).try(:html_safe) if options.fetch(:sanitize, true)
+    if options.fetch(:sanitize, true)
+      text = ActionController::Base.helpers.sanitize(text).try(:html_safe)
+    end
 
     if text.blank? || phrases.blank?
       text
     else
       match = Array(phrases).map do |p|
-        Regexp === p ? p.to_s : Regexp.escape(p)
+        p.is_a?(Regexp) ? p.to_s : Regexp.escape(p)
       end.join('|')
 
       if block_given?
@@ -26,20 +28,16 @@ module HighlightHelper
   # Highlight words, also escapes HTML (other than spans that we add)
   def highlight_words(t, words, html = true)
     if html
-      highlight_matches(h(t), words, :highlighter => '<span class="highlight">\1</span>').html_safe
+      highlight_matches(h(t), words, highlighter: '<span class="highlight">\1</span>').html_safe
     else
-      highlight_matches(t, words, :highlighter => '*\1*')
+      highlight_matches(t, words, highlighter: '*\1*')
     end
   end
 
   def highlight_and_excerpt(t, words, excount, html = true)
-    newt = excerpt(t, words[0], :radius => excount)
-    if not newt
-      newt = excerpt(t, '', :radius => excount)
-    end
-    t = newt
-    t = highlight_words(t, words, html)
-    return t
+    newt = excerpt(t, words[0], radius: excount)
+    newt = excerpt(t, '', radius: excount) unless newt
+    highlight_words(newt, words, html)
   end
 
   def excerpt(text, phrase, options = {})
@@ -53,7 +51,7 @@ module HighlightHelper
       regex = /#{Regexp.escape(phrase)}/i
     end
 
-    return unless matches = text.match(regex)
+    return unless (matches = text.match(regex))
     phrase = matches[0]
 
     unless separator.empty?
@@ -93,6 +91,6 @@ module HighlightHelper
       part.first(radius)
     end
 
-    return affix, part.join(separator)
+    [affix, part.join(separator)]
   end
 end

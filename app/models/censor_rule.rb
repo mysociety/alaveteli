@@ -32,13 +32,13 @@ class CensorRule < ApplicationRecord
   ].freeze
 
   belongs_to :info_request,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
   belongs_to :user,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
   belongs_to :public_body,
-             :inverse_of => :censor_rules
+             inverse_of: :censor_rules
 
-  validate :require_valid_regexp, :if => proc { |rule| rule.regexp? == true }
+  validate :require_valid_regexp, if: proc { |rule| rule.regexp? == true }
 
   validates_presence_of :text,
                         :replacement,
@@ -74,15 +74,13 @@ class CensorRule < ApplicationRecord
 
   def expire_requests
     if info_request
-      info_request.expire
+      InfoRequestExpireJob.perform_later(info_request)
     elsif user
-      user.expire_requests
+      InfoRequestExpireJob.perform_later(user, :info_requests)
     elsif public_body
-      public_body.expire_requests
+      InfoRequestExpireJob.perform_later(public_body, :info_requests)
     else # global rule
-      InfoRequest.find_in_batches do |group|
-        group.each { |request| request.expire }
-      end
+      InfoRequestExpireJob.perform_later(InfoRequest, :all)
     end
   end
 
@@ -111,11 +109,9 @@ class CensorRule < ApplicationRecord
   end
 
   def require_valid_regexp
-    begin
-      make_regexp('UTF-8')
-    rescue RegexpError => e
-      errors.add(:text, e.message)
-    end
+    make_regexp('UTF-8')
+  rescue RegexpError => e
+    errors.add(:text, e.message)
   end
 
   def to_replace(encoding)

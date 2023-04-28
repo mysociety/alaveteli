@@ -289,7 +289,7 @@ RSpec.describe InfoRequestHelper do
                    "<a href=\"/request/#{info_request.id}/followups/new\">" \
                    "send a follow up message</a>."
 
-        actual = status_text(info_request, :is_owning_user => true)
+        actual = status_text(info_request, is_owning_user: true)
 
         expect(actual).to eq(expected)
       end
@@ -306,8 +306,8 @@ RSpec.describe InfoRequestHelper do
                    "#{ sign_in_link } to send a follow up message."
 
         actual = status_text(info_request,
-                             :is_owning_user => false,
-                             :redirect_to => '/request/example')
+                             is_owning_user: false,
+                             redirect_to: '/request/example')
 
         expect(actual).to eq(expected)
       end
@@ -315,7 +315,7 @@ RSpec.describe InfoRequestHelper do
       it 'does not add a followup link for external requests' do
         allow(info_request).to receive(:is_external?).and_return(true)
         expected = 'The request is <strong>waiting for clarification</strong>.'
-        actual = status_text(info_request, :is_owning_user => false)
+        actual = status_text(info_request, is_owning_user: false)
         expect(actual).to eq(expected)
       end
 
@@ -327,7 +327,7 @@ RSpec.describe InfoRequestHelper do
 
       it 'requires a redirect_to option' do
         expect {
-          status_text(info_request, :is_owning_user => false)
+          status_text(info_request, is_owning_user: false)
         }.to raise_error(KeyError)
       end
 
@@ -456,10 +456,10 @@ RSpec.describe InfoRequestHelper do
                        'so we know whether it contains useful ' \
                        'information.'
             actual = status_text(info_request,
-                                 :new_responses_count => 1,
-                                 :is_owning_user => true,
-                                 :render_to_file => false,
-                                 :old_unclassified => false)
+                                 new_responses_count: 1,
+                                 is_owning_user: true,
+                                 render_to_file: false,
+                                 old_unclassified: false)
             expect(actual).to eq(expected)
           end
         end
@@ -471,10 +471,10 @@ RSpec.describe InfoRequestHelper do
                        'so we know whether they contain useful ' \
                        'information.'
             actual = status_text(info_request,
-                                 :new_responses_count => 3,
-                                 :is_owning_user => true,
-                                 :render_to_file => false,
-                                 :old_unclassified => true)
+                                 new_responses_count: 3,
+                                 is_owning_user: true,
+                                 render_to_file: false,
+                                 old_unclassified: true)
             expect(actual).to eq(expected)
           end
         end
@@ -489,10 +489,10 @@ RSpec.describe InfoRequestHelper do
                        "<strong>you</strong> might like to help out by doing " \
                        "that?"
             actual = status_text(info_request,
-                                 :new_responses_count => 1,
-                                 :is_owning_user => false,
-                                 :render_to_file => false,
-                                 :old_unclassified => true)
+                                 new_responses_count: 1,
+                                 is_owning_user: false,
+                                 render_to_file: false,
+                                 old_unclassified: true)
             expect(actual).to eq(expected)
           end
         end
@@ -505,10 +505,10 @@ RSpec.describe InfoRequestHelper do
                        "<strong>you</strong> might like to help out by doing " \
                        "that?"
             actual = status_text(info_request,
-                                 :new_responses_count => 3,
-                                 :is_owning_user => false,
-                                 :render_to_file => false,
-                                 :old_unclassified => true)
+                                 new_responses_count: 3,
+                                 is_owning_user: false,
+                                 render_to_file: false,
+                                 old_unclassified: true)
             expect(actual).to eq(expected)
           end
         end
@@ -519,17 +519,17 @@ RSpec.describe InfoRequestHelper do
           let(:info_request) { FactoryBot.create(:external_request, awaiting_description: true) }
           let(:message) do
             status_text(info_request,
-                        :new_responses_count => 1,
-                        :is_owning_user => true,
-                        :render_to_file => false,
-                        :old_unclassified => false)
+                        new_responses_count: 1,
+                        is_owning_user: true,
+                        render_to_file: false,
+                        old_unclassified: false)
           end
           let(:plural_message) do
             status_text(info_request,
-                        :new_responses_count => 3,
-                        :is_owning_user => true,
-                        :render_to_file => false,
-                        :old_unclassified => false)
+                        new_responses_count: 3,
+                        is_owning_user: true,
+                        render_to_file: false,
+                        old_unclassified: false)
           end
         end
       end
@@ -538,17 +538,17 @@ RSpec.describe InfoRequestHelper do
         it_behaves_like "when we can't ask the user to update the status" do
           let(:message) do
             status_text(info_request,
-                        :new_responses_count => 1,
-                        :is_owning_user => true,
-                        :render_to_file => true,
-                        :old_unclassified => false)
+                        new_responses_count: 1,
+                        is_owning_user: true,
+                        render_to_file: true,
+                        old_unclassified: false)
           end
           let(:plural_message) do
             status_text(info_request,
-                        :new_responses_count => 3,
-                        :is_owning_user => true,
-                        :render_to_file => true,
-                        :old_unclassified => false)
+                        new_responses_count: 3,
+                        is_owning_user: true,
+                        render_to_file: true,
+                        old_unclassified: false)
           end
         end
       end
@@ -557,17 +557,17 @@ RSpec.describe InfoRequestHelper do
         it_behaves_like "when we can't ask the user to update the status" do
           let(:message) do
             status_text(info_request,
-                        :new_responses_count => 1,
-                        :is_owning_user => false,
-                        :render_to_file => false,
-                        :old_unclassified => false)
+                        new_responses_count: 1,
+                        is_owning_user: false,
+                        render_to_file: false,
+                        old_unclassified: false)
           end
           let(:plural_message) do
             status_text(info_request,
-                        :new_responses_count => 3,
-                        :is_owning_user => false,
-                        :render_to_file => false,
-                        :old_unclassified => false)
+                        new_responses_count: 3,
+                        is_owning_user: false,
+                        render_to_file: false,
+                        old_unclassified: false)
           end
 
         end
@@ -594,8 +594,8 @@ RSpec.describe InfoRequestHelper do
 
     context 'if an icon exists for the filetype' do
       let(:jpeg_attachment) { FactoryBot.create(:jpeg_attachment,
-                              :incoming_message => incoming_message,
-                              :url_part_number => 1)
+                              incoming_message: incoming_message,
+                              url_part_number: 1)
                            }
 
       it 'returns a link with a specific icon' do
@@ -608,8 +608,8 @@ RSpec.describe InfoRequestHelper do
 
     context 'if no icon exists for the filetype' do
       let(:unknown_attachment) { FactoryBot.create(:unknown_attachment,
-                                  :incoming_message => incoming_message,
-                                  :url_part_number => 1)
+                                  incoming_message: incoming_message,
+                                  url_part_number: 1)
                               }
 
       it 'returns a link with the "unknown" icon' do

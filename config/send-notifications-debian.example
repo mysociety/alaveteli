@@ -22,9 +22,11 @@ LOGDIR=<%= vhost_dir %>/<%= vcspath %>/log
 LOGFILE=$LOGDIR/<%= daemon_name %>.log
 DUSER=<%= user %>
 SITE_HOME=<%= vhost_dir %>/<%= vcspath %>
-# Set RAILS_ENV - not needed if using config/rails_env.rb
-# RAILS_ENV=<%= rails_env %>
-# export RAILS_ENV
+
+<% unless rails_env_defined? %>
+RAILS_ENV=<%= rails_env %>
+export RAILS_ENV
+<% end %>
 
 <% if use_rbenv? %>
 RBENV_ROOT="/home/<%= user %>/.rbenv"

@@ -3,56 +3,56 @@ class ApiController < ApplicationController
 
   before_action :check_api_key
   before_action :check_external_request,
-    :only => [:add_correspondence, :update_state]
+    only: [:add_correspondence, :update_state]
   before_action :check_request_ownership,
-    :only => [:add_correspondence, :update_state]
+    only: [:add_correspondence, :update_state]
 
   def show_request
     @request = InfoRequest.find(params[:id])
     raise PermissionDenied if @request.public_body_id != @public_body.id
 
     @request_data = {
-      :id => @request.id,
-      :url => make_url("request", @request.url_title),
-      :title => @request.title,
-      :created_at => @request.created_at,
-      :updated_at => @request.updated_at,
-      :status => @request.calculate_status,
-      :public_body_url => make_url("body", @request.public_body.url_name),
-      :request_email => @request.incoming_email,
-      :request_text => @request.last_event_forming_initial_request.outgoing_message.body,
+      id: @request.id,
+      url: make_url("request", @request.url_title),
+      title: @request.title,
+      created_at: @request.created_at,
+      updated_at: @request.updated_at,
+      status: @request.calculate_status,
+      public_body_url: make_url("body", @request.public_body.url_name),
+      request_email: @request.incoming_email,
+      request_text: @request.last_event_forming_initial_request.outgoing_message.body
     }
     if @request.user
       @request_data[:requestor_url] = make_url("user", @request.user.url_name)
     end
 
-    render :json => @request_data
+    render json: @request_data
   end
 
   def create_request
     json = ActiveSupport::JSON.decode(params[:request_json])
     request = InfoRequest.new(
-      :title => json["title"],
-      :public_body_id => @public_body.id,
-      :described_state => "waiting_response",
-      :external_user_name => json["external_user_name"],
-      :external_url => json["external_url"]
+      title: json["title"],
+      public_body_id: @public_body.id,
+      described_state: "waiting_response",
+      external_user_name: json["external_user_name"],
+      external_url: json["external_url"]
     )
 
     outgoing_message = OutgoingMessage.new(
-      :status => 'ready',
-      :message_type => 'initial_request',
-      :body => json["body"],
-      :last_sent_at => Time.zone.now,
-      :what_doing => 'normal_sort',
-      :info_request => request
+      status: 'ready',
+      message_type: 'initial_request',
+      body: json["body"],
+      last_sent_at: Time.zone.now,
+      what_doing: 'normal_sort',
+      info_request: request
     )
     request.outgoing_messages << outgoing_message
 
     # Return an error if the request is invalid
     # (Can this ever happen?)
-    if !request.valid?
-      render :json => {
+    unless request.valid?
+      render json: {
         'errors' => request.errors.full_messages
       }
       return
@@ -71,7 +71,7 @@ class ApiController < ApplicationController
     request.set_described_state('waiting_response')
 
     # Return the URL and ID number.
-    render :json => {
+    render json: {
       'url' => make_url("request", request.url_title),
       'id'  => request.id
     }
@@ -88,7 +88,7 @@ class ApiController < ApplicationController
 
     errors = []
 
-    if !["request", "response"].include?(direction)
+    unless %w[request response].include?(direction)
       errors << "The direction parameter must be 'request' or 'response'"
     end
 
@@ -106,8 +106,8 @@ class ApiController < ApplicationController
       errors << "'#{new_state}' is not a valid request state"
     end
 
-    if !errors.empty?
-      render :json => { "errors" => errors }, :status => 500
+    unless errors.empty?
+      render json: { "errors" => errors }, status: 500
       return
     end
 
@@ -115,12 +115,12 @@ class ApiController < ApplicationController
       # In the 'request' direction, i.e. what we (Alaveteli) regard as outgoing
 
       outgoing_message = OutgoingMessage.new(
-        :info_request => @request,
-        :status => 'ready',
-        :message_type => 'followup',
-        :body => body,
-        :last_sent_at => sent_at,
-        :what_doing => 'normal_sort'
+        info_request: @request,
+        status: 'ready',
+        message_type: 'followup',
+        body: body,
+        last_sent_at: sent_at,
+        what_doing: 'normal_sort'
       )
       @request.outgoing_messages << outgoing_message
       @request.save!
@@ -134,14 +134,14 @@ class ApiController < ApplicationController
     else
       # In the 'response' direction, i.e. what we (Alaveteli) regard as incoming
       attachment_hashes = []
-      (attachments || []).each_with_index do |attachment, i|
+      (attachments || []).each_with_index do |attachment, _i|
         filename = File.basename(attachment.original_filename)
         attachment_body = attachment.read
         content_type = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, attachment_body) || 'application/octet-stream'
         attachment_hashes.push(
-          :content_type => content_type,
-          :body => attachment_body,
-          :filename => filename
+          content_type: content_type,
+          body: attachment_body,
+          filename: filename
         )
       end
 
@@ -149,7 +149,7 @@ class ApiController < ApplicationController
 
       @request.receive(mail,
                        mail.encoded,
-                       { :override_stop_new_responses => true })
+                       { override_stop_new_responses: true })
 
       if new_state
         # we've already checked above that the status is valid
@@ -163,8 +163,8 @@ class ApiController < ApplicationController
         @request.set_described_state(new_state)
       end
     end
-    render :json => {
-      'url' => make_url("request", @request.url_title),
+    render json: {
+      'url' => make_url("request", @request.url_title)
     }
   end
 
@@ -182,21 +182,23 @@ class ApiController < ApplicationController
         @request.set_described_state(new_state)
       end
     else
-      render :json => {
+      render json: {
         "errors" => ["'#{new_state}' is not a valid request state" ]
       },
-        :status => 500
+        status: 500
       return
     end
 
-    render :json => {
-      'url' => make_url("request", @request.url_title),
+    render json: {
+      'url' => make_url("request", @request.url_title)
     }
   end
 
   def body_request_events
     feed_type = params[:feed_type]
-    raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
+    if @public_body.id != params[:id].to_i
+      raise PermissionDenied, "#{@public_body.id} != #{params[:id]}"
+    end
 
     since_date_str = params[:since_date]
     since_event_id = params[:since_event_id]
@@ -206,17 +208,17 @@ class ApiController < ApplicationController
     @events = InfoRequestEvent.where(event_type_clause).
       joins(:info_request).
         where("public_body_id = ?", @public_body.id).
-          includes([{:info_request => :user}, :outgoing_message]).
+          includes([{info_request: :user}, :outgoing_message]).
             order(created_at: :desc)
 
     if since_date_str
       begin
         since_date = Date.strptime(since_date_str, "%Y-%m-%d")
       rescue ArgumentError
-        render :json => {"errors" => [
+        render json: {"errors" => [
           "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')"
         ] },
-          :status => 500
+          status: 500
         return
       end
       @events = @events.where("info_request_events.created_at >= ?", since_date)
@@ -228,10 +230,10 @@ class ApiController < ApplicationController
       begin
         event = InfoRequestEvent.find(since_event_id)
       rescue ActiveRecord::RecordNotFound
-        render :json => {"errors" => [
+        render json: {"errors" => [
           "Event ID #{since_event_id} not found"
         ] },
-          :status => 500
+          status: 500
         return
       end
       @events = @events.where("info_request_events.created_at > ?", event.created_at)
@@ -239,38 +241,36 @@ class ApiController < ApplicationController
 
 
     if feed_type == "atom"
-      render :template => "api/request_events", :formats => [:atom], :layout => false
+      render template: "api/request_events", formats: [:atom], layout: false
     elsif feed_type == "json"
       @event_data = []
-      @events.each do |event|
+      @events.each do |json_event|
 
-        request = event.info_request
+        request = json_event.info_request
         this_event = {
-          :request_id => request.id,
-          :event_id => event.id,
-          :created_at => event.created_at.iso8601,
-          :event_type => event.event_type,
-          :request_url =>  request_url(request),
-          :request_email => request.incoming_email,
-          :title => request.title,
-          :body => event.outgoing_message.body,
-          :user_name => request.user_name,
+          request_id: request.id,
+          event_id: json_event.id,
+          created_at: json_event.created_at.iso8601,
+          event_type: json_event.event_type,
+          request_url: request_url(request),
+          request_email: request.incoming_email,
+          title: request.title,
+          body: json_event.outgoing_message.body,
+          user_name: request.user_name
         }
-        if request.user
-          this_event[:user_url] = user_url(request.user)
-        end
+        this_event[:user_url] = user_url(request.user) if request.user
 
         @event_data.push(this_event)
       end
-      render :json => @event_data
+      render json: @event_data
     else
-      raise ActiveRecord::RecordNotFound.new("Unrecognised feed type: #{feed_type}")
+      raise ActiveRecord::RecordNotFound, "Unrecognised feed type: #{feed_type}"
     end
   end
 
   protected
   def check_api_key
-    raise PermissionDenied.new("Missing required parameter 'k'") if params[:k].nil?
+    raise PermissionDenied, "Missing required parameter 'k'" if params[:k].nil?
     @public_body = PublicBody.find_by_api_key(params[:k].gsub(' ', '+'))
     raise PermissionDenied if @public_body.nil?
   end
@@ -278,20 +278,20 @@ class ApiController < ApplicationController
   def check_external_request
     @request = InfoRequest.find_by_id(params[:id])
     if @request.nil?
-      render :json => { "errors" => ["Could not find request #{params[:id]}"] }, :status => 404
+      render json: { "errors" => ["Could not find request #{params[:id]}"] }, status: 404
     elsif !@request.is_external?
-      render :json => { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, :status => 403
+      render json: { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, status: 403
     end
   end
 
   def check_request_ownership
     if @request.public_body_id != @public_body.id
-      render :json => { "errors" => ["You do not own request #{params[:id]}"] }, :status => 403
+      render json: { "errors" => ["You do not own request #{params[:id]}"] }, status: 403
     end
   end
 
   private
   def make_url(*args)
-    "http://" + AlaveteliConfiguration::domain + "/" + args.join("/")
+    "http://" + AlaveteliConfiguration.domain + "/" + args.join("/")
   end
 end

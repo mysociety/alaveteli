@@ -1,7 +1,7 @@
 namespace :submodules do
 
   desc "Check the status of the project's submodules"
-  task :check => :environment do
+  task check: :environment do
     commit_info = `git submodule status commonlib`
     case commit_info[0,1]
     when '+'

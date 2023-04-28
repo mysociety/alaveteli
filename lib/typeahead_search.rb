@@ -34,13 +34,13 @@ class TypeaheadSearch
 
   def options
     {
-      :offset => (@page - 1) * @per_page,
-      :limit => @per_page,
-      :sort_by_prefix => nil,
-      :sort_by_ascending => true,
-      :collapse_by_prefix => collapse?,
-      :wildcard => @wildcard,
-      :model => @model
+      offset: (@page - 1) * @per_page,
+      limit: @per_page,
+      sort_by_prefix: nil,
+      sort_by_ascending: true,
+      collapse_by_prefix: collapse?,
+      wildcard: @wildcard,
+      model: @model
     }
   end
 
@@ -58,9 +58,7 @@ class TypeaheadSearch
     end
 
     # don't run a search if there's no query
-    if @query.blank?
-      @run_search = false
-    end
+    @run_search = false if @query.blank?
 
   end
 

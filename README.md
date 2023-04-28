@@ -35,11 +35,13 @@ see [the project website](http://alaveteli.org) for instructions on installing A
 
 ## Compatibility
 
-Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/develop/.github/workflows/ci.yml#L15)
+Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/develop/.github/workflows/ci.yml#L27-L29)
 
-* ruby-2.7
+* ruby-3.0
+* ruby-3.1
+* ruby-3.2
 
-If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the Alaveteli team (currently 2.7.4), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
+If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the Alaveteli team (currently 3.0.4), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
 
 ## How to contribute
 

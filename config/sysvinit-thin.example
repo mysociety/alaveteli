@@ -19,9 +19,11 @@ SITE_HOME=<%= vhost_dir %>/<%= vcspath %>
 DESC="Alaveteli app server"
 USER=<%= user %>
 CPUS=<%= cpus %>
-# Set RAILS_ENV - not needed if using config/rails_env.rb
-# RAILS_ENV=<%= rails_env %>
-# export RAILS_ENV
+
+<% unless rails_env_defined? %>
+RAILS_ENV=<%= rails_env %>
+export RAILS_ENV
+<% end %>
 
 CMD="bundle exec thin"
 

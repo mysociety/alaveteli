@@ -73,7 +73,7 @@ RSpec.describe AdminCensorRuleController do
       let(:info_request) { FactoryBot.create(:info_request) }
 
       before do
-        get :new, params: { :request_id => info_request.id }
+        get :new, params: { request_id: info_request.id }
       end
 
       it 'returns a successful response' do
@@ -108,7 +108,7 @@ RSpec.describe AdminCensorRuleController do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        get :new, params: { :user_id => user.id }
+        get :new, params: { user_id: user.id }
       end
 
       it 'returns a successful response' do
@@ -143,7 +143,7 @@ RSpec.describe AdminCensorRuleController do
       let(:public_body) { FactoryBot.create(:public_body) }
 
       before do
-        get :new, params: { :body_id => public_body.id }
+        get :new, params: { body_id: public_body.id }
       end
 
       it 'returns a successful response' do
@@ -187,7 +187,7 @@ RSpec.describe AdminCensorRuleController do
       end
 
       def create_censor_rule
-        post :create, params: { :censor_rule => censor_rule_params }
+        post :create, params: { censor_rule: censor_rule_params }
       end
 
       it 'sets the last_edit_editor to the current admin' do
@@ -269,32 +269,32 @@ RSpec.describe AdminCensorRuleController do
 
       it 'sets the last_edit_editor to the current admin' do
         post :create, params: {
-                        :request_id => info_request.id,
-                        :censor_rule => censor_rule_params
+                        request_id: info_request.id,
+                        censor_rule: censor_rule_params
                       }
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
       end
 
       it 'finds an info request if the request_id param is supplied' do
         post :create, params: {
-                        :request_id => info_request.id,
-                        :censor_rule => censor_rule_params
+                        request_id: info_request.id,
+                        censor_rule: censor_rule_params
                       }
         expect(assigns[:info_request]).to eq(info_request)
       end
 
       it 'associates the info request with the new censor rule' do
         post :create, params: {
-                        :request_id => info_request.id,
-                        :censor_rule => censor_rule_params
+                        request_id: info_request.id,
+                        censor_rule: censor_rule_params
                       }
         expect(assigns[:censor_rule].info_request).to eq(info_request)
       end
 
       it 'sets the URL for the form to POST to' do
         post :create, params: {
-                        :request_id => info_request.id,
-                        :censor_rule => censor_rule_params
+                        request_id: info_request.id,
+                        censor_rule: censor_rule_params
                       }
         expect(assigns[:form_url]).
           to eq(admin_request_censor_rules_path(info_request))
@@ -304,16 +304,16 @@ RSpec.describe AdminCensorRuleController do
 
         it 'persists the censor rule' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :request_id => info_request.id
+                          censor_rule: censor_rule_params,
+                          request_id: info_request.id
                         }
           expect(assigns[:censor_rule]).to be_persisted
         end
 
         it 'confirms the censor rule is created' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :request_id => info_request.id
+                          censor_rule: censor_rule_params,
+                          request_id: info_request.id
                         }
           msg = 'Censor rule was successfully created.'
           expect(flash[:notice]).to eq(msg)
@@ -322,15 +322,15 @@ RSpec.describe AdminCensorRuleController do
         it 'calls expire_requests on the new censor_rule' do
           allow(InfoRequest).to receive(:find).and_return(info_request)
           censor_rule_spy = FactoryBot.build(:info_request_censor_rule,
-                                             :info_request => info_request)
+                                             info_request: info_request)
           allow(info_request.censor_rules).to receive(:build).
             and_return(censor_rule_spy)
 
           allow(censor_rule_spy).to receive(:expire_requests)
 
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :request_id => info_request.id
+                          censor_rule: censor_rule_params,
+                          request_id: info_request.id
                         }
 
           expect(censor_rule_spy).to have_received(:expire_requests)
@@ -338,8 +338,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'redirects to the associated info request' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :request_id => info_request.id
+                          censor_rule: censor_rule_params,
+                          request_id: info_request.id
                         }
           expect(response).to redirect_to(
             admin_request_path(assigns[:censor_rule].info_request)
@@ -355,16 +355,16 @@ RSpec.describe AdminCensorRuleController do
 
         it 'does not persist the censor rule' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :request_id => info_request.id
+                          censor_rule: censor_rule_params,
+                          request_id: info_request.id
                         }
           expect(assigns[:censor_rule]).to be_new_record
         end
 
         it 'renders the form' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :request_id => info_request.id
+                          censor_rule: censor_rule_params,
+                          request_id: info_request.id
                         }
           expect(response).to render_template('new')
         end
@@ -377,7 +377,7 @@ RSpec.describe AdminCensorRuleController do
       let(:user) { FactoryBot.create(:user) }
 
       let(:censor_rule_params) do
-        params = FactoryBot.attributes_for(:user_censor_rule, :user => user)
+        params = FactoryBot.attributes_for(:user_censor_rule, user: user)
         # last_edit_editor gets set in the controller
         params.delete(:last_edit_editor)
         params
@@ -385,8 +385,8 @@ RSpec.describe AdminCensorRuleController do
 
       def create_censor_rule
         post :create, params: {
-                        :user_id => user.id,
-                        :censor_rule => censor_rule_params
+                        user_id: user.id,
+                        censor_rule: censor_rule_params
                       }
       end
 
@@ -415,7 +415,7 @@ RSpec.describe AdminCensorRuleController do
         it 'calls expire_requests on the new censor_rule' do
           allow(User).to receive(:find) { user }
           censor_rule = FactoryBot.build(:user_censor_rule,
-                                         :user => user)
+                                         user: user)
           allow(user.censor_rules).to receive(:build) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
 
@@ -441,16 +441,16 @@ RSpec.describe AdminCensorRuleController do
 
         it 'does not persist the censor rule' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :user_id => user.id
+                          censor_rule: censor_rule_params,
+                          user_id: user.id
                         }
           expect(assigns[:censor_rule]).to be_new_record
         end
 
         it 'renders the form' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :user_id => user.id
+                          censor_rule: censor_rule_params,
+                          user_id: user.id
                         }
           expect(response).to render_template('new')
         end
@@ -472,8 +472,8 @@ RSpec.describe AdminCensorRuleController do
 
       before(:each) do
         post :create, params: {
-                        :body_id => public_body.id,
-                        :censor_rule => censor_rule_params
+                        body_id: public_body.id,
+                        censor_rule: censor_rule_params
                       }
       end
 
@@ -498,16 +498,16 @@ RSpec.describe AdminCensorRuleController do
 
         it 'persists the censor rule' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :body_id => public_body.id
+                          censor_rule: censor_rule_params,
+                          body_id: public_body.id
                         }
           expect(assigns[:censor_rule]).to be_persisted
         end
 
         it 'confirms the censor rule is created' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :body_id => public_body.id
+                          censor_rule: censor_rule_params,
+                          body_id: public_body.id
                         }
           msg = 'Censor rule was successfully created.'
           expect(flash[:notice]).to eq(msg)
@@ -516,13 +516,13 @@ RSpec.describe AdminCensorRuleController do
         it 'calls expire_requests on the new censor_rule' do
           allow(PublicBody).to receive(:find) { public_body }
           censor_rule = FactoryBot.build(:public_body_censor_rule,
-                                         :public_body => public_body)
+                                         public_body: public_body)
           allow(public_body.censor_rules).to receive(:build) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
 
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :body_id => public_body.id
+                          censor_rule: censor_rule_params,
+                          body_id: public_body.id
                         }
 
           expect(censor_rule).to have_received(:expire_requests)
@@ -530,8 +530,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'redirects to the associated public body' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :body_id => public_body.id
+                          censor_rule: censor_rule_params,
+                          body_id: public_body.id
                         }
           expect(response).to redirect_to(
             admin_body_path(assigns[:censor_rule].public_body)
@@ -547,16 +547,16 @@ RSpec.describe AdminCensorRuleController do
 
         it 'does not persist the censor rule' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :body_id => public_body.id
+                          censor_rule: censor_rule_params,
+                          body_id: public_body.id
                         }
           expect(assigns[:censor_rule]).to be_new_record
         end
 
         it 'renders the form' do
           post :create, params: {
-                          :censor_rule => censor_rule_params,
-                          :body_id => public_body.id
+                          censor_rule: censor_rule_params,
+                          body_id: public_body.id
                         }
           expect(response).to render_template('new')
         end
@@ -573,17 +573,17 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'returns a successful response' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to be_successful
       end
 
       it 'renders the correct template' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to render_template('edit')
       end
 
       it 'finds the correct censor rule to edit' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
@@ -594,17 +594,17 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'returns a successful response' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to be_successful
       end
 
       it 'renders the correct template' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to render_template('edit')
       end
 
       it 'finds the correct censor rule to edit' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
@@ -615,17 +615,17 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'returns a successful response' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to be_successful
       end
 
       it 'renders the correct template' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to render_template('edit')
       end
 
       it 'finds the correct censor rule to edit' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
@@ -636,17 +636,17 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'returns a successful response' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to be_successful
       end
 
       it 'renders the correct template' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(response).to render_template('edit')
       end
 
       it 'finds the correct censor rule to edit' do
-        get :edit, params: { :id => censor_rule.id }
+        get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
@@ -662,8 +662,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'finds the correct censor rule to edit' do
         put :update, params: {
-                      :id => censor_rule.id,
-                      :censor_rule => { :text => 'different text' }
+                      id: censor_rule.id,
+                      censor_rule: { text: 'different text' }
                     }
 
         expect(assigns[:censor_rule]).to eq(censor_rule)
@@ -671,8 +671,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'sets the last_edit_editor to the current admin' do
         put :update, params: {
-                       :id => censor_rule.id,
-                       :censor_rule => { :text => 'different text' }
+                       id: censor_rule.id,
+                       censor_rule: { text: 'different text' }
                      }
 
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
@@ -682,8 +682,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'updates the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('different text')
@@ -691,8 +691,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'confirms the censor rule is updated' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
@@ -702,8 +702,8 @@ RSpec.describe AdminCensorRuleController do
           allow(CensorRule).to receive(:find) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(censor_rule).to have_received(:expire_requests)
@@ -711,8 +711,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'redirects to the censor rule index' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to redirect_to(admin_censor_rules_path)
@@ -728,8 +728,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'does not update the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('some text to redact')
@@ -737,8 +737,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'renders the form' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to render_template('edit')
@@ -754,8 +754,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'finds the correct censor rule to edit' do
         put :update, params: {
-                       :id => censor_rule.id,
-                       :censor_rule => { :text => 'different text' }
+                       id: censor_rule.id,
+                       censor_rule: { text: 'different text' }
                      }
 
         expect(assigns[:censor_rule]).to eq(censor_rule)
@@ -763,8 +763,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'sets the last_edit_editor to the current admin' do
         put :update, params: {
-                       :id => censor_rule.id,
-                       :censor_rule => { :text => 'different text' }
+                       id: censor_rule.id,
+                       censor_rule: { text: 'different text' }
                      }
 
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
@@ -774,8 +774,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'updates the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('different text')
@@ -783,8 +783,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'confirms the censor rule is updated' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
@@ -794,8 +794,8 @@ RSpec.describe AdminCensorRuleController do
           allow(CensorRule).to receive(:find) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(censor_rule).to have_received(:expire_requests)
@@ -803,8 +803,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'redirects to the associated info request' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to redirect_to(
@@ -822,8 +822,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'does not update the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('some text to redact')
@@ -831,8 +831,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'renders the form' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to render_template('edit')
@@ -848,8 +848,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'finds the correct censor rule to edit' do
         put :update, params: {
-                       :id => censor_rule.id,
-                       :censor_rule => { :text => 'different text' }
+                       id: censor_rule.id,
+                       censor_rule: { text: 'different text' }
                      }
 
         expect(assigns[:censor_rule]).to eq(censor_rule)
@@ -857,8 +857,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'sets the last_edit_editor to the current admin' do
         put :update, params: {
-                       :id => censor_rule.id,
-                       :censor_rule => { :text => 'different text' }
+                       id: censor_rule.id,
+                       censor_rule: { text: 'different text' }
                      }
 
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
@@ -867,8 +867,8 @@ RSpec.describe AdminCensorRuleController do
       context 'successfully saving the censor rule' do
         it 'updates the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('different text')
@@ -876,8 +876,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'confirms the censor rule is updated' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
@@ -887,8 +887,8 @@ RSpec.describe AdminCensorRuleController do
           allow(CensorRule).to receive(:find) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(censor_rule).to have_received(:expire_requests)
@@ -896,8 +896,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'redirects to the associated info request' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to redirect_to(
@@ -914,8 +914,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'does not update the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('some text to redact')
@@ -923,8 +923,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'renders the form' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to render_template('edit')
@@ -940,8 +940,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'finds the correct censor rule to edit' do
         put :update, params: {
-                       :id => censor_rule.id,
-                       :censor_rule => { :text => 'different text' }
+                       id: censor_rule.id,
+                       censor_rule: { text: 'different text' }
                      }
 
         expect(assigns[:censor_rule]).to eq(censor_rule)
@@ -949,8 +949,8 @@ RSpec.describe AdminCensorRuleController do
 
       it 'sets the last_edit_editor to the current admin' do
         put :update, params: {
-                       :id => censor_rule.id,
-                       :censor_rule => { :text => 'different text' }
+                       id: censor_rule.id,
+                       censor_rule: { text: 'different text' }
                      }
 
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
@@ -960,8 +960,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'updates the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('different text')
@@ -969,8 +969,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'confirms the censor rule is updated' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
@@ -980,8 +980,8 @@ RSpec.describe AdminCensorRuleController do
           allow(CensorRule).to receive(:find) { censor_rule }
           allow(censor_rule).to receive(:expire_requests)
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(censor_rule).to have_received(:expire_requests)
@@ -989,8 +989,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'redirects to the associated public body' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to redirect_to(
@@ -1008,8 +1008,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'does not update the censor rule' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
           censor_rule.reload
           expect(censor_rule.text).to eq('some text to redact')
@@ -1017,8 +1017,8 @@ RSpec.describe AdminCensorRuleController do
 
         it 'renders the form' do
           put :update, params: {
-                         :id => censor_rule.id,
-                         :censor_rule => { :text => 'different text' }
+                         id: censor_rule.id,
+                         censor_rule: { text: 'different text' }
                        }
 
           expect(response).to render_template('edit')
@@ -1037,18 +1037,18 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
       it 'confirms the censor rule is destroyed in all cases' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         msg = 'Censor rule was successfully destroyed.'
         expect(flash[:notice]).to eq(msg)
       end
 
       it 'redirects to the censor rules index' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(response).to redirect_to(admin_censor_rules_path)
       end
 
@@ -1059,12 +1059,12 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
       it 'confirms the censor rule is destroyed in all cases' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         msg = 'Censor rule was successfully destroyed.'
         expect(flash[:notice]).to eq(msg)
       end
@@ -1072,13 +1072,13 @@ RSpec.describe AdminCensorRuleController do
       it 'calls expire_requests on the censor rule' do
         expect(CensorRule).to receive(:find) { censor_rule }
         allow(censor_rule).to receive(:expire_requests)
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
 
         expect(censor_rule).to have_received(:expire_requests)
       end
 
       it 'redirects to the associated info request' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(response).
           to redirect_to(admin_request_path(censor_rule.info_request))
       end
@@ -1090,12 +1090,12 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
       it 'confirms the censor rule is destroyed in all cases' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         msg = 'Censor rule was successfully destroyed.'
         expect(flash[:notice]).to eq(msg)
       end
@@ -1103,13 +1103,13 @@ RSpec.describe AdminCensorRuleController do
       it 'calls expire_requests on the censor rule' do
         expect(CensorRule).to receive(:find) { censor_rule }
         allow(censor_rule).to receive(:expire_requests)
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
 
         expect(censor_rule).to have_received(:expire_requests)
       end
 
       it 'redirects to the associated info request' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(response).to redirect_to(admin_user_path(censor_rule.user))
       end
 
@@ -1120,12 +1120,12 @@ RSpec.describe AdminCensorRuleController do
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
 
       it 'confirms the censor rule is destroyed in all cases' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         msg = 'Censor rule was successfully destroyed.'
         expect(flash[:notice]).to eq(msg)
       end
@@ -1133,13 +1133,13 @@ RSpec.describe AdminCensorRuleController do
       it 'calls expire_requests on the censor rule' do
         expect(CensorRule).to receive(:find) { censor_rule }
         allow(censor_rule).to receive(:expire_requests)
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
 
         expect(censor_rule).to have_received(:expire_requests)
       end
 
       it 'redirects to the associated public body' do
-        delete :destroy, params: { :id => censor_rule.id }
+        delete :destroy, params: { id: censor_rule.id }
         expect(response).
           to redirect_to(admin_body_path(censor_rule.public_body))
       end

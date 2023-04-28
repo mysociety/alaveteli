@@ -17,5 +17,5 @@
 
 class MailServerLogDone < ApplicationRecord
   has_many :mail_server_logs,
-           :inverse_of => :mail_server_log_done
+           inverse_of: :mail_server_log_done
 end

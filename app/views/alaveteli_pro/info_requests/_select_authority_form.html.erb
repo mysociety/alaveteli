@@ -1,10 +1,11 @@
 <form action="<%= alaveteli_pro_select_authority_path %>"
       method="get"
       class="new_info_request">
-  <p id="to_public_body" class="to_public_body">
-    <label for="public_body_query">
+  <div id="to_public_body" class="to_public_body">
+    <label for="public_body_query" class="form_label">
       <span class="to_public_body_label"><%= _('To') %></span>
     </label>
+
     <input type="text"
            name="query"
            id="public_body_query"
@@ -23,7 +24,7 @@
     <%= link_to _('or start a batch request'),
                 alaveteli_pro_batch_request_authority_searches_path,
                 class: 'pro_batch_link' %>
-  </p>
+  </div>
 </form>
 
 <% if @info_request.public_body && @info_request.public_body.has_notes? %>

@@ -17,7 +17,7 @@ class InfoRequest
 
       # Is this request hidden from some people?
       def is_private?
-        return %w(hidden requester_only).include?(to_s) || @info_request.embargo.present?
+        %w(hidden requester_only).include?(to_s) || @info_request.embargo.present?
       end
 
       # Is this request visible only to admins and the requester?

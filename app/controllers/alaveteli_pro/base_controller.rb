@@ -21,7 +21,7 @@ class AlaveteliPro::BaseController < ApplicationController
       }
     end
     if !authenticated?
-      ask_to_login(reason_params)
+      ask_to_login(**reason_params)
     else
       unless current_user.is_pro?
         redirect_to(
@@ -35,7 +35,7 @@ class AlaveteliPro::BaseController < ApplicationController
       end
       return true
     end
-    return false
+    false
   end
 
   # An override of set_in_pro_area from ApplicationController, because we are

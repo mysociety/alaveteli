@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20220408125559
+# Schema version: 20230127132719
 #
 # Table name: info_request_events
 #
 #  id                  :integer          not null, primary key
 #  info_request_id     :integer          not null
 #  event_type          :text             not null
-#  params_yaml         :text             not null
 #  created_at          :datetime         not null
 #  described_state     :string
 #  calculated_state    :string
@@ -47,7 +46,7 @@ FactoryBot.define do
         event.info_request = event.outgoing_message.info_request
       end
 
-      after(:create) do |evnt, evaluator|
+      after(:create) do |evnt, _evaluator|
         evnt.params = evnt.params.merge(
           outgoing_message_id: evnt.outgoing_message.id
         )
@@ -108,7 +107,7 @@ FactoryBot.define do
         event.info_request = event.outgoing_message.info_request
       end
 
-      after(:create) do |evnt, evaluator|
+      after(:create) do |evnt, _evaluator|
         evnt.params = evnt.params.merge(
           outgoing_message_id: evnt.outgoing_message.id
         )

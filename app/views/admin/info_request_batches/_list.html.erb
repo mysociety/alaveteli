@@ -1,0 +1,9 @@
+<div id="batch-requests">
+  <% if info_request_batches.any? %>
+    <%= render partial: 'admin/info_request_batches/info_request_batch',
+               collection: info_request_batches %>
+  <% else %>
+    <p>None yet.</p>
+  <% end %>
+</div>
+

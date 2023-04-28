@@ -64,10 +64,6 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  # Use an evented file watcher to asynchronously detect changes in source code,
-  # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
@@ -92,7 +88,8 @@ Rails.application.configure do
   if AlaveteliConfiguration.use_mailcatcher_in_development
     # So is queued, rather than giving immediate errors
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+    smtp = URI.parse(ENV.fetch('SMTP_URL', 'smtp://localhost:1025'))
+    config.action_mailer.smtp_settings = { address: smtp.host, port: smtp.port }
   else
     config.action_mailer.delivery_method = :sendmail
   end

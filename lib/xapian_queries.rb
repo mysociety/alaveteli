@@ -20,10 +20,8 @@ module XapianQueries
         varieties << ['variety:comment']
       end
     end
-    if !varieties.empty?
-      query = " (#{varieties.join(' OR ')})"
-    end
-    return query
+    query = " (#{varieties.join(' OR ')})" unless varieties.empty?
+    query
   end
 
   def get_status_from_params(params)
@@ -54,25 +52,23 @@ module XapianQueries
       if params[:latest_status].include? "gone_postal"
         statuses << ['latest_status:gone_postal']
       end
-      if !statuses.empty?
-        query = " (#{statuses.join(' OR ')})"
-      end
+      query = " (#{statuses.join(' OR ')})" unless statuses.empty?
     end
-    return query
+    query
   end
 
   def get_date_range_from_params(params)
     query = ""
-    if params.has_key?(:request_date_after) && !params.has_key?(:request_date_before)
+    if params.key?(:request_date_after) && !params.key?(:request_date_before)
       params[:request_date_before] = Time.zone.now.strftime("%d/%m/%Y")
       query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
-    elsif !params.has_key?(:request_date_after) && params.has_key?(:request_date_before)
+    elsif !params.key?(:request_date_after) && params.key?(:request_date_before)
       params[:request_date_after] = "01/01/2001"
     end
-    if params.has_key?(:request_date_after)
+    if params.key?(:request_date_after)
       query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
     end
-    return query
+    query
   end
 
   def make_query_from_params(params)

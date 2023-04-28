@@ -8,7 +8,7 @@ RSpec.describe User, " when indexing users with Xapian" do
   end
 
   it "should search by name" do
-    xapian_object = ActsAsXapian::Search.new([User], "Silly", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([User], "Silly", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     expect(xapian_object.results[0][:model]).to eq(users(:silly_name_user))
   end
@@ -16,7 +16,7 @@ RSpec.describe User, " when indexing users with Xapian" do
   it "should search by 'about me' text" do
     user = users(:bob_smith_user)
 
-    xapian_object = ActsAsXapian::Search.new([User], "stuff", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([User], "stuff", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     expect(xapian_object.results[0][:model]).to eq(user)
 
@@ -24,10 +24,10 @@ RSpec.describe User, " when indexing users with Xapian" do
     user.save!
     update_xapian_index
 
-    xapian_object = ActsAsXapian::Search.new([User], "stuff", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([User], "stuff", limit: 100)
     expect(xapian_object.results.size).to eq(0)
 
-    xapian_object = ActsAsXapian::Search.new([User], "aardvark", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([User], "aardvark", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     expect(xapian_object.results[0][:model]).to eq(user)
   end
@@ -40,26 +40,26 @@ RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
   end
 
   it "should search index the main name field" do
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "humpadinking", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "humpadinking", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     expect(xapian_object.results[0][:model]).to eq(public_bodies(:humpadink_public_body))
   end
 
   it "should search index the notes field" do
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "albatross", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "albatross", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     expect(xapian_object.results[0][:model]).to eq(public_bodies(:humpadink_public_body))
   end
 
   it "should delete public bodies from the index when they are destroyed" do
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "albatross", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "albatross", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     expect(xapian_object.results[0][:model]).to eq(public_bodies(:humpadink_public_body))
 
     public_bodies(:forlorn_public_body).destroy
 
     update_xapian_index
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "lonely", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "lonely", limit: 100)
     expect(xapian_object.results).to eq([])
   end
 
@@ -67,19 +67,21 @@ end
 
 RSpec.describe PublicBody, " when indexing requests by body they are to" do
 
+  include ActiveJob::TestHelper
+
   before(:each) do
     load_raw_emails_data
     update_xapian_index
   end
 
   it "should find requests to the body" do
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", limit: 100)
     expect(xapian_object.results.size).to eq(PublicBody.find_by_url_name("tgq").info_requests.map(&:info_request_events).flatten.size)
   end
 
   it "should update index correctly when URL name of body changes" do
     # initial search
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", limit: 100)
     expect(xapian_object.results.size).to eq(PublicBody.find_by_url_name("tgq").info_requests.map(&:info_request_events).flatten.size)
     models_found_before = xapian_object.results.map { |x| x[:model] }
 
@@ -88,12 +90,13 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
     body.short_name = 'GQ'
     body.save!
     expect(body.url_name).to eq('gq')
+    perform_enqueued_jobs
     update_xapian_index
 
     # check we get results expected
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:gq", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:gq", limit: 100)
     expect(xapian_object.results.size).to eq(PublicBody.find_by_url_name("gq").info_requests.map(&:info_request_events).flatten.size)
     models_found_after = xapian_object.results.map { |x| x[:model] }
 
@@ -108,29 +111,32 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
     body.short_name = 'The Uncensored, Complete Name of the Quasi-Autonomous Public Body Also Known As Geraldine'
     body.save!
     expect(body.url_name.size).to be > 70
+    perform_enqueued_jobs
     update_xapian_index
 
     # check we get results expected
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:gq", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:gq", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:#{body.url_name}", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:#{body.url_name}", limit: 100)
     expect(xapian_object.results.size).to eq(public_bodies(:geraldine_public_body).info_requests.map(&:info_request_events).flatten.size)
     models_found_after = xapian_object.results.map { |x| x[:model] }
   end
 end
 
 RSpec.describe User, " when indexing requests by user they are from" do
+  include ActiveJob::TestHelper
+
   before(:each) do
     load_raw_emails_data
     update_xapian_index
   end
 
   it "should find requests from the user" do
-    options = { :sort_by_prefix => 'created_at',
-                :sort_by_ascending => true,
-                :limit => 100}
+    options = { sort_by_prefix: 'created_at',
+                sort_by_ascending: true,
+                limit: 100}
 
     xapian_object =
       ActsAsXapian::Search.
@@ -148,9 +154,9 @@ RSpec.describe User, " when indexing requests by user they are from" do
   end
 
   it "should find just the sent message events from a particular user" do
-    options = { :sort_by_prefix => 'created_at',
-                :sort_by_ascending => true,
-                :limit => 100 }
+    options = { sort_by_prefix: 'created_at',
+                sort_by_ascending: true,
+                limit: 100 }
 
     xapian_object =
       ActsAsXapian::Search.
@@ -180,10 +186,10 @@ RSpec.describe User, " when indexing requests by user they are from" do
 
     update_xapian_index
 
-    options = { :sort_by_prefix => 'created_at',
-                :sort_by_ascending => true,
-                :collapse_by_prefix => 'request_collapse',
-                :limit => 100 }
+    options = { sort_by_prefix: 'created_at',
+                sort_by_ascending: true,
+                collapse_by_prefix: 'request_collapse',
+                limit: 100 }
 
     xapian_object =
       ActsAsXapian::Search.
@@ -192,7 +198,7 @@ RSpec.describe User, " when indexing requests by user they are from" do
     results = xapian_object.results.map { |x| x[:model].info_request }
 
     expect(results).
-      to match_array(InfoRequest.where(:user_id => users(:bob_smith_user).id))
+      to match_array(InfoRequest.where(user_id: users(:bob_smith_user).id))
   end
 
   it "should not get confused searching for requests when one user has a name which has same stem as another" do
@@ -212,16 +218,16 @@ RSpec.describe User, " when indexing requests by user they are from" do
 
     update_xapian_index
 
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:john_k", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:john_k", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     expect(xapian_object.results[0][:model]).to eq(info_request_events(:silly_outgoing_message_event))
   end
 
   it "should update index correctly when URL name of user changes" do
     # initial search
-    options = { :sort_by_prefix => 'created_at',
-                :sort_by_ascending => true,
-                :limit => 100 }
+    options = { sort_by_prefix: 'created_at',
+                sort_by_ascending: true,
+                limit: 100 }
     xapian_object =
       ActsAsXapian::Search.
         new([InfoRequestEvent], "requested_by:bob_smith", options)
@@ -243,13 +249,14 @@ RSpec.describe User, " when indexing requests by user they are from" do
     u.name = 'Robert Smith'
     u.save!
     expect(u.url_name).to eq('robert_smith')
+    perform_enqueued_jobs
     update_xapian_index
 
     # check we get results expected
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:bob_smith", limit: 100)
     expect(xapian_object.results.size).to eq(0)
     xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_by:robert_smith",
-                                             :sort_by_prefix => 'created_at', :sort_by_ascending => true, :limit => 100)
+                                             sort_by_prefix: 'created_at', sort_by_ascending: true, limit: 100)
     models_found_after = xapian_object.results.map { |x| x[:model] }
     expect(models_found_before).to eq(models_found_after)
   end
@@ -262,13 +269,13 @@ RSpec.describe User, " when indexing comments by user they are by" do
   end
 
   it "should find requests from the user" do
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", limit: 100)
     expect(xapian_object.results.size).to eq(1)
   end
 
   it "should update index correctly when URL name of user changes" do
     # initial search
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     models_found_before = xapian_object.results.map { |x| x[:model] }
 
@@ -280,9 +287,9 @@ RSpec.describe User, " when indexing comments by user they are by" do
     update_xapian_index
 
     # check we get results expected
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_name", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     models_found_after = xapian_object.results.map { |x| x[:model] }
 
@@ -297,7 +304,7 @@ RSpec.describe InfoRequest, " when indexing requests by their title" do
   end
 
   it "should find events for the request" do
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
   end
@@ -311,9 +318,9 @@ RSpec.describe InfoRequest, " when indexing requests by their title" do
     update_xapian_index
 
     # check we get results expected
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:really_naughty", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:really_naughty", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
   end
@@ -331,11 +338,11 @@ RSpec.describe InfoRequest, " when indexing requests by tag" do
     ir.save!
     update_xapian_index
 
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "tag:bunnyrabbit", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "tag:bunnyrabbit", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
 
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "tag:orangeaardvark", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "tag:orangeaardvark", limit: 100)
     expect(xapian_object.results.size).to eq(0)
   end
 end
@@ -352,14 +359,14 @@ RSpec.describe PublicBody, " when indexing authorities by tag" do
     body.save!
     update_xapian_index
 
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice:3", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice:3", limit: 100)
     expect(xapian_object.results.size).to eq(1)
     xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)
 
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:orangeaardvark", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:orangeaardvark", limit: 100)
     expect(xapian_object.results.size).to eq(0)
   end
 end
@@ -381,11 +388,11 @@ RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
     values = false
     texts = false
     destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", limit: 100)
     expect(xapian_object.results.map { |x|x[:model] }).to match_array(PublicBody.all)
     # only reindex 'tag' and text
     dropfirst = true
@@ -393,31 +400,31 @@ RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
     values = false
     texts = true
     destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", limit: 100)
     expect(xapian_object.results.size).to eq(1)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", limit: 100)
     expect(xapian_object.results.size).to eq(1)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", limit: 100)
     expect(xapian_object.results.size).to eq(0)
     # only reindex 'variety' term, but keeping the existing data in-place
     dropfirst = false
     terms = "V"
     texts = false
     destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", limit: 100)
     expect(xapian_object.results.size).to eq(1)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", limit: 100)
     expect(xapian_object.results.size).to eq(1)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", limit: 100)
     expect(xapian_object.results.map { |x|x[:model] }).to match_array(PublicBody.all)
     # only reindex 'variety' term, blowing away existing data
     dropfirst = true
     destroy_and_rebuild_xapian_index(terms, values, texts, dropfirst)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "tag:mice", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "frobzn", limit: 100)
     expect(xapian_object.results.size).to eq(0)
-    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", :limit => 100)
+    xapian_object = ActsAsXapian::Search.new([PublicBody], "variety:authority", limit: 100)
     expect(xapian_object.results.map { |x|x[:model] }).to match_array(PublicBody.all)
   end
 end

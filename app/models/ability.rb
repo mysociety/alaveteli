@@ -4,8 +4,8 @@ class Ability
 
   attr_reader :user, :project, :public_token
 
-  def self.guest(*args)
-    new(nil, *args)
+  def self.guest(**args)
+    new(nil, **args)
   end
 
   def initialize(user, project: nil, public_token: false)
@@ -106,7 +106,7 @@ class Ability
         public_token
     end
 
-    can :manage, OutgoingMessage::Snippet do |request|
+    can :manage, OutgoingMessage::Snippet do |_request|
       user && user.is_admin?
     end
 
@@ -208,13 +208,9 @@ class Ability
     end
 
     if feature_enabled? :alaveteli_pro
-      if user && user.is_pro_admin?
-        can :read, :api_key
-      end
-    else
-      if user && user.is_admin?
-        can :read, :api_key
-      end
+      can :read, :api_key if user && user.is_pro_admin?
+    elsif user && user.is_admin?
+      can :read, :api_key
     end
 
     if feature_enabled? :projects

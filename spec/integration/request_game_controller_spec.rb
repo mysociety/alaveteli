@@ -9,7 +9,7 @@ RSpec.describe RequestGameController do
 
     it 'displays a thank you message on completion' do
       request = FactoryBot.create(:old_unclassified_request,
-                                  :title => "Awkward > Title")
+                                  title: "Awkward > Title")
       using_session(login(user)) do
         visit categorise_play_path
         click_link(request.title)
@@ -22,7 +22,7 @@ RSpec.describe RequestGameController do
                   "'#{request.title}'. There are some more requests below " \
                   "for you to classify."
 
-        expect(page).to have_link(request.title, :href => request_path(request))
+        expect(page).to have_link(request.title, href: request_path(request))
         expect(page).to have_content(message)
       end
     end

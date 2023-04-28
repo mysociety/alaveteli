@@ -1,8 +1,8 @@
 class AdminOutgoingMessageController < AdminController
 
-  before_action :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]
+  before_action :set_outgoing_message, only: [:edit, :destroy, :update, :resend]
   before_action :set_info_request, :check_info_request
-  before_action :set_is_initial_message, :only => [:edit, :destroy]
+  before_action :set_is_initial_message, only: [:edit, :destroy]
 
   def edit
   end
@@ -46,7 +46,7 @@ class AdminOutgoingMessageController < AdminController
       @outgoing_message.info_request.expire
       redirect_to admin_request_url(@outgoing_message.info_request)
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

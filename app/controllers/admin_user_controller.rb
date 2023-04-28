@@ -34,27 +34,30 @@ class AdminUserController < AdminController
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
-    if !@roles.empty?
+    unless @roles.empty?
       users = users.with_any_role(*@roles)
-      users = User.where(:id => users.map { |user| user.id })
+      users = User.where(id: users.map(&:id))
     end
 
     @admin_users =
       users.order(@sort_options[@sort_order]).
-        paginate(:page => params[:page], :per_page => 100)
+        paginate(page: params[:page], per_page: 100)
 
     render action: :index
   end
 
   def show
     @info_requests = @admin_user.info_requests
+    @info_request_batches = @admin_user.info_request_batches
     @comments = @admin_user.comments
+
     if cannot? :admin, AlaveteliPro::Embargo
       @info_requests = @info_requests.not_embargoed
+      @info_request_batches = @info_request_batches.not_embargoed
       @comments = @admin_user.comments.not_embargoed
     end
-    @info_requests = @info_requests.paginate(:page => params[:page],
-                                             :per_page => 100)
+
+    @info_requests = @info_requests.paginate(page: params[:page], per_page: 100)
   end
 
   def edit
@@ -78,7 +81,7 @@ class AdminUserController < AdminController
         redirect_to admin_user_url(@admin_user)
       end
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -111,9 +114,7 @@ class AdminUserController < AdminController
   end
 
   def clear_profile_photo
-    if @admin_user.profile_photo
-      @admin_user.profile_photo.destroy
-    end
+    @admin_user.profile_photo.destroy if @admin_user.profile_photo
 
     flash[:notice] = "Profile photo cleared"
     redirect_to admin_user_url(@admin_user)
@@ -162,25 +163,25 @@ class AdminUserController < AdminController
   # and requirements are met
   def check_role_authorisation
     all_allowed = changed_role_ids.all? do |role_id|
-      role = Role.where(:id => role_id).first
+      role = Role.where(id: role_id).first
       role && @user.can_admin_role?(role.name.to_sym)
     end
     unless all_allowed
       flash[:error] = "Not permitted to change roles"
-      render :action => 'edit' and return false
+      render action: 'edit' and return false
     end
   end
 
   def changed_role_ids
-    params[:admin_user][:role_ids].map! { |role_id| role_id.to_i }
+    params[:admin_user][:role_ids].map!(&:to_i)
     (params[:admin_user][:role_ids] - @admin_user.role_ids) |
       (@admin_user.role_ids - params[:admin_user][:role_ids])
   end
 
   def check_role_requirements
     role_names = Role.
-                   where(:id => params[:admin_user][:role_ids]).
-                     pluck(:name).map { |role| role.to_sym }
+                   where(id: params[:admin_user][:role_ids]).
+                     pluck(:name).map(&:to_sym)
     missing_required = Hash.new { |h, k| h[k] = [] }
     role_names.each do |role_name|
       Role.requires(role_name).each do |required_role_name|
@@ -194,7 +195,7 @@ class AdminUserController < AdminController
       missing_required.each do |key, value|
         flash[:error] += " #{key} requires #{value.to_sentence}"
       end
-      render :action => 'edit' and return false
+      render action: 'edit' and return false
     end
 
   end

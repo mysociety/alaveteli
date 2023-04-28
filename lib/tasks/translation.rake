@@ -26,13 +26,13 @@ namespace :translation do
   end
 
   desc "Create previews of translated emails"
-  task :preview_emails => :environment do
-    check_for_env_vars(['INFO_REQUEST_ID',
-                        'FOLLOW_UP_ID',
-                        'INCOMING_MESSAGE_ID',
-                        'COMMENT_ID',
-                        'TRACK_THING_ID',
-                        'DIR'], nil)
+  task preview_emails: :environment do
+    check_for_env_vars(%w[INFO_REQUEST_ID
+                          FOLLOW_UP_ID
+                          INCOMING_MESSAGE_ID
+                          COMMENT_ID
+                          TRACK_THING_ID
+                          DIR], nil)
     info_request = InfoRequest.find(ENV['INFO_REQUEST_ID'])
     if info_request.outgoing_messages.empty?
       raise "Info request #{info_request.id} does not have any outgoing messages"
@@ -148,10 +148,10 @@ namespace :translation do
 
     # track mailer
     xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
-                                             :sort_by_prefix => 'described_at',
-                                             :sort_by_ascending => true,
-                                             :collapse_by_prefix => nil,
-                                             :limit => 100)
+                                             sort_by_prefix: 'described_at',
+                                             sort_by_ascending: true,
+                                             collapse_by_prefix: nil,
+                                             limit: 100)
     event_digest_email = TrackMailer.event_digest(info_request.user,
                                                   [[track_thing,
                                                     xapian_object.results,
@@ -159,11 +159,11 @@ namespace :translation do
     write_email(event_digest_email, 'Alerts on things the user is tracking', output_file)
 
     # user mailer
-    site_name = AlaveteliConfiguration::site_name
+    site_name = AlaveteliConfiguration.site_name
     reasons = {
-      :web => "",
-      :email => _("Then you can sign in to {{site_name}}", :site_name => site_name),
-      :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
+      web: "",
+      email: _("Then you can sign in to {{site_name}}", site_name: site_name),
+      email_subject: _("Confirm your account on {{site_name}}", site_name: site_name)
     }
     confirm_login_email = UserMailer.confirm_login(info_request.user,
                                                    reasons,

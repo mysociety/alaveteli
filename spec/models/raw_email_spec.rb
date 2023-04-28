@@ -19,22 +19,11 @@ RSpec.describe RawEmail do
     raw_email.data
   end
 
-  describe 'before destroy callbacks' do
-    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
-
-    it 'should only delete the directory if it exists' do
-      expect(File).to receive(:delete).once.and_call_original
-      raw_email.run_callbacks(:destroy)
-      expect { raw_email.run_callbacks(:destroy) }.
-        not_to raise_error
-    end
-  end
-
   describe '#valid_to_reply_to?' do
     def test_email(result, email, empty_return_path, autosubmitted = nil)
-      stubs = { :from_email => email,
-                :empty_return_path? => empty_return_path,
-                :auto_submitted? => autosubmitted }
+      stubs = { from_email: email,
+                empty_return_path?: empty_return_path,
+                auto_submitted?: autosubmitted }
       raw_email = RawEmail.new
       stubs.each do |method, value|
         allow(raw_email).to receive(method).and_return(value)

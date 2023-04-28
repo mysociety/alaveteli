@@ -15,7 +15,7 @@ RSpec.describe "alaveteli_pro/info_request_batches/_authority_list" do
 
   it "escapes HTMLEntities in public body names" do
     render_html_partial(public_bodies)
-    # Note: using include not have_text to test the html entity is there
+    # NOTE: using include not have_text to test the html entity is there
     expect(response).to include("One &amp; Two")
     expect(response).not_to include("One & Two")
   end

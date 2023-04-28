@@ -88,5 +88,13 @@ RSpec.describe Admin::LinkHelper do
       it { is_expected.to include(comment_path(record)) }
       it { is_expected.to include(edit_admin_comment_path(record)) }
     end
+
+    context 'with a Blog Post' do
+      let(:record) { FactoryBot.create(:blog_post) }
+
+      it { is_expected.to include('icon-eye-open') }
+      it { is_expected.to include(record.url) }
+      it { is_expected.to include(edit_admin_blog_post_path(record)) }
+    end
   end
 end

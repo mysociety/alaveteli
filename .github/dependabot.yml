@@ -11,3 +11,8 @@ updates:
       - dependency-name: capistrano
         versions:
         - ">= 3.0.0"
+
+  - package-ecosystem: gitsubmodule
+    directory: "/"
+    schedule:
+      interval: daily

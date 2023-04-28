@@ -8,7 +8,7 @@ module User::Authentication
     attr_reader :password
     attr_accessor :password_confirmation
 
-    scope :sha1, lambda {
+    scope :sha1, -> {
       where("users.salt IS NOT NULL AND users.hashed_password NOT LIKE '$2a$%'")
     }
 

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -35,6 +35,8 @@
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
 #  login_token                       :string
+#  receive_user_messages             :boolean          default(TRUE), not null
+#  user_messages_count               :integer          default(0), not null
 #
 
 require 'spec_helper'
@@ -62,19 +64,19 @@ end
 RSpec.describe User, "banning the user" do
 
   it 'does not change the URL name' do
-    user = FactoryBot.create(:user, :name => 'nasty user 123')
-    user.update(:ban_text => 'You are banned')
+    user = FactoryBot.create(:user, name: 'nasty user 123')
+    user.update(ban_text: 'You are banned')
     expect(user.url_name).to eq('nasty_user_123')
   end
 
   it 'does not change the stored name' do
-    user = FactoryBot.create(:user, :name => 'nasty user 123')
-    user.update(:ban_text => 'You are banned')
+    user = FactoryBot.create(:user, name: 'nasty user 123')
+    user.update(ban_text: 'You are banned')
     expect(user.read_attribute(:name)).to eq('nasty user 123')
   end
 
   it 'appends a message to the name' do
-    user = FactoryBot.build(:user, :name => 'nasty user', :ban_text => 'banned')
+    user = FactoryBot.build(:user, name: 'nasty user', ban_text: 'banned')
     expect(user.name).to eq('nasty user (Account suspended)')
   end
 
@@ -458,7 +460,7 @@ RSpec.describe User, "when setting a profile photo" do
 
   it "should attach it to the user" do
     data = load_file_fixture("parrot.png")
-    profile_photo = ProfilePhoto.new(:data => data)
+    profile_photo = ProfilePhoto.new(data: data)
     @user.set_profile_photo(profile_photo)
     expect(profile_photo.user).to eq(@user)
   end
@@ -649,12 +651,12 @@ RSpec.describe User do
     end
 
     it 'is true if the user is an admin' do
-      admin = double(:is_admin? => true)
+      admin = double(is_admin?: true)
       expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
     end
 
     it 'is false if the user is not an admin' do
-      user = double(:is_admin? => false)
+      user = double(is_admin?: false)
       expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
     end
 
@@ -701,7 +703,7 @@ RSpec.describe User do
       user = User.new
       calculator =
         User::TransactionCalculator.
-          new(user, :transaction_associations => [:comments, :info_requests])
+          new(user, transaction_associations: [:comments, :info_requests])
       expect(user.transactions(:comments, :info_requests)).to eq(calculator)
     end
 
@@ -724,82 +726,75 @@ RSpec.describe User do
     it 'destroys any associated info_requests' do
       info_request = FactoryBot.create(:info_request)
       info_request.user.reload.destroy
-      expect(InfoRequest.where(:id => info_request.id)).to be_empty
+      expect(InfoRequest.where(id: info_request.id)).to be_empty
     end
 
     it 'destroys any associated user_info_request_sent_alerts' do
       info_request = FactoryBot.create(:info_request)
-      alert = user.user_info_request_sent_alerts.build(:info_request => info_request,
-                                                       :alert_type => 'overdue_1')
+      alert = user.user_info_request_sent_alerts.build(info_request: info_request,
+                                                       alert_type: 'overdue_1')
       user.destroy
-      expect(UserInfoRequestSentAlert.where(:id => alert.id)).to be_empty
+      expect(UserInfoRequestSentAlert.where(id: alert.id)).to be_empty
     end
 
     it 'destroys any associated post_redirects' do
-      post_redirect = PostRedirect.create(:uri => '/',
-                                          :user_id => user.id)
+      post_redirect = PostRedirect.create(uri: '/',
+                                          user_id: user.id)
       user.destroy
-      expect(PostRedirect.where(:id => post_redirect.id)).to be_empty
+      expect(PostRedirect.where(id: post_redirect.id)).to be_empty
     end
 
     it 'destroys any associated track_things' do
       track_thing = FactoryBot.create(:search_track)
       track_thing.tracking_user.destroy
-      expect(TrackThing.where(:id => track_thing.id)).to be_empty
+      expect(TrackThing.where(id: track_thing.id)).to be_empty
     end
 
     it 'destroys any associated comments' do
       comment = FactoryBot.create(:comment)
       comment.user.destroy
-      expect(Comment.where(:id => comment.id)).to be_empty
+      expect(Comment.where(id: comment.id)).to be_empty
     end
 
     it 'destroys any associated public_body_change_requests' do
       change_request = FactoryBot.create(:add_body_request)
       change_request.user.destroy
-      expect(PublicBodyChangeRequest.where(:id => change_request.id))
+      expect(PublicBodyChangeRequest.where(id: change_request.id))
         .to be_empty
     end
 
     it 'destroys any associated profile_photos' do
-      profile_photo = user.create_profile_photo(:data => 'xxx')
+      profile_photo = user.create_profile_photo(data: 'xxx')
       user.destroy
-      expect(ProfilePhoto.where(:id => profile_photo.id)).to be_empty
+      expect(ProfilePhoto.where(id: profile_photo.id)).to be_empty
     end
 
     it 'destroys any associated censor_rules' do
       censor_rule = FactoryBot.create(:user_censor_rule)
       censor_rule.user.destroy
-      expect(CensorRule.where(:id => censor_rule.id)).to be_empty
+      expect(CensorRule.where(id: censor_rule.id)).to be_empty
     end
 
     it 'destroys any associated info_request_batches' do
       info_request_batch = FactoryBot.create(:info_request_batch)
       info_request_batch.user.destroy
-      expect(InfoRequestBatch.where(:id => info_request_batch.id)).to be_empty
+      expect(InfoRequestBatch.where(id: info_request_batch.id)).to be_empty
     end
 
     it 'destroys any associated request_classifications' do
       request_classification = FactoryBot.create(:request_classification)
       request_classification.user.destroy
-      expect(RequestClassification.where(:id => request_classification.id))
+      expect(RequestClassification.where(id: request_classification.id))
         .to be_empty
     end
 
   end
 
   describe '#expire_requests' do
-    it 'calls expire on all associated requests' do
+    it 'create expire job for the user' do
       user = FactoryBot.build(:user)
-
-      request_1, request_2 = double(:info_request), double(:info_request)
-
-      allow(user).to receive_message_chain(:info_requests, :find_each).
-        and_yield(request_1).and_yield(request_2)
-
-      expect(request_1).to receive(:expire)
-      expect(request_2).to receive(:expire)
-
+      expect(InfoRequestExpireJob).to receive(:perform_later).
+        with(user, :info_requests)
       user.expire_requests
     end
   end
@@ -808,7 +803,8 @@ RSpec.describe User do
     it 'calls reindex_request_events on all associated requests' do
       user = FactoryBot.build(:user)
 
-      comment_1, comment_2 = double(:comment), double(:comment)
+      comment_1 = double(:comment)
+      comment_2 = double(:comment)
 
       allow(user).to receive_message_chain(:comments, :find_each).
         and_yield(comment_1).and_yield(comment_2)
@@ -900,7 +896,7 @@ RSpec.describe User do
     end
 
     it 'can be enabled on initialization' do
-      user = User.new(:otp_enabled => true)
+      user = User.new(otp_enabled: true)
       expect(user.otp_enabled).to eq(true)
     end
 
@@ -915,33 +911,33 @@ RSpec.describe User do
   describe '#otp_enabled?' do
 
     it 'requires an otp_secret_key to be enabled' do
-      attrs = { :otp_enabled => true,
-                :otp_secret_key => nil,
-                :otp_counter => 1 }
+      attrs = { otp_enabled: true,
+                otp_secret_key: nil,
+                otp_counter: 1 }
       user = User.new(attrs)
       expect(user.otp_enabled?).to eq(false)
     end
 
     it 'requires an otp_counter to be enabled' do
-      attrs = { :otp_enabled => true,
-                :otp_secret_key => '123',
-                :otp_counter => nil }
+      attrs = { otp_enabled: true,
+                otp_secret_key: '123',
+                otp_counter: nil }
       user = User.new(attrs)
       expect(user.otp_enabled?).to eq(false)
     end
 
     it 'requires an otp_enabled to be true to be enabled' do
-      attrs = { :otp_enabled => false,
-                :otp_secret_key => '123',
-                :otp_counter => 1 }
+      attrs = { otp_enabled: false,
+                otp_secret_key: '123',
+                otp_counter: 1 }
       user = User.new(attrs)
       expect(user.otp_enabled?).to eq(false)
     end
 
     it 'requires otp_enabled, otp_secret_key and otp_counter to be enabled' do
-      attrs = { :otp_enabled => true,
-                :otp_secret_key => '123',
-                :otp_counter => 1 }
+      attrs = { otp_enabled: true,
+                otp_secret_key: '123',
+                otp_counter: 1 }
       user = User.new(attrs)
       expect(user.otp_enabled?).to eq(true)
     end
@@ -951,13 +947,13 @@ RSpec.describe User do
   describe '#enable_otp' do
 
     it 'resets the otp_counter' do
-      user = User.new(:otp_counter => 200)
+      user = User.new(otp_counter: 200)
       user.enable_otp
       expect(user.otp_counter).to eq(1)
     end
 
     it 'regenerates the otp_secret_key' do
-      user = User.new(:otp_secret_key => '123')
+      user = User.new(otp_secret_key: '123')
       user.enable_otp
       expect(user.otp_secret_key.length).to eq(32)
     end
@@ -978,13 +974,13 @@ RSpec.describe User do
   describe '#disable_otp' do
 
     it 'sets otp_enabled to false' do
-      user = User.new(:otp_enabled => true)
+      user = User.new(otp_enabled: true)
       user.disable_otp
       expect(user.otp_enabled?).to eq(false)
     end
 
     it 'sets require_otp to false' do
-      user = User.new(:otp_enabled => true)
+      user = User.new(otp_enabled: true)
       user.require_otp = true
       user.disable_otp
       expect(user.require_otp?).to eq(false)
@@ -1005,7 +1001,7 @@ RSpec.describe User do
     end
 
     it 'returns the assigned boolean' do
-      user = User.new(:require_otp => true)
+      user = User.new(require_otp: true)
       expect(user.require_otp?).to eq(true)
     end
 
@@ -1035,7 +1031,7 @@ RSpec.describe User do
     end
 
     it 'can be set on initialization' do
-      user = User.new(:otp_counter => 200)
+      user = User.new(otp_counter: 200)
       expect(user.otp_counter).to eq(200)
     end
 
@@ -1051,7 +1047,7 @@ RSpec.describe User do
 
     it 'can be set on initialization' do
       key = User.otp_random_secret
-      user = User.new(:otp_secret_key => key)
+      user = User.new(otp_secret_key: key)
       expect(user.otp_secret_key).to eq(key)
     end
 
@@ -1067,7 +1063,7 @@ RSpec.describe User do
   describe '#entered_otp_code' do
 
     it 'gets the virtual attribue for use in validation' do
-      user = User.new(:entered_otp_code => '123456')
+      user = User.new(entered_otp_code: '123456')
       expect(user.entered_otp_code).to eq('123456')
     end
 
@@ -1086,12 +1082,12 @@ RSpec.describe User do
   describe '#banned?' do
 
     it 'is banned if the user has ban_text' do
-      user = FactoryBot.build(:user, :ban_text => 'banned')
+      user = FactoryBot.build(:user, ban_text: 'banned')
       expect(user).to be_banned
     end
 
     it 'is not banned if the user has no ban_text' do
-      user = FactoryBot.build(:user, :ban_text => '')
+      user = FactoryBot.build(:user, ban_text: '')
       expect(user).to_not be_banned
     end
 
@@ -1102,7 +1098,8 @@ RSpec.describe User do
 
     before do
       allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
-      allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
+      allow(MySociety::Util).
+        to receive(:generate_token).and_return('r@nd0m-pa$$w0rd')
       allow(AlaveteliConfiguration).
         to receive(:user_sign_in_activity_retention_days).and_return(1)
       FactoryBot.create(:user_sign_in, user: user)
@@ -1114,7 +1111,7 @@ RSpec.describe User do
       user.close_and_anonymise
       censor_rule = user.censor_rules.last
       expect(censor_rule.text).to eq(user_name)
-      expect(censor_rule.replacement).to eq ('[Name Removed]')
+      expect(censor_rule.replacement).to eq('[Name Removed]')
     end
 
     it 'does not create a censor rule for user name if the user does not have info requests' do
@@ -1149,7 +1146,7 @@ RSpec.describe User do
 
     it 'should anonymise user password' do
       expect { user.close_and_anonymise }.
-        to change(user, :password).to('ABCD')
+        to change(user, :password).to('r@nd0m-pa$$w0rd')
     end
 
     it 'should set user to not receive email alerts' do
@@ -1165,11 +1162,66 @@ RSpec.describe User do
   end
 
   describe '#close' do
+    subject { user.close }
+
     let(:user) { FactoryBot.build(:user) }
 
-    it 'closes the user account' do
-      user.close
-      expect(user).to be_closed
+    context 'the update is successful' do
+      before do
+        expect(user).to receive(:close!).and_call_original
+        subject
+      end
+
+      it { is_expected.to eq(true) }
+
+      it 'closes the account' do
+        expect(user).to be_closed
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:close!).and_raise(ActiveRecord::RecordInvalid)
+        subject
+      end
+
+      it { is_expected.to eq(false) }
+
+      it 'does not close the account' do
+        expect(user).not_to be_closed
+      end
+    end
+  end
+
+  describe '#close!' do
+    subject { user.close! }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'the update is successful' do
+      before { subject }
+
+      it 'closes the account' do
+        expect(user).to be_closed
+      end
+
+      it 'sets closed_at' do
+        expect(user.closed_at).to be_present
+      end
+
+      it 'disables email alerts' do
+        expect(user.receive_email_alerts).to eq(false)
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an ActiveRecord::RecordInvalid error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
     end
   end
 
@@ -1186,6 +1238,138 @@ RSpec.describe User do
       expect(user).to_not be_closed
     end
 
+  end
+
+  describe '#erase' do
+    subject { user.erase }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    context 'the update is successful' do
+      before do
+        user.close!
+        expect(user).to receive(:erase!).and_call_original
+        subject
+      end
+
+      it { is_expected.to eq(true) }
+
+      it 'erases the account' do
+        expect(user.name).to match(/Name Removed/)
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      before do
+        expect(user).to receive(:erase!).and_raise(ActiveRecord::RecordInvalid)
+        subject
+      end
+
+      it { is_expected.to eq(false) }
+
+      it 'does not erase the account' do
+        expect(user.name).not_to match(/Name Removed/)
+      end
+    end
+  end
+
+  describe '#erase!' do
+    subject { user.erase! }
+
+    context 'the user account is not closed' do
+      let(:user) { FactoryBot.build(:user, about_me: 'Hi') }
+
+      it 'raises an ActiveRecord::RecordInvalid' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
+    context 'the update is successful' do
+      let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
+
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+        FactoryBot.create(:user_sign_in, user: user)
+        FactoryBot.create(:profile_photo, user: user)
+
+        allow(Digest::SHA1).to receive(:hexdigest).and_return('a1b2c3d4')
+        allow(MySociety::Util).
+          to receive(:generate_token).and_return('r@nd0m-pa$$w0rd')
+
+        subject
+
+        user.reload
+      end
+
+      it 'erases the name' do
+        # #name currently appends "(Account suspended)". Here we specifically
+        # only care about the data we hold.
+        expect(user.read_attribute(:name)).to eq('[Name Removed]')
+      end
+
+      it 'erases the url_name' do
+        expect(user.url_name).to eq('a1b2c3d4')
+      end
+
+      it 'erases the email' do
+        expect(user.email).to eq('a1b2c3d4@invalid')
+      end
+
+      it 'erases the password' do
+        expect(user.password).to eq('r@nd0m-pa$$w0rd')
+      end
+
+      it 'erases the about_me' do
+        expect(user.about_me).to be_empty
+      end
+
+      it 'destroys any sign_ins' do
+        expect(user.sign_ins).to be_empty
+      end
+
+      it 'destroys any profile photo' do
+        expect(user.profile_photo).to be_nil
+      end
+    end
+
+    context 'the update is unsuccessful' do
+      let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
+
+      before do
+        expect(user).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an ActiveRecord::RecordInvalid error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+  end
+
+  describe '#anonymise!' do
+    subject { user.anonymise! }
+
+    let(:user) { FactoryBot.build(:user, name: 'Bob Smith') }
+
+    context 'when the user has info requests' do
+      before { FactoryBot.create(:info_request, user: user) }
+
+      it 'creates a censor rule for user name if the user has info requests' do
+        subject
+        censor_rule = user.censor_rules.last
+        expect(censor_rule.text).to eq(user.name)
+        expect(censor_rule.replacement).to eq('[Name Removed]')
+        expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
+        expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
+      end
+    end
+
+    context 'when the user has no info requests' do
+      it 'does not create a censor rule' do
+        subject
+        expect(user.censor_rules).to be_empty
+      end
+    end
   end
 
   describe '.closed' do
@@ -1324,25 +1508,25 @@ RSpec.describe User do
   describe '#confirm' do
 
     it 'confirms an unconfirmed user' do
-       user = FactoryBot.build(:user, :email_confirmed => false)
+       user = FactoryBot.build(:user, email_confirmed: false)
        user.confirm
        expect(user.email_confirmed).to be(true)
     end
 
     it 'no-ops a confirmed user' do
-      user = FactoryBot.build(:user, :email_confirmed => true)
+      user = FactoryBot.build(:user, email_confirmed: true)
       user.confirm
       expect(user.email_confirmed).to be(true)
     end
 
     it 'does not save by default' do
-      user = FactoryBot.build(:user, :email_confirmed => false)
+      user = FactoryBot.build(:user, email_confirmed: false)
       user.confirm
       expect(user).to be_new_record
     end
 
     it 'saves the record if passed an argument' do
-      user = FactoryBot.build(:user, :email_confirmed => false)
+      user = FactoryBot.build(:user, email_confirmed: false)
       user.confirm(true)
       expect(user).to be_persisted
     end
@@ -1352,25 +1536,25 @@ RSpec.describe User do
   describe '#confirm!' do
 
     it 'confirms an unconfirmed user' do
-       user = FactoryBot.build(:user, :email_confirmed => false)
+       user = FactoryBot.build(:user, email_confirmed: false)
        user.confirm!
        expect(user.reload.email_confirmed).to be(true)
     end
 
     it 'no-ops a confirmed user' do
-      user = FactoryBot.build(:user, :email_confirmed => true)
+      user = FactoryBot.build(:user, email_confirmed: true)
       user.confirm!
       expect(user.reload.email_confirmed).to be(true)
     end
 
     it 'saves the record' do
-      user = FactoryBot.build(:user, :email_confirmed => false)
+      user = FactoryBot.build(:user, email_confirmed: false)
       user.confirm!
       expect(user).to be_persisted
     end
 
     it 'it raises an error on save if the record is invalid' do
-      user = FactoryBot.build(:user, :email => nil, :email_confirmed => false)
+      user = FactoryBot.build(:user, email: nil, email_confirmed: false)
       expect { user.confirm! }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
@@ -1405,14 +1589,14 @@ RSpec.describe User do
   describe '#about_me_already_exists?' do
 
     it 'is true if the about_me text already exists for another user' do
-      FactoryBot.create(:user, :about_me => '123')
-      user = FactoryBot.build(:user, :about_me => '123')
+      FactoryBot.create(:user, about_me: '123')
+      user = FactoryBot.build(:user, about_me: '123')
       expect(user.about_me_already_exists?).to eq(true)
     end
 
     it 'is false if the about_me text is unique to the user' do
-      User.update_all(:about_me => '')
-      user = FactoryBot.build(:user, :about_me => '123')
+      User.update_all(about_me: '')
+      user = FactoryBot.build(:user, about_me: '123')
       expect(user.about_me_already_exists?).to eq(false)
     end
 
@@ -1433,17 +1617,17 @@ RSpec.describe User do
   describe '#indexed_by_search?' do
 
     it 'is false if the user is unconfirmed' do
-      user = User.new(:email_confirmed => false, :ban_text => '')
+      user = User.new(email_confirmed: false, ban_text: '')
       expect(user.indexed_by_search?).to eq(false)
     end
 
     it 'is false if the user is banned' do
-      user = User.new(:email_confirmed => true, :ban_text => 'banned')
+      user = User.new(email_confirmed: true, ban_text: 'banned')
       expect(user.indexed_by_search?).to eq(false)
     end
 
     it 'is true if the user is confirmed and not banned' do
-      user = User.new(:email_confirmed => true, :ban_text => '')
+      user = User.new(email_confirmed: true, ban_text: '')
       expect(user.indexed_by_search?).to eq(true)
     end
 
@@ -1504,15 +1688,15 @@ RSpec.describe User do
 
   describe '.info_request_events' do
     let(:user) { FactoryBot.create(:user) }
-    let(:info_request) { FactoryBot.create(:info_request, :user => user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
     let!(:response_event) do
-      FactoryBot.create(:response_event, :info_request => info_request)
+      FactoryBot.create(:response_event, info_request: info_request)
     end
     let!(:comment_event) do
-      FactoryBot.create(:comment_event, :info_request => info_request)
+      FactoryBot.create(:comment_event, info_request: info_request)
     end
     let!(:resent_event) do
-      FactoryBot.create(:resent_event, :info_request => info_request)
+      FactoryBot.create(:resent_event, info_request: info_request)
     end
 
     it "returns events in descending created_at order" do
@@ -1522,7 +1706,7 @@ RSpec.describe User do
     end
 
     it "returns all of the user's events" do
-      # Note: there is a fourth "sent" event created automatically
+      # NOTE: there is a fourth "sent" event created automatically
       expect(user.info_request_events.count).to eq 4
     end
   end
@@ -1907,12 +2091,72 @@ RSpec.describe User do
       it { is_expected.to eq(false) }
     end
 
-    context 'when the user has reached their rate limit' do
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:user, :admin) }
+
+      # Irrespective of how many comments they've made
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:comments).and_return(true)
+
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+
+      # Irrespective of how many comments they've made
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:comments).and_return(true)
+
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user has reached their daily limit' do
       let(:user) { FactoryBot.build(:user) }
 
       before do
         allow(user).
           to receive(:exceeded_limit?).with(:comments).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has not reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(Comment).
+          to receive(:exceeded_creation_rate?).
+          with(user.comments).
+          and_return(true)
       end
 
       it { is_expected.to eq(false) }
@@ -1969,6 +2213,21 @@ RSpec.describe User do
     context 'limiting comments' do
       let(:content) { :comments }
       before { FactoryBot.create(:comment, user: user) }
+
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
+        expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
+      end
+    end
+
+    context 'limiting user messages' do
+      let(:content) { :user_messages }
+      before { FactoryBot.create(:user_message, user: user) }
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)

@@ -79,6 +79,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         project.info_requests.each do |info_request|
           FactoryBot.create(:project_submission,
                             :for_extraction,
+                            project: project,
                             info_request: info_request)
         end
 

@@ -17,7 +17,9 @@ module AttachmentToHTML
     end
 
     view = View.new(adapter)
-    view.wrapper = 'wrapper_google_embed' if adapter.is_a?(Adapters::GoogleDocsViewer)
+    if adapter.is_a?(Adapters::GoogleDocsViewer)
+      view.wrapper = 'wrapper_google_embed'
+    end
 
     view.render do
       opts.fetch(:content_for, []).each do |k,v|

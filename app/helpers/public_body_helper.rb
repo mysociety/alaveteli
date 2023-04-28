@@ -23,8 +23,8 @@ module PublicBodyHelper
       # Make the authority appear requestable to encourage users to help find
       # the authority's email address
       msg = link_to _("Make a request to this authority"),
-        new_request_to_body_path(:url_name => public_body.url_name),
-        :class => "link_button_green"
+        new_request_to_body_path(url_name: public_body.url_name),
+        class: "link_button_green"
 
       reasons.push(msg)
     end
@@ -43,12 +43,12 @@ module PublicBodyHelper
 
     types = categories.each_with_index.map do |category, index|
       desc = category.description
-      desc = desc.sub(/\S/) { |m| m.upcase } if index.zero?
+      desc = desc.sub(/\S/, &:upcase) if index.zero?
       link_to(desc, list_public_bodies_by_tag_path(category.category_tag))
     end
 
     if types.any?
-      types.to_sentence(:last_word_connector => ' and ').html_safe
+      types.to_sentence(last_word_connector: ' and ').html_safe
     else
       _("A public authority")
     end

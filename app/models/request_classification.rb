@@ -12,15 +12,15 @@
 
 class RequestClassification < ApplicationRecord
   MILESTONES = [
-    100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000, 75000, 100000,
-    250000, 500000, 750000, 1000000
+    100, 250, 500, 1000, 2500, 5000, 10_000, 25_000, 50_000, 75_000, 100_000,
+    250_000, 500_000, 750_000, 1_000_000
   ].freeze
 
   belongs_to :user,
-             :inverse_of => :request_classifications,
-             :counter_cache => true
+             inverse_of: :request_classifications,
+             counter_cache: true
   belongs_to :info_request_event,
-             :inverse_of => :request_classification
+             inverse_of: :request_classification
 
   # return classification instances representing the top n
   # users, with a 'cnt' attribute representing the number

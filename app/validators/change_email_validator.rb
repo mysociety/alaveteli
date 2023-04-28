@@ -14,14 +14,14 @@ class ChangeEmailValidator
                 :logged_in_user
 
   validates_presence_of :old_email,
-                        :message => N_("Please enter your old email address")
+                        message: N_("Please enter your old email address")
 
   validates_presence_of :new_email,
-                        :message => N_("Please enter your new email address")
+                        message: N_("Please enter your new email address")
 
   validates_presence_of :password,
-                        :message => N_("Please enter your password"),
-                        :unless => :changing_email
+                        message: N_("Please enter your password"),
+                        unless: :changing_email
 
   validate :password_and_format_of_email
 
@@ -32,7 +32,7 @@ class ChangeEmailValidator
   end
 
   def changing_email
-    self.user_circumstance == 'change_email'
+    user_circumstance == 'change_email'
   end
 
   private

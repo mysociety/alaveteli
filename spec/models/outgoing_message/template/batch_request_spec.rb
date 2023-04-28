@@ -19,7 +19,7 @@ RSpec.describe OutgoingMessage::Template::BatchRequest do
     end
 
     it 'allows a custom message letter' do
-      opts = { :letter => 'A custom letter' }
+      opts = { letter: 'A custom letter' }
       expected = "Dear [Authority name],\n\nA custom letter\n\n\n\nYours faithfully,\n\n"
       expect(subject.body(opts)).to eq(expected)
     end
@@ -41,7 +41,7 @@ RSpec.describe OutgoingMessage::Template::BatchRequest do
     end
 
     it 'returns a custom letter' do
-      expect(subject.letter(:letter => 'custom')).to eq("\n\ncustom")
+      expect(subject.letter(letter: 'custom')).to eq("\n\ncustom")
     end
 
   end

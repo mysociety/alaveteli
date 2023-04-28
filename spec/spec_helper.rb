@@ -19,8 +19,8 @@ load "#{Rails.root}/db/seeds.rb"
 # Use test-specific translations
 locale_path = File.join(File.dirname(__FILE__), 'fixtures', 'locale')
 repos = [ FastGettext::TranslationRepository.build('app',
-                                                   :path => locale_path,
-                                                   :type => :po) ]
+                                                   path: locale_path,
+                                                   type: :po) ]
 AlaveteliLocalization.set_default_text_domain('app', repos)
 
 RSpec.configure do |config|
@@ -35,7 +35,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include Capybara::DSL, :type => :request
+  config.include Capybara::DSL, type: :request
   config.include ConfigHelper
   config.include LinkToHelper
   config.include StripAttributes::Matchers
@@ -63,7 +63,9 @@ RSpec.configure do |config|
                            :public_body_category_translations,
                            :public_body_headings,
                            :public_body_heading_translations,
-                           :public_body_category_links
+                           :public_body_category_links,
+                           :notes,
+                           :note_translations
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -84,9 +86,7 @@ RSpec.configure do |config|
   # Clean up raw emails directory
   config.after(:suite) do
     raw_email_dir = File.join(Rails.root, 'files/raw_email_test')
-    if File.directory?(raw_email_dir)
-      FileUtils.rm_rf(raw_email_dir)
-    end
+    FileUtils.rm_rf(raw_email_dir) if File.directory?(raw_email_dir)
     FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
   end
 
@@ -99,9 +99,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     if ENV['ALAVETELI_USE_OINK']
       oink_log = Rails.root + 'log/oink.log'
-      if File.exist?(oink_log)
-        File.write(oink_log, '')
-      end
+      File.write(oink_log, '') if File.exist?(oink_log)
     end
 
     BCrypt::Engine.cost = 1
@@ -120,18 +118,22 @@ RSpec.configure do |config|
   # the locale in your tests and not even realising it. So, let's make things easier for
   # ourselves and just always restore the locale for all tests.
   config.after(:each) do
-    AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
-                                      AlaveteliConfiguration::default_locale)
+    AlaveteliLocalization.set_locales(AlaveteliConfiguration.available_locales,
+                                      AlaveteliConfiguration.default_locale)
   end
 
   # Turn routing-filter off in functional and unit tests as per
   # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
   config.before(:each) do |example|
-    RoutingFilter.active = false if [:controller, :helper, :model].include? example.metadata[:type]
+    if [:controller, :helper, :model].include? example.metadata[:type]
+      RoutingFilter.active = false
+    end
   end
 
   config.after(:each) do |example|
-    RoutingFilter.active = true if [:controller, :helper, :model].include? example.metadata[:type]
+    if [:controller, :helper, :model].include? example.metadata[:type]
+      RoutingFilter.active = true
+    end
   end
 
   # This section makes the garbage collector run less often to speed up tests
@@ -165,9 +167,9 @@ include AlaveteliFeatures::SpecHelpers
 def with_duplicate_xapian_job_creation
   InfoRequestEvent.module_eval do
     def xapian_before_create_job_hook(action, model, model_id)
-      ActsAsXapian::ActsAsXapianJob.create!(:model => model,
-                                            :model_id => model_id,
-                                            :action => action)
+      ActsAsXapian::ActsAsXapianJob.create!(model: model,
+                                            model_id: model_id,
+                                            action: action)
     end
   end
   yield
@@ -179,14 +181,16 @@ ensure
 end
 
 def with_env_tz(new_tz = 'US/Eastern')
-  old_tz, ENV['TZ'] = ENV['TZ'], new_tz
+  old_tz = ENV['TZ']
+  ENV['TZ'] = new_tz
   yield
 ensure
   old_tz ? ENV['TZ'] = old_tz : ENV.delete('TZ')
 end
 
 def with_active_record_default_timezone(zone)
-  old_zone, ActiveRecord::Base.default_timezone = ActiveRecord::Base.default_timezone, zone
+  old_zone = ActiveRecord::Base.default_timezone
+  ActiveRecord::Base.default_timezone = zone
   yield
 ensure
   ActiveRecord::Base.default_timezone = old_zone
@@ -231,9 +235,9 @@ ensure
 end
 
 def basic_auth_login(request, username = nil, password = nil)
-  username = AlaveteliConfiguration::admin_username if username.nil?
-  password = AlaveteliConfiguration::admin_password if password.nil?
-  request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
+  username = AlaveteliConfiguration.admin_username if username.nil?
+  password = AlaveteliConfiguration.admin_password if password.nil?
+  request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64.encode64("#{username}:#{password}")
 end
 
 FactoryBot.definition_file_paths = [ Rails.root.join('spec', 'factories') ]
@@ -241,8 +245,7 @@ FactoryBot.reload
 
 def normalise_whitespace(s)
   s = s.gsub(/\A\s+|\s+\Z/, "")
-  s = s.gsub(/\s+/, " ")
-  return s
+  s.gsub(/\s+/, " ")
 end
 
 def get_last_post_redirect

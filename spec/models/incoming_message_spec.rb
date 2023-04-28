@@ -131,8 +131,8 @@ RSpec.describe IncomingMessage do
       message.parse_raw_email!(true)
       message.reload
       FactoryBot.create(:censor_rule,
-                        :text => 'Person',
-                        :info_request => message.info_request)
+                        text: 'Person',
+                        info_request: message.info_request)
 
       expect(message.safe_from_name).to eq('FOI [REDACTED]')
     end
@@ -327,8 +327,8 @@ RSpec.describe IncomingMessage do
     before(:each) do
       @im = incoming_messages(:useless_incoming_message)
 
-      @default_opts = { :last_edit_editor => 'unknown',
-                        :last_edit_comment => 'none' }
+      @default_opts = { last_edit_editor: 'unknown',
+                        last_edit_comment: 'none' }
 
       load_raw_emails_data
     end
@@ -337,8 +337,8 @@ RSpec.describe IncomingMessage do
       data = 'There was a mouse called Stilton, he wished that he was blue'
       expected = 'There was a mouse called Stilton, he said that he was blue'
 
-      opts = { :text => 'wished',
-               :replacement => 'said' }.merge(@default_opts)
+      opts = { text: 'wished',
+               replacement: 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
       result = @im.apply_masks(data, 'text/plain')
@@ -351,8 +351,8 @@ RSpec.describe IncomingMessage do
       expected = 'There was a cat called Jarlsberg.'
 
       rules = [
-        { :text => 'Stilton', :replacement => 'Jarlsberg' },
-        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+        { text: 'Stilton', replacement: 'Jarlsberg' },
+        { text: 'm[a-z][a-z][a-z]e', regexp: true, replacement: 'cat' }
       ]
 
       rules.each do |rule|
@@ -368,8 +368,8 @@ RSpec.describe IncomingMessage do
       expected = 'There was a cat called Jarlsberg.'
 
       rules = [
-        { :text => 'Stilton', :replacement => 'Jarlsberg' },
-        { :text => 'm[a-z][a-z][a-z]e', :regexp => true, :replacement => 'cat' }
+        { text: 'Stilton', replacement: 'Jarlsberg' },
+        { text: 'm[a-z][a-z][a-z]e', regexp: true, replacement: 'cat' }
       ]
 
       rules.each do |rule|
@@ -443,7 +443,7 @@ RSpec.describe IncomingMessage do
     it 'strips null bytes from the extracted clipped text' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.
-        create(:body_text, :body => "hi\u0000", :incoming_message => message)
+        create(:body_text, body: "hi\u0000", incoming_message: message)
       message.reload
       expect(message.get_attachment_text_clipped).to eq("hi\n\n")
     end
@@ -455,13 +455,13 @@ RSpec.describe IncomingMessage do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.create(:body_text,
-                        :body => 'hí',
-                        :incoming_message => message,
-                        :url_part_number => 2)
+                        body: 'hí',
+                        incoming_message: message,
+                        url_part_number: 2)
       FactoryBot.create(:pdf_attachment,
-                        :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
-                        :incoming_message => message,
-                        :url_part_number => 3)
+                        body: load_file_fixture('pdf-with-utf8-characters.pdf'),
+                        incoming_message: message,
+                        url_part_number: 3)
       message.reload
 
       expect { message._extract_text }.
@@ -544,11 +544,11 @@ RSpec.describe IncomingMessage, "when the prominence is changed" do
   let(:request) { FactoryBot.create(:info_request) }
 
   it "updates the info_request's last_public_response_at to nil when hidden" do
-    im = FactoryBot.create(:incoming_message, :info_request => request)
+    im = FactoryBot.create(:incoming_message, info_request: request)
     response_event = FactoryBot.
-                      create(:info_request_event, :event_type => 'response',
-                                                  :info_request => request,
-                                                  :incoming_message => im)
+                      create(:info_request_event, event_type: 'response',
+                                                  info_request: request,
+                                                  incoming_message: im)
     im.prominence = 'hidden'
     im.save!
     expect(request.last_public_response_at).to be_nil
@@ -556,12 +556,12 @@ RSpec.describe IncomingMessage, "when the prominence is changed" do
 
   it "updates the info_request's last_public_response_at to a timestamp \
       when unhidden" do
-    im = FactoryBot.create(:incoming_message, :prominence => 'hidden',
-                                              :info_request => request)
+    im = FactoryBot.create(:incoming_message, prominence: 'hidden',
+                                              info_request: request)
     response_event = FactoryBot.
-                       create(:info_request_event, :event_type => 'response',
-                                                   :info_request => request,
-                                                   :incoming_message => im)
+                       create(:info_request_event, event_type: 'response',
+                                                   info_request: request,
+                                                   incoming_message: im)
     im.prominence = 'normal'
     im.save!
     expect(request.last_public_response_at).to be_within(1.second).
@@ -575,7 +575,7 @@ RSpec.describe 'when destroying a message' do
 
   it 'destroys the incoming message' do
     incoming_message.destroy
-    expect(IncomingMessage.where(:id => incoming_message.id)).to be_empty
+    expect(IncomingMessage.where(id: incoming_message.id)).to be_empty
   end
 
   it 'should destroy the related info_request_event' do
@@ -586,28 +586,28 @@ RSpec.describe 'when destroying a message' do
     )
     incoming_message.reload
     incoming_message.destroy
-    expect(InfoRequestEvent.where(:incoming_message_id => incoming_message.id)).
+    expect(InfoRequestEvent.where(incoming_message_id: incoming_message.id)).
       to be_empty
   end
 
   it 'should nullify outgoing_message_followups' do
     outgoing_message = FactoryBot.
                          create(:initial_request,
-                                :info_request => incoming_message.info_request,
-                                :incoming_message_followup_id => incoming_message.id)
+                                info_request: incoming_message.info_request,
+                                incoming_message_followup_id: incoming_message.id)
     incoming_message.reload
     incoming_message.destroy
 
     expect(OutgoingMessage.
-      where(:incoming_message_followup_id => incoming_message.id)).to be_empty
-    expect(OutgoingMessage.where(:id => outgoing_message.id)).
+      where(incoming_message_followup_id: incoming_message.id)).to be_empty
+    expect(OutgoingMessage.where(id: outgoing_message.id)).
       to eq([outgoing_message])
   end
 
   it 'destroys the associated raw email' do
     raw_email = incoming_message.raw_email
     incoming_message.destroy
-    expect(RawEmail.where(:id => raw_email.id)).to be_empty
+    expect(RawEmail.where(id: raw_email.id)).to be_empty
   end
 
   context 'with attachments' do
@@ -617,14 +617,14 @@ RSpec.describe 'when destroying a message' do
 
     it 'destroys the incoming message' do
       incoming_with_attachment.destroy
-      expect(IncomingMessage.where(:id => incoming_with_attachment.id)).
+      expect(IncomingMessage.where(id: incoming_with_attachment.id)).
         to be_empty
     end
 
     it 'should destroy associated attachments' do
       incoming_with_attachment.destroy
       expect(
-        FoiAttachment.where(:incoming_message_id => incoming_with_attachment.id)
+        FoiAttachment.where(incoming_message_id: incoming_with_attachment.id)
       ).to be_empty
     end
   end
@@ -704,7 +704,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
       "foo\n--------\nbar - confidential"                                 => "foo\nFOLDED_QUOTED_SECTION\n", # allow scorechar inside folded section
       "foo\n--------\nbar\n--------\nconfidential"                        => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\n", # don't assume that anything after a score is a folded section
       "foo\n--------\nbar\n--------\nconfidential\n--------\nrest"        => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\nrest", # don't assume that a folded section continues to the end of the message
-      "foo\n--------\nbar\n- - - - - - - -\nconfidential\n--------\nrest" => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\nrest", # allow spaces in the score
+      "foo\n--------\nbar\n- - - - - - - -\nconfidential\n--------\nrest" => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\nrest" # allow spaces in the score
     }.each do |input,output|
       expect(IncomingMessage.remove_quoted_sections(input)).to eq(output)
     end
@@ -899,7 +899,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
-      'bah.txt',
+      'bah.txt'
     ])
   end
 
@@ -946,7 +946,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
     expect(attachments.map(&:display_filename)).to eq([
       'Same attachment twice.txt',
       'hello.txt',
-      'hello.txt',
+      'hello.txt'
     ])
   end
 
@@ -985,7 +985,7 @@ RSpec.describe IncomingMessage, "when Outlook messages are attached to messages"
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
       'test.html', # picks HTML rather than text by default, as likely to render better
-      'attach.txt',
+      'attach.txt'
     ])
   end
 end
@@ -1011,7 +1011,7 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
       'FOI 09 02976i.doc',
-      'FOI 09 02976iii.doc',
+      'FOI 09 02976iii.doc'
     ])
   end
 
@@ -1035,17 +1035,17 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
   it 'handles the case where reparsing changes the body of the main part
         and the cached attachment has been deleted' do
     # original set of attachment attributes
-    attachment_attributes = { :url_part_number => 1,
-                              :within_rfc822_subject => nil,
-                              :content_type => "text/plain",
-                              :charset => nil,
-                              :body => "No way!\n",
-                              :hexdigest => "0c8b1b0f5cb9c94ed15a180e73b5c7d1",
-                              :filename => nil }
+    attachment_attributes = { url_part_number: 1,
+                              within_rfc822_subject: nil,
+                              content_type: "text/plain",
+                              charset: nil,
+                              body: "No way!\n",
+                              hexdigest: "0c8b1b0f5cb9c94ed15a180e73b5c7d1",
+                              filename: nil }
 
     # Make a small change in the body returned for the attachment
-    new_attachment_attributes = attachment_attributes.merge(:body => "No way!",
-                                                            :hexdigest => "74d2c0a41e074f9cebe49324d5b47414")
+    new_attachment_attributes = attachment_attributes.merge(body: "No way!",
+                                                            hexdigest: "74d2c0a41e074f9cebe49324d5b47414")
 
 
     # Simulate parsing with the original attachments
@@ -1138,9 +1138,9 @@ RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
     incoming_message = FactoryBot.build(:incoming_message)
     # This character is 2 bytes so the string should get sliced unless
     # we are handling multibyte chars correctly
-    multibyte_string = "å" * 500002
+    multibyte_string = "å" * 500_002
     allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
-    expect(incoming_message.get_attachment_text_clipped.length).to eq(500002)
+    expect(incoming_message.get_attachment_text_clipped.length).to eq(500_002)
   end
 
 end
@@ -1152,7 +1152,7 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
     before do
       @incoming_message = FactoryBot.create(:incoming_message)
       allow(@incoming_message).to receive(:get_main_body_text_internal).
-        and_return("x" * 1000010)
+        and_return("x" * 1_000_010)
     end
 
     it 'raises an exception' do

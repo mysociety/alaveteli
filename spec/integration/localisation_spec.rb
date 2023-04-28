@@ -9,7 +9,7 @@ RSpec.describe "when generating urls" do
   it "should generate URLs that include the locale when using one that includes an underscore" do
     AlaveteliLocalization.set_locales('es en_GB', 'es')
     get '/en_GB'
-    expect(response.body).to match /href="\/en_GB\//
+    expect(response.body).to match(/href="\/en_GB\//)
   end
 
   it "returns a 404 error if passed the locale with a hyphen instead of an underscore", local_requests: false do
@@ -20,27 +20,27 @@ RSpec.describe "when generating urls" do
   it "should fall back to the language if the territory is unknown" do
     AlaveteliLocalization.set_locales('es en', 'en')
     get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en_US' }
-    expect(response.body).to match /href="\/en\//
-    expect(response.body).not_to match /href="\/en_US\//
+    expect(response.body).to match(/href="\/en\//)
+    expect(response.body).not_to match(/href="\/en_US\//)
   end
 
   it 'falls back to the default if the requested locale is unavailable' do
-    get '/', params: { :locale => "unknown" }
-    expect(response.body).to match /href="\/en\//
-    expect(response.body).not_to match /href="\/unknown\//
+    get '/', params: { locale: "unknown" }
+    expect(response.body).to match(/href="\/en\//)
+    expect(response.body).not_to match(/href="\/unknown\//)
   end
 
   it "should generate URLs without a locale prepended when there's only one locale set" do
     AlaveteliLocalization.set_locales('en', 'en')
     get '/'
-    expect(response).not_to match /#{@home_link_regex}/
+    expect(response).not_to match(/#{@home_link_regex}/)
   end
 
   context 'when handling public body requests' do
 
     before do
       AlaveteliLocalization.set_locales('es en', 'en')
-      body = FactoryBot.create(:public_body, :short_name => 'english_short')
+      body = FactoryBot.create(:public_body, short_name: 'english_short')
       AlaveteliLocalization.with_locale('es') do
         body.short_name = 'spanish_short'
         body.save!
@@ -74,7 +74,7 @@ RSpec.describe "when generating urls" do
 
       before do
         @default_lang_home_link = /href=".*\/en\//
-        @old_include_default_locale_in_urls = AlaveteliConfiguration::include_default_locale_in_urls
+        @old_include_default_locale_in_urls = AlaveteliConfiguration.include_default_locale_in_urls
       end
 
       after do
@@ -90,8 +90,8 @@ RSpec.describe "when generating urls" do
 
         it 'should generate URLs without a locale prepended' do
           get '/'
-          expect(response.body).to match /class="current-locale">English/
-          expect(response.body).not_to match /#{@default_lang_home_link}/
+          expect(response.body).to match(/class="current-locale">English/)
+          expect(response.body).not_to match(/#{@default_lang_home_link}/)
         end
 
         describe "when the default url contains an underscore" do
@@ -99,15 +99,15 @@ RSpec.describe "when generating urls" do
           it "generates URLs without a locale prepended" do
             AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
             get '/'
-            expect(response.body).not_to match /href="\/en_GB\//
+            expect(response.body).not_to match(/href="\/en_GB\//)
           end
 
         end
 
         it 'should render the front page in the default language when no locale param
                     is present and the session locale is not the default' do
-          get '/', headers: { :locale => 'es' }
-          expect(response.body).to match /class="current-locale">English/
+          get '/', headers: { locale: 'es' }
+          expect(response.body).to match(/class="current-locale">English/)
         end
       end
 
@@ -120,8 +120,8 @@ RSpec.describe "when generating urls" do
 
         it 'should generate URLs with a locale prepended' do
           get '/'
-          expect(response.body).to match /class="current-locale">English/
-          expect(response.body).to match /#{@default_lang_home_link}/
+          expect(response.body).to match(/class="current-locale">English/)
+          expect(response.body).to match(/#{@default_lang_home_link}/)
         end
 
       end

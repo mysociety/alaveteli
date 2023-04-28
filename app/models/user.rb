@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -35,6 +35,8 @@
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
 #  login_token                       :string
+#  receive_user_messages             :boolean          default(TRUE), not null
+#  user_messages_count               :integer          default(0), not null
 #
 
 class User < ApplicationRecord
@@ -47,7 +49,8 @@ class User < ApplicationRecord
 
   CONTENT_LIMIT = {
     info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,
-    comments: AlaveteliConfiguration.max_requests_per_user_per_day
+    comments: AlaveteliConfiguration.max_requests_per_user_per_day,
+    user_messages: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
   rolify before_add: :setup_pro_account,
@@ -55,7 +58,8 @@ class User < ApplicationRecord
          after_remove: :assign_role_features
   strip_attributes allow_empty: true
 
-  admin_columns exclude: [:otp_secret_key]
+  admin_columns include: [:user_messages_count],
+                exclude: [:otp_secret_key]
 
   attr_accessor :no_xapian_reindex
 
@@ -144,6 +148,11 @@ class User < ApplicationRecord
            inverse_of: :user,
            dependent: :destroy
 
+  has_many :user_messages,
+           -> { order(created_at: :desc) },
+           inverse_of: :user,
+           dependent: :destroy
+
   scope :active, -> { not_banned.not_closed }
   scope :banned, -> { where.not(ban_text: '') }
   scope :not_banned, -> { where(ban_text: '') }
@@ -222,7 +231,7 @@ class User < ApplicationRecord
   # Case-insensitively find a user from their email
   def self.find_user_by_email(email)
     return nil if email.blank?
-    self.where('lower(email) = lower(?)', email.strip).first
+    where('lower(email) = lower(?)', email.strip).first
   end
 
   # The "internal admin" is a special user for internal use.
@@ -319,7 +328,7 @@ class User < ApplicationRecord
   end
 
   def expire_requests
-    info_requests.find_each(&:expire)
+    InfoRequestExpireJob.perform_later(self, :info_requests)
   end
 
   def expire_comments
@@ -350,9 +359,9 @@ class User < ApplicationRecord
     unique_url_name = url_name
     suffix_num = 2 # as there's already one without numeric suffix
     conditions = id ? ["id <> ?", id] : []
-    while !User.where(:url_name => unique_url_name).where(conditions).first.nil?
+    until User.where(url_name: unique_url_name).where(conditions).first.nil?
       unique_url_name = url_name + "_" + suffix_num.to_s
-      suffix_num = suffix_num + 1
+      suffix_num += 1
     end
     self.url_name = unique_url_name
   end
@@ -397,30 +406,58 @@ class User < ApplicationRecord
   end
 
   def close
-    update(closed_at: Time.zone.now)
+    close!
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def close!
+    update!(closed_at: Time.zone.now, receive_email_alerts: false)
   end
 
   def closed?
     closed_at.present?
   end
 
-  def close_and_anonymise
+  def erase
+    erase!
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def erase!
+    raise ActiveRecord::RecordInvalid unless closed?
+
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
     transaction do
-      redact_name! if info_requests.any?
-
       sign_ins.destroy_all
+      profile_photo&.destroy!
 
-      update(
+      update!(
         name: _('[Name Removed]'),
         email: "#{sha}@invalid",
         url_name: sha,
         about_me: '',
-        password: MySociety::Util.generate_token,
-        receive_email_alerts: false,
-        closed_at: Time.zone.now
+        password: MySociety::Util.generate_token
       )
+    end
+  end
+
+  def anonymise!
+    return if info_requests.none?
+
+    censor_rules.create!(text: read_attribute(:name),
+                         replacement: _('[Name Removed]'),
+                         last_edit_editor: 'User#anonymise!',
+                         last_edit_comment: 'User#anonymise!')
+  end
+
+  def close_and_anonymise
+    transaction do
+      close!
+      anonymise!
+      erase!
     end
   end
 
@@ -449,11 +486,15 @@ class User < ApplicationRecord
   end
 
   def can_make_comments?
-    active? && !exceeded_limit?(:comments)
+    return false unless active?
+    return true if is_admin? || is_pro_admin?
+
+    !exceeded_limit?(:comments) &&
+      !Comment.exceeded_creation_rate?(comments)
   end
 
   def can_contact_other_users?
-    active?
+    active? && !exceeded_limit?(:user_messages)
   end
 
   def exceeded_limit?(content)
@@ -479,7 +520,9 @@ class User < ApplicationRecord
           order(created_at: :desc).
             limit(AlaveteliConfiguration.max_requests_per_user_per_day)
 
-    return nil if n_most_recent_requests.size < AlaveteliConfiguration::max_requests_per_user_per_day
+    if n_most_recent_requests.size < AlaveteliConfiguration.max_requests_per_user_per_day
+      return nil
+    end
 
     nth_most_recent_request = n_most_recent_requests[-1]
     nth_most_recent_request.created_at + 1.day
@@ -574,14 +617,14 @@ class User < ApplicationRecord
   def notify(info_request_event)
     Notification.create(
       info_request_event: info_request_event,
-      frequency: Notification.frequencies[self.notification_frequency],
+      frequency: Notification.frequencies[notification_frequency],
       user: self
     )
   end
 
   # Return a timestamp for the next time a user should be sent a daily summary
   def next_daily_summary_time
-    summary_time = Time.zone.now.change(self.daily_summary_time)
+    summary_time = Time.zone.now.change(daily_summary_time)
     summary_time += 1.day if summary_time < Time.zone.now
     summary_time
   end
@@ -620,13 +663,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def redact_name!
-    censor_rules.create!(text: name,
-                         replacement: _('[Name Removed]'),
-                         last_edit_editor: 'User#close_and_anonymise',
-                         last_edit_comment: 'User#close_and_anonymise')
-  end
 
   def set_defaults
     return unless new_record?

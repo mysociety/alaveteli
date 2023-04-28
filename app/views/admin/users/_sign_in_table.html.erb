@@ -10,38 +10,63 @@
   <% end %>
 
   <% if sign_ins.any? %>
-    <table class="table table-condensed table-striped">
-      <% sign_ins.each do |sign_in| %>
-        <tr class="<%= cycle('odd', 'even') %>">
-          <td><%= user_both_links(sign_in.user) %></td>
+    <div class="accordion" id="sign-ins-accordion">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <p class="help-block">
+            Sign in tracking records the IP address and date of sign in, as well
+            as a geolocation estimation, and links this IP address to sign ins
+            from other user accounts using the same IP address. This can be
+            useful for investigating misuse, but may also reveal legitimate use
+            of alternative accounts. Care should be taken when revealing this
+            information.
+          </p>
 
-          <td>
-            <tt>
-              <%= link_to sign_in.ip, admin_sign_ins_path(query: sign_in.ip) %>
-            </tt>
-          </td>
+          <p>
+            <a href="#sign-ins-accordion-table" data-toggle="collapse" data-parent="#sign-ins-accordion">
+              <i class="icon-chevron-right"></i> Reveal Sign Ins
+            </a>
+          </p>
+        </div>
 
-          <td>
-            <tt>
-              <% if sign_in.country %>
-                <%= link_to admin_sign_ins_path(query: sign_in.country) do %>
-                  <%= sign_in.country %>
-                <% end %>
-              <% else %>
-                ??
+        <div id="sign-ins-accordion-table" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <table class="table table-condensed table-striped">
+              <% sign_ins.each do |sign_in| %>
+                <tr class="<%= cycle('odd', 'even') %>">
+                  <td><%= user_both_links(sign_in.user) %></td>
+
+                  <td>
+                    <tt>
+                      <%= link_to sign_in.ip, admin_sign_ins_path(query: sign_in.ip) %>
+                    </tt>
+                  </td>
+
+                  <td>
+                    <tt>
+                      <% if sign_in.country %>
+                        <%= link_to admin_sign_ins_path(query: sign_in.country) do %>
+                          <%= sign_in.country %>
+                        <% end %>
+                      <% else %>
+                        ??
+                      <% end %>
+                    </tt>
+                  </td>
+
+                  <td><%= admin_date(sign_in.created_at, ago_only: true) %></td>
+
+                  <td>
+                    <strong><%= sign_in.other_users.size %></strong> others using this
+                    IP
+                  </td>
+                </tr>
               <% end %>
-            </tt>
-          </td>
-
-          <td><%= admin_date(sign_in.created_at, ago_only: true) %></td>
-
-          <td>
-            <strong><%= sign_in.other_users.size %></strong> others using this
-            IP
-          </td>
-        </tr>
-      <% end %>
-    </table>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   <% elsif User::SignIn.retain_signins? %>
     <p>None yet.</p>
   <% end %>

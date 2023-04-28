@@ -21,7 +21,7 @@ RSpec.describe Users::SessionsController do
     end
 
     it "should create post redirect to /list when you click signin on /list" do
-      get :new, params: { :r => "/list" }
+      get :new, params: { r: "/list" }
       post_redirect = get_last_post_redirect
       expect(post_redirect.uri).to eq("/list")
     end
@@ -58,11 +58,11 @@ RSpec.describe Users::SessionsController do
     it "should show you the sign in page again if you get the password wrong" do
       post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
       post :create, params: {
-                      :user_signin => {
-                        :email => 'bob@localhost',
-                        :password => 'NOTRIGHTPASSWORD'
+                      user_signin: {
+                        email: 'bob@localhost',
+                        password: 'NOTRIGHTPASSWORD'
                       },
-                      :token => post_redirect.token
+                      token: post_redirect.token
                     }
       expect(response).to render_template('user/sign')
     end
@@ -70,11 +70,11 @@ RSpec.describe Users::SessionsController do
     it "should show you the sign in page again if you get the email wrong" do
       post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
       post :create, params: {
-                      :user_signin => {
-                        :email => 'unknown@localhost',
-                        :password => 'NOTRIGHTPASSWORD'
+                      user_signin: {
+                        email: 'unknown@localhost',
+                        password: 'NOTRIGHTPASSWORD'
                       },
-                      :token => post_redirect.token
+                      token: post_redirect.token
                     }
       expect(response).to render_template('user/sign')
     end
@@ -83,11 +83,11 @@ RSpec.describe Users::SessionsController do
       post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, params: {
-                      :user_signin => {
-                        :email => 'bob@localhost',
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: 'bob@localhost',
+                        password: 'jonespassword'
                       },
-                      :token => post_redirect.token
+                      token: post_redirect.token
                     }
       expect(session[:user_id]).to eq(users(:bob_smith_user).id)
       # response doesn't contain /en/ but redirect_to does...
@@ -99,20 +99,20 @@ RSpec.describe Users::SessionsController do
       post_redirect = "something invalid"
       expect {
         post :create, params: {
-                        :user_signin => {
-                          :email => 'bob@localhost',
-                          :password => 'jonespassword'
+                        user_signin: {
+                          email: 'bob@localhost',
+                          password: 'jonespassword'
                         },
-                        :token => post_redirect
+                        token: post_redirect
                       }
       }.not_to raise_error
 
       post :create, params: {
-                      :user_signin => {
-                        :email => 'bob@localhost',
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: 'bob@localhost',
+                        password: 'jonespassword'
                       },
-                      :token => post_redirect
+                      token: post_redirect
                     }
       expect(response).to render_template('user/sign')
       expect(assigns[:post_redirect]).to eq(nil)
@@ -120,9 +120,9 @@ RSpec.describe Users::SessionsController do
 
     it "sets a the cookie expiry to nil on next page load" do
       post :create, params: {
-                      :user_signin => {
-                        :email => user.email,
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: user.email,
+                        password: 'jonespassword'
                       }
                     }
       get :new
@@ -132,11 +132,11 @@ RSpec.describe Users::SessionsController do
     it "does not log you in if you use an invalid PostRedirect token" do
       post_redirect = "something invalid"
       post :create, params: {
-                      :user_signin => {
-                        :email => 'bob@localhost',
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: 'bob@localhost',
+                        password: 'jonespassword'
                       },
-                      :token => post_redirect
+                      token: post_redirect
                     }
       expect(response).to render_template('sign')
       expect(assigns[:post_redirect]).to eq(nil)
@@ -158,17 +158,17 @@ RSpec.describe Users::SessionsController do
     context "checking 'remember_me'" do
       let(:user) do
         FactoryBot.create(:user,
-                          :password => 'password1234',
-                          :email_confirmed => true)
+                          password: 'password1234',
+                          email_confirmed: true)
       end
 
       def do_signin(email, password)
         post :create, params: {
-                        :user_signin => {
-                          :email => email,
-                          :password => password
+                        user_signin: {
+                          email: email,
+                          password: password
                         },
-                        :remember_me => "1"
+                        remember_me: "1"
                       }
       end
 
@@ -214,23 +214,23 @@ RSpec.describe Users::SessionsController do
 
       it "signs them in if the credentials are valid" do
         post :create, params: {
-                        :user_signin => {
-                          :email => user.email,
-                          :password => 'jonespassword'
+                        user_signin: {
+                          email: user.email,
+                          password: 'jonespassword'
                         }
                       },
-                      session: { :user_id => user.id }
+                      session: { user_id: user.id }
         expect(session[:user_id]).to eq(user.id)
       end
 
       it 'signs them out if the credentials are not valid' do
         post :create, params: {
-                        :user_signin => {
-                          :email => user.email,
-                          :password => 'wrongpassword'
+                        user_signin: {
+                          email: user.email,
+                          password: 'wrongpassword'
                         }
                       },
-                      session: { :user_id => user.id }
+                      session: { user_id: user.id }
         expect(session[:user_id]).to be_nil
       end
 
@@ -247,10 +247,8 @@ RSpec.describe Users::SessionsController do
       end
 
       def do_signin(email, password)
-        post :create, {
-          params: {
-            :user_signin => { :email => email, :password => password }
-          }
+        post :create, params: {
+          user_signin: { email: email, password: password }
         }
       end
 
@@ -315,11 +313,11 @@ RSpec.describe Users::SessionsController do
       post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, params: {
-                      :user_signin => {
-                        :email => 'unconfirmed@localhost',
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: 'unconfirmed@localhost',
+                        password: 'jonespassword'
                       },
-                      :token => post_redirect.token
+                      token: post_redirect.token
                     }
 
       expect(response).to render_template('user/confirm')
@@ -334,13 +332,13 @@ RSpec.describe Users::SessionsController do
         FactoryBot.create(:post_redirect, uri: 'http://bad.place.com/list')
 
       post :create, params: {
-                      :user_signin => {
-                        :email => 'unconfirmed@localhost',
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: 'unconfirmed@localhost',
+                        password: 'jonespassword'
                       },
-                      :token => post_redirect.token
+                      token: post_redirect.token
                     }
-      get :confirm, params: { :email_token => post_redirect.email_token }
+      get :confirm, params: { email_token: post_redirect.email_token }
       expect(response).to redirect_to('/list?post_redirect=1')
     end
 
@@ -351,11 +349,11 @@ RSpec.describe Users::SessionsController do
       post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, params: {
-                      :user_signin => {
-                        :email => 'unconfirmed@localhost',
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: 'unconfirmed@localhost',
+                        password: 'jonespassword'
                       },
-                      :token => post_redirect.token
+                      token: post_redirect.token
                     }
       expect(ActionMailer::Base.deliveries).not_to be_empty
 
@@ -369,13 +367,13 @@ RSpec.describe Users::SessionsController do
 
       # check is right confirmation URL
       expect(mail_token).to eq(post_redirect.email_token)
-      expect(Rails.application.routes.recognize_path(mail_path)).to eq({ :controller => 'user', :action => 'confirm', :email_token => mail_token })
+      expect(Rails.application.routes.recognize_path(mail_path)).to eq({ controller: 'user', action: 'confirm', email_token: mail_token })
 
       # check confirmation URL works
       expect(session[:user_id]).to be_nil
-      get :confirm, params: { :email_token => post_redirect.email_token }
+      get :confirm, params: { email_token: post_redirect.email_token }
       expect(session[:user_id]).to eq(users(:unconfirmed_user).id)
-      expect(response).to redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
+      expect(response).to redirect_to(controller: 'request', action: 'list', post_redirect: 1)
     end
 
     # TODO: Extract to integration spec
@@ -385,11 +383,11 @@ RSpec.describe Users::SessionsController do
       post_redirect = FactoryBot.create(:post_redirect, uri: '/list')
 
       post :create, params: {
-                      :user_signin => {
-                        :email => 'unconfirmed@localhost',
-                        :password => 'jonespassword'
+                      user_signin: {
+                        email: 'unconfirmed@localhost',
+                        password: 'jonespassword'
                       },
-                      :token => post_redirect.token
+                      token: post_redirect.token
                     }
       expect(ActionMailer::Base.deliveries).not_to be_empty
 
@@ -403,17 +401,17 @@ RSpec.describe Users::SessionsController do
 
       # check is right confirmation URL
       expect(mail_token).to eq(post_redirect.email_token)
-      expect(Rails.application.routes.recognize_path(mail_path)).to eq({ :controller => 'user', :action => 'confirm', :email_token => mail_token })
+      expect(Rails.application.routes.recognize_path(mail_path)).to eq({ controller: 'user', action: 'confirm', email_token: mail_token })
 
       # Log in as an admin
       sign_in users(:admin_user)
 
       # Get the confirmation URL, and check we’re still Joe
-      get :confirm, params: { :email_token => post_redirect.email_token }
+      get :confirm, params: { email_token: post_redirect.email_token }
       expect(session[:user_id]).to eq(users(:admin_user).id)
 
       # And the redirect should still work, of course
-      expect(response).to redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
+      expect(response).to redirect_to(controller: 'request', action: 'list', post_redirect: 1)
     end
 
   end
@@ -430,14 +428,14 @@ RSpec.describe Users::SessionsController do
 
     it "logs you out and redirect you to where you were" do
       sign_in user
-      get :destroy, params: { :r => '/list' }
+      get :destroy, params: { r: '/list' }
       expect(session[:user_id]).to be_nil
       expect(response).
         to redirect_to(request_list_path)
     end
 
     it "clears the session ttl" do
-      get :destroy, session: { :user_id => user.id, :ttl => Time.zone.now }
+      get :destroy, session: { user_id: user.id, ttl: Time.zone.now }
       expect(session[:ttl]).to be_nil
     end
 

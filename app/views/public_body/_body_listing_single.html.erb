@@ -6,7 +6,7 @@
   request_link = false unless defined?(request_link)
 %>
 
-<div class="body_listing">
+<div class="body_listing <%= tags_css(public_body) %>">
   <div class="head body-listing__header">
     <%= link_to highlight_words(public_body.name, @highlight_words), public_body_path(public_body) %>
   </div>

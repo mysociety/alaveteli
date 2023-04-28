@@ -4,8 +4,8 @@ RSpec.describe '_search_results' do
   let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new }
 
   def render_view(locals)
-    render(:partial => "alaveteli_pro/batch_request_authority_searches/search_results",
-           :locals => locals)
+    render(partial: "alaveteli_pro/batch_request_authority_searches/search_results",
+           locals: locals)
   end
 
   describe "when a search has been performed" do
@@ -20,20 +20,20 @@ RSpec.describe '_search_results' do
     end
 
     describe "and there are some results" do
-      let(:search) { ActsAsXapian::Search.new([PublicBody], authority_1.name, :limit => 3 ) }
+      let(:search) { ActsAsXapian::Search.new([PublicBody], authority_1.name, limit: 3 ) }
 
       it "renders search results" do
         # TODO: This fails, as the view doesn't render anything, but I
         # can't figure out why. It passes if this example runs first!
         expect(search).to be_present
         expect(search.results).to be_present
-        render_view(:search => search,
-                    :query => authority_1.name,
-                    :draft_batch_request => draft_batch_request,
-                    :body_ids_added => [],
-                    :page => 1,
-                    :per_page => 25,
-                    :result_limit => 3)
+        render_view(search: search,
+                    query: authority_1.name,
+                    draft_batch_request: draft_batch_request,
+                    body_ids_added: [],
+                    page: 1,
+                    per_page: 25,
+                    result_limit: 3)
         expect(rendered).to have_text(authority_1.name)
       end
     end

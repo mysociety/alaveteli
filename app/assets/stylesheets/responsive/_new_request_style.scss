@@ -33,13 +33,15 @@
 
 }
 
-#to_public_body {
+.to_public_body,
+.from_user {
   font-weight: bold;
   font-size: 1.3em;
   margin-bottom: 0.5em;
 }
 
-.to_public_body_label {
+.to_public_body_label,
+.from_user_label {
   color: #777;
   font-weight: normal;
 }
@@ -50,21 +52,13 @@
   margin-bottom: 2em;
 }
 
-#request_header_text {
-  overflow: hidden;
-  font-size: 0.875em;
-  h3 {
-    font-size: 1em;
-  }
-
-}
-
 #request_advice {
   margin-bottom: 1.5em;
   font-size: 0.875em;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     font-size: 1em;
   }
+
   .advice-panel {
     margin-top: 1.5em;
   }
@@ -83,6 +77,12 @@
       margin:0 0 1em;
     }
   }
+}
+
+.advice-panel.advice-panel--warning {
+  background: #fff08a;
+  border: 1px solid #baad1d;
+  padding: 0.1em 0.5em;
 }
 
 #request_search_ahead_results {

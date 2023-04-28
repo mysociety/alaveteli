@@ -22,7 +22,7 @@ RSpec.describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
     it 'gives a description for multiple responses' do
       request = travel_to(Time.zone.parse('2015-11-01')) do
-        FactoryBot.create(:info_request, :user => user)
+        FactoryBot.create(:info_request, user: user)
       end
       travel_to(Time.zone.parse('2016-01-01')) do
         AlaveteliPro::RequestSummary.create_or_update_from(request)
@@ -58,7 +58,7 @@ RSpec.describe AlaveteliPro::ToDoList::VeryOverdueRequest do
 
       it 'returns a link to the info request list with a "very_overdue" filter' do
         request = travel_to(Time.zone.parse('2015-11-01')) do
-          FactoryBot.create(:info_request, :user => user)
+          FactoryBot.create(:info_request, user: user)
         end
         travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(info_request)
@@ -91,7 +91,7 @@ RSpec.describe AlaveteliPro::ToDoList::VeryOverdueRequest do
       it 'returns an appropriate text' do
 
         request = travel_to(Time.zone.parse('2015-11-01')) do
-          FactoryBot.create(:info_request, :user => user)
+          FactoryBot.create(:info_request, user: user)
         end
         travel_to(Time.zone.parse('2016-01-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(request)

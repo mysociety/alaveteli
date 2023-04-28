@@ -3,9 +3,13 @@
     <span class="to_public_body_label"><%= _('To') %></span>
     <%= render partial: 'alaveteli_pro/info_request_batches/authority_list_with_link',
                locals: { batch: batch, draft: draft } %>
-
-
   </p>
+
+  <p class="preview_from">
+    <strong><%= _('From') %></strong>
+    <%= @user&.name || '…' %>
+  </p>
+
   <p class="preview_subject">
     <strong><%= _('Subject') %></strong> <%= batch.title %>
   </p>

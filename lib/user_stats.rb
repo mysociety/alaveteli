@@ -64,7 +64,7 @@ class UserStats
     eligible = User.
                  where("email LIKE ?", "%@#{domain}").
                    not_banned.
-                     where.not(:id => User.with_role(:admin).pluck('users.id'))
+                     where.not(id: User.with_role(:admin).pluck('users.id'))
 
     if start_date
       eligible.where("created_at >= ?", start_date)

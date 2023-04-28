@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014
 # louisecrow <louise@mysociety.org>, 2014
@@ -53,7 +54,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Z.D <zdevir@gmail.com>, 2013\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/mysociety/alaveteli/l"
@@ -495,6 +496,9 @@ msgstr "כל האפשרויות למטה יכולות לעשות שימוש<stro
 msgid "All time"
 msgstr ""
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr ""
 
@@ -665,6 +669,9 @@ msgstr ""
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "קבוצה נוצרה ע״י {{info_request_user}} בתאריך {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "חיפוש על-פי אות ראשונה"
 
@@ -727,6 +734,9 @@ msgstr "בטלו חלק מהתראות האתר {{site_name}}"
 
 msgid "Cancel, return to your profile page"
 msgstr "בטלו וחיזרו לעמוד הפרופיל שלכם"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "שנו דואר אלקטרוני לאתר {{site_name}}"
@@ -999,6 +1009,9 @@ msgstr "בוצע &gt;&gt;"
 msgid "Download Data"
 msgstr ""
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "להוריד קובץ zip עם כל ההתכתבויות"
 
@@ -1068,6 +1081,9 @@ msgid "Event history"
 msgstr "היסטוריית אירועים"
 
 msgid "Every citizen has the right to access information held by public authorities."
+msgstr ""
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
@@ -1615,6 +1631,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "בקשה אחרונה שנצפתה: {{request_url}}"
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2304,6 +2323,9 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "זכור אותי (משאיר אתכם מחוברים לזמן רב יותר; אל תסמנו על מחשב ציבורי)"
 
@@ -2492,6 +2514,9 @@ msgstr "חפש בין התוספות שלך"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "לשלוח הודעת המשך"
 
@@ -2526,6 +2551,30 @@ msgid "Send message to {{user_name}} just to see how it works"
 msgstr "שלחו הודעה {{user_name}} רק כדי לראות איך זה עובד"
 
 msgid "Sending..."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
 msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
@@ -2593,6 +2642,9 @@ msgstr "התנתק"
 msgid "Sign up"
 msgstr "הרשמה"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2651,6 +2703,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr ""
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3083,8 +3138,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "מספר הבקשות שניתן להגיש ביום מוגבל, כי אנו לא רוצים להציף את הרשויות הציבוריות בבקשות שווא. אם אתם רוצים להגדיל את המספר המותר, <a href='{{help_contact_path}}'>צרו קשר</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr ""
@@ -3316,6 +3377,9 @@ msgstr ""
 " המהירות בה רשויות מגיבות לבקשות, מספר הבקשות\n"
 " שדרשו שליחת דואר ודברים רבים נוספים."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr ""
 
@@ -3446,8 +3510,14 @@ msgstr "היום"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "יותר מדי בקשות"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr ""
@@ -3809,6 +3879,9 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "כתבו את בקשתכם <strong>בשפה פשוטה ומדויקת</strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr ""
 
@@ -3937,6 +4010,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "עברתם את המכסה היומית המותרת להגשת בקשות מידע. לרוב מוגבלים המשתמשים ל-  {{max_requests_per_user_per_day}} בקשות ביממה. תוכלו להגיש בקשה נוספת בעוד {{can_make_another_request}} שעות."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr ""
@@ -4598,6 +4674,11 @@ msgstr "לפני {{length_of_time}}"
 
 msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
 msgstr[0] ""
 msgstr[1] ""
 

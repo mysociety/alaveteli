@@ -1,11 +1,5 @@
 module RoutingFilter
   class Conditionallyprependlocale < RoutingFilter::Locale
-    # We need to be able to override this class attribute so from Rails 4.0
-    # onwards we're going to need write access. It looks as though we don't
-    # use the equivalent instance variables so we can opt out of creating
-    # accessors for them
-    cattr_accessor :locales, instance_accessor: false
-
     # Override core Locale filter not to prepend locale path segment
     # when there's only one locale
     def prepend_locale?(locale)
@@ -18,12 +12,19 @@ module RoutingFilter
     # internally and may look like `en-US`, whereas the former is
     # what FastGettext and other POSIX-based systems use, and will
     # look like `en_US`
-    def around_generate(*args, &block)
-      params = args.extract_options!                              # this is because we might get a call like forum_topics_path(forum, topic, :locale => :en)
-
-      locale = params.delete(:locale)                             # extract the passed :locale option
-      locale = AlaveteliLocalization.locale if locale.nil?        # default to underscore locale when locale is nil (could also be false)
-      locale = nil unless valid_locale?(locale)                   # reset to no locale when locale is not valid
+    def around_generate(*args)
+      # this is because we might get a call like forum_topics_path(forum, topic, :locale => :en)
+      params = args.extract_options!
+      # extract the passed :locale option
+      locale = params.delete(:locale)
+      if locale.nil?
+        # default to underscore locale when locale is nil (could also be false)
+        locale = AlaveteliLocalization.locale
+      end
+      unless valid_locale?(locale)
+        # reset to no locale when locale is not valid
+        locale = nil
+      end
       args << params
 
       yield.tap do |result|
@@ -40,19 +41,14 @@ module RoutingFilter
     # Reset the locale pattern when the locales are set.
     class << self
       def locales_pattern
-        super
-      end
-
-      def locales=(locales)
-        @@locales_pattern = nil
-        @@locales = locales.map(&:to_sym)
+        %r(^/(#{locales.map { |l| Regexp.escape(l.to_s) }.join('|')})(?=/|$))
       end
     end
   end
 end
 
 ActionDispatch::Routing::RouteSet::NamedRouteCollection::UrlHelper.class_eval do
-  def self.optimize_helper?(route)
+  def self.optimize_helper?(_route)
     false
   end
 end

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -436,6 +436,9 @@ msgstr ""
 msgid "Friendly support"
 msgstr ""
 
+msgid "From"
+msgstr ""
+
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr ""
 
@@ -497,9 +500,6 @@ msgid "Image credits:"
 msgstr ""
 
 msgid "Important info about requests to this authority"
-msgstr ""
-
-msgid "Introductory Pricing"
 msgstr ""
 
 msgid "Investigating asbestos use in schools"

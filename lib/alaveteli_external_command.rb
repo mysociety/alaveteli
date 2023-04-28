@@ -36,9 +36,7 @@ class AlaveteliExternalCommand
     # TODO: calling code should be able to specify error stream - may want to log it or
     # otherwise act upon it.
     opts = {}
-    if !args.empty? && args.last.is_a?(Hash)
-      opts = args.last
-    end
+    opts = args.last if !args.empty? && args.last.is_a?(Hash)
 
     program_path = find_program!
     xc = ExternalCommand.new(program_path, *command_args, *args)
@@ -57,20 +55,18 @@ class AlaveteliExternalCommand
         $stderr.puts(%Q[External Command: "#{program_name} #{args.join(' ')}" exited abnormally])
       end
       $stderr.print(xc.err)
-      return nil
+      nil
 
     elsif xc.status != 0
       # Error
       $stderr.puts(%Q[External Command: Error from command "#{program_name} #{args.join(' ')}":])
       $stderr.print(xc.err)
-      return nil
+      nil
+    elsif opts.key? :append_to
+      opts[:append_to] << "\n\n"
     else
-      if opts.has_key? :append_to
-        opts[:append_to] << "\n\n"
-      else
 
-        return xc.out
-      end
+      xc.out
     end
   end
 

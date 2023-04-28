@@ -3,8 +3,8 @@ require 'integration/alaveteli_dsl'
 
 RSpec.describe "When administering the site" do
   let(:admin_user) { FactoryBot.create(:admin_user) }
-  let(:bob_smith_user) { FactoryBot.create(:user, :name => 'Bob Smith') }
-  let(:robin_user) { FactoryBot.create(:user, :name => 'Robin') }
+  let(:bob_smith_user) { FactoryBot.create(:user, name: 'Bob Smith') }
+  let(:robin_user) { FactoryBot.create(:user, name: 'Robin') }
 
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
@@ -52,7 +52,7 @@ RSpec.describe "When administering the site" do
     using_session(@admin) do
       visit edit_admin_incoming_message_path(new_message)
       fill_in('Redeliver message to one or more other requests',
-                :with => info_request.url_title)
+                with: info_request.url_title)
       find_button('Redeliver to another request').click
       expect(current_path).to eq(admin_request_path(info_request))
     end
@@ -86,7 +86,7 @@ RSpec.describe "When administering the site" do
     using_session(@admin) do
       visit edit_admin_incoming_message_path(new_message)
       fill_in('Redeliver message to one or more other requests',
-                 :with => "#{info_request.url_title},#{second_request.url_title}")
+                 with: "#{info_request.url_title},#{second_request.url_title}")
       find_button('Redeliver to another request').click
       expect(current_path).to eq(admin_request_path(second_request))
     end
@@ -117,8 +117,8 @@ RSpec.describe "When administering the site" do
 
     it "shows a rejection reason for an incoming message from an invalid address" do
       info_request = FactoryBot.create(:info_request,
-                                       :allow_new_responses_from => 'authority_only',
-                                       :handle_rejected_responses => 'holding_pen')
+                                       allow_new_responses_from: 'authority_only',
+                                       handle_rejected_responses: 'holding_pen')
       receive_incoming_mail('incoming-request-plain.email',
                             info_request.incoming_email,
                             "frob@nowhere.com")
@@ -130,8 +130,8 @@ RSpec.describe "When administering the site" do
 
     it "guesses a misdirected request" do
       info_request = FactoryBot.create(:info_request,
-                                       :allow_new_responses_from => 'authority_only',
-                                       :handle_rejected_responses => 'holding_pen')
+                                       allow_new_responses_from: 'authority_only',
+                                       handle_rejected_responses: 'holding_pen')
       mail_to = "request-#{info_request.id}-asdfg@example.com"
       receive_incoming_mail('incoming-request-plain.email', mail_to)
       interesting_email = last_holding_pen_mail
@@ -155,7 +155,7 @@ RSpec.describe "When administering the site" do
       authority_email = request.public_body.request_email
 
       using_session(@admin) do
-        visit admin_request_path :id => request.id
+        visit admin_request_path id: request.id
         find_button('Generate URL').click
 
         url = confirm_url(PostRedirect.last.email_token)
@@ -165,8 +165,8 @@ RSpec.describe "When administering the site" do
                   "them upload a response to this request."
 
         expect(page).to have_link(authority_email,
-                                  :href => "mailto:#{authority_email}")
-        expect(page).to have_link(url, :href => url)
+                                  href: "mailto:#{authority_email}")
+        expect(page).to have_link(url, href: url)
         expect(page).to have_content(message)
       end
 
@@ -176,12 +176,12 @@ RSpec.describe "When administering the site" do
 
   describe 'hide and notify' do
 
-    let(:user) { FactoryBot.create(:user, :name => "Awkward > Name") }
-    let(:request) { FactoryBot.create(:info_request, :user => user) }
+    let(:user) { FactoryBot.create(:user, name: "Awkward > Name") }
+    let(:request) { FactoryBot.create(:info_request, user: user) }
 
     it 'sets the prominence of the request to requester_only' do
       using_session(@admin) do
-        visit admin_request_path :id => request.id
+        visit admin_request_path id: request.id
         choose('reason_not_foi_not_foi')
         find_button('Hide request').click
       end
@@ -192,7 +192,7 @@ RSpec.describe "When administering the site" do
 
     it 'renders a message to confirm the requester has been notified' do
       using_session(@admin) do
-        visit admin_request_path :id => request.id
+        visit admin_request_path id: request.id
         choose('reason_not_foi_not_foi')
         find_button('Hide request').click
         expect(page).

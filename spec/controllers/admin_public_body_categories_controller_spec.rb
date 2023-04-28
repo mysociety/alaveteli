@@ -33,8 +33,8 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       heading = FactoryBot.create(:public_body_heading)
       with_heading = FactoryBot.create(:public_body_category)
-      PublicBodyCategoryLink.create!(:public_body_heading_id => heading.id,
-                                     :public_body_category_id => with_heading.id)
+      PublicBodyCategoryLink.create!(public_body_heading_id: heading.id,
+                                     public_body_category_id: with_heading.id)
 
 
       get :index
@@ -88,11 +88,11 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       before(:each) do
         PublicBodyCategory.destroy_all
-        @params = { :category_tag => 'new_test_category',
-                    :translations_attributes => {
-          'en' => { :locale => 'en',
-                    :title => 'New Category',
-                    :description => 'New category for testing stuff' }
+        @params = { category_tag: 'new_test_category',
+                    translations_attributes: {
+          'en' => { locale: 'en',
+                    title: 'New Category',
+                    description: 'New category for testing stuff' }
         } }
       end
 
@@ -100,23 +100,23 @@ RSpec.describe AdminPublicBodyCategoriesController do
         PublicBodyCategory.destroy_all
 
         expect {
-          post :create, params: { :public_body_category => @params }
+          post :create, params: { public_body_category: @params }
         }.to change { PublicBodyCategory.count }.from(0).to(1)
       end
 
       it 'can create a category when the default locale is an underscore locale' do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
         post :create, params: {
-                        :public_body_category => {
-                          :title => 'New Category en_GB',
-                          :description => 'test',
-                          :category_tag => 'new_test_category'
+                        public_body_category: {
+                          title: 'New Category en_GB',
+                          description: 'test',
+                          category_tag: 'new_test_category'
                         }
                       }
 
         expect(
           PublicBodyCategory.
-            find_by(:title => 'New Category en_GB').
+            find_by(title: 'New Category en_GB').
               translations.
                 first.
                   locale
@@ -128,21 +128,21 @@ RSpec.describe AdminPublicBodyCategoriesController do
         params = FactoryBot.attributes_for(:public_body_category)
 
         post :create, params: {
-                        :public_body_category => @params,
-                        :headings => { "heading_#{ heading.id }" => heading.id }
+                        public_body_category: @params,
+                        headings: { "heading_#{ heading.id }" => heading.id }
                       }
 
-        category = PublicBodyCategory.where(:title => @params[:translations_attributes]['en'][:title]).first
+        category = PublicBodyCategory.where(title: @params[:translations_attributes]['en'][:title]).first
         expect(category.public_body_headings).to eq([heading])
       end
 
       it 'notifies the admin that the category was created' do
-        post :create, params: { :public_body_category => @params }
+        post :create, params: { public_body_category: @params }
         expect(flash[:notice]).to eq('Category was successfully created.')
       end
 
       it 'redirects to the categories index' do
-        post :create, params: { :public_body_category => @params }
+        post :create, params: { public_body_category: @params }
         expect(response).to redirect_to(admin_categories_path)
       end
 
@@ -152,27 +152,27 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       before(:each) do
         PublicBodyCategory.destroy_all
-        @params = { :category_tag => 'new_test_category',
-                    :translations_attributes => {
-          'en' => { :locale => 'en',
-                    :title => 'New Category',
-                    :description => 'New category for testing stuff' },
-                    'es' => { :locale => 'es',
-                              :title => 'Mi Nuevo Category',
-                              :description => 'ES Description' }
+        @params = { category_tag: 'new_test_category',
+                    translations_attributes: {
+          'en' => { locale: 'en',
+                    title: 'New Category',
+                    description: 'New category for testing stuff' },
+                    'es' => { locale: 'es',
+                              title: 'Mi Nuevo Category',
+                              description: 'ES Description' }
         } }
       end
 
       it 'saves the category' do
         expect {
-          post :create, params: { :public_body_category => @params }
+          post :create, params: { public_body_category: @params }
         }.to change { PublicBodyCategory.count }.from(0).to(1)
       end
 
       it 'saves the default locale translation' do
-        post :create, params: { :public_body_category => @params }
+        post :create, params: { public_body_category: @params }
 
-        category = PublicBodyCategory.where(:title => 'New Category').first
+        category = PublicBodyCategory.where(title: 'New Category').first
 
         AlaveteliLocalization.with_locale(:en) do
           expect(category.title).to eq('New Category')
@@ -180,9 +180,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
       end
 
       it 'saves the alternative locale translation' do
-        post :create, params: { :public_body_category => @params }
+        post :create, params: { public_body_category: @params }
 
-        category = PublicBodyCategory.where(:title => 'New Category').first
+        category = PublicBodyCategory.where(title: 'New Category').first
 
         AlaveteliLocalization.with_locale(:es) do
           expect(category.title).to eq('Mi Nuevo Category')
@@ -194,14 +194,14 @@ RSpec.describe AdminPublicBodyCategoriesController do
     context 'on failure' do
 
       it 'renders the form if creating the record was unsuccessful' do
-        post :create, params: { :public_body_category => { :title => '' } }
+        post :create, params: { public_body_category: { title: '' } }
         expect(response).to render_template('new')
       end
 
       it 'is rebuilt with the given params' do
         post :create, params: {
-                        :public_body_category => {
-                          :title => 'Need a description'
+                        public_body_category: {
+                          title: 'Need a description'
                         }
                       }
         expect(assigns(:public_body_category).title).to eq('Need a description')
@@ -212,24 +212,24 @@ RSpec.describe AdminPublicBodyCategoriesController do
     context 'on failure for multiple locales' do
 
       before(:each) do
-        @params = { :category_tag => 'new_test_category',
-                    :translations_attributes => {
-          'en' => { :locale => 'en',
-                    :title => 'Need a description',
-                    :description => nil },
-                    'es' => { :locale => 'es',
-                              :title => 'Mi Nuevo Category',
-                              :description => 'ES Description' }
+        @params = { category_tag: 'new_test_category',
+                    translations_attributes: {
+          'en' => { locale: 'en',
+                    title: 'Need a description',
+                    description: nil },
+                    'es' => { locale: 'es',
+                              title: 'Mi Nuevo Category',
+                              description: 'ES Description' }
         } }
       end
 
       it 'is rebuilt with the default locale translation' do
-        post :create, params: { :public_body_category => @params }
+        post :create, params: { public_body_category: @params }
         expect(assigns(:public_body_category).title).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
-        post :create, params: { :public_body_category => @params }
+        post :create, params: { public_body_category: @params }
 
         AlaveteliLocalization.with_locale(:es) do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
@@ -252,17 +252,17 @@ RSpec.describe AdminPublicBodyCategoriesController do
     end
 
     it 'responds successfully' do
-      get :edit, params: { :id => @category.id }
+      get :edit, params: { id: @category.id }
       expect(response).to be_successful
     end
 
     it 'finds the requested category' do
-      get :edit, params: { :id => @category.id }
+      get :edit, params: { id: @category.id }
       expect(assigns[:public_body_category]).to eq(@category)
     end
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
-      get :edit, params: { :id => @category.id }
+      get :edit, params: { id: @category.id }
       expect(assigns[:public_body_category].translations.map(&:locale)).to include(:fr)
     end
 
@@ -270,19 +270,19 @@ RSpec.describe AdminPublicBodyCategoriesController do
       # FIXME: I wanted to call PublicBody.destroy_all here so that we
       # have a known DB state, but the constraints were preventing the
       # deletion of the fixture data
-      FactoryBot.create(:public_body, :tag_string => 'wont_be_found')
+      FactoryBot.create(:public_body, tag_string: 'wont_be_found')
 
-      category = FactoryBot.create(:public_body_category, :category_tag => 'spec')
-      expected_bodies = [FactoryBot.create(:public_body, :tag_string => 'spec'),
-                         FactoryBot.create(:public_body, :tag_string => 'spec')]
+      category = FactoryBot.create(:public_body_category, category_tag: 'spec')
+      expected_bodies = [FactoryBot.create(:public_body, tag_string: 'spec'),
+                         FactoryBot.create(:public_body, tag_string: 'spec')]
 
-      get :edit, params: { :id => category.id }
+      get :edit, params: { id: category.id }
 
       expect(assigns(:tagged_public_bodies).sort).to eq(expected_bodies.sort)
     end
 
     it 'renders the edit template' do
-      get :edit, params: { :id => @category.id }
+      get :edit, params: { id: @category.id }
       expect(response).to render_template('edit')
     end
 
@@ -294,9 +294,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
       @heading = FactoryBot.create(:public_body_heading)
       @category = FactoryBot.create(:public_body_category)
       link = FactoryBot.create(:public_body_category_link,
-                               :public_body_category => @category,
-                               :public_body_heading => @heading,
-                               :category_display_order => 0)
+                               public_body_category: @category,
+                               public_body_heading: @heading,
+                               category_display_order: 0)
       @tag = @category.category_tag
       AlaveteliLocalization.with_locale('es') do
         @category.title = 'Los category'
@@ -304,23 +304,23 @@ RSpec.describe AdminPublicBodyCategoriesController do
         @category.save!
       end
 
-      @params = { :category_tag => @category.category_tag,
-                  :translations_attributes => {
-        'en' => { :id => @category.translation_for(:en).id,
-                  :locale => 'en',
-                  :title => @category.title(:en),
-                  :description => @category.description(:en) },
-        'es' => { :id => @category.translation_for(:es).id,
-                  :locale => 'es',
-                  :title => @category.title(:es),
-                  :description => @category.description(:es) }
+      @params = { category_tag: @category.category_tag,
+                  translations_attributes: {
+        'en' => { id: @category.translation_for(:en).id,
+                  locale: 'en',
+                  title: @category.title(:en),
+                  description: @category.description(:en) },
+        'es' => { id: @category.translation_for(:es).id,
+                  locale: 'es',
+                  title: @category.title(:es),
+                  description: @category.description(:es) }
       } }
     end
 
     it 'finds the category to update' do
       post :update, params: {
-                      :id => @category.id,
-                      :public_body_category => @params
+                      id: @category.id,
+                      public_body_category: @params
                     }
       expect(assigns(:public_body_category)).to eq(@category)
     end
@@ -329,16 +329,15 @@ RSpec.describe AdminPublicBodyCategoriesController do
       # FIXME: I wanted to call PublicBody.destroy_all here so that we
       # have a known DB state, but the constraints were preventing the
       # deletion of the fixture data
-      FactoryBot.create(:public_body, :tag_string => 'wont_be_found')
+      FactoryBot.create(:public_body, tag_string: 'wont_be_found')
 
-      category = FactoryBot.create(:public_body_category, :category_tag => 'spec')
-      expected_bodies = [FactoryBot.create(:public_body, :tag_string => 'spec'),
-                         FactoryBot.create(:public_body, :tag_string => 'spec')]
+      category = FactoryBot.create(:public_body_category, category_tag: 'spec')
+      expected_bodies = [FactoryBot.create(:public_body, tag_string: 'spec'),
+                         FactoryBot.create(:public_body, tag_string: 'spec')]
 
       post :update, params: {
-                      :id => category.id,
-                      :public_body_category =>
-                        category.serializable_hash.except(:title, :description)
+                      id: category.id,
+                      public_body_category:                         category.serializable_hash.except(:title, :description)
                     }
 
       expect(assigns(:tagged_public_bodies)).to match_array(expected_bodies)
@@ -350,16 +349,16 @@ RSpec.describe AdminPublicBodyCategoriesController do
       heading = FactoryBot.create(:public_body_heading)
 
       post :update, params: {
-                      :id => @category.id,
-                      :public_body_category => {
-                        :translations_attributes => {
+                      id: @category.id,
+                      public_body_category: {
+                        translations_attributes: {
                           'en' => {
-                            :id => @category.translation_for(:en).id,
-                            :title => 'Renamed'
+                            id: @category.translation_for(:en).id,
+                            title: 'Renamed'
                           }
                         }
                       },
-                      :headings => { "heading_#{ heading.id }" => heading.id }
+                      headings: { "heading_#{ heading.id }" => heading.id }
                     }
 
       category = PublicBodyCategory.find(@category.id)
@@ -369,11 +368,11 @@ RSpec.describe AdminPublicBodyCategoriesController do
     context 'when the category has associated bodies' do
 
       it 'does not save edits to category_tag' do
-        body = FactoryBot.create(:public_body, :tag_string => @tag)
+        body = FactoryBot.create(:public_body, tag_string: @tag)
 
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => { :category_tag => 'Renamed' }
+                        id: @category.id,
+                        public_body_category: { category_tag: 'Renamed' }
                       }
 
         category = PublicBodyCategory.find(@category.id)
@@ -381,24 +380,24 @@ RSpec.describe AdminPublicBodyCategoriesController do
       end
 
       it 'notifies the user that the category_tag could not be updated' do
-        body = FactoryBot.create(:public_body, :tag_string => @tag)
+        body = FactoryBot.create(:public_body, tag_string: @tag)
         msg = %Q(There are authorities associated with this category,
                          so the tag can't be renamed).squish
 
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => { :category_tag => 'Renamed' }
+                        id: @category.id,
+                        public_body_category: { category_tag: 'Renamed' }
                       }
 
         expect(flash[:error]).to eq(msg)
       end
 
       it 'renders the edit action' do
-        body = FactoryBot.create(:public_body, :tag_string => @tag)
+        body = FactoryBot.create(:public_body, tag_string: @tag)
 
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => { :category_tag => 'Renamed' }
+                        id: @category.id,
+                        public_body_category: { category_tag: 'Renamed' }
                       }
 
         expect(response).to render_template('edit')
@@ -409,12 +408,12 @@ RSpec.describe AdminPublicBodyCategoriesController do
     context 'on success' do
 
       before(:each) do
-        @params = { :id => @category.id,
-                    :public_body_category => {
-                      :translations_attributes => {
+        @params = { id: @category.id,
+                    public_body_category: {
+                      translations_attributes: {
                         'en' => {
-                          :id => @category.translation_for(:en).id,
-                          :title => 'Renamed'
+                          id: @category.translation_for(:en).id,
+                          title: 'Renamed'
                         }
                       }
                     }
@@ -438,11 +437,11 @@ RSpec.describe AdminPublicBodyCategoriesController do
       end
 
       it 'saves edits to category_tag if the category has no associated bodies' do
-        category = FactoryBot.create(:public_body_category, :category_tag => 'empty')
+        category = FactoryBot.create(:public_body_category, category_tag: 'empty')
 
         post :update, params: {
-                        :id => category.id,
-                        :public_body_category => { :category_tag => 'Renamed' }
+                        id: category.id,
+                        public_body_category: { category_tag: 'Renamed' }
                       }
 
         category = PublicBodyCategory.find(category.id)
@@ -453,8 +452,8 @@ RSpec.describe AdminPublicBodyCategoriesController do
         AlaveteliLocalization.set_locales('es en_GB', 'en_GB')
 
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => { :name => 'Category en_GB' }
+                        id: @category.id,
+                        public_body_category: { name: 'Category en_GB' }
                       }
 
         expect(
@@ -469,20 +468,20 @@ RSpec.describe AdminPublicBodyCategoriesController do
       it "saves edits to a public body category in another locale" do
         expect(@category.title(:es)).to eq('Los category')
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => {
-                          :translations_attributes => {
+                        id: @category.id,
+                        public_body_category: {
+                          translations_attributes: {
                             'en' => {
-                              :id => @category.translation_for(:en).id,
-                              :locale => 'en',
-                              :title => @category.title(:en),
-                              :description => @category.description(:en)
+                              id: @category.translation_for(:en).id,
+                              locale: 'en',
+                              title: @category.title(:en),
+                              description: @category.description(:en)
                             },
                             'es' => {
-                              :id => @category.translation_for(:es).id,
-                              :locale => 'es',
-                              :title => 'Renamed',
-                              :description => 'ES Description'
+                              id: @category.translation_for(:es).id,
+                              locale: 'es',
+                              title: 'Renamed',
+                              description: 'ES Description'
                             }
                           }
                         }
@@ -498,19 +497,19 @@ RSpec.describe AdminPublicBodyCategoriesController do
         @category.reload
 
         put :update, params: {
-                       :id => @category.id,
-                       :public_body_category => {
-                         :translations_attributes => {
+                       id: @category.id,
+                       public_body_category: {
+                         translations_attributes: {
                            'en' => {
-                             :id => @category.translation_for(:en).id,
-                             :locale => 'en',
-                             :title => @category.title(:en),
-                             :description => @category.description(:en)
+                             id: @category.translation_for(:en).id,
+                             locale: 'en',
+                             title: @category.title(:en),
+                             description: @category.description(:en)
                            },
                            'es' => {
-                             :locale => "es",
-                             :title => "Example Public Body Category ES",
-                             :description => @category.description(:es)
+                             locale: "es",
+                             title: "Example Public Body Category ES",
+                             description: @category.description(:es)
                            }
                          }
                        }
@@ -530,24 +529,24 @@ RSpec.describe AdminPublicBodyCategoriesController do
         @category.reload
 
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => {
-                          :translations_attributes => {
+                        id: @category.id,
+                        public_body_category: {
+                          translations_attributes: {
                             'en' => {
-                              :id => @category.translation_for(:en).id,
-                              :locale => 'en',
-                              :title => @category.title(:en),
-                              :description => @category.description(:en)
+                              id: @category.translation_for(:en).id,
+                              locale: 'en',
+                              title: @category.title(:en),
+                              description: @category.description(:en)
                             },
                             'es' => {
-                              :locale => "es",
-                              :title => "Example Public Body Category ES",
-                              :description => 'ES Description'
+                              locale: "es",
+                              title: "Example Public Body Category ES",
+                              description: 'ES Description'
                             },
                             'fr' => {
-                              :locale => "fr",
-                              :title => "Example Public Body Category FR",
-                              :description => 'FR Description'
+                              locale: "fr",
+                              title: "Example Public Body Category FR",
+                              description: 'FR Description'
                             }
                           }
                         }
@@ -567,22 +566,22 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       it 'updates an existing translation and adds a third translation' do
         post :update, params: {
-          :id => @category.id,
-          :public_body_category => {
-            :translations_attributes => {
-              'en' => { :id => @category.translation_for(:en).id,
-                        :locale => 'en',
-                        :title => @category.title(:en),
-                        :description => @category.description(:en) },
+          id: @category.id,
+          public_body_category: {
+            translations_attributes: {
+              'en' => { id: @category.translation_for(:en).id,
+                        locale: 'en',
+                        title: @category.title(:en),
+                        description: @category.description(:en) },
               # Update existing translation
-              'es' => { :id => @category.translation_for(:es).id,
-                        :locale => "es",
-                        :title => "Renamed Example Public Body Category ES",
-                        :description => @category.description },
+              'es' => { id: @category.translation_for(:es).id,
+                        locale: "es",
+                        title: "Renamed Example Public Body Category ES",
+                        description: @category.description },
               # Add new translation
-              'fr' => { :locale => "fr",
-                        :title => "Example Public Body Category FR",
-                        :description => @category.description }
+              'fr' => { locale: "fr",
+                        title: "Example Public Body Category FR",
+                        description: @category.description }
             }
           }
         }
@@ -601,14 +600,14 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       it "redirects to the edit page after a successful update" do
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => {
-                          :translations_attributes => {
+                        id: @category.id,
+                        public_body_category: {
+                          translations_attributes: {
                             'en' => {
-                              :id => @category.translation_for(:en).id,
-                              :locale => 'en',
-                              :title => @category.title(:en),
-                              :description => @category.description(:en)
+                              id: @category.translation_for(:en).id,
+                              locale: 'en',
+                              title: @category.title(:en),
+                              description: @category.description(:en)
                             }
                           }
                         }
@@ -623,14 +622,14 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       it 'renders the form if creating the record was unsuccessful' do
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => {
-                          :translations_attributes => {
+                        id: @category.id,
+                        public_body_category: {
+                          translations_attributes: {
                             'en' => {
-                              :id => @category.translation_for(:en).id,
-                              :locale => 'en',
-                              :title => '',
-                              :description => @category.description(:en)
+                              id: @category.translation_for(:en).id,
+                              locale: 'en',
+                              title: '',
+                              description: @category.description(:en)
                             }
                           }
                         }
@@ -640,14 +639,14 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       it 'is rebuilt with the given params' do
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => {
-                          :translations_attributes => {
+                        id: @category.id,
+                        public_body_category: {
+                          translations_attributes: {
                             'en' => {
-                              :id => @category.translation_for(:en).id,
-                              :locale => 'en',
-                              :title => 'Need a description',
-                              :description => ''
+                              id: @category.translation_for(:en).id,
+                              locale: 'en',
+                              title: 'Need a description',
+                              description: ''
                             }
                           }
                         }
@@ -660,31 +659,31 @@ RSpec.describe AdminPublicBodyCategoriesController do
     context 'on failure for multiple locales' do
 
       before(:each) do
-        @params = { :category_tag => 'new_test_category',
-                    :translations_attributes => {
-          'en' => { :id => @category.translation_for(:en).id,
-                    :locale => 'en',
-                    :title => 'Need a description',
-                    :description => '' },
-                    'es' => { :id => @category.translation_for(:es).id,
-                              :locale => 'es',
-                              :title => 'Mi Nuevo Category',
-                              :description => 'ES Description' }
+        @params = { category_tag: 'new_test_category',
+                    translations_attributes: {
+          'en' => { id: @category.translation_for(:en).id,
+                    locale: 'en',
+                    title: 'Need a description',
+                    description: '' },
+                    'es' => { id: @category.translation_for(:es).id,
+                              locale: 'es',
+                              title: 'Mi Nuevo Category',
+                              description: 'ES Description' }
         } }
       end
 
       it 'is rebuilt with the default locale translation' do
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => @params
+                        id: @category.id,
+                        public_body_category: @params
                       }
         expect(assigns(:public_body_category).title(:en)).to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
         post :update, params: {
-                        :id => @category.id,
-                        :public_body_category => @params
+                        id: @category.id,
+                        public_body_category: @params
                       }
 
         AlaveteliLocalization.with_locale(:es) do
@@ -704,7 +703,7 @@ RSpec.describe AdminPublicBodyCategoriesController do
       category = FactoryBot.create(:public_body_category)
 
       expect {
-        post :destroy, params: { :id => category.id }
+        post :destroy, params: { id: category.id }
       }.to change { PublicBodyCategory.count }.from(1).to(0)
     end
 
@@ -712,23 +711,23 @@ RSpec.describe AdminPublicBodyCategoriesController do
       PublicBodyCategory.destroy_all
 
       tag = 'empty'
-      authority = FactoryBot.create(:public_body, :tag_string => tag)
-      category = FactoryBot.create(:public_body_category, :category_tag => tag)
+      authority = FactoryBot.create(:public_body, tag_string: tag)
+      category = FactoryBot.create(:public_body_category, category_tag: tag)
 
       expect {
-        post :destroy, params: { :id => category.id }
+        post :destroy, params: { id: category.id }
       }.to change { PublicBodyCategory.count }.from(1).to(0)
     end
 
     it 'notifies the admin that the category was destroyed' do
       category = FactoryBot.create(:public_body_category)
-      post :destroy, params: { :id => category.id }
+      post :destroy, params: { id: category.id }
       expect(flash[:notice]).to eq('Category was successfully destroyed.')
     end
 
     it 'redirects to the categories index' do
       category = FactoryBot.create(:public_body_category)
-      post :destroy, params: { :id => category.id }
+      post :destroy, params: { id: category.id }
       expect(response).to redirect_to(admin_categories_path)
     end
 

@@ -27,20 +27,28 @@ install_mailutils() {
 }
 
 clear_daemon() {
-  echo -n "Removing /etc/init.d/$SITE-$1... "
-  rm -f "/etc/init.d/$SITE-$1"
+  path=$1
+  if [ $path = "/etc/init.d" ]; then name="$SITE-$2"; fi
+  if [ $path = "/etc/systemd/system" ]; then name="$SITE.$2"; fi
+
+  echo -n "Removing $path/$name... "
+  rm -f "$path/$name"
   echo $DONE_MSG
 }
 
 install_daemon() {
-  echo -n "Creating /etc/init.d/$SITE-$1... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' SCRIPT_FILE=config/$1-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-$1"
-  chgrp "$UNIX_USER" /etc/init.d/"$SITE-$1"
-  chmod 754 /etc/init.d/"$SITE-$1"
+  path=$1
+  if [ $path = "/etc/init.d" ]; then name="$SITE-$2"; fi
+  if [ $path = "/etc/systemd/system" ]; then name="$SITE.$2"; fi
+
+  echo -n "Creating $path/$name... "
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_daemon DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' RAILS_ENV_DEFINED='$RAILS_ENV_DEFINED' DAEMON=$2" "$UNIX_USER") > $path/$name
+  chgrp "$UNIX_USER" $path/$name
+  chmod 754 $path/$name
 
   if which systemctl > /dev/null
   then
-    systemctl enable "$SITE-$1"
+    systemctl enable "$name"
   fi
 
   echo $DONE_MSG
@@ -62,6 +70,28 @@ install_daemon() {
 [ -z "$VERSIONS" ] && misuse VERSIONS
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
+
+if [ -f $REPOSITORY/config/general.yml ]; then
+    STAGING_SITE=$(su -l -c "cd '$REPOSITORY' && bin/config STAGING_SITE" "$UNIX_USER")
+    if ([ "$STAGING_SITE" = "0" ] && [ "$DEVELOPMENT_INSTALL" = "true" ]) ||
+      ([ "$STAGING_SITE" = "1" ] && [ "$DEVELOPMENT_INSTALL" != "true" ]); then
+        cat <<-END
+
+    *****************************************************************
+    ERROR: Configuration mismatch
+
+    In config/general.yml you have STAGING_SITE set to $STAGING_SITE but you're
+    running the install script with DEVELOPMENT_INSTALL set to $DEVELOPMENT_INSTALL
+
+    Please either update config/general.yml or change the flags used
+    when invoking the install script
+    *****************************************************************
+
+END
+
+        exit 1
+    fi
+fi
 
 update_mysociety_apt_sources
 
@@ -169,7 +199,11 @@ fi
 
 # Ensure we have required Ruby version from the current distribution package, if
 # not then install using rbenv
-required_ruby="$(cat $REPOSITORY/.ruby-version.example)"
+if [ -f $REPOSITORY/.ruby-version ]; then
+  required_ruby="$(cat $REPOSITORY/.ruby-version)"
+else
+  required_ruby="$(cat $REPOSITORY/.ruby-version.example)"
+fi
 current_ruby="$(ruby --version | awk 'match($0, /[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')"
 if [ "$(printf '%s\n' "$required_ruby" "$current_ruby" | sort -V | head -n1)" = "$required_ruby" ]; then
   echo "Current Ruby (${current_ruby}) is greater than or equal to required version (${required_ruby})"
@@ -213,7 +247,7 @@ su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUB
 echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
 
 
-RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:get_config_value KEY=PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
+RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bin/config PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
 if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
 
   # Install dovecot
@@ -250,6 +284,12 @@ fi
 
 cd "$REPOSITORY"
 
+if [ -f config/rails_env.rb ]; then
+  RAILS_ENV_DEFINED=$(ruby -r ./config/rails_env.rb -e "puts ENV.keys.include?('RAILS_ENV')")
+else
+  RAILS_ENV_DEFINED=false
+fi
+
 if [ "$DEVELOPMENT_INSTALL" = true ]; then
   RAILS_ENV=development
 else
@@ -285,28 +325,31 @@ sed -r \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
 
-if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
-  echo -n "Creating /etc/init.d/$SITE... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' RUBY_VERSION='$RUBY_VERSION' USE_RBENV=$USE_RBENV RAILS_ENV='$RAILS_ENV' SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
-  chgrp "$UNIX_USER" /etc/init.d/"$SITE"
-  chmod 754 /etc/init.d/"$SITE"
+# Clear existing legacy daemons if present
+if [ -f /etc/init.d/$SITE ]
+then
+  echo "Clearing any legacy daemons"
+  echo -n "Removing /etc/init.d/$SITE... "
+  rm -f "/etc/init.d/$SITE"
   echo $DONE_MSG
 fi
 
-# Clear existing daemons
-all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons" "$UNIX_USER")
-echo "Clearing any existing daemons"
-for daemon in $all_daemons
-do
-  clear_daemon $daemon
-done
+for path in "/etc/init.d" "/etc/systemd/system"; do
+  # Clear existing daemons
+  all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons PATH='$path'" "$UNIX_USER")
+  echo "Clearing any existing $path daemons"
+  for daemon in $all_daemons
+  do
+    clear_daemon $path $daemon
+  done
 
-# Install required daemons
-active_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:active_daemons" "$UNIX_USER")
-echo "Creating daemons for active daemons"
-for daemon in $active_daemons
-do
-  install_daemon $daemon
+  # Install required daemons
+  active_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:active_daemons PATH='$path'" "$UNIX_USER")
+  echo "Creating daemons for active $path daemons"
+  for daemon in $active_daemons
+  do
+    install_daemon $path $daemon
+  done
 done
 
 if which systemctl > /dev/null

@@ -40,23 +40,21 @@ module InfoRequestHelper
     old_unclassified = opts.fetch(:old_unclassified, false)
 
     if is_owning_user && !info_request.is_external? && !render_to_file
-      return status_text_awaiting_description_owner_please_answer(
+      status_text_awaiting_description_owner_please_answer(
+        new_responses_count)
+    elsif old_unclassified
+      status_text_awaiting_description_old_unclassified(
         new_responses_count)
     else
-      if old_unclassified
-        return status_text_awaiting_description_old_unclassified(
-          new_responses_count)
-      else
-        return status_text_awaiting_description_other(info_request,
-                                                      new_responses_count)
-      end
+      status_text_awaiting_description_other(info_request,
+                                                    new_responses_count)
     end
   end
 
-  def status_text_waiting_response(info_request, opts = {})
+  def status_text_waiting_response(info_request, _opts = {})
     str = _('Currently <strong>waiting for a response</strong> from ' \
             '{{public_body_link}}, they should respond promptly and',
-            :public_body_link => public_body_link(info_request.public_body))
+            public_body_link: public_body_link(info_request.public_body))
     str += ' '
     str += _('normally')
     str += ' '
@@ -70,17 +68,17 @@ module InfoRequestHelper
     str += ")."
   end
 
-  def status_text_waiting_response_overdue(info_request, opts = {})
+  def status_text_waiting_response_overdue(info_request, _opts = {})
     str = _('Response to this request is <strong>delayed</strong>.')
     str += ' '
     if info_request.public_body.not_subject_to_law?
       str += _('Although not legally required to do so, we would have ' \
                'expected {{public_body_link}} to have responded by ',
-               :public_body_link => public_body_link(info_request.public_body))
+               public_body_link: public_body_link(info_request.public_body))
     else
       str += _('By law, {{public_body_link}} should normally have responded ' \
                '<strong>promptly</strong> and',
-               :public_body_link => public_body_link(info_request.public_body))
+               public_body_link: public_body_link(info_request.public_body))
       str += ' '
       str += _('by')
       str += ' '
@@ -93,17 +91,17 @@ module InfoRequestHelper
     str += ")"
   end
 
-  def status_text_waiting_response_very_overdue(info_request, opts = {})
+  def status_text_waiting_response_very_overdue(info_request, _opts = {})
     str = _('Response to this request is <strong>long overdue</strong>.')
     str += ' '
     if info_request.public_body.not_subject_to_law?
       str += _('Although not legally required to do so, we would have ' \
                'expected {{public_body_link}} to have responded by now',
-               :public_body_link => public_body_link(info_request.public_body))
+               public_body_link: public_body_link(info_request.public_body))
     else
       str += _('By law, under all circumstances, {{public_body_link}} should ' \
                'have responded by now',
-               :public_body_link => public_body_link(info_request.public_body))
+               public_body_link: public_body_link(info_request.public_body))
     end
     str += ' '
     str += "("
@@ -115,7 +113,7 @@ module InfoRequestHelper
       str += _('You can <strong>complain</strong> by')
       str += ' '
       str += link_to _('requesting an internal review'),
-                    new_request_followup_path(:request_id => info_request.id) +
+                    new_request_followup_path(request_id: info_request.id) +
                     '?internal_review=1'
       str += '.'
     end
@@ -123,22 +121,22 @@ module InfoRequestHelper
     str
   end
 
-  def status_text_not_held(info_request, opts = {})
+  def status_text_not_held(info_request, _opts = {})
     _('{{authority_name}} <strong>did not have</strong> the information ' \
       'requested.',
-      :authority_name => public_body_link(info_request.public_body))
+      authority_name: public_body_link(info_request.public_body))
   end
 
-  def status_text_rejected(info_request, opts = {})
+  def status_text_rejected(info_request, _opts = {})
     _('The request was <strong>refused</strong> by {{authority_name}}.',
-      :authority_name => public_body_link(info_request.public_body))
+      authority_name: public_body_link(info_request.public_body))
   end
 
-  def status_text_successful(info_request, opts = {})
+  def status_text_successful(_info_request, _opts = {})
     _('The request was <strong>successful</strong>.')
   end
 
-  def status_text_partially_successful(info_request, opts = {})
+  def status_text_partially_successful(_info_request, _opts = {})
     _('The request was <strong>partially successful</strong>.')
   end
 
@@ -150,7 +148,7 @@ module InfoRequestHelper
     if is_owning_user && !info_request.is_external?
       str += _('{{authority_name}} is <strong>waiting for your clarification' \
                '</strong>.',
-               :authority_name => info_request.public_body.name)
+               authority_name: info_request.public_body.name)
       str += ' '
       str += _('Please')
       str += ' '
@@ -165,9 +163,9 @@ module InfoRequestHelper
 
         str += ' '
         str += _('If you are {{user_link}}, please',
-                 :user_link => user_link_for_request(info_request))
+                 user_link: user_link_for_request(info_request))
         str += ' '
-        str += link_to _("sign in"), signin_path(:r => redirect_to)
+        str += link_to _("sign in"), signin_path(r: redirect_to)
         str += ' '
         str += _('to send a follow up message.')
       end
@@ -176,52 +174,52 @@ module InfoRequestHelper
     str
   end
 
-  def status_text_gone_postal(info_request, opts = {})
+  def status_text_gone_postal(_info_request, _opts = {})
     _('The authority would like to / has <strong>responded by ' \
       'postal mail</strong> to this request.')
   end
 
-  def status_text_internal_review(info_request, opts = {})
+  def status_text_internal_review(info_request, _opts = {})
     _('Waiting for an <strong>internal review</strong> by ' \
       '{{public_body_link}} of their handling of this request.',
-      :public_body_link => public_body_link(info_request.public_body))
+      public_body_link: public_body_link(info_request.public_body))
   end
 
-  def status_text_error_message(info_request, opts = {})
+  def status_text_error_message(_info_request, _opts = {})
     _('There was a <strong>delivery error</strong> or similar, which ' \
       'needs fixing by the {{site_name}} team.',
-      :site_name => site_name)
+      site_name: site_name)
   end
 
-  def status_text_requires_admin(info_request, opts = {})
+  def status_text_requires_admin(_info_request, _opts = {})
     _('This request has had an unusual response, and <strong>requires ' \
       'attention</strong> from the {{site_name}} team.',
-      :site_name => site_name)
+      site_name: site_name)
   end
 
-  def status_text_user_withdrawn(info_request, opts = {})
+  def status_text_user_withdrawn(_info_request, _opts = {})
     _('This request has been <strong>withdrawn</strong> by the person ' \
       'who made it. There may be an explanation in the correspondence below.')
   end
 
-  def status_text_attention_requested(info_request, opts = {})
+  def status_text_attention_requested(_info_request, _opts = {})
     _('This request has been <strong>reported</strong> as needing ' \
       'administrator attention.')
   end
 
-  def status_text_vexatious(info_request, opts = {})
+  def status_text_vexatious(_info_request, _opts = {})
     _('This request has been reviewed by an administrator and is ' \
        'considered to be vexatious')
   end
 
-  def status_text_not_foi(info_request, opts = {})
+  def status_text_not_foi(_info_request, _opts = {})
     _('This request has been reviewed by an administrator and is ' \
       'considered not to be an FOI request')
   end
 
-  def custom_state_description(info_request, opts = {})
-    render :partial => 'general/custom_state_descriptions',
-           :locals => { :status => info_request.calculate_status }
+  def custom_state_description(info_request, _opts = {})
+    render partial: 'general/custom_state_descriptions',
+           locals: { status: info_request.calculate_status }
   end
 
   def status_text_awaiting_description_owner_please_answer(new_responses_count)
@@ -258,7 +256,7 @@ module InfoRequestHelper
        user: user_link_for_request(info_request))
   end
 
-  def attachment_link(incoming_message, attachment)
+  def attachment_link(_incoming_message, attachment)
     img_filename = "icon_#{attachment.content_type.sub('/', '_')}_large.png"
     full_filename = File.expand_path(Rails.root.join('app',
                                                      'assets',
@@ -271,8 +269,8 @@ module InfoRequestHelper
       "content_type/icon_unknown.png"
     end
 
-    link_to image_tag(image, :class => "attachment__image",
-                             :alt => "Attachment"),
+    link_to image_tag(image, class: "attachment__image",
+                             alt: "Attachment"),
             attachment_path(attachment)
   end
 
@@ -297,10 +295,8 @@ module InfoRequestHelper
   def details_help_link(public_body)
     anchor =
       public_body.not_subject_to_law? ? 'authorities' : 'quickly_response'
-    link_to _('details'), help_requesting_path(:anchor => anchor)
+    link_to _('details'), help_requesting_path(anchor: anchor)
   end
-
-  private
 
   def attachment_params(attachment, options = {})
     attach_params = {

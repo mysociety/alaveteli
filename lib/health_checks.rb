@@ -25,7 +25,7 @@ module HealthChecks
   end
 
   def ok?
-    all.all? { |check| check.ok? }
+    all.all?(&:ok?)
   end
 
   private

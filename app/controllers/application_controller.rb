@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, unless: :authenticated?
 
   # Deal with access denied errors from CanCan
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do |_exception|
     raise PermissionDenied
   end
 
   # assign our own handler method for non-local exceptions
-  rescue_from Exception, :with => :render_exception
+  rescue_from Exception, with: :render_exception
 
   # Standard headers, footers and navigation for whole site
   layout "default"
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
 
-  # Note: a filter stops the chain if it redirects or renders something
+  # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response
   before_action :authentication_check
   before_action :check_in_post_redirect
@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
   # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
   around_action :record_memory
   def record_memory
-    record_memory = AlaveteliConfiguration::debug_record_memory
+    record_memory = AlaveteliConfiguration.debug_record_memory
     if record_memory
       logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
       File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
@@ -172,9 +172,7 @@ class ApplicationController < ActionController::Base
   def render_exception(exception)
     # In development let Rails handle the exception with its stack trace
     # templates.
-    if Rails.application.config.consider_all_requests_local
-      raise exception
-    end
+    raise exception if Rails.application.config.consider_all_requests_local
 
     @exception_backtrace = exception.backtrace.join("\n")
     @exception_class = exception.class.to_s
@@ -193,12 +191,12 @@ class ApplicationController < ActionController::Base
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
       if send_exception_notifications?
-        ExceptionNotifier.notify_exception(exception, :env => request.env)
+        ExceptionNotifier.notify_exception(exception, env: request.env)
       end
       @status = 500
     end
     respond_to do |format|
-      format.html { render :template => "general/exception_caught", :status => @status }
+      format.html { render template: "general/exception_caught", status: @status }
       format.any { head @status }
     end
   end
@@ -209,7 +207,7 @@ class ApplicationController < ActionController::Base
     raise ActiveRecord::RecordNotFound if @info_request && @info_request.embargo
 
     response_code = opts.delete(:response_code) { 403 } # forbidden
-    options = { :template => template, :status => response_code }.merge(opts)
+    options = { template: template, status: response_code }.merge(opts)
 
     respond_to do |format|
       format.html { render(options) }
@@ -231,7 +229,7 @@ class ApplicationController < ActionController::Base
 
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
-  def form_authenticity_token(*args)
+  def form_authenticity_token(**args)
     super if authenticated?
   end
 
@@ -287,7 +285,7 @@ class ApplicationController < ActionController::Base
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
-  alias_method :current_user, :authenticated_user
+  alias current_user authenticated_user
   helper_method :current_user
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
@@ -320,14 +318,12 @@ class ApplicationController < ActionController::Base
       else
         uri += "&post_redirect=1"
       end
+    elsif uri.include?("#")
+      uri.sub!("#", "?post_redirect=1#")
     else
-      if uri.include?("#")
-        uri.sub!("#", "?post_redirect=1#")
-      else
-        uri += "?post_redirect=1"
-      end
+      uri += "?post_redirect=1"
     end
-    return uri
+    uri
   end
 
   # If we are in a faked redirect to POST request, then set post params.
@@ -362,21 +358,21 @@ class ApplicationController < ActionController::Base
 
   #
   def check_read_only
-    if !AlaveteliConfiguration::read_only.empty?
+    unless AlaveteliConfiguration.read_only.empty?
       if feature_enabled?(:annotations)
         flash[:notice] = {
-          :partial => "general/read_only_annotations",
-          :locals => {
-            :site_name => site_name,
-            :read_only => AlaveteliConfiguration.read_only
+          partial: "general/read_only_annotations",
+          locals: {
+            site_name: site_name,
+            read_only: AlaveteliConfiguration.read_only
           }
         }
       else
         flash[:notice] = {
-          :partial => "general/read_only",
-          :locals => {
-            :site_name => site_name,
-            :read_only => AlaveteliConfiguration.read_only
+          partial: "general/read_only",
+          locals: {
+            site_name: site_name,
+            read_only: AlaveteliConfiguration.read_only
           }
         }
       end
@@ -388,13 +384,13 @@ class ApplicationController < ActionController::Base
   # Convert URL name for sort by order, to Xapian query
   def order_to_sort_by(sortby)
     if sortby.nil?
-      return [nil, nil]
+      [nil, nil]
     elsif sortby == 'newest'
-      return ['created_at', true]
+      ['created_at', true]
     elsif sortby == 'described'
-      return ['described_at', true] # use this for some RSS
+      ['described_at', true] # use this for some RSS
     elsif sortby == 'relevant'
-      return [nil, nil]
+      [nil, nil]
     else
       raise "Unknown sort order " + @sortby
     end
@@ -413,28 +409,28 @@ class ApplicationController < ActionController::Base
     @page = this_page || get_search_page_from_params
 
     result = ActsAsXapian::Search.new(models, @query,
-                                      :offset => (@page - 1) * @per_page,
-                                      :limit => @per_page,
-                                      :sort_by_prefix => order,
-                                      :sort_by_ascending => ascending,
-                                      :collapse_by_prefix => collapse
+                                      offset: (@page - 1) * @per_page,
+                                      limit: @per_page,
+                                      sort_by_prefix: order,
+                                      sort_by_ascending: ascending,
+                                      collapse_by_prefix: collapse
                                       )
     result.results # Touch the results to load them, otherwise accessing them from the view
     # might fail later if the database has subsequently been reopened.
-    return result
+    result
   end
 
   def get_search_page_from_params
     page = (params[:page] || "1").to_i
     page = 1 if page < 1
-    return page
+    page
   end
 
   def typeahead_search(query, options)
     @page = get_search_page_from_params
     @per_page = options[:per_page] || 25
-    options.merge!( :page => @page,
-                    :per_page => @per_page )
+    options.merge!( page: @page,
+                    per_page: @per_page )
     typeahead_search = TypeaheadSearch.new(query, options)
     typeahead_search.xapian_search
   end
@@ -456,15 +452,13 @@ class ApplicationController < ActionController::Base
 
   def country_from_ip
     return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
-    AlaveteliConfiguration::iso_country_code
+    AlaveteliConfiguration.iso_country_code
   end
 
   def user_ip
-    begin
-      request.remote_ip
-    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-      nil
-    end
+    request.remote_ip
+  rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+    nil
   end
 
   # URL Encode the path parameter for use in render_exception
@@ -473,14 +467,14 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def sanitize_path(params)
-    params.merge!(:path => Rack::Utils.escape(params[:path])) if params.key?(:path)
+    params.merge!(path: Rack::Utils.escape(params[:path])) if params.key?(:path)
   end
 
   # Collect the current and available locales for the locale switcher
   #
   # Returns a Hash
   def collect_locales
-    @locales = { :current => AlaveteliLocalization.locale, :available => [] }
+    @locales = { current: AlaveteliLocalization.locale, available: [] }
     AlaveteliLocalization.available_locales.each do |possible_locale|
       if possible_locale == AlaveteliLocalization.locale
         @locales[:current] = possible_locale

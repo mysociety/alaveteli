@@ -1,6 +1,0 @@
-# BUNDLE_GEMFILE=Gemfile.rails_next bundle install
-# BUNDLE_GEMFILE=Gemfile.rails_next be rails s -b 0.0.0.0
-
-ENV["RAILS_UPGRADE"] = 'true'
-
-eval_gemfile File.expand_path('../Gemfile', __FILE__)

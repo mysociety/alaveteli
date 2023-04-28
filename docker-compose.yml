@@ -5,18 +5,44 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+      args:
+        RUBY_VERSION: '${RUBY_VERSION:-3.0}'
     environment:
       - BUNDLE_PATH=/bundle/vendor
       - DATABASE_URL=postgres://postgres:password@db/
+      - REDIS_URL=redis://redis:6379
+      - SMTP_URL=smtp://smtp:1025
     ports:
       - 3000:3000
-      - 1080:1080
     volumes:
       - ./:/alaveteli
       - ../alaveteli-themes:/alaveteli-themes
       - bundle:/bundle
     depends_on:
       - db
+      - redis
+      - smtp
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        RUBY_VERSION: '${RUBY_VERSION:-3.0}'
+    command: bundle exec sidekiq
+    volumes:
+      - ./:/alaveteli
+      - ../alaveteli-themes:/alaveteli-themes
+      - bundle:/bundle
+    environment:
+      - BUNDLE_PATH=/bundle/vendor
+      - DATABASE_URL=postgres://postgres:password@db/
+      - REDIS_URL=redis://redis:6379
+      - SMTP_URL=smtp://smtp:1025
+    depends_on:
+      - db
+      - redis
+      - smtp
 
   db:
     build:
@@ -29,6 +55,18 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
 
+  redis:
+    image: library/redis
+    command: redis-server
+    volumes:
+      - redis:/data
+
+  smtp:
+    image: mailhog/mailhog
+    ports:
+      - 1080:8025
+
 volumes:
   bundle: {}
   postgres: {}
+  redis: {}

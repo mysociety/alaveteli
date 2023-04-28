@@ -18,11 +18,9 @@ class RawEmail < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw email properly
 
   has_one :incoming_message,
-          :inverse_of => :raw_email
+          inverse_of: :raw_email
 
   has_one_attached :file, service: :raw_emails
-
-  before_destroy :destroy_file_representation!
 
   delegate :date, to: :mail
   delegate :message_id, to: :mail
@@ -66,7 +64,7 @@ class RawEmail < ApplicationRecord
   end
 
   def empty_from_field?
-    mail.from_addrs.nil? || mail.from_addrs.size == 0
+    mail.from_addrs.nil? || mail.from_addrs.empty?
   end
 
   def mail
@@ -91,9 +89,9 @@ class RawEmail < ApplicationRecord
   end
 
   def data_as_text
-    data.encode("UTF-8", :invalid => :replace,
-                         :undef => :replace,
-                         :replace => "")
+    data.encode("UTF-8", invalid: :replace,
+                         undef: :replace,
+                         replace: "")
   end
 
   def from_name
@@ -128,9 +126,5 @@ class RawEmail < ApplicationRecord
 
   def incoming_message_id
     incoming_message.id.to_s
-  end
-
-  def destroy_file_representation!
-    file.purge if file.attached?
   end
 end

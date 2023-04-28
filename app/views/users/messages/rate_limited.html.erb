@@ -1,0 +1,18 @@
+<% @title = _('Too many messages') %>
+
+<h1><%= @title %></h1>
+
+<p>
+  <%= _('You have hit the rate limit on user messages. Users are ordinarily ' \
+        'limited to {{message_limit}} messages per day.',
+        message_limit: User::CONTENT_LIMIT[:user_messages]) %>
+</p>
+
+<p>
+  <%= _("There is a limit on the number of messages you can send in a day " \
+        "because we don’t want users to be bombarded with " \
+        "large numbers of inappropriate messages. If you feel you have a " \
+        "good reason to ask for the limit to be lifted in your case, " \
+        "please <a href='{{help_contact_path}}'>get in touch</a>.",
+        help_contact_path: help_contact_path) %>
+</p>

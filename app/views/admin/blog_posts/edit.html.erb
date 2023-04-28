@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title = 'Edit blog post' %></h1>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'intro', locals: { blog_post: @blog_post } %>
+
+<%= form_for [:admin, @blog_post], class: 'form form-horizontal' do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <div class="form-actions">
+    <%= submit_tag 'Save', class: 'btn btn-success' %>
+  </div>
+<% end %>

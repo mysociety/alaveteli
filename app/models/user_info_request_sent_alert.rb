@@ -39,13 +39,13 @@ class UserInfoRequestSentAlert < ApplicationRecord
   ]
 
   belongs_to :user,
-             :inverse_of => :user_info_request_sent_alerts
+             inverse_of: :user_info_request_sent_alerts
   belongs_to :info_request,
-             :inverse_of => :user_info_request_sent_alerts
+             inverse_of: :user_info_request_sent_alerts
   belongs_to :info_request_event,
-             :inverse_of => :user_info_request_sent_alerts
+             inverse_of: :user_info_request_sent_alerts
 
-  validates_inclusion_of :alert_type, :in => ALERT_TYPES
+  validates_inclusion_of :alert_type, in: ALERT_TYPES
 
   scope :recent, -> { where(created_at: 1.year.ago.to_date..Float::INFINITY) }
 end

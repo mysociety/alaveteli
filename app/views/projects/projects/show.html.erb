@@ -124,6 +124,47 @@
                   class: 'button-tertiary' %>
           </div>
         <% end %>
+
+        <div class="project-leaderboard">
+          <h2><%= _("Top recent contributors") %></h2>
+          <table>
+            <% @leaderboard.twenty_eight_days.each_with_index do |row, index| %>
+              <tr>
+                <td> <%= index += 1 %>.</td>
+                <td> <%= user_link(row[:user]) %></td>
+                <td>
+                  <%= n_('{{number_of_contributions}} contribution',
+                        '{{number_of_contributions}} contributions',
+                        row[:total_contributions],
+                        number_of_contributions: row[:total_contributions]) %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+          <h2><%= _("All time best contributors") %></h2>
+            <table>
+            <% @leaderboard.all_time.each_with_index do |row, index| %>
+              <tr>
+                <td> <%= index += 1 %>.</td>
+                <td> <%= user_link(row[:user]) %></td>
+                <td>
+                  <%= n_('{{number_of_contributions}} contribution',
+                        '{{number_of_contributions}} contributions',
+                        row[:total_contributions],
+                        number_of_contributions: row[:total_contributions]) %>
+                  </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+
+        <% if can? :download, @project %>
+          <div class="project-download-data">
+            <%= link_to _('Download Leaderboard Data'),
+                  project_leaderboard_path(@project, format: :csv),
+                  class: 'button-tertiary' %>
+          </div>
+        <% end %>
       </aside>
     </div>
   </div>

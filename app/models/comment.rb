@@ -24,6 +24,19 @@ class Comment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  DEFAULT_CREATION_RATE_LIMITS = {
+    1 => 2.seconds,
+    2 => 5.minutes,
+    4 => 30.minutes,
+    6 => 1.hour
+  }.freeze
+
+  cattr_accessor :creation_rate_limits,
+                 instance_reader: false,
+                 instance_writer: false,
+                 instance_accessor: false,
+                 default: DEFAULT_CREATION_RATE_LIMITS
+
   strip_attributes allow_empty: true
 
   belongs_to :user,
@@ -41,19 +54,19 @@ class Comment < ApplicationRecord
   validate :check_body_has_content,
            :check_body_uses_mixed_capitals
 
-  scope :visible, lambda {
+  scope :visible, -> {
     joins(:info_request).
       merge(InfoRequest.is_searchable.except(:select)).
         where(visible: true)
   }
 
-  scope :embargoed, lambda {
+  scope :embargoed, -> {
     joins(info_request: :embargo).
       where('embargoes.id IS NOT NULL').
       references(:embargoes)
   }
 
-  scope :not_embargoed, lambda {
+  scope :not_embargoed, -> {
     joins(:info_request).
       select('comments.*').
         joins('LEFT OUTER JOIN embargoes
@@ -87,6 +100,14 @@ class Comment < ApplicationRecord
     end
   end
 
+  def self.exceeded_creation_rate?(comments)
+    comments = comments.reorder(created_at: :desc)
+
+    creation_rate_limits.any? do |limit, duration|
+      comments.where(created_at: duration.ago..).size >= limit
+    end
+  end
+
   def body
     ret = read_attribute(:body)
     return ret if ret.nil?
@@ -106,12 +127,6 @@ class Comment < ApplicationRecord
 
   def reindex_request_events
     info_request_events.find_each(&:xapian_mark_needs_index)
-  end
-
-  def event_xapian_update
-    warn 'DEPRECATION: Comment#event_xapian_update will be removed in 0.42. ' \
-         'It has been replaced with Comment#reindex_request_events'
-    reindex_request_events
   end
 
   # Return body for display as HTML

@@ -27,19 +27,19 @@ RSpec.describe PublicBodyChangeRequestsController do
     before do
       @email = "test@example.com"
       name = "Test User"
-      @change_request_params = {:user_email => @email,
-                                :user_name => name,
-                                :public_body_name => 'New Body',
-                                :public_body_email => 'new_body@example.com',
-                                :notes => 'Please',
-                                :source => 'http://www.example.com',
-                                :comment => '' }
+      @change_request_params = {user_email: @email,
+                                user_name: name,
+                                public_body_name: 'New Body',
+                                public_body_email: 'new_body@example.com',
+                                notes: 'Please',
+                                source: 'http://www.example.com',
+                                comment: '' }
     end
 
     it "should send an email to the site contact address" do
       allow(@controller).to receive(:verify_recaptcha).and_return(true)
       post :create, params: {
-                      :public_body_change_request => @change_request_params
+                      public_body_change_request: @change_request_params
                     }
       change_request_id = assigns[:change_request].id
       deliveries = ActionMailer::Base.deliveries
@@ -57,7 +57,7 @@ RSpec.describe PublicBodyChangeRequestsController do
 
     it 'sets render_recaptcha to true if there is no logged in user' do
       post :create, params: {
-                      :public_body_change_request => @change_request_params
+                      public_body_change_request: @change_request_params
                     }
       expect(assigns[:render_recaptcha]).to eq(true)
     end
@@ -65,7 +65,7 @@ RSpec.describe PublicBodyChangeRequestsController do
     it 'sets render_recaptcha to false if there is a logged in user' do
       sign_in FactoryBot.create(:user)
       post :create, params: {
-                      :public_body_change_request => @change_request_params
+                      public_body_change_request: @change_request_params
                     }
       expect(assigns[:render_recaptcha]).to eq(false)
     end
@@ -73,7 +73,7 @@ RSpec.describe PublicBodyChangeRequestsController do
     it 're-renders the form if the recaptcha verification was unsuccessful' do
       allow(@controller).to receive(:verify_recaptcha).and_return(false)
       post :create, params: {
-                      :public_body_change_request => @change_request_params
+                      public_body_change_request: @change_request_params
                     }
       expect(response).to render_template(:new)
     end
@@ -81,7 +81,7 @@ RSpec.describe PublicBodyChangeRequestsController do
     it 'should show a notice' do
       allow(@controller).to receive(:verify_recaptcha).and_return(true)
       post :create, params: {
-                      :public_body_change_request => @change_request_params
+                      public_body_change_request: @change_request_params
                     }
       expected_text = "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
       expect(flash[:notice]).to eq(expected_text)
@@ -90,16 +90,16 @@ RSpec.describe PublicBodyChangeRequestsController do
     it 'should redirect to the frontpage' do
       allow(@controller).to receive(:verify_recaptcha).and_return(true)
       post :create, params: {
-                      :public_body_change_request => @change_request_params
+                      public_body_change_request: @change_request_params
                     }
       expect(response).to redirect_to frontpage_url
     end
 
     it 'has rudimentary spam protection' do
-      spam_request_params = @change_request_params.merge({ :comment => 'I AM A SPAMBOT' })
+      spam_request_params = @change_request_params.merge({ comment: 'I AM A SPAMBOT' })
 
       post :create, params: {
-                      :public_body_change_request => spam_request_params
+                      public_body_change_request: spam_request_params
                     }
 
       expect(response).to redirect_to(frontpage_path)
@@ -115,19 +115,19 @@ RSpec.describe PublicBodyChangeRequestsController do
         @email = "test@example.com"
         name = "Test User"
         @public_body = FactoryBot.create(:public_body)
-        @change_request_params = {:user_email => @email,
-                                  :user_name => name,
-                                  :public_body_id => @public_body.id,
-                                  :public_body_email => 'new_body@example.com',
-                                  :notes => 'Please',
-                                  :source => 'http://www.example.com',
-                                  :comment => '' }
+        @change_request_params = {user_email: @email,
+                                  user_name: name,
+                                  public_body_id: @public_body.id,
+                                  public_body_email: 'new_body@example.com',
+                                  notes: 'Please',
+                                  source: 'http://www.example.com',
+                                  comment: '' }
       end
 
       it 'should send an email to the site contact address' do
         allow(@controller).to receive(:verify_recaptcha).and_return(true)
         post :create, params: {
-                        :public_body_change_request => @change_request_params
+                        public_body_change_request: @change_request_params
                       }
         change_request_id = assigns[:change_request].id
         deliveries = ActionMailer::Base.deliveries
@@ -146,7 +146,7 @@ RSpec.describe PublicBodyChangeRequestsController do
       it 'should show a notice' do
         allow(@controller).to receive(:verify_recaptcha).and_return(true)
         post :create, params: {
-                        :public_body_change_request => @change_request_params
+                        public_body_change_request: @change_request_params
                       }
         expected_text = "Your request to update the address for #{@public_body.name} has been sent. Thank you for getting in touch! We'll get back to you soon."
         expect(flash[:notice]).to eq(expected_text)
@@ -155,7 +155,7 @@ RSpec.describe PublicBodyChangeRequestsController do
       it 'should redirect to the frontpage' do
         allow(@controller).to receive(:verify_recaptcha).and_return(true)
         post :create, params: {
-                        :public_body_change_request => @change_request_params
+                        public_body_change_request: @change_request_params
                       }
         expect(response).to redirect_to frontpage_url
       end

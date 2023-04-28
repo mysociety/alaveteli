@@ -32,7 +32,7 @@ class UserProfile::AboutMeController < ApplicationController
         flash[:notice] = _("You have now changed the text about you on your profile.")
         redirect_to user_url(@user)
       else
-        flash[:notice] = { :partial => "update_profile_text" }
+        flash[:notice] = { partial: "update_profile_text" }
         redirect_to set_profile_photo_url
       end
     else
@@ -52,7 +52,7 @@ class UserProfile::AboutMeController < ApplicationController
 
   def set_title
     @title = _('Change the text about you on your profile at {{site_name}}',
-               :site_name => site_name)
+               site_name: site_name)
   end
 
   def spam_about_me_text?(text, user)
@@ -68,7 +68,7 @@ class UserProfile::AboutMeController < ApplicationController
   def handle_spam_about_me_text(user)
     if send_exception_notifications?
       e = Exception.new("Spam about me text from user #{ user.id }")
-      ExceptionNotifier.notify_exception(e, :env => request.env)
+      ExceptionNotifier.notify_exception(e, env: request.env)
     end
 
     if block_spam_about_me_text?

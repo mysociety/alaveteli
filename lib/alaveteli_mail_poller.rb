@@ -23,7 +23,7 @@ class AlaveteliMailPoller
     start do |pop3|
       pop3.each_mail do |popmail|
         received = get_mail(popmail)
-        found_mail = found_mail || received
+        found_mail ||= received
       end
     end
     found_mail
@@ -35,9 +35,9 @@ class AlaveteliMailPoller
     if AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
       poller = new
       Rails.logger.info "Starting #{ poller } polling loop"
-      while true
+      loop do
         sleep_seconds = 1
-        while !poller.poll_for_incoming
+        until poller.poll_for_incoming
           Rails.logger.debug "#{ poller } sleeping for #{ sleep_seconds }"
           sleep sleep_seconds
           sleep_seconds *= 2
@@ -67,7 +67,7 @@ class AlaveteliMailPoller
       if send_exception_notifications?
         ExceptionNotifier.notify_exception(
           error,
-          :data => { mail: raw_email,
+          data: { mail: raw_email,
                      unique_id: unique_id }
         )
       end
@@ -102,10 +102,10 @@ class AlaveteliMailPoller
     !failed?(unique_id) || retry?(unique_id)
   end
 
-  def start(&block)
+  def start()
     # Start a POP3 session and ensure that it will be closed in any case.
     unless block_given?
-      raise ArgumentError.new("AlaveteliMailPoller#start takes a block")
+      raise ArgumentError, "AlaveteliMailPoller#start takes a block"
     end
 
     pop3.enable_ssl(OpenSSL::SSL::VERIFY_NONE) if settings[:enable_ssl]
@@ -113,13 +113,9 @@ class AlaveteliMailPoller
 
     yield pop3
   rescue StandardError => error
-    if send_exception_notifications?
-      ExceptionNotifier.notify_exception(error)
-    end
+    ExceptionNotifier.notify_exception(error) if send_exception_notifications?
   ensure
-    if defined?(pop3) && pop3 && pop3.started?
-      pop3.finish
-    end
+    pop3.finish if defined?(pop3) && pop3 && pop3.started?
   end
 
   def default_pop3

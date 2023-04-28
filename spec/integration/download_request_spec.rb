@@ -150,8 +150,8 @@ RSpec.describe 'when making a zipfile available' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request)
         FactoryBot.create(:censor_rule,
-                          :replacement => 'REDACTED',
-                          :text => 'information')
+                          replacement: 'REDACTED',
+                          text: 'information')
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(1)
@@ -164,8 +164,8 @@ RSpec.describe 'when making a zipfile available' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request_with_incoming)
         FactoryBot.create(:censor_rule,
-                          :replacement => 'REDACTED',
-                          :text => 'hereisthe')
+                          replacement: 'REDACTED',
+                          text: 'hereisthe')
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(1)
@@ -177,9 +177,9 @@ RSpec.describe 'when making a zipfile available' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request_with_plain_incoming)
         FactoryBot.create(:censor_rule,
-                          :text => 'First',
-                          :replacement => 'REDACTED',
-                          :info_request => info_request)
+                          text: 'First',
+                          replacement: 'REDACTED',
+                          info_request: info_request)
 
         sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
 
@@ -203,7 +203,7 @@ RSpec.describe 'when making a zipfile available' do
     it "should update the contents of the zipfile when the request changes" do
 
       info_request = FactoryBot.create(:info_request_with_incoming,
-                                       :title => 'Example Title')
+                                       title: 'Example Title')
       request_owner = login(info_request.user)
       inspect_zip_download(request_owner, info_request) do |zip|
         expect(zip.count).to eq(1) # just the message
@@ -232,7 +232,7 @@ RSpec.describe 'when making a zipfile available' do
       before do
         @non_owner = login(FactoryBot.create(:user))
         @info_request = FactoryBot.create(:info_request_with_incoming,
-                                          :prominence => 'requester_only')
+                                          prominence: 'requester_only')
         @request_owner = login(@info_request.user)
         @admin = login(FactoryBot.create(:admin_user))
       end
@@ -266,7 +266,7 @@ RSpec.describe 'when making a zipfile available' do
       it 'should not allow a download of the request by an admin only' do
         @non_owner = login(FactoryBot.create(:user))
         @info_request = FactoryBot.create(:info_request_with_incoming,
-                                          :prominence => 'hidden')
+                                          prominence: 'hidden')
         @request_owner = login(@info_request.user)
         @admin = login(FactoryBot.create(:admin_user))
 
@@ -359,8 +359,8 @@ RSpec.describe 'when making a zipfile available' do
 
         using_session(admin) do
           visit edit_admin_outgoing_message_path info_request.outgoing_messages.first
-          select 'requester_only', :from => 'Prominence'
-          fill_in 'Reason for prominence', :with => 'boring'
+          select 'requester_only', from: 'Prominence'
+          fill_in 'Reason for prominence', with: 'boring'
           find_button('Save').click
         end
 
@@ -396,8 +396,8 @@ RSpec.describe 'when making a zipfile available' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request)
         FactoryBot.create(:censor_rule,
-                          :text => 'information',
-                          :replacement => 'REDACTED')
+                          text: 'information',
+                          replacement: 'REDACTED')
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(1)
@@ -409,8 +409,8 @@ RSpec.describe 'when making a zipfile available' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request_with_incoming)
         FactoryBot.create(:censor_rule,
-                          :text => 'hereisthe',
-                          :replacement => 'REDACTED')
+                          text: 'hereisthe',
+                          replacement: 'REDACTED')
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(1)
@@ -422,9 +422,9 @@ RSpec.describe 'when making a zipfile available' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request_with_plain_incoming)
         FactoryBot.create(:censor_rule,
-                          :text => 'First',
-                          :replacement => 'REDACTED',
-                          :info_request => info_request)
+                          text: 'First',
+                          replacement: 'REDACTED',
+                          info_request: info_request)
 
         sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
 

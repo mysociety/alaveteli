@@ -21,7 +21,7 @@ class WidgetVotesController < ApplicationController
       end
 
       @info_request.widget_votes.
-        where(:cookie => cookie).
+        where(cookie: cookie).
           first_or_create
     end
 
@@ -32,8 +32,8 @@ class WidgetVotesController < ApplicationController
   private
 
   def check_widget_config
-    unless AlaveteliConfiguration::enable_widgets
-      raise ActiveRecord::RecordNotFound.new("Page not enabled")
+    unless AlaveteliConfiguration.enable_widgets
+      raise ActiveRecord::RecordNotFound, "Page not enabled"
     end
   end
 
@@ -42,7 +42,7 @@ class WidgetVotesController < ApplicationController
   end
 
   def check_prominence
-    unless @info_request.prominence(:decorate => true).is_searchable?
+    unless @info_request.prominence(decorate: true).is_searchable?
       head :forbidden
     end
   end

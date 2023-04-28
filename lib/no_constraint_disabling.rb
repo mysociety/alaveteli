@@ -52,7 +52,7 @@ module ActiveRecord
 
           update_all_loaded_fixtures fixtures_map
 
-          connection.transaction(:requires_new => true) do
+          connection.transaction(requires_new: true) do
             # Patch - replace this...
             # ***
             # fixture_sets.each do |fs|

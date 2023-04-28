@@ -101,6 +101,13 @@
   background-position: -128px 0;
 }
 
+.sidebar__section.blog-posts {
+  .blog-posts-list {
+    list-style: none;
+    padding: 0;
+  }
+}
+
 .sidebar__section.citations {
   .citations-list {
     list-style: none;

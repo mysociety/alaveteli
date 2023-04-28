@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -35,6 +35,8 @@
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
 #  login_token                       :string
+#  receive_user_messages             :boolean          default(TRUE), not null
+#  user_messages_count               :integer          default(0), not null
 #
 
 FactoryBot.define do
@@ -61,7 +63,7 @@ FactoryBot.define do
       sequence(:name) { |n| "Pro User #{n}" }
       pro
 
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         create(:pro_account, user: user)
       end
     end
@@ -85,7 +87,7 @@ FactoryBot.define do
     end
 
     trait :enable_otp do
-      after(:build) { |object| object.enable_otp }
+      after(:build, &:enable_otp)
     end
 
     trait :unconfirmed do
@@ -98,6 +100,7 @@ FactoryBot.define do
 
     trait :closed do
       closed_at { Time.zone.now }
+      receive_email_alerts { false }
     end
   end
 end

@@ -56,7 +56,10 @@
 <div class="control-group">
   <label for="censor_rule_last_edit_comment" class="control-label">Comment for this edit</label>
   <div class="controls">
-    <%= text_area 'censor_rule', 'last_edit_comment', :value => '', :rows => 2, :class => "span6" %>
+    <%= text_area 'censor_rule', 'last_edit_comment', :data => { last_edit_comment: @censor_rule.last_edit_comment }, :value => '', :rows => 2, :class => "span6" %>
+    <% if @censor_rule.last_edit_comment %>
+      <a href="#" id="js-use-previous-comment" data-target="#censor_rule_last_edit_comment" class="btn">Use previous comment</a>
+    <% end %>
     <div class="help-block">
       put purpose of the rule, and why the change
     </div>

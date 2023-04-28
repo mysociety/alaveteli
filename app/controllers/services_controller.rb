@@ -53,7 +53,7 @@ class ServicesController < ApplicationController
     end
 
     # TODO: workaround the HTML validation in test suite
-    render :plain => text
+    render plain: text
   end
 
   def hidden_user_explanation
@@ -95,26 +95,26 @@ class ServicesController < ApplicationController
     _("Hello! You can make Freedom of Information requests within " \
       "{{country_name}} at {{link_to_website}} and to EU " \
       "institutions at {{link_to_asktheeu}}",
-      :country_name => country_name,
-      :link_to_website => country_link.html_safe,
-      :link_to_asktheeu => ask_the_eu_link.html_safe)
+      country_name: country_name,
+      link_to_website: country_link.html_safe,
+      link_to_asktheeu: ask_the_eu_link.html_safe)
   end
 
   def user_site_msg(country_name, country_link)
     _("Hello! You can make Freedom of Information requests within " \
       "{{country_name}} at {{link_to_website}}",
-      :country_name => country_name,
-      :link_to_website => country_link.html_safe)
+      country_name: country_name,
+      link_to_website: country_link.html_safe)
   end
 
   def no_user_site_msg(country_name = nil)
     if country_name
       _("Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}",
-        :country_name => country_name,
-        :url => "/help/alaveteli?country_name=#{CGI.escape(country_name)}")
+        country_name: country_name,
+        url: "/help/alaveteli?country_name=#{CGI.escape(country_name)}")
     else
       _("Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries",
-        :url => "/help/alaveteli")
+        url: "/help/alaveteli")
     end
   end
 
@@ -123,15 +123,15 @@ class ServicesController < ApplicationController
       _("Hello! We have an <a href=\"{{url}}\">important message</a> for " \
         "visitors outside {{country_name}}. You can also make Freedom of " \
         "Information requests to EU institutions at {{link_to_asktheeu}}",
-        :country_name => country_name,
-        :url => "/help/alaveteli?country_name=#{CGI.escape(country_name)}",
-        :link_to_asktheeu => ask_the_eu_link.html_safe)
+        country_name: country_name,
+        url: "/help/alaveteli?country_name=#{CGI.escape(country_name)}",
+        link_to_asktheeu: ask_the_eu_link.html_safe)
     else
       _("Hello! We have an <a href=\"{{url}}\">important message</a> for " \
         "visitors in other countries. You can also make Freedom of " \
         "Information requests to EU institutions at {{link_to_asktheeu}}",
-        :url => "/help/alaveteli",
-        :link_to_asktheeu => ask_the_eu_link.html_safe)
+        url: "/help/alaveteli",
+        link_to_asktheeu: ask_the_eu_link.html_safe)
     end
   end
 

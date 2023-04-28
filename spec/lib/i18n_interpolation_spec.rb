@@ -3,9 +3,9 @@ require 'spec_helper'
 RSpec.describe "when using i18n" do
 
   it "should not complain if we're missing variables from the string" do
-    result = _('Hello', :dip => 'hummus')
+    result = _('Hello', dip: 'hummus')
     expect(result).to eq('Hello')
-    result = _('Hello {{dip}}', :dip => 'hummus')
+    result = _('Hello {{dip}}', dip: 'hummus')
     expect(result).to eq('Hello hummus')
   end
 
@@ -115,13 +115,13 @@ RSpec.describe "gettext_interpolate" do
     let(:string) { "Hello {{a}}" }
 
     it "should give an unsafe result" do
-      result = gettext_interpolate(string, :a => "foo")
+      result = gettext_interpolate(string, a: "foo")
       expect(result).to eq("Hello foo")
       expect(result).not_to be_html_safe
     end
 
     it "should give an unsafe result" do
-      result = gettext_interpolate(string, :a => "foo".html_safe)
+      result = gettext_interpolate(string, a: "foo".html_safe)
       expect(result).to eq("Hello foo")
       expect(result).not_to be_html_safe
     end
@@ -131,13 +131,13 @@ RSpec.describe "gettext_interpolate" do
     let(:string) { "Hello {{a}}".html_safe }
 
     it "should quote the input if it's unsafe" do
-      result = gettext_interpolate(string, :a => "foo&")
+      result = gettext_interpolate(string, a: "foo&")
       expect(result).to eq("Hello foo&amp;")
       expect(result).to be_html_safe
     end
 
     it "should not quote the input if it's safe" do
-      result = gettext_interpolate(string, :a => "foo&".html_safe)
+      result = gettext_interpolate(string, a: "foo&".html_safe)
       expect(result).to eq("Hello foo&")
       expect(result).to be_html_safe
     end

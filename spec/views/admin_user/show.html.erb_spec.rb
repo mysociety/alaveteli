@@ -6,6 +6,7 @@ RSpec.describe "admin_user/show" do
     info_requests = []
     allow(info_requests).to receive(:total_pages).and_return(0)
     assign :info_requests, info_requests
+    assign :info_request_batches, []
     assign :admin_user, user_being_viewed
     assign :comments, []
   end
@@ -17,7 +18,7 @@ RSpec.describe "admin_user/show" do
     it 'should not show the list of post redirects' do
       with_feature_enabled(:alaveteli_pro) do
         allow(controller).to receive(:current_user).and_return(current_user)
-        render :template => 'admin_user/show', :locals => { :current_user => current_user }
+        render template: 'admin_user/show', locals: { current_user: current_user }
         expect(rendered).not_to match('Post redirects')
       end
     end
@@ -31,7 +32,7 @@ RSpec.describe "admin_user/show" do
     it 'should show the list of post redirects' do
       with_feature_enabled(:alaveteli_pro) do
         allow(controller).to receive(:current_user).and_return(current_user)
-        render :template => 'admin_user/show', :locals => { :current_user => current_user }
+        render template: 'admin_user/show', locals: { current_user: current_user }
         expect(rendered).to match('Post redirects')
       end
     end
