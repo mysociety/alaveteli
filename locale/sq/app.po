@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # arianit <ardob11@gmail.com>, 2022
 # arianit <ardob11@gmail.com>, 2012
 # arianit <ardob11@gmail.com>, 2012,2022
@@ -50,7 +51,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Valon <vbrestovci@gmail.com>, 2011\n"
 "Language-Team: Albanian (http://app.transifex.com/mysociety/alaveteli/language"
@@ -482,6 +483,9 @@ msgstr "Te gjitha opsionet si me poshte mund te perdorin <strong>variety</strong
 msgid "All time"
 msgstr "Tërë koha"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Lojtarët më të mirë ndonjëherë"
 
@@ -648,6 +652,9 @@ msgstr "Bllokuar nga ky sajt"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Lista e krijuar nga {{info_request_user}} me {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Duke filluar me"
 
@@ -710,6 +717,9 @@ msgstr "Anulo disa njoftime për {{site_name}}"
 
 msgid "Cancel, return to your profile page"
 msgstr "Anulo, kthehu në faqen e profilit tënd "
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "Ndrysho emailin në {{site_name}}"
@@ -975,6 +985,9 @@ msgstr "Bëj &gt;&gt;"
 msgid "Download Data"
 msgstr "Shkarko të dhënat"
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Shkarko zip fajllin me korrespondencën e plotë"
 
@@ -1045,6 +1058,9 @@ msgstr "Historiku i ngjarjeve"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Çdo qytetar ka të drejtën për të pasur informacionet e çdo institucioni publik."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
@@ -1583,6 +1599,9 @@ msgstr "Kerkesa e fundit e pare: {{request_url}}"
 
 msgid "Latest"
 msgstr "Më të fundit"
+
+msgid "Latest news and campaigns"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "Meso me teper &rarr;"
@@ -2265,6 +2284,9 @@ msgstr "Rregullorja"
 msgid "Rejected"
 msgstr "Refuzuar"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Më kutjo mua (të mban signed in më gjatë; mos e përdorni në kompjutera publik)"
 
@@ -2454,6 +2476,9 @@ msgstr "Kërko kontributet e tua"
 msgid "Section"
 msgstr "Seksioni"
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Dërgo mesazh vijues"
 
@@ -2489,6 +2514,30 @@ msgstr "Dërgo mesazh tek {{user_name}} vetëm për të parë se si funksionon"
 
 msgid "Sending..."
 msgstr "Duke derguar..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2555,6 +2604,9 @@ msgstr "Ç'kyçu"
 msgid "Sign up"
 msgstr "Regjistrohu"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr "Regjistrimet nga Tor janë bllokuar për shkak të keqpërdorimit të gjerë. Ju lutemi na kontaktoni nëse ky është një problem për ju."
 
@@ -2610,6 +2662,9 @@ msgstr "Na vjen keq që për momentin nuk mund të shtojmë shënimin. Provoni p
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr "Na vjen keq, për momentin nuk jemi të gjendje të krijojmë llogarinë tuaj. Provo më vonë."
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
+msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Na vjen keq, për momentin nuk mund të dërgojmë kërkesën. Provo prap më vonë."
@@ -3036,8 +3091,14 @@ msgstr "Ka më shumë se një person që përdor këtë faqe dhe ka këtë emër
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Ekziston një kufi në numrin e shënimeve që mund të bëni brenda një dite, sepse ne nuk duam që faqja të bombardohet me një numër të madh shënimesh të papërshtatshme. Nëse mendoni se keni një arsye të mirë për të kërkuar heqjen e kufirit në rastin tuaj, ju lutemi <a href='{{help_contact_path}}'>na kontaktoni</a>."
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Ka nje kufi lidhur me numrin e kerkesave qe mund te dergoni ne nje dite, sepse nuk duam qe institucionet publike te bombardohen me nje numer te madh kerkesash te papershtatshme. Nese ju mnedoni se keni asye te forta per te kerkuar anullimin e kufirit per rastin tuaj, ju lutem <a href='{{help_contact_path}}'>na kontaktoni</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Nuk ka ende asgje per t'u shfaqur"
@@ -3264,6 +3325,9 @@ msgstr ""
 "shpejtësisë me të cilën institucionet i përgjigjen kërkesave, numrit të kërkesave\n"
 "që kërkojne përgjigje postale dhe gjëra të tjera."
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Ky përdorues është pezulluar nga {{site_name}} "
 
@@ -3392,8 +3456,14 @@ msgstr "Sot"
 msgid "Too many annotations"
 msgstr "Shumë shënime"
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Shumë kërkesa"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "Top lojtarë e rishtëm"
@@ -3747,6 +3817,9 @@ msgstr "Shkruaj mesazhin tënd pasues QDP te {{authority_name}}"
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Shkruaje kërkesën tënde me <strong>gjuhë të thjeshtë, dhe të saktë</strong>."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr "Po"
 
@@ -3877,6 +3950,9 @@ msgstr "Keni arritur kufirin e tarifës për shënimet. Përdoruesit zakonisht k
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Keni mberritur ne kufirin e kerkesave te reja. Perdoruesit zakonisht jane te kufizuar ne dergimin e {{max_requests_per_user_per_day}} kerkesave per nje periudhe 24 oreshe. Ju do keni mundesi te beni nje kerkese tjeter ne{{can_make_another_request}}."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr "Keni lënë projektin."
@@ -4513,6 +4589,11 @@ msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
 msgstr[0] "{{number_of_comments}} koment"
 msgstr[1] "{{number_of_comments}} komente"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

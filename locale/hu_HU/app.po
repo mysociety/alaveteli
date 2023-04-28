@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # alaveteli_hu <alaveteli@atlatszo.hu>, 2012
 # Dohány Tamás, 2021-2022
@@ -48,7 +49,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: iamdtms, 2021-2022\n"
 "Language-Team: Hungarian (Hungary) (http://app.transifex.com/mysociety/alavete"
@@ -484,6 +485,9 @@ msgstr "Az alábbi beállítások mindegyike használhatja a <strong>változat</
 msgid "All time"
 msgstr "Mindenkori"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "Mindenkori legjobb játékosok"
 
@@ -650,6 +654,9 @@ msgstr "Kitiltva az oldalról"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "A köteget létrehozta: {{info_request_user}}, {{date}}."
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Kezdőbetű"
 
@@ -712,6 +719,9 @@ msgstr "Néhány {{site_name}} értesítő törlése "
 
 msgid "Cancel, return to your profile page"
 msgstr "Mégse, visszatérés a profiloldalra "
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "E-mail cím módosítása"
@@ -981,6 +991,9 @@ msgstr "Kész &gt;&gt;"
 msgid "Download Data"
 msgstr "Adatok letöltése"
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Az adatigényléssel kapcsolatos eddigi teljes levelezés letöltése <i>zip</i> formátumban"
 
@@ -1051,6 +1064,9 @@ msgstr "Eseménytörténet"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Minden állampolgárnak joga van hozzáférni a hatóságok birtokában lévő információkhoz."
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
@@ -1623,6 +1639,9 @@ msgstr "Legutóbb megtekintett igénylés: {{request_url}}"
 
 msgid "Latest"
 msgstr "Legújabb"
+
+msgid "Latest news and campaigns"
+msgstr ""
 
 msgid "Learn more &rarr;"
 msgstr "További információ &rarr;"
@@ -2313,6 +2332,9 @@ msgstr "Szabályozás"
 msgid "Rejected"
 msgstr "Elutasítva"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Emlékezzen rám (továbbra is bejelentkezve marad; ne használja nyilvános számítógépen)"
 
@@ -2502,6 +2524,9 @@ msgstr "Keresés az adatigényléseimben"
 msgid "Section"
 msgstr "Szakasz"
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Emlékeztető üzenet küldése</a> - Rákérdezhet az adatgazdánál, hogy hogy áll az igénylése.<a>"
 
@@ -2537,6 +2562,30 @@ msgstr "Üzenet küldése a következőnek: {{user_name}} Csak hogy megnézzük,
 
 msgid "Sending..."
 msgstr "Küldés..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2603,6 +2652,9 @@ msgstr "Kijelentkezés"
 msgid "Sign up"
 msgstr "Regisztráció"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2661,6 +2713,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Sajnáljuk, jelenleg nem tudjuk hozzáadni a kommentjét. Kérlek, próbáld újra később."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3096,8 +3151,14 @@ msgstr "<strong>Egynél több személy</strong> használja ezt az oldalt és ren
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Ennek a korlátozásnak az az oka hogy nem szeretnénk ha nagy mennyiségű inadekvát adatigényléssel árasztaná el az adatgazdákat valaki. Ha úgy érzi hogy nyomós oka van ennél több adatigénylést kezdeményezni rövid időn belül, kérjük, <a href='{{help_contact_path}}'>lépjen kapcsolatba</a> velünk."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Még nincs mit megjeleníteni."
@@ -3327,6 +3388,9 @@ msgstr ""
 "a közintézmények milyen gyorsan válaszolnak, mennyi igénylés esetén\n"
 "van szükség postai válaszra stb.. "
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Ezt a felhasználót felfüggesztettük a {{site_name}} webhelyen"
 
@@ -3459,8 +3523,14 @@ msgstr "Ma "
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Túl sok igénylés"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "Legújabb játékosok"
@@ -3826,6 +3896,9 @@ msgstr "Írja meg az FOI nyomon követési üzenetét a következőnek: {{author
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Igénylését <strong>egyszerűen és pontosan fogalmazza meg</strong>!"
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr "Igen"
 
@@ -3956,6 +4029,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Felhasználóink 24 órán belül legfeljebb {{max_requests_per_user_per_day}} új adatigénylést kezdeményezhetnek. Ön elérte ezt a számot, ezért a következő adatigénylését legkorábban kb. {{can_make_another_request}} óra múlva küldheti el."
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr "Kilépett a projektből."
@@ -4601,6 +4677,11 @@ msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
 msgstr[0] "{{number_of_comments}} megjegyzés"
 msgstr[1] "{{number_of_comments}} megjegyzés"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"

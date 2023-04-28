@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Amit Shrestha <amitshrestha37@gmail.com>, 2017
 # Anjesh Ojha <anjeshojha67@gmail.com>, 2017
 # arjun gautam <arjun.gautam.1694@gmail.com>, 2016
@@ -65,7 +66,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Yudeep Rajbhandari <endlessveins@gmail.com>, 2017\n"
 "Language-Team: Nepali (http://app.transifex.com/mysociety/alaveteli/language/n"
@@ -495,6 +496,9 @@ msgstr "तल रहेका सबै  विकल्प <strong>variety</st
 msgid "All time"
 msgstr "सबै समयको"
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr "अहिले सम्मका उत्तम खेलाडीहरू"
 
@@ -659,6 +663,9 @@ msgstr "साइटबाट हटाइएको"
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "ब्याच बनाउने {{info_request_user}} मिति {{date}}।"
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "बाट सुरूहुने"
 
@@ -721,6 +728,9 @@ msgstr "{{site_name}} का केही सचेतक बन्द गर्
 
 msgid "Cancel, return to your profile page"
 msgstr "बन्द गर्नुहोस् र आफ्नो प्रोफाइलमा फर्कनुहोस्"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr "{{site_name}} मा इमेल परिवर्तन गर्नुहोस्"
@@ -990,6 +1000,9 @@ msgstr "भयो &gt;&gt;"
 msgid "Download Data"
 msgstr ""
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "सम्पूर्ण  पत्रचार zip file को रूपमा डाउनलोड गर्नुहोस्"
 
@@ -1062,6 +1075,9 @@ msgstr "इभेन्ट इतिहास"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "हरेक नागरिकलाई साधारण अधिकारीहरूद्वारा राखिएको सूचनाको पहुँचको हक छ "
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
@@ -1617,6 +1633,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "अन्तिम पटक हेरिएको: {{request_url}} "
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2295,6 +2314,9 @@ msgstr ""
 msgid "Rejected"
 msgstr "फर्काइयो"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "मलाई सम्झनुहोस् (लामो समयसम्म प्रवेश गराइराख्छ;सार्वजनिक कम्प्युटरमा प्रयोग नगर्नुहोस्)"
 
@@ -2484,6 +2506,9 @@ msgstr "तपाईंको योगदान खोज"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "फलोअप पठाउनुहोस्"
 
@@ -2519,6 +2544,30 @@ msgstr "कसरी काम गर्छ भनेर हेर्नका �
 
 msgid "Sending..."
 msgstr "पठाउँदै..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2585,6 +2634,9 @@ msgstr "साइन आउट गर्नुहोस्"
 msgid "Sign up"
 msgstr "साइन अप गर्नुहोस्"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2643,6 +2695,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr ""
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3064,8 +3119,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "एक दिनमा कति सन्देश पठाउने भन्ने सीमाना छ, किन भने सार्वजनिक निकायहरू हाम्रो साइटबाट प्राप्त हुने अनुरोधहरूबाट ग्रसित नहुन्। यदि तपाईँको यस सीमालाई हटाइनु पर्छ भन्ने तपाईँसँग कुनै कारण छ भने <a href='{{help_contact_path}}'>थाह दिनुहोस्</a>।"
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "हालसम्म देखाउनको लागी केहि छैन |"
@@ -3295,6 +3356,9 @@ msgstr ""
 "र कसलाई कति वटा अनुरोधहरू छन् भन्ने पनि\n"
 "कतिलाई हुलाकद्वारा जवाफ दिनु पर्छ इत्यादि। "
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr ""
 
@@ -3425,8 +3489,14 @@ msgstr "आज"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "धेरै अनुरोधहरू"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr "हालका शीर्ष प्रयोगकर्ताहरू"
@@ -3779,6 +3849,9 @@ msgstr "{{authority_name}}मा तपाईंले FOI सन्देश �
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "<strong>सटीक, सरल भाषामा</strong> आफ्नो अनुरोध लेख्नुहोस्"
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr ""
 
@@ -3907,6 +3980,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "तपाईंले नयाँ अनुरोधमा दर सीमा भेटाउनु भ​एको छ​। प्रयोगकर्ताहरु सामान्यतया २४-घण्टाको अवधिमा {{max_requests_per_user_per_day}} अनुरोधमा सिमित छन्। तपाईं {{can_make_another_request}}मा अर्को अनुरोध गर्न सक्षम हुनुहुनेछ।"
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr ""
@@ -4544,6 +4620,11 @@ msgstr "{{length_of_time}} पहिले"
 
 msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
 msgstr[0] ""
 msgstr[1] ""
 

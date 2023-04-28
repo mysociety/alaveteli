@@ -1,28 +1,115 @@
-# develop
+# 0.43.0.0
 
 ## Highlighted Features
 
+* Improve censor rules comment editing (Alexander Griffen)
 * Reduce the visual prominence of defunct bodies in lists (Gareth Rees)
+* Improve application health metrics (Graeme Porteous)
+* Add ability to display blog posts on request/authority page sidebars using
+  tags (Graeme Porteous)
+* Adding localisation to resent notice (Miroslav Schlossberg, Graeme Porteous)
 * Add ability to paginate through requests in a batch (Gareth Rees)
 * Add list of batch requests to admin user page (Gareth Rees)
 * Add daily limit to user message creation (Gareth Rees)
+* Add project leaderboards (Alexander Griffen)
+* Add background job processing (Graeme Porteous)
 * Add rate limiting to comment creation (Gareth Rees)
 * Fix bug preventing ex-pro users follow up to still-private requests (Gareth
   Rees, Graeme Porteous)
 * Make it clearer that usernames are published (Gareth Rees)
 * Add spam term checking to user to user messages (Gareth Rees)
+* Install script improvements (Graeme Porteous)
+* Update passenger config (Graeme Porteous)
+* Removed legacy event params (Graeme Porteous)
+* Removed legacy notes (Graeme Porteous)
+* Fix rendering of notes on request new (Graeme Porteous)
 * Add support for Ruby 3.2 (Graeme Porteous)
 * Add support for Ruby 3.1 (Graeme Porteous)
 * Upgrade to Rails 7 (Graeme Porteous)
 * Improve processing of large PDF attachments (Graeme Porteous)
 * Add support for Ruby 3.0 (Graeme Porteous)
 * Drop support for Ruby 2.7 (Graeme Porteous)
+* Code linting (Alexander Griffen, Graeme Porteous)
+* Dependencies upgrades (Alexander Griffen, Graeme Porteous)
 
 ## Upgrade Notes
 
-* To upgrade the Ruby version in your development Docker container please run:
+* _Required:_ This upgrade requires upgrading Ruby from 2.7 to 3.x. Alaveteli
+  can now run on all supported 3.x versions. We recommend upgrading to the 3.2.
+  See: https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-Ruby-2.7-to-3.x
+
+* _Required:_ For the new background job processing feature you'll need Redis
+  Server, a popular open-source in-memory data store. And you'll need Sidekiq
+  an efficient background job processor for Ruby:
+
+  1. install Redis Server by running:
+
+          sudo apt-get install redis-server
+
+  2. configure Sidekiq to run when your server starts by creating
+  `/etc/systemd/system/sidekiq.service` from `config/sidekiq.service.example`.
+  And running:
+
+          systemctl enable sidekiq.service
+          systemctl daemon-reload
+
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
+* _Optional:_ To upgrade the Ruby version in your development Docker container
+  please run:
 
       docker/reset
+
+* _Note:_ This release will be the last to support anonymous "external requests"
+  created by the API. If you rely on the API to create or update requests then
+  please contact us as it is our current intention to make the API read-only for
+  the next release.
+
+* _Note:_ This release will be the last to officially support Ubuntu Focal
+  20.04. With the next release we will recommend using Ubuntu Jammy 22.04 LTS.
+  Although using Focal might still work as it will still be within Ubuntu's
+  long term support window. Please bear this in mind for future upgrades.
+
+### Changed Templates
+
+app/views/admin/tags/_tagging.html.erb
+app/views/admin/users/_sign_in_table.html.erb
+app/views/admin_censor_rule/_form.html.erb
+app/views/admin_censor_rule/_list.html.erb
+app/views/admin_censor_rule/index.html.erb
+app/views/admin_comment/edit.html.erb
+app/views/admin_general/_admin_navbar.html.erb
+app/views/admin_general/_edit_comment.html.erb
+app/views/admin_general/stats.html.erb
+app/views/admin_public_body/_public_body.html.erb
+app/views/admin_public_body/show.html.erb
+app/views/admin_request/show.html.erb
+app/views/admin_user/edit.html.erb
+app/views/admin_user/show.html.erb
+app/views/alaveteli_pro/general/_nav_items.html.erb
+app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
+app/views/alaveteli_pro/info_requests/_batch.html.erb
+app/views/alaveteli_pro/info_requests/_message_preview.html.erb
+app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
+app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+app/views/alaveteli_pro/info_requests/new.html.erb
+app/views/alaveteli_pro/plans/_pricing_tiers.html.erb
+app/views/comment/rate_limited.html.erb
+app/views/general/_nav_items.html.erb
+app/views/general/blog.html.erb
+app/views/general/frontpage.html.erb
+app/views/health/checks/index.html.erb
+app/views/projects/projects/show.html.erb
+app/views/public_body/_body_listing_single.html.erb
+app/views/public_body/show.html.erb
+app/views/request/_batch.html.erb
+app/views/request/_resent_outgoing_correspondence.html.erb
+app/views/request/_resent_outgoing_correspondence.text.erb
+app/views/request/_sidebar.html.erb
+app/views/request/new.html.erb
+app/views/request/preview.html.erb
 
 # 0.42.0.1
 

@@ -31,6 +31,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
 # Baran Ozgul <baran@ozgul.net>, 2012
@@ -45,7 +46,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Senol Kaya <kayasenolk@gmail.com>, 2018\n"
 "Language-Team: Turkish (http://app.transifex.com/mysociety/alaveteli/language/"
@@ -477,6 +478,9 @@ msgstr "Aşağıdaki tüm seçenekler iki nokta üst üste işaretinden önce <s
 msgid "All time"
 msgstr ""
 
+msgid "All time best contributors"
+msgstr ""
+
 msgid "All time best players"
 msgstr ""
 
@@ -641,6 +645,9 @@ msgstr ""
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Toplu istek  {{date}} tarihinde {{info_request_user}} tarafından oluşturuldu"
 
+msgid "Before you start"
+msgstr ""
+
 msgid "Beginning with"
 msgstr "Aramak istediğiniz kurumun baş harfini tıklayınız"
 
@@ -703,6 +710,9 @@ msgstr "Bazı {{site_name}} alert'lerini iptal edin"
 
 msgid "Cancel, return to your profile page"
 msgstr "İptal edip, profil sayfanıza dönün"
+
+msgid "Cannot send messages"
+msgstr ""
 
 msgid "Change email on {{site_name}}"
 msgstr " {{site_name}} sitesindeki email adresini değiştir"
@@ -968,6 +978,9 @@ msgstr "Tamamlandı &gt;&gt;"
 msgid "Download Data"
 msgstr ""
 
+msgid "Download Leaderboard Data"
+msgstr ""
+
 msgid "Download a zip file of all correspondence"
 msgstr "Tüm yazışmalarınızı bir zip dosyası olarak indirin"
 
@@ -1040,6 +1053,9 @@ msgstr "Olay tarihi"
 
 msgid "Every citizen has the right to access information held by public authorities."
 msgstr "Kamu kurumlarında bulunan bilgiye ulaşmak her vatandaşın hakkıdır. "
+
+msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
+msgstr ""
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Bu sayfada <strong>adınız</strong> dahil girdiğiniz her türlü bilgi  <a href=\"{{url}}\">sonsuza kadar</a> bu web sitesinde<strong>halka açık </strong>şekilde görünür olacaktır. "
@@ -1583,6 +1599,9 @@ msgid "Last request viewed: {{request_url}}"
 msgstr "Görüntülenen en son başvuru: {{request_url}}"
 
 msgid "Latest"
+msgstr ""
+
+msgid "Latest news and campaigns"
 msgstr ""
 
 msgid "Learn more &rarr;"
@@ -2261,6 +2280,9 @@ msgstr ""
 msgid "Rejected"
 msgstr "Reddedildi"
 
+msgid "Related blog posts"
+msgstr ""
+
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Beni hatırla (siteye giriş yaptıktan sonra, daha uzun süre kalmanızı sağlar. Halka açık bir bilgisayarda kullanmayın)"
 
@@ -2452,6 +2474,9 @@ msgstr "Kendi katkılarınızı arayın"
 msgid "Section"
 msgstr ""
 
+msgid "See all &rarr;"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "Bir takip iletisi gönderin"
 
@@ -2487,6 +2512,30 @@ msgstr "Şu adrese mesaj gönder {{user_name}} nasıl çalıştığını bir gö
 
 msgid "Sending..."
 msgstr "Gönderiliyor..."
+
+msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again, using a new contact address."
+msgstr ""
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr ""
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2553,6 +2602,9 @@ msgstr "Hesabınızdan çıkış yapın"
 msgid "Sign up"
 msgstr "Hesap oluşturun"
 
+msgid "Signing your request"
+msgstr ""
+
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
 
@@ -2609,6 +2661,9 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr ""
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to send your message. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -3032,8 +3087,14 @@ msgstr ""
 msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
+msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
+msgstr ""
+
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Bir gün içinde yapabileceğiniz bilgi edinme başvurusu sınırlıdır çünkü kamu kurum ve kuruluşlarının çok sayıda gönderilmiş uygunsuz başvuruyla bir mesaj bombardmanına maruz kalmasını istemiyoruz. Eğer sizin durumunuzda bu sınırın kaldırılması için iyi bir neden olduğunu düşünüyorsanız lütfen bizimle  <a href='{{help_contact_path}}'>iletişime geçin</a>."
+
+msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
+msgstr ""
 
 msgid "There is nothing to display yet."
 msgstr "Henüz gösterilecek bir şey yok. "
@@ -3260,6 +3321,9 @@ msgstr ""
 " {{site_name}} sitesinde bu başvuruyla ilgili site içinde gerçekleşmiş adımların teknik detaylarını görebilirsiniz. Bu tablo, kamu kuruluşlarının başvurulara cevap verme hızı\n"
 ", postayla cevap verilmesi gereken başvuru sayısı ve birçok başka konuda bilgi üretmek için kullanılabilir. "
 
+msgid "This user does not accept user to user messages."
+msgstr ""
+
 msgid "This user has been suspended from {{site_name}} "
 msgstr ""
 
@@ -3396,8 +3460,14 @@ msgstr "Bugün"
 msgid "Too many annotations"
 msgstr ""
 
+msgid "Too many messages"
+msgstr ""
+
 msgid "Too many requests"
 msgstr "Çok fazla sayıda başvuru"
+
+msgid "Top recent contributors"
+msgstr ""
 
 msgid "Top recent players"
 msgstr ""
@@ -3755,6 +3825,9 @@ msgstr ""
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Başvurunuzu <strong>sade, net bir dille</strong> yazın."
 
+msgid "Writing your request"
+msgstr ""
+
 msgid "Yes"
 msgstr ""
 
@@ -3883,6 +3956,9 @@ msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "Yeni başvurulara uygulanan sınıra eriştiniz. Kullancılar normal koşullarda 24 saatlik bir süre zarfında en çok {{max_requests_per_user_per_day}} başvuru yapabilir.   {{can_make_another_request}} sonra yeni bir başvuru yapabilirsiniz. "
+
+msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
+msgstr ""
 
 msgid "You have left the project."
 msgstr ""
@@ -4519,6 +4595,11 @@ msgstr "{{length_of_time}} önce"
 
 msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
 msgstr[0] ""
 msgstr[1] ""
 
