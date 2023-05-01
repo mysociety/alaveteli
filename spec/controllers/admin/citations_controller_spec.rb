@@ -1,4 +1,3 @@
-# spec/controllers/admin/citations_controller_spec.rb
 require 'spec_helper'
 
 RSpec.describe Admin::CitationsController, type: :controller do
@@ -9,56 +8,57 @@ RSpec.describe Admin::CitationsController, type: :controller do
   end
 
   describe 'GET #index' do
+    let!(:citation1) { FactoryBot.create(:citation) }
+    let!(:citation2) { FactoryBot.create(:citation) }
+
+    before { get :index }
+
     it 'responds successfully with an HTTP 200 status code' do
-      get :index
       expect(response).to be_successful
       expect(response.status).to eq(200)
     end
 
     it 'renders the index template' do
-      get :index
       expect(response).to render_template('index')
     end
 
     it 'loads all citations into @citations' do
-      citation1 = FactoryBot.create(:citation)
-      citation2 = FactoryBot.create(:citation)
-      get :index
       expect(assigns(:citations)).to match_array([citation1, citation2])
     end
   end
 
   describe 'DELETE #destroy' do
-    let!(:citation) { FactoryBot.create(:citation) }
-
-    context 'when deleting a single citation' do
-      it 'deletes the citation' do
+    shared_examples_for 'deletes citations and redirects with notice' do
+      it 'deletes the specified citation(s)' do
         expect {
-          delete :destroy, params: { id: citation.id }
-        }.to change(Citation, :count).by(-1)
+          delete :destroy, params: deletion_params
+        }.to change(Citation, :count).by(-citations_count)
       end
 
       it 'redirects back with a notice' do
-        delete :destroy, params: { id: citation.id }
+        delete :destroy, params: deletion_params
         expect(response).to redirect_to(root_path)
-        expect(flash[:notice]).to eq('Citation deleted successfully.')
+        expect(flash[:notice]).to eq(success_message)
       end
     end
 
+    context 'when deleting a single citation' do
+      let!(:citation) { FactoryBot.create(:citation) }
+      let(:deletion_params) { { id: citation.id } }
+      let(:citations_count) { 1 }
+      let(:success_message) { 'Citation deleted successfully.' }
+
+      it_behaves_like 'deletes citations and redirects with notice'
+    end
+
     context 'when deleting multiple citations' do
+      let!(:citation1) { FactoryBot.create(:citation) }
       let!(:citation2) { FactoryBot.create(:citation) }
+      let(:deletion_params) { { citation_ids: [citation1.id, citation2.id] } }
+      let(:citations_count) { 2 }
+      let(:success_message) { 'Citation(s) deleted successfully.' }
 
-      it 'deletes the selected citations' do
-        expect {
-          delete :destroy, params: { citation_ids: [citation.id, citation2.id] }
-        }.to change(Citation, :count).by(-2)
-      end
-
-      it 'redirects back with a notice' do
-        delete :destroy, params: { citation_ids: [citation.id, citation2.id] }
-        expect(response).to redirect_to(root_path)
-        expect(flash[:notice]).to eq('Citation(s) deleted successfully.')
-      end
+      it_behaves_like 'deletes citations and redirects with notice'
     end
   end
 end
