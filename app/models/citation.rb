@@ -63,4 +63,19 @@ class Citation < ApplicationRecord
   def applies_to_batch_request?
     citable.is_a?(InfoRequestBatch)
   end
+  
+  def self.destroy_citations(citation_ids, admin_current_user)
+    citations = Citation.where(id: citation_ids)
+    citations.each { |citation| log_citation_destruction(citation, admin_current_user) }
+    citations.destroy_all
+  end
+
+  def self.log_citation_destruction(citation, admin_current_user)
+    return unless citation.citable.is_a?(InfoRequest)
+    citation.citable.log_event(
+      'destroy_citation',
+      editor: admin_current_user,
+      deleted_citation_id: citation.id
+    )
+  end
 end
