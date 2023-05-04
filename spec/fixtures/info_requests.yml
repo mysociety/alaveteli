@@ -50,6 +50,7 @@ fancy_dog_request:
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 50929748
     use_notifications: false
+    incoming_messages_count: 1
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
@@ -90,6 +91,7 @@ boring_request:
     last_public_response_at: 2007-11-13 18:00:20
     idhash: 173fd003
     use_notifications: false
+    incoming_messages_count: 1
 another_boring_request:
     id: 106
     title: The cost of boring
@@ -104,6 +106,7 @@ another_boring_request:
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 173fd004
     use_notifications: false
+    incoming_messages_count: 1
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
 # used to test the request de-duplication features.
@@ -121,6 +124,7 @@ spam_1_request:
     last_public_response_at: 2001-01-03 01:23:45.6789100
     idhash: 173fd005
     use_notifications: false
+    incoming_messages_count: 1
 spam_2_request:
     id: 108
     title: Cheap v1agra
@@ -134,6 +138,7 @@ spam_2_request:
     comments_allowed: true
     idhash: 173fd006
     use_notifications: false
+    incoming_messages_count: 1
 external_request:
     id: 109
     title: Balalas
