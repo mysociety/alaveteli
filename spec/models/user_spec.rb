@@ -1373,6 +1373,11 @@ RSpec.describe User do
         expect(user.about_me).to be_empty
       end
 
+      it 'destroys any old slugs' do
+        # update in the method will create a new slug as the name is changed.
+        expect(user.slugs.pluck(:slug)).to eq(['a1b2c3d4'])
+      end
+
       it 'destroys any sign_ins' do
         expect(user.sign_ins).to be_empty
       end
@@ -1405,8 +1410,28 @@ RSpec.describe User do
 
       it 'creates a censor rule for user name' do
         subject
-        censor_rule = user.censor_rules.last
-        expect(censor_rule.text).to eq(user.name)
+        censor_rule = user.censor_rules.find { _1.text = user.name }
+        expect(censor_rule).to_not be_nil
+        expect(censor_rule.replacement).to eq('[Name Removed]')
+        expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
+        expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
+      end
+    end
+
+    context 'when the user has info requests which uses an different name' do
+      let(:previous_name) { 'Bob' }
+
+      before do
+        FactoryBot.create(:info_request, user: user)
+        FactoryBot.create(
+          :new_information_followup, user: user, from_name: previous_name
+        )
+      end
+
+      it 'creates a censor rules for previous names' do
+        subject
+        censor_rule = user.censor_rules.find { _1.text == previous_name }
+        expect(censor_rule).to_not be_nil
         expect(censor_rule.replacement).to eq('[Name Removed]')
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
@@ -1418,8 +1443,8 @@ RSpec.describe User do
 
       it 'creates a censor rule for user name' do
         subject
-        censor_rule = user.censor_rules.last
-        expect(censor_rule.text).to eq(user.name)
+        censor_rule = user.censor_rules.find { _1.text == user.name }
+        expect(censor_rule).to_not be_nil
         expect(censor_rule.replacement).to eq('[Name Removed]')
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')

@@ -434,6 +434,7 @@ class User < ApplicationRecord
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
     transaction do
+      slugs.destroy_all
       sign_ins.destroy_all
       profile_photo&.destroy!
 
@@ -450,10 +451,13 @@ class User < ApplicationRecord
   def anonymise!
     return if info_requests.none? && comments.none?
 
-    censor_rules.create!(text: read_attribute(:name),
-                         replacement: _('[Name Removed]'),
-                         last_edit_editor: 'User#anonymise!',
-                         last_edit_comment: 'User#anonymise!')
+    current_name = read_attribute(:name)
+    [current_name, *previous_names].each do |name|
+      censor_rules.create!(text: name,
+                           replacement: _('[Name Removed]'),
+                           last_edit_editor: 'User#anonymise!',
+                           last_edit_comment: 'User#anonymise!')
+    end
   end
 
   def close_and_anonymise
