@@ -64,6 +64,18 @@
         <% end %>
       </td>
     </tr>
+    <tr>
+      <td>
+        <b>URL name</b>
+      </td>
+      <td>
+        <ul class="unstyled">
+          <% @admin_user.slugs.each_with_index do |slug, index| %>
+            <%= tag.li slug.slug, class: { muted: index.positive? } %>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
   </tbody>
 </table>
 
