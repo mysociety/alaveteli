@@ -433,6 +433,53 @@ RSpec.describe User, "when checking abilities" do
 
 end
 
+RSpec.describe User, 'previous names' do
+  let(:user) { FactoryBot.build(:user, name: 'Robert') }
+
+  let(:outgoing_message_1) do
+    FactoryBot.build(:initial_request, from_name: 'Bobby', user: user)
+  end
+
+  let(:followup_1) do
+    FactoryBot.build(:new_information_followup, from_name: 'Bob', user: user)
+  end
+
+  let(:followup_2) do
+    FactoryBot.build(:new_information_followup, from_name: 'Bob', user: user)
+  end
+
+  let(:outgoing_message_2) do
+    FactoryBot.build(:initial_request, from_name: 'Robert', user: user)
+  end
+
+  before do
+    FactoryBot.create(:sent_event, outgoing_message: outgoing_message_1)
+    FactoryBot.create(:followup_sent_event, outgoing_message: followup_1)
+    FactoryBot.create(:followup_sent_event, outgoing_message: followup_2)
+    FactoryBot.create(:sent_event, outgoing_message: outgoing_message_2)
+  end
+
+  describe '#previous_names' do
+    it 'returns unique previous names without current name' do
+      expect(user.previous_names).to include('Bobby').once # previous name
+      expect(user.previous_names).to include('Bob').once # previous name
+      expect(user.previous_names).to_not include('Robert') # current name
+    end
+  end
+
+  describe '#safe_previous_names' do
+    it 'returns unique safe previous names without current name' do
+      FactoryBot.create(
+        :censor_rule, user: user, text: 'Bobby', replacement: '[redacted]'
+      )
+
+      expect(user.safe_previous_names).to include('[redacted]').once
+      expect(user.safe_previous_names).to include('Bob').once # previous name
+      expect(user.safe_previous_names).to_not include('Robert') # current name
+    end
+  end
+end
+
 RSpec.describe User, " when making name and email address" do
   it "should generate a name and email" do
     @user = User.new

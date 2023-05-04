@@ -43,6 +43,13 @@
       <p><%= link_to _('Change your name'), edit_users_name_path %></p>
     <% end %>
 
+    <% if @display_user.active? && @display_user.safe_previous_names.any? %>
+      <p>
+        <%= _('Previously known as:') %>
+        <%= @display_user.safe_previous_names.to_sentence %>
+      </p>
+    <% end %>
+
     <p class="subtitle">
       <%= _('Joined {{site_name}} in {{year}}',
             :site_name => site_name,

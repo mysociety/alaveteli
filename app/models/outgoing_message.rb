@@ -57,6 +57,10 @@ class OutgoingMessage < ApplicationRecord
              foreign_key: 'incoming_message_followup_id',
              class_name: 'IncomingMessage'
 
+  has_one :user,
+          inverse_of: :outgoing_messages,
+          through: :info_request
+
   # can have many events, for items which were resent by site admin e.g. if
   # contact address changed
   has_many :info_request_events,

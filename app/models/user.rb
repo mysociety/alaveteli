@@ -76,6 +76,9 @@ class User < ApplicationRecord
   has_many :embargoes,
            inverse_of: :user,
            through: :info_requests
+  has_many :outgoing_messages,
+           inverse_of: :user,
+           through: :info_requests
   has_many :draft_info_requests,
            -> { order(created_at: :desc) },
            inverse_of: :user,
@@ -353,6 +356,17 @@ class User < ApplicationRecord
   # When name is changed, also change the url name
   def name=(name)
     write_attribute(:name, name.try(:strip))
+  end
+
+  def previous_names
+    outgoing_messages.unscope(:order).
+      distinct(:from_name).
+      where.not(from_name: read_attribute(:name)).
+      pluck(:from_name)
+  end
+
+  def safe_previous_names
+    outgoing_messages.map(&:safe_from_name).uniq - [read_attribute(:name)]
   end
 
   # For use in to/from in email messages
