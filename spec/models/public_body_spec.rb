@@ -2045,7 +2045,7 @@ RSpec.describe PublicBody, "when calculating statistics" do
     minimum_requests = 1
     with_enough_info_requests = PublicBody.where(["info_requests_count >= ?",
                                                   minimum_requests]).length
-    all_data = PublicBody.get_request_totals 4, true, minimum_requests
+    all_data = PublicBody.get_request_totals 5, true, minimum_requests
     expect(all_data['public_bodies'].length).to eq(with_enough_info_requests)
   end
 
@@ -2077,7 +2077,7 @@ RSpec.describe PublicBody, "when calculating statistics" do
       minimum_requests = 1
       with_enough_info_requests = PublicBody.where(["info_requests_count >= ?", minimum_requests])
       all_data = PublicBody.get_request_totals 4, true, minimum_requests
-      expect(all_data['public_bodies'].length).to eq(3)
+      expect(all_data['public_bodies'].length).to eq(4)
     ensure
       hpb.tag_string = original_tag_string
     end
