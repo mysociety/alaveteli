@@ -300,6 +300,13 @@
 
       <div id="outgoing_<%= outgoing_message.id %>" class="accordion-body collapse">
         <div class="well">
+        <% if outgoing_message.from_name != @info_request.user_name %>
+          <div class="alert alert-error">
+            The requester's name has changed since this message was last sent
+            to the authority.
+          </div>
+        <% end %>
+
           <%= form_tag resend_admin_outgoing_message_path(outgoing_message), class: 'admin-table-form' do %>
             <% msg = 'Are you sure you want to resend this message ' \
                      'to the authority?' %>

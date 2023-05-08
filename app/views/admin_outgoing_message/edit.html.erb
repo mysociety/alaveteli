@@ -69,6 +69,14 @@
       </div>
 
       <div class="form-actions" >
+        <% if @outgoing_message.from_name != @info_request.user_name %>
+          <div class="alert alert-error">
+            The requester's name has changed since this message was last sent
+            to the authority. Resending will use the user's current name, which
+            may cause confusion.
+          </div>
+        <% end %>
+
         <%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %>
         <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
                     :class => 'btn btn-warning',
