@@ -90,7 +90,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_model_otp (2.3.1)
+    active_model_otp (2.3.2)
       activemodel
       rotp (~> 6.2.0)
     activejob (7.0.4.3)
@@ -409,7 +409,7 @@ GEM
     retriable (3.1.2)
     rexml (3.2.5)
     rolify (6.0.1)
-    rotp (6.2.0)
+    rotp (6.2.2)
     routing-filter (0.7.0)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
