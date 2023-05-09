@@ -147,7 +147,7 @@ gem 'unidecoder', '~> 1.1.0'
 gem 'money', '~> 6.16.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
-gem 'mime-types', '< 3.0.0', require: false
+gem 'mime-types', '< 4.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
