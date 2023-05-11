@@ -37,14 +37,20 @@ RSpec.describe "alaveteli_pro/info_requests/dashboard/_projects" do
     context "when there are requests" do
       it "Has an 'All requests' link" do
         render_view
-        expect(rendered).to have_link("All requests 8", href: alaveteli_pro_info_requests_path)
+        expect(rendered).to have_link(
+          "All requests 8",
+          href: alaveteli_pro_info_requests_path
+        )
       end
     end
 
     context "when there are no requests" do
       it "Has an 'All requests' link" do
         render_empty_view
-        expect(rendered).to have_link("All requests 0", href: alaveteli_pro_info_requests_path)
+        expect(rendered).to have_link(
+          "All requests 0",
+          href: alaveteli_pro_info_requests_path
+        )
       end
     end
   end
