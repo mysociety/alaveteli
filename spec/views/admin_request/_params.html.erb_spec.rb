@@ -9,14 +9,19 @@ RSpec.describe 'when showing diffs in info_request params' do
     ire = InfoRequestEvent.new
     ire.params = { old_foo: 'this is stuff', foo: 'stuff', bar: 84 }
     do_render(ire.params_diff)
-    expect(response.body.squish).to match("<em>foo:</em> this is stuff => stuff <br> <em>bar:</em> 84 <br>")
+    expect(response.body.squish).to match(
+      "<em>foo:</em> this is stuff => stuff <br> <em>bar:</em> 84 <br>"
+    )
   end
 
   it "should convert linebreaks to '<br>'s" do
     ire = InfoRequestEvent.new
     ire.params = { old_foo: 'this\nis\nstuff', foo: 'this\nstuff', bar: 84 }
     do_render(ire.params_diff)
-    expect(response.body.squish).to match("<em>foo:</em> this<br>is<br>stuff => this<br>stuff <br> <em>bar:</em> 84 <br>")
+    expect(response.body.squish).to match(
+      "<em>foo:</em> this<br>is<br>stuff => this<br>stuff <br> <em>bar:</em> " \
+      "84 <br>"
+    )
   end
 
   it 'should not report unchanged values as new' do
