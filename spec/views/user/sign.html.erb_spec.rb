@@ -18,18 +18,24 @@ RSpec.describe 'user/sign' do
 
     it 'should show the first form for describing the state of the request' do
       render
-      expect(response).to match("To follow the request &#39;#{@rendered_title}&#39;")
+      expect(response).
+        to match("To follow the request &#39;#{@rendered_title}&#39;")
     end
   end
 
   describe 'when the requested URI is for an admin page and an emergency user exists' do
 
     before do
-      redirect = PostRedirect.create(uri: 'http://bad.place.com/admin',
-                                     post_params: {'controller' => 'admin_general'},
-                                     reason_params: {web: '',
-                                                        user_name: 'Admin user',
-                                                        user_url: 'users/admin_user'})
+      redirect = PostRedirect.
+        create(
+          uri: 'http://bad.place.com/admin',
+          post_params: { 'controller' => 'admin_general' },
+          reason_params: {
+            web: '',
+            user_name: 'Admin user',
+            user_url: 'users/admin_user'
+          }
+        )
       receive(:disable_emergency_user).and_return(false)
       assign :post_redirect, redirect
     end

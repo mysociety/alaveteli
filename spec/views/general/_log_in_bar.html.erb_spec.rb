@@ -66,7 +66,10 @@ RSpec.describe 'general/_log_in_bar' do
 
         it 'sets the return path to the current page' do
           render_view
-          expect(rendered).to have_link("Sign out", href: signout_path(r: '/test/fullpath'))
+          expect(rendered).to have_link(
+            "Sign out",
+            href: signout_path(r: '/test/fullpath')
+          )
         end
       end
     end
@@ -89,7 +92,10 @@ RSpec.describe 'general/_log_in_bar' do
 
       it 'sets the return path to the current page' do
         render_view
-        expect(rendered).to have_link("Sign out", href: signout_path(r: '/test/fullpath'))
+        expect(rendered).to have_link(
+          "Sign out",
+          href: signout_path(r: '/test/fullpath')
+        )
       end
     end
   end
