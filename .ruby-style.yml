@@ -255,6 +255,7 @@ Layout/LineLength:
     - "^\\s*it\\s+.*do$"
     - "^\\s*context\\s+.*do$"
     - "^\\s*describe\\s+.*do$"
+    - "^RSpec\\.describe(\\s+|\\().*do$"
     - "^\\s*class\\s+[A-Z].*<.*"
   Exclude:
     - bin/setup
