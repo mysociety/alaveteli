@@ -47,11 +47,13 @@ class User < ApplicationRecord
   include User::OneTimePassword
   include User::Survey
 
-  CONTENT_LIMIT = {
+  DEFAULT_CONTENT_LIMITS = {
     info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,
     comments: AlaveteliConfiguration.max_requests_per_user_per_day,
     user_messages: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
+
+  cattr_accessor :content_limits, default: DEFAULT_CONTENT_LIMITS
 
   rolify before_add: :setup_pro_account,
          after_add: :assign_role_features,
@@ -700,6 +702,6 @@ class User < ApplicationRecord
   end
 
   def content_limit(content)
-    CONTENT_LIMIT[content]
+    content_limits[content]
   end
 end
