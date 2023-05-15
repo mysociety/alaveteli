@@ -367,13 +367,23 @@ RSpec.describe Users::SessionsController do
 
       # check is right confirmation URL
       expect(mail_token).to eq(post_redirect.email_token)
-      expect(Rails.application.routes.recognize_path(mail_path)).to eq({ controller: 'user', action: 'confirm', email_token: mail_token })
+      expect(Rails.application.routes.recognize_path(mail_path)).to eq(
+        {
+          controller: 'user',
+          action: 'confirm',
+          email_token: mail_token
+        }
+      )
 
       # check confirmation URL works
       expect(session[:user_id]).to be_nil
       get :confirm, params: { email_token: post_redirect.email_token }
       expect(session[:user_id]).to eq(users(:unconfirmed_user).id)
-      expect(response).to redirect_to(controller: 'request', action: 'list', post_redirect: 1)
+      expect(response).to redirect_to(
+        controller: 'request',
+        action: 'list',
+        post_redirect: 1
+      )
     end
 
     # TODO: Extract to integration spec
@@ -401,7 +411,13 @@ RSpec.describe Users::SessionsController do
 
       # check is right confirmation URL
       expect(mail_token).to eq(post_redirect.email_token)
-      expect(Rails.application.routes.recognize_path(mail_path)).to eq({ controller: 'user', action: 'confirm', email_token: mail_token })
+      expect(Rails.application.routes.recognize_path(mail_path)).to eq(
+        {
+          controller: 'user',
+          action: 'confirm',
+          email_token: mail_token
+        }
+      )
 
       # Log in as an admin
       sign_in users(:admin_user)
@@ -411,7 +427,11 @@ RSpec.describe Users::SessionsController do
       expect(session[:user_id]).to eq(users(:admin_user).id)
 
       # And the redirect should still work, of course
-      expect(response).to redirect_to(controller: 'request', action: 'list', post_redirect: 1)
+      expect(response).to redirect_to(
+        controller: 'request',
+        action: 'list',
+        post_redirect: 1
+      )
     end
 
   end

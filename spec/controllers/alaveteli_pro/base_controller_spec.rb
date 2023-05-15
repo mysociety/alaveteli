@@ -12,13 +12,17 @@ RSpec.describe AlaveteliPro::BaseController do
     # of pro_user_authenticated?
 
     before do
-      allow(controller).to receive(:feature_enabled?).with(:alaveteli_pro).and_return(true)
+      allow(controller).
+        to receive(:feature_enabled?).
+        with(:alaveteli_pro).
+        and_return(true)
     end
 
     context "when the user is not logged in" do
       it "redirects to the signin path" do
         get :index
-        expect(@response.redirect_url).to match(/http:\/\/test\.host\/profile\/sign_in/)
+        expect(@response.redirect_url).
+          to match(/http:\/\/test\.host\/profile\/sign_in/)
       end
     end
 

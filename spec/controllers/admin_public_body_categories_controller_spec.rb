@@ -132,7 +132,8 @@ RSpec.describe AdminPublicBodyCategoriesController do
                         headings: { "heading_#{ heading.id }" => heading.id }
                       }
 
-        category = PublicBodyCategory.where(title: @params[:translations_attributes]['en'][:title]).first
+        category = PublicBodyCategory.
+          where(title: @params[:translations_attributes]['en'][:title]).first
         expect(category.public_body_headings).to eq([heading])
       end
 
@@ -232,7 +233,8 @@ RSpec.describe AdminPublicBodyCategoriesController do
         post :create, params: { public_body_category: @params }
 
         AlaveteliLocalization.with_locale(:es) do
-          expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
+          expect(assigns(:public_body_category).title).
+            to eq('Mi Nuevo Category')
         end
       end
 
@@ -263,7 +265,8 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
       get :edit, params: { id: @category.id }
-      expect(assigns[:public_body_category].translations.map(&:locale)).to include(:fr)
+      expect(assigns[:public_body_category].translations.map(&:locale)).
+        to include(:fr)
     end
 
     it 'finds the public bodies tagged with the category tag' do
@@ -337,7 +340,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
       post :update, params: {
                       id: category.id,
-                      public_body_category:                         category.serializable_hash.except(:title, :description)
+                      public_body_category: category.
+                        serializable_hash.
+                        except(:title, :description)
                     }
 
       expect(assigns(:tagged_public_bodies)).to match_array(expected_bodies)
@@ -437,7 +442,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
       end
 
       it 'saves edits to category_tag if the category has no associated bodies' do
-        category = FactoryBot.create(:public_body_category, category_tag: 'empty')
+        category = FactoryBot.create(
+          :public_body_category, category_tag: 'empty'
+        )
 
         post :update, params: {
                         id: category.id,
@@ -677,7 +684,8 @@ RSpec.describe AdminPublicBodyCategoriesController do
                         id: @category.id,
                         public_body_category: @params
                       }
-        expect(assigns(:public_body_category).title(:en)).to eq('Need a description')
+        expect(assigns(:public_body_category).title(:en)).
+          to eq('Need a description')
       end
 
       it 'is rebuilt with the alternative locale translation' do
@@ -687,7 +695,8 @@ RSpec.describe AdminPublicBodyCategoriesController do
                       }
 
         AlaveteliLocalization.with_locale(:es) do
-          expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
+          expect(assigns(:public_body_category).title).
+            to eq('Mi Nuevo Category')
         end
       end
 

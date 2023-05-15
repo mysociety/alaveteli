@@ -183,7 +183,8 @@ RSpec.describe AdminPublicBodyHeadingsController do
 
     it 'builds new translations if the body does not already have a translation in the specified locale' do
       get :edit, params: { id: @heading.id }
-      expect(assigns[:public_body_heading].translations.map(&:locale)).to include(:fr)
+      expect(assigns[:public_body_heading].translations.map(&:locale)).
+        to include(:fr)
     end
 
     it 'renders the edit template' do
@@ -559,7 +560,8 @@ RSpec.describe AdminPublicBodyHeadingsController do
       it 'should return an "unprocessable entity" status and an error message' do
         make_request(@params)
         assert_response :unprocessable_entity
-        expect(response.body).to match("Couldn't find PublicBodyHeading with 'id'")
+        expect(response.body).
+          to match("Couldn't find PublicBodyHeading with 'id'")
       end
 
       it 'should not reorder headings' do
@@ -599,9 +601,7 @@ RSpec.describe AdminPublicBodyHeadingsController do
 
     context 'when handling valid input' do
 
-      it 'should reorder categories for the heading according to their position \
-                in the submitted params' do
-
+      it 'should reorder categories for the heading according to their position in the submitted params' do
         expect(@heading.public_body_categories).to eq(@old_order)
         make_request
         expect(@heading.public_body_categories.reload).to eq(@new_order)

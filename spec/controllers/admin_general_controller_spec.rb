@@ -45,7 +45,9 @@ RSpec.describe AdminGeneralController do
     end
 
     it 'assigns requests flagged for admin attention to the view' do
-      attention_requested_request = FactoryBot.create(:attention_requested_request)
+      attention_requested_request = FactoryBot.create(
+        :attention_requested_request
+      )
       sign_in admin_user
       get :index
       expect(assigns[:attention_requests]).to eq([attention_requested_request])
@@ -65,7 +67,7 @@ RSpec.describe AdminGeneralController do
       it 'assigns public_request_tasks to true' do
         undeliverable = FactoryBot.
                           create(:incoming_message,
-                                 info_request:                                    InfoRequest.holding_pen_request)
+                                 info_request: InfoRequest.holding_pen_request)
         sign_in admin_user
         get :index
         expect(assigns[:public_request_tasks]).to be true
@@ -208,7 +210,9 @@ RSpec.describe AdminGeneralController do
 
         it 'does not assign embargoed requests flagged for admin attention to the view' do
           with_feature_enabled(:alaveteli_pro) do
-            attention_requested_request = FactoryBot.create(:attention_requested_request)
+            attention_requested_request = FactoryBot.create(
+              :attention_requested_request
+            )
             attention_requested_request.create_embargo
             sign_in admin_user
             get :index

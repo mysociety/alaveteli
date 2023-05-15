@@ -53,7 +53,9 @@ RSpec.describe TrackController do
 
     it "should save a request track and redirect if you are logged in" do
       sign_in user
-      allow(TrackThing).to receive(:create_track_for_request).and_return(track_thing)
+      allow(TrackThing).
+        to receive(:create_track_for_request).
+        and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_request, params: {
                             url_title: info_request.url_title,
@@ -150,8 +152,7 @@ RSpec.describe TrackController do
         expect(a[2]['event_type']).to eq('sent')
       end
 
-      it 'should return atom/xml for a feed url without format specified, even if the
-            requester prefers json' do
+      it 'should return atom/xml for a feed url without format specified, even if the requester prefers json' do
         request.env['HTTP_ACCEPT'] = 'application/json,text/xml'
         track_thing = FactoryBot.create(:request_update_track)
         get :track_request, params: {
@@ -176,7 +177,9 @@ RSpec.describe TrackController do
 
     it "should save a search track and redirect to the right place" do
       sign_in user
-      allow(TrackThing).to receive(:create_track_for_search_query).and_return(track_thing)
+      allow(TrackThing).
+        to receive(:create_track_for_search_query).
+        and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_search_query, params: { query_array: "bob variety:sent",
                                          feed: 'track' }
@@ -228,7 +231,9 @@ RSpec.describe TrackController do
       long_track = TrackThing.new(track_type: 'search_query',
                                   track_query: "lorem ipsum " * 42)
       sign_in user
-      allow(TrackThing).to receive(:create_track_for_search_query).and_return(long_track)
+      allow(TrackThing).
+        to receive(:create_track_for_search_query).
+        and_return(long_track)
       get :track_search_query, params: {
                                  query_array: "bob variety:sent",
                                  feed: 'track'
@@ -254,7 +259,9 @@ RSpec.describe TrackController do
       sign_in user
       track_thing = TrackThing.new(track_type: 'public_body_updates',
                                    public_body: public_body)
-      allow(TrackThing).to receive(:create_track_for_public_body).and_return(track_thing)
+      allow(TrackThing).
+        to receive(:create_track_for_public_body).
+        and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_public_body, params: {
                                 url_name: public_body.url_name,
@@ -269,7 +276,9 @@ RSpec.describe TrackController do
       long_track = TrackThing.new(track_type: 'public_body_updates',
                                   public_body: public_body,
                                   track_query: "lorem ipsum " * 42)
-      allow(TrackThing).to receive(:create_track_for_public_body).and_return(long_track)
+      allow(TrackThing).
+        to receive(:create_track_for_public_body).
+        and_return(long_track)
       get :track_public_body, params: {
                                 url_name: public_body.url_name,
                                 feed: 'track',
@@ -315,10 +324,14 @@ RSpec.describe TrackController do
 
     it "should save a user track and redirect to the right place" do
       sign_in user
-      track_thing = TrackThing.new(track_type: 'user_updates',
-                                   tracked_user: target_user,
-                                   track_query: "requested_by:#{target_user.url_name}")
-      allow(TrackThing).to receive(:create_track_for_user).and_return(track_thing)
+      track_thing = TrackThing.new(
+        track_type: 'user_updates',
+        tracked_user: target_user,
+        track_query: "requested_by:#{target_user.url_name}"
+      )
+      allow(TrackThing).
+        to receive(:create_track_for_user).
+        and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_user, params: { url_name: target_user.url_name,
                                  feed: 'track' }
@@ -330,7 +343,9 @@ RSpec.describe TrackController do
       long_track = TrackThing.new(track_type: 'user_updates',
                                   tracked_user: target_user,
                                   track_query: "lorem ipsum " * 42)
-      allow(TrackThing).to receive(:create_track_for_user).and_return(long_track)
+      allow(TrackThing).
+        to receive(:create_track_for_user).
+        and_return(long_track)
       get :track_user, params: { url_name: target_user.url_name,
                                  feed: 'track' }
       expect(flash[:error]).to match('too long')
@@ -484,7 +499,8 @@ RSpec.describe TrackController do
                                  track_type: 'search_query',
                                  r: '/'
                                }
-        expect(flash[:notice]).to eq("You will no longer be emailed updates for those alerts")
+        expect(flash[:notice]).
+          to eq("You will no longer be emailed updates for those alerts")
       end
 
     end

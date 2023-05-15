@@ -4,7 +4,9 @@ RSpec.describe FollowupsController do
   render_views
 
   let(:request_user) { FactoryBot.create(:user) }
-  let(:request) { FactoryBot.create(:info_request_with_incoming, user: request_user) }
+  let(:request) do
+    FactoryBot.create(:info_request_with_incoming, user: request_user)
+  end
   let(:message_id) { request.incoming_messages[0].id }
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
@@ -71,7 +73,8 @@ RSpec.describe FollowupsController do
     end
 
     it "calls the message a followup if there is an incoming message" do
-      expected_reason = "To send a follow up message to #{request.public_body.name}"
+      expected_reason = "To send a follow up message " \
+        "to #{request.public_body.name}"
       get :new, params: { request_id: request.id,
                           incoming_message_id: message_id }
       expect(get_last_post_redirect.reason_params[:web]).to eq(expected_reason)
@@ -539,7 +542,8 @@ RSpec.describe FollowupsController do
                       request_id: request.id,
                       incoming_message_id: message_id
                     }
-      expect(flash[:notice]).to eq('Your follow up message has been sent on its way.')
+      expect(flash[:notice]).
+        to eq('Your follow up message has been sent on its way.')
     end
 
     it "displays an error if the request has been closed to new responses" do
@@ -583,8 +587,10 @@ RSpec.describe FollowupsController do
 
       it "displays the form with an error message" do
         expect(response).to render_template('new')
-        expect(response.body).
-          to include('You previously submitted that exact follow up message for this request.')
+        expect(response.body).to include(
+          'You previously submitted that exact follow up message for this ' \
+          'request.'
+        )
       end
 
       it "only delivers the message once" do

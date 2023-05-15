@@ -245,7 +245,8 @@ RSpec.describe AdminCommentController do
                                          body: 'updated text')
         sign_in admin_user
         put :update, params: { id: comment.id, comment: atts }
-        expect(response).to redirect_to(admin_request_path(comment.info_request))
+        expect(response).
+          to redirect_to(admin_request_path(comment.info_request))
       end
     end
 

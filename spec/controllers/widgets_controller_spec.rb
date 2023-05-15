@@ -170,7 +170,9 @@ RSpec.describe WidgetsController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
+        allow(AlaveteliConfiguration).
+          to receive(:enable_widgets).
+          and_return(false)
         expect {
           get :show, params: { request_id: @info_request.id }
         }.to raise_error(ActiveRecord::RecordNotFound)
@@ -206,7 +208,9 @@ RSpec.describe WidgetsController do
 
     before do
       @info_request = FactoryBot.create(:info_request)
-      allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
+      allow(AlaveteliConfiguration).
+        to receive(:enable_widgets).
+        and_return(true)
     end
 
     it 'should render the create widget template' do
@@ -222,7 +226,9 @@ RSpec.describe WidgetsController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
+        allow(AlaveteliConfiguration).
+          to receive(:enable_widgets).
+          and_return(false)
         expect {
           get :new, params: { request_id: @info_request.id }
         }.to raise_error(ActiveRecord::RecordNotFound)

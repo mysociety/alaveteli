@@ -9,16 +9,28 @@ RSpec.describe TranslatableParams do
                    general_keys: [ :status ] } }
 
     it 'whitelists translatable_params' do
-      params = { name: 'Some name',
-                 status: 'good',
-                 id: 40,
-                 translations_attributes:                   { en:                     { locale: 'en',
-                      name: 'Other name',
-                      bad: "value" } } }
-      expected = { name: 'Some name',
-                   status: 'good',
-                   translations_attributes:                     { en:                       { locale: 'en',
-                        name: 'Other name' } } }
+      params = {
+        name: 'Some name',
+        status: 'good',
+        id: 40,
+        translations_attributes: {
+          en: {
+            locale: 'en',
+            name: 'Other name',
+            bad: "value"
+          }
+        }
+      }
+      expected = {
+        name: 'Some name',
+        status: 'good',
+        translations_attributes: {
+          en: {
+            locale: 'en',
+            name: 'Other name'
+          }
+        }
+      }
 
       params = ActionController::Parameters.new(params)
       expect(translatable_params(params, **keys)).
@@ -58,9 +70,15 @@ RSpec.describe TranslatableParams::WhitelistedParams do
     end
 
     it 'allows id in the translation params' do
-      params = { translations_attributes:                  { en:                    { id: 40,
-                     locale: 'en',
-                     name: 'Other name' } } }
+      params = {
+        translations_attributes: {
+          en: {
+            id: 40,
+            locale: 'en',
+            name: 'Other name'
+          }
+        }
+      }
       expected = ActionController::Parameters.new(params).permit!
 
       params = params = ActionController::Parameters.new(params)
@@ -70,11 +88,23 @@ RSpec.describe TranslatableParams::WhitelistedParams do
     end
 
     it 'removes a non-whitelisted translation param' do
-      params = { translations_attributes:                  { en:                    { locale: 'en',
-                     name: 'Other name',
-                     bad: "value" } } }
-      expected = { translations_attributes:                    { en:                     { locale: 'en',
-                      name: 'Other name' } } }
+      params = {
+        translations_attributes: {
+          en: {
+            locale: 'en',
+            name: 'Other name',
+            bad: "value"
+          }
+        }
+      }
+      expected = {
+        translations_attributes: {
+          en: {
+            locale: 'en',
+            name: 'Other name'
+          }
+        }
+      }
 
       params = ActionController::Parameters.new(params)
       expect(

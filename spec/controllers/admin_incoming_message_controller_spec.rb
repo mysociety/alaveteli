@@ -34,7 +34,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       info_request = FactoryBot.create(:info_request)
       allow(@im).to receive(:info_request).and_return(info_request)
       allow(IncomingMessage).to receive(:find).and_return(@im)
-      expect(@im.info_request).to receive(:expire).with(preserve_database_cache: true)
+      expect(@im.info_request).
+        to receive(:expire).
+        with(preserve_database_cache: true)
       post :destroy, params: { id: @im.id }
     end
 
@@ -104,8 +106,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       # It shouldn't delete this message
       assert_equal IncomingMessage.exists?(incoming_message.id), true
       # Should show an error to the user
-      assert_equal flash[:error], "You must supply at least one request to redeliver the message to."
-      expect(response).to redirect_to admin_request_url(incoming_message.info_request)
+      assert_equal(
+        flash[:error],
+        "You must supply at least one request to redeliver the message to."
+      )
+      expect(response).
+        to redirect_to admin_request_url(incoming_message.info_request)
     end
 
     context 'when redelivering to multiple requests' do
@@ -241,9 +247,13 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it 'should log an "edit_incoming" event on the info_request' do
-      allow(@controller).to receive(:admin_current_user).and_return("Admin user")
+      allow(@controller).
+        to receive(:admin_current_user).
+        and_return("Admin user")
+
       expect(NotifyCacheJob).to receive(:perform_later).
         with(@incoming.info_request)
+
       make_request
       @incoming.reload
       last_event = @incoming.info_request_events.last
@@ -272,7 +282,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
       it 'should redirect to the admin info request view' do
         make_request
-        expect(response).to redirect_to admin_request_url(@incoming.info_request)
+        expect(response).
+          to redirect_to admin_request_url(@incoming.info_request)
       end
 
       it 'should show a message that the incoming message has been updated' do
@@ -372,7 +383,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
                             }
 
         expect(response).to redirect_to(admin_request_url(request))
-        expect(flash[:notice]).to eq("Incoming messages successfully destroyed.")
+        expect(flash[:notice]).
+          to eq("Incoming messages successfully destroyed.")
       end
 
       it "only destroys selected messages" do
@@ -413,7 +425,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
                               commit: "No"
                             }
 
-        expect(IncomingMessage.where(id: spam_ids)).to match_array([spam1, spam2])
+        expect(IncomingMessage.where(id: spam_ids)).
+          to match_array([spam1, spam2])
       end
 
       it "redirects back to the admin page for the request" do
