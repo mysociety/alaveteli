@@ -172,7 +172,7 @@ when it really should be application/pdf.\n
       Cc: bob@example.com
       Envelope-To: bob@example.net
       Date: Tue, 13 Nov 2007 11:39:55 +0000
-      Bcc:
+      Bcc: "BCC Person" <bccperson@localhost>
       Subject: Test
       Reply-To:
 
@@ -187,7 +187,7 @@ when it really should be application/pdf.\n
       Cc: bob@example.com>
       Envelope-To: bob@example.net
       Date: Tue, 13 Nov 2007 11:39:55 +0000
-      Bcc:
+      Bcc: BCC Person bccperson@localhost>
       Subject: Test
       Reply-To:
 
@@ -202,7 +202,12 @@ when it really should be application/pdf.\n
         let(:mail) { valid_only }
 
         it do
-          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+          is_expected.to eq(%w(
+            bob@localhost
+            bob@example.com
+            bccperson@localhost
+            bob@example.net
+          ))
         end
       end
 
@@ -219,7 +224,12 @@ when it really should be application/pdf.\n
         let(:mail) { valid_only }
 
         it do
-          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+          is_expected.to eq(%w(
+            bob@localhost
+            bob@example.com
+            bccperson@localhost
+            bob@example.net
+          ))
         end
       end
 
@@ -227,9 +237,12 @@ when it really should be application/pdf.\n
         let(:mail) { with_invalid }
 
         it do
-          expected = ['<Bob Smith <bob@localhost>',
-                      'bob@example.com>',
-                      'bob@example.net']
+          expected = [
+            '<Bob Smith <bob@localhost>',
+            'bob@example.com>',
+            'BCC Person bccperson@localhost>',
+            'bob@example.net'
+          ]
           is_expected.to eq(expected)
         end
       end

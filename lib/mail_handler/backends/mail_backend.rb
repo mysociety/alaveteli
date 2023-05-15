@@ -5,7 +5,6 @@ require 'config_helper'
 
 module Mail
   class Message
-
     # The behaviour of the 'to' and 'cc' methods have changed
     # between TMail and Mail; this monkey-patching restores the
     # TMail behaviour.  The key difference is that when there's an
@@ -15,6 +14,7 @@ module Mail
 
     alias old_to to
     alias old_cc cc
+    alias old_bcc bcc
 
     def clean_addresses(old_method, val)
       old_result = send(old_method, val)
@@ -29,6 +29,9 @@ module Mail
       clean_addresses :old_cc, val
     end
 
+    def bcc(val = nil)
+      clean_addresses :old_bcc, val
+    end
   end
 end
 
@@ -140,6 +143,8 @@ module MailHandler
         addrs << mail[:to].try(:value) if mail.to.nil? && include_invalid
         addrs << mail.cc
         addrs << mail[:cc].try(:value) if mail.cc.nil? && include_invalid
+        addrs << mail.bcc
+        addrs << mail[:bcc].try(:value) if mail.bcc.nil? && include_invalid
         addrs << (mail['envelope-to'] ? mail['envelope-to'].value.to_s : nil)
         addrs.flatten.compact.uniq
       end
