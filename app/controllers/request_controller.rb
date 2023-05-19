@@ -604,7 +604,7 @@ class RequestController < ApplicationController
   end
 
   def render_new_compose
-    params[:info_request] = { } unless params[:info_request]
+    params[:info_request] = {} unless params[:info_request]
 
     # Reconstruct the params
     # first the public body (by URL name or id)

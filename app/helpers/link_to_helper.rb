@@ -11,7 +11,7 @@ module LinkToHelper
 
   # Requests
   def request_url(info_request, options = {})
-    show_request_url({url_title: info_request.url_title}.merge(options))
+    show_request_url({ url_title: info_request.url_title }.merge(options))
   end
 
   def request_path(info_request, options = {})
@@ -237,10 +237,10 @@ module LinkToHelper
       query -= ["", nil]
       query = query.join("/")
     end
-    routing_info = {controller: 'general',
+    routing_info = { controller: 'general',
                     action: 'search',
                     combined: query,
-                    view: nil}
+                    view: nil }
     routing_info = options.merge(routing_info) unless options.nil?
 
     if routing_info.is_a?(Hash)

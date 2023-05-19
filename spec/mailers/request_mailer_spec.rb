@@ -308,10 +308,10 @@ RSpec.describe RequestMailer do
     end
 
     def sent_alert_params(request, type)
-      {info_request_id: request.id,
+      { info_request_id: request.id,
        user_id: request.user.id,
        info_request_event_id: request.get_last_public_response_event_id,
-       alert_type: type}
+       alert_type: type }
     end
 
     it 'should raise an error if a request does not have a last response event id' do

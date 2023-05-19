@@ -10,7 +10,7 @@ RSpec.describe InfoRequestBatchController do
                                              body: 'Matched body',
                                              public_bodies: bodies)
     end
-    let(:params) { {id: info_request_batch.id} }
+    let(:params) { { id: info_request_batch.id } }
     let(:action) { get :show, params: params }
     let(:pro_user) { FactoryBot.create(:pro_user) }
 

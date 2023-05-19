@@ -26,10 +26,10 @@ RSpec.describe 'user/sign' do
 
     before do
       redirect = PostRedirect.create(uri: 'http://bad.place.com/admin',
-                                     post_params: {'controller' => 'admin_general'},
-                                     reason_params: {web: '',
+                                     post_params: { 'controller' => 'admin_general' },
+                                     reason_params: { web: '',
                                                         user_name: 'Admin user',
-                                                        user_url: 'users/admin_user'})
+                                                        user_url: 'users/admin_user' })
       receive(:disable_emergency_user).and_return(false)
       assign :post_redirect, redirect
     end

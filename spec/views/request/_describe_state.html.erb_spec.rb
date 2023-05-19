@@ -15,7 +15,7 @@ RSpec.describe 'when showing the form for describing the state of a request' do
   end
 
   def do_render
-    render partial: 'request/describe_state', locals: {id_suffix: '1'}
+    render partial: 'request/describe_state', locals: { id_suffix: '1' }
   end
 
   before do

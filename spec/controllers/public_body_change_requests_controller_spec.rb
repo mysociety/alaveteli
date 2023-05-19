@@ -27,7 +27,7 @@ RSpec.describe PublicBodyChangeRequestsController do
     before do
       @email = "test@example.com"
       name = "Test User"
-      @change_request_params = {user_email: @email,
+      @change_request_params = { user_email: @email,
                                 user_name: name,
                                 public_body_name: 'New Body',
                                 public_body_email: 'new_body@example.com',
@@ -115,7 +115,7 @@ RSpec.describe PublicBodyChangeRequestsController do
         @email = "test@example.com"
         name = "Test User"
         @public_body = FactoryBot.create(:public_body)
-        @change_request_params = {user_email: @email,
+        @change_request_params = { user_email: @email,
                                   user_name: name,
                                   public_body_id: @public_body.id,
                                   public_body_email: 'new_body@example.com',

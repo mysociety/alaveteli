@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe 'when showing diffs in info_request params' do
   def do_render(params)
-    render partial: 'admin_request/params', locals: {params: params}
+    render partial: 'admin_request/params', locals: { params: params }
   end
 
   it 'should differentiate between old, new and other' do
