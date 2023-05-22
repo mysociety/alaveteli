@@ -755,7 +755,8 @@ class InfoRequest < ApplicationRecord
   end
 
   def user_name
-    is_external? ? external_user_name : user.name
+    return external_user_name if is_external?
+    user&.name
   end
 
   def user_name_slug

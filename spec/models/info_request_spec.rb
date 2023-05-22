@@ -1527,6 +1527,39 @@ RSpec.describe InfoRequest do
 
   end
 
+  describe '#user_name' do
+    subject { info_request.user_name }
+
+    context 'when external' do
+      let(:info_request) do
+        FactoryBot.build(
+          :info_request, :external, external_user_name: 'External User'
+        )
+      end
+
+      it 'returns external user name' do
+        is_expected.to eq('External User')
+      end
+    end
+
+    context 'when internal' do
+      let(:user) { FactoryBot.build(:user, name: 'Bob Smith') }
+      let(:info_request) { FactoryBot.build(:info_request, user: user) }
+
+      it 'returns users name' do
+        is_expected.to eq('Bob Smith')
+      end
+    end
+
+    context 'when internal but user is unset' do
+      let(:info_request) { FactoryBot.build(:info_request, user: nil) }
+
+      it 'returns nil' do
+        is_expected.to eq(nil)
+      end
+    end
+  end
+
   describe '#late_calculator' do
 
     it 'returns a DefaultLateCalculator' do
