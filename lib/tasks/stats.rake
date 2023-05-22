@@ -271,17 +271,17 @@ namespace :stats do
     requester_only_requests = InfoRequest.where(prominence: 'requester_only')
 
     hidden_incoming = InfoRequest.joins(:incoming_messages).
-      where(incoming_messages: {prominence: 'hidden'}).uniq
+      where(incoming_messages: { prominence: 'hidden' }).uniq
     requester_only_incoming = InfoRequest.joins(:incoming_messages).
-      where(incoming_messages: {prominence: 'requester_only'}).uniq
+      where(incoming_messages: { prominence: 'requester_only' }).uniq
 
     hidden_outgoing = InfoRequest.joins(:outgoing_messages).
-      where(outgoing_messages: {prominence: 'hidden'}).uniq
+      where(outgoing_messages: { prominence: 'hidden' }).uniq
     requester_only_outgoing = InfoRequest.joins(:outgoing_messages).
-      where(outgoing_messages: {prominence: 'requester_only'}).uniq
+      where(outgoing_messages: { prominence: 'requester_only' }).uniq
 
     hidden_comments = InfoRequest.joins(:comments).
-      where(comments: {visible: false}).uniq
+      where(comments: { visible: false }).uniq
 
     [['Hidden requests', hidden_requests],
      ['Requester-only requests', requester_only_requests],

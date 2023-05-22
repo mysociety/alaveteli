@@ -20,14 +20,14 @@ RSpec.describe InfoRequestHelper do
 
     it 'delegates the options for a valid status' do
       allow(info_request).to receive(:calculate_status).and_return('successful')
-      opts = {is_owning_user: false}
+      opts = { is_owning_user: false }
       expect(self).to receive(:send).with('status_text_successful', info_request, opts)
       status_text(info_request, opts)
     end
 
     it 'delegates to the custom partial for an unknown status' do
       allow(info_request).to receive(:calculate_status).and_return('unknown')
-      opts = {is_owning_user: false}
+      opts = { is_owning_user: false }
       expect(self).to receive(:custom_state_description).with(info_request, opts)
       status_text(info_request, opts)
     end

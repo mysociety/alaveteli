@@ -358,9 +358,9 @@ RSpec.describe InfoRequest do
       @request.update(updated_at: 6.months.ago,
                       rejected_incoming_count: 3,
                       allow_new_responses_from: 'nobody')
-      @options = {rejection_threshold: 2,
+      @options = { rejection_threshold: 2,
                   age_in_months: 5,
-                  dryrun: true}
+                  dryrun: true }
     end
 
     it 'returns an count of requests updated ' do
@@ -3050,12 +3050,12 @@ RSpec.describe InfoRequest do
     it "returns a hash with the user's name for an external request" do
       @info_request = InfoRequest.new(external_url: 'http://www.example.com',
                                       external_user_name: 'External User')
-      expect(@info_request.user_json_for_api).to eq({name: 'External User'})
+      expect(@info_request.user_json_for_api).to eq({ name: 'External User' })
     end
 
     it 'returns "Anonymous user" for an anonymous external user' do
       @info_request = InfoRequest.new(external_url: 'http://www.example.com')
-      expect(@info_request.user_json_for_api).to eq({name: 'Anonymous user'})
+      expect(@info_request.user_json_for_api).to eq({ name: 'Anonymous user' })
     end
 
   end
@@ -3523,7 +3523,7 @@ RSpec.describe InfoRequest do
     it "filters requests by date" do
       # The semantics of the search are that it finds any InfoRequest
       # that has any InfoRequestEvent created in the specified range
-      filters = {latest_status: 'all', request_date_before: '13/10/2007'}
+      filters = { latest_status: 'all', request_date_before: '13/10/2007' }
       conditions1 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events
@@ -3532,7 +3532,7 @@ RSpec.describe InfoRequest do
       expect(apply_filters(filters)).
         to match_array(InfoRequest.where(conditions1))
 
-      filters = {latest_status: 'all', request_date_after: '13/10/2007'}
+      filters = { latest_status: 'all', request_date_after: '13/10/2007' }
       conditions2 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events
@@ -3541,9 +3541,9 @@ RSpec.describe InfoRequest do
       expect(apply_filters(filters)).
         to match_array(InfoRequest.where(conditions2))
 
-      filters = {latest_status: 'all',
+      filters = { latest_status: 'all',
                  request_date_after: '13/10/2007',
-                 request_date_before: '01/11/2007'}
+                 request_date_before: '01/11/2007' }
       conditions3 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events

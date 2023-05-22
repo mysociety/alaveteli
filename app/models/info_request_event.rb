@@ -261,7 +261,7 @@ class InfoRequestEvent < ApplicationRecord
       end
     end
     new_params.delete_if { |key, _value| ignore.keys.include?(key) }
-    {new: new_params, old: old_params, other: other_params}
+    { new: new_params, old: old_params, other: other_params }
   end
 
   def is_incoming_message?

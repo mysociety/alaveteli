@@ -84,7 +84,7 @@ RSpec.describe TrackMailer do
           allow(TrackThingsSentEmail).to receive(:new).and_return(@track_things_sent_email)
           @xapian_search = double('xapian search', results: [])
           @found_event = mock_model(InfoRequestEvent, described_at: @track_thing.created_at + 1.day)
-          @search_result = {model: @found_event}
+          @search_result = { model: @found_event }
           allow(ActsAsXapian::Search).to receive(:new).and_return(@xapian_search)
         end
 
@@ -120,7 +120,7 @@ RSpec.describe TrackMailer do
         end
 
         it 'should raise an error if a non-event class is returned by the tracking query' do
-          allow(@xapian_search).to receive(:results).and_return([{model: 'string class'}])
+          allow(@xapian_search).to receive(:results).and_return([{ model: 'string class' }])
           expect { TrackMailer.alert_tracks }.to raise_error('need to add other types to TrackMailer.alert_tracks (unalerted)')
         end
 

@@ -185,7 +185,7 @@ end
 
 group :development do
   gem 'annotate', '< 3.2.1'
-  gem 'capistrano', '~> 2.15.0', '< 3.0.0'
+  gem 'capistrano', '~> 2.15.10'
     gem 'net-ssh', '~> 7.1.0'
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 2.6.0'

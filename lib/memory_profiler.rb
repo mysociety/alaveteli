@@ -13,7 +13,7 @@
 # strings `ls -1t *profiler_strings* | head --lines=1` |sort > a; strings `ls -1t *profiler_strings* | head --lines=2 | tail --lines=1` |sort > b; diff b a |less
 
 class MemoryProfiler
-  DEFAULTS = {delay: 10, string_debug: false}
+  DEFAULTS = { delay: 10, string_debug: false }
 
   def self.start(opt={})
     opt = DEFAULTS.dup.merge(opt)

@@ -258,9 +258,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     context 'if the incoming message is not valid' do
 
       it 'should render the edit template' do
-        make_request({id: @incoming.id,
-                      incoming_message: {prominence: 'fantastic',
-                                            prominence_reason: 'dull'}})
+        make_request({ id: @incoming.id,
+                      incoming_message: { prominence: 'fantastic',
+                                            prominence_reason: 'dull' } })
         expect(response).to render_template("edit")
       end
 

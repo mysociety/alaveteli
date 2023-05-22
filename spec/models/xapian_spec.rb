@@ -136,7 +136,7 @@ RSpec.describe User, " when indexing requests by user they are from" do
   it "should find requests from the user" do
     options = { sort_by_prefix: 'created_at',
                 sort_by_ascending: true,
-                limit: 100}
+                limit: 100 }
 
     xapian_object =
       ActsAsXapian::Search.

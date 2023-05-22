@@ -21,10 +21,10 @@ RSpec.describe HolidayImport do
 
   it 'validates that all holidays create from attributes are valid' do
     holiday_import = HolidayImport.new(source: 'suggestions',
-                                       holidays_attributes: {"0" => {:description => '',
+                                       holidays_attributes: { "0" => { :description => '',
                                                                         "day(1i)"=>"",
                                                                         "day(2i)"=>"",
-                                                                        "day(3i)"=>""}})
+                                                                        "day(3i)"=>"" } })
     expect(holiday_import.valid?).to be false
     expect(holiday_import.errors[:base]).to eq(["These holidays could not be imported"])
   end

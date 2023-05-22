@@ -36,7 +36,7 @@
     <div class="inline-elements">
       <label for="announcement_visibility_everyone" class="inline-element">
         <%= f.radio_button :visibility, 'everyone' %>
-        <strong>everyone</strong> all users see the announcement as a site-wide popup
+        <strong>everyone</strong> all users see the announcement as a site-wide banner
       </label>
       <% if feature_enabled?(:alaveteli_pro) %>
         <label for="announcement_visibility_pro" class="inline-element">

@@ -175,9 +175,9 @@ namespace :config_files do
     check_for_env_vars(%w[REJECTED_THRESHOLD AGE_IN_MONTHS], example)
     dryrun = ENV['DRYRUN'] != '0'
     STDERR.puts "Only a dry run; info_requests will not be updated" if dryrun
-    options = {rejection_threshold: ENV['REJECTED_THRESHOLD'],
+    options = { rejection_threshold: ENV['REJECTED_THRESHOLD'],
                age_in_months: ENV['AGE_IN_MONTHS'],
-               dryrun: dryrun}
+               dryrun: dryrun }
 
     updated_count = InfoRequest.reject_incoming_at_mta(options) do |ids|
       puts "Info Request\tRejected incoming count\tLast updated"
