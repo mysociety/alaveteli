@@ -6,16 +6,17 @@ def load_raw_emails_data
   end
 end
 
-def receive_incoming_mail(email_name_or_string, email_to, email_from = 'geraldinequango@localhost')
+def receive_incoming_mail(email_name_or_string, **kargs)
+  kargs[:email_from] ||= 'geraldinequango@localhost'
   content = load_file_fixture(email_name_or_string) || email_name_or_string
-  content = gsub_addresses(content, email_to, email_from)
+  content = gsub_addresses(content, **kargs)
   content = ::Mail::Utilities.binary_unsafe_to_crlf(content)
   RequestMailer.receive(content)
 end
 
 def get_fixture_mail(filename, email_to = nil, email_from = nil)
   content = load_file_fixture(filename)
-  content = gsub_addresses(content, email_to, email_from)
+  content = gsub_addresses(content, email_from: email_from, email_to: email_to)
   MailHandler.mail_from_raw_email(content)
 end
 
@@ -38,8 +39,13 @@ def load_mail_server_logs(log)
 
 end
 
-def gsub_addresses(content, email_to, email_from)
-  content.gsub!('EMAIL_TO', email_to) if email_to
-  content.gsub!('EMAIL_FROM', email_from) if email_from
+def gsub_addresses(content, **kargs)
+  content.gsub!('EMAIL_TO', kargs[:email_to]) if kargs[:email_to]
+  content.gsub!('EMAIL_FROM', kargs[:email_from]) if kargs[:email_from]
+  content.gsub!('EMAIL_CC', kargs[:email_cc]) if kargs[:email_cc]
+  content.gsub!('EMAIL_BCC', kargs[:email_bcc]) if kargs[:email_bcc]
+  if kargs[:email_envelope_to]
+    content.gsub!('EMAIL_ENVELOPE_TO', kargs[:email_envelope_to])
+  end
   content
 end

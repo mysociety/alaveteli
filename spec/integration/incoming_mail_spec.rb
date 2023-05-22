@@ -6,7 +6,7 @@ RSpec.describe 'when handling incoming mail' do
 
   it "receives incoming messages, sends email to requester, and shows them" do
     receive_incoming_mail('incoming-request-plain.email',
-                          info_request.incoming_email)
+                          email_to: info_request.incoming_email)
     deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to eq(1)
     mail = deliveries[0]
@@ -18,7 +18,7 @@ RSpec.describe 'when handling incoming mail' do
 
   it "makes attachments available for download" do
     receive_incoming_mail('incoming-request-two-same-name.email',
-                          info_request.incoming_email)
+                          email_to: info_request.incoming_email)
     visit get_attachment_path(
       incoming_message_id: info_request.incoming_messages.first.id,
       id: info_request.id,
@@ -40,14 +40,14 @@ RSpec.describe 'when handling incoming mail' do
 
   it "converts message body to UTF8" do
     receive_incoming_mail('iso8859_2_raw_email.email',
-                          info_request.incoming_email)
+                          email_to: info_request.incoming_email)
     visit show_request_path url_title: info_request.url_title
     expect(page).to have_content "tënde"
   end
 
   it "generates a valid HTML verson of plain text attachments" do
     receive_incoming_mail('incoming-request-two-same-name.email',
-                          info_request.incoming_email)
+                          email_to: info_request.incoming_email)
     visit get_attachment_as_html_path(
       incoming_message_id: info_request.incoming_messages.first.id,
       id: info_request.id,
@@ -60,7 +60,7 @@ RSpec.describe 'when handling incoming mail' do
 
   it "generates a valid HTML verson of PDF attachments" do
     receive_incoming_mail('incoming-request-pdf-attachment.email',
-                          info_request.incoming_email)
+                          email_to: info_request.incoming_email)
     visit get_attachment_as_html_path(
       incoming_message_id: info_request.incoming_messages.first.id,
       id: info_request.id,
@@ -73,7 +73,7 @@ RSpec.describe 'when handling incoming mail' do
 
   it "does not cause a reparsing of the raw email, even when the attachment can't be found" do
     receive_incoming_mail('incoming-request-two-same-name.email',
-                          info_request.incoming_email)
+                          email_to: info_request.incoming_email)
     incoming_message = info_request.incoming_messages.first
     attachment = IncomingMessage.
                    get_attachment_by_url_part_number_and_filename!(
@@ -137,7 +137,7 @@ RSpec.describe 'when handling incoming mail' do
 
   it "treats attachments with unknown extensions as binary" do
     receive_incoming_mail('incoming-request-attachment-unknown-extension.email',
-                          info_request.incoming_email)
+                          email_to: info_request.incoming_email)
     visit get_attachment_path(
       incoming_message_id: info_request.incoming_messages.first.id,
       id: info_request.id,
