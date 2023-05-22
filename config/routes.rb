@@ -712,6 +712,30 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminUsersAccountErasing controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_erasing,
+          :controller => 'admin_users_account_erasing',
+          :only => [:create]
+  end
+  ####
+
+  #### AdminUsersAccountClosing controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_closing,
+          :controller => 'admin_users_account_closing',
+          :only => [:create]
+  end
+  ####
+
+  #### AdminUsersAccountAnonymising controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_anonymising,
+          :controller => 'admin_users_account_anonymising',
+          :only => [:create]
+  end
+  ####
+
   #### AdminUsersSessions controller
   scope '/admin', :as => 'admin' do
     resource :users_sessions,

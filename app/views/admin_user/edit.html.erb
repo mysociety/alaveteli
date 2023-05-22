@@ -28,40 +28,46 @@
     <div class="danger-zone__item">
       <div class="span8">
         <p>
-          <strong>Anonymise a user account and close it</strong>
-          <br />
-          <small>By design, this is extremely difficult to reverse.</small>
+          <strong>Close this user account</strong>
         </p>
-
-        <p>Anonymising the account:
-          <ul>
-            <li>Sets <tt>name</tt> to <code>[Name Removed]</code></li>
-            <li>Sets <tt>url_name</tt> to a random string</li>
-            <li>Sets <tt>email</tt> to a random string</li>
-            <li>Sets <tt>password</tt> to a random string</li>
-            <li>Clears <tt>about_me</tt> text</li>
-            <li>Disables email alerts</li>
-            <li>Removes user from search index</li>
-            <li>Hides requests on the profile page</li>
-            <li>Clears sign ins and profile photo</li>
-            <li><strong>Does not</strong> delete or set prominence of the user's requests</li>
-            <li>Makes a naive attempt to redact <tt>name</tt> from requests<sup>1</sup></li>
-          </ul>
-        </p>
-
         <p>Closing the account:
           <ul>
             <li>Prevents logging in to the account</li>
             <li>Prevents rendering of user content on their profile page</li>
+            <li>Disables email alerts</li>
           </ul>
         </p>
+      </div>
+      <hr>
+      <%= form_tag admin_users_account_closing_index_path(user_id: @admin_user.id), class: 'span3 form form-inline' do %>
+        <% disabled = @admin_user.closed? %>
+        <% submit_class = %w(btn btn-danger) %>
+        <% submit_class << 'disabled' if disabled %>
+        <%= submit_tag 'Close',
+          class: submit_class,
+          disabled: disabled,
+          data: { confirm: 'Are you sure? This is irreversible.' } %>
+      <% end %>
+    </div>
 
+    <div class="danger-zone__item">
+      <div class="span8">
         <p>
-          This is disabled for banned users as the email address must be
-          preserved to enforce the ban. First remove the ban text and then close
-          and anonymise the account.
+          <strong>Anonymise this user account</strong>
         </p>
-
+        <p>Anonymising the account:
+          <ul>
+            <li>Removes user from search index</li>
+            <li>Hides requests on the profile page</li>
+            <li><strong>Does not</strong> delete or set prominence of the user's requests</li>
+            <li>Makes a naive attempt to redact <tt>name</tt> from requests<sup>1</sup></li>
+          </ul>
+        </p>
+        <p>
+          This is disabled for users whose accounts have not been closed. To
+          anonymise a user, first close the account. Additionally, if a user
+          has not made any requests, they cannot be anonymised.
+        </p>
         <p>
           <sup>1</sup> If the user has any requests, this will create a Censor
           Rule that applies to the User. The Censor Rule will take the User’s
@@ -72,11 +78,49 @@
           has not been sufficient.
         </p>
       </div>
-      <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, close_and_anonymise: true), class: 'span3 form form-inline' do %>
-        <% disabled = @admin_user.suspended? || @admin_user.is_pro? %>
+      <hr>
+
+      <%= form_tag admin_users_account_anonymising_index_path(user_id: @admin_user.id), class: 'span3 form form-inline' do %>
+        <% disabled = !@admin_user.closed? %>
         <% submit_class = %w(btn btn-danger) %>
         <% submit_class << 'disabled' if disabled %>
-        <%= submit_tag 'Close and anonymise',
+        <%= submit_tag 'Anonymise',
+          class: submit_class,
+          disabled: disabled,
+          data: { confirm: 'Are you sure? This is irreversible.' } %>
+      <% end %>
+    </div>
+
+    <div class="danger-zone__item">
+      <div class="span8">
+        <p>
+          <strong>Erase this user account</strong>
+        </p>
+        <p>Erasing the account:
+          <ul>
+              <li>Sets <tt>name</tt> to <code>[Name Removed]</code></li>
+              <li>Sets <tt>url_name</tt> to a random string</li>
+              <li>Sets <tt>email</tt> to a random string</li>
+              <li>Sets <tt>password</tt> to a random string</li>
+              <li>Clears <tt>about_me</tt> text</li>
+              <li>Clears sign ins and profile photo</li>
+          </ul>
+        </p>
+        <p>
+          This is disabled for banned users as the email address must be
+          preserved to enforce the ban. First remove the ban text and then close
+          and anonymise the account.
+
+          This is disabled for users whose accounts have not been closed.
+          To erase a user, first close the account.
+        </p>
+      </div>
+
+      <%= form_tag admin_users_account_erasing_index_path(user_id: @admin_user.id), class: 'span3 form form-inline' do %>
+        <% disabled = !@admin_user.closed? || @admin_user.banned? || @admin_user.is_pro? %>
+        <% submit_class = %w(btn btn-danger) %>
+        <% submit_class << 'disabled' if disabled %>
+        <%= submit_tag 'Erase',
           class: submit_class,
           disabled: disabled,
           data: { confirm: 'Are you sure? This is irreversible.' } %>

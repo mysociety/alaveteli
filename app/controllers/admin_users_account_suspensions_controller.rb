@@ -24,11 +24,7 @@ class AdminUsersAccountSuspensionsController < AdminController
   end
 
   def suspend
-    if params[:close_and_anonymise]
-      @suspended_user.close_and_anonymise
-    else
-      @suspended_user.update(ban_text: @suspension_reason)
-    end
+    @suspended_user.update(ban_text: @suspension_reason)
   end
 
   def set_suspension_reason
