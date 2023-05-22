@@ -49,6 +49,32 @@ class FoiAttachment < ApplicationRecord
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
+  # rubocop:disable Style/LineLength
+  CONTENT_TYPE_NAMES = {
+    # Plain Text
+    "text/plain" => 'Text file',
+    'application/rtf' => 'RTF file',
+
+    # Binary Documents
+    'application/pdf' => 'PDF file',
+
+    # Images
+    'image/tiff' => 'TIFF image',
+
+    # Word Processing
+    'application/vnd.ms-word' => 'Word document',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'Word document',
+
+    # Presentation
+    'application/vnd.ms-powerpoint' => 'PowerPoint presentation',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'PowerPoint presentation',
+
+    # Spreadsheet
+    'application/vnd.ms-excel' => 'Excel spreadsheet',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
+  }.freeze
+  # rubocop:enable Style/LineLength
+
   def delete_cached_file!
     @cached_body = nil
     file.purge if file.attached?
@@ -241,51 +267,15 @@ class FoiAttachment < ApplicationRecord
     end
   end
 
-  # Whether this type can be shown in the Google Docs Viewer.
-  # The full list of supported types can be found at
-  #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
-  def has_google_docs_viewer?
-    [
-      "application/pdf", # .pdf
-      "image/tiff", # .tiff
-
-      "application/vnd.ms-word", # .doc
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", # .docx
-
-      "application/vnd.ms-powerpoint", # .ppt
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation", # .pptx
-
-      "application/vnd.ms-excel", # .xls
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
-    ].include?(content_type)
-  end
-
   # Whether this type has a "View as HTML"
   def has_body_as_html?
-    [
-      "text/plain",
-      "application/rtf"
-    ].include?(content_type) || has_google_docs_viewer?
+    AttachmentToHTML.extractable?(self)
   end
 
-  # Name of type of attachment type - only valid for things that has_body_as_html?
+  # Name of type of attachment type - only valid for things that
+  # has_body_as_html?
   def name_of_content_type
-    {
-      "text/plain" => "Text file",
-      'application/rtf' => "RTF file",
-
-      'application/pdf' => "PDF file",
-      'image/tiff' => "TIFF image",
-
-      'application/vnd.ms-word' => "Word document",
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => "Word document",
-
-      'application/vnd.ms-powerpoint' => "PowerPoint presentation",
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation' => "PowerPoint presentation",
-
-      'application/vnd.ms-excel' => "Excel spreadsheet",
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet"
-    }[content_type]
+    CONTENT_TYPE_NAMES[content_type]
   end
 
   # For "View as HTML" of attachment
@@ -300,5 +290,4 @@ class FoiAttachment < ApplicationRecord
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
   end
-
 end

@@ -28,6 +28,10 @@ module AttachmentToHTML
     end
   end
 
+  def extractable?(attachment)
+    adapter_for(attachment) != Adapters::CouldNotConvert
+  end
+
   private
 
   def adapter_for(attachment)
@@ -41,7 +45,7 @@ module AttachmentToHTML
   end
 
   def fallback_adapter_for(attachment)
-    if attachment.has_google_docs_viewer?
+    if Adapters::GoogleDocsViewer.viewable?(attachment.content_type)
       Adapters::GoogleDocsViewer
     else
       Adapters::CouldNotConvert

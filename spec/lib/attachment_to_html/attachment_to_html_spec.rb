@@ -68,4 +68,22 @@ RSpec.describe AttachmentToHTML do
 
   end
 
+  describe '#extractable?' do
+    subject { described_class.extractable?(attachment) }
+
+    context 'when there is an adapter' do
+      let(:attachment) { double(content_type: 'text/plain') }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the attachment can only only be viewed in google docs' do
+      let(:attachment) { double(content_type: 'application/vnd.ms-word') }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when there is not an adapter' do
+      let(:attachment) { double(content_type: 'no/adapter') }
+      it { is_expected.to eq(false) }
+    end
+  end
 end

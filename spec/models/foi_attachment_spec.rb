@@ -191,4 +191,26 @@ RSpec.describe FoiAttachment do
 
   end
 
+  describe '#name_of_content_type' do
+    subject { foi_attachment.name_of_content_type }
+
+    before do
+      stub = { 'content/named' => 'Named content' }
+      stub_const("#{described_class}::CONTENT_TYPE_NAMES", stub)
+    end
+
+    let(:foi_attachment) do
+      FactoryBot.build(:foi_attachment, content_type: content_type)
+    end
+
+    context 'when the content_type has a name' do
+      let(:content_type) { 'content/named' }
+      it { is_expected.to eq('Named content') }
+    end
+
+    context 'when the content_type has no name' do
+      let(:content_type) { 'content/unnamed' }
+      it { is_expected.to be_nil }
+    end
+  end
 end
