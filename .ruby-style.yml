@@ -1643,6 +1643,9 @@ Style/EvalWithLocation:
 Style/EvenOdd:
   Enabled: true
 
+Style/ExactRegexpMatch:
+  Enabled: false
+
 Style/ExpandPathArguments:
   Enabled: false
 
