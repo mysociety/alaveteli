@@ -47,7 +47,7 @@
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
 # Mattias Axell <mattias@libertador.es>, 2015-2017
-# Mattias Axell <mattias@libertador.es>, 2015,2019-2022
+# Mattias Axell <mattias@libertador.es>, 2015,2019-2023
 # Mattias Axell <mattias@libertador.es>, 2015,2017-2018
 # Mattias OKFSE, 2015
 # Mattias Axell <mattias@libertador.es>, 2015
@@ -57,7 +57,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Mattias Axell <mattias@libertador.es>, 2015,2019-2022\n"
+"Last-Translator: Mattias Axell <mattias@libertador.es>, 2015,2019-2023\n"
 "Language-Team: Swedish (http://app.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -476,7 +476,7 @@ msgid "All time"
 msgstr "Sedan start"
 
 msgid "All time best contributors"
-msgstr ""
+msgstr "Bästa bidragsgivarna genom tiderna"
 
 msgid "All time best players"
 msgstr "Hjälpsamma användare över tid"
@@ -587,7 +587,7 @@ msgid "Attachment (optional):"
 msgstr "Bilaga (frivilligt):"
 
 msgid "Attachment has been removed"
-msgstr ""
+msgstr "Bilagan har tagits bort"
 
 msgid "Attachment:"
 msgstr "Bilaga:"
@@ -641,7 +641,7 @@ msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Bunten skapades av {{info_request_user}} den {{date}}."
 
 msgid "Before you start"
-msgstr ""
+msgstr "Innan du startar"
 
 msgid "Beginning with"
 msgstr "Börjar med"
@@ -707,7 +707,7 @@ msgid "Cancel, return to your profile page"
 msgstr "Avbryt och återgå till din profilsida"
 
 msgid "Cannot send messages"
-msgstr ""
+msgstr "Kan inte skicka meddelanden"
 
 msgid "Change email on {{site_name}}"
 msgstr "Byt e-postadress på {{site_name}}"
@@ -974,7 +974,7 @@ msgid "Download Data"
 msgstr "Ladda ner data"
 
 msgid "Download Leaderboard Data"
-msgstr ""
+msgstr "Ladda ned Resultattavlans Data"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Ladda ned en zip-fil för all korrespondens"
@@ -1046,7 +1046,7 @@ msgid "Every citizen has the right to access information held by public authorit
 msgstr "Alla människor har rätt att få tillgång till information som myndigheter har."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
-msgstr ""
+msgstr "Allt du skriver in på den här sidan, inklusive  <strong>ditt namn</strong> ({{user_name}}), kommer att <strong>visas offentligt</strong> på denna webbsida <a href=\"{{url}}\">förevigt</a>"
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>, will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr "Allt som du anger på denna sida, inklusive <strong>ditt namn</strong>, kommer att <strong>visas offentligt</strong> på denna hemsida <a href=\"{{url}}\">för evigt</a>"
@@ -1405,13 +1405,13 @@ msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a
 msgstr "<a href=\"{{url}}\">Kontakta oss</a> om du fortfarande har bekymmer."
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
-msgstr ""
+msgstr "Om du är den som begärde informationen kan du {{sign_in_link}} för att se bilagan."
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
-msgstr ""
+msgstr "Om du är den som begärde informationen kan du {{sign_in_link}} för att visa meddelandet."
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
-msgstr ""
+msgstr "Om du är den som begärde informationen kan du {{sign_in_link}} för att visa begäran."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Om du är {{user_link}}, vänligen"
@@ -1580,7 +1580,7 @@ msgid "Latest"
 msgstr "Senaste"
 
 msgid "Latest news and campaigns"
-msgstr ""
+msgstr "Senaste nyheter och kampanjer"
 
 msgid "Learn more &rarr;"
 msgstr "Lär dig mer &rarr;"
@@ -2101,7 +2101,7 @@ msgid "Please write your message using a mixture of capital and lower case lette
 msgstr "Skriv ditt meddelande med stor bokstav i början på en mening, vid egennamn mm. Detta gör det lättare för andra att läsa."
 
 msgid "Please {{contact_us_link}} if you have any questions."
-msgstr ""
+msgstr "Om du har några frågor är du välkommen att {{contact_us_link}}."
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Länka till <strong>relaterad information</strong>, kampanjer eller forum som kan vara användbara."
@@ -2260,7 +2260,7 @@ msgid "Rejected"
 msgstr "Nekad"
 
 msgid "Related blog posts"
-msgstr ""
+msgstr "Relaterade bloggposter"
 
 msgid "Remember me (keeps you signed in longer; do not use on a public computer)"
 msgstr "Kom ihåg mig (håller dig inloggad längre; använd inte i en publik dator i offentlig miljö)"
@@ -2449,7 +2449,7 @@ msgid "Section"
 msgstr "Sektion"
 
 msgid "See all &rarr;"
-msgstr ""
+msgstr "Se allt &rarr;"
 
 msgid "Send a followup"
 msgstr "Skicka en uppföljning"
@@ -2488,28 +2488,28 @@ msgid "Sending..."
 msgstr "Skickar..."
 
 msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
-msgstr ""
+msgstr "Skickade en uppföljning till {{public_body_link}} igen, med en ny kontaktadress."
 
 msgid "Sent a follow up to {{public_body_link}} again."
-msgstr ""
+msgstr "Skickade en uppföljning till {{public_body_link}} igen."
 
 msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
-msgstr ""
+msgstr "Skickade en uppföljning till {{public_body_name}} igen, med en ny kontaktadress."
 
 msgid "Sent a follow up to {{public_body_name}} again."
-msgstr ""
+msgstr "Skickade en uppföljning till {{public_body_name}} igen."
 
 msgid "Sent request to {{public_body_link}} again, using a new contact address."
-msgstr ""
+msgstr "Skickade begäran till {{public_body_link}} igen, med en ny kontaktadress."
 
 msgid "Sent request to {{public_body_link}} again."
-msgstr ""
+msgstr "Skickade begäran till {{public_body_link}} igen."
 
 msgid "Sent request to {{public_body_name}} again, using a new contact address."
-msgstr ""
+msgstr "Skickade begäran till {{public_body_name}} igen, med en ny kontaktadress."
 
 msgid "Sent request to {{public_body_name}} again."
-msgstr ""
+msgstr "Skickade begäran till {{public_body_name}} igen."
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2523,7 +2523,7 @@ msgid "Share on Facebook"
 msgstr "Dela på Facebook"
 
 msgid "Share with private link"
-msgstr ""
+msgstr "Dela via privat länk"
 
 msgid "Share your batch request"
 msgstr "Dela din serieförfrågan"
@@ -2577,7 +2577,7 @@ msgid "Sign up"
 msgstr "Registrera dig"
 
 msgid "Signing your request"
-msgstr ""
+msgstr "Underskrift av din begäran"
 
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr "Registreringar från Tor har blockerats på grund av extensiva missbruk. Vänligen kontakta oss anonymt om detta är ett problem för dig."
@@ -2634,7 +2634,7 @@ msgid "Sorry, we're currently unable to create your account. Please try again la
 msgstr "Förlåt, vi kan för närvarande inte skapa ditt konto. Vänligen försök igen senare."
 
 msgid "Sorry, we're currently unable to send your message. Please try again later."
-msgstr ""
+msgstr "Tyvärr kan vi för närvarande inte skicka ditt meddelande. Försök igen senare."
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Ursäkta, vi kan för närvarande inte skicka din begäran. Vänligen försök igen senare."
@@ -2883,10 +2883,10 @@ msgid "The last user was created over a day ago"
 msgstr "Den senaste användaren skapades för mer än en dag sedan"
 
 msgid "The oldest Xapian index job, has been idle for more than 1 hour"
-msgstr ""
+msgstr "Det äldsta indexeringsjobbet har varit inaktivt i mer än 1 timme."
 
 msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
-msgstr ""
+msgstr "Det äldsta Xapian-indexjobbet har inte varit inaktivt i mer än 1 timme"
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "Sidan finns inte. Saker som du kan prova nu:"
@@ -3042,7 +3042,7 @@ msgid "There are no requests to extract right now. Great job!"
 msgstr "Det finns inga förfrågningar att extrahera just nu. Bra jobbat!"
 
 msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
-msgstr ""
+msgstr "Det finns olika anledningar till varför vi kan ha gjort detta, tyvärr kan vi inte vara mer specifika här."
 
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "Det finns {{count}} nya anteckningar på din {{law_used_short}} begäran. Följ länken för att se vad de skrev."
@@ -3054,13 +3054,13 @@ msgid "There is a limit on the number of annotations you can make in a day becau
 msgstr "Det finns en gräns för antalet kommentarer du kan göra på en dag. Om du känner att du har en bra anledning att begära att gränsen hävs i ditt fall, vänligen <a href='{{help_contact_path}}'>hör av dig</a>."
 
 msgid "There is a limit on the number of messages you can send in a day because we don’t want users to be bombarded with large numbers of inappropriate messages. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
-msgstr ""
+msgstr "Det finns en gräns för hur många meddelanden du kan skicka per dag. Detta eftersom vi vill att användarna inte ska överbelastas med ett stort antal olämpliga meddelanden. Om du anser att du har goda skäl att be om att gränsen ska upphävas i ditt fall, vänligen <a href='{{help_contact_path}}'>kontakta oss</a>."
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr "Det finns en gräns för antalet förfrågningar som du kan göra på en dag. Detta eftersom myndigheterna inte ska överbelastas med för stort antal förfrågningar. Om du har en bra anledning att få begränsningen borttagen i ditt fall, vänligen <a href='{{help_contact_path}}'>ta kontakt med oss</a>."
 
 msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
-msgstr ""
+msgstr "Det finns också en gräns för hur snabbt du kan skapa kommentarer. Försök igen senare om du inte har nått din dagliga gräns."
 
 msgid "There is nothing to display yet."
 msgstr "Det finns inget att visa än."
@@ -3096,10 +3096,10 @@ msgid "They have been given the following explanation:"
 msgstr "De har fått följande förklaring:"
 
 msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
-msgstr ""
+msgstr "De har inte svarat på din begäran \"{{title}}\" enligt {{law_used_short}} skyndsamt, vilket krävs enligt lag."
 
 msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
-msgstr ""
+msgstr "De har inte svarat på din begäran \"{{title}}\" enligt {{law_used_short}}, vilket krävs enligt lag."
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr "De har inte svarat på din begäran enligt {{law_used_short}} med titel {{title}} hastigt, som normalt krävs enligt lag"
@@ -3117,16 +3117,16 @@ msgid "This annotation has been reported for administrator attention"
 msgstr "Kommentaren har blivit rapporterad för administratörens uppmärksamhet"
 
 msgid "This attachment has been hidden. {{reason}}"
-msgstr ""
+msgstr "Den här bilagan har dolts. {{reason}}"
 
 msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Den här bilagan har en \"dold\" framträdande plats. {{reason}} Du kan bara se den eftersom du är inloggad som superanvändare."
 
 msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Den här bilagan är markerad med \"requester_only\". {{reason}} Du kan bara se den eftersom du är inloggad som superanvändare."
 
 msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr ""
+msgstr "Den här bilagan är dold, så att endast du, som begär den, kan se den. {{reason}}"
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "Myndigheten lyder inte under offentlighetsprincipen så den är inte skyldig att svara"
@@ -3153,7 +3153,7 @@ msgid "This is an HTML version of an attachment to the Freedom of Information re
 msgstr "Detta är en HTML-version av en bilaga till begäran om allmän handling"
 
 msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
-msgstr ""
+msgstr "Detta beror på att \"{{title}}\" är en gammal begäran som har markerats för att inte längre ta emot svar."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "Detta är din egen begäran, så du kommer automatiskt att motta e-post när nya svar kommer in."
@@ -3174,16 +3174,16 @@ msgid "This message has been hidden. There are various reasons why we might have
 msgstr "Meddelandet har dolts. Det finns olika skäl till varför vi har gjort detta. Tyvärr kan vi inte vara mer specifika här."
 
 msgid "This message has been hidden. {{reason}}"
-msgstr ""
+msgstr "Detta meddelande har blivit dolt. {{reason}}"
 
 msgid "This message has been sent."
 msgstr "Meddelandet skickades."
 
 msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Det här meddelandet har en status som \"dold\". {{reason}} Du kan bara se det eftersom du är inloggad som superanvändare."
 
 msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Det här meddelandet är markerat som \"requester_only\". {{reason}} Du kan bara se det eftersom du är inloggad som superanvändare."
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Detta meddelande är dolt, så att bara du, den frågande, kan se det. {{reason}}"
@@ -3220,13 +3220,13 @@ msgid "This request has been <strong>closed to new correspondence</strong>. <a h
 msgstr "Denna begäran har <strong>stängts för ny korrespondens från myndigheten.</strong> <a href=\"{{help_contact_url}}\">Kontakta oss</a>om du tycker att den borde öppnas igen."
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention."
-msgstr ""
+msgstr "Den här begäran har <strong>rapporterats</strong> för att den kräver administratörens uppmärksamhet."
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr "Denna begäran har blivit <strong>tillbakadragen</strong> av personen som gjorde den. Det kan finnas en förklaring i korrespondensen nedanför."
 
 msgid "This request has been hidden. {{reason}}"
-msgstr ""
+msgstr "Denna begäran har blivit dold. {{reason}}"
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "Denna begäran har gjorts offentligt på {{site_name}}."
@@ -3250,13 +3250,13 @@ msgid "This request has had an unusual response, and <strong>requires attention<
 msgstr "Denna begäran har fått ett ovanligt svar, och <strong>kräver uppmärksamhet</strong> från {{site_name}}-teamet."
 
 msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Den här begäran har en status som \"dold\". {{reason}} Du kan bara se den eftersom du är inloggad som superanvändare."
 
 msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Den här begäran är markerad som \"requester_only\". {{reason}} Du kan bara se den eftersom du är inloggad som superanvändare."
 
 msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr ""
+msgstr "Denna begäran är dold, så att endast du som begär den, kan se den. {{reason}}"
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr "Denna begäran är nu tillgänglig för allmänheten via {{public_url}}"
@@ -3283,7 +3283,7 @@ msgid "This table shows the technical details of the internal events that happen
 msgstr "Denna tabell visar de tekniska detaljerna av de interna händelser som hänt denna begäran på {{site_name}}. Detta kan användas för att generera information om den hastighet myndigheter har för att svara på förfrågningar, antalet förfrågningar som kräver ett postsvar och mycket mer."
 
 msgid "This user does not accept user to user messages."
-msgstr ""
+msgstr "Denna användare accepterar inte meddelanden från användare till användare."
 
 msgid "This user has been suspended from {{site_name}} "
 msgstr "Denna användare har blivit avstängd från {{site_name}} "
@@ -3346,7 +3346,7 @@ msgid "To follow the request '{{request_title}}'"
 msgstr "För att följa begäran '{{request_title}}'"
 
 msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr ""
+msgstr "För att hjälpa oss att hålla sidan snygg har någon annan uppdaterat statusen för begäran '{{title}}' enligt {{law_used_full}} som du gjorde till {{public_body}}, till \"{{display_status}}\". Om du inte håller med om deras kategorisering kan du själv uppdatera statusen igen till vad du anser vara mer korrekt."
 
 msgid "To join this project"
 msgstr "För att gå med i projektet"
@@ -3412,13 +3412,13 @@ msgid "Too many annotations"
 msgstr "För många kommentarer"
 
 msgid "Too many messages"
-msgstr ""
+msgstr "För många meddelanden"
 
 msgid "Too many requests"
 msgstr "För många förfrågningar"
 
 msgid "Top recent contributors"
-msgstr ""
+msgstr "Senaste bästa bidragsgivarna"
 
 msgid "Top recent players"
 msgstr "Nyligen hjälpsamma användare"
@@ -3767,7 +3767,7 @@ msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Skriv din begäran i <strong>enkelt, tydligt språk</strong>."
 
 msgid "Writing your request"
-msgstr ""
+msgstr "Att skriva din begäran"
 
 msgid "Yes"
 msgstr "Ja"
@@ -3899,7 +3899,7 @@ msgid "You have hit the rate limit on new requests. Users are ordinarily limited
 msgstr "Du har nått gränsen för att göra nya förfrågningar. Användare är vanligtvis begränsade till {{max_requests_per_user_per_day}} förfrågningar under en 24-timmarsperiod. Du kommer att kunna göra förfrågningar igen om {{can_make_another_request}}."
 
 msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
-msgstr ""
+msgstr "Du har nått högsta gränsen för användarmeddelanden. Användare är normalt begränsade till {{message_limit}} meddelanden per dag."
 
 msgid "You have left the project."
 msgstr "Du har lämnat projektet."
@@ -4117,7 +4117,7 @@ msgid "Your request to update the address for {{public_body_name}} has been sent
 msgstr "Din begäran för att uppdatera adressen för {{public_body_name}} har skickats. Tack för att du tog kontakt med oss! Vi kommer snart att återkomma till dig."
 
 msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr ""
+msgstr "Din begäran kallades {{info_request}}. Om du berättar för alla om du fick informationen så kommer det hjälpa oss att hålla koll på"
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr "Dina förfrågningar kommer att <strong>skickas</strong> snart!"
@@ -4271,7 +4271,7 @@ msgid "complete"
 msgstr "färdigställ"
 
 msgid "contact us"
-msgstr ""
+msgstr "kontakta oss"
 
 msgid "delivered"
 msgstr "levererad"
@@ -4533,8 +4533,8 @@ msgstr[1] "{{number_of_comments}} kommentarer"
 
 msgid "{{number_of_contributions}} contribution"
 msgid_plural "{{number_of_contributions}} contributions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{number_of_contributions}} bidrag"
+msgstr[1] "{{number_of_contributions}} bidrag"
 
 msgid "{{number_of_requests}} request"
 msgid_plural "{{number_of_requests}} requests"
