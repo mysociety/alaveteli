@@ -6,8 +6,8 @@
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
-# Mattias Axell <mattias@libertador.es>, 2021
 # Elenor Weijmar, 2022
+# Mattias Axell <mattias@libertador.es>, 2023
 #
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Elenor Weijmar, 2022\n"
+"Last-Translator: Mattias Axell <mattias@libertador.es>, 2023\n"
 "Language-Team: Swedish (https://app.transifex.com/mysociety/teams/33529/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgid "(no title)"
 msgstr "(ingen titel)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(med<b>{{discount_name}}</b>har rabatt tillämpats)"
+msgstr "(med <b>{{discount_name}}</b> har rabatt tillämpats)"
 
 msgid "12 Months"
 msgstr "12 månader"
@@ -960,7 +960,7 @@ msgid "Sorry, something went wrong updating your requests' privacy settings, ple
 msgstr "Tyvärr så gick något fel med att uppdatera dina förfrågningars sekretessinställningar, vänligen försök igen."
 
 msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
-msgstr ""
+msgstr "Ursäkta, du kan inte registrera dig på {{pro_site_name}} just nu."
 
 msgid "Sort by"
 msgstr "Sortera efter"
@@ -1185,7 +1185,7 @@ msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "Vi har försökt att fakturera ditt kort men det misslyckades."
 
 msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr ""
+msgstr "När en begäran är privat garanterar vi att den endast kommer att kunna visas offentligt på {{site_name}} efter den tidsperiod du väljer. {{pro_site_name}}-administratörer kommer också att kunna se din begäran, men kommer endast att göra det om de behöver åtgärda ett problem med den (t.ex. misslyckad leverans till myndigheten). De kommer inte att avslöja innehållet i din begäran eller det svar du får för någon annan. Myndigheten kan fortfarande publicera diariet som vanligt."
 
 msgid "When the current billing period ends:"
 msgstr "När den aktuella betalningsperioden slutar:"
