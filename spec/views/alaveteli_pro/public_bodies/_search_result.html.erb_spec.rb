@@ -18,7 +18,10 @@ RSpec.describe 'alaveteli_pro/public_bodies/_search_result' do
   end
 
   def render_view
-    render partial: 'alaveteli_pro/public_bodies/search_result', locals: { result: result }
+    render(
+      partial: 'alaveteli_pro/public_bodies/search_result',
+      locals: { result: result }
+    )
   end
 
   it "includes the body name" do

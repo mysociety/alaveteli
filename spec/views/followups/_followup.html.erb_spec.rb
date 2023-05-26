@@ -27,7 +27,9 @@ RSpec.describe "followups/_followup" do
 
     render partial: "followups/followup", locals: { incoming_message: nil }
 
-    expect(view).to render_template(partial: "alaveteli_pro/followups/_embargoed_form_title")
+    expect(view).to render_template(
+      partial: "alaveteli_pro/followups/_embargoed_form_title"
+    )
   end
 
   describe 'the request is overdue' do
