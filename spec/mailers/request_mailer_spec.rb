@@ -141,15 +141,46 @@ RSpec.describe RequestMailer do
       deliveries.clear
     end
 
-    it "should ignore mail sent to known spam addresses" do
-      @spam_address = FactoryBot.create(:spam_address)
+    context "when sent from known spam address" do
+      before do
+        @spam_address = FactoryBot.create(:spam_address)
+      end
 
-      receive_incoming_mail('incoming-request-plain.email',
-                            email_to: @spam_address.email)
+      it "recognises a spam address under the 'To' header" do
+        receive_incoming_mail('incoming-request-plain.email',
+                              email_to: @spam_address.email)
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
-      deliveries.clear
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+        deliveries.clear
+      end
+
+      it "recognises a spam address under the 'CC' header" do
+        receive_incoming_mail('incoming-request-plain.email',
+                              email_cc: @spam_address.email)
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+        deliveries.clear
+      end
+
+      it "recognises a spam address under the 'BCC' header" do
+        receive_incoming_mail('incoming-request-plain.email',
+                              email_bcc: @spam_address.email)
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+        deliveries.clear
+      end
+
+      it "recognises a spam email address under the 'envelope-to' header" do
+        receive_incoming_mail('incoming-request-plain.email',
+                              email_envelope_to: @spam_address.email)
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+        deliveries.clear
+      end
     end
 
     it "should send a notice to sender when a request is stopped
