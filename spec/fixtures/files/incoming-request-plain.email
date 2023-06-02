@@ -1,8 +1,10 @@
 From: EMAIL_FROM
 To: FOI Person <EMAIL_TO>
-Bcc: 
+Envelope-to: EMAIL_ENVELOPE_TO
+Cc: EMAIL_CC
+Bcc: EMAIL_BCC
 Subject: Re: Freedom of Information Request - Why aren't you leaving the house?
-Reply-To: 
+Reply-To:
 In-Reply-To: <471f1eae5d1cb_7347..fdbe67386163@cat.tmail>
 
 No way! That's so totally a rubbish question. No way am I answering that.
@@ -12,7 +14,7 @@ The Geraldine Quango
 On Wed, Oct 24, 2007 at 11:30:06AM +0100, Francis wrote:
 > Please let me know why Francis isn't getting ready to leave the house
 > to go to the UN talk.
-> 
+>
 > Love,
-> 
+>
 > Francis

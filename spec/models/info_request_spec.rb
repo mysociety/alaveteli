@@ -910,7 +910,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     end
@@ -938,7 +940,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
 
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
@@ -968,7 +972,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(ActionMailer::Base.deliveries).to be_empty
       ActionMailer::Base.deliveries.clear
@@ -992,7 +998,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(ActionMailer::Base.deliveries.size).to eq(1)
       ActionMailer::Base.deliveries.clear
@@ -1015,7 +1023,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.count).to eq(1)
       ActionMailer::Base.deliveries.clear

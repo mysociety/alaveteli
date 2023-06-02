@@ -250,8 +250,9 @@ class RequestMailer < ApplicationMailer
         _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request
 
-      request.receive(email, raw_email, opts) unless SpamAddress.spam?(email.to)
-
+      unless SpamAddress.spam?(MailHandler.get_all_addresses(email))
+        request.receive(email, raw_email, opts)
+      end
       return
     end
 
