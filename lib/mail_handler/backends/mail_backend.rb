@@ -146,6 +146,7 @@ module MailHandler
         addrs << mail.bcc
         addrs << mail[:bcc].try(:value) if mail.bcc.nil? && include_invalid
         addrs << (mail['envelope-to'] ? mail['envelope-to'].value.to_s : nil)
+        addrs << get_emails_within_received_headers(mail)
         addrs.flatten.compact.uniq
       end
 
@@ -395,6 +396,15 @@ module MailHandler
         mail = Mail.new
         mail.from = string
         mail.from[0]
+      end
+
+      def get_emails_within_received_headers(email)
+        received_headers = Array(email['Received'])
+        return [] if received_headers.empty?
+        received_headers.map(&:to_s).
+          join(' ').
+          scan(MySociety::Validate.email_find_regexp).
+          flatten
       end
     end
   end
