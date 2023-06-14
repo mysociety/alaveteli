@@ -125,7 +125,7 @@ gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.8.2'
 gem 'vpim', '~> 13.11.11'
-gem 'will_paginate', '~> 3.3.1'
+gem 'will_paginate', '~> 4.0.0'
 gem 'xapian-full-alaveteli', '~> 1.4.22.1'
 gem 'xml-simple', '~> 1.1.9', require: 'xmlsimple'
 gem 'zip_tricks', '~> 5.6.0'
