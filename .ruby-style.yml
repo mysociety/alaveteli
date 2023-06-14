@@ -1957,6 +1957,9 @@ Style/RandomWithOffset:
 Style/RedundantArgument:
   Enabled: false
 
+Style/RedundantArrayConstructor:
+  Enabled: false
+
 Style/RedundantAssignment:
   Enabled: false
 
@@ -1990,6 +1993,9 @@ Style/RedundantFetchBlock:
 Style/RedundantFileExtensionInRequire:
   Enabled: false
 
+Style/RedundantFilterChain:
+  Enabled: false
+
 Style/RedundantFreeze:
   Enabled: true
 
@@ -2012,6 +2018,9 @@ Style/RedundantPercentQ:
   Enabled: false
 
 Style/RedundantRegexpCharacterClass:
+  Enabled: false
+
+Style/RedundantRegexpConstructor:
   Enabled: false
 
 Style/RedundantRegexpEscape:
