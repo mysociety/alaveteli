@@ -9,8 +9,9 @@
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # Pascal Romain <aka.keronos@gmail.com>, 2020
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2021
-# Eda <eda@mutu.net>, 2022
 # Laurent S, 2022
+# Eda <eda@mutu.net>, 2023
+# Graeme Porteous <graeme@mysociety.org>, 2023
 #
 msgid ""
 msgstr ""
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Laurent S, 2022\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2023\n"
 "Language-Team: French (France) (https://app.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +48,7 @@ msgid "(no title)"
 msgstr "(sans titre)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(pour <b> {{discount_name}} une réduction est d'application)"
+msgstr "(pour <b>{{discount_name}}</b> une réduction est appliqué)"
 
 msgid "12 Months"
 msgstr "12 mois"
@@ -344,15 +345,7 @@ msgid "Dashboard and workflow features"
 msgstr "Fonctionnalités de tableau de bord et de workflow "
 
 msgid "Dear {{user_name}},"
-msgstr ""
-"Madame, Monsieur,\n"
-"\n"
-"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaiterai recevoir communication de ces documents administratifs :\n"
-"\n"
-"\n"
-"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
-"\n"
-"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
+msgstr "Madame, Monsieur {{user_name}},"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr "Debt Resistance UK a mis en lumière <a href=\"{{story_url}}\">les autorités locales qui payent des emprunts toxiques</a>, dans certains cas impliquant qu'une proportion importante des taxes locales sert uniquement à financer les intérêts de ces emprunts."
@@ -922,7 +915,7 @@ msgid "Send request"
 msgstr "Envoyer une demande"
 
 msgid "Send this batch anyway?"
-msgstr ""
+msgstr "Renvoyer ce batch tout de même?"
 
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
