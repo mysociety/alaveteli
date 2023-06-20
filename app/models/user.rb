@@ -489,7 +489,7 @@ class User < ApplicationRecord
 
   def can_make_comments?
     return false unless active?
-    return true if is_admin? || is_pro_admin?
+    return true if no_limit? || is_admin? || is_pro_admin?
 
     !exceeded_limit?(:comments) &&
       !Comment.exceeded_creation_rate?(comments)
