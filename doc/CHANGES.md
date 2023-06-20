@@ -1,3 +1,11 @@
+# 0.43.0.2
+
+## Highlighted Features
+
+* Fix minor bug where users with no limit flag set would be prevented from
+  leaving annotations (Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.43.0.1
 
 ## Highlighted Features
