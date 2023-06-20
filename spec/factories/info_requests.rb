@@ -43,9 +43,17 @@ FactoryBot.define do
     public_body
     user
 
-    after(:create) do |info_request, _evaluator|
-      initial_request = create(:initial_request, info_request: info_request,
-                                                 created_at: info_request.created_at)
+    transient do
+      initial_request {}
+    end
+
+    after(:create) do |info_request, evaluator|
+      initial_request = evaluator.initial_request || create(
+        :initial_request,
+        info_request: info_request
+      )
+      initial_request.created_at = info_request.created_at
+      initial_request.info_request = info_request
       initial_request.last_sent_at = info_request.created_at
       initial_request.save!
     end

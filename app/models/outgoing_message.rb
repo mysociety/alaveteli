@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20230412084830
 #
 # Table name: outgoing_messages
 #
@@ -15,6 +15,7 @@
 #  what_doing                   :string           not null
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
+#  from_name                    :text
 #
 
 # models/outgoing_message.rb:
@@ -40,6 +41,7 @@ class OutgoingMessage < ApplicationRecord
   # To override the default letter
   attr_accessor :default_letter
 
+  before_validation :cache_from_name
   validates_presence_of :info_request
   validates_inclusion_of :status, in: STATUS_TYPES
   validates_inclusion_of :message_type, in: MESSAGE_TYPES
@@ -128,6 +130,16 @@ class OutgoingMessage < ApplicationRecord
     # We compare against raw_body as body strips linebreaks and applies
     # censor rules
     self.body = get_default_message + name if raw_body == get_default_message
+  end
+
+  def from_name
+    return info_request.external_user_name if info_request.is_external?
+    super || info_request.user_name
+  end
+
+  def safe_from_name
+    return info_request.external_user_name if info_request.is_external?
+    info_request.apply_censor_rules_to_text(from_name)
   end
 
   # Public: The value to be used in the From: header of an OutgoingMailer
@@ -392,6 +404,11 @@ class OutgoingMessage < ApplicationRecord
   end
 
   private
+
+  def cache_from_name
+    return if read_attribute(:from_name)
+    self.from_name = info_request.user_name if info_request
+  end
 
   def set_info_request_described_state
     if status == 'failed'

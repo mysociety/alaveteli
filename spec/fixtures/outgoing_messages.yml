@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20230412084830
 #
 # Table name: outgoing_messages
 #
@@ -15,6 +15,7 @@
 #  what_doing                   :string           not null
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
+#  from_name                    :text
 #
 
 useless_outgoing_message:

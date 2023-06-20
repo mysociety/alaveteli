@@ -2,7 +2,7 @@
            formats: [:text],
            locals: { prominenceable: outgoing_message } %>
 <% if can?(:read, outgoing_message) %>
-<%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
+<%= _('From:') %> <%= outgoing_message.safe_from_name || "[#{_('An anonymous user')}]" %>
 <%= _('To:') %> <%= @info_request.public_body.name %>
 <%= _('Date:') %> <%= simple_date(info_request_event.created_at, :format => :text) %>
 

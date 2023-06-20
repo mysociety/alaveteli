@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20230412084830
 #
 # Table name: outgoing_messages
 #
@@ -15,6 +15,7 @@
 #  what_doing                   :string           not null
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
+#  from_name                    :text
 #
 
 require 'spec_helper'
@@ -634,6 +635,59 @@ RSpec.describe OutgoingMessage do
 
     end
 
+  end
+
+  describe '#from_name' do
+    subject { outgoing_message.from_name }
+
+    let(:user) { FactoryBot.build(:user, name: 'Alice') }
+    let(:info_request) { FactoryBot.build(:info_request, user: user) }
+    let(:outgoing_message) { OutgoingMessage.new(info_request: info_request) }
+
+    it 'defaults to info request user_name' do
+      expect(info_request).to receive(:user_name).and_call_original
+      is_expected.to eq('Alice')
+    end
+
+    it 'caches info request user name as from_name attribute' do
+      expect(user).to receive(:name).and_call_original
+      expect { outgoing_message.valid? }.to change {
+        outgoing_message.read_attribute(:from_name)
+      }.from(nil).to('Alice')
+    end
+
+    context 'when attribute is already set' do
+      let(:outgoing_message) do
+        OutgoingMessage.new(info_request: info_request, from_name: 'Bob')
+      end
+
+      it { is_expected.to eq('Bob') }
+    end
+
+    context 'when request is external' do
+      let(:info_request) { FactoryBot.build(:info_request, :external) }
+      it { is_expected.to eq('External User') }
+    end
+  end
+
+  describe '#safe_from_name' do
+    subject { outgoing_message.safe_from_name }
+
+    let(:info_request) { FactoryBot.build(:info_request) }
+
+    let(:outgoing_message) do
+      OutgoingMessage.new(info_request: info_request, from_name: 'Bob')
+    end
+
+    it 'applies censor rules to from_name' do
+      FactoryBot.create(:global_censor_rule, text: 'Bob', replacement: 'Robert')
+      is_expected.to eq('Robert')
+    end
+
+    context 'when request is external' do
+      let(:info_request) { FactoryBot.build(:info_request, :external) }
+      it { is_expected.to eq('External User') }
+    end
   end
 
   describe '#apply_masks' do

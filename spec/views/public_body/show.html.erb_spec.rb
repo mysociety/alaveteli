@@ -154,6 +154,7 @@ def mock_event
       calculate_status: 'waiting_response',
       public_body: @pb,
       is_external?: false,
+      safe_from_name: 'Test User',
       user: mock_model(
         User,
         name: 'Test User',
