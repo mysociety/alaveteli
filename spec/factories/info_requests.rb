@@ -165,7 +165,8 @@ FactoryBot.define do
 
     trait :with_internal_review_request do
       after(:create) do |info_request, _evaluator|
-        outgoing_message = create(:internal_review_request, info_request: info_request)
+        outgoing_message = create(:internal_review_request,
+                                  info_request: info_request)
       end
     end
 
@@ -273,7 +274,8 @@ FactoryBot.define do
     end
 
     factory :info_request_with_incoming, traits: [:with_incoming] do
-      factory :waiting_clarification_info_request, traits: [:waiting_clarification]
+      factory :waiting_clarification_info_request,
+              traits: [:waiting_clarification]
       factory :successful_request, traits: [:successful]
       factory :requires_admin_request, traits: [:requires_admin]
       factory :error_message_request, traits: [:error_message]
@@ -282,16 +284,22 @@ FactoryBot.define do
       factory :not_held_request, traits: [:not_held]
     end
 
-    factory :info_request_with_plain_incoming, traits: [:with_plain_incoming]
-    factory :info_request_with_html_attachment, traits: [:with_incoming_with_html_attachment]
-    factory :info_request_with_pdf_attachment, traits: [:with_incoming_with_pdf_attachment]
-    factory :info_request_with_internal_review_request, traits: [:with_internal_review_request]
-    factory :embargoed_request, traits: [:embargoed, :with_incoming_with_pdf_attachment]
+    factory :info_request_with_plain_incoming,
+            traits: [:with_plain_incoming]
+    factory :info_request_with_html_attachment,
+            traits: [:with_incoming_with_html_attachment]
+    factory :info_request_with_pdf_attachment,
+            traits: [:with_incoming_with_pdf_attachment]
+    factory :info_request_with_internal_review_request,
+            traits: [:with_internal_review_request]
+    factory :embargoed_request,
+            traits: [:embargoed, :with_incoming_with_pdf_attachment]
     factory :embargo_expiring_request, traits: [:embargo_expiring]
     factory :re_embargoed_request, traits: [:re_embargoed]
     factory :embargo_expired_request, traits: [:embargo_expired]
     factory :external_request, traits: [:external]
-    factory :old_unclassified_request, traits: [:with_old_incoming, :awaiting_description]
+    factory :old_unclassified_request,
+            traits: [:with_old_incoming, :awaiting_description]
     factory :awaiting_description, traits: [:awaiting_description]
     factory :hidden_request, traits: [:hidden]
     factory :backpage_request, traits: [:backpage]
