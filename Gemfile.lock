@@ -144,7 +144,7 @@ GEM
       faraday (~> 0.9)
       faraday_middleware (~> 0.10)
       nokogiri (~> 1.6, >= 1.6.8)
-    bcrypt (3.1.18)
+    bcrypt (3.1.19)
     bindex (0.8.1)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
@@ -554,7 +554,7 @@ DEPENDENCIES
   annotate (< 3.2.1)
   aws-sdk-s3
   azure-storage
-  bcrypt (~> 3.1.18)
+  bcrypt (~> 3.1.19)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 7.0.7)
   cancancan (~> 3.5.0)
