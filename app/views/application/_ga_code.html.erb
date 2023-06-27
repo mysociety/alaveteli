@@ -11,7 +11,10 @@
     <% if content_for? :ga_pageview %>
       <%= content_for :ga_pageview %>
     <% else %>
-      ga('send', 'pageview');
+      gtag('send', 'page_view', {
+        page_title: '<%= j @title %>',
+        page_location: '<%= j request.fullpath %>'
+      });
     <% end %>
   </script>
 <% end %>
