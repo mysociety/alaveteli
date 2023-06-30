@@ -580,6 +580,9 @@ Lint/MissingCopEnableDirective:
 Lint/MissingSuper:
   Enabled: false
 
+Lint/MixedCaseRange:
+  Enabled: false
+
 Lint/MixedRegexpCaptureTypes:
   Enabled: false
 
@@ -644,6 +647,9 @@ Lint/RedundantCopEnableDirective:
   Enabled: false
 
 Lint/RedundantDirGlobSort:
+  Enabled: false
+
+Lint/RedundantRegexpQuantifiers:
   Enabled: false
 
 Lint/RedundantRequireStatement:
@@ -1978,6 +1984,9 @@ Style/RedundantConditional:
 Style/RedundantConstantBase:
   Enabled: false
 
+Style/RedundantCurrentDirectoryInPath:
+  Enabled: false
+
 Style/RedundantDoubleSplatHashBraces:
   Enabled: false
 
@@ -2015,6 +2024,9 @@ Style/RedundantParentheses:
   Enabled: true
 
 Style/RedundantPercentQ:
+  Enabled: false
+
+Style/RedundantRegexpArgument:
   Enabled: false
 
 Style/RedundantRegexpCharacterClass:
@@ -2060,6 +2072,9 @@ Style/RescueStandardError:
   Enabled: false
 
 Style/ReturnNil:
+  Enabled: false
+
+Style/ReturnNilInPredicateMethodDefinition:
   Enabled: false
 
 Style/SafeNavigation:
@@ -2218,6 +2233,9 @@ Style/WhileUntilModifier:
 
 Style/WordArray:
   Enabled: true
+
+Style/YAMLFileRead:
+  Enabled: false
 
 Style/YodaCondition:
   Enabled: false
