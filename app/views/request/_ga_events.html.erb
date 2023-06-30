@@ -1,15 +1,13 @@
 <% if flash[:request_sent] %>
   <% content_for :ga_pageview do %>
     gtag('send', 'page_view', {
-      page_title: '<%= j @title %>',
-      page_location: '<%= show_new_request_path(@info_request.url_title) %>'
+      page_location: '<%= show_new_request_url(@info_request.url_title) %>'
     });
   <% end %>
 <% else %>
   <% content_for :ga_pageview do %>
     gtag('send', 'page_view', {
-      page_title: '<%= j @title %>',
-      page_location: '<%= show_request_path(@info_request.url_title) %>'
+      page_location: '<%= show_request_url(@info_request.url_title) %>'
     });
   <% end %>
 <% end %>
