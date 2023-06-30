@@ -52,11 +52,13 @@ RSpec.describe User, "making up the URL name" do
 
   it 'should remove spaces, and make lower case' do
     @user.name = 'Some Name'
+    @user.valid?
     expect(@user.url_name).to eq('some_name')
   end
 
   it 'should not allow a numeric name' do
     @user.name = '1234'
+    @user.valid?
     expect(@user.url_name).to eq('user')
   end
 end

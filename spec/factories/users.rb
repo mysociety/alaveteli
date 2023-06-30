@@ -49,6 +49,8 @@ FactoryBot.define do
     ban_text { '' }
     confirmed_not_spam { true }
 
+    after(:build) { |user| user.send :set_slug }
+
     factory :unconfirmed_user do
       email_confirmed { false }
       confirmed_not_spam { false }
