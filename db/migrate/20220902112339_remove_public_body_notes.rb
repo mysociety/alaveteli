@@ -14,6 +14,8 @@ class RemovePublicBodyNotes < ActiveRecord::Migration[6.1]
     end
 
     remove_column :public_body_translations, :notes
+
+    PublicBody.translation_class.reset_column_information
   end
 
   def down
