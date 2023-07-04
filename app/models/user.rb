@@ -434,7 +434,7 @@ class User < ApplicationRecord
   end
 
   def anonymise!
-    return if info_requests.none?
+    return if info_requests.none? && comments.none?
 
     censor_rules.create!(text: read_attribute(:name),
                          replacement: _('[Name Removed]'),

@@ -60,7 +60,7 @@
             <li>Removes user from search index</li>
             <li>Hides requests on the profile page</li>
             <li><strong>Does not</strong> delete or set prominence of the user's requests</li>
-            <li>Makes a naive attempt to redact <tt>name</tt> from requests<sup>1</sup></li>
+            <li>Makes a naive attempt to redact <tt>name</tt> from content<sup>1</sup></li>
           </ul>
         </p>
         <p>
@@ -69,13 +69,13 @@
           has not made any requests, they cannot be anonymised.
         </p>
         <p>
-          <sup>1</sup> If the user has any requests, this will create a Censor
-          Rule that applies to the User. The Censor Rule will take the User’s
-          current <tt>name</tt> attribute and replace it with <code>[Name
-          Removed]</code>. Note that this <em>may not cover all variations of
-          the name</em>, so its worth checking that this has done what you
-          expect. More Censor Rules may need to be added to the user if this
-          has not been sufficient.
+          <sup>1</sup> If the user has created any content that includes their
+          name, this will create a Censor Rule that applies to the User. The
+          Censor Rule will take the User’s current <tt>name</tt> attribute and
+          replace it with <code>[Name Removed]</code>. Note that this <em>may
+          not cover all variations of the name</em>, so its worth checking that
+          this has done what you expect. More Censor Rules may need to be added
+          to the user if this has not been sufficient.
         </p>
       </div>
       <hr>

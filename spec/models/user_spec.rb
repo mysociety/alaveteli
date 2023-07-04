@@ -1356,7 +1356,7 @@ RSpec.describe User do
     context 'when the user has info requests' do
       before { FactoryBot.create(:info_request, user: user) }
 
-      it 'creates a censor rule for user name if the user has info requests' do
+      it 'creates a censor rule for user name' do
         subject
         censor_rule = user.censor_rules.last
         expect(censor_rule.text).to eq(user.name)
@@ -1366,7 +1366,20 @@ RSpec.describe User do
       end
     end
 
-    context 'when the user has no info requests' do
+    context 'when the user has annotations' do
+      before { FactoryBot.create(:comment, user: user) }
+
+      it 'creates a censor rule for user name' do
+        subject
+        censor_rule = user.censor_rules.last
+        expect(censor_rule.text).to eq(user.name)
+        expect(censor_rule.replacement).to eq('[Name Removed]')
+        expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
+        expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
+      end
+    end
+
+    context 'when the user has no info requests or annotations' do
       it 'does not create a censor rule' do
         subject
         expect(user.censor_rules).to be_empty
