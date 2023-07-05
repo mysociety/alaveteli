@@ -1,15 +1,11 @@
 <ul>
   <% public_bodies = PublicBody.with_tag(category_tag).with_translations.is_requestable %>
-  <% cache [:batch_builder, locale, category_tag, public_bodies] do %>
     <% public_bodies.each do |public_body| %>
-      <% cache [:batch_builder, locale, category_tag, public_body] do %>
-        <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
-                   locals: { public_body: public_body,
-                             draft: draft_batch_request,
-                             query: nil,
-                             page: nil,
-                             body_ids_added: body_ids_added } %>
-      <% end %>
-    <% end %>
+    <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
+               locals: { public_body: public_body,
+                         draft: draft_batch_request,
+                         query: nil,
+                         page: nil,
+                         body_ids_added: body_ids_added } %>
   <% end %>
 </ul>
