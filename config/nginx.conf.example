@@ -24,6 +24,9 @@ server {
 
     try_files /down.html $uri/index.html $uri @alaveteli;
 
+    location = /favicon.ico {
+        rewrite ^/favicon\.ico$ /assets/favicon.ico last;
+    }
 
     location /download {
         internal;
