@@ -85,10 +85,10 @@ msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr "<strong class=\"marketing-highlight\">Ustvarite zahtevek za več organov</strong>: kliknite na organ, ki ga želite izbrati"
+msgstr "<strong class=\"marketing-highlight\">Ustvarite zahtevo za več organov</strong>: kliknite na organ, ki ga želite izbrati"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr "<strong class=\"marketing-highlight\">Upravljajte z večjim številom odzivov</strong>: imejte pod nadzorom status vsakega zahtevka"
+msgstr "<strong class=\"marketing-highlight\">Upravljajte z večjim številom odzivov</strong>: imejte pod nadzorom status vsakega zahtevo"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
 msgstr "<strong class=\"marketing-highlight\">Shranite kot osnutek</strong> in nadaljujte kasneje "
@@ -120,7 +120,7 @@ msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Zahvalite se</strong> javnemu organu"
 
 msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
-msgstr "Nekaterim navedenim organom ste na {{date}} <strong>že poslali zahtevek</strong>."
+msgstr "Nekaterim navedenim organom ste na {{date}} <strong>že poslali zahtevo</strong>."
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr ""
@@ -132,7 +132,7 @@ msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI serv
 msgstr ""
 
 msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Zmogljiv, v celoti opremljen nabor orodij, ki rešuje težave organizatorjev kampanj, ki upravljajo več zahtevkov ali poglobljene preiskave IJZ."
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
 msgstr ""
@@ -141,7 +141,7 @@ msgid "A <strong>summary</strong> of the response if you have received it by pos
 msgstr ""
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
+msgstr "Enovrstični povzetek informacij, ki jih zahtevate, npr."
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
 msgstr ""
