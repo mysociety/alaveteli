@@ -1672,16 +1672,16 @@ msgid "Make a request to this authority"
 msgstr "Dien een Woo-verzoek in bij deze overheidsinstantie "
 
 msgid "Make a {{legislation}} request to this authority"
-msgstr "Dien een {{legislation}} verzoek in bij deze overheidsinstantie"
+msgstr "Dien een {{law_used_short}}-verzoek in bij deze overheidsinstantie"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Doe een {{law_used_short}}-verzoek"
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
-msgstr "Doe een {{law_used_short}}-verzoek aan '{{public_body_name}}'"
+msgstr "Dien een {{law_used_short}}-verzoek in bij '{{public_body_name}}'"
 
 msgid "Make an {{legislation}} request to this authority"
-msgstr "Dien een {{legislation}} verzoek in bij deze overheidsinstantie"
+msgstr "Dien een {{law_used_short}}-verzoek in bij deze overheidsinstantie"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Maak en bekijk Woo-verzoeken"

@@ -1,3 +1,12 @@
+# 0.43.1.0
+
+## Highlighted Features
+
+* Add support for [Cookieless Google Analytics
+  4](https://github.com/mysociety/alaveteli/wiki/Cookieless-Google-Analytics-4)
+  (Alex Parsons, Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)# 0.43.0.2
+
 # 0.43.0.2
 
 ## Highlighted Features
