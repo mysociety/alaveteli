@@ -52,7 +52,7 @@ create your own <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossar
   </p>
 </div>
 
-### How to setup the Docker container
+### How to set up the Docker container
 
 The supplied scripts in the `./docker` directory will create you a Docker
 container which has everything you need to work on Alaveteli.
@@ -109,7 +109,7 @@ Use <code>-T</code> to pipe local files to scripts run in the app container.
 You don't need to stop Alaveteli right away, but when you do this can be done
 by pressing **Ctrl-C** to interrupt the `./docker/server` script.
 
-### How reset the container
+### How to reset the container
 
 While working on Alaveteli you may find you might need to reset the container
 back to its initial state. This can be done by running:
