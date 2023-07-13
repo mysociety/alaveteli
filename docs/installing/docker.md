@@ -59,7 +59,7 @@ container which has everything you need to work on Alaveteli.
 
 To create a Docker container with Alaveteli installed, run the setup script:
 
-        ./docker/setup
+        ./docker/setup true
 
 This will build the required Docker images, download the default Alaveteli
 theme, install all dependencies, create and populate the database with sample
