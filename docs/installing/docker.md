@@ -116,6 +116,9 @@ back to its initial state. This can be done by running:
 
         ./docker/reset
 
+### How to view local emails
+The Docker installation comes with a MailHog instance, you can visit this at `http://0.0.0.0:1080`.
+
 ## What next?
 
 The Docker installation you've just done has loaded test data, which includes
