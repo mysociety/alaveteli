@@ -127,26 +127,6 @@ RSpec.describe "When administering the site" do
         expect(page).to have_content "Only the authority can reply to this request"
       end
     end
-
-    it "guesses a misdirected request" do
-      info_request = FactoryBot.create(:info_request,
-                                       allow_new_responses_from: 'authority_only',
-                                       handle_rejected_responses: 'holding_pen')
-      mail_to = "request-#{info_request.id}-asdfg@example.com"
-      receive_incoming_mail('incoming-request-plain.email', email_to: mail_to)
-      interesting_email = last_holding_pen_mail
-
-      # now we add another message to the queue, which we're not interested in
-      receive_incoming_mail('incoming-request-plain.email',
-                            email_to: info_request.incoming_email,
-                            email_from: "")
-      expect(holding_pen_messages.length).to eq(2)
-      using_session(@admin) do
-        visit admin_raw_email_path interesting_email
-        expect(page).to have_content "Could not identify the request"
-        expect(page).to have_content info_request.title
-      end
-    end
   end
 
   describe 'generating an upload url' do

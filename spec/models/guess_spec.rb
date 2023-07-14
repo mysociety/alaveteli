@@ -5,6 +5,46 @@ RSpec.describe Guess do
     FactoryBot.create(:info_request, id: 100, idhash: '4e637388')
   end
 
+  describe '.guessed_info_requests' do
+    subject(:guesses) { described_class.guessed_info_requests(email) }
+
+    let(:email) do
+      mail = Mail.new
+      mail.to address
+      mail
+    end
+
+    let(:info_request) { FactoryBot.create(:info_request, id: 4566) }
+    let!(:other_info_request) { FactoryBot.create(:info_request) }
+
+    let(:id) { info_request.id }
+    let(:hash) { info_request.idhash }
+
+    context 'with email matching ID and ID hash' do
+      let(:address) { info_request.incoming_email }
+
+      it 'return matching InfoRequest' do
+        is_expected.to match_array([info_request])
+      end
+    end
+
+    context 'with email matching ID and almost ID hash' do
+      let(:address) { "request-#{id}-#{hash[0...-1]}}z@localhost" }
+
+      it 'return guessed InfoRequest' do
+        is_expected.to match_array([info_request])
+      end
+    end
+
+    context 'with email matching ID hash and almost ID' do
+      let(:address) { "request-#{id.to_s[0...-1]}-#{hash}@localhost" }
+
+      it 'return guessed InfoRequest' do
+        is_expected.to match_array([info_request])
+      end
+    end
+  end
+
   describe 'with a subject line given' do
     let(:guess) { described_class.new(info_request, subject: 'subject_line') }
 
