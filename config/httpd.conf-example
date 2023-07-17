@@ -95,6 +95,10 @@
         AddHandler fastcgi-script .cgi
     </Directory>
 
+    # Favicon in the Rails asset pipline are served from /assets/favicon.ico yet we
+    # still get requests for it in the root directory.
+    RewriteRule ^/favicon\.ico$ /assets/favicon.ico [L]
+
     # Serve attachments directly from the cache, if possible.
     #
     # The file names are URL-encoded on disk, and sharded by the first
