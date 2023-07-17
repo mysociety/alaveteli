@@ -1,0 +1,39 @@
+<% @title = _('Change your name used on {{site_name}}', site_name: site_name) %>
+
+<h1><%= @title %></h1>
+
+<div id="notice">
+  <p>
+    <%= _('When you send a request, we use the name you gave us. This makes ' \
+          'it hard to stop your old and new names from being connected.') %>
+  </p>
+  <p>
+    <%= _('If you change your name, your old requests won\'t change. Your ' \
+          'old name will still show up on requests that you\'ve already sent ' \
+          'and on your public profile page.') %>
+  </p>
+  <p>
+    <%= _('If you don\'t want your new name to be linked to your old one, ' \
+          'it\'s a good idea to make a new account instead.') %>
+  </p>
+  <p>
+    <%= _('If you are trying to remove your name, please
+          <a href="{{contact_us_url}}">contact us</a>.',
+          contact_us_url: help_contact_path) %>
+  </p>
+</div>
+
+<div id="change_name" class="change_name">
+  <%= form_for @edit_user, url: users_name_path do |f| %>
+    <%= foi_error_messages_for :edit_user %>
+
+    <p>
+      <label class="form_label" for="name"><%= _('Name:') %></label>
+      <%= f.text_field 'name', { size: 20 } %>
+    </p>
+
+    <div class="form_button">
+      <%= submit_tag _('Change your name') %>
+    </div>
+  <% end %>
+</div>

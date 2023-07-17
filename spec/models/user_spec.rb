@@ -433,6 +433,53 @@ RSpec.describe User, "when checking abilities" do
 
 end
 
+RSpec.describe User, 'previous names' do
+  let(:user) { FactoryBot.build(:user, name: 'Robert') }
+
+  let(:outgoing_message_1) do
+    FactoryBot.build(:initial_request, from_name: 'Bobby', user: user)
+  end
+
+  let(:followup_1) do
+    FactoryBot.build(:new_information_followup, from_name: 'Bob', user: user)
+  end
+
+  let(:followup_2) do
+    FactoryBot.build(:new_information_followup, from_name: 'Bob', user: user)
+  end
+
+  let(:outgoing_message_2) do
+    FactoryBot.build(:initial_request, from_name: 'Robert', user: user)
+  end
+
+  before do
+    FactoryBot.create(:sent_event, outgoing_message: outgoing_message_1)
+    FactoryBot.create(:followup_sent_event, outgoing_message: followup_1)
+    FactoryBot.create(:followup_sent_event, outgoing_message: followup_2)
+    FactoryBot.create(:sent_event, outgoing_message: outgoing_message_2)
+  end
+
+  describe '#previous_names' do
+    it 'returns unique previous names without current name' do
+      expect(user.previous_names).to include('Bobby').once # previous name
+      expect(user.previous_names).to include('Bob').once # previous name
+      expect(user.previous_names).to_not include('Robert') # current name
+    end
+  end
+
+  describe '#safe_previous_names' do
+    it 'returns unique safe previous names without current name' do
+      FactoryBot.create(
+        :censor_rule, user: user, text: 'Bobby', replacement: '[redacted]'
+      )
+
+      expect(user.safe_previous_names).to include('[redacted]').once
+      expect(user.safe_previous_names).to include('Bob').once # previous name
+      expect(user.safe_previous_names).to_not include('Robert') # current name
+    end
+  end
+end
+
 RSpec.describe User, " when making name and email address" do
   it "should generate a name and email" do
     @user = User.new
@@ -1096,71 +1143,14 @@ RSpec.describe User do
   end
 
   describe '#close_and_anonymise' do
-    let(:user) { FactoryBot.create(:user, about_me: 'Hi') }
+    let(:user) { FactoryBot.create(:user) }
 
-    before do
-      allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
-      allow(MySociety::Util).
-        to receive(:generate_token).and_return('r@nd0m-pa$$w0rd')
-      allow(AlaveteliConfiguration).
-        to receive(:user_sign_in_activity_retention_days).and_return(1)
-      FactoryBot.create(:user_sign_in, user: user)
-    end
-
-    it 'creates a censor rule for user name if the user has info requests' do
-      FactoryBot.create(:info_request, user: user)
-      user_name = user.name
+    it 'delegates to close!, anonymise! and erase! methods' do
+      expect(user).to receive(:close!)
+      expect(user).to receive(:anonymise!)
+      expect(user).to receive(:erase!)
       user.close_and_anonymise
-      censor_rule = user.censor_rules.last
-      expect(censor_rule.text).to eq(user_name)
-      expect(censor_rule.replacement).to eq('[Name Removed]')
     end
-
-    it 'does not create a censor rule for user name if the user does not have info requests' do
-      user.close_and_anonymise
-      expect(user.censor_rules).to be_empty
-    end
-
-    it 'destroys any sign_ins' do
-      user.close_and_anonymise
-      expect(user.sign_ins).to be_empty
-    end
-
-    it 'should anonymise user name' do
-      expect { user.close_and_anonymise }.
-        to change(user, :name).to('[Name Removed] (Account suspended)')
-    end
-
-    it 'should anonymise user email' do
-      expect { user.close_and_anonymise }.
-        to change(user, :email).to('1234@invalid')
-    end
-
-    it 'should anonymise user url_name' do
-      expect { user.close_and_anonymise }.
-        to change(user, :url_name).to('1234')
-    end
-
-    it 'should anonymise user about_me' do
-      expect { user.close_and_anonymise }.
-        to change(user, :about_me).to('')
-    end
-
-    it 'should anonymise user password' do
-      expect { user.close_and_anonymise }.
-        to change(user, :password).to('r@nd0m-pa$$w0rd')
-    end
-
-    it 'should set user to not receive email alerts' do
-      expect { user.close_and_anonymise }.
-        to change(user, :receive_email_alerts?).to(false)
-    end
-
-    it 'should set user to be closed' do
-      expect { user.close_and_anonymise }.
-        to change(user, :closed?).to(true)
-    end
-
   end
 
   describe '#close' do
@@ -1326,6 +1316,11 @@ RSpec.describe User do
         expect(user.about_me).to be_empty
       end
 
+      it 'destroys any old slugs' do
+        # update in the method will create a new slug as the name is changed.
+        expect(user.slugs.pluck(:slug)).to eq(['a1b2c3d4'])
+      end
+
       it 'destroys any sign_ins' do
         expect(user.sign_ins).to be_empty
       end
@@ -1358,8 +1353,28 @@ RSpec.describe User do
 
       it 'creates a censor rule for user name' do
         subject
-        censor_rule = user.censor_rules.last
-        expect(censor_rule.text).to eq(user.name)
+        censor_rule = user.censor_rules.find { _1.text = user.name }
+        expect(censor_rule).to_not be_nil
+        expect(censor_rule.replacement).to eq('[Name Removed]')
+        expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
+        expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
+      end
+    end
+
+    context 'when the user has info requests which uses an different name' do
+      let(:previous_name) { 'Bob' }
+
+      before do
+        FactoryBot.create(:info_request, user: user)
+        FactoryBot.create(
+          :new_information_followup, user: user, from_name: previous_name
+        )
+      end
+
+      it 'creates a censor rules for previous names' do
+        subject
+        censor_rule = user.censor_rules.find { _1.text == previous_name }
+        expect(censor_rule).to_not be_nil
         expect(censor_rule.replacement).to eq('[Name Removed]')
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
@@ -1371,8 +1386,8 @@ RSpec.describe User do
 
       it 'creates a censor rule for user name' do
         subject
-        censor_rule = user.censor_rules.last
-        expect(censor_rule.text).to eq(user.name)
+        censor_rule = user.censor_rules.find { _1.text == user.name }
+        expect(censor_rule).to_not be_nil
         expect(censor_rule.replacement).to eq('[Name Removed]')
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')

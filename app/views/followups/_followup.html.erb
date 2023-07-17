@@ -107,6 +107,14 @@
       <% end %>
     <% end %>
 
+    <% if @info_request.from_name != @info_request.user_name %>
+      <div class="warning">
+        <%= _('Your name has been changed since your last message in this ' \
+              'request. Please consider mentioning this to the authority ' \
+              'and explain that you are the original requester.') %>
+      </div>
+    <% end %>
+
     <% form_url =
          if incoming_message.nil?
            preview_request_followups_url(request_id: @info_request.id)

@@ -76,6 +76,9 @@ class User < ApplicationRecord
   has_many :embargoes,
            inverse_of: :user,
            through: :info_requests
+  has_many :outgoing_messages,
+           inverse_of: :user,
+           through: :info_requests
   has_many :draft_info_requests,
            -> { order(created_at: :desc) },
            inverse_of: :user,
@@ -355,6 +358,17 @@ class User < ApplicationRecord
     write_attribute(:name, name.try(:strip))
   end
 
+  def previous_names
+    outgoing_messages.unscope(:order).
+      distinct(:from_name).
+      where.not(from_name: read_attribute(:name)).
+      pluck(:from_name)
+  end
+
+  def safe_previous_names
+    outgoing_messages.map(&:safe_from_name).uniq - [read_attribute(:name)]
+  end
+
   # For use in to/from in email messages
   def name_and_email
     MailHandler.address_from_name_and_email(name, email)
@@ -420,6 +434,7 @@ class User < ApplicationRecord
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
     transaction do
+      slugs.destroy_all
       sign_ins.destroy_all
       profile_photo&.destroy!
 
@@ -436,10 +451,13 @@ class User < ApplicationRecord
   def anonymise!
     return if info_requests.none? && comments.none?
 
-    censor_rules.create!(text: read_attribute(:name),
-                         replacement: _('[Name Removed]'),
-                         last_edit_editor: 'User#anonymise!',
-                         last_edit_comment: 'User#anonymise!')
+    current_name = read_attribute(:name)
+    [current_name, *previous_names].each do |name|
+      censor_rules.create!(text: name,
+                           replacement: _('[Name Removed]'),
+                           last_edit_editor: 'User#anonymise!',
+                           last_edit_comment: 'User#anonymise!')
+    end
   end
 
   def close_and_anonymise
