@@ -64,6 +64,28 @@
         <% end %>
       </td>
     </tr>
+    <tr>
+      <td>
+        <b>URL name</b>
+      </td>
+      <td>
+        <ul class="unstyled">
+          <% @admin_user.slugs.each_with_index do |slug, index| %>
+            <%= tag.li class: { muted: index.positive? } do %>
+              <%= slug.slug %>
+              <% if index.positive? %>
+                <%= button_to 'Delete',
+                      admin_user_slug_path(user_id: @admin_user, id: slug.id),
+                      method: :delete,
+                      form_class: 'form-inline',
+                      class: 'btn btn-mini btn-danger'
+                %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
   </tbody>
 </table>
 

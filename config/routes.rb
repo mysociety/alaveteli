@@ -701,6 +701,7 @@ Rails.application.routes.draw do
       post 'clear_bounce', :on => :member
       post 'clear_profile_photo', :on => :member
       post 'modify_comment_visibility', :on => :collection
+      resources :slugs, controller: 'admin_user_slug', only: :destroy
       resources :censor_rules,
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
