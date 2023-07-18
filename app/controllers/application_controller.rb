@@ -29,6 +29,9 @@ class ApplicationController < ActionController::Base
   # Standard headers, footers and navigation for whole site
   layout "default"
 
+  # Defaults are :alert and :notice, but Alaveteli uses :error as well
+  add_flash_types :error
+
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
 

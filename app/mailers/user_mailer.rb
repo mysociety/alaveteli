@@ -45,4 +45,14 @@ class UserMailer < ApplicationMailer
          to: new_email,
          subject: _("Unable to change email address on {{site_name}}", site_name: site_name))
   end
+
+  def account_closure_requested(user)
+    @name = user.name
+
+    set_reply_to_headers(user)
+    mail_user(
+      user,
+      _("Your account closure request on {{site_name}}",site_name: site_name)
+    )
+  end
 end

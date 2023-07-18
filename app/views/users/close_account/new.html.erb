@@ -1,0 +1,26 @@
+<% @title = "Close your account" %>
+<h1><%= @title %></h1>
+
+<p>If you no longer wish to use your WhatDoTheyKnow account, you can ask us to close your account.</p>
+
+<p>Closing your account will:</p>
+
+<ul>
+  <li>Set your user name to &#91;Name Removed&#93;</li>
+  <li>Reset your email address to something random</li>
+  <li>Clear your about me text</li>
+  <li>Disable all email alerts</li>
+  <li>Hide any requests you have made from your profile page</li>
+  <li>Make an automatic attempt to remove your name from your requests</li>
+</ul>
+
+<p>Closing your account will prevent you from logging in. If you have any requests that are ongoing, you will not be able to send any follow up messages to public authorities.</p>
+
+<%= form_with url: users_close_account_path, method: :post do |form| %>
+  <p>
+    <%= form.check_box :confirm, class: "checkbox" %>
+    I understand that closing my account will mean that I <b>will not</b> be able to login or follow up on my requests, and that this cannot be undone.
+  </p>
+
+  <%= form.submit "Close my account", class: "button alert", data: { confirm: "Are you sure you want to close your account?" } %>
+<% end %>

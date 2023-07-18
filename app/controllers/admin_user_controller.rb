@@ -131,6 +131,15 @@ class AdminUserController < AdminController
     redirect_back(fallback_location: admin_users_url)
   end
 
+  def account_closure_requests
+    @title = 'Account closure requests'
+
+    # Find requests where the account associated with the request is not closed
+    @account_closure_requests = AccountClosureRequest.
+      joins(:user).
+      where(users: { closed_at: nil })
+  end
+
   private
 
   def user_params

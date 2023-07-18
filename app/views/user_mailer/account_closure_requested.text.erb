@@ -1,0 +1,7 @@
+<%= raw @name %>,
+
+<%= _("You've requested to close your account on {{site_name}}." \
+      'We will process your request and will be in touch once it has been actioned.',
+      :site_name => site_name.html_safe) %>
+
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

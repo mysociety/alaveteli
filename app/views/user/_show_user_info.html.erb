@@ -14,7 +14,8 @@
       <%= link_to _('Change profile photo'), set_profile_photo_path %> |
     <% end %>
     <%= link_to _('Change your password'), new_password_change_path %> |
-    <%= link_to _('Change your email'), signchangeemail_path %>
+    <%= link_to _('Change your email'), signchangeemail_path %> |
+    <%= link_to _('Close your account'), users_close_account_path %>
     <% if AlaveteliConfiguration.enable_two_factor_auth %>
     |
       <% if @display_user.otp_enabled? %>
