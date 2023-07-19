@@ -6,6 +6,8 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
   let(:attachment) { incoming_message.foi_attachments.last }
   let(:body) { described_class.new.perform(attachment) }
 
+  before { rebuild_raw_emails(info_request) }
+
   it 'sanitises HTML attachments' do
     # Nokogiri adds the meta tag; see
     # https://github.com/sparklemotion/nokogiri/issues/1008

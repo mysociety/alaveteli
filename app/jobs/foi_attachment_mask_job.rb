@@ -18,7 +18,7 @@ class FoiAttachmentMaskJob < ApplicationJob
     @attachment = attachment
 
     body = AlaveteliTextMasker.apply_masks(
-      attachment.default_body,
+      attachment.unmasked_body,
       attachment.content_type,
       masks
     )

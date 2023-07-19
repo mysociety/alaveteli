@@ -7,6 +7,8 @@ local_requests: false do
 
   let(:within_session) do
     -> {
+      rebuild_raw_emails(info_request)
+
       visit get_attachment_url(
         incoming_message_id: attachment.incoming_message_id,
         part: attachment.url_part_number,

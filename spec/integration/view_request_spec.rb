@@ -41,6 +41,8 @@ RSpec.describe "When viewing requests" do
       info_request = FactoryBot.create(:info_request_with_incoming_attachments)
       incoming_message = info_request.incoming_messages.first
       attachment_url = "/es/request/#{info_request.id}/response/#{incoming_message.id}/attach/2/interesting.pdf"
+      rebuild_raw_emails(info_request)
+
       using_session(non_owner) { visit(attachment_url) }
       expect(cache_directories_exist?(info_request)).to be true
 

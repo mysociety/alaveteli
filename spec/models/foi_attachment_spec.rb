@@ -144,6 +144,21 @@ RSpec.describe FoiAttachment do
 
   end
 
+  describe '#unmasked_body' do
+
+    it 'returns the attachment body from the raw email' do
+      foi_attachment = FactoryBot.build(:body_text)
+
+      allow(foi_attachment).to receive(:raw_email).
+        and_return(double.as_null_object)
+      allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+        and_return('hereistheunmaskedtext')
+
+      expect(foi_attachment.unmasked_body).to eq('hereistheunmaskedtext')
+    end
+
+  end
+
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 

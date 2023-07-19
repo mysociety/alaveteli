@@ -21,7 +21,14 @@ FactoryBot.define do
     factory :html_attachment do
       content_type { 'text/html' }
       filename { 'interesting.html' }
-      body { load_file_fixture('interesting.html') }
+      body {
+        # Needed to force HTML attachment into CRLF line endings due to an issue
+        # with the mail gem which results in a different hexdigest after
+        # rebuilding the raw emails.
+        # Once https://github.com/mikel/mail/pull/1512 is merged we can revert
+        # the FoiAttachment factory change.
+        Mail::Utilities.to_crlf(load_file_fixture('interesting.html'))
+      }
     end
     factory :jpeg_attachment do
       content_type { 'image/jpeg' }

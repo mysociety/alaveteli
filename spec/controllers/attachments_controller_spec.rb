@@ -41,6 +41,7 @@ RSpec.describe AttachmentsController, type: :controller do
         file_name: attachment.display_filename
       }
       default_params[:id] = info_request.id unless params[:public_token]
+      rebuild_raw_emails(info_request)
       get :show, params: default_params.merge(params)
     end
 

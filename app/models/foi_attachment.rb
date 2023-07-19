@@ -32,6 +32,7 @@ class FoiAttachment < ApplicationRecord
 
   belongs_to :incoming_message,
              inverse_of: :foi_attachments
+  has_one :raw_email, through: :incoming_message, source: :raw_email
 
   has_one_attached :file, service: :attachments
 
@@ -121,6 +122,15 @@ class FoiAttachment < ApplicationRecord
   # raw binary
   def default_body
     text_type? ? body_as_text.string : body
+  end
+
+  # return the body as it is in the raw email, unmasked without censor rules
+  # applied
+  def unmasked_body
+    MailHandler.attachment_body_for_hexdigest(
+      raw_email.mail,
+      hexdigest: hexdigest
+    )
   end
 
   def main_body_part?
