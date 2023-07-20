@@ -97,42 +97,42 @@
 
 ### Changed Templates
 
-app/views/admin/tags/_tagging.html.erb
-app/views/admin/users/_sign_in_table.html.erb
-app/views/admin_censor_rule/_form.html.erb
-app/views/admin_censor_rule/_list.html.erb
-app/views/admin_censor_rule/index.html.erb
-app/views/admin_comment/edit.html.erb
-app/views/admin_general/_admin_navbar.html.erb
-app/views/admin_general/_edit_comment.html.erb
-app/views/admin_general/stats.html.erb
-app/views/admin_public_body/_public_body.html.erb
-app/views/admin_public_body/show.html.erb
-app/views/admin_request/show.html.erb
-app/views/admin_user/edit.html.erb
-app/views/admin_user/show.html.erb
-app/views/alaveteli_pro/general/_nav_items.html.erb
-app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
-app/views/alaveteli_pro/info_requests/_batch.html.erb
-app/views/alaveteli_pro/info_requests/_message_preview.html.erb
-app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
-app/views/alaveteli_pro/info_requests/_sidebar.html.erb
-app/views/alaveteli_pro/info_requests/new.html.erb
-app/views/alaveteli_pro/plans/_pricing_tiers.html.erb
-app/views/comment/rate_limited.html.erb
-app/views/general/_nav_items.html.erb
-app/views/general/blog.html.erb
-app/views/general/frontpage.html.erb
-app/views/health/checks/index.html.erb
-app/views/projects/projects/show.html.erb
-app/views/public_body/_body_listing_single.html.erb
-app/views/public_body/show.html.erb
-app/views/request/_batch.html.erb
-app/views/request/_resent_outgoing_correspondence.html.erb
-app/views/request/_resent_outgoing_correspondence.text.erb
-app/views/request/_sidebar.html.erb
-app/views/request/new.html.erb
-app/views/request/preview.html.erb
+    app/views/admin/tags/_tagging.html.erb
+    app/views/admin/users/_sign_in_table.html.erb
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/_list.html.erb
+    app/views/admin_censor_rule/index.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/_edit_comment.html.erb
+    app/views/admin_general/stats.html.erb
+    app/views/admin_public_body/_public_body.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/general/_nav_items.html.erb
+    app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/plans/_pricing_tiers.html.erb
+    app/views/comment/rate_limited.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/frontpage.html.erb
+    app/views/health/checks/index.html.erb
+    app/views/projects/projects/show.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_batch.html.erb
+    app/views/request/_resent_outgoing_correspondence.html.erb
+    app/views/request/_resent_outgoing_correspondence.text.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
 
 # 0.42.0.1
 
