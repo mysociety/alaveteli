@@ -22,7 +22,8 @@ namespace :temp do
 
     scope.find_each.with_index do |outgoing_message, index|
       user = outgoing_message.user
-      outgoing_message.update_columns(from_name: user.name)
+      name = user.read_attribute(:name)
+      outgoing_message.update_columns(from_name: name)
 
       erase_line
       print "Populating OutgoingMessage#from_name #{index + 1}/#{count}"
