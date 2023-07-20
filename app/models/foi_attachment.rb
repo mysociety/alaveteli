@@ -46,8 +46,8 @@ class FoiAttachment < ApplicationRecord
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest]
 
-  BODY_MAX_TRIES = 3
-  BODY_MAX_DELAY = 5
+  cattr_accessor :body_max_tries, default: 3
+  cattr_accessor :body_max_delay, default: 5
 
   # rubocop:disable Style/LineLength
   CONTENT_TYPE_NAMES = {
@@ -102,8 +102,8 @@ class FoiAttachment < ApplicationRecord
       @cached_body = file.download
     else
       # we've lost our cached attachments for some reason.  Reparse them.
-      raise if tries > BODY_MAX_TRIES
-      sleep [delay, BODY_MAX_DELAY].min
+      raise if tries > self.class.body_max_tries
+      sleep [delay, self.class.body_max_delay].min
 
       incoming_message.parse_raw_email!(true)
       reload

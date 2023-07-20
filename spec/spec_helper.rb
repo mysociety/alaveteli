@@ -97,6 +97,9 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
+    FoiAttachment.body_max_tries = 1
+    FoiAttachment.body_max_delay = 1
+
     if ENV['ALAVETELI_USE_OINK']
       oink_log = Rails.root + 'log/oink.log'
       File.write(oink_log, '') if File.exist?(oink_log)
