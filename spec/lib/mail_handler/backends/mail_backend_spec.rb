@@ -322,4 +322,88 @@ when it really should be application/pdf.\n
       expect { decode_attached_part(mail.parts.last, mail) }.not_to raise_error
     end
   end
+
+  describe :get_emails_within_received_headers do
+
+    it 'returns an empty list if there is no Received header' do
+      mail = get_fixture_mail('bcc-contact-reply.email')
+      expect(get_emails_within_received_headers(mail)).to eq([])
+    end
+
+    it 'returns an empty list if the Received header contains no email addresses' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        Received: abc id abc from notAnEmail
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).to eq([])
+    end
+
+    it 'returns a list containing the email if the Received header contains one email address' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        Received: abc id abc from aperson@domain.abc
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).
+        to eq(['aperson@domain.abc'])
+    end
+
+    it 'returns a (single dimensional) list containing the emails if the Received header contains multiple email addresses' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        Received: abc id abc from aperson@domain.abc
+          also there is anotherperson@domain.abc
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).
+        to eq(['aperson@domain.abc', 'anotherperson@domain.abc'])
+    end
+
+    it 'recognises the Received header when it is not capitalised' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        received: abc id abc from aperson@domain.abc
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).
+        to eq(['aperson@domain.abc'])
+    end
+  end
 end

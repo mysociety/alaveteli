@@ -231,9 +231,7 @@ class RequestMailer < ApplicationMailer
 
   # Find which info requests the email is for
   def requests_matching_email(email)
-    # We deliberately don't use Envelope-to here, so ones that are BCC
-    # drop into the holding pen for checking.
-    addresses = ((email.to || []) + (email.cc || [])).compact
+    addresses = MailHandler.get_all_addresses(email)
     InfoRequest.matching_incoming_email(addresses)
   end
 
@@ -244,8 +242,8 @@ class RequestMailer < ApplicationMailer
     # Find which info requests the email is for
     reply_info_requests = requests_matching_email(email)
 
-    # Nothing found, so save in holding pen
-    if reply_info_requests.empty?
+    # Nothing found OR multiple different info requests, so save in holding pen
+    if reply_info_requests.empty? || reply_info_requests.count > 1
       opts[:rejected_reason] =
         _("Could not identify the request from the email address")
       request = InfoRequest.holding_pen_request

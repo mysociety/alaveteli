@@ -48,12 +48,29 @@ RSpec.describe RequestMailer do
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
-    it "puts messages with the request address in Bcc: in the holding pen" do
-      request = FactoryBot.create(:info_request)
-      receive_incoming_mail('bcc-contact-reply.email',
-                            email_to: 'dummy@localhost',
-                            email_bcc: request.incoming_email)
-      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
+
+    it "attaches messages with an info request address in the Received headers to the appropriate request" do
+      ir = info_requests(:fancy_dog_request)
+      expect(ir.incoming_messages.count).to eq(1) # in the fixture
+      mail_content = <<~EOF
+        From: "FOI Person" <foiperson@localhost>
+        Received: from smtp-out.localhost
+                by example.net with esmtps
+                (Exim 4.89)
+                (envelope-from <foiperson@localhost.co>)
+                id ABC
+                for #{ir.incoming_email}.com; Mon, 23 Nov 2020 00:00:00 +0000
+        Test
+      EOF
+      receive_incoming_mail(mail_content)
+      expect(ir.incoming_messages.count).to eq(2) # one more arrives
+      expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      expect(mail.to).to eq([ 'bob@localhost' ]) # to the user who sent fancy_dog_request
+      deliveries.clear
     end
 
     it "puts messages with multiple request addresses in Bcc: in the holding pen" do
