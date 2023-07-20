@@ -1279,6 +1279,10 @@ RSpec.describe User do
     context 'the update is successful' do
       let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
 
+      let!(:outgoing_message) do
+        FactoryBot.create(:initial_request, user: user)
+      end
+
       before do
         allow(AlaveteliConfiguration).
           to receive(:user_sign_in_activity_retention_days).and_return(1)
@@ -1292,6 +1296,7 @@ RSpec.describe User do
         subject
 
         user.reload
+        outgoing_message.reload
       end
 
       it 'erases the name' do
@@ -1314,6 +1319,10 @@ RSpec.describe User do
 
       it 'erases the about_me' do
         expect(user.about_me).to be_empty
+      end
+
+      it 'erases outgoing_message the from_name' do
+        expect(outgoing_message.from_name).to eq('[Name Removed]')
       end
 
       it 'destroys any old slugs' do
