@@ -976,7 +976,7 @@ RSpec.describe PublicBody do
               updated_at: public_body.updated_at,
               url_name: "mas",
               created_at: public_body.created_at,
-              home_page: "http://www.flourish.org",
+              home_page: "https://www.flourish.org",
               id: public_body.id,
               info: {
                 requests_count: 10,
@@ -1916,7 +1916,7 @@ RSpec.describe PublicBody do
     it "should return the home page based on the request email domain if it has one" do
       public_body = PublicBody.new
       allow(public_body).to receive(:request_email_domain).and_return "public-authority.com"
-      expect(public_body.calculated_home_page).to eq("http://www.public-authority.com")
+      expect(public_body.calculated_home_page).to eq("https://www.public-authority.com")
     end
 
     it "should return nil if there's no home page and the email domain can't be worked out" do
@@ -1925,10 +1925,10 @@ RSpec.describe PublicBody do
       expect(public_body.calculated_home_page).to be_nil
     end
 
-    it "should ensure home page URLs start with http://" do
+    it "should ensure home page URLs start with https://" do
       public_body = PublicBody.new
       public_body.home_page = "example.com"
-      expect(public_body.calculated_home_page).to eq("http://example.com")
+      expect(public_body.calculated_home_page).to eq("https://example.com")
     end
 
     it "should not add http when https is present" do

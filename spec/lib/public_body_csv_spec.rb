@@ -125,7 +125,7 @@ RSpec.describe PublicBodyCSV do
       csv = PublicBodyCSV.new
       csv << body
 
-      expected = ["Exported to CSV,CSV,csv,exported,http://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
+      expected = ["Exported to CSV,CSV,csv,exported,https://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
       expect(csv.rows).to eq(expected)
     end
 
@@ -154,8 +154,8 @@ RSpec.describe PublicBodyCSV do
 
       expected = <<-CSV.strip_heredoc
       Name,Short name,URL name,Home page,Publication scheme,Disclosure log,Notes,Created at,Updated at,Version
-      Exported to CSV 1,CSV1,csv1,http://www.localhost,"","",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1
-      Exported to CSV 2,CSV2,csv2,http://www.localhost,"","",Exported authority,2011-01-26 14:11:02 UTC,2011-01-26 14:11:02 UTC,1
+      Exported to CSV 1,CSV1,csv1,https://www.localhost,"","",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1
+      Exported to CSV 2,CSV2,csv2,https://www.localhost,"","",Exported authority,2011-01-26 14:11:02 UTC,2011-01-26 14:11:02 UTC,1
       CSV
 
       # Miss out the tags field because the specs keep changing the order

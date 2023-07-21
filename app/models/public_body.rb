@@ -407,9 +407,9 @@ class PublicBody < ApplicationRecord
   # in an instance variable
   def calculated_home_page
     if home_page && !home_page.empty?
-      home_page[URI.regexp(%w(http https))] ? home_page : "http://#{home_page}"
+      home_page[URI.regexp(%w(http https))] ? home_page : "https://#{home_page}"
     elsif request_email_domain
-      "http://www.#{request_email_domain}"
+      "https://www.#{request_email_domain}"
     end
   end
 
