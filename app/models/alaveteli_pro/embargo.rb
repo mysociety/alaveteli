@@ -124,7 +124,7 @@ module AlaveteliPro
                    AND ire.created_at = embargoes.expiring_notification_at
                    AND ire.event_type = 'embargo_expiring'"
       embargoes = expiring.joins(query).where("ire.info_request_id IS NULL")
-      embargoes.find_each do |embargo|
+      embargoes.find_each(batch_size: 200) do |embargo|
         info_request = embargo.info_request
         event = info_request.log_event(
           'embargo_expiring',
