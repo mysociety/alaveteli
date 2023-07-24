@@ -1919,6 +1919,12 @@ RSpec.describe PublicBody do
 end
 
 RSpec.describe PublicBody do
+  around do |example|
+    previous = PublicBody.excluded_calculated_home_page_domains
+    PublicBody.excluded_calculated_home_page_domains = %w[example.net]
+    example.run
+    PublicBody.excluded_calculated_home_page_domains = previous
+  end
 
   describe 'calculated home page' do
     it "returns the home page verbatim if it's present" do
@@ -1960,6 +1966,16 @@ RSpec.describe PublicBody do
     it 'does not add http when https is present' do
       public_body = PublicBody.new(home_page: 'https://example.com')
       expect(public_body.calculated_home_page).to eq('https://example.com')
+    end
+
+    it 'does not calculate the homepage for excluded domains' do
+      public_body = PublicBody.new(request_email: 'x@example.net')
+      expect(public_body.calculated_home_page).to be_nil
+    end
+
+    it 'ignores case sensitivity for excluded domains' do
+      public_body = PublicBody.new(request_email: 'x@EXAMPLE.net')
+      expect(public_body.calculated_home_page).to be_nil
     end
   end
 
