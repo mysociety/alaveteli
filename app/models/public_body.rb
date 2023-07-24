@@ -33,6 +33,7 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
+  include CalculatedHomePage
   include Taggable
   include Notable
   include Rails.application.routes.url_helpers
@@ -400,19 +401,6 @@ class PublicBody < ApplicationRecord
 
   def legislation
     legislations.first
-  end
-
-  # Guess home page from the request email, or use explicit override, or nil
-  # if not known.
-  #
-  # TODO: PublicBody#calculated_home_page would be a good candidate to cache
-  # in an instance variable
-  def calculated_home_page
-    if home_page && !home_page.empty?
-      home_page[URI.regexp(%w(http https))] ? home_page : "https://#{home_page}"
-    elsif request_email_domain
-      "https://www.#{request_email_domain}"
-    end
   end
 
   # The "internal admin" is a special body for internal use.
