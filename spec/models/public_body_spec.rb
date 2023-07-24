@@ -1920,35 +1920,46 @@ end
 
 RSpec.describe PublicBody do
 
-  describe "calculated home page" do
-    it "should return the home page verbatim if it's present" do
-      public_body = PublicBody.new
-      public_body.home_page = "http://www.example.com"
-      expect(public_body.calculated_home_page).to eq("http://www.example.com")
+  describe 'calculated home page' do
+    it "returns the home page verbatim if it's present" do
+      public_body = PublicBody.new(home_page: 'http://www.example.com')
+      expect(public_body.calculated_home_page).to eq('http://www.example.com')
     end
 
-    it "should return the home page based on the request email domain if it has one" do
-      public_body = PublicBody.new
-      allow(public_body).to receive(:request_email_domain).and_return "public-authority.com"
-      expect(public_body.calculated_home_page).to eq("https://www.public-authority.com")
+    it 'ensures home page URLs start with https://' do
+      public_body = PublicBody.new(home_page: 'example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
     end
 
-    it "should return nil if there's no home page and the email domain can't be worked out" do
+    it 'does not add http when https is present' do
+      public_body = PublicBody.new(home_page: 'https://example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
+    end
+
+    it 'returns the home page based on the request email domain if it has one' do
       public_body = PublicBody.new
-      allow(public_body).to receive(:request_email_domain).and_return nil
+
+      allow(public_body).
+        to receive(:request_email_domain).and_return('public-authority.com')
+
+      expect(public_body.calculated_home_page).
+        to eq('https://www.public-authority.com')
+    end
+
+    it "returns nil if there's no home page and the email domain can't be worked out" do
+      public_body = PublicBody.new
+      allow(public_body).to receive(:request_email_domain).and_return(nil)
       expect(public_body.calculated_home_page).to be_nil
     end
 
-    it "should ensure home page URLs start with https://" do
-      public_body = PublicBody.new
-      public_body.home_page = "example.com"
-      expect(public_body.calculated_home_page).to eq("https://example.com")
+    it 'ensures home page URLs start with https://' do
+      public_body = PublicBody.new(home_page: 'example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
     end
 
-    it "should not add http when https is present" do
-      public_body = PublicBody.new
-      public_body.home_page = "https://example.com"
-      expect(public_body.calculated_home_page).to eq("https://example.com")
+    it 'does not add http when https is present' do
+      public_body = PublicBody.new(home_page: 'https://example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
     end
   end
 
