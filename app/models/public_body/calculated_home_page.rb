@@ -31,15 +31,22 @@ module PublicBody::CalculatedHomePage
 
   private
 
-  # Guess home page from the request email, or use explicit override, or nil
-  # if not known.
+  # Ensure known home page has a full URL or guess if not known.
   def calculated_home_page!
-    if home_page && !home_page.empty?
-      home_page[URI.regexp(%w(http https))] ? home_page : "https://#{home_page}"
-    elsif request_email_domain
-      return if excluded_calculated_home_page_domain?(request_email_domain)
-      "https://www.#{request_email_domain}"
-    end
+    ensure_home_page_protocol || guess_home_page
+  end
+
+  # Ensure the home page has the HTTP protocol at the start of the URL
+  def ensure_home_page_protocol
+    return unless home_page.present?
+    home_page[URI.regexp(%w(http https))] ? home_page : "https://#{home_page}"
+  end
+
+  # Guess the home page from the request address email domain.
+  def guess_home_page
+    return unless request_email_domain
+    return if excluded_calculated_home_page_domain?(request_email_domain)
+    "https://www.#{request_email_domain}"
   end
 
   def excluded_calculated_home_page_domain?(domain)
