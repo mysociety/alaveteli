@@ -291,6 +291,7 @@
           --
           <%= outgoing_message.status.humanize %>
           <%= outgoing_message.message_type.humanize %>
+          at <%= admin_date(outgoing_message.last_sent_at) %>
         </span>
 
         <blockquote>
