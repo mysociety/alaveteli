@@ -438,6 +438,10 @@ class User < ApplicationRecord
       sign_ins.destroy_all
       profile_photo&.destroy!
 
+      outgoing_messages.update!(
+        from_name: _('[Name Removed]')
+      )
+
       update!(
         name: _('[Name Removed]'),
         email: "#{sha}@invalid",
