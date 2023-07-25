@@ -30,6 +30,15 @@ RSpec.describe "When filtering" do
       xc.run
       expect(xc.err).to eq("")
     end
+
+    it "should pass on a non-bounce message with Received headers and Pro enabled" do
+      xc = ExternalCommand.new("script/handle-mail-replies", {
+        env: { 'ALAVETELI_ENABLE_ALAVETELI_PRO' => 'true' },
+        stdin_string: load_file_fixture("apple-mail-with-attachments.email")
+      })
+      xc.run
+      expect(xc.err).to eq("")
+    end
   end
 
   it "should detect an Exim bounce" do

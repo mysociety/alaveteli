@@ -17,6 +17,7 @@ require 'active_support/all'
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
 $LOAD_PATH.push(File.join($alaveteli_dir, 'commonlib', 'rblib'))
+load 'validate.rb'
 load 'config.rb'
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
