@@ -136,8 +136,15 @@ module AlaveteliConfiguration
     # rubocop:enable Layout/LineLength
   end
 
+  def self.get(key, default)
+    # Don't use the `Rails.env.test?` as this has to work for external commands
+    # when Rails environment isn't loaded.
+    value = ENV["ALAVETELI_#{key}"] if ENV['RAILS_ENV'] == 'test'
+    value || MySociety::Config.get(key, default)
+  end
+
   def self.background_jobs
-    value = MySociety::Config.get('BACKGROUND_JOBS', DEFAULTS[:BACKGROUND_JOBS])
+    value = get('BACKGROUND_JOBS', DEFAULTS[:BACKGROUND_JOBS])
     return value if %w[inline server].include?(value)
     raise 'Unknown value for BACKGROUND_JOBS. Please check config/general.yml'
   end
@@ -145,7 +152,7 @@ module AlaveteliConfiguration
   def self.method_missing(name)
     key = name.to_s.upcase
     if DEFAULTS.key?(key.to_sym)
-      MySociety::Config.get(key, DEFAULTS[key.to_sym])
+      get(key, DEFAULTS[key.to_sym])
     else
       super
     end
