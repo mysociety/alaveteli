@@ -30,7 +30,7 @@ class FoiAttachmentMaskJob < ApplicationJob
         try(:html_safe)
     end
 
-    body
+    attachment.update(body: body, masked_at: Time.zone.now)
   end
 
   private

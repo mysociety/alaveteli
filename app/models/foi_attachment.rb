@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220916134847
+# Schema version: 20230717201410
 #
 # Table name: foi_attachments
 #
@@ -16,6 +16,7 @@
 #  updated_at            :datetime
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
+#  masked_at             :datetime
 #
 
 # models/foi_attachment.rb:
@@ -82,7 +83,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def body=(d)
-    self.hexdigest = Digest::MD5.hexdigest(d)
+    self.hexdigest ||= Digest::MD5.hexdigest(d)
 
     ensure_filename!
     file.attach(
@@ -131,6 +132,10 @@ class FoiAttachment < ApplicationRecord
       raw_email.mail,
       hexdigest: hexdigest
     )
+  end
+
+  def masked?
+    file.attached? && masked_at.present? && masked_at < Time.zone.now
   end
 
   def main_body_part?

@@ -1427,6 +1427,11 @@ RSpec.describe InfoRequest do
 
     let(:info_request) { FactoryBot.create(:info_request) }
 
+    it "clears the attachment masked" do
+      expect(info_request).to receive(:clear_attachment_masks!)
+      info_request.expire
+    end
+
     it "clears the database caches" do
       expect(info_request).to receive(:clear_in_database_caches!)
       info_request.expire
@@ -1456,6 +1461,22 @@ RSpec.describe InfoRequest do
       expected_calls = info_request.foi_fragment_cache_directories.count + 1
       expect(FileUtils).to receive(:rm_rf).exactly(expected_calls).times
       info_request.expire
+    end
+
+  end
+
+  describe '#clear_attachment_masks!' do
+
+    let(:info_request) { FactoryBot.create(:info_request_with_plain_incoming) }
+    let(:attachment) { info_request.foi_attachments.first }
+
+    before { attachment.update(masked_at: Time.zone.now) }
+
+    it 'sets attachments masked_at to nil' do
+      expect { info_request.clear_attachment_masks! }.to change {
+        attachment.reload
+        attachment.masked_at
+      }.from(Time).to(nil)
     end
 
   end

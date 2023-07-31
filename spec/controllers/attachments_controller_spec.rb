@@ -113,12 +113,10 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(response.status).to eq(303)
     end
 
-    it 'returns body from FoiAttachmentMaskJob' do
+    it 'perfoms a FoiAttachmentMaskJob' do
       expect(FoiAttachmentMaskJob).to receive(:perform_now).
-        with(attachment).
-        and_return('Monkey')
+        with(attachment)
       show
-      expect(response.body).to match('Monkey')
     end
 
     context 'when request is embargoed' do

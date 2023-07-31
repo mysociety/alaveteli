@@ -4,9 +4,34 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
   let(:info_request) { FactoryBot.create(:info_request_with_html_attachment) }
   let(:incoming_message) { info_request.incoming_messages.first }
   let(:attachment) { incoming_message.foi_attachments.last }
-  let(:body) { described_class.new.perform(attachment) }
+
+  def perform
+    described_class.new.perform(attachment)
+  end
 
   before { rebuild_raw_emails(info_request) }
+
+  it 'update the attachment body' do
+    info_request.censor_rules.create!(
+      text: 'dull', replacement: 'boring',
+      last_edit_editor: 'unknown', last_edit_comment: 'none'
+    )
+
+    expect(attachment.body).to include('dull')
+    expect(attachment.body).to_not include('boring')
+    expect { perform }.to change { attachment.body }
+    expect(attachment.body).to_not include('dull')
+    expect(attachment.body).to include('boring')
+  end
+
+  it 'update the attachment masked_at' do
+    info_request.censor_rules.create!(
+      text: 'dull', replacement: 'boring',
+      last_edit_editor: 'unknown', last_edit_comment: 'none'
+    )
+
+    expect { perform }.to change { attachment.masked_at }.to(Time)
+  end
 
   it 'sanitises HTML attachments' do
     # Nokogiri adds the meta tag; see
@@ -22,7 +47,8 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
     </html>
     EOF
 
-    expect(body.squish).to eq(expected)
+    perform
+    expect(attachment.body.squish).to eq(expected)
   end
 
   it 'censors attachments downloaded directly' do
@@ -30,8 +56,9 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
       text: 'dull', replacement: 'Boy',
       last_edit_editor: 'unknown', last_edit_comment: 'none'
     )
-    expect(body).to_not include 'dull'
-    expect(body).to include 'Boy'
+    perform
+    expect(attachment.body).to_not include 'dull'
+    expect(attachment.body).to include 'Boy'
   end
 
   it 'censors with rules on the user (rather than the request)' do
@@ -39,8 +66,9 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
       text: 'dull', replacement: 'Mole',
       last_edit_editor: 'unknown', last_edit_comment: 'none'
     )
-    expect(body).to_not include 'dull'
-    expect(body).to include 'Mole'
+    perform
+    expect(attachment.body).to_not include 'dull'
+    expect(attachment.body).to include 'Mole'
   end
 
   it 'censors with rules on the public body (rather than the request)' do
@@ -48,8 +76,9 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
       text: 'dull', replacement: 'Fox',
       last_edit_editor: 'unknown', last_edit_comment: 'none'
     )
-    expect(body).to_not include 'dull'
-    expect(body).to include 'Fox'
+    perform
+    expect(attachment.body).to_not include 'dull'
+    expect(attachment.body).to include 'Fox'
   end
 
   it 'censors with rules globally (rather than the request)' do
@@ -57,7 +86,8 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
       text: 'dull', replacement: 'Horse',
       last_edit_editor: 'unknown', last_edit_comment: 'none'
     )
-    expect(body).to_not include 'dull'
-    expect(body).to include 'Horse'
+    perform
+    expect(attachment.body).to_not include 'dull'
+    expect(attachment.body).to include 'Horse'
   end
 end

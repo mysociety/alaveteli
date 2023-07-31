@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220916134847
+# Schema version: 20230717201410
 #
 # Table name: foi_attachments
 #
@@ -16,6 +16,7 @@
 #  updated_at            :datetime
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
+#  masked_at             :datetime
 #
 
 require 'spec_helper'
@@ -79,6 +80,11 @@ RSpec.describe FoiAttachment do
         main_part = im.get_main_body_text_part
         expect(main_part.body).to match(/That's so totally a rubbish question/)
       end
+    end
+
+    it 'does not update hexdigest if already present' do
+      attachment = FoiAttachment.new(hexdigest: 'ABC')
+      expect { attachment.body = 'foo' }.to_not change { attachment.hexdigest }
     end
 
   end
@@ -155,6 +161,36 @@ RSpec.describe FoiAttachment do
         and_return('hereistheunmaskedtext')
 
       expect(foi_attachment.unmasked_body).to eq('hereistheunmaskedtext')
+    end
+
+  end
+
+  describe 'masked?' do
+
+    let(:foi_attachment) do
+      FoiAttachment.new(body: 'foo', masked_at: Time.zone.now)
+    end
+
+    subject { foi_attachment.masked? }
+
+    it { is_expected.to eq(true) }
+
+    context 'without file attached' do
+      let(:foi_attachment) { FoiAttachment.new(masked_at: Time.zone.now) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'without masked_at' do
+      let(:foi_attachment) { FoiAttachment.new(body: 'foo') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when masked_at is in the future' do
+      let(:foi_attachment) do
+        FoiAttachment.new(body: 'foo', masked_at: Time.zone.now + 1.day)
+      end
+
+      it { is_expected.to eq(false) }
     end
 
   end
