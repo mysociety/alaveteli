@@ -244,8 +244,13 @@ class InfoRequest < ApplicationRecord
     guesses = emails.flatten.reduce([]) do |memo, email|
       id, idhash = _extract_id_hash_from_email(email)
       id, idhash = _guess_idhash_from_email(email) if idhash.nil? || id.nil?
-      memo << Guess.new(find_by_id(id), email, :id)
-      memo << Guess.new(find_by_idhash(idhash), email, :idhash)
+
+      memo << Guess.new(
+        find_by_id(id), email: email, id: id, idhash: idhash
+      )
+      memo << Guess.new(
+        find_by_idhash(idhash), email: email, id: id, idhash: idhash
+      )
     end
 
     # Unique Guesses where we've found an `InfoRequest`
@@ -314,7 +319,7 @@ class InfoRequest < ApplicationRecord
       limit(25)
 
     guesses = requests.each.reduce([]) do |memo, request|
-      memo << Guess.new(request, subject_line, :subject)
+      memo << Guess.new(request, subject: subject_line)
     end
 
     # Unique Guesses where we've found an `InfoRequest`

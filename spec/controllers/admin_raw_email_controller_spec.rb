@@ -63,7 +63,10 @@ RSpec.describe AdminRawEmailController do
 
         it 'assigns guessed requests based on the hash' do
           get :show, params: { id: incoming_message.raw_email.id }
-          guess = Guess.new(info_request, invalid_to, :idhash)
+          idhash = InfoRequest.hash_from_id(info_request.id)
+          guess = Guess.new(
+            info_request, email: invalid_to, id: nil, idhash: idhash
+          )
           expect(assigns[:guessed_info_requests]).to eq([guess])
         end
 
@@ -72,7 +75,7 @@ RSpec.describe AdminRawEmailController do
             FactoryBot.create(:incoming_message, subject: 'Basic Email').
               info_request
           get :show, params: { id: incoming_message.raw_email.id }
-          guess = Guess.new(other_request, 'Basic Email', :subject)
+          guess = Guess.new(other_request, subject: 'Basic Email')
           expect(assigns[:guessed_info_requests]).to include(guess)
         end
 
