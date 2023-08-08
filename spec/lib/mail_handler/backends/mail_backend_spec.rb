@@ -425,9 +425,10 @@ when it really should be application/pdf.\n
     end
 
     context 'non-matching hexdigest' do
-      it 'returns nil' do
-        body = attachment_body_for_hexdigest(mail, hexdigest: 'incorrect')
-        expect(body).to be_nil
+      it 'raises MismatchedAttachmentHexdigest error' do
+        expect {
+          attachment_body_for_hexdigest(mail, hexdigest: 'incorrect')
+        }.to raise_error(MailHandler::MismatchedAttachmentHexdigest)
       end
     end
   end

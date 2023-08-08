@@ -40,6 +40,8 @@ module MailHandler
     module MailBackend
       include ConfigHelper
 
+      MismatchedAttachmentHexdigest = Class.new(StandardError)
+
       def backend
         'Mail'
       end
@@ -384,7 +386,11 @@ module MailHandler
         attributes = get_attachment_attributes(mail).find do |attrs|
           attrs[:hexdigest] == hexdigest
         end
-        attributes&.fetch(:body)
+
+        return attributes.fetch(:body) if attributes
+
+        raise MismatchedAttachmentHexdigest,
+          "can't find attachment matching hexdigest: #{hexdigest}"
       end
 
       # Format

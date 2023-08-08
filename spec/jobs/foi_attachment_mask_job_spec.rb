@@ -5,8 +5,10 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
   let(:incoming_message) { info_request.incoming_messages.first }
   let(:attachment) { incoming_message.foi_attachments.last }
 
+  let(:instance) { described_class.new }
+
   def perform
-    described_class.new.perform(attachment)
+    instance.perform(attachment)
   end
 
   before { rebuild_raw_emails(info_request) }
@@ -89,5 +91,23 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
     perform
     expect(attachment.body).to_not include 'dull'
     expect(attachment.body).to include 'Horse'
+  end
+
+  context 'when unmasked body is not avaliable' do
+    before do
+      allow(attachment).to receive(:unmasked_body).and_raise(
+        MailHandler::MismatchedAttachmentHexdigest
+      )
+    end
+
+    it 'reparses raw email' do
+      expect(incoming_message).to receive(:parse_raw_email!).with(true)
+      perform
+    end
+
+    it 'retries job' do
+      expect(instance).to receive(:retry_job)
+      perform
+    end
   end
 end

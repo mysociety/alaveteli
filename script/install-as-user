@@ -184,6 +184,9 @@ do
     fi
 done
 
+# add sidekiq.yml
+cp config/sidekiq.yml-example config/sidekiq.yml
+
 # add storage.yml
 cp config/storage.yml-example config/storage.yml
 
