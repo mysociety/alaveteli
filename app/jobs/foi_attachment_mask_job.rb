@@ -31,6 +31,10 @@ class FoiAttachmentMaskJob < ApplicationJob
     end
 
     attachment.update(body: body, masked_at: Time.zone.now)
+
+  rescue MailHandler::MismatchedAttachmentHexdigest
+    incoming_message.parse_raw_email!(true)
+    retry_job
   end
 
   private
