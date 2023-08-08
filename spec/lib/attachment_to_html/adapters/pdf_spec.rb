@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::PDF do
 
-  let(:attachment) { FactoryBot.build(:pdf_attachment) }
+  let(:attachment) { FactoryBot.create(:pdf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::PDF.new(attachment) }
 
   describe :tmpdir do
@@ -56,7 +56,7 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
     context 'PDF attachment with images' do
 
       let(:attachment) do
-        FactoryBot.build(
+        FactoryBot.create(
           :pdf_attachment,
           filename: 'cat.pdf',
           body: load_file_fixture('cat.pdf')

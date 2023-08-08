@@ -1,6 +1,31 @@
 FactoryBot.define do
 
   factory :foi_attachment do
+    sequence(:url_part_number) { |n| n + 1 }
+    display_size { '0K' }
+    masked_at { 1.day.ago }
+
+    transient do
+      body { 'hereisthemaskedtext' }
+    end
+
+    after(:build) do |foi_attachment, evaluator|
+      body = evaluator.body
+      foi_attachment.hexdigest = Digest::MD5.hexdigest(body) if body
+
+      next unless body && foi_attachment.filename && foi_attachment.content_type
+
+      foi_attachment.file.attach(
+        io: StringIO.new(body),
+        filename: foi_attachment.filename,
+        content_type: foi_attachment.content_type
+      )
+    end
+
+    trait :unmasked do
+      masked_at { nil }
+    end
+
     factory :body_text do
       content_type { 'text/plain' }
       body { 'hereisthetext' }
@@ -19,7 +44,14 @@ FactoryBot.define do
     factory :html_attachment do
       content_type { 'text/html' }
       filename { 'interesting.html' }
-      body { load_file_fixture('interesting.html') }
+      body {
+        # Needed to force HTML attachment into CRLF line endings due to an issue
+        # with the mail gem which results in a different hexdigest after
+        # rebuilding the raw emails.
+        # Once https://github.com/mikel/mail/pull/1512 is merged we can revert
+        # the FoiAttachment factory change.
+        Mail::Utilities.to_crlf(load_file_fixture('interesting.html'))
+      }
     end
     factory :jpeg_attachment do
       content_type { 'image/jpeg' }

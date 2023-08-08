@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe AttachmentToHTML do
   include AttachmentToHTML
 
-  let(:attachment) { FactoryBot.build(:body_text) }
+  let(:attachment) { FactoryBot.create(:body_text) }
 
   describe '#to_html' do
 
@@ -30,7 +30,7 @@ RSpec.describe AttachmentToHTML do
     end
 
     it 'converts an attachment that has an adapter, fails to convert, but has a google viewer' do
-      attachment = FactoryBot.build(:pdf_attachment)
+      attachment = FactoryBot.create(:pdf_attachment)
       allow_any_instance_of(AttachmentToHTML::Adapters::PDF).to receive(:success?).and_return(false)
       expect(AttachmentToHTML::Adapters::PDF).to receive(:new).with(attachment, {}).and_call_original
       expect(AttachmentToHTML::Adapters::GoogleDocsViewer).to receive(:new).with(attachment, {}).and_call_original
@@ -38,13 +38,13 @@ RSpec.describe AttachmentToHTML do
     end
 
     it 'converts an attachment that doesnt have an adapter, but has a google viewer' do
-      attachment = FactoryBot.build(:body_text, content_type: 'application/vnd.ms-word')
+      attachment = FactoryBot.create(:body_text, content_type: 'application/vnd.ms-word')
       expect(AttachmentToHTML::Adapters::GoogleDocsViewer).to receive(:new).with(attachment, {}).and_call_original
       to_html(attachment)
     end
 
     it 'converts an attachment that has no adapter or google viewer' do
-      attachment = FactoryBot.build(:body_text, content_type: 'application/json')
+      attachment = FactoryBot.create(:body_text, content_type: 'application/json')
       expect(AttachmentToHTML::Adapters::CouldNotConvert).to receive(:new).with(attachment, {}).and_call_original
       to_html(attachment)
     end
@@ -52,12 +52,12 @@ RSpec.describe AttachmentToHTML do
     describe 'when wrapping the content' do
 
       it 'uses a the default wrapper' do
-        attachment = FactoryBot.build(:pdf_attachment)
+        attachment = FactoryBot.create(:pdf_attachment)
         expect(to_html(attachment)).to include(%Q(<div id="wrapper">))
       end
 
       it 'uses a custom wrapper for GoogleDocsViewer attachments' do
-        attachment = FactoryBot.build(:pdf_attachment)
+        attachment = FactoryBot.create(:pdf_attachment)
         # TODO: Add a document that will always render in a
         # GoogleDocsViewer for testing
         allow_any_instance_of(AttachmentToHTML::Adapters::PDF).to receive(:success?).and_return(false)

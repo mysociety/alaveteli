@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220916134847
+# Schema version: 20230717201410
 #
 # Table name: foi_attachments
 #
@@ -16,6 +16,7 @@
 #  updated_at            :datetime
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
+#  masked_at             :datetime
 #
 
 # models/foi_attachment.rb:
@@ -32,6 +33,7 @@ class FoiAttachment < ApplicationRecord
 
   belongs_to :incoming_message,
              inverse_of: :foi_attachments
+  has_one :raw_email, through: :incoming_message, source: :raw_email
 
   has_one_attached :file, service: :attachments
 
@@ -81,7 +83,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def body=(d)
-    self.hexdigest = Digest::MD5.hexdigest(d)
+    self.hexdigest ||= Digest::MD5.hexdigest(d)
 
     ensure_filename!
     file.attach(
@@ -95,20 +97,14 @@ class FoiAttachment < ApplicationRecord
   end
 
   # raw body, encoded as binary
-  def body(tries: 0, delay: 1)
+  def body
     return @cached_body if @cached_body
 
-    if file.attached?
+    if masked?
       @cached_body = file.download
     else
-      # we've lost our cached attachments for some reason.  Reparse them.
-      raise if tries > BODY_MAX_TRIES
-      sleep [delay, BODY_MAX_DELAY].min
-
-      incoming_message.parse_raw_email!(true)
-      reload
-
-      body(tries: tries + 1, delay: delay * 2)
+      FoiAttachmentMaskJob.perform_now(self)
+      body
     end
   end
 
@@ -121,6 +117,19 @@ class FoiAttachment < ApplicationRecord
   # raw binary
   def default_body
     text_type? ? body_as_text.string : body
+  end
+
+  # return the body as it is in the raw email, unmasked without censor rules
+  # applied
+  def unmasked_body
+    MailHandler.attachment_body_for_hexdigest(
+      raw_email.mail,
+      hexdigest: hexdigest
+    )
+  end
+
+  def masked?
+    file.attached? && masked_at.present? && masked_at < Time.zone.now
   end
 
   def main_body_part?

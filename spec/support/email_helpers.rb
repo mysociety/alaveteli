@@ -49,3 +49,22 @@ def gsub_addresses(content, **kargs)
   end
   content
 end
+
+def rebuild_raw_emails(info_request)
+  info_request.incoming_messages.each do |im|
+    mail = Mail.new
+
+    mail.to = info_request.incoming_email
+    mail.from = "#{im.from_name} <#{im.from_email}>"
+    mail.subject = im.subject
+    mail.date = im.sent_at
+    mail.body = im.cached_main_body_text_unfolded
+
+    im.foi_attachments.each do |a|
+      mail.add_file filename: a.filename, content: a.file.download
+    end
+
+    im.raw_email.data = mail
+    im.raw_email.save!
+  end
+end

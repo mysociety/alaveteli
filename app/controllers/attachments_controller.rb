@@ -16,24 +16,28 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
 
-  around_action :cache_attachments
+  around_action :cache_attachments, only: :show_as_html
 
   def show
-    # Prevent spam to magic request address. Note that the binary
-    # substitution method used depends on the content type
-    body = @incoming_message.apply_masks(
-      @attachment.default_body,
-      @attachment.content_type
-    )
+    if @attachment.masked?
+      render body: @attachment.body, content_type: content_type
+    else
+      FoiAttachmentMaskJob.perform_later(@attachment)
 
-    if content_type == 'text/html'
-      body =
-        Loofah.scrub_document(body, :prune).
-        to_html(encoding: 'UTF-8').
-        try(:html_safe)
+      Timeout.timeout(5) do
+        until @attachment.masked?
+          sleep 0.5
+          @attachment.reload
+        end
+        redirect_to(request.fullpath)
+      end
     end
 
-    render body: body, content_type: content_type
+  rescue Timeout::Error
+    redirect_to wait_for_attachment_mask_path(
+      @attachment.to_signed_global_id,
+      referer: request.fullpath
+    )
   end
 
   def show_as_html

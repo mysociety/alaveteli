@@ -807,6 +807,10 @@ class InfoRequest < ApplicationRecord
   end
 
   def expire(options={})
+    # Clear any attachment masked_at timestamp, forcing attachments to be
+    # reparsed
+    clear_attachment_masks!
+
     # Clear out cached entries, by removing files from disk (the built in
     # Rails fragment cache made doing this and other things too hard)
     foi_fragment_cache_directories.each { |dir| FileUtils.rm_rf(dir) }
@@ -820,6 +824,10 @@ class InfoRequest < ApplicationRecord
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events
+  end
+
+  def clear_attachment_masks!
+    foi_attachments.update_all(masked_at: nil)
   end
 
   # Removes anything cached about the object in the database, and saves

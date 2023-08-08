@@ -134,6 +134,13 @@ Rails.application.routes.draw do
         :via => :get,
         :constraints => { :part => /\d+/ }
 
+  #### Attachment controller
+  resources :attachment_masks, only: [], path: :attachments do
+    get 'wait', on: :member, as: :wait_for
+    get 'done', on: :member
+  end
+  ####
+
   match '/request_event/:info_request_event_id' => 'request#show_request_event',
         :as => :info_request_event,
         :via => :get

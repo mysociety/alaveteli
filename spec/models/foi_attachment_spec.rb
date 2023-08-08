@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220916134847
+# Schema version: 20230717201410
 #
 # Table name: foi_attachments
 #
@@ -16,6 +16,7 @@
 #  updated_at            :datetime
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
+#  masked_at             :datetime
 #
 
 require 'spec_helper'
@@ -81,6 +82,11 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    it 'does not update hexdigest if already present' do
+      attachment = FoiAttachment.new(hexdigest: 'ABC')
+      expect { attachment.body = 'foo' }.to_not change { attachment.hexdigest }
+    end
+
   end
 
   describe '#body' do
@@ -140,6 +146,51 @@ RSpec.describe FoiAttachment do
     it 'returns binary for a PDF attachment' do
       foi_attachment = FactoryBot.create(:pdf_attachment)
       expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
+    end
+
+  end
+
+  describe '#unmasked_body' do
+
+    it 'returns the attachment body from the raw email' do
+      foi_attachment = FactoryBot.build(:body_text)
+
+      allow(foi_attachment).to receive(:raw_email).
+        and_return(double.as_null_object)
+      allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+        and_return('hereistheunmaskedtext')
+
+      expect(foi_attachment.unmasked_body).to eq('hereistheunmaskedtext')
+    end
+
+  end
+
+  describe 'masked?' do
+
+    let(:foi_attachment) do
+      FoiAttachment.new(body: 'foo', masked_at: Time.zone.now)
+    end
+
+    subject { foi_attachment.masked? }
+
+    it { is_expected.to eq(true) }
+
+    context 'without file attached' do
+      let(:foi_attachment) { FoiAttachment.new(masked_at: Time.zone.now) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'without masked_at' do
+      let(:foi_attachment) { FoiAttachment.new(body: 'foo') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when masked_at is in the future' do
+      let(:foi_attachment) do
+        FoiAttachment.new(body: 'foo', masked_at: Time.zone.now + 1.day)
+      end
+
+      it { is_expected.to eq(false) }
     end
 
   end

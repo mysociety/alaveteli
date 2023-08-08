@@ -1,0 +1,11 @@
+<% @title = _('Attachment available for download.') %>
+<h1><%= @title %></h1>
+
+<p>
+  <%= _('The attachment has now been processed and is available for ' \
+        'download.') %>
+</p>
+
+<p>
+  <%= link_to _('Download attachment'), @show_attachment_path, class: 'button' %>
+</p>

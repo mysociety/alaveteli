@@ -406,4 +406,29 @@ when it really should be application/pdf.\n
         to eq(['aperson@domain.abc'])
     end
   end
+
+  describe 'attachment_body_for_hexdigest' do
+    let(:mail) do
+      Mail.new do
+        add_file filename: 'file.txt', content: 'hereisthetext'
+      end
+    end
+
+    context 'matching hexdigest' do
+      it 'returns the body of the attachment' do
+        body = attachment_body_for_hexdigest(
+          mail, hexdigest: Digest::MD5.hexdigest('hereisthetext')
+        )
+
+        expect(body).to eq('hereisthetext')
+      end
+    end
+
+    context 'non-matching hexdigest' do
+      it 'returns nil' do
+        body = attachment_body_for_hexdigest(mail, hexdigest: 'incorrect')
+        expect(body).to be_nil
+      end
+    end
+  end
 end

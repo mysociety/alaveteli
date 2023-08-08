@@ -380,6 +380,13 @@ module MailHandler
         end
       end
 
+      def attachment_body_for_hexdigest(mail, hexdigest:)
+        attributes = get_attachment_attributes(mail).find do |attrs|
+          attrs[:hexdigest] == hexdigest
+        end
+        attributes&.fetch(:body)
+      end
+
       # Format
       def address_from_name_and_email(name, email)
         unless MySociety::Validate.is_valid_email(email)

@@ -852,6 +852,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
     im.reload
     attachments = im.foi_attachments
     expect(attachments.size).to eq(2)
+    allow(attachments[1]).to receive(:masked?).and_return(true)
     expect(attachments[1].filename).to eq('Happy.txt')
     expect(attachments[1].body).to eq("Happy today for to be one of peace and serene time.\n")
     expect(im.get_attachments_for_display.size).to eq(1)
