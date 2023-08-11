@@ -91,16 +91,17 @@ RSpec.describe FoiAttachment do
 
   describe '#body' do
 
-    it 'returns a binary encoded string when newly created' do
-      foi_attachment = FactoryBot.create(:body_text)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
-    end
+    context 'when masked' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
 
+      it 'returns a binary encoded string when newly created' do
+        expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
 
-    it 'returns a binary encoded string when saved' do
-      foi_attachment = FactoryBot.create(:body_text)
-      foi_attachment = FoiAttachment.find(foi_attachment.id)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      it 'returns a binary encoded string when saved' do
+        foi_attachment_2 = FoiAttachment.find(foi_attachment.id)
+        expect(foi_attachment_2.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
     end
 
   end
@@ -152,15 +153,23 @@ RSpec.describe FoiAttachment do
 
   describe '#unmasked_body' do
 
-    it 'returns the attachment body from the raw email' do
-      foi_attachment = FactoryBot.build(:body_text)
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    subject(:unmasked_body) { foi_attachment.unmasked_body }
 
+    before do
       allow(foi_attachment).to receive(:raw_email).
         and_return(double.as_null_object)
-      allow(MailHandler).to receive(:attachment_body_for_hexdigest).
-        and_return('hereistheunmaskedtext')
+    end
 
-      expect(foi_attachment.unmasked_body).to eq('hereistheunmaskedtext')
+    context 'when mail handler finds original attachment by hexdigest' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_return('hereistheunmaskedtext')
+      end
+
+      it 'returns the attachment body from the raw email' do
+        is_expected.to eq('hereistheunmaskedtext')
+      end
     end
 
   end
