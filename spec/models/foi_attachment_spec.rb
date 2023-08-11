@@ -172,6 +172,71 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when mail handler can not original attachment by hexdigest' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_raise(MailHandler::MismatchedAttachmentHexdigest)
+      end
+
+      context 'when attachment has prominence' do
+        let(:foi_attachment) do
+          FactoryBot.create(:body_text, prominence: 'hidden')
+        end
+
+        it 'raises missing attachment expection' do
+          expect { unmasked_body }.to raise_error(
+            FoiAttachment::MissingAttachment,
+            "prominence not public (ID=#{foi_attachment.id})"
+          )
+        end
+      end
+
+      context 'when attachment file is unattached' do
+        let(:foi_attachment) do
+          FactoryBot.create(:body_text, filename: nil)
+        end
+
+        it 'raises missing attachment expection' do
+          expect { unmasked_body }.to raise_error(
+            FoiAttachment::MissingAttachment,
+            "file not attached (ID=#{foi_attachment.id})"
+          )
+        end
+      end
+
+      context 'when unable to find original attachment through other means' do
+        before do
+          allow(MailHandler).to receive(
+            :attempt_to_find_original_attachment_attributes
+          ).and_return(nil)
+        end
+
+        it 'raises missing attachment expection' do
+          expect { unmasked_body }.to raise_error(
+            FoiAttachment::MissingAttachment,
+            "unable to find original (ID=#{foi_attachment.id})"
+          )
+        end
+      end
+
+      context 'when able to find original attachment through other means' do
+        before do
+          allow(MailHandler).to receive(
+            :attempt_to_find_original_attachment_attributes
+          ).and_return(hexdigest: 'ABC', body: 'hereistheunmaskedtext')
+        end
+
+        it 'updates the hexdigest' do
+          expect { unmasked_body }.to change { foi_attachment.hexdigest }.
+            to('ABC')
+        end
+
+        it 'returns the attachment body from the raw email' do
+          is_expected.to eq('hereistheunmaskedtext')
+        end
+      end
+    end
+
   end
 
   describe 'masked?' do

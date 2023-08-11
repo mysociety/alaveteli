@@ -31,6 +31,8 @@ require 'digest'
 class FoiAttachment < ApplicationRecord
   include MessageProminence
 
+  MissingAttachment = Class.new(StandardError)
+
   belongs_to :incoming_message,
              inverse_of: :foi_attachments
   has_one :raw_email, through: :incoming_message, source: :raw_email
@@ -126,6 +128,26 @@ class FoiAttachment < ApplicationRecord
       raw_email.mail,
       hexdigest: hexdigest
     )
+  rescue MailHandler::MismatchedAttachmentHexdigest
+    unless is_public?
+      raise(MissingAttachment, "prominence not public (ID=#{id})")
+    end
+
+    unless file.attached?
+      raise(MissingAttachment, "file not attached (ID=#{id})")
+    end
+
+    attributes = MailHandler.attempt_to_find_original_attachment_attributes(
+      raw_email.mail,
+      body: file.download
+    )
+
+    unless attributes
+      raise(MissingAttachment, "unable to find original (ID=#{id})")
+    end
+
+    update(hexdigest: attributes[:hexdigest])
+    attributes[:body]
   end
 
   def masked?
