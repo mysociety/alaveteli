@@ -91,16 +91,47 @@ RSpec.describe FoiAttachment do
 
   describe '#body' do
 
-    it 'returns a binary encoded string when newly created' do
-      foi_attachment = FactoryBot.create(:body_text)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+    context 'when masked' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      it 'returns a binary encoded string when newly created' do
+        expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
+
+      it 'returns a binary encoded string when saved' do
+        foi_attachment_2 = FoiAttachment.find(foi_attachment.id)
+        expect(foi_attachment_2.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
     end
 
+    context 'when unmasked and mask job is not queued' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
-    it 'returns a binary encoded string when saved' do
-      foi_attachment = FactoryBot.create(:body_text)
-      foi_attachment = FoiAttachment.find(foi_attachment.id)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      it 'calls the FoiAttachmentMaskJob now and return the masked body' do
+        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+          with(foi_attachment).
+          and_invoke(-> (_) {
+            # mock the job
+            foi_attachment.update(body: 'maskedbody', masked_at: Time.zone.now)
+          })
+
+        expect(foi_attachment.body).to eq('maskedbody')
+      end
+    end
+
+    context 'when unmasked and mask job is already queued' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+      before do
+        allow(FoiAttachmentMaskJob).to receive(:perform_now).and_return(false)
+      end
+
+      it 'raises missing attachment expection' do
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingAttachment,
+          "job already queued (ID=#{foi_attachment.id})"
+        )
+      end
     end
 
   end
@@ -152,15 +183,88 @@ RSpec.describe FoiAttachment do
 
   describe '#unmasked_body' do
 
-    it 'returns the attachment body from the raw email' do
-      foi_attachment = FactoryBot.build(:body_text)
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    subject(:unmasked_body) { foi_attachment.unmasked_body }
 
+    before do
       allow(foi_attachment).to receive(:raw_email).
         and_return(double.as_null_object)
-      allow(MailHandler).to receive(:attachment_body_for_hexdigest).
-        and_return('hereistheunmaskedtext')
+    end
 
-      expect(foi_attachment.unmasked_body).to eq('hereistheunmaskedtext')
+    context 'when mail handler finds original attachment by hexdigest' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_return('hereistheunmaskedtext')
+      end
+
+      it 'returns the attachment body from the raw email' do
+        is_expected.to eq('hereistheunmaskedtext')
+      end
+    end
+
+    context 'when mail handler can not original attachment by hexdigest' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_raise(MailHandler::MismatchedAttachmentHexdigest)
+      end
+
+      context 'when attachment has prominence' do
+        let(:foi_attachment) do
+          FactoryBot.create(:body_text, prominence: 'hidden')
+        end
+
+        it 'raises missing attachment expection' do
+          expect { unmasked_body }.to raise_error(
+            FoiAttachment::MissingAttachment,
+            "prominence not public (ID=#{foi_attachment.id})"
+          )
+        end
+      end
+
+      context 'when attachment file is unattached' do
+        let(:foi_attachment) do
+          FactoryBot.create(:body_text, filename: nil)
+        end
+
+        it 'raises missing attachment expection' do
+          expect { unmasked_body }.to raise_error(
+            FoiAttachment::MissingAttachment,
+            "file not attached (ID=#{foi_attachment.id})"
+          )
+        end
+      end
+
+      context 'when unable to find original attachment through other means' do
+        before do
+          allow(MailHandler).to receive(
+            :attempt_to_find_original_attachment_attributes
+          ).and_return(nil)
+        end
+
+        it 'raises missing attachment expection' do
+          expect { unmasked_body }.to raise_error(
+            FoiAttachment::MissingAttachment,
+            "unable to find original (ID=#{foi_attachment.id})"
+          )
+        end
+      end
+
+      context 'when able to find original attachment through other means' do
+        before do
+          allow(MailHandler).to receive(
+            :attempt_to_find_original_attachment_attributes
+          ).and_return(hexdigest: 'ABC', body: 'hereistheunmaskedtext')
+        end
+
+        it 'updates the hexdigest' do
+          expect { unmasked_body }.to change { foi_attachment.hexdigest }.
+            to('ABC')
+        end
+
+        it 'returns the attachment body from the raw email' do
+          is_expected.to eq('hereistheunmaskedtext')
+        end
+      end
     end
 
   end

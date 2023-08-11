@@ -393,6 +393,29 @@ module MailHandler
           "can't find attachment matching hexdigest: #{hexdigest}"
       end
 
+      def attempt_to_find_original_attachment_attributes(mail, body:, nested: false)
+        all_attributes = get_attachment_attributes(mail)
+
+        attributes = all_attributes.find do |attrs|
+          # ensure both bodies have the same line endings
+          hexdigest_1 = Digest::MD5.hexdigest(
+            Mail::Utilities.to_crlf(attrs[:body])
+          )
+          hexdigest_2 = Digest::MD5.hexdigest(
+            Mail::Utilities.to_crlf(body)
+          )
+          hexdigest_1 == hexdigest_2
+        end
+
+        return attributes if nested
+
+        attributes ||= attempt_to_find_original_attachment_attributes(
+          mail, body: Mail.new(body).to_s, nested: true
+        )
+
+        attributes
+      end
+
       # Format
       def address_from_name_and_email(name, email)
         unless MySociety::Validate.is_valid_email(email)

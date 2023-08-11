@@ -432,4 +432,52 @@ when it really should be application/pdf.\n
       end
     end
   end
+
+  describe 'attempt_to_find_original_attachment_attributes' do
+    let(:mail) do
+      mail_attachment = Mail.new(
+        <<~EML
+          Date: Tue, 08 Aug 2023 10:00:00 +0000
+          Message-ID: <64d611ca31906_ccf71e5039542@localhost>
+        EML
+      ).to_s
+
+      Mail.new do
+        add_file filename: 'crlf.txt', content: "foo\r\nfoo"
+        add_file filename: 'lf.txt', content: "bar\nbar"
+        add_file filename: 'mail.txt', content: mail_attachment
+      end
+    end
+
+    subject(:attributes) do
+      MailHandler.attempt_to_find_original_attachment_attributes(
+        mail, body: body
+      )
+    end
+
+    context 'when body has LF line ending' do
+      let(:body) { "foo\nfoo" }
+      it { is_expected.to include(body: "foo\nfoo") }
+    end
+
+    context 'when body has CRLF line ending' do
+      let(:body) { "bar\r\nbar" }
+      it { is_expected.to include(body: "bar\nbar") }
+    end
+
+    context 'when body missing leading zero on dates' do
+      let(:body) do
+        <<~EML
+          Date: Tue, 8 Aug 2023 10:00:00 +0000
+          Message-ID: <64d611ca31906_ccf71e5039542@localhost>
+        EML
+      end
+      it { expect(attributes[:body]).to include('08 Aug 2023') }
+    end
+
+    context 'when body does not match' do
+      let(:body) { 'this does not match' }
+      it { is_expected.to eq(nil) }
+    end
+  end
 end
