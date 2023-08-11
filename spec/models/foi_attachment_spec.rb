@@ -104,6 +104,36 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when unmasked and mask job is not queued' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+      it 'calls the FoiAttachmentMaskJob now and return the masked body' do
+        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+          with(foi_attachment).
+          and_invoke(-> (_) {
+            # mock the job
+            foi_attachment.update(body: 'maskedbody', masked_at: Time.zone.now)
+          })
+
+        expect(foi_attachment.body).to eq('maskedbody')
+      end
+    end
+
+    context 'when unmasked and mask job is already queued' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+      before do
+        allow(FoiAttachmentMaskJob).to receive(:perform_now).and_return(false)
+      end
+
+      it 'raises missing attachment expection' do
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingAttachment,
+          "job already queued (ID=#{foi_attachment.id})"
+        )
+      end
+    end
+
   end
 
   describe '#body_as_text' do

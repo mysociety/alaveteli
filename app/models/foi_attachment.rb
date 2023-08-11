@@ -105,8 +105,10 @@ class FoiAttachment < ApplicationRecord
     if masked?
       @cached_body = file.download
     else
-      FoiAttachmentMaskJob.perform_now(self)
-      body
+      job = FoiAttachmentMaskJob.perform_now(self)
+      return body if job
+
+      raise MissingAttachment, "job already queued (ID=#{id})"
     end
   end
 
