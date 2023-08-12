@@ -109,7 +109,7 @@ class MailServerLog < ApplicationRecord
     result
   end
 
-  # Retuns nil if there is no queue id
+  # Returns nil if there is no queue id
   def self.extract_postfix_queue_id_from_syslog_line(line)
     # Assume the log file was written using syslog and parse accordingly
     m = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)
@@ -170,7 +170,7 @@ class MailServerLog < ApplicationRecord
   # no request- email in it?
   #
   # NB: There can be several emails involved in a request. This just checks that
-  # at least one of them has been succesfully sent.
+  # at least one of them has been successfully sent.
   #
   def self.check_recent_requests_have_been_sent
     # Get all requests sent for from 2 to 10 days ago. The 2 day gap is

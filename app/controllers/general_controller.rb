@@ -161,7 +161,7 @@ class GeneralController < ApplicationController
       @max_users = (@xapian_users.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_users.matches_estimated
     end
 
-    # Spelling and highight words are same for all three queries
+    # Spelling and highlight words are same for all three queries
     @highlight_words = @request_for_spelling.words_to_highlight(regex: true, include_original: true)
     unless @request_for_spelling.spelling_correction =~ /[a-z]+:/
       @spelling_correction = @request_for_spelling.spelling_correction

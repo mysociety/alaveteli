@@ -70,7 +70,7 @@ RSpec.describe OutgoingMailer, "when working out follow up subjects" do
     expect(ir.email_subject_request(html: false)).to eq("Freedom of Information request - Why do you have & such a fancy dog?")
   end
 
-  it "should use 'Re:' and inital request subject for followups which aren't replies to particular messages" do
+  it "should use 'Re:' and initial request subject for followups which aren't replies to particular messages" do
     ir = info_requests(:fancy_dog_request)
     om = outgoing_messages(:useless_outgoing_message)
 

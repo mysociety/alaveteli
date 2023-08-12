@@ -3,7 +3,7 @@
 # rails-post-deploy
 # For Ruby on Rails, this used to be run in exec_extras in vhosts.pl;
 # however, now we use exec_before_down and exec_while_down instead, so
-# this is here for compatability with alternative deploy scripts that
+# this is here for compatibility with alternative deploy scripts that
 # still call rails-post-deploy.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.

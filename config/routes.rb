@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   root to: 'general#frontpage'
 
-  #### General contoller
+  #### General controller
   root :to => 'general#frontpage',
        :as => :frontpage,
        :via => :get

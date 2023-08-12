@@ -342,7 +342,7 @@ RSpec.describe InfoRequest do
         expected_message = 'This is the holding pen request. It shows ' \
                            'responses that were sent to invalid addresses, ' \
                            'and need moving to the correct request by an ' \
-                           'adminstrator.'
+                           'administrator.'
         expect(@holding_pen.outgoing_messages.first.body).
           to eq(expected_message)
       end
