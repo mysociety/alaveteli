@@ -120,7 +120,7 @@ module ApplicationHelper
   end
 
   # Note that if the admin interface is proxied via another server, we can't
-  # rely on a sesssion being shared between the front end and admin interface,
+  # rely on a session being shared between the front end and admin interface,
   # so need to check the status of the user.
   def is_admin?
     !session[:using_admin].nil? || (!@user.nil? && @user.is_admin?)

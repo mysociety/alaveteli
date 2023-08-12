@@ -88,7 +88,7 @@ module Alaveteli
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key
     ENV['RECAPTCHA_SECRET_KEY'] = AlaveteliConfiguration.recaptcha_secret_key
 
-    # Insert a bit of middleware code to prevent uneeded cookie setting.
+    # Insert a bit of middleware code to prevent unneeded cookie setting.
     require "#{Rails.root}/lib/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, key: '_wdtk_cookie_session', path: "/", httponly: true
 

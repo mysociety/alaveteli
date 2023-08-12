@@ -1,5 +1,5 @@
 # app/controllers/track_controller.rb:
-# Publically visible email alerts and RSS - think an alert system crossed with
+# Publicly visible email alerts and RSS - think an alert system crossed with
 # social bookmarking.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.

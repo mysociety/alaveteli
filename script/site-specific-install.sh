@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Set IDEAL_VERSION to the commitish we want to check out; typically
+# Set IDEAL_VERSION to the committish we want to check out; typically
 # this is the version tag.  Since this may not exist before release,
 # fall back to the master branch:
 VERSIONS="origin/install-script 0.15 origin/master"

@@ -95,7 +95,7 @@
         AddHandler fastcgi-script .cgi
     </Directory>
 
-    # Favicon in the Rails asset pipline are served from /assets/favicon.ico yet we
+    # Favicon in the Rails asset pipeline are served from /assets/favicon.ico yet we
     # still get requests for it in the root directory.
     RewriteRule ^/favicon\.ico$ /assets/favicon.ico [L]
 

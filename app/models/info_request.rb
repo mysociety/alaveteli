@@ -369,7 +369,7 @@ class InfoRequest < ApplicationRecord
       om = OutgoingMessage.new({
         status: 'ready',
         message_type: 'initial_request',
-        body: 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
+        body: 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an administrator.',
         last_sent_at: Time.zone.now,
         what_doing: 'normal_sort'
 
