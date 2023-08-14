@@ -975,6 +975,9 @@ Performance/IoReadlines:
 Performance/MapCompact:
   Enabled: false
 
+Performance/MapMethodChain:
+  Enabled: false
+
 Performance/MethodObjectAsBlock:
   Enabled: false
 
