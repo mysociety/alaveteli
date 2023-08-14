@@ -37,6 +37,9 @@ AllCops:
 Bundler/DuplicatedGem:
   Enabled: false
 
+Bundler/DuplicatedGroup:
+  Enabled: false
+
 Bundler/GemComment:
   Enabled: false
 
