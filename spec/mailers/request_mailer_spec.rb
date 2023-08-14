@@ -114,7 +114,7 @@ RSpec.describe RequestMailer do
       deliveries.clear
     end
 
-    it "should store mail in holding pen and send to admin when the from email is empty and only authorites can reply" do
+    it "should store mail in holding pen and send to admin when the from email is empty and only authorities can reply" do
       ir = info_requests(:fancy_dog_request)
       ir.allow_new_responses_from = 'authority_only'
       ir.handle_rejected_responses = 'holding_pen'
@@ -136,7 +136,7 @@ RSpec.describe RequestMailer do
       deliveries.clear
     end
 
-    it "should store mail in holding pen and send to admin when the from email is unknown and only authorites can reply" do
+    it "should store mail in holding pen and send to admin when the from email is unknown and only authorities can reply" do
       ir = info_requests(:fancy_dog_request)
       ir.allow_new_responses_from = 'authority_only'
       ir.handle_rejected_responses = 'holding_pen'
@@ -1016,7 +1016,7 @@ RSpec.describe RequestMailer do
     end
 
     it "should send an alert when there are two new comments" do
-      # add two comments - the second one sould be ignored, as is by the user who made the request.
+      # add two comments - the second one should be ignored, as is by the user who made the request.
       # the new comment here, will cause the one in the fixture to be picked up as a new comment by alert_comment_on_request also.
       new_comment = info_requests(:fancy_dog_request).add_comment('Not as daft as this one', users(:silly_name_user))
       new_comment = info_requests(:fancy_dog_request).add_comment('Or this one!!!', users(:bob_smith_user))

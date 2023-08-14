@@ -36,6 +36,6 @@ class Dataset::ValueSet < ApplicationRecord
 
   def check_at_least_one_value_is_present
     return unless values.map(&:value).all?(&:blank?)
-    errors.add :values, :emtpy
+    errors.add :values, :empty
   end
 end

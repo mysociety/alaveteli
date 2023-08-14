@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../commonlib/rblib/config'
 
-# Load intial mySociety config
+# Load initial mySociety config
 if ENV["RAILS_ENV"] == "test"
   MySociety::Config.set_file(File.join(File.dirname(__FILE__), '..', 'config', 'test'), true)
 else

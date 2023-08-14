@@ -216,8 +216,8 @@ class AdminGeneralController < AdminController
   def get_timestamps
     # Get an array of event attributes within the timespan in the format
     # [id, type_of_model, event_timestamp]
-    # Note that the relevent date for InfoRequestEvents is creation, but
-    # for PublicBodyVersions is update thoughout
+    # Note that the relevant date for InfoRequestEvents is creation, but
+    # for PublicBodyVersions is update throughout
     connection = InfoRequestEvent.connection
     authority_change_clause = "SELECT id, 'PublicBodyVersion',
                                       updated_at AS timestamp

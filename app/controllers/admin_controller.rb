@@ -1,5 +1,5 @@
 # controllers/admin.rb:
-# All admin controllers are dervied from this.
+# All admin controllers are derived from this.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/

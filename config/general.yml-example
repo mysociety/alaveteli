@@ -47,7 +47,7 @@ DOMAIN: 'www.example.org'
 # ---
 FORCE_SSL: true
 
-# ISO country code of country currrently deployed in
+# ISO country code of country currently deployed in
 # (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 #
 # ISO_COUNTRY_CODE - String country code (default: GB)
@@ -147,7 +147,7 @@ TWITTER_USERNAME: ''
 TWITTER_WIDGET_ID: ''
 
 # The locales you want your site to support. If there is more than one, use
-# spaces betwween the entries.
+# spaces between the entries.
 #
 # AVAILABLE_LOCALES – String of space-separated locales (default: en)
 #

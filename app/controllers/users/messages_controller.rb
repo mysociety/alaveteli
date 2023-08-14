@@ -56,7 +56,7 @@ class Users::MessagesController < UserController
 
   def check_logged_in
     # You *must* be logged into send a message to another user. (This is
-    # partly to avoid spam, and partly to have some equanimity of openess
+    # partly to avoid spam, and partly to have some equanimity of openness
     # between the two users)
     #
     # "authenticated?" has done the redirect to signin page for us

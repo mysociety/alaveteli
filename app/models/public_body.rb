@@ -230,7 +230,7 @@ class PublicBody < ApplicationRecord
   # tags contain the given query
   #
   # query  - String to query the searchable fields
-  # locale - String to specify the language of the seach query
+  # locale - String to specify the language of the search query
   #          (default: AlaveteliLocalization.locale)
   #
   # Returns an ActiveRecord::Relation

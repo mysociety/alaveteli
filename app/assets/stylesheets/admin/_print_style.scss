@@ -76,7 +76,7 @@ tfoot {
 
 // This will avoid fieldset element to have a page-break.
 // The fieldset have a display: none on line 21m I'm leaving this code in case
-// we decide to make the elemnets visible again.
+// we decide to make the elements visible again.
 fieldset {
     page-break-inside: avoid;
 }
