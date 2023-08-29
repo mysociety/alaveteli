@@ -369,16 +369,19 @@ module MailHandler
 
           if leaf.within_rfc822_attachment
             within_rfc822_subject = get_within_rfc822_subject(leaf)
-            body = extract_attached_message_headers(leaf)
+            body_with_header = extract_attached_message_headers(leaf)
           end
 
-          leaf_attributes = { url_part_number: leaf.url_part_number,
-                              content_type: get_content_type(leaf),
-                              filename: get_part_file_name(leaf),
-                              charset: leaf.charset,
-                              within_rfc822_subject: within_rfc822_subject,
-                              body: body,
-                              hexdigest: Digest::MD5.hexdigest(body) }
+          {
+            url_part_number: leaf.url_part_number,
+            content_type: get_content_type(leaf),
+            filename: get_part_file_name(leaf),
+            charset: leaf.charset,
+            within_rfc822_subject: within_rfc822_subject,
+            body_without_headers: body,
+            body: body_with_header || body,
+            hexdigest: Digest::MD5.hexdigest(body_with_header || body)
+          }
         end
       end
 
@@ -397,21 +400,25 @@ module MailHandler
         all_attributes = get_attachment_attributes(mail)
 
         attributes = all_attributes.find do |attrs|
-          # ensure both bodies have the same line endings
+          # ensure bodies have the same line endings
           hexdigest_1 = Digest::MD5.hexdigest(
             Mail::Utilities.to_crlf(attrs[:body])
           )
           hexdigest_2 = Digest::MD5.hexdigest(
+            Mail::Utilities.to_crlf(attrs[:body_without_headers])
+          )
+          hexdigest_3 = Digest::MD5.hexdigest(
             Mail::Utilities.to_crlf(body)
           )
-          hexdigest_1 == hexdigest_2
+          hexdigest_1 == hexdigest_3 || hexdigest_2 == hexdigest_3
         end
 
         return attributes if nested
 
+        mail_body = Mail.new(body).body
         attributes ||= attempt_to_find_original_attachment_attributes(
-          mail, body: Mail.new(body).to_s, nested: true
-        )
+          mail, body: mail_body, nested: true
+        ) unless mail_body.empty?
 
         attributes
       end
