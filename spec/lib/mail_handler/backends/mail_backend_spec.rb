@@ -446,6 +446,8 @@ when it really should be application/pdf.\n
       Mail.new do
         add_file filename: 'crlf.txt', content: "foo\r\nfoo"
         add_file filename: 'lf.txt', content: "bar\nbar"
+        add_file filename: 'crlf-non-ascii.txt', content: "Aberdâr\r\n"
+        add_file filename: 'lf-non-ascii.txt', content: "Aberdâr\n"
         add_file filename: 'mail.eml', content: mail_attachment
       end
     end
@@ -464,6 +466,16 @@ when it really should be application/pdf.\n
     context 'when body has CRLF line ending' do
       let(:body) { "bar\r\nbar" }
       it { is_expected.to include(body: "bar\nbar") }
+    end
+
+    context 'when binary body has LF line endings and non ASCII characters' do
+      let(:body) { "Aberdâr\n".b }
+      it { is_expected.to include(body: "Aberdâr\n") }
+    end
+
+    context 'when binary body has CRLF line endings and non ASCII characters' do
+      let(:body) { "Aberdâr\r\n".b }
+      it { is_expected.to include(body: "Aberdâr\n") }
     end
 
     context 'when attached email headers are different' do
