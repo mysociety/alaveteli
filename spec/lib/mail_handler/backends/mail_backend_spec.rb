@@ -437,15 +437,16 @@ when it really should be application/pdf.\n
     let(:mail) do
       mail_attachment = Mail.new(
         <<~EML
-          Date: Tue, 08 Aug 2023 10:00:00 +0000
-          Message-ID: <64d611ca31906_ccf71e5039542@localhost>
+          Subject: Attached email
+
+          Hello world
         EML
       ).to_s
 
       Mail.new do
         add_file filename: 'crlf.txt', content: "foo\r\nfoo"
         add_file filename: 'lf.txt', content: "bar\nbar"
-        add_file filename: 'mail.txt', content: mail_attachment
+        add_file filename: 'mail.eml', content: mail_attachment
       end
     end
 
@@ -465,14 +466,15 @@ when it really should be application/pdf.\n
       it { is_expected.to include(body: "bar\nbar") }
     end
 
-    context 'when body missing leading zero on dates' do
+    context 'when attached email headers are different' do
       let(:body) do
         <<~EML
-          Date: Tue, 8 Aug 2023 10:00:00 +0000
-          Message-ID: <64d611ca31906_ccf71e5039542@localhost>
+          Subject: A different subject
+
+          Hello world
         EML
       end
-      it { expect(attributes[:body]).to include('08 Aug 2023') }
+      it { is_expected.to include(body_without_headers: "Hello world\n") }
     end
 
     context 'when body does not match' do

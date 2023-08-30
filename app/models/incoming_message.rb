@@ -462,6 +462,7 @@ class IncomingMessage < ApplicationRecord
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachment_attributes = attachment_attributes.inject({}) do |memo, attrs|
+      attrs.delete(:body_without_headers)
       memo[attrs[:hexdigest]] = attrs
       memo
     end
