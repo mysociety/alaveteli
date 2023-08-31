@@ -168,7 +168,7 @@ gem 'google-cloud-storage', '~> 1.44', require: false
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.18.1'
+  gem 'webmock', '~> 3.19.1'
   gem 'simplecov', '~> 0.22.0'
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.39.2'
