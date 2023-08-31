@@ -402,20 +402,20 @@ module MailHandler
         attributes = all_attributes.find do |attrs|
           # ensure bodies have the same line endings
           hexdigest_1 = Digest::MD5.hexdigest(
-            Mail::Utilities.to_crlf(attrs[:body])
+            Mail::Utilities.binary_unsafe_to_lf(attrs[:body])
           )
           hexdigest_2 = Digest::MD5.hexdigest(
-            Mail::Utilities.to_crlf(attrs[:body_without_headers])
+            Mail::Utilities.binary_unsafe_to_lf(attrs[:body_without_headers])
           )
           hexdigest_3 = Digest::MD5.hexdigest(
-            Mail::Utilities.to_crlf(body)
+            Mail::Utilities.binary_unsafe_to_lf(body)
           )
           hexdigest_1 == hexdigest_3 || hexdigest_2 == hexdigest_3
         end
 
         return attributes if nested
 
-        mail_body = Mail.new(body).body
+        mail_body = Mail.new(body).body.to_s
         attributes ||= attempt_to_find_original_attachment_attributes(
           mail, body: mail_body, nested: true
         ) unless mail_body.empty?
