@@ -399,17 +399,15 @@ module MailHandler
       def attempt_to_find_original_attachment_attributes(mail, body:, nested: false)
         all_attributes = get_attachment_attributes(mail)
 
-        attributes = all_attributes.find do |attrs|
+        def caluclate_hexdigest(body)
           # ensure bodies have the same line endings
-          hexdigest_1 = Digest::MD5.hexdigest(
-            Mail::Utilities.binary_unsafe_to_lf(attrs[:body])
-          )
-          hexdigest_2 = Digest::MD5.hexdigest(
-            Mail::Utilities.binary_unsafe_to_lf(attrs[:body_without_headers])
-          )
-          hexdigest_3 = Digest::MD5.hexdigest(
-            Mail::Utilities.binary_unsafe_to_lf(body)
-          )
+          Digest::MD5.hexdigest(Mail::Utilities.binary_unsafe_to_lf(body))
+        end
+
+        attributes = all_attributes.find do |attrs|
+          hexdigest_1 = caluclate_hexdigest(attrs[:body].rstrip)
+          hexdigest_2 = caluclate_hexdigest(attrs[:body_without_headers])
+          hexdigest_3 = caluclate_hexdigest(body)
           hexdigest_1 == hexdigest_3 || hexdigest_2 == hexdigest_3
         end
 
