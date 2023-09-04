@@ -489,6 +489,11 @@ when it really should be application/pdf.\n
       it { is_expected.to include(body_without_headers: "Hello world\n") }
     end
 
+    context 'when body has trailing whitespace' do
+      let(:body) { "bar\nbar\n" }
+      it { is_expected.to include(body: "bar\nbar") }
+    end
+
     context 'when body does not match' do
       let(:body) { 'this does not match' }
       it { is_expected.to eq(nil) }
