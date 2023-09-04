@@ -404,11 +404,13 @@ module MailHandler
           Digest::MD5.hexdigest(Mail::Utilities.binary_unsafe_to_lf(body))
         end
 
+        hexdigest = caluclate_hexdigest(body)
+
         attributes = all_attributes.find do |attrs|
           hexdigest_1 = caluclate_hexdigest(attrs[:body].rstrip)
           hexdigest_2 = caluclate_hexdigest(attrs[:body_without_headers])
-          hexdigest_3 = caluclate_hexdigest(body)
-          hexdigest_1 == hexdigest_3 || hexdigest_2 == hexdigest_3
+
+          hexdigest == hexdigest_1 || hexdigest == hexdigest_2
         end
 
         return attributes if nested
