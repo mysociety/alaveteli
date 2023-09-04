@@ -81,7 +81,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 7.0.7'
 
-gem 'pg', '~> 1.5.3'
+gem 'pg', '~> 1.5.4'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
