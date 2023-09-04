@@ -401,7 +401,9 @@ module MailHandler
 
         def caluclate_hexdigest(body)
           # ensure bodies have the same line endings
-          Digest::MD5.hexdigest(Mail::Utilities.binary_unsafe_to_lf(body))
+          Digest::MD5.hexdigest(Mail::Utilities.binary_unsafe_to_lf(
+            body.rstrip
+          ))
         end
 
         hexdigest = caluclate_hexdigest(body)
