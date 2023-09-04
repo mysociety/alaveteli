@@ -110,7 +110,25 @@ class RawEmail < ApplicationRecord
     MailHandler.get_subject(mail)
   end
 
+  def erase
+    replace_file_with_null_email
+    incoming_message.expire
+  end
+
   private
+
+  def replace_file_with_null_email
+    _mail = Mail.new
+    _mail.header['Date'] = mail.date || Time.zone.now
+
+    file.purge
+
+    file.attach(
+      io: StringIO.new(_mail.to_s),
+      filename: "#{incoming_message_id}_erased.eml",
+      content_type: 'message/rfc822'
+    )
+  end
 
   def empty_return_path?
     MailHandler.empty_return_path?(mail)

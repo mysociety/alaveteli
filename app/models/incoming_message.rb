@@ -644,6 +644,11 @@ class IncomingMessage < ApplicationRecord
     refusals.any?
   end
 
+  def expire
+    clear_in_database_caches!
+    parse_raw_email!(true)
+  end
+
   private
 
   def legislation_references
