@@ -318,3 +318,12 @@
   country:
     en: Romania
     es: Romania
+
+- title: dumeditë
+  url: https://dumedite.org
+  image: dumedite.jpg
+  featured: false
+  pro: false
+  country:
+    en: Kosovo
+    es: Kosovo
