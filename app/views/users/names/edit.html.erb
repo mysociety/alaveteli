@@ -4,20 +4,22 @@
 
 <div id="notice">
   <p>
-    <%= _('When you send a request, we use the name you gave us. This makes ' \
-          'it hard to stop your old and new names from being connected.') %>
+    <%= _("<strong>If you change your name, the name on your old requests " \
+          "won't change.</strong> When you send a request, we use the name " \
+          "you gave us. This makes it hard to stop your old and new names " \
+          "from being connected. This means your old name will still show up " \
+          "on requests that you've already sent and on your public profile " \
+          "page.")
+    %>
   </p>
+
   <p>
-    <%= _('If you change your name, your old requests won\'t change. Your ' \
-          'old name will still show up on requests that you\'ve already sent ' \
-          'and on your public profile page.') %>
+    <%= _("If you <strong>don't want your new name to be linked to your old one</strong>, " \
+          "it's a good idea to make a new account instead.") %>
   </p>
+
   <p>
-    <%= _('If you don\'t want your new name to be linked to your old one, ' \
-          'it\'s a good idea to make a new account instead.') %>
-  </p>
-  <p>
-    <%= _('If you are trying to remove your name, please
+    <%= _('If you are trying to <strong>remove your name</strong>, please
           <a href="{{contact_us_url}}">contact us</a>.',
           contact_us_url: help_contact_path) %>
   </p>
@@ -36,4 +38,9 @@
       <%= submit_tag _('Change your name') %>
     </div>
   <% end %>
+
+  <p>
+    <%= _('Note that it may take some time to link your previous requests to ' \
+          'your new account name.') %>
+  </p>
 </div>
