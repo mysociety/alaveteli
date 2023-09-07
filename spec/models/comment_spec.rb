@@ -188,6 +188,15 @@ RSpec.describe Comment do
   end
   # rubocop:enable Layout/FirstArrayElementIndentation
 
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      comment = FactoryBot.create(:comment)
+      request_path = "/request/" + comment.info_request.url_title
+      user_wall_path = "/user/" + comment.user.url_name + "/wall"
+      expect(comment.cached_urls).to eq([request_path, user_wall_path])
+    end
+  end
+
   describe '#prominence' do
     subject { comment.prominence }
 
@@ -344,6 +353,7 @@ RSpec.describe Comment do
     end
 
     it 'logs an event on the request' do
+      expect(NotifyCacheJob).to receive(:perform_later).with(comment)
       subject
       event = comment.info_request.last_event
       expect(event.event_type).to eq('hide_comment')

@@ -197,6 +197,14 @@ RSpec.describe PublicBody do
 
   end
 
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      body = FactoryBot.create(:public_body)
+      body_path = "/body/" + body.url_name
+      expect(body.cached_urls).to eq([body_path, '/body', '^/body/list'])
+    end
+  end
+
   describe '#save' do
     subject { public_body.save }
 
@@ -1180,6 +1188,12 @@ RSpec.describe PublicBody, " when saving" do
     @public_body.save!
     expect(@public_body.versions.size).to eq(2)
     expect(@public_body.versions.last.name).to eq('Test')
+  end
+
+  it 'triggers cache invalidation when updated' do
+    body = FactoryBot.create(:public_body)
+    expect(NotifyCacheJob).to receive(:perform_later).with(body)
+    body.update!(url_name: 'baz-bar-foo')
   end
 
   it 'reindexes request events when url_name has changed' do

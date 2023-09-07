@@ -187,6 +187,11 @@ FactoryBot.define do
       end
     end
 
+    factory :foi_attachment_event do
+      event_type { 'edit_attachment' }
+      params { { attachment_id: 1 } }
+    end
+
   end
 
 end

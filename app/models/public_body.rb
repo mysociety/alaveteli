@@ -35,6 +35,8 @@ require 'confidence_intervals'
 class PublicBody < ApplicationRecord
   include Taggable
   include Notable
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
 
   class ImportCSVDryRun < StandardError; end
 
@@ -114,7 +116,7 @@ class PublicBody < ApplicationRecord
 
   after_save :update_missing_email_tag
 
-  after_update :reindex_requested_from
+  after_update :reindex_requested_from, :invalidate_cached_pages
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
@@ -911,12 +913,24 @@ class PublicBody < ApplicationRecord
     PublicBodyQuestion.fetch(self)
   end
 
+  def cached_urls
+    [
+      public_body_path(self),
+      list_public_bodies_path,
+      '^/body/list'
+    ]
+  end
+
   private
 
   # If the url_name has changed, then all requested_from: queries will break
   # unless we update index for every event for every request linked to it.
   def reindex_requested_from
     expire_requests if saved_change_to_attribute?(:url_name)
+  end
+
+  def invalidate_cached_pages
+    NotifyCacheJob.perform_later(self)
   end
 
   # Read an attribute value (without using locale fallbacks if the

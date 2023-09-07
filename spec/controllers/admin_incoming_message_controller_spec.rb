@@ -17,6 +17,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it "destroys the ActiveStorage attachment record" do
+      expect(NotifyCacheJob).to receive(:perform_later).with(@im.info_request)
       file = @im.raw_email.file
       expect(file.attached?).to eq true
       post :destroy, params: { id: @im.id }
@@ -217,6 +218,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
     it 'should log an "edit_incoming" event on the info_request' do
       allow(@controller).to receive(:admin_current_user).and_return("Admin user")
+      expect(NotifyCacheJob).to receive(:perform_later).
+        with(@incoming.info_request)
       make_request
       @incoming.reload
       last_event = @incoming.info_request_events.last
