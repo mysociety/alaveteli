@@ -542,12 +542,13 @@ class InfoRequest < ApplicationRecord
   def self.stop_new_responses_on_old_requests
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
-    InfoRequest
-      .been_published
-      .where(allow_new_responses_from: 'anybody')
-      .where.not(url_title: 'holding_pen')
-      .updated_before(requests_old_after_months.months.ago.to_date)
-      .find_in_batches do |batch|
+    InfoRequest.
+      been_published.
+      where(allow_new_responses_from: 'anybody').
+      where.not(url_title: 'holding_pen').
+      updated_before(requests_old_after_months.months.ago.to_date).
+      distinct.
+      find_in_batches do |batch|
         batch.each do |info_request|
           old_allow_new_responses_from = info_request.allow_new_responses_from
 
@@ -565,12 +566,13 @@ class InfoRequest < ApplicationRecord
 
     # 'very_old' months since last change to request, don't allow any new
     # incoming messages
-    InfoRequest
-      .been_published
-      .where(allow_new_responses_from: %w[anybody authority_only])
-      .where.not(url_title: 'holding_pen')
-      .updated_before(requests_very_old_after_months.months.ago.to_date)
-      .find_in_batches do |batch|
+    InfoRequest.
+      been_published.
+      where(allow_new_responses_from: %w[anybody authority_only]).
+      where.not(url_title: 'holding_pen').
+      updated_before(requests_very_old_after_months.months.ago.to_date).
+      distinct.
+      find_in_batches do |batch|
         batch.each do |info_request|
           old_allow_new_responses_from = info_request.allow_new_responses_from
 
