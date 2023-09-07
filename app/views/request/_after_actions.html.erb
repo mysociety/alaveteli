@@ -33,6 +33,7 @@
           </li>
         <% end %>
 
+        <% if info_request.allow_new_responses_from != 'nobody' %>
         <li class="action-menu__menu__item">
           <span class="action-menu__menu__heading">
             <%= _('{{public_body_name}}',
@@ -45,6 +46,7 @@
             </li>
           </ul>
         </li>
+        <% end %>
 
         <li class="action-menu__menu__item">
           <ul class="action-menu__menu__submenu anyone_actions">

@@ -125,6 +125,12 @@
   margin-top: 2em;
 }
 
+#request_upload_response .request-header__closed_to_correspondence {
+  @include grid-column(12);
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
 
 .feed_link_toolbar {
   width: 100%;
