@@ -7,7 +7,8 @@ RSpec.describe "request/details" do
   end
 
   it "should show the request" do
-    FactoryBot.create(:info_request_event,
+    FactoryBot.create(
+      :info_request_event,
       event_type: 'edit',
       info_request: mock_request,
       params: {
@@ -19,5 +20,6 @@ RSpec.describe "request/details" do
     assign :info_request, mock_request
     render
     expect(rendered).to have_content('edit metadata')
+    expect(rendered).to have_content('allow_new_responses_from')
   end
 end

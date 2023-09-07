@@ -25,7 +25,7 @@
           :site_name => site_name, :contact_path => help_contact_path) %>
 </p>
 
-<% columns = ['id', 'event_type', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
+<% columns = ['id', 'event_type', 'details', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
 
 <table>
   <thead>
@@ -41,7 +41,11 @@
     <tr class="<%= cycle('odd', 'even') %>">
     <% for column in columns %>
       <td data-label="<%= column %>"><%
-        d = info_request_event.send(column)
+        if column == 'details'
+          d = info_request_event.params_diff[:new].keys().join(', ')
+        else
+          d = info_request_event.send(column)
+        end
         if column == 'event_type' and d == 'edit'
           d = 'edit metadata'
         end
