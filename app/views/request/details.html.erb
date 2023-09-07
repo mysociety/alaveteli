@@ -30,7 +30,7 @@
 <table>
   <thead>
   <tr scope="col">
-  <% for column in @columns%>
+  <% for column in columns %>
     <th><%= column %></th>
   <% end %>
   <th scope="col">link</th>
@@ -39,9 +39,13 @@
 
   <% @info_request.info_request_events.each do |info_request_event| %>
     <tr class="<%= cycle('odd', 'even') %>">
-    <% for column in @columns %>
-      <td data-label="<%= column %>">
-        <%=h info_request_event.send(column) %>&nbsp;
+    <% for column in columns %>
+      <td data-label="<%= column %>"><%
+        d = info_request_event.send(column)
+        if column == 'event_type' and d == 'edit'
+          d = 'edit metadata'
+        end
+        %><%=h d %>&nbsp;
       </td>
     <% end %>
     <td data-label="link">

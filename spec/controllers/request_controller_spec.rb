@@ -2011,17 +2011,6 @@ RSpec.describe RequestController do
       expect(assigns[:info_request]).to eq(info_request)
     end
 
-    it 'assigns columns' do
-      get :details, params: { url_title: info_request.url_title }
-      expected_columns = %w[id
-                            event_type
-                            created_at
-                            described_state
-                            last_described_at
-                            calculated_state]
-      expect(assigns[:columns]).to eq expected_columns
-    end
-
     context 'when the request is hidden' do
 
       before do
