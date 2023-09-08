@@ -157,15 +157,6 @@
     en: Moldova
     es: Moldavia
 
-- title: Bilmehakki
-  url: https://bilmehakki.org
-  image: bilmehakki.jpg
-  featured: false
-  pro: false
-  country:
-    en: Turkey
-    es: Turquía
-
 - title: Ask Data
   url: http://askdata.org.il
   image: ask-data.jpg
@@ -237,15 +228,6 @@
   country:
     en: Uruguay
     es: Uruguay
-
-- title: Derecho A Preguntar
-  url: https://derechoapreguntar.org
-  image: derecho-a-preguntar.jpg
-  featured: false
-  pro: false
-  country:
-    en: Nicaragua
-    es: Nicaragua
 
 - title: InfoLib
   url: https://infolib.org.lr
