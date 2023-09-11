@@ -416,28 +416,10 @@ class IncomingMessage < ApplicationRecord
 
   # Returns attachments that are uuencoded in main body part
   def _uudecode_attachments(text, start_part_number)
-    # Find any uudecoded things buried in it, yeuchly
-    uus = text.scan(/^begin.+^`\n^end\n/m)
-    uus.map.with_index do |uu, index|
-      # Decode the string
-      content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
-      # Make attachment type from it, working out filename and mime type
-      filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
-      calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, content)
-      if calc_mime
-        calc_mime = MailHandler.normalise_content_type(calc_mime)
-        content_type = calc_mime
-      else
-        content_type = 'application/octet-stream'
-      end
-      hexdigest = Digest::MD5.hexdigest(content)
+    MailHandler.uudecode(text, start_part_number).map do |attrs|
+      hexdigest = attrs.delete(:hexdigest)
       attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
-      attachment.attributes = {
-        filename: filename,
-        content_type: content_type,
-        body: content,
-        url_part_number: start_part_number + index + 1
-      }
+      attachment.attributes = attrs
       attachment
     end
   end

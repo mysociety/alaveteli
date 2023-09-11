@@ -427,6 +427,34 @@ module MailHandler
         attributes
       end
 
+      def uudecode(text, start_part_number)
+        # Find any uudecoded things buried in it, yeuchly
+        uus = text.scan(/^begin.+^`\n^end\n/m)
+        uus.map.with_index do |uu, index|
+          # Decode the string
+          body = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
+          # Make attachment type from it, working out filename and mime type
+          filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
+          mime_type = AlaveteliFileTypes.filename_and_content_to_mimetype(
+            filename, body
+          )
+          if mime_type
+            content_type = MailHandler.normalise_content_type(mime_type)
+          else
+            content_type = 'application/octet-stream'
+          end
+          hexdigest = Digest::MD5.hexdigest(body)
+
+          {
+            body: body,
+            filename: filename,
+            content_type: content_type,
+            hexdigest: hexdigest,
+            url_part_number: start_part_number + index + 1
+          }
+        end
+      end
+
       # Format
       def address_from_name_and_email(name, email)
         unless MySociety::Validate.is_valid_email(email)
