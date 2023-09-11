@@ -486,7 +486,7 @@ when it really should be application/pdf.\n
           Hello world
         EML
       end
-      it { is_expected.to include(body_without_headers: "Hello world\n") }
+      it { is_expected.to include(original_body: "Hello world\n") }
     end
 
     context 'when body has trailing whitespace' do

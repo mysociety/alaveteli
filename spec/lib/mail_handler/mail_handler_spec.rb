@@ -545,7 +545,7 @@ RSpec.describe 'when getting attachment attributes' do
     attributes.each_with_index do |attr, index|
       attr.delete(:charset)
       attr.delete(:body)
-      attr.delete(:body_without_headers)
+      attr.delete(:original_body)
       attr.delete(:hexdigest)
       expect(attr).to eq(expected_attributes[index])
     end

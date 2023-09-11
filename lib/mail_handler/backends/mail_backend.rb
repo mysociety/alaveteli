@@ -364,24 +364,26 @@ module MailHandler
       # Generate a hash of the attributes associated with each significant part
       # of a Mail object
       def get_attachment_attributes(mail)
-        get_attachment_leaves(mail).map do |leaf|
-          body = get_part_body(leaf)
+        get_attachment_leaves(mail).inject([]) do |acc, leaf|
+          original_body = body = get_part_body(leaf)
 
           if leaf.within_rfc822_attachment
             within_rfc822_subject = get_within_rfc822_subject(leaf)
-            body_with_header = extract_attached_message_headers(leaf)
+            body = extract_attached_message_headers(leaf)
           end
 
-          {
+          acc.push(
             url_part_number: leaf.url_part_number,
             content_type: get_content_type(leaf),
             filename: get_part_file_name(leaf),
             charset: leaf.charset,
             within_rfc822_subject: within_rfc822_subject,
-            body_without_headers: body,
-            body: body_with_header || body,
-            hexdigest: Digest::MD5.hexdigest(body_with_header || body)
-          }
+            original_body: original_body,
+            body: body,
+            hexdigest: Digest::MD5.hexdigest(body)
+          )
+
+          acc
         end
       end
 
@@ -410,7 +412,7 @@ module MailHandler
 
         attributes = all_attributes.find do |attrs|
           hexdigest_1 = caluclate_hexdigest(attrs[:body].rstrip)
-          hexdigest_2 = caluclate_hexdigest(attrs[:body_without_headers])
+          hexdigest_2 = caluclate_hexdigest(attrs[:original_body])
 
           hexdigest == hexdigest_1 || hexdigest == hexdigest_2
         end
