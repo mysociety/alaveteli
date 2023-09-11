@@ -78,30 +78,34 @@ class AdminIncomingMessageController < AdminController
   end
 
   def redeliver
-
-    message_ids = params[:url_title].split(",").each(&:strip)
+    message_ids = params[:url_title].split(',').each(&:strip)
     previous_request = @incoming_message.info_request
     destination_request = nil
 
     if message_ids.empty?
-      flash[:error] = "You must supply at least one request to redeliver the message to."
+      flash[:error] =
+        'You must supply at least one request to redeliver the message to.'
+
       return redirect_to admin_request_url(previous_request)
     end
 
     ActiveRecord::Base.transaction do
       message_ids.each do |m|
-        if m.match(/^[0-9]+$/)
-          destination_request = InfoRequest.find_by_id(m.to_i)
-        else
-          destination_request = InfoRequest.find_by_url_title!(m)
-        end
+        destination_request =
+          if m.match(/^[0-9]+$/)
+            InfoRequest.find_by_id(m.to_i)
+          else
+            InfoRequest.find_by_url_title!(m)
+          end
+
         if destination_request.nil?
-          flash[:error] = "Failed to find destination request '" + m + "'"
+          flash[:error] = "Failed to find destination request '#{m}'"
           return redirect_to admin_request_url(previous_request)
         end
 
         raw_email_data = @incoming_message.raw_email.data
         mail = MailHandler.mail_from_raw_email(raw_email_data)
+
         destination_request.
           receive(mail,
                   raw_email_data,
@@ -114,12 +118,15 @@ class AdminIncomingMessageController < AdminController
           deleted_incoming_message_id: @incoming_message.id
         )
 
-        flash[:notice] = "Message has been moved to request(s). Showing the last one:"
+        flash[:notice] =
+          'Message has been moved to request(s). Showing the last one:'
       end
+
       # expire cached files
       previous_request.expire
       @incoming_message.destroy
     end
+
     redirect_to admin_request_url(destination_request)
   end
 
