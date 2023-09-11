@@ -443,12 +443,26 @@ when it really should be application/pdf.\n
         EML
       ).to_s
 
+      mail_with_uuencoded = Mail.new(
+        <<~EML
+          Subject: Cat
+
+          Hi Cat!
+
+          begin 644 cat.txt
+          #0V%T
+          `
+          end
+        EML
+      ).to_s
+
       Mail.new do
         add_file filename: 'crlf.txt', content: "foo\r\nfoo"
         add_file filename: 'lf.txt', content: "bar\nbar"
         add_file filename: 'crlf-non-ascii.txt', content: "Aberdâr\r\n"
         add_file filename: 'lf-non-ascii.txt', content: "Aberdâr\n"
         add_file filename: 'mail.eml', content: mail_attachment
+        add_file filename: 'uuencoded.eml', content: mail_with_uuencoded
       end
     end
 
@@ -492,6 +506,11 @@ when it really should be application/pdf.\n
     context 'when body has trailing whitespace' do
       let(:body) { "bar\nbar\n" }
       it { is_expected.to include(body: "bar\nbar") }
+    end
+
+    context 'when body has been uuencoded' do
+      let(:body) { "Cat" }
+      it { is_expected.to include(body: "Cat") }
     end
 
     context 'when body does not match' do

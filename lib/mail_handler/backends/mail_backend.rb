@@ -424,6 +424,17 @@ module MailHandler
           mail, body: mail_body, nested: true
         ) unless mail_body.empty?
 
+        return attributes if attributes
+
+        # check uuencoded attachments which can be located in plain text
+        uuencoded_attributes = all_attributes.inject([]) do |acc, attrs|
+          next acc unless attrs[:content_type] == 'text/plain'
+          acc += uudecode(attrs[:body], attrs[:url_part_number])
+        end
+        attributes ||= uuencoded_attributes.find do |attrs|
+          attrs[:hexdigest] == hexdigest
+        end
+
         attributes
       end
 
