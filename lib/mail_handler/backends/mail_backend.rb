@@ -432,7 +432,7 @@ module MailHandler
           acc += uudecode(attrs[:body], attrs[:url_part_number])
         end
         attributes ||= uuencoded_attributes.find do |attrs|
-          attrs[:hexdigest] == hexdigest
+          calculate_hexdigest(attrs[:body]) == hexdigest
         end
 
         attributes

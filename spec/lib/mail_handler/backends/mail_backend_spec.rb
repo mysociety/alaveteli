@@ -450,7 +450,7 @@ when it really should be application/pdf.\n
           Hi Cat!
 
           begin 644 cat.txt
-          #0V%T
+          (0V%T#0I#870`
           `
           end
         EML
@@ -509,8 +509,8 @@ when it really should be application/pdf.\n
     end
 
     context 'when body has been uuencoded' do
-      let(:body) { "Cat" }
-      it { is_expected.to include(body: "Cat") }
+      let(:body) { "Cat\nCat" }
+      it { is_expected.to include(body: "Cat\r\nCat") }
     end
 
     context 'when body does not match' do
