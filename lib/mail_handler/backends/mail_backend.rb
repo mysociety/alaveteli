@@ -401,18 +401,18 @@ module MailHandler
       def attempt_to_find_original_attachment_attributes(mail, body:, nested: false)
         all_attributes = get_attachment_attributes(mail)
 
-        def caluclate_hexdigest(body)
+        def calculate_hexdigest(body)
           # ensure bodies have the same line endings
           Digest::MD5.hexdigest(Mail::Utilities.binary_unsafe_to_lf(
             body.rstrip
           ))
         end
 
-        hexdigest = caluclate_hexdigest(body)
+        hexdigest = calculate_hexdigest(body)
 
         attributes = all_attributes.find do |attrs|
-          hexdigest_1 = caluclate_hexdigest(attrs[:body].rstrip)
-          hexdigest_2 = caluclate_hexdigest(attrs[:original_body])
+          hexdigest_1 = calculate_hexdigest(attrs[:body])
+          hexdigest_2 = calculate_hexdigest(attrs[:original_body])
 
           hexdigest == hexdigest_1 || hexdigest == hexdigest_2
         end
@@ -432,7 +432,7 @@ module MailHandler
           acc += uudecode(attrs[:body], attrs[:url_part_number])
         end
         attributes ||= uuencoded_attributes.find do |attrs|
-          attrs[:hexdigest] == hexdigest
+          calculate_hexdigest(attrs[:body]) == hexdigest
         end
 
         attributes
