@@ -1133,6 +1133,9 @@ Rails/ContentTag:
 Rails/CreateTableWithTimestamps:
   Enabled: false
 
+Rails/DangerousColumnNames:
+  Enabled: false
+
 Rails/Date:
   Enabled: false
 
@@ -1298,6 +1301,9 @@ Rails/RakeEnvironment:
 Rails/ReadWriteAttribute:
   Enabled: false
 
+Rails/RedundantActiveRecordAllMethod:
+  Enabled: false
+
 Rails/RedundantAllowNil:
   Enabled: false
 
@@ -1367,6 +1373,9 @@ Rails/SchemaComment:
 Rails/ScopeArgs:
   Enabled: false
 
+Rails/SelectMap:
+  Enabled: false
+
 Rails/ShortI18n:
   Enabled: false
 
@@ -1413,6 +1422,9 @@ Rails/UnknownEnv:
   Enabled: false
 
 Rails/UnusedIgnoredColumns:
+  Enabled: false
+
+Rails/UnusedRenderContent:
   Enabled: false
 
 Rails/Validation:
