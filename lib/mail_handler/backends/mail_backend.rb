@@ -364,24 +364,26 @@ module MailHandler
       # Generate a hash of the attributes associated with each significant part
       # of a Mail object
       def get_attachment_attributes(mail)
-        get_attachment_leaves(mail).map do |leaf|
-          body = get_part_body(leaf)
+        get_attachment_leaves(mail).inject([]) do |acc, leaf|
+          original_body = body = get_part_body(leaf)
 
           if leaf.within_rfc822_attachment
             within_rfc822_subject = get_within_rfc822_subject(leaf)
-            body_with_header = extract_attached_message_headers(leaf)
+            body = extract_attached_message_headers(leaf)
           end
 
-          {
+          acc.push(
             url_part_number: leaf.url_part_number,
             content_type: get_content_type(leaf),
             filename: get_part_file_name(leaf),
             charset: leaf.charset,
             within_rfc822_subject: within_rfc822_subject,
-            body_without_headers: body,
-            body: body_with_header || body,
-            hexdigest: Digest::MD5.hexdigest(body_with_header || body)
-          }
+            original_body: original_body,
+            body: body,
+            hexdigest: Digest::MD5.hexdigest(body)
+          )
+
+          acc
         end
       end
 
@@ -410,7 +412,7 @@ module MailHandler
 
         attributes = all_attributes.find do |attrs|
           hexdigest_1 = caluclate_hexdigest(attrs[:body].rstrip)
-          hexdigest_2 = caluclate_hexdigest(attrs[:body_without_headers])
+          hexdigest_2 = caluclate_hexdigest(attrs[:original_body])
 
           hexdigest == hexdigest_1 || hexdigest == hexdigest_2
         end
@@ -422,7 +424,46 @@ module MailHandler
           mail, body: mail_body, nested: true
         ) unless mail_body.empty?
 
+        return attributes if attributes
+
+        # check uuencoded attachments which can be located in plain text
+        uuencoded_attributes = all_attributes.inject([]) do |acc, attrs|
+          next acc unless attrs[:content_type] == 'text/plain'
+          acc += uudecode(attrs[:body], attrs[:url_part_number])
+        end
+        attributes ||= uuencoded_attributes.find do |attrs|
+          attrs[:hexdigest] == hexdigest
+        end
+
         attributes
+      end
+
+      def uudecode(text, start_part_number)
+        # Find any uudecoded things buried in it, yeuchly
+        uus = text.scan(/^begin.+^`\n^end\n/m)
+        uus.map.with_index do |uu, index|
+          # Decode the string
+          body = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
+          # Make attachment type from it, working out filename and mime type
+          filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
+          mime_type = AlaveteliFileTypes.filename_and_content_to_mimetype(
+            filename, body
+          )
+          if mime_type
+            content_type = MailHandler.normalise_content_type(mime_type)
+          else
+            content_type = 'application/octet-stream'
+          end
+          hexdigest = Digest::MD5.hexdigest(body)
+
+          {
+            body: body,
+            filename: filename,
+            content_type: content_type,
+            hexdigest: hexdigest,
+            url_part_number: start_part_number + index + 1
+          }
+        end
       end
 
       # Format
