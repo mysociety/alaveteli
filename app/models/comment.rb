@@ -193,6 +193,13 @@ class Comment < ApplicationRecord
     end
   end
 
+  def cached_urls
+    [
+      request_path(info_request),
+      show_user_wall_path(url_name: user.url_name)
+    ]
+  end
+
   private
 
   def check_body_has_content

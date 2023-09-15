@@ -159,12 +159,12 @@ RSpec.describe CensorRule do
   end
 
   describe '#expire_requests' do
-
     it 'create expire job for the request if it is a request rule' do
       request = FactoryBot.create(:info_request)
       rule = FactoryBot.create(:info_request_censor_rule,
                                info_request: request)
       expect(InfoRequestExpireJob).to receive(:perform_later).with(request)
+      expect(NotifyCacheJob).to receive(:perform_later).with(request)
       rule.expire_requests
     end
 

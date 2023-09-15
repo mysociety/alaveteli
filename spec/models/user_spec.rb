@@ -376,6 +376,11 @@ RSpec.describe User, "when reindexing referencing models" do
   let(:request) { FactoryBot.create(:info_request, user: user) }
   let(:request_event) { request.reload.last_event }
 
+  it 'triggers cache invalidation when updated' do
+    expect(NotifyCacheJob).to receive(:perform_later).with(user)
+    user.save!
+  end
+
   it "should reindex events associated with that user's comments when URL changes" do
     user.url_name = 'updated_url_name'
     user.save!
@@ -738,6 +743,13 @@ RSpec.describe User do
     context 'when the locale is empty' do
       let(:user) { FactoryBot.build(:user, locale: nil) }
       it { is_expected.to eq(AlaveteliLocalization.locale) }
+    end
+  end
+
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      user = FactoryBot.create(:user)
+      expect(user.cached_urls).to eq(["/user/" + user.url_name])
     end
   end
 

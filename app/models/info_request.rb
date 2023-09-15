@@ -52,6 +52,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::TitleValidation
   include Taggable
   include Notable
+  include LinkToHelper
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -1756,6 +1757,34 @@ class InfoRequest < ApplicationRecord
 
   def latest_refusals
     incoming_messages.select(&:refusals?).last&.refusals || []
+  end
+
+  def cached_urls
+    feed_request = TrackThing.new(
+      info_request: self,
+      track_type: 'request_updates'
+    )
+    feed_body = TrackThing.new(
+      public_body: public_body,
+      track_type: 'public_body_updates'
+    )
+    feed_user = TrackThing.new(
+      tracked_user: user,
+      track_type: 'user_updates'
+    )
+    [
+      '/',
+      public_body_path(public_body),
+      request_path(self),
+      request_details_path(self),
+      '^/list',
+      do_track_path(feed_request, feed = 'feed'),
+      '^/feed/list/',
+      do_track_path(feed_body, feed = 'feed'),
+      do_track_path(feed_user, feed = 'feed'),
+      user_path(user),
+      show_user_wall_path(url_name: user.url_name)
+    ]
   end
 
   private

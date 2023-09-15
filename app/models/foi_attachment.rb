@@ -29,6 +29,8 @@
 require 'digest'
 
 class FoiAttachment < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
   include MessageProminence
 
   MissingAttachment = Class.new(StandardError)
@@ -316,6 +318,12 @@ class FoiAttachment < ApplicationRecord
     attachment_url = opts.fetch(:attachment_url, nil)
     to_html_opts = opts.merge(tmpdir: dir, attachment_url: attachment_url)
     AttachmentToHTML.to_html(self, to_html_opts)
+  end
+
+  def cached_urls
+    [
+      request_path(incoming_message.info_request)
+    ]
   end
 
   private

@@ -43,6 +43,16 @@ RSpec.describe FoiAttachment do
     it { is_expected.to match_array(binary_attachments) }
   end
 
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      att = FactoryBot.create(:jpeg_attachment)
+      im = FactoryBot.create(:plain_incoming_message)
+      att.incoming_message = im
+      request_path = "/request/" + att.incoming_message.info_request.url_title
+      expect(att.cached_urls).to eq([request_path])
+    end
+  end
+
   describe '#body=' do
 
     it "sets the body" do

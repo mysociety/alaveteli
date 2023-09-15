@@ -108,6 +108,26 @@ RSpec.describe InfoRequest do
     it { is_expected.to eq(4) }
   end
 
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      request = FactoryBot.create(:info_request)
+      expect(request.cached_urls).
+        to eq([
+                '/',
+                '/body/' + request.public_body.url_name,
+                '/request/' + request.url_title,
+                '/details/request/' + request.url_title,
+                '^/list',
+                '/feed/request/' + request.url_title,
+                '^/feed/list/',
+                '/feed/body/' + request.public_body.url_name,
+                '/feed/user/' + request.user.url_name,
+                '/user/' + request.user.url_name,
+                '/user/' + request.user.url_name + '/wall'
+              ])
+    end
+  end
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 

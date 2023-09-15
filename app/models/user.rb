@@ -47,6 +47,8 @@ class User < ApplicationRecord
   include User::OneTimePassword
   include User::Slug
   include User::Survey
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
 
   DEFAULT_CONTENT_LIMITS = {
     info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,
@@ -179,7 +181,9 @@ class User < ApplicationRecord
   validate :email_and_name_are_valid
 
   after_initialize :set_defaults
-  after_update :reindex_referencing_models, :update_pro_account
+  after_update :reindex_referencing_models,
+               :update_pro_account,
+               :invalidate_cached_pages
 
   acts_as_xapian texts: [:name, :about_me],
                  values: [
@@ -339,6 +343,10 @@ class User < ApplicationRecord
 
   def expire_comments
     comments.find_each(&:reindex_request_events)
+  end
+
+  def invalidate_cached_pages
+    NotifyCacheJob.perform_later(self)
   end
 
   def locale
@@ -671,6 +679,12 @@ class User < ApplicationRecord
   # https://github.com/jnunemaker/flipper/blob/master/docs/Gates.md
   def flipper_id
     "User;#{id}"
+  end
+
+  def cached_urls
+    [
+      user_path(self)
+    ]
   end
 
   private

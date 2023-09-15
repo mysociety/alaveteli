@@ -242,6 +242,39 @@ RSpec.describe InfoRequestEvent do
 
     end
 
+    context "the event is for a comment" do
+
+      it "enqueues NotifyCacheJob job for the comment" do
+        event = FactoryBot.build(:comment_event)
+        expect(NotifyCacheJob).to receive(:perform_later).with(event.comment)
+        event.save
+      end
+
+    end
+
+    context "the event is for an foi_attachment" do
+
+      it "enqueues NotifyCacheJob job for the attachment" do
+        attachment = mock_model(FoiAttachment)
+        allow(FoiAttachment).to receive(:find).and_return(attachment)
+        event = FactoryBot.build(:foi_attachment_event)
+        expect(NotifyCacheJob).to receive(:perform_later).with(attachment)
+        event.save
+      end
+
+    end
+
+    context "the event is for a request" do
+
+      it "enqueues NotifyCacheJob job for the request" do
+        event = FactoryBot.build(:info_request_event)
+        expect(NotifyCacheJob).to receive(:perform_later).
+          with(event.info_request)
+        event.save
+      end
+
+    end
+
     it "calls the request's create_or_update_request_summary on create" do
       info_request = FactoryBot.create(:info_request)
       event = FactoryBot.build(:info_request_event, info_request: info_request)
@@ -876,6 +909,19 @@ RSpec.describe InfoRequestEvent do
         ire = FactoryBot.create(:info_request_event, event_type: 'comment')
         expect(ire.send(:filetype)).to eq('')
       end
+    end
+  end
+
+  describe '#foi_attachment' do
+    it 'loads FoiAttachment from params as if it was an assoication' do
+      event = FactoryBot.build(
+        :info_request_event, params: { attachment_id: 1 }
+      )
+
+      attachment = mock_model(FoiAttachment)
+      allow(FoiAttachment).to receive(:find).with(1).and_return(attachment)
+
+      expect(event.foi_attachment).to eq(attachment)
     end
   end
 
