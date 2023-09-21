@@ -290,6 +290,14 @@ RSpec.describe InfoRequest do
         to match([info_request])
     end
 
+    it 'matches insensitive of cases' do
+      info_request = FactoryBot.create(:info_request)
+      email = info_request.incoming_email
+      email =email[0].upcase + email[1..]
+      expect(described_class.matching_incoming_email(email)).
+        to match([info_request])
+    end
+
     it 'is empty when passed an invalid email' do
       expect(described_class.matching_incoming_email('invalid')).to be_empty
     end

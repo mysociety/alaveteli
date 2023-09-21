@@ -20,7 +20,43 @@ RSpec.describe RequestMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
-      expect(mail.to).to eq([ 'bob@localhost' ]) # to the user who sent fancy_dog_request
+      # to the user who sent fancy_dog_request
+      expect(mail.to).to eq(['bob@localhost'])
+      deliveries.clear
+    end
+
+    it "should append it to the appropriate request insensitive of case" do
+      ir = info_requests(:fancy_dog_request)
+      expect(ir.incoming_messages.count).to eq(1) # in the fixture
+      receive_incoming_mail('incoming-request-plain.email',
+                            email_to: ir.incoming_email.upcase)
+      expect(ir.incoming_messages.count).to eq(2) # one more arrives
+      expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      # to the user who sent fancy_dog_request
+      expect(mail.to).to eq(['bob@localhost'])
+      deliveries.clear
+    end
+
+    it "should append it to the appropriate request if there is only one guess of information request" do
+      ir = info_requests(:fancy_dog_request)
+      expect(ir.incoming_messages.count).to eq(1) # in the fixture
+      receive_incoming_mail(
+        'incoming-request-plain.email',
+        email_to: "request-#{ir.id}-#{ir.idhash}a@localhost"
+      )
+      expect(ir.incoming_messages.count).to eq(2) # one more arrives
+      expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
+      expect(ir.info_request_events[-2].params[:editor]).to eq("automatic")
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(1)
+      mail = deliveries[0]
+      # to the user who sent fancy_dog_request
+      expect(mail.to).to eq(['bob@localhost'])
       deliveries.clear
     end
 
