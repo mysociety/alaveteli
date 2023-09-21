@@ -451,8 +451,11 @@ RSpec.describe InfoRequest do
 
     it 'logs an event after changing new responses to authority_only' do
       request.update(updated_at: 6.months.ago - 1.day)
+      request.log_event('edit', {})
       subject
-      last_event = request.reload.last_event
+      request.reload
+      last_event = request.last_event
+      expect(request.info_request_events.size).to eq(3)
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'anybody',
