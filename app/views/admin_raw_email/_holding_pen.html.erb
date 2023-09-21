@@ -54,12 +54,12 @@
               <code><%= guess.match_method %></code>
               <% if guess.match_method == :subject %>
                 because the incoming message has a subject of
-                <strong><%= guess.matched_value %></strong>
+                <strong><%= guess[:subject] %></strong>
               <% else %>
                 because it has an incoming email address
                 of <strong><%= guess.info_request.incoming_email %></strong>
                 and this incoming message was sent to
-              <strong><%= guess.matched_value %></strong>.
+              <strong><%= guess[:email] %></strong>.
               <% end %>
 
             </p>

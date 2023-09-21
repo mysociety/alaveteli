@@ -235,35 +235,47 @@ class RequestMailer < ApplicationMailer
     InfoRequest.matching_incoming_email(addresses)
   end
 
+  def send_to_holding_pen(email, raw_email, opts)
+    opts[:rejected_reason] =
+      _("Could not identify the request from the email address")
+    request = InfoRequest.holding_pen_request
+    request.receive(email, raw_email, opts)
+  end
+
   # Member function, called on the new class made in self.receive above
   def receive(email, raw_email, source = :mailin)
     opts = { source: source }
 
-    # Find which info requests the email is for
-    reply_info_requests = requests_matching_email(email)
+    # Only check mail that doesn't have spam in the header
+    return if SpamAddress.spam?(MailHandler.get_all_addresses(email))
 
-    # Nothing found OR multiple different info requests, so save in holding pen
-    if reply_info_requests.empty? || reply_info_requests.count > 1
-      opts[:rejected_reason] =
-        _("Could not identify the request from the email address")
-      request = InfoRequest.holding_pen_request
+    # Find exact matches for info requests
+    exact_info_requests = requests_matching_email(email)
 
-      unless SpamAddress.spam?(MailHandler.get_all_addresses(email))
-        request.receive(email, raw_email, opts)
-      end
-      return
+    # Find any guesses for info requests
+    unless exact_info_requests.count == 1
+      guessed_info_requests = Guess.guessed_info_requests(email)
     end
 
-    # Send the message to each request, to be archived with it
-    reply_info_requests.each do |reply_info_request|
-      # If environment variable STOP_DUPLICATES is set, don't send message with same id again
-      if ENV['STOP_DUPLICATES']
-        if reply_info_request.already_received?(email, raw_email)
-          raise "message #{ email.message_id } already received by request"
-        end
+    # If there is only one info request matching mail, it gets attached to the
+    # request to be archived with it
+    if exact_info_requests.count == 1 || guessed_info_requests.count == 1
+      info_request = exact_info_requests.first || guessed_info_requests.first
+
+      if exact_info_requests.empty? && guessed_info_requests.count == 1
+        info_request.log_event(
+          'redeliver_incoming',
+          editor: 'automatic',
+          destination_request: info_request
+        )
       end
 
-      reply_info_request.receive(email, raw_email, opts)
+      info_request.receive(email, raw_email, opts)
+
+    else
+      # Otherwise, if there are no matching IRs, multiple IRs, or multiple IR
+      # guesses, we send the mail to the holding pen
+      send_to_holding_pen(email, raw_email, opts)
     end
   end
 
