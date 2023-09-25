@@ -95,6 +95,11 @@
   Although using Focal might still work as it will still be within Ubuntu's
   long term support window. Please bear this in mind for future upgrades.
 
+* _Note:_ If your theme uses custom states via the `lib/customstates.rb` file,
+  then that file must define a `class Customstates` (with this specific case)
+  at the top of the file for the new `zeitwerk` loader to work. Without this,
+  loading the file will fail silently and your custom states won't be available.
+
 ### Changed Templates
 
     app/views/admin/tags/_tagging.html.erb
