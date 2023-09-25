@@ -461,6 +461,7 @@ when it really should be application/pdf.\n
         add_file filename: 'lf.txt', content: "bar\nbar"
         add_file filename: 'crlf-non-ascii.txt', content: "Aberdâr\r\n"
         add_file filename: 'lf-non-ascii.txt', content: "Aberdâr\n"
+        add_file filename: 'latin1.txt', content: "naïve"
         add_file filename: 'mail.eml', content: mail_attachment
         add_file filename: 'uuencoded.eml', content: mail_with_uuencoded
       end
@@ -490,6 +491,11 @@ when it really should be application/pdf.\n
     context 'when binary body has CRLF line endings and non ASCII characters' do
       let(:body) { "Aberdâr\r\n".b }
       it { is_expected.to include(body: "Aberdâr\n") }
+    end
+
+    context 'when binary body encoded as Latin 1 / ISO-8859-1' do
+      let(:body) { "na\xEFve".b }
+      it { is_expected.to include(body: "naïve") }
     end
 
     context 'when attached email headers are different' do

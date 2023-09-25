@@ -402,10 +402,14 @@ module MailHandler
         all_attributes = get_attachment_attributes(mail)
 
         def calculate_hexdigest(body)
-          # ensure bodies have the same line endings
-          Digest::MD5.hexdigest(Mail::Utilities.binary_unsafe_to_lf(
-            body.rstrip
-          ))
+          # ensure bodies have the same line endings and are encoded the same
+          Digest::MD5.hexdigest(
+            Mail::Utilities.binary_unsafe_to_lf(
+              convert_string_to_utf8(
+                body.rstrip
+              ).string
+            )
+          )
         end
 
         hexdigest = calculate_hexdigest(body)
