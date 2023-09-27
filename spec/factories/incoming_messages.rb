@@ -44,8 +44,8 @@ FactoryBot.define do
         )
       end
 
-      incoming_message.raw_email.incoming_message = incoming_message
-      incoming_message.raw_email.data = "somedata"
+      mail = build_incoming_message_mail(incoming_message)
+      incoming_message.raw_email.data = mail
     end
 
     trait :unparsed do
