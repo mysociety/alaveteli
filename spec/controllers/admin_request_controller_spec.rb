@@ -260,7 +260,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
     end
 
     it 'redirects after destroying a request with incoming_messages' do
-      incoming_message = FactoryBot.create(:incoming_message_with_html_attachment,
+      incoming_message = FactoryBot.create(:incoming_message, :with_html_attachment,
                                            info_request: info_request)
       delete :destroy, params: { id: info_request.id }
 

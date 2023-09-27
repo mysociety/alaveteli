@@ -57,20 +57,20 @@ FactoryBot.define do
 
     factory :response_event do
       transient do
-        incoming_message_factory { :incoming_message }
+        incoming_message_factory { [:incoming_message] }
       end
 
       event_type { 'response' }
 
       after(:build) do |event, evaluator|
         event.incoming_message ||= build(
-          evaluator.incoming_message_factory, info_request: event.info_request
+          *evaluator.incoming_message_factory, info_request: event.info_request
         )
         event.info_request = event.incoming_message.info_request
       end
 
       trait :with_attachments do
-        incoming_message_factory { :incoming_message_with_pdf_attachment }
+        incoming_message_factory { [:incoming_message, :with_pdf_attachment] }
       end
     end
 

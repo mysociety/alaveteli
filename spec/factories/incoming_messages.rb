@@ -70,11 +70,11 @@ FactoryBot.define do
       end
     end
 
-    factory :incoming_message_with_html_attachment do
+    trait :with_html_attachment do
       foi_attachments_factories { [[:html_attachment]] }
     end
 
-    factory :incoming_message_with_pdf_attachment do
+    trait :with_pdf_attachment do
       foi_attachments_factories { [[:pdf_attachment]] }
     end
   end

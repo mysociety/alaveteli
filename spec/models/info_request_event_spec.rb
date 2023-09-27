@@ -897,7 +897,7 @@ RSpec.describe InfoRequestEvent do
 
       it 'should return a space separated list of the attachment file types' do
         info_request = ire.info_request
-        incoming = FactoryBot.create(:incoming_message_with_pdf_attachment,
+        incoming = FactoryBot.create(:incoming_message, :with_pdf_attachment,
                                      info_request: info_request)
         ire.incoming_message = incoming
         expect(ire.send(:filetype)).to eq('pdf')

@@ -60,11 +60,11 @@ FactoryBot.define do
 
     trait :with_incoming do
       transient do
-        incoming_message_factory { :incoming_message }
+        incoming_message_factory { [:incoming_message] }
       end
 
       after(:create) do |info_request, evaluator|
-        incoming_message = create(evaluator.incoming_message_factory,
+        incoming_message = create(*evaluator.incoming_message_factory,
                                   info_request: info_request)
         info_request.log_event(
           'response',
@@ -74,17 +74,17 @@ FactoryBot.define do
     end
 
     trait :with_plain_incoming do
-      incoming_message_factory { :plain_incoming_message }
+      incoming_message_factory { [:plain_incoming_message] }
       with_incoming
     end
 
     trait :with_incoming_with_html_attachment do
-      incoming_message_factory { :incoming_message_with_html_attachment }
+      incoming_message_factory { [:incoming_message, :with_html_attachment] }
       with_incoming
     end
 
     trait :with_incoming_with_pdf_attachment do
-      incoming_message_factory { :incoming_message_with_pdf_attachment }
+      incoming_message_factory { [:incoming_message, :with_pdf_attachment] }
       with_incoming
     end
 
