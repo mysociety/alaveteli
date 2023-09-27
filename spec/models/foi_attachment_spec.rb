@@ -233,10 +233,12 @@ RSpec.describe FoiAttachment do
 
       context 'when attachment file is unattached' do
         let(:foi_attachment) do
-          FactoryBot.create(:body_text, filename: nil)
+          FactoryBot.create(:body_text)
         end
 
         it 'raises missing attachment exception' do
+          foi_attachment.file.purge
+
           expect { unmasked_body }.to raise_error(
             FoiAttachment::MissingAttachment,
             "file not attached (ID=#{foi_attachment.id})"

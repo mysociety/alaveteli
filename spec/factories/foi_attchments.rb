@@ -4,6 +4,8 @@ FactoryBot.define do
     sequence(:url_part_number) { |n| n + 1 }
     display_size { '0K' }
     masked_at { 1.day.ago }
+    content_type { 'text/plain' }
+    filename { 'attachment.txt' }
 
     transient do
       body { 'hereisthemaskedtext' }
@@ -11,10 +13,7 @@ FactoryBot.define do
 
     after(:build) do |foi_attachment, evaluator|
       body = evaluator.body
-      foi_attachment.hexdigest = Digest::MD5.hexdigest(body) if body
-
-      next unless body && foi_attachment.filename && foi_attachment.content_type
-
+      foi_attachment.hexdigest = Digest::MD5.hexdigest(body)
       foi_attachment.file.attach(
         io: StringIO.new(body),
         filename: foi_attachment.filename,
