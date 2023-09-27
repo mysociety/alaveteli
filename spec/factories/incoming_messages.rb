@@ -30,12 +30,20 @@ FactoryBot.define do
     last_parsed { 1.week.ago }
     sent_at { 1.week.ago }
 
-    after(:build) do |incoming_message, _evaluator|
-      incoming_message.foi_attachments << build(
-        :body_text,
-        incoming_message: incoming_message,
-        url_part_number: 1
-      )
+    transient do
+      foi_attachments_factories { [] }
+    end
+
+    after(:build) do |incoming_message, evaluator|
+      foi_attachments_factories = [[:body_text]]
+      foi_attachments_factories += evaluator.foi_attachments_factories
+      foi_attachments_factories.each.with_index(1) do |factory, index|
+        incoming_message.foi_attachments << build(
+          *factory,
+          incoming_message: incoming_message,
+          url_part_number: index
+        )
+      end
 
       incoming_message.raw_email.incoming_message = incoming_message
       incoming_message.raw_email.data = "somedata"
@@ -63,34 +71,11 @@ FactoryBot.define do
     end
 
     factory :incoming_message_with_html_attachment do
-      after(:build) do |incoming_message, _evaluator|
-        incoming_message.foi_attachments << build(
-          :html_attachment,
-          incoming_message: incoming_message,
-          url_part_number: 2
-        )
-      end
+      foi_attachments_factories { [[:html_attachment]] }
     end
 
     factory :incoming_message_with_pdf_attachment do
-      # foi_attachments_count is declared as an ignored attribute and available in
-      # attributes on the factory, as well as the callback via the evaluator
-      transient do
-        foi_attachments_count { 1 }
-      end
-
-      # the after(:build) yields two values; the incoming_message instance itself and the
-      # evaluator, which stores all values from the factory, including ignored
-      # attributes;
-      after(:build) do |incoming_message, evaluator|
-        evaluator.foi_attachments_count.times do |count|
-          incoming_message.foi_attachments << build(
-            :pdf_attachment,
-            incoming_message: incoming_message,
-            url_part_number: count + 2
-          )
-        end
-      end
+      foi_attachments_factories { [[:pdf_attachment]] }
     end
   end
 end
