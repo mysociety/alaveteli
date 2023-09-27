@@ -133,7 +133,7 @@ RSpec.describe InfoRequest do
 
     context 'when there are incoming messages with attachments' do
       let(:info_request) do
-        FactoryBot.create(:info_request_with_incoming_attachments)
+        FactoryBot.create(:info_request_with_pdf_attachment)
       end
 
       it { is_expected.to be_many }

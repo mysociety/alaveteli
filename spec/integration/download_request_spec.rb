@@ -53,7 +53,7 @@ RSpec.describe 'when making a zipfile available' do
 
         # Non-owner can download zip with incoming and attachments
         non_owner = login(FactoryBot.create(:user))
-        info_request = FactoryBot.create(:info_request_with_incoming_attachments)
+        info_request = FactoryBot.create(:info_request_with_pdf_attachment)
         rebuild_raw_emails(info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|
@@ -299,7 +299,7 @@ RSpec.describe 'when making a zipfile available' do
 
         # Non-owner can download zip with outgoing
         non_owner = login(FactoryBot.create(:user))
-        info_request = FactoryBot.create(:info_request_with_incoming_attachments)
+        info_request = FactoryBot.create(:info_request_with_pdf_attachment)
         rebuild_raw_emails(info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|

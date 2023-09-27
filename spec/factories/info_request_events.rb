@@ -70,7 +70,7 @@ FactoryBot.define do
       end
 
       trait :with_attachments do
-        incoming_message_factory { :incoming_message_with_attachments }
+        incoming_message_factory { :incoming_message_with_pdf_attachment }
       end
     end
 

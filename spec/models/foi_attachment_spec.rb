@@ -312,7 +312,7 @@ RSpec.describe FoiAttachment do
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 
-    let(:message) { FactoryBot.build(:incoming_message_with_attachments) }
+    let(:message) { FactoryBot.build(:incoming_message_with_pdf_attachment) }
 
     context 'when the attachment is the main body' do
       let(:attachment) { message.get_main_body_text_part }
