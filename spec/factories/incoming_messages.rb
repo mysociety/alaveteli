@@ -23,7 +23,6 @@
 #
 
 FactoryBot.define do
-
   factory :incoming_message do
     info_request
     association :raw_email, strategy: :create
@@ -58,24 +57,27 @@ FactoryBot.define do
       prominence { 'hidden' }
     end
 
-    factory :plain_incoming_message do
-      last_parsed { nil }
-      sent_at { nil }
-
-      after(:create) do |incoming_message, _evaluator|
-        data = load_file_fixture('incoming-request-plain.email')
-        data.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
-        incoming_message.raw_email.data = data
-        incoming_message.raw_email.save!
-      end
-    end
-
     trait :with_html_attachment do
       foi_attachments_factories { [[:html_attachment]] }
     end
 
     trait :with_pdf_attachment do
       foi_attachments_factories { [[:pdf_attachment]] }
+    end
+  end
+
+  factory :plain_incoming_message, class: IncomingMessage do
+    info_request
+    association :raw_email, strategy: :create
+    last_parsed { nil }
+    sent_at { nil }
+
+    after(:create) do |incoming_message, _evaluator|
+      data = load_file_fixture('incoming-request-plain.email')
+      data.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
+      incoming_message.raw_email.data = data
+      incoming_message.raw_email.save!
+      incoming_message.extract_attachments!
     end
   end
 end
