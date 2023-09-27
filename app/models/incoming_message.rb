@@ -41,6 +41,8 @@ class IncomingMessage < ApplicationRecord
   include CacheAttributesFromRawEmail
   include Taggable
 
+  UnableToExtractAttachments = Class.new(StandardError)
+
   MAX_ATTACHMENT_TEXT_CLIPPED = 1_000_000 # 1Mb ish
 
   belongs_to :info_request,
@@ -470,8 +472,18 @@ class IncomingMessage < ApplicationRecord
       attachments += _uudecode_attachments(main_part.body, c)
     end
 
-    # Purge old attachments that have been rebuilt with a new hexdigest
-    (foi_attachments - attachments).each(&:mark_for_destruction)
+    # Purge old public attachments that will be rebuilt with a new hexdigest
+    old_attachments = (foi_attachments - attachments)
+    hidden_old_attachments = old_attachments.reject { _1.is_public? }
+
+    if hidden_old_attachments.any?
+      # if there are hidden attachments error as we don't want to re-build and
+      # lose the prominence as this will make them public
+      raise UnableToExtractAttachments, "due to prominence of attachments " \
+        "(ID=#{hidden_old_attachments.map(&:id).join(', ')})"
+    else
+      old_attachments.each(&:mark_for_destruction)
+    end
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.
