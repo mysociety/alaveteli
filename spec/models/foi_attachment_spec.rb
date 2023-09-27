@@ -198,7 +198,7 @@ RSpec.describe FoiAttachment do
 
     before do
       allow(foi_attachment).to receive(:raw_email).
-        and_return(double.as_null_object)
+        and_return(double(mail: Mail.new))
     end
 
     context 'when mail handler finds original attachment by hexdigest' do
@@ -212,57 +212,41 @@ RSpec.describe FoiAttachment do
       end
     end
 
-    context 'when mail handler can not original attachment by hexdigest' do
+    context 'when able to find original attachment through other means' do
       before do
         allow(MailHandler).to receive(:attachment_body_for_hexdigest).
           and_raise(MailHandler::MismatchedAttachmentHexdigest)
+
+        allow(MailHandler).to receive(
+          :attempt_to_find_original_attachment_attributes
+        ).and_return(hexdigest: 'ABC', body: 'hereistheunmaskedtext')
       end
 
-      context 'when attachment file is unattached' do
-        let(:foi_attachment) do
-          FactoryBot.create(:body_text)
-        end
-
-        it 'raises missing attachment exception' do
-          foi_attachment.file.purge
-
-          expect { unmasked_body }.to raise_error(
-            FoiAttachment::MissingAttachment,
-            "file not attached (ID=#{foi_attachment.id})"
-          )
-        end
+      it 'updates the hexdigest' do
+        expect { unmasked_body }.to change { foi_attachment.hexdigest }.
+          to('ABC')
       end
 
-      context 'when unable to find original attachment through other means' do
-        before do
-          allow(MailHandler).to receive(
-            :attempt_to_find_original_attachment_attributes
-          ).and_return(nil)
-        end
+      it 'returns the attachment body from the raw email' do
+        is_expected.to eq('hereistheunmaskedtext')
+      end
+    end
 
-        it 'raises missing attachment exception' do
-          expect { unmasked_body }.to raise_error(
-            FoiAttachment::MissingAttachment,
-            "unable to find original (ID=#{foi_attachment.id})"
-          )
-        end
+    context 'when unable to find original attachment through other means' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_raise(MailHandler::MismatchedAttachmentHexdigest)
+
+        allow(MailHandler).to receive(
+          :attempt_to_find_original_attachment_attributes
+        ).and_return(nil)
       end
 
-      context 'when able to find original attachment through other means' do
-        before do
-          allow(MailHandler).to receive(
-            :attempt_to_find_original_attachment_attributes
-          ).and_return(hexdigest: 'ABC', body: 'hereistheunmaskedtext')
-        end
-
-        it 'updates the hexdigest' do
-          expect { unmasked_body }.to change { foi_attachment.hexdigest }.
-            to('ABC')
-        end
-
-        it 'returns the attachment body from the raw email' do
-          is_expected.to eq('hereistheunmaskedtext')
-        end
+      it 'raises missing attachment exception' do
+        expect { unmasked_body }.to raise_error(
+          FoiAttachment::MissingAttachment,
+          "attachment missing in raw email (ID=#{foi_attachment.id})"
+        )
       end
     end
 

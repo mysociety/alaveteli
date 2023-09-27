@@ -31,6 +31,9 @@ class FoiAttachmentMaskJob < ApplicationJob
     end
 
     attachment.update(body: body, masked_at: Time.zone.now)
+
+  rescue FoiAttachment::MissingAttachment
+    incoming_message.parse_raw_email!(true)
   end
 
   private

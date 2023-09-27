@@ -133,17 +133,13 @@ class FoiAttachment < ApplicationRecord
       hexdigest: hexdigest
     )
   rescue MailHandler::MismatchedAttachmentHexdigest
-    unless file.attached?
-      raise(MissingAttachment, "file not attached (ID=#{id})")
-    end
-
     attributes = MailHandler.attempt_to_find_original_attachment_attributes(
       raw_email.mail,
       body: file.download
-    )
+    ) if file.attached?
 
     unless attributes
-      raise(MissingAttachment, "unable to find original (ID=#{id})")
+      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
     end
 
     update(hexdigest: attributes[:hexdigest])
