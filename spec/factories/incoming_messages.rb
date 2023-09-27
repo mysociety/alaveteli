@@ -76,7 +76,7 @@ FactoryBot.define do
       # foi_attachments_count is declared as an ignored attribute and available in
       # attributes on the factory, as well as the callback via the evaluator
       transient do
-        foi_attachments_count { 2 }
+        foi_attachments_count { 1 }
       end
 
       # the after(:build) yields two values; the incoming_message instance itself and the
