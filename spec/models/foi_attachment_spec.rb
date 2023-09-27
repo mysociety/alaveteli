@@ -136,7 +136,7 @@ RSpec.describe FoiAttachment do
         allow(FoiAttachmentMaskJob).to receive(:perform_now).and_return(false)
       end
 
-      it 'raises missing attachment expection' do
+      it 'raises missing attachment exception' do
         expect { foi_attachment.body }.to raise_error(
           FoiAttachment::MissingAttachment,
           "job already queued (ID=#{foi_attachment.id})"
@@ -223,7 +223,7 @@ RSpec.describe FoiAttachment do
           FactoryBot.create(:body_text, prominence: 'hidden')
         end
 
-        it 'raises missing attachment expection' do
+        it 'raises missing attachment exception' do
           expect { unmasked_body }.to raise_error(
             FoiAttachment::MissingAttachment,
             "prominence not public (ID=#{foi_attachment.id})"
@@ -236,7 +236,7 @@ RSpec.describe FoiAttachment do
           FactoryBot.create(:body_text, filename: nil)
         end
 
-        it 'raises missing attachment expection' do
+        it 'raises missing attachment exception' do
           expect { unmasked_body }.to raise_error(
             FoiAttachment::MissingAttachment,
             "file not attached (ID=#{foi_attachment.id})"
@@ -251,7 +251,7 @@ RSpec.describe FoiAttachment do
           ).and_return(nil)
         end
 
-        it 'raises missing attachment expection' do
+        it 'raises missing attachment exception' do
           expect { unmasked_body }.to raise_error(
             FoiAttachment::MissingAttachment,
             "unable to find original (ID=#{foi_attachment.id})"
