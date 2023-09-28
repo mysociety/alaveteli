@@ -345,8 +345,10 @@ class IncomingMessage < ApplicationRecord
   # Returns body text from main text part of email, converted to UTF-8
   def get_main_body_text_internal
     parse_raw_email!
-    main_part = get_main_body_text_part
-    _convert_part_body_to_text(main_part)
+    FoiAttachment.protect_against_rebuilt_attachments do
+      main_part = get_main_body_text_part
+      _convert_part_body_to_text(main_part)
+    end
   end
 
   # Given a main text part, converts it to text
@@ -544,7 +546,9 @@ class IncomingMessage < ApplicationRecord
 
   # Returns text version of attachment text
   def get_attachment_text_full
-    text = _get_attachment_text_internal
+    text = FoiAttachment.protect_against_rebuilt_attachments do
+      _get_attachment_text_internal
+    end
     text = apply_masks(text, 'text/html')
 
     # This can be useful for memory debugging

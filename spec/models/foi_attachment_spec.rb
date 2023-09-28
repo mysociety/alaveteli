@@ -158,6 +158,26 @@ RSpec.describe FoiAttachment do
           FoiAttachment::RebuiltAttachment
         )
       end
+
+      context 'and called within protect_against_rebuilt_attachments block' do
+        def body
+          FoiAttachment.protect_against_rebuilt_attachments do
+            # Note, we're not using the `foi_attachment` "let" variable as the
+            # `FoiAttachment#body` code will call `parse_raw_email!(true)` and
+            # recreate the attachments, so the body returned, will belong to a
+            # new `FoiAttachment` instance
+            incoming_message.foi_attachments.last.body
+          end
+        end
+
+        it 'does not raise rebuilt attachment exception' do
+          expect { body }.to_not raise_error
+        end
+
+        it 'returns rebuilt body' do
+          expect(body).to eq('hereisthetext')
+        end
+      end
     end
 
   end
