@@ -114,8 +114,13 @@ RSpec.describe FoiAttachment do
       end
     end
 
-    context 'when unmasked and mask job is not queued' do
-      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
+    context 'when unmasked and original attachment can be found' do
+      let(:incoming_message) do
+        FactoryBot.create(:incoming_message, foi_attachments_factories: [
+          [:body_text, :unmasked]
+        ])
+      end
+      let(:foi_attachment) { incoming_message.foi_attachments.last }
 
       it 'calls the FoiAttachmentMaskJob now and return the masked body' do
         expect(FoiAttachmentMaskJob).to receive(:perform_now).
@@ -129,17 +134,28 @@ RSpec.describe FoiAttachment do
       end
     end
 
-    context 'when unmasked and mask job is already queued' do
-      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
+    context 'when unmasked and original attachment can not be found' do
+      let(:incoming_message) do
+        FactoryBot.create(:incoming_message, foi_attachments_factories: [
+          [:body_text, :unmasked]
+        ])
+      end
+      let(:foi_attachment) { incoming_message.foi_attachments.last }
 
       before do
-        allow(FoiAttachmentMaskJob).to receive(:perform_now).and_return(false)
+        foi_attachment.update(hexdigest: '123')
+
+        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+          with(foi_attachment).
+          and_invoke(-> (_) {
+            # mock the job
+            incoming_message.parse_raw_email!(true)
+          })
       end
 
-      it 'raises missing attachment exception' do
+      it 'raises rebuilt attachment exception' do
         expect { foi_attachment.body }.to raise_error(
-          FoiAttachment::MissingAttachment,
-          "job already queued (ID=#{foi_attachment.id})"
+          FoiAttachment::RebuiltAttachment
         )
       end
     end

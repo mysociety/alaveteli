@@ -34,6 +34,7 @@ class FoiAttachment < ApplicationRecord
   include MessageProminence
 
   MissingAttachment = Class.new(StandardError)
+  RebuiltAttachment = Class.new(StandardError)
 
   belongs_to :incoming_message,
              inverse_of: :foi_attachments
@@ -107,11 +108,14 @@ class FoiAttachment < ApplicationRecord
     if masked?
       @cached_body = file.download
     else
-      job = FoiAttachmentMaskJob.perform_now(self)
-      return body if job
-
-      raise MissingAttachment, "job already queued (ID=#{id})"
+      FoiAttachmentMaskJob.unlock!(self)
+      FoiAttachmentMaskJob.perform_now(self)
+      reload
+      body
     end
+
+  rescue ActiveRecord::RecordNotFound
+    raise RebuiltAttachment, "attachment no longer present in DB (ID=#{id})"
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
