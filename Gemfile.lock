@@ -494,6 +494,8 @@ GEM
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
+    sidekiq-limit_fetch (4.4.1)
+      sidekiq (>= 6)
     signet (0.17.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -638,6 +640,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.8)
   secure_headers (~> 6.5.0)
   sidekiq (~> 6.5.9)
+  sidekiq-limit_fetch (~> 4.4.1)
   simplecov (~> 0.22.0)
   simplecov-lcov (~> 0.7.0)
   sprockets!
