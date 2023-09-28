@@ -104,7 +104,7 @@ RSpec.describe AttachmentsController, type: :controller do
         )
       end
 
-      context 'when masked attachment is avaliable before timing out' do
+      context 'when masked attachment is available before timing out' do
         before do
           allow(IncomingMessage).to receive(
             :get_attachment_by_url_part_number_and_filename!

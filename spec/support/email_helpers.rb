@@ -50,21 +50,34 @@ def gsub_addresses(content, **kargs)
   content
 end
 
-def rebuild_raw_emails(info_request)
-  info_request.incoming_messages.each do |im|
-    mail = Mail.new
+def build_incoming_message_mail(im)
+  mail = Mail.new
 
-    mail.to = info_request.incoming_email
-    mail.from = "#{im.from_name} <#{im.from_email}>"
-    mail.subject = im.subject
-    mail.date = im.sent_at
-    mail.body = im.cached_main_body_text_unfolded
+  mail.to = im.info_request.incoming_email rescue ''
+  mail.from = im.read_attribute(:from_email)
+  mail.subject = im.read_attribute(:subject)
+  mail.date = im.read_attribute(:sent_at)
+  mail.body = im.cached_main_body_text_unfolded
 
-    im.foi_attachments.each do |a|
-      mail.add_file filename: a.filename, content: a.file.download
+  im.foi_attachments.each do |a|
+    if a.persisted?
+      content = a.file.download
+    else
+      # NOTE: this uses a private API
+      io = a.attachment_changes['file'].attachable[:io]
+      content = io.read
+      io.rewind
     end
 
-    im.raw_email.data = mail
-    im.raw_email.save!
+    mail.add_file filename: a.filename, content: content
+  end
+
+  mail
+end
+
+def rebuild_raw_emails(info_request)
+  info_request.incoming_messages.each do |im|
+    im.raw_email.data = build_incoming_message_mail(im)
+    im.save!
   end
 end

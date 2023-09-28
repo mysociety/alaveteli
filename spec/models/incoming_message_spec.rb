@@ -612,7 +612,7 @@ RSpec.describe 'when destroying a message' do
 
   context 'with attachments' do
     let(:incoming_with_attachment) {
-      FactoryBot.create(:incoming_message_with_html_attachment)
+      FactoryBot.create(:incoming_message, :with_html_attachment)
     }
 
     it 'destroys the incoming message' do

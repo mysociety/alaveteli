@@ -53,11 +53,11 @@ RSpec.describe 'when making a zipfile available' do
 
         # Non-owner can download zip with incoming and attachments
         non_owner = login(FactoryBot.create(:user))
-        info_request = FactoryBot.create(:info_request_with_incoming_attachments)
+        info_request = FactoryBot.create(:info_request_with_pdf_attachment)
         rebuild_raw_emails(info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|
-          expect(zip.count).to eq(3)
+          expect(zip.count).to eq(2)
           expect(zip.read('correspondence.pdf')).to match('hereisthetext')
         end
 
@@ -72,7 +72,7 @@ RSpec.describe 'when making a zipfile available' do
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
-          expect(zip.count).to eq(3)
+          expect(zip.count).to eq(2)
           expect(zip.read('correspondence.pdf')).to match('hereisthetext')
         end
 
@@ -88,7 +88,7 @@ RSpec.describe 'when making a zipfile available' do
         # Requester retains the requester only things
         owner = login(info_request.user)
         inspect_zip_download(owner, info_request) do |zip|
-          expect(zip.count).to eq(3)
+          expect(zip.count).to eq(2)
           expect(zip.read('correspondence.pdf')).to match('hereisthetext')
         end
 
@@ -299,11 +299,11 @@ RSpec.describe 'when making a zipfile available' do
 
         # Non-owner can download zip with outgoing
         non_owner = login(FactoryBot.create(:user))
-        info_request = FactoryBot.create(:info_request_with_incoming_attachments)
+        info_request = FactoryBot.create(:info_request_with_pdf_attachment)
         rebuild_raw_emails(info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|
-          expect(zip.count).to eq(3)
+          expect(zip.count).to eq(2)
           expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
 
@@ -318,7 +318,7 @@ RSpec.describe 'when making a zipfile available' do
 
         # Admin retains the requester only things
         inspect_zip_download(admin, info_request) do |zip|
-          expect(zip.count).to eq(3)
+          expect(zip.count).to eq(2)
           expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
 
@@ -334,7 +334,7 @@ RSpec.describe 'when making a zipfile available' do
         # Requester retains the requester only things
         owner = login(info_request.user)
         inspect_zip_download(owner, info_request) do |zip|
-          expect(zip.count).to eq(3)
+          expect(zip.count).to eq(2)
           expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
 

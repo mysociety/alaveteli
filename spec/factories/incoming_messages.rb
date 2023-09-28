@@ -23,22 +23,29 @@
 #
 
 FactoryBot.define do
-
   factory :incoming_message do
     info_request
     association :raw_email, strategy: :create
     last_parsed { 1.week.ago }
     sent_at { 1.week.ago }
 
-    after(:build) do |incoming_message, _evaluator|
-      incoming_message.foi_attachments << build(
-        :body_text,
-        incoming_message: incoming_message,
-        url_part_number: 1
-      )
+    transient do
+      foi_attachments_factories { [] }
+    end
 
-      incoming_message.raw_email.incoming_message = incoming_message
-      incoming_message.raw_email.data = "somedata"
+    after(:build) do |incoming_message, evaluator|
+      foi_attachments_factories = [[:body_text]]
+      foi_attachments_factories += evaluator.foi_attachments_factories
+      foi_attachments_factories.each.with_index(1) do |factory, index|
+        incoming_message.foi_attachments << build(
+          *factory,
+          incoming_message: incoming_message,
+          url_part_number: index
+        )
+      end
+
+      mail = build_incoming_message_mail(incoming_message)
+      incoming_message.raw_email.data = mail
     end
 
     trait :unparsed do
@@ -50,47 +57,27 @@ FactoryBot.define do
       prominence { 'hidden' }
     end
 
-    factory :plain_incoming_message do
-      last_parsed { nil }
-      sent_at { nil }
-
-      after(:create) do |incoming_message, _evaluator|
-        data = load_file_fixture('incoming-request-plain.email')
-        data.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
-        incoming_message.raw_email.data = data
-        incoming_message.raw_email.save!
-      end
+    trait :with_html_attachment do
+      foi_attachments_factories { [[:html_attachment]] }
     end
 
-    factory :incoming_message_with_html_attachment do
-      after(:build) do |incoming_message, _evaluator|
-        incoming_message.foi_attachments << build(
-          :html_attachment,
-          incoming_message: incoming_message,
-          url_part_number: 2
-        )
-      end
+    trait :with_pdf_attachment do
+      foi_attachments_factories { [[:pdf_attachment]] }
     end
+  end
 
-    factory :incoming_message_with_attachments do
-      # foi_attachments_count is declared as an ignored attribute and available in
-      # attributes on the factory, as well as the callback via the evaluator
-      transient do
-        foi_attachments_count { 2 }
-      end
+  factory :plain_incoming_message, class: IncomingMessage do
+    info_request
+    association :raw_email, strategy: :create
+    last_parsed { nil }
+    sent_at { nil }
 
-      # the after(:build) yields two values; the incoming_message instance itself and the
-      # evaluator, which stores all values from the factory, including ignored
-      # attributes;
-      after(:build) do |incoming_message, evaluator|
-        evaluator.foi_attachments_count.times do |count|
-          incoming_message.foi_attachments << build(
-            :pdf_attachment,
-            incoming_message: incoming_message,
-            url_part_number: count + 2
-          )
-        end
-      end
+    after(:create) do |incoming_message, _evaluator|
+      data = load_file_fixture('incoming-request-plain.email')
+      data.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
+      incoming_message.raw_email.data = data
+      incoming_message.raw_email.save!
+      incoming_message.extract_attachments!
     end
   end
 end

@@ -136,7 +136,7 @@ RSpec.describe FoiAttachment do
         allow(FoiAttachmentMaskJob).to receive(:perform_now).and_return(false)
       end
 
-      it 'raises missing attachment expection' do
+      it 'raises missing attachment exception' do
         expect { foi_attachment.body }.to raise_error(
           FoiAttachment::MissingAttachment,
           "job already queued (ID=#{foi_attachment.id})"
@@ -223,7 +223,7 @@ RSpec.describe FoiAttachment do
           FactoryBot.create(:body_text, prominence: 'hidden')
         end
 
-        it 'raises missing attachment expection' do
+        it 'raises missing attachment exception' do
           expect { unmasked_body }.to raise_error(
             FoiAttachment::MissingAttachment,
             "prominence not public (ID=#{foi_attachment.id})"
@@ -233,10 +233,12 @@ RSpec.describe FoiAttachment do
 
       context 'when attachment file is unattached' do
         let(:foi_attachment) do
-          FactoryBot.create(:body_text, filename: nil)
+          FactoryBot.create(:body_text)
         end
 
-        it 'raises missing attachment expection' do
+        it 'raises missing attachment exception' do
+          foi_attachment.file.purge
+
           expect { unmasked_body }.to raise_error(
             FoiAttachment::MissingAttachment,
             "file not attached (ID=#{foi_attachment.id})"
@@ -251,7 +253,7 @@ RSpec.describe FoiAttachment do
           ).and_return(nil)
         end
 
-        it 'raises missing attachment expection' do
+        it 'raises missing attachment exception' do
           expect { unmasked_body }.to raise_error(
             FoiAttachment::MissingAttachment,
             "unable to find original (ID=#{foi_attachment.id})"
@@ -312,7 +314,7 @@ RSpec.describe FoiAttachment do
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 
-    let(:message) { FactoryBot.build(:incoming_message_with_attachments) }
+    let(:message) { FactoryBot.build(:incoming_message, :with_pdf_attachment) }
 
     context 'when the attachment is the main body' do
       let(:attachment) { message.get_main_body_text_part }

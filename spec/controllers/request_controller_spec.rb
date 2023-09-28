@@ -546,8 +546,7 @@ RSpec.describe RequestController, 'when handling prominence' do
   end
 
   let(:info_request) do
-    FactoryBot.
-      create(:info_request_with_incoming_attachments, prominence: prominence)
+    FactoryBot.create(:info_request_with_pdf_attachment, prominence: prominence)
   end
 
   context 'when the request is hidden' do
