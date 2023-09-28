@@ -5,7 +5,7 @@
 class AttachmentMasksController < ApplicationController
   before_action :set_no_crawl_headers
   before_action :find_attachment
-  before_action :ensure_attachment, :ensure_referer
+  before_action :ensure_referer, :ensure_attachment
 
   def wait
     if @attachment.masked?
@@ -38,13 +38,14 @@ class AttachmentMasksController < ApplicationController
 
   def find_attachment
     @attachment = GlobalID::Locator.locate_signed(params[:id])
-  end
-
-  def ensure_attachment
-    raise ActiveRecord::RecordNotFound unless @attachment
+  rescue ActiveRecord::RecordNotFound
   end
 
   def ensure_referer
     raise RouteNotFound unless params[:referer].present?
+  end
+
+  def ensure_attachment
+    redirect_to(params[:referer]) unless @attachment
   end
 end
