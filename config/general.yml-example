@@ -1304,19 +1304,3 @@ SURVEY_URL: ''
 #
 # ---
 USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0
-
-# Background jobs are processed by Rails' ActiveJob using Sidekiq. There are
-# various ways to run Sidekiq depending to server resources and technical
-# knowledge in order to run and maintain a Redis server.
-#
-# Can either be set to:
-# - 'inline' to process jobs within the web application process, this was the
-#   default option up until Alaveteli 0.42 and doesn't require Redis to be.
-#   installed. Due to issues with requests with web requests timing out this has
-#   been superseded by the other options.
-# - 'server' to process job by a server running as a system daemon.
-#
-# BACKGROUND_JOBS – String (default: 'server')
-#
-# ---
-BACKGROUND_JOBS: 'server'
