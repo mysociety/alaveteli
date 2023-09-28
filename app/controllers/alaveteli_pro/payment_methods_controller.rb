@@ -6,12 +6,13 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
       @token = Stripe::Token.retrieve(params[:stripe_token])
 
       @pro_account = current_user.pro_account ||= current_user.build_pro_account
-      @pro_account.source = @token.id
+      @pro_account.token = @token
       @pro_account.update_stripe_customer
 
       flash[:notice] = _('Your payment details have been updated')
 
-    rescue Stripe::CardError => e
+    rescue ProAccount::CardError,
+           Stripe::CardError => e
       flash[:error] = e.message
 
     rescue Stripe::RateLimitError,

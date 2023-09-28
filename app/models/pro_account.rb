@@ -14,7 +14,9 @@
 class ProAccount < ApplicationRecord
   include AlaveteliFeatures::Helpers
 
-  attr_writer :source
+  CardError = Class.new(StandardError)
+
+  attr_writer :token
 
   belongs_to :user,
              inverse_of: :pro_account
@@ -65,9 +67,9 @@ class ProAccount < ApplicationRecord
   end
 
   def update_source
-    return unless @source
+    return unless @token
 
-    stripe_customer.source = @source
+    stripe_customer.source = @token.id
   end
 
   def stripe_customer!
