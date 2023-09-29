@@ -1087,6 +1087,23 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     expect(im._get_attachment_text_internal.valid_encoding?).to be true
   end
 
+  it 'does not raise error if existing hidden attachment will be retained' do
+    incoming_message = FactoryBot.create(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.first
+    foi_attachment.update(prominence: 'hidden')
+
+    expect { incoming_message.extract_attachments! }.to_not raise_error
+  end
+
+  it 'raises error if existing hidden attachment will be deleted' do
+    incoming_message = FactoryBot.create(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.first
+    foi_attachment.update(prominence: 'hidden', hexdigest: '123')
+
+    expect { incoming_message.extract_attachments! }.to raise_error(
+      IncomingMessage::UnableToExtractAttachments
+    )
+  end
 end
 
 RSpec.describe IncomingMessage, 'when getting the body of a message for html display' do
