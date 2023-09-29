@@ -68,8 +68,7 @@ namespace :config_files do
       {
         path: '/etc/systemd/system',
         name: 'sidekiq.service',
-        template: 'config/sidekiq.service.example',
-        condition: -> { AlaveteliConfiguration.background_jobs == 'server' }
+        template: 'config/sidekiq.service.example'
       }
     ]
   end
