@@ -1,7 +1,7 @@
 class User::WithRequest < SimpleDelegator
   attr_reader :request
 
-  delegate :user_agent, to: :request
+  delegate :ip, :user_agent, to: :request
 
   def initialize(user, request)
     @request = request

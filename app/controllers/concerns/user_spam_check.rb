@@ -48,7 +48,7 @@ module UserSpamCheck
         about_me_includes_anchor_tag?: 0,
         about_me_already_exists?: 0,
         user_agent_is_suspicious?: 3,
-        ip_range_is_suspicious?: 10
+        ip_range_is_suspicious?: 12
       }
     }
   end

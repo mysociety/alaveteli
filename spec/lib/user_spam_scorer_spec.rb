@@ -677,7 +677,7 @@ RSpec.describe UserSpamScorer do
 
   describe '#ip_range_is_suspicious?' do
 
-    before { UserSpamScorer.suspicious_ip_ranges = [IPAddr.new('127.0.0.0/8')] }
+    before { UserSpamScorer.suspicious_ip_ranges = ['127.0.0.0/8'] }
     after { UserSpamScorer.reset }
 
     it 'is true if the IP address is within a suspicious range' do
