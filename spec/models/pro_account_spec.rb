@@ -84,7 +84,7 @@ RSpec.describe ProAccount, feature: :pro_pricing do
 
     it 'sets Stripe customer default source' do
       old_source = customer.default_source
-      pro_account.source = stripe_helper.generate_card_token
+      pro_account.token = double(id: stripe_helper.generate_card_token)
 
       expect { pro_account.update_stripe_customer }.to change(
         customer, :default_source
@@ -120,7 +120,7 @@ RSpec.describe ProAccount, feature: :pro_pricing do
 
       it 'does not set new Stripe customer default source' do
         with_feature_disabled(:alaveteli_pro) do
-          pro_account.source = stripe_helper.generate_card_token
+          pro_account.token = double(id: stripe_helper.generate_card_token)
           expect { pro_account.update_stripe_customer }.to_not change(
             customer, :default_source
           )
