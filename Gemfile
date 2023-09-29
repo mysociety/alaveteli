@@ -120,6 +120,7 @@ gem 'ruby-msg', '~> 1.5.0', git: 'https://github.com/mysociety/ruby-msg.git', br
 gem 'rubyzip', '~> 2.3.2'
 gem 'secure_headers', '~> 6.5.0'
 gem 'sidekiq', '~> 6.5.9'
+gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails7'
 gem 'stripe', '~> 5.55.0'
