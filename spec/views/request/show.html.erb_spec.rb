@@ -250,6 +250,11 @@ RSpec.describe "request/show" do
                         'response is expected or if you are having trouble ' \
                         'responding.')
     end
+    it 'displays a link for the authority to respond to the request' do
+      assign :show_action_menu, true
+      request_page
+      expect(rendered).to have_content('Respond to request')
+    end
   end
 
   describe 'when the request is closed to all responses' do
@@ -260,6 +265,12 @@ RSpec.describe "request/show" do
       expect(rendered).
         to have_content('This request has been closed to new correspondence. ' \
                         'Contact us if you think it should be reopened.')
+    end
+    it 'does not display a link for the authority to respond to the request' do
+      mock_request.update_attribute(:allow_new_responses_from, 'nobody')
+      assign :show_action_menu, true
+      request_page
+      expect(rendered).to_not have_content('Respond to request')
     end
 
   end

@@ -34,6 +34,25 @@ $color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
   }
 }
 
+#request_upload_response .request-header__closed_to_correspondence {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1em;
+  color: #333;
+
+  a {
+    color: #2688dc;
+    &:hover,
+    &:active,
+    &:focus {
+      color: #333333;
+    }
+    &:visited {
+      color: darken(#2688dc, 10%);
+    }
+  }
+}
+
 a.track-request-action {
   white-space: nowrap;
   text-align: left;

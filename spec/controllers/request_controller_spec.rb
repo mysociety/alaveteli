@@ -1791,6 +1791,19 @@ RSpec.describe RequestController, "authority uploads a response from the web int
     expect(response).to render_template('user/wrong_user')
   end
 
+  context 'when the request is closed to responses' do
+    let(:closed_request) do
+      FactoryBot.create(:info_request, allow_new_responses_from: 'nobody')
+    end
+    it "should prevent uploads if closed to all responses" do
+      sign_in @normal_user
+      get :upload_response, params: { url_title: closed_request.url_title }
+      expect(response).to render_template(
+        'request/request_subtitle/allow_new_responses_from/_nobody'
+      )
+    end
+  end
+
   it "should let you view upload form if you are an FOI officer" do
     @ir = info_requests(:fancy_dog_request)
     expect(@ir.public_body.is_foi_officer?(@foi_officer_user)).to eq(true)
