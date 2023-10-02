@@ -481,7 +481,8 @@ class IncomingMessage < ApplicationRecord
     if hidden_old_attachments.any?
       # if there are hidden attachments error as we don't want to re-build and
       # lose the prominence as this will make them public
-      raise UnableToExtractAttachments, "due to prominence of attachments " \
+      raise UnableToExtractAttachments, "unable to extract attachments due " \
+        "to prominence of attachments " \
         "(ID=#{hidden_old_attachments.map(&:id).join(', ')})"
     else
       old_attachments.each(&:mark_for_destruction)
