@@ -1567,6 +1567,53 @@ RSpec.describe InfoRequest do
 
   end
 
+  describe '#already_received?' do
+    it 'returns false if email has no Message-ID header' do
+      info_request = FactoryBot.build(:info_request)
+
+      email = Mail.new(
+        <<~EML
+          Subject: Basic Email
+
+          Hello, World
+        EML
+      )
+
+      expect(info_request.already_received?(email)).to eq(false)
+    end
+
+    it 'returns false if a message with the same Message-ID has not been received' do
+      info_request = FactoryBot.build(:info_request)
+
+      email = Mail.new(
+        <<~EML
+          Message-ID: abcdefg@example.com
+          Subject: Basic Email
+
+          Hello, World
+        EML
+      )
+
+      expect(info_request.already_received?(email)).to eq(false)
+    end
+
+    it 'returns true if a message with the same Message-ID has already been received' do
+      info_request = FactoryBot.create(:info_request)
+
+      raw_email_data = <<~EML
+        Message-ID: abcdefg@example.com
+        Subject: Basic Email
+
+        Hello, World
+      EML
+      email, raw_email = email_and_raw_email(raw_email: raw_email_data)
+
+      info_request.receive(email, raw_email)
+      expect(info_request.incoming_messages.count).to eq(1)
+      expect(info_request.already_received?(email)).to eq(true)
+    end
+  end
+
   describe '#is_external?' do
 
     it 'returns true if there is an external url' do
