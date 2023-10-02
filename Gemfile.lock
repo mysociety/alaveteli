@@ -189,7 +189,7 @@ GEM
       rexml
     crass (1.0.6)
     daemons (1.4.1)
-    dalli (3.2.5)
+    dalli (3.2.6)
     dante (0.2.0)
     date (3.3.3)
     declarative (0.0.20)
@@ -582,7 +582,7 @@ DEPENDENCIES
   capistrano (~> 2.15.11)
   capybara (~> 3.39.2)
   charlock_holmes (~> 0.7.7)
-  dalli (~> 3.2.5)
+  dalli (~> 3.2.6)
   exception_notification (~> 4.5.0)
   factory_bot_rails (~> 6.2.0)
   fancybox-rails (~> 0.3.0)
