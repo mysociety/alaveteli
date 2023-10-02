@@ -218,19 +218,6 @@ RSpec.describe FoiAttachment do
           and_raise(MailHandler::MismatchedAttachmentHexdigest)
       end
 
-      context 'when attachment has prominence' do
-        let(:foi_attachment) do
-          FactoryBot.create(:body_text, prominence: 'hidden')
-        end
-
-        it 'raises missing attachment exception' do
-          expect { unmasked_body }.to raise_error(
-            FoiAttachment::MissingAttachment,
-            "prominence not public (ID=#{foi_attachment.id})"
-          )
-        end
-      end
-
       context 'when attachment file is unattached' do
         let(:foi_attachment) do
           FactoryBot.create(:body_text)

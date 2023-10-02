@@ -133,10 +133,6 @@ class FoiAttachment < ApplicationRecord
       hexdigest: hexdigest
     )
   rescue MailHandler::MismatchedAttachmentHexdigest
-    unless is_public?
-      raise(MissingAttachment, "prominence not public (ID=#{id})")
-    end
-
     unless file.attached?
       raise(MissingAttachment, "file not attached (ID=#{id})")
     end
