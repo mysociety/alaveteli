@@ -30,13 +30,29 @@
         <p>
           <strong>Close this user account</strong>
         </p>
-        <p>Closing the account:
-          <ul>
-            <li>Prevents logging in to the account</li>
-            <li>Prevents rendering of user content on their profile page</li>
-            <li>Disables email alerts</li>
-          </ul>
-        </p>
+
+        <details>
+          <summary>
+            Prevent access to the account and stop most data processing.
+          </summary>
+
+          <br />
+
+          <p>
+            This can be used to make a ban permanent, for example when you want
+            to retain the account record and details, but prevent its use.
+          </p>
+
+          <p>
+            <ul>
+              <li>Prevents logging in to the account</li>
+              <li>Prevents rendering of user content on their profile page</li>
+              <li>Disables email alerts</li>
+            </ul>
+          </p>
+        </details>
+
+        <br/>
       </div>
       <hr>
       <%= form_tag admin_users_account_closing_index_path(user_id: @admin_user.id), class: 'span3 form form-inline' do %>
@@ -55,28 +71,45 @@
         <p>
           <strong>Anonymise this user account</strong>
         </p>
-        <p>Anonymising the account:
-          <ul>
-            <li>Removes user from search index</li>
-            <li>Hides requests on the profile page</li>
-            <li><strong>Does not</strong> delete or set prominence of the user's requests</li>
-            <li>Makes a naive attempt to redact <tt>name</tt> from content<sup>1</sup></li>
-          </ul>
-        </p>
-        <p>
-          This is disabled for users whose accounts have not been closed. To
-          anonymise a user, first close the account. Additionally, if a user
-          has not made any requests, they cannot be anonymised.
-        </p>
-        <p>
-          <sup>1</sup> If the user has created any content that includes their
-          name, this will create a Censor Rule that applies to the User. The
-          Censor Rule will take the User’s current <tt>name</tt> attribute and
-          replace it with <code>[Name Removed]</code>. Note that this <em>may
-          not cover all variations of the name</em>, so its worth checking that
-          this has done what you expect. More Censor Rules may need to be added
-          to the user if this has not been sufficient.
-        </p>
+
+        <details>
+          <summary>
+            Retain the account details but attempt to stop publishing them.
+            Requires account closure.
+          </summary>
+
+          <br />
+
+          <p>
+            This can be used to try to minimise publication of a user's account
+            information. It does not erase any account information.
+          </p>
+
+          <p>Anonymising the account:
+            <ul>
+              <li>Removes user from search index</li>
+              <li>Hides requests on the profile page</li>
+              <li><strong>Does not</strong> delete or set prominence of the user's requests</li>
+              <li>Makes a naive attempt to redact <tt>name</tt> from content<sup>1</sup></li>
+            </ul>
+          </p>
+          <p>
+            This is disabled for users whose accounts have not been closed. To
+            anonymise a user, first close the account. Additionally, if a user
+            has not made any requests, they cannot be anonymised.
+          </p>
+          <p>
+            <sup>1</sup> If the user has created any content that includes their
+            name, this will create a Censor Rule that applies to the User. The
+            Censor Rule will take the User’s current <tt>name</tt> attribute and
+            replace it with <code>[Name Removed]</code>. Note that this <em>may
+            not cover all variations of the name</em>, so its worth checking that
+            this has done what you expect. More Censor Rules may need to be added
+            to the user if this has not been sufficient.
+          </p>
+        </details>
+
+        <br />
       </div>
       <hr>
 
@@ -96,25 +129,44 @@
         <p>
           <strong>Erase this user account</strong>
         </p>
-        <p>Erasing the account:
-          <ul>
-              <li>Sets <tt>name</tt> to <code>[Name Removed]</code></li>
-              <li>Sets <tt>OutgoingMessage</tt> <tt>from_name</tt> to <code>[Name Removed]</code></li>
-              <li>Sets <tt>url_name</tt> to a random string</li>
-              <li>Sets <tt>email</tt> to a random string</li>
-              <li>Sets <tt>password</tt> to a random string</li>
-              <li>Clears <tt>about_me</tt> text</li>
-              <li>Clears historic <tt>url_names</tt>, sign ins and profile photo</li>
-          </ul>
-        </p>
-        <p>
-          This is disabled for banned users as the email address must be
-          preserved to enforce the ban. First remove the ban text and then close
-          and anonymise the account.
 
-          This is disabled for users whose accounts have not been closed.
-          To erase a user, first close the account.
-        </p>
+        <details>
+          <summary>
+            Erase user account details.
+            Requires account closure.
+            Anonymise first if the user has published content.
+          </summary>
+
+          <br />
+
+          <p>
+            This can be used to permanently destroy the user account details.
+            This does not erase content from requests, so you may wish to
+            anonymise the account before erasing.
+          </p>
+
+          <p>Erasing the account:
+            <ul>
+                <li>Sets <tt>name</tt> to <code>[Name Removed]</code></li>
+                <li>Sets <tt>OutgoingMessage</tt> <tt>from_name</tt> to <code>[Name Removed]</code></li>
+                <li>Sets <tt>url_name</tt> to a random string</li>
+                <li>Sets <tt>email</tt> to a random string</li>
+                <li>Sets <tt>password</tt> to a random string</li>
+                <li>Clears <tt>about_me</tt> text</li>
+                <li>Clears historic <tt>url_names</tt>, sign ins and profile photo</li>
+            </ul>
+          </p>
+          <p>
+            This is disabled for banned users as the email address must be
+            preserved to enforce the ban. First remove the ban text and then close
+            and anonymise the account.
+
+            This is disabled for users whose accounts have not been closed.
+            To erase a user, first close the account.
+          </p>
+        </details>
+
+        <br />
       </div>
 
       <%= form_tag admin_users_account_erasing_index_path(user_id: @admin_user.id), class: 'span3 form form-inline' do %>
