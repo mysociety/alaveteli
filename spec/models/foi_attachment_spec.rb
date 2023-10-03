@@ -97,6 +97,18 @@ RSpec.describe FoiAttachment do
       expect { attachment.body = 'foo' }.to_not change { attachment.hexdigest }
     end
 
+    it 'allow calls to #body to be made before save' do
+      attachment = FactoryBot.build(:foi_attachment, :unmasked)
+      blob = attachment.file.blob
+
+      expect {
+        attachment.body
+        attachment.save!
+      }.to change {
+        ActiveStorage::Blob.services.fetch(blob.service_name).exist?(blob.key)
+      }.from(false).to(true)
+    end
+
   end
 
   describe '#body' do
