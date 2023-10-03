@@ -44,11 +44,21 @@ RSpec.describe AttachmentMasksController, type: :controller do
       end
     end
 
+    context "when attachment can't be found" do
+      it 'redirects to referer' do
+        allow(GlobalID::Locator).to receive(:locate_signed).with('ABC').
+          and_raise(ActiveRecord::RecordNotFound)
+        wait
+        expect(response).to redirect_to('/referer')
+      end
+    end
+
     context 'without attachment' do
       let(:attachment) { nil }
 
-      it 'raises record not found error' do
-        expect { wait }.to raise_error(ActiveRecord::RecordNotFound)
+      it 'redirects to referer' do
+        wait
+        expect(response).to redirect_to('/referer')
       end
     end
 
@@ -90,11 +100,21 @@ RSpec.describe AttachmentMasksController, type: :controller do
       end
     end
 
+    context "when attachment can't be found" do
+      it 'redirects to referer' do
+        allow(GlobalID::Locator).to receive(:locate_signed).with('ABC').
+          and_raise(ActiveRecord::RecordNotFound)
+        done
+        expect(response).to redirect_to('/referer')
+      end
+    end
+
     context 'without attachment' do
       let(:attachment) { nil }
 
-      it 'raises record not found error' do
-        expect { done }.to raise_error(ActiveRecord::RecordNotFound)
+      it 'redirects to referer' do
+        done
+        expect(response).to redirect_to('/referer')
       end
     end
 

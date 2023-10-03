@@ -90,4 +90,12 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
     expect(attachment.body).to_not include 'dull'
     expect(attachment.body).to include 'Horse'
   end
+
+  it 'reparses raw email after rescuing FoiAttachment::MissingAttachment' do
+    allow(attachment).to receive(:unmasked_body).and_raise(
+      FoiAttachment::MissingAttachment
+    )
+    expect(incoming_message).to receive(:parse_raw_email!).with(true)
+    perform
+  end
 end
