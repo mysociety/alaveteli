@@ -43,7 +43,7 @@
 # David Cabo <david.cabo@gmail.com>, 2013
 # Doryan R, 2019
 # a270031086f2a0d3514bc0cb507b48f6, 2019
-# Eda <eda@mutu.net>, 2021-2022
+# Eda <eda@mutu.net>, 2021-2023
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Laurent S, 2019
@@ -65,7 +65,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-20 14:26+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: vickyanderica <victoria@access-info.org>, 2011\n"
+"Last-Translator: Laurent S, 2019-2023\n"
 "Language-Team: French (France) (http://app.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -497,7 +497,7 @@ msgid "Also called {{other_name}}."
 msgstr "Également appelé {{other_name}}."
 
 msgid "Also send me alerts by email"
-msgstr "Envoyer-moi aussi les alertes par mail "
+msgstr "Activer les alertes par email "
 
 msgid "Alter your subscription"
 msgstr "Modifier votre abonnement"
@@ -599,7 +599,7 @@ msgid "Attachment (optional):"
 msgstr "Pièce jointe (optionnel) :"
 
 msgid "Attachment has been removed"
-msgstr ""
+msgstr "Une pièce jointe à été supprimée"
 
 msgid "Attachment:"
 msgstr "Pièce jointe :"
@@ -653,7 +653,7 @@ msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Groupe créé par {{info_request_user}} le {{date}}"
 
 msgid "Before you start"
-msgstr ""
+msgstr "Avant de commencer"
 
 msgid "Beginning with"
 msgstr "Commence par"
@@ -680,10 +680,10 @@ msgid "Browse and search requests (page {{count}})"
 msgstr "Parcourir et rechercher les demandes (page {{count}})"
 
 msgid "Browse latest requests"
-msgstr ""
+msgstr "Parcourir les dernières demandes"
 
 msgid "Browse latest responses"
-msgstr ""
+msgstr "Parcourir les dernières réponses"
 
 msgid "Browse requests"
 msgstr "Parcourir les demandes"
@@ -719,7 +719,7 @@ msgid "Cancel, return to your profile page"
 msgstr "Annuler et retourner à votre page de profil"
 
 msgid "Cannot send messages"
-msgstr ""
+msgstr "Impossible d'envoyer des messages"
 
 msgid "Change email on {{site_name}}"
 msgstr "Changer l'email utilisé sur {{site_name}}"
@@ -927,43 +927,42 @@ msgstr "Date :"
 
 msgid "Dear [Authority name],"
 msgstr ""
-"Cher/Chère [Authority name],\n"
+"Madame, Monsieur,\n"
 "\n"
-"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaite recevoir communication des documents administratifs suivants:\n"
+"Au titre du droit d’accès aux documents administratifs, tel que prévu notamment par le Livre III du Code des relations entre le public et l’administration, je sollicite auprès de vous la communication des documents suivants :\n"
 "-\n"
 "-\n"
 "\n"
-"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
-"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié la personne qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
+"Je souhaite recevoir ces documents sous forme électronique, dans un standard ouvert, aisément réutilisable et exploitable par un système de traitement automatisé, comme le prévoit l’article L300-4 du Code des relations entre le public et l’administration.\n"
+"\n"
+"Comme l’article L311-2 du code précité le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{name}},"
 msgstr "Cher/Chère {{name}},"
 
 msgid "Dear {{placeholder_body_name}},"
 msgstr ""
-"Madame, Monsieur,\n"
+"Madame, Monsieur, \n"
 "\n"
-"Au titre du droit d’accès aux documents administratifs, tel que prévu notamment par le Livre III du Code des relations entre le public et l'administration, je sollicite auprès de vous la communication des documents suivants :\n"
-"\n"
+"Au titre du droit d’accès aux documents administratifs, tel que prévu notamment par le Livre III du Code des relations entre le public et l’administration, je sollicite auprès de vous la communication des documents suivants :\n"
 "-\n"
 "-\n"
 "\n"
-"Je souhaite recevoir ces documents  sous forme électronique, dans un standard ouvert, aisément réutilisable et exploitable par un système de traitement automatisé, comme le prévoit l’article L300-4 du Code des relations entre le public et l’administration. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"Je souhaite recevoir ces documents sous forme électronique, dans un standard ouvert, aisément réutilisable et exploitable par un système de traitement automatisé, comme le prévoit l’article L300-4 du Code des relations entre le public et l’administration.\n"
 "\n"
-"Comme l’article L311-2 du Code précité le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
+"Comme l’article L311-2 du code précité le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{public_body_name}},"
 msgstr ""
-"Madame, Monsieur,\n"
+"Madame, Monsieur, \n"
 "\n"
-"Au titre du droit d’accès aux documents administratifs, tel que prévu notamment par le Livre III du Code des relations entre le public et l'administration, je sollicite auprès de vous la communication des documents suivants :\n"
-"\n"
+"Au titre du droit d’accès aux documents administratifs, tel que prévu notamment par le Livre III du Code des relations entre le public et l’administration, je sollicite auprès de vous la communication des documents suivants :\n"
 "-\n"
 "-\n"
 "\n"
-"Je souhaite recevoir ces documents  sous forme électronique, dans un standard ouvert, aisément réutilisable et exploitable par un système de traitement automatisé, comme le prévoit l’article L300-4 du Code des relations entre le public et l’administration. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
+"Je souhaite recevoir ces documents sous forme électronique, dans un standard ouvert, aisément réutilisable et exploitable par un système de traitement automatisé, comme le prévoit l’article L300-4 du Code des relations entre le public et l’administration.\n"
 "\n"
-"Comme l’article L311-2 du Code précité le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
+"Comme l’article L311-2 du code précité le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
 
 msgid "Dear {{user_name}},"
 msgstr "Cher/Chère {{user_name}},"
@@ -1356,7 +1355,7 @@ msgid "Help us classify requests that haven't been updated"
 msgstr "Aidez-nous à classer les demandes qui ne sont pas mises à jour"
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
-msgstr "Ici le mot <strong>described</strong> signifie quand un utilisateur a sélectionné un état ​​de la requête, et que l'événement le plus récent a son statut mis à jour pour cette valeur. <strong>calculated</strong> est alors déduit par {{site_name}} pour les événements intermédiaires, qui n'ont pas reçu une description explicite par un utilisateur. Voir les <a href=\"{{search_path}}\">conseils de recherche</ a> pour la description des états."
+msgstr "Ici le mot <strong>described</strong> signifie que lorsqu'un utilisateur a sélectionné un statut ​​pour la demande, et que l'événement le plus récent a vu son statut mis à jour à cette valeur. <strong>calculated</strong> est alors déduit par {{site_name}} pour les événements intermédiaires, qui n'ont pas reçu une description explicite par un utilisateur. Voir les <a href=\"{{search_path}}\">search tips </a> pour la description des statuts."
 
 msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
 msgstr "Vous trouverez ici des exemples qui pourront vous aider <strong>à contester un refus</strong>:"
@@ -1698,7 +1697,7 @@ msgid "Make an {{legislation}} request to this authority"
 msgstr "Faire une demande d'information à cette autorité publique"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr "Faire ou rechercher une demande d'accès à un document administratif"
+msgstr "Faire et rechercher des demandes d'accès aux documents administratifs"
 
 msgid "Make sure the information you are asking for is not already publicly available."
 msgstr "Assurez-vous que l'information que vous demandez n'est pas déjà publiquement disponible, par exemple sur <a href=\"https://data.gouv.fr\" target=\"_blank\">data.gouv.fr</a> ou qu'elle ne fait pas déjà l'objet d'un <a href=\"https://cada.data.gouv.fr/\" target=\"_blank\">avis ou conseil émis par la CADA</a>."
@@ -2124,7 +2123,7 @@ msgid "Please select each of these requests in turn, and <strong>let everyone kn
 msgstr "Veuillez choisir ces demandes une par une et <strong>faire savoir à tout le monde</strong> si elles ont abouti ou pas."
 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
-msgstr "S'il vous plaît signer à la fin avec votre nom, ou changez la \"{{signoff}}\" signature"
+msgstr "Pensez à ajouter vos nom et prénom à la fin de votre demande!"
 
 msgid "Please sign in as {{user_name}}"
 msgstr "Veuillez vous connecter en tant que {{user_name}}"
@@ -2160,7 +2159,7 @@ msgid "Please write your message using a mixture of capital and lower case lette
 msgstr "S'il vous plaît, écrivez votre message en utilisant des lettres majuscules et minuscules. Cela simplifie la lecture pour les autres personnes."
 
 msgid "Please {{contact_us_link}} if you have any questions."
-msgstr ""
+msgstr "Merci de {{contact_us_link}} pour toute question."
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "Indiquez les <strong>informations associées</strong>, sites, campagnes ou forums qui peuvent être utiles."
@@ -2364,7 +2363,7 @@ msgid "Request an internal review from {{person_or_body}}"
 msgstr "Effectuer un recours auprès de {{person_or_body}}"
 
 msgid "Request email can't be nil"
-msgstr "L'email de la requête ne peut pas être nul"
+msgstr "L'email de la requête ne peut pas être vide"
 
 msgid "Request for personal information"
 msgstr "Demande d'informations personnelles"
@@ -2547,28 +2546,28 @@ msgid "Sending..."
 msgstr "Envoi..."
 
 msgid "Sent a follow up to {{public_body_link}} again, using a new contact address."
-msgstr ""
+msgstr "Nous avons envoyé un nouveau message de suivi à {{public_body_link}}, en utilisant une nouvelle adresse de contact."
 
 msgid "Sent a follow up to {{public_body_link}} again."
-msgstr ""
+msgstr "Nous avons envoyé un nouveau message de suivi à {{public_body_link}}, en utilisant une nouvelle adresse de contact."
 
 msgid "Sent a follow up to {{public_body_name}} again, using a new contact address."
-msgstr ""
+msgstr "Nous avons envoyé un nouveau message de suivi à {{public_body_link}}, en utilisant une nouvelle adresse de contact."
 
 msgid "Sent a follow up to {{public_body_name}} again."
-msgstr ""
+msgstr "Nous avons envoyé un nouveau message de suivi à {{public_body_link}}."
 
 msgid "Sent request to {{public_body_link}} again, using a new contact address."
-msgstr ""
+msgstr "Nous avons envoyé à nouveau la demande à {{public_body_link}}, en utilisant une nouvelle adresse de contact."
 
 msgid "Sent request to {{public_body_link}} again."
-msgstr ""
+msgstr "Nous avons envoyé à nouveau la demande à {{public_body_link}}."
 
 msgid "Sent request to {{public_body_name}} again, using a new contact address."
-msgstr ""
+msgstr "Nous avons envoyé à nouveau la demande à {{public_body_link}}, en utilisant une nouvelle adresse de contact."
 
 msgid "Sent request to {{public_body_name}} again."
-msgstr ""
+msgstr "Nous avons envoyé à nouveau la demande à {{public_body_link}}."
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
@@ -2583,7 +2582,7 @@ msgid "Share on Facebook"
 msgstr "Partager sur Facebook"
 
 msgid "Share with private link"
-msgstr ""
+msgstr "Partager avec un lien privé"
 
 msgid "Share your batch request"
 msgstr "Partager votre demande de lot"
@@ -2693,10 +2692,10 @@ msgid "Sorry, we're currently unable to add your annotation. Please try again la
 msgstr "Désolé, nous sommes actuellement dans l'impossibilité d'ajouter votre commentaire. Merci d'essayer ultérieurement."
 
 msgid "Sorry, we're currently unable to create your account. Please try again later."
-msgstr ""
+msgstr "Nous sommes désolés, nous ne pouvons pas créer votre compte pour l'instant. Merci de réessayer plus tard."
 
 msgid "Sorry, we're currently unable to send your message. Please try again later."
-msgstr ""
+msgstr "Nous sommes désolés, nous ne pouvons pas envoyer votre message pour l'instant. Merci de réessayer plus tard."
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
 msgstr "Désolé, nous sommes actuellement dans l'impossibilité d'envoyer votre demande. Merci d'essayer ultérieurement."
@@ -3183,7 +3182,7 @@ msgid "This annotation has been reported for administrator attention"
 msgstr "Ce commentaire nécessite une attention des administrateurs"
 
 msgid "This attachment has been hidden. {{reason}}"
-msgstr ""
+msgstr "Cette pièce jointe a été cachée. {{reason}}"
 
 msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
@@ -3240,16 +3239,16 @@ msgid "This message has been hidden. There are various reasons why we might have
 msgstr "Ce message a été masqué. Plusieurs raisons peuvent en expliquer la raison, désolé de ne pas pouvoir être plus précis."
 
 msgid "This message has been hidden. {{reason}}"
-msgstr ""
+msgstr "Ce message a été caché. {{reason}}"
 
 msgid "This message has been sent."
 msgstr "Ce message a été envoyé."
 
 msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Ce message est caché. {{reason}} Vous pouvez seulement le voir parce que vous êtes connecté.e en tant qu'admin du site."
 
 msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Ce message est visible seulement par la personne qui a envoyé la demande. {{reason}} Vous pouvez seulement le voir parce que vous êtes connecté.e en tant qu'admin du site."
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Ce message est caché donc seulement vous, en tant que demandeur, pouvez le voir. {{reason}}"
@@ -3294,7 +3293,7 @@ msgid "This request has been <strong>withdrawn</strong> by the person who made i
 msgstr "Cette demande a été <strong>retirée</strong> par la personne qui l'a introduite. Il y a peut-être une explication renseignée ci-dessous."
 
 msgid "This request has been hidden. {{reason}}"
-msgstr ""
+msgstr "Cette demande a été cachée. {{reason}}"
 
 msgid "This request has been made public on {{site_name}}."
 msgstr "Cette demande a été publiée sur {{site_name}}."
@@ -3327,7 +3326,7 @@ msgid "This request is hidden, so that only you, the requester, can see it. {{re
 msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
-msgstr ""
+msgstr "Cette demande est désormais publiquement disponible sur {{public_url}}"
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
 msgstr "Cette demande fait partie d'un <a href=\"{{url}}\">un lot envoyé à {{count}} autorités</a>"
@@ -3415,6 +3414,8 @@ msgstr "Pour suivre la demande '{{request_title}}'"
 
 msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
+"Quelqu'un (peut-être notre DadaBot) a mis à jour le statut de votre demande intitulée \"{{title}}\" envoyée à {{public_body}}.\n"
+"Le nouveau statut est \"{{display_status}}\". Si ce statut ne vous semble pas correct, vous pouvez le modifier à nouveau par vous-même."
 
 msgid "To join this project"
 msgstr "Pour rejoindre ce projet"
@@ -3789,7 +3790,7 @@ msgid "What type of article is it?"
 msgstr "De quel type d'article s'agit-il?"
 
 msgid "What would you like to do?"
-msgstr ""
+msgstr "Que souhaitez-vous faire?"
 
 msgid "What's happened:"
 msgstr "Que s'est il passé ? "
@@ -3963,7 +3964,7 @@ msgid "You can't update your profile text at this time."
 msgstr "Vous ne pouvez pas actualiser votre texte de profil à cette étape."
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
-msgstr "Vous avez une nouvelle réponse à la demande de  {{law_used_full}}  '{{request_title}}' que vous avez fait à {{public_body_name}}."
+msgstr "Vous avez une nouvelle réponse à la demande de {{law_used_full}}  '{{request_title}}' que vous avez faite à {{public_body_name}}."
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "Vous avez identifié un problème. Merci de <a href=\"{{contact_url}}\">nous contacter</a> pour nous le signaler"
@@ -4263,7 +4264,7 @@ msgid "[Name Removed]"
 msgstr "[Name Removed]"
 
 msgid "[Personally Identifiable Information removed]"
-msgstr ""
+msgstr "[Information personnelle cachée]"
 
 msgid "[REDACTED]"
 msgstr "[REDIGE]"
@@ -4275,10 +4276,10 @@ msgid "[extraneous material removed]"
 msgstr ""
 
 msgid "[name removed]"
-msgstr ""
+msgstr "[nom caché]"
 
 msgid "[potentially defamatory material removed]"
-msgstr ""
+msgstr "[contenu potentiellement difamatoire caché]"
 
 msgid "[{{public_body}} request email]"
 msgstr "[{{public_body}} request email]"
@@ -4341,7 +4342,7 @@ msgid "complete"
 msgstr "complet"
 
 msgid "contact us"
-msgstr ""
+msgstr "contactez-nous"
 
 msgid "delivered"
 msgstr "réceptionné"

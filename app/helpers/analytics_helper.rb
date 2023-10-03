@@ -46,7 +46,7 @@ module AnalyticsHelper
   #   # => "if (ga) { ga('send','event','test','Embedded',window.location.href,1) };"
   #
   # Returns a string of a GA JavaScript function to drop into an :onclick handler
-  def track_analytics_event(event_category, event_action, options={})
+  def legacy_track_analytics_event(event_category, event_action, options={})
     begin
       value = if options[:value].nil?
         1
@@ -64,6 +64,10 @@ module AnalyticsHelper
     end
     event_args = "'#{event_category}','#{event_action}'#{label_string}"
     "if (ga) { ga('send','event',#{event_args}) };"
+  end
+
+  def track_analytics_event(event_category, event_action, options={})
+    # noop, not implemented for GA4 yet
   end
 
   private

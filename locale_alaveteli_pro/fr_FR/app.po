@@ -9,8 +9,9 @@
 # a270031086f2a0d3514bc0cb507b48f6, 2019
 # Pascal Romain <aka.keronos@gmail.com>, 2020
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2021
-# Eda <eda@mutu.net>, 2022
-# Laurent S, 2022
+# Eda <eda@mutu.net>, 2023
+# Graeme Porteous <graeme@mysociety.org>, 2023
+# Laurent S, 2023
 #
 msgid ""
 msgstr ""
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Laurent S, 2022\n"
+"Last-Translator: Laurent S, 2023\n"
 "Language-Team: French (France) (https://app.transifex.com/mysociety/teams/3352"
 "9/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +48,7 @@ msgid "(no title)"
 msgstr "(sans titre)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(pour <b> {{discount_name}} une réduction est d'application)"
+msgstr "(pour <b>{{discount_name}}</b> une réduction est appliqué)"
 
 msgid "12 Months"
 msgstr "12 mois"
@@ -344,15 +345,7 @@ msgid "Dashboard and workflow features"
 msgstr "Fonctionnalités de tableau de bord et de workflow "
 
 msgid "Dear {{user_name}},"
-msgstr ""
-"Madame, Monsieur,\n"
-"\n"
-"En application de la loi n° 78-575 du 17 juillet 1978 relative aux documents administratifs, je souhaiterai recevoir communication de ces documents administratifs :\n"
-"\n"
-"\n"
-"Je souhaite recevoir ces documents dans un format numérique, ouvert et réutilisable. Pour ce faire, veuillez m’indiquer leur adresse de téléchargement ou me les envoyer en pièce jointe.\n"
-"\n"
-"Comme le livre III du code des relations entre le public et l’administration le prévoit lorsque le demandeur a mal identifié celui qui est susceptible de répondre à sa requête, je vous prie de bien vouloir transmettre ma demande au service qui détient les documents demandés si tel est le cas."
+msgstr "Bonjour {{user_name}},"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr "Debt Resistance UK a mis en lumière <a href=\"{{story_url}}\">les autorités locales qui payent des emprunts toxiques</a>, dans certains cas impliquant qu'une proportion importante des taxes locales sert uniquement à financer les intérêts de ces emprunts."
@@ -922,7 +915,7 @@ msgid "Send request"
 msgstr "Envoyer une demande"
 
 msgid "Send this batch anyway?"
-msgstr ""
+msgstr "Renvoyer ce batch tout de même?"
 
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
@@ -1192,7 +1185,7 @@ msgid "We are processing your payment. You can access your subscription settings
 msgstr "Nous traitons votre paiement.  Vous pouvez accéder aux paramètres de votre abonnement et de votre compte via le lien \"Mon abonnement\" dans votre menu d'utilisateur (accessible via le menu déroulant à côté de de votre nom, au-dessus)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr "Nous vous rappellerons par email et sur le site lorsque votre demande va être rendue publique, et, si vous le souhaitez, vous aurez la possibilité de la garder privée pour une plus longue période. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
+msgstr "Nous vous rappellerons par email et sur le site lorsque votre demande sera sur le point d'être rendue publique, et, si vous le souhaitez, vous aurez la possibilité de prolonger la période d'embargo. Vous pouvez étendre cette durée de confidentialité indéfiniment ou rendre la requête publique à tout moment."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
 msgstr "Indicateurs mensuels d'usage de Madada ++ pour la période  {{start_date}} - {{end_date}}"
@@ -1207,7 +1200,7 @@ msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "Nous avons essayé de facturer votre carte, mais le paiement a échoué."
 
 msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr ""
+msgstr "Quand une demande est privée, nous garantissons qu'elle ne sera publiquement visible qu'après la période que vous sélectionnez. Les admins Ma Dada ++ auront toujours accès au contenu de votre demande, mais ne le feront qu'en cas de problème avec celle-ci (par exemple en cas d'erreur d'envoi du message). Le contenu de la demande et des réponses ne seront en aucun cas partagés ou diffusés."
 
 msgid "When the current billing period ends:"
 msgstr "Lorsque la période de facturation se termine:"

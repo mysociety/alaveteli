@@ -1,3 +1,20 @@
+# 0.43.1.0
+
+## Highlighted Features
+
+* Add support for [Cookieless Google Analytics
+  4](https://github.com/mysociety/alaveteli/wiki/Cookieless-Google-Analytics-4)
+  (Alex Parsons, Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)# 0.43.0.2
+
+# 0.43.0.2
+
+## Highlighted Features
+
+* Fix minor bug where users with no limit flag set would be prevented from
+  leaving annotations (Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.43.0.1
 
 ## Highlighted Features

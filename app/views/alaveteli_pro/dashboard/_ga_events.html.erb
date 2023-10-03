@@ -1,5 +1,7 @@
 <% if flash[:new_pro_user] %>
   <% content_for :ga_pageview do %>
-    ga('send', 'pageview', '/alaveteli_pro/welcome');
+    gtag('send', 'page_view', {
+      page_location: '<%= url_for(path: '/alaveteli_pro/welcome', only_path: false) %>'
+    });
   <% end %>
 <% end %>
