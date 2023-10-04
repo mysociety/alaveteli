@@ -16,7 +16,8 @@ module AttachmentToHTML
         'application/vnd.ms-powerpoint', # .ppt
         'application/vnd.openxmlformats-officedocument.presentationml.presentation', # .pptx
         'application/vnd.ms-excel', # .xls
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' # .xlsx
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', # .xlsx
+        'text/csv' # csv
       ].freeze
       # rubocop:enable Style/LineLength
 
