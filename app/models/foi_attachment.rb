@@ -142,7 +142,7 @@ class FoiAttachment < ApplicationRecord
     end
 
   rescue ActiveRecord::RecordNotFound
-    raise RebuiltAttachment, "attachment no longer present in DB (ID=#{id})"
+    load_attachment_from_incoming_message.body
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed

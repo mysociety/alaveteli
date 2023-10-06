@@ -165,10 +165,13 @@ RSpec.describe FoiAttachment do
           })
       end
 
-      it 'raises rebuilt attachment exception' do
-        expect { foi_attachment.body }.to raise_error(
-          FoiAttachment::RebuiltAttachment
+      it 'returns load_attachment_from_incoming_message.body' do
+        allow(foi_attachment).to(
+          receive(:load_attachment_from_incoming_message).and_return(
+            double(body: 'thisisthenewtext')
+          )
         )
+        expect(foi_attachment.body).to eq('thisisthenewtext')
       end
 
       context 'and called within protect_against_rebuilt_attachments block' do
