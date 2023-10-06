@@ -349,6 +349,14 @@ class FoiAttachment < ApplicationRecord
     ]
   end
 
+  def load_attachment_from_incoming_message
+    IncomingMessage.get_attachment_by_url_part_number_and_filename!(
+      incoming_message.get_attachments_for_display,
+      url_part_number,
+      display_filename
+    )
+  end
+
   private
 
   def text_type?

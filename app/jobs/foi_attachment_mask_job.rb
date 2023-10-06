@@ -20,6 +20,14 @@ class FoiAttachmentMaskJob < ApplicationJob
 
   rescue FoiAttachment::MissingAttachment
     incoming_message.parse_raw_email!(true)
+
+    begin
+      attachment.reload
+    rescue ActiveRecord::RecordNotFound
+      @attachment = attachment.load_attachment_from_incoming_message
+    end
+
+    mask
   end
 
   private
