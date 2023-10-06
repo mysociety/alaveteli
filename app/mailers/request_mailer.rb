@@ -252,29 +252,31 @@ class RequestMailer < ApplicationMailer
     # Find exact matches for info requests
     exact_info_requests = requests_matching_email(email)
 
-    # Find any guesses for info requests
-    unless exact_info_requests.count == 1
-      guessed_info_requests = Guess.guessed_info_requests(email)
-    end
-
-    # If there is only one info request matching mail, it gets attached to the
-    # request to be archived with it
-    if exact_info_requests.count == 1 || guessed_info_requests.count == 1
-      info_request = exact_info_requests.first || guessed_info_requests.first
-
-      if exact_info_requests.empty? && guessed_info_requests.count == 1
-        info_request.log_event(
-          'redeliver_incoming',
-          editor: 'automatic',
-          destination_request: info_request
-        )
+    if exact_info_requests.count > 0
+      # Go through each exact info request and deliver the email
+      exact_info_requests.each do |info_request|
+        info_request.receive(email, raw_email, opts)
       end
 
+      return
+    end
+
+    # If there are no exact matches, find any guessed requests
+    guessed_info_requests = Guess.guessed_info_requests(email)
+
+    if guessed_info_requests.count == 1
+      # If there one guess automatically redeliver the email to that and log it
+      # as an event
+      info_request = guessed_info_requests.first
+      info_request.log_event(
+        'redeliver_incoming',
+        editor: 'automatic',
+        destination_request: info_request
+      )
       info_request.receive(email, raw_email, opts)
 
     else
-      # Otherwise, if there are no matching IRs, multiple IRs, or multiple IR
-      # guesses, we send the mail to the holding pen
+      # Otherwise we send the mail to the holding pen
       send_to_holding_pen(email, raw_email, opts)
     end
   end
