@@ -34,7 +34,6 @@ class FoiAttachment < ApplicationRecord
   include MessageProminence
 
   MissingAttachment = Class.new(StandardError)
-  RebuiltAttachment = Class.new(StandardError)
 
   belongs_to :incoming_message,
              inverse_of: :foi_attachments
@@ -81,33 +80,6 @@ class FoiAttachment < ApplicationRecord
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
   }.freeze
   # rubocop:enable Style/LineLength
-
-  # Helper method which can wrap calls to #body/#body_as_text/#default_body to
-  # ensure the `RebuiltAttachment` exception is caught. This is useful for when
-  # the body is required inline eg when the search index is being built or the
-  # text of the main attachment part is being cached in the database.
-  #
-  # Need to call this so the attachment is loaded within the block, EG, this
-  # would work:
-  #   protect_against_rebuilt_attachments do
-  #     incoming_message.foi_attachment.last.body
-  #   end
-  #
-  # but this would fail:
-  #   attachment = incoming_message.foi_attachment.last
-  #   protect_against_rebuilt_attachments do
-  #     attachment.body
-  #   end
-  def self.protect_against_rebuilt_attachments(&block)
-    errored = false
-    begin
-      block.call if block_given?
-    rescue RebuiltAttachment => ex
-      raise ex if errored
-      errored = true
-      retry
-    end
-  end
 
   def delete_cached_file!
     @cached_body = nil
