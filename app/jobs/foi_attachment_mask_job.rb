@@ -16,7 +16,23 @@ class FoiAttachmentMaskJob < ApplicationJob
 
   def perform(attachment)
     @attachment = attachment
+    mask
 
+  rescue FoiAttachment::MissingAttachment
+    incoming_message.parse_raw_email!(true)
+
+    begin
+      attachment.reload
+    rescue ActiveRecord::RecordNotFound
+      @attachment = attachment.load_attachment_from_incoming_message
+    end
+
+    mask
+  end
+
+  private
+
+  def mask
     body = AlaveteliTextMasker.apply_masks(
       attachment.unmasked_body,
       attachment.content_type,
@@ -31,12 +47,7 @@ class FoiAttachmentMaskJob < ApplicationJob
     end
 
     attachment.update(body: body, masked_at: Time.zone.now)
-
-  rescue FoiAttachment::MissingAttachment
-    incoming_message.parse_raw_email!(true)
   end
-
-  private
 
   def masks
     {
