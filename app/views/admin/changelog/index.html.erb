@@ -1,0 +1,22 @@
+<% @title = 'Alaveteli Changelog' %>
+
+<h1><%= @title %></h1>
+
+<p>
+  The changelog documents the features and upgrade notes for each versioned
+  release of Alaveteli. Here you will see the changelog for the version of
+  Alaveteli you have installed. You can check GitHub for
+  <a href="https://github.com/mysociety/alaveteli/releases">newer releases of
+  Alaveteli</a> and preview upcoming changes in the
+  <a href="https://github.com/mysociety/alaveteli/blob/develop/doc/CHANGES.md">
+  development version of the changelog</a>.
+</p>
+
+<p>
+  You are currently running Alaveteli version:
+  <tt><%= link_to ALAVETELI_VERSION, admin_debug_path %></tt>
+</p>
+
+<hr />
+
+<%= @changelog %>

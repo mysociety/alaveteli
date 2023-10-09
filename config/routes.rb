@@ -516,6 +516,12 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Changelog controller
+  namespace :admin do
+    resources :changelog, only: [:index]
+  end
+
+  ####
   #### AdminTag controller
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show]
