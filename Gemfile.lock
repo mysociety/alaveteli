@@ -162,7 +162,7 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.2.4)
-    bullet (7.0.7)
+    bullet (7.1.1)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     cancancan (3.5.0)
@@ -577,7 +577,7 @@ DEPENDENCIES
   azure-storage
   bcrypt (~> 3.1.19)
   bootstrap-sass (~> 2.3.2.2)
-  bullet (~> 7.0.7)
+  bullet (~> 7.1.1)
   cancancan (~> 3.5.0)
   capistrano (~> 2.15.11)
   capybara (~> 3.39.2)
