@@ -22,7 +22,7 @@ class AttachmentsController < ApplicationController
     if @attachment.masked?
       render body: @attachment.body, content_type: content_type
     else
-      FoiAttachmentMaskJob.perform_later(@attachment)
+      FoiAttachmentMaskJob.perform_once_later(@attachment)
 
       Timeout.timeout(5) do
         until @attachment.masked?

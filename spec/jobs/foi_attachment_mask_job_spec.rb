@@ -139,4 +139,57 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
       expect(new_attachment.body).to include 'Banana'
     end
   end
+
+  describe '.perform_once_later' do
+    it 'call perform_later' do
+      expect(FoiAttachmentMaskJob).to receive(:perform_later)
+      FoiAttachmentMaskJob.perform_once_later(attachment)
+    end
+
+    it 'does not call perform_later if existing job is present' do
+      allow(FoiAttachmentMaskJob).to receive(:existing_job).and_return(double)
+      expect(FoiAttachmentMaskJob).to_not receive(:perform_later)
+      FoiAttachmentMaskJob.perform_once_later(attachment)
+    end
+  end
+
+  describe '.perform_once_now' do
+    it 'deleted existing job if present' do
+      job = double(:job)
+      allow(FoiAttachmentMaskJob).to receive(:existing_job).and_return(job)
+      expect(job).to receive(:delete)
+      FoiAttachmentMaskJob.perform_once_now(attachment)
+    end
+
+    it 'calls perform_now' do
+      expect(FoiAttachmentMaskJob).to receive(:perform_now)
+      FoiAttachmentMaskJob.perform_once_now(attachment)
+    end
+  end
+
+  describe '.existing_job' do
+    around do |example|
+      adapter = ActiveJob::Base.queue_adapter
+      ActiveJob::Base.queue_adapter = :sidekiq
+      example.call
+      ActiveJob::Base.queue_adapter = adapter
+    end
+
+    before do
+      allow(FoiAttachmentMaskJob).to receive(:queue_name).and_return('test')
+    end
+
+    after do
+      Sidekiq::Queue.new('test').clear
+    end
+
+    it 'return nil if existing job is not present' do
+      expect(FoiAttachmentMaskJob.existing_job(attachment)).to be_nil
+    end
+
+    it 'return existing job if present' do
+      FoiAttachmentMaskJob.perform_later(attachment)
+      expect(FoiAttachmentMaskJob.existing_job(attachment)).to_not be_nil
+    end
+  end
 end
