@@ -105,9 +105,6 @@ GEM
     activejob (7.0.8)
       activesupport (= 7.0.8)
       globalid (>= 0.3.6)
-    activejob-uniqueness (0.2.5)
-      activejob (>= 4.2, < 7.1)
-      redlock (>= 1.2, < 2)
     activemodel (7.0.8)
       activesupport (= 7.0.8)
     activerecord (7.0.8)
@@ -422,8 +419,6 @@ GEM
     recaptcha (5.15.0)
     redcarpet (3.6.0)
     redis (4.8.1)
-    redlock (1.3.2)
-      redis (>= 3.0.0, < 6.0)
     regexp_parser (2.8.1)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -570,7 +565,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_otp
-  activejob-uniqueness
   acts_as_versioned!
   alaveteli_features!
   annotate (< 3.2.1)
