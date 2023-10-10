@@ -6,6 +6,8 @@
 #   FoiAttachmentMaskJob.perform(FoiAttachment.first)
 #
 class FoiAttachmentMaskJob < ApplicationJob
+  include Uniqueness
+
   queue_as :default
 
   attr_reader :attachment

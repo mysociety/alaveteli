@@ -107,7 +107,7 @@ class FoiAttachment < ApplicationRecord
     if masked?
       @cached_body = file.download
     elsif persisted?
-      FoiAttachmentMaskJob.perform_now(self)
+      FoiAttachmentMaskJob.perform_once_now(self)
       reload
       body
     end
