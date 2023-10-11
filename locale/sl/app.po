@@ -1047,7 +1047,7 @@ msgid "Event history"
 msgstr "Zgodovina dogodka"
 
 msgid "Every citizen has the right to access information held by public authorities."
-msgstr "Vsaka pravna ali fizična oseba ima pravico zahtevati informacije javnega značaja."
+msgstr "Vsaka pravna ali fizična oseba ima pravico od javnih organov zahtevati informacije javnega značaja."
 
 msgid "Everything that you enter on this page, including <strong>your name</strong> ({{user_name}}), will be <strong>displayed publicly</strong> on this website <a href=\"{{url}}\">forever</a>"
 msgstr ""
@@ -1493,7 +1493,7 @@ msgid "If you write about these requests (for example in a forum or a blog) plea
 msgstr "Če pišete o teh zahtevah (na primer na forumu ali blogu), vas prosimo, da se sklicujte na to stran."
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page, and <a href=\"{{url}}\">add an annotation</a> below telling people about your writing."
-msgstr "Če boste o tej zahtevi pisali kje drugje (na primer na forumu ali blogu), vas prosimo, da zraven prilepite tudi povezavo do te strani, k zahtevi pa<a href=\"{{url}}\">dodate zaznamek </a>, v katerem ljudi obvestite o objavi."
+msgstr "Če boste o tej zahtevi pisali kje drugje (na primer na forumu ali blogu), vas prosimo, da zraven prilepite tudi povezavo do te strani, k zahtevi pa <a href=\"{{url}}\">dodate zaznamek </a>, v katerem ljudi obvestite o objavi."
 
 msgid "If you write about this request (for example in a forum or a blog) please link to this page."
 msgstr "Če boste o tej zahtevi pisali (na primer na forumu ali v blogu), vas prosimo, da dodate povezavo do te strani."
@@ -3149,7 +3149,7 @@ msgid "These logs show what happened to this message as it passed through our {{
 msgstr "Ti vnosi prikazujejo, kaj se je zgodilo s tem sporočilom, ko je bilo obdelano v našem poštnen strežniku {{mta_type}}. Pošljete ga lahko organu, da bo v pomoč pri diagnosticiranju težav, ki so se pojavile pri prejemau elektronskega sporočila, ki ste ga posredovali z {{site_name}}."
 
 msgid "They are going to reply <strong>by postal mail</strong>"
-msgstr "Odgovorili bodo<strong>prek pošte</strong>"
+msgstr "Odgovorili bodo <strong>po pošti</strong>"
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "<strong>Nimajo</strong> zahtevanih informacij <small>(morda so navedli kdo jih ima)</small>"
@@ -4045,7 +4045,7 @@ msgid "You should get a response within {{late_number_of_days}} days, or be told
 msgstr "V {{late_number_of_days}} dneh morate prejeti odgovor ali obvestilo o podaljšanju roka (<a href=\"{{review_url}}\">podrobnosti</a>)."
 
 msgid "You should have received a copy of the request by email, and you can respond by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
-msgstr "Po e-pošti bi morali prejeti kopijo zahteve, na katerega lahko <strong>enostavno odgovorite</strong> z e-pošto. Za pošiljanje lahko uporabite tudi ta naslov:"
+msgstr "Po e-pošti bi morali prejeti kopijo zahteve, na katero lahko <strong>enostavno odgovorite</strong> z e-pošto. Za pošiljanje lahko uporabite tudi ta naslov:"
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
 msgstr "Vaš <strong>naslov boste želeli povedati</strong> organu v zasebnem sporočilu."
