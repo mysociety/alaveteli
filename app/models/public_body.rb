@@ -695,6 +695,7 @@ class PublicBody < ApplicationRecord
       home_page: calculated_home_page,
       notes: notes_as_string,
       publication_scheme: publication_scheme.to_s,
+      disclosure_log: disclosure_log.to_s,
       tags: tag_array,
       info: {
         requests_count: info_requests_count,
