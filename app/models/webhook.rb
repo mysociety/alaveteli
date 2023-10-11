@@ -37,7 +37,9 @@ class Webhook < ApplicationRecord
   private
 
   def subscription_state
-    if previous['canceled_at'].nil? && object['canceled_at']
+    if previous['status'] == 'incomplete' && object['status'] == 'active'
+      _('Subscription started')
+    elsif previous['canceled_at'].nil? && object['canceled_at']
       _('Subscription cancelled')
     elsif previous['canceled_at'] && object['canceled_at'].nil?
       _('Subscription reactivated')
