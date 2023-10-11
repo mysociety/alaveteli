@@ -1,3 +1,18 @@
+# 0.43.2.0
+
+## Highlighted Features
+
+* Fix loading of custom request state defined in themes (Laurent Savaete, Graeme
+  Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+
+## Upgrade Notes
+
+* _Note:_ Since 0.43.0.0 with the bump to Rails 7 we are now using a new Ruby
+  code autoloader. Theme maintainers might need to change non-default Ruby files
+  or apply a change similar to the one made in this release to fix loading
+  custom request states. See: https://github.com/mysociety/alaveteli/pull/7951
+
 # 0.43.1.0
 
 ## Highlighted Features
