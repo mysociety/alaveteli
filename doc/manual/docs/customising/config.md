@@ -1143,7 +1143,7 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
     </div>
 
     Number of months after which to start restricting new responses to requests.
-    When a request has not been updated after <strong>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</strong>, allow_new_responses_from is set to <code>'authority_only'</code>. After <strong>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS &times; 2</strong> , allow_new_responses_from is set to <code>'nobody'</code>.
+    When a request has not been updated after <strong>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS</strong>, allow_new_responses_from is set to <code>'authority_only'</code>. After <strong>RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS &times; 4</strong> , allow_new_responses_from is set to <code>'nobody'</code>.
 
     <p>
       For details of this process, see
