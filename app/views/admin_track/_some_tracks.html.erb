@@ -11,7 +11,9 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a href="#track_<%=track_thing.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
-          <%=track_thing.id%>:
+
+          <%= both_links(track_thing) %>
+
           <% if track_thing.public_body_id %>
             <%= link_to "<code>#{h track_thing.track_query}</code>".html_safe, public_body_path(track_thing.public_body) %>
           <% elsif track_thing.info_request_id %>
