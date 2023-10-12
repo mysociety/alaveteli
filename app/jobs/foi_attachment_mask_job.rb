@@ -48,6 +48,13 @@ class FoiAttachmentMaskJob < ApplicationJob
     end
 
     attachment.update(body: body, masked_at: Time.zone.now)
+
+    # ensure the after_commit callback runs which uploads the blob, without this
+    # the callback might not execute in time and the job exits resulting in the
+    # lost of the masked attachment body.
+    return if attachment.file_blob.service.exist?(attachment.file_blob.key)
+
+    attachment.run_callbacks(:commit)
   end
 
   def masks
