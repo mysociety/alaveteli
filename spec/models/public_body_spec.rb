@@ -979,6 +979,7 @@ RSpec.describe PublicBody do
               name: 'Marmot Appreciation Society',
               notes: "",
               publication_scheme: "",
+              disclosure_log: "",
               short_name: "MAS",
               tags: [],
               updated_at: public_body.updated_at,
