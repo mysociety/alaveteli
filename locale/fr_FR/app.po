@@ -644,7 +644,7 @@ msgid "Banned for misuse in breach of house rules"
 msgstr ""
 
 msgid "Banned for spamming"
-msgstr ""
+msgstr "Compte bloqué pour spam"
 
 msgid "Banned from this site"
 msgstr "Banni de ce site"
@@ -2222,7 +2222,7 @@ msgid "Project owner"
 msgstr "Propriétaire du projet"
 
 msgid "Proposed Email:"
-msgstr ""
+msgstr "Adresse email suggérée:"
 
 msgid "Public Bodies"
 msgstr "Autorité publique"
@@ -2636,7 +2636,7 @@ msgid "Sign up"
 msgstr "S'inscrire"
 
 msgid "Signing your request"
-msgstr ""
+msgstr "Signer votre demande"
 
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr ""
@@ -2944,10 +2944,10 @@ msgid "The last user was created over a day ago"
 msgstr "Le dernier utilisateur a été créé il y a plus d'un jour"
 
 msgid "The oldest Xapian index job, has been idle for more than 1 hour"
-msgstr ""
+msgstr "La tâche d'indexation Xapian la plus ancienne est inactive depuis plus d'1h"
 
 msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
-msgstr ""
+msgstr "La tâche d'indexation Xapian la plus ancienne n'a pas été inactive plus d'1h"
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "La page n'existe pas. Vous pouvez essayer de :"
@@ -2965,7 +2965,7 @@ msgid "The public authority would like to / has responded by postal mail"
 msgstr "L’autorité publique souhaite / a répondu par courrier postal"
 
 msgid "The publicly accessible link for this request has now been disabled"
-msgstr ""
+msgstr "Le lien public pour cette demande a été désactivé"
 
 msgid "The request has been <strong>refused</strong>"
 msgstr "La demande a été <strong>refusée</strong>"
@@ -3191,7 +3191,7 @@ msgid "This attachment has prominence \"requester_only\". {{reason}} You can onl
 msgstr ""
 
 msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr ""
+msgstr "Cette pièce jointe est cachée, mais vous y avez encore accès car vous avez rédigé la demande correspondante. {{reason}}"
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
 msgstr "Cette autorité n'est pas soumise à la loi sur le droit d'accès à l'information et n'est donc pas légalement obligée de répondre."
@@ -3317,13 +3317,13 @@ msgid "This request has had an unusual response, and <strong>requires attention<
 msgstr "Cette demande a reçu une réponse inhabituelle, et <strong>nécessite l'attention</strong> de l'équipe de {{site_name}}."
 
 msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Cette demande est cachée, mais vous pouvez la voire car vous êtes connectée.e en tant qu'admin. {{reason}}"
 
 msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
 msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr ""
+msgstr "Cette demande est cachée, mais vous y pouvez encore la voir car vous l'avez rédigée. {{reason}}"
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr "Cette demande est désormais publiquement disponible sur {{public_url}}"
@@ -3841,7 +3841,7 @@ msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr "Formulez votre demande en langage <strong>simple et précis</strong>."
 
 msgid "Writing your request"
-msgstr ""
+msgstr "Rédiger votre demande"
 
 msgid "Yes"
 msgstr "Oui"
@@ -4435,7 +4435,7 @@ msgid "response received"
 msgstr "réponse reçue"
 
 msgid "send a follow up message"
-msgstr "Envoyer un message de suivi "
+msgstr "Envoyez un message de suivi "
 
 msgid "sent"
 msgstr "envoyé"
@@ -4512,7 +4512,7 @@ msgid "{{authority_name}} <strong>did not have</strong> the information requeste
 msgstr "{{authority_name}} <strong>n'a pas</strong> les informations demandées."
 
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
-msgstr "{{authority_name}} est <strong>en attente de vos cloarifications</strong>."
+msgstr "{{authority_name}} est <strong>en attente de vos clarifications</strong>."
 
 msgid "{{contributor_count}} contributors"
 msgstr "{{contributor_count}} contributeur(s)"
