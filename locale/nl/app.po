@@ -190,7 +190,7 @@ msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_b
 msgstr "<a href=\"{{new_request_link}}\">Dien een Woo-verzoek in over een milieu-onderwerp</a> bij {{public_body_name}}"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr "<a href=\"{{new_request_link}}\">Dien een Woo-verzoek in</a> bij {{public_body_name}}"
+msgstr "<a href=\"{{new_request_link}}\">Dien een nieuw Woo-verzoek in</a> bij {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
 msgstr "<a href=\"{{sign_in_link}}\">Log in</a> om updates te ontvangen over dingen die je volgt of meldingen per e-mail weer aan te zetten."
@@ -243,10 +243,10 @@ msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly 
 msgstr "<p>Je verzoek bevat een <strong>postcode</strong>. Tenzij die te maken heeft met de inhoud van het verzoek raden wij je aan om deze te verwijderen, aangezien het verzoek <strong>openbaar op het internet zal worden getoond</strong>.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>De Woo-Knop is op dit moment in onderhoud. Je kunt alleen bestaande verzoeken bekijken. Je kunt geen nieuwe verzoeken indienen, follow-ups versturen of opmerkingen plaatsen, of anderszins de database wijzigen.</p> <p>{{read_only}}</p>"
+msgstr "<p>De {{site_name}} is op dit moment in onderhoud. Je kunt alleen bestaande verzoeken bekijken. Je kunt geen nieuwe verzoeken indienen, follow-ups versturen of opmerkingen plaatsen, of anderszins de database wijzigen.</p> <p>{{read_only}}</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>De Woo-Knop is op dit moment in onderhoud. Je kunt alleen bestaande verzoeken bekijken. Je kunt geen nieuwe verzoeken, follow-ups of opmerkingen indienen, of de database wijzigen.</p> <p>{{read_only}}</p>"
+msgstr "<p>De {{site_name}} is op dit moment in onderhoud. Je kunt alleen bestaande verzoeken bekijken. Je kunt geen nieuwe verzoeken, follow-ups of opmerkingen indienen, of de database wijzigen.</p> <p>{{read_only}}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> om opmerkingen van een andere gebruiker van de site te zoeken, typ je de naam zoals in de URL."
@@ -1076,7 +1076,7 @@ msgid "Extract data"
 msgstr "Gegevens ophalen"
 
 msgid "Extract relevant information from each successful freedom of information request and enter it into the provided fields. This will populate the data file for this project."
-msgstr "Haal relevante informatie uit alle succesvolle informatieverzoeken en zet het in de beschikbare velden. Dit vormt het databestand voor dit project."
+msgstr "Haal relevante informatie uit alle succesvolle Woo-verzoeken en zet het in de beschikbare velden. Dit vormt het databestand voor dit project."
 
 msgid "Extraction couldn't be saved."
 msgstr "Opgehaalde gegevens konden niet opgeslagen worden"
@@ -1230,7 +1230,7 @@ msgid "Four weeks ago you made a Freedom of Information request to {{public_body
 msgstr "Vier weken geleden heb je een Woo-verzoek ingediend bij {{public_body_name}} met behulp van {{site_name}}."
 
 msgid "Freedom of Information"
-msgstr "Openbaarheid van bestuur"
+msgstr "Wet open overheid"
 
 msgid "Freedom of Information Act"
 msgstr "Wet open overheid"
@@ -1672,7 +1672,7 @@ msgid "Make a request to this authority"
 msgstr "Dien een Woo-verzoek in bij deze overheidsinstantie "
 
 msgid "Make a {{legislation}} request to this authority"
-msgstr "Dien een {{law_used_short}}-verzoek in bij deze overheidsinstantie"
+msgstr "Dien een {{legislation}} verzoek in bij deze overheidsinstantie"
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Doe een {{law_used_short}}-verzoek"
@@ -1681,7 +1681,7 @@ msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "Dien een {{law_used_short}}-verzoek in bij '{{public_body_name}}'"
 
 msgid "Make an {{legislation}} request to this authority"
-msgstr "Dien een {{law_used_short}}-verzoek in bij deze overheidsinstantie"
+msgstr "Dien een {{legislation}} verzoek in bij deze overheidsinstantie"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Maak en bekijk Woo-verzoeken"
@@ -4209,7 +4209,7 @@ msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{u
 msgstr "Je antwoord zal <strong>verschijnen op internet</strong>, <a href=\"{{url}}\">lees waarom</a> en vind ook antwoorden op andere vragen."
 
 msgid "Your right to know"
-msgstr "Je recht op openbaarheid van bestuur"
+msgstr "Je recht op een open overheid"
 
 msgid "Your selected authorities"
 msgstr "De overheidsinstanties die je selecteerde"

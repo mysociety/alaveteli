@@ -1125,10 +1125,10 @@ msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
 msgstr "Révélant le détail des municipalités qui ont contractées des emprunts toxiques"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
-msgstr "A moins que vous ne sélectionnez une option de confidentialité, les demandes du paquet de demandes seront immédiatement rendues publiques sur {{site_name}}."
+msgstr "À moins que vous ne sélectionniez une option de confidentialité, les demandes du paquet de demandes seront immédiatement rendues publiques sur {{site_name}}."
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
-msgstr "A moins que nous ne sélectionniez une option de confidentialité, votre demande sera immédiatement rendue publique sur {{site_name}}."
+msgstr "À moins que vous ne sélectionniez une option de confidentialité, votre demande sera immédiatement rendue publique sur {{site_name}}."
 
 msgid "Until that date you will continue to have full access to {{pro_site_name}}."
 msgstr "Jusqu'à cette date vous continuirez à avoir plein accès sur {{pro_site_name}}. "

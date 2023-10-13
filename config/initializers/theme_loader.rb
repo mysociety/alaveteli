@@ -17,6 +17,9 @@ def require_theme(theme_name)
 
   require theme_main_include
 
+  # Let Zeitwerk ignore files which don't match the expected file structure
+  Rails.autoloaders.main.ignore(theme_lib.join('customstates.rb'))
+
   Rails.configuration.paths['config/refusal_advice'].push(
     root.join('config/refusal_advice')
   )
