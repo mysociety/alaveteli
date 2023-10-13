@@ -1,0 +1,191 @@
+{
+  "id": "evt_123",
+  "data": {
+    "object": {
+      "id": "sub_123",
+      "plan": {
+        "id": "WDTK-pro",
+        "name": "WhatDoTheyKnow Pro",
+        "tiers": null,
+        "active": true,
+        "amount": 833,
+        "object": "plan",
+        "created": 1511536024,
+        "product": "prod_123",
+        "currency": "gbp",
+        "interval": "month",
+        "livemode": true,
+        "metadata": {},
+        "nickname": null,
+        "tiers_mode": null,
+        "usage_type": "licensed",
+        "amount_decimal": "833",
+        "billing_scheme": "per_unit",
+        "interval_count": 1,
+        "aggregate_usage": null,
+        "transform_usage": null,
+        "trial_period_days": null,
+        "statement_descriptor": null
+      },
+      "items": {
+        "url": "/v1/subscription_items?subscription=sub_123",
+        "data": [
+          {
+            "id": "si_123",
+            "plan": {
+              "id": "WDTK-pro",
+              "name": "WhatDoTheyKnow Pro",
+              "tiers": null,
+              "active": true,
+              "amount": 833,
+              "object": "plan",
+              "created": 1511536024,
+              "product": "prod_123",
+              "currency": "gbp",
+              "interval": "month",
+              "livemode": true,
+              "metadata": {},
+              "nickname": null,
+              "tiers_mode": null,
+              "usage_type": "licensed",
+              "amount_decimal": "833",
+              "billing_scheme": "per_unit",
+              "interval_count": 1,
+              "aggregate_usage": null,
+              "transform_usage": null,
+              "trial_period_days": null,
+              "statement_descriptor": null
+            },
+            "price": {
+              "id": "WDTK-pro",
+              "type": "recurring",
+              "active": true,
+              "object": "price",
+              "created": 1511536024,
+              "product": "prod_123",
+              "currency": "gbp",
+              "livemode": true,
+              "metadata": {},
+              "nickname": null,
+              "recurring": {
+                "interval": "month",
+                "usage_type": "licensed",
+                "interval_count": 1,
+                "aggregate_usage": null,
+                "trial_period_days": null
+              },
+              "lookup_key": null,
+              "tiers_mode": null,
+              "unit_amount": 833,
+              "tax_behavior": "unspecified",
+              "billing_scheme": "per_unit",
+              "custom_unit_amount": null,
+              "transform_quantity": null,
+              "unit_amount_decimal": "833"
+            },
+            "object": "subscription_item",
+            "created": 1696926095,
+            "metadata": {},
+            "quantity": 1,
+            "tax_rates": [],
+            "subscription": "sub_123",
+            "billing_thresholds": null
+          }
+        ],
+        "object": "list",
+        "has_more": false,
+        "total_count": 1
+      },
+      "start": 1696926094,
+      "object": "subscription",
+      "status": "active",
+      "billing": "charge_automatically",
+      "created": 1696926094,
+      "currency": "gbp",
+      "customer": "cus_123",
+      "discount": null,
+      "ended_at": null,
+      "livemode": true,
+      "metadata": {},
+      "quantity": 1,
+      "schedule": null,
+      "cancel_at": null,
+      "trial_end": null,
+      "start_date": 1696926094,
+      "test_clock": null,
+      "application": null,
+      "canceled_at": null,
+      "description": null,
+      "tax_percent": 20,
+      "trial_start": null,
+      "on_behalf_of": null,
+      "automatic_tax": {
+        "enabled": false
+      },
+      "transfer_data": null,
+      "days_until_due": null,
+      "default_source": null,
+      "latest_invoice": "in_123",
+      "pending_update": null,
+      "trial_settings": {
+        "end_behavior": {
+          "missing_payment_method": "create_invoice"
+        }
+      },
+      "pause_collection": null,
+      "payment_settings": {
+        "payment_method_types": null,
+        "payment_method_options": null,
+        "save_default_payment_method": "off"
+      },
+      "collection_method": "charge_automatically",
+      "default_tax_rates": [
+        {
+          "id": "txr_123",
+          "state": null,
+          "active": true,
+          "object": "tax_rate",
+          "country": null,
+          "created": 1524766895,
+          "livemode": true,
+          "metadata": {},
+          "tax_type": null,
+          "inclusive": false,
+          "percentage": 20,
+          "description": null,
+          "display_name": "Tax",
+          "jurisdiction": null,
+          "effective_percentage": null
+        }
+      ],
+      "billing_thresholds": null,
+      "current_period_end": 1699604494,
+      "billing_cycle_anchor": 1696926094,
+      "cancel_at_period_end": false,
+      "cancellation_details": {
+        "reason": null,
+        "comment": null,
+        "feedback": null
+      },
+      "current_period_start": 1696926094,
+      "pending_setup_intent": null,
+      "default_payment_method": null,
+      "application_fee_percent": null,
+      "pending_invoice_item_interval": null,
+      "invoice_customer_balance_settings": {
+        "consume_applied_balance_on_void": true
+      },
+      "next_pending_invoice_item_invoice": null
+    },
+    "previous_attributes": {
+      "status": "incomplete"
+    }
+  },
+  "type": "customer.subscription.updated",
+  "object": "event",
+  "created": 1696926159,
+  "request": null,
+  "livemode": true,
+  "api_version": "2017-01-27",
+  "pending_webhooks": 3
+}
