@@ -49,7 +49,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: iamdtms, 2021-2022\n"
 "Language-Team: Hungarian (Hungary) (http://app.transifex.com/mysociety/alavete"
@@ -319,6 +319,9 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Pontosítást</strong> kértek "
 
 msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -600,7 +603,13 @@ msgstr ""
 msgid "Attachment (optional):"
 msgstr "Melléklet (opcionális): "
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
+msgstr ""
+
+msgid "Attachment processing..."
 msgstr ""
 
 msgid "Attachment:"
@@ -737,6 +746,12 @@ msgstr "E-mail címem módosítása "
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "A {{site_name}} weboldalon használt e-mail cím módosítása "
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "Jelszavam módosítása "
@@ -996,6 +1011,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "Az adatigényléssel kapcsolatos eddigi teljes levelezés letöltése <i>zip</i> formátumban"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "Eredeti melléklet letöltése "
@@ -1346,8 +1364,8 @@ msgstr " <a href=\"#public_bodies\">Itt láthatja, hogy az állami szervek milye
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "Itt láthatja, hogy a {{site_name}} rendszergazdái milyen gyakran kapnak rejtett kéréseket."
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "Íme a napi kérés összegzése a {{site_name}} webhelyről"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr ""
@@ -1438,6 +1456,9 @@ msgstr "Ha ez egy friss üzenet, nézzen vissza holnap, mert rendszeresen ellen�
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Ha ez téves, vagy későn szeretne választ küldeni a kérésre, vagy e-mailt szeretne küldeni egy másik témában a következőnek: {{user}}, akkor kérjük, küldjön e-mailt a {{contact_email}} címre, és kérjen meg bennünket a kérelem újbóli megnyitására. Ezután újra elküldheti a választ."
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Ha nem elégedett az \n"
@@ -1454,6 +1475,9 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the messa
 msgstr ""
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1762,6 +1786,12 @@ msgstr "Név nem lehet üres "
 msgid "Name is already taken"
 msgstr "Név már foglalt "
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "Adminisztrátori figyelmet igényel"
 
@@ -1857,6 +1887,9 @@ msgstr "Nem FOI kérés"
 
 msgid "Not held"
 msgstr "Nem tartott"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Az adatigénylő nem kap értesítést a hozzászólásról, mert az igénylést maga a(z) {{public_body_name}} hozta nyilvánosságra."
@@ -2223,6 +2256,9 @@ msgstr "Tekintse meg kérésének előnézetét"
 
 msgid "Previous message"
 msgstr "Előző üzenet"
+
+msgid "Previously known as:"
+msgstr ""
 
 msgid "Print your one time passcode"
 msgstr "Nyomtassa ki az egyszeri jelszót"
@@ -2802,6 +2838,9 @@ msgstr "Az előfizetés megújítva"
 msgid "Subscription renewed after failure"
 msgstr "Hiba után az előfizetés megújított"
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "Siker"
 
@@ -2920,6 +2959,9 @@ msgstr "A fiókok úgy lettek hagyva, ahogyan voltak. "
 
 msgid "The article references all requests in this batch"
 msgstr "A cikk hivatkozik a köteg összes kérésére"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "A hatóságnak <strong>nincs</strong> információja <small>(talán megmondják, hogy kinek van)</small>"
@@ -3738,6 +3780,9 @@ msgstr "Nem rendelkezünk az adatgazda működő e-mail címével. "
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nem rendelkezünk a(z) {{public_body_name}} működő {{law_used_full}} e-mail címével. "
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "Nem ismerjük ennek az üzenetnek a kézbesítési állapotát."
 
@@ -4082,6 +4127,9 @@ msgstr "Hasznos információkat találhat a '{{authority_name}}'-ról tartott me
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "A profiljában szereplő bemutatkozás módosításához először be kell jelentkeznie. "
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "A profilkép megváltoztatásához először be kell jelentkeznie. "
 
@@ -4234,6 +4282,9 @@ msgstr "Üzenete megjelenik a <strong>keresőmotorokban</strong> "
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Az ön neve és hozzászólásai megjelennek a <strong>keresőmotorokban</strong>. "
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr ""

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Miroslav Schlossberg, 2021\n"
 "Language-Team: Croatian (https://app.transifex.com/mysociety/teams/33529/hr/)\n"
@@ -444,6 +444,9 @@ msgstr "Za novinare_ke, znanstvenike_ce i napredne korisnike_ce"
 msgid "Friendly support"
 msgstr "Prijateljska podrška"
 
+msgid "From"
+msgstr ""
+
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "Na ovom zaslonu možete dobiti koristan pregled svojih zahtjeva i brzo ih i jednostavno ažurirati. Zašto svoj prvi zahtjev ne biste poslali već sada?"
 
@@ -507,14 +510,17 @@ msgstr "Izvor:"
 msgid "Important info about requests to this authority"
 msgstr "Važne informacije o zahtjevima prema ovom tijelu javne vlasti"
 
-msgid "Introductory Pricing"
-msgstr "Početne cijene"
-
 msgid "Investigating asbestos use in schools"
 msgstr "Istraživanje o azbestu u školama"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Istraživačka novinarka Jenna Corderoy vrlo je dobro iskoristila Pro značajke privatnosti, čuvajući sve rezultate svojeg opsežnog istraživanja vezanog uz Brexit tajnima sve dok nije objavila svoje priče, otkrivajući, među ostalim, i činjenice o <a href=\"{{story_url_1}}\">prekomjernim troškovima kampanje</a> i European Research Group<a href=\"{{story_url_2}}\">ERG</a> analizama . "
+
+msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
+msgstr ""
+
+msgid "Invoices"
+msgstr ""
 
 msgid "I’m a campaigner"
 msgstr "Ja sam aktivist_ica"
@@ -678,8 +684,14 @@ msgstr "Kad za to budete spremni, objavljivanje podataka na kojima se temelji va
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
 msgstr "Kad za to budete spremni, objavljivanje podataka na kojima se temelji vaše istraživanja dat će mu dodatnu vjerodostojnost."
 
+msgid "Open"
+msgstr ""
+
 msgid "Overflowing inbox?"
 msgstr "Vaš pretinac e-pošte je prepun?"
+
+msgid "Paid"
+msgstr ""
 
 msgid "Payments past due:"
 msgstr "Uplate koje kasne:"
@@ -1157,6 +1169,12 @@ msgstr "Korištenje Pro značajki za stvaranje nacionalne slike javnih dobara ko
 
 msgid "View"
 msgstr "Pregledajte"
+
+msgid "View Invoice and Pay"
+msgstr ""
+
+msgid "View Receipt"
+msgstr ""
 
 msgid "View authorities"
 msgstr "Pregledajte tijela javne vlasti"

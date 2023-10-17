@@ -60,7 +60,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Jiří Podhorecký, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/mysociety/alaveteli/language/cs"
@@ -326,6 +326,9 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "Bylo vyžádáno <strong>upřesnění</strong> "
 
 msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -608,7 +611,13 @@ msgstr "Ve spodní části této stránky jim napište odpověď a požádejte j
 msgid "Attachment (optional):"
 msgstr "Příloha (nepovinná):"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
+msgstr ""
+
+msgid "Attachment processing..."
 msgstr ""
 
 msgid "Attachment:"
@@ -745,6 +754,12 @@ msgstr "Změňte svůj e-mail"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "Změňte svou adresu na stránkách {{site_name}}"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "Změňte své heslo"
@@ -1010,6 +1025,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "Stáhnout zazipovaný soubor celé korespondence"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "Stáhnout původní přílohu"
@@ -1359,8 +1377,8 @@ msgstr "Zde můžete <a href=\"#public_bodies\">sledovat, do jaké míry institu
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "Zde uvidíte jak často adminstrátoři {{site_name}} skrývají dotazy."
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "Zde je denní shrnutí vašich dotazů ze stránek {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Haló! Potřebujeme vaši pomoc. Osoba, která vznesla tento dotaz nám nesdělila, jestli byl zodpovězen úspěšně. Můžete si dotaz i odpověď přečíst a pomoci nám tak udržovat stránky přehledné? Děkujeme."
@@ -1445,6 +1463,9 @@ msgstr "Pokud se jedná o novou zprávu, zkuste to zítra, kontrolujeme nové z�
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Pokud toto není správné a chcete poslat opožděnou odpověď na váš dotaz, nebo nějaký další e-mail pro {{user}}, pak nám prosím napiště na {{contact_email}} a my dotaz znovu otevřeme. Pak budete moci odpověď odeslat znovu. "
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce, máte právo podat stížnost (<a href=\"{{url}}\">detaily</a>)."
 
@@ -1458,6 +1479,9 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the messa
 msgstr ""
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1754,6 +1778,12 @@ msgstr "Jméno nemůže zůstat prázdné"
 msgid "Name is already taken"
 msgstr "Jméno je již obsazeno"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "Vyžaduje pozornost administrátora"
 
@@ -1849,6 +1879,9 @@ msgstr "Není to dotaz podle zákona o svobodném přístupu k informacím"
 
 msgid "Not held"
 msgstr "Informace není k dispozici"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Rádi bychom vás upozornili, že tazatel nebude o vašem komentáři informován, jelikož tento dotaz byl zveřejněn na žádost instituce {{public_body_name}}."
@@ -2211,6 +2244,9 @@ msgstr "Náhled vašeho dotazu"
 
 msgid "Previous message"
 msgstr "Předchozí zpráva"
+
+msgid "Previously known as:"
+msgstr ""
 
 msgid "Print your one time passcode"
 msgstr "Vytiskněte si jednorázový přístupový kód."
@@ -2791,6 +2827,9 @@ msgstr "Předplatné bylo obnoveno"
 msgid "Subscription renewed after failure"
 msgstr "Předplatné obnoveno po předchozím selhání "
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "Úspěch"
 
@@ -2911,6 +2950,9 @@ msgstr "Ůčty zůstaly v původním stavu. "
 
 msgid "The article references all requests in this batch"
 msgstr "Článek odkazuje na všechny požadavky v této dávce"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Instituce má <strong>nemá</strong> informaci <small>(možná informují, kdo tuto informaci má)</small>"
@@ -3721,6 +3763,9 @@ msgstr "Nemáme funkční e-mailovou adresu pro tuto instituci."
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Ještě nemáme {{law_used_full}} adresu pro {{public_body_name}}."
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "Stav doručení zprávy není znám. "
 
@@ -4071,6 +4116,9 @@ msgstr "Možná najdete nějaké potřebné informace v poznámkách, které má
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Změnu textu ve vašem profilu je možné provést po přihlášení."
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "Změnu profilového fota je možné provést po přihlášení."
 
@@ -4225,6 +4273,9 @@ msgstr "Vaše zpráva se objeví <strong>ve vyhledávačích</strong>"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Vaše jméno a komentář se objeví <strong>ve vyhledávačích</strong>."
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr ""

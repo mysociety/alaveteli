@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Laurent S, 2023\n"
 "Language-Team: French (France) (https://app.transifex.com/mysociety/teams/3352"
@@ -449,6 +449,9 @@ msgstr "Pour les journalistes, universitaires et utilisateur.rice.s avec pouvoir
 msgid "Friendly support"
 msgstr "Assistance amicale"
 
+msgid "From"
+msgstr ""
+
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "Depuis cet écran vous pouvez voir une vue d'ensemble de vos demandes et effectuer des actions rapides pour les garder à jour. Pourquoi ne pas lancer votre première action dès maintenant ?"
 
@@ -512,14 +515,17 @@ msgstr "Crédits photos"
 msgid "Important info about requests to this authority"
 msgstr "Info importante concernant les demandes à cette autorité"
 
-msgid "Introductory Pricing"
-msgstr "Prix de lancement"
-
 msgid "Investigating asbestos use in schools"
 msgstr ""
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "La journaliste d'investigation Jenna Corderoy a fait usage des fonctionnalité avancées d'Alaveteli, gardant ses investigations sur le Brexit confidentielles jusqu'à ce que son reportage soit publié, apportant des faits sur <a href=\"{{story_url_1}}\">les dépenses excessives de campagnes</a> et <a href=\"{{story_url_2}}\">ERG</a> au public, parmi plusieurs autres reportages."
+
+msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
+msgstr ""
+
+msgid "Invoices"
+msgstr ""
 
 msgid "I’m a campaigner"
 msgstr "Je suis un activiste"
@@ -683,8 +689,14 @@ msgstr "Dès que vous êtes prêt.e, publier la source des données sur lesquell
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
 msgstr "Dès que vous êtes prêt.e, publier les données qui ont servi de source à votre travail d'investigation contribue à améliorer votre crédibilité"
 
+msgid "Open"
+msgstr ""
+
 msgid "Overflowing inbox?"
 msgstr "Boîte mail surchargée ?"
+
+msgid "Paid"
+msgstr ""
 
 msgid "Payments past due:"
 msgstr "Paiements en attente : "
@@ -1162,6 +1174,12 @@ msgstr "Utilisant les fonctionnalités avancées pour donner une vue nationale a
 
 msgid "View"
 msgstr "Voir"
+
+msgid "View Invoice and Pay"
+msgstr ""
+
+msgid "View Receipt"
+msgstr ""
 
 msgid "View authorities"
 msgstr "Voir les autorités"

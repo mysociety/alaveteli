@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>, 2021\n"
 "Language-Team: Ukrainian (https://app.transifex.com/mysociety/teams/33529/uk/)"
@@ -443,6 +443,9 @@ msgstr "Для журналістів, науковців та просунут�
 msgid "Friendly support"
 msgstr ""
 
+msgid "From"
+msgstr ""
+
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr ""
 
@@ -506,13 +509,16 @@ msgstr ""
 msgid "Important info about requests to this authority"
 msgstr "Важлива інформація про запити до цього розпорядника"
 
-msgid "Introductory Pricing"
-msgstr ""
-
 msgid "Investigating asbestos use in schools"
 msgstr ""
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
+msgstr ""
+
+msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
+msgstr ""
+
+msgid "Invoices"
 msgstr ""
 
 msgid "I’m a campaigner"
@@ -677,7 +683,13 @@ msgstr ""
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
 msgstr ""
 
+msgid "Open"
+msgstr ""
+
 msgid "Overflowing inbox?"
+msgstr ""
+
+msgid "Paid"
 msgstr ""
 
 msgid "Payments past due:"
@@ -1160,6 +1172,12 @@ msgstr ""
 
 msgid "View"
 msgstr "Переглянути"
+
+msgid "View Invoice and Pay"
+msgstr ""
+
+msgid "View Receipt"
+msgstr ""
 
 msgid "View authorities"
 msgstr "Переглянути розпорядників"

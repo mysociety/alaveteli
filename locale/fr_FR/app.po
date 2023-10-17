@@ -63,9 +63,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Laurent S, 2019-2023\n"
+"Last-Translator: vickyanderica <victoria@access-info.org>, 2011\n"
 "Language-Team: French (France) (http://app.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -329,6 +329,9 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Des précisions</strong> ont été demandées"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -598,8 +601,14 @@ msgstr "Au bas de cette page, écrivez leur une réponse pour essayer de les per
 msgid "Attachment (optional):"
 msgstr "Pièce jointe (optionnel) :"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
 msgstr "Une pièce jointe à été supprimée"
+
+msgid "Attachment processing..."
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Pièce jointe :"
@@ -735,6 +744,12 @@ msgstr "Modifier votre email"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "Modifier votre adresse email utilisée sur {{site_name}}"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "Modifier votre mot de passe"
@@ -1029,6 +1044,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "Télécharger un fichier zip de toute la correspondance"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "Téléchargez la pièce jointe originale"
@@ -1369,8 +1387,8 @@ msgstr "Ici, vous pouvez <a href=\"#public_bodies\">voir dans quelle mesure les 
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "Ici vous pouvez voir combien de fois les administrateurs de {{site_name}} ont caché des requêtes."
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "Voici votre résumé de requête quotidien de {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Bonjour ! Nous avons besoin de votre aide. La personne qui a effectué cette demande ne nous a pas dit s'il a reçu une réponse fructueuse. Pouvez-vous prendre quelques minutes pour la lire et nous aider à classifier la demande. Merci"
@@ -1453,6 +1471,9 @@ msgstr "Si c'est un message récent, vérifiez à nouveau demain, car nous véri
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Si ce n'est pas correct ou si vous souhaitez envoyer une réponse tardive à la demande ou un email sur un autre sujet à {{user}}, merci d'envoyer un email à {{contact_email}} pour nous demander de ré-ouvrir la demande. Ensuite, vous pourrez ré-envoyer la réponse."
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Si vous n'êtes pas satisfait de la réponse que vous avez reçue de l'autorité publique, vous avez le droit d'envoyer une demande de recours gracieux (<a href=\"{{url}}\">détails</a>)."
 
@@ -1466,6 +1487,9 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the messa
 msgstr ""
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1753,6 +1777,12 @@ msgstr "Le nom ne peut pas être vide"
 msgid "Name is already taken"
 msgstr "Le nom est déjà pris"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "Requiert l'attention de l'administrateur"
 
@@ -1848,6 +1878,9 @@ msgstr "Ce n'est pas une demande d'accès à l'information"
 
 msgid "Not held"
 msgstr "Non détenu"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Notez que le demandeur ne sera pas informé de votre commentaire, parce que la demande a été publié par {{public_body_name}} en leur nom."
@@ -2208,6 +2241,9 @@ msgstr "Prévisualiser votre demande"
 
 msgid "Previous message"
 msgstr "Message précédent"
+
+msgid "Previously known as:"
+msgstr ""
 
 msgid "Print your one time passcode"
 msgstr "Imprimer votre code d'accès unique"
@@ -2781,6 +2817,9 @@ msgstr "Souscription renouvellée"
 msgid "Subscription renewed after failure"
 msgstr "Souscription renouvelée après échec "
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "Aboutie"
 
@@ -2891,6 +2930,9 @@ msgstr "Les comptes ont été laissés tels qu'ils étaient auparavant. "
 
 msgid "The article references all requests in this batch"
 msgstr "L'article fait référence à l'ensemble des demandes dans ce lot"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "L'autorité <strong>ne détient pas</strong> l'information <small>(peut-être qu'ils indiquent qui la possède)</small>"
@@ -3693,6 +3735,9 @@ msgstr "Nous n'avons pas d'adresse email pour les demandes à cette autorité."
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nous ne disposons pas d'adresse de demande de {{law_used_full}} pour {{public_body_name}}."
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "Nous ne savons pas si ce message est bien arrivé"
 
@@ -4017,6 +4062,9 @@ msgstr "Des informations utiles peuvent se trouver dans nos notes à  propos de 
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Vous devez être connectés pour changer votre description personnelle dans votre profil."
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "Vous devez être connectés pour changer votre photo de profil."
 
@@ -4160,6 +4208,9 @@ msgstr "Votre message apparaîtra dans les <strong>moteurs de recherches</strong
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Votre nom et votre commentaire apparaîtront dans les <strong>moteurs de recherches</strong>."
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "Votre nom, votre demande et toutes les réponses apparaîtront dans les <strong>moteurs de recherches</strong> (<a href=\"{{url}}\">détails</a>)."

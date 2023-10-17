@@ -55,7 +55,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Mattias Axell <mattias@libertador.es>, 2015,2019-2023\n"
 "Language-Team: Swedish (http://app.transifex.com/mysociety/alaveteli/language/"
@@ -316,6 +316,9 @@ msgstr "<strong>Förtydligande</strong> har blivit begärd"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
 msgstr "<strong>Donera</strong> till {{site_name}}"
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
+msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>Journalist, Akademiker eller Superanvändare?</strong> {{pro_site_link}} är en allt-i-ett verktyg för offentlighetsprincipen inklusive allt du behöver för att hålla dig uppdaterad om komplicerade undersökningar som drivs med hjälp av offentlighetsprincipen."
@@ -586,8 +589,14 @@ msgstr "Längst ned på denna sida, skriv ett svar till dem som försöker över
 msgid "Attachment (optional):"
 msgstr "Bilaga (frivilligt):"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
 msgstr "Bilagan har tagits bort"
+
+msgid "Attachment processing..."
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Bilaga:"
@@ -723,6 +732,12 @@ msgstr "Ändra din e-postadress"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "Ändra din e-postadress som används på {{site_name}}"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "Ändra ditt lösenord"
@@ -978,6 +993,9 @@ msgstr "Ladda ned Resultattavlans Data"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Ladda ned en zip-fil för all korrespondens"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "Ladda ned bifogat original"
@@ -1314,8 +1332,8 @@ msgstr "Här kan du <a href=\"#public_bodies\">se hur väl myndigheter har svara
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "Här kan du se hur ofta {{site_name}} moderatorer har dolt förfrågningar."
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "Här är din dagliga sammanfattning från {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Vi behöver din hjälp. Personen som gjorde följande begäran har inte angett om den var lyckad eller inte. Skulle du ha något emot att ta ett kort ögonblick och läsa den för att sätta en lämplig status? Tack!"
@@ -1398,6 +1416,9 @@ msgstr "Om detta är ett nytt meddelande, kolla då tillbaka imorgon då vi peri
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Om detta är inkorrekt och du vill skicka ett sent svar till den frågande eller ett e-postmeddelande om ett annat ämne till {{user}}, var då vänlig e-posta {{contact_email}} för hjälp."
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Om du är missnöjd av svaret du fått från myndigheten, har du rätt att klaga (<a href=\"{{url}}\">detaljer</a>)."
 
@@ -1412,6 +1433,9 @@ msgstr "Om du är den som begärde informationen kan du {{sign_in_link}} för at
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
 msgstr "Om du är den som begärde informationen kan du {{sign_in_link}} för att visa begäran."
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Om du är {{user_link}}, vänligen"
@@ -1699,6 +1723,12 @@ msgstr "Namnet kan inte vara tomt"
 msgid "Name is already taken"
 msgstr "Namnet är redan taget"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "Behöver moderatorers uppmärksamhet"
 
@@ -1794,6 +1824,9 @@ msgstr "Inte en begäran om allmän handling"
 
 msgid "Not held"
 msgstr "Finns ej"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Observera att den frågande inte kommer att meddelas om din kommentar, eftersom begäran publicerades av {{public_body_name}} för deras räkning."
@@ -2150,6 +2183,9 @@ msgstr "Förhandsgranska din begäran"
 
 msgid "Previous message"
 msgstr "Föregående meddelande"
+
+msgid "Previously known as:"
+msgstr ""
 
 msgid "Print your one time passcode"
 msgstr "Skriv ut ditt engångslösenord"
@@ -2720,6 +2756,9 @@ msgstr "Prenumerationen förnyas"
 msgid "Subscription renewed after failure"
 msgstr "Prenumerationen förnyades efter misslyckande"
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "Framgång"
 
@@ -2830,6 +2869,9 @@ msgstr "Kontona har blivit lämnade som de tidigare var."
 
 msgid "The article references all requests in this batch"
 msgstr "Artikeln hänvisar till alla förfrågningar i denna serieförfrågan"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "De har <strong>inte</strong> informationen <small>(kanske de säger vem som har den)"
@@ -3624,6 +3666,9 @@ msgstr "Vi har inte en fungerande e-postadress för denna myndighet."
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Vi har inte en fungerande e-postadress kopplat till {{law_used_full}} för {{public_body_name}}."
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "Vi har inte leveransstatus för detta meddelande."
 
@@ -3940,6 +3985,9 @@ msgstr "Du kan hitta värdefull information i anteckningarna som vi har om '{{au
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Du behöver vara inloggad för att ändra texten om dig på din profil."
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "Du behöver vara inloggad för att ändra din profilbild."
 
@@ -4082,6 +4130,9 @@ msgstr "Ditt meddelande kommer att synas i <strong>sökmotorer</strong>"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Ditt namn och kommentar kommer synas i <strong>sökmotorer</strong>."
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "Ditt namn, begäran och andra förfrågningar kommer att visas i <strong>sökmotorer</strong>(<a href=\"{{url}}\">detaljer</a>)."

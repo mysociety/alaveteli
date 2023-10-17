@@ -49,9 +49,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Jernej Trebežnik, 2023\n"
+"Last-Translator: zejn <zelo.zejn+transifex@gmail.com>, 2013\n"
 "Language-Team: Slovenian (http://app.transifex.com/mysociety/alaveteli/languag"
 "e/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -316,6 +316,9 @@ msgstr "<strong>Pojasnilo</strong> je bilo zahtevano"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
 msgstr "<strong>Donitajte</strong>: {{site_name}}"
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
+msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>Novinar, akademik ali usposobljeni uporabnik?</strong> {{pro_site_link}} je celovito orodje za dostop do informacij javnega značaja, ki vsebuje vse, kar potrebujete za spremljanje zapletenih preiskav, ki temeljijo na dostopu do informacij javnega značaja. "
@@ -588,8 +591,14 @@ msgstr ""
 msgid "Attachment (optional):"
 msgstr "Priloga (neobvezno):"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
 msgstr "Zahtevek je bil odstranjen"
+
+msgid "Attachment processing..."
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Priloga:"
@@ -725,6 +734,12 @@ msgstr "Spremenite vašo e-pošto"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "Spremenite e-poštni naslov, ki ga uporabljate na {{site_name}}"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "Spremenite vaše geslo"
@@ -982,6 +997,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "Prenesite celotno korespondenco kot arhiv ZIP"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "Prenesite izvirno prilogo"
@@ -1326,8 +1344,8 @@ msgstr "Tu si lahko <a href=\"#public_bodies\">ogledate, kako dobro so se organi
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "Tu lahko najdete podatek o tem, kako pogosto so upravitelji  {{site_name}} zakrili zahteve."
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "Tukaj je vaš dnevni povzetek zahtev iz  {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr ""
@@ -1416,6 +1434,9 @@ msgstr "Če je to nedavno sporočilo, preverite znova jutri, saj redno preverjam
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Če to ni pravilno, ali bi želeli poslati pozen odgovor na zahtevo oziroma elektronsko sporočilo o drugi stvari na {{user}}, potem vas prosimo, da pošljite elektronsko sporočilo na {{contact_email}} ter nas zaprosite, da ponovno odpremo zahtevo. Zatem boste lahko svoj odgovor ponovno odposlali."
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Če niste zadovoljni z odgovorom, ki ste ga prejeli od organa, se imate pravico pritožiti (<a href=\"{{url}}\">podrobnosti</a>)."
 
@@ -1430,6 +1451,9 @@ msgstr "Če ste vi zaprosili, se lahko <a href=\"{{url}}\">prijavite</a>, da si 
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
 msgstr "Če ste vi zaprosili, se lahko <a href=\"{{url}}\">prijavite</a>, da si ogledate zahtevo."
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Če ste uporabnik {{user_link}}, prosim"
@@ -1738,6 +1762,12 @@ msgstr "Ime ne more biti prazno"
 msgid "Name is already taken"
 msgstr "Ime je že zasedeno"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "Potrebuje pozornost skrbnika"
 
@@ -1833,6 +1863,9 @@ msgstr "Ne gre za zahtevo za dostop do informacij javnega značaja"
 
 msgid "Not held"
 msgstr "Nimamo"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Vedite, da prosilec ne bo obveščen o vašem zaznamku, ker je bila zahteva objavljena na željo {{public_body_name}}."
@@ -2196,6 +2229,9 @@ msgstr "Predogled vaše zahteve"
 
 msgid "Previous message"
 msgstr "Prejšnje sporočilo"
+
+msgid "Previously known as:"
+msgstr ""
 
 msgid "Print your one time passcode"
 msgstr "Natisnite svoje enkratno geslo"
@@ -2777,6 +2813,9 @@ msgstr "Prijava obnovljena"
 msgid "Subscription renewed after failure"
 msgstr "Po neuspehu je prijava obnovljena"
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "Uspeh"
 
@@ -2892,6 +2931,9 @@ msgstr "Računi so ostali nedotaknjeni."
 
 msgid "The article references all requests in this batch"
 msgstr "V članku so navedene vse zahteve iz tega sklopa"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "Organ <strong>nima</strong> zahtevanih informacij<small>(morda so navedli, kdo jih ima)</small>"
@@ -3692,6 +3734,9 @@ msgstr "Nimamo delujočega e-poštnega naslova za ta javni organ."
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nimamo delujočega e-poštnega naslova za {{law_used_full}} zahtevke za {{public_body_name}}. "
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "Ne poznamo statusa dostave tega sporočila."
 
@@ -4023,6 +4068,9 @@ msgstr "Uporabne informacije lahko najdete tudi v opombah, ki so na voljo za '{{
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Za spremembo vašega opisa na profilu se morate prijaviti."
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "Za spremembo vaše profilne slike se morate prijaviti."
 
@@ -4167,6 +4215,9 @@ msgstr "Vaše sporočilo bo prikazano v <strong>rezultatih spletnih iskalnikov</
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Vaše ime in zaznamek bo prikazan v <strong>rezultatih spletnih iskalnikov</strong>."
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "Vaše ime, zahteva in odgovori bodo prikazani v <strong>spletnih iskalnikih</strong> (<a href=\"{{url}}\">podrobnosti</a>)."

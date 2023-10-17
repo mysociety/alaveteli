@@ -52,7 +52,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Yan Hin So <syhin812@gmail.com>, 2020\n"
 "Language-Team: Chinese (Hong Kong) (http://app.transifex.com/mysociety/alavete"
@@ -302,6 +302,9 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "已要求<strong>澄清</strong>"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -571,7 +574,13 @@ msgstr "在本頁底部，請寫下回覆以請求他們將之掃描進去（<a 
 msgid "Attachment (optional):"
 msgstr "附件（可選填寫）："
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
+msgstr ""
+
+msgid "Attachment processing..."
 msgstr ""
 
 msgid "Attachment:"
@@ -708,6 +717,12 @@ msgstr "更換電郵地址"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "更改你在{{site_name}}使用的電郵地址"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "更換密碼"
@@ -963,6 +978,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "下載含全部回覆的壓縮檔案"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "下載原始附件"
@@ -1295,8 +1313,8 @@ msgstr "對於{{site_name}}上的要求，你可以在此<a href=\"#public_bodie
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "你可以此看到{{site_name}}的管理員有多常隱藏要求。"
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "這是你向{{site_name}}要求的每日撮要"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "你好！我們需要你的幫忙。提出以下要求的人士沒有告訴我們要求是否成功。請問你介不介意花少許時間細閱，幫助我們保持地方整潔？謝謝！"
@@ -1379,6 +1397,9 @@ msgstr "如果這是一則近來的訊息，請於明天查閱，因為我們會
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "如不正確，或你想向{{user}}延遲回覆要求或其他主題的電郵，請電郵至{{contat_email}}，請求我們重開要求，以便重新發出回覆。"
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "如果你不滿公共機構的回應，你有權投訴（<a href=\"{{url}}\">詳情</a>）。"
 
@@ -1392,6 +1413,9 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the messa
 msgstr ""
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1676,6 +1700,12 @@ msgstr "請填寫姓名"
 msgid "Name is already taken"
 msgstr "名稱已被使用"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "須管理員處理"
 
@@ -1771,6 +1801,9 @@ msgstr "非索取資料的要求"
 
 msgid "Not held"
 msgstr "不持有資料"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "請注意申請者不會留意到你的備註，因為該要求已由{{public_body_name}}代為刋登。"
@@ -2123,6 +2156,9 @@ msgstr "預覽索取資料的要求"
 
 msgid "Previous message"
 msgstr "前一則訊息"
+
+msgid "Previously known as:"
+msgstr ""
 
 msgid "Print your one time passcode"
 msgstr "列印你的單次有效密碼"
@@ -2692,6 +2728,9 @@ msgstr "已延續訂閲"
 msgid "Subscription renewed after failure"
 msgstr "失敗後重新訂閱"
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "成功"
 
@@ -2802,6 +2841,9 @@ msgstr "帳戶已像以前一樣保留。"
 
 msgid "The article references all requests in this batch"
 msgstr "參考了本批所有要求的文章"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "公共機構<strong>沒有</strong>要索取的資訊<small>（它們可能建議你向其他部門索取資料）</small>"
@@ -3594,6 +3636,9 @@ msgstr "我們沒有此公共機構的有效電郵地址以提出要求。"
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "我們沒有{{public_body_name}}的有效{{law_used_full}}網址。"
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "我們不清楚此訊息的傳送狀態。"
 
@@ -3905,6 +3950,9 @@ msgstr "你或許可以在筆記中找到有關「{{authority_name}}」的有用
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "登入後才可以更改個人簡介。"
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "登入後才可以更換頭像。"
 
@@ -4046,6 +4094,9 @@ msgstr "你的訊息會出現於<strong>搜尋引擎</strong>"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "你的姓名和備註會出現於<strong>搜尋引擎</strong>"
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "你的姓名、請求及回應會出現於<strong>搜尋引擎</strong>（<a href=\"{{url}}\">詳細內容</a>）。"
