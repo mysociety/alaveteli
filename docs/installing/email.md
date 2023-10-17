@@ -302,6 +302,14 @@ Finally, edit `/etc/aliases` to remove `user-support`:
 
     team: user@example.com, otheruser@example.com
 
+#### Allow Larger Email Attachments in Postfix
+
+Out of the box, Postfix is set to accept emails with a maximum size of 10MB. If you anticipate receiving emails with sizeable attachments, you might consider increasing this limit. To set the maximum email size to around 30MB, modify the `/etc/postfix/main.cf` file by adding:
+
+    message_size_limit = 30720000
+
+Afterwards [apply the change](#making-the-changes-live).
+
 #### Logging
 
 For the postfix logs to be successfully read by
