@@ -15,6 +15,7 @@ class AttachmentsController < ApplicationController
 
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
+  before_action :set_cors
 
   around_action :ensure_masked
   around_action :cache_attachments, only: :show_as_html
@@ -138,6 +139,14 @@ class AttachmentsController < ApplicationController
       @attachment.to_signed_global_id,
       referer: verifier.generate(request.fullpath)
     )
+  end
+
+  def set_cors
+    # Allow CSVs to be explored in a Datasette instance
+    return unless @attachment.content_type == 'text/csv'
+
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Request-Method'] = 'GET'
   end
 
   # special caching code so mime types are handled right
