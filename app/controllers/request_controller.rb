@@ -252,6 +252,8 @@ class RequestController < ApplicationController
       return
     end
 
+    @outgoing_message.update_taggable_terms
+
     # Show preview page, if it is a preview
     return render_new_preview if params[:preview].to_i == 1
 

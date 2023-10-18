@@ -29,7 +29,9 @@ class OutgoingMessage < ApplicationRecord
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include Notable
   include Taggable
+  include TaggableTerms
 
   STATUS_TYPES = %w(ready sent failed).freeze
   MESSAGE_TYPES = %w(initial_request followup).freeze

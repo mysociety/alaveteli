@@ -21,10 +21,14 @@
 require 'spec_helper'
 require 'models/concerns/message_prominence'
 require 'models/concerns/taggable'
+require 'models/concerns/taggable_terms'
 
 RSpec.describe OutgoingMessage do
   it_behaves_like 'concerns/message_prominence', :initial_request
   it_behaves_like 'concerns/taggable', :initial_request
+  it_behaves_like 'concerns/taggable_terms',
+                  :initial_request, { body: 'Some trains and a bus.' },
+                  :body
 
   describe '.is_searchable' do
     subject { described_class.is_searchable }
