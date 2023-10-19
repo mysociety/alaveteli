@@ -1,23 +1,22 @@
 #!/bin/sh
 
-set -e
-
 cd "$(dirname "$0")/.."
 
 . docker/env
 
 docker compose down
 
-db_volume="$(basename $(pwd))_postgres"
-if docker volume ls | grep $db_volume >/dev/null; then
+ARGS=()
+DB_VOLUME="$(basename $(pwd))_postgres"
+if docker volume ls | grep $DB_VOLUME >/dev/null; then
   while true
   do
     read -r -p 'Do you also want to reset your development database? ' choice
     case "$choice" in
       n|N) break;;
       y|Y)
-        docker volume rm $db_volume >/dev/null
-        data_reset=true
+        docker volume rm $DB_VOLUME >/dev/null
+        ARGS+=("--reset_data")
         break;;
       *) echo 'Response not valid';;
     esac
@@ -26,4 +25,4 @@ fi
 
 docker compose build --pull
 
-./docker/setup $data_reset
+./docker/setup "${ARGS[@]}"

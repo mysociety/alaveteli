@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 cd "$(dirname "$0")/.."
 
 if [ -z "$DOCKER" ]; then
@@ -15,33 +13,63 @@ error_msg() { printf "\033[31m%s\033[0m\n" "$*"; }
 notice_msg() { printf "\033[33m%s\033[0m " "$*"; }
 success_msg() { printf "\033[32m%s\033[0m\n" "$*"; }
 
-data_reset="${1:-false}"
-
 notice_msg 'Installing Ruby gems...'
-bundle install
+bundle check >/dev/null || bundle install
 success_msg 'done'
 
 if [ -L config/general.yml ]; then
-  theme=$(basename -s .yml $(readlink config/general.yml) | sed 's/^general-//')
-  notice_msg "Switching to $theme..."
-  bundle exec script/switch-theme.rb $theme 2>/dev/null
+  THEME=$(basename -s .yml $(readlink config/general.yml) | sed 's/^general-//')
+  notice_msg "Switching to $THEME..."
+  bundle exec script/switch-theme.rb $THEME 2>/dev/null
   bin/rails assets:clean >/dev/null
   success_msg 'done'
 fi
 
-if $data_reset; then
-  notice_msg 'Migrating development and test databases...'
+# check to see if the database has ever been seeded, if not then set the
+# RESET_DATA_FLAG regardless of arguments passed to the script
+bin/rails runner 'User.find(1)' 2>/dev/null
+RESET_DATA_FLAG=$?
+for arg in "$@"; do
+  case $arg in
+    --reset-data)
+      RESET_DATA_FLAG=1
+      shift
+      ;;
+    *);;
+  esac
+done
+
+notice_msg 'Migrating development and test databases...'
+if [ $RESET_DATA_FLAG -eq 1 ]; then
   bin/rails db:migrate db:seed >/dev/null
   bin/rails db:migrate RAILS_ENV=test >/dev/null
   success_msg 'done'
+else
+  error_msg 'skipped'
+fi
 
-  notice_msg 'Loading sample data...'
+notice_msg 'Loading sample data...'
+if [ $RESET_DATA_FLAG -eq 1 ]; then
   bundle exec script/load-sample-data > /dev/null
   success_msg 'done'
+else
+  error_msg 'skipped'
+fi
 
-  notice_msg 'Rebuilding Xapian index...'
+notice_msg 'Removing external requests...'
+if [ $RESET_DATA_FLAG -eq 1 ]; then
+  bin/rails runner 'InfoRequest.external.destroy_all'
+  success_msg 'done'
+else
+  error_msg 'skipped'
+fi
+
+notice_msg 'Rebuilding Xapian index...'
+if [ $RESET_DATA_FLAG -eq 1 ]; then
   bundle exec script/destroy-and-rebuild-xapian-index > /dev/null
   success_msg 'done'
+else
+  error_msg 'skipped'
 fi
 
 success_msg 'Setup finished'
