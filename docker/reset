@@ -6,15 +6,15 @@ cd "$(dirname "$0")/.."
 
 docker compose down
 
-db_volume="$(basename $(pwd))_postgres"
-if docker volume ls | grep $db_volume >/dev/null; then
+DB_VOLUME="$(basename $(pwd))_postgres"
+if docker volume ls | grep $DB_VOLUME >/dev/null; then
   while true
   do
     read -r -p 'Do you also want to reset your development database? ' choice
     case "$choice" in
       n|N) break;;
       y|Y)
-        docker volume rm $db_volume >/dev/null
+        docker volume rm $DB_VOLUME >/dev/null
         data_reset=true
         break;;
       *) echo 'Response not valid';;
