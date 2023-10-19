@@ -56,6 +56,14 @@ else
   error_msg 'skipped'
 fi
 
+notice_msg 'Removing external requests...'
+if [ $RESET_DATA_FLAG -eq 1 ]; then
+  bin/rails runner 'InfoRequest.external.destroy_all'
+  success_msg 'done'
+else
+  error_msg 'skipped'
+fi
+
 notice_msg 'Rebuilding Xapian index...'
 if [ $RESET_DATA_FLAG -eq 1 ]; then
   bundle exec script/destroy-and-rebuild-xapian-index > /dev/null
