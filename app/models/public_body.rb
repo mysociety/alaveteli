@@ -139,7 +139,7 @@ class PublicBody < ApplicationRecord
   strip_attributes allow_empty: true, only: %i[request_email]
 
   translates :name, :short_name, :request_email, :url_name, :first_letter,
-             :publication_scheme
+             :publication_scheme, :disclosure_log
 
   # Cannot be grouped at top as it depends on the `translates` macro
   include Translatable
