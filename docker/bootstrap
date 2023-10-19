@@ -44,5 +44,5 @@ notice_msg "Getting latest alavetelitheme commits..."
 alaveteli=`pwd`
 alavetelitheme="$themes_dir/alavetelitheme"
 [ ! -d $alavetelitheme ] && git clone https://github.com/mysociety/alavetelitheme.git $alavetelitheme >/dev/null
-cd $alavetelitheme && git pull && cd $alaveteli
+cd $alavetelitheme && git pull --quiet && cd $alaveteli
 success_msg 'done'
