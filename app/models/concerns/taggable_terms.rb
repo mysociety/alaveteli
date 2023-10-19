@@ -1,3 +1,18 @@
+require 'set'
+
+# Apply tags to a Taggable record based on configured attributes matching terms
+# mapped to tags get applied when there is a match.
+#
+# Example:
+#
+#   Record.taggable_terms = { body: { /foo/ => 'foo' } }
+#   r = Record.new
+#   r.tagged?('foo')
+#   # => false
+#
+#   r.update(body: 'foo bar baz')
+#   r.tagged?('foo')
+#   # => true
 module TaggableTerms
   extend ActiveSupport::Concern
 
@@ -7,17 +22,9 @@ module TaggableTerms
   end
 
   def update_taggable_terms
-    taggable_terms.each do |attr, terms_tags|
-      terms_tags.each do |term, tag|
-        if attribute_matches_taggable_term?(attr, term)
-          add_tag_if_not_already_present(tag.to_s)
-        else
-          unless tag_applied_via_other_taggable_term?(tag, attr)
-            remove_tag(tag.to_s)
-          end
-        end
-      end
-    end
+    tags_to_add, tags_to_remove = taggable_terms_changed_tags
+    tags_to_add.each { |tag| add_tag_if_not_already_present(tag) }
+    tags_to_remove.each { |tag| remove_tag(tag) }
   end
 
   private
@@ -26,13 +33,45 @@ module TaggableTerms
     changed.include?(taggable_terms.keys)
   end
 
+  def taggable_terms_changed_tags
+    tags_to_add = Set.new
+    tags_to_remove = Set.new
+
+    taggable_terms_to_tag_to_attr_terms.each do |tag, attr_terms_pairs|
+      tag_str = tag.to_s
+
+      attr_terms_pairs.each do |attr, term|
+        if attribute_matches_taggable_term?(attr, term)
+          tags_to_add << tag_str
+          break
+        end
+      end
+
+      tags_to_remove << tag_str unless tags_to_add.include?(tag_str)
+    end
+
+    [tags_to_add, tags_to_remove]
+  end
+
   def attribute_matches_taggable_term?(attr, term)
     read_attribute(attr) =~ Regexp.new(term)
   end
 
-  def tag_applied_via_other_taggable_term?(tag, attr)
-    taggable_terms[attr].
-      select { |_, other_tag| other_tag == tag }.
-      any? { |term, _| attribute_matches_taggable_term?(attr, term) }
+  # Restructure taggable_terms so that it's more processing friendly
+  #
+  # Before:
+  # => {:body=>{/train/i=>"trains", /bus/i=>"bus", /locomotive/i=>"trains"}}
+  #
+  # After:
+  # => {"trains"=>[[:body, /train/i], [:body, /locomotive/i]],
+  #     "bus"=>[[:body, /bus/i]]}
+  def taggable_terms_to_tag_to_attr_terms
+    seed = Hash.new { |h, k| h[k] = [] }
+
+    taggable_terms.each_with_object(seed) do |(attr, terms_tags), memo|
+      terms_tags.each do |term, tag|
+        memo[tag] << [attr, term]
+      end
+    end
   end
 end
