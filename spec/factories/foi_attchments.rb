@@ -61,6 +61,12 @@ FactoryBot.define do
       body { 'someimage' }
     end
 
+    factory :csv_attachment do
+      content_type { 'text/csv' }
+      filename { 'interesting.csv' }
+      body { 'somecsv' }
+    end
+
     factory :unknown_attachment do
       content_type { 'application/unknown' }
       filename { 'interesting.spc' }
