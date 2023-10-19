@@ -26,6 +26,17 @@ RSpec.describe DatasetteHelper do
       end
 
       it { is_expected.to eq(expected) }
+
+      context 'with a custom datasette instance' do
+        around do |example|
+          default = DatasetteHelper.datasette_url
+          DatasetteHelper.datasette_url = 'https://d.example.com/'
+          example.run
+          DatasetteHelper.datasette_url = default
+        end
+
+        it { is_expected.to include('https://d.example.com/?csv=http') }
+      end
     end
 
     context 'the attachment is not public' do

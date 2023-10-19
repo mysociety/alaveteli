@@ -2,6 +2,8 @@
 module DatasetteHelper
   include InfoRequestHelper
 
+  mattr_accessor :datasette_url, default: 'https://lite.datasette.io/'
+
   def explore_in_datasette(attachment)
     return unless explorable_in_datasette?(attachment)
 
@@ -28,9 +30,5 @@ module DatasetteHelper
       info_request.
       prominence(decorate: true).
       is_public?
-  end
-
-  def datasette_url
-    'https://lite.datasette.io/'
   end
 end
