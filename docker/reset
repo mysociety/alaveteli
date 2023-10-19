@@ -6,6 +6,7 @@ cd "$(dirname "$0")/.."
 
 docker compose down
 
+ARGS=()
 DB_VOLUME="$(basename $(pwd))_postgres"
 if docker volume ls | grep $DB_VOLUME >/dev/null; then
   while true
@@ -15,7 +16,7 @@ if docker volume ls | grep $DB_VOLUME >/dev/null; then
       n|N) break;;
       y|Y)
         docker volume rm $DB_VOLUME >/dev/null
-        data_reset=true
+        ARGS+=("--reset_data")
         break;;
       *) echo 'Response not valid';;
     esac
@@ -24,4 +25,4 @@ fi
 
 docker compose build --pull
 
-./docker/setup $data_reset
+./docker/setup "${ARGS[@]}"
