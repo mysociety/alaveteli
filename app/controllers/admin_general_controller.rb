@@ -5,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminGeneralController < AdminController
+  include AdminGeneralTimelineHelper
 
   def index
     # Tasks to do
@@ -170,46 +171,11 @@ class AdminGeneralController < AdminController
 
   private
 
-  def get_date_back_to_utc
-    date_back_to = if params[:hour]
-      Time.zone.now - 1.hour
-    elsif params[:day]
-      Time.zone.now - 1.day
-    elsif params[:week]
-      Time.zone.now - 1.week
-    elsif params[:month]
-      Time.zone.now - 1.month
-    elsif params[:all]
-      Time.zone.now - 1000.years
-    else
-      Time.zone.now - 2.days
-    end
-    date_back_to.getutc
-  end
-
-  def get_event_type
-    if params[:event_type] == 'authority_change'
-      'Authority changes'
-    elsif params[:event_type] == 'info_request_event'
-      'Request events'
-    else
-      "Events"
-    end
-  end
-
   def get_events_title
-    title = if params[:hour]
-      "#{get_event_type} in last hour"
-    elsif params[:day]
-      "#{get_event_type} in last day"
-    elsif params[:week]
-      "#{get_event_type} in last week"
-    elsif params[:month]
-      "#{get_event_type} in last month"
-    elsif params[:all]
-      "#{get_event_type}, all time"
+    if current_time_filter == 'All time'
+      "#{current_event_type}, all time"
     else
-      "#{get_event_type} in last two days"
+      "#{current_event_type} in the last #{current_time_filter.downcase}"
     end
   end
 
@@ -219,26 +185,26 @@ class AdminGeneralController < AdminController
     # Note that the relevant date for InfoRequestEvents is creation, but
     # for PublicBodyVersions is update throughout
     connection = InfoRequestEvent.connection
-    authority_change_clause = "SELECT id, 'PublicBodyVersion',
-                                      updated_at AS timestamp
-                               FROM #{PublicBody.versioned_class.table_name}
-                               WHERE updated_at > '#{get_date_back_to_utc}'"
 
-    info_request_event_clause = "SELECT id, 'InfoRequestEvent',
-                                        created_at AS timestamp
-                                 FROM info_request_events
-                                 WHERE created_at > '#{get_date_back_to_utc}'"
+    authority_change_scope = PublicBody.versioned_class.
+      select("id, 'PublicBodyVersion', updated_at AS timestamp").
+      where(updated_at: start_date...).
+      order(timestamp: :desc)
 
-    timestamps = if params[:event_type] == 'authority_change'
-      connection.select_rows("#{authority_change_clause}
-                              ORDER by timestamp desc")
-    elsif params[:event_type] == 'info_request_event'
-      connection.select_rows("#{info_request_event_clause}
-                              ORDER by timestamp desc")
+    info_request_event_scope = InfoRequestEvent.
+      select("id, 'InfoRequestEvent', created_at AS timestamp").
+      where(created_at: start_date...).
+      order(timestamp: :desc)
+
+    case params[:event_type]
+    when 'authority_change'
+      connection.select_rows(authority_change_scope.to_sql)
+    when 'info_request_event'
+      connection.select_rows(info_request_event_scope.to_sql)
     else
-      connection.select_rows("#{info_request_event_clause}
+      connection.select_rows("#{info_request_event_scope.unscope(:order).to_sql}
                               UNION
-                              #{authority_change_clause}
+                              #{authority_change_scope.unscope(:order).to_sql}
                               ORDER by timestamp desc")
     end
   end
