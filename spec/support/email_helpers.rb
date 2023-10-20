@@ -9,7 +9,7 @@ end
 def receive_incoming_mail(email_name_or_string, **kargs)
   kargs[:email_from] ||= 'geraldinequango@localhost'
   content = load_file_fixture(email_name_or_string) || email_name_or_string
-  content = gsub_addresses(content, **kargs)
+  content = gsub_addresses(content.dup, **kargs)
   content = ::Mail::Utilities.binary_unsafe_to_crlf(content)
   RequestMailer.receive(content)
 end
