@@ -907,6 +907,8 @@ class InfoRequest < ApplicationRecord
   end
 
   def receive(email, raw_email_data, *args)
+    return if already_received?(email)
+
     defaults = { override_stop_new_responses: false,
                  rejected_reason: nil,
                  source: :internal }

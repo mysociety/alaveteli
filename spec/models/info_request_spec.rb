@@ -1054,6 +1054,23 @@ RSpec.describe InfoRequest do
       ActionMailer::Base.deliveries.clear
     end
 
+    context 'when email has already been received' do
+
+      let(:info_request) { FactoryBot.create(:info_request) }
+
+      before do
+        allow(info_request).to receive(:already_received?).and_return(true)
+      end
+
+      it 'does not create a new incoming message' do
+        email, raw_email = email_and_raw_email
+        expect { info_request.receive(email, raw_email) }.to_not change {
+          info_request.incoming_messages.count
+        }
+      end
+
+    end
+
   end
 
   describe "#url_title" do
