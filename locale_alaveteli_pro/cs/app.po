@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Jiří Podhorecký, 2021\n"
 "Language-Team: Czech (https://app.transifex.com/mysociety/teams/33529/cs/)\n"
@@ -444,6 +444,9 @@ msgstr "Pro novináře, akademiky a pokročilé uživatele"
 msgid "Friendly support"
 msgstr "Přátelská podpora"
 
+msgid "From"
+msgstr ""
+
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "Tato stránka vám poskytne užitečný přehled vašich dotazů a pomůže vám vše pohlídat pomocí šikovných nástrojů. Co takhle vznést první dotaz?"
 
@@ -507,14 +510,17 @@ msgstr "Autor obrázku:"
 msgid "Important info about requests to this authority"
 msgstr "Důležité informace o dotazu pro tuto instituci"
 
-msgid "Introductory Pricing"
-msgstr "Zaváděcí ceny"
-
 msgid "Investigating asbestos use in schools"
 msgstr "Zkoumání používání azbestu ve školách"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Investigativní novinářka Jenna Corderoy využila možnosti skrýt své dotazy při přípravě článků týkajích se Brexitu do doby, kdy publikovala fakta o <a href=\"{{story_url_1}}\">nadměrných reklamních výdajích</a> a <a href=\"{{story_url_2}}\">ERG</a> výzkumech, mezi několika dalšími důležitými příběhy."
+
+msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
+msgstr ""
+
+msgid "Invoices"
+msgstr ""
 
 msgid "I’m a campaigner"
 msgstr "Jsem aktivista"
@@ -678,8 +684,14 @@ msgstr "Jakmile dokončíte svůj projekt, zveřejnění zjištěných dat a fak
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
 msgstr "Až budete hotovi, zveřejnění informací a dat z vašeho projektu dodá vaší práci důvěryhodnost. "
 
+msgid "Open"
+msgstr ""
+
 msgid "Overflowing inbox?"
 msgstr "Přetékající doručená pošta?"
+
+msgid "Paid"
+msgstr ""
 
 msgid "Payments past due:"
 msgstr "Platba po splatnosti:"
@@ -1165,6 +1177,12 @@ msgstr "Využití služby PRO k vytvoření celostátního přehledu o veřejné
 
 msgid "View"
 msgstr "Zobrazit"
+
+msgid "View Invoice and Pay"
+msgstr ""
+
+msgid "View Receipt"
+msgstr ""
 
 msgid "View authorities"
 msgstr "Zobrazit instituce"

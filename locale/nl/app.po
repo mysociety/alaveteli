@@ -44,9 +44,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Liset Hamming <elhamming@gmail.com>, 2019-2020,2022-2023\n"
+"Last-Translator: Luis Villegas, 2022\n"
 "Language-Team: Dutch (http://app.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -309,6 +309,9 @@ msgstr "<strong>Opheldering</strong>is om verzocht"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
 msgstr "<strong>Doneer</strong> aan de Woo-Knop"
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
+msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>Ben je journalist?</strong> {{pro_site_link}} biedt de mogelijkheid om bulkverzoeken te doen en je Woo-verzoek(en) af te schermen."
@@ -594,8 +597,14 @@ msgstr ""
 msgid "Attachment (optional):"
 msgstr "Bijlage (optioneel):"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
 msgstr "Bijlage is verwijderd"
+
+msgid "Attachment processing..."
+msgstr ""
 
 msgid "Attachment:"
 msgstr "Bijlage:"
@@ -731,6 +740,12 @@ msgstr "Wijzig je e-mailadres"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "Nieuw wachtwoord aanmaken op {{site_name}} "
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "Wijzig je wachtwoord"
@@ -992,6 +1007,9 @@ msgstr "Download dashboardgegevens"
 
 msgid "Download a zip file of all correspondence"
 msgstr "Download zip-bestand van alle correspondentie"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "Download de bijlage"
@@ -1341,8 +1359,8 @@ msgstr "Hier kan je <a href=\"#public_bodies\">zien hoe overheidsinstanties hebb
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "Hier kan je zien hoe vaak de beheerders van {{site_name}} verzoeken hebben verborgen."
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "Hier is de dagelijkse samenvatting van je verzoeken via  {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr ""
@@ -1429,6 +1447,9 @@ msgstr "Als het om een recent bericht gaat, gelieve het morgen opnieuw te bekijk
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "Als dit onjuist is, of je wil een late reactie op het verzoek of een bericht over een ander onderwerp sturen aan {{user}}, dan kan je een e-mail sturen naar {{contact_email}} om ons te vragen het verzoek opnieuw te openen. Je kunt dan het bericht opnieuw verzenden."
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Als je niet tevreden bent met het antwoord \n"
@@ -1445,6 +1466,9 @@ msgstr "Als jij de indiener van het verzoekn bent, dan kun je {{sign_in_link}} o
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
 msgstr "Als jij de indiener van het verzoekn bent, dan kun je {{sign_in_link}} om het verzoek te bekijken."
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
+msgstr ""
 
 msgid "If you are {{user_link}}, please"
 msgstr "Als je {{user_link}} bent, gelieve"
@@ -1740,6 +1764,12 @@ msgstr "De naam kan niet leeg zijn"
 msgid "Name is already taken"
 msgstr "Deze naam wordt al gebruikt"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "Neem contact op met de beheerder"
 
@@ -1835,6 +1865,9 @@ msgstr "Dit is geen Woo-verzoek"
 
 msgid "Not held"
 msgstr "Is niet bijgehouden"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "De indiener zal niet worden geïnformeerd over je opmerking aangezien het Woo-verzoek gepubliceerd is door {{public_body_name}}."
@@ -2192,6 +2225,9 @@ msgstr "Bekijk een preview van je verzoek "
 
 msgid "Previous message"
 msgstr "Vorige bericht"
+
+msgid "Previously known as:"
+msgstr ""
 
 msgid "Print your one time passcode"
 msgstr "Print je eenmalige toegangscode"
@@ -2762,6 +2798,9 @@ msgstr "Aanmelding vernieuwd"
 msgid "Subscription renewed after failure"
 msgstr "Aanmelding vernieuwd na afbreken"
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "Gelukt"
 
@@ -2876,6 +2915,9 @@ msgstr "De accounts zijn gebleven zoals ze waren."
 
 msgid "The article references all requests in this batch"
 msgstr "Het artikel verwijst naar alle verzoeken die bij deze collectie verzoeken horen"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "De overheidsinstantie <strong>beschikt niet</strong> over de informatie <small>(misschien kunnen ze vertellen wie dan wel)</small>"
@@ -3695,6 +3737,9 @@ msgstr "De Woo-Knop beschikt niet over een werkend e-mailadres voor verzoeken aa
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "De site beschikt niet over een werkend {{law_used_full}} adres voor {{public_body_name}}."
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "De afleveringstatus van dit bericht is onbekend."
 
@@ -4018,6 +4063,9 @@ msgstr "Misschien kun je nuttige informatie vinden in de aantekeningen die we he
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Je moet ingelogd zijn om de persoonsbeschrijving op je profielpagina te wijzigen."
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "Je moet ingelogd zijn om je profielfoto te wijzigen."
 
@@ -4160,6 +4208,9 @@ msgstr "Je bericht zal verschijnen in de <strong>zoekmachines</strong>"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Je naam en je opmerkingen zullen verschijnen in de <strong> zoekmachines</strong>."
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "Je naam, je verzoek en alle antwoorden verschijnen in de <strong>zoekmachines</strong> (<a href=\"{{url}}\">details</a>)."
