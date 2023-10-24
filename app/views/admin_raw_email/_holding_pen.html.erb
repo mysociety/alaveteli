@@ -16,7 +16,18 @@
   <% if @guessed_info_requests.any? %>
   <div class="row">
     <div class="accordion span11" id="guessed-requests">
-      <p>Guessed request:</p>
+      <p>Guessed request: </p>
+
+      <% if @guessed_info_requests.one? %>
+        <p>
+          <small class="muted">
+            Responses with a single guess are only automatically redelivered if
+            the guess meets a confidence threshold. This guess did not meet that
+            threshold.
+          </small>
+        </p>
+      <% end %>
+
       <% @guessed_info_requests.each do |guess|  %>
         <div class="accordion-group">
           <div class="accordion-heading">
