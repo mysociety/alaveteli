@@ -612,7 +612,7 @@ RSpec.describe 'when destroying a message' do
 
   context 'with attachments' do
     let(:incoming_with_attachment) {
-      FactoryBot.create(:incoming_message_with_html_attachment)
+      FactoryBot.create(:incoming_message, :with_html_attachment)
     }
 
     it 'destroys the incoming message' do
@@ -643,7 +643,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should correctly parse multipart mails with a linebreak in the boundary marker' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('space-boundary.email', ir.incoming_email)
+    receive_incoming_mail('space-boundary.email', email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.parts.size).to eq(2)
     expect(message.multipart?).to eq(true)
@@ -660,14 +660,16 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it "should ensure cached body text has been parsed correctly" do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+    receive_incoming_mail('quoted-subject-iso8859-1.email',
+                          email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_unfolded).not_to include("Email has no body")
   end
 
   it "should correctly convert HTML even when there's a meta tag asserting that it is iso-8859-1 which would normally confuse elinks" do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+    receive_incoming_mail('quoted-subject-iso8859-1.email',
+                          email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
     expect(message.get_main_body_text_part.charset).to eq("iso-8859-1")
@@ -676,7 +678,8 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should deal with GB18030 text even if the charset is missing' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('no-part-charset-bad-utf8.email', ir.incoming_email)
+    receive_incoming_mail('no-part-charset-bad-utf8.email',
+                          email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
     expect(message.get_main_body_text_internal).to include("贵公司负责人")
@@ -684,7 +687,8 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should not error on display of a message which has no charset set on the body part and is not good UTF-8' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('no-part-charset-random-data.email', ir.incoming_email)
+    receive_incoming_mail('no-part-charset-random-data.email',
+                          email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
     expect(message.get_main_body_text_internal).to include("The above text was badly encoded")
@@ -692,7 +696,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should convert DOS-style linebreaks to Unix style' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('dos-linebreaks.email', ir.incoming_email)
+    receive_incoming_mail('dos-linebreaks.email', email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
     expect(message.get_main_body_text_internal).not_to match(/\r\n/)
@@ -712,7 +716,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should insert some text for messages without a body' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('no-body.email', ir.incoming_email)
+    receive_incoming_mail('no-body.email', email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
     expect(message.get_main_body_text_internal).
@@ -723,7 +727,8 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     ActionMailer::Base.deliveries.clear
     # just send it to the holding pen
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
-    receive_incoming_mail("humberside-police-odd-mime-type.email", 'dummy')
+    receive_incoming_mail("humberside-police-odd-mime-type.email",
+                          email_to: 'dummy')
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
 
     # clear the notification of new message in holding pen
@@ -776,7 +781,8 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
 
   it 'should fold an example lotus notes quoted part converted from HTML correctly' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('lotus-notes-quoting.email', ir.incoming_email)
+    receive_incoming_mail('lotus-notes-quoting.email',
+                          email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
   end
@@ -805,14 +811,16 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
 
   it 'should fold an example of another kind of forward quoting' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('forward-quoting-example.email', ir.incoming_email)
+    receive_incoming_mail('forward-quoting-example.email',
+                          email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
   end
 
   it 'should fold a further example of forward quoting' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('forward-quoting-example-2.email', ir.incoming_email)
+    receive_incoming_mail('forward-quoting-example-2.email',
+                          email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     body_text = message.get_main_body_text_folded
     expect(body_text).to match(/FOLDED_QUOTED_SECTION/)
@@ -844,6 +852,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
     im.reload
     attachments = im.foi_attachments
     expect(attachments.size).to eq(2)
+    allow(attachments[1]).to receive(:masked?).and_return(true)
     expect(attachments[1].filename).to eq('Happy.txt')
     expect(attachments[1].body).to eq("Happy today for to be one of peace and serene time.\n")
     expect(im.get_attachments_for_display.size).to eq(1)
@@ -1078,6 +1087,23 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     expect(im._get_attachment_text_internal.valid_encoding?).to be true
   end
 
+  it 'does not raise error if existing hidden attachment will be retained' do
+    incoming_message = FactoryBot.create(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.first
+    foi_attachment.update(prominence: 'hidden')
+
+    expect { incoming_message.extract_attachments! }.to_not raise_error
+  end
+
+  it 'raises error if existing hidden attachment will be deleted' do
+    incoming_message = FactoryBot.create(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.first
+    foi_attachment.update(prominence: 'hidden', hexdigest: '123')
+
+    expect { incoming_message.extract_attachments! }.to raise_error(
+      IncomingMessage::UnableToExtractAttachments
+    )
+  end
 end
 
 RSpec.describe IncomingMessage, 'when getting the body of a message for html display' do

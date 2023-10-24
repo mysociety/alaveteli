@@ -16,13 +16,15 @@ RSpec.describe "comment/new" do
 
     it "says the comment will be public when the embargo expires" do
       expected_content = "When your request is made public on Alaveteli, any " \
-                         "annotations you add will also be public. However, they are " \
-                         "not sent to #{info_request.public_body.name}."
+                         "annotations you add will also be public. However, " \
+                         "they are not sent to " \
+                         "#{info_request.public_body.name}."
       expect(rendered).to have_content(expected_content)
     end
 
     it "renders the professional comment suggestions" do
-      expect(view).to render_template(partial: "alaveteli_pro/comment/_suggestions")
+      expect(view).
+        to render_template(partial: "alaveteli_pro/comment/_suggestions")
     end
   end
 

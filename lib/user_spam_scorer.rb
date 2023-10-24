@@ -211,7 +211,7 @@ class UserSpamScorer
 
   def ip_range_is_suspicious?(user)
     return false unless user.respond_to?(:ip)
-    suspicious_ip_ranges.any? { |range| range.include?(user.ip) }
+    suspicious_ip_ranges.any? { |range| IPAddr.new(range).include?(user.ip) }
   end
 
   # TODO: Akismet thinks user is spam

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   root to: 'general#frontpage'
 
-  #### General contoller
+  #### General controller
   root :to => 'general#frontpage',
        :as => :frontpage,
        :via => :get
@@ -133,6 +133,13 @@ Rails.application.routes.draw do
         :as => :get_attachment,
         :via => :get,
         :constraints => { :part => /\d+/ }
+
+  #### Attachment controller
+  resources :attachment_masks, only: [], path: :attachments do
+    get 'wait', on: :member, as: :wait_for
+    get 'done', on: :member
+  end
+  ####
 
   match '/request_event/:info_request_event_id' => 'request#show_request_event',
         :as => :info_request_event,
@@ -302,6 +309,10 @@ Rails.application.routes.draw do
     get 'email_alerts/disable/:token',
         to: 'email_alerts#destroy',
         as: :disable_email_alerts
+  end
+
+  namespace :users, path: 'profile' do
+    resource :name, only: [:edit, :update]
   end
 
   namespace :profile, :module => 'user_profile' do
@@ -505,6 +516,12 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Changelog controller
+  namespace :admin do
+    resources :changelog, only: [:index]
+  end
+
+  ####
   #### AdminTag controller
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show]
@@ -697,6 +714,7 @@ Rails.application.routes.draw do
       post 'clear_bounce', :on => :member
       post 'clear_profile_photo', :on => :member
       post 'modify_comment_visibility', :on => :collection
+      resources :slugs, controller: 'admin_user_slug', only: :destroy
       resources :censor_rules,
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
@@ -709,6 +727,30 @@ Rails.application.routes.draw do
     resources :users_account_suspensions,
       :controller => 'admin_users_account_suspensions',
       :only => [:create]
+  end
+  ####
+
+  #### AdminUsersAccountErasing controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_erasing,
+          :controller => 'admin_users_account_erasing',
+          :only => [:create]
+  end
+  ####
+
+  #### AdminUsersAccountClosing controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_closing,
+          :controller => 'admin_users_account_closing',
+          :only => [:create]
+  end
+  ####
+
+  #### AdminUsersAccountAnonymising controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_anonymising,
+          :controller => 'admin_users_account_anonymising',
+          :only => [:create]
   end
   ####
 
@@ -803,6 +845,7 @@ Rails.application.routes.draw do
       resources :plans, only: [:show]
 
       scope path: :profile do
+        resources :invoices, only: [:index]
         resources :subscriptions, only: [:index, :create, :destroy] do
           collection do
             resource :payment_method, only: [:update]

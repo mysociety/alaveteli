@@ -1,3 +1,120 @@
+# 0.44.0.0
+
+## Highlighted Features
+
+* Improve handling of messages with multiple email addresses (Alexander Griffen)
+* Fix admin timeline filters (Helen Cross, Graeme Porteous)
+* Update Docker environment scripts (Graeme Porteous)
+* Allow authority disclosure log URLs to be translated (Graeme Porteous)
+* Remove Vagrant development boxes (Graeme Porteous)
+* Improve calculation of authority home pages (Gareth Rees)
+* Apply attachment censor rules and masks in the background (Graeme Porteous)
+* Remove "inline" background job processing (Graeme Porteous)
+* Add Xapian background job queue (Graeme Porteous)
+* Single request guess delivery (Alexander Griffen, Graeme Porteous)
+* Detect request email addresses in BCC/Received by headers (Alexander Griffen)
+* Add disclosure log to authority JSON (Graeme Porteous)
+* Add notify varnish cache job (Matthew Somerville, Graeme Porteous)
+* Improve user comment anonymisation (Graeme Porteous)
+* Show admin users previous names and slugs (Graeme Porteous)
+* Add ability for users to change their name (Graeme Porteous)
+* Separate admin account closure actions (Alexander Griffen, Gareth Rees)
+* Make user content limit configurable (Gareth Rees)
+* Add CSV files to Google Doc Viewer and refactoring (Gareth Rees)
+* Show authority notes in admin (Helen Cross)
+* Fix IP address matching in user spam scorer (Graeme Porteous)
+* Fix logging duplicate events (Matthew Somerville)
+* Fix favicon web server configuration (Graeme Porteous)
+* Fix asset compilation issues (Graeme Porteous)
+* Fix POP poller timeouts (Graeme Porteous)
+* Code linting updates and refactoring (Alexander Griffen)
+* Dependencies upgrades (Graeme Porteous)
+
+## Highlighted Pro Features
+
+* View and download subscription invoices (Graeme Porteous)
+* Add subscription started webhook state (Graeme Porteous)
+* Update Stripe token information (Graeme Porteous)
+* Improve batch request sending memory limit (Laurent Savaete)
+* Fix draft batch request composition bug (Graeme Porteous)
+
+## Upgrade Notes
+
+* _Note:_ There has been some issues with the "inline" background job mode
+  introduced in 0.43.0.0. This meant not all jobs were being executed so we
+  which caused errors. We have decided to removed this option so please switch
+  to "server" mode which means setting up Redis and Sidekiq. See the upgrade
+  notes from v0.43.0.0 for instructions on how to do this.
+
+* _Required:_ Please update your `config/sidekiq.yml` file to include the
+  `xapian` queue and limit option. See `config/sidekiq.yml-example` as an
+  example.
+
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
+* _Required:_ To populate `OutgoingMessage#from_name`, please run:
+
+      bin/rails temp:populate_outgoing_message_from_name
+
+* _Required:_ Migrate current `User#url_name` to a new slug model, please run:
+
+      bin/rails temp:migrate_user_slugs
+
+* _Required:_ Migrate `PublicBody#disclosure_log` to transaction model, please
+  run:
+
+      bin/rails temp:migrate_disclosure_log
+
+* _Note:_ This release allow users to rename their user account but this is for
+  requests going forward. This is due to the possibility of authorities replying
+  to past requests with the user's previous name so we can't 100% disassociated
+  past requests or annotations from the user's previous name.
+
+* _Note:_ If you use Varnish hosts as a caching layer, Alaveteli can now
+  automatically clear cached pages when request/user/other content is changed.
+  This is done by making `BAN` and `PURGE` requests to your Varnish hosts. Set
+  `VARNISH_HOST` in `config/general.yml` if you want to enable this but this
+  may also require changes to how your Varnish hosts are configured. If you want
+  help setting this up please contact us.
+
+* _Note:_ If you were using Vagrant development boxes these are now unsupported.
+  Please switch to using Docker. See:
+  https://alaveteli.org/docs/installing/docker/
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin/blog_posts/_about.html.erb
+    app/views/admin/notes/_show.html.erb
+    app/views/admin_announcements/_form.html.erb
+    app/views/admin_incoming_message/bulk_destroy.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/_one_list.html.erb
+    app/views/admin_raw_email/_holding_pen.html.erb
+    app/views/admin_request/_some_annotations.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_public_bodies.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/comment/rate_limited.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/notification_mailer/daily_summary.text.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_attachments.html.erb
+    app/views/request/_citations.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.text.erb
+    app/views/request/request_subtitle/allow_new_responses_from/_authority_only.html.erb
+    app/views/request/request_subtitle/allow_new_responses_from/_nobody.html.erb
+    app/views/user/show/_show_profile.html.erb
+    app/views/users/messages/rate_limited.html.erb
+
 # 0.43.2.0
 
 ## Highlighted Features
@@ -20,7 +137,7 @@
 * Add support for [Cookieless Google Analytics
   4](https://github.com/mysociety/alaveteli/wiki/Cookieless-Google-Analytics-4)
   (Alex Parsons, Graeme Porteous)
-* Updated translations from Transifex (Graeme Porteous)# 0.43.0.2
+* Updated translations from Transifex (Graeme Porteous)
 
 # 0.43.0.2
 
@@ -112,42 +229,42 @@
 
 ### Changed Templates
 
-app/views/admin/tags/_tagging.html.erb
-app/views/admin/users/_sign_in_table.html.erb
-app/views/admin_censor_rule/_form.html.erb
-app/views/admin_censor_rule/_list.html.erb
-app/views/admin_censor_rule/index.html.erb
-app/views/admin_comment/edit.html.erb
-app/views/admin_general/_admin_navbar.html.erb
-app/views/admin_general/_edit_comment.html.erb
-app/views/admin_general/stats.html.erb
-app/views/admin_public_body/_public_body.html.erb
-app/views/admin_public_body/show.html.erb
-app/views/admin_request/show.html.erb
-app/views/admin_user/edit.html.erb
-app/views/admin_user/show.html.erb
-app/views/alaveteli_pro/general/_nav_items.html.erb
-app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
-app/views/alaveteli_pro/info_requests/_batch.html.erb
-app/views/alaveteli_pro/info_requests/_message_preview.html.erb
-app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
-app/views/alaveteli_pro/info_requests/_sidebar.html.erb
-app/views/alaveteli_pro/info_requests/new.html.erb
-app/views/alaveteli_pro/plans/_pricing_tiers.html.erb
-app/views/comment/rate_limited.html.erb
-app/views/general/_nav_items.html.erb
-app/views/general/blog.html.erb
-app/views/general/frontpage.html.erb
-app/views/health/checks/index.html.erb
-app/views/projects/projects/show.html.erb
-app/views/public_body/_body_listing_single.html.erb
-app/views/public_body/show.html.erb
-app/views/request/_batch.html.erb
-app/views/request/_resent_outgoing_correspondence.html.erb
-app/views/request/_resent_outgoing_correspondence.text.erb
-app/views/request/_sidebar.html.erb
-app/views/request/new.html.erb
-app/views/request/preview.html.erb
+    app/views/admin/tags/_tagging.html.erb
+    app/views/admin/users/_sign_in_table.html.erb
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/_list.html.erb
+    app/views/admin_censor_rule/index.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/_edit_comment.html.erb
+    app/views/admin_general/stats.html.erb
+    app/views/admin_public_body/_public_body.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/general/_nav_items.html.erb
+    app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/plans/_pricing_tiers.html.erb
+    app/views/comment/rate_limited.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/frontpage.html.erb
+    app/views/health/checks/index.html.erb
+    app/views/projects/projects/show.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_batch.html.erb
+    app/views/request/_resent_outgoing_correspondence.html.erb
+    app/views/request/_resent_outgoing_correspondence.text.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
 
 # 0.42.0.1
 

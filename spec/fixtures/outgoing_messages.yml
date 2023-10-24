@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20230412084830
 #
 # Table name: outgoing_messages
 #
@@ -15,6 +15,7 @@
 #  what_doing                   :string           not null
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
+#  from_name                    :text
 #
 
 useless_outgoing_message:
@@ -33,6 +34,7 @@ useless_outgoing_message:
   last_sent_at: 2007-10-25 10:41:12.686264
   created_at: 2007-10-12 01:56:58.586598
   what_doing: normal_sort
+  from_name: Bob Smith
 silly_outgoing_message:
   id: 2
   info_request_id: 103
@@ -52,6 +54,7 @@ silly_outgoing_message:
   last_sent_at: 2007-10-14 10:41:12.686264
   created_at: 2007-10-14 01:56:58.586598
   what_doing: normal_sort
+  from_name: Bob Smith
 badger_outgoing_message:
   id: 3
   info_request_id: 104
@@ -62,6 +65,7 @@ badger_outgoing_message:
   last_sent_at: 2011-10-14 10:41:12.686264
   created_at: 2011-10-14 01:56:58.586598
   what_doing: normal_sort
+  from_name: Bob Smith
 boring_outgoing_message:
   id: 4
   info_request_id: 105
@@ -72,7 +76,7 @@ boring_outgoing_message:
   last_sent_at: 2012-01-14 10:41:12.686264
   created_at: 2012-01-14 01:56:58.586598
   what_doing: normal_sort
-
+  from_name: Bob Smith
 another_boring_outgoing_message:
   id: 5
   info_request_id: 106
@@ -83,7 +87,7 @@ another_boring_outgoing_message:
   created_at: 2006-01-12 01:56:58.586598
   updated_at: 2006-01-12 01:56:58.586598
   what_doing: normal_sort
-
+  from_name: Bob Smith
 spam_1_outgoing_message:
   id: 6
   info_request_id: 107
@@ -94,6 +98,7 @@ spam_1_outgoing_message:
   created_at: 2007-01-12 01:56:58.586598
   updated_at: 2007-01-12 01:56:58.586598
   what_doing: normal_sort
+  from_name: Robin Houston
 spam_2_outgoing_message:
   id: 7
   info_request_id: 108
@@ -104,7 +109,7 @@ spam_2_outgoing_message:
   created_at: 2007-01-12 02:56:58.586598
   updated_at: 2007-01-12 02:56:58.586598
   what_doing: normal_sort
-
+  from_name: Robin Houston
 external_outgoing_message:
   id: 8
   info_request_id: 109
@@ -115,7 +120,6 @@ external_outgoing_message:
   created_at: 2009-01-12 01:56:58.586598
   updated_at: 2009-01-12 01:56:58.586598
   what_doing: normal_sort
-
 anonymous_external_outgoing_message:
   id: 9
   info_request_id: 110
@@ -126,7 +130,6 @@ anonymous_external_outgoing_message:
   created_at: 2009-01-12 01:56:58.586598
   updated_at: 2009-01-12 01:56:58.586598
   what_doing: normal_sort
-
 other_outgoing_message:
   id: 10
   info_request_id: 111
@@ -137,4 +140,4 @@ other_outgoing_message:
   created_at: 2009-01-12 01:56:58.586598
   updated_at: 2009-01-12 01:56:58.586598
   what_doing: normal_sort
-
+  from_name: Another User

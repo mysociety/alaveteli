@@ -1,2 +1,0 @@
-#!/bin/sh
-ALAVETELI_VAGRANT_NAME=bullseye ALAVETELI_VAGRANT_OS=bullseye64 exec vagrant "$@"

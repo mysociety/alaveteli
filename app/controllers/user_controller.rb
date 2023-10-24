@@ -542,7 +542,7 @@ class UserController < ApplicationController
   end
 
   def set_display_user
-    User.find_by!(url_name: params[:url_name], email_confirmed: true)
+    User.where(email_confirmed: true).friendly.find(params[:url_name])
   end
 
   def set_show_requests

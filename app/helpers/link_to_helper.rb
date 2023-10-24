@@ -11,7 +11,7 @@ module LinkToHelper
 
   # Requests
   def request_url(info_request, options = {})
-    show_request_url({url_title: info_request.url_title}.merge(options))
+    show_request_url({ url_title: info_request.url_title }.merge(options))
   end
 
   def request_path(info_request, options = {})
@@ -121,12 +121,14 @@ module LinkToHelper
     user_url(user, options.merge(only_path: true))
   end
 
-  def user_link_absolute(user)
-    link_to user.name, user_url(user)
+  def user_link_absolute(user, text = nil)
+    text ||= user.name
+    link_to text, user_url(user)
   end
 
-  def user_link(user)
-    link_to user.name, user_path(user)
+  def user_link(user, text = nil)
+    text ||= user.name
+    link_to text, user_path(user)
   end
 
   def user_link_for_request(request)
@@ -172,7 +174,7 @@ module LinkToHelper
     if request.is_external?
       external_user_link_absolute(request, anonymous_text)
     else
-      user_link_absolute(request.user)
+      user_link_absolute(request.user, request.safe_from_name)
     end
   end
 
@@ -180,7 +182,7 @@ module LinkToHelper
     if request.is_external?
       external_user_link(request, anonymous_text)
     else
-      user_link(request.user)
+      user_link(request.user, request.safe_from_name)
     end
   end
 
@@ -237,10 +239,10 @@ module LinkToHelper
       query -= ["", nil]
       query = query.join("/")
     end
-    routing_info = {controller: 'general',
+    routing_info = { controller: 'general',
                     action: 'search',
                     combined: query,
-                    view: nil}
+                    view: nil }
     routing_info = options.merge(routing_info) unless options.nil?
 
     if routing_info.is_a?(Hash)

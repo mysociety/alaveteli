@@ -553,7 +553,7 @@ RSpec.describe AdminPublicBodyHeadingsController do
     context 'when handling invalid input' do
 
       before do
-        @params = { headings: [@second.id, @first.id, @second.id + 1]}
+        @params = { headings: [@second.id, @first.id, @second.id + 1] }
       end
 
       it 'should return an "unprocessable entity" status and an error message' do

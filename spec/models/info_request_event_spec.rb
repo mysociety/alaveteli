@@ -54,9 +54,9 @@ RSpec.describe InfoRequestEvent do
 
     it "should store the incoming_message, outgoing_messsage and comment ids" do
       comment = FactoryBot.create(:comment)
-      example_params = {incoming_message_id: 1,
+      example_params = { incoming_message_id: 1,
                         outgoing_message_id: 2,
-                        comment_id: comment.id}
+                        comment_id: comment.id }
       ire.params = example_params
       expect(ire.incoming_message_id).to eq(1)
       expect(ire.outgoing_message_id).to eq(2)
@@ -166,7 +166,7 @@ RSpec.describe InfoRequestEvent do
     let(:ire) { InfoRequestEvent.new }
 
     it "should return old, new and other params" do
-      ire.params = {old_foo: 'this is stuff', foo: 'stuff', bar: 84}
+      ire.params = { old_foo: 'this is stuff', foo: 'stuff', bar: 84 }
       expected_hash = {
         new: { foo: 'stuff' },
         old: { foo: 'this is stuff' },
@@ -176,14 +176,14 @@ RSpec.describe InfoRequestEvent do
     end
 
     it 'should drop matching old and new values' do
-      ire.params = {old_foo: 'stuff', foo: 'stuff', bar: 84}
+      ire.params = { old_foo: 'stuff', foo: 'stuff', bar: 84 }
       expected_hash = { new: {}, old: {}, other: { bar: 84 } }
       expect(ire.params_diff).to eq(expected_hash)
     end
 
     it 'returns a url_name if passed a User' do
       user = FactoryBot.create(:user)
-      ire.params = {old_foo: "", foo: user}
+      ire.params = { old_foo: "", foo: user }
       expected_hash = {
         new: { foo: { gid: user.to_global_id.to_s } },
         old: { foo: '' },
@@ -238,6 +238,39 @@ RSpec.describe InfoRequestEvent do
                                                        info_request: request,
                                                        incoming_message: im)
         expect(request.last_public_response_at).to be_nil
+      end
+
+    end
+
+    context "the event is for a comment" do
+
+      it "enqueues NotifyCacheJob job for the comment" do
+        event = FactoryBot.build(:comment_event)
+        expect(NotifyCacheJob).to receive(:perform_later).with(event.comment)
+        event.save
+      end
+
+    end
+
+    context "the event is for an foi_attachment" do
+
+      it "enqueues NotifyCacheJob job for the attachment" do
+        attachment = mock_model(FoiAttachment)
+        allow(FoiAttachment).to receive(:find).and_return(attachment)
+        event = FactoryBot.build(:foi_attachment_event)
+        expect(NotifyCacheJob).to receive(:perform_later).with(attachment)
+        event.save
+      end
+
+    end
+
+    context "the event is for a request" do
+
+      it "enqueues NotifyCacheJob job for the request" do
+        event = FactoryBot.build(:info_request_event)
+        expect(NotifyCacheJob).to receive(:perform_later).
+          with(event.info_request)
+        event.save
       end
 
     end
@@ -427,7 +460,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     it "should change type to hidden when only editing prominence to hidden" do
-      params = unchanged_params.merge({old_prominence: "normal", prominence: "hidden"})
+      params = unchanged_params.merge({ old_prominence: "normal", prominence: "hidden" })
 
       ire = InfoRequestEvent.create!(info_request: FactoryBot.create(:info_request),
                                      event_type: "edit",
@@ -437,7 +470,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     it "should change type to hidden when only editing prominence to requester_only" do
-      params = unchanged_params.merge({old_prominence: "normal", prominence: "requester_only"})
+      params = unchanged_params.merge({ old_prominence: "normal", prominence: "requester_only" })
 
       ire = InfoRequestEvent.create!(info_request: FactoryBot.create(:info_request),
                                      event_type: "edit",
@@ -447,7 +480,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     it "should change type to hidden when only editing prominence to backpage" do
-      params = unchanged_params.merge({old_prominence: "normal", prominence: "backpage"})
+      params = unchanged_params.merge({ old_prominence: "normal", prominence: "backpage" })
 
       ire = InfoRequestEvent.create!(info_request: FactoryBot.create(:info_request),
                                      event_type: "edit",
@@ -655,7 +688,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when only editing prominence to hidden" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "hidden"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "normal", prominence: "hidden" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -665,7 +698,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when only editing prominence to requester_only" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "requester_only"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "normal", prominence: "requester_only" }) }
 
       it "should be true if only editing prominence to requester_only" do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -675,7 +708,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when only editing prominence to backpage" do
-      let(:params) { unchanged_params.merge({old_prominence: "normal", prominence: "backpage"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "normal", prominence: "backpage" }) }
 
       it "should be true if only editing prominence to backpage" do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -685,7 +718,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when the old prominence was hidden" do
-      let(:params) { unchanged_params.merge({old_prominence: "hidden", prominence: "requester_only"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "hidden", prominence: "requester_only" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -695,7 +728,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when the old prominence was requester_only" do
-      let(:params) { unchanged_params.merge({old_prominence: "requester_only", prominence: "hidden"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "requester_only", prominence: "hidden" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -705,7 +738,7 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "when the old prominence was backpage" do
-      let(:params) { unchanged_params.merge({old_prominence: "backpage", prominence: "hidden"}) }
+      let(:params) { unchanged_params.merge({ old_prominence: "backpage", prominence: "hidden" }) }
 
       it do
         ire = InfoRequestEvent.new(event_type: "edit", params: params)
@@ -864,7 +897,7 @@ RSpec.describe InfoRequestEvent do
 
       it 'should return a space separated list of the attachment file types' do
         info_request = ire.info_request
-        incoming = FactoryBot.create(:incoming_message_with_attachments,
+        incoming = FactoryBot.create(:incoming_message, :with_pdf_attachment,
                                      info_request: info_request)
         ire.incoming_message = incoming
         expect(ire.send(:filetype)).to eq('pdf')
@@ -876,6 +909,19 @@ RSpec.describe InfoRequestEvent do
         ire = FactoryBot.create(:info_request_event, event_type: 'comment')
         expect(ire.send(:filetype)).to eq('')
       end
+    end
+  end
+
+  describe '#foi_attachment' do
+    it 'loads FoiAttachment from params as if it was an assoication' do
+      event = FactoryBot.build(
+        :info_request_event, params: { attachment_id: 1 }
+      )
+
+      attachment = mock_model(FoiAttachment)
+      allow(FoiAttachment).to receive(:find).with(1).and_return(attachment)
+
+      expect(event.foi_attachment).to eq(attachment)
     end
   end
 

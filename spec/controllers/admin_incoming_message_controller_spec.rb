@@ -17,6 +17,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it "destroys the ActiveStorage attachment record" do
+      expect(NotifyCacheJob).to receive(:perform_later).with(@im.info_request)
       file = @im.raw_email.file
       expect(file.attached?).to eq true
       post :destroy, params: { id: @im.id }
@@ -73,6 +74,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       FactoryBot.create(:incoming_message, info_request: previous_info_request)
     end
     let(:destination_info_request) { FactoryBot.create(:info_request) }
+    let(:destination_info_request_2) { FactoryBot.create(:info_request) }
 
     it 'expires the file cache for the previous request' do
       allow(IncomingMessage).to receive(:find).and_return(incoming_message)
@@ -104,6 +106,29 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       # Should show an error to the user
       assert_equal flash[:error], "You must supply at least one request to redeliver the message to."
       expect(response).to redirect_to admin_request_url(incoming_message.info_request)
+    end
+
+    context 'when redelivering to multiple requests' do
+      before do
+        destination_params =
+          [destination_info_request, destination_info_request_2].
+          map(&:id).
+          join(', ')
+
+        post :redeliver,
+             params: { id: incoming_message.id,
+                       url_title: destination_params }
+      end
+
+      it 'renders a message' do
+        msg = 'Message has been moved to request(s). Showing the last one:'
+        expect(flash[:notice]).to eq(msg)
+      end
+
+      it 'redirects to the last given destination request' do
+        expect(response).
+          to redirect_to admin_request_path(destination_info_request_2)
+      end
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -217,6 +242,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
     it 'should log an "edit_incoming" event on the info_request' do
       allow(@controller).to receive(:admin_current_user).and_return("Admin user")
+      expect(NotifyCacheJob).to receive(:perform_later).
+        with(@incoming.info_request)
       make_request
       @incoming.reload
       last_event = @incoming.info_request_events.last
@@ -258,9 +285,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     context 'if the incoming message is not valid' do
 
       it 'should render the edit template' do
-        make_request({id: @incoming.id,
-                      incoming_message: {prominence: 'fantastic',
-                                            prominence_reason: 'dull'}})
+        make_request({ id: @incoming.id,
+                      incoming_message: { prominence: 'fantastic',
+                                            prominence_reason: 'dull' } })
         expect(response).to render_template("edit")
       end
 

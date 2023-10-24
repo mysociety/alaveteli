@@ -16,15 +16,26 @@ RSpec.describe "When filtering" do
   describe "when not in test mode" do
 
     it "should not fail handling a bounce mail" do
-      xc = ExternalCommand.new("script/handle-mail-replies",
-                               { stdin_string: load_file_fixture("track-response-exim-bounce.email") })
+      xc = ExternalCommand.new("script/handle-mail-replies", {
+        stdin_string: load_file_fixture("track-response-exim-bounce.email")
+      })
       xc.run
       expect(xc.err).to eq("")
     end
 
     it 'should not fail handling a UTF8 encoded mail' do
-      xc = ExternalCommand.new("script/handle-mail-replies",
-                               { stdin_string: load_file_fixture("russian.email") })
+      xc = ExternalCommand.new("script/handle-mail-replies", {
+        stdin_string: load_file_fixture("russian.email")
+      })
+      xc.run
+      expect(xc.err).to eq("")
+    end
+
+    it "should pass on a non-bounce message with Received headers and Pro enabled" do
+      xc = ExternalCommand.new("script/handle-mail-replies", {
+        env: { 'ALAVETELI_ENABLE_ALAVETELI_PRO' => 'true' },
+        stdin_string: load_file_fixture("apple-mail-with-attachments.email")
+      })
       xc.run
       expect(xc.err).to eq("")
     end

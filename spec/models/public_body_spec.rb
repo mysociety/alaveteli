@@ -197,6 +197,14 @@ RSpec.describe PublicBody do
 
   end
 
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      body = FactoryBot.create(:public_body)
+      body_path = "/body/" + body.url_name
+      expect(body.cached_urls).to eq([body_path, '/body', '^/body/list'])
+    end
+  end
+
   describe '#save' do
     subject { public_body.save }
 
@@ -971,12 +979,13 @@ RSpec.describe PublicBody do
               name: 'Marmot Appreciation Society',
               notes: "",
               publication_scheme: "",
+              disclosure_log: "",
               short_name: "MAS",
               tags: [],
               updated_at: public_body.updated_at,
               url_name: "mas",
               created_at: public_body.created_at,
-              home_page: "http://www.flourish.org",
+              home_page: "https://www.flourish.org",
               id: public_body.id,
               info: {
                 requests_count: 10,
@@ -1180,6 +1189,12 @@ RSpec.describe PublicBody, " when saving" do
     @public_body.save!
     expect(@public_body.versions.size).to eq(2)
     expect(@public_body.versions.last.name).to eq('Test')
+  end
+
+  it 'triggers cache invalidation when updated' do
+    body = FactoryBot.create(:public_body)
+    expect(NotifyCacheJob).to receive(:perform_later).with(body)
+    body.update!(url_name: 'baz-bar-foo')
   end
 
   it 'reindexes request events when url_name has changed' do
@@ -1905,36 +1920,63 @@ RSpec.describe PublicBody do
 end
 
 RSpec.describe PublicBody do
+  around do |example|
+    previous = PublicBody.excluded_calculated_home_page_domains
+    PublicBody.excluded_calculated_home_page_domains = %w[example.net]
+    example.run
+    PublicBody.excluded_calculated_home_page_domains = previous
+  end
 
-  describe "calculated home page" do
-    it "should return the home page verbatim if it's present" do
-      public_body = PublicBody.new
-      public_body.home_page = "http://www.example.com"
-      expect(public_body.calculated_home_page).to eq("http://www.example.com")
+  describe 'calculated home page' do
+    it "returns the home page verbatim if it's present" do
+      public_body = PublicBody.new(home_page: 'http://www.example.com')
+      expect(public_body.calculated_home_page).to eq('http://www.example.com')
     end
 
-    it "should return the home page based on the request email domain if it has one" do
-      public_body = PublicBody.new
-      allow(public_body).to receive(:request_email_domain).and_return "public-authority.com"
-      expect(public_body.calculated_home_page).to eq("http://www.public-authority.com")
+    it 'ensures home page URLs start with https://' do
+      public_body = PublicBody.new(home_page: 'example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
     end
 
-    it "should return nil if there's no home page and the email domain can't be worked out" do
+    it 'does not add http when https is present' do
+      public_body = PublicBody.new(home_page: 'https://example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
+    end
+
+    it 'returns the home page based on the request email domain if it has one' do
       public_body = PublicBody.new
-      allow(public_body).to receive(:request_email_domain).and_return nil
+
+      allow(public_body).
+        to receive(:request_email_domain).and_return('public-authority.com')
+
+      expect(public_body.calculated_home_page).
+        to eq('https://www.public-authority.com')
+    end
+
+    it "returns nil if there's no home page and the email domain can't be worked out" do
+      public_body = PublicBody.new
+      allow(public_body).to receive(:request_email_domain).and_return(nil)
       expect(public_body.calculated_home_page).to be_nil
     end
 
-    it "should ensure home page URLs start with http://" do
-      public_body = PublicBody.new
-      public_body.home_page = "example.com"
-      expect(public_body.calculated_home_page).to eq("http://example.com")
+    it 'ensures home page URLs start with https://' do
+      public_body = PublicBody.new(home_page: 'example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
     end
 
-    it "should not add http when https is present" do
-      public_body = PublicBody.new
-      public_body.home_page = "https://example.com"
-      expect(public_body.calculated_home_page).to eq("https://example.com")
+    it 'does not add http when https is present' do
+      public_body = PublicBody.new(home_page: 'https://example.com')
+      expect(public_body.calculated_home_page).to eq('https://example.com')
+    end
+
+    it 'does not calculate the homepage for excluded domains' do
+      public_body = PublicBody.new(request_email: 'x@example.net')
+      expect(public_body.calculated_home_page).to be_nil
+    end
+
+    it 'ignores case sensitivity for excluded domains' do
+      public_body = PublicBody.new(request_email: 'x@EXAMPLE.net')
+      expect(public_body.calculated_home_page).to be_nil
     end
   end
 
@@ -2045,7 +2087,7 @@ RSpec.describe PublicBody, "when calculating statistics" do
     minimum_requests = 1
     with_enough_info_requests = PublicBody.where(["info_requests_count >= ?",
                                                   minimum_requests]).length
-    all_data = PublicBody.get_request_totals 4, true, minimum_requests
+    all_data = PublicBody.get_request_totals 5, true, minimum_requests
     expect(all_data['public_bodies'].length).to eq(with_enough_info_requests)
   end
 
@@ -2077,7 +2119,7 @@ RSpec.describe PublicBody, "when calculating statistics" do
       minimum_requests = 1
       with_enough_info_requests = PublicBody.where(["info_requests_count >= ?", minimum_requests])
       all_data = PublicBody.get_request_totals 4, true, minimum_requests
-      expect(all_data['public_bodies'].length).to eq(3)
+      expect(all_data['public_bodies'].length).to eq(4)
     ensure
       hpb.tag_string = original_tag_string
     end

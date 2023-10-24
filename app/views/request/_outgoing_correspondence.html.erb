@@ -6,7 +6,7 @@
 
     <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %>">
       <span class="correspondence__header__author js-collapsable-trigger">
-        <%= @info_request.user_name %>
+        <%= outgoing_message.safe_from_name || _('Anonymous user') %>
       </span>
 
       <%= link_to outgoing_message_path(outgoing_message, anchor_only: true), :class => 'correspondence__header__date' do %>

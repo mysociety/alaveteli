@@ -108,12 +108,32 @@ RSpec.describe InfoRequest do
     it { is_expected.to eq(4) }
   end
 
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      request = FactoryBot.create(:info_request)
+      expect(request.cached_urls).
+        to eq([
+                '/',
+                '/body/' + request.public_body.url_name,
+                '/request/' + request.url_title,
+                '/details/request/' + request.url_title,
+                '^/list',
+                '/feed/request/' + request.url_title,
+                '^/feed/list/',
+                '/feed/body/' + request.public_body.url_name,
+                '/feed/user/' + request.user.url_name,
+                '/user/' + request.user.url_name,
+                '/user/' + request.user.url_name + '/wall'
+              ])
+    end
+  end
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 
     context 'when there are incoming messages with attachments' do
       let(:info_request) do
-        FactoryBot.create(:info_request_with_incoming_attachments)
+        FactoryBot.create(:info_request_with_pdf_attachment)
       end
 
       it { is_expected.to be_many }
@@ -342,7 +362,7 @@ RSpec.describe InfoRequest do
         expected_message = 'This is the holding pen request. It shows ' \
                            'responses that were sent to invalid addresses, ' \
                            'and need moving to the correct request by an ' \
-                           'adminstrator.'
+                           'administrator.'
         expect(@holding_pen.outgoing_messages.first.body).
           to eq(expected_message)
       end
@@ -358,9 +378,9 @@ RSpec.describe InfoRequest do
       @request.update(updated_at: 6.months.ago,
                       rejected_incoming_count: 3,
                       allow_new_responses_from: 'nobody')
-      @options = {rejection_threshold: 2,
+      @options = { rejection_threshold: 2,
                   age_in_months: 5,
-                  dryrun: true}
+                  dryrun: true }
     end
 
     it 'returns an count of requests updated ' do
@@ -431,8 +451,11 @@ RSpec.describe InfoRequest do
 
     it 'logs an event after changing new responses to authority_only' do
       request.update(updated_at: 6.months.ago - 1.day)
+      request.log_event('edit', {})
       subject
-      last_event = request.reload.last_event
+      request.reload
+      last_event = request.last_event
+      expect(request.info_request_events.size).to eq(3)
       expect(last_event.event_type).to eq('edit')
       expect(last_event.params).
         to match(old_allow_new_responses_from: 'anybody',
@@ -910,7 +933,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     end
@@ -938,7 +963,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
 
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
@@ -968,7 +995,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(ActionMailer::Base.deliveries).to be_empty
       ActionMailer::Base.deliveries.clear
@@ -992,7 +1021,9 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(ActionMailer::Base.deliveries.size).to eq(1)
       ActionMailer::Base.deliveries.clear
@@ -1015,10 +1046,29 @@ RSpec.describe InfoRequest do
       Plz buy my spam
       EOF
 
-      receive_incoming_mail(spam_email, info_request.incoming_email, 'spammer@example.com')
+      receive_incoming_mail(spam_email,
+                            email_to: info_request.incoming_email,
+                            email_from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.count).to eq(1)
       ActionMailer::Base.deliveries.clear
+    end
+
+    context 'when email has already been received' do
+
+      let(:info_request) { FactoryBot.create(:info_request) }
+
+      before do
+        allow(info_request).to receive(:already_received?).and_return(true)
+      end
+
+      it 'does not create a new incoming message' do
+        email, raw_email = email_and_raw_email
+        expect { info_request.receive(email, raw_email) }.to_not change {
+          info_request.incoming_messages.count
+        }
+      end
+
     end
 
   end
@@ -1417,6 +1467,11 @@ RSpec.describe InfoRequest do
 
     let(:info_request) { FactoryBot.create(:info_request) }
 
+    it "clears the attachment masked" do
+      expect(info_request).to receive(:clear_attachment_masks!)
+      info_request.expire
+    end
+
     it "clears the database caches" do
       expect(info_request).to receive(:clear_in_database_caches!)
       info_request.expire
@@ -1446,6 +1501,22 @@ RSpec.describe InfoRequest do
       expected_calls = info_request.foi_fragment_cache_directories.count + 1
       expect(FileUtils).to receive(:rm_rf).exactly(expected_calls).times
       info_request.expire
+    end
+
+  end
+
+  describe '#clear_attachment_masks!' do
+
+    let(:info_request) { FactoryBot.create(:info_request_with_plain_incoming) }
+    let(:attachment) { info_request.foi_attachments.first }
+
+    before { attachment.update(masked_at: Time.zone.now) }
+
+    it 'sets attachments masked_at to nil' do
+      expect { info_request.clear_attachment_masks! }.to change {
+        attachment.reload
+        attachment.masked_at
+      }.from(Time).to(nil)
     end
 
   end
@@ -1513,6 +1584,53 @@ RSpec.describe InfoRequest do
 
   end
 
+  describe '#already_received?' do
+    it 'returns false if email has no Message-ID header' do
+      info_request = FactoryBot.build(:info_request)
+
+      email = Mail.new(
+        <<~EML
+          Subject: Basic Email
+
+          Hello, World
+        EML
+      )
+
+      expect(info_request.already_received?(email)).to eq(false)
+    end
+
+    it 'returns false if a message with the same Message-ID has not been received' do
+      info_request = FactoryBot.build(:info_request)
+
+      email = Mail.new(
+        <<~EML
+          Message-ID: abcdefg@example.com
+          Subject: Basic Email
+
+          Hello, World
+        EML
+      )
+
+      expect(info_request.already_received?(email)).to eq(false)
+    end
+
+    it 'returns true if a message with the same Message-ID has already been received' do
+      info_request = FactoryBot.create(:info_request)
+
+      raw_email_data = <<~EML
+        Message-ID: abcdefg@example.com
+        Subject: Basic Email
+
+        Hello, World
+      EML
+      email, raw_email = email_and_raw_email(raw_email: raw_email_data)
+
+      info_request.receive(email, raw_email)
+      expect(info_request.incoming_messages.count).to eq(1)
+      expect(info_request.already_received?(email)).to eq(true)
+    end
+  end
+
   describe '#is_external?' do
 
     it 'returns true if there is an external url' do
@@ -1525,6 +1643,109 @@ RSpec.describe InfoRequest do
       expect(info_request.is_external?).to eq(false)
     end
 
+  end
+
+  describe '#user_name' do
+    subject { info_request.user_name }
+
+    context 'when external' do
+      let(:info_request) do
+        FactoryBot.build(
+          :info_request, :external, external_user_name: 'External User'
+        )
+      end
+
+      it 'returns external user name' do
+        is_expected.to eq('External User')
+      end
+    end
+
+    context 'when internal' do
+      let(:user) { FactoryBot.build(:user, name: 'Bob Smith') }
+      let(:info_request) { FactoryBot.build(:info_request, user: user) }
+
+      it 'returns users name' do
+        is_expected.to eq('Bob Smith')
+      end
+    end
+
+    context 'when internal but user is unset' do
+      let(:info_request) { FactoryBot.build(:info_request, user: nil) }
+
+      it 'returns nil' do
+        is_expected.to eq(nil)
+      end
+    end
+  end
+
+  describe '#from_name' do
+    subject { info_request.from_name }
+
+    context 'when unsent internal message' do
+      let(:user) { FactoryBot.build(:user, name: 'Bob Smith 1') }
+      let(:info_request) { FactoryBot.build(:info_request, user: user) }
+
+      it 'returns users name' do
+        is_expected.to eq('Bob Smith 1')
+      end
+    end
+
+    context 'when sent internal message' do
+      let(:outgoing_message) do
+        FactoryBot.build(:initial_request, from_name: 'Bob Smith 2')
+      end
+
+      let(:info_request) do
+        FactoryBot.create(:info_request, initial_request: outgoing_message)
+      end
+
+      it 'returns initial request from name' do
+        is_expected.to eq('Bob Smith 2')
+      end
+    end
+  end
+
+  describe '#safe_from_name' do
+    subject { info_request.safe_from_name }
+
+    before do
+      FactoryBot.create(:global_censor_rule, text: 'Bob', replacement: 'Robert')
+    end
+
+    context 'when external' do
+      let(:info_request) do
+        FactoryBot.build(
+          :info_request, :external, external_user_name: 'External User'
+        )
+      end
+
+      it 'returns external user name' do
+        is_expected.to eq('External User')
+      end
+    end
+
+    context 'when unsent internal message' do
+      let(:user) { FactoryBot.build(:user, name: 'Bob Smith 1') }
+      let(:info_request) { FactoryBot.build(:info_request, user: user) }
+
+      it 'returns users name with censor rule applied' do
+        is_expected.to eq('Robert Smith 1')
+      end
+    end
+
+    context 'when sent internal message' do
+      let(:outgoing_message) do
+        FactoryBot.build(:initial_request, from_name: 'Robert Smith 2')
+      end
+
+      let(:info_request) do
+        FactoryBot.create(:info_request, initial_request: outgoing_message)
+      end
+
+      it 'returns initial request from name with censor rule applied' do
+        is_expected.to eq('Robert Smith 2')
+      end
+    end
   end
 
   describe '#late_calculator' do
@@ -1756,7 +1977,16 @@ RSpec.describe InfoRequest do
 
     context 'email with an intact id and broken idhash' do
       let(:email) { "request-#{ info_request.id }-asdfg@example.com" }
-      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: info_request.id,
+          idhash: 'asdfg'
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
@@ -1765,7 +1995,15 @@ RSpec.describe InfoRequest do
         "request-#{ info_request.id }ab-#{ info_request.idhash }@example.com"
       end
 
-      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: nil,
+          idhash: info_request.idhash
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
@@ -1774,13 +2012,30 @@ RSpec.describe InfoRequest do
         "request-a12x3b-#{ info_request.idhash }@example.com"
       end
 
-      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: nil,
+          idhash: info_request.idhash
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
     context 'upper case email with a broken id and otherwise intact idhash' do
       let(:email) { "REQUEST-123a-#{ info_request.idhash.upcase }@example.com" }
-      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: nil,
+          idhash: info_request.idhash
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
@@ -1789,7 +2044,15 @@ RSpec.describe InfoRequest do
         "request#{ info_request.id }#{ info_request.idhash }@example.com"
       end
 
-      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: info_request.id,
+          idhash: info_request.idhash
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
@@ -1798,19 +2061,45 @@ RSpec.describe InfoRequest do
         "request-#{ info_request.id }#{ info_request.idhash }@example.com"
       end
 
-      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: info_request.id,
+          idhash: info_request.idhash
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
     context 'email with a broken id and an intact idhash but missing punctuation' do
       let(:email) { "request123ab#{ info_request.idhash }@example.com" }
-      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: nil,
+          idhash: info_request.idhash
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
     context 'email with an intact id and a broken idhash but missing punctuation' do
       let(:email) { "request#{ info_request.id }abcdefgh@example.com" }
-      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: info_request.id,
+          idhash: 'abcdefgh'
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
@@ -1818,13 +2107,31 @@ RSpec.describe InfoRequest do
       before { InfoRequest.where(id: 1_231_014).destroy_all }
       let!(:info_request) { FactoryBot.create(:info_request, id: 1_231_014) }
       let(:email) { 'request-123loL4abcdefgh@example.com' }
-      let(:guess) { described_class::Guess.new(info_request, email, :id) }
+
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: info_request.id,
+          idhash: 'abcdefgh'
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
     context 'email with a broken id and an intact idhash but broken format' do
       let(:email) { "reqeust=123ab#{ info_request.idhash }@example.com" }
-      let(:guess) { described_class::Guess.new(info_request, email, :idhash) }
+
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email,
+          id: nil,
+          idhash: info_request.idhash
+        )
+      end
+
       it { is_expected.to include(guess) }
     end
 
@@ -1846,10 +2153,22 @@ RSpec.describe InfoRequest do
         "request-#{ info_request_1.id }-#{ info_request_2.idhash }@example.com"
       end
 
-      let(:guess_1) { described_class::Guess.new(info_request_1, email, :id) }
+      let(:guess_1) do
+        Guess.new(
+          info_request_1,
+          email: email,
+          id: info_request_1.id,
+          idhash: info_request_2.idhash
+        )
+      end
 
       let(:guess_2) do
-        described_class::Guess.new(info_request_2, email, :idhash)
+        Guess.new(
+          info_request_2,
+          email: email,
+          id: info_request_1.id,
+          idhash: info_request_2.idhash
+        )
       end
 
       it { is_expected.to match_array([guess_1, guess_2]) }
@@ -1859,7 +2178,15 @@ RSpec.describe InfoRequest do
       let(:email_1) { "request-123ab-#{ info_request.idhash }@example.com" }
       let(:email_2) { "request-#{ info_request.id }-asdfg@example.com" }
       let(:email) { [email_1, email_2] }
-      let(:guess) { described_class::Guess.new(info_request, email_1, :idhash) }
+
+      let(:guess) do
+        Guess.new(
+          info_request,
+          email: email_1,
+          id: nil,
+          idhash: info_request.idhash
+        )
+      end
 
       it { is_expected.to match_array([guess]) }
     end
@@ -1878,10 +2205,22 @@ RSpec.describe InfoRequest do
 
       let(:email) { [email_1, email_2] }
 
-      let(:guess_1) { described_class::Guess.new(info_request_1, email_1, :id) }
+      let(:guess_1) do
+        Guess.new(
+          info_request_1,
+          email: email_1,
+          id: info_request_1.id,
+          idhash: info_request_2.idhash
+        )
+      end
 
       let(:guess_2) do
-        described_class::Guess.new(info_request_2, email_1, :idhash)
+        Guess.new(
+          info_request_2,
+          email: email_1,
+          id: info_request_1.id,
+          idhash: info_request_2.idhash
+        )
       end
 
       it { is_expected.to match_array([guess_1, guess_2]) }
@@ -1901,9 +2240,7 @@ RSpec.describe InfoRequest do
     context 'a direct reply to the original request email' do
       let(:subject_line) { info_request.email_subject_followup }
 
-      let(:guess) do
-        described_class::Guess.new(info_request, subject_line, :subject)
-      end
+      let(:guess) { Guess.new(info_request, subject: subject_line) }
 
       it { is_expected.to include(guess) }
     end
@@ -1913,9 +2250,7 @@ RSpec.describe InfoRequest do
         info_request.email_subject_followup.gsub('Re: ', 'RE: ')
       end
 
-      let(:guess) do
-        described_class::Guess.new(info_request, subject_line, :subject)
-      end
+      let(:guess) { Guess.new(info_request, subject: subject_line) }
 
       it { is_expected.to include(guess) }
     end
@@ -1933,13 +2268,8 @@ RSpec.describe InfoRequest do
         'Re: Freedom of Information request - How many jelly beans?'
       end
 
-      let(:guess_1) do
-        described_class::Guess.new(info_request_1, subject_line, :subject)
-      end
-
-      let(:guess_2) do
-        described_class::Guess.new(info_request_2, subject_line, :subject)
-      end
+      let(:guess_1) { Guess.new(info_request_1, subject: subject_line) }
+      let(:guess_2) { Guess.new(info_request_2, subject: subject_line) }
 
       it { is_expected.to match_array([guess_1, guess_2]) }
     end
@@ -1960,10 +2290,7 @@ RSpec.describe InfoRequest do
       end
 
       let(:subject_line) { 'Our ref: 12345678' }
-
-      let(:guess) do
-        described_class::Guess.new(info_request, subject_line, :subject)
-      end
+      let(:guess) { Guess.new(info_request, subject: subject_line) }
 
       it { is_expected.to include(guess) }
     end
@@ -1978,9 +2305,7 @@ RSpec.describe InfoRequest do
       end
 
       let(:guess) do
-        described_class::Guess.new(InfoRequest.holding_pen_request,
-                                   subject_line,
-                                   :subject)
+        Guess.new(InfoRequest.holding_pen_request, subject: subject_line)
       end
 
       it { is_expected.to_not include(guess) }
@@ -1994,9 +2319,7 @@ RSpec.describe InfoRequest do
                                              info_request: info_request)
       end
 
-      let(:guess) do
-        described_class::Guess.new(info_request, subject_line, :subject)
-      end
+      let(:guess) { Guess.new(info_request, subject: subject_line) }
 
       it { is_expected.to include(guess) }
     end
@@ -2012,13 +2335,8 @@ RSpec.describe InfoRequest do
         FactoryBot.create(:incoming_message, subject: subject_line).info_request
       end
 
-      let(:guess_1) do
-        described_class::Guess.new(info_request_1, subject_line, :subject)
-      end
-
-      let(:guess_2) do
-        described_class::Guess.new(info_request_2, subject_line, :subject)
-      end
+      let(:guess_1) { Guess.new(info_request_1, subject: subject_line) }
+      let(:guess_2) { Guess.new(info_request_2, subject: subject_line) }
 
       it { is_expected.to match_array([guess_1, guess_2]) }
     end
@@ -3050,12 +3368,12 @@ RSpec.describe InfoRequest do
     it "returns a hash with the user's name for an external request" do
       @info_request = InfoRequest.new(external_url: 'http://www.example.com',
                                       external_user_name: 'External User')
-      expect(@info_request.user_json_for_api).to eq({name: 'External User'})
+      expect(@info_request.user_json_for_api).to eq({ name: 'External User' })
     end
 
     it 'returns "Anonymous user" for an anonymous external user' do
       @info_request = InfoRequest.new(external_url: 'http://www.example.com')
-      expect(@info_request.user_json_for_api).to eq({name: 'Anonymous user'})
+      expect(@info_request.user_json_for_api).to eq({ name: 'Anonymous user' })
     end
 
   end
@@ -3523,7 +3841,7 @@ RSpec.describe InfoRequest do
     it "filters requests by date" do
       # The semantics of the search are that it finds any InfoRequest
       # that has any InfoRequestEvent created in the specified range
-      filters = {latest_status: 'all', request_date_before: '13/10/2007'}
+      filters = { latest_status: 'all', request_date_before: '13/10/2007' }
       conditions1 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events
@@ -3532,7 +3850,7 @@ RSpec.describe InfoRequest do
       expect(apply_filters(filters)).
         to match_array(InfoRequest.where(conditions1))
 
-      filters = {latest_status: 'all', request_date_after: '13/10/2007'}
+      filters = { latest_status: 'all', request_date_after: '13/10/2007' }
       conditions2 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events
@@ -3541,9 +3859,9 @@ RSpec.describe InfoRequest do
       expect(apply_filters(filters)).
         to match_array(InfoRequest.where(conditions2))
 
-      filters = {latest_status: 'all',
+      filters = { latest_status: 'all',
                  request_date_after: '13/10/2007',
-                 request_date_before: '01/11/2007'}
+                 request_date_before: '01/11/2007' }
       conditions3 = <<-EOF
       id IN (SELECT info_request_id
              FROM info_request_events

@@ -5,7 +5,6 @@ require 'config_helper'
 
 module Mail
   class Message
-
     # The behaviour of the 'to' and 'cc' methods have changed
     # between TMail and Mail; this monkey-patching restores the
     # TMail behaviour.  The key difference is that when there's an
@@ -15,6 +14,7 @@ module Mail
 
     alias old_to to
     alias old_cc cc
+    alias old_bcc bcc
 
     def clean_addresses(old_method, val)
       old_result = send(old_method, val)
@@ -29,6 +29,9 @@ module Mail
       clean_addresses :old_cc, val
     end
 
+    def bcc(val = nil)
+      clean_addresses :old_bcc, val
+    end
   end
 end
 
@@ -36,6 +39,8 @@ module MailHandler
   module Backends
     module MailBackend
       include ConfigHelper
+
+      MismatchedAttachmentHexdigest = Class.new(StandardError)
 
       def backend
         'Mail'
@@ -140,7 +145,10 @@ module MailHandler
         addrs << mail[:to].try(:value) if mail.to.nil? && include_invalid
         addrs << mail.cc
         addrs << mail[:cc].try(:value) if mail.cc.nil? && include_invalid
+        addrs << mail.bcc
+        addrs << mail[:bcc].try(:value) if mail.bcc.nil? && include_invalid
         addrs << (mail['envelope-to'] ? mail['envelope-to'].value.to_s : nil)
+        addrs << get_emails_within_received_headers(mail)
         addrs.flatten.compact.uniq
       end
 
@@ -356,21 +364,109 @@ module MailHandler
       # Generate a hash of the attributes associated with each significant part
       # of a Mail object
       def get_attachment_attributes(mail)
-        get_attachment_leaves(mail).map do |leaf|
-          body = get_part_body(leaf)
+        get_attachment_leaves(mail).inject([]) do |acc, leaf|
+          original_body = body = get_part_body(leaf)
 
           if leaf.within_rfc822_attachment
             within_rfc822_subject = get_within_rfc822_subject(leaf)
             body = extract_attached_message_headers(leaf)
           end
 
-          leaf_attributes = { url_part_number: leaf.url_part_number,
-                              content_type: get_content_type(leaf),
-                              filename: get_part_file_name(leaf),
-                              charset: leaf.charset,
-                              within_rfc822_subject: within_rfc822_subject,
-                              body: body,
-                              hexdigest: Digest::MD5.hexdigest(body) }
+          acc.push(
+            url_part_number: leaf.url_part_number,
+            content_type: get_content_type(leaf),
+            filename: get_part_file_name(leaf),
+            charset: leaf.charset,
+            within_rfc822_subject: within_rfc822_subject,
+            original_body: original_body,
+            body: body,
+            hexdigest: Digest::MD5.hexdigest(body)
+          )
+
+          acc
+        end
+      end
+
+      def attachment_body_for_hexdigest(mail, hexdigest:)
+        attributes = get_attachment_attributes(mail).find do |attrs|
+          attrs[:hexdigest] == hexdigest
+        end
+
+        return attributes.fetch(:body) if attributes
+
+        raise MismatchedAttachmentHexdigest,
+          "can't find attachment matching hexdigest: #{hexdigest}"
+      end
+
+      def attempt_to_find_original_attachment_attributes(mail, body:, nested: false)
+        all_attributes = get_attachment_attributes(mail)
+
+        def calculate_hexdigest(body)
+          # ensure bodies have the same line endings and are encoded the same
+          Digest::MD5.hexdigest(
+            Mail::Utilities.binary_unsafe_to_lf(
+              convert_string_to_utf8(
+                body.rstrip
+              ).string
+            )
+          )
+        end
+
+        hexdigest = calculate_hexdigest(body)
+
+        attributes = all_attributes.find do |attrs|
+          hexdigest_1 = calculate_hexdigest(attrs[:body])
+          hexdigest_2 = calculate_hexdigest(attrs[:original_body])
+
+          hexdigest == hexdigest_1 || hexdigest == hexdigest_2
+        end
+
+        return attributes if nested
+
+        mail_body = Mail.new(body).body.to_s
+        attributes ||= attempt_to_find_original_attachment_attributes(
+          mail, body: mail_body, nested: true
+        ) unless mail_body.empty?
+
+        return attributes if attributes
+
+        # check uuencoded attachments which can be located in plain text
+        uuencoded_attributes = all_attributes.inject([]) do |acc, attrs|
+          next acc unless attrs[:content_type] == 'text/plain'
+          acc += uudecode(attrs[:body], attrs[:url_part_number])
+        end
+        attributes ||= uuencoded_attributes.find do |attrs|
+          calculate_hexdigest(attrs[:body]) == hexdigest
+        end
+
+        attributes
+      end
+
+      def uudecode(text, start_part_number)
+        # Find any uudecoded things buried in it, yeuchly
+        uus = text.scan(/^begin.+^`\n^end\n/m)
+        uus.map.with_index do |uu, index|
+          # Decode the string
+          body = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
+          # Make attachment type from it, working out filename and mime type
+          filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
+          mime_type = AlaveteliFileTypes.filename_and_content_to_mimetype(
+            filename, body
+          )
+          if mime_type
+            content_type = MailHandler.normalise_content_type(mime_type)
+          else
+            content_type = 'application/octet-stream'
+          end
+          hexdigest = Digest::MD5.hexdigest(body)
+
+          {
+            body: body,
+            filename: filename,
+            content_type: content_type,
+            hexdigest: hexdigest,
+            url_part_number: start_part_number + index + 1
+          }
         end
       end
 
@@ -390,6 +486,15 @@ module MailHandler
         mail = Mail.new
         mail.from = string
         mail.from[0]
+      end
+
+      def get_emails_within_received_headers(email)
+        received_headers = Array(email['Received'])
+        return [] if received_headers.empty?
+        received_headers.map(&:to_s).
+          join(' ').
+          scan(MySociety::Validate.email_find_regexp).
+          flatten
       end
     end
   end

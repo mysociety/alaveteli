@@ -38,8 +38,8 @@ RSpec.describe PublicBodyCategory::CategoryCollection do
 
     describe 'when asked for tags by headings' do
       it 'should return a hash of tags keyed by heading' do
-        expect(@categories.by_heading).to eq({'Local and regional' => ['local_council'],
-                                          'Miscellaneous' => ['other']})
+        expect(@categories.by_heading).to eq({ 'Local and regional' => ['local_council'],
+                                          'Miscellaneous' => ['other'] })
       end
     end
 

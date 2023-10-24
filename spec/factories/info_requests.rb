@@ -43,20 +43,28 @@ FactoryBot.define do
     public_body
     user
 
-    after(:create) do |info_request, _evaluator|
-      initial_request = create(:initial_request, info_request: info_request,
-                                                 created_at: info_request.created_at)
+    transient do
+      initial_request {}
+    end
+
+    after(:create) do |info_request, evaluator|
+      initial_request = evaluator.initial_request || create(
+        :initial_request,
+        info_request: info_request
+      )
+      initial_request.created_at = info_request.created_at
+      initial_request.info_request = info_request
       initial_request.last_sent_at = info_request.created_at
       initial_request.save!
     end
 
     trait :with_incoming do
       transient do
-        incoming_message_factory { :incoming_message }
+        incoming_message_factory { [:incoming_message] }
       end
 
       after(:create) do |info_request, evaluator|
-        incoming_message = create(evaluator.incoming_message_factory,
+        incoming_message = create(*evaluator.incoming_message_factory,
                                   info_request: info_request)
         info_request.log_event(
           'response',
@@ -66,17 +74,17 @@ FactoryBot.define do
     end
 
     trait :with_plain_incoming do
-      incoming_message_factory { :plain_incoming_message }
+      incoming_message_factory { [:plain_incoming_message] }
       with_incoming
     end
 
     trait :with_incoming_with_html_attachment do
-      incoming_message_factory { :incoming_message_with_html_attachment }
+      incoming_message_factory { [:incoming_message, :with_html_attachment] }
       with_incoming
     end
 
-    trait :with_incoming_with_attachments do
-      incoming_message_factory { :incoming_message_with_attachments }
+    trait :with_incoming_with_pdf_attachment do
+      incoming_message_factory { [:incoming_message, :with_pdf_attachment] }
       with_incoming
     end
 
@@ -276,9 +284,9 @@ FactoryBot.define do
 
     factory :info_request_with_plain_incoming, traits: [:with_plain_incoming]
     factory :info_request_with_html_attachment, traits: [:with_incoming_with_html_attachment]
-    factory :info_request_with_incoming_attachments, traits: [:with_incoming_with_attachments]
+    factory :info_request_with_pdf_attachment, traits: [:with_incoming_with_pdf_attachment]
     factory :info_request_with_internal_review_request, traits: [:with_internal_review_request]
-    factory :embargoed_request, traits: [:embargoed, :with_incoming_with_attachments]
+    factory :embargoed_request, traits: [:embargoed, :with_incoming_with_pdf_attachment]
     factory :embargo_expiring_request, traits: [:embargo_expiring]
     factory :re_embargoed_request, traits: [:re_embargoed]
     factory :embargo_expired_request, traits: [:embargo_expired]

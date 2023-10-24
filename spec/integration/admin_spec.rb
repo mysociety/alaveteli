@@ -42,8 +42,8 @@ RSpec.describe "When administering the site" do
     # deliver an incoming message to the closed request -
     # it gets bounced to the holding pen
     receive_incoming_mail('incoming-request-plain.email',
-                          info_request.incoming_email,
-                          "frob@nowhere.com")
+                          email_to: info_request.incoming_email,
+                          email_from: "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
     new_message = holding_pen_messages.first
     expect(info_request.incoming_messages.length).to eq(1)
@@ -77,8 +77,8 @@ RSpec.describe "When administering the site" do
     # deliver an incoming message to the closed request -
     # it gets bounced to the holding pen
     receive_incoming_mail('incoming-request-plain.email',
-                          info_request.incoming_email,
-                          "frob@nowhere.com")
+                          email_to: info_request.incoming_email,
+                          email_from: "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
     new_message = holding_pen_messages.first
 
@@ -120,29 +120,11 @@ RSpec.describe "When administering the site" do
                                        allow_new_responses_from: 'authority_only',
                                        handle_rejected_responses: 'holding_pen')
       receive_incoming_mail('incoming-request-plain.email',
-                            info_request.incoming_email,
-                            "frob@nowhere.com")
+                            email_to: info_request.incoming_email,
+                            email_from: "frob@nowhere.com")
       using_session(@admin) do
         visit admin_raw_email_path last_holding_pen_mail
         expect(page).to have_content "Only the authority can reply to this request"
-      end
-    end
-
-    it "guesses a misdirected request" do
-      info_request = FactoryBot.create(:info_request,
-                                       allow_new_responses_from: 'authority_only',
-                                       handle_rejected_responses: 'holding_pen')
-      mail_to = "request-#{info_request.id}-asdfg@example.com"
-      receive_incoming_mail('incoming-request-plain.email', mail_to)
-      interesting_email = last_holding_pen_mail
-
-      # now we add another message to the queue, which we're not interested in
-      receive_incoming_mail('incoming-request-plain.email', info_request.incoming_email, "")
-      expect(holding_pen_messages.length).to eq(2)
-      using_session(@admin) do
-        visit admin_raw_email_path interesting_email
-        expect(page).to have_content "Could not identify the request"
-        expect(page).to have_content info_request.title
       end
     end
   end

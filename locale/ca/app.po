@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: mmtarres <mmtarres@gmail.com>, 2012\n"
 "Language-Team: Catalan (http://app.transifex.com/mysociety/alaveteli/language/"
@@ -317,6 +317,9 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "S'ha sol·licitat un <strong>aclariment</strong>"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -605,7 +608,13 @@ msgstr ""
 msgid "Attachment (optional):"
 msgstr "Adjuntos (opcional):"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
+msgstr ""
+
+msgid "Attachment processing..."
 msgstr ""
 
 msgid "Attachment:"
@@ -742,6 +751,12 @@ msgstr "Cambia tu correo"
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "Cambia tu dirección de correo en {{site_name}}"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "Canvia la teva contrassenya"
@@ -1001,6 +1016,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "Descarregar un fitxer ZIP amb tota la correspondència"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "Descargar ficheros adjuntos"
@@ -1347,7 +1365,7 @@ msgstr ""
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr ""
 
-msgid "Here's your daily request summary from {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
 msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
@@ -1438,6 +1456,9 @@ msgstr ""
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "Si no está satisfecho con la respuesta que ha recibido del\n"
@@ -1454,6 +1475,9 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the messa
 msgstr ""
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1760,6 +1784,12 @@ msgstr "El nombre no puede estar vacío"
 msgid "Name is already taken"
 msgstr "El nombre ya está siendo utilizado"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr ""
 
@@ -1854,6 +1884,9 @@ msgid "Not an FOI request"
 msgstr ""
 
 msgid "Not held"
+msgstr ""
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
 msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
@@ -2218,6 +2251,9 @@ msgid "Preview your request"
 msgstr ""
 
 msgid "Previous message"
+msgstr ""
+
+msgid "Previously known as:"
 msgstr ""
 
 msgid "Print your one time passcode"
@@ -2798,6 +2834,9 @@ msgstr ""
 msgid "Subscription renewed after failure"
 msgstr ""
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr ""
 
@@ -2915,6 +2954,9 @@ msgid "The accounts have been left as they previously were."
 msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
 
 msgid "The article references all requests in this batch"
+msgstr ""
+
+msgid "The attachment has now been processed and is available for download."
 msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
@@ -3731,6 +3773,9 @@ msgstr "No tenemos una dirección de correo válida para este organismo."
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "No tenemos una dirección de correo válida para este {{public_body_name}}."
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr ""
 
@@ -4071,6 +4116,9 @@ msgstr ""
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Necesitas identificarte para cambiar el texto de tu perfil."
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "Necesitas identificarte para cambiar la foto de tu perfil."
 
@@ -4223,6 +4271,9 @@ msgstr "Tu mensaje aparecerá en <strong>los motores de búsqueda</strong>"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "El teu nom i els teus comentaris apareixeran en els <strong>motors de cerca</strong>."
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr ""

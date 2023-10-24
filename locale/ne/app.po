@@ -66,7 +66,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Yudeep Rajbhandari <endlessveins@gmail.com>, 2017\n"
 "Language-Team: Nepali (http://app.transifex.com/mysociety/alaveteli/language/n"
@@ -330,6 +330,9 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>स्पष्टीकरण</strong> अनुरोध गरियो"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -609,7 +612,13 @@ msgstr "यस पानाको पुच्छारमा, उनीहर�
 msgid "Attachment (optional):"
 msgstr "सङ्लग्न (ऐच्छिक):"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
+msgstr ""
+
+msgid "Attachment processing..."
 msgstr ""
 
 msgid "Attachment:"
@@ -746,6 +755,12 @@ msgstr "आफ्नो इमेल परिवर्तन गर्नुह
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "{{site_name}} मा प्रयोग गरिएको आफ्नो इमेल परिवर्तन गर्नुहोस्"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "तपाईँको पासवर्ड परिवर्तन गर्नुहोस्"
@@ -1005,6 +1020,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "सम्पूर्ण  पत्रचार zip file को रूपमा डाउनलोड गर्नुहोस्"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "मूल सङ्लग्नहरू डाउनलोड गर्नुहोस्"
@@ -1353,7 +1371,7 @@ msgstr "यहाँ तपाईँले <a href=\"#public_bodies\"> सार
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "यहाँ तपाईँहरूले {{site_name}} प्रशासकहरूले कतिपटक​ लुकाको अनुरोधहरू देख्न सक्नुहुन्छ​।"
 
-msgid "Here's your daily request summary from {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
 msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
@@ -1441,6 +1459,9 @@ msgstr "यदि यो हालको सन्देश हो भने, �
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr ""
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr ""
 "यदि तपाइ आधिकारिक निकायबाट\n"
@@ -1457,6 +1478,9 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the messa
 msgstr ""
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1755,6 +1779,12 @@ msgstr "नाम खाली हुन सक्दैन"
 msgid "Name is already taken"
 msgstr "नाम अरू कसैले लिएको छ"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "एड्मिनको सहायता चाहिएको छ"
 
@@ -1850,6 +1880,9 @@ msgstr "FOI अनुरोध हैन"
 
 msgid "Not held"
 msgstr "रोकिएको छैन"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "ख्याल राख्नुहोस् कि अनुरोध्कर्ताले तपाइले गरेको टिप्पणिबारे सूचित हुदैन​, किनभने {{public_body_name}}को तर्फबाट अनुरोध प्रकाशित भएको हुन्छ​।"
@@ -2204,6 +2237,9 @@ msgid "Preview your request"
 msgstr "तपाईँको अनुरोधको पूर्वावलोक हेर्नुहोस्"
 
 msgid "Previous message"
+msgstr ""
+
+msgid "Previously known as:"
 msgstr ""
 
 msgid "Print your one time passcode"
@@ -2784,6 +2820,9 @@ msgstr ""
 msgid "Subscription renewed after failure"
 msgstr ""
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "सफल"
 
@@ -2893,6 +2932,9 @@ msgid "The accounts have been left as they previously were."
 msgstr "पहिला जस्तो खाता छोडिएको थियो अहिले नि तेस्तै छोडिएको छ "
 
 msgid "The article references all requests in this batch"
+msgstr ""
+
+msgid "The attachment has now been processed and is available for download."
 msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
@@ -3704,6 +3746,9 @@ msgstr "हामी संग यो निकायको लागि का�
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "{{public_body_name}}को लागि हामीसँग {{law_used_full}} को ठेगाना छैन"
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr ""
 
@@ -4031,6 +4076,9 @@ msgstr ""
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "तपाईंले पाठ परिवर्तन गर्न आफ्नो प्रोफाइलमा लग इन गर्न आवश्यक छ।"
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "तपाईंले आफ्नो प्रोफाइल फोटो परिवर्तन गर्नका लागि लग इन गर्न आवश्यक छ "
 
@@ -4180,6 +4228,9 @@ msgstr "तपाइको सन्देस <strong>खोजी इन्ज�
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "तपाइको नाम र एन्नोटेसनहरू <strong>खोजी इन्जिनहरुमा</strong> देखिनेछन्।"
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr ""

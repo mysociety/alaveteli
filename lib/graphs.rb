@@ -46,7 +46,7 @@ module Graphs
   # for outputting the graph
   # returns the resulting Gnuplot::DataSet
   def create_dataset(data, options)
-    default = {using: "1:2"} #in most cases, we just want the first 2 columns
+    default = { using: "1:2" } #in most cases, we just want the first 2 columns
     options = default.merge(options)
     Gnuplot::DataSet.new(data) do |ds|
       options.keys.each do |option|

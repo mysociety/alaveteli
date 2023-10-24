@@ -36,7 +36,7 @@ RSpec.describe AdminPublicBodyController do
 
     it "sets a using_admin flag" do
       sign_in admin_user
-      get :show, params: { id: public_body.id}
+      get :show, params: { id: public_body.id }
       expect(session[:using_admin]).to eq(1)
     end
 
@@ -736,7 +736,7 @@ RSpec.describe AdminPublicBodyController do
         it 'should raise an error on an invalid temp file name' do
           params = { temporary_csv_file: 'bad_name',
                      original_csv_file: 'original_contents.txt',
-                     commit: 'Dry run'}
+                     commit: 'Dry run' }
           expected_error = "Invalid filename in upload_csv: bad_name"
           expect {
             post :import_csv, params: params
@@ -747,7 +747,7 @@ RSpec.describe AdminPublicBodyController do
           temp_name = "csv_upload-20461231-394"
           params = { temporary_csv_file: temp_name,
                      original_csv_file: 'original_contents.txt',
-                     commit: 'Dry run'}
+                     commit: 'Dry run' }
           expected_error = "Missing file in upload_csv: csv_upload-20461231-394"
           expect {
             post :import_csv, params: params
@@ -829,7 +829,7 @@ RSpec.describe AdminPublicBodyController do
                   }
       expect(session[:using_admin]).to eq(1)
       n = PublicBody.count
-      post :destroy, params: {id: public_bodies(:forlorn_public_body).id }
+      post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(session[:using_admin]).to eq(1)
       expect(PublicBody.count).to eq(n - 1)
     end

@@ -13,7 +13,7 @@ RSpec.describe LinkToHelper do
 
     it 'should return a path including any extra parameters passed' do
       expected = "/request/#{info_request.url_title}?update_status=1"
-      actual = request_path(info_request, {update_status: 1})
+      actual = request_path(info_request, { update_status: 1 })
       expect(actual).to eq(expected)
     end
   end

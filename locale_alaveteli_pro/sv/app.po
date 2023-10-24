@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Mattias Axell <mattias@libertador.es>, 2023\n"
 "Language-Team: Swedish (https://app.transifex.com/mysociety/teams/33529/sv/)\n"
@@ -442,6 +442,9 @@ msgstr "För journalister, föreningar, forskare och företagare"
 msgid "Friendly support"
 msgstr "Stöd från Handlingar-teamet"
 
+msgid "From"
+msgstr ""
+
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "Från den här skärmbilden får du en bra översikt av dina förfrågningar och agera snabbt så att de är aktuella. Varför inte ta itu med en första redan nu?"
 
@@ -505,14 +508,17 @@ msgstr "Bildkälla:"
 msgid "Important info about requests to this authority"
 msgstr "Viktig info om förfrågningar till denna myndighet"
 
-msgid "Introductory Pricing"
-msgstr "Introduktionspris"
-
 msgid "Investigating asbestos use in schools"
 msgstr "Undersöker användning av asbest i skolor"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Den grävande journalisten Jenna Corderoy har använt sekretessfunktioner med Pro bra, och höll hennes omfattande Brexit-relaterade granskningar privata tills hennes arbete publicerades, <a href=\"{{story_url_1}}\">fakta om kampanjöverskott</a> och <a href=\"{{story_url_2}}\">ERG</a> utredningar för allmänheten, och flera andra viktiga publiceringar."
+
+msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
+msgstr ""
+
+msgid "Invoices"
+msgstr ""
 
 msgid "I’m a campaigner"
 msgstr "För civilsamhälle"
@@ -676,8 +682,14 @@ msgstr "När du är redo, publicera data bakom din utredning för att få ökat 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
 msgstr "När du är redo, publicera data bakom din utredning för att få ökat genomslag och ökad trovärdighet."
 
+msgid "Open"
+msgstr ""
+
 msgid "Overflowing inbox?"
 msgstr "Överfylld inkorg?"
+
+msgid "Paid"
+msgstr ""
 
 msgid "Payments past due:"
 msgstr "Förfallna betalningar:"
@@ -1147,6 +1159,12 @@ msgstr "Använde Pro för att skapa en rikstäckande bild av de offentliga fasti
 
 msgid "View"
 msgstr "Se"
+
+msgid "View Invoice and Pay"
+msgstr ""
+
+msgid "View Receipt"
+msgstr ""
 
 msgid "View authorities"
 msgstr "Se myndigheter"

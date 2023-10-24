@@ -88,6 +88,7 @@ class InfoRequestEvent < ApplicationRecord
     self.event_type = "hide"
   end
   after_create :update_request, if: :response?
+  after_create :invalidate_cached_pages
 
   after_commit -> { info_request.create_or_update_request_summary },
                   on: [:create]
@@ -261,7 +262,7 @@ class InfoRequestEvent < ApplicationRecord
       end
     end
     new_params.delete_if { |key, _value| ignore.keys.include?(key) }
-    {new: new_params, old: old_params, other: other_params}
+    { new: new_params, old: old_params, other: other_params }
   end
 
   def is_incoming_message?
@@ -355,6 +356,16 @@ class InfoRequestEvent < ApplicationRecord
     info_request.update_last_public_response_at
   end
 
+  def invalidate_cached_pages
+    if comment
+      NotifyCacheJob.perform_later(comment)
+    elsif foi_attachment
+      NotifyCacheJob.perform_later(foi_attachment)
+    else
+      NotifyCacheJob.perform_later(info_request)
+    end
+  end
+
   def same_email_as_previous_send?
     prev_addr = info_request.get_previous_email_sent_to(self)
     curr_addr = params[:email]
@@ -404,6 +415,11 @@ class InfoRequestEvent < ApplicationRecord
       self.last_described_at = Time.zone.now
       save!
     end
+  end
+
+  def foi_attachment
+    return unless params[:attachment_id]
+    @foi_attachment ||= FoiAttachment.find(params[:attachment_id])
   end
 
   protected

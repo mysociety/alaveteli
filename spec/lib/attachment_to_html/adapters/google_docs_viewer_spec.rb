@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::GoogleDocsViewer do
+  describe '.viewable?' do
+    subject { described_class.viewable?(content_type) }
+
+    context 'when the content_type is supported' do
+      let(:content_type) { 'application/pdf' }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the content_type is unsupported' do
+      let(:content_type) { 'an/invalid/content-type' }
+      it { is_expected.to eq(false) }
+    end
+  end
 
   let(:attachment) { FactoryBot.build(:pdf_attachment) }
   let(:adapter) do

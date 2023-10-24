@@ -11,8 +11,8 @@ module StripeMock
 
   module RequestHandlers::Subscriptions
     # copies current method and adds a call to our
-    # set_custom_status_from_metatdata method to set the status
-    # from the stored info in the subscription metatdata when the
+    # set_custom_status_from_metadata method to set the status
+    # from the stored info in the subscription metadata when the
     # subscription is retrieved (including calling #refresh)
     def retrieve_subscription(route, method_url, _params, _headers)
       route =~ method_url
@@ -22,8 +22,8 @@ module StripeMock
     end
 
     # copies current method and adds a call to our
-    # set_custom_status_from_metatdata method to set the status
-    # from the stored info in the subscription metatdata when multiple
+    # set_custom_status_from_metadata method to set the status
+    # from the stored info in the subscription metadata when multiple
     # subscriptions are retrieved (including from `Subscription::List`)
     def retrieve_subscriptions(route, method_url, params, _headers)
       route =~ method_url

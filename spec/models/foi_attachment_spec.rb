@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220916134847
+# Schema version: 20230717201410
 #
 # Table name: foi_attachments
 #
@@ -16,6 +16,7 @@
 #  updated_at            :datetime
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
+#  masked_at             :datetime
 #
 
 require 'spec_helper'
@@ -40,6 +41,16 @@ RSpec.describe FoiAttachment do
     end
 
     it { is_expected.to match_array(binary_attachments) }
+  end
+
+  describe '.cached_urls' do
+    it 'includes the correct paths' do
+      att = FactoryBot.create(:jpeg_attachment)
+      im = FactoryBot.create(:plain_incoming_message)
+      att.incoming_message = im
+      request_path = "/request/" + att.incoming_message.info_request.url_title
+      expect(att.cached_urls).to eq([request_path])
+    end
   end
 
   describe '#body=' do
@@ -81,20 +92,87 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    it 'does not update hexdigest if already present' do
+      attachment = FoiAttachment.new(hexdigest: 'ABC')
+      expect { attachment.body = 'foo' }.to_not change { attachment.hexdigest }
+    end
+
+    it 'allow calls to #body to be made before save' do
+      attachment = FactoryBot.build(:foi_attachment, :unmasked)
+      blob = attachment.file.blob
+
+      expect {
+        attachment.body
+        attachment.save!
+      }.to change {
+        ActiveStorage::Blob.services.fetch(blob.service_name).exist?(blob.key)
+      }.from(false).to(true)
+    end
+
   end
 
   describe '#body' do
 
-    it 'returns a binary encoded string when newly created' do
-      foi_attachment = FactoryBot.create(:body_text)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+    context 'when masked' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      it 'returns a binary encoded string when newly created' do
+        expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
+
+      it 'returns a binary encoded string when saved' do
+        foi_attachment_2 = FoiAttachment.find(foi_attachment.id)
+        expect(foi_attachment_2.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
     end
 
+    context 'when unmasked and original attachment can be found' do
+      let(:incoming_message) do
+        FactoryBot.create(:incoming_message, foi_attachments_factories: [
+          [:body_text, :unmasked]
+        ])
+      end
+      let(:foi_attachment) { incoming_message.foi_attachments.last }
 
-    it 'returns a binary encoded string when saved' do
-      foi_attachment = FactoryBot.create(:body_text)
-      foi_attachment = FoiAttachment.find(foi_attachment.id)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      it 'calls the FoiAttachmentMaskJob now and return the masked body' do
+        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+          with(foi_attachment).
+          and_invoke(-> (_) {
+            # mock the job
+            foi_attachment.update(body: 'maskedbody', masked_at: Time.zone.now)
+          })
+
+        expect(foi_attachment.body).to eq('maskedbody')
+      end
+    end
+
+    context 'when unmasked and original attachment can not be found' do
+      let(:incoming_message) do
+        FactoryBot.create(:incoming_message, foi_attachments_factories: [
+          [:body_text, :unmasked]
+        ])
+      end
+      let(:foi_attachment) { incoming_message.foi_attachments.last }
+
+      before do
+        foi_attachment.update(hexdigest: '123')
+
+        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+          with(foi_attachment).
+          and_invoke(-> (_) {
+            # mock the job
+            incoming_message.parse_raw_email!(true)
+          })
+      end
+
+      it 'returns load_attachment_from_incoming_message.body' do
+        allow(foi_attachment).to(
+          receive(:load_attachment_from_incoming_message).and_return(
+            double(body: 'thisisthenewtext')
+          )
+        )
+        expect(foi_attachment.body).to eq('thisisthenewtext')
+      end
     end
 
   end
@@ -144,10 +222,101 @@ RSpec.describe FoiAttachment do
 
   end
 
+  describe '#unmasked_body' do
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    subject(:unmasked_body) { foi_attachment.unmasked_body }
+
+    before do
+      allow(foi_attachment).to receive(:raw_email).
+        and_return(double(mail: Mail.new))
+    end
+
+    context 'when mail handler finds original attachment by hexdigest' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_return('hereistheunmaskedtext')
+      end
+
+      it 'returns the attachment body from the raw email' do
+        is_expected.to eq('hereistheunmaskedtext')
+      end
+    end
+
+    context 'when able to find original attachment through other means' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_raise(MailHandler::MismatchedAttachmentHexdigest)
+
+        allow(MailHandler).to receive(
+          :attempt_to_find_original_attachment_attributes
+        ).and_return(hexdigest: 'ABC', body: 'hereistheunmaskedtext')
+      end
+
+      it 'updates the hexdigest' do
+        expect { unmasked_body }.to change { foi_attachment.hexdigest }.
+          to('ABC')
+      end
+
+      it 'returns the attachment body from the raw email' do
+        is_expected.to eq('hereistheunmaskedtext')
+      end
+    end
+
+    context 'when unable to find original attachment through other means' do
+      before do
+        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
+          and_raise(MailHandler::MismatchedAttachmentHexdigest)
+
+        allow(MailHandler).to receive(
+          :attempt_to_find_original_attachment_attributes
+        ).and_return(nil)
+      end
+
+      it 'raises missing attachment exception' do
+        expect { unmasked_body }.to raise_error(
+          FoiAttachment::MissingAttachment,
+          "attachment missing in raw email (ID=#{foi_attachment.id})"
+        )
+      end
+    end
+
+  end
+
+  describe 'masked?' do
+
+    let(:foi_attachment) do
+      FoiAttachment.new(body: 'foo', masked_at: Time.zone.now)
+    end
+
+    subject { foi_attachment.masked? }
+
+    it { is_expected.to eq(true) }
+
+    context 'without file attached' do
+      let(:foi_attachment) { FoiAttachment.new(masked_at: Time.zone.now) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'without masked_at' do
+      let(:foi_attachment) { FoiAttachment.new(body: 'foo') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when masked_at is in the future' do
+      let(:foi_attachment) do
+        FoiAttachment.new(body: 'foo', masked_at: Time.zone.now + 1.day)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+  end
+
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 
-    let(:message) { FactoryBot.build(:incoming_message_with_attachments) }
+    let(:message) { FactoryBot.build(:incoming_message, :with_pdf_attachment) }
 
     context 'when the attachment is the main body' do
       let(:attachment) { message.get_main_body_text_part }
@@ -191,4 +360,26 @@ RSpec.describe FoiAttachment do
 
   end
 
+  describe '#name_of_content_type' do
+    subject { foi_attachment.name_of_content_type }
+
+    before do
+      stub = { 'content/named' => 'Named content' }
+      stub_const("#{described_class}::CONTENT_TYPE_NAMES", stub)
+    end
+
+    let(:foi_attachment) do
+      FactoryBot.build(:foi_attachment, content_type: content_type)
+    end
+
+    context 'when the content_type has a name' do
+      let(:content_type) { 'content/named' }
+      it { is_expected.to eq('Named content') }
+    end
+
+    context 'when the content_type has no name' do
+      let(:content_type) { 'content/unnamed' }
+      it { is_expected.to be_nil }
+    end
+  end
 end

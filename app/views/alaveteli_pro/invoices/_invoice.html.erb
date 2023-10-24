@@ -1,0 +1,14 @@
+<li>
+  <strong><%= invoice.date.to_fs(:long) %></strong>
+
+  <%= _('Invoice {{invoice_number}} for {{invoice_amount}}',
+        invoice_number: invoice.number,
+        invoice_amount: format_currency(invoice.amount_due)) %>
+
+  <% if invoice.paid? %>
+    <%= link_to _('View Receipt'), invoice.receipt_url, target: '_blank' %>
+  <% elsif invoice.open? %>
+    <%= link_to _('View Invoice and Pay'), invoice.hosted_invoice_url,
+        target: '_blank' %>
+  <% end %>
+</li>

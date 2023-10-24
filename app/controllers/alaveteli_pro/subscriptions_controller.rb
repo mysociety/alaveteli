@@ -46,7 +46,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       @token = Stripe::Token.retrieve(params[:stripe_token])
 
-      @pro_account.source = @token.id
+      @pro_account.token = @token
       @pro_account.update_stripe_customer
 
       @subscription = @pro_account.subscriptions.build
@@ -60,7 +60,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       @subscription.save
 
-    rescue Stripe::CardError => e
+    rescue ProAccount::CardError,
+           Stripe::CardError => e
       flash[:error] = e.message
 
     rescue Stripe::RateLimitError,

@@ -26,7 +26,8 @@ RSpec.describe "admin_request/show" do
 
     it 'links to the pro request page' do
       render
-      expect(rendered).to match(show_alaveteli_pro_request_url(info_request.url_title))
+      expect(rendered).
+        to match(show_alaveteli_pro_request_url(info_request.url_title))
     end
 
     it 'includes embargo information' do

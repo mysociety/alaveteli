@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Set IDEAL_VERSION to the commitish we want to check out; typically
+# Set IDEAL_VERSION to the committish we want to check out; typically
 # this is the version tag.  Since this may not exist before release,
 # fall back to the master branch:
 VERSIONS="origin/install-script 0.15 origin/master"
@@ -300,20 +300,6 @@ if [ "$DEVELOPMENT_INSTALL" = true ]; then
   # Not in the Gemfile due to conflicts
   # See: https://github.com/sj26/mailcatcher/blob/3079a00/README.md#bundler
   gem install mailcatcher
-fi
-
-if [ "$DEVELOPMENT_INSTALL" = true ] && [ x"$SUDO_USER" = x"vagrant" ]
-then
-  VAGRANT_DEV_INSTALL=true
-fi
-
-if [ "$VAGRANT_DEV_INSTALL" = true ] && [ ! -e "$REPOSITORY/config/xapian.yml" ]
-  then
-    cat > "$REPOSITORY/config/xapian.yml" <<EOF
-# Create test xapian DBs outside of the VirtualBox share to avoid corruption
-test:
-  base_db_path: "/tmp/xapiandbs"
-EOF
 fi
 
 # Set up root's crontab:

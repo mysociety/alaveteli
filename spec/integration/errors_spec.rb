@@ -92,7 +92,7 @@ RSpec.describe "When errors occur" do
     end
 
     it 'should render a 403 with text body for attempts at directory listing for attachments' do
-      info_request = FactoryBot.create(:info_request_with_incoming_attachments)
+      info_request = FactoryBot.create(:info_request_with_pdf_attachment)
       id = info_request.id
       prefix = id.to_s[0..2]
       msg_id = info_request.incoming_messages.first.id

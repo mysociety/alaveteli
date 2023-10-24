@@ -18,7 +18,7 @@ DOMAIN: 'test.host'
 # so that logins can't be intercepted by naughty people.
 FORCE_SSL: false
 
-# ISO country code of country currrently deployed in
+# ISO country code of country currently deployed in
 # (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 ISO_COUNTRY_CODE: DE
 
@@ -120,5 +120,3 @@ MAX_REQUESTS_PER_USER_PER_DAY: 2
 SKIP_ADMIN_AUTH: true
 
 UTILITY_SEARCH_PATH: []
-
-BACKGROUND_JOBS: 'server'

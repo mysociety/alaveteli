@@ -40,7 +40,6 @@ require 'digest/sha1'
 require 'fileutils'
 
 class InfoRequest < ApplicationRecord
-  Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
   include Rails.application.routes.url_helpers
@@ -52,6 +51,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::TitleValidation
   include Taggable
   include Notable
+  include LinkToHelper
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -244,8 +244,13 @@ class InfoRequest < ApplicationRecord
     guesses = emails.flatten.reduce([]) do |memo, email|
       id, idhash = _extract_id_hash_from_email(email)
       id, idhash = _guess_idhash_from_email(email) if idhash.nil? || id.nil?
-      memo << Guess.new(find_by_id(id), email, :id)
-      memo << Guess.new(find_by_idhash(idhash), email, :idhash)
+
+      memo << Guess.new(
+        find_by_id(id), email: email, id: id, idhash: idhash
+      )
+      memo << Guess.new(
+        find_by_idhash(idhash), email: email, id: id, idhash: idhash
+      )
     end
 
     # Unique Guesses where we've found an `InfoRequest`
@@ -314,7 +319,7 @@ class InfoRequest < ApplicationRecord
       limit(25)
 
     guesses = requests.each.reduce([]) do |memo, request|
-      memo << Guess.new(request, subject_line, :subject)
+      memo << Guess.new(request, subject: subject_line)
     end
 
     # Unique Guesses where we've found an `InfoRequest`
@@ -369,7 +374,7 @@ class InfoRequest < ApplicationRecord
       om = OutgoingMessage.new({
         status: 'ready',
         message_type: 'initial_request',
-        body: 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
+        body: 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an administrator.',
         last_sent_at: Time.zone.now,
         what_doing: 'normal_sort'
 
@@ -542,12 +547,13 @@ class InfoRequest < ApplicationRecord
   def self.stop_new_responses_on_old_requests
     # 'old' months since last change to request, only allow new incoming
     # messages from authority domains
-    InfoRequest
-      .been_published
-      .where(allow_new_responses_from: 'anybody')
-      .where.not(url_title: 'holding_pen')
-      .updated_before(requests_old_after_months.months.ago.to_date)
-      .find_in_batches do |batch|
+    InfoRequest.
+      been_published.
+      where(allow_new_responses_from: 'anybody').
+      where.not(url_title: 'holding_pen').
+      updated_before(requests_old_after_months.months.ago.to_date).
+      distinct.
+      find_in_batches do |batch|
         batch.each do |info_request|
           old_allow_new_responses_from = info_request.allow_new_responses_from
 
@@ -565,12 +571,13 @@ class InfoRequest < ApplicationRecord
 
     # 'very_old' months since last change to request, don't allow any new
     # incoming messages
-    InfoRequest
-      .been_published
-      .where(allow_new_responses_from: %w[anybody authority_only])
-      .where.not(url_title: 'holding_pen')
-      .updated_before(requests_very_old_after_months.months.ago.to_date)
-      .find_in_batches do |batch|
+    InfoRequest.
+      been_published.
+      where(allow_new_responses_from: %w[anybody authority_only]).
+      where.not(url_title: 'holding_pen').
+      updated_before(requests_very_old_after_months.months.ago.to_date).
+      distinct.
+      find_in_batches do |batch|
         batch.each do |info_request|
           old_allow_new_responses_from = info_request.allow_new_responses_from
 
@@ -755,7 +762,18 @@ class InfoRequest < ApplicationRecord
   end
 
   def user_name
-    is_external? ? external_user_name : user.name
+    return external_user_name if is_external?
+    user&.name
+  end
+
+  def from_name
+    return external_user_name if is_external?
+    outgoing_messages.first&.from_name || user_name
+  end
+
+  def safe_from_name
+    return external_user_name if is_external?
+    apply_censor_rules_to_text(from_name)
   end
 
   def user_name_slug
@@ -796,6 +814,10 @@ class InfoRequest < ApplicationRecord
   end
 
   def expire(options={})
+    # Clear any attachment masked_at timestamp, forcing attachments to be
+    # reparsed
+    clear_attachment_masks!
+
     # Clear out cached entries, by removing files from disk (the built in
     # Rails fragment cache made doing this and other things too hard)
     foi_fragment_cache_directories.each { |dir| FileUtils.rm_rf(dir) }
@@ -809,6 +831,10 @@ class InfoRequest < ApplicationRecord
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events
+  end
+
+  def clear_attachment_masks!
+    foi_attachments.update_all(masked_at: nil)
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -875,18 +901,14 @@ class InfoRequest < ApplicationRecord
   end
 
   # Has this email already been received here? Based just on message id.
-  def already_received?(email, _raw_email_data)
-    message_id = email.message_id
-    raise "No message id for this message" if message_id.nil?
-
-    incoming_messages.each do |im|
-      return true if message_id == im.message_id
-    end
-
-    false
+  def already_received?(email)
+    return false unless email.message_id
+    incoming_messages.any? { email.message_id == _1.message_id }
   end
 
   def receive(email, raw_email_data, *args)
+    return if already_received?(email)
+
     defaults = { override_stop_new_responses: false,
                  rejected_reason: nil,
                  source: :internal }
@@ -1737,6 +1759,34 @@ class InfoRequest < ApplicationRecord
 
   def latest_refusals
     incoming_messages.select(&:refusals?).last&.refusals || []
+  end
+
+  def cached_urls
+    feed_request = TrackThing.new(
+      info_request: self,
+      track_type: 'request_updates'
+    )
+    feed_body = TrackThing.new(
+      public_body: public_body,
+      track_type: 'public_body_updates'
+    )
+    feed_user = TrackThing.new(
+      tracked_user: user,
+      track_type: 'user_updates'
+    )
+    [
+      '/',
+      public_body_path(public_body),
+      request_path(self),
+      request_details_path(self),
+      '^/list',
+      do_track_path(feed_request, feed = 'feed'),
+      '^/feed/list/',
+      do_track_path(feed_body, feed = 'feed'),
+      do_track_path(feed_user, feed = 'feed'),
+      user_path(user),
+      show_user_wall_path(url_name: user.url_name)
+    ]
   end
 
   private

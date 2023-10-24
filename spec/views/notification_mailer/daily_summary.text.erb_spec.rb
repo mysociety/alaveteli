@@ -16,6 +16,6 @@ RSpec.describe "notification_mailer/daily_summary" do
     render
     expect(response).to match("the l'Information team")
     expect(response).
-      to match("Here's your daily request summary from l'Information")
+      to match("Here's your daily request summary from l'Information:")
   end
 end

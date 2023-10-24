@@ -24,8 +24,8 @@ class RequestMailer < ApplicationMailer
     if !attachment_name.nil? && !attachment_content.nil?
       content_type = AlaveteliFileTypes.filename_to_mimetype(attachment_name) || 'application/octet-stream'
 
-      attachments[attachment_name] = {content: attachment_content,
-                                      content_type: content_type}
+      attachments[attachment_name] = { content: attachment_content,
+                                      content_type: content_type }
     end
 
     mail(from: from_user.name_and_email,
@@ -38,8 +38,8 @@ class RequestMailer < ApplicationMailer
     @message_body = message_body
 
     attachment_hashes.each do |attachment_hash|
-      attachments[attachment_hash[:filename]] = {content: attachment_hash[:body],
-                                                 content_type: attachment_hash[:content_type]}
+      attachments[attachment_hash[:filename]] = { content: attachment_hash[:body],
+                                                 content_type: attachment_hash[:content_type] }
     end
 
     mail(from: blackhole_email,
@@ -231,40 +231,53 @@ class RequestMailer < ApplicationMailer
 
   # Find which info requests the email is for
   def requests_matching_email(email)
-    # We deliberately don't use Envelope-to here, so ones that are BCC
-    # drop into the holding pen for checking.
-    addresses = ((email.to || []) + (email.cc || [])).compact
+    addresses = MailHandler.get_all_addresses(email)
     InfoRequest.matching_incoming_email(addresses)
+  end
+
+  def send_to_holding_pen(email, raw_email, opts)
+    opts[:rejected_reason] =
+      _("Could not identify the request from the email address")
+    request = InfoRequest.holding_pen_request
+    request.receive(email, raw_email, opts)
   end
 
   # Member function, called on the new class made in self.receive above
   def receive(email, raw_email, source = :mailin)
     opts = { source: source }
 
-    # Find which info requests the email is for
-    reply_info_requests = requests_matching_email(email)
+    # Only check mail that doesn't have spam in the header
+    return if SpamAddress.spam?(MailHandler.get_all_addresses(email))
 
-    # Nothing found, so save in holding pen
-    if reply_info_requests.empty?
-      opts[:rejected_reason] =
-        _("Could not identify the request from the email address")
-      request = InfoRequest.holding_pen_request
+    # Find exact matches for info requests
+    exact_info_requests = requests_matching_email(email)
 
-      request.receive(email, raw_email, opts) unless SpamAddress.spam?(email.to)
+    if exact_info_requests.count > 0
+      # Go through each exact info request and deliver the email
+      exact_info_requests.each do |info_request|
+        info_request.receive(email, raw_email, opts)
+      end
 
       return
     end
 
-    # Send the message to each request, to be archived with it
-    reply_info_requests.each do |reply_info_request|
-      # If environment variable STOP_DUPLICATES is set, don't send message with same id again
-      if ENV['STOP_DUPLICATES']
-        if reply_info_request.already_received?(email, raw_email)
-          raise "message #{ email.message_id } already received by request"
-        end
-      end
+    # If there are no exact matches, find any guessed requests
+    guessed_info_requests = Guess.guessed_info_requests(email)
 
-      reply_info_request.receive(email, raw_email, opts)
+    if guessed_info_requests.count == 1
+      # If there one guess automatically redeliver the email to that and log it
+      # as an event
+      info_request = guessed_info_requests.first
+      info_request.log_event(
+        'redeliver_incoming',
+        editor: 'automatic',
+        destination_request: info_request
+      )
+      info_request.receive(email, raw_email, opts)
+
+    else
+      # Otherwise we send the mail to the holding pen
+      send_to_holding_pen(email, raw_email, opts)
     end
   end
 

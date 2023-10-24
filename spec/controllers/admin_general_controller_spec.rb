@@ -339,16 +339,25 @@ RSpec.describe AdminGeneralController do
     end
 
     it 'sets the title appropriately' do
-      expect(assigns[:events_title]).to eq("Events, all time")
+      expect(assigns[:events_title]).to eq("All events in the last 2 days")
+    end
+
+    context 'when start_date is set' do
+
+      before do
+        get :timeline, params: { all: 1, start_date: Time.utc(1970, 1, 1) }
+      end
+
+      it 'sets the title appropriately' do
+        expect(assigns[:events_title]).to eq("All events, all time")
+      end
+
     end
 
     context 'when event_type is info_request_event' do
 
       before do
-        get :timeline, params: {
-                         all: 1,
-                         event_type: 'info_request_event'
-                       }
+        get :timeline, params: { all: 1, event_type: 'info_request_event' }
       end
 
       it 'assigns an array of info request events in order of descending
@@ -358,7 +367,9 @@ RSpec.describe AdminGeneralController do
       end
 
       it 'sets the title appropriately' do
-        expect(assigns[:events_title]).to eq("Request events, all time")
+        expect(assigns[:events_title]).to eq(
+          "Request events in the last 2 days"
+        )
       end
     end
 
@@ -375,7 +386,9 @@ RSpec.describe AdminGeneralController do
       end
 
       it 'sets the title appropriately' do
-        expect(assigns[:events_title]).to eq("Authority changes, all time")
+        expect(assigns[:events_title]).to eq(
+          "Authority changes in the last 2 days"
+        )
       end
 
     end

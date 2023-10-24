@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../commonlib/rblib/config'
 
-# Load intial mySociety config
+# Load initial mySociety config
 if ENV["RAILS_ENV"] == "test"
   MySociety::Config.set_file(File.join(File.dirname(__FILE__), '..', 'config', 'test'), true)
 else
@@ -21,7 +21,6 @@ module AlaveteliConfiguration
       ADMIN_USERNAME: '',
       AUTHORITY_MUST_RESPOND: true,
       AVAILABLE_LOCALES: 'en',
-      BACKGROUND_JOBS: 'server',
       BLACKHOLE_PREFIX: 'do-not-reply-to-this-address',
       BLOCK_RATE_LIMITED_IPS: false,
       BLOCK_RESTRICTED_COUNTRY_IPS: false,
@@ -131,21 +130,23 @@ module AlaveteliConfiguration
       USE_MAILCATCHER_IN_DEVELOPMENT: true,
       USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0,
       UTILITY_SEARCH_PATH: ['/usr/bin', '/usr/local/bin'],
+      VARNISH_HOSTS: [],
       WORKING_OR_CALENDAR_DAYS: 'working'
     }
     # rubocop:enable Layout/LineLength
   end
 
-  def self.background_jobs
-    value = MySociety::Config.get('BACKGROUND_JOBS', DEFAULTS[:BACKGROUND_JOBS])
-    return value if %w[inline server].include?(value)
-    raise 'Unknown value for BACKGROUND_JOBS. Please check config/general.yml'
+  def self.get(key, default)
+    # Don't use the `Rails.env.test?` as this has to work for external commands
+    # when Rails environment isn't loaded.
+    value = ENV["ALAVETELI_#{key}"] if ENV['RAILS_ENV'] == 'test'
+    value || MySociety::Config.get(key, default)
   end
 
   def self.method_missing(name)
     key = name.to_s.upcase
     if DEFAULTS.key?(key.to_sym)
-      MySociety::Config.get(key, DEFAULTS[key.to_sym])
+      get(key, DEFAULTS[key.to_sym])
     else
       super
     end

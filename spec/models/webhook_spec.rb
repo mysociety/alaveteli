@@ -96,6 +96,11 @@ RSpec.describe Webhook, type: :model do
       it { is_expected.to eq 'Plan changed from "Pro" to "Pro Annual Billing"' }
     end
 
+    context 'subscription-started' do
+      let(:fixture) { 'subscription-started' }
+      it { is_expected.to eq 'Subscription started' }
+    end
+
     context 'subscription-cancelled' do
       let(:fixture) { 'subscription-cancelled' }
       it { is_expected.to eq 'Subscription cancelled' }

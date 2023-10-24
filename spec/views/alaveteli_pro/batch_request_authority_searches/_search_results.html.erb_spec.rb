@@ -4,8 +4,10 @@ RSpec.describe '_search_results' do
   let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new }
 
   def render_view(locals)
-    render(partial: "alaveteli_pro/batch_request_authority_searches/search_results",
-           locals: locals)
+    render(
+      partial: "alaveteli_pro/batch_request_authority_searches/search_results",
+      locals: locals
+    )
   end
 
   describe "when a search has been performed" do
@@ -20,7 +22,9 @@ RSpec.describe '_search_results' do
     end
 
     describe "and there are some results" do
-      let(:search) { ActsAsXapian::Search.new([PublicBody], authority_1.name, limit: 3 ) }
+      let(:search) {
+        ActsAsXapian::Search.new([PublicBody], authority_1.name, limit: 3)
+      }
 
       it "renders search results" do
         # TODO: This fails, as the view doesn't render anything, but I

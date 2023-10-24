@@ -38,18 +38,40 @@ RSpec.describe "When viewing requests" do
     it 'should not retain any cached attachments to be served up by the webserver' do
       admin = login(FactoryBot.create(:admin_user))
       non_owner = login(FactoryBot.create(:user))
-      info_request = FactoryBot.create(:info_request_with_incoming_attachments)
-      incoming_message = info_request.incoming_messages.first
-      attachment_url = "/es/request/#{info_request.id}/response/#{incoming_message.id}/attach/2/interesting.pdf"
+
+      info_request = FactoryBot.create(:info_request)
+      incoming_message = FactoryBot.create(
+        :incoming_message, info_request: info_request
+      )
+      attachment = FactoryBot.create(
+        :pdf_attachment, :unmasked, incoming_message: incoming_message
+      )
+      FactoryBot.create(
+        :response_event,
+        info_request: info_request,
+        incoming_message: incoming_message
+      )
+      rebuild_raw_emails(info_request)
+
+      attachment_url = "/es/request/#{info_request.id}/response/" \
+        "#{incoming_message.id}/attach/#{attachment.url_part_number}/" \
+        "#{attachment.filename}"
       using_session(non_owner) { visit(attachment_url) }
-      expect(cache_directories_exist?(info_request)).to be true
+
+      expect {
+        perform_enqueued_jobs
+        attachment.reload
+      }.to change { attachment.masked? }.from(false).to(true)
 
       # Admin makes the incoming message requester only
       using_session(admin) do
-        hide_incoming_message(info_request.incoming_messages.first, 'hidden', 'boring')
+        hide_incoming_message(incoming_message, 'hidden', 'boring')
       end
 
-      expect(cache_directories_exist?(info_request)).to be false
+      expect {
+        perform_enqueued_jobs
+        attachment.reload
+      }.to change { attachment.masked? }.from(true).to(false)
     end
 
   end

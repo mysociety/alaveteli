@@ -371,6 +371,12 @@ class RequestController < ApplicationController
         return false
       end
 
+      if @info_request.allow_new_responses_from == 'nobody'
+        render template:
+          'request/request_subtitle/allow_new_responses_from/_nobody'
+        return
+      end
+
       unless @info_request.public_body.is_foi_officer?(@user)
         domain_required = @info_request.public_body.foi_officer_domain_required
         if domain_required.nil?
@@ -604,7 +610,7 @@ class RequestController < ApplicationController
   end
 
   def render_new_compose
-    params[:info_request] = { } unless params[:info_request]
+    params[:info_request] = {} unless params[:info_request]
 
     # Reconstruct the params
     # first the public body (by URL name or id)

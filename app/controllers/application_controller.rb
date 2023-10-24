@@ -404,7 +404,7 @@ class ApplicationController < ActionController::Base
     # Work out sorting method
     order, ascending = order_to_sort_by(@sortby)
 
-    # Peform the search
+    # Perform the search
     @per_page = per_page
     @page = this_page || get_search_page_from_params
 

@@ -37,6 +37,9 @@ AllCops:
 Bundler/DuplicatedGem:
   Enabled: false
 
+Bundler/DuplicatedGroup:
+  Enabled: false
+
 Bundler/GemComment:
   Enabled: false
 
@@ -255,6 +258,7 @@ Layout/LineLength:
     - "^\\s*it\\s+.*do$"
     - "^\\s*context\\s+.*do$"
     - "^\\s*describe\\s+.*do$"
+    - "^RSpec\\.describe(\\s+|\\().*do$"
     - "^\\s*class\\s+[A-Z].*<.*"
   Exclude:
     - bin/setup
@@ -579,6 +583,9 @@ Lint/MissingCopEnableDirective:
 Lint/MissingSuper:
   Enabled: false
 
+Lint/MixedCaseRange:
+  Enabled: false
+
 Lint/MixedRegexpCaptureTypes:
   Enabled: false
 
@@ -643,6 +650,9 @@ Lint/RedundantCopEnableDirective:
   Enabled: false
 
 Lint/RedundantDirGlobSort:
+  Enabled: false
+
+Lint/RedundantRegexpQuantifiers:
   Enabled: false
 
 Lint/RedundantRequireStatement:
@@ -968,6 +978,9 @@ Performance/IoReadlines:
 Performance/MapCompact:
   Enabled: false
 
+Performance/MapMethodChain:
+  Enabled: false
+
 Performance/MethodObjectAsBlock:
   Enabled: false
 
@@ -1118,6 +1131,9 @@ Rails/ContentTag:
   Enabled: false
 
 Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/DangerousColumnNames:
   Enabled: false
 
 Rails/Date:
@@ -1285,6 +1301,9 @@ Rails/RakeEnvironment:
 Rails/ReadWriteAttribute:
   Enabled: false
 
+Rails/RedundantActiveRecordAllMethod:
+  Enabled: false
+
 Rails/RedundantAllowNil:
   Enabled: false
 
@@ -1354,6 +1373,9 @@ Rails/SchemaComment:
 Rails/ScopeArgs:
   Enabled: false
 
+Rails/SelectMap:
+  Enabled: false
+
 Rails/ShortI18n:
   Enabled: false
 
@@ -1400,6 +1422,9 @@ Rails/UnknownEnv:
   Enabled: false
 
 Rails/UnusedIgnoredColumns:
+  Enabled: false
+
+Rails/UnusedRenderContent:
   Enabled: false
 
 Rails/Validation:
@@ -1642,6 +1667,9 @@ Style/EvalWithLocation:
 
 Style/EvenOdd:
   Enabled: true
+
+Style/ExactRegexpMatch:
+  Enabled: false
 
 Style/ExpandPathArguments:
   Enabled: false
@@ -1953,6 +1981,9 @@ Style/RandomWithOffset:
 Style/RedundantArgument:
   Enabled: false
 
+Style/RedundantArrayConstructor:
+  Enabled: false
+
 Style/RedundantAssignment:
   Enabled: false
 
@@ -1971,6 +2002,9 @@ Style/RedundantConditional:
 Style/RedundantConstantBase:
   Enabled: false
 
+Style/RedundantCurrentDirectoryInPath:
+  Enabled: false
+
 Style/RedundantDoubleSplatHashBraces:
   Enabled: false
 
@@ -1984,6 +2018,9 @@ Style/RedundantFetchBlock:
   Enabled: false
 
 Style/RedundantFileExtensionInRequire:
+  Enabled: false
+
+Style/RedundantFilterChain:
   Enabled: false
 
 Style/RedundantFreeze:
@@ -2007,7 +2044,13 @@ Style/RedundantParentheses:
 Style/RedundantPercentQ:
   Enabled: false
 
+Style/RedundantRegexpArgument:
+  Enabled: false
+
 Style/RedundantRegexpCharacterClass:
+  Enabled: false
+
+Style/RedundantRegexpConstructor:
   Enabled: false
 
 Style/RedundantRegexpEscape:
@@ -2049,6 +2092,9 @@ Style/RescueStandardError:
 Style/ReturnNil:
   Enabled: false
 
+Style/ReturnNilInPredicateMethodDefinition:
+  Enabled: false
+
 Style/SafeNavigation:
   Enabled: false
 
@@ -2075,6 +2121,9 @@ Style/SingleArgumentDig:
   Enabled: false
 
 Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SingleLineDoEndBlock:
   Enabled: false
 
 Style/SingleLineMethods:
@@ -2205,6 +2254,9 @@ Style/WhileUntilModifier:
 
 Style/WordArray:
   Enabled: true
+
+Style/YAMLFileRead:
+  Enabled: false
 
 Style/YodaCondition:
   Enabled: false

@@ -102,5 +102,5 @@ def write_config(config)
 end
 
 write_config(merge_config(default_config, current_config))
-puts "RuboCop configuation at #{File.expand_path(CONFIG_FILE)} has been updated"
+puts "RuboCop configuration at #{File.expand_path(CONFIG_FILE)} has been updated"
 puts "Please manually check cops which have been renamed"

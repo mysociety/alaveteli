@@ -136,7 +136,7 @@ RSpec.describe User, " when indexing requests by user they are from" do
   it "should find requests from the user" do
     options = { sort_by_prefix: 'created_at',
                 sort_by_ascending: true,
-                limit: 100}
+                limit: 100 }
 
     xapian_object =
       ActsAsXapian::Search.
@@ -204,13 +204,13 @@ RSpec.describe User, " when indexing requests by user they are from" do
   it "should not get confused searching for requests when one user has a name which has same stem as another" do
     bob_smith_user = users(:bob_smith_user)
     bob_smith_user.name = "John King"
-    expect(bob_smith_user.url_name).to eq('john_king')
     bob_smith_user.save!
+    expect(bob_smith_user.url_name).to eq('john_king')
 
     silly_user = users(:silly_name_user)
     silly_user.name = "John K"
-    expect(silly_user.url_name).to eq('john_k')
     silly_user.save!
+    expect(silly_user.url_name).to eq('john_k')
 
     naughty_chicken_request = info_requests(:naughty_chicken_request)
     naughty_chicken_request.user = silly_user

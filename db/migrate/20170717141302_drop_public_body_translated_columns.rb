@@ -60,7 +60,7 @@ class DropPublicBodyTranslatedColumns < ActiveRecord::Migration[4.2] # 4.1
         # Create a hash containing the translated column names and their values
         attr_names = record.translated_attribute_names
         attr_names.inject(fields_to_update={}) do |f, name|
-          f.update({name.to_sym => translated[name.to_s]})
+          f.update({ name.to_sym => translated[name.to_s] })
         end
 
         # Now, update the actual model's record with the hash (using the

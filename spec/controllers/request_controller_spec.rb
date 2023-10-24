@@ -546,8 +546,7 @@ RSpec.describe RequestController, 'when handling prominence' do
   end
 
   let(:info_request) do
-    FactoryBot.
-      create(:info_request_with_incoming_attachments, prominence: prominence)
+    FactoryBot.create(:info_request_with_pdf_attachment, prominence: prominence)
   end
 
   context 'when the request is hidden' do
@@ -918,7 +917,7 @@ RSpec.describe RequestController, "when creating a new request" do
                    title: 'Why Geraldine?',
                    tag_string: ''
                  },
-                 outgoing_message: { body: 'This is a silly letter.'},
+                 outgoing_message: { body: 'This is a silly letter.' },
                  submitted_new_request: 1,
                  preview: 1
                }
@@ -1790,6 +1789,19 @@ RSpec.describe RequestController, "authority uploads a response from the web int
 
     get :upload_response, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to render_template('user/wrong_user')
+  end
+
+  context 'when the request is closed to responses' do
+    let(:closed_request) do
+      FactoryBot.create(:info_request, allow_new_responses_from: 'nobody')
+    end
+    it "should prevent uploads if closed to all responses" do
+      sign_in @normal_user
+      get :upload_response, params: { url_title: closed_request.url_title }
+      expect(response).to render_template(
+        'request/request_subtitle/allow_new_responses_from/_nobody'
+      )
+    end
   end
 
   it "should let you view upload form if you are an FOI officer" do

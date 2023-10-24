@@ -1,2 +1,0 @@
-#!/bin/sh
-ALAVETELI_VAGRANT_NAME=focal ALAVETELI_VAGRANT_OS=focal64 exec vagrant "$@"

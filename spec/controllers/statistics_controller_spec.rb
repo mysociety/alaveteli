@@ -37,15 +37,15 @@ RSpec.describe StatisticsController do
       assigns[:public_bodies].each_with_index do |graph, index|
         if index == 0
           expect(graph['errorbars']).to be false
-          expect(graph['x_values'].length).to eq(4)
-          expect(graph['x_values']).to eq([0, 1, 2, 3])
-          expect(graph['y_values']).to eq([1, 2, 2, 4])
+          expect(graph['x_values'].length).to eq(5)
+          expect(graph['x_values']).to eq([0, 1, 2, 3, 4])
+          expect(graph['y_values']).to eq([1, 1, 2, 2, 4])
         else
           expect(graph['errorbars']).to be true
           # Just check the first one:
           if index == 1
-            expect(graph['x_values']).to eq([0, 1, 2, 3])
-            expect(graph['y_values']).to eq([0, 50, 100, 100])
+            expect(graph['x_values']).to eq([0, 1, 2, 3, 4])
+            expect(graph['y_values']).to eq([0, 0, 50, 100, 100])
           end
           # Check that at least every confidence interval value is
           # a Float (rather than NilClass, say):
@@ -62,13 +62,13 @@ RSpec.describe StatisticsController do
       expect(json['public_bodies']).to be_an(Array)
       expect(json['public_bodies'][0]).to include(
         'errorbars' => false,
-        'y_values' => [1, 2, 2, 4],
-        'x_values' => [0, 1, 2, 3]
+        'y_values' => [1, 1, 2, 2, 4],
+        'x_values' => [0, 1, 2, 3, 4]
       )
       expect(json['public_bodies'][1]).to include(
         'errorbars' => true,
-        'x_values' => [0, 1, 2, 3],
-        'y_values' => [0, 50, 100, 100]
+        'x_values' => [0, 1, 2, 3, 4],
+        'y_values' => [0, 0, 50, 100, 100]
       )
       expect(json['public_bodies'][2]).to include(
         'errorbars' => true

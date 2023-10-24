@@ -75,14 +75,17 @@ RSpec.describe "request/show" do
 
     context "and the request status is 'waiting clarification'" do
       before do
-        allow(mock_request).to receive(:calculate_status).and_return("waiting_clarification")
+        allow(mock_request).
+          to receive(:calculate_status).
+          and_return("waiting_clarification")
       end
 
       context "and there is a last response" do
         let(:mock_response) { FactoryBot.create(:incoming_message) }
 
         it "should show a link to follow up the last response with clarification" do
-          allow(mock_request).to receive(:get_last_public_response).
+          allow(mock_request).
+            to receive(:get_last_public_response).
             and_return(mock_response)
           request_page
           expected_url = new_request_incoming_followup_path(
@@ -97,7 +100,9 @@ RSpec.describe "request/show" do
 
       context "and there is no last response" do
         before do
-          allow(mock_request).to receive(:get_last_public_response).and_return(nil)
+          allow(mock_request).
+            to receive(:get_last_public_response).
+            and_return(nil)
         end
 
         it "should show a link to follow up the request without reference to a specific response" do
@@ -123,7 +128,8 @@ RSpec.describe "request/show" do
     context "and the request is waiting for a response and very overdue" do
       before do
         allow(mock_request).
-          to receive(:calculate_status).and_return("waiting_response_very_overdue")
+          to receive(:calculate_status).
+          and_return("waiting_response_very_overdue")
         request_page
       end
 
@@ -152,8 +158,7 @@ RSpec.describe "request/show" do
   describe "when showing an external request" do
     before :each do
       allow(mock_request).to receive(:is_external?).and_return("true")
-      allow(mock_request).
-        to receive(:awaiting_description?).and_return("true")
+      allow(mock_request).to receive(:awaiting_description?).and_return("true")
     end
 
     context 'when viewing anonymously' do
@@ -172,7 +177,7 @@ RSpec.describe "request/show" do
         before do
           allow(mock_request).
             to receive(:calculate_status).
-              and_return('waiting_response_very_overdue')
+            and_return('waiting_response_very_overdue')
           request_page
         end
 
@@ -245,6 +250,11 @@ RSpec.describe "request/show" do
                         'response is expected or if you are having trouble ' \
                         'responding.')
     end
+    it 'displays a link for the authority to respond to the request' do
+      assign :show_action_menu, true
+      request_page
+      expect(rendered).to have_content('Respond to request')
+    end
   end
 
   describe 'when the request is closed to all responses' do
@@ -255,6 +265,12 @@ RSpec.describe "request/show" do
       expect(rendered).
         to have_content('This request has been closed to new correspondence. ' \
                         'Contact us if you think it should be reopened.')
+    end
+    it 'does not display a link for the authority to respond to the request' do
+      mock_request.update_attribute(:allow_new_responses_from, 'nobody')
+      assign :show_action_menu, true
+      request_page
+      expect(rendered).to_not have_content('Respond to request')
     end
 
   end
@@ -274,7 +290,9 @@ RSpec.describe "request/show" do
         assign :info_request, request_with_attachment
         assign :info_request_events, request_with_attachment.info_request_events
         assign :status, request_with_attachment.calculate_status
-        assign :track_thing, TrackThing.create_track_for_request(request_with_attachment)
+        assign :track_thing, TrackThing.create_track_for_request(
+          request_with_attachment
+        )
         render
         expect(rendered).to have_css(".attachment .attachment__name") do |s|
           expect(s).to have_text(/interesting.html/m)
@@ -292,7 +310,9 @@ RSpec.describe "request/show" do
         assign :info_request, request_with_attachment
         assign :info_request_events, request_with_attachment.info_request_events
         assign :status, request_with_attachment.calculate_status
-        assign :track_thing, TrackThing.create_track_for_request(request_with_attachment)
+        assign :track_thing, TrackThing.create_track_for_request(
+          request_with_attachment
+        )
         # For cancancan
         allow(view).to receive(:current_user).and_return(nil)
         allow(controller).to receive(:current_user).and_return(nil)

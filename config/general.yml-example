@@ -47,7 +47,7 @@ DOMAIN: 'www.example.org'
 # ---
 FORCE_SSL: true
 
-# ISO country code of country currrently deployed in
+# ISO country code of country currently deployed in
 # (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 #
 # ISO_COUNTRY_CODE - String country code (default: GB)
@@ -147,7 +147,7 @@ TWITTER_USERNAME: ''
 TWITTER_WIDGET_ID: ''
 
 # The locales you want your site to support. If there is more than one, use
-# spaces betwween the entries.
+# spaces between the entries.
 #
 # AVAILABLE_LOCALES – String of space-separated locales (default: en)
 #
@@ -627,6 +627,20 @@ EXCEPTION_NOTIFICATIONS_TO:
 # ---
 MAX_REQUESTS_PER_USER_PER_DAY: 6
 
+# If you're running behind Varnish set this to work out where to send purge
+# requests. Otherwise, don't set it.
+#
+# VARNISH_HOSTS - Array of Strings (default: nil)
+#
+# Examples:
+#
+#   VARNISH_HOSTS:
+#     - host1
+#     - host2
+#
+# ---
+VARNISH_HOSTS: null
+
 # Adding a value here will enable Google Analytics on all non-admin pages for
 # non-admin users.
 #
@@ -807,6 +821,7 @@ SHARED_FILES_PATH: ''
 SHARED_FILES:
   - config/database.yml
   - config/general.yml
+  - config/sidekiq.yml
   - config/storage.yml
   - config/rails_env.rb
   - config/httpd.conf
@@ -1289,19 +1304,3 @@ SURVEY_URL: ''
 #
 # ---
 USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0
-
-# Background jobs are processed by Rails' ActiveJob using Sidekiq. There are
-# various ways to run Sidekiq depending to server resources and technical
-# knowledge in order to run and maintain a Redis server.
-#
-# Can either be set to:
-# - 'inline' to process jobs within the web application process, this was the
-#   default option up until Alaveteli 0.42 and doesn't require Redis to be.
-#   installed. Due to issues with requests with web requests timing out this has
-#   been superseded by the other options.
-# - 'server' to process job by a server running as a system daemon.
-#
-# BACKGROUND_JOBS – String (default: 'server')
-#
-# ---
-BACKGROUND_JOBS: 'server'

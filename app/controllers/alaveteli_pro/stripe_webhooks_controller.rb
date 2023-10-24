@@ -38,7 +38,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       store_unhandled_webhook
     end
 
-    # send a 200 ok to acknowlege receipt of the webhook
+    # send a 200 ok to acknowledge receipt of the webhook
     # https://stripe.com/docs/webhooks#responding-to-a-webhook
     render json: { message: 'OK' }, status: 200
   end

@@ -5,7 +5,7 @@
 <p>
   <%= _('You have hit the rate limit on user messages. Users are ordinarily ' \
         'limited to {{message_limit}} messages per day.',
-        message_limit: User::CONTENT_LIMIT[:user_messages]) %>
+        message_limit: User.content_limits[:user_messages]) %>
 </p>
 
 <p>

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::Text do
 
-  let(:attachment) { FactoryBot.build(:body_text) }
+  let(:attachment) { FactoryBot.create(:body_text) }
   let(:adapter) { AttachmentToHTML::Adapters::Text.new(attachment) }
 
   describe :title do
@@ -20,41 +20,41 @@ RSpec.describe AttachmentToHTML::Adapters::Text do
     end
 
     it 'strips the body of trailing whitespace' do
-      attachment = FactoryBot.build(:body_text, body: ' Hello ')
+      attachment = FactoryBot.create(:body_text, body: ' Hello ')
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
       expect(adapter.body).to eq('Hello')
     end
 
     it 'escapes special characters' do
-      attachment = FactoryBot.build(:body_text, body: 'Usage: foo "bar" >baz<')
+      attachment = FactoryBot.create(:body_text, body: 'Usage: foo "bar" >baz<')
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
       expected = %Q(Usage: foo &quot;bar&quot; &gt;baz&lt;)
       expect(adapter.body).to eq(expected)
     end
 
     it 'creates hyperlinks for text that looks like a url' do
-      attachment = FactoryBot.build(:body_text, body: 'http://www.whatdotheyknow.com')
+      attachment = FactoryBot.create(:body_text, body: 'http://www.whatdotheyknow.com')
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
       expected = %Q(<a href="http://www.whatdotheyknow.com">http://www.whatdotheyknow.com</a>)
       expect(adapter.body).to eq(expected)
     end
 
     it 'substitutes newlines for br tags' do
-      attachment = FactoryBot.build(:body_text, body: "A\nNewline")
+      attachment = FactoryBot.create(:body_text, body: "A\nNewline")
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
       expected = %Q(A<br>Newline)
       expect(adapter.body).to eq(expected)
     end
 
     it 'returns the body encoded as UTF-8' do
-      attachment = FactoryBot.build(:body_text, body: "\xBF")
+      attachment = FactoryBot.create(:body_text, body: "\xBF")
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
       expect(adapter.body.encoding).to eq(Encoding.find('UTF-8'))
     end
 
     it 'returns the body as valid UTF-8 when the text is not
         valid UTF-8' do
-      attachment = FactoryBot.build(:body_text, body: "\xBF")
+      attachment = FactoryBot.create(:body_text, body: "\xBF")
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
       expect(adapter.body).to be_valid_encoding
     end

@@ -41,6 +41,8 @@ class IncomingMessage < ApplicationRecord
   include CacheAttributesFromRawEmail
   include Taggable
 
+  UnableToExtractAttachments = Class.new(StandardError)
+
   MAX_ATTACHMENT_TEXT_CLIPPED = 1_000_000 # 1Mb ish
 
   belongs_to :info_request,
@@ -416,28 +418,10 @@ class IncomingMessage < ApplicationRecord
 
   # Returns attachments that are uuencoded in main body part
   def _uudecode_attachments(text, start_part_number)
-    # Find any uudecoded things buried in it, yeuchly
-    uus = text.scan(/^begin.+^`\n^end\n/m)
-    uus.map.with_index do |uu, index|
-      # Decode the string
-      content = uu.sub(/\Abegin \d+ [^\n]*\n/, '').unpack('u').first
-      # Make attachment type from it, working out filename and mime type
-      filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
-      calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, content)
-      if calc_mime
-        calc_mime = MailHandler.normalise_content_type(calc_mime)
-        content_type = calc_mime
-      else
-        content_type = 'application/octet-stream'
-      end
-      hexdigest = Digest::MD5.hexdigest(content)
+    MailHandler.uudecode(text, start_part_number).map do |attrs|
+      hexdigest = attrs.delete(:hexdigest)
       attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
-      attachment.attributes = {
-        filename: filename,
-        content_type: content_type,
-        body: content,
-        url_part_number: start_part_number + index + 1
-      }
+      attachment.attributes = attrs
       attachment
     end
   end
@@ -462,6 +446,7 @@ class IncomingMessage < ApplicationRecord
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachment_attributes = attachment_attributes.inject({}) do |memo, attrs|
+      attrs.delete(:original_body)
       memo[attrs[:hexdigest]] = attrs
       memo
     end
@@ -487,8 +472,19 @@ class IncomingMessage < ApplicationRecord
       attachments += _uudecode_attachments(main_part.body, c)
     end
 
-    # Purge old attachments that have been rebuilt with a new hexdigest
-    (foi_attachments - attachments).each(&:mark_for_destruction)
+    # Purge old public attachments that will be rebuilt with a new hexdigest
+    old_attachments = (foi_attachments - attachments)
+    hidden_old_attachments = old_attachments.reject { _1.is_public? }
+
+    if hidden_old_attachments.any?
+      # if there are hidden attachments error as we don't want to re-build and
+      # lose the prominence as this will make them public
+      raise UnableToExtractAttachments, "unable to extract attachments due " \
+        "to prominence of attachments " \
+        "(ID=#{hidden_old_attachments.map(&:id).join(', ')})"
+    else
+      old_attachments.each(&:mark_for_destruction)
+    end
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.

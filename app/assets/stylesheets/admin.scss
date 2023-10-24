@@ -282,6 +282,17 @@ body.admin {
   padding: 2em;
 }
 
+/* Toolbox */
+.toolbox {
+  summary {
+    margin-bottom: 1em;
+  }
+
+  .toolbox-tool {
+    margin-bottom: 1em;
+  }
+}
+
 /* Bootstrap Extensions */
 /* These must come last because we @import bootstrap in .admin  */
 

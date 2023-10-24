@@ -17,8 +17,12 @@
             <span class="item-metadata span6">
               <%= both_links(comment.user) %>
               <%= arrow_right %>
-              <%= both_links(comment.info_request) %>,
-              <%= admin_date(comment.updated_at, ago_only: true) %>
+              <%= both_links(comment.info_request) %>
+
+              <span class="muted">
+                --
+                (<%= admin_date(comment.updated_at, ago_only: true) %>)
+              </span>
             </span>
           </div>
 

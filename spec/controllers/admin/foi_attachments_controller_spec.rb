@@ -78,6 +78,7 @@ RSpec.describe Admin::FoiAttachmentsController do
       end
 
       it 'should log an "edit_attachment" event on the info_request' do
+        expect(NotifyCacheJob).to receive(:perform_later).with(attachment)
         allow(@controller).to receive(:admin_current_user).
           and_return("Admin user")
 

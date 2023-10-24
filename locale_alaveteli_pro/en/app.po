@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -437,7 +437,7 @@ msgid "Friendly support"
 msgstr "Friendly support"
 
 msgid "From"
-msgstr ""
+msgstr "From"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
@@ -507,6 +507,12 @@ msgstr "Investigating asbestos use in schools"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
+
+msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
+msgstr "Invoice {{invoice_number}} for {{invoice_amount}}"
+
+msgid "Invoices"
+msgstr "Invoices"
 
 msgid "I’m a campaigner"
 msgstr "I’m a campaigner"
@@ -670,8 +676,14 @@ msgstr "Once you’re ready, publishing the data behind your investigation lends
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
 msgstr "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
 
+msgid "Open"
+msgstr "Open"
+
 msgid "Overflowing inbox?"
 msgstr "Overflowing inbox?"
+
+msgid "Paid"
+msgstr "Paid"
 
 msgid "Payments past due:"
 msgstr "Payments past due:"
@@ -1141,6 +1153,12 @@ msgstr "Using Pro to build a nationwide picture of the public properties being s
 
 msgid "View"
 msgstr "View"
+
+msgid "View Invoice and Pay"
+msgstr "View Invoice and Pay"
+
+msgid "View Receipt"
+msgstr "View Receipt"
 
 msgid "View authorities"
 msgstr "View authorities"

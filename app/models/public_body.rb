@@ -33,8 +33,11 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
+  include CalculatedHomePage
   include Taggable
   include Notable
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
 
   class ImportCSVDryRun < StandardError; end
 
@@ -114,7 +117,7 @@ class PublicBody < ApplicationRecord
 
   after_save :update_missing_email_tag
 
-  after_update :reindex_requested_from
+  after_update :reindex_requested_from, :invalidate_cached_pages
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
@@ -136,7 +139,7 @@ class PublicBody < ApplicationRecord
   strip_attributes allow_empty: true, only: %i[request_email]
 
   translates :name, :short_name, :request_email, :url_name, :first_letter,
-             :publication_scheme
+             :publication_scheme, :disclosure_log
 
   # Cannot be grouped at top as it depends on the `translates` macro
   include Translatable
@@ -230,7 +233,7 @@ class PublicBody < ApplicationRecord
   # tags contain the given query
   #
   # query  - String to query the searchable fields
-  # locale - String to specify the language of the seach query
+  # locale - String to specify the language of the search query
   #          (default: AlaveteliLocalization.locale)
   #
   # Returns an ActiveRecord::Relation
@@ -400,19 +403,6 @@ class PublicBody < ApplicationRecord
     legislations.first
   end
 
-  # Guess home page from the request email, or use explicit override, or nil
-  # if not known.
-  #
-  # TODO: PublicBody#calculated_home_page would be a good candidate to cache
-  # in an instance variable
-  def calculated_home_page
-    if home_page && !home_page.empty?
-      home_page[URI.regexp(%w(http https))] ? home_page : "http://#{home_page}"
-    elsif request_email_domain
-      "http://www.#{request_email_domain}"
-    end
-  end
-
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
     matching_pbs = AlaveteliLocalization.
@@ -497,7 +487,7 @@ class PublicBody < ApplicationRecord
         field_names = { 'name' => 1, 'request_email' => 2 }
         line = 0
 
-        import_options = {field_names: field_names,
+        import_options = { field_names: field_names,
                           available_locales: available_locales,
                           tag: tag,
                           tag_behaviour: tag_behaviour,
@@ -693,6 +683,7 @@ class PublicBody < ApplicationRecord
       home_page: calculated_home_page,
       notes: notes_as_string,
       publication_scheme: publication_scheme.to_s,
+      disclosure_log: disclosure_log.to_s,
       tags: tag_array,
       info: {
         requests_count: info_requests_count,
@@ -736,7 +727,7 @@ class PublicBody < ApplicationRecord
       'public_bodies' => public_bodies,
       'y_values' => y_values,
       'y_max' => y_values.max,
-    'totals' => y_values}
+    'totals' => y_values }
   end
 
   # Return data for the 'n' public bodies with the highest (or
@@ -785,7 +776,7 @@ class PublicBody < ApplicationRecord
       'cis_below' => cis_below,
       'cis_above' => cis_above,
       'y_max' => 100,
-    'totals' => original_totals}
+    'totals' => original_totals }
   end
 
   def self.popular_bodies(locale)
@@ -894,7 +885,7 @@ class PublicBody < ApplicationRecord
                                       described_state: 'not_held' },
       info_requests_successful_count: { awaiting_description: false,
                                         described_state: success_states },
-      info_requests_visible_classified_count: { awaiting_description: false},
+      info_requests_visible_classified_count: { awaiting_description: false },
       info_requests_visible_count: {}
     }
 
@@ -911,12 +902,24 @@ class PublicBody < ApplicationRecord
     PublicBodyQuestion.fetch(self)
   end
 
+  def cached_urls
+    [
+      public_body_path(self),
+      list_public_bodies_path,
+      '^/body/list'
+    ]
+  end
+
   private
 
   # If the url_name has changed, then all requested_from: queries will break
   # unless we update index for every event for every request linked to it.
   def reindex_requested_from
     expire_requests if saved_change_to_attribute?(:url_name)
+  end
+
+  def invalidate_cached_pages
+    NotifyCacheJob.perform_later(self)
   end
 
   # Read an attribute value (without using locale fallbacks if the

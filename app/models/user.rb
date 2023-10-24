@@ -45,13 +45,18 @@ class User < ApplicationRecord
   include User::Authentication
   include User::LoginToken
   include User::OneTimePassword
+  include User::Slug
   include User::Survey
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
 
-  CONTENT_LIMIT = {
+  DEFAULT_CONTENT_LIMITS = {
     info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,
     comments: AlaveteliConfiguration.max_requests_per_user_per_day,
     user_messages: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
+
+  cattr_accessor :content_limits, default: DEFAULT_CONTENT_LIMITS
 
   rolify before_add: :setup_pro_account,
          after_add: :assign_role_features,
@@ -59,7 +64,7 @@ class User < ApplicationRecord
   strip_attributes allow_empty: true
 
   admin_columns include: [:user_messages_count],
-                exclude: [:otp_secret_key]
+                exclude: [:otp_secret_key, :url_name]
 
   attr_accessor :no_xapian_reindex
 
@@ -71,6 +76,9 @@ class User < ApplicationRecord
            -> { reorder(created_at: :desc) },
            through: :info_requests
   has_many :embargoes,
+           inverse_of: :user,
+           through: :info_requests
+  has_many :outgoing_messages,
            inverse_of: :user,
            through: :info_requests
   has_many :draft_info_requests,
@@ -173,7 +181,9 @@ class User < ApplicationRecord
   validate :email_and_name_are_valid
 
   after_initialize :set_defaults
-  after_update :reindex_referencing_models, :update_pro_account
+  after_update :reindex_referencing_models,
+               :update_pro_account,
+               :invalidate_cached_pages
 
   acts_as_xapian texts: [:name, :about_me],
                  values: [
@@ -335,6 +345,10 @@ class User < ApplicationRecord
     comments.find_each(&:reindex_request_events)
   end
 
+  def invalidate_cached_pages
+    NotifyCacheJob.perform_later(self)
+  end
+
   def locale
     (super || AlaveteliLocalization.locale).to_s
   end
@@ -350,20 +364,17 @@ class User < ApplicationRecord
   # When name is changed, also change the url name
   def name=(name)
     write_attribute(:name, name.try(:strip))
-    update_url_name
   end
 
-  def update_url_name
-    url_name = MySociety::Format.simplify_url_part(read_attribute(:name), 'user', 32)
-    # For user with same name as others, add on arbitary numeric identifier
-    unique_url_name = url_name
-    suffix_num = 2 # as there's already one without numeric suffix
-    conditions = id ? ["id <> ?", id] : []
-    until User.where(url_name: unique_url_name).where(conditions).first.nil?
-      unique_url_name = url_name + "_" + suffix_num.to_s
-      suffix_num += 1
-    end
-    self.url_name = unique_url_name
+  def previous_names
+    outgoing_messages.unscope(:order).
+      distinct(:from_name).
+      where.not(from_name: read_attribute(:name)).
+      pluck(:from_name)
+  end
+
+  def safe_previous_names
+    outgoing_messages.map(&:safe_from_name).uniq - [read_attribute(:name)]
   end
 
   # For use in to/from in email messages
@@ -431,8 +442,13 @@ class User < ApplicationRecord
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
     transaction do
+      slugs.destroy_all
       sign_ins.destroy_all
       profile_photo&.destroy!
+
+      outgoing_messages.update!(
+        from_name: _('[Name Removed]')
+      )
 
       update!(
         name: _('[Name Removed]'),
@@ -445,12 +461,15 @@ class User < ApplicationRecord
   end
 
   def anonymise!
-    return if info_requests.none?
+    return if info_requests.none? && comments.none?
 
-    censor_rules.create!(text: read_attribute(:name),
-                         replacement: _('[Name Removed]'),
-                         last_edit_editor: 'User#anonymise!',
-                         last_edit_comment: 'User#anonymise!')
+    current_name = read_attribute(:name)
+    [current_name, *previous_names].each do |name|
+      censor_rules.create!(text: name,
+                           replacement: _('[Name Removed]'),
+                           last_edit_editor: 'User#anonymise!',
+                           last_edit_comment: 'User#anonymise!')
+    end
   end
 
   def close_and_anonymise
@@ -662,6 +681,12 @@ class User < ApplicationRecord
     "User;#{id}"
   end
 
+  def cached_urls
+    [
+      user_path(self)
+    ]
+  end
+
   private
 
   def set_defaults
@@ -700,6 +725,6 @@ class User < ApplicationRecord
   end
 
   def content_limit(content)
-    CONTENT_LIMIT[content]
+    content_limits[content]
   end
 end

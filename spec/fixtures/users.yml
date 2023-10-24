@@ -56,6 +56,7 @@ bob_smith_user:
   locale: 'en'
   about_me: 'I like making requests about fancy dogs and naughty chickens and stuff.'
   receive_email_alerts: true
+  info_requests_count: 5
 silly_name_user:
   id: "2"
   name: "Silly <em>Name</em>"
@@ -110,6 +111,7 @@ robin_user:
   ban_text: ''
   about_me: 'I am the best'
   receive_email_alerts: true
+  info_requests_count: 2
 another_user:
   id: 6
   name: Another User
@@ -123,6 +125,7 @@ another_user:
   ban_text: ''
   about_me: 'Just another user'
   receive_email_alerts: true
+  info_requests_count: 1
 paul_pro_user:
   id: 7
   name: Paul Pro

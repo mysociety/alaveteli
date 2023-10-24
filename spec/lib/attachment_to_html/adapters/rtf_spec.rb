@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::RTF do
 
-  let(:attachment) { FactoryBot.build(:rtf_attachment) }
+  let(:attachment) { FactoryBot.create(:rtf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::RTF.new(attachment) }
 
   describe :tmpdir do
@@ -61,7 +61,7 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
     end
 
     it 'converts empty files' do
-      attachment = FactoryBot.build(:rtf_attachment, body: load_file_fixture('empty.rtf'))
+      attachment = FactoryBot.create(:rtf_attachment, body: load_file_fixture('empty.rtf'))
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment)
       expect(adapter.body).to eq('')
     end

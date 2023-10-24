@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220916134847
+# Schema version: 20230717201410
 #
 # Table name: foi_attachments
 #
@@ -16,6 +16,7 @@
 #  updated_at            :datetime
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
+#  masked_at             :datetime
 #
 
 # models/foi_attachment.rb:
@@ -28,10 +29,15 @@
 require 'digest'
 
 class FoiAttachment < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
   include MessageProminence
+
+  MissingAttachment = Class.new(StandardError)
 
   belongs_to :incoming_message,
              inverse_of: :foi_attachments
+  has_one :raw_email, through: :incoming_message, source: :raw_email
 
   has_one_attached :file, service: :attachments
 
@@ -49,13 +55,39 @@ class FoiAttachment < ApplicationRecord
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
+  # rubocop:disable Style/LineLength
+  CONTENT_TYPE_NAMES = {
+    # Plain Text
+    "text/plain" => 'Text file',
+    'application/rtf' => 'RTF file',
+
+    # Binary Documents
+    'application/pdf' => 'PDF file',
+
+    # Images
+    'image/tiff' => 'TIFF image',
+
+    # Word Processing
+    'application/vnd.ms-word' => 'Word document',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'Word document',
+
+    # Presentation
+    'application/vnd.ms-powerpoint' => 'PowerPoint presentation',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'PowerPoint presentation',
+
+    # Spreadsheet
+    'application/vnd.ms-excel' => 'Excel spreadsheet',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
+  }.freeze
+  # rubocop:enable Style/LineLength
+
   def delete_cached_file!
     @cached_body = nil
     file.purge if file.attached?
   end
 
   def body=(d)
-    self.hexdigest = Digest::MD5.hexdigest(d)
+    self.hexdigest ||= Digest::MD5.hexdigest(d)
 
     ensure_filename!
     file.attach(
@@ -69,21 +101,19 @@ class FoiAttachment < ApplicationRecord
   end
 
   # raw body, encoded as binary
-  def body(tries: 0, delay: 1)
+  def body
     return @cached_body if @cached_body
 
-    if file.attached?
+    if masked?
       @cached_body = file.download
-    else
-      # we've lost our cached attachments for some reason.  Reparse them.
-      raise if tries > BODY_MAX_TRIES
-      sleep [delay, BODY_MAX_DELAY].min
-
-      incoming_message.parse_raw_email!(true)
+    elsif persisted?
+      FoiAttachmentMaskJob.perform_once_now(self)
       reload
-
-      body(tries: tries + 1, delay: delay * 2)
+      body
     end
+
+  rescue ActiveRecord::RecordNotFound
+    load_attachment_from_incoming_message.body
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
@@ -95,6 +125,31 @@ class FoiAttachment < ApplicationRecord
   # raw binary
   def default_body
     text_type? ? body_as_text.string : body
+  end
+
+  # return the body as it is in the raw email, unmasked without censor rules
+  # applied
+  def unmasked_body
+    MailHandler.attachment_body_for_hexdigest(
+      raw_email.mail,
+      hexdigest: hexdigest
+    )
+  rescue MailHandler::MismatchedAttachmentHexdigest
+    attributes = MailHandler.attempt_to_find_original_attachment_attributes(
+      raw_email.mail,
+      body: file.download
+    ) if file.attached?
+
+    unless attributes
+      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
+    end
+
+    update(hexdigest: attributes[:hexdigest])
+    attributes[:body]
+  end
+
+  def masked?
+    file.attached? && masked_at.present? && masked_at < Time.zone.now
   end
 
   def main_body_part?
@@ -241,51 +296,15 @@ class FoiAttachment < ApplicationRecord
     end
   end
 
-  # Whether this type can be shown in the Google Docs Viewer.
-  # The full list of supported types can be found at
-  #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
-  def has_google_docs_viewer?
-    [
-      "application/pdf", # .pdf
-      "image/tiff", # .tiff
-
-      "application/vnd.ms-word", # .doc
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", # .docx
-
-      "application/vnd.ms-powerpoint", # .ppt
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation", # .pptx
-
-      "application/vnd.ms-excel", # .xls
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
-    ].include?(content_type)
-  end
-
   # Whether this type has a "View as HTML"
   def has_body_as_html?
-    [
-      "text/plain",
-      "application/rtf"
-    ].include?(content_type) || has_google_docs_viewer?
+    AttachmentToHTML.extractable?(self)
   end
 
-  # Name of type of attachment type - only valid for things that has_body_as_html?
+  # Name of type of attachment type - only valid for things that
+  # has_body_as_html?
   def name_of_content_type
-    {
-      "text/plain" => "Text file",
-      'application/rtf' => "RTF file",
-
-      'application/pdf' => "PDF file",
-      'image/tiff' => "TIFF image",
-
-      'application/vnd.ms-word' => "Word document",
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => "Word document",
-
-      'application/vnd.ms-powerpoint' => "PowerPoint presentation",
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation' => "PowerPoint presentation",
-
-      'application/vnd.ms-excel' => "Excel spreadsheet",
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet"
-    }[content_type]
+    CONTENT_TYPE_NAMES[content_type]
   end
 
   # For "View as HTML" of attachment
@@ -295,10 +314,23 @@ class FoiAttachment < ApplicationRecord
     AttachmentToHTML.to_html(self, to_html_opts)
   end
 
+  def cached_urls
+    [
+      request_path(incoming_message.info_request)
+    ]
+  end
+
+  def load_attachment_from_incoming_message
+    IncomingMessage.get_attachment_by_url_part_number_and_filename!(
+      incoming_message.get_attachments_for_display,
+      url_part_number,
+      display_filename
+    )
+  end
+
   private
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
   end
-
 end

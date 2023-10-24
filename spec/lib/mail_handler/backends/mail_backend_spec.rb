@@ -172,7 +172,7 @@ when it really should be application/pdf.\n
       Cc: bob@example.com
       Envelope-To: bob@example.net
       Date: Tue, 13 Nov 2007 11:39:55 +0000
-      Bcc:
+      Bcc: "BCC Person" <bccperson@localhost>
       Subject: Test
       Reply-To:
 
@@ -187,7 +187,7 @@ when it really should be application/pdf.\n
       Cc: bob@example.com>
       Envelope-To: bob@example.net
       Date: Tue, 13 Nov 2007 11:39:55 +0000
-      Bcc:
+      Bcc: BCC Person bccperson@localhost>
       Subject: Test
       Reply-To:
 
@@ -202,7 +202,12 @@ when it really should be application/pdf.\n
         let(:mail) { valid_only }
 
         it do
-          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+          is_expected.to eq(%w(
+            bob@localhost
+            bob@example.com
+            bccperson@localhost
+            bob@example.net
+          ))
         end
       end
 
@@ -219,7 +224,12 @@ when it really should be application/pdf.\n
         let(:mail) { valid_only }
 
         it do
-          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+          is_expected.to eq(%w(
+            bob@localhost
+            bob@example.com
+            bccperson@localhost
+            bob@example.net
+          ))
         end
       end
 
@@ -227,9 +237,12 @@ when it really should be application/pdf.\n
         let(:mail) { with_invalid }
 
         it do
-          expected = ['<Bob Smith <bob@localhost>',
-                      'bob@example.com>',
-                      'bob@example.net']
+          expected = [
+            '<Bob Smith <bob@localhost>',
+            'bob@example.com>',
+            'BCC Person bccperson@localhost>',
+            'bob@example.net'
+          ]
           is_expected.to eq(expected)
         end
       end
@@ -307,6 +320,208 @@ when it really should be application/pdf.\n
       allow(Mapi::Msg).to receive(:open).and_raise(Encoding::CompatibilityError)
       mail = get_fixture_mail('incoming-request-oft-attachments.email')
       expect { decode_attached_part(mail.parts.last, mail) }.not_to raise_error
+    end
+  end
+
+  describe :get_emails_within_received_headers do
+
+    it 'returns an empty list if there is no Received header' do
+      mail = get_fixture_mail('bcc-contact-reply.email')
+      expect(get_emails_within_received_headers(mail)).to eq([])
+    end
+
+    it 'returns an empty list if the Received header contains no email addresses' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        Received: abc id abc from notAnEmail
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).to eq([])
+    end
+
+    it 'returns a list containing the email if the Received header contains one email address' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        Received: abc id abc from aperson@domain.abc
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).
+        to eq(['aperson@domain.abc'])
+    end
+
+    it 'returns a (single dimensional) list containing the emails if the Received header contains multiple email addresses' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        Received: abc id abc from aperson@domain.abc
+          also there is anotherperson@domain.abc
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).
+        to eq(['aperson@domain.abc', 'anotherperson@domain.abc'])
+    end
+
+    it 'recognises the Received header when it is not capitalised' do
+      mail = Mail.new(<<~EOF.strip_heredoc)
+        From: "FOI Person" <foiperson@localhost>
+        To: "Bob Smith" <bob@localhost>
+        Cc: bob@example.com
+        Envelope-To: bob@example.net
+        received: abc id abc from aperson@domain.abc
+        Date: Tue, 13 Nov 2007 11:39:55 +0000
+        Bcc: "BCC Person" <bccperson@localhost>
+        Subject: Test
+        Reply-To:
+
+        Test
+      EOF
+
+      expect(get_emails_within_received_headers(mail)).
+        to eq(['aperson@domain.abc'])
+    end
+  end
+
+  describe 'attachment_body_for_hexdigest' do
+    let(:mail) do
+      Mail.new do
+        add_file filename: 'file.txt', content: 'hereisthetext'
+      end
+    end
+
+    context 'matching hexdigest' do
+      it 'returns the body of the attachment' do
+        body = attachment_body_for_hexdigest(
+          mail, hexdigest: Digest::MD5.hexdigest('hereisthetext')
+        )
+
+        expect(body).to eq('hereisthetext')
+      end
+    end
+
+    context 'non-matching hexdigest' do
+      it 'raises MismatchedAttachmentHexdigest error' do
+        expect {
+          attachment_body_for_hexdigest(mail, hexdigest: 'incorrect')
+        }.to raise_error(MailHandler::MismatchedAttachmentHexdigest)
+      end
+    end
+  end
+
+  describe 'attempt_to_find_original_attachment_attributes' do
+    let(:mail) do
+      mail_attachment = Mail.new(
+        <<~EML
+          Subject: Attached email
+
+          Hello world
+        EML
+      ).to_s
+
+      mail_with_uuencoded = Mail.new(
+        <<~EML
+          Subject: Cat
+
+          Hi Cat!
+
+          begin 644 cat.txt
+          (0V%T#0I#870`
+          `
+          end
+        EML
+      ).to_s
+
+      Mail.new do
+        add_file filename: 'crlf.txt', content: "foo\r\nfoo"
+        add_file filename: 'lf.txt', content: "bar\nbar"
+        add_file filename: 'crlf-non-ascii.txt', content: "Aberdâr\r\n"
+        add_file filename: 'lf-non-ascii.txt', content: "Aberdâr\n"
+        add_file filename: 'latin1.txt', content: "naïve"
+        add_file filename: 'mail.eml', content: mail_attachment
+        add_file filename: 'uuencoded.eml', content: mail_with_uuencoded
+      end
+    end
+
+    subject(:attributes) do
+      MailHandler.attempt_to_find_original_attachment_attributes(
+        mail, body: body
+      )
+    end
+
+    context 'when body has LF line ending' do
+      let(:body) { "foo\nfoo" }
+      it { is_expected.to include(body: "foo\nfoo") }
+    end
+
+    context 'when body has CRLF line ending' do
+      let(:body) { "bar\r\nbar" }
+      it { is_expected.to include(body: "bar\nbar") }
+    end
+
+    context 'when binary body has LF line endings and non ASCII characters' do
+      let(:body) { "Aberdâr\n".b }
+      it { is_expected.to include(body: "Aberdâr\n") }
+    end
+
+    context 'when binary body has CRLF line endings and non ASCII characters' do
+      let(:body) { "Aberdâr\r\n".b }
+      it { is_expected.to include(body: "Aberdâr\n") }
+    end
+
+    context 'when binary body encoded as Latin 1 / ISO-8859-1' do
+      let(:body) { "na\xEFve".b }
+      it { is_expected.to include(body: "naïve") }
+    end
+
+    context 'when attached email headers are different' do
+      let(:body) do
+        <<~EML
+          Subject: A different subject
+
+          Hello world
+        EML
+      end
+      it { is_expected.to include(original_body: "Hello world\n") }
+    end
+
+    context 'when body has trailing whitespace' do
+      let(:body) { "bar\nbar\n" }
+      it { is_expected.to include(body: "bar\nbar") }
+    end
+
+    context 'when body has been uuencoded' do
+      let(:body) { "Cat\nCat" }
+      it { is_expected.to include(body: "Cat\r\nCat") }
+    end
+
+    context 'when body does not match' do
+      let(:body) { 'this does not match' }
+      it { is_expected.to eq(nil) }
     end
   end
 end

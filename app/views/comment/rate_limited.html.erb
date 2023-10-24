@@ -5,7 +5,7 @@
 <p>
   <%= _('You have hit the rate limit on annotations. Users are ordinarily ' \
         'limited to {{comment_limit}} annotations per day.',
-        comment_limit: User::CONTENT_LIMIT[:comments]) %>
+        comment_limit: User.content_limits[:comments]) %>
 </p>
 
 <p>

@@ -57,7 +57,7 @@ class RefusalAdviceController < ApplicationController
 
   def external_redirect
     external = action.target[:external]
-    redirect_to external if external
+    redirect_to(external, allow_other_host: true) if external
   end
 
   def action

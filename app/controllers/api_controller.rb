@@ -208,14 +208,14 @@ class ApiController < ApplicationController
     @events = InfoRequestEvent.where(event_type_clause).
       joins(:info_request).
         where("public_body_id = ?", @public_body.id).
-          includes([{info_request: :user}, :outgoing_message]).
+          includes([{ info_request: :user }, :outgoing_message]).
             order(created_at: :desc)
 
     if since_date_str
       begin
         since_date = Date.strptime(since_date_str, "%Y-%m-%d")
       rescue ArgumentError
-        render json: {"errors" => [
+        render json: { "errors" => [
           "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')"
         ] },
           status: 500
@@ -230,7 +230,7 @@ class ApiController < ApplicationController
       begin
         event = InfoRequestEvent.find(since_event_id)
       rescue ActiveRecord::RecordNotFound
-        render json: {"errors" => [
+        render json: { "errors" => [
           "Event ID #{since_event_id} not found"
         ] },
           status: 500

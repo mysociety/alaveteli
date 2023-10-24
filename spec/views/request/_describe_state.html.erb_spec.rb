@@ -15,7 +15,7 @@ RSpec.describe 'when showing the form for describing the state of a request' do
   end
 
   def do_render
-    render partial: 'request/describe_state', locals: {id_suffix: '1'}
+    render partial: 'request/describe_state', locals: { id_suffix: '1' }
   end
 
   before do
@@ -34,7 +34,9 @@ RSpec.describe 'when showing the form for describing the state of a request' do
     describe 'if the request is not old and unclassified' do
       it 'should not show the form' do
         do_render
-        expect(response.body).not_to have_css('h2', text: 'What best describes the status of this request now?')
+        expect(response.body).not_to have_css(
+          'h2', text: 'What best describes the status of this request now?'
+        )
       end
 
       it 'should give a link to login' do
@@ -50,7 +52,9 @@ RSpec.describe 'when showing the form for describing the state of a request' do
 
       it 'should not show the form' do
         do_render
-        expect(response.body).not_to have_css('h2', text: 'What best describes the status of this request now?')
+        expect(response.body).not_to have_css(
+          'h2', text: 'What best describes the status of this request now?'
+        )
       end
 
       it 'should show the form for someone else to classify the request' do
@@ -129,7 +133,8 @@ RSpec.describe 'when showing the form for describing the state of a request' do
 
       it 'should show the text "The review has finished and overall:"' do
         do_render
-        expect(response).to have_css('p', text: 'The review has finished and overall:')
+        expect(response).
+          to have_css('p', text: 'The review has finished and overall:')
       end
     end
 
