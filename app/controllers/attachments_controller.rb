@@ -36,7 +36,7 @@ class AttachmentsController < ApplicationController
   rescue Timeout::Error
     redirect_to wait_for_attachment_mask_path(
       @attachment.to_signed_global_id,
-      referer: request.fullpath
+      referer: verifier.generate(request.fullpath)
     )
   end
 
@@ -223,5 +223,9 @@ class AttachmentsController < ApplicationController
 
   def with_prominence
     @info_request
+  end
+
+  def verifier
+    Rails.application.message_verifier('AttachmentsController')
   end
 end
