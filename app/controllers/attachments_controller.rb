@@ -16,7 +16,7 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
 
-  around_action :ensure_masked, only: :show
+  around_action :ensure_masked
   around_action :cache_attachments, only: :show_as_html
 
   def show

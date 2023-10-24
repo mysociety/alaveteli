@@ -450,6 +450,69 @@ RSpec.describe AttachmentsController, type: :controller do
         .to raise_error(ActiveRecord::RecordNotFound)
     end
 
+    context 'when attachment has not been masked' do
+      let(:attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked,
+          incoming_message: message,
+          prominence: attachment_prominence
+        )
+      end
+
+      context 'when masked attachment is available before timing out' do
+        before do
+          allow(IncomingMessage).to receive(
+            :get_attachment_by_url_part_number_and_filename!
+          ).and_return(attachment)
+          allow(attachment).to receive(:masked?).and_return(false, true)
+        end
+
+        it 'queues FoiAttachmentMaskJob' do
+          expect(FoiAttachmentMaskJob).to receive(:perform_later).
+            with(attachment)
+          show_as_html
+        end
+
+        it 'redirects to show action' do
+          show_as_html
+          expect(response).to redirect_to(request.fullpath)
+        end
+      end
+
+      context 'when response times out waiting for masked attachment' do
+        before do
+          allow(Timeout).to receive(:timeout).and_raise(Timeout::Error)
+        end
+
+        it 'queues FoiAttachmentMaskJob' do
+          expect(FoiAttachmentMaskJob).to receive(:perform_later).
+            with(attachment)
+          show_as_html
+        end
+
+        it 'redirects to wait for attachment mask route' do
+          allow_any_instance_of(FoiAttachment).to receive(:to_signed_global_id).
+            and_return('ABC')
+
+          verifier = double('ActiveSupport::MessageVerifier')
+          allow(controller).to receive(:verifier).and_return(verifier)
+          allow(verifier).to receive(:generate).with(
+            get_attachment_as_html_path(
+              incoming_message_id: attachment.incoming_message_id,
+              id: info_request.id,
+              part: attachment.url_part_number,
+              file_name: attachment.filename
+            )
+          ).and_return('DEF')
+
+          show_as_html
+          expect(response).to redirect_to(
+            wait_for_attachment_mask_path('ABC', referer: 'DEF')
+          )
+        end
+      end
+    end
+
     context 'when request is embargoed' do
       let(:info_request) { FactoryBot.create(:embargoed_request) }
 
