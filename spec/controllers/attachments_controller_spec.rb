@@ -138,9 +138,21 @@ RSpec.describe AttachmentsController, type: :controller do
         it 'redirects to wait for attachment mask route' do
           allow_any_instance_of(FoiAttachment).to receive(:to_signed_global_id).
             and_return('ABC')
+
+          verifier = double('ActiveSupport::MessageVerifier')
+          allow(controller).to receive(:verifier).and_return(verifier)
+          allow(verifier).to receive(:generate).with(
+            get_attachment_path(
+              incoming_message_id: attachment.incoming_message_id,
+              id: info_request.id,
+              part: attachment.url_part_number,
+              file_name: attachment.filename
+            )
+          ).and_return('DEF')
+
           show
           expect(response).to redirect_to(
-            wait_for_attachment_mask_path('ABC', referer: request.fullpath)
+            wait_for_attachment_mask_path('ABC', referer: 'DEF')
           )
         end
       end

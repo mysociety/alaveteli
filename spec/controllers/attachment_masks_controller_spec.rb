@@ -2,11 +2,17 @@ require 'spec_helper'
 
 RSpec.describe AttachmentMasksController, type: :controller do
   let(:attachment) { FactoryBot.build(:body_text, id: 1) }
-  let(:referer) { '/referer' }
+  let(:referer) { 'DEF' }
 
   before do
     allow(GlobalID::Locator).to receive(:locate_signed).with('ABC').
       and_return(attachment)
+
+    verifier = double('ActiveSupport::MessageVerifier')
+    allow(controller).to receive(:verifier).and_return(verifier)
+    allow(verifier).to receive(:generate).with('/referer').and_return('DEF')
+    allow(verifier).to receive(:verified).and_return(nil)
+    allow(verifier).to receive(:verified).with('DEF').and_return('/referer')
   end
 
   describe 'GET wait' do
@@ -19,7 +25,7 @@ RSpec.describe AttachmentMasksController, type: :controller do
         allow(attachment).to receive(:to_signed_global_id).and_return('ABC')
         wait
         expect(response).to redirect_to(
-          done_attachment_mask_path('ABC', referer: '/referer')
+          done_attachment_mask_path('ABC', referer: 'DEF')
         )
       end
     end
@@ -69,6 +75,14 @@ RSpec.describe AttachmentMasksController, type: :controller do
         expect { wait }.to raise_error(ApplicationController::RouteNotFound)
       end
     end
+
+    context 'with modified referer' do
+      let(:referer) { 'http://example.com/attack' }
+
+      it 'raises route not found error' do
+        expect { wait }.to raise_error(ApplicationController::RouteNotFound)
+      end
+    end
   end
 
   describe 'GET done' do
@@ -83,7 +97,7 @@ RSpec.describe AttachmentMasksController, type: :controller do
         allow(attachment).to receive(:to_signed_global_id).and_return('ABC')
         done
         expect(response).to redirect_to(
-          wait_for_attachment_mask_path('ABC', referer: '/referer')
+          wait_for_attachment_mask_path('ABC', referer: 'DEF')
         )
       end
     end
@@ -120,6 +134,14 @@ RSpec.describe AttachmentMasksController, type: :controller do
 
     context 'without referer' do
       let(:referer) { '' }
+
+      it 'raises route not found error' do
+        expect { done }.to raise_error(ApplicationController::RouteNotFound)
+      end
+    end
+
+    context 'with modified referer' do
+      let(:referer) { 'http://example.com/attack' }
 
       it 'raises route not found error' do
         expect { done }.to raise_error(ApplicationController::RouteNotFound)
