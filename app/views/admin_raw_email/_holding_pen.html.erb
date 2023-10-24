@@ -22,6 +22,16 @@
           <div class="accordion-heading">
             <a href="#info_request_<%= guess.info_request.id %>" data-toggle="collapse"><i class="icon-chevron-right"></i></a>
             <%= both_links(guess.info_request) %>
+
+            <span class="badge">
+              ID:
+              <%= number_to_percentage(guess.id_score * 100, precision: 0) %>
+            </span>
+
+            <span class="badge">
+              Idhash:
+              <%= number_to_percentage(guess.idhash_score * 100, precision: 0) %>
+            </span>
           </div>
 
           <div class="accordion-body collapse" id="info_request_<%= guess.info_request.id %>">
@@ -46,6 +56,16 @@
               <tr>
                 <td><strong>url_title:</strong></td>
                 <td><%= guess.info_request.url_title %></td>
+              </tr>
+
+              <tr>
+                <td><strong>ID Guess Score:</strong></td>
+                <td><%= number_to_percentage(guess.id_score * 100, precision: 0) %></td>
+              </tr>
+
+              <tr>
+                <td><strong>Idhash Guess Score:</strong></td>
+                <td><%= number_to_percentage(guess.idhash_score * 100, precision: 0) %></td>
               </tr>
             </table>
 
