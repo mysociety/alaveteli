@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230209094128
+# Schema version: 20231011091031
 #
 # Table name: public_bodies
 #
@@ -12,7 +12,6 @@
 #  home_page                              :text
 #  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
-#  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
