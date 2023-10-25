@@ -16,28 +16,11 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
 
+  around_action :ensure_masked, only: :show
   around_action :cache_attachments, only: :show_as_html
 
   def show
-    if @attachment.masked?
-      render body: @attachment.body, content_type: content_type
-    else
-      FoiAttachmentMaskJob.perform_once_later(@attachment)
-
-      Timeout.timeout(5) do
-        until @attachment.masked?
-          sleep 0.5
-          @attachment.reload
-        end
-        redirect_to(request.fullpath)
-      end
-    end
-
-  rescue Timeout::Error
-    redirect_to wait_for_attachment_mask_path(
-      @attachment.to_signed_global_id,
-      referer: verifier.generate(request.fullpath)
-    )
+    render body: @attachment.body, content_type: content_type
   end
 
   def show_as_html
@@ -133,6 +116,28 @@ class AttachmentsController < ApplicationController
     return if attachment_is_public?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
+  end
+
+  def ensure_masked
+    if @attachment.masked?
+      yield
+    else
+      FoiAttachmentMaskJob.perform_once_later(@attachment)
+
+      Timeout.timeout(5) do
+        until @attachment.masked?
+          sleep 0.5
+          @attachment.reload
+        end
+        redirect_to(request.fullpath)
+      end
+    end
+
+  rescue Timeout::Error
+    redirect_to wait_for_attachment_mask_path(
+      @attachment.to_signed_global_id,
+      referer: verifier.generate(request.fullpath)
+    )
   end
 
   # special caching code so mime types are handled right
