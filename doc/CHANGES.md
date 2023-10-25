@@ -1,3 +1,10 @@
+# develop
+
+## Highlighted Features
+
+* Add internal ID number to authority CSV download (Alex Pearson, Graeme
+  Porteous)
+
 # 0.44.0.0
 
 ## Highlighted Features

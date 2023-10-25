@@ -19,7 +19,8 @@ require 'csv'
 class PublicBodyCSV
 
   def self.default_fields
-    [:name,
+    [:id,
+     :name,
      :short_name,
      :url_name,
      :tag_string,
@@ -34,7 +35,8 @@ class PublicBodyCSV
 
   # TODO: Generate headers from fields
   def self.default_headers
-    ['Name',
+    ['Internal ID',
+     'Name',
      'Short name',
      'URL name',
      'Tags',
