@@ -2,7 +2,7 @@
 
 ## Highlighted Features
 
-* Add internal ID number to authority CSV download (Alex Pearson, Graeme
+* Add internal ID number to authority CSV download (Alex Parsons, Graeme
   Porteous)
 
 # 0.44.0.0
