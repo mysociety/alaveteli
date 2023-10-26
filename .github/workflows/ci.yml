@@ -124,11 +124,14 @@ jobs:
         parallel: true
 
   coveralls:
+    name: Coveralls
+    runs-on: ubuntu-latest
+
+    needs: rspec
+
     permissions:
       checks: write
-    name: Coveralls
-    needs: rspec
-    runs-on: ubuntu-latest
+
     steps:
       - name: Coveralls Finished
         uses: coverallsapp/github-action@master
