@@ -44,6 +44,7 @@ jobs:
     env:
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/alaveteli_test
       RAILS_ENV: test
+      GH_TOKEN: ${{ github.token }}
 
     steps:
     - name: Checkout repository
@@ -51,6 +52,14 @@ jobs:
       with:
         submodules: true
         fetch-depth: 0
+
+    - name: Check for [skip ci]
+      run: |
+        PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
+        if echo "$PR_DESCRIPTION" | grep -q "\[skip ci\]"; then
+          echo "Skip CI found in PR description. Passing the action."
+          exit 0
+        fi
 
     - name: Install packages
       env:
