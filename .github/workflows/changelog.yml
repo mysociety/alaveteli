@@ -1,0 +1,39 @@
+name: Changelog
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Check for [skip changelog]
+      run: |
+        PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
+        if echo "$PR_DESCRIPTION" | grep -q "\[skip changelog\]"; then
+          echo "Skip changelog found in PR description. Passing the action."
+          exit 0
+        fi
+
+    - name: Check for changes in doc/CHANGES.md
+      run: |
+        git fetch origin ${{ github.event.pull_request.base.ref }}
+        FILES_CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.sha }})
+        if [[ "$FILES_CHANGED" == *"doc/CHANGES.md"* ]]; then
+          echo "doc/CHANGES.md has been modified. Passing the action."
+          exit 0
+        else
+          echo "doc/CHANGES.md has not been modified. Failing the action."
+          exit 1
+        fi
