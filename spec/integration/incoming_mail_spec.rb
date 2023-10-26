@@ -64,12 +64,17 @@ RSpec.describe 'when handling incoming mail' do
   it "generates a valid HTML verson of plain text attachments" do
     receive_incoming_mail('incoming-request-two-same-name.email',
                           email_to: info_request.incoming_email)
-    visit get_attachment_as_html_path(
+    attachment_path = get_attachment_as_html_path(
       incoming_message_id: info_request.incoming_messages.first.id,
       id: info_request.id,
       part: 2,
       file_name: 'hello world.txt.html',
       skip_cache: 1)
+
+    visit attachment_path
+    perform_enqueued_jobs
+
+    visit attachment_path
     expect(page.response_headers['Content-Type']).to eq("text/html; charset=utf-8")
     expect(page).to have_content "Second hello"
   end
@@ -77,12 +82,17 @@ RSpec.describe 'when handling incoming mail' do
   it "generates a valid HTML verson of PDF attachments" do
     receive_incoming_mail('incoming-request-pdf-attachment.email',
                           email_to: info_request.incoming_email)
-    visit get_attachment_as_html_path(
+    attachment_path = get_attachment_as_html_path(
       incoming_message_id: info_request.incoming_messages.first.id,
       id: info_request.id,
       part: 2,
       file_name: 'fs 50379341.pdf.html',
       skip_cache: 1)
+
+    visit attachment_path
+    perform_enqueued_jobs
+
+    visit attachment_path
     expect(page.response_headers['Content-Type']).to eq("text/html; charset=utf-8")
     expect(page).to have_content "Walberswick Parish Council"
   end
