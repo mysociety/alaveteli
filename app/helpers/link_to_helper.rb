@@ -80,10 +80,11 @@ module LinkToHelper
   def respond_to_last_url(info_request, options = {})
     last_response = info_request.get_last_public_response
     if last_response.nil?
-      new_request_followup_url(info_request.id, options)
+      new_request_followup_url(info_request.url_title, options)
     else
       new_request_incoming_followup_url(
-        info_request.id, options.merge(incoming_message_id: last_response.id)
+        info_request.url_title,
+        options.merge(incoming_message_id: last_response.id)
       )
     end
   end

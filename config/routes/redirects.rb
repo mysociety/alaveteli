@@ -6,9 +6,12 @@ info_request_redirect = redirect do |params, request|
   ability = Ability.new(User.authenticate_from_session(request.session))
   raise ActiveRecord::RecordNotFound if ability.cannot?(:read, info_request)
 
+  # split path components
+  suffix = params[:suffix]&.split('/') # suffix is optional
+
   # encode path components
   encoded_parts = [
-    *params[:locale], 'request', info_request.url_title
+    *params[:locale], 'request', info_request.url_title, *suffix
   ].map do |part|
     if RUBY_VERSION < '3.1'
       URI.encode_www_form_component(part).gsub('+', '%20')
@@ -23,4 +26,8 @@ end
 
 get '/request/:id',
   constraints: { id: /\d+/ },
+  to: info_request_redirect
+
+get '/request/:id(/*suffix)',
+  constraints: { id: /\d+/, suffix: %r(followups/new(/\d+)?) },
   to: info_request_redirect

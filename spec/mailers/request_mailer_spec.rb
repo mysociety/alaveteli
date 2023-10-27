@@ -746,8 +746,11 @@ RSpec.describe RequestMailer do
         mail.body.to_s =~ /(http:\/\/.*)/
         mail_url = $1
 
-        expect(mail_url).
-          to match(new_request_followup_path(@kitten_request.id))
+        expect(mail_url).to match(
+          new_request_followup_path(
+            request_url_title: @kitten_request.url_title
+          )
+        )
       end
     end
 
@@ -856,8 +859,11 @@ RSpec.describe RequestMailer do
           mail.body.to_s =~ /(http:\/\/.*)/
           mail_url = $1
 
-          expect(mail_url).
-            to match(new_request_followup_path(@kitten_request.id))
+          expect(mail_url).to match(
+            new_request_followup_path(
+              request_url_title: @kitten_request.url_title
+            )
+          )
         end
       end
 
@@ -938,7 +944,7 @@ RSpec.describe RequestMailer do
 
       expect(mail_url).to match(
         new_request_incoming_followup_path(
-          ir.id,
+          ir.url_title,
           incoming_message_id: ir.incoming_messages.last.id
         )
       )

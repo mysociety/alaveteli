@@ -163,7 +163,7 @@ class RequestMailer < ApplicationMailer
   # Tell the requester that they need to clarify their request
   def not_clarified_alert(info_request, incoming_message)
     respond_url = new_request_incoming_followup_url(
-      info_request.id,
+      info_request.url_title,
       incoming_message_id: incoming_message.id,
       anchor: 'followup'
     )

@@ -10,7 +10,9 @@ module AlaveteliPro
       end
 
       def call_to_action_url
-        new_request_followup_path(event.info_request.id, anchor: 'followup')
+        new_request_followup_path(
+          event.info_request.url_title, anchor: 'followup'
+        )
       end
     end
   end

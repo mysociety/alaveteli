@@ -26,7 +26,7 @@ RSpec.describe AlaveteliPro::ActivityList::VeryOverdue do
     it 'returns the url of the info_request' do
       expect(activity.call_to_action_url).to eq(
         new_request_followup_path(
-          event.info_request.id,
+          event.info_request.url_title,
           anchor: 'followup',
           internal_review: 1
         )

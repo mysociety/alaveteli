@@ -351,7 +351,7 @@ RSpec.describe NotificationMailer do
     # HACK: We can't control the IDs of the requests or incoming messages create
     # a data structure of mappings here so that we can replace keys in fixture
     # files with the ID that will end up in the URL.
-    let(:id_mappings) do
+    let(:url_id_mappings) do
       all_notifications.each_with_object({}) do |notification, data|
         event = notification.info_request_event
         case event.event_type
@@ -362,7 +362,7 @@ RSpec.describe NotificationMailer do
         else
           request = event.info_request
           key = "#{request.url_title}_#{request.public_body.url_name}".upcase
-          data["#{key}_ID"] = request.id
+          data["#{key}_URL_TITLE"] = request.url_title
         end
       end
     end
@@ -387,7 +387,7 @@ RSpec.describe NotificationMailer do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       expected_message = load_file_fixture(
         "notification_mailer/daily-summary.txt", 'r:utf-8')
-      id_mappings.each do |key, id|
+      url_id_mappings.each do |key, id|
         expected_message.gsub!("$#{key}$", id.to_s)
       end
       expect(mail.body.encoded).to eq(expected_message)
@@ -719,7 +719,7 @@ RSpec.describe NotificationMailer do
       mail = NotificationMailer.overdue_notification(notification)
       expected_message = load_file_fixture(
         "notification_mailer/overdue.txt", 'r:utf-8')
-      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
+      expected_message.gsub!(/INFO_REQUEST_URL_TITLE/, info_request.url_title)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end
@@ -790,7 +790,7 @@ RSpec.describe NotificationMailer do
       mail = NotificationMailer.very_overdue_notification(notification)
       expected_message = load_file_fixture(
         "notification_mailer/very_overdue.txt", 'r:utf-8')
-      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
+      expected_message.gsub!(/INFO_REQUEST_URL_TITLE/, info_request.url_title)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end

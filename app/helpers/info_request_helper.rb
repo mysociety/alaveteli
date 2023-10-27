@@ -115,7 +115,7 @@ module InfoRequestHelper
       str += link_to(
         _('requesting an internal review'),
         new_request_followup_path(
-          info_request.id, internal_review: 1
+          info_request.url_title, internal_review: 1
         )
       )
       str += '.'

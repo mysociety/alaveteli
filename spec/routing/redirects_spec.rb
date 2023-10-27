@@ -13,4 +13,9 @@ RSpec.describe 'routing redirects', type: :request do
     get('/en_GB/request/105')
     expect(response).to redirect_to('/en_GB/request/the_cost_of_boring')
   end
+
+  it 'routes numerical request member routes to URL title member routes' do
+    get('/request/105/followups/new')
+    expect(response).to redirect_to('/request/the_cost_of_boring/followups/new')
+  end
 end

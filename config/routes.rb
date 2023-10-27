@@ -189,17 +189,17 @@ Rails.application.routes.draw do
   end
 
   #### Followups controller
-  match '/request/:request_id/followups/new' => 'followups#new',
+  match '/request/:request_url_title/followups/new' => 'followups#new',
         :as => :new_request_followup,
         :via => :get
-  match '/request/:request_id/followups/new/:incoming_message_id' =>
+  match '/request/:request_url_title/followups/new/:incoming_message_id' =>
           'followups#new',
         :as => :new_request_incoming_followup,
         :via => :get
-  match '/request/:request_id/followups/preview' => 'followups#preview',
+  match '/request/:request_url_title/followups/preview' => 'followups#preview',
         :as => :preview_request_followups,
         :via => :post
-  match '/request/:request_id/followups' => 'followups#create',
+  match '/request/:request_url_title/followups' => 'followups#create',
         :as => :request_followups,
         :via => :post
   ####
