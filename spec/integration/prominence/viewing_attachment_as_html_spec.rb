@@ -8,7 +8,7 @@ local_requests: false do
   let(:within_session) do
     -> {
       visit get_attachment_as_html_url(
-        info_request.id,
+        info_request.url_title,
         incoming_message_id: attachment.incoming_message_id,
         part: attachment.url_part_number,
         file_name: "#{attachment.display_filename}.html"

@@ -51,7 +51,7 @@ RSpec.describe "When viewing requests" do
       )
       rebuild_raw_emails(info_request)
 
-      attachment_url = "/es/request/#{info_request.id}/response/" \
+      attachment_url = "/es/request/#{info_request.url_title}/response/" \
         "#{incoming_message.id}/attach/#{attachment.url_part_number}/" \
         "#{attachment.filename}"
       using_session(non_owner) { visit(attachment_url) }

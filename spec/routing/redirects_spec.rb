@@ -18,4 +18,16 @@ RSpec.describe 'routing redirects', type: :request do
     get('/request/105/followups/new')
     expect(response).to redirect_to('/request/the_cost_of_boring/followups/new')
   end
+
+  it 'routes numerical request attachment routes to URL title attachment routes' do
+    get('/request/105/response/1/attach/2/filename.txt')
+    expect(response).to redirect_to(
+      '/request/the_cost_of_boring/response/1/attach/2/filename.txt'
+    )
+
+    get('/request/105/response/1/attach/html/2/filename.txt.html')
+    expect(response).to redirect_to(
+      '/request/the_cost_of_boring/response/1/attach/html/2/filename.txt.html'
+    )
+  end
 end

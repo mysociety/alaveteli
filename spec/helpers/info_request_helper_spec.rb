@@ -644,7 +644,7 @@ RSpec.describe InfoRequestHelper do
     context 'when given no format options' do
       it 'returns the path to the attachment with a cookie cookie_passthrough param' do
         expect(attachment_path(jpeg_attachment)).to eq(
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}/" \
           "attach/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg?cookie_passthrough=1"
@@ -655,7 +655,7 @@ RSpec.describe InfoRequestHelper do
     context 'when given an html format option' do
       it 'returns the path to the HTML version of the attachment' do
         expect(attachment_path(jpeg_attachment, html: true)).to eq(
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}" \
           "/attach/html/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg.html"
@@ -686,7 +686,7 @@ RSpec.describe InfoRequestHelper do
       it 'returns the URL to the attachment with a cookie cookie_passthrough param' do
         expect(attachment_url(jpeg_attachment)).to eq(
           "http://test.host" \
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}" \
           "/attach/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg?cookie_passthrough=1"
@@ -698,7 +698,7 @@ RSpec.describe InfoRequestHelper do
       it 'returns the URL to the HTML version of the attachment' do
         expect(attachment_url(jpeg_attachment, html: true)).to eq(
           "http://test.host" \
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}" \
           "/attach/html/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg.html"

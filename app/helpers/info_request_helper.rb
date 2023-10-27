@@ -315,7 +315,8 @@ module InfoRequestHelper
     if public_token?
       attach_params[:public_token] = public_token
     else
-      attach_params[:id] = attachment.incoming_message.info_request_id
+      attach_params[:request_url_title] = attachment.incoming_message.
+        info_request.url_title
     end
     if options[:html]
       attach_params[:file_name] = "#{attachment.display_filename}.html"

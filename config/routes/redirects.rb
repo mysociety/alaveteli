@@ -31,3 +31,8 @@ get '/request/:id',
 get '/request/:id(/*suffix)',
   constraints: { id: /\d+/, suffix: %r(followups/new(/\d+)?) },
   to: info_request_redirect
+
+get '/request/:id(/*suffix)',
+  format: false,
+  constraints: { id: /\d+/, suffix: %r(response/\d+/attach(/html)?/\d+/.*) },
+  to: info_request_redirect

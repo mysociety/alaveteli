@@ -43,37 +43,11 @@ RSpec.describe AttachmentsController, type: :controller do
         part: attachment.url_part_number,
         file_name: attachment.display_filename
       }
-      default_params[:id] = info_request.id unless params[:public_token]
+      unless params[:public_token]
+        default_params[:request_url_title] = info_request.url_title
+      end
       rebuild_raw_emails(info_request)
       get :show, params: default_params.merge(params)
-    end
-
-    # This is a regression test for a bug where URLs of this form were causing
-    # 500 errors instead of 404s.
-    #
-    # (Note that in fact only the integer-prefix of the URL part is used, so
-    # there are *some* “ugly URLs containing a request id that isn\'t an
-    # integer” that actually return a 200 response. The point is that IDs of
-    # this sort were triggering an error in the error-handling path, causing
-    # the wrong sort of error response to be returned in the case where the
-    # integer prefix referred to the wrong request.)
-    #
-    # https://github.com/mysociety/alaveteli/issues/351
-    it 'should return 404 for ugly URLs containing a request id that isn\'t an integer' do
-      ugly_id = '55195'
-      expect { show(id: ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
-    end
-
-    it 'should return 404 when incoming message and request ids don\'t match' do
-      expect { show(id: info_request.id + 1) }
-        .to raise_error(ActiveRecord::RecordNotFound)
-    end
-
-    it 'should return 404 for ugly URLs contain a request id that isn\'t an integer, even if the integer prefix refers to an actual request' do
-      ugly_id = '#{FactoryBot.create(:info_request).id}95'
-      expect { show(id: ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'should redirect to the incoming message if there\'s a wrong part number and an ambiguous filename' do
@@ -167,7 +141,7 @@ RSpec.describe AttachmentsController, type: :controller do
           allow(controller).to receive(:verifier).and_return(verifier)
           allow(verifier).to receive(:generate).with(
             get_attachment_path(
-              info_request.id,
+              info_request.url_title,
               incoming_message_id: attachment.incoming_message_id,
               part: attachment.url_part_number,
               file_name: attachment.filename
@@ -460,7 +434,9 @@ RSpec.describe AttachmentsController, type: :controller do
         part: attachment.url_part_number,
         file_name: attachment.display_filename
       }
-      default_params[:id] = info_request.id unless params[:public_token]
+      unless params[:public_token]
+        default_params[:request_url_title] = info_request.url_title
+      end
       get :show_as_html, params: default_params.merge(params)
     end
 
@@ -480,18 +456,6 @@ RSpec.describe AttachmentsController, type: :controller do
       show_as_html(public_token: '123', id: nil)
 
       expect(response.headers['X-Robots-Tag']).to eq 'noindex'
-    end
-
-    it 'should return 404 for ugly URLs containing a request id that isn\'t an integer' do
-      ugly_id = '55195'
-      expect { show_as_html(id: ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
-    end
-
-    it 'should return 404 for ugly URLs contain a request id that isn\'t an integer, even if the integer prefix refers to an actual request' do
-      ugly_id = FactoryBot.create(:info_request).id.to_s + '95'
-      expect { show_as_html(id: ugly_id) }
-        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     context 'when attachment has not been masked' do
@@ -542,7 +506,7 @@ RSpec.describe AttachmentsController, type: :controller do
           allow(controller).to receive(:verifier).and_return(verifier)
           allow(verifier).to receive(:generate).with(
             get_attachment_as_html_path(
-              info_request.id,
+              info_request.url_title,
               incoming_message_id: attachment.incoming_message_id,
               part: attachment.url_part_number,
               file_name: attachment.filename
