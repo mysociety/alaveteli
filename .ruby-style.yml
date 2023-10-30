@@ -1175,6 +1175,9 @@ Rails/EnumHash:
 Rails/EnumUniqueness:
   Enabled: false
 
+Rails/EnvLocal:
+  Enabled: false
+
 Rails/EnvironmentComparison:
   Enabled: false
 
