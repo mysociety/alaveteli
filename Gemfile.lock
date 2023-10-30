@@ -415,7 +415,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.1.0)
     recaptcha (5.15.0)
     redcarpet (3.6.0)
     redis (4.8.1)
