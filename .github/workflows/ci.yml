@@ -29,13 +29,15 @@ jobs:
     - name: Check for [skip rspec]
       id: skip
       run: |
-        PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
-        if echo "$PR_DESCRIPTION" | grep -q "\[skip rspec\]"; then
-          echo "Skip RSpec found in PR description. Passing the action."
-          echo "skip_rspec=true" >> $GITHUB_OUTPUT
-        else
-          echo "skip_rspec=false" >> $GITHUB_OUTPUT
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
+          if echo "$PR_DESCRIPTION" | grep -q "\[skip rspec\]"; then
+            echo "Skip RSpec found in PR description. Passing the action."
+            echo "skip_rspec=true" >> $GITHUB_OUTPUT
+            exit
+          fi
         fi
+        echo "skip_rspec=false" >> $GITHUB_OUTPUT
 
   rspec:
     name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }}
