@@ -1,0 +1,51 @@
+name: Changelog
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check for [skip changelog]
+      id: skip
+      run: |
+        PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
+        if echo "$PR_DESCRIPTION" | grep -q "\[skip changelog\]"; then
+          echo "skip_changelog=true" >> $GITHUB_OUTPUT
+        else
+          echo "skip_changelog=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Check for changes in doc/CHANGES.md
+      id: changes
+      run: |
+        git fetch origin ${{ github.event.pull_request.base.ref }}
+        FILES_CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.sha }})
+        if [[ "$FILES_CHANGED" == *"doc/CHANGES.md"* ]]; then
+          echo "changes_found=true" >> $GITHUB_OUTPUT
+        else
+          echo "changes_found=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Final Check
+      run: |
+        if [[ "${{ steps.skip.outputs.skip_changelog }}" == "true" || "${{ steps.changes.outputs.changes_found }}" == "true" ]]; then
+          echo "Either [skip changelog] was found or doc/CHANGES.md was modified. Passing the action."
+          exit 0
+        else
+          echo "Neither [skip changelog] was found nor was doc/CHANGES.md modified. Failing the action."
+          exit 1
+        fi

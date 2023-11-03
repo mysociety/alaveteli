@@ -4,6 +4,9 @@ on:
   push:
     branches: [master, develop]
   pull_request:
+    types:
+      - opened
+      - synchronize
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -13,9 +16,33 @@ permissions:
   contents: read
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    outputs:
+      skip_rspec: ${{ steps.skip.outputs.skip_rspec }}
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+    - name: Check for [skip rspec]
+      id: skip
+      run: |
+        PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
+        if echo "$PR_DESCRIPTION" | grep -q "\[skip rspec\]"; then
+          echo "Skip RSpec found in PR description. Passing the action."
+          echo "skip_rspec=true" >> $GITHUB_OUTPUT
+        else
+          echo "skip_rspec=false" >> $GITHUB_OUTPUT
+        fi
+
   rspec:
     name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+
+    needs: check
+    if: needs.check.outputs.skip_rspec == 'false'
 
     permissions:
       checks: write # for coverallsapp/github-action to create new checks
@@ -47,7 +74,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         submodules: true
         fetch-depth: 0
@@ -100,11 +127,14 @@ jobs:
         parallel: true
 
   coveralls:
+    name: Coveralls
+    runs-on: ubuntu-latest
+
+    needs: rspec
+
     permissions:
       checks: write
-    name: Coveralls
-    needs: rspec
-    runs-on: ubuntu-20.04
+
     steps:
       - name: Coveralls Finished
         uses: coverallsapp/github-action@master
