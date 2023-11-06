@@ -28,7 +28,7 @@ class FoiAttachmentMaskJob < ApplicationJob
       @attachment = attachment.load_attachment_from_incoming_message
     end
 
-    mask
+    mask if @attachment
   end
 
   private
