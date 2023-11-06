@@ -41,6 +41,7 @@ jobs:
         fi
 
     - name: Final Check
+      if: ${{ github.event.pull_request.user.login != 'dependabot[bot]' }}
       run: |
         if [[ "${{ steps.skip.outputs.skip_changelog }}" == "true" || "${{ steps.changes.outputs.changes_found }}" == "true" ]]; then
           echo "Either [skip changelog] was found or doc/CHANGES.md was modified. Passing the action."
