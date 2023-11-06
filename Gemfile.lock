@@ -416,7 +416,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    recaptcha (5.15.0)
+    recaptcha (5.16.0)
     redcarpet (3.6.0)
     redis (4.8.1)
     regexp_parser (2.8.2)
@@ -621,7 +621,7 @@ DEPENDENCIES
   rails (~> 7.0.8)
   rails-controller-testing
   rails-i18n (~> 7.0.5)
-  recaptcha (~> 5.15.0)
+  recaptcha (~> 5.16.0)
   redcarpet (~> 3.6.0)
   redis (~> 4.8.1)
   rolify (~> 6.0.1)
