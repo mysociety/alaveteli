@@ -25,12 +25,12 @@
           :site_name => site_name, :contact_path => help_contact_path) %>
 </p>
 
-<% columns = ['id', 'event_type', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
+<% columns = ['id', 'event_type', 'details', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
 
 <table>
   <thead>
   <tr scope="col">
-  <% for column in @columns%>
+  <% for column in columns %>
     <th><%= column %></th>
   <% end %>
   <th scope="col">link</th>
@@ -39,9 +39,17 @@
 
   <% @info_request.info_request_events.each do |info_request_event| %>
     <tr class="<%= cycle('odd', 'even') %>">
-    <% for column in @columns %>
-      <td data-label="<%= column %>">
-        <%=h info_request_event.send(column) %>&nbsp;
+    <% for column in columns %>
+      <td data-label="<%= column %>"><%
+        if column == 'details'
+          d = info_request_event.params_diff[:new].keys().join(', ')
+        else
+          d = info_request_event.send(column)
+        end
+        if column == 'event_type' and d == 'edit'
+          d = 'edit metadata'
+        end
+        %><%=h d %>&nbsp;
       </td>
     <% end %>
     <td data-label="link">
