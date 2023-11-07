@@ -44,3 +44,14 @@
     <%= submit_tag 'Save', class: 'btn btn-success' %>
   </div>
 <% end %>
+
+<% if @foi_attachment.main_body_part? %>
+  <hr />
+  <h2>Unmasked message body (quotes unfolded):</h2>
+
+  <blockquote>
+    <div class="well well-small">
+      <%= simple_format(@foi_attachment.unmasked_body) %>
+    </div>
+  </blockquote>
+<% end %>

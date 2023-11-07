@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add admin view of unmasked version of main body part attachments (Gareth Rees)
 * Add internal ID number to authority CSV download (Alex Parsons, Graeme
   Porteous)
 
