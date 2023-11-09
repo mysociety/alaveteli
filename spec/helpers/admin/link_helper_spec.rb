@@ -96,5 +96,27 @@ RSpec.describe Admin::LinkHelper do
       it { is_expected.to include(record.url) }
       it { is_expected.to include(edit_admin_blog_post_path(record)) }
     end
+
+    context 'with a TrackThing' do
+      context 'tracking a search' do
+        let(:record) { FactoryBot.create(:search_track) }
+
+        it { is_expected.to include('icon-eye-open') }
+        it { is_expected.to include("#{record.id}:") }
+        it { is_expected.to include(search_general_path(record.track_query)) }
+      end
+
+      context 'tracking a trackable record' do
+        let(:record) { FactoryBot.create(:request_update_track) }
+        let(:url_title) { record.info_request.url_title }
+
+        it { is_expected.to include('icon-eye-open') }
+        it { is_expected.to include("#{record.id}:") }
+
+        it do
+          is_expected.to include(search_general_path("request:#{url_title}"))
+        end
+      end
+    end
   end
 end

@@ -94,6 +94,14 @@ module Admin::LinkHelper
               title: admin_title)
   end
 
+  def track_thing_both_links(track_thing)
+    title = 'View track'
+    icon = eye
+    icon_link = search_general_path(track_thing.track_query)
+
+    link_to(icon, icon_link, title: title) + ' ' + "#{track_thing.id}:"
+  end
+
   def admin_title
     'View full details'
   end
