@@ -52,6 +52,9 @@ Rails.application.routes.draw do
   match '/search(/*combined)' => 'general#search',
         :as => :search_general,
         :via => :get
+  match '/search/:query/requests' => 'general#search',
+        as: :search_requests,
+        via: :get
   match '/search/:query/users' => 'general#search',
         as: :search_users,
         via: :get
