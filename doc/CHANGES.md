@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Signpost key user administration contributions for requests on request list
+  pages (Gareth Rees)
 * Signpost users to find new contact details for requests with delivery errors
   (Gareth Rees)
 * Add admin view of unmasked version of main body part attachments (Gareth Rees)
