@@ -136,13 +136,11 @@ input.use-datepicker[type=text] {
   }
 }
 
-.search_latest {
-  ul.search_latest__list {
-    list-style: none;
-    padding-left: 0;
-  }
+.search_sidebar_list {
+  list-style: none;
+  padding-left: 0;
 
-  li.search_latest__item {
+  .search_sidebar_list__item {
     a:after {
       content: " →"
     }
