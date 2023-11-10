@@ -11,8 +11,8 @@
     <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'main' } %>
   <% end %>
 
-  <h2><%= _('Latest') %></h2>
   <%= render partial: 'general/search_latest' %>
+  <%= render partial: 'general/help_requests' %>
 </div>
 
 <div style="clear:both"></div>
