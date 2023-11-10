@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add admin links to and from batch request show action (Graeme Porteous)
 * Signpost key user administration contributions for requests on request list
   pages (Gareth Rees)
 * Signpost users to find new contact details for requests with delivery errors
