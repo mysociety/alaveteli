@@ -145,6 +145,15 @@ body.admin {
     display: inline;
   }
 
+  blockquote .well p {
+    font-size: 14px;
+    margin-bottom: 1em !important;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
   div#user_locale_switcher {
     div.btn-group:before,
     div.btn-group:after {
