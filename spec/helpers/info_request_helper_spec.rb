@@ -359,9 +359,17 @@ RSpec.describe InfoRequestHelper do
     context 'error_message' do
 
       it 'returns a description' do
-        allow(info_request).to receive(:calculate_status).and_return("error_message")
+        allow(info_request).
+          to receive(:public_body).and_return(double(url_name: 'foo'))
+
+        allow(info_request).
+          to receive(:calculate_status).and_return('error_message')
+
         expected = 'There was a <strong>delivery error</strong> or similar, ' \
-                   'which needs fixing by the Alaveteli team.'
+                   'which needs fixing by the Alaveteli team. Can you help ' \
+                   'by <a href="/change_request/new/foo">finding updated ' \
+                   'contact details</a>?'
+
         expect(status_text(info_request)).to eq(expected)
       end
 
