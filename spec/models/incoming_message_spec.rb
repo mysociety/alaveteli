@@ -1192,4 +1192,35 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
 
   end
 
+  context 'when main body attachment goes missing' do
+
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    before do
+      # ensure main body part can't be found and is unmasked so #unmasked_body
+      # is called
+      incoming_message.get_main_body_text_part.update(
+        filename: 'incorrect', hexdigest: 'incorrect', masked_at: nil
+      )
+
+      # stub method to find original attachment by its content
+      allow(MailHandler).to receive(
+        :attempt_to_find_original_attachment_attributes
+      ).and_return(nil)
+    end
+
+    it 'rebuilds missing attachments without erroring' do
+      expect { incoming_message.get_main_body_text_internal }.to change(
+        incoming_message, :get_main_body_text_part
+      )
+    end
+
+    it 'returns the rebuilt attachment body' do
+      expect(incoming_message.get_main_body_text_internal).to eq(
+        'hereisthetext'
+      )
+    end
+
+  end
+
 end

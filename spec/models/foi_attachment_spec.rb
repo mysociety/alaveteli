@@ -173,6 +173,15 @@ RSpec.describe FoiAttachment do
         )
         expect(foi_attachment.body).to eq('thisisthenewtext')
       end
+
+      it 'raises MissingAttachment exception if attachment still can not be found' do
+        allow(foi_attachment).to(
+          receive(:load_attachment_from_incoming_message).and_return(nil)
+        )
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingAttachment
+        )
+      end
     end
 
   end

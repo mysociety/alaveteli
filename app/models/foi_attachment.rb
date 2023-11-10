@@ -113,7 +113,7 @@ class FoiAttachment < ApplicationRecord
     end
 
   rescue ActiveRecord::RecordNotFound
-    load_attachment_from_incoming_message.body
+    load_attachment_from_incoming_message!.body
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
@@ -329,6 +329,14 @@ class FoiAttachment < ApplicationRecord
   end
 
   private
+
+  def load_attachment_from_incoming_message!
+    attachment = load_attachment_from_incoming_message
+    return attachment if attachment
+
+    raise MissingAttachment, "attachment couldn't be reloaded using " \
+      "url_part_number and display_filename attributes"
+  end
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
