@@ -8,12 +8,23 @@
   <h1><%= @title %></h1>
 
   <% if @info_request_batch.sent? %>
-    <%= n_('Sent to one authority by {{info_request_user}} on {{date}}.',
-           'Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}.',
-           @info_request_batch.info_requests.size,
-           authority_count: @info_request_batch.info_requests.size,
-           info_request_user: user_link(@info_request_batch.user),
-           date: simple_date(@info_request_batch.sent_at)) %>
+    <% if @user && @user.admin_page_links? %>
+      <%= n_('Sent batch ({{batch_admin_link}}) to one authority by {{info_request_user}} ({{user_admin_link}}) on {{date}}.',
+             'Sent batch ({{batch_admin_link}}) to {{authority_count}} authorities by {{info_request_user}} ({{user_admin_link}}) on {{date}}.',
+             @info_request_batch.info_requests.size,
+             batch_admin_link: link_to(_('admin'), admin_info_request_batch_path(@info_request_batch)),
+             authority_count: @info_request_batch.info_requests.size,
+             info_request_user: user_link(@info_request_batch.user),
+             user_admin_link: link_to(_('admin'), admin_user_path(@info_request_batch.user)),
+             date: simple_date(@info_request_batch.sent_at)) %>
+    <% else %>
+      <%= n_('Sent to one authority by {{info_request_user}} on {{date}}.',
+             'Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}.',
+             @info_request_batch.info_requests.size,
+             authority_count: @info_request_batch.info_requests.size,
+             info_request_user: user_link(@info_request_batch.user),
+             date: simple_date(@info_request_batch.sent_at)) %>
+    <% end %>
   <% else %>
     <%= _('Created by {{info_request_user}} on {{date}}.',
           info_request_user: user_link(@info_request_batch.user),
