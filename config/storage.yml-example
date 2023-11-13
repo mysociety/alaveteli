@@ -57,3 +57,9 @@ attachments_test: &attachments_test
 
 attachments:
   <<: *attachments_<%= Rails.env %>
+
+## Local ##
+
+local:
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage/local') %>

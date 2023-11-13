@@ -32,7 +32,6 @@ module Alaveteli
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.autoloader = :zeitwerk
-    config.active_record.legacy_connection_handling = false
     config.active_support.use_rfc4122_namespaced_uuids = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
@@ -82,8 +81,6 @@ module Alaveteli
     config.autoload_paths << "#{Rails.root}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root}/app/models/concerns"
 
-    config.enable_dependency_loading = true
-
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key
     ENV['RECAPTCHA_SECRET_KEY'] = AlaveteliConfiguration.recaptcha_secret_key
@@ -100,5 +97,7 @@ module Alaveteli
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { host: AlaveteliConfiguration.domain }
+
+    config.active_storage.service = :local
   end
 end
