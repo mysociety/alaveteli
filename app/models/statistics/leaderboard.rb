@@ -4,6 +4,7 @@ module Statistics
     def all_time_requesters
       InfoRequest.is_public.
                   joins(:user).
+                  merge(User.not_banned).
                   group(:user).
                   order(count_info_requests_all: :desc).
                   limit(10).
@@ -15,6 +16,7 @@ module Statistics
       InfoRequest.is_public.
                   where('info_requests.created_at >= ?', 28.days.ago).
                   joins(:user).
+                  merge(User.not_banned).
                   group(:user).
                   order(count_info_requests_all: :desc).
                   limit(10).
@@ -24,6 +26,7 @@ module Statistics
     def all_time_commenters
       commenters = Comment.visible.
                            joins(:user).
+                           merge(User.not_banned).
                            group('comments.user_id').
                            order(count_all: :desc).
                            limit(10).
@@ -40,6 +43,7 @@ module Statistics
       commenters = Comment.visible.
                            where('comments.created_at >= ?', 28.days.ago).
                            joins(:user).
+                           merge(User.not_banned).
                            group('comments.user_id').
                            order(count_all: :desc).
                            limit(10).
