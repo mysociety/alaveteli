@@ -1,0 +1,30 @@
+# == Schema Information
+# Schema version: 20231127110827
+#
+# Table name: categories
+#
+#  id           :bigint           not null, primary key
+#  category_tag :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  title        :string
+#  description  :string
+#
+
+public_body_root_category:
+  id: 1
+
+useless_and_lonely_category:
+  id: 2
+
+useless_category:
+  id: 3
+  category_tag: useless_agency
+
+lonely_category:
+  id: 4
+  category_tag: lonely_agency
+
+popular_category:
+  id: 5
+  category_tag: popular_agency
