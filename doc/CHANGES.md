@@ -9,6 +9,8 @@
 * Add admin view of unmasked version of main body part attachments (Gareth Rees)
 * Add internal ID number to authority CSV download (Alex Parsons, Graeme
   Porteous)
+* Don't show users that have closed their account or been banned on leaderboards
+  (Chris Mytton)
 
 # 0.44.0.0
 
