@@ -10,12 +10,14 @@ RSpec.describe Statistics::Leaderboard do
       user2 = FactoryBot.create(:user)
       user3 = FactoryBot.create(:user)
       banned_user = FactoryBot.create(:user, :banned)
+      closed_account_user = FactoryBot.create(:user, :closed)
 
       travel_to(6.months.ago) do
         5.times { FactoryBot.create(:info_request, user: user1) }
         2.times { FactoryBot.create(:info_request, user: user2) }
         FactoryBot.create(:info_request, user: user3)
         10.times { FactoryBot.create(:info_request, user: banned_user) }
+        10.times { FactoryBot.create(:info_request, user: closed_account_user) }
         3.times { FactoryBot.create(:info_request, :hidden, user: user1) }
         3.times { FactoryBot.create(:embargoed_request, user: user1) }
       end
@@ -41,6 +43,8 @@ RSpec.describe Statistics::Leaderboard do
                         created_at: 2.months.ago)
       banned_user = FactoryBot.create(:user, :banned)
       10.times { FactoryBot.create(:info_request, user: banned_user) }
+      closed_account_user = FactoryBot.create(:user, :closed)
+      10.times { FactoryBot.create(:info_request, user: closed_account_user) }
       user_with_embargoed_request = FactoryBot.create(:user)
       FactoryBot.create(:embargoed_request, user: user_with_embargoed_request)
       user_with_hidden_request = FactoryBot.create(:user)
@@ -58,6 +62,7 @@ RSpec.describe Statistics::Leaderboard do
     let(:some_comments) { FactoryBot.create(:user) }
     let!(:none_comments) { FactoryBot.create(:user) }
     let(:banned_user) { FactoryBot.create(:user, :banned) }
+    let(:closed_account_user) { FactoryBot.create(:user, :closed) }
 
     before do
       FactoryBot.create(:comment, user: many_comments)
@@ -67,6 +72,7 @@ RSpec.describe Statistics::Leaderboard do
       FactoryBot.create(:comment, user: some_comments)
       FactoryBot.create(:comment, user: many_comments)
       10.times { FactoryBot.create(:comment, user: banned_user) }
+      10.times { FactoryBot.create(:comment, user: closed_account_user) }
     end
 
     it 'gets most frequent commenters' do
@@ -90,6 +96,8 @@ RSpec.describe Statistics::Leaderboard do
                         created_at: 2.months.ago)
       banned_user = FactoryBot.create(:user, :banned)
       10.times { FactoryBot.create(:comment, user: banned_user) }
+      closed_account_user = FactoryBot.create(:user, :closed)
+      10.times { FactoryBot.create(:comment, user: closed_account_user) }
 
       expect(statistics.last_28_day_commenters).
         to eql({ user_with_3_comments => 3,
