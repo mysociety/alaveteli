@@ -88,7 +88,7 @@ class InfoRequestEvent < ApplicationRecord
     self.event_type = "hide"
   end
   after_create :update_request, if: :response?
-  after_create :invalidate_cached_pages
+  after_update :invalidate_cached_pages, unless: :no_xapian_reindex
 
   after_commit -> { info_request.create_or_update_request_summary },
                   on: [:create]

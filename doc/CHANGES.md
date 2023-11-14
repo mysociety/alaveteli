@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Improve background job performance by limiting the number `NotifyCacheJob`
+  jobs created (Graeme Porteous)
 * Signpost key user administration contributions for requests on request list
   pages (Gareth Rees)
 * Signpost users to find new contact details for requests with delivery errors
