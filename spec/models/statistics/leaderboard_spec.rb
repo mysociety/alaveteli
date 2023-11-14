@@ -16,6 +16,8 @@ RSpec.describe Statistics::Leaderboard do
         2.times { FactoryBot.create(:info_request, user: user2) }
         FactoryBot.create(:info_request, user: user3)
         10.times { FactoryBot.create(:info_request, user: banned_user) }
+        3.times { FactoryBot.create(:info_request, :hidden, user: user1) }
+        3.times { FactoryBot.create(:embargoed_request, user: user1) }
       end
 
       expect(statistics.all_time_requesters).
@@ -39,6 +41,10 @@ RSpec.describe Statistics::Leaderboard do
                         created_at: 2.months.ago)
       banned_user = FactoryBot.create(:user, :banned)
       10.times { FactoryBot.create(:info_request, user: banned_user) }
+      user_with_embargoed_request = FactoryBot.create(:user)
+      FactoryBot.create(:embargoed_request, user: user_with_embargoed_request)
+      user_with_hidden_request = FactoryBot.create(:user)
+      FactoryBot.create(:info_request, :hidden, user: user_with_hidden_request)
 
       expect(statistics.last_28_day_requesters).
         to eql({ user_with_3_requests => 3,
