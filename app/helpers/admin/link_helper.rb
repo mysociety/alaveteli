@@ -44,7 +44,7 @@ module Admin::LinkHelper
     info_request = foi_attachment.incoming_message.info_request
 
     link_to(icon, foi_attachment_path(foi_attachment), title: title) + ' ' +
-      link_to("#{info_request.title} #{foi_attachment.filename}",
+      link_to(foi_attachment.filename,
               edit_admin_foi_attachment_path(foi_attachment),
               title: admin_title)
   end
