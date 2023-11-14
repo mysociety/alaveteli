@@ -181,9 +181,10 @@ class User < ApplicationRecord
   validate :email_and_name_are_valid
 
   after_initialize :set_defaults
-  after_update :reindex_referencing_models,
-               :update_pro_account,
-               :invalidate_cached_pages
+
+  after_update :update_pro_account
+  after_update :reindex_referencing_models, :invalidate_cached_pages,
+               unless: :no_xapian_reindex
 
   acts_as_xapian texts: [:name, :about_me],
                  values: [
@@ -330,7 +331,6 @@ class User < ApplicationRecord
 
   # requested_by: and commented_by: search queries also need updating after save
   def reindex_referencing_models
-    return if no_xapian_reindex == true
     return unless saved_change_to_attribute?(:url_name)
 
     expire_comments
