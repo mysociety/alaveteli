@@ -374,4 +374,25 @@ RSpec.describe FoiAttachment do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#extra_note' do
+    subject { foi_attachment.extra_note }
+
+    context 'with a delivery status notification' do
+      let(:foi_attachment) do
+        FactoryBot.create(:delivery_status_notification_attachment)
+      end
+
+      let(:note) do
+        'DSN: 4.4.0 Other or undefined network or routing status'
+      end
+
+      it { is_expected.to eq(note) }
+    end
+
+    context 'with any other content type' do
+      let(:foi_attachment) { FactoryBot.build(:rtf_attachment) }
+      it { is_expected.to be_nil }
+    end
+  end
 end

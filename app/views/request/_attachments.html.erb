@@ -32,7 +32,10 @@
               <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
                 <%= link_to "View as HTML", attachment_path(a, :html => true) %>
               <% end %>
-              <%= a.extra_note %>
+
+              <% if note = a.extra_note %>
+                <em><%= note %></em>
+              <% end %>
             </p>
           <% end %>
         <% end %>

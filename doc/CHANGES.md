@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Restore delivery status notification attachment note (Gareth Rees)
 * Allow `InfoRequest` to be categorised (Graeme Porteous)
 * Replace public body categories with generalised categories (Graeme Porteous)
 * Add admin links to and from batch request show action (Graeme Porteous)
