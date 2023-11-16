@@ -63,4 +63,13 @@ RSpec.describe RequestController do
       end
     end
   end
+
+  it "should redirect from a numeric URL to pretty one" do
+    visit show_request_path(info_requests(:naughty_chicken_request).id)
+    expect(current_path).to eq(
+      show_request_path(
+        info_requests(:naughty_chicken_request).url_title
+      )
+    )
+  end
 end

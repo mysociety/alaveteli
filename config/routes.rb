@@ -24,6 +24,8 @@ class AdminConstraint # :nodoc:
 end
 
 Rails.application.routes.draw do
+  draw :redirects
+
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   root to: 'general#frontpage'

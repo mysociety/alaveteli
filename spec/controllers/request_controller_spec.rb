@@ -61,16 +61,6 @@ RSpec.describe RequestController, "when showing one request" do
     expect(assigns[:info_request]).to eq(info_requests(:fancy_dog_request))
   end
 
-  it "should redirect from a numeric URL to pretty one" do
-    get :show, params: {
-      url_title: info_requests(:naughty_chicken_request).id.to_s
-    }
-    expect(response).to redirect_to(
-      action: 'show',
-      url_title: info_requests(:naughty_chicken_request).url_title
-    )
-  end
-
   it 'should return a 404 for GET requests to a malformed request URL' do
     expect {
       get :show, params: { url_title: '228%85' }
