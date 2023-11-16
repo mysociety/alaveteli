@@ -322,6 +322,7 @@ class InfoRequestEvent < ApplicationRecord
       if status
         return _("Internal review request") if status == 'internal_review'
         return _("Clarification") if status == 'waiting_response'
+
         raise _("unknown status {{status}}", status: status)
       end
       # TRANSLATORS: "Follow up" in this context means a further
@@ -371,6 +372,7 @@ class InfoRequestEvent < ApplicationRecord
     curr_addr = params[:email]
     return true if prev_addr.nil? && curr_addr.nil?
     return false if prev_addr.nil? || curr_addr.nil?
+
     MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
   end
 
@@ -419,6 +421,7 @@ class InfoRequestEvent < ApplicationRecord
 
   def foi_attachment
     return unless params[:attachment_id]
+
     @foi_attachment ||= FoiAttachment.find(params[:attachment_id])
   end
 
@@ -437,7 +440,6 @@ class InfoRequestEvent < ApplicationRecord
                  where(info_request_id: info_request_id).
                    where('created_at < ?', created_at).
                      order(order)
-
   end
 
   def subsequent_events(opts = {})
@@ -538,6 +540,7 @@ class InfoRequestEvent < ApplicationRecord
         return false
       end
       return false if event_type == 'comment' && !comment.visible
+
       return true
     end
     false

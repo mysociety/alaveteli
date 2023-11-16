@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AdminCommentController do
-
   describe 'GET index' do
     let(:admin_user) { FactoryBot.create(:admin_user) }
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
@@ -61,7 +60,6 @@ RSpec.describe AdminCommentController do
     end
 
     context 'if pro is enabled' do
-
       it 'does not include comments on embargoed requests if the
           current user is a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -84,7 +82,6 @@ RSpec.describe AdminCommentController do
         end
       end
     end
-
   end
 
   describe 'GET edit' do
@@ -104,11 +101,8 @@ RSpec.describe AdminCommentController do
       expect(assigns[:comment]).to eq(comment)
     end
 
-
     context 'if pro is enabled' do
-
       context 'if the current user cannot admin the comment' do
-
         it 'raises ActiveRecord::RecordNotFound' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
@@ -121,7 +115,6 @@ RSpec.describe AdminCommentController do
       end
 
       context 'if the current user can admin the comment' do
-
         it 'renders the edit template' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
@@ -141,7 +134,6 @@ RSpec.describe AdminCommentController do
     let(:atts) { FactoryBot.attributes_for(:comment, body: 'I am new') }
 
     context 'on valid data submission' do
-
       it 'gets the comment' do
         sign_in admin_user
         put :update, params: { id: comment.id, comment: atts }
@@ -190,13 +182,10 @@ RSpec.describe AdminCommentController do
         it 'updates the comment' do
           expect(Comment.find(comment.id).attention_requested).to eq(true)
         end
-
       end
 
       context 'the comment is being hidden' do
-
         context 'without changing the text' do
-
           it 'logs a "hide_comment" event' do
             atts = FactoryBot.attributes_for(:comment,
                                              attention_requested: true,
@@ -207,11 +196,9 @@ RSpec.describe AdminCommentController do
             last_event = Comment.find(comment.id).info_request_events.last
             expect(last_event.event_type).to eq('hide_comment')
           end
-
         end
 
         context 'the text is changed as well' do
-
           it 'logs an "edit_comment" event' do
             atts = FactoryBot.attributes_for(:comment,
                                              attention_requested: true,
@@ -223,9 +210,7 @@ RSpec.describe AdminCommentController do
             last_event = Comment.find(comment.id).info_request_events.last
             expect(last_event.event_type).to eq('edit_comment')
           end
-
         end
-
       end
 
       it 'shows a success notice' do
@@ -250,7 +235,6 @@ RSpec.describe AdminCommentController do
     end
 
     context 'on invalid data submission' do
-
       it 'renders the edit template' do
         with_feature_enabled(:alaveteli_pro) do
           sign_in admin_user
@@ -261,14 +245,10 @@ RSpec.describe AdminCommentController do
           expect(response).to render_template('edit')
         end
       end
-
     end
 
-
     context 'if pro is enabled' do
-
       context 'if the current user cannot admin the comment' do
-
         it 'raises ActiveRecord::RecordNotFound' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
@@ -281,7 +261,6 @@ RSpec.describe AdminCommentController do
       end
 
       context 'if the current user can admin the comment' do
-
         it 'updates the comment' do
           with_feature_enabled(:alaveteli_pro) do
             comment.info_request.create_embargo
@@ -293,5 +272,4 @@ RSpec.describe AdminCommentController do
       end
     end
   end
-
 end

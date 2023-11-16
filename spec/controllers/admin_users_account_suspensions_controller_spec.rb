@@ -48,7 +48,5 @@ RSpec.describe AdminUsersAccountSuspensionsController do
         expect(assigns[:suspension_reason]).to eq(default)
       end
     end
-
   end
-
 end

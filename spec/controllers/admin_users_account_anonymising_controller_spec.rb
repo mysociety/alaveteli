@@ -26,7 +26,6 @@ RSpec.describe AdminUsersAccountAnonymisingController do
           )
         end
       end
-
     end
 
     context 'with valid params for anonymising' do
@@ -70,7 +69,6 @@ RSpec.describe AdminUsersAccountAnonymisingController do
           )
         end
       end
-
     end
 
     context 'on a closed account with info requests' do
@@ -88,6 +86,5 @@ RSpec.describe AdminUsersAccountAnonymisingController do
         expect(flash[:notice]).to eq('The user was anonymised.')
       end
     end
-
   end
 end

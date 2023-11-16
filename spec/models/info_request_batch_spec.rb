@@ -148,7 +148,6 @@ RSpec.describe InfoRequestBatch do
         )
       ).to be_nil
     end
-
   end
 
   context '#existing_batch' do
@@ -300,7 +299,6 @@ RSpec.describe InfoRequestBatch do
         end
       end
     end
-
   end
 
   context "when sending batches" do
@@ -476,7 +474,6 @@ RSpec.describe InfoRequestBatch do
         expect(example.embargo).to be_nil
       end
     end
-
   end
 
   it_behaves_like "RequestSummaries"
@@ -708,7 +705,6 @@ RSpec.describe InfoRequestBatch do
       before { allow(batch).to receive(:requestable_public_bodies) { [body] } }
       it { is_expected.to eq false }
     end
-
   end
 
   describe '#should_summarise?' do
@@ -733,7 +729,6 @@ RSpec.describe InfoRequestBatch do
       before { allow(batch).to receive(:all_requests_created?) { true } }
       it { is_expected.to eq true }
     end
-
   end
 
   describe "#log_event" do
@@ -755,7 +750,6 @@ RSpec.describe InfoRequestBatch do
       info_request_batch.log_event(arguments)
     end
   end
-
 
   describe '#is_owning_user?' do
     subject { info_request_batch.is_owning_user?(user) }

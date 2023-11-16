@@ -9,6 +9,7 @@
 class ApplicationController < ActionController::Base
   class PermissionDenied < StandardError
   end
+
   class RouteNotFound < StandardError
   end
 
@@ -378,7 +379,6 @@ class ApplicationController < ActionController::Base
       end
       redirect_to frontpage_url
     end
-
   end
 
   # Convert URL name for sort by order, to Xapian query
@@ -452,6 +452,7 @@ class ApplicationController < ActionController::Base
 
   def country_from_ip
     return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
+
     AlaveteliConfiguration.iso_country_code
   end
 

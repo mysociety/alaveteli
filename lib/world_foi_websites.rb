@@ -161,5 +161,4 @@ class WorldFOIWebsites
   def self.is_ask_the_eu?
     AlaveteliConfiguration.domain == 'www.asktheeu.org'
   end
-
 end

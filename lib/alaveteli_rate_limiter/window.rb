@@ -1,4 +1,3 @@
-
 module AlaveteliRateLimiter
   class Window
     VALID_UNITS = %w(
@@ -63,6 +62,7 @@ module AlaveteliRateLimiter
     def validate_unit(unit)
       msg = "Invalid unit :#{ unit } - must be one of #{ VALID_UNITS }"
       raise ArgumentError, msg unless VALID_UNITS.include?(unit)
+
       unit
     end
   end

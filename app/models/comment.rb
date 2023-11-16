@@ -111,6 +111,7 @@ class Comment < ApplicationRecord
   def body
     ret = read_attribute(:body)
     return ret if ret.nil?
+
     ret = ret.strip
     # remove excess linebreaks that unnecessarily space it out
     ret = ret.gsub(/(?:\n\s*){2,}/, "\n\n")

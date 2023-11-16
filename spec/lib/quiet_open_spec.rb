@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "quietly_try_to_open" do
-
   let(:controller) { double(ApplicationController) }
   let(:uri) { "http://example.com/feed" }
 
@@ -18,5 +17,4 @@ RSpec.describe "quietly_try_to_open" do
     expect(URI).to receive(:open).with(uri, read_timeout: 100).and_call_original
     controller.send(:quietly_try_to_open, uri, 100)
   end
-
 end

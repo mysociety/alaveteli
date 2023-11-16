@@ -47,18 +47,15 @@ RSpec.describe OutgoingMessage do
   end
 
   describe '.fill_in_salutation' do
-
     it 'replaces the batch request salutation with the body name' do
       text = 'Dear [Authority name],'
       public_body = FactoryBot.build(:public_body, name: 'A Body')
       expect(described_class.fill_in_salutation(text, public_body)).
         to eq('Dear A Body,')
     end
-
   end
 
   describe '.with_body' do
-
     let(:message) { FactoryBot.create(:initial_request, body: "foo\r\nbar") }
 
     it 'should return message if body matches exactly' do
@@ -66,7 +63,6 @@ RSpec.describe OutgoingMessage do
     end
 
     context 'when using PostgreSQL database' do
-
       before do
         if ActiveRecord::Base.connection.adapter_name != 'PostgreSQL'
           skip 'These tests only work for PostgreSQL'
@@ -86,9 +82,7 @@ RSpec.describe OutgoingMessage do
         expect(OutgoingMessage.with_body("foo\nbar\nbaz")).to_not include(message)
         expect(OutgoingMessage.with_body("foo\r\nbar\r\nbaz")).to_not include(message)
       end
-
     end
-
   end
 
   describe '.expected_send_errors' do
@@ -107,11 +101,9 @@ RSpec.describe OutgoingMessage do
 
       it { is_expected.to include(TestError) }
     end
-
   end
 
   describe '#initialize' do
-
     it 'does not censor the #body' do
       attrs = { status: 'ready',
                 message_type: 'initial_request',
@@ -123,11 +115,9 @@ RSpec.describe OutgoingMessage do
       expect_any_instance_of(OutgoingMessage).not_to receive(:body).and_call_original
       OutgoingMessage.find(message.id)
     end
-
   end
 
   describe '#default_letter' do
-
     it 'reloads the default body when set after initialization' do
       req = FactoryBot.build(:info_request)
       message = described_class.new(info_request: req)
@@ -142,11 +132,9 @@ RSpec.describe OutgoingMessage do
       message.default_letter = 'test'
       expect(message.body).not_to include('test')
     end
-
   end
 
   describe '#what_doing' do
-
     it 'allows a value of normal_sort' do
       message =
         FactoryBot.build(:initial_request, what_doing: 'normal_sort')
@@ -177,7 +165,6 @@ RSpec.describe OutgoingMessage do
       expect(message.errors[:what_doing_dummy]).
         to eq(['Please choose what sort of reply you are making.'])
     end
-
   end
 
   describe '#destroy' do
@@ -200,7 +187,6 @@ RSpec.describe OutgoingMessage do
   end
 
   describe '#from' do
-
     it 'uses the user name and request magic email' do
       user = FactoryBot.create(:user, name: 'Spec User 862')
       request = FactoryBot.create(:info_request, user: user)
@@ -208,13 +194,10 @@ RSpec.describe OutgoingMessage do
       expected = "Spec User 862 <request-#{ request.id }-#{ request.idhash }@localhost>"
       expect(message.from).to eq(expected)
     end
-
   end
 
   describe '#to' do
-
     context 'when sending an initial request' do
-
       it 'uses the public body name and email' do
         body = FactoryBot.create(:public_body, name: 'Example Public Body',
                                                short_name: 'EPB')
@@ -223,11 +206,9 @@ RSpec.describe OutgoingMessage do
         expected = 'FOI requests at EPB <request@example.com>'
         expect(message.to).to eq(expected)
       end
-
     end
 
     context 'when following up to an incoming message' do
-
       it 'uses the safe_from_name if the incoming message has a valid address' do
         message = FactoryBot.build(:internal_review_request)
 
@@ -257,26 +238,20 @@ RSpec.describe OutgoingMessage do
         expected = 'FOI requests at EPB <request@example.com>'
         expect(message.to).to eq(expected)
       end
-
     end
-
   end
 
   describe '#subject' do
-
     context 'when sending an initial request' do
-
       it 'uses the request title with the law prefixed' do
         request = FactoryBot.create(:info_request, title: 'Example Request')
         message = FactoryBot.build(:initial_request, info_request: request)
         expected = 'Freedom of Information request - Example Request'
         expect(message.subject).to eq(expected)
       end
-
     end
 
     context 'when sending a followup that is not a reply to an incoming message' do
-
       it 'prefixes the initial request subject with Re:' do
         request = FactoryBot.create(:info_request, title: 'Example Request')
         message = FactoryBot.build(:new_information_followup,
@@ -285,11 +260,9 @@ RSpec.describe OutgoingMessage do
         expected = 'Re: Freedom of Information request - Example Request'
         expect(message.subject).to eq(expected)
       end
-
     end
 
     context 'when following up to an incoming message' do
-
       it 'uses the request title prefixed with Re: if the incoming message does not have a valid reply address' do
         request = FactoryBot.create(:info_request, title: 'Example Request')
         message = FactoryBot.build(:new_information_followup,
@@ -345,24 +318,19 @@ RSpec.describe OutgoingMessage do
 
         expect(message.subject).to eq('Re: FOI REF#123456789')
       end
-
     end
 
     context 'when requesting an internal review' do
-
       it 'prefixes the request title with the internal review message' do
         request = FactoryBot.create(:info_request, title: 'Example Request')
         message = FactoryBot.build(:internal_review_request, info_request: request)
         expected = 'Internal review of Freedom of Information request - Example Request'
         expect(message.subject).to eq(expected)
       end
-
     end
-
   end
 
   describe '#body' do
-
     it 'returns the body attribute' do
       attrs = { status: 'ready',
                 message_type: 'initial_request',
@@ -538,7 +506,6 @@ RSpec.describe OutgoingMessage do
         end
 
         context "when a censor rule changes the default text" do
-
           before do
             opts = { text: 'Regulation 1049/2001',
                    replacement: 'the law',
@@ -568,13 +535,10 @@ RSpec.describe OutgoingMessage do
               to include("Please sign at the bottom with your name, or alter " \
                      "the \"Yours faithfully,\" signature")
           end
-
         end
-
       end
 
       context "when it's an internal review" do
-
         it "adds an error message if the text has not been changed" do
           outgoing_message =
             OutgoingMessage.new(status: 'ready',
@@ -614,11 +578,9 @@ RSpec.describe OutgoingMessage do
                           "correspondence is available on the Internet at " \
                           "this address")
         end
-
       end
 
       context "when it's an followup" do
-
         it "adds an error message if the text has not been changed" do
           outgoing_message =
             OutgoingMessage.new(status: 'ready',
@@ -630,11 +592,8 @@ RSpec.describe OutgoingMessage do
           expect(outgoing_message.errors.messages[:body]).
             to include("Please enter your follow up message")
         end
-
       end
-
     end
-
   end
 
   describe '#from_name' do
@@ -706,13 +665,11 @@ RSpec.describe OutgoingMessage do
   end
 
   describe '#apply_masks' do
-
     before(:each) do
       @message = FactoryBot.create(:initial_request)
 
       @default_opts = { last_edit_editor: 'unknown',
                         last_edit_comment: 'none' }
-
     end
 
     it 'replaces text with global censor rules' do
@@ -782,13 +739,10 @@ RSpec.describe OutgoingMessage do
       result = @message.apply_masks(data, 'application/vnd.ms-word')
       expect(result).to eq(expected)
     end
-
   end
 
   describe '#get_default_message' do
-
     context 'an initial_request' do
-
       it 'produces the expected text for a batch request template' do
         public_body = FactoryBot.build(:public_body,
                                        name: 'a test public body')
@@ -804,11 +758,9 @@ RSpec.describe OutgoingMessage do
         expected_text = "Dear a test public body,\n\n\n\nYours faithfully,\n\n"
         expect(outgoing_message.get_default_message).to eq(expected_text)
       end
-
     end
 
     context 'a followup' do
-
       it 'produces the expected text for a followup' do
         public_body = FactoryBot.build(:public_body,
                                        name: 'a test public body')
@@ -844,11 +796,9 @@ RSpec.describe OutgoingMessage do
         expected_text = "Dear helpdesk,\n\n\n\nYours sincerely,\n\n"
         expect(outgoing_message.get_default_message).to eq(expected_text)
       end
-
     end
 
     context 'an internal_review' do
-
       it 'produces the expected text for an internal review request' do
         public_body = FactoryBot.build(:public_body,
                                        name: 'a test public body')
@@ -883,13 +833,10 @@ RSpec.describe OutgoingMessage do
 
         expect(outgoing_message.get_default_message).to eq(expected_text)
       end
-
     end
-
   end
 
   describe '#get_body_for_html_display' do
-
     before do
       @outgoing_message = OutgoingMessage.new({
                                                 status: 'ready',
@@ -936,7 +883,6 @@ RSpec.describe OutgoingMessage do
       @outgoing_message.body = split_line
       expect(@outgoing_message.get_body_for_html_display).to include(expected)
     end
-
   end
 
   describe '#get_text_for_indexing' do
@@ -979,7 +925,6 @@ RSpec.describe OutgoingMessage do
   end
 
   describe '#is_owning_user?' do
-
     it 'returns true if the user is the owning user of the info request' do
       request = FactoryBot.build(:info_request)
       message = FactoryBot.build(:initial_request, info_request: request)
@@ -992,13 +937,10 @@ RSpec.describe OutgoingMessage do
       message = FactoryBot.build(:initial_request, info_request: request)
       expect(message.is_owning_user?(user)).to eq(false)
     end
-
   end
 
   describe '#smtp_message_ids' do
-
     context 'a sent message' do
-
       it 'returns one smtp_message_id when a message has been sent once' do
         message = FactoryBot.create(:initial_request)
         smtp_id = message.info_request_events.first.params[:smtp_message_id]
@@ -1021,11 +963,9 @@ RSpec.describe OutgoingMessage do
         message.info_request_events.first.update(params: {})
         expect(message.smtp_message_ids).to be_empty
       end
-
     end
 
     context 'a resent message' do
-
       it 'returns an smtp_message_id each time the message has been sent' do
         message = FactoryBot.create(:initial_request)
         smtp_id_1 = message.info_request_events.first.params[:smtp_message_id]
@@ -1101,21 +1041,16 @@ RSpec.describe OutgoingMessage do
         expect(message.smtp_message_ids).
           to eq([smtp_id_1, smtp_id_3])
       end
-
     end
-
   end
 
   describe '#mta_ids' do
-
     context 'when exim is the MTA' do
-
       before do
         allow(AlaveteliConfiguration).to receive(:mta_log_type).and_return("exim")
       end
 
       context 'a sent message' do
-
         it 'returns one mta_id when a message has been sent once' do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
@@ -1163,11 +1098,9 @@ RSpec.describe OutgoingMessage do
 
           expect(message.mta_ids).to be_empty
         end
-
       end
 
       context 'a resent message' do
-
         it 'returns an mta_id each time the message has been sent' do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
@@ -1285,13 +1218,11 @@ RSpec.describe OutgoingMessage do
       end
 
       context 'when Postfix is the MTA' do
-
         before do
           allow(AlaveteliConfiguration).to receive(:mta_log_type).and_return("postfix")
         end
 
         context 'a sent message' do
-
           it 'returns one mta_id when a message has been sent once' do
             message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
@@ -1327,11 +1258,9 @@ RSpec.describe OutgoingMessage do
 
             expect(message.mta_ids).to be_empty
           end
-
         end
 
         context 'a resent message' do
-
           it 'returns an mta_id each time the message has been sent' do
             message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
@@ -1457,15 +1386,11 @@ RSpec.describe OutgoingMessage do
               to eq(%w(1A6A236F4E08 3A6A236F4E08))
           end
         end
-
       end
-
     end
 
     describe '#mail_server_logs' do
-
       context 'when exim is the MTA' do
-
         before do
           allow(AlaveteliConfiguration).
             to receive(:mta_log_type).and_return('exim')
@@ -1596,7 +1521,6 @@ RSpec.describe OutgoingMessage do
             to eq(expected_lines.scan(/[^\n]*\n/))
         end
 
-
         it 'handles log lines where a delivery status cant be parsed' do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
@@ -1621,11 +1545,9 @@ RSpec.describe OutgoingMessage do
           expect(message.mail_server_logs.map(&:line)).
             to eq(expected_lines.scan(/[^\n]*\n/))
         end
-
       end
 
       context 'when postfix is the MTA' do
-
         before do
           allow(AlaveteliConfiguration).
             to receive(:mta_log_type).and_return('postfix')
@@ -1734,13 +1656,10 @@ RSpec.describe OutgoingMessage do
           expect(message.mail_server_logs.map(&:line)).
             to eq(expected_lines.scan(/[^\n]*\n/))
         end
-
       end
-
     end
 
     describe '#delivery_status' do
-
       it 'returns a failed status if the message send failed' do
         message = FactoryBot.create(:failed_sent_request_event).outgoing_message
         status = MailServerLog::DeliveryStatus.new(:failed)
@@ -1767,7 +1686,6 @@ RSpec.describe OutgoingMessage do
       end
 
       context 'when the MTA is exim' do
-
         before do
           allow(AlaveteliConfiguration).
             to receive(:mta_log_type).and_return('exim')
@@ -1815,13 +1733,10 @@ RSpec.describe OutgoingMessage do
           status = MailServerLog::DeliveryStatus.new(:failed)
           expect(message.delivery_status).to eq(status)
         end
-
       end
-
     end
 
     context 'when the MTA is postfix' do
-
       before do
         allow(AlaveteliConfiguration).
           to receive(:mta_log_type).and_return('postfix')
@@ -1896,7 +1811,6 @@ RSpec.describe OutgoingMessage do
         expect(message.delivery_status).to eq(status)
       end
     end
-
   end
 
   describe '#prepare_message_for_resend' do
@@ -1922,7 +1836,6 @@ RSpec.describe OutgoingMessage do
       outgoing_message.status = 'failed'
       expect{ subject }.to change{ outgoing_message.status }.to('ready')
     end
-
   end
 
   describe '#record_email_failure' do
@@ -1950,13 +1863,10 @@ RSpec.describe OutgoingMessage do
     it 'updates OutgoingMessage#last_sent_at' do
       expect{ subject }.to change{ outgoing_message.last_sent_at }
     end
-
   end
-
 end
 
 RSpec.describe OutgoingMessage, " when making an outgoing message" do
-
   before do
     @om = outgoing_messages(:useless_outgoing_message)
     @outgoing_message = OutgoingMessage.new({
@@ -1972,7 +1882,6 @@ RSpec.describe OutgoingMessage, " when making an outgoing message" do
     # also used for track emails
     expect(@outgoing_message.get_text_for_indexing).not_to include("foo@bar.com")
   end
-
 
   it "should include email addresses in outgoing messages" do
     expect(@outgoing_message.body).to include("foo@bar.com")
@@ -1992,15 +1901,12 @@ RSpec.describe OutgoingMessage, " when making an outgoing message" do
     expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]\n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
     expect(outgoing_message.body).to eq(expected_text)
   end
-
 end
 
 RSpec.describe OutgoingMessage, "when validating the format of the message body" do
-
   it 'should handle a salutation with a bracket in it' do
     outgoing_message = FactoryBot.build(:initial_request)
     allow(outgoing_message).to receive(:get_salutation).and_return("Dear Bob (Robert,")
     expect { outgoing_message.valid? }.not_to raise_error
   end
-
 end

@@ -7,7 +7,7 @@ module HashableParams
 
   def params_to_unsafe_hash(input_params)
     return {} if input_params.blank?
+
     input_params.to_unsafe_h
   end
-
 end

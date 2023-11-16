@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "contact_mailer/to_admin_message" do
-
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).
       and_return("l'Information")

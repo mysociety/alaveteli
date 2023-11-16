@@ -35,5 +35,4 @@ class RequestClassification < ApplicationRecord
     query = query.where(*conditions) if conditions
     query
   end
-
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "when generating urls" do
-
   before do
     @home_link_regex = /href=".*\/en\//
   end
@@ -37,7 +36,6 @@ RSpec.describe "when generating urls" do
   end
 
   context 'when handling public body requests' do
-
     before do
       AlaveteliLocalization.set_locales('es en', 'en')
       body = FactoryBot.create(:public_body, short_name: 'english_short')
@@ -60,7 +58,6 @@ RSpec.describe "when generating urls" do
   end
 
   describe 'when there is more than one locale' do
-
     before do
       AlaveteliLocalization.set_locales('es en', 'en')
     end
@@ -71,7 +68,6 @@ RSpec.describe "when generating urls" do
     end
 
     describe 'when using the default locale' do
-
       before do
         @default_lang_home_link = /href=".*\/en\//
         @old_include_default_locale_in_urls = AlaveteliConfiguration.include_default_locale_in_urls
@@ -82,7 +78,6 @@ RSpec.describe "when generating urls" do
       end
 
       describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is false' do
-
         before do
           allow(AlaveteliConfiguration).to receive(:include_default_locale_in_urls).and_return false
           AlaveteliLocalization.set_default_locale_urls(false)
@@ -95,13 +90,11 @@ RSpec.describe "when generating urls" do
         end
 
         describe "when the default url contains an underscore" do
-
           it "generates URLs without a locale prepended" do
             AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
             get '/'
             expect(response.body).not_to match(/href="\/en_GB\//)
           end
-
         end
 
         it 'should render the front page in the default language when no locale param
@@ -112,7 +105,6 @@ RSpec.describe "when generating urls" do
       end
 
       describe 'when the config value INCLUDE_DEFAULT_LOCALE_IN_URLS is true' do
-
         before do
           allow(AlaveteliConfiguration).to receive(:include_default_locale_in_urls).and_return true
           AlaveteliLocalization.set_default_locale_urls(true)
@@ -123,11 +115,7 @@ RSpec.describe "when generating urls" do
           expect(response.body).to match(/class="current-locale">English/)
           expect(response.body).to match(/#{@default_lang_home_link}/)
         end
-
       end
-
     end
-
   end
-
 end

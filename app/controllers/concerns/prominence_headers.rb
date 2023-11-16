@@ -16,6 +16,7 @@ module ProminenceHeaders
 
   def set_prominence_headers
     return unless with_prominence
+
     send("set_#{ with_prominence.prominence }_headers")
   end
 

@@ -132,5 +132,4 @@ RSpec.describe 'when handling incoming mail' do
     expect(page.response_headers['Content-Type']).to eq("application/octet-stream; charset=utf-8")
     expect(page).to have_content "an unusual sort of file"
   end
-
 end

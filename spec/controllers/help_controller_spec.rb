@@ -4,12 +4,10 @@ RSpec.describe HelpController do
   render_views
 
   describe 'GET #index' do
-
     it 'redirects to the about page' do
       get :index
       expect(response).to redirect_to(help_about_path)
     end
-
   end
 
   describe 'GET #unhappy' do
@@ -26,7 +24,6 @@ RSpec.describe HelpController do
     end
 
     context 'when a url_title param is supplied' do
-
       it 'assigns the info_request' do
         get :unhappy, params: { url_title: info_request.url_title }
         expect(assigns[:info_request]).to eq info_request
@@ -47,21 +44,17 @@ RSpec.describe HelpController do
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
-
   end
 
   describe 'GET #about' do
-
     it 'shows the about page' do
       get :about
       expect(response).to be_successful
       expect(response).to render_template('help/about')
     end
-
   end
 
   describe 'GET #contact' do
-
     it 'shows contact form' do
       get :contact
       expect(response).to be_successful
@@ -69,7 +62,6 @@ RSpec.describe HelpController do
     end
 
     describe 'when requesting a page in a supported locale' do
-
       before do
         # Prepend our fixture templates
         fixture_theme_path = File.join(Rails.root, 'spec', 'fixtures', 'theme_views', 'theme_one')
@@ -80,7 +72,6 @@ RSpec.describe HelpController do
         get :contact, params: { locale: 'es' }
         expect(response.body).to match('contáctenos theme one')
       end
-
     end
 
     context 'when a last_request_id cookie is set' do
@@ -129,11 +120,9 @@ RSpec.describe HelpController do
         end
       end
     end
-
   end
 
   describe 'POST #contact' do
-
     it 'sends a contact message' do
       post :contact, params: {
                        contact: {
@@ -154,7 +143,6 @@ RSpec.describe HelpController do
     end
 
     context 'the site is configured to require reCAPTCHA' do
-
       before do
         allow(AlaveteliConfiguration).
           to receive(:contact_form_recaptcha).and_return(true)
@@ -178,7 +166,6 @@ RSpec.describe HelpController do
         expect(deliveries.size).to eq(0)
         deliveries.clear
       end
-
     end
 
     it 'has rudimentary spam protection' do
@@ -218,7 +205,5 @@ RSpec.describe HelpController do
                      }
       expect(response).to redirect_to(frontpage_path)
     end
-
   end
-
 end

@@ -1,4 +1,3 @@
-
 class CreateFoiAttachments < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     create_table :foi_attachments do |t|

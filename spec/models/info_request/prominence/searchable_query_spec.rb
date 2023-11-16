@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::Prominence::SearchableQuery do
-
   describe '#call' do
-
     it 'returns only results with a normal prominence' do
       normal_request = FactoryBot.create(:info_request)
       hidden_request = FactoryBot.create(:info_request, prominence: 'hidden')
@@ -16,5 +14,4 @@ RSpec.describe InfoRequest::Prominence::SearchableQuery do
       expect(described_class.new.call).not_to include(embargoed_request)
     end
   end
-
 end

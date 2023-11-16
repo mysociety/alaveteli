@@ -7,6 +7,7 @@ module RoutingFilter
         AlaveteliLocalization.available_locales.length > 1 &&
         (self.class.include_default_locale? || !default_locale?(locale))
     end
+
     # And override the generation logic to use FastGettext.locale
     # rather than I18n.locale (the latter is what rails uses
     # internally and may look like `en-US`, whereas the former is

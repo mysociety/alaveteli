@@ -98,6 +98,7 @@ class IncomingMessage < ApplicationRecord
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
     raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
+
     if !force.nil? || last_parsed.nil?
       ActiveRecord::Base.transaction do
         extract_attachments
@@ -208,6 +209,7 @@ class IncomingMessage < ApplicationRecord
   def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
     text = text.dup
     return text if info_request.user_name.nil?
+
     name = Regexp.escape(info_request.user_name)
 
     # To end of message sections
@@ -216,11 +218,9 @@ class IncomingMessage < ApplicationRecord
     # Some other sort of forwarding quoting
     text.gsub!(/^\s?#{name}\s+To\s+FOI requests at.*/im, "\n\n" + replacement)
 
-
     # http://www.whatdotheyknow.com/request/229/response/809
     text.gsub(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/im, "\n\n" + replacement)
   end
-
 
   # Remove quoted sections from emails (eventually the aim would be for this
   # to do as good a job as GMail does) TODO: bet it needs a proper parser
@@ -275,7 +275,6 @@ class IncomingMessage < ApplicationRecord
                     Further\s+communication\s+will\s+signify\s+your\s+consent\s+to\s+this\.
                     /imx, replacement)
 
-
     # To end of message sections
     # http://www.whatdotheyknow.com/request/123/response/192
     # http://www.whatdotheyknow.com/request/235/response/513
@@ -290,7 +289,6 @@ class IncomingMessage < ApplicationRecord
     # Could have a ^ at start here, but see messed up formatting here:
     # http://www.whatdotheyknow.com/request/refuse_and_recycling_collection#incoming-842
     text.gsub!(/(#{original_message}\n.*)$/mi, replacement)
-
 
     # Some silly Microsoft XML gets into parts marked as plain text.
     # e.g. http://www.whatdotheyknow.com/request/are_traffic_wardens_paid_commiss#incoming-401
@@ -330,6 +328,7 @@ class IncomingMessage < ApplicationRecord
     self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
     save!
   end
+
   # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
   # emails and privacy sensitive things remove, censored, and folded to remove excess quoted text
   # (marked with FOLDED_QUOTED_SECTION)
@@ -338,10 +337,12 @@ class IncomingMessage < ApplicationRecord
     _cache_main_body_text if cached_main_body_text_folded.nil?
     cached_main_body_text_folded
   end
+
   def get_main_body_text_unfolded
     _cache_main_body_text if cached_main_body_text_unfolded.nil?
     cached_main_body_text_unfolded
   end
+
   # Returns body text from main text part of email, converted to UTF-8
   def get_main_body_text_internal
     parse_raw_email!
@@ -414,6 +415,7 @@ class IncomingMessage < ApplicationRecord
       # e.g. http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
       return nil
     end
+
     # otherwise return it assuming it is text (sometimes you get things
     # like binary/octet-stream, or the like, which are really text - TODO: if
     # you find an example, put URL here - perhaps we should be always returning
@@ -535,6 +537,7 @@ class IncomingMessage < ApplicationRecord
 
   def get_body_for_indexing # rubocop:disable Naming/AccessorMethodName
     return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
+
     get_body_for_quoting
   end
 
@@ -545,6 +548,7 @@ class IncomingMessage < ApplicationRecord
     text.gsub!("FOLDED_QUOTED_SECTION", " ")
     text.strip!
     raise "internal error" if text.nil?
+
     text
   end
 
@@ -565,6 +569,7 @@ class IncomingMessage < ApplicationRecord
 
     text
   end
+
   # Returns a version reduced to a sensible maximum size - this
   # is for performance reasons when showing snippets in search results.
   def get_attachment_text_clipped
@@ -596,6 +601,7 @@ class IncomingMessage < ApplicationRecord
   def get_text_for_indexing_full
     get_body_for_indexing + "\n\n" + get_attachment_text_full
   end
+
   # Used for excerpts in search results, when loading full text would be too slow
   def get_text_for_indexing_clipped
     get_body_for_indexing + "\n\n" + get_attachment_text_clipped
@@ -613,6 +619,7 @@ class IncomingMessage < ApplicationRecord
         if attachment.content_type.nil?
           raise "internal error incoming_message " + incoming_message.id.to_s
         end
+
         if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?
           $stderr.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
           $stderr.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s

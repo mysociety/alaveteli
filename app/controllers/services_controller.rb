@@ -1,7 +1,6 @@
 # controllers/services_controller.rb:
 
 class ServicesController < ApplicationController
-
   skip_before_action :html_response
 
   before_action :set_info_request, :check_info_request, only: %i[
@@ -33,7 +32,6 @@ class ServicesController < ApplicationController
           end
         else
           country_data = WorldFOIWebsites.by_code(site_country_code)
-
 
           text = if WorldFOIWebsites.can_ask_the_eu?(user_country_code)
             if country_data
@@ -138,5 +136,4 @@ class ServicesController < ApplicationController
   def ask_the_eu_link
     %q(<a href="http://asktheeu.org">Ask The EU</a>)
   end
-
 end

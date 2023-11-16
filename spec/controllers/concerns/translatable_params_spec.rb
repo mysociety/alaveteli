@@ -4,7 +4,6 @@ RSpec.describe TranslatableParams do
   include TranslatableParams
 
   describe '#translatable_params' do
-
     let(:keys) { { translated_keys: [ :name, :locale ],
                    general_keys: [ :status ] } }
 
@@ -26,21 +25,15 @@ RSpec.describe TranslatableParams do
     end
 
     context 'when there are no params' do
-
       it 'returns an empty hash' do
         expect(translatable_params(nil, **keys)).to eq({})
       end
-
     end
-
   end
-
 end
 
 RSpec.describe TranslatableParams::WhitelistedParams do
-
   describe '#whitelist' do
-
     let(:keys) { { translated_keys: [ :name, :locale ],
                    general_keys: [ :status ] } }
 
@@ -81,7 +74,5 @@ RSpec.describe TranslatableParams::WhitelistedParams do
         TranslatableParams::WhitelistedParams.new(**keys).whitelist(params)
       ).to eq(ActionController::Parameters.new(expected).permit!)
     end
-
   end
-
 end

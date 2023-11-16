@@ -103,6 +103,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
 
   def notify_exception(error)
     return unless send_exception_notifications?
+
     ExceptionNotifier.notify_exception(error, env: request.env)
   end
 

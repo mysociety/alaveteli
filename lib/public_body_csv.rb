@@ -17,7 +17,6 @@ require 'csv'
 #        Ministry of Silly Walks,http://www.localhost
 #        Department of Loneliness,http://localhost
 class PublicBodyCSV
-
   def self.default_fields
     [:id,
      :name,
@@ -54,6 +53,7 @@ class PublicBodyCSV
 
     PublicBody.includes(:translations, :tags).visible.find_each do |public_body|
       next if public_body.site_administration?
+
       csv << public_body
     end
 
@@ -94,5 +94,4 @@ class PublicBodyCSV
       end
     end
   end
-
 end

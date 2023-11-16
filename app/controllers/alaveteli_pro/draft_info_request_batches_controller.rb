@@ -32,6 +32,7 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
     when 'remove'
       public_body = PublicBody.find(update_bodies_params[:public_body_id])
       raise ActiveRecord::RecordNotFound unless @draft
+
       @draft.public_bodies.delete(public_body)
       @draft.destroy! if @draft.public_bodies.empty?
     end

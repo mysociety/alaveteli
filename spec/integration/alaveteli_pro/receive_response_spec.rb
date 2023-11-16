@@ -21,7 +21,5 @@ RSpec.describe "receiving responses to requests in alaveteli_pro" do
         expect(page).to have_css("#info-request-#{info_request.id}")
       end
     end
-
   end
-
 end

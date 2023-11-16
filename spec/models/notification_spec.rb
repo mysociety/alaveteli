@@ -165,7 +165,6 @@ RSpec.describe Notification do
       end
 
       context 'and the expiry of the embargo is pending' do
-
         it 'returns false when the publication date has been reached' do
           travel_to(embargo_expiring_request.embargo.publish_at) do
             expect(notification.expired).to be false
@@ -177,7 +176,6 @@ RSpec.describe Notification do
             expect(notification.expired).to be false
           end
         end
-
       end
 
       context "and the embargo has been removed" do
@@ -208,15 +206,12 @@ RSpec.describe Notification do
       end
 
       context 'and a new embargo has not been created' do
-
         it 'returns false' do
           expect(notification.expired).to be false
         end
-
       end
 
       context 'and a new embargo has been created' do
-
         before do
           FactoryBot.create(:embargo, info_request: embargo_expired_request)
           notification.reload
@@ -225,9 +220,7 @@ RSpec.describe Notification do
         it 'returns true' do
           expect(notification.expired).to be true
         end
-
       end
-
     end
 
     context "when the notification is for an overdue request" do

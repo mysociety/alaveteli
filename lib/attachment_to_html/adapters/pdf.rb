@@ -22,6 +22,7 @@ module AttachmentToHTML
       # Returns a Boolean
       def success?
         return false if contains_too_many_images?
+
         has_content? || contains_images?
       end
 

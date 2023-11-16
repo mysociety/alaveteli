@@ -60,6 +60,7 @@ class RawEmail < ApplicationRecord
     return false if prefix.match(no_reply_regexp)
     return false if empty_return_path?
     return false if auto_submitted?
+
     true
   end
 

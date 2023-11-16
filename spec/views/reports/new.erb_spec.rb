@@ -13,16 +13,13 @@ RSpec.describe 'reports/new' do
   end
 
   context "reporting a request" do
-
     it "has a 'Report request' button" do
       render
       expect(rendered).to have_button("Report request")
     end
-
   end
 
   context "reporting a comment" do
-
     let(:comment) do
       FactoryBot.build(:comment, info_request: info_request)
     end
@@ -41,7 +38,6 @@ RSpec.describe 'reports/new' do
       render
       expect(rendered).to have_button("Report annotation")
     end
-
   end
 
   context "request has already been reported" do

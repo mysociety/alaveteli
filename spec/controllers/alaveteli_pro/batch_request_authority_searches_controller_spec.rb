@@ -132,7 +132,6 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   end
 
   describe '#new' do
-
     before do
       sign_in pro_user
     end
@@ -144,5 +143,4 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       )
     end
   end
-
 end

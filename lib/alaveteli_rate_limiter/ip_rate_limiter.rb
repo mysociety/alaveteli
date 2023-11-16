@@ -48,6 +48,7 @@ module AlaveteliRateLimiter
     def limit?(ip)
       ip = clean_ip(ip)
       return false if whitelist.include?(ip)
+
       rule.limit?(records(ip.to_s))
     end
 

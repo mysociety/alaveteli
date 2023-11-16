@@ -22,6 +22,7 @@ module AlaveteliFeatures
       @klass = klass
 
       return unless klass.const_defined?(:CollectionMethods)
+
       extend klass::CollectionMethods
     end
 
@@ -37,6 +38,7 @@ module AlaveteliFeatures
 
     def each(*_args, &block)
       return to_enum(:each) unless block_given?
+
       all.each(&block)
     end
   end

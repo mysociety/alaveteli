@@ -18,7 +18,6 @@
 #
 
 FactoryBot.define do
-
   factory :public_body_change_request do
     user
     source_url { 'http://www.example.com' }
@@ -31,5 +30,4 @@ FactoryBot.define do
       public_body
     end
   end
-
 end

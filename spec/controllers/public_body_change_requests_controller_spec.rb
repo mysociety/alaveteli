@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe PublicBodyChangeRequestsController do
-
   describe 'GET #new' do
-
     it "should show the form" do
       get :new
       expect(response).to render_template("new")
@@ -19,11 +17,9 @@ RSpec.describe PublicBodyChangeRequestsController do
       get :new
       expect(assigns[:render_recaptcha]).to eq(false)
     end
-
   end
 
   describe 'POST #create' do
-
     before do
       @email = "test@example.com"
       name = "Test User"
@@ -110,7 +106,6 @@ RSpec.describe PublicBodyChangeRequestsController do
     end
 
     context 'when handling a request for an update to an existing authority' do
-
       before do
         @email = "test@example.com"
         name = "Test User"
@@ -159,7 +154,6 @@ RSpec.describe PublicBodyChangeRequestsController do
                       }
         expect(response).to redirect_to frontpage_url
       end
-
     end
   end
 end

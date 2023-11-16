@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'Importing a CSV' do
-
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
 
@@ -26,5 +25,4 @@ RSpec.describe 'Importing a CSV' do
       expect(page).to have_content(expected)
     end
   end
-
 end

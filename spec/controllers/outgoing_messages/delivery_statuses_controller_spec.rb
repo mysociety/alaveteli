@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe OutgoingMessages::DeliveryStatusesController do
-
   let(:logs) do
     lines = <<~EOF.split("\n")
       2015-09-22 17:36:56 [2035] 1ZeQYq-0000Wm-1V => body@example.com F=<request@example.com> P=<request@example.com> R=dnslookup T=remote_smtp S=1685 H=mail.example.com [62.208.144.158]:25 C="250 2.0.0 Ok: queued as 95FC94583B8" QT=0s DT=0s\n

@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequestBatchMailer do
-
   describe 'when sending batch sent notification' do
-
     before do
       @user = FactoryBot.create(:user)
       @info_request_batch = FactoryBot.create(

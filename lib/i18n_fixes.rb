@@ -25,6 +25,7 @@ MATCH = /\{\{([^\}]+)\}\}/
 
 def gettext_interpolate(string, values)
   return string unless string.is_a?(String)
+
   # $1, $2 don't work with SafeBuffer so casting to string as workaround
   safe = string.html_safe?
   string = string.to_str.gsub(MATCH) do
@@ -44,7 +45,6 @@ def gettext_interpolate(string, values)
   end
   safe ? string.html_safe : string
 end
-
 
 # this monkeypatch corrects inconsistency with gettext_i18n_rails
 # where the latter deals with strings but rails i18n deals with

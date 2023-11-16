@@ -2,14 +2,12 @@ spec_helper = File.join('..', '..', '..', '..', 'spec_helper')
 require 'spec_helper'
 
 RSpec.describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
-
   def render_view
     render partial: 'alaveteli_pro/subscriptions/cancel_subscription',
            locals: { subscription: subscription }
   end
 
   context 'with an active subscription' do
-
     let(:subscription) do
       double(id: 'sub_BWb9jBSSO0nafs',
              cancel_at_period_end: false,
@@ -39,11 +37,9 @@ RSpec.describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
         to have_link(text: 'I understand and still want to cancel',
                      href: subscription_path(subscription.id) )
     end
-
   end
 
   context 'with a cancelled subscription' do
-
     let(:subscription) do
       double(id: 'sub_BWb9jBSSO0nafs',
              cancel_at_period_end: true,
@@ -71,7 +67,5 @@ RSpec.describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
       render_view
       expect(rendered).not_to have_link(text: 'Cancel your subscription')
     end
-
   end
-
 end

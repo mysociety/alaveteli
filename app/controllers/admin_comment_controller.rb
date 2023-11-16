@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCommentController < AdminController
-
   before_action :set_comment, only: [:edit, :update]
 
   def index
@@ -30,6 +29,7 @@ class AdminCommentController < AdminController
 
   def update
     raise ActiveRecord::RecordNotFound if cannot? :admin, @comment
+
     old_body = @comment.body.dup
     old_visible = @comment.visible
     old_attention = @comment.attention_requested
@@ -75,5 +75,4 @@ class AdminCommentController < AdminController
   def comment_hidden?(old_visibility, old_body)
     !@comment.visible && old_visibility && old_body == @comment.body
   end
-
 end

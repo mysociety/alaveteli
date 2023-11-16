@@ -292,6 +292,7 @@ class InfoRequest < ApplicationRecord
   # address and make this kind of error.
   def self._clean_idhash(hash)
     return unless hash
+
     hash.gsub(/l/, "1").gsub(/o/, "0")
   end
 
@@ -695,7 +696,6 @@ class InfoRequest < ApplicationRecord
       )
       info_request.user.notify(event) if info_request.use_notifications?
     end
-
   end
 
   def self.request_sent_types
@@ -768,16 +768,19 @@ class InfoRequest < ApplicationRecord
 
   def user_name
     return external_user_name if is_external?
+
     user&.name
   end
 
   def from_name
     return external_user_name if is_external?
+
     outgoing_messages.first&.from_name || user_name
   end
 
   def safe_from_name
     return external_user_name if is_external?
+
     apply_censor_rules_to_text(from_name)
   end
 
@@ -898,6 +901,7 @@ class InfoRequest < ApplicationRecord
 
   def legislation
     return Legislation.find!(law_used) if law_used
+
     public_body&.legislation || Legislation.default
   end
 
@@ -908,6 +912,7 @@ class InfoRequest < ApplicationRecord
   # Has this email already been received here? Based just on message id.
   def already_received?(email)
     return false unless email.message_id
+
     incoming_messages.any? { email.message_id == _1.message_id }
   end
 
@@ -1040,6 +1045,7 @@ class InfoRequest < ApplicationRecord
     if cached_value_ok && @cached_calculated_status
       return @cached_calculated_status
     end
+
     @cached_calculated_status = @@custom_states_loaded ? theme_calculate_status : base_calculate_status
   end
 
@@ -1051,6 +1057,7 @@ class InfoRequest < ApplicationRecord
     Time.zone.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
     Time.zone.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
+
     'waiting_response'
   end
 
@@ -1188,6 +1195,7 @@ class InfoRequest < ApplicationRecord
   def date_initial_request_last_sent_at
     date = read_attribute(:date_initial_request_last_sent_at)
     return date.to_date if date
+
     calculate_date_initial_request_last_sent_at
   end
 
@@ -1207,6 +1215,7 @@ class InfoRequest < ApplicationRecord
   def date_response_required_by
     date = read_attribute(:date_response_required_by)
     return date if date
+
     calculate_date_response_required_by
   end
 
@@ -1221,6 +1230,7 @@ class InfoRequest < ApplicationRecord
   def date_very_overdue_after
     date = read_attribute(:date_very_overdue_after)
     return date if date
+
     calculate_date_very_overdue_after
   end
 
@@ -1263,7 +1273,6 @@ class InfoRequest < ApplicationRecord
         recipient_email)
   end
 
-
   def public_response_events
     condition = <<-SQL
         info_request_events.event_type = ?
@@ -1302,6 +1311,7 @@ class InfoRequest < ApplicationRecord
   # Text from the the initial request, for use in summary display
   def initial_request_text
     return '' if outgoing_messages.empty?
+
     body_opts = { censor_rules: applicable_censor_rules }
     first_message = outgoing_messages.first
     first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
@@ -1340,6 +1350,7 @@ class InfoRequest < ApplicationRecord
     info_request_events.each do |e|
       if ((info_request_event.is_sent_sort? && e.is_sent_sort?) || (info_request_event.is_followup_sort? && e.is_followup_sort?)) && e.outgoing_message_id == info_request_event.outgoing_message_id
         break if e.id == info_request_event.id
+
         last_email = e.params[:email]
       end
     end
@@ -1354,6 +1365,7 @@ class InfoRequest < ApplicationRecord
   # envelope from address until we abandoned it.
   def magic_email(prefix_part)
     raise "id required to create a magic email" unless id
+
     InfoRequest.magic_email_for_id(prefix_part, id)
   end
 
@@ -1471,6 +1483,7 @@ class InfoRequest < ApplicationRecord
     end
     incoming_messages.reverse.each do |incoming_message|
       next if incoming_message == skip_message
+
       incoming_message.safe_from_name
 
       next unless incoming_message.is_public?
@@ -1533,11 +1546,13 @@ class InfoRequest < ApplicationRecord
 
   def is_owning_user?(user)
     return false unless user
+
     user.id == user_id || user.owns_every_request?
   end
 
   def is_actual_owning_user?(user)
     return false unless user
+
     user.id == user_id
   end
 
@@ -1619,6 +1634,7 @@ class InfoRequest < ApplicationRecord
 
   def move_to_public_body(destination_public_body, opts = {})
     return nil unless destination_public_body.try(:persisted?)
+
     old_body = public_body
     editor = opts.fetch(:editor)
 
@@ -1652,6 +1668,7 @@ class InfoRequest < ApplicationRecord
 
   def move_to_user(destination_user, opts = {})
     return nil unless destination_user.try(:persisted?)
+
     old_user = user
     editor = opts.fetch(:editor)
 
@@ -1759,6 +1776,7 @@ class InfoRequest < ApplicationRecord
 
   def holding_pen_request?
     return true if url_title == 'holding_pen'
+
     self == self.class.holding_pen_request
   end
 
@@ -1915,6 +1933,7 @@ class InfoRequest < ApplicationRecord
 
   def set_law_used
     return if law_used_changed?
+
     self.law_used = public_body.legislation.key if public_body
   end
 

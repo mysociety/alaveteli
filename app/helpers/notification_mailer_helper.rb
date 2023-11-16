@@ -1,4 +1,3 @@
-
 module NotificationMailerHelper
   # Group an array of notifications into a hash keyed by their
   # info_request_event's event_type string

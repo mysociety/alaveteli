@@ -2,7 +2,6 @@ require 'spec_helper'
 require Rails.root.join('lib/data_export')
 
 RSpec.describe DataExport do
-
   describe '.case_insensitive_user_censor' do
     subject { described_class.case_insensitive_user_censor(text, user) }
     let(:text) { "Yours faithfully, #{ user.name }" }
@@ -21,11 +20,9 @@ RSpec.describe DataExport do
 
       it { is_expected.to eq 'Yours faithfully, <REQUESTER>' }
     end
-
   end
 
   describe ".exportable_requests" do
-
     let(:cut_off) { Date.today + 1 }
 
     it "includes eligible requests " do
@@ -55,11 +52,9 @@ RSpec.describe DataExport do
 
       expect(exportable).to_not include(embargoed)
     end
-
   end
 
   describe ".exportable_incoming_messages" do
-
     let(:cut_off) { Date.today + 1 }
 
     it "includes eligible messages" do
@@ -101,11 +96,9 @@ RSpec.describe DataExport do
       exportable = described_class.exportable_incoming_messages(cut_off)
       expect(exportable).to_not include(message)
     end
-
   end
 
   describe ".exportable_outgoing_messages" do
-
     let(:cut_off) { Date.today + 1 }
 
     it "includes eligible messages" do
@@ -147,11 +140,9 @@ RSpec.describe DataExport do
       exportable = described_class.exportable_outgoing_messages(cut_off)
       expect(exportable).to_not include(message)
     end
-
   end
 
   describe ".exportable_foi_attachments" do
-
     let(:cut_off) { Date.today + 1 }
 
     it "includes eligible attachments" do
@@ -203,7 +194,5 @@ RSpec.describe DataExport do
       exportable = described_class.exportable_foi_attachments(cut_off)
       expect(exportable).to_not include(attachment)
     end
-
   end
-
 end

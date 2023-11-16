@@ -1,7 +1,6 @@
 require 'confidence_intervals'
 
 RSpec.describe "ci_bounds" do
-
   describe "when passed all successes" do
     it "should never return a high CI above 1" do
       ci = ci_bounds 16, 16, 0.01
@@ -26,5 +25,4 @@ RSpec.describe "ci_bounds" do
       expect(ci[1]).to be_within(0.001).of(0.8922)
     end
   end
-
 end

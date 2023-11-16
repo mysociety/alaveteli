@@ -5,7 +5,6 @@ class EncodingNormalizationError < StandardError
 end
 
 def normalize_string_to_utf8(s, suggested_character_encoding=nil)
-
   # Make a list of encodings to try:
   to_try = []
 
@@ -78,6 +77,7 @@ end
 def convert_string_to_utf8(s, suggested_character_encoding=nil)
   result = normalize_string_to_utf8 s, suggested_character_encoding
   StringConversionResult.new(result, false)
+
 rescue EncodingNormalizationError
   result = scrub(s)
   StringConversionResult.new(result, true)

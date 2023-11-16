@@ -240,6 +240,7 @@ class MailServerLog < ApplicationRecord
     DeliveryStatusSerializer.load(read_attribute(:delivery_status))
   # TODO: This rescue can be removed when there are no more cached
   # MTA-specific statuses
+
   rescue ArgumentError
     warn %q(MailServerLog#delivery_status rescuing from invalid delivery
             status. Run bundle exec rake temp:cache_delivery_status to update
@@ -336,5 +337,4 @@ class MailServerLog < ApplicationRecord
   def redact_idhash(line, idhash)
     line.gsub(idhash, _('[REDACTED]'))
   end
-
 end

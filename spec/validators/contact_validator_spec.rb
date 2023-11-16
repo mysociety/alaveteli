@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ContactValidator do
-
   describe '.new' do
-
     let(:valid_params) do
       { name: "Vinny Vanilli",
         email: "vinny@localhost",
@@ -50,7 +48,5 @@ RSpec.describe ContactValidator do
       validator.valid?
       expect(validator.errors[:message].size).to eq(1)
     end
-
   end
-
 end

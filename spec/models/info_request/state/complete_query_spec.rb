@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::State::CompleteQuery do
-
   describe '#call' do
     let(:info_request) { FactoryBot.create(:successful_request) }
 
@@ -16,6 +15,5 @@ RSpec.describe InfoRequest::State::CompleteQuery do
       expect(described_class.new.call.include?(info_request))
         .to be false
     end
-
   end
 end

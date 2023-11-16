@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::ActivityList::List do
-
   describe '.new' do
     it 'requires a user, page and per_page arguments' do
       expect { described_class.new }.to raise_error(ArgumentError)
@@ -14,7 +13,6 @@ RSpec.describe AlaveteliPro::ActivityList::List do
       expect(list.page).to eq 1
       expect(list.per_page).to eq 10
     end
-
   end
 
   describe '#event_types' do
@@ -29,11 +27,9 @@ RSpec.describe AlaveteliPro::ActivityList::List do
                event_types.
                  include?("sent")).to be true
     end
-
   end
 
   describe '#events' do
-
     it "returns the user's info_request_events if
         included in the event types" do
       user = FactoryBot.create(:user)
@@ -44,11 +40,9 @@ RSpec.describe AlaveteliPro::ActivityList::List do
       expect(list.events).
         to eq([info_request.last_event_forming_initial_request])
     end
-
   end
 
   describe '#current_items' do
-
     it 'returns an array of items representing the current page of events' do
       user = FactoryBot.create(:user)
       info_request = FactoryBot.create(:info_request, user: user)
@@ -69,7 +63,5 @@ RSpec.describe AlaveteliPro::ActivityList::List do
       expect(list.current_items.second).
         to be_a(AlaveteliPro::ActivityList::RequestSent)
     end
-
   end
-
 end

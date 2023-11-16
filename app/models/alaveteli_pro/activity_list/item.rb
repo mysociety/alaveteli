@@ -1,7 +1,6 @@
 module AlaveteliPro
   module ActivityList
     class Item
-
       include Rails.application.routes.url_helpers
       include LinkToHelper
       include ActionView::Helpers::DateHelper
@@ -40,7 +39,6 @@ module AlaveteliPro
       def event_time
         event.created_at
       end
-
     end
   end
 end

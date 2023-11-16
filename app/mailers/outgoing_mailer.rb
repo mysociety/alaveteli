@@ -52,6 +52,7 @@ class OutgoingMailer < ApplicationMailer
                                                      incoming_message_followup.from_email)
     end
   end
+
   # Used in the preview of followup
   def self.name_for_followup(info_request, incoming_message_followup)
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
@@ -61,6 +62,7 @@ class OutgoingMailer < ApplicationMailer
       incoming_message_followup.safe_from_name || info_request.public_body.name
     end
   end
+
   # Used when making list of followup places to remove duplicates
   def self.email_for_followup(info_request, incoming_message_followup)
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
@@ -69,6 +71,7 @@ class OutgoingMailer < ApplicationMailer
       incoming_message_followup.from_email
     end
   end
+
   # Subject to use for followup
   def self.subject_for_followup(info_request, outgoing_message, options = {})
     if outgoing_message.what_doing == 'internal_review'
@@ -78,6 +81,7 @@ class OutgoingMailer < ApplicationMailer
                                                  html: options[:html])
     end
   end
+
   # Whether we have a valid email address for a followup
   def self.is_followupable?(info_request, incoming_message_followup)
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
@@ -87,6 +91,7 @@ class OutgoingMailer < ApplicationMailer
       true
     end
   end
+
   # Message-ID to use
   def self.id_for_message(outgoing_message)
     message_id = "ogm-" + outgoing_message.id.to_s
@@ -95,5 +100,4 @@ class OutgoingMailer < ApplicationMailer
     message_id += "@" + AlaveteliConfiguration.incoming_email_domain
     "<" + message_id + ">"
   end
-
 end

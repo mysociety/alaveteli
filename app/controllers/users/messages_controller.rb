@@ -1,6 +1,5 @@
 # Allowing users to send user-to-user messages
 class Users::MessagesController < UserController
-
   before_action :set_recipient,
                 :check_recipient_accepts_messages,
                 :check_can_send_messages,

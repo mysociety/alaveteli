@@ -3,7 +3,6 @@ require "external_command"
 
 def mailin_test(email_filename)
   Dir.chdir Rails.root do
-
     mail = load_file_fixture(email_filename)
     ir = info_requests(:other_request)
     mail.gsub!('EMAIL_TO', ir.incoming_email)
@@ -15,7 +14,6 @@ def mailin_test(email_filename)
 end
 
 RSpec.describe "When importing mail into the application" do
-
   # Turn off transactional fixtures for this suite - incoming message is imported
   # outside the transaction via ExternalCommand, so needs to be destroyed outside the
   # transaction
@@ -33,5 +31,4 @@ RSpec.describe "When importing mail into the application" do
     incoming_message = ir.incoming_messages[0]
     incoming_message.destroy
   end
-
 end

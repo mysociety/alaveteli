@@ -15,7 +15,6 @@ RSpec.describe SpamAddress do
   it { is_expected.to strip_attribute(:email) }
 
   describe '.new' do
-
     it 'requres an email address' do
       expect(SpamAddress.new).not_to be_valid
       expect(SpamAddress.new(email: 'spam@example.org')).to be_valid
@@ -25,11 +24,9 @@ RSpec.describe SpamAddress do
       existing = FactoryBot.create(:spam_address)
       expect(SpamAddress.new(email: existing.email)).not_to be_valid
     end
-
   end
 
   describe '.spam?' do
-
     before(:each) do
       @spam_address = FactoryBot.create(:spam_address)
     end
@@ -51,7 +48,6 @@ RSpec.describe SpamAddress do
     end
 
     describe 'when accepting an array of emails' do
-
       it 'is spam if any of the emails are stored' do
         emails = ['genuine-email@example.com', @spam_address.email.swapcase]
         expect(SpamAddress.spam?(emails)).to be true
@@ -61,9 +57,7 @@ RSpec.describe SpamAddress do
         emails = ['genuine-email@example.com', 'genuine-email@example.org']
         expect(SpamAddress.spam?(emails)).to be false
       end
-
     end
-
   end
 
   describe '#save' do

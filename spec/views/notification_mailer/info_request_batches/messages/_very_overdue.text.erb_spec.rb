@@ -78,7 +78,6 @@ RSpec.describe(
                                     "for an internal review, asking them " \
                                     "to find out why their response to the " \
                                     "request has been so slow.")
-
     end
   end
 end

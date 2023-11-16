@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe 'request_game/play' do
-
     before do
         @mock_body = mock_model(PublicBody, name: 'test body',
                                             url_name: 'test_body')
@@ -34,5 +33,4 @@ RSpec.describe 'request_game/play' do
         render
         expect(response).to include("/categorise/request/a_test_request")
     end
-
 end

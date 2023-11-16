@@ -242,6 +242,7 @@ class User < ApplicationRecord
   # Case-insensitively find a user from their email
   def self.find_user_by_email(email)
     return nil if email.blank?
+
     where('lower(email) = lower(?)', email.strip).first
   end
 
@@ -492,6 +493,7 @@ class User < ApplicationRecord
     return 'hidden' if banned?
     return 'backpage' if closed?
     return 'backpage' unless email_confirmed?
+
     'normal'
   end
 
@@ -581,6 +583,7 @@ class User < ApplicationRecord
 
   def about_me_already_exists?
     return false if about_me.blank?
+
     self.class.where(about_me: about_me).where.not(id: id).any?
   end
 
@@ -717,6 +720,7 @@ class User < ApplicationRecord
 
   def setup_pro_account(role)
     return unless role == Role.pro_role
+
     pro_account || build_pro_account if feature_enabled?(:pro_pricing)
   end
 

@@ -33,7 +33,6 @@ RSpec.describe "Signing in" do
   end
 
   context 'when you give the right credentials' do
-
     it 'logs you in' do
       try_login(user, { redirect: '/list' })
       expect(page).
@@ -92,7 +91,6 @@ RSpec.describe "Signing in" do
 
             # And the redirect should still work, of course
             expect(page).to have_current_path '/list?post_redirect=1'
-
           end
         end
       end

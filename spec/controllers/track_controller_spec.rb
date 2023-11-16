@@ -82,14 +82,12 @@ RSpec.describe TrackController do
     end
 
     context 'when getting feeds' do
-
       before do
         load_raw_emails_data
         update_xapian_index
       end
 
       it "should get the RSS feed" do
-
         track_thing = track_things(:track_fancy_dog_request)
 
         get :track_request, params: {
@@ -162,7 +160,6 @@ RSpec.describe TrackController do
         expect(response.media_type).to eq('application/atom+xml')
       end
     end
-
   end
 
   describe "GET #track_search_query" do
@@ -306,7 +303,6 @@ RSpec.describe TrackController do
       expect(tt.track_query)
         .to eq("requested_from:#{public_body.url_name} variety:sent")
     end
-
   end
 
   describe "GET #track_user" do
@@ -343,7 +339,6 @@ RSpec.describe TrackController do
                                    url_name: "there_is_no_such_user" }
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
-
   end
 
   describe "GET #track_list" do
@@ -435,15 +430,12 @@ RSpec.describe TrackController do
                      }
       }.to raise_error(RuntimeError, msg)
     end
-
   end
 
   describe 'POST #delete_all_type' do
-
     let(:track_thing) { FactoryBot.create(:search_track) }
 
     context 'when the user passed in the params is not logged in' do
-
       it 'redirects to the signin page' do
         post :delete_all_type, params: {
                                  user: track_thing.tracking_user.id,
@@ -452,11 +444,9 @@ RSpec.describe TrackController do
         expect(response).
           to redirect_to(signin_path(token: get_last_post_redirect.token))
       end
-
     end
 
     context 'when the user passed in the params is logged in' do
-
       it 'deletes all tracks for the user of the type passed in the params' do
         sign_in track_thing.tracking_user
         post :delete_all_type, params: {
@@ -486,8 +476,6 @@ RSpec.describe TrackController do
                                }
         expect(flash[:notice]).to eq("You will no longer be emailed updates for those alerts")
       end
-
     end
-
   end
 end

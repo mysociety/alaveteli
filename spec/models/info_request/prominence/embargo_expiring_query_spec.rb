@@ -1,9 +1,7 @@
 require 'spec_helper.rb'
 
 RSpec.describe InfoRequest::Prominence::EmbargoExpiringQuery do
-
   describe '#call' do
-
     it 'includes requests that have embargoes expiring within a week' do
       embargo = FactoryBot.create(:embargo,
                                   publish_at: Time.now + 4.days)
@@ -20,6 +18,5 @@ RSpec.describe InfoRequest::Prominence::EmbargoExpiringQuery do
       info_request = FactoryBot.create(:info_request)
       expect(described_class.new.call).not_to include info_request
     end
-
   end
 end

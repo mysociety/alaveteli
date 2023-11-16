@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe TrackHelper do
-
   include TrackHelper
   include LinkToHelper
 
   describe '#unsubscribe_notice' do
-
     context 'with a search track' do
       let(:track_thing) { FactoryBot.build(:search_track) }
 
@@ -15,7 +13,6 @@ RSpec.describe TrackHelper do
                    'Example%20Query/newest/advanced">this search</a>.'
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
-
     end
 
     context 'with a user track' do
@@ -26,7 +23,6 @@ RSpec.describe TrackHelper do
                    "'#{ user_link(track_thing.tracked_user) }', a person."
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
-
     end
 
     context 'with a public body track' do
@@ -38,7 +34,6 @@ RSpec.describe TrackHelper do
                    "public authority."
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
-
     end
 
     context 'with a successful request track' do
@@ -49,7 +44,6 @@ RSpec.describe TrackHelper do
                    'successful requests</a>.'
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
-
     end
 
     context 'with a new request track' do
@@ -60,7 +54,6 @@ RSpec.describe TrackHelper do
                    '<a href="/list">new requests</a>.'
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
-
     end
 
     context 'with a request update track' do
@@ -71,13 +64,10 @@ RSpec.describe TrackHelper do
                    "'#{ request_link(track_thing.info_request) }', a request."
         expect(unsubscribe_notice(track_thing)).to eq(expected)
       end
-
     end
-
   end
 
   describe 'when displaying notices for a search track' do
-
     before do
       @track_thing = FactoryBot.build(:search_track)
     end
@@ -101,11 +91,9 @@ RSpec.describe TrackHelper do
       expected = %Q(<a href="/search/Example%20Query/newest/advanced">anything matching text 'Example Query'</a>)
       expect(track_description(@track_thing)).to eq(expected)
     end
-
   end
 
   describe 'when displaying notices for a user track' do
-
     before do
       @track_thing = FactoryBot.build(:user_track)
     end
@@ -129,11 +117,9 @@ RSpec.describe TrackHelper do
       expected = %Q('#{user_link(@track_thing.tracked_user)}', a person)
       expect(track_description(@track_thing)).to eq(expected)
     end
-
   end
 
   describe 'when displaying notices for a public body track' do
-
     before do
       @track_thing = FactoryBot.build(:public_body_track)
     end
@@ -160,7 +146,6 @@ RSpec.describe TrackHelper do
   end
 
   describe 'when displaying notices for a successful request track' do
-
     before do
       @track_thing = FactoryBot.build(:successful_request_track)
     end
@@ -187,7 +172,6 @@ RSpec.describe TrackHelper do
   end
 
   describe 'when displaying notices for a new request track' do
-
     before do
       @track_thing = FactoryBot.build(:new_request_track)
     end
@@ -211,11 +195,9 @@ RSpec.describe TrackHelper do
       expected = %Q(<a href="/list">new requests</a>)
       expect(track_description(@track_thing)).to eq(expected)
     end
-
   end
 
   describe 'when displaying notices for a request update track' do
-
     before do
       @track_thing = FactoryBot.build(:request_update_track)
     end
@@ -239,7 +221,5 @@ RSpec.describe TrackHelper do
       expected = %Q('#{request_link(@track_thing.info_request)}', a request)
       expect(track_description(@track_thing)).to eq(expected)
     end
-
   end
-
 end

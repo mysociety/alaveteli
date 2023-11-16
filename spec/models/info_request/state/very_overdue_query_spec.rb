@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::State::VeryOverdueQuery do
-
   describe '#call' do
     let(:info_request) { FactoryBot.create(:info_request) }
 
@@ -37,6 +36,5 @@ RSpec.describe InfoRequest::State::VeryOverdueQuery do
           .to be false
       end
     end
-
   end
 end

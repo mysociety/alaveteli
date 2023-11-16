@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ResponseRejection::Bounce do
-
   it 'inherits from Base' do
     expect(described_class.superclass).
       to eq(InfoRequest::ResponseRejection::Base)
   end
 
   describe '#reject' do
-
     it 'does nothing and returns true if the mail has no From address' do
       raw_email = <<-EOF.strip_heredoc
       To: Requester <request-333-xxx@example.com>
@@ -87,7 +85,5 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
 
       ActionMailer::Base.deliveries.clear
     end
-
   end
-
 end

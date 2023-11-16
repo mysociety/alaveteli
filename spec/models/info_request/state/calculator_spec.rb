@@ -43,7 +43,6 @@ RSpec.describe InfoRequest::State::Calculator do
       info_request.save!
       expect(calculator.phase).to eq(:response_received)
     end
-
   end
 
   describe '#transitions' do

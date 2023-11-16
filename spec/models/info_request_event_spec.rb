@@ -205,7 +205,6 @@ RSpec.describe InfoRequestEvent do
     end
 
     context "the incoming_message is not hidden" do
-
       it "updates the parent info_request's last_public_response_at value" do
         im = FactoryBot.create(:incoming_message)
         response_event = FactoryBot.
@@ -215,22 +214,18 @@ RSpec.describe InfoRequestEvent do
         expect(request.last_public_response_at).to be_within(1.second).
             of response_event.created_at
       end
-
     end
 
     context "the event is not a response" do
-
       it "does not update the info_request's last_public_response_at value" do
         expect_any_instance_of(InfoRequestEvent).not_to receive(:update_request)
         event = FactoryBot.create(:info_request_event, event_type: 'comment',
                                                        info_request: request)
         expect(request.last_public_response_at).to be_nil
       end
-
     end
 
     context "the incoming_message is hidden" do
-
       it "sets the parent info_request's last_public_response_at to nil" do
         im = FactoryBot.create(:incoming_message, prominence: 'hidden')
         response_event = FactoryBot.
@@ -239,21 +234,17 @@ RSpec.describe InfoRequestEvent do
                                                        incoming_message: im)
         expect(request.last_public_response_at).to be_nil
       end
-
     end
 
     context "the event is for a comment" do
-
       it "enqueues NotifyCacheJob job for the comment" do
         event = FactoryBot.build(:comment_event)
         expect(NotifyCacheJob).to receive(:perform_later).with(event.comment)
         event.save
       end
-
     end
 
     context "the event is for an foi_attachment" do
-
       it "enqueues NotifyCacheJob job for the attachment" do
         attachment = mock_model(FoiAttachment)
         allow(FoiAttachment).to receive(:find).and_return(attachment)
@@ -261,18 +252,15 @@ RSpec.describe InfoRequestEvent do
         expect(NotifyCacheJob).to receive(:perform_later).with(attachment)
         event.save
       end
-
     end
 
     context "the event is for a request" do
-
       it "enqueues NotifyCacheJob job for the request" do
         event = FactoryBot.build(:info_request_event)
         expect(NotifyCacheJob).to receive(:perform_later).
           with(event.info_request)
         event.save
       end
-
     end
 
     it "calls the request's create_or_update_request_summary on create" do
@@ -281,7 +269,6 @@ RSpec.describe InfoRequestEvent do
       expect(event.info_request).to receive(:create_or_update_request_summary)
       event.save!
     end
-
   end
 
   describe "should know" do
@@ -437,7 +424,6 @@ RSpec.describe InfoRequestEvent do
       expect(TrackThingsSentEmail.where(info_request_event_id: event.id)).
         to be_empty
     end
-
   end
 
   describe "editing requests" do
@@ -491,7 +477,6 @@ RSpec.describe InfoRequestEvent do
   end
 
   describe '#resets_due_dates?' do
-
     it 'returns true if the event is a sending of the request' do
       info_request_event = FactoryBot.create(:sent_event)
       expect(info_request_event.resets_due_dates?).to be true
@@ -521,9 +506,7 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
-
   describe '#is_request_sending?' do
-
     it 'returns true if the event type is "sent"' do
       info_request_event = FactoryBot.create(:sent_event)
       expect(info_request_event.is_request_sending?).to be true
@@ -550,9 +533,7 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
-
   describe '#is_clarification?' do
-
     it 'should return false if there has been no request for clarification' do
       info_request = FactoryBot.create(:info_request_with_incoming)
       event = info_request.log_event('followup_sent', {})
@@ -596,7 +577,6 @@ RSpec.describe InfoRequestEvent do
   end
 
   describe '#recheck_due_dates' do
-
     context 'if the event is a response that is then labelled as
              a clarification request' do
       let(:response_event) do
@@ -624,11 +604,9 @@ RSpec.describe InfoRequestEvent do
           expect(info_request.reload.date_initial_request_last_sent_at).
             to eq(Time.zone.now.to_date)
         end
-
       end
 
       context 'if there is no subsequent followup' do
-
         it 'does not reset the due dates on the request' do
           info_request = response_event.info_request
           expect(info_request.reload.date_initial_request_last_sent_at).
@@ -637,11 +615,8 @@ RSpec.describe InfoRequestEvent do
           expect(info_request.reload.date_initial_request_last_sent_at).
             to eq(1.month.ago.to_date)
         end
-
       end
-
     end
-
   end
 
   # Testing a private callback helper
@@ -748,7 +723,6 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
-
   # INDEXING HELPERS
   #
   # Technically don't need to test because these are private, but we want to
@@ -818,7 +792,6 @@ RSpec.describe InfoRequestEvent do
       expect(ire.send(:requested_by)).to eq(ire.info_request.user_name_slug)
     end
   end
-
 
   describe '#requested_from' do
     it "should return an array of translated public body url_name values" do
@@ -924,5 +897,4 @@ RSpec.describe InfoRequestEvent do
       expect(event.foi_attachment).to eq(attachment)
     end
   end
-
 end

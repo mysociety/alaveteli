@@ -209,7 +209,6 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
       end
     end
 
-
     describe "setting categories" do
       context "when the request is a draft request" do
         let(:draft) { FactoryBot.create(:draft_info_request) }

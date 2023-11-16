@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "request/show" do
-
   let(:mock_body) { FactoryBot.create(:public_body, name: "test body") }
 
   let(:mock_user) do
@@ -122,7 +121,6 @@ RSpec.describe "request/show" do
       assign :user, admin_user
       # Admins own every request
       assign :is_owning_user, true
-
     end
 
     context "and the request is waiting for a response and very overdue" do
@@ -223,7 +221,6 @@ RSpec.describe "request/show" do
     end
 
     context 'when the authority is only accepting EIR requests' do
-
       before do
         mock_body.add_tag_if_not_already_present('eir_only')
       end
@@ -235,9 +232,7 @@ RSpec.describe "request/show" do
                           'information about the environment from this ' \
                           'authority')
       end
-
     end
-
   end
 
   describe 'when the request is restricted to new authority responses' do
@@ -258,7 +253,6 @@ RSpec.describe "request/show" do
   end
 
   describe 'when the request is closed to all responses' do
-
     it 'displays to say that the request is closed to further correspondence' do
       mock_request.update_attribute(:allow_new_responses_from, 'nobody')
       request_page
@@ -272,7 +266,6 @@ RSpec.describe "request/show" do
       request_page
       expect(rendered).to_not have_content('Respond to request')
     end
-
   end
 
   describe "censoring attachment names" do

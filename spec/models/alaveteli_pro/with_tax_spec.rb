@@ -5,7 +5,6 @@ RSpec.describe AlaveteliPro::WithTax do
   subject { described_class.new(plan) }
 
   describe '#amount_with_tax' do
-
     context 'with the default tax rate' do
       it 'adds 20% tax to the plan amount' do
         expect(subject.amount_with_tax).to eq(1000)
@@ -27,5 +26,4 @@ RSpec.describe AlaveteliPro::WithTax do
   it 'delegates to the stripe plan' do
     expect(subject.amount).to eq(833)
   end
-
 end

@@ -66,11 +66,8 @@ gb_18030_bytes = [ 0xb9, 0xf3, 0xb9, 0xab, 0xcb, 0xbe, 0xb8, 0xba, 0xd4, 0xf0,
 gb_18030_spam_string = bytes_to_binary_string gb_18030_bytes
 
 RSpec.describe "normalize_string_to_utf8" do
-
   describe "when passed uniterpretable character data" do
-
     it "should reject it as invalid" do
-
       expect {
         normalize_string_to_utf8 random_string
       }.to raise_error(EncodingNormalizationError)
@@ -78,72 +75,51 @@ RSpec.describe "normalize_string_to_utf8" do
       expect {
         normalize_string_to_utf8 random_string, 'UTF-8'
       }.to raise_error(EncodingNormalizationError)
-
     end
   end
 
   describe "when passed unlabelled Windows 1252 data" do
-
     it "should correctly convert it to UTF-8" do
-
       normalized = normalize_string_to_utf8 windows_1252_string
 
       expect(normalized).to eq("DASH – DASH")
-
     end
-
   end
 
   describe "when passed suggested Windows 1258 data" do
-
     it "should raise EncodingNormalizationError" do
-
       expect {
         normalize_string_to_utf8 windows_1258_string, 'windows-1258'
       }.to raise_error(
         EncodingNormalizationError,
         'code converter not found (Windows-1258 to UTF-8)'
       )
-
     end
-
   end
 
   describe "when passed suggested ISO-2022-JP data" do
-
     it "should raise EncodingNormalizationError" do
-
       expect {
         normalize_string_to_utf8 iso_2022_jp_string, 'iso-2022-jp'
       }.to raise_error(
         EncodingNormalizationError,
         '"\xE7" on ISO-2022-JP'
       )
-
     end
-
   end
 
   describe "when passed GB 18030 data" do
-
     it "should correctly convert it to UTF-8 if unlabelled" do
-
       normalized = normalize_string_to_utf8 gb_18030_spam_string
 
       expect(normalized).to start_with("贵公司负责人")
-
     end
-
   end
-
 end
 
 RSpec.describe "convert_string_to_utf8_or_binary" do
-
   describe "when passed uninterpretable character data" do
-
     it "should return it as a binary string" do
-
       converted = convert_string_to_utf8_or_binary random_string
       expect(converted).to eq(random_string)
       expect(converted.encoding.to_s).to eq('ASCII-8BIT')
@@ -151,75 +127,54 @@ RSpec.describe "convert_string_to_utf8_or_binary" do
       converted = convert_string_to_utf8_or_binary random_string,'UTF-8'
       expect(converted).to eq(random_string)
       expect(converted.encoding.to_s).to eq('ASCII-8BIT')
-
     end
   end
 
   describe "when passed unlabelled Windows 1252 data" do
-
     it "should correctly convert it to UTF-8" do
-
       converted = convert_string_to_utf8_or_binary windows_1252_string
 
       expect(converted).to eq("DASH – DASH")
       expect(converted.encoding.to_s).to eq('UTF-8')
-
     end
-
   end
 
   describe "when passed suggested Windows 1258 data" do
-
     it "should return data as ASCII-8BIT" do
-
       converted = convert_string_to_utf8_or_binary(
         windows_1258_string, 'windows-1258'
       )
 
       expect(converted).to eq("DONG \xFE DONG".force_encoding('ASCII-8BIT'))
       expect(converted.encoding.to_s).to eq('ASCII-8BIT')
-
     end
-
   end
 
   describe "when passed suggested ISO-2022-JP data" do
-
     it "should return data as ASCII-8BIT" do
-
       converted = convert_string_to_utf8_or_binary(
         iso_2022_jp_string, 'iso-2022-jp'
       )
 
       expect(converted).to eq("無効です\x92".force_encoding('ASCII-8BIT'))
       expect(converted.encoding.to_s).to eq('ASCII-8BIT')
-
     end
-
   end
 
   describe "when passed GB 18030 data" do
-
     it "should correctly convert it to UTF-8 if unlabelled" do
-
       converted = convert_string_to_utf8_or_binary gb_18030_spam_string
 
       expect(converted).to start_with("贵公司负责人")
       expect(converted.encoding.to_s).to eq('UTF-8')
-
     end
-
   end
-
 end
 
 RSpec.describe "convert_string_to_utf8" do
-
   describe "when passed uninterpretable character data" do
-
     it "should return it as a valid utf8 string with non-utf8 characters removed
             and mark it as scrubbed" do
-
       converted = convert_string_to_utf8 random_string
 
       expect(converted.string.encoding.to_s).to eq('UTF-8')
@@ -231,65 +186,47 @@ RSpec.describe "convert_string_to_utf8" do
       expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.string.valid_encoding?).to eq(true)
       expect(converted.scrubbed?).to eq(true)
-
     end
   end
 
   describe "when passed unlabelled Windows 1252 data" do
-
     it "should correctly convert it to UTF-8" do
-
       converted = convert_string_to_utf8 windows_1252_string
 
       expect(converted.string).to eq("DASH – DASH")
 
       expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.scrubbed?).to eq(false)
-
     end
-
   end
 
   describe "when passed suggested Windows 1258 data" do
-
     it "should return scrubbed UTF-8 string" do
-
       converted = convert_string_to_utf8(windows_1258_string, 'windows-1258')
 
       expect(converted.string).to eq("DONG  DONG")
       expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.scrubbed?).to eq(true)
-
     end
-
   end
 
   describe "when passed suggested ISO-2022-JP data" do
-
     it "should return scrubbed UTF-8 string" do
-
       converted = convert_string_to_utf8(iso_2022_jp_string, 'iso-2022-jp')
 
       expect(converted.string).to eq("無効です")
       expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.scrubbed?).to eq(true)
-
     end
-
   end
 
   describe "when passed GB 18030 data" do
-
     it "should correctly convert it to UTF-8 if unlabelled" do
-
       converted = convert_string_to_utf8 gb_18030_spam_string
 
       expect(converted.string).to start_with("贵公司负责人")
       expect(converted.string.encoding.to_s).to eq('UTF-8')
       expect(converted.scrubbed?).to eq(false)
-
     end
-
   end
-
 end

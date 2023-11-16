@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe AdminUsersHelper do
-
   include AdminUsersHelper
 
   describe '#user_labels' do
-
     it 'adds no labels if the user is not noteworthy' do
       expect(user_labels(User.new)).to eq('')
     end
@@ -37,7 +35,5 @@ RSpec.describe AdminUsersHelper do
       html += %q(<span class="label">admin</span>)
       expect(user_labels(user)).to eq(html)
     end
-
   end
-
 end

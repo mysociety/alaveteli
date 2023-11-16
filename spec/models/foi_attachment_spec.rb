@@ -54,7 +54,6 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#body=' do
-
     it "sets the body" do
       attachment = FoiAttachment.new
       attachment.body = "baz"
@@ -108,11 +107,9 @@ RSpec.describe FoiAttachment do
         ActiveStorage::Blob.services.fetch(blob.service_name).exist?(blob.key)
       }.from(false).to(true)
     end
-
   end
 
   describe '#body' do
-
     context 'when masked' do
       let(:foi_attachment) { FactoryBot.create(:body_text) }
 
@@ -183,11 +180,9 @@ RSpec.describe FoiAttachment do
         )
       end
     end
-
   end
 
   describe '#body_as_text' do
-
     it 'has a valid UTF-8 string when newly created' do
       foi_attachment = FactoryBot.create(:body_text)
       expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
@@ -201,7 +196,6 @@ RSpec.describe FoiAttachment do
       expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
     end
 
-
     it 'has a true scrubbed? value if the body has been coerced to valid UTF-8' do
       foi_attachment = FactoryBot.create(:body_text)
       foi_attachment.body = "\x0FX\x1C\x8F\xA4\xCF\xF6\x8C\x9D\xA7\x06\xD9\xF7\x90lo"
@@ -213,11 +207,9 @@ RSpec.describe FoiAttachment do
       foi_attachment.body = "κόσμε"
       expect(foi_attachment.body_as_text.scrubbed?).to be false
     end
-
   end
 
   describe '#default_body' do
-
     it 'returns valid UTF-8 for a text attachment' do
       foi_attachment = FactoryBot.create(:body_text)
       expect(foi_attachment.default_body.encoding.to_s).to eq('UTF-8')
@@ -228,11 +220,9 @@ RSpec.describe FoiAttachment do
       foi_attachment = FactoryBot.create(:pdf_attachment)
       expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
     end
-
   end
 
   describe '#unmasked_body' do
-
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     subject(:unmasked_body) { foi_attachment.unmasked_body }
 
@@ -289,11 +279,9 @@ RSpec.describe FoiAttachment do
         )
       end
     end
-
   end
 
   describe 'masked?' do
-
     let(:foi_attachment) do
       FoiAttachment.new(body: 'foo', masked_at: Time.zone.now)
     end
@@ -319,7 +307,6 @@ RSpec.describe FoiAttachment do
 
       it { is_expected.to eq(false) }
     end
-
   end
 
   describe '#main_body_part?' do
@@ -347,18 +334,15 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#ensure_filename!' do
-
     it 'should create a filename for an instance with a blank filename' do
       attachment = FoiAttachment.new
       attachment.filename = ''
       attachment.ensure_filename!
       expect(attachment.filename).to eq('attachment.bin')
     end
-
   end
 
   describe '#has_body_as_html?' do
-
     it 'should be true for a pdf attachment' do
       expect(FactoryBot.build(:pdf_attachment).has_body_as_html?).to be true
     end
@@ -366,7 +350,6 @@ RSpec.describe FoiAttachment do
     it 'should be false for an html attachment' do
       expect(FactoryBot.build(:html_attachment).has_body_as_html?).to be false
     end
-
   end
 
   describe '#name_of_content_type' do

@@ -16,7 +16,6 @@ RSpec.describe HealthChecks::Checks::PeriodCheck do
   end
 
   describe :ok? do
-
     it 'is successful if the subject is in the last day' do
       check = HealthChecks::Checks::PeriodCheck.new { Time.zone.now }
       expect(check.ok?).to be true
@@ -26,11 +25,9 @@ RSpec.describe HealthChecks::Checks::PeriodCheck do
       check = HealthChecks::Checks::PeriodCheck.new { 2.days.ago }
       expect(check.ok?).to be false
     end
-
   end
 
   describe :failure_message do
-
     it 'includes the check subject in the default message' do
       subject = 2.days.ago
       check = HealthChecks::Checks::PeriodCheck.new { subject }
@@ -43,11 +40,9 @@ RSpec.describe HealthChecks::Checks::PeriodCheck do
       check = HealthChecks::Checks::PeriodCheck.new(params) { subject }
       expect(check.failure_message).to include(subject.to_s)
     end
-
   end
 
   describe :success_message do
-
     it 'includes the check subject in the default message' do
       subject = Time.zone.now
       check = HealthChecks::Checks::PeriodCheck.new { subject }
@@ -60,7 +55,5 @@ RSpec.describe HealthChecks::Checks::PeriodCheck do
       check = HealthChecks::Checks::PeriodCheck.new(params) { subject }
       expect(check.success_message).to include(subject.to_s)
     end
-
   end
-
 end

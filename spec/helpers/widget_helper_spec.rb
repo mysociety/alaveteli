@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe WidgetHelper do
-
   include WidgetHelper
 
   describe '#status_description' do
-
     before do
       @info_request = FactoryBot.build(:info_request)
     end
@@ -22,7 +20,5 @@ RSpec.describe WidgetHelper do
     it 'should return unknown for an unknown status' do
       expect(status_description(@info_request, 'special_status')).to eq('Unknown')
     end
-
   end
-
 end

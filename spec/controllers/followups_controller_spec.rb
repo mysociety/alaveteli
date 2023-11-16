@@ -9,7 +9,6 @@ RSpec.describe FollowupsController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "GET #new" do
-
     context "when not logged in" do
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
         embargoed_request = FactoryBot.create(:embargoed_request)
@@ -84,7 +83,6 @@ RSpec.describe FollowupsController do
     end
 
     context "logged in as the request owner" do
-
       before(:each) do
         sign_in request_user
       end
@@ -136,11 +134,9 @@ RSpec.describe FollowupsController do
           expect(response.body).
             to have_css("div#other_recipients ul li", text: "Frob")
         end
-
       end
 
       context "the request is hidden" do
-
         let(:hidden_request) do
           FactoryBot.create(:info_request_with_incoming, user: request_user,
                                                          prominence: "hidden")
@@ -161,13 +157,10 @@ RSpec.describe FollowupsController do
                       }
           end.to raise_error ActionController::UnknownFormat
         end
-
       end
-
     end
 
     context 'when viewing a response for an external request' do
-
       it "does not allow follow ups to external requests" do
         sign_in FactoryBot.create(:user)
         external_request = FactoryBot.create(:external_request)
@@ -183,7 +176,6 @@ RSpec.describe FollowupsController do
                   }
         expect(response).to be_successful
       end
-
     end
 
     context 'when viewing a response for an embargoed request' do
@@ -228,7 +220,6 @@ RSpec.describe FollowupsController do
   end
 
   describe "POST #preview" do
-
     let(:dummy_message) do
       { body: "What a useless response! You suck.",
         what_doing: 'normal_sort' }
@@ -293,7 +284,6 @@ RSpec.describe FollowupsController do
     end
 
     context "logged in as the request owner" do
-
       before(:each) do
         sign_in request_user
       end
@@ -331,7 +321,6 @@ RSpec.describe FollowupsController do
                        }
         expect(response).to render_template('new')
       end
-
     end
 
     context 'when viewing a response for an embargoed request' do
@@ -348,11 +337,9 @@ RSpec.describe FollowupsController do
         end
       end
     end
-
   end
 
   describe "POST #create" do
-
     let(:dummy_message) do
       { body: "What a useless response! You suck.",
         what_doing: 'normal_sort' }
@@ -363,7 +350,6 @@ RSpec.describe FollowupsController do
     end
 
     shared_examples_for 'successful_followup_sent' do
-
       it 'sends the followup message' do
         post :create, params: {
                         outgoing_message: dummy_message,
@@ -379,7 +365,6 @@ RSpec.describe FollowupsController do
         expect(mail.to_addrs.first.to_s).
           to eq(request.public_body.request_email)
       end
-
     end
 
     context "when not logged in" do
@@ -458,7 +443,6 @@ RSpec.describe FollowupsController do
     end
 
     context 'a network error occurs while sending a followup' do
-
       def send_request
         post :create, params: {
                outgoing_message: dummy_message,
@@ -470,7 +454,6 @@ RSpec.describe FollowupsController do
       let(:outgoing_message) { request.reload.outgoing_messages.last }
 
       it_behaves_like 'NetworkSendErrors'
-
     end
 
     it_behaves_like 'successful_followup_sent'
@@ -486,7 +469,6 @@ RSpec.describe FollowupsController do
     end
 
     context 'the request is no longer open to "anybody"' do
-
       before do
         request.update(
           allow_new_responses_from: 'authority_only',
@@ -506,7 +488,6 @@ RSpec.describe FollowupsController do
       end
 
       it_behaves_like 'successful_followup_sent'
-
     end
 
     it "updates the event status for successful followup sends if the request is waiting clarification" do
@@ -566,7 +547,6 @@ RSpec.describe FollowupsController do
     end
 
     context "the same followup is submitted twice" do
-
       before(:each) do
         post :create, params: {
                         outgoing_message: dummy_message,
@@ -596,9 +576,6 @@ RSpec.describe FollowupsController do
         expect(response.body).
           not_to include('Your follow up message has been sent on its way')
       end
-
     end
-
   end
-
 end

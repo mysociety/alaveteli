@@ -17,7 +17,6 @@
 require 'spec_helper'
 
 RSpec.describe Comment do
-
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -42,11 +41,9 @@ RSpec.describe Comment do
       expect(comment.visible).to eq(true)
       expect(@hidden_request.comments.visible).to eq([])
     end
-
   end
 
   describe '.embargoed' do
-
     before(:each) do
       @info_request = FactoryBot.create(:info_request)
       @request_comment = FactoryBot.create(:comment,
@@ -63,11 +60,9 @@ RSpec.describe Comment do
     it "doesn't include comments on requests without embargoes" do
       expect(Comment.embargoed.include?(@request_comment)).to be false
     end
-
   end
 
   describe '.not_embargoed' do
-
     before(:each) do
       @info_request = FactoryBot.create(:info_request)
       @request_comment = FactoryBot.create(:comment,
@@ -84,7 +79,6 @@ RSpec.describe Comment do
     it "includes comments on requests without embargoes" do
       expect(Comment.not_embargoed.include?(@request_comment)).to be true
     end
-
   end
 
   # rubocop:disable Layout/FirstArrayElementIndentation
@@ -212,7 +206,6 @@ RSpec.describe Comment do
   end
 
   describe '#hidden?' do
-
     it 'returns true if the comment is not visible' do
       comment = Comment.new(visible: false)
       expect(comment.hidden?).to eq(true)
@@ -222,11 +215,9 @@ RSpec.describe Comment do
       comment = Comment.new(visible: true)
       expect(comment.hidden?).to eq(false)
     end
-
   end
 
   describe '#destroy' do
-
     it 'destroys the associated info_request_events' do
       comment = FactoryBot.create(:comment)
       events = comment.info_request_events
@@ -234,21 +225,17 @@ RSpec.describe Comment do
       events.select { |event| event.reload && event.persisted? }
       expect(events).to be_empty
     end
-
   end
 
   describe '#report_reasons' do
-
     let(:comment) { FactoryBot.build(:comment) }
 
     it 'returns an array of strings' do
       expect(comment.report_reasons).to all(be_a(String))
     end
-
   end
 
   describe '#report!' do
-
     let(:comment) { FactoryBot.create(:comment) }
     let(:user) { FactoryBot.create(:user) }
 
@@ -294,11 +281,9 @@ RSpec.describe Comment do
       expect(most_recent_event.params).
         to include(message: "Comment is bad, please hide")
     end
-
   end
 
   describe '#last_report' do
-
     let(:comment) { FactoryBot.create(:comment) }
     let(:user) { FactoryBot.create(:user) }
 
@@ -320,11 +305,9 @@ RSpec.describe Comment do
       expect(comment.info_request_events.last.event_type).to eq("edit_comment")
       expect(comment.last_report.event_type).to eq("report_comment")
     end
-
   end
 
   describe '#last_reported_at' do
-
     let(:comment) { FactoryBot.create(:comment) }
     let(:user) { FactoryBot.create(:user) }
 
@@ -338,7 +321,6 @@ RSpec.describe Comment do
       expect(comment.reload.last_reported_at).
         to be_within(3.seconds).of(expected)
     end
-
   end
 
   describe '#hide' do
@@ -363,5 +345,4 @@ RSpec.describe Comment do
       expect(event.params[:visible]).to eq(false)
     end
   end
-
 end

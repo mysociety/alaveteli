@@ -28,7 +28,6 @@ RSpec.describe AlaveteliPro::DashboardController do
     end
 
     context 'if a page param is passed' do
-
       it 'assigns @page a numerical page param' do
         get :index, params: { page: 2 }
         expect(assigns[:page]).to eq 2
@@ -49,6 +48,5 @@ RSpec.describe AlaveteliPro::DashboardController do
       get :index
       expect(assigns[:activity_list]).to be_a AlaveteliPro::ActivityList::List
     end
-
   end
 end

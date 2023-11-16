@@ -1,5 +1,4 @@
 module PublicBodyDerivedFields
-
   extend ActiveSupport::Concern
 
   included do
@@ -15,7 +14,6 @@ module PublicBodyDerivedFields
       write_attribute(:name, value)
       update_url_name
     end
-
   end
 
   # Return the short name if present, or else long name
@@ -42,5 +40,4 @@ module PublicBodyDerivedFields
                         simplify_url_part(short_or_long_name, 'body')
     end
   end
-
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequestHelper do
-
   include InfoRequestHelper
 
   describe '#status_text' do
@@ -33,7 +32,6 @@ RSpec.describe InfoRequestHelper do
     end
 
     context 'waiting_response' do
-
       it 'returns a description' do
         travel_to(Time.zone.parse('2014-12-31'))
 
@@ -58,7 +56,6 @@ RSpec.describe InfoRequestHelper do
       end
 
       context 'the body is not subject to foi' do
-
         it 'links to the authorities section of the help page' do
           body.add_tag_if_not_already_present('foi_no')
 
@@ -70,13 +67,10 @@ RSpec.describe InfoRequestHelper do
 
           expect(status_text(info_request)).to include(expected)
         end
-
       end
-
     end
 
     context 'waiting_response_overdue' do
-
       let(:body_link) do
         %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
       end
@@ -103,7 +97,6 @@ RSpec.describe InfoRequestHelper do
       end
 
       context 'the body is not subject to foi' do
-
         it 'the description does not describe a legal obligation to reply' do
           body.add_tag_if_not_already_present('foi_no')
 
@@ -129,14 +122,10 @@ RSpec.describe InfoRequestHelper do
 
           travel_back
         end
-
       end
-
     end
 
-
     context 'waiting_response_very_overdue' do
-
       let(:body_link) do
         %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
       end
@@ -166,7 +155,6 @@ RSpec.describe InfoRequestHelper do
       end
 
       context 'the body is not subject to foi' do
-
         it 'the description does not describe a legal obligation to reply' do
           body.add_tag_if_not_already_present('foi_no')
 
@@ -197,7 +185,6 @@ RSpec.describe InfoRequestHelper do
 
           travel_back
         end
-
       end
 
       it 'does not add a followup link for external requests' do
@@ -223,11 +210,9 @@ RSpec.describe InfoRequestHelper do
 
         travel_back
       end
-
     end
 
     context 'not_held' do
-
       it 'returns a description' do
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
@@ -238,11 +223,9 @@ RSpec.describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'rejected' do
-
       it 'returns a description' do
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
@@ -252,31 +235,25 @@ RSpec.describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'successful' do
-
       it 'returns a description' do
         expected = 'The request was <strong>successful</strong>.'
         allow(info_request).to receive(:calculate_status).and_return("successful")
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'partially_successful' do
-
       it 'returns a description' do
         expected = 'The request was <strong>partially successful</strong>.'
         allow(info_request).to receive(:calculate_status).and_return("partially_successful")
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'waiting_clarification' do
-
       before do
         allow(info_request).to receive(:calculate_status).and_return("waiting_clarification")
       end
@@ -330,22 +307,18 @@ RSpec.describe InfoRequestHelper do
           status_text(info_request, is_owning_user: false)
         }.to raise_error(KeyError)
       end
-
     end
 
     context 'gone_postal' do
-
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("gone_postal")
         expected = 'The authority would like to / has <strong>responded by ' \
                    'postal mail</strong> to this request.'
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'internal_review' do
-
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("internal_review")
         expected = "Waiting for an <strong>internal review</strong> by " \
@@ -353,11 +326,9 @@ RSpec.describe InfoRequestHelper do
                    "of their handling of this request."
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'error_message' do
-
       it 'returns a description' do
         allow(info_request).
           to receive(:public_body).and_return(double(url_name: 'foo'))
@@ -372,22 +343,18 @@ RSpec.describe InfoRequestHelper do
 
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'requires_admin' do
-
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("requires_admin")
         expected = 'This request has had an unusual response, and <strong>' \
                    'requires attention</strong> from the Alaveteli team.'
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'user_withdrawn' do
-
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("user_withdrawn")
         expected = 'This request has been <strong>withdrawn</strong> by the ' \
@@ -395,40 +362,33 @@ RSpec.describe InfoRequestHelper do
                    'correspondence below.'
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'attention_requested' do
-
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("attention_requested")
         expected = 'This request has been <strong>reported</strong> as ' \
                    'needing administrator attention.'
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'vexatious' do
-
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("vexatious")
         expected = 'This request has been reviewed by an administrator ' \
                    'and is considered to be vexatious'
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'not_foi' do
-
       it 'returns a description' do
         allow(info_request).to receive(:calculate_status).and_return("not_foi")
         expected = 'This request has been reviewed by an administrator ' \
                    'and is considered not to be an FOI request'
         expect(status_text(info_request)).to eq(expected)
       end
-
     end
 
     context 'awaiting_description' do
@@ -577,13 +537,9 @@ RSpec.describe InfoRequestHelper do
                         render_to_file: false,
                         old_unclassified: false)
           end
-
         end
-
       end
-
     end
-
   end
 
   describe '#js_correspondence_navigation' do
@@ -611,7 +567,6 @@ RSpec.describe InfoRequestHelper do
                                jpeg_attachment)).
           to match('images/content_type/icon_image_jpeg_large.png')
       end
-
     end
 
     context 'if no icon exists for the filetype' do
@@ -626,7 +581,6 @@ RSpec.describe InfoRequestHelper do
           to match('images/content_type/icon_unknown.png')
       end
     end
-
   end
 
   describe '#attachment_path' do
@@ -712,5 +666,4 @@ RSpec.describe InfoRequestHelper do
       end
     end
   end
-
 end

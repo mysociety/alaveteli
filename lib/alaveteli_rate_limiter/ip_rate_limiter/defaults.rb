@@ -1,4 +1,3 @@
-
 module AlaveteliRateLimiter
   class IPRateLimiter
     class Defaults

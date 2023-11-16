@@ -40,11 +40,13 @@ class Guess
 
   def id_score
     return 1 unless self[:id]
+
     similarity(self[:id], info_request.id)
   end
 
   def idhash_score
     return 1 unless self[:idhash]
+
     similarity(self[:idhash], info_request.idhash)
   end
 

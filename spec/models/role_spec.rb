@@ -14,7 +14,6 @@
 require 'spec_helper'
 
 RSpec.describe Role do
-
   it 'validates the role name is in the allowed roles' do
     role = Role.new(name: 'test')
     role.valid?
@@ -30,43 +29,32 @@ RSpec.describe Role do
   end
 
   describe '.admin_role' do
-
     it 'returns role with name admin' do
       expect(Role.admin_role.name).to eq 'admin'
     end
-
   end
 
   describe '.pro_role' do
-
     it 'returns role with name pro' do
       expect(Role.pro_role.name).to eq 'pro'
     end
-
   end
 
   describe '.grantable_roles' do
-
     context 'when alaveteli_pro feature is disabled' do
-
       it 'returns an array [:admin]' do
         expect(Role.grantable_roles).to match_array %i[admin]
       end
-
     end
 
     context 'when alaveteli_pro feature is enabled', feature: :alaveteli_pro do
-
       it 'returns an array [:admin, :pro, :pro_admin]' do
         expect(Role.grantable_roles).to match_array %i[pro admin pro_admin]
       end
-
     end
-
   end
 
   describe '.grants_and_revokes' do
-
     it 'returns an array [:admin] when passed :admin' do
       expect(Role.grants_and_revokes(:admin))
         .to eq([:admin])
@@ -81,11 +69,9 @@ RSpec.describe Role do
     it 'returns an empty array when passed :pro' do
       expect(Role.grants_and_revokes(:pro)).to eq([])
     end
-
   end
 
   describe '.requires' do
-
     it 'returns an empty array when passed :admin' do
       expect(Role.requires(:admin)).to eq([])
     end
@@ -97,7 +83,5 @@ RSpec.describe Role do
     it 'returns an empty array when passed :pro' do
       expect(Role.requires(:pro)).to eq([])
     end
-
   end
-
 end

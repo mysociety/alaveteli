@@ -38,7 +38,6 @@ RSpec.describe RequestController, "when listing recent requests" do
     }.not_to raise_error
     expect(assigns[:page]).to eq(1)
   end
-
 end
 
 RSpec.describe RequestController, "when showing one request" do
@@ -155,7 +154,6 @@ RSpec.describe RequestController, "when showing one request" do
     end
 
     context 'when a cancelled pro views their embargoed request' do
-
       before do
         pro_user.remove_role(:pro)
       end
@@ -232,9 +230,7 @@ RSpec.describe RequestController, "when showing one request" do
   end
 
   describe 'when handling an update_status parameter' do
-
     describe 'when the request is external' do
-
       it 'should assign the "update status" flag to the view as falsey if the parameter is present' do
         get :show, params: { url_title: 'balalas', update_status: 1 }
         expect(assigns[:update_status]).to be_falsey
@@ -244,7 +240,6 @@ RSpec.describe RequestController, "when showing one request" do
         get :show, params: { url_title: 'balalas' }
         expect(assigns[:update_status]).to be_falsey
       end
-
     end
 
     it 'should assign the "update status" flag to the view as truthy if the parameter is present' do
@@ -742,9 +737,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   context "the outgoing message includes an email address" do
-
     context "there is no logged in user" do
-
       it "displays a flash error message without escaping the HTML" do
         post :new, params: {
                      info_request: {
@@ -761,11 +754,9 @@ RSpec.describe RequestController, "when creating a new request" do
         expect(response.body).
           to have_content('You do not need to include your email')
       end
-
     end
 
     context "the user is logged in" do
-
       it "displays a flash error message without escaping the HTML" do
         sign_in @user
         post :new, params: {
@@ -782,13 +773,10 @@ RSpec.describe RequestController, "when creating a new request" do
         expect(response.body).
           to have_content('You do not need to include your email')
       end
-
     end
-
   end
 
   context "the outgoing message includes a postcode" do
-
     it 'displays an error message warning about the postcode' do
       post :new, params: {
                    info_request: {
@@ -802,11 +790,9 @@ RSpec.describe RequestController, "when creating a new request" do
 
       expect(response.body).to have_content('Your request contains a postcode')
     end
-
   end
 
   context 'a network error occurs while sending the initial request' do
-
     def send_request
       sign_in @user
       post :new, params: {
@@ -827,7 +813,6 @@ RSpec.describe RequestController, "when creating a new request" do
     let(:outgoing_message) { request.reload.outgoing_messages.last }
 
     it_behaves_like 'NetworkSendErrors'
-
   end
 
   it "should redirect pros to the pro version" do
@@ -1106,7 +1091,6 @@ RSpec.describe RequestController, "when creating a new request" do
                }
     expect(response).to redirect_to show_request_url(url_title: 'what_is_the_answer_to_the_ultima')
 
-
     post :new,
          params: {
            info_request: {
@@ -1160,7 +1144,6 @@ RSpec.describe RequestController, "when creating a new request" do
                }
     expect(response).to redirect_to show_request_url(url_title: 'what_is_the_answer_to_the_ultima')
 
-
     post :new,
          params: {
            info_request: {
@@ -1194,9 +1177,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   describe 'when rendering a reCAPTCHA' do
-
     context 'when new_request_recaptcha disabled' do
-
       before do
         allow(AlaveteliConfiguration).to receive(:new_request_recaptcha)
           .and_return(false)
@@ -1218,7 +1199,6 @@ RSpec.describe RequestController, "when creating a new request" do
     end
 
     context 'when new_request_recaptcha is enabled' do
-
       before do
         allow(AlaveteliConfiguration).to receive(:new_request_recaptcha)
           .and_return(true)
@@ -1271,7 +1251,6 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       context 'when the reCAPTCHA information is not correct' do
-
         before do
           allow(controller).to receive(:verify_recaptcha).and_return(false)
         end
@@ -1334,22 +1313,16 @@ RSpec.describe RequestController, "when creating a new request" do
           expect(response)
             .to redirect_to show_request_path(url_title: 'some_request_text')
         end
-
       end
-
     end
-
   end
 
   context 'when the request subject line looks like spam' do
-
     let(:user) { FactoryBot.create(:user,
                                    confirmed_not_spam: false) }
     let(:body) { FactoryBot.create(:public_body) }
 
-
     context 'when given a string containing unicode characters' do
-
       it 'converts the string to ASCII' do
         allow(AlaveteliConfiguration).to receive(:block_spam_requests).
           and_return(true)
@@ -1370,7 +1343,6 @@ RSpec.describe RequestController, "when creating a new request" do
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
-
     end
 
     context 'when enable_anti_spam is false and block_spam_requests is true' do
@@ -1400,11 +1372,9 @@ RSpec.describe RequestController, "when creating a new request" do
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
-
     end
 
     context 'when block_spam_subject? is true' do
-
       before do
         allow(@controller).to receive(:block_spam_subject?).and_return(true)
       end
@@ -1485,11 +1455,9 @@ RSpec.describe RequestController, "when creating a new request" do
         expect(response)
           .to redirect_to show_request_path(url_title: 'hd_watch_jason_bourne_online_fre')
       end
-
     end
 
     context 'when block_spam_subject? is false' do
-
       before do
         allow(@controller).to receive(:block_spam_subject?).and_return(false)
       end
@@ -1531,13 +1499,10 @@ RSpec.describe RequestController, "when creating a new request" do
         expect(response)
           .to redirect_to show_request_path(url_title: 'hd_watch_jason_bourne_online_fre')
       end
-
     end
-
   end
 
   describe 'when the request is from an IP address in a blocked country' do
-
     let(:user) { FactoryBot.create(:user,
                                    confirmed_not_spam: false) }
     let(:body) { FactoryBot.create(:public_body) }
@@ -1548,7 +1513,6 @@ RSpec.describe RequestController, "when creating a new request" do
     end
 
     context 'when block_restricted_country_ips? is true' do
-
       before do
         allow(@controller).
           to receive(:block_restricted_country_ips?).and_return(true)
@@ -1627,11 +1591,9 @@ RSpec.describe RequestController, "when creating a new request" do
         expect(response)
           .to redirect_to show_request_path(url_title: 'some_request_content')
       end
-
     end
 
     context 'when block_restricted_country_ips? is false' do
-
       before do
         allow(@controller).
           to receive(:block_restricted_country_ips?).and_return(false)
@@ -1673,17 +1635,13 @@ RSpec.describe RequestController, "when creating a new request" do
         expect(response)
           .to redirect_to show_request_path(url_title: 'some_request_content')
       end
-
     end
-
   end
-
 end
 
 # These go with the previous set, but use mocks instead of fixtures.
 # TODO harmonise these
 RSpec.describe RequestController, "when making a new request" do
-
   before do
     @user = mock_model(User, id: 3481, name: 'Testy').as_null_object
     allow(@user).to receive(:get_undescribed_requests).and_return([])
@@ -1718,7 +1676,6 @@ RSpec.describe RequestController, "when making a new request" do
     get :new, params: { public_body_id: @body.id }
     expect(response).to render_template('user/banned')
   end
-
 end
 
 RSpec.describe RequestController, "when viewing comments" do
@@ -1744,12 +1701,9 @@ RSpec.describe RequestController, "when viewing comments" do
       expect(s).not_to have_text(/You.*left an annotation/m)
     end
   end
-
 end
 
-
 RSpec.describe RequestController, "authority uploads a response from the web interface" do
-
   before(:each) do
     # domain after the @ is used for authentication of FOI officers, so to test it
     # we need a user which isn't at localhost.
@@ -1892,11 +1846,9 @@ RSpec.describe RequestController, "when showing JSON version for API" do
     expect(ir['public_body']['url_name']).to eq('tgq')
     expect(ir['user']['url_name']).to eq('bob_smith')
   end
-
 end
 
 RSpec.describe RequestController, "when doing type ahead searches" do
-
   before :each do
     update_xapian_index
   end
@@ -1916,11 +1868,9 @@ RSpec.describe RequestController, "when doing type ahead searches" do
     expect(assigns[:per_page]).to eq(1)
     expect(assigns[:xapian_requests].results.size).to eq(1)
   end
-
 end
 
 RSpec.describe RequestController, "when showing similar requests" do
-
   before do
     update_xapian_index
     load_raw_emails_data
@@ -1976,7 +1926,6 @@ RSpec.describe RequestController, "when showing similar requests" do
       get :similar, params: { url_title: badger_request.url_title }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
-
 end
 
 RSpec.describe RequestController, "when the site is in read_only mode" do
@@ -2008,9 +1957,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
 end
 
 RSpec.describe RequestController do
-
   describe 'GET #details' do
-
     let(:info_request) { FactoryBot.create(:info_request) }
 
     it 'renders the details template' do
@@ -2024,7 +1971,6 @@ RSpec.describe RequestController do
     end
 
     context 'when the request is hidden' do
-
       before do
         info_request.prominence = 'hidden'
         info_request.save!
@@ -2039,11 +1985,9 @@ RSpec.describe RequestController do
         get :details, params: { url_title: info_request.url_title }
         expect(response).to render_template("request/hidden")
       end
-
     end
 
     context 'when the request is embargoed' do
-
       before do
         info_request.create_embargo(publish_at: Time.zone.now + 3.days)
       end
@@ -2054,14 +1998,10 @@ RSpec.describe RequestController do
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-
-
   end
-
 end
 
 RSpec.describe RequestController do
-
   describe 'GET #download_entire_request' do
     context 'when the request is embargoed' do
       let(:user) { FactoryBot.create(:user) }
@@ -2106,7 +2046,6 @@ RSpec.describe RequestController do
     end
 
     context 'when the request is unclassified' do
-
       it 'does not render the describe state form' do
         info_request = FactoryBot.create(:info_request)
         info_request.update(awaiting_description: true)
@@ -2119,15 +2058,12 @@ RSpec.describe RequestController do
         expect(assigns[:show_other_user_update_status_action]).to eq(false)
         expect(assigns[:show_profile_photo]).to eq(false)
       end
-
     end
   end
 end
 
 RSpec.describe RequestController do
-
   describe 'GET #show_request_event' do
-
     context 'when the event is an incoming message' do
       let(:event) { FactoryBot.create(:response_event) }
 
@@ -2196,13 +2132,10 @@ RSpec.describe RequestController do
   end
 
   describe 'GET #search_typeahead' do
-
     it "does not raise an error if there are no params" do
       expect {
         get :search_typeahead
       }.not_to raise_error
     end
-
   end
-
 end

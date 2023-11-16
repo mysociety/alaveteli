@@ -47,7 +47,6 @@ class AddManyNullConstraints < ActiveRecord::Migration[4.2] # 2.0
     change_column :incoming_messages, :updated_at, :datetime, null: false
     change_column :incoming_messages, :user_classified, :boolean, null: false, default: false
     change_column :incoming_messages, :is_bounce, :boolean, null: false, default: false
-
   end
 
   def self.down
@@ -98,6 +97,5 @@ class AddManyNullConstraints < ActiveRecord::Migration[4.2] # 2.0
     change_column :incoming_messages, :updated_at, :datetime, null: true
     change_column :incoming_messages, :user_classified, :boolean, null: true, default: false
     change_column :incoming_messages, :is_bounce, :boolean, null: true, default: false
-
   end
 end

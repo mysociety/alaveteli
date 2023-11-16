@@ -17,6 +17,7 @@ module AlaveteliPro
 
     def retrieve(id)
       return unless @customer
+
       AlaveteliPro::Invoice.new(invoices.retrieve(id))
     end
 
@@ -50,6 +51,7 @@ module AlaveteliPro
 
     def invoices
       return [] unless @customer
+
       @invoices ||= Stripe::Invoice.list(customer: @customer)
     end
   end

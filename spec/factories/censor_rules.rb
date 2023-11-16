@@ -17,7 +17,6 @@
 #
 
 FactoryBot.define do
-
   factory :censor_rule do
     text { 'some text to redact' }
     replacement { '[REDACTED]' }
@@ -43,7 +42,5 @@ FactoryBot.define do
 
     factory :global_censor_rule do
     end
-
   end
-
 end

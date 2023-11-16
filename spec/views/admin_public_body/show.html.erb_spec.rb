@@ -3,7 +3,6 @@ require 'spec_helper'
 RSpec.describe "admin_public_body/show" do
   let(:public_body) { FactoryBot.create(:public_body) }
 
-
   before do
     info_requests = []
     allow(info_requests).to receive(:total_pages).and_return(0)
@@ -24,7 +23,6 @@ RSpec.describe "admin_public_body/show" do
         expect(rendered).not_to match(Regexp.escape(public_body.api_key))
       end
     end
-
   end
 
   context 'when the user can view API keys' do
@@ -39,7 +37,5 @@ RSpec.describe "admin_public_body/show" do
         expect(rendered).to match(Regexp.escape(public_body.api_key))
       end
     end
-
   end
-
 end

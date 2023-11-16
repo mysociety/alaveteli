@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "When sending track alerts" do
-
   before do
     # TODO: required to make sure xapian index can find files for raw emails
     # associated with fixtures - can be removed when fixtures no longer
@@ -12,7 +11,6 @@ RSpec.describe "When sending track alerts" do
   end
 
   it "should send alerts" do
-
     info_request = FactoryBot.create(:info_request)
     user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
     user_session = login(user)
@@ -89,4 +87,3 @@ RSpec.describe "When sending track alerts" do
     expect(mail.body).to include('el equipo de ')
   end
 end
-

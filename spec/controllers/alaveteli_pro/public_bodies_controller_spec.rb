@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::PublicBodiesController do
-
   describe "#index" do
     let!(:pro_user) { FactoryBot.create(:pro_user) }
     let!(:body) { FactoryBot.create(:public_body, name: 'example') }

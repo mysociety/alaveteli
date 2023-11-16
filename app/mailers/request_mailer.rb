@@ -364,6 +364,7 @@ class RequestMailer < ApplicationMailer
       alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
     end
   end
+
   def self.alert_new_response_reminders_internal(days_since, type_code)
     info_requests = InfoRequest.
       where_old_unclassified(days_since).
@@ -457,7 +458,6 @@ class RequestMailer < ApplicationMailer
 
   # Send email alert to request submitter for new comments on the request.
   def self.alert_comment_on_request
-
     # We only check comments made in the last month - this means if the
     # cron jobs broke for more than a month events would be lost, but no
     # matter. I suspect the performance gain will be needed (with an index on updated_at)
@@ -542,5 +542,4 @@ class RequestMailer < ApplicationMailer
   def set_footer_template
     @footer_template = 'default'
   end
-
 end

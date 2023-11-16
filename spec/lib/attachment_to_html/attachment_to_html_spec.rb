@@ -6,7 +6,6 @@ RSpec.describe AttachmentToHTML do
   let(:attachment) { FactoryBot.create(:body_text) }
 
   describe '#to_html' do
-
     it 'sends the attachment to the correct adapter for conversion' do
       expect(AttachmentToHTML::Adapters::Text).to receive(:new).with(attachment, {}).and_call_original
       to_html(attachment)
@@ -50,7 +49,6 @@ RSpec.describe AttachmentToHTML do
     end
 
     describe 'when wrapping the content' do
-
       it 'uses a the default wrapper' do
         attachment = FactoryBot.create(:pdf_attachment)
         expect(to_html(attachment)).to include(%Q(<div id="wrapper">))
@@ -63,9 +61,7 @@ RSpec.describe AttachmentToHTML do
         allow_any_instance_of(AttachmentToHTML::Adapters::PDF).to receive(:success?).and_return(false)
         expect(to_html(attachment)).to include(%Q(<div id="wrapper_google_embed">))
       end
-
     end
-
   end
 
   describe '#extractable?' do

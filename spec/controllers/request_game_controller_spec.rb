@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe RequestGameController do
-
   describe "GET play" do
-
     it "shows the game homepage" do
       get :play
       expect(response).to render_template('play')
@@ -27,7 +25,6 @@ RSpec.describe RequestGameController do
     end
 
     context 'there are no requests' do
-
       before do
         InfoRequest.destroy_all
       end
@@ -36,11 +33,9 @@ RSpec.describe RequestGameController do
         get :play
         expect(response).to render_template('play')
       end
-
     end
 
     context 'there are no old unclassified requests' do
-
       before do
         InfoRequest.destroy_all
         FactoryBot.create(:info_request)
@@ -73,9 +68,6 @@ RSpec.describe RequestGameController do
         expect(response.body).
           to have_link('more things you can do', href: test_url)
       end
-
     end
-
   end
-
 end

@@ -18,7 +18,6 @@
 #
 
 FactoryBot.define do
-
   factory :info_request_event do
     info_request
     event_type { 'edit' }
@@ -191,7 +190,5 @@ FactoryBot.define do
       event_type { 'edit_attachment' }
       params { { attachment_id: 1 } }
     end
-
   end
-
 end

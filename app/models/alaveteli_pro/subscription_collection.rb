@@ -26,6 +26,7 @@ module AlaveteliPro
 
     def retrieve(id)
       return unless @customer
+
       AlaveteliPro::Subscription.new(subscriptions.retrieve(id))
     end
 
@@ -59,6 +60,7 @@ module AlaveteliPro
 
     def subscriptions
       return [] unless @customer
+
       @customer.subscriptions
     end
   end

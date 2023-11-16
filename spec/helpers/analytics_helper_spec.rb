@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AnalyticsHelper do
-
   include AnalyticsHelper
 
   describe "#legacy_track_analytics_event" do
@@ -80,9 +79,6 @@ RSpec.describe AnalyticsHelper do
         }.to raise_error(
           ArgumentError, ':value option must be an Integer: "five"')
       end
-
     end
-
   end
-
 end

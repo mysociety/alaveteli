@@ -18,7 +18,6 @@
 require 'spec_helper'
 
 RSpec.describe PostRedirect do
-
   describe '.generate_verifiable_token' do
     subject do
       described_class.generate_verifiable_token(
@@ -44,16 +43,13 @@ RSpec.describe PostRedirect do
   end
 
   describe '#valid?' do
-
     it 'is false if an invalid circumstance is provided' do
       pr = PostRedirect.new(circumstance: 'invalid')
       expect(pr).to_not be_valid
     end
-
   end
 
   describe '#email_token_valid?' do
-
     subject { post_redirect.email_token_valid? }
 
     # Using attributes_for as PostRedirect redirect assigns attributes in
@@ -90,9 +86,7 @@ RSpec.describe PostRedirect do
 
       it { is_expected.to eq false }
     end
-
   end
-
 end
 
 RSpec.describe PostRedirect, " when constructing" do

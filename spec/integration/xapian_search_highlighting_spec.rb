@@ -1,4 +1,3 @@
-
 require 'spec_helper'
 
 RSpec.describe 'highlighting search results' do
@@ -49,5 +48,4 @@ RSpec.describe 'highlighting search results' do
 
     expect(highlight_matches(phrase, matches)).to eq('<mark>Māori</mark>')
   end
-
 end

@@ -30,5 +30,4 @@ RSpec.describe 'public_body_change_request_mailer/add_public_body' do
   it 'does not add HTMLEntities to the public body name' do
     expect(response).to match("Authority:\nApostrophe's")
   end
-
 end

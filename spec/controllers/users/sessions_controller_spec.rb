@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe Users::SessionsController do
-
   before do
     # Don't call out to external url during tests
     allow(controller).to receive(:country_from_ip).and_return('gb')
   end
 
   describe 'GET new' do
-
     it "should show sign in / sign up page" do
       get :new
       expect(response.body).to render_template('user/sign')
@@ -47,9 +45,7 @@ RSpec.describe Users::SessionsController do
         get :new, params: { r: '/select_authority' }
         expect(response).to redirect_to(select_authority_path)
       end
-
     end
-
   end
 
   describe 'POST create' do
@@ -233,11 +229,9 @@ RSpec.describe Users::SessionsController do
                       session: { user_id: user.id }
         expect(session[:user_id]).to be_nil
       end
-
     end
 
     context 'using a spammy name or email from a known spam domain' do
-
       let(:user) do
         FactoryBot.create(
           :user,
@@ -259,7 +253,6 @@ RSpec.describe Users::SessionsController do
       end
 
       context 'when spam_should_be_blocked? is true' do
-
         before do
           allow(@controller).
             to receive(:spam_should_be_blocked?).and_return(true)
@@ -284,11 +277,9 @@ RSpec.describe Users::SessionsController do
           do_signin(user.email, 'password1234')
           expect(response).to render_template('sign')
         end
-
       end
 
       context 'when spam_should_be_blocked? is false' do
-
         before do
           allow(@controller).
             to receive(:spam_should_be_blocked?).and_return(false)
@@ -304,9 +295,7 @@ RSpec.describe Users::SessionsController do
           do_signin(user.email, 'password1234')
           expect(session[:user_id]).to eq user.id
         end
-
       end
-
     end
 
     it "should ask you to confirm your email if it isn't confirmed, after log in" do
@@ -413,7 +402,6 @@ RSpec.describe Users::SessionsController do
       # And the redirect should still work, of course
       expect(response).to redirect_to(controller: 'request', action: 'list', post_redirect: 1)
     end
-
   end
 
   describe 'GET destroy' do
@@ -438,7 +426,5 @@ RSpec.describe Users::SessionsController do
       get :destroy, session: { user_id: user.id, ttl: Time.zone.now }
       expect(session[:ttl]).to be_nil
     end
-
   end
-
 end

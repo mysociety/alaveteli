@@ -195,7 +195,6 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
     end
   end
 
-
   describe "#create" do
     let(:params) { { draft_id: draft.id } }
     let(:action) { post :create, params: params }

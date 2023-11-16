@@ -1,5 +1,4 @@
 module AlaveteliPro::AccountHelper
-
   def billing_frequency(billing_unit)
     case billing_unit
     when 'day'
@@ -22,5 +21,4 @@ module AlaveteliPro::AccountHelper
   def subscription_amount(subscription)
     AlaveteliPro::WithTax.new(subscription).amount_with_tax
   end
-
 end

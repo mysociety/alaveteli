@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :foi_attachment do
     sequence(:url_part_number) { |n| n + 1 }
     display_size { '0K' }
@@ -63,5 +62,4 @@ FactoryBot.define do
       body { 'something' }
     end
   end
-
 end

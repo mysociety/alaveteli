@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliRateLimiter::Rule do
-
   describe '.from_hash' do
-
     it 'constructs a Rule with associated Window from a Hash' do
       attrs =  { name: :test,
                  count: 2,
@@ -36,11 +34,9 @@ RSpec.describe AlaveteliRateLimiter::Rule do
       attrs = { name: :test, count: 1, window: { value: 1 } }
       expect { described_class.from_hash(attrs) }.to raise_error(KeyError)
     end
-
   end
 
   describe '.new' do
-
     it 'requires a name' do
       expect { subject }.to raise_error(ArgumentError)
     end
@@ -65,11 +61,9 @@ RSpec.describe AlaveteliRateLimiter::Rule do
     it 'converts a numeric count to an Integer' do
       expect(described_class.new(:test, '1', double).count).to eq(1)
     end
-
   end
 
   describe '#limit?' do
-
     it 'returns true if the given records are over the limit' do
       records = [10, 5, 1].map { |i| i.minutes.ago }
       attrs = { name: :test,
@@ -104,11 +98,9 @@ RSpec.describe AlaveteliRateLimiter::Rule do
       subject = described_class.from_hash(attrs)
       expect(subject.limit?([])).to eq(false)
     end
-
   end
 
   describe '#records_in_window' do
-
     it 'returns records in the window' do
       records = [1, 5, 10].map { |i| i.days.ago }
       attrs = { name: :test,
@@ -118,21 +110,17 @@ RSpec.describe AlaveteliRateLimiter::Rule do
       expected = records[0..1]
       expect(subject.records_in_window(records)).to eq(expected)
     end
-
   end
 
   describe '#window' do
-
     it 'returns the window attribute' do
       window = double
       subject = described_class.new(:test, 1, window)
       expect(subject.window).to eq(window)
     end
-
   end
 
   describe '#==' do
-
     it 'returns true if the count and window are equal' do
       subject = described_class.new(:test, 1, double)
       expect(subject).to eq(subject.dup)
@@ -157,7 +145,5 @@ RSpec.describe AlaveteliRateLimiter::Rule do
       subject2 = described_class.new(:test, 1, double('window2'))
       expect(subject1).not_to eq(subject2)
     end
-
   end
-
 end

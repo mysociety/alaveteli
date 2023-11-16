@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe ReportsController do
-
   describe 'POST #create' do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:user) { FactoryBot.create(:user) }
@@ -157,7 +156,6 @@ RSpec.describe ReportsController do
         expect(response).to render_template("new")
         expect(flash[:error]).to eq("Please choose a reason")
       end
-
     end
 
     context "when reporting a comment (logged in)" do
@@ -294,9 +292,7 @@ RSpec.describe ReportsController do
         expect(response)
           .to redirect_to show_request_path(url_title:                                               info_request.url_title)
       end
-
     end
-
   end
 
   describe "GET #new" do
@@ -355,7 +351,6 @@ RSpec.describe ReportsController do
           get :new, params: { request_id: info_request.url_title }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
 
     context "when reporting a comment (logged in)" do
@@ -462,9 +457,6 @@ RSpec.describe ReportsController do
                     }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
-
   end
-
 end

@@ -26,9 +26,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
 
-
     context 'when pro is enabled' do
-
       it 'does not include embargoed requests if the current user is
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -89,9 +87,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
           end
         end
       end
-
     end
-
   end
 
   describe 'GET #show' do
@@ -168,7 +164,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
         end
       end
     end
-
   end
 
   describe 'PUT #update' do
@@ -323,7 +318,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
     end
 
     context 'when hiding an external request' do
-
       before do
         @info_request = FactoryBot.create(:external_request)
         allow(InfoRequest).to receive(:find).with(@info_request.id).
@@ -393,5 +387,4 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
   end
-
 end

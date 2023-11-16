@@ -7,8 +7,8 @@ class CreateActsAsXapian < ActiveRecord::Migration
     end
     add_index :acts_as_xapian_jobs, [:model, :model_id], unique: true
   end
+
   def self.down
     drop_table :acts_as_xapian_jobs
   end
 end
-

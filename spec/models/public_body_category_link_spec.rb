@@ -14,7 +14,6 @@
 require 'spec_helper'
 
 RSpec.describe PublicBodyHeading, 'when validating' do
-
   it 'should set a default display order based on the next available display order' do
     heading = FactoryBot.create(:public_body_heading)
     category = FactoryBot.create(:public_body_category)
@@ -35,7 +34,6 @@ RSpec.describe PublicBodyHeading, 'when validating' do
     expect(category_link).not_to be_valid
     expect(category_link.errors[:public_body_heading]).to eq(["can't be blank"])
   end
-
 end
 
 RSpec.describe PublicBodyCategoryLink do
@@ -68,7 +66,6 @@ RSpec.describe PublicBodyCategoryLink do
 end
 
 RSpec.describe PublicBodyCategoryLink, 'when setting a category display order' do
-
   it 'should return 0 if there are no public body headings' do
     heading = FactoryBot.create(:public_body_heading)
     expect(PublicBodyCategoryLink.next_display_order(heading)).to eq(0)
@@ -82,7 +79,6 @@ RSpec.describe PublicBodyCategoryLink, 'when setting a category display order' d
 
     expect(PublicBodyCategoryLink.next_display_order(heading)).to eq(1)
   end
-
 end
 
 RSpec.describe PublicBodyCategoryLink, '.by_display_order' do

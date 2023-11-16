@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminUserController do
-
   describe 'GET index' do
-
     it 'renders the index template' do
       get :index
       expect(response).to render_template('index')
@@ -133,7 +131,6 @@ RSpec.describe AdminUserController do
       get :index, params: { roles: %w[admin pro] }
       expect(assigns[:admin_users]).to eq([admin_user, pro_user])
     end
-
   end
 
   describe 'GET #show' do
@@ -162,7 +159,6 @@ RSpec.describe AdminUserController do
     end
 
     context 'when pro is enabled' do
-
       it 'does not include embargoed requests if the current user is
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -182,7 +178,6 @@ RSpec.describe AdminUserController do
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
-
     end
 
     it "assigns the user's comments to the view" do
@@ -204,7 +199,6 @@ RSpec.describe AdminUserController do
     end
 
     context 'when pro is enabled' do
-
       it 'does not include comments on embargoed requests if the current user is
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -228,13 +222,10 @@ RSpec.describe AdminUserController do
           expect(assigns[:comments]).to eq([comment])
         end
       end
-
     end
-
   end
 
   describe "POST #update" do
-
     let(:admin_user) { FactoryBot.create(:admin_user) }
 
     before do
@@ -354,11 +345,9 @@ RSpec.describe AdminUserController do
       user = User.find(user.id)
       expect(user.is_pro?).to be false
     end
-
   end
 
   describe 'POST modify_comment_visibility' do
-
     before(:each) do
       @user = FactoryBot.create(:user)
       request.env["HTTP_REFERER"] = admin_user_path(@user)

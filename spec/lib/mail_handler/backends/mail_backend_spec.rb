@@ -5,15 +5,12 @@ RSpec.describe MailHandler::Backends::MailBackend do
   include MailHandler::Backends::MailBackend
 
   describe :backend do
-
     it 'should return the name of the backend' do
       expect(backend).to eq('Mail')
     end
-
   end
 
   describe :mail_from_raw_email do
-
     subject { mail_from_raw_email(raw_email) }
 
     context 'when passed a binary string' do
@@ -61,11 +58,9 @@ RSpec.describe MailHandler::Backends::MailBackend do
         is_expected.to eq Mail.read_from_string(raw_email)
       end
     end
-
   end
 
   describe :get_part_file_name do
-
     it 'returns the part file name' do
       mail = get_fixture_mail('document-pdf.email')
       part = mail.attachments.first
@@ -84,11 +79,9 @@ RSpec.describe MailHandler::Backends::MailBackend do
       filename = get_part_file_name(part)
       expect(filename.valid_encoding?).to eq(true)
     end
-
   end
 
   describe :get_part_body do
-
     it 'returns the body of a part' do
       expected = <<-DOC
 Here's a PDF attachement which has a document/pdf content-type,
@@ -104,11 +97,9 @@ when it really should be application/pdf.\n
       part = MailHandler.get_attachment_leaves(mail).first
       expect(get_part_body(part).frozen?).to eq(false)
     end
-
   end
 
   describe :get_subject do
-
     it 'returns nil for a nil subject' do
       mail = Mail.new
       expect(get_subject(mail)).to be nil
@@ -120,7 +111,6 @@ when it really should be application/pdf.\n
       expect(get_subject(mail).force_encoding('UTF-8').valid_encoding?)
         .to be true
     end
-
   end
 
   describe '#get_within_rfc822_subject' do
@@ -137,31 +127,25 @@ when it really should be application/pdf.\n
   end
 
   describe :first_from do
-
     it 'finds the first from field' do
       mail = get_fixture_mail('raw_emails/1.email')
       expected = Mail::Address.new('FOI Person <foiperson@localhost>').to_s
       expect(first_from(mail).to_s).to eq(expected)
     end
-
   end
 
   describe :get_from_address do
-
     it 'finds the first address' do
       mail = get_fixture_mail('raw_emails/1.email')
       expect(get_from_address(mail)).to eq('foiperson@localhost')
     end
-
   end
 
   describe :get_from_name do
-
     it 'finds the first from name' do
       mail = get_fixture_mail('raw_emails/1.email')
       expect(get_from_name(mail)).to eq('FOI Person')
     end
-
   end
 
   describe '.get_all_addresses' do
@@ -247,11 +231,9 @@ when it really should be application/pdf.\n
         end
       end
     end
-
   end
 
   describe :empty_return_path? do
-
     it 'is false if the return path is nil' do
       mail = Mail.new
       expect(empty_return_path?(mail)).to be false
@@ -268,11 +250,9 @@ when it really should be application/pdf.\n
       mail['return-path'] = ''
       expect(empty_return_path?(mail)).to be true
     end
-
   end
 
   describe :get_auto_submitted do
-
     it 'returns the auto-submitted attribute' do
       mail = Mail.new
       mail['auto-submitted'] = 'xyz'
@@ -283,24 +263,18 @@ when it really should be application/pdf.\n
       mail = Mail.new
       expect(get_auto_submitted(mail)).to be_nil
     end
-
   end
 
   describe :expand_and_normalize_parts do
-
     context 'when given a multipart message' do
-
       it 'should return a Mail::PartsList' do
         mail = get_fixture_mail('incoming-request-oft-attachments.email')
         expect(expand_and_normalize_parts(mail, mail).class).to eq(Mail::PartsList)
       end
-
     end
-
   end
 
   describe :address_from_name_and_email do
-
     it 'returns an address string' do
       expected = 'Test User <test@example.com>'
       expect(address_from_name_and_email('Test User', 'test@example.com')).to eq(expected)
@@ -312,7 +286,6 @@ when it really should be application/pdf.\n
       address_from_name_and_email(name, 'test@example.com')
       expect(name).to eq(original)
     end
-
   end
 
   describe '#decode_attached_part' do
@@ -324,7 +297,6 @@ when it really should be application/pdf.\n
   end
 
   describe :get_emails_within_received_headers do
-
     it 'returns an empty list if there is no Received header' do
       mail = get_fixture_mail('bcc-contact-reply.email')
       expect(get_emails_within_received_headers(mail)).to eq([])

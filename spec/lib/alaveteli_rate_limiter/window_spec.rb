@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliRateLimiter::Window do
-
   describe '.from_hash' do
-
     it 'creates a Window from a Hash' do
       expected = described_class.new(3, :day)
       hash = { value: 3, unit: :day }
@@ -19,11 +17,9 @@ RSpec.describe AlaveteliRateLimiter::Window do
       hash = { value: 3 }
       expect { described_class.from_hash(hash) }.to raise_error(KeyError)
     end
-
   end
 
   describe '.new' do
-
     it 'requires a value' do
       expect { described_class.new(:hour) }.to raise_error(ArgumentError)
     end
@@ -46,11 +42,9 @@ RSpec.describe AlaveteliRateLimiter::Window do
       expect { described_class.new(1, :tomato) }.
         to raise_error(ArgumentError, msg)
     end
-
   end
 
   describe '#include?' do
-
     it 'returns true if an event is inside the window' do
       travel_to(Time.zone.parse('2016-10-21')) do
         subject = described_class.new(1, :day)
@@ -64,11 +58,9 @@ RSpec.describe AlaveteliRateLimiter::Window do
         expect(subject.include?(2.days.ago)).to eq(false)
       end
     end
-
   end
 
   describe '#cutoff' do
-
     it 'calculates the end of the window based on the attributes' do
       time = Time.zone.parse('2016-10-21')
       travel_to(time) do
@@ -76,11 +68,9 @@ RSpec.describe AlaveteliRateLimiter::Window do
         expect(subject.cutoff).to be_within(1.second).of(time - 1.hour)
       end
     end
-
   end
 
   describe '#==' do
-
     it 'returns true if the value and unit are equal' do
       subject = described_class.new(1, :hour)
       expect(subject).to eq(subject.dup)
@@ -98,7 +88,5 @@ RSpec.describe AlaveteliRateLimiter::Window do
       subject2 = described_class.new(1, :minute)
       expect(subject1).not_to eq(subject2)
     end
-
   end
-
 end

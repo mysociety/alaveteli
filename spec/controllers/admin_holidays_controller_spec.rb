@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminHolidaysController do
-
   describe 'GET index' do
-
     before do
       @holiday_one = FactoryBot.create(:holiday, day: Date.new(2010, 1, 1))
       @holiday_two = FactoryBot.create(:holiday, day: Date.new(2011, 2, 2))
@@ -27,23 +25,17 @@ RSpec.describe AdminHolidaysController do
       get :index
       expect(response).to render_template('index')
     end
-
   end
 
   describe 'GET new' do
-
-
     describe 'when not using ajax' do
-
       it 'renders the new template' do
         get :new
         expect(response).to render_template('new')
       end
-
     end
 
     describe 'when using ajax' do
-
       it 'renders the new form partial' do
         get :new, xhr: true
         expect(response).to render_template(partial: '_new_form')
@@ -54,11 +46,9 @@ RSpec.describe AdminHolidaysController do
       get :new
       expect(assigns[:holiday]).to be_instance_of(Holiday)
     end
-
   end
 
   describe 'POST create' do
-
     before do
       @holiday_params = { :description => "New Year's Day",
                           'day(1i)' => '2010',
@@ -82,7 +72,6 @@ RSpec.describe AdminHolidaysController do
     end
 
     context 'when there are errors' do
-
       before do
         allow_any_instance_of(Holiday).to receive(:save).and_return(false)
         post :create, params: { holiday: @holiday_params }
@@ -92,42 +81,34 @@ RSpec.describe AdminHolidaysController do
         expect(response).to render_template('new')
       end
     end
-
   end
 
   describe 'GET edit' do
-
     before do
       @holiday = FactoryBot.create(:holiday)
     end
 
     describe 'when not using ajax' do
-
       it 'renders the edit template' do
         get :edit, params: { id: @holiday.id }
         expect(response).to render_template('edit')
       end
-
     end
 
     describe 'when using ajax' do
-
       it 'renders the edit form partial' do
         get :edit, xhr: true, params: { id: @holiday.id }
         expect(response).to render_template(partial: '_edit_form')
       end
-
     end
 
     it 'gets the holiday in the id param' do
       get :edit, params: { id: @holiday.id }
       expect(assigns[:holiday]).to eq(@holiday)
     end
-
   end
 
   describe 'PUT update' do
-
     before do
       @holiday = FactoryBot.create(:holiday, day: Date.new(2010, 1, 1),
                                    description: "Test Holiday")
@@ -154,7 +135,6 @@ RSpec.describe AdminHolidaysController do
     end
 
     context 'when there are errors' do
-
       before do
         allow_any_instance_of(Holiday).to receive(:update).and_return(false)
         put :update, params: {
@@ -167,11 +147,9 @@ RSpec.describe AdminHolidaysController do
         expect(response).to render_template('edit')
       end
     end
-
   end
 
   describe 'DELETE destroy' do
-
     before(:each) do
       @holiday = FactoryBot.create(:holiday)
       delete :destroy, params: { id: @holiday.id }
@@ -194,5 +172,4 @@ RSpec.describe AdminHolidaysController do
       expect(response).to redirect_to(admin_holidays_path)
     end
   end
-
 end

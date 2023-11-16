@@ -52,6 +52,7 @@ module HighlightHelper
     end
 
     return unless (matches = text.match(regex))
+
     phrase = matches[0]
 
     unless separator.empty?

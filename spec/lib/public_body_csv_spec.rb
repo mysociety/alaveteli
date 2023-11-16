@@ -6,7 +6,6 @@ RSpec.describe PublicBodyCSV do
   end
 
   describe '.default_fields' do
-
     it 'has a default set of fields' do
       defaults = [:id,
                   :name,
@@ -25,7 +24,6 @@ RSpec.describe PublicBodyCSV do
   end
 
   describe '.default_headers' do
-
     it 'has a default set of headers' do
       defaults = ['Internal ID',
                   'Name',
@@ -70,7 +68,6 @@ RSpec.describe PublicBodyCSV do
   end
 
   describe '#fields' do
-
     it 'has a default set of fields' do
       csv = PublicBodyCSV.new
       expect(csv.fields).to eq(PublicBodyCSV.default_fields)
@@ -88,11 +85,9 @@ RSpec.describe PublicBodyCSV do
       csv = PublicBodyCSV.new(fields: custom_fields)
       expect(csv.fields).to eq(custom_fields)
     end
-
   end
 
   describe '#headers' do
-
     it 'has a default set of headers' do
       csv = PublicBodyCSV.new
       expect(csv.headers).to eq(PublicBodyCSV.default_headers)
@@ -103,20 +98,16 @@ RSpec.describe PublicBodyCSV do
       csv = PublicBodyCSV.new(headers: custom_headers)
       expect(csv.headers).to eq(custom_headers)
     end
-
   end
 
   describe '#rows' do
-
     it 'is empty on instantiation' do
       csv = PublicBodyCSV.new
       expect(csv.rows).to be_empty
     end
-
   end
 
   describe '#<<' do
-
     it 'adds an elements attributes to the rows collection' do
       attrs = { name: 'Exported to CSV',
                 short_name: 'CSV',
@@ -133,11 +124,9 @@ RSpec.describe PublicBodyCSV do
       expected = ["#{body.id},Exported to CSV,CSV,csv,exported,https://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
       expect(csv.rows).to eq(expected)
     end
-
   end
 
   describe '#generate' do
-
     it 'generates the csv' do
       attrs1 = { name: 'Exported to CSV 1',
                  short_name: 'CSV1',
@@ -173,7 +162,5 @@ RSpec.describe PublicBodyCSV do
       csv << body2
       expect(csv.generate).to eq(expected)
     end
-
   end
-
 end

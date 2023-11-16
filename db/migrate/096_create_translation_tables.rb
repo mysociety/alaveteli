@@ -25,7 +25,6 @@ class CreateTranslationTables < ActiveRecord::Migration[4.2] # 2.3
     end
   end
 
-
   def self.down
     PublicBody.drop_translation_table!
   end

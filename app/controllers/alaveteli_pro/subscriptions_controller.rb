@@ -69,7 +69,6 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::AuthenticationError,
            Stripe::APIConnectionError,
            Stripe::StripeError => e
-
       flash[:error] =
         case e.message
         when /No such coupon/
@@ -201,6 +200,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   def check_has_current_subscription
     # TODO: This doesn't take the plan in to account
     return if @user.pro_account.try(:subscription?)
+
     flash[:notice] = _("You don't currently have a Pro subscription")
     redirect_to pro_plans_path
   end
@@ -241,6 +241,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   def prevent_duplicate_submission
     # TODO: This doesn't take the plan in to account
     return unless @user.pro_account.try(:subscription?)
+
     json_redirect_to alaveteli_pro_dashboard_path
   end
 

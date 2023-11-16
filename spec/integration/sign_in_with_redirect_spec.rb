@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'Signing in with a redirect parameter', local_requests: false do
-
   context 'when not logged in' do
     let(:user) { FactoryBot.create(:user) }
 
@@ -27,7 +26,6 @@ RSpec.describe 'Signing in with a redirect parameter', local_requests: false do
       login!(user, r: 'https://www.example.com/malicious')
       expect(response.status).to eq(404)
     end
-
   end
 
   context 'when already logged in' do
@@ -66,7 +64,6 @@ RSpec.describe 'Signing in with a redirect parameter', local_requests: false do
       expect(response.status).to eq(404)
     end
   end
-
 end
 
 def login!(user, params = {})

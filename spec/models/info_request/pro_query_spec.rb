@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ProQuery do
-
   describe '#call' do
-
     it 'includes requests made by pro users' do
       pro_user = FactoryBot.create(:pro_user)
       info_request = FactoryBot.create(:info_request, user: pro_user)
@@ -20,6 +18,5 @@ RSpec.describe InfoRequest::ProQuery do
       expect(described_class.new.call.include?(external_request))
         .to be false
     end
-
   end
 end

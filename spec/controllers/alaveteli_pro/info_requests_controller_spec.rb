@@ -27,7 +27,6 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
     end
 
     context 'when no filters, searches or sort params are passed' do
-
       it "assigns the user's request summaries" do
         get :index
         expect(assigns[:request_summaries].size).to eq 2
@@ -37,7 +36,6 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
     end
 
     context 'when a search is passed' do
-
       it 'applies the search' do
         get :index, params: { alaveteli_pro_request_filter: {
                                 search: 'foo'
@@ -45,9 +43,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
                             }
         expect(assigns[:request_summaries].size).to eq 1
       end
-
     end
-
   end
 
   describe "#preview" do

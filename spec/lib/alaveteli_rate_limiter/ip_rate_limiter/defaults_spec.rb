@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Defaults do
-
   describe '.new' do
-
     it 'sets the the default whitelist' do
       expect(subject.whitelist).
         to eq(AlaveteliRateLimiter::IPRateLimiter::Whitelist.new)
@@ -35,48 +33,38 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Defaults do
       subject = described_class.new(event_rules: event_rules)
       expect(subject.event_rules).to eq(event_rules)
     end
-
   end
 
   describe '#whitelist' do
-
     it 'returns the whitelist' do
       expect(subject.whitelist).
         to eq(AlaveteliRateLimiter::IPRateLimiter::Whitelist.new)
     end
-
   end
 
   describe '#whitelist=' do
-
     it 'sets the whitelist' do
       whitelist = double
       subject.whitelist = whitelist
       expect(subject.whitelist).to eq(whitelist)
     end
-
   end
 
   describe '#event_rules' do
-
     it 'returns the event_rules' do
       expect(subject.event_rules).to eq(described_class::EVENT_RULES)
     end
-
   end
 
   describe '#whitelist=' do
-
     it 'sets the whitelist' do
       event_rules = double
       subject.event_rules = event_rules
       expect(subject.event_rules).to eq(event_rules)
     end
-
   end
 
   describe '#==' do
-
     it 'is equal if its attributes are identical' do
       opts = { whitelist: double }
       subject = described_class.new(opts)
@@ -89,7 +77,5 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Defaults do
       subject2 = described_class.new(whitelist: whitelist)
       expect(subject).not_to eq(subject2)
     end
-
   end
-
 end

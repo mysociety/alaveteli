@@ -108,7 +108,6 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
       expect(latest_event.params[:embargo_extension_id]).
         to be_nil
     end
-
   end
 
   describe 'extending' do
@@ -141,7 +140,6 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
   end
 
   describe 'expiring scope' do
-
     it 'includes embargoes expiring in less than a week' do
       embargo = FactoryBot.create(:embargo, publish_at: Time.now + 6.days)
       expect(AlaveteliPro::Embargo.expiring.include?(embargo)).to be true
@@ -151,11 +149,9 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
       embargo = FactoryBot.create(:embargo, publish_at: Time.now + 8.days)
       expect(AlaveteliPro::Embargo.expiring.include?(embargo)).to be false
     end
-
   end
 
   describe '#expiring_soon?' do
-
     it 'returns true if the embargo expires in less than a week' do
       embargo = FactoryBot.build(:embargo,
                                  publish_at: Time.zone.now + 6.days)
@@ -179,11 +175,9 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
                                  publish_at: Time.zone.now.beginning_of_day)
       expect(embargo.expiring_soon?).to be false
     end
-
   end
 
   describe '#expired?' do
-
     it 'returns false if the publication date is in the future' do
       embargo = FactoryBot.build(:embargo,
                                  publish_at: Time.zone.now + 1.day)
@@ -200,13 +194,10 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
       embargo = FactoryBot.build(:embargo, publish_at: Time.zone.now)
       expect(embargo.expired?).to be true
     end
-
   end
 
   describe '.expire_publishable' do
-
     shared_examples_for 'successful_expiry' do
-
       it 'deletes the embargo' do
         AlaveteliPro::Embargo.expire_publishable
         expect(info_request.reload.embargo).to be_nil
@@ -220,7 +211,6 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
                               where(event_type: 'expire_embargo')
         expect(expiry_events.size).to eq 1
       end
-
     end
 
     context 'for an embargo whose publish_at date has passed' do
@@ -252,7 +242,6 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
       end
 
       context 'when the request has use_notifications: true' do
-
         it 'notifies the user of the event' do
           info_request = FactoryBot.create(:use_notifications_request)
           embargo = FactoryBot.create(:expiring_embargo,
@@ -261,18 +250,14 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
           AlaveteliPro::Embargo.expire_publishable
           expect(Notification.count).to eq 1
         end
-
       end
 
       context 'when the request has use_notifications: false' do
-
         it 'does not notify the user of the event' do
           AlaveteliPro::Embargo.expire_publishable
           expect(Notification.count).to eq 0
         end
-
       end
-
     end
 
     context 'for an embargo whose publish_at date is today' do
@@ -286,34 +271,27 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
         end
       end
     end
-
   end
 
   describe '.three_months_from_now' do
-
     it 'returns midnight 91 days from now' do
       expect(AlaveteliPro::Embargo.three_months_from_now).
         to eq(Time.zone.now.beginning_of_day + 91.days)
     end
-
   end
 
   describe '.six_months_from_now' do
-
     it 'returns midnight 182 days from now' do
       expect(AlaveteliPro::Embargo.six_months_from_now).
         to eq(Time.zone.now.beginning_of_day + 182.days)
     end
-
   end
 
   describe '.twelve_months_from_now' do
-
     it 'returns midnight 364 days from now' do
       expect(AlaveteliPro::Embargo.twelve_months_from_now).
         to eq(Time.zone.now.beginning_of_day + 364.days)
     end
-
   end
 
   describe '#calculate_expiring_notification_at' do
@@ -450,5 +428,4 @@ RSpec.describe AlaveteliPro::Embargo, type: :model do
       end
     end
   end
-
 end

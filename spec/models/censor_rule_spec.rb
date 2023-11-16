@@ -19,9 +19,7 @@
 require 'spec_helper'
 
 RSpec.describe CensorRule do
-
   describe '#apply_to_text' do
-
     it 'applies the rule to the text' do
       rule = FactoryBot.build(:censor_rule, text: 'secret')
       text = 'Some secret text'
@@ -60,11 +58,9 @@ RSpec.describe CensorRule do
       --REMOVED
       EOF
     end
-
   end
 
   describe '#apply_to_binary' do
-
     it 'applies the rule to the text' do
       rule = FactoryBot.build(:censor_rule, text: 'secret')
       text = 'Some secret text'
@@ -155,7 +151,6 @@ RSpec.describe CensorRule do
       xxxxxxxxxxxx
       EOF
     end
-
   end
 
   describe '#expire_requests' do
@@ -190,7 +185,6 @@ RSpec.describe CensorRule do
         with(InfoRequest, :all)
       rule.expire_requests
     end
-
   end
 
   describe '#censorable_requests' do
@@ -252,7 +246,6 @@ RSpec.describe CensorRule do
 end
 
 RSpec.describe 'when validating rules' do
-
   it 'must have the text to redact' do
     censor_rule = CensorRule.new
     censor_rule.valid?
@@ -279,7 +272,6 @@ RSpec.describe 'when validating rules' do
   end
 
   describe 'when validating a regexp rule' do
-
     before do
       @censor_rule = CensorRule.new(regexp: true,
                                     text: '*',
@@ -294,13 +286,11 @@ RSpec.describe 'when validating rules' do
     end
 
     describe 'if a regexp error is produced' do
-
       it 'should add an error message to the text field with the regexp error message' do
         allow(Regexp).to receive(:new).and_raise(RegexpError.new("very bad regexp"))
         expect(@censor_rule.valid?).to eq(false)
         expect(@censor_rule.errors[:text]).to eq(["very bad regexp"])
       end
-
     end
 
     describe 'if a regexp contains unescaped characters' do
@@ -318,23 +308,17 @@ RSpec.describe 'when validating rules' do
     end
 
     describe 'if no regexp error is produced' do
-
       it 'should not add any error message to the text field' do
         allow(Regexp).to receive(:new)
         @censor_rule.valid?
         expect(@censor_rule.errors[:text]).to eq([])
       end
-
     end
-
   end
-
 end
 
 RSpec.describe 'when handling global rules' do
-
   describe 'an instance without user_id, request_id or public_body_id' do
-
     before do
       @global_rule = CensorRule.new
     end
@@ -342,11 +326,9 @@ RSpec.describe 'when handling global rules' do
     it 'should return a value of true from is_global?' do
       expect(@global_rule.is_global?).to eq(true)
     end
-
   end
 
   describe '.global' do
-
     before do
       @global_rule = CensorRule.create!(text: 'hide me',
                                         replacement: 'nothing to see here',
@@ -372,5 +354,4 @@ RSpec.describe 'when handling global rules' do
       @user_rule.destroy if @user_rule
     end
   end
-
 end

@@ -18,5 +18,4 @@ module DateQuarter
 
     results
   end
-
 end

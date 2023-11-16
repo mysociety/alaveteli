@@ -112,6 +112,7 @@ class DataExport
   # Returns a String
   def self.csv_export(model, to_run, query=nil, header=nil, override={}, header_map={})
     return unless is_required?(model.name, to_run)
+
     # set query and header to default values unless supplied
     query  ||= model
     header ||= model.column_names
@@ -133,7 +134,6 @@ class DataExport
 
     process_data(filename, display_header, header, override, query)
   end
-
 
   def self.process_data(filename, display_header, column_data, overrides, query)
     CSV.open(filename, "wb") do |csv|
@@ -164,6 +164,7 @@ class DataExport
 
   def self.is_required?(model_name, to_run)
     return true unless to_run
+
     to_run.include?(model_name)
   end
 
@@ -175,5 +176,4 @@ class DataExport
     puts data.inspect
     p ""
   end
-
 end

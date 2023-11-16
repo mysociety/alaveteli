@@ -155,6 +155,7 @@ module MailHandler
       def empty_return_path?(mail)
         return false if mail['return-path'].nil?
         return true if mail['return-path'].value.blank?
+
         false
       end
 
@@ -177,6 +178,7 @@ module MailHandler
         if filename && AlaveteliFileTypes.filename_to_mimetype(filename) == 'application/vnd.ms-outlook'
           return true
         end
+
         false
       end
 
@@ -219,6 +221,7 @@ module MailHandler
               # Attached mail didn't parse, so treat as binary
               part.content_type = 'application/octet-stream'
             end
+
           rescue TNEFParsingError
             part.rfc822_attachment = nil
             part.content_type = 'application/octet-stream'
@@ -280,6 +283,7 @@ module MailHandler
       # Choose the best part from alternatives
       def choose_best_alternative(mail)
         return mail.parts.detect(&:multipart?) if mail.parts.any?(&:multipart?)
+
         if mail.html_part
           mail.html_part
         elsif mail.text_part
@@ -433,6 +437,7 @@ module MailHandler
         # check uuencoded attachments which can be located in plain text
         uuencoded_attributes = all_attributes.inject([]) do |acc, attrs|
           next acc unless attrs[:content_type] == 'text/plain'
+
           acc += uudecode(attrs[:body], attrs[:url_part_number])
         end
         attributes ||= uuencoded_attributes.find do |attrs|
@@ -476,6 +481,7 @@ module MailHandler
           raise "invalid email " + email + " passed to address_from_name_and_email"
         end
         return Mail::Address.new(email.dup).to_s if name.nil?
+
         address = Mail::Address.new
         address.display_name = name.dup
         address.address = email.dup
@@ -491,6 +497,7 @@ module MailHandler
       def get_emails_within_received_headers(email)
         received_headers = Array(email['Received'])
         return [] if received_headers.empty?
+
         received_headers.map(&:to_s).
           join(' ').
           scan(MySociety::Validate.email_find_regexp).

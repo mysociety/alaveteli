@@ -1,5 +1,4 @@
 module XapianQueries
-
   # These methods take some filter criteria expressed in a hash and convert them
   # into a xapian query referencing the terms and values stored by InfoRequestEvent.
   # Note that the params are request params and may contain irrelevant keys

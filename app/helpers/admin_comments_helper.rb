@@ -1,4 +1,3 @@
-
 module AdminCommentsHelper
   def comment_labels(comment)
     html = ''

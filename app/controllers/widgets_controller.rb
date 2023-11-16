@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class WidgetsController < ApplicationController
-
   before_action :check_widget_config, :find_info_request, :check_prominence
 
   def show
@@ -51,5 +50,4 @@ class WidgetsController < ApplicationController
       head :forbidden
     end
   end
-
 end

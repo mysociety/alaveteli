@@ -21,7 +21,6 @@ RSpec.describe 'general/_log_in_bar' do
       end
 
       context 'and pro features are not enabled' do
-
         it 'does not show "pro" next to the user name' do
           with_feature_disabled(:alaveteli_pro) do
             render_view
@@ -35,7 +34,6 @@ RSpec.describe 'general/_log_in_bar' do
             expect(rendered).to have_link("My requests")
           end
         end
-
       end
 
       it 'shows "pro" next to the user name' do

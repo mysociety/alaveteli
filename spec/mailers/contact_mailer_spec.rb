@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ContactMailer do
-
   describe :to_admin_message do
-
     it 'correctly quotes the name in a "from" address' do
       expect(ContactMailer.to_admin_message("A,B,C.",
                                      "test@example.com",
@@ -88,7 +86,6 @@ RSpec.describe ContactMailer do
         end
       end
     end
-
   end
 
   describe "#from_admin_message" do
@@ -132,5 +129,4 @@ RSpec.describe ContactMailer do
       end
     end
   end
-
 end

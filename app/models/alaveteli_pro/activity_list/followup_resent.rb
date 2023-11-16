@@ -1,7 +1,6 @@
 module AlaveteliPro
   module ActivityList
     class FollowupResent < Item
-
       def description
         case event.calculated_state
         when 'internal_review'
@@ -16,7 +15,6 @@ module AlaveteliPro
       def call_to_action_url
         outgoing_message_path(event.outgoing_message)
       end
-
     end
   end
 end

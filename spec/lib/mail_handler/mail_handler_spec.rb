@@ -7,7 +7,6 @@ def create_message_from(from_field)
 end
 
 RSpec.describe 'when creating a mail object from raw data' do
-
   it "should be able to parse a large email without raising an exception" do
     m = Mail.new
     m.add_file(filename: "attachment.data", content: "a" * (8 * 1024 * 1024))
@@ -51,7 +50,6 @@ RSpec.describe 'when creating a mail object from raw data' do
     expect(mail.subject).to eq('hello�')
   end
 
-
   it 'should handle a UTF-7 subject' do
     mail = get_fixture_mail('utf-7-subject.email')
     expect(mail.subject).
@@ -85,7 +83,6 @@ RSpec.describe 'when creating a mail object from raw data' do
 end
 
 RSpec.describe 'when asked for the from name' do
-
   it 'should return nil if there is a blank "From" field' do
     mail = create_message_from('')
     expect(MailHandler.get_from_name(mail)).to eq(nil)
@@ -105,11 +102,9 @@ RSpec.describe 'when asked for the from name' do
     mail = get_fixture_mail('track-response-webshield-bounce.email')
     expect(MailHandler.get_from_name(mail)).to eq(nil)
   end
-
 end
 
 RSpec.describe 'when asked for the from address' do
-
   it 'should return nil if there is a blank "From" field' do
     mail = create_message_from('')
     expect(MailHandler.get_from_address(mail)).to eq(nil)
@@ -137,7 +132,6 @@ RSpec.describe 'when asked for the from address' do
 end
 
 RSpec.describe 'when asked for all the addresses a mail has been sent to' do
-
   it 'should return an array containing the envelope-to address and the to address, and the cc address if there is one' do
     mail_data = load_file_fixture('humberside-police-odd-mime-type.email')
     mail_data.gsub!('Envelope-to: request-5335-xxxxxxxx@whatdotheyknow.com',
@@ -171,12 +165,9 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
     mail = MailHandler.mail_from_raw_email(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq([])
   end
-
-
 end
 
 RSpec.describe 'when asked for auto_submitted' do
-
   it 'should return a string value for an email with an auto-submitted header' do
     mail = get_fixture_mail('autoresponse-header.email')
     expect(MailHandler.get_auto_submitted(mail)).to eq('auto-replied')
@@ -186,11 +177,9 @@ RSpec.describe 'when asked for auto_submitted' do
     mail = get_fixture_mail('incoming-request-plain.email')
     expect(MailHandler.get_auto_submitted(mail)).to eq(nil)
   end
-
 end
 
 RSpec.describe 'when asked if there is an empty return path' do
-
   it 'should return true if there is an empty return-path specified' do
     mail = get_fixture_mail('empty-return-path.email')
     expect(MailHandler.empty_return_path?(mail)).to eq(true)
@@ -208,7 +197,6 @@ RSpec.describe 'when asked if there is an empty return path' do
 end
 
 RSpec.describe 'when deriving a name, email and formatted address from a message from a line' do
-
   def should_render_from_address(from_line, expected_result)
     mail = create_message_from(from_line)
     name = MailHandler.get_from_name(mail)
@@ -252,18 +240,15 @@ RSpec.describe 'when deriving a name, email and formatted address from a message
                                 '"FOI @ Person" <foiperson@localhost>'])
   end
 
-
   it 'should quote a name with quotes in it' do
     should_render_from_address('"FOI \" Person" <foiperson@localhost>',
                                ['FOI " Person',
                                 'foiperson@localhost',
                                 '"FOI \" Person" <foiperson@localhost>'])
   end
-
 end
 
 RSpec.describe 'when getting the content type of a mail part' do
-
   def expect_content_type(fixture_file, content_type)
     mail = get_fixture_mail(fixture_file)
     expect(MailHandler.get_content_type(mail)).to eq(content_type)
@@ -288,11 +273,9 @@ RSpec.describe 'when getting the content type of a mail part' do
     expect(MailHandler.get_content_type(report.parts[1])).to eq('message/delivery-status')
     expect(MailHandler.get_content_type(report.parts[2])).to eq('message/rfc822')
   end
-
 end
 
 RSpec.describe 'when getting header strings' do
-
   def expect_header_string(fixture_file, header, header_string)
     mail = get_fixture_mail(fixture_file)
     expect(MailHandler.get_header_string(header, mail)).to eq(header_string)
@@ -315,7 +298,6 @@ RSpec.describe 'when getting header strings' do
                          'X-POST-MessageClass',
                          '9; Autoresponder')
   end
-
 end
 
 RSpec.describe "when parsing HTML mail" do
@@ -324,7 +306,6 @@ RSpec.describe "when parsing HTML mail" do
     plain_text = MailHandler.get_attachment_text_one_file('text/html', html)
     expect(plain_text).to match(/është/)
   end
-
 end
 
 RSpec.describe "when getting the attachment text" do
@@ -342,11 +323,9 @@ RSpec.describe "when getting the attachment text" do
     text = MailHandler.get_attachment_text_one_file('application/zip', zip_contents)
     expect(text.encoding.to_s).to eq('UTF-8')
   end
-
 end
 
 RSpec.describe 'when getting attachment attributes' do
-
   it 'should handle an Outlook attachment with HTML generated from RTF' do
     mail = get_fixture_mail('outlook-encoding-rtf.email')
     attribute_hashes = MailHandler.get_attachment_attributes(mail)
@@ -550,11 +529,9 @@ RSpec.describe 'when getting attachment attributes' do
       expect(attr).to eq(expected_attributes[index])
     end
   end
-
 end
 
 RSpec.describe 'when getting the address part from an address string' do
-
   it 'should handle non-ascii characters in the name input' do
     address = "\"Someone’s name\" <test@example.com>"
     expect(MailHandler.address_from_string(address)).to eq('test@example.com')

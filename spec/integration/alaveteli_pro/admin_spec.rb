@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "administering requests" do
-
   before do
     update_xapian_index
   end
@@ -39,9 +38,6 @@ RSpec.describe "administering requests" do
           end
         end
       end
-
     end
-
   end
-
 end

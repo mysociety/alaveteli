@@ -48,6 +48,7 @@ class AlaveteliFileTypes
       # TODO: we shouldn't have to check empty? here, but Mahoro sometimes returns a blank line :(
       # e.g. for InfoRequestEvent 17930
       return nil if mahoro_type.nil? || mahoro_type.empty?
+
       # text/plain types sometimes come with a charset
       mahoro_type.match(/^(.*);/)
       mahoro_type = $1 if $1
@@ -56,12 +57,14 @@ class AlaveteliFileTypes
       # mahoro returns junk "\012- application/msword" as mime type.
       mahoro_type.match(/([a-z0-9.-]+\/[a-z0-9.-]+)/)
       return $1 if $1
+
       # otherwise we got junk back from mahoro
       nil
     end
 
     def filename_to_mimetype(filename)
       return nil unless filename
+
       if filename.match(/\.([^.]+)$/i)
         lext = $1.downcase
         if FileExtensionToMimeType.include?(lext)
@@ -75,6 +78,7 @@ class AlaveteliFileTypes
       if FileExtensionToMimeTypeRev.include?(mimetype)
         return FileExtensionToMimeTypeRev[mimetype]
       end
+
       nil
     end
   end

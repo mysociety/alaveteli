@@ -20,7 +20,6 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     @per_page = 10
     @request_summaries = request_summaries.paginate page: @page,
                                                     per_page: @per_page
-
   end
 
   def new
@@ -64,7 +63,6 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
     render "new"
   end
 
-
   def all_models_valid?
     @info_request.valid? && @outgoing_message.valid? && \
       (@embargo.nil? || @embargo.present? && @embargo.valid?)
@@ -72,12 +70,14 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
 
   def set_draft
     return unless params[:draft_id]
+
     @draft_info_request =
       current_user.draft_info_requests.find(params[:draft_id])
   end
 
   def set_public_body
     return unless params[:public_body]
+
     @public_body = PublicBody.find_by_url_name(params[:public_body])
   end
 
@@ -102,6 +102,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
 
   def destroy_draft
     return unless params[:draft_id]
+
     current_user.draft_info_requests.destroy(params[:draft_id])
   end
 

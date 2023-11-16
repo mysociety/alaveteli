@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ReminderMailer do
-
   describe :public_holidays do
-
     it 'correctly quotes the name in a "from" address' do
       expect(ReminderMailer.public_holidays("A,B,C.",
                                      "test@example.com",
@@ -21,7 +19,5 @@ RSpec.describe ReminderMailer do
                                      "test@example.com",
                                      "test").header['Return-Path'].to_s).to eq('do-not-reply-to-this-address@localhost')
     end
-
   end
-
 end

@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe WidgetsController do
-
   include LinkToHelper
 
   describe 'GET show' do
-
     before do
       @info_request = FactoryBot.create(:info_request)
       allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
@@ -71,7 +69,6 @@ RSpec.describe WidgetsController do
     end
 
     context 'for a non-logged-in user with a tracking cookie' do
-
       it 'will not find existing tracks' do
         request.cookies['widget_vote'] = mock_cookie
         get :show, params: { request_id: @info_request.id }
@@ -93,11 +90,9 @@ RSpec.describe WidgetsController do
         get :show, params: { request_id: @info_request.id }
         expect(assigns[:existing_vote]).to be false
       end
-
     end
 
     context 'for a non-logged-in user without a tracking cookie' do
-
       it 'will not find existing tracks' do
         request.cookies['widget_vote'] = nil
         get :show, params: { request_id: @info_request.id }
@@ -109,11 +104,9 @@ RSpec.describe WidgetsController do
         get :show, params: { request_id: @info_request.id }
         expect(assigns[:existing_vote]).to be false
       end
-
     end
 
     context 'for a logged in user with tracks' do
-
       it 'finds the existing track thing' do
         user = FactoryBot.create(:user)
         track = TrackThing.create_track_for_request(@info_request)
@@ -126,11 +119,9 @@ RSpec.describe WidgetsController do
 
         expect(assigns[:existing_track]).to eq(track)
       end
-
     end
 
     context 'for a logged in user without tracks' do
-
       it 'does not find existing track things' do
         TrackThing.delete_all
         user = FactoryBot.create(:user)
@@ -164,22 +155,18 @@ RSpec.describe WidgetsController do
 
         expect(assigns[:existing_vote]).to be false
       end
-
     end
 
     context 'when widgets are not enabled' do
-
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
         expect {
           get :show, params: { request_id: @info_request.id }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
 
     context "when the request's prominence is not 'normal'" do
-
       it 'should return a 403' do
         @info_request.prominence = 'hidden'
         @info_request.save!
@@ -197,13 +184,10 @@ RSpec.describe WidgetsController do
 
         expect(assigns[:existing_vote]).to be false
       end
-
     end
-
   end
 
   describe 'GET new' do
-
     before do
       @info_request = FactoryBot.create(:info_request)
       allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
@@ -220,29 +204,23 @@ RSpec.describe WidgetsController do
     end
 
     context 'when widgets are not enabled' do
-
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
         expect {
           get :new, params: { request_id: @info_request.id }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
 
     context "when the request's prominence is not 'normal'" do
-
       it 'should return a 403' do
         @info_request.prominence = 'hidden'
         @info_request.save!
         get :show, params: { request_id: @info_request.id }
         expect(response.code).to eq("403")
       end
-
     end
-
   end
-
 end
 
 def mock_cookie

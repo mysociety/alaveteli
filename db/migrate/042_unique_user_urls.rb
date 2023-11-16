@@ -19,5 +19,4 @@ class UniqueUserUrls < ActiveRecord::Migration[4.2] # 2.0
       add_index :users, :url_name, unique: false
     end
   end
-
 end

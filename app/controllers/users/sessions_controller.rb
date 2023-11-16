@@ -52,6 +52,7 @@ class Users::SessionsController < UserController
     else
       send_confirmation_mail @user_signin
     end
+
   rescue ActionController::ParameterMissing
     flash[:error] = _('Invalid form submission')
     render template: 'user/sign'
@@ -73,5 +74,4 @@ class Users::SessionsController < UserController
     AlaveteliConfiguration.block_spam_signins ||
       AlaveteliConfiguration.enable_anti_spam
   end
-
 end

@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::RequestFilter do
-
   describe '#update' do
-
     it 'assigns the filter' do
       request_filter = described_class.new
       request_filter.update(filter: 'awaiting_response')
@@ -27,11 +25,9 @@ RSpec.describe AlaveteliPro::RequestFilter do
       request_filter.update(filter: '')
       expect(request_filter.filter).to be nil
     end
-
   end
 
   describe '#filter_capital_label' do
-
     def expect_label(label, filter)
       request_filter = described_class.new
       request_filter.update(filter: filter)
@@ -73,7 +69,6 @@ RSpec.describe AlaveteliPro::RequestFilter do
   end
 
   describe '#filter_label' do
-
     def expect_label(label, filter)
       request_filter = described_class.new
       request_filter.update(filter: filter)
@@ -115,7 +110,6 @@ RSpec.describe AlaveteliPro::RequestFilter do
   end
 
   describe '#order_options' do
-
     it 'returns a list of sort order options in label, parameter form' do
       expected = [['Last updated', 'updated_at_desc'],
                   ['First created', 'created_at_asc'],
@@ -125,18 +119,15 @@ RSpec.describe AlaveteliPro::RequestFilter do
   end
 
   describe '#persisted?' do
-
     it 'returns false' do
       expect(described_class.new.persisted?).to be false
     end
-
   end
 
   describe '#results' do
     let(:user) { FactoryBot.create(:user) }
 
     context 'when no attributes are supplied' do
-
       it 'sorts the requests by most recently updated' do
         first_request = FactoryBot.create(:info_request, user: user)
         second_request = FactoryBot.create(:info_request, user: user)
@@ -184,7 +175,6 @@ RSpec.describe AlaveteliPro::RequestFilter do
     end
 
     context 'when the filter is "draft"' do
-
       it 'returns draft requests' do
         draft_request = FactoryBot.create(:draft_info_request,
                                           user: user)

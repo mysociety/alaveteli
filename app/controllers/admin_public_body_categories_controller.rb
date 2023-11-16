@@ -1,5 +1,4 @@
 class AdminPublicBodyCategoriesController < AdminController
-
   include TranslatableParams
 
   before_action :set_public_body_category, only: [:edit, :update, :destroy]
@@ -104,5 +103,4 @@ class AdminPublicBodyCategoriesController < AdminController
   def set_public_body_category
     @public_body_category = PublicBodyCategory.find(params[:id])
   end
-
 end

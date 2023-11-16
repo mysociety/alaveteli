@@ -89,6 +89,7 @@ class UserController < ApplicationController
       # TODO: combine these as OR query
       @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
       @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+
     rescue
       @xapian_requests = nil
       @xapian_comments = nil
@@ -126,7 +127,6 @@ class UserController < ApplicationController
       format.html { @has_json = true }
       format.json { render json: @display_user.json_for_api }
     end
-
   end
 
   # Create new account form
@@ -182,6 +182,7 @@ class UserController < ApplicationController
       end
       nil
     end
+
   rescue ActionController::ParameterMissing
     flash[:error] = _('Invalid form submission')
     render action: :sign
@@ -348,7 +349,6 @@ class UserController < ApplicationController
       @user.set_profile_photo(@profile_photo)
       draft_profile_photo.destroy
 
-
       if @user.get_about_me_for_html_display.empty?
         flash[:notice] = { partial: "user/update_profile_photo" }
         redirect_to edit_profile_about_me_url
@@ -362,7 +362,6 @@ class UserController < ApplicationController
   end
 
   def clear_profile_photo
-
     # check they are logged in (the upload photo option is anyway only available when logged in)
     unless authenticated?
       flash[:error] = _("You need to be logged in to clear your profile photo.")
@@ -569,6 +568,7 @@ class UserController < ApplicationController
       @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
       @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
     # TODO: make this rescue specific to errors thrown when xapian is not working
+
     rescue
       @xapian_requests = nil
       @xapian_comments = nil
@@ -591,6 +591,7 @@ class UserController < ApplicationController
     return false unless @display_user.active?
     return true if @display_user.confirmed_not_spam?
     return true if @user
+
     false
   end
 
@@ -633,5 +634,4 @@ class UserController < ApplicationController
     AlaveteliConfiguration.block_spam_signups ||
       AlaveteliConfiguration.enable_anti_spam
   end
-
 end

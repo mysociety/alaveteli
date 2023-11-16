@@ -13,9 +13,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
   let(:embargo_expiry) { embargo.publish_at }
 
   describe '#create' do
-
     context 'when the user is allowed to update the embargo' do
-
       context 'because they are the owner' do
         before do
           with_feature_enabled(:alaveteli_pro) do
@@ -45,7 +43,6 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
             to redirect_to show_alaveteli_pro_request_path(
               url_title: info_request.url_title)
         end
-
       end
 
       context 'because they are a pro admin' do
@@ -77,9 +74,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
             to redirect_to show_alaveteli_pro_request_path(
               url_title: info_request.url_title)
         end
-
       end
-
     end
 
     context 'when the user does not own the embargo' do
@@ -112,9 +107,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
             expect(response).to redirect_to frontpage_path
           end
         end
-
       end
-
     end
 
     context 'when the embargo is not near expiry' do
@@ -146,7 +139,6 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
           end
         end.to raise_error(ApplicationController::PermissionDenied)
       end
-
     end
 
     context 'when the info_request is part of a batch request' do
@@ -188,7 +180,6 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
         expect(flash[:error]).to eq(msg)
       end
     end
-
   end
 
   describe '#create_batch' do

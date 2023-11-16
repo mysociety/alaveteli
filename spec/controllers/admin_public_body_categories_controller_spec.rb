@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminPublicBodyCategoriesController do
-
   describe 'GET index' do
-
     it 'responds successfully' do
       get :index
       expect(response).to be_successful
@@ -36,7 +34,6 @@ RSpec.describe AdminPublicBodyCategoriesController do
       PublicBodyCategoryLink.create!(public_body_heading_id: heading.id,
                                      public_body_category_id: with_heading.id)
 
-
       get :index
       expect(assigns(:without_heading)).to eq([without_heading])
     end
@@ -45,11 +42,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
       get :index
       expect(response).to render_template('index')
     end
-
   end
 
   describe 'GET new' do
-
     it 'responds successfully' do
       get :new
       expect(response).to be_successful
@@ -79,13 +74,10 @@ RSpec.describe AdminPublicBodyCategoriesController do
       get :new
       expect(response).to render_template('new')
     end
-
   end
 
   describe 'POST create' do
-
     context 'on success' do
-
       before(:each) do
         PublicBodyCategory.destroy_all
         @params = { category_tag: 'new_test_category',
@@ -145,11 +137,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
         post :create, params: { public_body_category: @params }
         expect(response).to redirect_to(admin_categories_path)
       end
-
     end
 
     context 'on success for multiple locales' do
-
       before(:each) do
         PublicBodyCategory.destroy_all
         @params = { category_tag: 'new_test_category',
@@ -188,11 +178,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
           expect(category.title).to eq('Mi Nuevo Category')
         end
       end
-
     end
 
     context 'on failure' do
-
       it 'renders the form if creating the record was unsuccessful' do
         post :create, params: { public_body_category: { title: '' } }
         expect(response).to render_template('new')
@@ -206,11 +194,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
                       }
         expect(assigns(:public_body_category).title).to eq('Need a description')
       end
-
     end
 
     context 'on failure for multiple locales' do
-
       before(:each) do
         @params = { category_tag: 'new_test_category',
                     translations_attributes: {
@@ -235,13 +221,10 @@ RSpec.describe AdminPublicBodyCategoriesController do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end
-
     end
-
   end
 
   describe 'GET edit' do
-
     before do
       @category = FactoryBot.create(:public_body_category)
       AlaveteliLocalization.with_locale('es') do
@@ -285,11 +268,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
       get :edit, params: { id: @category.id }
       expect(response).to render_template('edit')
     end
-
   end
 
   describe 'PUT update' do
-
     before do
       @heading = FactoryBot.create(:public_body_heading)
       @category = FactoryBot.create(:public_body_category)
@@ -366,7 +347,6 @@ RSpec.describe AdminPublicBodyCategoriesController do
     end
 
     context 'when the category has associated bodies' do
-
       it 'does not save edits to category_tag' do
         body = FactoryBot.create(:public_body, tag_string: @tag)
 
@@ -402,11 +382,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
         expect(response).to render_template('edit')
       end
-
     end
 
     context 'on success' do
-
       before(:each) do
         @params = { id: @category.id,
                     public_body_category: {
@@ -460,11 +438,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
           PublicBodyCategory.find(@category.id).translations.map(&:locale)
         ).to include(:en_GB)
       end
-
     end
 
     context 'on success for multiple locales' do
-
       it "saves edits to a public body category in another locale" do
         expect(@category.title(:es)).to eq('Los category')
         post :update, params: {
@@ -615,11 +591,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
 
         expect(response).to redirect_to(edit_admin_category_path(@category))
       end
-
     end
 
     context 'on failure' do
-
       it 'renders the form if creating the record was unsuccessful' do
         post :update, params: {
                         id: @category.id,
@@ -653,11 +627,9 @@ RSpec.describe AdminPublicBodyCategoriesController do
                       }
         expect(assigns(:public_body_category).title).to eq('Need a description')
       end
-
     end
 
     context 'on failure for multiple locales' do
-
       before(:each) do
         @params = { category_tag: 'new_test_category',
                     translations_attributes: {
@@ -690,13 +662,10 @@ RSpec.describe AdminPublicBodyCategoriesController do
           expect(assigns(:public_body_category).title).to eq('Mi Nuevo Category')
         end
       end
-
     end
-
   end
 
   describe 'DELETE destroy' do
-
     it 'destroys empty public body categories' do
       PublicBodyCategory.destroy_all
 
@@ -730,6 +699,5 @@ RSpec.describe AdminPublicBodyCategoriesController do
       post :destroy, params: { id: category.id }
       expect(response).to redirect_to(admin_categories_path)
     end
-
   end
 end

@@ -1,5 +1,4 @@
 class AdminSpamAddressesController < AdminController
-
   before_action :set_spam_address, only: [:destroy]
 
   def index
@@ -37,5 +36,4 @@ class AdminSpamAddressesController < AdminController
   def set_spam_address
     @spam_address = SpamAddress.find(params[:id])
   end
-
 end

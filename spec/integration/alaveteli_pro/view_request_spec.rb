@@ -8,7 +8,6 @@ RSpec.describe "viewing requests in alaveteli_pro" do
   let!(:pro_user_session) { login(pro_user) }
 
   context 'a pro user viewing one of their own requests' do
-
     it 'allows the user to view the request' do
       using_pro_session(pro_user_session) do
         browse_pro_request(info_request.url_title)
@@ -19,7 +18,6 @@ RSpec.describe "viewing requests in alaveteli_pro" do
     include_examples 'allows annotations'
 
     context 'the request is not embargoed' do
-
       it 'shows the privacy sidebar' do
         using_pro_session(pro_user_session) do
           browse_pro_request(info_request.url_title)
@@ -49,7 +47,6 @@ RSpec.describe "viewing requests in alaveteli_pro" do
       end
 
       context 'the user does not have a pro account' do
-
         before do
           pro_user.remove_role(:pro)
         end
@@ -67,13 +64,10 @@ RSpec.describe "viewing requests in alaveteli_pro" do
             expect(page).not_to have_content "Keep private for"
           end
         end
-
       end
-
     end
 
     context 'the request is embargoed' do
-
       let!(:embargo) do
         FactoryBot.create(:embargo, info_request: info_request)
       end
@@ -102,19 +96,16 @@ RSpec.describe "viewing requests in alaveteli_pro" do
       include_examples 'allows the embargo to be lifted'
 
       context 'the user does not have pro status' do
-
         before do
           pro_user.remove_role(:pro)
         end
 
         include_examples 'prevents setting an embargo'
-
       end
 
       include_examples 'allows followups'
 
       context 'the embargo is expiring soon' do
-
         before do
           embargo.update_attribute(:publish_at, embargo.publish_at - 88.days)
           info_request.reload
@@ -137,11 +128,9 @@ RSpec.describe "viewing requests in alaveteli_pro" do
               to have_content("This request is private until " \
                               "#{expected.strftime('%-d %B %Y')}")
           end
-
         end
 
         context 'the user does not have pro status' do
-
           before do
             pro_user.remove_role(:pro)
           end
@@ -155,13 +144,10 @@ RSpec.describe "viewing requests in alaveteli_pro" do
               expect(page).not_to have_content('Keep private for a further:')
             end
           end
-
         end
-
       end
 
       context 'the embargo is not expiring soon' do
-
         it 'does not show the user the extend embargo section' do
           using_pro_session(pro_user_session) do
             browse_pro_request(info_request.url_title)
@@ -185,7 +171,6 @@ RSpec.describe "viewing requests in alaveteli_pro" do
         end
 
         context 'the user does not have pro status' do
-
           before do
             pro_user.remove_role(:pro)
           end
@@ -201,19 +186,13 @@ RSpec.describe "viewing requests in alaveteli_pro" do
                 to_not have_content("You will be able to extend this privacy " \
                                     "period from #{expiring_notification}")
             end
-
           end
-
         end
-
       end
 
       context 'the request has received a response' do
         it_behaves_like 'a request with response'
       end
-
     end
-
   end
-
 end

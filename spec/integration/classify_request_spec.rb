@@ -2,12 +2,10 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'classifying a request' do
-
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:user) { info_request.user }
 
   shared_examples_for 'authority is not subject to FOI law' do
-
     it 'does not include "By law"' do
       info_request.public_body.add_tag_if_not_already_present('foi_no')
       using_session(login(user)) do
@@ -15,22 +13,18 @@ RSpec.describe 'classifying a request' do
         expect(page).not_to have_content('By law')
       end
     end
-
   end
 
   shared_examples_for 'authority is subject to FOI law' do
-
     it 'does includes the text "By law"' do
       using_session(login(user)) do
         classify_request(info_request, classification)
         expect(page).to have_content('By law')
       end
     end
-
   end
 
   shared_examples_for 'the donation link is configured' do
-
     it 'shows the donation link' do
       allow(AlaveteliConfiguration).to receive(:donation_url).
         and_return('http://donations.example.com')
@@ -43,13 +37,10 @@ RSpec.describe 'classifying a request' do
                        href: 'http://donations.example.com')
       end
     end
-
   end
 
   context 'when the request is internal' do
-
     describe 'the requestor tries to classify their request' do
-
       it 'sends an email including the message' do
         using_session(login(user)) do
           visit message_classification_path(
@@ -73,7 +64,6 @@ RSpec.describe 'classifying a request' do
   end
 
   context 'marking request as error_message' do
-
     let(:classification) { 'error_message1' }
 
     it 'displays a thank you message post redirect' do
@@ -110,11 +100,9 @@ RSpec.describe 'classifying a request' do
           )
       end
     end
-
   end
 
   context 'marking request as internal_review' do
-
     let(:classification) { 'internal_review1' }
 
     it 'displays a thank you message post redirect' do
@@ -129,11 +117,9 @@ RSpec.describe 'classifying a request' do
                                           anchor: 'internal_review'))
       end
     end
-
   end
 
   context 'marking request as not_held' do
-
     let(:classification) { 'not_held1' }
 
     it 'displays a thank you message post redirect' do
@@ -146,11 +132,9 @@ RSpec.describe 'classifying a request' do
                                   href: unhappy_url(info_request))
       end
     end
-
   end
 
   context 'marking request as partially_successful' do
-
     let(:classification) { 'partially_successful1' }
 
     it 'displays a thank you message post redirect' do
@@ -164,11 +148,9 @@ RSpec.describe 'classifying a request' do
     end
 
     include_examples 'the donation link is configured'
-
   end
 
   context 'marking request as rejected' do
-
     let(:classification) { 'rejected1' }
 
     it 'displays a thank you message post redirect' do
@@ -179,11 +161,9 @@ RSpec.describe 'classifying a request' do
         expect(page).to have_content(message)
       end
     end
-
   end
 
   context 'marking request as requires_admin' do
-
     let(:classification) { 'requires_admin1' }
 
     it 'displays a thank you message post redirect' do
@@ -220,11 +200,9 @@ RSpec.describe 'classifying a request' do
           )
       end
     end
-
   end
 
   context 'marking request as successful' do
-
     let(:classification) { 'successful1' }
 
     it 'displays a thank you message post redirect' do
@@ -244,7 +222,6 @@ RSpec.describe 'classifying a request' do
     include_examples 'the donation link is configured'
 
     context 'when annotations are disabled' do
-
       before do
         allow_any_instance_of(ApplicationController).
           to receive(:feature_enabled?).
@@ -257,7 +234,6 @@ RSpec.describe 'classifying a request' do
       end
 
       it 'does not display the annotations part of the message' do
-
         using_session(login(user)) do
           classify_request(info_request, classification)
           message = "We're glad you got all the information that you wanted."
@@ -266,15 +242,11 @@ RSpec.describe 'classifying a request' do
           expect(page).to have_content(message)
           expect(page).to_not have_content(unexpected)
         end
-
       end
-
     end
-
   end
 
   context 'marking request as user_withdrawn' do
-
     let(:classification) { 'user_withdrawn1' }
 
     it 'displays a thank you message post redirect' do
@@ -287,11 +259,9 @@ RSpec.describe 'classifying a request' do
         expect(page).to have_content(message)
       end
     end
-
   end
 
   context 'marking request as waiting_clarification' do
-
     let(:classification) { 'waiting_clarification1' }
 
     it 'displays a thank you message post redirect' do
@@ -303,11 +273,9 @@ RSpec.describe 'classifying a request' do
         expect(page).to have_content(message)
       end
     end
-
   end
 
   context 'marking request as waiting_response' do
-
     let(:classification) { 'waiting_response1' }
 
     it 'displays a thank you message post redirect' do
@@ -322,11 +290,9 @@ RSpec.describe 'classifying a request' do
     include_examples 'authority is not subject to FOI law'
 
     include_examples 'authority is subject to FOI law'
-
   end
 
   context 'marking overdue request as waiting_response' do
-
     let(:classification) { 'waiting_response1' }
 
     before do
@@ -349,11 +315,9 @@ RSpec.describe 'classifying a request' do
     include_examples 'authority is not subject to FOI law'
 
     include_examples 'authority is subject to FOI law'
-
   end
 
   context 'marking very overdue request as waiting_responses' do
-
     let(:classification) { 'waiting_response1' }
 
     before do
@@ -372,7 +336,5 @@ RSpec.describe 'classifying a request' do
         expect(page).to have_content(message)
       end
     end
-
   end
-
 end

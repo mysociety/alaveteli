@@ -1,5 +1,4 @@
 class AdminHolidaysController < AdminController
-
   before_action :set_holiday, only: [:edit, :update, :destroy]
 
   def index
@@ -67,5 +66,4 @@ class AdminHolidaysController < AdminController
   def set_holiday
     @holiday = Holiday.find(params[:id])
   end
-
 end

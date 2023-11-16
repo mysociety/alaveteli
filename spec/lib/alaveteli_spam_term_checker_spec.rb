@@ -1,22 +1,18 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliSpamTermChecker do
-
   after(:each) do
     described_class.default_spam_terms = described_class::DEFAULT_SPAM_TERMS
   end
 
   describe '.default_spam_terms' do
-
     it 'returns the DEFAULT_SPAM_TERMS if no custom terms have been set' do
       expect(described_class.default_spam_terms).
         to eq(described_class::DEFAULT_SPAM_TERMS)
     end
-
   end
 
   describe '.default_spam_terms=' do
-
     it 'sets custom terms' do
       described_class.default_spam_terms = [/a/, /b/, /c/]
       expect(described_class.default_spam_terms).to eq([/a/, /b/, /c/])
@@ -51,11 +47,9 @@ RSpec.describe AlaveteliSpamTermChecker do
       expect { described_class.default_spam_terms = Object.new }.
         to raise_error(TypeError)
     end
-
   end
 
   describe '.new' do
-
     it 'sets the default terms if none are given' do
       expect(subject.spam_terms).to eq(described_class.default_spam_terms)
     end
@@ -94,7 +88,6 @@ RSpec.describe AlaveteliSpamTermChecker do
       expect { described_class.new(Object.new) }.
         to raise_error(TypeError)
     end
-
   end
 
   describe '#spam?' do
@@ -119,5 +112,4 @@ RSpec.describe AlaveteliSpamTermChecker do
       expect(subject.spam?('Request about PhD theses')).to eq(false)
     end
   end
-
 end

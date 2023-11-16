@@ -1,5 +1,4 @@
 class AdminPublicBodyHeadingsController < AdminController
-
   include TranslatableParams
 
   before_action :set_public_body_heading, only: [:edit, :update, :destroy]
@@ -118,5 +117,4 @@ class AdminPublicBodyHeadingsController < AdminController
   def set_public_body_heading
     @public_body_heading = PublicBodyHeading.find(params[:id])
   end
-
 end

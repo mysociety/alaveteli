@@ -3,7 +3,6 @@ require 'English'
 require 'tmpdir'
 
 module MailHandler
-
   require 'mail'
   require 'mail_handler/backends/mail_extensions'
   require 'mail_handler/backends/mail_backend'
@@ -140,8 +139,8 @@ module MailHandler
 
     text
   end
-  def get_attachment_text_from_zip_file(zip_file)
 
+  def get_attachment_text_from_zip_file(zip_file)
     text = ""
     zip_file.each do |entry|
       if entry.file?
@@ -171,5 +170,4 @@ module MailHandler
 
   # Turn instance methods into class methods
   extend self
-
 end

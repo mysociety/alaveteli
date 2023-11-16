@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe 'alaveteli_pro/dashboard/_announcements' do
-
   let(:announcement) do
     FactoryBot.
       create(:announcement,
@@ -14,7 +13,6 @@ RSpec.describe 'alaveteli_pro/dashboard/_announcements' do
   end
 
   describe 'displaying an announcement' do
-
     it 'shows the announcement' do
       render template: 'alaveteli_pro/dashboard/_announcements'
       expect(rendered).to include('Introducing projects')
@@ -25,7 +23,5 @@ RSpec.describe 'alaveteli_pro/dashboard/_announcements' do
       render template: 'alaveteli_pro/dashboard/_announcements'
       expect(rendered).not_to include('<script>')
     end
-
   end
-
 end

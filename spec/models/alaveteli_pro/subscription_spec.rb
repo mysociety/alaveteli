@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::Subscription do
-
   let(:object) { Stripe::Subscription.new }
   let(:subscription) { described_class.new(object) }
 
   describe '#active?' do
-
     it 'should return true if status is active' do
       object.status = 'active'
       expect(subscription.active?).to eq true
@@ -16,11 +14,9 @@ RSpec.describe AlaveteliPro::Subscription do
       object.status = 'other'
       expect(subscription.active?).to eq false
     end
-
   end
 
   describe '#incomplete?' do
-
     it 'should return true if status is incomplete' do
       object.status = 'incomplete'
       expect(subscription.incomplete?).to eq true
@@ -30,11 +26,9 @@ RSpec.describe AlaveteliPro::Subscription do
       object.status = 'other'
       expect(subscription.incomplete?).to eq false
     end
-
   end
 
   describe '#latest_invoice' do
-
     subject { subscription.latest_invoice }
 
     it 'should retrieve and return a Stripe Invoice object' do
@@ -44,25 +38,20 @@ RSpec.describe AlaveteliPro::Subscription do
         and_return(mock_invoice)
       is_expected.to eq mock_invoice
     end
-
   end
 
   describe '#invoice_open?' do
-
     subject { subscription.invoice_open? }
 
     context 'when subscription complete' do
-
       before do
         allow(subscription).to receive(:incomplete?).and_return(false)
       end
 
       it { is_expected.to eq false }
-
     end
 
     context 'when subscription incomplete' do
-
       before do
         allow(subscription).to receive(:incomplete?).and_return(true)
       end
@@ -80,13 +69,10 @@ RSpec.describe AlaveteliPro::Subscription do
         )
         is_expected.to eq false
       end
-
     end
-
   end
 
   describe '#payment_intent' do
-
     subject { subscription.payment_intent }
 
     before do
@@ -94,7 +80,6 @@ RSpec.describe AlaveteliPro::Subscription do
     end
 
     context 'with latest_invoice' do
-
       let(:invoice) { double('Stripe::Invoice', payment_intent: 'pi_123') }
 
       it 'should retrieve and return a Stripe Payment Intent object' do
@@ -103,24 +88,18 @@ RSpec.describe AlaveteliPro::Subscription do
           and_return(mock_payment_intent)
         expect(subscription.payment_intent).to eq mock_payment_intent
       end
-
     end
 
     context 'without latest_invoice' do
-
       let(:invoice) { nil }
       it { is_expected.to eq nil }
-
     end
-
   end
 
   describe '#require_authorisation?' do
-
     subject { subscription.require_authorisation? }
 
     context 'when invoice open' do
-
       before do
         allow(subscription).to receive(:invoice_open?).and_return(true)
       end
@@ -145,23 +124,18 @@ RSpec.describe AlaveteliPro::Subscription do
         )
         is_expected.to eq false
       end
-
     end
 
     context 'when invoice closed' do
-
       before do
         allow(subscription).to receive(:invoice_open?).and_return(false)
       end
 
       it { is_expected.to eq false }
-
     end
-
   end
 
   describe 'missing methods' do
-
     it 'should delegate methods to object' do
       mock_coupon = double(:coupon)
       expect { subscription.coupon }.to raise_error(NoMethodError)
@@ -169,7 +143,5 @@ RSpec.describe AlaveteliPro::Subscription do
       expect(subscription.coupon).to eq mock_coupon
       expect(subscription.__getobj__.coupon).to eq mock_coupon
     end
-
   end
-
 end

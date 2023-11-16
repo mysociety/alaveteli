@@ -84,7 +84,6 @@ RSpec.describe PublicBodyController, "when showing a body" do
     expect(flash[:search_params]).to eq(search_params)
   end
 
-
   it 'should not show high page offsets as these are extremely slow to generate' do
     expect {
       get :show, params: { url_name: 'dfh', view: 'all', page: 25 }
@@ -197,7 +196,6 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     get :list, params: { locale: 'he_IL' }
     expect(response.body).to have_content('Hebrew Humpadinking')
   end
-
 
   it "should list bodies in alphabetical order" do
     # Note that they are alphabetised by localised name
@@ -388,11 +386,9 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     expect(assigns[:public_bodies]).to eq([ authority ])
     expect(assigns[:tag]).to eq("Å")
   end
-
 end
 
 RSpec.describe PublicBodyController, "when showing JSON version for API" do
-
   it "should be successful" do
     get :show, params: { url_name: "dfh", format: "json", view: 'all' }
 
@@ -402,7 +398,6 @@ RSpec.describe PublicBodyController, "when showing JSON version for API" do
     expect(pb['url_name']).to eq('dfh')
     expect(pb['notes']).to eq('An albatross told me!!!')
   end
-
 end
 
 RSpec.describe PublicBodyController, "when asked to export public bodies as CSV" do
@@ -468,5 +463,4 @@ RSpec.describe PublicBodyController, "when doing type ahead searches" do
     flash_params = flash[:search_params].to_unsafe_h
     expect(flash_params).to eq(search_params)
   end
-
 end

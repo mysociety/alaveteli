@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AnnouncementsController do
-
   describe '#destroy' do
-
     context 'valid announcement' do
       let(:announcement) { FactoryBot.create(:announcement) }
 
@@ -21,11 +19,9 @@ RSpec.describe AnnouncementsController do
           delete :destroy, params: { id: announcement.id }
           expect(response.status).to eq 200
         end
-
       end
 
       context 'logged out' do
-
         it 'stores announcement ID in session' do
           expect(session[:announcement_dismissals]).to be_nil
           delete :destroy, params: { id: announcement.id }
@@ -37,20 +33,14 @@ RSpec.describe AnnouncementsController do
           delete :destroy, params: { id: announcement.id }
           expect(response.status).to eq 200
         end
-
       end
-
     end
 
     context 'invalid announcement' do
-
       it 'returns 403 status' do
         delete :destroy, params: { id: 'invalid' }
         expect(response.status).to eq 403
       end
-
     end
-
   end
-
 end

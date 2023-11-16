@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class HolidayController < ApplicationController
-
   # This will be tidied up into a proper calendar display etc. For now
   # we have a very basic page that allows us to see what a due date will
   # be given a start date. This isn't exposed anywhere yet.
@@ -20,5 +19,4 @@ class HolidayController < ApplicationController
                  @due_date.strftime("%F")]).to_a.collect(&:day).sort
     end
   end
-
 end

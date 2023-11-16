@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'Editing the OutgoingMessage body' do
-
   let(:request) { FactoryBot.create(:info_request) }
   let(:ogm) { request.outgoing_messages.first }
 
@@ -24,7 +23,6 @@ RSpec.describe 'Editing the OutgoingMessage body' do
   end
 
   context 'a censor rule applies to the request' do
-
     before do
       FactoryBot.create(:info_request_censor_rule,
                         text: 'information',
@@ -66,7 +64,5 @@ RSpec.describe 'Editing the OutgoingMessage body' do
       expect(event.params).
         to include(body: 'Some information please. And a biscuit.')
     end
-
   end
-
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "admin_user/show" do
-
   before do
     info_requests = []
     allow(info_requests).to receive(:total_pages).and_return(0)
@@ -24,7 +23,6 @@ RSpec.describe "admin_user/show" do
         expect(rendered).not_to match('Post redirects')
       end
     end
-
   end
 
   context 'when the current user can login as the user being viewed' do
@@ -40,7 +38,5 @@ RSpec.describe "admin_user/show" do
         expect(rendered).to match('Post redirects')
       end
     end
-
   end
-
 end

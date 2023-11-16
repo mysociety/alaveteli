@@ -14,5 +14,4 @@ RSpec.describe ActionView::Helpers::TagHelper do
         to eq('<p data-title="&quot;">content</p>')
     end
   end
-
 end

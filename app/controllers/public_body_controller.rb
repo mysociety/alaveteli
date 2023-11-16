@@ -92,7 +92,6 @@ class PublicBodyController < ApplicationController
         end
         format.json { render json: @public_body.json_for_api }
       end
-
     end
   end
 
@@ -193,9 +192,9 @@ class PublicBodyController < ApplicationController
   def search_typeahead
     query = params[:query]
     return head :bad_request unless query
+
     flash[:search_params] = params.slice(:query, :bodies, :page)
     @xapian_requests = typeahead_search(query, model: PublicBody)
     render partial: "public_body/search_ahead"
   end
-
 end

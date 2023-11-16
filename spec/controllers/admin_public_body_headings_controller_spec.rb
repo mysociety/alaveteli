@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminPublicBodyHeadingsController do
-
   describe 'GET new' do
-
     it 'responds successfully' do
       get :new
       expect(response).to be_successful
@@ -28,13 +26,10 @@ RSpec.describe AdminPublicBodyHeadingsController do
       get :new
       expect(response).to render_template('new')
     end
-
   end
 
   describe 'POST create' do
-
     context 'on success' do
-
       before(:each) do
         PublicBodyHeading.destroy_all
         @params = { translations_attributes: {
@@ -73,11 +68,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
         post :create, params: { public_body_heading: @params }
         expect(response).to redirect_to(admin_categories_path)
       end
-
     end
 
     context 'on success for multiple locales' do
-
       before(:each) do
         PublicBodyHeading.destroy_all
         @params = { translations_attributes: {
@@ -113,11 +106,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
           expect(heading.name).to eq('Mi Nuevo Heading')
         end
       end
-
     end
 
     context 'on failure' do
-
       it 'renders the form if creating the record was unsuccessful' do
         post :create, params: { public_body_heading: { name: '' } }
         expect(response).to render_template('new')
@@ -130,11 +121,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
              }
         expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
-
     end
 
     context 'on failure for multiple locales' do
-
       before(:each) do
         @params = { translations_attributes: {
                       'en' => { locale: 'en',
@@ -156,13 +145,10 @@ RSpec.describe AdminPublicBodyHeadingsController do
           expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end
-
     end
-
   end
 
   describe 'GET edit' do
-
     before do
       @heading = FactoryBot.create(:public_body_heading)
       AlaveteliLocalization.with_locale('es') do
@@ -190,11 +176,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
       get :edit, params: { id: @heading.id }
       expect(response).to render_template('edit')
     end
-
   end
 
   describe 'PUT update' do
-
     before do
       @heading = FactoryBot.create(:public_body_heading)
       AlaveteliLocalization.with_locale('es') do
@@ -220,7 +204,6 @@ RSpec.describe AdminPublicBodyHeadingsController do
     end
 
     context 'on success' do
-
       before(:each) do
         @params = { id: @heading.id,
                     public_body_heading: {
@@ -261,11 +244,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
         post :update, params: @params
         expect(response).to redirect_to(edit_admin_heading_path(@heading))
       end
-
     end
 
     context 'on success for multiple locales' do
-
       it 'saves edits to a public body heading in another locale' do
         expect(@heading.name(:es)).to eq('Los heading')
         post :update, params: {
@@ -405,11 +386,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
 
         expect(response).to redirect_to(edit_admin_heading_path(@heading))
       end
-
     end
 
     context 'on failure' do
-
       it 'renders the form if creating the record was unsuccessful' do
         post :update, params: {
                         id: @heading.id,
@@ -441,11 +420,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
                       }
         expect(assigns(:public_body_heading).name).to eq('Need a description')
       end
-
     end
 
     context 'on failure for multiple locales' do
-
       before(:each) do
         @params = { translations_attributes: {
                       'en' => { id: @heading.translation_for(:en).id,
@@ -475,13 +452,10 @@ RSpec.describe AdminPublicBodyHeadingsController do
           expect(assigns(:public_body_heading).name).to eq('Mi Nuevo Heading')
         end
       end
-
     end
-
   end
 
   describe 'DELETE destroy' do
-
     it 'destroys the public body heading' do
       PublicBodyHeading.destroy_all
 
@@ -519,11 +493,9 @@ RSpec.describe AdminPublicBodyHeadingsController do
       post :destroy, params: { id: heading.id }
       expect(response).to redirect_to(admin_categories_path)
     end
-
   end
 
   context 'when reordering public body headings' do
-
     render_views
 
     before do
@@ -537,7 +509,6 @@ RSpec.describe AdminPublicBodyHeadingsController do
     end
 
     context 'when handling valid input' do
-
       it 'should reorder headings according to their position in the submitted params' do
         make_request
         expect(PublicBodyHeading.find(@second.id).display_order).to eq(0)
@@ -551,7 +522,6 @@ RSpec.describe AdminPublicBodyHeadingsController do
     end
 
     context 'when handling invalid input' do
-
       before do
         @params = { headings: [@second.id, @first.id, @second.id + 1] }
       end
@@ -567,12 +537,10 @@ RSpec.describe AdminPublicBodyHeadingsController do
         expect(PublicBodyHeading.find(@first.id).display_order).to eq(0)
         expect(PublicBodyHeading.find(@second.id).display_order).to eq(1)
       end
-
     end
   end
 
   context 'when reordering public body categories' do
-
     render_views
 
     before do
@@ -598,10 +566,8 @@ RSpec.describe AdminPublicBodyHeadingsController do
     end
 
     context 'when handling valid input' do
-
       it 'should reorder categories for the heading according to their position \
                 in the submitted params' do
-
         expect(@heading.public_body_categories).to eq(@old_order)
         make_request
         expect(@heading.public_body_categories.reload).to eq(@new_order)
@@ -614,7 +580,6 @@ RSpec.describe AdminPublicBodyHeadingsController do
     end
 
     context 'when handling invalid input' do
-
       before do
         @new_category = FactoryBot.create(:public_body_category)
         @params = @default_params.merge(categories: [@second_category.id,
@@ -633,6 +598,5 @@ RSpec.describe AdminPublicBodyHeadingsController do
         expect(@heading.public_body_categories.reload).to eq(@old_order)
       end
     end
-
   end
 end

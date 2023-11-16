@@ -32,5 +32,4 @@ RSpec.describe 'Adding a Public Body Category' do
       expect(page).to have_content("Description can't be blank")
     end
   end
-
 end

@@ -27,7 +27,6 @@
 #
 
 FactoryBot.define do
-
   factory :public_body do
     sequence(:name) { |n| "Example Public Body #{n}" }
     sequence(:short_name) { |n| "Example Body #{n}" }
@@ -61,5 +60,4 @@ FactoryBot.define do
       request_email { '' }
     end
   end
-
 end

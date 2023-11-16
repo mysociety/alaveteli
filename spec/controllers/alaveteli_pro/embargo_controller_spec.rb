@@ -15,7 +15,6 @@ RSpec.describe AlaveteliPro::EmbargoesController do
     let(:info_request) { FactoryBot.create(:info_request, user: pro_user) }
 
     context 'when the user is allowed to add an embargo' do
-
       context 'because they are the owner' do
         before do
           with_feature_enabled(:alaveteli_pro) do
@@ -36,7 +35,6 @@ RSpec.describe AlaveteliPro::EmbargoesController do
         it 'sets the expected duration' do
           expect(info_request.reload.embargo.embargo_duration).to eq('3_months')
         end
-
       end
 
       context 'because they are a pro admin' do
@@ -59,9 +57,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
         it 'sets the expected duration' do
           expect(info_request.reload.embargo.embargo_duration).to eq('3_months')
         end
-
       end
-
     end
 
     context "when the user is not allowed to update the embargo" do
@@ -80,7 +76,6 @@ RSpec.describe AlaveteliPro::EmbargoesController do
           end
         end.to raise_error(CanCan::AccessDenied)
       end
-
     end
 
     context "when the info_request is part of a batch request" do
@@ -104,9 +99,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
           end
         end.to raise_error(CanCan::AccessDenied)
       end
-
     end
-
   end
 
   describe "#destroy" do
@@ -130,7 +123,6 @@ RSpec.describe AlaveteliPro::EmbargoesController do
         end
 
         context 'they no longer have pro status' do
-
           before do
             pro_user.remove_role(:pro)
           end
@@ -139,9 +131,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
             expect { AlaveteliPro::Embargo.find(embargo.id) }.
               to raise_error(ActiveRecord::RecordNotFound)
           end
-
         end
-
       end
 
       context "because they are an admin" do
@@ -162,7 +152,6 @@ RSpec.describe AlaveteliPro::EmbargoesController do
           expect(info_request.reload.info_request_events.last.event_type).
             to eq 'expire_embargo'
         end
-
       end
     end
 

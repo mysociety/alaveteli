@@ -7,7 +7,6 @@
 require 'securerandom'
 
 class WidgetVotesController < ApplicationController
-
   before_action :check_widget_config, :find_info_request, :check_prominence
 
   # Track interest in a request from a non-logged in user
@@ -46,5 +45,4 @@ class WidgetVotesController < ApplicationController
       head :forbidden
     end
   end
-
 end

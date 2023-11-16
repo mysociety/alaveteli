@@ -14,7 +14,6 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
   let(:embargo) { info_request.embargo }
 
   context 'a pro user viewing one of their own requests' do
-
     it 'allows the user to view the request' do
       using_pro_session(pro_user_session) do
         browse_pro_request(info_request.url_title)
@@ -25,7 +24,6 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
     include_examples 'allows annotations'
 
     context 'the request is not embargoed' do
-
       it 'does not show an embargo end date' do
         using_pro_session(pro_user_session) do
           browse_pro_request(info_request.url_title)
@@ -41,7 +39,6 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
       end
 
       context 'the user does not have a pro account' do
-
         before do
           pro_user.remove_role(:pro)
         end
@@ -54,13 +51,10 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
         end
 
         include_examples 'prevents setting an embargo'
-
       end
-
     end
 
     context 'the request is embargoed' do
-
       let(:batch) do
         FactoryBot.create(:info_request_batch, :sent, :embargoed,
                           user: pro_user)
@@ -99,7 +93,6 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
       include_examples 'allows followups'
 
       context 'the embargo is expiring soon' do
-
         before do
           embargo.update_attribute(:publish_at, embargo.publish_at - 88.days)
           info_request.reload
@@ -111,11 +104,9 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
             expect(page).to have_content "Keep private for"
           end
         end
-
       end
 
       context 'the embargo is not expiring soon' do
-
         it 'does not show the option to extend the embargo' do
           using_pro_session(pro_user_session) do
             browse_pro_request(info_request.url_title)
@@ -135,11 +126,9 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
                               "period from #{expiring_notification}")
           end
         end
-
       end
 
       context 'the user does not have pro status' do
-
         before do
           pro_user.remove_role(:pro)
         end
@@ -150,15 +139,11 @@ RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
             expect(page).not_to have_content "Keep private for"
           end
         end
-
       end
 
       context 'the request has received a response' do
         it_behaves_like 'a request with response'
       end
-
     end
-
   end
-
 end

@@ -2,7 +2,6 @@ require "spec_helper"
 
 RSpec.describe StatisticsController do
   describe "#index" do
-
     before do
       allow(AlaveteliConfiguration).
         to receive(:minimum_requests_for_statistics).and_return 1
