@@ -239,6 +239,12 @@ class User < ApplicationRecord
     user
   end
 
+  def self.authenticate_from_session(session)
+    return unless session[:user_id]
+
+    find_by(id: session[:user_id], login_token: session[:user_login_token])
+  end
+
   # Case-insensitively find a user from their email
   def self.find_user_by_email(email)
     return nil if email.blank?
