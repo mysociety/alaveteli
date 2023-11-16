@@ -19,9 +19,13 @@ RSpec.describe RequestClassification do
     before do
       @user_one = FactoryBot.create(:user)
       @user_two = FactoryBot.create(:user)
+      @banned_user = FactoryBot.create(:user, :banned)
+      @closed_account_user = FactoryBot.create(:user, :closed)
       FactoryBot.create(:request_classification, user: @user_one)
       FactoryBot.create(:request_classification, user: @user_one)
       FactoryBot.create(:request_classification, user: @user_two)
+      10.times { FactoryBot.create(:request_classification, user: @banned_user) }
+      FactoryBot.create(:request_classification, user: @closed_account_user)
     end
 
     it "returns a list of users' classifications with counts in descending order" do

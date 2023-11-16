@@ -4,6 +4,7 @@ module Statistics
     def all_time_requesters
       InfoRequest.is_public.
                   joins(:user).
+                  merge(User.active).
                   group(:user).
                   order(count_info_requests_all: :desc).
                   limit(10).
@@ -15,6 +16,7 @@ module Statistics
       InfoRequest.is_public.
                   where('info_requests.created_at >= ?', 28.days.ago).
                   joins(:user).
+                  merge(User.active).
                   group(:user).
                   order(count_info_requests_all: :desc).
                   limit(10).
@@ -22,33 +24,25 @@ module Statistics
     end
 
     def all_time_commenters
-      commenters = Comment.visible.
-                           joins(:user).
-                           group('comments.user_id').
-                           order(count_all: :desc).
-                           limit(10).
-                           count
-      # TODO: Have user objects automatically instantiated like the InfoRequest
-      # queries above
-      result = {}
-      commenters.each { |user_id, count| result[User.find(user_id)] = count }
-      result
+      Comment.visible.
+              joins(:user).
+              merge(User.active).
+              group(:user).
+              order(count_all: :desc).
+              limit(10).
+              count
     end
 
     def last_28_day_commenters
       # TODO: Refactor as it's basically the same as all_time_commenters
-      commenters = Comment.visible.
-                           where('comments.created_at >= ?', 28.days.ago).
-                           joins(:user).
-                           group('comments.user_id').
-                           order(count_all: :desc).
-                           limit(10).
-                           count
-      # TODO: Have user objects automatically instantiated like the InfoRequest
-      # queries above
-      result = {}
-      commenters.each { |user_id, count| result[User.find(user_id)] = count }
-      result
+      Comment.visible.
+              where('comments.created_at >= ?', 28.days.ago).
+              joins(:user).
+              merge(User.active).
+              group(:user).
+              order(count_all: :desc).
+              limit(10).
+              count
     end
   end
 end
