@@ -22,6 +22,7 @@ AllCops:
   Exclude:
     - commonlib/**/*
     - db/schema.rb
+    - lib/themes/**/*
     - node_modules/**/*
     - vendor/**/*
     - ".git/**/*"
