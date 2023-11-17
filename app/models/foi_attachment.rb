@@ -55,7 +55,7 @@ class FoiAttachment < ApplicationRecord
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
-  # rubocop:disable Style/LineLength
+  # rubocop:disable Layout/LineLength
   CONTENT_TYPE_NAMES = {
     # Plain Text
     "text/plain" => 'Text file',
@@ -79,7 +79,7 @@ class FoiAttachment < ApplicationRecord
     'application/vnd.ms-excel' => 'Excel spreadsheet',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
   }.freeze
-  # rubocop:enable Style/LineLength
+  # rubocop:enable Layout/LineLength
 
   def delete_cached_file!
     @cached_body = nil
