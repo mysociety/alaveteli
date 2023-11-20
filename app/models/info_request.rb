@@ -758,6 +758,10 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def internal_review_requested?
+    outgoing_messages.where(what_doing: 'internal_review').any?
+  end
+
   def is_external?
     external_url.nil? ? false : true
   end

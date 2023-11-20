@@ -86,7 +86,8 @@ class InfoRequest
       end
 
       def self.owner_internal_review_transition_label(opts = {})
-        if opts.fetch(:in_internal_review, false)
+        if opts.fetch(:in_internal_review, false) ||
+           opts.fetch(:internal_review_requested, false)
           _("I'm still <strong>waiting</strong> for the internal review")
         else
           _("I'm waiting for an <strong>internal review</strong> response")
@@ -139,7 +140,8 @@ class InfoRequest
       end
 
       def self.other_user_internal_review_transition_label(opts = {})
-        if opts.fetch(:in_internal_review, false)
+        if opts.fetch(:in_internal_review, false) ||
+           opts.fetch(:internal_review_requested, false)
           _("Still awaiting an <strong>internal review</strong>")
         else
           # To match what would happen if this method didn't exist, because
