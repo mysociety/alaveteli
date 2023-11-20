@@ -234,7 +234,7 @@ Rails.application.routes.draw do
   end
   get '/health_checks' => redirect('/health/checks')
 
-  resources :request, :only => [] do
+  resources :request, :only => [], param: :url_title do
     resource :report, :only => [:new, :create]
     resource :widget, :only => [:new, :show]
     resources :widget_votes, :only => [:create]

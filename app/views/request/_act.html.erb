@@ -44,7 +44,7 @@
 <% if AlaveteliConfiguration::enable_widgets %>
   <div class="act_link">
     <i class="act-link-icon act-link-icon--widget"></i>
-    <%= link_to _("Create a widget for this request"), new_request_widget_path(info_request) %>
+    <%= link_to _("Create a widget for this request"), new_request_widget_path(info_request.url_title) %>
   </div>
 <% end %>
 

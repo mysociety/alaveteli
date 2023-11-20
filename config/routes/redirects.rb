@@ -36,3 +36,11 @@ get '/request/:id(/*suffix)',
   format: false,
   constraints: { id: /\d+/, suffix: %r(response/\d+/attach(/html)?/\d+/.*) },
   to: info_request_redirect
+
+get '/request/:id(/*suffix)',
+  constraints: { id: /\d+/, suffix: %r(report/new) },
+  to: info_request_redirect
+
+get '/request/:id(/*suffix)',
+  constraints: { id: /\d+/, suffix: %r(widget(/new)?) },
+  to: info_request_redirect

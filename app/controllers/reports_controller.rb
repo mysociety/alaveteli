@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
 
   def set_info_request
     @info_request = InfoRequest.not_embargoed.
-      find_by_url_title!(params[:request_id])
+      find_by_url_title!(params[:request_url_title])
   end
 
   def set_comment

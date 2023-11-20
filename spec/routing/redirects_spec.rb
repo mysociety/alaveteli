@@ -17,6 +17,15 @@ RSpec.describe 'routing redirects', type: :request do
   it 'routes numerical request member routes to URL title member routes' do
     get('/request/105/followups/new')
     expect(response).to redirect_to('/request/the_cost_of_boring/followups/new')
+
+    get('/request/105/report/new')
+    expect(response).to redirect_to('/request/the_cost_of_boring/report/new')
+
+    get('/request/105/widget')
+    expect(response).to redirect_to('/request/the_cost_of_boring/widget')
+
+    get('/request/105/widget/new')
+    expect(response).to redirect_to('/request/the_cost_of_boring/widget/new')
   end
 
   it 'routes numerical request attachment routes to URL title attachment routes' do
