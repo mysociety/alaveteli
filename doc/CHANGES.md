@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Automatically apply `not_many_requests` tag to bodies who don't have many
+  public requests so that they can be found in a public list or have tag-based
+  notes applied (Gareth Rees)
 * Improve background job performance by limiting the number `NotifyCacheJob`
   jobs created (Graeme Porteous)
 * Signpost key user administration contributions for requests on request list
@@ -13,6 +16,15 @@
   Porteous)
 * Don't show users that have closed their account or been banned on leaderboards
   (Chris Mytton)
+
+
+## Upgrade Notes
+
+* _Optional:_ Bodies with not many requests will automatically get tagged
+  `not_many_requests` as they are updated. If you want to automatically tag them
+  all in one go, run the following from the app root directory:
+
+      bin/rails runner "PublicBody.where('info_requests_visible_count < ?', PublicBody.not_many_public_requests_size).each(&:save)"
 
 # 0.44.0.0
 

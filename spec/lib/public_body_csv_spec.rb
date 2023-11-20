@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe PublicBodyCSV do
+  around do |example|
+    disable_not_many_requests_auto_tagging { example.run }
+  end
 
   describe '.default_fields' do
 
