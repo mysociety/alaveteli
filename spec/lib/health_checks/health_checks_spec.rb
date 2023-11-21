@@ -4,7 +4,6 @@ RSpec.describe HealthChecks do
   include HealthChecks
 
   describe '#add' do
-
     it 'adds a check to the collection and returns the check' do
       check = double('MockCheck', ok?: true)
       expect(add(check)).to eq(check)
@@ -14,11 +13,9 @@ RSpec.describe HealthChecks do
       check = double('BadCheck')
       expect(add(check)).to eq(false)
     end
-
   end
 
   describe '#all' do
-
     it 'returns all the checks' do
       check1 = double('MockCheck', ok?: true)
       check2 = double('AnotherCheck', ok?: false)
@@ -26,19 +23,15 @@ RSpec.describe HealthChecks do
       add(check2)
       expect(all).to include(check1, check2)
     end
-
   end
 
   describe '#each' do
-
     it 'iterates over each check' do
       expect(subject).to respond_to(:each)
     end
-
   end
 
   describe '#ok?' do
-
     it 'returns true if all checks are ok' do
       checks = [
         double('MockCheck', ok?: true),
@@ -71,7 +64,5 @@ RSpec.describe HealthChecks do
 
       expect(HealthChecks.ok?).to be false
     end
-
   end
-
 end

@@ -11,4 +11,3 @@ class InfoRequest
     end
   end
 end
-

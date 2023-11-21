@@ -15,7 +15,6 @@
 #
 
 FactoryBot.define do
-
   factory :comment do
     user
     info_request
@@ -54,5 +53,4 @@ FactoryBot.define do
       end
     end
   end
-
 end

@@ -63,6 +63,7 @@ class Storage
 
     promotable_blobs.find_each.with_index do |blob, index|
       next unless secondary_service.exist?(blob.key)
+
       blob.update(service_name: secondary_service.name)
 
       print "#{prefix}: Promote #{index + 1}/#{count}"
@@ -135,6 +136,7 @@ class Storage
 
   def mirror_service
     raise not_a_mirror unless mirror_service?
+
     service
   end
 
@@ -152,6 +154,7 @@ class Storage
 
   def disk_service
     raise mirror_primary_not_disk_service unless disk_service?
+
     mirror_service.primary
   end
 

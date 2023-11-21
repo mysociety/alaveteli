@@ -1,15 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliLocalization do
-
   describe '.set_locales' do
-
     before do
       AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
     end
 
     context 'when dealing with FastGettext' do
-
       it 'sets FastGettext.locale' do
         expect(FastGettext.locale).to eq("en_GB")
       end
@@ -26,13 +23,10 @@ RSpec.describe AlaveteliLocalization do
       it 'sets FastGettext.default_available_locales' do
         expect(FastGettext.default_available_locales).to eq([:en_GB, :es])
       end
-
     end
 
     context 'when dealing with I18n' do
-
       context 'when enforce_available_locales is true' do
-
         around do |example|
           enforce_available_locales = I18n.config.enforce_available_locales
           I18n.config.enforce_available_locales = true
@@ -44,7 +38,6 @@ RSpec.describe AlaveteliLocalization do
           AlaveteliLocalization.set_locales('nl en', 'nl')
           expect(I18n.default_locale).to eq(:nl)
         end
-
       end
 
       it 'sets I18n.locale' do
@@ -103,12 +96,10 @@ RSpec.describe AlaveteliLocalization do
             expect(body_with_non_default_locale.url_name).to eq 'non_default'
           end
         end
-
       end
     end
 
     context 'when translating' do
-
       it 'can correct translate 2 letter language locale' do
         AlaveteliLocalization.set_locales('cy', 'cy')
         expect(I18n.translate('date.abbr_month_names')).to include(
@@ -132,7 +123,6 @@ RSpec.describe AlaveteliLocalization do
           'sept.', 'oct.', 'nov.', 'déc.'
         )
       end
-
     end
 
     it 'sets the locales for the custom routing filter' do
@@ -150,11 +140,9 @@ RSpec.describe AlaveteliLocalization do
       expect(AlaveteliLocalization.available_locales).
         to eq(%w[en_GB nl_BE es])
     end
-
   end
 
   describe '.set_session_locale' do
-
     it 'sets the current locale' do
       AlaveteliLocalization.set_session_locale('es')
       expect(AlaveteliLocalization.locale).to eq('es')
@@ -184,11 +172,9 @@ RSpec.describe AlaveteliLocalization do
     it 'accepts a symbol or a string' do
       expect(AlaveteliLocalization.set_session_locale(:es)).to eq('es')
     end
-
   end
 
   describe '.with_locale' do
-
     it 'yields control to i18n' do
       expect { |b| AlaveteliLocalization.with_locale(:es, &b) }.
         to yield_control
@@ -200,7 +186,6 @@ RSpec.describe AlaveteliLocalization do
       end
       expect(result).to eq("es")
     end
-
   end
 
   describe '.with_default_locale' do
@@ -216,7 +201,6 @@ RSpec.describe AlaveteliLocalization do
   end
 
   describe '.locale' do
-
     it 'returns the current locale' do
       expect(AlaveteliLocalization.locale).to eq('en')
     end
@@ -225,11 +209,9 @@ RSpec.describe AlaveteliLocalization do
       AlaveteliLocalization.set_locales('en_GB', 'en_GB')
       expect(AlaveteliLocalization.locale).to eq('en_GB')
     end
-
   end
 
   describe '.default_locale' do
-
     it 'returns the current locale' do
       expect(AlaveteliLocalization.default_locale).to eq('en')
     end
@@ -238,11 +220,9 @@ RSpec.describe AlaveteliLocalization do
       AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
       expect(AlaveteliLocalization.default_locale).to eq('en_GB')
     end
-
   end
 
   describe '.default_locale?' do
-
     it 'returns true if the supplied locale is the default' do
       expect(AlaveteliLocalization.default_locale?('en')).to eq(true)
     end
@@ -258,20 +238,16 @@ RSpec.describe AlaveteliLocalization do
     it 'returns false if the supplied locale is nil' do
       expect(AlaveteliLocalization.default_locale?(nil)).to eq(false)
     end
-
   end
 
   describe '.available_locales' do
-
     it 'returns an array of available locales' do
       AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
       expect(AlaveteliLocalization.available_locales).to eq(%w[en_GB es])
     end
-
   end
 
   describe '.html_lang' do
-
     it 'returns the current locale' do
       expect(AlaveteliLocalization.html_lang).to eq('en')
     end
@@ -280,7 +256,5 @@ RSpec.describe AlaveteliLocalization do
       AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
       expect(AlaveteliLocalization.html_lang).to eq('en-GB')
     end
-
   end
-
 end

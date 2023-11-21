@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe ServicesController do
-
   render_views
 
   describe '#other_country_message' do
-
     # store and restore the locale in the context of the test suite to isolate
     # changes made in these tests
     before do
@@ -42,7 +40,6 @@ RSpec.describe ServicesController do
     end
 
     context 'when user not in the same country as site' do
-
       it "shows a message when user country has no FOI website" do
         allow(AlaveteliConfiguration).
           to receive(:iso_country_code).and_return("DE")
@@ -85,13 +82,10 @@ RSpec.describe ServicesController do
         expect(response.body).to match(/in other countries/)
         expect(response.body).to match(/EU institutions/)
       end
-
     end
-
   end
 
   describe '#hidden_user_explanation' do
-
     let(:admin_user) { FactoryBot.create(:admin_user) }
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
     let(:user) { FactoryBot.create(:user, name: "P O'Toole") }
@@ -141,7 +135,5 @@ RSpec.describe ServicesController do
         end
       end
     end
-
   end
-
 end

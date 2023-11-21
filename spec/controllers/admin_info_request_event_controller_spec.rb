@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe AdminInfoRequestEventController do
-
   describe 'PUT update' do
     let(:info_request_event) do
       info_request_event = FactoryBot.create(:response_event)
     end
 
     describe 'when handling valid data' do
-
       it 'gets the info request event' do
         put :update, params: { id: info_request_event }
         expect(assigns[:info_request_event]).to eq(info_request_event)
@@ -66,7 +64,5 @@ RSpec.describe AdminInfoRequestEventController do
       }.to raise_error(RuntimeError,
                        "can only mark responses as requires clarification")
     end
-
   end
-
 end

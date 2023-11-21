@@ -151,5 +151,4 @@ class TrackMailer < ApplicationMailer
   def set_footer_template
     @footer_template = 'default_with_unsubscribe'
   end
-
 end

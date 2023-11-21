@@ -1,5 +1,4 @@
 shared_examples_for "PhaseCounts" do
-
   let(:model) { described_class }
   let(:class_name) { model.to_s }
   let(:factory) { class_name.demodulize.underscore }
@@ -24,7 +23,6 @@ shared_examples_for "PhaseCounts" do
   end
 
   describe '#phase_counts' do
-
     it 'returns a Hash' do
       expect(resource.phase_counts).to be_a(Hash)
     end
@@ -62,7 +60,6 @@ shared_examples_for "PhaseCounts" do
       it 'does not include draft requests in the not_drafts total' do
         expect(resource.phase_counts['not_drafts']).to eq 3
       end
-
     end
 
     context 'with expiring embargoes' do
@@ -85,7 +82,6 @@ shared_examples_for "PhaseCounts" do
       it 'does not double count the expiring embargo in the not_drafts total' do
         expect(resource.phase_counts['not_drafts']).to eq 4
       end
-
     end
 
     it 'caches the results' do
@@ -97,11 +93,9 @@ shared_examples_for "PhaseCounts" do
       resource.save!
       expect(resource.phase_counts['awaiting_response']).to eq(before)
     end
-
   end
 
   describe '#phase_counts!' do
-
     it 'resets the cache so the results are recalcuated' do
       before = resource.phase_counts!['awaiting_response']
       summary =
@@ -111,7 +105,5 @@ shared_examples_for "PhaseCounts" do
       resource.save!
       expect(resource.phase_counts!['awaiting_response']).to eq(before + 1)
     end
-
   end
-
 end

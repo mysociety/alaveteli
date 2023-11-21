@@ -1,10 +1,8 @@
 module AnalyticsHelper
-
   # helpers for embedding Google Analytics code
   #
   # Event categories and actions should be drawn from the list in the
   # lib/analytics_events.rb file (add your own there when making new ones)
-
 
   # Public: Constructs a String consisting of a Google Analytics (GA) tracking
   # event function call with the (mandatory) event category and action params
@@ -100,5 +98,4 @@ module AnalyticsHelper
       "'#{label}'"
     end
   end
-
 end

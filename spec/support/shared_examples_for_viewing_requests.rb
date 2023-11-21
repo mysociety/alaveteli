@@ -1,5 +1,4 @@
 shared_examples_for 'allows the embargo to be lifted' do
-
   it 'allows the user to publish a request' do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
@@ -10,11 +9,9 @@ shared_examples_for 'allows the embargo to be lifted' do
       expect(page).to have_content(/Your requests? (is|are) now public!/)
     end
   end
-
 end
 
 shared_examples_for 'allows annotations' do
-
   it 'allows the user to add an annotation' do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
@@ -28,11 +25,9 @@ shared_examples_for 'allows annotations' do
       expect(page).to have_content("Testing annotations")
     end
   end
-
 end
 
 shared_examples_for 'allows followups' do
-
   it 'allows the user to send a follow up' do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
@@ -47,22 +42,18 @@ shared_examples_for 'allows followups' do
       expect(page).to have_content("Testing follow ups")
     end
   end
-
 end
 
 shared_examples_for 'prevents setting an embargo' do
-
   it 'does not show the option to add an embargo' do
     using_pro_session(pro_user_session) do
       browse_pro_request(info_request.url_title)
       expect(page).not_to have_content "Keep private for"
     end
   end
-
 end
 
 shared_examples_for 'a request with response' do
-
   before do
     incoming_message = FactoryBot.create(:plain_incoming_message,
                                          info_request: info_request)
@@ -130,5 +121,4 @@ shared_examples_for 'a request with response' do
       check 'Change status'
     end
   end
-
 end

@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::PDF do
-
   let(:attachment) { FactoryBot.create(:pdf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::PDF.new(attachment) }
 
   describe :tmpdir do
-
     it 'defaults to the rails tmp directory' do
       expect(adapter.tmpdir).to eq(Rails.root.join('tmp'))
     end
@@ -15,11 +13,9 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
       adapter = AttachmentToHTML::Adapters::PDF.new(attachment, tmpdir: '/tmp')
       expect(adapter.tmpdir).to eq('/tmp')
     end
-
   end
 
   describe :title do
-
     it 'uses the attachment filename for the title' do
       expect(adapter.title).to eq(attachment.display_filename)
     end
@@ -27,12 +23,9 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
     it 'returns the title encoded as UTF-8' do
       expect(adapter.title.encoding).to eq(Encoding.find('UTF-8'))
     end
-
-
   end
 
   describe :body do
-
     it 'extracts the body from the document' do
       expect(adapter.body).to include('thisisthebody')
     end
@@ -54,7 +47,6 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
     end
 
     context 'PDF attachment with images' do
-
       let(:attachment) do
         FactoryBot.create(
           :pdf_attachment,
@@ -67,14 +59,10 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
         expect(adapter.body).to_not include('<img src="/')
         expect(adapter.body).to include('<img src="./')
       end
-
     end
-
   end
 
-
   describe :success? do
-
     it 'is truthy if the body has content excluding the tags' do
       allow(adapter).to receive(:body).and_return('<p>some content</p>')
       expect(adapter.success?).to be_truthy
@@ -131,7 +119,5 @@ RSpec.describe AttachmentToHTML::Adapters::PDF do
 
       expect(adapter.success?).to be false
     end
-
   end
-
 end

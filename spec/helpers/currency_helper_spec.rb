@@ -37,5 +37,4 @@ RSpec.describe CurrencyHelper do
       end
     end
   end
-
 end

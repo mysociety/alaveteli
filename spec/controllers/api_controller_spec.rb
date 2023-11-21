@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe ApiController, "when using the API" do
-
   describe 'checking API keys' do
     before do
       @number_of_requests = InfoRequest.count

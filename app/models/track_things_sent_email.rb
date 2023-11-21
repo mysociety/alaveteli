@@ -33,5 +33,4 @@ class TrackThingsSentEmail < ApplicationRecord
     TrackThingsSentEmail.
       where("updated_at < (now() - interval '1 month')").delete_all
   end
-
 end

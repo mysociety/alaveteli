@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestBatchMailer < ApplicationMailer
-
   def batch_sent(info_request_batch, unrequestable, user)
     @info_request_batch = info_request_batch
     @unrequestable = unrequestable

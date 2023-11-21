@@ -19,7 +19,6 @@ class ValidatableCustomMessage
 end
 
 RSpec.describe NotNilValidator do
-
   it 'is valid when the subject_attr is not blank' do
     subject = Validatable.new(subject_attr: 'xyz')
     expect(subject).to be_valid
@@ -46,5 +45,4 @@ RSpec.describe NotNilValidator do
     subject.valid?
     expect(subject.errors[:subject_attr]).to eq(['Custom message'])
   end
-
 end

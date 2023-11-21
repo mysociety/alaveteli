@@ -1,5 +1,4 @@
 module TrackHelper
-
   def already_subscribed_notice(track_thing)
     case track_thing.track_type
     when 'request_updates'

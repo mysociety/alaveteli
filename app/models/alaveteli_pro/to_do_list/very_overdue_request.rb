@@ -1,7 +1,6 @@
 module AlaveteliPro
   module ToDoList
     class VeryOverdueRequest < Item
-
       def description
         n_("{{count}} request is long overdue.",
            "{{count}} requests are long overdue.",

@@ -1,5 +1,4 @@
 module InfoRequestCustomStates
-
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -7,19 +6,23 @@ module InfoRequestCustomStates
   # Mixin methods for InfoRequest
   def theme_calculate_status
     return 'waiting_classification' if awaiting_description
+
     waiting_response = described_state == "waiting_response" || described_state == "deadline_extended"
     return described_state unless waiting_response
+
     if described_state == 'deadline_extended'
       return 'deadline_extended' if
       Time.zone.now.strftime("%Y-%m-%d") < date_deadline_extended.strftime("%Y-%m-%d")
       return 'waiting_response_very_overdue'  if
       Time.zone.now.strftime("%Y-%m-%d") > Holiday.due_date_from_working_days(date_deadline_extended, 15).strftime("%Y-%m-%d")
+
       return 'waiting_response_overdue'
     end
     return 'waiting_response_very_overdue' if
     Time.zone.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
     Time.zone.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
+
     'waiting_response'
   end
 
@@ -58,7 +61,6 @@ module InfoRequestCustomStates
 end
 
 module RequestControllerCustomStates
-
   def theme_describe_state(info_request)
     # called after the core describe_state code.  It should
     # end by raising an error if the status is unknown
@@ -72,5 +74,4 @@ module RequestControllerCustomStates
       raise "unknown calculate_status " + info_request.calculate_status
     end
   end
-
 end

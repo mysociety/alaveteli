@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe HolidayImport do
-
   it 'validates the presence of a feed if the source is a feed' do
     holiday_import = HolidayImport.new(source: 'feed')
     expect(holiday_import.valid?).to be false
@@ -87,7 +86,6 @@ RSpec.describe HolidayImport do
   end
 
   describe 'when populating a set of holidays to import from suggestions' do
-
     it 'should populate holidays from the suggestions' do
       holidays = [ { date: Date.new(2014, 1, 1),
                      name: "New Year's Day",
@@ -119,11 +117,9 @@ RSpec.describe HolidayImport do
 
       expect(@holiday_import.populated).to eq(true)
     end
-
   end
 
   describe 'when populating a set of holidays to import from a feed' do
-
     before do
       @holiday_import = HolidayImport.new(source: 'feed',
                                           ical_feed_url: 'http://www.example.com',
@@ -153,11 +149,9 @@ RSpec.describe HolidayImport do
       expected = ["Sorry we couldn't find that feed."]
       expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
     end
-
   end
 
   describe '#save' do
-
     it 'saves all holidays' do
       holiday = Holiday.new
       holiday_import = HolidayImport.new
@@ -165,11 +159,9 @@ RSpec.describe HolidayImport do
       expect(holiday).to receive(:save)
       holiday_import.save
     end
-
   end
 
   describe '#save!' do
-
     it 'saves all holidays' do
       holiday = Holiday.new
       holiday_import = HolidayImport.new
@@ -177,7 +169,5 @@ RSpec.describe HolidayImport do
       expect(holiday).to receive(:save!)
       holiday_import.save!
     end
-
   end
-
 end

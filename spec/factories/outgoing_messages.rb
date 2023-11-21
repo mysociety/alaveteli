@@ -19,7 +19,6 @@
 #
 
 FactoryBot.define do
-
   factory :outgoing_message do
     info_request
     prominence { 'normal' }
@@ -90,5 +89,4 @@ FactoryBot.define do
       end
     end
   end
-
 end

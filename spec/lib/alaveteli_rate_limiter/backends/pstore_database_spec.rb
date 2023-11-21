@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
-
   let(:test_path) { Rails.root + '/tmp/test.pstore' }
 
   after(:each) do
@@ -9,7 +8,6 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
   end
 
   describe '.new' do
-
     it 'requires a path' do
       expect { subject }.to raise_error(KeyError)
     end
@@ -25,11 +23,9 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
       subject = described_class.new(path: path)
       expect(subject.pstore.path).to eq(Pathname.new(path))
     end
-
   end
 
   describe '#get' do
-
     it 'returns the values for the key' do
       subject = described_class.new(path: test_path)
 
@@ -56,11 +52,9 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
 
       expect(subject.get('key1')).to eq(expected)
     end
-
   end
 
   describe '#set' do
-
     it 'sets a new record for the given keys' do
       subject = described_class.new(path: test_path)
       subject.set('key', [])
@@ -78,11 +72,9 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
 
       expect(subject.get('key')).to eq(expected)
     end
-
   end
 
   describe '#record' do
-
     it 'records an event for a given IP and event' do
       subject = described_class.new(path: test_path)
       time = Time.zone.now.to_datetime
@@ -92,11 +84,9 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
         expect(subject.get('key').last).to be_within(1.second).of(time)
       end
     end
-
   end
 
   describe '#==' do
-
     it 'is equal if the pstore paths are the same' do
       subject = described_class.new(path: test_path)
       expect(subject).to eq(subject.dup)
@@ -107,11 +97,9 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
       path = "#{ Rails.root }/tmp/custom_database.pstore"
       expect(subject).not_to eq(described_class.new(path: path))
     end
-
   end
 
   describe '#destroy' do
-
     it 'destroys the pstore' do
       subject = described_class.new(path: test_path)
       subject.set('1', '2')
@@ -123,7 +111,5 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
       subject = described_class.new(path: test_path)
       expect { subject.destroy }.not_to raise_error
     end
-
   end
-
 end

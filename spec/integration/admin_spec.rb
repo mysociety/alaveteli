@@ -30,7 +30,6 @@ RSpec.describe "When administering the site" do
   end
 
   it "allows redelivery of an incoming message to a closed request" do
-
     # close request
     info_request = FactoryBot.create(:info_request_with_incoming)
     close_request(info_request)
@@ -114,7 +113,6 @@ RSpec.describe "When administering the site" do
   end
 
   describe 'when administering the holding pen' do
-
     it "shows a rejection reason for an incoming message from an invalid address" do
       info_request = FactoryBot.create(:info_request,
                                        allow_new_responses_from: 'authority_only',
@@ -130,7 +128,6 @@ RSpec.describe "When administering the site" do
   end
 
   describe 'generating an upload url' do
-
     it 'shows a flash message with instructions on forwarding the url' do
       request = FactoryBot.create(:info_request)
       authority_name = request.public_body.name
@@ -151,13 +148,10 @@ RSpec.describe "When administering the site" do
         expect(page).to have_link(url, href: url)
         expect(page).to have_content(message)
       end
-
     end
-
   end
 
   describe 'hide and notify' do
-
     let(:user) { FactoryBot.create(:user, name: "Awkward > Name") }
     let(:request) { FactoryBot.create(:info_request, user: user) }
 
@@ -181,7 +175,5 @@ RSpec.describe "When administering the site" do
           to have_content('Your message to Awkward > Name has been sent')
       end
     end
-
   end
-
 end

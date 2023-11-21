@@ -197,7 +197,6 @@ class AdminUserController < AdminController
       end
       render action: 'edit' and return false
     end
-
   end
 
   def set_admin_user

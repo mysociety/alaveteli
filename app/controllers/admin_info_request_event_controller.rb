@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminInfoRequestEventController < AdminController
-
   before_action :set_info_request_event, only: [:update]
 
   # used so due dates get fixed
@@ -13,6 +12,7 @@ class AdminInfoRequestEventController < AdminController
     if @info_request_event.event_type != 'response'
       raise "can only mark responses as requires clarification"
     end
+
     @info_request_event.described_state = 'waiting_clarification'
     @info_request_event.calculated_state = 'waiting_clarification'
     # TODO: deliberately don't update described_at so doesn't reenter search?
@@ -29,5 +29,4 @@ class AdminInfoRequestEventController < AdminController
   def set_info_request_event
     @info_request_event = InfoRequestEvent.find(params[:id])
   end
-
 end

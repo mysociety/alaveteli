@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe PublicTokensController, type: :controller do
-
   let(:ability) { Object.new.extend(CanCan::Ability) }
   let(:info_request) { FactoryBot.create(:embargoed_request) }
 
@@ -206,5 +205,4 @@ RSpec.describe PublicTokensController, type: :controller do
       end
     end
   end
-
 end

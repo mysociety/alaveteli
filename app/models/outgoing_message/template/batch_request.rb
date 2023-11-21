@@ -34,7 +34,6 @@ class OutgoingMessage
         msg += signoff(replacements)
         msg += "\n\n"
       end
-
     end
   end
 end

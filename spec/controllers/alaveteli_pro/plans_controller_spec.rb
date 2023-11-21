@@ -20,7 +20,6 @@ RSpec.describe AlaveteliPro::PlansController do
   end
 
   describe 'GET #index' do
-
     before do
       get :index
     end
@@ -47,9 +46,7 @@ RSpec.describe AlaveteliPro::PlansController do
   end
 
   describe 'GET #show' do
-
     context 'without a signed-in user' do
-
       before do
         get :show, params: { id: 'pro' }
       end
@@ -62,7 +59,6 @@ RSpec.describe AlaveteliPro::PlansController do
       it 'sets in_pro_area' do
         expect(assigns(:in_pro_area)).to be true
       end
-
     end
 
     context 'with a signed-in user' do
@@ -73,7 +69,6 @@ RSpec.describe AlaveteliPro::PlansController do
       end
 
       context 'with a valid plan' do
-
         before do
           get :show, params: { id: 'pro' }
         end
@@ -89,11 +84,9 @@ RSpec.describe AlaveteliPro::PlansController do
         it 'returns http success' do
           expect(response).to be_successful
         end
-
       end
 
       context 'with a Stripe namespace' do
-
         before do
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
             and_return('alaveteli')
@@ -111,11 +104,9 @@ RSpec.describe AlaveteliPro::PlansController do
         it 'returns http success' do
           expect(response).to be_successful
         end
-
       end
 
       context 'with an existing subscription' do
-
         before do
           sign_in user
           customer =
@@ -138,7 +129,6 @@ RSpec.describe AlaveteliPro::PlansController do
       end
 
       context 'with an existing customer id but no active subscriptions' do
-
         before do
           sign_in user
           customer =
@@ -160,21 +150,15 @@ RSpec.describe AlaveteliPro::PlansController do
         it 'returns http success' do
           expect(response).to be_successful
         end
-
       end
 
       context 'with an invalid plan' do
-
         it 'returns ActiveRecord::RecordNotFound' do
           expect {
             get :show, params: { id: 'invalid-123' }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
-
       end
-
     end
-
   end
-
 end

@@ -1,5 +1,4 @@
 class AdminOutgoingMessageController < AdminController
-
   before_action :set_outgoing_message, only: [:edit, :destroy, :update, :resend]
   before_action :set_info_request, :check_info_request
   before_action :set_is_initial_message, only: [:edit, :destroy]

@@ -1,5 +1,4 @@
 class Users::ConfirmationsController < UserController
-
   def confirm
     post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 
@@ -43,5 +42,4 @@ class Users::ConfirmationsController < UserController
     user.confirm!
     user
   end
-
 end

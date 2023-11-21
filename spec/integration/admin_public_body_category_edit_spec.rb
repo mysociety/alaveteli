@@ -50,7 +50,6 @@ RSpec.describe 'Editing a Public Body Category' do
       fill_in 'public_body_category_translations_attributes_es_title', with: 'New Category ES'
       fill_in 'public_body_category_translations_attributes_es_description', with: 'ES Description'
       click_button 'Save'
-
     end
     @category.reload
     AlaveteliLocalization.with_locale(:fr) do
@@ -61,5 +60,4 @@ RSpec.describe 'Editing a Public Body Category' do
       expect(@category.title).to eq('New Category ES')
     end
   end
-
 end

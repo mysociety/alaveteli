@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::State::AwaitingResponseQuery do
-
   describe '#call' do
-
     it 'includes those that are waiting for a response,
         and not waiting for description' do
       info_request = FactoryBot.create(:info_request)
@@ -15,6 +13,5 @@ RSpec.describe InfoRequest::State::AwaitingResponseQuery do
       expect(described_class.new.call.include?(old_unclassified_request))
         .to be false
     end
-
   end
 end

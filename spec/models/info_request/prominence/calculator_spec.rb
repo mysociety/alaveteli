@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::Prominence::Calculator do
-
   let(:info_request) { FactoryBot.build(:info_request) }
   let(:embargoed_request) { FactoryBot.create(:embargoed_request) }
 
@@ -16,7 +15,6 @@ RSpec.describe InfoRequest::Prominence::Calculator do
   end
 
   describe '#is_public?' do
-
     it 'returns true if its prominence is normal' do
       expect_value('normal', :is_public?, true)
     end
@@ -34,7 +32,6 @@ RSpec.describe InfoRequest::Prominence::Calculator do
     end
 
     context 'when there is an embargo' do
-
       it 'returns false if its prominence is normal' do
         expect_embargoed_value('normal', :is_public?, false)
       end
@@ -50,13 +47,10 @@ RSpec.describe InfoRequest::Prominence::Calculator do
       it 'returns false if its prominence is requester_only' do
          expect_embargoed_value('requester_only', :is_public?, false)
       end
-
     end
-
   end
 
   describe '#is_searchable?' do
-
     it 'returns true if its prominence is normal' do
       expect_value('normal', :is_searchable?, true)
     end
@@ -74,7 +68,6 @@ RSpec.describe InfoRequest::Prominence::Calculator do
     end
 
     context 'when there is an embargo' do
-
       it 'returns false if its prominence is normal' do
         expect_embargoed_value('normal', :is_searchable?, false)
       end
@@ -90,13 +83,10 @@ RSpec.describe InfoRequest::Prominence::Calculator do
       it 'returns false if its prominence is requester_only' do
          expect_embargoed_value('requester_only', :is_searchable?, false)
       end
-
     end
-
   end
 
   describe '#is_private?' do
-
     it 'returns false if its prominence is normal' do
       expect_value('normal', :is_private?, false)
     end
@@ -113,9 +103,7 @@ RSpec.describe InfoRequest::Prominence::Calculator do
        expect_value('requester_only', :is_private?, true)
     end
 
-
     context 'when there is an embargo' do
-
       it 'returns true if its prominence is normal' do
         expect_embargoed_value('normal', :is_private?, true)
       end
@@ -131,13 +119,10 @@ RSpec.describe InfoRequest::Prominence::Calculator do
       it 'returns true if its prominence is requester_only' do
          expect_embargoed_value('requester_only', :is_private?, true)
       end
-
     end
-
   end
 
   describe '#is_requester_only?' do
-
     it 'returns false if its prominence is normal' do
       expect_value('normal', :is_requester_only?, false)
     end
@@ -153,11 +138,9 @@ RSpec.describe InfoRequest::Prominence::Calculator do
     it 'returns true if its prominence is requester_only' do
        expect_value('requester_only', :is_requester_only?, true)
     end
-
   end
 
   describe '#is_hidden?' do
-
     it 'returns false if its prominence is normal' do
       expect_value('normal', :is_hidden?, false)
     end
@@ -173,15 +156,11 @@ RSpec.describe InfoRequest::Prominence::Calculator do
     it 'returns false if its prominence is requester_only' do
        expect_value('requester_only', :is_hidden?, false)
     end
-
   end
 
   describe '#to_s' do
-
     it 'returns the prominence of the request' do
       expect_value('normal', :to_s, 'normal')
     end
-
   end
-
 end

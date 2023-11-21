@@ -14,7 +14,6 @@ RSpec.describe 'Editing a User' do
   end
 
   context 'when a user is banned' do
-
     it 're-editing does not change their url_name' do
       using_session(@admin) do
         visit edit_admin_user_path(@user)
@@ -24,7 +23,5 @@ RSpec.describe 'Editing a User' do
 
       expect(@user.reload.url_name).to eq('nasty_user_123')
     end
-
   end
-
 end

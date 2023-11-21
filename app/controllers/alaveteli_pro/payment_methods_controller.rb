@@ -20,7 +20,6 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
            Stripe::AuthenticationError,
            Stripe::APIConnectionError,
            Stripe::StripeError => e
-
       if send_exception_notifications?
         ExceptionNotifier.notify_exception(e, env: request.env)
       end
@@ -41,5 +40,4 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
       email_subject: _('To update your payment details')
     )
   end
-
 end

@@ -55,7 +55,7 @@ class FoiAttachment < ApplicationRecord
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
-  # rubocop:disable Style/LineLength
+  # rubocop:disable Layout/LineLength
   CONTENT_TYPE_NAMES = {
     # Plain Text
     "text/plain" => 'Text file',
@@ -79,7 +79,7 @@ class FoiAttachment < ApplicationRecord
     'application/vnd.ms-excel' => 'Excel spreadsheet',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
   }.freeze
-  # rubocop:enable Style/LineLength
+  # rubocop:enable Layout/LineLength
 
   def delete_cached_file!
     @cached_body = nil
@@ -134,6 +134,7 @@ class FoiAttachment < ApplicationRecord
       raw_email.mail,
       hexdigest: hexdigest
     )
+
   rescue MailHandler::MismatchedAttachmentHexdigest
     attributes = MailHandler.attempt_to_find_original_attachment_attributes(
       raw_email.mail,
@@ -214,6 +215,7 @@ class FoiAttachment < ApplicationRecord
     # look up what it means in the DSN table.
     if @content_type == 'message/delivery-status'
       return "" unless @body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
+
       dsn = $1
       dsn_part = 'X.' + $2
 
@@ -258,7 +260,6 @@ class FoiAttachment < ApplicationRecord
     filename = filename.gsub(/\s+/, " ")
     filename.strip
   end
-
 
   def ensure_filename!
     if filename.blank?

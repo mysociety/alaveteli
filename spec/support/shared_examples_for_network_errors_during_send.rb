@@ -1,7 +1,5 @@
 shared_examples_for 'NetworkSendErrors' do
-
   describe 'handles a network error during message sending' do
-
     before do
       allow_any_instance_of(ActionMailer::MessageDelivery).
         to receive(:deliver_now).
@@ -36,7 +34,5 @@ shared_examples_for 'NetworkSendErrors' do
     it 'ensures that the outgoing message status is set to "failed"' do
       expect(outgoing_message.status).to eq 'failed'
     end
-
   end
-
 end

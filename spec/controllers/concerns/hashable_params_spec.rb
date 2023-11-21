@@ -40,7 +40,5 @@ RSpec.describe HashableParams do
         expect(subject).to respond_to(:with_indifferent_access)
       end
     end
-
   end
-
 end

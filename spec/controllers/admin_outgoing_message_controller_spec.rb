@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe AdminOutgoingMessageController do
-
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
   describe 'GET #edit' do
-
     before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
@@ -23,23 +21,19 @@ RSpec.describe AdminOutgoingMessageController do
     end
 
     context 'when the message is the initial outgoing message' do
-
       it 'sets is_initial_message to true' do
         get :edit, params: { id: outgoing.id }
         expect(assigns[:is_initial_message]).to eq(true)
       end
-
     end
 
     context 'when the message is not initial outgoing message' do
-
       it 'sets is_initial_message to false' do
         outgoing = FactoryBot.create(:new_information_followup,
                                      info_request: info_request)
         get :edit, params: { id: outgoing.id }
         expect(assigns[:is_initial_message]).to eq(false)
       end
-
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -67,7 +61,6 @@ RSpec.describe AdminOutgoingMessageController do
   end
 
   describe 'DELETE #destroy' do
-
     before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
@@ -82,7 +75,6 @@ RSpec.describe AdminOutgoingMessageController do
     end
 
     context 'successfully destroying the message' do
-
       it 'destroys the message' do
         delete :destroy, params: { id: outgoing.id }
         expect(assigns[:outgoing_message]).to_not be_persisted
@@ -103,7 +95,6 @@ RSpec.describe AdminOutgoingMessageController do
         delete :destroy, params: { id: outgoing.id }
         expect(response).to redirect_to(admin_request_url(info_request))
       end
-
     end
 
     context 'unsuccessfully destroying the message' do
@@ -127,11 +118,9 @@ RSpec.describe AdminOutgoingMessageController do
         expect(response).
           to redirect_to(edit_admin_outgoing_message_path(outgoing))
       end
-
     end
 
     context 'when the message is the initial outgoing message' do
-
       it 'sets is_initial_message to true' do
         outgoing = FactoryBot.create(:initial_request)
         delete :destroy, params: { id: outgoing.id }
@@ -143,11 +132,9 @@ RSpec.describe AdminOutgoingMessageController do
         delete :destroy, params: { id: outgoing.id }
         expect(assigns[:outgoing_message]).to be_persisted
       end
-
     end
 
     context 'when the message is not initial outgoing message' do
-
       it 'sets is_initial_message to false' do
         delete :destroy, params: { id: outgoing.id }
         expect(assigns[:is_initial_message]).to eq(false)
@@ -157,7 +144,6 @@ RSpec.describe AdminOutgoingMessageController do
         delete :destroy, params: { id: outgoing.id }
         expect(assigns[:outgoing_message]).to_not be_persisted
       end
-
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -185,7 +171,6 @@ RSpec.describe AdminOutgoingMessageController do
   end
 
   describe 'PUT #update' do
-
     before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
@@ -267,7 +252,6 @@ RSpec.describe AdminOutgoingMessageController do
     end
 
     context 'if the outgoing message saves correctly' do
-
       it 'should redirect to the admin info request view' do
         make_request
         expect(response).to redirect_to admin_request_url(info_request)
@@ -277,11 +261,9 @@ RSpec.describe AdminOutgoingMessageController do
         make_request
         expect(flash[:notice]).to eq('Outgoing message successfully updated.')
       end
-
     end
 
     context 'if the incoming message is not valid' do
-
       it 'should render the edit template' do
         make_request({ id: outgoing.id,
                       outgoing_message: { prominence: 'fantastic',
@@ -289,7 +271,6 @@ RSpec.describe AdminOutgoingMessageController do
                                             body: 'Some information please' } })
         expect(response).to render_template("edit")
       end
-
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -379,5 +360,4 @@ RSpec.describe AdminOutgoingMessageController do
       end
     end
   end
-
 end

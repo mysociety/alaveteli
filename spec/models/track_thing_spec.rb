@@ -18,7 +18,6 @@
 require 'spec_helper'
 
 RSpec.describe TrackThing, "when tracking changes" do
-
   before do
     @track_thing = track_things(:track_fancy_dog_search)
   end

@@ -167,7 +167,6 @@ RSpec.describe MailServerLog do
     end
 
     describe '.request_exim_sent?' do
-
       it "returns true when a log line says the message was sent" do
         line = "Apr 28 15:53:37 server exim[12105]: 2016-04-28 15:53:37 " \
                "[12105] 1avnJx-00039F-Hs <= " \
@@ -204,7 +203,6 @@ RSpec.describe MailServerLog do
         expect(MailServerLog.request_exim_sent?(info_request)).to be false
       end
     end
-
   end
 
   context "Postfix" do
@@ -282,26 +280,21 @@ RSpec.describe MailServerLog do
   end
 
   describe '#line' do
-
     it 'returns the line attribute' do
       log = MailServerLog.new(line: 'log line')
       expect(log.line).to eq('log line')
     end
 
     context ':decorate option is truthy' do
-
       context 'using the :exim MTA' do
-
         it 'returns an EximLine containing the line attribute' do
           log = MailServerLog.new(line: 'log line')
           expect(log.line(decorate: true)).
             to eq(MailServerLog::EximLine.new('log line'))
         end
-
       end
 
       context 'using the :postfix MTA' do
-
         before do
           allow(AlaveteliConfiguration).to receive(:mta_log_type).and_return('postfix')
         end
@@ -311,13 +304,10 @@ RSpec.describe MailServerLog do
           expect(log.line(decorate: true)).
             to eq(MailServerLog::PostfixLine.new('log line'))
         end
-
       end
-
     end
 
     context ':redact option is truthy' do
-
       it 'redacts the info request id hash' do
         log = FactoryBot.create(:mail_server_log)
         line = log.line += " #{ log.info_request.incoming_email }"
@@ -393,7 +383,6 @@ RSpec.describe MailServerLog do
   end
 
   describe '#delivery_status' do
-
     context 'if there is a stored value' do
       let(:log) do
         FactoryBot.create(:mail_server_log, line: "log text **")
@@ -418,7 +407,6 @@ RSpec.describe MailServerLog do
         expect(log).to_not receive(:line)
         log.reload.delivery_status
       end
-
     end
 
     # TODO: This can be removed when there are no more cached MTA-specific
@@ -457,7 +445,6 @@ RSpec.describe MailServerLog do
     end
 
     context 'there is not a stored value' do
-
       it 'parses the line text' do
         log = MailServerLog.new(line: "…<=…")
         expect(log.delivery_status).
@@ -480,11 +467,9 @@ RSpec.describe MailServerLog do
           status = MailServerLog::DeliveryStatus.new(:sent)
           expect(log.delivery_status).to eq(status)
         end
-
       end
 
       context 'using the :postfix MTA' do
-
         before do
           allow(AlaveteliConfiguration).to receive(:mta_log_type).and_return('postfix')
         end
@@ -502,15 +487,11 @@ RSpec.describe MailServerLog do
           status = MailServerLog::DeliveryStatus.new(:delivered)
           expect(log.delivery_status).to eq(status)
         end
-
       end
-
     end
-
   end
 
   describe '#is_owning_user?' do
-
     it 'returns true if the user is the owning user of the info request' do
       log = FactoryBot.build(:mail_server_log)
       request = mock_model(InfoRequest, is_owning_user?: true)
@@ -524,13 +505,10 @@ RSpec.describe MailServerLog do
       allow(log).to receive(:info_request).and_return(request)
       expect(log.is_owning_user?(double(:user))).to eq(false)
     end
-
   end
 
   describe '.check_recent_requests_have_been_sent' do
-
     context 'if all recent requests have been sent' do
-
       it 'returns true' do
         info_request = FactoryBot.create(:info_request,
                                          created_at: Time.zone.now - 5.days)
@@ -538,11 +516,9 @@ RSpec.describe MailServerLog do
           and_return(true)
         expect(MailServerLog.check_recent_requests_have_been_sent).to eq(true)
       end
-
     end
 
     context 'if a recent request has not been sent' do
-
       it 'returns false' do
         info_request = FactoryBot.create(:info_request,
                                          created_at: Time.zone.now - 5.days)
@@ -564,8 +540,6 @@ RSpec.describe MailServerLog do
         expect($stderr).to receive(:puts).with(expected_message)
         MailServerLog.check_recent_requests_have_been_sent
       end
-
     end
-
   end
 end

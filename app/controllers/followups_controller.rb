@@ -146,6 +146,7 @@ class FollowupsController < ApplicationController
         @outgoing_message,
         @outgoing_message.incoming_message_followup
       ).deliver_now
+
     rescue *OutgoingMessage.expected_send_errors => e
       authority_name = @outgoing_message.info_request.public_body.name
       @outgoing_message.record_email_failure(e.message)

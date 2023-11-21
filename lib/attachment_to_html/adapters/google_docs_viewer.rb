@@ -7,7 +7,7 @@ module AttachmentToHTML
     # constructed iframe (which is tested) that Google will make this
     # Just Work.
     class GoogleDocsViewer < Adapter
-      # rubocop:disable Style/LineLength
+      # rubocop:disable Layout/LineLength
       VIEWABLE_CONTENT_TYPPES = [
         'application/pdf', # .pdf
         'image/tiff', # .tiff
@@ -19,7 +19,7 @@ module AttachmentToHTML
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', # .xlsx
         'text/csv' # csv
       ].freeze
-      # rubocop:enable Style/LineLength
+      # rubocop:enable Layout/LineLength
 
       # Whether this type can be shown in the Google Docs Viewer.
       # The full list of supported types can be found at

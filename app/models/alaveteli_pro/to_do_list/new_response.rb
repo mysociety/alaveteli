@@ -1,7 +1,6 @@
 module AlaveteliPro
   module ToDoList
     class NewResponse < Item
-
       def description
         n_("{{count}} request has received a response.",
            "{{count}} requests have received a response.",
@@ -31,7 +30,6 @@ module AlaveteliPro
            "Update statuses.",
            count)
       end
-
     end
   end
 end

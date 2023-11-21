@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe UserProfile::AboutMeController do
-
   describe 'GET edit' do
-
     it 'sets the title' do
       get :edit
       expect(assigns[:title]).
@@ -11,17 +9,14 @@ RSpec.describe UserProfile::AboutMeController do
     end
 
     context 'without a logged in user' do
-
       it 'redirects to the home page' do
         sign_in nil
         get :edit
         expect(response).to redirect_to(frontpage_path)
       end
-
     end
 
     context 'with a logged in user' do
-
       let(:user) { FactoryBot.create(:user) }
 
       it 'assigns the currently logged in user' do
@@ -41,13 +36,10 @@ RSpec.describe UserProfile::AboutMeController do
         get :edit
         expect(response).to render_template(:edit)
       end
-
     end
-
   end
 
   describe 'PUT update' do
-
     it 'sets the title' do
       put :update, params: { user: { about_me: 'My bio' } }
       expect(assigns[:title]).
@@ -55,17 +47,14 @@ RSpec.describe UserProfile::AboutMeController do
     end
 
     context 'without a logged in user' do
-
       it 'redirects to the sign in page' do
         sign_in nil
         put :update, params: { user: { about_me: 'My bio' } }
         expect(response).to redirect_to(frontpage_path)
       end
-
     end
 
     context 'with a banned user' do
-
       let(:banned_user) { FactoryBot.create(:user, ban_text: 'banned') }
 
       before :each do
@@ -81,11 +70,9 @@ RSpec.describe UserProfile::AboutMeController do
         put :update, params: { user: { about_me: 'My bio' } }
         expect(response).to redirect_to(edit_profile_about_me_path)
       end
-
     end
 
     context 'with valid attributes' do
-
       let(:user) { FactoryBot.create(:user) }
 
       before :each do
@@ -103,7 +90,6 @@ RSpec.describe UserProfile::AboutMeController do
       end
 
       context 'if the user has a profile photo' do
-
         it 'sets a success message' do
           user.create_profile_photo!(data: load_file_fixture('parrot.png'))
           put :update, params: { user: { about_me: 'My bio' } }
@@ -117,11 +103,9 @@ RSpec.describe UserProfile::AboutMeController do
           expect(response).
             to redirect_to(show_user_path(url_name: user.url_name))
         end
-
       end
 
       context 'if the user does not have a profile photo' do
-
         it 'sets a message suggesting they add one' do
           put :update, params: { user: { about_me: 'My bio' } }
           expect(flash[:notice][:partial]).to eq("update_profile_text")
@@ -131,13 +115,10 @@ RSpec.describe UserProfile::AboutMeController do
           put :update, params: { user: { about_me: 'My bio' } }
           expect(response).to redirect_to(set_profile_photo_path)
         end
-
       end
-
     end
 
     context 'with invalid attributes' do
-
       let(:user) { FactoryBot.create(:user, about_me: 'My bio') }
       let(:invalid_text) { 'x' * 1000 }
 
@@ -159,11 +140,9 @@ RSpec.describe UserProfile::AboutMeController do
         put :update, params: { user: { about_me: invalid_text } }
         expect(response).to render_template(:edit)
       end
-
     end
 
     context 'with invalid parameters' do
-
       let(:user) { FactoryBot.create(:user, about_me: 'My bio') }
 
       before :each do
@@ -185,11 +164,9 @@ RSpec.describe UserProfile::AboutMeController do
         expect(response).
           to redirect_to(show_user_path(url_name: user.url_name))
       end
-
     end
 
     context 'with extra attributes' do
-
       let(:user) { FactoryBot.create(:user) }
 
       before :each do
@@ -217,11 +194,9 @@ RSpec.describe UserProfile::AboutMeController do
                      }
         expect(user.reload.about_me).to eq('My bio')
       end
-
     end
 
     context 'with spam attributes and a non-whitelisted user' do
-
       let(:user) do
         FactoryBot.create(:user, name: 'JWahewKjWhebCd',
                                  confirmed_not_spam: false)
@@ -258,11 +233,9 @@ RSpec.describe UserProfile::AboutMeController do
                      }
         expect(user.reload.about_me).to eq('')
       end
-
     end
 
     context 'with spam attributes and a whitelisted user' do
-
       let(:user) do
         FactoryBot.create(:user, name: 'JWahewKjWhebCd',
                                  confirmed_not_spam: true)
@@ -284,11 +257,9 @@ RSpec.describe UserProfile::AboutMeController do
                      }
         expect(user.reload.about_me).to eq('http://example.com/$£$£$')
       end
-
     end
 
     context 'with block_spam_about_me_text? returning true, spam content and a non-whitelisted user' do
-
       let(:user) { FactoryBot.create(:user, confirmed_not_spam: false) }
 
       before :each do
@@ -344,11 +315,9 @@ RSpec.describe UserProfile::AboutMeController do
             }
         expect(user.reload.about_me).to eq('')
       end
-
     end
 
     context 'with block_spam_about_me_text? returning false, spam content and a whitelisted user' do
-
       let(:user) do
         FactoryBot.create(:user, name: '12345', confirmed_not_spam: true)
       end
@@ -371,11 +340,9 @@ RSpec.describe UserProfile::AboutMeController do
         expect(user.reload.about_me).
           to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
       end
-
     end
 
     context 'with block_spam_about_me_text? returning true, spam content and a whitelisted user' do
-
       let(:user) { FactoryBot.create(:user, confirmed_not_spam: true) }
 
       before :each do
@@ -396,10 +363,6 @@ RSpec.describe UserProfile::AboutMeController do
         expect(user.reload.about_me).
           to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
       end
-
     end
-
-
   end
-
 end

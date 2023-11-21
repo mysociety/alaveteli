@@ -6,7 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 module LinkToHelper
-
   # Links to various models
 
   # Requests
@@ -313,6 +312,7 @@ module LinkToHelper
     anchor ||= dom_id(message)
 
     return "##{anchor}" if options[:anchor_only]
+
     default_options = { anchor: anchor }
 
     default_options[:nocache] = anchor if options.delete(:cachebust)

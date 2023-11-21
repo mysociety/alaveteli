@@ -600,11 +600,9 @@ RSpec.describe NotificationMailer do
     end
 
     context 'when the subject has characters which need quoting' do
-
       it 'should not error' do
         NotificationMailer.expire_embargo_notification(notification)
       end
-
     end
 
     context 'when the subject has characters which could be HTML escaped' do
@@ -654,7 +652,6 @@ RSpec.describe NotificationMailer do
         'notification_mailer/expire_embargo.txt', 'r:utf-8')
       expect(mail.body.encoded).to eq(expected_message)
     end
-
   end
 
   describe '#overdue_notification' do

@@ -20,12 +20,10 @@ RSpec.describe AdminUsersAccountErasingController do
       end
 
       context 'on an open account' do
-
         it 'tells the admin that the user was not erased' do
           expect(flash[:error]).to eq('Something went wrong. The user could not be erased.')
         end
       end
-
     end
 
     context 'with valid params for erasing' do
@@ -66,6 +64,5 @@ RSpec.describe AdminUsersAccountErasingController do
         expect(flash[:notice]).to eq('The user was erased.')
       end
     end
-
   end
 end

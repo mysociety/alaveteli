@@ -7,5 +7,4 @@ class AddBodyToInfoRequestBatches < ActiveRecord::Migration[4.2] # 3.2
   def down
     remove_column :info_request_batches, :body
   end
-
 end

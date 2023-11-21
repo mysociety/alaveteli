@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe UserSpamScorer do
-
   after(:each) { described_class.reset }
 
   describe '.currency_symbols' do
-
     it 'sets a default currency_symbols value' do
       expect(described_class.currency_symbols).
         to eq(described_class::DEFAULT_CURRENCY_SYMBOLS)
@@ -15,11 +13,9 @@ RSpec.describe UserSpamScorer do
       described_class.currency_symbols = %w(£ $)
       expect(described_class.currency_symbols).to eq(%w(£ $))
     end
-
   end
 
   describe '.score_mappings' do
-
     it 'sets a default score_mappings value' do
       expect(described_class.score_mappings).
         to eq(described_class::DEFAULT_SCORE_MAPPINGS)
@@ -29,11 +25,9 @@ RSpec.describe UserSpamScorer do
       described_class.score_mappings = { name_is_one_word?: 7 }
       expect(described_class.score_mappings).to eq({ name_is_one_word?: 7 })
     end
-
   end
 
   describe '.suspicious_domains' do
-
     it 'sets a default suspicious_domains value' do
       expect(described_class.suspicious_domains).
         to eq(described_class::DEFAULT_SUSPICIOUS_DOMAINS)
@@ -43,11 +37,9 @@ RSpec.describe UserSpamScorer do
       described_class.suspicious_domains = %w(example.com)
       expect(described_class.suspicious_domains).to eq(%w(example.com))
     end
-
   end
 
   describe '.spam_domains' do
-
     it 'sets a default spam_domains value' do
       expect(described_class.spam_domains).
         to eq(described_class::DEFAULT_SPAM_DOMAINS )
@@ -57,11 +49,9 @@ RSpec.describe UserSpamScorer do
       described_class.spam_domains = %w(example.com)
       expect(described_class.spam_domains).to eq(%w(example.com))
     end
-
   end
 
   describe '.spam_name_formats' do
-
     it 'sets a default spam_name_formats value' do
       expect(described_class.spam_name_formats).
         to eq(described_class::DEFAULT_SPAM_NAME_FORMATS)
@@ -71,11 +61,9 @@ RSpec.describe UserSpamScorer do
       described_class.spam_name_formats = [/\A.*$/]
       expect(described_class.spam_name_formats).to eq([/\A.*$/])
     end
-
   end
 
   describe '.spam_about_me_formats' do
-
     it 'sets a default spam_about_me_formats value' do
       expect(described_class.spam_about_me_formats).
         to eq(described_class::DEFAULT_SPAM_ABOUT_ME_FORMATS)
@@ -85,11 +73,9 @@ RSpec.describe UserSpamScorer do
       described_class.spam_about_me_formats = [/\A.*$/]
       expect(described_class.spam_about_me_formats).to eq([/\A.*$/])
     end
-
   end
 
   describe '.spam_score_threshold' do
-
     it 'sets a default spam_score_threshold value' do
       expect(described_class.spam_score_threshold).
         to eq(described_class::DEFAULT_SPAM_SCORE_THRESHOLD)
@@ -99,11 +85,9 @@ RSpec.describe UserSpamScorer do
       described_class.spam_score_threshold = 1
       expect(described_class.spam_score_threshold).to eq(1)
     end
-
   end
 
   describe '.spam_tlds' do
-
     it 'sets a default spam_tlds value' do
       expect(described_class.spam_tlds).
         to eq(described_class::DEFAULT_SPAM_TLDS)
@@ -113,11 +97,9 @@ RSpec.describe UserSpamScorer do
       described_class.spam_tlds = %w(ru)
       expect(described_class.spam_tlds).to eq(%w(ru))
     end
-
   end
 
   describe '.reset' do
-
     it 'resets the class instance variables' do
       attrs = described_class::CLASS_ATTRIBUTES
 
@@ -140,11 +122,9 @@ RSpec.describe UserSpamScorer do
     it 'returns the list of attributes that were reset' do
       expect(described_class.reset).to eq(described_class::CLASS_ATTRIBUTES)
     end
-
   end
 
   describe '.new' do
-
     it 'sets a default currency_symbols value' do
       expect(subject.currency_symbols).to eq(described_class.currency_symbols)
     end
@@ -211,11 +191,9 @@ RSpec.describe UserSpamScorer do
       scorer = described_class.new(spam_tlds: %w(com))
       expect(scorer.spam_tlds).to eq(%w(com))
     end
-
   end
 
   describe '#spam?' do
-
     it 'returns true if the user spam score is above the threshold' do
       user_attrs = { name: 'spammer', comments: [], track_things: [] }
       user = mock_model(User, user_attrs)
@@ -242,11 +220,9 @@ RSpec.describe UserSpamScorer do
       scorer = described_class.new(attrs)
       expect(scorer.spam?(user)).to eq(false)
     end
-
   end
 
   describe '#score' do
-
     it 'returns 0 if no mappings return true' do
       user_attrs = { name: 'Bob Smith',
                      comments: [],
@@ -293,11 +269,9 @@ RSpec.describe UserSpamScorer do
       scorer = described_class.new(score_mappings: { invalid_method: 1 })
       expect { scorer.score(user) }.to raise_error(NoMethodError)
     end
-
   end
 
   describe '#name_is_all_lowercase?' do
-
     it 'is true if the name is all lowercase' do
       user = mock_model(User, name: 'bob smith 123')
       expect(subject.name_is_all_lowercase?(user)).to eq(true)
@@ -307,11 +281,9 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, name: 'Bob smith 123')
       expect(subject.name_is_all_lowercase?(user)).to eq(false)
     end
-
   end
 
   describe '#name_is_one_word?' do
-
     it 'is true if the name is one word' do
       user = mock_model(User, name: 'bobsmith123')
       expect(subject.name_is_one_word?(user)).to eq(true)
@@ -321,11 +293,9 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, name: 'bob smith 123')
       expect(subject.name_is_one_word?(user)).to eq(false)
     end
-
   end
 
   describe '#name_is_garbled?' do
-
     it 'is true if the name includes 5 consecutive consonants' do
       user = mock_model(User, name: 'JWahewKjWhebCd')
       expect(subject.name_is_garbled?(user)).to eq(true)
@@ -335,11 +305,9 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, name: 'Bob Smith')
       expect(subject.name_is_garbled?(user)).to eq(false)
     end
-
   end
 
   describe '#name_includes_non_alpha_characters?' do
-
     it 'is true if the name includes numbers' do
       user = mock_model(User, name: 'Bob smith 123')
       expect(subject.name_includes_non_alpha_characters?(user)).to eq(true)
@@ -359,11 +327,9 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, name: 'Bob smith')
       expect(subject.name_includes_non_alpha_characters?(user)).to eq(false)
     end
-
   end
 
   describe '#email_from_suspicious_domain?' do
-
     it 'is true if the email is from a suspicious domain' do
       mock_suspicious_domains = %w(example.com example.net example.org)
       user = mock_model(User, email_domain: 'example.net')
@@ -379,11 +345,9 @@ RSpec.describe UserSpamScorer do
                  suspicious_domains: mock_suspicious_domains)
       expect(scorer.email_from_suspicious_domain?(user)).to eq(false)
     end
-
   end
 
   describe '#email_from_spam_domain?' do
-
     it 'is true if the email is from a spam domain' do
       mock_spam_domains = %w(example.com example.net example.org)
       user = mock_model(User, email_domain: 'example.net')
@@ -397,11 +361,9 @@ RSpec.describe UserSpamScorer do
       scorer = described_class.new(spam_domains: mock_spam_domains)
       expect(scorer.email_from_spam_domain?(user)).to eq(false)
     end
-
   end
 
   describe '#email_from_spam_tld?' do
-
     it 'is true if the email is from a spam tld' do
       mock_spam_tlds = %w(com net org)
       user = mock_model(User, email_domain: 'example.net')
@@ -415,11 +377,9 @@ RSpec.describe UserSpamScorer do
       scorer = described_class.new(spam_tlds: mock_spam_tlds)
       expect(scorer.email_from_spam_tld?(user)).to eq(false)
     end
-
   end
 
   describe '#name_is_spam_format?' do
-
     it 'is true if the name matches a spammy format' do
       mock_spam_formats = [/\A.*support.*\z/]
       user = mock_model(User, name: 'support')
@@ -435,7 +395,6 @@ RSpec.describe UserSpamScorer do
     end
 
     context 'the default spam formats' do
-
       it 'is true if it matches bitcoin' do
         user = mock_model(User, name: 'bitcointocash')
         expect(subject.name_is_spam_format?(user)).to eq(true)
@@ -505,13 +464,10 @@ RSpec.describe UserSpamScorer do
         user = mock_model(User, name: 'Unify CRM')
         expect(subject.name_is_spam_format?(user)).to eq(true)
       end
-
     end
-
   end
 
   describe '#about_me_includes_currency_symbol?' do
-
     it 'is true if the about me includes a currency symbol' do
       mock_currency_symbols = %w(£ $)
       user = mock_model(User, about_me: 'Spam for just $100')
@@ -525,11 +481,9 @@ RSpec.describe UserSpamScorer do
       scorer = described_class.new(currency_symbols: mock_currency_symbols)
       expect(scorer.about_me_includes_currency_symbol?(user)).to eq(false)
     end
-
   end
 
   describe '#about_me_is_link_only?' do
-
     it 'is true if the about me is just a HTTP URL' do
       user = mock_model(User, about_me: 'http://example.com')
       expect(subject.about_me_is_link_only?(user)).to eq(true)
@@ -559,11 +513,9 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, about_me: 'HTTP://EXAMPLE.COM')
       expect(subject.about_me_is_link_only?(user)).to eq(true)
     end
-
   end
 
   describe '#about_me_is_spam_format?' do
-
     it 'is true if the about me matches a spammy format' do
       mock_spam_formats = [/\A.*+\n{2,}https?:\/\/[^\s]+\z/]
       user = mock_model(User, about_me: <<-EOF.strip_heredoc)
@@ -592,7 +544,6 @@ RSpec.describe UserSpamScorer do
     end
 
     context 'the default spam formats' do
-
       it 'is true if it matches TEXT\n\nURL' do
         user = mock_model(User, about_me: <<-EOF.strip_heredoc)
         Some spam often looks like this spam
@@ -621,13 +572,10 @@ RSpec.describe UserSpamScorer do
         EOF
         expect(subject.about_me_is_spam_format?(user)).to eq(true)
       end
-
     end
-
   end
 
   describe '#about_me_includes_anchor_tag?' do
-
     it 'is true if the about me includes an a tag' do
       user = mock_model(User, about_me: 'Spam link <a href="">here</a>')
       expect(subject.about_me_includes_anchor_tag?(user)).to eq(true)
@@ -640,7 +588,6 @@ RSpec.describe UserSpamScorer do
   end
 
   describe '#about_me_already_exists?' do
-
     it 'is true if the about me already exists' do
       user = mock_model(User, about_me_already_exists?: true)
       expect(subject.about_me_already_exists?(user)).to eq(true)
@@ -650,11 +597,9 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, about_me_already_exists?: false)
       expect(subject.about_me_already_exists?(user)).to eq(false)
     end
-
   end
 
   describe '#user_agent_is_suspicious?' do
-
     before { UserSpamScorer.suspicious_user_agents = ['cURL'] }
     after { UserSpamScorer.reset }
 
@@ -672,11 +617,9 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User)
       expect(subject.user_agent_is_suspicious?(user)).to eq(false)
     end
-
   end
 
   describe '#ip_range_is_suspicious?' do
-
     before { UserSpamScorer.suspicious_ip_ranges = ['127.0.0.0/8'] }
     after { UserSpamScorer.reset }
 
@@ -694,7 +637,5 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User)
       expect(subject.ip_range_is_suspicious?(user)).to eq(false)
     end
-
   end
-
 end

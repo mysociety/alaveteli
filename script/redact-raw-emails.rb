@@ -54,6 +54,7 @@ end
 
 def censor(text)
   return unless text
+
   @incoming_message.info_request.apply_censor_rules_to_text(text)
 end
 

@@ -1,6 +1,5 @@
 module AlaveteliPro
   module RequestSummaries
-
     extend ActiveSupport::Concern
 
     included do

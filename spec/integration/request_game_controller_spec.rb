@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe RequestGameController do
-
   describe "classifying a request" do
-
     let(:user) { FactoryBot.create(:user) }
 
     it 'displays a thank you message on completion' do
@@ -26,7 +24,5 @@ RSpec.describe RequestGameController do
         expect(page).to have_content(message)
       end
     end
-
   end
-
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "user_mailer/changeemail_already_used" do
-
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).
       and_return("l'Information")
@@ -24,5 +23,4 @@ RSpec.describe "user_mailer/changeemail_already_used" do
     expect(response).
       to match("already an account using the email address c'd@example.com")
   end
-
 end

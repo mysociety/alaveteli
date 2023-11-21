@@ -81,7 +81,6 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
 
       expect(first_page_results.include?(second_page_result)).to be false
 
-
       # Adding to list
       # We can't rely on Xapian to give us a deterministic search result
       # ordering so we pluck some bodies out of the results we see
@@ -224,7 +223,6 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
       expect(page).to have_content(
         "Requests in this batch will be private until " \
         "#{AlaveteliPro::Embargo.three_months_from_now.strftime('%-d %B %Y')}")
-
     end
   end
 
@@ -328,7 +326,6 @@ RSpec.describe "managing embargoed batch requests" do
   end
 
   describe "managing embargoes on a batch request's page" do
-
     it "allows the user to extend all the embargoes that are near expiry" do
       batch.info_requests.each do |info_request|
         info_request.

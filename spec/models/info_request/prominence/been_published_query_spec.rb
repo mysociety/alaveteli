@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::Prominence::BeenPublishedQuery do
-
   describe '#call' do
     subject { described_class.new.call }
 
@@ -14,6 +13,5 @@ RSpec.describe InfoRequest::Prominence::BeenPublishedQuery do
       is_expected.to include re_embargoed_request
       is_expected.to_not include embargoed_request
     end
-
   end
 end

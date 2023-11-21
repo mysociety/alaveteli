@@ -60,6 +60,7 @@ class AlaveteliLocalization
 
     def default_locale?(other)
       return false if other.nil?
+
       default_locale == other.to_s
     end
 

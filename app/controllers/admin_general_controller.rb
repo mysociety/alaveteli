@@ -102,7 +102,6 @@ class AdminGeneralController < AdminController
     # Recent events
     @events_title = get_events_title
 
-
     @events = WillPaginate::Collection.create((params[:page] or 1), 100) do |pager|
       # create a hash for each model type being returned
       info_request_event_ids = {}
@@ -140,7 +139,6 @@ class AdminGeneralController < AdminController
       # set the total entries for the page to the overall number of results
       pager.total_entries = timestamps.size
     end
-
   end
 
   def stats

@@ -39,6 +39,7 @@ module PublicBody::CalculatedHomePage
   # Ensure the home page has the HTTP protocol at the start of the URL
   def ensure_home_page_protocol
     return unless home_page.present?
+
     home_page[URI.regexp(%w(http https))] ? home_page : "https://#{home_page}"
   end
 
@@ -46,6 +47,7 @@ module PublicBody::CalculatedHomePage
   def guess_home_page
     return unless request_email_domain
     return if excluded_calculated_home_page_domain?(request_email_domain)
+
     "https://www.#{request_email_domain}"
   end
 

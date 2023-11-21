@@ -14,6 +14,7 @@ module Admin::ProminenceHelper
   def highlight_prominence(prominenceable)
     prominence = prominenceable.try(:prominence) || prominenceable
     return prominence unless HIGHLIGHT[prominence]
+
     tag.span prominence, class: HIGHLIGHT[prominence]
   end
 end

@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::Prominence::VisibleToRequesterQuery do
-
   describe '#call' do
-
     it 'returns results with normal, backpaged or requester_only prominence' do
       normal_request = FactoryBot.create(:info_request)
       backpaged_request =
@@ -22,7 +20,5 @@ RSpec.describe InfoRequest::Prominence::VisibleToRequesterQuery do
       embargoed_request = FactoryBot.create(:embargoed_request)
       expect(described_class.new.call).to include(embargoed_request)
     end
-
   end
-
 end

@@ -4,7 +4,6 @@ RSpec.describe PublicBodyHelper do
   include PublicBodyHelper
 
   describe '#public_body_not_requestable_reasons' do
-
     before do
       @body = FactoryBot.build(:public_body)
     end
@@ -44,12 +43,9 @@ RSpec.describe PublicBodyHelper do
       expect(reasons[1]).to match(/does not apply/)
       expect(reasons[2]).to match(/Make a request/)
     end
-
   end
 
-
   describe '#type_of_authority' do
-
     it 'falls back to "A public authority"' do
       public_body = FactoryBot.build(:public_body)
       expect(type_of_authority(public_body)).to eq('A public authority')
@@ -61,7 +57,6 @@ RSpec.describe PublicBodyHelper do
       heading = FactoryBot.create(:public_body_heading)
       heading.add_category(category)
       public_body = FactoryBot.create(:public_body, tag_string: 'spec')
-
 
       expect(type_of_authority(public_body)).to eq('<a href="/body/list/spec">Ünicode category</a>')
     end
@@ -78,9 +73,7 @@ RSpec.describe PublicBodyHelper do
       expect(type_of_authority(public_body)).to eq(expected)
     end
 
-
     context 'when associated with one category' do
-
       it 'returns the description wrapped in an anchor tag' do
         category = FactoryBot.create(:public_body_category, category_tag: 'spec',
                                      description: 'spec category')
@@ -94,7 +87,6 @@ RSpec.describe PublicBodyHelper do
     end
 
     context 'when associated with several categories' do
-
       it 'joins the category descriptions and capitalizes the first letter' do
         heading = FactoryBot.create(:public_body_heading)
         3.times do |i|
@@ -114,11 +106,9 @@ RSpec.describe PublicBodyHelper do
 
         expect(type_of_authority(public_body)).to eq(description)
       end
-
     end
 
     context 'when in a non-default locale' do
-
       it 'creates the anchor href in the correct locale' do
         # Activate the routing filter, normally turned off for helper tests
         RoutingFilter.active = true
@@ -133,9 +123,6 @@ RSpec.describe PublicBodyHelper do
           expect(type_of_authority(public_body)).to eq(anchor)
         end
       end
-
     end
-
   end
-
 end

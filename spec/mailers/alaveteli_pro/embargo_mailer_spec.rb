@@ -163,7 +163,6 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
   end
 
   describe '.alert_expired' do
-
     it 'only sends one email per user' do
       AlaveteliPro::EmbargoMailer.alert_expired
       mails = ActionMailer::Base.deliveries
@@ -234,7 +233,6 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
   end
 
   describe '#expired_alert' do
-
     context "when there's just one embargo" do
       before do
         @message = AlaveteliPro::EmbargoMailer.
@@ -254,11 +252,9 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
       it "sends the email from the pro contact address" do
         expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
       end
-
     end
 
     context "when there are multiple embargoes" do
-
       before do
         @message = AlaveteliPro::EmbargoMailer.
                      expired_alert(pro_user, [expired_1, expired_2]).
@@ -277,9 +273,6 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
       it "sends the email from the pro contact address" do
         expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
       end
-
     end
-
   end
-
 end

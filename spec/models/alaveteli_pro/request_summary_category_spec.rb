@@ -75,5 +75,4 @@ RSpec.describe AlaveteliPro::RequestSummaryCategory do
       expect(described_class.embargo_expiring.slug).to eq "embargo_expiring"
     end
   end
-
 end

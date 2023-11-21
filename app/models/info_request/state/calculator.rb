@@ -1,7 +1,6 @@
 class InfoRequest
   module State
     class Calculator
-
       def initialize(info_request)
         @info_request = info_request
       end

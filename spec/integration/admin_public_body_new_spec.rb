@@ -19,5 +19,4 @@ RSpec.describe 'Adding a Public Body' do
       expect(page).to have_content('successfully created')
     end
   end
-
 end

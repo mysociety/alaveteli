@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
-
   describe '.new' do
-
     it 'sets a default spam_action' do
       default = AlaveteliConfiguration.incoming_email_spam_action
       expect(described_class.new.spam_action).to eq(default)
@@ -31,45 +29,35 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       expect(described_class.new(spam_threshold: 'x').spam_threshold).
         to eq('x')
     end
-
   end
 
   describe '#spam_action' do
-
     it 'returns the spam_action' do
       expect(described_class.new(spam_action: 'x').spam_action).to eq('x')
     end
-
   end
 
   describe '#rejection_action' do
-
     it 'is an alias for #spam_action' do
       gatekeeper = described_class.new
       expect(gatekeeper.rejection_action).to eq(gatekeeper.spam_action)
     end
-
   end
 
   describe '#spam_header' do
-
     it 'returns the spam_header' do
       expect(described_class.new(spam_header: 'x').spam_header).to eq('x')
     end
-
   end
 
   describe '#spam_threshold' do
-
     it 'returns the spam_threshold' do
       expect(described_class.new(spam_threshold: 'x').spam_threshold).
         to eq('x')
     end
-
   end
 
   describe '#allow?' do
-
     it 'allows a mail if the spam checker is not configured' do
       spam_email = <<-EOF.strip_heredoc
       From: spam@example.org
@@ -119,18 +107,15 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
   end
 
   describe '#reason' do
-
     it 'returns the reason that the email was rejected' do
       gatekeeper = described_class.new(spam_threshold: 10.0)
       message = 'Incoming message has a spam score above the configured ' \
                 'threshold (10.0).'
       expect(gatekeeper.reason).to eq(message)
     end
-
   end
 
   describe '#spam?' do
-
     it 'is spam if the email has a spam score above the spam threshold' do
       spam_email = <<-EOF.strip_heredoc
       From: spammer@example.org
@@ -174,11 +159,9 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       gatekeeper = described_class.new(attrs)
       expect(gatekeeper.spam?(email)).to eq(false)
     end
-
   end
 
   describe '#spam_score' do
-
     it 'returns the spam score of an email' do
       spam_email = <<-EOF.strip_heredoc
       From: spammer@example.org
@@ -203,11 +186,9 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       gatekeeper = described_class.new
       expect(gatekeeper.spam_score(email)).to eq(0.0)
     end
-
   end
 
   describe '#configured?' do
-
     it 'requires a spam_action to be configured' do
       gatekeeper = described_class.new(spam_action: nil)
       expect(gatekeeper).to_not be_configured
@@ -229,7 +210,5 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
                 spam_threshold: 10.0 }
       expect(described_class.new(attrs)).to be_configured
     end
-
   end
-
 end

@@ -11,6 +11,7 @@ class AddHashToInfoRequest < ActiveRecord::Migration[4.2] # 2.3
     end
     change_column :info_requests, :idhash, :string, null: false
   end
+
   def self.down
     remove_column :info_requests, :idhash
   end

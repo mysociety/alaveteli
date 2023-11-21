@@ -44,7 +44,6 @@ RSpec.describe 'Updating censor rules' do
   end
 
   describe "Authority censor rules" do
-
     it 'clears the cache for existing requests when a new rule is added' do
       url_title = request.url_title
       visit show_request_path url_title: url_title
@@ -114,11 +113,9 @@ RSpec.describe 'Updating censor rules' do
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish answer for you"
     end
-
   end
 
   describe "User censor rules" do
-
     it 'clears the cache for existing requests when a new rule is added' do
       url_title = request.url_title
       visit show_request_path url_title: url_title
@@ -188,11 +185,9 @@ RSpec.describe 'Updating censor rules' do
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish answer for you"
     end
-
   end
 
   describe "Request censor rules" do
-
     it 'clears the cache for existing requests when a new rule is added' do
       request_id = request.id
       url_title = request.url_title
@@ -265,11 +260,9 @@ RSpec.describe 'Updating censor rules' do
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish answer for you"
     end
-
   end
 
   describe "Global censor rules" do
-
     it 'clears the cache for existing requests when a new rule is added' do
       url_title = request.url_title
       visit show_request_path url_title: url_title
@@ -337,7 +330,5 @@ RSpec.describe 'Updating censor rules' do
       expect(page).not_to have_content "I have a [REDACTED] answer for you"
       expect(page).to have_content "I have a rubbish answer for you"
     end
-
   end
-
 end

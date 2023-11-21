@@ -2,6 +2,7 @@
 require:
   - rubocop-performance
   - rubocop-rails
+  - ./lib/custom_cops/empty_lines_around_rescued_exceptions.rb
 
 AllCops:
   TargetRubyVersion: 3.0
@@ -21,6 +22,7 @@ AllCops:
   Exclude:
     - commonlib/**/*
     - db/schema.rb
+    - lib/themes/**/*
     - node_modules/**/*
     - vendor/**/*
     - ".git/**/*"
@@ -136,13 +138,13 @@ Layout/EmptyComment:
   Enabled: false
 
 Layout/EmptyLineAfterGuardClause:
-  Enabled: false
+  Enabled: true
 
 Layout/EmptyLineAfterMagicComment:
-  Enabled: false
+  Enabled: true
 
 Layout/EmptyLineAfterMultilineCondition:
-  Enabled: false
+  Enabled: false # we prefer EmptyLinesAroundRescuedExceptions instead
 
 Layout/EmptyLineBetweenDefs:
   Enabled: true
@@ -154,24 +156,22 @@ Layout/EmptyLinesAroundAccessModifier:
   Enabled: true
 
 Layout/EmptyLinesAroundArguments:
-  Enabled: false
+  Enabled: true
 
 Layout/EmptyLinesAroundAttributeAccessor:
-  Enabled: false
+  Enabled: true
 
 Layout/EmptyLinesAroundBeginBody:
-  Enabled: false
+  Enabled: true
 
 Layout/EmptyLinesAroundBlockBody:
   Enabled: true
-  Exclude:
-    - spec/**/*
 
 Layout/EmptyLinesAroundClassBody:
   Enabled: true
 
 Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Enabled: false
+  Enabled: false # we prefer EmptyLinesAroundRescuedExceptions instead
 
 Layout/EmptyLinesAroundMethodBody:
   Enabled: true
@@ -239,7 +239,7 @@ Layout/LeadingCommentSpace:
   Enabled: true
 
 Layout/LeadingEmptyLines:
-  Enabled: false
+  Enabled: true
 
 Layout/LineContinuationLeadingSpace:
   Enabled: false

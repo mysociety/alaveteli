@@ -42,7 +42,6 @@ RSpec.describe LinkToHelper do
         url = incoming_message_url(incoming_message, cachebust: true)
         expect(url).to include("nocache=incoming-#{incoming_message.id}")
       end
-
     end
 
     context 'for internal links' do

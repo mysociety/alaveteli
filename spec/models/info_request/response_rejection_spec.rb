@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ResponseRejection do
-
   describe '.for' do
-
     it 'returns a new ResponseRejection for known rejections' do
       const = 'InfoRequest::ResponseRejection::SPECIALIZED_CLASSES'
       specialized_classes = { 'known' => described_class::Base,
@@ -26,7 +24,5 @@ RSpec.describe InfoRequest::ResponseRejection do
       expect { described_class.for('unknown', *args) }.
         to raise_error(err)
     end
-
   end
-
 end

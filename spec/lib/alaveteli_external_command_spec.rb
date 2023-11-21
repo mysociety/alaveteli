@@ -109,7 +109,6 @@ RSpec.describe AlaveteliExternalCommand do
 end
 
 RSpec.describe "when running external commands" do
-
   it "should detect a non-zero exit status" do
     expect($stderr).to receive(:puts).with(/Error from/)
     t = AlaveteliExternalCommand.run(error_script)
@@ -121,5 +120,4 @@ RSpec.describe "when running external commands" do
     t = AlaveteliExternalCommand.run(segfault_script)
     assert_nil t
   end
-
 end

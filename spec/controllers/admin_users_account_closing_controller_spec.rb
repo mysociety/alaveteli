@@ -47,7 +47,5 @@ RSpec.describe AdminUsersAccountClosingController do
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-
   end
-
 end

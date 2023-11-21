@@ -54,6 +54,7 @@ module ProminenceHelper
 
     def contact_us
       return if current_user&.is_admin?
+
       contact_us_notice(
         contact_us_link: link_to(_('contact us'), help_contact_path)
       )
@@ -93,6 +94,7 @@ module ProminenceHelper
 
     def default_prominence_reason
       return '' if current_user&.is_admin?
+
       self.class.default_prominence_reason
     end
   end

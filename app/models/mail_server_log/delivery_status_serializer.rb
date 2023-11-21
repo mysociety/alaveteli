@@ -21,7 +21,7 @@ class MailServerLog::DeliveryStatusSerializer
   # Returns a String or nil
   def self.dump(value)
     return unless value
+
     value.to_s
   end
-
 end

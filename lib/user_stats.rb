@@ -2,7 +2,6 @@
 # Public: methods for getting stats about users on a per domain basis
 
 class UserStats
-
   # Returns a list of email domains people have used to sign up with and the
   # number of signups for each, ordered by popularity (most popular first)
   def self.list_user_domains(params={})
@@ -72,5 +71,4 @@ class UserStats
       eligible
     end
   end
-
 end

@@ -4,7 +4,6 @@ RSpec.describe TypeaheadSearch do
   let(:options) { { model: InfoRequestEvent } }
 
   describe "#initialize" do
-
     it 'assigns the query' do
       expect(TypeaheadSearch.new("chicken", options).query).to eq("chicken")
     end
@@ -38,11 +37,9 @@ RSpec.describe TypeaheadSearch do
     it 'sets run_search to true' do
       expect(TypeaheadSearch.new("chicken", options).run_search).to be true
     end
-
   end
 
   describe '#options' do
-
     it 'sets the offset based on the page and per_page settings' do
       opts = options.merge(page: 2, per_page: 10)
       expect(TypeaheadSearch.new("chicken", opts).options[:offset]).
@@ -86,11 +83,9 @@ RSpec.describe TypeaheadSearch do
       expect(TypeaheadSearch.new("chicken", options).options[:sort_by_ascending]).
         to be true
     end
-
   end
 
   describe "#xapian_search" do
-
     before do
       update_xapian_index
     end
@@ -153,14 +148,12 @@ RSpec.describe TypeaheadSearch do
         to match_array([info_requests(:naughty_chicken_request)])
     end
 
-
     it "returns a search with matches for the complete words in
         searches ending in short words" do
       search = TypeaheadSearch.new("chicken a", options).xapian_search
       expect(search_info_requests(search)).
         to match_array([info_requests(:naughty_chicken_request)])
     end
-
 
     it "returns a search with matches for the complete words and partial words in
         searches ending in longer words" do
@@ -218,18 +211,15 @@ RSpec.describe TypeaheadSearch do
     end
 
     context 'when the exclude_tags option is used' do
-
       it "returns a search excluding results with those tags" do
         opts = options.merge( model: PublicBody,
                               exclude_tags: [ 'lonely_agency' ])
         search = TypeaheadSearch.new("lonely", opts).xapian_search
         expect(search.results).to match_array([])
       end
-
     end
 
     context 'when max wildcard limit is reached' do
-
       around do |example|
         ActsAsXapian.prepare_environment
         limit = ActsAsXapian.max_wildcard_expansion
@@ -244,8 +234,6 @@ RSpec.describe TypeaheadSearch do
           change(search, :wildcard).from(true).to(false)
         )
       end
-
     end
   end
 end
-

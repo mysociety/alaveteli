@@ -135,7 +135,6 @@ RSpec.describe TrackMailer do
           TrackMailer.alert_tracks
         end
       end
-
     end
 
     describe 'when a user should not be emailed' do
@@ -178,11 +177,9 @@ RSpec.describe TrackMailer do
 
       it { is_expected.to eq(false) }
     end
-
   end
 
   describe 'delivering the email' do
-
     before :each do
       allow(AlaveteliConfiguration).to receive(:site_name).
         and_return("L'information")
@@ -263,5 +260,4 @@ RSpec.describe TrackMailer do
       end
     end
   end
-
 end

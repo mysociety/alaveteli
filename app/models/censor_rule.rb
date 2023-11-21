@@ -57,6 +57,7 @@ class CensorRule < ApplicationRecord
 
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?
+
     text_to_censor.gsub(to_replace('UTF-8'), replacement)
   end
 

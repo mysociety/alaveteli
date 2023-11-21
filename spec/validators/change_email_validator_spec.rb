@@ -7,11 +7,9 @@ def validator_with_user_and_params(user, params = {})
 end
 
 RSpec.describe ChangeEmailValidator do
-
   let(:user) { FactoryBot.create(:user) }
 
   describe '#old_email' do
-
     it 'must have an old email' do
       params = { old_email: nil,
                  new_email: 'new@example.com',
@@ -46,11 +44,9 @@ RSpec.describe ChangeEmailValidator do
       msg = "Old email address isn't the same as the address of the account you are logged in with"
       expect(validator.errors[:old_email]).to include(msg)
     end
-
   end
 
   describe '#new_email' do
-
     it 'must have a new email' do
       params = { old_email: user.email,
                  new_email: nil,
@@ -72,11 +68,9 @@ RSpec.describe ChangeEmailValidator do
       msg = "New email doesn't look like a valid address"
       expect(validator.errors[:new_email]).to include(msg)
     end
-
   end
 
   describe '#password' do
-
     it 'password_and_format_of_email validation fails when password is nil' do
       params = { old_email: user.email,
                  new_email: 'new@example.com',
@@ -117,7 +111,5 @@ RSpec.describe ChangeEmailValidator do
       msg = 'Password is not correct'
       expect(validator.errors[:password]).to include(msg)
     end
-
   end
-
 end

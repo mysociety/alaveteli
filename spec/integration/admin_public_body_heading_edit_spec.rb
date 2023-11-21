@@ -57,5 +57,4 @@ RSpec.describe 'Editing a Public Body Heading' do
       expect(@heading.name).to eq('New Heading ES')
     end
   end
-
 end

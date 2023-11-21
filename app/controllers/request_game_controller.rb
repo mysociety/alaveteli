@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RequestGameController < ApplicationController
-
   def play
     session[:request_game] = Time.zone.now
 
@@ -61,5 +60,4 @@ class RequestGameController < ApplicationController
     flash[:notice] = _('Thank you for helping us keep the site tidy!')
     redirect_to frontpage_url
   end
-
 end

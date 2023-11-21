@@ -13,7 +13,6 @@ RSpec.describe AlaveteliPro::ToDoList::OverdueRequest do
   end
 
   describe '#description' do
-
     it 'gives a description for one response' do
       travel_to(Time.zone.parse('2015-12-01')) do
         AlaveteliPro::RequestSummary.create_or_update_from(info_request)
@@ -31,33 +30,26 @@ RSpec.describe AlaveteliPro::ToDoList::OverdueRequest do
         expect(@overdue_request.description).to eq "2 requests are delayed."
       end
     end
-
   end
 
   describe '#items' do
-
     it 'returns the requests that are overdue' do
       travel_to(Time.zone.parse('2015-12-01')) do
         expect(@overdue_request.items).to eq [info_request]
       end
     end
-
   end
 
   describe '#url' do
-
     context 'when there is one item' do
-
       it 'returns a link to the request' do
         travel_to(Time.zone.parse('2015-12-01')) do
           expect(@overdue_request.url).to eq show_request_path(info_request.url_title)
         end
       end
-
     end
 
     context 'when there is more than one item' do
-
       it 'returns a link to the info request list with a "overdue" filter' do
         request = travel_to(Time.zone.parse('2015-11-01')) do
           FactoryBot.create(:info_request, user: user)
@@ -70,15 +62,11 @@ RSpec.describe AlaveteliPro::ToDoList::OverdueRequest do
                                                       'overdue')
         end
       end
-
     end
-
   end
 
   describe '#call_to_action' do
-
     context 'when there is one item' do
-
       it 'returns an appropriate text' do
         travel_to(Time.zone.parse('2015-12-01')) do
           AlaveteliPro::RequestSummary.create_or_update_from(info_request)
@@ -86,13 +74,10 @@ RSpec.describe AlaveteliPro::ToDoList::OverdueRequest do
             .to eq 'Send a follow up (or request an internal review).'
         end
       end
-
     end
 
     context 'when there is more than one item' do
-
       it 'returns an appropriate text' do
-
         travel_to(Time.zone.parse('2015-11-01')) do
           FactoryBot.create(:info_request, user: user)
         end
@@ -101,9 +86,6 @@ RSpec.describe AlaveteliPro::ToDoList::OverdueRequest do
             .to eq 'Send follow ups (or request internal reviews).'
         end
       end
-
     end
-
   end
-
 end

@@ -5,7 +5,6 @@ RSpec.describe AdminSpamAddressesController do
   before { basic_auth_login @request }
 
   describe 'GET index' do
-
     it 'lists the spam addresses' do
       3.times { FactoryBot.create(:spam_address) }
       get :index
@@ -21,11 +20,9 @@ RSpec.describe AdminSpamAddressesController do
       get :index
       expect(response).to render_template('index')
     end
-
   end
 
   describe 'POST create' do
-
     let(:spam_params) { FactoryBot.attributes_for(:spam_address) }
 
     it 'creates a new spam address with the given parameters' do
@@ -59,11 +56,9 @@ RSpec.describe AdminSpamAddressesController do
       post :create, params: { spam_address: spam_params }
       expect(assigns(:spam_addresses)).to eq(SpamAddress.all)
     end
-
   end
 
   describe 'DELETE destroy' do
-
     before(:each) do
       @spam = FactoryBot.create(:spam_address)
       delete :destroy, params: { id: @spam.id }
@@ -85,7 +80,5 @@ RSpec.describe AdminSpamAddressesController do
     it 'redirects to the index action' do
       expect(response).to redirect_to(admin_spam_addresses_path)
     end
-
   end
-
 end

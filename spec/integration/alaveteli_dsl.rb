@@ -1,5 +1,4 @@
 module AlaveteliDsl
-
   def browse_request(url_title)
     visit "/request/#{url_title}"
   end

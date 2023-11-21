@@ -5,7 +5,6 @@ RSpec.describe 'changing your email address' do
   let(:user) { FactoryBot.create(:user) }
 
   it "sends a confirmation email if you get all the details right" do
-
     using_session(login(user)) do
       visit signchangeemail_path
       fill_in "signchangeemail_old_email", with: user.email

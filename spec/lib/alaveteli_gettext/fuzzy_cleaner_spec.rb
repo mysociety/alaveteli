@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliGetText::FuzzyCleaner do
-
   describe '#clean_po' do
-
     it 'removes the fuzzy marker and msgstr from a single-line msgstr' do
       input = <<-EOF.strip_heredoc
       msgid "Some msgid"
@@ -93,7 +91,5 @@ RSpec.describe AlaveteliGetText::FuzzyCleaner do
 
       expect(subject.clean_po(input)).to eq(expected)
     end
-
   end
-
 end

@@ -1,5 +1,4 @@
 module PublicBodyHelper
-
   # Public: The reasons a request can't be made to a PublicBody
   # The returned reasons are ordered by priority. For example, if the body no
   # longer exists there is no reason to ask for its contact details if we don't
@@ -53,5 +52,4 @@ module PublicBodyHelper
       _("A public authority")
     end
   end
-
 end

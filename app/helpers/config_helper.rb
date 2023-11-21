@@ -1,5 +1,4 @@
 module ConfigHelper
-
   def site_name
     AlaveteliConfiguration.site_name
   end
@@ -12,5 +11,4 @@ module ConfigHelper
     !AlaveteliConfiguration.exception_notifications_from.blank? &&
       !AlaveteliConfiguration.exception_notifications_to.blank?
   end
-
 end

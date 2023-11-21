@@ -2,9 +2,11 @@ class CreateCategoryTranslationTables < ActiveRecord::Migration[4.2] # 3.2
   class PublicBodyCategory < ApplicationRecord
     translates :title, :description
   end
+
   class PublicBodyHeading < ApplicationRecord
     translates :name
   end
+
   def up
     default_locale = AlaveteliLocalization.default_locale
 

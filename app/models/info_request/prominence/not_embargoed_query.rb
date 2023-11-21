@@ -1,7 +1,6 @@
 class InfoRequest
   module Prominence
     class NotEmbargoedQuery
-
       def initialize(relation = InfoRequest)
         @relation = relation
       end

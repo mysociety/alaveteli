@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::View do
-
   let(:adapter) do
     double(:adapter,
            body: '<p>hello</p>',
@@ -16,7 +15,6 @@ RSpec.describe AttachmentToHTML::View do
   end
 
   describe '.template' do
-
     after(:each) do
       AttachmentToHTML::View.template = nil
     end
@@ -24,11 +22,9 @@ RSpec.describe AttachmentToHTML::View do
     it 'has a default template location' do
       expect(AttachmentToHTML::View.template).to eq(default_template)
     end
-
   end
 
   describe '.template=' do
-
     after(:each) do
       AttachmentToHTML::View.template = nil
     end
@@ -38,11 +34,9 @@ RSpec.describe AttachmentToHTML::View do
       AttachmentToHTML::View.template = template
       expect(AttachmentToHTML::View.template).to eq(template)
     end
-
   end
 
   describe :new do
-
     it 'sets the title on initialization' do
       expect(view.title).to eq(adapter.title)
     end
@@ -61,58 +55,46 @@ RSpec.describe AttachmentToHTML::View do
       view = AttachmentToHTML::View.new(adapter, opts)
       expect(view.template).to eq(template)
     end
-
   end
 
   describe :title= do
-
     it 'allows the title to be set' do
       view.title = adapter.title
       expect(view.title).to eq(adapter.title)
     end
-
   end
 
   describe :body= do
-
     it 'allows the body to be set' do
       view.body = adapter.body
       expect(view.body).to eq(adapter.body)
     end
-
   end
 
   describe :template= do
-
     it 'allows the template to be set' do
       template = file_fixture_name('attachment_to_html/alternative_template.html.erb')
       view.template = template
       expect(view.template).to eq(template)
     end
-
   end
 
   describe :wrapper do
-
     it 'is set to wrapper by default' do
       expect(view.wrapper).to eq('wrapper')
     end
-
   end
 
   describe :wrapper= do
-
     it 'allows the wrapper div to be customised' do
       view.wrapper = 'wrap'
       expect(view.wrapper).to eq('wrap')
     end
-
   end
 
   # Need to remove all whitespace to assert equal because
   # ERB adds additional indentation after ERB tags
   describe :render do
-
     it 'renders the contents in to the template' do
       view.wrapper = 'wrap'
       expected = <<-HTML
@@ -140,7 +122,5 @@ RSpec.describe AttachmentToHTML::View do
       result = view.render { inject_content(:head_suffix) { content } }
       expect(result).to include(content)
     end
-
   end
-
 end

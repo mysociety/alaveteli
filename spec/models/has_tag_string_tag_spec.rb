@@ -19,7 +19,6 @@ RSpec.describe HasTagString::HasTagStringTag do
 end
 
 RSpec.describe HasTagString::HasTagStringTag, 'taggable model' do
-
   class ModelWithTag < ApplicationRecord
     has_tag_string
     after_initialize { self.name ||= 'test' }
@@ -64,7 +63,6 @@ RSpec.describe HasTagString::HasTagStringTag, 'taggable model' do
         t.string :name
         t.timestamps null: false
       end
-
     end
 
     def self.down
@@ -153,7 +151,6 @@ RSpec.describe HasTagString::HasTagStringTag, 'taggable model' do
         expect(subject).to match([model_3, model_1, model_2])
       end
     end
-
   end
 
   describe '#add_tag_if_not_already_present' do
@@ -179,7 +176,6 @@ RSpec.describe HasTagString::HasTagStringTag, 'taggable model' do
 end
 
 RSpec.describe HasTagString::HasTagStringTag, " when fiddling with tag strings" do
-
   it "should be able to make a new tag and save it" do
     @tag = HasTagString::HasTagStringTag.new
     @tag.model_type = 'PublicBody'
@@ -187,5 +183,4 @@ RSpec.describe HasTagString::HasTagStringTag, " when fiddling with tag strings" 
     @tag.name = "moo"
     @tag.save!
   end
-
 end

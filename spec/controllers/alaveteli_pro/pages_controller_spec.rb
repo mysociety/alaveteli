@@ -1,11 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::PagesController do
-
   describe 'GET #show' do
-
     context 'when asked for an existing template' do
-
       before do
         get :show, params: { id: 'legal' }
       end
@@ -24,7 +21,6 @@ RSpec.describe AlaveteliPro::PagesController do
     end
 
     context 'when asked for a template that does not exist' do
-
       it 'raises ActiveRecord::RecordNotFound' do
         expect {
           get :show, params: { id: 'nope' }

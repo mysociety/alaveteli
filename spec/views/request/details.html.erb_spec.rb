@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "request/details" do
-
   let(:mock_request) do
     FactoryBot.create(:info_request, title: "Test request")
   end

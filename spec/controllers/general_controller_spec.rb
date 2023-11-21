@@ -72,7 +72,6 @@ RSpec.describe GeneralController do
 end
 
 RSpec.describe GeneralController, "when showing the frontpage" do
-
   render_views
 
   before do
@@ -115,7 +114,6 @@ RSpec.describe GeneralController, "when showing the frontpage" do
     expect(successful_request_feed[:title]).to eq('Successful requests')
   end
 
-
   it "should render the front page with default language and ignore the browser setting" do
     config = MySociety::Config.load_default
     config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
@@ -144,16 +142,13 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 
   describe 'when using locales' do
-
     it "should use our test PO files rather than the application one" do
       get :frontpage, params: { locale: 'es' }
       expect(response.body).to match(/XOXO/)
     end
-
   end
 
   describe 'when handling logged-in users' do
-
     before do
       @user = FactoryBot.create(:user)
       sign_in @user
@@ -183,7 +178,6 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       get :frontpage, params: { post_redirect: 1 }
       expect(response).to be_successful
     end
-
   end
 
   describe 'when handling pro users' do
@@ -201,12 +195,9 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       expect(@response).to redirect_to alaveteli_pro_dashboard_path
     end
   end
-
 end
 
-
 RSpec.describe GeneralController, 'when using xapian search' do
-
   render_views
 
   # rebuild xapian index after fixtures loaded
@@ -376,7 +367,6 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   context "when passed a non-HTML request" do
-
     it "raises unknown format error" do
       expect do
         get :search, params: { combined: '"fancy dog"', format: :json }
@@ -391,6 +381,5 @@ RSpec.describe GeneralController, 'when using xapian search' do
         # noop
       end
     end
-
   end
 end

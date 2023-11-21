@@ -61,6 +61,7 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
       flash[:notice] = _('Your requests will now be private ' \
                          'until {{expiry_date}}.',
                          expiry_date: new_expiry_date)
+
     rescue ActiveRecord::RecordInvalid
       flash[:error] = _("Sorry, something went wrong updating your " \
                         "requests' privacy settings, please try again.")

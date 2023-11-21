@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'when making a zipfile available' do
-
   after do
     FileUtils.rm_rf(InfoRequest.download_zip_dir)
   end
@@ -34,7 +33,6 @@ RSpec.describe 'when making a zipfile available' do
   end
 
   context 'when an html to pdf converter is supplied' do
-
     before do
       # We want to test the contents of the pdf, and we don't know whether a
       # particular instance will have a working tool, so just copy the HTML
@@ -47,10 +45,8 @@ RSpec.describe 'when making a zipfile available' do
     end
 
     context 'when an incoming message is made "requester_only"' do
-
       it 'should not include the incoming message or attachments in a download of the entire request
                 by a non-request owner but should retain them for owner and admin' do
-
         # Non-owner can download zip with incoming and attachments
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request_with_pdf_attachment)
@@ -91,16 +87,12 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(2)
           expect(zip.read('correspondence.pdf')).to match('hereisthetext')
         end
-
       end
-
     end
 
     context 'when an outgoing message is made "requester_only"' do
-
       it 'should not include the outgoing message in a download of the entire request
                 by a non-request owner but should retain them for owner and admin' do
-
         # Non-owner can download zip with outgoing
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request)
@@ -140,13 +132,10 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(1)
           expect(zip.read('correspondence.pdf')).to match('Some information please')
         end
-
       end
-
     end
 
     context 'when a message contains redacted material' do
-
       it 'should use associated censor rules on outgoing messages' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request)
@@ -188,21 +177,16 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.read('2_2_hello world.txt')).to match('Second hello')
           expect(zip.read('2_3_hello world.txt')).to match('REDACTED hello')
         end
-
       end
-
     end
-
   end
 
   context 'when no html to pdf converter is supplied' do
-
     before do
       allow(HTMLtoPDFConverter).to receive(:exist?).and_return(false)
     end
 
     it "should update the contents of the zipfile when the request changes" do
-
       info_request = FactoryBot.create(:info_request_with_incoming,
                                        title: 'Example Title')
       request_owner = login(info_request.user)
@@ -229,7 +213,6 @@ RSpec.describe 'when making a zipfile available' do
     end
 
     context 'when a request is "requester_only"' do
-
       before do
         @non_owner = login(FactoryBot.create(:user))
         @info_request = FactoryBot.create(:info_request_with_incoming,
@@ -237,7 +220,6 @@ RSpec.describe 'when making a zipfile available' do
         @request_owner = login(@info_request.user)
         @admin = login(FactoryBot.create(:admin_user))
       end
-
 
       it 'should allow a download of the request by the request owner and admin only' do
         # Requester can access the zip
@@ -263,7 +245,6 @@ RSpec.describe 'when making a zipfile available' do
     end
 
     context 'when a request is "hidden"' do
-
       it 'should not allow a download of the request by an admin only' do
         @non_owner = login(FactoryBot.create(:user))
         @info_request = FactoryBot.create(:info_request_with_incoming,
@@ -289,14 +270,11 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
       end
-
     end
 
     context 'when an incoming message is made "requester_only"' do
-
       it 'should not include the incoming message or attachments in a download of the entire request
                 by a non-request owner but should retain them for owner and admin' do
-
         # Non-owner can download zip with outgoing
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request_with_pdf_attachment)
@@ -337,16 +315,12 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(2)
           expect(zip.read('correspondence.txt')).to match('hereisthetext')
         end
-
       end
-
     end
 
     context 'when an outgoing message is made "requester_only"' do
-
       it 'should not include the outgoing message in a download of the entire request
                 by a non-request owner but should retain them for owner and admin' do
-
         # Non-owner can download zip with original message initially
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request)
@@ -387,13 +361,10 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(1)
           expect(zip.read('correspondence.txt')).to match('Some information please')
         end
-
       end
-
     end
 
     context 'when a message contains redacted material' do
-
       it 'should use associated censor rules on outgoing messages' do
         non_owner = login(FactoryBot.create(:user))
         info_request = FactoryBot.create(:info_request)
@@ -434,9 +405,7 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.read('2_2_hello world.txt')).to match('Second hello')
           expect(zip.read('2_3_hello world.txt')).to match("REDACTED hello")
         end
-
       end
-
     end
 
     it 'should successfully make a zipfile for an external request' do
@@ -445,5 +414,4 @@ RSpec.describe 'when making a zipfile available' do
       inspect_zip_download(user, external_request) { |zip| expect(zip.count).to eq(1) }
     end
   end
-
 end

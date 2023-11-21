@@ -21,6 +21,7 @@ class RefusalAdviceController < ApplicationController
 
   def authenticate
     return unless info_request
+
     authenticated?(as: info_request.user) || ask_to_login(as: info_request.user)
   end
 

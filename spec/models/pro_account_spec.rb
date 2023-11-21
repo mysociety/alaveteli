@@ -43,7 +43,6 @@ RSpec.describe ProAccount, feature: :pro_pricing do
   end
 
   describe 'validations' do
-
     let(:user) { FactoryBot.build(:pro_user) }
     subject(:pro_account) { FactoryBot.build(:pro_account, user: user) }
 
@@ -53,11 +52,9 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       pro_account.user = nil
       expect(pro_account).not_to be_valid
     end
-
   end
 
   describe '#update_stripe_customer', feature: :pro_pricing do
-
     let(:user) { FactoryBot.build(:pro_user) }
     let(:pro_account) { FactoryBot.build(:pro_account, user: user) }
 
@@ -92,7 +89,6 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     end
 
     context 'with pro_pricing disabled' do
-
       it 'does not store Stripe customer ID' do
         with_feature_disabled(:pro_pricing) do
           expect {
@@ -126,13 +122,10 @@ RSpec.describe ProAccount, feature: :pro_pricing do
           )
         end
       end
-
     end
-
   end
 
   describe '#stripe_customer' do
-
     subject { pro_account.stripe_customer }
 
     context 'with invalid Stripe customer ID' do
@@ -144,7 +137,6 @@ RSpec.describe ProAccount, feature: :pro_pricing do
         expect { pro_account.stripe_customer }.
           to raise_error Stripe::InvalidRequestError
       end
-
     end
 
     context 'with valid Stripe customer ID' do
@@ -155,9 +147,7 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       it 'finds the Stripe::Customer linked to the ProAccount' do
         expect(pro_account.stripe_customer).to eq(customer)
       end
-
     end
-
   end
 
   describe '#subscription?' do
@@ -195,7 +185,5 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       before { pro_account.stripe_customer_id = nil }
       it { is_expected.to eq false }
     end
-
   end
-
 end

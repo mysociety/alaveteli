@@ -37,7 +37,6 @@
 #
 
 FactoryBot.define do
-
   factory :info_request do
     sequence(:title) { |n| "Example Title #{n}" }
     public_body

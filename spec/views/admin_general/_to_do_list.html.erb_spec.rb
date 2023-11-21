@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe 'admin_general/_to_do_list' do
-
   describe 'handling requests in an admin_required state' do
     let(:items) { [ request ] }
 
@@ -14,7 +13,6 @@ RSpec.describe 'admin_general/_to_do_list' do
     end
 
     shared_examples_for 'showing requests in an error state' do
-
       it 'renders the error-messages section' do
         render_errors(items)
         expect(rendered).to include('Fix these delivery and other errors')
@@ -33,7 +31,6 @@ RSpec.describe 'admin_general/_to_do_list' do
           expect(rendered).to include('None given')
         end
       end
-
     end
 
     context 'request marked by requester as containing an error' do
@@ -91,7 +88,5 @@ RSpec.describe 'admin_general/_to_do_list' do
         expect(rendered).to include('Annotation contains defamatory material')
       end
     end
-
   end
-
 end

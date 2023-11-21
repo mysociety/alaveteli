@@ -307,6 +307,7 @@ class PublicBody < ApplicationRecord
       raise "Two bodies with the same historical URL name: #{name}"
     end
     return unless old.size == 1
+
     # does acts_as_versioned provide a method that returns the current version?
     PublicBody.find(old.first)
   end
@@ -631,6 +632,7 @@ class PublicBody < ApplicationRecord
     our_domain = request_email_domain
 
     return false if user_domain.nil? || our_domain.nil?
+
     our_domain == user_domain
   end
 
@@ -951,7 +953,6 @@ class PublicBody < ApplicationRecord
                    "Request email doesn't look like a valid email address")
       end
     end
-
   end
 
   def name_for_search

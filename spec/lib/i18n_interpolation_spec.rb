@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "when using i18n" do
-
   it "should not complain if we're missing variables from the string" do
     result = _('Hello', dip: 'hummus')
     expect(result).to eq('Hello')

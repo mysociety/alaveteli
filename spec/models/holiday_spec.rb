@@ -13,9 +13,7 @@
 require 'spec_helper'
 
 RSpec.describe Holiday do
-
   describe '.new' do
-
     it 'should require a day' do
       holiday = Holiday.new
       expect(holiday.valid?).to be false
@@ -24,7 +22,6 @@ RSpec.describe Holiday do
   end
 
   describe " when calculating due date" do
-
     def due_date(ymd)
       Holiday.due_date_from_working_days(Date.strptime(ymd), 20).strftime("%F")
     end

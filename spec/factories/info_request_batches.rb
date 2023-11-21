@@ -14,7 +14,6 @@
 #
 
 FactoryBot.define do
-
   factory :info_request_batch do
     sequence(:title) { |n| "Example Title #{n}" }
     user

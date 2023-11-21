@@ -14,7 +14,6 @@
 require 'spec_helper'
 
 RSpec.describe ProfilePhoto, "when constructing a new photo" do
-
   before do
     @mock_user = mock_model(User)
   end
@@ -63,6 +62,4 @@ RSpec.describe ProfilePhoto, "when constructing a new photo" do
     expect(profile_photo.image.width).to eq(198)
     expect(profile_photo.image.height).to eq(289)
   end
-
-
 end

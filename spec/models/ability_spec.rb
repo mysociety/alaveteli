@@ -193,7 +193,6 @@ RSpec.describe Ability do
         end
 
         context 'with pro enabled' do
-
           it 'should return false for an admin user' do
             with_feature_enabled(:alaveteli_pro) do
               expect(admin_ability).not_to be_able_to(:read, resource)
@@ -228,7 +227,6 @@ RSpec.describe Ability do
         end
 
         context 'with pro enabled' do
-
           it 'should return false for an admin user' do
             with_feature_enabled(:alaveteli_pro) do
               expect(admin_ability).not_to be_able_to(:read, resource)
@@ -240,7 +238,6 @@ RSpec.describe Ability do
               expect(pro_admin_ability).to be_able_to(:read, resource)
             end
           end
-
         end
 
         it 'should return false if the user does not own the right resource' do
@@ -260,7 +257,6 @@ RSpec.describe Ability do
         end
 
         context 'with pro enabled' do
-
           it 'should return false for an admin user' do
             with_feature_enabled(:alaveteli_pro) do
               expect(admin_ability).not_to be_able_to(:read, resource)
@@ -272,7 +268,6 @@ RSpec.describe Ability do
               expect(pro_admin_ability).to be_able_to(:read, resource)
             end
           end
-
         end
 
         context 'with project' do
@@ -357,9 +352,7 @@ RSpec.describe Ability do
           expect(owner_ability).to be_able_to(:read, resource)
         end
       end
-
     end
-
   end
 
   describe 'sharing InfoRequests' do
@@ -669,7 +662,6 @@ RSpec.describe Ability do
       end
 
       context "when the user owns the batch" do
-
         it 'allows pro users to update the batch' do
           ability = Ability.new(resource.user)
           with_feature_enabled(:alaveteli_pro) do
@@ -684,7 +676,6 @@ RSpec.describe Ability do
             expect(ability).not_to be_able_to(:update, resource)
           end
         end
-
       end
 
       context "when the user is a pro_admin" do
@@ -832,7 +823,6 @@ RSpec.describe Ability do
           ability = Ability.new(info_request.user)
           expect(ability).to be_able_to(:create_embargo, info_request)
         end
-
       end
 
       it "allows pro admins to add an embargo" do
@@ -857,9 +847,7 @@ RSpec.describe Ability do
             expect(ability).to_not be_able_to(:create_embargo, batch_request)
           end
         end
-
       end
-
     end
 
     context 'the info request owner is not a pro user' do
@@ -875,7 +863,6 @@ RSpec.describe Ability do
           ability = Ability.new(user)
           expect(ability).not_to be_able_to(:create_embargo, info_request)
         end
-
       end
 
       it "prevents pro admins adding an embargo" do
@@ -884,7 +871,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:create_embargo, info_request)
         end
       end
-
     end
 
     context 'the info request was made anonymously', feature: :alaveteli_pro do
@@ -904,13 +890,10 @@ RSpec.describe Ability do
         ability = Ability.new(FactoryBot.create(:pro_admin_user))
         expect(ability).not_to be_able_to(:create_embargo, info_request)
       end
-
     end
-
   end
 
   describe "Updating Embargoes" do
-
     let(:embargo) do
       FactoryBot.create(:embargo, user: FactoryBot.create(:pro_user))
     end
@@ -965,7 +948,6 @@ RSpec.describe Ability do
   end
 
   describe "Destroying Embargoes" do
-
     let(:embargo) do
       FactoryBot.create(:embargo, user: FactoryBot.create(:pro_user))
     end
@@ -1016,11 +998,9 @@ RSpec.describe Ability do
         expect(ability).not_to be_able_to(:destroy, embargo)
       end
     end
-
   end
 
   describe "Destroying Batch Embargoes" do
-
     let(:batch) do
       FactoryBot.create(:info_request_batch, :embargoed,
                         user: FactoryBot.create(:pro_user))
@@ -1072,7 +1052,6 @@ RSpec.describe Ability do
         expect(ability).not_to be_able_to(:destroy_embargo, batch)
       end
     end
-
   end
 
   describe "Logging in as a user" do
@@ -1082,7 +1061,6 @@ RSpec.describe Ability do
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'when the user has no roles' do
-
       it 'allows an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(admin_user)
@@ -1110,11 +1088,9 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:login_as, user)
         end
       end
-
     end
 
     context 'when the user is an admin' do
-
       it 'allows an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(FactoryBot.create(:admin_user))
@@ -1142,11 +1118,9 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:login_as, admin_user)
         end
       end
-
     end
 
     context 'when the user is a pro' do
-
      it 'does not allow an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(admin_user)
@@ -1181,11 +1155,9 @@ RSpec.describe Ability do
           expect(ability).to be_able_to(:login_as, pro_user)
         end
       end
-
     end
 
     context 'when the user is a pro_admin user' do
-
       it 'does not allow an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(admin_user)
@@ -1266,7 +1238,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:admin, info_request)
         end
       end
-
     end
 
     context 'when the request is not embargoed' do
@@ -1352,7 +1323,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:admin, batch)
         end
       end
-
     end
 
     context 'when the batch is not embargoed' do
@@ -1440,7 +1410,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:admin, comment)
         end
       end
-
     end
 
     context 'when the request is not embargoed' do
@@ -1525,7 +1494,6 @@ RSpec.describe Ability do
         expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
       end
     end
-
   end
 
   describe 'reading API keys' do
@@ -1535,7 +1503,6 @@ RSpec.describe Ability do
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'if pro is not enabled' do
-
       it 'allows an admin user to read' do
         ability = Ability.new(admin_user)
         expect(ability).to be_able_to(:read, :api_key)
@@ -1555,11 +1522,9 @@ RSpec.describe Ability do
         ability = Ability.guest
         expect(ability).not_to be_able_to(:read, :api_key)
       end
-
     end
 
     context 'if pro is enabled' do
-
       it 'allows a pro admin user to read' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(pro_admin_user)
@@ -1594,9 +1559,7 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:read, :api_key)
         end
       end
-
     end
-
   end
 
   describe 'read projects', feature: :projects do

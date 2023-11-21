@@ -76,5 +76,4 @@ class ChangeEmailValidator
   def correct_password?
     logged_in_user.has_this_password?(password)
   end
-
 end

@@ -186,7 +186,6 @@ Rails.application.routes.draw do
     ####
   end
 
-
   #### Followups controller
   match '/request/:request_id/followups/new' => 'followups#new',
         :as => :new_request_followup,
@@ -839,7 +838,6 @@ Rails.application.routes.draw do
 
   #### Pro Pricing
   constraints FeatureConstraint.new(:pro_pricing) do
-
     namespace :alaveteli_pro, path: :pro, as: :pro do
       resources :plans, only: [:index], path: :pricing
     end
@@ -862,12 +860,10 @@ Rails.application.routes.draw do
       match '/pro/subscriptions/stripe-webhook' => 'stripe_webhooks#receive',
             :via => :post
     end
-
   end
 
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
-
     scope module: :alaveteli_pro do
       resources :account_request, :only => [:index, :create], path: :pro do
         collection do
@@ -932,7 +928,6 @@ Rails.application.routes.draw do
             :via => :get,
             :defaults => { :pro => '1' }
     end
-
   end
   ####
 

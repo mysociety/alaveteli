@@ -2,11 +2,9 @@ require 'spec_helper'
 require Rails.root.join('lib/graphs')
 
 RSpec.describe Graphs do
-
   let(:dummy_class) { Class.new { extend Graphs } }
 
   describe "when asked to select data as columns" do
-
     let(:user1) { FactoryBot.create(:user) }
     let(:user2) { FactoryBot.create(:user) }
 
@@ -23,7 +21,6 @@ RSpec.describe Graphs do
       result = dummy_class.select_as_columns(sql)
       expected = [[user1.name], [user1.id]]
       expect(result).to eq expected
-
     end
 
     it "returns nil if there are no results" do
@@ -36,11 +33,9 @@ RSpec.describe Graphs do
       expect { dummy_class.select_as_columns(sql) }.
         to raise_error(ActiveRecord::StatementInvalid)
     end
-
   end
 
   describe "when asked to create a plottable dataset" do
-
     let(:test_data) { [["title 1", "title 2"], [42, 15], [42, 57]] }
 
     it "returns a Gnuplot::DataSet object" do
@@ -85,7 +80,6 @@ RSpec.describe Graphs do
   end
 
   describe "when asked to plot data from sql" do
-
     let(:sql) { "SELECT name, id FROM users WHERE 1=0" }
     let(:test_data) { [["title 1", "title 2"], [42, 15], [42, 57]] }
 
@@ -101,7 +95,6 @@ RSpec.describe Graphs do
     end
 
     context "select_as_columns returns data" do
-
       it "calls create_dataset" do
         allow(dummy_class).to receive(:select_as_columns).with(sql) { test_data }
         expect(dummy_class).to receive(:create_dataset).with(test_data, {})
@@ -116,13 +109,10 @@ RSpec.describe Graphs do
         dummy_class.plot_data_from_sql(sql, {}, datasets)
         expect(datasets).to eq [mock_dataset]
       end
-
     end
-
   end
 
   describe "when asked to plot data from columns" do
-
     let(:test_data) { [["title 1", "title 2"], [42, 15], [42, 57]] }
 
     it "calls create_dataset with the supplied data" do
@@ -143,7 +133,6 @@ RSpec.describe Graphs do
       expect(dummy_class).not_to receive(:create_dataset)
       dummy_class.plot_data_from_columns(nil, {}, [])
     end
-
   end
 
   describe "when asked to plot multiple datasets" do
@@ -182,7 +171,5 @@ RSpec.describe Graphs do
       expect(dummy_class).to receive(:plot_data_from_sql).exactly(2).times
       dummy_class.plot_datasets(graph_param_sets, [])
     end
-
   end
-
 end

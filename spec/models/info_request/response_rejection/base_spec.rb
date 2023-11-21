@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ResponseRejection::Base do
-
   describe '.new' do
-
     it 'requires an info_request' do
       expect { described_class.new }.to raise_error(ArgumentError)
     end
@@ -40,11 +38,9 @@ RSpec.describe InfoRequest::ResponseRejection::Base do
       rejection = described_class.new(*args)
       expect(rejection.raw_email_data).to eq(raw_email_data)
     end
-
   end
 
   describe '#reject' do
-
     it 'returns true' do
       args = [double('info_request'), double('email'), double('raw_email_data')]
       rejection = described_class.new(*args)
@@ -56,7 +52,5 @@ RSpec.describe InfoRequest::ResponseRejection::Base do
       rejection = described_class.new(*args)
       expect(rejection.reject('')).to eq(true)
     end
-
   end
-
 end

@@ -127,18 +127,21 @@ module HasTagString
         end
       end
       raise TagNotFound unless found
+
       results
     end
 
     # Adds a new tag to the model, if it isn't already there
     def add_tag_if_not_already_present(tag_as_string)
       return tag_string if has_tag?(tag_as_string)
+
       self.tag_string = tag_string + ' ' + tag_as_string
     end
 
     # Removes tag to the model
     def remove_tag(tag_as_string)
       return tag_string unless has_tag?(tag_as_string)
+
       self.tag_string = tag_string.sub(/\b#{tag_as_string}\b/, '').strip
     end
   end

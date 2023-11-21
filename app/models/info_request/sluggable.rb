@@ -27,6 +27,7 @@ module InfoRequest::Sluggable
   def url_title(opts = {})
     _url_title = super()
     return _url_title.gsub(/[_0-9]+$/, "") if opts[:collapse]
+
     _url_title
   end
 

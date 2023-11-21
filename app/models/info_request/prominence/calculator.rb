@@ -1,7 +1,6 @@
 class InfoRequest
   module Prominence
     class Calculator
-
       def initialize(info_request)
         @info_request = info_request
       end
@@ -33,7 +32,6 @@ class InfoRequest
       def to_s
         @info_request.read_attribute(:prominence)
       end
-
     end
   end
 end

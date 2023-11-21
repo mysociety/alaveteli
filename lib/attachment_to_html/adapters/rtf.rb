@@ -2,7 +2,6 @@ module AttachmentToHTML
   module Adapters
     # Convert application/rtf documents in to HTML
     class RTF < Adapter
-
       attr_reader :tmpdir
 
       # Public: Initialize a RTF converter
@@ -46,7 +45,6 @@ module AttachmentToHTML
 
           sanitize_converted(html)
         end
-
       end
 
       # Works around http://savannah.gnu.org/bugs/?42015 in unrtf ~> 0.21

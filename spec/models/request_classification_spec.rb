@@ -13,9 +13,7 @@
 require 'spec_helper'
 
 RSpec.describe RequestClassification do
-
   describe '.league_table' do
-
     before do
       @user_one = FactoryBot.create(:user)
       @user_two = FactoryBot.create(:user)
@@ -48,7 +46,5 @@ RSpec.describe RequestClassification do
       expect(league_table.first.user_id).to eq(@user_two.id)
       expect(league_table.first.cnt).to eq(1)
     end
-
   end
-
 end

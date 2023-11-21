@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesHelper do
-
   include AlaveteliPro::BatchRequestAuthoritySearchesHelper
 
   describe '#batch_authority_count' do
@@ -56,5 +55,4 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesHelper do
       )
     end
   end
-
 end

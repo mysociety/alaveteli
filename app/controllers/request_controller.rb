@@ -121,9 +121,11 @@ class RequestController < ApplicationController
     if @page > MAX_RESULTS / PER_PAGE
       raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
+
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
     return render_hidden if cannot?(:read, @info_request)
+
     @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent],
                                                @info_request.info_request_events,
                                                offset: (@page - 1) * @per_page,
@@ -302,6 +304,7 @@ class RequestController < ApplicationController
           @outgoing_message.info_request,
           @outgoing_message
         ).deliver_now
+
       rescue *OutgoingMessage.expected_send_errors => e
         # Catch a wide variety of potential ActionMailer failures and
         # record the exception reason so administrators don't have to
@@ -338,6 +341,7 @@ class RequestController < ApplicationController
     if @info_request_event.info_request.embargo
       raise ActiveRecord::RecordNotFound
     end
+
     if @info_request_event.is_incoming_message?
       redirect_to incoming_message_url(@info_request_event.incoming_message), status: :moved_permanently
     elsif @info_request_event.is_outgoing_message?
@@ -452,6 +456,7 @@ class RequestController < ApplicationController
       else
         # Test for whole request being hidden or requester-only
         return render_hidden if cannot?(:read, @info_request)
+
         cache_file_path = @info_request.make_zip_cache_path(@user)
         unless File.exist?(cache_file_path)
           FileUtils.mkdir_p(File.dirname(cache_file_path))
@@ -546,6 +551,7 @@ class RequestController < ApplicationController
 
   def state_transitions_empty?(transitions)
     return true if transitions.nil?
+
     transitions[:pending].empty? && \
       transitions[:complete].empty? && \
       transitions[:other].empty?
@@ -558,9 +564,11 @@ class RequestController < ApplicationController
       message_index = 0
       info_request.incoming_messages.each do |message|
         next unless can?(:read, message)
+
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
           next unless can?(:read, attachment)
+
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
             body = message.apply_masks(attachment.default_body, attachment.content_type)
@@ -619,6 +627,7 @@ class RequestController < ApplicationController
           if public_body.nil?  # TODO: proper 404
             raise ActiveRecord::RecordNotFound, "None found"
           end
+
           public_body.id
         end
       elsif params[:public_body_id]
@@ -681,7 +690,6 @@ class RequestController < ApplicationController
       redirect_to public_body_url(@info_request.public_body)
     end
     nil
-
   end
 
   def render_new_preview
@@ -711,6 +719,7 @@ class RequestController < ApplicationController
       # We don't want to leak the title of embargoed or hidden requests, so
       # don't even redirect on if the user can't access the request
       return render_hidden if cannot?(:read, @info_request)
+
       redirect_to request_url(@info_request, format: params[:format])
     end
   end

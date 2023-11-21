@@ -2,7 +2,6 @@ require 'spec_helper'
 
 RSpec.describe PublicBodyCategory::CategoryCollection do
   context "requesting data" do
-
     before do
       data = [ "Local and regional",
                [ "local_council", "Local councils", "a local council" ],
@@ -13,11 +12,9 @@ RSpec.describe PublicBodyCategory::CategoryCollection do
     end
 
     describe 'when asked for headings' do
-
       it 'should return a list of headings' do
         expect(@categories.headings).to eq(['Local and regional', 'Miscellaneous'])
       end
-
     end
 
     describe 'when asked for categories with headings' do
@@ -33,8 +30,6 @@ RSpec.describe PublicBodyCategory::CategoryCollection do
         expect(@categories.with_headings).to eq(expected_categories)
       end
     end
-
-
 
     describe 'when asked for tags by headings' do
       it 'should return a hash of tags keyed by heading' do

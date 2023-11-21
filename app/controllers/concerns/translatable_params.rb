@@ -1,7 +1,7 @@
 module TranslatableParams
-
   def translatable_params(params, **keys)
     return {} unless params
+
     WhitelistedParams.new(**keys).whitelist(params)
   end
 
@@ -51,7 +51,5 @@ module TranslatableParams
       end
       sliced_params
     end
-
   end
-
 end

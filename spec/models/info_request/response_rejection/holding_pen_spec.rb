@@ -1,23 +1,19 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ResponseRejection::HoldingPen do
-
   it 'inherits from Base' do
     expect(described_class.superclass).
       to eq(InfoRequest::ResponseRejection::Base)
   end
 
   describe '.new' do
-
     it 'finds and sets the holding_pen' do
       rejection = described_class.new(double, double, double)
       expect(rejection.holding_pen).to be_holding_pen_request
     end
-
   end
 
   describe '.reject' do
-
     it 'returns false if the info_request is the holding_pen' do
       holding_pen = InfoRequest.holding_pen_request
       rejection = described_class.new(holding_pen, double, double)
@@ -39,7 +35,5 @@ RSpec.describe InfoRequest::ResponseRejection::HoldingPen do
 
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
-
   end
-
 end

@@ -1,26 +1,20 @@
 require 'spec_helper'
 
 RSpec.describe MailServerLog::PostfixLine do
-
   describe '.new' do
-
     it 'requires a line argument' do
       expect { described_class.new }.to raise_error(ArgumentError)
     end
-
   end
 
   describe '#to_s' do
-
     it 'returns the log line' do
       line = 'Oct  2 08:57:45 ubuntu-precise-64 postfix/pickup[7843]: E9B4F420D5: uid=1001 from=<foi+request-117-c99ae4f3@localhost>'
       expect(described_class.new(line).to_s).to eq(line)
     end
-
   end
 
   describe '#inspect' do
-
     it 'returns the default format' do
       subject = described_class.new('log line')
       obj_id = format("0x00%x", (subject.object_id << 1))
@@ -28,11 +22,9 @@ RSpec.describe MailServerLog::PostfixLine do
         %Q(#<#{described_class}:#{obj_id} @line="log line">)
       expect(subject.inspect).to eq(expected)
     end
-
   end
 
   describe '#<=>' do
-
     let(:lines) { %w(A C B).map { |s| described_class.new(s) } }
 
     it { expect(lines.sort.map(&:to_s)).to eq(%w(A B C)) }
@@ -46,11 +38,9 @@ RSpec.describe MailServerLog::PostfixLine do
     it { expect(a >= b).to eq(false) }
     it { expect(a <= b).to eq(true) }
     it { expect(a == b).to eq(false) }
-
   end
 
   describe '#flag' do
-
     it 'returns nil if a flag cannot be parsed from the line' do
       expect(described_class.new('garbage').flag).to eq(nil)
     end
@@ -74,11 +64,9 @@ RSpec.describe MailServerLog::PostfixLine do
       line = 'Oct 10 13:22:49 host postfix/qmgr[1706]: A323688C523:from=<foo@example.com>, status=expired, returned to sender'
       expect(described_class.new(line).flag).to eq('status=expired')
     end
-
   end
 
   describe '#status' do
-
     it 'returns nil if a status cannot be parsed from the line' do
       expect(described_class.new('garbage').status).to eq(nil)
     end
@@ -102,11 +90,9 @@ RSpec.describe MailServerLog::PostfixLine do
       line = 'Oct 10 13:22:49 host postfix/qmgr[1706]: A323688C523:from=<foo@example.com>, status=expired, returned to sender'
       expect(described_class.new(line).status).to eq(:expired)
     end
-
   end
 
   describe '#delivery_status' do
-
     it 'returns an unknown status if a delivery status cannot be parsed from the line' do
       expected = MailServerLog::DeliveryStatus.new(:unknown)
       expect(described_class.new('garbage').delivery_status).to eq(expected)
@@ -135,7 +121,5 @@ RSpec.describe MailServerLog::PostfixLine do
       expected = MailServerLog::DeliveryStatus.new(:failed)
       expect(described_class.new(line).delivery_status).to eq(expected)
     end
-
   end
-
 end

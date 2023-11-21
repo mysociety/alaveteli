@@ -43,21 +43,25 @@ class Project::Export::InfoRequest < SimpleDelegator
 
   def status_contributor
     return project.owner.name unless status_submission
+
     status_submission.user.name
   end
 
   def dataset_contributor
     return unless extraction_submission
+
     extraction_submission.user.name
   end
 
   def extracted_values
     return unless extraction_submission
+
     extraction_submission.resource.values
   end
 
   def extracted_values_as_hash
     return {} unless extracted_values
+
     extracted_values.joins(:key).pluck('dataset_keys.title', :value).to_h
   end
 end

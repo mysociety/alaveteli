@@ -4,7 +4,6 @@ RSpec.describe AlaveteliPro::StripeNamespace do
   include AlaveteliPro::StripeNamespace
 
   context 'with namespace' do
-
     before(:each) do
       allow(AlaveteliConfiguration).to receive(:stripe_namespace).
         and_return('namespace')
@@ -21,11 +20,9 @@ RSpec.describe AlaveteliPro::StripeNamespace do
         expect(remove_stripe_namespace('namespace-string')).to eq('string')
       end
     end
-
   end
 
   context 'without namespace' do
-
     before(:each) do
       allow(AlaveteliConfiguration).to receive(:stripe_namespace).
         and_return('')
@@ -42,7 +39,5 @@ RSpec.describe AlaveteliPro::StripeNamespace do
         expect(remove_stripe_namespace('string')).to eq('string')
       end
     end
-
   end
-
 end

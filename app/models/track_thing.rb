@@ -26,7 +26,6 @@ require 'set'
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
 class TrackThing < ApplicationRecord
-
   TRACK_MEDIUMS = %w(email_daily feed)
 
   belongs_to :info_request,
@@ -55,6 +54,7 @@ class TrackThing < ApplicationRecord
   # posting
   def self.find_existing(tracking_user, track)
     return nil if tracking_user.nil?
+
     where(tracking_user_id: tracking_user.id,
           track_query: track.track_query,
           track_type: track.track_type).first
@@ -293,5 +293,4 @@ class TrackThing < ApplicationRecord
       feed_sortby: 'described'
       }
   end
-
 end

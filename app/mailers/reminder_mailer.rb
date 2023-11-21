@@ -1,4 +1,3 @@
-
 class ReminderMailer < ApplicationMailer
   # Send reminder message to administrator
   def public_holidays(name, email, subject)
