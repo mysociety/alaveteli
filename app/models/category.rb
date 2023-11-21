@@ -51,4 +51,8 @@ class Category < ApplicationRecord
   def self.public_body_root
     Category.roots.find_or_create_by(title: 'PublicBody')
   end
+
+  def tree
+    children.includes(:translations, children: [:translations])
+  end
 end

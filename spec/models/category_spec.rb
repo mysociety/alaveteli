@@ -106,4 +106,49 @@ RSpec.describe Category, type: :model do
     it { is_expected.to be_a(described_class) }
     it { expect(root.title).to eq('PublicBody') }
   end
+
+  describe '#tree' do
+    subject { root.tree }
+
+    let!(:root) do
+      FactoryBot.create(:category, title: 'PublicBody')
+    end
+
+    let!(:trunk) do
+      FactoryBot.create(:category, title: 'Trunk', parents: [root])
+    end
+
+    let!(:branch) do
+      FactoryBot.create(:category, title: 'Branch', parents: [trunk])
+    end
+
+    around do |example|
+      @query_count = 0
+      subscription = ActiveSupport::Notifications.subscribe(
+        'sql.active_record'
+      ) { @query_count += 1 }
+
+      example.call
+
+      ActiveSupport::Notifications.unsubscribe(subscription)
+    end
+
+    it 'returns root category descendents' do
+      expect(root.tree).to match_array([trunk])
+      expect(root.tree[0].children).to match_array([branch])
+    end
+
+    it 'preload translations' do
+      # load tree and perform all necessary DB queries
+      tree = root.tree.to_a
+
+      expect {
+        # iterate through tree and ensure translations have been preloaded
+        tree.each do |child|
+          child.title
+          child.children.each(&:title)
+        end
+      }.to_not change { @query_count }
+    end
+  end
 end
