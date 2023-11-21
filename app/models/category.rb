@@ -42,4 +42,13 @@ class Category < ApplicationRecord
   include Translatable
 
   validates :title, presence: true
+
+  scope :roots, -> { left_joins(:parents).where(parents: { id: nil }) }
+  scope :with_parent, ->(parent) do
+    joins(:parent_relationships).where(parent_relationships: { parent: parent })
+  end
+
+  def self.public_body_root
+    Category.roots.find_or_create_by(title: 'PublicBody')
+  end
 end

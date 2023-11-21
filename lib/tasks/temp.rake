@@ -1,4 +1,41 @@
 namespace :temp do
+  desc 'Migrate PublicBodyCategory into Category model'
+  task migrate_public_body_categories: :environment do
+    next if Category.public_body_root.children.any?
+
+    scope = PublicBodyCategoryLink.by_display_order.to_a
+    count = scope.count
+
+    root = Category.public_body_root
+
+    scope.each.with_index do |link, index|
+      h = link.public_body_heading
+      heading = Category.with_parent(root).find_by(title: h.name)
+      heading ||= Category.create!(
+        translations_attributes: h.translations_by_locale do
+          { locale: _1.locale, title: _1.name }
+        end
+      )
+      heading.parents << root unless heading.parents.include?(root)
+
+      c = link.public_body_category
+      category = Category.find_by(title: c.title, category_tag: c.category_tag)
+      category ||= Category.create!(
+        category_tag: c.category_tag,
+        translations_attributes: c.translations_by_locale do
+          { locale: _1.locale, title: _1.title, description: _1.description }
+        end
+      )
+      category.parents << heading unless category.parents.include?(heading)
+
+      erase_line
+      print "Migrate PublicBodyCategory to Category #{index + 1}/#{count}"
+    end
+
+    erase_line
+    puts "Migrating to PublicBodyCategory completed."
+  end
+
   desc 'Migrate PublicBody#disclosure_log to translation model'
   task migrate_disclosure_log: :environment do
     class PublicBodyWithoutTranslations < ApplicationRecord # :nodoc:

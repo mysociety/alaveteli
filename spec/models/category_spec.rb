@@ -77,4 +77,33 @@ RSpec.describe Category, type: :model do
       expect(category.tags).to match_array([tag])
     end
   end
+
+  describe '.roots scope' do
+    subject { described_class.roots }
+    it { is_expected.to include(described_class.public_body_root) }
+  end
+
+  describe '.with_parent scope' do
+    let(:parent_1) { FactoryBot.create(:category) }
+    let(:parent_2) { FactoryBot.create(:category) }
+
+    let(:child) { FactoryBot.create(:category, parents: [parent_1]) }
+    let(:child_with_muliple_parents) do
+      FactoryBot.create(:category, parents: [parent_1, parent_2])
+    end
+
+    let(:other_child) { FactoryBot.create(:category) }
+
+    subject { described_class.with_parent(parent_1) }
+
+    it { is_expected.to include(child) }
+    it { is_expected.to include(child_with_muliple_parents) }
+    it { is_expected.to_not include(other_child) }
+  end
+
+  describe '.public_body_root' do
+    subject(:root) { described_class.public_body_root }
+    it { is_expected.to be_a(described_class) }
+    it { expect(root.title).to eq('PublicBody') }
+  end
 end
