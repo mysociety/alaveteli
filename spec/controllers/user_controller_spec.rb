@@ -1247,7 +1247,11 @@ RSpec.describe UserController, "when using profile photos" do
                                automatically_crop: 1
                              }
 
-    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
+    expect(response).to redirect_to(
+      controller: 'user',
+      action: 'show',
+      url_name: "bob_smith"
+    )
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     @user.reload
@@ -1288,7 +1292,11 @@ RSpec.describe UserController, "when using profile photos" do
                                submitted_draft_profile_photo: 1,
                                automatically_crop: 1
                              }
-    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
+    expect(response).to redirect_to(
+      controller: 'user',
+      action: 'show',
+      url_name: "bob_smith"
+    )
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     post :set_profile_photo, params: {
@@ -1297,14 +1305,19 @@ RSpec.describe UserController, "when using profile photos" do
                                submitted_draft_profile_photo: 1,
                                automatically_crop: 1
                              }
-    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
+    expect(response).to redirect_to(
+      controller: 'user',
+      action: 'show',
+      url_name: "bob_smith"
+    )
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     @user.reload
     expect(@user.profile_photo).not_to be_nil
   end
 
-  # TODO: todo check the two stage javascript cropping (above only tests one stage non-javascript one)
+  # TODO: todo check the two stage javascript cropping (above only tests one
+  # stage non-javascript one)
 end
 
 RSpec.describe UserController, "when showing JSON version for API" do

@@ -318,9 +318,11 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         it 'should log a status update event' do
-          expected_params = { user: { gid: info_request.user.to_global_id.to_s },
-                              old_described_state: 'waiting_response',
-                              described_state: 'rejected' }
+          expected_params = {
+            user: { gid: info_request.user.to_global_id.to_s },
+            old_described_state: 'waiting_response',
+            described_state: 'rejected'
+          }
           post_status('rejected')
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params

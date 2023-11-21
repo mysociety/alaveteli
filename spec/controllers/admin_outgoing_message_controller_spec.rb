@@ -231,7 +231,9 @@ RSpec.describe AdminOutgoingMessageController do
     end
 
     it 'should log an "edit_outgoing" event on the info_request' do
-      allow(@controller).to receive(:admin_current_user).and_return("Admin user")
+      allow(@controller).
+        to receive(:admin_current_user).
+        and_return("Admin user")
       make_request
       info_request.reload
       last_event = info_request.info_request_events.last
@@ -252,7 +254,8 @@ RSpec.describe AdminOutgoingMessageController do
 
     it 'should expire the file cache for the info request' do
       info_request = FactoryBot.create(:info_request)
-      allow_any_instance_of(OutgoingMessage).to receive(:info_request) { info_request }
+      allow_any_instance_of(OutgoingMessage).
+        to receive(:info_request) { info_request }
 
       outgoing = FactoryBot.create(:initial_request, info_request: info_request)
 

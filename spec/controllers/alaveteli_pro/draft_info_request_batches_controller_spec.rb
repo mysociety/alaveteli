@@ -325,7 +325,9 @@ RSpec.describe AlaveteliPro::DraftInfoRequestBatchesController do
       draft.reload
       expect(draft.title).to eq 'Test Batch Request'
       expect(draft.body).to eq 'This is a test batch request.'
-      expect(draft.public_bodies).to match_array([authority_1, authority_2, authority_3])
+      expect(draft.public_bodies).to match_array(
+        [authority_1, authority_2, authority_3]
+      )
       expect(draft.embargo_duration).to eq '3_months'
     end
 

@@ -260,8 +260,10 @@ RSpec.describe AdminRequestController, "when administering requests" do
     end
 
     it 'redirects after destroying a request with incoming_messages' do
-      incoming_message = FactoryBot.create(:incoming_message, :with_html_attachment,
+      incoming_message = FactoryBot.create(:incoming_message,
+                                           :with_html_attachment,
                                            info_request: info_request)
+
       delete :destroy, params: { id: info_request.id }
 
       expect(response).to redirect_to(admin_requests_url)
@@ -357,7 +359,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'should add a notice to the flash saying that the request has been hidden' do
         make_request
-        expect(request.flash[:notice]).to eq("This external request has been hidden")
+        expect(request.flash[:notice]).
+          to eq("This external request has been hidden")
       end
 
       it 'should expire the file cache for the request' do

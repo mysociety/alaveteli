@@ -27,7 +27,9 @@ RSpec.describe PublicBodyController, "when showing a body" do
   it "should assign the requests (1)" do
     get :show, params: { url_name: "tgq", view: 'all' }
     conditions = { public_body_id: public_bodies(:geraldine_public_body).id }
-    actual = assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+    actual = assigns[:xapian_requests].results.map do |x|
+      x[:model].info_request
+    end
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
@@ -35,14 +37,18 @@ RSpec.describe PublicBodyController, "when showing a body" do
     get :show, params: { url_name: "tgq", view: 'successful' }
     conditions = { described_state: 'successful',
                    public_body_id: public_bodies(:geraldine_public_body).id }
-    actual = assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+    actual = assigns[:xapian_requests].results.map do |x|
+      x[:model].info_request
+    end
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
   it "should assign the requests (3)" do
     get :show, params: { url_name: "dfh", view: 'all' }
     conditions = { public_body_id: public_bodies(:humpadink_public_body).id }
-    actual = assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+    actual = assigns[:xapian_requests].results.map do |x|
+      x[:model].info_request
+    end
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
@@ -66,12 +72,20 @@ RSpec.describe PublicBodyController, "when showing a body" do
 
   it "should redirect to newest name if you use historic name of public body in URL" do
     get :show, params: { url_name: "hdink", view: 'all' }
-    expect(response).to redirect_to(controller: 'public_body', action: 'show', url_name: "dfh")
+    expect(response).to redirect_to(
+      controller: 'public_body',
+      action: 'show',
+      url_name: "dfh"
+    )
   end
 
   it "should redirect to lower case name if you use mixed case name in URL" do
     get :show, params: { url_name: "dFh", view: 'all' }
-    expect(response).to redirect_to(controller: 'public_body', action: 'show', url_name: "dfh")
+    expect(response).to redirect_to(
+      controller: 'public_body',
+      action: 'show',
+      url_name: "dfh"
+    )
   end
 
   it 'keeps the search_params flash' do
@@ -140,21 +154,27 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   end
 
   it "if fallback is requested, should list all bodies from default locale, even when there are no translations for selected locale" do
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).and_return(true)
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
+      and_return(true)
     @english_only = make_single_language_example :en
     get :list, params: { locale: 'es' }
     expect(assigns[:public_bodies].include?(@english_only)).to eq(true)
   end
 
   it 'if fallback is requested, should still list public bodies only with translations in the current locale' do
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).and_return(true)
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
+      and_return(true)
     @spanish_only = make_single_language_example :es
     get :list, params: { locale: 'es' }
     expect(assigns[:public_bodies].include?(@spanish_only)).to eq(true)
   end
 
   it "if fallback is requested, make sure that there are no duplicates listed" do
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).and_return(true)
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
+      and_return(true)
     get :list, params: { locale: 'es' }
     pb_ids = assigns[:public_bodies].map(&:id)
     unique_pb_ids = pb_ids.uniq
@@ -184,7 +204,9 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     # The names of each public body is in:
     #    <span class="head"><a>Public Body Name</a></span>
     # ... eo extract all of those, and check that they are ordered:
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).and_return(true)
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
+      and_return(true)
     get :list, params: { locale: 'es' }
     parsed = Nokogiri::HTML(response.body)
     public_body_names = parsed.xpath '//span[@class="head"]/a/text()'
@@ -205,18 +227,23 @@ RSpec.describe PublicBodyController, "when listing bodies" do
 
     expect(response).to render_template('list')
 
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:other_public_body),
-                                        public_bodies(:humpadink_public_body),
-                                        public_bodies(:forlorn_public_body),
-                                        public_bodies(:geraldine_public_body),
-                                        public_bodies(:sensible_walks_public_body),
-                                        public_bodies(:silly_walks_public_body) ])
+    expect(assigns[:public_bodies]).to eq(
+      [
+        public_bodies(:other_public_body),
+        public_bodies(:humpadink_public_body),
+        public_bodies(:forlorn_public_body),
+        public_bodies(:geraldine_public_body),
+        public_bodies(:sensible_walks_public_body),
+        public_bodies(:silly_walks_public_body)
+      ]
+    )
     expect(assigns[:tag]).to eq("all")
     expect(assigns[:description]).to eq("Found 6 public authorities")
   end
 
   it 'list bodies in collate order according to the locale with the fallback set' do
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
       and_return(true)
 
     allow(DatabaseCollation).to receive(:supports?).
@@ -228,7 +255,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   end
 
   it 'list bodies in default order according to the locale with the fallback set' do
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
       and_return(true)
 
     allow(DatabaseCollation).to receive(:supports?).
@@ -241,7 +269,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   end
 
   it 'list bodies in collate order according to the locale' do
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
       and_return(false)
 
     allow(DatabaseCollation).to receive(:supports?).
@@ -254,7 +283,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   end
 
   it 'list bodies in alphabetical order according to the locale' do
-    allow(AlaveteliConfiguration).to receive(:public_body_list_fallback_to_default_locale).
+    allow(AlaveteliConfiguration).
+      to receive(:public_body_list_fallback_to_default_locale).
       and_return(false)
 
     allow(DatabaseCollation).to receive(:supports?).
@@ -268,31 +298,38 @@ RSpec.describe PublicBodyController, "when listing bodies" do
 
   it "should support simple searching of bodies by title" do
     get :list, params: { public_body_query: 'quango' }
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:geraldine_public_body) ])
+    expect(assigns[:public_bodies]).
+      to eq([public_bodies(:geraldine_public_body)])
   end
 
   it "should support simple searching of bodies by short_name" do
     get :list, params: { public_body_query: 'DfH' }
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
+    expect(assigns[:public_bodies]).
+      to eq([public_bodies(:humpadink_public_body)])
   end
 
   xit "should support simple searching of bodies by notes" do
     get :list, params: { public_body_query: 'Albatross' }
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
+    expect(assigns[:public_bodies]).
+      to eq([public_bodies(:humpadink_public_body)])
   end
 
   it "should list bodies in alphabetical order with different locale" do
     with_default_locale(:es) do
       get :list
       expect(response).to render_template('list')
-      expect(assigns[:public_bodies]).to eq([ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ])
+      expect(assigns[:public_bodies]).to eq(
+        [
+          public_bodies(:geraldine_public_body),
+          public_bodies(:humpadink_public_body)
+        ]
+      )
       expect(assigns[:tag]).to eq("all")
       expect(assigns[:description]).to eq("Found 2 public authorities")
     end
   end
 
-  it "should list a tagged thing on the appropriate list page, and others on the other page,
-        and all still on the all page" do
+  it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
     PublicBodyCategory.destroy_all
     PublicBodyHeading.destroy_all
     PublicBodyCategoryLink.destroy_all
@@ -305,27 +342,36 @@ RSpec.describe PublicBodyController, "when listing bodies" do
 
     get :list, params: { tag: category.category_tag }
     expect(response).to render_template('list')
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
+    expect(assigns[:public_bodies]).
+      to eq([public_bodies(:humpadink_public_body)])
     expect(assigns[:tag]).to eq(category.category_tag)
     expect(assigns[:description]).
       to eq("Found 1 public authority in the category ‘#{category.title}’")
 
     get :list, params: { tag: "other" }
     expect(response).to render_template('list')
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:other_public_body),
-                                        public_bodies(:forlorn_public_body),
-                                        public_bodies(:geraldine_public_body),
-                                        public_bodies(:sensible_walks_public_body),
-                                        public_bodies(:silly_walks_public_body) ])
+    expect(assigns[:public_bodies]).to eq(
+      [
+        public_bodies(:other_public_body),
+        public_bodies(:forlorn_public_body),
+        public_bodies(:geraldine_public_body),
+        public_bodies(:sensible_walks_public_body),
+        public_bodies(:silly_walks_public_body)
+      ]
+    )
 
     get :list
     expect(response).to render_template('list')
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:other_public_body),
-                                        public_bodies(:humpadink_public_body),
-                                        public_bodies(:forlorn_public_body),
-                                        public_bodies(:geraldine_public_body),
-                                        public_bodies(:sensible_walks_public_body),
-                                        public_bodies(:silly_walks_public_body) ])
+    expect(assigns[:public_bodies]).to eq(
+      [
+        public_bodies(:other_public_body),
+        public_bodies(:humpadink_public_body),
+        public_bodies(:forlorn_public_body),
+        public_bodies(:geraldine_public_body),
+        public_bodies(:sensible_walks_public_body),
+        public_bodies(:silly_walks_public_body)
+      ]
+    )
   end
 
   it "should list a machine tagged thing, should get it in both ways" do
@@ -333,7 +379,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
 
     get :list, params: { tag: "eats_cheese" }
     expect(response).to render_template('list')
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
+    expect(assigns[:public_bodies]).
+      to eq([public_bodies(:humpadink_public_body)])
     expect(assigns[:tag]).to eq("eats_cheese")
 
     get :list, params: { tag: "eats_cheese:jarlsberg" }
@@ -343,7 +390,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
 
     get :list, params: { tag: "eats_cheese:stilton" }
     expect(response).to render_template('list')
-    expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
+    expect(assigns[:public_bodies]).
+      to eq([public_bodies(:humpadink_public_body)])
     expect(assigns[:tag]).to eq("eats_cheese:stilton")
   end
 

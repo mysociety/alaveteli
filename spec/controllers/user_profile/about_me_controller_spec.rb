@@ -294,7 +294,9 @@ RSpec.describe UserProfile::AboutMeController do
       before :each do
         UserSpamScorer.score_mappings = {}
         sign_in user
-        allow(@controller).to receive(:block_spam_about_me_text?).and_return(true)
+        allow(@controller).
+          to receive(:block_spam_about_me_text?).
+          and_return(true)
       end
 
       after(:each) { UserSpamScorer.reset }
@@ -307,7 +309,8 @@ RSpec.describe UserProfile::AboutMeController do
               }
             }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/Spam about me text from user #{ user.id }/)
+        expect(mail.subject).
+          to match(/Spam about me text from user #{ user.id }/)
       end
 
       it 'sets an error message' do
@@ -352,7 +355,9 @@ RSpec.describe UserProfile::AboutMeController do
 
       before :each do
         sign_in user
-        allow(@controller).to receive(:block_spam_about_me_text?).and_return(false)
+        allow(@controller).
+          to receive(:block_spam_about_me_text?).
+          and_return(false)
       end
 
       it 'updates the user about_me' do
@@ -363,7 +368,8 @@ RSpec.describe UserProfile::AboutMeController do
                 about_me: '[HD] Watch Jason Bourne Online free MOVIE Full-HD'
               }
             }
-        expect(user.reload.about_me).to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
+        expect(user.reload.about_me).
+          to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
       end
 
     end
@@ -374,7 +380,9 @@ RSpec.describe UserProfile::AboutMeController do
 
       before :each do
         sign_in user
-        allow(@controller).to receive(:block_spam_about_me_text?).and_return(true)
+        allow(@controller).
+          to receive(:block_spam_about_me_text?).
+          and_return(true)
       end
 
       it 'updates the user about_me' do
@@ -382,10 +390,11 @@ RSpec.describe UserProfile::AboutMeController do
         put :update,
             params: {
               user: {
-                about_me:                   '[HD] Watch Jason Bourne Online free MOVIE Full-HD'
+                about_me: '[HD] Watch Jason Bourne Online free MOVIE Full-HD'
               }
             }
-        expect(user.reload.about_me).to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
+        expect(user.reload.about_me).
+          to eq('[HD] Watch Jason Bourne Online free MOVIE Full-HD')
       end
 
     end

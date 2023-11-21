@@ -72,7 +72,12 @@ RSpec.describe HelpController do
 
       before do
         # Prepend our fixture templates
-        fixture_theme_path = File.join(Rails.root, 'spec', 'fixtures', 'theme_views', 'theme_one')
+        fixture_theme_path = Rails.root.join(
+          'spec',
+          'fixtures',
+          'theme_views',
+          'theme_one'
+        )
         controller.prepend_view_path fixture_theme_path
       end
 

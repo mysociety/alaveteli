@@ -67,7 +67,9 @@ RSpec.describe WidgetVotesController do
     context 'when widgets are not enabled' do
 
       it 'raises ActiveRecord::RecordNotFound' do
-        allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
+        allow(AlaveteliConfiguration).
+          to receive(:enable_widgets).
+          and_return(false)
         expect {
           post :create, params: { request_id: info_request.id }
         }.to raise_error(ActiveRecord::RecordNotFound)

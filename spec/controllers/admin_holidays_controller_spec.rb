@@ -142,7 +142,8 @@ RSpec.describe AdminHolidaysController do
     end
 
     it 'updates the holiday' do
-      holiday = expect(Holiday.find(@holiday.id).description).to eq('New Test Holiday')
+      holiday = expect(Holiday.find(@holiday.id).description).
+        to eq('New Test Holiday')
     end
 
     it 'shows the admin a success message' do
