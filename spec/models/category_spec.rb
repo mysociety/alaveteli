@@ -25,6 +25,19 @@ RSpec.describe Category, type: :model do
       category.title = nil
       expect(category).not_to be_valid
     end
+
+    it 'can change category_tag when no objects are associated by tag' do
+      category = FactoryBot.create(:category, category_tag: 'unused_tag')
+      category.category_tag = 'other_tag'
+      expect(category).to be_valid
+    end
+
+    it 'cannot change category_tag when an object is associated by tag' do
+      category = FactoryBot.create(:category, category_tag: 'used_tag')
+      FactoryBot.create(:public_body, tag_string: 'used_tag')
+      category.category_tag = 'other_tag'
+      expect(category).not_to be_valid
+    end
   end
 
   describe 'translations' do

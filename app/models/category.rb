@@ -42,6 +42,7 @@ class Category < ApplicationRecord
   include Translatable
 
   validates :title, presence: true
+  validate :check_tag_assignments, on: :update
 
   scope :roots, -> { left_joins(:parents).where(parents: { id: nil }) }
   scope :with_parent, ->(parent) do
@@ -54,5 +55,17 @@ class Category < ApplicationRecord
 
   def tree
     children.includes(:translations, children: [:translations])
+  end
+
+  private
+
+  def check_tag_assignments
+    return unless category_tag_changed?
+    return if HasTagString::HasTagStringTag.where(name: category_tag_was).none?
+
+    errors.add(
+      :category_tag,
+      message: "can't be changed as there are associated objects present"
+    )
   end
 end

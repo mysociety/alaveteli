@@ -575,6 +575,14 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Categories controller
+  namespace :admin do
+    resources :categories, path: 'new_categories', as: 'new_categories' do
+      post 'reorder', on: :member
+    end
+  end
+  ####
+
   #### AdminPublicBodyCategory controller
   scope '/admin', :as => 'admin' do
     resources :categories,
