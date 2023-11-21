@@ -3,18 +3,17 @@
 <% else %>
   <% show_add_all = feature_enabled?(:pro_batch_category_add_all, current_user) %>
   <ul class="batch-builder__list">
-  <% PublicBodyCategoryLink.by_display_order.group_by(&:public_body_heading).each do |heading, category_links| %>
+  <% Category.public_body_root.tree.each do |heading| %>
     <li class="batch-builder__list__group">
       <div class="batch-builder__list__item">
         <span class="batch-builder__list__item__anchor">
           <span class="batch-builder__list__item__name">
-            <%= heading.name %>
+            <%= heading.title %>
           </span>
         </span>
       </div>
       <ul>
-      <% category_links.each do |category_link| %>
-        <% category = category_link.public_body_category %>
+      <% heading.children.each do |category| %>
         <% next if category.category_tag == 'school' #FIXME quickfix to preventing loading of large category %>
         <% selected = category.category_tag == category_tag %>
         <li class="batch-builder__list__group <%= 'batch-builder__list__group--closed' unless selected %>">
