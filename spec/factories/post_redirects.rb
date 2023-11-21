@@ -33,7 +33,10 @@ FactoryBot.define do
         public_body = FactoryBot.create(:public_body)
         {
           "outgoing_message" => {
-            "body" => "Dear Ministry of Defence,\r\n\r\nThis is my test\r\n\r\n\r\nYours faithfully,\r\n\r\nSteve Day",
+            "body" => "Dear Ministry of Defence,\r\n\r\n" \
+                      "This is my test\r\n\r\n\r\n" \
+                      "Yours faithfully,\r\n\r\n" \
+                      "Steve Day",
             "what_doing"=>"normal_sort"
           },
           "info_request" => {
