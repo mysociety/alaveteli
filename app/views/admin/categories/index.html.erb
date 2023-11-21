@@ -21,7 +21,7 @@
               <span class="badge"><%= heading.children.size %></span>
               <%= chevron_right %>
             </a>
-            <strong><%= link_to(heading.title, edit_admin_new_category_path(heading), title: "view full details") %></strong>
+            <strong><%= link_to(heading.title, edit_admin_category_path(heading), title: "view full details") %></strong>
           </span>
         </div>
 
@@ -34,13 +34,13 @@
                     <i class="icon-move"></i>
                   <% end %>
 
-                  <%= link_to(category.title, edit_admin_new_category_path(category), title: "view full details") %>
+                  <%= link_to(category.title, edit_admin_category_path(category), title: "view full details") %>
                 </div>
               <% end %>
             </div>
 
             <div class="form-actions save-panel">
-              <%= link_to "Save", '#', class: "btn btn-success disabled save-order", "data-heading-id" => heading.id, "data-list-id" => "#heading_#{heading.id}_category_list", 'data-endpoint' => reorder_admin_new_category_path(heading) %><p class="save-notice" data-unsaved-text="There are unsaved changes to the order of categories." data-success-text="Changes saved." data-error-text="There was an error saving your changes: ">Drag and drop to change the order of categories.</p>
+              <%= link_to "Save", '#', class: "btn btn-success disabled save-order", "data-heading-id" => heading.id, "data-list-id" => "#heading_#{heading.id}_category_list", 'data-endpoint' => reorder_admin_category_path(heading) %><p class="save-notice" data-unsaved-text="There are unsaved changes to the order of categories." data-success-text="Changes saved." data-error-text="There was an error saving your changes: ">Drag and drop to change the order of categories.</p>
             </div>
           </div>
         </div>
@@ -49,6 +49,6 @@
   </div>
 
   <div class="form-actions save-panel">
-    <%= link_to "Save", '#', class: "btn btn-success disabled save-order", "data-list-id" => '#category_list', 'data-endpoint' => reorder_admin_new_category_path(@root) %><p class="save-notice" data-unsaved-text="There are unsaved changes to the order of category headings." data-success-text="Changes saved." data-error-text="There was an error saving your changes: ">Drag and drop to change the order of category headings.</p>
+    <%= link_to "Save", '#', class: "btn btn-success disabled save-order", "data-list-id" => '#category_list', 'data-endpoint' => reorder_admin_category_path(@root) %><p class="save-notice" data-unsaved-text="There are unsaved changes to the order of category headings." data-success-text="Changes saved." data-error-text="There was an error saving your changes: ">Drag and drop to change the order of category headings.</p>
   </div>
 </div>

@@ -19,7 +19,7 @@ class Admin::CategoriesController < AdminController
     @category = Category.new(category_params)
     if @category.save
       flash[:notice] = 'Category was successfully created.'
-      redirect_to admin_new_categories_path
+      redirect_to admin_categories_path
     else
       @category.build_all_translations
       render action: 'new'
@@ -33,7 +33,7 @@ class Admin::CategoriesController < AdminController
   def update
     if @category.update(category_params)
       flash[:notice] = 'Category was successfully updated.'
-      redirect_to admin_new_categories_path
+      redirect_to admin_categories_path
     else
       @category.build_all_translations
       render action: 'edit'
@@ -43,7 +43,7 @@ class Admin::CategoriesController < AdminController
   def destroy
     @category.destroy
     flash[:notice] = 'Category was successfully destroyed.'
-    redirect_to admin_new_categories_path
+    redirect_to admin_categories_path
   end
 
   def reorder

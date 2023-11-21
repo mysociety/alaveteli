@@ -93,7 +93,7 @@ RSpec.describe Admin::CategoriesController do
 
       it 'redirects to the categories index' do
         post :create, params: { category: params }
-        expect(response).to redirect_to(admin_new_categories_path)
+        expect(response).to redirect_to(admin_categories_path)
       end
     end
 
@@ -302,7 +302,7 @@ RSpec.describe Admin::CategoriesController do
 
       it 'redirects to the category edit page' do
         patch :update, params: { id: category.id, category: params }
-        expect(response).to redirect_to(admin_new_categories_path)
+        expect(response).to redirect_to(admin_categories_path)
       end
 
       it 'saves edits to category_tag if the category has no associated bodies' do
@@ -405,7 +405,7 @@ RSpec.describe Admin::CategoriesController do
 
       it 'redirects to the edit page after a successful update' do
         patch :update, params: { id: category.id, category: { title: 'Title' } }
-        expect(response).to redirect_to(admin_new_categories_path)
+        expect(response).to redirect_to(admin_categories_path)
       end
     end
 
@@ -483,7 +483,7 @@ RSpec.describe Admin::CategoriesController do
 
     it 'redirects to the categories index' do
       delete :destroy, params: { id: category.id }
-      expect(response).to redirect_to(admin_new_categories_path)
+      expect(response).to redirect_to(admin_categories_path)
     end
   end
 

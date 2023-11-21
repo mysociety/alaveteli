@@ -577,7 +577,7 @@ Rails.application.routes.draw do
 
   #### Admin::Categories controller
   namespace :admin do
-    resources :categories, path: 'new_categories', as: 'new_categories' do
+    resources :categories do
       post 'reorder', on: :member
     end
   end
