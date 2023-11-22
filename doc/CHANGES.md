@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Replace public body categories with generalised categories (Graeme Porteous)
 * Add admin links to and from batch request show action (Graeme Porteous)
 * Update request base calculated status for internal reviews (Graeme Porteous)
 * Automatically apply `not_many_requests` tag to bodies who don't have many
@@ -21,6 +22,10 @@
 
 
 ## Upgrade Notes
+
+* _Required:_ To migrate to the new `Category` feature, please run:
+
+      bin/rails temp:migrate_public_body_categories
 
 * _Optional:_ Bodies with not many requests will automatically get tagged
   `not_many_requests` as they are updated. If you want to automatically tag them
