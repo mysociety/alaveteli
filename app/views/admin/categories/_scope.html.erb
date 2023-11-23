@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+  <% Categorisable.models.sort_by(&:admin_title).each do |klass| %>
+    <%= tag.li class: { active: current_klass == klass } do %>
+      <%= link_to klass.admin_title.pluralize, url_for(model_type: klass.name, query: params[:query]) %>
+    <% end %>
+  <% end %>
+</ul>

@@ -1,10 +1,12 @@
-<% @title = 'Listing public authority categories' %>
+<% @title = "Listing #{current_klass.admin_title} categories" %>
 
 <h1><%=@title%></h1>
 
+<%= render partial: 'scope' %>
+
 <div class="btn-toolbar">
   <div class="btn-group">
-    <%= link_to 'New category', new_admin_category_path, class: "btn btn-primary" %>
+    <%= link_to 'New category', new_admin_category_path(model_type: current_klass), class: "btn btn-primary" %>
   </div>
 </div>
 
@@ -21,7 +23,7 @@
               <span class="badge"><%= heading.children.size %></span>
               <%= chevron_right %>
             </a>
-            <strong><%= link_to(heading.title, edit_admin_category_path(heading), title: "view full details") %></strong>
+            <strong><%= link_to(heading.title, edit_admin_category_path(heading, model_type: current_klass), title: "view full details") %></strong>
           </span>
         </div>
 
@@ -34,7 +36,7 @@
                     <i class="icon-move"></i>
                   <% end %>
 
-                  <%= link_to(category.title, edit_admin_category_path(category), title: "view full details") %>
+                  <%= link_to(category.title, edit_admin_category_path(category, model_type: current_klass), title: "view full details") %>
                 </div>
               <% end %>
             </div>
