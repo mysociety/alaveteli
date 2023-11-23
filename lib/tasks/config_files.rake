@@ -58,11 +58,6 @@ namespace :config_files do
       },
       {
         path: '/etc/init.d',
-        name: 'alert-tracks',
-        template: 'config/alert-tracks-debian.example'
-      },
-      {
-        path: '/etc/init.d',
         name: 'send-notifications',
         template: 'config/send-notifications-debian.example'
       },
@@ -78,6 +73,11 @@ namespace :config_files do
         path: '/etc/systemd/system',
         name: 'sidekiq.service',
         template: 'config/sidekiq.service.example'
+      },
+      {
+        path: '/etc/systemd/system',
+        name: 'alert-tracks.service',
+        template: 'config/alert-tracks.service.example'
       }
     ]
   end
@@ -122,7 +122,7 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli ' \
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
-              'SCRIPT_FILE=config/alert-tracks-debian.example ' \
+              'SCRIPT_FILE=config/sysvinit-thin.example ' \
               'RUBY_VERSION=3.0.4 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR SCRIPT_FILE], example)
@@ -146,7 +146,7 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli ' \
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
-              'DAEMON=alert-tracks ' \
+              'DAEMON=alert-tracks.service ' \
               'RUBY_VERSION=3.0.4 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR DAEMON], example)
