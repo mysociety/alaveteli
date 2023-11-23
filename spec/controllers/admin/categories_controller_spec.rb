@@ -9,7 +9,7 @@ RSpec.describe Admin::CategoriesController do
 
     it 'assigns root' do
       get :index
-      expect(assigns(:root)).to eq(Category.public_body_root)
+      expect(assigns(:root)).to eq(PublicBody.category_root)
     end
 
     it 'renders the index template' do
@@ -21,7 +21,7 @@ RSpec.describe Admin::CategoriesController do
   describe 'GET new' do
     it 'assigns root' do
       get :new
-      expect(assigns(:root)).to eq(Category.public_body_root)
+      expect(assigns(:root)).to eq(PublicBody.category_root)
     end
 
     it 'responds successfully' do
@@ -49,13 +49,13 @@ RSpec.describe Admin::CategoriesController do
   describe 'POST create' do
     it 'assigns root' do
       post :create, params: { category: { title: 'Title' } }
-      expect(assigns(:root)).to eq(Category.public_body_root)
+      expect(assigns(:root)).to eq(PublicBody.category_root)
     end
 
     it "default category's parent associations to root" do
       post :create, params: { category: { title: 'Title' } }
       expect(assigns(:category).parents).
-        to match_array(Category.public_body_root)
+        to match_array(PublicBody.category_root)
     end
 
     it "saves new category's parent associations" do
@@ -177,7 +177,7 @@ RSpec.describe Admin::CategoriesController do
 
     it 'assigns root' do
       get :edit, params: { id: category.id }
-      expect(assigns(:root)).to eq(Category.public_body_root)
+      expect(assigns(:root)).to eq(PublicBody.category_root)
     end
 
     it 'responds successfully' do
@@ -232,7 +232,7 @@ RSpec.describe Admin::CategoriesController do
 
     it 'assigns root' do
       patch :update, params: { id: category.id, category: params }
-      expect(assigns(:root)).to eq(Category.public_body_root)
+      expect(assigns(:root)).to eq(PublicBody.category_root)
     end
 
     it 'finds the category to update' do
@@ -243,7 +243,7 @@ RSpec.describe Admin::CategoriesController do
     it "default category's parent associations to root" do
       patch :update, params: { id: category.id, category: params }
       expect(assigns(:category).parents).
-        to match_array(Category.public_body_root)
+        to match_array(PublicBody.category_root)
     end
 
     it "saves edits to a category's parent associations" do

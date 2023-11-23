@@ -49,10 +49,6 @@ class Category < ApplicationRecord
     joins(:parent_relationships).where(parent_relationships: { parent: parent })
   end
 
-  def self.public_body_root
-    Category.roots.find_or_create_by(title: 'PublicBody')
-  end
-
   def tree
     children.includes(:translations, children: [:translations])
   end

@@ -93,7 +93,7 @@ RSpec.describe Category, type: :model do
 
   describe '.roots scope' do
     subject { described_class.roots }
-    it { is_expected.to include(described_class.public_body_root) }
+    it { is_expected.to include(PublicBody.category_root) }
   end
 
   describe '.with_parent scope' do
@@ -112,12 +112,6 @@ RSpec.describe Category, type: :model do
     it { is_expected.to include(child) }
     it { is_expected.to include(child_with_muliple_parents) }
     it { is_expected.to_not include(other_child) }
-  end
-
-  describe '.public_body_root' do
-    subject(:root) { described_class.public_body_root }
-    it { is_expected.to be_a(described_class) }
-    it { expect(root.title).to eq('PublicBody') }
   end
 
   describe '#tree' do

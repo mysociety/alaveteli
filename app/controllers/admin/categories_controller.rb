@@ -82,7 +82,7 @@ class Admin::CategoriesController < AdminController
   end
 
   def set_root
-    @root = Category.public_body_root
+    @root = PublicBody.category_root
   end
 
   def set_category

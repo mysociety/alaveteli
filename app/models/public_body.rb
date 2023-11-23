@@ -33,6 +33,7 @@ require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
   include CalculatedHomePage
+  include Categorisable
   include Taggable
   include Notable
   include Rails.application.routes.url_helpers

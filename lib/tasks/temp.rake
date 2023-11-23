@@ -1,12 +1,12 @@
 namespace :temp do
   desc 'Migrate PublicBodyCategory into Category model'
   task migrate_public_body_categories: :environment do
-    next if Category.public_body_root.children.any?
+    next if PublicBody.categories.any?
 
     scope = PublicBodyCategoryLink.by_display_order.to_a
     count = scope.count
 
-    root = Category.public_body_root
+    root = PublicBody.category_root
 
     scope.each.with_index do |link, index|
       h = link.public_body_heading
