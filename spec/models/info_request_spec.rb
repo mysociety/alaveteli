@@ -37,6 +37,7 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/categorisable'
 require 'models/concerns/info_request/title_validation'
 require 'models/concerns/notable'
 require 'models/concerns/notable_and_taggable'
@@ -44,6 +45,7 @@ require 'models/concerns/taggable'
 require 'models/info_request/batch_pagination'
 
 RSpec.describe InfoRequest do
+  it_behaves_like 'concerns/categorisable', :info_request
   it_behaves_like 'concerns/info_request/title_validation', :info_request
   it_behaves_like 'concerns/notable', :info_request
   it_behaves_like 'concerns/notable_and_taggable', :info_request

@@ -16,6 +16,9 @@ RSpec.describe Admin::CategoriesController do
     it 'assigns root for correct model' do
       get :index, params: { model_type: 'PublicBody' }
       expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      get :index, params: { model_type: 'InfoRequest' }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'renders the index template' do
@@ -28,6 +31,9 @@ RSpec.describe Admin::CategoriesController do
     it 'assigns root for correct model' do
       get :new, params: { model_type: 'PublicBody' }
       expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      get :new, params: { model_type: 'InfoRequest' }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'responds successfully' do
@@ -59,6 +65,12 @@ RSpec.describe Admin::CategoriesController do
         category: { title: 'Title' }
       }
       expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      post :create, params: {
+        model_type: 'InfoRequest',
+        category: { title: 'Title' }
+      }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it "default category's parent associations to root" do
@@ -188,6 +200,9 @@ RSpec.describe Admin::CategoriesController do
     it 'assigns root for correct model' do
       get :edit, params: { model_type: 'PublicBody', id: category.id }
       expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      get :edit, params: { model_type: 'InfoRequest', id: category.id }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'responds successfully' do
@@ -247,6 +262,13 @@ RSpec.describe Admin::CategoriesController do
         category: params
       }
       expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      patch :update, params: {
+        model_type: 'InfoRequest',
+        id: category.id,
+        category: params
+      }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'finds the category to update' do

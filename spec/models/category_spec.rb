@@ -94,6 +94,7 @@ RSpec.describe Category, type: :model do
   describe '.roots scope' do
     subject { described_class.roots }
     it { is_expected.to include(PublicBody.category_root) }
+    it { is_expected.to include(InfoRequest.category_root) }
   end
 
   describe '.with_parent scope' do

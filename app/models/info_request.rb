@@ -49,6 +49,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
+  include Categorisable
   include Taggable
   include Notable
   include LinkToHelper
