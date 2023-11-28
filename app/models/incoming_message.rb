@@ -149,10 +149,6 @@ class IncomingMessage < ApplicationRecord
     info_request.update_last_public_response_at
   end
 
-  def destroy_raw_email
-    raw_email.destroy
-  end
-
   # And look up by URL part number and display filename to get an attachment
   # TODO: relies on extract_attachments calling MailHandler.ensure_parts_counted
   # The filename here is passed from the URL parameter, so it's the
