@@ -64,6 +64,9 @@ RSpec.configure do |config|
                            :public_body_headings,
                            :public_body_heading_translations,
                            :public_body_category_links,
+                           :categories,
+                           :category_translations,
+                           :category_relationships,
                            :notes,
                            :note_translations
 

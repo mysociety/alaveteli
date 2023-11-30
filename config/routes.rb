@@ -575,20 +575,10 @@ Rails.application.routes.draw do
   end
   ####
 
-  #### AdminPublicBodyCategory controller
-  scope '/admin', :as => 'admin' do
-    resources :categories,
-      :controller => 'admin_public_body_categories'
-  end
-  ####
-
-  #### AdminPublicBodyHeading controller
-  scope '/admin', :as => 'admin' do
-    resources :headings,
-      :controller => 'admin_public_body_headings',
-    :except => [:index] do
-      post 'reorder', :on => :collection
-      post 'reorder_categories', :on => :member
+  #### Admin::Categories controller
+  namespace :admin do
+    resources :categories do
+      post 'reorder', on: :member
     end
   end
   ####

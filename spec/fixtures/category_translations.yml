@@ -1,0 +1,42 @@
+public_body_root_category_translation:
+  id: 1
+  category_id: 1
+  locale: en
+  title: PublicBody
+  created_at: 2023-11-22
+  updated_at: 2023-11-22
+
+useless_and_lonely_category_translation:
+  id: 2
+  category_id: 2
+  locale: en
+  title: Useless and Lonely
+  created_at: 2023-11-22
+  updated_at: 2023-11-22
+
+useless_category_translation:
+  id: 3
+  category_id: 3
+  locale: en
+  title: Useless Authorities
+  description: Useless and other variations
+  created_at: 2023-11-22
+  updated_at: 2023-11-22
+
+lonely_category_translation:
+  id: 4
+  category_id: 4
+  locale: en
+  title: Lonely Authorities
+  description: A collection of lonely authorities
+  created_at: 2023-11-22
+  updated_at: 2023-11-22
+
+popular_category_translation:
+  id: 5
+  category_id: 5
+  locale: en
+  title: Popular Authorities
+  description: The most popular authorities
+  created_at: 2023-11-22
+  updated_at: 2023-11-22

@@ -1,0 +1,37 @@
+# == Schema Information
+# Schema version: 20231127110827
+#
+# Table name: category_relationships
+#
+#  id         :bigint           not null, primary key
+#  parent_id  :integer          not null
+#  child_id   :integer          not null
+#  position   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+#
+
+useless_and_lonely_category_rel:
+  id: 1
+  parent_id: 1
+  child_id: 2
+  position: 1
+
+useless_category_rel:
+  id: 2
+  parent_id: 2
+  child_id: 3
+  position: 1
+
+lonely_category_rel:
+  id: 3
+  parent_id: 2
+  child_id: 4
+  position: 2
+
+popular_category_rel:
+  id: 4
+  parent_id: 1
+  child_id: 5
+  position: 2
