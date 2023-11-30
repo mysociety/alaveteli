@@ -4,13 +4,13 @@
 class UserStats
   # Returns a list of email domains people have used to sign up with and the
   # number of signups for each, ordered by popularity (most popular first)
-  def self.list_user_domains(params={})
-    sql = if params[:start_date]
+  def self.list_user_domains(start_date: nil, limit: nil)
+    sql = if start_date
       <<~SQL
       SELECT lower(substring(email, position('@' in email)+1)) AS domain,
       COUNT(id) AS count
       FROM users
-      WHERE created_at >= '#{params[:start_date]}'
+      WHERE created_at >= '#{start_date}'
       GROUP BY domain
       ORDER BY count DESC
       SQL
@@ -23,7 +23,7 @@ class UserStats
       ORDER BY count DESC
       SQL
     end
-    sql = "#{sql} LIMIT #{params[:limit]}" if params[:limit]
+    sql = "#{sql} LIMIT #{limit}" if limit
 
     User.connection.select_all(sql).to_a
   end
