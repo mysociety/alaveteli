@@ -295,4 +295,54 @@ RSpec.describe LinkToHelper do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#add_query_params_to_url' do
+    it 'adds new parameters to a URL without existing parameters' do
+      url = 'http://example.com/'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?foo=1'
+    end
+
+    it 'adds ActiveModel object parameters to a URL by calling #to_param' do
+      url = 'http://example.com/'
+      new_params = { user: users(:bob_smith_user) }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?user=1'
+    end
+
+    it 'adds new parameters to a URL with existing parameters' do
+      url = 'http://example.com/?bar=2'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?bar=2&foo=1'
+    end
+
+    it 'overwrites an existing parameter if a new value is provided' do
+      url = 'http://example.com/?foo=2'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?foo=1'
+    end
+
+    it 'keeps existing url fragments' do
+      url = 'http://example.com/#bar'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?foo=1#bar'
+    end
+
+    it 'handles special characters in parameter values' do
+      url = 'http://example.com/'
+      new_params = { special: 'chars like %&=' }
+      updated_url = add_query_params_to_url(url, new_params)
+      expect(URI.parse(updated_url).query).to eq 'special=chars+like+%25%26%3D'
+    end
+
+    it 'returns the original URL unchanged if no new parameters are provided' do
+      url = 'http://example.com/?foo=1'
+      new_params = {}
+      expect(add_query_params_to_url(url, new_params)).to eq url
+    end
+  end
 end

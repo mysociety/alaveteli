@@ -8,6 +8,7 @@
 #
 class Blog
   include ConfigHelper
+  include LinkToHelper
 
   def self.enabled?
     AlaveteliConfiguration.blog_feed.present?
@@ -33,11 +34,10 @@ class Blog
   end
 
   def feed_url
-    uri = URI(AlaveteliConfiguration.blog_feed)
-    uri.query = URI.decode_www_form(uri.query || '').to_h.merge(
-      lang: AlaveteliLocalization.html_lang.to_s
-    ).to_param
-    uri.to_s
+    add_query_params_to_url(
+      AlaveteliConfiguration.blog_feed,
+      lang: AlaveteliLocalization.html_lang
+    )
   end
 
   private
