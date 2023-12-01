@@ -3,7 +3,7 @@
 <% else %>
   <% show_add_all = feature_enabled?(:pro_batch_category_add_all, current_user) %>
   <ul class="batch-builder__list">
-  <% Category.public_body_root.tree.each do |heading| %>
+  <% PublicBody.categories.each do |heading| %>
     <li class="batch-builder__list__group">
       <div class="batch-builder__list__item">
         <span class="batch-builder__list__item__anchor">

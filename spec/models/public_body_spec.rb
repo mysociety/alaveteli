@@ -27,11 +27,13 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/categorisable'
 require 'models/concerns/notable'
 require 'models/concerns/notable_and_taggable'
 require 'models/concerns/taggable'
 
 RSpec.describe PublicBody do
+  it_behaves_like 'concerns/categorisable', :public_body
   it_behaves_like 'concerns/notable', :public_body
   it_behaves_like 'concerns/notable_and_taggable', :public_body
   it_behaves_like 'concerns/taggable', :public_body

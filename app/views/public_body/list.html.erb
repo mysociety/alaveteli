@@ -31,7 +31,7 @@
     </li>
   </ul>
 
-  <% Category.public_body_root.tree.each do |heading| %>
+  <% PublicBody.categories.each do |heading| %>
     <h3><%= heading.title %></h3>
     <ul>
       <% heading.children.each do |category| %>

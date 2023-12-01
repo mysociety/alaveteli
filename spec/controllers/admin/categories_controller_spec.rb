@@ -7,9 +7,18 @@ RSpec.describe Admin::CategoriesController do
       expect(response).to be_successful
     end
 
-    it 'assigns root' do
-      get :index
-      expect(assigns(:root)).to eq(Category.public_body_root)
+    it 'raise 404 for unknown types' do
+      expect { get :index, params: { model_type: 'unknown' } }.to(
+        raise_error ApplicationController::RouteNotFound
+      )
+    end
+
+    it 'assigns root for correct model' do
+      get :index, params: { model_type: 'PublicBody' }
+      expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      get :index, params: { model_type: 'InfoRequest' }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'renders the index template' do
@@ -19,9 +28,12 @@ RSpec.describe Admin::CategoriesController do
   end
 
   describe 'GET new' do
-    it 'assigns root' do
-      get :new
-      expect(assigns(:root)).to eq(Category.public_body_root)
+    it 'assigns root for correct model' do
+      get :new, params: { model_type: 'PublicBody' }
+      expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      get :new, params: { model_type: 'InfoRequest' }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'responds successfully' do
@@ -47,15 +59,24 @@ RSpec.describe Admin::CategoriesController do
   end
 
   describe 'POST create' do
-    it 'assigns root' do
-      post :create, params: { category: { title: 'Title' } }
-      expect(assigns(:root)).to eq(Category.public_body_root)
+    it 'assigns root for correct model' do
+      post :create, params: {
+        model_type: 'PublicBody',
+        category: { title: 'Title' }
+      }
+      expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      post :create, params: {
+        model_type: 'InfoRequest',
+        category: { title: 'Title' }
+      }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it "default category's parent associations to root" do
       post :create, params: { category: { title: 'Title' } }
       expect(assigns(:category).parents).
-        to match_array(Category.public_body_root)
+        to match_array(PublicBody.category_root)
     end
 
     it "saves new category's parent associations" do
@@ -93,7 +114,8 @@ RSpec.describe Admin::CategoriesController do
 
       it 'redirects to the categories index' do
         post :create, params: { category: params }
-        expect(response).to redirect_to(admin_categories_path)
+        expect(response).
+          to redirect_to(admin_categories_path(model_type: 'PublicBody'))
       end
     end
 
@@ -175,9 +197,12 @@ RSpec.describe Admin::CategoriesController do
       )
     end
 
-    it 'assigns root' do
-      get :edit, params: { id: category.id }
-      expect(assigns(:root)).to eq(Category.public_body_root)
+    it 'assigns root for correct model' do
+      get :edit, params: { model_type: 'PublicBody', id: category.id }
+      expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      get :edit, params: { model_type: 'InfoRequest', id: category.id }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'responds successfully' do
@@ -230,9 +255,20 @@ RSpec.describe Admin::CategoriesController do
       }
     end
 
-    it 'assigns root' do
-      patch :update, params: { id: category.id, category: params }
-      expect(assigns(:root)).to eq(Category.public_body_root)
+    it 'assigns root for correct model' do
+      patch :update, params: {
+        model_type: 'PublicBody',
+        id: category.id,
+        category: params
+      }
+      expect(assigns(:root)).to eq(PublicBody.category_root)
+
+      patch :update, params: {
+        model_type: 'InfoRequest',
+        id: category.id,
+        category: params
+      }
+      expect(assigns(:root)).to eq(InfoRequest.category_root)
     end
 
     it 'finds the category to update' do
@@ -243,7 +279,7 @@ RSpec.describe Admin::CategoriesController do
     it "default category's parent associations to root" do
       patch :update, params: { id: category.id, category: params }
       expect(assigns(:category).parents).
-        to match_array(Category.public_body_root)
+        to match_array(PublicBody.category_root)
     end
 
     it "saves edits to a category's parent associations" do
@@ -302,7 +338,8 @@ RSpec.describe Admin::CategoriesController do
 
       it 'redirects to the category edit page' do
         patch :update, params: { id: category.id, category: params }
-        expect(response).to redirect_to(admin_categories_path)
+        expect(response).
+          to redirect_to(admin_categories_path(model_type: 'PublicBody'))
       end
 
       it 'saves edits to category_tag if the category has no associated bodies' do
@@ -405,7 +442,8 @@ RSpec.describe Admin::CategoriesController do
 
       it 'redirects to the edit page after a successful update' do
         patch :update, params: { id: category.id, category: { title: 'Title' } }
-        expect(response).to redirect_to(admin_categories_path)
+        expect(response).
+          to redirect_to(admin_categories_path(model_type: 'PublicBody'))
       end
     end
 
@@ -483,7 +521,8 @@ RSpec.describe Admin::CategoriesController do
 
     it 'redirects to the categories index' do
       delete :destroy, params: { id: category.id }
-      expect(response).to redirect_to(admin_categories_path)
+      expect(response).
+        to redirect_to(admin_categories_path(model_type: 'PublicBody'))
     end
   end
 
