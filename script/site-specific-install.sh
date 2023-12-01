@@ -71,6 +71,12 @@ install_daemon() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
+update_mysociety_apt_sources
+
+apt-get -y update
+
+install_website_packages
+
 if [ -f $REPOSITORY/config/general.yml ]; then
     STAGING_SITE=$(su -l -c "cd '$REPOSITORY' && RBENV_VERSION='system' bin/config STAGING_SITE" "$UNIX_USER")
     if ([ "$STAGING_SITE" = "0" ] && [ "$DEVELOPMENT_INSTALL" = "true" ]) ||
@@ -92,10 +98,6 @@ END
         exit 1
     fi
 fi
-
-update_mysociety_apt_sources
-
-apt-get -y update
 
 echo 'Setting hostname...'
 hostnamectl set-hostname $HOST
@@ -186,8 +188,6 @@ postmap /etc/postfix/recipients
 postfix reload
 
 # (end of the Postfix configuration)
-
-install_website_packages
 
 # Ubuntu Focal Fixes
 if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"focal" ]
