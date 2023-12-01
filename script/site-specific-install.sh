@@ -299,7 +299,7 @@ fi
 if [ "$DEVELOPMENT_INSTALL" = true ]; then
   # Not in the Gemfile due to conflicts
   # See: https://github.com/sj26/mailcatcher/blob/3079a00/README.md#bundler
-  gem install mailcatcher
+  gem install mailcatcher --no-document
 fi
 
 # Set up root's crontab:

@@ -111,7 +111,7 @@ if [ $USE_RBENV = true ]; then
 fi
 
 # Speed up the installation of gems:
-echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
+echo 'gem: --no-document' > "$HOME/.gemrc"
 
 # Write sensible values into the config file:
 
