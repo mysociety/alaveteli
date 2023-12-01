@@ -309,22 +309,7 @@ class ApplicationController < ActionController::Base
   end
 
   def add_post_redirect_param_to_uri(uri)
-    # TODO: what is the built in Ruby URI munging function that can do this
-    # choice of & vs. ? more elegantly than this dumb if statement?
-    if uri.include?("?")
-      # TODO: This looks odd. What would a fragment identifier be doing server-side?
-      #     But it also looks harmless, so I’ll leave it just in case.
-      if uri.include?("#")
-        uri.sub!("#", "&post_redirect=1#")
-      else
-        uri += "&post_redirect=1"
-      end
-    elsif uri.include?("#")
-      uri.sub!("#", "?post_redirect=1#")
-    else
-      uri += "?post_redirect=1"
-    end
-    uri
+    add_query_params_to_url(uri, post_redirect: 1)
   end
 
   # If we are in a faked redirect to POST request, then set post params.

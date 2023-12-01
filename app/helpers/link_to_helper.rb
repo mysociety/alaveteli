@@ -338,4 +338,13 @@ module LinkToHelper
 
     [prefix, param_key, record.to_param].compact.join('-')
   end
+
+  def add_query_params_to_url(url, new_params)
+    uri = URI.parse(url)
+    uri.query = Rack::Utils.parse_nested_query(uri.query).
+      with_indifferent_access.
+      merge(new_params).
+      to_param
+    uri.to_s
+  end
 end
