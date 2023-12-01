@@ -72,7 +72,7 @@ install_daemon() {
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
 if [ -f $REPOSITORY/config/general.yml ]; then
-    STAGING_SITE=$(su -l -c "cd '$REPOSITORY' && bin/config STAGING_SITE" "$UNIX_USER")
+    STAGING_SITE=$(su -l -c "cd '$REPOSITORY' && RBENV_VERSION='system' bin/config STAGING_SITE" "$UNIX_USER")
     if ([ "$STAGING_SITE" = "0" ] && [ "$DEVELOPMENT_INSTALL" = "true" ]) ||
       ([ "$STAGING_SITE" = "1" ] && [ "$DEVELOPMENT_INSTALL" != "true" ]); then
         cat <<-END
