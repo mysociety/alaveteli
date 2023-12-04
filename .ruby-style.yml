@@ -2,7 +2,7 @@
 require:
   - rubocop-performance
   - rubocop-rails
-  - ./lib/custom_cops/empty_lines_around_rescued_exceptions.rb
+  - "./lib/custom_cops/empty_lines_around_rescued_exceptions.rb"
 
 AllCops:
   TargetRubyVersion: 3.0
@@ -570,6 +570,9 @@ Lint/LambdaWithoutLiteralBlock:
 
 Lint/LiteralAsCondition:
   Enabled: true
+
+Lint/LiteralAssignmentInCondition:
+  Enabled: false
 
 Lint/LiteralInInterpolation:
   Enabled: true
@@ -1491,6 +1494,9 @@ Style/ArgumentsForwarding:
 Style/ArrayCoercion:
   Enabled: false
 
+Style/ArrayFirstLast:
+  Enabled: false
+
 Style/ArrayIntersect:
   Enabled: false
 
@@ -2185,6 +2191,9 @@ Style/Strip:
 
 Style/StructInheritance:
   Enabled: true
+
+Style/SuperWithArgsParentheses:
+  Enabled: false
 
 Style/SwapValues:
   Enabled: false
