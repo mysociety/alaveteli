@@ -23,6 +23,7 @@ postgresql
 postgresql-client
 rake
 redis
+rsyslog
 ruby
 ruby-dev
 sqlite3

@@ -77,8 +77,8 @@ if [ $USE_RBENV = true ]; then
     git clone https://github.com/rbenv/ruby-build.git "$RBENV/plugins/ruby-build"
   else
     echo 'Update rbenv & ruby-build'
-    cd $RBENV && git pull
-    cd $RBENV/plugins/ruby-build && git pull
+    cd $RBENV && git pull --ff-only
+    cd $RBENV/plugins/ruby-build && git pull --ff-only
   fi
   cd "$REPOSITORY"
 
@@ -108,10 +108,11 @@ if [ $USE_RBENV = true ]; then
   rbenv install -s $RUBY_VERSION
   rbenv global $RUBY_VERSION
   gem install bundler
+  gem pristine --all
 fi
 
 # Speed up the installation of gems:
-echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
+echo 'gem: --no-document' > "$HOME/.gemrc"
 
 # Write sensible values into the config file:
 
