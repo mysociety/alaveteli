@@ -322,7 +322,7 @@ fi
 
 for path in "/etc/init.d" "/etc/systemd/system"; do
   # Clear existing daemons
-  all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons PATH='$path'" "$UNIX_USER")
+  all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons PATH='$path' SITE='$SITE'" "$UNIX_USER")
   echo "Clearing any existing $path daemons"
   for daemon in $all_daemons
   do

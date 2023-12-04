@@ -87,12 +87,15 @@ namespace :config_files do
 
   desc 'Return list of all daemons the application defines for a given path'
   task all_daemons: :environment do
-    example = 'rake config_files:all_daemons PATH=/etc/init.d'
-    check_for_env_vars(['PATH'], example)
+    example = 'rake config_files:all_daemons PATH=/etc/init.d SITE=alaveteli'
+    check_for_env_vars(['PATH', 'SITE'], example)
 
-    puts daemons.
-      select { |d| d[:path] == ENV['PATH'] }.
-      map { |d| d[:name] }
+    seporator = '-' if ENV['PATH'] == '/etc/init.d'
+    seporator = '.' if ENV['PATH'] == '/etc/systemd/system'
+
+    base = "#{ENV['SITE']}#{seporator}"
+    glob = File.join("#{base}*")
+    puts Dir.glob(glob, base: ENV['PATH']).map { _1.sub(base, '') }
   end
 
   desc 'Convert wrapper example in config to a form suitable for running mail handling scripts with rbenv'
