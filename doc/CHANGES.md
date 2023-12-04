@@ -238,10 +238,10 @@ to match the new templates.
           sudo apt-get install redis-server
 
   2. configure Sidekiq to run when your server starts by creating
-  `/etc/systemd/system/sidekiq.service` from `config/sidekiq.service.example`.
-  And running:
+     `/etc/systemd/system/alaveteli.sidekiq.service` from
+     `config/sidekiq.service.example`. And running:
 
-          systemctl enable sidekiq.service
+          systemctl enable alaveteli.sidekiq.service
           systemctl daemon-reload
 
 * _Required:_ There are some database structure updates so remember to run:
