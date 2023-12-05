@@ -2,6 +2,8 @@ namespace :submodules do
 
   desc "Check the status of the project's submodules"
   task check: :environment do
+    next unless Rails.env.production?
+
     commit_info = `git submodule status commonlib`
     case commit_info[0,1]
     when '+'
