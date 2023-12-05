@@ -645,7 +645,7 @@ RSpec.describe RequestMailer do
       mail_url = $1
 
       redirect_target =
-        show_request_path(info_request, anchor: 'describe_state_form_1')
+        show_request_path(info_request.url_title, anchor: 'describe_state_form_1')
 
       expect(mail_url).to eq(signin_url(r: redirect_target))
 
