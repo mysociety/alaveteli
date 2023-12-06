@@ -278,7 +278,7 @@ RSpec.describe ClassificationsController, type: :controller do
               last_event_id_needing_description
           }
           expect(response).to redirect_to(
-            show_request_url(url_title: info_request.url_title)
+            show_request_url(info_request.url_title)
           )
           expect(flash[:error]).to eq(
             'Please choose whether or not you got some of the information ' \
@@ -294,7 +294,7 @@ RSpec.describe ClassificationsController, type: :controller do
             last_info_request_event_id: 1
           }
           expect(response).to redirect_to(
-            show_request_url(url_title: info_request.url_title)
+            show_request_url(info_request.url_title)
           )
           expect(flash[:error]).to match(
             /The request has been updated since you originally loaded this page/
@@ -599,7 +599,7 @@ RSpec.describe ClassificationsController, type: :controller do
           it 'should redirect to the "request url"' do
             post_status('requires_admin', message: 'A message')
             expect(response).to redirect_to(
-              show_request_url(url_title: info_request.url_title)
+              show_request_url(info_request.url_title)
             )
           end
 
@@ -632,7 +632,7 @@ RSpec.describe ClassificationsController, type: :controller do
           it 'should redirect to the "request url"' do
             post_status('error_message', message: 'A message')
             expect(response).to redirect_to(
-              show_request_url(url_title: info_request.url_title)
+              show_request_url(info_request.url_title)
             )
           end
 

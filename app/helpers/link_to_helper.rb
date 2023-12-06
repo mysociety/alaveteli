@@ -10,7 +10,7 @@ module LinkToHelper
 
   # Requests
   def request_url(info_request, options = {})
-    show_request_url({ url_title: info_request.url_title }.merge(options))
+    show_request_url(info_request.url_title, options)
   end
 
   def request_path(info_request, options = {})

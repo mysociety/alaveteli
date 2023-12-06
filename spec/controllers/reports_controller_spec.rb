@@ -13,7 +13,7 @@ RSpec.describe ReportsController do
                       }
         expect(flash[:notice]).to match(/You need to be logged in/)
         expect(response).
-          to redirect_to show_request_path(url_title: info_request.url_title)
+          to redirect_to show_request_path(info_request.url_title)
       end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe ReportsController do
                         reason: "my reason"
                       }
         expect(response).
-          to redirect_to show_request_path(url_title: info_request.url_title)
+          to redirect_to show_request_path(info_request.url_title)
 
         info_request.reload
         expect(info_request.attention_requested).to eq(true)
@@ -121,14 +121,14 @@ RSpec.describe ReportsController do
                         reason: "my reason"
                       }
         expect(response).
-          to redirect_to show_request_url(url_title: info_request.url_title)
+          to redirect_to show_request_url(info_request.url_title)
 
         post :create, params: {
                         request_id: info_request.url_title,
                         reason: "my reason"
                       }
         expect(response).
-          to redirect_to show_request_url(url_title: info_request.url_title)
+          to redirect_to show_request_url(info_request.url_title)
         expect(flash[:notice]).to match(/has already been reported/)
       end
 
@@ -290,7 +290,7 @@ RSpec.describe ReportsController do
                       }
 
         expect(response).
-          to redirect_to show_request_path(url_title: info_request.url_title)
+          to redirect_to show_request_path(info_request.url_title)
       end
     end
   end

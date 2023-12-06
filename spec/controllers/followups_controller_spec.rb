@@ -404,7 +404,7 @@ RSpec.describe FollowupsController do
       it 'finds their own embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
-        expected_url = show_request_url(url_title: embargoed_request.url_title)
+        expected_url = show_request_url(embargoed_request.url_title)
         post :create, params: {
                         outgoing_message: dummy_message,
                         request_id: embargoed_request.id
@@ -514,7 +514,7 @@ RSpec.describe FollowupsController do
                     }
 
       expect(response).
-        to redirect_to(show_request_url(url_title: request.url_title))
+        to redirect_to(show_request_url(request.url_title))
     end
 
     it "displays the a confirmation once the message has been sent" do

@@ -85,8 +85,7 @@ def hide_outgoing_message(outgoing_message, prominence, reason)
 end
 
 def classify_request(request, chosen_option)
-  visit show_request_path url_title: request.url_title,
-                          update_status: 1
+  visit show_request_path(request.url_title, update_status: 1)
   choose(chosen_option)
   click_button('Submit status')
 end

@@ -331,7 +331,7 @@ class RequestController < ApplicationController
       end
     end
 
-    redirect_to show_request_path(url_title: @info_request.url_title)
+    redirect_to show_request_path(@info_request.url_title)
   end
 
   # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to

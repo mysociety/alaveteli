@@ -16,7 +16,7 @@ class CitationsController < ApplicationController
 
     if @citation.save
       notice = _('Citation successfully created.')
-      redirect_to show_request_path(url_title: info_request.url_title),
+      redirect_to show_request_path(info_request.url_title),
                   notice: notice
     else
       render :new

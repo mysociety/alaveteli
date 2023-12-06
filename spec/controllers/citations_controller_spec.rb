@@ -167,7 +167,7 @@ RSpec.describe CitationsController, type: :controller do
         it 'redirects back to request' do
           action
           expect(response).to redirect_to(
-            show_request_url(url_title: info_request.url_title)
+            show_request_url(info_request.url_title)
           )
         end
 

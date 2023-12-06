@@ -1009,7 +1009,7 @@ RSpec.describe RequestController, "when creating a new request" do
     expect(mail.body).
       to match(/This is a silly letter. It is too short to be interesting./)
 
-    expect(response).to redirect_to show_request_url(url_title: ir.url_title)
+    expect(response).to redirect_to show_request_url(ir.url_title)
   end
 
   it "sets the request_sent flash to true if successful" do
@@ -1087,7 +1087,7 @@ RSpec.describe RequestController, "when creating a new request" do
 
     expect(ir.url_title).not_to eq(ir2.url_title)
 
-    expect(response).to redirect_to show_request_url(url_title: ir2.url_title)
+    expect(response).to redirect_to show_request_url(ir2.url_title)
   end
 
   it 'should respect the rate limit' do
@@ -1108,7 +1108,7 @@ RSpec.describe RequestController, "when creating a new request" do
       preview: 0
     }
     expect(response).to redirect_to(
-      show_request_url(url_title: 'what_is_the_answer_to_the_ultima')
+      show_request_url('what_is_the_answer_to_the_ultima')
     )
 
     post :new, params: {
@@ -1124,7 +1124,7 @@ RSpec.describe RequestController, "when creating a new request" do
       preview: 0
     }
     expect(response).to redirect_to(
-      show_request_url(url_title: 'why_did_the_chicken_cross_the_ro')
+      show_request_url('why_did_the_chicken_cross_the_ro')
     )
 
     post :new, params: {
@@ -1163,7 +1163,7 @@ RSpec.describe RequestController, "when creating a new request" do
       preview: 0
     }
     expect(response).to redirect_to(
-      show_request_url(url_title: 'what_is_the_answer_to_the_ultima')
+      show_request_url('what_is_the_answer_to_the_ultima')
     )
 
     post :new, params: {
@@ -1179,7 +1179,7 @@ RSpec.describe RequestController, "when creating a new request" do
       preview: 0
     }
     expect(response).to redirect_to(
-      show_request_url(url_title: 'why_did_the_chicken_cross_the_ro')
+      show_request_url('why_did_the_chicken_cross_the_ro')
     )
 
     post :new, params: {
@@ -1196,7 +1196,7 @@ RSpec.describe RequestController, "when creating a new request" do
       preview: 0
     }
     expect(response).to redirect_to(
-      show_request_url(url_title: 'whats_black_and_white_and_red_al')
+      show_request_url('whats_black_and_white_and_red_al')
     )
   end
 
@@ -1335,7 +1335,7 @@ RSpec.describe RequestController, "when creating a new request" do
             preview: 0
           }
           expect(response).to redirect_to(
-            show_request_path(url_title: 'some_request_text')
+            show_request_path('some_request_text')
           )
         end
       end
@@ -1477,7 +1477,7 @@ RSpec.describe RequestController, "when creating a new request" do
                preview: 0
              }
         expect(response).to redirect_to(
-          show_request_path(url_title: 'hd_watch_jason_bourne_online_fre')
+          show_request_path('hd_watch_jason_bourne_online_fre')
         )
       end
     end
@@ -1521,7 +1521,7 @@ RSpec.describe RequestController, "when creating a new request" do
                preview: 0
              }
         expect(response).to redirect_to(
-          show_request_path(url_title: 'hd_watch_jason_bourne_online_fre')
+          show_request_path('hd_watch_jason_bourne_online_fre')
         )
       end
     end
@@ -1618,7 +1618,7 @@ RSpec.describe RequestController, "when creating a new request" do
           preview: 0
         }
         expect(response).to redirect_to(
-          show_request_path(url_title: 'some_request_content')
+          show_request_path('some_request_content')
         )
       end
     end
@@ -1663,7 +1663,7 @@ RSpec.describe RequestController, "when creating a new request" do
           preview: 0
         }
         expect(response).to redirect_to(
-          show_request_path(url_title: 'some_request_content')
+          show_request_path('some_request_content')
         )
       end
     end
