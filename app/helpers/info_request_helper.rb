@@ -112,9 +112,12 @@ module InfoRequestHelper
       str += ' '
       str += _('You can <strong>complain</strong> by')
       str += ' '
-      str += link_to _('requesting an internal review'),
-                    new_request_followup_path(request_id: info_request.id) +
-                    '?internal_review=1'
+      str += link_to(
+        _('requesting an internal review'),
+        new_request_followup_path(
+          info_request.id, internal_review: 1
+        )
+      )
       str += '.'
     end
 

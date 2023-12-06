@@ -88,8 +88,9 @@ RSpec.describe "request/show" do
             and_return(mock_response)
           request_page
           expected_url = new_request_incoming_followup_path(
-                          request_id: mock_request.id,
-                          incoming_message_id: mock_response.id)
+            mock_request.id,
+            incoming_message_id: mock_response.id
+          )
           expect(response.body).
             to have_css(
               "a[href='#{expected_url}']",
@@ -106,7 +107,7 @@ RSpec.describe "request/show" do
 
         it "should show a link to follow up the request without reference to a specific response" do
           request_page
-          expected_url = new_request_followup_path(request_id: mock_request.id)
+          expected_url = new_request_followup_path(mock_request.id)
           expect(response.body).
             to have_css(
               "a[href='#{expected_url}']",

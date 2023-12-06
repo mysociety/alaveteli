@@ -14,9 +14,9 @@
             <ul class="action-menu__menu__submenu owner_actions">
               <li>
                 <% if last_response.nil? %>
-                  <%= link_to _('Send a followup'), new_request_followup_path(request_id: info_request.id) %>
+                  <%= link_to _('Send a followup'), new_request_followup_path(info_request.id) %>
                 <% else %>
-                  <%= link_to _('Write a reply'), new_request_incoming_followup_path(request_id: info_request.id, incoming_message_id: last_response.id) %>
+                  <%= link_to _('Write a reply'), new_request_incoming_followup_path(info_request.id, incoming_message_id: last_response.id) %>
                 <% end %>
               </li>
 
@@ -27,7 +27,7 @@
               <% end %>
 
               <li>
-                <%= link_to _('Request an internal review'), new_request_followup_path(request_id: info_request.id, internal_review: '1') %>
+                <%= link_to _('Request an internal review'), new_request_followup_path(info_request.id, internal_review: '1') %>
               </li>
             </ul>
           </li>

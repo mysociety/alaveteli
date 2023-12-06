@@ -936,9 +936,12 @@ RSpec.describe RequestMailer do
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
 
-      expect(mail_url).
-        to match(new_request_incoming_followup_path(request_id: ir.id,
-                                    incoming_message_id: ir.incoming_messages.last.id))
+      expect(mail_url).to match(
+        new_request_incoming_followup_path(
+          ir.id,
+          incoming_message_id: ir.incoming_messages.last.id
+        )
+      )
     end
 
     it "skips requests that don't have a public last response" do

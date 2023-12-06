@@ -39,10 +39,10 @@ class RefusalAdviceController < ApplicationController
 
     case action.target[:internal]
     when 'followup'
-      redirect_to new_request_followup_path(request_id: info_request.id)
+      redirect_to new_request_followup_path(info_request.id)
     when 'internal_review'
       redirect_to new_request_followup_path(
-        request_id: info_request.id, internal_review: '1'
+        info_request.id, internal_review: '1'
       )
     when 'new_request'
       redirect_to new_request_to_body_path(

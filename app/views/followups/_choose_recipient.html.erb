@@ -10,7 +10,7 @@
         <li>
           <%= link_to(_('the main FOI contact address for {{public_body}}',
                         public_body: name),
-                      new_request_followup_path(request_id: @info_request.id)) %>
+                      new_request_followup_path(@info_request.id)) %>
         </li>
       <% else %>
         <% if id.present? %>
@@ -18,21 +18,19 @@
             <li>
               <%= link_to(_('the main FOI contact address for {{public_body}}',
                             public_body: name),
-                          new_request_followup_path(request_id: @info_request.id)) %>
+                          new_request_followup_path(@info_request.id)) %>
             </li>
           <% else %>
             <li>
               <%= link_to name,
-                          new_request_incoming_followup_path(
-                            request_id: @info_request.id,
-                            incoming_message_id: id) %>
+                          new_request_incoming_followup_path(@info_request.id, incoming_message_id: id) %>
             </li>
           <% end %>
         <% else %>
           <li>
             <%= link_to(_('the main FOI contact address for {{public_body}}',
                           public_body: name),
-                        new_request_followup_path(request_id: @info_request.id)) %>
+                        new_request_followup_path(@info_request.id)) %>
           </li>
         <% end %>
       <% end %>
