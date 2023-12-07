@@ -34,9 +34,9 @@ RSpec.describe FollowupsController do
 
       it "displays 'wrong user' message when not logged in as the request owner" do
         get :new, params: {
-                    request_id: request.id,
-                    incoming_message_id: message_id
-                  }
+          request_id: request.id,
+          incoming_message_id: message_id
+        }
         expect(response).to render_template('user/wrong_user')
       end
 
@@ -51,9 +51,9 @@ RSpec.describe FollowupsController do
     it "displays 'wrong user' message when not logged in as the request owner" do
       sign_in FactoryBot.create(:user)
       get :new, params: {
-                  request_id: request.id,
-                  incoming_message_id: message_id
-                }
+        request_id: request.id,
+        incoming_message_id: message_id
+      }
       expect(response).to render_template('user/wrong_user')
     end
 
@@ -154,10 +154,10 @@ RSpec.describe FollowupsController do
           incoming_message_id = hidden_request.incoming_messages[0].id
           expect do
             get :new, params: {
-                        request_id: hidden_request.id,
-                        incoming_message_id: incoming_message_id,
-                        format: 'json'
-                      }
+              request_id: hidden_request.id,
+              incoming_message_id: incoming_message_id,
+              format: 'json'
+            }
           end.to raise_error ActionController::UnknownFormat
         end
       end
@@ -233,18 +233,18 @@ RSpec.describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
           post :preview, params: {
-                           outgoing_message: dummy_message,
-                           request_id: embargoed_request.id
-                         }
+            outgoing_message: dummy_message,
+            request_id: embargoed_request.id
+          }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it "redirects to the signin page" do
         post :preview, params: {
-                         outgoing_message: dummy_message,
-                         request_id: request.id,
-                         incoming_message_id: message_id
-                       }
+          outgoing_message: dummy_message,
+          request_id: request.id,
+          incoming_message_id: message_id
+        }
         expect(response).
           to redirect_to(signin_url(token: get_last_post_redirect.token))
       end
@@ -259,9 +259,9 @@ RSpec.describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
         post :preview, params: {
-                         outgoing_message: dummy_message,
-                         request_id: embargoed_request.id
-                       }
+          outgoing_message: dummy_message,
+          request_id: embargoed_request.id
+        }
         expect(response).to be_successful
       end
 
@@ -269,9 +269,9 @@ RSpec.describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
           post :preview, params: {
-                           outgoing_message: dummy_message,
-                           request_id: embargoed_request.id
-                         }
+            outgoing_message: dummy_message,
+            request_id: embargoed_request.id
+          }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -279,10 +279,10 @@ RSpec.describe FollowupsController do
     it "displays a wrong user message when not logged in as the request owner" do
       sign_in FactoryBot.create(:user)
       post :preview, params: {
-                       outgoing_message: dummy_message,
-                       request_id: request.id,
-                       incoming_message_id: message_id
-                     }
+        outgoing_message: dummy_message,
+        request_id: request.id,
+        incoming_message_id: message_id
+      }
       expect(response).to render_template('user/wrong_user')
     end
 
@@ -293,13 +293,13 @@ RSpec.describe FollowupsController do
 
       it "displays the edit form with an error when the message body is blank" do
         post :preview, params: {
-                         request_id: request.id,
-                         outgoing_message: {
-                           body: "",
-                           what_doing: "normal_sort"
-                         },
-                         incoming_message_id: message_id
-                       }
+          request_id: request.id,
+          outgoing_message: {
+            body: "",
+            what_doing: "normal_sort"
+          },
+          incoming_message_id: message_id
+        }
 
         expect(response).to render_template("new")
         expect(response.body).to include("Please enter your follow up message")

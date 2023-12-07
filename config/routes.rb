@@ -192,7 +192,8 @@ Rails.application.routes.draw do
   match '/request/:request_id/followups/new' => 'followups#new',
         :as => :new_request_followup,
         :via => :get
-  match '/request/:request_id/followups/new/:incoming_message_id' => 'followups#new',
+  match '/request/:request_id/followups/new/:incoming_message_id' =>
+          'followups#new',
         :as => :new_request_incoming_followup,
         :via => :get
   match '/request/:request_id/followups/preview' => 'followups#preview',
