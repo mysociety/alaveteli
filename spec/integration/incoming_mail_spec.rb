@@ -23,15 +23,15 @@ RSpec.describe 'when handling incoming mail' do
                           email_to: info_request.incoming_email)
 
     attachment_1_path = get_attachment_path(
+      info_request.id,
       incoming_message_id: info_request.incoming_messages.first.id,
-      id: info_request.id,
       part: 2,
       file_name: 'hello world.txt',
       skip_cache: 1
     )
     attachment_2_path = get_attachment_path(
+      info_request.id,
       incoming_message_id: info_request.incoming_messages.first.id,
-      id: info_request.id,
       part: 3,
       file_name: 'hello world.txt',
       skip_cache: 1
@@ -65,8 +65,8 @@ RSpec.describe 'when handling incoming mail' do
     receive_incoming_mail('incoming-request-two-same-name.email',
                           email_to: info_request.incoming_email)
     attachment_path = get_attachment_as_html_path(
+      info_request.id,
       incoming_message_id: info_request.incoming_messages.first.id,
-      id: info_request.id,
       part: 2,
       file_name: 'hello world.txt.html',
       skip_cache: 1)
@@ -83,8 +83,8 @@ RSpec.describe 'when handling incoming mail' do
     receive_incoming_mail('incoming-request-pdf-attachment.email',
                           email_to: info_request.incoming_email)
     attachment_path = get_attachment_as_html_path(
+      info_request.id,
       incoming_message_id: info_request.incoming_messages.first.id,
-      id: info_request.id,
       part: 2,
       file_name: 'fs 50379341.pdf.html',
       skip_cache: 1)
@@ -103,8 +103,8 @@ RSpec.describe 'when handling incoming mail' do
     # asking for an attachment by the wrong filename should result in
     # redirecting back to the incoming message
     visit get_attachment_as_html_path(
+      info_request.id,
       incoming_message_id: info_request.incoming_messages.first.id,
-      id: info_request.id,
       part: 2,
       file_name: 'hello world.txt.baz.html',
       skip_cache: 1
@@ -118,8 +118,8 @@ RSpec.describe 'when handling incoming mail' do
                           email_to: info_request.incoming_email)
 
     attachment_path = get_attachment_path(
+      info_request.id,
       incoming_message_id: info_request.incoming_messages.first.id,
-      id: info_request.id,
       part: 2,
       file_name: 'hello.qwglhm',
       skip_cache: 1

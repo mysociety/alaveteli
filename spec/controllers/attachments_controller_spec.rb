@@ -167,8 +167,8 @@ RSpec.describe AttachmentsController, type: :controller do
           allow(controller).to receive(:verifier).and_return(verifier)
           allow(verifier).to receive(:generate).with(
             get_attachment_path(
+              info_request.id,
               incoming_message_id: attachment.incoming_message_id,
-              id: info_request.id,
               part: attachment.url_part_number,
               file_name: attachment.filename
             )
@@ -542,8 +542,8 @@ RSpec.describe AttachmentsController, type: :controller do
           allow(controller).to receive(:verifier).and_return(verifier)
           allow(verifier).to receive(:generate).with(
             get_attachment_as_html_path(
+              info_request.id,
               incoming_message_id: attachment.incoming_message_id,
-              id: info_request.id,
               part: attachment.url_part_number,
               file_name: attachment.filename
             )

@@ -289,13 +289,13 @@ module InfoRequestHelper
     attach_params = attachment_params(attachment, options)
 
     if options[:html] && public_token?
-      share_attachment_as_html_url(attach_params)
+      share_attachment_as_html_url(*attach_params)
     elsif options[:html]
-      get_attachment_as_html_url(attach_params)
+      get_attachment_as_html_url(*attach_params)
     elsif public_token?
-      share_attachment_url(attach_params)
+      share_attachment_url(*attach_params)
     else
-      get_attachment_url(attach_params)
+      get_attachment_url(*attach_params)
     end
   end
 
@@ -328,7 +328,7 @@ module InfoRequestHelper
 
     attach_params[:project_id] = @project.id if @project
 
-    attach_params
+    [attach_params.delete(:id), attach_params]
   end
 
   def public_token?
