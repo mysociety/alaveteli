@@ -61,7 +61,7 @@
               </li>
             <% else %>
               <li>
-               <%= link_to _("Report this request"), new_request_report_path(:request_id => info_request.url_title) %><span class="action-menu__info-link">
+                <%= link_to _("Report this request"), new_request_report_path(info_request.url_title) %><span class="action-menu__info-link">
                 <%= link_to _("Help"), help_about_path(:anchor => "reporting") %>
               </span>
               </li>
