@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add support for Debian 12 "Bookworm" (Graeme Porteous)
+* Add support for Ubuntu 22.04 LTS "Jammy Jellyfish" (Graeme Porteous)
 * Allow `InfoRequest` to be categorised (Graeme Porteous)
 * Replace public body categories with generalised categories (Graeme Porteous)
 * Add admin links to and from batch request show action (Graeme Porteous)
