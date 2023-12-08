@@ -103,9 +103,14 @@ class FoiAttachment < ApplicationRecord
   def body
     return @cached_body if @cached_body
 
-    if masked?
-      @cached_body = file.download
-    elsif persisted?
+    begin
+      return file.download if masked?
+    rescue ActiveStorage::FileNotFoundError
+      # file isn't in storage and has gone missing, rescue to allow the masking
+      # job to run and rebuild the stored file or even the whole attachment.
+    end
+
+    if persisted?
       FoiAttachmentMaskJob.perform_once_now(self)
       reload
       body

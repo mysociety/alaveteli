@@ -123,6 +123,26 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when masked but stored attachment is missing' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      before do
+        allow(foi_attachment.file).
+          to receive(:download).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'calls the FoiAttachmentMaskJob now and return the masked body' do
+        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+          with(foi_attachment).
+          and_invoke(-> (_) {
+            # mock the job
+            foi_attachment.update(body: 'maskedbody', masked_at: Time.zone.now)
+          })
+
+        expect(foi_attachment.body).to eq('maskedbody')
+      end
+    end
+
     context 'when unmasked and original attachment can be found' do
       let(:incoming_message) do
         FactoryBot.create(:incoming_message, foi_attachments_factories: [
