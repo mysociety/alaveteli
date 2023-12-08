@@ -100,7 +100,6 @@ class FoiAttachment < ApplicationRecord
     update_display_size!
   end
 
-  # raw body, encoded as binary
   def body
     return @cached_body if @cached_body
 
