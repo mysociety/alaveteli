@@ -58,11 +58,6 @@ namespace :config_files do
       },
       {
         path: '/etc/init.d',
-        name: 'send-notifications',
-        template: 'config/send-notifications-debian.example'
-      },
-      {
-        path: '/etc/init.d',
         name: 'poll-for-incoming',
         template: 'config/poll-for-incoming-debian.example',
         condition: -> do
@@ -78,6 +73,11 @@ namespace :config_files do
         path: '/etc/systemd/system',
         name: 'alert-tracks.service',
         template: 'config/alert-tracks.service.example'
+      },
+      {
+        path: '/etc/systemd/system',
+        name: 'send-notifications.service',
+        template: 'config/send-notifications.service.example'
       }
     ]
   end
