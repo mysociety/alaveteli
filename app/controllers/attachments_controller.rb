@@ -133,7 +133,7 @@ class AttachmentsController < ApplicationController
       end
     end
 
-  rescue Timeout::Error
+  rescue Timeout::Error, ActiveRecord::RecordNotFound
     redirect_to wait_for_attachment_mask_path(
       @attachment.to_signed_global_id,
       referer: verifier.generate(request.fullpath)
