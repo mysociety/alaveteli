@@ -135,10 +135,15 @@ class FoiAttachment < ApplicationRecord
     )
 
   rescue MailHandler::MismatchedAttachmentHexdigest
-    attributes = MailHandler.attempt_to_find_original_attachment_attributes(
-      raw_email.mail,
-      body: file.download
-    ) if file.attached?
+    begin
+      attributes = MailHandler.attempt_to_find_original_attachment_attributes(
+        raw_email.mail,
+        body: file.download
+      ) if file.attached?
+
+    rescue ActiveStorage::FileNotFoundError
+      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
+    end
 
     unless attributes
       raise MissingAttachment, "attachment missing in raw email (ID=#{id})"

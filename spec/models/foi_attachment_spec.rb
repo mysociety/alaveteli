@@ -262,6 +262,20 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when unable to find original attachment in storage' do
+      before do
+        allow(foi_attachment.file).
+          to receive(:download).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'raises missing attachment exception' do
+        expect { unmasked_body }.to raise_error(
+          FoiAttachment::MissingAttachment,
+          "attachment missing from storage (ID=#{foi_attachment.id})"
+        )
+      end
+    end
+
     context 'when unable to find original attachment through other means' do
       before do
         allow(MailHandler).to receive(:attachment_body_for_hexdigest).
