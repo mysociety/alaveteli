@@ -430,7 +430,7 @@ GEM
     routing-filter (0.7.0)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
-    rspec-activemodel-mocks (1.1.0)
+    rspec-activemodel-mocks (1.2.0)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       rspec-mocks (>= 2.99, < 4.0)
@@ -623,7 +623,7 @@ DEPENDENCIES
   redis (~> 4.8.1)
   rolify (~> 6.0.1)
   routing-filter (~> 0.7.0)
-  rspec-activemodel-mocks (~> 1.1.0)
+  rspec-activemodel-mocks (~> 1.2.0)
   rspec-rails (~> 6.1.0)
   rubocop (~> 1.58.0)
   rubocop-performance
