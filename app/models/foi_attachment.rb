@@ -112,12 +112,10 @@ class FoiAttachment < ApplicationRecord
 
     if persisted?
       FoiAttachmentMaskJob.perform_once_now(self)
-      reload
-      body
+      return body unless destroyed?
     end
 
-  rescue ActiveRecord::RecordNotFound
-    load_attachment_from_incoming_message!.body
+    load_attachment_from_incoming_message!.body if destroyed?
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed

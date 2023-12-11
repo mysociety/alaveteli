@@ -200,6 +200,21 @@ RSpec.describe FoiAttachment do
         )
       end
     end
+
+    context 'when attachment has been destroy' do
+      let(:foi_attachment) { FactoryBot.create(:foi_attachment) }
+
+      before { foi_attachment.destroy }
+
+      it 'returns load_attachment_from_incoming_message.body' do
+        allow(foi_attachment).to(
+          receive(:load_attachment_from_incoming_message).and_return(
+            double(body: 'thisisthenewtext')
+          )
+        )
+        expect(foi_attachment.body).to eq('thisisthenewtext')
+      end
+    end
   end
 
   describe '#body_as_text' do
