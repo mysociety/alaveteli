@@ -123,6 +123,26 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when masked but stored attachment is missing' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      before do
+        allow(foi_attachment.file).
+          to receive(:download).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'calls the FoiAttachmentMaskJob now and return the masked body' do
+        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+          with(foi_attachment).
+          and_invoke(-> (_) {
+            # mock the job
+            foi_attachment.update(body: 'maskedbody', masked_at: Time.zone.now)
+          })
+
+        expect(foi_attachment.body).to eq('maskedbody')
+      end
+    end
+
     context 'when unmasked and original attachment can be found' do
       let(:incoming_message) do
         FactoryBot.create(:incoming_message, foi_attachments_factories: [
@@ -178,6 +198,21 @@ RSpec.describe FoiAttachment do
         expect { foi_attachment.body }.to raise_error(
           FoiAttachment::MissingAttachment
         )
+      end
+    end
+
+    context 'when attachment has been destroy' do
+      let(:foi_attachment) { FactoryBot.create(:foi_attachment) }
+
+      before { foi_attachment.destroy }
+
+      it 'returns load_attachment_from_incoming_message.body' do
+        allow(foi_attachment).to(
+          receive(:load_attachment_from_incoming_message).and_return(
+            double(body: 'thisisthenewtext')
+          )
+        )
+        expect(foi_attachment.body).to eq('thisisthenewtext')
       end
     end
   end
@@ -259,6 +294,20 @@ RSpec.describe FoiAttachment do
 
       it 'returns the attachment body from the raw email' do
         is_expected.to eq('hereistheunmaskedtext')
+      end
+    end
+
+    context 'when unable to find original attachment in storage' do
+      before do
+        allow(foi_attachment.file).
+          to receive(:download).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'raises missing attachment exception' do
+        expect { unmasked_body }.to raise_error(
+          FoiAttachment::MissingAttachment,
+          "attachment missing from storage (ID=#{foi_attachment.id})"
+        )
       end
     end
 

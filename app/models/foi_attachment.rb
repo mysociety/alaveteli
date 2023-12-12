@@ -100,20 +100,22 @@ class FoiAttachment < ApplicationRecord
     update_display_size!
   end
 
-  # raw body, encoded as binary
   def body
     return @cached_body if @cached_body
 
-    if masked?
-      @cached_body = file.download
-    elsif persisted?
-      FoiAttachmentMaskJob.perform_once_now(self)
-      reload
-      body
+    begin
+      return file.download if masked?
+    rescue ActiveStorage::FileNotFoundError
+      # file isn't in storage and has gone missing, rescue to allow the masking
+      # job to run and rebuild the stored file or even the whole attachment.
     end
 
-  rescue ActiveRecord::RecordNotFound
-    load_attachment_from_incoming_message!.body
+    if persisted?
+      FoiAttachmentMaskJob.perform_once_now(self)
+      return body unless destroyed?
+    end
+
+    load_attachment_from_incoming_message!.body if destroyed?
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
@@ -136,10 +138,15 @@ class FoiAttachment < ApplicationRecord
     )
 
   rescue MailHandler::MismatchedAttachmentHexdigest
-    attributes = MailHandler.attempt_to_find_original_attachment_attributes(
-      raw_email.mail,
-      body: file.download
-    ) if file.attached?
+    begin
+      attributes = MailHandler.attempt_to_find_original_attachment_attributes(
+        raw_email.mail,
+        body: file.download
+      ) if file.attached?
+
+    rescue ActiveStorage::FileNotFoundError
+      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
+    end
 
     unless attributes
       raise MissingAttachment, "attachment missing in raw email (ID=#{id})"

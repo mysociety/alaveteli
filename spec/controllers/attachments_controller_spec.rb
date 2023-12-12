@@ -124,11 +124,7 @@ RSpec.describe AttachmentsController, type: :controller do
         end
       end
 
-      context 'when response times out waiting for masked attachment' do
-        before do
-          allow(Timeout).to receive(:timeout).and_raise(Timeout::Error)
-        end
-
+      shared_examples 'redirects to attachment mask route' do
         it 'queues FoiAttachmentMaskJob' do
           expect(FoiAttachmentMaskJob).to receive(:perform_later).
             with(attachment)
@@ -155,6 +151,26 @@ RSpec.describe AttachmentsController, type: :controller do
             wait_for_attachment_mask_path('ABC', referer: 'DEF')
           )
         end
+      end
+
+      context 'when response times out waiting for masked attachment' do
+        before do
+          expect(Timeout).to receive(:timeout).and_raise(Timeout::Error)
+        end
+
+        include_examples 'redirects to attachment mask route'
+      end
+
+      context 'when attachment gets rebuilt' do
+        before do
+          allow(IncomingMessage).
+            to receive(:get_attachment_by_url_part_number_and_filename!).
+            and_return(attachment)
+          allow(attachment).
+            to receive(:reload).and_raise(ActiveRecord::RecordNotFound)
+        end
+
+        include_examples 'redirects to attachment mask route'
       end
     end
 
