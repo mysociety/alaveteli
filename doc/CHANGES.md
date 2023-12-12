@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add XSLX spreadsheet analyser to automatically detect hidden data (Helen
+  Cross, Graeme Porteous)
 * Update attachment processing to automatically rebuild if cached file goes
   missing (Graeme Porteous)
 * Allow `InfoRequest` to be categorised (Graeme Porteous)

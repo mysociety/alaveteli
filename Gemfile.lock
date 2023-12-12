@@ -51,6 +51,14 @@ PATH
       mime-types (< 4.0.0)
       rails (~> 7.0.4)
 
+PATH
+  remote: gems/excel_analyzer
+  specs:
+    excel_analyzer (0.0.1)
+      activestorage
+      nokogiri
+      rubyzip
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -575,6 +583,7 @@ DEPENDENCIES
   capybara (~> 3.39.2)
   charlock_holmes (~> 0.7.7)
   dalli (~> 3.2.6)
+  excel_analyzer!
   exception_notification (~> 4.5.0)
   factory_bot_rails (~> 6.4.2)
   fancybox-rails (~> 0.3.0)
