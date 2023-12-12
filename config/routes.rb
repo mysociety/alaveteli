@@ -311,6 +311,9 @@ Rails.application.routes.draw do
     get 'email_alerts/disable/:token',
         to: 'email_alerts#destroy',
         as: :disable_email_alerts
+
+    get 'close_account', to: 'close_account#new', as: :close_account
+    post 'close_account', to: 'close_account#create'
   end
 
   namespace :users, path: 'profile' do
@@ -702,6 +705,7 @@ Rails.application.routes.draw do
       get 'active', :on => :collection
       get 'banned', :on => :collection
       get 'closed', :on => :collection
+      get 'account_closure_requests', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
       post 'clear_profile_photo', :on => :member

@@ -55,15 +55,7 @@
         <br/>
       </div>
       <hr>
-      <%= form_tag admin_users_account_closing_index_path(user_id: @admin_user.id), class: 'span3 form form-inline' do %>
-        <% disabled = @admin_user.closed? %>
-        <% submit_class = %w(btn btn-danger) %>
-        <% submit_class << 'disabled' if disabled %>
-        <%= submit_tag 'Close',
-          class: submit_class,
-          disabled: disabled,
-          data: { confirm: 'Are you sure? This is irreversible.' } %>
-      <% end %>
+      <%= render 'close_account_form', { user: @admin_user } %>
     </div>
 
     <div class="danger-zone__item">

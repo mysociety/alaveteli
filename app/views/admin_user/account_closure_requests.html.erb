@@ -1,0 +1,35 @@
+<%= render 'scopes' %>
+
+<div class="row">
+  <div class="span12">
+    <% if @account_closure_requests.any? %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Request ID</th>
+            <th>User</th>
+            <th>Created at</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @account_closure_requests.each do |request| %>
+            <tr id="account-closure-request-<%= request.id %>">
+              <td><%= request.id %></td>
+              <td>
+                <%= link_to request.user.name, admin_user_path(request.user) %>
+              </td>
+              <td><%= request.created_at.to_fs(:long) %></td>
+              <td>
+                <%= render 'close_account_form', { user: request.user } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    <% else %>
+      <p>No users have requested to close their accounts.</p>
+    <% end %>
+  </div>
+</div>

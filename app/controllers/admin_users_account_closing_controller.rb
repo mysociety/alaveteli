@@ -12,7 +12,7 @@ class AdminUsersAccountClosingController < AdminController
         'Something went wrong. The user account could not be closed.'
     end
 
-    redirect_to admin_user_path(@closed_user)
+    redirect_back_or_to admin_user_path(@closed_user)
   end
 
   private

@@ -442,4 +442,25 @@ RSpec.describe AdminUserController do
       }.to change(ActsAsXapian::ActsAsXapianJob, :count).by(1)
     end
   end
+
+  describe "GET #account_closure_requests" do
+    it "assigns @account_closure_requests with open account" do
+      user_with_closed_account = FactoryBot.create(:user, closed_at: Time.now)
+      user_with_open_account = FactoryBot.create(:user)
+      request_for_closed_account = FactoryBot.create(
+        :account_closure_request,
+        user: user_with_closed_account
+      )
+      request_for_open_account = FactoryBot.create(
+        :account_closure_request,
+        user: user_with_open_account
+      )
+
+      get :account_closure_requests
+
+      expect(
+        assigns(:account_closure_requests)
+      ).to eq([request_for_open_account])
+    end
+  end
 end
