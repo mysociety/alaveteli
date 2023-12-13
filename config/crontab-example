@@ -22,7 +22,7 @@ MAILTO=<%= mailto %>
 31 * * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/load-mail-server-logs.lock <%= vhost_dir %>/<%= vcspath %>/script/load-mail-server-logs || echo "stalled?"
 
 # Once a day, early morning
-31 1 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/change-xapian-database.lock "<%= vhost_dir %>/<%= vcspath %>/script/compact-xapian-database production <%= site %>" || echo "stalled?"
+31 1 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/change-xapian-database.lock "<%= vhost_dir %>/<%= vcspath %>/script/compact-xapian-database production" || echo "stalled?"
 0 0 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/delete-expired-embargoes.lock <%= vhost_dir %>/<%= vcspath %>/script/delete-expired-embargoes || echo "stalled?"
 23 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/delete-old-things.lock <%= vhost_dir %>/<%= vcspath %>/script/delete-old-things || echo "stalled?"
 0 5 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/update-overdue-info-request-events.lock <%= vhost_dir %>/<%= vcspath %>/script/update-overdue-info-request-events || echo "stalled?"
