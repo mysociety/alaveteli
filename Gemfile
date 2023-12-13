@@ -167,6 +167,9 @@ gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.45', require: false
 
+# Storage content analyzers
+gem 'excel_analyzer', path: 'gems/excel_analyzer'
+
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.19.1'
