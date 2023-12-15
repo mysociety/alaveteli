@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Add XSLX spreadsheet analyser to automatically detect hidden data (Helen
   Cross, Graeme Porteous)
 * Update attachment processing to automatically rebuild if cached file goes
@@ -27,6 +28,14 @@
 
 
 ## Upgrade Notes
+
+* _Required:_ Please update your `config/storage.yml` file to include a
+  production configuration for `inbound_emails`. See
+  `config/storage.yml-example` as an example.
+
+* _Required:_ Please update your `config/sidekiq.yml` file to include the
+  `action_mailbox_routing` and `action_mailbox_incineration` queues. See
+  `config/sidekiq.yml-example` as an example.
 
 * _Required:_ To migrate to the new `Category` feature, please run:
 
