@@ -31,6 +31,6 @@ RSpec.describe 'request_game/play' do
 
     it 'should show the correct url for a request' do
         render
-        expect(response).to include("/categorise/request/a_test_request")
+        expect(response).to include("/request/a_test_request/categorise")
     end
 end

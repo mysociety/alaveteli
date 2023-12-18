@@ -120,10 +120,10 @@ Rails.application.routes.draw do
   match '/request/:url_title/new' => 'request#show',
         :as => :show_new_request,
         :via => :get
-  match '/details/request/:url_title' => 'request#details',
+  match '/request/:url_title/details' => 'request#details',
         :as => :details_request,
         :via => :get
-  match '/similar/request/:url_title' => 'request#similar',
+  match '/request/:url_title/similar' => 'request#similar',
         :as => :similar_request,
         :via => :get
 
@@ -151,7 +151,7 @@ Rails.application.routes.draw do
         :as => :info_request_event,
         :via => :get
 
-  match '/upload/request/:url_title' => 'request#upload_response',
+  match '/request/:url_title/upload' => 'request#upload_response',
         :as => :upload_response,
         :via => [:get, :post]
   match '/request/:url_title/download' => 'request#download_entire_request',
@@ -395,7 +395,7 @@ Rails.application.routes.draw do
         :via => :get
 
   #### Comment controller
-  match '/annotate/request/:url_title' => 'comment#new',
+  match '/request/:url_title/annotate' => 'comment#new',
         :as => :new_comment,
         :type => 'request',
         :via => [:get, :post]
@@ -413,7 +413,7 @@ Rails.application.routes.draw do
   #### Track controller
   # /track/ is for setting up an email alert for the item
   # /feed/ is a direct RSS feed of the item
-  match '/:feed/request/:url_title' => 'track#track_request',
+  match '/request/:url_title/:feed' => 'track#track_request',
         :as => :track_request,
         :feed => /(track|feed)/,
         :via => :get
@@ -504,7 +504,7 @@ Rails.application.routes.draw do
   match '/categorise/play' => 'request_game#play',
         :as => :categorise_play,
         :via => [:get, :post]
-  match '/categorise/request/:url_title' => 'request_game#show',
+  match '/request/:url_title/categorise' => 'request_game#show',
         :as => :categorise_request,
         :via => :get
   match '/categorise/stop' => 'request_game#stop',
