@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Change request URL patterns to be member routes (Alexander Griffen, Graeme
+  Porteous)
 * Change request URL patterns to only use titles rather than request IDs
   (Alexander Griffen, Graeme Porteous)
 * Colourise holding pen guess scores (Gareth Rees)
