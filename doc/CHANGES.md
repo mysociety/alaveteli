@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add link from incoming message to admin page for attachments (Gareth Rees)
 * Add XSLX spreadsheet analyser to automatically detect hidden data (Helen
   Cross, Graeme Porteous)
 * Update attachment processing to automatically rebuild if cached file goes
