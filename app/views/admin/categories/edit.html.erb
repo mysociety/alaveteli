@@ -25,7 +25,7 @@
 <div class="row">
   <div class="span12">
     <div class="well">
-      <%= form_for @category, url: admin_category_path(@category), method: 'delete', class: "form form-inline" do |f| %>
+      <%= form_for @category, url: admin_category_path(@category, model_type: current_klass), method: 'delete', class: "form form-inline" do |f| %>
         <%= f.submit "Destroy #{@category.title}", title: @category.title, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
 
         <span class="help-block">
