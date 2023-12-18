@@ -14,13 +14,15 @@ RSpec.describe PublicBodyHelper do
 
     it 'includes a reason if the law does not apply to the authority' do
       @body.tag_string = 'not_apply'
-      msg = 'Freedom of Information law does not apply to this authority, so you cannot make a request to it.'
+      msg = 'Freedom of Information law does not apply to this authority, ' \
+        'so you cannot make a request to it.'
       expect(public_body_not_requestable_reasons(@body)).to include(msg)
     end
 
     it 'includes a reason if the body no longer exists' do
       @body.tag_string = 'defunct'
-      msg = 'This authority no longer exists, so you cannot make a request to it.'
+      msg = 'This authority no longer exists, so you cannot make a request ' \
+        'to it.'
       expect(public_body_not_requestable_reasons(@body)).to include(msg)
     end
 
@@ -58,25 +60,36 @@ RSpec.describe PublicBodyHelper do
       heading.add_category(category)
       public_body = FactoryBot.create(:public_body, tag_string: 'spec')
 
-      expect(type_of_authority(public_body)).to eq('<a href="/body/list/spec">Ünicode category</a>')
+      expect(type_of_authority(public_body)).
+        to eq('<a href="/body/list/spec">Ünicode category</a>')
     end
 
     it 'constructs the correct string if there are tags which are not categories' do
       heading = FactoryBot.create(:public_body_heading)
       3.times do |i|
-        category = FactoryBot.create(:public_body_category, category_tag: "spec_#{i}",
-                                     description: "spec category #{i}")
+        category = FactoryBot.
+          create(
+            :public_body_category, category_tag: "spec_#{i}",
+            description: "spec category #{i}"
+          )
         heading.add_category(category)
       end
-      public_body = FactoryBot.create(:public_body, tag_string: 'unknown spec_0 spec_2')
-      expected = '<a href="/body/list/spec_0">Spec category 0</a> and <a href="/body/list/spec_2">spec category 2</a>'
+      public_body = FactoryBot.create(
+        :public_body,
+        tag_string: 'unknown spec_0 spec_2'
+      )
+      expected = '<a href="/body/list/spec_0">Spec category 0</a> and ' \
+        '<a href="/body/list/spec_2">spec category 2</a>'
       expect(type_of_authority(public_body)).to eq(expected)
     end
 
     context 'when associated with one category' do
       it 'returns the description wrapped in an anchor tag' do
-        category = FactoryBot.create(:public_body_category, category_tag: 'spec',
-                                     description: 'spec category')
+        category = FactoryBot.create(
+          :public_body_category,
+          category_tag: 'spec',
+          description: 'spec category'
+        )
         heading = FactoryBot.create(:public_body_heading)
         heading.add_category(category)
         public_body = FactoryBot.create(:public_body, tag_string: 'spec')
@@ -90,11 +103,17 @@ RSpec.describe PublicBodyHelper do
       it 'joins the category descriptions and capitalizes the first letter' do
         heading = FactoryBot.create(:public_body_heading)
         3.times do |i|
-          category = FactoryBot.create(:public_body_category, category_tag: "spec_#{i}",
-                                       description: "spec category #{i}")
+          category = FactoryBot.create(
+            :public_body_category,
+            category_tag: "spec_#{i}",
+            description: "spec category #{i}"
+          )
           heading.add_category(category)
         end
-        public_body = FactoryBot.create(:public_body, tag_string: 'spec_0 spec_1 spec_2')
+        public_body = FactoryBot.create(
+          :public_body,
+          tag_string: 'spec_0 spec_1 spec_2'
+        )
 
         description = [
           %Q(<a href="/body/list/spec_0">Spec category 0</a>),
@@ -112,8 +131,11 @@ RSpec.describe PublicBodyHelper do
       it 'creates the anchor href in the correct locale' do
         # Activate the routing filter, normally turned off for helper tests
         RoutingFilter.active = true
-        category = FactoryBot.create(:public_body_category, category_tag: 'spec',
-                                     description: 'spec category')
+        category = FactoryBot.create(
+          :public_body_category,
+          category_tag: 'spec',
+          description: 'spec category'
+        )
         heading = FactoryBot.create(:public_body_heading)
         heading.add_category(category)
         public_body = FactoryBot.create(:public_body, tag_string: 'spec')
