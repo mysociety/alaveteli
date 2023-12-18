@@ -565,6 +565,9 @@ Lint/InheritException:
 Lint/InterpolationCheck:
   Enabled: false
 
+Lint/ItWithoutArgumentsInBlock:
+  Enabled: false
+
 Lint/LambdaWithoutLiteralBlock:
   Enabled: false
 
