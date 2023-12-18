@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add support for Ruby 3.3 (Graeme Porteous)
 * Update Rails application framework defaults (Graeme Porteous)
 * Drop support for Ruby 3.1 (Graeme Porteous)
 
