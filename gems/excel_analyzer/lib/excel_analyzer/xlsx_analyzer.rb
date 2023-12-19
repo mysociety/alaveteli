@@ -8,14 +8,14 @@ module ExcelAnalyzer
   # The Analyzer class is responsible for analyzing Excel (.xlsx) files uploaded
   # through Active Storage.
   #
-  class Analyzer < ActiveStorage::Analyzer
+  class XlsxAnalyzer < ActiveStorage::Analyzer
     include ExcelAnalyzer::Probe
 
-    XLSX_CONTENT_TYPE =
+    CONTENT_TYPE =
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
     def self.accept?(blob)
-      blob.content_type == XLSX_CONTENT_TYPE
+      blob.content_type == CONTENT_TYPE
     end
 
     def metadata
