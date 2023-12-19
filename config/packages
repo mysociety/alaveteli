@@ -15,6 +15,7 @@ libicu-dev
 libmagic-dev
 libmagickwand-dev
 libpq-dev
+libreoffice-calc-nogui
 libsqlite3-dev
 libxml2-dev
 libxslt1-dev
