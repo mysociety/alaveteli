@@ -528,10 +528,12 @@ RSpec.describe InfoRequestHelper do
 
       context 'external request' do
         it_behaves_like "when we can't ask the user to update the status" do
-          let(:info_request) { FactoryBot.create(
+          let(:info_request) do
+            FactoryBot.create(
               :external_request,
               awaiting_description: true
-            ) }
+            )
+          end
           let(:message) do
             status_text(info_request,
                         new_responses_count: 1,

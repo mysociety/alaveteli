@@ -69,7 +69,8 @@ RSpec.describe PublicBodyHelper do
       3.times do |i|
         category = FactoryBot.
           create(
-            :public_body_category, category_tag: "spec_#{i}",
+            :public_body_category,
+            category_tag: "spec_#{i}",
             description: "spec category #{i}"
           )
         heading.add_category(category)

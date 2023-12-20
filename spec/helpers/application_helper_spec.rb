@@ -149,9 +149,9 @@ RSpec.describe ApplicationHelper do
     it 'should generate a description for a request' do
       @info_request = FactoryBot.create(:info_request)
       @sent_event = @info_request.last_event
-      expected = "Request sent to " \
-        "#{public_body_link_absolute(@info_request.public_body)} by " \
-        "#{request_user_link_absolute(@info_request)}"
+      public_body_link = public_body_link_absolute(@info_request.public_body)
+      request_user_link = request_user_link_absolute(@info_request)
+      expected = "Request sent to #{public_body_link} by #{request_user_link}"
       expect(event_description(@sent_event)).to match(expected)
     end
 
@@ -160,11 +160,13 @@ RSpec.describe ApplicationHelper do
         :info_request_with_incoming
       )
       @response_event = @info_request_with_incoming.last_event
-      expected = "Response by " \
-        "#{public_body_link_absolute(
-            @info_request_with_incoming.public_body
-          )} " \
-        "to #{request_user_link_absolute(@info_request_with_incoming)}"
+      public_body_link = public_body_link_absolute(
+        @info_request_with_incoming.public_body
+      )
+      request_user_link = request_user_link_absolute(
+        @info_request_with_incoming
+      )
+      expected = "Response by #{public_body_link} to #{request_user_link}"
       expect(event_description(@response_event)).to match(expected)
     end
 
@@ -172,13 +174,14 @@ RSpec.describe ApplicationHelper do
       @info_request_with_internal_review_request = FactoryBot.
         create(:info_request_with_internal_review_request)
       @response_event = @info_request_with_internal_review_request.last_event
-      expected = "Internal review request sent to " \
-        "#{public_body_link_absolute(
-            @info_request_with_internal_review_request.public_body
-          )} " \
-        "by #{request_user_link_absolute(
-            @info_request_with_internal_review_request
-          )}"
+      public_body_link = public_body_link_absolute(
+        @info_request_with_internal_review_request.public_body
+      )
+      request_user_link = request_user_link_absolute(
+        @info_request_with_internal_review_request
+      )
+      expected = "Internal review request sent to #{public_body_link} by " \
+        "#{request_user_link}"
       expect(event_description(@response_event)).to match(expected)
     end
   end
