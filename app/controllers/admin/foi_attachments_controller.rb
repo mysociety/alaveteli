@@ -9,15 +9,9 @@ class Admin::FoiAttachmentsController < AdminController
   end
 
   def update
-    if @foi_attachment.update(foi_attachment_params)
-      @foi_attachment.log_event(
-        'edit_attachment',
-        attachment_id: @foi_attachment.id,
-        editor: admin_current_user,
-        old_prominence: @foi_attachment.prominence_previously_was,
-        prominence: @foi_attachment.prominence,
-        old_prominence_reason: @foi_attachment.prominence_reason_previously_was,
-        prominence_reason: @foi_attachment.prominence_reason
+    if @foi_attachment.update_and_log_event(
+        **foi_attachment_params,
+        event: { editor: admin_current_user }
       )
       @foi_attachment.expire
 

@@ -443,4 +443,45 @@ RSpec.describe FoiAttachment do
       foi_attachment.log_event('edit')
     end
   end
+
+  describe '#update_and_log_event' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:info_request) { incoming_message.info_request }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    def last_event
+      info_request.info_request_events.last
+    end
+
+    it 'updates and logs edit_attachment event' do
+      expect do
+        foi_attachment.update_and_log_event(prominence: 'hidden')
+      end.to change { last_event }
+
+      expect(last_event.event_type).to eq('edit_attachment')
+    end
+
+    it 'logs prominence and reason changes' do
+      foi_attachment.update_and_log_event(
+        prominence: 'hidden', prominence_reason: 'just because'
+      )
+      expect(last_event.params[:old_prominence]).to eq('normal')
+      expect(last_event.params[:prominence]).to eq('hidden')
+      expect(last_event.params[:old_prominence_reason]).to be_nil
+      expect(last_event.params[:prominence_reason]).to eq('just because')
+    end
+
+    it 'logs additional event data' do
+      foi_attachment.update_and_log_event(
+        prominence: 'hidden', event: { editor: 'me' }
+      )
+      expect(last_event.params[:editor]).to eq('me')
+    end
+
+    it 'does not log event if update fails' do
+      expect do
+        foi_attachment.update_and_log_event(prominence: nil)
+      end.to_not change { last_event }
+    end
+  end
 end

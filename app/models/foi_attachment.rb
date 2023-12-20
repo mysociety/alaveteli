@@ -338,6 +338,21 @@ class FoiAttachment < ApplicationRecord
     )
   end
 
+  def update_and_log_event(event: {}, **params)
+    return false unless update(params)
+
+    log_event(
+      'edit_attachment',
+      event.merge(
+        attachment_id: id,
+        old_prominence: prominence_previously_was,
+        prominence: prominence,
+        old_prominence_reason: prominence_reason_previously_was,
+        prominence_reason: prominence_reason
+      )
+    )
+  end
+
   private
 
   def load_attachment_from_incoming_message!
