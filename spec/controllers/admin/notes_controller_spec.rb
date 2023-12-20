@@ -3,6 +3,22 @@ require 'spec_helper'
 RSpec.describe Admin::NotesController do
   before(:each) { basic_auth_login(@request) }
 
+  describe 'GET index' do
+    before { get :index }
+
+    it 'returns a successful response' do
+      expect(response).to be_successful
+    end
+
+    it 'assigns the notes' do
+      expect(assigns[:notes]).to all(be_a(Note))
+    end
+
+    it 'renders the correct template' do
+      expect(response).to render_template(:index)
+    end
+  end
+
   describe 'GET new' do
     before { get :new }
 

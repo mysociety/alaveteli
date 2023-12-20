@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title = 'Notes' %></h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <p class="lead">Create notes either directly on a record or <%= link_to 'via a tag', admin_tags_path %>.</p>
+  </div>
+</div>
+
+<%= render partial: 'admin/notes/show',
+           locals: { notes: @notes, notable: nil } %>
+
+<%= will_paginate(@notes) %>

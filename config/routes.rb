@@ -537,7 +537,7 @@ Rails.application.routes.draw do
 
   #### AdminNote controller
   namespace :admin do
-    resources :notes, except: [:index, :show]
+    resources :notes, except: [:show]
   end
 
   direct :admin_note_parent do |note|
