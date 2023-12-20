@@ -62,7 +62,7 @@ class Ability
         !message.info_request.embargo
       end
       can :_read, FoiAttachment do |attachment|
-        !attachment.incoming_message.info_request.embargo
+        !attachment.info_request.embargo
       end
     end
 

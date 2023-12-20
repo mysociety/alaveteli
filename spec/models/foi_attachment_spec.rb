@@ -48,7 +48,7 @@ RSpec.describe FoiAttachment do
       att = FactoryBot.create(:jpeg_attachment)
       im = FactoryBot.create(:plain_incoming_message)
       att.incoming_message = im
-      request_path = "/request/" + att.incoming_message.info_request.url_title
+      request_path = "/request/" + att.info_request.url_title
       expect(att.cached_urls).to eq([request_path])
     end
   end
@@ -421,6 +421,26 @@ RSpec.describe FoiAttachment do
     context 'when the content_type has no name' do
       let(:content_type) { 'content/unnamed' }
       it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#expire' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    it 'delegates to info_request' do
+      expect(foi_attachment.info_request).to receive(:expire)
+      foi_attachment.expire
+    end
+  end
+
+  describe '#log_event' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    it 'delegates to info_request' do
+      expect(foi_attachment.info_request).to receive(:log_event).with('edit')
+      foi_attachment.log_event('edit')
     end
   end
 end

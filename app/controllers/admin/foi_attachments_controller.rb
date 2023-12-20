@@ -10,7 +10,7 @@ class Admin::FoiAttachmentsController < AdminController
 
   def update
     if @foi_attachment.update(foi_attachment_params)
-      @info_request.log_event(
+      @foi_attachment.log_event(
         'edit_attachment',
         attachment_id: @foi_attachment.id,
         editor: admin_current_user,
@@ -19,7 +19,7 @@ class Admin::FoiAttachmentsController < AdminController
         old_prominence_reason: @foi_attachment.prominence_reason_previously_was,
         prominence_reason: @foi_attachment.prominence_reason
       )
-      @info_request.expire
+      @foi_attachment.expire
 
       flash[:notice] = 'Attachment successfully updated.'
       redirect_to edit_admin_incoming_message_path(@incoming_message)
