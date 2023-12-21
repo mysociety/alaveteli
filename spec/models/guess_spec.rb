@@ -48,12 +48,12 @@ RSpec.describe Guess do
   describe 'with a subject line given' do
     let(:guess) { described_class.new(info_request, subject: 'subject_line') }
 
-    it 'returns an id_score of 1' do
-      expect(guess.id_score).to eq(1)
+    it 'returns an id_score of 0' do
+      expect(guess.id_score).to eq(0)
     end
 
-    it 'returns an idhash_score of 1' do
-      expect(guess.idhash_score).to eq(1)
+    it 'returns an idhash_score of 0' do
+      expect(guess.idhash_score).to eq(0)
     end
   end
 
