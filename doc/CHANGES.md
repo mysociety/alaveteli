@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add comment deletion (Helen Cross, Graeme Porteous, Gareth Rees)
 * Show and allow creation of citations from info request batch pages (Graeme
   Porteous)
 * Allow pro users to create and manage Projects (Graeme Porteous)
