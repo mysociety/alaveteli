@@ -35,8 +35,8 @@ class FoiAttachment < ApplicationRecord
 
   MissingAttachment = Class.new(StandardError)
 
-  belongs_to :incoming_message,
-             inverse_of: :foi_attachments
+  belongs_to :incoming_message, inverse_of: :foi_attachments
+  has_one :info_request, through: :incoming_message, source: :info_request
   has_one :raw_email, through: :incoming_message, source: :raw_email
 
   has_one_attached :file, service: :attachments
@@ -49,6 +49,8 @@ class FoiAttachment < ApplicationRecord
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
+
+  delegate :expire, :log_event, to: :info_request
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest]
 
@@ -251,7 +253,7 @@ class FoiAttachment < ApplicationRecord
   def display_filename
     filename = self.filename
     unless incoming_message.nil?
-      filename = incoming_message.info_request.apply_censor_rules_to_text(filename)
+      filename = info_request.apply_censor_rules_to_text(filename)
     end
     # Sometimes filenames have e.g. %20 in - no point butchering that
     # (without unescaping it, this would remove the % and leave 20s in there)
@@ -324,7 +326,7 @@ class FoiAttachment < ApplicationRecord
 
   def cached_urls
     [
-      request_path(incoming_message.info_request)
+      request_path(info_request)
     ]
   end
 
@@ -333,6 +335,21 @@ class FoiAttachment < ApplicationRecord
       incoming_message.get_attachments_for_display,
       url_part_number,
       display_filename
+    )
+  end
+
+  def update_and_log_event(event: {}, **params)
+    return false unless update(params)
+
+    log_event(
+      'edit_attachment',
+      event.merge(
+        attachment_id: id,
+        old_prominence: prominence_previously_was,
+        prominence: prominence,
+        old_prominence_reason: prominence_reason_previously_was,
+        prominence_reason: prominence_reason
+      )
     )
   end
 
