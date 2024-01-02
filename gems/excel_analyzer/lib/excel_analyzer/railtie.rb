@@ -4,9 +4,9 @@ require "active_storage"
 module ExcelAnalyzer
   ##
   # This Railtie integrates the gem with Rails by extending ActiveStorage's
-  # Analyzers with the custom ExcelAnalyzer::Analyzer.
+  # Analyzers.
   #
   class Railtie < Rails::Railtie
-    config.active_storage.analyzers.prepend ExcelAnalyzer::Analyzer
+    config.active_storage.analyzers.prepend ExcelAnalyzer::XlsxAnalyzer
   end
 end

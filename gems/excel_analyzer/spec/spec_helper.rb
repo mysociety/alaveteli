@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "excel_analyzer/analyzer"
+require "excel_analyzer/xls_analyzer"
+require "excel_analyzer/xlsx_analyzer"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
