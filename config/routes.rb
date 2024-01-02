@@ -643,7 +643,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :comments,
       :controller => 'admin_comment',
-      :only => [:index, :edit, :update]
+      :only => [:index, :edit, :update, :destroy]
   end
   ####
 
@@ -706,6 +706,7 @@ Rails.application.routes.draw do
       post 'clear_bounce', :on => :member
       post 'clear_profile_photo', :on => :member
       post 'modify_comment_visibility', :on => :collection
+      post 'destroy_comment', :on => :collection
       resources :slugs, controller: 'admin_user_slug', only: :destroy
       resources :censor_rules,
         :controller => 'admin_censor_rule',

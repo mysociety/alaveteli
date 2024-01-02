@@ -1,5 +1,5 @@
 <% if comments.any? %>
-  <%= form_tag modify_comment_visibility_admin_users_path do %>
+  <%= form_tag modify_comment_visibility_admin_users_path, id: 'comment_visibility_form' do %>
     <div class="accordion" id="comments">
       <% comments.each do |comment| %>
         <div class="accordion-group">
@@ -67,6 +67,7 @@
     <div class="btn-group">
       <%= submit_tag 'Hide selected', name: 'hide_selected', class: 'btn' %>
       <%= submit_tag 'Unhide selected', name: 'unhide_selected', class: 'btn' %>
+      <%= submit_tag 'Destroy selected', name: 'destroy_selected', class: 'btn btn-danger', onclick: "if(confirm('This is permanent! Are you sure?')){ event.preventDefault(); document.getElementById('comment_visibility_form').action='#{destroy_comment_admin_users_path}'; document.getElementById('comment_visibility_form').submit(); } else { event.preventDefault(); }" %>
     </div>
 
     <a href="#" class="select_all btn btn-link" data-state="unchecked" data-target="comment_ids[]">

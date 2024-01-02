@@ -106,6 +106,7 @@ class AdminGeneralController < AdminController
       # create a hash for each model type being returned
       info_request_event_ids = {}
       public_body_version_ids = {}
+      comment_ids = {}
       # get the relevant slice from the paginator
       timestamps = get_timestamps
       timestamps.slice(pager.offset, pager.per_page).each_with_index do |event, index|
@@ -113,6 +114,8 @@ class AdminGeneralController < AdminController
         # whose key is the model id, and value is the position in the slice
         if event[1] == 'InfoRequestEvent'
           info_request_event_ids[event[0].to_i] = index
+        elsif event[1] == 'Comment'
+          comment_ids[event[0].to_i] = index
         else
           public_body_version_ids[event[0].to_i] = index
         end
@@ -124,6 +127,9 @@ class AdminGeneralController < AdminController
       info_request_events = InfoRequestEvent.
         includes(:info_request).
           find(info_request_event_ids.keys)
+      comments = Comment.where(event_type: 'destroy_comment').
+          includes(:info_request).
+          find(comment_ids.keys)
       @events = []
       # drop the models into a combined array, ordered by their position in the timestamp slice
       public_body_versions.each do |version|
@@ -131,6 +137,9 @@ class AdminGeneralController < AdminController
       end
       info_request_events.each do |event|
         @events[info_request_event_ids[event.id]] = [event, event.created_at]
+      end
+      comments.each do |comment|
+        @events[comment_ids[comment.id]] = [comment, comment.created_at]
       end
 
       # inject the result array into the paginated collection:

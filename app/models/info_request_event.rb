@@ -32,6 +32,7 @@ class InfoRequestEvent < ApplicationRecord
     'followup_resent',
     'edit', # title etc. edited (in admin interface)
     'edit_outgoing', # outgoing message edited (in admin interface)
+    'destroy_comment', # deleted a comment (in admin interface)
     'edit_comment', # comment edited (in admin interface)
     'hide_comment', # comment hidden by admin
     'report_comment', # comment reported for admin attention by user
