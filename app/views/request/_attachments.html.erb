@@ -35,7 +35,9 @@
 
               <%= explore_in_datasette(a) %>
 
-              <%= a.extra_note %>
+              <% if note = a.extra_note %>
+                <em><%= note %></em>
+              <% end %>
 
               <% if @user.present? && @user.admin_page_links? %>
                 <%= link_to 'Admin', edit_admin_foi_attachment_path(a) %>

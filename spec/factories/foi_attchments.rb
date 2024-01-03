@@ -67,6 +67,12 @@ FactoryBot.define do
       body { 'somecsv' }
     end
 
+    factory :delivery_status_notification_attachment do
+      content_type { 'message/delivery-status' }
+      filename { 'attachment.delivery_status' }
+      body { load_file_fixture('attachment.delivery_status') }
+    end
+
     factory :unknown_attachment do
       content_type { 'application/unknown' }
       filename { 'interesting.spc' }

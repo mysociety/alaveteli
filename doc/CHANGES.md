@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Restore delivery status notification attachment note (Gareth Rees)
 * Explore CSV files in a Datasette Lite instance (Gareth Rees)
 * Add link from incoming message to admin page for attachments (Gareth Rees)
 * Add XSLX spreadsheet analyser to automatically detect hidden data (Helen
