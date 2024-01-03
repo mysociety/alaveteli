@@ -13,21 +13,27 @@ RSpec.describe InfoRequestHelper do
 
     it 'delegates the info_request argument for a valid status' do
       allow(info_request).to receive(:calculate_status).and_return('successful')
-      expect(self).to receive(:send).with('status_text_successful', info_request, {})
+      expect(self).
+        to receive(:send).
+        with('status_text_successful', info_request, {})
       status_text(info_request)
     end
 
     it 'delegates the options for a valid status' do
       allow(info_request).to receive(:calculate_status).and_return('successful')
       opts = { is_owning_user: false }
-      expect(self).to receive(:send).with('status_text_successful', info_request, opts)
+      expect(self).
+        to receive(:send).
+        with('status_text_successful', info_request, opts)
       status_text(info_request, opts)
     end
 
     it 'delegates to the custom partial for an unknown status' do
       allow(info_request).to receive(:calculate_status).and_return('unknown')
       opts = { is_owning_user: false }
-      expect(self).to receive(:custom_state_description).with(info_request, opts)
+      expect(self).
+        to receive(:custom_state_description).
+        with(info_request, opts)
       status_text(info_request, opts)
     end
 
@@ -37,8 +43,12 @@ RSpec.describe InfoRequestHelper do
 
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
-        allow(info_request).to receive(:calculate_status).and_return("waiting_response")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("waiting_response")
+        allow(info_request).
+          to receive(:date_response_required_by).
+          and_return(Time.zone.now)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
                         'title="2014-12-31 00:00:00 UTC">' \
@@ -78,8 +88,12 @@ RSpec.describe InfoRequestHelper do
       it 'returns a description' do
         travel_to(Time.zone.parse('2014-12-31'))
 
-        allow(info_request).to receive(:calculate_status).and_return("waiting_response_overdue")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("waiting_response_overdue")
+        allow(info_request).
+          to receive(:date_response_required_by).
+          and_return(Time.zone.now)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
                         'title="2014-12-31 00:00:00 UTC">' \
@@ -133,8 +147,12 @@ RSpec.describe InfoRequestHelper do
       it 'returns a description for an internal request' do
         travel_to(Time.zone.parse('2014-12-31'))
 
-        allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("waiting_response_very_overdue")
+        allow(info_request).
+          to receive(:date_response_required_by).
+          and_return(Time.zone.now)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
                         'title="2014-12-31 00:00:00 UTC">' \
@@ -192,9 +210,15 @@ RSpec.describe InfoRequestHelper do
 
         body_link = %Q(<a href="/body/#{ body.url_name }">#{ body.name }</a>)
 
-        allow(info_request).to receive(:calculate_status).and_return("waiting_response_very_overdue")
-        allow(info_request).to receive(:date_response_required_by).and_return(Time.zone.now)
-        allow(info_request).to receive(:is_external?).and_return(true)
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("waiting_response_very_overdue")
+        allow(info_request).
+          to receive(:date_response_required_by).
+          and_return(Time.zone.now)
+        allow(info_request).
+          to receive(:is_external?).
+          and_return(true)
 
         response_date = '<time datetime="2014-12-31T00:00:00Z" ' \
                         'title="2014-12-31 00:00:00 UTC">' \
@@ -240,7 +264,9 @@ RSpec.describe InfoRequestHelper do
     context 'successful' do
       it 'returns a description' do
         expected = 'The request was <strong>successful</strong>.'
-        allow(info_request).to receive(:calculate_status).and_return("successful")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("successful")
         expect(status_text(info_request)).to eq(expected)
       end
     end
@@ -248,18 +274,24 @@ RSpec.describe InfoRequestHelper do
     context 'partially_successful' do
       it 'returns a description' do
         expected = 'The request was <strong>partially successful</strong>.'
-        allow(info_request).to receive(:calculate_status).and_return("partially_successful")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("partially_successful")
         expect(status_text(info_request)).to eq(expected)
       end
     end
 
     context 'waiting_clarification' do
       before do
-        allow(info_request).to receive(:calculate_status).and_return("waiting_clarification")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("waiting_clarification")
       end
 
       it 'returns a description for the request owner' do
-        allow(info_request).to receive(:get_last_public_response).and_return(nil)
+        allow(info_request).
+          to receive(:get_last_public_response).
+          and_return(nil)
 
         expected = "#{ body.name } is <strong>waiting for your clarification" \
                    "</strong>. Please " \
@@ -311,7 +343,9 @@ RSpec.describe InfoRequestHelper do
 
     context 'gone_postal' do
       it 'returns a description' do
-        allow(info_request).to receive(:calculate_status).and_return("gone_postal")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("gone_postal")
         expected = 'The authority would like to / has <strong>responded by ' \
                    'postal mail</strong> to this request.'
         expect(status_text(info_request)).to eq(expected)
@@ -320,7 +354,9 @@ RSpec.describe InfoRequestHelper do
 
     context 'internal_review' do
       it 'returns a description' do
-        allow(info_request).to receive(:calculate_status).and_return("internal_review")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("internal_review")
         expected = "Waiting for an <strong>internal review</strong> by " \
                    "<a href=\"/body/#{ body.url_name }\">#{ body.name }</a> " \
                    "of their handling of this request."
@@ -347,7 +383,9 @@ RSpec.describe InfoRequestHelper do
 
     context 'requires_admin' do
       it 'returns a description' do
-        allow(info_request).to receive(:calculate_status).and_return("requires_admin")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("requires_admin")
         expected = 'This request has had an unusual response, and <strong>' \
                    'requires attention</strong> from the Alaveteli team.'
         expect(status_text(info_request)).to eq(expected)
@@ -356,7 +394,9 @@ RSpec.describe InfoRequestHelper do
 
     context 'user_withdrawn' do
       it 'returns a description' do
-        allow(info_request).to receive(:calculate_status).and_return("user_withdrawn")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("user_withdrawn")
         expected = 'This request has been <strong>withdrawn</strong> by the ' \
                    'person who made it. There may be an explanation in the ' \
                    'correspondence below.'
@@ -366,7 +406,9 @@ RSpec.describe InfoRequestHelper do
 
     context 'attention_requested' do
       it 'returns a description' do
-        allow(info_request).to receive(:calculate_status).and_return("attention_requested")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("attention_requested")
         expected = 'This request has been <strong>reported</strong> as ' \
                    'needing administrator attention.'
         expect(status_text(info_request)).to eq(expected)
@@ -375,7 +417,9 @@ RSpec.describe InfoRequestHelper do
 
     context 'vexatious' do
       it 'returns a description' do
-        allow(info_request).to receive(:calculate_status).and_return("vexatious")
+        allow(info_request).
+          to receive(:calculate_status).
+          and_return("vexatious")
         expected = 'This request has been reviewed by an administrator ' \
                    'and is considered to be vexatious'
         expect(status_text(info_request)).to eq(expected)
@@ -484,7 +528,12 @@ RSpec.describe InfoRequestHelper do
 
       context 'external request' do
         it_behaves_like "when we can't ask the user to update the status" do
-          let(:info_request) { FactoryBot.create(:external_request, awaiting_description: true) }
+          let(:info_request) do
+            FactoryBot.create(
+              :external_request,
+              awaiting_description: true
+            )
+          end
           let(:message) do
             status_text(info_request,
                         new_responses_count: 1,
