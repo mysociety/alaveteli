@@ -26,8 +26,10 @@
   <% end %>
 </div>
 
-<div class="row">
-  <p class="span12">
-    <%= link_to "New note", new_admin_note_path(notable_type: notable.class, notable_id: notable), class: "btn btn-info" %>
-  </p>
-</div>
+<% if notable %>
+  <div class="row">
+    <p class="span12">
+      <%= link_to "New note", new_admin_note_path(notable_type: notable.class, notable_id: notable), class: "btn btn-info" %>
+    </p>
+  </div>
+<% end %>
