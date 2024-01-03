@@ -95,6 +95,34 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(response.status).to eq(303)
     end
 
+    context 'CORS headers' do
+      context 'with a non-CSV attachment' do
+        let(:attachment) do
+          FactoryBot.create(:rtf_attachment, incoming_message: message,
+                                             prominence: 'normal')
+        end
+
+        it 'does not add CORS headers' do
+          show
+          expect(response.headers['Access-Control-Allow-Origin']).to be_nil
+          expect(response.headers['Access-Control-Request-Method']).to be_nil
+        end
+      end
+
+      context 'with a CSV attachment' do
+        let(:attachment) do
+          FactoryBot.create(:csv_attachment, incoming_message: message,
+                                             prominence: 'normal')
+        end
+
+        it 'adds CORS headers' do
+          show
+          expect(response.headers['Access-Control-Allow-Origin']).to eq('*')
+          expect(response.headers['Access-Control-Request-Method']).to eq('GET')
+        end
+      end
+    end
+
     context 'when attachment has not been masked' do
       let(:attachment) do
         FactoryBot.create(
