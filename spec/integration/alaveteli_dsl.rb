@@ -106,10 +106,10 @@ def using_pro_session(session_id)
   end
 end
 
-def login(user)
+def login(user, **params)
   u = user.is_a?(User) ? user : users(user)
   alaveteli_session(u.id) do
-    visit 'en/profile/sign_in'
+    visit signin_path(locale: 'en', **params)
     within '#signin_form' do
       fill_in "Your e-mail:", with: u.email
       fill_in "Password:", with: "jonespassword"
