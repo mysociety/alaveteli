@@ -146,7 +146,7 @@ namespace :config_files do
     raise 'Unknown daemon' unless daemon
 
     ENV['SCRIPT_FILE'] = daemon[:template]
-    ENV['DAEMON_NAME'] = daemon[:name]
+    ENV['DAEMON_NAME'] = daemon[:name].sub(/\.service$/, '')
 
     Rake::Task['config_files:convert_init_script'].invoke
   end
