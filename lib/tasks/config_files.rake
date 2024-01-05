@@ -25,7 +25,7 @@ namespace :config_files do
   end
 
   def default_replacements
-    {
+    opts = {
       cpus: ENV.fetch('CPUS') { '1' },
       mailto: ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
       rails_env: ENV.fetch('RAILS_ENV') { 'development' },
@@ -37,6 +37,15 @@ namespace :config_files do
       use_rbenv?: ENV.fetch('USE_RBENV', 'false') == 'true',
       rails_env_defined?: ENV['RAILS_ENV_DEFINED'] == 'true'
     }
+
+    if opts[:use_rbenv?]
+      rbenv_root = "/home/#{opts[:user]}/.rbenv"
+      opts[:ruby_path] = "#{rbenv_root}/bin:#{rbenv_root}/shims"
+    else
+      opts[:ruby_path] = "/home/#{opts[:user]}/.gem/ruby/#{opts[:ruby_version]}/bin"
+    end
+
+    opts
   end
 
   def daemons
