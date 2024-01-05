@@ -5,7 +5,7 @@ namespace :config_files do
 
   class ExampleERBRenderer
     def initialize(file, **variables)
-      @template = ERB.new(File.read(file))
+      @template = ERB.new(File.read(file), trim_mode: '-')
       @variables = variables
     end
 
