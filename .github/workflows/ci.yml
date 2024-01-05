@@ -53,8 +53,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - { ruby: '3.0', postgres: 13.5 }
-        - { ruby: '3.1', postgres: 13.5 }
         - { ruby: '3.2', postgres: 13.5 }
         - { ruby: '3.3', postgres: 13.5 }
 

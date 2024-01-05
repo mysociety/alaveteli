@@ -37,8 +37,6 @@ see [the project website](http://alaveteli.org) for instructions on installing A
 
 Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/develop/.github/workflows/ci.yml#L27-L29)
 
-* ruby-3.0
-* ruby-3.1
 * ruby-3.2
 * ruby-3.3
 

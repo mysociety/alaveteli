@@ -30,6 +30,9 @@
 
 ## Upgrade Notes
 
+* _Required:_ This release will be the last to support Ruby 3.0 and 3.1. Please
+  upgrade to version 3.3.
+
 * _Required:_ To migrate to the new `Category` feature, please run:
 
       bin/rails temp:migrate_public_body_categories

@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        RUBY_VERSION: '${RUBY_VERSION:-3.0}'
+        RUBY_VERSION: '${RUBY_VERSION:-3.2}'
     tty: true
     stdin_open: true
     environment:
@@ -30,7 +30,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        RUBY_VERSION: '${RUBY_VERSION:-3.0}'
+        RUBY_VERSION: '${RUBY_VERSION:-3.2}'
     command: bundle exec sidekiq
     volumes:
       - ./:/alaveteli
