@@ -2,13 +2,13 @@
 
 require "spec_helper"
 
-RSpec.describe ExcelAnalyzer::Analyzer do
+RSpec.describe ExcelAnalyzer::XlsAnalyzer do
   describe ".accept?" do
-    subject { ExcelAnalyzer::Analyzer.accept?(blob) }
+    subject { ExcelAnalyzer::XlsAnalyzer.accept?(blob) }
 
     context "when the blob is an Excel file" do
       let(:blob) do
-        fake_blob(content_type: ExcelAnalyzer::Analyzer::XLSX_CONTENT_TYPE)
+        fake_blob(content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
       end
 
       it { is_expected.to eq true }
@@ -21,12 +21,12 @@ RSpec.describe ExcelAnalyzer::Analyzer do
   end
 
   describe "#metadata" do
-    let(:metadata) { ExcelAnalyzer::Analyzer.new(blob).metadata }
+    let(:metadata) { ExcelAnalyzer::XlsAnalyzer.new(blob).metadata }
 
     context "when the blob is an Excel file with hidden data" do
       let(:blob) do
-        fake_blob(io: File.open(File.join(__dir__, "../fixtures/suspect.xlsx")),
-                  content_type: ExcelAnalyzer::Analyzer::XLSX_CONTENT_TYPE)
+        fake_blob(io: File.open(File.join(__dir__, "../fixtures/suspect.xls")),
+                  content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
       end
 
       it "detects pivot cache" do
@@ -52,8 +52,8 @@ RSpec.describe ExcelAnalyzer::Analyzer do
 
     context "when the blob is an Excel file without hidden data" do
       let(:blob) do
-        fake_blob(io: File.open(File.join(__dir__, "../fixtures/data.xlsx")),
-                  content_type: ExcelAnalyzer::Analyzer::XLSX_CONTENT_TYPE)
+        fake_blob(io: File.open(File.join(__dir__, "../fixtures/data.xls")),
+                  content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
       end
 
       it "does not detect hidden data" do
@@ -74,9 +74,7 @@ RSpec.describe ExcelAnalyzer::Analyzer do
       end
 
       it "returns an error metadata" do
-        expect(metadata[:excel]).to eq(
-          error: "Zip end of central directory signature not found"
-        )
+        expect(metadata[:excel]).to eq(error: "LibreOffice conversion failed")
       end
     end
   end

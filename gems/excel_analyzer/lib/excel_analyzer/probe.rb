@@ -1,37 +1,16 @@
-require "active_storage"
-require "active_storage/analyzer"
 require "nokogiri"
 require "zip"
 
 module ExcelAnalyzer
   ##
-  # The Analyzer class is responsible for analyzing Excel files uploaded through
-  # Active Storage. It checks for various features within the Excel file such as
+  # It checks for various features within the Excel (.xlsx) file such as
   # hidden rows, columns, sheets, pivot caches, and external links.
   #
-  # The class uses rubyzip and Nokogiri for reading and parsing the contents of
-  # the Excel (.xlsx) files.
+  # The module uses rubyzip and Nokogiri for reading and parsing the contents.
   #
-  class Analyzer < ActiveStorage::Analyzer
-    XLSX_CONTENT_TYPE =
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-
-    def self.accept?(blob)
-      blob.content_type == XLSX_CONTENT_TYPE
-    end
-
-    def metadata
-      { excel: excel_metadata }
-    end
-
-    private
-
-    def excel_metadata
-      download_blob_to_tempfile(&method(:probe))
-    end
-
-    def probe(tempfile)
-      Zip::File.open(tempfile.path) do |zip_file|
+  module Probe
+    def probe(io)
+      Zip::File.open(io.path) do |zip_file|
         {
           pivot_cache: zip_file.glob("xl/pivotCache/*").any?,
           external_links: zip_file.glob("xl/externalLinks/*").any?,
@@ -40,10 +19,9 @@ module ExcelAnalyzer
           hidden_sheets: hidden_sheets?(zip_file)
         }
       end
-
-    rescue StandardError => ex
-      { error: ex.message }
     end
+
+    private
 
     def namespace
       { "ns" => "http://schemas.openxmlformats.org/spreadsheetml/2006/main" }
