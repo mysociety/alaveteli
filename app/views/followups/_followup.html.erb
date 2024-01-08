@@ -117,11 +117,14 @@
 
     <% form_url =
          if incoming_message.nil?
-           preview_request_followups_url(request_id: @info_request.id)
+           preview_request_followups_url(
+             request_url_title: @info_request.url_title
+           )
          else
            preview_request_followups_url(
-             request_id: @info_request.id,
-             incoming_message_id: incoming_message.id)
+             request_url_title: @info_request.url_title,
+             incoming_message_id: incoming_message.id
+           )
          end -%>
     <%= form_for @outgoing_message,
                  html: { id: 'followup_form' },

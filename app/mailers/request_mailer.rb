@@ -133,7 +133,7 @@ class RequestMailer < ApplicationMailer
   # Tell the requester that they need to say if the new response
   # contains info or not
   def new_response_reminder_alert(info_request, incoming_message)
-    target = show_request_url(info_request,
+    target = show_request_url(info_request.url_title,
                               anchor: 'describe_state_form_1',
                               only_path: true)
     @url = signin_url(r: target)
@@ -162,9 +162,11 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that they need to clarify their request
   def not_clarified_alert(info_request, incoming_message)
-    respond_url = new_request_incoming_followup_url(request_id: info_request.id,
-                                                    incoming_message_id: incoming_message.id,
-                                                    anchor: 'followup')
+    respond_url = new_request_incoming_followup_url(
+      info_request.url_title,
+      incoming_message_id: incoming_message.id,
+      anchor: 'followup'
+    )
     @url = respond_url
     @incoming_message = incoming_message
     @info_request = info_request

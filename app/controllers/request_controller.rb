@@ -11,7 +11,6 @@ class RequestController < ApplicationController
 
   before_action :check_read_only, only: [:new, :upload_response]
   before_action :set_render_recaptcha, only: [ :new ]
-  before_action :redirect_numeric_id_to_url_title, only: [:show]
   before_action :set_info_request, only: [:show]
   before_action :redirect_embargoed_requests_for_pro_users, only: [:show]
   before_action :redirect_public_requests_from_pro_context, only: [:show]
@@ -331,7 +330,7 @@ class RequestController < ApplicationController
       end
     end
 
-    redirect_to show_request_path(url_title: @info_request.url_title)
+    redirect_to show_request_path(@info_request.url_title)
   end
 
   # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to
@@ -710,18 +709,6 @@ class RequestController < ApplicationController
   def set_render_recaptcha
     @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
                         (!@user || !@user.confirmed_not_spam?)
-  end
-
-  def redirect_numeric_id_to_url_title
-    # Look up by old style numeric identifiers
-    if params[:url_title].match(/^[0-9]+$/)
-      @info_request = InfoRequest.find(params[:url_title].to_i)
-      # We don't want to leak the title of embargoed or hidden requests, so
-      # don't even redirect on if the user can't access the request
-      return render_hidden if cannot?(:read, @info_request)
-
-      redirect_to request_url(@info_request, format: params[:format])
-    end
   end
 
   def redirect_embargoed_requests_for_pro_users

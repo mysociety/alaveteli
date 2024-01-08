@@ -10,7 +10,7 @@ module LinkToHelper
 
   # Requests
   def request_url(info_request, options = {})
-    show_request_url({ url_title: info_request.url_title }.merge(options))
+    show_request_url(info_request.url_title, options)
   end
 
   def request_path(info_request, options = {})
@@ -80,9 +80,12 @@ module LinkToHelper
   def respond_to_last_url(info_request, options = {})
     last_response = info_request.get_last_public_response
     if last_response.nil?
-      new_request_followup_url(options.merge(request_id: info_request.id))
+      new_request_followup_url(info_request.url_title, options)
     else
-      new_request_incoming_followup_url(options.merge(request_id: info_request.id, incoming_message_id: last_response.id))
+      new_request_incoming_followup_url(
+        info_request.url_title,
+        options.merge(incoming_message_id: last_response.id)
+      )
     end
   end
 

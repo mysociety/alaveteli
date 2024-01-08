@@ -24,6 +24,8 @@ class AdminConstraint # :nodoc:
 end
 
 Rails.application.routes.draw do
+  draw :redirects
+
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   root to: 'general#frontpage'
@@ -125,13 +127,14 @@ Rails.application.routes.draw do
         :as => :similar_request,
         :via => :get
 
-  match '/request/:id/response/:incoming_message_id/attach/html' \
-        '/(:part(/*file_name))' => 'attachments#show_as_html',
+  match '/request/:request_url_title/response/:incoming_message_id/attach' \
+        '/html/(:part(/*file_name))' => 'attachments#show_as_html',
         :format => false,
         :as => :get_attachment_as_html,
         :via => :get,
         :constraints => { :part => /\d+/ }
-  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'attachments#show',
+  match '/request/:request_url_title/response/:incoming_message_id/attach' \
+        '/:part(/*file_name)' => 'attachments#show',
         :format => false,
         :as => :get_attachment,
         :via => :get,
@@ -187,16 +190,17 @@ Rails.application.routes.draw do
   end
 
   #### Followups controller
-  match '/request/:request_id/followups/new' => 'followups#new',
+  match '/request/:request_url_title/followups/new' => 'followups#new',
         :as => :new_request_followup,
         :via => :get
-  match '/request/:request_id/followups/new/:incoming_message_id' => 'followups#new',
+  match '/request/:request_url_title/followups/new/:incoming_message_id' =>
+          'followups#new',
         :as => :new_request_incoming_followup,
         :via => :get
-  match '/request/:request_id/followups/preview' => 'followups#preview',
+  match '/request/:request_url_title/followups/preview' => 'followups#preview',
         :as => :preview_request_followups,
         :via => :post
-  match '/request/:request_id/followups' => 'followups#create',
+  match '/request/:request_url_title/followups' => 'followups#create',
         :as => :request_followups,
         :via => :post
   ####
@@ -230,7 +234,7 @@ Rails.application.routes.draw do
   end
   get '/health_checks' => redirect('/health/checks')
 
-  resources :request, :only => [] do
+  resources :request, :only => [], param: :url_title do
     resource :report, :only => [:new, :create]
     resource :widget, :only => [:new, :show]
     resources :widget_votes, :only => [:create]

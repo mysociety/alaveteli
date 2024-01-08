@@ -644,8 +644,9 @@ RSpec.describe RequestMailer do
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
 
-      redirect_target =
-        show_request_path(info_request, anchor: 'describe_state_form_1')
+      redirect_target = show_request_path(
+        info_request.url_title, anchor: 'describe_state_form_1'
+      )
 
       expect(mail_url).to eq(signin_url(r: redirect_target))
 
@@ -745,8 +746,11 @@ RSpec.describe RequestMailer do
         mail.body.to_s =~ /(http:\/\/.*)/
         mail_url = $1
 
-        expect(mail_url).
-          to match(new_request_followup_path(@kitten_request.id))
+        expect(mail_url).to match(
+          new_request_followup_path(
+            request_url_title: @kitten_request.url_title
+          )
+        )
       end
     end
 
@@ -855,8 +859,11 @@ RSpec.describe RequestMailer do
           mail.body.to_s =~ /(http:\/\/.*)/
           mail_url = $1
 
-          expect(mail_url).
-            to match(new_request_followup_path(@kitten_request.id))
+          expect(mail_url).to match(
+            new_request_followup_path(
+              request_url_title: @kitten_request.url_title
+            )
+          )
         end
       end
 
@@ -935,9 +942,12 @@ RSpec.describe RequestMailer do
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
 
-      expect(mail_url).
-        to match(new_request_incoming_followup_path(request_id: ir.id,
-                                    incoming_message_id: ir.incoming_messages.last.id))
+      expect(mail_url).to match(
+        new_request_incoming_followup_path(
+          ir.url_title,
+          incoming_message_id: ir.incoming_messages.last.id
+        )
+      )
     end
 
     it "skips requests that don't have a public last response" do

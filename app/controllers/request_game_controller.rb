@@ -52,7 +52,7 @@ class RequestGameController < ApplicationController
       )
       return
     end
-    redirect_to show_request_url(url_title: url_title)
+    redirect_to show_request_url(url_title)
   end
 
   def stop

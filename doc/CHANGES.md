@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Change request URL patterns to only use titles rather than request IDs
+  (Alexander Griffen, Graeme Porteous)
 * Colourise holding pen guess scores (Gareth Rees)
 * Fix default holding pen guess scores (Gareth Rees)
 * Add support for Debian 12 "Bookworm" (Graeme Porteous)

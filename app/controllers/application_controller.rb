@@ -279,10 +279,7 @@ class ApplicationController < ActionController::Base
   # Return logged in user
   def authenticated_user
     return unless session[:user_id]
-
-    @user ||= User.find_by(
-      id: session[:user_id], login_token: session[:user_login_token]
-    )
+    @user ||= User.authenticate_from_session(session)
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method

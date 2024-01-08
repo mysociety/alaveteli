@@ -124,7 +124,7 @@ scope.each do |incoming_message|
   mail[:bcc]   = censor(mail[:bcc].to_s)
 
   print show_request_url(
-    url_title: @incoming_message.info_request.url_title,
+    @incoming_message.info_request.url_title,
     anchor: "incoming-#{@incoming_message.id}"
   )
 

@@ -8,7 +8,7 @@ RSpec.describe 'when making a zipfile available' do
 
   def inspect_zip_download(session, info_request)
     using_session(session) do
-      visit show_request_path(info_request)
+      visit show_request_path(info_request.url_title)
       within('.request-header__action-bar') do
         find_link('Download a zip file of all correspondence').click
       end
@@ -230,7 +230,7 @@ RSpec.describe 'when making a zipfile available' do
 
         # Non-owner can't
         using_session(@non_owner) do
-          visit show_request_path(@info_request)
+          visit show_request_path(@info_request.url_title)
           expect(page).to have_content 'Request has been removed'
           visit download_entire_request_path(@info_request.url_title)
           expect(page.status_code).to eq(403)

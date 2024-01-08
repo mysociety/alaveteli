@@ -41,7 +41,7 @@ RSpec.describe "pro request list" do
       expect(page).to have_css("#info-request-#{request.id}")
 
       within("#info-request-#{request.id}") do
-        request_path = show_request_path(url_title: request.url_title)
+        request_path = show_request_path(request.url_title)
         expect(page).to have_link(request.title, href: request_path)
         expect(page).to have_content(request.created_at.strftime('%d-%m-%Y'))
         expect(page).to have_content(request.updated_at.strftime('%d-%m-%Y'))
@@ -131,7 +131,7 @@ RSpec.describe "pro request list" do
         batch.info_requests.each do |request|
           expect(page).to have_css("info-request-#{request.id}")
           within("info-request-#{request.id}") do
-            request_path = show_request_path(request.id)
+            request_path = show_request_path(request.url_title)
             expect(page).to have_content(request.public_body.name)
             expect(page).to have_content("Awaiting response")
           end

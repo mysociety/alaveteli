@@ -158,14 +158,15 @@ RSpec.describe InfoRequestHelper do
                         'title="2014-12-31 00:00:00 UTC">' \
                         'December 31, 2014</time>'
 
+        path = new_request_followup_path(
+          info_request.url_title, internal_review: 1
+        )
         expected = "Response to this request is <strong>long overdue" \
                    "</strong>. By law, under all circumstances, " \
                    "#{ body_link } should have responded by now " \
                    "(<a href=\"/help/requesting#quickly_response\">details" \
                    "</a>). You can <strong>complain</strong> by " \
-                   "<a href=\"/request/#{info_request.id}/followups/new?" \
-                   "internal_review=1\">requesting an internal " \
-                   "review</a>."
+                   "<a href=\"#{path}\">requesting an internal review</a>."
 
         expect(status_text(info_request)).to eq(expected)
 
@@ -189,15 +190,16 @@ RSpec.describe InfoRequestHelper do
                           'title="2014-12-31 00:00:00 UTC">' \
                           'December 31, 2014</time>'
 
+          path = new_request_followup_path(
+            info_request.url_title, internal_review: 1
+          )
           expected = "Response to this request is <strong>long overdue" \
                      "</strong>. " \
                      "Although not legally required to do so, we would have " \
                      "expected #{ body_link } to have responded by now " \
                      "(<a href=\"/help/requesting#authorities\">details" \
                      "</a>). You can <strong>complain</strong> by " \
-                     "<a href=\"/request/#{info_request.id}/followups/new?" \
-                     "internal_review=1\">requesting an internal " \
-                     "review</a>."
+                     "<a href=\"#{path}\">requesting an internal review</a>."
 
           expect(status_text(info_request)).to eq(expected)
 
@@ -293,10 +295,10 @@ RSpec.describe InfoRequestHelper do
           to receive(:get_last_public_response).
           and_return(nil)
 
+        path = new_request_followup_path(info_request.url_title)
         expected = "#{ body.name } is <strong>waiting for your clarification" \
-                   "</strong>. Please " \
-                   "<a href=\"/request/#{info_request.id}/followups/new\">" \
-                   "send a follow up message</a>."
+                   "</strong>. Please <a href=\"#{path}\">send a follow up " \
+                   "message</a>."
 
         actual = status_text(info_request, is_owning_user: true)
 
@@ -642,7 +644,7 @@ RSpec.describe InfoRequestHelper do
     context 'when given no format options' do
       it 'returns the path to the attachment with a cookie cookie_passthrough param' do
         expect(attachment_path(jpeg_attachment)).to eq(
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}/" \
           "attach/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg?cookie_passthrough=1"
@@ -653,7 +655,7 @@ RSpec.describe InfoRequestHelper do
     context 'when given an html format option' do
       it 'returns the path to the HTML version of the attachment' do
         expect(attachment_path(jpeg_attachment, html: true)).to eq(
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}" \
           "/attach/html/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg.html"
@@ -684,7 +686,7 @@ RSpec.describe InfoRequestHelper do
       it 'returns the URL to the attachment with a cookie cookie_passthrough param' do
         expect(attachment_url(jpeg_attachment)).to eq(
           "http://test.host" \
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}" \
           "/attach/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg?cookie_passthrough=1"
@@ -696,7 +698,7 @@ RSpec.describe InfoRequestHelper do
       it 'returns the URL to the HTML version of the attachment' do
         expect(attachment_url(jpeg_attachment, html: true)).to eq(
           "http://test.host" \
-          "/request/#{incoming_message.info_request_id}" \
+          "/request/#{incoming_message.info_request.url_title}" \
           "/response/#{incoming_message.id}" \
           "/attach/html/#{jpeg_attachment.url_part_number}" \
           "/interesting.jpg.html"

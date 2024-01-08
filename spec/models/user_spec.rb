@@ -678,6 +678,30 @@ RSpec.describe User do
     end
   end
 
+  describe '.authenticate_from_session' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'finds a user by ID and login token' do
+      session = { user_id: user.id, user_login_token: user.login_token }
+      expect(User.authenticate_from_session(session)).to eq(user)
+    end
+
+    it 'returns nil without user_id session' do
+      session = { user_id: nil }
+      expect(User.authenticate_from_session(session)).to be_nil
+    end
+
+    it "returns nil when user ID doesn't match" do
+      session = { user_id: 1, user_login_token: user.login_token }
+      expect(User.authenticate_from_session(session)).to be_nil
+    end
+
+    it "returns nil when user login token doesn't match" do
+      session = { user_id: user.id, user_login_token: 'ABC' }
+      expect(User.authenticate_from_session(session)).to be_nil
+    end
+  end
+
   describe '.stay_logged_in_on_redirect?' do
     it 'is false if the user is nil' do
       expect(User.stay_logged_in_on_redirect?(nil)).to be_falsey

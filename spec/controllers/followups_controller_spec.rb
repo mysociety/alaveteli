@@ -15,7 +15,7 @@ RSpec.describe FollowupsController do
       it 'raises an ActiveRecord::RecordNotFound error for an embargoed request' do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
-          get :new, params: { request_id: embargoed_request.id }
+          get :new, params: { request_url_title: embargoed_request.url_title }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -28,22 +28,22 @@ RSpec.describe FollowupsController do
       it 'finds their own embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
-        get :new, params: { request_id: embargoed_request.id }
+        get :new, params: { request_url_title: embargoed_request.url_title }
         expect(response).to be_successful
       end
 
       it "displays 'wrong user' message when not logged in as the request owner" do
         get :new, params: {
-                    request_id: request.id,
-                    incoming_message_id: message_id
-                  }
+          request_url_title: request.url_title,
+          incoming_message_id: message_id
+        }
         expect(response).to render_template('user/wrong_user')
       end
 
       it 'raises an ActiveRecord::RecordNotFound error for other embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
-          get :new, params: { request_id: embargoed_request.id }
+          get :new, params: { request_url_title: embargoed_request.url_title }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -51,22 +51,22 @@ RSpec.describe FollowupsController do
     it "displays 'wrong user' message when not logged in as the request owner" do
       sign_in FactoryBot.create(:user)
       get :new, params: {
-                  request_id: request.id,
-                  incoming_message_id: message_id
-                }
+        request_url_title: request.url_title,
+        incoming_message_id: message_id
+      }
       expect(response).to render_template('user/wrong_user')
     end
 
     it "does not allow follow ups to external requests" do
       sign_in FactoryBot.create(:user)
       external_request = FactoryBot.create(:external_request)
-      get :new, params: { request_id: external_request.id }
+      get :new, params: { request_url_title: external_request.url_title }
       expect(response).to render_template('followup_bad')
       expect(assigns[:reason]).to eq('external')
     end
 
     it "redirects to the signin page if not logged in" do
-      get :new, params: { request_id: request.id }
+      get :new, params: { request_url_title: request.url_title }
       expect(response).
         to redirect_to(signin_url(token: get_last_post_redirect.token))
     end
@@ -74,14 +74,14 @@ RSpec.describe FollowupsController do
     it "calls the message a followup if there is an incoming message" do
       expected_reason = "To send a follow up message " \
         "to #{request.public_body.name}"
-      get :new, params: { request_id: request.id,
+      get :new, params: { request_url_title: request.url_title,
                           incoming_message_id: message_id }
       expect(get_last_post_redirect.reason_params[:web]).to eq(expected_reason)
     end
 
     it "calls the message a reply if there is no incoming message" do
       expected_reason = "To reply to #{request.public_body.name}."
-      get :new, params: { request_id: request.id }
+      get :new, params: { request_url_title: request.url_title }
       expect(get_last_post_redirect.reason_params[:web]).to eq(expected_reason)
     end
 
@@ -91,12 +91,12 @@ RSpec.describe FollowupsController do
       end
 
       it "shows the followup form" do
-        get :new, params: { request_id: request.id }
+        get :new, params: { request_url_title: request.url_title }
         expect(response).to render_template('new')
       end
 
       it "shows the followup form when replying to an incoming message" do
-        get :new, params: { request_id: request.id,
+        get :new, params: { request_url_title: request.url_title,
                             incoming_message_id: message_id }
         expect(response).to render_template('new')
       end
@@ -105,7 +105,7 @@ RSpec.describe FollowupsController do
         before { request.create_embargo!(embargo_duration: '3_months') }
 
         it 'shows the followup form' do
-          get :new, params: { request_id: request.id }
+          get :new, params: { request_url_title: request.url_title }
           expect(response).to render_template('new')
         end
       end
@@ -122,7 +122,7 @@ RSpec.describe FollowupsController do
         end
 
         it "offers the opportunity to reply to the main address" do
-          get :new, params: { request_id: request.id,
+          get :new, params: { request_url_title: request.url_title,
                               incoming_message_id: message_id }
           expect(response.body).
             to have_css("div#other_recipients ul li",
@@ -131,9 +131,9 @@ RSpec.describe FollowupsController do
 
         it "offers an opportunity to reply to another address" do
           get :new, params: {
-                      request_id: request.id,
-                      incoming_message_id: message_id
-                    }
+            request_url_title: request.url_title,
+            incoming_message_id: message_id
+          }
           expect(response.body).
             to have_css("div#other_recipients ul li", text: "Frob")
         end
@@ -146,7 +146,7 @@ RSpec.describe FollowupsController do
         end
 
         it "does not show the form, even to the request owner" do
-          get :new, params: { request_id: hidden_request.id }
+          get :new, params: { request_url_title: hidden_request.url_title }
           expect(response).to render_template('request/hidden')
         end
 
@@ -154,10 +154,10 @@ RSpec.describe FollowupsController do
           incoming_message_id = hidden_request.incoming_messages[0].id
           expect do
             get :new, params: {
-                        request_id: hidden_request.id,
-                        incoming_message_id: incoming_message_id,
-                        format: 'json'
-                      }
+              request_url_title: hidden_request.url_title,
+              incoming_message_id: incoming_message_id,
+              format: 'json'
+            }
           end.to raise_error ActionController::UnknownFormat
         end
       end
@@ -167,7 +167,7 @@ RSpec.describe FollowupsController do
       it "does not allow follow ups to external requests" do
         sign_in FactoryBot.create(:user)
         external_request = FactoryBot.create(:external_request)
-        get :new, params: { request_id: external_request.id }
+        get :new, params: { request_url_title: external_request.url_title }
         expect(response).to render_template('followup_bad')
         expect(assigns[:reason]).to eq('external')
       end
@@ -175,8 +175,8 @@ RSpec.describe FollowupsController do
       it 'the response code should be successful' do
         sign_in FactoryBot.create(:user)
         get :new, params: {
-                    request_id: FactoryBot.create(:external_request).id
-                  }
+          request_url_title: FactoryBot.create(:external_request).url_title
+        }
         expect(response).to be_successful
       end
     end
@@ -190,7 +190,7 @@ RSpec.describe FollowupsController do
       it "sets @in_pro_area" do
         sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
-          get :new, params: { request_id: embargoed_request.id }
+          get :new, params: { request_url_title: embargoed_request.url_title }
           expect(assigns[:in_pro_area]).to eq true
         end
       end
@@ -204,7 +204,7 @@ RSpec.describe FollowupsController do
           request, internal_review: false, user: request.user
         ).and_call_original
 
-        get :new, params: { request_id: request.id }
+        get :new, params: { request_url_title: request.url_title }
       end
 
       it 'initialise with internal_review option' do
@@ -212,11 +212,14 @@ RSpec.describe FollowupsController do
           request, internal_review: true, user: request.user
         ).and_call_original
 
-        get :new, params: { request_id: request.id, internal_review: 1 }
+        get :new, params: {
+          request_url_title: request.url_title,
+          internal_review: 1
+        }
       end
 
       it 'assigns @refusal_advice' do
-        get :new, params: { request_id: request.id }
+        get :new, params: { request_url_title: request.url_title }
         expect(assigns[:refusal_advice]).to be_a(RefusalAdvice)
       end
     end
@@ -233,18 +236,18 @@ RSpec.describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
           post :preview, params: {
-                           outgoing_message: dummy_message,
-                           request_id: embargoed_request.id
-                         }
+            outgoing_message: dummy_message,
+            request_url_title: embargoed_request.url_title
+          }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it "redirects to the signin page" do
         post :preview, params: {
-                         outgoing_message: dummy_message,
-                         request_id: request.id,
-                         incoming_message_id: message_id
-                       }
+          outgoing_message: dummy_message,
+          request_url_title: request.url_title,
+          incoming_message_id: message_id
+        }
         expect(response).
           to redirect_to(signin_url(token: get_last_post_redirect.token))
       end
@@ -259,9 +262,9 @@ RSpec.describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
         post :preview, params: {
-                         outgoing_message: dummy_message,
-                         request_id: embargoed_request.id
-                       }
+          outgoing_message: dummy_message,
+          request_url_title: embargoed_request.url_title
+        }
         expect(response).to be_successful
       end
 
@@ -269,9 +272,9 @@ RSpec.describe FollowupsController do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
           post :preview, params: {
-                           outgoing_message: dummy_message,
-                           request_id: embargoed_request.id
-                         }
+            outgoing_message: dummy_message,
+            request_url_title: embargoed_request.url_title
+          }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -279,10 +282,10 @@ RSpec.describe FollowupsController do
     it "displays a wrong user message when not logged in as the request owner" do
       sign_in FactoryBot.create(:user)
       post :preview, params: {
-                       outgoing_message: dummy_message,
-                       request_id: request.id,
-                       incoming_message_id: message_id
-                     }
+        outgoing_message: dummy_message,
+        request_url_title: request.url_title,
+        incoming_message_id: message_id
+      }
       expect(response).to render_template('user/wrong_user')
     end
 
@@ -293,13 +296,13 @@ RSpec.describe FollowupsController do
 
       it "displays the edit form with an error when the message body is blank" do
         post :preview, params: {
-                         request_id: request.id,
-                         outgoing_message: {
-                           body: "",
-                           what_doing: "normal_sort"
-                         },
-                         incoming_message_id: message_id
-                       }
+          request_url_title: request.url_title,
+          outgoing_message: {
+            body: "",
+            what_doing: "normal_sort"
+          },
+          incoming_message_id: message_id
+        }
 
         expect(response).to render_template("new")
         expect(response.body).to include("Please enter your follow up message")
@@ -308,7 +311,7 @@ RSpec.describe FollowupsController do
       it "shows a preview when input is good" do
         post :preview, params: {
                          outgoing_message: dummy_message,
-                         request_id: request.id,
+                         request_url_title: request.url_title,
                          incoming_message_id: message_id,
                          preview: 1
                        }
@@ -318,7 +321,7 @@ RSpec.describe FollowupsController do
       it "allows re-editing of a preview" do
         post :preview, params: {
                          outgoing_message: dummy_message,
-                         request_id: request.id,
+                         request_url_title: request.url_title,
                          incoming_message_id: message_id,
                          reedit: "Re-edit this request"
                        }
@@ -335,7 +338,7 @@ RSpec.describe FollowupsController do
       it "sets @in_pro_area" do
         sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
-          get :new, params: { request_id: embargoed_request.id }
+          get :new, params: { request_url_title: embargoed_request.url_title }
           expect(assigns[:in_pro_area]).to eq true
         end
       end
@@ -356,7 +359,7 @@ RSpec.describe FollowupsController do
       it 'sends the followup message' do
         post :create, params: {
                         outgoing_message: dummy_message,
-                        request_id: request.id,
+                        request_url_title: request.url_title,
                         incoming_message_id: message_id
                       }
 
@@ -380,7 +383,7 @@ RSpec.describe FollowupsController do
         expect {
           post :create, params: {
                           outgoing_message: dummy_message,
-                          request_id: embargoed_request.id
+                          request_url_title: embargoed_request.url_title
                         }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -388,7 +391,7 @@ RSpec.describe FollowupsController do
       it "redirects to the signin page" do
         post :create, params: {
                         outgoing_message: dummy_message,
-                        request_id: request.id,
+                        request_url_title: request.url_title,
                         incoming_message_id: message_id
                       }
         expect(response).
@@ -404,10 +407,10 @@ RSpec.describe FollowupsController do
       it 'finds their own embargoed requests' do
         embargoed_request = FactoryBot.create(:embargoed_request,
                                               user: pro_user)
-        expected_url = show_request_url(url_title: embargoed_request.url_title)
+        expected_url = show_request_url(embargoed_request.url_title)
         post :create, params: {
                         outgoing_message: dummy_message,
-                        request_id: embargoed_request.id
+                        request_url_title: embargoed_request.url_title
                       }
         expect(response).to redirect_to(expected_url)
       end
@@ -417,7 +420,7 @@ RSpec.describe FollowupsController do
         expect {
           post :create, params: {
                           outgoing_message: dummy_message,
-                          request_id: embargoed_request.id
+                          request_url_title: embargoed_request.url_title
                         }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -427,7 +430,7 @@ RSpec.describe FollowupsController do
       sign_in FactoryBot.create(:user)
       post :create, params: {
                       outgoing_message: dummy_message,
-                      request_id: request.id,
+                      request_url_title: request.url_title,
                       incoming_message_id: message_id
                     }
       expect(response).to render_template('user/wrong_user')
@@ -436,7 +439,7 @@ RSpec.describe FollowupsController do
     it "gives an error and renders 'show_response' when a body isn't given" do
       post :create, params: {
                       outgoing_message: dummy_message.merge(body: ''),
-                      request_id: request.id,
+                      request_url_title: request.url_title,
                       incoming_message_id: message_id
                     }
 
@@ -449,7 +452,7 @@ RSpec.describe FollowupsController do
       def send_request
         post :create, params: {
                outgoing_message: dummy_message,
-               request_id: request.id,
+               request_url_title: request.url_title,
                incoming_message_id: message_id
              }
       end
@@ -464,7 +467,7 @@ RSpec.describe FollowupsController do
     it "updates the status for successful followup sends" do
       post :create, params: {
                       outgoing_message: dummy_message,
-                      request_id: request.id,
+                      request_url_title: request.url_title,
                       incoming_message_id: message_id
                     }
 
@@ -482,7 +485,7 @@ RSpec.describe FollowupsController do
       it 'reopens the parent request to new responses' do
         post :create, params: {
                         outgoing_message: dummy_message,
-                        request_id: request.id,
+                        request_url_title: request.url_title,
                         incoming_message_id: message_id
                       }
 
@@ -498,7 +501,7 @@ RSpec.describe FollowupsController do
 
       post :create, params: {
                       outgoing_message: dummy_message,
-                      request_id: request.id,
+                      request_url_title: request.url_title,
                       incoming_message_id: message_id
                     }
 
@@ -509,18 +512,18 @@ RSpec.describe FollowupsController do
     it "redirects to the request page" do
       post :create, params: {
                       outgoing_message: dummy_message,
-                      request_id: request.id,
+                      request_url_title: request.url_title,
                       incoming_message_id: message_id
                     }
 
       expect(response).
-        to redirect_to(show_request_url(url_title: request.url_title))
+        to redirect_to(show_request_url(request.url_title))
     end
 
     it "displays the a confirmation once the message has been sent" do
       post :create, params: {
                       outgoing_message: dummy_message,
-                      request_id: request.id,
+                      request_url_title: request.url_title,
                       incoming_message_id: message_id
                     }
       expect(flash[:notice]).
@@ -535,7 +538,7 @@ RSpec.describe FollowupsController do
       post :create,
            params: {
              outgoing_message: dummy_message,
-             request_id: closed_request.id,
+             request_url_title: closed_request.url_title,
              incoming_message_id: closed_request.incoming_messages[0].id
            }
       deliveries = ActionMailer::Base.deliveries
@@ -554,13 +557,13 @@ RSpec.describe FollowupsController do
       before(:each) do
         post :create, params: {
                         outgoing_message: dummy_message,
-                        request_id: request.id,
+                        request_url_title: request.url_title,
                         incoming_message_id: message_id
                       }
 
         post :create, params: {
                         outgoing_message: dummy_message,
-                        request_id: request.id,
+                        request_url_title: request.url_title,
                         incoming_message_id: message_id
                       }
       end

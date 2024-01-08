@@ -90,6 +90,7 @@ RSpec.describe "When errors occur" do
     it 'should render a 403 with text body for attempts at directory listing for attachments' do
       info_request = FactoryBot.create(:info_request_with_pdf_attachment)
       id = info_request.id
+      url_title = info_request.url_title
       prefix = id.to_s[0..2]
       msg_id = info_request.incoming_messages.first.id
 
@@ -99,11 +100,11 @@ RSpec.describe "When errors occur" do
       )
       FileUtils.mkdir_p(cache_key_path)
 
-      get "/request/#{id}/response/#{msg_id}/attach/html/1/"
+      get "/request/#{url_title}/response/#{msg_id}/attach/html/1/"
       expect(response.body).to include('Directory listing not allowed')
       expect(response.code).to eq('403')
 
-      get "/request/#{id}/response/#{msg_id}/attach/html"
+      get "/request/#{url_title}/response/#{msg_id}/attach/html"
       expect(response.body).to include('Directory listing not allowed')
       expect(response.code).to eq('403')
     end

@@ -58,7 +58,7 @@ class AttachmentsController < ApplicationController
       if public_token?
         InfoRequest.find_by!(public_token: public_token)
       else
-        InfoRequest.find(params[:id])
+        InfoRequest.find_by!(url_title: params[:request_url_title])
       end
   end
 
