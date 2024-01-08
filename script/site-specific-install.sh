@@ -180,7 +180,13 @@ then
 EOF
 fi
 
-/etc/init.d/rsyslog restart
+if { [ "$DISTRIBUTION" = "ubuntu" ] && [ "$DISTVERSION" = "jammy" ]; } ||
+   { [ "$DISTRIBUTION" = "debian" ] && [ "$DISTVERSION" = "bookworm" ]; }
+then
+  systemctl restart rsyslog.service
+else
+  /etc/init.d/rsyslog restart
+fi
 
 newaliases
 postmap /etc/postfix/transports

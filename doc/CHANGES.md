@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add support for Debian 12 "Bookworm" (Graeme Porteous)
+* Add support for Ubuntu 22.04 LTS "Jammy Jellyfish" (Graeme Porteous)
 * Update alert daemon from init script to systemd (Sam Pearson)
 * Update incoming mail poller daemon from init script to systemd (Sam Pearson)
 * Update notification daemon from init script to systemd (Sam Pearson)
