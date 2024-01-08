@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix default holding pen guess scores (Gareth Rees)
 * Add support for Debian 12 "Bookworm" (Graeme Porteous)
 * Add support for Ubuntu 22.04 LTS "Jammy Jellyfish" (Graeme Porteous)
 * Update alert daemon from init script to systemd (Sam Pearson)
