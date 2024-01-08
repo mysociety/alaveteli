@@ -1,0 +1,23 @@
+#
+# systemd service unit for Alaveteli imcoming mail poller daemon
+#
+[Unit]
+Description=<%= daemon_name %> imports incoming mail into Alaveteli as required
+After=syslog.target network.target
+
+[Service]
+Type=simple
+Environment=PATH="<%= ruby_path %>:/usr/local/bin:/usr/bin:/bin"
+<% unless rails_env_defined? -%>
+Environment=RAILS_ENV=<%= rails_env %>
+<% end -%>
+User=<%= user %>
+WorkingDirectory=<%= vhost_dir %>/<%= vcspath %>
+ExecStart=<%= vhost_dir %>/<%= vcspath %>/script/runner AlaveteliMailPoller.poll_for_incoming_loop
+StandardOutput=append:<%= vhost_dir %>/<%= vcspath %>/log/<%= daemon_name %>.log
+StandardError=inherit
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

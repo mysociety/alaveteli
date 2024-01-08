@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Update alert daemon from init script to systemd (Sam Pearson)
+* Update incoming mail poller daemon from init script to systemd (Sam Pearson)
+* Update notification daemon from init script to systemd (Sam Pearson)
 * Add basic admin notes index page (Gareth Rees)
 * Restore delivery status notification attachment note (Gareth Rees)
 * Explore CSV files in a Datasette Lite instance (Gareth Rees)
@@ -41,6 +44,13 @@
   all in one go, run the following from the app root directory:
 
       bin/rails runner "PublicBody.where('info_requests_visible_count < ?', PublicBody.not_many_public_requests_size).each(&:save)"
+
+* _Optional:_ This release updates the alert, notification and mail poller daemons
+  from init scripts to use systemd. Please remove `/etc/init.d/alaveteli-alert-tracks`,
+  `/etc/init.d/alaveteli-send-notifications` and `/etc/init.d/alaveteli-poll-for-incoming`
+  then regenerate with `rake config_files:convert_daemon`.
+  See [the documentation](https://alaveteli.org/docs/installing/cron_and_daemons/)
+  for more information.
 
 # 0.44.0.0
 
