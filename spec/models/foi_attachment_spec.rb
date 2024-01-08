@@ -48,7 +48,7 @@ RSpec.describe FoiAttachment do
       att = FactoryBot.create(:jpeg_attachment)
       im = FactoryBot.create(:plain_incoming_message)
       att.incoming_message = im
-      request_path = "/request/" + att.incoming_message.info_request.url_title
+      request_path = "/request/" + att.info_request.url_title
       expect(att.cached_urls).to eq([request_path])
     end
   end
@@ -442,6 +442,67 @@ RSpec.describe FoiAttachment do
     context 'with any other content type' do
       let(:foi_attachment) { FactoryBot.build(:rtf_attachment) }
       it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#expire' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    it 'delegates to info_request' do
+      expect(foi_attachment.info_request).to receive(:expire)
+      foi_attachment.expire
+    end
+  end
+
+  describe '#log_event' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    it 'delegates to info_request' do
+      expect(foi_attachment.info_request).to receive(:log_event).with('edit')
+      foi_attachment.log_event('edit')
+    end
+  end
+
+  describe '#update_and_log_event' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:info_request) { incoming_message.info_request }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    def last_event
+      info_request.info_request_events.last
+    end
+
+    it 'updates and logs edit_attachment event' do
+      expect do
+        foi_attachment.update_and_log_event(prominence: 'hidden')
+      end.to change { last_event }
+
+      expect(last_event.event_type).to eq('edit_attachment')
+    end
+
+    it 'logs prominence and reason changes' do
+      foi_attachment.update_and_log_event(
+        prominence: 'hidden', prominence_reason: 'just because'
+      )
+      expect(last_event.params[:old_prominence]).to eq('normal')
+      expect(last_event.params[:prominence]).to eq('hidden')
+      expect(last_event.params[:old_prominence_reason]).to be_nil
+      expect(last_event.params[:prominence_reason]).to eq('just because')
+    end
+
+    it 'logs additional event data' do
+      foi_attachment.update_and_log_event(
+        prominence: 'hidden', event: { editor: 'me' }
+      )
+      expect(last_event.params[:editor]).to eq('me')
+    end
+
+    it 'does not log event if update fails' do
+      expect do
+        foi_attachment.update_and_log_event(prominence: nil)
+      end.to_not change { last_event }
     end
   end
 end
