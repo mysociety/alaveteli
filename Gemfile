@@ -182,7 +182,7 @@ group :test do
 end
 
 group :test, :development do
-  gem 'bullet', '~> 7.1.4'
+  gem 'bullet', '~> 7.1.5'
   gem 'factory_bot_rails', '~> 6.4.3'
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.2.0'
