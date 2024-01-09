@@ -6,6 +6,11 @@ RSpec.describe 'routing redirects', type: :request do
     expect(response).to redirect_to('/request/the_cost_of_boring')
   end
 
+  it 'routes numerical format request route to URL title format route' do
+    get('/request/105.json')
+    expect(response).to redirect_to('/request/the_cost_of_boring.json')
+  end
+
   it 'redirects numerical request routes with locales' do
     get('/fr/request/105')
     expect(response).to redirect_to('/fr/request/the_cost_of_boring')

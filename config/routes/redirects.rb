@@ -26,7 +26,8 @@ info_request_redirect = redirect do |params, request|
   end
 
   # join encoded parts together with slashes
-  encoded_parts.join('/')
+  base = encoded_parts.join('/')
+  params[:format] ? "#{base}.#{params[:format]}" : base
 end
 
 get '/request/:id',
