@@ -130,6 +130,14 @@ RSpec.describe Category, type: :model do
       FactoryBot.create(:category, title: 'Branch', parents: [trunk])
     end
 
+    let!(:other_root) do
+      FactoryBot.create(:category, title: 'InfoRequest')
+    end
+
+    let!(:other_trunk) do
+      FactoryBot.create(:category, title: 'Trunk', parents: [other_root])
+    end
+
     around do |example|
       @query_count = 0
       subscription = ActiveSupport::Notifications.subscribe(
@@ -141,7 +149,7 @@ RSpec.describe Category, type: :model do
       ActiveSupport::Notifications.unsubscribe(subscription)
     end
 
-    it 'returns root category descendents' do
+    it 'returns root category descendents as tree' do
       expect(root.tree).to match_array([trunk])
       expect(root.tree[0].children).to match_array([branch])
     end
@@ -157,6 +165,53 @@ RSpec.describe Category, type: :model do
           child.children.each(&:title)
         end
       }.to_not change { @query_count }
+    end
+  end
+
+  describe '#list' do
+    subject { root.list }
+
+    let!(:root) do
+      FactoryBot.create(:category, title: 'PublicBody')
+    end
+
+    let!(:trunk) do
+      FactoryBot.create(:category, title: 'Trunk', parents: [root])
+    end
+
+    let!(:branch) do
+      FactoryBot.create(:category, title: 'Branch', parents: [trunk])
+    end
+
+    let!(:other_root) do
+      FactoryBot.create(:category, title: 'InfoRequest')
+    end
+
+    let!(:other_trunk) do
+      FactoryBot.create(:category, title: 'Trunk', parents: [other_root])
+    end
+
+    around do |example|
+      @query_count = 0
+      subscription = ActiveSupport::Notifications.subscribe(
+        'sql.active_record'
+      ) { @query_count += 1 }
+
+      example.call
+
+      ActiveSupport::Notifications.unsubscribe(subscription)
+    end
+
+    it 'returns root category descendents as list' do
+      expect(root.list).to match_array([trunk, branch])
+    end
+
+    it 'preload translations' do
+      # load list and perform all necessary DB queries
+      list = root.list.to_a
+
+      # iterate through list and ensure translations have been preloaded
+      expect { list.each(&:title) }.to_not change { @query_count }
     end
   end
 end
