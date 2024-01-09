@@ -20,7 +20,7 @@ RSpec.describe NotifyCacheJob, type: :job do
     allow(AlaveteliConfiguration).to receive(:varnish_hosts).
       and_return(['varnish'])
 
-    stub_request(:purge, /^http:\/\/test\.host(\/(en|es|fr|en_GB))?\/(|body|((feed\/)?body|(feed\/|details\/)?request|(feed\/)?user)\/[a-z0-9_]+|user\/[a-z0-9_]+\/wall)$/).
+    stub_request(:purge, /^http:\/\/test\.host(\/(en|es|fr|en_GB))?\/(|body|((feed\/)?body|request|(feed\/)?user)\/[a-z0-9_]+(\/feed|\/details)?|user\/[a-z0-9_]+\/wall)$/).
       to_return(status: 200, body: "", headers: {})
     stub_request(:ban, 'http://test.host/').
       with(headers:
