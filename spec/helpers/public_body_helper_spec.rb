@@ -54,10 +54,11 @@ RSpec.describe PublicBodyHelper do
     end
 
     it 'handles Unicode' do
-      category = FactoryBot.create(:public_body_category, category_tag: 'spec',
-                                   description: 'ünicode category')
-      heading = FactoryBot.create(:public_body_heading)
-      heading.add_category(category)
+      FactoryBot.create(
+        :category, :public_body,
+        category_tag: 'spec',
+        description: 'ünicode category'
+      )
       public_body = FactoryBot.create(:public_body, tag_string: 'spec')
 
       expect(type_of_authority(public_body)).
@@ -65,15 +66,12 @@ RSpec.describe PublicBodyHelper do
     end
 
     it 'constructs the correct string if there are tags which are not categories' do
-      heading = FactoryBot.create(:public_body_heading)
       3.times do |i|
-        category = FactoryBot.
-          create(
-            :public_body_category,
-            category_tag: "spec_#{i}",
-            description: "spec category #{i}"
-          )
-        heading.add_category(category)
+        FactoryBot.create(
+          :category, :public_body,
+          category_tag: "spec_#{i}",
+          description: "spec category #{i}"
+        )
       end
       public_body = FactoryBot.create(
         :public_body,
@@ -86,13 +84,11 @@ RSpec.describe PublicBodyHelper do
 
     context 'when associated with one category' do
       it 'returns the description wrapped in an anchor tag' do
-        category = FactoryBot.create(
-          :public_body_category,
+        FactoryBot.create(
+          :category, :public_body,
           category_tag: 'spec',
           description: 'spec category'
         )
-        heading = FactoryBot.create(:public_body_heading)
-        heading.add_category(category)
         public_body = FactoryBot.create(:public_body, tag_string: 'spec')
 
         anchor = %Q(<a href="/body/list/spec">Spec category</a>)
@@ -102,14 +98,12 @@ RSpec.describe PublicBodyHelper do
 
     context 'when associated with several categories' do
       it 'joins the category descriptions and capitalizes the first letter' do
-        heading = FactoryBot.create(:public_body_heading)
         3.times do |i|
-          category = FactoryBot.create(
-            :public_body_category,
+          FactoryBot.create(
+            :category, :public_body,
             category_tag: "spec_#{i}",
             description: "spec category #{i}"
           )
-          heading.add_category(category)
         end
         public_body = FactoryBot.create(
           :public_body,
@@ -132,13 +126,11 @@ RSpec.describe PublicBodyHelper do
       it 'creates the anchor href in the correct locale' do
         # Activate the routing filter, normally turned off for helper tests
         RoutingFilter.active = true
-        category = FactoryBot.create(
-          :public_body_category,
+        FactoryBot.create(
+          :category, :public_body,
           category_tag: 'spec',
           description: 'spec category'
         )
-        heading = FactoryBot.create(:public_body_heading)
-        heading.add_category(category)
         public_body = FactoryBot.create(:public_body, tag_string: 'spec')
 
         anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)

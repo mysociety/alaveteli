@@ -16,5 +16,9 @@ FactoryBot.define do
     title { 'Popular authorities' }
     description { 'The most popular authorities' }
     category_tag { 'popular_agency' }
+
+    trait :public_body do
+      parents { [PublicBody.category_root] }
+    end
   end
 end
