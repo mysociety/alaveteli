@@ -13,4 +13,11 @@ RSpec.shared_examples 'concerns/categorisable' do |factory_opts|
       described_class.categories
     end
   end
+
+  describe '.category_list' do
+    it 'calls category_root.list' do
+      expect(described_class).to receive_message_chain(:category_root, :list)
+      described_class.category_list
+    end
+  end
 end

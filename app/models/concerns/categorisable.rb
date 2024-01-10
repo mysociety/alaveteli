@@ -18,5 +18,9 @@ module Categorisable
     def self.categories
       category_root.tree
     end
+
+    def self.category_list
+      category_root.list
+    end
   end
 end

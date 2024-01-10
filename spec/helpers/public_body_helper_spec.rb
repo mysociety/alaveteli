@@ -82,10 +82,11 @@ RSpec.describe PublicBodyHelper do
       expect(type_of_authority(public_body)).to eq(expected)
     end
 
-    context 'when associated with one category' do
+    context 'when categories are descendents of non-root parents' do
       it 'returns the description wrapped in an anchor tag' do
         FactoryBot.create(
-          :category, :public_body,
+          :category,
+          parents: [FactoryBot.build(:category, :public_body)],
           category_tag: 'spec',
           description: 'spec category'
         )
@@ -94,13 +95,12 @@ RSpec.describe PublicBodyHelper do
         anchor = %Q(<a href="/body/list/spec">Spec category</a>)
         expect(type_of_authority(public_body)).to eq(anchor)
       end
-    end
 
-    context 'when associated with several categories' do
       it 'joins the category descriptions and capitalizes the first letter' do
         3.times do |i|
           FactoryBot.create(
-            :category, :public_body,
+            :category,
+            parents: [FactoryBot.build(:category, :public_body)],
             category_tag: "spec_#{i}",
             description: "spec category #{i}"
           )

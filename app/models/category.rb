@@ -53,6 +53,27 @@ class Category < ApplicationRecord
     children.includes(:translations, children: [:translations])
   end
 
+  def list
+    sql = <<~SQL.squish
+      WITH RECURSIVE nested_categories AS (
+        SELECT child_id
+        FROM category_relationships
+        WHERE parent_id = :parent_id
+
+        UNION ALL
+
+        SELECT cr.child_id
+        FROM category_relationships cr
+        INNER JOIN nested_categories nc ON cr.parent_id = nc.child_id
+      )
+      SELECT DISTINCT c.id FROM categories c
+      INNER JOIN nested_categories nc ON c.id = nc.child_id;
+    SQL
+
+    ids = Category.find_by_sql([sql, { parent_id: id }]).map(&:id)
+    Category.where(id: ids).includes(:translations)
+  end
+
   private
 
   def check_tag_assignments
