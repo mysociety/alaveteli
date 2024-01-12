@@ -15,7 +15,6 @@ RSpec.describe NotifyCacheJob, type: :job do
   before do
     @old_include_default_locale_in_urls =
       AlaveteliConfiguration.include_default_locale_in_urls
-    AlaveteliLocalization.set_default_locale_urls(false)
 
     allow(AlaveteliConfiguration).to receive(:varnish_hosts).
       and_return(['varnish'])
@@ -29,12 +28,6 @@ RSpec.describe NotifyCacheJob, type: :job do
             /^\^(\/(en|es|fr|en_GB))?\/(list|feed\/list\/|body\/list)$/
         }).
       to_return(status: 200, body: "", headers: {})
-  end
-
-  after do
-    AlaveteliLocalization.set_default_locale_urls(
-      @old_include_default_locale_in_urls
-    )
   end
 
   context 'when called with a request' do
