@@ -108,11 +108,11 @@ end
 def login(user, **params)
   u = user.is_a?(User) ? user : users(user)
   alaveteli_session(u.id) do
-    visit signin_path(locale: 'en', **params)
+    visit signin_path(**params)
     within '#signin_form' do
-      fill_in "Your e-mail:", with: u.email
-      fill_in "Password:", with: "jonespassword"
-      click_button "Sign in"
+      fill_in "user_signin_email", with: u.email
+      fill_in "user_signin_password", with: "jonespassword"
+      find("input[name='commit']", visible: true).click
     end
   end
   u.id
