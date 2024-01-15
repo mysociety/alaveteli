@@ -165,7 +165,7 @@ gem 'alaveteli_features', path: 'gems/alaveteli_features'
 # Storage backends
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage', require: false
-gem 'google-cloud-storage', '~> 1.46', require: false
+gem 'google-cloud-storage', '~> 1.47', require: false
 
 # Storage content analyzers
 gem 'excel_analyzer', path: 'gems/excel_analyzer'
