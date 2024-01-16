@@ -29,6 +29,22 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
                   content_type: ExcelAnalyzer::XlsxAnalyzer::CONTENT_TYPE)
       end
 
+      it "detects data model" do
+        # stub as creating a fixture file with a data model in LibreOffice is
+        # impossible
+        file = Zip::File.new(blob.io.path, create: false)
+
+        allow(file).to receive("glob").with(any_args).and_call_original
+        allow(file).to receive("glob").with("xl/model/*").and_return([double])
+        allow(ExcelAnalyzer::Metadata).to receive(:new).and_return(
+          ExcelAnalyzer::Metadata.new(file)
+        )
+
+        expect(metadata[:excel][:data_model]).to eq true
+
+        file.close
+      end
+
       it "detects external links" do
         expect(metadata[:excel][:external_links]).to eq true
       end
@@ -58,6 +74,7 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
 
       it "does not detect hidden data" do
         expect(metadata[:excel]).to eq(
+          data_model: false,
           external_links: false,
           hidden_columns: false,
           hidden_rows: false,
@@ -84,7 +101,7 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
   private
 
   def fake_blob(io: nil, content_type:)
-    dbl = double(content_type: content_type)
+    dbl = double(io: io, content_type: content_type)
     allow(dbl).to receive(:open).and_yield(io)
     dbl
   end

@@ -29,6 +29,10 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
                   content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
       end
 
+      it "does not detect data model" do
+        expect(metadata[:excel][:data_model]).to eq false
+      end
+
       it "detects external links" do
         expect(metadata[:excel][:external_links]).to eq true
       end
@@ -58,6 +62,7 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
 
       it "does not detect hidden data" do
         expect(metadata[:excel]).to eq(
+          data_model: false,
           external_links: false,
           hidden_columns: false,
           hidden_rows: false,

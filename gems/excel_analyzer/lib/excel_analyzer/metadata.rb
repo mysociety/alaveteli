@@ -16,6 +16,7 @@ module ExcelAnalyzer
 
     def to_h
       {
+        data_model: data_model?,
         external_links: external_links?,
         hidden_columns: hidden_columns?,
         hidden_rows: hidden_rows?,
@@ -25,6 +26,10 @@ module ExcelAnalyzer
     end
 
     private
+
+    def data_model?
+      file.glob("xl/model/*").any?
+    end
 
     def external_links?
       file.glob("xl/externalLinks/*").any?
