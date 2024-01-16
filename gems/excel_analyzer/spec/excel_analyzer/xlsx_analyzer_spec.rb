@@ -61,6 +61,10 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
         expect(metadata[:excel][:hidden_sheets]).to eq true
       end
 
+      it "detects named ranges" do
+        expect(metadata[:excel][:named_ranges]).to eq true
+      end
+
       it "detects pivot cache" do
         expect(metadata[:excel][:pivot_cache]).to eq true
       end
@@ -79,6 +83,7 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
           hidden_columns: false,
           hidden_rows: false,
           hidden_sheets: false,
+          named_ranges: false,
           pivot_cache: false
         )
       end

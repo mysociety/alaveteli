@@ -21,6 +21,7 @@ module ExcelAnalyzer
         hidden_columns: hidden_columns?,
         hidden_rows: hidden_rows?,
         hidden_sheets: hidden_sheets?,
+        named_ranges: named_ranges?,
         pivot_cache: pivot_cache?
       }
     end
@@ -55,6 +56,10 @@ module ExcelAnalyzer
 
     def pivot_cache?
       file.glob("xl/pivotCache/*").any?
+    end
+
+    def named_ranges?
+      workbook.xpath("//ns:definedName", namespace).any?
     end
 
     def namespace
