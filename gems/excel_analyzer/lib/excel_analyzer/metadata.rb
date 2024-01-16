@@ -45,11 +45,7 @@ module ExcelAnalyzer
     end
 
     def hidden_sheets?
-      workbook_file = file.glob("xl/workbook.xml").first
-      return false unless workbook_file
-
-      doc = Nokogiri::XML(workbook_file.get_input_stream.read)
-      doc.xpath("//ns:sheet", namespace).any?(&method(:hidden?))
+      workbook.xpath("//ns:sheet", namespace).any?(&method(:hidden?))
     end
 
     def pivot_cache?
@@ -64,6 +60,13 @@ module ExcelAnalyzer
       object.attr("hidden") == "true" ||
         object.attr("hidden") == "1" ||
         object.attr("state") == "hidden"
+    end
+
+    def workbook
+      @workbook ||= begin
+        workbook_file = file.glob("xl/workbook.xml").first
+        Nokogiri::XML(workbook_file.get_input_stream.read)
+      end
     end
   end
 end
