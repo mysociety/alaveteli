@@ -6,12 +6,7 @@ module NotesHelper
 
     tag.aside(**options.merge(id: 'notes')) do
       notes.each do |note|
-        note_classes = ['note']
-        note_classes << "tag-#{note.notable_tag}" if note.notable_tag
-
-        concat tag.article sanitize(note.body, tags: allowed_tags),
-                           id: dom_id(note),
-                           class: note_classes
+        concat render_note(note, allowed_tags: allowed_tags)
       end
     end
   end
@@ -24,5 +19,19 @@ module NotesHelper
 
   def batch_notes_allowed_tags
     notes_allowed_tags - %w(pre h1 h2 h3 h4 h5 h6 img blockquote font iframe)
+  end
+
+  private
+
+  def render_note(note, allowed_tags: notes_allowed_tags)
+    note_classes = ['note']
+    note_classes << "tag-#{note.notable_tag}" if note.notable_tag
+
+    locals = {
+      note_classes: note_classes,
+      allowed_tags: allowed_tags
+    }
+
+    render partial: note, locals: locals
   end
 end

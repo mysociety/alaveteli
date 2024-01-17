@@ -1,0 +1,3 @@
+<%= tag.article(id: dom_id(note), class: note_classes) do %>
+  <%= sanitize(note.body, tags: allowed_tags) %>
+<% end %>
