@@ -1,4 +1,4 @@
-require "nokogiri"
+require "rubyXL"
 
 module ExcelAnalyzer
   ##
@@ -8,10 +8,12 @@ module ExcelAnalyzer
   # The class uses Nokogiri for parsing the contents.
   #
   class Metadata
-    attr_reader :file
+    attr_reader :file, :workbook
 
     def initialize(file)
       @file = file
+      @root = RubyXL::WorkbookRoot.parse_zip_file(file)
+      @workbook = @root.workbook
     end
 
     def to_h
@@ -32,51 +34,34 @@ module ExcelAnalyzer
       file.glob("xl/model/*").any?
     end
 
-    def external_links?
-      file.glob("xl/externalLinks/*").any?
+    def external_links
+      !!workbook.external_references
     end
 
-    def hidden_columns?
-      file.glob("xl/worksheets/*.xml").any? do |worksheet_file|
-        doc = Nokogiri::XML(worksheet_file.get_input_stream.read)
-        doc.xpath("//ns:col", namespace).any?(&method(:hidden?))
+    def hidden_columns
+      workbook.worksheets.any? do |sheet|
+        sheet.cols.compact.any?(&:hidden)
       end
     end
 
-    def hidden_rows?
-      file.glob("xl/worksheets/*.xml").any? do |worksheet_file|
-        doc = Nokogiri::XML(worksheet_file.get_input_stream.read)
-        doc.xpath("//ns:row", namespace).any?(&method(:hidden?))
+    def hidden_rows
+      workbook.worksheets.any? do |sheet|
+        sheet.sheet_data.rows.compact.any?(&:hidden)
       end
     end
 
-    def hidden_sheets?
-      workbook.xpath("//ns:sheet", namespace).any?(&method(:hidden?))
-    end
-
-    def pivot_cache?
-      file.glob("xl/pivotCache/*").any?
-    end
-
-    def named_ranges?
-      workbook.xpath("//ns:definedName", namespace).any?
-    end
-
-    def namespace
-      { "ns" => "http://schemas.openxmlformats.org/spreadsheetml/2006/main" }
-    end
-
-    def hidden?(object)
-      object.attr("hidden") == "true" ||
-        object.attr("hidden") == "1" ||
-        object.attr("state") == "hidden"
-    end
-
-    def workbook
-      @workbook ||= begin
-        workbook_file = file.glob("xl/workbook.xml").first
-        Nokogiri::XML(workbook_file.get_input_stream.read)
+    def hidden_sheets
+      workbook.sheets.any? do |sheet|
+        sheet.state != 'visible'
       end
+    end
+
+    def pivot_cache
+      !!workbook.pivot_caches
+    end
+
+    def named_ranges
+      !!workbook.defined_names
     end
   end
 end
