@@ -40,13 +40,27 @@ module ExcelAnalyzer
 
     def hidden_columns
       workbook.worksheets.sum do |sheet|
-        sheet.cols.compact.select(&:hidden).sum { _1.max - _1.min + 1 }
+        hidden_columns = []
+
+        sheet.cols.compact.select(&:hidden).each do |col_range|
+          hidden_columns += (col_range.min..col_range.max).to_a
+        end
+
+        hidden_columns.count do |c|
+          cells = sheet.sheet_data.rows.map { _1[c - 1] }
+          cells.compact.any? { !_1.value.to_s.empty? }
+        end
       end
     end
 
     def hidden_rows
       workbook.worksheets.sum do |sheet|
-        sheet.sheet_data.rows.compact.count(&:hidden)
+        hidden_rows = sheet.sheet_data.rows.compact.select(&:hidden)
+
+        hidden_rows.count do |row|
+          cells = row.cells
+          cells.compact.any? { !_1.value.to_s.empty? }
+        end
       end
     end
 

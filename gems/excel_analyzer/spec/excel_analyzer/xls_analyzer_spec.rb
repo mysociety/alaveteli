@@ -38,11 +38,11 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
       end
 
       it "detects hidden columns" do
-        expect(metadata[:excel][:hidden_columns]).to eq 1
+        expect(metadata[:excel][:hidden_columns]).to eq 2
       end
 
       it "detects hidden rows" do
-        expect(metadata[:excel][:hidden_rows]).to eq 1
+        expect(metadata[:excel][:hidden_rows]).to eq 2
       end
 
       it "detects hidden sheets" do
