@@ -29,24 +29,24 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
                   content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
       end
 
-      it "detects pivot cache" do
-        expect(metadata[:excel][:pivot_cache]).to eq true
-      end
-
       it "detects external links" do
         expect(metadata[:excel][:external_links]).to eq true
-      end
-
-      it "detects hidden rows" do
-        expect(metadata[:excel][:hidden_rows]).to eq true
       end
 
       it "detects hidden columns" do
         expect(metadata[:excel][:hidden_columns]).to eq true
       end
 
+      it "detects hidden rows" do
+        expect(metadata[:excel][:hidden_rows]).to eq true
+      end
+
       it "detects hidden sheets" do
         expect(metadata[:excel][:hidden_sheets]).to eq true
+      end
+
+      it "detects pivot cache" do
+        expect(metadata[:excel][:pivot_cache]).to eq true
       end
     end
 
@@ -58,11 +58,11 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
 
       it "does not detect hidden data" do
         expect(metadata[:excel]).to eq(
-          pivot_cache: false,
           external_links: false,
-          hidden_rows: false,
           hidden_columns: false,
-          hidden_sheets: false
+          hidden_rows: false,
+          hidden_sheets: false,
+          pivot_cache: false
         )
       end
     end
