@@ -1,3 +1,9 @@
 <%= tag.article(id: dom_id(note), class: note_classes) do %>
   <%= sanitize(note.body, tags: allowed_tags) %>
+
+  <% if @user&.admin_page_links? %>
+    <p class="event_actions">
+      <%= link_to 'Admin', edit_admin_note_path(note) %>
+    </p>
+  <% end %>
 <% end %>
