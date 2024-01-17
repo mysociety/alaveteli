@@ -40,33 +40,33 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
           ExcelAnalyzer::Metadata.new(file)
         )
 
-        expect(metadata[:excel][:data_model]).to eq true
+        expect(metadata[:excel][:data_model]).to eq 1
 
         file.close
       end
 
       it "detects external links" do
-        expect(metadata[:excel][:external_links]).to eq true
+        expect(metadata[:excel][:external_links]).to eq 1
       end
 
       it "detects hidden columns" do
-        expect(metadata[:excel][:hidden_columns]).to eq true
+        expect(metadata[:excel][:hidden_columns]).to eq 1
       end
 
       it "detects hidden rows" do
-        expect(metadata[:excel][:hidden_rows]).to eq true
+        expect(metadata[:excel][:hidden_rows]).to eq 1
       end
 
       it "detects hidden sheets" do
-        expect(metadata[:excel][:hidden_sheets]).to eq true
+        expect(metadata[:excel][:hidden_sheets]).to eq 1
       end
 
       it "detects named ranges" do
-        expect(metadata[:excel][:named_ranges]).to eq true
+        expect(metadata[:excel][:named_ranges]).to eq 1
       end
 
       it "detects pivot cache" do
-        expect(metadata[:excel][:pivot_cache]).to eq true
+        expect(metadata[:excel][:pivot_cache]).to eq 1
       end
     end
 
@@ -78,13 +78,13 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
 
       it "does not detect hidden data" do
         expect(metadata[:excel]).to eq(
-          data_model: false,
-          external_links: false,
-          hidden_columns: false,
-          hidden_rows: false,
-          hidden_sheets: false,
-          named_ranges: false,
-          pivot_cache: false
+          data_model: 0,
+          external_links: 0,
+          hidden_columns: 0,
+          hidden_rows: 0,
+          hidden_sheets: 0,
+          named_ranges: 0,
+          pivot_cache: 0
         )
       end
     end

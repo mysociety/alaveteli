@@ -18,50 +18,50 @@ module ExcelAnalyzer
 
     def to_h
       {
-        data_model: data_model?,
-        external_links: external_links?,
-        hidden_columns: hidden_columns?,
-        hidden_rows: hidden_rows?,
-        hidden_sheets: hidden_sheets?,
-        named_ranges: named_ranges?,
-        pivot_cache: pivot_cache?
+        data_model: data_model,
+        external_links: external_links,
+        hidden_columns: hidden_columns,
+        hidden_rows: hidden_rows,
+        hidden_sheets: hidden_sheets,
+        named_ranges: named_ranges,
+        pivot_cache: pivot_cache
       }
     end
 
     private
 
-    def data_model?
-      file.glob("xl/model/*").any?
+    def data_model
+      file.glob("xl/model/*").count
     end
 
     def external_links
-      !!workbook.external_references
+      workbook.external_references&.count || 0
     end
 
     def hidden_columns
-      workbook.worksheets.any? do |sheet|
-        sheet.cols.compact.any?(&:hidden)
+      workbook.worksheets.sum do |sheet|
+        sheet.cols.compact.select(&:hidden).sum { _1.max - _1.min + 1 }
       end
     end
 
     def hidden_rows
-      workbook.worksheets.any? do |sheet|
-        sheet.sheet_data.rows.compact.any?(&:hidden)
+      workbook.worksheets.sum do |sheet|
+        sheet.sheet_data.rows.compact.count(&:hidden)
       end
     end
 
     def hidden_sheets
-      workbook.sheets.any? do |sheet|
+      workbook.sheets.count do |sheet|
         sheet.state != 'visible'
       end
     end
 
     def pivot_cache
-      !!workbook.pivot_caches
+      workbook.pivot_caches&.count || 0
     end
 
     def named_ranges
-      !!workbook.defined_names
+      workbook.defined_names&.count || 0
     end
   end
 end
