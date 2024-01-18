@@ -66,7 +66,7 @@ module ExcelAnalyzer
 
     def hidden_sheets
       workbook.sheets.count do |sheet|
-        sheet.state != 'visible'
+        sheet.state && sheet.state != 'visible'
       end
     end
 
