@@ -29,24 +29,44 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
                   content_type: ExcelAnalyzer::XlsxAnalyzer::CONTENT_TYPE)
       end
 
-      it "detects pivot cache" do
-        expect(metadata[:excel][:pivot_cache]).to eq true
+      it "detects data model" do
+        # stub as creating a fixture file with a data model in LibreOffice is
+        # impossible
+        file = Zip::File.new(blob.io.path, create: false)
+
+        allow(file).to receive("glob").with(any_args).and_call_original
+        allow(file).to receive("glob").with("xl/model/*").and_return([double])
+        allow(ExcelAnalyzer::Metadata).to receive(:new).and_return(
+          ExcelAnalyzer::Metadata.new(file)
+        )
+
+        expect(metadata[:excel][:data_model]).to eq 1
+
+        file.close
       end
 
       it "detects external links" do
-        expect(metadata[:excel][:external_links]).to eq true
-      end
-
-      it "detects hidden rows" do
-        expect(metadata[:excel][:hidden_rows]).to eq true
+        expect(metadata[:excel][:external_links]).to eq 1
       end
 
       it "detects hidden columns" do
-        expect(metadata[:excel][:hidden_columns]).to eq true
+        expect(metadata[:excel][:hidden_columns]).to eq 2
+      end
+
+      it "detects hidden rows" do
+        expect(metadata[:excel][:hidden_rows]).to eq 2
       end
 
       it "detects hidden sheets" do
-        expect(metadata[:excel][:hidden_sheets]).to eq true
+        expect(metadata[:excel][:hidden_sheets]).to eq 1
+      end
+
+      it "detects named ranges" do
+        expect(metadata[:excel][:named_ranges]).to eq 1
+      end
+
+      it "detects pivot cache" do
+        expect(metadata[:excel][:pivot_cache]).to eq 1
       end
     end
 
@@ -58,11 +78,13 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
 
       it "does not detect hidden data" do
         expect(metadata[:excel]).to eq(
-          pivot_cache: false,
-          external_links: false,
-          hidden_rows: false,
-          hidden_columns: false,
-          hidden_sheets: false
+          data_model: 0,
+          external_links: 0,
+          hidden_columns: 0,
+          hidden_rows: 0,
+          hidden_sheets: 0,
+          named_ranges: 0,
+          pivot_cache: 0
         )
       end
     end
@@ -84,7 +106,7 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
   private
 
   def fake_blob(io: nil, content_type:)
-    dbl = double(content_type: content_type)
+    dbl = double(io: io, content_type: content_type)
     allow(dbl).to receive(:open).and_yield(io)
     dbl
   end
