@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add admin link to notes (Gareth Rees)
 * Display metadata on admin attachment views (Graeme Porteous)
 * Change request URL patterns to be member routes (Alexander Griffen, Graeme
   Porteous)
