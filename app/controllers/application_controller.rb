@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
 
-  before_action :set_gettext_locale
+  before_action :set_gettext_locale, :redirect_gettext_locale
   before_action :collect_locales
 
   protect_from_forgery if: :authenticated?, with: :exception
@@ -81,6 +81,9 @@ class ApplicationController < ActionController::Base
       AlaveteliLocalization.default_locale
     )
 
+    # set response header informing the browser what language the page is in
+    response.headers['Content-Language'] = I18n.locale.to_s
+
     # set the current stored locale to the requested_locale
     current_session_locale = session[:locale]
     if current_session_locale != locale
@@ -93,6 +96,11 @@ class ApplicationController < ActionController::Base
 
     # ensure current user locale attribute is up-to-date
     current_user.update_column(:locale, locale) if current_user
+  end
+
+  def redirect_gettext_locale
+    # redirect to remove locale params if present
+    redirect_to current_path_without_locale if params[:locale]
   end
 
   # Help work out which request causes RAM spike.
