@@ -59,4 +59,32 @@ RSpec.describe 'routing redirects', type: :request do
     get('/categorise/request/the_cost_of_boring')
     expect(response).to redirect_to('/request/the_cost_of_boring/categorise')
   end
+
+  it 'redirects locale paths to locale parameter' do
+    get('/fr')
+    expect(response).to redirect_to('/?locale=fr')
+
+    get('/en_GB')
+    expect(response).to redirect_to('/?locale=en_GB')
+
+    get('/fr/help/about')
+    expect(response).to redirect_to('/help/about?locale=fr')
+
+    get('/en_GB/help/about')
+    expect(response).to redirect_to('/help/about?locale=en_GB')
+  end
+
+  it 'redirects to remove locale parameter' do
+    get('/?locale=fr')
+    expect(response).to redirect_to('/')
+
+    get('/?locale=en_GB')
+    expect(response).to redirect_to('/')
+
+    get('/help/about?locale=fr')
+    expect(response).to redirect_to('/help/about')
+
+    get('/help/about?locale=en_GB')
+    expect(response).to redirect_to('/help/about')
+  end
 end

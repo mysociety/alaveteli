@@ -74,3 +74,24 @@ get '/:prefix/request/:url_title',
 get '/:prefix/request/:url_title',
   constraints: { prefix: 'categorise' },
   to: info_request_redirect
+
+locale_constraint = ->(request) do
+  path_locale = request.path.split('/')[1]
+  begin
+    locale = AlaveteliLocalization::Locale.parse(path_locale).canonicalize
+    available = AlaveteliConfiguration.available_locales.split(' ').map do |l|
+      AlaveteliLocalization::Locale.parse(l).canonicalize
+    end
+    available.include?(locale)
+  rescue ArgumentError
+    false
+  end
+end
+
+get ':locale',
+  constraints: locale_constraint,
+  to: redirect('?locale=%{locale}')
+
+get ':locale/*path',
+  constraints: locale_constraint,
+  to: redirect('%{path}?locale=%{locale}')

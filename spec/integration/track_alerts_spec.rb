@@ -61,19 +61,20 @@ RSpec.describe "When sending track alerts" do
     expect(deliveries.size).to eq(0)
   end
 
-  xit "should send localised alerts" do
+  it "should send localised alerts" do
     info_request = FactoryBot.create(:info_request)
-    user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago,
-                                     locale: 'es')
+    user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
     user_session = login(user)
     using_session(user_session) do
-      visit "es/request/#{info_request.url_title}/track"
+      visit "/es"
+      visit "/request/#{info_request.url_title}/track"
     end
 
-    other_user = FactoryBot.create(:user, locale: 'en')
+    other_user = FactoryBot.create(:user)
     other_user_session = login(other_user)
     using_session(other_user_session) do
-      visit "en/request/#{info_request.url_title}/annotate"
+      visit "/en"
+      visit "/request/#{info_request.url_title}/annotate"
       fill_in "comment[body]", with: 'test comment'
       click_button 'Preview your annotation'
       click_button 'Post annotation'
