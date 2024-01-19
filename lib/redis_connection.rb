@@ -1,7 +1,8 @@
 require File.expand_path('../config/load_env.rb', __dir__)
 
 ##
-# Module to parse Redis ENV variables into usable configuration for Sidekiq.
+# Module to parse Redis ENV variables into usable configuration for Sidekiq and
+# ActiveJob::Uniqueness gems.
 #
 module RedisConnection
   def self.instance

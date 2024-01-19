@@ -115,7 +115,8 @@ class FoiAttachment < ApplicationRecord
     end
 
     if persisted?
-      FoiAttachmentMaskJob.perform_once_now(self)
+      FoiAttachmentMaskJob.unlock!(self)
+      FoiAttachmentMaskJob.perform_now(self)
       return body unless destroyed?
     end
 
