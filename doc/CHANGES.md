@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix duplicated attachment masking jobs (Graeme Porteous)
 * Display metadata on admin attachment views (Graeme Porteous)
 * Change request URL patterns to be member routes (Alexander Griffen, Graeme
   Porteous)
