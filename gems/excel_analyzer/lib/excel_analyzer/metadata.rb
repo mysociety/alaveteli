@@ -40,6 +40,8 @@ module ExcelAnalyzer
 
     def hidden_columns
       workbook.worksheets.sum do |sheet|
+        next 0 unless sheet.is_a?(RubyXL::Worksheet)
+
         hidden_columns = []
 
         sheet.cols.compact.select(&:hidden).each do |col_range|
@@ -55,6 +57,8 @@ module ExcelAnalyzer
 
     def hidden_rows
       workbook.worksheets.sum do |sheet|
+        next 0 unless sheet.is_a?(RubyXL::Worksheet)
+
         hidden_rows = sheet.sheet_data.rows.compact.select(&:hidden)
 
         hidden_rows.count do |row|
