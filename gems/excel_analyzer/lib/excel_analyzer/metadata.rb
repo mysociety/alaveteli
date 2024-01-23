@@ -49,7 +49,7 @@ module ExcelAnalyzer
         end
 
         hidden_columns.count do |c|
-          cells = sheet.sheet_data.rows.map { _1[c - 1] }
+          cells = sheet.sheet_data.rows.compact.map { _1[c - 1] }
           cells.compact.any? { !_1.value.to_s.empty? }
         end
       end
