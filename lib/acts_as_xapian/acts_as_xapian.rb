@@ -411,11 +411,8 @@ module ActsAsXapian
       #x = ''
       query.terms.each do |t|
         term = t.term
-        #x = x + term.to_yaml + term.size.to_s + term[0..0] + "*"
-        if term.size >= 2 && term[0..0] == 'Z'
-          # normal terms begin Z (for stemmed), then have no capital letter prefix
-          ret = true if term[1..1] == term[1..1].downcase
-        end
+        # normal terms begin Z (for stemmed), or have no capital letter prefix
+        ret = true if term[0..0] == 'Z' || term[0..0] == term[0..0].downcase
       end
       ret
     end
