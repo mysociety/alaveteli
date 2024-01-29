@@ -176,7 +176,7 @@ group :test do
   gem 'webmock', '~> 3.19.1'
   gem 'simplecov', '~> 0.22.0'
   gem 'simplecov-lcov', '~> 0.7.0'
-  gem 'capybara', '~> 3.39.2'
+  gem 'capybara', '~> 3.40.0'
   gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
                           ref: '6ceea96'
   gem 'rails-controller-testing'
