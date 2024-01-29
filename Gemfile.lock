@@ -169,7 +169,7 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.2.4)
-    bullet (7.1.5)
+    bullet (7.1.6)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     cancancan (3.5.0)
@@ -304,6 +304,7 @@ GEM
     language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
+    libv8-node (18.16.0.0)
     libv8-node (18.16.0.0-aarch64-linux)
     libv8-node (18.16.0.0-arm64-darwin)
     libv8-node (18.16.0.0-x86_64-darwin)
@@ -352,6 +353,9 @@ GEM
     net-ssh-gateway (2.0.0)
       net-ssh (>= 4.0.0)
     nio4r (2.5.9)
+    nokogiri (1.16.0)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.16.0-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.16.0-arm64-darwin)
@@ -568,6 +572,7 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin
+  ruby
   x86_64-darwin
   x86_64-linux
 
@@ -581,7 +586,7 @@ DEPENDENCIES
   azure-storage
   bcrypt (~> 3.1.20)
   bootstrap-sass (~> 2.3.2.2)
-  bullet (~> 7.1.5)
+  bullet (~> 7.1.6)
   cancancan (~> 3.5.0)
   capistrano (~> 2.15.11)
   capybara (~> 3.39.2)
