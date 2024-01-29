@@ -164,6 +164,7 @@ GEM
       faraday (~> 0.9)
       faraday_middleware (~> 0.10)
       nokogiri (~> 1.6, >= 1.6.8)
+    base64 (0.2.0)
     bcrypt (3.1.20)
     bindex (0.8.1)
     bootstrap-sass (2.3.2.2)
@@ -196,7 +197,8 @@ GEM
       rexml
     crass (1.0.6)
     daemons (1.4.1)
-    dalli (3.2.6)
+    dalli (3.2.7)
+      base64
     dante (0.2.0)
     date (3.3.3)
     declarative (0.0.20)
@@ -304,6 +306,7 @@ GEM
     language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
+    libv8-node (18.16.0.0)
     libv8-node (18.16.0.0-aarch64-linux)
     libv8-node (18.16.0.0-arm64-darwin)
     libv8-node (18.16.0.0-x86_64-darwin)
@@ -352,6 +355,9 @@ GEM
     net-ssh-gateway (2.0.0)
       net-ssh (>= 4.0.0)
     nio4r (2.5.9)
+    nokogiri (1.16.0)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.16.0-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.16.0-arm64-darwin)
@@ -568,6 +574,7 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin
+  ruby
   x86_64-darwin
   x86_64-linux
 
@@ -586,7 +593,7 @@ DEPENDENCIES
   capistrano (~> 2.15.11)
   capybara (~> 3.39.2)
   charlock_holmes (~> 0.7.7)
-  dalli (~> 3.2.6)
+  dalli (~> 3.2.7)
   excel_analyzer!
   exception_notification (~> 4.5.0)
   factory_bot_rails (~> 6.4.3)
