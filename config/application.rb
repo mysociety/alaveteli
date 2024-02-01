@@ -31,13 +31,11 @@ module Alaveteli
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.load_defaults 6.1
+    config.load_defaults 7.0
     config.autoloader = :zeitwerk
 
     # Enable new framework defaults configurations for later Rails versions
     # preventing deprecation warnings
-    config.active_record.legacy_connection_handling = false # 7.0
-    config.active_support.use_rfc4122_namespaced_uuids = true # 7.0
     config.active_storage.replace_on_assign_to_many = true # 7.1
 
     # Disable new framework default has_many_inversing breaks some specs due to
