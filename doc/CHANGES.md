@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add admin list of all citations (Gareth Rees)
 * Improve redirection flow after user account closure actions (Gareth Rees)
 * Fix duplicated attachment masking jobs (Graeme Porteous)
 * Display metadata on admin attachment views (Graeme Porteous)
