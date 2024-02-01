@@ -31,7 +31,7 @@ module Alaveteli
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.load_defaults 6.0
+    config.load_defaults 6.1
     config.autoloader = :zeitwerk
 
     # Enable new framework defaults configurations for later Rails versions
