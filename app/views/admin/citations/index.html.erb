@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title = 'Citations' %></h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <p class="lead">
+      Citations link requests to places they’re referenced elsewhere.
+    </p>
+  </div>
+</div>
+
+<%= render partial: 'admin/citations/list',
+           locals: { citations: @citations } %>
+
+<%= will_paginate(@citations) %>

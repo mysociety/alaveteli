@@ -291,6 +291,13 @@ body.admin {
   padding: 2em;
 }
 
+
+/* Citation */
+
+#citations .item-title {
+  word-break: break-all;
+}
+
 /* Toolbox */
 .toolbox {
   summary {

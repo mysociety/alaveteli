@@ -527,6 +527,12 @@ Rails.application.routes.draw do
     resources :changelog, only: [:index]
   end
 
+  #### Admin::Citations controller
+  namespace :admin do
+    resources :citations, only: [:index]
+  end
+  ####
+
   ####
   #### AdminTag controller
   namespace :admin do
