@@ -19,8 +19,8 @@ RSpec.describe AdminUsersAccountClosingController do
         expect(flash[:notice]).to eq('The user account was closed.')
       end
 
-      it 'redirects to the user page' do
-        expect(response).to redirect_to(admin_user_path(user))
+      it 'redirects to the user edit page' do
+        expect(response).to redirect_to(edit_admin_user_path(user))
       end
     end
 

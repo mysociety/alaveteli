@@ -11,7 +11,7 @@ class AdminUsersAccountAnonymisingController < AdminController
       flash[:error] = 'Something went wrong. The user could not be anonymised.'
     end
 
-    redirect_to admin_user_path(@anonymised_user)
+    redirect_to edit_admin_user_path(@anonymised_user)
   end
 
   private
