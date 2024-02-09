@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe 'admin_request/hidden_user_explanation' do
-  let(:reason) do
+  let(:explanation) do
     "We consider it to be vexatious, and have therefore hidden it from other " \
     "users.\n"
   end
@@ -16,7 +16,7 @@ RSpec.describe 'admin_request/hidden_user_explanation' do
            locals: { name_to: 'Bob Smith',
                      info_request: double(title: 'Foo'),
                      info_request_url: 'https://test.host/request/foo',
-                     reason: reason,
+                     explanation: explanation,
                      site_name: 'Alaveteli' }
   end
 

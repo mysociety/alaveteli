@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Improve rendering of admin hidden request prominence and explanations (Graeme
+  Porteous)
 * Add admin list of all citations (Gareth Rees)
 * Improve redirection flow after user account closure actions (Gareth Rees)
 * Fix duplicated attachment masking jobs (Graeme Porteous)
