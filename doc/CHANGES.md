@@ -2,8 +2,8 @@
 
 ## Highlighted Features
 
-* Broaden citation type classifications to cover wider thematic areas (Gareth
-  Rees)
+* Broaden citation type classifications to cover wider thematic areas and add
+  "campaigning" type (Gareth Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)
 * Add automatic parsing of emails contain Excel spreadsheets (Graeme Porteous)
 * Improve rendering of admin hidden request prominence and explanations (Graeme

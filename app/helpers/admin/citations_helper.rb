@@ -2,6 +2,7 @@
 module Admin::CitationsHelper
   ICONS = {
     journalism: '🗞️',
+    campaigning: '📣',
     academic: '🎓',
     other: '🌐'
   }.with_indifferent_access.freeze
