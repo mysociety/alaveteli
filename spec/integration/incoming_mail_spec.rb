@@ -132,4 +132,26 @@ RSpec.describe 'when handling incoming mail' do
     expect(page.response_headers['Content-Type']).to eq("application/octet-stream; charset=utf-8")
     expect(page).to have_content "an unusual sort of file"
   end
+
+  it "does not automatically extract attachments after receiving email" do
+    receive_incoming_mail('incoming-request-plain.email',
+                          email_to: info_request.incoming_email)
+    perform_enqueued_jobs
+
+    im = info_request.incoming_messages.first
+    expect(im.foi_attachments).to be_empty
+  end
+
+  it "extract attachments when inbound email contains an Excel spreadsheet" do
+    mail = Mail.new(to: info_request.incoming_email) do
+      body 'My excel spreadsheet'
+      add_file 'gems/excel_analyzer/spec/fixtures/data.xlsx'
+    end
+
+    receive_incoming_mail(mail.to_s)
+    perform_enqueued_jobs
+
+    im = info_request.incoming_messages.first
+    expect(im.foi_attachments).to_not be_empty
+  end
 end
