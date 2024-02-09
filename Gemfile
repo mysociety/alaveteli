@@ -169,7 +169,7 @@ gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.47', require: false
 
 # Storage content analyzers
-gem 'excel_analyzer', path: 'gems/excel_analyzer'
+gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
 
 group :test do
   gem 'fivemat', '~> 1.3.7'

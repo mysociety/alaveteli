@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../support/helpers"
 
 RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
   describe ".accept?" do
     subject { ExcelAnalyzer::XlsxAnalyzer.accept?(blob) }
 
     context "when the blob is an Excel file" do
-      let(:blob) do
-        fake_blob(content_type: ExcelAnalyzer::XlsxAnalyzer::CONTENT_TYPE)
+      let(:content_type) do
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       end
 
+      let(:blob) { fake_blob(content_type: content_type) }
       it { is_expected.to eq true }
     end
 
@@ -101,13 +103,5 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
         )
       end
     end
-  end
-
-  private
-
-  def fake_blob(io: nil, content_type:)
-    dbl = double(io: io, content_type: content_type)
-    allow(dbl).to receive(:open).and_yield(io)
-    dbl
   end
 end

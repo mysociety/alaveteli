@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../support/helpers"
 
 RSpec.describe ExcelAnalyzer::XlsAnalyzer do
   describe ".accept?" do
     subject { ExcelAnalyzer::XlsAnalyzer.accept?(blob) }
 
     context "when the blob is an Excel file" do
-      let(:blob) do
-        fake_blob(content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
-      end
-
+      let(:blob) { fake_blob(content_type: "application/vnd.ms-excel") }
       it { is_expected.to eq true }
     end
 
@@ -87,13 +85,5 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
         expect(metadata[:excel]).to eq(error: "LibreOffice conversion failed")
       end
     end
-  end
-
-  private
-
-  def fake_blob(io: nil, content_type:)
-    dbl = double(content_type: content_type)
-    allow(dbl).to receive(:open).and_yield(io)
-    dbl
   end
 end

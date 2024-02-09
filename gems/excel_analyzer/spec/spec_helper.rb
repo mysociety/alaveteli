@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "excel_analyzer/xls_analyzer"
-require "excel_analyzer/xlsx_analyzer"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -14,4 +12,11 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.libs = [
+    File.expand_path("../../../../lib/", __FILE__),
+    File.expand_path("../../../../app/helpers/", __FILE__)
+  ]
 end
+
+require "excel_analyzer"

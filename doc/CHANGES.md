@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add automatic parsing of emails contain Excel spreadsheets (Graeme Porteous)
 * Improve rendering of admin hidden request prominence and explanations (Graeme
   Porteous)
 * Add admin list of all citations (Gareth Rees)
