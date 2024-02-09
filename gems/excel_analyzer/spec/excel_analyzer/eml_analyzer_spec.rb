@@ -19,8 +19,15 @@ RSpec.describe ExcelAnalyzer::EmlAnalyzer do
   end
 
   describe "#metadata" do
+    around do |example|
+      original_callback = ExcelAnalyzer.on_spreadsheet_received
+      ExcelAnalyzer.on_spreadsheet_received = ->(blob) {}
+      example.call
+      ExcelAnalyzer.on_spreadsheet_received = original_callback
+    end
+
     let(:mail) do
-      Mail.new { add_file File.join(__dir__, "../fixtures/data.xls") }
+      Mail.new { add_file File.join(__dir__, "../fixtures/plain.txt") }
     end
 
     let(:io) { double(:File, path: "blob/path") }
@@ -30,6 +37,49 @@ RSpec.describe ExcelAnalyzer::EmlAnalyzer do
 
     before { allow(Mail).to receive(:read).with("blob/path").and_return(mail) }
 
-    it { is_expected.to include(content_types: ["application/vnd.ms-excel"]) }
+    it { is_expected.to eq({}) }
+
+    context "when mail contains XLS attachment" do
+      let(:mail) do
+        Mail.new { add_file File.join(__dir__, "../fixtures/data.xls") }
+      end
+
+      it { is_expected.to eq({}) }
+
+      it "calls on_spreadsheet_received callback" do
+        expect(ExcelAnalyzer.on_spreadsheet_received).
+          to receive(:call).with(blob)
+        metadata
+      end
+    end
+
+    context "when mail contains XLSX attachment" do
+      let(:mail) do
+        Mail.new { add_file File.join(__dir__, "../fixtures/data.xlsx") }
+      end
+
+      it { is_expected.to eq({}) }
+      it "calls on_spreadsheet_received callback" do
+        expect(ExcelAnalyzer.on_spreadsheet_received).
+          to receive(:call).with(blob)
+        metadata
+      end
+    end
+
+    context "when mail contains XLS and XLSX attachment" do
+      let(:mail) do
+        Mail.new do
+          add_file File.join(__dir__, "../fixtures/data.xls")
+          add_file File.join(__dir__, "../fixtures/data.xlsx")
+        end
+      end
+
+      it { is_expected.to eq({}) }
+      it "calls on_spreadsheet_received callback once only" do
+        expect(ExcelAnalyzer.on_spreadsheet_received).
+          to receive(:call).with(blob).once
+        metadata
+      end
+    end
   end
 end

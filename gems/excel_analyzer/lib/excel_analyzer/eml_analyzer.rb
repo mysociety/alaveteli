@@ -26,7 +26,11 @@ module ExcelAnalyzer
           _1[:content_type]
         end
 
-        return { content_types: }
+        if content_types.any? { ExcelAnalyzer.content_types.include?(_1) }
+          # rubocop:disable Style/RescueModifier
+          ExcelAnalyzer.on_spreadsheet_received.call(blob) rescue nil
+          # rubocop:enable Style/RescueModifier
+        end
       end
 
       {}
