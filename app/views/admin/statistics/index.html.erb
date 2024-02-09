@@ -80,3 +80,27 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="span12">
+    <h2>Transactions</h2>
+
+    <table class="table table-condensed table-hover">
+      <% @monthly_transactions.each_with_index do |row, index| %>
+        <tr>
+          <% if index.zero? %>
+            <% row.each do |cell| %>
+              <th style="text-orientation: sideways; writing-mode: vertical-lr;">
+                <%= cell %>
+              </th>
+            <% end %>
+          <% else %>
+            <% row.each do |cell| %>
+              <%= tag.td cell, class: { muted: cell.to_i.zero? } %>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

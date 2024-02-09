@@ -59,5 +59,11 @@ RSpec.describe Admin::StatisticsController do
           "all_successful_requests" => 6,
           "all_new_requests" => 7 })
     end
+
+    it 'assigns the monthly transactions' do
+      get :index
+      expect(assigns[:monthly_transactions]).
+        to be_a(Statistics::MonthlyTransactions)
+    end
   end
 end

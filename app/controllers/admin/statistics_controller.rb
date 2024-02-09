@@ -15,5 +15,7 @@ class Admin::StatisticsController < AdminController
     @comment_count = Comment.count
     @request_by_state = InfoRequest.group('described_state').count
     @tracks_by_type = TrackThing.group('track_type').count
+
+    @monthly_transactions = Statistics::MonthlyTransactions.new
   end
 end
