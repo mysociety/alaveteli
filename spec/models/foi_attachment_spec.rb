@@ -107,6 +107,24 @@ RSpec.describe FoiAttachment do
         ActiveStorage::Blob.services.fetch(blob.service_name).exist?(blob.key)
       }.from(false).to(true)
     end
+
+    it 'does not reset existing blob key' do
+      attachment = FactoryBot.create(
+        :foi_attachment, :unmasked, body: 'unmasked'
+      )
+
+      expect { attachment.update(body: 'masked', masked_at: Time.now) }.
+        to_not change { attachment.file_blob.key }
+    end
+
+    it 'does not reset existing blob metadata' do
+      attachment = FactoryBot.create(
+        :foi_attachment, :unmasked, body: 'unmasked'
+      )
+
+      expect { attachment.update(body: 'masked', masked_at: Time.now) }.
+        to_not change { attachment.file_blob.metadata }
+    end
   end
 
   describe '#body' do
