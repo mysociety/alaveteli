@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../support/helpers"
 
 RSpec.describe ExcelAnalyzer::XlsAnalyzer do
   describe ".accept?" do
@@ -84,13 +85,5 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
         expect(metadata[:excel]).to eq(error: "LibreOffice conversion failed")
       end
     end
-  end
-
-  private
-
-  def fake_blob(io: nil, content_type:)
-    dbl = double(content_type: content_type)
-    allow(dbl).to receive(:open).and_yield(io)
-    dbl
   end
 end

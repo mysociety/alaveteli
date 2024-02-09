@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../support/helpers"
 
 RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
   describe ".accept?" do
@@ -102,13 +103,5 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
         )
       end
     end
-  end
-
-  private
-
-  def fake_blob(io: nil, content_type:)
-    dbl = double(io: io, content_type: content_type)
-    allow(dbl).to receive(:open).and_yield(io)
-    dbl
   end
 end
