@@ -94,11 +94,15 @@ class FoiAttachment < ApplicationRecord
     self.hexdigest ||= Digest::MD5.hexdigest(d)
 
     ensure_filename!
-    file.attach(
-      io: StringIO.new(d.to_s),
-      filename: filename,
-      content_type: content_type
-    )
+    if file.attached?
+      file_blob.upload(StringIO.new(d.to_s), identify: false)
+    else
+      file.attach(
+        io: StringIO.new(d.to_s),
+        filename: filename,
+        content_type: content_type
+      )
+    end
 
     @cached_body = d.force_encoding("ASCII-8BIT")
     update_display_size!
