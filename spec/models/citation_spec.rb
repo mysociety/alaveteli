@@ -199,9 +199,9 @@ RSpec.describe Citation, type: :model do
     it 'requires known type' do
       citation.type = 'foobar'
       is_expected.not_to be_valid
-      citation.type = 'news_story'
+      citation.type = 'journalism'
       is_expected.to be_valid
-      citation.type = 'academic_paper'
+      citation.type = 'academic'
       is_expected.to be_valid
       citation.type = 'other'
       is_expected.to be_valid

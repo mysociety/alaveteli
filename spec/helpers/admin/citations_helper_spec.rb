@@ -6,16 +6,16 @@ RSpec.describe Admin::CitationsHelper do
   describe '#citation_icon' do
     subject { citation_icon(citation) }
 
-    context 'with a news story' do
-      let(:citation) { FactoryBot.build(:citation, type: 'news_story') }
+    context 'with a journalism link' do
+      let(:citation) { FactoryBot.build(:citation, type: 'journalism') }
       it { is_expected.to include('🗞️') }
-      it { is_expected.to include('citation-icon--news_story') }
+      it { is_expected.to include('citation-icon--journalism') }
     end
 
-    context 'with an academic paper' do
-      let(:citation) { FactoryBot.build(:citation, type: 'academic_paper') }
+    context 'with an academic link' do
+      let(:citation) { FactoryBot.build(:citation, type: 'academic') }
       it { is_expected.to include('🎓') }
-      it { is_expected.to include('citation-icon--academic_paper') }
+      it { is_expected.to include('citation-icon--academic') }
     end
 
     context 'with a generic link' do

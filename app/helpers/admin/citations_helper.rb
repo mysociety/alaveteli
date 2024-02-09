@@ -1,8 +1,8 @@
 # Helpers for displaying Citations in the admin interface
 module Admin::CitationsHelper
   ICONS = {
-    news_story: '🗞️',
-    academic_paper: '🎓',
+    journalism: '🗞️',
+    academic: '🎓',
     other: '🌐'
   }.with_indifferent_access.freeze
 
