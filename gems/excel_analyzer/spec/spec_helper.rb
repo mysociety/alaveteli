@@ -12,6 +12,11 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.libs = [
+    File.expand_path("../../../../lib/", __FILE__),
+    File.expand_path("../../../../app/helpers/", __FILE__)
+  ]
 end
 
 require "excel_analyzer"

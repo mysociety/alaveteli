@@ -2,6 +2,8 @@ require 'mail'
 require 'mapi/msg'
 require 'mapi/convert'
 require 'config_helper'
+require 'alaveteli_file_types'
+require 'normalize_string'
 
 module Mail
   class Message
