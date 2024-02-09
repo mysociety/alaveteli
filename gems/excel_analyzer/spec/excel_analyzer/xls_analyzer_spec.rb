@@ -7,10 +7,7 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
     subject { ExcelAnalyzer::XlsAnalyzer.accept?(blob) }
 
     context "when the blob is an Excel file" do
-      let(:blob) do
-        fake_blob(content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
-      end
-
+      let(:blob) { fake_blob(content_type: "application/vnd.ms-excel") }
       it { is_expected.to eq true }
     end
 
