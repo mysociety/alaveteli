@@ -337,6 +337,9 @@ module InfoRequestHelper
   end
 
   def fetch_foi_attachments(info_request)
-    info_request.incoming_messages.includes(:foi_attachments).flat_map(&:foi_attachments)
+  info_request.incoming_messages
+              .includes(:foi_attachments)
+              .flat_map(&:foi_attachments)
+              .reject(&:main_body_part?)
   end
 end
