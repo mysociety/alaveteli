@@ -335,11 +335,4 @@ module InfoRequestHelper
   def public_token?
     defined?(public_token) && public_token.present?
   end
-
-  def fetch_foi_attachments(info_request)
-  info_request.incoming_messages
-              .includes(:foi_attachments)
-              .flat_map(&:foi_attachments)
-              .reject(&:main_body_part?)
-  end
 end
