@@ -553,6 +553,10 @@ Rails.application.routes.draw do
   direct :admin_note_parent do |note|
     if note.notable_tag
       admin_tag_path(tag: note.notable_tag)
+    elsif note.notable.is_a?(OutgoingMessage)
+      edit_admin_outgoing_message_path(note.notable)
+    elsif note.notable.is_a?(IncomingMessage)
+      edit_admin_incoming_message_path(note.notable)
     elsif note.notable
       url_for([:admin, note.notable])
     else
