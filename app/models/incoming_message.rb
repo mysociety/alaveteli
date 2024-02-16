@@ -67,6 +67,7 @@ class IncomingMessage < ApplicationRecord
   has_many :info_request_events,
            dependent: :destroy,
            inverse_of: :incoming_message
+  has_many :notes, as: :notable
 
   belongs_to :raw_email,
              inverse_of: :incoming_message,
