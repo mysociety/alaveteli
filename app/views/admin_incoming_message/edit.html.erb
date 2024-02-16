@@ -44,3 +44,8 @@
 
 <%= render partial: 'foi_attachments',
            locals: { foi_attachments: @incoming_message.foi_attachments } %>
+<hr>
+<h2>Notes</h2>
+<%= render partial: 'admin/notes/show', 
+           locals: { notes: @incoming_message.notes, notable: @incoming_message } %>
+
