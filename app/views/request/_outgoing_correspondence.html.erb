@@ -27,6 +27,8 @@
       <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_delivery_status_path(outgoing_message), :target => '_blank' %></p>
     </div>
 
+    <%= render_notes(outgoing_message.notes, class: 'message-notes') %> 
+
     <div class="correspondence_text">
       <div><%= outgoing_message.get_body_for_html_display %></div>
     </div>
