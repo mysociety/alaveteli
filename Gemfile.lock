@@ -166,7 +166,6 @@ GEM
       faraday (~> 0.9)
       faraday_middleware (~> 0.10)
       nokogiri (~> 1.6, >= 1.6.8)
-    base64 (0.2.0)
     bcrypt (3.1.20)
     bindex (0.8.1)
     bootstrap-sass (2.3.2.2)
@@ -199,8 +198,7 @@ GEM
       rexml
     crass (1.0.6)
     daemons (1.4.1)
-    dalli (3.2.7)
-      base64
+    dalli (3.2.8)
     dante (0.2.0)
     date (3.3.3)
     declarative (0.0.20)
@@ -595,7 +593,7 @@ DEPENDENCIES
   capistrano (~> 2.15.11)
   capybara (~> 3.40.0)
   charlock_holmes (~> 0.7.7)
-  dalli (~> 3.2.7)
+  dalli (~> 3.2.8)
   excel_analyzer!
   exception_notification (~> 4.5.0)
   factory_bot_rails (~> 6.4.3)
