@@ -19,7 +19,15 @@ module ExcelAnalyzer
     end
 
     def metadata
-      { excel: excel_metadata }
+      data = excel_metadata
+
+      if suspected_problem?(data)
+        # rubocop:disable Style/RescueModifier
+        ExcelAnalyzer.on_hidden_metadata.call(blob, data) rescue nil
+        # rubocop:enable Style/RescueModifier
+      end
+
+      { excel: data }
     end
 
     private
@@ -28,6 +36,10 @@ module ExcelAnalyzer
       download_blob_to_tempfile(&method(:probe))
     rescue StandardError => ex
       { error: ex.message }
+    end
+
+    def suspected_problem?(data)
+      data.any? { |k, v| k != :error && k != :named_ranges && v > 1 }
     end
   end
 end

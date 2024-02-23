@@ -19,6 +19,18 @@ module ExcelAnalyzer
   # @return [Proc] the callable to run for spreadsheet attachments
   mattr_accessor :on_spreadsheet_received, default: ->(blob) {}
 
+  # A configurable callable that gets executed when an analyzed spreadsheet
+  # contains signs of hidden data. This can be useful for raising alerts,
+  # logging incidents, or taking other custom actions.
+  #
+  # @example Set a custom callable to handle hidden metadata detection
+  #   ExcelAnalyzer.on_hidden_metadata = ->(blob, metadata) { alert(blob) }
+  #
+  # @!attribute [rw] on_hidden_metadata
+  # @return [Proc] the callable to run when hidden metadata is detected in a
+  # spreadsheet
+  mattr_accessor :on_hidden_metadata, default: ->(blob, metadata) {}
+
   # Provides the list of content types that the ExcelAnalyzer will attempt to
   # analyze in search of hidden data. It currently includes content types for
   # .xls and .xlsx files.
