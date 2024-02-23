@@ -23,6 +23,13 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
   end
 
   describe "#metadata" do
+    around do |example|
+      original_callback = ExcelAnalyzer.on_hidden_metadata
+      ExcelAnalyzer.on_hidden_metadata = ->(blob) {}
+      example.call
+      ExcelAnalyzer.on_hidden_metadata = original_callback
+    end
+
     let(:metadata) { ExcelAnalyzer::XlsxAnalyzer.new(blob).metadata }
 
     context "when the blob is an Excel file with hidden data" do
@@ -70,6 +77,11 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
       it "detects pivot cache" do
         expect(metadata[:excel][:pivot_cache]).to eq 1
       end
+
+      it "does not call on_hidden_metadata callback" do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
+        metadata
+      end
     end
 
     context "when the blob is an Excel file without hidden data" do
@@ -89,6 +101,11 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
           pivot_cache: 0
         )
       end
+
+      it "does not call on_hidden_metadata callback" do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+        metadata
+      end
     end
 
     context "when the blob is not an Excel file" do
@@ -101,6 +118,11 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
         expect(metadata[:excel]).to eq(
           error: "Zip end of central directory signature not found"
         )
+      end
+
+      it "does not call on_hidden_metadata callback" do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+        metadata
       end
     end
   end
