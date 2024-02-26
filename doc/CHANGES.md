@@ -115,6 +115,13 @@ to match the new templates.
     app/views/user/show/_show_profile.html.erb
     app/views/users/messages/rate_limited.html.erb
 
+# 0.43.2.1
+
+## Highlighted Features
+
+* Backport change to Xapian compact script to facilitate change from sysvinit to
+  systemd (Sam Pearson, Graeme Porteous)
+
 # 0.43.2.0
 
 ## Highlighted Features
