@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export RAILS_ENV=$1
-if [ -z $2 ]; then DAEMON_NAME=alaveteli; else DAEMON_NAME=$2; fi
 set -e
 
 cd "$(dirname "$0")"/..
@@ -20,7 +19,7 @@ if [ -x /usr/bin/xapian-compact ];
         mv "$XAPIAN_DB_DIR/$RAILS_ENV" "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
         mv "$XAPIAN_DB_DIR/$RAILS_ENV.new" "$XAPIAN_DB_DIR/$RAILS_ENV"
         rm -rf "$XAPIAN_DB_DIR/$RAILS_ENV.tmp"
-        commonlib/bin/output-on-error "/etc/init.d/$DAEMON_NAME" restart
+        commonlib/bin/output-on-error ./bin/rails restart
     fi
   else
     echo >&2 "Could not find xapian-compact script; have you installed xapian-tools?"

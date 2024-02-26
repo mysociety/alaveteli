@@ -606,6 +606,19 @@ to match the new templates.
     app/views/track_mailer/event_digest.text.erb
     app/views/user/_show_user_info.html.erb
 
+# 0.40.1.3
+
+## Highlighted Features
+
+* Backport change to Xapian compact script to facilitate change from sysvinit to
+  systemd (Sam Pearson, Graeme Porteous)
+
+# 0.40.1.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.40.1.1
 
 ## Highlighted Features
