@@ -1,3 +1,10 @@
+# 0.43.2.1
+
+## Highlighted Features
+
+* Backport change to Xapian compact script to facilitate change from sysvinit to
+  systemd (Sam Pearson, Graeme Porteous)
+
 # 0.43.2.0
 
 ## Highlighted Features
