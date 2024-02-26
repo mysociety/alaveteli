@@ -1,3 +1,11 @@
+# 0.44.0.1
+
+## Highlighted Features
+
+* Backport change to Xapian compact script to facilitate change from sysvinit to
+  systemd (Sam Pearson, Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.44.0.0
 
 ## Highlighted Features

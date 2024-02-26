@@ -47,7 +47,7 @@
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Laurent S, 2019
-# Laurent S, 2019-2023
+# Laurent S, 2019-2024
 # louisecrow <louise@mysociety.org>, 2013,2017
 # mySociety <transifex@mysociety.org>, 2016
 # Pascal Romain <aka.keronos@gmail.com>, 2019-2021
@@ -65,7 +65,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: vickyanderica <victoria@access-info.org>, 2011\n"
+"Last-Translator: Laurent S, 2019-2024\n"
 "Language-Team: French (France) (http://app.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -1688,10 +1688,10 @@ msgid "Log into the admin interface"
 msgstr "Se connecter à l'interface d'administration"
 
 msgid "Long overdue"
-msgstr "Très en retard (plus de 6 mois)"
+msgstr "Très en retard"
 
 msgid "Long overdue."
-msgstr "Très en retard (plus de 6 mois)"
+msgstr "Très en retard."
 
 msgid "Made between"
 msgstr "Fait entre"
@@ -2839,7 +2839,7 @@ msgid "Suggest how the requester can find the <strong>rest of the information</s
 msgstr "Suggérez au demandeur les moyens de trouver le <strong>reste de l'information</strong>."
 
 msgid "Summary"
-msgstr "Résumé"
+msgstr "Objet"
 
 msgid "Summary is too short. Please be a little more descriptive about the information you are asking for."
 msgstr "Le résumé est trop court. Pouvez-vous être plus descriptif au sujet des informations que vous demandez ?"
@@ -3362,7 +3362,7 @@ msgid "This request has prominence \"hidden\". {{reason}} You can only see it be
 msgstr "Cette demande est cachée, mais vous pouvez la voire car vous êtes connectée.e en tant qu'admin. {{reason}}"
 
 msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Cette demande n'est visible que par la personne qui l'a envoyée et les admins. Motif: {{reason}}"
 
 msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr "Cette demande est cachée, mais vous y pouvez encore la voir car vous l'avez rédigée. {{reason}}"

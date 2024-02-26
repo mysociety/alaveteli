@@ -36,7 +36,7 @@
 # Elenor Weijmar, 2018
 # Elenor Weijmar, 2018-2022
 # Elenor Weijmar, 2018
-# Graeme Porteous <graeme@mysociety.org>, 2021
+# Graeme Porteous <graeme@mysociety.org>, 2021,2024
 # Kristoffer Grundström <lovaren@gmail.com>, 2015
 # Kristoffer Grundström <lovaren@gmail.com>, 2015
 # Kristoffer Grundström <lovaren@gmail.com>, 2015
@@ -51,13 +51,14 @@
 # Mattias Axell <mattias@libertador.es>, 2015,2017-2018
 # Mattias OKFSE, 2015
 # Mattias Axell <mattias@libertador.es>, 2015
+# Selsabeel Al Baqir, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Mattias Axell <mattias@libertador.es>, 2015,2019-2023\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2021,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/mysociety/alaveteli/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -318,7 +319,7 @@ msgid "<strong>Donate</strong> to {{site_name}}"
 msgstr "<strong>Donera</strong> till {{site_name}}"
 
 msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
-msgstr ""
+msgstr "<strong>Om du ändrar ditt namn kommer inte namnet på dina gamla förfrågningar att ändras.</strong> När du skickar en förfrågan använder vi det namn du har gett oss. Detta gör det svårt att hindra att ditt gamla och nya namn kopplas samman. Det innebär att ditt gamla namn fortfarande kommer att synas på förfrågningar som du redan har skickat och på din offentliga profil. "
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>Journalist, Akademiker eller Superanvändare?</strong> {{pro_site_link}} är en allt-i-ett verktyg för offentlighetsprincipen inklusive allt du behöver för att hålla dig uppdaterad om komplicerade undersökningar som drivs med hjälp av offentlighetsprincipen."
@@ -590,13 +591,13 @@ msgid "Attachment (optional):"
 msgstr "Bilaga (frivilligt):"
 
 msgid "Attachment available for download."
-msgstr ""
+msgstr "Bilaga tillgänglig för nedladdning. "
 
 msgid "Attachment has been removed"
 msgstr "Bilagan har tagits bort"
 
 msgid "Attachment processing..."
-msgstr ""
+msgstr "Bearbetar bilaga..."
 
 msgid "Attachment:"
 msgstr "Bilaga:"
@@ -734,10 +735,10 @@ msgid "Change your email address used on {{site_name}}"
 msgstr "Ändra din e-postadress som används på {{site_name}}"
 
 msgid "Change your name"
-msgstr ""
+msgstr "Ändra ditt namn"
 
 msgid "Change your name used on {{site_name}}"
-msgstr ""
+msgstr "Ändra ditt namn som används på {{site_name}} "
 
 msgid "Change your password"
 msgstr "Ändra ditt lösenord"
@@ -995,7 +996,7 @@ msgid "Download a zip file of all correspondence"
 msgstr "Ladda ned en zip-fil för all korrespondens"
 
 msgid "Download attachment"
-msgstr ""
+msgstr "Ladda ner bilaga "
 
 msgid "Download original attachment"
 msgstr "Ladda ned bifogat original"
@@ -1333,7 +1334,7 @@ msgid "Here you can see how often {{site_name}} administrators have hidden reque
 msgstr "Här kan du se hur ofta {{site_name}} moderatorer har dolt förfrågningar."
 
 msgid "Here's your daily request summary from {{site_name}}:"
-msgstr ""
+msgstr "Här är din dagliga sammanfattning av förfrågningar från {{site_name}}: "
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "Vi behöver din hjälp. Personen som gjorde följande begäran har inte angett om den var lyckad eller inte. Skulle du ha något emot att ta ett kort ögonblick och läsa den för att sätta en lämplig status? Tack!"
@@ -1417,7 +1418,7 @@ msgid "If this is incorrect, or you would like to send a late response to the re
 msgstr "Om detta är inkorrekt och du vill skicka ett sent svar till den frågande eller ett e-postmeddelande om ett annat ämne till {{user}}, var då vänlig e-posta {{contact_email}} för hjälp."
 
 msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
-msgstr ""
+msgstr "Om du <strong>inte vill att ditt nya namn ska kopplas till ditt gamla</strong> är det en bra idé att skapa ett nytt konto istället. "
 
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "Om du är missnöjd av svaret du fått från myndigheten, har du rätt att klaga (<a href=\"{{url}}\">detaljer</a>)."
@@ -1435,7 +1436,7 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the reque
 msgstr "Om du är den som begärde informationen kan du {{sign_in_link}} för att visa begäran."
 
 msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
-msgstr ""
+msgstr "Om du <strong>försöker ta bort ditt namn</strong>, vänligen <a href=\"{{contact_us_url}}\">kontakta oss</a>."
 
 msgid "If you are {{user_link}}, please"
 msgstr "Om du är {{user_link}}, vänligen"
@@ -1724,10 +1725,10 @@ msgid "Name is already taken"
 msgstr "Namnet är redan taget"
 
 msgid "Name successfully updated."
-msgstr ""
+msgstr "Namnet har uppdaterats. "
 
 msgid "Name:"
-msgstr ""
+msgstr "Namn:"
 
 msgid "Needs admin attention"
 msgstr "Behöver moderatorers uppmärksamhet"
@@ -1826,7 +1827,7 @@ msgid "Not held"
 msgstr "Finns ej"
 
 msgid "Note that it may take some time to link your previous requests to your new account name."
-msgstr ""
+msgstr "Observera att det kan ta lite tid att koppla dina tidigare förfrågningar till ditt nya kontonamn. "
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "Observera att den frågande inte kommer att meddelas om din kommentar, eftersom begäran publicerades av {{public_body_name}} för deras räkning."
@@ -2185,7 +2186,7 @@ msgid "Previous message"
 msgstr "Föregående meddelande"
 
 msgid "Previously known as:"
-msgstr ""
+msgstr "Tidigare känd som: "
 
 msgid "Print your one time passcode"
 msgstr "Skriv ut ditt engångslösenord"
@@ -2757,7 +2758,7 @@ msgid "Subscription renewed after failure"
 msgstr "Prenumerationen förnyades efter misslyckande"
 
 msgid "Subscription started"
-msgstr ""
+msgstr "Prenumeration påbörjad"
 
 msgid "Success"
 msgstr "Framgång"
@@ -2871,7 +2872,7 @@ msgid "The article references all requests in this batch"
 msgstr "Artikeln hänvisar till alla förfrågningar i denna serieförfrågan"
 
 msgid "The attachment has now been processed and is available for download."
-msgstr ""
+msgstr "Bilagan har nu behandlats och är tillgänglig för nedladdning."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "De har <strong>inte</strong> informationen <small>(kanske de säger vem som har den)"
@@ -3667,7 +3668,7 @@ msgid "We do not have a working {{law_used_full}} address for {{public_body_name
 msgstr "Vi har inte en fungerande e-postadress kopplat till {{law_used_full}} för {{public_body_name}}."
 
 msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
-msgstr ""
+msgstr "Vi har inte denna bilaga i vår cache för närvarande. Vi behandlar nu din förfrågan och den här sidan kommer att laddas om när bilagan är tillgänglig. "
 
 msgid "We don't know the delivery status for this message."
 msgstr "Vi har inte leveransstatus för detta meddelande."
@@ -3986,7 +3987,7 @@ msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Du behöver vara inloggad för att ändra texten om dig på din profil."
 
 msgid "You need to be logged in to change your name"
-msgstr ""
+msgstr "Du måste vara inloggad för att ändra ditt namn. "
 
 msgid "You need to be logged in to change your profile photo."
 msgstr "Du behöver vara inloggad för att ändra din profilbild."
@@ -4132,7 +4133,7 @@ msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "Ditt namn och kommentar kommer synas i <strong>sökmotorer</strong>."
 
 msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
-msgstr ""
+msgstr "Ditt namn har ändrats sedan ditt senaste meddelande i denna förfrågan. Var vänlig och överväg att informera myndigheten om detta och förklara att du är den ursprungliga förfrågaren."
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "Ditt namn, begäran och andra förfrågningar kommer att visas i <strong>sökmotorer</strong>(<a href=\"{{url}}\">detaljer</a>)."
