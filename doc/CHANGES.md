@@ -68,6 +68,14 @@
   See [the documentation](https://alaveteli.org/docs/installing/cron_and_daemons/)
   for more information.
 
+# 0.44.0.1
+
+## Highlighted Features
+
+* Backport change to Xapian compact script to facilitate change from sysvinit to
+  systemd (Sam Pearson, Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.44.0.0
 
 ## Highlighted Features
@@ -184,6 +192,13 @@ to match the new templates.
     app/views/request/request_subtitle/allow_new_responses_from/_nobody.html.erb
     app/views/user/show/_show_profile.html.erb
     app/views/users/messages/rate_limited.html.erb
+
+# 0.43.2.1
+
+## Highlighted Features
+
+* Backport change to Xapian compact script to facilitate change from sysvinit to
+  systemd (Sam Pearson, Graeme Porteous)
 
 # 0.43.2.0
 
@@ -675,6 +690,19 @@ to match the new templates.
     app/views/track/atom_feed.atom.erb
     app/views/track_mailer/event_digest.text.erb
     app/views/user/_show_user_info.html.erb
+
+# 0.40.1.3
+
+## Highlighted Features
+
+* Backport change to Xapian compact script to facilitate change from sysvinit to
+  systemd (Sam Pearson, Graeme Porteous)
+
+# 0.40.1.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
 
 # 0.40.1.1
 

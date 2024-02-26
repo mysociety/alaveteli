@@ -46,7 +46,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Luis Villegas, 2022\n"
+"Last-Translator: Liset Hamming <elhamming@gmail.com>, 2019-2020,2022-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/mysociety/alaveteli/language/nl"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -578,7 +578,7 @@ msgid "Ask EU Authorities"
 msgstr "Stel een vraag aan een orgaan van de Europese Unie."
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
-msgstr "Vraag naar <strong>specifieke</strong> documenten of informatie, de Woo-Knop is niet geschikt voor algemene verzoeken om informatie."
+msgstr "Vraag naar <strong>specifieke</strong> documenten of informatie."
 
 msgid "Ask us to add an authority"
 msgstr "Vraag ons om een overheidsinstantie toe te voegen"
@@ -670,7 +670,7 @@ msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word y
 msgstr "Blader door <a href='{{url}}'>andere verzoeken</a> op zoek naar voorbeelden om jouw verzoek te formuleren."
 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
-msgstr "Blader door <a href='{{url}}'>andere verzoeken</a> aan '{{public_body_name}}' op zoek naar voorbeelden om jouw verzoek te formuleren."
+msgstr "Blader door <a href='{{url}}'>andere verzoeken</a> aan '{{public_body_name}}'."
 
 msgid "Browse all authorities &rarr;"
 msgstr "Bekijk de lijst met alle overheidsinstanties &rarr;"
@@ -1395,7 +1395,7 @@ msgid "I am requesting an <strong>internal review</strong>"
 msgstr "Ik vraag om een  <strong>een beslissing op bezwaar</strong>"
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
-msgstr "Ik die bij deze bezwaar in tegen uw beslissing op mijn Woo-verzoek '{{info_request_title}}' bij {{public_body_name}}."
+msgstr "Ik dien bij deze bezwaar in tegen uw beslissing op mijn Woo-verzoek '{{info_request_title}}' bij {{public_body_name}}."
 
 msgid "I don't like these ones &mdash; give me some more!"
 msgstr "Vind ik niet leuk &mdash; Laat er meer zien!"
@@ -2655,7 +2655,7 @@ msgid "Sign up"
 msgstr "Schrijf je in"
 
 msgid "Signing your request"
-msgstr "Onderteken je verzoek"
+msgstr "Belangrijke informatie over je privacy!"
 
 msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
 msgstr "Aanmelding vanuit Tor-browser is niet mogelijk"
@@ -2874,7 +2874,7 @@ msgid "Thank you! We'll look into what happened and try and fix it up."
 msgstr "Dank je! We gaan kijken wat er is gebeurd en het proberen op te lossen."
 
 msgid "Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below."
-msgstr "Dank je! Je Woo-verzoek had al ruimschoots beantwoord moeten zijn, al meer dan {{very_late_number_of_days}} dagen geleden. Op verzoeken hoort besloten te worden binnen {{late_number_of_days}} dagen. Wil je een klacht hierover indienen, zie dan hieronder."
+msgstr "Dank je! Je Woo-verzoek had al ruimschoots beantwoord moeten zijn, al meer dan {{very_late_number_of_days}} dagen geleden. Op verzoeken hoort besloten te worden binnen {{late_number_of_days}} dagen. Je kunt hierover een ingebrekestelling versturen. Je geeft de overheidsinstantie dan nog maximaal twee extra weken om te beslissen over je verzoek. Daarna kun je naar de rechter."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful responses, and maybe even let us make league tables..."
 msgstr ""
@@ -3980,7 +3980,7 @@ msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a 
 msgstr "Je <a href=\"{{wall_url_user}}\">volgt</a> nu alle updates over <a href=\"{{successful_requests_url}}\">succesvol afgeronde verzoeken</a>."
 
 msgid "You can <strong>complain</strong> by"
-msgstr "Je kunt een <strong>klacht indienen</strong> per "
+msgstr "Je kunt <strong>een beslissing afdwingen</strong> door de overheidsinstantie"
 
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
 msgstr "Je kunt de verzoeken en gebruikers die je wilt volgen wijzigen op <a href=\"{{profile_url}}\">je profielpagina</a>."
@@ -4470,7 +4470,7 @@ msgid "request hide events"
 msgstr "verzoek om event te verbergen"
 
 msgid "requesting an internal review"
-msgstr "Bezwaar maken"
+msgstr "in gebreke te stellen"
 
 msgid "requests"
 msgstr "Woo-verzoeken"

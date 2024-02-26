@@ -8,6 +8,8 @@
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
 # Elenor Weijmar, 2022
 # Mattias Axell <mattias@libertador.es>, 2023
+# Selsabeel Al Baqir, 2023
+# Graeme Porteous <graeme@mysociety.org>, 2024
 #
 msgid ""
 msgstr ""
@@ -15,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Mattias Axell <mattias@libertador.es>, 2023\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/mysociety/teams/33529/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -443,7 +445,7 @@ msgid "Friendly support"
 msgstr "Stöd från Handlingar-teamet"
 
 msgid "From"
-msgstr ""
+msgstr "Från"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
 msgstr "Från den här skärmbilden får du en bra översikt av dina förfrågningar och agera snabbt så att de är aktuella. Varför inte ta itu med en första redan nu?"
@@ -515,10 +517,10 @@ msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s priv
 msgstr "Den grävande journalisten Jenna Corderoy har använt sekretessfunktioner med Pro bra, och höll hennes omfattande Brexit-relaterade granskningar privata tills hennes arbete publicerades, <a href=\"{{story_url_1}}\">fakta om kampanjöverskott</a> och <a href=\"{{story_url_2}}\">ERG</a> utredningar för allmänheten, och flera andra viktiga publiceringar."
 
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
-msgstr ""
+msgstr "Faktura {{invoice_number}} för {{invoice_amount}} "
 
 msgid "Invoices"
-msgstr ""
+msgstr "Fakturor"
 
 msgid "I’m a campaigner"
 msgstr "För civilsamhälle"
@@ -683,13 +685,13 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr "När du är redo, publicera data bakom din utredning för att få ökat genomslag och ökad trovärdighet."
 
 msgid "Open"
-msgstr ""
+msgstr "Öppna"
 
 msgid "Overflowing inbox?"
 msgstr "Överfylld inkorg?"
 
 msgid "Paid"
-msgstr ""
+msgstr "Betald"
 
 msgid "Payments past due:"
 msgstr "Förfallna betalningar:"
@@ -1161,10 +1163,10 @@ msgid "View"
 msgstr "Se"
 
 msgid "View Invoice and Pay"
-msgstr ""
+msgstr "Visa faktura och betala"
 
 msgid "View Receipt"
-msgstr ""
+msgstr "Visa kvitto"
 
 msgid "View authorities"
 msgstr "Se myndigheter"
