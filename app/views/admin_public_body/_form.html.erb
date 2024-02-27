@@ -1,23 +1,4 @@
-<% if @public_body.errors.any? %>
-  <ul>
-    <% @public_body.errors.each do |error| %>
-      <% unless error.attribute.to_s.starts_with?('translation') %>
-        <li><%= error.message %></li>
-      <% end %>
-    <% end %>
-  </ul>
-<% end %>
-
-<% @public_body.ordered_translations.each do |translation| %>
-  <% if translation.errors.any? %>
-    <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
-    <ul>
-      <% translation.errors.each do |error| %>
-        <li><%= error.message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-<% end %>
+<%= f.error_messages %>
 
 <% f.translated_fields do |t| %>
   <%= render partial: 'locale_fields', locals: { t: t } %>
