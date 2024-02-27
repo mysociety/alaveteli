@@ -19,31 +19,9 @@
   <% end %>
 <% end %>
 
-<div id="div-locales">
-  <ul class="locales nav nav-tabs">
-    <% @category.ordered_translations.each do |translation| %>
-      <li>
-        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
-          <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
-        </a>
-      </li>
-    <% end %>
-  </ul>
-
-  <div class="tab-content">
-    <% @category.ordered_translations.each do |translation| %>
-      <% if AlaveteliLocalization.default_locale?(translation.locale) %>
-        <%= fields_for('category', @category) do |t| %>
-          <%= render partial: 'locale_fields', locals: { t: t, locale: translation.locale } %>
-        <% end %>
-      <% else %>
-        <%= f.fields_for(:translations, translation, child_index: translation.locale) do |t| %>
-          <%= render partial: 'locale_fields', locals: { t: t, locale: translation.locale } %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<% f.translated_fields do |t| %>
+  <%= render partial: 'locale_fields', locals: { t: t } %>
+<% end %>
 
 <% if !@category.parents.include?(@root) || @category.new_record? %>
   <h3>Common Fields</h3>

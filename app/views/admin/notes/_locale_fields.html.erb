@@ -1,16 +1,6 @@
-<div class="tab-pane" id="div-locale-<%= locale %>">
 <div class="control-group">
-  <%= t.hidden_field :locale, :value => locale %>
-
   <%= t.label :body, class: 'control-label' %>
   <div class="controls">
-    <% if AlaveteliLocalization.default_locale?(locale) && t.object.errors[:body].any? %>
-      <span class="fieldWithErrors">
-    <% end %>
     <%= t.text_area :body, class: 'span6', rows: 10 %>
-    <% if AlaveteliLocalization.default_locale?(locale) && t.object.errors[:body].any? %>
-      </span>
-    <%end %>
   </div>
-</div>
 </div>

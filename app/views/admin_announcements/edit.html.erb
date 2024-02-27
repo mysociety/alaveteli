@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<%= form_for [:admin, @announcement], method: 'put', html: { class: 'form form-horizontal' } do |f| %>
+<%= translated_form_for [:admin, @announcement], method: 'put', html: { class: 'form form-horizontal' } do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
   <div class="form-actions">
     <%= submit_tag 'Save', accesskey: 's', class: 'btn btn-success' %>

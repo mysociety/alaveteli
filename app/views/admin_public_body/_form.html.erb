@@ -19,33 +19,9 @@
   <% end %>
 <% end %>
 
-<!--[form:public_body]-->
-
-<div id="div-locales">
-  <ul class="locales nav nav-tabs">
-    <% @public_body.ordered_translations.each do |translation| %>
-      <li>
-        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab">
-          <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
-        </a>
-      </li>
-    <% end %>
-  </ul>
-
-  <div class="tab-content">
-    <% @public_body.ordered_translations.each do |translation| %>
-      <% if AlaveteliLocalization.default_locale?(translation.locale) %>
-        <%= fields_for('public_body', @public_body) do |t| %>
-          <%= render :partial => 'locale_fields', :locals => { :t => t, :locale => translation.locale } %>
-        <% end %>
-      <% else %>
-        <%= f.fields_for(:translations, translation, :child_index => translation.locale) do |t| %>
-          <%= render :partial => 'locale_fields' , :locals => { :t => t, :locale => translation.locale } %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<% f.translated_fields do |t| %>
+  <%= render partial: 'locale_fields', locals: { t: t } %>
+<% end %>
 
 <h3>Common Fields</h3>
 <div class="control-group">
