@@ -907,13 +907,6 @@ Rails.application.routes.draw do
     end
 
     scope path: :alaveteli_pro do
-      # So that we can show a request using the existing controller from the
-      # pro context
-      match '/info_requests/:url_title' => 'request#show',
-            :as => :show_alaveteli_pro_request,
-            :via => :get,
-            :defaults => { :pro => '1' }
-
       # So that we can show a batch request using the existing controller from
       # the pro context
       match '/info_request_batches/:id' => 'info_request_batch#show',

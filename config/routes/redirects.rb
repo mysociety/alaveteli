@@ -95,3 +95,9 @@ get ':locale',
 get ':locale/*path',
   constraints: locale_constraint,
   to: redirect('%{path}?locale=%{locale}')
+
+constraints FeatureConstraint.new(:alaveteli_pro) do
+  get '/alaveteli_pro/info_requests/:url_title',
+    constraints: { url_title: /(?!new).*/ },
+    to: redirect('/request/%{url_title}')
+end
