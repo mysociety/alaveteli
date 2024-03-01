@@ -8,7 +8,7 @@ RSpec.describe InfoRequestBatchMetrics do
     subject(:metrics) { described_class.new(batch).metrics }
 
     it 'generates info request batch metrics' do
-      request_url = 'http://test.host/en/alaveteli_pro/info_requests/' +
+      request_url = 'http://test.host/alaveteli_pro/info_requests/' +
                     request.url_title
       authority_name = request.public_body.name
 

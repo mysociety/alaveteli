@@ -133,7 +133,7 @@ RSpec.describe PublicBodyHelper do
         )
         public_body = FactoryBot.create(:public_body, tag_string: 'spec')
 
-        anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)
+        anchor = %Q(<a href="/body/list/spec">Spec category</a>)
         AlaveteliLocalization.with_locale(:es) do
           expect(type_of_authority(public_body)).to eq(anchor)
         end

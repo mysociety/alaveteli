@@ -3,9 +3,7 @@ module RoutingFilter
     # Override core Locale filter not to prepend locale path segment
     # when there's only one locale
     def prepend_locale?(locale)
-      locale &&
-        AlaveteliLocalization.available_locales.length > 1 &&
-        (self.class.include_default_locale? || !default_locale?(locale))
+      false
     end
 
     # And override the generation logic to use FastGettext.locale
