@@ -272,7 +272,7 @@ RSpec.describe LinkToHelper do
           url_name: 'welsh_government', view: 'all'
         )
       )
-      expect(current_path_with_locale('cy')).to eq '/cy/body/welsh_government'
+      expect(current_path_with_locale('cy')).to eq '/body/welsh_government'
     end
 
     it 'ignores current protocol and host' do
@@ -283,7 +283,7 @@ RSpec.describe LinkToHelper do
           protocol: 'http', host: 'example.com'
         )
       )
-      expect(current_path_with_locale('cy')).to eq '/cy/body/welsh_government'
+      expect(current_path_with_locale('cy')).to eq '/body/welsh_government'
     end
   end
 

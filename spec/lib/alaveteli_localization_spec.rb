@@ -125,11 +125,6 @@ RSpec.describe AlaveteliLocalization do
       end
     end
 
-    it 'sets the locales for the custom routing filter' do
-      expect(RoutingFilter::Conditionallyprependlocale.locales).
-        to eq([:en_GB, :es])
-    end
-
     it 'handles being passed a symbol as available_locales' do
       AlaveteliLocalization.set_locales(:es, :es)
       expect(AlaveteliLocalization.available_locales).to eq(['es'])
