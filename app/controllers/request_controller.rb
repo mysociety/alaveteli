@@ -12,7 +12,6 @@ class RequestController < ApplicationController
   before_action :check_read_only, only: [:new, :upload_response]
   before_action :set_render_recaptcha, only: [ :new ]
   before_action :set_info_request, only: [:show]
-  before_action :redirect_public_requests_from_pro_context, only: [:show]
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
 
@@ -707,15 +706,6 @@ class RequestController < ApplicationController
   def set_render_recaptcha
     @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
                         (!@user || !@user.confirmed_not_spam?)
-  end
-
-  def redirect_public_requests_from_pro_context
-    # Requests which aren't embargoed should always go to the normal request
-    # page, so that pro's seem them in that context after they publish them
-    if feature_enabled?(:alaveteli_pro) && params[:pro] == "1"
-      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-      redirect_to request_url(@info_request) unless @info_request.embargo
-    end
   end
 
   def redirect_new_form_to_pro_version
