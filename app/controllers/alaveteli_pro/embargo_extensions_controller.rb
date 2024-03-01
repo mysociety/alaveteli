@@ -32,7 +32,7 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
                         "request's privacy settings, please try again.")
     end
 
-    redirect_to show_alaveteli_pro_request_path(
+    redirect_to show_request_path(
       url_title: @info_request.url_title
     )
   end
@@ -70,7 +70,7 @@ class AlaveteliPro::EmbargoExtensionsController < AlaveteliPro::BaseController
     if params[:info_request_id]
       @info_request = InfoRequest.find(params[:info_request_id])
 
-      redirect_to show_alaveteli_pro_request_path(
+      redirect_to show_request_path(
         url_title: @info_request.url_title
       )
     else

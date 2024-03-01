@@ -4,7 +4,7 @@ module AlaveteliDsl
   end
 
   def browse_pro_request(url_title)
-    visit "/alaveteli_pro/info_requests/#{url_title}"
+    browse_request(url_title)
   end
 
   def create_request(public_body)
