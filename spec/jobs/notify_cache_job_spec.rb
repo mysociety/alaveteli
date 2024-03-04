@@ -13,9 +13,6 @@ RSpec.describe NotifyCacheJob, type: :job do
   let(:user) { FactoryBot.create(:user) }
 
   before do
-    @old_include_default_locale_in_urls =
-      AlaveteliConfiguration.include_default_locale_in_urls
-
     allow(AlaveteliConfiguration).to receive(:varnish_hosts).
       and_return(['varnish'])
 
