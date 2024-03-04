@@ -180,19 +180,6 @@ DEFAULT_LOCALE: 'en'
 # ---
 USE_DEFAULT_BROWSER_LANGUAGE: true
 
-# Normally, Alaveteli will put the locale into its URLs, like this
-# www.example.com/en/body/list/all. If you don't want this behaviour whenever
-# the locale is the default one, set INCLUDE_DEFAULT_LOCALE_IN_URLS to false.
-#
-# INCLUDE_DEFAULT_LOCALE_IN_URLS: Boolean (default: true)
-#
-# Examples:
-#
-#   INCLUDE_DEFAULT_LOCALE_IN_URLS: false
-#
-# ---
-INCLUDE_DEFAULT_LOCALE_IN_URLS: true
-
 # Are authorities required to respond by law?
 #
 # AUTHORITY_MUST_RESPOND: Boolean (default: true)
