@@ -222,6 +222,37 @@ RSpec.describe LinkToHelper do
     end
   end
 
+  describe '#current_path_without_locale' do
+    before do
+      AlaveteliLocalization.set_locales('en cy', 'en')
+    end
+
+    it 'removes locale from current path' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all',
+          locale: 'cy'
+        )
+      )
+      expect(current_path_without_locale).
+        to eq '/body/welsh_government'
+    end
+
+    it 'ignores current protocol and host' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all',
+          protocol: 'http', host: 'example.com',
+          locale: 'cy'
+        )
+      )
+      expect(current_path_without_locale).
+        to eq '/body/welsh_government'
+    end
+  end
+
   describe '#current_path_with_locale' do
     before do
       @was_routing_filter_active = RoutingFilter.active?
