@@ -84,8 +84,15 @@ class ApplicationController < ActionController::Base
       params_locale, session[:locale], cookies[:locale], browser_locale
     )
 
-    # set the current locale to the requested_locale
-    session[:locale] = locale
+    # set the current stored locale to the requested_locale
+    current_session_locale = session[:locale]
+    if current_session_locale != locale
+      session[:locale] = locale
+
+      # we need to set something other than StripEmptySessions::STRIPPABLE_KEYS
+      # otherwise the cookie will be striped from the response
+      session[:previous_locale] = current_session_locale
+    end
 
     # ensure current user locale attribute is up-to-date
     current_user.update_column(:locale, locale) if current_user
