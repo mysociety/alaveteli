@@ -21,8 +21,17 @@ RSpec.describe Note, type: :model do
   describe 'validations' do
     specify { expect(note).to be_valid }
 
-    it 'requires body' do
-      note.body = nil
+    context 'original style' do
+      let(:note) { FactoryBot.build(:note, :original) }
+
+      it 'requires body' do
+        note.body = nil
+        expect(note).not_to be_valid
+      end
+    end
+
+    it 'requires rich body' do
+      note.rich_body = nil
       expect(note).not_to be_valid
     end
 
@@ -54,10 +63,14 @@ RSpec.describe Note, type: :model do
   describe 'translations' do
     before { note.save! }
 
-    it 'adds translated body' do
-      expect(note.body_translations).to_not include(es: 'body')
-      AlaveteliLocalization.with_locale(:es) { note.body = 'body' }
-      expect(note.body_translations).to include(es: 'body')
+    def plain_body
+      note.rich_body_translations.transform_values(&:to_plain_text)
+    end
+
+    it 'adds translated rich_body' do
+      expect(plain_body).to_not include(es: 'content')
+      AlaveteliLocalization.with_locale(:es) { note.rich_body = 'content' }
+      expect(plain_body).to include(es: 'content')
     end
   end
 
@@ -85,6 +98,20 @@ RSpec.describe Note, type: :model do
 
     it 'sorts based on enum value index' do
       is_expected.to match_array([original, blue_1, blue_2, red, green, yellow])
+    end
+  end
+
+  describe '#to_plain_text' do
+    subject { note.to_plain_text }
+
+    context 'with original style note' do
+      let(:note) { FactoryBot.build(:note, :original, body: '<h1>title</h1>') }
+      it { is_expected.to eq('title') }
+    end
+
+    context 'with styled note' do
+      let(:note) { FactoryBot.build(:note, rich_body: '<h1>title</h1>') }
+      it { is_expected.to eq('title') }
     end
   end
 end

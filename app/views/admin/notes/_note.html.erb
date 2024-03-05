@@ -2,7 +2,7 @@
   <div class="accordion-heading accordion-toggle row">
     <span class="item-title span6">
       <%= link_to chevron_right, "##{dom_id(note)}", data: { toggle: 'collapse', parent: 'notes' } %>
-      <%= link_to(note_as_text(note), edit_admin_note_path(note), title: 'view full details') %>
+      <%= link_to(note.to_plain_text, edit_admin_note_path(note), title: 'view full details') %>
     </span>
 
     <span class="item-metadata span6">

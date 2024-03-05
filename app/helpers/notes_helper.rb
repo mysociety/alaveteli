@@ -1,11 +1,8 @@
 module NotesHelper
-  def note_as_text(note)
-    strip_tags(note.body)
-  end
-
   def note_as_html(note, batch: false)
     allowed_tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
-    sanitize(note.body, tags: allowed_tags)
+    content = note.original_style? ? note.body : note.rich_body.to_trix_html
+    sanitize(content, tags: allowed_tags)
   end
 
   def render_notes(notes, batch: false, **options)

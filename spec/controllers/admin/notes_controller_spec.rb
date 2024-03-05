@@ -46,7 +46,7 @@ RSpec.describe Admin::NotesController do
       end
 
       it 'creates the note' do
-        expect(assigns[:note].body).to eq('New body')
+        expect(assigns[:note].rich_body.to_plain_text).to eq('New body')
       end
 
       it 'sets a notice' do
@@ -64,7 +64,7 @@ RSpec.describe Admin::NotesController do
         {
           id: note.id,
           note: {
-            body: 'New body',
+            rich_body: 'New body',
             notable_id: public_body.id,
             notable_type: public_body.class.name,
             style: 'blue'
@@ -86,7 +86,7 @@ RSpec.describe Admin::NotesController do
       let(:params) do
         {
           id: note.id,
-          note: { body: 'New body', notable_tag: tag, style: 'blue' }
+          note: { rich_body: 'New body', notable_tag: tag, style: 'blue' }
         }
       end
 
@@ -97,7 +97,7 @@ RSpec.describe Admin::NotesController do
 
     context 'on an unsuccessful create' do
       let(:params) do
-        { note: { body: '', style: '' } }
+        { note: { rich_body: '', style: '' } }
       end
 
       it 'assigns the note' do
@@ -145,7 +145,7 @@ RSpec.describe Admin::NotesController do
       end
 
       it 'updates the note' do
-        expect(note.reload.body).to eq('New body')
+        expect(note.reload.rich_body.to_plain_text).to eq('New body')
       end
 
       it 'sets a notice' do
@@ -163,7 +163,7 @@ RSpec.describe Admin::NotesController do
         {
           id: note.id,
           note: {
-            body: 'New body',
+            rich_body: 'New body',
             notable_id: public_body.id,
             notable_type: public_body.class.name,
             style: 'blue'
@@ -185,7 +185,7 @@ RSpec.describe Admin::NotesController do
       let(:params) do
         {
           id: note.id,
-          note: { body: 'New body', notable_tag: tag, style: 'blue' }
+          note: { rich_body: 'New body', notable_tag: tag, style: 'blue' }
         }
       end
 
@@ -196,7 +196,7 @@ RSpec.describe Admin::NotesController do
 
     context 'on an unsuccessful update' do
       let(:params) do
-        { id: note.id, note: { body: '', style: '' } }
+        { id: note.id, note: { rich_body: '', style: '' } }
       end
 
       it 'assigns the note' do
@@ -204,7 +204,7 @@ RSpec.describe Admin::NotesController do
       end
 
       it 'does not update the note' do
-        expect(note.reload.body).not_to be_blank
+        expect(note.reload.rich_body).not_to be_blank
       end
 
       it 'renders the form again' do

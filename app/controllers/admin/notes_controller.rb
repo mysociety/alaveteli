@@ -54,7 +54,7 @@ class Admin::NotesController < AdminController
   def note_params
     translatable_params(
       params.require(:note),
-      translated_keys: [:locale, :body],
+      translated_keys: [:locale, :body, :rich_body],
       general_keys: [:notable_tag, :notable_id, :notable_type, :style]
     )
   end
