@@ -15,7 +15,7 @@
 
 FactoryBot.define do
   factory :note do
-    body { 'Test note' }
+    rich_body { 'Test note' }
     association :notable, factory: :public_body
     notable_tag { 'some_tag' }
     style { 'blue' }
@@ -28,6 +28,11 @@ FactoryBot.define do
     trait :tagged do
       notable { nil }
       notable_tag { 'foo' }
+    end
+
+    trait :original do
+      body { 'Test note' }
+      style { 'original' }
     end
   end
 end

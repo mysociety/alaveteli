@@ -3,16 +3,15 @@ require 'spec_helper'
 RSpec.describe NotesHelper do
   include NotesHelper
 
-  describe '#note_as_text' do
-    subject { note_as_text(note) }
-
-    let(:note) { FactoryBot.build(:note, body: '<h1>title</h1>') }
-
-    it { is_expected.to eq('title') }
-  end
-
   describe '#note_as_html' do
-    let(:note) { FactoryBot.build(:note, body: '<h1>title</h1>') }
+    let(:note) { FactoryBot.build(:note, rich_body: '<h1>title</h1>') }
+
+    it { expect(note_as_html(note)).to eq('<h1>title</h1>') }
+
+    context 'with original style note' do
+      let(:note) { FactoryBot.build(:note, :original, body: '<h1>title</h1>') }
+      it { expect(note_as_html(note)).to eq('<h1>title</h1>') }
+    end
 
     context 'when not a batch' do
       subject { note_as_html(note, batch: false) }
@@ -32,7 +31,7 @@ RSpec.describe NotesHelper do
   end
 
   describe '#render_notes' do
-    let(:note) { FactoryBot.build(:note, body: '<h1>title</h1>') }
+    let(:note) { FactoryBot.build(:note, rich_body: '<h1>title</h1>') }
 
     it 'wrap notes in aside and article tags' do
       expect(self).to receive(:note_as_html).with(note, batch: false).

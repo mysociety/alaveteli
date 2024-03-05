@@ -597,11 +597,12 @@ RSpec.describe PublicBody do
 
     let!(:concrete_note) do
       FactoryBot.create(:note, :for_public_body,
-                        body: 'bar', notable: public_body)
+                        rich_body: 'bar', notable: public_body)
     end
 
     let!(:tagged_note) do
-      FactoryBot.create(:note, :tagged, body: 'baz', notable_tag: 'important')
+      FactoryBot.create(:note, :tagged,
+                        rich_body: 'baz', notable_tag: 'important')
     end
 
     it 'concaterates note bodies' do
