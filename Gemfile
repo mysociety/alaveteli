@@ -198,7 +198,7 @@ group :development do
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 3.1.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.60.2', require: false
+  gem 'rubocop', '~> 1.61.0', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end
