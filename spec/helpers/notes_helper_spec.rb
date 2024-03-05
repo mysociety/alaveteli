@@ -3,35 +3,61 @@ require 'spec_helper'
 RSpec.describe NotesHelper do
   include NotesHelper
 
-  describe '#render_notes' do
+  describe '#note_as_text' do
+    subject { note_as_text(note) }
+
+    let(:note) { FactoryBot.build(:note, body: '<h1>title</h1>') }
+
+    it { is_expected.to eq('title') }
+  end
+
+  describe '#note_as_html' do
     let(:note) { FactoryBot.build(:note, body: '<h1>title</h1>') }
 
     context 'when not a batch' do
-      subject { render_notes([note], class: 'notes') }
+      subject { note_as_html(note, batch: false) }
 
       it 'allows more tags' do
-        is_expected.to eq(
-          '<aside class="notes" id="notes">' \
-            '<article id="new_note" class="note tag-some_tag">' \
-              '<h1>title</h1>' \
-            '</article>' \
-          '</aside>'
-        )
+        is_expected.to eq('<h1>title</h1>')
       end
     end
 
     context 'when batch' do
-      subject { render_notes([note], batch: true, class: 'notes') }
+      subject { note_as_html(note, batch: true) }
 
       it 'removes more tags' do
-        is_expected.to eq(
-          '<aside class="notes" id="notes">' \
-            '<article id="new_note" class="note tag-some_tag">' \
-              'title' \
-            '</article>' \
-          '</aside>'
-        )
+        is_expected.to eq('title')
       end
+    end
+  end
+
+  describe '#render_notes' do
+    let(:note) { FactoryBot.build(:note, body: '<h1>title</h1>') }
+
+    it 'wrap notes in aside and article tags' do
+      expect(self).to receive(:note_as_html).with(note, batch: false).
+        and_return('foo')
+
+      expect(render_notes([note], class: 'notes')).to eq(
+        '<aside class="notes" id="notes">' \
+          '<article id="new_note" class="note tag-some_tag">' \
+            'foo' \
+          '</article>' \
+        '</aside>'
+      )
+    end
+
+    it 'pass batch argument to note_as_html' do
+      expect(self).to receive(:note_as_html).with(note, batch: true).
+        and_return('bar')
+
+      expect(render_notes([note], batch: true)).to eq(
+        '<aside id="notes">' \
+          '<article id="new_note" class="note tag-some_tag">' \
+            'bar' \
+          '</article>' \
+        '</aside>'
+      )
     end
 
     context 'without notes' do
