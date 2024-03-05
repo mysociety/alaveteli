@@ -1,7 +1,17 @@
-#notes {
-  background-color: lighten($primary-color, 60%);
+$note-text:          $oil;
+$note-bg:            lighten($primary-color, 60%);
+$note-border:        $primary-color;
 
-  article {
+$border-top-size: 8px;
+
+#notes {
+  .note {
+    color: $note-text;
+    background-color: $note-bg;
+    border-color: rgba(0, 0, 0, 0.1);
+
+    &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-border; }
+
     h1 {
       font-size: 1.5em;
     }
