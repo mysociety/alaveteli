@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220720085105
+# Schema version: 20240227080436
 #
 # Table name: notes
 #
@@ -9,6 +9,7 @@
 #  notable_tag  :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  style        :string           default("original"), not null
 #  body         :text
 #
 
@@ -23,6 +24,16 @@ RSpec.describe Note, type: :model do
     it 'requires body' do
       note.body = nil
       expect(note).not_to be_valid
+    end
+
+    it 'requires style' do
+      note.style = nil
+      expect(note).not_to be_valid
+    end
+
+    it 'requires known style' do
+      expect { note.style = 'invalid' }.
+        to raise_error(ArgumentError, "'invalid' is not a valid style")
     end
 
     it 'requires notable or notable_tag' do

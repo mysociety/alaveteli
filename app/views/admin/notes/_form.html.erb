@@ -11,6 +11,13 @@
   <% end %>
 </div>
 
+<div class="control-group">
+  <%= f.label :style, class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :style, Note.style_labels %>
+  </div>
+</div>
+
 <% f.translated_fields do |t| %>
   <%= render partial: 'locale_fields', locals: { t: t } %>
 <% end %>

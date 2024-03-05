@@ -4,6 +4,7 @@
       <tr>
         <th>ID</th>
         <th>Notable ID</th>
+        <th>Style</th>
         <th>Note Body</th>
         <th>Notable type</th>
         <th>Notable tag</th>
@@ -14,6 +15,7 @@
         <tr class="<%= cycle('odd', 'even') %>">
           <td class="id"><%= h note.id %></td>
           <td class="notable_id"><%= h note.notable_id %></td>
+          <td class="style"><%= note.style %></td>
           <td class="body_snippet"><%= truncate(note_as_text(note), length: 50) %></td>
           <td class="notable_type"><%= h note.notable_type %></td>
           <td class="notable_tag"><%= h note.notable_tag %></td>
