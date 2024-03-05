@@ -14,6 +14,7 @@ module NotesHelper
     tag.aside(**options.merge(id: 'notes')) do
       notes.each do |note|
         note_classes = ['note']
+        note_classes << "note--style-#{note.style}"
         note_classes << "tag-#{note.notable_tag}" if note.notable_tag
 
         concat tag.article note_as_html(note, batch: batch),

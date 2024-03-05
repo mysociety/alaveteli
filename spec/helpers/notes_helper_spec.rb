@@ -40,7 +40,7 @@ RSpec.describe NotesHelper do
 
       expect(render_notes([note], class: 'notes')).to eq(
         '<aside class="notes" id="notes">' \
-          '<article id="new_note" class="note tag-some_tag">' \
+          '<article id="new_note" class="note note--style-blue tag-some_tag">' \
             'foo' \
           '</article>' \
         '</aside>'
@@ -53,7 +53,7 @@ RSpec.describe NotesHelper do
 
       expect(render_notes([note], batch: true)).to eq(
         '<aside id="notes">' \
-          '<article id="new_note" class="note tag-some_tag">' \
+          '<article id="new_note" class="note note--style-blue tag-some_tag">' \
             'bar' \
           '</article>' \
         '</aside>'

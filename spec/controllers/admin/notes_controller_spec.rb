@@ -66,7 +66,8 @@ RSpec.describe Admin::NotesController do
           note: {
             body: 'New body',
             notable_id: public_body.id,
-            notable_type: public_body.class.name
+            notable_type: public_body.class.name,
+            style: 'blue'
           }
         }
       end
@@ -85,7 +86,7 @@ RSpec.describe Admin::NotesController do
       let(:params) do
         {
           id: note.id,
-          note: { body: 'New body', notable_tag: tag }
+          note: { body: 'New body', notable_tag: tag, style: 'blue' }
         }
       end
 
@@ -96,7 +97,7 @@ RSpec.describe Admin::NotesController do
 
     context 'on an unsuccessful create' do
       let(:params) do
-        { note: { body: '' } }
+        { note: { body: '', style: '' } }
       end
 
       it 'assigns the note' do
@@ -164,7 +165,8 @@ RSpec.describe Admin::NotesController do
           note: {
             body: 'New body',
             notable_id: public_body.id,
-            notable_type: public_body.class.name
+            notable_type: public_body.class.name,
+            style: 'blue'
           }
         }
       end
@@ -183,7 +185,7 @@ RSpec.describe Admin::NotesController do
       let(:params) do
         {
           id: note.id,
-          note: { body: 'New body', notable_tag: tag }
+          note: { body: 'New body', notable_tag: tag, style: 'blue' }
         }
       end
 
@@ -194,7 +196,7 @@ RSpec.describe Admin::NotesController do
 
     context 'on an unsuccessful update' do
       let(:params) do
-        { id: note.id, note: { body: '' } }
+        { id: note.id, note: { body: '', style: '' } }
       end
 
       it 'assigns the note' do

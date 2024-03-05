@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220720085105
+# Schema version: 20240227080436
 #
 # Table name: notes
 #
@@ -9,6 +9,7 @@
 #  notable_tag  :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  style        :string           default("original"), not null
 #  body         :text
 #
 
@@ -17,6 +18,7 @@ FactoryBot.define do
     body { 'Test note' }
     association :notable, factory: :public_body
     notable_tag { 'some_tag' }
+    style { 'blue' }
 
     trait :for_public_body do
       association :notable, factory: :public_body
