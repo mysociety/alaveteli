@@ -14,7 +14,7 @@
         <tr class="<%= cycle('odd', 'even') %>">
           <td class="id"><%= h note.id %></td>
           <td class="notable_id"><%= h note.notable_id %></td>
-          <td class="body_snippet"><%= truncate(h(note.body), length: 50) %></td>
+          <td class="body_snippet"><%= truncate(note_as_text(note), length: 50) %></td>
           <td class="notable_type"><%= h note.notable_type %></td>
           <td class="notable_tag"><%= h note.notable_tag %></td>
           <td><%= link_to "Edit", edit_admin_note_path(note) %></td>
