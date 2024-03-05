@@ -753,21 +753,18 @@ RSpec.describe AdminPublicBodyController do
 
   describe "when administering public bodies and paying attention to authentication" do
     before do
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = false
+      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+        and_return(false)
       basic_auth_login @request
     end
 
-    after do
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = true
-    end
-
     def setup_emergency_credentials(username, password)
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = false
-      config['ADMIN_USERNAME'] = username
-      config['ADMIN_PASSWORD'] = password
+      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+        and_return(false)
+      allow(AlaveteliConfiguration).to receive(:admin_username).
+        and_return(username)
+      allow(AlaveteliConfiguration).to receive(:admin_password).
+        and_return(password)
       @request.env["HTTP_AUTHORIZATION"] = ""
     end
 
@@ -782,8 +779,8 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "skips admin authorisation when SKIP_ADMIN_AUTH set" do
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = true
+      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+        and_return(true)
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
       post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
@@ -871,8 +868,8 @@ RSpec.describe AdminPublicBodyController do
       end
 
       it 'returns the REMOTE_USER value from the request environment when skipping admin auth' do
-        config = MySociety::Config.load_default
-        config['SKIP_ADMIN_AUTH'] = true
+        allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+          and_return(true)
         @request.env["HTTP_AUTHORIZATION"] = ""
         @request.env["REMOTE_USER"] = "i_am_admin"
         post :show, params: { id: public_bodies(:humpadink_public_body).id }

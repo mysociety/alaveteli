@@ -86,9 +86,8 @@ RSpec.describe AlaveteliTextMasker do
 
     context 'applying masks to PDF' do
       def pdf_replacement_test(use_ghostscript_compression)
-        config = MySociety::Config.load_default
-        previous = config['USE_GHOSTSCRIPT_COMPRESSION']
-        config['USE_GHOSTSCRIPT_COMPRESSION'] = use_ghostscript_compression
+        allow(AlaveteliConfiguration).to receive(:use_ghostscript_compression).
+          and_return(use_ghostscript_compression)
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
@@ -100,7 +99,6 @@ RSpec.describe AlaveteliTextMasker do
         masked_text = MailHandler.get_attachment_text_one_file('application/pdf', result)
         expect(masked_text).not_to match(/foi@tfl.gov.uk/)
         expect(masked_text).to match(/xxx@xxx.xxx.xx/)
-        config['USE_GHOSTSCRIPT_COMPRESSION'] = previous
       end
 
       it "replaces everything in PDF files using pdftk" do
