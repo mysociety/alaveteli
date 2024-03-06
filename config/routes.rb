@@ -626,9 +626,12 @@ Rails.application.routes.draw do
   match '/admin/debug' => 'admin_general#debug',
         :as => :admin_debug,
         :via => :get
-  match '/admin/stats' => 'admin_general#stats',
-        :as => :admin_stats,
-        :via => :get
+  ####
+
+  #### Admin::Statistics controller
+  namespace :admin do
+    resources :statistics, only: [:index]
+  end
   ####
 
   #### AdminRequest controller
