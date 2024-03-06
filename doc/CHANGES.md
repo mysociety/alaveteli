@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add styling option and rich text editor to the notes admin (Graeme Porteous)
 * Strengthen 2FA warning. Users *must* remember to keep this code safe (Gareth
   Rees)
 * Broaden citation type classifications to cover wider thematic areas and add
