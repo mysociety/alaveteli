@@ -662,7 +662,7 @@ class PublicBody < ApplicationRecord
   end
 
   def notes
-    all_notes
+    Note.sort(all_notes)
   end
 
   def notes_as_string

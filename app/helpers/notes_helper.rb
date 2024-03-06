@@ -12,7 +12,7 @@ module NotesHelper
     return unless notes.present?
 
     tag.aside(**options.merge(id: 'notes')) do
-      notes.each do |note|
+      Note.sort(notes).each do |note|
         note_classes = ['note']
         note_classes << "note--style-#{note.style}"
         note_classes << "tag-#{note.notable_tag}" if note.notable_tag

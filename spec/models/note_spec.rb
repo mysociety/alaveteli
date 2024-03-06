@@ -70,4 +70,21 @@ RSpec.describe Note, type: :model do
       end
     end
   end
+
+  describe '.sort' do
+    let(:original) { FactoryBot.build(:note, :original) }
+    let(:red) { FactoryBot.build(:note, style: 'red') }
+    let(:green) { FactoryBot.build(:note, style: 'green') }
+    let(:blue_1) { FactoryBot.build(:note, style: 'blue') }
+    let(:blue_2) { FactoryBot.build(:note, style: 'blue') }
+    let(:yellow) { FactoryBot.build(:note, style: 'yellow') }
+
+    subject do
+      described_class.sort([yellow, blue_1, green, red, original, blue_2])
+    end
+
+    it 'sorts based on enum value index' do
+      is_expected.to match_array([original, blue_1, blue_2, red, green, yellow])
+    end
+  end
 end
