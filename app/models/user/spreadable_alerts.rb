@@ -9,9 +9,7 @@ module User::SpreadableAlerts
   class_methods do
     # Used for default values of last_daily_track_email
     def random_time_in_last_day
-      earliest_time = Time.zone.now - 1.day
-      latest_time = Time.zone.now
-      earliest_time + rand(latest_time - earliest_time).seconds
+      Time.zone.now - rand(24.hours).seconds
     end
 
     # Alters last_daily_track_email for every user, so alerts will be sent
