@@ -1,6 +1,16 @@
 RSpec.shared_examples 'user/spreadable_alerts' do
   describe '.random_time_in_last_day' do
-    # TODO
+    subject { described_class.random_time_in_last_day }
+
+    it 'returns a time within the last day' do
+      expect(subject).to be >= Time.zone.now - 24.hours
+      expect(subject).to be <= Time.zone.now
+    end
+
+    it 'returns different times on subsequent calls' do
+      random_time = described_class.random_time_in_last_day
+      expect(subject).not_to eq(random_time)
+    end
   end
 
   describe '.spread_alert_times_across_day' do
