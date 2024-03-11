@@ -470,7 +470,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.61.0)
+    rubocop (1.62.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -478,10 +478,10 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.30.0, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.31.1)
+    rubocop-ast (1.31.2)
       parser (>= 3.3.0.4)
     rubocop-performance (1.20.2)
       rubocop (>= 1.48.1, < 2.0)
@@ -649,7 +649,7 @@ DEPENDENCIES
   routing-filter (~> 0.7.0)
   rspec-activemodel-mocks (~> 1.2.0)
   rspec-rails (~> 6.1.1)
-  rubocop (~> 1.61.0)
+  rubocop (~> 1.62.0)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
