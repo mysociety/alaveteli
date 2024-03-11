@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Strengthen 2FA warning. Users *must* remember to keep this code safe (Gareth
+  Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)
 * Add automatic parsing of emails contain Excel spreadsheets (Graeme Porteous)
 * Improve rendering of admin hidden request prominence and explanations (Graeme
