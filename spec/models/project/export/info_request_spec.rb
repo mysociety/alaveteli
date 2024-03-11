@@ -6,6 +6,10 @@ RSpec.describe Project::Export::InfoRequest do
   include LinkToHelper
 
   let(:project) { FactoryBot.build(:project) }
+
+  let(:key_set) { FactoryBot.build(:dataset_key_set, resource: project) }
+  let!(:dataset_key) { FactoryBot.create(:dataset_key, key_set: key_set) }
+
   let(:contributor) { FactoryBot.build(:user) }
 
   let(:public_body) { FactoryBot.build(:public_body) }
@@ -71,7 +75,8 @@ RSpec.describe Project::Export::InfoRequest do
           request_owner: info_request.user.name,
           latest_status_contributor: contributor.name,
           status: info_request.described_state,
-          dataset_contributor: nil
+          dataset_contributor: nil,
+          'Were there any errors?' => nil
         )
       end
     end
