@@ -3,6 +3,7 @@
     <% citations.each do |citation| %>
       <div class="row">
         <span class="item-title span6">
+          <%= citation_icon(citation) %>
           <tt><%= link_to citation.source_url, citation.source_url %></tt>
         </span>
 

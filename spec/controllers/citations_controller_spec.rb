@@ -129,7 +129,7 @@ RSpec.describe CitationsController, type: :controller do
       end
 
       let(:params) do
-        { source_url: 'http://example.com/news', type: 'news_story' }
+        { source_url: 'http://example.com/news', type: 'journalism' }
       end
       let(:apply_to_batch) { nil }
 
