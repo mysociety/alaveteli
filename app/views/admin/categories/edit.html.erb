@@ -5,7 +5,7 @@
 <div class="row">
   <div class="span8">
     <div id="category_form">
-      <%= form_for @category, url: admin_category_path(@category, model_type: current_klass), html: { class: "form form-horizontal" } do |f| %>
+      <%= translated_form_for @category, url: admin_category_path(@category, model_type: current_klass), html: { class: "form form-horizontal" } do |f| %>
         <%= render partial: 'form', locals: { f: f } %>
 
         <div class="form-actions">

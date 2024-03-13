@@ -1,4 +1,4 @@
-<%= foi_error_messages_for :note %>
+<%= f.error_messages %>
 
 <div class="well">
   <% if @note.notable %>
@@ -11,28 +11,6 @@
   <% end %>
 </div>
 
-<div id="div-locales">
-  <ul class="locales nav nav-tabs">
-    <% @note.ordered_translations.each do |translation| %>
-      <li>
-        <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab" >
-          <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
-        </a>
-      </li>
-    <% end %>
-  </ul>
-
-  <div class="tab-content">
-    <% @note.ordered_translations.each do |translation| %>
-      <% if AlaveteliLocalization.default_locale?(translation.locale) %>
-        <%= fields_for('note', @note) do |t| %>
-          <%= render partial: 'locale_fields', locals: { t: t, locale: translation.locale } %>
-        <% end %>
-      <% else %>
-        <%= f.fields_for(:translations, translation, child_index: translation.locale) do |t| %>
-          <%= render partial: 'locale_fields', locals: { t: t, locale: translation.locale } %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<% f.translated_fields do |t| %>
+  <%= render partial: 'locale_fields', locals: { t: t } %>
+<% end %>

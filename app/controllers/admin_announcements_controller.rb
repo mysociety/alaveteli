@@ -22,6 +22,7 @@ class AdminAnnouncementsController < AdminController
       redirect_to admin_announcements_path, notice: notice
     else
       @title = 'New announcement'
+      @announcement.build_all_translations
       render :new
     end
   end
@@ -37,6 +38,7 @@ class AdminAnnouncementsController < AdminController
       redirect_to admin_announcements_path, notice: notice
     else
       @title = 'Edit announcement'
+      @announcement.build_all_translations
       render :edit
     end
   end

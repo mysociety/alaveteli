@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<%= form_for [:admin, @note], class: 'form form-horizontal' do |f| %>
+<%= translated_form_for [:admin, @note], html: { class: 'form form-horizontal' } do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
   <div class="form-actions">
     <%= submit_tag 'Create', class: 'btn btn-success' %>
