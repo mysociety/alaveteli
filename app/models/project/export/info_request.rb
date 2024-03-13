@@ -24,7 +24,7 @@ class Project::Export::InfoRequest < SimpleDelegator
       latest_status_contributor: status_contributor,
       status: described_state,
       dataset_contributor: dataset_contributor
-    }.merge(extracted_values_as_hash)
+    }.merge(dataset_values)
   end
 
   private
@@ -51,6 +51,12 @@ class Project::Export::InfoRequest < SimpleDelegator
     return unless extraction_submission
 
     extraction_submission.user.name
+  end
+
+  def dataset_values
+    project.key_set.keys.pluck(:title).each_with_object({}) do |key, memo|
+      memo[key] = extracted_values_as_hash[key]
+    end
   end
 
   def extracted_values

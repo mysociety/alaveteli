@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix missing headers when exporting Project data (Gareth Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)
 * Add automatic parsing of emails contain Excel spreadsheets (Graeme Porteous)
 * Improve rendering of admin hidden request prominence and explanations (Graeme
