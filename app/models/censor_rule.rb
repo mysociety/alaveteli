@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240313094449
 #
 # Table name: censor_rules
 #
@@ -13,7 +13,7 @@
 #  last_edit_comment :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  regexp            :boolean
+#  regexp            :boolean          default(FALSE), not null
 #
 
 # models/censor_rule.rb:
