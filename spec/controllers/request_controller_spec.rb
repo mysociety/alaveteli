@@ -113,8 +113,10 @@ RSpec.describe RequestController, "when showing one request" do
     end
   end
 
-  xdescribe "redirecting pro users to the pro context" do
+  describe "livery used", feature: :alaveteli_pro do
     let(:pro_user) { FactoryBot.create(:pro_user) }
+
+    before { sign_in pro_user }
 
     context "when showing pros their own requests" do
       context "when the request is embargoed" do
@@ -122,14 +124,9 @@ RSpec.describe RequestController, "when showing one request" do
           FactoryBot.create(:embargoed_request, user: pro_user)
         end
 
-        it "should always redirect to the pro version of the page" do
-          with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
-            get :show, params: { url_title: info_request.url_title }
-            expect(response).to redirect_to(
-              show_request_path(url_title: info_request.url_title)
-            )
-          end
+        it 'uses the pro livery' do
+          get :show, params: { url_title: info_request.url_title }
+          expect(assigns[:in_pro_area]).to be true
         end
       end
 
@@ -138,12 +135,9 @@ RSpec.describe RequestController, "when showing one request" do
           FactoryBot.create(:info_request, user: pro_user)
         end
 
-        it "should not redirect to the pro version of the page" do
-          with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
-            get :show, params: { url_title: info_request.url_title }
-            expect(response).to be_successful
-          end
+        it "should not use the pro livery" do
+          get :show, params: { url_title: info_request.url_title }
+          expect(assigns[:in_pro_area]).to be false
         end
       end
     end
@@ -157,31 +151,16 @@ RSpec.describe RequestController, "when showing one request" do
         FactoryBot.create(:embargoed_request, user: pro_user)
       end
 
-      it 'redirects to the pro version of the page' do
-        with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
-          get :show, params: { url_title: info_request.url_title }
-          expect(response).to redirect_to show_request_path(
-            url_title: info_request.url_title)
-        end
-      end
-
       it 'uses the pro livery' do
-        with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
-          get :show, params: { url_title: info_request.url_title, pro: '1' }
-          expect(assigns[:in_pro_area]).to be true
-        end
+        get :show, params: { url_title: info_request.url_title }
+        expect(assigns[:in_pro_area]).to be true
       end
     end
 
     context "when showing pros a someone else's request" do
-      it "should not redirect to the pro version of the page" do
-        with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
-          get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
-          expect(response).to be_successful
-        end
+      it "should not user the pro livery" do
+        get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
+        expect(assigns[:in_pro_area]).to be false
       end
     end
   end
