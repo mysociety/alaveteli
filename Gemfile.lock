@@ -470,7 +470,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.62.0)
+    rubocop (1.62.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -649,7 +649,7 @@ DEPENDENCIES
   routing-filter (~> 0.7.0)
   rspec-activemodel-mocks (~> 1.2.0)
   rspec-rails (~> 6.1.1)
-  rubocop (~> 1.62.0)
+  rubocop (~> 1.62.1)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
