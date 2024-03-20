@@ -95,7 +95,7 @@ class ApplicationController < ActionController::Base
     end
 
     # ensure current user locale attribute is up-to-date
-    current_user.update_columns(locale: locale) if current_user
+    current_user.update_column(:locale, locale) if current_user
   end
 
   def redirect_gettext_locale
