@@ -124,8 +124,6 @@ RSpec.describe PublicBodyHelper do
 
     context 'when in a non-default locale' do
       it 'creates the anchor href in the correct locale' do
-        # Activate the routing filter, normally turned off for helper tests
-        RoutingFilter.active = true
         FactoryBot.create(
           :category, :public_body,
           category_tag: 'spec',
