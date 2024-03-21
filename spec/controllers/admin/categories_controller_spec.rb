@@ -255,7 +255,7 @@ RSpec.describe Admin::CategoriesController do
       }
     end
 
-    it 'assigns root for correct model' do
+    it 'overrides model type param in favor of the categories root' do
       patch :update, params: {
         model_type: 'PublicBody',
         id: category.id,
@@ -268,7 +268,7 @@ RSpec.describe Admin::CategoriesController do
         id: category.id,
         category: params
       }
-      expect(assigns(:root)).to eq(InfoRequest.category_root)
+      expect(assigns(:root)).to eq(PublicBody.category_root)
     end
 
     it 'finds the category to update' do

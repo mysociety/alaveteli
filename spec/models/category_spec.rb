@@ -214,4 +214,24 @@ RSpec.describe Category, type: :model do
       expect { list.each(&:title) }.to_not change { @query_count }
     end
   end
+
+  describe '#root' do
+    subject { branch.root }
+
+    let(:root) do
+      FactoryBot.create(:category, title: 'PublicBody')
+    end
+
+    let(:trunk) do
+      FactoryBot.create(:category, title: 'Trunk', parents: [root])
+    end
+
+    let(:branch) do
+      FactoryBot.create(:category, title: 'Branch', parents: [trunk])
+    end
+
+    it 'returns uppermost root category' do
+      expect(branch.root).to eq(root)
+    end
+  end
 end

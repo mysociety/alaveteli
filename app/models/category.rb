@@ -54,6 +54,16 @@ class Category < ApplicationRecord
   end
 
   def list
+    Category.where(id: list_ids).includes(:translations)
+  end
+
+  def root
+    Category.roots.find { _1.list_ids.include?(id) }
+  end
+
+  protected
+
+  def list_ids
     sql = <<~SQL.squish
       WITH RECURSIVE nested_categories AS (
         SELECT child_id
@@ -70,8 +80,7 @@ class Category < ApplicationRecord
       INNER JOIN nested_categories nc ON c.id = nc.child_id;
     SQL
 
-    ids = Category.find_by_sql([sql, { parent_id: id }]).map(&:id)
-    Category.where(id: ids).includes(:translations)
+    Category.find_by_sql([sql, { parent_id: id }]).map(&:id)
   end
 
   private
