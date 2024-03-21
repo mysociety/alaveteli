@@ -24,11 +24,11 @@ class Note < ApplicationRecord
 
   cattr_accessor :default_style, default: 'original'
   cattr_accessor :style_labels, default: {
-    'Original': 'original',
     '🔵 Blue': 'blue',
     '🔴 Red': 'red',
     '🟢 Green': 'green',
-    '🟡 Yellow': 'yellow'
+    '🟡 Yellow': 'yellow',
+    'Original': 'original'
   }
 
   enum :style, Note.style_labels.values.index_by(&:itself),
