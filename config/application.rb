@@ -9,7 +9,7 @@ require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 # require "action_mailbox/engine"
-# require "action_text/engine"
+require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
 require "sprockets/railtie"
@@ -34,6 +34,7 @@ module Alaveteli
     config.autoloader = :zeitwerk
     config.active_record.legacy_connection_handling = false
     config.active_support.use_rfc4122_namespaced_uuids = true
+    config.active_storage.replace_on_assign_to_many = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]

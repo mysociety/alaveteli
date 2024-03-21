@@ -52,7 +52,7 @@ FactoryBot.define do
       end
 
       concrete_notes do
-        [association(:note, body: note_body)]
+        [association(:note, rich_body: note_body)]
       end
     end
 

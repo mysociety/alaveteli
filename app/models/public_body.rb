@@ -662,11 +662,11 @@ class PublicBody < ApplicationRecord
   end
 
   def notes
-    all_notes
+    Note.sort(all_notes)
   end
 
   def notes_as_string
-    notes.map(&:body).join(' ')
+    notes.map(&:to_plain_text).join(' ')
   end
 
   def has_notes?

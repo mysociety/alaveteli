@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add styling option and rich text editor to the notes admin (Graeme Porteous)
 * Fix missing headers when exporting Project data (Gareth Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)
 * Add automatic parsing of emails contain Excel spreadsheets (Graeme Porteous)

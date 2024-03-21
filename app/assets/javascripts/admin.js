@@ -11,4 +11,5 @@
 //= require admin/category-order
 //= require admin/censor-rules
 //= require admin/holidays
+//= require admin/notes
 //= require jquery_ujs

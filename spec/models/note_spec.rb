@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220720085105
+# Schema version: 20240227080436
 #
 # Table name: notes
 #
@@ -9,6 +9,7 @@
 #  notable_tag  :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  style        :string           default("original"), not null
 #  body         :text
 #
 
@@ -20,9 +21,28 @@ RSpec.describe Note, type: :model do
   describe 'validations' do
     specify { expect(note).to be_valid }
 
-    it 'requires body' do
-      note.body = nil
+    context 'original style' do
+      let(:note) { FactoryBot.build(:note, :original) }
+
+      it 'requires body' do
+        note.body = nil
+        expect(note).not_to be_valid
+      end
+    end
+
+    it 'requires rich body' do
+      note.rich_body = nil
       expect(note).not_to be_valid
+    end
+
+    it 'requires style' do
+      note.style = nil
+      expect(note).not_to be_valid
+    end
+
+    it 'requires known style' do
+      expect { note.style = 'invalid' }.
+        to raise_error(ArgumentError, "'invalid' is not a valid style")
     end
 
     it 'requires notable or notable_tag' do
@@ -43,10 +63,14 @@ RSpec.describe Note, type: :model do
   describe 'translations' do
     before { note.save! }
 
-    it 'adds translated body' do
-      expect(note.body_translations).to_not include(es: 'body')
-      AlaveteliLocalization.with_locale(:es) { note.body = 'body' }
-      expect(note.body_translations).to include(es: 'body')
+    def plain_body
+      note.rich_body_translations.transform_values(&:to_plain_text)
+    end
+
+    it 'adds translated rich_body' do
+      expect(plain_body).to_not include(es: 'content')
+      AlaveteliLocalization.with_locale(:es) { note.rich_body = 'content' }
+      expect(plain_body).to include(es: 'content')
     end
   end
 
@@ -57,6 +81,37 @@ RSpec.describe Note, type: :model do
       it 'belongs to a public body via polymorphic notable' do
         expect(note.notable).to be_a PublicBody
       end
+    end
+  end
+
+  describe '.sort' do
+    let(:original) { FactoryBot.build(:note, :original) }
+    let(:red) { FactoryBot.build(:note, style: 'red') }
+    let(:green) { FactoryBot.build(:note, style: 'green') }
+    let(:blue_1) { FactoryBot.build(:note, style: 'blue') }
+    let(:blue_2) { FactoryBot.build(:note, style: 'blue') }
+    let(:yellow) { FactoryBot.build(:note, style: 'yellow') }
+
+    subject do
+      described_class.sort([yellow, blue_1, green, red, original, blue_2])
+    end
+
+    it 'sorts based on enum value index' do
+      is_expected.to match_array([original, blue_1, blue_2, red, green, yellow])
+    end
+  end
+
+  describe '#to_plain_text' do
+    subject { note.to_plain_text }
+
+    context 'with original style note' do
+      let(:note) { FactoryBot.build(:note, :original, body: '<h1>title</h1>') }
+      it { is_expected.to eq('title') }
+    end
+
+    context 'with styled note' do
+      let(:note) { FactoryBot.build(:note, rich_body: '<h1>title</h1>') }
+      it { is_expected.to eq('title') }
     end
   end
 end
