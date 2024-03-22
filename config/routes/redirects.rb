@@ -100,4 +100,8 @@ constraints FeatureConstraint.new(:alaveteli_pro) do
   get '/alaveteli_pro/info_requests/:url_title',
     constraints: { url_title: /(?!new).*/ },
     to: redirect('/request/%{url_title}')
+
+  get '/alaveteli_pro', to: redirect('/pro/dashboard')
+
+  get '/alaveteli_pro/*path', to: redirect('/pro/%{path}')
 end
