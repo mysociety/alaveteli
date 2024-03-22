@@ -872,8 +872,8 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :alaveteli_pro do
-      root to: 'dashboard#index', :as => :dashboard, :via => :get
+    namespace :alaveteli_pro, path: 'pro' do
+      get :dashboard, to: 'dashboard#index'
       resources :draft_info_requests, :only => [:create, :update]
       resources :info_requests, only: [:new, :create, :index] do
         get :preview, on: :new # /info_request/new/preview
@@ -906,7 +906,7 @@ Rails.application.routes.draw do
       resources :public_bodies, :only => [:index]
     end
 
-    scope path: :alaveteli_pro do
+    scope path: :pro do
       # So that we can show a batch request using the existing controller from
       # the pro context
       match '/info_request_batches/:id' => 'info_request_batch#show',
