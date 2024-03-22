@@ -11,6 +11,10 @@ class Admin::CategoriesController < AdminController
   def index
   end
 
+  def show
+    redirect_to action: :edit
+  end
+
   def new
     @category = Category.new
     @category.build_all_translations
