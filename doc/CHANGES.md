@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Change use of `/alaveteli_pro/info_requests/{request}` to instead appear as
+  `/request/{request}` (Alexander Griffen, Graeme Porteous)
 * Remove locale prefixes from URLs (Alexander Griffen, Graeme Porteous)
 * Fix missing headers when exporting Project data (Gareth Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)
