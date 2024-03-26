@@ -16,6 +16,8 @@
 # categories and translatable titles/descriptions.
 #
 class Category < ApplicationRecord
+  include Notable
+
   has_many :parent_relationships,
            class_name: 'CategoryRelationship',
            foreign_key: 'child_id',

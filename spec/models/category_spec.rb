@@ -12,8 +12,11 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/notable'
 
 RSpec.describe Category, type: :model do
+  it_behaves_like 'concerns/notable', :category
+
   set_fixture_class has_tag_string_tags: HasTagString::HasTagStringTag
 
   let(:category) { FactoryBot.build(:category) }
