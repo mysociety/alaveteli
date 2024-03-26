@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Change use of `/alaveteli_pro/info_requests/{request}` to instead appear as
+  `/request/{request}` (Alexander Griffen, Graeme Porteous)
 * Remove locale prefixes from URLs (Alexander Griffen, Graeme Porteous)
 * Add support for Ruby 3.3 (Graeme Porteous)
 * Update Twitter/X logos and wording (Lucas Cumsille Montesinos)

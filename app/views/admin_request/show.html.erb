@@ -34,7 +34,7 @@
             <tr>
               <% if @info_request.embargo %>
                 <th>Request page:</th>
-                <td><%= link_to show_alaveteli_pro_request_url(@info_request.url_title), show_alaveteli_pro_request_path(@info_request.url_title) %></td>
+                <td><%= link_to show_request_url(@info_request.url_title), show_request_path(@info_request.url_title) %></td>
               <% else %>
                 <th>Public page:</th>
                 <td><%= link_to request_url(@info_request), request_path(@info_request) %></td>

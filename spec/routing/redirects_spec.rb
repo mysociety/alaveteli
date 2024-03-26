@@ -87,4 +87,12 @@ RSpec.describe 'routing redirects', type: :request do
     get('/help/about?locale=en_GB')
     expect(response).to redirect_to('/help/about')
   end
+
+  it 'redirects old pro request routes', feature: :alaveteli_pro do
+    get('/alaveteli_pro/info_requests/my-request')
+    expect(response).to redirect_to('/request/my-request')
+
+    get('/alaveteli_pro/info_requests/new')
+    expect(response).to_not redirect_to('/request/new')
+  end
 end
