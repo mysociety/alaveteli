@@ -237,4 +237,16 @@ RSpec.describe Category, type: :model do
       expect(branch.root).to eq(root)
     end
   end
+
+  describe 'translations' do
+    def plain_body
+      category.body_translations.transform_values(&:to_plain_text)
+    end
+
+    it 'adds translated body' do
+      expect(plain_body).to_not include(es: 'content')
+      AlaveteliLocalization.with_locale(:es) { category.body = 'content' }
+      expect(plain_body).to include(es: 'content')
+    end
+  end
 end

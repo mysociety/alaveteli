@@ -79,7 +79,7 @@ class Admin::CategoriesController < AdminController
   def category_params
     category_params = translatable_params(
       params.require(:category),
-      translated_keys: [:locale, :title, :description],
+      translated_keys: [:locale, :title, :description, :body],
       general_keys: [:category_tag, :parent_ids]
     )
     category_params[:parent_ids] ||= [@root.id]

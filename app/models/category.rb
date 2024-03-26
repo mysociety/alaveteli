@@ -41,7 +41,10 @@ class Category < ApplicationRecord
            class_name: 'HasTagString::HasTagStringTag'
 
   translates :title, :description
+  translates :body, touch: true
   include Translatable
+  delegate :body, :body=, :body?, to: :translation
+  after_save { body.save if body.changed? }
 
   validates :title, presence: true
   validate :check_tag_assignments, on: :update
@@ -95,5 +98,9 @@ class Category < ApplicationRecord
       :category_tag,
       message: "can't be changed as there are associated objects present"
     )
+  end
+
+  class Translation # :nodoc:
+    has_rich_text :body
   end
 end
