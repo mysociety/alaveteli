@@ -102,6 +102,12 @@ module Admin::LinkHelper
     link_to(icon, icon_link, title: title) + ' ' + "#{track_thing.id}:"
   end
 
+  def category_both_links(category)
+    # No public links, yet?
+    link_to(category.title, edit_admin_category_path(category),
+            title: admin_title)
+  end
+
   def admin_title
     'View full details'
   end
