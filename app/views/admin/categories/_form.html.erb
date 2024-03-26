@@ -40,3 +40,9 @@
     <% end %>
   </div>
 <% end %>
+
+
+<h2>Notes</h2>
+
+<%= render partial: 'admin/notes/show',
+  locals: { notes: @category.all_notes, notable: @category } %>
