@@ -11,7 +11,7 @@ module Notable
 
   def all_notes
     notes = concrete_notes.with_translations
-    return notes.to_a unless Taggable.models.include?(self)
+    return notes.to_a unless Taggable.models.include?(self.class)
 
     notes + tagged_notes.with_translations
   end
