@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update Twitter/X logos and wording (Lucas Cumsille Montesinos)
 * Fix missing headers when exporting Project data (Gareth Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)
 * Add automatic parsing of emails contain Excel spreadsheets (Graeme Porteous)
