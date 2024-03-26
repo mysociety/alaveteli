@@ -49,6 +49,7 @@
   Porteous)
 * Don't show users that have closed their account or been banned on leaderboards
   (Chris Mytton)
+* Treat unstemmed words as normal search terms. (Matthew Somerville)
 
 
 ## Upgrade Notes
