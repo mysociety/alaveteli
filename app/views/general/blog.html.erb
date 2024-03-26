@@ -1,4 +1,4 @@
-<% @title = _("{{site_name}} blog and tweets", :site_name => site_name) %>
+<% @title = _("{{site_name}} blog", :site_name => site_name) %>
 
 <div id="left_column" class="left_column">
   <h1><%=@title %></h1>
@@ -58,7 +58,7 @@
   <% if !@twitter_user.empty? %>
     <div class="act_link">
       <i class="act-link-icon act-link-icon--twitter"></i>
-      <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on twitter") %></a>
+      <a href="https://twitter.com/<%= @twitter_user %>"><%= _("Follow us on X") %></a>
     </div>
   <% end %>
 

@@ -17,10 +17,10 @@
       <h2><%= _("Share your batch request") %></h2>
 
       <%= link_to image_tag("next-step-twitter.png",
-                            :alt => _("Tweet it"),
+                            :alt => _("Share on X"),
                             :width => "120",
                             :height => "37"),
-                            "https://twitter.com/intent/tweet?" << {
+                            "https://twitter.com/intent/post?" << {
                               :url => request.url,
                               :via => AlaveteliConfiguration.twitter_username,
                               :text => "'#{ @info_request_batch.title }'",
