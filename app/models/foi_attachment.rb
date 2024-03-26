@@ -51,7 +51,7 @@ class FoiAttachment < ApplicationRecord
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
 
   delegate :expire, :log_event, to: :info_request
-  delegate :metadata, to: :file_blob
+  delegate :metadata, to: :file_blob, allow_nil: true
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[metadata]
