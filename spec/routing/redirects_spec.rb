@@ -95,4 +95,18 @@ RSpec.describe 'routing redirects', type: :request do
     get('/alaveteli_pro/info_requests/new')
     expect(response).to_not redirect_to('/request/new')
   end
+
+  it 'redirects from alaveteli_pro urls to pro urls', feature: :alaveteli_pro do
+    get('/alaveteli_pro')
+    expect(response).to redirect_to('/pro/dashboard')
+
+    get('/alaveteli_pro/pricing')
+    expect(response).to redirect_to('/pro/pricing')
+
+    get('/alaveteli_pro/embargoes')
+    expect(response).to redirect_to('/pro/embargoes')
+
+    get('/alaveteli_pro/embargoes/1')
+    expect(response).to redirect_to('/pro/embargoes/1')
+  end
 end
