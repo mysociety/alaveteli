@@ -12,8 +12,11 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/notable'
 
 RSpec.describe Category, type: :model do
+  it_behaves_like 'concerns/notable', :category
+
   set_fixture_class has_tag_string_tags: HasTagString::HasTagStringTag
 
   let(:category) { FactoryBot.build(:category) }
@@ -212,6 +215,38 @@ RSpec.describe Category, type: :model do
 
       # iterate through list and ensure translations have been preloaded
       expect { list.each(&:title) }.to_not change { @query_count }
+    end
+  end
+
+  describe '#root' do
+    subject { branch.root }
+
+    let(:root) do
+      FactoryBot.create(:category, title: 'PublicBody')
+    end
+
+    let(:trunk) do
+      FactoryBot.create(:category, title: 'Trunk', parents: [root])
+    end
+
+    let(:branch) do
+      FactoryBot.create(:category, title: 'Branch', parents: [trunk])
+    end
+
+    it 'returns uppermost root category' do
+      expect(branch.root).to eq(root)
+    end
+  end
+
+  describe 'translations' do
+    def plain_body
+      category.body_translations.transform_values(&:to_plain_text)
+    end
+
+    it 'adds translated body' do
+      expect(plain_body).to_not include(es: 'content')
+      AlaveteliLocalization.with_locale(:es) { category.body = 'content' }
+      expect(plain_body).to include(es: 'content')
     end
   end
 end

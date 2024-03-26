@@ -27,6 +27,14 @@ RSpec.describe Admin::CategoriesController do
     end
   end
 
+  describe 'GET show' do
+    it 'redirects to the edit action' do
+      category = FactoryBot.create(:category)
+      get :show, params: { id: category.id }
+      expect(response).to redirect_to(edit_admin_category_path(category))
+    end
+  end
+
   describe 'GET new' do
     it 'assigns root for correct model' do
       get :new, params: { model_type: 'PublicBody' }
@@ -255,7 +263,7 @@ RSpec.describe Admin::CategoriesController do
       }
     end
 
-    it 'assigns root for correct model' do
+    it 'overrides model type param in favor of the categories root' do
       patch :update, params: {
         model_type: 'PublicBody',
         id: category.id,
@@ -268,7 +276,7 @@ RSpec.describe Admin::CategoriesController do
         id: category.id,
         category: params
       }
-      expect(assigns(:root)).to eq(InfoRequest.category_root)
+      expect(assigns(:root)).to eq(PublicBody.category_root)
     end
 
     it 'finds the category to update' do
