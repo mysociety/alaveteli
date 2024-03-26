@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary = "File analysers for ActiveStorage"
   spec.description = "Extra ActiveStorage Analysers for Alaveteli"
   spec.homepage = "https://alaveteli.org"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
 

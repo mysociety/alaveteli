@@ -29,7 +29,7 @@ namespace :config_files do
       cpus: ENV.fetch('CPUS') { '1' },
       mailto: ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
       rails_env: ENV.fetch('RAILS_ENV') { 'development' },
-      ruby_version: ENV.fetch('RUBY_VERSION') { '3.0.4' },
+      ruby_version: ENV.fetch('RUBY_VERSION') { '3.2.2' },
       site: ENV.fetch('SITE') { 'foi' },
       user: ENV.fetch('DEPLOY_USER') { 'alaveteli' },
       vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
@@ -123,7 +123,7 @@ namespace :config_files do
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
               'SCRIPT_FILE=config/sysvinit-thin.example ' \
-              'RUBY_VERSION=3.0.4 ' \
+              'RUBY_VERSION=3.2.2 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR SCRIPT_FILE], example)
 
@@ -147,7 +147,7 @@ namespace :config_files do
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
               'DAEMON=alert-tracks.service ' \
-              'RUBY_VERSION=3.0.4 ' \
+              'RUBY_VERSION=3.2.2 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR DAEMON], example)
 
@@ -167,7 +167,7 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
               'SITE=alaveteli CRONTAB=config/crontab-example ' \
               'MAILTO=cron-alaveteli@example.org ' \
-              'RUBY_VERSION=3.0.4 ' \
+              'RUBY_VERSION=3.2.2 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR VCSPATH SITE CRONTAB], example)
     convert_erb(ENV['CRONTAB'], **default_replacements)

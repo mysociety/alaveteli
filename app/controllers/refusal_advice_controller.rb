@@ -92,8 +92,6 @@ class RefusalAdviceController < ApplicationController
         end
     ).to_h
 
-    return parsed_params.deep_symbolize_keys if RUBY_VERSION < '3.0'
-
     parsed_params
   end
 end

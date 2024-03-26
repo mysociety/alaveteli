@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add support for Ruby 3.3 (Graeme Porteous)
 * Update Twitter/X logos and wording (Lucas Cumsille Montesinos)
 * Fix missing headers when exporting Project data (Gareth Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)
@@ -52,6 +53,9 @@
 
 
 ## Upgrade Notes
+
+* _Required:_ This release will be the last to support Ruby 3.0 and 3.1. Please
+  upgrade to version 3.3.
 
 * _Required:_ To migrate to the new `Category` feature, please run:
 

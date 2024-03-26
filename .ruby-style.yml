@@ -5,7 +5,7 @@ require:
   - "./lib/custom_cops/empty_lines_around_rescued_exceptions.rb"
 
 AllCops:
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 3.2
   RubyInterpreters:
     - ruby
     - rake
