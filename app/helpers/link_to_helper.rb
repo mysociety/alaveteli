@@ -290,6 +290,12 @@ module LinkToHelper
     end
   end
 
+  def current_path_without_locale
+    unsafe_keys = %w[protocol host locale]
+    sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!
+    url_for(sanitized_params.merge(only_path: true))
+  end
+
   def current_path_with_locale(locale)
     unsafe_keys = %w[protocol host]
     sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!

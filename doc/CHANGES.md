@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Remove locale prefixes from URLs (Alexander Griffen, Graeme Porteous)
 * Add support for Ruby 3.3 (Graeme Porteous)
 * Update Twitter/X logos and wording (Lucas Cumsille Montesinos)
 * Fix missing headers when exporting Project data (Gareth Rees)

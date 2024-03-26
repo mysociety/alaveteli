@@ -124,8 +124,6 @@ RSpec.describe PublicBodyHelper do
 
     context 'when in a non-default locale' do
       it 'creates the anchor href in the correct locale' do
-        # Activate the routing filter, normally turned off for helper tests
-        RoutingFilter.active = true
         FactoryBot.create(
           :category, :public_body,
           category_tag: 'spec',
@@ -133,7 +131,7 @@ RSpec.describe PublicBodyHelper do
         )
         public_body = FactoryBot.create(:public_body, tag_string: 'spec')
 
-        anchor = %Q(<a href="/es/body/list/spec">Spec category</a>)
+        anchor = %Q(<a href="/body/list/spec">Spec category</a>)
         AlaveteliLocalization.with_locale(:es) do
           expect(type_of_authority(public_body)).to eq(anchor)
         end

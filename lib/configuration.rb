@@ -60,7 +60,6 @@ module AlaveteliConfiguration
       FRONTPAGE_PUBLICBODY_EXAMPLES: '',
       GA_CODE: '',
       GEOIP_DATABASE: 'vendor/data/GeoLite2-Country.mmdb',
-      INCLUDE_DEFAULT_LOCALE_IN_URLS: true,
       INCOMING_EMAIL_DOMAIN: 'localhost',
       INCOMING_EMAIL_PREFIX: 'foi+',
       INCOMING_EMAIL_SECRET: 'dummysecret',

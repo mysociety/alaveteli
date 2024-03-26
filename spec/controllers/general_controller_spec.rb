@@ -143,7 +143,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
 
   describe 'when using locales' do
     it "should use our test PO files rather than the application one" do
-      get :frontpage, params: { locale: 'es' }
+      get :frontpage, session: { locale: 'es' }
       expect(response.body).to match(/XOXO/)
     end
   end

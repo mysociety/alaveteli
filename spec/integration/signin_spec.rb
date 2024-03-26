@@ -8,7 +8,7 @@ RSpec.describe "Signing in" do
     default_options = { email: user.email,
                         password: 'jonespassword' }
     options = default_options.merge(options)
-    login_url = 'en/profile/sign_in'
+    login_url = '/profile/sign_in'
     login_url += "?r=#{options[:redirect]}" if options[:redirect]
     visit login_url
     within '#signin_form' do

@@ -930,6 +930,4 @@ Rails.application.routes.draw do
     end
   end
   ####
-
-  filter :conditionallyprependlocale
 end

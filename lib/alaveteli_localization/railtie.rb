@@ -21,10 +21,6 @@ class AlaveteliLocalization
 
       I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 
-      AlaveteliLocalization.set_default_locale_urls(
-        AlaveteliConfiguration.include_default_locale_in_urls
-      )
-
       if Rails.version < '7.0.0' && Rails.env.development?
         ##
         # Ideally the following would only be called in the `after_initialize`

@@ -15,7 +15,7 @@ RSpec.describe "When searching" do
 
   it "should redirect requests with search in query string to URL-based page" do
     get '/search/all?query=bob'
-    expect(response).to redirect_to "/en/search/bob/all"
+    expect(response).to redirect_to "/search/bob/all"
   end
 
   it "should correctly execute simple search" do

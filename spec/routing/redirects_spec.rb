@@ -11,14 +11,6 @@ RSpec.describe 'routing redirects', type: :request do
     expect(response).to redirect_to('/request/the_cost_of_boring.json')
   end
 
-  it 'redirects numerical request routes with locales' do
-    get('/fr/request/105')
-    expect(response).to redirect_to('/fr/request/the_cost_of_boring')
-
-    get('/en_GB/request/105')
-    expect(response).to redirect_to('/en_GB/request/the_cost_of_boring')
-  end
-
   it 'routes numerical request member routes to URL title member routes' do
     get('/request/105/followups/new')
     expect(response).to redirect_to('/request/the_cost_of_boring/followups/new')
@@ -68,11 +60,31 @@ RSpec.describe 'routing redirects', type: :request do
     expect(response).to redirect_to('/request/the_cost_of_boring/categorise')
   end
 
-  it 'redirects prefixed request routes with locales' do
-    get('/fr/details/request/the_cost_of_boring')
-    expect(response).to redirect_to('/fr/request/the_cost_of_boring/details')
+  it 'redirects locale paths to locale parameter' do
+    get('/fr')
+    expect(response).to redirect_to('/?locale=fr')
 
-    get('/en_GB/details/request/the_cost_of_boring')
-    expect(response).to redirect_to('/en_GB/request/the_cost_of_boring/details')
+    get('/en_GB')
+    expect(response).to redirect_to('/?locale=en_GB')
+
+    get('/fr/help/about')
+    expect(response).to redirect_to('/help/about?locale=fr')
+
+    get('/en_GB/help/about')
+    expect(response).to redirect_to('/help/about?locale=en_GB')
+  end
+
+  it 'redirects to remove locale parameter' do
+    get('/?locale=fr')
+    expect(response).to redirect_to('/')
+
+    get('/?locale=en_GB')
+    expect(response).to redirect_to('/')
+
+    get('/help/about?locale=fr')
+    expect(response).to redirect_to('/help/about')
+
+    get('/help/about?locale=en_GB')
+    expect(response).to redirect_to('/help/about')
   end
 end

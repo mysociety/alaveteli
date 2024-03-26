@@ -125,20 +125,6 @@ RSpec.configure do |config|
                                       AlaveteliConfiguration.default_locale)
   end
 
-  # Turn routing-filter off in functional and unit tests as per
-  # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
-  config.before(:each) do |example|
-    if [:controller, :helper, :model].include? example.metadata[:type]
-      RoutingFilter.active = false
-    end
-  end
-
-  config.after(:each) do |example|
-    if [:controller, :helper, :model].include? example.metadata[:type]
-      RoutingFilter.active = true
-    end
-  end
-
   # This section makes the garbage collector run less often to speed up tests
   last_gc_run = Time.now
 

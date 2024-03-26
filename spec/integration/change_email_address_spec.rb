@@ -20,7 +20,7 @@ RSpec.describe 'changing your email address' do
 
       # Check confirmation URL works
       visit confirmation_url_from_email
-      expect(page).to have_current_path("/en/user/#{user.url_name}")
+      expect(page).to have_current_path("/user/#{user.url_name}")
       expect(page).to have_content('You have now changed your email address')
       user.reload
       expect(user.email).to eq('newbob@localhost')
