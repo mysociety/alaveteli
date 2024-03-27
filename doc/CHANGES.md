@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Update `/alaveteli_pro` base path to `/pro` (Alexander Griffen, Graeme
+  Porteous)
 * Change use of `/alaveteli_pro/info_requests/{request}` to instead appear as
   `/request/{request}` (Alexander Griffen, Graeme Porteous)
 * Remove locale prefixes from URLs (Alexander Griffen, Graeme Porteous)

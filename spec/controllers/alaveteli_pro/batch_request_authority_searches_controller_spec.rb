@@ -139,7 +139,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     it 'redirects to index action' do
       get :new
       expect(response).to redirect_to(
-        '/alaveteli_pro/batch_request_authority_searches'
+        '/pro/batch_request_authority_searches'
       )
     end
   end
