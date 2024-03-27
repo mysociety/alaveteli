@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Remove locale prefixes from URLs (Alexander Griffen, Graeme Porteous)
 * Update Twitter/X logos and wording (Lucas Cumsille Montesinos)
 * Fix missing headers when exporting Project data (Gareth Rees)
 * Reduce amount of storage related background jobs (Graeme Porteous)

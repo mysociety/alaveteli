@@ -17,7 +17,7 @@ RSpec.describe "When viewing requests" do
   it "should not make endlessly recursive JSON <link>s" do
     using_session(@unregistered) do
       browse_request("#{@info_request.url_title}?unfold=1")
-      expected_link = "/en/request/#{@info_request.url_title}.json?unfold=1"
+      expected_link = "/request/#{@info_request.url_title}.json?unfold=1"
       expect(page).to have_css("head link[href='#{expected_link}']",
                                   visible: false)
       expect(page).not_to have_css("head link[href='#{expected_link}.json']",
@@ -51,7 +51,7 @@ RSpec.describe "When viewing requests" do
       )
       rebuild_raw_emails(info_request)
 
-      attachment_url = "/es/request/#{info_request.url_title}/response/" \
+      attachment_url = "/request/#{info_request.url_title}/response/" \
         "#{incoming_message.id}/attach/#{attachment.url_part_number}/" \
         "#{attachment.filename}"
       using_session(non_owner) { visit(attachment_url) }

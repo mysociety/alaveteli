@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
 
-  before_action :set_gettext_locale
+  before_action :set_gettext_locale, :redirect_gettext_locale
   before_action :collect_locales
 
   protect_from_forgery if: :authenticated?, with: :exception
@@ -72,23 +72,35 @@ class ApplicationController < ActionController::Base
   def set_gettext_locale
     params_locale = params[:locale]
 
-    if AlaveteliConfiguration.include_default_locale_in_urls == false
-      params_locale ||= AlaveteliLocalization.default_locale
-    end
-
     if AlaveteliConfiguration.use_default_browser_language
       browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
     end
 
     locale = AlaveteliLocalization.set_session_locale(
-      params_locale, session[:locale], cookies[:locale], browser_locale
+      params_locale, session[:locale], cookies[:locale], browser_locale,
+      AlaveteliLocalization.default_locale
     )
 
-    # set the current locale to the requested_locale
-    session[:locale] = locale
+    # set response header informing the browser what language the page is in
+    response.headers['Content-Language'] = I18n.locale.to_s
+
+    # set the current stored locale to the requested_locale
+    current_session_locale = session[:locale]
+    if current_session_locale != locale
+      session[:locale] = locale
+
+      # we need to set something other than StripEmptySessions::STRIPPABLE_KEYS
+      # otherwise the cookie will be striped from the response
+      session[:previous_locale] = current_session_locale
+    end
 
     # ensure current user locale attribute is up-to-date
     current_user.update_column(:locale, locale) if current_user
+  end
+
+  def redirect_gettext_locale
+    # redirect to remove locale params if present
+    redirect_to current_path_without_locale if params[:locale]
   end
 
   # Help work out which request causes RAM spike.

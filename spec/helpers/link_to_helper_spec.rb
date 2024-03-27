@@ -222,26 +222,51 @@ RSpec.describe LinkToHelper do
     end
   end
 
-  describe '#current_path_with_locale' do
+  describe '#current_path_without_locale' do
     before do
-      @was_routing_filter_active = RoutingFilter.active?
-      RoutingFilter.active = true
-
       AlaveteliLocalization.set_locales('en cy', 'en')
     end
 
-    after do
-      RoutingFilter.active = @was_routing_filter_active
+    it 'removes locale from current path' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all',
+          locale: 'cy'
+        )
+      )
+      expect(current_path_without_locale).
+        to eq '/body/welsh_government'
     end
 
-    it 'prepends current path with new locale' do
+    it 'ignores current protocol and host' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all',
+          protocol: 'http', host: 'example.com',
+          locale: 'cy'
+        )
+      )
+      expect(current_path_without_locale).
+        to eq '/body/welsh_government'
+    end
+  end
+
+  describe '#current_path_with_locale' do
+    before do
+      AlaveteliLocalization.set_locales('en cy', 'en')
+    end
+
+    it 'adds locale parameter to current path' do
       allow(controller).to receive(:params).and_return(
         ActionController::Parameters.new(
           controller: 'public_body', action: 'show',
           url_name: 'welsh_government', view: 'all'
         )
       )
-      expect(current_path_with_locale('cy')).to eq '/cy/body/welsh_government'
+      expect(current_path_with_locale('cy')).
+        to eq '/body/welsh_government?locale=cy'
     end
 
     it 'ignores current protocol and host' do
@@ -252,7 +277,8 @@ RSpec.describe LinkToHelper do
           protocol: 'http', host: 'example.com'
         )
       )
-      expect(current_path_with_locale('cy')).to eq '/cy/body/welsh_government'
+      expect(current_path_with_locale('cy')).
+        to eq '/body/welsh_government?locale=cy'
     end
   end
 
