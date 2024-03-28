@@ -46,7 +46,17 @@ class Storage
     count = mirrorable_blobs.count
 
     mirrorable_blobs.find_each.with_index do |blob, index|
-      mirror_service.mirror(blob.key, checksum: blob.checksum)
+      begin
+        mirror_service.mirror(blob.key, checksum: blob.checksum)
+      rescue ActiveStorage::IntegrityError => ex
+        raise ex unless @klass == FoiAttachment
+
+        # Fix for https://github.com/mysociety/alaveteli/issues/8181
+        attachment = FoiAttachment.joins(:file_blob).
+          find_by(active_storage_blobs: { id: blob })
+        # Running the attachment masking will also mirror the file
+        FoiAttachmentMaskJob.set(queue: :low).perform_later(attachment)
+      end
 
       print "#{prefix}: Mirrored #{index + 1}/#{count}"
     end
