@@ -96,6 +96,8 @@ class FoiAttachment < ApplicationRecord
     ensure_filename!
     if file.attached?
       file_blob.upload(StringIO.new(d.to_s), identify: false)
+      file_blob.save
+
     else
       file.attach(
         io: StringIO.new(d.to_s),

@@ -125,6 +125,16 @@ RSpec.describe FoiAttachment do
       expect { attachment.update(body: 'masked', masked_at: Time.now) }.
         to_not change { attachment.file_blob.metadata }
     end
+
+    it 'persists changes to existing blob checksum' do
+      attachment = FactoryBot.create(
+        :foi_attachment, :unmasked, body: 'unmasked'
+      )
+
+      expect { attachment.update(body: 'masked', masked_at: Time.now) }.
+        to change { attachment.file_blob.checksum }
+      expect(attachment.file_blob.changed?).to eq false
+    end
   end
 
   describe '#body' do
