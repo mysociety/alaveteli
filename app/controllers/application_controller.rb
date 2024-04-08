@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
 
-  before_action :set_gettext_locale, :redirect_gettext_locale
-  before_action :collect_locales
+  before_action :set_gettext_locale, :store_gettext_locale
+  before_action :redirect_gettext_locale, :collect_locales
 
   protect_from_forgery if: :authenticated?, with: :exception
   skip_before_action :verify_authenticity_token, unless: :authenticated?
@@ -76,18 +76,20 @@ class ApplicationController < ActionController::Base
       browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
     end
 
-    locale = AlaveteliLocalization.set_session_locale(
+    AlaveteliLocalization.set_session_locale(
       params_locale, session[:locale], cookies[:locale], browser_locale,
       AlaveteliLocalization.default_locale
     )
 
     # set response header informing the browser what language the page is in
     response.headers['Content-Language'] = I18n.locale.to_s
+  end
 
+  def store_gettext_locale
     # set the current stored locale to the requested_locale
     current_session_locale = session[:locale]
-    if current_session_locale != locale
-      session[:locale] = locale
+    if current_session_locale != AlaveteliLocalization.locale
+      session[:locale] = AlaveteliLocalization.locale
 
       # we need to set something other than StripEmptySessions::STRIPPABLE_KEYS
       # otherwise the cookie will be striped from the response
