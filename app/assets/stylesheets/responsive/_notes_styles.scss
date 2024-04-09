@@ -1,7 +1,61 @@
-#notes {
-  background-color: lighten($primary-color, 60%);
+$note-text:          $oil;
+$note-bg:            lighten($primary-color, 60%);
+$note-border:        $primary-color;
 
-  article {
+$note-red-text:      darken($alert-color, 10%);
+$note-red-bg:        lighten($alert-color, 40%);
+$note-red-border:    $alert-color;
+
+$note-green-text:    darken($success-color, 10%);
+$note-green-bg:      lighten($success-color, 40%);
+$note-green-border:  $success-color;
+
+$note-blue-text:     darken($primary-color, 10%);
+$note-blue-bg:       lighten($primary-color, 60%);
+$note-blue-border:   $primary-color;
+
+$note-yellow-text:   darken($warning-color, 10%);
+$note-yellow-bg:     lighten($warning-color, 40%);
+$note-yellow-border: $warning-color;
+
+$border-top-size: 8px;
+
+#notes {
+  .note {
+    color: $note-text;
+    background-color: $note-bg;
+    border-color: rgba(0, 0, 0, 0.1);
+
+    &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-border; }
+
+    &.note--style-red {
+      color: $note-red-text;
+      background-color: $note-red-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-red-border; }
+      h1 { color: $note-red-text; }
+    }
+
+    &.note--style-green {
+      color: $note-green-text;
+      background-color: $note-green-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-green-border; }
+      h1 { color: $note-green-text; }
+    }
+
+    &.note--style-blue {
+      color: $note-blue-text;
+      background-color: $note-blue-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-blue-border; }
+      h1 { color: $note-blue-text; }
+    }
+
+    &.note--style-yellow {
+      color: $note-yellow-text;
+      background-color: $note-yellow-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-yellow-border; }
+      h1 { color: $note-yellow-text; }
+    }
+
     h1 {
       font-size: 1.5em;
     }
@@ -20,6 +74,15 @@
     h6 {
       font-size: 0.9em;
       text-transform: uppercase;
+    }
+
+    &.note--style-red,
+    &.note--style-green,
+    &.note--style-blue,
+    &.note--style-yellow {
+      h1 {
+        font-size: 1.3em;
+      }
     }
   }
 }

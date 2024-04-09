@@ -1,19 +1,20 @@
 #notes {
-  // Variables to keep consistency speacilly with the spacing.
+  // Variables to keep consistency specially with the spacing.
   $padding-x: 1em;
-  $border: 1px solid rgba(0, 0, 0, 0.1);
+  $border: 1px solid rgba(0, 0, 0, 0);
+  $border-top-size: 8px;
 
-  padding: 0 $padding-x;
+  padding: $border-top-size $padding-x 0;
   margin-bottom: 2em;
 
-  border-top: 8px solid $primary-color;
-
-  article {
+  .note {
     margin: 0 -#{$padding-x};
     padding: $padding-x $padding-x;
     border: $border;
-    border-top: none;
     word-break: break-word;
+
+    &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 rgba(0, 0, 0, 0); }
+    border-top-width: 0;
 
     h1, h2, h3, h4, h5, h6 {
       margin-bottom: 0.5em;

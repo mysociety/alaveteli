@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220928093559
+# Schema version: 20240227080436
 #
 # Table name: notes
 #
@@ -9,6 +9,7 @@
 #  notable_tag  :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  style        :string           default("original"), not null
 #  body         :text
 #
 
