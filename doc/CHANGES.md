@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Broaden citation type classifications to cover wider thematic areas and add
+  "campaigning" type (Gareth Rees)
 * Treat unstemmed words as normal search terms. (Matthew Somerville)
 * Update `/alaveteli_pro` base path to `/pro` (Alexander Griffen, Graeme
   Porteous)
