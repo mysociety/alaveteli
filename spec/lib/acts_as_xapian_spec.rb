@@ -246,4 +246,28 @@ RSpec.describe ActsAsXapian::Search do
       expect(s.spelling_correction).to eq("bôbby")
     end
   end
+
+  describe '#has_normal_search_terms?' do
+    it 'return false for prefixed search queries' do
+      search = ActsAsXapian::Search.new([PublicBody], 'tag:foo', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(false)
+    end
+
+    it 'return true for prefixed search queries with normal search term' do
+      search = ActsAsXapian::Search.new([PublicBody], 'tag:foo nhs', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+    end
+
+    it 'return true for normal search term' do
+      search = ActsAsXapian::Search.new([PublicBody], 'nhs', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+    end
+
+    it 'treats unstemmed words as normal search terms' do
+      search = ActsAsXapian::Search.new([PublicBody], 'NHS', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+      search = ActsAsXapian::Search.new([PublicBody], 'tag:foo NHS', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+    end
+  end
 end
