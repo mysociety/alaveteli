@@ -6,7 +6,7 @@ class AttachmentsController < ApplicationController
   include InfoRequestHelper
   include PublicTokenable
 
-  skip_before_action :html_response
+  skip_before_action :html_response, :store_gettext_locale
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :find_project
