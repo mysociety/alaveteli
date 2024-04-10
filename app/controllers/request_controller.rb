@@ -14,6 +14,7 @@ class RequestController < ApplicationController
   before_action :set_info_request, only: [:show]
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
+  before_action :setup_results_pagination, only: [:list, :similar]
 
   helper_method :state_transitions_empty?
 
@@ -110,13 +111,6 @@ class RequestController < ApplicationController
   # Requests similar to this one
   def similar
     short_cache
-    @per_page = 25
-    @page = (params[:page] || "1").to_i
-
-    # Later pages are very expensive to load
-    if @page > MAX_RESULTS / PER_PAGE
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
-    end
 
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
@@ -134,18 +128,8 @@ class RequestController < ApplicationController
   def list
     medium_cache
     @view = params[:view]
-    unless @page # used in cache case, as perform_search sets @page as side effect
-      @page = get_search_page_from_params
-    end
-    @per_page = PER_PAGE
-    @max_results = MAX_RESULTS
     if @view == "recent"
       return redirect_to request_list_all_url(action: "list", view: "all", page: @page), status: :moved_permanently
-    end
-
-    # Later pages are very expensive to load
-    if @page > MAX_RESULTS / PER_PAGE
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
 
     @filters = params.merge(latest_status: @view)
@@ -158,9 +142,6 @@ class RequestController < ApplicationController
 
     @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
     @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'), title: @track_thing.params[:title_in_rss], has_json: true } ]
-
-    # Don't let robots go more than 20 pages in
-    @no_crawl = true if @page > 20
   end
 
   # Page new form posts to
@@ -472,6 +453,21 @@ class RequestController < ApplicationController
 
   def outgoing_message_params
     params.require(:outgoing_message).permit(:body, :what_doing)
+  end
+
+  def setup_results_pagination
+    @page ||= get_search_page_from_params
+    @per_page = PER_PAGE
+    @max_results = MAX_RESULTS
+
+    # Don't let robots go more than 20 pages in
+    @no_crawl = true if @page > 20
+
+    # Later pages are very expensive to load
+    return if @page <= MAX_RESULTS / PER_PAGE
+
+    raise ActiveRecord::RecordNotFound,
+      "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
   end
 
   def can_update_status(info_request)
