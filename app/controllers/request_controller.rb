@@ -127,12 +127,9 @@ class RequestController < ApplicationController
 
   def list
     medium_cache
-    @view = params[:view]
-    if @view == "recent"
-      return redirect_to request_list_all_url(action: "list", view: "all", page: @page), status: :moved_permanently
-    end
 
-    @filters = params.merge(latest_status: @view)
+    @filters = params.slice(:query, :request_date_after, :request_date_before)
+    @filters[:latest_status] = params[:view]
 
     if @page > 1
       @title = _("Browse and search requests (page {{count}})", count: @page)
