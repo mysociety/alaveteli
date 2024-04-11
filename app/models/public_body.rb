@@ -820,7 +820,9 @@ class PublicBody < ApplicationRecord
     return all if tag.size == 1 || tag.nil? || tag == 'all'
 
     if tag == 'other'
-      tags = PublicBodyCategory.get.tags - ['other']
+      tags = PublicBody.category_list.distinct.
+        where.not(category_tag: [nil, '', 'other']).
+        pluck(:category_tag)
       where.not("EXISTS(#{tag_search_sql(tags)})")
     else
       original_with_tag(tag)
