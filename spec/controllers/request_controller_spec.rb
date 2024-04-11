@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe RequestController, "when listing recent requests" do
-  before(:each) do
-    load_raw_emails_data
-    update_xapian_index
-  end
-
   it "should be successful" do
     get :list, params: { view: 'all' }
     expect(response).to be_successful
@@ -17,11 +12,6 @@ RSpec.describe RequestController, "when listing recent requests" do
   end
 
   it "should return 404 for pages we don't want to serve up" do
-    xap_results = double(
-      ActsAsXapian::Search,
-      results: (1..25).to_a.map { |m| { model: m } },
-      matches_estimated: 1_000_000
-    )
     expect {
       get :list, params: { view: 'all', page: 100 }
     }.to raise_error(ActiveRecord::RecordNotFound)
