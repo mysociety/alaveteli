@@ -144,8 +144,8 @@ class PublicBodyController < ApplicationController
              count: @public_bodies.total_entries,
              first_letter: @tag)
         else
-          category_name = PublicBodyCategory.get.by_tag[@tag]
-          if category_name.nil?
+          category = PublicBody.category_list.find_by(category_tag: @tag)
+          if category.nil?
             n_('Found {{count}} public authority matching the tag ' \
                '‘{{tag_name}}’',
                'Found {{count}} public authorities matching the tag ' \
@@ -155,12 +155,12 @@ class PublicBodyController < ApplicationController
                tag_name: @tag)
           else
             n_('Found {{count}} public authority in the category ' \
-               '‘{{category_name}}’',
+               '‘{{category}}’',
                'Found {{count}} public authorities in the category ' \
-               '‘{{category_name}}’',
+               '‘{{category}}’',
                @public_bodies.total_entries,
                count: @public_bodies.total_entries,
-               category_name: category_name)
+               category: category.title)
           end
         end
 

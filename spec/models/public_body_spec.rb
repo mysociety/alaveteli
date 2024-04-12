@@ -163,9 +163,6 @@ RSpec.describe PublicBody do
     it 'should returns authorities without categories' do
       pbs = PublicBody.with_tag('other')
       expect(pbs).to match_array([
-        public_bodies(:geraldine_public_body),
-        public_bodies(:humpadink_public_body),
-        public_bodies(:silly_walks_public_body),
         public_bodies(:sensible_walks_public_body),
         public_bodies(:other_public_body)
       ])

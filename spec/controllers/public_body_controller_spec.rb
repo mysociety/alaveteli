@@ -328,14 +328,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   end
 
   it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
-    PublicBodyCategory.destroy_all
-    PublicBodyHeading.destroy_all
-    PublicBodyCategoryLink.destroy_all
-
-    category = FactoryBot.create(:public_body_category)
-    heading = FactoryBot.create(:public_body_heading)
-    PublicBodyCategoryLink.create(public_body_heading_id: heading.id,
-                                  public_body_category_id: category.id)
+    category = FactoryBot.create(:category, :public_body, category_tag: 'dink')
     public_bodies(:humpadink_public_body).tag_string = category.category_tag
 
     get :list, params: { tag: category.category_tag }
@@ -351,10 +344,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     expect(assigns[:public_bodies]).to eq(
       [
         public_bodies(:other_public_body),
-        public_bodies(:forlorn_public_body),
-        public_bodies(:geraldine_public_body),
         public_bodies(:sensible_walks_public_body),
-        public_bodies(:silly_walks_public_body)
       ]
     )
 
