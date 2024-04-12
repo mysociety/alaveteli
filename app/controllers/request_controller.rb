@@ -131,6 +131,10 @@ class RequestController < ApplicationController
     @filters = params.slice(:query, :request_date_after, :request_date_before)
     @filters[:latest_status] = params[:view]
 
+    @results = InfoRequest.request_list(
+      @filters, @page, @per_page, @max_results
+    )
+
     if @page > 1
       @title = _("Browse and search requests (page {{count}})", count: @page)
     else
