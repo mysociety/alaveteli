@@ -4,11 +4,15 @@
 class Admin::CategoriesController < AdminController
   include TranslatableParams
 
-  before_action :check_klass
-  before_action :set_root, expect: [:destroy, :reorder]
   before_action :set_category, only: [:edit, :update, :destroy, :reorder]
+  before_action :set_root, except: [:destroy, :reorder]
+  before_action :check_klass
 
   def index
+  end
+
+  def show
+    redirect_to action: :edit
   end
 
   def new
@@ -75,24 +79,25 @@ class Admin::CategoriesController < AdminController
   def category_params
     category_params = translatable_params(
       params.require(:category),
-      translated_keys: [:locale, :title, :description],
+      translated_keys: [:locale, :title, :description, :body],
       general_keys: [:category_tag, :parent_ids]
     )
     category_params[:parent_ids] ||= [@root.id]
     category_params
   end
 
-  def set_root
-    @root = current_klass.category_root
-  end
-
   def set_category
     @category = Category.find(params[:id])
   end
 
+  def set_root
+    @root = current_klass&.category_root
+  end
+
   helper_method :current_klass
   def current_klass
-    params.fetch(:model_type, 'PublicBody').safe_constantize
+    @klass ||= @category.root.title.safe_constantize if @category&.root
+    @klass ||= params.fetch(:model_type, 'PublicBody').safe_constantize
   end
 
   def check_klass

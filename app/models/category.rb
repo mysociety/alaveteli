@@ -16,6 +16,8 @@
 # categories and translatable titles/descriptions.
 #
 class Category < ApplicationRecord
+  include Notable
+
   has_many :parent_relationships,
            class_name: 'CategoryRelationship',
            foreign_key: 'child_id',
@@ -39,7 +41,10 @@ class Category < ApplicationRecord
            class_name: 'HasTagString::HasTagStringTag'
 
   translates :title, :description
+  translates :body, touch: true
   include Translatable
+  delegate :body, :body=, :body?, to: :translation
+  after_save { body.save if body.changed? }
 
   validates :title, presence: true
   validate :check_tag_assignments, on: :update
@@ -54,6 +59,16 @@ class Category < ApplicationRecord
   end
 
   def list
+    Category.where(id: list_ids).includes(:translations)
+  end
+
+  def root
+    Category.roots.find { _1.list_ids.include?(id) }
+  end
+
+  protected
+
+  def list_ids
     sql = <<~SQL.squish
       WITH RECURSIVE nested_categories AS (
         SELECT child_id
@@ -70,8 +85,7 @@ class Category < ApplicationRecord
       INNER JOIN nested_categories nc ON c.id = nc.child_id;
     SQL
 
-    ids = Category.find_by_sql([sql, { parent_id: id }]).map(&:id)
-    Category.where(id: ids).includes(:translations)
+    Category.find_by_sql([sql, { parent_id: id }]).map(&:id)
   end
 
   private
@@ -84,5 +98,9 @@ class Category < ApplicationRecord
       :category_tag,
       message: "can't be changed as there are associated objects present"
     )
+  end
+
+  class Translation # :nodoc:
+    has_rich_text :body
   end
 end
