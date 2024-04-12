@@ -70,11 +70,18 @@ module XapianQueries
     query
   end
 
+  def get_tag_params(params)
+    return '' unless params[:tag]
+
+    " tag:#{params[:tag]}"
+  end
+
   def make_query_from_params(params)
     query = params[:query] || ''
     query += get_date_range_from_params(params)
     query += get_request_variety_from_params(params)
     query += get_status_from_params(params)
+    query += get_tag_params(params)
     query
   end
 end

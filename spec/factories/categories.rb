@@ -20,5 +20,9 @@ FactoryBot.define do
     trait :public_body do
       parents { [PublicBody.category_root] }
     end
+
+    trait :info_request do
+      parents { [InfoRequest.category_root] }
+    end
   end
 end

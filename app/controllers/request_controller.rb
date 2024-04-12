@@ -130,12 +130,21 @@ class RequestController < ApplicationController
 
     @filters = params.slice(:query, :request_date_after, :request_date_before)
     @filters[:latest_status] = params[:view]
+    @tag = @filters[:tag] = params[:tag]
 
     @results = InfoRequest.request_list(
       @filters, @page, @per_page, @max_results
     )
 
-    if @page > 1
+    if @tag
+      @category = InfoRequest.category_list.find_by(category_tag: @tag)
+      @title = @category&.title
+      @title ||= n_('Found {{count}} request tagged ‘{{tag_name}}’',
+                    'Found {{count}} requests tagged ‘{{tag_name}}’',
+                    @results[:matches_estimated],
+                    count: @results[:matches_estimated],
+                    tag_name: @tag)
+    elsif @page > 1
       @title = _("Browse and search requests (page {{count}})", count: @page)
     else
       @title = _('Browse and search requests')

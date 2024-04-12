@@ -27,6 +27,34 @@ RSpec.describe RequestController, "when listing recent requests" do
     expect { get :list, params: { view: 'all', page: "-1" } }.not_to raise_error
     expect(assigns[:page]).to eq(1)
   end
+
+  it 'sets title based on page' do
+    get :list, params: { view: 'all' }
+    expect(assigns[:title]).to eq('Browse and search requests')
+
+    get :list, params: { view: 'all', page: 2 }
+    expect(assigns[:title]).to eq('Browse and search requests (page 2)')
+  end
+
+  it 'sets title based on if tag matches an request category' do
+    FactoryBot.create(:category, :info_request,
+                      title: 'Climate requests', category_tag: 'climate')
+
+    update_xapian_index
+    get :list, params: { view: 'all', tag: 'climate' }
+    expect(assigns[:title]).to eq('Climate requests')
+  end
+
+  it 'sets title based on if tag does not match an request category' do
+    update_xapian_index
+    get :list, params: { view: 'all', tag: 'other' }
+    expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
+
+    FactoryBot.create(:info_request, tag_string: 'other')
+    update_xapian_index
+    get :list, params: { view: 'all', tag: 'other' }
+    expect(assigns[:title]).to eq('Found 1 request tagged ‘other’')
+  end
 end
 
 RSpec.describe RequestController, "when showing one request" do

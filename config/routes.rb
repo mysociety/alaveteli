@@ -77,19 +77,19 @@ Rails.application.routes.draw do
   ##### Request controller
   get '/list/all' => redirect('/list')
   get '/list/recent' => redirect('/list')
-  match '/list/successful' => 'request#list',
+  match '/list(/:tag)/successful' => 'request#list',
         :as => :request_list_successful,
         :view => 'successful',
         :via => :get
-  match '/list/unsuccessful' => 'request#list',
+  match '/list(/:tag)/unsuccessful' => 'request#list',
         :as => :request_list_unsuccessful,
         :view => 'unsuccessful',
         :via => :get
-  match '/list/awaiting' => 'request#list',
+  match '/list(/:tag)/awaiting' => 'request#list',
         :as => :request_list_awaiting,
         :view => 'awaiting',
         :via => :get
-  match '/list' => 'request#list',
+  match '/list(/:tag)' => 'request#list',
         :as => :request_list,
         :view => 'all',
         :via => :get
