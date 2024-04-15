@@ -1813,6 +1813,9 @@ Style/MagicCommentFormat:
 Style/MapCompactWithConditionalBlock:
   Enabled: false
 
+Style/MapIntoArray:
+  Enabled: false
+
 Style/MapToHash:
   Enabled: false
 
