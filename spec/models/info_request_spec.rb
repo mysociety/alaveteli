@@ -2393,6 +2393,12 @@ RSpec.describe InfoRequest do
       expect(@info_request.recipient_name_and_email).to eq("FOI requests at TGQ <geraldine-requests@localhost>")
     end
 
+    it "has a invalid email" do
+      allow(MySociety::Validate).to receive(:is_valid_email).and_return(false)
+      expect(@info_request.recipient_name_and_email).
+        to eq("FOI requests at TGQ")
+    end
+
     it "copes with indexing after item is deleted" do
       load_raw_emails_data
       IncomingMessage.find_each(&:parse_raw_email!)
