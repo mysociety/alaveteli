@@ -1,0 +1,20 @@
+<%= render partial: 'tabs' %>
+
+<h1><%= @title %></h1>
+
+<div class="request-category_container">
+  <% InfoRequest.categories.each do |heading| %>
+    <% next unless heading.children.present? %>
+    <div class="request-category">
+      <h3><%= heading.title %></h3>
+      <ul>
+        <% heading.children.each do |category| %>
+          <% next unless category.category_tag.present? %>
+          <li>
+            <%= link_to category.title, request_list_path(tag: category.category_tag) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

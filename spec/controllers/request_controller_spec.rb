@@ -1,5 +1,22 @@
 require 'spec_helper'
 
+RSpec.describe RequestController, "when listing request categories" do
+  it "should be successful" do
+    get :index
+    expect(response).to be_successful
+  end
+
+  it "should render with 'index' template" do
+    get :index
+    expect(response).to render_template('index')
+  end
+
+  it 'sets title based on page' do
+    get :index
+    expect(assigns[:title]).to eq('Browse requests by category')
+  end
+end
+
 RSpec.describe RequestController, "when listing recent requests" do
   it "should be successful" do
     get :list, params: { view: 'all' }
@@ -30,10 +47,10 @@ RSpec.describe RequestController, "when listing recent requests" do
 
   it 'sets title based on page' do
     get :list, params: { view: 'all' }
-    expect(assigns[:title]).to eq('Browse and search requests')
+    expect(assigns[:title]).to eq('Search requests')
 
     get :list, params: { view: 'all', page: 2 }
-    expect(assigns[:title]).to eq('Browse and search requests (page 2)')
+    expect(assigns[:title]).to eq('Search requests (page 2)')
   end
 
   it 'sets title based on if tag matches an request category' do

@@ -23,6 +23,10 @@ class RequestController < ApplicationController
   MAX_RESULTS = 500
   PER_PAGE = 25
 
+  def index
+    @title = _('Browse requests by category')
+  end
+
   def select_authority
     # Check whether we force the user to sign in right at the start, or we allow her
     # to start filling the request anonymously
@@ -145,9 +149,9 @@ class RequestController < ApplicationController
                     count: @results[:matches_estimated],
                     tag_name: @tag)
     elsif @page > 1
-      @title = _("Browse and search requests (page {{count}})", count: @page)
+      @title = _("Search requests (page {{count}})", count: @page)
     else
-      @title = _('Browse and search requests')
+      @title = _('Search requests')
     end
 
     @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
