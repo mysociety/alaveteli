@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Update Rails application framework defaults (Graeme Porteous)
+
 # 0.45.0.0
 
 ## Highlighted Features
