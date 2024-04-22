@@ -349,7 +349,7 @@ module LinkToHelper
   end
 
   def add_query_params_to_url(url, new_params)
-    uri = URI.parse(url)
+    uri = Addressable::URI.parse(url)
     uri.query = Rack::Utils.parse_nested_query(uri.query).
       with_indifferent_access.
       merge(new_params).
