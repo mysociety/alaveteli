@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe RequestController, "when listing recent requests" do
-  before(:each) do
-    load_raw_emails_data
-    update_xapian_index
-  end
-
   it "should be successful" do
     get :list, params: { view: 'all' }
     expect(response).to be_successful
@@ -17,11 +12,6 @@ RSpec.describe RequestController, "when listing recent requests" do
   end
 
   it "should return 404 for pages we don't want to serve up" do
-    xap_results = double(
-      ActsAsXapian::Search,
-      results: (1..25).to_a.map { |m| { model: m } },
-      matches_estimated: 1_000_000
-    )
     expect {
       get :list, params: { view: 'all', page: 100 }
     }.to raise_error(ActiveRecord::RecordNotFound)
@@ -36,6 +26,34 @@ RSpec.describe RequestController, "when listing recent requests" do
   it 'should not raise an error for a page param of less than zero, but should treat it as a param of 1' do
     expect { get :list, params: { view: 'all', page: "-1" } }.not_to raise_error
     expect(assigns[:page]).to eq(1)
+  end
+
+  it 'sets title based on page' do
+    get :list, params: { view: 'all' }
+    expect(assigns[:title]).to eq('Browse and search requests')
+
+    get :list, params: { view: 'all', page: 2 }
+    expect(assigns[:title]).to eq('Browse and search requests (page 2)')
+  end
+
+  it 'sets title based on if tag matches an request category' do
+    FactoryBot.create(:category, :info_request,
+                      title: 'Climate requests', category_tag: 'climate')
+
+    update_xapian_index
+    get :list, params: { view: 'all', tag: 'climate' }
+    expect(assigns[:title]).to eq('Climate requests')
+  end
+
+  it 'sets title based on if tag does not match an request category' do
+    update_xapian_index
+    get :list, params: { view: 'all', tag: 'other' }
+    expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
+
+    FactoryBot.create(:info_request, tag_string: 'other')
+    update_xapian_index
+    get :list, params: { view: 'all', tag: 'other' }
+    expect(assigns[:title]).to eq('Found 1 request tagged ‘other’')
   end
 end
 

@@ -367,7 +367,7 @@ RSpec.describe TrackController do
         and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_list, params: { view: 'recent', feed: 'track' }
-      expect(response).to redirect_to("/list?view=recent")
+      expect(response).to redirect_to("/list")
     end
 
     it "should redirect with an error message if the query is too long" do
@@ -378,7 +378,7 @@ RSpec.describe TrackController do
         and_return(long_track)
       get :track_list, params: { view: 'recent', feed: 'track' }
       expect(flash[:error]).to match('too long')
-      expect(response).to redirect_to("/list?view=recent")
+      expect(response).to redirect_to("/list")
     end
   end
 

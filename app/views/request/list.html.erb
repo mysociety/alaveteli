@@ -2,6 +2,8 @@
   <h1><%= @title %></h1>
   <%= render :partial => 'request/request_search_form',
              :locals => { :after_form_fields => render(:partial => 'request/request_filter_form') } %>
+
+  <%= render partial: 'category' if @category %>
 </div>
 
 <div id="header_right" class="sidebar header_right">

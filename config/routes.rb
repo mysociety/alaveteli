@@ -75,28 +75,23 @@ Rails.application.routes.draw do
   get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
 
   ##### Request controller
-  match '/list/recent' => 'request#list',
-        :as => :request_list_recent,
-        :view => 'recent',
-        :via => :get
-  match '/list/all' => 'request#list',
-        :as => :request_list_all,
-        :view => 'all',
-        :via => :get
-  match '/list/successful' => 'request#list',
+  get '/list/all' => redirect('/list')
+  get '/list/recent' => redirect('/list')
+  match '/list(/:tag)/successful' => 'request#list',
         :as => :request_list_successful,
         :view => 'successful',
         :via => :get
-  match '/list/unsuccessful' => 'request#list',
+  match '/list(/:tag)/unsuccessful' => 'request#list',
         :as => :request_list_unsuccessful,
         :view => 'unsuccessful',
         :via => :get
-  match '/list/awaiting' => 'request#list',
+  match '/list(/:tag)/awaiting' => 'request#list',
         :as => :request_list_awaiting,
         :view => 'awaiting',
         :via => :get
-  match '/list' => 'request#list',
+  match '/list(/:tag)' => 'request#list',
         :as => :request_list,
+        :view => 'all',
         :via => :get
 
   match '/select_authority' => 'request#select_authority',

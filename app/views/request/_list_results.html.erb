@@ -1,4 +1,3 @@
-<% @results = InfoRequest.request_list(@filters, @page, @per_page, @max_results) %>
 <% if @results[:results].empty? %>
   <p> <%= _('No requests of this sort yet.')%></p>
 <% else %>

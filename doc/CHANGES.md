@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow requests to be listed and filtered by tag (Graeme Porteous)
 * Fix admin error when authority are missing an email address (Graeme Porteous)
 * Allow categories to have notes associated with them (Graeme Porteous)
 * Add styling option and rich text editor to the notes admin (Graeme Porteous)
