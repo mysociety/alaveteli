@@ -13,7 +13,7 @@ class HelpController < ApplicationController
 
   ContactSpamError = Class.new(StandardError)
 
-  rescue_from ContactSpamError do
+  rescue_from ContactSpamError, ActionController::ParameterMissing do
     redirect_to frontpage_url
   end
 
