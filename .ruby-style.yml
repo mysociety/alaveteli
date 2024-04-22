@@ -143,8 +143,9 @@ Layout/EmptyLineAfterGuardClause:
 Layout/EmptyLineAfterMagicComment:
   Enabled: true
 
+# Prefer EmptyLinesAroundRescuedExceptions instead
 Layout/EmptyLineAfterMultilineCondition:
-  Enabled: false # we prefer EmptyLinesAroundRescuedExceptions instead
+  Enabled: false
 
 Layout/EmptyLineBetweenDefs:
   Enabled: true
@@ -170,8 +171,9 @@ Layout/EmptyLinesAroundBlockBody:
 Layout/EmptyLinesAroundClassBody:
   Enabled: true
 
+# Prefer EmptyLinesAroundRescuedExceptions instead
 Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Enabled: false # we prefer EmptyLinesAroundRescuedExceptions instead
+  Enabled: false
 
 Layout/EmptyLinesAroundMethodBody:
   Enabled: true
