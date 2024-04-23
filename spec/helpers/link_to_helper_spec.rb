@@ -370,5 +370,11 @@ RSpec.describe LinkToHelper do
       new_params = {}
       expect(add_query_params_to_url(url, new_params)).to eq url
     end
+
+    it 'does not error when URL is not RFC2396 compliant' do
+      url = 'http://example.com/a url with spaces'
+      new_params = { foo: 1 }
+      expect { add_query_params_to_url(url, new_params) }.to_not raise_error
+    end
   end
 end
