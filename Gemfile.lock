@@ -583,6 +583,7 @@ DEPENDENCIES
   active_model_otp
   activejob-uniqueness (~> 0.2.5)
   acts_as_versioned!
+  addressable (~> 2.8.6)
   alaveteli_features!
   annotate (< 3.2.1)
   aws-sdk-s3
