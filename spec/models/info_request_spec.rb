@@ -3495,6 +3495,34 @@ RSpec.describe InfoRequest do
           expect(events[1].calculated_state).to eq("gone_postal")
         end
       end
+
+      context "a series of require admin events on a request" do
+        before { ActionMailer::Base.deliveries.clear }
+
+        it "does not send multiple require admin reports" do
+          # Request sent to old/invalid address
+          request.log_event('sent', {})
+          request.set_described_state('waiting_response')
+
+          # A bounce is received
+          request.awaiting_description = true
+          request.log_event('response', {})
+
+          # Requester classifies as error_message
+          request.log_event('status_update', {})
+          expect { request.set_described_state('error_message', request.user) }.
+            to change { ActionMailer::Base.deliveries.size }.by(1)
+
+          # A second bounce is received
+          request.awaiting_description = true
+          request.log_event('response', {})
+
+          # Requester classifies as error_message again
+          request.log_event('status_update', {})
+          expect { request.set_described_state('error_message', request.user) }.
+            to_not change { ActionMailer::Base.deliveries.size }
+        end
+      end
     end
   end
 
