@@ -34,10 +34,10 @@ RSpec.describe UserController do
     end
 
     context 'when user is suspended' do
-      it 'adds noindex header' do
+      it 'adds noindex, nofollow header' do
         user = FactoryBot.create(:user, :banned)
         get :show, params: { url_name: user.url_name }
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
@@ -1374,9 +1374,9 @@ RSpec.describe UserController, "when viewing the wall" do
     expect(assigns[:feed_results]).to be_empty
   end
 
-  it 'adds noindex header' do
+  it 'adds noindex, nofollow header' do
     user = FactoryBot.create(:user)
     get :wall, params: { url_name: user.url_name }
-    expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
   end
 end

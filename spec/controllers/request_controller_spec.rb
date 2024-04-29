@@ -617,9 +617,9 @@ RSpec.describe RequestController, 'when handling prominence' do
       expect(response).to render_template('show')
     end
 
-    it 'sets a noindex header' do
+    it 'sets a noindex, nofollow header' do
       get :show, params: { url_title: info_request.url_title }
-      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
     end
   end
 end
@@ -748,9 +748,9 @@ RSpec.describe RequestController, "when creating a new request" do
     expect(response).to render_template('new_bad_contact')
   end
 
-  it 'adds noindex header' do
+  it 'adds noindex, nofollow header' do
     get :new, params: { public_body_id: @body.id }
-    expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
   end
 
   context "the outgoing message includes an email address" do
@@ -1871,9 +1871,9 @@ RSpec.describe RequestController, "when showing similar requests" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  it 'adds noindex header' do
+  it 'adds noindex, nofollow header' do
     get :similar, params: { url_title: badger_request.url_title }
-    expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
   end
 end
 
@@ -1938,9 +1938,9 @@ RSpec.describe RequestController do
       end
     end
 
-    it 'adds noindex header' do
+    it 'adds noindex, nofollow header' do
       get :details, params: { url_title: info_request.url_title }
-      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
     end
   end
 end
