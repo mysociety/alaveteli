@@ -8,15 +8,11 @@ module PublicTokenable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_no_crawl_headers
+    before_action :set_no_crawl_headers, if: -> { public_token }
     helper_method :public_token
   end
 
   private
-
-  def set_no_crawl_headers
-    headers['X-Robots-Tag'] = 'noindex' if public_token
-  end
 
   def public_token
     params[:public_token]
