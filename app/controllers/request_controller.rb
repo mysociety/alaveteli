@@ -471,9 +471,6 @@ class RequestController < ApplicationController
     @per_page = PER_PAGE
     @max_results = MAX_RESULTS
 
-    # Don't let robots go more than 20 pages in
-    @no_crawl = true if @page > 20
-
     # Later pages are very expensive to load
     return if @page <= MAX_RESULTS / PER_PAGE
 
