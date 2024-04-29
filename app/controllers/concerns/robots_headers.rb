@@ -7,6 +7,6 @@ module RobotsHeaders
   private
 
   def set_no_crawl_headers
-    headers['X-Robots-Tag'] = 'noindex'
+    headers['X-Robots-Tag'] = 'noindex, nofollow'
   end
 end

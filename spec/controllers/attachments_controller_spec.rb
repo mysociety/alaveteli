@@ -198,13 +198,13 @@ RSpec.describe AttachmentsController, type: :controller do
         expect(assigns(:info_request)).to eq(info_request)
       end
 
-      it 'adds noindex header when using public token' do
+      it 'adds noindex, nofollow header when using public token' do
         expect(InfoRequest).to receive(:find_by!).with(public_token: 'ABC').
           and_return(info_request)
 
         show(public_token: 'ABC', id: nil)
 
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       it 'passes public token to current ability' do
@@ -287,14 +287,14 @@ RSpec.describe AttachmentsController, type: :controller do
     context 'when the request is backpage' do
       let(:request_prominence) { 'backpage' }
 
-      it 'sets a noindex header when viewing' do
+      it 'sets a noindex, nofollow header when viewing' do
         show
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
-      it 'sets a noindex header when viewing a cached copy' do
+      it 'sets a noindex, nofollow header when viewing a cached copy' do
         show
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       context 'when logged in as requester' do
@@ -449,13 +449,13 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(assigns(:info_request)).to eq(info_request)
     end
 
-    it 'adds noindex header when using public token' do
+    it 'adds noindex, nofollow header when using public token' do
       expect(InfoRequest).to receive(:find_by!).with(public_token: '123').
         and_return(info_request)
 
       show_as_html(public_token: '123', id: nil)
 
-      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
     end
 
     context 'when attachment has not been masked' do
@@ -560,14 +560,14 @@ RSpec.describe AttachmentsController, type: :controller do
     context 'when the request is backpage' do
       let(:request_prominence) { 'backpage' }
 
-      it 'sets a noindex header when viewing a HTML version' do
+      it 'sets a noindex, nofollow header when viewing a HTML version' do
         show_as_html
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
-      it 'sets a noindex header when viewing a cached HTML version' do
+      it 'sets a noindex, nofollow header when viewing a cached HTML version' do
         show_as_html
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
