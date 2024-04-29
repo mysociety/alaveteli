@@ -32,10 +32,6 @@ class AttachmentMasksController < ApplicationController
 
   private
 
-  def set_no_crawl_headers
-    headers['X-Robots-Tag'] = 'noindex'
-  end
-
   def decode_referer
     @referer = verifier.verified(params[:referer])
   end
