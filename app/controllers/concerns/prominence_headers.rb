@@ -3,6 +3,7 @@
 #
 module ProminenceHeaders
   extend ActiveSupport::Concern
+  include RobotsHeaders
 
   included do
     before_action :set_prominence_headers
@@ -24,7 +25,7 @@ module ProminenceHeaders
   end
 
   def set_backpage_headers
-    headers['X-Robots-Tag'] = 'noindex'
+    set_no_crawl_headers
   end
 
   def set_requester_only_headers

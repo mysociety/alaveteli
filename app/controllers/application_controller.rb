@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
   include ReadOnly
+  include RobotsHeaders
 
   # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response
