@@ -53,9 +53,9 @@ RSpec.describe AttachmentMasksController, type: :controller do
         expect(response).to render_template(:wait)
       end
 
-      it 'sets noindex header' do
+      it 'sets noindex, nofollow header' do
         wait
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
@@ -117,9 +117,9 @@ RSpec.describe AttachmentMasksController, type: :controller do
         expect(response).to render_template(:done)
       end
 
-      it 'sets noindex header' do
+      it 'sets noindex, nofollow header' do
         done
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
