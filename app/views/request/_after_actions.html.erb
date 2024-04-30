@@ -14,20 +14,20 @@
             <ul class="action-menu__menu__submenu owner_actions">
               <li>
                 <% if last_response.nil? %>
-                  <%= link_to _('Send a followup'), new_request_followup_path(info_request.url_title) %>
+                  <%= link_to _('Send a followup'), new_request_followup_path(info_request.url_title), rel: 'nofollow' %>
                 <% else %>
-                  <%= link_to _('Write a reply'), new_request_incoming_followup_path(info_request.url_title, incoming_message_id: last_response.id) %>
+                  <%= link_to _('Write a reply'), new_request_incoming_followup_path(info_request.url_title, incoming_message_id: last_response.id), rel: 'nofollow' %>
                 <% end %>
               </li>
 
               <% if show_owner_update_status_action %>
                 <li>
-                  <%= link_to _('Update the status of this request'), request_path(info_request, update_status: 1) %>
+                  <%= link_to _('Update the status of this request'), request_path(info_request, update_status: 1), rel: 'nofollow' %>
                 </li>
               <% end %>
 
               <li>
-                <%= link_to _('Request an internal review'), new_request_followup_path(info_request.url_title, internal_review: '1') %>
+                <%= link_to _('Request an internal review'), new_request_followup_path(info_request.url_title, internal_review: '1'), rel: 'nofollow' %>
               </li>
             </ul>
           </li>
@@ -42,7 +42,7 @@
 
           <ul class="action-menu__menu__submenu public_body_actions">
             <li>
-              <%= link_to _("Respond to request"), upload_response_path(:url_title => info_request.url_title) %>
+              <%= link_to _("Respond to request"), upload_response_path(:url_title => info_request.url_title), rel: 'nofollow' %>
             </li>
           </ul>
         </li>
@@ -61,7 +61,7 @@
               </li>
             <% else %>
               <li>
-                <%= link_to _("Report this request"), new_request_report_path(info_request.url_title) %><span class="action-menu__info-link">
+                <%= link_to _("Report this request"), new_request_report_path(info_request.url_title), rel: 'nofollow' %><span class="action-menu__info-link">
                 <%= link_to _("Help"), help_about_path(:anchor => "reporting") %>
               </span>
               </li>
@@ -69,7 +69,7 @@
 
             <% if feature_enabled?(:annotations) && info_request.comments_allowed? %>
               <li>
-                <%= link_to _('Add an annotation'), new_comment_path(:url_title => info_request.url_title) %>
+                <%= link_to _('Add an annotation'), new_comment_path(:url_title => info_request.url_title), rel: 'nofollow' %>
               </li>
             <% end %>
 
@@ -80,11 +80,11 @@
             <% end %>
 
             <li>
-              <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => info_request.url_title) %>
+              <%= link_to _("Download a zip file of all correspondence"), download_entire_request_path(:url_title => info_request.url_title), rel: 'nofollow' %>
             </li>
 
             <li>
-              <%= link_to _('View event history details'), request_details_path(info_request) %>
+              <%= link_to _('View event history details'), request_details_path(info_request), rel: 'nofollow' %>
             </li>
 
             <li>
