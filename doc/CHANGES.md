@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Update actions and pages which set "noindex", "nofollow" crawler directives
+  (Graeme Porteous)
 * Render public body category notes (Gareth Rees)
 * Prevent external search indexing of password change form (Gareth Rees)
 * Allow customisation of text masks (Gareth Rees)
