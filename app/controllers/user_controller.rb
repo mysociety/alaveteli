@@ -18,6 +18,7 @@ class UserController < ApplicationController
   before_action :work_out_post_redirect, only: [ :signup ]
   before_action :set_request_from_foreign_country, only: [ :signup ]
   before_action :set_in_pro_area, only: [ :signup ]
+  before_action :set_no_crawl_headers, only: :wall
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before

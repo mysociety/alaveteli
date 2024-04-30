@@ -37,6 +37,11 @@ RSpec.describe CitationsController, type: :controller do
           expect(response).to be_successful
         end
       end
+
+      it 'adds noindex header' do
+        action
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+      end
     end
 
     # when requester

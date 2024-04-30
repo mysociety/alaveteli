@@ -1351,4 +1351,10 @@ RSpec.describe UserController, "when viewing the wall" do
     get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results]).to be_empty
   end
+
+  it 'adds noindex header' do
+    user = FactoryBot.create(:user)
+    get :wall, params: { url_name: user.url_name }
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+  end
 end

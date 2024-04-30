@@ -734,6 +734,11 @@ RSpec.describe RequestController, "when creating a new request" do
     expect(response).to render_template('new_bad_contact')
   end
 
+  it 'adds noindex header' do
+    get :new, params: { public_body_id: @body.id }
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+  end
+
   context "the outgoing message includes an email address" do
     context "there is no logged in user" do
       it "displays a flash error message without escaping the HTML" do
@@ -1964,6 +1969,11 @@ RSpec.describe RequestController, "when showing similar requests" do
       get :similar, params: { url_title: badger_request.url_title }
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it 'adds noindex header' do
+    get :similar, params: { url_title: badger_request.url_title }
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+  end
 end
 
 RSpec.describe RequestController, "when the site is in read_only mode" do
@@ -2040,6 +2050,11 @@ RSpec.describe RequestController do
           get :details, params: { url_title: info_request.url_title }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
+    end
+
+    it 'adds noindex header' do
+      get :details, params: { url_title: info_request.url_title }
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
   end
 end

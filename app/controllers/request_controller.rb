@@ -15,6 +15,7 @@ class RequestController < ApplicationController
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
   before_action :setup_results_pagination, only: [:list, :similar]
+  before_action :set_no_crawl_headers, only: [:new, :details, :similar]
 
   helper_method :state_transitions_empty?
 
