@@ -25,9 +25,9 @@ RSpec.describe PublicTokensController, type: :controller do
         expect(assigns(:info_request)).to eq info_request
       end
 
-      it 'adds noindex header' do
+      it 'adds noindex, nofollow header' do
         get :show, params: { public_token: 'TOKEN' }
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       it 'returns http success' do

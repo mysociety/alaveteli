@@ -15,6 +15,7 @@ class RequestController < ApplicationController
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
   before_action :setup_results_pagination, only: [:list, :similar]
+  before_action :set_no_crawl_headers, only: [:new, :details, :similar]
 
   helper_method :state_transitions_empty?
 
@@ -469,9 +470,6 @@ class RequestController < ApplicationController
     @page ||= get_search_page_from_params
     @per_page = PER_PAGE
     @max_results = MAX_RESULTS
-
-    # Don't let robots go more than 20 pages in
-    @no_crawl = true if @page > 20
 
     # Later pages are very expensive to load
     return if @page <= MAX_RESULTS / PER_PAGE

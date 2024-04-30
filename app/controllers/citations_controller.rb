@@ -5,6 +5,7 @@ class CitationsController < ApplicationController
   before_action :authenticate
   before_action :load_info_request_and_authorise
   before_action :set_in_pro_area
+  before_action :set_no_crawl_headers
 
   def new
     @citation = current_user.citations.build

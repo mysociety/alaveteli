@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Update actions and pages which set "noindex", "nofollow" crawler directives
+  (Graeme Porteous)
 * Add default value and not null constraint to `CensorRule#regexp` (Gareth Rees)
 * Allow requests to be listed and filtered by tag (Graeme Porteous)
 * Fix admin error when authority are missing an email address (Graeme Porteous)
