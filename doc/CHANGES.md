@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Update actions and pages which set "noindex", "nofollow" crawler directives
+  (Graeme Porteous)
 * Fix visibility check for attachments when downloading a batch request as a zip
   file (Gareth Rees)
 * Fix censor rules not being applied to attachment filenames in downloads
