@@ -33,6 +33,14 @@ RSpec.describe UserController do
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
+    context 'when user is suspended' do
+      it 'adds noindex header' do
+        user = FactoryBot.create(:user, :banned)
+        get :show, params: { url_name: user.url_name }
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex'
+      end
+    end
+
     # TODO: Use route_for or params_from to check /c/ links better
     # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/
     # ControllerExampleGroup.html
@@ -1364,5 +1372,11 @@ RSpec.describe UserController, "when viewing the wall" do
     update_xapian_index
     get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results]).to be_empty
+  end
+
+  it 'adds noindex header' do
+    user = FactoryBot.create(:user)
+    get :wall, params: { url_name: user.url_name }
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex'
   end
 end
