@@ -24,7 +24,7 @@
 </li>
 
 <li class="<%= 'selected' if controller?('request') && !action?('new', 'select_authority', 'show') %>">
-  <%= link_to _("Browse public requests"),
+  <%= link_to _("View public requests"),
               request_list_successful_path,
               :onclick => track_analytics_event(
                 AnalyticsEvent::Category::PRO_NAV_CLICK,

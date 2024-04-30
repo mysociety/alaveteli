@@ -394,3 +394,22 @@ input.cplink__field {
     padding-bottom: 1.2em;
   }
 }
+
+.request-category_container {
+  display: block;
+  margin: 0 -10px;
+
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+.request-category {
+  padding: 10px;
+
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    flex: 1 1 30%;
+  }
+}

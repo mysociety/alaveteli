@@ -8,3 +8,11 @@
     <% end %>
   </ul>
 </div>
+
+<% if content_for? :subnav %>
+  <div id="subnav" class="subnav">
+    <ul id="navigation" class="navigation" role="navigation">
+      <%= yield :subnav %>
+    </ul>
+  </div>
+<% end %>

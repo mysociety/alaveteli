@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
 
   ##### Request controller
+  get '/browse' => 'request#index', as: :requests
   get '/list/all' => redirect('/list')
   get '/list/recent' => redirect('/list')
   match '/list(/:tag)/successful' => 'request#list',
