@@ -24,10 +24,10 @@ class Note < ApplicationRecord
 
   cattr_accessor :default_style, default: 'original'
   cattr_accessor :style_labels, default: {
-    '🔵 Blue': 'blue',
     '🔴 Red': 'red',
-    '🟢 Green': 'green',
     '🟡 Yellow': 'yellow',
+    '🟢 Green': 'green',
+    '🔵 Blue': 'blue',
     'Original': 'original'
   }
 
