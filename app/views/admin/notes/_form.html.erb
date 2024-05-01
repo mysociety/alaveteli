@@ -13,8 +13,10 @@
 
 <div class="control-group">
   <%= f.label :style, class: 'control-label' %>
+
   <div class="controls">
     <%= f.select :style, Note.style_labels %>
+    <span class="help-block">Notes are sorted by the order defined here.</span>
   </div>
 </div>
 
