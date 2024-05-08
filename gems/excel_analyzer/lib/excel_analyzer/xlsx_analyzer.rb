@@ -39,7 +39,7 @@ module ExcelAnalyzer
     end
 
     def suspected_problem?(data)
-      return false if data[:error]
+      return true if data[:error]
 
       total_count = data.sum { |k, v| v }
       return false if total_count == 0

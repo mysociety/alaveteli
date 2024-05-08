@@ -120,8 +120,8 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
         )
       end
 
-      it "does not call on_hidden_metadata callback" do
-        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      it "does call on_hidden_metadata callback" do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
         metadata
       end
     end
@@ -143,8 +143,8 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
     context 'when metadata contains an error' do
       let(:metadata) { { error: 'Error occurred' } }
 
-      it 'should not be run' do
-        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      it 'should run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
       end
     end
 
