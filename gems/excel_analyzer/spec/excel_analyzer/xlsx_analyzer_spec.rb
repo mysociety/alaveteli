@@ -126,4 +126,42 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
       end
     end
   end
+
+  describe 'ExcelAnalyzer.on_hidden_metadata hook' do
+    around do |example|
+      original_callback = ExcelAnalyzer.on_hidden_metadata
+      ExcelAnalyzer.on_hidden_metadata = ->(blob) {}
+      example.call
+      ExcelAnalyzer.on_hidden_metadata = original_callback
+    end
+
+    let(:analyzer) { ExcelAnalyzer::XlsxAnalyzer.new(double) }
+
+    before { allow(analyzer).to receive(:excel_metadata).and_return(metadata) }
+    after { analyzer.metadata }
+
+    context 'when metadata contains an error' do
+      let(:metadata) { { error: 'Error occurred' } }
+
+      it 'should not be run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      end
+    end
+
+    context 'when metadata contains only named_ranges' do
+      let(:metadata) { { named_ranges: 1, other: 0 } }
+
+      it 'should not be run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      end
+    end
+
+    context 'when metadata contains at least 2 hits for anything else' do
+      let(:metadata) { { other: 2 } }
+
+      it 'should run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
+      end
+    end
+  end
 end
