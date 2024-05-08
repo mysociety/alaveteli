@@ -44,6 +44,7 @@ module ExcelAnalyzer
       total_count = data.sum { |k, v| v }
       return false if total_count == 0
       return false if data[:named_ranges] == total_count
+      return false if data[:external_links] == total_count
 
       true
     end

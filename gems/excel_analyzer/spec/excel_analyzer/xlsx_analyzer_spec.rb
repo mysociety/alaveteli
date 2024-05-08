@@ -156,6 +156,22 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
       end
     end
 
+    context 'when metadata contains only external_links' do
+      let(:metadata) { { external_links: 1, other: 0 } }
+
+      it 'should not be run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      end
+    end
+
+    context 'when metadata contains external_links/named_ranges and another criteria' do
+      let(:metadata) { { external_links: 1, named_ranges: 1 } }
+
+      it 'should run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
+      end
+    end
+
     context 'when metadata contains anything else' do
       let(:metadata) { { other: 1 } }
 
