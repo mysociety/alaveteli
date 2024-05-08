@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Change docker scripts to not require bash (Anders Lindeberg)
 * Allow requests to be browsed by category (Graeme Porteous)
 * Add default value and not null constraint to `CensorRule#regexp` (Gareth Rees)
 * Allow requests to be listed and filtered by tag (Graeme Porteous)
