@@ -156,8 +156,8 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
       end
     end
 
-    context 'when metadata contains at least 2 hits for anything else' do
-      let(:metadata) { { other: 2 } }
+    context 'when metadata contains anything else' do
+      let(:metadata) { { other: 1 } }
 
       it 'should run' do
         expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)

@@ -42,7 +42,7 @@ module ExcelAnalyzer
       return false if data[:error]
 
       total_count = data.sum { |k, v| v }
-      return false if total_count < 2
+      return false if total_count == 0
       return false if data[:named_ranges] == total_count
 
       true
