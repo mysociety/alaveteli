@@ -39,7 +39,13 @@ module ExcelAnalyzer
     end
 
     def suspected_problem?(data)
-      data.any? { |k, v| k != :error && k != :named_ranges && v > 1 }
+      return false if data[:error]
+
+      total_count = data.sum { |k, v| v }
+      return false if total_count < 2
+      return false if data[:named_ranges] == total_count
+
+      true
     end
   end
 end
