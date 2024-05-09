@@ -532,7 +532,8 @@ Rails.application.routes.draw do
   ####
   #### AdminTag controller
   namespace :admin do
-    resources :tags, param: :tag, only: [:index, :show]
+    resources :tags, param: :tag, only: [:index, :show],
+      constraints: { tag: /.+/ }
   end
   ####
 
