@@ -1021,7 +1021,7 @@ class InfoRequest < ApplicationRecord
 
     calculate_event_states
 
-    if requires_admin?
+    if old_described_state != described_state && requires_admin?
       # Check there is someone to send the message "from"
       if set_by && user
         RequestMailer.requires_admin(self, set_by, message).deliver_now
