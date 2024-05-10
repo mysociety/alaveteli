@@ -120,9 +120,63 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
         )
       end
 
-      it "does not call on_hidden_metadata callback" do
-        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      it "does call on_hidden_metadata callback" do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
         metadata
+      end
+    end
+  end
+
+  describe 'ExcelAnalyzer.on_hidden_metadata hook' do
+    around do |example|
+      original_callback = ExcelAnalyzer.on_hidden_metadata
+      ExcelAnalyzer.on_hidden_metadata = ->(blob) {}
+      example.call
+      ExcelAnalyzer.on_hidden_metadata = original_callback
+    end
+
+    let(:analyzer) { ExcelAnalyzer::XlsxAnalyzer.new(double) }
+
+    before { allow(analyzer).to receive(:excel_metadata).and_return(metadata) }
+    after { analyzer.metadata }
+
+    context 'when metadata contains an error' do
+      let(:metadata) { { error: 'Error occurred' } }
+
+      it 'should run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
+      end
+    end
+
+    context 'when metadata contains only named_ranges' do
+      let(:metadata) { { named_ranges: 1, other: 0 } }
+
+      it 'should not be run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      end
+    end
+
+    context 'when metadata contains only external_links' do
+      let(:metadata) { { external_links: 1, other: 0 } }
+
+      it 'should not be run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      end
+    end
+
+    context 'when metadata contains external_links/named_ranges and another criteria' do
+      let(:metadata) { { external_links: 1, named_ranges: 1 } }
+
+      it 'should run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
+      end
+    end
+
+    context 'when metadata contains anything else' do
+      let(:metadata) { { other: 1 } }
+
+      it 'should run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
       end
     end
   end
