@@ -97,7 +97,7 @@ RSpec.describe Note, type: :model do
     end
 
     it 'sorts based on enum value index' do
-      is_expected.to match_array([original, blue_1, blue_2, red, green, yellow])
+      is_expected.to eq([red, yellow, green, blue_1, blue_2, original])
     end
   end
 
