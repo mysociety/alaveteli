@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix issues loading tags containing `.` or `/` in admin UI (Graeme Porteous)
 * Change docker scripts to not require bash (Anders Lindeberg)
 * Prevent multiple require admin emails from being sent (Graeme Porteous)
 * Allow requests to be browsed by category (Graeme Porteous)
