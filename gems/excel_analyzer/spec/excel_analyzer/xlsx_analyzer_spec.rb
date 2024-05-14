@@ -179,5 +179,21 @@ RSpec.describe ExcelAnalyzer::XlsxAnalyzer do
         expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
       end
     end
+
+    context 'when metadata contains 50 hidden rows only' do
+      let(:metadata) { { hidden_rows: 50 } }
+
+      it 'should not be run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to_not receive(:call)
+      end
+    end
+
+    context 'when metadata contains 50 hidden rows and anything else' do
+      let(:metadata) { { hidden_rows: 50, other: 1 } }
+
+      it 'should run' do
+        expect(ExcelAnalyzer.on_hidden_metadata).to receive(:call)
+      end
+    end
   end
 end
