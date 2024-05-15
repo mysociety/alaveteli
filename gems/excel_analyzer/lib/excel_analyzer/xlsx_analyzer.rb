@@ -45,6 +45,7 @@ module ExcelAnalyzer
       return false if total_count == 0
       return false if data[:named_ranges] == total_count
       return false if data[:external_links] == total_count
+      return false if data[:hidden_rows] == total_count && total_count <= 50
 
       true
     end
