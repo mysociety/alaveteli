@@ -91,11 +91,10 @@ class RequestMailer < ApplicationMailer
     set_reply_to_headers(info_request.user)
     set_auto_generated_headers
 
-    mail(
-      from: contact_for_user(info_request.user),
-      to: info_request.user.name_and_email,
+    mail_user(
+      info_request.user,
       subject: _("New response to your FOI request - {{request_title}}",
-                    request_title: info_request.title.html_safe),
+                 request_title: info_request.title.html_safe),
       charset: "UTF-8"
     )
   end
@@ -110,8 +109,8 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       user,
-      _("Delayed response to your FOI request - {{request_title}}",
-        request_title: info_request.title.html_safe)
+      subject: _("Delayed response to your FOI request - {{request_title}}",
+                 request_title: info_request.title.html_safe)
     )
   end
 
@@ -125,8 +124,9 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       user,
-      _("You're long overdue a response to your FOI request - {{request_title}}",
-        request_title: info_request.title.html_safe)
+      subject: _("You're long overdue a response to your FOI request - " \
+                 "{{request_title}}",
+                 request_title: info_request.title.html_safe)
     )
   end
 
@@ -144,8 +144,8 @@ class RequestMailer < ApplicationMailer
     set_auto_generated_headers
     mail_user(
       info_request.user,
-      _("Please update the status of your request - {{request_title}}",
-        request_title: info_request.title.html_safe)
+      subject: _("Please update the status of your request - {{request_title}}",
+                 request_title: info_request.title.html_safe)
     )
   end
 
@@ -156,8 +156,10 @@ class RequestMailer < ApplicationMailer
 
     set_reply_to_headers(info_request.user)
     set_auto_generated_headers
-    mail_user(info_request.user, _("Someone has updated the status of " \
-                                      "your request"))
+    mail_user(
+      info_request.user,
+      subject: _("Someone has updated the status of your request")
+    )
   end
 
   # Tell the requester that they need to clarify their request
@@ -175,8 +177,8 @@ class RequestMailer < ApplicationMailer
     set_auto_generated_headers
     mail_user(
       info_request.user,
-      _("Clarify your FOI request - {{request_title}}",
-        request_title: info_request.title.html_safe)
+      subject: _("Clarify your FOI request - {{request_title}}",
+                 request_title: info_request.title.html_safe)
     )
   end
 
@@ -190,8 +192,8 @@ class RequestMailer < ApplicationMailer
     set_auto_generated_headers
     mail_user(
       info_request.user,
-      _("Somebody added a note to your FOI request - {{request_title}}",
-        request_title: info_request.title.html_safe)
+      subject: _("Somebody added a note to your FOI request - {{request_title}}",
+                 request_title: info_request.title.html_safe)
     )
   end
 
@@ -206,8 +208,8 @@ class RequestMailer < ApplicationMailer
     set_auto_generated_headers
     mail_user(
       info_request.user,
-      _("Some notes have been added to your FOI request - {{request_title}}",
-        request_title: info_request.title.html_safe)
+      subject: _("Some notes have been added to your FOI request - {{request_title}}",
+                 request_title: info_request.title.html_safe)
     )
   end
 

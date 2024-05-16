@@ -87,8 +87,8 @@ class NotificationMailer < ApplicationMailer
 
     mail_user(
       user,
-      _("Your daily request summary from {{pro_site_name}}",
-        pro_site_name: pro_site_name)
+      subject: _("Your daily request summary from {{pro_site_name}}",
+                 pro_site_name: pro_site_name)
     )
   end
 
@@ -107,9 +107,11 @@ class NotificationMailer < ApplicationMailer
 
     subject = _("New response to your FOI request - {{request_title}}",
                 request_title: @info_request.title.html_safe)
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'response_notification')
+    mail_user(
+      @info_request.user,
+      subject: subject,
+      template_name: 'response_notification'
+    )
   end
 
   def embargo_expiring_notification(notification)
@@ -125,9 +127,11 @@ class NotificationMailer < ApplicationMailer
       site_name: site_name.html_safe
     )
 
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'embargo_expiring_notification')
+    mail_user(
+      @info_request.user,
+      subject: subject,
+      template_name: 'embargo_expiring_notification'
+    )
   end
 
   def expire_embargo_notification(notification)
@@ -143,9 +147,11 @@ class NotificationMailer < ApplicationMailer
       site_name: site_name.html_safe
     )
 
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'expire_embargo_notification')
+    mail_user(
+      @info_request.user,
+      subject: subject,
+      template_name: 'expire_embargo_notification'
+    )
   end
 
   def overdue_notification(notification)
@@ -158,9 +164,11 @@ class NotificationMailer < ApplicationMailer
     subject = _("Delayed response to your FOI request - {{request_title}}",
                 request_title: @info_request.title.html_safe)
 
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'overdue_notification')
+    mail_user(
+      @info_request.user,
+      subject: subject,
+      template_name: 'overdue_notification'
+    )
   end
 
   def very_overdue_notification(notification)
@@ -174,8 +182,10 @@ class NotificationMailer < ApplicationMailer
                 "- {{request_title}}",
                 request_title: @info_request.title.html_safe)
 
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'very_overdue_notification')
+    mail_user(
+      @info_request.user,
+      subject: subject,
+      template_name: 'very_overdue_notification'
+    )
   end
 end

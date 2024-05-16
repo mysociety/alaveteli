@@ -31,10 +31,11 @@ class TrackMailer < ApplicationMailer
     # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
     # etc. don't decide we are spammers.)
 
-    mail(from: contact_from_name_and_email,
-         to: user.name_and_email,
-         subject: _("Your {{site_name}} email alert",
-                       site_name: site_name.html_safe))
+    mail_user(
+      user,
+      subject: _("Your {{site_name}} email alert",
+                 site_name: site_name.html_safe)
+    )
   end
 
   # Send email alerts for tracked things.  Never more than one email

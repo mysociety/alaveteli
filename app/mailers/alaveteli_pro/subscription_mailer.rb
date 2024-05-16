@@ -9,7 +9,7 @@ class AlaveteliPro::SubscriptionMailer < ApplicationMailer
     @user_name = user.name
     @pro_site_name = pro_site_name.html_safe
     @subscriptions_url = subscriptions_url
-    mail_user(user, subject)
+    mail_user(user, subject: subject)
   end
 
   private

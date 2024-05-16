@@ -14,8 +14,8 @@ class InfoRequestBatchMailer < ApplicationMailer
 
     mail_user(
       user,
-      _("Your batch request \"{{title}}\" has been sent",
-        title: info_request_batch.title.html_safe)
+      subject: _("Your batch request \"{{title}}\" has been sent",
+                 title: info_request_batch.title.html_safe)
     )
   end
 end
