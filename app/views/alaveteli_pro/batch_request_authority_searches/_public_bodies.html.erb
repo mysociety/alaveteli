@@ -1,5 +1,5 @@
 <ul>
-  <% public_bodies = PublicBody.with_tag(category_tag).with_translations.is_requestable %>
+  <% public_bodies = PublicBody.without_tag(PublicBody.batch_excluded_tags).with_tag(category_tag).with_translations.is_requestable %>
     <% public_bodies.each do |public_body| %>
     <%= render partial: 'alaveteli_pro/batch_request_authority_searches/search_result',
                locals: { public_body: public_body,
