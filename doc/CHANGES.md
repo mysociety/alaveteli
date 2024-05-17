@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Remove ability to publicly view authority contact email addresses to prevent
+  harvesting (Gareth Rees)
 * Fix issues loading tags containing `.` or `/` in admin UI (Graeme Porteous)
 * Change docker scripts to not require bash (Anders Lindeberg)
 * Prevent multiple require admin emails from being sent (Graeme Porteous)

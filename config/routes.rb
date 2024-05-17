@@ -373,9 +373,6 @@ Rails.application.routes.draw do
         :as => :show_public_body_awaiting,
         :view => 'awaiting',
         :via => :get
-  match '/body/:url_name/view_email' => 'public_body#view_email',
-        :as => :view_public_body_email,
-        :via => [:get, :post]
   match '/body/:url_name/:tag' => 'public_body#show',
         :as => :show_public_body_tag,
         :via => :get
