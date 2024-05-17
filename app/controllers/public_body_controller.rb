@@ -96,24 +96,6 @@ class PublicBodyController < ApplicationController
     end
   end
 
-  def view_email
-    @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-    raise ActiveRecord::RecordNotFound, "None found" if @public_body.nil?
-
-    AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
-      if params[:submitted_view_email]
-        if verify_recaptcha
-          flash.discard(:error)
-          render template: "public_body/view_email"
-          return
-        end
-        flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
-                              'Please try again.')
-      end
-      render template: "public_body/view_email_captcha"
-    end
-  end
-
   def list
     long_cache
 
