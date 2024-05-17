@@ -82,9 +82,6 @@ class NotificationMailer < ApplicationMailer
       end
     end
 
-    set_reply_to_headers(user)
-    set_auto_generated_headers
-
     mail_user(
       user,
       subject: _("Your daily request summary from {{pro_site_name}}",
@@ -102,9 +99,6 @@ class NotificationMailer < ApplicationMailer
     @info_request = notification.info_request_event.info_request
     @incoming_message = notification.info_request_event.incoming_message
 
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
-
     subject = _("New response to your FOI request - {{request_title}}",
                 request_title: @info_request.title.html_safe)
     mail_user(
@@ -116,9 +110,6 @@ class NotificationMailer < ApplicationMailer
 
   def embargo_expiring_notification(notification)
     @info_request = notification.info_request_event.info_request
-
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
 
     subject = _(
       "Your FOI request - {{request_title}} will be made public on " \
@@ -136,9 +127,6 @@ class NotificationMailer < ApplicationMailer
 
   def expire_embargo_notification(notification)
     @info_request = notification.info_request_event.info_request
-
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
 
     subject = _(
       "Your FOI request - {{request_title}} has been made public on " \
@@ -158,9 +146,6 @@ class NotificationMailer < ApplicationMailer
     @info_request = notification.info_request_event.info_request
     @url = signin_url(r: respond_to_last_path(@info_request))
 
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
-
     subject = _("Delayed response to your FOI request - {{request_title}}",
                 request_title: @info_request.title.html_safe)
 
@@ -174,9 +159,6 @@ class NotificationMailer < ApplicationMailer
   def very_overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
     @url = signin_url(r: respond_to_last_path(@info_request))
-
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
 
     subject = _("You're long overdue a response to your FOI request " \
                 "- {{request_title}}",

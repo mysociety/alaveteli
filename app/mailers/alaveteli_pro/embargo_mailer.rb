@@ -75,7 +75,6 @@ module AlaveteliPro
         site_name: site_name.html_safe,
         count: info_requests.count
       )
-      auto_generated_headers
       mail_user(@user, subject: subject)
     end
 
@@ -89,21 +88,7 @@ module AlaveteliPro
         site_name: site_name.html_safe,
         count: info_requests.count
       )
-      auto_generated_headers
       mail_user(@user, subject: subject)
-    end
-
-    private
-
-    # TODO: these are copied from request_mailer, but it seems like they should
-    # be something shared via application_mailer.
-    def auto_generated_headers
-      headers({
-        'Return-Path' => blackhole_email,
-        'Reply-To' => pro_contact_from_name_and_email, # not much we can do if the user's email is broken
-        'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-        'X-Auto-Response-Suppress' => 'OOF'
-      })
     end
   end
 end

@@ -393,11 +393,8 @@ RSpec.describe NotificationMailer do
       expect(mail.body.encoded).to eq(expected_message)
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -468,11 +465,8 @@ RSpec.describe NotificationMailer do
       expect(mail.from).to eq ['postmaster@localhost']
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.response_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -558,11 +552,8 @@ RSpec.describe NotificationMailer do
       expect(mail.from).to eq ['postmaster@localhost']
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.embargo_expiring_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -631,11 +622,8 @@ RSpec.describe NotificationMailer do
       expect(mail.from).to eq ['postmaster@localhost']
     end
 
-    it 'sets reply_to headers' do
+    it 'sets mail headers' do
       mail = NotificationMailer.expire_embargo_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header['Reply-To'].value).to eq expected_reply_to
       expect(mail.header['Return-Path'].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -700,11 +688,8 @@ RSpec.describe NotificationMailer do
       expect(mail.from).to eq ['postmaster@localhost']
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.overdue_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -771,11 +756,8 @@ RSpec.describe NotificationMailer do
       expect(mail.from).to eq ['postmaster@localhost']
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.very_overdue_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end

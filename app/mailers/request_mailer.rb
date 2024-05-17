@@ -69,7 +69,7 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
     @message = message
 
-    set_reply_to_headers(nil, 'Reply-To' => user.name_and_email)
+    set_reply_to_headers('Reply-To' => user.name_and_email)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(from: MailHandler.address_from_name_and_email(
@@ -88,9 +88,6 @@ class RequestMailer < ApplicationMailer
     @incoming_message = incoming_message
     @info_request = info_request
 
-    set_reply_to_headers(info_request.user)
-    set_auto_generated_headers
-
     mail_user(
       info_request.user,
       subject: _("New response to your FOI request - {{request_title}}",
@@ -104,9 +101,6 @@ class RequestMailer < ApplicationMailer
     @url = respond_to_last_url(info_request)
     @info_request = info_request
 
-    set_reply_to_headers(user)
-    set_auto_generated_headers
-
     mail_user(
       user,
       subject: _("Delayed response to your FOI request - {{request_title}}",
@@ -118,9 +112,6 @@ class RequestMailer < ApplicationMailer
   def very_overdue_alert(info_request, user)
     @url = respond_to_last_url(info_request)
     @info_request = info_request
-
-    set_reply_to_headers(user)
-    set_auto_generated_headers
 
     mail_user(
       user,
@@ -140,8 +131,6 @@ class RequestMailer < ApplicationMailer
     @incoming_message = incoming_message
     @info_request = info_request
 
-    set_reply_to_headers(info_request.user)
-    set_auto_generated_headers
     mail_user(
       info_request.user,
       subject: _("Please update the status of your request - {{request_title}}",
@@ -154,8 +143,6 @@ class RequestMailer < ApplicationMailer
     @url = request_url(info_request)
     @info_request = info_request
 
-    set_reply_to_headers(info_request.user)
-    set_auto_generated_headers
     mail_user(
       info_request.user,
       subject: _("Someone has updated the status of your request")
@@ -173,8 +160,6 @@ class RequestMailer < ApplicationMailer
     @incoming_message = incoming_message
     @info_request = info_request
 
-    set_reply_to_headers(info_request.user)
-    set_auto_generated_headers
     mail_user(
       info_request.user,
       subject: _("Clarify your FOI request - {{request_title}}",
@@ -188,8 +173,6 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
     @url = comment_url(comment)
 
-    set_reply_to_headers(info_request.user)
-    set_auto_generated_headers
     mail_user(
       info_request.user,
       subject: _("Somebody added a note to your FOI request - {{request_title}}",
@@ -204,8 +187,6 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
     @url = comment_url(earliest_unalerted_comment)
 
-    set_reply_to_headers(info_request.user)
-    set_auto_generated_headers
     mail_user(
       info_request.user,
       subject: _("Some notes have been added to your FOI request - {{request_title}}",

@@ -10,7 +10,6 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    set_reply_to_headers(user)
     mail_user(user, subject: reasons[:email_subject])
   end
 
@@ -19,7 +18,6 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    set_reply_to_headers(user)
     mail_user(user, subject: reasons[:email_subject])
   end
 
@@ -29,7 +27,6 @@ class UserMailer < ApplicationMailer
     @old_email = user.email
     @new_email = new_email
 
-    set_reply_to_headers(user)
     mail_user(
       new_email,
       subject: _("Confirm your new email address on {{site_name}}",
@@ -42,7 +39,6 @@ class UserMailer < ApplicationMailer
     @new_email = new_email
     user = User.find_by_email(@old_email)
 
-    set_reply_to_headers(user)
     mail_user(
       new_email,
       subject: _("Unable to change email address on {{site_name}}",

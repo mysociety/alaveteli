@@ -20,8 +20,6 @@ class TrackMailer < ApplicationMailer
     @email_about_things = email_about_things
 
     headers(
-      # http://tools.ietf.org/html/rfc3834
-      'Auto-Submitted' => 'auto-generated',
       # http://www.vbulletin.com/forum/project.php?issueid=27687
       # (Exchange hack)
       'Precedence' => 'bulk'

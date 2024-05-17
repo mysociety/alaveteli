@@ -36,12 +36,17 @@ class ApplicationMailer < ActionMailer::Base
     end
 
     if opts[:from].is_a?(User)
+      set_reply_to_headers('Reply-To' => opts[:from].name_and_email)
       opts[:from] = MailHandler.address_from_name_and_email(
         opts[:from].name, blackhole_email
       )
+
     else
-      opts[:from] = contact_for_user(user)
+      opts[:from] = blackhole_email
+      set_reply_to_headers
     end
+
+    set_auto_generated_headers
 
     default_opts = {
       subject: subject
@@ -61,10 +66,10 @@ class ApplicationMailer < ActionMailer::Base
   # Set headers that mark an email as being auto-generated and suppress out of
   # office responses to them
   def set_auto_generated_headers(_opts = {})
-    headers({
+    headers(
       'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
       'X-Auto-Response-Suppress' => 'OOF'
-    })
+    )
   end
 
   # Set Return-Path and Reply-To headers
@@ -80,7 +85,7 @@ class ApplicationMailer < ActionMailer::Base
   # - When sending emails from one user to another, do not set envelope from
   #   address to the from_user, so they can't get someone's email addresses
   #   from transitory bounce messages.
-  def set_reply_to_headers(user = nil, opts = {})
+  def set_reply_to_headers(opts = {})
     default_opts = {
       'Return-Path' => blackhole_email,
       'Reply-To' => contact_for_user(user)

@@ -15,7 +15,7 @@ class ContactMailer < ApplicationMailer
     @last_body = last_body
 
     reply_to_address = MailHandler.address_from_name_and_email(name, email)
-    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
+    set_reply_to_headers('Reply-To' => reply_to_address)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(from: MailHandler.address_from_name_and_email(name, blackhole_email),
@@ -29,8 +29,6 @@ class ContactMailer < ApplicationMailer
     @from_user = from_user
     @recipient_user = recipient_user
     @from_user_url = from_user_url
-
-    set_reply_to_headers(nil, 'Reply-To' => from_user.name_and_email)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail_user(

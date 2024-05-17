@@ -26,7 +26,7 @@ class PublicBodyChangeRequestMailer < ApplicationMailer
       @change_request.get_user_name,
       @change_request.get_user_email)
 
-    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
+    set_reply_to_headers('Reply-To' => reply_to_address)
 
     mail(from: from_address,
          to: contact_from_name_and_email,
