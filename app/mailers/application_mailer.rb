@@ -24,10 +24,6 @@ class ApplicationMailer < ActionMailer::Base
   # about the errors, and have to do error checking on return codes.
   self.raise_delivery_errors = true
 
-  def blackhole_email
-    AlaveteliConfiguration.blackhole_prefix+"@"+AlaveteliConfiguration.incoming_email_domain
-  end
-
   def mail_user(user, subject:, **opts)
     if user.is_a?(User)
       opts[:to] = user.name_and_email
@@ -87,8 +83,7 @@ class ApplicationMailer < ActionMailer::Base
   #   from transitory bounce messages.
   def set_reply_to_headers(opts = {})
     default_opts = {
-      'Return-Path' => blackhole_email,
-      'Reply-To' => contact_for_user(user)
+      'Return-Path' => blackhole_email
     }
     default_opts.merge!(opts)
     headers(default_opts)

@@ -11,4 +11,8 @@ module ConfigHelper
     !AlaveteliConfiguration.exception_notifications_from.blank? &&
       !AlaveteliConfiguration.exception_notifications_to.blank?
   end
+
+  def blackhole_email
+    AlaveteliConfiguration.blackhole_prefix+"@"+AlaveteliConfiguration.incoming_email_domain
+  end
 end

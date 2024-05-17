@@ -374,7 +374,7 @@ RSpec.describe NotificationMailer do
 
     it "send the message from the right address" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
     it "sets the right subject line" do
@@ -462,7 +462,7 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.response_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
     it "sets mail headers" do
@@ -549,7 +549,7 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.embargo_expiring_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
     it "sets mail headers" do
@@ -619,7 +619,7 @@ RSpec.describe NotificationMailer do
 
     it 'sends the message from the right address' do
       mail = NotificationMailer.expire_embargo_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
     it 'sets mail headers' do
@@ -685,7 +685,7 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.overdue_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
     it "sets mail headers" do
@@ -753,7 +753,7 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.very_overdue_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
     it "sets mail headers" do

@@ -125,8 +125,8 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
     end
 
@@ -146,8 +146,8 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
     end
 
@@ -249,8 +249,8 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
     end
 
@@ -270,8 +270,8 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
     end
   end
