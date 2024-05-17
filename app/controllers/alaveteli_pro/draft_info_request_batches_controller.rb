@@ -23,10 +23,12 @@ class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
     case update_bodies_params[:action]
     when 'add-all'
       @draft ||= current_user.draft_info_request_batches.create
-      requestable = PublicBody.with_tag(category_tag).select(&:is_requestable?)
+      requestable = PublicBody.without_tag(PublicBody.batch_excluded_tags).
+        with_tag(category_tag).select(&:is_requestable?)
       @draft.public_bodies << requestable
     when 'add'
-      public_body = PublicBody.find(update_bodies_params[:public_body_id])
+      public_body = PublicBody.without_tag(PublicBody.batch_excluded_tags).
+        find(update_bodies_params[:public_body_id])
       @draft ||= current_user.draft_info_request_batches.create
       @draft.public_bodies << public_body
     when 'remove'

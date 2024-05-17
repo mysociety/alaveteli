@@ -66,6 +66,10 @@ class PublicBody < ApplicationRecord
   # Set to 0 to prevent application of the not_many_requests tag
   cattr_accessor :not_many_public_requests_size, default: 5
 
+  # Any PublicBody tagged with any of the follow tags won't be returned in the
+  # batch authority search results or batch category UI
+  cattr_accessor :batch_excluded_tags, default: %w[not_apply defunct]
+
   has_many :info_requests,
            -> { order(created_at: :desc) },
            inverse_of: :public_body
