@@ -28,7 +28,7 @@ RSpec.describe InfoRequestBatchMailer do
     end
 
     it 'renders the sender email' do
-      expect(@mail.from).to eq(['postmaster@localhost'])
+      expect(@mail.from).to eq([blackhole_email])
     end
 
     it 'assigns @unrequestable' do

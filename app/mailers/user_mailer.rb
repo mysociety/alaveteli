@@ -10,8 +10,7 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    set_reply_to_headers(user)
-    mail_user(user, reasons[:email_subject])
+    mail_user(user, subject: reasons[:email_subject])
   end
 
   def already_registered(user, reasons, url)
@@ -19,8 +18,7 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    set_reply_to_headers(user)
-    mail_user(user, reasons[:email_subject])
+    mail_user(user, subject: reasons[:email_subject])
   end
 
   def changeemail_confirm(user, new_email, url)
@@ -29,10 +27,11 @@ class UserMailer < ApplicationMailer
     @old_email = user.email
     @new_email = new_email
 
-    set_reply_to_headers(user)
-    mail(from: contact_for_user(user),
-         to: new_email,
-         subject: _("Confirm your new email address on {{site_name}}", site_name: site_name))
+    mail_user(
+      new_email,
+      subject: _("Confirm your new email address on {{site_name}}",
+                 site_name: site_name)
+    )
   end
 
   def changeemail_already_used(old_email, new_email)
@@ -40,9 +39,10 @@ class UserMailer < ApplicationMailer
     @new_email = new_email
     user = User.find_by_email(@old_email)
 
-    set_reply_to_headers(user)
-    mail(from: contact_for_user(user),
-         to: new_email,
-         subject: _("Unable to change email address on {{site_name}}", site_name: site_name))
+    mail_user(
+      new_email,
+      subject: _("Unable to change email address on {{site_name}}",
+                 site_name: site_name)
+    )
   end
 end

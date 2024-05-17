@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update user email to be sent from the blackhole address (Graeme Porteous)
 * Remove ability to publicly view authority contact email addresses to prevent
   harvesting (Gareth Rees)
 * Fix issues loading tags containing `.` or `/` in admin UI (Graeme Porteous)

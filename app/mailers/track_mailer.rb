@@ -20,8 +20,6 @@ class TrackMailer < ApplicationMailer
     @email_about_things = email_about_things
 
     headers(
-      # http://tools.ietf.org/html/rfc3834
-      'Auto-Submitted' => 'auto-generated',
       # http://www.vbulletin.com/forum/project.php?issueid=27687
       # (Exchange hack)
       'Precedence' => 'bulk'
@@ -31,10 +29,11 @@ class TrackMailer < ApplicationMailer
     # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
     # etc. don't decide we are spammers.)
 
-    mail(from: contact_from_name_and_email,
-         to: user.name_and_email,
-         subject: _("Your {{site_name}} email alert",
-                       site_name: site_name.html_safe))
+    mail_user(
+      user,
+      subject: _("Your {{site_name}} email alert",
+                 site_name: site_name.html_safe)
+    )
   end
 
   # Send email alerts for tracked things.  Never more than one email

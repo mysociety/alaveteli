@@ -24,14 +24,27 @@ class ApplicationMailer < ActionMailer::Base
   # about the errors, and have to do error checking on return codes.
   self.raise_delivery_errors = true
 
-  def blackhole_email
-    AlaveteliConfiguration.blackhole_prefix+"@"+AlaveteliConfiguration.incoming_email_domain
-  end
+  def mail_user(user, subject:, **opts)
+    if user.is_a?(User)
+      opts[:to] = user.name_and_email
+    else
+      opts[:to] = user
+    end
 
-  def mail_user(user, subject, opts = {})
+    if opts[:from].is_a?(User)
+      set_reply_to_headers('Reply-To' => opts[:from].name_and_email)
+      opts[:from] = MailHandler.address_from_name_and_email(
+        opts[:from].name, blackhole_email
+      )
+
+    else
+      opts[:from] = blackhole_email
+      set_reply_to_headers
+    end
+
+    set_auto_generated_headers
+
     default_opts = {
-      from: contact_for_user(user),
-      to: user.name_and_email,
       subject: subject
     }
     default_opts.merge!(opts)
@@ -49,10 +62,10 @@ class ApplicationMailer < ActionMailer::Base
   # Set headers that mark an email as being auto-generated and suppress out of
   # office responses to them
   def set_auto_generated_headers(_opts = {})
-    headers({
+    headers(
       'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
       'X-Auto-Response-Suppress' => 'OOF'
-    })
+    )
   end
 
   # Set Return-Path and Reply-To headers
@@ -68,10 +81,9 @@ class ApplicationMailer < ActionMailer::Base
   # - When sending emails from one user to another, do not set envelope from
   #   address to the from_user, so they can't get someone's email addresses
   #   from transitory bounce messages.
-  def set_reply_to_headers(user = nil, opts = {})
+  def set_reply_to_headers(opts = {})
     default_opts = {
-      'Return-Path' => blackhole_email,
-      'Reply-To' => contact_for_user(user)
+      'Return-Path' => blackhole_email
     }
     default_opts.merge!(opts)
     headers(default_opts)

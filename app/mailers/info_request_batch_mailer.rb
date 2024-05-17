@@ -10,12 +10,10 @@ class InfoRequestBatchMailer < ApplicationMailer
     @unrequestable = unrequestable
     @url = info_request_batch_url(@info_request_batch)
 
-    set_reply_to_headers(user)
-
     mail_user(
       user,
-      _("Your batch request \"{{title}}\" has been sent",
-        title: info_request_batch.title.html_safe)
+      subject: _("Your batch request \"{{title}}\" has been sent",
+                 title: info_request_batch.title.html_safe)
     )
   end
 end
