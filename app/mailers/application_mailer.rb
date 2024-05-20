@@ -38,8 +38,8 @@ class ApplicationMailer < ActionMailer::Base
       )
 
     else
-      opts[:from] = blackhole_email
       set_reply_to_headers
+      opts[:from] ||= blackhole_email
     end
 
     set_auto_generated_headers

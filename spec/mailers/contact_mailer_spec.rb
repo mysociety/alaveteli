@@ -98,7 +98,7 @@ RSpec.describe ContactMailer do
                                                      pro_user.email,
                                                      "test subject",
                                                      "test message")
-          expect(message.from).to eq [blackhole_email]
+          expect(message.from).to eq [AlaveteliConfiguration.pro_contact_email]
         end
       end
     end
@@ -112,7 +112,7 @@ RSpec.describe ContactMailer do
                                                      user.email,
                                                      "test subject",
                                                      "test message")
-          expect(message.from).to eq [blackhole_email]
+          expect(message.from).to eq [AlaveteliConfiguration.contact_email]
         end
       end
     end
@@ -124,7 +124,7 @@ RSpec.describe ContactMailer do
                                                      "no-such-user@localhost",
                                                      "test subject",
                                                      "test message")
-          expect(message.from).to eq [blackhole_email]
+          expect(message.from).to eq [AlaveteliConfiguration.contact_email]
         end
       end
     end
