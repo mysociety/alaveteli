@@ -90,7 +90,7 @@ gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.gi
 gem 'active_model_otp'
 gem 'activejob-uniqueness', '~> 0.2.5'
 gem 'bcrypt', '~> 3.1.20'
-gem 'cancancan', '~> 3.5.0'
+gem 'cancancan', '~> 3.6.0'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'dalli', '~> 3.2.8'
 gem 'exception_notification', '~> 4.5.0'
