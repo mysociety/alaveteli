@@ -2130,6 +2130,9 @@ Style/Semicolon:
 Style/Send:
   Enabled: false
 
+Style/SendWithLiteralMethodName:
+  Enabled: false
+
 Style/SignalException:
   Enabled: true
   EnforcedStyle: only_raise
@@ -2199,6 +2202,9 @@ Style/Strip:
 
 Style/StructInheritance:
   Enabled: true
+
+Style/SuperArguments:
+  Enabled: false
 
 Style/SuperWithArgsParentheses:
   Enabled: false
