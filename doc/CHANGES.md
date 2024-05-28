@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* View user profile photos from admin list of users (Gareth Rees)
 * Update user email to be sent from the blackhole address (Graeme Porteous)
 * Remove ability to publicly view authority contact email addresses to prevent
   harvesting (Gareth Rees)
