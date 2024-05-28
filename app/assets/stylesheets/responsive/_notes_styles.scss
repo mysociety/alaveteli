@@ -2,19 +2,19 @@ $note-text:          $oil;
 $note-bg:            lighten($primary-color, 60%);
 $note-border:        $primary-color;
 
-$note-red-text:      darken($alert-color, 10%);
+$note-red-text:      darken($alert-color, 25%);
 $note-red-bg:        lighten($alert-color, 40%);
 $note-red-border:    $alert-color;
 
-$note-green-text:    darken($success-color, 10%);
+$note-green-text:    darken($success-color, 25%);
 $note-green-bg:      lighten($success-color, 40%);
 $note-green-border:  $success-color;
 
-$note-blue-text:     darken($primary-color, 10%);
+$note-blue-text:     darken($primary-color, 15%);
 $note-blue-bg:       lighten($primary-color, 60%);
 $note-blue-border:   $primary-color;
 
-$note-yellow-text:   darken($warning-color, 10%);
+$note-yellow-text:   darken($warning-color, 30%);
 $note-yellow-bg:     lighten($warning-color, 40%);
 $note-yellow-border: $warning-color;
 
