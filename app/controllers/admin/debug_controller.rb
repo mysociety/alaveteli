@@ -7,5 +7,6 @@ class Admin::DebugController < AdminController
     repo = `git remote show origin -n | perl -ne 'print $1 if m{Fetch URL: .*github\\.com[:/](.*)\\.git}'`
     @github_origin = "https://github.com/#{repo}/tree/"
     @request_env = request.env
+    @alaveteli_configuration = AlaveteliConfiguration.to_sanitized_hash
   end
 end

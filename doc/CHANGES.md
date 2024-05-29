@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Render Alaveteli configuration values on admin debug page (Gareth Rees)
 * Clarify no sign ins message (Gareth Rees)
 * Check user spam scoring on email address change (Graeme Porteous)
 * Make requests sortable in the admin interface (Gareth Rees)

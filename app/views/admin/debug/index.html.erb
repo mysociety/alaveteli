@@ -45,6 +45,18 @@
 
 <h2>Configuration</h2>
 
+<div class="help-block">
+  <p>
+    See the <a href="https://alaveteli.org/docs/customising/config/">
+    documentation</a> for more information about configuring Alaveteli.
+  </p>
+
+  <p>
+    Sensitive values are replaced with <tt>[FILTERED]</tt>. Use the
+    <tt>config/general.yml</tt> configuration file to view these.
+  </p>
+</div>
+
 <table class="table table-condensed table-debug">
   <tr>
     <td>Rails env:</td>
@@ -54,6 +66,15 @@
     <td>Rails root:</td>
     <td><%= Rails.root %></td>
   </tr>
+</table>
+
+<table class="table table-condensed table-debug">
+  <% @alaveteli_configuration.each do |k,v| %>
+    <tr>
+      <td><%= k %></td>
+      <td><%= v %></td>
+    </tr>
+  <% end %>
 </table>
 
 <h2>Environment variables</h2>

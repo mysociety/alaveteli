@@ -549,10 +549,7 @@ Rails.application.routes.draw do
 
   #### Admin::Debug controller
   namespace :admin do
-    # FIXME: For some reason the resources call is generating the route as
-    # admin_debug_index_path rather than the standard admin_debug_path.
-    # resources :debug, only: [:index]
-    get 'debug', to: 'debug#index', as: :debug
+    resources :debug, only: :index
   end
   ####
 
