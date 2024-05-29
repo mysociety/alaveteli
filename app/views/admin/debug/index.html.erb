@@ -1,4 +1,4 @@
-<% @title = "Debug" %>
+<% @title = 'Debug' %>
 
 <h1><%= @title %></h1>
 
@@ -6,49 +6,85 @@
 
 <h2>Version numbers</h2>
 
-<p>
-  Alaveteli version: <%= @current_version %>
-  <br>
-  <% if @current_branch == "(no branch)" %>
-    Alaveteli branch: (no branch)
-  <% else %>
-    Alaveteli branch: <%= link_to @current_branch, @github_origin + @current_branch %>
-  <% end %>
-  <br>
-  Alaveteli commit: <%= link_to @current_commit, @github_origin + @current_commit %>
-  <br>
-  RUBY_VERSION <%= RUBY_VERSION %>
-  <br>
-  Rails::VERSION::STRING <%= Rails::VERSION::STRING %>
-  <br>
-  Xapian::version_string <%= Xapian::version_string %>
-</p>
+<table class="table table-condensed table-debug">
+  <tr>
+    <td>Alaveteli version:</td>
+    <td><%= @current_version %></td>
+  </tr>
+
+  <tr>
+    <td>Alaveteli Branch:</td>
+
+    <% if @current_branch == '(no branch)' %>
+      <td>(no branch)</td>
+    <% else %>
+      <td><%= link_to @current_branch, @github_origin + @current_branch %></td>
+    <% end %>
+  </tr>
+
+  <tr>
+    <td>Alaveteli commit:</td>
+    <td><%= link_to @current_commit, @github_origin + @current_commit %></td>
+  </tr>
+
+  <tr>
+    <td>RUBY_VERSION</td>
+    <td><%= RUBY_VERSION %></td>
+  </tr>
+
+  <tr>
+    <td>Rails::VERSION::STRING</td>
+    <td><%= Rails::VERSION::STRING %></td>
+  </tr>
+
+  <tr>
+    <td>Xapian::version_string</td>
+    <td><<%= Xapian::version_string %></td>
+  </tr>
+</table>
 
 <h2>Configuration</h2>
 
-<p>
-  Rails env: <%= Rails.env %>
-  <br>
-  Rails root: <%= Rails.root %>
-</p>
+<table class="table table-condensed table-debug">
+  <tr>
+    <td>Rails env:</td>
+    <td><%= Rails.env %></td>
+  </tr>
+  <tr>
+    <td>Rails root:</td>
+    <td><%= Rails.root %></td>
+  </tr>
+</table>
 
 <h2>Environment variables</h2>
-<table>
+
+<table class="table table-condensed table-debug">
   <% @request_env.each do |k,v| %>
-    <tr><td><%= k %></td><td><%= v %></td></tr>
+    <tr>
+      <td><%= k %></td>
+      <td><%= v %></td>
+    </tr>
   <% end %>
 </table>
 
 <h2>Parameters</h2>
-<table>
+
+<table class="table table-condensed table-debug">
   <% params.each do |k,v| %>
-    <tr><td><%= k %></td><td><%= v %></td></tr>
+    <tr>
+      <td><%= k %></td>
+      <td><%= v %></td>
+    </tr>
   <% end %>
 </table>
 
 <h2>Session</h2>
-<table>
+
+<table class="table table-condensed table-debug">
   <% session.to_hash.each do |k,v| %>
-    <tr><td><%= k %></td><td><%= v %></td></tr>
+    <tr>
+      <td><%= k %></td>
+      <td><%= v %></td>
+    </tr>
   <% end %>
 </table>
