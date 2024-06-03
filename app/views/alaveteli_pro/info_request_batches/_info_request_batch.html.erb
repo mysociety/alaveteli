@@ -21,8 +21,8 @@
                 collection: info_request_batch.info_requests %>
     <% end %>
     <div class="show-all-batch-link">
-      <%= link_to n_('Show {{count}} request in detail</span>',
-                     'Show {{count}} requests in detail</span>',
+      <%= link_to n_('Show {{count}} request in detail',
+                     'Show {{count}} requests in detail',
                      info_request_batch.public_bodies.count,
                      batch_request_title: info_request_batch.title,
                      count: info_request_batch.public_bodies.count),
