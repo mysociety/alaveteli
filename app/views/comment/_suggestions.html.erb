@@ -57,7 +57,7 @@
 
   <% if [ 'internal_review' ].include?(@info_request.described_state) %>
     <li> <%= _("<strong>Advice</strong> on how to get a response that will " \
-                  "satisfy the requester. </li>") %>
+                  "satisfy the requester.") %> </li>
   <% end %>
 
   <% if [ 'error_message' ].include?(@info_request.described_state) %>
