@@ -79,7 +79,7 @@ def groupings_from_config(config)
   cops_from_config(config).map { |c| c.split('/').first }.uniq
 end
 
-def write_config(config)
+def write_config(config, comments)
   yaml = config.sort.to_h.to_yaml
 
   # add lines between cops
@@ -98,9 +98,30 @@ def write_config(config)
     yaml.sub!(g + '/', '#' * 20 + " #{g} " + '#' * 20 + "\n\n#{g}/")
   end
 
+  comments.each do |cop, comment_lines|
+    yaml.gsub!(/^(#{cop}:)/, "#{comment_lines.join("\n")}\n\\1")
+  end
+
   File.write(CONFIG_FILE, yaml)
 end
 
-write_config(merge_config(default_config, current_config))
+def cop_comments
+  comments = {}
+  current_section = []
+
+  File.readlines(CONFIG_FILE).each do |line|
+    if line.match?('^(# .*|#)$')
+      current_section << line.strip
+    elsif !current_section.empty? && line.match?(/^\w/)
+      cop_name = line.split(':').first
+      comments[cop_name] = current_section
+      current_section = []
+    end
+  end
+
+  comments
+end
+
+write_config(merge_config(default_config, current_config), cop_comments)
 puts "RuboCop configuration at #{File.expand_path(CONFIG_FILE)} has been updated"
 puts "Please manually check cops which have been renamed"
