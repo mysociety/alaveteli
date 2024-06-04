@@ -1454,6 +1454,9 @@ Rails/WhereNot:
 Rails/WhereNotWithMultipleConditions:
   Enabled: false
 
+Rails/WhereRange:
+  Enabled: false
+
 #################### Security ####################
 
 Security/CompoundHash:
