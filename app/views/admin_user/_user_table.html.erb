@@ -9,6 +9,13 @@
 
         <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
 
+        <% if user.profile_photo %>
+          <% photo_html = image_tag(get_profile_photo_url(url_name: user.url_name)).gsub('"', "'") %>
+          <%= link_to '#', rel: 'popover', data: { trigger: 'hover', placement: 'top', html: true, content: photo_html } do %>
+            <%= icon(:picture) %>
+          <% end %>
+        <% end %>
+
         <span class="user-labels">
           <%= user_labels(user) %>
         </span>

@@ -7,6 +7,7 @@
 //= require bootstrap-tab
 //= require bootstrap-dropdown
 //= require bootstrap-tooltip
+//= require bootstrap-popover
 //= require admin/admin
 //= require admin/category-order
 //= require admin/censor-rules

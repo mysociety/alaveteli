@@ -1,3 +1,8 @@
+// Initialize popover elements
+$(document).ready(function(){
+  $('[rel="popover"]').popover();
+});
+
 (function() {
   jQuery(function() {
     $('.locales a:first').tab('show');
