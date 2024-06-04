@@ -125,6 +125,10 @@ should include the hyphen the namespace.
 This will prevent users from using coupons intended for other non-Alaveteli Pro
 subscription products.
 
+Note that the namespace is _not_ exposed to end users. For example, given a
+coupon `FOO-FIRSTMONTHFREE`, where `FOO` is the `STRIPE_NAMESPACE`, the coupon
+code the user should use is `FIRSTMONTHFREE`
+
 <div class="attention-box info">
     While this setting is optional we recommend using this and setting it from
     the beginning. If set at a later date then your Stripe pricing plan IDs and
