@@ -1,4 +1,10 @@
 namespace :gettext do
+  def locale
+    # Handle when LOCALE is set to an empty string
+    locale = ENV['LOCALE']
+    locale.present? ? locale : '*'
+  end
+
   def msgmerge(*files)
     destination = files.first
     options = %w[--sort-output --no-location --no-wrap --no-obsolete-entries]
@@ -14,7 +20,7 @@ namespace :gettext do
   end
 
   def clean(root:)
-    Dir.glob("#{root}/*/#{text_domain}.po") do |po_file|
+    Dir.glob("#{root}/#{locale}/#{text_domain}.po") do |po_file|
       # merge PO file with themselves - using msgmerge options above to clean
       msgmerge(po_file, po_file)
     end
@@ -56,7 +62,7 @@ namespace :gettext do
     # extract new strings from files and update POT file
     xgettext(pot_file, *files)
 
-    Dir.glob("#{root}/*/#{text_domain}.po") do |po_file|
+    Dir.glob("#{root}/#{locale}/#{text_domain}.po") do |po_file|
       # merge POT file with localised PO files
       msgmerge(po_file, pot_file)
     end
@@ -83,7 +89,7 @@ namespace :gettext do
     require "alaveteli_gettext/fuzzy_cleaner.rb"
     fuzzy_cleaner = AlaveteliGetText::FuzzyCleaner.new
 
-    Dir.glob("locale/**/app.po").each do |po_file|
+    Dir.glob("locale/#{locale}/app.po").each do |po_file|
       lines = File.read(po_file)
       output = fuzzy_cleaner.clean_po(lines)
       File.open(po_file, "w") { |f| f.puts(output) }
@@ -95,7 +101,7 @@ namespace :gettext do
     require "alaveteli_gettext/fuzzy_cleaner.rb"
     fuzzy_cleaner = AlaveteliGetText::FuzzyCleaner.new
 
-    Dir.glob("locale_alaveteli_pro/**/app.po").each do |po_file|
+    Dir.glob("locale_alaveteli_pro/#{locale}/app.po").each do |po_file|
       lines = File.read(po_file)
       output = fuzzy_cleaner.clean_po(lines)
       File.open(po_file, "w") { |f| f.puts(output) }
