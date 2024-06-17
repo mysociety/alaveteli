@@ -2,24 +2,32 @@ upstream alaveteli {
     server 127.0.0.1:3000;
 }
 
-# Redirect any http:// request to https://www.example.com
+# Redirect any http:// request to https://
 server {
-  listen 80;
-  server_name www.example.com;
-  rewrite ^(.*) https://www.example.com$request_uri permanent;
+    listen 80;
+    # Set the server name to your domain name if you have multiple nginx servers
+    # running on your machine
+    # server_name www.example.com;
+    rewrite ^(.*) https://$server_name$request_uri permanent;
 }
 
 server {
     listen 443;
-    server_name www.example.com;
+    # Set the server name to your domain name if you have multiple nginx servers
+    # running on your machine
+    # server_name www.example.com;
     root /var/www/alaveteli/alaveteli/public;
 
     server_tokens off;
 
-    try_files $uri/index.html $uri @alaveteli;
-
     access_log /var/log/nginx/alaveteli_ssl_access.log;
     error_log /var/log/nginx/alaveteli_ssl_error.log error;
+
+    try_files /down.html $uri/index.html $uri @alaveteli;
+
+    location = /favicon.ico {
+        rewrite ^/favicon\.ico$ /assets/favicon.ico last;
+    }
 
     location /download {
         internal;
@@ -40,5 +48,10 @@ server {
         proxy_set_header X-Accel-Mapping /var/www/alaveteli/alaveteli/cache/zips/production/download=/download;
         proxy_redirect off;
         proxy_pass http://alaveteli;
+    }
+
+    # Allow browser asset caching
+    location ~* ^/(assets).*\.(ico|gif|jpe?g|png|js|css|svg|ttf|otf|eot|woff)$ {
+        expires 1y;
     }
 }
