@@ -34,6 +34,14 @@ server {
         alias /var/www/alaveteli/alaveteli/cache/zips/production/download;
     }
 
+    location /sidekiq {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto http;
+        proxy_pass http://alaveteli/sidekiq;
+    }
+
     ssl on;
     ssl_certificate /etc/ssl/certs/www.example.com.cert;
     ssl_certificate_key /etc/ssl/private/www.example.com.key;

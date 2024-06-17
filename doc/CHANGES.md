@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve nginx configuration file for Sidekiq Web UI (Graeme Porteous)
 * View user profile photos from admin list of users (Gareth Rees)
 * Update user email to be sent from the blackhole address (Graeme Porteous)
 * Remove ability to publicly view authority contact email addresses to prevent
@@ -92,6 +93,11 @@
   then regenerate with `rake config_files:convert_daemon`.
   See [the documentation](https://alaveteli.org/docs/installing/cron_and_daemons/)
   for more information.
+
+* _Optional:_ There have been some changes to the example nginx configuration
+  files. Please ensure you review the changes to `config/nginx.conf.example` or
+  `config/nginx-ssl.conf.example` and update your production configuration if
+  needed.
 
 # 0.44.0.1
 
