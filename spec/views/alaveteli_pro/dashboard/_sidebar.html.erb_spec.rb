@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "alaveteli_pro/info_requests/dashboard/_projects" do
+RSpec.describe "alaveteli_pro/info_requests/dashboard/_sidebar" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   before do
@@ -24,13 +24,13 @@ RSpec.describe "alaveteli_pro/info_requests/dashboard/_projects" do
 
   def render_view
     assign :user, pro_user
-    render partial: 'alaveteli_pro/dashboard/projects'
+    render partial: 'alaveteli_pro/dashboard/sidebar'
   end
 
   def render_empty_view
     # Create a different user so that they have no requests
     assign :user, FactoryBot.create(:pro_user)
-    render partial: 'alaveteli_pro/dashboard/projects'
+    render partial: 'alaveteli_pro/dashboard/sidebar'
   end
 
   describe "All requests link" do
