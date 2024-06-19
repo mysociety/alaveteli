@@ -50,4 +50,14 @@
     <% end %>
   </li>
 
+  <li class="vertical-navigation-menu__item dashboard-folder dashboard-folder--top-level">
+    <a href="<%= alaveteli_pro_projects_path %>" class="vertical-navigation-menu__link dashboard-folder__name">
+      <span class="phase-icon phase-icon--project"></span>
+      <%= _('Projects') %>
+      <span class="dashboard-folder__count">
+        <%= @user.projects.owner.count %>
+      </span>
+    </a>
+  </li>
+
 </ul>

@@ -150,7 +150,15 @@ class User < ApplicationRecord
            inverse_of: :user,
            dependent: :destroy
   has_many :memberships, class_name: 'Project::Membership'
-  has_many :projects, through: :memberships
+  has_many :projects, through: :memberships do
+    def owner
+      unscope(:joins).joins(:owner_membership)
+    end
+
+    def contributor
+      unscope(:joins).joins(:contributor_memberships)
+    end
+  end
 
   has_many :sign_ins,
            class_name: 'User::SignIn',

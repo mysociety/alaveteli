@@ -143,3 +143,40 @@
     width: 45%;
   }
 }
+
+.projects__list {
+  margin-top: 0.5em;
+}
+
+.project {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.project__title {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+.project__meta {
+  @include respond-min( $dashboard-collapse ){
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 50px;
+    grid-gap: 2em;
+  }
+}
+
+.project__meta__label {
+  margin-top: 1em;
+  @include respond-min( $dashboard-collapse ){
+    margin-top: 0;
+  }
+}
+
+.project__classification,
+.project__extraction {
+  p {
+    margin-bottom: 0;
+  }
+}
