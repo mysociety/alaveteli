@@ -130,9 +130,9 @@
           <table>
             <% @leaderboard.twenty_eight_days.each_with_index do |row, index| %>
               <tr>
-                <td> <%= index += 1 %>.</td>
-                <td> <%= user_link(row[:user]) %></td>
-                <td>
+                <td class="position"><%= index += 1 %>.</td>
+                <td class="user"><%= user_link(row[:user]) %></td>
+                <td class="contributions">
                   <%= n_('{{number_of_contributions}} contribution',
                         '{{number_of_contributions}} contributions',
                         row[:total_contributions],
@@ -145,9 +145,9 @@
             <table>
             <% @leaderboard.all_time.each_with_index do |row, index| %>
               <tr>
-                <td> <%= index += 1 %>.</td>
-                <td> <%= user_link(row[:user]) %></td>
-                <td>
+                <td class="position"><%= index += 1 %>.</td>
+                <td class="user"><%= user_link(row[:user]) %></td>
+                <td class="contributions">
                   <%= n_('{{number_of_contributions}} contribution',
                         '{{number_of_contributions}} contributions',
                         row[:total_contributions],

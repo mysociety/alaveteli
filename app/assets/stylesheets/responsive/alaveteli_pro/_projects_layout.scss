@@ -126,3 +126,16 @@
   width: 4em;
   text-align: right;
 }
+
+.project-leaderboard table {
+  width: 100%;
+
+  td.user {
+    padding-left: 1em;
+  }
+
+  td.contributions {
+    padding-left: 1em;
+    width: 45%;
+  }
+}
