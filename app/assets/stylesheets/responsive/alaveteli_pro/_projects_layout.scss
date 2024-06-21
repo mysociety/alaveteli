@@ -57,9 +57,13 @@
   }
 }
 
+.project-owner,
 .project-download-data,
-.project-access-status {
-  margin-top: 2em;
+.project-access-status,
+.project-leaderboard {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #ddd;
 }
 
 .project-owner__photo {
