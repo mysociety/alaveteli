@@ -48,6 +48,12 @@ class Project < ApplicationRecord
 
   validates :title, :owner, presence: true
 
+  has_rich_text :briefing
+
+  def original_briefing
+    attributes['briefing']
+  end
+
   def info_request?(info_request)
     info_requests.include?(info_request)
   end

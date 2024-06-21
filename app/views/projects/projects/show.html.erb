@@ -9,7 +9,11 @@
     <div class="row">
       <div class="project-body">
         <div class="project-briefing">
-          <%= sanitize @project.briefing %>
+          <% if @project.original_briefing.present? %>
+            <%= sanitize @project.original_briefing %>
+          <% else %>
+            <%= @project.briefing %>
+          <% end %>
         </div>
 
         <div class="project-task-list" id="tasks">
