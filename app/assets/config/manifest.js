@@ -29,3 +29,6 @@
 //= link responsive/application-ie8.css
 //
 //= link alaveteli_pro/stripe.js
+//
+//= link_tree ../../javascript .js
+//= link_tree ../../../vendor/javascript .js

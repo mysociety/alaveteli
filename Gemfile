@@ -159,6 +159,10 @@ gem 'mini_racer', '~> 0.12.0'
 gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', git: 'https://github.com/rails/sprockets', ref: '3.x'
 gem 'uglifier', '~> 4.2.0'
+# Modern Assets
+gem 'importmap-rails', '~> 2.0.1'
+gem 'stimulus-rails', '~> 1.3.3'
+gem 'turbo-rails', '~> 2.0.5'
 
 # Feature flags
 gem 'alaveteli_features', path: 'gems/alaveteli_features'
