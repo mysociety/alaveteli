@@ -16,4 +16,18 @@
       background-image: image-url("alaveteli-pro/download@2.png");
     }
   }
+
+  &.icon__add {
+    background-image: image-url("alaveteli-pro/add.png");
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url("alaveteli-pro/add@2.png");
+    }
+  }
+
+  &.icon__remove {
+    background-image: image-url("alaveteli-pro/remove.png");
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url("alaveteli-pro/remove@2.png");
+    }
+  }
 }

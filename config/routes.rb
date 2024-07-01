@@ -898,7 +898,12 @@ Rails.application.routes.draw do
         resource :batch_download, only: [:show], format: true, path: 'download'
       end
       resources :public_bodies, :only => [:index]
-      resources :projects, :except => [:show, :destroy]
+      resources :projects, :except => [:show, :destroy] do
+        member do
+          get :requests, action: 'edit_resources'
+          patch :requests, action: 'update_resources'
+        end
+      end
     end
 
     scope path: :pro do

@@ -2,7 +2,12 @@
 # Projects controller, for pro user self serve projects.
 #
 class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
-  before_action :find_project, only: [:edit, :update]
+  skip_before_action :html_response, only: [:update_resources]
+
+  before_action :find_project, only: [
+    :edit, :update,
+    :edit_resources, :update_resources
+  ]
 
   def index
     @projects = current_user.projects.owner.paginate(
@@ -35,6 +40,33 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     end
   end
 
+  def edit_resources
+    @batches = @project.batches.order(:title, :id).distinct
+    @requests = @project.requests.order(:title, :id).distinct
+    @results = current_user.info_requests.
+      order(:title, :id).
+      paginate(page: current_page, per_page: 10)
+  end
+
+  def update_resources
+    @batches = current_user.info_request_batches.
+      where(id: project_params[:batch_ids]).
+      order(:title, :id).
+      distinct
+    @requests = current_user.info_requests.
+      where(id: project_params[:request_ids]).
+      order(:title, :id).
+      distinct
+    @results = current_user.info_requests.
+      where("title ILIKE ?", "%#{params[:query]}%").
+      order(:title, :id).
+      paginate(page: current_page, per_page: 10)
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
 
   def find_project
@@ -55,6 +87,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   def pending_steps
     steps = []
     steps << 'edit' unless @project.persisted?
+    steps << 'edit_resources' unless @project.info_requests.any?
     steps
   end
 
@@ -63,12 +96,18 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   end
 
   def project_params
-    params.require(:project).permit(:title, :briefing)
+    case current_step
+    when 'edit_resources', 'update_resources'
+      params.fetch(:project, {}).permit(request_ids: [], batch_ids: []).
+        with_defaults(request_ids: [], batch_ids: [])
+    else
+      params.require(:project).permit(:title, :briefing)
+    end
   end
 
   def redirect_to_next_step(**args)
     if next_step
-      redirect_to action: next_step
+      redirect_to action: next_step, id: @project.to_param
     else
       redirect_to @project, **args
     end

@@ -46,6 +46,11 @@
             <%= link_to project_classify_path(@project), class: 'button' do %>
               <%= _('Start classifying') %>
             <% end %>
+            <% if can? :edit, @project %>
+              <%= link_to requests_alaveteli_pro_project_path(@project), class: 'button-tertiary' do %>
+                <%= _('Edit requests') %>
+              <% end %>
+            <% end %>
           </div>
 
           <div class="project-task">
