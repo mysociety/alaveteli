@@ -218,6 +218,10 @@ class Ability
         user && (user.is_pro_admin? || target_project.member?(user))
       end
 
+      can :edit, Project do |target_project|
+        user && (user.is_pro_admin? || target_project.owner?(user))
+      end
+
       can :download, Project do |target_project|
         user && (user.is_pro_admin? || target_project.owner?(user))
       end

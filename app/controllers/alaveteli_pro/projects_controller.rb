@@ -2,6 +2,8 @@
 # Projects controller, for pro user self serve projects.
 #
 class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
+  before_action :find_project, only: [:edit, :update]
+
   def index
     @projects = current_user.projects.owner.paginate(
       page: params[:page], per_page: 10
@@ -16,15 +18,59 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     @project = current_user.projects.new
 
     if @project.update(project_params.merge(owner: current_user))
-      redirect_to @project, notice: 'Project was successfully created.'
+      redirect_to_next_step notice: 'Project was successfully created.'
     else
       render :new
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @project.update(project_params)
+      redirect_to_next_step notice: 'Project was successfully updated.'
+    else
+      render current_step, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def find_project
+    @project = current_user.projects.owner.find(params[:id])
+    authorize! :edit, @project
+  end
+
+  def current_page
+    params.fetch(:page, 1)
+  end
+  helper_method :current_page
+
+  def current_step
+    params.fetch(:step, action_name)
+  end
+  helper_method :current_step
+
+  def pending_steps
+    steps = []
+    steps << 'edit' unless @project.persisted?
+    steps
+  end
+
+  def next_step
+    pending_steps.first
+  end
 
   def project_params
     params.require(:project).permit(:title, :briefing)
+  end
+
+  def redirect_to_next_step(**args)
+    if next_step
+      redirect_to action: next_step
+    else
+      redirect_to @project, **args
+    end
   end
 end
