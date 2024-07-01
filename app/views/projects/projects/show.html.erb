@@ -78,6 +78,11 @@
             <%= link_to project_extract_path(@project), class: 'button' do %>
               <%= _('Start extracting') %>
             <% end %>
+            <% if can? :edit, @project %>
+              <%= link_to questions_alaveteli_pro_project_path(@project), class: 'button-tertiary' do %>
+                <%= _('Edit questions') %>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>

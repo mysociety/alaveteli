@@ -2,11 +2,12 @@
 # Projects controller, for pro user self serve projects.
 #
 class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
-  skip_before_action :html_response, only: [:update_resources]
+  skip_before_action :html_response, only: [:update_resources, :update_key_set]
 
   before_action :find_project, only: [
     :edit, :update,
-    :edit_resources, :update_resources
+    :edit_resources, :update_resources,
+    :edit_key_set, :update_key_set
   ]
 
   def index
@@ -67,6 +68,20 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     end
   end
 
+  def edit_key_set
+    @key_set = @project.key_set || @project.build_key_set
+    @key_set.keys.build(order: 1) if @key_set.keys.empty?
+    @keys = @key_set.keys
+  end
+
+  def update_key_set
+    @project.assign_attributes(project_params)
+
+    @key_set = @project.key_set || @project.build_key_set
+    @key_set.keys.build if @key_set.keys.empty? || params[:new]
+    @keys = @key_set.keys
+  end
+
   private
 
   def find_project
@@ -88,6 +103,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     steps = []
     steps << 'edit' unless @project.persisted?
     steps << 'edit_resources' unless @project.info_requests.any?
+    steps << 'edit_key_set' unless @project.key_set.present?
     steps
   end
 
@@ -100,6 +116,12 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     when 'edit_resources', 'update_resources'
       params.fetch(:project, {}).permit(request_ids: [], batch_ids: []).
         with_defaults(request_ids: [], batch_ids: [])
+    when 'edit_key_set', 'update_key_set'
+      params.fetch(:project, {}).permit(
+        key_set_attributes: [
+          :id, keys_attributes: %i[id title format order _destroy]
+        ]
+      )
     else
       params.require(:project).permit(:title, :briefing)
     end

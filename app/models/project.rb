@@ -46,6 +46,8 @@ class Project < ApplicationRecord
 
   has_many :submissions, class_name: 'Project::Submission'
 
+  accepts_nested_attributes_for :key_set
+
   validates :title, :owner, presence: true
 
   has_rich_text :briefing

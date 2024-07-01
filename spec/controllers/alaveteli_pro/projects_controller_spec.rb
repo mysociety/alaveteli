@@ -11,6 +11,9 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
   let(:request1) { FactoryBot.create(:info_request, user: pro_user) }
   let(:request2) { FactoryBot.create(:info_request, user: pro_user) }
 
+  let(:key_set) { FactoryBot.create(:dataset_key_set) }
+  let(:key1) { FactoryBot.create(:dataset_key, key_set: key_set) }
+
   before do
     sign_in(pro_user)
     ability.can :edit, project
@@ -102,9 +105,18 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
         )
       end
 
-      it 'redirects from resources to the project' do
+      it 'redirects from resources to the key set step' do
         project.requests << InfoRequest.first
         patch :update, params: { id: project.id, step: 'edit_resources' }
+        expect(response).to redirect_to(
+          questions_alaveteli_pro_project_path(Project.last)
+        )
+      end
+
+      it 'redirects from key_set to the project' do
+        project.requests << InfoRequest.first
+        project.create_key_set
+        patch :update, params: { id: project.id, step: 'edit_key_set' }
         expect(response).to redirect_to(
           project_path(Project.last)
         )
@@ -215,6 +227,98 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
           params: updated_project_params,
           format: :turbo_stream
       expect(response.media_type).to eq Mime[:turbo_stream]
+    end
+  end
+
+  describe 'GET #edit_key_set' do
+    context 'when the project has a key set' do
+      before do
+        project.key_set = key_set
+        key1 # ensure this is created before action
+      end
+
+      it 'assigns @key_set' do
+        get :edit_key_set, params: { id: project.id }
+        expect(assigns(:key_set)).to eq(key_set)
+      end
+
+      it 'assigns @keys' do
+        get :edit_key_set, params: { id: project.id }
+        expect(assigns(:keys)).to match([key1])
+      end
+
+      it 'renders the edit_key_set template' do
+        get :edit_key_set, params: { id: project.id }
+        expect(response).to render_template(:edit_key_set)
+      end
+    end
+
+    context 'when the project does not have a key set' do
+      before do
+        project.key_set = nil
+      end
+
+      it 'assigns a new @key_set' do
+        get :edit_key_set, params: { id: project.id }
+        expect(assigns(:key_set)).to be_a_new(Dataset::KeySet)
+      end
+
+      it 'assigns @keys with a new key' do
+        get :edit_key_set, params: { id: project.id }
+        expect(assigns(:keys).size).to eq(1)
+        expect(assigns(:keys).first).to be_a_new(Dataset::Key)
+      end
+
+      it 'renders the edit_key_set template' do
+        get :edit_key_set, params: { id: project.id }
+        expect(response).to render_template(:edit_key_set)
+      end
+    end
+  end
+
+  describe 'PATCH #update_key_set' do
+    before do
+      project.key_set = key_set
+      key1 # ensure this is created before action
+    end
+
+    let(:key_set_params) do
+      {
+        id: project.id,
+        project: { key_set_attributes: { id: key_set.id, keys_attributes: {
+          '0' => { id: key1.id, title: 'Updated Title', format: 'text', order: 1 }
+        } } }
+      }
+    end
+
+    it 'assigns @key_set' do
+      patch :update_key_set, params: key_set_params, format: :turbo_stream
+      expect(assigns(:key_set)).to eq(key_set)
+    end
+
+    it 'assigns @keys' do
+      patch :update_key_set, params: key_set_params, format: :turbo_stream
+      expect(assigns(:keys)).to eq([key1])
+    end
+
+    it 'updates the keys but does not persist the changes' do
+      patch :update_key_set, params: key_set_params, format: :turbo_stream
+      expect(assigns(:keys)[0].id).to eq(key1.id)
+      expect(assigns(:keys)[0].title).to eq('Updated Title')
+      key1.reload
+      expect(key1).to_not eq('Updated Title')
+    end
+
+    it 'builds new key with the new param' do
+      patch :update_key_set, params: key_set_params.merge(new: 1),
+        format: :turbo_stream
+      expect(assigns(:keys)[1]).to be_a(Dataset::Key)
+      expect(assigns(:keys)[1]).to be_new_record
+    end
+
+    it 'renders the update_key_set template' do
+      patch :update_key_set, params: key_set_params, format: :turbo_stream
+      expect(response).to render_template(:update_key_set)
     end
   end
 end

@@ -288,3 +288,43 @@
     }
   }
 }
+
+#project-key-set {
+  .project-key-set__key {
+    &.project-key-set__key--removed {
+      display: none;
+    }
+
+    width: 75%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .project-key-set__key__drag-handle {
+      text-indent: -9999px;
+      background-image: image-url("drag.svg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      cursor: grab;
+      width: 24px;
+    }
+
+    .project-key-set__key__title,
+    .project-key-set__key__format {
+      width: 35%;
+      input,
+      select {
+        width: 100%;
+      }
+
+      .fieldWithErrors {
+        padding: 0;
+      }
+    }
+
+    .project-key-set__key__remove-question {
+      padding-top: 1.2em;
+    }
+  }
+}

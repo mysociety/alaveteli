@@ -18,6 +18,8 @@ class Dataset::KeySet < ApplicationRecord
   has_many :keys, foreign_key: 'dataset_key_set_id', inverse_of: :key_set
   has_many :value_sets, foreign_key: 'dataset_key_set_id', inverse_of: :key_set
 
+  accepts_nested_attributes_for :keys, allow_destroy: true
+
   RESOURCE_TYPES = %w[
     Project
     InfoRequest

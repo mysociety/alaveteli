@@ -902,6 +902,8 @@ Rails.application.routes.draw do
         member do
           get :requests, action: 'edit_resources'
           patch :requests, action: 'update_resources'
+          get :questions, action: 'edit_key_set'
+          patch :questions, action: 'update_key_set'
         end
       end
     end
