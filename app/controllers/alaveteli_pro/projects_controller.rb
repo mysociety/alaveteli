@@ -2,12 +2,15 @@
 # Projects controller, for pro user self serve projects.
 #
 class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
-  skip_before_action :html_response, only: [:update_resources, :update_key_set]
+  skip_before_action :html_response, only: [
+    :update_resources, :update_key_set, :update_contributors
+  ]
 
   before_action :find_project, only: [
     :edit, :update,
     :edit_resources, :update_resources,
-    :edit_key_set, :update_key_set
+    :edit_key_set, :update_key_set,
+    :edit_contributors, :update_contributors
   ]
 
   PER_PAGE = 10
@@ -26,6 +29,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     @project = current_user.projects.new
 
     if @project.update(project_params.merge(owner: current_user))
+      session[:new_project] = true
       redirect_to_next_step notice: 'Project was successfully created.'
     else
       render :new
@@ -84,6 +88,19 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     @keys = @key_set.keys
   end
 
+  def edit_contributors
+    @contributors = @project.contributors.
+      order(:name, :id).
+      distinct
+  end
+
+  def update_contributors
+    @contributors = @project.contributors.
+      where(id: project_params[:contributor_ids]).
+      order(:name, :id).
+      distinct
+  end
+
   private
 
   def find_project
@@ -102,10 +119,13 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   helper_method :current_step
 
   def pending_steps
+    return [] unless session[:new_project]
+
     steps = []
     steps << 'edit' unless @project.persisted?
     steps << 'edit_resources' unless @project.info_requests.any?
     steps << 'edit_key_set' unless @project.key_set.present?
+    steps << 'edit_contributors' if current_step != 'edit_contributors'
     steps
   end
 
@@ -124,15 +144,23 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
           :id, keys_attributes: %i[id title format order _destroy]
         ]
       )
+    when 'edit_contributors', 'update_contributors'
+      params.fetch(:project, {}).permit(contributor_ids: []).
+        with_defaults(contributor_ids: [])
+    when 'invite'
+      { regenerate_invite_token: true }
     else
       params.require(:project).permit(:title, :briefing)
     end
   end
 
   def redirect_to_next_step(**args)
-    if next_step
+    if current_step == 'invite'
+      redirect_to action: 'edit_contributors', id: @project.to_param
+    elsif next_step
       redirect_to action: next_step, id: @project.to_param
     else
+      session.delete(:new_project)
       redirect_to @project, **args
     end
   end

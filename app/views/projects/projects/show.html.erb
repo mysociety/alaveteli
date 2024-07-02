@@ -107,6 +107,11 @@
                      @project.contributors.count,
                      count: @project.contributors.count) %>
             </p>
+            <p>
+              <%= link_to _('Invite and edit contributors'),
+                    contributors_alaveteli_pro_project_path(@project),
+                    class: 'button-tertiary' %>
+            </p>
           <% end %>
 
           <% if can? :download, @project %>

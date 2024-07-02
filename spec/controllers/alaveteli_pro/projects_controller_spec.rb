@@ -14,6 +14,9 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
   let(:key_set) { FactoryBot.create(:dataset_key_set) }
   let(:key1) { FactoryBot.create(:dataset_key, key_set: key_set) }
 
+  let(:contributor1) { FactoryBot.create(:user) }
+  let(:contributor2) { FactoryBot.create(:user) }
+
   before do
     sign_in(pro_user)
     ability.can :edit, project
@@ -40,6 +43,12 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
         expect {
           post :create, params: { project: FactoryBot.attributes_for(:project) }
         }.to change(Project, :count).by(1)
+      end
+
+      it 'sets new project session variable' do
+        expect {
+          post :create, params: { project: FactoryBot.attributes_for(:project) }
+        }.to change { session[:new_project] }.from(nil).to(true)
       end
 
       it 'redirects to the next step' do
@@ -82,11 +91,11 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
         expect(project.title).to eq('Updated Title')
       end
 
-      it 'redirects from edit to resources step' do
+      it 'redirects to the project' do
         patch :update,
           params: { id: project.id, project: { title: 'Updated Title' } }
         expect(response).to redirect_to(
-          requests_alaveteli_pro_project_path(Project.last)
+          project_path(Project.last)
         )
       end
     end
@@ -113,12 +122,36 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
         )
       end
 
-      it 'redirects from key_set to the project' do
+      it 'redirects from key_set to contributors step' do
         project.requests << InfoRequest.first
         project.create_key_set
         patch :update, params: { id: project.id, step: 'edit_key_set' }
         expect(response).to redirect_to(
+          contributors_alaveteli_pro_project_path(Project.last)
+        )
+      end
+
+      it 'redirects from contributors to project' do
+        project.requests << InfoRequest.first
+        project.create_key_set
+        patch :update, params: { id: project.id, step: 'edit_contributors' }
+        expect(response).to redirect_to(
           project_path(Project.last)
+        )
+      end
+
+      it 'unsets new project session variable after contributors step' do
+        project.requests << InfoRequest.first
+        project.create_key_set
+        expect {
+          patch :update, params: { id: project.id, step: 'edit_contributors' }
+        }.to change { session[:new_project] }.from(true).to(nil)
+      end
+
+      it 'redirects from invite to contributors step' do
+        patch :update, params: { id: project.id, step: 'invite' }
+        expect(response).to redirect_to(
+          contributors_alaveteli_pro_project_path(Project.last)
         )
       end
     end
@@ -319,6 +352,57 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
     it 'renders the update_key_set template' do
       patch :update_key_set, params: key_set_params, format: :turbo_stream
       expect(response).to render_template(:update_key_set)
+    end
+  end
+
+  describe 'GET #edit_contributors' do
+    before do
+      project.contributors << contributor1
+      project.contributors << contributor2
+    end
+
+    it 'assigns @contributors' do
+      get :edit_contributors, params: { id: project.id }
+      expect(assigns(:contributors)).to contain_exactly(contributor1, contributor2)
+    end
+
+    it 'renders the edit_contributors template' do
+      get :edit_contributors, params: { id: project.id }
+      expect(response).to render_template(:edit_contributors)
+    end
+  end
+
+  describe 'PATCH #update_contributors' do
+    before do
+      project.contributors << contributor1
+      project.contributors << contributor2
+    end
+
+    let(:contributors_params) do
+      {
+        id: project.id,
+        project: { contributor_ids: [contributor1.id] }
+      }
+    end
+
+    it 'assigns @contributors' do
+      patch :update_contributors, params: contributors_params,
+        format: :turbo_stream
+      expect(assigns(:contributors)).to eq([contributor1])
+    end
+
+    it 'removes contributors from the project does not persist the change' do
+      patch :update_contributors, params: contributors_params,
+        format: :turbo_stream
+      expect(assigns(:contributors)).to_not include(contributor2)
+      project.contributors.reload
+      expect(project.contributors).to eq([contributor1, contributor2])
+    end
+
+    it 'renders the update_contributors template' do
+      patch :update_contributors, params: contributors_params,
+        format: :turbo_stream
+      expect(response).to render_template(:update_contributors)
     end
   end
 end

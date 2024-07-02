@@ -904,6 +904,8 @@ Rails.application.routes.draw do
           patch :requests, action: 'update_resources'
           get :questions, action: 'edit_key_set'
           patch :questions, action: 'update_key_set'
+          get :contributors, action: 'edit_contributors'
+          patch :contributors, action: 'update_contributors'
         end
       end
     end

@@ -182,6 +182,10 @@
 }
 
 #project-form {
+  .project__invite-token {
+    width: 500px;
+  }
+
   .form_button {
     margin-top: 1em;
   }
@@ -326,5 +330,19 @@
     .project-key-set__key__remove-question {
       padding-top: 1.2em;
     }
+  }
+}
+
+#project-contributors {
+  .blank-slate {
+    margin-bottom: 1em
+  }
+
+  .project-contributors__contributor {
+    margin-bottom: 1em;
+  }
+
+  .project-contributors__remove-button {
+    margin-left: 1em
   }
 }
