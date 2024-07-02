@@ -10,9 +10,11 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     :edit_key_set, :update_key_set
   ]
 
+  PER_PAGE = 10
+
   def index
     @projects = current_user.projects.owner.paginate(
-      page: params[:page], per_page: 10
+      page: params[:page], per_page: PER_PAGE
     )
   end
 
@@ -46,7 +48,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     @requests = @project.requests.order(:title, :id).distinct
     @results = current_user.info_requests.
       order(:title, :id).
-      paginate(page: current_page, per_page: 10)
+      paginate(page: current_page, per_page: PER_PAGE)
   end
 
   def update_resources
@@ -61,7 +63,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     @results = current_user.info_requests.
       where("title ILIKE ?", "%#{params[:query]}%").
       order(:title, :id).
-      paginate(page: current_page, per_page: 10)
+      paginate(page: current_page, per_page: PER_PAGE)
 
     respond_to do |format|
       format.turbo_stream
