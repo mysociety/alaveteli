@@ -111,14 +111,14 @@
           </div>
         <% end %>
 
-        <% if can? :remove_contributor, current_user %>
+        <% if can? :leave, @project %>
           <div class="project-access-status">
             <p>
               <%= _('You are a <strong>contributor</strong> on this project') %>
             </p>
 
             <%= link_to _('Leave project'),
-                  project_contributor_path(@project, current_user),
+                  project_contributors_path(@project),
                   method: :delete,
                   data: { confirm: _('Are you sure?') },
                   class: 'button-tertiary' %>

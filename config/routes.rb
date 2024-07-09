@@ -215,7 +215,7 @@ Rails.application.routes.draw do
           get :message, on: :member
         end
 
-        resources :contributors, only: [:destroy]
+        resource :contributors, only: [:destroy]
 
         resource :download, only: [:show], format: true
         resource :leaderboard, only: [:show], format: true
