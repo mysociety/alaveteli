@@ -21,7 +21,7 @@ jobs:
         ruby-version: 3.0
 
     - name: Run RuboCop linter
-      uses: reviewdog/action-rubocop@v2
+      uses: reviewdog/action-rubocop@v2.14.0
       with:
         github_token: ${{ secrets.github_token }}
         rubocop_flags: -DES
