@@ -1,0 +1,11 @@
+<% if citations.any? %>
+  <div class="sidebar__section citations">
+    <h2><%= _('In the News') %></h2>
+
+    <% if citations.any? %>
+      <ul class="citations-list">
+        <%= render citations %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>

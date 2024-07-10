@@ -64,4 +64,8 @@
     <%= render partial: 'downloads',
                locals: { info_request_batch: @info_request_batch } %>
   <% end %>
+
+  <%= render partial: 'citations', locals: {
+    citations: @citations, info_request_batch: @info_request_batch
+  } %>
 </div>
