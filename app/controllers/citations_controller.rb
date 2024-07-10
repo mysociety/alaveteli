@@ -18,6 +18,8 @@ class CitationsController < ApplicationController
       case @citable
       when InfoRequest
         redirect_to show_request_path(citable.url_title), notice: notice
+      when InfoRequestBatch
+        redirect_to info_request_batch_path(citable), notice: notice
       end
     else
       render :new
@@ -39,6 +41,8 @@ class CitationsController < ApplicationController
     case params.fetch(:resource, 'InfoRequest')
     when 'InfoRequest'
       @resource ||= InfoRequest.find_by_url_title!(params[:url_title])
+    when 'InfoRequestBatch'
+      @resource ||= InfoRequestBatch.find_by_id!(params[:info_request_batch_id])
     end
   end
 

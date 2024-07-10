@@ -237,7 +237,12 @@ Rails.application.routes.draw do
     resources :widget_votes, :only => [:create]
   end
 
-  resources :info_request_batch, :only => :show
+  resources :info_request_batch, :only => :show do
+    #### Citations controller
+    resources :citations, only: [:new, :create],
+      defaults: { resource: 'InfoRequestBatch' }
+    ####
+  end
 
   #### OutgoingMessage controller
   resources :outgoing_messages, :only => [] do

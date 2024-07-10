@@ -359,17 +359,26 @@ RSpec.describe Ability do
 
   describe 'create_citation' do
     let(:info_request) { InfoRequest.new(user: owner) }
+    let(:info_request_batch) { InfoRequestBatch.new(user: owner) }
     let(:owner) { nil }
 
     context 'when the user is an admin' do
-      it 'allows creating citations' do
+      it 'allows creating citations for InfoRequest' do
         expect(admin_ability).to be_able_to(:create_citation, info_request)
+      end
+
+      it 'allows creating citations for InfoRequestBatch' do
+        expect(admin_ability).to be_able_to(:create_citation, info_request_batch)
       end
     end
 
     context 'when the user is a pro' do
-      it 'allows creating citations' do
+      it 'allows creating citations for InfoRequest' do
         expect(pro_ability).to be_able_to(:create_citation, info_request)
+      end
+
+      it 'allows creating citations for InfoRequestBatch' do
+        expect(pro_ability).to be_able_to(:create_citation, info_request_batch)
       end
     end
 
@@ -377,20 +386,32 @@ RSpec.describe Ability do
       let(:owner) { FactoryBot.create(:user) }
       let(:owner_ability) { Ability.new(owner) }
 
-      it 'allows creating citations' do
+      it 'allows creating citations for their own InfoRequest' do
         expect(owner_ability).to be_able_to(:create_citation, info_request)
+      end
+
+      it 'allows creating citations for their own InfoRequestBatch' do
+        expect(owner_ability).to be_able_to(:create_citation, info_request_batch)
       end
     end
 
     context 'when the user is not the owner and does not have special permissions' do
-      it 'does not allow creating citations' do
+      it 'does not allow creating citations for InfoRequest' do
         expect(other_user_ability).not_to be_able_to(:create_citation, info_request)
+      end
+
+      it 'does not allow creating citations for InfoRequestBatch' do
+        expect(other_user_ability).not_to be_able_to(:create_citation, info_request_batch)
       end
     end
 
     context 'when there is no user' do
-      it 'does not allow creating citations' do
+      it 'does not allow creating citations for InfoRequest' do
         expect(guest_ability).not_to be_able_to(:create_citation, info_request)
+      end
+
+      it 'does not allow creating citations for InfoRequestBatch' do
+        expect(guest_ability).not_to be_able_to(:create_citation, info_request_batch)
       end
     end
   end

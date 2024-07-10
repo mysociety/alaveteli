@@ -72,7 +72,7 @@ RSpec.describe CitationsController, type: :controller do
   end
 
   describe 'GET new' do
-    context 'logged in' do
+    context 'InfoRequest resource' do
       let(:resource) { FactoryBot.create(:info_request) }
       let(:user) { resource.user }
       before { sign_in user }
@@ -80,6 +80,29 @@ RSpec.describe CitationsController, type: :controller do
       def action
         get :new, params: { resource: 'InfoRequest',
                             url_title: resource.url_title }
+      end
+
+      include_examples 'authorisation', redirection: false
+
+      it 'assigns citation' do
+        action
+        expect(assigns[:citation]).to be_a Citation
+      end
+
+      it 'assigns user to citation' do
+        action
+        expect(assigns[:citation].user).to eq user
+      end
+    end
+
+    context 'InfoRequestBatch resource' do
+      let(:resource) { FactoryBot.create(:info_request_batch) }
+      let(:user) { resource.user }
+      before { sign_in user }
+
+      def action
+        get :new, params: { resource: 'InfoRequestBatch',
+                            info_request_batch_id: resource.id }
       end
 
       include_examples 'authorisation', redirection: false
@@ -116,7 +139,7 @@ RSpec.describe CitationsController, type: :controller do
   end
 
   describe 'POST create' do
-    context 'logged in' do
+    context 'InfoRequest resource' do
       let(:resource) { FactoryBot.create(:info_request) }
       let(:user) { resource.user }
       before { sign_in user }
@@ -170,6 +193,66 @@ RSpec.describe CitationsController, type: :controller do
           action
           expect(response).to redirect_to(
             show_request_url(resource.url_title)
+          )
+        end
+
+        it 'sets notice' do
+          action
+          expect(flash[:notice]).to eq 'Citation successfully created.'
+        end
+      end
+
+      context 'params invalid' do
+        let(:params) { { source_url: '', type: '' } }
+
+        it 're-renders the new action' do
+          action
+          expect(response).to render_template :new
+        end
+      end
+    end
+
+    context 'InfoRequestBatch resource' do
+      let(:resource) { FactoryBot.create(:info_request_batch) }
+      let(:user) { resource.user }
+      before { sign_in user }
+
+      def action
+        post :create, params: {
+          resource: 'InfoRequestBatch',
+          info_request_batch_id: resource.id,
+          citation: params
+        }
+      end
+
+      let(:params) do
+        { source_url: 'http://example.com/news', type: 'journalism' }
+      end
+
+      include_examples 'authorisation', redirection: true
+
+      it 'assigns citation' do
+        action
+        expect(assigns[:citation]).to be_a Citation
+      end
+
+      it 'assigns user to citation' do
+        action
+        expect(assigns[:citation].user).to eq user
+      end
+
+      context 'when citation does not apply to a batch' do
+        it 'assigns resource to citation' do
+          action
+          expect(assigns[:citation].citable).to eq resource
+        end
+      end
+
+      context 'params valid' do
+        it 'redirects back to request' do
+          action
+          expect(response).to redirect_to(
+            info_request_batch_url(resource)
           )
         end
 
