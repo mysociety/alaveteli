@@ -21,6 +21,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ApplicationRecord
+  include Comment::Erasable
+
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -36,12 +38,6 @@ class Comment < ApplicationRecord
                  instance_writer: false,
                  instance_accessor: false,
                  default: DEFAULT_CREATION_RATE_LIMITS
-
-  cattr_accessor :old_age_in_days,
-                 instance_reader: false,
-                 instance_writer: false,
-                 instance_accessor: false,
-                 default: 30
 
   strip_attributes allow_empty: true
 
@@ -86,15 +82,6 @@ class Comment < ApplicationRecord
   after_save :reindex_request_events
 
   default_url_options[:host] = AlaveteliConfiguration.domain
-
-  def self.erase_old_hidden(editor: User.internal_admin_user)
-    old_hidden = hidden.where('updated_at > ?', old_age_in_days.days.ago)
-    reason = "Hidden for longer than #{old_age_in_days} days"
-
-    old_hidden.find_each do |comment|
-      comment.erase(editor: editor, reason: reason)
-    end
-  end
 
   # When posting a new comment, use this to check user hasn't double
   # submitted.
@@ -209,15 +196,6 @@ class Comment < ApplicationRecord
       update!(visible: false)
       info_request.log_event('hide_comment', event_params)
     end
-  end
-
-  def erase(**kwargs)
-    return false unless hidden?
-    Comment::Erasure.new(self, **kwargs).erase
-  end
-
-  def erased?
-    info_request_events.erase_comment_events.any?
   end
 
   def cached_urls
