@@ -44,7 +44,7 @@
     </label>
   </p>
 
-  <% if @info_request.info_request_batch_id %>
+  <% if @resource.is_a?(InfoRequest) && @resource.info_request_batch_id %>
     <p>
       <label for="applies_to_batch_request" class="form_label">
         <%= check_box_tag :applies_to_batch_request, true,

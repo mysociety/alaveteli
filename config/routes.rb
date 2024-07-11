@@ -175,7 +175,8 @@ Rails.application.routes.draw do
 
   scope path: 'request/:url_title' do
     #### Citations controller
-    resources :citations, only: [:new, :create]
+    resources :citations, only: [:new, :create],
+      defaults: { resource: 'InfoRequest' }
     ####
 
     #### Classifications controller

@@ -10,13 +10,13 @@ RSpec.describe CitationsController, type: :controller do
 
     context 'when unable to read info request' do
       before do
-        allow(controller).to receive(:cannot?).with(:read, info_request).
+        allow(controller).to receive(:cannot?).with(:read, resource).
                           and_return(true)
       end
 
       it 'should find InfoRequest' do
         action
-        expect(assigns[:info_request]).to eq info_request
+        expect(assigns[:resource]).to eq resource
       end
 
       it 'return a 404' do
@@ -26,9 +26,9 @@ RSpec.describe CitationsController, type: :controller do
     end
 
     shared_examples 'successful' do
-      it 'assigns info_request' do
+      it 'assigns resource' do
         action
-        expect(assigns[:info_request]).to eq info_request
+        expect(assigns[:resource]).to eq resource
       end
 
       unless opts[:redirection]
@@ -55,12 +55,12 @@ RSpec.describe CitationsController, type: :controller do
     context 'when not the requester' do
       let(:user) { FactoryBot.create(:user) }
 
-      it 'assigns info_request' do
+      it 'assigns resource' do
         begin
           action
         rescue CanCan::AccessDenied
         end
-        expect(assigns[:info_request]).to eq info_request
+        expect(assigns[:resource]).to eq resource
       end
 
       it 'raise access denied' do
@@ -73,12 +73,13 @@ RSpec.describe CitationsController, type: :controller do
 
   describe 'GET new' do
     context 'logged in' do
-      let(:info_request) { FactoryBot.create(:info_request) }
-      let(:user) { info_request.user }
+      let(:resource) { FactoryBot.create(:info_request) }
+      let(:user) { resource.user }
       before { sign_in user }
 
       def action
-        get :new, params: { url_title: info_request.url_title }
+        get :new, params: { resource: 'InfoRequest',
+                            url_title: resource.url_title }
       end
 
       include_examples 'authorisation', redirection: false
@@ -116,13 +117,14 @@ RSpec.describe CitationsController, type: :controller do
 
   describe 'POST create' do
     context 'logged in' do
-      let(:info_request) { FactoryBot.create(:info_request) }
-      let(:user) { info_request.user }
+      let(:resource) { FactoryBot.create(:info_request) }
+      let(:user) { resource.user }
       before { sign_in user }
 
       def action
         post :create, params: {
-          url_title: info_request.url_title,
+          resource: 'InfoRequest',
+          url_title: resource.url_title,
           citation: params,
           applies_to_batch_request: apply_to_batch
         }
@@ -146,15 +148,15 @@ RSpec.describe CitationsController, type: :controller do
       end
 
       context 'when citation does not apply to a batch' do
-        it 'assigns info_request to citation' do
+        it 'assigns resource to citation' do
           action
-          expect(assigns[:citation].citable).to eq info_request
+          expect(assigns[:citation].citable).to eq resource
         end
       end
 
       context 'when citation applies to a batch' do
         let(:batch) { FactoryBot.create(:info_request_batch, :sent) }
-        let(:info_request) { batch.info_requests.first }
+        let(:resource) { batch.info_requests.first }
         let(:apply_to_batch) { true }
 
         it 'assigns info_request_batch to citation' do
@@ -167,7 +169,7 @@ RSpec.describe CitationsController, type: :controller do
         it 'redirects back to request' do
           action
           expect(response).to redirect_to(
-            show_request_url(info_request.url_title)
+            show_request_url(resource.url_title)
           )
         end
 
