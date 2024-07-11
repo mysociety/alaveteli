@@ -49,8 +49,9 @@
 
 <hr>
 <h2>Events</h2>
+
 <div class="accordion" id="events">
-  <% @comment.info_request_events.each do |info_request_event| %>
+  <% @comment.info_request_events.order(created_at: :asc).each do |info_request_event| %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <span class="item-title">
