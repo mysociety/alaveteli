@@ -37,6 +37,12 @@ class Comment < ApplicationRecord
                  instance_accessor: false,
                  default: DEFAULT_CREATION_RATE_LIMITS
 
+  cattr_accessor :old_age_in_days,
+                 instance_reader: false,
+                 instance_writer: false,
+                 instance_accessor: false,
+                 default: 30
+
   strip_attributes allow_empty: true
 
   belongs_to :user,
@@ -52,13 +58,15 @@ class Comment < ApplicationRecord
 
   # validates_presence_of :user # breaks during construction of new ones :(
   validate :check_body_has_content,
-           :check_body_uses_mixed_capitals
+           :check_body_uses_mixed_capitals, unless: :hidden?
 
   scope :visible, -> {
     joins(:info_request).
       merge(InfoRequest.is_searchable.except(:select)).
         where(visible: true)
   }
+
+  scope :hidden, -> { where(visible: false) }
 
   scope :embargoed, -> {
     joins(info_request: :embargo).
@@ -78,6 +86,15 @@ class Comment < ApplicationRecord
   after_save :reindex_request_events
 
   default_url_options[:host] = AlaveteliConfiguration.domain
+
+  def self.erase_old_hidden(editor: User.internal_admin_user)
+    old_hidden = hidden.where('updated_at > ?', old_age_in_days.days.ago)
+    reason = "Hidden for longer than #{old_age_in_days} days"
+
+    old_hidden.find_each do |comment|
+      comment.erase(editor: editor, reason: reason)
+    end
+  end
 
   # When posting a new comment, use this to check user hasn't double
   # submitted.
@@ -192,6 +209,11 @@ class Comment < ApplicationRecord
       update!(visible: false)
       info_request.log_event('hide_comment', event_params)
     end
+  end
+
+  def erase(**kwargs)
+    return false unless hidden?
+    Comment::Erasure.new(self, **kwargs).erase
   end
 
   def cached_urls

@@ -35,6 +35,7 @@ class InfoRequestEvent < ApplicationRecord
     'edit_comment', # comment edited (in admin interface)
     'hide_comment', # comment hidden by admin
     'report_comment', # comment reported for admin attention by user
+    'erase_comment', # comment is erased
     'report_request', # a request reported for admin attention by user
     'destroy_incoming', # deleted an incoming message (in admin interface)
     'destroy_outgoing', # deleted an outgoing message (in admin interface)
