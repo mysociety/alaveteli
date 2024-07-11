@@ -216,6 +216,10 @@ class Comment < ApplicationRecord
     Comment::Erasure.new(self, **kwargs).erase
   end
 
+  def erased?
+    info_request_events.erase_comment_events.any?
+  end
+
   def cached_urls
     [
       request_path(info_request),
