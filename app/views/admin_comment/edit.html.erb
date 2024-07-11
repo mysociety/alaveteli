@@ -23,6 +23,11 @@
 </div>
 
 <%= form_tag admin_comment_path(@comment), :method => 'put' do %>
+  <% if @comment.erased? %>
+    <p class="text-warning">
+      <%= icon('ban-circle') %> <strong>Editing is restricted for erased comments</strong>
+    </p>
+  <% end %>
 
   <p><label for="comment_body">Body of annotation</label><br/>
     <%= text_area 'comment', 'body', :rows => 10, :cols => 60, disabled: @comment.erased?  %></p>
