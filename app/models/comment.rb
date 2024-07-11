@@ -60,6 +60,8 @@ class Comment < ApplicationRecord
         where(visible: true)
   }
 
+  scope :hidden, -> { where(visible: false) }
+
   scope :embargoed, -> {
     joins(info_request: :embargo).
       where('embargoes.id IS NOT NULL').
