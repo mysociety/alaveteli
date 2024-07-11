@@ -1,0 +1,7 @@
+<li class="citations-list__citation">
+  <%=
+    MySociety::Format.make_clickable(
+      citation.source_url, contract: true, nofollow: true
+    ).html_safe
+  %>
+</li>
