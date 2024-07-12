@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve Xapian queue health check (Graeme Porteous)
 * Improve nginx configuration file for Sidekiq Web UI (Graeme Porteous)
 * View user profile photos from admin list of users (Gareth Rees)
 * Update user email to be sent from the blackhole address (Graeme Porteous)
