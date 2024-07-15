@@ -48,6 +48,29 @@ RSpec.describe User do
   it_behaves_like 'user/spreadable_alerts'
 end
 
+RSpec.describe User, 'associations' do
+  let(:user) { FactoryBot.create(:user) }
+  let(:project1) { FactoryBot.create(:project, owner: user) }
+  let(:project2) { FactoryBot.create(:project) }
+
+  before do
+    project2.contributors << user
+    project2.save
+  end
+
+  it 'has many projects' do
+    expect(user.projects).to match_array([project1, project2])
+  end
+
+  it 'has many projects where the user is the owner' do
+    expect(user.projects.owner).to match_array([project1])
+  end
+
+  it 'has many projects where the user is a contributor' do
+    expect(user.projects.contributor).to match_array([project2])
+  end
+end
+
 RSpec.describe User, "making up the URL name" do
   before do
     @user = User.new

@@ -1,0 +1,7 @@
+<%= form_for @project, html: { id: 'temp' } do |f| %>
+  <div id="project-key-set">
+    <%= turbo_stream.update 'project-key-set', partial: 'key_set', locals: { f: f } %>
+  </div>
+<% end %>
+
+<%= turbo_stream.remove 'temp' %>

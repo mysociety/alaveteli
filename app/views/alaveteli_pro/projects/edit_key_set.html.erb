@@ -1,0 +1,38 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags("modern_application") %>
+<% end %>
+
+<div id="project-form" class="inner-canvas">
+  <div class="inner-canvas-header">
+    <div class="row">
+      <% @title = _("Add questions to your project") %>
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <%= foi_error_messages_for :project, full_message: true %>
+    </div>
+
+    <div class="row">
+      <%= form_for([:alaveteli_pro, @project], data: { controller: 'projects--key-set' }) do |f| %>
+        <%= hidden_field_tag :step, current_step %>
+
+        <div id="project-key-set" data-projects--key-set-target="keySet">
+          <%= render partial: 'key_set', locals: { f: f } %>
+        </div>
+
+        <div>
+          <%= link_to _('Add question'), nil, class: 'button-tertiary', data: {
+            action: 'click->projects--key-set#addKey'
+          } %>
+        </div>
+
+        <div class="form_button">
+          <%= f.submit _('Update Project') %>
+        </div>
+      <% end %>
+    </div> <!-- .row -->
+  </div> <!-- .inner-canvas-body -->
+</div> <!-- #project-form.inner-canvas -->

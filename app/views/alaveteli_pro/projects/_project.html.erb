@@ -1,0 +1,27 @@
+<div class="project">
+  <h3 class="project__title">
+    <%= link_to project.title, project_path(project) %>
+  </h3>
+
+  <div class="project__meta">
+    <div class="project__classification">
+      <span class="project__meta__label">
+        <%= _('Classify responses') %>
+      </span>
+      <div class="project-workload-diagram">
+        <progress max="100" value="<%= project.classification_progress %>" class="project-workload-indicator"></progress>
+        <span class="project-workload-value"><%= project.classification_progress %>%</span>
+      </div>
+    </div>
+
+    <div class="project__extraction">
+      <span class="project__meta__label">
+        <%= _('Extract data') %>
+      </span>
+      <div class="project-workload-diagram">
+        <progress max="100" value="<%= project.extraction_progress %>" class="project-workload-indicator"></progress>
+        <span class="project-workload-value"><%= project.extraction_progress %>%</span>
+      </div>
+    </div>
+  </div>
+</div>

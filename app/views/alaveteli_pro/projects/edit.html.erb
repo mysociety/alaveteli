@@ -1,0 +1,28 @@
+<% content_for :javascript_head do %>
+  <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+<% end %>
+
+<div id="project-form" class="inner-canvas">
+  <div class="inner-canvas-header">
+    <div class="row">
+      <% @title = _("Edit your project") %>
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <%= foi_error_messages_for :project, full_message: true %>
+    </div>
+
+    <div class="row">
+      <%= form_for([:alaveteli_pro, @project]) do |f| %>
+        <%= render partial: 'form', locals: { f: f } %>
+
+        <div class="form_button">
+          <%= f.submit _('Update Project') %>
+        </div>
+      <% end %>
+    </div> <!-- .row -->
+  </div> <!-- .inner-canvas-body -->
+</div> <!-- #project-form.inner-canvas -->

@@ -1632,6 +1632,76 @@ RSpec.describe Ability do
     end
   end
 
+  describe 'edit projects', feature: :projects do
+    let(:ability) { Ability.new(user) }
+    let(:owner) { FactoryBot.create(:user) }
+    let(:contributor) { FactoryBot.create(:user) }
+
+    let(:project) do
+      project = FactoryBot.create(:project, owner: owner)
+      project.contributors << contributor
+      project
+    end
+
+    context 'when the user is a project owner' do
+      let(:user) { owner }
+
+      it 'they can edit the project' do
+        expect(ability).to be_able_to(:edit, project)
+      end
+    end
+
+    context 'when the user is a project contributor' do
+      let(:user) { contributor }
+
+      it 'they cannot edit the project' do
+        expect(ability).not_to be_able_to(:edit, project)
+      end
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+
+      it 'they can edit the project' do
+        expect(ability).to be_able_to(:edit, project)
+      end
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+
+      it 'they cannot edit the project' do
+        expect(ability).not_to be_able_to(:edit, project)
+      end
+    end
+
+    context 'when the user is not a project member' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it 'they cannot edit the project' do
+        expect(ability).not_to be_able_to(:edit, project)
+      end
+    end
+
+    context 'when there is no user' do
+      let(:user) { nil }
+
+      it 'they cannot edit the project' do
+        expect(ability).not_to be_able_to(:edit, project)
+      end
+    end
+
+    context 'with the feature disabled' do
+      let(:user) { owner }
+
+      it 'they cannot edit the project' do
+        with_feature_disabled(:projects) do
+          expect(ability).not_to be_able_to(:edit, project)
+        end
+      end
+    end
+  end
+
   describe 'leave from projects', feature: :projects do
     let(:ability) { Ability.new(user, project: project) }
 

@@ -68,22 +68,6 @@ RSpec.describe Dataset::Key, type: :model do
       key.format = 'boolean'
       is_expected.to be_valid
     end
-
-    it 'scopes order to key set' do
-      other_key = FactoryBot.create(:dataset_key)
-
-      key.key_set = other_key.key_set
-      key.order = other_key.order
-      is_expected.not_to be_valid
-
-      key.key_set = other_key.key_set
-      key.order = other_key.order + 1
-      is_expected.to be_valid
-
-      key.key_set = FactoryBot.build(:dataset_key_set)
-      key.order = other_key.order
-      is_expected.to be_valid
-    end
   end
 
   describe '#format_regexp' do

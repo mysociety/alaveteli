@@ -30,7 +30,6 @@ class Dataset::Key < ApplicationRecord
 
   validates :title, :format, :order, presence: true
   validates :format, inclusion: { in: FORMATS.keys.map(&:to_s) }
-  validates :order, uniqueness: { scope: :dataset_key_set_id }
 
   def format_regexp
     FORMATS[format.to_sym]

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow pro users to create and manage Projects (Graeme Porteous)
 * Improve Xapian queue health check (Graeme Porteous)
 * Improve nginx configuration file for Sidekiq Web UI (Graeme Porteous)
 * View user profile photos from admin list of users (Gareth Rees)

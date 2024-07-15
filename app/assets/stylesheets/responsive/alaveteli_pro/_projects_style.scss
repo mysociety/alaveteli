@@ -13,3 +13,27 @@
 
   color: #008CBA;
 }
+
+.project {
+  border: 3px solid #e6e4df;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.project__title {
+  font-size: 1.1875em; // 19px
+  font-weight: 600;
+  color: $primary-color;
+}
+
+.project__classification,
+.project__extraction {
+  font-size: 0.875em; // 14px
+  line-height: 1.5em;
+}
+
+.project__meta__label {
+  font-size: 0.75em; // 12px
+  line-height: 1em;
+  color: #999;
+}
