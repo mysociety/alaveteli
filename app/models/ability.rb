@@ -180,8 +180,8 @@ class Ability
       end
     end
 
-    can :create_citation, InfoRequest do |info_request|
-      user && (user.is_admin? || user.is_pro? || info_request.user == user)
+    can :create_citation, [InfoRequest, InfoRequestBatch] do |content|
+      user && (user.is_admin? || user.is_pro? || content.user == user)
     end
 
     can :share, InfoRequest do |info_request|

@@ -3,7 +3,7 @@
 #
 class CitationsController < ApplicationController
   before_action :authenticate
-  before_action :load_info_request_and_authorise
+  before_action :load_resource_and_authorise
   before_action :set_in_pro_area
 
   def new
@@ -12,12 +12,15 @@ class CitationsController < ApplicationController
 
   def create
     @citation = current_user.citations.build(citation_params)
-    @citation.citable = citable
 
     if @citation.save
       notice = _('Citation successfully created.')
-      redirect_to show_request_path(info_request.url_title),
-                  notice: notice
+      case @citable
+      when InfoRequest
+        redirect_to show_request_path(citable.url_title), notice: notice
+      when InfoRequestBatch
+        redirect_to info_request_batch_path(citable), notice: notice
+      end
     else
       render :new
     end
@@ -34,28 +37,34 @@ class CitationsController < ApplicationController
     )
   end
 
-  def info_request
-    @info_request ||= InfoRequest.find_by_url_title!(params[:url_title])
+  def resource
+    case params.fetch(:resource, 'InfoRequest')
+    when 'InfoRequest'
+      @resource ||= InfoRequest.find_by_url_title!(params[:url_title])
+    when 'InfoRequestBatch'
+      @resource ||= InfoRequestBatch.find_by_id!(params[:info_request_batch_id])
+    end
   end
 
-  def load_info_request_and_authorise
-    if cannot?(:read, info_request)
+  def load_resource_and_authorise
+    if cannot?(:read, resource)
       return render_hidden('request/hidden', response_code: 404)
     end
 
-    authorize! :create_citation, info_request
+    authorize! :create_citation, resource
   end
 
   def set_in_pro_area
-    @in_pro_area = current_user.is_pro? && info_request.user == current_user
+    @in_pro_area = current_user.is_pro? && resource.user == current_user
   end
 
   def citation_params
-    params.require(:citation).permit(:source_url, :type)
+    params.require(:citation).permit(:source_url, :type).
+      with_defaults(citable: citable)
   end
 
   def citable
-    (info_request.info_request_batch if params[:applies_to_batch_request]) ||
-      info_request
+    @citable = resource.info_request_batch if params[:applies_to_batch_request]
+    @citable ||= resource
   end
 end

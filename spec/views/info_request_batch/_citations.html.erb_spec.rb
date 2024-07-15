@@ -20,10 +20,31 @@ RSpec.describe 'info_request_batch/citations' do
       { citations: [], info_request_batch: info_request_batch }
     end
 
-    before { render_view }
+    context 'the current_user cannot create a citation' do
+      before { ability.cannot :create_citation, info_request_batch }
+      before { render_view }
 
-    it 'renders nothing' do
-      expect(rendered).to be_blank
+      it 'renders nothing' do
+        expect(rendered).to be_blank
+      end
+    end
+
+    context 'the current_user can create a citation' do
+      before { ability.can :create_citation, info_request_batch }
+      before { render_view }
+
+      it 'renders the section' do
+        expect(rendered).to match(/In the News/)
+      end
+
+      it 'renders the blank slate text' do
+        expect(rendered).to match(/Has this batch request been referenced/)
+      end
+
+      it 'renders the link to add citations' do
+        expect(rendered).
+          to match(new_info_request_batch_citation_path(info_request_batch))
+      end
     end
   end
 
@@ -33,14 +54,47 @@ RSpec.describe 'info_request_batch/citations' do
         info_request_batch: info_request_batch }
     end
 
-    before { render_view }
+    context 'the current_user cannot create a citation' do
+      before { ability.cannot :create_citation, info_request_batch }
+      before { render_view }
 
-    it 'renders the section' do
-      expect(rendered).to match(/In the News/)
+      it 'renders the section' do
+        expect(rendered).to match(/In the News/)
+      end
+
+      it 'does not render the blank slate text' do
+        expect(rendered).not_to match(/Has this batch request been referenced/)
+      end
+
+      it 'renders the citations' do
+        expect(rendered).to match(/citations-list/)
+      end
+
+      it 'does not render the link to add a citation' do
+        expect(rendered).
+          not_to match(new_info_request_batch_citation_path(info_request_batch))
+      end
     end
 
-    it 'renders the citations' do
-      expect(rendered).to match(/citations-list/)
+    context 'the current_user can create a citation' do
+      before { ability.can :create_citation, info_request_batch }
+      before { render_view }
+
+      it 'renders the section' do
+        expect(rendered).to match(/In the News/)
+      end
+
+      it 'does not render the blank slate text' do
+        expect(rendered).not_to match(/Has this request been referenced/)
+      end
+
+      it 'renders the citations' do
+        expect(rendered).to match(/citations-list/)
+      end
+
+      it 'renders the link to add citations' do
+        expect(rendered).to match('New Citation')
+      end
     end
   end
 end
