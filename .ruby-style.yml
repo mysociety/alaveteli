@@ -59,6 +59,9 @@ Bundler/OrderedGems:
 
 #################### Gemspec ####################
 
+Gemspec/AddRuntimeDependency:
+  Enabled: false
+
 Gemspec/DependencyVersion:
   Enabled: false
 
