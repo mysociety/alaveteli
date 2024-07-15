@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Show citations on info request batch pages (Graeme Porteous)
 * Allow pro users to create and manage Projects (Graeme Porteous)
 * Improve Xapian queue health check (Graeme Porteous)
 * Improve nginx configuration file for Sidekiq Web UI (Graeme Porteous)

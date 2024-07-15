@@ -23,7 +23,7 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders nothing' do
-        expect(rendered).to eq("\n")
+        expect(rendered).to be_blank
       end
     end
 
