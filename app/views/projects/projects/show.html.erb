@@ -114,7 +114,7 @@
             </p>
           <% end %>
 
-          <% if can? :download, @project %>
+          <% if can? :view, @project.key_set %>
             <p>
               <%= _('Request classifications and extracted data is compiled ' \
                     'into a download') %>

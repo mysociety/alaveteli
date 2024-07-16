@@ -1726,35 +1726,57 @@ RSpec.describe Ability, 'with project' do
     end
   end
 
-  describe 'download projects', feature: :projects do
-    it 'project owner can download the project' do
-      expect(owner_ability).to be_able_to(:download, project)
+  describe 'view dataset key set', feature: :projects do
+    let(:resource) { project }
+    let(:key_set) { FactoryBot.create(:dataset_key_set, resource: resource) }
+
+    context 'when the resource is a info request' do
+      let(:resource) { FactoryBot.create(:info_request) }
+
+      it 'project owner cannot view the dataset key set' do
+        expect(owner_ability).not_to be_able_to(:view, key_set)
+      end
     end
 
-    it 'project contributors cannot download the project' do
-      expect(contributor_ability).not_to be_able_to(:download, project)
+    context 'when the resource is a info request batch' do
+      let(:resource) { FactoryBot.create(:info_request_batch) }
+
+      it 'project owner cannot view the dataset key set' do
+        expect(owner_ability).not_to be_able_to(:view, key_set)
+      end
     end
 
-    it 'pro admins can download the project' do
-      expect(pro_admin_ability).to be_able_to(:download, project)
+    it 'project owner can view the dataset key set' do
+      expect(owner_ability).to be_able_to(:view, key_set)
     end
 
-    it 'admins cannot download the project' do
-      expect(admin_ability).not_to be_able_to(:download, project)
+    it 'project contributors cannot view the dataset key set' do
+      expect(contributor_ability).not_to be_able_to(:view, key_set)
     end
 
-    it 'non project contributors cannot download the project' do
-      expect(non_contributor_ability).not_to be_able_to(:download, project)
+    it 'pro admins can view the dataset key set' do
+      expect(pro_admin_ability).to be_able_to(:view, key_set)
     end
 
-    it 'logged out users cannot download the project' do
-      expect(guest_ability).not_to be_able_to(:download, project)
+    it 'admins cannot view the dataset key set' do
+      expect(admin_ability).not_to be_able_to(:view, key_set)
+    end
+
+    it 'non project contributors cannot view the dataset key set' do
+      expect(non_contributor_ability).not_to be_able_to(:view, key_set)
+    end
+
+    it 'logged out users cannot view the dataset key set' do
+      expect(guest_ability).not_to be_able_to(:view, key_set)
     end
   end
 
-  describe 'download projects when projects feature is disabled' do
-    it 'project owner cannot download the project' do
-      expect(owner_ability).not_to be_able_to(:download, project)
+  describe 'view dataset key set when projects feature is disabled' do
+    let(:resource) { project }
+    let(:key_set) { FactoryBot.create(:dataset_key_set, resource: resource) }
+
+    it 'project owner cannot view the dataset key set' do
+      expect(owner_ability).not_to be_able_to(:view, key_set)
     end
   end
 end
