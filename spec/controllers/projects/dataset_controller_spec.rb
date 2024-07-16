@@ -5,7 +5,7 @@ spec_meta = {
   feature: :projects
 }
 
-RSpec.describe Projects::DownloadsController, spec_meta do
+RSpec.describe Projects::DatasetController, spec_meta do
   describe 'GET #show' do
     def show(format: 'csv')
       get :show, params: { project_id: '1', format: format }

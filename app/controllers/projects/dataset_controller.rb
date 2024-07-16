@@ -1,7 +1,7 @@
 ##
 # Controller which manages Project data downloads.
 #
-class Projects::DownloadsController < Projects::BaseController
+class Projects::DatasetController < Projects::BaseController
   skip_before_action :html_response
 
   before_action :load_dataset_key_set
