@@ -38,10 +38,9 @@ RSpec.describe Projects::DatasetController, spec_meta do
     context 'when HTML format' do
       include_context 'when authorised to view dataset key set'
 
-      it 'raises unknown format error' do
-        expect { show(format: 'html') }.to raise_error(
-          ActionController::UnknownFormat
-        )
+      it 'renders show template' do
+        show(format: 'html')
+        expect(response).to render_template(:show)
       end
     end
 

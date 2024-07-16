@@ -8,11 +8,12 @@ class Projects::DatasetController < Projects::BaseController
 
   def show
     authorize! :view, @dataset_key_set
+    @export = Project::Export.new(@project)
 
     respond_to do |format|
+      format.html
       format.csv do
-        export = Project::Export.new(@project)
-        send_data export.to_csv, filename: export.name, type: 'text/csv'
+        send_data @export.to_csv, filename: @export.name, type: 'text/csv'
       end
     end
   end

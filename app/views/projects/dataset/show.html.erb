@@ -1,0 +1,37 @@
+<div class="inner-canvas">
+  <div class="inner-canvas-header">
+    <div class="row">
+      <h1><%= @project.title %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <table class="dataset">
+        <% @export.data_for_web.each_with_index do |data, index| %>
+          <% if index == 0 %>
+            <tr>
+              <% data.keys.each do |key| %>
+                <th class="dataset__<%= key.to_s.parameterize %>"><%= key.to_s.humanize %></th>
+              <% end %>
+            </tr>
+          <% end %>
+          <tr>
+            <% data.each do |key, value| %>
+              <td class="dataset__<%= key.to_s.parameterize %>"><%= value %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+      <p>
+        <%= link_to _('Back to project'),
+              project_path(@project),
+              class: 'button-secondary' %>
+
+        <%= link_to _('Download'),
+              project_dataset_path(@project, format: :csv),
+              class: 'button' %>
+      </p>
+    </div>
+  </div>
+</div>
