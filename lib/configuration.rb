@@ -13,6 +13,14 @@ MySociety::Config.load_default
 # TODO: Make this return different values depending on the current rails environment
 
 module AlaveteliConfiguration
+  # WARNING: AlaveteliConfiguration is rendered to admin users in
+  #          Admin::DebugController.
+  #
+  # Ensure any sensitive values match this pattern, or add to the pattern if
+  # adding a new value that doesn't fit.
+  mattr_accessor :sensitive_key_patterns,
+                 default: /SECRET|PASSWORD|LICENSE_KEY/
+
   unless const_defined?(:DEFAULTS)
 
     # rubocop:disable Layout/LineLength
@@ -148,6 +156,14 @@ module AlaveteliConfiguration
       get(key, DEFAULTS[key.to_sym])
     else
       super
+    end
+  end
+
+  def self.to_sanitized_hash
+    DEFAULTS.keys.each_with_object({}) do |key, memo|
+      value = send(key)
+      value = '[FILTERED]' if value.present? && key =~ sensitive_key_patterns
+      memo[key] = value
     end
   end
 end

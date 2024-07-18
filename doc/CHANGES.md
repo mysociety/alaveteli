@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Render Alaveteli configuration values on admin debug page (Gareth Rees)
 * Show and allow creation of citations from info request batch pages (Graeme
   Porteous)
 * Allow pro users to create and manage Projects (Graeme Porteous)

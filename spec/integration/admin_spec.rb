@@ -99,14 +99,14 @@ RSpec.describe "When administering the site" do
   describe "the debug page" do
     it "should show the current user name" do
       using_session(@admin) do
-        visit admin_debug_path
+        visit admin_debug_index_path
         expect(page).to have_content "joe_admin"
       end
     end
 
     it "should show the current Alaveteli version" do
       using_session(@admin) do
-        visit admin_debug_path
+        visit admin_debug_index_path
         expect(page).to have_content ALAVETELI_VERSION
       end
     end
