@@ -3754,9 +3754,10 @@ to match the new templates.
 
   We have an evolving [upgrade guide](https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-ruby-1.8.7)
   on the wiki, and we're always available on the
-  [alaveteli-dev mailing list](https://goo.gl/6u67Jg).
+  [alaveteli-dev mailing list](https://groups.google.com/g/alaveteli-dev).
 * Ruby version files are ignored – these are delegated to people's development
-  or deployment environments. See https://goo.gl/01MCCi and e5180fa89.
+  or deployment environments.
+  See https://groups.google.com/g/alaveteli-dev/c/Irs1zJ-8Wkw and e5180fa89.
 * Ensure all overridden Ruby source files have encoding specifier. See
   576b58803.
 * Memcached namespace is now dependent on Ruby version. No action required.
