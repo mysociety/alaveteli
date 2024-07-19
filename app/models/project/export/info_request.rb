@@ -17,13 +17,17 @@ class Project::Export::InfoRequest < SimpleDelegator
 
   def data
     {
+      request: title,
       request_url: request_url(self),
-      request_title: title,
-      public_body_name: public_body.name,
-      request_owner: user&.name,
-      latest_status_contributor: status_contributor,
-      status: described_state,
-      dataset_contributor: dataset_contributor
+      requested_by: user&.name,
+      requested_by_url: user_url(user),
+      public_body: public_body.name,
+      public_body_url: public_body_url(public_body),
+      classified_by: status_contributor&.name,
+      classified_by_url: (user_url(status_contributor) if status_contributor),
+      classification: described_state,
+      extracted_by: dataset_contributor&.name,
+      extracted_by_url: (user_url(dataset_contributor) if dataset_contributor)
     }.merge(dataset_values)
   end
 
@@ -42,15 +46,15 @@ class Project::Export::InfoRequest < SimpleDelegator
   end
 
   def status_contributor
-    return project.owner.name unless status_submission
+    return project.owner unless status_submission
 
-    status_submission.user.name
+    status_submission.user
   end
 
   def dataset_contributor
     return unless extraction_submission
 
-    extraction_submission.user.name
+    extraction_submission.user
   end
 
   def dataset_values
