@@ -114,7 +114,7 @@ RSpec.describe Project::Export::InfoRequest do
           :classification => 'Awaiting response',
           :extracted_by => contributor.name,
           :extracted_by_url => contributor_url,
-          'Were there any errors?' => '1'
+          'Were there any errors?' => 'Yes'
         )
       end
     end

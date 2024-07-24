@@ -66,12 +66,14 @@ class Project::Export::InfoRequest < SimpleDelegator
   def extracted_values
     return unless extraction_submission
 
-    extraction_submission.resource.values
+    extraction_submission.resource.values.preload(:key)
   end
 
   def extracted_values_as_hash
     return {} unless extracted_values
 
-    extracted_values.joins(:key).pluck('dataset_keys.title', :value).to_h
+    extracted_values.each_with_object({}) do |extracted, acc|
+      acc[extracted.title] = extracted.mapped_value
+    end
   end
 end
