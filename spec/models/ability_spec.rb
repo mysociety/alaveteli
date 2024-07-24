@@ -1769,6 +1769,34 @@ RSpec.describe Ability, 'with project' do
     it 'logged out users cannot view the dataset key set' do
       expect(guest_ability).not_to be_able_to(:view, key_set)
     end
+
+    context 'when project dataset is public' do
+      let(:resource) { FactoryBot.create(:project, dataset_public: true) }
+
+      it 'project owner can view the dataset key set' do
+        expect(owner_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'project contributors not view the dataset key set' do
+        expect(contributor_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'pro admins can view the dataset key set' do
+        expect(pro_admin_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'admins not view the dataset key set' do
+        expect(admin_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'non project contributors not view the dataset key set' do
+        expect(non_contributor_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'logged out users can view the dataset key set' do
+        expect(guest_ability).to be_able_to(:view, key_set)
+      end
+    end
   end
 
   describe 'view dataset key set when projects feature is disabled' do
