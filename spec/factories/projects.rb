@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240724010118
 #
 # Table name: projects
 #
-#  id           :bigint           not null, primary key
-#  title        :string
-#  briefing     :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  invite_token :string
+#  id             :bigint           not null, primary key
+#  title          :string
+#  briefing       :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  invite_token   :string
+#  dataset_public :boolean          default(FALSE)
 #
 
 FactoryBot.define do
