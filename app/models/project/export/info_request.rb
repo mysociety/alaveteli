@@ -25,7 +25,7 @@ class Project::Export::InfoRequest < SimpleDelegator
       public_body_url: public_body_url(public_body),
       classified_by: status_contributor&.name,
       classified_by_url: (user_url(status_contributor) if status_contributor),
-      classification: described_state,
+      classification: InfoRequest.get_status_description(described_state),
       extracted_by: dataset_contributor&.name,
       extracted_by_url: (user_url(dataset_contributor) if dataset_contributor)
     }.merge(dataset_values)

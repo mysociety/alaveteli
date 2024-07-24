@@ -89,7 +89,7 @@ RSpec.describe Project::Export::InfoRequest do
           :public_body_url => authority_url,
           :classified_by => contributor.name,
           :classified_by_url => contributor_url,
-          :classification => info_request.described_state,
+          :classification => 'Awaiting response',
           :extracted_by => nil,
           :extracted_by_url => nil,
           'Were there any errors?' => nil
@@ -111,7 +111,7 @@ RSpec.describe Project::Export::InfoRequest do
           :public_body_url => authority_url,
           :classified_by => contributor.name,
           :classified_by_url => contributor_url,
-          :classification => info_request.described_state,
+          :classification => 'Awaiting response',
           :extracted_by => contributor.name,
           :extracted_by_url => contributor_url,
           'Were there any errors?' => '1'
