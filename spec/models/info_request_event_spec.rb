@@ -63,6 +63,14 @@ RSpec.describe InfoRequestEvent do
       expect(ire.comment_id).to eq(comment.id)
     end
 
+    it "allow events to be created when assoication to deleted records" do
+      comment = FactoryBot.create(:comment)
+      comment.destroy
+      ire = FactoryBot.create(:info_request_event, params: { comment: comment })
+      expect(ire.comment).to be_nil
+      expect(ire.params[:comment]).to eq(comment.to_gid.to_s)
+    end
+
     it 'stores keys suffixed with ID as GID' do
       comment = FactoryBot.create(:comment)
       ire.params = { comment_id: comment.id }

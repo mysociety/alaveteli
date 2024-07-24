@@ -273,4 +273,62 @@ RSpec.describe AdminCommentController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:comment) { FactoryBot.create(:comment) }
+
+    before { sign_in(admin_user) }
+
+    it 'finds the comment' do
+      delete :destroy, params: { id: comment.id }
+      expect(assigns[:comment]).to eq(comment)
+    end
+
+    context 'successfully destroying the comment' do
+      it 'destroys the comment' do
+        delete :destroy, params: { id: comment.id }
+        expect(assigns[:comment]).to_not be_persisted
+      end
+
+      it 'logs an event on the info request' do
+        delete :destroy, params: { id: comment.id }
+        expect(comment.info_request.reload.last_event.event_type).
+        to eq('destroy_comment')
+      end
+
+      it 'informs the user' do
+        delete :destroy, params: { id: comment.id }
+        expect(flash[:notice]).to eq('Comment successfully destroyed.')
+      end
+
+      it 'redirects to the request page' do
+        delete :destroy, params: { id: comment.id }
+        expect(response).
+          to redirect_to(admin_request_path(comment.info_request))
+      end
+    end
+
+    context 'unsuccessfully destroying the comment' do
+      before do
+        allow_any_instance_of(Comment).
+          to receive(:destroy).and_return(false)
+      end
+
+      it 'does not destroy the comment' do
+        delete :destroy, params: { id: comment.id }
+        expect(assigns[:comment]).to be_persisted
+      end
+
+      it 'informs the user' do
+        delete :destroy, params: { id: comment.id }
+        expect(flash[:error]).to eq('Could not destroy the comment.')
+      end
+
+      it 'redirects to the comment edit page' do
+        delete :destroy, params: { id: comment.id }
+        expect(response).to redirect_to(edit_admin_comment_path(comment))
+      end
+    end
+  end
 end

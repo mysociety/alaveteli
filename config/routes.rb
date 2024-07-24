@@ -653,7 +653,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :comments,
       :controller => 'admin_comment',
-      :only => [:index, :edit, :update]
+      :only => [:index, :edit, :update, :destroy]
   end
   ####
 

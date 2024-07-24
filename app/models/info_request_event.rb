@@ -32,6 +32,7 @@ class InfoRequestEvent < ApplicationRecord
     'followup_resent',
     'edit', # title etc. edited (in admin interface)
     'edit_outgoing', # outgoing message edited (in admin interface)
+    'destroy_comment', # deleted a comment (in admin interface)
     'edit_comment', # comment edited (in admin interface)
     'hide_comment', # comment hidden by admin
     'report_comment', # comment reported for admin attention by user
@@ -216,13 +217,15 @@ class InfoRequestEvent < ApplicationRecord
 
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
-    if params[:incoming_message]
+    if params[:incoming_message].is_a?(IncomingMessage)
       self.incoming_message = params[:incoming_message]
     end
-    if params[:outgoing_message]
+    if params[:outgoing_message].is_a?(OutgoingMessage)
       self.outgoing_message = params[:outgoing_message]
     end
-    self.comment = params[:comment] if params[:comment]
+    if params[:comment].is_a?(Comment)
+      self.comment = params[:comment]
+    end
   end
 
   # A hash to lazy load Global ID reference models
@@ -233,6 +236,8 @@ class InfoRequestEvent < ApplicationRecord
 
       instance = GlobalID::Locator.locate(value[:gid])
       self[key] = instance
+    rescue ActiveRecord::RecordNotFound
+      self[key] = value[:gid]
     end
   end
 

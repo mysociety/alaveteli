@@ -42,6 +42,10 @@
   <p><%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %></p>
 <% end %>
 
+<%= form_tag admin_comment_path(@comment), :method => 'delete' do %>
+  <p><%= submit_tag 'Destroy comment', :accesskey => 'd', :class => 'btn btn-danger', :data => { :confirm => "This is permanent! Are you sure?" } %></p>
+<% end %>
+
 <hr>
 <h2>Events</h2>
 <div class="accordion" id="events">
