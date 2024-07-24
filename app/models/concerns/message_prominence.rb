@@ -3,7 +3,7 @@ module MessageProminence
 
   included do
     strip_attributes only: [:prominence_reason]
-    validates_inclusion_of :prominence, in: prominence_states
+    validates_inclusion_of :prominence, in: ->(msg) { prominence_states }
   end
 
   def indexed_by_search?

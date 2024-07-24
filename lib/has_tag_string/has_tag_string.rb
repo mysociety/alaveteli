@@ -6,11 +6,14 @@
 # Copyright (c) 2010 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require Rails.root.join('app/models/concerns/tag_prominence')
+
 module HasTagString
   # Represents one tag of one model.
   # The migration to make this is currently only in WDTK code.
   class HasTagStringTag < ActiveRecord::Base
     # TODO: strip_attributes
+    include TagProminence
 
     belongs_to :model, polymorphic: true
 
