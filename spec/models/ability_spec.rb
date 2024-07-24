@@ -1622,252 +1622,139 @@ RSpec.describe Ability do
       end
     end
   end
+end
+
+RSpec.describe Ability, 'with project' do
+  let(:owner_ability) { Ability.new(owner, project: project) }
+  let(:contributor_ability) { Ability.new(contributor, project: project) }
+  let(:non_contributor_ability) do
+    Ability.new(non_contributor, project: project)
+  end
+  let(:admin_ability) do
+    Ability.new(FactoryBot.create(:admin_user), project: project)
+  end
+  let(:pro_admin_ability) do
+    Ability.new(FactoryBot.create(:pro_admin_user), project: project)
+  end
+  let(:guest_ability) { Ability.guest }
+
+  let(:owner) { FactoryBot.create(:user) }
+  let(:contributor) { FactoryBot.create(:user) }
+  let(:non_contributor) { FactoryBot.create(:user) }
+
+  let(:project) do
+    project = FactoryBot.create(:project, owner: owner)
+    project.contributors << contributor
+    project
+  end
 
   describe 'read projects', feature: :projects do
-    let(:ability) { Ability.new(user) }
-    let(:owner) { FactoryBot.create(:user) }
-    let(:contributor) { FactoryBot.create(:user) }
-
-    let(:project) do
-      project = FactoryBot.create(:project, owner: owner)
-      project.contributors << contributor
-      project
+    it 'project owner can read the project' do
+      expect(owner_ability).to be_able_to(:read, project)
     end
 
-    context 'when the user is a project owner' do
-      let(:user) { owner }
-
-      it 'they can read the project' do
-        expect(ability).to be_able_to(:read, project)
-      end
+    it 'project contributors can read the project' do
+      expect(contributor_ability).to be_able_to(:read, project)
     end
 
-    context 'when the user is a project contributor' do
-      let(:user) { contributor }
-
-      it 'they can read the project' do
-        expect(ability).to be_able_to(:read, project)
-      end
+    it 'pro admins can read the project' do
+      expect(pro_admin_ability).to be_able_to(:read, project)
     end
 
-    context 'when the user is a pro_admin' do
-      let(:user) { FactoryBot.create(:pro_admin_user) }
-
-      it 'they can read the project' do
-        expect(ability).to be_able_to(:read, project)
-      end
+    it 'admins cannot read the project' do
+      expect(admin_ability).not_to be_able_to(:read, project)
     end
 
-    context 'when the user is an admin' do
-      let(:user) { FactoryBot.create(:admin_user) }
-
-      it 'they cannot read the project' do
-        expect(ability).not_to be_able_to(:read, project)
-      end
+    it 'non project contributors cannot read the project' do
+      expect(non_contributor_ability).not_to be_able_to(:read, project)
     end
 
-    context 'when the user is not a project member' do
-      let(:user) { FactoryBot.create(:user) }
-
-      it 'they cannot read the project' do
-        expect(ability).not_to be_able_to(:read, project)
-      end
+    it 'logged out users cannot read the project' do
+      expect(guest_ability).not_to be_able_to(:read, project)
     end
+  end
 
-    context 'when there is no user' do
-      let(:user) { nil }
-
-      it 'they cannot read the project' do
-        expect(ability).not_to be_able_to(:read, project)
-      end
-    end
-
-    context 'with the feature disabled' do
-      let(:user) { owner }
-
-      it 'they cannot read the project' do
-        with_feature_disabled(:projects) do
-          expect(ability).not_to be_able_to(:read, project)
-        end
-      end
+  describe 'read projects when projects feature is disabled' do
+    it 'project owner cannot read the project' do
+      expect(owner_ability).not_to be_able_to(:read, project)
     end
   end
 
   describe 'edit projects', feature: :projects do
-    let(:ability) { Ability.new(user) }
-    let(:owner) { FactoryBot.create(:user) }
-    let(:contributor) { FactoryBot.create(:user) }
-
-    let(:project) do
-      project = FactoryBot.create(:project, owner: owner)
-      project.contributors << contributor
-      project
+    it 'project owner can edit the project' do
+      expect(owner_ability).to be_able_to(:edit, project)
     end
 
-    context 'when the user is a project owner' do
-      let(:user) { owner }
-
-      it 'they can edit the project' do
-        expect(ability).to be_able_to(:edit, project)
-      end
+    it 'project contributors cannot edit the project' do
+      expect(contributor_ability).not_to be_able_to(:edit, project)
     end
 
-    context 'when the user is a project contributor' do
-      let(:user) { contributor }
-
-      it 'they cannot edit the project' do
-        expect(ability).not_to be_able_to(:edit, project)
-      end
+    it 'pro admins can edit the project' do
+      expect(pro_admin_ability).to be_able_to(:edit, project)
     end
 
-    context 'when the user is a pro_admin' do
-      let(:user) { FactoryBot.create(:pro_admin_user) }
-
-      it 'they can edit the project' do
-        expect(ability).to be_able_to(:edit, project)
-      end
+    it 'admins cannot edit the project' do
+      expect(admin_ability).not_to be_able_to(:edit, project)
     end
 
-    context 'when the user is an admin' do
-      let(:user) { FactoryBot.create(:admin_user) }
-
-      it 'they cannot edit the project' do
-        expect(ability).not_to be_able_to(:edit, project)
-      end
+    it 'non project contributors cannot edit the project' do
+      expect(non_contributor_ability).not_to be_able_to(:edit, project)
     end
 
-    context 'when the user is not a project member' do
-      let(:user) { FactoryBot.create(:user) }
-
-      it 'they cannot edit the project' do
-        expect(ability).not_to be_able_to(:edit, project)
-      end
+    it 'logged out users cannot edit the project' do
+      expect(guest_ability).not_to be_able_to(:edit, project)
     end
+  end
 
-    context 'when there is no user' do
-      let(:user) { nil }
-
-      it 'they cannot edit the project' do
-        expect(ability).not_to be_able_to(:edit, project)
-      end
-    end
-
-    context 'with the feature disabled' do
-      let(:user) { owner }
-
-      it 'they cannot edit the project' do
-        with_feature_disabled(:projects) do
-          expect(ability).not_to be_able_to(:edit, project)
-        end
-      end
+  describe 'edit projects when projects feature is disabled' do
+    it 'project owner cannot edit the project' do
+      expect(owner_ability).not_to be_able_to(:edit, project)
     end
   end
 
   describe 'leave from projects', feature: :projects do
-    let(:ability) { Ability.new(user, project: project) }
-
-    let(:owner) { FactoryBot.create(:user) }
-    let(:contributor) { FactoryBot.create(:user) }
-    let(:non_contributor) { FactoryBot.create(:user) }
-
-    let(:project) do
-      project = FactoryBot.create(:project, owner: owner)
-      project.contributors << contributor
-      project
+    it 'project owner cannot remove themselves from the project' do
+      expect(owner_ability).not_to be_able_to(:leave, project)
     end
 
-    context 'when the user is a project owner' do
-      let(:user) { owner }
-
-      it 'they cannot remove themselves from the project' do
-        expect(ability).not_to be_able_to(:leave, project)
-      end
+    it 'project contributors can remove themselves from the project' do
+      expect(contributor_ability).to be_able_to(:leave, project)
     end
 
-    context 'when the user is a project contributor' do
-      let(:user) { contributor }
-
-      it 'they can remove themselves from the project' do
-        expect(ability).to be_able_to(:leave, project)
-      end
-    end
-
-    context 'when the user is not a project contributor' do
-      let(:user) { non_contributor }
-
-      it 'they cannot remove themselves from the project' do
-        expect(ability).not_to be_able_to(:leave, project)
-      end
+    it 'non project contributors cannot remove themselves from the project' do
+      expect(non_contributor_ability).not_to be_able_to(:leave, project)
     end
   end
 
   describe 'download projects', feature: :projects do
-    let(:ability) { Ability.new(user) }
-    let(:owner) { FactoryBot.create(:user) }
-    let(:contributor) { FactoryBot.create(:user) }
-
-    let(:project) do
-      project = FactoryBot.create(:project, owner: owner)
-      project.contributors << contributor
-      project
+    it 'project owner can download the project' do
+      expect(owner_ability).to be_able_to(:download, project)
     end
 
-    context 'when the user is a project owner' do
-      let(:user) { owner }
-
-      it 'they can download the project' do
-        expect(ability).to be_able_to(:download, project)
-      end
+    it 'project contributors cannot download the project' do
+      expect(contributor_ability).not_to be_able_to(:download, project)
     end
 
-    context 'when the user is a project contributor' do
-      let(:user) { contributor }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
+    it 'pro admins can download the project' do
+      expect(pro_admin_ability).to be_able_to(:download, project)
     end
 
-    context 'when the user is a pro_admin' do
-      let(:user) { FactoryBot.create(:pro_admin_user) }
-
-      it 'they can download the project' do
-        expect(ability).to be_able_to(:download, project)
-      end
+    it 'admins cannot download the project' do
+      expect(admin_ability).not_to be_able_to(:download, project)
     end
 
-    context 'when the user is an admin' do
-      let(:user) { FactoryBot.create(:admin_user) }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
+    it 'non project contributors cannot download the project' do
+      expect(non_contributor_ability).not_to be_able_to(:download, project)
     end
 
-    context 'when the user is not a project member' do
-      let(:user) { FactoryBot.create(:user) }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
+    it 'logged out users cannot download the project' do
+      expect(guest_ability).not_to be_able_to(:download, project)
     end
+  end
 
-    context 'when there is no user' do
-      let(:user) { nil }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
-    end
-
-    context 'with the feature disabled' do
-      let(:user) { owner }
-
-      it 'they cannot download the project' do
-        with_feature_disabled(:projects) do
-          expect(ability).not_to be_able_to(:download, project)
-        end
-      end
+  describe 'download projects when projects feature is disabled' do
+    it 'project owner cannot download the project' do
+      expect(owner_ability).not_to be_able_to(:download, project)
     end
   end
 end
