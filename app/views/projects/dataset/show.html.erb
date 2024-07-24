@@ -6,6 +6,19 @@
   </div>
 
   <div class="inner-canvas-body">
+    <div class="row project-dataset__description">
+      <%= @project.dataset_description %>
+
+      <% if can?(:edit, @project) %>
+        <% button_text = if @project.dataset_description.present?
+            @project.dataset_public? ? _('Edit description') : _('Edit description and make dataset public')
+          else
+            @project.dataset_public? ? _('Add description') : _('Add description and make dataset public')
+          end %>
+        <%= link_to button_text, edit_project_dataset_path(@project), class: 'button' %>
+      <% end %>
+    </div>
+
     <div class="row">
       <table class="dataset">
         <% @export.data_for_web.each_with_index do |data, index| %>
@@ -24,9 +37,11 @@
         <% end %>
       </table>
       <p>
-        <%= link_to _('Back to project'),
-              project_path(@project),
-              class: 'button-secondary' %>
+        <% if can? :read, @project %>
+          <%= link_to _('Back to project'),
+                project_path(@project),
+                class: 'button-secondary' %>
+        <% end %>
 
         <%= link_to _('Download'),
               project_dataset_path(@project, format: :csv),

@@ -55,6 +55,7 @@ class Project < ApplicationRecord
   validates :title, :owner, presence: true
 
   has_rich_text :briefing
+  has_rich_text :dataset_description
 
   def original_briefing
     attributes['briefing']

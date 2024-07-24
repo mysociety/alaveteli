@@ -73,4 +73,52 @@ RSpec.describe Projects::DatasetController, spec_meta do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    let(:project) { FactoryBot.create(:project, owner: user) }
+    let(:user) { FactoryBot.create(:user) }
+
+    before { sign_in(user) }
+
+    context 'when the user is authorized' do
+      it 'updates the project' do
+        patch :update, params: {
+          project_id: project.id,
+          project: { dataset_description: 'Updated description' }
+        }
+        project.reload
+        expect(project.dataset_description.to_plain_text).
+          to eq('Updated description')
+      end
+
+      it 'redirects to the project dataset show page' do
+        patch :update, params: {
+          project_id: project.id,
+          project: { dataset_description: 'Updated description' }
+        }
+        expect(response).to redirect_to(project_dataset_path(project))
+      end
+
+      it 'sets a success flash notice' do
+        patch :update, params: {
+          project_id: project.id,
+          project: { dataset_description: 'Updated description' }
+        }
+        expect(flash[:notice]).to eq('Dataset was successfully updated.')
+      end
+    end
+
+    context 'when the user is not authorized' do
+      before do
+        allow(controller).to receive(:authorize!).with(:edit, project).
+          and_raise(CanCan::AccessDenied)
+      end
+
+      it 'raises an authorization error' do
+        expect {
+          patch :update, params: { project_id: project.id, project: {} }
+        }.to raise_error(CanCan::AccessDenied)
+      end
+    end
+  end
 end
