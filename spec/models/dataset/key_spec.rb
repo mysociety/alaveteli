@@ -70,22 +70,32 @@ RSpec.describe Dataset::Key, type: :model do
     end
   end
 
+  describe '.format_options' do
+    subject { described_class.format_options }
+
+    it 'returns title/format key hash' do
+      is_expected.to eq(
+        { 'Text' => :text, 'Numeric' => :numeric, 'Yes/No' => :boolean }
+      )
+    end
+  end
+
   describe '#format_regexp' do
     subject { key.format_regexp }
 
     context 'text format' do
       let(:key) { FactoryBot.build(:dataset_key, :text) }
-      it { is_expected.to eq described_class::FORMATS[:text] }
+      it { is_expected.to eq described_class::FORMATS[:text][:regexp] }
     end
 
     context 'numeric format' do
       let(:key) { FactoryBot.build(:dataset_key, :numeric) }
-      it { is_expected.to eq described_class::FORMATS[:numeric] }
+      it { is_expected.to eq described_class::FORMATS[:numeric][:regexp] }
     end
 
     context 'boolean format' do
       let(:key) { FactoryBot.build(:dataset_key, :boolean) }
-      it { is_expected.to eq described_class::FORMATS[:boolean] }
+      it { is_expected.to eq described_class::FORMATS[:boolean][:regexp] }
     end
   end
 end

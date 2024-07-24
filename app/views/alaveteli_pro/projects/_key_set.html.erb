@@ -13,10 +13,11 @@
 
       <div class="project-key-set__key__format">
         <%= key_fields.label :format %>
-        <%= key_fields.select :format, options_for_select(
-          Dataset::Key::FORMATS.keys.map(&:to_s),
-          key_fields.object.format
-        ), {}, autocomplete: false %>
+        <%= key_fields.select :format,
+          options_for_select(
+            Dataset::Key.format_options,
+            key_fields.object.format
+          ), {}, autocomplete: false %>
       </div>
 
       <div class="project-key-set__key__remove-question">
