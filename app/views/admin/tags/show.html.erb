@@ -1,5 +1,7 @@
 <h1><%= @title = "Tag – #{@tag}" %></h1>
 
+<%= link_to 'Edit Tag', edit_admin_tag_path(@tag, model_type: current_klass), class: 'btn' %>
+
 <%= render partial: 'notes', locals: { notes: @notes } %>
 
 <div class="row">

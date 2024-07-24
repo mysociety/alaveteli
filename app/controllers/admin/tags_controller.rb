@@ -2,6 +2,7 @@ class Admin::TagsController < AdminController
   include Admin::TagHelper
 
   before_action :check_klass
+  before_action :find_instance, only: [:edit, :update]
 
   # GET /admin/tags
   def index
@@ -30,6 +31,17 @@ class Admin::TagsController < AdminController
         apply_filters(HasTagString::HasTagStringTag.all)
       ).
       paginate(page: params[:page], per_page: 50)
+  end
+
+  def edit
+  end
+
+  def update
+    if @tag_instance.update(tag_params)
+      redirect_to admin_tag_path(@tag, model_type: current_klass), notice: 'Tag was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   private
@@ -62,5 +74,19 @@ class Admin::TagsController < AdminController
 
   def check_klass
     raise RouteNotFound unless Taggable.models.include?(current_klass)
+  end
+
+  def find_instance
+    @tag = params.fetch(:tag)
+    name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
+
+    @tag_instance = HasTagString::HasTagStringTag.find_by!(
+      name: name,
+      value: value
+    )
+  end
+
+  def tag_params
+    params.permit(:prominence, :prominence_reason)
   end
 end

@@ -1,0 +1,25 @@
+<h1><%= @title = "Edit Tag – #{@tag}" %></h1>
+
+<%= form_tag admin_tag_path(@tag), method: 'put', class: 'form form-inline' do %>
+  <%= hidden_field_tag :model_type, current_klass %>
+
+  <div class="control-group">
+    <label class="control-label" for="tag_prominence">Prominence</label>
+
+    <div class="controls">
+      <%= select_tag 'prominence', options_for_select(HasTagString::HasTagStringTag.prominence_states, @tag_instance.prominence) %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="tag_prominence_reason">Reason for prominence</label>
+
+    <div class="controls">
+      <%= text_area_tag 'prominence_reason', @tag_instance.prominence_reason, rows: 5, class: 'span6' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag 'Save', class: 'btn btn-success' %>
+  </div>
+<% end %>
