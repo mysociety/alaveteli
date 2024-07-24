@@ -99,6 +99,8 @@ module HasTagString
     def tag_array_for_search
       ret = {}
       tags.each do |tag|
+        next unless tag.is_public?
+
         ret[tag.name] = 1
         ret[tag.name_and_value] = 1
       end
