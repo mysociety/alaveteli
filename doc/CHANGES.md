@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow projects owners to publish datasets (Graeme Porteous)
 * Add comment deletion (Helen Cross, Graeme Porteous, Gareth Rees)
 * Show and allow creation of citations from info request batch pages (Graeme
   Porteous)
