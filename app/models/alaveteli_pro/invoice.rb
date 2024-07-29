@@ -10,7 +10,7 @@ module AlaveteliPro
     end
 
     def paid?
-      status == 'paid'
+      status == 'paid' && amount_paid > 0
     end
 
     # attributes

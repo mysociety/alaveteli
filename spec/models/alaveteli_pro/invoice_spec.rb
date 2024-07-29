@@ -5,7 +5,7 @@ RSpec.describe AlaveteliPro::Invoice, type: :model do
 
   let(:stripe_invoice) do
     double('Stripe::Invoice',
-           status: 'open', charge: 'ch_123', date: 1722211200)
+           status: 'open', charge: 'ch_123', date: 1722211200, amount_paid: 0)
   end
 
   let(:stripe_charge) do
@@ -29,12 +29,19 @@ RSpec.describe AlaveteliPro::Invoice, type: :model do
   end
 
   describe '#paid?' do
-    it 'returns true when the status is paid' do
+    it 'returns true when the status is paid and an amount has been paid' do
       allow(stripe_invoice).to receive(:status).and_return('paid')
+      allow(stripe_invoice).to receive(:amount_paid).and_return(1000)
       expect(invoice).to be_paid
     end
 
+    it 'returns false when 100% discounted' do
+      allow(stripe_invoice).to receive(:status).and_return('paid')
+      expect(invoice).not_to be_paid
+    end
+
     it 'returns false when the status is not paid' do
+      allow(stripe_invoice).to receive(:amount_paid).and_return(1000)
       expect(invoice).not_to be_paid
     end
   end
