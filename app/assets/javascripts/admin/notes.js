@@ -1,19 +1,31 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var selectElement = document.getElementById('note_style');
-  var bodyInput = document.getElementById('bodyInput');
-  var richBodyInput = document.getElementById('richBodyInput');
+document.addEventListener("DOMContentLoaded", function () {
+  var selectElement = document.getElementById("note_style");
 
-  function updateBodyVisibility() {
-    if (selectElement.value === 'original') {
-      bodyInput.style.display = 'block';
-      richBodyInput.style.display = 'none';
+  function updateBodyVisibility(body, rich) {
+    if (selectElement.value === "original") {
+      body.style.display = "block";
+      rich.style.display = "none";
     } else {
-      bodyInput.style.display = 'none';
-      richBodyInput.style.display = 'block';
+      body.style.display = "none";
+      rich.style.display = "block";
     }
   }
 
-  selectElement.addEventListener('change', updateBodyVisibility);
+  function updateAllBodyVisibility() {
+    var localeDivs = document.querySelectorAll("[id^='div-locale-']");
 
-  updateBodyVisibility();
+    localeDivs.forEach(function (div) {
+      var body = div.querySelector(".note--body");
+      var rich = div.querySelector(".note--rich_body");
+
+      if (body && rich) {
+        updateBodyVisibility(body, rich);
+      }
+    });
+  }
+
+  if (selectElement) {
+    selectElement.addEventListener("change", updateAllBodyVisibility);
+    updateAllBodyVisibility();
+  }
 });
