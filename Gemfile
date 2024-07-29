@@ -162,7 +162,7 @@ gem 'uglifier', '~> 4.2.0'
 # Modern Assets
 gem 'importmap-rails', '~> 2.0.1'
 gem 'stimulus-rails', '~> 1.3.3'
-gem 'turbo-rails', '~> 2.0.5'
+gem 'turbo-rails', '~> 2.0.6'
 
 # Feature flags
 gem 'alaveteli_features', path: 'gems/alaveteli_features'
