@@ -62,6 +62,11 @@ RSpec.describe AlaveteliPro::Invoice, type: :model do
     it 'delegates receipt_url to the charge' do
       expect(invoice.receipt_url).to eq('http://example.com/receipt')
     end
+
+    it 'returns nil when there is no charge' do
+      allow(stripe_invoice).to receive(:charge).and_return(nil)
+      expect(invoice.receipt_url).to be_nil
+    end
   end
 
   describe '#method_missing' do
