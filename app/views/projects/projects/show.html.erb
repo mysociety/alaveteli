@@ -114,14 +114,14 @@
             </p>
           <% end %>
 
-          <% if can? :download, @project %>
+          <% if can? :view, @project.key_set %>
             <p>
               <%= _('Request classifications and extracted data is compiled ' \
-                    'into a download') %>
+                    'into a dataset') %>
             </p>
             <p>
-              <%= link_to _('Download data'),
-                    project_download_path(@project, format: :csv),
+              <%= link_to _('View dataset'),
+                    project_dataset_path(@project),
                     class: 'button-tertiary' %>
             </p>
           <% end %>

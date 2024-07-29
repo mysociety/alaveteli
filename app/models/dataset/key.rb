@@ -23,15 +23,21 @@ class Dataset::Key < ApplicationRecord
   default_scope -> { order(:order) }
 
   FORMATS = {
-    text: /\A.*\z/m,
-    numeric: /\A[0-9,%\+\-\s]*\z/,
-    boolean: /\A(0|1)\z/
+    text: { title: _('Text'), regexp: /\A.*\z/m },
+    numeric: { title: _('Numeric'), regexp: /\A[0-9,%\+\-\s]*\z/ },
+    boolean: { title: _('Yes/No'), regexp: /\A(0|1)\z/ }
   }.freeze
 
   validates :title, :format, :order, presence: true
   validates :format, inclusion: { in: FORMATS.keys.map(&:to_s) }
 
+  def self.format_options
+    FORMATS.each_with_object({}) do |(key, detail), acc|
+      acc[detail[:title]] = key
+    end
+  end
+
   def format_regexp
-    FORMATS[format.to_sym]
+    FORMATS[format.to_sym][:regexp]
   end
 end

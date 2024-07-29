@@ -222,12 +222,21 @@ class Ability
         user && (user.is_pro_admin? || target_project.owner?(user))
       end
 
-      can :download, Project do |target_project|
-        user && (user.is_pro_admin? || target_project.owner?(user))
-      end
-
       can :leave, Project do |target_project|
         user && target_project.contributor?(user)
+      end
+
+      can :view, Dataset::KeySet do |dataset_key_set|
+        resource = dataset_key_set.resource
+        next false unless resource.is_a?(Project)
+
+        target_project = resource
+
+        next true if target_project.dataset_public?
+        next false unless user
+        next true if user&.is_pro_admin?
+
+        target_project.owner?(user)
       end
     end
   end

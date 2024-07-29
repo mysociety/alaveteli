@@ -2,9 +2,11 @@ require 'spec_helper'
 
 RSpec.describe 'health checks' do
   before do
-    # create recent content to satisfy checks.
+    # create recent content and destroy pending jobs to satisfy checks.
     FactoryBot.create(:user)
+    FactoryBot.create(:info_request)
     FactoryBot.create(:incoming_message)
+    ActsAsXapian::ActsAsXapianJob.destroy_all
   end
 
   def status

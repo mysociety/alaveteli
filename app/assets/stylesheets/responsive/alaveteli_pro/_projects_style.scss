@@ -37,3 +37,51 @@
   line-height: 1em;
   color: #999;
 }
+
+table.dataset {
+  display: block;
+  margin-bottom: 1em;
+  overflow-x: auto;
+  width: 100%;
+
+  th,
+  td {
+    border-right: 1px solid #e6e4df;
+    max-width: 300px;
+    min-width: 300px;
+    overflow: hidden;
+    padding: 0.5em;
+    text-align: left;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+
+    &:hover {
+      overflow: visible;
+      white-space: normal;
+    }
+
+    &:last-child,
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+
+  .dataset__request,
+  .dataset__requested_by,
+  .dataset__public_body,
+  .dataset__classification,
+  .dataset__classified_by,
+  .dataset__extracted_by {
+    max-width: 200px;
+    min-width: 200px;
+  }
+}

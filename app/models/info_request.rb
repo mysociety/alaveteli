@@ -403,25 +403,23 @@ class InfoRequest < ApplicationRecord
   # Display version of status
   def self.get_status_description(status)
     descriptions = {
-      'waiting_classification'        => _("Awaiting classification."),
-      'waiting_response'              => _("Awaiting response."),
-      'waiting_response_overdue'      => _("Delayed."),
-      'waiting_response_very_overdue' => _("Long overdue."),
-      'not_held'                      => _("Information not held."),
-      'rejected'                      => _("Refused."),
-      'partially_successful'          => _("Partially successful."),
-      'successful'                    => _("Successful."),
-      'waiting_clarification'         => _("Waiting clarification."),
-      'gone_postal'                   => _("Handled by postal mail."),
-      'internal_review'               => _("Awaiting internal review."),
-      'error_message'                 => _("Delivery error"),
-      'requires_admin'                => _("Unusual response."),
-      'attention_requested'           => _("Reported for administrator attention."),
-      'user_withdrawn'                => _("Withdrawn by the requester."),
-      'vexatious'                     => _("Considered by administrators as " \
-                                           "vexatious."),
-      'not_foi'                       => _("Considered by administrators as " \
-                                           "not an FOI request.")
+      'waiting_classification' => _("Awaiting classification"),
+      'waiting_response' => _("Awaiting response"),
+      'waiting_response_overdue' => _("Delayed"),
+      'waiting_response_very_overdue' => _("Long overdue"),
+      'not_held' => _("Information not held"),
+      'rejected' => _("Refused"),
+      'partially_successful' => _("Partially successful"),
+      'successful' => _("Successful"),
+      'waiting_clarification' => _("Waiting clarification"),
+      'gone_postal' => _("Handled by postal mail"),
+      'internal_review' => _("Awaiting internal review"),
+      'error_message' => _("Delivery error"),
+      'requires_admin' => _("Unusual response"),
+      'attention_requested' => _("Reported for administrator attention"),
+      'user_withdrawn' => _("Withdrawn by the requester"),
+      'vexatious' => _("Considered by administrators as vexatious"),
+      'not_foi' => _("Considered by administrators as not an FOI request")
     }
     if descriptions[status]
       descriptions[status]
