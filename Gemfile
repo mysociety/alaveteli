@@ -81,7 +81,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 7.0.8'
 
-gem 'pg', '~> 1.5.6'
+gem 'pg', '~> 1.5.7'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'addressable', '~> 2.8.7'
