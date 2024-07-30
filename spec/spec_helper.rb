@@ -35,6 +35,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include ActiveJob::TestHelper
   config.include Capybara::DSL, type: :request
   config.include ConfigHelper
   config.include LinkToHelper
