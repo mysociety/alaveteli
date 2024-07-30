@@ -88,7 +88,7 @@ RSpec.describe Users::SessionsController do
       expect(session[:user_id]).to eq(users(:bob_smith_user).id)
       # response doesn't contain /en/ but redirect_to does...
       expect(response).to redirect_to(request_list_path(post_redirect: 1))
-      expect(ActionMailer::Base.deliveries).to be_empty
+      expect(deliveries).to be_empty
     end
 
     it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
@@ -287,7 +287,7 @@ RSpec.describe Users::SessionsController do
 
         it 'sends an exception notification' do
           do_signin(user.email, 'password1234')
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/signup from suspected spammer/)
         end
 
@@ -310,7 +310,7 @@ RSpec.describe Users::SessionsController do
                     }
 
       expect(response).to render_template('user/confirm')
-      expect(ActionMailer::Base.deliveries).not_to be_empty
+      expect(deliveries).not_to be_empty
     end
 
     # TODO: Extract to integration spec
@@ -344,11 +344,10 @@ RSpec.describe Users::SessionsController do
                       },
                       token: post_redirect.token
                     }
-      expect(ActionMailer::Base.deliveries).not_to be_empty
+      expect(deliveries).not_to be_empty
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
       mail_url = $1
       mail_path = $2
@@ -388,11 +387,10 @@ RSpec.describe Users::SessionsController do
                       },
                       token: post_redirect.token
                     }
-      expect(ActionMailer::Base.deliveries).not_to be_empty
+      expect(deliveries).not_to be_empty
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       mail.body.to_s =~ /(http:\/\/.*(\/c\/(.*)))/
       mail_url = $1
       mail_path = $2

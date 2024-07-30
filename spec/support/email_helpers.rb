@@ -80,3 +80,10 @@ def rebuild_raw_emails(info_request)
     im.save!
   end
 end
+
+def deliveries
+  @deliveries ||= []
+  @deliveries += ActionMailer::Base.deliveries
+  ActionMailer::Base.deliveries.clear
+  @deliveries
+end

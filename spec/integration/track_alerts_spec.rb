@@ -31,9 +31,8 @@ RSpec.describe "When sending track alerts" do
 
     TrackMailer.alert_tracks
 
-    deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
+    mail = deliveries.first
     expect(mail.body).to match(/Alter your subscription/)
     expect(mail.to_addrs.first.to_s).to include(user.email)
     mail.body.to_s =~ /(http:\/\/.*\/c\/(.*))/
@@ -55,10 +54,7 @@ RSpec.describe "When sending track alerts" do
     expect(mail.body).to include(subscription_preferences_link)
 
     # Check nothing more is delivered if we try again
-    deliveries.clear
-    TrackMailer.alert_tracks
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
+    expect { TrackMailer.alert_tracks }.to_not change { deliveries.size }
   end
 
   it "should send localised alerts" do
@@ -83,8 +79,8 @@ RSpec.describe "When sending track alerts" do
     destroy_and_rebuild_xapian_index
 
     TrackMailer.alert_tracks
-    deliveries = ActionMailer::Base.deliveries
-    mail = deliveries[0]
+    expect(deliveries.size).to eq(1)
+    mail = deliveries.first
     expect(mail.body).to include('el equipo de ')
   end
 end

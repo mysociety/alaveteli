@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "When errors occur" do
-  before(:each) do
-    # This should happen automatically before each test but doesn't with these integration
-    # tests for some reason.
-    ActionMailer::Base.deliveries = []
-  end
-
   context 'when considering all requests local (by default all in development)',
           local_requests: true do
     it 'should show a full trace for general errors' do
@@ -68,9 +62,8 @@ RSpec.describe "When errors occur" do
     it 'should notify of a general error' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get "/request/example"
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.body).to match(/An example error/)
     end
 

@@ -110,9 +110,8 @@ RSpec.describe "creating requests in alaveteli_pro" do
         expect(info_request.outgoing_messages.length).to eq 1
         expect(info_request.outgoing_messages.first.body).to eq "A very short letter."
 
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
         expect(mail.body).to match(/A very short letter\./)
         expect(mail.subject).to match(/Freedom of Information request - Does the pro request form work\?/)
         expect(mail.to).to eq([public_body.request_email])

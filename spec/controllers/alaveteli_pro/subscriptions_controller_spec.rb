@@ -282,7 +282,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::RateLimitError/)
         end
 
@@ -307,7 +307,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::InvalidRequestError/)
         end
 
@@ -332,7 +332,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::AuthenticationError/)
         end
 
@@ -357,7 +357,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::APIConnectionError/)
         end
 
@@ -382,7 +382,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::StripeError/)
         end
 
@@ -407,7 +407,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'does not sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail).to be_nil
         end
 
@@ -432,7 +432,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'does not sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail).to be_nil
         end
 
@@ -632,7 +632,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'sends an exception email' do
           authorise
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::RateLimitError/)
         end
       end
@@ -647,7 +647,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'sends an exception email' do
           authorise
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::InvalidRequestError/)
         end
       end
@@ -662,7 +662,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'sends an exception email' do
           authorise
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::AuthenticationError/)
         end
       end
@@ -677,7 +677,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'sends an exception email' do
           authorise
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::APIConnectionError/)
         end
       end
@@ -692,7 +692,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
         it 'sends an exception email' do
           authorise
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::StripeError/)
         end
       end
@@ -914,7 +914,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::RateLimitError/)
         end
 
@@ -935,7 +935,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::InvalidRequestError/)
         end
 
@@ -956,7 +956,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::AuthenticationError/)
         end
 
@@ -977,7 +977,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::APIConnectionError/)
         end
 
@@ -998,7 +998,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::StripeError/)
         end
 

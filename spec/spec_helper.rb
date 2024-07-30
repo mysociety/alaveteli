@@ -94,12 +94,6 @@ RSpec.configure do |config|
     FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
   end
 
-  # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being
-  # cleared out correctly in controller specs. So, do it here for everything.
-  config.before(:each) do
-    ActionMailer::Base.deliveries = []
-  end
-
   config.before(:suite) do
     if ENV['ALAVETELI_USE_OINK']
       oink_log = Rails.root + 'log/oink.log'

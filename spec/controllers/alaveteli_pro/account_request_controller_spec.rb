@@ -42,8 +42,8 @@ RSpec.describe AlaveteliPro::AccountRequestController do
 
       it 'emails the pro contact address with the request' do
         post :create, params: { account_request: account_request_params }
-        expect(ActionMailer::Base.deliveries.size).to eq 1
-        mail = ActionMailer::Base.deliveries.first
+        expect(deliveries.size).to eq 1
+        mail = deliveries.first
         expect(mail.to.first).to eq AlaveteliConfiguration.pro_contact_email
       end
     end

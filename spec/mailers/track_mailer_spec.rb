@@ -186,7 +186,6 @@ RSpec.describe TrackMailer do
       @post_redirect = mock_model(PostRedirect, save!: true,
                                   email_token: "token")
       allow(PostRedirect).to receive(:new).and_return(@post_redirect)
-      ActionMailer::Base.deliveries = []
       @user = mock_model(User,
                          name_and_email: MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
                          url_name: 'tippy_test'
@@ -195,7 +194,6 @@ RSpec.describe TrackMailer do
     end
 
     it 'should deliver one email, with right headers' do
-      deliveries = ActionMailer::Base.deliveries
       if deliveries.size > 1 # debugging if there is an error
         deliveries.each do |d|
           $stderr.puts "------------------------------"
@@ -204,18 +202,14 @@ RSpec.describe TrackMailer do
         end
       end
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-
+      mail = deliveries.first
       expect(mail['Auto-Submitted'].to_s).to eq('auto-generated')
       expect(mail['Precedence'].to_s).to eq('bulk')
-
-      deliveries.clear
     end
 
     it "does not include HTMLEntities in the subject line" do
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
 
       expect(mail.subject).to eq "Your L'information email alert"
     end
@@ -235,13 +229,9 @@ RSpec.describe TrackMailer do
         email: info_request.public_body.request_email
       )
 
-      ActionMailer::Base.deliveries.clear
       update_xapian_index
-      TrackMailer.alert_tracks
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
-      mail = deliveries[0]
+      expect { TrackMailer.alert_tracks }.to_not change { deliveries.size }
     end
 
     context "force ssl is off" do
@@ -251,9 +241,8 @@ RSpec.describe TrackMailer do
       # wouldn't get reloaded
 
       it "should have http links in the email" do
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
 
         expect(mail.body).to include("http://")
         expect(mail.body).not_to include("https://")

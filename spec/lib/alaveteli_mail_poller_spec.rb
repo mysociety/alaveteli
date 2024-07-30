@@ -62,7 +62,7 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          notification = ActionMailer::Base.deliveries.first
+          notification = deliveries.first
           expect(notification.subject).
             to eq('[ERROR]  (Net::POPError) "Error code"')
         end
@@ -77,7 +77,7 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          notification = ActionMailer::Base.deliveries.first
+          notification = deliveries.first
           expect(notification.subject).
             to eq('[ERROR]  (Net::POPError) "Error code"')
         end
@@ -135,7 +135,7 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          notification = ActionMailer::Base.deliveries.first
+          notification = deliveries.first
           expect(notification.subject).
             to eq('[ERROR]  (ActiveRecord::StatementInvalid) "Deadlock"')
         end
@@ -170,7 +170,7 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          exception_notification = ActionMailer::Base.deliveries.first
+          exception_notification = deliveries.first
           expect(exception_notification.subject).
             to eq('[ERROR]  (Net::POPError) "Error code"')
         end
@@ -245,7 +245,7 @@ RSpec.describe AlaveteliMailPoller do
 
       it 'sends an exception notification' do
         expect { poller.poll_for_incoming }.to_not raise_error
-        notification = ActionMailer::Base.deliveries.first
+        notification = deliveries.first
         expect(notification.subject).
           to eq('[ERROR]  (Timeout::Error) "execution expired"')
       end

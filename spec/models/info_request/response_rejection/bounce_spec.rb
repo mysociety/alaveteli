@@ -80,10 +80,8 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
 
       described_class.new(*args).reject
 
-      expect(ActionMailer::Base.deliveries.first.to).
-        to eq(['sender@example.com'])
-
-      ActionMailer::Base.deliveries.clear
+      mail = deliveries.first
+      expect(mail.to).to eq(['sender@example.com'])
     end
   end
 end
