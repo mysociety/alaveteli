@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Drop support for Ruby 3.0 (Graeme Porteous)
 * Allow projects owners to publish datasets (Graeme Porteous)
 * Add comment deletion (Helen Cross, Graeme Porteous, Gareth Rees)
 * Show and allow creation of citations from info request batch pages (Graeme
@@ -82,6 +83,9 @@
 
 
 ## Upgrade Notes
+
+* _Required:_ This upgrade requires upgrading Ruby from 3.0 to 3.1 or later.
+  We recommend upgrading to the Ruby 3.2.
 
 * _Required:_ To migrate to the new `Category` feature, please run:
 
