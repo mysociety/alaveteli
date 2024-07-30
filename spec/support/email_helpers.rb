@@ -82,6 +82,7 @@ def rebuild_raw_emails(info_request)
 end
 
 def deliveries
+  perform_enqueued_jobs
   @deliveries ||= []
   @deliveries += ActionMailer::Base.deliveries
   ActionMailer::Base.deliveries.clear

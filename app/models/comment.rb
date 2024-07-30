@@ -158,7 +158,7 @@ class Comment < ApplicationRecord
                 "comment: #{comment_url(self)} " \
                 "\nadmin: #{edit_admin_comment_url(self)}"
 
-      RequestMailer.requires_admin(info_request, user, message).deliver_now
+      RequestMailer.requires_admin(info_request, user, message).deliver_later
 
       info_request.log_event(
         'report_comment',

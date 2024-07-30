@@ -196,7 +196,7 @@ RSpec.describe ClassificationsController, type: :controller do
         it 'should send an email to the requester letting them know someone has
             updated the status of their request' do
           mail_mock = double('mail')
-          allow(mail_mock).to receive :deliver_now
+          allow(mail_mock).to receive :deliver_later
           expect(RequestMailer).to receive(:old_unclassified_updated).
             and_return(mail_mock)
           post_status('rejected')
