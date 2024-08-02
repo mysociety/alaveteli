@@ -173,11 +173,11 @@ namespace :config_files do
     convert_erb(ENV['CRONTAB'], **default_replacements)
   end
 
-  desc 'Convert miscellaneous example scripts. This does not check for required environment variables for the script, so please check the script file itself.'
-  task convert_script: :environment do
-    example = 'rake config_files:convert_script SCRIPT_FILE=config/run-with-rbenv-path.example'
-    check_for_env_vars(['SCRIPT_FILE'], example)
-    convert_erb(ENV['SCRIPT_FILE'], **default_replacements)
+  desc 'Convert miscellaneous example files or scripts. This does not check for required environment variables for the script, so please check the script file itself.'
+  task convert: :environment do
+    example = 'rake config_files:convert FILE=config/run-with-rbenv-path.example'
+    check_for_env_vars(['FILE'], example)
+    convert_erb(ENV['FILE'], **default_replacements)
   end
 
   desc 'Set reject_incoming_at_mta on old requests that are rejecting incoming mail'
