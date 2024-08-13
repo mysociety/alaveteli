@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix rendering invoices page when there are discounted Pro subscription (Graeme
+  Porteous)
 * Drop support for Ruby 3.0 (Graeme Porteous)
 * Allow projects owners to publish datasets (Graeme Porteous)
 * Add comment deletion (Helen Cross, Graeme Porteous, Gareth Rees)
