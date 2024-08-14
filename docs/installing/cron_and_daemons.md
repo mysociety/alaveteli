@@ -27,26 +27,24 @@ and then drop it in `/etc/cron.d/` on the server.
 
 **Template Variables:**
 
+* `deploy_user`: the user that the software runs as
 * `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `user`: the user that the software runs as
-* `site`: a string to identify your Alaveteli instance
-* `mailto`: The email address or local account that cron output will be sent to - setting an email address depends on your MTA having been configured for remote delivery.
-* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
-  if that was neccessary. This will be used to add the deployment user's local
-  gem directory to the `PATH` used in the cron file
+* `mailto`: The email address or local account that cron output will be sent to
+  - setting an email address depends on your MTA having been configured for
+  remote delivery.
 
 There is a rake task that will help to rewrite this file into one that is
-useful to you. This example sends cron output to the local `alaveteli` user. Change the variables to suit your installation.
+useful to you. This example sends cron output to the local `alaveteli` user.
+Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
     bundle exec rake config_files:convert_crontab \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
-      SITE=alaveteli \
       MAILTO=alaveteli \
       CRONTAB=/var/www/alaveteli/config/crontab-example > /etc/cron.d/alaveteli
     popd
@@ -59,7 +57,7 @@ you will need to add a line to periodically check on each daemon you install fol
 the instructions below, as follows, making sure to replace DAEMON_NAME with the name
 of the daemon file:
 
-    5,15,25,35,45,55 * * * * alaveteli /etc/init.d/DAEMON_NAME check
+    5,15,25,35,45,55 * * * * alaveteli systemctl is-active --quiet DAEMON_NAME || sudo systemctl start DAEMON_NAME
 
 ## Generate application daemon
 
@@ -96,80 +94,115 @@ Start the application:
 
     service alaveteli start
 
-### Thin
+### Puma
+
+Puma is a fast, multithreaded, and highly concurrent HTTP server for Ruby and
+Rack applications.
 
 **Template Variables:**
 
+* `deploy_user`: the user that the software runs as
 * `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your Alaveteli instance
-* `user`: the user that the software runs as
-* `cpus`: the number of CPU cores your server has - run `nproc` to find what
-  this number should be. This controls how many thin servers the daemon starts.
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_daemon \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
-      CPUS=1 \
-      SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/sysvinit-thin.example > /etc/init.d/alaveteli
+      DAEMON=puma.service > /etc/systemd/system/alaveteli-puma.service
     popd
 
-    chown root:alaveteli /etc/init.d/alaveteli
-    chmod 754 /etc/init.d/alaveteli
+    chown root:alaveteli /etc/systemd/system/alaveteli-puma.service
+    chmod 754 /etc/systemd/system/alaveteli-puma.service
+
+Enable the service:
+
+    systemctl enable alaveteli-puma.service
 
 Start the application:
 
-    service alaveteli start
+    systemctl start alaveteli-puma.service
 
-## Generate alert daemon
+## Sidekiq - Background job processor
 
-One of the cron jobs refers to a script at `/etc/init.d/alaveteli-alert-tracks`. This
-is an init script, which can be generated from the
-`config/alert-tracks-debian.example` template. This script sends out emails to users subscribed to updates from the site – known as [`tracks`]({{ page.baseurl }}/docs/installing/email/#tracks-mail) – when there is something new matching their interests
+Sidekiq is a background processing daemon that handles asynchronous tasks for
+Alaveteli.
 
 **Template Variables:**
 
-* `daemon_name`: The name of the daemon. This is set by the rake task.
+* `deploy_user`: the user that the software runs as
 * `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your Alaveteli instance
-* `user`: the user that the software runs as
-* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
-  if that was neccessary. This will be used to add the user's local
-  gem directory to the `PATH` used in the daemon file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_daemon \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
-      SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/alert-tracks-debian.example > /etc/init.d/alaveteli-alert-tracks
+      DAEMON=sidekiq.service > /etc/systemd/system/alaveteli-sidekiq.service
     popd
 
-    chown root:alaveteli /etc/init.d/alaveteli-alert-tracks
-    chmod 754 /etc/init.d/alaveteli-alert-tracks
+    chown root:alaveteli /etc/systemd/system/alaveteli-sidekiq.service
+    chmod 754 /etc/systemd/system/alaveteli-sidekiq.service
+
+Enable the service:
+
+    systemctl enable alaveteli-sidekiq.service
+
+Start the background job queue:
+
+    systemctl start alaveteli-sidekiq.service
+
+## Generate alert daemon
+
+This daemon sends out emails to users subscribed to updates from the site –
+known as [`tracks`]({{ page.baseurl }}/docs/installing/email/#tracks-mail) –
+when there is something new matching their interests
+
+**Template Variables:**
+
+* `deploy_user`: the user that the software runs as
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the Alaveteli code.
+  e.g. `alaveteli`
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    pushd /var/www/alaveteli
+    bundle exec rake RAILS_ENV=production config_files:convert_daemon \
+      DEPLOY_USER=alaveteli \
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      DAEMON=alert-tracks.service > /etc/systemd/system/alaveteli-alert-tracks.service
+    popd
+
+    chown root:alaveteli /etc/systemd/system/alaveteli-alert-tracks.service
+    chmod 754 /etc/systemd/system/alaveteli-alert-tracks.service
+
+Enable the service:
+
+    systemctl enable alaveteli-alert-tracks.service
 
 Start the alert tracks daemon:
 
-    service alaveteli-alert-tracks start
+    systemctl start alaveteli-alert-tracks.service
 
 ## Generate mail poller daemon (optional)
 
-`config/poll-for-incoming-debian.example` is another init script, which is optional
+`config/poll-for-incoming.service` is another daemon, which is optional
 and not required unless you want to have Alaveteli poll a POP3 mailbox for incoming
 mail rather than passively accepting it via the `mailin` script. The setup for
 polling is described in the documentation for [`PRODUCTION_MAILER_RETRIEVER_METHOD`]({{ page.baseurl }}/docs/customising/config#production_mailer_retriever_method), the config setting that
@@ -179,70 +212,90 @@ deliver incoming mail for requests to the mailbox, rather than into the applicat
 
 **Template Variables:**
 
-* `daemon_name`: The name of the daemon. This is set by the rake task.
+* `deploy_user`: the user that the software runs as
 * `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your Alaveteli instance
-* `user`: the user that the software runs as
-* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
-  if that was neccessary. This will be used to add the user's local
-  gem directory to the `PATH` used in the daemon file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_daemon \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
-      SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/poll-for-incoming-debian.example > /etc/init.d/alaveteli-poll-for-incoming
+      DAEMON=poll-for-incoming.service > /etc/systemd/system/alaveteli-poll-for-incoming.service
     popd
 
-    chown root:alaveteli /etc/init.d/alaveteli-poll-for-incoming
-    chmod 754 /etc/init.d/alaveteli-poll-for-incoming
+    chown root:alaveteli /etc/systemd/system/alaveteli-poll-for-incoming.service
+    chmod 754 /etc/systemd/system/alaveteli-poll-for-incoming.service
+
+Enable the service:
+
+    systemctl enable alaveteli-poll-for-incoming.service
 
 Start the polling daemon:
 
-    service alaveteli-poll-for-incoming start
+    systemctl start alaveteli-poll-for-incoming.service
 
 ## Generate notifications daemon (optional)
 
-`config/send-notifications-debian.example` is the mechanism for sending digest
+`config/send-notifications.service` is the mechanism for sending digest
 notifications to Pro users. You should only enable this if you have enabled
 [Alaveteli Pro]({{ page.baseurl }}/docs/pro).
 
 **Template Variables:**
 
-* `daemon_name`: The name of the daemon. This is set by the rake task.
+* `deploy_user`: the user that the software runs as
 * `vhost_dir`: the full path to the directory where Alaveteli is checked out.
   e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
 * `vcspath`: the name of the directory that contains the Alaveteli code.
   e.g. `alaveteli`
-* `site`: a string to identify your Alaveteli instance
-* `user`: the user that the software runs as
-* `ruby_version`: The version of ruby that was used to install `bundler` as a gem,
-  if that was neccessary. This will be used to add the user's local
-  gem directory to the `PATH` used in the daemon file
 
 There is a rake task that will help to rewrite this file into one that is
 useful to you. Change the variables to suit your installation.
 
     pushd /var/www/alaveteli
-    bundle exec rake RAILS_ENV=production config_files:convert_init_script \
+    bundle exec rake RAILS_ENV=production config_files:convert_daemon \
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
-      SITE=alaveteli \
-      SCRIPT_FILE=/var/www/alaveteli/config/send-notifications-debian.example > /etc/init.d/alaveteli-send-notifications
+      DAEMON=send-notifications.service > /etc/systemd/system/alaveteli-send-notifications.service
     popd
 
-    chown root:alaveteli /etc/init.d/alaveteli-send-notifications
-    chmod 754 /etc/init.d/alaveteli-send-notifications
+    chown root:alaveteli /etc/systemd/system/alaveteli-send-notifications.service
+    chmod 754 /etc/systemd/system/alaveteli-send-notifications.service
+
+Enable the service:
+
+    systemctl enable alaveteli-send-notifications.service
 
 Start the notifications daemon:
 
-    service alaveteli-send-notifications start
+    systemctl start alaveteli-send-notifications.service
+
+## Generate logrotate configuation (optional)
+
+`config/logrotate-example` contains an example configuration for logrotate,
+a utility that manages the automatic rotation and compression of log files.
+This tool is crucial for ensuring log files do not consume excessive disk
+space over time.
+
+**Template Variables:**
+
+* `vhost_dir`: the full path to the directory where Alaveteli is checked out.
+  e.g. If your checkout is at `/var/www/alaveteli` then set this to `/var/www`
+* `vcspath`: the name of the directory that contains the Alaveteli code.
+  e.g. `alaveteli`
+
+There is a rake task that will help to rewrite this file into one that is
+useful to you. Change the variables to suit your installation.
+
+    pushd /var/www/alaveteli
+    bundle exec rake RAILS_ENV=production config_files:convert \
+      VHOST_DIR=/var/www \
+      VCSPATH=alaveteli \
+      FILE=config/logrotate-example > /etc/logrotate.d/alaveteli
+    popd
