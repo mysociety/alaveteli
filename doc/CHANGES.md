@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add example logrotate configuration (Graeme Porteous)
 * Switch application server from Thin to Puma (Graeme Porteous)
 * Fix rendering invoices page when there are discounted Pro subscription (Graeme
   Porteous)
@@ -113,6 +114,11 @@
   then regenerate with `rake config_files:convert_daemon`.
   See [the documentation](https://alaveteli.org/docs/installing/cron_and_daemons/)
   for more information.
+
+* _Optional:_ This release includes an example logrotate configuration. To
+  generate it, execute the following command: `rake config_files:convert
+  FILE=config/logrotate-example`. For detailed instructions, refer to the
+  [documentation](https://alaveteli.org/docs/installing/cron_and_daemons/#generate-logrotate-configuation-optional).
 
 * _Optional:_ There have been some changes to the example nginx configuration
   files. Please ensure you review the changes to `config/nginx.conf.example` or

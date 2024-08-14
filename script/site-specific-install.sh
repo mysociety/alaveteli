@@ -317,6 +317,11 @@ sed -r \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
 
+# Set up root's crontab:
+echo -n "Creating /etc/logrotate.d/alaveteli... "
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' FILE=config/logrotate-example" "$UNIX_USER") > /etc/logrotate.d/alaveteli
+echo $DONE_MSG
+
 # Clear existing legacy daemons if present
 if [ -f /etc/init.d/$SITE ]
 then
