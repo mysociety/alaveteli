@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Switch application server from Thin to Puma (Graeme Porteous)
 * Fix rendering invoices page when there are discounted Pro subscription (Graeme
   Porteous)
 * Drop support for Ruby 3.0 (Graeme Porteous)
@@ -92,6 +93,13 @@
 * _Required:_ To migrate to the new `Category` feature, please run:
 
       bin/rails temp:migrate_public_body_categories
+
+* _Required:_ This release transitions the application server from Thin to
+  Puma. Ensure to remove `/etc/init.d/alaveteli` or
+  `/etc/init.d/alaveteli-thin`, if either exists, and create the systemd service
+  for Puma. You can generate this by running `rake config_files:convert_daemon
+  DAEMON=puma.service`. For detailed instructions, refer to [the
+  documentation](https://alaveteli.org/docs/installing/cron_and_daemons/#puma).
 
 * _Optional:_ Bodies with not many requests will automatically get tagged
   `not_many_requests` as they are updated. If you want to automatically tag them
