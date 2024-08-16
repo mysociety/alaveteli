@@ -42,6 +42,10 @@ FactoryBot.define do
       tag_string { 'not_apply' }
     end
 
+    trait :not_requestable do
+      tag_string { 'not_requestable' }
+    end
+
     trait :eir_only do
       tag_string { 'eir_only' }
     end
