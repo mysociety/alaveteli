@@ -806,6 +806,7 @@ SHARED_FILES_PATH: ''
 #
 # ---
 SHARED_FILES:
+  - config/cable.yml
   - config/database.yml
   - config/general.yml
   - config/sidekiq.yml
