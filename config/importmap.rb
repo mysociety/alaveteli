@@ -3,10 +3,14 @@
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin "@hotwired/turbo-rails", to: "turbo.min.js"
-pin "sortablejs" # @1.15.2
+pin "@rails/actioncable", to: "actioncable.esm.js"
 
 pin "public", to: "public/index.js"
+
+pin_all_from "app/javascript/channels", under: "channels"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/public/controllers", under: "controllers", to: "public/controllers"
 pin_all_from "app/javascript/public/helpers", under: "helpers", to: "public/helpers"
+
 pin "mark.js" # @8.11.1
+pin "sortablejs" # @1.15.2

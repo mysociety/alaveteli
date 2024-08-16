@@ -710,7 +710,6 @@ DEPENDENCIES
   rdoc (~> 7.1.0)
   recaptcha (~> 5.21.1)
   redcarpet (~> 3.6.1)
-  redis (~> 4.8.1)
   rolify (~> 6.0.1)
   rspec-activemodel-mocks (~> 1.3.0)
   rspec-rails (~> 8.0.2)

@@ -1,5 +1,6 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails";
+import "channels";
 import "controllers";
 
 // Disable Turbo Drive background page loads when hovering over links
