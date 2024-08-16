@@ -2112,6 +2112,21 @@ RSpec.describe PublicBody do
     end
   end
 
+  describe '.requestable' do
+    subject { PublicBody.requestable }
+
+    let!(:public_body) { FactoryBot.create(:public_body) }
+    let!(:not_requestable) { FactoryBot.create(:public_body, :not_requestable) }
+
+    it 'include active bodies' do
+      is_expected.to include(public_body)
+    end
+
+    it 'does not include not requestable bodies' do
+      is_expected.to_not include(not_requestable)
+    end
+  end
+
   describe '.not_defunct' do
     subject { PublicBody.not_defunct }
 
@@ -2142,6 +2157,11 @@ RSpec.describe PublicBody do
       expect(@body.is_requestable?).to eq(false)
     end
 
+    it 'should return false if the body is not requestable' do
+      allow(@body).to receive(:not_requestable?).and_return true
+      expect(@body.is_requestable?).to eq(false)
+    end
+
     it 'should return false there is no request_email' do
       allow(@body).to receive(:has_request_email?).and_return false
       expect(@body.is_requestable?).to eq(false)
@@ -2164,6 +2184,7 @@ RSpec.describe PublicBody do
     let!(:blank_body) { FactoryBot.create(:blank_email_public_body) }
     let!(:defunct_body) { FactoryBot.create(:public_body, :defunct) }
     let!(:not_apply_body) { FactoryBot.create(:public_body, :not_apply) }
+    let!(:not_requestable) { FactoryBot.create(:public_body, :not_requestable) }
 
     it 'includes return requestable body' do
       is_expected.to include(public_body)
@@ -2179,6 +2200,10 @@ RSpec.describe PublicBody do
 
     it 'does not include bodies where FOI/EIR is not applicable' do
       is_expected.to_not include(not_apply_body)
+    end
+
+    it 'does not include bodies which are not requestable' do
+      is_expected.to_not include(not_requestable)
     end
   end
 
@@ -2210,6 +2235,11 @@ RSpec.describe PublicBody do
     it 'should return "not_apply" if FOI does not apply' do
       allow(@body).to receive(:not_apply?).and_return true
       expect(@body.not_requestable_reason).to eq('not_apply')
+    end
+
+    it 'should return "not_requestable" if the body is not requestable' do
+      allow(@body).to receive(:not_requestable?).and_return true
+      expect(@body.not_requestable_reason).to eq('not_requestable')
     end
 
     it 'should return "bad_contact" there is no request_email' do

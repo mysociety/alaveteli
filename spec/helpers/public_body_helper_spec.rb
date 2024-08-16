@@ -12,6 +12,12 @@ RSpec.describe PublicBodyHelper do
       expect(public_body_not_requestable_reasons(@body)).to eq([])
     end
 
+    it 'includes a reason if the authority is not requestable' do
+      @body.tag_string = 'not_requestable'
+      msg = 'We are unable to make requests to this authority.'
+      expect(public_body_not_requestable_reasons(@body)).to include(msg)
+    end
+
     it 'includes a reason if the law does not apply to the authority' do
       @body.tag_string = 'not_apply'
       msg = 'Freedom of Information law does not apply to this authority, ' \
