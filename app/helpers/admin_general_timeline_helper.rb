@@ -13,8 +13,7 @@ module AdminGeneralTimelineHelper
       'Day' => 1.day.ago,
       '2 days' => 2.days.ago,
       'Week' => 1.week.ago,
-      'Month' => 1.month.ago,
-      'All time' => Time.utc(1970, 1, 1)
+      'Month' => 1.month.ago
     }
   end
 
