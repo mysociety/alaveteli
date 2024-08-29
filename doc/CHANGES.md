@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Remove "All time" filter from admin timeline due to performance issues (Gareth
+  Rees)
 * Add example logrotate configuration (Graeme Porteous)
 * Switch application server from Thin to Puma (Graeme Porteous)
 * Fix rendering invoices page when there are discounted Pro subscription (Graeme
