@@ -576,6 +576,8 @@ GEM
     unidecoder (1.1.2)
     uniform_notifier (1.16.0)
     uri (0.13.0)
+    vcr (6.3.1)
+      base64
     vpim (24.2.20)
     web-console (4.2.1)
       actionview (>= 6.0.0)
@@ -705,6 +707,7 @@ DEPENDENCIES
   uglifier (~> 4.2.0)
   unicode (~> 0.4.4)
   unidecoder (~> 1.1.0)
+  vcr (~> 6.3.1)
   vpim (~> 24.2.20)
   web-console (>= 3.3.0)
   webmock (~> 3.23.1)

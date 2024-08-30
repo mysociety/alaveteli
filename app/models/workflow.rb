@@ -2,20 +2,20 @@
 # The Workflow class represents a sequence of jobs to be executed on a resource.
 #
 # Usage:
-#   workflow = Workflow.example(resource)
+#   workflow = Workflow.chunking(resource)
 #   workflow.run
 #
 # Class Methods:
-#   example(resource) - Creates a new example Workflow instance
+#   chunking(resource) - Creates a new Workflow instance for text chunking
 #
 class Workflow
-  def self.example(resource)
+  def self.chunking(resource)
     Workflow.new(
       resource: resource,
       jobs: [
-        Workflow::Job,
-        Workflow::Job,
-        Workflow::Job
+        Workflow::Jobs::ConvertToText,
+        Workflow::Jobs::AnonymizeText,
+        Workflow::Jobs::CreateChunks
       ]
     )
   end

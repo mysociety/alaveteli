@@ -200,6 +200,7 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.2.0'
   gem 'rspec-rails', '~> 7.0.1'
   gem 'pry', '~> 0.14.2'
+  gem 'vcr', '~> 6.3.1'
 end
 
 group :development do

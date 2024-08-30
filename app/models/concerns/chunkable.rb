@@ -68,7 +68,7 @@ module Chunkable
   private
 
   def chunk_workflow
-    Workflow.example(self)
+    Workflow.chunking(self)
   end
 
   def chunkable_config

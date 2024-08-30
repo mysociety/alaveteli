@@ -16,5 +16,17 @@
 FactoryBot.define do
   factory :workflow_job, class: 'Workflow::Job' do
     resource { build(:foi_attachment) }
+
+    factory :convert_to_text, class: 'Workflow::Jobs::ConvertToText' do
+      source { '' }
+    end
+
+    factory :anonymize_text, class: 'Workflow::Jobs::AnonymizeText' do
+      source { '' }
+    end
+
+    factory :create_chunks, class: 'Workflow::Jobs::CreateChunks' do
+      source { '' }
+    end
   end
 end
