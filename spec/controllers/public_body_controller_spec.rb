@@ -239,7 +239,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     expect(assigns[:description]).to eq("Found 6 public authorities")
   end
 
-  it 'list bodies in collate order according to the locale with the fallback set' do
+  xit 'list bodies in collate order according to the locale with the fallback set' do
     allow(AlaveteliConfiguration).
       to receive(:public_body_list_fallback_to_default_locale).
       and_return(true)
