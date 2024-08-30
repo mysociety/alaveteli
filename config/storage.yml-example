@@ -57,3 +57,22 @@ attachments_test: &attachments_test
 
 attachments:
   <<: *attachments_<%= Rails.env %>
+
+## Workflow ##
+
+workflows_disk: &workflows_disk
+  service: Disk
+  root: <%= Rails.root.join('storage/workflows') %>
+
+workflows_production: &workflows_production
+  <<: *workflows_disk
+
+workflows_development: &workflows_development
+  <<: *workflows_disk
+
+workflows_test: &workflows_test
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage/workflows') %>
+
+workflows:
+  <<: *workflows_<%= Rails.env %>
