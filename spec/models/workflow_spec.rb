@@ -3,22 +3,22 @@ require 'spec_helper'
 RSpec.describe Workflow do
   let(:resource) { FactoryBot.build(:foi_attachment) }
 
-  describe '.example' do
-    it 'creates a new Workflow instance with example jobs' do
-      workflow = Workflow.example(resource)
+  describe '.chunking' do
+    it 'creates a new Workflow instance with chunking jobs' do
+      workflow = Workflow.chunking(resource)
       expect(workflow).to be_a(Workflow)
       expect(workflow.jobs.map(&:class)).to eq(
         [
-          Workflow::Job,
-          Workflow::Job,
-          Workflow::Job
+          Workflow::Jobs::ConvertToText,
+          Workflow::Jobs::AnonymizeText,
+          Workflow::Jobs::CreateChunks
         ]
       )
     end
   end
 
   describe '#initialize' do
-    let(:jobs) { [Workflow::Job] }
+    let(:jobs) { [Workflow::Jobs::ConvertToText] }
     let(:workflow) { Workflow.new(resource: resource, jobs: jobs) }
 
     it 'sets the resource and jobs' do
@@ -28,7 +28,7 @@ RSpec.describe Workflow do
   end
 
   describe '#run' do
-    let(:workflow) { Workflow.example(resource) }
+    let(:workflow) { Workflow.chunking(resource) }
     let(:last_job) { workflow.jobs.last }
 
     context 'when the last job is completed' do
@@ -51,8 +51,8 @@ RSpec.describe Workflow do
   end
 
   describe '#run_job' do
-    let(:workflow) { Workflow.example(resource) }
-    let(:job_class) { WorkflowJob }
+    let(:workflow) { Workflow.chunking(resource) }
+    let(:job_class) { Workflow::Jobs::ConvertToText }
 
     it 'queues, runs, and resets jobs as needed' do
       initial_job = double('initial_job', pending!: true, run: true)
@@ -72,7 +72,7 @@ RSpec.describe Workflow do
   end
 
   describe '#jobs' do
-    let(:workflow) { Workflow.example(resource) }
+    let(:workflow) { Workflow.chunking(resource) }
 
     it 'returns an array of job instances' do
       expect(workflow.jobs).to all(be_a(Workflow::Job))

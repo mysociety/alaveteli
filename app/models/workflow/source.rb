@@ -21,7 +21,7 @@ module Workflow::Source
       invalid: :replace,
       undef: :replace,
       replace: ' '
-    ).squeeze.strip
+    ).gsub(/\s+/, ' ').strip
   end
 
   def source=(string)
