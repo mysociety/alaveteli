@@ -53,12 +53,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - { ruby: '3.1', postgres: 13.5 }
-        - { ruby: '3.2', postgres: 13.5 }
+        - { ruby: '3.1', postgres: 13 }
+        - { ruby: '3.2', postgres: 13 }
 
     services:
       postgres:
-        image: fixmystreet/postgres:${{ matrix.postgres }}
+        image: pgvector/pgvector:pg${{ matrix.postgres }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
