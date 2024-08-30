@@ -25,6 +25,7 @@
 /coverage/
 /db/schema.rb
 /db/structure.sql
+/db/secondary_structure.sql
 /files/
 /lib/themes/*
 /locale/model_attributes.rb
