@@ -32,6 +32,9 @@ class FoiAttachment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
   include MessageProminence
+  include Chunkable
+
+  chunkable column: :body_as_html
 
   MissingAttachment = Class.new(StandardError)
 

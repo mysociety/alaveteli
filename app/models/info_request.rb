@@ -53,6 +53,9 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
   include LinkToHelper
+  include Chunkable
+
+  chunkable delegate_to: :incoming_messages
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
