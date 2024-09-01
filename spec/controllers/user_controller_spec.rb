@@ -729,9 +729,9 @@ RSpec.describe UserController do
                     }
       expect(response).to render_template('confirm')
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      expect(deliveries[0].body).to include("not reveal your email")
+      mail = deliveries.first
+      expect(mail.body).to include("not reveal your email")
     end
 
     it "should send confirmation mail in other languages or different locales" do
@@ -746,9 +746,9 @@ RSpec.describe UserController do
                     }
       expect(response).to render_template('confirm')
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      expect(deliveries[0].body).to include("No revelaremos")
+      mail = deliveries.first
+      expect(mail.body).to include("No revelaremos")
     end
 
     context "filling in the form with an existing registered email" do
@@ -763,12 +763,12 @@ RSpec.describe UserController do
                       }
         expect(response).to render_template('confirm')
 
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
+        mail = deliveries.first
 
         # This text may span a line break, depending on the length of the
         # SITE_NAME
-        expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+        expect(mail.body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
       it "cope with trailing spaces in the email address" do
@@ -782,12 +782,12 @@ RSpec.describe UserController do
                       }
         expect(response).to render_template('confirm')
 
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
+        mail = deliveries.first
 
         # This text may span a line break, depending on the length of the
         # SITE_NAME
-        expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
+        expect(mail.body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
       it "should create a new PostRedirect if the old one has expired" do
@@ -1101,8 +1101,7 @@ RSpec.describe UserController, "when changing email address" do
     expect(response).to render_template('signchangeemail')
     expect(assigns[:signchangeemail].errors[:password]).not_to be_nil
 
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
+    expect(deliveries).to be_empty
   end
 
   it "should be an error if old email is wrong, everything else right" do
@@ -1124,8 +1123,7 @@ RSpec.describe UserController, "when changing email address" do
     expect(response).to render_template('signchangeemail')
     expect(assigns[:signchangeemail].errors[:old_email]).not_to be_nil
 
-    deliveries = ActionMailer::Base.deliveries
-    expect(deliveries.size).to eq(0)
+    expect(deliveries).to be_empty
   end
 
   it "should work even if the old email had a case difference" do
@@ -1165,9 +1163,8 @@ RSpec.describe UserController, "when changing email address" do
 
     expect(response).to render_template('signchangeemail_confirm')
 
-    deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
+    mail = deliveries.first
 
     expect(mail.body).to include("perhaps you, just tried to change their")
     expect(mail.to).to eq([ 'silly@localhost' ])

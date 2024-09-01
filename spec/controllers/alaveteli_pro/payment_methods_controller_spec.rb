@@ -120,7 +120,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::RateLimitError/)
         end
 
@@ -137,7 +137,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::InvalidRequestError/)
         end
 
@@ -154,7 +154,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::AuthenticationError/)
         end
 
@@ -171,7 +171,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::APIConnectionError/)
         end
 
@@ -188,7 +188,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         end
 
         it 'sends an exception email' do
-          mail = ActionMailer::Base.deliveries.first
+          mail = deliveries.first
           expect(mail.subject).to match(/Stripe::StripeError/)
         end
 

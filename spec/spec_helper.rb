@@ -35,6 +35,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include ActiveJob::TestHelper
   config.include Capybara::DSL, type: :request
   config.include ConfigHelper
   config.include LinkToHelper
@@ -91,12 +92,6 @@ RSpec.configure do |config|
     raw_email_dir = File.join(Rails.root, 'files/raw_email_test')
     FileUtils.rm_rf(raw_email_dir) if File.directory?(raw_email_dir)
     FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
-  end
-
-  # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being
-  # cleared out correctly in controller specs. So, do it here for everything.
-  config.before(:each) do
-    ActionMailer::Base.deliveries = []
   end
 
   config.before(:suite) do

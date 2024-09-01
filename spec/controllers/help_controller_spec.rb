@@ -141,10 +141,9 @@ RSpec.describe HelpController do
                      }
       expect(response).to redirect_to(frontpage_path)
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      expect(deliveries[0].body).to include('really should know')
-      deliveries.clear
+      mail = deliveries.first
+      expect(mail.body).to include('really should know')
     end
 
     context 'the site is configured to require reCAPTCHA' do
@@ -166,10 +165,7 @@ RSpec.describe HelpController do
                          submitted_contact_form: 1
                        }
         expect(response).not_to redirect_to(frontpage_path)
-
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(0)
-        deliveries.clear
+        expect(deliveries).to be_empty
       end
     end
 
@@ -186,10 +182,7 @@ RSpec.describe HelpController do
                      }
 
       expect(response).to redirect_to(frontpage_path)
-
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
-      deliveries.clear
+      expect(deliveries).to be_empty
     end
 
     it 'renders the form when no params are supplied' do

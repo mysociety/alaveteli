@@ -283,9 +283,8 @@ RSpec.describe AdminPublicBodyController do
       end
 
       it 'should send a response to the requesting user' do
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
         expect(mail.subject).to eq('Adding a new body')
         expect(mail.to).to eq([@change_request.get_user_email])
         expect(mail.body).
@@ -610,9 +609,8 @@ RSpec.describe AdminPublicBodyController do
       end
 
       it 'should send a response to the requesting user' do
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
         expect(mail.subject).to eq('Body update')
         expect(mail.to).to eq([@change_request.get_user_email])
         expect(mail.body).to match(/Done./)

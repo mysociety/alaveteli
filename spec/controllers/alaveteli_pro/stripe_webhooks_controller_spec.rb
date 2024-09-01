@@ -89,7 +89,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         expected = '(Stripe::SignatureVerificationError) "Unable to extract ' \
                    'timestamp and signatures'
         post :receive, params: payload
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to include(expected)
       end
 
@@ -115,7 +115,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
       it 'sends an exception email' do
         expected = '(Stripe::SignatureVerificationError) "No signatures ' \
                    'found matching the expected'
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to include(expected)
       end
 
@@ -155,7 +155,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
       it 'sends an exception email' do
         expected = 'Timestamp outside the tolerance zone'
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to include(expected)
       end
     end
@@ -176,7 +176,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
       it 'sends an exception email' do
         expected = 'AlaveteliPro::StripeWebhooksController::' \
                     'MissingTypeStripeWebhookError'
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to include(expected)
       end
     end
@@ -262,7 +262,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
       end
 
       it 'notifies the user that their payment failed' do
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/Payment failed/)
         expect(mail.to).to include(user.email)
       end

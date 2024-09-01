@@ -302,9 +302,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
       info_request.reload
       expect(info_request.prominence).to eq("requester_only")
       expect(info_request.described_state).to eq("vexatious")
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.body).to match(/Foo/)
     end
 

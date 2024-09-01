@@ -31,34 +31,30 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
   describe '.alert_expiring' do
     it 'only sends one email per user' do
       AlaveteliPro::EmbargoMailer.alert_expiring
-      mails = ActionMailer::Base.deliveries
-      expect(mails.size).to eq 2
-      first_mail = mails.detect { |mail| mail.to == [pro_user.email] }
-      second_mail = mails.detect { |mail| mail.to == [pro_user_2.email] }
+      expect(deliveries.size).to eq(2)
+      first_mail = deliveries.detect { _1.to == [pro_user.email] }
+      second_mail = deliveries.detect { _1.to == [pro_user_2.email] }
       expect(first_mail).not_to be nil
       expect(second_mail).not_to be nil
     end
 
     it 'only sends an alert about an expiring embargo once' do
       AlaveteliPro::EmbargoMailer.alert_expiring
-      expect(ActionMailer::Base.deliveries.size).to eq 2
+      expect(deliveries.size).to eq(2)
 
-      ActionMailer::Base.deliveries.clear
-      AlaveteliPro::EmbargoMailer.alert_expiring
-      expect(ActionMailer::Base.deliveries.size).to eq 0
+      expect { AlaveteliPro::EmbargoMailer.alert_expiring }.
+        to_not change { deliveries.size }
     end
 
     it 'sends an alert about an expiring embargo extension' do
       AlaveteliPro::EmbargoMailer.alert_expiring
-      expect(ActionMailer::Base.deliveries.size).to eq 2
+      expect(deliveries.size).to eq(2)
 
-      ActionMailer::Base.deliveries.clear
       expiring_3.embargo.extend(embargo_extension)
       travel_to(AlaveteliPro::Embargo.three_months_from_now - 3.days) do
         AlaveteliPro::EmbargoMailer.alert_expiring
-        mails = ActionMailer::Base.deliveries
-        expect(mails.detect { |mail| mail.to == [pro_user_2.email] }).
-          not_to be_nil
+        mail = deliveries.detect { _1.to == [pro_user_2.email] }
+        expect(mail).not_to be_nil
       end
     end
 
@@ -102,8 +98,7 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
 
       AlaveteliPro::EmbargoMailer.alert_expiring
 
-      mails = ActionMailer::Base.deliveries
-      mail = mails.detect { |m| m.to == [pro_user_3.email] }
+      mail = deliveries.detect { _1.to == [pro_user_3.email] }
       expect(mail).to be nil
     end
   end
@@ -165,21 +160,19 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
   describe '.alert_expired' do
     it 'only sends one email per user' do
       AlaveteliPro::EmbargoMailer.alert_expired
-      mails = ActionMailer::Base.deliveries
-      expect(mails.size).to eq 2
-      first_mail = mails.detect { |mail| mail.to == [pro_user.email] }
-      second_mail = mails.detect { |mail| mail.to == [pro_user_2.email] }
+      expect(deliveries.size).to eq(2)
+      first_mail = deliveries.detect { _1.to == [pro_user.email] }
+      second_mail = deliveries.detect { _1.to == [pro_user_2.email] }
       expect(first_mail).not_to be nil
       expect(second_mail).not_to be nil
     end
 
     it 'only sends an alert about an expired embargo once' do
       AlaveteliPro::EmbargoMailer.alert_expired
-      expect(ActionMailer::Base.deliveries.size).to eq 2
+      expect(deliveries.size).to eq(2)
 
-      ActionMailer::Base.deliveries.clear
-      AlaveteliPro::EmbargoMailer.alert_expired
-      expect(ActionMailer::Base.deliveries.size).to eq 0
+      expect { AlaveteliPro::EmbargoMailer.alert_expired }.
+        to_not change { deliveries.size }
     end
 
     it 'creates UserInfoRequestSentAlert records for each expired request' do
@@ -226,8 +219,7 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
 
       AlaveteliPro::EmbargoMailer.alert_expired
 
-      mails = ActionMailer::Base.deliveries
-      mail = mails.detect { |m| m.to == [pro_user_3.email] }
+      mail = deliveries.detect { _1.to == [pro_user_3.email] }
       expect(mail).to be nil
     end
   end

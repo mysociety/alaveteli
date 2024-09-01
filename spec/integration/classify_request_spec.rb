@@ -55,6 +55,8 @@ RSpec.describe 'classifying a request' do
                             "try and fix it up."
         end
 
+        perform_enqueued_jobs
+
         is_expected.to have_sent_email.matching_body(/as needing admin/)
         is_expected.
           to have_sent_email.

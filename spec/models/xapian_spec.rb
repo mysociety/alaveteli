@@ -123,8 +123,6 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
 end
 
 RSpec.describe User, " when indexing requests by user they are from" do
-  include ActiveJob::TestHelper
-
   before(:each) do
     load_raw_emails_data
     update_xapian_index
