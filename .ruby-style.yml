@@ -1185,6 +1185,9 @@ Rails/EagerEvaluationLogMessage:
 Rails/EnumHash:
   Enabled: false
 
+Rails/EnumSyntax:
+  Enabled: false
+
 Rails/EnumUniqueness:
   Enabled: false
 
