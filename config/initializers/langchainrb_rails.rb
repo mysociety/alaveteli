@@ -11,3 +11,14 @@ LangchainrbRails.configure do |config|
     )
   )
 end
+
+require 'net/http'
+
+class Net::HTTP
+  alias original_initialize initialize
+
+  def initialize(*args)
+    original_initialize(*args)
+    self.read_timeout = 600
+  end
+end
