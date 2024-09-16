@@ -115,6 +115,8 @@ class IncomingMessage < ApplicationRecord
         self.last_parsed = Time.zone.now
         save!
       end
+
+      info_request.run_insights
     end
   end
 

@@ -29,6 +29,9 @@ class InfoRequestBatch < ApplicationRecord
            inverse_of: :citable,
            dependent: :destroy
 
+  has_many :project_resources, as: :resource, class_name: 'Project::Resource'
+  has_many :projects, through: :project_resources
+
   has_and_belongs_to_many :public_bodies, -> {
     AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
       includes(:translations).

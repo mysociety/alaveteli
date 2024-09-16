@@ -60,4 +60,6 @@ Rails.configuration.after_initialize do
     roles: [Role.pro_role],
     features: [poller, notifications, batch_category]
   )
+
+  AlaveteliFeatures.features.add(:insights, label: 'Insights')
 end
