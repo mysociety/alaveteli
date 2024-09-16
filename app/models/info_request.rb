@@ -1831,6 +1831,14 @@ class InfoRequest < ApplicationRecord
     return unless insights_enabled?
 
     chunk!
+    extract!
+  end
+
+  def extract!
+    projects.map do |project|
+      Project::Insight.find_or_create_by(info_request: self, project: project).
+        queue
+    end
   end
 
   private
