@@ -20,6 +20,14 @@ class Projects::ExtractsController < Projects::BaseController
       return
     end
 
+    @insights = Project::Insight.find_by(
+      project: @project, info_request: @info_request
+    )
+
+    @main_insight = @insights.output.find do |i|
+      i[:answers].values.any?(&:present?)
+    end
+
     @value_set = Dataset::ValueSet.new
   end
 
@@ -59,7 +67,9 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def find_info_request
-    if params[:url_title]
+    if params[:id]
+      @info_request = @project.info_requests.find(params[:id])
+    elsif params[:url_title]
       @info_request = @project.info_requests.extractable.find_by!(
         url_title: params[:url_title]
       )

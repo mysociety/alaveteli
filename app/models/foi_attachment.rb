@@ -32,6 +32,9 @@ class FoiAttachment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
   include MessageProminence
+  include Chunkable
+
+  chunkable column: :body_as_html
 
   MissingAttachment = Class.new(StandardError)
 
@@ -265,7 +268,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   # For "View as HTML" of attachment
-  def body_as_html(dir, opts = {})
+  def body_as_html(dir = '/tmp', opts = {})
     attachment_url = opts.fetch(:attachment_url, nil)
     to_html_opts = opts.merge(tmpdir: dir, attachment_url: attachment_url)
     AttachmentToHTML.to_html(self, to_html_opts)

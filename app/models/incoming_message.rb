@@ -40,6 +40,10 @@ class IncomingMessage < ApplicationRecord
   include MessageProminence
   include CacheAttributesFromRawEmail
   include Taggable
+  include Chunkable
+
+  chunkable column: :cached_main_body_text_folded,
+            delegate_to: :foi_attachments
 
   UnableToExtractAttachments = Class.new(StandardError)
 
@@ -111,6 +115,8 @@ class IncomingMessage < ApplicationRecord
         self.last_parsed = Time.zone.now
         save!
       end
+
+      info_request.run_insights
     end
   end
 

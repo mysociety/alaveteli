@@ -5,5 +5,25 @@
     <%= render partial: 'form', locals: { project: project,
                                           info_request: info_request,
                                           value_set: value_set } %>
+
+    <details>
+      <summary>Debug: HUMAN</summary>
+      <%= debug Project::Export::InfoRequest.new(@project, @info_request).send(:extracted_values).pluck(:value) %>
+    </details>
+
+    <details>
+      <summary>Debug: AI</summary>
+      <%= debug @insights&.output %>
+    </details>
+
+    <script type="text/javascript">
+      function fillAIValue(index, value) {
+        const element = document.getElementById(`extract_values_attributes_${index}_value`);
+        if (element) {
+          element.value = value;
+          element.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    </script>
   </div>
 </div>

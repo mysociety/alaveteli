@@ -53,6 +53,9 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
   include LinkToHelper
+  include Chunkable
+
+  chunkable delegate_to: :incoming_messages
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -125,6 +128,11 @@ class InfoRequest < ApplicationRecord
 
   has_many :foi_attachments, through: :incoming_messages
 
+  has_many :project_resources, as: :resource, class_name: 'Project::Resource'
+  has_many :direct_projects, through: :project_resources, source: :project
+  def projects
+    direct_projects + (info_request_batch&.projects || [])
+  end
   has_many :project_submissions, class_name: 'Project::Submission'
   has_many :classification_project_submissions,
            -> { classification },
@@ -1813,6 +1821,24 @@ class InfoRequest < ApplicationRecord
       user_path(user),
       show_user_wall_path(url_name: user.url_name)
     ]
+  end
+
+  def insights_enabled?
+    user.feature_enabled?(:insights) && projects.any?
+  end
+
+  def run_insights
+    return unless insights_enabled?
+
+    chunk!
+    extract!
+  end
+
+  def extract!
+    projects.map do |project|
+      Project::Insight.find_or_create_by(info_request: self, project: project).
+        queue
+    end
   end
 
   private

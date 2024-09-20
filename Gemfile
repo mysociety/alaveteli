@@ -169,11 +169,18 @@ gem 'alaveteli_features', path: 'gems/alaveteli_features'
 
 # Storage backends
 gem 'aws-sdk-s3', require: false
-gem 'azure-storage', require: false
 gem 'google-cloud-storage', '~> 1.47', require: false
 
 # Storage content analyzers
 gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
+
+# AI
+gem "faraday", "~> 2.10"
+gem 'langchainrb_rails', '~> 0.1.10'
+gem 'pgvector', '~> 0.2'
+gem 'sequel', '~> 5.68.0'
+gem 'neighbor', '~> 0.4.3'
+gem 'tiktoken_ruby', '~> 0.0.9'
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
@@ -193,6 +200,7 @@ group :test, :development do
   gem 'rspec-activemodel-mocks', '~> 1.2.0'
   gem 'rspec-rails', '~> 7.0.1'
   gem 'pry', '~> 0.14.2'
+  gem 'vcr', '~> 6.3.1'
 end
 
 group :development do
