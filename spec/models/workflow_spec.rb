@@ -10,7 +10,6 @@ RSpec.describe Workflow do
       expect(workflow.jobs.map(&:class)).to eq(
         [
           Workflow::Jobs::ConvertToText,
-          Workflow::Jobs::AnonymizeText,
           Workflow::Jobs::CreateChunks
         ]
       )

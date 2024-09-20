@@ -14,7 +14,6 @@ class Workflow
       resource: resource,
       jobs: [
         Workflow::Jobs::ConvertToText,
-        Workflow::Jobs::AnonymizeText,
         Workflow::Jobs::CreateChunks
       ]
     )
