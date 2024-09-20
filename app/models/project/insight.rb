@@ -16,25 +16,32 @@ class Project::Insight < ApplicationRecord
 
   serialize :output, type: Hash, coder: JSON, default: {}
 
-  def perform!
-    update!(output: parser.parse(llm_response.chat_completion))
-  end
-
   def queue
     WorkflowJob.perform_later(self)
   end
 
-  private
-
-  def text
-    info_request.chunks.similarity_search(questions.first)[0].text
+  def perform!
+    update!(output: make_output)
   end
+
+  def make_output
+    info_request.chunks.find_each.map do |chunk|
+      {
+        info_request: chunk.info_request_id,
+        incoming_message: chunk.incoming_message_id,
+        foi_attachment: chunk.foi_attachment_id,
+        answers: parser.parse(llm_response(chunk.text).chat_completion)
+      }
+    end
+  end
+
+  private
 
   def questions
     project.key_set.keys.pluck(:title)
   end
 
-  def llm_response
+  def llm_response(input)
     LangchainrbRails.config.vectorsearch.llm.chat(
       messages: [
         { role: 'system', content: <<~TXT },
@@ -52,7 +59,7 @@ class Project::Insight < ApplicationRecord
           Restrict the data types to strings exclusively. Do not return
           number, boolean, array, hash, or other data types.
         TXT
-        { role: 'user', content: prompt_text }
+        { role: 'user', content: prompt_text(input) }
       ]
     )
   end
@@ -75,7 +82,7 @@ class Project::Insight < ApplicationRecord
       from_json_schema(schema)
   end
 
-  def prompt_text
+  def prompt_text(text)
     prompt = Langchain::Prompt::PromptTemplate.new(
       input_variables: %w[format_instructions],
       template: <<~TXT)
