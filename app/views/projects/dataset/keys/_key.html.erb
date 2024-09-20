@@ -5,7 +5,7 @@
              locals: { f: nested_form, key: key } %>
   <%= nested_form.hidden_field :dataset_key_id, value: key.to_param %>
 
-  <% ai_value = @main_insight[:answers]["question#{nested_form.options[:child_index] + 1}"] %>
+  <% ai_value = @main_insight[:answers]["question#{nested_form.options[:child_index] + 1}"] if @main_insight %>
   <%= content_tag :span, class: 'ai-insights', onclick: "fillAIValue(#{nested_form.options[:child_index]}, '#{ai_value}')" do %>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
       <path d="M12,22 C12,15.571428,15.571429,12,22,12 C15.571429,12,12,8.428571,12,2 C12,8.428571,8.428572,12,2,12 C8.428572,12,12,15.571428,12,22 Z" stroke-linejoin="round" style="stroke-width: 1.787002px;" stroke="currentColor" fill="none" />
