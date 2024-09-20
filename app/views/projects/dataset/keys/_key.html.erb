@@ -1,6 +1,15 @@
 <% value = f.object.values.find { |v| v.key.order == key.order } %>
+
 <%= f.fields_for :values, value || Dataset::Value.new do |nested_form| %>
   <%= render partial: "projects/dataset/keys/#{key.format}_key",
              locals: { f: nested_form, key: key } %>
   <%= nested_form.hidden_field :dataset_key_id, value: key.to_param %>
+
+  <% ai_value = @main_insight[:answers]["question#{nested_form.options[:child_index] + 1}"] %>
+  <%= content_tag :span, class: 'ai-insights', onclick: "fillAIValue(#{nested_form.options[:child_index]}, '#{ai_value}')" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M12,22 C12,15.571428,15.571429,12,22,12 C15.571429,12,12,8.428571,12,2 C12,8.428571,8.428572,12,2,12 C8.428572,12,12,15.571428,12,22 Z" stroke-linejoin="round" style="stroke-width: 1.787002px;" stroke="currentColor" fill="none" />
+      <path d="M19.3,8 C19.3,5.878571,20.478572,4.7,22.6,4.7 C20.478572,4.7,19.3,3.521428,19.3,1.4 C19.3,3.521428,18.121429,4.7,16,4.7 C18.121429,4.7,19.3,5.878571,19.3,8 Z" stroke-linejoin="round" style="stroke-width: 0.958969px;" stroke="currentColor" fill="currentColor;" />
+    </svg>
+  <% end %>
 <% end %>

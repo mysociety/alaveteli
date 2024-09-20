@@ -20,6 +20,14 @@ class Projects::ExtractsController < Projects::BaseController
       return
     end
 
+    @insights = Project::Insight.find_by(
+      project: @project, info_request: @info_request
+    )
+
+    @main_insight = @insights.output.find do |i|
+      i[:answers].values.any?(&:present?)
+    end
+
     @value_set = Dataset::ValueSet.new
   end
 
