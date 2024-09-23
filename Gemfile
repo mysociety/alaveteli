@@ -88,7 +88,7 @@ gem 'addressable', '~> 2.8.7'
 gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
                          ref: '13e928b'
 gem 'active_model_otp'
-gem 'activejob-uniqueness', '~> 0.2.5'
+gem 'activejob-uniqueness', '~> 0.3.2'
 gem 'bcrypt', '~> 3.1.20'
 gem 'cancancan', '~> 3.6.1'
 gem 'charlock_holmes', '~> 0.7.9'
