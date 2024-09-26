@@ -4,110 +4,16 @@ namespace :stats do
   task show: :environment do
     example = 'rake stats:show START_YEAR=2009 [START_MONTH=3 END_YEAR=2012 END_MONTH=10]'
     check_for_env_vars(['START_YEAR'], example)
-    start_year = (ENV['START_YEAR']).to_i
-    start_month = (ENV['START_MONTH'] || 1).to_i
-    end_year = (ENV['END_YEAR'] || Time.zone.now.year).to_i
-    end_month = (ENV['END_MONTH'] || Time.zone.now.month).to_i
 
-    month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
+    stats = Statistics::MonthlyTransactions.new(
+      start_year: (ENV['START_YEAR']).to_i,
+      start_month: (ENV['START_MONTH'] || 1).to_i,
+      end_year: (ENV['END_YEAR'] || Time.zone.now.year).to_i,
+      end_month: (ENV['END_MONTH'] || Time.zone.now.month).to_i
+    )
 
-    headers = ['Period',
-               'Requests sent',
-               'Pro requests sent',
-               'Visible comments',
-               'Track this request email signups',
-               'Comments on own requests',
-               'Follow up messages sent',
-               'Confirmed users',
-               'Confirmed pro users',
-               'Request classifications',
-               'Public body change requests',
-               'Widget votes',
-               'Total tracks']
-    puts headers.join("\t")
-
-    month_starts.each do |month_start|
-      month_end = month_start.end_of_month
-      period = "#{month_start}-#{month_end}"
-
-      date_conditions = ['created_at >= ?
-                          AND created_at < ?',
-                         month_start, month_end+1]
-
-      request_count = InfoRequest.where(date_conditions).count
-      pro_request_count = InfoRequest.pro.where('info_requests.created_at >= ?
-                                                AND info_requests.created_at < ?',
-                                                month_start, month_end+1).count
-      visible_comments_count = Comment.visible.where('comments.created_at >= ?
-                                                      AND comments.created_at < ?',
-                                                      month_start, month_end+1).count
-
-      track_conditions = ['track_type = ?
-                           AND track_medium = ?
-                           AND created_at >= ?
-                           AND created_at < ?',
-                          'request_updates',
-                          'email_daily',
-                          month_start,
-                          month_end + 1]
-      email_request_track_count = TrackThing.where(track_conditions).count
-
-      comment_on_own_request_conditions = ['comments.user_id = info_requests.user_id
-                                            AND comments.created_at >= ?
-                                            AND comments.created_at < ?',
-                                           month_start, month_end+1]
-
-      comment_on_own_request_count =
-        Comment.
-          includes(:info_request).
-            references(:info_request).
-              where(comment_on_own_request_conditions).
-                count
-
-      followup_date_range =
-        ['created_at >= ? AND created_at < ?', month_start, month_end + 1]
-
-      follow_up_count =
-        OutgoingMessage.followup.is_searchable.where(followup_date_range).count
-
-      confirmed_users_count =
-        User.active.
-          where(email_confirmed: true).
-            where(date_conditions).
-              count
-
-      pro_confirmed_users_count =
-        User.pro.active.
-          where(email_confirmed: true).
-            where('users.created_at >= ?
-                   AND users.created_at < ?',
-                   month_start, month_end+1).
-              count
-
-      request_classifications_count =
-        RequestClassification.where(date_conditions).count
-
-      public_body_change_requests_count =
-        PublicBodyChangeRequest.where(date_conditions).count
-
-      widget_votes_count = WidgetVote.where(date_conditions).count
-
-      total_tracks_count = TrackThing.where(date_conditions).count
-
-
-      puts [period,
-            request_count,
-            pro_request_count,
-            visible_comments_count,
-            email_request_track_count,
-            comment_on_own_request_count,
-            follow_up_count,
-            confirmed_users_count,
-            pro_confirmed_users_count,
-            request_classifications_count,
-            public_body_change_requests_count,
-            widget_votes_count,
-            total_tracks_count].join("\t")
+    stats.each do |row|
+      puts row.join("\t")
     end
   end
 
