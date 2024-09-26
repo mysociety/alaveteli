@@ -20,13 +20,11 @@
         <%= hidden_field_tag :step, current_step %>
 
         <div id="project-key-set" data-projects--key-set-target="keySet">
-          <%= render partial: 'key_set', locals: { f: f } %>
+          <%= render partial: 'key_set', locals: { form: f } %>
         </div>
 
         <div>
-          <%= link_to _('Add question'), nil, class: 'button-tertiary', data: {
-            action: 'click->projects--key-set#addKey'
-          } %>
+          <%= button_tag _('Add question'), class: 'button-tertiary', data: { action: 'click->projects--key-set#addKey' } %>
         </div>
 
         <div class="form_button">

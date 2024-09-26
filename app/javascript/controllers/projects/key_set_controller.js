@@ -26,6 +26,10 @@ export default class extends Controller {
     streamUpdate(this.element);
   }
 
+  updateKey(event) {
+    streamUpdate(this.element);
+  }
+
   updateOrder() {
     this.element
       .querySelectorAll('[name*="[order]"]')
