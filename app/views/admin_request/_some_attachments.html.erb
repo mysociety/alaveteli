@@ -1,0 +1,27 @@
+<fieldset id="attachments" class="form-horizontal">
+  <% foi_attachments = fetch_foi_attachments(@info_request) %>
+  <% if foi_attachments.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Attachment</th>
+          <th>Content Type</th>
+          <th>Hexdigest</th>
+          <th>Display Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% foi_attachments.each do |attachment| %>
+          <tr>
+            <td><%= both_links attachment %></td>
+            <td><span class="monospace"><%= attachment.content_type %></span></td>
+            <td><span class="monospace"><%= attachment.hexdigest %></span></td>
+            <td><span class="monospace"><%= attachment.display_size %></span></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>None yet.</p>
+  <% end %>
+</fieldset>
