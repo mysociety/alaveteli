@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240926164308
 #
 # Table name: dataset_keys
 #
@@ -10,6 +10,7 @@
 #  order              :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  options            :jsonb
 #
 
 ##
@@ -24,6 +25,7 @@ class Dataset::Key < ApplicationRecord
 
   FORMATS = {
     text: { title: _('Text'), regexp: /\A.*\z/m },
+    select: { title: _('Select'), regexp: /\A.*\z/m },
     numeric: { title: _('Numeric'), regexp: /\A[0-9,%\+\-\s]*\z/ },
     boolean: { title: _('Yes/No'), regexp: /\A(0|1)\z/ }
   }.freeze
@@ -39,5 +41,17 @@ class Dataset::Key < ApplicationRecord
 
   def format_regexp
     FORMATS[format.to_sym][:regexp]
+  end
+
+  def select_options
+    options.fetch('select_options', [])
+  end
+
+  def select_allow_blank?
+    options.fetch('select_allow_blank', '0').to_i == 1
+  end
+
+  def select_allow_muliple?
+    options.fetch('select_allow_muliple', '0').to_i == 1
   end
 end

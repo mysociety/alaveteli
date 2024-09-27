@@ -29,6 +29,15 @@ class Dataset::Value < ApplicationRecord
     key.title
   end
 
+  def value=(new_value)
+    case key.format
+    when 'select'
+      super(Array(new_value).reject(&:blank?).join(', '))
+    else
+      super
+    end
+  end
+
   def mapped_value
     case key.format
     when 'boolean'

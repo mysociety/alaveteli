@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240926164308
 #
 # Table name: dataset_keys
 #
@@ -10,6 +10,7 @@
 #  order              :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  options            :jsonb
 #
 
 require 'spec_helper'
@@ -63,6 +64,8 @@ RSpec.describe Dataset::Key, type: :model do
       is_expected.not_to be_valid
       key.format = 'text'
       is_expected.to be_valid
+      key.format = 'select'
+      is_expected.to be_valid
       key.format = 'numeric'
       is_expected.to be_valid
       key.format = 'boolean'
@@ -75,7 +78,8 @@ RSpec.describe Dataset::Key, type: :model do
 
     it 'returns title/format key hash' do
       is_expected.to eq(
-        { 'Text' => :text, 'Numeric' => :numeric, 'Yes/No' => :boolean }
+        { 'Text' => :text, 'Select' => :select, 'Numeric' => :numeric,
+          'Yes/No' => :boolean }
       )
     end
   end
@@ -86,6 +90,11 @@ RSpec.describe Dataset::Key, type: :model do
     context 'text format' do
       let(:key) { FactoryBot.build(:dataset_key, :text) }
       it { is_expected.to eq described_class::FORMATS[:text][:regexp] }
+    end
+
+    context 'select format' do
+      let(:key) { FactoryBot.build(:dataset_key, :select) }
+      it { is_expected.to eq described_class::FORMATS[:select][:regexp] }
     end
 
     context 'numeric format' do

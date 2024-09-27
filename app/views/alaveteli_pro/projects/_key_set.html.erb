@@ -24,6 +24,11 @@
             data: { action: 'change->projects--key-set#updateKey' },
             autocomplete: 'off' %>
         </div>
+
+        <% if lookup_context.exists?("alaveteli_pro/projects/_#{key.format}_key") %>
+          <%= render partial: "alaveteli_pro/projects/#{key.format}_key",
+                    locals: { form: f, key: key } %>
+        <% end %>
       </div>
 
       <div class="project-key-set__key__remove-question">
