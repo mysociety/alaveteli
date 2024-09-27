@@ -191,7 +191,7 @@ form button {
   padding: 2px 6px 3px;
   transition: none;
   &:hover, &:focus {
-    background: none;
+    background-color: inherit;
     color: inherit;
   }
 }
