@@ -203,7 +203,7 @@ RSpec.describe Citation, type: :model do
       is_expected.to be_valid
       citation.type = 'campaigning'
       is_expected.to be_valid
-      citation.type = 'academic'
+      citation.type = 'research'
       is_expected.to be_valid
       citation.type = 'other'
       is_expected.to be_valid

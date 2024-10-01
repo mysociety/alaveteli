@@ -12,10 +12,10 @@ RSpec.describe Admin::CitationsHelper do
       it { is_expected.to include('citation-icon--journalism') }
     end
 
-    context 'with an academic link' do
-      let(:citation) { FactoryBot.build(:citation, type: 'academic') }
-      it { is_expected.to include('🎓') }
-      it { is_expected.to include('citation-icon--academic') }
+    context 'with an research link' do
+      let(:citation) { FactoryBot.build(:citation, type: 'research') }
+      it { is_expected.to include('📚') }
+      it { is_expected.to include('citation-icon--research') }
     end
 
     context 'with a generic link' do

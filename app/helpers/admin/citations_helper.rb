@@ -3,7 +3,7 @@ module Admin::CitationsHelper
   ICONS = {
     journalism: '🗞️',
     campaigning: '📣',
-    academic: '🎓',
+    research: '📚',
     other: '🌐'
   }.with_indifferent_access.freeze
 

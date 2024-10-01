@@ -30,7 +30,7 @@
 * Strengthen 2FA warning. Users *must* remember to keep this code safe (Gareth
   Rees)
 * Broaden citation type classifications to cover wider thematic areas and add
-  "campaigning" type (Gareth Rees)
+  "campaigning" type (Gareth Rees, Graeme Porteous)
 * Treat unstemmed words as normal search terms. (Matthew Somerville)
 * Update `/alaveteli_pro` base path to `/pro` (Alexander Griffen, Graeme
   Porteous)
