@@ -16,6 +16,12 @@
       <%= debug @insight&.output %>
     </details>
 
+    <style>
+      [id^="attachment-"]:target, [id^="incoming-"]:target {
+        background-color: #ffc;
+      }
+    </style>
+
     <script type="text/javascript">
       function fillAIValue(index, value) {
         const element = document.getElementById(`extract_values_attributes_${index}_value`);
@@ -24,6 +30,26 @@
           element.dispatchEvent(new Event('change', { bubbles: true }));
         }
       }
+
+      function scrollToElement(selector) {
+        var element = document.querySelector(selector);
+        if (element) {
+          var elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: elementPosition,
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      document.querySelectorAll('.extract-answer-form a[href^="#"]').forEach(function(anchor){
+        anchor.addEventListener('click', function(e){
+          e.preventDefault(); // prevent automatic URL update and scroll
+          var href = anchor.getAttribute('href'); // get just the href, not the full link URL
+          scrollToElement(href); // smooth scroll
+          history.pushState(null, null, href); // update URL
+        });
+      });
     </script>
   </div>
 </div>
