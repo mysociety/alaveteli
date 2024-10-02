@@ -173,18 +173,27 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Citations controller
   scope path: 'request/:url_title' do
-    #### Citations controller
-    resources :citations, only: [:new, :create],
+    resources :citations,
+      only: [:new, :create],
       defaults: { resource: 'InfoRequest' }
-    ####
+  end
 
-    #### Classifications controller
+  resources :info_request_batch, :only => :show do
+    resources :citations,
+      only: [:new, :create],
+      defaults: { resource: 'InfoRequestBatch' }
+  end
+  ####
+
+  #### Classifications controller
+  scope path: 'request/:url_title' do
     resources :classifications, only: [:create], param: :described_state do
       get :message, on: :member
     end
-    ####
   end
+  ####
 
   #### Followups controller
   match '/request/:request_url_title/followups/new' => 'followups#new',
@@ -235,13 +244,6 @@ Rails.application.routes.draw do
     resource :report, :only => [:new, :create]
     resource :widget, :only => [:new, :show]
     resources :widget_votes, :only => [:create]
-  end
-
-  resources :info_request_batch, :only => :show do
-    #### Citations controller
-    resources :citations, only: [:new, :create],
-      defaults: { resource: 'InfoRequestBatch' }
-    ####
   end
 
   #### OutgoingMessage controller
