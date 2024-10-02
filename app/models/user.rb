@@ -702,7 +702,7 @@ class User < ApplicationRecord
   end
 
   def update_pro_account
-    pro_account.update_stripe_customer if pro_account
+    # pro_account.update_stripe_customer if pro_account
   end
 
   def content_limit(content)
