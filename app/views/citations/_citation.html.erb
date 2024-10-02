@@ -1,0 +1,29 @@
+<li class="citations-list__citation">
+  <div class="citation__icon">
+    <%= citation_icon(citation) %>
+  </div>
+
+  <div class="citation__title">
+    <strong>
+      <%= MySociety::Format.make_clickable(
+        citation.source_url, contract: true, nofollow: true
+      ).html_safe %>
+    </strong>
+    <br>
+    <% case citation.citable %>
+    <% when InfoRequest %>
+      <%= _('<a href="{{info_request_url}}">{{title}}</a> requested from <a href="{{public_body_url}}">{{public_body_name}}</a> on {{date}}',
+          title: citation.citable.title,
+          info_request_url: request_path(citation.citable),
+          public_body_name: citation.citable.public_body.name,
+          public_body_url: public_body_path(citation.citable.public_body),
+          date: simple_date(citation.citable.created_at)) %>
+    <% when InfoRequestBatch %>
+      <%= _('<a href="{{info_request_batch_url}}">{{title}}</a> part of a batch sent to {{count}} authorities on {{date}}',
+          title: citation.citable.title,
+          info_request_batch_url: info_request_batch_path(citation.citable),
+          count: citation.citable.public_bodies.count,
+          date: simple_date(citation.citable.created_at)) %>
+    <% end %>
+  </div>
+</li>

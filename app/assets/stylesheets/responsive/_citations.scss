@@ -1,0 +1,28 @@
+.citations-types {
+  border-top: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+ul.citations-list {
+  list-style: none;
+  padding-left: 0;
+
+  li.citations-list__citation {
+    padding: 1em 0;
+    border-bottom: 1px solid #d1d1d1;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 1em;
+
+    .citation_icon {
+      flex-shrink: 0;
+    }
+
+    .citation__title {
+      flex-basis: 50%;
+    }
+  }
+}

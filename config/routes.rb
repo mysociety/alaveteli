@@ -174,6 +174,8 @@ Rails.application.routes.draw do
   ####
 
   #### Citations controller
+  resources :citations, only: [:index]
+
   scope path: 'request/:url_title' do
     resources :citations,
       only: [:new, :create],

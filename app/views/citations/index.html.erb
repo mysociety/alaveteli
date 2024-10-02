@@ -1,0 +1,76 @@
+<% @title = _('FOI in Action') %>
+<h1><%= @title %></h1>
+
+<p>
+  <%= _(<<~TXT)
+    Freedom of Information requests empower individuals, journalists, \
+    researchers, and campaigners to hold organisations accountable and shed \
+    light on matters of public interest. Below are real-world examples where \
+    FOI responses have made a significant impact.
+    TXT
+  %>
+</p>
+
+<div class="row citations-types">
+  <div class="large-6 columns citation-type">
+    <h2>
+      <%= citation_icon_for_type('journalism') %>
+      <%= _('Journalism') %>
+    </h2>
+    <p>
+      <%= _(<<~TXT)
+        Journalists often use FOI data to uncover stories that inform the \
+        public, reveal injustices, or investigate policy failures
+        TXT
+      %>
+    </p>
+  </div>
+
+  <div class="large-6 columns citation-type">
+    <h2>
+      <%= citation_icon_for_type('research') %>
+      <%= _('Research') %>
+    </h2>
+    <p>
+      <%= _(<<~TXT)
+        FOI requests are a valuable tool for researchers seeking data that \
+        might otherwise remain behind closed doors
+        TXT
+      %>
+    </p>
+  </div>
+
+  <div class="large-6 columns citation-type">
+    <h2>
+      <%= citation_icon_for_type('campaigning') %>
+      <%= _('Campaigning and Advocacy') %>
+    </h2>
+    <p>
+      <%= _(<<~TXT)
+        FOI requests help campaigners bring critical information to light, \
+        often influencing public discourse and policy decisions
+        TXT
+      %>
+    </p>
+  </div>
+
+  <div class="large-6 columns citation-type">
+    <h2>
+      <%= citation_icon_for_type('other') %>
+      <%= _('Other') %>
+    </h2>
+    <p>
+      <%= _(<<~TXT)
+        FOI requests serve as a cornerstone of democracy by providing \
+        transparency in government and public institutions
+        TXT
+      %>
+    </p>
+  </div>
+</div>
+
+<ul class="citations-list">
+  <%= render @citations %>
+</ul>
+
+<%= will_paginate(@citations) %>
