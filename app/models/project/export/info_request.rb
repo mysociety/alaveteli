@@ -16,6 +16,18 @@ class Project::Export::InfoRequest < SimpleDelegator
   end
 
   def data
+    @data ||= begin
+      last_classification_at = status_submission&.updated_at
+      last_extraction_at = extraction_submission&.updated_at
+      cache_key = "project_export_info_request_#{id}_#{last_classification_at}_#{last_extraction_at}"
+
+      Rails.cache.fetch(cache_key) do
+        uncached_data
+      end
+    end
+  end
+
+  def uncached_data
     {
       request: title,
       request_url: request_url(self),

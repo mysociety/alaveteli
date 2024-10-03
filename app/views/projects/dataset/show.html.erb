@@ -21,21 +21,19 @@
 
     <div class="row">
       <table class="dataset">
-        <% cache @project do %>
-          <% @export.data_for_web.each_with_index do |data, index| %>
-            <% if index == 0 %>
-              <tr>
-                <% data.keys.each do |key| %>
-                  <th class="dataset__<%= key.to_s.parameterize %>"><%= key.to_s.humanize %></th>
-                <% end %>
-              </tr>
-            <% end %>
+        <% @export.data_for_web.each_with_index do |data, index| %>
+          <% if index == 0 %>
             <tr>
-              <% data.each do |key, value| %>
-                <td class="dataset__<%= key.to_s.parameterize %>"><%= value %></td>
+              <% data.keys.each do |key| %>
+                <th class="dataset__<%= key.to_s.parameterize %>"><%= key.to_s.humanize %></th>
               <% end %>
             </tr>
           <% end %>
+          <tr>
+            <% data.each do |key, value| %>
+              <td class="dataset__<%= key.to_s.parameterize %>"><%= value %></td>
+            <% end %>
+          </tr>
         <% end %>
       </table>
       <p>
