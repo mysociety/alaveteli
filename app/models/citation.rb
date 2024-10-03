@@ -22,6 +22,9 @@ class Citation < ApplicationRecord
   belongs_to :user, inverse_of: :citations
   belongs_to :citable, polymorphic: true
 
+  belongs_to :info_request, via: :citable
+  belongs_to :info_request_batch, via: :citable
+
   validates :user, :citable, presence: true
   validates :citable_type, inclusion: { in: %w(InfoRequest InfoRequestBatch) }
   validates :source_url, length: { maximum: 255,
@@ -33,6 +36,16 @@ class Citation < ApplicationRecord
 
   scope :newest, ->(limit = 1) do
     order(created_at: :desc).limit(limit)
+  end
+
+  scope :not_embargoed, -> do
+    left_joins(info_request: :embargo, info_request_batch: []).
+      where(citable_type: 'InfoRequest').
+      merge(InfoRequest.not_embargoed).
+      or(
+        where(citable_type: 'InfoRequestBatch').
+        merge(InfoRequestBatch.not_embargoed)
+      )
   end
 
   scope :for_request, ->(info_request) do
