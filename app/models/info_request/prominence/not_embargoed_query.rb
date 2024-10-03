@@ -9,11 +9,10 @@ class InfoRequest
         # Specify an outer join as the default inner join
         # will not retrieve NULL records which is what we want here
         @relation
-          .select("info_requests.*")
-            .joins('LEFT OUTER JOIN embargoes
-                    ON embargoes.info_request_id = info_requests.id')
-              .where('embargoes.id IS NULL')
-                .references(:embargoes)
+          .joins('LEFT OUTER JOIN embargoes
+                  ON embargoes.info_request_id = info_requests.id')
+            .where('embargoes.id IS NULL')
+              .references(:embargoes)
       end
     end
   end

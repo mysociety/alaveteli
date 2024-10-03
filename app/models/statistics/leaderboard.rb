@@ -6,7 +6,7 @@ module Statistics
                   joins(:user).
                   merge(User.active).
                   group(:user).
-                  order(count_info_requests_all: :desc).
+                  order(count_all: :desc).
                   limit(10).
                   count
     end
@@ -18,7 +18,7 @@ module Statistics
                   joins(:user).
                   merge(User.active).
                   group(:user).
-                  order(count_info_requests_all: :desc).
+                  order(count_all: :desc).
                   limit(10).
                   count
     end
