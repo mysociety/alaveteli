@@ -3,8 +3,10 @@
     <h2><%= _('In the News') %></h2>
 
     <% if citations.any? %>
-      <ul class="citations-list">
-        <%= render citations %>
+      <ul class="citations-list--compact">
+        <%= render partial: 'citations/compact',
+                   collection: citations,
+                   as: :citation %>
       </ul>
     <% elsif can? :create_citation, info_request_batch %>
       <p>
