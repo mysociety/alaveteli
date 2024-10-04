@@ -17,6 +17,9 @@
 # A Citation of an InfoRequest or InfoRequestBatch
 #
 class Citation < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
   self.inheritance_column = nil
 
   belongs_to :user, inverse_of: :citations
@@ -60,5 +63,18 @@ class Citation < ApplicationRecord
 
   def applies_to_batch_request?
     citable.is_a?(InfoRequestBatch)
+  end
+
+  def as_json(_options)
+    citable_path = case citable
+                   when InfoRequest
+                     request_path(citable)
+                   when InfoRequestBatch
+                     info_request_batch_path(citable)
+                   end
+
+    attributes.
+      except('user_id', 'citable_id', 'citable_type').
+      merge(citable_path: citable_path)
   end
 end
