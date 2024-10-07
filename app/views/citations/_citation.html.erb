@@ -4,11 +4,7 @@
   </div>
 
   <div class="citation__title">
-    <strong>
-      <%= MySociety::Format.make_clickable(
-        citation.source_url, contract: true, nofollow: true
-      ).html_safe %>
-    </strong>
+    <strong><%= link_to citation_title(citation), citation.source_url, rel: 'nofollow' %></strong>
     <br>
     <% case citation.citable %>
     <% when InfoRequest %>
