@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Improve citations admin to allow title and description updates (Graeme
+  Porteous)
 * Add public citations view (Graeme Porteous)
 * Add example logrotate configuration (Graeme Porteous)
 * Switch application server from Thin to Puma (Graeme Porteous)
