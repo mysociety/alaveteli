@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix script/mailin when multiple EXCEPTION_NOTIFICATIONS_TO addresses are
+  specified (Graeme Porteous)
 * Add example logrotate configuration (Graeme Porteous)
 * Switch application server from Thin to Puma (Graeme Porteous)
 * Fix rendering invoices page when there are discounted Pro subscription (Graeme
