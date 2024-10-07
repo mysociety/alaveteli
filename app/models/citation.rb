@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20241007090524
 #
 # Table name: citations
 #
@@ -11,6 +11,8 @@
 #  type         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  title        :string
+#  description  :text
 #
 
 ##
