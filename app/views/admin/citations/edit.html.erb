@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title = 'Edit citation' %></h1>
+    </div>
+  </div>
+</div>
+
+<%= form_for [:admin, @citation], class: 'form form-inline' do |f| %>
+  <div class="control-group">
+    <%= f.label :source_url %>
+    <div class="controls">
+      <%= f.text_field :source_url, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :title %>
+    <div class="controls">
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :description, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :description, class: 'input-block-level', rows: 10 %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Update ciation', class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+<%= form_for [:admin, @citation], class: 'form form-inline', method: 'delete' do |f| %>
+  <%= f.submit 'Destroy citation',
+               class: 'btn btn-danger',
+               data: { confirm: 'Are you sure? This is irreversible.' } %>
+  (this is permanent!)
+<% end %>

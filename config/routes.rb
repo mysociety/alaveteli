@@ -532,7 +532,7 @@ Rails.application.routes.draw do
 
   #### Admin::Citations controller
   namespace :admin do
-    resources :citations, only: [:index]
+    resources :citations, only: [:index, :edit, :update, :destroy]
   end
   ####
 
