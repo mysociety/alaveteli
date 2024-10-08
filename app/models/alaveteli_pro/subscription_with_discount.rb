@@ -8,14 +8,14 @@
 #   @subscription = AlaveteliPro::Subscription.new(subscription)
 #   @subscription.plan.amount
 #   # => 833
-#   @subscription.amount
+#   @subscription.discounted_amount
 #   # => 416
 #   @subscription.discounted?
 #   # => true
 #   @subscription.free?
 #   # => false
 module AlaveteliPro::SubscriptionWithDiscount
-  def amount
+  def discounted_amount
     plan.amount - reduction
   end
 
@@ -32,7 +32,7 @@ module AlaveteliPro::SubscriptionWithDiscount
   end
 
   def free?
-    amount == 0
+    discounted_amount == 0
   end
 
   private
