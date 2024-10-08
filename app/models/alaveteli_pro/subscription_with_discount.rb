@@ -5,7 +5,7 @@
 #
 #   # subscription with 50% off 'forever' discount
 #   subscription = Stripe::Subscription.retrieve('sub_1234')
-#   @subscription = SubscriptionWithDiscount.new(subscription)
+#   @subscription = AlaveteliPro::Subscription.new(subscription)
 #   @subscription.original_amount
 #   # => 833
 #   @subscription.amount
@@ -14,7 +14,7 @@
 #   # => true
 #   @subscription.free?
 #   # => false
-class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
+module AlaveteliPro::SubscriptionWithDiscount
   attr_reader :original_amount, :coupon
 
   def initialize(subscription)
