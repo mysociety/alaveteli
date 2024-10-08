@@ -45,6 +45,11 @@ module AlaveteliPro
       Stripe::Subscription.cancel(id)
     end
 
+    # plan
+    def plan
+      @plan ||= AlaveteliPro::Plan.new(__getobj__.plan)
+    end
+
     private
 
     def method_missing(method, *args, &block)
