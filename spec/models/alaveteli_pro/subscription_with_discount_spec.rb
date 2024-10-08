@@ -14,10 +14,10 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
 
   subject { AlaveteliPro::Subscription.new(subscription) }
 
-  describe '#amount' do
+  describe '#discounted_amount' do
     context 'no discount is set' do
       it 'returns the original stripe plan amount' do
-        expect(subject.amount).to eq(833)
+        expect(subject.discounted_amount).to eq(833)
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
       end
 
       it 'applies a percentage discount correctly' do
-        expect(subject.amount).to eq(417)
+        expect(subject.discounted_amount).to eq(417)
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
       end
 
       it 'applies an amount_off discount correctly' do
-        expect(subject.amount).to eq(633)
+        expect(subject.discounted_amount).to eq(633)
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
       let(:trial) { true }
 
       it 'returns 0' do
-        expect(subject.amount).to eq(0)
+        expect(subject.discounted_amount).to eq(0)
       end
     end
   end
