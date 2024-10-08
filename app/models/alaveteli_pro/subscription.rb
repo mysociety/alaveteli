@@ -4,7 +4,7 @@ module AlaveteliPro
   # and to add useful helper methods.
   #
   class Subscription < SimpleDelegator
-    include SubscriptionWithDiscount
+    include Subscription::Discount
 
     # state
     def active?

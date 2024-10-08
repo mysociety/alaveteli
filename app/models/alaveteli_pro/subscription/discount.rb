@@ -14,7 +14,7 @@
 #   # => true
 #   @subscription.free?
 #   # => false
-module AlaveteliPro::SubscriptionWithDiscount
+module AlaveteliPro::Subscription::Discount
   def discounted_amount
     plan.amount - reduction
   end
