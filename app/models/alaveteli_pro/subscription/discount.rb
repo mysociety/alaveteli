@@ -15,6 +15,10 @@
 #   @subscription.free?
 #   # => false
 module AlaveteliPro::Subscription::Discount
+  include Taxable
+
+  tax :discounted_amount
+
   def discounted_amount
     plan.amount - reduction
   end
@@ -25,7 +29,7 @@ module AlaveteliPro::Subscription::Discount
 
   def discount_name
     if coupon?
-      coupon.id
+      coupon.name
     elsif trial?
       'PROBETA'
     end
