@@ -6,7 +6,7 @@
 #   # subscription with 50% off 'forever' discount
 #   subscription = Stripe::Subscription.retrieve('sub_1234')
 #   @subscription = AlaveteliPro::Subscription.new(subscription)
-#   @subscription.original_amount
+#   @subscription.plan.amount
 #   # => 833
 #   @subscription.amount
 #   # => 416
@@ -15,23 +15,14 @@
 #   @subscription.free?
 #   # => false
 module AlaveteliPro::SubscriptionWithDiscount
-  attr_reader :original_amount, :coupon
-
-  def initialize(subscription)
-    super
-    @original_amount = subscription.plan.amount
-    @discount = subscription.discount
-    @coupon = fetch_coupon
-  end
-
   def amount
-    net = BigDecimal((original_amount * 0.01), 0).round(2)
+    net = BigDecimal((plan.amount * 0.01), 0).round(2)
     net -= reduction(net)
     (net * 100).floor
   end
 
   def discounted?
-    amount < original_amount
+    amount < plan.amount
   end
 
   def discount_name
@@ -56,8 +47,8 @@ module AlaveteliPro::SubscriptionWithDiscount
     trial_start && trial_end
   end
 
-  def fetch_coupon
-    discount.coupon if discount && discount.coupon.valid
+  def coupon
+    @coupon ||= discount.coupon if discount && discount.coupon.valid
   end
 
   def reduction(net)
