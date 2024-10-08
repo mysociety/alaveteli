@@ -759,7 +759,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       it 'assigns subscriptions' do
         get :index
-        expect(assigns[:subscriptions].length).to eq(1)
+        expect(assigns[:subscriptions].count).to eq(1)
         expect(assigns[:subscriptions].first.id).
           to eq(customer.subscriptions.first.id)
       end

@@ -4,6 +4,8 @@ module AlaveteliPro
   # and to add useful helper methods.
   #
   class Subscription < SimpleDelegator
+    include SubscriptionWithDiscount
+
     # state
     def active?
       status == 'active'
