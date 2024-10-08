@@ -12,9 +12,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   def index
     @customer = current_user.pro_account.try(:stripe_customer)
-    @subscriptions = @customer.subscriptions.map do |subscription|
-      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
-    end
+    @subscriptions = current_user.pro_account.subscriptions
+
     if @customer.default_source
       @card =
         @customer.

@@ -12,7 +12,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
                           trial_start: trial_start, trial_end: trial_end)
   end
 
-  subject { described_class.new(subscription) }
+  subject { AlaveteliPro::Subscription.new(subscription) }
 
   describe '#amount' do
     context 'no discount is set' do
