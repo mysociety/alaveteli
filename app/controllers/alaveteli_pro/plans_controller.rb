@@ -7,7 +7,7 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   def index
     default_plan_name = add_stripe_namespace('pro')
     stripe_plan = Stripe::Plan.retrieve(default_plan_name)
-    @plan = AlaveteliPro::WithTax.new(stripe_plan)
+    @plan = AlaveteliPro::Plan.new(stripe_plan)
     @pro_site_name = pro_site_name
   end
 
@@ -15,7 +15,7 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
     stripe_plan = Stripe::Plan.retrieve(
       id: plan_name, expand: ['product']
     )
-    @plan = AlaveteliPro::WithTax.new(stripe_plan)
+    @plan = AlaveteliPro::Plan.new(stripe_plan)
   rescue Stripe::InvalidRequestError
     raise ActiveRecord::RecordNotFound
   end
