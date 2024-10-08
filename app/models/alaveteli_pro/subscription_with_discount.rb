@@ -16,9 +16,7 @@
 #   # => false
 module AlaveteliPro::SubscriptionWithDiscount
   def amount
-    net = BigDecimal((plan.amount * 0.01), 0).round(2)
-    net -= reduction(net)
-    (net * 100).floor
+    plan.amount - reduction
   end
 
   def discounted?
@@ -51,21 +49,21 @@ module AlaveteliPro::SubscriptionWithDiscount
     @coupon ||= discount.coupon if discount && discount.coupon.valid
   end
 
-  def reduction(net)
+  def reduction
     if coupon?
-      coupon_reduction(net)
+      coupon_reduction
     elsif trial?
-      net
+      plan.amount
     else
       0
     end
   end
 
-  def coupon_reduction(net)
+  def coupon_reduction
     if coupon.amount_off
-      BigDecimal((coupon.amount_off * 0.01), 0).round(2)
+      coupon.amount_off
     else
-      (net * coupon.percent_off / 100)
+      (plan.amount * coupon.percent_off / 100)
     end
   end
 end

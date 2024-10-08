@@ -28,7 +28,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
       end
 
       it 'applies a percentage discount correctly' do
-        expect(subject.amount).to eq(416)
+        expect(subject.amount).to eq(417)
       end
     end
 
