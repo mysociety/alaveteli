@@ -19,7 +19,6 @@ class AlaveteliPro::SubscriptionWithDiscount < SimpleDelegator
 
   def initialize(subscription)
     super
-    @plan = subscription.plan
     @original_amount = subscription.plan.amount
     @discount = subscription.discount
     @coupon = fetch_coupon
