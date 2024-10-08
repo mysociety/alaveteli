@@ -31,14 +31,10 @@
             <div class="plan-overview__desc">
               <%= @plan.product.name %>
             </div>
-            <div class="plan-overview__details">
+            <div class="plan-overview__amount">
+              <%= format_currency(@plan.amount_with_tax) %>
               <%= billing_frequency(@plan.interval) %>
             </div>
-            <label class="plan-overview__amount amount">
-              <span>
-              <%= format_currency(@plan.amount_with_tax) %>
-              </span>
-            </label>
           </div>
         </div>
 

@@ -14,6 +14,25 @@ RSpec.describe AlaveteliPro::Subscription::Discount do
 
   subject { AlaveteliPro::Subscription.new(subscription) }
 
+  describe '#discounted_amount_with_tax' do
+    context 'with the default tax rate' do
+      it 'adds 20% tax to the plan amount' do
+        expect(subject.discounted_amount_with_tax).to eq(1000)
+      end
+    end
+
+    context 'with a custom tax rate' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:stripe_tax_rate).and_return('0.25')
+      end
+
+      it 'adds 25% tax to the plan amount' do
+        expect(subject.discounted_amount_with_tax).to eq(1041)
+      end
+    end
+  end
+
   describe '#discounted_amount' do
     context 'no discount is set' do
       it 'returns the original stripe plan amount' do
@@ -95,11 +114,11 @@ RSpec.describe AlaveteliPro::Subscription::Discount do
 
     context 'with a coupon' do
       let(:coupon) do
-        double(:coupon, id: 'COUPON_ID', valid: true)
+        double(:coupon, name: 'COUPON_NAME', valid: true)
       end
 
-      it 'returns ID of coupon' do
-        expect(subject.discount_name).to eq('COUPON_ID')
+      it 'returns name of coupon' do
+        expect(subject.discount_name).to eq('COUPON_NAME')
       end
     end
 
