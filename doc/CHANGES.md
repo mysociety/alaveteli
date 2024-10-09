@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add basic Citation searching in admin UI (Gareth Rees)
 * Fix script/mailin when multiple EXCEPTION_NOTIFICATIONS_TO addresses are
   specified (Graeme Porteous)
 * Add example logrotate configuration (Graeme Porteous)

@@ -130,6 +130,23 @@ RSpec.describe Citation, type: :model do
     end
   end
 
+  describe '.search' do
+    subject { described_class.search(query) }
+
+    let!(:net) do
+      FactoryBot.create(:citation, source_url: 'https://example.net/story')
+    end
+
+    let!(:org) do
+      FactoryBot.create(:citation, source_url: 'https://example.org/story')
+    end
+
+    let(:query) { 'example.net' }
+
+    it { is_expected.to include(net) }
+    it { is_expected.not_to include(org) }
+  end
+
   subject(:citation) { FactoryBot.build(:citation) }
 
   describe 'associations' do
