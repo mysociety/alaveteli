@@ -108,6 +108,15 @@ module Admin::LinkHelper
             title: admin_title)
   end
 
+  def citation_both_links(citation)
+    title = 'View citation'
+    icon = eye
+
+    link_to(icon, citation.source_url, title: title) + ' ' +
+      link_to(citation.source_url, edit_admin_citation_path(citation),
+              title: admin_title)
+  end
+
   def admin_title
     'View full details'
   end
