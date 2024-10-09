@@ -8,6 +8,10 @@
     <%= _('Has this request been referenced in journalism, campaigning, ' \
           'or research?') %>
   <% end %>
+
+  <%= _('Let us know about great examples of <a href="{{citations_path}}">' \
+        'FOI in Action</a>.',
+        citations_path: citations_path) %>
 </p>
 
 <%= form_for @citation,

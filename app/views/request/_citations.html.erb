@@ -22,6 +22,12 @@
           <%=  _('Let us know') %>
         <% end %>
       </p>
+    <% else %>
+      <p>
+        <%= _('See more examples of <a href="{{citations_path}}">' \
+              'FOI in Action</a>.',
+              citations_path: citations_path) %>
+      </p>
     <% end %>
   </div>
 <% end %>
