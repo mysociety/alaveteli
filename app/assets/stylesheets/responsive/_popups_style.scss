@@ -1,6 +1,13 @@
 .popup {
-  background-color: #D1F2CB;
-  border: 1px solid darken(#D1F2CB, 15%);
+  background-color: #333;
+  color: #FFF;
+
+  a, a:hover, a:active, a:focus, a:visited,
+  a:visited:hover,
+  a:visited:active,
+  a:visited:focus {
+    color: #FFF;
+  }
 }
 
 .popup__close {
