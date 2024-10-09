@@ -32,7 +32,7 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders the section' do
-        expect(rendered).to match(/In the News/)
+        expect(rendered).to match(/FOI in Action/)
       end
 
       it 'renders the blank slate text' do
@@ -57,7 +57,7 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders the section' do
-        expect(rendered).to match(/In the News/)
+        expect(rendered).to match(/FOI in Action/)
       end
 
       it 'does not render the blank slate text' do
@@ -79,7 +79,7 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders the section' do
-        expect(rendered).to match(/In the News/)
+        expect(rendered).to match(/FOI in Action/)
       end
 
       it 'does not render the blank slate text' do
