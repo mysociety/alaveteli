@@ -69,9 +69,9 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     end
 
     it 'creates Stripe customer' do
-      allow(customer).to receive(:save)
+      allow(Stripe::Customer).to receive(:create).and_call_original
       pro_account.update_stripe_customer
-      expect(customer).to have_received(:save)
+      expect(Stripe::Customer).to have_received(:create)
     end
 
     it 'sets Stripe customer email' do

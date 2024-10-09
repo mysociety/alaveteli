@@ -49,16 +49,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @pro_account.token = @token
       @pro_account.update_stripe_customer
 
-      @subscription = @pro_account.subscriptions.build
-      @subscription.update_attributes(
+      attributes = {
         plan: params.require(:plan_id),
         tax_percent: tax_percent,
         payment_behavior: 'allow_incomplete'
-      )
+      }
+      attributes[:coupon] = coupon_code if coupon_code?
 
-      @subscription.coupon = coupon_code if coupon_code?
-
-      @subscription.save
+      @subscription = @pro_account.subscriptions.create(attributes)
 
     rescue ProAccount::CardError,
            Stripe::CardError => e
