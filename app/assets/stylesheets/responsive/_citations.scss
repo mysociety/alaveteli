@@ -23,6 +23,7 @@ ul.citations-list {
 
     .citation__title {
       flex-basis: 50%;
+      word-break: break-word;
     }
 
     .citation__description {
