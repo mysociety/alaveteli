@@ -8,18 +8,20 @@
                    collection: citations,
                    as: :citation %>
       </ul>
-    <% elsif can? :create_citation, info_request %>
-      <p>
-        <%= _('Has this request been referenced in journalism, ' \
-              'campaigning, or research?') %>
-      </p>
     <% end %>
 
     <% if can? :create_citation, info_request %>
-      <%= link_to new_citation_path(url_title: info_request.url_title),
-            class: 'citations-new' do %>
-        <%= citations.any? ? _('New Citation') : _('Let us know') %>
-      <% end %>
+      <p>
+        <%= _('Has this request been referenced in journalism, ' \
+              'campaigning, or research?') %>
+
+        <br>
+
+        <%= link_to new_citation_path(url_title: info_request.url_title),
+              class: 'citations-new' do %>
+          <%=  _('Let us know') %>
+        <% end %>
+      </p>
     <% end %>
   </div>
 <% end %>
