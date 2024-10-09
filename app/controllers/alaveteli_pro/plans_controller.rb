@@ -12,7 +12,9 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   end
 
   def show
-    stripe_plan = Stripe::Plan.retrieve(plan_name)
+    stripe_plan = Stripe::Plan.retrieve(
+      id: plan_name, expand: ['product']
+    )
     @plan = AlaveteliPro::WithTax.new(stripe_plan)
   rescue Stripe::InvalidRequestError
     raise ActiveRecord::RecordNotFound

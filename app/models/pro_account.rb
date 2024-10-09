@@ -73,6 +73,11 @@ class ProAccount < ApplicationRecord
   end
 
   def stripe_customer!
-    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
+    return unless stripe_customer_id
+
+    Stripe::Customer.retrieve(
+      id: stripe_customer_id,
+      expand: ['subscriptions.data.plan.product']
+    )
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
     let(:signing_secret) { config_secret }
     let(:stripe_helper) { StripeMock.create_test_helper }
 
-    let(:product) { stripe_helper.create_product }
+    let(:product) { stripe_helper.create_product(name: 'Test') }
 
     let(:stripe_customer) do
       Stripe::Customer.create(source: stripe_helper.generate_card_token,
@@ -16,7 +16,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     let(:stripe_plan) do
       stripe_helper.create_plan(
-        id: 'test', name: 'Test', product: product.id,
+        id: 'test', product: product.id,
         amount: 10, currency: 'gbp'
       )
     end
@@ -37,7 +37,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
               currency: stripe_plan.currency,
               type: 'subscription'
             },
-            plan: { id: stripe_plan.id, name: stripe_plan.name }
+            plan: { id: stripe_plan.id }
           }
         ],
         subscription: stripe_subscription.id
@@ -203,7 +203,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
       context 'the webhook is for a matching namespaced plan' do
         let(:stripe_plan) do
           stripe_helper.create_plan(
-            id: 'WDTK-test', name: 'Test', product: product.id,
+            id: 'WDTK-test', product: product.id,
             amount: 10, currency: 'gbp'
           )
         end
@@ -219,7 +219,16 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         end
 
         it 'returns a 200 OK response' do
+          allow(Stripe::Subscription).to receive(:retrieve).with(
+            id: stripe_subscription.id, expand: ['plan.product']
+          ).and_return(stripe_subscription)
+
+          allow(stripe_subscription.plan).to receive(:product).and_return(
+            product
+          )
+
           send_request
+
           expect(response.status).to eq(200)
           expect(response.body).to match('OK')
         end
@@ -330,6 +339,14 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'updating the Stripe charge description when a payment succeeds' do
       before do
+        allow(Stripe::Subscription).to receive(:retrieve).with(
+          id: stripe_subscription.id, expand: ['plan.product']
+        ).and_return(stripe_subscription)
+
+        allow(stripe_subscription.plan).to receive(:product).and_return(
+          product
+        )
+
         send_request
       end
 

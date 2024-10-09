@@ -12,7 +12,7 @@ RSpec.describe AlaveteliPro::Invoice, type: :model do
       id: 'in_123',
       status: 'open',
       charge: 'ch_123',
-      date: 1722211200,
+      created: 1722211200,
       amount_paid: 0
     )
   end
@@ -53,10 +53,10 @@ RSpec.describe AlaveteliPro::Invoice, type: :model do
     end
   end
 
-  describe '#date' do
+  describe '#created' do
     it 'returns a date object for the invoice' do
       with_env_tz 'UTC' do
-        expect(invoice.date).to eq(Date.new(2024, 7, 29))
+        expect(invoice.created).to eq(Date.new(2024, 7, 29))
       end
     end
   end
