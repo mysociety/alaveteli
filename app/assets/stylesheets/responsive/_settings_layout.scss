@@ -43,21 +43,14 @@ $settings-collapse: 50em; //where the dashboard layout needs to change
 .plan-overview__desc {
   flex: 0 0 100%;
   @include respond-min( $settings-collapse ){
-    flex: 0 0 30%;
-  }
-}
-
-.plan-overview__details{
-  flex: 0 0 70%;
-  @include respond-min( $settings-collapse ){
-    flex: 0 0 30%;
+    flex: 0 0 40%;
   }
 }
 
 .plan-overview__amount {
-  flex: 0 0 30%;
+  flex: 0 0 100%;
   @include respond-min( $settings-collapse ){
-    flex: 0 0 30%;
+    flex: 0 0 60%;
   }
 }
 

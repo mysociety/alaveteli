@@ -17,8 +17,4 @@ module AlaveteliPro::AccountHelper
       content_tag(:p, _('Expires soon'), class: 'card__expiring')
     end
   end
-
-  def subscription_amount(subscription)
-    AlaveteliPro::WithTax.new(subscription).amount_with_tax
-  end
 end
