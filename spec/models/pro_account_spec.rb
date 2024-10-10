@@ -37,7 +37,7 @@ RSpec.describe ProAccount, feature: :pro_pricing do
   end
 
   let(:past_due_sub) do
-    subscription.save
+    subscription
     StripeMock.mark_subscription_as_past_due(subscription)
     Stripe::Subscription.retrieve(subscription.id)
   end
@@ -69,9 +69,9 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     end
 
     it 'creates Stripe customer' do
-      allow(customer).to receive(:save)
+      allow(Stripe::Customer).to receive(:create).and_call_original
       pro_account.update_stripe_customer
-      expect(customer).to have_received(:save)
+      expect(Stripe::Customer).to have_received(:create)
     end
 
     it 'sets Stripe customer email' do
@@ -158,7 +158,7 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     subject { pro_account.subscription? }
 
     context 'when there is an active subscription' do
-      before { subscription.save }
+      before { subscription }
       it { is_expected.to eq true }
     end
 
@@ -168,12 +168,18 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     end
 
     context 'when there is an expiring subscription' do
-      before { subscription.delete(at_period_end: true) }
+      before do
+        Stripe::Subscription.update(subscription.id, cancel_at_period_end: true)
+      end
+
       it { is_expected.to eq true }
     end
 
     context 'when an existing subscription is cancelled' do
-      before { subscription.delete }
+      before do
+        Stripe::Subscription.cancel(subscription.id)
+      end
+
       it { is_expected.to eq false }
     end
 

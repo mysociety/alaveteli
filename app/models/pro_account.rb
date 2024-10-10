@@ -49,30 +49,32 @@ class ProAccount < ApplicationRecord
     return unless feature_enabled?(:pro_pricing)
 
     @subscriptions = nil unless stripe_customer
-    @stripe_customer = stripe_customer || Stripe::Customer.new
 
-    update_email
-    update_source
+    attributes = {}
+    attributes[:email] = user.email if stripe_customer.try(:email) != user.email
+    attributes[:source] = @token.id if @token
 
-    stripe_customer.save
-    update(stripe_customer_id: stripe_customer.id)
+    @stripe_customer = (
+      if attributes.empty?
+        stripe_customer
+      elsif stripe_customer
+        Stripe::Customer.update(stripe_customer.id, attributes)
+      else
+        Stripe::Customer.create(attributes)
+      end
+    )
+
+    update(stripe_customer_id: @stripe_customer.id)
   end
 
   private
 
-  def update_email
-    return unless stripe_customer.try(:email) != user.email
-
-    stripe_customer.email = user.email
-  end
-
-  def update_source
-    return unless @token
-
-    stripe_customer.source = @token.id
-  end
-
   def stripe_customer!
-    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
+    return unless stripe_customer_id
+
+    Stripe::Customer.retrieve(
+      id: stripe_customer_id,
+      expand: ['subscriptions.data.plan.product']
+    )
   end
 end

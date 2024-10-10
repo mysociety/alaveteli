@@ -14,7 +14,7 @@ module AlaveteliPro
     end
 
     # attributes
-    def date
+    def created
       Time.at(super).to_date
     end
 

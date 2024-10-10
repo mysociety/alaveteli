@@ -898,18 +898,29 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           Stripe::Subscription.create(customer: customer, plan: plan.id)
         end
 
-        it 'raises an error' do
+        before do
           sign_in user
-          expect {
-            delete :destroy, params: { id: other_subscription.id }
-          }.to raise_error ActiveRecord::RecordNotFound
+          delete :destroy, params: { id: other_subscription.id }
+        end
+
+        it 'sends an exception email' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Stripe::InvalidRequestError/)
+        end
+
+        it 'renders an error message' do
+          expect(flash[:error]).to match(/There was a problem/)
+        end
+
+        it 'redirects to the subscriptions page' do
+          expect(response).to redirect_to(subscriptions_path)
         end
       end
 
       context 'when we are rate limited' do
         before do
           error = Stripe::RateLimitError.new
-          StripeMock.prepare_error(error, :cancel_subscription)
+          StripeMock.prepare_error(error, :update_subscription)
           delete :destroy, params: { id: subscription.id }
         end
 
@@ -930,7 +941,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when Stripe receives an invalid request' do
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
-          StripeMock.prepare_error(error, :cancel_subscription)
+          StripeMock.prepare_error(error, :update_subscription)
           delete :destroy, params: { id: subscription.id }
         end
 
@@ -951,7 +962,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when we cannot authenticate with Stripe' do
         before do
           error = Stripe::AuthenticationError.new
-          StripeMock.prepare_error(error, :cancel_subscription)
+          StripeMock.prepare_error(error, :update_subscription)
           delete :destroy, params: { id: subscription.id }
         end
 
@@ -972,7 +983,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when we cannot connect to Stripe' do
         before do
           error = Stripe::APIConnectionError.new
-          StripeMock.prepare_error(error, :cancel_subscription)
+          StripeMock.prepare_error(error, :update_subscription)
           delete :destroy, params: { id: subscription.id }
         end
 
@@ -993,7 +1004,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       context 'when Stripe returns a generic error' do
         before do
           error = Stripe::StripeError.new
-          StripeMock.prepare_error(error, :cancel_subscription)
+          StripeMock.prepare_error(error, :update_subscription)
           delete :destroy, params: { id: subscription.id }
         end
 

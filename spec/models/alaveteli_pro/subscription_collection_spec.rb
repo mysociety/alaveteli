@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'stripe_mock'
 
 RSpec.describe AlaveteliPro::SubscriptionCollection do
   let(:collection) { described_class.new(customer) }
@@ -26,11 +27,30 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
     end
   end
 
-  describe '#build' do
-    let(:collection) { described_class.new(customer) }
-    let(:subscription) { collection.build }
+  describe '#create' do
+    before { StripeMock.start }
+    after { StripeMock.stop }
 
-    it 'should build new subscription' do
+    let(:stripe_helper) { StripeMock.create_test_helper }
+
+    let(:product) { stripe_helper.create_product }
+
+    let(:plan) do
+      stripe_helper.create_plan(
+        id: 'pro', product: product.id, amount: 1000
+      )
+    end
+
+    let(:customer) do
+      Stripe::Customer.create(
+        email: 'bob@example.com', source: stripe_helper.generate_card_token
+      )
+    end
+
+    let(:collection) { described_class.new(customer) }
+    let(:subscription) { collection.create(plan: plan.id) }
+
+    it 'should create new subscription' do
       expect(subscription).to be_a AlaveteliPro::Subscription
     end
 
@@ -38,8 +58,8 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
       expect(subscription.__getobj__).to be_a Stripe::Subscription
     end
 
-    it 'should set customer object' do
-      expect(subscription.customer).to eq customer
+    it 'should set customer ID' do
+      expect(subscription.customer).to eq customer.id
     end
   end
 

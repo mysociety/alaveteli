@@ -37,6 +37,14 @@ module AlaveteliPro
       ].include?(payment_intent.status)
     end
 
+    def update(attributes)
+      __setobj__(Stripe::Subscription.update(id, attributes))
+    end
+
+    def delete
+      Stripe::Subscription.cancel(id)
+    end
+
     private
 
     def method_missing(*args)

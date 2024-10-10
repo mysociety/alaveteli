@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Upgrade Stripe API version (Graeme Porteous)
 * Fix script/mailin when multiple EXCEPTION_NOTIFICATIONS_TO addresses are
   specified (Graeme Porteous)
 * Add example logrotate configuration (Graeme Porteous)
@@ -126,6 +127,10 @@
   files. Please ensure you review the changes to `config/nginx.conf.example` or
   `config/nginx-ssl.conf.example` and update your production configuration if
   needed.
+
+* _Note:_ If you have Pro pricing enabled, this release changes the Stripe API
+  version from `2017-01-27` to `2020-03-02`. No changes should be necessary to
+  your Stripe account.
 
 # 0.44.0.1
 

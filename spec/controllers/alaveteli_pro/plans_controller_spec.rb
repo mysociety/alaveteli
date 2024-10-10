@@ -138,7 +138,7 @@ RSpec.describe AlaveteliPro::PlansController do
           subscription =
             Stripe::Subscription.create(customer: customer, plan: 'pro')
 
-          subscription.delete
+          Stripe::Subscription.cancel(subscription.id)
           user.create_pro_account(stripe_customer_id: customer.id)
           get :show, params: { id: 'pro' }
         end

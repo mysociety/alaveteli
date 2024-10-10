@@ -49,16 +49,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @pro_account.token = @token
       @pro_account.update_stripe_customer
 
-      @subscription = @pro_account.subscriptions.build
-      @subscription.update_attributes(
+      attributes = {
         plan: params.require(:plan_id),
         tax_percent: tax_percent,
         payment_behavior: 'allow_incomplete'
-      )
+      }
+      attributes[:coupon] = coupon_code if coupon_code?
 
-      @subscription.coupon = coupon_code if coupon_code?
-
-      @subscription.save
+      @subscription = @pro_account.subscriptions.create(attributes)
 
     rescue ProAccount::CardError,
            Stripe::CardError => e
@@ -151,13 +149,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @customer = current_user.pro_account.try(:stripe_customer)
       raise ActiveRecord::RecordNotFound unless @customer
 
-      @subscription = Stripe::Subscription.retrieve(params[:id])
-
-      unless @subscription.customer == @customer.id
-        raise ActiveRecord::RecordNotFound
-      end
-
-      @subscription.delete(at_period_end: true)
+      @subscription = current_user.pro_account.subscriptions.
+        retrieve(params[:id])
+      @subscription.update(cancel_at_period_end: true)
 
       flash[:notice] = _('You have successfully cancelled your subscription ' \
                          'to {{pro_site_name}}',
