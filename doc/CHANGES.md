@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add basic Citation searching in admin UI (Gareth Rees)
 * Improve citations admin to allow title and description updates (Graeme
   Porteous)
 * Add public citations view (Graeme Porteous)

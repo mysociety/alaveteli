@@ -14,6 +14,17 @@
   </div>
 </div>
 
+
+<%= form_tag({}, method: :get, class: 'form form-search') do %>
+  <div class="input-append">
+    <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+    <%= submit_tag 'Search', class: 'btn' %>
+  </div>
+
+  <span class="help-inline">(substring search, source_url)</span>
+<% end %>
+
+
 <%= render partial: 'admin/citations/list',
            locals: { citations: @citations } %>
 
