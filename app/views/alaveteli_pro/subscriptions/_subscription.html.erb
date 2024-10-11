@@ -6,7 +6,7 @@
 
   <div class="plan-overview__amount">
     <%= format_currency(subscription.plan.amount_with_tax) %>
-    <%= billing_frequency(subscription.plan.interval) %>
+    <%= billing_frequency(subscription.plan) %>
     <% if subscription.discounted? %>
       <br>
       <%= _('<strong>{{discounted_amount}}</strong> with discount ' \

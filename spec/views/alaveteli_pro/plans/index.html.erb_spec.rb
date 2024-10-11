@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'stripe_mock'
 
 RSpec.describe 'alaveteli_pro/plans/index' do
   before { StripeMock.start }
