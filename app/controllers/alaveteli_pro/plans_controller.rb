@@ -3,13 +3,13 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   before_action :authenticate, :check_has_current_subscription, only: [:show]
 
   def index
-    @plans = AlaveteliPro::Plan.list
+    @prices = AlaveteliPro::Price.list
     @pro_site_name = pro_site_name
   end
 
   def show
-    @plan = AlaveteliPro::Plan.retrieve(params[:id])
-    @plan || raise(ActiveRecord::RecordNotFound)
+    @price = AlaveteliPro::Price.retrieve(params[:id])
+    @price || raise(ActiveRecord::RecordNotFound)
   end
 
   private

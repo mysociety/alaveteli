@@ -7,19 +7,19 @@ RSpec.describe 'alaveteli_pro/plans/index' do
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:product) { stripe_helper.create_product }
 
-  let(:plan) { AlaveteliPro::Plan.new(stripe_plan) }
+  let(:price) { AlaveteliPro::Price.new(stripe_price) }
   let(:cents_price) { 880 }
 
-  let(:stripe_plan) do
-    stripe_helper.create_plan(
-      id: 'pro', product: product.id, amount: cents_price
+  let(:stripe_price) do
+    stripe_helper.create_price(
+      id: 'price_123', product: product.id, unit_amount: cents_price
     )
   end
 
   before do
     allow(AlaveteliConfiguration).to receive(:iso_currency_code).
         and_return('GBP')
-    assign :plans, [plan]
+    assign :prices, [price]
     assign :pro_site_name, 'Alaveteli<sup>Pro</sup>'
   end
 

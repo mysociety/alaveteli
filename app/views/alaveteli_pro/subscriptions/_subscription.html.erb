@@ -1,12 +1,12 @@
 
 <div class="plan-overview">
   <div class="plan-overview__desc">
-    <%= subscription.plan.product.name %>
+    <%= subscription.price.product.name %>
   </div>
 
   <div class="plan-overview__amount">
-    <%= format_currency(subscription.plan.amount_with_tax) %>
-    <%= billing_frequency(subscription.plan) %>
+    <%= format_currency(subscription.price.unit_amount_with_tax) %>
+    <%= billing_frequency(subscription.price) %>
     <% if subscription.discounted? %>
       <br>
       <%= _('<strong>{{discounted_amount}}</strong> with discount ' \

@@ -1202,6 +1202,27 @@ STRIPE_SECRET_KEY: ''
 # ---
 STRIPE_NAMESPACE: ''
 
+# List of Stripe Prices which if a user signs up to will grant them access to
+# Alaveteli Pro. Rendered on the Pro pricing pages in the order defined here.
+#
+# STRIPE_PRICES - Hash of objects with key equal to the Stripe Price IDs as the
+# value equal to parameterise short human readable string.
+#
+# Note: Historical Stripe Price IDs listed here should include STRIPE_NAMESPACE.
+#
+# STRIPE_PRICES = Hash (default: { pro: 'pro' })
+#
+# Examples:
+#
+# STRIPE_PRICES:
+#   ALAVETELI-pro: pro
+#   price_123: pro-new-price
+#   price_456: pro-annual-billing
+#
+# ---
+STRIPE_PRICES:
+  pro: pro
+
 # Stripe.com webhook secret. Only required for Alaveteli Pro.
 #
 # STRIPE_WEBHOOK_SECRET: - String (default: '')

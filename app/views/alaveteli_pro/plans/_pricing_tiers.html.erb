@@ -1,5 +1,5 @@
 <div class="pricing__tiers">
-  <% @plans.each do |plan| %>
+  <% @prices.each do |price| %>
     <div class="pricing__tier pricing__tier--primary">
       <div class="pricing__tier__heading">
         <h2><%= _('Professional') %></h2>
@@ -10,10 +10,10 @@
 
         <p class="price-label">
           <span class="price-label__amount">
-            <%= format_currency(plan.amount_with_tax, no_cents_if_whole: true) %>
+            <%= format_currency(price.unit_amount_with_tax, no_cents_if_whole: true) %>
           </span>
 
-          <%= billing_interval(plan) %>
+          <%= billing_interval(price) %>
         </p>
       </div>
 
@@ -27,7 +27,7 @@
           <li><%= _('Friendly support') %></li>
         </ul>
 
-        <%= link_to _('Sign up'), plan_path(plan), class: 'button button-pop' %>
+        <%= link_to _('Sign up'), plan_path(price), class: 'button button-pop' %>
       </div>
     </div>
   <% end %>

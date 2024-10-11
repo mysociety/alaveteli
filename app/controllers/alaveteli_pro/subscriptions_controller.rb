@@ -7,7 +7,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
   before_action :check_allowed_to_subscribe_to_pro, only: [:create]
   before_action :prevent_duplicate_submission, only: [:create]
-  before_action :load_plan, :load_coupon, only: [:create]
+  before_action :load_price, :load_coupon, only: [:create]
 
   def index
     @customer = current_user.pro_account.try(:stripe_customer)
@@ -28,8 +28,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @pro_account.update_stripe_customer
 
       attributes = {
-        plan: @plan.id,
-        tax_percent: @plan.tax_percent,
+        items: [{ price: @price.id }],
+        tax_percent: @price.tax_percent,
         payment_behavior: 'allow_incomplete'
       }
       attributes[:coupon] = @coupon.id if @coupon
@@ -62,7 +62,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
     if flash[:error]
-      json_redirect_to plan_path(@plan)
+      json_redirect_to plan_path(@price)
     else
       redirect_to authorise_subscription_path(@subscription.id)
     end
@@ -89,7 +89,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       flash[:error] = _('There was a problem authorising your payment. You ' \
                         'have not been charged. Please try again.')
 
-      json_redirect_to plan_path(@subscription.plan)
+      json_redirect_to plan_path(@subscription.price)
 
     elsif @subscription.active?
       current_user.add_role(:pro)
@@ -168,16 +168,16 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   end
 
   def check_has_current_subscription
-    # TODO: This doesn't take the plan in to account
+    # TODO: This doesn't take the price in to account
     return if @user.pro_account.try(:subscription?)
 
     flash[:notice] = _("You don't currently have a Pro subscription")
     redirect_to pro_plans_path
   end
 
-  def load_plan
-    @plan = AlaveteliPro::Plan.retrieve(params[:plan_id])
-    @plan || redirect_to(pro_plans_path)
+  def load_price
+    @price = AlaveteliPro::Price.retrieve(params[:price_id])
+    @price || redirect_to(pro_plans_path)
   end
 
   def load_coupon
