@@ -11,6 +11,10 @@
 #   # => 833
 #   instance.amount_with_tax
 #   # => 1000
+#   AlaveteliConfiguration.stripe_tax_rate
+#   # => '0.20'
+#   instance.tax_percent
+#   # => 20.0
 #
 module Taxable
   extend ActiveSupport::Concern
@@ -27,6 +31,10 @@ module Taxable
         end
       end
     end
+  end
+
+  def tax_percent
+    (tax_rate.to_f * 100).to_f
   end
 
   private
