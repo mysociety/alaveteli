@@ -1,13 +1,11 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
-  include AlaveteliPro::StripeNamespace
-
   skip_before_action :html_response, only: [:create, :authorise]
   skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
 
   before_action :authenticate, only: [:create, :authorise]
   before_action :check_allowed_to_subscribe_to_pro, only: [:create]
   before_action :prevent_duplicate_submission, only: [:create]
-  before_action :load_plan, only: [:create]
+  before_action :load_plan, :load_coupon, only: [:create]
   before_action :check_has_current_subscription, only: [:index]
 
   def index
@@ -18,11 +16,6 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @card =
         @customer.
           sources.select { |card| card.id == @customer.default_source }.first
-    end
-
-    if referral_coupon
-      @discount_code = remove_stripe_namespace(referral_coupon.id)
-      @discount_terms = referral_coupon.metadata.humanized_terms
     end
   end
 
@@ -53,7 +46,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
         tax_percent: @plan.tax_percent,
         payment_behavior: 'allow_incomplete'
       }
-      attributes[:coupon] = coupon_code if coupon_code?
+      attributes[:coupon] = @coupon.id if @coupon
 
       @subscription = @pro_account.subscriptions.create(attributes)
 
@@ -196,30 +189,13 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     redirect_to pro_plans_path
   end
 
-  def coupon_code?
-    params[:coupon_code].present?
-  end
-
-  def coupon_code
-    add_stripe_namespace(params.require(:coupon_code)).upcase
-  end
-
-  def referral_coupon
-    coupon_code =
-      add_stripe_namespace(AlaveteliConfiguration.pro_referral_coupon)
-
-    @referral_coupon ||=
-      unless coupon_code.blank?
-        begin
-          Stripe::Coupon.retrieve(coupon_code)
-        rescue Stripe::StripeError
-        end
-      end
-  end
-
   def load_plan
     @plan = AlaveteliPro::Plan.retrieve(params[:plan_id])
     @plan || redirect_to(pro_plans_path)
+  end
+
+  def load_coupon
+    @coupon = AlaveteliPro::Coupon.retrieve(params[:coupon_code])
   end
 
   def prevent_duplicate_submission
