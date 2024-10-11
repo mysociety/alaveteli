@@ -1,32 +1,34 @@
 <div class="pricing__tiers">
-  <div class="pricing__tier pricing__tier--primary">
-    <div class="pricing__tier__heading">
-      <h2><%= _('Professional') %></h2>
+  <% @plans.each do |plan| %>
+    <div class="pricing__tier pricing__tier--primary">
+      <div class="pricing__tier__heading">
+        <h2><%= _('Professional') %></h2>
 
-      <p class="pricing__tier__subhead">
-        <%= _('For journalists, academics and power users') %>
-      </p>
+        <p class="pricing__tier__subhead">
+          <%= _('For journalists, academics and power users') %>
+        </p>
 
-      <p class="price-label">
-        <span class="price-label__amount">
-          <%= format_currency(@plan.amount_with_tax, no_cents_if_whole: true) %>
-        </span>
+        <p class="price-label">
+          <span class="price-label__amount">
+            <%= format_currency(plan.amount_with_tax, no_cents_if_whole: true) %>
+          </span>
 
-        <%= billing_interval(@plan) %>
-      </p>
+          <%= billing_interval(plan) %>
+        </p>
+      </div>
+
+      <div class="pricing__tier__content">
+        <h3><%= _('Featuring') %></h3>
+
+        <ul class="pricing__tier__features">
+          <li><%= _('Public requests for information') %></li>
+          <li><%= _('Private requests for information') %></li>
+          <li><%= _('Dashboard and workflow features') %></li>
+          <li><%= _('Friendly support') %></li>
+        </ul>
+
+        <%= link_to _('Sign up'), plan_path(plan), class: 'button button-pop' %>
+      </div>
     </div>
-
-    <div class="pricing__tier__content">
-      <h3><%= _('Featuring') %></h3>
-
-      <ul class="pricing__tier__features">
-        <li><%= _('Public requests for information') %></li>
-        <li><%= _('Private requests for information') %></li>
-        <li><%= _('Dashboard and workflow features') %></li>
-        <li><%= _('Friendly support') %></li>
-      </ul>
-
-      <%= link_to _('Sign up'), plan_path('pro'), class: 'button button-pop' %>
-    </div>
-  </div>
+  <% end %>
 </div>

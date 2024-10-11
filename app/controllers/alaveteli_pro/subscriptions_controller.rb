@@ -7,7 +7,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   before_action :authenticate, only: [:create, :authorise]
   before_action :check_allowed_to_subscribe_to_pro, only: [:create]
   before_action :prevent_duplicate_submission, only: [:create]
-  before_action :check_plan_exists, only: [:create]
+  before_action :load_plan, only: [:create]
   before_action :check_has_current_subscription, only: [:index]
 
   def index
@@ -49,7 +49,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @pro_account.update_stripe_customer
 
       attributes = {
-        plan: params.require(:plan_id),
+        plan: @plan.id,
         tax_percent: tax_percent,
         payment_behavior: 'allow_incomplete'
       }
@@ -83,7 +83,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
     if flash[:error]
-      json_redirect_to plan_path(non_namespaced_plan_id)
+      json_redirect_to plan_path(@plan)
     else
       redirect_to authorise_subscription_path(@subscription.id)
     end
@@ -110,9 +110,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       flash[:error] = _('There was a problem authorising your payment. You ' \
                         'have not been charged. Please try again.')
 
-      json_redirect_to plan_path(
-        remove_stripe_namespace(@subscription.plan.id)
-      )
+      json_redirect_to plan_path(@subscription.plan)
 
     elsif @subscription.active?
       current_user.add_role(:pro)
@@ -198,10 +196,6 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     redirect_to pro_plans_path
   end
 
-  def non_namespaced_plan_id
-    remove_stripe_namespace(params[:plan_id]) if params[:plan_id]
-  end
-
   def coupon_code?
     params[:coupon_code].present?
   end
@@ -227,8 +221,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     (BigDecimal(AlaveteliConfiguration.stripe_tax_rate).to_f * 100).to_f
   end
 
-  def check_plan_exists
-    redirect_to(pro_plans_path) unless non_namespaced_plan_id
+  def load_plan
+    @plan = AlaveteliPro::Plan.retrieve(params[:plan_id])
+    @plan || redirect_to(pro_plans_path)
   end
 
   def prevent_duplicate_submission

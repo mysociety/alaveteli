@@ -41,7 +41,7 @@ RSpec.describe AlaveteliPro::PlansController do
     end
 
     it 'uses the default plan for pricing info' do
-      expect(assigns(:plan)).to eq(pro_plan)
+      expect(assigns(:plans)).to eq([pro_plan])
     end
   end
 

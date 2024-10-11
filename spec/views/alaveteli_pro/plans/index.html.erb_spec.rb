@@ -19,7 +19,7 @@ RSpec.describe 'alaveteli_pro/plans/index' do
   before do
     allow(AlaveteliConfiguration).to receive(:iso_currency_code).
         and_return('GBP')
-    assign :plan, plan
+    assign :plans, [plan]
     assign :pro_site_name, 'Alaveteli<sup>Pro</sup>'
   end
 
