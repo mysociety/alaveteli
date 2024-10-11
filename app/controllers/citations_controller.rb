@@ -2,9 +2,24 @@
 # Controller to create a new Citation for an InfoRequest or an InfoRequestBatch.
 #
 class CitationsController < ApplicationController
-  before_action :authenticate
-  before_action :load_resource_and_authorise
-  before_action :set_in_pro_area
+  before_action :authenticate, except: :index
+  before_action :load_resource_and_authorise, except: :index
+  before_action :set_in_pro_area, except: :index
+
+  skip_before_action :html_response, only: :index
+
+  def index
+    per_page = 10
+    page = get_search_page_from_params
+
+    @citations = Citation.not_embargoed.order(created_at: :desc).
+      paginate(page: page, per_page: per_page)
+
+    respond_to do |format|
+      format.html { @has_json = true }
+      format.json { render json: @citations }
+    end
+  end
 
   def new
     @citation = current_user.citations.build

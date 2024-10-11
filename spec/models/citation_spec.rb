@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20241007090524
 #
 # Table name: citations
 #
@@ -11,6 +11,8 @@
 #  type         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  title        :string
+#  description  :text
 #
 
 require 'spec_helper'
@@ -48,10 +50,17 @@ def setup_for_x_scope_data
     FactoryBot.create(:citation, citable: info_request_c)
   end
 
+  # Citations on single InfoRequest: D
+  let!(:info_request_d) { FactoryBot.create(:info_request, :embargoed) }
+
+  let!(:citation_info_request_d) do
+    FactoryBot.create(:citation, citable: info_request_d)
+  end
+
   # Batch and Requests: X
   # Unused, but required to ensure we're not finding incorrect citations
   let!(:batch_x) do
-    FactoryBot.create(:info_request_batch, :sent)
+    FactoryBot.create(:info_request_batch, :sent, :embargoed)
   end
 
   let!(:batch_x_info_request_a) { batch_x.info_requests.first }
@@ -82,6 +91,22 @@ RSpec.describe Citation, type: :model do
       let(:limit) { 2 }
       it { is_expected.to match_array(citations.last(2)) }
       it { is_expected.not_to include(citations.first) }
+    end
+  end
+
+  describe '.not_embargoed' do
+    subject { described_class.not_embargoed }
+
+    setup_for_x_scope_data
+
+    it 'returns citations belonging to unembargoed requests and batches' do
+      is_expected.to match_array(
+        [
+          citation_batch_a, citation_batch_a_request_a,
+          citation_batch_b,
+          citation_info_request_c
+        ]
+      )
     end
   end
 
@@ -203,7 +228,7 @@ RSpec.describe Citation, type: :model do
       is_expected.to be_valid
       citation.type = 'campaigning'
       is_expected.to be_valid
-      citation.type = 'academic'
+      citation.type = 'research'
       is_expected.to be_valid
       citation.type = 'other'
       is_expected.to be_valid

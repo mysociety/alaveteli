@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20241007090524
 #
 # Table name: citations
 #
@@ -11,17 +11,24 @@
 #  type         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  title        :string
+#  description  :text
 #
 
 ##
-# A Citation of an InfoRequest or InfoRequestBatch in news stories or an
-# academic paper
+# A Citation of an InfoRequest or InfoRequestBatch
 #
 class Citation < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
   self.inheritance_column = nil
 
   belongs_to :user, inverse_of: :citations
   belongs_to :citable, polymorphic: true
+
+  belongs_to :info_request, via: :citable
+  belongs_to :info_request_batch, via: :citable
 
   validates :user, :citable, presence: true
   validates :citable_type, inclusion: { in: %w(InfoRequest InfoRequestBatch) }
@@ -29,11 +36,21 @@ class Citation < ApplicationRecord
                                    message: _('Source URL is too long') },
                          format: { with: /\Ahttps?:\/\/.*\z/,
                                    message: _('Please enter a Source URL') }
-  validates :type, inclusion: { in: %w(journalism academic campaigning other),
+  validates :type, inclusion: { in: %w(journalism research campaigning other),
                                 message: _('Please select a type') }
 
   scope :newest, ->(limit = 1) do
     order(created_at: :desc).limit(limit)
+  end
+
+  scope :not_embargoed, -> do
+    left_joins(info_request: :embargo, info_request_batch: []).
+      where(citable_type: 'InfoRequest').
+      merge(InfoRequest.not_embargoed).
+      or(
+        where(citable_type: 'InfoRequestBatch').
+        merge(InfoRequestBatch.not_embargoed)
+      )
   end
 
   scope :for_request, ->(info_request) do
@@ -48,5 +65,18 @@ class Citation < ApplicationRecord
 
   def applies_to_batch_request?
     citable.is_a?(InfoRequestBatch)
+  end
+
+  def as_json(_options)
+    citable_path = case citable
+                   when InfoRequest
+                     request_path(citable)
+                   when InfoRequestBatch
+                     info_request_batch_path(citable)
+                   end
+
+    attributes.
+      except('user_id', 'citable_id', 'citable_type').
+      merge(citable_path: citable_path)
   end
 end

@@ -1,13 +1,17 @@
-<h1><%= _('In the News') %></h1>
+<h1><%= _('FOI in Action') %></h1>
 
 <p>
   <% if @resource.is_a?(InfoRequestBatch) %>
-    <%= _('Has this batch request been referenced in a news article or ' \
-          'academic paper? Let us know:') %>
+    <%= _('Has this batch request been referenced in journalism, ' \
+          'campaigning, or research?') %>
   <% else %>
-    <%= _('Has this request been referenced in a news article or academic ' \
-          'paper? Let us know:') %>
+    <%= _('Has this request been referenced in journalism, campaigning, ' \
+          'or research?') %>
   <% end %>
+
+  <%= _('Let us know about great examples of <a href="{{citations_path}}">' \
+        'FOI in Action</a>.',
+        citations_path: citations_path) %>
 </p>
 
 <%= form_for @citation,
@@ -40,9 +44,9 @@
       <%= _('Campaigning') %>
     </label>
 
-    <label for="citation_type_academic" class="form_label">
-      <%= f.radio_button :type, 'academic' %>
-      <%= _('Academic') %>
+    <label for="citation_type_research" class="form_label">
+      <%= f.radio_button :type, 'research' %>
+      <%= _('Research') %>
     </label>
 
     <label for="citation_type_other" class="form_label">

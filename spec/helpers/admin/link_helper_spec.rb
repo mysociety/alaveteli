@@ -118,5 +118,13 @@ RSpec.describe Admin::LinkHelper do
         end
       end
     end
+
+    context 'with a Citation' do
+      let(:record) { FactoryBot.create(:citation) }
+
+      it { is_expected.to include('icon-eye-open') }
+      it { is_expected.to include(record.source_url) }
+      it { is_expected.to include(edit_admin_citation_path(record)) }
+    end
   end
 end
