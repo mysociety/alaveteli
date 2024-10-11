@@ -1,19 +1,23 @@
 ##
-# A wrapper for a Stripe::Plan
+# A wrapper for a Stripe::Price
 #
-class AlaveteliPro::Plan < SimpleDelegator
+class AlaveteliPro::Price < SimpleDelegator
   extend AlaveteliPro::StripeNamespace
   include AlaveteliPro::StripeNamespace
   include Taxable
 
-  tax :amount
+  tax :unit_amount
 
   def self.list
-    [retrieve('pro')]
+    AlaveteliConfiguration.stripe_price_ids.inject([]) do |arr, id|
+      price = retrieve(id)
+      arr << price if price
+      arr
+    end
   end
 
   def self.retrieve(id)
-    new(Stripe::Plan.retrieve(add_stripe_namespace(id)))
+    new(Stripe::Price.retrieve(add_stripe_namespace(id)))
   rescue Stripe::InvalidRequestError
     nil
   end

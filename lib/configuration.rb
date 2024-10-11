@@ -109,6 +109,7 @@ module AlaveteliConfiguration
       SMTP_MAILER_PORT: 25,
       SMTP_MAILER_USER_NAME: '',
       STRIPE_NAMESPACE: '',
+      STRIPE_PRICE_IDS: [],
       STRIPE_PUBLISHABLE_KEY: '',
       STRIPE_SECRET_KEY: '',
       STRIPE_TAX_RATE: '0.20',
