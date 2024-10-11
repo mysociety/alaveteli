@@ -93,4 +93,12 @@ RSpec.describe AlaveteliPro::Plan do
   it 'delegates to the stripe plan' do
     expect(subject.amount).to eq(833)
   end
+
+  describe '#tax_percent' do
+    it 'returns the tax rate as a percentage' do
+      allow(AlaveteliConfiguration).to receive(:stripe_tax_rate).
+        and_return('0.20')
+      expect(subject.tax_percent).to eq(20.0)
+    end
+  end
 end
