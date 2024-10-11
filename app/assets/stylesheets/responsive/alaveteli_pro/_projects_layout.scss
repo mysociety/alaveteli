@@ -294,41 +294,57 @@
 }
 
 #project-key-set {
-  .project-key-set__key {
-    &.project-key-set__key--removed {
-      display: none;
-    }
+  padding-bottom: 1em;
 
-    width: 75%;
+  .project-key-set__key {
+    padding: 1em;
+    margin-bottom: 1em;
 
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
 
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+    &.project-key-set__key--removed {
+      display: none;
+    }
+
     .project-key-set__key__drag-handle {
       text-indent: -9999px;
       background-image: image-url("drag.svg");
       background-repeat: no-repeat;
-      background-position: center center;
+      background-position: center 2em;
       cursor: grab;
       width: 24px;
     }
 
-    .project-key-set__key__title,
-    .project-key-set__key__format {
-      width: 35%;
-      input,
-      select {
-        width: 100%;
-      }
+    .project-key-set__key__attributes {
+      width: 100%;
+      margin: 0 1em;
 
-      .fieldWithErrors {
-        padding: 0;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+
+      .project-key-set__key__value {
+        width: 50%;
+        padding-right: 1em;
+
+        input[type='text'], select {
+          width: 100%;
+        }
+
+        .fieldWithErrors {
+          padding: 0;
+        }
       }
     }
 
     .project-key-set__key__remove-question {
       padding-top: 1.2em;
+      button { width: max-content; }
     }
   }
 }

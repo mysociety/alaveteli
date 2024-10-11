@@ -141,7 +141,11 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     when 'edit_key_set', 'update_key_set'
       params.fetch(:project, {}).permit(
         key_set_attributes: [
-          :id, keys_attributes: %i[id title format order _destroy]
+          :id, keys_attributes: [
+            :id, :title, :format, :order, :_destroy, options: [
+              :select_allow_blank, :select_allow_muliple, { select_options: [] }
+            ]
+          ]
         ]
       )
     when 'edit_contributors', 'update_contributors'

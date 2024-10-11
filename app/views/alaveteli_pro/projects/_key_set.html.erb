@@ -1,29 +1,39 @@
-<%= f.fields_for :key_set, @key_set do |key_set_fields| %>
-  <%= key_set_fields.fields_for :keys, @keys do |key_fields| %>
-    <div class="row project-key-set__key<% if key_fields.object.marked_for_destruction? %> project-key-set__key--removed<% end %>">
+<%= form.fields_for :key_set, @key_set do |key_set_fields| %>
+  <%= key_set_fields.fields_for :keys, @keys do |f| %>
+    <% key = f.object %>
+    <div class="row project-key-set__key<% if key.marked_for_destruction? %> project-key-set__key--removed<% end %>">
       <div class="project-key-set__key__drag-handle">
-        <%= key_fields.hidden_field :order %>
+        <%= f.hidden_field :order %>
         Drag to reorder
       </div>
 
-      <div class="project-key-set__key__title">
-        <%= key_fields.label :title %>
-        <%= key_fields.text_field :title, autocomplete: false %>
-      </div>
+      <div class="project-key-set__key__attributes">
+        <div class="project-key-set__key__value">
+          <%= f.label :title %>
+          <%= f.text_field :title, autocomplete: 'off' %>
+        </div>
 
-      <div class="project-key-set__key__format">
-        <%= key_fields.label :format %>
-        <%= key_fields.select :format,
-          options_for_select(
-            Dataset::Key.format_options,
-            key_fields.object.format
-          ), {}, autocomplete: false %>
+        <div class="project-key-set__key__value">
+          <%= f.label :format %>
+          <%= f.select :format,
+            options_for_select(
+              Dataset::Key.format_options,
+              key.format
+            ),
+            {},
+            data: { action: 'change->projects--key-set#updateKey' },
+            autocomplete: 'off' %>
+        </div>
+
+        <% if lookup_context.exists?("alaveteli_pro/projects/_#{key.format}_key") %>
+          <%= render partial: "alaveteli_pro/projects/#{key.format}_key",
+                    locals: { form: f, key: key } %>
+        <% end %>
       </div>
 
       <div class="project-key-set__key__remove-question">
-        <%= key_fields.hidden_field :_destroy %>
-        <%= link_to _('Remove question'), nil, class: 'button-tertiary',
-          data: { action: 'click->projects--key-set#removeKey' } %>
+        <%= f.hidden_field :_destroy %>
+        <%= button_tag _('Remove question'), class: 'button-tertiary', data: { action: 'click->projects--key-set#removeKey' } %>
       </div>
     </div>
   <% end %>
