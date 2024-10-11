@@ -20,11 +20,6 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       amount_off: 1000,
       currency: 'gbp'
     )
-    stripe_helper.create_coupon(
-      id: 'ALAVETELI-COUPON_CODE',
-      amount_off: 1000,
-      currency: 'gbp'
-    )
     allow(AlaveteliConfiguration).
       to receive(:stripe_tax_rate).and_return('0.25')
   end
@@ -78,7 +73,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'subscribes the user to the plan' do
-          expect(assigns(:subscription).plan.id).to eq('pro')
+          expect(assigns(:subscription).plan.id).to eq(plan.id)
           expect(assigns(:pro_account).stripe_customer_id).
             to eq(assigns(:subscription).customer)
         end
@@ -166,9 +161,21 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       context 'with Stripe namespace and coupon code' do
+        let!(:plan) do
+          stripe_helper.create_plan(
+            id: 'alaveteli-pro', product: product.id, amount: 1000
+          )
+        end
+
         before do
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
             and_return('alaveteli')
+
+          stripe_helper.create_coupon(
+            id: 'ALAVETELI-COUPON_CODE',
+            amount_off: 1000,
+            currency: 'gbp'
+          )
 
           post :create, params: {
             'stripe_token' => token,
@@ -562,11 +569,13 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       context 'subscription invoice open' do
         before do
+          plan = double(id: 'pro', to_param: 'pro')
+
           subscription = double(
             :subscription,
             require_authorisation?: false,
             invoice_open?: true,
-            plan: double(id: 'pro')
+            plan: plan
           )
 
           allow(pro_account.subscriptions).to receive(:retrieve).with('1').
