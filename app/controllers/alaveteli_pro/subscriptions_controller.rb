@@ -1,33 +1,25 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
+  before_action :check_has_current_subscription, only: [:index]
+
   skip_before_action :html_response, only: [:create, :authorise]
   skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
-
   before_action :authenticate, only: [:create, :authorise]
+
   before_action :check_allowed_to_subscribe_to_pro, only: [:create]
   before_action :prevent_duplicate_submission, only: [:create]
   before_action :load_plan, :load_coupon, only: [:create]
-  before_action :check_has_current_subscription, only: [:index]
 
   def index
     @customer = current_user.pro_account.try(:stripe_customer)
     @subscriptions = current_user.pro_account.subscriptions
   end
 
-  # TODO: remove reminder of Stripe params once shipped
-  #
-  # params =>
-  # {"utf8"=>"✓",
-  #  "authenticity_token"=>"Ono2YgLcl1eC1gGzyd7Vf5HJJhOek31yFpT+8z+tKoo=",
-  #  "stripe_token"=>"tok_s3kr3t…",
-  #  "controller"=>"alaveteli_pro/subscriptions",
-  #  "action"=>"create",
-  #  "plan_id"=>"WDTK-pro"}
   def create
     begin
       @pro_account = current_user.pro_account ||= current_user.build_pro_account
 
       # Ensure previous incomplete subscriptions are cancelled to prevent them
-      # from using the new card
+      # from using the new token/card
       @pro_account.subscriptions.incomplete.map(&:delete)
 
       @token = Stripe::Token.retrieve(params[:stripe_token])
@@ -114,10 +106,10 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
   rescue Stripe::RateLimitError,
-          Stripe::InvalidRequestError,
-          Stripe::AuthenticationError,
-          Stripe::APIConnectionError,
-          Stripe::StripeError => e
+         Stripe::InvalidRequestError,
+         Stripe::AuthenticationError,
+         Stripe::APIConnectionError,
+         Stripe::StripeError => e
     if send_exception_notifications?
       ExceptionNotifier.notify_exception(e, env: request.env)
     end
