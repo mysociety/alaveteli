@@ -36,7 +36,7 @@
         <div class="settings-section">
           <h3><%= _('Your payment details') %></h3>
           <% if @customer.default_source %>
-            <%= render partial: 'card', locals: { card: @card } %>
+            <%= render partial: 'card', locals: { card: @customer.default_source } %>
           <% else %>
             <%= render partial: 'add_card' %>
           <% end %>
