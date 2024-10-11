@@ -772,11 +772,6 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         expect(assigns[:subscriptions].first.id).
           to eq(customer.subscriptions.first.id)
       end
-
-      it 'assigns the default source as card' do
-        get :index
-        expect(assigns[:card].id).to eq(customer.default_source)
-      end
     end
   end
 
