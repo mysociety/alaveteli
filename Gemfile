@@ -160,7 +160,7 @@ gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', git: 'https://github.com/rails/sprockets', ref: '3.x'
 gem 'uglifier', '~> 4.2.1'
 # Modern Assets
-gem 'importmap-rails', '~> 2.0.1'
+gem 'importmap-rails', '~> 2.0.3'
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0.10'
 
