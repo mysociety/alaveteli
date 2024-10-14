@@ -157,7 +157,7 @@ gem 'mime-types', '< 4.0.0', require: false
 gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'mini_racer', '~> 0.16.0'
 gem 'sass-rails', '~> 5.0.8'
-gem 'sprockets', git: 'https://github.com/rails/sprockets', ref: '3.x'
+gem 'sprockets', '~> 3.7.5'
 gem 'uglifier', '~> 4.2.1'
 # Modern Assets
 gem 'importmap-rails', '~> 2.0.3'
