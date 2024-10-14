@@ -23,6 +23,10 @@ module Notable
   private
 
   def notable_tags
-    tags.map(&:name_and_value)
+    tags.inject([]) do |arr, tag|
+      arr << tag.name
+      arr << tag.name_and_value if tag.value
+      arr
+    end
   end
 end
