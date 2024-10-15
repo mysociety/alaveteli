@@ -8,6 +8,8 @@ production:
   - default
   - xapian
   - low
+  - action_mailbox_routing
+  - action_mailbox_incineration
 
 :limits:
   xapian: 1
