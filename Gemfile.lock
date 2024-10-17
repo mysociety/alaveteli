@@ -340,7 +340,7 @@ GEM
       i18n (>= 0.6.4, <= 2)
     multi_json (1.15.0)
     multipart-post (2.3.0)
-    net-imap (0.4.12)
+    net-imap (0.4.17)
       date
       net-protocol
     net-pop (0.1.2)
