@@ -4,6 +4,8 @@ module AlaveteliPro
   # and to add useful helper methods.
   #
   class Subscription < SimpleDelegator
+    include Subscription::Discount
+
     # state
     def active?
       status == 'active'
@@ -45,13 +47,22 @@ module AlaveteliPro
       Stripe::Subscription.cancel(id)
     end
 
+    # plan
+    def plan
+      @plan ||= AlaveteliPro::Plan.new(__getobj__.plan)
+    end
+
     private
 
-    def method_missing(*args)
+    def method_missing(method, *args, &block)
       # Forward missing methods such as #coupon= as on a blank subscription
       # this wouldn't be delegated due to how Stripe::APIResource instances
       # use meta programming to dynamically define setting methods.
-      __getobj__.public_send(*args)
+      if __getobj__.respond_to?(method)
+        __getobj__.public_send(method, *args, &block)
+      else
+        super
+      end
     end
   end
 end

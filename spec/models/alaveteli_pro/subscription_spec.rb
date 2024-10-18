@@ -136,12 +136,14 @@ RSpec.describe AlaveteliPro::Subscription do
   end
 
   describe 'missing methods' do
+    let(:object) { OpenStruct.new(bar: nil) }
+
     it 'should delegate methods to object' do
-      mock_coupon = double(:coupon)
-      expect { subscription.coupon }.to raise_error(NoMethodError)
-      expect { subscription.coupon = mock_coupon }.to_not raise_error
-      expect(subscription.coupon).to eq mock_coupon
-      expect(subscription.__getobj__.coupon).to eq mock_coupon
+      value = double
+      expect { subscription.foo }.to raise_error(NoMethodError)
+      expect { subscription.bar = value }.to_not raise_error
+      expect(subscription.bar).to eq(value)
+      expect(subscription.__getobj__.bar).to eq(value)
     end
   end
 end

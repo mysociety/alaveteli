@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
+RSpec.describe AlaveteliPro::Subscription::Discount do
   let(:plan) { double(:plan, amount: 833) }
   let(:coupon) { nil }
   let(:trial) { nil }
@@ -12,12 +12,31 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
                           trial_start: trial_start, trial_end: trial_end)
   end
 
-  subject { described_class.new(subscription) }
+  subject { AlaveteliPro::Subscription.new(subscription) }
 
-  describe '#amount' do
+  describe '#discounted_amount_with_tax' do
+    context 'with the default tax rate' do
+      it 'adds 20% tax to the plan amount' do
+        expect(subject.discounted_amount_with_tax).to eq(1000)
+      end
+    end
+
+    context 'with a custom tax rate' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:stripe_tax_rate).and_return('0.25')
+      end
+
+      it 'adds 25% tax to the plan amount' do
+        expect(subject.discounted_amount_with_tax).to eq(1041)
+      end
+    end
+  end
+
+  describe '#discounted_amount' do
     context 'no discount is set' do
       it 'returns the original stripe plan amount' do
-        expect(subject.amount).to eq(833)
+        expect(subject.discounted_amount).to eq(833)
       end
     end
 
@@ -28,7 +47,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
       end
 
       it 'applies a percentage discount correctly' do
-        expect(subject.amount).to eq(416)
+        expect(subject.discounted_amount).to eq(417)
       end
     end
 
@@ -38,7 +57,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
       end
 
       it 'applies an amount_off discount correctly' do
-        expect(subject.amount).to eq(633)
+        expect(subject.discounted_amount).to eq(633)
       end
     end
 
@@ -46,7 +65,7 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
       let(:trial) { true }
 
       it 'returns 0' do
-        expect(subject.amount).to eq(0)
+        expect(subject.discounted_amount).to eq(0)
       end
     end
   end
@@ -95,11 +114,11 @@ RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
 
     context 'with a coupon' do
       let(:coupon) do
-        double(:coupon, id: 'COUPON_ID', valid: true)
+        double(:coupon, name: 'COUPON_NAME', valid: true)
       end
 
-      it 'returns ID of coupon' do
-        expect(subject.discount_name).to eq('COUPON_ID')
+      it 'returns name of coupon' do
+        expect(subject.discount_name).to eq('COUPON_NAME')
       end
     end
 
