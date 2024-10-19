@@ -10,6 +10,8 @@
 
   <div class="message-preview">
     <div class="preview-advice">
+      <%= render_notes(@outgoing_message.all_notes) %>
+
       <div class="advice-panel">
         <ul>
           <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
