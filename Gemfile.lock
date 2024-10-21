@@ -540,7 +540,7 @@ GEM
     tilt (2.0.10)
     timeout (0.4.1)
     trailblazer-option (0.1.2)
-    turbo-rails (2.0.10)
+    turbo-rails (2.0.11)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
     tzinfo (2.0.6)
@@ -672,7 +672,7 @@ DEPENDENCIES
   stripe-ruby-mock!
   syck (~> 1.4.1)
   syslog_protocol (~> 0.9.0)
-  turbo-rails (~> 2.0.10)
+  turbo-rails (~> 2.0.11)
   uglifier (~> 4.2.1)
   unicode (~> 0.4.4)
   unidecoder (~> 1.1.0)
