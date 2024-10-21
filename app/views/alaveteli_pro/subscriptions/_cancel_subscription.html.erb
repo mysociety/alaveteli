@@ -26,7 +26,7 @@
     <%= _('Subscription cancellations are applied at the end of the ' \
           'current billing period (<strong>{{date}}</strong>).',
           date: simple_date(Time.zone.at(subscription.current_period_end),
-                            format: :text)) %>
+                            format: :text).strip) %>
     <%= _('Until that date you will continue to have full access to ' \
           '{{pro_site_name}}.',
           pro_site_name: pro_site_name) %>
