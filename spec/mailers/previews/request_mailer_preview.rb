@@ -58,7 +58,10 @@ class RequestMailerPreview < ActionMailer::Preview
   def incoming_message
     IncomingMessage.new(
       id: 123,
-      info_request: info_request
+      info_request: info_request,
+      raw_email: RawEmail.new,
+      last_parsed: Time.now,
+      sent_at: Time.now
     )
   end
 
