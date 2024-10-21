@@ -325,13 +325,13 @@ class RequestMailer < ApplicationMailer
                 overdue_alert(
                   info_request,
                   info_request.user
-                ).deliver_now
+                ).deliver_later
             elsif calculated_status == 'waiting_response_very_overdue'
               RequestMailer.
                 very_overdue_alert(
                   info_request,
                   info_request.user
-                ).deliver_now
+                ).deliver_later
             else
               raise "unknown request status"
             end
@@ -387,7 +387,7 @@ class RequestMailer < ApplicationMailer
           new_response_reminder_alert(
             info_request,
             last_response_message
-          ).deliver_now
+          ).deliver_later
         store_sent.save!
       end
     end
@@ -434,7 +434,7 @@ class RequestMailer < ApplicationMailer
           RequestMailer.not_clarified_alert(
             info_request,
             last_response_message
-          ).deliver_now
+          ).deliver_later
         end
         store_sent.save!
       end
@@ -508,12 +508,12 @@ class RequestMailer < ApplicationMailer
             info_request,
             count,
             earliest_unalerted_comment_event.comment
-          ).deliver_now
+          ).deliver_later
         elsif count == 1
           RequestMailer.comment_on_alert(
             info_request,
             last_comment_event.comment
-          ).deliver_now
+          ).deliver_later
         else
           raise "internal error"
         end

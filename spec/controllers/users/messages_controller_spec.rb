@@ -8,8 +8,6 @@ RSpec.describe Users::MessagesController do
 
   before { sign_in sender }
 
-  after { ActionMailer::Base.deliveries.clear }
-
   describe 'GET contact' do
     context 'when not signed in' do
       it 'redirects to signin page' do
@@ -76,7 +74,7 @@ RSpec.describe Users::MessagesController do
           submitted_contact_form: 1
         }
 
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(deliveries).to be_empty
         expect(response).to render_template('users/messages/opted_out')
       end
     end
@@ -114,9 +112,7 @@ RSpec.describe Users::MessagesController do
                           submitted_contact_form: 1
                         }
 
-         deliveries = ActionMailer::Base.deliveries
-         expect(deliveries.size).to eq(0)
-         deliveries.clear
+         expect(deliveries).to be_empty
        end
     end
 
@@ -131,9 +127,8 @@ RSpec.describe Users::MessagesController do
                      }
       expect(response).to redirect_to(user_url(recipient))
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.body).
         to include("Bob Smith has used #{site_name} " \
                    "to send you the message below")
@@ -179,7 +174,8 @@ RSpec.describe Users::MessagesController do
           submitted_contact_form: 1
         }
 
-        expect(ActionMailer::Base.deliveries.first.subject).
+        mail = deliveries.first
+        expect(mail.subject).
           to match(/spam user message from user #{ sender.id }/)
       end
 
@@ -225,7 +221,8 @@ RSpec.describe Users::MessagesController do
         }
 
         expect(response).to redirect_to(user_url(recipient))
-        expect(ActionMailer::Base.deliveries.first.subject).to match(/Dearest/)
+        mail = deliveries.first
+        expect(mail.subject).to match(/Dearest/)
       end
     end
 
@@ -246,7 +243,8 @@ RSpec.describe Users::MessagesController do
           submitted_contact_form: 1
         }
 
-        expect(ActionMailer::Base.deliveries.first.subject).
+        mail = deliveries.first
+        expect(mail.subject).
           to match(/spam user message from user #{ sender.id }/)
       end
 
@@ -261,7 +259,8 @@ RSpec.describe Users::MessagesController do
         }
 
         expect(response).to redirect_to(user_url(recipient))
-        expect(ActionMailer::Base.deliveries.last.subject).to match(/Dearest/)
+        mail = deliveries.last
+        expect(mail.subject).to match(/Dearest/)
       end
     end
   end

@@ -123,7 +123,7 @@ RSpec.describe CommentController, "when commenting on a request" do
     expect(comment_array.size).to eq(1)
     comment = comment_array[0]
 
-    expect(ActionMailer::Base.deliveries.size).to eq(0)
+    expect(deliveries).to be_empty
 
     expect(response).to redirect_to(
       controller: 'request',
@@ -257,7 +257,7 @@ RSpec.describe CommentController, "when commenting on a request" do
                submitted_comment: 1,
                preview: 0
              }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
       end
 
@@ -329,7 +329,7 @@ RSpec.describe CommentController, "when commenting on a request" do
                submitted_comment: 1,
                preview: 0
              }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
       end
 

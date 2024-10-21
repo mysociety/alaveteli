@@ -14,7 +14,7 @@ RSpec.describe 'changing your email address' do
 
       expect(page).to have_content('Now check your email!')
 
-      mail = ActionMailer::Base.deliveries.first
+      mail = deliveries.first
       expect(mail.body).to include("confirm that you want to change")
       expect(mail.to).to eq([ 'newbob@localhost' ])
 

@@ -279,7 +279,7 @@ RSpec.describe UserProfile::AboutMeController do
                 about_me: '[HD] Watch Jason Bourne Online free MOVIE Full-HD'
               }
             }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).
           to match(/Spam about me text from user #{ user.id }/)
       end

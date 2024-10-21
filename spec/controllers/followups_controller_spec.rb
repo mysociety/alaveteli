@@ -364,9 +364,8 @@ RSpec.describe FollowupsController do
                       }
 
         # check it worked
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
         expect(mail.body).to match(/What a useless response! You suck./)
         expect(mail.to_addrs.first.to_s).
           to eq(request.public_body.request_email)
@@ -541,8 +540,7 @@ RSpec.describe FollowupsController do
              request_url_title: closed_request.url_title,
              incoming_message_id: closed_request.incoming_messages[0].id
            }
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
 
       expect(response).to render_template('new')
 
@@ -577,7 +575,6 @@ RSpec.describe FollowupsController do
       end
 
       it "only delivers the message once" do
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
       end
 

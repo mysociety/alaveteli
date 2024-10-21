@@ -9,8 +9,7 @@ shared_examples_for 'NetworkSendErrors' do
     end
 
     it 'does not send the email' do
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
     end
 
     it 'sets the described_state of the request to "error_message"' do

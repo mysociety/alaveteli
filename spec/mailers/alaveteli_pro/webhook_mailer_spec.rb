@@ -11,9 +11,7 @@ RSpec.describe AlaveteliPro::WebhookMailer do
     context 'pro pricing enabled', feature: %i[pro_pricing] do
       context 'with pending notifications' do
         it 'should deliver digest email' do
-          expect { subject }.to(
-            change(ActionMailer::Base.deliveries, :size).by(1)
-          )
+          expect { subject }.to change { deliveries.size }.by(1)
         end
 
         it 'should mark webhook as not pending' do

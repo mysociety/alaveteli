@@ -138,9 +138,8 @@ RSpec.describe ReportsController do
           reason: "my reason",
           message: "It's just not"
         }
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
         expect(mail.subject).to match(/attention_requested/)
         expect(mail.header['Reply-To'].to_s).to include(user.email)
         expect(mail.body).to include(user.name)
@@ -249,10 +248,9 @@ RSpec.describe ReportsController do
           reason: "my reason",
           message: "It's just not"
         }
-        deliveries = ActionMailer::Base.deliveries
 
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
 
         expect(mail.subject).to match(/requires admin/)
         expect(mail.header['Reply-To'].to_s).to include(user.email)

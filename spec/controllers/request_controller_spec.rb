@@ -1007,9 +1007,8 @@ RSpec.describe RequestController, "when creating a new request" do
     expect(om.body).
       to eq("This is a silly letter. It is too short to be interesting.")
 
-    deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
+    mail = deliveries.first
     expect(mail.body).
       to match(/This is a silly letter. It is too short to be interesting./)
 
@@ -1369,7 +1368,7 @@ RSpec.describe RequestController, "when creating a new request" do
           submitted_new_request: 1,
           preview: 0
         }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
     end
@@ -1398,7 +1397,7 @@ RSpec.describe RequestController, "when creating a new request" do
                submitted_new_request: 1,
                preview: 0
              }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
     end
@@ -1422,7 +1421,7 @@ RSpec.describe RequestController, "when creating a new request" do
           submitted_new_request: 1,
           preview: 0
         }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
 
@@ -1505,7 +1504,7 @@ RSpec.describe RequestController, "when creating a new request" do
           submitted_new_request: 1,
           preview: 0
         }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/Spam request from user #{ user.id }/)
       end
 
@@ -1563,7 +1562,7 @@ RSpec.describe RequestController, "when creating a new request" do
           submitted_new_request: 1,
           preview: 0
         }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).
           to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
@@ -1647,7 +1646,7 @@ RSpec.describe RequestController, "when creating a new request" do
           submitted_new_request: 1,
           preview: 0
         }
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).
           to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
