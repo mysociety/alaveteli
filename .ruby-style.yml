@@ -497,6 +497,9 @@ Lint/DuplicateRequire:
 Lint/DuplicateRescueException:
   Enabled: false
 
+Lint/DuplicateSetElement:
+  Enabled: false
+
 Lint/EachWithObjectArgument:
   Enabled: true
 

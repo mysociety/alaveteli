@@ -468,7 +468,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
-    rubocop (1.66.1)
+    rubocop (1.67.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -653,7 +653,7 @@ DEPENDENCIES
   rolify (~> 6.0.1)
   rspec-activemodel-mocks (~> 1.2.1)
   rspec-rails (~> 7.0.1)
-  rubocop (~> 1.66.1)
+  rubocop (~> 1.67.0)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
