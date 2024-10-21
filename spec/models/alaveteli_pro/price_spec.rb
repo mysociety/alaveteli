@@ -7,18 +7,29 @@ RSpec.describe AlaveteliPro::Price do
   describe '.list' do
     before { described_class.instance_variable_set(:@list, nil) }
 
-    let(:price_ids) { %w[price_1 price_2 price_3] }
-    let(:price_1) { double('AlaveteliPro::Price') }
-    let(:price_2) { double('AlaveteliPro::Price') }
+    let(:prices) do
+      {
+        price_1: { id: 'price_1', enabled: true },
+        price_2: { enabled: true },
+        price_3: { id: 'price_3', enabled: false }, # not enabled
+        price_4: { enabled: true } # does not exist
+      }
+    end
+
+    let(:price_1) { AlaveteliPro::Price.new(double('Stripe::Price')) }
+    let(:price_2) { AlaveteliPro::Price.new(double('Stripe::Price')) }
+    let(:price_3) { AlaveteliPro::Price.new(double('Stripe::Price')) }
 
     before do
-      allow(AlaveteliConfiguration).to receive(:stripe_price_ids).
-        and_return(price_ids)
+      allow(AlaveteliConfiguration).to receive(:stripe_prices).
+        and_return(prices)
       allow(described_class).to receive(:retrieve).with('price_1').
         and_return(price_1)
       allow(described_class).to receive(:retrieve).with('price_2').
         and_return(price_2)
       allow(described_class).to receive(:retrieve).with('price_3').
+        and_return(price_3)
+      allow(described_class).to receive(:retrieve).with('price_4').
         and_return(nil)
     end
 

@@ -8,8 +8,8 @@ RSpec.describe AlaveteliPro::PlansController do
   let(:product) { stripe_helper.create_product }
 
   before do
-    allow(AlaveteliConfiguration).to receive(:stripe_price_ids).
-      and_return(['pro'])
+    allow(AlaveteliConfiguration).to receive(:stripe_prices).
+      and_return(pro: { enabled: true })
   end
 
   let!(:pro_price) do

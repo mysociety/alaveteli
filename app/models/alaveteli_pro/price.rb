@@ -9,21 +9,22 @@ class AlaveteliPro::Price < SimpleDelegator
   tax :unit_amount
 
   def self.list
-    AlaveteliConfiguration.stripe_price_ids.inject([]) do |arr, id|
-      price = retrieve(id)
-      arr << price if price
+    AlaveteliConfiguration.stripe_prices.inject([]) do |arr, (_, id)|
+      arr << retrieve(id)
       arr
     end
   end
 
   def self.retrieve(id)
-    new(Stripe::Price.retrieve(add_stripe_namespace(id)))
-  rescue Stripe::InvalidRequestError
-    nil
+    new(Stripe::Price.retrieve(add_stripe_namespace(id, prefix: 'price')))
   end
 
   def to_param
-    remove_stripe_namespace(id)
+    AlaveteliConfiguration.stripe_prices[id]
+  end
+
+  def ===(other)
+    self.id == other.id
   end
 
   # product
