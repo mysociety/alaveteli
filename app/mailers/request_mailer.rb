@@ -210,8 +210,10 @@ class RequestMailer < ApplicationMailer
     unless logger.nil?
       logger.debug "Received mail from #{source}:\n #{raw_email}"
     end
-    mail = MailHandler.mail_from_raw_email(raw_email)
-    new.receive(mail, raw_email, source)
+
+    ActionMailbox::InboundEmail.create_and_extract_message_id!(
+      raw_email, origin: source
+    )
   end
 
   # Find which info requests the email is for

@@ -24,11 +24,4 @@ RSpec.describe "When importing mail into the application" do
     expect(r.status).to eq(0)
     expect(r.out).to eq("")
   end
-
-  # Destroy the incoming message so that it doesn't affect other tests
-  after do
-    ir = info_requests(:other_request)
-    incoming_message = ir.incoming_messages[0]
-    incoming_message.destroy
-  end
 end

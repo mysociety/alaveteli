@@ -20,6 +20,25 @@
 #   project: ''
 #   bucket: ''
 
+## Inbound Emails ##
+
+inbound_emails_disk: &inbound_emails_disk
+  service: Disk
+  root: <%= Rails.root.join('storage/inbound_emails') %>
+
+inbound_emails_production: &inbound_emails_production
+  <<: *inbound_emails_disk
+
+inbound_emails_development: &inbound_emails_development
+  <<: *inbound_emails_disk
+
+inbound_emails_test: &inbound_emails_test
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage/inbound_emails') %>
+
+inbound_emails:
+  <<: *inbound_emails_<%= Rails.env %>
+
 ## Raw Emails ##
 
 raw_emails_disk: &raw_emails_disk

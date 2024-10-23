@@ -8,7 +8,7 @@ require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-# require "action_mailbox/engine"
+require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
@@ -101,5 +101,7 @@ module Alaveteli
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { host: AlaveteliConfiguration.domain }
+
+    config.action_mailbox.storage_service = :inbound_emails
   end
 end

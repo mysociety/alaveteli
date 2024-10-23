@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Add basic Citation searching in admin UI (Gareth Rees)
 * Improve citations admin to allow title and description updates (Graeme
   Porteous)
@@ -108,6 +109,14 @@
   for Puma. You can generate this by running `rake config_files:convert_daemon
   DAEMON=puma.service`. For detailed instructions, refer to [the
   documentation](https://alaveteli.org/docs/installing/cron_and_daemons/#puma).
+
+* _Required:_ Please update your `config/storage.yml` file to include a
+  production configuration for `inbound_emails`. See
+  `config/storage.yml-example` as an example.
+
+* _Required:_ Please update your `config/sidekiq.yml` file to include the
+  `action_mailbox_routing` and `action_mailbox_incineration` queues. See
+  `config/sidekiq.yml-example` as an example.
 
 * _Optional:_ Bodies with not many requests will automatically get tagged
   `not_many_requests` as they are updated. If you want to automatically tag them
