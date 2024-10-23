@@ -184,6 +184,9 @@ do
     fi
 done
 
+# add cable.yml
+cp config/cable.yml-example config/cable.yml
+
 # add sidekiq.yml
 cp config/sidekiq.yml-example config/sidekiq.yml
 

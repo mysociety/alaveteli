@@ -937,4 +937,10 @@ Rails.application.routes.draw do
     end
   end
   ####
+
+  resources :jobs, only: [:index] do
+    collection do
+      post :start
+    end
+  end
 end

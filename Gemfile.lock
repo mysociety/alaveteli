@@ -649,7 +649,6 @@ DEPENDENCIES
   rails-i18n (~> 7.0.5)
   recaptcha (~> 5.17.0)
   redcarpet (~> 3.6.0)
-  redis (~> 4.8.1)
   rolify (~> 6.0.1)
   rspec-activemodel-mocks (~> 1.2.1)
   rspec-rails (~> 7.0.1)

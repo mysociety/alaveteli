@@ -8,6 +8,7 @@
 /cache/
 /config/*.deployed
 /config/aliases
+/config/cable.yml
 /config/config.tmp
 /config/crontab
 /config/database.yml
