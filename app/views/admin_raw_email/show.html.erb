@@ -1,3 +1,7 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags("admin", importmap: Rails.application.admin_importmap) %>
+<% end %>
+
 <%= render partial: 'admin_raw_email/intro', locals: { raw_email: @raw_email } %>
 
 <% if @holding_pen %>
@@ -76,7 +80,7 @@
   <pre><%= h(@raw_email.data_as_text).gsub(/\n/, '<br>').html_safe %></pre>
 
   <% if feature_enabled?(:raw_email_erase) && !@holding_pen %>
-  <div class="row">
+  <div data-controller="raw-email" data-raw-email-id-value="<%= @raw_email.id %>" class="row">
     <div class="span12 danger-zone">
       <h1 class="span12 danger-zone__header">Danger Zone</h1>
 
@@ -117,7 +121,7 @@
           <br/>
         </div>
 
-        <%= form_with url: admin_raw_email_erasure_path(@raw_email), scope: :raw_email, class: 'span4' do |f| %>
+        <%= form_with url: admin_raw_email_erasure_path(@raw_email), scope: :raw_email, class: 'span4', data: { turbo: true } do |f| %>
           <div class="input-append">
             <%= f.text_field :erasure_reason,
                              placeholder: 'Reason for erasure',
@@ -125,9 +129,14 @@
 
             <%= f.submit 'Erase',
                          class: 'btn btn-danger',
-                         data: { confirm: 'Are you sure? This is irreversible.' } %>
+                         data: {
+                           confirm: 'Are you sure? This is irreversible.',
+                           action: 'click->raw-email#erase',
+                           raw_email_target: 'eraseButton'
+                         } %>
           </div>
         <% end %>
+        <span data-raw-email-target="status"></span>
       </div>
     </div>
   </div>

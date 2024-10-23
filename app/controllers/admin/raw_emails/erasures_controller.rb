@@ -5,11 +5,14 @@ class Admin::RawEmails::ErasuresController < AdminController
   before_action :set_raw_email
 
   def create
-    if @raw_email.erase(editor: admin_current_user, reason: erasure_reason)
-      redirect_to admin_raw_email_path(@raw_email), notice: success_message
-    else
-      redirect_to admin_raw_email_path(@raw_email), error: failure_message
-    end
+    RawEmailErasureJob.perform_later(@raw_email)
+    head :ok
+
+    # if @raw_email.erase(editor: admin_current_user, reason: erasure_reason)
+    #   redirect_to admin_raw_email_path(@raw_email), notice: success_message
+    # else
+    #   redirect_to admin_raw_email_path(@raw_email), error: failure_message
+    # end
   end
 
   private
