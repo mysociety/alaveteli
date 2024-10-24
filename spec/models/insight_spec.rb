@@ -52,4 +52,27 @@ RSpec.describe Insight, type: :model do
       expect(insight).not_to be_valid
     end
   end
+
+  describe 'callbacks' do
+    it 'queues InsightJob after create' do
+      expect(InsightJob).to receive(:perform_later)
+      FactoryBot.create(:insight)
+    end
+  end
+
+  describe '#prompt' do
+    it 'replaces [initial_request] with first outgoing message body' do
+      outgoing_message = instance_double(
+        OutgoingMessage, body: 'message content'
+      )
+      insight = FactoryBot.build(
+        :insight, template: 'Template with [initial_request]'
+      )
+
+      allow(insight).to receive(:outgoing_messages).
+        and_return([outgoing_message])
+
+      expect(insight.prompt).to eq('Template with message content')
+    end
+  end
 end
