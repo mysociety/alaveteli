@@ -1414,6 +1414,11 @@ RSpec.describe InfoRequest do
       expect(info_request.user).to receive(:info_request_count_changed)
       info_request.destroy
     end
+
+    it 'destroys associated insights' do
+      FactoryBot.create(:insight, info_request: info_request)
+      expect { info_request.destroy }.to change(Insight, :count).by(-1)
+    end
   end
 
   describe '#expire' do
