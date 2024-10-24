@@ -13,10 +13,29 @@
 #  updated_at      :datetime         not null
 #
 class Insight < ApplicationRecord
+  after_commit :queue, on: :create
+
   belongs_to :info_request, optional: false
   has_many :outgoing_messages, through: :info_request
 
   validates :model, presence: true
   validates :temperature, presence: true
   validates :prompt_template, presence: true
+
+  def prompt
+    prompt_template.gsub('[initial_request]') do
+      strip_tags(outgoing_messages.first.body)[0...500]
+    end
+  end
+
+  private
+
+  def strip_tags(content)
+    content.gsub(/<\|start_(.*?)\|>(.*?)<\|end_\1\|>/m, '').
+            gsub(/<\|.*?\|>/, '')
+  end
+
+  def queue
+    InsightJob.perform_later(insight: self)
+  end
 end
