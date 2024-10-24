@@ -1,0 +1,55 @@
+<% @title = 'New insight' %>
+
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+</div>
+
+<%= form_for [:admin, @info_request, @insight], html: {
+  class: 'form form-horizontal'
+} do |f| %>
+
+  <%= foi_error_messages_for :insight %>
+
+  <div class="control-group">
+    <%= f.label :model, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :model,
+        class: 'span6' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :temperature, class: 'control-label' %>
+    <div class="controls">
+      <%= f.range_field :temperature, min: 0, max: 1, step: 0.1,
+        class: 'span6',
+        autocomplete: 'off',
+        oninput: 'insight_temperature_display.value = insight_temperature.value' %>
+
+      <%= content_tag(:output, @insight.temperature, id: 'insight_temperature_display') %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :prompt_template, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :prompt_template,
+        class: 'span6',
+        rows: 10 %>
+
+      <div class="help-block">
+        Add <strong>[initial_request]</strong> to substitute in the first 500
+        characters from the body of the initial outgoing message into the prompt
+        sent to the model.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag 'Create', class: 'btn btn-success' %>
+  </div>
+<% end %>

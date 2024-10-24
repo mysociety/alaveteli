@@ -822,6 +822,14 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Insights controller
+  namespace :admin do
+    resources :info_requests, only: [], path: 'requests' do
+      resources :insights, only: [:show, :new, :create, :destroy]
+    end
+  end
+  ####
+
   #### Api controller
   match '/api/v2/request.json' => 'api#create_request',
         :as => :api_create_request,

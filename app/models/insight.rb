@@ -13,6 +13,9 @@
 #  updated_at      :datetime         not null
 #
 class Insight < ApplicationRecord
+  admin_columns exclude: [:prompt_template, :output],
+                include: [:duration, :prompt, :response]
+
   after_commit :queue, on: :create
 
   belongs_to :info_request, optional: false
@@ -22,10 +25,21 @@ class Insight < ApplicationRecord
   validates :temperature, presence: true
   validates :prompt_template, presence: true
 
+  def duration
+    return unless output && output['total_duration']
+
+    seconds = output['total_duration'].to_f / 1_000_000_000
+    ActiveSupport::Duration.build(seconds.to_i).inspect
+  end
+
   def prompt
     prompt_template.gsub('[initial_request]') do
       strip_tags(outgoing_messages.first.body)[0...500]
     end
+  end
+
+  def response
+    output && output['response']
   end
 
   private

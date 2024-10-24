@@ -60,13 +60,26 @@ RSpec.describe Insight, type: :model do
     end
   end
 
+  describe '#duration' do
+    it 'returns nil when total_duration is not present' do
+      insight = FactoryBot.build(:insight)
+      expect(insight.duration).to be_nil
+    end
+
+    it 'returns formatted duration when total_duration exists' do
+      insight = FactoryBot.build(:insight)
+      insight.output = { 'total_duration' => 3_000_000_000 }
+      expect(insight.duration).to eq('3 seconds')
+    end
+  end
+
   describe '#prompt' do
     it 'replaces [initial_request] with first outgoing message body' do
       outgoing_message = instance_double(
         OutgoingMessage, body: 'message content'
       )
       insight = FactoryBot.build(
-        :insight, template: 'Template with [initial_request]'
+        :insight, prompt_template: 'Template with [initial_request]'
       )
 
       allow(insight).to receive(:outgoing_messages).
@@ -97,6 +110,14 @@ RSpec.describe Insight, type: :model do
         and_return([outgoing_message])
 
       expect(insight.prompt).to eq('Foo  Bar')
+    end
+  end
+
+  describe '#response' do
+    it 'returns response from output' do
+      insight = FactoryBot.build(:insight)
+      insight.output = { 'response' => 'test response' }
+      expect(insight.response).to eq('test response')
     end
   end
 end
