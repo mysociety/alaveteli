@@ -182,6 +182,9 @@ gem 'google-cloud-storage', '~> 1.54', require: false
 # Storage content analyzers
 gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
 
+# AI insights
+gem "ollama-ai", "~> 1.3.0"
+
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.24.0'
