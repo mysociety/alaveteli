@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Drop support for Azure storage (Graeme Porteous)
 * Add basic Citation searching in admin UI (Gareth Rees)
 * Improve citations admin to allow title and description updates (Graeme
   Porteous)
@@ -108,6 +109,13 @@
   for Puma. You can generate this by running `rake config_files:convert_daemon
   DAEMON=puma.service`. For detailed instructions, refer to [the
   documentation](https://alaveteli.org/docs/installing/cron_and_daemons/#puma).
+
+* _Required:_ This release drops support for Azure storage. This is because the
+  Azure gem hasn't been updated in a long time and is preventing upgrades and
+  feature development. If you depend on this gem for storage please migrate to
+  a different storage backend before upgrading. We're not expecting other sites
+  to have used this gem but if you do please reach out if you need assistance
+  migrating.
 
 * _Optional:_ Bodies with not many requests will automatically get tagged
   `not_many_requests` as they are updated. If you want to automatically tag them
