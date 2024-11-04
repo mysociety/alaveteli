@@ -1,3 +1,8 @@
+##
+# This module is a concern that provides functionality for handling namespaced
+# Stripe identifiers. The namespace helps prevent collisions between Stripe
+# objects in different applications.
+#
 module AlaveteliPro::StripeNamespace
   extend ActiveSupport::Concern
 
