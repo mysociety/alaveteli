@@ -20,12 +20,9 @@ module Taxable
       def tax(*attributes)
         attributes.each do |attribute|
           define_method("#{attribute}_with_tax") do
-            # Need to use BigDecimal() here because SimpleDelegator is forwarding
-            # `#BigDecimal` to `#amount` in Ruby 2.0.
-            net = BigDecimal(send(attribute) * 0.01, 0).round(2)
-            vat = (net * tax_rate).round(2)
-            gross = net + vat
-            (gross * 100).floor
+            net = send(attribute)
+            vat = (net * tax_rate).round(0)
+            net + vat
           end
         end
       end
@@ -35,6 +32,6 @@ module Taxable
   private
 
   def tax_rate
-    @tax_rate ||= BigDecimal(AlaveteliConfiguration.stripe_tax_rate)
+    @tax_rate ||= AlaveteliConfiguration.stripe_tax_rate.to_f
   end
 end
