@@ -408,7 +408,7 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    rails-i18n (7.0.5)
+    rails-i18n (7.0.10)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
     railties (7.0.8.6)
@@ -634,7 +634,7 @@ DEPENDENCIES
   rack-utf8_sanitizer (~> 1.9.1)
   rails (~> 7.0.8)
   rails-controller-testing
-  rails-i18n (~> 7.0.5)
+  rails-i18n (~> 7.0.10)
   recaptcha (~> 5.17.0)
   redcarpet (~> 3.6.0)
   redis (~> 4.8.1)
