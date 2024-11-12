@@ -155,7 +155,7 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.3.0)
-    bullet (7.2.0)
+    bullet (8.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     cancancan (3.6.1)
@@ -591,7 +591,7 @@ DEPENDENCIES
   aws-sdk-s3
   bcrypt (~> 3.1.20)
   bootstrap-sass (~> 2.3.2.2)
-  bullet (~> 7.2.0)
+  bullet (~> 8.0.0)
   cancancan (~> 3.6.1)
   capistrano (~> 2.15.11)
   capybara (~> 3.40.0)
