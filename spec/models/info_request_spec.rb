@@ -1511,6 +1511,22 @@ RSpec.describe InfoRequest do
                                        "Some information please")).
         to eq(info_request)
     end
+
+    it 'compress whitespace within the title when considering duplicates' do
+      info_request = FactoryBot.create(:info_request, title: 'Foo bar')
+      expect(InfoRequest.find_existing('Foo  bar',
+                                       info_request.public_body_id,
+                                       'Some information please')).
+        to eq(info_request)
+    end
+
+    it 'compress newlines within the title when considering duplicates' do
+      info_request = FactoryBot.create(:info_request, title: 'Foo bar')
+      expect(InfoRequest.find_existing("Foo\r\nbar",
+                                       info_request.public_body_id,
+                                       'Some information please')).
+        to eq(info_request)
+    end
   end
 
   describe '#find_existing_outgoing_message' do
