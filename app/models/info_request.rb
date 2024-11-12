@@ -351,7 +351,7 @@ class InfoRequest < ApplicationRecord
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    conditions = { title: title&.strip, public_body_id: public_body_id }
+    conditions = { title: title&.squish, public_body_id: public_body_id }
 
     InfoRequest.
       includes(:outgoing_messages).
