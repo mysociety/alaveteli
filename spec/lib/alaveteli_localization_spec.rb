@@ -119,7 +119,7 @@ RSpec.describe AlaveteliLocalization do
       it 'can correct translate hyphenated language locale' do
         AlaveteliLocalization.set_locales('fr-BE', 'fr-BE')
         expect(I18n.translate('date.abbr_month_names')).to include(
-          'jan.', 'fév.', 'mar.', 'avr.', 'mai', 'juin', 'juil.', 'août',
+          'jan.', 'fév.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août',
           'sept.', 'oct.', 'nov.', 'déc.'
         )
       end
