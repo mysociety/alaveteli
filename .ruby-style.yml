@@ -1057,6 +1057,9 @@ Performance/Squeeze:
 Performance/StartWith:
   Enabled: false
 
+Performance/StringBytesize:
+  Enabled: false
+
 Performance/StringIdentifierArgument:
   Enabled: false
 
