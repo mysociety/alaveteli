@@ -36,9 +36,7 @@ RSpec.describe AlaveteliPro::MetricsMailer do
     subject { described_class.send_weekly_report(report) }
 
     it 'should deliver the weekly_report email' do
-      expect { subject }.to(
-        change(ActionMailer::Base.deliveries, :size).by(1)
-      )
+      expect { subject }.to change { deliveries.size }.by(1)
     end
   end
 

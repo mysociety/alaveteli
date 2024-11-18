@@ -266,7 +266,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
 
       it 'does not send a notification' do
         action
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(deliveries).to be_empty
       end
     end
 
@@ -280,7 +280,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
 
       it 'sends a notification' do
         action
-        mail = ActionMailer::Base.deliveries.first
+        mail = deliveries.first
         expect(mail.subject).to match(/Batch rate limit hit/)
       end
     end

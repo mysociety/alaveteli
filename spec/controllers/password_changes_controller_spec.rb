@@ -151,9 +151,8 @@ RSpec.describe PasswordChangesController do
                         password_change_user: { email: user.email }
                       }
 
-        email = ActionMailer::Base.deliveries.last
-        expect(email.subject).to eq('Change your password on Alaveteli')
-        ActionMailer::Base.deliveries.clear
+        mail = deliveries.last
+        expect(mail.subject).to eq('Change your password on Alaveteli')
       end
 
       it 'does not send a confirmation email for an unknown email' do
@@ -162,7 +161,7 @@ RSpec.describe PasswordChangesController do
                           email: 'unknown-email@example.org'
                         }
                       }
-        expect(ActionMailer::Base.deliveries.size).to eq(0)
+        expect(deliveries).to be_empty
       end
 
       it 'renders the confirmation message' do

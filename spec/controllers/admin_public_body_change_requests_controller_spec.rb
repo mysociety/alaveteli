@@ -34,10 +34,8 @@ RSpec.describe AdminPublicBodyChangeRequestsController do
       end
 
       it 'sends a response email to the user who requested the change' do
-        deliveries = ActionMailer::Base.deliveries
-        mail = deliveries.first
-
         expect(deliveries.size).to eq(1)
+        mail = deliveries.first
         expect(mail.subject).to eq('Your request')
         expect(mail.to).to eq([add_request.get_user_email])
         expect(mail.body).to match(/Thanks but no/)
@@ -63,7 +61,7 @@ RSpec.describe AdminPublicBodyChangeRequestsController do
       end
 
       it 'no email is sent to the user who requested the change' do
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(deliveries).to be_empty
       end
 
       it 'notifies the admin the request is closed' do

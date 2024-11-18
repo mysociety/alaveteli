@@ -4,7 +4,6 @@ RSpec.describe RequestMailer do
   describe "when receiving incoming mail" do
     before(:each) do
       load_raw_emails_data
-      ActionMailer::Base.deliveries = []
     end
 
     it "should append it to the appropriate request" do
@@ -15,11 +14,9 @@ RSpec.describe RequestMailer do
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
       expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ 'bob@localhost' ]) # to the user who sent fancy_dog_request
-      deliveries.clear
     end
 
     it "should append it to the appropriate request if there is only one guess of information request" do
@@ -33,12 +30,10 @@ RSpec.describe RequestMailer do
       expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
       expect(ir.info_request_events[-2].params[:editor]).to eq("automatic")
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       # to the user who sent fancy_dog_request
       expect(mail.to).to eq(['bob@localhost'])
-      deliveries.clear
     end
 
     it "should append the email to each exact request address, unless that request has already received the email" do
@@ -131,11 +126,9 @@ RSpec.describe RequestMailer do
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to eq("Could not identify the request from the email address")
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
-      deliveries.clear
     end
 
     it "puts messages with a malformed To: in the holding pen" do
@@ -161,11 +154,9 @@ RSpec.describe RequestMailer do
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
       expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ 'bob@localhost' ]) # to the user who sent fancy_dog_request
-      deliveries.clear
     end
 
     it "should parse attachments from mails sent with apple mail" do
@@ -191,11 +182,9 @@ RSpec.describe RequestMailer do
       expect(im.foi_attachments.size).to eq(6)
 
       # Clean up
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
-      deliveries.clear
     end
 
     it "should store mail in holding pen and send to admin when the from email is empty and only authorities can reply" do
@@ -213,11 +202,9 @@ RSpec.describe RequestMailer do
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/there is no "From" address/)
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
-      deliveries.clear
     end
 
     it "should store mail in holding pen and send to admin when the from email is unknown and only authorities can reply" do
@@ -235,11 +222,9 @@ RSpec.describe RequestMailer do
       last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
       expect(last_event.params[:rejected_reason]).to match(/Only the authority can reply/)
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
-      deliveries.clear
     end
 
     context "when sent from known spam address" do
@@ -251,36 +236,28 @@ RSpec.describe RequestMailer do
         receive_incoming_mail('incoming-request-plain.email',
                               email_to: @spam_address.email)
 
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(0)
-        deliveries.clear
+        expect(deliveries).to be_empty
       end
 
       it "recognises a spam address under the 'CC' header" do
         receive_incoming_mail('incoming-request-plain.email',
                               email_cc: @spam_address.email)
 
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(0)
-        deliveries.clear
+        expect(deliveries).to be_empty
       end
 
       it "recognises a spam address under the 'BCC' header" do
         receive_incoming_mail('incoming-request-plain.email',
                               email_bcc: @spam_address.email)
 
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(0)
-        deliveries.clear
+        expect(deliveries).to be_empty
       end
 
       it "recognises a spam email address under the 'envelope-to' header" do
         receive_incoming_mail('incoming-request-plain.email',
                               email_envelope_to: @spam_address.email)
 
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(0)
-        deliveries.clear
+        expect(deliveries).to be_empty
       end
     end
 
@@ -299,13 +276,11 @@ RSpec.describe RequestMailer do
       expect(ir.incoming_messages.count).to eq(1) # nothing should arrive
 
       # should be a message back to sender
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ 'geraldinequango@localhost' ])
       expect(mail.multipart?).to eq(false)
       expect(mail.body).to include("marked to no longer receive responses")
-      deliveries.clear
     end
 
     it "should return incoming mail to sender if not authority when a request is stopped for non-authority spam" do
@@ -323,11 +298,9 @@ RSpec.describe RequestMailer do
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
 
       # ... should get "responses arrived" message for original requester
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ 'bob@localhost' ]) # to the user who sent fancy_dog_request
-      deliveries.clear
 
       # Test what happens if something arrives from another domain
       expect(ir.incoming_messages.count).to eq(2) # in fixture and above
@@ -337,11 +310,9 @@ RSpec.describe RequestMailer do
       expect(ir.incoming_messages.count).to eq(2) # nothing should arrive
 
       # ... should be a bounce message back to sender
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      expect(deliveries.size).to eq(2)
+      mail = deliveries.second
       expect(mail.to).to eq([ 'dummy-address@dummy.localhost' ])
-      deliveries.clear
     end
 
     it "discards rejected responses with a malformed From: when set to bounce" do
@@ -356,9 +327,7 @@ RSpec.describe RequestMailer do
                             email_from: "")
       expect(ir.incoming_messages.count).to eq(1)
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
-      deliveries.clear
+      expect(deliveries).to be_empty
     end
 
     it "should send all new responses to holding pen if a request is marked to do so" do
@@ -382,15 +351,12 @@ RSpec.describe RequestMailer do
       expect(last_event.params[:rejected_reason]).to match(/allow new responses from nobody/)
 
       # should be a message to admin regarding holding pen
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to).to eq([ AlaveteliConfiguration.contact_email ])
-      deliveries.clear
     end
 
     it "should destroy the messages sent to a request if marked to do so" do
-      ActionMailer::Base.deliveries.clear
       # mark request as anti-spam
       ir = info_requests(:fancy_dog_request)
       ir.allow_new_responses_from = 'nobody'
@@ -407,8 +373,7 @@ RSpec.describe RequestMailer do
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
 
       # should be no messages to anyone
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
     end
 
     it "should not mutilate long URLs when trying to word wrap them" do
@@ -429,6 +394,7 @@ RSpec.describe RequestMailer do
       info_request = FactoryBot.create(:waiting_clarification_info_request)
       info_request.update_column(:updated_at, Time.zone.now - 5.days)
       RequestMailer.alert_not_clarified_request
+      perform_enqueued_jobs
     end
 
     it 'does not render the footer partial for a non-user email' do
@@ -473,8 +439,8 @@ RSpec.describe RequestMailer do
       it 'sends the reminder' do
         old_request.create_embargo(publish_at: Time.zone.now + 3.days)
         send_alerts
-        deliveries = ActionMailer::Base.deliveries
-        mail = deliveries[0]
+        expect(deliveries.size).to eq(1)
+        mail = deliveries.first
         expect(mail.body).to match(/#{old_request.title}/)
         expect(mail.body).to match(/Letting everyone know whether you got the information/)
       end
@@ -502,8 +468,8 @@ RSpec.describe RequestMailer do
 
       it 'should send the reminder' do
         send_alerts
-        deliveries = ActionMailer::Base.deliveries
-        mail = deliveries[0]
+        expect(deliveries.size).to eq(1)
+        mail = deliveries.first
         expect(mail.body).to match(/Letting everyone know whether you got the information/)
       end
     end
@@ -635,9 +601,8 @@ RSpec.describe RequestMailer do
       RequestMailer.alert_new_response_reminders
       info_request = info_requests(:fancy_dog_request)
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(3) # sufficiently late it sends reminders too
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.body).to match(/To let everyone know/)
       expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
 
@@ -723,7 +688,7 @@ RSpec.describe RequestMailer do
     end
 
     def kitten_mails
-      ActionMailer::Base.deliveries.select { |mail| mail.body =~ /kitten/ }
+      deliveries.select { |mail| mail.body =~ /kitten/ }
     end
 
     it 'should not create HTML entities in the subject line' do
@@ -770,10 +735,8 @@ RSpec.describe RequestMailer do
     it "does not resend alerts to people who've already received them" do
       travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
-        expect(kitten_mails.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
-        RequestMailer.alert_overdue_requests
-        expect(kitten_mails.size).to eq(0)
+        expect { RequestMailer.alert_overdue_requests }.
+          to_not change(kitten_mails, :size).from(1)
       end
     end
 
@@ -806,7 +769,6 @@ RSpec.describe RequestMailer do
       travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
         expect(kitten_mails.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
       end
     end
 
@@ -816,7 +778,7 @@ RSpec.describe RequestMailer do
       travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
 
-        mails = ActionMailer::Base.deliveries.select do |mail|
+        mails = deliveries.select do |mail|
           mail.body =~ /#{info_request.title}/
         end
         mail = mails[0]
@@ -830,7 +792,7 @@ RSpec.describe RequestMailer do
       travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
 
-        mails = ActionMailer::Base.deliveries.select do |mail|
+        mails = deliveries.select do |mail|
           mail.body =~ /#{info_request.title}/
         end
         expect(mails).to be_empty
@@ -872,7 +834,7 @@ RSpec.describe RequestMailer do
 
         travel_to(61.days.from_now) do
           RequestMailer.alert_overdue_requests
-          mails = ActionMailer::Base.deliveries.select do |mail|
+          mails = deliveries.select do |mail|
             mail.body =~ /#{info_request.title}/
           end
           mail = mails[0]
@@ -888,7 +850,7 @@ RSpec.describe RequestMailer do
         travel_to(61.days.from_now) do
           RequestMailer.alert_overdue_requests
 
-          mails = ActionMailer::Base.deliveries.select do |mail|
+          mails = deliveries.select do |mail|
             mail.body =~ /#{info_request.title}/
           end
           expect(mails).to be_empty
@@ -934,9 +896,8 @@ RSpec.describe RequestMailer do
 
       RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.body).to match(/asked you to explain/)
       expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
       mail.body.to_s =~ /(http:\/\/.*)/
@@ -970,7 +931,7 @@ RSpec.describe RequestMailer do
       force_updated_at_to_past(ir)
       RequestMailer.alert_not_clarified_request
 
-      expect(ActionMailer::Base.deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
     end
 
     it "should not send an alert to banned users" do
@@ -984,8 +945,7 @@ RSpec.describe RequestMailer do
 
       RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
     end
 
     it "should alert about embargoed requests" do
@@ -995,9 +955,8 @@ RSpec.describe RequestMailer do
 
       RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.body).to match(/asked you to explain/)
       expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
     end
@@ -1010,8 +969,7 @@ RSpec.describe RequestMailer do
 
       RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
     end
   end
 
@@ -1031,8 +989,8 @@ RSpec.describe RequestMailer do
 
       # send comment alert
       RequestMailer.alert_comment_on_request
-      deliveries = ActionMailer::Base.deliveries
-      mail = deliveries[0]
+      expect(deliveries.size).to eq(1)
+      mail = deliveries.first
       expect(mail.body).to match(/has annotated your/)
       expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
       mail.body.to_s =~ /(http:\/\/.*)/
@@ -1040,10 +998,8 @@ RSpec.describe RequestMailer do
       expect(mail_url).to match("/request/why_do_you_have_such_a_fancy_dog#comment-#{new_comment.id}")
 
       # check if we send again, no more go out
-      deliveries.clear
-      RequestMailer.alert_comment_on_request
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect { RequestMailer.alert_comment_on_request }.
+        to_not change { deliveries.size }.from(1)
     end
 
     it "should not send an alert when you comment on your own request" do
@@ -1058,8 +1014,7 @@ RSpec.describe RequestMailer do
       # try to send comment alert
       RequestMailer.alert_comment_on_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
     end
 
     it 'should not send an alert for a comment on an external request' do
@@ -1068,8 +1023,7 @@ RSpec.describe RequestMailer do
       # try to send comment alert
       RequestMailer.alert_comment_on_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+      expect(deliveries).to be_empty
     end
 
     it "should send an alert when there are two new comments" do
@@ -1080,9 +1034,8 @@ RSpec.describe RequestMailer do
 
       RequestMailer.alert_comment_on_request
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.body).to match(/There are 2 new annotations/)
       expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
       mail.body.to_s =~ /(http:\/\/.*)/
@@ -1098,9 +1051,8 @@ RSpec.describe RequestMailer do
 
       RequestMailer.alert_comment_on_request
 
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
     end
   end

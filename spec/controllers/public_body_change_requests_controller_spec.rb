@@ -38,9 +38,8 @@ RSpec.describe PublicBodyChangeRequestsController do
                       public_body_change_request: @change_request_params
                     }
       change_request_id = assigns[:change_request].id
-      deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
+      mail = deliveries.first
       expect(mail.subject).to match(/Add authority - New Body/)
       expect(mail.header['Reply-To'].to_s).to include(@email)
       expect(mail.to).to include('postmaster@localhost')
@@ -108,9 +107,7 @@ RSpec.describe PublicBodyChangeRequestsController do
 
       expect(response).to redirect_to(frontpage_path)
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
-      deliveries.clear
+      expect(deliveries).to be_empty
     end
 
     context 'when handling a request for an update to an existing authority' do
@@ -133,9 +130,8 @@ RSpec.describe PublicBodyChangeRequestsController do
                         public_body_change_request: @change_request_params
                       }
         change_request_id = assigns[:change_request].id
-        deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
+        mail = deliveries.first
         expect(mail.subject).
           to match(/Update email address - #{@public_body.name}/)
         expect(mail.header['Reply-To'].to_s).to include(@email)

@@ -147,7 +147,6 @@ def last_holding_pen_mail
 end
 
 def confirmation_url_from_email
-  deliveries = ActionMailer::Base.deliveries
   expect(deliveries.size).to eq(1)
   mail = deliveries.first
   mail.body.to_s =~ /(http:\/\/.*\/c\/.*)/

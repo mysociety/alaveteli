@@ -951,7 +951,7 @@ class InfoRequest < ApplicationRecord
             )
             user.notify(info_request_event)
           else
-            RequestMailer.new_response(self, incoming_message).deliver_now
+            RequestMailer.new_response(self, incoming_message).deliver_later
           end
         end
       end
@@ -1022,13 +1022,13 @@ class InfoRequest < ApplicationRecord
     if old_described_state != described_state && requires_admin?
       # Check there is someone to send the message "from"
       if set_by && user
-        RequestMailer.requires_admin(self, set_by, message).deliver_now
+        RequestMailer.requires_admin(self, set_by, message).deliver_later
       end
     end
 
     unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
       RequestMailer.
-        old_unclassified_updated(self).deliver_now unless is_external?
+        old_unclassified_updated(self).deliver_later unless is_external?
     end
   end
 

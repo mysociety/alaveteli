@@ -319,18 +319,18 @@ RSpec.describe InfoRequestBatch do
 
     it 'should send requests and notifications for only unsent batch requests' do
       InfoRequestBatch.send_batches
-      expect(ActionMailer::Base.deliveries.size).to eq(3)
-      first_email = ActionMailer::Base.deliveries.first
-      expect(first_email.to).to eq([first_public_body.request_email])
-      expect(first_email.subject).to eq('Freedom of Information request - Example title')
+      expect(deliveries.size).to eq(3)
+      first_mail = deliveries.first
+      expect(first_mail.to).to eq([first_public_body.request_email])
+      expect(first_mail.subject).to eq('Freedom of Information request - Example title')
 
-      second_email = ActionMailer::Base.deliveries.second
-      expect(second_email.to).to eq([second_public_body.request_email])
-      expect(second_email.subject).to eq('Freedom of Information request - Example title')
+      second_mail = deliveries.second
+      expect(second_mail.to).to eq([second_public_body.request_email])
+      expect(second_mail.subject).to eq('Freedom of Information request - Example title')
 
-      third_email = ActionMailer::Base.deliveries.third
-      expect(third_email.to).to eq([info_request_batch.user.email])
-      expect(third_email.subject).to eq('Your batch request "Example title" has been sent')
+      third_mail = deliveries.third
+      expect(third_mail.to).to eq([info_request_batch.user.email])
+      expect(third_mail.subject).to eq('Your batch request "Example title" has been sent')
     end
 
     it 'should set the sent_at value of the info request batch' do

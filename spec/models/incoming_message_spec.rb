@@ -615,10 +615,6 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     load_raw_emails_data
   end
 
-  after(:all) do
-    ActionMailer::Base.deliveries.clear
-  end
-
   it 'should correctly parse multipart mails with a linebreak in the boundary marker' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('space-boundary.email', email_to: ir.incoming_email)
@@ -702,7 +698,6 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   end
 
   it "should load an email with funny MIME settings" do
-    ActionMailer::Base.deliveries.clear
     # just send it to the holding pen
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     receive_incoming_mail("humberside-police-odd-mime-type.email",
@@ -710,9 +705,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
 
     # clear the notification of new message in holding pen
-    deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to eq(1)
-    deliveries.clear
 
     incoming_message = InfoRequest.holding_pen_request.incoming_messages[0]
 

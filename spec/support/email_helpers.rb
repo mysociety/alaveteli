@@ -80,3 +80,11 @@ def rebuild_raw_emails(info_request)
     im.save!
   end
 end
+
+def deliveries
+  perform_enqueued_jobs
+  @deliveries ||= []
+  @deliveries += ActionMailer::Base.deliveries
+  ActionMailer::Base.deliveries.clear
+  @deliveries
+end

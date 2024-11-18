@@ -569,10 +569,9 @@ RSpec.describe InfoRequest do
           email, raw_email = email_and_raw_email
 
           info_request.receive(email, raw_email)
-          notification = ActionMailer::Base.deliveries.last
+          notification = deliveries.last
           expect(notification.to).to include(info_request.user.email)
-          expect(ActionMailer::Base.deliveries.size).to eq(1)
-          ActionMailer::Base.deliveries.clear
+          expect(deliveries.size).to eq(1)
         end
       end
 
@@ -582,7 +581,7 @@ RSpec.describe InfoRequest do
           email, raw_email = email_and_raw_email
 
           expect { info_request.receive(email, raw_email) }.
-            not_to change { ActionMailer::Base.deliveries.size }
+            not_to change { deliveries.size }
           expect { info_request.receive(email, raw_email) }.
             not_to change { Notification.count }
         end
@@ -823,17 +822,15 @@ RSpec.describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email(from: 'bounce@example.com')
         info_request.receive(email, raw_email)
-        bounce = ActionMailer::Base.deliveries.first
+        bounce = deliveries.first
         expect(bounce.to).to include('bounce@example.com')
-        ActionMailer::Base.deliveries.clear
       end
 
       it 'does not bounce responses to external requests' do
         info_request = FactoryBot.create(:external_request)
         email, raw_email = email_and_raw_email(from: 'bounce@example.com')
         info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
+        expect(deliveries).to be_empty
       end
 
       it 'discards rejected responses if the mail has no from address' do
@@ -842,8 +839,7 @@ RSpec.describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email(from: '')
         info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
-        ActionMailer::Base.deliveries.clear
+        expect(deliveries).to be_empty
       end
 
       it 'sends rejected responses to the holding pen' do
@@ -855,8 +851,7 @@ RSpec.describe InfoRequest do
         expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
         # Check that the notification that there's something new in the holding
         # has been sent
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
-        ActionMailer::Base.deliveries.clear
+        expect(deliveries.size).to eq(1)
       end
 
       it 'discards rejected responses' do
@@ -865,9 +860,8 @@ RSpec.describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         email, raw_email = email_and_raw_email
         info_request.receive(email, raw_email)
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(deliveries).to be_empty
         expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
-        ActionMailer::Base.deliveries.clear
       end
 
       it 'raises an error if there is an unknown handle_rejected_responses' do
@@ -966,8 +960,7 @@ RSpec.describe InfoRequest do
                             email_to: info_request.incoming_email,
                             email_from: 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
-      expect(ActionMailer::Base.deliveries).to be_empty
-      ActionMailer::Base.deliveries.clear
+      expect(deliveries).to be_empty
     end
 
     it "delivers mail under the configured spam threshold" do
@@ -992,8 +985,7 @@ RSpec.describe InfoRequest do
                             email_to: info_request.incoming_email,
                             email_from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
-      expect(ActionMailer::Base.deliveries.size).to eq(1)
-      ActionMailer::Base.deliveries.clear
+      expect(deliveries.size).to eq(1)
     end
 
     it "delivers mail without a spam header" do
@@ -1018,7 +1010,6 @@ RSpec.describe InfoRequest do
                             email_from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.count).to eq(1)
-      ActionMailer::Base.deliveries.clear
     end
 
     context 'when email has already been received' do
@@ -3513,8 +3504,6 @@ RSpec.describe InfoRequest do
       end
 
       context "a series of require admin events on a request" do
-        before { ActionMailer::Base.deliveries.clear }
-
         it "does not send multiple require admin reports" do
           # Request sent to old/invalid address
           request.log_event('sent', {})
@@ -3527,7 +3516,7 @@ RSpec.describe InfoRequest do
           # Requester classifies as error_message
           request.log_event('status_update', {})
           expect { request.set_described_state('error_message', request.user) }.
-            to change { ActionMailer::Base.deliveries.size }.by(1)
+            to change { deliveries.size }.by(1)
 
           # A second bounce is received
           request.awaiting_description = true
@@ -3536,7 +3525,7 @@ RSpec.describe InfoRequest do
           # Requester classifies as error_message again
           request.log_event('status_update', {})
           expect { request.set_described_state('error_message', request.user) }.
-            to_not change { ActionMailer::Base.deliveries.size }
+            to_not change { deliveries.size }
         end
       end
     end

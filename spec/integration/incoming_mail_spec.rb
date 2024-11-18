@@ -2,16 +2,13 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'when handling incoming mail' do
-  include ActiveJob::TestHelper
-
   let(:info_request) { FactoryBot.create(:info_request) }
 
   it "receives incoming messages, sends email to requester, and shows them" do
     receive_incoming_mail('incoming-request-plain.email',
                           email_to: info_request.incoming_email)
-    deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to eq(1)
-    mail = deliveries[0]
+    mail = deliveries.first
     expect(mail.to).to eq([info_request.user.email])
     expect(mail.body).to match(/You have a new response to the Freedom of Information request/)
     visit show_request_path info_request.url_title

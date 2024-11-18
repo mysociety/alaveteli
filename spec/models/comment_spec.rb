@@ -248,14 +248,14 @@ RSpec.describe Comment do
       expected = "FOI response requires admin (waiting_response) " \
                  "- #{comment.info_request.title}"
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
-      notification = ActionMailer::Base.deliveries.last
+      notification = deliveries.last
       expect(notification.subject).to eq(expected)
     end
 
     it 'prepends the reason to the message before sending' do
       expected = "Reason: Vexatious comment\n\nComment is bad, please hide"
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
-      notification = ActionMailer::Base.deliveries.last
+      notification = deliveries.last
       expect(notification.body).to match(expected)
     end
 
@@ -264,7 +264,7 @@ RSpec.describe Comment do
         "The user wishes to draw attention to the comment: " \
         "#{comment_url(comment, host: AlaveteliConfiguration.domain)}"
       comment.report!("Vexatious comment", "Comment is bad, please hide", user)
-      notification = ActionMailer::Base.deliveries.last
+      notification = deliveries.last
       expect(notification.body).to match(expected)
     end
 

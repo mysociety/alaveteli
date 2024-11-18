@@ -814,16 +814,14 @@ RSpec.describe NotificationMailer do
     end
 
     it "sends a mail for each expected user" do
-      ActionMailer::Base.deliveries.clear
-
       NotificationMailer.send_daily_notifications
 
-      expect(ActionMailer::Base.deliveries.size).to eq 2
+      expect(deliveries.size).to eq(2)
 
-      first_mail = ActionMailer::Base.deliveries.first
+      first_mail = deliveries.first
       expect(first_mail.to).to eq([notification_1.user.email])
 
-      second_mail = ActionMailer::Base.deliveries.second
+      second_mail = deliveries.second
       expect(second_mail.to).to eq([notification_2.user.email])
     end
 
@@ -983,16 +981,14 @@ RSpec.describe NotificationMailer do
     end
 
     it "sends a mail for each unseen instant notification" do
-      ActionMailer::Base.deliveries.clear
-
       NotificationMailer.send_instant_notifications
 
-      expect(ActionMailer::Base.deliveries.size).to eq 2
+      expect(deliveries.size).to eq(2)
 
-      first_mail = ActionMailer::Base.deliveries.first
+      first_mail = deliveries.first
       expect(first_mail.to).to eq([notification_1.user.email])
 
-      second_mail = ActionMailer::Base.deliveries.second
+      second_mail = deliveries.second
       expect(second_mail.to).to eq([notification_2.user.email])
     end
 

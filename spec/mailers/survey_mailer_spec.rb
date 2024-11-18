@@ -5,7 +5,6 @@ RSpec.describe SurveyMailer do
     before do
       allow(Survey).to receive(:enabled?).and_return(true)
       InfoRequest.destroy_all
-      ActionMailer::Base.deliveries = []
     end
 
     def get_surveyable_request(user = nil)
@@ -23,7 +22,7 @@ RSpec.describe SurveyMailer do
       it 'sends a survey alert' do
         get_surveyable_request
         SurveyMailer.alert_survey
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
+        expect(deliveries.size).to eq(1)
       end
 
       it 'records the sending of the alert' do
@@ -39,7 +38,7 @@ RSpec.describe SurveyMailer do
         request = get_surveyable_request
         get_surveyable_request(request.user)
         SurveyMailer.alert_survey
-        expect(ActionMailer::Base.deliveries.size).to eq(1)
+        expect(deliveries.size).to eq(1)
       end
     end
 
@@ -49,7 +48,7 @@ RSpec.describe SurveyMailer do
           and_return(false)
         get_surveyable_request
         SurveyMailer.alert_survey
-        expect(ActionMailer::Base.deliveries.size).to eq(0)
+        expect(deliveries).to be_empty
       end
     end
 

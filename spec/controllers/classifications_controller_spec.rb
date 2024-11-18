@@ -90,9 +90,9 @@ RSpec.describe ClassificationsController, type: :controller do
           it 'should send an email to the requester letting them know someone
               has updated the status of their request' do
             post_status('rejected')
-            deliveries = ActionMailer::Base.deliveries
             expect(deliveries.size).to eq(1)
-            expect(deliveries.first.subject).
+            mail = deliveries.first
+            expect(mail.subject).
               to match('Someone has updated the status of your request')
           end
 
@@ -134,7 +134,6 @@ RSpec.describe ClassificationsController, type: :controller do
                'requires admin and one to the requester noting the status ' \
                'change' do
               post_status('requires_admin', message: 'a message')
-              deliveries = ActionMailer::Base.deliveries
               expect(deliveries.size).to eq(2)
               requires_admin_mail = deliveries.first
               status_update_mail = deliveries.second
@@ -197,7 +196,7 @@ RSpec.describe ClassificationsController, type: :controller do
         it 'should send an email to the requester letting them know someone has
             updated the status of their request' do
           mail_mock = double('mail')
-          allow(mail_mock).to receive :deliver_now
+          allow(mail_mock).to receive :deliver_later
           expect(RequestMailer).to receive(:old_unclassified_updated).
             and_return(mail_mock)
           post_status('rejected')
@@ -344,15 +343,14 @@ RSpec.describe ClassificationsController, type: :controller do
 
           info_request.reload
           expect(info_request.described_state).not_to eq('requires_admin')
-          expect(ActionMailer::Base.deliveries).to be_empty
+          expect(deliveries).to be_empty
         end
 
         context 'message is included when classifying as requires_admin' do
           it 'should send an email including the message' do
             post_status('requires_admin', message: 'Something weird happened')
-            deliveries = ActionMailer::Base.deliveries
             expect(deliveries.size).to eq(1)
-            mail = deliveries[0]
+            mail = deliveries.first
             expect(mail.body).to match(/as needing admin/)
             expect(mail.body).to match(/Something weird happened/)
           end
