@@ -1,16 +1,23 @@
 require 'spec_helper'
+require 'stripe_mock'
 
 RSpec.describe AlaveteliPro::Invoice, type: :model do
+  before { StripeMock.start }
+  after { StripeMock.stop }
+
   let(:invoice) { AlaveteliPro::Invoice.new(stripe_invoice) }
 
   let(:stripe_invoice) do
-    double('Stripe::Invoice',
-           status: 'open', charge: 'ch_123', date: 1722211200, amount_paid: 0)
+    Stripe::Invoice.create(
+      id: 'in_123',
+      status: 'open',
+      charge: 'ch_123',
+      created: 1722211200,
+      amount_paid: 0
+    )
   end
 
-  let(:stripe_charge) do
-    double('Stripe::Charge', receipt_url: 'http://example.com/receipt')
-  end
+  let(:stripe_charge) { Stripe::Charge.new(id: 'ch_123') }
 
   before do
     allow(Stripe::Charge).
@@ -46,10 +53,10 @@ RSpec.describe AlaveteliPro::Invoice, type: :model do
     end
   end
 
-  describe '#date' do
+  describe '#created' do
     it 'returns a date object for the invoice' do
       with_env_tz 'UTC' do
-        expect(invoice.date).to eq(Date.new(2024, 7, 29))
+        expect(invoice.created).to eq(Date.new(2024, 7, 29))
       end
     end
   end
@@ -66,6 +73,12 @@ RSpec.describe AlaveteliPro::Invoice, type: :model do
   end
 
   describe '#receipt_url' do
+    before do
+      allow(stripe_charge).to receive(:receipt_url).and_return(
+        'http://example.com/receipt'
+      )
+    end
+
     it 'delegates receipt_url to the charge' do
       expect(invoice.receipt_url).to eq('http://example.com/receipt')
     end

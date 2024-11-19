@@ -57,13 +57,14 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       charge = Stripe::Charge.retrieve(charge_id)
 
       subscription_id = @stripe_event.data.object.subscription
-      subscription = Stripe::Subscription.retrieve(subscription_id)
-      plan_name = subscription.plan.name
+      subscription = Stripe::Subscription.retrieve(
+        id: subscription_id, expand: ['plan.product']
+      )
+      plan_name = subscription.plan.product.name
 
-      charge.description =
-        "#{ pro_site_name }: #{ plan_name }"
-
-      charge.save
+      Stripe::Charge.update(
+        charge.id, description: "#{pro_site_name}: #{plan_name}"
+      )
     end
   end
 

@@ -126,7 +126,7 @@ gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails7'
-gem 'stripe', '~> 5.55.0'
+gem 'stripe', '~> 11.7.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'vpim', '~> 24.2.20'
@@ -180,8 +180,7 @@ group :test do
   gem 'simplecov', '~> 0.22.0'
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.40.0'
-  gem 'stripe-ruby-mock', git: 'https://github.com/stripe-ruby-mock/stripe-ruby-mock',
-                          ref: '6ceea96'
+  gem 'stripe-ruby-mock', '~> 4.0.0'
   gem 'rails-controller-testing'
 end
 

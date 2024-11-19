@@ -29,7 +29,7 @@
           <h3><%= _('Selected plan') %></h3>
           <div class="plan-overview">
             <div class="plan-overview__desc">
-              <%= @plan.name %>
+              <%= @plan.product.name %>
             </div>
             <div class="plan-overview__details">
               <%= billing_frequency(@plan.interval) %>

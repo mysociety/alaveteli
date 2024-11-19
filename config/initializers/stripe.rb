@@ -1,5 +1,5 @@
 Stripe.api_key = AlaveteliConfiguration.stripe_secret_key
-Stripe.api_version = '2017-01-27'
+Stripe.api_version = '2020-03-02'
 Stripe.enable_telemetry = false
 
 module Stripe
