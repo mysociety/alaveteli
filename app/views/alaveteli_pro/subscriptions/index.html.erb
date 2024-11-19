@@ -36,20 +36,20 @@
         <div class="settings-section">
           <h3><%= _('Your payment details') %></h3>
           <% if @customer.default_source %>
-            <%= render partial: 'card', locals: { card: @card } %>
+            <%= render partial: 'card', locals: { card: @customer.default_source } %>
           <% else %>
             <%= render partial: 'add_card' %>
           <% end %>
         </div>
 
-        <% if @discount_code && @discount_terms %>
+        <% if @referral = AlaveteliPro::Coupon.referral %>
           <div class="settings-section">
             <h3><%= _('Refer a friend') %></h3>
             <p class="settings__item">
               <%= _('Share the code {{discount_code}} with a friend to give ' \
                     'them {{discount_terms}} on signup.',
-                    discount_code: content_tag(:strong, @discount_code),
-                    discount_terms: @discount_terms) %>
+                    discount_code: content_tag(:strong, @referral.to_param),
+                    discount_terms: @referral.terms) %>
             </p>
           </div>
         <% end %>

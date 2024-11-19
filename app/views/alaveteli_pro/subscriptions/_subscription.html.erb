@@ -4,22 +4,19 @@
     <%= subscription.plan.product.name %>
   </div>
 
-  <div class="plan-overview__details">
+  <div class="plan-overview__amount">
+    <%= format_currency(subscription.plan.amount_with_tax) %>
+    <%= billing_frequency(subscription.plan) %>
+    <% if subscription.discounted? %>
+      <br>
+      <%= _('<strong>{{discounted_amount}}</strong> with discount ' \
+            '<strong>{{discount_name}}</strong> applied',
+            discount_name: subscription.discount_name,
+            discounted_amount: format_currency(
+              subscription.discounted_amount_with_tax
+            )) %>
+    <% end %>
   </div>
-
-  <label class="plan-overview__amount amount">
-    <span>
-      <%= format_currency(subscription_amount(subscription)) %>
-      <span class="amount__freq">
-        <%= billing_frequency(subscription.plan.interval) %>
-
-        <% if subscription.discounted? %>
-          <%= _('(with <b>{{discount_name}}</b> discount applied)',
-                :discount_name => subscription.discount_name) %>
-        <% end %>
-      </span>
-    </span>
-  </label>
 </div>
 
 <div>

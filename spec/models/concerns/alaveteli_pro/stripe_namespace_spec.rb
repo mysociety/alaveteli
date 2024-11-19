@@ -10,12 +10,21 @@ RSpec.describe AlaveteliPro::StripeNamespace do
     end
 
     describe '#add_stripe_namespace' do
+      it 'returns string if it already starts with the namespce' do
+        expect(add_stripe_namespace('namespace-string')).
+          to eq('namespace-string')
+      end
+
       it 'prepend namespace to string' do
         expect(add_stripe_namespace('string')).to eq('namespace-string')
       end
     end
 
     describe '#remove_stripe_namespace' do
+      it 'returns string if does not start with the namespace' do
+        expect(remove_stripe_namespace('string')).to eq('string')
+      end
+
       it 'removes namespace from string' do
         expect(remove_stripe_namespace('namespace-string')).to eq('string')
       end

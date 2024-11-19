@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'stripe_mock'
 
 RSpec.describe 'alaveteli_pro/plans/index' do
   before { StripeMock.start }
@@ -6,7 +7,7 @@ RSpec.describe 'alaveteli_pro/plans/index' do
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:product) { stripe_helper.create_product }
 
-  let(:plan_with_tax) { AlaveteliPro::WithTax.new(stripe_plan) }
+  let(:plan) { AlaveteliPro::Plan.new(stripe_plan) }
   let(:cents_price) { 880 }
 
   let(:stripe_plan) do
@@ -18,7 +19,7 @@ RSpec.describe 'alaveteli_pro/plans/index' do
   before do
     allow(AlaveteliConfiguration).to receive(:iso_currency_code).
         and_return('GBP')
-    assign :plan, plan_with_tax
+    assign :plans, [plan]
     assign :pro_site_name, 'Alaveteli<sup>Pro</sup>'
   end
 
