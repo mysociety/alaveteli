@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Remove "Previously known as" from profile pages due to performance issues
+  (Gareth Rees)
 * Allow censor rules to ignore diacritics (Gareth Rees)
 * Allow censor rules to be case insensitive (Gareth Rees)
 * Add Content Security Policy with nonce-based script protection (Graeme
