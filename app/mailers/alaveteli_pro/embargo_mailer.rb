@@ -68,27 +68,31 @@ module AlaveteliPro
     def expiring_alert(user, info_requests)
       @user = user
       @info_requests = info_requests
-      subject = n_(
-        "{{count}} request will be made public on {{site_name}} this week",
-        "{{count}} requests will be made public on {{site_name}} this week",
-        info_requests.count,
-        site_name: site_name.html_safe,
-        count: info_requests.count
+      mail_user(
+        @user,
+        subject: -> { n_(
+          "{{count}} request will be made public on {{site_name}} this week",
+          "{{count}} requests will be made public on {{site_name}} this week",
+          info_requests.count,
+          site_name: site_name.html_safe,
+          count: info_requests.count
+        ) }
       )
-      mail_user(@user, subject: subject)
     end
 
     def expired_alert(user, info_requests)
       @user = user
       @info_requests = info_requests
-      subject = n_(
-        "{{count}} request has been made public on {{site_name}}",
-        "{{count}} requests have been made public on {{site_name}}",
-        info_requests.count,
-        site_name: site_name.html_safe,
-        count: info_requests.count
+      mail_user(
+        @user,
+        subject: -> { n_(
+          "{{count}} request has been made public on {{site_name}}",
+          "{{count}} requests have been made public on {{site_name}}",
+          info_requests.count,
+          site_name: site_name.html_safe,
+          count: info_requests.count
+        ) }
       )
-      mail_user(@user, subject: subject)
     end
   end
 end

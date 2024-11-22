@@ -90,8 +90,10 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       info_request.user,
-      subject: _("New response to your FOI request - {{request_title}}",
-                 request_title: info_request.title.html_safe),
+      subject: -> {
+        _("New response to your FOI request - {{request_title}}",
+          request_title: info_request.title.html_safe)
+      },
       charset: "UTF-8"
     )
   end
@@ -103,8 +105,10 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       user,
-      subject: _("Delayed response to your FOI request - {{request_title}}",
-                 request_title: info_request.title.html_safe)
+      subject: -> { _(
+        "Delayed response to your FOI request - {{request_title}}",
+        request_title: info_request.title.html_safe
+      ) }
     )
   end
 
@@ -115,9 +119,11 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       user,
-      subject: _("You're long overdue a response to your FOI request - " \
-                 "{{request_title}}",
-                 request_title: info_request.title.html_safe)
+      subject: -> { _(
+        "You're long overdue a response to your FOI request - " \
+        "{{request_title}}",
+        request_title: info_request.title.html_safe
+      ) }
     )
   end
 
@@ -133,8 +139,10 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       info_request.user,
-      subject: _("Please update the status of your request - {{request_title}}",
-                 request_title: info_request.title.html_safe)
+      subject: -> { _(
+        "Please update the status of your request - {{request_title}}",
+        request_title: info_request.title.html_safe
+      ) }
     )
   end
 
@@ -145,7 +153,7 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       info_request.user,
-      subject: _("Someone has updated the status of your request")
+      subject: -> { _("Someone has updated the status of your request") }
     )
   end
 
@@ -162,8 +170,10 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       info_request.user,
-      subject: _("Clarify your FOI request - {{request_title}}",
-                 request_title: info_request.title.html_safe)
+      subject: -> { _(
+        "Clarify your FOI request - {{request_title}}",
+        request_title: info_request.title.html_safe
+      ) }
     )
   end
 
@@ -175,8 +185,10 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       info_request.user,
-      subject: _("Somebody added a note to your FOI request - {{request_title}}",
-                 request_title: info_request.title.html_safe)
+      subject: -> { _(
+        "Somebody added a note to your FOI request - {{request_title}}",
+        request_title: info_request.title.html_safe
+      ) }
     )
   end
 
@@ -189,8 +201,10 @@ class RequestMailer < ApplicationMailer
 
     mail_user(
       info_request.user,
-      subject: _("Some notes have been added to your FOI request - {{request_title}}",
-                 request_title: info_request.title.html_safe)
+      subject: -> { _(
+        "Some notes have been added to your FOI request - {{request_title}}",
+        request_title: info_request.title.html_safe
+      ) }
     )
   end
 

@@ -24,7 +24,9 @@ class SurveyMailer < ApplicationMailer
 
     mail_user(
       @user,
-      subject: _('A survey about your recent Freedom of Information request')
+      subject: -> { _(
+        'A survey about your recent Freedom of Information request'
+      ) }
     )
   end
 

@@ -31,8 +31,10 @@ class TrackMailer < ApplicationMailer
 
     mail_user(
       user,
-      subject: _("Your {{site_name}} email alert",
-                 site_name: site_name.html_safe)
+      subject: -> { _(
+        "Your {{site_name}} email alert",
+        site_name: site_name.html_safe
+      ) }
     )
   end
 

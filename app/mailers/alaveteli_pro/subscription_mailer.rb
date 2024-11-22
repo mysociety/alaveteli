@@ -3,13 +3,16 @@ class AlaveteliPro::SubscriptionMailer < ApplicationMailer
   def payment_failed(user)
     auto_generated_headers(user)
 
-    subject = _('Action Required: Payment failed on {{pro_site_name}}',
-                pro_site_name: pro_site_name)
-
     @user_name = user.name
     @pro_site_name = pro_site_name.html_safe
     @subscriptions_url = subscriptions_url
-    mail_user(user, subject: subject)
+    mail_user(
+      user,
+      subject: -> { _(
+        'Action Required: Payment failed on {{pro_site_name}}',
+        pro_site_name: pro_site_name
+      ) }
+    )
   end
 
   private
