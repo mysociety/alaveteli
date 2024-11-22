@@ -3935,7 +3935,7 @@ msgid "You have hit the rate limit on annotations. Users are ordinarily limited 
 msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr "Rydych chi wedi cyrraedd y terfyn cyfradd ar geisiadau newydd. Fel arfer cyfyngir defnyddwyr i {{max_requests_per_user_per_day}}  cais mewn unrhyw gyfnod treigl 24-awr. Byddwch yn gallu gwneud cais arall ymhen {{ can_make_another_request}}."
+msgstr "Rydych chi wedi cyrraedd y terfyn cyfradd ar geisiadau newydd. Fel arfer cyfyngir defnyddwyr i {{max_requests_per_user_per_day}}  cais mewn unrhyw gyfnod treigl 24-awr. Byddwch yn gallu gwneud cais arall ymhen {{can_make_another_request}}."
 
 msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
 msgstr ""
