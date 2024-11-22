@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Migrated from Stripe Plans to Stripe Prices (Graeme Porteous)
 * Change notes so that records tagged with `name:value` will be associated with
   notes tagged as `name` (Graeme Porteous)
 * Upgrade Stripe API version (Graeme Porteous)
@@ -96,7 +97,6 @@
 * Don't show users that have closed their account or been banned on leaderboards
   (Chris Mytton)
 
-
 ## Upgrade Notes
 
 * _Required:_ This upgrade requires upgrading Ruby from 3.0 to 3.1 or later.
@@ -146,6 +146,13 @@
 * _Note:_ If you have Pro pricing enabled, this release changes the Stripe API
   version from `2017-01-27` to `2020-03-02`. No changes should be necessary to
   your Stripe account.
+
+* _Optional:_ We have moved from Stripe Plans to Stripe Prices. Previously we
+  hardcoded the Stripe Plan ID of `pro`, but with changes to the Stripe
+  dashboard this ID can no longer be created. Migration to the Prices API will
+  allow for more flexibly, pricing changes, and multiple price points - for
+  example annual pricing. For new prices you need to configure `STRIPE_PRICES`
+  in `config/general.yml`.
 
 # 0.44.0.1
 

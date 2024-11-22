@@ -109,6 +109,7 @@ module AlaveteliConfiguration
       SMTP_MAILER_PORT: 25,
       SMTP_MAILER_USER_NAME: '',
       STRIPE_NAMESPACE: '',
+      STRIPE_PRICES: { pro: 'pro' },
       STRIPE_PUBLISHABLE_KEY: '',
       STRIPE_SECRET_KEY: '',
       STRIPE_TAX_RATE: '0.20',
@@ -145,7 +146,13 @@ module AlaveteliConfiguration
   def self.method_missing(name)
     key = name.to_s.upcase
     if DEFAULTS.key?(key.to_sym)
-      get(key, DEFAULTS[key.to_sym])
+      value = get(key, DEFAULTS[key.to_sym])
+      case value
+      when Hash
+        value.with_indifferent_access
+      else
+        value
+      end
     else
       super
     end

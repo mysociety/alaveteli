@@ -47,9 +47,9 @@ module AlaveteliPro
       Stripe::Subscription.cancel(id)
     end
 
-    # plan
-    def plan
-      @plan ||= AlaveteliPro::Plan.new(__getobj__.plan)
+    # price
+    def price
+      @price ||= AlaveteliPro::Price.new(items.first.price)
     end
 
     private

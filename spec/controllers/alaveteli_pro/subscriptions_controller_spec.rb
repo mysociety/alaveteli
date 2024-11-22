@@ -8,9 +8,9 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
   let(:product) { stripe_helper.create_product }
 
-  let!(:plan) do
-    stripe_helper.create_plan(
-      id: 'pro', product: product.id, amount: 1000
+  let!(:price) do
+    stripe_helper.create_price(
+      id: 'pro', product: product.id, unit_amount: 1000
     )
   end
 
@@ -72,14 +72,14 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
             to eq(user.email)
         end
 
-        it 'subscribes the user to the plan' do
-          expect(assigns(:subscription).plan.id).to eq(plan.id)
+        it 'subscribes the user to the price' do
+          expect(assigns(:subscription).price.id).to eq(price.id)
           expect(assigns(:pro_account).stripe_customer_id).
             to eq(assigns(:subscription).customer)
         end
 
-        it 'sets subscription plan amount and tax percentage' do
-          expect(assigns(:subscription).plan.amount).to eq 1000
+        it 'sets subscription price unit amount and tax percentage' do
+          expect(assigns(:subscription).price.unit_amount).to eq 1000
           expect(assigns(:subscription).tax_percent).to eql 25.0
         end
 
@@ -109,14 +109,14 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           sign_in user
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
           # reset user so authenticated_user reloads
           controller.instance_variable_set(:@user, nil)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -136,7 +136,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -148,7 +148,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         before do
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => 'coupon_code'
           }
         end
@@ -161,13 +161,15 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       context 'with Stripe namespace and coupon code' do
-        let!(:plan) do
-          stripe_helper.create_plan(
-            id: 'alaveteli-pro', product: product.id, amount: 1000
+        let!(:price) do
+          stripe_helper.create_price(
+            id: 'alaveteli-pro', product: product.id, unit_amount: 1000
           )
         end
 
         before do
+          allow(AlaveteliConfiguration).to receive(:stripe_prices).
+            and_return('alaveteli-pro' => 'pro')
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
             and_return('alaveteli')
 
@@ -179,7 +181,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => 'coupon_code'
           }
         end
@@ -201,7 +203,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -235,8 +237,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           # we can't create a subscription in the incomplete status so we have
           # to need a lot of stubs.
           subscription = Stripe::Subscription.create(
-            customer: customer,
-            plan: 'pro'
+            customer: customer, items: [{ price: 'pro' }]
           )
 
           subs = double(:subscription_collection).as_null_object
@@ -249,7 +250,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro'
+            'price_id' => 'pro'
           }
         end
       end
@@ -259,7 +260,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_card_error(:card_declined, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -283,7 +284,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -308,7 +309,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -333,7 +334,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -358,7 +359,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -383,7 +384,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => ''
           }
         end
@@ -408,7 +409,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => 'INVALID'
           }
         end
@@ -433,7 +434,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
           StripeMock.prepare_error(error, :create_subscription)
           post :create, params: {
             'stripe_token' => token,
-            'plan_id' => 'pro',
+            'price_id' => 'pro',
             'coupon_code' => 'EXPIRED'
           }
         end
@@ -453,12 +454,12 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       context 'when invalid params are submitted' do
-        it 'redirects to the plan page if there is a plan' do
-          post :create, params: { plan_id: 'pro' }
+        it 'redirects to the plan page if there is a price' do
+          post :create, params: { price_id: 'pro' }
           expect(response).to redirect_to(plan_path('pro'))
         end
 
-        it 'redirects to the pricing page if there is no plan' do
+        it 'redirects to the pricing page if there is no price' do
           post :create
           expect(response).to redirect_to(pro_plans_path)
         end
@@ -481,10 +482,20 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
     context 'with a signed-in user' do
       let(:token) { stripe_helper.generate_card_token }
 
-      let(:customer) { Stripe::Customer.create(source: token, plan: 'pro') }
+      let(:customer) do
+        Stripe::Customer.create(source: token)
+      end
+
+      let(:subscription) do
+        Stripe::Subscription.create(
+          customer: customer, items: [{ price: price.id }]
+        )
+      end
+
       let(:pro_account) do
         FactoryBot.create(:pro_account, stripe_customer_id: customer.id)
       end
+
       let(:user) { pro_account.user }
 
       before do
@@ -569,13 +580,13 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       context 'subscription invoice open' do
         before do
-          plan = double(id: 'pro', to_param: 'pro')
+          price = double(id: 'pro', to_param: 'pro')
 
           subscription = double(
             :subscription,
             require_authorisation?: false,
             invoice_open?: true,
-            plan: plan
+            price: price
           )
 
           allow(pro_account.subscriptions).to receive(:retrieve).with('1').
@@ -741,14 +752,18 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       let(:user) { FactoryBot.create(:pro_user) }
 
       let!(:customer) do
-        stripe_helper.create_plan(id: 'test', product: product.id)
-        customer = Stripe::Customer.create({
+        customer = Stripe::Customer.create(
           email: user.email,
-          source: stripe_helper.generate_card_token,
-          plan: 'test'
-        })
+          source: stripe_helper.generate_card_token
+        )
         user.pro_account.update!(stripe_customer_id: customer.id)
         customer
+      end
+
+      let!(:subscription) do
+        Stripe::Subscription.create(
+          customer: customer, items: [{ price: price.id }]
+        )
       end
 
       before do
@@ -769,8 +784,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       it 'assigns subscriptions' do
         get :index
         expect(assigns[:subscriptions].count).to eq(1)
-        expect(assigns[:subscriptions].first.id).
-          to eq(customer.subscriptions.first.id)
+        expect(assigns[:subscriptions].first.id).to eq(subscription.id)
       end
     end
   end
@@ -807,8 +821,6 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
     context 'with a signed-in user' do
       let(:user) { FactoryBot.create(:pro_user) }
 
-      let(:plan) { stripe_helper.create_plan(id: 'test', product: product.id) }
-
       let(:customer) do
         customer = Stripe::Customer.create({
           email: user.email,
@@ -819,7 +831,9 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       let(:subscription) do
-        Stripe::Subscription.create(customer: customer, plan: plan.id)
+        Stripe::Subscription.create(
+          customer: customer, items: [{ price: price.id }]
+        )
       end
 
       before do
@@ -851,7 +865,9 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
             email: 'test@example.org',
             source: stripe_helper.generate_card_token
           })
-          Stripe::Subscription.create(customer: customer, plan: plan.id)
+          Stripe::Subscription.create(
+            customer: customer, items: [{ price: price.id }]
+          )
         end
 
         before do
@@ -979,7 +995,7 @@ RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       context 'when invalid params are submitted' do
-        it 'redirects to the plan page if there is a plan' do
+        it 'redirects to the plan page if there is a price' do
           delete :destroy, params: { id: 'unknown' }
           expect(response).to redirect_to(subscriptions_path)
         end
