@@ -52,7 +52,7 @@ module AlaveteliPro
     def invoices
       return [] unless @customer
 
-      @invoices ||= Stripe::Invoice.list(customer: @customer)
+      @invoices ||= Stripe::Invoice.list(customer: @customer.id)
     end
   end
 end
