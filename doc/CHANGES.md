@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Change notes so that records tagged with `name:value` will be associated with
+  notes tagged as `name` (Graeme Porteous)
 * Upgrade Stripe API version (Graeme Porteous)
 * Drop support for Azure storage (Graeme Porteous)
 * Add basic Citation searching in admin UI (Gareth Rees)
