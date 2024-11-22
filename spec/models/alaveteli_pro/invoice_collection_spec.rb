@@ -3,7 +3,7 @@ require 'stripe_mock'
 
 RSpec.describe AlaveteliPro::InvoiceCollection do
   let(:collection) { described_class.new(customer) }
-  let(:customer) { double(:customer) }
+  let(:customer) { double(:customer, id: 'cus_123') }
 
   let(:open_invoice) { double(:invoice, status: 'open') }
   let(:paid_invoice) { double(:invoice, status: 'paid', amount_paid: 10) }
@@ -39,7 +39,7 @@ RSpec.describe AlaveteliPro::InvoiceCollection do
       let(:invoices) { Stripe::ListObject.new }
 
       before do
-        allow(Stripe::Invoice).to receive(:list).with(customer: customer).
+        allow(Stripe::Invoice).to receive(:list).with(customer: 'cus_123').
           and_return(invoices)
       end
 
@@ -55,7 +55,7 @@ RSpec.describe AlaveteliPro::InvoiceCollection do
 
   describe '#open' do
     before do
-      allow(Stripe::Invoice).to receive(:list).with(customer: customer).
+      allow(Stripe::Invoice).to receive(:list).with(customer: 'cus_123').
         and_return([open_invoice, paid_invoice])
     end
 
@@ -66,7 +66,7 @@ RSpec.describe AlaveteliPro::InvoiceCollection do
 
   describe '#paid' do
     before do
-      allow(Stripe::Invoice).to receive(:list).with(customer: customer).
+      allow(Stripe::Invoice).to receive(:list).with(customer: 'cus_123').
         and_return([open_invoice, paid_invoice])
     end
 
@@ -88,7 +88,7 @@ RSpec.describe AlaveteliPro::InvoiceCollection do
       let(:invoices) { Stripe::ListObject.new }
 
       before do
-        allow(Stripe::Invoice).to receive(:list).with(customer: customer).
+        allow(Stripe::Invoice).to receive(:list).with(customer: 'cus_123').
           and_return(invoices)
         allow(invoices).to receive(:auto_paging_each).
           and_yield(open_invoice).
@@ -106,7 +106,7 @@ RSpec.describe AlaveteliPro::InvoiceCollection do
 
     context 'without Stripe invoices' do
       before do
-        allow(Stripe::Invoice).to receive(:list).with(customer: customer).
+        allow(Stripe::Invoice).to receive(:list).with(customer: 'cus_123').
           and_return([open_invoice, paid_invoice, open_invoice])
       end
 
