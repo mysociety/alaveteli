@@ -383,6 +383,18 @@ RSpec.describe NotificationMailer do
         to eq("Your daily request summary from Alaveteli Professional")
     end
 
+    context "when the user does not use default locale" do
+      before do
+        user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.daily_summary(user, all_notifications)
+        expect(mail.subject).
+          to eq("*** Spanish missing *** Alaveteli Professional")
+      end
+    end
+
     it "matches the expected message" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       expected_message = load_file_fixture(
@@ -452,6 +464,20 @@ RSpec.describe NotificationMailer do
         mail = NotificationMailer.response_notification(notification)
         expected = "New response to your FOI request - Here's a request"
         expect(mail.subject).to eq expected
+      end
+    end
+
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.response_notification(notification)
+        expect(mail.subject).to eq(
+          "Nueva respuesta a tu solicitud de información - A request"
+        )
       end
     end
 
@@ -542,6 +568,19 @@ RSpec.describe NotificationMailer do
       end
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.embargo_expiring_notification(notification)
+        expect(mail.subject).
+          to eq("*** Spanish missing *** A request *** Alaveteli")
+      end
+    end
+
     it "sends the message to the right user" do
       mail = NotificationMailer.embargo_expiring_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
@@ -612,6 +651,19 @@ RSpec.describe NotificationMailer do
       end
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.expire_embargo_notification(notification)
+        expect(mail.subject).
+          to eq("*** Spanish missing *** A request *** Alaveteli")
+      end
+    end
+
     it 'sends the message to the right user' do
       mail = NotificationMailer.expire_embargo_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
@@ -675,6 +727,21 @@ RSpec.describe NotificationMailer do
         mail = NotificationMailer.overdue_notification(notification)
         expected = "Delayed response to your FOI request - Here's a request"
         expect(mail.subject).to eq expected
+      end
+    end
+
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.overdue_notification(notification)
+        expect(mail.subject). to eq(
+          "Respuesta retrasada a tu solicitud de acceso a información - "\
+          "A request"
+        )
       end
     end
 
@@ -743,6 +810,21 @@ RSpec.describe NotificationMailer do
         expected = "You're long overdue a response to your FOI request " \
                    "- Here's a request"
         expect(mail.subject).to eq expected
+      end
+    end
+
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.very_overdue_notification(notification)
+        expect(mail.subject). to eq(
+          "La respuesta a tu solicitud de información está muy retrasada - "\
+          "A request"
+        )
       end
     end
 

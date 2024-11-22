@@ -24,8 +24,10 @@ class ApplicationMailer < ActionMailer::Base
   # about the errors, and have to do error checking on return codes.
   self.raise_delivery_errors = true
 
+  # The subject: arg must be a proc, it is localized with the user's locale.
   def mail_user(user, subject:, **opts)
     if user.is_a?(User)
+      locale = user.locale
       opts[:to] = user.name_and_email
     else
       opts[:to] = user
@@ -36,7 +38,6 @@ class ApplicationMailer < ActionMailer::Base
       opts[:from] = MailHandler.address_from_name_and_email(
         opts[:from].name, blackhole_email
       )
-
     else
       set_reply_to_headers
       opts[:from] ||= blackhole_email
@@ -45,7 +46,7 @@ class ApplicationMailer < ActionMailer::Base
     set_auto_generated_headers
 
     default_opts = {
-      subject: subject
+      subject: AlaveteliLocalization.with_locale(locale) { subject.call }
     }
     default_opts.merge!(opts)
     mail(default_opts)

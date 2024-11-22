@@ -931,8 +931,8 @@ msgid "Dear {{public_body_name}},"
 msgstr "Estimado {{public_body_name}},"
 
 #: app/models/request_mailer.rb:87
-msgid "Delayed response to your FOI request - "
-msgstr "Respuesta retrasada a tu solicitud de acceso a información - "
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "Respuesta retrasada a tu solicitud de acceso a información - {{request_title}}"
 
 #: app/models/info_request.rb:783
 msgid "Delayed."
@@ -1772,9 +1772,9 @@ msgstr "Nueva contraseña:"
 msgid "New password: (again)"
 msgstr "Nueva contraseña: (otra vez)"
 
-#: app/models/request_mailer.rb:68
-msgid "New response to your FOI request - "
-msgstr "Nueva respuesta a tu solicitud de información - "
+#: app/mailers/request_mailer.rb:92
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "Nueva respuesta a tu solicitud de información - {{request_title}}"
 
 #: app/views/request/show_response.rhtml:60
 msgid "New response to your request"
@@ -2601,9 +2601,9 @@ msgstr "Solicitudes similares"
 msgid "Simple search"
 msgstr "Búsqueda básica"
 
-#: app/models/request_mailer.rb:178
-msgid "Some notes have been added to your FOI request - "
-msgstr "Nuevos comentarios en tu solicitud de acceso a información - "
+#: app/mailers/request_mailer.rb:205
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "Nuevos comentarios en tu solicitud de acceso a información - {{request_title}}"
 
 #: app/views/general/_advanced_search_tips.rhtml:29
 msgid "Some of the information requested has been received"
@@ -2617,9 +2617,9 @@ msgid ""
 "information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Algunas personas que hicieron solicitudes no nos han hecho saber si tuvieron\néxito o no. Necesitamos <strong>tu</strong> ayuda &ndash;\nelije una de las solicitudes, léela, y háznos saber si se ha obtenido o no\nla información. Todos te estaremos agradecidos."
 
-#: app/models/request_mailer.rb:169
-msgid "Somebody added a note to your FOI request - "
-msgstr "Nuevo comentario en tu solicitud de acceso a información - "
+#: app/models/request_mailer.rb:189
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "Nuevo comentario en tu solicitud de acceso a información - {{request_title}}"
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:1
 msgid ""
@@ -3883,8 +3883,8 @@ msgid ""
 msgstr "Sólo recibirás una respuesta a tu solicitud si continúas\ncon la aclaración."
 
 #: app/models/request_mailer.rb:106
-msgid "You're long overdue a response to your FOI request - "
-msgstr "La respuesta a tu solicitud de información está muy retrasada - "
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "La respuesta a tu solicitud de información está muy retrasada - {{request_title}}"
 
 #: app/controllers/user_controller.rb:476
 msgid "You've now cleared your profile photo"
@@ -4519,6 +4519,44 @@ msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) hizo esta solicitud 
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
+
+#: app/mailers/notification_mailer.rb:88
+msgid "Your daily request summary from {{pro_site_name}}"
+msgstr "*** Spanish missing *** {{pro_site_name}}"
+
+msgid "Your FOI request - {{request_title}} will be made public on {{site_name}} this week"
+msgstr "*** Spanish missing *** {{request_title}} *** {{site_name}}"
+
+msgid "Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr "*** Spanish missing *** {{request_title}} *** {{site_name}}"
+
+msgid "{{count}} request will be made public on {{site_name}} this week"
+msgid_plural "{{count}} requests will be made public on {{site_name}} this week"
+msgstr[0] "*** Spanish missing *** {{count}} *** {{site_name}}"
+msgstr[1] "*** Spanish missings *** {{count}} *** {{site_name}}"
+
+msgid "{{count}} request has been made public on {{site_name}}"
+msgid_plural "{{count}} requests have been made public on {{site_name}}"
+msgstr[0] "*** Spanish missing *** {{count}} *** {{site_name}}"
+msgstr[1] "*** Spanish missings *** {{count}} *** {{site_name}}"
+
+msgid "Action Required: Payment failed on {{pro_site_name}}"
+msgstr "*** Spanish missing *** {{pro_site_name}}"
+
+msgid "Your batch request \"{{title}}\" has been sent"
+msgstr "Tu solicitud en lote \"{{title}}\" ha sido enviada"
+
+msgid "Someone has updated the status of your request"
+msgstr "Alguien ha actualizado el estado de tu solicitud"
+
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "Clarifica tu solicitud de información - {{request_title}}"
+
+msgid "A survey about your recent Freedom of Information request"
+msgstr "*** Spanish missing ***"
+
+msgid "Please update the status of your request - {{request_title}}",
+msgstr "*** Spanish missing *** {{request_title}}"
 
 msgid "sent"
 msgstr "expedido"
