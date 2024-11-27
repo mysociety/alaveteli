@@ -17,6 +17,8 @@ RSpec.describe 'alaveteli_pro/plans/index' do
   end
 
   before do
+    allow(AlaveteliConfiguration).to receive(:stripe_prices).
+        and_return('price_123' => 'pro')
     allow(AlaveteliConfiguration).to receive(:iso_currency_code).
         and_return('GBP')
     assign :prices, [price]

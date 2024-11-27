@@ -26,7 +26,7 @@ RSpec.describe AlaveteliPro::Price do
   end
 
   describe '.retrieve' do
-    it 'retrieves a price from Stripe' do
+    it 'retrieves a price for a given param from Stripe' do
       stripe_price = double('stripe_price')
       allow(Stripe::Price).to receive(:retrieve).with('pro').
         and_return(stripe_price)
@@ -43,6 +43,11 @@ RSpec.describe AlaveteliPro::Price do
       price = described_class.new(double('stripe_price', id: 'price_123'))
 
       expect(price.to_param).to eq('pro')
+    end
+
+    it 'raises UnknownPrice error if price is not defined' do
+      price = described_class.new(double('stripe_price', id: 'unknown'))
+      expect { price.to_param }.to raise_error(described_class::UnknownPrice)
     end
   end
 
