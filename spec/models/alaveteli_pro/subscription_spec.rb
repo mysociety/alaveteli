@@ -104,13 +104,6 @@ RSpec.describe AlaveteliPro::Subscription do
         allow(subscription).to receive(:invoice_open?).and_return(true)
       end
 
-      it 'return true if payment intent status is requires_source_action' do
-        allow(subscription).to receive(:payment_intent).and_return(
-          double('Stripe::PaymentIntent', status: 'requires_source_action')
-        )
-        is_expected.to eq true
-      end
-
       it 'return true if payment intent status is requires_action' do
         allow(subscription).to receive(:payment_intent).and_return(
           double('Stripe::PaymentIntent', status: 'requires_action')
