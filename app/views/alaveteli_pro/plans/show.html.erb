@@ -65,7 +65,7 @@
         </div>
 
         <div class="settings__section">
-          <%= hidden_field_tag 'price_id', @price.id %>
+          <%= hidden_field_tag 'price_id', @price.to_param %>
           <%= submit_tag _('Subscribe'), id: 'js-stripe-submit', disabled: true, data: { disable_with: 'Processing...' } %>
           <%= link_to _('Cancel'), pro_plans_path, class: 'settings__cancel-button' %>
           <p id="card-errors"></p>

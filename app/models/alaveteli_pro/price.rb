@@ -4,6 +4,8 @@
 class AlaveteliPro::Price < SimpleDelegator
   include Taxable
 
+  UnknownPrice = Class.new(StandardError)
+
   tax :unit_amount
 
   def self.list
@@ -12,15 +14,15 @@ class AlaveteliPro::Price < SimpleDelegator
     end
   end
 
-  def self.retrieve(id)
-    key = AlaveteliConfiguration.stripe_prices.key(id)
-    new(Stripe::Price.retrieve(key))
+  def self.retrieve(param)
+    id = AlaveteliConfiguration.stripe_prices.key(param)
+    new(Stripe::Price.retrieve(id))
   rescue Stripe::InvalidRequestError
     nil
   end
 
   def to_param
-    AlaveteliConfiguration.stripe_prices[id] || id
+    AlaveteliConfiguration.stripe_prices[id] || raise(UnknownPrice)
   end
 
   # product
