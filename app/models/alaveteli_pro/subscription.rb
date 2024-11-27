@@ -35,7 +35,7 @@ module AlaveteliPro
 
     def require_authorisation?
       invoice_open? && %w[
-        requires_source_action require_action
+        requires_source_action requires_action
       ].include?(payment_intent.status)
     end
 

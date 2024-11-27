@@ -111,9 +111,9 @@ RSpec.describe AlaveteliPro::Subscription do
         is_expected.to eq true
       end
 
-      it 'return true if payment intent status is require_action' do
+      it 'return true if payment intent status is requires_action' do
         allow(subscription).to receive(:payment_intent).and_return(
-          double('Stripe::PaymentIntent', status: 'require_action')
+          double('Stripe::PaymentIntent', status: 'requires_action')
         )
         is_expected.to eq true
       end
