@@ -70,7 +70,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
 
   def invoice_payment_failed
     account = pro_account_from_stripe_event(@stripe_event)
-    return unless account
+    return unless account&.subscription?
 
     AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
   end

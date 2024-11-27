@@ -255,25 +255,44 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         StripeMock.mock_webhook_event('invoice.payment_failed')
       end
 
-      let!(:user) do
-        user = FactoryBot.create(:pro_user)
-        user.pro_account.stripe_customer_id = stripe_event.data.object.customer
-        user.pro_account.save!
-        user
+      let(:customer_id) { stripe_event.data.object.customer }
+
+      let(:pro_account) do
+        FactoryBot.create(:pro_account, stripe_customer_id: customer_id)
       end
 
       before do
-        send_request
+        allow(ProAccount).to receive(:find_by).
+          with(stripe_customer_id: customer_id).and_return(pro_account)
       end
 
       it 'handles the event' do
         expect(response.status).to eq(200)
       end
 
-      it 'notifies the user that their payment failed' do
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/Payment failed/)
-        expect(mail.to).to include(user.email)
+      context 'the user has a subscription' do
+        before do
+          allow(pro_account).to receive(:subscription?).and_return(true)
+          send_request
+        end
+
+        it 'notifies the user that their payment failed' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Payment failed/)
+          expect(mail.to).to include(pro_account.user.email)
+        end
+      end
+
+      context 'the user does not have a subscription' do
+        before do
+          allow(pro_account).to receive(:subscription?).and_return(false)
+          send_request
+        end
+
+        it 'does not notify the user that their payment failed' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail).to be_nil
+        end
       end
     end
 
