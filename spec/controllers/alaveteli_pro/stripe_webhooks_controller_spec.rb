@@ -16,7 +16,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     let(:stripe_plan) do
       stripe_helper.create_plan(
-        id: 'test', product: product.id,
+        id: 'plan_123', product: product.id,
         amount: 10, currency: 'gbp'
       )
     end
@@ -26,8 +26,8 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
                                   plan: stripe_plan.id)
     end
 
-    let(:paid_invoice) do
-      invoice = Stripe::Invoice.create(
+    let(:invoice) do
+      Stripe::Invoice.create(
         lines: [
           {
             data: {
@@ -42,13 +42,16 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         ],
         subscription: stripe_subscription.id
       )
-      invoice.pay
     end
+
+    let(:paid_invoice) { invoice.pay }
 
     let(:charge) { Stripe::Charge.retrieve(paid_invoice.charge) }
 
     let(:stripe_event) do
-      StripeMock.mock_webhook_event('customer.subscription.deleted')
+      StripeMock.mock_webhook_event(
+        'customer.subscription.deleted', items: stripe_subscription.items
+      )
     end
 
     let(:payload) do
@@ -63,8 +66,8 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
     end
 
     before do
-      allow(AlaveteliConfiguration).to receive(:stripe_namespace).
-        and_return('')
+      allow(AlaveteliConfiguration).to receive(:stripe_prices).
+        and_return('plan_123' => 'pro')
       allow(AlaveteliConfiguration).to receive(:stripe_webhook_secret).
         and_return(config_secret)
       StripeMock.start
@@ -183,8 +186,8 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     context 'when using namespaced plans' do
       before do
-        allow(AlaveteliConfiguration).to receive(:stripe_namespace).
-          and_return('WDTK')
+        allow(AlaveteliConfiguration).to receive(:stripe_prices).
+          and_return('WDTK-test' => 'pro')
       end
 
       context 'the webhook does not reference our plan namespace' do
@@ -236,7 +239,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
       context 'the webhook data does not have namespaced plans' do
         let(:stripe_event) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded')
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded', lines: paid_invoice.lines
+          )
         end
 
         it 'does not raise an error when trying to filter on plan name' do
@@ -252,7 +257,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'a payment fails' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('invoice.payment_failed')
+        StripeMock.mock_webhook_event(
+          'invoice.payment_failed', lines: invoice.lines
+        )
       end
 
       let(:customer_id) { stripe_event.data.object.customer }
@@ -298,7 +305,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'a customer moves to a new billing period' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('subscription-renewed')
+        StripeMock.mock_webhook_event(
+          'subscription-renewed', items: stripe_subscription.items
+        )
       end
 
       it 'handles the event' do
@@ -313,7 +322,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'a trial ends' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('trial-ended-first-payment-failed')
+        StripeMock.mock_webhook_event(
+          'trial-ended-first-payment-failed', items: stripe_subscription.items
+        )
       end
 
       it 'handles the event' do
@@ -328,7 +339,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'a customer cancels' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('subscription-cancelled')
+        StripeMock.mock_webhook_event(
+          'subscription-cancelled', items: stripe_subscription.items
+        )
       end
 
       it 'handles the event' do
@@ -371,9 +384,12 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
       context 'when there is a charge for an invoice' do
         let(:stripe_event) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded',
-                                        charge: paid_invoice.charge,
-                                        subscription: stripe_subscription.id)
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded',
+            lines: paid_invoice.lines,
+            charge: paid_invoice.charge,
+            subscription: stripe_subscription.id
+          )
         end
 
         it 'updates the charge description with the site and plan name' do
@@ -384,8 +400,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
       context 'when there is no charge for an invoice' do
         let(:stripe_event) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded',
-                                        charge: nil)
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded', lines: paid_invoice.lines, charge: nil
+          )
         end
 
         it 'does not attempt to update the nil charge' do

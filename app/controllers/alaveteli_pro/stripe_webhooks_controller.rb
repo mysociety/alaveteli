@@ -108,7 +108,6 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     ExceptionNotifier.notify_exception(error, env: request.env)
   end
 
-  # ignore any that don't match our plan namespace
   def filter_hooks
     plans = []
     case @stripe_event.data.object.object
@@ -118,15 +117,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       plans = plan_ids(@stripe_event.data.object.lines)
     end
 
-    # ignore any plans that don't start with our namespace
-    plans.delete_if { |plan| !plan_matches_namespace?(plan) }
+    # ignore any prices that aren't configured
+    plans.delete_if do |price_id|
+      !AlaveteliConfiguration.stripe_prices.key?(price_id)
+    end
 
     raise UnknownPlanStripeWebhookError if plans.empty?
-  end
-
-  def plan_matches_namespace?(plan_id)
-    AlaveteliConfiguration.stripe_namespace == '' ||
-      plan_id =~ /^#{AlaveteliConfiguration.stripe_namespace}/
   end
 
   def plan_ids(items)
