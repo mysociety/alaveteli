@@ -256,10 +256,10 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
       end
 
       let!(:user) do
-        _user = FactoryBot.create(:pro_user)
-        _user.pro_account.stripe_customer_id = stripe_event.data.object.customer
-        _user.pro_account.save!
-        _user
+        user = FactoryBot.create(:pro_user)
+        user.pro_account.stripe_customer_id = stripe_event.data.object.customer
+        user.pro_account.save!
+        user
       end
 
       before do
@@ -324,10 +324,10 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'a cancelled subscription is deleted at the end of the billing period' do
       let!(:user) do
-        _user = FactoryBot.create(:pro_user)
-        _user.pro_account.stripe_customer_id = stripe_event.data.object.customer
-        _user.pro_account.save!
-        _user
+        user = FactoryBot.create(:pro_user)
+        user.pro_account.stripe_customer_id = stripe_event.data.object.customer
+        user.pro_account.save!
+        user
       end
 
       it 'removes the pro role from the associated user' do

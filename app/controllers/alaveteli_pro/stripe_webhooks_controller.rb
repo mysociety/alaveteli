@@ -53,26 +53,26 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   def invoice_payment_succeeded
     charge_id = @stripe_event.data.object.charge
 
-    if charge_id
-      charge = Stripe::Charge.retrieve(charge_id)
+    return unless charge_id
 
-      subscription_id = @stripe_event.data.object.subscription
-      subscription = Stripe::Subscription.retrieve(
-        id: subscription_id, expand: ['plan.product']
-      )
-      plan_name = subscription.plan.product.name
+    charge = Stripe::Charge.retrieve(charge_id)
 
-      Stripe::Charge.update(
-        charge.id, description: "#{pro_site_name}: #{plan_name}"
-      )
-    end
+    subscription_id = @stripe_event.data.object.subscription
+    subscription = Stripe::Subscription.retrieve(
+      id: subscription_id, expand: ['plan.product']
+    )
+    plan_name = subscription.plan.product.name
+
+    Stripe::Charge.update(
+      charge.id, description: "#{pro_site_name}: #{plan_name}"
+    )
   end
 
   def invoice_payment_failed
     account = pro_account_from_stripe_event(@stripe_event)
-    if account
-      AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
-    end
+    return unless account
+
+    AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
   end
 
   def store_unhandled_webhook
@@ -96,10 +96,10 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   def check_for_event_type
-    unless @stripe_event.respond_to?(:type)
-      msg = "undefined method `type' for #{ @stripe_event.inspect }"
-      raise MissingTypeStripeWebhookError, msg
-    end
+    return if @stripe_event.respond_to?(:type)
+
+    msg = "undefined method `type' for #{ @stripe_event.inspect }"
+    raise MissingTypeStripeWebhookError, msg
   end
 
   def notify_exception(error)
@@ -125,8 +125,8 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   def plan_matches_namespace?(plan_id)
-    (AlaveteliConfiguration.stripe_namespace == '' ||
-     plan_id =~ /^#{AlaveteliConfiguration.stripe_namespace}/)
+    AlaveteliConfiguration.stripe_namespace == '' ||
+      plan_id =~ /^#{AlaveteliConfiguration.stripe_namespace}/
   end
 
   def plan_ids(items)
