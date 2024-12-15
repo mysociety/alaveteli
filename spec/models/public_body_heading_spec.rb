@@ -149,7 +149,8 @@ RSpec.describe PublicBodyHeading::Translation do
 
   it 'is valid if all required attributes are assigned' do
     translation = PublicBodyHeading::Translation.new(
-      locale: AlaveteliLocalization.default_locale
+      locale: AlaveteliLocalization.default_locale,
+      globalized_model: PublicBodyHeading.first
     )
     expect(translation).to be_valid
   end
