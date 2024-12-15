@@ -35,7 +35,7 @@ class FoiAttachment < ApplicationRecord
 
   MissingAttachment = Class.new(StandardError)
 
-  belongs_to :incoming_message, inverse_of: :foi_attachments
+  belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :info_request, through: :incoming_message, source: :info_request
   has_one :raw_email, through: :incoming_message, source: :raw_email
 

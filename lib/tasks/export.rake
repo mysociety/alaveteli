@@ -6,8 +6,8 @@ namespace :export do
   #create models to access join and translation tables
   class InfoRequestBatchPublicBody < ActiveRecord::Base
     self.table_name = "info_request_batches_public_bodies"
-    belongs_to :info_request_batch
-    belongs_to :public_body
+    belongs_to :info_request_batch, optional: true
+    belongs_to :public_body, optional: true
     default_scope -> { order(:info_request_batch_id, :public_body_id) }
   end
 

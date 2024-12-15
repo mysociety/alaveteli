@@ -67,7 +67,8 @@ class InfoRequest < ApplicationRecord
 
   belongs_to :user,
              inverse_of: :info_requests,
-             counter_cache: true
+             counter_cache: true,
+             optional: true
 
   validate :must_be_internal_or_external
 
@@ -75,7 +76,8 @@ class InfoRequest < ApplicationRecord
              inverse_of: :info_requests,
              counter_cache: true
   belongs_to :info_request_batch,
-             inverse_of: :info_requests
+             inverse_of: :info_requests,
+             optional: true
 
   validates_presence_of :public_body, message: N_("Please select an authority")
 

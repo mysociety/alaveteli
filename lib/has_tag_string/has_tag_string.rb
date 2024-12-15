@@ -12,7 +12,7 @@ module HasTagString
   class HasTagStringTag < ActiveRecord::Base
     # TODO: strip_attributes
 
-    belongs_to :model, polymorphic: true
+    belongs_to :model, polymorphic: true, optional: true
 
     validates_presence_of :name
 

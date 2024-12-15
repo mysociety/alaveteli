@@ -15,7 +15,7 @@
 # A dataset collection of values
 #
 class Dataset::ValueSet < ApplicationRecord
-  belongs_to :resource, polymorphic: true
+  belongs_to :resource, polymorphic: true, optional: true
   belongs_to :key_set, foreign_key: 'dataset_key_set_id'
   has_many :values, foreign_key: 'dataset_value_set_id', inverse_of: :value_set
 

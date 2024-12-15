@@ -18,7 +18,7 @@
 # resource
 #
 class Dataset::Key < ApplicationRecord
-  belongs_to :key_set, foreign_key: 'dataset_key_set_id'
+  belongs_to :key_set, foreign_key: 'dataset_key_set_id', optional: true
   has_many :values, foreign_key: 'dataset_key_id', inverse_of: :key
 
   default_scope -> { order(:order) }

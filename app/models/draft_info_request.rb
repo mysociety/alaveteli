@@ -21,7 +21,7 @@ class DraftInfoRequest < ApplicationRecord
 
   belongs_to :user,
              inverse_of: :draft_info_requests
-  belongs_to :public_body, inverse_of: :draft_info_requests
+  belongs_to :public_body, inverse_of: :draft_info_requests, optional: true
 
   strip_attributes
 

@@ -45,7 +45,8 @@ class Comment < ApplicationRecord
              optional: true # has to be optional for controller action to work
 
   belongs_to :info_request,
-             inverse_of: :comments
+             inverse_of: :comments,
+             optional: true
 
   has_many :info_request_events, # in practice only ever has one
            inverse_of: :comment,

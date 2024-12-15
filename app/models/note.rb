@@ -35,7 +35,7 @@ class Note < ApplicationRecord
                default: Note.default_style,
                suffix: true
 
-  belongs_to :notable, polymorphic: true
+  belongs_to :notable, polymorphic: true, optional: true
 
   validates :body, presence: true, if: ->(n) { n.original_style? }
   validates :rich_body, presence: true, unless: ->(n) { n.original_style? }

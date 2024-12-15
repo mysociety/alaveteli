@@ -24,9 +24,11 @@ class MailServerLog < ApplicationRecord
   serialize :delivery_status, DeliveryStatusSerializer
 
   belongs_to :info_request,
-             inverse_of: :mail_server_logs
+             inverse_of: :mail_server_logs,
+             optional: true
   belongs_to :mail_server_log_done,
-             inverse_of: :mail_server_logs
+             inverse_of: :mail_server_logs,
+             optional: true
 
   before_create :calculate_delivery_status
 

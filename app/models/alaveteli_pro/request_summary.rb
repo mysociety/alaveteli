@@ -19,7 +19,8 @@
 class AlaveteliPro::RequestSummary < ApplicationRecord
   belongs_to :summarisable, polymorphic: true
   belongs_to :user,
-             inverse_of: :request_summaries
+             inverse_of: :request_summaries,
+             optional: true
   has_and_belongs_to_many :request_summary_categories,
                           class_name: "AlaveteliPro::RequestSummaryCategory",
                           inverse_of: :request_summaries
