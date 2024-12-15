@@ -2,6 +2,12 @@ require 'spec_helper'
 require 'external_command'
 
 RSpec.describe 'when importing mail logs into the application' do
+  around do |example|
+    ENV['DISABLE_DEPRECATION_WARNINGS'] = 'true'
+    example.call
+    ENV['DISABLE_DEPRECATION_WARNINGS'] = nil
+  end
+
   def load_mail_server_logs_test(log_file = nil)
     Dir.chdir Rails.root do
       ExternalCommand.new('script/load-mail-server-logs', *log_file).run
