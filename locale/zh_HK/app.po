@@ -52,7 +52,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Yan Hin So <syhin812@gmail.com>, 2020\n"
 "Language-Team: Chinese (Hong Kong) (http://app.transifex.com/mysociety/alavete"
@@ -192,11 +192,11 @@ msgstr "多於60分鐘"
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">瀏覽全部</a>或<a href=\"{{add_url}}\">建議加入公共機構</a>。"
 
-msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr "向{{public_body_name}}<a href=\"{{new_request_link}}\">提出新要求索取環境資訊</a>"
+msgid "<a href=\"{{info_request_batch_url}}\">{{title}}</a> part of a batch sent to {{count}} authorities on {{date}}"
+msgstr ""
 
-msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr "向{{public_body_name}}索取資料"
+msgid "<a href=\"{{info_request_url}}\">{{title}}</a> requested from <a href=\"{{public_body_url}}\">{{public_body_name}}</a> on {{date}}"
+msgstr ""
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
 msgstr "<a href=\"{{sign_in_link}}\">登入</a>獲取你關注的資訊的更新，或重新啟用電郵提示。"
@@ -274,8 +274,8 @@ msgstr "<strong><code>tag:charity</code></strong>根據標簽搜尋所有相關�
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
 msgstr "<strong><code>種類：</code></strong>選擇要搜索的事物的類型，請參見下面的<a href=\"{{varieties_url}}\">種類列表</a>。"
 
-msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
-msgstr "<strong>建議</strong>如何得到申請者感滿意的回覆。</li>"
+msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester."
+msgstr ""
 
 msgid "<strong>All the information</strong> has been sent"
 msgstr "已提供<strong>所有資料</strong>"
@@ -309,6 +309,9 @@ msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr "<strong>記者、學者或高級用戶？</strong>{{pro_site_link}}是一個整體全面的資訊自由工具包，內含你需要的所有資訊，協助進行以資訊自由主導的複雜調查。"
+
+msgid "<strong>Keep this passcode safe.</strong> You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
+msgstr ""
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
 msgstr "機構<strong>尚未作出回應</strong><small>（你可能只收到機構確認收件的訊息）</small>"
@@ -355,8 +358,8 @@ msgstr "？"
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "<em>{{request_title}}</em>的<a href=\"{{request_url}}\">跟進</a>已於{{date}}由{{info_request_user}}傳送至{{public_body_name}}。"
 
-msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
-msgstr "<em>{{request_title}}</em>的回覆已於{{date}}由{{info_request_user}}傳送至{{public_body_name}}。該回覆的狀態：{{request_status}}"
+msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}."
+msgstr ""
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr "如你以郵寄方式收取回覆，會收到其<strong>撮要</strong>。"
@@ -400,9 +403,6 @@ msgstr "自我介紹："
 msgid "About {{count}} FOI requests found"
 msgstr "找到約{{count}}項索取資料要求"
 
-msgid "Academic paper"
-msgstr "學術文章"
-
 msgid "Account closed at user request"
 msgstr "賬戶在用戶要求下停用"
 
@@ -432,6 +432,12 @@ msgstr "在你的要求加入備註，附上選項或<strong>回覆撮要</stron
 
 msgid "Add authority - {{public_body_name}}"
 msgstr "新增公共機構「{{public_body_name}}」"
+
+msgid "Add description"
+msgstr ""
+
+msgid "Add description and make dataset public"
+msgstr ""
 
 msgid "Add the authority:"
 msgstr "新增公共機構："
@@ -601,23 +607,17 @@ msgstr "正等待澄清"
 msgid "Awaiting classification"
 msgstr "尚未分類"
 
-msgid "Awaiting classification."
-msgstr "尚未分類。"
-
 msgid "Awaiting internal review"
 msgstr "正等待部門覆檢"
-
-msgid "Awaiting internal review."
-msgstr "正等待部門覆檢。"
 
 msgid "Awaiting response"
 msgstr "正等待回應"
 
-msgid "Awaiting response."
-msgstr "正等待回應。"
-
 msgid "Back to content"
 msgstr "返回內容"
+
+msgid "Back to project"
+msgstr ""
 
 msgid "Banned for evading another ban"
 msgstr ""
@@ -655,11 +655,8 @@ msgstr "查看所有公共機構 &rarr;"
 msgid "Browse all requests &rarr;"
 msgstr "查看所有索取資料要求 &rarr;"
 
-msgid "Browse and search requests"
-msgstr "查看及搜尋要求"
-
-msgid "Browse and search requests (page {{count}})"
-msgstr "查看及搜尋要求（第{{count}}頁）"
+msgid "Browse by category"
+msgstr ""
 
 msgid "Browse latest requests"
 msgstr "瀏覽最新要求"
@@ -667,8 +664,8 @@ msgstr "瀏覽最新要求"
 msgid "Browse latest responses"
 msgstr "瀏覽最新回覆"
 
-msgid "Browse requests"
-msgstr "查看要求"
+msgid "Browse requests by category"
+msgstr ""
 
 msgid "By law, they have to respond."
 msgstr "根據《守則》，公共機構必須回應要求。"
@@ -687,6 +684,12 @@ msgstr "根據《公開資料守則》，{{public_body_link}}在一般情況下�
 
 msgid "CSV"
 msgstr "CSV"
+
+msgid "Campaigning"
+msgstr ""
+
+msgid "Campaigning and Advocacy"
+msgstr ""
 
 msgid "Can't find the one you want?"
 msgstr "找不到你想找的人？"
@@ -760,6 +763,9 @@ msgstr "澄清你的索取資料要求 - {{request_title}}"
 msgid "Classify an FOI response from {{authority_name}}"
 msgstr "分類{{authority_name}}的索取資料要求"
 
+msgid "Classify requests"
+msgstr ""
+
 msgid "Classify responses"
 msgstr "回覆分類"
 
@@ -826,11 +832,11 @@ msgstr "確認電郵地址"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "確認你在{{site_name}}上使用的新電郵地址"
 
-msgid "Considered by administrators as not an FOI request."
-msgstr "管理員認為這不是索取資料要求。"
+msgid "Considered by administrators as not an FOI request"
+msgstr ""
 
-msgid "Considered by administrators as vexatious."
-msgstr "管理員認為這是無理纏繞"
+msgid "Considered by administrators as vexatious"
+msgstr ""
 
 msgid "Contact us"
 msgstr "聯絡我們"
@@ -898,6 +904,9 @@ msgstr "<strong>正在等候回覆</strong>，{{public_body_link}}應該盡快�
 msgid "Data interpretation"
 msgstr "資料詮釋"
 
+msgid "Dataset was successfully updated."
+msgstr ""
+
 msgid "Date:"
 msgstr "日期："
 
@@ -925,14 +934,14 @@ msgstr "已延期"
 msgid "Delayed response to your FOI request - {{request_title}}"
 msgstr "延遲回覆你的索取資料要求 - {{request_title}}"
 
-msgid "Delayed."
-msgstr "延遲。"
-
 msgid "Delivery Status for Outgoing Message #{{id}}"
 msgstr "外送訊息#{{id}}的傳送狀態"
 
 msgid "Delivery error"
 msgstr "傳送失敗"
+
+msgid "Description"
+msgstr ""
 
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr "要求「{{request_title}}」的詳情"
@@ -970,16 +979,16 @@ msgstr "完成"
 msgid "Done &gt;&gt;"
 msgstr "完成 &gt;&gt;"
 
-msgid "Download Data"
-msgstr "下載資料"
-
-msgid "Download Leaderboard Data"
+msgid "Download"
 msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "下載含全部回覆的壓縮檔案"
 
 msgid "Download attachment"
+msgstr ""
+
+msgid "Download leaderboard data"
 msgstr ""
 
 msgid "Download original attachment"
@@ -994,8 +1003,26 @@ msgstr "環境資訊規例"
 msgid "Edit and add <strong>more details</strong> to the message above, explaining why you are dissatisfied with their response."
 msgstr "編輯和加入<strong>更多細節</strong>到上述訊息，解釋為何你不滿他們的回覆。"
 
+msgid "Edit description"
+msgstr ""
+
+msgid "Edit description and make dataset public"
+msgstr ""
+
+msgid "Edit project"
+msgstr ""
+
+msgid "Edit questions"
+msgstr ""
+
+msgid "Edit requests"
+msgstr ""
+
 msgid "Edit text about you"
 msgstr "編輯你的簡介"
+
+msgid "Edit your dataset"
+msgstr ""
 
 msgid "Edit your request"
 msgstr "編輯此要求"
@@ -1057,6 +1084,9 @@ msgstr "你在本頁輸入的所有資料（包括<strong>你的姓名</strong>�
 msgid "Expand all correspondence"
 msgstr "展開所有回覆"
 
+msgid "Explore in Datasette"
+msgstr ""
+
 msgid "Extract data"
 msgstr "提取資料"
 
@@ -1069,8 +1099,8 @@ msgstr "已提取的資料未能存檔。"
 msgid "FOI"
 msgstr "公開資料"
 
-msgid "FOI email address for {{public_body}}"
-msgstr "{{public_body}}的公開資料電郵"
+msgid "FOI in Action"
+msgstr ""
 
 msgid "FOI law does not apply to this authority."
 msgstr "《公開資料守則》不包含此公共機構。"
@@ -1110,6 +1140,9 @@ msgstr "搜尋公共機構"
 
 msgid "Find the authorities to write to"
 msgstr "搜尋公共機構提出要求"
+
+msgid "Find updated contact details"
+msgstr ""
 
 msgid "First, did your other requests succeed?"
 msgstr "首先，你成功提出其他要求嗎？"
@@ -1159,9 +1192,6 @@ msgstr "跟進"
 msgid "Follow up message sent by requester"
 msgstr "申請人要求公共機構跟進的訊息"
 
-msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "已向<strong>{{authority_email}}</strong>發出訊息，跟進目前的索取資料要求。"
-
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "{{info_request_user}}已於{{date}}向{{public_body_name}}發出跟進索取資料要求的訊息。"
 
@@ -1174,8 +1204,8 @@ msgstr "為防止垃圾郵件，已停止對此請求進行跟進和提供新的
 msgid "Follow us on Facebook"
 msgstr "在Facebook關注我們"
 
-msgid "Follow us on twitter"
-msgstr "在Twitter關注我們"
+msgid "Follow us on X"
+msgstr ""
 
 msgid "Following"
 msgstr "關注"
@@ -1194,13 +1224,19 @@ msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
 msgid_plural "Found {{count}} public authorities beginning with ‘{{first_letter}}’"
 msgstr[0] "已找到{{count}}間「{{first_letter}}」字起首的公共機構"
 
-msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
-msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
-msgstr[0] "已在「{{category_name}}」類別找到{{count}}間公共機構"
+msgid "Found {{count}} public authority in the category ‘{{category}}’"
+msgid_plural "Found {{count}} public authorities in the category ‘{{category}}’"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
 msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
 msgstr[0] "已找到{{count}}間符合標簽「{{tag_name}}」的公共機構"
+
+msgid "Found {{count}} request tagged ‘{{tag_name}}’"
+msgid_plural "Found {{count}} requests tagged ‘{{tag_name}}’"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
 msgstr "四星期前，你透過{{site_name}}向{{public_body_name}}要求索取資料。"
@@ -1213,9 +1249,6 @@ msgstr "《公開資料守則》"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make a request to it."
 msgstr "《公開資料守則》不覆蓋此公共機構，你不能要求它披露資料。"
-
-msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr "《公開資料守則》已不覆蓋此公共機構，所有跟進訊息將發送至<strong>{{authority_email}}</strong>。"
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr "《公開資料守則》不再覆蓋{{public_body_name}}。"
@@ -1265,14 +1298,11 @@ msgstr "已經註冊？"
 msgid "Handled by postal mail"
 msgstr "郵寄處理"
 
-msgid "Handled by postal mail."
-msgstr "郵寄處理。"
+msgid "Has this batch request been referenced in journalism, campaigning, or research?"
+msgstr ""
 
-msgid "Has this request been referenced in a news article or academic paper?"
-msgstr "這項要求有被新聞文章或學術文章徵引過嗎？"
-
-msgid "Has this request been referenced in a news article or academic paper? Let us know:"
-msgstr "這項要求有被新聞文章或學術文章徵引過嗎？請通知我們："
+msgid "Has this request been referenced in journalism, campaigning, or research?"
+msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
 msgstr "你好，{{country_name}}外的訪客！你有一則<a href=\"{{url}}\">重要訊息</a>"
@@ -1294,6 +1324,9 @@ msgstr "你好！你可以在{{link_to_website}}向{{country_name}}的公營機�
 
 msgid "Help"
 msgstr "幫助"
+
+msgid "Help Out"
+msgstr ""
 
 msgid "Help us classify requests that haven't been updated"
 msgstr "幫助我們分別出未被更新的請求"
@@ -1385,9 +1418,6 @@ msgstr "我收到<strong>錯誤訊息</strong>"
 msgid "I've received an error message"
 msgstr "我收到錯誤訊息"
 
-msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
-msgstr "如果地址錯誤，或你知道有個更好的地址，請<a href=\"{{url}}\">聯絡我們</a>。"
-
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr "如果傳送失敗，同時你找到該公共機構最新的公開資料電郵地址，請填寫以下表格通知我們。"
 
@@ -1445,9 +1475,6 @@ msgstr "如你在<strong>多於兩個月前</strong>收到電郵或<strong>更�
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "如果你還沒有這樣做，請在下面寫下訊息，通知公共機構你已經撤消了要求。否則，機構不會知道要求已被撤回。"
 
-msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
-msgstr "如你知道地址，請<a href=\"{{url}}\">傳送給我們</a>。你可以致電查詢或在他們的網頁上找到地址。"
-
 msgid "If you reply to this message it will go directly to {{user_name}}, who will learn your email address. Only reply if that is okay."
 msgstr "如果你回覆這則訊息，你的回覆將直接傳予{{user_name}}，向其披露你的電郵地址。請於回覆前慎思。"
 
@@ -1481,9 +1508,6 @@ msgstr "改善你的賬戶安全"
 msgid "In progress"
 msgstr "進行中"
 
-msgid "In the News"
-msgstr "在新聞裡"
-
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr "包含相關連結，例如連至活動頁、你的網誌或Twitter帳戶。你可以按入那些連結，例如"
 
@@ -1494,9 +1518,6 @@ msgid "Individual requests"
 msgstr "個別要求"
 
 msgid "Information not held"
-msgstr "未持有相關資料"
-
-msgid "Information not held."
 msgstr "未持有相關資料"
 
 msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
@@ -1523,6 +1544,9 @@ msgstr "單次有效密碼無效"
 msgid "Invalid token"
 msgstr "代碼無效"
 
+msgid "Invite and edit contributors"
+msgstr ""
+
 msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "對{{public_body_name}}的{{law_used_full}}請求的地址{{email_address}}是否錯誤？如是，請使用以下表格聯絡我們："
 
@@ -1544,11 +1568,11 @@ msgstr "{{year}}年加入。"
 msgid "Joined {{site_name}} in {{year}}"
 msgstr "{{year}}年加入{{site_name}}"
 
+msgid "Journalism"
+msgstr ""
+
 msgid "Just one more thing"
 msgstr "再者"
-
-msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
-msgstr "請妥善保管這個密碼。當要轉換密碼，你需要用來確定你的帳戶。你可以將之加進密碼管理員，或列印出來後妥善保管。"
 
 msgid "Keep your request up to date"
 msgstr "持續更新你的請求"
@@ -1592,6 +1616,9 @@ msgstr "離開項目"
 msgid "Let us know"
 msgstr "通知我們"
 
+msgid "Let us know about great examples of <a href=\"{{citations_path}}\">FOI in Action</a>."
+msgstr ""
+
 msgid "Let us know and we’ll help you challenge it."
 msgstr "通知我們，幫助你提出挑戰"
 
@@ -1612,9 +1639,6 @@ msgstr "登入管理介面"
 
 msgid "Long overdue"
 msgstr "嚴重逾期"
-
-msgid "Long overdue."
-msgstr "嚴重逾期。"
 
 msgid "Made between"
 msgstr "要求提出日期"
@@ -1712,9 +1736,6 @@ msgstr "須管理員處理"
 msgid "Needs status update"
 msgstr "狀態須更新"
 
-msgid "New Citation"
-msgstr "新引用"
-
 msgid "New Freedom of Information requests"
 msgstr "索取資料的新要求"
 
@@ -1747,9 +1768,6 @@ msgstr "索取資料要求「{{request_title}}」有更新"
 
 msgid "Newest results first"
 msgstr "最新結果優先"
-
-msgid "News story"
-msgstr "新聞消息"
 
 msgid "Next"
 msgstr "下一則"
@@ -1832,6 +1850,9 @@ msgstr "已隱藏事件的要求數量"
 msgid "Number of requests"
 msgstr "索取資料要求的數目"
 
+msgid "Numeric"
+msgstr ""
+
 msgid "OR remove the existing photo"
 msgstr "或移除現有的圖片"
 
@@ -1894,9 +1915,6 @@ msgstr "部分成功"
 
 msgid "Partially successful"
 msgstr "部分成功"
-
-msgid "Partially successful."
-msgstr "部分成功。"
 
 msgid "Password is not correct"
 msgstr "密碼錯誤"
@@ -2166,6 +2184,9 @@ msgstr "列印你的單次有效密碼"
 msgid "Privacy and cookies"
 msgstr "私隱及Cookies"
 
+msgid "Private"
+msgstr ""
+
 msgid "Profile image for {{user_name}}"
 msgstr "{{user_name}}的頭像"
 
@@ -2174,6 +2195,9 @@ msgstr "項目擁有者"
 
 msgid "Proposed Email:"
 msgstr "建議電郵："
+
+msgid "Public"
+msgstr ""
 
 msgid "Public Bodies"
 msgstr "公共機構"
@@ -2256,9 +2280,6 @@ msgstr "最近描述的結果為先"
 msgid "Refused"
 msgstr "已拒絕"
 
-msgid "Refused."
-msgstr "已拒絕。"
-
 msgid "Regenerate one time passcode"
 msgstr "重發單次有效密碼"
 
@@ -2298,8 +2319,8 @@ msgstr "舉報此要求"
 msgid "Reported"
 msgstr "已舉報"
 
-msgid "Reported for administrator attention."
-msgstr "已向管理員舉報"
+msgid "Reported for administrator attention"
+msgstr ""
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
 msgstr "本站管理員將得知要求遭舉報，並會儘快回應。"
@@ -2312,6 +2333,9 @@ msgstr "要求部門覆檢"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "要求{{person_or_body}}覆檢要求"
+
+msgid "Request classifications and extracted data is compiled into a dataset"
+msgstr ""
 
 msgid "Request email can't be nil"
 msgstr "要求電郵不可留空"
@@ -2369,6 +2393,9 @@ msgstr "要求將發送至以下機構："
 
 msgid "Requires admin attention"
 msgstr "須管理員跟進"
+
+msgid "Research"
+msgstr ""
 
 msgid "Respond by email"
 msgstr "電郵回覆"
@@ -2445,6 +2472,12 @@ msgstr "搜尋<br/> <strong>{{number_of_requests}}項要求</strong><span>及</s
 msgid "Search queries"
 msgstr "搜尋內容"
 
+msgid "Search requests"
+msgstr ""
+
+msgid "Search requests (page {{count}})"
+msgstr ""
+
 msgid "Search results"
 msgstr "搜尋結果"
 
@@ -2458,6 +2491,12 @@ msgid "Section"
 msgstr "部份"
 
 msgid "See all &rarr;"
+msgstr ""
+
+msgid "See more examples of <a href=\"{{citations_path}}\">FOI in Action</a>."
+msgstr ""
+
+msgid "Select"
 msgstr ""
 
 msgid "Send a followup"
@@ -2508,6 +2547,11 @@ msgstr ""
 msgid "Sent a follow up to {{public_body_name}} again."
 msgstr ""
 
+msgid "Sent batch ({{batch_admin_link}}) to one authority by {{info_request_user}} ({{user_admin_link}}) on {{date}}."
+msgid_plural "Sent batch ({{batch_admin_link}}) to {{authority_count}} authorities by {{info_request_user}} ({{user_admin_link}}) on {{date}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Sent request to {{public_body_link}} again, using a new contact address."
 msgstr ""
 
@@ -2529,6 +2573,9 @@ msgstr "設立頭像"
 
 msgid "Share on Facebook"
 msgstr "分享至Facebook"
+
+msgid "Share on X"
+msgstr ""
 
 msgid "Share with private link"
 msgstr ""
@@ -2743,9 +2790,6 @@ msgstr "更多成功要求"
 msgid "Successful requests"
 msgstr "成功要求"
 
-msgid "Successful."
-msgstr "成功"
-
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "建議請求者如何找到<strong>其餘信息</strong>。"
 
@@ -2772,6 +2816,9 @@ msgstr "標籤："
 
 msgid "Tasks"
 msgstr "任務"
+
+msgid "Text"
+msgstr ""
 
 msgid "Thank you for helping us keep the site tidy!"
 msgstr "感謝你整理本站！"
@@ -2836,6 +2883,12 @@ msgstr "你找到的文章的網址。"
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr "你找到電郵地址的網址。你可以選擇不填寫，但讓我們知道你是從公共機構網站的哪一頁找到電郵地址，可助我們更快確認電郵的真假。"
 
+msgid "The Xapian indexing has been stuck for more than 1 hour"
+msgstr ""
+
+msgid "The Xapian indexing is not stuck"
+msgstr ""
+
 msgid "The accounts have been left as they previously were."
 msgstr "帳戶已像以前一樣保留。"
 
@@ -2895,12 +2948,6 @@ msgstr "最後一位用戶在前一天建立"
 
 msgid "The last user was created over a day ago"
 msgstr "最後一位用戶在多於一天前建立"
-
-msgid "The oldest Xapian index job, has been idle for more than 1 hour"
-msgstr ""
-
-msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
-msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "本頁不存在。你可以："
@@ -3079,8 +3126,8 @@ msgstr ""
 msgid "There is nothing to display yet."
 msgstr "暫未有內容顯示。"
 
-msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
-msgstr "出現<strong>傳輸錯誤</strong>或類似事件，需要{{site_name}}的工作團隊修復。"
+msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team. Can you help by <a href=\"{{change_request_url}}\">finding updated contact details</a>?"
+msgstr ""
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr "reCAPTCHA出現錯誤，請重試。"
@@ -3459,12 +3506,6 @@ msgstr "嘗試在新視窗開啟記錄"
 msgid "Turn off email alerts"
 msgstr "停止電郵通知"
 
-msgid "Tweet it"
-msgstr "轉貼於Tweeter"
-
-msgid "Tweet this request"
-msgstr "轉貼此要求到Tweeter"
-
 msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
 msgstr "雙重認證會要求你提供更多資料來重設密碼，以提升帳戶安全。"
 
@@ -3531,8 +3572,8 @@ msgstr "取消訂閱"
 msgid "Unusual response"
 msgstr "異常回應"
 
-msgid "Unusual response."
-msgstr "異常回應"
+msgid "Update dataset"
+msgstr ""
 
 msgid "Update email address - {{public_body_name}}"
 msgstr "更新{{public_body_name}}的電郵地址"
@@ -3570,23 +3611,14 @@ msgstr "無理纏擾的"
 msgid "Vexatious annotation"
 msgstr "無理纏繞的備註"
 
-msgid "View FOI email address"
-msgstr "查看公開資料電郵地址"
-
-msgid "View FOI email address for '{{public_body_name}}'"
-msgstr "查看{{public_body_name}}的公開資料電郵地址"
-
-msgid "View FOI email address for {{public_body_name}}"
-msgstr "查看{{public_body_name}}的公開資料電郵地址"
-
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "查看{{user_name}}的索取資料要求。"
 
 msgid "View authorities"
 msgstr "查看公共機構"
 
-msgid "View email"
-msgstr "查看電郵"
+msgid "View dataset"
+msgstr ""
 
 msgid "View event history details"
 msgstr "查看事件的詳細歷史"
@@ -3594,11 +3626,17 @@ msgstr "查看事件的詳細歷史"
 msgid "View other requests to {{public_body}}"
 msgstr "查看其他向{{public_body}}作出的要求"
 
+msgid "View requests"
+msgstr ""
+
 msgid "View your two factor authentication one time passcode"
 msgstr "查看雙重認證的單次有效密碼"
 
-msgid "Waiting clarification."
-msgstr "正等候澄清"
+msgid "Visibility"
+msgstr ""
+
+msgid "Waiting clarification"
+msgstr ""
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "正等待{{public_body_link}}<strong>覆檢</strong>它們處理索取資料要求的手法。"
@@ -3629,9 +3667,6 @@ msgstr "我們未能載入此訊息的電郵伺服器記錄。"
 
 msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
 msgstr "我們不接受任何透過{{site_name}}索取你個人情況的要求。因此，我們會隱藏你的要求。"
-
-msgid "We do not have a working request email address for this authority."
-msgstr "我們沒有此公共機構的有效電郵地址以提出要求。"
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "我們沒有{{public_body_name}}的有效{{law_used_full}}網址。"
@@ -3734,6 +3769,9 @@ msgstr ""
 msgid "What's happened:"
 msgstr "事件："
 
+msgid "When a dataset is made public, it cannot be reverted to private."
+msgstr ""
+
 msgid "When you get there, please update the status to say if the response contains any useful information."
 msgstr "當抵達該處，請更新狀態，以示回應有否包含有用資訊。"
 
@@ -3758,8 +3796,8 @@ msgstr "請問你為何認為這項要求不恰當？"
 msgid "Withdrawn"
 msgstr "已撤回"
 
-msgid "Withdrawn by the requester."
-msgstr "申請者已撤回請求。"
+msgid "Withdrawn by the requester"
+msgstr ""
 
 msgid "Wk"
 msgstr "週"
@@ -3784,6 +3822,9 @@ msgstr ""
 
 msgid "Yes"
 msgstr "是"
+
+msgid "Yes/No"
+msgstr ""
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
 msgstr "你已於{{date}}建立同一批要求。你可以瀏覽<a href=\"{{existing_batch}}\">現有的批次</a>或編輯下列內容，以建立類似的多項新要求。"
@@ -4406,9 +4447,6 @@ msgstr "在這裡輸入你的搜尋文字"
 msgid "unknown"
 msgstr "未知"
 
-msgid "unknown reason"
-msgstr "不明原因"
-
 msgid "unknown reason "
 msgstr "不明原因"
 
@@ -4445,9 +4483,6 @@ msgstr "{{authority_name}}<strong>沒有</strong>要求披露的資料。"
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}}正在<strong>等待你澄清某些事項</strong>。"
 
-msgid "{{contributor_count}} contributors"
-msgstr "{{contributor_count}}位貢獻者"
-
 msgid "{{count}} Attachment"
 msgid_plural "{{count}} Attachments"
 msgstr[0] "{{count}}個附件"
@@ -4455,6 +4490,11 @@ msgstr[0] "{{count}}個附件"
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
 msgstr[0] "{{count}}個備註"
+
+msgid "{{count}} contributor has joined this project"
+msgid_plural "{{count}} contributors have joined this project"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} follower"
 msgid_plural "{{count}} followers"
@@ -4587,8 +4627,8 @@ msgstr "{{reason}}。抱歉，由於我們不知道該公共機構的公開資�
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}}個符合「{{query}}」"
 
-msgid "{{site_name}} blog and tweets"
-msgstr "{{site_name}}的網誌和推特"
+msgid "{{site_name}} blog"
+msgstr ""
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
@@ -4599,9 +4639,6 @@ msgstr "{{site_name}}已識別到{{authority_name}}基於<strong>{{refusals}}</s
 
 msgid "{{site_name}} login link"
 msgstr "{{site_name}}登入連結"
-
-msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
-msgstr "{{site_name}}為此公共機構送出新要求予<strong>{{request_email}}</strong>。"
 
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"

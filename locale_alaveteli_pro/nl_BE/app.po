@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>, 2020"
 "\n"
@@ -40,9 +40,6 @@ msgstr[1] ""
 msgid "(no title)"
 msgstr "(geen titel)"
 
-msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(met <b>{{discount_name}}</b>korting toegepast)"
-
 msgid "12 Months"
 msgstr "12 maanden"
 
@@ -64,12 +61,6 @@ msgstr ""
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr "<span class=\"current-page\">{{current_page}}</span>van <span class=\"total-pages\">{{total_pages}}</span>"
 
-msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr ""
-
-msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr ""
-
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr ""
 
@@ -77,9 +68,6 @@ msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to ke
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr ""
-
-msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
@@ -123,6 +111,9 @@ msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr "<strong>{{brand}}</strong>eindigt in  {{last4}}, verstrijkt op {{exp_month}}/{{exp_year}}"
+
+msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
+msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> gesorteerd op <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">wis</a>"
@@ -190,6 +181,21 @@ msgstr "Voeg overheiden aan je batch toe"
 msgid "Add credibility"
 msgstr ""
 
+msgid "Add question"
+msgstr ""
+
+msgid "Add questions to your project"
+msgstr ""
+
+msgid "Add request"
+msgstr ""
+
+msgid "Add requests to your project"
+msgstr ""
+
+msgid "Add whole batch and related requests"
+msgstr ""
+
 msgid "Added"
 msgstr "Toegevoegd"
 
@@ -201,6 +207,12 @@ msgstr "Alle aanvragen"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
 msgstr "Alle aanvragen in deze batch zullen privé blijven voor dezelfde duurtijd. Wanneer een individuele aanvraag publiek gemaakt wordt zullen alle andere aanvragen van deze batch ook gepubliceerd worden op {{site_name}}."
+
+msgid "Allow blank"
+msgstr ""
+
+msgid "Allow muliple"
+msgstr ""
 
 msgid "Also called {{other_name}}."
 msgstr "Ook genaamd {{other_name}}"
@@ -259,6 +271,9 @@ msgstr "Betaling: Maandelijks"
 msgid "Billed: Weekly"
 msgstr "Betaling: Wekelijks"
 
+msgid "Billed: every {{interval}}"
+msgstr ""
+
 msgid "Billing"
 msgstr "Facturatie"
 
@@ -267,9 +282,6 @@ msgstr ""
 
 msgid "Browse by category"
 msgstr "Blader door categorie "
-
-msgid "Browse public requests"
-msgstr "Doorzoek de openbare aanvragen"
 
 msgid "CSV"
 msgstr ""
@@ -313,6 +325,9 @@ msgstr "Kijk na of u geen <strong>persoonlijke informatie</strong> invoerde."
 msgid "Choose a duration"
 msgstr "Kies een periode"
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Collapse all correspondence"
 msgstr "Alle correspondentie samenvouwen"
 
@@ -322,11 +337,23 @@ msgstr "Bevestigd jouw account op  {{site_name}}"
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "Doordoen met checkout noodzaakt dat uw browser JavaScript toelaat"
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Coupon code has expired."
 msgstr "Uw code is vervallen"
 
 msgid "Coupon code is invalid."
 msgstr "Uw code is niet geldig"
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Create a new Project"
+msgstr ""
 
 msgid "Created"
 msgstr "Gecreëerd"
@@ -370,6 +397,9 @@ msgstr "Klad-ontwerp"
 msgid "Drafts"
 msgstr "Klad-ontwerpen"
 
+msgid "Edit your project"
+msgstr ""
+
 msgid "Edit your request"
 msgstr "Schrijf je vraag"
 
@@ -390,6 +420,9 @@ msgstr "Alle boodschappen tonen"
 
 msgid "Expires soon"
 msgstr "Vervalt binnenkort"
+
+msgid "Extract data"
+msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
 msgstr ""
@@ -454,6 +487,9 @@ msgstr "Via dit scherm kan u zien wat verder te doen om uw vragen vooruit te lat
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 msgstr ""
 
+msgid "Generate invite link"
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
 
@@ -516,6 +552,12 @@ msgstr ""
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr ""
 
+msgid "Invite contributors"
+msgstr ""
+
+msgid "Invite others to the project"
+msgstr ""
+
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
@@ -566,6 +608,9 @@ msgstr ""
 
 msgid "Make a batch request"
 msgstr "Maak een batch-aanvraag"
+
+msgid "Make a project"
+msgstr ""
 
 msgid "Make a request"
 msgstr "Maak een aanvraag"
@@ -624,6 +669,9 @@ msgstr "Nee"
 msgid "No bodies selected"
 msgstr "Geen overheid geselecteerd "
 
+msgid "No contributors have joined this project yet"
+msgstr ""
+
 msgid "No more authorities can be added to this batch request."
 msgstr "Geen overheid mag in deze batch worden toegevoegd"
 
@@ -663,6 +711,9 @@ msgstr ""
 msgid "Number of paying users:"
 msgstr ""
 
+msgid "On the project"
+msgstr ""
+
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "Eens de privé-periode eindigt, zal alles wat u hier op deze bladzijde inbrengt, inclusief <strong>uw naam</strong>, <strong><a href=\"{{url}}\">publiek gemaakt worden</a></strong>op deze website"
 
@@ -685,6 +736,9 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr ""
 
 msgid "Open"
+msgstr ""
+
+msgid "Options"
 msgstr ""
 
 msgid "Overflowing inbox?"
@@ -777,6 +831,9 @@ msgstr ""
 msgid "Profile"
 msgstr "Profiel"
 
+msgid "Projects"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Geef ons extra context over uw vraag en de redenen om die te stellen."
 
@@ -806,6 +863,9 @@ msgstr ""
 msgid "Refer a friend"
 msgstr "Verwijs een vriend"
 
+msgid "Regenerate invite link"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Hou er rekening mee dat overheden {{late_number_of_days}} kalenderdagen de tijd hebben om zo’n WOB-aanvragen te beantwoorden."
 
@@ -817,6 +877,15 @@ msgstr ""
 
 msgid "Remove"
 msgstr "Verwijderen"
+
+msgid "Remove question"
+msgstr ""
+
+msgid "Remove request"
+msgstr ""
+
+msgid "Remove whole batch"
+msgstr ""
 
 msgid "Replies"
 msgstr "Antwoorden"
@@ -886,6 +955,9 @@ msgstr "Zoek een overheid"
 msgid "Search for an authority by name"
 msgstr "Zoek een overheid per naam"
 
+msgid "Search your requests by title"
+msgstr ""
+
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "Zoek naar<strong>{{search_term}} </strong> in <strong>{{filter_description}} </strong> gesorteerd op <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">wis</a>"
 
@@ -941,10 +1013,10 @@ msgstr "Instellingen"
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr "Deel de code {{discount_code}} met een vriend om hem {{discount_terms}} te geven bij het aanmelden."
 
-msgid "Show {{count}} request in detail</span>"
-msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] "toon {{count}} verzoek in detail"
-msgstr[1] "Toon {{count}} aanvragen in detail</span>"
+msgid "Show {{count}} request in detail"
+msgid_plural "Show {{count}} requests in detail"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sign up"
 msgstr "Teken in"
@@ -954,6 +1026,9 @@ msgstr ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Jammer, maar geen overheden beantwoorden aan uw zoekcriteria"
+
+msgid "Sorry, no requests matched that search"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Tot onze spijt ging iets fout bij het ophalen van uw resultaten. Probeer  opnieuw aub."
@@ -1142,6 +1217,9 @@ msgstr "Update"
 msgid "Update Card Details"
 msgstr "Update betaalkaartgegevens"
 
+msgid "Update Project"
+msgstr ""
+
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "update het status"
@@ -1170,6 +1248,9 @@ msgstr ""
 
 msgid "View authorities"
 msgstr "Zie de overheden"
+
+msgid "View public requests"
+msgstr ""
 
 msgid "Wall"
 msgstr "Muur"
@@ -1257,6 +1338,9 @@ msgstr "U heeft uw inschrijving op {{pro_site_name}} succesvol geannuleerd"
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "U heeft nog geen overheid toegevoegd aan uw batch"
+
+msgid "You haven't added any reqeusts to your project yet"
+msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "U kent de oorzaak van de fout, en u kan <strong>een oplossing voorstellen</strong>, zoals een functioneel e-mail adres."
@@ -1383,6 +1467,12 @@ msgstr "laatste update "
 msgid "or start a batch request"
 msgstr "ofwel begin met een batchverzoek"
 
+msgid "per user, every {{interval}}"
+msgstr ""
+
+msgid "per user, per {{interval}}"
+msgstr ""
+
 msgid "requests that will be made public soon"
 msgstr "aanvragen die binnenkort zullen publiek gemaakt worden"
 
@@ -1484,3 +1574,6 @@ msgstr "{{public_body_name}} is te laat met antwoord op uw aanvraag \"{{info_req
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} is veel te laat om uw aanvraag \"{{info_request_title}}\" te beantwoorden."
+
+msgid "{{site_name}} Projects is a early beta feature."
+msgstr ""

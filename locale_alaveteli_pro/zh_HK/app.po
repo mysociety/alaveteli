@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: gensitu <pstew892@protonmail.com>, 2021\n"
 "Language-Team: Chinese (Hong Kong) (https://app.transifex.com/mysociety/teams/"
@@ -39,9 +39,6 @@ msgstr[1] ""
 msgid "(no title)"
 msgstr "（無標題）"
 
-msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "（已用<b>{{discount_name}}</b>優惠）"
-
 msgid "12 Months"
 msgstr "12個月"
 
@@ -63,12 +60,6 @@ msgstr ""
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr "<span class=\"current-page\">{{當前頁數}}</span><span class=\"total-pages\">{{總頁數}}</span>"
 
-msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr "每個用戶一個月<span class=\"price-label__amount\">{{一個月的價格}}</span>"
-
-msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr "每個用戶一年<span class=\"price-label__amount\">{{一年的價格}}</span>"
-
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr "<strong class=\"marketing-highlight\">提醒</strong>：知道何時該採取下一步措施"
 
@@ -76,9 +67,6 @@ msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to ke
 msgstr "每日整理郵件以保持收件箱整潔"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr ""
-
-msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
@@ -121,6 +109,9 @@ msgid "<strong>You have already sent this request</strong> to some authorities i
 msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
+msgstr ""
+
+msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
 msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
@@ -189,6 +180,21 @@ msgstr "添加政府部門或公營機構到你的列表"
 msgid "Add credibility"
 msgstr "增加可信度"
 
+msgid "Add question"
+msgstr ""
+
+msgid "Add questions to your project"
+msgstr ""
+
+msgid "Add request"
+msgstr ""
+
+msgid "Add requests to your project"
+msgstr ""
+
+msgid "Add whole batch and related requests"
+msgstr ""
+
 msgid "Added"
 msgstr "已加入"
 
@@ -200,6 +206,12 @@ msgstr "所有索取資料要求"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
 msgstr "該組內的所有請求將同一時間內保持私密狀態。 單個請求公開後，該組內的所有其他請求也將在{{site_name}}上公開。"
+
+msgid "Allow blank"
+msgstr ""
+
+msgid "Allow muliple"
+msgstr ""
 
 msgid "Also called {{other_name}}."
 msgstr "亦稱為{{other_name}}"
@@ -258,6 +270,9 @@ msgstr "每月付款"
 msgid "Billed: Weekly"
 msgstr "每週付款"
 
+msgid "Billed: every {{interval}}"
+msgstr ""
+
 msgid "Billing"
 msgstr "付費"
 
@@ -266,9 +281,6 @@ msgstr ""
 
 msgid "Browse by category"
 msgstr "按分類瀏覽"
-
-msgid "Browse public requests"
-msgstr "瀏覽公開的索取資料要求"
 
 msgid "CSV"
 msgstr "CSV"
@@ -312,6 +324,9 @@ msgstr "請確保你沒有加入任何<strong>個人資料</strong>。"
 msgid "Choose a duration"
 msgstr ""
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Collapse all correspondence"
 msgstr ""
 
@@ -321,11 +336,23 @@ msgstr "在{{site_name}}上確認您的帳戶"
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "要繼續付款，請先啟用JavaScript。"
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Coupon code has expired."
 msgstr "優惠碼已過期。"
 
 msgid "Coupon code is invalid."
 msgstr "優惠碼無效。"
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Create a new Project"
+msgstr ""
 
 msgid "Created"
 msgstr ""
@@ -369,6 +396,9 @@ msgstr "草稿"
 msgid "Drafts"
 msgstr "草稿"
 
+msgid "Edit your project"
+msgstr ""
+
 msgid "Edit your request"
 msgstr "編輯此要求"
 
@@ -389,6 +419,9 @@ msgstr "展開所有回覆"
 
 msgid "Expires soon"
 msgstr "即將過期"
+
+msgid "Extract data"
+msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
 msgstr ""
@@ -453,6 +486,9 @@ msgstr ""
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 msgstr "Gavin Chait為了協助初創企業，曾向350個地方部門詢問<a href=\"{{story_url}}\">空置商業物業的地點</a>。"
 
+msgid "Generate invite link"
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
 
@@ -513,6 +549,12 @@ msgstr ""
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr ""
 
+msgid "Invite contributors"
+msgstr ""
+
+msgid "Invite others to the project"
+msgstr ""
+
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
@@ -563,6 +605,9 @@ msgstr "Lucie Stephens在親人去世之後，向200個執法部門索取有關�
 
 msgid "Make a batch request"
 msgstr "提出多項要求"
+
+msgid "Make a project"
+msgstr ""
 
 msgid "Make a request"
 msgstr "提出要求"
@@ -621,6 +666,9 @@ msgstr "不"
 msgid "No bodies selected"
 msgstr "未選取公共機構"
 
+msgid "No contributors have joined this project yet"
+msgstr ""
+
 msgid "No more authorities can be added to this batch request."
 msgstr "不可再加入公共機構。"
 
@@ -660,6 +708,9 @@ msgstr "免費試用用戶數："
 msgid "Number of paying users:"
 msgstr "付費用戶數："
 
+msgid "On the project"
+msgstr ""
+
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr ""
 
@@ -682,6 +733,9 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr ""
 
 msgid "Open"
+msgstr ""
+
+msgid "Options"
 msgstr ""
 
 msgid "Overflowing inbox?"
@@ -774,6 +828,9 @@ msgstr ""
 msgid "Profile"
 msgstr "個人簡介"
 
+msgid "Projects"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
 
@@ -803,6 +860,9 @@ msgstr ""
 msgid "Refer a friend"
 msgstr "介紹好友"
 
+msgid "Regenerate invite link"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr ""
 
@@ -814,6 +874,15 @@ msgstr ""
 
 msgid "Remove"
 msgstr "移除"
+
+msgid "Remove question"
+msgstr ""
+
+msgid "Remove request"
+msgstr ""
+
+msgid "Remove whole batch"
+msgstr ""
 
 msgid "Replies"
 msgstr "回覆"
@@ -882,6 +951,9 @@ msgstr "搜尋公共機構"
 msgid "Search for an authority by name"
 msgstr "以名稱搜尋公共機構"
 
+msgid "Search your requests by title"
+msgstr ""
+
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
 
@@ -935,9 +1007,10 @@ msgstr "設定"
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr ""
 
-msgid "Show {{count}} request in detail</span>"
-msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] "顯示{{count}}項要求的詳情</span>"
+msgid "Show {{count}} request in detail"
+msgid_plural "Show {{count}} requests in detail"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sign up"
 msgstr "註冊"
@@ -947,6 +1020,9 @@ msgstr ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr "抱歉，沒有公共機構在搜尋範圍內"
+
+msgid "Sorry, no requests matched that search"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "抱歉，搜尋出現問題，請再次搜尋。"
@@ -1135,6 +1211,9 @@ msgstr "更新"
 msgid "Update Card Details"
 msgstr "更新付款卡資料"
 
+msgid "Update Project"
+msgstr ""
+
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "更新狀態。"
@@ -1161,6 +1240,9 @@ msgid "View Receipt"
 msgstr ""
 
 msgid "View authorities"
+msgstr ""
+
+msgid "View public requests"
 msgstr ""
 
 msgid "Wall"
@@ -1248,6 +1330,9 @@ msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgstr "你已取消訂閲{{pro_site_name}}"
 
 msgid "You haven't added any authorities to your batch yet"
+msgstr ""
+
+msgid "You haven't added any reqeusts to your project yet"
 msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
@@ -1373,6 +1458,12 @@ msgstr "最新更新"
 msgid "or start a batch request"
 msgstr ""
 
+msgid "per user, every {{interval}}"
+msgstr ""
+
+msgid "per user, per {{interval}}"
+msgstr ""
+
 msgid "requests that will be made public soon"
 msgstr ""
 
@@ -1469,4 +1560,7 @@ msgid "{{public_body_name}} are delayed in responding to your request \"{{info_r
 msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
+msgstr ""
+
+msgid "{{site_name}} Projects is a early beta feature."
 msgstr ""

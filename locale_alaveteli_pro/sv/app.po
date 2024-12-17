@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/mysociety/teams/33529/sv/)\n"
@@ -42,9 +42,6 @@ msgstr[1] "(inkluderar {{count}} återkommande prenumeranter)"
 msgid "(no title)"
 msgstr "(ingen titel)"
 
-msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(med <b>{{discount_name}}</b> har rabatt tillämpats)"
-
 msgid "12 Months"
 msgstr "12 månader"
 
@@ -66,12 +63,6 @@ msgstr "<a href=\"{{story_url}}\">Sold From Under You</a> - Byrån för granskan
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr "<span class=\"current-page\">{{current_page}}</span> av <span class=\"total-pages\">{{total_pages}}</span>"
 
-msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> per användare, per månad"
-
-msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> per användare, per år"
-
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr "<strong class=\"marketing-highlight\">Åtgärdsnotiser</strong>: Handlingar Pro uppmärksammar dig när det är dags att ta nästa steg"
 
@@ -79,9 +70,6 @@ msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to ke
 msgstr "<strong class=\"marketing-highlight\">Dagliga sammanfattande</strong> mejl för att hålla din inkorg städad"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr "<strong class=\"marketing-highlight\">Leveransbekräftelse</strong> för kvitto på mottagande"
-
-msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
 msgstr "<strong class=\"marketing-highlight\">Leveransbekräftelse</strong> för kvitto på mottagande"
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
@@ -125,6 +113,9 @@ msgstr "<strong>Du har redan skickat denna förfrågan</strong> till vissa myndi
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr "<strong>{{brand}}</strong> slutar om {{last4}}, upphörande {{exp_month}} / {{exp_year}}"
+
+msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
+msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> sorterat efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
@@ -192,6 +183,21 @@ msgstr "Lägg till myndigheter till din serieförfrågan"
 msgid "Add credibility"
 msgstr "Öka trovärdigheten "
 
+msgid "Add question"
+msgstr ""
+
+msgid "Add questions to your project"
+msgstr ""
+
+msgid "Add request"
+msgstr ""
+
+msgid "Add requests to your project"
+msgstr ""
+
+msgid "Add whole batch and related requests"
+msgstr ""
+
 msgid "Added"
 msgstr "Tillagd"
 
@@ -203,6 +209,12 @@ msgstr "Alla förfrågningar"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
 msgstr "Alla förfrågningar gjorda inom denna serieförfrågan kommer förbli privata under samma längd. När en individuell begäran offentliggörs kommer alla andra i serieförfrågan också publiceras på {{site_name}}."
+
+msgid "Allow blank"
+msgstr ""
+
+msgid "Allow muliple"
+msgstr ""
 
 msgid "Also called {{other_name}}."
 msgstr "Även kallad {{other_name}}"
@@ -261,6 +273,9 @@ msgstr "Betalning: Månatlig"
 msgid "Billed: Weekly"
 msgstr "Betalning: Veckovis"
 
+msgid "Billed: every {{interval}}"
+msgstr ""
+
 msgid "Billing"
 msgstr "Betalning"
 
@@ -269,9 +284,6 @@ msgstr "Ger fakta om kampanjer med överskott med sekretessfunktionerna"
 
 msgid "Browse by category"
 msgstr "Bläddra enligt kategori"
-
-msgid "Browse public requests"
-msgstr "Bläddra bland offentliga förfrågningar"
 
 msgid "CSV"
 msgstr "CSV"
@@ -315,6 +327,9 @@ msgstr "Kontrollera att du inte har inkluderat någon <strong>personlig informat
 msgid "Choose a duration"
 msgstr "Välj en varaktighet"
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Collapse all correspondence"
 msgstr "Dölj all korrespondens"
 
@@ -324,11 +339,23 @@ msgstr "Bekräfta ditt konto på {{site_name}}"
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "För att fortsätta i kassan krävs det att din webbläsare har JavaScript aktiverat."
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Coupon code has expired."
 msgstr "Rabattkoden har löpt ut."
 
 msgid "Coupon code is invalid."
 msgstr "Rabattkoden är ogiltig."
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Create a new Project"
+msgstr ""
 
 msgid "Created"
 msgstr "Skapad"
@@ -372,6 +399,9 @@ msgstr "Utkast"
 msgid "Drafts"
 msgstr "Utkast"
 
+msgid "Edit your project"
+msgstr ""
+
 msgid "Edit your request"
 msgstr "Redigera din begäran"
 
@@ -392,6 +422,9 @@ msgstr "Expandera all korrespondens"
 
 msgid "Expires soon"
 msgstr "Förfaller snart"
+
+msgid "Extract data"
+msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
 msgstr "Researchverktyg om offentlig sektor för journalister, föreningar, forskare och företagare"
@@ -456,6 +489,9 @@ msgstr "Av den skärmbilden ser du vad du behöver göra härnäst för att dina
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 msgstr "Gavin Chait undersökte 350 myndigheter för att ta reda på <a href=\"{{story_url}}\">vilka kommersiella lokaler som var tomma</a> för att ge en hjälpande hand till nystartade företag."
 
+msgid "Generate invite link"
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr "Få e-postuppdateringar om {{pro_site_name}}?"
 
@@ -516,6 +552,12 @@ msgstr "Undersöker användning av asbest i skolor"
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Den grävande journalisten Jenna Corderoy har använt sekretessfunktioner med Pro bra, och höll hennes omfattande Brexit-relaterade granskningar privata tills hennes arbete publicerades, <a href=\"{{story_url_1}}\">fakta om kampanjöverskott</a> och <a href=\"{{story_url_2}}\">ERG</a> utredningar för allmänheten, och flera andra viktiga publiceringar."
 
+msgid "Invite contributors"
+msgstr ""
+
+msgid "Invite others to the project"
+msgstr ""
+
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr "Faktura {{invoice_number}} för {{invoice_amount}} "
 
@@ -566,6 +608,9 @@ msgstr "Lucie Stephens, uppmanad av bortgången av en närstående, begärde inf
 
 msgid "Make a batch request"
 msgstr "Gör en serieförfrågan"
+
+msgid "Make a project"
+msgstr ""
 
 msgid "Make a request"
 msgstr "Gör en begäran"
@@ -624,6 +669,9 @@ msgstr "Nej"
 msgid "No bodies selected"
 msgstr "Inga valda myndigheter"
 
+msgid "No contributors have joined this project yet"
+msgstr ""
+
 msgid "No more authorities can be added to this batch request."
 msgstr "Inga fler myndigheter kan adderas till denna serieförfrågan"
 
@@ -663,6 +711,9 @@ msgstr "Antal gratis användare:"
 msgid "Number of paying users:"
 msgstr "Antal betalande användare:"
 
+msgid "On the project"
+msgstr ""
+
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "När sekretessperioden avslutas, allt som du anger på denna sida, inklusive<strong> ditt namn</strong>, kommer att <strong><a href=\"{{url}}\">visas offentligt </a></strong>på denna hemsida"
 
@@ -686,6 +737,9 @@ msgstr "När du är redo, publicera data bakom din utredning för att få ökat 
 
 msgid "Open"
 msgstr "Öppna"
+
+msgid "Options"
+msgstr ""
 
 msgid "Overflowing inbox?"
 msgstr "Överfylld inkorg?"
@@ -777,6 +831,9 @@ msgstr "Pro"
 msgid "Profile"
 msgstr "Profil"
 
+msgid "Projects"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Motivera din förfrågan med extra bakgrund och skäl varför du gör den."
 
@@ -806,6 +863,9 @@ msgstr "Redo att offentliggöra"
 msgid "Refer a friend"
 msgstr "Referera en vän"
 
+msgid "Regenerate invite link"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} kalenderdagar på sig att besvara förfrågningar."
 
@@ -817,6 +877,15 @@ msgstr "Notiser"
 
 msgid "Remove"
 msgstr "Ta bort"
+
+msgid "Remove question"
+msgstr ""
+
+msgid "Remove request"
+msgstr ""
+
+msgid "Remove whole batch"
+msgstr ""
 
 msgid "Replies"
 msgstr "Svar"
@@ -886,6 +955,9 @@ msgstr "Sök efter en myndighet"
 msgid "Search for an authority by name"
 msgstr "Sök efter en myndighet efter namn"
 
+msgid "Search your requests by title"
+msgstr ""
+
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "Sökandes efter <strong>{{search_term}}</strong> i <strong>{{filter_description}}</strong> sorterad efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
 
@@ -941,10 +1013,10 @@ msgstr "Inställningar"
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr "Dela koden {{discount_code}} med en vän för att ge dem {{discount_terms}} vid registrering."
 
-msgid "Show {{count}} request in detail</span>"
-msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] "Visa {{count}} begäran i detalj</span>"
-msgstr[1] "Visa {{count}} förfrågningar i detalj</span>"
+msgid "Show {{count}} request in detail"
+msgid_plural "Show {{count}} requests in detail"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sign up"
 msgstr "Registrera dig"
@@ -954,6 +1026,9 @@ msgstr "Enkelt och överkomligt pris"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Tyvärr, ingen myndighet matchade den sökningen"
+
+msgid "Sorry, no requests matched that search"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Tyvärr, något gick snett vid din sökning, var vänlig gör ett nytt försök."
@@ -1142,6 +1217,9 @@ msgstr "Uppdatera"
 msgid "Update Card Details"
 msgstr "Uppdatera kortuppgifter"
 
+msgid "Update Project"
+msgstr ""
+
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Uppdatera dess status."
@@ -1170,6 +1248,9 @@ msgstr "Visa kvitto"
 
 msgid "View authorities"
 msgstr "Se myndigheter"
+
+msgid "View public requests"
+msgstr ""
 
 msgid "Wall"
 msgstr "Vägg"
@@ -1257,6 +1338,9 @@ msgstr "Du har avslutat din prenumeration på {{pro_site_name}}"
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Du har inte uppgivit några myndigheter till dina förfrågningar"
+
+msgid "You haven't added any reqeusts to your project yet"
+msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Du vet vad som orsakade felet och kan <strong> föreslå en lösning</strong>, såsom en giltig e-postadress."
@@ -1381,6 +1465,12 @@ msgstr "sist uppdaterad"
 msgid "or start a batch request"
 msgstr "eller starta en serieförfrågan"
 
+msgid "per user, every {{interval}}"
+msgstr ""
+
+msgid "per user, per {{interval}}"
+msgstr ""
+
 msgid "requests that will be made public soon"
 msgstr "förfrågningar som snart kommer att bli offentliga"
 
@@ -1482,3 +1572,6 @@ msgstr "{{public_body_name}} är försenad med att svara till din begäran \"{{i
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} blev mycket försenad med att svara till din begäran \"{{info_request_title}}\"."
+
+msgid "{{site_name}} Projects is a early beta feature."
+msgstr ""

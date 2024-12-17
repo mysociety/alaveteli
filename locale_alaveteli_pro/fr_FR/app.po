@@ -10,14 +10,13 @@
 # Pascal Romain <aka.keronos@gmail.com>, 2020
 # pierre chrzanowski <pierre.chrzanowski@gmail.com>, 2021
 # Eda <eda@mutu.net>, 2023
-# Graeme Porteous <graeme@mysociety.org>, 2023
 # Laurent S, 2023
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Laurent S, 2023\n"
 "Language-Team: French (France) (https://app.transifex.com/mysociety/teams/3352"
@@ -47,9 +46,6 @@ msgstr[2] "(incluant {{count}} anciens souscripteurs)"
 msgid "(no title)"
 msgstr "(sans titre)"
 
-msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(pour <b>{{discount_name}}</b> une réduction est appliqué)"
-
 msgid "12 Months"
 msgstr "12 mois"
 
@@ -71,12 +67,6 @@ msgstr "<a href=\"{{story_url}}\">Sold From Under You</a> — en Angleterre le b
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr "<span class=\"current-page\">{{current_page}}</span> de <span class=\"total-pages\">{{total_pages}}</span>"
 
-msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> par utilisateur.rice, par mois"
-
-msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> par utilisateur.rice, par an."
-
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr "Des alertes pour être informé quand une action est requise de votre part"
 
@@ -85,9 +75,6 @@ msgstr "Un email de résumé afin de garder votre boîte email propre"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
 msgstr "Un accusé de réception indiquant que votre demande a bien été reçue"
-
-msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
-msgstr "<strong class=\"marketing-highlight\">vérification de livraison</strong> comme accusé de répcetion</strong>"
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
 msgstr "Obtenez des mises à jour régulières lors de la réception de réponses — sans surcharger votre boîte mail"
@@ -130,6 +117,9 @@ msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr "<strong>{{brand}} </strong> se termine dans {{last4}}, date d'expiration {{exp_month}}/{{exp_year}}"
+
+msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
+msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
@@ -197,6 +187,21 @@ msgstr "Ajouter des autorités à votre groupe"
 msgid "Add credibility"
 msgstr "Ajouter de la crédibiité"
 
+msgid "Add question"
+msgstr ""
+
+msgid "Add questions to your project"
+msgstr ""
+
+msgid "Add request"
+msgstr ""
+
+msgid "Add requests to your project"
+msgstr ""
+
+msgid "Add whole batch and related requests"
+msgstr ""
+
 msgid "Added"
 msgstr "Ajouté"
 
@@ -208,6 +213,12 @@ msgstr "Toutes les demandes"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
 msgstr "Toutes vos demandes de la demande groupée resteront privées durant la même période. Lorsqu'une des demandes est rendue publique, toutes les autres demandes de la demande groupée sont également rendues publiques sur {{site_name}}."
+
+msgid "Allow blank"
+msgstr ""
+
+msgid "Allow muliple"
+msgstr ""
 
 msgid "Also called {{other_name}}."
 msgstr "Aussi appelé {{other_name}}"
@@ -266,6 +277,9 @@ msgstr "Facturation: mensuelle"
 msgid "Billed: Weekly"
 msgstr "Facturation: hebdomadaire"
 
+msgid "Billed: every {{interval}}"
+msgstr ""
+
 msgid "Billing"
 msgstr "Facturation"
 
@@ -274,9 +288,6 @@ msgstr "Apportant des faits au sujet des dépenses excessives des campagnes d'ac
 
 msgid "Browse by category"
 msgstr "Chercher par catégorie"
-
-msgid "Browse public requests"
-msgstr "Consulter les demandes publiques"
 
 msgid "CSV"
 msgstr "CSV"
@@ -320,6 +331,9 @@ msgstr "Vérifiez que vous n'avez ajouté aucune <strong>information personnelle
 msgid "Choose a duration"
 msgstr "Choisissez une durée"
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Collapse all correspondence"
 msgstr "Masquer toute la correspondance"
 
@@ -329,11 +343,23 @@ msgstr "Confirmer votre compte sur {{site_name}}"
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "Pour valider cette action, votre navigateur doit avoir l'option Javascript activée."
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Coupon code has expired."
 msgstr "Le code du coupon a expiré."
 
 msgid "Coupon code is invalid."
 msgstr "Le code du coupon n'est pas valable."
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Create a new Project"
+msgstr ""
 
 msgid "Created"
 msgstr "Créé"
@@ -377,6 +403,9 @@ msgstr "Brouillon"
 msgid "Drafts"
 msgstr "Brouillons"
 
+msgid "Edit your project"
+msgstr ""
+
 msgid "Edit your request"
 msgstr "Modifiez votre demande"
 
@@ -397,6 +426,9 @@ msgstr "Étendre toute la correspondance"
 
 msgid "Expires soon"
 msgstr "Expire bientôt"
+
+msgid "Extract data"
+msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
 msgstr "Outils de gestion des demandes d'accès à l'information pour les journalistes, activistes et universitaires"
@@ -461,6 +493,9 @@ msgstr "Depuis cet écran vous pouvez voir ce dont vous avez besoin de faire pou
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 msgstr "Gavin Chait a interrogé 350 autorités publiques pour trouver <a href=\"{{story_url}}\">la liste des centres commerciaux vides</a>, dans le but de fournir une aide au développement de start-up"
 
+msgid "Generate invite link"
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr "Recevoir des nouvelles à propos de {{pro_site_name}}?"
 
@@ -521,6 +556,12 @@ msgstr ""
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "La journaliste d'investigation Jenna Corderoy a fait usage des fonctionnalité avancées d'Alaveteli, gardant ses investigations sur le Brexit confidentielles jusqu'à ce que son reportage soit publié, apportant des faits sur <a href=\"{{story_url_1}}\">les dépenses excessives de campagnes</a> et <a href=\"{{story_url_2}}\">ERG</a> au public, parmi plusieurs autres reportages."
 
+msgid "Invite contributors"
+msgstr ""
+
+msgid "Invite others to the project"
+msgstr ""
+
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
@@ -571,6 +612,9 @@ msgstr "Lucie Stephens, concernée par la mort d'un.e proche a demandé des info
 
 msgid "Make a batch request"
 msgstr "Faire une demande groupée"
+
+msgid "Make a project"
+msgstr ""
 
 msgid "Make a request"
 msgstr "Faire une demande"
@@ -629,6 +673,9 @@ msgstr "Non"
 msgid "No bodies selected"
 msgstr "Aucun organisme sélectionné"
 
+msgid "No contributors have joined this project yet"
+msgstr ""
+
 msgid "No more authorities can be added to this batch request."
 msgstr "Plus d'autorités ne peuvent être ajoutées dans cette demande de groupe"
 
@@ -668,6 +715,9 @@ msgstr "Nombre d'utilisateur.rice.s en période d'essai gratuit"
 msgid "Number of paying users:"
 msgstr "Nombre d'utilisateur.rice.s payant.e.s"
 
+msgid "On the project"
+msgstr ""
+
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "Une fois la période d'embargo terminée, tout ce que vous indiquez dans cette page, y compris <strong>votre nom</strong>, sera <strong><a href=\"{{url}}\">publié</a></strong> sur ce site."
 
@@ -690,6 +740,9 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr "Dès que vous êtes prêt.e, publier les données qui ont servi de source à votre travail d'investigation contribue à améliorer votre crédibilité"
 
 msgid "Open"
+msgstr ""
+
+msgid "Options"
 msgstr ""
 
 msgid "Overflowing inbox?"
@@ -782,6 +835,9 @@ msgstr "Professionel"
 msgid "Profile"
 msgstr "Profil"
 
+msgid "Projects"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Fournissez un contexte supplémentaire à propos de la demande et les raisons pour laquelle vous l'avez faite."
 
@@ -812,6 +868,9 @@ msgstr "Prêt.e à rendre public"
 msgid "Refer a friend"
 msgstr "Parrainer un ami"
 
+msgid "Regenerate invite link"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Pour rappel, les autorités publiques ont {{late_number_of_days}} jours pour répondre aux demandes d'accès aux documents publics."
 
@@ -823,6 +882,15 @@ msgstr "Rappels"
 
 msgid "Remove"
 msgstr "Éliminer"
+
+msgid "Remove question"
+msgstr ""
+
+msgid "Remove request"
+msgstr ""
+
+msgid "Remove whole batch"
+msgstr ""
 
 msgid "Replies"
 msgstr "Réponses"
@@ -893,6 +961,9 @@ msgstr "Rechercher une autorité publique"
 msgid "Search for an authority by name"
 msgstr "Rechercher une autorité par nom"
 
+msgid "Search your requests by title"
+msgstr ""
+
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "Rechercher pour <strong>{{search_term}}</strong> dans <strong>{{filter_description}}</strong> classé par <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">réinitialiser</a>"
 
@@ -950,11 +1021,10 @@ msgstr "Paramètres"
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr "Partager le code {{discount_code}} avec un ami pour leur offrir {{discount_terms}} à l'inscription"
 
-msgid "Show {{count}} request in detail</span>"
-msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] "Montrer les détails de {{count}} demande"
-msgstr[1] "Montrer les détails de {{count}} demandes"
-msgstr[2] "Montrer les détails de {{count}} demandes"
+msgid "Show {{count}} request in detail"
+msgid_plural "Show {{count}} requests in detail"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sign up"
 msgstr "Inscrivez-vous"
@@ -964,6 +1034,9 @@ msgstr "Un prix simple et abordable"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Désolé, aucune autorité ne correspond à cette recherche"
+
+msgid "Sorry, no requests matched that search"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Désolé, quelque chose s'est mal passé, merci de relancer votre recherche."
@@ -1154,6 +1227,9 @@ msgstr "Mettre à jour"
 msgid "Update Card Details"
 msgstr "Mettre à jour les informations de la carte"
 
+msgid "Update Project"
+msgstr ""
+
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Mettre à jour son statut"
@@ -1183,6 +1259,9 @@ msgstr ""
 
 msgid "View authorities"
 msgstr "Voir les autorités"
+
+msgid "View public requests"
+msgstr ""
 
 msgid "Wall"
 msgstr "Mur"
@@ -1270,6 +1349,9 @@ msgstr "L'annullation de votre abonnement à {{pro_site_name}} a réussi"
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Vous n'avez pas encore ajouté d'autorités à votre paquet de demandes"
+
+msgid "You haven't added any reqeusts to your project yet"
+msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Vous savez ce qui a causé l'erreur et pouvez <strong>suggérer une solution</strong>, comme une adresse email professionnelle."
@@ -1394,6 +1476,12 @@ msgstr "Dernière mise à jour"
 msgid "or start a batch request"
 msgstr "ou commencer une demande de groupe "
 
+msgid "per user, every {{interval}}"
+msgstr ""
+
+msgid "per user, per {{interval}}"
+msgstr ""
+
 msgid "requests that will be made public soon"
 msgstr "Demandes qui seront prochainement rendues publiques"
 
@@ -1503,3 +1591,6 @@ msgstr "{{public_body_name}} est en retard pour répondre à votre demande \"{{i
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} est très en retard pour répondre à votre demande \"{{info_request_title}}\"."
+
+msgid "{{site_name}} Projects is a early beta feature."
+msgstr ""
