@@ -3,12 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Dohány Tamás, 2024
+# Graeme Porteous <graeme@mysociety.org>, 2024
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/mysociety/teams/"
 "33529/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -18,1459 +23,1459 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Foglalja össze</strong> a kapott információkat. "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr " Mondja el, hogy hogyan <strong>használta az információt</strong> - lehetőség szerint hivatkozások megadásával."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Bűnözési statisztika osztályok szerint Walesben'"
 
 msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "({{count}} visszatérő előfizetőt tartalmaz)"
+msgstr[1] "({{count}} visszatérő előfizetőt tartalmaz)"
 
 msgid "(no title)"
-msgstr ""
+msgstr "(nincs cím)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr ""
+msgstr "(<b>{{discount_name}}</b> engedménnyel)"
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 hónap"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "2019 Április 29."
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "2017 Július 3."
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 hónap"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 hónap"
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr ""
+msgstr "<a href=\"{{story_url}}\">Alattad eladva</a> — Az oknyomozó újságírási hivatal a Pro segítségével kéréseket küldött a megyei önkormányzatoknak, hogy országos képet alkossanak az önkormányzatok által a megszorításokkal szemben értékesített állami ingatlanokról."
 
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
-msgstr ""
+msgstr "<span class=\"current-page\">{{current_page}}</span>/ <span class=\"total-pages\">{{total_pages}}</span>"
 
 msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr ""
+msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> felhasználóként és hónaponként"
 
 msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr ""
+msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> felhasználóként és hónaponként"
 
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Beavatozási figyelmeztetések</strong>: tudja, mikor kell megtenni a következő lépést"
 
 msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">1Napi összefoglaló e-mailek</strong> a beérkező levelek tisztán tartása érdekében"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Kézbesítés ellenőrzése</strong> az átvétel igazolására"
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Kézbesítés ellenőrzése</strong> az átvétel igazolására"
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Rendszeres frissítéseket kap </strong> a válaszok beérkezésekor – anélkül, hogy túlterhelné a postafiókját. "
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Kérjen több hatóságot</strong>: válassza ki a hatóságokat egyetlen gombnyomással"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Nagy mennyiségű válasz kezelése</strong>: Könnyen nyomon követheti az egyes kérések állapotát"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Mentés piszkozatként</strong> hogy később visszatérhessen hozzá"
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Egyszerűsített folyamat</strong> belső felülvizsgálatok kérésére"
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr ""
+msgstr "<strong>Kérhetek információkat magamról?</strong> <a href=\"{{url}}\">Nem!</a>"
 
 msgid "<strong>Easy</strong> One fee covers all Pro features, with no complex tiers or options to worry about."
-msgstr ""
+msgstr "Az <strong>Easy</strong> One díja az összes Pro funkciót lefedi, nem kell aggódnia bonyolult szintek vagy lehetőségek nélkül."
 
 msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
-msgstr ""
+msgstr "<strong>Rugalmas </strong> Bármikor lemondhatja az előfizetést, hosszas kötődés és előzetes értesítés nélkül."
 
 msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Ésszerű</strong> Tudjuk, hogy a kampányolók valószínűleg korlátozott költségvetéssel rendelkeznek, ezért az előfizetést megfizethető áron tartottuk."
 
 msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Ésszerű </strong> Tudjuk, hogy az újságírók korlátozott költségvetéssel rendelkezhetnek, ezért az előfizetést megfizethető áron tartottuk."
 
 msgid "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr ""
+msgstr "<strong>Ésszerű </strong> Tudjuk, hogy a kutatók korlátozott költségvetéssel rendelkezhetnek, ezért az előfizetést megfizethető áron tartottuk."
 
 msgid "<strong>Thank</strong> the public authority."
-msgstr ""
+msgstr "<strong>Köszönet </strong> a hatóságnak."
 
 msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
-msgstr ""
+msgstr "<strong>Ezt a kérést már elküldte</strong> néhány hatóságnak ebben a kötegben {{date}} napon."
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
-msgstr ""
+msgstr "<strong>{{brand}}</strong> {{last4}} számokra végződő, lejárat: {{exp_month}}/{{exp_year}} "
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr ""
+msgstr "<strong>{{filter_description}}</strong> rendezve <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">törölve</a>"
 
 msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
-msgstr ""
+msgstr "<strong>{{pro_site_name}}</strong> az Egyesült Királyság legismertebb FOI-szolgáltatásán fut"
 
 msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Hatékony, teljes funkcionalitású eszközkészlet, amely megoldja a több kérést vagy az alapos FOI-vizsgálatokat kezelő kampányolók problémáit"
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
-msgstr ""
+msgstr "Az információszabadság iránti kérelmek <strong class=\"marketing-highlight\">kereshető archívuma</strong> "
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
-msgstr ""
+msgstr "A válasz <strong>összefoglalója </strong> ha azt postai úton kapta meg."
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr ""
+msgstr "Az Ön által kért információk egysoros összefoglalása, pl."
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
-msgstr ""
+msgstr "Állandó, kereshető, <strong class=\"marketing-highlight\">nyilvános rekord </strong> kérelméről és válaszairól"
 
 msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
-msgstr ""
+msgstr "Hatékony <strong class=\"marketing-highlight\">privát irányítópult</strong>: nyomon követheti és kezelheti FOI-projektjeit"
 
 msgid "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Hatékony, teljes funkcionalitású eszközkészlet, amely megoldja a többszörös kérelmet vagy a mélyreható FOI-vizsgálatokat kezelő újságírók problémáit"
 
 msgid "A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations"
-msgstr ""
+msgstr "Hatékony, teljes funkcionalitású eszközkészlet, amely megoldja a több kérést vagy a mélyreható FOI-vizsgálatokat kezelő kutatók és akadémikusok problémáit"
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr ""
+msgstr "Szuperokos <strong class=\"marketing-highlight\">teendők listája</strong>: kövesse kérései folyamatát"
 
 msgid "About {{public_body_name}}"
-msgstr ""
+msgstr "A {{public_body_name}} névjegyéről"
 
 msgid "Account"
-msgstr ""
+msgstr "Fiók"
 
 msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
-msgstr ""
+msgstr "Doug Paulley aktivista az Egyesült Királyságban olyan tanácsokat tárt fel, amelyek tétlenségük miatt jogi diszkriminációt tesznek lehetővé a kerekesszékesekkel szemben. <a href=\"{{story_url}}\">Lásd a teljes történetet</a>"
 
 msgid "Activity"
-msgstr ""
+msgstr "Tevékenység"
 
 msgid "Add"
-msgstr ""
+msgstr "Hozzáad"
 
 msgid "Add Card Details"
-msgstr ""
+msgstr "Kártya részletek hozzáadása"
 
 msgid "Add all"
-msgstr ""
+msgstr "Összes hozzáadása"
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Adjon hozzá megjegyzést"
 
 msgid "Add annotation"
-msgstr ""
+msgstr "Megjegyzés hozzáadása"
 
 msgid "Add authorities to your batch"
-msgstr ""
+msgstr "Adjon hozzá jogosultságokat a köteghez"
 
 msgid "Add credibility"
-msgstr ""
+msgstr "Add hozzá a hitelességet"
 
 msgid "Added"
-msgstr ""
+msgstr "Hozzáadva"
 
 msgid "Adding your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "A kártya hozzáadásához a böngészőjében engedélyezni kell a JavaScriptet."
 
 msgid "All requests"
-msgstr ""
+msgstr "Összes kérés"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr ""
+msgstr "Az ebben a kötegben lévő összes kérés ugyanannyi ideig privát marad. Amikor egy egyedi kérelmet nyilvánosságra hoznak, az ebben a kötegben lévő összes többi kérelmet is közzétesszük a {{site_name}} webhelyen."
 
 msgid "Also called {{other_name}}."
-msgstr ""
+msgstr "Más néven {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr ""
+msgstr "Minden az egyben FOI eszköztár újságírók, aktivisták és kampányolók számára"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
-msgstr ""
+msgstr "A megjegyzések lehetővé teszik, hogy további megjegyzéseket adjon hozzá egy kéréshez, amely végül nyilvánossá válik. Például:"
 
 msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
-msgstr ""
+msgstr "Érdekelnek ingyenes képzések, szemináriumok és workshopok a {{pro_site_name}} témában?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
-msgstr ""
+msgstr "Biztos benne, hogy a keresett információ máshol nem érhető el?"
 
 msgid "Are you sure you want to publish this request?"
-msgstr ""
+msgstr "Biztosan közzé kívánja tenni ezt a kérést?"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Biztos benne?"
 
 msgid "Automate FOI request management"
-msgstr ""
+msgstr "Automatizálja a FOI kérések kezelését"
 
 msgid "Batch"
-msgstr ""
+msgstr "Kötegelt mód"
 
 msgid "Batch FOI requests"
-msgstr ""
+msgstr "Kötegelt FOI kérések"
 
 msgid "Batch request"
-msgstr ""
+msgstr "Kötegelt kérés"
 
 msgid "Batch requests"
-msgstr ""
+msgstr "Kötegelt kérések"
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr ""
+msgstr "A kötegelt kérések lehetővé teszik egyetlen kérelem több címzettjét is"
 
 msgid "Batch requests are part of a new workflow"
-msgstr ""
+msgstr "A kötegelt kérések egy új munkafolyamat részét képezik"
 
 msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
-msgstr ""
+msgstr "Mivel leegyszerűsítettük a kérésírási folyamatot, a Pro sokat spórol az oda-vissza úttól. Keressen hatósági adatbázisunkban, válassza ki, melyikhez – vagy többhez – szeretne fordulni, és ott írja meg kérelmét."
 
 msgid "Billed: Annually"
-msgstr ""
+msgstr "Évente számlázva"
 
 msgid "Billed: Daily"
-msgstr ""
+msgstr "Naponta számlázva"
 
 msgid "Billed: Monthly"
-msgstr ""
+msgstr "Havonta számlázva"
 
 msgid "Billed: Weekly"
-msgstr ""
+msgstr "Hetente számlázva"
 
 msgid "Billing"
-msgstr ""
+msgstr "Számlázva"
 
 msgid "Bringing facts about campagin overspending to light with the privacy features"
-msgstr ""
+msgstr "Tények feltárása a kampány túlköltéséről az adatvédelmi funkciókkal"
 
 msgid "Browse by category"
-msgstr ""
+msgstr "Böngésszen kategória szerint"
 
 msgid "Browse public requests"
-msgstr ""
+msgstr "Böngésszen a nyilvános kérések között"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Campaigners"
-msgstr ""
+msgstr "Kampányosok"
 
 msgid "Campaigning for better wheelchair accessibility"
-msgstr ""
+msgstr "Kampány a kerekesszékesek jobb megközelíthetőségéért"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 msgid "Cancel subscription"
-msgstr ""
+msgstr "Feliratkozás törlése"
 
 msgid "Cancel your subscription"
-msgstr ""
+msgstr "Az előfizetés törlése"
 
 msgid "Cancelled subscriptions:"
-msgstr ""
+msgstr "Az előfizetések törlése"
 
 msgid "Card details"
-msgstr ""
+msgstr "Kártya részletek"
 
 msgid "Change privacy"
-msgstr ""
+msgstr "Adatvédelem módosítása"
 
 msgid "Change privacy or <strong>publish now</strong>"
-msgstr ""
+msgstr "Adatvédelem módosítása vagy <strong>közzététel most</strong>"
 
 msgid "Change status"
-msgstr ""
+msgstr "Állapotváltozás"
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
-msgstr ""
+msgstr "Tekintse meg a hatóság válaszait a {{site_name}} webhelyen, vagy végezzen gyors internetes keresést."
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
+msgstr "Ellenőrizze, hogy nem adott-e meg  <strong>személyes adatokat</strong>."
 
 msgid "Choose a duration"
-msgstr ""
+msgstr "Válasszon időtartamot"
 
 msgid "Collapse all correspondence"
-msgstr ""
+msgstr "Összecsukja az összes levelezést"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Erősítse meg fiókját a {{site_name}} webhelyen"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "A fizetés folytatásához a böngészőjében engedélyezni kell a JavaScriptet."
 
 msgid "Coupon code has expired."
-msgstr ""
+msgstr "A kuponkód lejárt."
 
 msgid "Coupon code is invalid."
-msgstr ""
+msgstr "A kuponkód nem érvényes. "
 
 msgid "Created"
-msgstr ""
+msgstr "Készítette"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Irányítópult"
 
 msgid "Dashboard and workflow features"
-msgstr ""
+msgstr "Irányítópult és munkafolyamat-funkciók"
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Kedves {{user_name}},"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr ""
+msgstr "A Debt Resistance UK felfedte, <a href=\"{{story_url}}\">mely önkormányzatok túlzott mértékű LOBO-kölcsönöket fizetnek</a>, ami bizonyos esetekben azt jelenti, hogy az önkormányzati adóbevételek nagy része közvetlenül kamatfizetésre irányul."
 
 msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr ""
+msgstr "A Debt Resistance UK felfedte, hogy mely önkormányzatok fizetnek túlzott mértékű LOBO-kölcsönöket, ami bizonyos esetekben azt jelenti, hogy az önkormányzati adóbevételek nagy része közvetlenül kamatfizetésre irányul."
 
 msgid "Details"
-msgstr ""
+msgstr "Részletek"
 
 msgid "Disabled while sending remaining requests."
-msgstr ""
+msgstr "A fennmaradó kérések elküldése közben letiltva."
 
 msgid "Dismiss"
-msgstr ""
+msgstr "Elvet"
 
 msgid "Do you have a coupon code?"
-msgstr ""
+msgstr "Van kuponkódja?"
 
 msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
-msgstr ""
+msgstr "Ne aggódjon – <a href=\"{{signup_link}}\">ingyenes fiókunk</a> továbbra is elérhető, és mindig is lesz."
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Töltse le az összes levelezést tartalmazó zip fájlt"
 
 msgid "Draft"
-msgstr ""
+msgstr "Vázlat"
 
 msgid "Drafts"
-msgstr ""
+msgstr "Vázlatok"
 
 msgid "Edit your request"
-msgstr ""
+msgstr "Szerkessze a kérését"
 
 msgid "Email address"
-msgstr ""
+msgstr "Elektronikus levelezési cím"
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "Az e-mail cím nem tűnik érvényes címnek"
 
 msgid "Estimated total number of Pro requests:"
-msgstr ""
+msgstr "Pro-kérelmek becsült teljes száma:"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
-msgstr ""
+msgstr "Minden, amire szüksége van ahhoz, hogy az összetett FOI-vezérelt történetek tetején maradjon"
 
 msgid "Expand all correspondence"
-msgstr ""
+msgstr "Bontsa ki az összes levelezést"
 
 msgid "Expires soon"
-msgstr ""
+msgstr "Hamarosan lejár"
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
-msgstr ""
+msgstr "FOI menedzsment eszközök újságírók, kampányolók és kutatók számára"
 
 msgid "FOI Management for Campaigners"
-msgstr ""
+msgstr "FOI menedzsment kampányok számára"
 
 msgid "FOI Management for Journalists"
-msgstr ""
+msgstr "FOI menedzsment újságíróknak"
 
 msgid "FOI Management for Researchers"
-msgstr ""
+msgstr "FOI menedzsment kutatóknak"
 
 msgid "FOI address book"
-msgstr ""
+msgstr "FOI címjegyzék"
 
 msgid "FOI for campaigners"
-msgstr ""
+msgstr "FOI a kampányolóknak"
 
 msgid "FOI for journalists"
-msgstr ""
+msgstr "FOI újságíróknak"
 
 msgid "FOI for researchers"
-msgstr ""
+msgstr "FOI kutatóknak"
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "A FOI egy felbecsülhetetlen értékű eszköz a kutatók számára, amely segít olyan információkat gyűjteni, amelyek korábban nem voltak elérhetők egyetlen adathalmazként, és megérthetik a tágabb képet. A Pro a Batch funkcióval kiküszöböli a több kérés küldését: egyszerűen válassza ki a kívánt hatóságokat, majd küldjön egy kérést mindegyiknek."
 
 msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "A FOI egy felbecsülhetetlen értékű eszköz a kampányokban, segít olyan információkat gyűjteni, amelyek korábban nem voltak elérhetők egyetlen adathalmazként, így Ön és támogatói megérthetik a tágabb képet. A Pro a Batch funkcióval kiküszöböli a több kérés küldését: egyszerűen válassza ki a kívánt hatóságokat, majd küldjön egy kérést mindegyiknek."
 
 msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr ""
+msgstr "A FOI egy felbecsülhetetlen értékű eszköz a nyomozásban, segít olyan információkat gyűjteni, amelyek korábban nem voltak elérhetők egyetlen adathalmazként, így Ön és olvasói megérthetik a tágabb képet. A Pro a Batch funkcióval kiküszöböli a több kérés küldését: egyszerűen válassza ki a kívánt hatóságokat, majd küldjön egy kérést mindegyiknek."
 
 msgid "Featuring"
-msgstr ""
+msgstr "Bemutatja"
 
 msgid "Find out how {{pro_site_name}} can take the hard work out of FOI investigations"
-msgstr ""
+msgstr "Tudja meg, hogy a {{pro_site_name}} hogyan tudja kivenni az FOI-vizsgálatok kemény munkáját"
 
 msgid "Finding it hard to keep on top of your FOI requests?"
-msgstr ""
+msgstr "Nehezen tudja követni FOI-kéréseit?"
 
 msgid "First created"
-msgstr ""
+msgstr "Először készített"
 
 msgid "For journalists, academics and power users"
-msgstr ""
+msgstr "Újságíróknak, akadémikusoknak és professzionális felhasználóknak"
 
 msgid "Friendly support"
-msgstr ""
+msgstr "Baráti támogatás"
 
 msgid "From"
-msgstr ""
+msgstr "Küldő"
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
-msgstr ""
+msgstr "Ezen a képernyőn hasznos áttekintést kaphat kérelmeiről, és gyors műveletekkel tarthatja naprakészen azokat. Miért nem kezdi el most az elsőt?"
 
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
-msgstr ""
+msgstr "Ezen a képernyőn láthatja, hogy mit kell tennie a következő lépések végrehajtásához, hogy a kérések továbbhaladjanak. Miért nem indítasz új kérést most?"
 
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
-msgstr ""
+msgstr "Gavin Chait megkérdezett 350 helyi hatóságot, hogy megtudja, <a href=\"{{story_url}}\">mely kereskedelmi megoldások üresek</a>hogy segítő kezet nyújtson az induló vállalkozásoknak."
 
 msgid "Get email updates about {{pro_site_name}}?"
-msgstr ""
+msgstr "Kap e-mailben frissítéseket a {{pro_site_name}} webhelyről?"
 
 msgid "Get in touch"
-msgstr ""
+msgstr "Lépjen kapcsolatba"
 
 msgid "Get started with your first request"
-msgstr ""
+msgstr "Kezdje el az első kérésével"
 
 msgid "Got questions?"
-msgstr ""
+msgstr "Vannak kérdései? "
 
 msgid "Hard to keep track of your many requests?"
-msgstr ""
+msgstr "Nehéz követnie a sok kérését? "
 
 msgid "Help"
-msgstr ""
+msgstr "Segítség"
 
 msgid "Helping startups find the best location for their business"
-msgstr ""
+msgstr "Segítjük a startupokat hogy a legjobb helyet találják meg az üzletük számára"
 
 msgid "How campaigners are using Pro"
-msgstr ""
+msgstr "Hogyan használják a kampányok a Pro -t"
 
 msgid "How it works"
-msgstr ""
+msgstr "Hogyan működik"
 
 msgid "How journalists are using Pro"
-msgstr ""
+msgstr "Hogyan használják az újságírók a Pro -t"
 
 msgid "How researchers are using Pro"
-msgstr ""
+msgstr "Hogyan használják a kutatók a Pro -t"
 
 msgid "I have read and accepted these terms and conditions"
-msgstr ""
+msgstr "Elolvastam és elfogadtam ezeket a feltételeket"
 
 msgid "I understand and still want to cancel"
-msgstr ""
+msgstr "Megértem és még mindig szeretnék lemondni"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
-msgstr ""
+msgstr "Ha a fizetés továbbra is kudarcot vall, sajnos a fiókja visszatér egy ingyenes fiókhoz, és már nem fér hozzá a {{pro_site_name}} -hoz."
 
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
-msgstr ""
+msgstr "Ha meg akarja őrizni a {{pro_site_name}} -hoz való hozzáférését, kérjük, ellenőrizhesse, hogy a kártya elegendő pénzeszközt tartalmaz, és hogy a kártya adatait helyesek -e az előfizetések oldalán: {{subscriptions_page_url}}"
 
 msgid "If your request bounces back, we source the new address for that authority."
-msgstr ""
+msgstr "Ha kérése visszapattan, akkor az új címet az adott hatósághoz fordítjuk."
 
 msgid "Image credits:"
-msgstr ""
+msgstr "Kép kreditek: "
 
 msgid "Important info about requests to this authority"
-msgstr ""
+msgstr "Fontos információk a hatósághoz fűződő kérésekről"
 
 msgid "Investigating asbestos use in schools"
-msgstr ""
+msgstr "Az azbeszt használatának vizsgálata az iskolákban"
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
-msgstr ""
+msgstr "A nyomozó újságíró, Jenna Corderoy jól kihasználta a Pro adatvédelmi funkcióit, megőrizve a Brexit-szel kapcsolatos vizsgálatait magántulajdonban, amíg a történeteinek meg nem törtek, és tényeket hoztak a <a href=\"{{story_url_1}}\">kampány túlköltségeivel</a> és<a href=\"{{story_url_2}}\">ERG</a> kutatásával a nyilvánosság számára, számos más fontos történet között."
 
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
-msgstr ""
+msgstr "Számla {{invoice_number}} {{invoice_amount}}"
 
 msgid "Invoices"
-msgstr ""
+msgstr "Számla"
 
 msgid "I’m a campaigner"
-msgstr ""
+msgstr "Kampányos vagyok"
 
 msgid "I’m a journalist"
-msgstr ""
+msgstr "Újságíró vagyok"
 
 msgid "I’m a researcher"
-msgstr ""
+msgstr "Kutató vagyok"
 
 msgid "Join {{pro_site_name}}"
-msgstr ""
+msgstr "Csatlakozzon a {{pro_site_name}} -hez"
 
 msgid "Journalists"
-msgstr ""
+msgstr "Újságírók"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
-msgstr ""
+msgstr "Tartsa a <strong class=\"marketing-highlight\">kérelmet és válaszokat privát módon</strong> amíg a történetén dolgozik"
 
 msgid "Keep private for a further:"
-msgstr ""
+msgstr "A továbbiakban is legyen privát: "
 
 msgid "Keep private for:"
-msgstr ""
+msgstr "Legyen privát: "
 
 msgid "Keep track of FOI requests"
-msgstr ""
+msgstr "Kövesse nyomon az FOI kéréseket"
 
 msgid "Last updated"
-msgstr ""
+msgstr "Utolsó frissítés"
 
 msgid "Learn more about {{pro_site_name}} for campaigners"
-msgstr ""
+msgstr "Tudjon meg többet a {{pro_site_name}} -ről kampányolóknak"
 
 msgid "Learn more about {{pro_site_name}} for journalists"
-msgstr ""
+msgstr "Tudjon meg többet a {{pro_site_name}} -ről újságíróknak"
 
 msgid "Learn more about {{pro_site_name}} for researchers"
-msgstr ""
+msgstr "Tudjon meg többet a {{pro_site_name}} -ről kutatóknak"
 
 msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
-msgstr ""
+msgstr "Lucie Stephens egy általa gondozott személy halála miatt több mint 200 LEA-tól kért információkat az azbesztről az iskolákban. <a href=\"{{story_url}}\">Olvassa el a kampányát</a>"
 
 msgid "Make a batch request"
-msgstr ""
+msgstr "Készítsen kötegelt kérést"
 
 msgid "Make a request"
-msgstr ""
+msgstr "Készítsen kérést"
 
 msgid "Make a request to multiple authorities and manage the responses."
-msgstr ""
+msgstr "Intézzen több hatósági kérést és kezelje a válaszokat."
 
 msgid "Make an {{law_used_short}} request"
-msgstr ""
+msgstr "Készítsen {{law_used_short}} kérelmet"
 
 msgid "My profile"
-msgstr ""
+msgstr "Profilom"
 
 msgid "My subscription"
-msgstr ""
+msgstr "Feliratkozásaim"
 
 msgid "My wall"
-msgstr ""
+msgstr "Falam"
 
 msgid "Need a helping hand with your FOI requests?"
-msgstr ""
+msgstr "Szüksége van segítségre a FOI-kéréseivel kapcsolatban?"
 
 msgid "Need to keep things under wraps?"
-msgstr ""
+msgstr "Titokban kell tartania a dolgokat?"
 
 msgid "Need to keep your requests private?"
-msgstr ""
+msgstr "Privátban kell tartania kéréseit?"
 
 msgid "Need to protect your research?"
-msgstr ""
+msgstr "Meg kell védenie kutatásait?"
 
 msgid "Need to protect your scoop?"
-msgstr ""
+msgstr "Meg kell védenie információit?"
 
 msgid "New Pro accounts this week:"
-msgstr ""
+msgstr "Új Pro fiókok ezen a héten:"
 
 msgid "New Pro requests this week:"
-msgstr ""
+msgstr "Pro kérések ezen a héten:"
 
 msgid "New Pro subscriptions this week:"
-msgstr ""
+msgstr "Új Pro előfizetések ezen a héten:"
 
 msgid "New batches made this week:"
-msgstr ""
+msgstr "A héten készült új tételek:"
 
 msgid "New to Professional – Batch"
-msgstr ""
+msgstr "Új Professzionális – Batch"
 
 msgid "Next payment"
-msgstr ""
+msgstr "Következő fizetés"
 
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 msgid "No bodies selected"
-msgstr ""
+msgstr "Nincs kiválasztott test"
 
 msgid "No more authorities can be added to this batch request."
-msgstr ""
+msgstr "Nem adható hozzá több jogosultság ehhez a kötegelt kérelemhez."
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
-msgstr ""
+msgstr "Nincs több e-mail másolása és beillesztése: Kötegelt kérés eszközünk segít egyetlen kérés létrehozásában, és azt egyszerre több hatóságnak elküldésében."
 
 msgid "No need to check: we’ll send an email alert telling you when you need to take action."
-msgstr ""
+msgstr "Nem kell ellenőrizni: e-mailben értesítjük, ha intézkednie kell."
 
 msgid "No results found"
-msgstr ""
+msgstr "Nincs találat"
 
 msgid "No title"
-msgstr ""
+msgstr "Nincs cím"
 
 msgid "Not enough hours in the day?"
-msgstr ""
+msgstr "Nincs elég óra a napban?"
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
-msgstr ""
+msgstr "Megjegyzés: Amikor ezt a kérést nyilvánossá teszik a {{site_name}} webhelyen, ez az üzenet is nyilvános lesz."
 
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "Megjegyzés: Amikor ezt a kérést nyilvánossá teszik a {{site_name}} webhelyen, az Ön neve és megjegyzése megjelenik a <strong>keresőkben</strong>."
 
 msgid "Number of Pro accounts active this week:"
-msgstr ""
+msgstr "A héten aktív Pro-fiókok száma:"
 
 msgid "Number of discounted users:"
-msgstr ""
+msgstr "Kedvezményes felhasználók száma:"
 
 msgid "Number of expired embargoes this week:"
-msgstr ""
+msgstr "A héten lejárt embargók száma:"
 
 msgid "Number of free trial users:"
-msgstr ""
+msgstr "Ingyenes próbaidőszakos felhasználók száma:"
 
 msgid "Number of paying users:"
-msgstr ""
+msgstr "Fizetős felhasználók száma:"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
-msgstr ""
+msgstr "Az adatvédelmi időszak lejárta után minden, amit ezen az oldalon beír, beleértve <strong>az Ön nevét is</strong>, <strong><a href=\"{{url}}\">nyilvánosan megjelenik</a></strong> ezen a webhelyen. "
 
 msgid "Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "Ha elindítja kampányát, minden okunk megvan arra, hogy kéréseit és válaszait nyilvánossá tegye. Hitelessé teszik kampányát, és elérhetővé teszik az adatokat mások számára, akik esetleg más szemszögből szeretnének kutatni."
 
 msgid "Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "Ha a kutatás elkészült, nagyszerű ötlet kéréseit és válaszait nyilvánosságra hozni. Hitelessé teszik a munkáját, és elérhetővé teszik az adatokat mások számára, akik esetleg más szemszögből szeretnének kutatni."
 
 msgid "Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle."
-msgstr ""
+msgstr "Ha a kutatás elkészült, nagyszerű ötlet kéréseit és válaszait nyilvánosságra hozni. Hitelessé teszik a munkáját, és elérhetővé teszik az adatokat mások számára, akik esetleg más szemszögből szeretnének kutatni."
 
 msgid "Once you’re happy with your request, click preview and send."
-msgstr ""
+msgstr "Ha elégedett a kérésével, kattintson az előnézet és küldés lehetőségre."
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
-msgstr ""
+msgstr "Ha készen áll, a vizsgálat mögött rejlő adatok közzététele további hitelességet kölcsönöz neki, és szélesebb közösség számára nyitja meg."
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
-msgstr ""
+msgstr "Ha készen áll, a vizsgálat mögött rejlő adatok közzététele további hitelességet kölcsönöz neki."
 
 msgid "Open"
-msgstr ""
+msgstr "Nyitva"
 
 msgid "Overflowing inbox?"
-msgstr ""
+msgstr "Túlcsorduló postafiók?"
 
 msgid "Paid"
-msgstr ""
+msgstr "Fizetett"
 
 msgid "Payments past due:"
-msgstr ""
+msgstr "Késedelmes fizetések:"
 
 msgid "Pending"
-msgstr ""
+msgstr "Függőben levő"
 
 msgid "Pending cancellations:"
-msgstr ""
+msgstr "Függőben lévő lemondások:"
 
 msgid "Plans and pricing"
-msgstr ""
+msgstr "Tervek és árak"
 
 msgid "Please enter the reason why you want access"
-msgstr ""
+msgstr "Kérjük, adja meg a hozzáférés okát"
 
 msgid "Please enter your email address"
-msgstr ""
+msgstr "Kérjük, adja meg e-mail címét"
 
 msgid "Please include links to some examples of your journalism or blogging if you can."
-msgstr ""
+msgstr "Kérjük, ha teheti, csatoljon néhány példát az újságírásra vagy a blogírásra."
 
 msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
-msgstr ""
+msgstr "Kérjük, ne feledje, hogy <a href=\"{{terms_url}}\">feltételeink</a> tartalmazzák a <strong>felelős kérések benyújtását</strong>."
 
 msgid "Please tell us if you want to get updates"
-msgstr ""
+msgstr "Kérjük, jelezze, ha frissítéseket szeretne kapni"
 
 msgid "Please tell us if you're interested in training and seminars"
-msgstr ""
+msgstr "Kérjük, jelezze felénk, ha képzések és szemináriumok iránt érdeklődik"
 
 msgid "Plus, all the power of {{site_name}}"
-msgstr ""
+msgstr "Ráadásul a {{site_name}} minden erejével"
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
-msgstr ""
+msgstr "Mutasson <strong>kapcsolódó információkra</strong>, kampányokra vagy fórumokra, amelyek hasznosak lehetnek."
 
 msgid "Preview and send request"
-msgstr ""
+msgstr "Előnézet és kérés elküldése"
 
 msgid "Preview new batch request"
-msgstr ""
+msgstr "Új kötegelt kérés előnézete"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
-msgstr ""
+msgstr "Új {{law_used_short}} kérés előnézete a {{public_body_name}} számára"
 
 msgid "Pricing"
-msgstr ""
+msgstr "Árazás"
 
 msgid "Privacy"
-msgstr ""
+msgstr "Adatvédelem"
 
 msgid "Private"
-msgstr ""
+msgstr "Privát"
 
 msgid "Private FOI requests"
-msgstr ""
+msgstr "Privát FOI kérések"
 
 msgid "Private Requests"
-msgstr ""
+msgstr "Privát kérések"
 
 msgid "Private requests for information"
-msgstr ""
+msgstr "Privát információ kérések"
 
 msgid "Private until {{date}}"
-msgstr ""
+msgstr "Privát a {{date}} dátumig"
 
 msgid "Pro brings a new dashboard view"
-msgstr ""
+msgstr "A Pro új irányítópult-nézetet kínál"
 
 msgid "Pro features a new request list view"
-msgstr ""
+msgstr "A Pro új kéréslista nézetet kínál"
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
-msgstr ""
+msgstr "A Pro a {{site_name}} minden könnyedségét biztosítja, anélkül, hogy attól kellene aggódnia, hogy mások elkapják a lapátot, mielőtt készen állna."
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
-msgstr ""
+msgstr "A Pro a {{site_name}} minden könnyedségét biztosítja, anélkül, hogy aggódnia kellene, hogy minden munkáját kiadja, mielőtt készen állna arra, hogy a világ meglássa."
 
 msgid "Professional"
-msgstr ""
+msgstr "Professzionális"
 
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 msgid "Provide extra context on the request and your reasons for making it."
-msgstr ""
+msgstr "Adja meg a kérés további kontextusát, és adja meg annak indokait."
 
 msgid "Public requests for information"
-msgstr ""
+msgstr "Nyilvános információigénylések"
 
 msgid "Publish immediately"
-msgstr ""
+msgstr "Azonnal közzétesz"
 
 msgid "Publish request"
-msgstr ""
+msgstr "Kérelem közzététele"
 
 msgid "Publish requests"
-msgstr ""
+msgstr "Kérések közzététele"
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tegye közzé ezeket a kéréseket, vagy tartsa hosszabb ideig privátként. "
+msgstr[1] "Tegye közzé ezeket a kéréseket, vagy tartsa hosszabb ideig privátként. "
 
 msgid "Read blog"
-msgstr ""
+msgstr "Blog olvasása"
 
 msgid "Ready to go public"
-msgstr ""
+msgstr "Készen áll hogy publikus legyen"
 
 msgid "Refer a friend"
-msgstr ""
+msgstr "Egy barátra hivatkozik "
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
-msgstr ""
+msgstr "Ne feledje, a hatóságoknak {{late_number_of_days}} naptári napjuk van arra, hogy válaszoljanak az FOI-kérésekre."
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
-msgstr ""
+msgstr "Ne feledje, hogy a hatóságoknak {{late_number_of_days}} munkanapjuk van arra, hogy válaszoljanak az FOI-kérésekre."
 
 msgid "Reminders"
-msgstr ""
+msgstr "Emlékeztetők"
 
 msgid "Remove"
-msgstr ""
+msgstr "Eltávolít"
 
 msgid "Replies"
-msgstr ""
+msgstr "Visszajelzések"
 
 msgid "Request access to {{pro_site_name}}"
-msgstr ""
+msgstr "Kérjen hozzáférést a {{pro_site_name}} webhelyhez"
 
 msgid "Request an internal review"
-msgstr ""
+msgstr "Kérjen belső felülvizsgálatot"
 
 msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kérjen belső felülvizsgálatot (vagy küldjön más nyomonkövetést)."
+msgstr[1] "Kérjen belső felülvizsgálatot (vagy küldjön más nyomonkövetést)."
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr ""
+msgstr "Belső felülvizsgálat kérése a következőtől: {{person_or_body}}"
 
 msgid "Request to"
-msgstr ""
+msgstr "Kérje meg"
 
 msgid "Requests"
-msgstr ""
+msgstr "Kérések"
 
 msgid "Requests can stay completely private until you’re ready to go public with your story."
-msgstr ""
+msgstr "A kérelmek teljesen privátak maradhatnak mindaddig, amíg készen nem állsz arra, hogy nyilvánossá tedd történetedet."
 
 msgid "Requests can stay completely private until you’re ready to go public."
-msgstr ""
+msgstr "A kérelmek teljesen privátak maradhatnak, amíg készen nem áll a nyilvános megjelenésre."
 
 msgid "Requests can stay completely private until you’re ready to publish your research."
-msgstr ""
+msgstr "A kérések teljesen privátak maradhatnak mindaddig, amíg készen nem áll a kutatás közzétételére."
 
 msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Az ebben a kötegben lévő kérelmek privátak<strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>-ig"
 
 msgid "Requests in this batch are public"
-msgstr ""
+msgstr "Az ebben a kötegben lévő kérések nyilvánosak"
 
 msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Az ebben a kötegben lévő kérelmek <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong> -ig"
 
 msgid "Requests that will be made public soon"
-msgstr ""
+msgstr "A hamarosan nyilvánosságra kerülő kérések"
 
 msgid "Researchers"
-msgstr ""
+msgstr "Kutatók"
 
 msgid "Response due"
-msgstr ""
+msgstr "Válasz esedékes"
 
 msgid "Save draft"
-msgstr ""
+msgstr "Piszkozat mentése"
 
 msgid "Save time managing FOI requests"
-msgstr ""
+msgstr "Takarítson meg időt az FOI kérések kezelésével"
 
 msgid "Search"
-msgstr ""
+msgstr "Keresés"
 
 msgid "Search by name"
-msgstr ""
+msgstr "Keresés név szerint"
 
 msgid "Search for an authority"
-msgstr ""
+msgstr "Keressen egy hatóságot"
 
 msgid "Search for an authority by name"
-msgstr ""
+msgstr "Keressen egy hatóságot név alapján"
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr ""
+msgstr "Keresés a következőre: <strong>{{search_term}}</strong> a <strong>{{filter_description}}</strong> -el rendezve <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\"> törölve </a>"
 
 msgid "Searching for the right email address for every FOI contact?"
-msgstr ""
+msgstr "Minden FOI kapcsolattartóhoz a megfelelő e-mail címet keresi?"
 
 msgid "Selected plan"
-msgstr ""
+msgstr "Kiválasztott terv"
 
 msgid "Send a follow up"
-msgstr ""
+msgstr "Nyomonkövetés küldése"
 
 msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Nyomonkövetések küldése (vagy belső felülvizsgálatok kérése)."
+msgstr[1] "Nyomon követések küldése (vagy belső felülvizsgálatok kérése)."
 
 msgid "Send a follow up message to {{person_or_body}}"
-msgstr ""
+msgstr "Nyomon követési üzenet küldése a következőnek: {{person_or_body}}"
 
 msgid "Send a followup"
-msgstr ""
+msgstr "Nyomon követés küldése"
 
 msgid "Send a reply to {{person_or_body}}"
-msgstr ""
+msgstr "Válasz küldése a következőnek: {{person_or_body}}"
 
 msgid "Send message"
-msgstr ""
+msgstr "Üzenet küldése"
 
 msgid "Send request"
-msgstr ""
+msgstr "Kérés küldése"
 
 msgid "Send this batch anyway?"
-msgstr ""
+msgstr "Mégis elküldi ezt a köteget?"
 
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} kérés küldése"
+msgstr[1] "{{count}} kérés küldése"
 
 msgid "Sending to multiple authorities at once?"
-msgstr ""
+msgstr "Egyszerre több hatóságnak küldi?"
 
 msgid "Sending..."
-msgstr ""
+msgstr "Küldés..."
 
 msgid "Sent"
-msgstr ""
+msgstr "Elküldve"
 
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
-msgstr ""
+msgstr "Oszd meg a {{discount_code}} kódot egy barátoddal, hogy {{discount_terms}} összeget kaphasson a regisztráció során."
 
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} kérés részletes megjelenítése"
+msgstr[1] "{{count}} kérés részletes megjelenítése"
 
 msgid "Sign up"
-msgstr ""
+msgstr "Regisztráljon"
 
 msgid "Simple, affordable pricing"
-msgstr ""
+msgstr "Egyszerű, megfizethető ár"
 
 msgid "Sorry, no authorities matched that search"
-msgstr ""
+msgstr "Sajnáljuk, a keresésnek egyetlen hatóság sem felelt meg"
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
-msgstr ""
+msgstr "Sajnáljuk, valami hiba történt a találatok lekérésekor. Próbálkozzon újra a kereséssel."
 
 msgid "Sorry, something went wrong publishing your request, please try again."
-msgstr ""
+msgstr "Sajnáljuk, valami hiba történt a kérés közzétételekor. Kérjük, próbálja újra."
 
 msgid "Sorry, something went wrong publishing your requests, please try again."
-msgstr ""
+msgstr "Sajnáljuk, valami hiba történt a kérések közzétételekor. Kérjük, próbálja újra."
 
 msgid "Sorry, something went wrong updating your batch request, please try again."
-msgstr ""
+msgstr "Sajnáljuk, valami hiba történt a kötegelt kérés frissítésekor. Kérjük, próbálja újra."
 
 msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
-msgstr ""
+msgstr "Sajnáljuk, valami hiba történt a kérelme adatvédelmi beállításainak frissítésekor. Kérjük, próbálja újra."
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
-msgstr ""
+msgstr "Sajnáljuk, valami hiba történt a kérelmei adatvédelmi beállításainak frissítésekor. Kérjük, próbálja újra."
 
 msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
-msgstr ""
+msgstr "Sajnos jelenleg nem tud regisztrálni a {{pro_site_name}} webhelyre."
 
 msgid "Sort by"
-msgstr ""
+msgstr "Rendezés"
 
 msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr ""
+msgstr "Rendezés:<strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">törlés</a>"
 
 msgid "Start new request"
-msgstr ""
+msgstr "Új kérés indítása"
 
 msgid "Status"
-msgstr ""
+msgstr "Állapot"
 
 msgid "Subject"
-msgstr ""
+msgstr "Tárgy"
 
 msgid "Submit Search"
-msgstr ""
+msgstr "Keresés elküldése"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "Előfizetés"
 
 msgid "Subscription began"
-msgstr ""
+msgstr "Megkezdődött az előfizetés"
 
 msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
-msgstr ""
+msgstr "Az előfizetés lemondását az aktuális számlázási időszak végén alkalmazzuk (<strong>{{date}}</strong>)."
 
 msgid "Subscription ends"
-msgstr ""
+msgstr "Az előfizetés lejár"
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Felhasználási feltételek"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
-msgstr ""
+msgstr "Köszönjük érdeklődését a {{pro_site_name}} iránt."
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
-msgstr ""
+msgstr "Köszönjük, hogy bejelentkezett. Kérelmét vázlatként mentettük arra az esetre, ha embargót szeretne bevezetni, mielőtt elküldi. Ezt beállíthatja (vagy azonnal elküldheti) az alábbi űrlap segítségével."
 
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
-msgstr ""
+msgstr "Köszönjük érdeklődését a {{pro_site_name}} iránt, hamarosan jelentkezünk!"
 
 msgid "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr ""
+msgstr "Az oknyomozó újságírási hivatal a Pro segítségével kéréseket küldött a megyei önkormányzatoknak, és országos képet alkotott arról, hogy az önkormányzatok milyen ingatlanokat adnak el a megszorítások miatt."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
-msgstr ""
+msgstr "A Wales-i Kormányzási Központ FOI-kérelmeket küldött a Pro-n keresztül, hogy fedezze fel Walesben és Angliában a börtönpopulációkat az ‘<a href=\"{{story_url}}\">Ítélet és bebörtönzés Walesben</a>’ című jelentésükhöz."
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
-msgstr ""
+msgstr "A Wales-i Kormányzási Központ FOI-kérelmeket küldött a Pro-n keresztül, hogy fedezze fel Wales-ben és Angliában a börtönpopulációt a „Büntetés és bebörtönzés Walesben” című jelentésükhöz."
 
 msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ezen a héten a következő kéréseket tették nyilvánossá a {{site_name}} webhelyen."
+msgstr[1] "Ezen a héten a következő kéréseket tették nyilvánossá a {{site_name}} webhelyen."
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A következő kérések a következő héten lesznek nyilvánosak a {{site_name}} oldalon. Ha nem szeretné, hogy a kérelmek egyike sem nyilvános legyen, kérjük, kattintson az alábbi linkekre a meghosszabbításukhoz."
+msgstr[1] "A következő kérések a következő héten lesznek nyilvánosak a {{site_name}} oldalon. Ha nem szeretné, hogy a kérelmek egyike sem nyilvános legyen, kérjük, kattintson az alábbi linkekre a meghosszabbításukhoz."
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
-msgstr ""
+msgstr "A „Data Scores as Governance” projekt a Pro segítségével vizsgálta az adatvezérelt pontszámok <a href=\"{{story_url}}\">használatát a polgárok kategorizálásakor</a>, a szolgáltatások elosztásában és a viselkedés előrejelzésében."
 
 msgid "Then you can access {{pro_site_name}}"
-msgstr ""
+msgstr "Ezután hozzáférhet a {{pro_site_name}} webhelyhez"
 
 msgid "Then you can activate your {{site_name}} account"
-msgstr ""
+msgstr "Ezután aktiválhatja {{site_name}} fiókját"
 
 msgid "Then you can update your payment details"
-msgstr ""
+msgstr "Ezután frissítheti fizetési adatait"
 
 msgid "Then you can upgrade your account"
-msgstr ""
+msgstr "Ezután frissítheti fiókját"
 
 msgid "There was a problem authorising your payment. You have not been charged. Please try again."
-msgstr ""
+msgstr "Hiba történt a fizetés engedélyezése során. Önt nem terhelték meg. Kérlek próbáld újra."
 
 msgid "There was a problem cancelling your account. Please try again later."
-msgstr ""
+msgstr "Hiba történt a fiók törlésekor. Kérlek, próbáld újra később."
 
 msgid "There was a problem submitting your payment. You have not been charged. Please try again later."
-msgstr ""
+msgstr "Hiba történt a befizetés elküldésekor. Önt nem terhelték meg. Kérlek, próbáld újra később."
 
 msgid "There was a problem updating your payment details. Please try again later."
-msgstr ""
+msgstr "Hiba történt a fizetési adatok frissítése során. Kérlek, próbáld újra később."
 
 msgid "There's nothing to do right now. Great job!"
-msgstr ""
+msgstr "Jelenleg nincs mit tenni. Nagyszerű munka!"
 
 msgid "Things to do today"
-msgstr ""
+msgstr "Mai tennivalók"
 
 msgid "This page is only accessible to {{pro_site_name}} users"
-msgstr ""
+msgstr "Ez az oldal csak a {{pro_site_name}} felhasználói számára érhető el"
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr ""
+msgstr "Ez a kérelem egy <a href=\"{{url}}\">a köteg része, amelyet {{count}} hatóságnak küldtek el</a>"
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Ez a kérelem privát <strong class=\"js-embargo-expiry\">-ig {{embargo_publish_at}}</strong>"
 
 msgid "This request is public"
-msgstr ""
+msgstr "Ez a kérés nyilvános"
 
 msgid "This request will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr ""
+msgstr "Ez a kérelem privát lesz  <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}-ig</strong>"
 
 msgid "This will publish all of the requests in this batch. Are you sure?"
-msgstr ""
+msgstr "Ezzel közzéteszi az összes kérelmet ebben a kötegben. biztos vagy ebben?"
 
 msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
-msgstr ""
+msgstr "Ezzel frissíti az adatvédelmet az ebben a kötegben lévő összes kérésnél. biztos vagy ebben?"
 
 msgid "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr ""
+msgstr "Az idő értékes a hírszobákban, így az irányítópult csak azokat az információkat jeleníti meg, amelyeket tudnia kell: mely kérésekre érkezett válasz; amelyeknek nincs és kell üldözniük; és amelyek az Ön hozzájárulását igénylik. Keresés, szűrés vagy állapot szerinti rendezés, hogy gyorsan megtalálja a keresett kérést."
 
 msgid "Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr ""
+msgstr "Az idő értékes, ezért az irányítópult csak azokat az információkat jeleníti meg, amelyeket tudnia kell: mely kérésekre érkezett válasz; amelyeknek nincs és kell üldözniük; és amelyek az Ön hozzájárulását igénylik. Keresés, szűrés vagy állapot szerinti rendezés, hogy gyorsan megtalálja a keresett kérést."
 
 msgid "Tired of the fiddly details that add time to your investigation?"
-msgstr ""
+msgstr "Belefáradt a makacs részletekbe, amelyek megnövelik a nyomozást?"
 
 msgid "Title (A-Z)"
-msgstr ""
+msgstr "Cím (A-Z)"
 
 msgid "To"
-msgstr ""
+msgstr "Címzett"
 
 msgid "To access {{pro_site_name}}"
-msgstr ""
+msgstr "A {{pro_site_name}} eléréséhez"
 
 msgid "To signup to {{site_name}}"
-msgstr ""
+msgstr "A {{site_name}} webhelyre való regisztráció"
 
 msgid "To update your payment details"
-msgstr ""
+msgstr "A fizetési adatok frissítéséhez"
 
 msgid "To upgrade your account"
-msgstr ""
+msgstr "A fiók frissítéséhez"
 
 msgid "Total number of Pro accounts:"
-msgstr ""
+msgstr "Pro fiókok teljes száma:"
 
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
-msgstr ""
+msgstr "Felfedezni, hogy mely egyesült királyságbeli tanácsok fizetnek túlságosan magas LOBO-kölcsönöket"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
-msgstr ""
+msgstr "Ha nem választ adatvédelmi beállítást, az ebben a kötegben lévő kérelmek azonnal nyilvánosak lesznek a {{site_name}} webhelyen."
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
-msgstr ""
+msgstr "Ha nem választ adatvédelmi lehetőséget, kérése azonnal nyilvános lesz a {{site_name}} webhelyen."
 
 msgid "Until that date you will continue to have full access to {{pro_site_name}}."
-msgstr ""
+msgstr "Addig a dátumig továbbra is teljes hozzáférése lesz a {{pro_site_name}} webhelyhez."
 
 msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
-msgstr ""
+msgstr "Naprakész adatbázis <strong class=\"marketing-highlight\">elérhetőségről</strong> {{authority_count}} hatóság számára"
 
 msgid "Update"
-msgstr ""
+msgstr "Frissítés"
 
 msgid "Update Card Details"
-msgstr ""
+msgstr "Frissítse a kártya adatait"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Állapotok frissítése."
+msgstr[1] "Update statuses."
 
 msgid "Updated"
-msgstr ""
+msgstr "Frissítve"
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "A fizetési kártya frissítéséhez a böngészőjében engedélyezni kell a JavaScriptet."
 
 msgid "Upgrade account"
-msgstr ""
+msgstr "Frissítse a fiókot"
 
 msgid "Using Pro to build a nationwide picture of the public properties being sold off by councils"
-msgstr ""
+msgstr "A Pro segítségével országos képet alkothat az önkormányzatok által értékesített állami ingatlanokról"
 
 msgid "View"
-msgstr ""
+msgstr "Nézet"
 
 msgid "View Invoice and Pay"
-msgstr ""
+msgstr "Számla megtekintése és fizetés"
 
 msgid "View Receipt"
-msgstr ""
+msgstr "Nyugta megtekintése"
 
 msgid "View authorities"
-msgstr ""
+msgstr "Tekintse meg a hatóságokat "
 
 msgid "Wall"
-msgstr ""
+msgstr "Fal"
 
 msgid "Want to add weight to your campaign?"
-msgstr ""
+msgstr "Szeretne súlyt adni kampányának?"
 
 msgid "Want to add weight to your research?"
-msgstr ""
+msgstr "Szeretne súlyt adni kutatásának?"
 
 msgid "Want to add weight to your story?"
-msgstr ""
+msgstr "Szeretne súlyt adni történetének?"
 
 msgid "Want to add weight to your work?"
-msgstr ""
+msgstr "Szeretne súlyt adni munkájának?"
 
 msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
-msgstr ""
+msgstr "Fizetését feldolgozzuk. Előfizetési beállításait és fiókinformációit a felhasználói menü \"Saját előfizetés\" linkjével érheti el (ez a fenti neve melletti legördülő menüből érhető el)."
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr ""
+msgstr "Emlékeztetjük Önt e-mailben és a webhelyen, amikor a kérés nyilvánossá válik, és lehetősége van arra, hogy hosszabb ideig privátban tartsa, ha akarja. Ezt az időt határozatlan ideig meghosszabbíthatja, vagy a kérést bármikor nyilvánosságra hozhatja."
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
-msgstr ""
+msgstr "Heti Pro Metrics jelentés {{start_date}} - {{end_date}}"
 
 msgid "Welcome to {{pro_site_name}}!"
-msgstr ""
+msgstr "Üdvözli a {{pro_site_name}}!"
 
 msgid "We’ll attempt to bill your card again over the coming days."
-msgstr ""
+msgstr "A következő napokban ismét megpróbáljuk kiszámlázni a költségét."
 
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
-msgstr ""
+msgstr "Megpróbáltuk kiszámlázni a költségét, de a terhelés sikertelen volt."
 
 msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr ""
+msgstr "Ha egy kérés privát, garantáljuk, hogy csak a kiválasztott időszak után lesz nyilvánosan megtekinthető a {{site_name}} webhelyen. A {{pro_site_name}} adminisztrátorai is megtekinthetik kérelmét, de ezt csak abban az esetben teszik meg, ha valamilyen problémát kell megoldaniuk (pl. sikertelen kézbesítés a hatóságnak). Nem fedik fel senki másnak a kérésének tartalmát vagy a kapott válaszokat. A hatóság a szokásos módon továbbra is közzéteheti azt a közzétételi naplóban."
 
 msgid "When the current billing period ends:"
-msgstr ""
+msgstr "Amikor az aktuális számlázási időszak véget ér:"
 
 msgid "When you cancel your account:"
-msgstr ""
+msgstr "Amikor megszünteti fiókját:"
 
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Amikor kérését nyilvánossá teszik a {{site_name}} webhelyen, az Ön által hozzáadott kommentárok is nyilvánosak lesznek. Ezeket azonban <strong>nem</strong> küldik el a következőnek: {{public_body_name}}. "
 
 msgid "Why do you want access?"
-msgstr ""
+msgstr "Miért akar hozzáférni?"
 
 msgid "Write a reply"
-msgstr ""
+msgstr "Választ írni"
 
 msgid "Write request"
-msgstr ""
+msgstr "Kérést írni"
 
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
-msgstr ""
+msgstr "Új hozzászólás érkezett a {{public_body_name}} \" {{info_request_title}}\" nevű kérelméhez."
 
 msgid "You are already subscribed to this plan"
-msgstr ""
+msgstr "Már előfizetett erre a csomagra"
 
 msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
-msgstr ""
+msgstr "Dönthet úgy, hogy kéréseit legfeljebb egy évig privátként kezeli, és Önön kívül senki sem láthatja. Gondoskodunk róla, hogy tudd, ha ez az idő hamarosan lejár, és bármikor meghosszabbíthatod, ha kampányod még nem indul el."
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
-msgstr ""
+msgstr "Dönthet úgy, hogy kéréseit legfeljebb egy évig privátként kezeli az oldalon, és Önön kívül senki sem láthatja. Gondoskodunk róla, hogy tudd, ha ez az idő hamarosan lejár, és bármikor meghosszabbíthatod, ha kutatásod még nem jelent meg."
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
-msgstr ""
+msgstr "Dönthet úgy, hogy kéréseit legfeljebb egy évig privátként kezeli az oldalon, és Önön kívül senki sem láthatja. Gondoskodunk róla, hogy tudd, ha ez az idő hamarosan lejár, és bármikor meghosszabbíthatod, ha történeted még nem jelent meg."
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
-msgstr ""
+msgstr "Bármikor újra előfizethet, és visszaáll a teljes hozzáférés ezekhez a funkciókhoz."
 
 msgid "You can view the <a href=\"{{existing_batch_url}}\">existing batch</a>, <a href=\"{{edit_batch_url}}\">edit your request</a>, or ignore this warning by confirming you want to proceed anyway."
-msgstr ""
+msgstr "Megtekintheti az kívánja. <a href=\"{{existing_batch_url}}\">étező köteget</a>, <a href=\"{{edit_batch_url}}\">szerkesztheti kérését</a>, vagy figyelmen kívül hagyhatja ezt a figyelmeztetést, ha megerősíti, hogy mindenképpen folytatni."
 
 msgid "You don't currently have a Pro subscription"
-msgstr ""
+msgstr "Jelenleg nincs Pro-előfizetése"
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
-msgstr ""
+msgstr "Sikeresen lemondta a {{pro_site_name}} előfizetését"
 
 msgid "You haven't added any authorities to your batch yet"
-msgstr ""
+msgstr "Még nem adott hozzá jogosultságokat a köteghez"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr ""
+msgstr "Tudja, mi okozta a hibát, és ,<strong>ajánlhat megoldást</strong>, például működő e-mail-címet. "
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
-msgstr ""
+msgstr "Ön magyarázatot küldött a {{public_body_name}} címre a \" {{info_request_title}}\" kérdésben."
 
 msgid "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\"."
-msgstr ""
+msgstr "Nyomkövetést küldött {{public_body_name}} számára a következőn: \"{{info_request_title}}\"."
 
 msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
-msgstr ""
+msgstr "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
 
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
-msgstr ""
+msgstr "Belső felülvizsgálati kérelmet küldött a következőnek: {{public_body_name}} a következőhöz: „{{info_request_title}}”."
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
-msgstr ""
+msgstr "Ezt az adatvédelmi időszakot {{embargo_extend_from}} napjától meghosszabbíthatja."
 
 msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
-msgstr ""
+msgstr "Továbbra is láthatja a jelenleg privát kéréseket, de nem tud új privát kérelmeket benyújtani, illetve az adatvédelmi időtartamot meghosszabbítani. Ezeket a kéréseket a jelenlegi adatvédelmi időszak végén teszik közzé."
 
 msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
-msgstr ""
+msgstr "Nem fog tudni hozzáférni a {{pro_site_name}} eszközeihez, beleértve az irányítópultot és a profi kérések kezelését."
 
 msgid "You'll lose access to any requests you still have in draft."
-msgstr ""
+msgstr "Elveszíti a hozzáférést a még vázlatban lévő kérésekhez."
 
 msgid "Your Batch Request has been saved!"
-msgstr ""
+msgstr "A kötegelt kérelmet elmentettük!"
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr ""
+msgstr "A \"{{info_request_title}}\" kérdéssel kapcsolatos magyarázatát újra elküldtük {{public_body_name}} számára."
 
 msgid "Your current subscription"
-msgstr ""
+msgstr "Jelenlegi előfizetése"
 
 msgid "Your dashboard"
-msgstr ""
+msgstr "Dashboardom"
 
 msgid "Your draft has been saved!"
-msgstr ""
+msgstr "Piszkozatát elmentettük!"
 
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
-msgstr ""
+msgstr "A „{{public_body_name}}” címmel \"{{info_request_title}}\" küldött üzenetét újra elküldtük."
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr ""
+msgstr "A \"{{info_request_title}}\" belső felülvizsgálati kérelmét újra elküldtük a {{public_body_name}} számára."
 
 msgid "Your message will be displayed publicly on this website once you publish your request."
-msgstr ""
+msgstr "Üzenete nyilvánosan megjelenik ezen a webhelyen, amint közzéteszi kérelmét."
 
 msgid "Your payment details"
-msgstr ""
+msgstr "Fizetési adatai"
 
 msgid "Your payment details have been updated"
-msgstr ""
+msgstr "Fizetési adatai frissültek"
 
 msgid "Your request"
-msgstr ""
+msgstr "Kérései"
 
 msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
-msgstr ""
+msgstr "A \"{{info_request_title}}\" kérelmét a {{public_body_name}} számára újra elküldtük."
 
 msgid "Your request has been updated!"
-msgstr ""
+msgstr "Kérését frissítettük!"
 
 msgid "Your request is now public!"
-msgstr ""
+msgstr "Kérése most nyilvános!"
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
-msgstr ""
+msgstr "A {{public_body_name}} „{{info_request_title}}” nevű kérelme most nyilvános."
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
-msgstr ""
+msgstr "A {{public_body_name}} „{{info_request_title}}” nevű kérelmére új választ kaptunk."
 
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
-msgstr ""
+msgstr "Kérelme mostantól privát lesz a {{site_name}} webhelyen {{expiry_date}} -ig."
 
 msgid "Your request will now be private until {{expiry_date}}."
-msgstr ""
+msgstr "Kérése mostantól privát lesz {{expiry_date}} -ig."
 
 msgid "Your requests are now public!"
-msgstr ""
+msgstr "Kérései most nyilvánosak!"
 
 msgid "Your requests will now be private until {{expiry_date}}."
-msgstr ""
+msgstr "Kérelmei mostantól privátak lesznek {{expiry_date}} -ig."
 
 msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
-msgstr ""
+msgstr "Előfizetését lemondtuk, hozzáférése a {{pro_site_name}} webhelyhez<strong>{{date}}</strong>-én megszűnik. "
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
-msgstr ""
+msgstr "Az Ön véleménye arról, hogy a {{site_name}} <strong>adminisztrátorainak</strong> mit kell tenniük a kéréssel kapcsolatban."
 
 msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
-msgstr ""
+msgstr "Hozzáférhet a FOI hatálya alá tartozó {{authority_count}} hatóság címjegyzékéhez."
 
 msgid "You’re busy fixing the world. Let us take care of your FOI requests."
-msgstr ""
+msgstr "Elfoglalt vagy a világ megjavításában. Engedje meg, hogy mi intézzük FOI kéréseit."
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
-msgstr ""
+msgstr "Rengeteg egyéb dolgon kell gondolkodnia, ezért nem akarja minden egyes kérését utánanézni, hogy nem igényel-e figyelmet. Ehelyett a Pro szemmel tartja őket, és napi e-mail-összefoglalót küld."
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "all requests"
-msgstr ""
+msgstr "minden kérés"
 
 msgid "drafts"
-msgstr ""
+msgstr "vázlatok"
 
 msgid "eg. Cabinet Office"
-msgstr ""
+msgstr "például. Kabinetiroda"
 
 msgid "first created"
-msgstr ""
+msgstr "először létrehozott"
 
 msgid "last updated"
-msgstr ""
+msgstr "utoljáára frissített"
 
 msgid "or start a batch request"
-msgstr ""
+msgstr "vagy indítsa el a kötegelt kérést"
 
 msgid "requests that will be made public soon"
-msgstr ""
+msgstr "kéréseket, amelyek hamarosan nyilvánosságra kerülnek"
 
 msgid "the {{pro_site_name}} team"
-msgstr ""
+msgstr "a {{pro_site_name}} csapata"
 
 msgid "the {{site_name}} team"
-msgstr ""
+msgstr "a {{site_name}} csapata"
 
 msgid "title (A-Z)"
-msgstr ""
+msgstr "Címek (A-Z)"
 
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
-msgstr ""
+msgstr "{{commenter_name}} új megjegyzést fűzött a {{public_body_name}} \"{{info_request_title}}\" nevű kérelméhez."
 
 msgid "{{count}} Pending"
-msgstr ""
+msgstr "{{count}} Függőben"
 
 msgid "{{count}} of {{limit}} authorities"
 msgid_plural "{{count}} of {{limit}} authorities"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{limit}} hatóság közül {{count}}"
+msgstr[1] "{{limit}} hatóság közül {{count}}"
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} címzett, <a href=\"{{url}}\">megjelenítése</a>"
+msgstr[1] "{{count}} címzett<a href=\"{{url}}\">az összes megjelenítése</a>"
 
 msgid "{{count}} recipient, {{first_public_body}}"
 msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} címzettek, köztük {{first_public_body}} és ..."
+msgstr[1] "{{count}} címzett, beleértve {{first_public_body}} és {{second_public_body}}"
 
 msgid "{{count}} reply"
 msgid_plural "{{count}} replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} válasz"
+msgstr[1] "{{count}} válasz"
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} A kérések választ kaptak."
+msgstr[1] "{{count}} kérés választ kapott."
 
 msgid "{{count}} request is delayed."
 msgid_plural "{{count}} requests are delayed."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} A kérések késnek."
+msgstr[1] "{{count}} kérés késik."
 
 msgid "{{count}} request is long overdue."
 msgid_plural "{{count}} requests are long overdue."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} A kérések már régóta esnek."
+msgstr[1] "{{count}} A kérés már régóta késik."
 
 msgid "{{count}} request made"
 msgid_plural "{{count}} requests made"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} kérések létrehozva"
+msgstr[1] "{{count}} kérés létrehozva"
 
 msgid "{{count}} request will be made public this week."
 msgid_plural "{{count}} requests will be made public this week."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} requests will be made public this week."
+msgstr[1] "{{count}} kérés közzé lesznek téve ezen a héten."
 
 msgid "{{count}} {{phase}}"
-msgstr ""
+msgstr "{{count}} {{phase}}"
 
 msgid "{{date}}"
-msgstr ""
+msgstr "{{date}}"
 
 msgid "{{length_of_time}} ago"
-msgstr ""
+msgstr "{{length_of_time}} korábban"
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
-msgstr ""
+msgstr "{{pro_site_name}} elvégzi az összes nehéz emelőt, így több idő marad, hogy a kampányokra összpontosítson."
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your investigation."
-msgstr ""
+msgstr "{{pro_site_name}} elvégzi az összes nehéz emelőt, így több idő marad, hogy a vizsgálatra összpontosítson."
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your research."
-msgstr ""
+msgstr "{{pro_site_name}} elvégzi az összes nehéz emelőt, így több idő marad, hogy a kutatásra összpontosítson."
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your story."
-msgstr ""
+msgstr "{{pro_site_name}} elvégzi az összes nehéz emelést, így több idő marad, hogy a történetedre összpontosítson."
 
 msgid "{{pro_site_name}} does the hard work for you"
-msgstr ""
+msgstr "{{pro_site_name}} A kemény munkát végzi az Ön számára"
 
 msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
-msgstr ""
+msgstr "A {{pro_site_name}} egy erős, teljesen megvizsgált <strong class=\"marketing-highlight\">FOI eszköz </strong> újságírók, kampányok és kutatók számára"
 
 msgid "{{pro_site_name}} is here to help"
-msgstr ""
+msgstr "{{pro_site_name}} itt van, hogy segítsen"
 
 msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
-msgstr ""
+msgstr "{{pro_site_name}} Mozgatja a kérést, amely az e -mailben és egy dedikált műszerfalra kezeli, mindent rendezve."
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
-msgstr ""
+msgstr "{{public_body_name}} késik a \"{{info_request_title}}\" kérésére való válaszadáskor."
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
-msgstr ""
+msgstr "{{public_body_name}} régóta esedékessé vált a \"{{info_request_title}}\" kérésére."
