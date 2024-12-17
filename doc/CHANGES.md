@@ -155,6 +155,12 @@
   example annual pricing. For new prices you need to configure `STRIPE_PRICES`
   in `config/general.yml`.
 
+# 0.44.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.44.0.1
 
 ## Highlighted Features

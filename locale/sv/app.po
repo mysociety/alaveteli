@@ -47,7 +47,7 @@
 # louisecrow <louise@mysociety.org>, 2016
 # Mattias A, 2015
 # Mattias Axell <mattias@libertador.es>, 2015-2017
-# Mattias Axell <mattias@libertador.es>, 2015,2019-2023
+# Mattias Axell <mattias@libertador.es>, 2015,2019-2024
 # Mattias Axell <mattias@libertador.es>, 2015,2017-2018
 # Mattias OKFSE, 2015
 # Mattias Axell <mattias@libertador.es>, 2015
@@ -642,7 +642,7 @@ msgid "Banned for misuse in breach of house rules"
 msgstr "Avstängd efter att ha brutit mot användarvillkor"
 
 msgid "Banned for spamming"
-msgstr "Banad för spam"
+msgstr "Avstängd för spammande"
 
 msgid "Banned from this site"
 msgstr "Bannlysta från denna hemsida"
@@ -2875,7 +2875,7 @@ msgid "The attachment has now been processed and is available for download."
 msgstr "Bilagan har nu behandlats och är tillgänglig för nedladdning."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr "De har <strong>inte</strong> informationen <small>(kanske de säger vem som har den)"
+msgstr "De har <strong>inte</strong> informationen <small>(kanske de säger vem som har den)</small>"
 
 msgid "The authority email doesn't look like a valid address"
 msgstr "E-postadressen för myndigheten ser ogiltig ut"
