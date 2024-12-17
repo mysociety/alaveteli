@@ -40,6 +40,10 @@ module Alaveteli
     config.active_support.use_rfc4122_namespaced_uuids = true # 7.0
     config.active_storage.replace_on_assign_to_many = true # 7.1
 
+    # Disable new framework default has_many_inversing breaks some specs due to
+    # an apparent regression in Rails
+    config.active_record.has_many_inversing = false # 6.1
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
