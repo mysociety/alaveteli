@@ -33,9 +33,12 @@ module Alaveteli
     # config.eager_load_paths << Rails.root.join("extras")
     config.load_defaults 6.0
     config.autoloader = :zeitwerk
-    config.active_record.legacy_connection_handling = false
-    config.active_support.use_rfc4122_namespaced_uuids = true
-    config.active_storage.replace_on_assign_to_many = true
+
+    # Enable new framework defaults configurations for later Rails versions
+    # preventing deprecation warnings
+    config.active_record.legacy_connection_handling = false # 7.0
+    config.active_support.use_rfc4122_namespaced_uuids = true # 7.0
+    config.active_storage.replace_on_assign_to_many = true # 7.1
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
