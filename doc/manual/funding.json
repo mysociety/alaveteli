@@ -59,7 +59,7 @@
         "guid": "gdpr-and-search",
         "status": "active",
         "name": "Developments to ensure the protection of personal data in jurisdictions across the world.",
-        "description": "Alaveteli, while always having a strong emphasis on privacy, was designed long before the introduction of GDPR. All European sites must comply with GDPR, but currently handling data access and removal requests is slow and burdensome, diverting resources from core activities.\n\nWe want to re-architect data storage and enhance admin interfaces to allow reliable and permanent redaction, editing, or deletion of personal information in emails and attachments.\n\nAdditionally, sites contain personal data in unstructured formats. We would like to replace the current antiquated search functionality with modern PostgreSQL vector based searching, improving the ability to locate and manage data while simplifying deployment, making it easier for new sites to operate.\n\nThis funding will pay for the developer time to complete this work, to ensure the protection of personal data in jurisdictions across the world.  ",
+        "description": "Alaveteli was designed with privacy in mind but predates GDPR. Complying with GDPR is currently slow and burdensome, diverting resources from core functions. We plan to redesign data storage and admin interfaces for better redaction and deletion of personal data. Additionally, we aim to replace outdated search functions with PostgreSQL vector searching to enhance data management and simplify deployment. Funding will cover developer time to ensure global data protection.",
         "amount": 60000,
         "currency": "GBP",
         "frequency": "one-time",
