@@ -1,0 +1,169 @@
+{
+  "version": "v1.0.0",
+  "entity": {
+    "type": "organisation",
+    "role": "owner",
+    "name": "mySociety",
+    "email": "funding@mysociety.org",
+    "description": "Established in 2003, mySociety uses digital technologies and data to help people participate fully in democracy, make government and society more transparent, and help people work together to address societal challenges. Our open source citizen-centred digital services — including TheyWorkForYou, WhatDoTheyKnow, FixMyStreet and the Climate Action Plan Explorer — are used by millions of people every year.",
+    "webpageUrl": {
+      "url": "https://mysociety.org/",
+      "wellKnown": "https://www.mysociety.org/.well-known/funding-manifest-urls"
+    }
+  },
+  "projects": [
+    {
+      "guid": "alaveteli",
+      "name": "Alaveteli",
+      "description": "Access to Information (ATI) laws are powerful tools by which citizens, journalists, and civil society organisations can obtain information to scrutinise government.\n\nStrong and well-implemented ATI laws are therefore an important prerequisite for accountability and participation, and are one of the cornerstones of a healthy democracy. \nAlaveteli is the world’s leading free open source software powering Access to Information platforms - helping people use their right to request information from public authorities, and opening up the information released in a searchable public archive. It was created by mySociety, the charity that runs WhatDoTheyKnow.com, the UK’s largest online ATI service - used to send 1,000,000+ requests to 46,000+ authorities. Around the world, there are 25+ Access to Information platforms run on Alaveteli. https://alaveteli.org/deployments/\n\nAlaveteli is at the rare intersection of open source software with high usage volumes and explicit social good outcomes. \n",
+      "webpageUrl": {
+        "url": "https://alaveteli.org/"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/mysociety/alaveteli/",
+        "wellKnown": "https://github.com/mysociety/alaveteli/blob/develop/.well-known/funding-manifest-urls"
+      },
+      "licenses": [
+        "spdx:AGPL-3.0-only"
+      ],
+      "tags": [
+        "transparency",
+        "democracy",
+        "open-data",
+        "access-to-information",
+        "freedom-of-information",
+        "ruby",
+        "rails",
+        "knowledge",
+        "information-management",
+        "publishing"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "mysociety-bank",
+        "type": "bank",
+        "description": "Please get in touch to discuss large donations via bank transfer: funding@mysociety.org"
+      },
+      {
+        "guid": "mysociety-donate",
+        "type": "payment-provider",
+        "address": "https://mysociety.org/donate",
+        "description": "Make one-off or monthly donations via Stripe and Paypal to support small charity making a big difference."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "gdpr-and-search",
+        "status": "active",
+        "name": "Developments to ensure the protection of personal data in jurisdictions across the world.",
+        "description": "Alaveteli, while always having a strong emphasis on privacy, was designed long before the introduction of GDPR. All European sites must comply with GDPR, but currently handling data access and removal requests is slow and burdensome, diverting resources from core activities.\n\nWe want to re-architect data storage and enhance admin interfaces to allow reliable and permanent redaction, editing, or deletion of personal information in emails and attachments.\n\nAdditionally, sites contain personal data in unstructured formats. We would like to replace the current antiquated search functionality with modern PostgreSQL vector based searching, improving the ability to locate and manage data while simplifying deployment, making it easier for new sites to operate.\n\nThis funding will pay for the developer time to complete this work, to ensure the protection of personal data in jurisdictions across the world.  ",
+        "amount": 60000,
+        "currency": "GBP",
+        "frequency": "one-time",
+        "channels": [
+          "mysociety-bank"
+        ]
+      },
+      {
+        "guid": "hosting-and-infrastructure",
+        "status": "active",
+        "name": "Hosting and Infrastructure",
+        "description": "WhatDoTheyKnow receives over 17 million user sessions and processes over half a million email messages per year. mySociety also hosts several growing Alaveteli installs and provides support to partners self-hosting their own install.",
+        "amount": 850,
+        "currency": "GBP",
+        "frequency": "monthly",
+        "channels": [
+          "mysociety-bank"
+        ]
+      },
+      {
+        "guid": "technical-maintenance",
+        "status": "active",
+        "name": "Technical Maintenance",
+        "description": "Alaveteli receives around 200 automated dependency upgrade pull requests each year, from small library updates to major framework releases. We also  periodically release stable versions of Alaveteli for the international community, and make bug fixes and improvements to improve the user experience of the software for users and administrators.",
+        "amount": 20000,
+        "currency": "GBP",
+        "frequency": "yearly",
+        "channels": [
+          "mysociety-bank"
+        ]
+      },
+      {
+        "guid": "user-support-and-governance",
+        "status": "active",
+        "name": "User Support and Governance",
+        "description": "Alaveteli supports a vibrant community of users, from seasoned journalists to individual citizens making their first Access to Information requests. Providing helpful and friendly user support helps create positive experiences with democratic processes, and governance processes help ensure problems are addressed and dealt with.",
+        "amount": 2500,
+        "currency": "GBP",
+        "frequency": "monthly",
+        "channels": [
+          "mysociety-bank"
+        ]
+      },
+      {
+        "guid": "community-building-and-comms",
+        "status": "active",
+        "name": "Facilitating International Community of Practice",
+        "description": "Access to Information laws, while powerful, are often under threat or under used due to poor authority performance or poor citizen awareness. In addition to building software, mySociety and its partners facilitate international networks, communities of practice and campaigns for improved legislation and authority effectiveness to create more robust Access to Information environments around the world.",
+        "amount": 30000,
+        "currency": "GBP",
+        "frequency": "yearly",
+        "channels": [
+          "mysociety-bank"
+        ]
+      },
+      {
+        "guid": "all-donations-welcome",
+        "status": "active",
+        "name": "Donations Welcome",
+        "description": "Any donations are welcome to support a small charity making a big difference.\n\nmySociety is the charity that runs FixMyStreet, TheyWorkForYou, WriteToThem, and WhatDoTheyKnow. We are pioneering the use of online technologies to put more power in more people’s hands so that together we can build a fairer, safer future.\n\nWe enable people across the UK to become changemakers by providing technology and data openly and for free.",
+        "amount": 0,
+        "currency": "GBP",
+        "frequency": "other",
+        "channels": [
+          "mysociety-donate"
+        ]
+      }
+    ],
+    "history": [
+      {
+        "year": 2024,
+        "currency": "USD",
+        "description": "Patrick J. McGovern Foundation: AI & Datasets"
+      },
+      {
+        "year": 2024,
+        "currency": "GBP",
+        "description": "Joseph Rowntree Charitable Trust: Supporting Marginalised Communities in UK"
+      },
+      {
+        "year": 2023,
+        "currency": "USD",
+        "description": "Patrick J. McGovern Foundation: AI & Datasets"
+      },
+      {
+        "year": 2022,
+        "currency": "EUR",
+        "description": "Adessium, Swedish Postcode Foundation, Isocrates: ATI Network in Europe"
+      },
+      {
+        "year": 2021,
+        "currency": "GBP",
+        "description": "Joseph Rowntree Charitable Trust: Supporting Marginalised Communities in UK"
+      },
+      {
+        "year": 2020,
+        "currency": "GBP",
+        "description": "Joseph Rowntree Charitable Trust: Challenging Refusals in UK"
+      },
+      {
+        "year": 2020,
+        "currency": "GBP",
+        "description": "NESTA Future News: Alaveteli Projects"
+      }
+    ]
+  }
+}
