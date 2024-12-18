@@ -51,7 +51,7 @@
         "guid": "mysociety-donate",
         "type": "payment-provider",
         "address": "https://mysociety.org/donate",
-        "description": "Make one-off or monthly donations via Stripe and Paypal to support small charity making a big difference."
+        "description": "Make one-off or monthly donations via Stripe and Paypal to support a small charity making a big difference."
       }
     ],
     "plans": [
