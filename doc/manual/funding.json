@@ -7,7 +7,7 @@
     "email": "funding@mysociety.org",
     "description": "Established in 2003, mySociety uses digital technologies and data to help people participate fully in democracy, make government and society more transparent, and help people work together to address societal challenges. Our open source citizen-centred digital services — including TheyWorkForYou, WhatDoTheyKnow, FixMyStreet and the Climate Action Plan Explorer — are used by millions of people every year.",
     "webpageUrl": {
-      "url": "https://mysociety.org/",
+      "url": "https://www.mysociety.org",
       "wellKnown": "https://www.mysociety.org/.well-known/funding-manifest-urls"
     }
   },
@@ -17,10 +17,10 @@
       "name": "Alaveteli",
       "description": "Access to Information (ATI) laws are powerful tools by which citizens, journalists, and civil society organisations can obtain information to scrutinise government.\n\nStrong and well-implemented ATI laws are therefore an important prerequisite for accountability and participation, and are one of the cornerstones of a healthy democracy. \nAlaveteli is the world’s leading free open source software powering Access to Information platforms - helping people use their right to request information from public authorities, and opening up the information released in a searchable public archive. It was created by mySociety, the charity that runs WhatDoTheyKnow.com, the UK’s largest online ATI service - used to send 1,000,000+ requests to 46,000+ authorities. Around the world, there are 25+ Access to Information platforms run on Alaveteli. https://alaveteli.org/deployments/\n\nAlaveteli is at the rare intersection of open source software with high usage volumes and explicit social good outcomes. \n",
       "webpageUrl": {
-        "url": "https://alaveteli.org/"
+        "url": "https://alaveteli.org"
       },
       "repositoryUrl": {
-        "url": "https://github.com/mysociety/alaveteli/",
+        "url": "https://github.com/mysociety/alaveteli",
         "wellKnown": "https://github.com/mysociety/alaveteli/blob/develop/.well-known/funding-manifest-urls"
       },
       "licenses": [
