@@ -74,7 +74,8 @@ class InfoRequest < ApplicationRecord
 
   belongs_to :public_body,
              inverse_of: :info_requests,
-             counter_cache: true
+             counter_cache: true,
+             validate: false
   belongs_to :info_request_batch,
              inverse_of: :info_requests,
              optional: true
