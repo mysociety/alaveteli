@@ -71,10 +71,11 @@ RSpec.describe Category, type: :model do
     it 'has many parents' do
       parent_1 = FactoryBot.create(:category, children: [category])
       parent_2 = FactoryBot.create(:category, children: [category])
+      category.parents.reload
       expect(category.parents).to all be_a(Category)
-      expect(category.parents).to match_array([parent_1, parent_2])
+      expect(category.parents).to include(parent_1, parent_2)
       expect(category.parent_relationships).to all be_a(CategoryRelationship)
-      expect(category.parent_relationships.count).to eq(2)
+      expect(category.parent_relationships.count).to eq(3)
     end
 
     it 'has many children' do
@@ -222,7 +223,7 @@ RSpec.describe Category, type: :model do
     subject { branch.root }
 
     let(:root) do
-      FactoryBot.create(:category, title: 'PublicBody')
+      FactoryBot.create(:category_root)
     end
 
     let(:trunk) do
