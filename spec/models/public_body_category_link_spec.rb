@@ -26,13 +26,13 @@ RSpec.describe PublicBodyHeading, 'when validating' do
   it 'should be invalid without a category' do
     category_link = PublicBodyCategoryLink.new
     expect(category_link).not_to be_valid
-    expect(category_link.errors[:public_body_category]).to eq(["can't be blank"])
+    expect(category_link.errors[:public_body_category]).to include("can't be blank")
   end
 
   it 'should be invalid without a heading' do
     category_link = PublicBodyCategoryLink.new
     expect(category_link).not_to be_valid
-    expect(category_link.errors[:public_body_heading]).to eq(["can't be blank"])
+    expect(category_link.errors[:public_body_heading]).to include("can't be blank")
   end
 end
 

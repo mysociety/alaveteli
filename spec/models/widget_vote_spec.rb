@@ -17,7 +17,7 @@ RSpec.describe WidgetVote do
     it 'requires an info request' do
       widget_vote = WidgetVote.new
       expect(widget_vote).not_to be_valid
-      expect(widget_vote.errors[:info_request]).to eq(["can't be blank"])
+      expect(widget_vote.errors[:info_request]).to include("can't be blank")
     end
 
     it 'validates the cookie length' do

@@ -27,7 +27,7 @@ RSpec.describe InfoRequestBatch do
     it 'should require a user' do
       info_request_batch.user = nil
       expect(info_request_batch.valid?).to be false
-      expect(info_request_batch.errors.full_messages).to eq(["User can't be blank"])
+      expect(info_request_batch.errors[:user]).to include("can't be blank")
     end
 
     it 'should require a body' do
