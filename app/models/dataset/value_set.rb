@@ -27,7 +27,6 @@ class Dataset::ValueSet < ApplicationRecord
     FoiAttachment
   ].freeze
 
-  validates :key_set, :values, presence: true
   validates :resource_type, inclusion: { in: RESOURCE_TYPES }, if: :resource
   validates_associated :values
   validate :check_at_least_one_value_is_present

@@ -38,7 +38,6 @@ class InfoRequestBatch < ApplicationRecord
 
   attr_accessor :ignore_existing_batch
 
-  validates_presence_of :user
   validates_presence_of :body
   validates_absence_of :existing_batch,
                        unless: -> { ignore_existing_batch },

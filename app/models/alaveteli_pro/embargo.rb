@@ -22,7 +22,6 @@ module AlaveteliPro
             inverse_of: :embargoes,
             through: :info_request
 
-    validates_presence_of :info_request
     validates_presence_of :publish_at
     validates_inclusion_of :embargo_duration,
                            in: ->(e) { e.allowed_durations },

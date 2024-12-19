@@ -25,8 +25,7 @@ class AlaveteliPro::RequestSummary < ApplicationRecord
                           class_name: "AlaveteliPro::RequestSummaryCategory",
                           inverse_of: :request_summaries
 
-  validates_presence_of :summarisable,
-                        :request_created_at,
+  validates_presence_of :request_created_at,
                         :request_updated_at
   validates_uniqueness_of :summarisable_id, scope: :summarisable_type
 

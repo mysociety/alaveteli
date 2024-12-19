@@ -17,8 +17,6 @@ class DraftInfoRequest < ApplicationRecord
   include AlaveteliPro::RequestSummaries
   include InfoRequest::DraftTitleValidation
 
-  validates_presence_of :user
-
   belongs_to :user,
              inverse_of: :draft_info_requests
   belongs_to :public_body, inverse_of: :draft_info_requests, optional: true

@@ -42,7 +42,6 @@ class OutgoingMessage < ApplicationRecord
   attr_accessor :default_letter
 
   before_validation :cache_from_name
-  validates_presence_of :info_request
   validates_presence_of :from_name, unless: -> (m) { !m.info_request&.user }
   validates_inclusion_of :status, in: STATUS_TYPES
   validates_inclusion_of :message_type, in: MESSAGE_TYPES

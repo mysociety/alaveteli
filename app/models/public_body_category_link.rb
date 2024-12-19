@@ -18,9 +18,6 @@ class PublicBodyCategoryLink < ApplicationRecord
   belongs_to :public_body_heading,
              inverse_of: :public_body_category_links
 
-  validates_presence_of :public_body_category
-  validates_presence_of :public_body_heading
-
   validates :category_display_order, numericality: {
     only_integer: true, message: 'Display order must be a number'
   }

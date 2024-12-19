@@ -19,6 +19,4 @@ class Project::Membership < ApplicationRecord
   belongs_to :project
   belongs_to :user
   belongs_to :role
-
-  validates :project, :user, :role, presence: true
 end
