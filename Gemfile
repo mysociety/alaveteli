@@ -190,7 +190,7 @@ group :test, :development do
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.2.1'
   gem 'rspec-rails', '~> 7.1.0'
-  gem 'pry', '~> 0.15.0'
+  gem 'pry', '~> 0.15.2'
 end
 
 group :development do
