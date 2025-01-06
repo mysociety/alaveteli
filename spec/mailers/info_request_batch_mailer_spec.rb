@@ -23,6 +23,22 @@ RSpec.describe InfoRequestBatchMailer do
         to eq('Your batch request "Apostrophe\'s" has been sent')
     end
 
+    context "when the user does not use default locale" do
+      before do
+        @user.locale = 'es'
+        @mail = InfoRequestBatchMailer.batch_sent(
+          @info_request_batch,
+          @unrequestable,
+          @user
+        )
+      end
+
+      it "translates the subject" do
+        expect(@mail.subject).
+          to eq "Tu solicitud en lote \"Example title\" ha sido enviada"
+      end
+    end
+
     it 'renders the receiver email' do
       expect(@mail.to).to eq([@user.email])
     end

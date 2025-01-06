@@ -34,7 +34,7 @@ class ContactMailer < ApplicationMailer
     mail_user(
       recipient_user,
       from: from_user,
-      subject: subject
+      subject: -> { subject }
     )
   end
 
@@ -53,7 +53,7 @@ class ContactMailer < ApplicationMailer
       to_address,
       from: from_address,
       bcc: AlaveteliConfiguration.contact_email,
-      subject: subject
+      subject: -> { subject }
     )
   end
 end

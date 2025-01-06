@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Localise alert email subjects in the receiver's language (Anders Lindeberg)
 * Remove deprecated Google Chart from request game (Gareth Rees)
 * Migrated from Stripe Plans to Stripe Prices (Graeme Porteous)
 * Change notes so that records tagged with `name:value` will be associated with

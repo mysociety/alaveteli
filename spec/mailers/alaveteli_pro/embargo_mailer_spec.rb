@@ -121,6 +121,21 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.subject).to eq expected_subject
       end
 
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expiring_alert(pro_user, [expiring_1]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missing *** 1 *** Alaveteli"
+          )
+        end
+      end
+
       it "sends the email to the user" do
         expect(@message.to).to eq [pro_user.email]
       end
@@ -140,6 +155,21 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
       it 'sets the subject correctly' do
         expected_subject = '2 requests will be made public on Alaveteli this week'
         expect(@message.subject).to eq expected_subject
+      end
+
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expiring_alert(pro_user, [expiring_1, expiring_2]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missings *** 2 *** Alaveteli"
+          )
+        end
       end
 
       it "sends the email to the user" do
@@ -245,6 +275,21 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.subject).to eq expected
       end
 
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expired_alert(pro_user, [expired_1]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missing *** 1 *** Alaveteli"
+          )
+        end
+      end
+
       it "sends the email to the user" do
         expect(@message.to).to eq [pro_user.email]
       end
@@ -264,6 +309,21 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
       it 'sets the subject correctly' do
         expected = '2 requests have been made public on Alaveteli'
         expect(@message.subject).to eq expected
+      end
+
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expired_alert(pro_user, [expired_1, expired_2]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missings *** 2 *** Alaveteli"
+          )
+        end
       end
 
       it "sends the email to the user" do

@@ -26,11 +26,36 @@ RSpec.describe SurveyMailer do
         expect(ActionMailer::Base.deliveries.size).to eq(1)
       end
 
+      it "sends a mail with correct subject" do
+        info_request = get_surveyable_request
+        SurveyMailer.alert_survey
+        mail = ActionMailer::Base.deliveries.first
+        expect(mail.subject). to eq(
+          "A survey about your recent Freedom of Information request"
+        )
+      end
+
       it 'records the sending of the alert' do
         info_request = get_surveyable_request
         SurveyMailer.alert_survey
         expect(info_request.user.user_info_request_sent_alerts.size).
           to eq(1)
+      end
+
+      context "when the user does not use default locale" do
+        before do
+          @info_request = get_surveyable_request(
+            FactoryBot.create(:user, locale: 'es')
+          )
+          SurveyMailer.alert_survey
+        end
+
+        it "translates the subject" do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject). to eq(
+            "*** Spanish missing ***"
+          )
+        end
       end
     end
 
