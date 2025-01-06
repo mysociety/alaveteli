@@ -160,7 +160,7 @@ gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', '~> 3.7.5'
 gem 'uglifier', '~> 4.2.1'
 # Modern Assets
-gem 'importmap-rails', '~> 2.0.3'
+gem 'importmap-rails', '~> 2.1.0'
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0.11'
 
