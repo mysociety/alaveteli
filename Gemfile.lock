@@ -671,6 +671,7 @@ DEPENDENCIES
   uglifier (~> 4.2.1)
   unicode (~> 0.4.4)
   unidecoder (~> 1.1.0)
+  uri (~> 1.0.2)
   vpim (~> 24.2.20)
   web-console (>= 3.3.0)
   webmock (~> 3.24.0)

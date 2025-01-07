@@ -135,6 +135,10 @@ gem 'xapian-full-alaveteli', '~> 1.4.22.1'
 gem 'xml-simple', '~> 1.1.9', require: 'xmlsimple'
 gem 'zip_tricks', '~> 5.6.0'
 
+# Gems that are part of Ruby's standard library but need version constraints as
+# they are required by other Gem dependencies
+gem 'uri', '~> 1.0.2'
+
 # Gems only used by the research export task
 gem 'gender_detector', '~> 2.0.0'
 
