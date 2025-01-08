@@ -1,5 +1,5 @@
 def load_raw_emails_data
-  raw_emails_yml = File.join(RSpec.configuration.fixture_path, "raw_emails.yml")
+  raw_emails_yml = Rails.root.join("spec", "fixtures", "raw_emails.yml")
   YAML.load_file(raw_emails_yml).map { |_k,v| v["id"] }.each do |raw_email_id|
     raw_email = RawEmail.find(raw_email_id)
     raw_email.data = load_file_fixture(format("raw_emails/%d.email", raw_email_id))

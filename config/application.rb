@@ -26,10 +26,6 @@ module Alaveteli
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Enable new framework defaults configurations for later Rails versions
-    # preventing deprecation warnings
-    config.active_storage.replace_on_assign_to_many = true # 7.1
-
     # Disable new framework default has_many_inversing breaks some specs due to
     # an apparent regression in Rails
     config.active_record.has_many_inversing = false # 6.1
@@ -96,8 +92,6 @@ module Alaveteli
 
     config.autoload_paths << "#{Rails.root}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root}/app/models/concerns"
-
-    config.enable_dependency_loading = true
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key
