@@ -6,7 +6,7 @@ RSpec.describe Admin::TranslatedRecordForm do
 
   describe '#translated_fields' do
     subject do
-      builder.translated_fields { |t| template.concat(t.text_field(:name)) }
+      builder.translated_fields { |t| template.concat(t.text_field(:name)) }.to_s
     end
 
     let(:resource) do
