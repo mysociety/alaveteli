@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Miroslav Schlossberg, 2021\n"
 "Language-Team: Croatian (https://app.transifex.com/mysociety/teams/33529/hr/)\n"
@@ -42,9 +42,6 @@ msgstr[2] "(uključuje {{count}} pretplatnika)"
 msgid "(no title)"
 msgstr "(bez naslova)"
 
-msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(uz <b>{{discount_name}}</b> popust)"
-
 msgid "12 Months"
 msgstr "12 mjeseci"
 
@@ -66,12 +63,6 @@ msgstr "<a href=\"{{story_url}}\">Ispod vas je prodano </a> — Britanski neprof
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr "<span class=\"current-page\">{{current_page}}</span> od <span class=\"total-pages\">{{total_pages}}</span>"
 
-msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> po korisniku, mjesečno"
-
-msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> po korisniku, godišnje"
-
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr "<strong class=\"marketing-highlight\">Obavijest o rokovima</strong>: podsjetnik koji upozorava na rokove i sljedeće korake "
 
@@ -80,9 +71,6 @@ msgstr "<strong class=\"marketing-highlight\">Dnevna e-pošta sa sažetkom</stro
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
 msgstr "<strong class=\"marketing-highlight\">Provjera isporuke</strong> za potvrdu primitka"
-
-msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
-msgstr "<strong class=\"marketing-highlight\">Provjera isporuke</strong> za potvrdu primitka</strong>"
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
 msgstr "<strong class=\"marketing-highlight\">Primajte redovne obavijesti</strong> kako odgovori dolaze — bez zatrpavanja vašeg pretinca pristigle pošte"
@@ -125,6 +113,9 @@ msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr "<strong>{{brand}}</strong> završava u {{last4}}, istjek {{exp_month}}/{{exp_year}}"
+
+msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
+msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> poredano po <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">očisti</a>"
@@ -192,6 +183,21 @@ msgstr "Dodajte tijela javne vlasti vašoj skupini"
 msgid "Add credibility"
 msgstr "Dodajte vjerodostojnost"
 
+msgid "Add question"
+msgstr ""
+
+msgid "Add questions to your project"
+msgstr ""
+
+msgid "Add request"
+msgstr ""
+
+msgid "Add requests to your project"
+msgstr ""
+
+msgid "Add whole batch and related requests"
+msgstr ""
+
 msgid "Added"
 msgstr "Dodano"
 
@@ -203,6 +209,12 @@ msgstr "Svi zahtjevi"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
 msgstr "Svi zahtjevi unutar ove skupine ostat će privatni u istom razdoblju. Kada pojedini zahtjev postane javan, svi ostali zahtjevi iz ove skupine će također biti objavljeni na {{site_name}}."
+
+msgid "Allow blank"
+msgstr ""
+
+msgid "Allow muliple"
+msgstr ""
 
 msgid "Also called {{other_name}}."
 msgstr "Također se zove {{other_name}}"
@@ -261,6 +273,9 @@ msgstr "Naplata: mjesečno"
 msgid "Billed: Weekly"
 msgstr "Naplata: tjedno"
 
+msgid "Billed: every {{interval}}"
+msgstr ""
+
 msgid "Billing"
 msgstr "Naplata"
 
@@ -269,9 +284,6 @@ msgstr "Iznosi na vidjelo činjenice o prekomjernom trošenju imajući u vidu pr
 
 msgid "Browse by category"
 msgstr "Pretraživanje prema kategoriji"
-
-msgid "Browse public requests"
-msgstr "Pretraživanje javnih zahtjeva"
 
 msgid "CSV"
 msgstr "CSV"
@@ -315,6 +327,9 @@ msgstr "Provjerite da niste uključili neku <strong>osobnu informaciju</strong>.
 msgid "Choose a duration"
 msgstr "Odaberite trajanje"
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Collapse all correspondence"
 msgstr "Sažmite svu korespodenciju"
 
@@ -324,11 +339,23 @@ msgstr "Potvrdite svoj račun na {{site_name}}"
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "Nastavak plaćanja zahtjeva omogućen JavaScript u vašem pregledniku."
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Coupon code has expired."
 msgstr "Kôd kupona je istekao."
 
 msgid "Coupon code is invalid."
 msgstr "Kôd kupona je nevažeći."
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Create a new Project"
+msgstr ""
 
 msgid "Created"
 msgstr "Izrađen"
@@ -372,6 +399,9 @@ msgstr "Skica"
 msgid "Drafts"
 msgstr "Skice"
 
+msgid "Edit your project"
+msgstr ""
+
 msgid "Edit your request"
 msgstr "Uredite svoj zahtjev"
 
@@ -392,6 +422,9 @@ msgstr "Otvorite svu korespondenciju"
 
 msgid "Expires soon"
 msgstr "Uskoro istječe"
+
+msgid "Extract data"
+msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
 msgstr "Alati za upravljanje zahtjevima za pristup informacijama, za novinare_ke, aktiviste_ice i istraživače_ice"
@@ -456,6 +489,9 @@ msgstr "Na ovom zaslonu možete vidjeti što sljedeće napraviti da bi vaši zah
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 msgstr "Gavin Chait ispitao je 350 lokalnih vlasti kako bi saznao <a href=\"{{story_url}}\">koji su komercijalni prostori prazni</a>, da bi pomogao start-up tvrtkama."
 
+msgid "Generate invite link"
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr "Želite li primati novosti o {{pro_site_name}} e-poštom?"
 
@@ -516,6 +552,12 @@ msgstr "Istraživanje o azbestu u školama"
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr "Istraživačka novinarka Jenna Corderoy vrlo je dobro iskoristila Pro značajke privatnosti, čuvajući sve rezultate svojeg opsežnog istraživanja vezanog uz Brexit tajnima sve dok nije objavila svoje priče, otkrivajući, među ostalim, i činjenice o <a href=\"{{story_url_1}}\">prekomjernim troškovima kampanje</a> i European Research Group<a href=\"{{story_url_2}}\">ERG</a> analizama . "
 
+msgid "Invite contributors"
+msgstr ""
+
+msgid "Invite others to the project"
+msgstr ""
+
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
@@ -566,6 +608,9 @@ msgstr "Lucie Stephens, potaknuta smrću bliske osobe, zahtijevala je informacij
 
 msgid "Make a batch request"
 msgstr "Izradite skupni zahtjev"
+
+msgid "Make a project"
+msgstr ""
 
 msgid "Make a request"
 msgstr "Izradite zahtjev"
@@ -624,6 +669,9 @@ msgstr "Ne"
 msgid "No bodies selected"
 msgstr "Nije odabrano niti jedno tijelo javne vlasti"
 
+msgid "No contributors have joined this project yet"
+msgstr ""
+
 msgid "No more authorities can be added to this batch request."
 msgstr "Ne može se više dodati niti jedno tijelo javne vlasti u ovaj skupni zahtjev."
 
@@ -663,6 +711,9 @@ msgstr "Broj korisnika besplatnog probnog razdoblja: "
 msgid "Number of paying users:"
 msgstr "Broj korisnika koji plaćaju:"
 
+msgid "On the project"
+msgstr ""
+
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "Po isteku razdoblja privatnosti, sve što unesete na ovoj stranici, uključujući <strong>vaše ime</strong>, bit će <strong><a href=\"{{url}}\">objavljeno javno</a></strong> na ovoj stranici."
 
@@ -685,6 +736,9 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr "Kad za to budete spremni, objavljivanje podataka na kojima se temelji vaše istraživanja dat će mu dodatnu vjerodostojnost."
 
 msgid "Open"
+msgstr ""
+
+msgid "Options"
 msgstr ""
 
 msgid "Overflowing inbox?"
@@ -777,6 +831,9 @@ msgstr "Profesionalno"
 msgid "Profile"
 msgstr "Profil"
 
+msgid "Projects"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Dodajte kontekst vašem zahtjevu i razloge zašto ste ga sročili."
 
@@ -807,6 +864,9 @@ msgstr "Spremno za objavu"
 msgid "Refer a friend"
 msgstr "Preporučite prijatelju"
 
+msgid "Regenerate invite link"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Zapamtite, tijela javne vlasti imaju {{late_number_of_days}} kalendarskih dana da odgovore na vaš zahtjev."
 
@@ -818,6 +878,15 @@ msgstr "Podsjetnici"
 
 msgid "Remove"
 msgstr "Uklonite"
+
+msgid "Remove question"
+msgstr ""
+
+msgid "Remove request"
+msgstr ""
+
+msgid "Remove whole batch"
+msgstr ""
 
 msgid "Replies"
 msgstr "Odgovori"
@@ -888,6 +957,9 @@ msgstr "Pronađite tijelo javne vlasti"
 msgid "Search for an authority by name"
 msgstr "Pronađite tijelo javne vlasti prema nazivu"
 
+msgid "Search your requests by title"
+msgstr ""
+
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "Pretraga <strong>'{{search_term}}'</strong> u <strong>{{filter_description}}</strong> poredano po <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">očisti</a>"
 
@@ -945,11 +1017,10 @@ msgstr "Postavke"
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr "Podijelite kôd {{discount_code}} s prijateljem i osigurajte mu, ili njoj, popust {{discount_terms}} prilikom registracije."
 
-msgid "Show {{count}} request in detail</span>"
-msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] "Prikaži {{count}} zahtjev detaljno</span>"
-msgstr[1] "Prikaži {{count}} zahtjeva detaljno</span>"
-msgstr[2] "Prikažite {{count}} zahtjeva detaljno</span>"
+msgid "Show {{count}} request in detail"
+msgid_plural "Show {{count}} requests in detail"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sign up"
 msgstr "Registrirajte se"
@@ -959,6 +1030,9 @@ msgstr "Jednostavno, prihvatljiva cijena"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Žao nam je, niti jedno tijelo javne vlasti ne odgovara ovom pretraživanju"
+
+msgid "Sorry, no requests matched that search"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Žao nam je, nešto je pošlo krivo prilikom traženja rezultata, molimo pokušajte pretraživati ponovo."
@@ -1149,6 +1223,9 @@ msgstr "Ažurirajte"
 msgid "Update Card Details"
 msgstr "Ažurirajte detalje kartice"
 
+msgid "Update Project"
+msgstr ""
+
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Ažurirajte njegov status."
@@ -1178,6 +1255,9 @@ msgstr ""
 
 msgid "View authorities"
 msgstr "Pregledajte tijela javne vlasti"
+
+msgid "View public requests"
+msgstr ""
 
 msgid "Wall"
 msgstr "Zid"
@@ -1265,6 +1345,9 @@ msgstr "Uspješno ste otkazali svoju pretplatu na {{pro_site_name}}"
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Još niste dodali niti jedno tijelo javne vlasti u skupni zahtjev"
+
+msgid "You haven't added any reqeusts to your project yet"
+msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Znate što je uzrok pogrešci i možete <strong>predložiti rješenje</strong>, poput ispravne adrese e-pošte."
@@ -1389,6 +1472,12 @@ msgstr "posljednje ažurirano"
 msgid "or start a batch request"
 msgstr "ili započnite skupni zahtjev"
 
+msgid "per user, every {{interval}}"
+msgstr ""
+
+msgid "per user, per {{interval}}"
+msgstr ""
+
 msgid "requests that will be made public soon"
 msgstr "zahtjevi koji će uskoro biti objavljeni"
 
@@ -1498,3 +1587,6 @@ msgstr "{{public_body_name}} kasne s odgovorom na vaš zahtjev \"{{info_request_
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} puno kasne s odgovorom na vaš zahtjev \"{{info_request_title}}\"."
+
+msgid "{{site_name}} Projects is a early beta feature."
+msgstr ""

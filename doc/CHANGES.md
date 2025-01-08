@@ -1,4 +1,4 @@
-# develop
+# 0.45.0.0
 
 ## Highlighted Features
 
@@ -104,6 +104,10 @@
 * _Required:_ This upgrade requires upgrading Ruby from 3.0 to 3.1 or later.
   We recommend upgrading to the Ruby 3.2.
 
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
 * _Required:_ To migrate to the new `Category` feature, please run:
 
       bin/rails temp:migrate_public_body_categories
@@ -155,6 +159,108 @@
   allow for more flexibly, pricing changes, and multiple price points - for
   example annual pricing. For new prices you need to configure `STRIPE_PRICES`
   in `config/general.yml`.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin/citations/_list.html.erb
+    app/views/admin/foi_attachments/edit.html.erb
+    app/views/admin/info_request_batches/_admin_columns.html.erb
+    app/views/admin/notes/_form.html.erb
+    app/views/admin/notes/_locale_fields.html.erb
+    app/views/admin/notes/_note.html.erb
+    app/views/admin/notes/_show.html.erb
+    app/views/admin/notes/edit.html.erb
+    app/views/admin/notes/new.html.erb
+    app/views/admin/outgoing_messages/snippets/_form.html.erb
+    app/views/admin/outgoing_messages/snippets/_locale_fields.html.erb
+    app/views/admin_announcements/_form.html.erb
+    app/views/admin_announcements/_locale_fields.html.erb
+    app/views/admin_announcements/edit.html.erb
+    app/views/admin_announcements/new.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/_edit_outgoing.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/_tag_help.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_public_body/import_csv.html.erb
+    app/views/admin_public_body/new.html.erb
+    app/views/admin_public_body_categories/_category_list_item.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/_heading_list.html.erb
+    app/views/admin_public_body_categories/_locale_fields.html.erb
+    app/views/admin_public_body_categories/edit.html.erb
+    app/views/admin_public_body_categories/index.html.erb
+    app/views/admin_public_body_categories/new.html.erb
+    app/views/admin_public_body_headings/_form.html.erb
+    app/views/admin_public_body_headings/_locale_fields.html.erb
+    app/views/admin_public_body_headings/edit.html.erb
+    app/views/admin_public_body_headings/new.html.erb
+    app/views/admin_raw_email/_holding_pen.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_track/_some_tracks.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_browse.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_public_bodies.html.erb
+    app/views/alaveteli_pro/dashboard/_sidebar.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/general/_nav_items.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/index.html.erb
+    app/views/alaveteli_pro/invoices/_invoice.html.erb
+    app/views/alaveteli_pro/plans/_pricing_tiers.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/alaveteli_pro/subscriptions/_cancel_subscription.html.erb
+    app/views/alaveteli_pro/subscriptions/_subscription.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/citations/new.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_suggestions.html.erb
+    app/views/followups/_choose_recipient.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/general/_frontpage_requests_list.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_search_latest.html.erb
+    app/views/general/blog.html.erb
+    app/views/info_request_batch/_batch_sent.html.erb
+    app/views/info_request_batch/_downloads.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/one_time_passwords/show.html.erb
+    app/views/projects/projects/show.html.erb
+    app/views/public_body/_more_info.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body/view_email_captcha.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_attachments.html.erb
+    app/views/request/_citations.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_list_results.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_filter_form.html.erb
+    app/views/request/_request_listing_single.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_sidebar_request_listing.html.erb
+    app/views/request/_wall_listing.html.erb
+    app/views/request/details.html.erb
+    app/views/request/list.html.erb
+    app/views/request/new.html.erb
+    app/views/request/show.text.erb
+    app/views/request_game/play.html.erb
+    app/views/widgets/new.html.erb
+    app/views/widgets/show.html.erb
 
 # 0.44.0.2
 

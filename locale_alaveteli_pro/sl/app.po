@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Jernej Trebežnik, 2023\n"
 "Language-Team: Slovenian (https://app.transifex.com/mysociety/teams/33529/sl/)"
@@ -39,9 +39,6 @@ msgstr[1] ""
 msgid "(no title)"
 msgstr ""
 
-msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr ""
-
 msgid "12 Months"
 msgstr "12 mesecev"
 
@@ -63,12 +60,6 @@ msgstr ""
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr ""
 
-msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr ""
-
-msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr ""
-
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr ""
 
@@ -76,9 +67,6 @@ msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to ke
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr ""
-
-msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
@@ -123,6 +111,9 @@ msgid "<strong>You have already sent this request</strong> to some authorities i
 msgstr "Nekaterim navedenim organom ste na {{date}} <strong>že poslali zahtevo</strong>."
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
+msgstr ""
+
+msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
 msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
@@ -191,6 +182,21 @@ msgstr ""
 msgid "Add credibility"
 msgstr ""
 
+msgid "Add question"
+msgstr ""
+
+msgid "Add questions to your project"
+msgstr ""
+
+msgid "Add request"
+msgstr ""
+
+msgid "Add requests to your project"
+msgstr ""
+
+msgid "Add whole batch and related requests"
+msgstr ""
+
 msgid "Added"
 msgstr ""
 
@@ -201,6 +207,12 @@ msgid "All requests"
 msgstr ""
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
+msgstr ""
+
+msgid "Allow blank"
+msgstr ""
+
+msgid "Allow muliple"
 msgstr ""
 
 msgid "Also called {{other_name}}."
@@ -260,6 +272,9 @@ msgstr ""
 msgid "Billed: Weekly"
 msgstr ""
 
+msgid "Billed: every {{interval}}"
+msgstr ""
+
 msgid "Billing"
 msgstr ""
 
@@ -268,9 +283,6 @@ msgstr ""
 
 msgid "Browse by category"
 msgstr ""
-
-msgid "Browse public requests"
-msgstr "Brskajte med zadnjimi zahtevki"
 
 msgid "CSV"
 msgstr ""
@@ -314,6 +326,9 @@ msgstr ""
 msgid "Choose a duration"
 msgstr ""
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Collapse all correspondence"
 msgstr ""
 
@@ -323,10 +338,22 @@ msgstr ""
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr ""
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Coupon code has expired."
 msgstr ""
 
 msgid "Coupon code is invalid."
+msgstr ""
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Create a new Project"
 msgstr ""
 
 msgid "Created"
@@ -371,6 +398,9 @@ msgstr ""
 msgid "Drafts"
 msgstr ""
 
+msgid "Edit your project"
+msgstr ""
+
 msgid "Edit your request"
 msgstr ""
 
@@ -390,6 +420,9 @@ msgid "Expand all correspondence"
 msgstr ""
 
 msgid "Expires soon"
+msgstr ""
+
+msgid "Extract data"
 msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
@@ -455,6 +488,9 @@ msgstr ""
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 msgstr ""
 
+msgid "Generate invite link"
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
 
@@ -515,6 +551,12 @@ msgstr ""
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr ""
 
+msgid "Invite contributors"
+msgstr ""
+
+msgid "Invite others to the project"
+msgstr ""
+
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
@@ -564,6 +606,9 @@ msgid "Lucie Stephens, prompted by the death of someone she cared about, request
 msgstr ""
 
 msgid "Make a batch request"
+msgstr ""
+
+msgid "Make a project"
 msgstr ""
 
 msgid "Make a request"
@@ -623,6 +668,9 @@ msgstr ""
 msgid "No bodies selected"
 msgstr ""
 
+msgid "No contributors have joined this project yet"
+msgstr ""
+
 msgid "No more authorities can be added to this batch request."
 msgstr ""
 
@@ -662,6 +710,9 @@ msgstr ""
 msgid "Number of paying users:"
 msgstr ""
 
+msgid "On the project"
+msgstr ""
+
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr ""
 
@@ -684,6 +735,9 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr ""
 
 msgid "Open"
+msgstr ""
+
+msgid "Options"
 msgstr ""
 
 msgid "Overflowing inbox?"
@@ -776,6 +830,9 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+msgid "Projects"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
 
@@ -805,6 +862,9 @@ msgstr ""
 msgid "Refer a friend"
 msgstr ""
 
+msgid "Regenerate invite link"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr ""
 
@@ -815,6 +875,15 @@ msgid "Reminders"
 msgstr ""
 
 msgid "Remove"
+msgstr ""
+
+msgid "Remove question"
+msgstr ""
+
+msgid "Remove request"
+msgstr ""
+
+msgid "Remove whole batch"
 msgstr ""
 
 msgid "Replies"
@@ -885,6 +954,9 @@ msgstr "Najdite organ"
 msgid "Search for an authority by name"
 msgstr "Iščite po nazivu organa"
 
+msgid "Search your requests by title"
+msgstr ""
+
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr ""
 
@@ -940,8 +1012,8 @@ msgstr ""
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr ""
 
-msgid "Show {{count}} request in detail</span>"
-msgid_plural "Show {{count}} requests in detail</span>"
+msgid "Show {{count}} request in detail"
+msgid_plural "Show {{count}} requests in detail"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -953,6 +1025,9 @@ msgstr ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Oprostite, našli nismo nobenega organa s tem nazivom"
+
+msgid "Sorry, no requests matched that search"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Oprostite, nekaj je šlo narobe. Poskusite spet kasneje."
@@ -1141,6 +1216,9 @@ msgstr ""
 msgid "Update Card Details"
 msgstr ""
 
+msgid "Update Project"
+msgstr ""
+
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] ""
@@ -1168,6 +1246,9 @@ msgid "View Receipt"
 msgstr ""
 
 msgid "View authorities"
+msgstr ""
+
+msgid "View public requests"
 msgstr ""
 
 msgid "Wall"
@@ -1255,6 +1336,9 @@ msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgstr ""
 
 msgid "You haven't added any authorities to your batch yet"
+msgstr ""
+
+msgid "You haven't added any reqeusts to your project yet"
 msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
@@ -1380,6 +1464,12 @@ msgstr ""
 msgid "or start a batch request"
 msgstr ""
 
+msgid "per user, every {{interval}}"
+msgstr ""
+
+msgid "per user, per {{interval}}"
+msgstr ""
+
 msgid "requests that will be made public soon"
 msgstr ""
 
@@ -1480,4 +1570,7 @@ msgid "{{public_body_name}} are delayed in responding to your request \"{{info_r
 msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
+msgstr ""
+
+msgid "{{site_name}} Projects is a early beta feature."
 msgstr ""

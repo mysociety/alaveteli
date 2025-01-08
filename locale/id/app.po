@@ -48,7 +48,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Agung Riyadi <ariadi01@gmail.com>, 2012-2013\n"
 "Language-Team: Indonesian (http://app.transifex.com/mysociety/alaveteli/langua"
@@ -190,10 +190,10 @@ msgstr ""
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">Lihat semua</a> atau <a href=\"{{add_url}}\">minta kami untuk menambahkan</a>."
 
-msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
+msgid "<a href=\"{{info_request_batch_url}}\">{{title}}</a> part of a batch sent to {{count}} authorities on {{date}}"
 msgstr ""
 
-msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
+msgid "<a href=\"{{info_request_url}}\">{{title}}</a> requested from <a href=\"{{public_body_url}}\">{{public_body_name}}</a> on {{date}}"
 msgstr ""
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
@@ -284,8 +284,8 @@ msgstr ""
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
 msgstr "<strong><code>jenis:</code></strong> untuk memilih jenis yang akan dicari, lihat<a href=\"{{varieties_url}}\">tabel jenis</a> di bawah."
 
-msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
-msgstr "<strong>Saran</strong> tentang bagaimana mendapatkan respon yang akan memuaskan pemohon. </li>"
+msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester."
+msgstr ""
 
 msgid "<strong>All the information</strong> has been sent"
 msgstr "<strong>Semua informasi </strong> telah dikirimkan"
@@ -326,6 +326,9 @@ msgid "<strong>If you change your name, the name on your old requests won't chan
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
+msgid "<strong>Keep this passcode safe.</strong> You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
 msgstr ""
 
 msgid "<strong>No response</strong> has been received <small>(maybe there's just an acknowledgement)</small>"
@@ -382,8 +385,8 @@ msgstr ""
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "Sebuah <a href=\"{{request_url}}\">tindak lanjut</a> untuk <em>{{request_title}}</em> telah terkirim kepada {{public_body_name}} oleh {{info_request_user}} pada {{date}}."
 
-msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
-msgstr "Sebuah <a href=\"{{request_url}}\">jawaban</a> untuk <em>{{request_title}}</em> telah dikirim oleh {{public_body_name}} kepada {{info_request_user}} pada {{date}}. Status permintaan sekarang adalah : {{request_status}}"
+msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}."
+msgstr ""
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
 msgstr ""
@@ -429,9 +432,6 @@ msgstr "Tentang Anda:"
 msgid "About {{count}} FOI requests found"
 msgstr ""
 
-msgid "Academic paper"
-msgstr ""
-
 msgid "Account closed at user request"
 msgstr ""
 
@@ -462,6 +462,12 @@ msgstr ""
 "                sebuah <strong>ringkasan dari respon tersebut </strong>."
 
 msgid "Add authority - {{public_body_name}}"
+msgstr ""
+
+msgid "Add description"
+msgstr ""
+
+msgid "Add description and make dataset public"
 msgstr ""
 
 msgid "Add the authority:"
@@ -640,22 +646,16 @@ msgstr ""
 msgid "Awaiting classification"
 msgstr ""
 
-msgid "Awaiting classification."
-msgstr "Menunggu klasifikasi."
-
 msgid "Awaiting internal review"
 msgstr ""
-
-msgid "Awaiting internal review."
-msgstr "Menunggu kajian internal."
 
 msgid "Awaiting response"
 msgstr ""
 
-msgid "Awaiting response."
-msgstr "Menunggu respon."
-
 msgid "Back to content"
+msgstr ""
+
+msgid "Back to project"
 msgstr ""
 
 msgid "Banned for evading another ban"
@@ -694,11 +694,8 @@ msgstr ""
 msgid "Browse all requests &rarr;"
 msgstr ""
 
-msgid "Browse and search requests"
-msgstr "Tampilkan dan cari permintaan"
-
-msgid "Browse and search requests (page {{count}})"
-msgstr "Tampilkan dan cari permintaan (page {{count}})"
+msgid "Browse by category"
+msgstr ""
 
 msgid "Browse latest requests"
 msgstr ""
@@ -706,8 +703,8 @@ msgstr ""
 msgid "Browse latest responses"
 msgstr ""
 
-msgid "Browse requests"
-msgstr "Tampilkan permintaan"
+msgid "Browse requests by category"
+msgstr ""
 
 msgid "By law, they have to respond."
 msgstr ""
@@ -725,6 +722,12 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "Berdasarkan undang-undang, {{public_body_link}} seharusnya sudah menanggapi <strong>pada waktunya</strong> dan"
 
 msgid "CSV"
+msgstr ""
+
+msgid "Campaigning"
+msgstr ""
+
+msgid "Campaigning and Advocacy"
 msgstr ""
 
 msgid "Can't find the one you want?"
@@ -799,6 +802,9 @@ msgstr "Silakan klarifikasi permintaan Anda - {{request_title}}"
 msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Mengklasifikasi respon FOI dari {{authority_name}}"
 
+msgid "Classify requests"
+msgstr ""
+
 msgid "Classify responses"
 msgstr ""
 
@@ -867,10 +873,10 @@ msgstr "Konfirmasi alamat email Anda"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Konfirmasi alamat email Anda yang baru di {{site_name}}"
 
-msgid "Considered by administrators as not an FOI request."
+msgid "Considered by administrators as not an FOI request"
 msgstr ""
 
-msgid "Considered by administrators as vexatious."
+msgid "Considered by administrators as vexatious"
 msgstr ""
 
 msgid "Contact us"
@@ -941,6 +947,9 @@ msgstr ""
 msgid "Data interpretation"
 msgstr ""
 
+msgid "Dataset was successfully updated."
+msgstr ""
+
 msgid "Date:"
 msgstr "Tanggal:"
 
@@ -968,14 +977,14 @@ msgstr ""
 msgid "Delayed response to your FOI request - {{request_title}}"
 msgstr "Respon yang tertunda atas permintaan FOI Anda - {{request_title}}"
 
-msgid "Delayed."
-msgstr "Tertunda."
-
 msgid "Delivery Status for Outgoing Message #{{id}}"
 msgstr ""
 
 msgid "Delivery error"
 msgstr "Kesalahan pengiriman"
+
+msgid "Description"
+msgstr ""
 
 msgid "Details of request &ldquo;{{request_title}}&rdquo;"
 msgstr ""
@@ -1013,16 +1022,16 @@ msgstr "Selesai"
 msgid "Done &gt;&gt;"
 msgstr "Selesai &gt;&gt;"
 
-msgid "Download Data"
-msgstr ""
-
-msgid "Download Leaderboard Data"
+msgid "Download"
 msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "Unduh file zip dari semua korespondensi"
 
 msgid "Download attachment"
+msgstr ""
+
+msgid "Download leaderboard data"
 msgstr ""
 
 msgid "Download original attachment"
@@ -1039,8 +1048,26 @@ msgstr ""
 "Edit dan tambah<strong>lebih banyak rincian</strong> ke pesan di atas,\n"
 "                Menjelaskan mengapa Anda tidak puas dengan respon mereka."
 
+msgid "Edit description"
+msgstr ""
+
+msgid "Edit description and make dataset public"
+msgstr ""
+
+msgid "Edit project"
+msgstr ""
+
+msgid "Edit questions"
+msgstr ""
+
+msgid "Edit requests"
+msgstr ""
+
 msgid "Edit text about you"
 msgstr "Edit teks tentang Anda"
+
+msgid "Edit your dataset"
+msgstr ""
 
 msgid "Edit your request"
 msgstr "Edit permintaan ini"
@@ -1107,6 +1134,9 @@ msgstr ""
 msgid "Expand all correspondence"
 msgstr ""
 
+msgid "Explore in Datasette"
+msgstr ""
+
 msgid "Extract data"
 msgstr ""
 
@@ -1119,8 +1149,8 @@ msgstr ""
 msgid "FOI"
 msgstr "FOI"
 
-msgid "FOI email address for {{public_body}}"
-msgstr "Alamat email FOI untuk{{public_body}}"
+msgid "FOI in Action"
+msgstr ""
 
 msgid "FOI law does not apply to this authority."
 msgstr ""
@@ -1159,6 +1189,9 @@ msgid "Find the authorities"
 msgstr ""
 
 msgid "Find the authorities to write to"
+msgstr ""
+
+msgid "Find updated contact details"
 msgstr ""
 
 msgid "First, did your other requests succeed?"
@@ -1209,9 +1242,6 @@ msgstr "Tindak lanjuti"
 msgid "Follow up message sent by requester"
 msgstr "Tindak lanjuti pesan yang dikirimkan oleh pemohon"
 
-msgid "Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
-
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
@@ -1224,8 +1254,8 @@ msgstr "Tindak lanjut dan respon baru terhadap permintaan ini telah dihentikan u
 msgid "Follow us on Facebook"
 msgstr ""
 
-msgid "Follow us on twitter"
-msgstr "Ikuti kami di twitter"
+msgid "Follow us on X"
+msgstr ""
 
 msgid "Following"
 msgstr ""
@@ -1246,13 +1276,18 @@ msgid_plural "Found {{count}} public authorities beginning with ‘{{first_lette
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Found {{count}} public authority in the category ‘{{category_name}}’"
-msgid_plural "Found {{count}} public authorities in the category ‘{{category_name}}’"
+msgid "Found {{count}} public authority in the category ‘{{category}}’"
+msgid_plural "Found {{count}} public authorities in the category ‘{{category}}’"
 msgstr[0] ""
 msgstr[1] ""
 
 msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
 msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Found {{count}} request tagged ‘{{tag_name}}’"
+msgid_plural "Found {{count}} requests tagged ‘{{tag_name}}’"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1269,9 +1304,6 @@ msgid "Freedom of Information law does not apply to this authority, so you canno
 msgstr ""
 "Hukum Freedom of Information tidak berlaku kepada otoritas ini, jadi Anda tidak dapat mengajukan\n"
 "                permintaan kepadanya."
-
-msgid "Freedom of Information law no longer applies to this authority. Follow up messages to existing requests are sent to <strong>{{authority_email}}</strong>."
-msgstr ""
 
 msgid "Freedom of Information law no longer applies to {{public_body_name}}."
 msgstr ""
@@ -1324,13 +1356,10 @@ msgstr ""
 msgid "Handled by postal mail"
 msgstr ""
 
-msgid "Handled by postal mail."
+msgid "Has this batch request been referenced in journalism, campaigning, or research?"
 msgstr ""
 
-msgid "Has this request been referenced in a news article or academic paper?"
-msgstr ""
-
-msgid "Has this request been referenced in a news article or academic paper? Let us know:"
+msgid "Has this request been referenced in journalism, campaigning, or research?"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1353,6 +1382,9 @@ msgstr ""
 
 msgid "Help"
 msgstr "Bantuan"
+
+msgid "Help Out"
+msgstr ""
 
 msgid "Help us classify requests that haven't been updated"
 msgstr ""
@@ -1455,9 +1487,6 @@ msgstr "Saya sudah menerima <strong>pesan error</strong>"
 msgid "I've received an error message"
 msgstr "Saya menerima pesan error"
 
-msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
-msgstr "Jika alamatnya salah, atau Anda tahu alamat yang lebih baik, silakan <a href=\"{{url}}\">hubungi kami</a>."
-
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
 msgstr "Jika errornya adalah kegagalan pengiriman, dan Anda dapat menemukan alamat email FOI otoritas publik yang baru, silakan memberi tahu kami menggunakan form dibawah ini."
 
@@ -1523,11 +1552,6 @@ msgstr ""
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
 msgstr "Jika Anda belum melakukannya, silakan tulis pesan di bawah untuk member tahu otoritas bahwa Anda telah menarik permintaan Anda. Jika tidak, mereka tidak akan tahu bahwa permintaan tersebut telah ditarik."
 
-msgid "If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>. You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
-"  Jika Anda mengetahui alamat yang digunakan, maka silakan<a href=\"{{url}}\">mengirimkannya kepada kami</a>.\n"
-"        Anda mungkin dapat menemukan alamatnya di website mereka, atau dengan menelepon dan menanyakannya kepada mereka."
-
 msgid "If you reply to this message it will go directly to {{user_name}}, who will learn your email address. Only reply if that is okay."
 msgstr "Jika Anda membalas pesan ini maka akan diteruskan ke {{user_name}}, yang akan melihat alamat email Anda. Hanya balasan jika itu tidak apa-apa."
 
@@ -1567,9 +1591,6 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-msgid "In the News"
-msgstr ""
-
 msgid "Include relevant links, such as to a campaign page, your blog or a twitter account. They will be made clickable. e.g."
 msgstr ""
 " Sertakan tautan-tautan yang relevan, seperti tautan ke halaman kampanye, blog Anda atau \n"
@@ -1584,9 +1605,6 @@ msgstr "Permintaan individu"
 
 msgid "Information not held"
 msgstr ""
-
-msgid "Information not held."
-msgstr "Informasi tidak dipegang."
 
 msgid "Information on emissions and discharges (e.g. noise, energy, radiation, waste materials)"
 msgstr ""
@@ -1614,6 +1632,9 @@ msgstr ""
 msgid "Invalid token"
 msgstr ""
 
+msgid "Invite and edit contributors"
+msgstr ""
+
 msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
 msgstr "Apakah {{email_address}} adalah alamat yang salah untuk {{law_used_full}} permintaan kepada {{public_body_name}}? Jika demikian, silakan hubungi kami menggunakan formulir ini:"
 
@@ -1638,11 +1659,11 @@ msgstr ""
 msgid "Joined {{site_name}} in {{year}}"
 msgstr ""
 
+msgid "Journalism"
+msgstr ""
+
 msgid "Just one more thing"
 msgstr "Satu hal lagi"
-
-msgid "Keep this passcode safe. You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
-msgstr ""
 
 msgid "Keep your request up to date"
 msgstr ""
@@ -1686,6 +1707,9 @@ msgstr ""
 msgid "Let us know"
 msgstr ""
 
+msgid "Let us know about great examples of <a href=\"{{citations_path}}\">FOI in Action</a>."
+msgstr ""
+
 msgid "Let us know and we’ll help you challenge it."
 msgstr ""
 
@@ -1708,9 +1732,6 @@ msgstr "Masuk ke tampilan admin"
 
 msgid "Long overdue"
 msgstr ""
-
-msgid "Long overdue."
-msgstr "Lama terlambat."
 
 msgid "Made between"
 msgstr "Dibuat antara"
@@ -1808,9 +1829,6 @@ msgstr ""
 msgid "Needs status update"
 msgstr ""
 
-msgid "New Citation"
-msgstr ""
-
 msgid "New Freedom of Information requests"
 msgstr "Permintaan Freedom of Information baru"
 
@@ -1843,9 +1861,6 @@ msgstr "Update baru untuk permintaan '{{request_title}}'"
 
 msgid "Newest results first"
 msgstr "Hasil-hasil terbaru terlebih dahulu"
-
-msgid "News story"
-msgstr ""
 
 msgid "Next"
 msgstr "Berikutnya"
@@ -1928,6 +1943,9 @@ msgstr ""
 msgid "Number of requests"
 msgstr ""
 
+msgid "Numeric"
+msgstr ""
+
 msgid "OR remove the existing photo"
 msgstr "ATAU menghapus foto yang sudah ada"
 
@@ -1990,9 +2008,6 @@ msgstr ""
 
 msgid "Partially successful"
 msgstr ""
-
-msgid "Partially successful."
-msgstr "Berhasil sebagian."
 
 msgid "Password is not correct"
 msgstr "Kode sandi salah"
@@ -2274,6 +2289,9 @@ msgstr ""
 msgid "Privacy and cookies"
 msgstr ""
 
+msgid "Private"
+msgstr ""
+
 msgid "Profile image for {{user_name}}"
 msgstr ""
 
@@ -2281,6 +2299,9 @@ msgid "Project owner"
 msgstr ""
 
 msgid "Proposed Email:"
+msgstr ""
+
+msgid "Public"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2364,9 +2385,6 @@ msgstr "Hasil yang baru dijelaskan dulu"
 msgid "Refused"
 msgstr ""
 
-msgid "Refused."
-msgstr "Ditolak."
-
 msgid "Regenerate one time passcode"
 msgstr ""
 
@@ -2406,8 +2424,8 @@ msgstr "Laporkan permintaan ini"
 msgid "Reported"
 msgstr ""
 
-msgid "Reported for administrator attention."
-msgstr "Dilaporkan untuk perhatian administrator."
+msgid "Reported for administrator attention"
+msgstr ""
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
 msgstr ""
@@ -2420,6 +2438,9 @@ msgstr "Minta kajian internal"
 
 msgid "Request an internal review from {{person_or_body}}"
 msgstr "Minta kajian internal dari {{person_or_body}}"
+
+msgid "Request classifications and extracted data is compiled into a dataset"
+msgstr ""
 
 msgid "Request email can't be nil"
 msgstr ""
@@ -2476,6 +2497,9 @@ msgid "Requests will be sent to the following bodies:"
 msgstr ""
 
 msgid "Requires admin attention"
+msgstr ""
+
+msgid "Research"
 msgstr ""
 
 msgid "Respond by email"
@@ -2556,6 +2580,12 @@ msgstr ""
 msgid "Search queries"
 msgstr "Permintaan pencarian"
 
+msgid "Search requests"
+msgstr ""
+
+msgid "Search requests (page {{count}})"
+msgstr ""
+
 msgid "Search results"
 msgstr "Hasil pencarian"
 
@@ -2569,6 +2599,12 @@ msgid "Section"
 msgstr ""
 
 msgid "See all &rarr;"
+msgstr ""
+
+msgid "See more examples of <a href=\"{{citations_path}}\">FOI in Action</a>."
+msgstr ""
+
+msgid "Select"
 msgstr ""
 
 msgid "Send a followup"
@@ -2619,6 +2655,11 @@ msgstr ""
 msgid "Sent a follow up to {{public_body_name}} again."
 msgstr ""
 
+msgid "Sent batch ({{batch_admin_link}}) to one authority by {{info_request_user}} ({{user_admin_link}}) on {{date}}."
+msgid_plural "Sent batch ({{batch_admin_link}}) to {{authority_count}} authorities by {{info_request_user}} ({{user_admin_link}}) on {{date}}."
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Sent request to {{public_body_link}} again, using a new contact address."
 msgstr ""
 
@@ -2640,6 +2681,9 @@ msgid "Set your profile photo"
 msgstr "Mengatur foto profil Anda"
 
 msgid "Share on Facebook"
+msgstr ""
+
+msgid "Share on X"
 msgstr ""
 
 msgid "Share with private link"
@@ -2861,9 +2905,6 @@ msgstr "Permintaan Freedom of Information yang berhasil"
 msgid "Successful requests"
 msgstr ""
 
-msgid "Successful."
-msgstr "Berhasil."
-
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
 msgstr "Sarankan bagaimana pemohon dapat menemukan <strong>sisa informasi</strong>."
 
@@ -2889,6 +2930,9 @@ msgid "Tags:"
 msgstr "Label:"
 
 msgid "Tasks"
+msgstr ""
+
+msgid "Text"
 msgstr ""
 
 msgid "Thank you for helping us keep the site tidy!"
@@ -2962,6 +3006,12 @@ msgstr ""
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
 msgstr ""
 
+msgid "The Xapian indexing has been stuck for more than 1 hour"
+msgstr ""
+
+msgid "The Xapian indexing is not stuck"
+msgstr ""
+
 msgid "The accounts have been left as they previously were."
 msgstr "Akun-akun yang ditinggalkan sebagaimana mereka sebelumnya."
 
@@ -3022,12 +3072,6 @@ msgid "The last user was created in the last day"
 msgstr ""
 
 msgid "The last user was created over a day ago"
-msgstr ""
-
-msgid "The oldest Xapian index job, has been idle for more than 1 hour"
-msgstr ""
-
-msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
 msgstr ""
 
 msgid "The page doesn't exist. Things you can try now:"
@@ -3213,8 +3257,8 @@ msgstr ""
 msgid "There is nothing to display yet."
 msgstr ""
 
-msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
-msgstr "Ada <strong>kesalahan pengiriman</strong> atau yang serupa, yang perlu diperbaiki oleh {{site_name}} tim."
+msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team. Can you help by <a href=\"{{change_request_url}}\">finding updated contact details</a>?"
+msgstr ""
 
 msgid "There was an error with the reCAPTCHA. Please try again."
 msgstr ""
@@ -3610,12 +3654,6 @@ msgstr ""
 msgid "Turn off email alerts"
 msgstr "Matikan tanda (notifikasi) email"
 
-msgid "Tweet it"
-msgstr ""
-
-msgid "Tweet this request"
-msgstr "Tweet permintaan ini"
-
 msgid "Two factor authentication adds extra security to your account by requiring more information to reset your password."
 msgstr ""
 
@@ -3684,8 +3722,8 @@ msgstr "Berhenti langganan"
 msgid "Unusual response"
 msgstr ""
 
-msgid "Unusual response."
-msgstr "Respon yang tidak biasa."
+msgid "Update dataset"
+msgstr ""
 
 msgid "Update email address - {{public_body_name}}"
 msgstr ""
@@ -3723,23 +3761,14 @@ msgstr ""
 msgid "Vexatious annotation"
 msgstr ""
 
-msgid "View FOI email address"
-msgstr "Tampilkan alamat email FOI"
-
-msgid "View FOI email address for '{{public_body_name}}'"
-msgstr "Tampilkan alamat email FOI untuk '{{public_body_name}}'"
-
-msgid "View FOI email address for {{public_body_name}}"
-msgstr "Tampilkan alamat email FOI untuk {{public_body_name}}"
-
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Tampilkan permintaan Freedom of Information yang dibuat oleh {{user_name}}:"
 
 msgid "View authorities"
 msgstr "Tampilkan otoritas"
 
-msgid "View email"
-msgstr "Tampilkan email"
+msgid "View dataset"
+msgstr ""
 
 msgid "View event history details"
 msgstr ""
@@ -3747,11 +3776,17 @@ msgstr ""
 msgid "View other requests to {{public_body}}"
 msgstr ""
 
+msgid "View requests"
+msgstr ""
+
 msgid "View your two factor authentication one time passcode"
 msgstr ""
 
-msgid "Waiting clarification."
-msgstr "Menunggu klarifikasi."
+msgid "Visibility"
+msgstr ""
+
+msgid "Waiting clarification"
+msgstr ""
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
 msgstr "Menunggu <strong>kajian internal</strong> oleh {{public_body_link}} mengenai penanganan mereka terhadap permintaan ini."
@@ -3782,9 +3817,6 @@ msgstr ""
 
 msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
 msgstr ""
-
-msgid "We do not have a working request email address for this authority."
-msgstr "Kami tidak memiliki alamat email permintaan yang bekerja untuk otoritas ini."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Kami tidak memiliki alamat {{law_used_full}} yang bekerja untuk {{public_body_name}}."
@@ -3903,6 +3935,9 @@ msgstr ""
 msgid "What's happened:"
 msgstr ""
 
+msgid "When a dataset is made public, it cannot be reverted to private."
+msgstr ""
+
 msgid "When you get there, please update the status to say if the response contains any useful information."
 msgstr ""
 "Ketika Anda sampai di sana, mohon perbarui status untuk mengatakan apakah respon tersebut \n"
@@ -3931,8 +3966,8 @@ msgstr ""
 msgid "Withdrawn"
 msgstr ""
 
-msgid "Withdrawn by the requester."
-msgstr "Ditarik oleh pemohon."
+msgid "Withdrawn by the requester"
+msgstr ""
 
 msgid "Wk"
 msgstr "Wk"
@@ -3956,6 +3991,9 @@ msgid "Writing your request"
 msgstr ""
 
 msgid "Yes"
+msgstr ""
+
+msgid "Yes/No"
 msgstr ""
 
 msgid "You already created the same batch of requests on {{date}}. You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
@@ -4611,9 +4649,6 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-msgid "unknown reason"
-msgstr "alasan tidak diketahui"
-
 msgid "unknown reason "
 msgstr "alasan tidak diketahui "
 
@@ -4650,9 +4685,6 @@ msgstr "{{authority_name}} <strong>tidak memiliki</strong> informasi yang dimint
 msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
 msgstr "{{authority_name}} sedang <strong>menunggu klarifikasi Anda</strong>."
 
-msgid "{{contributor_count}} contributors"
-msgstr ""
-
 msgid "{{count}} Attachment"
 msgid_plural "{{count}} Attachments"
 msgstr[0] ""
@@ -4660,6 +4692,11 @@ msgstr[1] ""
 
 msgid "{{count}} annotation made."
 msgid_plural "{{count}} annotations made."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} contributor has joined this project"
+msgid_plural "{{count}} contributors have joined this project"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -4811,8 +4848,8 @@ msgstr ""
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} sesuai '{{query}}'"
 
-msgid "{{site_name}} blog and tweets"
-msgstr "{{site_name}} blog dan tweet"
+msgid "{{site_name}} blog"
+msgstr ""
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
@@ -4824,9 +4861,6 @@ msgstr ""
 
 msgid "{{site_name}} login link"
 msgstr ""
-
-msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
-msgstr "{{site_name}} mengirimkan permintaan baru kepada <strong>{{request_email}}</strong> untuk otoritas ini."
 
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
