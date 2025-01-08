@@ -12,7 +12,6 @@ require "action_mailer/railtie"
 require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
-require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 require File.dirname(__FILE__) + '/../lib/configuration'
@@ -24,15 +23,8 @@ Bundler.require(*Rails.groups)
 
 module Alaveteli
   class Application < Rails::Application
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-    config.autoloader = :zeitwerk
 
     # Enable new framework defaults configurations for later Rails versions
     # preventing deprecation warnings
@@ -41,6 +33,22 @@ module Alaveteli
     # Disable new framework default has_many_inversing breaks some specs due to
     # an apparent regression in Rails
     config.active_record.has_many_inversing = false # 6.1
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w(assets tasks))
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
