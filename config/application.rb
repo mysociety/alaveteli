@@ -101,5 +101,7 @@ module Alaveteli
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { host: AlaveteliConfiguration.domain }
+
+    config.active_storage.variant_processor = :mini_magick
   end
 end
