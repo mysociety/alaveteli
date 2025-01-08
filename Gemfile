@@ -79,7 +79,7 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.5.1'
 
 gem 'pg', '~> 1.5.9'
 
