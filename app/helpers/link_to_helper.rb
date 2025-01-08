@@ -6,12 +6,11 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 module LinkToHelper
-
   # Links to various models
 
   # Requests
   def request_url(info_request, options = {})
-    show_request_url({ url_title: info_request.url_title }.merge(options))
+    show_request_url(info_request.url_title, options)
   end
 
   def request_path(info_request, options = {})
@@ -81,9 +80,12 @@ module LinkToHelper
   def respond_to_last_url(info_request, options = {})
     last_response = info_request.get_last_public_response
     if last_response.nil?
-      new_request_followup_url(options.merge(request_id: info_request.id))
+      new_request_followup_url(info_request.url_title, options)
     else
-      new_request_incoming_followup_url(options.merge(request_id: info_request.id, incoming_message_id: last_response.id))
+      new_request_incoming_followup_url(
+        info_request.url_title,
+        options.merge(incoming_message_id: last_response.id)
+      )
     end
   end
 
@@ -288,6 +290,12 @@ module LinkToHelper
     end
   end
 
+  def current_path_without_locale
+    unsafe_keys = %w[protocol host locale]
+    sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!
+    url_for(sanitized_params.merge(only_path: true))
+  end
+
   def current_path_with_locale(locale)
     unsafe_keys = %w[protocol host]
     sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!
@@ -313,6 +321,7 @@ module LinkToHelper
     anchor ||= dom_id(message)
 
     return "##{anchor}" if options[:anchor_only]
+
     default_options = { anchor: anchor }
 
     default_options[:nocache] = anchor if options.delete(:cachebust)
@@ -337,5 +346,14 @@ module LinkToHelper
     end
 
     [prefix, param_key, record.to_param].compact.join('-')
+  end
+
+  def add_query_params_to_url(url, new_params)
+    uri = Addressable::URI.parse(url)
+    uri.query = Rack::Utils.parse_nested_query(uri.query).
+      with_indifferent_access.
+      merge(new_params).
+      to_param
+    uri.to_s
   end
 end

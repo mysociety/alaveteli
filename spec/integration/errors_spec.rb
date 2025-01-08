@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "When errors occur" do
-
   before(:each) do
     # This should happen automatically before each test but doesn't with these integration
     # tests for some reason.
@@ -10,18 +9,15 @@ RSpec.describe "When errors occur" do
 
   context 'when considering all requests local (by default all in development)',
           local_requests: true do
-
     it 'should show a full trace for general errors' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get "/request/example"
       expect(response.body).to match('<div id="traces-0"')
       expect(response.body).to match('An example error')
     end
-
   end
 
   context 'when not considering all requests local', local_requests: false do
-
     it "should render a 404 for unrouteable URLs using the general/exception_caught template" do
       get "/frobsnasm"
       expect(response).to render_template('general/exception_caught')
@@ -86,7 +82,9 @@ RSpec.describe "When errors occur" do
 
     it 'should assign the locale for the general/exception_caught template' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
-      get "/es/request/example"
+      get "/es"
+      follow_redirect!
+      get "/request/example"
       expect(response).to render_template('general/exception_caught')
       expect(response.body).to match('Lo sentimos, hubo un problema procesando esta página')
     end
@@ -94,6 +92,7 @@ RSpec.describe "When errors occur" do
     it 'should render a 403 with text body for attempts at directory listing for attachments' do
       info_request = FactoryBot.create(:info_request_with_pdf_attachment)
       id = info_request.id
+      url_title = info_request.url_title
       prefix = id.to_s[0..2]
       msg_id = info_request.incoming_messages.first.id
 
@@ -103,11 +102,11 @@ RSpec.describe "When errors occur" do
       )
       FileUtils.mkdir_p(cache_key_path)
 
-      get "/request/#{id}/response/#{msg_id}/attach/html/1/"
+      get "/request/#{url_title}/response/#{msg_id}/attach/html/1/"
       expect(response.body).to include('Directory listing not allowed')
       expect(response.code).to eq('403')
 
-      get "/request/#{id}/response/#{msg_id}/attach/html"
+      get "/request/#{url_title}/response/#{msg_id}/attach/html"
       expect(response.body).to include('Directory listing not allowed')
       expect(response.code).to eq('403')
     end
@@ -122,7 +121,5 @@ RSpec.describe "When errors occur" do
       get '/version.invalid-format'
       expect(response.code).to eq('406')
     end
-
   end
-
 end

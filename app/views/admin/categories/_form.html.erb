@@ -1,0 +1,48 @@
+<%= f.error_messages %>
+
+<% f.translated_fields do |t| %>
+  <%= render partial: 'locale_fields', locals: { t: t } %>
+<% end %>
+
+<% if !@category.parents.include?(@root) || @category.new_record? %>
+  <h3>Common Fields</h3>
+
+  <div class="control-group">
+    <label for="category_category_tag" class="control-label">Category tag</label>
+    <div class="controls">
+      <% if @category.tags.none? %>
+         <%= f.text_field :category_tag, class: "span4" %>
+       <% else %>
+         <%= f.text_field :category_tag, class: "span4", disabled: true %>
+
+         <% if @category.category_tag %>
+           <%= link_to 'Tag admin page', admin_tag_path(tag: @category.category_tag), class: 'btn' %>
+         <% end %>
+
+         <span class="help-block">
+           This value can't be changed as there are associated objects present
+         </span>
+       <% end %>
+    </div>
+  </div>
+
+  <h3>Headings</h3>
+
+  <div class="control-group">
+    <% @root.tree.each do |parent| %>
+      <% next if parent == @category %>
+      <div class="span3">
+        <%= f.label :parent_ids, parent.title, value: parent.id, class: 'checkbox' do %>
+          <%= f.check_box :parent_ids, { multiple: true }, parent.id, nil %>
+          <%= parent.title %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+
+<h2>Notes</h2>
+
+<%= render partial: 'admin/notes/show',
+  locals: { notes: @category.all_notes, notable: @category } %>

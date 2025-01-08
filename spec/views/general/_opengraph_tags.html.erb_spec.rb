@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe 'general/_opengraph_tags' do
-
   def render_view
     render partial: 'general/opengraph_tags'
   end
@@ -26,7 +25,5 @@ RSpec.describe 'general/_opengraph_tags' do
       expect(rendered).
         to_not match('content="http://test.host/assets/logo-opengraph-pro')
     end
-
   end
-
 end

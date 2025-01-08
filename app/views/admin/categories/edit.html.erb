@@ -1,0 +1,37 @@
+<% @title = 'Edit category' %>
+
+<h1><%= @title %></h1>
+
+<div class="row">
+  <div class="span8">
+    <div id="category_form">
+      <%= translated_form_for @category, url: admin_category_path(@category, model_type: current_klass), html: { class: "form form-horizontal" } do |f| %>
+        <%= render partial: 'form', locals: { f: f } %>
+
+        <div class="form-actions">
+          <%= f.submit 'Save', accesskey: 's', class: 'btn btn-success' %>
+          <% if current_klass == PublicBody && @category.category_tag %>
+            <%= link_to 'Public page', list_public_bodies_by_tag_path(@category.category_tag), class: 'btn' %>
+          <% end %>
+          <%= link_to 'List all', admin_categories_path(model_type: current_klass), class: 'btn' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+  <div class="span12">
+    <div class="well">
+      <%= form_for @category, url: admin_category_path(@category, model_type: current_klass), method: 'delete', class: "form form-inline" do |f| %>
+        <%= f.submit "Destroy #{@category.title}", title: @category.title, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+
+        <span class="help-block">
+          Destroying a category does not destroy the objects associated with the category.
+        </span>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -34,18 +34,30 @@ RSpec.describe InfoRequestBatchController do
     describe 'assigning @info_requests' do
       context 'when the batch has been sent' do
         let!(:first_request) do
-          FactoryBot.create(:info_request, info_request_batch: info_request_batch,
-                                           public_body: first_public_body)
+          FactoryBot.create(
+            :info_request,
+            info_request_batch: info_request_batch,
+            public_body: first_public_body
+          )
         end
         let!(:second_request) do
-          FactoryBot.create(:info_request, info_request_batch: info_request_batch,
-                                           public_body: second_public_body)
+          FactoryBot.create(
+            :info_request,
+            info_request_batch: info_request_batch,
+            public_body: second_public_body
+          )
         end
         let!(:hidden_request) do
-          FactoryBot.create(:hidden_request, info_request_batch: info_request_batch)
+          FactoryBot.create(
+            :hidden_request,
+            info_request_batch: info_request_batch
+          )
         end
         let!(:backpage_request) do
-          FactoryBot.create(:backpage_request, info_request_batch: info_request_batch)
+          FactoryBot.create(
+            :backpage_request,
+            info_request_batch: info_request_batch
+          )
         end
 
         before do
@@ -72,8 +84,14 @@ RSpec.describe InfoRequestBatchController do
           it 'should assign all info_requests to the view' do
             with_feature_enabled(:alaveteli_pro) do
               action
-              expect(assigns[:info_requests].sort).
-                to eq([first_request, second_request, hidden_request, backpage_request])
+              expect(assigns[:info_requests].sort).to eq(
+                [
+                  first_request,
+                  second_request,
+                  hidden_request,
+                  backpage_request
+                ]
+              )
             end
           end
         end

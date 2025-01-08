@@ -1,13 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliTextMasker do
-
   let(:class_instance) { Class.new { include AlaveteliTextMasker }.new }
 
   describe '#apply_masks' do
-
     context 'applying censor rules' do
-
       before do
         @cheese_censor_rule = FactoryBot.build(:censor_rule,
                                                text: 'Stilton',
@@ -61,17 +58,14 @@ RSpec.describe AlaveteliTextMasker do
         expect(result).
           to eq("There was a cat called Jarlsberg, he wished that he was yellow.")
       end
-
     end
 
     context 'applying masks to binary' do
-
       it "replaces ASCII email addresses in Word documents" do
         data = "His email was foo@bar.com"
         result = class_instance.apply_masks(data, "application/vnd.ms-word")
         expect(result).to eq("His email was xxx@xxx.xxx")
       end
-
 
       it "replaces UCS-2 addresses in Word documents" do
         data = "His email was f\000o\000o\000@\000b\000a\000r\000.\000c\000o\000m\000, indeed"
@@ -88,15 +82,12 @@ RSpec.describe AlaveteliTextMasker do
         )
         expect(result).to eq 'xxxxxxx world'
       end
-
     end
 
     context 'applying masks to PDF' do
-
       def pdf_replacement_test(use_ghostscript_compression)
-        config = MySociety::Config.load_default
-        previous = config['USE_GHOSTSCRIPT_COMPRESSION']
-        config['USE_GHOSTSCRIPT_COMPRESSION'] = use_ghostscript_compression
+        allow(AlaveteliConfiguration).to receive(:use_ghostscript_compression).
+          and_return(use_ghostscript_compression)
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
@@ -108,7 +99,6 @@ RSpec.describe AlaveteliTextMasker do
         masked_text = MailHandler.get_attachment_text_one_file('application/pdf', result)
         expect(masked_text).not_to match(/foi@tfl.gov.uk/)
         expect(masked_text).to match(/xxx@xxx.xxx.xx/)
-        config['USE_GHOSTSCRIPT_COMPRESSION'] = previous
       end
 
       it "replaces everything in PDF files using pdftk" do
@@ -148,11 +138,9 @@ RSpec.describe AlaveteliTextMasker do
         result = class_instance.apply_masks(pdf, "application/pdf")
         expect(result).to match "something about xxx@xxx.xxx.xx"
       end
-
     end
 
     context 'applying masks to text' do
-
       it "applies hard-coded privacy rules to HTML files" do
         data = "http://test.host/c/cheese"
         result = class_instance.apply_masks(data, 'text/html')
@@ -222,9 +210,6 @@ RSpec.describe AlaveteliTextMasker do
         result = class_instance.apply_masks(data, 'text/html', masks: [mask])
         expect(result).to eq(expected)
       end
-
     end
-
   end
-
 end

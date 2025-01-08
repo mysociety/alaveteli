@@ -1,5 +1,9 @@
 <table class="table table-striped table-condensed">
   <tbody>
+    <tr>
+      <th>Batch page:</th>
+      <td><%= link_to info_request_batch_url(info_request_batch), info_request_batch_path(info_request_batch) %></td>
+    </tr>
     <% info_request_batch.for_admin_column do |name, value| %>
       <tr>
         <td>

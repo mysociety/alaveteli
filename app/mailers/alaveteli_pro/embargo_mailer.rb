@@ -22,6 +22,7 @@ module AlaveteliPro
             info_request_event_id: alert_event_id).exists?
         end
         next if info_requests.empty?
+
         expiring_alert(user, info_requests).deliver_now
         info_requests.each do |info_request|
           alert_event_id = info_request.last_embargo_set_event.id
@@ -51,6 +52,7 @@ module AlaveteliPro
             info_request_event_id: alert_event_id).exists?
         end
         next if info_requests.empty?
+
         expired_alert(user, info_requests).deliver_now
         info_requests.each do |info_request|
           alert_event_id = info_request.last_embargo_expire_event.id
@@ -66,50 +68,35 @@ module AlaveteliPro
     def expiring_alert(user, info_requests)
       @user = user
       @info_requests = info_requests
-      subject = n_(
-        "{{count}} request will be made public on {{site_name}} this week",
-        "{{count}} requests will be made public on {{site_name}} this week",
-        info_requests.count,
-        site_name: site_name.html_safe,
-        count: info_requests.count
+      mail_user(
+        @user,
+        subject: -> {
+          n_(
+            "{{count}} request will be made public on {{site_name}} this week",
+            "{{count}} requests will be made public on {{site_name}} this week",
+            info_requests.count,
+            site_name: site_name.html_safe,
+            count: info_requests.count
+          )
+        }
       )
-      auto_generated_headers
-      mail_user(@user, subject)
     end
 
     def expired_alert(user, info_requests)
       @user = user
       @info_requests = info_requests
-      subject = n_(
-        "{{count}} request has been made public on {{site_name}}",
-        "{{count}} requests have been made public on {{site_name}}",
-        info_requests.count,
-        site_name: site_name.html_safe,
-        count: info_requests.count
+      mail_user(
+        @user,
+        subject: -> {
+          n_(
+            "{{count}} request has been made public on {{site_name}}",
+            "{{count}} requests have been made public on {{site_name}}",
+            info_requests.count,
+            site_name: site_name.html_safe,
+            count: info_requests.count
+          )
+        }
       )
-      auto_generated_headers
-      mail_user(@user, subject)
-    end
-
-    private
-
-    # TODO: these are copied from request_mailer, but it seems like they should
-    # be something shared via application_mailer.
-    def auto_generated_headers
-      headers({
-        'Return-Path' => blackhole_email,
-        'Reply-To' => pro_contact_from_name_and_email, # not much we can do if the user's email is broken
-        'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-        'X-Auto-Response-Suppress' => 'OOF'
-      })
-    end
-
-    def mail_user(user, subject)
-      mail({
-        from: pro_contact_from_name_and_email,
-        to: user.name_and_email,
-        subject: subject
-      })
     end
   end
 end

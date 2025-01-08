@@ -36,7 +36,6 @@ def load_mail_server_logs(log)
   else
     raise "Unexpected MTA type: #{ mta_log_type }"
   end
-
 end
 
 def gsub_addresses(content, **kargs)

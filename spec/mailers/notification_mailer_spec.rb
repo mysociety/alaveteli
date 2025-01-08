@@ -351,7 +351,7 @@ RSpec.describe NotificationMailer do
     # HACK: We can't control the IDs of the requests or incoming messages create
     # a data structure of mappings here so that we can replace keys in fixture
     # files with the ID that will end up in the URL.
-    let(:id_mappings) do
+    let(:url_id_mappings) do
       all_notifications.each_with_object({}) do |notification, data|
         event = notification.info_request_event
         case event.event_type
@@ -362,7 +362,7 @@ RSpec.describe NotificationMailer do
         else
           request = event.info_request
           key = "#{request.url_title}_#{request.public_body.url_name}".upcase
-          data["#{key}_ID"] = request.id
+          data["#{key}_URL_TITLE"] = request.url_title
         end
       end
     end
@@ -374,7 +374,7 @@ RSpec.describe NotificationMailer do
 
     it "send the message from the right address" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
     it "sets the right subject line" do
@@ -383,21 +383,30 @@ RSpec.describe NotificationMailer do
         to eq("Your daily request summary from Alaveteli Professional")
     end
 
+    context "when the user does not use default locale" do
+      before do
+        user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.daily_summary(user, all_notifications)
+        expect(mail.subject).
+          to eq("*** Spanish missing *** Alaveteli Professional")
+      end
+    end
+
     it "matches the expected message" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
       expected_message = load_file_fixture(
         "notification_mailer/daily-summary.txt", 'r:utf-8')
-      id_mappings.each do |key, id|
+      url_id_mappings.each do |key, id|
         expected_message.gsub!("$#{key}$", id.to_s)
       end
       expect(mail.body.encoded).to eq(expected_message)
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.daily_summary(user, all_notifications)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -458,6 +467,20 @@ RSpec.describe NotificationMailer do
       end
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.response_notification(notification)
+        expect(mail.subject).to eq(
+          "Nueva respuesta a tu solicitud de información - A request"
+        )
+      end
+    end
+
     it "sends the message to the right user" do
       mail = NotificationMailer.response_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
@@ -465,14 +488,11 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.response_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.response_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -548,6 +568,19 @@ RSpec.describe NotificationMailer do
       end
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.embargo_expiring_notification(notification)
+        expect(mail.subject).
+          to eq("*** Spanish missing *** A request *** Alaveteli")
+      end
+    end
+
     it "sends the message to the right user" do
       mail = NotificationMailer.embargo_expiring_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
@@ -555,14 +588,11 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.embargo_expiring_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.embargo_expiring_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -600,11 +630,9 @@ RSpec.describe NotificationMailer do
     end
 
     context 'when the subject has characters which need quoting' do
-
       it 'should not error' do
         NotificationMailer.expire_embargo_notification(notification)
       end
-
     end
 
     context 'when the subject has characters which could be HTML escaped' do
@@ -623,6 +651,19 @@ RSpec.describe NotificationMailer do
       end
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.expire_embargo_notification(notification)
+        expect(mail.subject).
+          to eq("*** Spanish missing *** A request *** Alaveteli")
+      end
+    end
+
     it 'sends the message to the right user' do
       mail = NotificationMailer.expire_embargo_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
@@ -630,14 +671,11 @@ RSpec.describe NotificationMailer do
 
     it 'sends the message from the right address' do
       mail = NotificationMailer.expire_embargo_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
-    it 'sets reply_to headers' do
+    it 'sets mail headers' do
       mail = NotificationMailer.expire_embargo_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header['Reply-To'].value).to eq expected_reply_to
       expect(mail.header['Return-Path'].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -654,7 +692,6 @@ RSpec.describe NotificationMailer do
         'notification_mailer/expire_embargo.txt', 'r:utf-8')
       expect(mail.body.encoded).to eq(expected_message)
     end
-
   end
 
   describe '#overdue_notification' do
@@ -693,6 +730,21 @@ RSpec.describe NotificationMailer do
       end
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.overdue_notification(notification)
+        expect(mail.subject). to eq(
+          "Respuesta retrasada a tu solicitud de acceso a información - "\
+          "A request"
+        )
+      end
+    end
+
     it "sends the message to the right user" do
       mail = NotificationMailer.overdue_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
@@ -700,14 +752,11 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.overdue_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.overdue_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -722,7 +771,7 @@ RSpec.describe NotificationMailer do
       mail = NotificationMailer.overdue_notification(notification)
       expected_message = load_file_fixture(
         "notification_mailer/overdue.txt", 'r:utf-8')
-      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
+      expected_message.gsub!(/INFO_REQUEST_URL_TITLE/, info_request.url_title)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end
@@ -764,6 +813,21 @@ RSpec.describe NotificationMailer do
       end
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = NotificationMailer.very_overdue_notification(notification)
+        expect(mail.subject). to eq(
+          "La respuesta a tu solicitud de información está muy retrasada - "\
+          "A request"
+        )
+      end
+    end
+
     it "sends the message to the right user" do
       mail = NotificationMailer.very_overdue_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
@@ -771,14 +835,11 @@ RSpec.describe NotificationMailer do
 
     it "sends the message from the right address" do
       mail = NotificationMailer.very_overdue_notification(notification)
-      expect(mail.from).to eq ['postmaster@localhost']
+      expect(mail.from).to eq [blackhole_email]
     end
 
-    it "sets reply_to headers" do
+    it "sets mail headers" do
       mail = NotificationMailer.very_overdue_notification(notification)
-      expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
-                          "<#{AlaveteliConfiguration.contact_email}>"
-      expect(mail.header["Reply-To"].value).to eq expected_reply_to
       expect(mail.header["Return-Path"].value).
         to eq 'do-not-reply-to-this-address@localhost'
     end
@@ -793,7 +854,7 @@ RSpec.describe NotificationMailer do
       mail = NotificationMailer.very_overdue_notification(notification)
       expected_message = load_file_fixture(
         "notification_mailer/very_overdue.txt", 'r:utf-8')
-      expected_message.gsub!(/INFO_REQUEST_ID/, info_request.id.to_s)
+      expected_message.gsub!(/INFO_REQUEST_URL_TITLE/, info_request.url_title)
       expect(mail.body.encoded).to eq(expected_message)
     end
   end

@@ -30,6 +30,7 @@ module MailHandler
                   # Either we couldn’t find the Status field, or it was a transient failure
                   break
                 end
+
                 if section =~ /^Final-Recipient: rfc822;(.+)/
                   permanently_failed_recipients.push($1)
                 end
@@ -76,6 +77,7 @@ module MailHandler
       return true if subject == "out of office"
       return true if subject == "out of office reply"
       return true if subject.end_with? "is out of the office"
+
       false
     end
 

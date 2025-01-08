@@ -44,7 +44,7 @@ module Admin::LinkHelper
     info_request = foi_attachment.incoming_message.info_request
 
     link_to(icon, foi_attachment_path(foi_attachment), title: title) + ' ' +
-      link_to("#{info_request.title} #{foi_attachment.filename}",
+      link_to(foi_attachment.filename,
               edit_admin_foi_attachment_path(foi_attachment),
               title: admin_title)
   end
@@ -91,6 +91,29 @@ module Admin::LinkHelper
 
     link_to(icon, blog_post.url, title: title) + ' ' +
       link_to(blog_post.title, edit_admin_blog_post_path(blog_post),
+              title: admin_title)
+  end
+
+  def track_thing_both_links(track_thing)
+    title = 'View track'
+    icon = eye
+    icon_link = search_general_path(track_thing.track_query)
+
+    link_to(icon, icon_link, title: title) + ' ' + "#{track_thing.id}:"
+  end
+
+  def category_both_links(category)
+    # No public links, yet?
+    link_to(category.title, edit_admin_category_path(category),
+            title: admin_title)
+  end
+
+  def citation_both_links(citation)
+    title = 'View citation'
+    icon = eye
+
+    link_to(icon, citation.source_url, title: title) + ' ' +
+      link_to(citation.source_url, edit_admin_citation_path(citation),
               title: admin_title)
   end
 

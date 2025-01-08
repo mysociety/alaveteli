@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe AdminCommentsHelper do
-
   include AdminCommentsHelper
 
   describe '#comment_labels' do
-
     it 'adds no labels if the comment is not noteworthy' do
       expect(comment_labels(Comment.new)).to eq('')
     end
@@ -16,5 +14,4 @@ RSpec.describe AdminCommentsHelper do
       expect(comment_labels(comment)).to eq(html)
     end
   end
-
 end

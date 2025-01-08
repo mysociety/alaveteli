@@ -111,6 +111,7 @@ class Comment < ApplicationRecord
   def body
     ret = read_attribute(:body)
     return ret if ret.nil?
+
     ret = ret.strip
     # remove excess linebreaks that unnecessarily space it out
     ret = ret.gsub(/(?:\n\s*){2,}/, "\n\n")
@@ -191,6 +192,20 @@ class Comment < ApplicationRecord
       update!(visible: false)
       info_request.log_event('hide_comment', event_params)
     end
+  end
+
+  def destroy_and_log_event(event: {})
+    return false unless destroy
+
+    info_request.log_event(
+      'destroy_comment',
+      event.merge(
+        comment: self,
+        comment_user: user,
+        comment_created_at: created_at,
+        comment_updated_at: updated_at
+      )
+    )
   end
 
   def cached_urls

@@ -1,7 +1,6 @@
 require 'spec_helper.rb'
 
 RSpec.describe InfoRequest::Prominence::EmbargoExpiredTodayQuery do
-
   describe '#call' do
     let(:info_request) { info_request = FactoryBot.create(:info_request) }
 
@@ -33,7 +32,5 @@ RSpec.describe InfoRequest::Prominence::EmbargoExpiredTodayQuery do
 
       expect(described_class.new.call).to include info_request
     end
-
   end
-
 end

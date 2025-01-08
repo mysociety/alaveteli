@@ -4,7 +4,6 @@ RSpec.describe HighlightHelper do
   include HighlightHelper
 
   describe '#highlight_and_excerpt' do
-
     it 'excerpts text and highlights phrases' do
       text = "Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking"
       phrases = ['humpadinking']
@@ -20,7 +19,6 @@ RSpec.describe HighlightHelper do
     end
 
     context 'multiple matches' do
-
       it 'highlights multiple matches' do
         text = <<-EOF
 Quentin Nobble-Boston, Permanent Under-Secretary, Department for Humpadinking
@@ -48,13 +46,10 @@ EOF
         matches = [/\b(humpadink\w*)\b/iu]
         expect(highlight_and_excerpt(text, matches, 15)).to eq(expected)
       end
-
     end
-
   end
 
   describe '#highlight_matches' do
-
     it 'highlights' do
       assert_equal(
         "This is a <mark>beautiful</mark> morning",
@@ -159,11 +154,9 @@ EOF
         highlight_matches("one two three", %w[one two three]) { |word| "<b>#{word}</b>" }
       )
     end
-
   end
 
   describe '#excerpt' do
-
     it 'excerpts' do
       assert_equal("...is a beautiful morn...", excerpt("This is a beautiful morning", "beautiful", radius: 5))
       assert_equal("This is a...", excerpt("This is a beautiful morning", "this", radius: 5))
@@ -240,7 +233,5 @@ EOF
       assert_equal excerpt('This is a beautiful morning', 'a'),
         excerpt('This is a beautiful morning', 'a', separator: nil)
     end
-
   end
-
 end

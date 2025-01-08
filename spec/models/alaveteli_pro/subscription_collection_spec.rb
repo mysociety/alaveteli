@@ -1,7 +1,7 @@
 require 'spec_helper'
+require 'stripe_mock'
 
 RSpec.describe AlaveteliPro::SubscriptionCollection do
-
   let(:collection) { described_class.new(customer) }
   let(:customer) { double(:customer) }
 
@@ -10,7 +10,6 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
   let(:incomplete_subscription) { double(:subscription, status: 'incomplete') }
 
   describe '.for_customer' do
-
     it 'should return instance for customer' do
       collection = described_class.for_customer(customer)
       expect(collection).to be_a described_class
@@ -20,23 +19,38 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
       expect(described_class).to receive(:new).with(customer)
       described_class.for_customer(customer)
     end
-
   end
 
   describe '.new' do
-
     it 'should store customer instance variable' do
       expect(collection.instance_variable_get(:@customer)).to eq customer
     end
-
   end
 
-  describe '#build' do
+  describe '#create' do
+    before { StripeMock.start }
+    after { StripeMock.stop }
+
+    let(:stripe_helper) { StripeMock.create_test_helper }
+
+    let(:product) { stripe_helper.create_product }
+
+    let(:plan) do
+      stripe_helper.create_plan(
+        id: 'pro', product: product.id, amount: 1000
+      )
+    end
+
+    let(:customer) do
+      Stripe::Customer.create(
+        email: 'bob@example.com', source: stripe_helper.generate_card_token
+      )
+    end
 
     let(:collection) { described_class.new(customer) }
-    let(:subscription) { collection.build }
+    let(:subscription) { collection.create(plan: plan.id) }
 
-    it 'should build new subscription' do
+    it 'should create new subscription' do
       expect(subscription).to be_a AlaveteliPro::Subscription
     end
 
@@ -44,26 +58,21 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
       expect(subscription.__getobj__).to be_a Stripe::Subscription
     end
 
-    it 'should set customer object' do
-      expect(subscription.customer).to eq customer
+    it 'should set customer ID' do
+      expect(subscription.customer).to eq customer.id
     end
-
   end
 
   describe '#retrieve' do
-
     context 'without customer' do
-
       let(:customer) { nil }
 
       it 'returns nil' do
         expect(collection.retrieve(123)).to eq nil
       end
-
     end
 
     context 'with Stripe subscriptions' do
-
       let(:subscriptions) do
         Stripe::ListObject.new
       end
@@ -79,13 +88,10 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
         expect(collection.retrieve(123)).to be_a AlaveteliPro::Subscription
         expect(collection.retrieve(123)).to eq subscription
       end
-
     end
-
   end
 
   describe '#current' do
-
     before do
       allow(customer).to receive(:subscriptions).and_return(
         [active_subscription, past_due_subscription, incomplete_subscription]
@@ -97,11 +103,9 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
         active_subscription, past_due_subscription
       ]
     end
-
   end
 
   describe '#incomplete' do
-
     before do
       allow(customer).to receive(:subscriptions).and_return(
         [active_subscription, past_due_subscription, incomplete_subscription]
@@ -111,23 +115,18 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
     it 'should return any incomplete subscription' do
       expect(collection.incomplete).to match_array [incomplete_subscription]
     end
-
   end
 
   describe '#each' do
-
     context 'without customer' do
-
       let(:customer) { nil }
 
       it 'returns no subscriptions' do
         expect(collection.count).to eq 0
       end
-
     end
 
     context 'with Stripe subscriptions' do
-
       let(:subscriptions) do
         Stripe::ListObject.new
       end
@@ -146,11 +145,9 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
       it 'wraps subscriptions as AlaveteliPro::Subscription objects' do
         expect(collection.to_a).to all(be_a AlaveteliPro::Subscription)
       end
-
     end
 
     context 'without Stripe subscriptions' do
-
       before do
         allow(customer).to receive(:subscriptions).and_return(
           [active_subscription, incomplete_subscription, active_subscription]
@@ -164,17 +161,12 @@ RSpec.describe AlaveteliPro::SubscriptionCollection do
       it 'wraps subscriptions as AlaveteliPro::Subscription objects' do
         expect(collection.to_a).to all(be_a AlaveteliPro::Subscription)
       end
-
     end
 
     context 'without block' do
-
       it 'should return a Enumerator' do
         expect(collection.each).to be_a Enumerator
       end
-
     end
-
   end
-
 end

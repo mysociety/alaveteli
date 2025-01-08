@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRequestController < AdminController
-
   before_action :set_info_request, :check_info_request, only: %i[
     show edit update destroy move generate_upload_url hide
   ]
@@ -43,7 +42,6 @@ class AdminRequestController < AdminController
     old_handle_rejected_responses = @info_request.handle_rejected_responses
     old_tag_string = @info_request.tag_string
     old_comments_allowed = @info_request.comments_allowed
-
 
     if @info_request.update(info_request_params)
       @info_request.log_event(

@@ -1,56 +1,52 @@
-
-<div class="tab-pane" id="div-locale-<%= locale %>">
-  <div class="control-group">
-    <%= t.hidden_field :locale, :value => locale %>
-    <%= t.label :name, 'Name', :class => 'control-label' %>
-    <div class="controls">
-      <%= t.text_field :name, :class => "span4" %>
-    </div>
+<div class="control-group">
+  <%= t.label :name, 'Name', :class => 'control-label' %>
+  <div class="controls">
+    <%= t.text_field :name, :class => "span4" %>
   </div>
+</div>
 
-  <div class="control-group">
-    <%= t.label :short_name, 'Short name', :class => 'control-label' %>
-    <div class="controls">
-      <%= t.text_field :short_name, :class => "span2"  %>
-      <p class="help-block">
-        Only put in abbreviations which are really used, otherwise leave blank.
-        Short or long name is used in the URL – don't worry about breaking URLs
-        through renaming, as the history is used to redirect.
-      </p>
-    </div>
+<div class="control-group">
+  <%= t.label :short_name, 'Short name', :class => 'control-label' %>
+  <div class="controls">
+    <%= t.text_field :short_name, :class => "span2"  %>
+    <p class="help-block">
+      Only put in abbreviations which are really used, otherwise leave blank.
+      Short or long name is used in the URL – don't worry about breaking URLs
+      through renaming, as the history is used to redirect.
+    </p>
   </div>
+</div>
 
-  <div class="control-group">
-    <%= t.label :request_email, 'Request email', :class => 'control-label' %>
-    <div class="controls">
-      <%= t.text_field :request_email, :class => "span3" %>
-      <p class="help-block">
-        Set to <strong>blank</strong> (empty string) if can't find an address;
-        these emails are <strong>public</strong> as anyone can view with a
-        reCAPTCHA.
-      </p>
+<div class="control-group">
+  <%= t.label :request_email, 'Request email', :class => 'control-label' %>
+  <div class="controls">
+    <%= t.text_field :request_email, :class => "span3" %>
+    <p class="help-block">
+      Set to <strong>blank</strong> (empty string) if can't find an address;
+      these emails are <strong>public</strong> as anyone can view with a
+      reCAPTCHA.
+    </p>
 
-      <% if @public_body.ordered_translations.many? %>
-        <div class="alert alert-info">
-          <i class="icon-info-sign"></i>
-          Make sure you add the request email for <em>all</em> locales that have
-          translated attributes.
-        </div>
-      <% end %>
-    </div>
+    <% if @public_body.ordered_translations.many? %>
+      <div class="alert alert-info">
+        <i class="icon-info-sign"></i>
+        Make sure you add the request email for <em>all</em> locales that have
+        translated attributes.
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <div class="control-group">
-    <%= t.label :publication_scheme, 'Publication scheme URL', :class => 'control-label' %>
-    <div class="controls">
-      <%= t.url_field :publication_scheme, size: 60, class: 'span4' %>
-    </div>
+<div class="control-group">
+  <%= t.label :publication_scheme, 'Publication scheme URL', :class => 'control-label' %>
+  <div class="controls">
+    <%= t.url_field :publication_scheme, size: 60, class: 'span4' %>
   </div>
+</div>
 
-  <div class="control-group">
-    <%= t.label :disclosure_log, 'Disclosure log URL', :class => 'control-label' %>
-    <div class="controls">
-      <%= t.url_field :disclosure_log, size: 60, class: 'span4' %>
-    </div>
+<div class="control-group">
+  <%= t.label :disclosure_log, 'Disclosure log URL', :class => 'control-label' %>
+  <div class="controls">
+    <%= t.url_field :disclosure_log, size: 60, class: 'span4' %>
   </div>
 </div>

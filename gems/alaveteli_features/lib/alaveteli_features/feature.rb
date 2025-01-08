@@ -61,6 +61,7 @@ module AlaveteliFeatures
 
       def role_features
         raise ActorNotDefinedError unless actor
+
         select { |feature| (feature.roles & actor.roles).any? }
       end
     end
@@ -90,6 +91,7 @@ module AlaveteliFeatures
 
     def enabled?
       raise ActorNotDefinedError unless actor
+
       feature_enabled?(key, actor) && condition.call
     end
 
@@ -99,11 +101,13 @@ module AlaveteliFeatures
 
     def enable
       raise ActorNotDefinedError unless actor
+
       enable_actor(key, actor)
     end
 
     def disable
       raise ActorNotDefinedError unless actor
+
       disable_actor(key, actor)
     end
   end

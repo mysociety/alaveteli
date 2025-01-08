@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminRawEmailController do
-
   describe 'GET show' do
-
     let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
     let(:admin_user) { FactoryBot.create(:admin_user) }
@@ -90,9 +88,7 @@ RSpec.describe AdminRawEmailController do
           get :show, params: { id: incoming_message.raw_email.id }
           expect(assigns[:rejected_reason]).to eq 'unknown reason'
         end
-
       end
-
     end
 
     describe 'text version' do

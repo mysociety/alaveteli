@@ -6,7 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class GeneralController < ApplicationController
-
   MAX_RESULTS = 500
 
   skip_before_action :html_response, only: :version

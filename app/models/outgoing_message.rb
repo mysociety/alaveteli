@@ -139,11 +139,13 @@ class OutgoingMessage < ApplicationRecord
 
   def from_name
     return info_request.external_user_name if info_request.is_external?
+
     super || info_request.user_name
   end
 
   def safe_from_name
     return info_request.external_user_name if info_request.is_external?
+
     info_request.apply_censor_rules_to_text(from_name)
   end
 
@@ -412,6 +414,7 @@ class OutgoingMessage < ApplicationRecord
 
   def cache_from_name
     return if read_attribute(:from_name)
+
     self.from_name = info_request.user_name if info_request
   end
 

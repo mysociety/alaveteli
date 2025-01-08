@@ -14,6 +14,8 @@ class InfoRequestBatchController < ApplicationController
       @public_bodies = load_public_bodies.paginate(page: @page,
                                                    per_page: @per_page)
     end
+
+    @citations = @info_request_batch.citations.newest(3)
   end
 
   private

@@ -8,7 +8,7 @@ RSpec.describe "Signing in" do
     default_options = { email: user.email,
                         password: 'jonespassword' }
     options = default_options.merge(options)
-    login_url = 'en/profile/sign_in'
+    login_url = '/profile/sign_in'
     login_url += "?r=#{options[:redirect]}" if options[:redirect]
     visit login_url
     within '#signin_form' do
@@ -33,7 +33,6 @@ RSpec.describe "Signing in" do
   end
 
   context 'when you give the right credentials' do
-
     it 'logs you in' do
       try_login(user, { redirect: '/list' })
       expect(page).
@@ -92,7 +91,6 @@ RSpec.describe "Signing in" do
 
             # And the redirect should still work, of course
             expect(page).to have_current_path '/list?post_redirect=1'
-
           end
         end
       end

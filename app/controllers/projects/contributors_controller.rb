@@ -3,9 +3,7 @@ class Projects::ContributorsController < Projects::BaseController
   def destroy
     return unless authenticate!
 
-    @contributor = @project.contributors.find(params[:id])
-    authorize! :remove_contributor, @contributor
-
+    authorize! :leave, @project
     @project.contributors.destroy(current_user)
 
     redirect_to root_path, notice: _('You have left the project.')

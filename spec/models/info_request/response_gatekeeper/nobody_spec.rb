@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ResponseGatekeeper::Nobody do
-
   it 'inherits from Base' do
     expect(described_class.superclass).
       to eq(InfoRequest::ResponseGatekeeper::Base)
   end
 
   describe '.new' do
-
     it 'requires an info_request' do
       expect { described_class.new }.to raise_error(ArgumentError)
     end
@@ -32,7 +30,5 @@ RSpec.describe InfoRequest::ResponseGatekeeper::Nobody do
       gatekeeper = described_class.new(info_request)
       expect(gatekeeper.reason).to eq(reason)
     end
-
   end
-
 end

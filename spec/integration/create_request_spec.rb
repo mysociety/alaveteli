@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "When creating requests" do
-
   before do
     update_xapian_index
   end
@@ -32,11 +31,9 @@ RSpec.describe "When creating requests" do
       # not the admin who confirmed it
       expect(info_request.user_id).to eq(post_redirect.user_id)
     end
-
   end
 
   context 'the authority name contains an apostrophe' do
-
     let(:user) { FactoryBot.create(:user) }
     let(:user_session) { login(user) }
     let(:public_body) do
@@ -84,7 +81,5 @@ RSpec.describe "When creating requests" do
         expect(page).to have_content("Dear Test's <sup>html</sup> authority")
       end
     end
-
   end
-
 end

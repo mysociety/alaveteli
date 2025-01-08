@@ -16,12 +16,33 @@
   <% if @guessed_info_requests.any? %>
   <div class="row">
     <div class="accordion span11" id="guessed-requests">
-      <p>Guessed request:</p>
+      <p>Guessed request: </p>
+
+      <% if @guessed_info_requests.one? %>
+        <p>
+          <small class="muted">
+            Responses with a single guess are only automatically redelivered if
+            the guess meets a confidence threshold. This guess did not meet that
+            threshold.
+          </small>
+        </p>
+      <% end %>
+
       <% @guessed_info_requests.each do |guess|  %>
         <div class="accordion-group">
           <div class="accordion-heading">
             <a href="#info_request_<%= guess.info_request.id %>" data-toggle="collapse"><i class="icon-chevron-right"></i></a>
             <%= both_links(guess.info_request) %>
+
+            <%= guess_badge(guess.id_score) do %>
+              ID:
+              <%= number_to_percentage(guess.id_score * 100, precision: 0) %>
+            <% end %>
+
+            <%= guess_badge(guess.idhash_score) do %>
+              Idhash:
+              <%= number_to_percentage(guess.idhash_score * 100, precision: 0) %>
+            <% end %>
           </div>
 
           <div class="accordion-body collapse" id="info_request_<%= guess.info_request.id %>">
@@ -46,6 +67,16 @@
               <tr>
                 <td><strong>url_title:</strong></td>
                 <td><%= guess.info_request.url_title %></td>
+              </tr>
+
+              <tr>
+                <td><strong>ID Guess Score:</strong></td>
+                <td><%= number_to_percentage(guess.id_score * 100, precision: 0) %></td>
+              </tr>
+
+              <tr>
+                <td><strong>Idhash Guess Score:</strong></td>
+                <td><%= number_to_percentage(guess.idhash_score * 100, precision: 0) %></td>
               </tr>
             </table>
 

@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'Sending a message to another user' do
-
   let(:sender) { FactoryBot.create(:user) }
   let(:recipient) { FactoryBot.create(:user, name: "Awkward > Name") }
 
@@ -33,5 +32,4 @@ RSpec.describe 'Sending a message to another user' do
       expect(page.body).to include(message)
     end
   end
-
 end

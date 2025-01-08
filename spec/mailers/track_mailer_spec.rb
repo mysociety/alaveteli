@@ -135,7 +135,6 @@ RSpec.describe TrackMailer do
           TrackMailer.alert_tracks
         end
       end
-
     end
 
     describe 'when a user should not be emailed' do
@@ -178,11 +177,9 @@ RSpec.describe TrackMailer do
 
       it { is_expected.to eq(false) }
     end
-
   end
 
   describe 'delivering the email' do
-
     before :each do
       allow(AlaveteliConfiguration).to receive(:site_name).
         and_return("L'information")
@@ -192,7 +189,8 @@ RSpec.describe TrackMailer do
       ActionMailer::Base.deliveries = []
       @user = mock_model(User,
                          name_and_email: MailHandler.address_from_name_and_email('Tippy Test', 'tippy@localhost'),
-                         url_name: 'tippy_test'
+                         url_name: 'tippy_test',
+                         locale: 'es'
                          )
       TrackMailer.event_digest(@user, []).deliver_now # no items in it email for minimal test
     end
@@ -219,8 +217,14 @@ RSpec.describe TrackMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
+      expect(mail.subject).to eq "Tu alerta en L'information"
+    end
 
-      expect(mail.subject).to eq "Your L'information email alert"
+    it "translates the subject for a user with non-default locale" do
+      # Yes, this is indeed just the same test as above. We simply give the
+      # user a non-default locale in the "before". Use let bindings instead?
+      expect(ActionMailer::Base.deliveries[0].subject).
+        to eq "Tu alerta en L'information"
     end
 
     it "does not alert about embargoed requests" do
@@ -263,5 +267,4 @@ RSpec.describe TrackMailer do
       end
     end
   end
-
 end

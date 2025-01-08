@@ -21,6 +21,7 @@ class AlaveteliPro::AccountRequest
 
   def initialize(attributes = {})
     return unless attributes
+
     attributes.each do |name, value|
       send("#{name}=", value)
     end

@@ -8,6 +8,7 @@ require 'tempfile'
 
 class PublicBodyController < ApplicationController
   skip_before_action :html_response, only: [:show, :list_all_csv]
+  skip_before_action :redirect_gettext_locale, only: :show
 
   MAX_RESULTS = 500
   # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -92,25 +93,6 @@ class PublicBodyController < ApplicationController
         end
         format.json { render json: @public_body.json_for_api }
       end
-
-    end
-  end
-
-  def view_email
-    @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-    raise ActiveRecord::RecordNotFound, "None found" if @public_body.nil?
-
-    AlaveteliLocalization.with_locale(AlaveteliLocalization.locale) do
-      if params[:submitted_view_email]
-        if verify_recaptcha
-          flash.discard(:error)
-          render template: "public_body/view_email"
-          return
-        end
-        flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
-                              'Please try again.')
-      end
-      render template: "public_body/view_email_captcha"
     end
   end
 
@@ -144,8 +126,8 @@ class PublicBodyController < ApplicationController
              count: @public_bodies.total_entries,
              first_letter: @tag)
         else
-          category_name = PublicBodyCategory.get.by_tag[@tag]
-          if category_name.nil?
+          category = PublicBody.category_list.find_by(category_tag: @tag)
+          if category.nil?
             n_('Found {{count}} public authority matching the tag ' \
                '‘{{tag_name}}’',
                'Found {{count}} public authorities matching the tag ' \
@@ -155,12 +137,12 @@ class PublicBodyController < ApplicationController
                tag_name: @tag)
           else
             n_('Found {{count}} public authority in the category ' \
-               '‘{{category_name}}’',
+               '‘{{category}}’',
                'Found {{count}} public authorities in the category ' \
-               '‘{{category_name}}’',
+               '‘{{category}}’',
                @public_bodies.total_entries,
                count: @public_bodies.total_entries,
-               category_name: category_name)
+               category: category.title)
           end
         end
 
@@ -193,9 +175,9 @@ class PublicBodyController < ApplicationController
   def search_typeahead
     query = params[:query]
     return head :bad_request unless query
+
     flash[:search_params] = params.slice(:query, :bodies, :page)
     @xapian_requests = typeahead_search(query, model: PublicBody)
     render partial: "public_body/search_ahead"
   end
-
 end

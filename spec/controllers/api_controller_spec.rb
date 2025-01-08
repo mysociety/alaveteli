@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe ApiController, "when using the API" do
-
   describe 'checking API keys' do
     before do
       @number_of_requests = InfoRequest.count
       @request_data = {
         'title' => 'Tell me about your chickens',
-        'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
+        'body' => "Dear Sir,\n\n" \
+          "I should like to know about your chickens.\n\n" \
+          "Yours in faith,\nBob\n",
         'external_url' => 'http://www.example.gov.uk/foi/chickens_23',
         'external_user_name' => 'Bob Smith'
       }
@@ -57,7 +58,9 @@ RSpec.describe ApiController, "when using the API" do
 
       request_data = {
         'title' => 'Tell me about your chickens',
-        'body' => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
+        'body' => "Dear Sir,\n\n" \
+          "I should like to know about your chickens.\n\n" \
+          "Yours in faith,\nBob\n",
         'external_url' => 'http://www.example.gov.uk/foi/chickens_23',
         'external_user_name' => 'Bob Smith'
       }
@@ -82,16 +85,20 @@ RSpec.describe ApiController, "when using the API" do
 
       new_request = InfoRequest.find(response_body['id'])
       expect(new_request.user_id).to be_nil
-      expect(new_request.external_user_name).to eq(request_data['external_user_name'])
+      expect(new_request.external_user_name).
+        to eq(request_data['external_user_name'])
       expect(new_request.external_url).to eq(request_data['external_url'])
 
       expect(new_request.title).to eq(request_data['title'])
-      expect(new_request.last_event_forming_initial_request.outgoing_message.body).to eq(request_data['body'].strip)
+      last_event = new_request.last_event_forming_initial_request
+      expect(last_event.outgoing_message.body).to eq(request_data['body'].strip)
 
-      expect(new_request.public_body_id).to eq(public_bodies(:geraldine_public_body).id)
+      expect(new_request.public_body_id).
+        to eq(public_bodies(:geraldine_public_body).id)
       expect(new_request.info_request_events.size).to eq(1)
       expect(new_request.info_request_events[0].event_type).to eq('sent')
-      expect(new_request.info_request_events[0].calculated_state).to eq('waiting_response')
+      expect(new_request.info_request_events[0].calculated_state).
+        to eq('waiting_response')
     end
   end
 
@@ -108,7 +115,11 @@ RSpec.describe ApiController, "when using the API" do
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
-      response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+      response_body = "Thank you for your request for information, which we " \
+        "are handling in accordance with the Freedom of Information Act " \
+        "2000. You will receive a response within 20 working days or before " \
+        "the next full moon, whichever is sooner.\n\nYours sincerely," \
+        "\nJohn Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
              k: public_bodies(:geraldine_public_body).api_key,
@@ -128,7 +139,8 @@ RSpec.describe ApiController, "when using the API" do
       incoming_message = incoming_messages[0]
 
       expect(incoming_message.sent_at).to eq(Time.iso8601(sent_at))
-      expect(incoming_message.get_main_body_text_folded).to be_equal_modulo_whitespace_to(response_body)
+      expect(incoming_message.get_main_body_text_folded).
+        to be_equal_modulo_whitespace_to(response_body)
     end
 
     it 'should add a followup to a request' do
@@ -178,7 +190,11 @@ RSpec.describe ApiController, "when using the API" do
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
-      response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+      response_body = "Thank you for your request for information, which we" \
+        " are handling in accordance with the Freedom of Information Act " \
+        "2000. You will receive a response within 20 working days or before " \
+        "the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn " \
+        "Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
              k: public_bodies(:geraldine_public_body).api_key,
@@ -212,7 +228,11 @@ RSpec.describe ApiController, "when using the API" do
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
-      response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+      response_body = "Thank you for your request for information, which we " \
+        "are handling in accordance with the Freedom of Information Act " \
+        "2000. You will receive a response within 20 working days or before " \
+        "the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn " \
+        "Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
              k: public_bodies(:geraldine_public_body).api_key,
@@ -290,9 +310,16 @@ RSpec.describe ApiController, "when using the API" do
 
     it 'should return a JSON 404 error for non-existent requests' do
       request_id = '123459876'
-      allow(InfoRequest).to receive(:find_by_id).with(request_id).and_return(nil)
+      allow(InfoRequest).
+        to receive(:find_by_id).
+        with(request_id).
+        and_return(nil)
       sent_at = '2012-05-28T12:35:39+01:00'
-      response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+      response_body = "Thank you for your request for information, which we " \
+        "are handling in accordance with the Freedom of Information Act " \
+        "2000. You will receive a response within 20 working days or before " \
+        "the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn " \
+        "Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
              k: public_bodies(:geraldine_public_body).api_key,
@@ -304,13 +331,18 @@ RSpec.describe ApiController, "when using the API" do
              }.to_json
            }
       expect(response.status).to eq(404)
-      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(['Could not find request 123459876'])
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).
+        to eq(['Could not find request 123459876'])
     end
 
     it 'should return a JSON 403 error if we try to add correspondence to a request we don\'t own' do
       request_id = info_requests(:naughty_chicken_request).id
       sent_at = '2012-05-28T12:35:39+01:00'
-      response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+      response_body = "Thank you for your request for information, which we " \
+        "are handling in accordance with the Freedom of Information Act " \
+        "2000. You will receive a response within 20 working days or before " \
+        "the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn " \
+        "Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
              k: public_bodies(:geraldine_public_body).api_key,
@@ -322,7 +354,8 @@ RSpec.describe ApiController, "when using the API" do
              }.to_json
            }
       expect(response.status).to eq(403)
-      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(["Request #{request_id} cannot be updated using the API"])
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).
+        to eq(["Request #{request_id} cannot be updated using the API"])
     end
 
     it 'should not allow files to be attached to a followup' do
@@ -343,7 +376,9 @@ RSpec.describe ApiController, "when using the API" do
       # Make sure it worked
       expect(response.status).to eq(500)
       errors = ActiveSupport::JSON.decode(response.body)['errors']
-      expect(errors).to eq(["You cannot attach files to messages in the 'request' direction"])
+      expect(errors).to eq(
+        ["You cannot attach files to messages in the 'request' direction"]
+      )
     end
 
     it 'should allow files to be attached to a response' do
@@ -356,7 +391,11 @@ RSpec.describe ApiController, "when using the API" do
 
       # Now add one
       sent_at = '2012-05-28T12:35:39+01:00'
-      response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+      response_body = "Thank you for your request for information, which we " \
+        "are handling in accordance with the Freedom of Information Act " \
+        "2000. You will receive a response within 20 working days or before " \
+        "the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn " \
+        "Gandermulch,\nExample Council FOI Officer\n"
       post :add_correspondence,
            params: {
              k: public_bodies(:geraldine_public_body).api_key,
@@ -379,7 +418,8 @@ RSpec.describe ApiController, "when using the API" do
 
       incoming_message = incoming_messages[0]
       expect(incoming_message.sent_at).to eq(Time.iso8601(sent_at))
-      expect(incoming_message.get_main_body_text_folded).to be_equal_modulo_whitespace_to(response_body)
+      expect(incoming_message.get_main_body_text_folded).
+        to be_equal_modulo_whitespace_to(response_body)
 
       # Get the attachment
       attachments = incoming_message.get_attachments_for_display
@@ -437,7 +477,8 @@ RSpec.describe ApiController, "when using the API" do
 
       # Check that the error has been raised...
       expect(response.status).to eq(500)
-      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(["'random_string' is not a valid request state"])
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).
+        to eq(["'random_string' is not a valid request state"])
 
       # ..and that the status hasn't been updated
       request = InfoRequest.find_by_id(request_id)
@@ -446,7 +487,10 @@ RSpec.describe ApiController, "when using the API" do
 
     it 'should return a JSON 404 error for non-existent requests' do
       request_id = '123459876'
-      allow(InfoRequest).to receive(:find_by_id).with(request_id).and_return(nil)
+      allow(InfoRequest).
+        to receive(:find_by_id).
+        with(request_id).
+        and_return(nil)
 
       post :update_state, params: {
                             k: public_bodies(:geraldine_public_body).api_key,
@@ -454,7 +498,8 @@ RSpec.describe ApiController, "when using the API" do
                           }
 
       expect(response.status).to eq(404)
-      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(['Could not find request 123459876'])
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).
+        to eq(['Could not find request 123459876'])
     end
 
     it 'should return a JSON 403 error if we try to add correspondence to a request we don\'t own' do
@@ -466,7 +511,8 @@ RSpec.describe ApiController, "when using the API" do
                           }
 
       expect(response.status).to eq(403)
-      expect(ActiveSupport::JSON.decode(response.body)['errors']).to eq(["Request #{request_id} cannot be updated using the API"])
+      expect(ActiveSupport::JSON.decode(response.body)['errors']).
+        to eq(["Request #{request_id} cannot be updated using the API"])
     end
   end
 
@@ -519,9 +565,12 @@ RSpec.describe ApiController, "when using the API" do
       expect(response).to render_template('api/request_events')
       expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|
-        expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
+        expect(event.info_request.public_body).
+          to eq(public_bodies(:geraldine_public_body))
         expect(event.outgoing_message).not_to be_nil
-        expect(event.event_type).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
+        expect(event.event_type).to satisfy do |x|
+          %w[sent followup_sent resent followup_resent].include?(x)
+        end
       end
     end
 
@@ -536,14 +585,19 @@ RSpec.describe ApiController, "when using the API" do
       expect(response).to be_successful
       expect(assigns[:events].size).to be > 0
       assigns[:events].each do |event|
-        expect(event.info_request.public_body).to eq(public_bodies(:geraldine_public_body))
+        expect(event.info_request.public_body).
+          to eq(public_bodies(:geraldine_public_body))
         expect(event.outgoing_message).not_to be_nil
-        expect(event.event_type).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
+        expect(event.event_type).to satisfy do |x|
+          %w[sent followup_sent resent followup_resent].include?(x)
+        end
       end
 
       expect(assigns[:event_data].size).to eq(assigns[:events].size)
       assigns[:event_data].each do |event_record|
-        expect(event_record[:event_type]).to satisfy { |x| %w[sent followup_sent resent followup_resent].include?(x) }
+        expect(event_record[:event_type]).to satisfy do |x|
+          %w[sent followup_sent resent followup_resent].include?(x)
+        end
       end
     end
 

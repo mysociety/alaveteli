@@ -13,14 +13,10 @@ RSpec.describe NotifyCacheJob, type: :job do
   let(:user) { FactoryBot.create(:user) }
 
   before do
-    @old_include_default_locale_in_urls =
-      AlaveteliConfiguration.include_default_locale_in_urls
-    AlaveteliLocalization.set_default_locale_urls(false)
-
     allow(AlaveteliConfiguration).to receive(:varnish_hosts).
       and_return(['varnish'])
 
-    stub_request(:purge, /^http:\/\/test\.host(\/(en|es|fr|en_GB))?\/(|body|((feed\/)?body|(feed\/|details\/)?request|(feed\/)?user)\/[a-z0-9_]+|user\/[a-z0-9_]+\/wall)$/).
+    stub_request(:purge, /^http:\/\/test\.host(\/(en|es|fr|en_GB))?\/(|body|((feed\/)?body|request|(feed\/)?user)\/[a-z0-9_]+(\/feed|\/details)?|user\/[a-z0-9_]+\/wall)$/).
       to_return(status: 200, body: "", headers: {})
     stub_request(:ban, 'http://test.host/').
       with(headers:
@@ -29,12 +25,6 @@ RSpec.describe NotifyCacheJob, type: :job do
             /^\^(\/(en|es|fr|en_GB))?\/(list|feed\/list\/|body\/list)$/
         }).
       to_return(status: 200, body: "", headers: {})
-  end
-
-  after do
-    AlaveteliLocalization.set_default_locale_urls(
-      @old_include_default_locale_in_urls
-    )
   end
 
   context 'when called with a request' do

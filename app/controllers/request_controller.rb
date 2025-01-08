@@ -11,12 +11,10 @@ class RequestController < ApplicationController
 
   before_action :check_read_only, only: [:new, :upload_response]
   before_action :set_render_recaptcha, only: [ :new ]
-  before_action :redirect_numeric_id_to_url_title, only: [:show]
   before_action :set_info_request, only: [:show]
-  before_action :redirect_embargoed_requests_for_pro_users, only: [:show]
-  before_action :redirect_public_requests_from_pro_context, only: [:show]
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
+  before_action :setup_results_pagination, only: [:list, :similar]
 
   helper_method :state_transitions_empty?
 
@@ -24,6 +22,10 @@ class RequestController < ApplicationController
 
   MAX_RESULTS = 500
   PER_PAGE = 25
+
+  def index
+    @title = _('Browse requests by category')
+  end
 
   def select_authority
     # Check whether we force the user to sign in right at the start, or we allow her
@@ -53,8 +55,7 @@ class RequestController < ApplicationController
 
       # Always show the pro livery if a request is embargoed. This makes it
       # clear to admins and ex-pro users that the `InfoRequest` is still
-      # private. Users who are not permitted to view the request are redirected
-      # so we don't need to consider the `current_user` here.
+      # private.
       @in_pro_area = true if @info_request.embargo
 
       set_last_request(@info_request)
@@ -109,25 +110,16 @@ class RequestController < ApplicationController
     long_cache
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
     return render_hidden if cannot?(:read, @info_request)
-    @columns = %w[
-      id event_type created_at described_state last_described_at
-      calculated_state
-    ]
   end
 
   # Requests similar to this one
   def similar
     short_cache
-    @per_page = 25
-    @page = (params[:page] || "1").to_i
 
-    # Later pages are very expensive to load
-    if @page > MAX_RESULTS / PER_PAGE
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
-    end
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
     return render_hidden if cannot?(:read, @info_request)
+
     @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent],
                                                @info_request.info_request_events,
                                                offset: (@page - 1) * @per_page,
@@ -139,34 +131,31 @@ class RequestController < ApplicationController
 
   def list
     medium_cache
-    @view = params[:view]
-    unless @page # used in cache case, as perform_search sets @page as side effect
-      @page = get_search_page_from_params
-    end
-    @per_page = PER_PAGE
-    @max_results = MAX_RESULTS
-    if @view == "recent"
-      return redirect_to request_list_all_url(action: "list", view: "all", page: @page), status: :moved_permanently
-    end
 
-    # Later pages are very expensive to load
-    if @page > MAX_RESULTS / PER_PAGE
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
-    end
+    @filters = params.slice(:query, :request_date_after, :request_date_before)
+    @filters[:latest_status] = params[:view]
+    @tag = @filters[:tag] = params[:tag]
 
-    @filters = params.merge(latest_status: @view)
+    @results = InfoRequest.request_list(
+      @filters, @page, @per_page, @max_results
+    )
 
-    if @page > 1
-      @title = _("Browse and search requests (page {{count}})", count: @page)
+    if @tag
+      @category = InfoRequest.category_list.find_by(category_tag: @tag)
+      @title = @category&.title
+      @title ||= n_('Found {{count}} request tagged ‘{{tag_name}}’',
+                    'Found {{count}} requests tagged ‘{{tag_name}}’',
+                    @results[:matches_estimated],
+                    count: @results[:matches_estimated],
+                    tag_name: @tag)
+    elsif @page > 1
+      @title = _("Search requests (page {{count}})", count: @page)
     else
-      @title = _('Browse and search requests')
+      @title = _('Search requests')
     end
 
     @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
     @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'), title: @track_thing.params[:title_in_rss], has_json: true } ]
-
-    # Don't let robots go more than 20 pages in
-    @no_crawl = true if @page > 20
   end
 
   # Page new form posts to
@@ -306,6 +295,7 @@ class RequestController < ApplicationController
           @outgoing_message.info_request,
           @outgoing_message
         ).deliver_now
+
       rescue *OutgoingMessage.expected_send_errors => e
         # Catch a wide variety of potential ActionMailer failures and
         # record the exception reason so administrators don't have to
@@ -332,7 +322,7 @@ class RequestController < ApplicationController
       end
     end
 
-    redirect_to show_request_path(url_title: @info_request.url_title)
+    redirect_to show_request_path(@info_request.url_title)
   end
 
   # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to
@@ -342,6 +332,7 @@ class RequestController < ApplicationController
     if @info_request_event.info_request.embargo
       raise ActiveRecord::RecordNotFound
     end
+
     if @info_request_event.is_incoming_message?
       redirect_to incoming_message_url(@info_request_event.incoming_message), status: :moved_permanently
     elsif @info_request_event.is_outgoing_message?
@@ -456,6 +447,7 @@ class RequestController < ApplicationController
       else
         # Test for whole request being hidden or requester-only
         return render_hidden if cannot?(:read, @info_request)
+
         cache_file_path = @info_request.make_zip_cache_path(@user)
         unless File.exist?(cache_file_path)
           FileUtils.mkdir_p(File.dirname(cache_file_path))
@@ -475,6 +467,21 @@ class RequestController < ApplicationController
 
   def outgoing_message_params
     params.require(:outgoing_message).permit(:body, :what_doing)
+  end
+
+  def setup_results_pagination
+    @page ||= get_search_page_from_params
+    @per_page = PER_PAGE
+    @max_results = MAX_RESULTS
+
+    # Don't let robots go more than 20 pages in
+    @no_crawl = true if @page > 20
+
+    # Later pages are very expensive to load
+    return if @page <= MAX_RESULTS / PER_PAGE
+
+    raise ActiveRecord::RecordNotFound,
+      "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
   end
 
   def can_update_status(info_request)
@@ -550,6 +557,7 @@ class RequestController < ApplicationController
 
   def state_transitions_empty?(transitions)
     return true if transitions.nil?
+
     transitions[:pending].empty? && \
       transitions[:complete].empty? && \
       transitions[:other].empty?
@@ -562,9 +570,11 @@ class RequestController < ApplicationController
       message_index = 0
       info_request.incoming_messages.each do |message|
         next unless can?(:read, message)
+
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
           next unless can?(:read, attachment)
+
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
             body = message.apply_masks(attachment.default_body, attachment.content_type)
@@ -623,6 +633,7 @@ class RequestController < ApplicationController
           if public_body.nil?  # TODO: proper 404
             raise ActiveRecord::RecordNotFound, "None found"
           end
+
           public_body.id
         end
       elsif params[:public_body_id]
@@ -685,7 +696,6 @@ class RequestController < ApplicationController
       redirect_to public_body_url(@info_request.public_body)
     end
     nil
-
   end
 
   def render_new_preview
@@ -706,39 +716,6 @@ class RequestController < ApplicationController
   def set_render_recaptcha
     @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
                         (!@user || !@user.confirmed_not_spam?)
-  end
-
-  def redirect_numeric_id_to_url_title
-    # Look up by old style numeric identifiers
-    if params[:url_title].match(/^[0-9]+$/)
-      @info_request = InfoRequest.find(params[:url_title].to_i)
-      # We don't want to leak the title of embargoed or hidden requests, so
-      # don't even redirect on if the user can't access the request
-      return render_hidden if cannot?(:read, @info_request)
-      redirect_to request_url(@info_request, format: params[:format])
-    end
-  end
-
-  def redirect_embargoed_requests_for_pro_users
-    # Pro users should see their embargoed requests in the pro page, so that
-    # if other site functions send them to a request page, they end up back in
-    # the pro area
-    if feature_enabled?(:alaveteli_pro) && params[:pro] != "1" && current_user
-      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-      if @info_request.is_actual_owning_user?(current_user) && @info_request.embargo
-        redirect_to show_alaveteli_pro_request_url(
-          url_title: @info_request.url_title)
-      end
-    end
-  end
-
-  def redirect_public_requests_from_pro_context
-    # Requests which aren't embargoed should always go to the normal request
-    # page, so that pro's seem them in that context after they publish them
-    if feature_enabled?(:alaveteli_pro) && params[:pro] == "1"
-      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-      redirect_to request_url(@info_request) unless @info_request.embargo
-    end
   end
 
   def redirect_new_form_to_pro_version

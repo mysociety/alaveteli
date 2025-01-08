@@ -5,7 +5,6 @@ RSpec.describe 'changing your email address' do
   let(:user) { FactoryBot.create(:user) }
 
   it "sends a confirmation email if you get all the details right" do
-
     using_session(login(user)) do
       visit signchangeemail_path
       fill_in "signchangeemail_old_email", with: user.email
@@ -21,7 +20,7 @@ RSpec.describe 'changing your email address' do
 
       # Check confirmation URL works
       visit confirmation_url_from_email
-      expect(page).to have_current_path("/en/user/#{user.url_name}")
+      expect(page).to have_current_path("/user/#{user.url_name}")
       expect(page).to have_content('You have now changed your email address')
       user.reload
       expect(user.email).to eq('newbob@localhost')

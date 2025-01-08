@@ -35,6 +35,7 @@ class RefusalAdvice
   def snippets
     scope = OutgoingMessage::Snippet.with_tag('refusal_advice')
     return scope.with_tag('internal_review') if @options[:internal_review]
+
     scope.without_tag('internal_review')
   end
 

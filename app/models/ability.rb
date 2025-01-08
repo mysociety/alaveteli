@@ -62,7 +62,7 @@ class Ability
         !message.info_request.embargo
       end
       can :_read, FoiAttachment do |attachment|
-        !attachment.incoming_message.info_request.embargo
+        !attachment.info_request.embargo
       end
     end
 
@@ -180,8 +180,8 @@ class Ability
       end
     end
 
-    can :create_citation, InfoRequest do |info_request|
-      user && (user.is_admin? || user.is_pro? || info_request.user == user)
+    can :create_citation, [InfoRequest, InfoRequestBatch] do |content|
+      user && (user.is_admin? || user.is_pro? || content.user == user)
     end
 
     can :share, InfoRequest do |info_request|
@@ -218,13 +218,25 @@ class Ability
         user && (user.is_pro_admin? || target_project.member?(user))
       end
 
-      can :remove_contributor, User do |contributor|
-        user && project.contributor?(contributor) &&
-          (project.owner?(user) || user == contributor)
+      can :edit, Project do |target_project|
+        user && (user.is_pro_admin? || target_project.owner?(user))
       end
 
-      can :download, Project do |target_project|
-        user && (user.is_pro_admin? || target_project.owner?(user))
+      can :leave, Project do |target_project|
+        user && target_project.contributor?(user)
+      end
+
+      can :view, Dataset::KeySet do |dataset_key_set|
+        resource = dataset_key_set.resource
+        next false unless resource.is_a?(Project)
+
+        target_project = resource
+
+        next true if target_project.dataset_public?
+        next false unless user
+        next true if user&.is_pro_admin?
+
+        target_project.owner?(user)
       end
     end
   end

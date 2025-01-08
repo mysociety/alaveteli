@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::AccountRequestController do
-
   describe "#index" do
     it "renders index" do
       get :index
@@ -31,7 +30,6 @@ RSpec.describe AlaveteliPro::AccountRequestController do
     end
 
     context 'if the account request is valid' do
-
       it 'shows a notice' do
         post :create, params: { account_request: account_request_params }
         expect(flash[:notice]).not_to be nil
@@ -48,42 +46,33 @@ RSpec.describe AlaveteliPro::AccountRequestController do
         mail = ActionMailer::Base.deliveries.first
         expect(mail.to.first).to eq AlaveteliConfiguration.pro_contact_email
       end
-
     end
 
     context 'if the account request is not valid' do
-
       it 'renders the index template' do
         post :create, params: { account_request: {} }
         expect(response).to render_template('index')
       end
-
     end
 
     context 'when pro_pricing is enabled', feature: :pro_pricing do
-
       it 'redirects to the pro plans' do
         post :create
         expect(response).to redirect_to pro_plans_path
       end
-
     end
 
     context 'when pro_self_serve is enabled', feature: :pro_self_serve do
-
       context 'when current user is signed out' do
-
         it 'redirects to sign in' do
           post :create
           expect(response).to redirect_to(
             signin_path(token: get_last_post_redirect.token)
           )
         end
-
       end
 
       context 'when current user is signed in' do
-
         let(:user) { FactoryBot.create(:user) }
 
         before do
@@ -110,11 +99,7 @@ RSpec.describe AlaveteliPro::AccountRequestController do
           post :create
           expect(response).to redirect_to(alaveteli_pro_dashboard_path)
         end
-
       end
-
     end
-
   end
-
 end

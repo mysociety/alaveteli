@@ -11,7 +11,8 @@ shared_examples_for "an info_request_batch action" do
   context "if the specified draft doesn't exist" do
     it "raises ActiveRecord::RecordNotFound" do
       with_feature_enabled(:alaveteli_pro) do
-        params[:draft_id] = AlaveteliPro::DraftInfoRequestBatch.maximum(:id).next
+        params[:draft_id] = AlaveteliPro::DraftInfoRequestBatch.
+          maximum(:id).next
         expect { action }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -155,7 +156,8 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
       it "renders alaveteli_pro/info_requests/preview" do
         with_feature_enabled(:alaveteli_pro) do
           action
-          expect(response).to render_template("alaveteli_pro/info_requests/preview")
+          expect(response).
+            to render_template("alaveteli_pro/info_requests/preview")
         end
       end
     end
@@ -180,7 +182,8 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(assigns[:info_request_batch].errors).to be_empty
-          expect(assigns[:example_info_request].errors[:outgoing_messages]).to be_empty
+          expect(assigns[:example_info_request].errors[:outgoing_messages]).
+            to be_empty
           expect(assigns[:example_info_request].errors[:title]).not_to be_empty
           expect(assigns[:outgoing_message].errors[:body]).not_to be_empty
         end
@@ -194,7 +197,6 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
       end
     end
   end
-
 
   describe "#create" do
     let(:params) { { draft_id: draft.id } }
@@ -215,7 +217,9 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
       it "destroys the draft" do
         with_feature_enabled(:alaveteli_pro) do
           title = draft.title
-          expect { action }.to change { AlaveteliPro::DraftInfoRequestBatch.count }.by(-1)
+          expect { action }.
+            to change { AlaveteliPro::DraftInfoRequestBatch.count }.
+            by(-1)
           expect(AlaveteliPro::DraftInfoRequestBatch.where(title: title))
         end
       end
@@ -224,7 +228,8 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         with_feature_enabled(:alaveteli_pro) do
           action
           new_batch = InfoRequestBatch.order(created_at: :desc).first
-          expect(response).to redirect_to(show_alaveteli_pro_batch_request_path(new_batch.id))
+          expect(response).
+            to redirect_to(show_alaveteli_pro_batch_request_path(new_batch.id))
         end
       end
     end
@@ -291,7 +296,8 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(assigns[:info_request_batch].errors).to be_empty
-          expect(assigns[:example_info_request].errors[:outgoing_messages]).to be_empty
+          expect(assigns[:example_info_request].errors[:outgoing_messages]).
+            to be_empty
           expect(assigns[:example_info_request].errors[:title]).not_to be_empty
           expect(assigns[:outgoing_message].errors[:body]).not_to be_empty
         end

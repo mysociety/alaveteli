@@ -1,6 +1,5 @@
 class TrackThing
   module TranslatedConstants
-
     def self.track_types
       # { TRACK_TYPE => DESCRIPTION }
       { 'request_updates'         => _('Individual requests'),
@@ -10,6 +9,5 @@ class TrackThing
         'user_updates'            => _('People'),
         'search_query'            => _('Search queries') }
     end
-
   end
 end

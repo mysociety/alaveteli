@@ -315,6 +315,7 @@ class InfoRequestBatch < ApplicationRecord
 
   def is_owning_user?(user)
     return false unless user
+
     user.id == user_id || user.owns_every_request?
   end
 

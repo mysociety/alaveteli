@@ -1,0 +1,20 @@
+<div class="project-resources-column project-resources-column--results">
+  <div class="project-resources__search">
+    <%= label_tag :query, _('Search your requests by title') %>
+    <%= search_field_tag :query, nil, data: { projects__resources_target: 'query', action: 'input->projects--resources#search' } %>
+  </div>
+
+  <div id="project-resources__results">
+    <%= render partial: 'resources_results', locals: { f: f } %>
+  </div>
+</div>
+
+<div class="project-resources-column project-resources-column--selected">
+  <div id="project-resources__selected">
+    <%= render partial: 'resources_selected', locals: { f: f } %>
+  </div>
+
+  <div class="project-resources__actions">
+    <%= f.submit _('Update Project') %>
+  </div>
+</div>

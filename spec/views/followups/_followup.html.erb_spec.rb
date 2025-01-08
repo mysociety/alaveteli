@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "followups/_followup" do
-
   let(:info_request) { FactoryBot.create(:info_request) }
 
   before do
@@ -33,9 +32,7 @@ RSpec.describe "followups/_followup" do
   end
 
   describe 'the request is overdue' do
-
     context 'the authority is subject to FOI law' do
-
       it 'tells the user the authority should have responded by law' do
         travel_to(info_request.date_response_required_by + 2.days) do
           render partial: "followups/followup",
@@ -45,11 +42,9 @@ RSpec.describe "followups/_followup" do
                             'normally have responded'
         end
       end
-
     end
 
     context 'the authority is not subject to FOI law' do
-
       it 'tells the user the authority should have responded by law' do
         info_request.public_body.add_tag_if_not_already_present('foi_no')
         travel_to(info_request.date_response_required_by + 2.days) do
@@ -60,15 +55,11 @@ RSpec.describe "followups/_followup" do
                                 'should normally have responded'
         end
       end
-
     end
-
   end
 
   describe 'the request is very overdue' do
-
     context 'the authority is subject to FOI law' do
-
       it 'tells the user the authority should have responded by law' do
         travel_to(info_request.date_very_overdue_after + 2.days) do
           render partial: "followups/followup",
@@ -79,11 +70,9 @@ RSpec.describe "followups/_followup" do
                             'responded by now'
         end
       end
-
     end
 
     context 'the authority is not subject to FOI law' do
-
       it 'tells the user the authority should have responded by law' do
         info_request.public_body.add_tag_if_not_already_present('foi_no')
         travel_to(info_request.date_very_overdue_after + 2.days) do
@@ -95,24 +84,18 @@ RSpec.describe "followups/_followup" do
                                 'responded by now'
         end
       end
-
     end
-
   end
 
   describe 'displaying followup contact options' do
-
     context 'without an incoming message' do
-
       it 'does not show the "other options" panel' do
         render partial: "followups/followup", locals: { incoming_message: nil }
         expect(rendered).to_not have_content 'You can also write to'
       end
-
     end
 
     context 'with an incoming message' do
-
       let(:incoming) do
         FactoryBot.create(:plain_incoming_message, info_request: info_request)
       end
@@ -131,13 +114,10 @@ RSpec.describe "followups/_followup" do
                locals: { incoming_message: incoming }
         expect(rendered).to_not have_content 'You can also write to'
       end
-
     end
-
   end
 
   describe 'the request is closed to new responses' do
-
     before do
       info_request.update_attribute(:allow_new_responses_from, 'nobody')
     end
@@ -159,7 +139,5 @@ RSpec.describe "followups/_followup" do
         to have_content 'Follow ups and new responses to this request have ' \
                         'been stopped to prevent spam.'
     end
-
   end
-
 end

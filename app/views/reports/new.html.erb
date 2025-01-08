@@ -11,7 +11,7 @@
     </p>
     <p><%= _("Why specifically do you consider this request unsuitable?") %></p>
 
-    <%= form_tag request_report_path(:request_id => @info_request.url_title) do %>
+    <%= form_tag request_report_path(@info_request.url_title) do %>
       <p>
         <label class="form_label" for="reason"><%= _('Reason:') %></label>
         <%= select_tag :reason, options_for_select(@report_reasons, @reason), :prompt => _("Choose a reason") %>

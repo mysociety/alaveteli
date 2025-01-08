@@ -57,9 +57,13 @@
   }
 }
 
+.project-owner,
 .project-download-data,
-.project-access-status {
-  margin-top: 2em;
+.project-access-status,
+.project-leaderboard {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #ddd;
 }
 
 .project-owner__photo {
@@ -125,4 +129,244 @@
 .project-workload-value {
   width: 4em;
   text-align: right;
+}
+
+.project-leaderboard table {
+  width: 100%;
+
+  td.user {
+    padding-left: 1em;
+  }
+
+  td.contributions {
+    padding-left: 1em;
+    width: 45%;
+  }
+}
+
+.projects__list {
+  margin-top: 0.5em;
+}
+
+.project {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.project__title {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+.project__meta {
+  @include respond-min( $dashboard-collapse ){
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 50px;
+    grid-gap: 2em;
+  }
+}
+
+.project__meta__label {
+  margin-top: 1em;
+  @include respond-min( $dashboard-collapse ){
+    margin-top: 0;
+  }
+}
+
+.project__classification,
+.project__extraction {
+  p {
+    margin-bottom: 0;
+  }
+}
+
+#project-form {
+  .project__invite-token {
+    width: 500px;
+  }
+
+  .form_button {
+    margin-top: 1em;
+  }
+}
+
+#project-resources {
+  @include grid-column($columns: 12);
+  display: grid;
+  grid-template-columns: none;
+  gap: 1em;
+
+  @include respond-min($dashboard-collapse) {
+    grid-template-columns: repeat(2, 1fr);
+
+    .project-resources-column {
+      &.project-resources-column--selected {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: start;
+
+        padding-top: 0.35em;
+      }
+    }
+  }
+
+  .blank-slate {
+    height: 30em;
+    padding: 1em;
+    text-align: center;
+    color: #999;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .project-resources__added {
+    color: green;
+    font-weight: 600;
+    width: 5em;
+    text-align: center;
+  }
+
+  .project-resources__list {
+    border: 1px solid #ddd;
+    height: 30em;
+    overflow: auto;
+  }
+
+  .project-resources__actions {
+    text-align: right;
+    input {
+      margin: 1em 0;
+    }
+  }
+}
+
+.project-resource {
+  padding: 1em;
+
+  &:nth-child(2n + 1) {
+    background-color: #f3f1eb;
+  }
+
+  .project-resource__title {
+    margin-top: 0;
+    margin-bottom: 0.75em;
+
+    font-size: 1.1875em;
+    font-weight: 600;
+    color: #008cba;
+  }
+
+  .project-resource__meta {
+    margin-bottom: 1em;
+
+    .project-resource__meta__label {
+      margin-top: 1em;
+      display: block;
+
+      @include respond-min($dashboard-collapse) {
+        margin-top: 0;
+      }
+
+      font-size: 0.75em;
+      line-height: 1em;
+      color: #999;
+    }
+
+    .project-resource__recipient {
+      font-size: 0.875em;
+      line-height: 1.5em;
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .project-resource__buttons {
+    a {
+      @include button($padding: 0.428rem, $bg: #aaa, $radius: true);
+      font-size: 0.786rem;
+      margin: 0;
+    }
+  }
+}
+
+#project-key-set {
+  padding-bottom: 1em;
+
+  .project-key-set__key {
+    padding: 1em;
+    margin-bottom: 1em;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+    &.project-key-set__key--removed {
+      display: none;
+    }
+
+    .project-key-set__key__drag-handle {
+      text-indent: -9999px;
+      background-image: image-url("drag.svg");
+      background-repeat: no-repeat;
+      background-position: center 2em;
+      cursor: grab;
+      width: 24px;
+    }
+
+    .project-key-set__key__attributes {
+      width: 100%;
+      margin: 0 1em;
+
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+
+      .project-key-set__key__value {
+        width: 50%;
+        padding-right: 1em;
+
+        input[type='text'], select {
+          width: 100%;
+        }
+
+        .fieldWithErrors {
+          padding: 0;
+        }
+      }
+    }
+
+    .project-key-set__key__remove-question {
+      padding-top: 1.2em;
+      button { width: max-content; }
+    }
+  }
+}
+
+#project-contributors {
+  .blank-slate {
+    margin-bottom: 1em
+  }
+
+  .project-contributors__contributor {
+    margin-bottom: 1em;
+  }
+
+  .project-contributors__remove-button {
+    margin-left: 1em
+  }
+}
+
+.project-dataset__description {
+  margin-bottom: 1em;
+
+  a.button {
+    margin-top: 1em
+  }
 }

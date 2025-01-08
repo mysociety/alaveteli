@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::DashboardHelper do
-
   include AlaveteliPro::DashboardHelper
 
   describe '#activity_item_description' do
-
     it 'renders the activity_item description with links' do
       user = FactoryBot.create(:user)
       comment = FactoryBot.create(:comment, user: user)
@@ -18,5 +16,4 @@ RSpec.describe AlaveteliPro::DashboardHelper do
       expect(activity_item_description(activity)).to eq expected
     end
   end
-
 end

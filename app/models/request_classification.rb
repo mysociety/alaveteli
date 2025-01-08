@@ -30,9 +30,9 @@ class RequestClassification < ApplicationRecord
       group('user_id').
         order(cnt: :desc).
           limit(size).
-            includes(:user)
+            joins(:user).
+              merge(User.active)
     query = query.where(*conditions) if conditions
     query
   end
-
 end

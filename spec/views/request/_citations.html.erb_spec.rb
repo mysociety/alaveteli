@@ -23,7 +23,7 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders nothing' do
-        expect(rendered).to eq("\n")
+        expect(rendered).to be_blank
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders the section' do
-        expect(rendered).to match(/In the News/)
+        expect(rendered).to match(/FOI in Action/)
       end
 
       it 'renders the blank slate text' do
@@ -57,7 +57,7 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders the section' do
-        expect(rendered).to match(/In the News/)
+        expect(rendered).to match(/FOI in Action/)
       end
 
       it 'does not render the blank slate text' do
@@ -79,19 +79,19 @@ RSpec.describe 'request/citations' do
       before { render_view }
 
       it 'renders the section' do
-        expect(rendered).to match(/In the News/)
-      end
-
-      it 'does not render the blank slate text' do
-        expect(rendered).not_to match(/Has this request been referenced/)
+        expect(rendered).to match(/FOI in Action/)
       end
 
       it 'renders the citations' do
         expect(rendered).to match(/citations-list/)
       end
 
+      it 'renders the blank slate text' do
+        expect(rendered).to match(/Has this request been referenced/)
+      end
+
       it 'renders the link to add citations' do
-        expect(rendered).to match('New Citation')
+        expect(rendered).to match('Let us know')
       end
     end
   end

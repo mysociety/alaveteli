@@ -1,0 +1,46 @@
+<% content_for :javascript_head do %>
+  <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+<% end %>
+
+<div id="project-form" class="inner-canvas">
+  <div class="inner-canvas-header">
+    <div class="row">
+      <% @title = _("Edit your dataset") %>
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <%= foi_error_messages_for :project, full_message: true %>
+    </div>
+
+    <div class="row">
+      <%= form_for @project, url: project_dataset_path(@project) do |f| %>
+        <div class="form_input">
+          <%= f.label :dataset_description, _('Description'), class: 'form_label' %>
+          <%= f.rich_text_area :dataset_description %>
+        </div>
+
+        <div class="form_input">
+          <%= f.label :dataset_public, _('Visibility'), class: 'form_label' %>
+
+          <div class="radio_buttons">
+            <%= f.radio_button :dataset_public, false, disabled: @project.dataset_public? %>
+            <%= f.label :dataset_public, _('Private'), value: false %>
+            <%= f.radio_button :dataset_public, true, disabled: @project.dataset_public? %>
+            <%= f.label :dataset_public, _('Public'), value: true %>
+          </div>
+
+          <div class="form_note">
+            <%= _('When a dataset is made public, it cannot be reverted to private.') %>
+          </div>
+        </div>
+
+        <div class="form_button">
+          <%= f.submit _('Update dataset') %>
+        </div>
+      <% end %>
+    </div> <!-- .row -->
+  </div> <!-- .inner-canvas-body -->
+</div> <!-- #project-form.inner-canvas -->

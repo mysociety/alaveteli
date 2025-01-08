@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe WidgetVotesController do
-
   include LinkToHelper
 
   describe 'POST #create' do
@@ -12,21 +11,20 @@ RSpec.describe WidgetVotesController do
     end
 
     it 'should find the info request' do
-      post :create, params: { request_id: info_request.id }
+      post :create, params: { request_url_title: info_request.url_title }
       expect(assigns[:info_request]).to eq(info_request)
     end
 
     it 'should redirect to the track path for the info request' do
-      post :create, params: { request_id: info_request.id }
+      post :create, params: { request_url_title: info_request.url_title }
       track_thing = TrackThing.create_track_for_request(info_request)
       expect(response).to redirect_to(do_track_path(track_thing))
     end
 
     context 'for a non-logged-in user without a tracking cookie' do
-
       it 'sets a tracking cookie' do
         allow(SecureRandom).to receive(:hex).and_return(mock_cookie)
-        post :create, params: { request_id: info_request.id }
+        post :create, params: { request_url_title: info_request.url_title }
         expect(cookies[:widget_vote]).to eq(mock_cookie)
       end
 
@@ -36,18 +34,16 @@ RSpec.describe WidgetVotesController do
           widget_votes.
           where(cookie: mock_cookie)
 
-        post :create, params: { request_id: info_request.id }
+        post :create, params: { request_url_title: info_request.url_title }
 
         expect(votes.size).to eq(1)
       end
-
     end
 
     context 'for a non-logged-in user with a tracking cookie' do
-
       it 'retains the existing tracking cookie' do
         request.cookies['widget_vote'] = mock_cookie
-        post :create, params: { request_id: info_request.id }
+        post :create, params: { request_url_title: info_request.url_title }
         expect(cookies[:widget_vote]).to eq(mock_cookie)
       end
 
@@ -57,46 +53,43 @@ RSpec.describe WidgetVotesController do
           widget_votes.
           where(cookie: mock_cookie)
 
-        post :create, params: { request_id: info_request.id }
+        post :create, params: { request_url_title: info_request.url_title }
 
         expect(votes.size).to eq(1)
       end
-
     end
 
     context 'when widgets are not enabled' do
-
       it 'raises ActiveRecord::RecordNotFound' do
-        allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(false)
+        allow(AlaveteliConfiguration).
+          to receive(:enable_widgets).
+          and_return(false)
         expect {
-          post :create, params: { request_id: info_request.id }
+          post :create, params: { request_url_title: info_request.url_title }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
 
     context "when the request's prominence is not 'normal'" do
-
       it 'should return a 403' do
         info_request.prominence = 'hidden'
         info_request.save!
-        post :create, params: { request_id: info_request.id }
+        post :create, params: { request_url_title: info_request.url_title }
         expect(response.code).to eq("403")
       end
-
     end
 
     context 'when the request is embargoed' do
-
       it 'should raise an ActiveRecord::RecordNotFound error' do
         embargoed_request = FactoryBot.create(:embargoed_request)
         expect {
-          post :create, params: { request_id: embargoed_request.id }
+          post :create, params: {
+            request_url_title: embargoed_request.url_title
+          }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
-
 end
 
 def mock_cookie

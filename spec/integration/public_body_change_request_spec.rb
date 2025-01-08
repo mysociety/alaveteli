@@ -2,14 +2,11 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'Requesting changes to a public body' do
-
   describe 'reporting an out of date email address' do
-
     let(:public_body) { FactoryBot.create(:public_body) }
     let(:user) { FactoryBot.create(:user) }
 
     describe 'when not logged in' do
-
       it "should not forget which public body you are updating during login" do
         visit show_public_body_path(url_name: public_body.url_name)
         click_link("Ask us to update FOI email")
@@ -21,7 +18,6 @@ RSpec.describe 'Requesting changes to a public body' do
 
         expect(page).to have_content "Ask us to update the email address"
       end
-
     end
   end
 end

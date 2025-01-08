@@ -1,0 +1,51 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags("modern_application") %>
+<% end %>
+
+<div id="project-form" class="inner-canvas">
+  <div class="inner-canvas-header">
+    <div class="row">
+      <% @title = _("Invite contributors") %>
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <%= form_for([:alaveteli_pro, @project]) do |f| %>
+        <%= hidden_field_tag :step, 'invite' %>
+
+        <h3><%= _('Invite others to the project') %></h3>
+        <% if @project.invite_token %>
+          <%= text_field_tag nil, project_invite_url(token: @project.invite_token), class: 'project__invite-token', disabled: true %>
+          <%= content_tag :span, _('Copy'), class: 'button', data: {
+            'clipboard-text': project_invite_url(token: @project.invite_token),
+            'clipboard-success': _('Copied!')
+          } %>
+          <%= f.submit _('Regenerate invite link') %>
+        <% else %>
+          <%= f.submit _('Generate invite link') %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <%= foi_error_messages_for :project, full_message: true %>
+    </div>
+
+    <div class="row">
+      <%= form_for([:alaveteli_pro, @project], data: { controller: 'projects--contributors' }) do |f| %>
+        <%= hidden_field_tag :step, current_step %>
+
+        <h3><%= _('On the project') %></h3>
+        <div id="project-contributors">
+          <%= render partial: 'contributors', locals: { f: f } %>
+        </div>
+
+        <div class="form_button">
+          <%= f.submit _('Update Project') %>
+        </div>
+      <% end %>
+    </div> <!-- .row -->
+  </div> <!-- .inner-canvas-body -->
+</div> <!-- #project-form.inner-canvas -->

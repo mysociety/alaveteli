@@ -56,9 +56,11 @@ end
 $available_themes = Dir.entries(theme_directory).find_all do |local_theme_name|
   next if [".", ".."].index local_theme_name
   next unless local_theme_name
+
   full_path = File.join theme_directory, local_theme_name
   next unless File.directory? full_path
   next unless File.directory? File.join(full_path, '.git')
+
   local_theme_name
 end.sort
 

@@ -1,11 +1,22 @@
-<h1><%= _('In the News') %></h1>
+<h1><%= _('FOI in Action') %></h1>
 
 <p>
-  <%= _('Has this request been referenced in a news article or academic ' \
-        'paper? Let us know:') %>
+  <% if @resource.is_a?(InfoRequestBatch) %>
+    <%= _('Has this batch request been referenced in journalism, ' \
+          'campaigning, or research?') %>
+  <% else %>
+    <%= _('Has this request been referenced in journalism, campaigning, ' \
+          'or research?') %>
+  <% end %>
+
+  <%= _('Let us know about great examples of <a href="{{citations_path}}">' \
+        'FOI in Action</a>.',
+        citations_path: citations_path) %>
 </p>
 
-<%= form_for @citation, class: 'form form-horizontal' do |f| %>
+<%= form_for @citation,
+  url: url_for(action: 'create', **params.permit(:resource, :url_title, :info_request_batch_id)),
+  class: 'form form-horizontal' do |f| %>
   <%= foi_error_messages_for :citation %>
 
   <p>
@@ -23,14 +34,19 @@
       <%= _('What type of article is it?') %>
     </span>
 
-    <label for="citation_type_news_story" class="form_label">
-      <%= f.radio_button :type, 'news_story' %>
-      <%= _('News story') %>
+    <label for="citation_type_journalism" class="form_label">
+      <%= f.radio_button :type, 'journalism' %>
+      <%= _('Journalism') %>
     </label>
 
-    <label for="citation_type_academic_paper" class="form_label">
-      <%= f.radio_button :type, 'academic_paper' %>
-      <%= _('Academic paper') %>
+    <label for="citation_type_campaigning" class="form_label">
+      <%= f.radio_button :type, 'campaigning' %>
+      <%= _('Campaigning') %>
+    </label>
+
+    <label for="citation_type_research" class="form_label">
+      <%= f.radio_button :type, 'research' %>
+      <%= _('Research') %>
     </label>
 
     <label for="citation_type_other" class="form_label">
@@ -39,7 +55,7 @@
     </label>
   </p>
 
-  <% if @info_request.info_request_batch_id %>
+  <% if @resource.is_a?(InfoRequest) && @resource.info_request_batch_id %>
     <p>
       <label for="applies_to_batch_request" class="form_label">
         <%= check_box_tag :applies_to_batch_request, true,

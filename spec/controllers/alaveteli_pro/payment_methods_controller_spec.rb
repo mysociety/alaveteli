@@ -22,9 +22,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
   end
 
   describe 'POST #update' do
-
     context 'without a signed-in user' do
-
       before do
         post :update
       end
@@ -33,7 +31,6 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         expect(response).
           to redirect_to(signin_path(token: PostRedirect.last.token))
       end
-
     end
 
     context 'with a signed-in user' do
@@ -69,7 +66,6 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
       end
 
       context 'with a successful transaction' do
-
         before do
           post :update, params: { 'stripe_token' => new_token }
         end
@@ -96,11 +92,9 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'shows a message to confirm the update' do
           expect(flash[:notice]).to eq('Your payment details have been updated')
         end
-
       end
 
       context 'when the card is declined' do
-
         before do
           StripeMock.prepare_card_error(:card_declined, :update_customer)
 
@@ -116,11 +110,9 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
                        retrieve(user.pro_account.stripe_customer_id)
           expect(reloaded.sources.data.map(&:id)).to match_array(card_ids)
         end
-
       end
 
       context 'when we are rate limited' do
-
         before do
           error = Stripe::RateLimitError.new
           StripeMock.prepare_error(error, :update_customer)
@@ -135,11 +127,9 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'renders an error message' do
           expect(flash[:error]).to match(/There was a problem/)
         end
-
       end
 
       context 'when Stripe receives an invalid request' do
-
         before do
           error = Stripe::InvalidRequestError.new('message', 'param')
           StripeMock.prepare_error(error, :update_customer)
@@ -154,11 +144,9 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'renders an error message' do
           expect(flash[:error]).to match(/There was a problem/)
         end
-
       end
 
       context 'when we cannot authenticate with Stripe' do
-
         before do
           error = Stripe::AuthenticationError.new
           StripeMock.prepare_error(error, :update_customer)
@@ -173,11 +161,9 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'renders an error message' do
           expect(flash[:error]).to match(/There was a problem/)
         end
-
       end
 
       context 'when we cannot connect to Stripe' do
-
         before do
           error = Stripe::APIConnectionError.new
           StripeMock.prepare_error(error, :update_customer)
@@ -192,11 +178,9 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'renders an error message' do
           expect(flash[:error]).to match(/There was a problem/)
         end
-
       end
 
       context 'when Stripe returns a generic error' do
-
         before do
           error = Stripe::StripeError.new
           StripeMock.prepare_error(error, :update_customer)
@@ -211,11 +195,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
         it 'renders an error message' do
           expect(flash[:error]).to match(/There was a problem/)
         end
-
       end
-
     end
-
   end
-
 end

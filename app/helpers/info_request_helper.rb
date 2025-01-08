@@ -112,9 +112,12 @@ module InfoRequestHelper
       str += ' '
       str += _('You can <strong>complain</strong> by')
       str += ' '
-      str += link_to _('requesting an internal review'),
-                    new_request_followup_path(request_id: info_request.id) +
-                    '?internal_review=1'
+      str += link_to(
+        _('requesting an internal review'),
+        new_request_followup_path(
+          info_request.url_title, internal_review: 1
+        )
+      )
       str += '.'
     end
 
@@ -185,10 +188,14 @@ module InfoRequestHelper
       public_body_link: public_body_link(info_request.public_body))
   end
 
-  def status_text_error_message(_info_request, _opts = {})
+  def status_text_error_message(info_request, _opts = {})
+    body = info_request.public_body
     _('There was a <strong>delivery error</strong> or similar, which ' \
-      'needs fixing by the {{site_name}} team.',
-      site_name: site_name)
+      'needs fixing by the {{site_name}} team. Can you help by ' \
+      '<a href="{{change_request_url}}">finding updated contact ' \
+      'details</a>?',
+      site_name: site_name,
+      change_request_url: new_change_request_body_path(body: body.url_name))
   end
 
   def status_text_requires_admin(_info_request, _opts = {})
@@ -282,13 +289,13 @@ module InfoRequestHelper
     attach_params = attachment_params(attachment, options)
 
     if options[:html] && public_token?
-      share_attachment_as_html_url(attach_params)
+      share_attachment_as_html_url(*attach_params)
     elsif options[:html]
-      get_attachment_as_html_url(attach_params)
+      get_attachment_as_html_url(*attach_params)
     elsif public_token?
-      share_attachment_url(attach_params)
+      share_attachment_url(*attach_params)
     else
-      get_attachment_url(attach_params)
+      get_attachment_url(*attach_params)
     end
   end
 
@@ -308,7 +315,8 @@ module InfoRequestHelper
     if public_token?
       attach_params[:public_token] = public_token
     else
-      attach_params[:id] = attachment.incoming_message.info_request_id
+      attach_params[:request_url_title] = attachment.incoming_message.
+        info_request.url_title
     end
     if options[:html]
       attach_params[:file_name] = "#{attachment.display_filename}.html"
@@ -321,7 +329,7 @@ module InfoRequestHelper
 
     attach_params[:project_id] = @project.id if @project
 
-    attach_params
+    [attach_params.delete(:id), attach_params]
   end
 
   def public_token?

@@ -82,13 +82,12 @@ class NotificationMailer < ApplicationMailer
       end
     end
 
-    set_reply_to_headers(user)
-    set_auto_generated_headers
-
     mail_user(
       user,
-      _("Your daily request summary from {{pro_site_name}}",
-        pro_site_name: pro_site_name)
+      subject: -> {
+        _("Your daily request summary from {{pro_site_name}}",
+          pro_site_name: pro_site_name)
+      }
     )
   end
 
@@ -102,80 +101,80 @@ class NotificationMailer < ApplicationMailer
     @info_request = notification.info_request_event.info_request
     @incoming_message = notification.info_request_event.incoming_message
 
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
-
-    subject = _("New response to your FOI request - {{request_title}}",
-                request_title: @info_request.title.html_safe)
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'response_notification')
+    mail_user(
+      @info_request.user,
+      subject: -> {
+        _("New response to your FOI request - {{request_title}}",
+          request_title: @info_request.title.html_safe)
+      },
+      template_name: 'response_notification'
+    )
   end
 
   def embargo_expiring_notification(notification)
     @info_request = notification.info_request_event.info_request
 
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
-
-    subject = _(
-      "Your FOI request - {{request_title}} will be made public on " \
-      "{{site_name}} this week",
-      request_title: @info_request.title.html_safe,
-      site_name: site_name.html_safe
+    mail_user(
+      @info_request.user,
+      subject: -> {
+        _(
+          "Your FOI request - {{request_title}} will be made public on " \
+          "{{site_name}} this week",
+          request_title: @info_request.title.html_safe,
+          site_name: site_name.html_safe
+        )
+      },
+      template_name: 'embargo_expiring_notification'
     )
-
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'embargo_expiring_notification')
   end
 
   def expire_embargo_notification(notification)
     @info_request = notification.info_request_event.info_request
 
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
-
-    subject = _(
-      "Your FOI request - {{request_title}} has been made public on " \
-      "{{site_name}}",
-      request_title: @info_request.title.html_safe,
-      site_name: site_name.html_safe
+    mail_user(
+      @info_request.user,
+      subject: -> {
+        _(
+          "Your FOI request - {{request_title}} has been made public on " \
+          "{{site_name}}",
+          request_title: @info_request.title.html_safe,
+          site_name: site_name.html_safe
+        )
+      },
+      template_name: 'expire_embargo_notification'
     )
-
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'expire_embargo_notification')
   end
 
   def overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
     @url = signin_url(r: respond_to_last_path(@info_request))
 
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
-
-    subject = _("Delayed response to your FOI request - {{request_title}}",
-                request_title: @info_request.title.html_safe)
-
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'overdue_notification')
+    mail_user(
+      @info_request.user,
+      subject: -> {
+        _(
+          "Delayed response to your FOI request - {{request_title}}",
+          request_title: @info_request.title.html_safe
+        )
+      },
+      template_name: 'overdue_notification'
+    )
   end
 
   def very_overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
     @url = signin_url(r: respond_to_last_path(@info_request))
 
-    set_reply_to_headers(@info_request.user)
-    set_auto_generated_headers
-
-    subject = _("You're long overdue a response to your FOI request " \
-                "- {{request_title}}",
-                request_title: @info_request.title.html_safe)
-
-    mail_user(@info_request.user,
-              subject,
-              template_name: 'very_overdue_notification')
+    mail_user(
+      @info_request.user,
+      subject: -> {
+        _(
+          "You're long overdue a response to your FOI request " \
+          "- {{request_title}}",
+          request_title: @info_request.title.html_safe
+        )
+      },
+      template_name: 'very_overdue_notification'
+    )
   end
 end

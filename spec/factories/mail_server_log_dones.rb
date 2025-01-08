@@ -11,12 +11,10 @@
 #
 
 FactoryBot.define do
-
   factory :mail_server_log_done do
     filename {
       "/var/log/mail/mail.log-#{ Date.current.to_fs(:number)} "
     }
     last_stat { Time.current }
   end
-
 end

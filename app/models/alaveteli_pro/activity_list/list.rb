@@ -1,6 +1,5 @@
 module AlaveteliPro
   module ActivityList
-
     class List
       attr_accessor :user, :page, :per_page
 
@@ -39,7 +38,6 @@ module AlaveteliPro
           "embargo_expiry" => ActivityList::EmbargoExpiry
         }
       end
-
     end
   end
 end

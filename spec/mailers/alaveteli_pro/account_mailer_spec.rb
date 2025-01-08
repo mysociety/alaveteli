@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::AccountMailer do
-
   describe '#account_request' do
     let(:account_request) do
       AlaveteliPro::AccountRequest.new(email: 'test@localhost',
@@ -50,5 +49,4 @@ RSpec.describe AlaveteliPro::AccountMailer do
         to match("Training emails opt-in: #{account_request.training_emails}")
     end
   end
-
 end

@@ -10,6 +10,7 @@ libicu-dev
 libmagic-dev
 libmagickwand-dev
 libpq-dev
+libreoffice-calc-nogui
 libsqlite3-dev
 libxml2-dev
 libxslt-dev
@@ -17,12 +18,13 @@ links
 lockfile-progs
 memcached
 mutt
-pdftk
+pdftk-java
 poppler-utils
 postgresql
 postgresql-client
 rake
 redis
+rsyslog
 ruby
 ruby-dev
 sqlite3

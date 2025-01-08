@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe SafeRedirect do
-
   describe '.new' do
-
     it 'requires a redirect_parameter' do
       expect { subject }.to raise_error(ArgumentError)
     end
@@ -16,7 +14,6 @@ RSpec.describe SafeRedirect do
     it 'rejects an invalid redirect_parameter' do
       expect { described_class.new(123) }.to raise_error(URI::InvalidURIError)
     end
-
   end
 
   describe '#path' do
@@ -28,7 +25,6 @@ RSpec.describe SafeRedirect do
       it 'returns the path' do
         expect(subject).to eq('/request/the_cost_of_boring')
       end
-
     end
 
     context 'with query parameters' do
@@ -37,7 +33,6 @@ RSpec.describe SafeRedirect do
       it 'strips the query parameters' do
         expect(subject).to eq('/request/the_cost_of_boring')
       end
-
     end
 
     context 'with an anchor' do
@@ -46,7 +41,6 @@ RSpec.describe SafeRedirect do
       it 'retains the anchor' do
         expect(subject).to eq('/request/the_cost_of_boring#incoming-1')
       end
-
     end
 
     context 'with query parameters and an anchor' do
@@ -55,7 +49,6 @@ RSpec.describe SafeRedirect do
       it 'strips the query parameters and retains the anchor' do
         expect(subject).to eq('/request/the_cost_of_boring#incoming-1')
       end
-
     end
 
     context 'with a host component' do
@@ -64,7 +57,6 @@ RSpec.describe SafeRedirect do
       it 'strips the host' do
         expect(subject).to eq('/request/hello')
       end
-
     end
 
     context 'with an optional query' do
@@ -75,9 +67,6 @@ RSpec.describe SafeRedirect do
       it 'appends the query string' do
         expect(subject).to eq('/request/hello?emergency=1')
       end
-
     end
-
   end
-
 end

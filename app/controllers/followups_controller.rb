@@ -146,6 +146,7 @@ class FollowupsController < ApplicationController
         @outgoing_message,
         @outgoing_message.incoming_message_followup
       ).deliver_now
+
     rescue *OutgoingMessage.expected_send_errors => e
       authority_name = @outgoing_message.info_request.public_body.name
       @outgoing_message.record_email_failure(e.message)
@@ -189,11 +190,12 @@ class FollowupsController < ApplicationController
 
   def set_info_request
     if current_user
-      @info_request =
-        current_user.info_requests.find_by(id: params[:request_id].to_i)
+      @info_request = current_user.info_requests.
+        find_by(url_title: params[:request_url_title])
     end
 
-    @info_request ||= InfoRequest.not_embargoed.find(params[:request_id].to_i)
+    @info_request ||= InfoRequest.not_embargoed.
+      find_by!(url_title: params[:request_url_title])
   end
 
   def set_last_request_data

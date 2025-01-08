@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe RequestMailer do
-
   describe "when receiving incoming mail" do
-
     before(:each) do
       load_raw_emails_data
       ActionMailer::Base.deliveries = []
@@ -145,7 +143,6 @@ RSpec.describe RequestMailer do
       receive_incoming_mail('incoming-request-plain.email', email_to: 'asdfg')
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
-
 
     it "attaches messages with an info request address in the Received headers to the appropriate request" do
       ir = info_requests(:fancy_dog_request)
@@ -414,7 +411,6 @@ RSpec.describe RequestMailer do
       expect(deliveries.size).to eq(0)
     end
 
-
     it "should not mutilate long URLs when trying to word wrap them" do
       long_url = 'http://www.this.is.quite.a.long.url.flourish.org/there.is.no.way.it.is.short.whatsoever'
       body = "This is a message with quite a long URL in it. It also has a paragraph, being this one that has quite a lot of text in it to. Enough to test the wrapping of itself.
@@ -425,11 +421,9 @@ RSpec.describe RequestMailer do
       wrapped = MySociety::Format.wrap_email_body_by_paragraphs(body)
       expect(wrapped).to include(long_url)
     end
-
   end
 
   describe 'when sending emails' do
-
     it 'renders the footer partial for a user email' do
       expect_any_instance_of(RequestMailer).to receive(:set_footer_template)
       info_request = FactoryBot.create(:waiting_clarification_info_request)
@@ -448,12 +442,9 @@ RSpec.describe RequestMailer do
                              "The content of blah.txt")
       mail.message
     end
-
   end
 
-
   describe "when sending reminders to requesters to classify a response to their request" do
-
     let(:old_request) do
       InfoRequest.destroy_all
       FactoryBot.create(:old_unclassified_request)
@@ -479,7 +470,6 @@ RSpec.describe RequestMailer do
     end
 
     context 'if the request is embargoed' do
-
       it 'sends the reminder' do
         old_request.create_embargo(publish_at: Time.zone.now + 3.days)
         send_alerts
@@ -488,22 +478,18 @@ RSpec.describe RequestMailer do
         expect(mail.body).to match(/#{old_request.title}/)
         expect(mail.body).to match(/Letting everyone know whether you got the information/)
       end
-
     end
 
     context 'if an alert matching the attributes of the reminder to be sent has already been sent' do
-
       it 'should not send the reminder' do
         params = sent_alert_params(old_request, 'new_response_reminder_1')
         UserInfoRequestSentAlert.create!(params)
         expect(RequestMailer).not_to receive(:new_response_reminder_alert)
         send_alerts
       end
-
     end
 
     context 'if no alert matching the attributes of the reminder to be sent has already been sent' do
-
       before do
         allow(UserInfoRequestSentAlert).to receive(:find).and_return(nil)
       end
@@ -520,8 +506,6 @@ RSpec.describe RequestMailer do
         mail = deliveries[0]
         expect(mail.body).to match(/Letting everyone know whether you got the information/)
       end
-
-
     end
 
     context "if the request has use_notifications set to true" do
@@ -532,11 +516,9 @@ RSpec.describe RequestMailer do
         send_alerts
       end
     end
-
   end
 
   describe "when sending mail when someone has updated an old unclassified request" do
-
     let(:user) do
       FactoryBot.create(:user, name: "test name", email: "email@localhost")
     end
@@ -560,6 +542,18 @@ RSpec.describe RequestMailer do
       expect(mail.subject).to eq('Someone has updated the status of your request')
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        expect(mail.subject).to eq(
+          'Alguien ha actualizado el estado de tu solicitud'
+        )
+      end
+    end
+
     it 'should tell them what status was picked' do
       expect(mail.body).to match(/"refused."/)
     end
@@ -567,11 +561,9 @@ RSpec.describe RequestMailer do
     it 'should contain the request path' do
       expect(mail.body).to match(/request\/test_request/)
     end
-
   end
 
   describe "when generating a fake response for an upload" do
-
     before do
       @foi_officer = mock_model(User, name_and_email: "FOI officer's name and email")
       @request_user = mock_model(User)
@@ -589,11 +581,9 @@ RSpec.describe RequestMailer do
                                                "The content of blah.txt")
       expect(fake_email.subject).to eq("Re: Freedom of Information - Test request")
     end
-
   end
 
   describe "when sending a new response email" do
-
     let(:user) do
       FactoryBot.create(:user, name: "test name",
                                email: "email@localhost")
@@ -625,6 +615,23 @@ RSpec.describe RequestMailer do
       expect(mail.subject).to eq "New response to your FOI request - Here's a request"
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request.title = "A request"
+        info_request.user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        mail = RequestMailer.new_response(
+          info_request,
+          FactoryBot.create(:incoming_message)
+        )
+        expect(mail.subject).to eq(
+          "Nueva respuesta a tu solicitud de información - A request"
+        )
+      end
+    end
+
     it 'should send pro users a signin link' do
       pro_user = FactoryBot.create(:pro_user)
       info_request = FactoryBot.create(:embargoed_request, user: pro_user)
@@ -646,11 +653,9 @@ RSpec.describe RequestMailer do
       expected_url = incoming_message_url(incoming_message, cachebust: true)
       expect(mail_url).to eq expected_url
     end
-
   end
 
   describe "sending unclassified new response reminder alerts" do
-
     before(:each) do
       load_raw_emails_data
     end
@@ -664,12 +669,17 @@ RSpec.describe RequestMailer do
       mail = deliveries[0]
       expect(mail.body).to match(/To let everyone know/)
       expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+      expect(mail.subject).to eq(
+        "Please update the status of your request - "\
+        "Why do you have & such a fancy dog?"
+      )
 
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
 
-      redirect_target =
-        show_request_path(info_request, anchor: 'describe_state_form_1')
+      redirect_target = show_request_path(
+        info_request.url_title, anchor: 'describe_state_form_1'
+      )
 
       expect(mail_url).to eq(signin_url(r: redirect_target))
 
@@ -678,10 +688,31 @@ RSpec.describe RequestMailer do
       expect(mail_url.split('%23').last).to eq('describe_state_form_1')
     end
 
+    context "when the user does not use default locale" do
+      before do
+        user = users(:bob_smith_user)
+        @old_locale = user.locale
+        user.locale = 'es'
+        user.save
+        RequestMailer.alert_new_response_reminders
+      end
+
+      after do
+        user = users(:bob_smith_user)
+        user.locale = @old_locale
+        user.save
+      end
+
+      it "translates the subject" do
+        expect(ActionMailer::Base.deliveries[0].subject).to eq(
+          "*** Spanish missing *** "\
+          "Why do you have & such a fancy dog?"
+        )
+      end
+    end
   end
 
   describe "requires_admin" do
-
     let(:user) do
       FactoryBot.create(:user, name: "Bruce Jones",
                                email: "bruce@example.com")
@@ -739,11 +770,9 @@ RSpec.describe RequestMailer do
         end
       end
     end
-
   end
 
   describe "sending overdue request alerts", focus: true do
-
     before(:each) do
       @kitten_request = FactoryBot.create(:info_request,
                                           title: "Do you really own a kitten?")
@@ -760,6 +789,21 @@ RSpec.describe RequestMailer do
       expect(mail.subject).to eq "Delayed response to your FOI request - Here's a request"
     end
 
+    context "when the user does not use default locale" do
+      before do
+        @info_request = FactoryBot.create(:info_request, title: "A request")
+        @info_request.user.locale = 'es'
+        @mail = RequestMailer.overdue_alert(@info_request, @info_request.user)
+      end
+
+      it "translates the subject" do
+        expect(@mail.subject).to eq(
+          "Respuesta retrasada a tu solicitud de acceso a información - "\
+          "A request"
+        )
+      end
+    end
+
     it "sends an overdue alert mail to request creators" do
       travel_to(31.days.from_now) do
         RequestMailer.alert_overdue_requests
@@ -773,8 +817,11 @@ RSpec.describe RequestMailer do
         mail.body.to_s =~ /(http:\/\/.*)/
         mail_url = $1
 
-        expect(mail_url).
-          to match(new_request_followup_path(@kitten_request.id))
+        expect(mail_url).to match(
+          new_request_followup_path(
+            request_url_title: @kitten_request.url_title
+          )
+        )
       end
     end
 
@@ -803,7 +850,6 @@ RSpec.describe RequestMailer do
 
     it "sends alerts for requests where the last event forming the initial
           request is a followup being sent following a request for clarification" do
-
       # Request is waiting clarification
       @kitten_request.set_described_state('waiting_clarification')
 
@@ -863,7 +909,6 @@ RSpec.describe RequestMailer do
     end
 
     context "very overdue alerts" do
-
       it 'should not create HTML entities in the subject line' do
         info_request = FactoryBot.create(:info_request,
                                          title: "Here's a request")
@@ -871,6 +916,24 @@ RSpec.describe RequestMailer do
                                                 info_request.user)
         expect(mail.subject).to eq "You're long overdue a response " \
                                    "to your FOI request - Here's a request"
+      end
+
+      context "when the user does not use default locale" do
+        before do
+          @info_request = FactoryBot.create(:info_request, title: "A request")
+          @info_request.user.locale = 'es'
+          @mail = RequestMailer.very_overdue_alert(
+            @info_request,
+            @info_request.user
+          )
+        end
+
+        it "translates the subject" do
+          expect(@mail.subject).to eq(
+            "La respuesta a tu solicitud de información está muy retrasada - "\
+            "A request"
+          )
+        end
       end
 
       it "sends a very overdue alert mail to creators of very overdue requests" do
@@ -885,8 +948,11 @@ RSpec.describe RequestMailer do
           mail.body.to_s =~ /(http:\/\/.*)/
           mail_url = $1
 
-          expect(mail_url).
-            to match(new_request_followup_path(@kitten_request.id))
+          expect(mail_url).to match(
+            new_request_followup_path(
+              request_url_title: @kitten_request.url_title
+            )
+          )
         end
       end
 
@@ -917,40 +983,85 @@ RSpec.describe RequestMailer do
           expect(mails).to be_empty
         end
       end
-
     end
-
   end
 
   describe "not_clarified_alert" do
-
     it 'should not create HTML entities in the subject line' do
       mail = RequestMailer.not_clarified_alert(FactoryBot.create(:info_request, title: "Here's a request"), FactoryBot.create(:incoming_message))
       expect(mail.subject).to eq "Clarify your FOI request - Here's a request"
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request = FactoryBot.create(:info_request, title: "A request")
+        info_request.user.locale = 'es'
+        @mail = RequestMailer.not_clarified_alert(
+          info_request,
+          FactoryBot.create(:incoming_message)
+        )
+      end
+
+      it "translates the subject" do
+        expect(@mail.subject).to eq(
+          "Clarifica tu solicitud de información - A request"
+        )
+      end
+    end
   end
 
   describe "comment_on_alert" do
-
     it 'should not create HTML entities in the subject line' do
       mail = RequestMailer.comment_on_alert(FactoryBot.create(:info_request, title: "Here's a request"), FactoryBot.create(:comment))
       expect(mail.subject).to eq "Somebody added a note to your FOI request - Here's a request"
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request = FactoryBot.create(:info_request, title: "A request")
+        info_request.user.locale = 'es'
+        @mail = RequestMailer.comment_on_alert(
+          info_request,
+          FactoryBot.create(:comment)
+        )
+      end
+
+      it "translates the subject" do
+        expect(@mail.subject).to eq(
+          "Nuevo comentario en tu solicitud de acceso a información - "\
+          "A request"
+        )
+      end
+    end
   end
 
   describe "comment_on_alert_plural" do
-
     it 'should not create HTML entities in the subject line' do
       mail = RequestMailer.comment_on_alert_plural(FactoryBot.create(:info_request, title: "Here's a request"), 2, FactoryBot.create(:comment))
       expect(mail.subject).to eq "Some notes have been added to your FOI request - Here's a request"
     end
 
+    context "when the user does not use default locale" do
+      before do
+        info_request = FactoryBot.create(:info_request, title: "A request")
+        info_request.user.locale = 'es'
+        @mail = RequestMailer.comment_on_alert_plural(
+          info_request,
+          2,
+          FactoryBot.create(:comment)
+        )
+      end
+
+      it "translates the subject" do
+        expect(@mail.subject).to eq(
+          "Nuevos comentarios en tu solicitud de acceso a información - "\
+          "A request"
+        )
+      end
+    end
   end
 
   describe "clarification required alerts" do
-
     before(:each) do
       load_raw_emails_data
     end
@@ -974,9 +1085,12 @@ RSpec.describe RequestMailer do
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
 
-      expect(mail_url).
-        to match(new_request_incoming_followup_path(request_id: ir.id,
-                                    incoming_message_id: ir.incoming_messages.last.id))
+      expect(mail_url).to match(
+        new_request_incoming_followup_path(
+          ir.url_title,
+          incoming_message_id: ir.incoming_messages.last.id
+        )
+      )
     end
 
     it "skips requests that don't have a public last response" do
@@ -1042,7 +1156,6 @@ RSpec.describe RequestMailer do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(0)
     end
-
   end
 
   describe "comment alerts" do
@@ -1133,7 +1246,5 @@ RSpec.describe RequestMailer do
       mail = deliveries[0]
       expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
     end
-
   end
-
 end

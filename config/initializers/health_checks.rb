@@ -1,3 +1,5 @@
+require 'redis_connection'
+
 Rails.application.config.after_initialize do
   user_last_created = HealthChecks::Checks::PeriodCheck.new(
     failure_message: _('The last user was created over a day ago'),
@@ -22,13 +24,23 @@ Rails.application.config.after_initialize do
 
   xapian_queue_check = HealthChecks::Checks::PeriodCheck.new(
     period: 1.hour,
-    failure_message: _('The oldest Xapian index job, has been idle for more ' \
-                       'than 1 hour'),
-    success_message: _('The oldest Xapian index job, hasn\'t been idle for ' \
-                       'more than 1 hour')
+    failure_message: _('The Xapian indexing has been stuck for more than 1 ' \
+                       'hour'),
+    success_message: _('The Xapian indexing is not stuck')
   ) do
+    redis = RedisConnection.instance
+    last_id = redis.get('health_check_xapian_queue_last_id').to_i
+
     oldest_job = ActsAsXapian::ActsAsXapianJob.order(:created_at).first
-    oldest_job&.created_at || Time.zone.now
+    next Time.zone.now unless oldest_job
+
+    if last_id != oldest_job.id
+      redis.set('health_check_xapian_queue_last_id', oldest_job.id)
+      redis.set('health_check_xapian_queue_last_changed', Time.zone.now.to_i)
+    end
+
+    last_changed = redis.get('health_check_xapian_queue_last_changed').to_i
+    Time.zone.at(last_changed)
   end
 
   HealthChecks.add user_last_created

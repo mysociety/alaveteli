@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 16:36+0100\n"
+"POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>, 2021\n"
 "Language-Team: Ukrainian (https://app.transifex.com/mysociety/teams/33529/uk/)"
@@ -41,9 +41,6 @@ msgstr[1] ""
 msgid "(no title)"
 msgstr "(без назви)"
 
-msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr ""
-
 msgid "12 Months"
 msgstr "12 місяців"
 
@@ -65,12 +62,6 @@ msgstr ""
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
 msgstr ""
 
-msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr ""
-
-msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr ""
-
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr ""
 
@@ -78,9 +69,6 @@ msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to ke
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr ""
-
-msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
@@ -123,6 +111,9 @@ msgid "<strong>You have already sent this request</strong> to some authorities i
 msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
+msgstr ""
+
+msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
 msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
@@ -191,6 +182,21 @@ msgstr "Додати розпорядників"
 msgid "Add credibility"
 msgstr ""
 
+msgid "Add question"
+msgstr ""
+
+msgid "Add questions to your project"
+msgstr ""
+
+msgid "Add request"
+msgstr ""
+
+msgid "Add requests to your project"
+msgstr ""
+
+msgid "Add whole batch and related requests"
+msgstr ""
+
 msgid "Added"
 msgstr "Додано"
 
@@ -202,6 +208,12 @@ msgstr "Усі запити"
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
 msgstr "Усі запити в цій групі залишаться приватними на такий же період. Коли окремий запит буде опубліковано, решта запитів у групі також стануть публічними."
+
+msgid "Allow blank"
+msgstr ""
+
+msgid "Allow muliple"
+msgstr ""
 
 msgid "Also called {{other_name}}."
 msgstr ""
@@ -260,6 +272,9 @@ msgstr ""
 msgid "Billed: Weekly"
 msgstr ""
 
+msgid "Billed: every {{interval}}"
+msgstr ""
+
 msgid "Billing"
 msgstr ""
 
@@ -268,9 +283,6 @@ msgstr ""
 
 msgid "Browse by category"
 msgstr "Пошук за категорією"
-
-msgid "Browse public requests"
-msgstr "Пошук серед публічних запитів"
 
 msgid "CSV"
 msgstr "CSV"
@@ -314,6 +326,9 @@ msgstr "Перевірте, чи не включили ви якоїсь осо�
 msgid "Choose a duration"
 msgstr "Оберіть період"
 
+msgid "Classify responses"
+msgstr ""
+
 msgid "Collapse all correspondence"
 msgstr "Сховати всю переписку"
 
@@ -323,10 +338,22 @@ msgstr "Підтвердіть ваш обліковий запис на сай�
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr ""
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Coupon code has expired."
 msgstr ""
 
 msgid "Coupon code is invalid."
+msgstr ""
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Create a new Project"
 msgstr ""
 
 msgid "Created"
@@ -371,6 +398,9 @@ msgstr "Чернетка"
 msgid "Drafts"
 msgstr "Чернетки"
 
+msgid "Edit your project"
+msgstr ""
+
 msgid "Edit your request"
 msgstr "Редагувати запит"
 
@@ -390,6 +420,9 @@ msgid "Expand all correspondence"
 msgstr "Показати всю переписку"
 
 msgid "Expires soon"
+msgstr ""
+
+msgid "Extract data"
 msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
@@ -455,6 +488,9 @@ msgstr " "
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
 msgstr ""
 
+msgid "Generate invite link"
+msgstr ""
+
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr "Хочете отримувати на пошту оновлення щодо {{pro_site_name}}?"
 
@@ -515,6 +551,12 @@ msgstr ""
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
 msgstr ""
 
+msgid "Invite contributors"
+msgstr ""
+
+msgid "Invite others to the project"
+msgstr ""
+
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
@@ -565,6 +607,9 @@ msgstr ""
 
 msgid "Make a batch request"
 msgstr "Створити груповий запит"
+
+msgid "Make a project"
+msgstr ""
 
 msgid "Make a request"
 msgstr "Створити запит"
@@ -623,6 +668,9 @@ msgstr "Ні"
 msgid "No bodies selected"
 msgstr "Не вибрано жодного розпорядника"
 
+msgid "No contributors have joined this project yet"
+msgstr ""
+
 msgid "No more authorities can be added to this batch request."
 msgstr "Не можна додати більше розпорядників до цього запиту"
 
@@ -662,6 +710,9 @@ msgstr ""
 msgid "Number of paying users:"
 msgstr ""
 
+msgid "On the project"
+msgstr ""
+
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "Одразу по закнченню періоду приватності, все що ви вводите на цій сторінці, включно з <strong>вашим іменем</strong>, буде <strong><a href=\"{{url}}\">оприлюднено</a></strong> на цьому сайті."
 
@@ -684,6 +735,9 @@ msgid "Once you’re ready, publishing the data behind your investigation lends 
 msgstr ""
 
 msgid "Open"
+msgstr ""
+
+msgid "Options"
 msgstr ""
 
 msgid "Overflowing inbox?"
@@ -776,6 +830,9 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+msgid "Projects"
+msgstr ""
+
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Додатковий контекст запиту та причини зробити його."
 
@@ -805,6 +862,9 @@ msgstr ""
 msgid "Refer a friend"
 msgstr ""
 
+msgid "Regenerate invite link"
+msgstr ""
+
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Розпорядники інформації мають {{late_number_of_days}} днів на відповідь."
 
@@ -816,6 +876,15 @@ msgstr ""
 
 msgid "Remove"
 msgstr "Прибрати"
+
+msgid "Remove question"
+msgstr ""
+
+msgid "Remove request"
+msgstr ""
+
+msgid "Remove whole batch"
+msgstr ""
 
 msgid "Replies"
 msgstr "Відповіді"
@@ -887,6 +956,9 @@ msgstr ""
 msgid "Search for an authority by name"
 msgstr "Пошук розпорядника за назвою"
 
+msgid "Search your requests by title"
+msgstr ""
+
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "Пошук <strong>{{search_term}}</strong> серед <strong>{{filter_description}}</strong>, сортування: <strong>{{order_description}}</strong><a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 
@@ -944,12 +1016,10 @@ msgstr ""
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
 msgstr ""
 
-msgid "Show {{count}} request in detail</span>"
-msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] "Показати {{count}} запит"
-msgstr[1] "Показати {{count}} запити"
-msgstr[2] "Показати {{count}} запитів"
-msgstr[3] "Показати {{count}} запитів"
+msgid "Show {{count}} request in detail"
+msgid_plural "Show {{count}} requests in detail"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sign up"
 msgstr ""
@@ -959,6 +1029,9 @@ msgstr ""
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Нічого не знайдено"
+
+msgid "Sorry, no requests matched that search"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Щось пішло не так, спробуйте пошук ще раз."
@@ -1151,6 +1224,9 @@ msgstr "Оновити"
 msgid "Update Card Details"
 msgstr ""
 
+msgid "Update Project"
+msgstr ""
+
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Оновити статус"
@@ -1181,6 +1257,9 @@ msgstr ""
 
 msgid "View authorities"
 msgstr "Переглянути розпорядників"
+
+msgid "View public requests"
+msgstr ""
 
 msgid "Wall"
 msgstr ""
@@ -1268,6 +1347,9 @@ msgstr ""
 
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Ви не додали жодного розпорядника"
+
+msgid "You haven't added any reqeusts to your project yet"
+msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Ви знаєте, чим викликана помилка та можете запропонувати рішення (наприклад, діючу електронну адресу)."
@@ -1392,6 +1474,12 @@ msgstr "оновлено"
 msgid "or start a batch request"
 msgstr "або зробіть груповий запит"
 
+msgid "per user, every {{interval}}"
+msgstr ""
+
+msgid "per user, per {{interval}}"
+msgstr ""
+
 msgid "requests that will be made public soon"
 msgstr ""
 
@@ -1502,4 +1590,7 @@ msgid "{{public_body_name}} are delayed in responding to your request \"{{info_r
 msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
+msgstr ""
+
+msgid "{{site_name}} Projects is a early beta feature."
 msgstr ""

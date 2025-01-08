@@ -102,45 +102,16 @@ class AdminGeneralController < AdminController
     # Recent events
     @events_title = get_events_title
 
-
     @events = WillPaginate::Collection.create((params[:page] or 1), 100) do |pager|
-      # create a hash for each model type being returned
-      info_request_event_ids = {}
-      public_body_version_ids = {}
       # get the relevant slice from the paginator
-      timestamps = get_timestamps
-      timestamps.slice(pager.offset, pager.per_page).each_with_index do |event, index|
-        # for each event in the slice, add an item to the hash for the model type
-        # whose key is the model id, and value is the position in the slice
-        if event[1] == 'InfoRequestEvent'
-          info_request_event_ids[event[0].to_i] = index
-        else
-          public_body_version_ids[event[0].to_i] = index
-        end
-      end
-      # get all the models in the slice, eagerly loading the associations we use in the view
-      public_body_versions = PublicBody.versioned_class.
-        includes(public_body: :translations).
-          find(public_body_version_ids.keys)
-      info_request_events = InfoRequestEvent.
-        includes(:info_request).
-          find(info_request_event_ids.keys)
-      @events = []
-      # drop the models into a combined array, ordered by their position in the timestamp slice
-      public_body_versions.each do |version|
-        @events[public_body_version_ids[version.id]] = [version, version.updated_at]
-      end
-      info_request_events.each do |event|
-        @events[info_request_event_ids[event.id]] = [event, event.created_at]
-      end
+      events, count = get_timeline_events(pager)
 
       # inject the result array into the paginated collection:
-      pager.replace(@events)
+      pager.replace(events)
 
       # set the total entries for the page to the overall number of results
-      pager.total_entries = timestamps.size
+      pager.total_entries = count
     end
-
   end
 
   def stats
@@ -179,33 +150,57 @@ class AdminGeneralController < AdminController
     end
   end
 
-  def get_timestamps
-    # Get an array of event attributes within the timespan in the format
-    # [id, type_of_model, event_timestamp]
+  def get_timeline_events(pager)
+    # Get an array of events, timestamps and total record count within the
+    # timespan in the selected event type
+    #
     # Note that the relevant date for InfoRequestEvents is creation, but
     # for PublicBodyVersions is update throughout
-    connection = InfoRequestEvent.connection
-
     authority_change_scope = PublicBody.versioned_class.
-      select("id, 'PublicBodyVersion', updated_at AS timestamp").
+      select("id, 'PublicBody::Version' as type, updated_at AS timestamp").
       where(updated_at: start_date...).
-      order(timestamp: :desc)
+      order(timestamp: :desc).
+      limit(pager.per_page).
+      offset(pager.offset)
+    authority_change_count = authority_change_scope.
+      unscope(:select, :order, :limit, :offset).
+      count
 
     info_request_event_scope = InfoRequestEvent.
-      select("id, 'InfoRequestEvent', created_at AS timestamp").
+      select("id, 'InfoRequestEvent' as type, created_at AS timestamp").
       where(created_at: start_date...).
-      order(timestamp: :desc)
+      order(timestamp: :desc).
+      limit(pager.per_page).
+      offset(pager.offset)
+    info_request_event_count = info_request_event_scope.
+      unscope(:select, :order, :limit, :offset).
+      count
 
     case params[:event_type]
     when 'authority_change'
-      connection.select_rows(authority_change_scope.to_sql)
+      count = authority_change_count
+      scope = authority_change_scope
     when 'info_request_event'
-      connection.select_rows(info_request_event_scope.to_sql)
+      count = info_request_event_count
+      scope = info_request_event_scope
     else
-      connection.select_rows("#{info_request_event_scope.unscope(:order).to_sql}
-                              UNION
-                              #{authority_change_scope.unscope(:order).to_sql}
-                              ORDER by timestamp desc")
+      count = authority_change_count + info_request_event_count
+      query = ActiveRecord::Base.sanitize_sql_array(
+        [<<~SQL.squish, limit: pager.per_page, offset: pager.offset]
+          (#{authority_change_scope.unscope(:order, :limit, :offset).to_sql})
+          UNION ALL
+          (#{info_request_event_scope.unscope(:order, :limit, :offset).to_sql})
+          ORDER BY timestamp DESC
+          LIMIT :limit OFFSET :offset
+        SQL
+      )
+      scope = ActiveRecord::Base.connection.select_all(query)
     end
+
+    records_and_timestamps = scope.map do |record|
+      [record['type'].constantize.find(record['id']), record['timestamp']]
+    end
+
+    [records_and_timestamps, count]
   end
 end

@@ -35,7 +35,7 @@
     <% link_to_this_url = comment_url(comment) %>
 
     <% report_path =
-         new_request_report_path(request_id: @info_request.url_title,
+         new_request_report_path(@info_request.url_title,
                                  comment_id: comment.id) %>
 
     <%= render partial: 'request/correspondence_footer',

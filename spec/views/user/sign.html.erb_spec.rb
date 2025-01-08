@@ -24,7 +24,6 @@ RSpec.describe 'user/sign' do
   end
 
   describe 'when the requested URI is for an admin page and an emergency user exists' do
-
     before do
       redirect = PostRedirect.
         create(
@@ -49,7 +48,5 @@ RSpec.describe 'user/sign' do
       render
       expect(response).not_to include("http://bad.place.com/admin?emergency=1")
     end
-
   end
-
 end

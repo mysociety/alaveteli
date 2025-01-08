@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240926164308
 #
 # Table name: dataset_keys
 #
@@ -10,6 +10,7 @@
 #  order              :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  options            :jsonb
 #
 
 FactoryBot.define do
@@ -22,6 +23,10 @@ FactoryBot.define do
 
     trait :text do
       format { 'text' }
+    end
+
+    trait :select do
+      format { 'select' }
     end
 
     trait :numeric do

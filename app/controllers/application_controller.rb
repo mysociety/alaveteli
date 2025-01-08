@@ -9,11 +9,12 @@
 class ApplicationController < ActionController::Base
   class PermissionDenied < StandardError
   end
+
   class RouteNotFound < StandardError
   end
 
-  before_action :set_gettext_locale
-  before_action :collect_locales
+  before_action :set_gettext_locale, :store_gettext_locale
+  before_action :redirect_gettext_locale, :collect_locales
 
   protect_from_forgery if: :authenticated?, with: :exception
   skip_before_action :verify_authenticity_token, unless: :authenticated?
@@ -71,23 +72,37 @@ class ApplicationController < ActionController::Base
   def set_gettext_locale
     params_locale = params[:locale]
 
-    if AlaveteliConfiguration.include_default_locale_in_urls == false
-      params_locale ||= AlaveteliLocalization.default_locale
-    end
-
     if AlaveteliConfiguration.use_default_browser_language
       browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
     end
 
-    locale = AlaveteliLocalization.set_session_locale(
-      params_locale, session[:locale], cookies[:locale], browser_locale
+    AlaveteliLocalization.set_session_locale(
+      params_locale, session[:locale], cookies[:locale], browser_locale,
+      AlaveteliLocalization.default_locale
     )
 
-    # set the current locale to the requested_locale
-    session[:locale] = locale
+    # set response header informing the browser what language the page is in
+    response.headers['Content-Language'] = I18n.locale.to_s
+  end
+
+  def store_gettext_locale
+    # set the current stored locale to the requested_locale
+    current_session_locale = session[:locale]
+    if current_session_locale != AlaveteliLocalization.locale
+      session[:locale] = AlaveteliLocalization.locale
+
+      # we need to set something other than StripEmptySessions::STRIPPABLE_KEYS
+      # otherwise the cookie will be striped from the response
+      session[:previous_locale] = current_session_locale
+    end
 
     # ensure current user locale attribute is up-to-date
     current_user.update_column(:locale, locale) if current_user
+  end
+
+  def redirect_gettext_locale
+    # redirect to remove locale params if present
+    redirect_to current_path_without_locale if params[:locale]
   end
 
   # Help work out which request causes RAM spike.
@@ -278,10 +293,7 @@ class ApplicationController < ActionController::Base
   # Return logged in user
   def authenticated_user
     return unless session[:user_id]
-
-    @user ||= User.find_by(
-      id: session[:user_id], login_token: session[:user_login_token]
-    )
+    @user ||= User.authenticate_from_session(session)
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
@@ -308,22 +320,7 @@ class ApplicationController < ActionController::Base
   end
 
   def add_post_redirect_param_to_uri(uri)
-    # TODO: what is the built in Ruby URI munging function that can do this
-    # choice of & vs. ? more elegantly than this dumb if statement?
-    if uri.include?("?")
-      # TODO: This looks odd. What would a fragment identifier be doing server-side?
-      #     But it also looks harmless, so I’ll leave it just in case.
-      if uri.include?("#")
-        uri.sub!("#", "&post_redirect=1#")
-      else
-        uri += "&post_redirect=1"
-      end
-    elsif uri.include?("#")
-      uri.sub!("#", "?post_redirect=1#")
-    else
-      uri += "?post_redirect=1"
-    end
-    uri
+    add_query_params_to_url(uri, post_redirect: 1)
   end
 
   # If we are in a faked redirect to POST request, then set post params.
@@ -378,7 +375,6 @@ class ApplicationController < ActionController::Base
       end
       redirect_to frontpage_url
     end
-
   end
 
   # Convert URL name for sort by order, to Xapian query
@@ -452,6 +448,7 @@ class ApplicationController < ActionController::Base
 
   def country_from_ip
     return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
+
     AlaveteliConfiguration.iso_country_code
   end
 

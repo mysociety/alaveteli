@@ -31,5 +31,16 @@ RSpec.describe AlaveteliPro::SubscriptionMailer, feature: [:alaveteli_pro] do
         expect(subject.body.to_s).not_to match(/&amp;laveteli Pro/)
       end
     end
+
+    context "when the user does not use default locale" do
+      before do
+        user.locale = 'es'
+      end
+
+      it "translates the subject" do
+        expect(subject.subject).
+          to eq "*** Spanish missing *** Alaveteli Professional"
+      end
+    end
   end
 end

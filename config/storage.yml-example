@@ -8,12 +8,6 @@
 #   region: ''
 #   bucket: ''
 #
-# azure:
-#   service: AzureStorage
-#   storage_account_name: ''
-#   storage_access_key: ''
-#   container: ''
-#
 # google:
 #   service: GCS
 #   credentials:

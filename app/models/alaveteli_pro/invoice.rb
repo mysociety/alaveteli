@@ -10,20 +10,21 @@ module AlaveteliPro
     end
 
     def paid?
-      status == 'paid'
+      status == 'paid' && amount_paid > 0
     end
 
     # attributes
-    def date
+    def created
       Time.at(super).to_date
     end
 
     # charge
     def charge
-      @charge ||= Stripe::Charge.retrieve(__getobj__.charge)
+      charge_id = __getobj__.charge
+      @charge ||= Stripe::Charge.retrieve(charge_id) if charge_id
     end
 
-    delegate :receipt_url, to: :charge
+    delegate :receipt_url, to: :charge, allow_nil: true
 
     private
 

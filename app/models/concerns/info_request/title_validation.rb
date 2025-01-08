@@ -28,6 +28,7 @@ module InfoRequest::TitleValidation
 
   def title_formatting
     return unless title
+
     errors.add(:title, poorly_formed_title_msg) if poorly_formed_title?
     errors.add(:title, generic_foi_title_msg) if generic_foi_title?
   end

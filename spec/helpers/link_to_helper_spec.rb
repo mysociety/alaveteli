@@ -42,7 +42,6 @@ RSpec.describe LinkToHelper do
         url = incoming_message_url(incoming_message, cachebust: true)
         expect(url).to include("nocache=incoming-#{incoming_message.id}")
       end
-
     end
 
     context 'for internal links' do
@@ -223,26 +222,51 @@ RSpec.describe LinkToHelper do
     end
   end
 
-  describe '#current_path_with_locale' do
+  describe '#current_path_without_locale' do
     before do
-      @was_routing_filter_active = RoutingFilter.active?
-      RoutingFilter.active = true
-
       AlaveteliLocalization.set_locales('en cy', 'en')
     end
 
-    after do
-      RoutingFilter.active = @was_routing_filter_active
+    it 'removes locale from current path' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all',
+          locale: 'cy'
+        )
+      )
+      expect(current_path_without_locale).
+        to eq '/body/welsh_government'
     end
 
-    it 'prepends current path with new locale' do
+    it 'ignores current protocol and host' do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(
+          controller: 'public_body', action: 'show',
+          url_name: 'welsh_government', view: 'all',
+          protocol: 'http', host: 'example.com',
+          locale: 'cy'
+        )
+      )
+      expect(current_path_without_locale).
+        to eq '/body/welsh_government'
+    end
+  end
+
+  describe '#current_path_with_locale' do
+    before do
+      AlaveteliLocalization.set_locales('en cy', 'en')
+    end
+
+    it 'adds locale parameter to current path' do
       allow(controller).to receive(:params).and_return(
         ActionController::Parameters.new(
           controller: 'public_body', action: 'show',
           url_name: 'welsh_government', view: 'all'
         )
       )
-      expect(current_path_with_locale('cy')).to eq '/cy/body/welsh_government'
+      expect(current_path_with_locale('cy')).
+        to eq '/body/welsh_government?locale=cy'
     end
 
     it 'ignores current protocol and host' do
@@ -253,7 +277,8 @@ RSpec.describe LinkToHelper do
           protocol: 'http', host: 'example.com'
         )
       )
-      expect(current_path_with_locale('cy')).to eq '/cy/body/welsh_government'
+      expect(current_path_with_locale('cy')).
+        to eq '/body/welsh_government?locale=cy'
     end
   end
 
@@ -294,6 +319,62 @@ RSpec.describe LinkToHelper do
     context 'incoming message without main body part' do
       before { allow(incoming_message).to receive(:get_main_body_text_part) }
       it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#add_query_params_to_url' do
+    it 'adds new parameters to a URL without existing parameters' do
+      url = 'http://example.com/'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?foo=1'
+    end
+
+    it 'adds ActiveModel object parameters to a URL by calling #to_param' do
+      url = 'http://example.com/'
+      new_params = { user: users(:bob_smith_user) }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?user=1'
+    end
+
+    it 'adds new parameters to a URL with existing parameters' do
+      url = 'http://example.com/?bar=2'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?bar=2&foo=1'
+    end
+
+    it 'overwrites an existing parameter if a new value is provided' do
+      url = 'http://example.com/?foo=2'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?foo=1'
+    end
+
+    it 'keeps existing url fragments' do
+      url = 'http://example.com/#bar'
+      new_params = { foo: 1 }
+      expect(add_query_params_to_url(url, new_params)).
+        to eq 'http://example.com/?foo=1#bar'
+    end
+
+    it 'handles special characters in parameter values' do
+      url = 'http://example.com/'
+      new_params = { special: 'chars like %&=' }
+      updated_url = add_query_params_to_url(url, new_params)
+      expect(URI.parse(updated_url).query).to eq 'special=chars+like+%25%26%3D'
+    end
+
+    it 'returns the original URL unchanged if no new parameters are provided' do
+      url = 'http://example.com/?foo=1'
+      new_params = {}
+      expect(add_query_params_to_url(url, new_params)).to eq url
+    end
+
+    it 'does not error when URL is not RFC2396 compliant' do
+      url = 'http://example.com/a url with spaces'
+      new_params = { foo: 1 }
+      expect { add_query_params_to_url(url, new_params) }.to_not raise_error
     end
   end
 end

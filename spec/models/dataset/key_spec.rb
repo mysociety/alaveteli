@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240926164308
 #
 # Table name: dataset_keys
 #
@@ -10,6 +10,7 @@
 #  order              :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  options            :jsonb
 #
 
 require 'spec_helper'
@@ -63,26 +64,23 @@ RSpec.describe Dataset::Key, type: :model do
       is_expected.not_to be_valid
       key.format = 'text'
       is_expected.to be_valid
+      key.format = 'select'
+      is_expected.to be_valid
       key.format = 'numeric'
       is_expected.to be_valid
       key.format = 'boolean'
       is_expected.to be_valid
     end
+  end
 
-    it 'scopes order to key set' do
-      other_key = FactoryBot.create(:dataset_key)
+  describe '.format_options' do
+    subject { described_class.format_options }
 
-      key.key_set = other_key.key_set
-      key.order = other_key.order
-      is_expected.not_to be_valid
-
-      key.key_set = other_key.key_set
-      key.order = other_key.order + 1
-      is_expected.to be_valid
-
-      key.key_set = FactoryBot.build(:dataset_key_set)
-      key.order = other_key.order
-      is_expected.to be_valid
+    it 'returns title/format key hash' do
+      is_expected.to eq(
+        { 'Text' => :text, 'Select' => :select, 'Numeric' => :numeric,
+          'Yes/No' => :boolean }
+      )
     end
   end
 
@@ -91,17 +89,22 @@ RSpec.describe Dataset::Key, type: :model do
 
     context 'text format' do
       let(:key) { FactoryBot.build(:dataset_key, :text) }
-      it { is_expected.to eq described_class::FORMATS[:text] }
+      it { is_expected.to eq described_class::FORMATS[:text][:regexp] }
+    end
+
+    context 'select format' do
+      let(:key) { FactoryBot.build(:dataset_key, :select) }
+      it { is_expected.to eq described_class::FORMATS[:select][:regexp] }
     end
 
     context 'numeric format' do
       let(:key) { FactoryBot.build(:dataset_key, :numeric) }
-      it { is_expected.to eq described_class::FORMATS[:numeric] }
+      it { is_expected.to eq described_class::FORMATS[:numeric][:regexp] }
     end
 
     context 'boolean format' do
       let(:key) { FactoryBot.build(:dataset_key, :boolean) }
-      it { is_expected.to eq described_class::FORMATS[:boolean] }
+      it { is_expected.to eq described_class::FORMATS[:boolean][:regexp] }
     end
   end
 end

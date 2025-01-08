@@ -1,7 +1,6 @@
 # controllers/services_controller.rb:
 
 class ServicesController < ApplicationController
-
   skip_before_action :html_response
 
   before_action :set_info_request, :check_info_request, only: %i[
@@ -34,7 +33,6 @@ class ServicesController < ApplicationController
         else
           country_data = WorldFOIWebsites.by_code(site_country_code)
 
-
           text = if WorldFOIWebsites.can_ask_the_eu?(user_country_code)
             if country_data
               no_user_site_eu_msg(country_data[:country_name])
@@ -57,13 +55,26 @@ class ServicesController < ApplicationController
   end
 
   def hidden_user_explanation
-    reason = render_to_string(
+    prominence_reason = render_to_string(
       partial: "admin_request/hidden_user_explanation/#{params[:message]}",
-      formats: [:text]
+      formats: [:text],
+      locals: {
+        prominence_reason: true,
+        explanation: false
+      }
+    )
+
+    explanation = render_to_string(
+      partial: "admin_request/hidden_user_explanation/#{params[:message]}",
+      formats: [:text],
+      locals: {
+        prominence_reason: false,
+        explanation: true
+      }
     )
 
     render json: {
-      prominence_reason: reason,
+      prominence_reason: prominence_reason,
       explanation: render_to_string(
         template: "admin_request/hidden_user_explanation",
         formats: [:text],
@@ -71,7 +82,7 @@ class ServicesController < ApplicationController
         locals: {
           name_to: @info_request.user_name.html_safe,
           info_request: @info_request,
-          reason: reason,
+          explanation: explanation,
           info_request_url: request_url(@info_request),
           site_name: site_name.html_safe
         }
@@ -138,5 +149,4 @@ class ServicesController < ApplicationController
   def ask_the_eu_link
     %q(<a href="http://asktheeu.org">Ask The EU</a>)
   end
-
 end

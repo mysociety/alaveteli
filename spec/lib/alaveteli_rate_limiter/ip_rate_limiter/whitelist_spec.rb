@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Whitelist do
-
   describe '.new' do
-
     it 'sets an empty whitelist by default' do
       expect(subject.addresses).to be_empty
     end
@@ -46,11 +44,9 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Whitelist do
       addrs = %w(0.0.0.1 invalid 0.0.0.3)
       expect { described_class.new(addrs) }.to raise_error(ArgumentError)
     end
-
   end
 
   describe '#include?' do
-
     it 'returns true if an address is whitelisted' do
       subject = described_class.new(%w(0.0.0.0 0.0.0.1))
       expect(subject.include?('0.0.0.0')).to eq(true)
@@ -70,11 +66,9 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Whitelist do
       subject = described_class.new(%w(0.0.0.0 0.0.0.1))
       expect { subject.include?('invalid') }.to raise_error(ArgumentError)
     end
-
   end
 
   describe '#==' do
-
     it 'returns true if the address list is the same' do
       subject = described_class.new(%w(0.0.0.0 0.0.0.1))
       expect(subject).to eq(subject.dup)
@@ -85,7 +79,5 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter::Whitelist do
       subject2 = described_class.new(%w(0.0.0.0 0.0.0.3))
       expect(subject1).not_to eq(subject2)
     end
-
   end
-
 end

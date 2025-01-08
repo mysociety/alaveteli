@@ -29,6 +29,7 @@ class Legislation
 
     def to_s
       return parent_reference if sub_elements.empty?
+
       parent_reference + "(#{sub_elements.join(')(')})"
     end
 

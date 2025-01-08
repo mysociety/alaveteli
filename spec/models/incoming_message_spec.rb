@@ -69,7 +69,6 @@ RSpec.describe IncomingMessage do
   end
 
   describe '#from_name' do
-
     it 'returns the name in the From: field of an email' do
       raw_email_data = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
@@ -113,11 +112,9 @@ RSpec.describe IncomingMessage do
       expect(message.from_name).
         to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
     end
-
   end
 
   describe '#safe_from_name' do
-
     it 'applies the info request censor rules to from_name' do
       raw_email_data = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
@@ -136,11 +133,9 @@ RSpec.describe IncomingMessage do
 
       expect(message.safe_from_name).to eq('FOI [REDACTED]')
     end
-
   end
 
   describe '#from_email' do
-
     it 'returns the email address in the From header' do
       raw_email_data = <<-EOF.strip_heredoc
       From: FOI Person <authority@mail.example.com>
@@ -167,11 +162,9 @@ RSpec.describe IncomingMessage do
       message.parse_raw_email!(true)
       expect(message.from_email).to eq('')
     end
-
   end
 
   describe '#from_email_domain' do
-
     it 'returns the domain part of the email address in the From header' do
       raw_email_data = <<-EOF.strip_heredoc
       From: FOI Person <authority@mail.example.com>
@@ -198,11 +191,9 @@ RSpec.describe IncomingMessage do
       message.parse_raw_email!(true)
       expect(message.from_email_domain).to eq('')
     end
-
   end
 
   describe '#subject' do
-
     it 'returns the Subject: field of an email' do
       raw_email_data = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
@@ -243,11 +234,9 @@ RSpec.describe IncomingMessage do
       message.parse_raw_email!(true)
       expect(message.subject).to eq('Câmara Responde:  Banco de ideias')
     end
-
   end
 
   describe '#sent_at' do
-
     it 'uses the Date header if the mail has one' do
       raw_email_data = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
@@ -277,7 +266,6 @@ RSpec.describe IncomingMessage do
       message.parse_raw_email!(true)
       expect(message.sent_at).to eq(message.created_at)
     end
-
   end
 
   describe '#specific_from_name?' do
@@ -323,7 +311,6 @@ RSpec.describe IncomingMessage do
   end
 
   describe '#apply_masks' do
-
     before(:each) do
       @im = incoming_messages(:useless_incoming_message)
 
@@ -400,7 +387,6 @@ RSpec.describe IncomingMessage do
       result = @im.apply_masks(data, 'application/vnd.ms-word')
       expect(result).to eq(expected)
     end
-
   end
 
   describe '#get_body_for_indexing' do
@@ -428,18 +414,15 @@ RSpec.describe IncomingMessage do
   end
 
   describe '#get_body_for_quoting' do
-
     it 'does not incorrectly cache without the FOLDED_QUOTED_SECTION marker' do
       message = FactoryBot.create(:plain_incoming_message)
       message.get_body_for_quoting
       expect(message.get_main_body_text_folded).
         to include('FOLDED_QUOTED_SECTION')
     end
-
   end
 
   describe '#get_attachment_text_full' do
-
     it 'strips null bytes from the extracted clipped text' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.
@@ -447,11 +430,9 @@ RSpec.describe IncomingMessage do
       message.reload
       expect(message.get_attachment_text_clipped).to eq("hi\n\n")
     end
-
   end
 
   describe '#_extract_text' do
-
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.create(:body_text,
@@ -467,7 +448,6 @@ RSpec.describe IncomingMessage do
       expect { message._extract_text }.
         to_not raise_error
     end
-
   end
 
   describe '#legislation' do
@@ -567,7 +547,6 @@ RSpec.describe IncomingMessage, "when the prominence is changed" do
     expect(request.last_public_response_at).to be_within(1.second).
       of(response_event.created_at)
   end
-
 end
 
 RSpec.describe 'when destroying a message' do
@@ -631,7 +610,6 @@ RSpec.describe 'when destroying a message' do
 end
 
 RSpec.describe IncomingMessage, " when dealing with incoming mail" do
-
   before(:each) do
     @im = incoming_messages(:useless_incoming_message)
     load_raw_emails_data
@@ -742,7 +720,6 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     incoming_message.get_body_for_html_display
   end
 
-
   it 'should handle a main body part that is just quoted content in an email that has
         no subject' do
     i = IncomingMessage.new
@@ -751,12 +728,9 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     allow(i).to receive(:subject).and_return(nil)
     i.get_body_for_html_display
   end
-
-
 end
 
 RSpec.describe IncomingMessage, " display attachments" do
-
   it "should not show slashes in filenames" do
     foi_attachment = FoiAttachment.new
     # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
@@ -774,11 +748,9 @@ RSpec.describe IncomingMessage, " display attachments" do
     expected_display_filename = foi_attachment.within_rfc822_subject.gsub(/\//, " ") + ".txt"
     expect(foi_attachment.display_filename).to eq(expected_display_filename)
   end
-
 end
 
 RSpec.describe IncomingMessage, " folding quoted parts of emails" do
-
   it 'should fold an example lotus notes quoted part converted from HTML correctly' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('lotus-notes-quoting.email',
@@ -827,7 +799,6 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
     # check that the quoted section incorporates both quoted messages
     expect(body_text).not_to match('Subject: RE: Freedom of Information request')
   end
-
 end
 
 RSpec.describe IncomingMessage, " when uudecoding bad messages" do
@@ -911,7 +882,6 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
       'bah.txt'
     ])
   end
-
 end
 
 RSpec.describe IncomingMessage, "when messages are attached to messages" do
@@ -970,7 +940,6 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
       expect(attachments[0].body).to match('Date: Fri, 23 May 2008')
     end
   end
-
 end
 
 RSpec.describe IncomingMessage, "when Outlook messages are attached to messages" do
@@ -1032,11 +1001,9 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
     expect { im.get_main_body_text_folded }.not_to raise_error
     expect { im.cached_attachment_text_clipped }.not_to raise_error
   end
-
 end
 
 RSpec.describe IncomingMessage, "when extracting attachments" do
-
   before do
     load_raw_emails_data
   end
@@ -1055,7 +1022,6 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     # Make a small change in the body returned for the attachment
     new_attachment_attributes = attachment_attributes.merge(body: "No way!",
                                                             hexdigest: "74d2c0a41e074f9cebe49324d5b47414")
-
 
     # Simulate parsing with the original attachments
     allow(MailHandler).to receive(:get_attachment_attributes).and_return([attachment_attributes])
@@ -1155,11 +1121,9 @@ RSpec.describe IncomingMessage, 'when getting the body of a message for html dis
     expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
     expect(incoming_message.get_body_for_html_display).to include(expected)
   end
-
 end
 
 RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
-
   it 'should clip to characters not bytes' do
     incoming_message = FactoryBot.build(:incoming_message)
     # This character is 2 bytes so the string should get sliced unless
@@ -1168,13 +1132,10 @@ RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
     allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
     expect(incoming_message.get_attachment_text_clipped.length).to eq(500_002)
   end
-
 end
 
 RSpec.describe IncomingMessage, 'when getting the main body text' do
-
   context 'when the main body text is more than 1MB' do
-
     before do
       @incoming_message = FactoryBot.create(:incoming_message)
       allow(@incoming_message).to receive(:get_main_body_text_internal).
@@ -1189,7 +1150,34 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
       expect { @incoming_message.get_main_body_text_unfolded }.
         to raise_error(RuntimeError, expected_text)
     end
-
   end
 
+  context 'when main body attachment goes missing' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    before do
+      # ensure main body part can't be found and is unmasked so #unmasked_body
+      # is called
+      incoming_message.get_main_body_text_part.update(
+        filename: 'incorrect', hexdigest: 'incorrect', masked_at: nil
+      )
+
+      # stub method to find original attachment by its content
+      allow(MailHandler).to receive(
+        :attempt_to_find_original_attachment_attributes
+      ).and_return(nil)
+    end
+
+    it 'rebuilds missing attachments without erroring' do
+      expect { incoming_message.get_main_body_text_internal }.to change(
+        incoming_message, :get_main_body_text_part
+      )
+    end
+
+    it 'returns the rebuilt attachment body' do
+      expect(incoming_message.get_main_body_text_internal).to eq(
+        'hereisthetext'
+      )
+    end
+  end
 end

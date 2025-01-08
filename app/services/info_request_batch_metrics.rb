@@ -16,8 +16,7 @@ class InfoRequestBatchMetrics
   def metrics
     @metrics ||= @info_request_batch.info_requests.
       includes(public_body: :translations).map do |info_request|
-
-      url = show_alaveteli_pro_request_url(info_request.url_title)
+      url = show_request_url(info_request.url_title)
       status = InfoRequest::State.short_description(
         info_request.calculate_status(true)
       )

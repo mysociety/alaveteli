@@ -1,5 +1,4 @@
 module Usage
-
   def usage_message(message)
     puts ''
     puts message
@@ -18,5 +17,4 @@ module Usage
       usage_message usage
     end
   end
-
 end

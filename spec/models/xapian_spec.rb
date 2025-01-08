@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe User, " when indexing users with Xapian" do
-
   before(:each) do
     load_raw_emails_data
     update_xapian_index
@@ -62,11 +61,9 @@ RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
     xapian_object = ActsAsXapian::Search.new([PublicBody], "lonely", limit: 100)
     expect(xapian_object.results).to eq([])
   end
-
 end
 
 RSpec.describe PublicBody, " when indexing requests by body they are to" do
-
   include ActiveJob::TestHelper
 
   before(:each) do
@@ -430,7 +427,6 @@ RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
 end
 
 RSpec.describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
-
   before(:each) do
     load_raw_emails_data
     update_xapian_index
@@ -442,5 +438,4 @@ RSpec.describe InfoRequestEvent, " when faced with a race condition during xapia
       ir.reindex_request_events
     end
   end
-
 end

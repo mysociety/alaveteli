@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe DatabaseCollation do
-
   describe '.supports?' do
-
     it 'delegates to an instance of the class' do
       collation = double
       connection = mock_connection
@@ -12,21 +10,17 @@ RSpec.describe DatabaseCollation do
       expect(collation).to receive(:supports?).with('en_GB')
       DatabaseCollation.supports?('en_GB')
     end
-
   end
 
   describe '.new' do
-
     it 'requires a connection to be specified' do
       mock_connection = double
       expect(DatabaseCollation.new(mock_connection).connection).
         to eq(mock_connection)
     end
-
   end
 
   describe '#supports?' do
-
     it 'does not support collation if the database is not postgresql' do
       database = DatabaseCollation.
                  new(mock_connection(adapter_name: 'MySQL'))
@@ -58,9 +52,7 @@ RSpec.describe DatabaseCollation do
       database = DatabaseCollation.new(mock_connection)
       expect(database.supports?('default')).to be true
     end
-
   end
-
 end
 
 def mock_connection(connection_double_opts = {})

@@ -1,0 +1,33 @@
+<% if can?(:create_citation, info_request_batch) || citations.any? %>
+  <div class="sidebar__section citations">
+    <h2><%= _('FOI in Action') %></h2>
+
+    <% if citations.any? %>
+      <ul class="citations-list--compact">
+        <%= render partial: 'citations/compact',
+                   collection: citations,
+                   as: :citation %>
+      </ul>
+    <% end %>
+
+    <% if can? :create_citation, info_request_batch %>
+      <p>
+        <%= _('Has this batch request been referenced in journalism, ' \
+              'campaigning, or research?') %>
+
+        <br>
+
+        <%= link_to new_info_request_batch_citation_path(info_request_batch),
+              class: 'citations-new' do %>
+          <%= _('Let us know') %>
+        <% end %>
+      </p>
+    <% else %>
+      <p>
+        <%= _('See more examples of <a href="{{citations_path}}">' \
+              'FOI in Action</a>.',
+              citations_path: citations_path) %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

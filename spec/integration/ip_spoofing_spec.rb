@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe 'when getting a country message' do
-
   it 'should not raise an IP spoofing error when given mismatched headers' do
     allow(AlaveteliConfiguration).to receive(:geoip_database).and_return(nil)
     get '/country_message', headers: {
@@ -10,5 +9,4 @@ RSpec.describe 'when getting a country message' do
                             }
     expect(response.status).to eq(200)
   end
-
 end

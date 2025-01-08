@@ -1,5 +1,5 @@
 <li>
-  <strong><%= invoice.date.to_fs(:long) %></strong>
+  <strong><%= invoice.created.to_fs(:long) %></strong>
 
   <%= _('Invoice {{invoice_number}} for {{invoice_amount}}',
         invoice_number: invoice.number,

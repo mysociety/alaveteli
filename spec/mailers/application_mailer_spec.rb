@@ -1,10 +1,7 @@
 require 'spec_helper'
 
-
 RSpec.describe ApplicationMailer do
-
   context 'when using plugins' do
-
     def set_base_views
       ApplicationMailer.class_eval do
         @previous_view_paths = view_paths.dup
@@ -58,7 +55,6 @@ RSpec.describe ApplicationMailer do
     end
 
     describe 'when a plugin prepends its mail templates to the view paths' do
-
       it 'should render a theme template in preference to a core template' do
         prepend_theme_views('theme_one')
         @mail = ApplicationMailer.simple
@@ -101,11 +97,9 @@ RSpec.describe ApplicationMailer do
         message_part = @mail.parts[0].to_s
         expect(message_part).to match("Core multipart")
       end
-
     end
 
     describe 'when a plugin appends its mail templates to the view paths' do
-
       it 'should render a core template in preference to a theme template' do
         append_theme_views('theme_one')
         @mail = ApplicationMailer.simple
@@ -148,7 +142,6 @@ RSpec.describe ApplicationMailer do
         message_part = @mail.parts[0].to_s
         expect(message_part).to match("Theme multipart")
       end
-
     end
 
     after do
@@ -156,5 +149,4 @@ RSpec.describe ApplicationMailer do
       remove_mail_methods(%w[simple theme_only core_only neither multipart])
     end
   end
-
 end

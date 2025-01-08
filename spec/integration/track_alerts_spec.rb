@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "When sending track alerts" do
-
   before do
     # TODO: required to make sure xapian index can find files for raw emails
     # associated with fixtures - can be removed when fixtures no longer
@@ -12,18 +11,17 @@ RSpec.describe "When sending track alerts" do
   end
 
   it "should send alerts" do
-
     info_request = FactoryBot.create(:info_request)
     user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
     user_session = login(user)
     using_session(user_session) do
-      visit "track/request/#{info_request.url_title}"
+      visit "request/#{info_request.url_title}/track"
     end
 
     other_user = FactoryBot.create(:user)
     other_user_session = login(other_user)
     using_session(other_user_session) do
-      visit "en/annotate/request/#{info_request.url_title}"
+      visit "annotate/request/#{info_request.url_title}"
       fill_in "comment[body]", with: 'test comment'
       click_button 'Preview your annotation'
       click_button 'Post annotation'
@@ -65,17 +63,18 @@ RSpec.describe "When sending track alerts" do
 
   it "should send localised alerts" do
     info_request = FactoryBot.create(:info_request)
-    user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago,
-                                     locale: 'es')
+    user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
     user_session = login(user)
     using_session(user_session) do
-      visit "es/track/request/#{info_request.url_title}"
+      visit "/es"
+      visit "/request/#{info_request.url_title}/track"
     end
 
-    other_user = FactoryBot.create(:user, locale: 'en')
+    other_user = FactoryBot.create(:user)
     other_user_session = login(other_user)
     using_session(other_user_session) do
-      visit "annotate/request/#{info_request.url_title}"
+      visit "/en"
+      visit "/request/#{info_request.url_title}/annotate"
       fill_in "comment[body]", with: 'test comment'
       click_button 'Preview your annotation'
       click_button 'Post annotation'
@@ -89,4 +88,3 @@ RSpec.describe "When sending track alerts" do
     expect(mail.body).to include('el equipo de ')
   end
 end
-

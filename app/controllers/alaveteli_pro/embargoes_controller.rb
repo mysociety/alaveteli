@@ -16,6 +16,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
       # shouldn't be reachable because CanCan should catch it, but just in case
       raise PermissionDenied
     end
+
     @embargo = AlaveteliPro::Embargo.new(embargo_params)
     if @embargo.save
       flash[:notice] = _("Your request will now be private on " \
@@ -37,6 +38,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     @info_request = @embargo.info_request
     # Embargoes cannot be updated individually on batch requests
     raise PermissionDenied if @info_request.info_request_batch_id
+
     if @embargo.destroy
       @info_request.log_event('expire_embargo', {})
       flash[:notice] = _("Your request is now public!")
@@ -64,7 +66,7 @@ class AlaveteliPro::EmbargoesController < AlaveteliPro::BaseController
     end
     if params[:info_request_id]
       @info_request = InfoRequest.find(params[:info_request_id])
-      redirect_to show_alaveteli_pro_request_path(
+      redirect_to show_request_path(
         url_title: @info_request.url_title)
     else
       redirect_to show_alaveteli_pro_batch_request_path(@info_request_batch)

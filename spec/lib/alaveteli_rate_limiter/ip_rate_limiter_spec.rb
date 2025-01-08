@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
-
   after(:each) do
     described_class.defaults!
   end
 
   describe '.defaults' do
-
     it 'sets the defaults' do
       expect(described_class.defaults).
         to eq(AlaveteliRateLimiter::IPRateLimiter::Defaults.new)
@@ -25,11 +23,9 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
 
       expect(described_class.defaults).to eq(defaults)
     end
-
   end
 
   describe '.new' do
-
     it 'requires a Rule' do
       expect { subject }.to raise_error(ArgumentError)
     end
@@ -89,40 +85,32 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
       subject = described_class.new(:signup, whitelist: whitelist)
       expect(subject.whitelist).to eq(whitelist)
     end
-
   end
 
   describe '#rule' do
-
     it 'returns the rule attribute' do
       rule = AlaveteliRateLimiter::Rule.new(:signup, 1, double)
       expect(described_class.new(rule).rule).to eq(rule)
     end
-
   end
 
   describe '#whitelist' do
-
     it 'returns the whitelist attribute' do
       whitelist = double
       subject = described_class.new(:signup, whitelist: whitelist)
       expect(subject.whitelist).to eq(whitelist)
     end
-
   end
 
   describe '#backend' do
-
     it 'returns the backend attribute' do
       backend = double
       subject = described_class.new(:signup, backend: backend)
       expect(subject.backend).to eq(backend)
     end
-
   end
 
   describe '#records' do
-
     it 'returns the records in the backend' do
       ip = '127.0.0.1'
       backend = double
@@ -131,11 +119,9 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
       subject = described_class.new(:signup, backend: backend)
       expect(subject.records(ip)).to eq(records)
     end
-
   end
 
   describe '#record' do
-
     it 'records an event for the IP in the backend' do
       backend = double
       subject = described_class.new(:signup, backend: backend)
@@ -161,11 +147,9 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
       subject = described_class.new(:signup)
       expect { subject.record('invalid') }.to raise_error(ArgumentError)
     end
-
   end
 
   describe '#record!' do
-
     it 'purges old records before recording the new event' do
       attrs = { name: :test,
                 count: 20,
@@ -179,7 +163,6 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
 
       backend =
         AlaveteliRateLimiter::Backends::PStoreDatabase.new(path: path)
-
 
       subject = described_class.new(rule, backend: backend)
 
@@ -199,11 +182,9 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
 
       File.delete(path)
     end
-
   end
 
   describe '#limit?' do
-
     it 'returns false if the IP is in the whitelist' do
       whitelist = AlaveteliRateLimiter::IPRateLimiter::Whitelist.new(%(0.0.0.0))
       subject = described_class.new(:signup, whitelist: whitelist)
@@ -223,7 +204,5 @@ RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
       subject = described_class.new(rule)
       expect(subject.limit?('0.0.0.0')).to eq(false)
     end
-
   end
-
 end

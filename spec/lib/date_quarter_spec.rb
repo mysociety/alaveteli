@@ -4,7 +4,6 @@ RSpec.describe DateQuarter do
   include DateQuarter
 
   describe '#quarters_between' do
-
     it 'returns all the quarters in a year' do
       # This is a bit of a convoluted spec, since we have to convert each
       # Time in to an Integer to make a reasonable comparison
@@ -25,7 +24,5 @@ RSpec.describe DateQuarter do
         end
       end
     end
-
   end
-
 end

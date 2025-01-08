@@ -1,21 +1,17 @@
 require 'spec_helper'
 
 RSpec.describe ApplicationHelper do
-
   include ApplicationHelper
   include LinkToHelper
 
   describe '#can_ask_the_eu?' do
-
     it 'delegates to WorldFOIWebsites.can_ask_the_eu?' do
       expect(WorldFOIWebsites).to receive(:can_ask_the_eu?).with('US')
       can_ask_the_eu?('US')
     end
-
   end
 
   describe '#render_flash' do
-
     it 'returns a string when given a string' do
       expect(render_flash('some text')).to eq('some text')
     end
@@ -24,11 +20,9 @@ RSpec.describe ApplicationHelper do
       flash = { 'inline' => 'some text' }
       expect(render_flash(flash)).to eq('some text')
     end
-
   end
 
   describe '#read_asset_file' do
-
     it "raises an Exception if it can't find the file" do
       expect { read_asset_file('nosuchfile.css') }.
         to raise_error(Sprockets::FileNotFound,
@@ -45,11 +39,9 @@ RSpec.describe ApplicationHelper do
       expect(read_asset_file('responsive/application.css').encoding.to_s).
         to eq('UTF-8')
     end
-
   end
 
   describe '#theme_installed?' do
-
     let(:paths) { %w[theme_path app_path] }
 
     let(:view_paths) { double(ActionView::PathSet, paths: paths) }
@@ -59,19 +51,15 @@ RSpec.describe ApplicationHelper do
     end
 
     context 'no theme is installed' do
-
       let(:paths) { ['app_path'] }
 
       it 'returns false' do
         expect(theme_installed?).to eq false
       end
-
     end
-
   end
 
   describe '#theme_asset_exists?' do
-
     let(:theme_view_path) do
       File.dirname(__FILE__) + "/../../lib/themes/alavetelitheme/lib/views"
     end
@@ -105,7 +93,6 @@ RSpec.describe ApplicationHelper do
     end
 
     context 'without a theme installed' do
-
       let(:paths) { [ app_view_path ] }
 
       it 'looks in the core app file path' do
@@ -120,9 +107,7 @@ RSpec.describe ApplicationHelper do
       it 'returns true if the file exists' do
         expect(theme_asset_exists?('images/social-facebook.png')).to eq true
       end
-
     end
-
   end
 
   describe '#show_pro_upsell?' do
@@ -161,29 +146,44 @@ RSpec.describe ApplicationHelper do
   end
 
   describe 'when creating an event description' do
-
     it 'should generate a description for a request' do
       @info_request = FactoryBot.create(:info_request)
       @sent_event = @info_request.last_event
-      expected = "Request sent to #{public_body_link_absolute(@info_request.public_body)} by #{request_user_link_absolute(@info_request)}"
+      public_body_link = public_body_link_absolute(@info_request.public_body)
+      request_user_link = request_user_link_absolute(@info_request)
+      expected = "Request sent to #{public_body_link} by #{request_user_link}"
       expect(event_description(@sent_event)).to match(expected)
-
     end
 
     it 'should generate a description for a response' do
-      @info_request_with_incoming = FactoryBot.create(:info_request_with_incoming)
+      @info_request_with_incoming = FactoryBot.create(
+        :info_request_with_incoming
+      )
       @response_event = @info_request_with_incoming.last_event
-      expected = "Response by #{public_body_link_absolute(@info_request_with_incoming.public_body)} to #{request_user_link_absolute(@info_request_with_incoming)}"
+      public_body_link = public_body_link_absolute(
+        @info_request_with_incoming.public_body
+      )
+      request_user_link = request_user_link_absolute(
+        @info_request_with_incoming
+      )
+      expected = "Response by #{public_body_link} to #{request_user_link}"
       expect(event_description(@response_event)).to match(expected)
     end
 
     it 'should generate a description for a request where an internal review has been requested' do
-      @info_request_with_internal_review_request = FactoryBot.create(:info_request_with_internal_review_request)
+      @info_request_with_internal_review_request = FactoryBot.
+        create(:info_request_with_internal_review_request)
       @response_event = @info_request_with_internal_review_request.last_event
-      expected = "Internal review request sent to #{public_body_link_absolute(@info_request_with_internal_review_request.public_body)} by #{request_user_link_absolute(@info_request_with_internal_review_request)}"
+      public_body_link = public_body_link_absolute(
+        @info_request_with_internal_review_request.public_body
+      )
+      request_user_link = request_user_link_absolute(
+        @info_request_with_internal_review_request
+      )
+      expected = "Internal review request sent to #{public_body_link} by " \
+        "#{request_user_link}"
       expect(event_description(@response_event)).to match(expected)
     end
-
   end
 
   describe 'site_wide_announcement' do
@@ -204,5 +204,4 @@ RSpec.describe ApplicationHelper do
       expect(site_wide_announcement).to eq announcement
     end
   end
-
 end

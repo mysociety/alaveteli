@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230209094128
+# Schema version: 20231011091031
 #
 # Table name: public_bodies
 #
@@ -12,7 +12,6 @@
 #  home_page                              :text
 #  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
-#  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
@@ -28,7 +27,6 @@
 #
 
 FactoryBot.define do
-
   factory :public_body do
     sequence(:name) { |n| "Example Public Body #{n}" }
     sequence(:short_name) { |n| "Example Body #{n}" }
@@ -54,7 +52,7 @@ FactoryBot.define do
       end
 
       concrete_notes do
-        [association(:note, body: note_body)]
+        [association(:note, rich_body: note_body)]
       end
     end
 
@@ -62,5 +60,4 @@ FactoryBot.define do
       request_email { '' }
     end
   end
-
 end

@@ -141,6 +141,7 @@ class UserSpamScorer
 
   def score(user)
     return 0 if user.comments.any? || user.track_things.any?
+
     score_mappings.inject(0) do |score_count, score_mapping|
       if send(score_mapping.first, user)
         score_count + score_mapping.last
@@ -206,11 +207,13 @@ class UserSpamScorer
 
   def user_agent_is_suspicious?(user)
     return false unless user.respond_to?(:user_agent)
+
     suspicious_user_agents.include?(user.user_agent)
   end
 
   def ip_range_is_suspicious?(user)
     return false unless user.respond_to?(:ip)
+
     suspicious_ip_ranges.any? { |range| IPAddr.new(range).include?(user.ip) }
   end
 

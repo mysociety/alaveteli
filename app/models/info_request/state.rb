@@ -1,6 +1,5 @@
 class InfoRequest
   module State
-
     def self.all
       states = [
         'waiting_response',

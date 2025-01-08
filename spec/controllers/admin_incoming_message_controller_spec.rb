@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe AdminIncomingMessageController, "when administering incoming messages" do
-
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
   describe 'when destroying an incoming message' do
-
     before(:each) do
       sign_in(admin_user)
       load_raw_emails_data
@@ -34,7 +32,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       info_request = FactoryBot.create(:info_request)
       allow(@im).to receive(:info_request).and_return(info_request)
       allow(IncomingMessage).to receive(:find).and_return(@im)
-      expect(@im.info_request).to receive(:expire).with(preserve_database_cache: true)
+      expect(@im.info_request).
+        to receive(:expire).
+        with(preserve_database_cache: true)
       post :destroy, params: { id: @im.id }
     end
 
@@ -63,7 +63,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   end
 
   describe 'when redelivering an incoming message' do
-
     before(:each) do
       sign_in(admin_user)
       load_raw_emails_data
@@ -86,14 +85,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it 'should succeed, even if a duplicate xapian indexing job is created' do
-
       with_duplicate_xapian_job_creation do
         post :redeliver, params: {
                            id: incoming_message.id,
                            url_title: destination_info_request.url_title
                          }
       end
-
     end
 
     it 'shouldn\'t do anything if no message_id is supplied' do
@@ -104,8 +101,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       # It shouldn't delete this message
       assert_equal IncomingMessage.exists?(incoming_message.id), true
       # Should show an error to the user
-      assert_equal flash[:error], "You must supply at least one request to redeliver the message to."
-      expect(response).to redirect_to admin_request_url(incoming_message.info_request)
+      assert_equal(
+        flash[:error],
+        "You must supply at least one request to redeliver the message to."
+      )
+      expect(response).
+        to redirect_to admin_request_url(incoming_message.info_request)
     end
 
     context 'when redelivering to multiple requests' do
@@ -163,7 +164,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   end
 
   describe 'when editing an incoming message' do
-
     before do
       sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message)
@@ -204,7 +204,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   end
 
   describe 'when updating an incoming message' do
-
     before do
       sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message, prominence: 'normal')
@@ -241,9 +240,13 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it 'should log an "edit_incoming" event on the info_request' do
-      allow(@controller).to receive(:admin_current_user).and_return("Admin user")
+      allow(@controller).
+        to receive(:admin_current_user).
+        and_return("Admin user")
+
       expect(NotifyCacheJob).to receive(:perform_later).
         with(@incoming.info_request)
+
       make_request
       @incoming.reload
       last_event = @incoming.info_request_events.last
@@ -269,28 +272,25 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     context 'if the incoming message saves correctly' do
-
       it 'should redirect to the admin info request view' do
         make_request
-        expect(response).to redirect_to admin_request_url(@incoming.info_request)
+        expect(response).
+          to redirect_to admin_request_url(@incoming.info_request)
       end
 
       it 'should show a message that the incoming message has been updated' do
         make_request
         expect(flash[:notice]).to eq('Incoming message successfully updated.')
       end
-
     end
 
     context 'if the incoming message is not valid' do
-
       it 'should render the edit template' do
         make_request({ id: @incoming.id,
                       incoming_message: { prominence: 'fantastic',
                                             prominence_reason: 'dull' } })
         expect(response).to render_template("edit")
       end
-
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -333,7 +333,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     before { sign_in(admin_user) }
 
     context "the user confirms deletion" do
-
       it "destroys the selected messages" do
         post :bulk_destroy, params: {
                               request_id: request.id,
@@ -372,7 +371,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
                             }
 
         expect(response).to redirect_to(admin_request_url(request))
-        expect(flash[:notice]).to eq("Incoming messages successfully destroyed.")
+        expect(flash[:notice]).
+          to eq("Incoming messages successfully destroyed.")
       end
 
       it "only destroys selected messages" do
@@ -386,7 +386,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       end
 
       context "not all the messages can be destroyed" do
-
         it "set an error message in flash" do
           allow(spam2).to receive(:destroy).and_raise("random DB error")
           allow(IncomingMessage).to receive(:where).and_return([spam1, spam2])
@@ -399,13 +398,10 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
           expect(flash[:error]).to match(msg)
         end
-
       end
-
     end
 
     context "the user does not confirm deletion" do
-
       it "does not destroy the messages" do
         post :bulk_destroy, params: {
                               request_id: request.id,
@@ -413,7 +409,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
                               commit: "No"
                             }
 
-        expect(IncomingMessage.where(id: spam_ids)).to match_array([spam1, spam2])
+        expect(IncomingMessage.where(id: spam_ids)).
+          to match_array([spam1, spam2])
       end
 
       it "redirects back to the admin page for the request" do
@@ -425,7 +422,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
         expect(response).to redirect_to(admin_request_url(request))
       end
-
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -454,7 +450,5 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         end
       end
     end
-
   end
-
 end

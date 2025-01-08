@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class WidgetsController < ApplicationController
-
   before_action :check_widget_config, :find_info_request, :check_prominence
 
   def show
@@ -43,7 +42,7 @@ class WidgetsController < ApplicationController
   end
 
   def find_info_request
-    @info_request = InfoRequest.find(params[:request_id])
+    @info_request = InfoRequest.find_by!(url_title: params[:request_url_title])
   end
 
   def check_prominence
@@ -51,5 +50,4 @@ class WidgetsController < ApplicationController
       head :forbidden
     end
   end
-
 end

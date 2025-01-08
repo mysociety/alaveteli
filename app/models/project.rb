@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240724010118
 #
 # Table name: projects
 #
-#  id           :bigint           not null, primary key
-#  title        :string
-#  briefing     :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  invite_token :string
+#  id             :bigint           not null, primary key
+#  title          :string
+#  briefing       :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  invite_token   :string
+#  dataset_public :boolean          default(FALSE)
 #
 
 ##
@@ -46,7 +47,19 @@ class Project < ApplicationRecord
 
   has_many :submissions, class_name: 'Project::Submission'
 
+  accepts_nested_attributes_for :key_set
+
+  attr_accessor :regenerate_invite_token
+
+  before_validation :generate_invite_token, if: -> { regenerate_invite_token }
   validates :title, :owner, presence: true
+
+  has_rich_text :briefing
+  has_rich_text :dataset_description
+
+  def original_briefing
+    attributes['briefing']
+  end
 
   def info_request?(info_request)
     info_requests.include?(info_request)
@@ -77,5 +90,11 @@ class Project < ApplicationRecord
     return 0 if total.zero?
 
     ((extracted_count / total.to_f) * 100).floor
+  end
+
+  private
+
+  def generate_invite_token
+    self.invite_token = SecureRandom.hex(10)
   end
 end

@@ -17,14 +17,18 @@ class Project::Export::InfoRequest < SimpleDelegator
 
   def data
     {
+      request: title,
       request_url: request_url(self),
-      request_title: title,
-      public_body_name: public_body.name,
-      request_owner: user&.name,
-      latest_status_contributor: status_contributor,
-      status: described_state,
-      dataset_contributor: dataset_contributor
-    }.merge(extracted_values_as_hash)
+      requested_by: user&.name,
+      requested_by_url: user_url(user),
+      public_body: public_body.name,
+      public_body_url: public_body_url(public_body),
+      classified_by: status_contributor&.name,
+      classified_by_url: (user_url(status_contributor) if status_contributor),
+      classification: InfoRequest.get_status_description(described_state),
+      extracted_by: dataset_contributor&.name,
+      extracted_by_url: (user_url(dataset_contributor) if dataset_contributor)
+    }.merge(dataset_values)
   end
 
   private
@@ -42,22 +46,34 @@ class Project::Export::InfoRequest < SimpleDelegator
   end
 
   def status_contributor
-    return project.owner.name unless status_submission
-    status_submission.user.name
+    return project.owner unless status_submission
+
+    status_submission.user
   end
 
   def dataset_contributor
     return unless extraction_submission
-    extraction_submission.user.name
+
+    extraction_submission.user
+  end
+
+  def dataset_values
+    project.key_set.keys.pluck(:title).each_with_object({}) do |key, memo|
+      memo[key] = extracted_values_as_hash[key]
+    end
   end
 
   def extracted_values
     return unless extraction_submission
-    extraction_submission.resource.values
+
+    extraction_submission.resource.values.preload(:key)
   end
 
   def extracted_values_as_hash
     return {} unless extracted_values
-    extracted_values.joins(:key).pluck('dataset_keys.title', :value).to_h
+
+    extracted_values.each_with_object({}) do |extracted, acc|
+      acc[extracted.title] = extracted.mapped_value
+    end
   end
 end

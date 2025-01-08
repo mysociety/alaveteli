@@ -8,14 +8,14 @@
           <ul class="action-menu__menu__submenu">
             <li>
               <% if last_response.nil? %>
-                <%= link_to _("Send a followup"), new_request_followup_path(:request_id => info_request.id, :anchor => 'followup') %>
+                <%= link_to _("Send a followup"), new_request_followup_path(info_request.url_title, :anchor => 'followup') %>
               <% else %>
-                <%= link_to _("Write a reply"), new_request_incoming_followup_path(:request_id => info_request.id, :incoming_message_id => last_response.id, :anchor => 'followup') %>
+                <%= link_to _("Write a reply"), new_request_incoming_followup_path(info_request.url_title, :incoming_message_id => last_response.id, :anchor => 'followup') %>
               <% end %>
             </li>
 
             <li>
-              <%= link_to _("Request an internal review"), new_request_followup_path(:request_id => info_request.id, :internal_review => '1', :anchor => 'followup') %>
+              <%= link_to _("Request an internal review"), new_request_followup_path(info_request.url_title, :internal_review => '1', :anchor => 'followup') %>
             </li>
 
             <li>

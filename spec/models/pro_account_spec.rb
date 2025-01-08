@@ -37,13 +37,12 @@ RSpec.describe ProAccount, feature: :pro_pricing do
   end
 
   let(:past_due_sub) do
-    subscription.save
+    subscription
     StripeMock.mark_subscription_as_past_due(subscription)
     Stripe::Subscription.retrieve(subscription.id)
   end
 
   describe 'validations' do
-
     let(:user) { FactoryBot.build(:pro_user) }
     subject(:pro_account) { FactoryBot.build(:pro_account, user: user) }
 
@@ -53,11 +52,9 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       pro_account.user = nil
       expect(pro_account).not_to be_valid
     end
-
   end
 
   describe '#update_stripe_customer', feature: :pro_pricing do
-
     let(:user) { FactoryBot.build(:pro_user) }
     let(:pro_account) { FactoryBot.build(:pro_account, user: user) }
 
@@ -72,9 +69,9 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     end
 
     it 'creates Stripe customer' do
-      allow(customer).to receive(:save)
+      allow(Stripe::Customer).to receive(:create).and_call_original
       pro_account.update_stripe_customer
-      expect(customer).to have_received(:save)
+      expect(Stripe::Customer).to have_received(:create)
     end
 
     it 'sets Stripe customer email' do
@@ -92,7 +89,6 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     end
 
     context 'with pro_pricing disabled' do
-
       it 'does not store Stripe customer ID' do
         with_feature_disabled(:pro_pricing) do
           expect {
@@ -126,13 +122,10 @@ RSpec.describe ProAccount, feature: :pro_pricing do
           )
         end
       end
-
     end
-
   end
 
   describe '#stripe_customer' do
-
     subject { pro_account.stripe_customer }
 
     context 'with invalid Stripe customer ID' do
@@ -144,7 +137,6 @@ RSpec.describe ProAccount, feature: :pro_pricing do
         expect { pro_account.stripe_customer }.
           to raise_error Stripe::InvalidRequestError
       end
-
     end
 
     context 'with valid Stripe customer ID' do
@@ -155,9 +147,7 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       it 'finds the Stripe::Customer linked to the ProAccount' do
         expect(pro_account.stripe_customer).to eq(customer)
       end
-
     end
-
   end
 
   describe '#subscription?' do
@@ -168,7 +158,7 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     subject { pro_account.subscription? }
 
     context 'when there is an active subscription' do
-      before { subscription.save }
+      before { subscription }
       it { is_expected.to eq true }
     end
 
@@ -178,12 +168,18 @@ RSpec.describe ProAccount, feature: :pro_pricing do
     end
 
     context 'when there is an expiring subscription' do
-      before { subscription.delete(at_period_end: true) }
+      before do
+        Stripe::Subscription.update(subscription.id, cancel_at_period_end: true)
+      end
+
       it { is_expected.to eq true }
     end
 
     context 'when an existing subscription is cancelled' do
-      before { subscription.delete }
+      before do
+        Stripe::Subscription.cancel(subscription.id)
+      end
+
       it { is_expected.to eq false }
     end
 
@@ -195,7 +191,5 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       before { pro_account.stripe_customer_id = nil }
       it { is_expected.to eq false }
     end
-
   end
-
 end

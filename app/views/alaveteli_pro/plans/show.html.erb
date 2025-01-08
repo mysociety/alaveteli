@@ -29,16 +29,12 @@
           <h3><%= _('Selected plan') %></h3>
           <div class="plan-overview">
             <div class="plan-overview__desc">
-              <%= @plan.name %>
+              <%= @price.product.name %>
             </div>
-            <div class="plan-overview__details">
-              <%= billing_frequency(@plan.interval) %>
+            <div class="plan-overview__amount">
+              <%= format_currency(@price.unit_amount_with_tax) %>
+              <%= billing_frequency(@price) %>
             </div>
-            <label class="plan-overview__amount amount">
-              <span>
-              <%= format_currency(@plan.amount_with_tax) %>
-              </span>
-            </label>
           </div>
         </div>
 
@@ -69,7 +65,7 @@
         </div>
 
         <div class="settings__section">
-          <%= hidden_field_tag 'plan_id', @plan.id %>
+          <%= hidden_field_tag 'price_id', @price.to_param %>
           <%= submit_tag _('Subscribe'), id: 'js-stripe-submit', disabled: true, data: { disable_with: 'Processing...' } %>
           <%= link_to _('Cancel'), pro_plans_path, class: 'settings__cancel-button' %>
           <p id="card-errors"></p>

@@ -75,7 +75,6 @@ RSpec.describe "public_body/show" do
   end
 
   context 'the public body is tagged as "foi_no"' do
-
     let(:public_body) { FactoryBot.build(:public_body, tag_string: 'foi_no') }
 
     it 'displays a message that the authority is not obliged to respond' do
@@ -85,11 +84,9 @@ RSpec.describe "public_body/show" do
         to have_content('This authority is not subject to FOI law, so is ' \
                         'not legally obliged to respond')
     end
-
   end
 
   context 'the public body is tagged as "eir_only"' do
-
     let(:public_body) { FactoryBot.build(:public_body, tag_string: 'eir_only') }
 
     it 'displays a message that the authority is only open to environmental requests' do
@@ -110,7 +107,6 @@ RSpec.describe "public_body/show" do
   end
 
   context 'the public body is tagged as "eir_only" and "foi_no"' do
-
     let(:public_body) do
       FactoryBot.build(:public_body, tag_string: 'eir_only foi_no')
     end
@@ -122,11 +118,9 @@ RSpec.describe "public_body/show" do
         to have_content('You only have a right in law to access information ' \
                         'about the environment from this authority')
     end
-
   end
 
   context 'the public body is tagged as "defunct"' do
-
     let(:public_body) do
       FactoryBot.build(:public_body, tag_string: 'defunct')
     end
@@ -138,9 +132,7 @@ RSpec.describe "public_body/show" do
         to have_content('This authority no longer exists, so you cannot make ' \
                         'a request to it.')
     end
-
   end
-
 end
 
 def mock_event

@@ -59,5 +59,4 @@ class PublicBodyChangeRequestsController < ApplicationController
   def set_render_recaptcha
     @render_recaptcha = !@user
   end
-
 end

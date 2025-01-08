@@ -25,10 +25,10 @@ RSpec.describe Projects::ContributorsController, spec_meta do
         project.contributors << user
 
         ability.can :read, project
-        ability.can :remove_contributor, user
+        ability.can :leave, project
 
         sign_in user
-        delete :destroy, params: { project_id: project.id, id: user.id }
+        delete :destroy, params: { project_id: project.id }
       end
 
       it 'assigns the project' do
@@ -56,14 +56,14 @@ RSpec.describe Projects::ContributorsController, spec_meta do
         project.contributors << user
 
         ability.can :read, project
-        ability.cannot :remove_contributor, user
+        ability.cannot :leave, project
 
         sign_in user
       end
 
       it 'raises an CanCan::AccessDenied error' do
         expect {
-          delete :destroy, params: { project_id: project.id, id: user.id }
+          delete :destroy, params: { project_id: project.id }
         }.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -79,14 +79,13 @@ RSpec.describe Projects::ContributorsController, spec_meta do
 
       it 'raises an CanCan::AccessDenied error' do
         expect {
-          delete :destroy,
-                 params: { project_id: project.id, id: contributor.id }
+          delete :destroy, params: { project_id: project.id }
         }.to raise_error(CanCan::AccessDenied)
       end
     end
 
     context 'logged out' do
-      before { delete :destroy, params: { project_id: project.id, id: 1 } }
+      before { delete :destroy, params: { project_id: project.id } }
 
       it 'redirects to sign in form' do
         expect(response.status).to eq 302

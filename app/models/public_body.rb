@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230209094128
+# Schema version: 20231011091031
 #
 # Table name: public_bodies
 #
@@ -12,7 +12,6 @@
 #  home_page                              :text
 #  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
-#  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
@@ -34,6 +33,7 @@ require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
   include CalculatedHomePage
+  include Categorisable
   include Taggable
   include Notable
   include Rails.application.routes.url_helpers
@@ -62,6 +62,13 @@ class PublicBody < ApplicationRecord
       ['tag_string', '(tags separated by spaces)']
     ]
   end
+
+  # Set to 0 to prevent application of the not_many_requests tag
+  cattr_accessor :not_many_public_requests_size, default: 5
+
+  # Any PublicBody tagged with any of the follow tags won't be returned in the
+  # batch authority search results or batch category UI
+  cattr_accessor :batch_excluded_tags, default: %w[not_apply defunct]
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
@@ -115,9 +122,10 @@ class PublicBody < ApplicationRecord
 
   before_save :set_api_key!, unless: :api_key
 
-  after_save :update_missing_email_tag
+  after_save :update_auto_applied_tags
 
-  after_update :reindex_requested_from, :invalidate_cached_pages
+  after_update :reindex_requested_from, :invalidate_cached_pages,
+               unless: :no_xapian_reindex
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
@@ -304,6 +312,7 @@ class PublicBody < ApplicationRecord
       raise "Two bodies with the same historical URL name: #{name}"
     end
     return unless old.size == 1
+
     # does acts_as_versioned provide a method that returns the current version?
     PublicBody.find(old.first)
   end
@@ -628,6 +637,7 @@ class PublicBody < ApplicationRecord
     our_domain = request_email_domain
 
     return false if user_domain.nil? || our_domain.nil?
+
     our_domain == user_domain
   end
 
@@ -656,11 +666,11 @@ class PublicBody < ApplicationRecord
   end
 
   def notes
-    all_notes
+    Note.sort(all_notes)
   end
 
   def notes_as_string
-    notes.map(&:body).join(' ')
+    notes.map(&:to_plain_text).join(' ')
   end
 
   def has_notes?
@@ -814,7 +824,9 @@ class PublicBody < ApplicationRecord
     return all if tag.size == 1 || tag.nil? || tag == 'all'
 
     if tag == 'other'
-      tags = PublicBodyCategory.get.tags - ['other']
+      tags = PublicBody.category_list.distinct.
+        where.not(category_tag: [nil, '', 'other']).
+        pluck(:category_tag)
       where.not("EXISTS(#{tag_search_sql(tags)})")
     else
       original_with_tag(tag)
@@ -910,6 +922,10 @@ class PublicBody < ApplicationRecord
     ]
   end
 
+  def request_created
+    update_not_many_requests_tag
+  end
+
   private
 
   # If the url_name has changed, then all requested_from: queries will break
@@ -944,7 +960,6 @@ class PublicBody < ApplicationRecord
                    "Request email doesn't look like a valid email address")
       end
     end
-
   end
 
   def name_for_search
@@ -960,6 +975,11 @@ class PublicBody < ApplicationRecord
   end
   private_class_method :get_public_body_list_translated_condition
 
+  def update_auto_applied_tags
+    update_missing_email_tag
+    update_not_many_requests_tag
+  end
+
   def update_missing_email_tag
     if missing_email? && !defunct?
       add_tag_if_not_already_present('missing_email')
@@ -970,5 +990,17 @@ class PublicBody < ApplicationRecord
 
   def missing_email?
     !has_request_email?
+  end
+
+  def update_not_many_requests_tag
+    if is_requestable? && not_many_public_requests?
+      add_tag_if_not_already_present('not_many_requests')
+    else
+      remove_tag('not_many_requests')
+    end
+  end
+
+  def not_many_public_requests?
+    info_requests.is_searchable.size < not_many_public_requests_size
   end
 end

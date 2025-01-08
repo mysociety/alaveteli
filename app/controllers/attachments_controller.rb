@@ -6,7 +6,7 @@ class AttachmentsController < ApplicationController
   include InfoRequestHelper
   include PublicTokenable
 
-  skip_before_action :html_response
+  skip_before_action :html_response, :store_gettext_locale
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :find_project
@@ -15,29 +15,13 @@ class AttachmentsController < ApplicationController
 
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
+  before_action :set_cors
 
+  around_action :ensure_masked
   around_action :cache_attachments, only: :show_as_html
 
   def show
-    if @attachment.masked?
-      render body: @attachment.body, content_type: content_type
-    else
-      FoiAttachmentMaskJob.perform_once_later(@attachment)
-
-      Timeout.timeout(5) do
-        until @attachment.masked?
-          sleep 0.5
-          @attachment.reload
-        end
-        redirect_to(request.fullpath)
-      end
-    end
-
-  rescue Timeout::Error
-    redirect_to wait_for_attachment_mask_path(
-      @attachment.to_signed_global_id,
-      referer: verifier.generate(request.fullpath)
-    )
+    render body: @attachment.body, content_type: content_type
   end
 
   def show_as_html
@@ -74,7 +58,7 @@ class AttachmentsController < ApplicationController
       if public_token?
         InfoRequest.find_by!(public_token: public_token)
       else
-        InfoRequest.find(params[:id])
+        InfoRequest.find_by!(url_title: params[:request_url_title])
       end
   end
 
@@ -133,6 +117,36 @@ class AttachmentsController < ApplicationController
     return if attachment_is_public?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
+  end
+
+  def ensure_masked
+    if @attachment.masked?
+      yield
+    else
+      FoiAttachmentMaskJob.perform_later(@attachment)
+
+      Timeout.timeout(5) do
+        until @attachment.masked?
+          sleep 0.5
+          @attachment.reload
+        end
+        redirect_to(request.fullpath)
+      end
+    end
+
+  rescue Timeout::Error, ActiveRecord::RecordNotFound
+    redirect_to wait_for_attachment_mask_path(
+      @attachment.to_signed_global_id,
+      referer: verifier.generate(request.fullpath)
+    )
+  end
+
+  def set_cors
+    # Allow CSVs to be explored in a Datasette instance
+    return unless @attachment.content_type == 'text/csv'
+
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Request-Method'] = 'GET'
   end
 
   # special caching code so mime types are handled right

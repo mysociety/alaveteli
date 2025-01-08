@@ -78,8 +78,9 @@ RSpec.describe CommentController, "when commenting on a request" do
          params: {
            url_title: info_requests(:naughty_chicken_request).url_title,
            comment: {
-             body:                 "A good question, but why not also ask about nice chickens?"
-           }, type: 'request',
+             body: "A good question, but why not also ask about nice chickens?"
+           },
+           type: 'request',
            submitted_comment: 1,
            preview: 1
          }
@@ -87,16 +88,20 @@ RSpec.describe CommentController, "when commenting on a request" do
   end
 
   it "should redirect to sign in page when input is good and nobody is logged in" do
-    params = { url_title: info_requests(:naughty_chicken_request).url_title,
-               comment: { body: "A good question, but why not also ask about nice chickens?" },
-               type: 'request',
-               submitted_comment: 1,
-               preview: 0
-              }
+    params = {
+      url_title: info_requests(:naughty_chicken_request).url_title,
+      comment: {
+        body: "A good question, but why not also ask about nice chickens?"
+      },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
     post :new, params: params
     expect(response).
       to redirect_to(signin_path(token: get_last_post_redirect.token))
-    # post_redirect.post_params.should == params # TODO: get this working. there's a : vs '' problem amongst others
+    # post_redirect.post_params.should == params # TODO: get this working.
+    # there's a : vs '' problem amongst others
   end
 
   it "should create the comment, and redirect to request page when input is good and somebody is logged in" do
@@ -106,7 +111,7 @@ RSpec.describe CommentController, "when commenting on a request" do
          params: {
            url_title: info_requests(:naughty_chicken_request).url_title,
            comment: {
-             body:                "A good question, but why not also ask about nice chickens?"
+             body: "A good question, but why not also ask about nice chickens?"
            },
            type: 'request',
            submitted_comment: 1,
@@ -120,7 +125,11 @@ RSpec.describe CommentController, "when commenting on a request" do
 
     expect(ActionMailer::Base.deliveries.size).to eq(0)
 
-    expect(response).to redirect_to(controller: 'request', action: 'show', url_title: info_requests(:naughty_chicken_request).url_title)
+    expect(response).to redirect_to(
+      controller: 'request',
+      action: 'show',
+      url_title: info_requests(:naughty_chicken_request).url_title
+    )
   end
 
   it 'errors if the same comment is submitted twice' do
@@ -161,7 +170,10 @@ RSpec.describe CommentController, "when commenting on a request" do
   end
 
   it "should not allow comments if comments are not allowed globally" do
-    allow(controller).to receive(:feature_enabled?).with(:annotations).and_return(false)
+    allow(controller).
+      to receive(:feature_enabled?).
+      with(:annotations).
+      and_return(false)
     sign_in users(:silly_name_user)
     info_request = info_requests(:fancy_dog_request)
 
@@ -221,7 +233,6 @@ RSpec.describe CommentController, "when commenting on a request" do
   end
 
   describe 'when handling a comment that looks like spam' do
-
     let(:user) { FactoryBot.create(:user,
                                 locale: 'en',
                                 name: 'bob',
@@ -230,7 +241,6 @@ RSpec.describe CommentController, "when commenting on a request" do
     let(:request) { FactoryBot.create(:info_request) }
 
     context 'when block_spam_comments? is true' do
-
       before(:each) do
         allow(@controller).to receive(:block_spam_comments?).and_return(true)
       end
@@ -263,8 +273,10 @@ RSpec.describe CommentController, "when commenting on a request" do
                submitted_comment: 1,
                preview: 0
              }
-        expect(flash[:error])
-          .to eq("Sorry, we're currently unable to add your annotation. Please try again later.")
+        expect(flash[:error]).to eq(
+          "Sorry, we're currently unable to add your annotation. " \
+          "Please try again later."
+        )
       end
 
       it 'renders the compose interface' do
@@ -298,11 +310,9 @@ RSpec.describe CommentController, "when commenting on a request" do
              }
         expect(response).to redirect_to show_request_path(request.url_title)
       end
-
     end
 
     context 'when block_spam_comments? is false' do
-
       before(:each) do
         allow(@controller).to receive(:block_spam_comments?).and_return(false)
       end
@@ -337,15 +347,11 @@ RSpec.describe CommentController, "when commenting on a request" do
              }
         expect(response).to redirect_to show_request_path(request.url_title)
       end
-
     end
-
   end
 
   describe 'when commenting on an external request' do
-
     describe 'when responding to a GET request on a successful request' do
-
       before do
         @external_request = info_requests(:external_request)
         @external_request.described_state = 'successful'
@@ -357,9 +363,7 @@ RSpec.describe CommentController, "when commenting on a request" do
                             type: 'request' }
         expect(response).to be_successful
       end
-
     end
-
   end
 
   context 'when commenting on an embargoed request' do
@@ -377,5 +381,4 @@ RSpec.describe CommentController, "when commenting on a request" do
       end
     end
   end
-
 end

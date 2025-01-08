@@ -1,14 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::State do
-
   describe :all do
-
     it 'includes "waiting_response"' do
       expect(InfoRequest::State.all.include?("waiting_response"))
         .to be true
     end
-
   end
 
   describe '.unhappy' do
@@ -36,7 +33,6 @@ RSpec.describe InfoRequest::State do
   end
 
   describe :phases do
-
     it 'returns an array' do
       expect(InfoRequest::State.phases).to be_a Array
     end
@@ -45,11 +41,9 @@ RSpec.describe InfoRequest::State do
       expect(InfoRequest::State.phases.include?({ name: _('Complete'),
                                                   scope: :complete }))
     end
-
   end
 
   describe :short_description do
-
     it 'returns a short description for a valid state' do
       expect(InfoRequest::State.short_description('attention_requested'))
         .to eq 'Reported'
@@ -61,7 +55,6 @@ RSpec.describe InfoRequest::State do
     end
 
     context 'when a theme is in use' do
-
       before do
         InfoRequest.send(:require, 'models/customstates')
         InfoRequest.send(:include, InfoRequestCustomStates)
@@ -77,13 +70,10 @@ RSpec.describe InfoRequest::State do
         expect { InfoRequest::State.short_description('meow') }
           .to raise_error 'unknown status meow'
       end
-
     end
-
   end
 
   describe :phase_params do
-
     it 'returns hyphenised versions of the phases' do
       expect(InfoRequest::State.phase_params)
         .to eq({ awaiting_response: "awaiting-response",
@@ -95,5 +85,4 @@ RSpec.describe InfoRequest::State do
                  other: "other" })
     end
   end
-
 end

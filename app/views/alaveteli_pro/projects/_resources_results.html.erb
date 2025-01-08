@@ -1,0 +1,44 @@
+<div class="project-resources__list">
+  <%= content_tag(:div, _('Sorry, no requests matched that search'), class: 'blank-slate') if @results.empty? %>
+
+  <% @results.each do |request| %>
+    <div class="project-resource">
+      <h3 class="project-resource__title">
+        <%= link_to request.title, show_request_path(request.url_title) %>
+      </h3> <!-- .project-resource__title -->
+
+      <div class="project-resource__meta">
+          <div class="project-resource__recipient">
+            <span class="project-resource__meta__label">Request to</span>
+            <p><%= request.public_body.name %></p>
+          </div>
+      </div> <!-- .project-resource__meta -->
+
+      <div class="project-resource__buttons">
+        <% if @batches.include?(request.info_request_batch) || @requests.include?(request) %>
+          <span class="project-resources__added"><%= _('Added') %></span>
+        <% else %>
+          <%= link_to nil, class: 'button', data: {
+            projects__resources_id_param: request.id,
+            action: 'click->projects--resources#addRequest'
+          } do %>
+            <i class="icon icon__add"></i>
+            <%= _('Add request') %>
+          <% end %>
+
+          <% if request.info_request_batch_id %>
+            <%= link_to nil, class: 'button', data: {
+              projects__resources_id_param: request.info_request_batch_id,
+              action: 'click->projects--resources#addBatch'
+            } do %>
+              <i class="icon icon__add"></i>
+              <%= _('Add whole batch and related requests') %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div> <!-- .project-resource__buttons -->
+    </div>
+  <% end %>
+</div>
+
+<%= will_paginate(@results, inner_window: 0, outer_window: 0) %>

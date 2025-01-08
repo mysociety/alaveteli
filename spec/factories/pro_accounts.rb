@@ -12,9 +12,7 @@
 #
 
 FactoryBot.define do
-
   factory :pro_account do
     association :user, factory: :pro_user
   end
-
 end

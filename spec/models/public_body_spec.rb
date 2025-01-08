@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230209094128
+# Schema version: 20231011091031
 #
 # Table name: public_bodies
 #
@@ -12,7 +12,6 @@
 #  home_page                              :text
 #  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
-#  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
@@ -28,11 +27,13 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/categorisable'
 require 'models/concerns/notable'
 require 'models/concerns/notable_and_taggable'
 require 'models/concerns/taggable'
 
 RSpec.describe PublicBody do
+  it_behaves_like 'concerns/categorisable', :public_body
   it_behaves_like 'concerns/notable', :public_body
   it_behaves_like 'concerns/notable_and_taggable', :public_body
   it_behaves_like 'concerns/taggable', :public_body
@@ -162,9 +163,6 @@ RSpec.describe PublicBody do
     it 'should returns authorities without categories' do
       pbs = PublicBody.with_tag('other')
       expect(pbs).to match_array([
-        public_bodies(:geraldine_public_body),
-        public_bodies(:humpadink_public_body),
-        public_bodies(:silly_walks_public_body),
         public_bodies(:sensible_walks_public_body),
         public_bodies(:other_public_body)
       ])
@@ -172,7 +170,6 @@ RSpec.describe PublicBody do
   end
 
   describe '.with_query' do
-
     it 'should return authorities starting with a multibyte first letter' do
       authority = FactoryBot.create(:public_body, name: 'Åčçèñtéd Authority')
       department = FactoryBot.create(:public_body, name: 'Åčçèñtéd Department')
@@ -194,7 +191,6 @@ RSpec.describe PublicBody do
         public_bodies(:forlorn_public_body)
       ])
     end
-
   end
 
   describe '.cached_urls' do
@@ -243,10 +239,46 @@ RSpec.describe PublicBody do
         expect(public_body).not_to be_tagged('missing_email')
       end
     end
+
+    context 'when there are not many public requests' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      it 'adds the not many requests tag' do
+        subject
+        expect(public_body).to be_tagged('not_many_requests')
+      end
+    end
+
+    context 'when a request email is removed' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      # Reduce size for test so we have to create fewer records
+      before { public_body.not_many_public_requests_size = 2 }
+
+      before do
+        FactoryBot.create_list(:info_request, 2, public_body: public_body)
+      end
+
+      it 'removes the not many requests tag' do
+        subject
+        expect(public_body).not_to be_tagged('not_many_requests')
+      end
+    end
+
+    context 'when a not_requestable body is is tagged not_many_requests' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      before { public_body.add_tag_if_not_already_present('not_many_requests') }
+      before { public_body.update(request_email: '') }
+
+      it 'removes the not many requests tag' do
+        subject
+        expect(public_body).not_to be_tagged('not_many_requests')
+      end
+    end
   end
 
   describe '#name' do
-
     it 'is invalid when nil' do
       subject = described_class.new(name: nil)
       subject.valid?
@@ -265,11 +297,9 @@ RSpec.describe PublicBody do
       subject.valid?
       expect(subject.errors[:name]).to eq(["Name is already taken"])
     end
-
   end
 
   describe '#short_name' do
-
     it 'is invalid when not unique' do
       existing = FactoryBot.create(:public_body, short_name: 'xyz')
       subject = described_class.new(short_name: existing.short_name)
@@ -282,11 +312,9 @@ RSpec.describe PublicBody do
       subject.valid?
       expect(subject.errors[:short_name]).to be_empty
     end
-
   end
 
   describe '#request_email' do
-
     it 'is invalid when nil' do
       subject = described_class.new(request_email: nil)
       subject.valid?
@@ -295,7 +323,6 @@ RSpec.describe PublicBody do
     end
 
     context "when the email is set" do
-
       subject(:public_body) do
         FactoryBot.build(:public_body,
                          request_email: "request@example.com")
@@ -311,11 +338,9 @@ RSpec.describe PublicBody do
             and_return("tester@example.com")
         expect(public_body.request_email).to eq("tester@example.com")
       end
-
     end
 
     context "when no email is set" do
-
       subject(:public_body) do
         FactoryBot.build(:public_body, request_email: "")
       end
@@ -330,7 +355,6 @@ RSpec.describe PublicBody do
             and_return("tester@example.com")
         expect(public_body.request_email).to be_blank
       end
-
     end
 
     it 'is invalid with an unrequestable email' do
@@ -345,21 +369,17 @@ RSpec.describe PublicBody do
       subject.valid?
       expect(subject.errors[:request_email]).to be_empty
     end
-
   end
 
   describe '#version' do
-
     it 'ignores manually set attributes' do
       subject = FactoryBot.build(:public_body, version: 21)
       subject.save!
       expect(subject.version).to eq(1)
     end
-
   end
 
   describe '#url_name' do
-
     it 'is invalid when nil' do
       subject = PublicBody.new(url_name: nil)
       subject.valid?
@@ -390,7 +410,6 @@ RSpec.describe PublicBody do
     end
 
     context 'short_name has not been set' do
-
       it 'updates the url_name when name is changed' do
         subject = PublicBody.new
         subject.name = 'Some Authority'
@@ -402,11 +421,9 @@ RSpec.describe PublicBody do
         subject.name = '1234'
         expect(subject.url_name).to eq('body')
       end
-
     end
 
     context 'short_name has been set' do
-
       it 'does not update the url_name when name is changed' do
         subject = PublicBody.new(short_name: 'Test Name')
         subject.name = 'Some Authority'
@@ -418,13 +435,10 @@ RSpec.describe PublicBody do
         subject.short_name = 'Short Name'
         expect(subject.url_name).to eq('short_name')
       end
-
     end
-
   end
 
   describe '#first_letter' do
-
     it 'is empty on initialization' do
       subject = FactoryBot.build(:public_body)
       expect(subject.first_letter).to be_nil
@@ -468,11 +482,9 @@ RSpec.describe PublicBody do
         expect(subject.first_letter).to eq('B')
       end
     end
-
   end
 
   describe '#api_key' do
-
     it 'is empty on initialization' do
       subject = FactoryBot.build(:public_body)
       expect(subject.api_key).to be_nil
@@ -490,11 +502,9 @@ RSpec.describe PublicBody do
       subject.save!
       expect(subject.api_key).to eq(existing)
     end
-
   end
 
   describe '#last_edit_editor' do
-
     it 'is invalid when nil' do
       subject = PublicBody.new(last_edit_editor: nil)
       subject.valid?
@@ -521,11 +531,9 @@ RSpec.describe PublicBody do
       subject.valid?
       expect(subject.errors[:last_edit_editor]).to be_empty
     end
-
   end
 
   describe '#last_edit_comment' do
-
     it 'is valid when nil' do
       subject = PublicBody.new(last_edit_comment: nil)
       subject.valid?
@@ -536,11 +544,9 @@ RSpec.describe PublicBody do
       subject = FactoryBot.create(:public_body, last_edit_comment: '')
       expect(subject.last_edit_comment).to be_nil
     end
-
   end
 
   describe '#home_page' do
-
     it 'is valid when nil' do
       subject = PublicBody.new(home_page: nil)
       subject.valid?
@@ -551,7 +557,6 @@ RSpec.describe PublicBody do
       subject = FactoryBot.create(:public_body, home_page: '')
       expect(subject.home_page).to be_nil
     end
-
   end
 
   describe '#notes' do
@@ -589,11 +594,12 @@ RSpec.describe PublicBody do
 
     let!(:concrete_note) do
       FactoryBot.create(:note, :for_public_body,
-                        body: 'bar', notable: public_body)
+                        rich_body: 'bar', notable: public_body)
     end
 
     let!(:tagged_note) do
-      FactoryBot.create(:note, :tagged, body: 'baz', notable_tag: 'important')
+      FactoryBot.create(:note, :tagged,
+                        rich_body: 'baz', notable_tag: 'important')
     end
 
     it 'concaterates note bodies' do
@@ -602,7 +608,6 @@ RSpec.describe PublicBody do
   end
 
   describe '#has_notes?' do
-
     subject { public_body.has_notes? }
     let(:public_body) { PublicBody.new }
 
@@ -620,11 +625,9 @@ RSpec.describe PublicBody do
       allow(public_body).to receive(:notes).and_return([double(:note)])
       is_expected.to eq(true)
     end
-
   end
 
   describe '#publication_scheme' do
-
     it 'is valid when nil' do
       subject = PublicBody.new(publication_scheme: nil)
       subject.valid?
@@ -635,11 +638,9 @@ RSpec.describe PublicBody do
       subject = FactoryBot.create(:public_body, publication_scheme: '')
       expect(subject.publication_scheme).to be_nil
     end
-
   end
 
   describe '#disclosure_log' do
-
     it 'is valid when nil' do
       subject = PublicBody.new(disclosure_log: nil)
       subject.valid?
@@ -650,13 +651,10 @@ RSpec.describe PublicBody do
       subject = FactoryBot.create(:public_body, disclosure_log: '')
       expect(subject.disclosure_log).to be_nil
     end
-
   end
 
   describe '#translations_attributes=' do
-
     context 'translation_attrs is a Hash' do
-
       it 'does not persist translations' do
         body = FactoryBot.create(:public_body)
         body.translations_attributes = { es: { locale: 'es',
@@ -731,7 +729,6 @@ RSpec.describe PublicBody do
   end
 
   describe '#set_api_key' do
-
     it 'generates and sets an API key' do
       allow(SecureRandom).to receive(:base64).and_return('APIKEY')
       body = PublicBody.new
@@ -745,11 +742,9 @@ RSpec.describe PublicBody do
       body.set_api_key
       expect(body.api_key).to eq('EXISTING')
     end
-
   end
 
   describe '#set_api_key!' do
-
     it 'generates and sets an API key' do
       allow(SecureRandom).to receive(:base64).and_return('APIKEY')
       body = PublicBody.new
@@ -763,7 +758,6 @@ RSpec.describe PublicBody do
       body.set_api_key!
       expect(body.api_key).to eq('APIKEY')
     end
-
   end
 
   describe '#expire_requests' do
@@ -776,7 +770,6 @@ RSpec.describe PublicBody do
   end
 
   describe '#short_or_long_name' do
-
     it 'returns the short_name if it has been set' do
       public_body = PublicBody.new(name: 'Test Name', short_name: "Test")
       expect(public_body.short_or_long_name).to eq('Test')
@@ -786,11 +779,9 @@ RSpec.describe PublicBody do
       public_body = PublicBody.new(name: 'Test Name')
       expect(public_body.short_or_long_name).to eq('Test Name')
     end
-
   end
 
   describe '#set_first_letter' do
-
     it 'sets first_letter to the first letter of the name if the name is set' do
       public_body = PublicBody.new(name: 'Test Name')
       public_body.set_first_letter
@@ -814,11 +805,9 @@ RSpec.describe PublicBody do
       public_body.set_first_letter
       expect(public_body.first_letter).to eq('Å')
     end
-
   end
 
   describe '#not_subject_to_law?' do
-
     it 'returns true if tagged with "foi_no"' do
       public_body = FactoryBot.build(:public_body,
                                      tag_string: 'foi_no')
@@ -836,11 +825,9 @@ RSpec.describe PublicBody do
       public_body = FactoryBot.build(:public_body)
       expect(public_body.not_subject_to_law?).to eq true
     end
-
   end
 
   describe ".internal_admin_body" do
-
     before(:each) do
       InfoRequest.destroy_all
       PublicBody.destroy_all
@@ -882,31 +869,26 @@ RSpec.describe PublicBody do
         expect(found_iab).to eq(iab)
       end
     end
-
   end
 
   describe '.localized_csv_field_name' do
-
     it 'returns the field name if passed the default_locale' do
       expect(PublicBody.localized_csv_field_name(:en, "first_letter")).
         to eq("first_letter")
     end
 
     context 'the default_locale contains an underscore' do
-
       it 'returns the field name if passed the default_locale' do
         AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
         expect(PublicBody.localized_csv_field_name(:en_GB, "first_letter")).
           to eq("first_letter")
       end
-
     end
 
     it 'returns appends the locale name if passed a non default locale' do
       expect(PublicBody.localized_csv_field_name(:es, "first_letter")).
         to eq("first_letter.es")
     end
-
   end
 
   describe '.without_request_email' do
@@ -937,7 +919,6 @@ RSpec.describe PublicBody do
       end
       is_expected.to include(blank_body)
     end
-
   end
 
   describe '.with_request_email' do
@@ -953,10 +934,12 @@ RSpec.describe PublicBody do
     it 'does not include bodies with an empty request email' do
       is_expected.to_not include(blank_body)
     end
-
   end
 
   describe 'when generating json for the api' do
+    around do |example|
+      disable_not_many_requests_auto_tagging { example.run }
+    end
 
     let(:public_body) do
       FactoryBot.create(:public_body,
@@ -996,9 +979,7 @@ RSpec.describe PublicBody do
               }
             })
     end
-
   end
-
 end
 
 RSpec.describe PublicBody, " using tags" do
@@ -1096,7 +1077,6 @@ RSpec.describe PublicBody, " using machine tags" do
 end
 
 RSpec.describe PublicBody, "when finding_by_tags" do
-
   before do
     @geraldine = public_bodies(:geraldine_public_body)
     @geraldine.tag_string = 'rabbit'
@@ -1232,7 +1212,6 @@ RSpec.describe PublicBody, " when saving" do
 end
 
 RSpec.describe PublicBody, "when searching" do
-
   it "should find by existing url name" do
     body = PublicBody.find_by_url_name_with_historic('dfh')
     expect(body.id).to eq(3)
@@ -1328,10 +1307,13 @@ RSpec.describe PublicBody, "when destroying" do
     public_body.reload
     expect { public_body.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
   end
-
 end
 
 RSpec.describe PublicBody, " when loading CSV files" do
+  around do |example|
+    disable_not_many_requests_auto_tagging { example.run }
+  end
+
   before(:each) do
     # InternalBody is created the first time it's accessed, which happens sometimes during imports,
     # depending on the tag used. By accessing it here before every test, it doesn't disturb our checks later on
@@ -1456,11 +1438,8 @@ RSpec.describe PublicBody, " when loading CSV files" do
     expect(PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search).to eq(%w[aTag fake])
   end
 
-
   context 'when the import tag is set' do
-
     context 'with a new body' do
-
       it 'appends the import tag when no tag_string is specified' do
         csv = <<-CSV.strip_heredoc
         #id,request_email,name,tag_string,home_page
@@ -1512,11 +1491,9 @@ RSpec.describe PublicBody, " when loading CSV files" do
         expected = %w(first_tag imported second_tag)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
-
     end
 
     context 'an existing body without tags' do
-
       before do
         @body = FactoryBot.create(:public_body, name: 'Existing Body')
       end
@@ -1533,11 +1510,9 @@ RSpec.describe PublicBody, " when loading CSV files" do
         expected = %w(imported)
         expect(errors).to include("error: line 2: Name Name is already taken for authority 'Existing Body'")
       end
-
     end
 
     context 'an existing body with tags' do
-
       before do
         @body = FactoryBot.create(:public_body, tag_string: 'imported first_tag second_tag')
       end
@@ -1566,15 +1541,11 @@ RSpec.describe PublicBody, " when loading CSV files" do
         expected = %w(first_tag imported new_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
-
     end
-
   end
 
   context 'when the import tag is not set' do
-
     context 'with a new body' do
-
       it 'it is empty if no tag_string is set' do
         csv = <<-CSV.strip_heredoc
         #id,request_email,name,tag_string,home_page
@@ -1626,11 +1597,9 @@ RSpec.describe PublicBody, " when loading CSV files" do
         expected = %w(first_tag)
         expect(PublicBody.find_by_name('Quango').tag_array_for_search).to eq(expected)
       end
-
     end
 
     context 'with an existing body without tags' do
-
       before do
         @body = FactoryBot.create(:public_body)
       end
@@ -1686,11 +1655,9 @@ RSpec.describe PublicBody, " when loading CSV files" do
         expected = %w(new_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
-
     end
 
     describe 'with an existing body with tags' do
-
       before do
         @body = FactoryBot.create(:public_body, tag_string: 'first_tag second_tag')
       end
@@ -1720,9 +1687,7 @@ RSpec.describe PublicBody, " when loading CSV files" do
         expected = %w(first_tag new_tag)
         expect(PublicBody.find(@body.id).tag_array_for_search).to eq(expected)
       end
-
     end
-
   end
 
   it "should create bodies with names in multiple locales" do
@@ -1772,7 +1737,6 @@ RSpec.describe PublicBody, " when loading CSV files" do
   end
 
   context 'when importing data from a CSV' do
-
     before do
       InfoRequest.destroy_all
       PublicBody.destroy_all
@@ -1810,7 +1774,6 @@ RSpec.describe PublicBody, " when loading CSV files" do
                   locale
       ).to eq(:en_GB)
     end
-
   end
 
   it "should handle active record validation errors" do
@@ -1981,7 +1944,6 @@ RSpec.describe PublicBody do
   end
 
   describe '#site_administration?' do
-
     it 'is true when the body has the site_administration tag' do
       p = FactoryBot.build(:public_body, tag_string: 'site_administration')
       expect(p.site_administration?).to be true
@@ -1991,11 +1953,9 @@ RSpec.describe PublicBody do
       p = FactoryBot.build(:public_body)
       expect(p.site_administration?).to be false
     end
-
   end
 
   describe '#has_request_email?' do
-
     before do
       @body = PublicBody.new(request_email: 'test@example.com')
     end
@@ -2021,7 +1981,6 @@ RSpec.describe PublicBody do
   end
 
   describe '#special_not_requestable_reason' do
-
     before do
       @body = PublicBody.new
     end
@@ -2040,7 +1999,6 @@ RSpec.describe PublicBody do
       expect(@body.special_not_requestable_reason?).to eq(false)
     end
   end
-
 end
 
 RSpec.describe PublicBody, " when override all public body request emails set" do
@@ -2124,11 +2082,9 @@ RSpec.describe PublicBody, "when calculating statistics" do
       hpb.tag_string = original_tag_string
     end
   end
-
 end
 
 RSpec.describe PublicBody, 'when asked for popular bodies' do
-
   it 'should return bodies correctly when passed the hyphenated version of the locale' do
     allow(AlaveteliConfiguration).to receive(:frontpage_publicbody_examples).and_return('')
     expect(PublicBody.popular_bodies('he-IL')).to eq([public_bodies(:humpadink_public_body)])
@@ -2138,11 +2094,9 @@ RSpec.describe PublicBody, 'when asked for popular bodies' do
     allow(AlaveteliConfiguration).to receive(:frontpage_publicbody_examples).and_return('tgq')
     expect(PublicBody.popular_bodies('en')).to eq([public_bodies(:geraldine_public_body)])
   end
-
 end
 
 RSpec.describe PublicBody do
-
   describe '.foi_applies' do
     subject { PublicBody.foi_applies }
 
@@ -2156,7 +2110,6 @@ RSpec.describe PublicBody do
     it 'does not include bodies where FOI/EIR is not applicable' do
       is_expected.to_not include(not_apply_body)
     end
-
   end
 
   describe '.not_defunct' do
@@ -2172,11 +2125,9 @@ RSpec.describe PublicBody do
     it 'does not include defunct bodies' do
       is_expected.to_not include(defunct_body)
     end
-
   end
 
   describe '#is_requestable?' do
-
     before do
       @body = PublicBody.new(request_email: 'test@example.com')
     end
@@ -2204,7 +2155,6 @@ RSpec.describe PublicBody do
     it 'should return true if the request email is an email address' do
       expect(@body.is_requestable?).to eq(true)
     end
-
   end
 
   describe '.is_requestable' do
@@ -2230,11 +2180,9 @@ RSpec.describe PublicBody do
     it 'does not include bodies where FOI/EIR is not applicable' do
       is_expected.to_not include(not_apply_body)
     end
-
   end
 
   describe '#is_followupable?' do
-
     before do
       @body = PublicBody.new(request_email: 'test@example.com')
     end
@@ -2247,11 +2195,9 @@ RSpec.describe PublicBody do
     it 'should return true if the request email is an email address' do
       expect(@body.is_followupable?).to eq(true)
     end
-
   end
 
   describe '#not_requestable_reason' do
-
     before do
       @body = PublicBody.new(request_email: 'test@example.com')
     end
@@ -2266,7 +2212,6 @@ RSpec.describe PublicBody do
       expect(@body.not_requestable_reason).to eq('not_apply')
     end
 
-
     it 'should return "bad_contact" there is no request_email' do
       allow(@body).to receive(:has_request_email?).and_return false
       expect(@body.not_requestable_reason).to eq('bad_contact')
@@ -2276,7 +2221,6 @@ RSpec.describe PublicBody do
       expected_error = "not_requestable_reason called with type that has no reason"
       expect { @body.not_requestable_reason }.to raise_error(expected_error)
     end
-
   end
 
   describe '#update_counter_cache' do
@@ -2369,10 +2313,39 @@ RSpec.describe PublicBody do
         to change { public_body.info_requests_visible_count }.from(1).to(0)
     end
   end
+
+  describe '#request_created' do
+    subject { public_body.request_created }
+
+    context 'when there are not many public requests' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      before { public_body.not_many_public_requests_size = 2 }
+
+      it 'adds the not many requests tag' do
+        subject
+        expect(public_body).to be_tagged('not_many_requests')
+      end
+    end
+
+    context 'when a request email is removed' do
+      let!(:public_body) { FactoryBot.create(:public_body) }
+
+      before { public_body.not_many_public_requests_size = 2 }
+
+      before do
+        FactoryBot.create_list(:info_request, 3, public_body: public_body)
+      end
+
+      it 'removes the not many requests tag' do
+        subject
+        expect(public_body).not_to be_tagged('not_many_requests')
+      end
+    end
+  end
 end
 
 RSpec.describe PublicBody::Translation do
-
   it 'requires a locale' do
     translation = PublicBody::Translation.new
     translation.valid?
@@ -2385,38 +2358,30 @@ RSpec.describe PublicBody::Translation do
     )
     expect(translation).to be_valid
   end
-
 end
 
 RSpec.describe PublicBody::Version do
   let(:public_body) { FactoryBot.create(:public_body) }
 
   describe '#compare' do
-
     describe 'when no block is given' do
-
       describe 'when there is no other version' do
-
         it 'returns an empty list' do
           current = public_body.versions.latest
           expect(current.compare(current.previous)).to eq([])
         end
-
       end
 
       describe 'when there are no significant changes' do
-
         it 'returns an empty list' do
           public_body.last_edit_comment = 'Just tinkering'
           public_body.save!
           current = public_body.versions.latest
           expect(current.compare(current.previous)).to eq([])
         end
-
       end
 
       describe 'when there are significant changes' do
-
         it 'returns a list of changes as hashes with keys :name, :from and
            :to' do
           public_body.request_email = 'new@example.com'
@@ -2427,25 +2392,19 @@ RSpec.describe PublicBody::Version do
                        to: "new@example.com" }
           expect(current.compare(current.previous)).to eq([ expected ])
         end
-
       end
-
     end
 
     describe 'when no block is given' do
-
       describe 'when there is no other version' do
-
         it 'does not yield' do
           current = public_body.versions.latest
           expect { |b| current.compare(current.previous, &b) }.
             not_to yield_control
         end
-
       end
 
       describe 'when there are no significant changes' do
-
         it 'returns an empty list' do
           public_body.last_edit_comment = 'Just tinkering'
           public_body.save!
@@ -2453,11 +2412,9 @@ RSpec.describe PublicBody::Version do
           expect { |b| current.compare(current.previous, &b) }.
             not_to yield_control
         end
-
       end
 
       describe 'when there are significant changes' do
-
         it 'returns a list of changes as hashes with keys :name, :from and
            :to' do
           public_body.request_email = 'new@example.com'
@@ -2469,11 +2426,8 @@ RSpec.describe PublicBody::Version do
           expect { |b| current.compare(current.previous, &b) }.
             to yield_with_args(expected)
         end
-
       end
-
     end
-
   end
 
   describe '#editor' do

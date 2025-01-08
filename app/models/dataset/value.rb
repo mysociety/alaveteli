@@ -24,4 +24,26 @@ class Dataset::Value < ApplicationRecord
             format: { with: -> (value) { value.key.format_regexp } },
             allow_blank: true,
             if: -> (value) { value.key }
+
+  def title
+    key.title
+  end
+
+  def value=(new_value)
+    case key.format
+    when 'select'
+      super(Array(new_value).reject(&:blank?).join(', '))
+    else
+      super
+    end
+  end
+
+  def mapped_value
+    case key.format
+    when 'boolean'
+      value.to_i > 0 ? _('Yes') : _('No')
+    else
+      value
+    end
+  end
 end

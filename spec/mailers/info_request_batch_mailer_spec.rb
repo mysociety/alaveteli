@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequestBatchMailer do
-
   describe 'when sending batch sent notification' do
-
     before do
       @user = FactoryBot.create(:user)
       @info_request_batch = FactoryBot.create(
@@ -25,12 +23,28 @@ RSpec.describe InfoRequestBatchMailer do
         to eq('Your batch request "Apostrophe\'s" has been sent')
     end
 
+    context "when the user does not use default locale" do
+      before do
+        @user.locale = 'es'
+        @mail = InfoRequestBatchMailer.batch_sent(
+          @info_request_batch,
+          @unrequestable,
+          @user
+        )
+      end
+
+      it "translates the subject" do
+        expect(@mail.subject).
+          to eq "Tu solicitud en lote \"Example title\" ha sido enviada"
+      end
+    end
+
     it 'renders the receiver email' do
       expect(@mail.to).to eq([@user.email])
     end
 
     it 'renders the sender email' do
-      expect(@mail.from).to eq(['postmaster@localhost'])
+      expect(@mail.from).to eq([blackhole_email])
     end
 
     it 'assigns @unrequestable' do

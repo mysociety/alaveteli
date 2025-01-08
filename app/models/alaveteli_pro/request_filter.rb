@@ -1,6 +1,5 @@
 module AlaveteliPro
   class RequestFilter
-
     extend ActiveModel::Naming
     include ActiveModel::Conversion
 
@@ -154,6 +153,5 @@ module AlaveteliPro
     def filter_value
       filter_params.include?(@filter) ? filter_values[@filter] : filter_values[nil]
     end
-
   end
 end

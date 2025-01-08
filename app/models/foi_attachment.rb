@@ -35,8 +35,8 @@ class FoiAttachment < ApplicationRecord
 
   MissingAttachment = Class.new(StandardError)
 
-  belongs_to :incoming_message,
-             inverse_of: :foi_attachments
+  belongs_to :incoming_message, inverse_of: :foi_attachments
+  has_one :info_request, through: :incoming_message, source: :info_request
   has_one :raw_email, through: :incoming_message, source: :raw_email
 
   has_one_attached :file, service: :attachments
@@ -50,12 +50,16 @@ class FoiAttachment < ApplicationRecord
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
 
-  admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest]
+  delegate :expire, :log_event, to: :info_request
+  delegate :metadata, to: :file_blob, allow_nil: true
+
+  admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
+                include: %i[metadata]
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
-  # rubocop:disable Style/LineLength
+  # rubocop:disable Layout/LineLength
   CONTENT_TYPE_NAMES = {
     # Plain Text
     "text/plain" => 'Text file',
@@ -79,7 +83,7 @@ class FoiAttachment < ApplicationRecord
     'application/vnd.ms-excel' => 'Excel spreadsheet',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
   }.freeze
-  # rubocop:enable Style/LineLength
+  # rubocop:enable Layout/LineLength
 
   def delete_cached_file!
     @cached_body = nil
@@ -90,30 +94,39 @@ class FoiAttachment < ApplicationRecord
     self.hexdigest ||= Digest::MD5.hexdigest(d)
 
     ensure_filename!
-    file.attach(
-      io: StringIO.new(d.to_s),
-      filename: filename,
-      content_type: content_type
-    )
+    if file.attached?
+      file_blob.upload(StringIO.new(d.to_s), identify: false)
+      file_blob.save
+
+    else
+      file.attach(
+        io: StringIO.new(d.to_s),
+        filename: filename,
+        content_type: content_type
+      )
+    end
 
     @cached_body = d.force_encoding("ASCII-8BIT")
     update_display_size!
   end
 
-  # raw body, encoded as binary
   def body
     return @cached_body if @cached_body
 
-    if masked?
-      @cached_body = file.download
-    elsif persisted?
-      FoiAttachmentMaskJob.perform_once_now(self)
-      reload
-      body
+    begin
+      return file.download if masked?
+    rescue ActiveStorage::FileNotFoundError
+      # file isn't in storage and has gone missing, rescue to allow the masking
+      # job to run and rebuild the stored file or even the whole attachment.
     end
 
-  rescue ActiveRecord::RecordNotFound
-    load_attachment_from_incoming_message.body
+    if persisted?
+      FoiAttachmentMaskJob.unlock!(self)
+      FoiAttachmentMaskJob.perform_now(self)
+      return body unless destroyed?
+    end
+
+    load_attachment_from_incoming_message!.body if destroyed?
   end
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
@@ -134,11 +147,17 @@ class FoiAttachment < ApplicationRecord
       raw_email.mail,
       hexdigest: hexdigest
     )
+
   rescue MailHandler::MismatchedAttachmentHexdigest
-    attributes = MailHandler.attempt_to_find_original_attachment_attributes(
-      raw_email.mail,
-      body: file.download
-    ) if file.attached?
+    begin
+      attributes = MailHandler.attempt_to_find_original_attachment_attributes(
+        raw_email.mail,
+        body: file.download
+      ) if file.attached?
+
+    rescue ActiveStorage::FileNotFoundError
+      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
+    end
 
     unless attributes
       raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
@@ -156,75 +175,14 @@ class FoiAttachment < ApplicationRecord
     self == incoming_message.get_main_body_text_part
   end
 
-  # List of DSN codes taken from RFC 3463
-  # http://tools.ietf.org/html/rfc3463
-  DsnToMessage = {
-    'X.1.0' => 'Other address status',
-    'X.1.1' => 'Bad destination mailbox address',
-    'X.1.2' => 'Bad destination system address',
-    'X.1.3' => 'Bad destination mailbox address syntax',
-    'X.1.4' => 'Destination mailbox address ambiguous',
-    'X.1.5' => 'Destination mailbox address valid',
-    'X.1.6' => 'Mailbox has moved',
-    'X.1.7' => 'Bad sender\'s mailbox address syntax',
-    'X.1.8' => 'Bad sender\'s system address',
-    'X.2.0' => 'Other or undefined mailbox status',
-    'X.2.1' => 'Mailbox disabled, not accepting messages',
-    'X.2.2' => 'Mailbox full',
-    'X.2.3' => 'Message length exceeds administrative limit.',
-    'X.2.4' => 'Mailing list expansion problem',
-    'X.3.0' => 'Other or undefined mail system status',
-    'X.3.1' => 'Mail system full',
-    'X.3.2' => 'System not accepting network messages',
-    'X.3.3' => 'System not capable of selected features',
-    'X.3.4' => 'Message too big for system',
-    'X.4.0' => 'Other or undefined network or routing status',
-    'X.4.1' => 'No answer from host',
-    'X.4.2' => 'Bad connection',
-    'X.4.3' => 'Routing server failure',
-    'X.4.4' => 'Unable to route',
-    'X.4.5' => 'Network congestion',
-    'X.4.6' => 'Routing loop detected',
-    'X.4.7' => 'Delivery time expired',
-    'X.5.0' => 'Other or undefined protocol status',
-    'X.5.1' => 'Invalid command',
-    'X.5.2' => 'Syntax error',
-    'X.5.3' => 'Too many recipients',
-    'X.5.4' => 'Invalid command arguments',
-    'X.5.5' => 'Wrong protocol version',
-    'X.6.0' => 'Other or undefined media error',
-    'X.6.1' => 'Media not supported',
-    'X.6.2' => 'Conversion required and prohibited',
-    'X.6.3' => 'Conversion required but not supported',
-    'X.6.4' => 'Conversion with loss performed',
-    'X.6.5' => 'Conversion failed',
-    'X.7.0' => 'Other or undefined security status',
-    'X.7.1' => 'Delivery not authorized, message refused',
-    'X.7.2' => 'Mailing list expansion prohibited',
-    'X.7.3' => 'Security conversion required but not possible',
-    'X.7.4' => 'Security features not supported',
-    'X.7.5' => 'Cryptographic failure',
-    'X.7.6' => 'Cryptographic algorithm not supported',
-    'X.7.7' => 'Message integrity failure'
-  }
-
   # Returns HTML, of extra comment to put by attachment
   def extra_note
-    # For delivery status notification attachments, extract the status and
-    # look up what it means in the DSN table.
-    if @content_type == 'message/delivery-status'
-      return "" unless @body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
-      dsn = $1
-      dsn_part = 'X.' + $2
+    return unless content_type == 'message/delivery-status'
 
-      dsn_message = ""
-      if DsnToMessage.include?(dsn_part)
-        dsn_message = " (" + DsnToMessage[dsn_part] + ")"
-      end
+    dsn = DeliveryStatusNotification.new(body)
+    return unless dsn.status && dsn.message
 
-      return "<br><em>DSN: " + dsn + dsn_message + "</em>"
-    end
-    ""
+    "DSN: #{dsn.status} #{dsn.message}"
   end
 
   # Called by controller so old filenames still work
@@ -242,7 +200,7 @@ class FoiAttachment < ApplicationRecord
   def display_filename
     filename = self.filename
     unless incoming_message.nil?
-      filename = incoming_message.info_request.apply_censor_rules_to_text(filename)
+      filename = info_request.apply_censor_rules_to_text(filename)
     end
     # Sometimes filenames have e.g. %20 in - no point butchering that
     # (without unescaping it, this would remove the % and leave 20s in there)
@@ -258,7 +216,6 @@ class FoiAttachment < ApplicationRecord
     filename = filename.gsub(/\s+/, " ")
     filename.strip
   end
-
 
   def ensure_filename!
     if filename.blank?
@@ -316,7 +273,7 @@ class FoiAttachment < ApplicationRecord
 
   def cached_urls
     [
-      request_path(incoming_message.info_request)
+      request_path(info_request)
     ]
   end
 
@@ -328,7 +285,30 @@ class FoiAttachment < ApplicationRecord
     )
   end
 
+  def update_and_log_event(event: {}, **params)
+    return false unless update(params)
+
+    log_event(
+      'edit_attachment',
+      event.merge(
+        attachment_id: id,
+        old_prominence: prominence_previously_was,
+        prominence: prominence,
+        old_prominence_reason: prominence_reason_previously_was,
+        prominence_reason: prominence_reason
+      )
+    )
+  end
+
   private
+
+  def load_attachment_from_incoming_message!
+    attachment = load_attachment_from_incoming_message
+    return attachment if attachment
+
+    raise MissingAttachment, "attachment couldn't be reloaded using " \
+      "url_part_number and display_filename attributes"
+  end
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)

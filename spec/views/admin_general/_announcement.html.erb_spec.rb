@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe 'admin_general/_announcement' do
-
   let(:announcement) do
     FactoryBot.
       create(:announcement,
@@ -10,7 +9,6 @@ RSpec.describe 'admin_general/_announcement' do
   end
 
   describe 'displaying an announcement' do
-
     it 'shows the announcement' do
       render template: 'admin_general/_announcement',
              locals: { announcement: announcement }
@@ -23,7 +21,5 @@ RSpec.describe 'admin_general/_announcement' do
              locals: { announcement: announcement }
       expect(rendered).not_to include('<script>')
     end
-
   end
-
 end

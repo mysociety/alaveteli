@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "theme_url_to_theme_name" do
-
   it "should deal with a typical bare repo URL" do
     url = 'git://wherever/blah-theme.git'
     expect(theme_url_to_theme_name(url)).to eq('blah-theme')
@@ -21,5 +20,4 @@ RSpec.describe "theme_url_to_theme_name" do
     url = '/home/whoever/themes/blah-theme/'
     expect(theme_url_to_theme_name(url)).to eq('blah-theme')
   end
-
 end

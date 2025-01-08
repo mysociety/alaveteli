@@ -4,7 +4,6 @@ RSpec.describe AdminCensorRuleController do
   before(:each) { basic_auth_login(@request) }
 
   describe 'GET index' do
-
     let!(:global_rules) do
       3.times.map { FactoryBot.create(:global_censor_rule) }
     end
@@ -27,13 +26,10 @@ RSpec.describe AdminCensorRuleController do
     it 'renders the correct template' do
       expect(response).to render_template('index')
     end
-
   end
 
   describe 'GET new' do
-
     context 'global censor rule' do
-
       before do
         get :new
       end
@@ -65,11 +61,9 @@ RSpec.describe AdminCensorRuleController do
       it 'sets the URL for the form to POST to' do
         expect(assigns[:form_url]).to eq(admin_censor_rules_path)
       end
-
     end
 
     context 'request_id param' do
-
       let(:info_request) { FactoryBot.create(:info_request) }
 
       before do
@@ -100,11 +94,9 @@ RSpec.describe AdminCensorRuleController do
         expect(assigns[:form_url]).
           to eq(admin_request_censor_rules_path(info_request))
       end
-
     end
 
     context 'user_id param' do
-
       let(:user) { FactoryBot.create(:user) }
 
       before do
@@ -134,12 +126,10 @@ RSpec.describe AdminCensorRuleController do
       it 'sets the URL for the form to POST to' do
         expect(assigns[:form_url]).to eq(admin_user_censor_rules_path(user))
       end
-
     end
 
     # NOTE: This should be public_body_id but the resource is mapped as :bodies
     context 'body_id param' do
-
       let(:public_body) { FactoryBot.create(:public_body) }
 
       before do
@@ -170,15 +160,11 @@ RSpec.describe AdminCensorRuleController do
         expect(assigns[:form_url]).
           to eq(admin_body_censor_rules_path(public_body))
       end
-
     end
-
   end
 
   describe 'POST create' do
-
     context 'a global censor rule' do
-
       let(:censor_rule_params) do
         params = FactoryBot.attributes_for(:global_censor_rule)
         # last_edit_editor gets set in the controller
@@ -216,7 +202,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-
         it 'calls expire_requests on the new censor_rule' do
           censor_rule = FactoryBot.build(:global_censor_rule)
           allow(CensorRule).to receive(:new) { censor_rule }
@@ -233,11 +218,9 @@ RSpec.describe AdminCensorRuleController do
             admin_censor_rules_path
           )
         end
-
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -251,13 +234,10 @@ RSpec.describe AdminCensorRuleController do
           create_censor_rule
           expect(response).to render_template('new')
         end
-
       end
-
     end
 
     context 'request_id param' do
-
       let(:censor_rule_params) do
         params = FactoryBot.attributes_for(:info_request_censor_rule)
         # last_edit_editor gets set in the controller
@@ -301,7 +281,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-
         it 'persists the censor rule' do
           post :create, params: {
                           censor_rule: censor_rule_params,
@@ -348,7 +327,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -368,12 +346,10 @@ RSpec.describe AdminCensorRuleController do
                         }
           expect(response).to render_template('new')
         end
-
       end
     end
 
     context 'user_id param' do
-
       let(:user) { FactoryBot.create(:user) }
 
       let(:censor_rule_params) do
@@ -411,7 +387,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-
         it 'calls expire_requests on the new censor_rule' do
           allow(User).to receive(:find) { user }
           censor_rule = FactoryBot.build(:user_censor_rule,
@@ -430,11 +405,9 @@ RSpec.describe AdminCensorRuleController do
             admin_user_path(assigns[:censor_rule].user)
           )
         end
-
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -454,13 +427,10 @@ RSpec.describe AdminCensorRuleController do
                         }
           expect(response).to render_template('new')
         end
-
       end
-
     end
 
     context 'body_id param' do
-
       let(:censor_rule_params) do
         params = FactoryBot.attributes_for(:public_body_censor_rule)
         # last_edit_editor gets set in the controller
@@ -495,7 +465,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-
         it 'persists the censor rule' do
           post :create, params: {
                           censor_rule: censor_rule_params,
@@ -540,7 +509,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -560,16 +528,12 @@ RSpec.describe AdminCensorRuleController do
                         }
           expect(response).to render_template('new')
         end
-
       end
     end
-
   end
 
   describe 'GET edit' do
-
     context 'a CensorRule with an associated InfoRequest' do
-
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'returns a successful response' do
@@ -586,11 +550,9 @@ RSpec.describe AdminCensorRuleController do
         get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
-
     end
 
     context 'a CensorRule with an associated User' do
-
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'returns a successful response' do
@@ -607,11 +569,9 @@ RSpec.describe AdminCensorRuleController do
         get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
-
     end
 
     context 'a CensorRule with an associated PublicBody' do
-
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'returns a successful response' do
@@ -628,11 +588,9 @@ RSpec.describe AdminCensorRuleController do
         get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
-
     end
 
     context 'a global rule' do
-
       let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'returns a successful response' do
@@ -649,15 +607,11 @@ RSpec.describe AdminCensorRuleController do
         get :edit, params: { id: censor_rule.id }
         expect(assigns[:censor_rule]).to eq(censor_rule)
       end
-
     end
-
   end
 
   describe 'PUT update' do
-
     context 'a global censor rule' do
-
       let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
@@ -679,7 +633,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-
         it 'updates the censor rule' do
           put :update, params: {
                          id: censor_rule.id,
@@ -717,11 +670,9 @@ RSpec.describe AdminCensorRuleController do
 
           expect(response).to redirect_to(admin_censor_rules_path)
         end
-
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -743,13 +694,10 @@ RSpec.describe AdminCensorRuleController do
 
           expect(response).to render_template('edit')
         end
-
       end
-
     end
 
     context 'a CensorRule with an associated InfoRequest' do
-
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
@@ -771,7 +719,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-
         it 'updates the censor rule' do
           put :update, params: {
                          id: censor_rule.id,
@@ -811,11 +758,9 @@ RSpec.describe AdminCensorRuleController do
             admin_request_path(assigns[:censor_rule].info_request)
           )
         end
-
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -837,13 +782,10 @@ RSpec.describe AdminCensorRuleController do
 
           expect(response).to render_template('edit')
         end
-
       end
-
     end
 
     context 'a CensorRule with an associated User' do
-
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
@@ -907,7 +849,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -929,13 +870,10 @@ RSpec.describe AdminCensorRuleController do
 
           expect(response).to render_template('edit')
         end
-
       end
-
     end
 
     context 'a CensorRule with an associated PublicBody' do
-
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'finds the correct censor rule to edit' do
@@ -957,7 +895,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-
         it 'updates the censor rule' do
           put :update, params: {
                          id: censor_rule.id,
@@ -997,11 +934,9 @@ RSpec.describe AdminCensorRuleController do
             admin_body_path(assigns[:censor_rule].public_body)
           )
         end
-
       end
 
       context 'unsuccessfully saving the censor rule' do
-
         before(:each) do
           allow_any_instance_of(CensorRule).to receive(:save).and_return(false)
         end
@@ -1023,17 +958,12 @@ RSpec.describe AdminCensorRuleController do
 
           expect(response).to render_template('edit')
         end
-
       end
-
     end
-
   end
 
   describe 'DELETE destroy' do
-
     context 'a global CensorRule' do
-
       let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
@@ -1051,11 +981,9 @@ RSpec.describe AdminCensorRuleController do
         delete :destroy, params: { id: censor_rule.id }
         expect(response).to redirect_to(admin_censor_rules_path)
       end
-
     end
 
     context 'a CensorRule with an associated InfoRequest' do
-
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
@@ -1082,11 +1010,9 @@ RSpec.describe AdminCensorRuleController do
         expect(response).
           to redirect_to(admin_request_path(censor_rule.info_request))
       end
-
     end
 
     context 'a CensorRule with an associated User' do
-
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
@@ -1112,11 +1038,9 @@ RSpec.describe AdminCensorRuleController do
         delete :destroy, params: { id: censor_rule.id }
         expect(response).to redirect_to(admin_user_path(censor_rule.user))
       end
-
     end
 
     context 'a CensorRule with an associated PublicBody' do
-
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
 
       it 'finds the correct censor rule to destroy' do
@@ -1143,9 +1067,6 @@ RSpec.describe AdminCensorRuleController do
         expect(response).
           to redirect_to(admin_body_path(censor_rule.public_body))
       end
-
     end
-
   end
-
 end

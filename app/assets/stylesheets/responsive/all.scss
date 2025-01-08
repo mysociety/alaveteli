@@ -89,10 +89,14 @@
 @import "responsive/_notes_layout.scss";
 @import "responsive/_notes_styles.scss";
 
+@import "responsive/_citations";
+
 @import "responsive/alaveteli_pro/_pro_layout";
 @import "responsive/alaveteli_pro/_pro_style";
 
 @import "responsive/alaveteli_pro/selectize";
+
+@import "responsive/alaveteli_pro/_icons";
 
 @import "responsive/alaveteli_pro/_dashboard_layout";
 @import "responsive/alaveteli_pro/_dashboard_style";

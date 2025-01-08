@@ -1,0 +1,11 @@
+<% content_for :subnav do %>
+  <li class="<%= 'selected' unless current_page?(requests_path) || @category %>">
+    <%= link_to _('Search requests'), request_list_path %>
+  </li>
+  <li class="<%= 'selected' if current_page?(requests_path) || @category %>">
+    <%= link_to _('Browse by category'), requests_path %>
+  </li>
+  <li>
+    <%= link_to _('FOI in Action'), citations_path %>
+  </li>
+<% end %>

@@ -1,7 +1,6 @@
 class InfoRequest
   module State
     class Calculator
-
       def initialize(info_request)
         @info_request = info_request
       end
@@ -93,7 +92,9 @@ class InfoRequest
             other: {}
           }
         end
-        opts.merge!(in_internal_review: state == 'internal_review')
+        opts[:in_internal_review] = state == 'internal_review'
+        opts[:internal_review_requested] =
+          @info_request.internal_review_requested?
         build_transitions_hash(opts)
       end
 
@@ -132,7 +133,11 @@ class InfoRequest
         if opts.fetch(:in_internal_review, false)
           states = %w[internal_review gone_postal]
         else
-          states = %w[
+          states = []
+          if opts.fetch(:internal_review_requested, false)
+            states += ['internal_review']
+          end
+          states += %w[
             waiting_response
             waiting_clarification
             gone_postal
@@ -141,7 +146,7 @@ class InfoRequest
             states += ['internal_review']
           end
         end
-        states
+        states.uniq
       end
 
       def complete_states(_opts = {})

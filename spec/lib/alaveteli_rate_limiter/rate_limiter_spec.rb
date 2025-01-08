@@ -5,7 +5,6 @@ RSpec.describe AlaveteliRateLimiter::RateLimiter do
   let(:rule) { AlaveteliRateLimiter::Rule.new(:test, 1, window) }
 
   describe '.new' do
-
     it 'requires a Rule' do
       expect { subject }.to raise_error(ArgumentError)
     end
@@ -33,29 +32,23 @@ RSpec.describe AlaveteliRateLimiter::RateLimiter do
       subject = described_class.new(rule, backend: backend)
       expect(subject.backend).to eq(backend)
     end
-
   end
 
   describe '#rule' do
-
     it 'returns the rule attribute' do
       expect(described_class.new(rule).rule).to eq(rule)
     end
-
   end
 
   describe '#backend' do
-
     it 'returns the backend attribute' do
       backend = double
       subject = described_class.new(rule, backend: backend)
       expect(subject.backend).to eq(backend)
     end
-
   end
 
   describe '#records' do
-
     it 'returns the records in the backend' do
       id = '1'
       backend = double
@@ -64,11 +57,9 @@ RSpec.describe AlaveteliRateLimiter::RateLimiter do
       subject = described_class.new(rule, backend: backend)
       expect(subject.records(id)).to eq(records)
     end
-
   end
 
   describe '#record' do
-
     it 'records an event for the id in the backend' do
       backend = double
       subject = described_class.new(rule, backend: backend)
@@ -82,11 +73,9 @@ RSpec.describe AlaveteliRateLimiter::RateLimiter do
       expect(backend).to receive(:record).with('1')
       subject.record(1)
     end
-
   end
 
   describe '#record!' do
-
     it 'purges old records before recording the new event' do
       attrs = { name: :test,
                 count: 20,
@@ -119,7 +108,6 @@ RSpec.describe AlaveteliRateLimiter::RateLimiter do
 
       File.delete(path)
     end
-
   end
 
   describe '#limit?' do
@@ -156,7 +144,5 @@ RSpec.describe AlaveteliRateLimiter::RateLimiter do
         expect(subject.limit?('1', custom_rule)).to eq(false)
       end
     end
-
   end
-
 end

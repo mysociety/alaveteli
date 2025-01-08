@@ -1,6 +1,5 @@
 class MailServerLog::DeliveryStatus
   module TranslatedConstants
-
     def self.humanized
       # The order of these is important as we use the keys for sorting in #<=>
       {
@@ -17,6 +16,5 @@ class MailServerLog::DeliveryStatus
         sent: _('sent'),
         delivered: _('delivered') }.freeze
     end
-
   end
 end

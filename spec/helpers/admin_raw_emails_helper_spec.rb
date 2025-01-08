@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe AdminRawEmailsHelper do
-
   include AdminRawEmailsHelper
 
   describe '#address_list' do
-
     it 'formats a list of addresses' do
       list = %w(a@example.com
                 b@example.net
@@ -34,7 +32,5 @@ RSpec.describe AdminRawEmailsHelper do
     it 'is html_safe' do
       expect(address_list('a@example.com')).to be_html_safe
     end
-
   end
-
 end

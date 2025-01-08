@@ -1,5 +1,4 @@
 module AnalyticsEvent
-
   # modules for standardising Strings used for event categories and actions
 
   module Category
@@ -29,5 +28,4 @@ module AnalyticsEvent
     PRO_NAV_WALL = "Wall"
     POSSIBLE_RELATED = "Possible related requests"
   end
-
 end

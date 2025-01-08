@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe OutgoingMailer, " when working out follow up names and addresses" do
-
   before do
     @info_request = mock_model(InfoRequest,
                                recipient_name_and_email: 'test <test@example.com>',
@@ -13,17 +12,14 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
   end
 
   describe 'if there is no incoming message being replied to' do
-
     it 'should return the name and email address of the public body' do
       expect(OutgoingMailer.name_and_email_for_followup(@info_request, nil)).to eq('test <test@example.com>')
       expect(OutgoingMailer.name_for_followup(@info_request, nil)).to eq('Test Authority')
       expect(OutgoingMailer.email_for_followup(@info_request, nil)).to eq('test@example.com')
     end
-
   end
 
   describe 'if the incoming message being replied to is not valid to reply to' do
-
     before do
       allow(@incoming_message).to receive(:valid_to_reply_to?).and_return(false)
     end
@@ -36,7 +32,6 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
   end
 
   describe 'if the incoming message is valid to reply to' do
-
     before do
       allow(@incoming_message).to receive(:valid_to_reply_to?).and_return(true)
     end
@@ -52,13 +47,10 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
       allow(@incoming_message).to receive(:safe_from_name).and_return(nil)
       expect(OutgoingMailer.name_for_followup(@info_request, @incoming_message)).to eq('Test Authority')
     end
-
   end
-
 end
 
 RSpec.describe OutgoingMailer, "when working out follow up subjects" do
-
   before(:each) do
     load_raw_emails_data
   end
@@ -122,7 +114,6 @@ RSpec.describe OutgoingMailer, "when working out follow up subjects" do
   end
 
   context "dealing with an internal review" do
-
     it "prefixes the subject of the message with 'Internal review of " \
           "Freedom of Information request'" do
       request = FactoryBot.create(:info_request_with_internal_review_request,
@@ -142,6 +133,5 @@ RSpec.describe OutgoingMailer, "when working out follow up subjects" do
           to eq("Internal review of Freedom of Information request - " \
                 "Apostrophe's Test")
     end
-
   end
 end

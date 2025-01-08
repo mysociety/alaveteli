@@ -16,7 +16,6 @@
 #
 
 FactoryBot.define do
-
   factory :track_thing do
     track_medium { 'email_daily' }
     track_query { 'Example Query' }
@@ -62,5 +61,4 @@ FactoryBot.define do
       track_query { 'variety:sent' }
     end
   end
-
 end

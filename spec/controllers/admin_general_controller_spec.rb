@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe AdminGeneralController do
-
   describe "GET #index" do
     let(:admin_user) { FactoryBot.create(:admin_user) }
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
@@ -45,7 +44,9 @@ RSpec.describe AdminGeneralController do
     end
 
     it 'assigns requests flagged for admin attention to the view' do
-      attention_requested_request = FactoryBot.create(:attention_requested_request)
+      attention_requested_request = FactoryBot.create(
+        :attention_requested_request
+      )
       sign_in admin_user
       get :index
       expect(assigns[:attention_requests]).to eq([attention_requested_request])
@@ -61,20 +62,17 @@ RSpec.describe AdminGeneralController do
     end
 
     context 'when there are request tasks' do
-
       it 'assigns public_request_tasks to true' do
         undeliverable = FactoryBot.
                           create(:incoming_message,
-                                 info_request:                                    InfoRequest.holding_pen_request)
+                                 info_request: InfoRequest.holding_pen_request)
         sign_in admin_user
         get :index
         expect(assigns[:public_request_tasks]).to be true
       end
-
     end
 
     context 'when there are no request tasks' do
-
       it 'assigns public_request_tasks to false' do
         sign_in admin_user
         get :index
@@ -111,24 +109,20 @@ RSpec.describe AdminGeneralController do
     end
 
     context 'when there are authority tasks' do
-
       it 'assigns authority tasks to true' do
         update_body_request = FactoryBot.create(:update_body_request)
         sign_in admin_user
         get :index
         expect(assigns[:authority_tasks]).to be true
       end
-
     end
 
     context 'when there are no authority tasks' do
-
       it 'assigns authority tasks to false' do
         sign_in admin_user
         get :index
         expect(assigns[:authority_tasks]).to be false
       end
-
     end
 
     it 'assigns comments requiring attention to the view' do
@@ -139,51 +133,41 @@ RSpec.describe AdminGeneralController do
     end
 
     context 'when there are comment tasks' do
-
       it 'assigns comment tasks to true' do
         comment = FactoryBot.create(:attention_requested_comment)
         sign_in admin_user
         get :index
         expect(assigns[:comment_tasks]).to be true
       end
-
     end
 
     context 'when there are no authority tasks' do
-
       it 'assigns authority tasks to false' do
         sign_in admin_user
         get :index
         expect(assigns[:comment_tasks]).to be false
       end
-
     end
 
     context 'when there is nothing to do' do
-
       it 'assigns nothing to do to true' do
         sign_in admin_user
         get :index
         expect(assigns[:nothing_to_do]).to be true
       end
-
     end
 
     context 'when there is something to do' do
-
       it 'assigns nothing to do to false' do
         comment = FactoryBot.create(:attention_requested_comment)
         sign_in admin_user
         get :index
         expect(assigns[:nothing_to_do]).to be false
       end
-
     end
 
     context 'when the user is not a pro admin' do
-
       context 'when pro is enabled' do
-
         it 'does not assign embargoed requests that require admin to the view' do
           with_feature_enabled(:alaveteli_pro) do
             requires_admin_request = FactoryBot.create(:requires_admin_request)
@@ -208,7 +192,9 @@ RSpec.describe AdminGeneralController do
 
         it 'does not assign embargoed requests flagged for admin attention to the view' do
           with_feature_enabled(:alaveteli_pro) do
-            attention_requested_request = FactoryBot.create(:attention_requested_request)
+            attention_requested_request = FactoryBot.create(
+              :attention_requested_request
+            )
             attention_requested_request.create_embargo
             sign_in admin_user
             get :index
@@ -216,7 +202,6 @@ RSpec.describe AdminGeneralController do
             expect(assigns[:embargoed_attention_requests]).to be nil
           end
         end
-
       end
 
       it 'does not assign embargoed requests that require admin to the view' do
@@ -247,11 +232,9 @@ RSpec.describe AdminGeneralController do
         expect(assigns[:attention_requests]).to eq([])
         expect(assigns[:embargoed_attention_requests]).to be nil
       end
-
     end
 
     context 'when the user is a pro admin and pro is enabled' do
-
       it 'assigns embargoed requests that require admin to the view' do
         with_feature_enabled(:alaveteli_pro) do
           requires_admin_request = FactoryBot.create(:requires_admin_request)
@@ -287,17 +270,14 @@ RSpec.describe AdminGeneralController do
       end
 
       context 'when there is nothing to do' do
-
         it 'assigns nothing to do to true' do
           sign_in pro_admin_user
           get :index
           expect(assigns[:nothing_to_do]).to be true
         end
-
       end
 
       context 'when there is something to do' do
-
         it 'assigns nothing to do to false' do
           with_feature_enabled(:alaveteli_pro) do
             attention_requested_request =
@@ -308,14 +288,11 @@ RSpec.describe AdminGeneralController do
             expect(assigns[:nothing_to_do]).to be false
           end
         end
-
       end
     end
-
   end
 
   describe 'GET #timeline' do
-
     before do
       info_request = FactoryBot.create(:info_request)
       public_body = FactoryBot.create(:public_body)
@@ -343,7 +320,6 @@ RSpec.describe AdminGeneralController do
     end
 
     context 'when start_date is set' do
-
       before do
         get :timeline, params: { all: 1, start_date: Time.utc(1970, 1, 1) }
       end
@@ -351,11 +327,9 @@ RSpec.describe AdminGeneralController do
       it 'sets the title appropriately' do
         expect(assigns[:events_title]).to eq("All events, all time")
       end
-
     end
 
     context 'when event_type is info_request_event' do
-
       before do
         get :timeline, params: { all: 1, event_type: 'info_request_event' }
       end
@@ -374,7 +348,6 @@ RSpec.describe AdminGeneralController do
     end
 
     context 'when event_type is authority_change' do
-
       before do
         get :timeline, params: { all: 1, event_type: 'authority_change' }
       end
@@ -390,13 +363,10 @@ RSpec.describe AdminGeneralController do
           "Authority changes in the last 2 days"
         )
       end
-
     end
-
   end
 
   describe 'GET #stats' do
-
     it 'assigns the number of public bodies to the view' do
       get :stats
       expect(assigns[:public_body_count]).to eq PublicBody.count
@@ -454,6 +424,5 @@ RSpec.describe AdminGeneralController do
           "all_successful_requests" => 6,
           "all_new_requests" => 7 })
     end
-
   end
 end

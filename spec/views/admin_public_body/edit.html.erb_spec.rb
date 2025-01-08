@@ -14,7 +14,6 @@ RSpec.describe 'admin_public_body/edit' do
   end
 
   context 'when the body has associated requests' do
-
     before do
       assign :hide_destroy_button, true
     end
@@ -24,7 +23,5 @@ RSpec.describe 'admin_public_body/edit' do
       expect(rendered).
         to have_button("Destroy #{public_body.name}", disabled: true)
     end
-
   end
-
 end

@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCensorRuleController < AdminController
-
   before_action :set_editor, only: [:create, :update]
   before_action :set_censor_rule, only: [:edit, :update, :destroy]
   before_action :set_subject_and_censor_rule_and_form_url, only: [:new, :create]

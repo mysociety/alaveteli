@@ -24,6 +24,8 @@ class AdminConstraint # :nodoc:
 end
 
 Rails.application.routes.draw do
+  draw :redirects
+
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   root to: 'general#frontpage'
@@ -52,6 +54,9 @@ Rails.application.routes.draw do
   match '/search(/*combined)' => 'general#search',
         :as => :search_general,
         :via => :get
+  match '/search/:query/requests' => 'general#search',
+        as: :search_requests,
+        via: :get
   match '/search/:query/users' => 'general#search',
         as: :search_users,
         via: :get
@@ -70,28 +75,24 @@ Rails.application.routes.draw do
   get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
 
   ##### Request controller
-  match '/list/recent' => 'request#list',
-        :as => :request_list_recent,
-        :view => 'recent',
-        :via => :get
-  match '/list/all' => 'request#list',
-        :as => :request_list_all,
-        :view => 'all',
-        :via => :get
-  match '/list/successful' => 'request#list',
+  get '/browse' => 'request#index', as: :requests
+  get '/list/all' => redirect('/list')
+  get '/list/recent' => redirect('/list')
+  match '/list(/:tag)/successful' => 'request#list',
         :as => :request_list_successful,
         :view => 'successful',
         :via => :get
-  match '/list/unsuccessful' => 'request#list',
+  match '/list(/:tag)/unsuccessful' => 'request#list',
         :as => :request_list_unsuccessful,
         :view => 'unsuccessful',
         :via => :get
-  match '/list/awaiting' => 'request#list',
+  match '/list(/:tag)/awaiting' => 'request#list',
         :as => :request_list_awaiting,
         :view => 'awaiting',
         :via => :get
-  match '/list' => 'request#list',
+  match '/list(/:tag)' => 'request#list',
         :as => :request_list,
+        :view => 'all',
         :via => :get
 
   match '/select_authority' => 'request#select_authority',
@@ -115,20 +116,21 @@ Rails.application.routes.draw do
   match '/request/:url_title/new' => 'request#show',
         :as => :show_new_request,
         :via => :get
-  match '/details/request/:url_title' => 'request#details',
+  match '/request/:url_title/details' => 'request#details',
         :as => :details_request,
         :via => :get
-  match '/similar/request/:url_title' => 'request#similar',
+  match '/request/:url_title/similar' => 'request#similar',
         :as => :similar_request,
         :via => :get
 
-  match '/request/:id/response/:incoming_message_id/attach/html' \
-        '/(:part(/*file_name))' => 'attachments#show_as_html',
+  match '/request/:request_url_title/response/:incoming_message_id/attach' \
+        '/html/(:part(/*file_name))' => 'attachments#show_as_html',
         :format => false,
         :as => :get_attachment_as_html,
         :via => :get,
         :constraints => { :part => /\d+/ }
-  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'attachments#show',
+  match '/request/:request_url_title/response/:incoming_message_id/attach' \
+        '/:part(/*file_name)' => 'attachments#show',
         :format => false,
         :as => :get_attachment,
         :via => :get,
@@ -145,7 +147,7 @@ Rails.application.routes.draw do
         :as => :info_request_event,
         :via => :get
 
-  match '/upload/request/:url_title' => 'request#upload_response',
+  match '/request/:url_title/upload' => 'request#upload_response',
         :as => :upload_response,
         :via => [:get, :post]
   match '/request/:url_title/download' => 'request#download_entire_request',
@@ -171,30 +173,42 @@ Rails.application.routes.draw do
   end
   ####
 
-  scope path: 'request/:url_title' do
-    #### Citations controller
-    resources :citations, only: [:new, :create]
-    ####
+  #### Citations controller
+  resources :citations, only: [:index]
 
-    #### Classifications controller
+  scope path: 'request/:url_title' do
+    resources :citations,
+      only: [:new, :create],
+      defaults: { resource: 'InfoRequest' }
+  end
+
+  resources :info_request_batch, :only => :show do
+    resources :citations,
+      only: [:new, :create],
+      defaults: { resource: 'InfoRequestBatch' }
+  end
+  ####
+
+  #### Classifications controller
+  scope path: 'request/:url_title' do
     resources :classifications, only: [:create], param: :described_state do
       get :message, on: :member
     end
-    ####
   end
-
+  ####
 
   #### Followups controller
-  match '/request/:request_id/followups/new' => 'followups#new',
+  match '/request/:request_url_title/followups/new' => 'followups#new',
         :as => :new_request_followup,
         :via => :get
-  match '/request/:request_id/followups/new/:incoming_message_id' => 'followups#new',
+  match '/request/:request_url_title/followups/new/:incoming_message_id' =>
+          'followups#new',
         :as => :new_request_incoming_followup,
         :via => :get
-  match '/request/:request_id/followups/preview' => 'followups#preview',
+  match '/request/:request_url_title/followups/preview' => 'followups#preview',
         :as => :preview_request_followups,
         :via => :post
-  match '/request/:request_id/followups' => 'followups#create',
+  match '/request/:request_url_title/followups' => 'followups#create',
         :as => :request_followups,
         :via => :post
   ####
@@ -213,9 +227,9 @@ Rails.application.routes.draw do
           get :message, on: :member
         end
 
-        resources :contributors, only: [:destroy]
+        resource :contributors, only: [:destroy]
 
-        resource :download, only: [:show], format: true
+        resource :dataset, controller: :dataset, only: [:show, :edit, :update]
         resource :leaderboard, only: [:show], format: true
       end
     end
@@ -228,13 +242,11 @@ Rails.application.routes.draw do
   end
   get '/health_checks' => redirect('/health/checks')
 
-  resources :request, :only => [] do
+  resources :request, :only => [], param: :url_title do
     resource :report, :only => [:new, :create]
     resource :widget, :only => [:new, :show]
     resources :widget_votes, :only => [:create]
   end
-
-  resources :info_request_batch, :only => :show
 
   #### OutgoingMessage controller
   resources :outgoing_messages, :only => [] do
@@ -371,9 +383,6 @@ Rails.application.routes.draw do
         :as => :show_public_body_awaiting,
         :view => 'awaiting',
         :via => :get
-  match '/body/:url_name/view_email' => 'public_body#view_email',
-        :as => :view_public_body_email,
-        :via => [:get, :post]
   match '/body/:url_name/:tag' => 'public_body#show',
         :as => :show_public_body_tag,
         :via => :get
@@ -389,7 +398,7 @@ Rails.application.routes.draw do
         :via => :get
 
   #### Comment controller
-  match '/annotate/request/:url_title' => 'comment#new',
+  match '/request/:url_title/annotate' => 'comment#new',
         :as => :new_comment,
         :type => 'request',
         :via => [:get, :post]
@@ -407,7 +416,7 @@ Rails.application.routes.draw do
   #### Track controller
   # /track/ is for setting up an email alert for the item
   # /feed/ is a direct RSS feed of the item
-  match '/:feed/request/:url_title' => 'track#track_request',
+  match '/request/:url_title/:feed' => 'track#track_request',
         :as => :track_request,
         :feed => /(track|feed)/,
         :via => :get
@@ -498,7 +507,7 @@ Rails.application.routes.draw do
   match '/categorise/play' => 'request_game#play',
         :as => :categorise_play,
         :via => [:get, :post]
-  match '/categorise/request/:url_title' => 'request_game#show',
+  match '/request/:url_title/categorise' => 'request_game#show',
         :as => :categorise_request,
         :via => :get
   match '/categorise/stop' => 'request_game#stop',
@@ -521,10 +530,17 @@ Rails.application.routes.draw do
     resources :changelog, only: [:index]
   end
 
+  #### Admin::Citations controller
+  namespace :admin do
+    resources :citations, only: [:index, :edit, :update, :destroy]
+  end
+  ####
+
   ####
   #### AdminTag controller
   namespace :admin do
-    resources :tags, param: :tag, only: [:index, :show]
+    resources :tags, param: :tag, only: [:index, :show],
+      constraints: { tag: /.+/ }
   end
   ####
 
@@ -535,7 +551,7 @@ Rails.application.routes.draw do
 
   #### AdminNote controller
   namespace :admin do
-    resources :notes, except: [:index, :show]
+    resources :notes, except: [:show]
   end
 
   direct :admin_note_parent do |note|
@@ -573,20 +589,10 @@ Rails.application.routes.draw do
   end
   ####
 
-  #### AdminPublicBodyCategory controller
-  scope '/admin', :as => 'admin' do
-    resources :categories,
-      :controller => 'admin_public_body_categories'
-  end
-  ####
-
-  #### AdminPublicBodyHeading controller
-  scope '/admin', :as => 'admin' do
-    resources :headings,
-      :controller => 'admin_public_body_headings',
-    :except => [:index] do
-      post 'reorder', :on => :collection
-      post 'reorder_categories', :on => :member
+  #### Admin::Categories controller
+  namespace :admin do
+    resources :categories do
+      post 'reorder', on: :member
     end
   end
   ####
@@ -651,7 +657,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :comments,
       :controller => 'admin_comment',
-      :only => [:index, :edit, :update]
+      :only => [:index, :edit, :update, :destroy]
   end
   ####
 
@@ -836,7 +842,6 @@ Rails.application.routes.draw do
 
   #### Pro Pricing
   constraints FeatureConstraint.new(:pro_pricing) do
-
     namespace :alaveteli_pro, path: :pro, as: :pro do
       resources :plans, only: [:index], path: :pricing
     end
@@ -859,12 +864,10 @@ Rails.application.routes.draw do
       match '/pro/subscriptions/stripe-webhook' => 'stripe_webhooks#receive',
             :via => :post
     end
-
   end
 
   #### Alaveteli Pro
   constraints FeatureConstraint.new(:alaveteli_pro) do
-
     scope module: :alaveteli_pro do
       resources :account_request, :only => [:index, :create], path: :pro do
         collection do
@@ -873,8 +876,8 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :alaveteli_pro do
-      root to: 'dashboard#index', :as => :dashboard, :via => :get
+    namespace :alaveteli_pro, path: 'pro' do
+      get :dashboard, to: 'dashboard#index'
       resources :draft_info_requests, :only => [:create, :update]
       resources :info_requests, only: [:new, :create, :index] do
         get :preview, on: :new # /info_request/new/preview
@@ -905,16 +908,19 @@ Rails.application.routes.draw do
         resource :batch_download, only: [:show], format: true, path: 'download'
       end
       resources :public_bodies, :only => [:index]
+      resources :projects, :except => [:show, :destroy] do
+        member do
+          get :requests, action: 'edit_resources'
+          patch :requests, action: 'update_resources'
+          get :questions, action: 'edit_key_set'
+          patch :questions, action: 'update_key_set'
+          get :contributors, action: 'edit_contributors'
+          patch :contributors, action: 'update_contributors'
+        end
+      end
     end
 
-    scope path: :alaveteli_pro do
-      # So that we can show a request using the existing controller from the
-      # pro context
-      match '/info_requests/:url_title' => 'request#show',
-            :as => :show_alaveteli_pro_request,
-            :via => :get,
-            :defaults => { :pro => '1' }
-
+    scope path: :pro do
       # So that we can show a batch request using the existing controller from
       # the pro context
       match '/info_request_batches/:id' => 'info_request_batch#show',
@@ -929,9 +935,6 @@ Rails.application.routes.draw do
             :via => :get,
             :defaults => { :pro => '1' }
     end
-
   end
   ####
-
-  filter :conditionallyprependlocale
 end

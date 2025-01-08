@@ -41,25 +41,23 @@ Rails.configuration.after_initialize do
     :pro_batch_category_ui,
     label: 'Batch category user interface',
     condition: -> {
-      PublicBodyCategory.joins(:public_bodies).any?
+      PublicBody.category_root.children.any?
     }
   )
-  batch_add_all = AlaveteliFeatures.features.add(
+  AlaveteliFeatures.features.add(
     :pro_batch_category_add_all,
     label: 'Batch category "add all" button'
+  )
+  AlaveteliFeatures.features.add(
+    :pro_projects_self_serve,
+    label: 'Projects creation'
   )
 
   next unless ActiveRecord::Base.connection.data_source_exists?(:roles)
 
-  base = AlaveteliFeatures.groups.add(
-    :base,
+  AlaveteliFeatures.groups.add(
+    :pro,
     roles: [Role.pro_role],
     features: [poller, notifications, batch_category]
-  )
-
-  AlaveteliFeatures.groups.add(
-    :beta,
-    includes: [base],
-    features: [batch_add_all]
   )
 end

@@ -1,0 +1,5 @@
+<%= form_for @project, html: { id: 'temp' } do |f| %>
+  <%= turbo_stream.update 'project-contributors', partial: 'contributors', locals: { f: f } %>
+<% end %>
+
+<%= turbo_stream.remove 'temp' %>

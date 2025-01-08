@@ -1,3 +1,5 @@
+//= require "actiontext"
+
 /* As we're namespacing bootstrap to class admin, which is applied to the body
 element in the admin interface (no id or class allowed on the HTML element
 in HTML 4.01) and to the navbar also, so it can be styled with bootstrap
@@ -145,6 +147,15 @@ body.admin {
     display: inline;
   }
 
+  blockquote .well p {
+    font-size: 14px;
+    margin-bottom: 1em !important;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
   div#user_locale_switcher {
     div.btn-group:before,
     div.btn-group:after {
@@ -280,6 +291,13 @@ body.admin {
   border: 12px solid #c09853;
   border-radius: 5px;
   padding: 2em;
+}
+
+
+/* Citation */
+
+#citations .item-title {
+  word-break: break-all;
 }
 
 /* Toolbox */

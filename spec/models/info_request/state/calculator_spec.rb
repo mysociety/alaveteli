@@ -43,7 +43,6 @@ RSpec.describe InfoRequest::State::Calculator do
       info_request.save!
       expect(calculator.phase).to eq(:response_received)
     end
-
   end
 
   describe '#transitions' do
@@ -231,6 +230,64 @@ RSpec.describe InfoRequest::State::Calculator do
           transitions = calculator.transitions(
             is_owning_user: false,
             user_asked_to_update_status: false)
+          expected = "Still awaiting an <strong>internal review</strong>"
+          expect(transitions[:pending]["internal_review"]).to eq expected
+        end
+      end
+    end
+
+    context "when the request received a response after being in internal_review" do
+      let(:info_request) do
+        FactoryBot.create(
+          :info_request, :with_internal_review_request,
+          described_state: 'waiting_response'
+        )
+      end
+
+      before do
+        mail = Mail.new
+        mail.to info_request.incoming_email
+        mail.body 'Internal review reply'
+        info_request.receive(mail, mail.to_s)
+      end
+
+      context "and the user is the owner" do
+        it "returns only all pending states with internal_review first" do
+          transitions = calculator.transitions(
+            is_owning_user: true,
+            user_asked_to_update_status: false
+          )
+          expected = %w[internal_review waiting_response waiting_clarification
+                        gone_postal]
+          expect(transitions[:pending].keys).to eq(expected)
+        end
+
+        it "returns a different label for the internal_review status" do
+          transitions = calculator.transitions(
+            is_owning_user: true,
+            user_asked_to_update_status: false
+          )
+          expected = "I'm still <strong>waiting</strong> for the internal review"
+          expect(transitions[:pending]["internal_review"]).to eq expected
+        end
+      end
+
+      context "and the user is some other user" do
+        it "returns only all pending states with internal_review first" do
+          transitions = calculator.transitions(
+            is_owning_user: false,
+            user_asked_to_update_status: false
+          )
+          expected = %w[internal_review waiting_response waiting_clarification
+                        gone_postal]
+          expect(transitions[:pending].keys).to eq(expected)
+        end
+
+        it "returns a different label for the internal_review status" do
+          transitions = calculator.transitions(
+            is_owning_user: false,
+            user_asked_to_update_status: false
+          )
           expected = "Still awaiting an <strong>internal review</strong>"
           expect(transitions[:pending]["internal_review"]).to eq expected
         end

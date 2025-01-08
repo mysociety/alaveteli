@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "user_mailer/changeemail_confirm" do
-
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).
       and_return("l'Information")
@@ -22,5 +21,4 @@ RSpec.describe "user_mailer/changeemail_confirm" do
     expect(response).
       to match("from a'b@example.com to c'd@example.com")
   end
-
 end

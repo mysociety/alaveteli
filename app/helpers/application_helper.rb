@@ -52,7 +52,8 @@ module ApplicationHelper
 
     objects.each do |object|
       object.errors.each do |error|
-        error_messages << content_tag(:li, h(error.message))
+        error_message = options[:full_message] ? error.full_message : error.message
+        error_messages << content_tag(:li, h(error_message))
       end
     end
 

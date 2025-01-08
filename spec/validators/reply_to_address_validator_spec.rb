@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe ReplyToAddressValidator do
-
   describe '.no_reply_regexp' do
     subject { described_class.no_reply_regexp }
 
@@ -19,7 +18,6 @@ RSpec.describe ReplyToAddressValidator do
 
       it { is_expected.to eq(/123/) }
     end
-
   end
 
   describe '.invalid_reply_addresses' do
@@ -39,7 +37,5 @@ RSpec.describe ReplyToAddressValidator do
 
       it { is_expected.to eq(%w(a@example.com)) }
     end
-
   end
-
 end

@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::Prominence::PublicQuery do
-
   describe '#call' do
-
     it 'returns only results with a normal or backpaged prominence' do
       normal_request = FactoryBot.create(:info_request)
       backpaged_request = FactoryBot.create(:info_request, prominence: 'backpage')
@@ -19,5 +17,4 @@ RSpec.describe InfoRequest::Prominence::PublicQuery do
       expect(described_class.new.call).not_to include(embargoed_request)
     end
   end
-
 end

@@ -26,9 +26,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
 
-
     context 'when pro is enabled' do
-
       it 'does not include embargoed requests if the current user is
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -89,9 +87,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
           end
         end
       end
-
     end
-
   end
 
   describe 'GET #show' do
@@ -168,7 +164,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
         end
       end
     end
-
   end
 
   describe 'PUT #update' do
@@ -260,8 +255,10 @@ RSpec.describe AdminRequestController, "when administering requests" do
     end
 
     it 'redirects after destroying a request with incoming_messages' do
-      incoming_message = FactoryBot.create(:incoming_message, :with_html_attachment,
+      incoming_message = FactoryBot.create(:incoming_message,
+                                           :with_html_attachment,
                                            info_request: info_request)
+
       delete :destroy, params: { id: info_request.id }
 
       expect(response).to redirect_to(admin_requests_url)
@@ -323,7 +320,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
     end
 
     context 'when hiding an external request' do
-
       before do
         @info_request = FactoryBot.create(:external_request)
         allow(InfoRequest).to receive(:find).with(@info_request.id).
@@ -357,7 +353,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'should add a notice to the flash saying that the request has been hidden' do
         make_request
-        expect(request.flash[:notice]).to eq("This external request has been hidden")
+        expect(request.flash[:notice]).
+          to eq("This external request has been hidden")
       end
 
       it 'should expire the file cache for the request' do
@@ -393,5 +390,4 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
   end
-
 end

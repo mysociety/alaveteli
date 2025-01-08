@@ -1,21 +1,7 @@
 <%= f.error_messages %>
 
 <% f.translated_fields do |t| %>
-  <div class="control-group">
-    <%= t.label :name, class: 'control-label' %>
-
-    <div class="controls">
-      <%= t.text_field :name, class: 'span4' %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= t.label :body, class: 'control-label' %>
-
-    <div class="controls">
-      <%= t.text_area :body, class: 'span4' %>
-    </div>
-  </div>
+  <%= render partial: 'locale_fields', locals: { t: t } %>
 <% end %>
 
 <h3>Common Fields</h3>

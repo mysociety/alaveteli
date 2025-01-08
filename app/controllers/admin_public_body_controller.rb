@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminPublicBodyController < AdminController
-
   include TranslatableParams
 
   before_action :set_public_body, only: [:edit, :update, :destroy]
@@ -191,6 +190,7 @@ class AdminPublicBodyController < AdminController
                                          AlaveteliLocalization.
                                            available_locales)
             raise "dry run mismatched real run" if !errors.empty?
+
             notes.push("Import was successful.")
           end
         end
@@ -219,10 +219,12 @@ class AdminPublicBodyController < AdminController
     unless /csv_upload-\d{8}-\d{1,5}/.match(tempfile_name)
       raise "Invalid filename in upload_csv: #{tempfile_name}"
     end
+
     tempfile_path = File.join(Dir.tmpdir, tempfile_name)
     unless File.exist?(tempfile_path)
       raise "Missing file in upload_csv: #{tempfile_name}"
     end
+
     csv_contents = File.read(tempfile_path)
     File.delete(tempfile_path)
     csv_contents
@@ -278,5 +280,4 @@ class AdminPublicBodyController < AdminController
   def set_public_body
     @public_body = PublicBody.find(params[:id])
   end
-
 end

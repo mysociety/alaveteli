@@ -71,8 +71,14 @@ install_daemon() {
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
 
+update_mysociety_apt_sources
+
+apt-get -y update
+
+install_website_packages
+
 if [ -f $REPOSITORY/config/general.yml ]; then
-    STAGING_SITE=$(su -l -c "cd '$REPOSITORY' && bin/config STAGING_SITE" "$UNIX_USER")
+    STAGING_SITE=$(su -l -c "cd '$REPOSITORY' && RBENV_VERSION='system' bin/config STAGING_SITE" "$UNIX_USER")
     if ([ "$STAGING_SITE" = "0" ] && [ "$DEVELOPMENT_INSTALL" = "true" ]) ||
       ([ "$STAGING_SITE" = "1" ] && [ "$DEVELOPMENT_INSTALL" != "true" ]); then
         cat <<-END
@@ -92,10 +98,6 @@ END
         exit 1
     fi
 fi
-
-update_mysociety_apt_sources
-
-apt-get -y update
 
 echo 'Setting hostname...'
 hostnamectl set-hostname $HOST
@@ -178,7 +180,13 @@ then
 EOF
 fi
 
-/etc/init.d/rsyslog restart
+if { [ "$DISTRIBUTION" = "ubuntu" ] && [ "$DISTVERSION" = "jammy" ]; } ||
+   { [ "$DISTRIBUTION" = "debian" ] && [ "$DISTVERSION" = "bookworm" ]; }
+then
+  systemctl restart rsyslog.service
+else
+  /etc/init.d/rsyslog restart
+fi
 
 newaliases
 postmap /etc/postfix/transports
@@ -186,8 +194,6 @@ postmap /etc/postfix/recipients
 postfix reload
 
 # (end of the Postfix configuration)
-
-install_website_packages
 
 # Ubuntu Focal Fixes
 if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"focal" ]
@@ -299,7 +305,7 @@ fi
 if [ "$DEVELOPMENT_INSTALL" = true ]; then
   # Not in the Gemfile due to conflicts
   # See: https://github.com/sj26/mailcatcher/blob/3079a00/README.md#bundler
-  gem install mailcatcher
+  gem install mailcatcher --no-document
 fi
 
 # Set up root's crontab:
@@ -309,6 +315,11 @@ echo -n "Creating /etc/cron.d/alaveteli... "
 sed -r \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
     -i /etc/cron.d/alaveteli
+echo $DONE_MSG
+
+# Set up root's crontab:
+echo -n "Creating /etc/logrotate.d/alaveteli... "
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' FILE=config/logrotate-example" "$UNIX_USER") > /etc/logrotate.d/alaveteli
 echo $DONE_MSG
 
 # Clear existing legacy daemons if present
@@ -322,7 +333,7 @@ fi
 
 for path in "/etc/init.d" "/etc/systemd/system"; do
   # Clear existing daemons
-  all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons PATH='$path'" "$UNIX_USER")
+  all_daemons=$(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:all_daemons PATH='$path' SITE='$SITE'" "$UNIX_USER")
   echo "Clearing any existing $path daemons"
   for daemon in $all_daemons
   do

@@ -13,15 +13,17 @@
 require 'spec_helper'
 
 RSpec.describe RequestClassification do
-
   describe '.league_table' do
-
     before do
       @user_one = FactoryBot.create(:user)
       @user_two = FactoryBot.create(:user)
+      @banned_user = FactoryBot.create(:user, :banned)
+      @closed_account_user = FactoryBot.create(:user, :closed)
       FactoryBot.create(:request_classification, user: @user_one)
       FactoryBot.create(:request_classification, user: @user_one)
       FactoryBot.create(:request_classification, user: @user_two)
+      10.times { FactoryBot.create(:request_classification, user: @banned_user) }
+      FactoryBot.create(:request_classification, user: @closed_account_user)
     end
 
     it "returns a list of users' classifications with counts in descending order" do
@@ -44,7 +46,5 @@ RSpec.describe RequestClassification do
       expect(league_table.first.user_id).to eq(@user_two.id)
       expect(league_table.first.cnt).to eq(1)
     end
-
   end
-
 end

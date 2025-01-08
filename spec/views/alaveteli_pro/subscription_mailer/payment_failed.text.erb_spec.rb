@@ -6,7 +6,7 @@ RSpec.describe 'alaveteli_pro/subscription_mailer/payment_failed' do
   before do
     assign(:user_name, 'Paul Pro')
     assign(:pro_site_name, 'Alaveteli Professional')
-    assign(:subscriptions_url, 'http://test.host/en/profile/subscriptions')
+    assign(:subscriptions_url, 'http://test.host/profile/subscriptions')
     render
   end
 

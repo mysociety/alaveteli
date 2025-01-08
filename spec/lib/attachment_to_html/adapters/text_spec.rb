@@ -1,20 +1,16 @@
 require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::Text do
-
   let(:attachment) { FactoryBot.create(:body_text) }
   let(:adapter) { AttachmentToHTML::Adapters::Text.new(attachment) }
 
   describe :title do
-
     it 'uses the attachment filename for the title' do
       expect(adapter.title).to eq(attachment.display_filename)
     end
-
   end
 
   describe :body do
-
     it 'extracts the body from the document' do
       expect(adapter.body).to eq(attachment.body)
     end
@@ -58,11 +54,9 @@ RSpec.describe AttachmentToHTML::Adapters::Text do
       adapter = AttachmentToHTML::Adapters::Text.new(attachment)
       expect(adapter.body).to be_valid_encoding
     end
-
   end
 
   describe :success? do
-
     it 'is truthy if the body has content excluding the tags' do
       allow(adapter).to receive(:body).and_return('<p>some content</p>')
       expect(adapter.success?).to be_truthy
@@ -77,7 +71,5 @@ RSpec.describe AttachmentToHTML::Adapters::Text do
       allow(adapter).to receive(:body).and_return('<p></p>')
       expect(adapter.success?).to be_falsey
     end
-
   end
-
 end

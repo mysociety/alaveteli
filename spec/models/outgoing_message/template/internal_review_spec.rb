@@ -1,18 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe OutgoingMessage::Template::InternalReview do
-
   describe '.details_placeholder' do
-
     it 'returns the internal review placeholder text' do
       expect(described_class.details_placeholder).
         to eq('GIVE DETAILS ABOUT YOUR COMPLAINT HERE')
     end
-
   end
 
   describe '#body' do
-
     it 'requires a :public_body_name key' do
       attrs = { info_request_title: 'a', url: 'b' }
       msg = 'Missing required key: public_body_name'
@@ -67,20 +63,16 @@ RSpec.describe OutgoingMessage::Template::InternalReview do
       expected = "Dear A body,\n\nA custom letter\n\n\nYours faithfully,\n\n"
       expect(subject.body(attrs)).to eq(expected)
     end
-
   end
 
   describe '#salutation' do
-
     it 'returns the salutation' do
       expect(subject.salutation(public_body_name: 'A body')).
         to eq('Dear A body,')
     end
-
   end
 
   describe '#letter' do
-
     it 'returns the letter' do
       attrs = { public_body_name: 'A body',
                 info_request_title: 'a test title',
@@ -109,15 +101,11 @@ RSpec.describe OutgoingMessage::Template::InternalReview do
     it 'returns a custom letter' do
       expect(subject.letter(letter: 'custom')).to eq("\n\ncustom")
     end
-
   end
 
   describe '#signoff' do
-
     it 'returns the signoff' do
       expect(subject.signoff).to eq('Yours faithfully,')
     end
-
   end
-
 end

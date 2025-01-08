@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "When searching" do
-
   before(:each) do
     load_raw_emails_data
     update_xapian_index
@@ -16,7 +15,7 @@ RSpec.describe "When searching" do
 
   it "should redirect requests with search in query string to URL-based page" do
     get '/search/all?query=bob'
-    expect(response).to redirect_to "/en/search/bob/all"
+    expect(response).to redirect_to "/search/bob/all"
   end
 
   it "should correctly execute simple search" do
@@ -85,7 +84,6 @@ RSpec.describe "When searching" do
   end
 
   context 'using JSON format' do
-
     it 'should return JSON formatted results' do
       get '/feed/search/chicken.json'
       response_data = JSON.parse(response.body, symbolize_names: true)
@@ -95,7 +93,6 @@ RSpec.describe "When searching" do
       expect(response_data.first[:info_request][:title]).
         to eq('How much public money is wasted on breeding naughty chickens?')
     end
-
   end
 
   it "should search for requests made to a tagged set of public authorities" do

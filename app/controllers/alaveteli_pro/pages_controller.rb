@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::PagesController < AlaveteliPro::BaseController
-
   skip_before_action :pro_user_authenticated?
 
   def show
@@ -15,5 +14,4 @@ class AlaveteliPro::PagesController < AlaveteliPro::BaseController
       raise ActiveRecord::RecordNotFound
     end
   end
-
 end

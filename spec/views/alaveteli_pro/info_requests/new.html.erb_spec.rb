@@ -36,7 +36,7 @@ RSpec.describe "alaveteli_pro/info_requests/new" do
     assign_variables
     render
     expect(rendered).
-      to match(/data-search-url="\/en\/alaveteli_pro\/public_bodies"/)
+      to match(/data-search-url="\/pro\/public_bodies"/)
   end
 
   it "includes a hidden field for the body id" do

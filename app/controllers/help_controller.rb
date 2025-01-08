@@ -11,6 +11,12 @@ class HelpController < ApplicationController
   before_action :catch_spam, only: [:contact]
   before_action :set_recaptcha_required, only: [:contact]
 
+  ContactSpamError = Class.new(StandardError)
+
+  rescue_from ContactSpamError, ActionController::ParameterMissing do
+    redirect_to frontpage_url
+  end
+
   def index
     redirect_to help_about_path
   end
@@ -89,7 +95,7 @@ class HelpController < ApplicationController
     return unless request.post? && params[:contact]
     return if params[:contact].fetch(:comment, '').blank?
 
-    redirect_to frontpage_url
+    raise ContactSpamError
   end
 
   def set_recaptcha_required

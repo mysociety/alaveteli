@@ -53,25 +53,26 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   def invoice_payment_succeeded
     charge_id = @stripe_event.data.object.charge
 
-    if charge_id
-      charge = Stripe::Charge.retrieve(charge_id)
+    return unless charge_id
 
-      subscription_id = @stripe_event.data.object.subscription
-      subscription = Stripe::Subscription.retrieve(subscription_id)
-      plan_name = subscription.plan.name
+    charge = Stripe::Charge.retrieve(charge_id)
 
-      charge.description =
-        "#{ pro_site_name }: #{ plan_name }"
+    subscription_id = @stripe_event.data.object.subscription
+    subscription = Stripe::Subscription.retrieve(
+      id: subscription_id, expand: ['plan.product']
+    )
+    plan_name = subscription.plan.product.name
 
-      charge.save
-    end
+    Stripe::Charge.update(
+      charge.id, description: "#{pro_site_name}: #{plan_name}"
+    )
   end
 
   def invoice_payment_failed
     account = pro_account_from_stripe_event(@stripe_event)
-    if account
-      AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
-    end
+    return unless account&.subscription?
+
+    AlaveteliPro::SubscriptionMailer.payment_failed(account.user).deliver_now
   end
 
   def store_unhandled_webhook
@@ -95,18 +96,18 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   def check_for_event_type
-    unless @stripe_event.respond_to?(:type)
-      msg = "undefined method `type' for #{ @stripe_event.inspect }"
-      raise MissingTypeStripeWebhookError, msg
-    end
+    return if @stripe_event.respond_to?(:type)
+
+    msg = "undefined method `type' for #{ @stripe_event.inspect }"
+    raise MissingTypeStripeWebhookError, msg
   end
 
   def notify_exception(error)
     return unless send_exception_notifications?
+
     ExceptionNotifier.notify_exception(error, env: request.env)
   end
 
-  # ignore any that don't match our plan namespace
   def filter_hooks
     plans = []
     case @stripe_event.data.object.object
@@ -116,15 +117,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       plans = plan_ids(@stripe_event.data.object.lines)
     end
 
-    # ignore any plans that don't start with our namespace
-    plans.delete_if { |plan| !plan_matches_namespace?(plan) }
+    # ignore any prices that aren't configured
+    plans.delete_if do |price_id|
+      !AlaveteliConfiguration.stripe_prices.key?(price_id)
+    end
 
     raise UnknownPlanStripeWebhookError if plans.empty?
-  end
-
-  def plan_matches_namespace?(plan_id)
-    (AlaveteliConfiguration.stripe_namespace == '' ||
-     plan_id =~ /^#{AlaveteliConfiguration.stripe_namespace}/)
   end
 
   def plan_ids(items)

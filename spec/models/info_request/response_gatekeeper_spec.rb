@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequest::ResponseGatekeeper do
-
   describe '.for' do
-
     it 'returns a new ResponseGatekeeper for known gatekeepers' do
       const = 'InfoRequest::ResponseGatekeeper::SPECIALIZED_CLASSES'
       specialized_classes = { 'known' => described_class::Base,
@@ -24,7 +22,5 @@ RSpec.describe InfoRequest::ResponseGatekeeper do
       expect { described_class.for('unknown', double('info_request')) }.
         to raise_error(err)
     end
-
   end
-
 end

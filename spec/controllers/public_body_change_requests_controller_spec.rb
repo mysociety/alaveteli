@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe PublicBodyChangeRequestsController do
-
   describe 'GET #new' do
-
     it "should show the form" do
       get :new
       expect(response).to render_template("new")
@@ -19,11 +17,9 @@ RSpec.describe PublicBodyChangeRequestsController do
       get :new
       expect(assigns[:render_recaptcha]).to eq(false)
     end
-
   end
 
   describe 'POST #create' do
-
     before do
       @email = "test@example.com"
       name = "Test User"
@@ -51,8 +47,13 @@ RSpec.describe PublicBodyChangeRequestsController do
       expect(mail.body).to include('new_body@example.com')
       expect(mail.body).to include('New Body')
       expect(mail.body).to include("Please")
-      expect(mail.body).to include("http://test.host/admin/bodies/new?change_request_id=#{change_request_id}")
-      expect(mail.body).to include("http://test.host/admin/change_requests/#{change_request_id}/edit")
+      expect(mail.body).to include(
+        "http://test.host/admin/bodies/new?change_request_id=" \
+        "#{change_request_id}"
+      )
+      expect(mail.body).to include(
+        "http://test.host/admin/change_requests/#{change_request_id}/edit"
+      )
     end
 
     it 'sets render_recaptcha to true if there is no logged in user' do
@@ -83,7 +84,8 @@ RSpec.describe PublicBodyChangeRequestsController do
       post :create, params: {
                       public_body_change_request: @change_request_params
                     }
-      expected_text = "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
+      expected_text = "Your request to add an authority has been sent. " \
+        "Thank you for getting in touch! We'll get back to you soon."
       expect(flash[:notice]).to eq(expected_text)
     end
 
@@ -96,7 +98,9 @@ RSpec.describe PublicBodyChangeRequestsController do
     end
 
     it 'has rudimentary spam protection' do
-      spam_request_params = @change_request_params.merge({ comment: 'I AM A SPAMBOT' })
+      spam_request_params = @change_request_params.merge(
+        comment: 'I AM A SPAMBOT'
+      )
 
       post :create, params: {
                       public_body_change_request: spam_request_params
@@ -110,7 +114,6 @@ RSpec.describe PublicBodyChangeRequestsController do
     end
 
     context 'when handling a request for an update to an existing authority' do
-
       before do
         @email = "test@example.com"
         name = "Test User"
@@ -133,14 +136,17 @@ RSpec.describe PublicBodyChangeRequestsController do
         deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(1)
         mail = deliveries[0]
-        expect(mail.subject).to match(/Update email address - #{@public_body.name}/)
+        expect(mail.subject).
+          to match(/Update email address - #{@public_body.name}/)
         expect(mail.header['Reply-To'].to_s).to include(@email)
         expect(mail.to).to include('postmaster@localhost')
         expect(mail.body).to include('new_body@example.com')
         expect(mail.body).to include(@public_body.name)
         expect(mail.body).to include("Please")
-        expect(mail.body).to include("http://test.host/admin/bodies/#{@public_body.id}/edit?change_request_id=#{change_request_id}")
-        expect(mail.body).to include("http://test.host/admin/change_requests/#{change_request_id}/edit")
+        expect(mail.body).to include("http://test.host/admin/bodies/" \
+          "#{@public_body.id}/edit?change_request_id=#{change_request_id}")
+        expect(mail.body).to include("http://test.host/admin/change_requests/" \
+          "#{change_request_id}/edit")
       end
 
       it 'should show a notice' do
@@ -148,7 +154,9 @@ RSpec.describe PublicBodyChangeRequestsController do
         post :create, params: {
                         public_body_change_request: @change_request_params
                       }
-        expected_text = "Your request to update the address for #{@public_body.name} has been sent. Thank you for getting in touch! We'll get back to you soon."
+        expected_text = "Your request to update the address for " \
+          "#{@public_body.name} has been sent. Thank you for getting in " \
+          "touch! We'll get back to you soon."
         expect(flash[:notice]).to eq(expected_text)
       end
 
@@ -159,7 +167,6 @@ RSpec.describe PublicBodyChangeRequestsController do
                       }
         expect(response).to redirect_to frontpage_url
       end
-
     end
   end
 end

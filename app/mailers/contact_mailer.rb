@@ -15,7 +15,7 @@ class ContactMailer < ApplicationMailer
     @last_body = last_body
 
     reply_to_address = MailHandler.address_from_name_and_email(name, email)
-    set_reply_to_headers(nil, 'Reply-To' => reply_to_address)
+    set_reply_to_headers('Reply-To' => reply_to_address)
 
     # From is an address we control so that strict DMARC senders don't get refused
     mail(from: MailHandler.address_from_name_and_email(name, blackhole_email),
@@ -30,12 +30,12 @@ class ContactMailer < ApplicationMailer
     @recipient_user = recipient_user
     @from_user_url = from_user_url
 
-    set_reply_to_headers(nil, 'Reply-To' => from_user.name_and_email)
-
     # From is an address we control so that strict DMARC senders don't get refused
-    mail(from: MailHandler.address_from_name_and_email(from_user.name, blackhole_email),
-         to: recipient_user.name_and_email,
-         subject: subject)
+    mail_user(
+      recipient_user,
+      from: from_user,
+      subject: -> { subject }
+    )
   end
 
   # Send message to a user from the administrator
@@ -44,11 +44,16 @@ class ContactMailer < ApplicationMailer
     @recipient_name = recipient_name
     @recipient_email = recipient_email
 
-    recipient_user = User.find_by_email(recipient_email)
+    to_address = MailHandler.address_from_name_and_email(
+      @recipient_name, @recipient_email
+    )
+    from_address = contact_for_user(User.find_by_email(recipient_email))
 
-    mail(from: contact_for_user(recipient_user),
-         to: MailHandler.address_from_name_and_email(@recipient_name, @recipient_email),
-         bcc: AlaveteliConfiguration.contact_email,
-         subject: subject)
+    mail_user(
+      to_address,
+      from: from_address,
+      bcc: AlaveteliConfiguration.contact_email,
+      subject: -> { subject }
+    )
   end
 end

@@ -239,13 +239,11 @@ class ApiController < ApplicationController
       @events = @events.where("info_request_events.created_at > ?", event.created_at)
     end
 
-
     if feed_type == "atom"
       render template: "api/request_events", formats: [:atom], layout: false
     elsif feed_type == "json"
       @event_data = []
       @events.each do |json_event|
-
         request = json_event.info_request
         this_event = {
           request_id: request.id,
@@ -269,8 +267,10 @@ class ApiController < ApplicationController
   end
 
   protected
+
   def check_api_key
     raise PermissionDenied, "Missing required parameter 'k'" if params[:k].nil?
+
     @public_body = PublicBody.find_by_api_key(params[:k].gsub(' ', '+'))
     raise PermissionDenied if @public_body.nil?
   end
@@ -291,6 +291,7 @@ class ApiController < ApplicationController
   end
 
   private
+
   def make_url(*args)
     "http://" + AlaveteliConfiguration.domain + "/" + args.join("/")
   end

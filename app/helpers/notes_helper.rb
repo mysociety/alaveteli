@@ -1,15 +1,20 @@
 module NotesHelper
+  def note_as_html(note, batch: false)
+    allowed_tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
+    content = note.original_style? ? note.body : note.rich_body.to_trix_html
+    sanitize(content, tags: allowed_tags)
+  end
+
   def render_notes(notes, batch: false, **options)
     return unless notes.present?
 
-    allowed_tags = batch ? batch_notes_allowed_tags : notes_allowed_tags
-
     tag.aside(**options.merge(id: 'notes')) do
-      notes.each do |note|
+      Note.sort(notes).each do |note|
         note_classes = ['note']
+        note_classes << "note--style-#{note.style}"
         note_classes << "tag-#{note.notable_tag}" if note.notable_tag
 
-        concat tag.article sanitize(note.body, tags: allowed_tags),
+        concat tag.article note_as_html(note, batch: batch),
                            id: dom_id(note),
                            class: note_classes
       end

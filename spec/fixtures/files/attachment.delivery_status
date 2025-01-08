@@ -1,0 +1,10 @@
+X-Symantec-Messaging-Gateway-Queue-ID: EE/CD-06721-9C109DE4
+X-Symantec-Messaging-Gateway-Sender: rfc822; foi@gov.example.com
+Reporting-MTA: dns; gov.example.com
+Arrival-Date: Sat, 03 Dec 2011 04:50:17 +0000
+
+Final-Recipient: rfc822; foi@gov.example.com
+Status: 4.4.0
+Action: delayed
+Last-Attempt-Date: Sat, 03 Dec 2011 04:50:17 +0000
+Diagnostic-Code: smtp; 421 4.4.0 [internal] no MXs for this domain could be reached at this time

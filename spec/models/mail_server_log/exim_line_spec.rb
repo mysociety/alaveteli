@@ -1,26 +1,20 @@
 require 'spec_helper'
 
 RSpec.describe MailServerLog::EximLine do
-
   describe '.new' do
-
     it 'requires a line argument' do
       expect { described_class.new }.to raise_error(ArgumentError)
     end
-
   end
 
   describe '#to_s' do
-
     it 'returns the log line' do
       line = '2016-02-03 06:58:11 [16003] 1aQrOE-0004A7-TL <= request-313973-1650c56a@localhost U=alaveteli P=local S=3098 id=ogm-512169+56b3a50ac0cf4-6717@localhost T="Freedom of Information request - Rspec" from <request-313973-1650c56a@localhost> for foi@body.example.com foi@body.example.com'
       expect(described_class.new(line).to_s).to eq(line)
     end
-
   end
 
   describe '#<=>' do
-
     let(:lines) { %w(A C B).map { |s| described_class.new(s) } }
 
     it { expect(lines.sort.map(&:to_s)).to eq(%w(A B C)) }
@@ -34,11 +28,9 @@ RSpec.describe MailServerLog::EximLine do
     it { expect(a >= b).to eq(false) }
     it { expect(a <= b).to eq(true) }
     it { expect(a == b).to eq(false) }
-
   end
 
   describe '#inspect' do
-
     it 'returns the default format' do
       subject = described_class.new('log line')
       obj_id = format("0x00%x", (subject.object_id << 1))
@@ -46,11 +38,9 @@ RSpec.describe MailServerLog::EximLine do
         %Q(#<#{described_class}:#{obj_id} @line="log line">)
       expect(subject.inspect).to eq(expected)
     end
-
   end
 
   describe '#flag' do
-
     it 'returns nil if a flag cannot be parsed from the line' do
       expect(described_class.new('garbage').flag).to eq(nil)
     end
@@ -96,11 +86,9 @@ RSpec.describe MailServerLog::EximLine do
       line = '2016-04-06 12:01:08 [14935] 1anlCu-0003st-1p <= <> R=1anlCt-0003sm-LG U=Debian-exim P=local S=2934 T="Mail delivery failed: returning message to sender" from <> for request-326806-hk82iwn7@localhost'
       expect(described_class.new(line).flag).to eq('<= <>')
     end
-
   end
 
   describe '#status' do
-
     it 'returns nil if a status cannot be parsed from the line' do
       expect(described_class.new('garbage').status).to eq(nil)
     end
@@ -149,11 +137,9 @@ RSpec.describe MailServerLog::EximLine do
       line = '2016-04-06 12:01:08 [14935] 1anlCu-0003st-1p <= <> R=1anlCt-0003sm-LG U=Debian-exim P=local S=2934 T="Mail delivery failed: returning message to sender" from <> for request-326806-hk82iwn7@localhost'
       expect(described_class.new(line).status).to eq(:bounce_arrival)
     end
-
   end
 
   describe '#delivery_status' do
-
     it 'returns an unknown status if a delivery status cannot be parsed from the line' do
       expected = MailServerLog::DeliveryStatus.new(:unknown)
       expect(described_class.new('garbage').delivery_status).to eq(expected)
@@ -208,7 +194,5 @@ RSpec.describe MailServerLog::EximLine do
       expected = MailServerLog::DeliveryStatus.new(:failed)
       expect(described_class.new(line).delivery_status).to eq(expected)
     end
-
   end
-
 end

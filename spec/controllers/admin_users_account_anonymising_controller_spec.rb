@@ -15,8 +15,8 @@ RSpec.describe AdminUsersAccountAnonymisingController do
         expect(assigns[:anonymised_user]).to eq(user)
       end
 
-      it 'redirects to the user page' do
-        expect(response).to redirect_to(admin_user_path(user))
+      it 'redirects to the user edit page' do
+        expect(response).to redirect_to(edit_admin_user_path(user))
       end
 
       context 'on an open account' do
@@ -26,7 +26,6 @@ RSpec.describe AdminUsersAccountAnonymisingController do
           )
         end
       end
-
     end
 
     context 'with valid params for anonymising' do
@@ -70,7 +69,6 @@ RSpec.describe AdminUsersAccountAnonymisingController do
           )
         end
       end
-
     end
 
     context 'on a closed account with info requests' do
@@ -88,6 +86,5 @@ RSpec.describe AdminUsersAccountAnonymisingController do
         expect(flash[:notice]).to eq('The user was anonymised.')
       end
     end
-
   end
 end

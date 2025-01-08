@@ -9,7 +9,6 @@ RSpec.describe 'general/_responsive_topnav' do
   end
 
   describe 'showing the Dashboard link', feature: :alaveteli_pro do
-
     context 'when a pro user is logged in' do
       before do
         assign :user, pro_user
@@ -22,7 +21,6 @@ RSpec.describe 'general/_responsive_topnav' do
       end
 
       context 'and pro features are not enabled' do
-
         it 'shows "pro" next to the user name' do
           with_feature_disabled(:alaveteli_pro) do
             render_view
@@ -36,9 +34,7 @@ RSpec.describe 'general/_responsive_topnav' do
             expect(rendered).to_not have_link('Dashboard')
           end
         end
-
       end
-
     end
 
     context 'when a normal user is logged in' do
@@ -51,9 +47,6 @@ RSpec.describe 'general/_responsive_topnav' do
         render_view
         expect(rendered).to_not have_link('Dashboard')
       end
-
     end
-
   end
-
 end

@@ -109,16 +109,20 @@ $dashboard-collapse: 50em; //where the dashboard layout needs to change
   padding-left: 2em;
 }
 
-.dashboard__announcements {
+.dashboard__announcements,
+.dashboard__warnings {
   margin-bottom: 2em;
 }
 
-.dashboard__announcement {
+.dashboard__announcement,
+.dashboard__warning {
+  margin-top: 1em;
   position: relative;
 }
 
 .dashboard__announcements__list {
   list-style: none outside none;
+  margin: 0;
   padding-left: 0;
 }
 

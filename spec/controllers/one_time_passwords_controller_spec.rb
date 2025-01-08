@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe OneTimePasswordsController do
-
   before :each do
     allow(AlaveteliConfiguration).
       to receive(:enable_two_factor_auth).and_return(true)
   end
 
   describe 'GET show' do
-
     it 'redirects to the sign-in page without a signed in user' do
       get :show
 
@@ -35,7 +33,6 @@ RSpec.describe OneTimePasswordsController do
     end
 
     context 'when 2factor auth is not enabled' do
-
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
@@ -43,13 +40,10 @@ RSpec.describe OneTimePasswordsController do
           get :show
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
-
   end
 
   describe 'POST #create' do
-
     it 'redirects to the sign-in page without a signed in user' do
       post :create
       expect(response).
@@ -111,7 +105,6 @@ RSpec.describe OneTimePasswordsController do
     end
 
     context 'when 2factor auth is not enabled' do
-
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
@@ -119,13 +112,10 @@ RSpec.describe OneTimePasswordsController do
           post :create
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
-
   end
 
   describe 'PUT #update' do
-
     it 'redirects to the sign-in page without a signed in user' do
       put :update
       expect(response).
@@ -181,7 +171,6 @@ RSpec.describe OneTimePasswordsController do
     end
 
     context 'when 2factor auth is not enabled' do
-
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
@@ -189,13 +178,10 @@ RSpec.describe OneTimePasswordsController do
           put :update
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
-
   end
 
   describe 'DELETE #destroy' do
-
     it 'redirects to the sign-in page without a signed in user' do
       user = FactoryBot.create(:user)
       delete :destroy
@@ -251,7 +237,6 @@ RSpec.describe OneTimePasswordsController do
     end
 
     context 'when two factor auth is not enabled' do
-
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
@@ -259,9 +244,6 @@ RSpec.describe OneTimePasswordsController do
           delete :destroy
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
-
     end
-
   end
-
 end

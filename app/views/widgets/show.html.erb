@@ -57,7 +57,7 @@
           <%= _('I also want to know!') %>
         <% end %>
       <% else %>
-        <%= form_tag request_widget_votes_url(@info_request),
+        <%= form_tag request_widget_votes_url(request_url_title: @info_request.url_title),
               :method => 'post', :target => '_top' do %>
           <%= submit_tag _('I also want to know!'),
                 :class => 'alaveteli-widget__bottom__action alaveteli-widget__button--create-vote',

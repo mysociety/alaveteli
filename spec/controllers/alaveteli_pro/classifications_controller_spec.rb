@@ -75,7 +75,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
       it 'should redirect back to the request' do
         post_status('successful')
         expect(response).to redirect_to(
-          show_alaveteli_pro_request_path(url_title: info_request.url_title)
+          show_request_path(url_title: info_request.url_title)
         )
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
       it 'should redirect back to the request' do
         post_status('error_message', message: 'A message')
         expect(response).to redirect_to(
-          show_alaveteli_pro_request_path(url_title: info_request.url_title)
+          show_request_path(url_title: info_request.url_title)
         )
       end
     end
@@ -169,7 +169,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
       it 'should redirect back to the request' do
         post_status('requires_admin', message: 'A message')
         expect(response).to redirect_to(
-          show_alaveteli_pro_request_path(url_title: info_request.url_title)
+          show_request_path(url_title: info_request.url_title)
         )
       end
     end

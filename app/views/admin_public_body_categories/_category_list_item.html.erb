@@ -1,7 +1,0 @@
-<div class="category-list-item" <% if heading %> data-id="categories_<%= category.id %>"<% end %>>
-  <% if heading %>
-    <i class="icon-move"></i>
-  <% end %>
-
-  <%= link_to(category.title, edit_admin_category_path(category), :title => "view full details") %>
-</div>

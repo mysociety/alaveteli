@@ -132,7 +132,6 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   end
 
   describe '#new' do
-
     before do
       sign_in pro_user
     end
@@ -140,9 +139,8 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     it 'redirects to index action' do
       get :new
       expect(response).to redirect_to(
-        '/alaveteli_pro/batch_request_authority_searches'
+        '/pro/batch_request_authority_searches'
       )
     end
   end
-
 end

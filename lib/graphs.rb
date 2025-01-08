@@ -1,7 +1,6 @@
 require 'gnuplot'
 
 module Graphs
-
   # the colour references given here are for the default palette
   # as provided by our basic gnuplot configuration, do not rely on them
   # if you have altered the gnuplot install
@@ -31,6 +30,7 @@ module Graphs
   def select_as_columns(sql)
     hash_array = User.connection.select_all(sql)
     return if hash_array.empty?
+
     columns = hash_array.first.values.map { |val| [val] }
     if hash_array.to_ary.size > 1
       hash_array[1..-1].each do |result|

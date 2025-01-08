@@ -22,10 +22,11 @@ class SurveyMailer < ApplicationMailer
       'X-Auto-Response-Suppress' => 'OOF'
     )
 
-    mail(
-      to: @user.name_and_email,
-      from: contact_from_name_and_email,
-      subject: _('A survey about your recent Freedom of Information request')
+    mail_user(
+      @user,
+      subject: -> {
+        _('A survey about your recent Freedom of Information request')
+      }
     )
   end
 

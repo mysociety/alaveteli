@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "admin_request/show" do
-
   before do
     assign :info_request, info_request
   end
@@ -18,7 +17,6 @@ RSpec.describe "admin_request/show" do
       render
       expect(rendered).to_not have_css('h1 span.label', text: 'embargoed')
     end
-
   end
 
   context 'for an embargoed request' do
@@ -27,7 +25,7 @@ RSpec.describe "admin_request/show" do
     it 'links to the pro request page' do
       render
       expect(rendered).
-        to match(show_alaveteli_pro_request_url(info_request.url_title))
+        to match(show_request_url(info_request.url_title))
     end
 
     it 'includes embargo information' do
@@ -39,11 +37,9 @@ RSpec.describe "admin_request/show" do
       render
       expect(rendered).to have_css('h1 span.label', text: 'embargoed')
     end
-
   end
 
   context 'for a redacted request' do
-
     let(:info_request) do
       request = FactoryBot.create(:info_request)
       FactoryBot.create(:info_request_censor_rule,
@@ -65,7 +61,5 @@ RSpec.describe "admin_request/show" do
       expect(rendered).to have_css("#outgoing_#{ogm.id}",
                                    text: 'Some information please')
     end
-
   end
-
 end

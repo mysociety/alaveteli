@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe ActsAsXapian do
-
   before { update_xapian_index }
 
   describe '.update_index' do
-
     it 'processes jobs that were queued after a job that errors' do
       job1, job2 = Array.new(2) do |_i|
         body = FactoryBot.create(:public_body)
@@ -36,9 +34,7 @@ RSpec.describe ActsAsXapian do
       expect { job1.reload }.to raise_error(ActiveRecord::RecordNotFound)
       expect { job2.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
-
   end
-
 end
 
 RSpec.describe ActsAsXapian::FailedJob do
@@ -47,7 +43,6 @@ RSpec.describe ActsAsXapian::FailedJob do
   let(:failed_job) { described_class.new(1, error, model_data) }
 
   describe '.new' do
-
     it 'requires a job_id' do
       expect { described_class.new }.to raise_error(ArgumentError)
     end
@@ -59,35 +54,27 @@ RSpec.describe ActsAsXapian::FailedJob do
     it 'sets model_data to an empty hash by default' do
       expect(described_class.new(1, error).model_data).to eq({})
     end
-
   end
 
   describe '#job_id' do
-
     it 'returns the job_id' do
       expect(failed_job.job_id).to eq(1)
     end
-
   end
 
   describe '#error' do
-
     it 'returns the error' do
       expect(failed_job.error).to eq(error)
     end
-
   end
 
   describe '#model_data' do
-
     it 'returns the model_data' do
       expect(failed_job.model_data).to eq(model_data)
     end
-
   end
 
   describe '#full_message' do
-
     it 'returns a message suitable for the exception notification' do
       error.set_backtrace(%w(BACKTRACE_L1 BACKTRACE_L2))
 
@@ -110,20 +97,16 @@ RSpec.describe ActsAsXapian::FailedJob do
 
       expect(failed_job.full_message).to eq(msg)
     end
-
   end
 
   describe '#error_backtrace' do
-
     it 'returns the error backtrace' do
       error.set_backtrace(%w(BACKTRACE_L1 BACKTRACE_L2))
       expect(failed_job.error_backtrace).to eq("BACKTRACE_L1\nBACKTRACE_L2")
     end
-
   end
 
   describe '#job_info' do
-
     context 'with full job info' do
       let(:failed_job) { described_class.new(1, error, model_data) }
 
@@ -167,13 +150,10 @@ RSpec.describe ActsAsXapian::FailedJob do
       end
     end
   end
-
 end
 
 RSpec.describe ActsAsXapian::Search do
-
   describe "#words_to_highlight" do
-
     before do
       update_xapian_index
     end
@@ -229,7 +209,6 @@ RSpec.describe ActsAsXapian::Search do
     end
 
     context 'the :regex option' do
-
       it 'wraps each words in a regex that matches the full word' do
         expected = [/\b(albatross)\b/iu]
         s = ActsAsXapian::Search.new([PublicBody], 'Albatross', limit: 1)
@@ -241,12 +220,10 @@ RSpec.describe ActsAsXapian::Search do
         s = ActsAsXapian::Search.new([PublicBody], 'department', limit: 1)
         expect(s.words_to_highlight(regex: true)).to eq(expected)
       end
-
     end
   end
 
   describe '#spelling_correction' do
-
     before do
       load_raw_emails_data
       update_xapian_index
@@ -268,7 +245,29 @@ RSpec.describe ActsAsXapian::Search do
       s = ActsAsXapian::Search.new([PublicBody], "bobby", limit: 100)
       expect(s.spelling_correction).to eq("bôbby")
     end
-
   end
 
+  describe '#has_normal_search_terms?' do
+    it 'return false for prefixed search queries' do
+      search = ActsAsXapian::Search.new([PublicBody], 'tag:foo', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(false)
+    end
+
+    it 'return true for prefixed search queries with normal search term' do
+      search = ActsAsXapian::Search.new([PublicBody], 'tag:foo nhs', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+    end
+
+    it 'return true for normal search term' do
+      search = ActsAsXapian::Search.new([PublicBody], 'nhs', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+    end
+
+    it 'treats unstemmed words as normal search terms' do
+      search = ActsAsXapian::Search.new([PublicBody], 'NHS', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+      search = ActsAsXapian::Search.new([PublicBody], 'tag:foo NHS', limit: 1)
+      expect(search.has_normal_search_terms?).to eq(true)
+    end
+  end
 end

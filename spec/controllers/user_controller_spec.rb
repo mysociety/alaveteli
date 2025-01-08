@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe UserController do
-
   describe 'GET show' do
-
     let(:user) { FactoryBot.create(:user) }
 
     it 'renders the show template' do
@@ -39,7 +37,6 @@ RSpec.describe UserController do
     # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/
     # ControllerExampleGroup.html
     context 'when redirecting a show request to a canonical url' do
-
       it 'redirects to lower case name if given one with capital letters' do
         get :show, params: { url_name: 'Bob_Smith' }
         expect(response).to redirect_to(show_user_path(url_name: 'bob_smith'))
@@ -59,12 +56,10 @@ RSpec.describe UserController do
         get :show, params: { url_name: 'bob_smith_bob_smith_bob_smith_bo_2' }
         expect(response).to be_successful
       end
-
     end
 
     # Also doubles for when not logged in viewing another user's profile
     context 'when viewing a profile' do
-
       def make_request
         get :show, params: { url_name: user.url_name, view: 'profile' }
       end
@@ -84,12 +79,10 @@ RSpec.describe UserController do
         expect(response.body).
           to match(/change password, subscriptions and more/)
       end
-
     end
 
     # Also doubles for when not logged in viewing another user's requests
     context 'when viewing requests' do
-
       def make_request
         get :show, params: { url_name: user.url_name, view: 'requests' }
       end
@@ -126,11 +119,9 @@ RSpec.describe UserController do
         get :show, params: { url_name: user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to be_empty
       end
-
     end
 
     context 'when filtering requests' do
-
       before do
         load_raw_emails_data
         update_xapian_index
@@ -173,11 +164,9 @@ RSpec.describe UserController do
 
         expect(actual).to match_array([info_requests(:naughty_chicken_request)])
       end
-
     end
 
     context 'when logged in viewing your own profile' do
-
       def make_request
         get :show, params: { url_name: user.url_name, view: 'profile' }
       end
@@ -195,11 +184,9 @@ RSpec.describe UserController do
         expect(assigns[:show_batches]).to be false
         expect(response.body).to include('Change your password')
       end
-
     end
 
     context 'when logged in viewing your own requests' do
-
       def make_request
         get :show, params: { url_name: user.url_name, view: 'requests' }
       end
@@ -294,11 +281,9 @@ RSpec.describe UserController do
         get :show, params: { url_name: user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to match_array([info_request])
       end
-
     end
 
     context 'when logged in filtering your own requests' do
-
       before do
         sign_in user
       end
@@ -381,11 +366,9 @@ RSpec.describe UserController do
 
         expect(assigns[:private_requests]).to match_array([request_1])
       end
-
     end
 
     context 'when logged in viewing other requests' do
-
       def make_request
         get :show, params: { url_name: user.url_name, view: 'requests' }
       end
@@ -481,7 +464,6 @@ RSpec.describe UserController do
     end
 
     context 'when logged in filtering other requests' do
-
       before do
         sign_in FactoryBot.create(:user)
       end
@@ -563,7 +545,6 @@ RSpec.describe UserController do
 
         expect(assigns[:private_requests]).to be_empty
       end
-
     end
 
     context 'when the display_user does not have an about_me' do
@@ -662,9 +643,7 @@ RSpec.describe UserController do
   end
 
   describe 'POST set_profile_photo' do
-
     context 'user is banned' do
-
       before(:each) do
         @user = FactoryBot.create(:user, ban_text: 'Causing trouble')
         sign_in @user
@@ -686,9 +665,7 @@ RSpec.describe UserController do
         msg = 'Suspended users cannot edit their profile'
         expect(flash[:error]).to eq(msg)
       end
-
     end
-
   end
 
   describe 'POST #signup' do
@@ -876,11 +853,9 @@ RSpec.describe UserController do
                               }
         expect(response).to render_template('confirm')
       end
-
     end
 
     context 'when the IP is rate limited' do
-
       before(:each) do
         limiter = double
         allow(limiter).to receive(:record)
@@ -889,7 +864,6 @@ RSpec.describe UserController do
       end
 
       context 'when block_rate_limited_ips? is true' do
-
         before(:each) do
           allow(@controller).
             to receive(:block_rate_limited_ips?).and_return(true)
@@ -943,11 +917,9 @@ RSpec.describe UserController do
                         }
           expect(flash[:error]).to match(/unable to sign up new users/)
         end
-
       end
 
       context 'when block_rate_limited_ips? is false' do
-
         before(:each) do
           allow(@controller).
             to receive(:block_rate_limited_ips?).and_return(false)
@@ -977,13 +949,10 @@ RSpec.describe UserController do
                         }
           expect(User.where(email: 'rate-limited@localhost').count).to eq(1)
         end
-
       end
-
     end
 
     context 'using a spammy name or email from a known spam domain' do
-
       before do
         spam_scorer = double
         allow(spam_scorer).to receive(:spam?).and_return(true)
@@ -991,7 +960,6 @@ RSpec.describe UserController do
       end
 
       context 'when spam_should_be_blocked? is true' do
-
         before do
           allow(@controller).
             to receive(:spam_should_be_blocked?).and_return(true)
@@ -1037,11 +1005,9 @@ RSpec.describe UserController do
                         }
           expect(response).to render_template('sign')
         end
-
       end
 
       context 'when spam_should_be_blocked? is false' do
-
         before do
           allow(@controller).
             to receive(:spam_should_be_blocked?).and_return(false)
@@ -1071,9 +1037,7 @@ RSpec.describe UserController do
                         }
           expect(User.where(email: 'spammer@example.com').count).to eq(1)
         end
-
       end
-
     end
 
     # TODO: need to do bob@localhost signup and check that sends different email
@@ -1247,7 +1211,11 @@ RSpec.describe UserController, "when using profile photos" do
                                automatically_crop: 1
                              }
 
-    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
+    expect(response).to redirect_to(
+      controller: 'user',
+      action: 'show',
+      url_name: "bob_smith"
+    )
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     @user.reload
@@ -1275,7 +1243,6 @@ RSpec.describe UserController, "when using profile photos" do
       expect(flash[:notice][:partial]).
         to eq("user/update_profile_photo")
     end
-
   end
 
   it "should let you change profile photo twice" do
@@ -1288,7 +1255,11 @@ RSpec.describe UserController, "when using profile photos" do
                                submitted_draft_profile_photo: 1,
                                automatically_crop: 1
                              }
-    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
+    expect(response).to redirect_to(
+      controller: 'user',
+      action: 'show',
+      url_name: "bob_smith"
+    )
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     post :set_profile_photo, params: {
@@ -1297,18 +1268,22 @@ RSpec.describe UserController, "when using profile photos" do
                                submitted_draft_profile_photo: 1,
                                automatically_crop: 1
                              }
-    expect(response).to redirect_to(controller: 'user', action: 'show', url_name: "bob_smith")
+    expect(response).to redirect_to(
+      controller: 'user',
+      action: 'show',
+      url_name: "bob_smith"
+    )
     expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
 
     @user.reload
     expect(@user.profile_photo).not_to be_nil
   end
 
-  # TODO: todo check the two stage javascript cropping (above only tests one stage non-javascript one)
+  # TODO: todo check the two stage javascript cropping (above only tests one
+  # stage non-javascript one)
 end
 
 RSpec.describe UserController, "when showing JSON version for API" do
-
   it "should be successful" do
     get :show, params: { url_name: "bob_smith", format: "json" }
 
@@ -1318,7 +1293,6 @@ RSpec.describe UserController, "when showing JSON version for API" do
     expect(u['url_name']).to eq('bob_smith')
     expect(u['name']).to eq('Bob Smith')
   end
-
 end
 
 RSpec.describe UserController, "when viewing the wall" do

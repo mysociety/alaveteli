@@ -46,7 +46,7 @@
       <% link_to_this_url = outgoing_message_url(outgoing_message) %>
 
       <% report_path =
-           new_request_report_path(request_id: @info_request.url_title,
+           new_request_report_path(@info_request.url_title,
                                    outgoing_message_id: outgoing_message.id) %>
 
       <%= render partial: 'request/correspondence_footer',

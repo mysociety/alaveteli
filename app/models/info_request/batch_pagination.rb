@@ -2,11 +2,13 @@
 module InfoRequest::BatchPagination
   def next_in_batch
     return nil unless info_request_batch
+
     batch_sibling_requests_ordered_by_id[index_in_batch + 1] || first_in_batch
   end
 
   def prev_in_batch
     return nil unless info_request_batch
+
     batch_sibling_requests_ordered_by_id[index_in_batch - 1]
   end
 

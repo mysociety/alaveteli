@@ -32,8 +32,18 @@
               <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
                 <%= link_to "View as HTML", attachment_path(a, :html => true) %>
               <% end %>
-              <%= a.extra_note %>
+
+              <%= explore_in_datasette(a) %>
+
+              <% if note = a.extra_note %>
+                <em><%= note %></em>
+              <% end %>
+
+              <% if @user.present? && @user.admin_page_links? %>
+                <%= link_to 'Admin', edit_admin_foi_attachment_path(a) %>
+              <% end %>
             </p>
+
           <% end %>
         <% end %>
       <% end %>

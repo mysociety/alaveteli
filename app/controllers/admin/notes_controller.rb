@@ -2,6 +2,10 @@ class Admin::NotesController < AdminController
   include Admin::TagHelper
   include TranslatableParams
 
+  def index
+    @notes = Note.paginate(page: params[:page], per_page: 50)
+  end
+
   def new
     @note = scope.build
     @note.build_all_translations
@@ -50,8 +54,8 @@ class Admin::NotesController < AdminController
   def note_params
     translatable_params(
       params.require(:note),
-      translated_keys: [:locale, :body],
-      general_keys: [:notable_tag, :notable_id, :notable_type]
+      translated_keys: [:locale, :body, :rich_body],
+      general_keys: [:notable_tag, :notable_id, :notable_type, :style]
     )
   end
 end

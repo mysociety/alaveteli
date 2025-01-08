@@ -38,7 +38,6 @@ namespace :themes do
   end
 end
 
-
 # Not in the rake namespace because we're also specifying app-specific arguments here
 namespace :xapian do
   desc 'Rebuilds the Xapian index as per the ./scripts/destroy-and-rebuild-xapian-index script'
@@ -48,7 +47,6 @@ namespace :xapian do
 end
 
 namespace :deploy do
-
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
     task t, roles: :app, except: { no_release: true } do

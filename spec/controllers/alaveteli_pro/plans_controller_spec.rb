@@ -7,20 +7,19 @@ RSpec.describe AlaveteliPro::PlansController do
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:product) { stripe_helper.create_product }
 
-  let!(:pro_plan) do
-    stripe_helper.create_plan(
-      id: 'pro', product: product.id, amount: 1000
+  let!(:pro_price) do
+    stripe_helper.create_price(
+      id: 'pro', product: product.id, unit_amount: 1000
     )
   end
 
-  let!(:alaveteli_pro_plan) do
-    stripe_helper.create_plan(
-      id: 'alaveteli-pro', product: product.id, amount: 1000
+  let!(:alaveteli_pro_price) do
+    stripe_helper.create_price(
+      id: 'alaveteli-pro', product: product.id, unit_amount: 1000
     )
   end
 
   describe 'GET #index' do
-
     before do
       get :index
     end
@@ -42,14 +41,12 @@ RSpec.describe AlaveteliPro::PlansController do
     end
 
     it 'uses the default plan for pricing info' do
-      expect(assigns(:plan)).to eq(pro_plan)
+      expect(assigns(:prices)).to eq([pro_price])
     end
   end
 
   describe 'GET #show' do
-
     context 'without a signed-in user' do
-
       before do
         get :show, params: { id: 'pro' }
       end
@@ -62,7 +59,6 @@ RSpec.describe AlaveteliPro::PlansController do
       it 'sets in_pro_area' do
         expect(assigns(:in_pro_area)).to be true
       end
-
     end
 
     context 'with a signed-in user' do
@@ -72,14 +68,13 @@ RSpec.describe AlaveteliPro::PlansController do
         sign_in user
       end
 
-      context 'with a valid plan' do
-
+      context 'with a valid price' do
         before do
           get :show, params: { id: 'pro' }
         end
 
-        it 'finds the specified plan' do
-          expect(assigns(:plan)).to eq(pro_plan)
+        it 'finds the specified price' do
+          expect(assigns(:price)).to eq(pro_price)
         end
 
         it 'renders the plan page' do
@@ -89,19 +84,19 @@ RSpec.describe AlaveteliPro::PlansController do
         it 'returns http success' do
           expect(response).to be_successful
         end
-
       end
 
       context 'with a Stripe namespace' do
-
         before do
+          allow(AlaveteliConfiguration).to receive(:stripe_prices).
+            and_return('alaveteli-pro' => 'pro')
           allow(AlaveteliConfiguration).to receive(:stripe_namespace).
             and_return('alaveteli')
           get :show, params: { id: 'pro' }
         end
 
         it 'finds the specified plan' do
-          expect(assigns(:plan)).to eq(alaveteli_pro_plan)
+          expect(assigns(:price)).to eq(alaveteli_pro_price)
         end
 
         it 'renders the plan page' do
@@ -111,18 +106,18 @@ RSpec.describe AlaveteliPro::PlansController do
         it 'returns http success' do
           expect(response).to be_successful
         end
-
       end
 
       context 'with an existing subscription' do
-
         before do
           sign_in user
           customer =
             Stripe::Customer.create(email: user.email,
                                     source: stripe_helper.generate_card_token)
 
-          Stripe::Subscription.create(customer: customer, plan: 'pro')
+          Stripe::Subscription.create(
+            customer: customer, items: [{ price: 'pro' }]
+          )
           user.create_pro_account(stripe_customer_id: customer.id)
           user.add_role(:pro)
           get :show, params: { id: 'pro' }
@@ -138,17 +133,17 @@ RSpec.describe AlaveteliPro::PlansController do
       end
 
       context 'with an existing customer id but no active subscriptions' do
-
         before do
           sign_in user
           customer =
             Stripe::Customer.create(email: user.email,
                                     source: stripe_helper.generate_card_token)
 
-          subscription =
-            Stripe::Subscription.create(customer: customer, plan: 'pro')
+          subscription = Stripe::Subscription.create(
+            customer: customer, items: [{ price: 'pro' }]
+          )
 
-          subscription.delete
+          Stripe::Subscription.cancel(subscription.id)
           user.create_pro_account(stripe_customer_id: customer.id)
           get :show, params: { id: 'pro' }
         end
@@ -160,21 +155,15 @@ RSpec.describe AlaveteliPro::PlansController do
         it 'returns http success' do
           expect(response).to be_successful
         end
-
       end
 
-      context 'with an invalid plan' do
-
+      context 'with an invalid price' do
         it 'returns ActiveRecord::RecordNotFound' do
           expect {
             get :show, params: { id: 'invalid-123' }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
-
       end
-
     end
-
   end
-
 end

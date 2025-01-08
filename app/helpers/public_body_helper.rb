@@ -1,5 +1,4 @@
 module PublicBodyHelper
-
   # Public: The reasons a request can't be made to a PublicBody
   # The returned reasons are ordered by priority. For example, if the body no
   # longer exists there is no reason to ask for its contact details if we don't
@@ -38,7 +37,7 @@ module PublicBodyHelper
   #
   # Returns a String
   def type_of_authority(public_body)
-    categories = PublicBodyCategory.
+    categories = PublicBody.category_list.
       where(category_tag: public_body.tag_string.split).order(:id)
 
     types = categories.each_with_index.map do |category, index|
@@ -53,5 +52,4 @@ module PublicBodyHelper
       _("A public authority")
     end
   end
-
 end

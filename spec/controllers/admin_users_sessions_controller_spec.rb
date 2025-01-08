@@ -5,7 +5,6 @@ RSpec.describe AdminUsersSessionsController do
   let(:target_user) { FactoryBot.create(:user) }
 
   describe 'POST #create' do
-
     before do
       sign_in admin_user
     end
@@ -50,7 +49,6 @@ RSpec.describe AdminUsersSessionsController do
         post :create, params: { id: target_user.id }
         expect(target_user.reload.email_confirmed).to eq(true)
       end
-
     end
 
     context 'if the user cannot log in as the user' do
@@ -70,13 +68,10 @@ RSpec.describe AdminUsersSessionsController do
             to eq "You don't have permission to log in as #{ target_user.name }"
         end
       end
-
     end
-
   end
 
   describe 'DELETE #destroy' do
-
     before do
       sign_in target_user
     end
@@ -105,7 +100,5 @@ RSpec.describe AdminUsersSessionsController do
       delete :destroy, session: { admin_id: admin_user.id }
       expect(response).to redirect_to(admin_user_path(target_user))
     end
-
   end
-
 end

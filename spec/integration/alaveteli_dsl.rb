@@ -1,11 +1,10 @@
 module AlaveteliDsl
-
   def browse_request(url_title)
     visit "/request/#{url_title}"
   end
 
   def browse_pro_request(url_title)
-    visit "/alaveteli_pro/info_requests/#{url_title}"
+    browse_request(url_title)
   end
 
   def create_request(public_body)
@@ -86,8 +85,7 @@ def hide_outgoing_message(outgoing_message, prominence, reason)
 end
 
 def classify_request(request, chosen_option)
-  visit show_request_path url_title: request.url_title,
-                          update_status: 1
+  visit show_request_path(request.url_title, update_status: 1)
   choose(chosen_option)
   click_button('Submit status')
 end
@@ -107,14 +105,14 @@ def using_pro_session(session_id)
   end
 end
 
-def login(user)
+def login(user, **params)
   u = user.is_a?(User) ? user : users(user)
   alaveteli_session(u.id) do
-    visit 'en/profile/sign_in'
+    visit signin_path(**params)
     within '#signin_form' do
-      fill_in "Your e-mail:", with: u.email
-      fill_in "Password:", with: "jonespassword"
-      click_button "Sign in"
+      fill_in "user_signin_email", with: u.email
+      fill_in "user_signin_password", with: "jonespassword"
+      find("input[name='commit']", visible: true).click
     end
   end
   u.id

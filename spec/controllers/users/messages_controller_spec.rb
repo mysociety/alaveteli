@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Users::MessagesController do
-
   render_views
 
   let(:sender) { FactoryBot.create(:user, name: 'Bob Smith') }
@@ -12,16 +11,13 @@ RSpec.describe Users::MessagesController do
   after { ActionMailer::Base.deliveries.clear }
 
   describe 'GET contact' do
-
     context 'when not signed in' do
-
       it 'redirects to signin page' do
         sign_in nil
         get :contact, params: { url_name: recipient.url_name }
         expect(response).
           to redirect_to(signin_path(token: get_last_post_redirect.token))
       end
-
     end
 
     it 'shows the contact form' do
@@ -55,7 +51,6 @@ RSpec.describe Users::MessagesController do
   end
 
   describe 'POST contact' do
-
     it 'shows an error if not given a subject line' do
       post :contact, params: {
                        url_name: recipient.url_name,
@@ -123,7 +118,6 @@ RSpec.describe Users::MessagesController do
          expect(deliveries.size).to eq(0)
          deliveries.clear
        end
-
     end
 
     it 'sends the message' do

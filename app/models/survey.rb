@@ -5,6 +5,8 @@
 # have requests to the same PublicBody
 #
 class Survey
+  include LinkToHelper
+
   def self.enabled?
     url.present?
   end
@@ -25,14 +27,7 @@ class Survey
   def url
     return Survey.url if user_too_identifiable?
 
-    uri = URI(Survey.url)
-
-    new_query = Hash[URI.decode_www_form(uri.query.to_s)].merge(
-      authority_id: public_body.to_param
-    )
-    uri.query = URI.encode_www_form(new_query)
-
-    uri.to_s
+    add_query_params_to_url(Survey.url, authority_id: public_body)
   end
 
   protected

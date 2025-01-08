@@ -10,7 +10,10 @@ module Notable
   end
 
   def all_notes
-    concrete_notes.with_translations + tagged_notes.with_translations
+    notes = concrete_notes.with_translations
+    return notes.to_a unless Taggable.models.include?(self.class)
+
+    notes + tagged_notes.with_translations
   end
 
   def tagged_notes
@@ -20,6 +23,10 @@ module Notable
   private
 
   def notable_tags
-    tags.map(&:name_and_value)
+    tags.inject([]) do |arr, tag|
+      arr << tag.name
+      arr << tag.name_and_value if tag.value
+      arr
+    end
   end
 end

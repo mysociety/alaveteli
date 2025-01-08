@@ -35,6 +35,7 @@ FactoryBot.define do
 
     after(:build) do |value_set, evaluator|
       next if value_set.values.count > 0 || evaluator.value_count.zero?
+
       value_set.values = build_list(
         :dataset_value, evaluator.value_count, value_set: value_set
       )

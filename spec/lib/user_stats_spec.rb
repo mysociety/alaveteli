@@ -1,11 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe UserStats do
-
   describe ".list_user_domains" do
-
     context "in general" do
-
       before do
         User.destroy_all
         FactoryBot.create(:user, email: "test1@localhost")
@@ -35,7 +32,6 @@ RSpec.describe UserStats do
     end
 
     context "when passed a start date" do
-
       before do
         travel_to 1.week.ago
         FactoryBot.create(:user, email: "test@example.com")
@@ -50,11 +46,9 @@ RSpec.describe UserStats do
         expect(UserStats.list_user_domains(start_date: 2.weeks.ago)).
           to eq(expected)
       end
-
     end
 
     context "when passed a limit" do
-
       before do
         FactoryBot.create(:user, email: "test@example.com")
         FactoryBot.create(:user, email: "test@yandex.com")
@@ -66,9 +60,7 @@ RSpec.describe UserStats do
         expect(UserStats.list_user_domains.count).to eq(5)
         expect(UserStats.list_user_domains(limit: 4).count).to eq(4)
       end
-
     end
-
   end
 
   describe ".count_dormant_users" do
@@ -95,14 +87,11 @@ RSpec.describe UserStats do
     end
 
     context "when passed a start date" do
-
       it "only returns data for signups created since the start date" do
         expect(UserStats.count_dormant_users("example.com", 1.week.ago)).
           to eq(1)
       end
-
     end
-
   end
 
   describe ".unbanned_by_domain" do
@@ -131,14 +120,10 @@ RSpec.describe UserStats do
     end
 
     context "when given a start date" do
-
       it "only returns data for signups created since the start date" do
         expect(UserStats.unbanned_by_domain("example.com", 1.week.ago)).
           to match_array([@user2])
       end
-
     end
-
   end
-
 end

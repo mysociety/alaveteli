@@ -72,7 +72,6 @@ RSpec.describe GeneralController do
 end
 
 RSpec.describe GeneralController, "when showing the frontpage" do
-
   render_views
 
   before do
@@ -85,7 +84,9 @@ RSpec.describe GeneralController, "when showing the frontpage" do
                                     info_request: info_request,
                                     described_at: Time.zone.now,
                                     search_text_main: 'example text')
-    xapian_result = double('xapian result', results: [{ model: info_request_event }])
+    xapian_result = double(
+      'xapian result', results: [{ model: info_request_event }]
+    )
     allow(controller).to receive(:perform_search).and_return(xapian_result)
   end
 
@@ -113,10 +114,9 @@ RSpec.describe GeneralController, "when showing the frontpage" do
     expect(successful_request_feed[:title]).to eq('Successful requests')
   end
 
-
   it "should render the front page with default language and ignore the browser setting" do
-    config = MySociety::Config.load_default
-    config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
+    allow(AlaveteliConfiguration).to receive(:use_default_browser_language).
+      and_return(false)
     accept_language = "en-GB,en-US;q=0.8,en;q=0.6"
     request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
     with_default_locale("es") do
@@ -126,8 +126,8 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 
   it "should render the front page with browser-selected language when there's no default set" do
-    config = MySociety::Config.load_default
-    config['USE_DEFAULT_BROWSER_LANGUAGE'] = true
+    allow(AlaveteliConfiguration).to receive(:use_default_browser_language).
+      and_return(true)
     accept_language = "es-ES,en-GB,en-US;q=0.8,en;q=0.6"
     request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
     get :frontpage
@@ -142,16 +142,13 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 
   describe 'when using locales' do
-
     it "should use our test PO files rather than the application one" do
-      get :frontpage, params: { locale: 'es' }
+      get :frontpage, session: { locale: 'es' }
       expect(response.body).to match(/XOXO/)
     end
-
   end
 
   describe 'when handling logged-in users' do
-
     before do
       @user = FactoryBot.create(:user)
       sign_in @user
@@ -181,14 +178,16 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       get :frontpage, params: { post_redirect: 1 }
       expect(response).to be_successful
     end
-
   end
 
   describe 'when handling pro users' do
     before do
       @user = FactoryBot.create(:pro_user)
       sign_in @user
-      allow(controller).to receive(:feature_enabled?).with(:alaveteli_pro).and_return(true)
+      allow(controller).
+        to receive(:feature_enabled?).
+        with(:alaveteli_pro).
+        and_return(true)
     end
 
     it 'should redirect pro users to the pro dashboard' do
@@ -196,12 +195,9 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       expect(@response).to redirect_to alaveteli_pro_dashboard_path
     end
   end
-
 end
 
-
 RSpec.describe GeneralController, 'when using xapian search' do
-
   render_views
 
   # rebuild xapian index after fixtures loaded
@@ -211,8 +207,11 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it "should redirect from search query URL to pretty URL" do
-    post :search_redirect, params: { query: "mouse" } # query hidden in POST parameters
-    expect(response).to redirect_to(action: 'search', combined: "mouse", view: "all") # URL /search/:query/all
+    # query hidden in POST parameters
+    post :search_redirect, params: { query: "mouse" }
+    # URL /search/:query/all
+    expect(response).
+      to redirect_to(action: 'search', combined: "mouse", view: "all")
   end
 
   it "should find info request when searching for '\"fancy dog\"'" do
@@ -220,7 +219,8 @@ RSpec.describe GeneralController, 'when using xapian search' do
     expect(response).to render_template('search')
     expect(assigns[:xapian_requests].matches_estimated).to eq(1)
     expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model]).to eq(info_request_events(:useless_outgoing_message_event))
+    expect(assigns[:xapian_requests].results[0][:model]).
+      to eq(info_request_events(:useless_outgoing_message_event))
 
     assigns[:xapian_requests].words_to_highlight == %w[fancy dog]
   end
@@ -231,29 +231,36 @@ RSpec.describe GeneralController, 'when using xapian search' do
 
     expect(assigns[:xapian_requests].matches_estimated).to eq(1)
     expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model]).to eq(info_request_events(:useless_incoming_message_event))
+    expect(assigns[:xapian_requests].results[0][:model]).
+      to eq(info_request_events(:useless_incoming_message_event))
 
     expect(assigns[:xapian_bodies].matches_estimated).to eq(1)
     expect(assigns[:xapian_bodies].results.size).to eq(1)
-    expect(assigns[:xapian_bodies].results[0][:model]).to eq(public_bodies(:geraldine_public_body))
+    expect(assigns[:xapian_bodies].results[0][:model]).
+      to eq(public_bodies(:geraldine_public_body))
   end
 
   it "should filter results based on end of URL being 'all'" do
     get :search, params: { combined: "bob/all" }
-    expect(assigns[:xapian_requests].results.map { |x| x[:model] }).to match_array([
-      info_request_events(:useless_outgoing_message_event),
-      info_request_events(:silly_outgoing_message_event),
-      info_request_events(:useful_incoming_message_event),
-      info_request_events(:another_useful_incoming_message_event)
-    ])
-    expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([users(:bob_smith_user)])
+    expect(assigns[:xapian_requests].results.map { |x| x[:model] }).
+      to match_array(
+        [
+          info_request_events(:useless_outgoing_message_event),
+          info_request_events(:silly_outgoing_message_event),
+          info_request_events(:useful_incoming_message_event),
+          info_request_events(:another_useful_incoming_message_event)
+        ]
+      )
+    expect(assigns[:xapian_users].results.map { |x| x[:model] }).
+      to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies].results).to eq([])
   end
 
   it "should filter results based on end of URL being 'users'" do
     get :search, params: { combined: "bob/users" }
     expect(assigns[:xapian_requests]).to eq(nil)
-    expect(assigns[:xapian_users].results.map { |x| x[:model] }).to eq([users(:bob_smith_user)])
+    expect(assigns[:xapian_users].results.map { |x| x[:model] }).
+      to eq([users(:bob_smith_user)])
     expect(assigns[:xapian_bodies]).to eq(nil)
   end
 
@@ -270,12 +277,15 @@ RSpec.describe GeneralController, 'when using xapian search' do
 
   it "should filter results based on end of URL being 'requests'" do
     get :search, params: { combined: "bob/requests" }
-    expect(assigns[:xapian_requests].results.map { |x|x[:model] }).to match_array([
-      info_request_events(:useless_outgoing_message_event),
-      info_request_events(:silly_outgoing_message_event),
-      info_request_events(:useful_incoming_message_event),
-      info_request_events(:another_useful_incoming_message_event)
-    ])
+    expect(assigns[:xapian_requests].results.map { |x| x[:model] }).
+      to match_array(
+        [
+          info_request_events(:useless_outgoing_message_event),
+          info_request_events(:silly_outgoing_message_event),
+          info_request_events(:useful_incoming_message_event),
+          info_request_events(:another_useful_incoming_message_event)
+        ]
+      )
     expect(assigns[:xapian_users]).to eq(nil)
     expect(assigns[:xapian_bodies]).to eq(nil)
   end
@@ -284,7 +294,8 @@ RSpec.describe GeneralController, 'when using xapian search' do
     get :search, params: { combined: "quango/bodies" }
     expect(assigns[:xapian_requests]).to eq(nil)
     expect(assigns[:xapian_users]).to eq(nil)
-    expect(assigns[:xapian_bodies].results.map { |x|x[:model] }).to eq([public_bodies(:geraldine_public_body)])
+    expect(assigns[:xapian_bodies].results.map { |x| x[:model] }).
+      to eq([public_bodies(:geraldine_public_body)])
   end
 
   it 'should prioritise direct matches of public body names' do
@@ -348,14 +359,14 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it 'should pass xapian error messages to flash and redirect to a blank search page' do
-    error_text = "Your query was not quite right. QueryParserError: Syntax: <expression> AND <expression>"
+    error_text = "Your query was not quite right. " \
+      "QueryParserError: Syntax: <expression> AND <expression>"
     get :search, params: { combined: "test AND" }
     expect(flash[:error]).to eq(error_text)
     expect(response).to redirect_to(action: 'search', combined: "")
   end
 
   context "when passed a non-HTML request" do
-
     it "raises unknown format error" do
       expect do
         get :search, params: { combined: '"fancy dog"', format: :json }
@@ -370,6 +381,5 @@ RSpec.describe GeneralController, 'when using xapian search' do
         # noop
       end
     end
-
   end
 end

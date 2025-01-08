@@ -7,6 +7,8 @@ production:
 :queues:
   - default
   - xapian
+  - low
 
 :limits:
   xapian: 1
+  low: 1

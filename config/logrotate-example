@@ -1,1 +1,12 @@
-# Placeholder for logrotate config file
+# Rotate Rails logs
+<%= vhost_dir %>/<%= vcspath %>/log/*.log {
+    daily
+    missingok
+    rotate 28
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+    dateext
+    dateformat .%Y-%m-%d
+}

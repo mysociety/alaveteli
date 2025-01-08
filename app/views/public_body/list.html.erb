@@ -31,24 +31,17 @@
     </li>
   </ul>
 
-  <% first_row = true %>
-  <% for row in PublicBodyCategory.get().with_headings() %>
-    <% if row.instance_of?(Array) %>
-      <li>
-        <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_by_tag_path(row[0]) %>
-      </li>
-    <% else %>
-      <% if not first_row %>
-        </ul>
-      <% else %>
-        <% first_row = false %>
+  <% PublicBody.categories.each do |heading| %>
+    <h3><%= heading.title %></h3>
+    <ul>
+      <% heading.children.each do |category| %>
+        <% next unless category.category_tag.present? %>
+        <li>
+          <%= link_to_unless (@tag == category.category_tag),
+            category.title,
+            list_public_bodies_by_tag_path(category.category_tag) %>
+        </li>
       <% end %>
-      <h3><%=h row%></h3>
-      <ul>
-    <% end %>
-  <% end %>
-
-  <% if not first_row %>
     </ul>
   <% end %>
 

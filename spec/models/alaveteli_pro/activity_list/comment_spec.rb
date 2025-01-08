@@ -9,13 +9,11 @@ RSpec.describe AlaveteliPro::ActivityList::Comment do
   let!(:activity) { described_class.new(event) }
 
   describe '#description' do
-
     it 'gives an appropriate description for a comment from someone else' do
       expect(activity.description).
         to eq '{{commenter_name}} added a new annotation on your request to ' \
               '{{public_body_name}} "{{info_request_title}}."'
     end
-
 
     it 'gives an appropriate description for a comment from the requester' do
       info_request = event.info_request
@@ -28,7 +26,6 @@ RSpec.describe AlaveteliPro::ActivityList::Comment do
   end
 
   describe '#description_urls' do
-
     it 'returns a hash of :commenter_name, :public_body_name and
         :info_request_title' do
       expected_urls =
@@ -43,18 +40,14 @@ RSpec.describe AlaveteliPro::ActivityList::Comment do
       expect(activity.description_urls).
         to eq expected_urls
     end
-
   end
 
   it_behaves_like "an ActivityList::Item with standard #call_to_action"
 
   describe '#call_to_action_url' do
-
     it 'returns the url of the comment' do
       expect(activity.call_to_action_url).
         to eq comment_path(comment)
     end
-
   end
-
 end

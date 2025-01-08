@@ -21,7 +21,7 @@ RSpec.describe User do
       before do
         FactoryBot.create(
           :user_info_request_sent_alert,
-          user: user, alert_type: 'survey_1', created_at: 366.days.ago
+          user: user, alert_type: 'survey_1', created_at: 367.days.ago
         )
       end
 

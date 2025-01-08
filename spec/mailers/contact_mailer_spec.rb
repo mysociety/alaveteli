@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ContactMailer do
-
   describe :to_admin_message do
-
     it 'correctly quotes the name in a "from" address' do
       expect(ContactMailer.to_admin_message("A,B,C.",
                                      "test@example.com",
@@ -88,14 +86,13 @@ RSpec.describe ContactMailer do
         end
       end
     end
-
   end
 
   describe "#from_admin_message" do
     context "when the receiving user is a pro user" do
       let(:pro_user) { FactoryBot.create(:pro_user) }
 
-      it "sends messages from the pro contact address" do
+      it "sends messages from the blackhole address" do
         with_feature_enabled(:alaveteli_pro) do
           message = ContactMailer.from_admin_message(pro_user.name,
                                                      pro_user.email,
@@ -109,7 +106,7 @@ RSpec.describe ContactMailer do
     context "when the receiving user is a normal user" do
       let(:user) { FactoryBot.create(:user) }
 
-      it "sends messages from the normal contact address" do
+      it "sends messages from the blackhole address" do
         with_feature_enabled(:alaveteli_pro) do
           message = ContactMailer.from_admin_message(user.name,
                                                      user.email,
@@ -121,7 +118,7 @@ RSpec.describe ContactMailer do
     end
 
     context "when no receiving user can be found" do
-      it "sends messages from the normal contact address" do
+      it "sends messages from the blackhole address" do
         with_feature_enabled(:alaveteli_pro) do
           message = ContactMailer.from_admin_message("test user name",
                                                      "no-such-user@localhost",
@@ -132,5 +129,4 @@ RSpec.describe ContactMailer do
       end
     end
   end
-
 end

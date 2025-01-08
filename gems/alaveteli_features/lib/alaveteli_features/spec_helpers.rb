@@ -18,12 +18,14 @@ module AlaveteliFeatures
       config.before(:each) do |example|
         features = [example.metadata[:feature]].flatten
         next if features.empty?
+
         features.each { |f| with_feature_enabled(f) }
       end
 
       config.after(:each) do |example|
         features = [example.metadata[:feature]].flatten
         next if features.empty?
+
         features.each { |f| with_feature_disabled(f) }
       end
     end

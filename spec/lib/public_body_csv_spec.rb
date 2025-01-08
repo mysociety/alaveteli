@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe PublicBodyCSV do
+  around do |example|
+    disable_not_many_requests_auto_tagging { example.run }
+  end
 
   describe '.default_fields' do
-
     it 'has a default set of fields' do
-      defaults = [:name,
+      defaults = [:id,
+                  :name,
                   :short_name,
                   :url_name,
                   :tag_string,
@@ -21,9 +24,9 @@ RSpec.describe PublicBodyCSV do
   end
 
   describe '.default_headers' do
-
     it 'has a default set of headers' do
-      defaults = ['Name',
+      defaults = ['Internal ID',
+                  'Name',
                   'Short name',
                   'URL name',
                   'Tags',
@@ -39,13 +42,13 @@ RSpec.describe PublicBodyCSV do
   end
 
   describe '.export' do
-    it 'should return a valid CSV file with the right number of rows' do
+    it 'should return a valid CSV file with the right number of rows/columns' do
       all_data = CSV.parse(PublicBodyCSV.export)
       expect(all_data.length).to eq(7)
       # Check that the header has the right number of columns:
-      expect(all_data[0].length).to eq(11)
+      expect(all_data[0].length).to eq(12)
       # And an actual line of data:
-      expect(all_data[1].length).to eq(11)
+      expect(all_data[1].length).to eq(12)
     end
 
     it 'only includes visible bodies' do
@@ -65,7 +68,6 @@ RSpec.describe PublicBodyCSV do
   end
 
   describe '#fields' do
-
     it 'has a default set of fields' do
       csv = PublicBodyCSV.new
       expect(csv.fields).to eq(PublicBodyCSV.default_fields)
@@ -83,11 +85,9 @@ RSpec.describe PublicBodyCSV do
       csv = PublicBodyCSV.new(fields: custom_fields)
       expect(csv.fields).to eq(custom_fields)
     end
-
   end
 
   describe '#headers' do
-
     it 'has a default set of headers' do
       csv = PublicBodyCSV.new
       expect(csv.headers).to eq(PublicBodyCSV.default_headers)
@@ -98,20 +98,16 @@ RSpec.describe PublicBodyCSV do
       csv = PublicBodyCSV.new(headers: custom_headers)
       expect(csv.headers).to eq(custom_headers)
     end
-
   end
 
   describe '#rows' do
-
     it 'is empty on instantiation' do
       csv = PublicBodyCSV.new
       expect(csv.rows).to be_empty
     end
-
   end
 
   describe '#<<' do
-
     it 'adds an elements attributes to the rows collection' do
       attrs = { name: 'Exported to CSV',
                 short_name: 'CSV',
@@ -125,14 +121,12 @@ RSpec.describe PublicBodyCSV do
       csv = PublicBodyCSV.new
       csv << body
 
-      expected = ["Exported to CSV,CSV,csv,exported,https://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
+      expected = ["#{body.id},Exported to CSV,CSV,csv,exported,https://www.localhost,\"\",\"\",An exported authority,2007-10-25 10:51:01 UTC,2007-10-25 10:51:01 UTC,1"]
       expect(csv.rows).to eq(expected)
     end
-
   end
 
   describe '#generate' do
-
     it 'generates the csv' do
       attrs1 = { name: 'Exported to CSV 1',
                  short_name: 'CSV1',
@@ -168,7 +162,5 @@ RSpec.describe PublicBodyCSV do
       csv << body2
       expect(csv.generate).to eq(expected)
     end
-
   end
-
 end

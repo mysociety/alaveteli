@@ -27,6 +27,22 @@ RSpec.describe Project::Export do
     end
   end
 
+  describe '#data_for_web' do
+    subject { instance.data_for_web }
+
+    before do
+      allow(instance).to receive(:data).and_return(
+        [{ request: 'Foo', request_url: 'http://example.com' }]
+      )
+    end
+
+    it 'combine keys into anchor links' do
+      is_expected.to match_array [
+        { request: '<a href="http://example.com">Foo</a>' }
+      ]
+    end
+  end
+
   describe '#name' do
     let(:project) { instance_double('Project', id: 1, title: 'Test Project') }
     subject { instance.name }

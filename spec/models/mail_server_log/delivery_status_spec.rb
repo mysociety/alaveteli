@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe MailServerLog::DeliveryStatus do
-
   describe '.new' do
-
     it 'requires a status argument' do
       expect { described_class.new }.to raise_error(ArgumentError)
     end
@@ -11,49 +9,39 @@ RSpec.describe MailServerLog::DeliveryStatus do
     it 'requires a valid status' do
       expect { described_class.new(:invalid) }.to raise_error(ArgumentError)
     end
-
   end
 
   describe '#to_sym' do
-
     it 'returns the status as a Symbol' do
       expect(described_class.new(:delivered).to_sym).to eq(:delivered)
     end
-
   end
 
   describe '#to_s' do
-
     it 'returns the status as an untranslated String' do
       AlaveteliLocalization.with_locale(:es) do
         expect(described_class.new(:sent).to_s).to eq('sent')
       end
     end
-
   end
 
   describe '#to_s!' do
-
     it 'returns the status as a translated String' do
       AlaveteliLocalization.with_locale(:es) do
         expect(described_class.new(:sent).to_s!).to eq('expedido')
       end
     end
-
   end
 
   describe '#capitalize' do
-
     it 'returns the status as a capitalized translated String' do
       AlaveteliLocalization.with_locale(:es) do
         expect(described_class.new(:sent).capitalize).to eq('Expedido')
       end
     end
-
   end
 
   describe '#inspect' do
-
     it 'returns the default format' do
       subject = described_class.new(:delivered)
       obj_id = format("0x00%x", (subject.object_id << 1))
@@ -61,11 +49,9 @@ RSpec.describe MailServerLog::DeliveryStatus do
         %Q(#<#{described_class}:#{obj_id} @status=:delivered>)
       expect(subject.inspect).to eq(expected)
     end
-
   end
 
   describe '#<=>' do
-
     let(:statuses) do
       [:delivered,
        :unknown,
@@ -91,11 +77,9 @@ RSpec.describe MailServerLog::DeliveryStatus do
     it { expect(a >= b).to eq(false) }
     it { expect(a <= b).to eq(true) }
     it { expect(a == b).to eq(false) }
-
   end
 
   describe '#delivered?' do
-
     it 'returns true when the status is :delivered' do
       status = described_class.new(:delivered)
       expect(status.delivered?).to eq(true)
@@ -105,11 +89,9 @@ RSpec.describe MailServerLog::DeliveryStatus do
       status = described_class.new(:sent)
       expect(status.delivered?).to eq(false)
     end
-
   end
 
   describe '#sent?' do
-
     it 'returns true when the status is :sent' do
       status = described_class.new(:sent)
       expect(status.sent?).to eq(true)
@@ -124,11 +106,9 @@ RSpec.describe MailServerLog::DeliveryStatus do
       status = described_class.new(:failed)
       expect(status.sent?).to eq(false)
     end
-
   end
 
   describe '#failed?' do
-
     it 'returns true when the status is :failed' do
       status = described_class.new(:failed)
       expect(status.failed?).to eq(true)
@@ -138,11 +118,9 @@ RSpec.describe MailServerLog::DeliveryStatus do
       status = described_class.new(:delivered)
       expect(status.failed?).to eq(false)
     end
-
   end
 
   describe '#unknown?' do
-
     it 'returns true when the status is :unknown' do
       status = described_class.new(:unknown)
       expect(status.unknown?).to eq(true)
@@ -152,11 +130,9 @@ RSpec.describe MailServerLog::DeliveryStatus do
       status = described_class.new(:delivered)
       expect(status.unknown?).to eq(false)
     end
-
   end
 
   describe '#humanize' do
-
     it 'returns a humanized string for the :delivered status' do
       status = described_class.new(:delivered)
       expect(status.humanize).to eq('This message has been delivered.')
@@ -178,5 +154,4 @@ RSpec.describe MailServerLog::DeliveryStatus do
         to eq("We don't know the delivery status for this message.")
     end
   end
-
 end

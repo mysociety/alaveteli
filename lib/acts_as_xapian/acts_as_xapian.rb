@@ -16,6 +16,7 @@ require 'English'
 begin
   require 'xapian'
   $acts_as_xapian_bindings_available = true
+
 rescue LoadError
   STDERR.puts "acts_as_xapian: No Ruby bindings for Xapian installed"
   $acts_as_xapian_bindings_available = false
@@ -63,36 +64,47 @@ module ActsAsXapian
   def self.db
     @@db
   end
+
   def self.db_path=(db_path)
     @@db_path = db_path
   end
+
   def self.db_path
     @@db_path
   end
+
   def self.writable_db
     @@writable_db
   end
+
   def self.stemmer
     @@stemmer
   end
+
   def self.term_generator
     @@term_generator
   end
+
   def self.enquire
     @@enquire
   end
+
   def self.query_parser
     @@query_parser
   end
+
   def self.values_by_prefix
     @@values_by_prefix
   end
+
   def self.config
     @@config
   end
+
   def self.max_wildcard_expansion=(max_wildcard_expansion)
     @@max_wildcard_expansion = max_wildcard_expansion
   end
+
   def self.max_wildcard_expansion
     @@max_wildcard_expansion
   end
@@ -215,6 +227,7 @@ module ActsAsXapian
       unless index.is_a? Integer
         raise "Value index '#{index}' must be an Integer, is #{index.class}"
       end
+
       if @@values_by_number.include?(index) && @@values_by_number[index] != prefix
         raise "Already have value index '#{index}' in another model " \
           "but with different prefix '#{@@values_by_number[index]}'"
@@ -256,6 +269,7 @@ module ActsAsXapian
         raise "model and modelid are reserved for use as the model/id prefixes"
       end
       raise "Z is reserved for stemming terms" if term_code == "Z"
+
       if @@terms_by_capital.include?(term_code) && @@terms_by_capital[term_code] != prefix
         raise "Already have code '#{term_code}' in another model but with different prefix " \
           "'#{@@terms_by_capital[term_code]}'"
@@ -328,6 +342,7 @@ module ActsAsXapian
         unless limit
           raise "please specifiy maximum number of results to return with parameter :limit"
         end
+
         limit = limit.to_i
         sort_by_prefix = options[:sort_by_prefix] || nil
         sort_by_ascending = options[:sort_by_ascending].nil? ? true : options[:sort_by_ascending]
@@ -342,6 +357,7 @@ module ActsAsXapian
           if value.nil?
             raise "couldn't find prefix '" + sort_by_prefix.to_s + "'"
           end
+
           ActsAsXapian.enquire.sort_by_value_then_relevance!(value, sort_by_ascending)
         end
         if collapse_by_prefix.nil?
@@ -351,6 +367,7 @@ module ActsAsXapian
           if value.nil?
             raise "couldn't find prefix '" + collapse_by_prefix + "'"
           end
+
           ActsAsXapian.enquire.collapse_key = value
         end
 
@@ -366,6 +383,7 @@ module ActsAsXapian
             else
               sleep delay
             end
+
             tries += 1
             delay *= 2
             delay = MSET_MAX_DELAY if delay > MSET_MAX_DELAY
@@ -393,11 +411,8 @@ module ActsAsXapian
       #x = ''
       query.terms.each do |t|
         term = t.term
-        #x = x + term.to_yaml + term.size.to_s + term[0..0] + "*"
-        if term.size >= 2 && term[0..0] == 'Z'
-          # normal terms begin Z (for stemmed), then have no capital letter prefix
-          ret = true if term[1..1] == term[1..1].downcase
-        end
+        # normal terms begin Z (for stemmed), or have no capital letter prefix
+        ret = true if term[0..0] == 'Z' || term[0..0] == term[0..0].downcase
       end
       ret
     end
@@ -411,6 +426,7 @@ module ActsAsXapian
     def spelling_correction
       correction = ActsAsXapian.query_parser.get_corrected_query_string
       return nil if correction.empty?
+
       correction.force_encoding('UTF-8')
     end
 
@@ -495,6 +511,7 @@ module ActsAsXapian
         if model_class.class != Class && model_class.class != String
           raise "pass in the model class itself, or a string containing its name"
         end
+
         model_class = model_class.constantize if model_class.class == String
         new_model_classes.push(model_class)
       end
@@ -572,7 +589,6 @@ module ActsAsXapian
     def correctly_encode(w)
       w.force_encoding('UTF-8')
     end
-
   end
 
   # Search for models which contain theimportant terms taken from a specified
@@ -757,6 +773,7 @@ module ActsAsXapian
           end
           run_job(job, flush, verbose)
         end
+
       rescue StandardError, NoMemoryError => error
         # print any error, and carry on so other things are indexed
         model_data = { model: job.try(:model), model_id: job.try(:model_id) }
@@ -795,6 +812,7 @@ module ActsAsXapian
       else
         raise "unknown ActsAsXapianJob action '#{job.action}'"
       end
+
     rescue ActiveRecord::RecordNotFound => e
       # this can happen if the record was hand deleted in the database
       job.action = 'destroy'
@@ -842,6 +860,7 @@ module ActsAsXapian
       unless ActsAsXapian._is_xapian_db(new_path)
         raise "found existing " + new_path + " which is not Xapian chert or glass database, please delete for me"
       end
+
       FileUtils.rm_r(new_path)
     end
     FileUtils.cp_r(old_path, new_path) if update_existing
@@ -876,6 +895,7 @@ module ActsAsXapian
       unless ActsAsXapian._is_xapian_db(temp_path)
         raise "temporary database found " + temp_path + " which is not Xapian chert or glass database, please delete for me"
       end
+
       FileUtils.rm_r(temp_path)
     end
     FileUtils.mv old_path, temp_path if File.exist?(old_path)
@@ -935,7 +955,6 @@ module ActsAsXapian
         end
 
         ActiveRecord::Base.establish_connection
-
       end
     end
   end
@@ -1121,6 +1140,7 @@ module ActsAsXapian
       if respond_to?(:no_xapian_reindex) && no_xapian_reindex == true
         return true
       end
+
       xapian_mark_needs_index
     end
 
@@ -1135,6 +1155,7 @@ module ActsAsXapian
                                   model_id: model_id,
                                   action: action)
         end
+
       rescue ActiveRecord::RecordNotUnique => e
         # Given the error handling in ActsAsXapian::update_index, we can just fail silently if
         # another process has inserted an acts_as_xapian_jobs record for this model.
@@ -1147,7 +1168,6 @@ module ActsAsXapian
     # A hook method that can be used in tests to simulate e.g. an external process inserting a record
     def xapian_before_create_job_hook(action, model, model_id)
     end
-
   end
 
   ######################################################################
@@ -1170,7 +1190,6 @@ module ActsAsXapian
       after_destroy :xapian_mark_needs_destroy
     end
   end
-
 end
 
 # Reopen ActiveRecord and include the acts_as_xapian method

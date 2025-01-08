@@ -11,7 +11,6 @@
 require 'spec_helper'
 
 RSpec.describe RawEmail do
-
   def roundtrip_data(raw_email, data)
     raw_email.data = data
     raw_email.save!
@@ -131,7 +130,6 @@ RSpec.describe RawEmail do
       allow(raw_email).to receive(:mail!).and_return(double('updated'))
       expect(raw_email.mail).to eq(initial)
     end
-
   end
 
   describe '#mail!' do
@@ -169,7 +167,6 @@ RSpec.describe RawEmail do
       # version, _not_ the initial cache
       expect(raw_email.mail).to eq(updated)
     end
-
   end
 
   describe '#data' do
@@ -191,7 +188,6 @@ RSpec.describe RawEmail do
   end
 
   describe '#data_as_text' do
-
     it 'returns a utf-8 string with a valid encoding if the data is non-ascii and non-utf8' do
       raw_email = FactoryBot.create(:incoming_message).raw_email
       roundtrip_data(raw_email, "\xA0ccc")
@@ -200,7 +196,6 @@ RSpec.describe RawEmail do
       expect(data_as_text.encoding.to_s).to eq('UTF-8')
       expect(data_as_text.valid_encoding?).to be true
     end
-
   end
 
   describe '#from_email_domain' do

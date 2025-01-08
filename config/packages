@@ -15,6 +15,7 @@ libicu-dev
 libmagic-dev
 libmagickwand-dev
 libpq-dev
+libreoffice-calc-nogui
 libsqlite3-dev
 libxml2-dev
 libxslt1-dev
@@ -27,6 +28,7 @@ poppler-utils
 rake (>= 0.9.2.2)
 rdoc
 redis
+rsyslog
 ruby
 ruby-dev
 sqlite3

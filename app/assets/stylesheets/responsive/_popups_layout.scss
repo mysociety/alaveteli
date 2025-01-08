@@ -9,20 +9,24 @@
 .popup__close {
   position: absolute;
   display: inline-block;;
-  top: -0.25em;
+  top: 50%;
+  transform: translateY(-50%); // positions the icon vertically in the middle of the banner.
   right: 0.9375rem; // equal to the padding of .popup minus padding
   z-index: 50;
   padding: 0.5em;
+  font-size: 1.5rem; // The element's clickable area is big enough
 }
 
 .popup__content {
 
     padding-top: 1em;
     padding-bottom: 1em;
+    text-align: center;
     @include grid-column(12);
+    padding-right: 2.5rem; // No overlapping with the close button in smaller screens
     @include ie8{
       padding-left: 0.9375em;
-      padding-right: 0.9375em;
+      padding-right: 2.5rem;
     }
 }
 

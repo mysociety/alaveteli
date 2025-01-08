@@ -19,6 +19,5 @@
 # The unique_id field represents the unique identifier applied to a given
 # mail in the POP mailbox.
 class IncomingMessageError < ApplicationRecord
-
   validates_presence_of :unique_id
 end

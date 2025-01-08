@@ -2,9 +2,6 @@ require 'spec_helper'
 require "cancan/matchers"
 
 RSpec.shared_examples_for "a class with message prominence" do
-  let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
-  let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
-
   context 'if the prominence is hidden' do
     let(:prominence) { 'hidden' }
 
@@ -55,6 +52,11 @@ RSpec.shared_examples_for "a class with message prominence" do
 end
 
 RSpec.describe Ability do
+  let(:pro_ability) { Ability.new(FactoryBot.create(:pro_user)) }
+  let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
+  let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
+  let(:guest_ability) { Ability.guest }
+
   describe '.guest' do
     it 'returns Ability instance with no user' do
       guest = Ability.guest
@@ -193,7 +195,6 @@ RSpec.describe Ability do
         end
 
         context 'with pro enabled' do
-
           it 'should return false for an admin user' do
             with_feature_enabled(:alaveteli_pro) do
               expect(admin_ability).not_to be_able_to(:read, resource)
@@ -228,7 +229,6 @@ RSpec.describe Ability do
         end
 
         context 'with pro enabled' do
-
           it 'should return false for an admin user' do
             with_feature_enabled(:alaveteli_pro) do
               expect(admin_ability).not_to be_able_to(:read, resource)
@@ -240,7 +240,6 @@ RSpec.describe Ability do
               expect(pro_admin_ability).to be_able_to(:read, resource)
             end
           end
-
         end
 
         it 'should return false if the user does not own the right resource' do
@@ -260,7 +259,6 @@ RSpec.describe Ability do
         end
 
         context 'with pro enabled' do
-
           it 'should return false for an admin user' do
             with_feature_enabled(:alaveteli_pro) do
               expect(admin_ability).not_to be_able_to(:read, resource)
@@ -272,7 +270,6 @@ RSpec.describe Ability do
               expect(pro_admin_ability).to be_able_to(:read, resource)
             end
           end
-
         end
 
         context 'with project' do
@@ -357,9 +354,66 @@ RSpec.describe Ability do
           expect(owner_ability).to be_able_to(:read, resource)
         end
       end
+    end
+  end
 
+  describe 'create_citation' do
+    let(:info_request) { InfoRequest.new(user: owner) }
+    let(:info_request_batch) { InfoRequestBatch.new(user: owner) }
+    let(:owner) { nil }
+
+    context 'when the user is an admin' do
+      it 'allows creating citations for InfoRequest' do
+        expect(admin_ability).to be_able_to(:create_citation, info_request)
+      end
+
+      it 'allows creating citations for InfoRequestBatch' do
+        expect(admin_ability).to be_able_to(:create_citation, info_request_batch)
+      end
     end
 
+    context 'when the user is a pro' do
+      it 'allows creating citations for InfoRequest' do
+        expect(pro_ability).to be_able_to(:create_citation, info_request)
+      end
+
+      it 'allows creating citations for InfoRequestBatch' do
+        expect(pro_ability).to be_able_to(:create_citation, info_request_batch)
+      end
+    end
+
+    context 'when the user is the owner of the content' do
+      let(:owner) { FactoryBot.create(:user) }
+      let(:owner_ability) { Ability.new(owner) }
+
+      it 'allows creating citations for their own InfoRequest' do
+        expect(owner_ability).to be_able_to(:create_citation, info_request)
+      end
+
+      it 'allows creating citations for their own InfoRequestBatch' do
+        expect(owner_ability).to be_able_to(:create_citation, info_request_batch)
+      end
+    end
+
+    context 'when the user is not the owner and does not have special permissions' do
+      it 'does not allow creating citations for InfoRequest' do
+        expect(other_user_ability).not_to be_able_to(:create_citation, info_request)
+      end
+
+      it 'does not allow creating citations for InfoRequestBatch' do
+        expect(other_user_ability).not_to be_able_to(:create_citation, info_request_batch)
+      end
+    end
+
+    context 'when there is no user' do
+      it 'does not allow creating citations for InfoRequest' do
+        expect(guest_ability).not_to be_able_to(:create_citation, info_request)
+      end
+
+      it 'does not allow creating citations for InfoRequestBatch' do
+        expect(guest_ability).not_to be_able_to(:create_citation, info_request_batch)
+      end
+    end
   end
 
   describe 'sharing InfoRequests' do
@@ -669,7 +723,6 @@ RSpec.describe Ability do
       end
 
       context "when the user owns the batch" do
-
         it 'allows pro users to update the batch' do
           ability = Ability.new(resource.user)
           with_feature_enabled(:alaveteli_pro) do
@@ -684,7 +737,6 @@ RSpec.describe Ability do
             expect(ability).not_to be_able_to(:update, resource)
           end
         end
-
       end
 
       context "when the user is a pro_admin" do
@@ -832,7 +884,6 @@ RSpec.describe Ability do
           ability = Ability.new(info_request.user)
           expect(ability).to be_able_to(:create_embargo, info_request)
         end
-
       end
 
       it "allows pro admins to add an embargo" do
@@ -857,9 +908,7 @@ RSpec.describe Ability do
             expect(ability).to_not be_able_to(:create_embargo, batch_request)
           end
         end
-
       end
-
     end
 
     context 'the info request owner is not a pro user' do
@@ -875,7 +924,6 @@ RSpec.describe Ability do
           ability = Ability.new(user)
           expect(ability).not_to be_able_to(:create_embargo, info_request)
         end
-
       end
 
       it "prevents pro admins adding an embargo" do
@@ -884,7 +932,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:create_embargo, info_request)
         end
       end
-
     end
 
     context 'the info request was made anonymously', feature: :alaveteli_pro do
@@ -904,13 +951,10 @@ RSpec.describe Ability do
         ability = Ability.new(FactoryBot.create(:pro_admin_user))
         expect(ability).not_to be_able_to(:create_embargo, info_request)
       end
-
     end
-
   end
 
   describe "Updating Embargoes" do
-
     let(:embargo) do
       FactoryBot.create(:embargo, user: FactoryBot.create(:pro_user))
     end
@@ -965,7 +1009,6 @@ RSpec.describe Ability do
   end
 
   describe "Destroying Embargoes" do
-
     let(:embargo) do
       FactoryBot.create(:embargo, user: FactoryBot.create(:pro_user))
     end
@@ -1016,11 +1059,9 @@ RSpec.describe Ability do
         expect(ability).not_to be_able_to(:destroy, embargo)
       end
     end
-
   end
 
   describe "Destroying Batch Embargoes" do
-
     let(:batch) do
       FactoryBot.create(:info_request_batch, :embargoed,
                         user: FactoryBot.create(:pro_user))
@@ -1072,7 +1113,6 @@ RSpec.describe Ability do
         expect(ability).not_to be_able_to(:destroy_embargo, batch)
       end
     end
-
   end
 
   describe "Logging in as a user" do
@@ -1082,7 +1122,6 @@ RSpec.describe Ability do
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'when the user has no roles' do
-
       it 'allows an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(admin_user)
@@ -1110,11 +1149,9 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:login_as, user)
         end
       end
-
     end
 
     context 'when the user is an admin' do
-
       it 'allows an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(FactoryBot.create(:admin_user))
@@ -1142,11 +1179,9 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:login_as, admin_user)
         end
       end
-
     end
 
     context 'when the user is a pro' do
-
      it 'does not allow an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(admin_user)
@@ -1181,11 +1216,9 @@ RSpec.describe Ability do
           expect(ability).to be_able_to(:login_as, pro_user)
         end
       end
-
     end
 
     context 'when the user is a pro_admin user' do
-
       it 'does not allow an admin user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(admin_user)
@@ -1266,7 +1299,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:admin, info_request)
         end
       end
-
     end
 
     context 'when the request is not embargoed' do
@@ -1352,7 +1384,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:admin, batch)
         end
       end
-
     end
 
     context 'when the batch is not embargoed' do
@@ -1440,7 +1471,6 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:admin, comment)
         end
       end
-
     end
 
     context 'when the request is not embargoed' do
@@ -1525,7 +1555,6 @@ RSpec.describe Ability do
         expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
       end
     end
-
   end
 
   describe 'reading API keys' do
@@ -1535,7 +1564,6 @@ RSpec.describe Ability do
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     context 'if pro is not enabled' do
-
       it 'allows an admin user to read' do
         ability = Ability.new(admin_user)
         expect(ability).to be_able_to(:read, :api_key)
@@ -1555,11 +1583,9 @@ RSpec.describe Ability do
         ability = Ability.guest
         expect(ability).not_to be_able_to(:read, :api_key)
       end
-
     end
 
     context 'if pro is enabled' do
-
       it 'allows a pro admin user to read' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(pro_admin_user)
@@ -1594,201 +1620,191 @@ RSpec.describe Ability do
           expect(ability).not_to be_able_to(:read, :api_key)
         end
       end
-
     end
+  end
+end
 
+RSpec.describe Ability, 'with project' do
+  let(:owner_ability) { Ability.new(owner, project: project) }
+  let(:contributor_ability) { Ability.new(contributor, project: project) }
+  let(:non_contributor_ability) do
+    Ability.new(non_contributor, project: project)
+  end
+  let(:admin_ability) do
+    Ability.new(FactoryBot.create(:admin_user), project: project)
+  end
+  let(:pro_admin_ability) do
+    Ability.new(FactoryBot.create(:pro_admin_user), project: project)
+  end
+  let(:guest_ability) { Ability.guest }
+
+  let(:owner) { FactoryBot.create(:user) }
+  let(:contributor) { FactoryBot.create(:user) }
+  let(:non_contributor) { FactoryBot.create(:user) }
+
+  let(:project) do
+    project = FactoryBot.create(:project, owner: owner)
+    project.contributors << contributor
+    project
   end
 
   describe 'read projects', feature: :projects do
-    let(:ability) { Ability.new(user) }
-    let(:owner) { FactoryBot.create(:user) }
-    let(:contributor) { FactoryBot.create(:user) }
-
-    let(:project) do
-      project = FactoryBot.create(:project, owner: owner)
-      project.contributors << contributor
-      project
+    it 'project owner can read the project' do
+      expect(owner_ability).to be_able_to(:read, project)
     end
 
-    context 'when the user is a project owner' do
-      let(:user) { owner }
+    it 'project contributors can read the project' do
+      expect(contributor_ability).to be_able_to(:read, project)
+    end
 
-      it 'they can read the project' do
-        expect(ability).to be_able_to(:read, project)
+    it 'pro admins can read the project' do
+      expect(pro_admin_ability).to be_able_to(:read, project)
+    end
+
+    it 'admins cannot read the project' do
+      expect(admin_ability).not_to be_able_to(:read, project)
+    end
+
+    it 'non project contributors cannot read the project' do
+      expect(non_contributor_ability).not_to be_able_to(:read, project)
+    end
+
+    it 'logged out users cannot read the project' do
+      expect(guest_ability).not_to be_able_to(:read, project)
+    end
+  end
+
+  describe 'read projects when projects feature is disabled' do
+    it 'project owner cannot read the project' do
+      expect(owner_ability).not_to be_able_to(:read, project)
+    end
+  end
+
+  describe 'edit projects', feature: :projects do
+    it 'project owner can edit the project' do
+      expect(owner_ability).to be_able_to(:edit, project)
+    end
+
+    it 'project contributors cannot edit the project' do
+      expect(contributor_ability).not_to be_able_to(:edit, project)
+    end
+
+    it 'pro admins can edit the project' do
+      expect(pro_admin_ability).to be_able_to(:edit, project)
+    end
+
+    it 'admins cannot edit the project' do
+      expect(admin_ability).not_to be_able_to(:edit, project)
+    end
+
+    it 'non project contributors cannot edit the project' do
+      expect(non_contributor_ability).not_to be_able_to(:edit, project)
+    end
+
+    it 'logged out users cannot edit the project' do
+      expect(guest_ability).not_to be_able_to(:edit, project)
+    end
+  end
+
+  describe 'edit projects when projects feature is disabled' do
+    it 'project owner cannot edit the project' do
+      expect(owner_ability).not_to be_able_to(:edit, project)
+    end
+  end
+
+  describe 'leave from projects', feature: :projects do
+    it 'project owner cannot remove themselves from the project' do
+      expect(owner_ability).not_to be_able_to(:leave, project)
+    end
+
+    it 'project contributors can remove themselves from the project' do
+      expect(contributor_ability).to be_able_to(:leave, project)
+    end
+
+    it 'non project contributors cannot remove themselves from the project' do
+      expect(non_contributor_ability).not_to be_able_to(:leave, project)
+    end
+  end
+
+  describe 'view dataset key set', feature: :projects do
+    let(:resource) { project }
+    let(:key_set) { FactoryBot.create(:dataset_key_set, resource: resource) }
+
+    context 'when the resource is a info request' do
+      let(:resource) { FactoryBot.create(:info_request) }
+
+      it 'project owner cannot view the dataset key set' do
+        expect(owner_ability).not_to be_able_to(:view, key_set)
       end
     end
 
-    context 'when the user is a project contributor' do
-      let(:user) { contributor }
+    context 'when the resource is a info request batch' do
+      let(:resource) { FactoryBot.create(:info_request_batch) }
 
-      it 'they can read the project' do
-        expect(ability).to be_able_to(:read, project)
+      it 'project owner cannot view the dataset key set' do
+        expect(owner_ability).not_to be_able_to(:view, key_set)
       end
     end
 
-    context 'when the user is a pro_admin' do
-      let(:user) { FactoryBot.create(:pro_admin_user) }
-
-      it 'they can read the project' do
-        expect(ability).to be_able_to(:read, project)
-      end
+    it 'project owner can view the dataset key set' do
+      expect(owner_ability).to be_able_to(:view, key_set)
     end
 
-    context 'when the user is an admin' do
-      let(:user) { FactoryBot.create(:admin_user) }
-
-      it 'they cannot read the project' do
-        expect(ability).not_to be_able_to(:read, project)
-      end
+    it 'project contributors cannot view the dataset key set' do
+      expect(contributor_ability).not_to be_able_to(:view, key_set)
     end
 
-    context 'when the user is not a project member' do
-      let(:user) { FactoryBot.create(:user) }
-
-      it 'they cannot read the project' do
-        expect(ability).not_to be_able_to(:read, project)
-      end
+    it 'pro admins can view the dataset key set' do
+      expect(pro_admin_ability).to be_able_to(:view, key_set)
     end
 
-    context 'when there is no user' do
-      let(:user) { nil }
-
-      it 'they cannot read the project' do
-        expect(ability).not_to be_able_to(:read, project)
-      end
+    it 'admins cannot view the dataset key set' do
+      expect(admin_ability).not_to be_able_to(:view, key_set)
     end
 
-    context 'with the feature disabled' do
-      let(:user) { owner }
+    it 'non project contributors cannot view the dataset key set' do
+      expect(non_contributor_ability).not_to be_able_to(:view, key_set)
+    end
 
-      it 'they cannot read the project' do
-        with_feature_disabled(:projects) do
-          expect(ability).not_to be_able_to(:read, project)
-        end
+    it 'logged out users cannot view the dataset key set' do
+      expect(guest_ability).not_to be_able_to(:view, key_set)
+    end
+
+    context 'when project dataset is public' do
+      let(:resource) { FactoryBot.create(:project, dataset_public: true) }
+
+      it 'project owner can view the dataset key set' do
+        expect(owner_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'project contributors not view the dataset key set' do
+        expect(contributor_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'pro admins can view the dataset key set' do
+        expect(pro_admin_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'admins not view the dataset key set' do
+        expect(admin_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'non project contributors not view the dataset key set' do
+        expect(non_contributor_ability).to be_able_to(:view, key_set)
+      end
+
+      it 'logged out users can view the dataset key set' do
+        expect(guest_ability).to be_able_to(:view, key_set)
       end
     end
   end
 
-  describe 'remove_contributor from projects', feature: :projects do
-    let(:ability) { Ability.new(user, project: project) }
+  describe 'view dataset key set when projects feature is disabled' do
+    let(:resource) { project }
+    let(:key_set) { FactoryBot.create(:dataset_key_set, resource: resource) }
 
-    let(:owner) { FactoryBot.create(:user) }
-    let(:contributor_a) { FactoryBot.create(:user) }
-    let(:contributor_b) { FactoryBot.create(:user) }
-
-    let(:project) do
-      project = FactoryBot.create(:project, owner: owner)
-      project.contributors << contributor_a
-      project.contributors << contributor_b
-      project
-    end
-
-    context 'when the user is a project owner' do
-      let(:user) { owner }
-
-      it 'they can remove a contributor from the project' do
-        expect(ability).to be_able_to(:remove_contributor, contributor_a)
-      end
-
-      it 'they cannot remove themselves from the project' do
-        expect(ability).not_to be_able_to(:remove_contributor, owner)
-      end
-
-      it 'they cannot remove non-members from the project' do
-        expect(ability).
-          not_to be_able_to(:remove_contributor, FactoryBot.create(:user))
-      end
-    end
-
-    context 'when the user is a project contributor' do
-      let(:user) { contributor_a }
-
-      it 'they can remove themselves from the project' do
-        expect(ability).to be_able_to(:remove_contributor, user)
-      end
-
-      it 'they cannot remove owners from the project' do
-        expect(ability).not_to be_able_to(:remove_contributor, owner)
-      end
-
-      it 'they cannot remove other contributors from the project' do
-        expect(ability).not_to be_able_to(:remove_contributor, contributor_b)
-      end
-
-      it 'they cannot remove non-members from the project' do
-        expect(ability).
-          not_to be_able_to(:remove_contributor, FactoryBot.create(:user))
-      end
-    end
-  end
-
-  describe 'download projects', feature: :projects do
-    let(:ability) { Ability.new(user) }
-    let(:owner) { FactoryBot.create(:user) }
-    let(:contributor) { FactoryBot.create(:user) }
-
-    let(:project) do
-      project = FactoryBot.create(:project, owner: owner)
-      project.contributors << contributor
-      project
-    end
-
-    context 'when the user is a project owner' do
-      let(:user) { owner }
-
-      it 'they can download the project' do
-        expect(ability).to be_able_to(:download, project)
-      end
-    end
-
-    context 'when the user is a project contributor' do
-      let(:user) { contributor }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
-    end
-
-    context 'when the user is a pro_admin' do
-      let(:user) { FactoryBot.create(:pro_admin_user) }
-
-      it 'they can download the project' do
-        expect(ability).to be_able_to(:download, project)
-      end
-    end
-
-    context 'when the user is an admin' do
-      let(:user) { FactoryBot.create(:admin_user) }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
-    end
-
-    context 'when the user is not a project member' do
-      let(:user) { FactoryBot.create(:user) }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
-    end
-
-    context 'when there is no user' do
-      let(:user) { nil }
-
-      it 'they cannot download the project' do
-        expect(ability).not_to be_able_to(:download, project)
-      end
-    end
-
-    context 'with the feature disabled' do
-      let(:user) { owner }
-
-      it 'they cannot download the project' do
-        with_feature_disabled(:projects) do
-          expect(ability).not_to be_able_to(:download, project)
-        end
-      end
+    it 'project owner cannot view the dataset key set' do
+      expect(owner_ability).not_to be_able_to(:view, key_set)
     end
   end
 end

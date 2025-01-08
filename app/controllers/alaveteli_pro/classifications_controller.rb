@@ -10,7 +10,7 @@ class AlaveteliPro::ClassificationsController < AlaveteliPro::BaseController
     set_described_state
 
     flash[:notice] = _('Your request has been updated!')
-    redirect_to show_alaveteli_pro_request_path(
+    redirect_to show_request_path(
       url_title: @info_request.url_title
     )
   end

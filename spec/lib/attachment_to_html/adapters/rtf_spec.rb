@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::RTF do
-
   let(:attachment) { FactoryBot.create(:rtf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::RTF.new(attachment) }
 
   describe :tmpdir do
-
     it 'defaults to the rails tmp directory' do
       expect(adapter.tmpdir).to eq(Rails.root.join('tmp'))
     end
@@ -15,19 +13,15 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment, tmpdir: '/tmp')
       expect(adapter.tmpdir).to eq('/tmp')
     end
-
   end
 
   describe :title do
-
     it 'uses the attachment filename for the title' do
       expect(adapter.title).to eq(attachment.display_filename)
     end
-
   end
 
   describe :body do
-
     it 'extracts the body from the document' do
       expect(adapter.body).to include('thisisthebody')
     end
@@ -70,12 +64,9 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
       allow(AlaveteliExternalCommand).to receive(:run).and_return(nil)
       expect(adapter.body).to eq('')
     end
-
   end
 
-
   describe :success? do
-
     it 'is truthy if the body has content excluding the tags' do
       allow(adapter).to receive(:body).and_return('<p>some content</p>')
       expect(adapter.success?).to be_truthy
@@ -90,7 +81,5 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
       allow(adapter).to receive(:body).and_return('<p></p>')
       expect(adapter.success?).to be_falsey
     end
-
   end
-
 end

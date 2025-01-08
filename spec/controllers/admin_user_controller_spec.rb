@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminUserController do
-
   describe 'GET index' do
-
     it 'renders the index template' do
       get :index
       expect(response).to render_template('index')
@@ -133,7 +131,6 @@ RSpec.describe AdminUserController do
       get :index, params: { roles: %w[admin pro] }
       expect(assigns[:admin_users]).to eq([admin_user, pro_user])
     end
-
   end
 
   describe 'GET #show' do
@@ -162,7 +159,6 @@ RSpec.describe AdminUserController do
     end
 
     context 'when pro is enabled' do
-
       it 'does not include embargoed requests if the current user is
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -182,7 +178,6 @@ RSpec.describe AdminUserController do
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
-
     end
 
     it "assigns the user's comments to the view" do
@@ -204,7 +199,6 @@ RSpec.describe AdminUserController do
     end
 
     context 'when pro is enabled' do
-
       it 'does not include comments on embargoed requests if the current user is
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -228,17 +222,16 @@ RSpec.describe AdminUserController do
           expect(assigns[:comments]).to eq([comment])
         end
       end
-
     end
-
   end
 
   describe "POST #update" do
-
     let(:admin_user) { FactoryBot.create(:admin_user) }
 
     before do
-      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
+      allow(AlaveteliConfiguration).
+        to receive(:skip_admin_auth).
+        and_return(false)
     end
 
     it "saves a change to 'can_make_batch_requests'" do
@@ -303,15 +296,16 @@ RSpec.describe AdminUserController do
     it "unsets the user's roles if no role ids are supplied" do
       expect(admin_user.is_admin?).to be true
       sign_in admin_user
-      post :update, params: { id: admin_user.id,
-                              admin_user: {
-                                name: admin_user.name,
-                                ban_text: admin_user.ban_text,
-                                about_me: admin_user.about_me,
-                                no_limit: admin_user.no_limit,
-                                confirmed_not_spam:                                   admin_user.confirmed_not_spam
-                              }
-                            }
+      post :update, params: {
+        id: admin_user.id,
+        admin_user: {
+          name: admin_user.name,
+          ban_text: admin_user.ban_text,
+          about_me: admin_user.about_me,
+          no_limit: admin_user.no_limit,
+          confirmed_not_spam: admin_user.confirmed_not_spam
+        }
+      }
       user = User.find(admin_user.id)
       expect(user.is_admin?).to be false
     end
@@ -354,11 +348,9 @@ RSpec.describe AdminUserController do
       user = User.find(user.id)
       expect(user.is_pro?).to be false
     end
-
   end
 
   describe 'POST modify_comment_visibility' do
-
     before(:each) do
       @user = FactoryBot.create(:user)
       request.env["HTTP_REFERER"] = admin_user_path(@user)
@@ -386,7 +378,8 @@ RSpec.describe AdminUserController do
                                          hide_selected: 'hidden'
                                        }
 
-      Comment.find(comment_ids).each { |comment| expect(comment).not_to be_visible }
+      Comment.find(comment_ids).
+        each { |comment| expect(comment).not_to be_visible }
     end
 
     it 'sets the given comments visibility to visible' do

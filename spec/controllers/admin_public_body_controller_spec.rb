@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminPublicBodyController do
-
   describe 'GET #index' do
-
     it "returns successfully" do
       get :index
       expect(response).to be_successful
@@ -11,14 +9,15 @@ RSpec.describe AdminPublicBodyController do
 
     it "searches for 'humpa'" do
       get :index, params: { query: "humpa" }
-      expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
+      expect(assigns[:public_bodies]).
+        to eq([public_bodies(:humpadink_public_body)])
     end
 
     it "searches for 'humpa' in another locale" do
-      get :index, params: { query: "humpa", locale: "es" }
-      expect(assigns[:public_bodies]).to eq([ public_bodies(:humpadink_public_body) ])
+      get :index, params: { query: "humpa" }, session: { locale: "es" }
+      expect(assigns[:public_bodies]).
+        to eq([public_bodies(:humpadink_public_body)])
     end
-
   end
 
   describe 'GET #show' do
@@ -46,7 +45,7 @@ RSpec.describe AdminPublicBodyController do
         public_body.save!
       end
       sign_in admin_user
-      get :show, params: { id: public_body.id, locale: "es" }
+      get :show, params: { id: public_body.id }, session: { locale: 'es' }
       expect(assigns[:public_body].name).to eq 'El Public Body'
     end
 
@@ -59,7 +58,6 @@ RSpec.describe AdminPublicBodyController do
     end
 
     context 'when pro is enabled' do
-
       it 'does not include embargoed requests if the current user is
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
@@ -69,7 +67,6 @@ RSpec.describe AdminPublicBodyController do
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
       end
-
 
       it 'includes embargoed requests if the current user is a pro admin
           user' do
@@ -81,11 +78,9 @@ RSpec.describe AdminPublicBodyController do
         end
       end
     end
-
   end
 
   describe 'GET #new' do
-
     it 'responds successfully' do
       get :new
       expect(response).to be_successful
@@ -117,25 +112,25 @@ RSpec.describe AdminPublicBodyController do
       it 'should populate the name, email address and last edit comment on the public body' do
         change_request = FactoryBot.create(:add_body_request)
         get :new, params: { change_request_id: change_request.id }
-        expect(assigns[:public_body].name).to eq(change_request.public_body_name)
-        expect(assigns[:public_body].request_email).to eq(change_request.public_body_email)
-        expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
+        expect(assigns[:public_body].name).
+          to eq(change_request.public_body_name)
+        expect(assigns[:public_body].request_email).
+          to eq(change_request.public_body_email)
+        expect(assigns[:public_body].last_edit_comment).
+          to match('Notes: Please')
       end
 
       it 'should assign a default response text to the view' do
         change_request = FactoryBot.create(:add_body_request)
         get :new, params: { change_request_id: change_request.id }
-        expect(assigns[:change_request_user_response]).to match("Thanks for your suggestion to add A New Body")
+        expect(assigns[:change_request_user_response]).
+          to match("Thanks for your suggestion to add A New Body")
       end
-
     end
-
   end
 
   describe "POST #create" do
-
     context 'on success' do
-
       before(:each) do
         @params = { public_body: { name: 'New Quango',
                                       short_name: 'nq',
@@ -171,11 +166,9 @@ RSpec.describe AdminPublicBodyController do
         post :create, params: @params
         expect(response).to redirect_to(admin_body_path(assigns(:public_body)))
       end
-
     end
 
     context 'on success for multiple locales' do
-
       before(:each) do
         @params = { public_body: { name: 'New Quango',
                                       short_name: 'nq',
@@ -220,11 +213,9 @@ RSpec.describe AdminPublicBodyController do
           expect(body.first_letter).to eq('L')
         end
       end
-
     end
 
     context 'on failure' do
-
       it 'renders the form if creating the record was unsuccessful' do
         post :create, params: {
                         public_body: {
@@ -245,11 +236,9 @@ RSpec.describe AdminPublicBodyController do
                       }
         expect(assigns(:public_body).request_email).to eq('newquango@localhost')
       end
-
     end
 
     context 'on failure for multiple locales' do
-
       before(:each) do
         @params = { public_body: { name: '',
                                       request_email: 'newquango@localhost',
@@ -273,11 +262,9 @@ RSpec.describe AdminPublicBodyController do
           expect(assigns(:public_body).name).to eq('Los Quango')
         end
       end
-
     end
 
     context 'when the body is being created as a result of a change request' do
-
       before do
         @change_request = FactoryBot.create(:add_body_request)
         post :create,
@@ -291,7 +278,7 @@ RSpec.describe AdminPublicBodyController do
                },
                change_request_id: @change_request.id,
                subject: 'Adding a new body',
-               response:                  'The URL will be [Authority URL will be inserted here]'
+               response: 'The URL will be [Authority URL will be inserted here]'
              }
       end
 
@@ -301,19 +288,18 @@ RSpec.describe AdminPublicBodyController do
         mail = deliveries[0]
         expect(mail.subject).to eq('Adding a new body')
         expect(mail.to).to eq([@change_request.get_user_email])
-        expect(mail.body).to match(/The URL will be http:\/\/test.host\/body\/new_quango/)
+        expect(mail.body).
+          to match(/The URL will be http:\/\/test.host\/body\/new_quango/)
       end
 
       it 'should mark the change request as closed' do
-        expect(PublicBodyChangeRequest.find(@change_request.id).is_open).to be false
+        expect(PublicBodyChangeRequest.find(@change_request.id).is_open).
+          to be false
       end
-
     end
-
   end
 
   describe "GET #edit" do
-
     before do
       @body = FactoryBot.create(:public_body)
       AlaveteliLocalization.with_locale('es') do
@@ -343,10 +329,11 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "edits a public body in another locale" do
-      get :edit, params: { id: 3, locale: :en }
+      get :edit, params: { id: 3 }, session: { locale: 'en' }
 
       # When editing a body, the controller returns all available translations
-      expect(assigns[:public_body].find_translation_by_locale("es").name).to eq('El Department for Humpadinking')
+      expect(assigns[:public_body].find_translation_by_locale("es").name).
+        to eq('El Department for Humpadinking')
       expect(assigns[:public_body].name).to eq('Department for Humpadinking')
       expect(response).to render_template('edit')
     end
@@ -368,19 +355,20 @@ RSpec.describe AdminPublicBodyController do
                      id: change_request.public_body_id,
                      change_request_id: change_request.id
                    }
-        expect(assigns[:public_body].request_email).to eq(@change_request.public_body_email)
-        expect(assigns[:public_body].last_edit_comment).to match('Notes: Please')
+        expect(assigns[:public_body].request_email).
+          to eq(@change_request.public_body_email)
+        expect(assigns[:public_body].last_edit_comment).
+          to match('Notes: Please')
       end
 
       it 'should assign a default response text to the view' do
-        expect(assigns[:change_request_user_response]).to match("Thanks for your suggestion to update the email address")
+        expect(assigns[:change_request_user_response]).
+          to match("Thanks for your suggestion to update the email address")
       end
     end
-
   end
 
   describe "POST #update" do
-
     before do
       @body = FactoryBot.create(:public_body)
       AlaveteliLocalization.with_locale('es') do
@@ -390,14 +378,14 @@ RSpec.describe AdminPublicBodyController do
 
       @params = { id: @body.id,
                   public_body: { name: 'Renamed',
-                                    short_name: @body.short_name,
-                                    request_email: @body.request_email,
-                                    tag_string: @body.tag_string,
-                                    last_edit_comment: 'From test code',
-                                    translations_attributes: {
-                                      'es' => { id: @body.translation_for(:es).id,
-                                                locale: 'es',
-                                                title: @body.name(:es) }
+                                 short_name: @body.short_name,
+                                 request_email: @body.request_email,
+                                 tag_string: @body.tag_string,
+                                 last_edit_comment: 'From test code',
+                                 translations_attributes: {
+                                   'es' => { id: @body.translation_for(:es).id,
+                                             locale: 'es',
+                                             title: @body.name(:es) }
       } } }
     end
 
@@ -407,7 +395,6 @@ RSpec.describe AdminPublicBodyController do
     end
 
     context 'on success' do
-
       it 'saves edits to a public body heading' do
         post :update, params: @params
         body = PublicBody.find(@body.id)
@@ -423,11 +410,9 @@ RSpec.describe AdminPublicBodyController do
         post :update, params: @params
         expect(response).to redirect_to(admin_body_path(@body))
       end
-
     end
 
     context 'on success for multiple locales' do
-
       it 'saves edits to a public body heading in another locale' do
         expect(@body.name(:es)).to eq('Los Quango')
         post :update, params: {
@@ -549,11 +534,9 @@ RSpec.describe AdminPublicBodyController do
           expect(body.name).to eq('Example Public Body FR')
         end
       end
-
     end
 
     context 'on failure' do
-
       it 'renders the form if creating the record was unsuccessful' do
         post :update, params: {
                         id: @body.id,
@@ -576,19 +559,23 @@ RSpec.describe AdminPublicBodyController do
                       }
         expect(assigns(:public_body).request_email).to eq('updated@localhost')
       end
-
     end
 
     context 'on failure for multiple locales' do
-
       before(:each) do
-        @params = { id: @body.id,
-                    public_body: { name: '',
-                                      translations_attributes: {
-                                        'es' => { id: @body.translation_for(:es).id,
-                                                  locale: 'es',
-                                                  name: 'Mi Nuevo Body' }
-        } } }
+        @params = {
+          id: @body.id,
+          public_body: {
+            name: '',
+            translations_attributes: {
+              'es' => {
+                id: @body.translation_for(:es).id,
+                locale: 'es',
+                name: 'Mi Nuevo Body'
+              }
+            }
+          }
+        }
       end
 
       it 'is rebuilt with the default locale translation' do
@@ -603,11 +590,9 @@ RSpec.describe AdminPublicBodyController do
           expect(assigns(:public_body).name).to eq('Mi Nuevo Body')
         end
       end
-
     end
 
     context 'when the body is being updated as a result of a change request' do
-
       before do
         @change_request = FactoryBot.create(:update_body_request)
         post :update, params: {
@@ -634,19 +619,22 @@ RSpec.describe AdminPublicBodyController do
       end
 
       it 'should mark the change request as closed' do
-        expect(PublicBodyChangeRequest.find(@change_request.id).is_open).to be false
+        expect(PublicBodyChangeRequest.find(@change_request.id).is_open).
+          to be false
       end
-
     end
   end
 
   describe "POST #destroy" do
-
     it "does not destroy a public body that has associated requests" do
       id = public_bodies(:humpadink_public_body).id
       n = PublicBody.count
       post :destroy, params: { id: id }
-      expect(response).to redirect_to(controller: 'admin_public_body', action: 'show', id: id)
+      expect(response).to redirect_to(
+        controller: 'admin_public_body',
+        action: 'show',
+        id: id
+      )
       expect(PublicBody.count).to eq(n)
     end
 
@@ -656,12 +644,9 @@ RSpec.describe AdminPublicBodyController do
       expect(response).to redirect_to admin_bodies_path
       expect(PublicBody.count).to eq(n - 1)
     end
-
   end
 
-
   describe "POST #mass_tag" do
-
     it "mass assigns tags" do
       condition = "public_body_translations.locale = ?"
       n = PublicBody.joins(:translations).where([condition, "en"]).count
@@ -673,6 +658,10 @@ RSpec.describe AdminPublicBodyController do
   end
 
   describe "DELETE #mass_tag" do
+    around do |example|
+      disable_not_many_requests_auto_tagging { example.run }
+    end
+
     it "mass removed tags" do
       body = FactoryBot.create(:public_body, tag_string: 'department foo')
       expect(PublicBody.find_by_tag("department").count).to eq(1)
@@ -687,18 +676,14 @@ RSpec.describe AdminPublicBodyController do
   end
 
   describe "GET #import_csv" do
-
     describe 'when handling a GET request' do
-
       it 'should get the page successfully' do
         get :import_csv
         expect(response).to be_successful
       end
-
     end
 
     describe 'when handling a POST request' do
-
       before do
         allow(PublicBody).to receive(:import_csv).and_return([[],[]])
         @file_object = fixture_file_upload('fake-authority-type.csv')
@@ -710,7 +695,6 @@ RSpec.describe AdminPublicBodyController do
       end
 
       describe 'if there is a csv file param' do
-
         it 'should assign the original filename to the view' do
           post :import_csv, params: {
                               csv_file: @file_object,
@@ -718,13 +702,13 @@ RSpec.describe AdminPublicBodyController do
                             }
           expect(assigns[:original_csv_file]).to eq('fake-authority-type.csv')
         end
-
       end
 
       describe 'if there is no csv file param, but there are temporary_csv_file and original_csv_file params' do
-
         it 'should try and get the file contents from a temporary file whose name is passed as a param' do
-          expect(@controller).to receive(:retrieve_csv_data).with('csv_upload-2046-12-31-394')
+          expect(@controller).
+            to receive(:retrieve_csv_data).
+            with('csv_upload-2046-12-31-394')
           post :import_csv,
                params: {
                  temporary_csv_file: 'csv_upload-2046-12-31-394',
@@ -760,31 +744,27 @@ RSpec.describe AdminPublicBodyController do
                               commit: 'Dry run'
                             }
           temporary_filename = assigns[:temporary_csv_file]
-          expect(temporary_filename).to match(/csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-\d{1,5}/)
+          expect(temporary_filename).
+            to match(/csv_upload-#{Time.zone.now.strftime("%Y%m%d")}-\d{1,5}/)
         end
-
       end
     end
   end
 
   describe "when administering public bodies and paying attention to authentication" do
-
     before do
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = false
+      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+        and_return(false)
       basic_auth_login @request
     end
 
-    after do
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = true
-    end
-
     def setup_emergency_credentials(username, password)
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = false
-      config['ADMIN_USERNAME'] = username
-      config['ADMIN_PASSWORD'] = password
+      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+        and_return(false)
+      allow(AlaveteliConfiguration).to receive(:admin_username).
+        and_return(username)
+      allow(AlaveteliConfiguration).to receive(:admin_password).
+        and_return(password)
       @request.env["HTTP_AUTHORIZATION"] = ""
     end
 
@@ -799,8 +779,8 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "skips admin authorisation when SKIP_ADMIN_AUTH set" do
-      config = MySociety::Config.load_default
-      config['SKIP_ADMIN_AUTH'] = true
+      allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+        and_return(true)
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
       post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
@@ -836,7 +816,9 @@ RSpec.describe AdminPublicBodyController do
 
     it "doesn't let people with good emergency account credentials log in if the emergency user is disabled" do
       setup_emergency_credentials('biz', 'fuz')
-      allow(AlaveteliConfiguration).to receive(:disable_emergency_user).and_return(true)
+      allow(AlaveteliConfiguration).
+        to receive(:disable_emergency_user).
+        and_return(true)
       n = PublicBody.count
       basic_auth_login(@request, "biz", "fuz")
       post :show, params: { id: public_bodies(:humpadink_public_body).id,
@@ -869,7 +851,6 @@ RSpec.describe AdminPublicBodyController do
     end
 
     describe 'when asked for the admin current user' do
-
       it 'returns the emergency account name for someone who logged in with the emergency account' do
         setup_emergency_credentials('biz', 'fuz')
         basic_auth_login(@request, "biz", "fuz")
@@ -882,18 +863,18 @@ RSpec.describe AdminPublicBodyController do
         sign_in users(:admin_user)
         @request.env["HTTP_AUTHORIZATION"] = ""
         post :show, params: { id: public_bodies(:humpadink_public_body).id }
-        expect(controller.send(:admin_current_user)).to eq(users(:admin_user).url_name)
+        expect(controller.send(:admin_current_user)).
+          to eq(users(:admin_user).url_name)
       end
 
       it 'returns the REMOTE_USER value from the request environment when skipping admin auth' do
-        config = MySociety::Config.load_default
-        config['SKIP_ADMIN_AUTH'] = true
+        allow(AlaveteliConfiguration).to receive(:skip_admin_auth).
+          and_return(true)
         @request.env["HTTP_AUTHORIZATION"] = ""
         @request.env["REMOTE_USER"] = "i_am_admin"
         post :show, params: { id: public_bodies(:humpadink_public_body).id }
         expect(controller.send(:admin_current_user)).to eq("i_am_admin")
       end
-
     end
   end
 end

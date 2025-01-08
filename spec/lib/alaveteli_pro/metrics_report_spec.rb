@@ -148,13 +148,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
       let!(:pending_cancel_sub) do
         subscription = Stripe::Subscription.create(customer: customer,
                                                    plan: pro_plan.id)
-
-        # NOTE: - in later API versions, at_period_end is no longer
-        # available for delete so we'd have to call something like
-        # this instead:
-        # Stripe::Subscription.update(subscription.id,
-        #                             cancel_at_period_end: true)
-        subscription.delete(at_period_end: true)
+        Stripe::Subscription.update(subscription.id, cancel_at_period_end: true)
         subscription
       end
 

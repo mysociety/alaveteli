@@ -1,7 +1,6 @@
 module AlaveteliPro
   module ActivityList
     class Comment < Item
-
       def description
         if event.comment.user == event.info_request.user
           N_('You added a new annotation on your request to ' \
@@ -21,7 +20,6 @@ module AlaveteliPro
       def call_to_action_url
         comment_path(event.comment)
       end
-
     end
   end
 end

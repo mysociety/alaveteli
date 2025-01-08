@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminTrackController < AdminController
-
   before_action :set_track_thing, only: [:destroy]
 
   def index
@@ -32,5 +31,4 @@ class AdminTrackController < AdminController
   def set_track_thing
     @track_thing = TrackThing.find(params[:id])
   end
-
 end

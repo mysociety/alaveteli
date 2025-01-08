@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240313094449
 #
 # Table name: censor_rules
 #
@@ -13,11 +13,10 @@
 #  last_edit_comment :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  regexp            :boolean
+#  regexp            :boolean          default(FALSE), not null
 #
 
 FactoryBot.define do
-
   factory :censor_rule do
     text { 'some text to redact' }
     replacement { '[REDACTED]' }
@@ -43,7 +42,5 @@ FactoryBot.define do
 
     factory :global_censor_rule do
     end
-
   end
-
 end

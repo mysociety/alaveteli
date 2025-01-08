@@ -2,7 +2,7 @@
 
 <div class="act_link">
   <i class="act-link-icon act-link-icon--twitter"></i>
-  <% tweet_link = "https://twitter.com/share?" << {
+  <% tweet_link = "https://twitter.com/intent/post?" << {
     :url => request.url,
     :via => AlaveteliConfiguration.twitter_username,
     :text => "'#{ info_request.title }'",
@@ -10,7 +10,7 @@
     }.to_query
   %>
 
-  <%= link_to _("Tweet this request"),
+  <%= link_to _("Share on X"),
               tweet_link,
               :onclick => track_analytics_event(
                 AnalyticsEvent::Category::OUTBOUND,
@@ -44,7 +44,7 @@
 <% if AlaveteliConfiguration::enable_widgets %>
   <div class="act_link">
     <i class="act-link-icon act-link-icon--widget"></i>
-    <%= link_to _("Create a widget for this request"), new_request_widget_path(info_request) %>
+    <%= link_to _("Create a widget for this request"), new_request_widget_path(info_request.url_title) %>
   </div>
 <% end %>
 

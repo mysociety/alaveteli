@@ -1,5 +1,4 @@
 class TypeaheadSearch
-
   include ConfigHelper
 
   attr_accessor :query, :model, :page, :per_page, :wildcard, :run_search
@@ -17,6 +16,7 @@ class TypeaheadSearch
   def xapian_search
     check_query
     return nil unless @run_search
+
     ActsAsXapian.readable_init
     old_default_op = ActsAsXapian.query_parser.default_op
     ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
@@ -59,7 +59,6 @@ class TypeaheadSearch
 
     # don't run a search if there's no query
     @run_search = false if @query.blank?
-
   end
 
   def run_query
@@ -102,5 +101,4 @@ class TypeaheadSearch
       'request_collapse'
     end
   end
-
 end

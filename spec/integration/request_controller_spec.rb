@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe RequestController do
-
   describe 'when the site is in read only mode' do
-
     before do
       allow(AlaveteliConfiguration).to receive(:read_only).
         and_return("Down for maintenance")
@@ -22,7 +20,6 @@ RSpec.describe RequestController do
     end
 
     context 'when annotations are disabled' do
-
       before do
         allow_any_instance_of(ApplicationController).
           to receive(:feature_enabled?).
@@ -43,13 +40,10 @@ RSpec.describe RequestController do
         visit new_request_path
         expect(page).to have_content(expected_message)
       end
-
     end
-
   end
 
   describe 'FOI officer uploading a reponse' do
-
     let(:public_body) do
       FactoryBot.create(:public_body, request_email: "foi@example.com")
     end
@@ -68,7 +62,14 @@ RSpec.describe RequestController do
         expect(page).to have_content(message)
       end
     end
-
   end
 
+  it "should redirect from a numeric URL to pretty one" do
+    visit show_request_path(info_requests(:naughty_chicken_request).id)
+    expect(current_path).to eq(
+      show_request_path(
+        info_requests(:naughty_chicken_request).url_title
+      )
+    )
+  end
 end

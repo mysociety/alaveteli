@@ -7,17 +7,11 @@ class AlaveteliLocalization
 
       set_fast_gettext_locales(available, default)
       set_i18n_locales(available, default)
-      set_conditionally_prepend_locale_locales(available, default)
     end
 
     def set_default_text_domain(name, repos)
       FastGettext.add_text_domain name, type: :chain, chain: repos
       FastGettext.default_text_domain = name
-    end
-
-    def set_default_locale_urls(include_default_locale_in_urls)
-      RoutingFilter::Locale.
-        include_default_locale = include_default_locale_in_urls
     end
 
     # rubocop:disable Naming/AccessorMethodName
@@ -60,6 +54,7 @@ class AlaveteliLocalization
 
     def default_locale?(other)
       return false if other.nil?
+
       default_locale == other.to_s
     end
 
@@ -92,10 +87,6 @@ class AlaveteliLocalization
 
       # Set the current locale as the default locale
       I18n.locale = I18n.default_locale = default.hyphenate.to_sym
-    end
-
-    def set_conditionally_prepend_locale_locales(available, _default)
-      RoutingFilter::Conditionallyprependlocale.locales = available.map(&:to_s)
     end
 
     # Parse String locales to Locale instances

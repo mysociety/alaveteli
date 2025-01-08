@@ -5,7 +5,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RequestGameController < ApplicationController
-
   def play
     session[:request_game] = Time.zone.now
 
@@ -38,7 +37,7 @@ class RequestGameController < ApplicationController
     end
 
     @league_table_28_days = RequestClassification.league_table(10,
-      [ "created_at >= ?", Time.zone.now - 28.days ])
+      [ "request_classifications.created_at >= ?", Time.zone.now - 28.days ])
     @league_table_all_time = RequestClassification.league_table(10)
     @play_urls = true
   end
@@ -53,7 +52,7 @@ class RequestGameController < ApplicationController
       )
       return
     end
-    redirect_to show_request_url(url_title: url_title)
+    redirect_to show_request_url(url_title)
   end
 
   def stop
@@ -61,5 +60,4 @@ class RequestGameController < ApplicationController
     flash[:notice] = _('Thank you for helping us keep the site tidy!')
     redirect_to frontpage_url
   end
-
 end

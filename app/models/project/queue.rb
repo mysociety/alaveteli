@@ -60,6 +60,7 @@ class Project::Queue
 
   def remember_current(info_request)
     return backend.clear_current unless info_request
+
     backend.current = info_request
   end
 

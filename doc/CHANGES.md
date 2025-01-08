@@ -1,3 +1,267 @@
+# 0.45.0.0
+
+## Highlighted Features
+
+* Localise alert email subjects in the receiver's language (Anders Lindeberg)
+* Remove deprecated Google Chart from request game (Gareth Rees)
+* Migrated from Stripe Plans to Stripe Prices (Graeme Porteous)
+* Change notes so that records tagged with `name:value` will be associated with
+  notes tagged as `name` (Graeme Porteous)
+* Upgrade Stripe API version (Graeme Porteous)
+* Drop support for Azure storage (Graeme Porteous)
+* Add basic Citation searching in admin UI (Gareth Rees)
+* Improve citations admin to allow title and description updates (Graeme
+  Porteous)
+* Add public citations view (Graeme Porteous)
+* Add project dataset question "select" format (Graeme Porteous)
+* Fix script/mailin when multiple EXCEPTION_NOTIFICATIONS_TO addresses are
+  specified (Graeme Porteous)
+* Add example logrotate configuration (Graeme Porteous)
+* Switch application server from Thin to Puma (Graeme Porteous)
+* Fix rendering invoices page when there are discounted Pro subscription (Graeme
+  Porteous)
+* Drop support for Ruby 3.0 (Graeme Porteous)
+* Allow projects owners to publish datasets (Graeme Porteous)
+* Add comment deletion (Helen Cross, Graeme Porteous, Gareth Rees)
+* Show and allow creation of citations from info request batch pages (Graeme
+  Porteous)
+* Allow pro users to create and manage Projects (Graeme Porteous)
+* Improve Xapian queue health check (Graeme Porteous)
+* Improve nginx configuration file for Sidekiq Web UI (Graeme Porteous)
+* View user profile photos from admin list of users (Gareth Rees)
+* Update user email to be sent from the blackhole address (Graeme Porteous)
+* Remove ability to publicly view authority contact email addresses to prevent
+  harvesting (Gareth Rees)
+* Fix issues loading tags containing `.` or `/` in admin UI (Graeme Porteous)
+* Change docker scripts to not require bash (Anders Lindeberg)
+* Prevent multiple require admin emails from being sent (Graeme Porteous)
+* Allow requests to be browsed by category (Graeme Porteous)
+* Add default value and not null constraint to `CensorRule#regexp` (Gareth Rees)
+* Allow requests to be listed and filtered by tag (Graeme Porteous)
+* Fix admin error when authority are missing an email address (Graeme Porteous)
+* Allow categories to have notes associated with them (Graeme Porteous)
+* Add styling option and rich text editor to the notes admin (Graeme Porteous)
+* Strengthen 2FA warning. Users *must* remember to keep this code safe (Gareth
+  Rees)
+* Broaden citation type classifications to cover wider thematic areas and add
+  "campaigning" type (Gareth Rees, Graeme Porteous)
+* Treat unstemmed words as normal search terms. (Matthew Somerville)
+* Update `/alaveteli_pro` base path to `/pro` (Alexander Griffen, Graeme
+  Porteous)
+* Change use of `/alaveteli_pro/info_requests/{request}` to instead appear as
+  `/request/{request}` (Alexander Griffen, Graeme Porteous)
+* Remove locale prefixes from URLs (Alexander Griffen, Graeme Porteous)
+* Update Twitter/X logos and wording (Lucas Cumsille Montesinos)
+* Fix missing headers when exporting Project data (Gareth Rees)
+* Reduce amount of storage related background jobs (Graeme Porteous)
+* Add automatic parsing of emails contain Excel spreadsheets (Graeme Porteous)
+* Improve rendering of admin hidden request prominence and explanations (Graeme
+  Porteous)
+* Add admin list of all citations (Gareth Rees)
+* Improve redirection flow after user account closure actions (Gareth Rees)
+* Fix duplicated attachment masking jobs (Graeme Porteous)
+* Display metadata on admin attachment views (Graeme Porteous)
+* Change request URL patterns to be member routes (Alexander Griffen, Graeme
+  Porteous)
+* Change request URL patterns to only use titles rather than request IDs
+  (Alexander Griffen, Graeme Porteous)
+* Colourise holding pen guess scores (Gareth Rees)
+* Fix default holding pen guess scores (Gareth Rees)
+* Add support for Debian 12 "Bookworm" (Graeme Porteous)
+* Add support for Ubuntu 22.04 LTS "Jammy Jellyfish" (Graeme Porteous)
+* Update alert daemon from init script to systemd (Sam Pearson)
+* Update incoming mail poller daemon from init script to systemd (Sam Pearson)
+* Update notification daemon from init script to systemd (Sam Pearson)
+* Add basic admin notes index page (Gareth Rees)
+* Restore delivery status notification attachment note (Gareth Rees)
+* Explore CSV files in a Datasette Lite instance (Gareth Rees)
+* Add link from incoming message to admin page for attachments (Gareth Rees)
+* Add XLS & XLSX spreadsheet analyser to automatically detect hidden data (Helen
+  Cross, Graeme Porteous)
+* Update attachment processing to automatically rebuild if cached file goes
+  missing (Graeme Porteous)
+* Allow `InfoRequest` to be categorised (Graeme Porteous)
+* Replace public body categories with generalised categories (Graeme Porteous)
+* Add admin links to and from batch request show action (Graeme Porteous)
+* Update request base calculated status for internal reviews (Graeme Porteous)
+* Automatically apply `not_many_requests` tag to bodies who don't have many
+  public requests so that they can be found in a public list or have tag-based
+  notes applied (Gareth Rees)
+* Improve background job performance by limiting the number `NotifyCacheJob`
+  jobs created (Graeme Porteous)
+* Signpost key user administration contributions for requests on request list
+  pages (Gareth Rees)
+* Signpost users to find new contact details for requests with delivery errors
+  (Gareth Rees)
+* Add admin view of unmasked version of main body part attachments (Gareth Rees)
+* Add internal ID number to authority CSV download (Alex Parsons, Graeme
+  Porteous)
+* Don't show users that have closed their account or been banned on leaderboards
+  (Chris Mytton)
+
+## Upgrade Notes
+
+* _Required:_ This upgrade requires upgrading Ruby from 3.0 to 3.1 or later.
+  We recommend upgrading to the Ruby 3.2.
+
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
+* _Required:_ To migrate to the new `Category` feature, please run:
+
+      bin/rails temp:migrate_public_body_categories
+
+* _Required:_ This release transitions the application server from Thin to
+  Puma. Ensure to remove `/etc/init.d/alaveteli` or
+  `/etc/init.d/alaveteli-thin`, if either exists, and create the systemd service
+  for Puma. You can generate this by running `rake config_files:convert_daemon
+  DAEMON=puma.service`. For detailed instructions, refer to [the
+  documentation](https://alaveteli.org/docs/installing/cron_and_daemons/#puma).
+
+* _Required:_ This release drops support for Azure storage. This is because the
+  Azure gem hasn't been updated in a long time and is preventing upgrades and
+  feature development. If you depend on this gem for storage please migrate to
+  a different storage backend before upgrading. We're not expecting other sites
+  to have used this gem but if you do please reach out if you need assistance
+  migrating.
+
+* _Optional:_ Bodies with not many requests will automatically get tagged
+  `not_many_requests` as they are updated. If you want to automatically tag them
+  all in one go, run the following from the app root directory:
+
+      bin/rails runner "PublicBody.where('info_requests_visible_count < ?', PublicBody.not_many_public_requests_size).each(&:save)"
+
+* _Optional:_ This release updates the alert, notification and mail poller daemons
+  from init scripts to use systemd. Please remove `/etc/init.d/alaveteli-alert-tracks`,
+  `/etc/init.d/alaveteli-send-notifications` and `/etc/init.d/alaveteli-poll-for-incoming`
+  then regenerate with `rake config_files:convert_daemon`.
+  See [the documentation](https://alaveteli.org/docs/installing/cron_and_daemons/)
+  for more information.
+
+* _Optional:_ This release includes an example logrotate configuration. To
+  generate it, execute the following command: `rake config_files:convert
+  FILE=config/logrotate-example`. For detailed instructions, refer to the
+  [documentation](https://alaveteli.org/docs/installing/cron_and_daemons/#generate-logrotate-configuation-optional).
+
+* _Optional:_ There have been some changes to the example nginx configuration
+  files. Please ensure you review the changes to `config/nginx.conf.example` or
+  `config/nginx-ssl.conf.example` and update your production configuration if
+  needed.
+
+* _Note:_ If you have Pro pricing enabled, this release changes the Stripe API
+  version from `2017-01-27` to `2020-03-02`. No changes should be necessary to
+  your Stripe account.
+
+* _Optional:_ We have moved from Stripe Plans to Stripe Prices. Previously we
+  hardcoded the Stripe Plan ID of `pro`, but with changes to the Stripe
+  dashboard this ID can no longer be created. Migration to the Prices API will
+  allow for more flexibly, pricing changes, and multiple price points - for
+  example annual pricing. For new prices you need to configure `STRIPE_PRICES`
+  in `config/general.yml`.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin/citations/_list.html.erb
+    app/views/admin/foi_attachments/edit.html.erb
+    app/views/admin/info_request_batches/_admin_columns.html.erb
+    app/views/admin/notes/_form.html.erb
+    app/views/admin/notes/_locale_fields.html.erb
+    app/views/admin/notes/_note.html.erb
+    app/views/admin/notes/_show.html.erb
+    app/views/admin/notes/edit.html.erb
+    app/views/admin/notes/new.html.erb
+    app/views/admin/outgoing_messages/snippets/_form.html.erb
+    app/views/admin/outgoing_messages/snippets/_locale_fields.html.erb
+    app/views/admin_announcements/_form.html.erb
+    app/views/admin_announcements/_locale_fields.html.erb
+    app/views/admin_announcements/edit.html.erb
+    app/views/admin_announcements/new.html.erb
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/_edit_outgoing.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/_tag_help.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_public_body/import_csv.html.erb
+    app/views/admin_public_body/new.html.erb
+    app/views/admin_public_body_categories/_category_list_item.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_public_body_categories/_heading_list.html.erb
+    app/views/admin_public_body_categories/_locale_fields.html.erb
+    app/views/admin_public_body_categories/edit.html.erb
+    app/views/admin_public_body_categories/index.html.erb
+    app/views/admin_public_body_categories/new.html.erb
+    app/views/admin_public_body_headings/_form.html.erb
+    app/views/admin_public_body_headings/_locale_fields.html.erb
+    app/views/admin_public_body_headings/edit.html.erb
+    app/views/admin_public_body_headings/new.html.erb
+    app/views/admin_raw_email/_holding_pen.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_track/_some_tracks.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_browse.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_public_bodies.html.erb
+    app/views/alaveteli_pro/dashboard/_sidebar.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/general/_nav_items.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/index.html.erb
+    app/views/alaveteli_pro/invoices/_invoice.html.erb
+    app/views/alaveteli_pro/plans/_pricing_tiers.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/alaveteli_pro/subscriptions/_cancel_subscription.html.erb
+    app/views/alaveteli_pro/subscriptions/_subscription.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/citations/new.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_suggestions.html.erb
+    app/views/followups/_choose_recipient.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/general/_frontpage_requests_list.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_search_latest.html.erb
+    app/views/general/blog.html.erb
+    app/views/info_request_batch/_batch_sent.html.erb
+    app/views/info_request_batch/_downloads.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/one_time_passwords/show.html.erb
+    app/views/projects/projects/show.html.erb
+    app/views/public_body/_more_info.html.erb
+    app/views/public_body/list.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body/view_email_captcha.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_attachments.html.erb
+    app/views/request/_citations.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_list_results.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_filter_form.html.erb
+    app/views/request/_request_listing_single.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_sidebar_request_listing.html.erb
+    app/views/request/_wall_listing.html.erb
+    app/views/request/details.html.erb
+    app/views/request/list.html.erb
+    app/views/request/new.html.erb
+    app/views/request/show.text.erb
+    app/views/request_game/play.html.erb
+    app/views/widgets/new.html.erb
+    app/views/widgets/show.html.erb
+
 # 0.44.0.2
 
 ## Highlighted Features
@@ -223,10 +487,10 @@ to match the new templates.
           sudo apt-get install redis-server
 
   2. configure Sidekiq to run when your server starts by creating
-  `/etc/systemd/system/sidekiq.service` from `config/sidekiq.service.example`.
-  And running:
+     `/etc/systemd/system/alaveteli.sidekiq.service` from
+     `config/sidekiq.service.example`. And running:
 
-          systemctl enable sidekiq.service
+          systemctl enable alaveteli.sidekiq.service
           systemctl daemon-reload
 
 * _Required:_ There are some database structure updates so remember to run:
@@ -3655,9 +3919,10 @@ to match the new templates.
 
   We have an evolving [upgrade guide](https://github.com/mysociety/alaveteli/wiki/Migrating-an-existing-Alaveteli-site-from-ruby-1.8.7)
   on the wiki, and we're always available on the
-  [alaveteli-dev mailing list](https://goo.gl/6u67Jg).
+  [alaveteli-dev mailing list](https://groups.google.com/g/alaveteli-dev).
 * Ruby version files are ignored – these are delegated to people's development
-  or deployment environments. See https://goo.gl/01MCCi and e5180fa89.
+  or deployment environments.
+  See https://groups.google.com/g/alaveteli-dev/c/Irs1zJ-8Wkw and e5180fa89.
 * Ensure all overridden Ruby source files have encoding specifier. See
   576b58803.
 * Memcached namespace is now dependent on Ruby version. No action required.

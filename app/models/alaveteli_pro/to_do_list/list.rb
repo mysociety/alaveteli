@@ -1,6 +1,5 @@
 module AlaveteliPro
   module ToDoList
-
     class List
       attr_accessor :user
 
@@ -22,7 +21,6 @@ module AlaveteliPro
           ToDoList::OverdueRequest,
           ToDoList::VeryOverdueRequest ]
       end
-
     end
   end
 end

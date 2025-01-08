@@ -2,14 +2,12 @@ require 'spec_helper'
 require 'stripe_mock'
 
 RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_pricing] do
-
   describe '#receive' do
-
     let(:config_secret) { 'whsec_secret' }
     let(:signing_secret) { config_secret }
     let(:stripe_helper) { StripeMock.create_test_helper }
 
-    let(:product) { stripe_helper.create_product }
+    let(:product) { stripe_helper.create_product(name: 'Test') }
 
     let(:stripe_customer) do
       Stripe::Customer.create(source: stripe_helper.generate_card_token,
@@ -18,7 +16,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     let(:stripe_plan) do
       stripe_helper.create_plan(
-        id: 'test', name: 'Test', product: product.id,
+        id: 'plan_123', product: product.id,
         amount: 10, currency: 'gbp'
       )
     end
@@ -28,8 +26,8 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
                                   plan: stripe_plan.id)
     end
 
-    let(:paid_invoice) do
-      invoice = Stripe::Invoice.create(
+    let(:invoice) do
+      Stripe::Invoice.create(
         lines: [
           {
             data: {
@@ -39,18 +37,21 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
               currency: stripe_plan.currency,
               type: 'subscription'
             },
-            plan: { id: stripe_plan.id, name: stripe_plan.name }
+            plan: { id: stripe_plan.id }
           }
         ],
         subscription: stripe_subscription.id
       )
-      invoice.pay
     end
+
+    let(:paid_invoice) { invoice.pay }
 
     let(:charge) { Stripe::Charge.retrieve(paid_invoice.charge) }
 
     let(:stripe_event) do
-      StripeMock.mock_webhook_event('customer.subscription.deleted')
+      StripeMock.mock_webhook_event(
+        'customer.subscription.deleted', items: stripe_subscription.items
+      )
     end
 
     let(:payload) do
@@ -65,8 +66,8 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
     end
 
     before do
-      allow(AlaveteliConfiguration).to receive(:stripe_namespace).
-        and_return('')
+      allow(AlaveteliConfiguration).to receive(:stripe_prices).
+        and_return('plan_123' => 'pro')
       allow(AlaveteliConfiguration).to receive(:stripe_webhook_secret).
         and_return(config_secret)
       StripeMock.start
@@ -82,7 +83,6 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
     end
 
     context 'the secret is not in the request' do
-
       it 'returns a 401 Unauthorized response' do
         post :receive, params: payload
         expect(response.status).to eq(401)
@@ -102,11 +102,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
           to eq('{"error":"Unable to extract timestamp and signatures ' \
                 'from header"}')
       end
-
     end
 
     context 'the secret_key does not match' do
-
       let(:signing_secret) { 'whsec_fake' }
 
       before do
@@ -129,11 +127,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
           to eq('{"error":"No signatures found matching the expected ' \
                 'signature for payload"}')
       end
-
     end
 
     context 'receiving an unhandled notification type' do
-
       before do
         stripe_event.type = 'custom.unhandle_event'
       end
@@ -141,11 +137,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
       it 'stores unhandled webhook' do
         expect { send_request }.to change(Webhook, :count).by(1)
       end
-
     end
 
     context 'the timestamp is stale (possible replay attack)' do
-
       let!(:stale_headers) do
         signed = signed_headers(payload: payload,
                                 signing_secret: signing_secret,
@@ -167,11 +161,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
-
     end
 
     context 'the notification type is missing' do
-
       let(:payload) do
         { id: '1234' }
       end
@@ -190,18 +182,15 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to include(expected)
       end
-
     end
 
     context 'when using namespaced plans' do
-
       before do
-        allow(AlaveteliConfiguration).to receive(:stripe_namespace).
-          and_return('WDTK')
+        allow(AlaveteliConfiguration).to receive(:stripe_prices).
+          and_return('WDTK-test' => 'pro')
       end
 
       context 'the webhook does not reference our plan namespace' do
-
         it 'returns a custom 200 response' do
           send_request
           expect(response.status).to eq(200)
@@ -212,13 +201,12 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         it 'does not store unhandled webhook' do
           expect { send_request }.to_not change(Webhook, :count)
         end
-
       end
 
       context 'the webhook is for a matching namespaced plan' do
         let(:stripe_plan) do
           stripe_helper.create_plan(
-            id: 'WDTK-test', name: 'Test', product: product.id,
+            id: 'WDTK-test', product: product.id,
             amount: 10, currency: 'gbp'
           )
         end
@@ -234,17 +222,26 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         end
 
         it 'returns a 200 OK response' do
+          allow(Stripe::Subscription).to receive(:retrieve).with(
+            id: stripe_subscription.id, expand: ['plan.product']
+          ).and_return(stripe_subscription)
+
+          allow(stripe_subscription.plan).to receive(:product).and_return(
+            product
+          )
+
           send_request
+
           expect(response.status).to eq(200)
           expect(response.body).to match('OK')
         end
-
       end
 
       context 'the webhook data does not have namespaced plans' do
-
         let(:stripe_event) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded')
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded', lines: paid_invoice.lines
+          )
         end
 
         it 'does not raise an error when trying to filter on plan name' do
@@ -255,41 +252,62 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
             post :receive, params: payload
           }.not_to raise_error
         end
-
       end
-
     end
 
     describe 'a payment fails' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('invoice.payment_failed')
+        StripeMock.mock_webhook_event(
+          'invoice.payment_failed', lines: invoice.lines
+        )
       end
 
-      let!(:user) do
-        _user = FactoryBot.create(:pro_user)
-        _user.pro_account.stripe_customer_id = stripe_event.data.object.customer
-        _user.pro_account.save!
-        _user
+      let(:customer_id) { stripe_event.data.object.customer }
+
+      let(:pro_account) do
+        FactoryBot.create(:pro_account, stripe_customer_id: customer_id)
       end
 
       before do
-        send_request
+        allow(ProAccount).to receive(:find_by).
+          with(stripe_customer_id: customer_id).and_return(pro_account)
       end
 
       it 'handles the event' do
         expect(response.status).to eq(200)
       end
 
-      it 'notifies the user that their payment failed' do
-        mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/Payment failed/)
-        expect(mail.to).to include(user.email)
+      context 'the user has a subscription' do
+        before do
+          allow(pro_account).to receive(:subscription?).and_return(true)
+          send_request
+        end
+
+        it 'notifies the user that their payment failed' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail.subject).to match(/Payment failed/)
+          expect(mail.to).to include(pro_account.user.email)
+        end
+      end
+
+      context 'the user does not have a subscription' do
+        before do
+          allow(pro_account).to receive(:subscription?).and_return(false)
+          send_request
+        end
+
+        it 'does not notify the user that their payment failed' do
+          mail = ActionMailer::Base.deliveries.first
+          expect(mail).to be_nil
+        end
       end
     end
 
     describe 'a customer moves to a new billing period' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('subscription-renewed')
+        StripeMock.mock_webhook_event(
+          'subscription-renewed', items: stripe_subscription.items
+        )
       end
 
       it 'handles the event' do
@@ -304,7 +322,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'a trial ends' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('trial-ended-first-payment-failed')
+        StripeMock.mock_webhook_event(
+          'trial-ended-first-payment-failed', items: stripe_subscription.items
+        )
       end
 
       it 'handles the event' do
@@ -319,7 +339,9 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
 
     describe 'a customer cancels' do
       let(:stripe_event) do
-        StripeMock.mock_webhook_event('subscription-cancelled')
+        StripeMock.mock_webhook_event(
+          'subscription-cancelled', items: stripe_subscription.items
+        )
       end
 
       it 'handles the event' do
@@ -333,12 +355,11 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
     end
 
     describe 'a cancelled subscription is deleted at the end of the billing period' do
-
       let!(:user) do
-        _user = FactoryBot.create(:pro_user)
-        _user.pro_account.stripe_customer_id = stripe_event.data.object.customer
-        _user.pro_account.save!
-        _user
+        user = FactoryBot.create(:pro_user)
+        user.pro_account.stripe_customer_id = stripe_event.data.object.customer
+        user.pro_account.save!
+        user
       end
 
       it 'removes the pro role from the associated user' do
@@ -346,43 +367,48 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         send_request
         expect(user.reload.is_pro?).to be false
       end
-
     end
 
     describe 'updating the Stripe charge description when a payment succeeds' do
-
       before do
+        allow(Stripe::Subscription).to receive(:retrieve).with(
+          id: stripe_subscription.id, expand: ['plan.product']
+        ).and_return(stripe_subscription)
+
+        allow(stripe_subscription.plan).to receive(:product).and_return(
+          product
+        )
+
         send_request
       end
 
       context 'when there is a charge for an invoice' do
         let(:stripe_event) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded',
-                                        charge: paid_invoice.charge,
-                                        subscription: stripe_subscription.id)
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded',
+            lines: paid_invoice.lines,
+            charge: paid_invoice.charge,
+            subscription: stripe_subscription.id
+          )
         end
 
         it 'updates the charge description with the site and plan name' do
           expect(Stripe::Charge.retrieve(charge.id).description).
             to eq('Alaveteli Professional: Test')
         end
-
       end
 
       context 'when there is no charge for an invoice' do
         let(:stripe_event) do
-          StripeMock.mock_webhook_event('invoice.payment_succeeded',
-                                        charge: nil)
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded', lines: paid_invoice.lines, charge: nil
+          )
         end
 
         it 'does not attempt to update the nil charge' do
           expect(response.status).to eq(200)
         end
-
       end
-
     end
-
   end
-
 end

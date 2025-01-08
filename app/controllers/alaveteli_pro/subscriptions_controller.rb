@@ -1,47 +1,25 @@
 class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
-  include AlaveteliPro::StripeNamespace
+  before_action :check_has_current_subscription, only: [:index]
 
   skip_before_action :html_response, only: [:create, :authorise]
   skip_before_action :pro_user_authenticated?, only: [:create, :authorise]
-
   before_action :authenticate, only: [:create, :authorise]
+
   before_action :check_allowed_to_subscribe_to_pro, only: [:create]
   before_action :prevent_duplicate_submission, only: [:create]
-  before_action :check_plan_exists, only: [:create]
-  before_action :check_has_current_subscription, only: [:index]
+  before_action :load_price, :load_coupon, only: [:create]
 
   def index
     @customer = current_user.pro_account.try(:stripe_customer)
-    @subscriptions = @customer.subscriptions.map do |subscription|
-      AlaveteliPro::SubscriptionWithDiscount.new(subscription)
-    end
-    if @customer.default_source
-      @card =
-        @customer.
-          sources.select { |card| card.id == @customer.default_source }.first
-    end
-
-    if referral_coupon
-      @discount_code = remove_stripe_namespace(referral_coupon.id)
-      @discount_terms = referral_coupon.metadata.humanized_terms
-    end
+    @subscriptions = current_user.pro_account.subscriptions
   end
 
-  # TODO: remove reminder of Stripe params once shipped
-  #
-  # params =>
-  # {"utf8"=>"✓",
-  #  "authenticity_token"=>"Ono2YgLcl1eC1gGzyd7Vf5HJJhOek31yFpT+8z+tKoo=",
-  #  "stripe_token"=>"tok_s3kr3t…",
-  #  "controller"=>"alaveteli_pro/subscriptions",
-  #  "action"=>"create",
-  #  "plan_id"=>"WDTK-pro"}
   def create
     begin
       @pro_account = current_user.pro_account ||= current_user.build_pro_account
 
       # Ensure previous incomplete subscriptions are cancelled to prevent them
-      # from using the new card
+      # from using the new token/card
       @pro_account.subscriptions.incomplete.map(&:delete)
 
       @token = Stripe::Token.retrieve(params[:stripe_token])
@@ -49,16 +27,14 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @pro_account.token = @token
       @pro_account.update_stripe_customer
 
-      @subscription = @pro_account.subscriptions.build
-      @subscription.update_attributes(
-        plan: params.require(:plan_id),
-        tax_percent: tax_percent,
+      attributes = {
+        items: [{ price: @price.id }],
+        tax_percent: @price.tax_percent,
         payment_behavior: 'allow_incomplete'
-      )
+      }
+      attributes[:coupon] = @coupon.id if @coupon
 
-      @subscription.coupon = coupon_code if coupon_code?
-
-      @subscription.save
+      @subscription = @pro_account.subscriptions.create(attributes)
 
     rescue ProAccount::CardError,
            Stripe::CardError => e
@@ -69,7 +45,6 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
            Stripe::AuthenticationError,
            Stripe::APIConnectionError,
            Stripe::StripeError => e
-
       flash[:error] =
         case e.message
         when /No such coupon/
@@ -87,7 +62,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
     if flash[:error]
-      json_redirect_to plan_path(non_namespaced_plan_id)
+      json_redirect_to plan_path(@price)
     else
       redirect_to authorise_subscription_path(@subscription.id)
     end
@@ -114,9 +89,7 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       flash[:error] = _('There was a problem authorising your payment. You ' \
                         'have not been charged. Please try again.')
 
-      json_redirect_to plan_path(
-        remove_stripe_namespace(@subscription.plan.id)
-      )
+      json_redirect_to plan_path(@subscription.price)
 
     elsif @subscription.active?
       current_user.add_role(:pro)
@@ -133,10 +106,10 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
     end
 
   rescue Stripe::RateLimitError,
-          Stripe::InvalidRequestError,
-          Stripe::AuthenticationError,
-          Stripe::APIConnectionError,
-          Stripe::StripeError => e
+         Stripe::InvalidRequestError,
+         Stripe::AuthenticationError,
+         Stripe::APIConnectionError,
+         Stripe::StripeError => e
     if send_exception_notifications?
       ExceptionNotifier.notify_exception(e, env: request.env)
     end
@@ -152,13 +125,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @customer = current_user.pro_account.try(:stripe_customer)
       raise ActiveRecord::RecordNotFound unless @customer
 
-      @subscription = Stripe::Subscription.retrieve(params[:id])
-
-      unless @subscription.customer == @customer.id
-        raise ActiveRecord::RecordNotFound
-      end
-
-      @subscription.delete(at_period_end: true)
+      @subscription = current_user.pro_account.subscriptions.
+        retrieve(params[:id])
+      @subscription.update(cancel_at_period_end: true)
 
       flash[:notice] = _('You have successfully cancelled your subscription ' \
                          'to {{pro_site_name}}',
@@ -199,48 +168,26 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
   end
 
   def check_has_current_subscription
-    # TODO: This doesn't take the plan in to account
+    # TODO: This doesn't take the price in to account
     return if @user.pro_account.try(:subscription?)
+
     flash[:notice] = _("You don't currently have a Pro subscription")
     redirect_to pro_plans_path
   end
 
-  def non_namespaced_plan_id
-    remove_stripe_namespace(params[:plan_id]) if params[:plan_id]
+  def load_price
+    @price = AlaveteliPro::Price.retrieve(params[:price_id])
+    @price || redirect_to(pro_plans_path)
   end
 
-  def coupon_code?
-    params[:coupon_code].present?
-  end
-
-  def coupon_code
-    add_stripe_namespace(params.require(:coupon_code)).upcase
-  end
-
-  def referral_coupon
-    coupon_code =
-      add_stripe_namespace(AlaveteliConfiguration.pro_referral_coupon)
-
-    @referral_coupon ||=
-      unless coupon_code.blank?
-        begin
-          Stripe::Coupon.retrieve(coupon_code)
-        rescue Stripe::StripeError
-        end
-      end
-  end
-
-  def tax_percent
-    (BigDecimal(AlaveteliConfiguration.stripe_tax_rate).to_f * 100).to_f
-  end
-
-  def check_plan_exists
-    redirect_to(pro_plans_path) unless non_namespaced_plan_id
+  def load_coupon
+    @coupon = AlaveteliPro::Coupon.retrieve(params[:coupon_code])
   end
 
   def prevent_duplicate_submission
     # TODO: This doesn't take the plan in to account
     return unless @user.pro_account.try(:subscription?)
+
     json_redirect_to alaveteli_pro_dashboard_path
   end
 

@@ -23,7 +23,7 @@ RSpec.describe UserInfoRequestSentAlert do
     end
 
     let!(:old) do
-      FactoryBot.create(:user_info_request_sent_alert, created_at: 366.days.ago)
+      FactoryBot.create(:user_info_request_sent_alert, created_at: 367.days.ago)
     end
 
     it 'can scope to recent sent alerts' do

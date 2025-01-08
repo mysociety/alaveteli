@@ -121,12 +121,27 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.subject).to eq expected_subject
       end
 
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expiring_alert(pro_user, [expiring_1]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missing *** 1 *** Alaveteli"
+          )
+        end
+      end
+
       it "sends the email to the user" do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
     end
 
@@ -142,12 +157,27 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.subject).to eq expected_subject
       end
 
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expiring_alert(pro_user, [expiring_1, expiring_2]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missings *** 2 *** Alaveteli"
+          )
+        end
+      end
+
       it "sends the email to the user" do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
     end
 
@@ -163,7 +193,6 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
   end
 
   describe '.alert_expired' do
-
     it 'only sends one email per user' do
       AlaveteliPro::EmbargoMailer.alert_expired
       mails = ActionMailer::Base.deliveries
@@ -234,7 +263,6 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
   end
 
   describe '#expired_alert' do
-
     context "when there's just one embargo" do
       before do
         @message = AlaveteliPro::EmbargoMailer.
@@ -247,18 +275,31 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.subject).to eq expected
       end
 
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expired_alert(pro_user, [expired_1]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missing *** 1 *** Alaveteli"
+          )
+        end
+      end
+
       it "sends the email to the user" do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
-
     end
 
     context "when there are multiple embargoes" do
-
       before do
         @message = AlaveteliPro::EmbargoMailer.
                      expired_alert(pro_user, [expired_1, expired_2]).
@@ -270,16 +311,28 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
         expect(@message.subject).to eq expected
       end
 
+      context "when the user does not use default locale" do
+        before do
+          pro_user.locale = 'es'
+          @message = AlaveteliPro::EmbargoMailer.
+            expired_alert(pro_user, [expired_1, expired_2]).
+            message
+        end
+
+        it "translates the subject" do
+          expect(@message.subject). to eq(
+            "*** Spanish missings *** 2 *** Alaveteli"
+          )
+        end
+      end
+
       it "sends the email to the user" do
         expect(@message.to).to eq [pro_user.email]
       end
 
-      it "sends the email from the pro contact address" do
-        expect(@message.from).to eq [AlaveteliConfiguration.pro_contact_email]
+      it "sends the email from the blackhole address" do
+        expect(@message.from).to eq [blackhole_email]
       end
-
     end
-
   end
-
 end

@@ -1,27 +1,21 @@
 require 'spec_helper'
 
 RSpec.describe Users::ConfirmationsController do
-
   describe 'GET confirm' do
-
     context 'if the post redirect cannot be found' do
-
       it 'renders bad_token' do
         get :confirm, params: { email_token: '' }
         expect(response).to render_template(:bad_token)
       end
-
     end
 
     context 'if the post redirect email token invalid' do
-
       it 'renders bad_token' do
         allow(PostRedirect).to receive(:find_by_email_token).with('abc').
           and_return(double(:post_redirect, email_token_valid?: false))
         get :confirm, params: { email_token: 'abc' }
         expect(response).to render_template(:bad_token)
       end
-
     end
 
     context 'the post redirect circumstance is change_password' do
@@ -85,7 +79,6 @@ RSpec.describe Users::ConfirmationsController do
     end
 
     context 'if the currently logged in user is an admin' do
-
       before :each do
         @admin = FactoryBot.create(:admin_user)
         @user = FactoryBot.create(:user, email_confirmed: false)
@@ -110,7 +103,6 @@ RSpec.describe Users::ConfirmationsController do
       it 'redirects to the post redirect uri' do
         expect(response).to redirect_to('/?post_redirect=1')
       end
-
     end
 
     context <<-EOF do
@@ -141,7 +133,6 @@ RSpec.describe Users::ConfirmationsController do
       it 'redirects to the post redirect uri' do
         expect(response).to redirect_to('/?post_redirect=1')
       end
-
     end
 
     context <<-EOF do
@@ -173,11 +164,9 @@ RSpec.describe Users::ConfirmationsController do
       it 'redirects to the post redirect uri' do
         expect(response).to redirect_to('/?post_redirect=1')
       end
-
     end
 
     context 'if there is no logged in user' do
-
       before :each do
         @user = FactoryBot.create(:user, email_confirmed: false)
         @post_redirect = PostRedirect.create(uri: '/', user: @user)
@@ -200,7 +189,6 @@ RSpec.describe Users::ConfirmationsController do
       it 'redirects to the post redirect uri' do
         expect(response).to redirect_to('/?post_redirect=1')
       end
-
     end
   end
 end

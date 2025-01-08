@@ -32,6 +32,7 @@ class InfoRequestEvent < ApplicationRecord
     'followup_resent',
     'edit', # title etc. edited (in admin interface)
     'edit_outgoing', # outgoing message edited (in admin interface)
+    'destroy_comment', # deleted a comment (in admin interface)
     'edit_comment', # comment edited (in admin interface)
     'hide_comment', # comment hidden by admin
     'report_comment', # comment reported for admin attention by user
@@ -88,7 +89,7 @@ class InfoRequestEvent < ApplicationRecord
     self.event_type = "hide"
   end
   after_create :update_request, if: :response?
-  after_create :invalidate_cached_pages
+  after_create :invalidate_cached_pages, unless: :no_xapian_reindex
 
   after_commit -> { info_request.create_or_update_request_summary },
                   on: [:create]
@@ -216,13 +217,15 @@ class InfoRequestEvent < ApplicationRecord
 
     # TODO: should really set these explicitly, and stop storing them in
     # here, but keep it for compatibility with old way for now
-    if params[:incoming_message]
+    if params[:incoming_message].is_a?(IncomingMessage)
       self.incoming_message = params[:incoming_message]
     end
-    if params[:outgoing_message]
+    if params[:outgoing_message].is_a?(OutgoingMessage)
       self.outgoing_message = params[:outgoing_message]
     end
-    self.comment = params[:comment] if params[:comment]
+    if params[:comment].is_a?(Comment)
+      self.comment = params[:comment]
+    end
   end
 
   # A hash to lazy load Global ID reference models
@@ -233,6 +236,8 @@ class InfoRequestEvent < ApplicationRecord
 
       instance = GlobalID::Locator.locate(value[:gid])
       self[key] = instance
+    rescue ActiveRecord::RecordNotFound
+      self[key] = value[:gid]
     end
   end
 
@@ -322,6 +327,7 @@ class InfoRequestEvent < ApplicationRecord
       if status
         return _("Internal review request") if status == 'internal_review'
         return _("Clarification") if status == 'waiting_response'
+
         raise _("unknown status {{status}}", status: status)
       end
       # TRANSLATORS: "Follow up" in this context means a further
@@ -371,6 +377,7 @@ class InfoRequestEvent < ApplicationRecord
     curr_addr = params[:email]
     return true if prev_addr.nil? && curr_addr.nil?
     return false if prev_addr.nil? || curr_addr.nil?
+
     MailHandler.address_from_string(prev_addr) == MailHandler.address_from_string(curr_addr)
   end
 
@@ -419,6 +426,7 @@ class InfoRequestEvent < ApplicationRecord
 
   def foi_attachment
     return unless params[:attachment_id]
+
     @foi_attachment ||= FoiAttachment.find(params[:attachment_id])
   end
 
@@ -437,7 +445,6 @@ class InfoRequestEvent < ApplicationRecord
                  where(info_request_id: info_request_id).
                    where('created_at < ?', created_at).
                      order(order)
-
   end
 
   def subsequent_events(opts = {})
@@ -538,6 +545,7 @@ class InfoRequestEvent < ApplicationRecord
         return false
       end
       return false if event_type == 'comment' && !comment.visible
+
       return true
     end
     false
