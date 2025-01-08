@@ -18,11 +18,7 @@ info_request_redirect = redirect do |params, request|
   encoded_parts = [
     *params[:locale], 'request', info_request.url_title, *prefix, *suffix
   ].map do |part|
-    if RUBY_VERSION < '3.1'
-      URI.encode_www_form_component(part).gsub('+', '%20')
-    else
-      URI.encode_uri_component(part)
-    end
+    URI.encode_uri_component(part)
   end
 
   # join encoded parts together with slashes

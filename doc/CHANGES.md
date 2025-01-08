@@ -1,3 +1,13 @@
+# develop
+
+## Highlighted Features
+
+* Drop support for Ruby 3.1 (Graeme Porteous)
+
+## Upgrade Notes
+
+* _Required:_ This upgrade requires upgrading Ruby from 3.1 to 3.2 or later.
+
 # 0.45.0.0
 
 ## Highlighted Features
