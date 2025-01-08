@@ -1,3 +1,4 @@
+require 'rails/generators'
 require 'rails/generators/active_record/migration'
 
 class ActsAsXapianGenerator < Rails::Generators::Base
