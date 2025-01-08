@@ -101,18 +101,18 @@ gem 'htmlentities', '~> 4.3.0'
 gem 'icalendar', '~> 2.10.3'
 gem 'jquery-rails', '~> 4.6.0'
 gem 'jquery-ui-rails', '~> 6.0.0'
-gem 'json', '~> 2.8.2'
+gem 'json', '~> 2.9.1'
 gem 'holidays', '~> 8.8.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.8.1'
 gem 'maxmind-db', '~> 1.2.0'
 gem 'mahoro', '~> 0.5'
-gem 'nokogiri', '~> 1.16.7'
+gem 'nokogiri', '~> 1.18.1'
 gem 'open4', '~> 1.3.0'
-gem 'puma', '~> 6.4.3'
+gem 'puma', '~> 6.5.0'
 gem 'rack', '~> 2.2.10'
 gem 'rack-utf8_sanitizer', '~> 1.9.1'
-gem 'recaptcha', '~> 5.17.0', require: 'recaptcha/rails'
+gem 'recaptcha', '~> 5.18.0', require: 'recaptcha/rails'
 gem 'matrix', '~> 0.4.2'
 gem 'mini_magick', '~> 4.13.1'
 gem 'net-protocol', '~> 0.1.3'
@@ -120,7 +120,7 @@ gem 'redcarpet', '~> 3.6.0'
 gem 'redis', '~> 4.8.1'
 gem 'rolify', '~> 6.0.1'
 gem 'ruby-msg', '~> 1.5.0', git: 'https://github.com/mysociety/ruby-msg.git', branch: 'ascii-encoding'
-gem 'rubyzip', '~> 2.3.2'
+gem 'rubyzip', '~> 2.4.1'
 gem 'secure_headers', '~> 7.0.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
@@ -131,9 +131,13 @@ gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'vpim', '~> 24.2.20'
 gem 'will_paginate', '~> 4.0.1'
-gem 'xapian-full-alaveteli', '~> 1.4.22.1'
+gem 'xapian-full-alaveteli', '~> 1.4.22.2'
 gem 'xml-simple', '~> 1.1.9', require: 'xmlsimple'
 gem 'zip_tricks', '~> 5.6.0'
+
+# Gems that are part of Ruby's standard library but need version constraints as
+# they are required by other Gem dependencies
+gem 'uri', '~> 1.0.2'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 2.0.0'
@@ -143,8 +147,8 @@ gem 'i18n', '~> 1.14.6'
 gem 'rails-i18n', '~> 7.0.10'
 gem 'gettext_i18n_rails', '~> 1.13.0'
   gem 'fast_gettext', '~> 3.1.0'
-gem 'gettext', '~> 3.4.9'
-gem 'globalize', '~> 6.3.0'
+gem 'gettext', '~> 3.5.0'
+gem 'globalize', '~> 7.0.0'
 gem 'locale', '~> 2.1.4'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
@@ -160,7 +164,7 @@ gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', '~> 3.7.5'
 gem 'uglifier', '~> 4.2.1'
 # Modern Assets
-gem 'importmap-rails', '~> 2.0.3'
+gem 'importmap-rails', '~> 2.1.0'
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0.11'
 
@@ -169,7 +173,7 @@ gem 'alaveteli_features', path: 'gems/alaveteli_features'
 
 # Storage backends
 gem 'aws-sdk-s3', require: false
-gem 'google-cloud-storage', '~> 1.52', require: false
+gem 'google-cloud-storage', '~> 1.54', require: false
 
 # Storage content analyzers
 gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
@@ -190,7 +194,7 @@ group :test, :development do
   gem 'oink', '~> 0.10.1'
   gem 'rspec-activemodel-mocks', '~> 1.2.1'
   gem 'rspec-rails', '~> 7.1.0'
-  gem 'pry', '~> 0.15.0'
+  gem 'pry', '~> 0.15.2'
 end
 
 group :development do
@@ -200,7 +204,7 @@ group :development do
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 3.1.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.68.0', require: false
+  gem 'rubocop', '~> 1.69.2', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

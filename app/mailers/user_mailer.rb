@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    mail_user(user, subject: reasons[:email_subject])
+    mail_user(user, subject: -> { reasons[:email_subject] })
   end
 
   def already_registered(user, reasons, url)
@@ -18,7 +18,7 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    mail_user(user, subject: reasons[:email_subject])
+    mail_user(user, subject: -> { reasons[:email_subject] })
   end
 
   def changeemail_confirm(user, new_email, url)
@@ -27,11 +27,13 @@ class UserMailer < ApplicationMailer
     @old_email = user.email
     @new_email = new_email
 
-    mail_user(
-      new_email,
-      subject: _("Confirm your new email address on {{site_name}}",
-                 site_name: site_name)
+    # Cannot send the user to mail_user - that would send to old_email.
+    # No problem if the current locale is the user's.
+    subject = _(
+      "Confirm your new email address on {{site_name}}",
+      site_name: site_name
     )
+    mail_user(new_email, subject: -> { subject })
   end
 
   def changeemail_already_used(old_email, new_email)
@@ -39,10 +41,12 @@ class UserMailer < ApplicationMailer
     @new_email = new_email
     user = User.find_by_email(@old_email)
 
-    mail_user(
-      new_email,
-      subject: _("Unable to change email address on {{site_name}}",
-                 site_name: site_name)
+    # Cannot send the user to mail_user - that would send to old_email.
+    # No problem if the current locale is the user's.
+    subject = _(
+      "Unable to change email address on {{site_name}}",
+      site_name: site_name
     )
+    mail_user(new_email, subject: -> { subject })
   end
 end
