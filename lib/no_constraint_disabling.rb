@@ -26,11 +26,7 @@ module ActiveRecord
   class FixtureSet
     def self.create_fixtures(fixtures_directory, fixture_set_names, class_names = {}, config = ActiveRecord::Base)
       fixture_set_names = Array(fixture_set_names).map(&:to_s)
-      if Rails.version < '7.1.0'
-        class_names = ClassCache.new class_names, config
-      else
-        class_names.stringify_keys!
-      end
+      class_names.stringify_keys!
 
       # FIXME: Apparently JK uses this.
       connection = block_given? ? yield : ActiveRecord::Base.connection
