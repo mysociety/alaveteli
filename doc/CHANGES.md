@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Upgrade to Rails 7.1 (Graeme Porteous)
 * Update Rails application framework defaults (Graeme Porteous)
 * Drop support for Ruby 3.1 (Graeme Porteous)
 
