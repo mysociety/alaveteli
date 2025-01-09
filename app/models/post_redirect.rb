@@ -105,7 +105,8 @@ class PostRedirect < ApplicationRecord
   def email_token_valid?
     return true unless PostRedirect.verifier.valid_message?(email_token)
 
-    data = PostRedirect.verifier.verify(email_token, purpose: circumstance)
+    data = PostRedirect.verifier.verify(email_token, purpose: circumstance).
+      symbolize_keys
     user.id == data[:user_id] && user.login_token == data[:login_token]
   end
 
