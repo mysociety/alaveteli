@@ -1,4 +1,5 @@
 require 'net/pop'
+require 'config_helper'
 
 class AlaveteliMailPoller
   include ConfigHelper
