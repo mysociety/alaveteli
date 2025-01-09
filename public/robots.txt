@@ -1,16 +1,4 @@
-# See http://www.robotstxt.org/wc/norobots.html for documentation on how to use
-# the robots.txt file
-
-# Mainly to reduce server load from bots, we block pages which are actions, and
-# searches. We also block /feed/, as RSS readers (rightly, I think) don't seem
-# to check robots.txt.
-
-# This file uses the non-standard extension characters * and $, which
-# are supported by Google and Yahoo! and the 'Allow' directive, which
-# is supported by Google.
-
-#   http://code.google.com/web/controlcrawlindex/docs/robots_txt.html
-#   http://help.yahoo.com/l/us/yahoo/search/webcrawler/slurp-02.html
+# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 
 User-agent: *
 Disallow: */annotate/*
