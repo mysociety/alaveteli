@@ -86,4 +86,6 @@ Rails.application.configure do
         exception_recipients: AlaveteliConfiguration.exception_notifications_to
       }
   end
+
+  config.active_job.queue_adapter = :test
 end
