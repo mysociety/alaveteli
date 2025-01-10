@@ -79,7 +79,7 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.2.2.1'
+gem 'rails', '~> 8.0.1'
 
 gem 'pg', '~> 1.5.9'
 
@@ -146,7 +146,7 @@ gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', '~> 1.14.6'
-gem 'rails-i18n', '~> 7.0.10'
+gem 'rails-i18n', '~> 8.0.0'
 gem 'gettext_i18n_rails', '~> 1.13.0'
   gem 'fast_gettext', '~> 4.0.0'
 gem 'gettext', '~> 3.5.0'
