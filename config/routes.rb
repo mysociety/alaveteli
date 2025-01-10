@@ -684,8 +684,7 @@ Rails.application.routes.draw do
       post 'redeliver', :on => :member
     end
     resource :incoming_messages,
-      :controller => 'admin_incoming_message',
-      :only => [:bulk_destroy] do
+      :controller => 'admin_incoming_message' do
         post 'bulk_destroy'
       end
   end
