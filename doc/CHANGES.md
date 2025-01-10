@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Upgrade to Rails 8.0 (Graeme Porteous)
+
 # 0.45.2.0
 
 ## Highlighted Features
