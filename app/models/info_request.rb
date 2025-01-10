@@ -519,14 +519,13 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.reject_incoming_at_mta(options)
-    query = InfoRequest.where(["updated_at < (now() -
-                                interval ?)
-                                AND allow_new_responses_from = 'nobody'
-                                AND rejected_incoming_count >= ?
-                                AND reject_incoming_at_mta = ?
-                                AND url_title <> 'holding_pen'",
-                                "#{options[:age_in_months]} months",
-                                options[:rejection_threshold], false])
+    query = InfoRequest.where(
+      updated_at: ...options[:age_in_months].months.ago,
+      rejected_incoming_count: options[:rejection_threshold]..,
+      allow_new_responses_from: 'nobody',
+      reject_incoming_at_mta: false
+    ).where.not(url_title: 'holding_pen')
+
     yield query.pluck(:id) if block_given?
 
     if options[:dryrun]
