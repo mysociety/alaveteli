@@ -125,7 +125,7 @@ gem 'secure_headers', '~> 7.0.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails7'
+gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails8'
 gem 'stripe', '~> 11.7.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'

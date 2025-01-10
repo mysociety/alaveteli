@@ -17,11 +17,11 @@ GIT
 
 GIT
   remote: https://github.com/mysociety/strip_attributes.git
-  revision: 842a889258a897692296dff8445bb9dc12e676f8
-  branch: globalize3-rails7
+  revision: 75f12bd5c68d4099142cb659a176748df0847488
+  branch: globalize3-rails8
   specs:
-    strip_attributes (1.12.0)
-      activemodel (>= 3.0, < 8.0)
+    strip_attributes (1.14.1)
+      activemodel (>= 3.0, < 9.0)
 
 PATH
   remote: gems/alaveteli_features
