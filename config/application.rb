@@ -24,7 +24,7 @@ Bundler.require(*Rails.groups)
 module Alaveteli
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.2
+    config.load_defaults 8.0
 
     # Disable new framework default has_many_inversing breaks some specs due to
     # an apparent regression in Rails
