@@ -1,3 +1,11 @@
+# develop
+
+## Upgrade Notes
+
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
 # 0.45.0.0
 
 ## Highlighted Features
