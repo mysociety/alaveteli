@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Helper methods to manage and test Alaveteli features"
   spec.homepage      = "https://alaveteli.org"
   spec.license       = "MIT"
+  spec.required_ruby_version = ">= 3.2.0"
 
   spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
