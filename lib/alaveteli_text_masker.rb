@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'config_helper'
 
 module AlaveteliTextMasker
   include ConfigHelper

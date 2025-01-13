@@ -22,7 +22,7 @@ class Notification < ApplicationRecord
 
   INSTANTLY = :instantly
   DAILY = :daily
-  enum frequency: [ INSTANTLY, DAILY ]
+  enum :frequency, [ INSTANTLY, DAILY ]
 
   validates_presence_of :frequency, :send_after
 

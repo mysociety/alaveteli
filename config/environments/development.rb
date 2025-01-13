@@ -73,9 +73,15 @@ Rails.application.configure do
   # to make Rails upgrades easier.
   # ----------------------------------------------------------------
 
-  config.action_mailer.preview_path = Rails.root.join(
-    'spec', 'mailers', 'previews'
-  )
+  if Rails.version < '7.1.0'
+    config.action_mailer.preview_path = Rails.root.join(
+      'spec', 'mailers', 'previews'
+    )
+  else
+    config.action_mailer.preview_paths = [
+      Rails.root.join('spec', 'mailers', 'previews')
+    ]
+  end
 
   # Set LOG_LEVEL in the environment to a valid log level to temporarily run the
   # application with a non-default setting.
