@@ -15,7 +15,7 @@
 # A dataset collection of values
 #
 class Dataset::ValueSet < ApplicationRecord
-  belongs_to :resource, polymorphic: true
+  belongs_to :resource, polymorphic: true, optional: true
   belongs_to :key_set, foreign_key: 'dataset_key_set_id'
   has_many :values, foreign_key: 'dataset_value_set_id', inverse_of: :value_set
 
@@ -27,7 +27,6 @@ class Dataset::ValueSet < ApplicationRecord
     FoiAttachment
   ].freeze
 
-  validates :key_set, :values, presence: true
   validates :resource_type, inclusion: { in: RESOURCE_TYPES }, if: :resource
   validates_associated :values
   validate :check_at_least_one_value_is_present

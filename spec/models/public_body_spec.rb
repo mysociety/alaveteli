@@ -2354,7 +2354,8 @@ RSpec.describe PublicBody::Translation do
 
   it 'is valid if all required attributes are assigned' do
     translation = PublicBody::Translation.new(
-      locale: AlaveteliLocalization.default_locale
+      locale: AlaveteliLocalization.default_locale,
+      globalized_model: PublicBody.first
     )
     expect(translation).to be_valid
   end

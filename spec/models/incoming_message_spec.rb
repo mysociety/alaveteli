@@ -54,6 +54,22 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe 'validations' do
+    subject(:incoming_message) { FactoryBot.build(:incoming_message) }
+
+    it { is_expected.to be_valid }
+
+    it 'requires info_reqeust' do
+      incoming_message.info_request = nil
+      expect(incoming_message).not_to be_valid
+    end
+
+    it 'requires raw_email' do
+      incoming_message.raw_email = nil
+      expect(incoming_message).not_to be_valid
+    end
+  end
+
   describe '#response_event' do
     subject { message.response_event }
 

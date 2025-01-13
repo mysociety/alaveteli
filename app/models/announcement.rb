@@ -74,7 +74,7 @@ class Announcement < ApplicationRecord
     end
   }
 
-  validates :content, :user,
+  validates :content,
             presence: true
   validates :visibility,
             presence: true,

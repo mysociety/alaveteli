@@ -41,16 +41,17 @@ class Comment < ApplicationRecord
 
   belongs_to :user,
              inverse_of: :comments,
-             counter_cache: true
+             counter_cache: true,
+             optional: true # has to be optional for controller action to work
 
   belongs_to :info_request,
-             inverse_of: :comments
+             inverse_of: :comments,
+             optional: true
 
   has_many :info_request_events, # in practice only ever has one
            inverse_of: :comment,
            dependent: :destroy
 
-  # validates_presence_of :user # breaks during construction of new ones :(
   validate :check_body_has_content,
            :check_body_uses_mixed_capitals
 

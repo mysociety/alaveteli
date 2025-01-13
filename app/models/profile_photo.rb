@@ -27,7 +27,8 @@ class ProfilePhoto < ApplicationRecord
   MAX_DRAFT = 500 # keep even pre-cropped images reasonably small
 
   belongs_to :user,
-             inverse_of: :profile_photo
+             inverse_of: :profile_photo,
+             optional: true
 
   validate :data_and_draft_checks
 

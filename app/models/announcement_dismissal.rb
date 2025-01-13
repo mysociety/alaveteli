@@ -15,6 +15,4 @@ class AnnouncementDismissal < ApplicationRecord
              inverse_of: :dismissals
   belongs_to :user,
              inverse_of: :announcement_dismissals
-
-  validates :announcement, :user, presence: true
 end

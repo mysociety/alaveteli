@@ -21,7 +21,7 @@ class Project::Submission < ApplicationRecord
   belongs_to :project
   belongs_to :user
   belongs_to :info_request
-  belongs_to :resource, polymorphic: true
+  belongs_to :resource, polymorphic: true, optional: true
 
   scope :classification, -> { where(resource_type: 'InfoRequestEvent') }
   scope :extraction, -> { where(resource_type: 'Dataset::ValueSet') }
@@ -31,7 +31,6 @@ class Project::Submission < ApplicationRecord
     Dataset::ValueSet
   ].freeze
 
-  validates :project, :user, :info_request, :resource, presence: true
   validates :resource_type, inclusion: { in: RESOURCE_TYPES }
   validates_associated :resource
 end

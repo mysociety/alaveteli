@@ -68,6 +68,10 @@ Rails.application.configure do
   config.i18n.fallbacks = true
   config.i18n.enforce_available_locales = false
 
+  if ENV['DISABLE_DEPRECATION_WARNINGS']
+    config.active_support.deprecation = :silence
+  end
+
   unless ENV['RAILS_ENABLE_TEST_LOG']
     config.logger = Logger.new(nil)
     config.log_level = :fatal

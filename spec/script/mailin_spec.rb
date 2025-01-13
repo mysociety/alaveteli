@@ -19,6 +19,12 @@ RSpec.describe "When importing mail into the application" do
   # transaction
   self.use_transactional_tests = false
 
+  around do |example|
+    ENV['DISABLE_DEPRECATION_WARNINGS'] = 'true'
+    example.call
+    ENV['DISABLE_DEPRECATION_WARNINGS'] = nil
+  end
+
   it "should not produce any output and should return a 0 code on importing a plain email" do
     r = mailin_test("incoming-request-empty.email")
     expect(r.status).to eq(0)

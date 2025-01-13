@@ -117,6 +117,17 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe 'validations' do
+    subject(:outgoing_message) { FactoryBot.build(:initial_request) }
+
+    it { is_expected.to be_valid }
+
+    it 'requires info_reqeust' do
+      outgoing_message.info_request = nil
+      expect(outgoing_message).not_to be_valid
+    end
+  end
+
   describe '#default_letter' do
     it 'reloads the default body when set after initialization' do
       req = FactoryBot.build(:info_request)
