@@ -17,6 +17,8 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require "mini_magick"
+
 class ProfilePhoto < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw photo properly
 
