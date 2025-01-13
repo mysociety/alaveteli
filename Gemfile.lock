@@ -23,6 +23,15 @@ GIT
     strip_attributes (1.14.1)
       activemodel (>= 3.0, < 9.0)
 
+GIT
+  remote: https://github.com/smartinez87/exception_notification.git
+  revision: 60e158888bbff96f7a9ae00ae97305cdd33726e9
+  branch: master
+  specs:
+    exception_notification (4.5.0)
+      actionmailer (>= 5.2, < 9)
+      activesupport (>= 5.2, < 9)
+
 PATH
   remote: gems/alaveteli_features
   specs:
@@ -182,9 +191,6 @@ GEM
       rake (>= 12.0.0, < 14.0.0)
     docile (1.4.0)
     erubi (1.13.1)
-    exception_notification (4.5.0)
-      actionmailer (>= 5.2, < 8)
-      activesupport (>= 5.2, < 8)
     execjs (2.9.1)
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
@@ -599,7 +605,7 @@ DEPENDENCIES
   charlock_holmes (~> 0.7.9)
   dalli (~> 3.2.8)
   excel_analyzer!
-  exception_notification (~> 4.5.0)
+  exception_notification!
   factory_bot_rails (~> 6.4.4)
   fancybox-rails (~> 0.3.0)
   fast_gettext (~> 4.0.0)
