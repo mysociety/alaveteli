@@ -41,7 +41,7 @@ RSpec.configure do |config|
   config.include StripAttributes::Matchers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_paths = [Rails.root.join("spec", "fixtures")]
 
   # The order (!) of this is important thanks to foreign keys
   config.global_fixtures = :users,

@@ -9,13 +9,8 @@ Rails.autoloaders.main.inflector.inflect(
 )
 
 Rails.autoloaders.main.ignore(
-  "lib/acts_as_xapian",
   "lib/confidence_intervals.rb",
   "lib/configuration.rb",
-  "lib/core_ext",
-  "lib/custom_cops",
-  "lib/generators",
-  "lib/has_tag_string",
   "lib/i18n_fixes.rb",
   "lib/languages.rb",
   "lib/mail_handler/backends/mail_extensions.rb",
@@ -25,6 +20,5 @@ Rails.autoloaders.main.ignore(
   "lib/routing_filters.rb",
   "lib/stripe_mock_patch.rb",
   "lib/theme.rb",
-  "lib/themes",
   "lib/use_spans_for_errors.rb"
 )
