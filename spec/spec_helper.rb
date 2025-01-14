@@ -100,19 +100,7 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    if ENV['ALAVETELI_USE_OINK']
-      oink_log = Rails.root + 'log/oink.log'
-      File.write(oink_log, '') if File.exist?(oink_log)
-    end
-
     BCrypt::Engine.cost = 1
-  end
-
-  config.after(:suite) do
-    if ENV['ALAVETELI_USE_OINK']
-      puts ""
-      puts `oink --threshold=0 --format verbose log/oink.log`
-    end
   end
 
   # Any test that messes with the locale needs to restore the state afterwards so that it
