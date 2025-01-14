@@ -20,9 +20,11 @@
 class PublicBodyChangeRequest < ApplicationRecord
   belongs_to :user,
              inverse_of: :public_body_change_requests,
-             counter_cache: true
+             counter_cache: true,
+             optional: true
   belongs_to :public_body,
-             inverse_of: :public_body_change_requests
+             inverse_of: :public_body_change_requests,
+             optional: true
 
   validates_presence_of :public_body_name,
                         message: N_("Please enter the name of the authority"),

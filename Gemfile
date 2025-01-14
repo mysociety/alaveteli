@@ -79,7 +79,7 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.5.1'
 
 gem 'pg', '~> 1.5.9'
 
@@ -88,17 +88,18 @@ gem 'addressable', '~> 2.8.7'
 gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
                          ref: '13e928b'
 gem 'active_model_otp'
-gem 'activejob-uniqueness', '~> 0.2.5'
+gem 'activejob-uniqueness', '~> 0.4.0'
 gem 'bcrypt', '~> 3.1.20'
 gem 'cancancan', '~> 3.6.1'
 gem 'charlock_holmes', '~> 0.7.9'
 gem 'dalli', '~> 3.2.8'
-gem 'exception_notification', '~> 4.5.0'
+gem 'exception_notification', git: 'https://github.com/smartinez87/exception_notification.git', branch: 'master'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'friendly_id', '~> 5.5.1'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.3.0'
 gem 'icalendar', '~> 2.10.3'
+gem 'image_processing', '~> 1.13'
 gem 'jquery-rails', '~> 4.6.0'
 gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', '~> 2.9.1'
@@ -111,10 +112,9 @@ gem 'nokogiri', '~> 1.18.1'
 gem 'open4', '~> 1.3.0'
 gem 'puma', '~> 6.5.0'
 gem 'rack', '~> 2.2.10'
-gem 'rack-utf8_sanitizer', '~> 1.9.1'
+gem 'rack-utf8_sanitizer', '~> 1.10.1'
 gem 'recaptcha', '~> 5.18.0', require: 'recaptcha/rails'
 gem 'matrix', '~> 0.4.2'
-gem 'mini_magick', '~> 4.13.1'
 gem 'net-protocol', '~> 0.1.3'
 gem 'redcarpet', '~> 3.6.0'
 gem 'redis', '~> 4.8.1'
@@ -125,7 +125,7 @@ gem 'secure_headers', '~> 7.0.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails7'
+gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails8'
 gem 'stripe', '~> 11.7.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
@@ -146,7 +146,7 @@ gem 'gender_detector', '~> 2.0.0'
 gem 'i18n', '~> 1.14.6'
 gem 'rails-i18n', '~> 7.0.10'
 gem 'gettext_i18n_rails', '~> 1.13.0'
-  gem 'fast_gettext', '~> 3.1.0'
+  gem 'fast_gettext', '~> 4.0.0'
 gem 'gettext', '~> 3.5.0'
 gem 'globalize', '~> 7.0.0'
 gem 'locale', '~> 2.1.4'
@@ -204,7 +204,7 @@ group :development do
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 3.1.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.69.2', require: false
+  gem 'rubocop', '~> 1.70.0', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

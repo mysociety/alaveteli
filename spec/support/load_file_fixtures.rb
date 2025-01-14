@@ -1,5 +1,5 @@
 def file_fixture_name(file_name)
-  File.join(RSpec.configuration.fixture_path, "files", file_name)
+  Rails.root.join("spec", "fixtures", "files", file_name).to_s
 end
 
 def load_file_fixture(file_name, mode = 'rb')
@@ -9,10 +9,10 @@ end
 
 def read_described_class_fixture(fixture)
   base_path = described_class.name.underscore
-  File.read(File.join(RSpec.configuration.fixture_path, base_path, fixture))
+  File.read(Rails.root.join("spec", "fixtures", base_path, fixture))
 end
 
 def read_described_template_fixture
   described_template = self.class.top_level_description.gsub(/\..*\.erb/, '')
-  File.read(File.join(RSpec.configuration.fixture_path, described_template))
+  File.read(Rails.root.join("spec", "fixtures", described_template))
 end

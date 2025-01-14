@@ -21,7 +21,8 @@ class Category < ApplicationRecord
   has_many :parent_relationships,
            class_name: 'CategoryRelationship',
            foreign_key: 'child_id',
-           dependent: :destroy
+           dependent: :destroy,
+           validate: false
   has_many :parents,
            through: :parent_relationships,
            source: :parent
@@ -29,7 +30,8 @@ class Category < ApplicationRecord
   has_many :child_relationships,
            class_name: 'CategoryRelationship',
            foreign_key: 'parent_id',
-           dependent: :destroy
+           dependent: :destroy,
+           validate: false
   has_many :children,
            through: :child_relationships,
            source: :child,

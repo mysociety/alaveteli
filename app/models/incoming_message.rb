@@ -49,10 +49,6 @@ class IncomingMessage < ApplicationRecord
              inverse_of: :incoming_messages,
              counter_cache: true
 
-  validates_presence_of :info_request
-
-  validates_presence_of :raw_email
-
   has_many :outgoing_message_followups,
            inverse_of: :incoming_message_followup,
            foreign_key: 'incoming_message_followup_id',

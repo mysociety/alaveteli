@@ -29,6 +29,17 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
+  describe 'validations' do
+    subject(:ire) { FactoryBot.build(:info_request_event) }
+
+    it { is_expected.to be_valid }
+
+    it 'requires info_reqeust' do
+      ire.info_request = nil
+      expect(ire).not_to be_valid
+    end
+  end
+
   describe "when checking for a valid state" do
     it 'should add an error message for described_state if it is not valid' do
       ire = InfoRequestEvent.new(described_state: 'nope')

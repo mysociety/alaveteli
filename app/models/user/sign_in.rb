@@ -15,7 +15,7 @@
 class User::SignIn < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
-  belongs_to :user, inverse_of: :sign_ins
+  belongs_to :user, inverse_of: :sign_ins, optional: true
 
   before_create :create?
 

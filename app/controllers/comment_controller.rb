@@ -54,7 +54,6 @@ class CommentController < ApplicationController
       flash[:notice] = _("Thank you for making an annotation!")
 
       if params[:subscribe_to_request]
-        @track_thing = TrackThing.create_track_for_request(@info_request)
         @existing_track = TrackThing.find_existing(@user, @track_thing)
         if @user && @info_request.user == @user
           # don't subscribe to own request!

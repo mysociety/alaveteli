@@ -12,6 +12,12 @@ def mail_reply_test(email_filename)
 end
 
 RSpec.describe "When filtering" do
+  around do |example|
+    ENV['DISABLE_DEPRECATION_WARNINGS'] = 'true'
+    example.call
+    ENV['DISABLE_DEPRECATION_WARNINGS'] = nil
+  end
+
   describe "when not in test mode" do
     it "should not fail handling a bounce mail" do
       xc = ExternalCommand.new("script/handle-mail-replies", {

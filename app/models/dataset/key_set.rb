@@ -26,6 +26,5 @@ class Dataset::KeySet < ApplicationRecord
     InfoRequestBatch
   ].freeze
 
-  validates :resource, presence: true
   validates :resource_type, inclusion: { in: RESOURCE_TYPES }
 end

@@ -67,15 +67,18 @@ class InfoRequest < ApplicationRecord
 
   belongs_to :user,
              inverse_of: :info_requests,
-             counter_cache: true
+             counter_cache: true,
+             optional: true
 
   validate :must_be_internal_or_external
 
   belongs_to :public_body,
              inverse_of: :info_requests,
-             counter_cache: true
+             counter_cache: true,
+             validate: false
   belongs_to :info_request_batch,
-             inverse_of: :info_requests
+             inverse_of: :info_requests,
+             optional: true
 
   validates_presence_of :public_body, message: N_("Please select an authority")
 
@@ -519,14 +522,13 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.reject_incoming_at_mta(options)
-    query = InfoRequest.where(["updated_at < (now() -
-                                interval ?)
-                                AND allow_new_responses_from = 'nobody'
-                                AND rejected_incoming_count >= ?
-                                AND reject_incoming_at_mta = ?
-                                AND url_title <> 'holding_pen'",
-                                "#{options[:age_in_months]} months",
-                                options[:rejection_threshold], false])
+    query = InfoRequest.where(
+      updated_at: ...options[:age_in_months].months.ago,
+      rejected_incoming_count: options[:rejection_threshold]..,
+      allow_new_responses_from: 'nobody',
+      reject_incoming_at_mta: false
+    ).where.not(url_title: 'holding_pen')
+
     yield query.pluck(:id) if block_given?
 
     if options[:dryrun]

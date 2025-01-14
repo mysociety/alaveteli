@@ -19,7 +19,8 @@ class Role < ApplicationRecord
                           inverse_of: :roles
 
   belongs_to :resource,
-             polymorphic: true
+             polymorphic: true,
+             optional: true
 
   validates :resource_type,
             inclusion: { in: Rolify.resource_types },

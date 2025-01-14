@@ -27,10 +27,9 @@ class Citation < ApplicationRecord
   belongs_to :user, inverse_of: :citations
   belongs_to :citable, polymorphic: true
 
-  belongs_to :info_request, via: :citable
-  belongs_to :info_request_batch, via: :citable
+  belongs_to :info_request, via: :citable, optional: true
+  belongs_to :info_request_batch, via: :citable, optional: true
 
-  validates :user, :citable, presence: true
   validates :citable_type, inclusion: { in: %w(InfoRequest InfoRequestBatch) }
   validates :source_url, length: { maximum: 255,
                                    message: _('Source URL is too long') },

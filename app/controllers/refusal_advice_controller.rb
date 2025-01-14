@@ -85,15 +85,11 @@ class RefusalAdviceController < ApplicationController
   end
 
   def parsed_refusal_advice_params
-    parsed_params = refusal_advice_params.merge(
+    refusal_advice_params.merge(
       actions: refusal_advice_params.fetch(:actions).
         each_pair do |_, suggestions|
           suggestions.transform_values! { |v| v == 'true' }
         end
     ).to_h
-
-    return parsed_params.deep_symbolize_keys if RUBY_VERSION < '3.0'
-
-    parsed_params
   end
 end

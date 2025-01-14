@@ -21,30 +21,14 @@ class AlaveteliLocalization
 
       I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 
-      if Rails.version < '7.0.0' && Rails.env.development?
-        ##
-        # Ideally the following would only be called in the `after_initialize`
-        # hook but this leads to an error when booting Rails 6.1 in development
-        # mode. (As config.cache_classes = false)
-        #
-        # This due Alaveteli not yet using the new Zeitwork autoloading feature
-        # and Rails attempts to render a deprecation warning which happens to
-        # includes an I18n translation so requires the default locale to be
-        # setup.
-        #
-        # Once we support Zeitwork (which is needed for Rails 7) then this can
-        # be removed.
-        #
-        # See: https://github.com/mysociety/alaveteli/issues/5382
-        #
-        AlaveteliLocalization.set_locales(
-          AlaveteliConfiguration.available_locales,
-          AlaveteliConfiguration.default_locale
-        )
-      end
+      set_locales
     end
 
     config.after_initialize do
+      set_locales
+    end
+
+    def set_locales
       AlaveteliLocalization.set_locales(
         AlaveteliConfiguration.available_locales,
         AlaveteliConfiguration.default_locale

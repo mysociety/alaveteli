@@ -1,6 +1,4 @@
 class TypeaheadSearch
-  include ConfigHelper
-
   attr_accessor :query, :model, :page, :per_page, :wildcard, :run_search
 
   def initialize(query, opts = {})

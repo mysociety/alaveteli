@@ -21,12 +21,14 @@
 class MailServerLog < ApplicationRecord
   # `serialize` needs to be called before all other ActiveRecord code.
   # See http://stackoverflow.com/a/15610692/387558
-  serialize :delivery_status, DeliveryStatusSerializer
+  serialize :delivery_status, coder: DeliveryStatusSerializer
 
   belongs_to :info_request,
-             inverse_of: :mail_server_logs
+             inverse_of: :mail_server_logs,
+             optional: true
   belongs_to :mail_server_log_done,
-             inverse_of: :mail_server_logs
+             inverse_of: :mail_server_logs,
+             optional: true
 
   before_create :calculate_delivery_status
 

@@ -54,6 +54,22 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe 'validations' do
+    subject(:incoming_message) { FactoryBot.build(:incoming_message) }
+
+    it { is_expected.to be_valid }
+
+    it 'requires info_reqeust' do
+      incoming_message.info_request = nil
+      expect(incoming_message).not_to be_valid
+    end
+
+    it 'requires raw_email' do
+      incoming_message.raw_email = nil
+      expect(incoming_message).not_to be_valid
+    end
+  end
+
   describe '#response_event' do
     subject { message.response_event }
 
@@ -628,7 +644,10 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   end
 
   it "should correctly fold various types of footer" do
-    Dir.glob(File.join(RSpec.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
+    path = Rails.root.join(
+      "spec", "fixtures", "files", "email-folding-example-*.txt"
+    )
+    Dir.glob(path).each do |file|
       message = File.read(file)
       parsed = IncomingMessage.remove_quoted_sections(message)
       expected = File.read("#{file}.expected")

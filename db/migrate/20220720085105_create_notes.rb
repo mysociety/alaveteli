@@ -1,4 +1,11 @@
 class CreateNotes < ActiveRecord::Migration[6.1]
+  # Predefine Note model to allow creation of translation table before adding
+  # style enum is added. This prevents migration errors since enums require
+  # existing database columns.
+  class Note < ApplicationRecord
+    translates :body
+  end
+
   def change
     create_table :notes do |t|
       t.references :notable, polymorphic: true

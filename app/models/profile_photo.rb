@@ -17,6 +17,8 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+require "mini_magick"
+
 class ProfilePhoto < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw photo properly
 
@@ -25,7 +27,8 @@ class ProfilePhoto < ApplicationRecord
   MAX_DRAFT = 500 # keep even pre-cropped images reasonably small
 
   belongs_to :user,
-             inverse_of: :profile_photo
+             inverse_of: :profile_photo,
+             optional: true
 
   validate :data_and_draft_checks
 

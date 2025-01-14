@@ -1,3 +1,19 @@
+# 0.45.1.0
+
+## Highlighted Features
+
+* Upgrade to Rails 7.1 (Graeme Porteous)
+* Update Rails application framework defaults (Graeme Porteous)
+* Drop support for Ruby 3.1 (Graeme Porteous)
+
+## Upgrade Notes
+
+* _Required:_ This upgrade requires upgrading Ruby from 3.1 to 3.2 or later.
+
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
 # 0.45.0.0
 
 ## Highlighted Features

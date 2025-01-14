@@ -29,16 +29,19 @@ class TrackThing < ApplicationRecord
   TRACK_MEDIUMS = %w(email_daily feed)
 
   belongs_to :info_request,
-             inverse_of: :track_things
+             inverse_of: :track_things,
+             optional: true
   belongs_to :public_body,
-             inverse_of: :track_things
+             inverse_of: :track_things,
+             optional: true
   belongs_to :tracking_user,
              class_name: 'User',
              inverse_of: :track_things,
              counter_cache: true
   belongs_to :tracked_user,
              class_name: 'User',
-             inverse_of: :track_things
+             inverse_of: :track_things,
+             optional: true
   has_many :track_things_sent_emails,
            inverse_of: :track_thing,
            dependent: :destroy

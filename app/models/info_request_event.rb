@@ -61,14 +61,15 @@ class InfoRequestEvent < ApplicationRecord
   belongs_to :info_request,
              inverse_of: :info_request_events
 
-  validates_presence_of :info_request
-
   belongs_to :outgoing_message,
-             inverse_of: :info_request_events
+             inverse_of: :info_request_events,
+             optional: true
   belongs_to :incoming_message,
-             inverse_of: :info_request_events
+             inverse_of: :info_request_events,
+             optional: true
   belongs_to :comment,
-             inverse_of: :info_request_events
+             inverse_of: :info_request_events,
+             optional: true
 
   has_one :request_classification,
           inverse_of: :info_request_event

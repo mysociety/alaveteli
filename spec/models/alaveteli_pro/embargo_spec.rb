@@ -15,10 +15,13 @@
 require 'spec_helper'
 
 RSpec.describe AlaveteliPro::Embargo, type: :model do
-  let(:embargo) { FactoryBot.create(:embargo) }
+  subject(:embargo) { FactoryBot.create(:embargo) }
 
-  it 'belongs to an info_request' do
-    expect(embargo.info_request).not_to be_nil
+  it { is_expected.to be_valid }
+
+  it 'requires info_request' do
+    embargo.info_request = nil
+    expect(embargo).not_to be_valid
   end
 
   it 'has a publish_at field' do

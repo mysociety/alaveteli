@@ -19,13 +19,13 @@
 class AlaveteliPro::RequestSummary < ApplicationRecord
   belongs_to :summarisable, polymorphic: true
   belongs_to :user,
-             inverse_of: :request_summaries
+             inverse_of: :request_summaries,
+             optional: true
   has_and_belongs_to_many :request_summary_categories,
                           class_name: "AlaveteliPro::RequestSummaryCategory",
                           inverse_of: :request_summaries
 
-  validates_presence_of :summarisable,
-                        :request_created_at,
+  validates_presence_of :request_created_at,
                         :request_updated_at
   validates_uniqueness_of :summarisable_id, scope: :summarisable_type
 

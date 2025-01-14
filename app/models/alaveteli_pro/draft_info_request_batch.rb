@@ -25,8 +25,6 @@ class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
     end
   }, inverse_of: :draft_info_request_batches
 
-  validates_presence_of :user
-
   after_initialize :set_default_body
 
   strip_attributes only: %i[embargo_duration]
