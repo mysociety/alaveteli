@@ -81,9 +81,9 @@ Rails.application.configure do
     Rails.root.join('spec', 'mailers', 'previews')
   ]
 
-  # Set LOG_LEVEL in the environment to a valid log level to temporarily run the
-  # application with a non-default setting.
-  config.log_level = ENV.fetch('LOG_LEVEL', :debug)
+  # Set RAILS_LOG_LEVEL in the environment to a valid log level to temporarily
+  # run the application with a non-default setting.
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', :debug)
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
