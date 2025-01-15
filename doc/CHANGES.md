@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Add support for Ruby 3.3 (Graeme Porteous)
+
 # 0.45.1.0
 
 ## Highlighted Features
