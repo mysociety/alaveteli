@@ -54,6 +54,7 @@ jobs:
       matrix:
         include:
         - { ruby: '3.2', postgres: 13.5 }
+        - { ruby: '3.3', postgres: 13.5 }
 
     services:
       postgres:

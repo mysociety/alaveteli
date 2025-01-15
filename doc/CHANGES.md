@@ -1,3 +1,10 @@
+# 0.45.2.0
+
+## Highlighted Features
+
+* Upgrade to Rails 7.2 (Graeme Porteous)
+* Add support for Ruby 3.3 (Graeme Porteous)
+
 # 0.45.1.0
 
 ## Highlighted Features
