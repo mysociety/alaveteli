@@ -11,10 +11,7 @@ class RefusalAdviceController < ApplicationController
     internal_redirect_to ||
       help_page_redirect ||
       external_redirect  ||
-      raise(
-        RefusalAdvice::Action::RedirectionError,
-        "Can't redirect to #{action.target}"
-      )
+      redirection_error
   end
 
   private
@@ -59,6 +56,14 @@ class RefusalAdviceController < ApplicationController
   def external_redirect
     external = action.target[:external]
     redirect_to(external, allow_other_host: true) if external
+  end
+
+  def redirection_error
+    type, url = *action.target.first
+    raise(
+      RefusalAdvice::Action::RedirectionError,
+      "Can't redirect to {:#{type}=>#{url.inspect}}"
+    )
   end
 
   def action
