@@ -1408,6 +1408,11 @@ RSpec.describe InfoRequest do
       expect { info_request.destroy }.
         to change(AlaveteliPro::Embargo, :count).by(-1)
     end
+
+    it 'destroys associated insights' do
+      FactoryBot.create(:insight, info_request: info_request)
+      expect { info_request.destroy }.to change(Insight, :count).by(-1)
+    end
   end
 
   describe '#expire' do

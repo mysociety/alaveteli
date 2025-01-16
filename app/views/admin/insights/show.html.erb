@@ -1,0 +1,28 @@
+<table class="table table-striped table-condensed">
+  <tbody>
+    <tr>
+      <td>
+        <b>ID</b>
+      </td>
+      <td>
+        <%= @insight.id %>
+      </td>
+    </tr>
+    <% @insight.for_admin_column do |name, value| %>
+      <tr>
+        <td>
+          <b><%= name.humanize %></b>
+        </td>
+        <td>
+          <% if name == 'prompt' || name == 'response' %>
+            <pre><%= value&.strip %></pre>
+          <% else %>
+            <%= h admin_value(value) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Destroy", admin_info_request_insight_path(@info_request, @insight), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
