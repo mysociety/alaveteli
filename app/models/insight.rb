@@ -21,8 +21,6 @@ class Insight < ApplicationRecord
   belongs_to :info_request, optional: false
   has_many :outgoing_messages, through: :info_request
 
-  serialize :output, type: Hash, coder: JSON, default: {}
-
   validates :model, presence: true
   validates :temperature, presence: true
   validates :template, presence: true
