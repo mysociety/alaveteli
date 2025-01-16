@@ -413,3 +413,11 @@
 <%= render partial: 'admin/notes/show',
   locals: { notes: @info_request.all_notes,
             notable: @info_request } %>
+
+<hr>
+
+<h2>Insights</h2>
+
+<%= render partial: 'admin/insights/list',
+  locals: { info_request: @info_request,
+            insights: @info_request.insights } %>
