@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Upgrade to Rails 8.0 (Graeme Porteous)
 * Add support for Ruby 3.4 (Graeme Porteous)
 
 # 0.45.2.0
