@@ -3,14 +3,14 @@
 #
 # Table name: project_submissions
 #
-#  id              :bigint           not null, primary key
-#  project_id      :bigint
-#  user_id         :bigint
+#  id              :integer          not null, primary key
+#  project_id      :integer
+#  user_id         :integer
 #  resource_type   :string
-#  resource_id     :bigint
+#  resource_id     :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  info_request_id :bigint
+#  info_request_id :integer
 #
 
 ##

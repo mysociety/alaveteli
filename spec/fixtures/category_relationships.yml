@@ -3,13 +3,12 @@
 #
 # Table name: category_relationships
 #
-#  id         :bigint           not null, primary key
+#  id         :integer          not null, primary key
 #  parent_id  :integer          not null
 #  child_id   :integer          not null
 #  position   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#
 #
 
 useless_and_lonely_category_rel:
