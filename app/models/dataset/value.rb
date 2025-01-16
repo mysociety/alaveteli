@@ -3,9 +3,9 @@
 #
 # Table name: dataset_values
 #
-#  id                   :bigint           not null, primary key
-#  dataset_value_set_id :bigint
-#  dataset_key_id       :bigint
+#  id                   :integer          not null, primary key
+#  dataset_value_set_id :integer
+#  dataset_key_id       :integer
 #  value                :string
 #  notes                :string
 #  created_at           :datetime         not null

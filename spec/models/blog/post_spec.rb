@@ -3,13 +3,14 @@
 #
 # Table name: blog_posts
 #
-#  id         :bigint           not null, primary key
+#  id         :integer          not null, primary key
 #  title      :string
 #  url        :string
 #  data       :jsonb
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
 require 'spec_helper'
 require 'models/concerns/taggable'
 

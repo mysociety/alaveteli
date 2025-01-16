@@ -3,13 +3,14 @@
 #
 # Table name: user_sign_ins
 #
-#  id         :bigint           not null, primary key
-#  user_id    :bigint
+#  id         :integer          not null, primary key
+#  user_id    :integer
 #  ip         :inet
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  country    :string
 #
+
 require 'spec_helper'
 
 RSpec.describe User::SignIn, type: :model do
