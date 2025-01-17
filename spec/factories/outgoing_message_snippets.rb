@@ -3,11 +3,9 @@
 #
 # Table name: outgoing_message_snippets
 #
-#  id         :bigint           not null, primary key
+#  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  name       :string
-#  body       :text
 #
 
 FactoryBot.define do

@@ -3,10 +3,10 @@
 #
 # Table name: project_resources
 #
-#  id            :bigint           not null, primary key
-#  project_id    :bigint
+#  id            :integer          not null, primary key
+#  project_id    :integer
 #  resource_type :string
-#  resource_id   :bigint
+#  resource_id   :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
