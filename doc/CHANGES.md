@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+Add additional InfoRequest embargo scopes (Graeme Porteous)
+
 # 0.45.3.0
 
 ## Highlighted Features
