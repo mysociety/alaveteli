@@ -9,6 +9,8 @@ class FoiAttachmentMaskJob < ApplicationJob
   queue_as :default
   unique :until_and_while_executing, on_conflict: :log
 
+  around_perform :set_regexp_timeout
+
   attr_reader :attachment
 
   delegate :incoming_message, to: :attachment
@@ -61,5 +63,12 @@ class FoiAttachmentMaskJob < ApplicationJob
       censor_rules: info_request.applicable_censor_rules,
       masks: info_request.masks
     }
+  end
+
+  def set_regexp_timeout
+    current_timeout = Regexp.timeout
+    Regexp.timeout = 60.0
+    yield
+    Regexp.timeout = current_timeout
   end
 end
