@@ -214,8 +214,9 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    fast_gettext (4.0.0)
+    fast_gettext (4.1.0)
       prime
+      racc
     ffi (1.17.1)
     ffi (1.17.1-aarch64-linux-gnu)
     ffi (1.17.1-arm64-darwin)
@@ -650,7 +651,7 @@ DEPENDENCIES
   exception_notification!
   factory_bot_rails (~> 6.4.4)
   fancybox-rails (~> 0.3.0)
-  fast_gettext (~> 4.0.0)
+  fast_gettext (~> 4.1.0)
   fivemat (~> 1.3.7)
   friendly_id (~> 5.5.1)
   gender_detector (~> 2.0.0)
