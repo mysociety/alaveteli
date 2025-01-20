@@ -1305,6 +1305,9 @@ Rails/MatchRoute:
 Rails/MigrationClassName:
   Enabled: false
 
+Rails/MultipleRoutePaths:
+  Enabled: false
+
 Rails/NegateInclude:
   Enabled: false
 
@@ -1432,6 +1435,9 @@ Rails/SquishedSQLHeredocs:
   Enabled: false
 
 Rails/StripHeredoc:
+  Enabled: false
+
+Rails/StrongParametersExpect:
   Enabled: false
 
 Rails/TableNameAssignment:
