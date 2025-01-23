@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+Update Pro metric report email for new Stripe price IDs (Graeme Porteous)
 Increase regular expression timeout for attachment masking (Graeme Porteous)
 Add additional InfoRequest embargo scopes (Graeme Porteous)
 
