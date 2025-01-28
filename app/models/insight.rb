@@ -18,12 +18,55 @@ class Insight < ApplicationRecord
 
   after_commit :queue, on: :create
 
+  attr_reader :template
+
   belongs_to :info_request, optional: false
   has_many :outgoing_messages, through: :info_request
 
   validates :model, presence: true
   validates :temperature, presence: true
   validates :prompt_template, presence: true
+
+  class << self
+    def templates
+      @templates ||= {}
+    end
+
+    def register_template(name, title:, attributes:)
+      templates[name.to_sym] = {
+        title: title,
+        attributes: attributes
+      }
+    end
+  end
+
+  register_template :keywords,
+    title: 'Extract 10 keywords',
+    attributes: {
+      model: 'Toast:latest', temperature: 0.3, prompt_template: <<~TXT
+        <|start_header_id|>system<|end_header_id|>
+        You are a helpful AI assistant that extracts the 10 most relevant keywords from text.
+        Focus on:
+        - Core subject matter and themes
+        - Important factual details
+        - Contextually relevant terms
+        - Consistent formatting
+        Return exactly 10 keywords that best represent the input text's subject matter, one per line. Return only the keywords. Do not include any other explanatory text.
+        <|eot_id|>
+
+        <|start_header_id|>user<|end_header_id|>
+        Extract 10 relevant keywords from this text:
+        [initial_request]
+        <|eot_id|>
+
+        <|start_header_id|>assistant<|end_header_id|>
+      TXT
+    }
+
+  def template=(key)
+    @template = key
+    assign_attributes(self.class.templates[key.to_sym][:attributes])
+  end
 
   def duration
     return unless output && output['total_duration']

@@ -43,6 +43,12 @@ class Admin::InsightsController < AdminController
   end
 
   def insight_params
-    params.require(:insight).permit(:model, :temperature, :prompt_template)
+    params.require(:insight).permit(
+      if params[:insight][:template].present?
+        :template
+      else
+        [:model, :temperature, :prompt_template]
+      end
+    )
   end
 end

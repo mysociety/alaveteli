@@ -60,6 +60,19 @@ RSpec.describe Insight, type: :model do
     end
   end
 
+  describe '#template=' do
+    before do
+      Insight.register_template :foobar, title: 'Foobar', attributes: {
+        model: 'my_custom_model'
+      }
+    end
+
+    it 'sets attributes from pre-defined template' do
+      insight = FactoryBot.build(:insight, template: 'foobar')
+      expect(insight.model).to eq('my_custom_model')
+    end
+  end
+
   describe '#duration' do
     it 'returns nil when total_duration is not present' do
       insight = FactoryBot.build(:insight)
