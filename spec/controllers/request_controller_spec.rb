@@ -18,6 +18,8 @@ RSpec.describe RequestController, "when listing request categories" do
 end
 
 RSpec.describe RequestController, "when listing recent requests" do
+  before { update_xapian_index }
+
   it "should be successful" do
     get :list, params: { view: 'all' }
     expect(response).to be_successful
@@ -63,7 +65,6 @@ RSpec.describe RequestController, "when listing recent requests" do
   end
 
   it 'sets title based on if tag does not match an request category' do
-    update_xapian_index
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
 
