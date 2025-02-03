@@ -317,7 +317,7 @@ GEM
     json (2.9.1)
     jwt (2.9.3)
       base64
-    language_server-protocol (3.17.0.3)
+    language_server-protocol (3.17.0.4)
     launchy (3.0.1)
       addressable (~> 2.8)
       childprocess (~> 5.0)
@@ -498,17 +498,17 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
-    rubocop (1.70.0)
+    rubocop (1.71.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.36.2, < 2.0)
+      rubocop-ast (>= 1.38.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.37.0)
+    rubocop-ast (1.38.0)
       parser (>= 3.3.1.0)
     rubocop-performance (1.23.1)
       rubocop (>= 1.48.1, < 2.0)
@@ -699,7 +699,7 @@ DEPENDENCIES
   rolify (~> 6.0.1)
   rspec-activemodel-mocks (~> 1.2.1)
   rspec-rails (~> 7.1.0)
-  rubocop (~> 1.70.0)
+  rubocop (~> 1.71.1)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
