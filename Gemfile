@@ -205,7 +205,7 @@ group :development do
   gem 'capistrano', '~> 2.15.11'
     gem 'net-ssh', '~> 7.3.0'
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
-  gem 'launchy', '< 3.1.0'
+  gem 'launchy', '< 3.2.0'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 1.70.0', require: false
   gem 'rubocop-performance', require: false
