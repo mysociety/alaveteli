@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Updated translations from Transifex (Graeme Porteous)
 * Fixes for post Rails 8 upgrade issues:
   * Fix Pro metric report email for new Stripe price IDs (Graeme Porteous)
   * Fix STDOUT logging (Graeme Porteous)

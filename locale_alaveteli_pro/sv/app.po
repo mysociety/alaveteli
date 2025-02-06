@@ -6,10 +6,10 @@
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
-# Elenor Weijmar, 2022
 # Mattias Axell <mattias@libertador.es>, 2023
 # Selsabeel Al Baqir, 2023
 # Graeme Porteous <graeme@mysociety.org>, 2024
+# Elenor Weijmar, 2025
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2024\n"
+"Last-Translator: Elenor Weijmar, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/mysociety/teams/33529/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,7 +115,7 @@ msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{ex
 msgstr "<strong>{{brand}}</strong> slutar om {{last4}}, upphörande {{exp_month}} / {{exp_year}}"
 
 msgid "<strong>{{discounted_amount}}</strong> with discount <strong>{{discount_name}}</strong> applied"
-msgstr ""
+msgstr "<strong>{{discounted_amount}}</strong> med rabatten <strong>{{discount_name}}</strong> tillämpad"
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "<strong>{{filter_description}}</strong> sorterat efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
@@ -184,19 +184,19 @@ msgid "Add credibility"
 msgstr "Öka trovärdigheten "
 
 msgid "Add question"
-msgstr ""
+msgstr "Lägg till fråga"
 
 msgid "Add questions to your project"
-msgstr ""
+msgstr "Lägg till frågor i ditt projekt"
 
 msgid "Add request"
-msgstr ""
+msgstr "Lägg till förfrågan"
 
 msgid "Add requests to your project"
-msgstr ""
+msgstr "Lägg till förfrågningar till ditt projekt"
 
 msgid "Add whole batch and related requests"
-msgstr ""
+msgstr "Lägg till hela serien och relaterade förfrågningar"
 
 msgid "Added"
 msgstr "Tillagd"
@@ -211,10 +211,10 @@ msgid "All requests within this batch will remain private for the same duration.
 msgstr "Alla förfrågningar gjorda inom denna serieförfrågan kommer förbli privata under samma längd. När en individuell begäran offentliggörs kommer alla andra i serieförfrågan också publiceras på {{site_name}}."
 
 msgid "Allow blank"
-msgstr ""
+msgstr "Tillåt tomt fält"
 
 msgid "Allow muliple"
-msgstr ""
+msgstr "Tillåt flera"
 
 msgid "Also called {{other_name}}."
 msgstr "Även kallad {{other_name}}"
@@ -274,7 +274,7 @@ msgid "Billed: Weekly"
 msgstr "Betalning: Veckovis"
 
 msgid "Billed: every {{interval}}"
-msgstr ""
+msgstr "Debiteras varje: {{interval}}"
 
 msgid "Billing"
 msgstr "Betalning"
@@ -328,7 +328,7 @@ msgid "Choose a duration"
 msgstr "Välj en varaktighet"
 
 msgid "Classify responses"
-msgstr ""
+msgstr "Klassificera svaren"
 
 msgid "Collapse all correspondence"
 msgstr "Dölj all korrespondens"
@@ -340,10 +340,10 @@ msgid "Continuing with checkout requires your browser to have JavaScript enabled
 msgstr "För att fortsätta i kassan krävs det att din webbläsare har JavaScript aktiverat."
 
 msgid "Copied!"
-msgstr ""
+msgstr "Kopierad!"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopiera"
 
 msgid "Coupon code has expired."
 msgstr "Rabattkoden har löpt ut."
@@ -352,10 +352,10 @@ msgid "Coupon code is invalid."
 msgstr "Rabattkoden är ogiltig."
 
 msgid "Create Project"
-msgstr ""
+msgstr "Skapa projekt"
 
 msgid "Create a new Project"
-msgstr ""
+msgstr "Skapa ett nytt projekt"
 
 msgid "Created"
 msgstr "Skapad"
@@ -400,7 +400,7 @@ msgid "Drafts"
 msgstr "Utkast"
 
 msgid "Edit your project"
-msgstr ""
+msgstr "Redigera ditt projekt"
 
 msgid "Edit your request"
 msgstr "Redigera din begäran"
@@ -424,7 +424,7 @@ msgid "Expires soon"
 msgstr "Förfaller snart"
 
 msgid "Extract data"
-msgstr ""
+msgstr "Extrahera data"
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
 msgstr "Researchverktyg om offentlig sektor för journalister, föreningar, forskare och företagare"
@@ -490,7 +490,7 @@ msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_
 msgstr "Gavin Chait undersökte 350 myndigheter för att ta reda på <a href=\"{{story_url}}\">vilka kommersiella lokaler som var tomma</a> för att ge en hjälpande hand till nystartade företag."
 
 msgid "Generate invite link"
-msgstr ""
+msgstr "Skapa inbjudningslänk"
 
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr "Få e-postuppdateringar om {{pro_site_name}}?"
@@ -553,10 +553,10 @@ msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s priv
 msgstr "Den grävande journalisten Jenna Corderoy har använt sekretessfunktioner med Pro bra, och höll hennes omfattande Brexit-relaterade granskningar privata tills hennes arbete publicerades, <a href=\"{{story_url_1}}\">fakta om kampanjöverskott</a> och <a href=\"{{story_url_2}}\">ERG</a> utredningar för allmänheten, och flera andra viktiga publiceringar."
 
 msgid "Invite contributors"
-msgstr ""
+msgstr "Bjud in medverkande"
 
 msgid "Invite others to the project"
-msgstr ""
+msgstr "Bjud in andra till projektet"
 
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr "Faktura {{invoice_number}} för {{invoice_amount}} "
@@ -610,7 +610,7 @@ msgid "Make a batch request"
 msgstr "Gör en serieförfrågan"
 
 msgid "Make a project"
-msgstr ""
+msgstr "Skapa ett projekt"
 
 msgid "Make a request"
 msgstr "Gör en begäran"
@@ -670,7 +670,7 @@ msgid "No bodies selected"
 msgstr "Inga valda myndigheter"
 
 msgid "No contributors have joined this project yet"
-msgstr ""
+msgstr "Inga personer har anslutit sig till detta projekt ännu"
 
 msgid "No more authorities can be added to this batch request."
 msgstr "Inga fler myndigheter kan adderas till denna serieförfrågan"
@@ -712,7 +712,7 @@ msgid "Number of paying users:"
 msgstr "Antal betalande användare:"
 
 msgid "On the project"
-msgstr ""
+msgstr "I projektet"
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
 msgstr "När sekretessperioden avslutas, allt som du anger på denna sida, inklusive<strong> ditt namn</strong>, kommer att <strong><a href=\"{{url}}\">visas offentligt </a></strong>på denna hemsida"
@@ -739,7 +739,7 @@ msgid "Open"
 msgstr "Öppna"
 
 msgid "Options"
-msgstr ""
+msgstr "Alternativ"
 
 msgid "Overflowing inbox?"
 msgstr "Överfylld inkorg?"
@@ -832,7 +832,7 @@ msgid "Profile"
 msgstr "Profil"
 
 msgid "Projects"
-msgstr ""
+msgstr "Projekt"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Motivera din förfrågan med extra bakgrund och skäl varför du gör den."
@@ -864,7 +864,7 @@ msgid "Refer a friend"
 msgstr "Referera en vän"
 
 msgid "Regenerate invite link"
-msgstr ""
+msgstr "Återskapa inbjudningslänk"
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
 msgstr "Kom ihåg att myndigheten har {{late_number_of_days}} kalenderdagar på sig att besvara förfrågningar."
@@ -879,13 +879,13 @@ msgid "Remove"
 msgstr "Ta bort"
 
 msgid "Remove question"
-msgstr ""
+msgstr "Ta bort fråga"
 
 msgid "Remove request"
-msgstr ""
+msgstr "Ta bort begäran"
 
 msgid "Remove whole batch"
-msgstr ""
+msgstr "Ta bort hela serien"
 
 msgid "Replies"
 msgstr "Svar"
@@ -956,7 +956,7 @@ msgid "Search for an authority by name"
 msgstr "Sök efter en myndighet efter namn"
 
 msgid "Search your requests by title"
-msgstr ""
+msgstr "Sök på dina förfrågningar efter titel"
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
 msgstr "Sökandes efter <strong>{{search_term}}</strong> i <strong>{{filter_description}}</strong> sorterad efter <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">rensa</a>"
@@ -1015,8 +1015,8 @@ msgstr "Dela koden {{discount_code}} med en vän för att ge dem {{discount_term
 
 msgid "Show {{count}} request in detail"
 msgid_plural "Show {{count}} requests in detail"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Visa {{count}} förfrågningar i detalj"
+msgstr[1] "Visa {{count}} förfrågningar i detalj"
 
 msgid "Sign up"
 msgstr "Registrera dig"
@@ -1028,7 +1028,7 @@ msgid "Sorry, no authorities matched that search"
 msgstr "Tyvärr, ingen myndighet matchade den sökningen"
 
 msgid "Sorry, no requests matched that search"
-msgstr ""
+msgstr "Tyvärr, inga förfrågningar matchade den sökningen"
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
 msgstr "Tyvärr, något gick snett vid din sökning, var vänlig gör ett nytt försök."
@@ -1218,7 +1218,7 @@ msgid "Update Card Details"
 msgstr "Uppdatera kortuppgifter"
 
 msgid "Update Project"
-msgstr ""
+msgstr "Uppdatera projekt"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -1250,7 +1250,7 @@ msgid "View authorities"
 msgstr "Se myndigheter"
 
 msgid "View public requests"
-msgstr ""
+msgstr "Visa offentliga förfrågningar"
 
 msgid "Wall"
 msgstr "Vägg"
@@ -1340,7 +1340,7 @@ msgid "You haven't added any authorities to your batch yet"
 msgstr "Du har inte uppgivit några myndigheter till dina förfrågningar"
 
 msgid "You haven't added any reqeusts to your project yet"
-msgstr ""
+msgstr "Du har inte lagt till några förfrågningar i ditt projekt ännu"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Du vet vad som orsakade felet och kan <strong> föreslå en lösning</strong>, såsom en giltig e-postadress."
@@ -1466,10 +1466,10 @@ msgid "or start a batch request"
 msgstr "eller starta en serieförfrågan"
 
 msgid "per user, every {{interval}}"
-msgstr ""
+msgstr "per användare, varje {{interval}}"
 
 msgid "per user, per {{interval}}"
-msgstr ""
+msgstr "per användare, varje {{interval}}"
 
 msgid "requests that will be made public soon"
 msgstr "förfrågningar som snart kommer att bli offentliga"
@@ -1574,4 +1574,4 @@ msgid "{{public_body_name}} became long overdue in responding to your request \"
 msgstr "{{public_body_name}} blev mycket försenad med att svara till din begäran \"{{info_request_title}}\"."
 
 msgid "{{site_name}} Projects is a early beta feature."
-msgstr ""
+msgstr "{{site_name}} Projekt finns tillgänglig i en Beta version"
