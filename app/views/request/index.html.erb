@@ -6,7 +6,7 @@
   <% InfoRequest.categories.each do |heading| %>
     <% next unless heading.children.present? %>
     <div class="request-category">
-      <h3><%= heading.title %></h3>
+      <h2><%= heading.title %></h2>
       <ul>
         <% heading.children.each do |category| %>
           <% next unless category.category_tag.present? %>
