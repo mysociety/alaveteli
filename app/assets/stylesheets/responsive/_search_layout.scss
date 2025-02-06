@@ -3,8 +3,7 @@
 #general_search,
 #general_search_redirect,
 #public_body_show,
-#request_list,
-#request_index {
+#request_list {
   @include grid-row($behavior: nest);
 }
 
