@@ -110,7 +110,7 @@ gem 'maxmind-db', '~> 1.2.0'
 gem 'mahoro', '~> 0.5'
 gem 'nokogiri', '~> 1.18.2'
 gem 'open4', '~> 1.3.0'
-gem 'puma', '~> 6.5.0'
+gem 'puma', '~> 6.6.0'
 gem 'rack', '~> 2.2.10'
 gem 'rack-utf8_sanitizer', '~> 1.10.1'
 gem 'recaptcha', '~> 5.19.0', require: 'recaptcha/rails'
@@ -151,7 +151,7 @@ gem 'i18n', '~> 1.14.7'
 gem 'rails-i18n', '~> 8.0.0'
 gem 'gettext_i18n_rails', '~> 1.13.0'
   gem 'fast_gettext', '~> 4.1.0'
-gem 'gettext', '~> 3.5.0'
+gem 'gettext', '~> 3.5.1'
 gem 'globalize', '~> 7.0.0'
 gem 'locale', '~> 2.1.4'
 gem 'unicode', '~> 0.4.4'
@@ -205,9 +205,9 @@ group :development do
   gem 'capistrano', '~> 2.15.11'
     gem 'net-ssh', '~> 7.3.0'
       gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
-  gem 'launchy', '< 3.1.0'
+  gem 'launchy', '< 3.2.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.70.0', require: false
+  gem 'rubocop', '~> 1.71.1', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

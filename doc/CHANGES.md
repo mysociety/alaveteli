@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+Update Pro metric report email for new Stripe price IDs (Graeme Porteous)
 Add additional InfoRequest embargo scopes (Graeme Porteous)
 
 # 0.45.3.0

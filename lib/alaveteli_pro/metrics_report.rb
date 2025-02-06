@@ -107,13 +107,7 @@ module AlaveteliPro
     end
 
     def stripe_plans
-      prefix =
-        if AlaveteliConfiguration.stripe_namespace.blank?
-          ''
-        else
-          "#{AlaveteliConfiguration.stripe_namespace}-"
-        end
-      ["#{prefix}pro", "#{prefix}pro-annual-billing"]
+      AlaveteliConfiguration.stripe_prices.keys
     end
 
     def new_stripe_users
