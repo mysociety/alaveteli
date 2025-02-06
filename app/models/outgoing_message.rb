@@ -67,6 +67,7 @@ class OutgoingMessage < ApplicationRecord
   has_many :info_request_events,
            inverse_of: :outgoing_message,
            dependent: :destroy
+  has_many :notes, as: :notable
 
   delegate :public_body, to: :info_request, private: true, allow_nil: true
 
