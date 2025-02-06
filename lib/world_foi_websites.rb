@@ -24,8 +24,7 @@ class WorldFOIWebsites
                    'SI' => 'Slovenia',
                    'SK' => 'Slovakia',
                    'FI' => 'Finland',
-                   'SE' => 'Sweden',
-                   'GB' => 'United Kingdom' }.freeze
+                   'SE' => 'Sweden' }.freeze
 
   def self.world_foi_websites
     world_foi_websites = [
