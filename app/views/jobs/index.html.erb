@@ -1,0 +1,15 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags('modern_application') %>
+<% end %>
+
+<div class="job-container">
+  <h1>Background Job Status</h1>
+
+  <div class="status-container">
+    <p>Status: <span id="job-status">Not started</span></p>
+    <progress id="job-progress" value="0" max="100"></progress>
+    <p>Result: <span id="job-result"></span></p>
+  </div>
+
+  <%= button_to "Start Job", start_jobs_path, method: :post, class: 'start-button', data: { turbo: true } %>
+</div>
