@@ -6,7 +6,7 @@
   <% InfoRequest.categories.each do |heading| %>
     <% next unless heading.children.present? %>
     <div class="request-category">
-      <h2><%= heading.title %></h2>
+      <h2><%= heading.title %><span class="request-category_number" aria-label="<%= heading.children.count { |c| c.category_tag.present? } %> results for this group"><%= heading.children.count { |c| c.category_tag.present? } %></span></h2>
       <ul>
         <% heading.children.each do |category| %>
           <% next unless category.category_tag.present? %>
