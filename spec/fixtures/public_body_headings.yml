@@ -7,7 +7,6 @@
 #  display_order :integer
 #  created_at    :datetime
 #  updated_at    :datetime
-#  name          :text
 #
 
 useless_lonely_heading:

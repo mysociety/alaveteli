@@ -3,10 +3,10 @@
 #
 # Table name: citations
 #
-#  id           :bigint           not null, primary key
-#  user_id      :bigint
+#  id           :integer          not null, primary key
+#  user_id      :integer
 #  citable_type :string
-#  citable_id   :bigint
+#  citable_id   :integer
 #  source_url   :string
 #  type         :string
 #  created_at   :datetime         not null
@@ -72,7 +72,7 @@ class Citation < ApplicationRecord
     citable.is_a?(InfoRequestBatch)
   end
 
-  def as_json(_options)
+  def as_json
     citable_path = case citable
                    when InfoRequest
                      request_path(citable)
