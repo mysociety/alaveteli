@@ -18,6 +18,10 @@ module PublicBodyHelper
       reasons.push _('Freedom of Information law does not apply to this authority, so you cannot make a request to it.')
     end
 
+    if public_body.not_requestable?
+      reasons.push _('We are unable to make requests to this authority.')
+    end
+
     unless public_body.has_request_email?
       # Make the authority appear requestable to encourage users to help find
       # the authority's email address
