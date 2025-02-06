@@ -2,7 +2,6 @@
 
 ## Highlighted Features
 
-Increase regular expression timeout for attachment masking (Graeme Porteous)
 Add additional InfoRequest embargo scopes (Graeme Porteous)
 
 # 0.45.3.0
