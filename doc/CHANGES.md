@@ -2,9 +2,19 @@
 
 ## Highlighted Features
 
-Update Pro metric report email for new Stripe price IDs (Graeme Porteous)
-Increase regular expression timeout for attachment masking (Graeme Porteous)
 Add additional InfoRequest embargo scopes (Graeme Porteous)
+
+# 0.45.3.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+* Fixes for post Rails 8 upgrade issues:
+  * Fix Pro metric report email for new Stripe price IDs (Graeme Porteous)
+  * Fix STDOUT logging (Graeme Porteous)
+  * Fix citations JSON view (Graeme Porteous)
+  * Fix set reject incoming at mta rake task (Graeme Porteous)
+  * Fix regular expression timeouts (Graeme Porteous)
 
 # 0.45.3.0
 
