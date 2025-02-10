@@ -2,7 +2,8 @@
 
 ## Highlighted Features
 
-Add additional InfoRequest embargo scopes (Graeme Porteous)
+* Add Pro upsell on the user rate limited page (Graeme Porteous)
+* Add additional InfoRequest embargo scopes (Graeme Porteous)
 
 # 0.45.3.1
 

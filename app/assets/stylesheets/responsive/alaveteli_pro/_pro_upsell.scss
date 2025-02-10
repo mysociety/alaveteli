@@ -1,0 +1,36 @@
+#request_new .pro-upsell {
+  .pro-upsell__headers {
+    column-count: 2;
+    column-gap: 40px;
+    margin: 0 auto;
+
+    .pro-upsell__header {
+      display: inline-block;
+      break-inside: avoid;
+      margin-bottom: 20px;
+    }
+  }
+
+  .pro-upsell__features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .pro-upsell__features__screenshot img {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid #DCDAD5;
+      border-radius: 3px;
+    }
+  }
+}
