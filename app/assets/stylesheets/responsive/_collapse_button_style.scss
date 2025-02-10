@@ -1,0 +1,14 @@
+.collapse {
+    &-wrapper {
+        margin-bottom: 1rem;
+    }
+
+    &-content {
+        padding: 1rem;
+        margin-top: 0.25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        display: none;
+    }
+}
