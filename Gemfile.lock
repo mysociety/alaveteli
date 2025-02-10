@@ -391,7 +391,7 @@ GEM
     os (1.1.4)
     ostruct (0.6.0)
     parallel (1.26.3)
-    parser (3.3.7.0)
+    parser (3.3.7.1)
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
@@ -500,7 +500,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
-    rubocop (1.71.1)
+    rubocop (1.71.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -701,7 +701,7 @@ DEPENDENCIES
   rolify (~> 6.0.1)
   rspec-activemodel-mocks (~> 1.2.1)
   rspec-rails (~> 7.1.0)
-  rubocop (~> 1.71.1)
+  rubocop (~> 1.71.2)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
