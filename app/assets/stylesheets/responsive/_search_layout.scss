@@ -49,6 +49,13 @@
   .results_section {
     @include grid-column(12, $collapse:true);
   }
+  h2.foi_results {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      margin-bottom: 2rem;
+    }
+  }
 }
 
 #advanced-search input[type=text] {

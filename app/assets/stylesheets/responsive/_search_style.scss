@@ -65,6 +65,7 @@ input.use-datepicker[type=text] {
 
 #list-filter {
   margin-bottom: 3em;
+  margin-top: 2rem;
 }
 
 #filter_requests_form label.title {
@@ -80,7 +81,6 @@ input.use-datepicker[type=text] {
     display: inline-block;
   }
   ul {
-    border: 1px solid #ccc;
     border-radius: 3px;
     width: 100%;
     font-size: 0;
@@ -88,41 +88,53 @@ input.use-datepicker[type=text] {
     @include respond-min( 20em ){
       border-right: 0;
     }
-    @include respond-min( 44em ){
-      border-bottom: 1px solid #ccc;
-    }
   }
   li {
     width: 100%;
+
+    a, span {
+      border: 1px solid #696969;
+      border-right: none;
+    }
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      a, span {
+        border-bottom: none;
+      }
+    }
+
+    &:nth-child(even) {
+      a, span {
+        border-right: 1px solid #696969;
+      }
+    }
+
     @include respond-min( 20em ){
       width: 50%;
     }
+
     @include respond-min( 44em ){
       width: auto;
+      &:nth-child(1),
+      &:nth-child(2) {
+        a, span {
+          border-bottom: 1px solid #696969;
+          border-right: none;
+        }
+      }
     }
   }
+
   a, span {
     width: 100%;
     text-align: center;
     display: block;
     font-size: 14px;
     padding: 0.5em 0.75em;
-    border-bottom: 1px solid #ccc;
     text-decoration: none;
     @include respond-min( 20em ){
       display: inline-block;
-      border-right: 1px solid #ccc;
-      border-bottom: 0;
-      &:nth-child(1),
-      &:nth-child(2) {
-        border-bottom: 1px solid #ccc;
-      }
-    }
-
-    @include respond-min( 44em ){
-      &:nth-child(n) {
-        border-bottom: 0;
-      }
     }
   }
   span {
