@@ -181,6 +181,14 @@ form input[type=url] {
   display: inline-block;
 }
 
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 3px solid #ffd836 !important; //Overrides foundation focus state
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #000;
+}
+
 /* Reset foundation's styling on <button> elements so that they look like
  * input[type=submit] elements */
 form button {
