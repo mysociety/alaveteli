@@ -20,6 +20,9 @@ class ApplicationMailer < ActionMailer::Base
   # Site-wide access to configuration settings
   include ConfigHelper
 
+  # Check user can receive the emails by wrapping `mail_user`.
+  prepend CheckMailerAbility
+
   # This really should be the default - otherwise you lose any information
   # about the errors, and have to do error checking on return codes.
   self.raise_delivery_errors = true

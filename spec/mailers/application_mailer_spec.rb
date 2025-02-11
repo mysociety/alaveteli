@@ -149,4 +149,35 @@ RSpec.describe ApplicationMailer do
       remove_mail_methods(%w[simple theme_only core_only neither multipart])
     end
   end
+
+  context 'user mailer abilities' do
+    let(:mailer) do
+      mailer_klass = Class.new(ApplicationMailer) do
+        def my_message(user)
+          mail_user(user, subject: -> { 'My subject' }, body: 'My body')
+        end
+      end
+      mailer_klass.new
+    end
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:mail) { mailer.my_message(user) }
+    let(:ability) { Object.new.extend(CanCan::Ability) }
+
+    before do
+      allow(mailer).to receive(:ability).and_return(ability)
+      allow(mailer).to receive(:action_name).and_return('my_message')
+
+      ability.can :receive, :all
+    end
+
+    it 'should perform deliveries by default' do
+      expect(mail.perform_deliveries).to eq true
+    end
+
+    it 'should be able to not perform deliveries' do
+      ability.cannot :receive, 'anonymous#my_message'
+      expect(mail.perform_deliveries).to eq false
+    end
+  end
 end
