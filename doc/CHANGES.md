@@ -2,7 +2,9 @@
 
 ## Highlighted Features
 
-Add additional InfoRequest embargo scopes (Graeme Porteous)
+* Prevent request classification notifications from being set if request is
+  older than 6 months (Graeme Porteous)
+* Add additional InfoRequest embargo scopes (Graeme Porteous)
 
 # 0.45.3.1
 

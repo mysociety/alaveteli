@@ -43,7 +43,8 @@ class RequestMailerPreview < ActionMailer::Preview
       url_title: 'a_request',
       user: User.first,
       public_body: PublicBody.first,
-      described_state: 'successful'
+      described_state: 'successful',
+      created_at: Time.now
     )
   end
 

@@ -542,6 +542,11 @@ RSpec.describe RequestMailer do
       expect(mail.subject).to eq('Someone has updated the status of your request')
     end
 
+    it 'delivers the email' do
+      mail.deliver_now
+      expect(ActionMailer::Base.deliveries).to_not be_empty
+    end
+
     context "when the user does not use default locale" do
       before do
         info_request.user.locale = 'es'
@@ -551,6 +556,21 @@ RSpec.describe RequestMailer do
         expect(mail.subject).to eq(
           'Alguien ha actualizado el estado de tu solicitud'
         )
+      end
+    end
+
+    context 'when the info request was created over 6 months ago' do
+      let(:info_request) do
+        FactoryBot.create(
+          :info_request,
+          user: user, title: "Test request", public_body: public_body,
+          url_title: "test_request", created_at: 6.months.ago
+        )
+      end
+
+      it 'does not deliver the email' do
+        mail.deliver_now
+        expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
 
