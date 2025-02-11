@@ -397,19 +397,62 @@ input.cplink__field {
 
 .request-category_container {
   display: block;
-  margin: 0 -10px;
+  margin-top: 2rem;
 
   @include respond-min($main_menu-mobile_menu_cutoff) {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 1rem;
   }
 }
 
 .request-category {
-  padding: 10px;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: $global-radius;
+  overflow: hidden; // So the border-radius works
+  max-width: 90%; // So there is space on the right for scrolling the page and not the .request-category item.
+
+  h2 {
+    font-size: 1.3em;
+    margin: -1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: mix(#fff,$primary-color, 70%);
+  }
+
+  .request-category_number{
+    padding: 0.15rem 0.5rem;
+    font-size: 0.8rem;
+    vertical-align: text-bottom;
+    background: darken($primary-color, 10%);
+    border-radius: $global-radius;
+    margin-left: 0.5rem;
+    color: #fff;
+  }
+
+  ul {
+    padding-inline-start: 1rem;
+    margin-block-end: 0;
+    max-height: 12.5rem;
+    overflow-y: scroll;
+    li {
+      margin-bottom: 0.2rem;
+    }
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, .5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    }
+  }
 
   @include respond-min($main_menu-mobile_menu_cutoff) {
-    flex: 1 1 30%;
+    flex: 0 1 32%;
   }
 }
