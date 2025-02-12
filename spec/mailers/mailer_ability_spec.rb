@@ -90,12 +90,18 @@ RSpec.describe MailerAbility do
     let(:ability) { MailerAbility.new(user, info_request: info_request) }
 
     context 'when info request when sent less than 6 months ago' do
-      let(:info_request) { double(:InfoRequest, created_at: 6.months.ago + 1) }
+      let(:info_request) do
+        FactoryBot.build(:info_request, created_at: 6.months.ago + 1)
+      end
+
       it { expect(ability).to be_able_to(:receive, name) }
     end
 
     context 'when info request when sent more than 6 months ago' do
-      let(:info_request) { double(:InfoRequest, created_at: 6.months.ago) }
+      let(:info_request) do
+        FactoryBot.build(:info_request, created_at: 6.months.ago)
+      end
+
       it { expect(ability).not_to be_able_to(:receive, name) }
     end
   end

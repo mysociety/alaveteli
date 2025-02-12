@@ -2,7 +2,7 @@
 
 ## Highlighted Features
 
-* Prevent request classification notifications from being set if request is
+* Prevent request classification notifications from being sent if request is
   older than 6 months (Graeme Porteous)
 * Add additional InfoRequest embargo scopes (Graeme Porteous)
 
