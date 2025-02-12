@@ -121,7 +121,8 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         expect(event.params[:described_state]).to eq 'successful'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params).to include(
-          user: { gid: info_request.user.to_global_id.to_s }
+          user: { gid: info_request.user.to_global_id.to_s },
+          project: { gid: project.to_global_id.to_s }
         )
       end
 
@@ -172,7 +173,8 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
         expect(event.params).to include(
-          user: { gid: info_request.user.to_global_id.to_s }
+          user: { gid: info_request.user.to_global_id.to_s },
+          project: { gid: project.to_global_id.to_s }
         )
       end
 
@@ -214,7 +216,8 @@ RSpec.describe Projects::ClassificationsController, spec_meta do
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
         expect(event.params).to include(
-          user: { gid: info_request.user.to_global_id.to_s }
+          user: { gid: info_request.user.to_global_id.to_s },
+          project: { gid: project.to_global_id.to_s }
         )
       end
 

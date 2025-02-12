@@ -33,7 +33,7 @@ class Projects::ClassificationsController < Projects::BaseController
     {
       user: current_user,
       info_request: @info_request,
-      resource: set_described_state
+      resource: set_described_state(project: @project)
     }
   end
 end

@@ -104,6 +104,23 @@ RSpec.describe MailerAbility do
 
       it { expect(ability).not_to be_able_to(:receive, name) }
     end
+
+    context 'when info request was classified by project contributor' do
+      let(:project) do
+        FactoryBot.create(:project, contributors_count: 1, requests_count: 1)
+      end
+
+      let(:info_request) { project.requests.first }
+      let(:contributor) { project.contributors.first }
+
+      before do
+        info_request.log_event(
+          'status_update', user_id: contributor.id, project: project
+        )
+      end
+
+      it { expect(ability).not_to be_able_to(:receive, name) }
+    end
   end
 
   describe 'RequestMailer#not_clarified_alert' do

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent project classification notifications from being sent (Graeme Porteous)
 * Prevent request classification notifications from being sent if request is
   older than 6 months (Graeme Porteous)
 * Add additional InfoRequest embargo scopes (Graeme Porteous)

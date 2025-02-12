@@ -66,7 +66,7 @@ module Classifiable
     )
   end
 
-  def set_described_state
+  def set_described_state(default_log_params = {})
     described_state = classification_params[:described_state]
     message = classification_params[:message]
 
@@ -74,7 +74,7 @@ module Classifiable
       user_id: current_user.id,
       old_described_state: @info_request.described_state,
       described_state: described_state
-    }
+    }.merge(default_log_params)
 
     log_params[:message] = message if message
 
