@@ -125,12 +125,13 @@ jobs:
         bundle exec rspec gems/*/spec --format Fivemat
 
     - name: Coveralls Parallel
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       continue-on-error: true
       with:
         github-token: ${{ secrets.github_token }}
         flag-name: run-${{ matrix.ruby }}-${{ matrix.gemfile || 'Gemfile' }}
         parallel: true
+        fail-on-error: false
 
   coveralls:
     name: Coveralls
@@ -143,7 +144,8 @@ jobs:
 
     steps:
       - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.github_token }}
           parallel-finished: true
+          fail-on-error: false
