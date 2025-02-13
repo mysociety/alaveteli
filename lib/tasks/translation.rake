@@ -126,11 +126,6 @@ namespace :translation do
                 'Telling the requester that they need to say if the new response contains info or not',
                 output_file)
 
-    old_unclassified_email = RequestMailer.old_unclassified_updated(info_request)
-    write_email(old_unclassified_email,
-                'Telling the requester that someone updated their old unclassified request',
-                output_file)
-
     not_clarified_alert_email = RequestMailer.not_clarified_alert(info_request, incoming_message)
     write_email(not_clarified_alert_email,
                 'Telling the requester that they need to clarify their request',

@@ -11,10 +11,6 @@ class RequestMailerPreview < ActionMailer::Preview
     RequestMailer.new_response_reminder_alert(info_request, incoming_message)
   end
 
-  def old_unclassified_updated
-    RequestMailer.old_unclassified_updated(info_request)
-  end
-
   def not_clarified_alert
     RequestMailer.not_clarified_alert(info_request, incoming_message)
   end
