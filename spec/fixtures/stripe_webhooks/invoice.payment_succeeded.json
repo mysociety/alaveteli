@@ -95,6 +95,7 @@
       "livemode": false,
       "metadata": {},
       "next_payment_attempt": null,
+      "payment_intent": null,
       "paid": true,
       "period_end": 1464084258,
       "period_start": 1464084258,
