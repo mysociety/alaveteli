@@ -2,22 +2,37 @@
 
 <div id="list-filter" class="list-filter">
   <%= form_tag(request.path, :method => "get", :id=>"filter_requests_form") do %>
-    <div class="list-filter-item">
-      <%= label_tag(:query, _("Keywords"), :class=>"form_label title") %>
-      <%= text_field_tag(:query, params[:query]) %>
-    </div>
 
-    <div class="list-filter-item">
-      <%= label_tag(:query, _("Made between"), :class=>"form_label title") %>
-      <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>&nbsp;&nbsp;
-      <%= label_tag(:query, _("and"), :class=>"form_label") %>
-      <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
+    <div class="collapse-wrapper">
+      <button class="js-collapse-trigger collapse-trigger button" aria-expanded="false" aria-controls="collapse-content-1" id="collapse-trigger-1" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1rem" height="1rem" role="presentation" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="3"/>
+          <line x1="15" y1="16" x2="21" y2="23" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span>Advanced Search</span>
+      </button>
+
+      <div class="js-collapse-content collapse-content"  id="collapse-content-1" role="region"  aria-labelledby="collapse-trigger-1" hidden>
+        <div class="list-filter-item">
+          <%= label_tag(:query, _("Keywords"), :class=>"form_label title") %>
+          <%= text_field_tag(:query, params[:query]) %>
+        </div>
+
+        <div class="list-filter-item">
+          <%= label_tag(:query, _("Made between"), :class=>"form_label title") %>
+          <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>&nbsp;&nbsp;
+          <%= label_tag(:query, _("and"), :class=>"form_label") %>
+          <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
+        </div>
+
+        <div class="list-filter-item">
+          <%= button_tag(_("Reset fields"), type: "button", class: "button button-tertiary js-clear-collapse-section") %>
+          <%= submit_tag(_("Search")) %>
+        </div>
+      </div>
     </div>
 
     <%= after_form_fields if defined?(after_form_fields) -%>
 
-    <div class="list-filter-item">
-      <%= submit_tag(_("Search")) %>
-    </div>
   <% end %>
 </div>
