@@ -40,13 +40,21 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
             plan: { id: stripe_plan.id }
           }
         ],
-        subscription: stripe_subscription.id
+        subscription: stripe_subscription.id,
+        payment_intent: payment_intent.id
       )
     end
 
     let(:paid_invoice) { invoice.pay }
 
     let(:charge) { Stripe::Charge.retrieve(paid_invoice.charge) }
+
+    let(:payment_intent) do
+      Stripe::PaymentIntent.create(
+        amount: stripe_plan.amount,
+        currency: stripe_plan.currency
+      )
+    end
 
     let(:stripe_event) do
       StripeMock.mock_webhook_event(
@@ -388,6 +396,7 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
             'invoice.payment_succeeded',
             lines: paid_invoice.lines,
             charge: paid_invoice.charge,
+            payment_intent: nil,
             subscription: stripe_subscription.id
           )
         end
@@ -398,10 +407,31 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
         end
       end
 
+      context 'when there is a payment intent for an invoice' do
+        let(:stripe_event) do
+          StripeMock.mock_webhook_event(
+            'invoice.payment_succeeded',
+            lines: paid_invoice.lines,
+            charge: nil,
+            payment_intent: paid_invoice.payment_intent,
+            subscription: stripe_subscription.id
+          )
+        end
+
+        it 'updates the payment intent description with the site and plan name' do
+          expect(Stripe::PaymentIntent.retrieve(payment_intent.id).description).
+            to eq('Alaveteli Professional: Test')
+        end
+      end
+
       context 'when there is no charge for an invoice' do
         let(:stripe_event) do
           StripeMock.mock_webhook_event(
-            'invoice.payment_succeeded', lines: paid_invoice.lines, charge: nil
+            'invoice.payment_succeeded',
+            lines: paid_invoice.lines,
+            charge: nil,
+            payment_intent: nil,
+            subscription: stripe_subscription.id
           )
         end
 
