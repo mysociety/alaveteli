@@ -518,51 +518,6 @@ RSpec.describe RequestMailer do
     end
   end
 
-  describe "when sending mail when someone has updated an old unclassified request" do
-    let(:user) do
-      FactoryBot.create(:user, name: "test name", email: "email@localhost")
-    end
-
-    let(:public_body) { FactoryBot.create(:public_body, name: "Test public body") }
-
-    let(:info_request) do
-      FactoryBot.create(:info_request, user: user,
-                                       title: "Test request",
-                                       public_body: public_body,
-                                       url_title: "test_request")
-    end
-
-    let(:mail) { RequestMailer.old_unclassified_updated(info_request) }
-
-    before do
-      allow(info_request).to receive(:display_status).and_return("refused.")
-    end
-
-    it 'should have the subject "Someone has updated the status of your request"' do
-      expect(mail.subject).to eq('Someone has updated the status of your request')
-    end
-
-    context "when the user does not use default locale" do
-      before do
-        info_request.user.locale = 'es'
-      end
-
-      it "translates the subject" do
-        expect(mail.subject).to eq(
-          'Alguien ha actualizado el estado de tu solicitud'
-        )
-      end
-    end
-
-    it 'should tell them what status was picked' do
-      expect(mail.body).to match(/"refused."/)
-    end
-
-    it 'should contain the request path' do
-      expect(mail.body).to match(/request\/test_request/)
-    end
-  end
-
   describe "when generating a fake response for an upload" do
     before do
       @foi_officer = mock_model(User, name_and_email: "FOI officer's name and email")

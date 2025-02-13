@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Removed `old_unclassified_updated` email (Graeme Porteous)
 * Add Pro upsell on the user rate limited page (Graeme Porteous)
 * Update Stripe payment description after Pro payments (Graeme Porteous)
 * Add additional InfoRequest embargo scopes (Graeme Porteous)
