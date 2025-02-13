@@ -10,7 +10,7 @@ class RequestMailer < ApplicationMailer
   before_action :set_footer_template,
                 only: [
                   :new_response, :overdue_alert, :very_overdue_alert,
-                  :new_response_reminder_alert, :old_unclassified_updated,
+                  :new_response_reminder_alert,
                   :not_clarified_alert, :comment_on_alert,
                   :comment_on_alert_plural
                 ]
@@ -149,17 +149,6 @@ class RequestMailer < ApplicationMailer
           request_title: info_request.title.html_safe
         )
       }
-    )
-  end
-
-  # Tell the requester that someone updated their old unclassified request
-  def old_unclassified_updated(info_request)
-    @url = request_url(info_request)
-    @info_request = info_request
-
-    mail_user(
-      info_request.user,
-      subject: -> { _("Someone has updated the status of your request") }
     )
   end
 

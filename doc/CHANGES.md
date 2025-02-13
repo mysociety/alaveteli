@@ -2,7 +2,8 @@
 
 ## Highlighted Features
 
-Add additional InfoRequest embargo scopes (Graeme Porteous)
+* Removed `old_unclassified_updated` email (Graeme Porteous)
+* Add additional InfoRequest embargo scopes (Graeme Porteous)
 
 # 0.45.3.1
 

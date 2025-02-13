@@ -87,15 +87,6 @@ RSpec.describe ClassificationsController, type: :controller do
             expect(last_event.params).to eq expected_params
           end
 
-          it 'should send an email to the requester letting them know someone
-              has updated the status of their request' do
-            post_status('rejected')
-            deliveries = ActionMailer::Base.deliveries
-            expect(deliveries.size).to eq(1)
-            expect(deliveries.first.subject).
-              to match('Someone has updated the status of your request')
-          end
-
           it 'should redirect to the request page' do
             post_status('rejected')
             expect(response).to redirect_to(
@@ -135,17 +126,10 @@ RSpec.describe ClassificationsController, type: :controller do
                'change' do
               post_status('requires_admin', message: 'a message')
               deliveries = ActionMailer::Base.deliveries
-              expect(deliveries.size).to eq(2)
-              requires_admin_mail = deliveries.first
-              status_update_mail = deliveries.second
-              expect(requires_admin_mail.subject).
-                to match(/FOI response requires admin/)
-              expect(requires_admin_mail.to).
-                to match([AlaveteliConfiguration.contact_email])
-              expect(status_update_mail.subject).
-                to match('Someone has updated the status of your request')
-              expect(status_update_mail.to).
-                to match([info_request.user.email])
+              expect(deliveries.size).to eq(1)
+              mail = deliveries[0]
+              expect(mail.subject).to match(/FOI response requires admin/)
+              expect(mail.to).to match([AlaveteliConfiguration.contact_email])
             end
 
             context "if the params don't include a message" do
@@ -194,15 +178,6 @@ RSpec.describe ClassificationsController, type: :controller do
           expect(classification.info_request_event).to eq(last_event)
         end
 
-        it 'should send an email to the requester letting them know someone has
-            updated the status of their request' do
-          mail_mock = double('mail')
-          allow(mail_mock).to receive :deliver_now
-          expect(RequestMailer).to receive(:old_unclassified_updated).
-            and_return(mail_mock)
-          post_status('rejected')
-        end
-
         it 'should redirect to the request page' do
           post_status('rejected')
           expect(response).to redirect_to(
@@ -239,12 +214,6 @@ RSpec.describe ClassificationsController, type: :controller do
           post_status('rejected')
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
-        end
-
-        it 'should not send an email to the requester letting them know ' \
-           'someone has updated the status of their request' do
-          expect(RequestMailer).not_to receive(:old_unclassified_updated)
-          post_status('rejected')
         end
 
         it 'should show advice for the new state' do
@@ -326,12 +295,6 @@ RSpec.describe ClassificationsController, type: :controller do
           post_status('rejected')
           last_event = info_request.reload.info_request_events.last
           expect(last_event.params).to eq expected_params
-        end
-
-        it 'should not send an email to the requester letting them know someone
-            has updated the status of their request' do
-          expect(RequestMailer).not_to receive(:old_unclassified_updated)
-          post_status('rejected')
         end
 
         it 'should go to the page asking for more information when ' \
