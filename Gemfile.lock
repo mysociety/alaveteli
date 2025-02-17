@@ -330,6 +330,7 @@ GEM
     libv8-node (18.19.0.0-arm64-darwin)
     libv8-node (18.19.0.0-x86_64-darwin)
     libv8-node (18.19.0.0-x86_64-linux)
+    lint_roller (1.1.0)
     locale (2.1.4)
     logger (1.6.6)
     loofah (2.24.0)
@@ -505,9 +506,10 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.2)
-    rubocop (1.71.2)
+    rubocop (1.72.1)
       json (~> 2.3)
-      language_server-protocol (>= 3.17.0)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.1.0)
       parallel (~> 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
@@ -706,7 +708,7 @@ DEPENDENCIES
   rolify (~> 6.0.1)
   rspec-activemodel-mocks (~> 1.2.1)
   rspec-rails (~> 7.1.1)
-  rubocop (~> 1.71.2)
+  rubocop (~> 1.72.1)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
