@@ -297,8 +297,8 @@ GEM
       ice_cube (~> 0.16)
       ostruct
     ice_cube (0.17.0)
-    image_processing (1.13.0)
-      mini_magick (>= 4.9.5, < 5)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
       ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
@@ -350,7 +350,9 @@ GEM
       logger
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.1001)
-    mini_magick (4.13.2)
+    mini_magick (5.1.2)
+      benchmark
+      logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     mini_racer (0.16.0)
@@ -529,7 +531,7 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
     ruby-ole (1.2.12.1)
     ruby-progressbar (1.13.0)
-    ruby-vips (2.2.2)
+    ruby-vips (2.2.3)
       ffi (~> 1.12)
       logger
     rubyXL (3.4.33)
@@ -673,7 +675,7 @@ DEPENDENCIES
   htmlentities (~> 4.3.0)
   i18n (~> 1.14.7)
   icalendar (~> 2.10.3)
-  image_processing (~> 1.13)
+  image_processing (~> 1.14)
   importmap-rails (~> 2.1.0)
   iso_country_codes (~> 0.7.8)
   jquery-rails (~> 4.6.0)
