@@ -165,3 +165,17 @@ input.use-datepicker[type=text] {
     margin-top: 1.5em !important;
   }
 }
+
+// On /list we want to display the advanced search bar because is one of the main features.
+.list-page {
+  #advanced-search-collapse-button {
+      display: none;
+  }
+
+  #advanced-search-collapse-content {
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      display: block;
+  }
+}
