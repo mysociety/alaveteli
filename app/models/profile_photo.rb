@@ -112,9 +112,9 @@ class ProfilePhoto < ApplicationRecord
       return
     end
 
-    begin
-      converted = MiniMagick::Image.read(data)
-    rescue MiniMagick::Invalid
+    converted = MiniMagick::Image.read(data)
+
+    unless converted.valid?
       self.image = nil
       return
     end
