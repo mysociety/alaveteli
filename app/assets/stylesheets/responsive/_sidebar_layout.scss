@@ -51,6 +51,11 @@
     margin-bottom: 1em;
     display: inline-block;
   }
+
+  &_main {
+    // The Follow and RSS button will go right next to each other.
+    display: inline-block;
+  }
 }
 
 /* TODO: Why is this in the layout file for the request page sidebar? */
