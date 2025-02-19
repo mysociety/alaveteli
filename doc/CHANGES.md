@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add Pro upsell on the user rate limited page (Graeme Porteous)
 * Update Stripe payment description after Pro payments (Graeme Porteous)
 * Add additional InfoRequest embargo scopes (Graeme Porteous)
 
