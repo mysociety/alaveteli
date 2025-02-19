@@ -51,21 +51,20 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
   end
 
   def invoice_payment_succeeded
-    charge_id = @stripe_event.data.object.charge
-
-    return unless charge_id
-
-    charge = Stripe::Charge.retrieve(charge_id)
-
     subscription_id = @stripe_event.data.object.subscription
     subscription = Stripe::Subscription.retrieve(
       id: subscription_id, expand: ['plan.product']
     )
     plan_name = subscription.plan.product.name
+    description = "#{pro_site_name}: #{plan_name}"
 
-    Stripe::Charge.update(
-      charge.id, description: "#{pro_site_name}: #{plan_name}"
-    )
+    charge_id = @stripe_event.data.object.charge
+    Stripe::Charge.update(charge_id, description: description) if charge_id
+
+    payment_intent_id = @stripe_event.data.object.payment_intent
+    Stripe::PaymentIntent.update(
+      payment_intent_id, description: description
+    ) if payment_intent_id
   end
 
   def invoice_payment_failed
