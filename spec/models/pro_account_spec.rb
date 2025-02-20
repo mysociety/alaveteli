@@ -88,6 +88,15 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       ).from(old_source)
     end
 
+    context 'when user uses localhost development email' do
+      before { user.update(email: 'user@localhost') }
+
+      it 'does not create Stripe customer' do
+        expect(Stripe::Customer).to_not receive(:create)
+        pro_account.update_stripe_customer
+      end
+    end
+
     context 'with pro_pricing disabled' do
       it 'does not store Stripe customer ID' do
         with_feature_disabled(:pro_pricing) do

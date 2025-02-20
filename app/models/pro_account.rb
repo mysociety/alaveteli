@@ -51,8 +51,11 @@ class ProAccount < ApplicationRecord
     @subscriptions = nil unless stripe_customer
 
     attributes = {}
-    attributes[:email] = user.email if stripe_customer.try(:email) != user.email
     attributes[:source] = @token.id if @token
+
+    if stripe_customer&.email != user.email && user.email !~ /@localhost$/
+      attributes[:email] = user.email
+    end
 
     @stripe_customer = (
       if attributes.empty?
@@ -64,7 +67,7 @@ class ProAccount < ApplicationRecord
       end
     )
 
-    update(stripe_customer_id: @stripe_customer.id)
+    update(stripe_customer_id: @stripe_customer&.id)
   end
 
   private
