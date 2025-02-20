@@ -127,7 +127,13 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       @subscription = current_user.pro_account.subscriptions.
         retrieve(params[:id])
-      @subscription.update(cancel_at_period_end: true)
+
+      @subscription.update(
+        cancel_at_period_end: true,
+        cancellation_details: {
+          feedback: params[:cancellation_reason]
+        }
+      )
 
       flash[:notice] = _('You have successfully cancelled your subscription ' \
                          'to {{pro_site_name}}',

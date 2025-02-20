@@ -147,8 +147,19 @@ $(document).ready(function() {
 // Pro subscription cancellation message controls
 $(document).ready(function() {
   $(".js-cancel-subscription__message").toggle();
+
+  $("input.js-cancel-subscription__submit").prop(
+    'disabled',
+    !$("select.js-cancel-subscription__reason").val()
+  );
 });
 
 $(".js-control-cancel-subscription__message").click(function(){
   $(".js-cancel-subscription__message").slideToggle( 150 );
+});
+
+$("select.js-cancel-subscription__reason").on('change', function(){
+  $("input.js-cancel-subscription__submit").prop(
+    'disabled', !$(this).val()
+  );
 });
