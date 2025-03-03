@@ -1111,6 +1111,9 @@ Performance/UnfreezeString:
 Performance/UriDefaultParser:
   Enabled: false
 
+Performance/ZipWithoutBlock:
+  Enabled: false
+
 Rails:
   Enabled: false
 
