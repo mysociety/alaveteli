@@ -34,8 +34,7 @@ RSpec.describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
     it 'displays a link to allow the user to cancel' do
       render_view
       expect(rendered).
-        to have_link(text: 'I understand and still want to cancel',
-                     href: subscription_path(subscription.id) )
+        to have_button('I understand and still want to cancel')
     end
   end
 

@@ -59,10 +59,25 @@
       </li>
     </ul>
   <% unless cancelled %>
-    <%= link_to _('I understand and still want to cancel'),
-                subscription_path(subscription.id),
-                method: :delete,
-                data: { confirm: _('Are you sure?') },
-                class: "button" %>
+    <%= form_tag subscription_path(subscription.id), method: :delete do %>
+      <%= select_tag :cancellation_reason,
+        options_for_select(
+          [[_("Please select a cancellation reason..."), ""]] +
+          {
+            customer_service: _("Customer service was less than expected"),
+            low_quality: _("Quality was less than expected"),
+            missing_features: _("Some features are missing"),
+            other: _("Other reason"),
+            switched_service: _("I'm switching to a different service"),
+            too_complex: _("Ease of use was less than expected"),
+            too_expensive: _("It's too expensive"),
+            unused: _("I don't use the service enough")
+          }.invert.to_a
+        ), class: 'js-cancel-subscription__reason' %>
+
+      <%= submit_tag _('I understand and still want to cancel'),
+                     data: { confirm: _('Are you sure?') },
+                     class: "button js-cancel-subscription__submit" %>
+    <% end %>
   <% end %>
 </div>
