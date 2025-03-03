@@ -1029,11 +1029,6 @@ class InfoRequest < ApplicationRecord
         RequestMailer.requires_admin(self, set_by, message).deliver_now
       end
     end
-
-    unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-      RequestMailer.
-        old_unclassified_updated(self).deliver_now unless is_external?
-    end
   end
 
   # Work out what state to display for the request on the site. In addition to values of
