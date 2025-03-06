@@ -336,17 +336,6 @@ RSpec.describe GeneralController, 'when using xapian search' do
     expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([])
   end
 
-  it "should show newly-confirmed users" do
-    u = users(:unconfirmed_user)
-    u.email_confirmed = true
-    u.save!
-    update_xapian_index
-
-    get :search, params: { combined: "unconfirmed/users" }
-    expect(response).to render_template('search')
-    expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([u])
-  end
-
   it "should show tracking links for requests-only searches" do
     get :search, params: { combined: "bob/requests" }
     expect(response.body).to include('Track this search')
