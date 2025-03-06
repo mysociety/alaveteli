@@ -621,7 +621,7 @@ class User < ApplicationRecord
   end
 
   def indexed_by_search?
-    email_confirmed && active?
+    email_confirmed && active? && info_requests.any?
   end
 
   # Notify a user about an info_request_event, allowing the user's preferences
