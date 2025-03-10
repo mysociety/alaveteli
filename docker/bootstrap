@@ -29,6 +29,7 @@ fi
 success_msg 'done'
 
 notice_msg "Copying example files..."
+[ ! -f config/cable.yml ] && cp config/cable.yml-example config/cable.yml
 [ ! -f config/database.yml ] && cp config/database.yml-example config/database.yml
 [ ! -f config/sidekiq.yml ] && cp config/sidekiq.yml-example config/sidekiq.yml
 [ ! -f config/storage.yml ] && cp config/storage.yml-example config/storage.yml
