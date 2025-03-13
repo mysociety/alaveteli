@@ -1649,8 +1649,13 @@ RSpec.describe User do
       expect(user.indexed_by_search?).to eq(false)
     end
 
-    it 'is true if the user is confirmed and not banned' do
+    it 'is false if the user has no requests' do
       user = User.new(email_confirmed: true, ban_text: '')
+      expect(user.indexed_by_search?).to eq(false)
+    end
+
+    it 'is true if the user is active and has requests' do
+      user = FactoryBot.create(:info_request).user
       expect(user.indexed_by_search?).to eq(true)
     end
   end

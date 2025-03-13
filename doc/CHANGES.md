@@ -2,12 +2,32 @@
 
 ## Highlighted Features
 
+* Only list users who have made requests in search (Gareth Rees)
 * Collect cancellation reasons when Pro users cancel their subscriptions (Graeme
   Porteous)
 * Removed `old_unclassified_updated` email (Graeme Porteous)
 * Add Pro upsell on the user rate limited page (Graeme Porteous)
 * Update Stripe payment description after Pro payments (Graeme Porteous)
 * Add additional InfoRequest embargo scopes (Graeme Porteous)
+
+## Upgrade Notes
+
+* _Recommended:_ This release limits user indexing to users who've made requests
+to prevent users stumbling across spam user profiles via the on-site search.
+
+You can wait for this change to eventually percolate as account records
+are updated, or manually update the search index with the following:
+
+    bin/rails runner "User.where(info_requests_count: 0).in_batches.each_record(&:xapian_mark_needs_index)"
+
+Depending on the number of affected records and compute resources, you
+may wish to throttle the reindexing by running a similar version of this
+in the rails console:
+
+    User.where(info_requests_count: 0).in_batches do |users|
+      users.each(&:xapian_mark_needs_index)
+      sleep(360) # Throttle the reindexing
+    end
 
 # 0.45.3.1
 
