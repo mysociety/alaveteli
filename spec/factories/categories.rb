@@ -7,6 +7,8 @@
 #  category_tag :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  title        :string
+#  description  :string
 #
 
 FactoryBot.define do

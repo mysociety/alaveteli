@@ -8,6 +8,8 @@
 #  user_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  title      :string
+#  content    :text
 #
 
 FactoryBot.define do

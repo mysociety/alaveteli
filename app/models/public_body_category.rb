@@ -7,6 +7,8 @@
 #  category_tag :text             not null
 #  created_at   :datetime
 #  updated_at   :datetime
+#  title        :text
+#  description  :text
 #
 
 class PublicBodyCategory < ApplicationRecord
