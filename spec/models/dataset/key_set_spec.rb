@@ -3,9 +3,9 @@
 #
 # Table name: dataset_key_sets
 #
-#  id            :integer          not null, primary key
+#  id            :bigint           not null, primary key
 #  resource_type :string
-#  resource_id   :integer
+#  resource_id   :bigint
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

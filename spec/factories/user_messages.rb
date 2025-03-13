@@ -3,8 +3,8 @@
 #
 # Table name: user_messages
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
+#  id         :bigint           not null, primary key
+#  user_id    :bigint
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
