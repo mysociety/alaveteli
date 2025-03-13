@@ -184,7 +184,7 @@ gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.25.0'
+  gem 'webmock', '~> 3.25.1'
   gem 'simplecov', '~> 0.22.0'
   gem 'simplecov-lcov', '~> 0.7.0'
   gem 'capybara', '~> 3.40.0'
