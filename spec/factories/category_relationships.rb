@@ -3,7 +3,7 @@
 #
 # Table name: category_relationships
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  parent_id  :integer          not null
 #  child_id   :integer          not null
 #  position   :integer

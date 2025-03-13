@@ -3,7 +3,7 @@
 #
 # Table name: outgoing_message_snippets
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

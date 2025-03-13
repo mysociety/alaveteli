@@ -3,10 +3,10 @@
 #
 # Table name: citations
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
+#  id           :bigint           not null, primary key
+#  user_id      :bigint
 #  citable_type :string
-#  citable_id   :integer
+#  citable_id   :bigint
 #  source_url   :string
 #  type         :string
 #  created_at   :datetime         not null
