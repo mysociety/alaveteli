@@ -1656,6 +1656,9 @@ Style/CommentAnnotation:
 Style/CommentedKeyword:
   Enabled: false
 
+Style/ComparableBetween:
+  Enabled: false
+
 Style/ComparableClamp:
   Enabled: false
 
