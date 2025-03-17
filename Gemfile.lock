@@ -373,7 +373,7 @@ GEM
       net-ssh (>= 2.6.5, < 8.0.0)
     net-sftp (4.0.0)
       net-ssh (>= 5.0.0, < 8.0.0)
-    net-smtp (0.5.0)
+    net-smtp (0.5.1)
       net-protocol
     net-ssh (7.3.0)
     net-ssh-gateway (2.0.0)
@@ -701,7 +701,7 @@ DEPENDENCIES
   puma (~> 6.6.0)
   rack (~> 2.2.13)
   rack-utf8_sanitizer (~> 1.10.1)
-  rails (~> 8.0.1)
+  rails (~> 8.0.2)
   rails-controller-testing
   rails-i18n (~> 8.0.0)
   recaptcha (~> 5.19.0)
