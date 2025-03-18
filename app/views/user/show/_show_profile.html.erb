@@ -12,6 +12,10 @@
       <% if feature_enabled?(:annotations) %>
         <br><a href="#annotations"><%= _('Annotations') %></a>
       <% end %>
+
+      <hr style="margin:1em 0;">
+
+      <%= link_to _('Report inappropriate content'), help_contact_path %>
     <% end %>
   </div>
 
