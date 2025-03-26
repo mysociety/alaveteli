@@ -417,8 +417,10 @@
 
 <hr>
 
-<h2>Insights</h2>
+<% if feature_enabled?(:insights) %>
+  <h2>Insights</h2>
 
-<%= render partial: 'admin/insights/list',
-  locals: { info_request: @info_request,
-            insights: @info_request.insights } %>
+  <%= render partial: 'admin/insights/list',
+    locals: { info_request: @info_request,
+              insights: @info_request.insights } %>
+<% end %>

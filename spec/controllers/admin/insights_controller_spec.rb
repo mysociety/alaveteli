@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Admin::InsightsController, type: :controller do
+RSpec.describe Admin::InsightsController, type: :controller, feature: :insights do
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:insight) { FactoryBot.create(:insight, info_request: info_request) }
 

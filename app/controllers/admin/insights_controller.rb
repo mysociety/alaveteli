@@ -2,7 +2,7 @@
 # Controller for running AI insights tasks from the admin UI
 #
 class Admin::InsightsController < AdminController
-  before_action :find_info_request
+  before_action :check_feature_enabled, :find_info_request
   before_action :find_insight, only: [:show, :destroy]
 
   def show
@@ -33,6 +33,12 @@ class Admin::InsightsController < AdminController
   end
 
   private
+
+  def check_feature_enabled
+    return if feature_enabled?(:insights)
+
+    raise PermissionDenied
+  end
 
   def find_info_request
     @info_request = InfoRequest.find(params[:info_request_id])
