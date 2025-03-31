@@ -1454,13 +1454,26 @@ RSpec.describe InfoRequest do
     let(:info_request) { FactoryBot.create(:info_request_with_plain_incoming) }
     let(:attachment) { info_request.foi_attachments.first }
 
-    before { attachment.update(masked_at: Time.zone.now) }
+    context 'attachment unlocked' do
+      before { attachment.update(locked: false, masked_at: Time.zone.now) }
 
-    it 'sets attachments masked_at to nil' do
-      expect { info_request.clear_attachment_masks! }.to change {
-        attachment.reload
-        attachment.masked_at
-      }.from(Time).to(nil)
+      it 'sets attachments masked_at to nil' do
+        expect { info_request.clear_attachment_masks! }.to change {
+          attachment.reload
+          attachment.masked_at
+        }.from(Time).to(nil)
+      end
+    end
+
+    context 'attachment locked' do
+      before { attachment.update(locked: true, masked_at: Time.zone.now) }
+
+      it 'does not set attachments masked_at to nil' do
+        expect { info_request.clear_attachment_masks! }.to_not change {
+          attachment.reload
+          attachment.masked_at
+        }.from(Time)
+      end
     end
   end
 
