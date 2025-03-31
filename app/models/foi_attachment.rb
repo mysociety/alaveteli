@@ -50,6 +50,8 @@ class FoiAttachment < ApplicationRecord
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
+  scope :locked, -> { where(locked: true) }
+  scope :unlocked, -> { where(locked: false) }
 
   delegate :expire, :log_event, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true

@@ -44,6 +44,26 @@ RSpec.describe FoiAttachment do
     it { is_expected.to match_array(binary_attachments) }
   end
 
+  describe '.locked' do
+    subject { described_class.locked }
+
+    let!(:unlocked_attachment) { FactoryBot.create(:body_text) }
+    let!(:locked_attachment) { FactoryBot.create(:body_text, locked: true) }
+
+    it { is_expected.to include(locked_attachment) }
+    it { is_expected.to_not include(unlocked_attachment) }
+  end
+
+  describe '.unlocked' do
+    subject { described_class.unlocked }
+
+    let!(:unlocked_attachment) { FactoryBot.create(:body_text) }
+    let!(:locked_attachment) { FactoryBot.create(:body_text, locked: true) }
+
+    it { is_expected.to_not include(locked_attachment) }
+    it { is_expected.to include(unlocked_attachment) }
+  end
+
   describe '.cached_urls' do
     it 'includes the correct paths' do
       att = FactoryBot.create(:jpeg_attachment)
