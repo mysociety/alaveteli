@@ -1825,6 +1825,9 @@ Style/HashEachMethods:
 Style/HashExcept:
   Enabled: false
 
+Style/HashFetchChain:
+  Enabled: false
+
 Style/HashLikeCase:
   Enabled: false
 
@@ -1884,6 +1887,9 @@ Style/IpAddresses:
   Enabled: false
 
 Style/ItAssignment:
+  Enabled: false
+
+Style/ItBlockParameter:
   Enabled: false
 
 Style/KeywordArgumentsMerging:
