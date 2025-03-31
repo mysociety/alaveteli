@@ -47,8 +47,8 @@ RSpec.describe FoiAttachment do
   describe '.locked' do
     subject { described_class.locked }
 
-    let!(:unlocked_attachment) { FactoryBot.create(:body_text) }
-    let!(:locked_attachment) { FactoryBot.create(:body_text, locked: true) }
+    let!(:locked_attachment) { FactoryBot.create(:body_text, :locked) }
+    let!(:unlocked_attachment) { FactoryBot.create(:body_text, :unlocked) }
 
     it { is_expected.to include(locked_attachment) }
     it { is_expected.to_not include(unlocked_attachment) }
@@ -57,8 +57,8 @@ RSpec.describe FoiAttachment do
   describe '.unlocked' do
     subject { described_class.unlocked }
 
-    let!(:unlocked_attachment) { FactoryBot.create(:body_text) }
-    let!(:locked_attachment) { FactoryBot.create(:body_text, locked: true) }
+    let!(:locked_attachment) { FactoryBot.create(:body_text, :locked) }
+    let!(:unlocked_attachment) { FactoryBot.create(:body_text, :unlocked) }
 
     it { is_expected.to_not include(locked_attachment) }
     it { is_expected.to include(unlocked_attachment) }
@@ -159,6 +159,35 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#body' do
+    context 'when locked' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
+      let(:locked_content) { "Test locked content" }
+
+      before do
+        allow(foi_attachment.file).to receive(:download).
+          and_return(locked_content)
+      end
+
+      it 'returns the locked content from the active storage file' do
+        expect(foi_attachment.body).to eq locked_content
+      end
+    end
+
+    context 'when locked but stored attachment is missing' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
+
+      before do
+        allow(foi_attachment.file).
+          to receive(:download).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'does not run FoiAttachmentMaskJob and raise error' do
+        expect(FoiAttachmentMaskJob).to_not receive(:perform_now)
+        expect { foi_attachment.body }.
+          to raise_error(ActiveStorage::FileNotFoundError)
+      end
+    end
+
     context 'when masked' do
       let(:foi_attachment) { FactoryBot.create(:body_text) }
 
@@ -541,6 +570,12 @@ RSpec.describe FoiAttachment do
       expect(last_event.params[:prominence_reason]).to eq('just because')
     end
 
+    it 'logs locked changes' do
+      foi_attachment.update_and_log_event(locked: true)
+      expect(last_event.params[:old_locked]).to eq(false)
+      expect(last_event.params[:locked]).to eq(true)
+    end
+
     it 'logs additional event data' do
       foi_attachment.update_and_log_event(
         prominence: 'hidden', event: { editor: 'me' }
@@ -552,6 +587,93 @@ RSpec.describe FoiAttachment do
       expect do
         foi_attachment.update_and_log_event(prominence: nil)
       end.to_not change { last_event }
+    end
+  end
+
+  describe '#locking?' do
+    let(:foi_attachment) { FactoryBot.create(:body_text, locked: false) }
+    subject { foi_attachment.locking? }
+
+    context 'when locked is unchanged' do
+      it { is_expected.to eq false }
+    end
+
+    context 'when locked changed to true' do
+      before { foi_attachment.locked = true }
+      it { is_expected.to eq true }
+    end
+
+    context 'when locked changed to false' do
+      before do
+        foi_attachment.locked_will_change!
+        foi_attachment.locked = false
+      end
+
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#unlocking?' do
+    let(:foi_attachment) { FactoryBot.create(:body_text, locked: true) }
+    subject { foi_attachment.unlocking? }
+
+    context 'when locked is unchanged' do
+      it { is_expected.to eq false }
+    end
+
+    context 'when locked changed to true' do
+      before { foi_attachment.locked = false }
+      it { is_expected.to eq true }
+    end
+
+    context 'when locked changed to false' do
+      before do
+        foi_attachment.locked_will_change!
+        foi_attachment.locked = true
+      end
+
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#handle_locked' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    let(:original_body) { 'The original body content' }
+
+    before do
+      allow(foi_attachment).to receive(:mail_attributes).
+        and_return(body: original_body)
+    end
+
+    context 'when locking an unmasked attachment' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+      it 'masks the attachment' do
+        expect(FoiAttachmentMaskJob).to receive(:perform_later).
+          with(foi_attachment)
+        foi_attachment.update(locked: true)
+      end
+    end
+
+    context 'when locking an masked attachment' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, masked_at: 1.day.ago) }
+
+      it 'does not mask the attachment' do
+        expect(FoiAttachmentMaskJob).to_not receive(:perform_later)
+        foi_attachment.update(locked: true)
+      end
+    end
+
+    context 'when unlocking an attachment' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
+      let(:new_body) { "This is a new body" }
+
+      it 'masks the attachment even if already masked' do
+        expect(foi_attachment.masked_at).to_not be_nil
+        expect(FoiAttachmentMaskJob).to receive(:perform_later).
+          with(foi_attachment)
+        foi_attachment.update(locked: false)
+      end
     end
   end
 end

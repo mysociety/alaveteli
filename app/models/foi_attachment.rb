@@ -47,6 +47,7 @@ class FoiAttachment < ApplicationRecord
   validates_presence_of :display_size
 
   before_validation :ensure_filename!, only: [:filename]
+  before_save :handle_locked
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
@@ -117,10 +118,11 @@ class FoiAttachment < ApplicationRecord
     return @cached_body if @cached_body
 
     begin
-      return file.download if masked?
-    rescue ActiveStorage::FileNotFoundError
+      return file.download if locked? || masked?
+    rescue ActiveStorage::FileNotFoundError => ex
       # file isn't in storage and has gone missing, rescue to allow the masking
       # job to run and rebuild the stored file or even the whole attachment.
+      raise ex if locked?
     end
 
     if persisted?
@@ -181,7 +183,7 @@ class FoiAttachment < ApplicationRecord
   # make another old_display_filename see above
   def display_filename
     filename = self.filename
-    unless incoming_message.nil?
+    unless locked? || incoming_message.nil?
       filename = info_request.apply_censor_rules_to_text(filename)
     end
     # Sometimes filenames have e.g. %20 in - no point butchering that
@@ -274,12 +276,22 @@ class FoiAttachment < ApplicationRecord
       'edit_attachment',
       event.merge(
         attachment_id: id,
+        old_locked: locked_previously_was,
+        locked: locked,
         old_prominence: prominence_previously_was,
         prominence: prominence,
         old_prominence_reason: prominence_reason_previously_was,
         prominence_reason: prominence_reason
       )
     )
+  end
+
+  def locking?
+    locked? && locked_changed?
+  end
+
+  def unlocking?
+    !locked? && locked_changed?
   end
 
   private
@@ -319,5 +331,17 @@ class FoiAttachment < ApplicationRecord
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
+  end
+
+  def handle_locked
+    if unlocking?
+      self.masked_at = nil
+    end
+
+    if locking? || unlocking?
+      FoiAttachmentMaskJob.perform_later(self) unless masked_at
+    end
+
+    true
   end
 end

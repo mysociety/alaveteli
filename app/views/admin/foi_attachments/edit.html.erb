@@ -40,6 +40,33 @@
     </div>
   </fieldset>
 
+  <fieldset class="form-horizontal">
+    <legend>Locking and replacement</legend>
+
+    <div class="controls">
+      <p class="help-block">
+        <strong>When locking an attachment:</strong>
+        <ol>
+          <li>Attachment will be preserved with current applicable censor rules applied</li>
+          <li>New censor rules will not be applied</li>
+        </ol>
+
+        <strong>When unlocking an attachment:</strong>
+        <ol>
+          <li>All applicable censor rules will be applied</li>
+        </ol>
+      </p>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :locked, class: 'control-label' %>
+
+      <div class="controls">
+        <%= f.check_box :locked %>
+      </div>
+    </div>
+  </fieldset>
+
   <div class="form-actions">
     <%= f.submit 'Save', class: 'btn btn-success' %>
   </div>

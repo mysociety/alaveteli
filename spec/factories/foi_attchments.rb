@@ -24,6 +24,14 @@ FactoryBot.define do
       masked_at { nil }
     end
 
+    trait :locked do
+      locked { true }
+    end
+
+    trait :unlocked do
+      locked { false }
+    end
+
     factory :body_text do
       content_type { 'text/plain' }
       body { 'hereisthetext' }

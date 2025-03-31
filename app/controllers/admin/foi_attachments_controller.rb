@@ -15,7 +15,14 @@ class Admin::FoiAttachmentsController < AdminController
       )
       @foi_attachment.expire
 
-      flash[:notice] = 'Attachment successfully updated.'
+      if @foi_attachment.locked? && !@foi_attachment.masked?
+        flash[:notice] = <<~TXT.squish
+          Attachment successfully updated and locked. Please wait for masking to
+          complete before adding additional censor rules.
+        TXT
+      else
+        flash[:notice] = 'Attachment successfully updated.'
+      end
       redirect_to edit_admin_incoming_message_path(@incoming_message)
 
     else
@@ -26,7 +33,9 @@ class Admin::FoiAttachmentsController < AdminController
   private
 
   def foi_attachment_params
-    params.require(:foi_attachment).permit(:prominence, :prominence_reason)
+    params.require(:foi_attachment).permit(
+      :locked, :prominence, :prominence_reason
+    )
   end
 
   def set_foi_attachment
