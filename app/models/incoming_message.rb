@@ -483,6 +483,15 @@ class IncomingMessage < ApplicationRecord
         "(ID=#{non_public_old_attachments.map(&:id).join(', ')})"
     end
 
+    locked_old_attachments = old_attachments.select(&:locked?)
+    if locked_old_attachments.any?
+      # if there are locked attachments error as we don't want to re-build and
+      # lose any changes made outside Alaveteli
+      raise UnableToExtractAttachments, "unable to extract attachments due " \
+        "to locked attachments " \
+        "(ID=#{locked_old_attachments.map(&:id).join(', ')})"
+    end
+
     old_attachments.each(&:mark_for_destruction)
   end
 
