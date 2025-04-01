@@ -20,6 +20,18 @@
     </div>
 
     <div class="row">
+      <p>
+        <% if can? :read, @project %>
+          <%= link_to _('Back to project'),
+                project_path(@project),
+                class: 'button-secondary' %>
+        <% end %>
+
+        <%= link_to _('Download'),
+              project_dataset_path(@project, format: :csv),
+              class: 'button' %>
+      </p>
+
       <table class="dataset">
         <% @export.data_for_web.each_with_index do |data, index| %>
           <% if index == 0 %>
@@ -36,17 +48,6 @@
           </tr>
         <% end %>
       </table>
-      <p>
-        <% if can? :read, @project %>
-          <%= link_to _('Back to project'),
-                project_path(@project),
-                class: 'button-secondary' %>
-        <% end %>
-
-        <%= link_to _('Download'),
-              project_dataset_path(@project, format: :csv),
-              class: 'button' %>
-      </p>
     </div>
   </div>
 </div>
