@@ -65,6 +65,35 @@ gb_18030_bytes = [ 0xb9, 0xf3, 0xb9, 0xab, 0xcb, 0xbe, 0xb8, 0xba, 0xd4, 0xf0,
 
 gb_18030_spam_string = bytes_to_binary_string gb_18030_bytes
 
+RSpec.describe '#normalize_line_endings' do
+  it 'converts Windows line endings (CRLF) to Unix line endings (LF)' do
+    windows_text = "Line 1\r\nLine 2\r\nLine 3"
+    expected_unix_text = "Line 1\nLine 2\nLine 3"
+
+    expect(normalize_line_endings(windows_text)).to eq(expected_unix_text)
+  end
+
+  it 'converts old Mac line endings (CR) to Unix line endings (LF)' do
+    old_mac_text = "Line 1\rLine 2\rLine 3"
+    expected_unix_text = "Line 1\nLine 2\nLine 3"
+
+    expect(normalize_line_endings(old_mac_text)).to eq(expected_unix_text)
+  end
+
+  it 'leaves Unix line endings unchanged' do
+    unix_text = "Line 1\nLine 2\nLine 3"
+
+    expect(normalize_line_endings(unix_text)).to eq(unix_text)
+  end
+
+  it 'handles mixed line endings' do
+    mixed_text = "Line 1\nLine 2\r\nLine 3\rLine 4"
+    expected_unix_text = "Line 1\nLine 2\nLine 3\nLine 4"
+
+    expect(normalize_line_endings(mixed_text)).to eq(expected_unix_text)
+  end
+end
+
 RSpec.describe "normalize_string_to_utf8" do
   describe "when passed uniterpretable character data" do
     it "should reject it as invalid" do

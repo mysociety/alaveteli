@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20250304205550
+# Schema version: 20250408105243
 #
 # Table name: foi_attachments
 #
@@ -18,6 +18,8 @@
 #  prominence_reason     :text
 #  masked_at             :datetime
 #  locked                :boolean          default(FALSE)
+#  replaced_at           :datetime
+#  replaced_reason       :string
 #
 
 require 'spec_helper'
@@ -71,6 +73,20 @@ RSpec.describe FoiAttachment do
       att.incoming_message = im
       request_path = "/request/" + att.info_request.url_title
       expect(att.cached_urls).to eq([request_path])
+    end
+  end
+
+  describe 'replacement attributes' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    it 'has a replacement_file attribute' do
+      expect(foi_attachment).to respond_to(:replacement_file)
+      expect(foi_attachment).to respond_to(:replacement_file=)
+    end
+
+    it 'has a replacement_body attribute' do
+      expect(foi_attachment).to respond_to(:replacement_body)
+      expect(foi_attachment).to respond_to(:replacement_body=)
     end
   end
 
@@ -576,6 +592,20 @@ RSpec.describe FoiAttachment do
       expect(last_event.params[:locked]).to eq(true)
     end
 
+    it 'logs replaced changes' do
+      allow(foi_attachment).to receive(:replaced_at).
+        and_return(Time.new(2025, 4, 10, 10, 30))
+      foi_attachment.update_and_log_event(
+        replacement_body: 'new body', replaced_reason: 'GDPR case'
+      )
+      expect(last_event.params[:old_locked]).to eq(false)
+      expect(last_event.params[:locked]).to eq(true)
+      expect(last_event.params[:replaced]).to eq(true)
+      expect(last_event.params[:replaced_at]).
+        to eq(Time.new(2025, 04, 10, 10, 30).as_json)
+      expect(last_event.params[:replaced_reason]).to eq('GDPR case')
+    end
+
     it 'logs additional event data' do
       foi_attachment.update_and_log_event(
         prominence: 'hidden', event: { editor: 'me' }
@@ -636,6 +666,91 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#replacing?' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    subject { foi_attachment.replacing? }
+
+    context 'when unlocking' do
+      before do
+        allow(foi_attachment).to receive(:unlocking?).and_return(true)
+        foi_attachment.replacement_file = StringIO.new('foo')
+        foi_attachment.replacement_body = 'foo'
+      end
+
+      it { is_expected.to eq false }
+    end
+
+    context 'when file has changed' do
+      before { foi_attachment.replacement_file = StringIO.new('foo') }
+      it { is_expected.to eq true }
+    end
+
+    context 'when body has changed' do
+      before { foi_attachment.replacement_body = 'foo' }
+      it { is_expected.to eq true }
+    end
+  end
+
+  describe '#replaced?' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    subject { foi_attachment.replaced? }
+
+    context 'when replaced_at is set' do
+      before { foi_attachment.replaced_at = Time.now }
+      it { is_expected.to eq true }
+    end
+
+    context 'when replaced_at is unset' do
+      before { foi_attachment.replaced_at = nil }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#replacing_or_replaced?' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    subject { foi_attachment.replacing_or_replaced? }
+
+    context 'when replacing' do
+      before { allow(foi_attachment).to receive(:replacing?).and_return(true) }
+      it { is_expected.to eq true }
+    end
+
+    context 'when replaced' do
+      before { allow(foi_attachment).to receive(:replaced?).and_return(true) }
+      it { is_expected.to eq true }
+    end
+
+    context 'when neither replacing or replaced' do
+      before do
+        allow(foi_attachment).to receive(:replacing?).and_return(false)
+        allow(foi_attachment).to receive(:replaced?).and_return(false)
+      end
+
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#replacement_body=' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    let(:original_body) { "Original content\n" }
+    let(:identical_body_windows) { "Original content\r\n" }
+    let(:different_body) { "Different content" }
+
+    before do
+      allow(foi_attachment).to receive(:body).and_return(original_body)
+    end
+
+    it 'does not set the replacement body if content is the same (normalizing line endings)' do
+      foi_attachment.replacement_body = identical_body_windows
+      expect(foi_attachment.replacement_body).to eq original_body
+    end
+
+    it 'sets the replacement body if content is different' do
+      foi_attachment.replacement_body = different_body
+      expect(foi_attachment.replacement_body).to eq different_body
+    end
+  end
+
   describe '#handle_locked' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     let(:original_body) { 'The original body content' }
@@ -673,6 +788,91 @@ RSpec.describe FoiAttachment do
         expect(FoiAttachmentMaskJob).to receive(:perform_later).
           with(foi_attachment)
         foi_attachment.update(locked: false)
+      end
+
+      it 'does not process replacements when unlocking' do
+        foi_attachment.replacement_body = new_body
+        expect(foi_attachment.file_blob).not_to receive(:upload)
+        foi_attachment.update(locked: false)
+      end
+    end
+
+    context 'when unlocking a replaced attachment' do
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :replaced, replacement_body: 'New body')
+      end
+
+      it 'resets body to original content' do
+        # ensure FoiAttachmentMaskJob isn't run when calling #body - it'll break
+        # due to there being no associated incoming_message/info_request
+        allow(foi_attachment).to receive(:masked?).and_return(true)
+
+        expect { foi_attachment.update(locked: false) }.
+          to change(foi_attachment, :body).
+          from('New body').to(original_body)
+      end
+
+      it 'resets replaced_at' do
+        expect { foi_attachment.update(locked: false) }.
+          to change(foi_attachment, :replaced_at).
+          to(nil)
+      end
+
+      it 'resets replaced_reason' do
+        expect { foi_attachment.update(locked: false) }.
+          to change(foi_attachment, :replaced_reason).
+          to(nil)
+      end
+    end
+  end
+
+  describe '#handle_replacements' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    before { foi_attachment.replaced_reason = 'GDPR case' }
+
+    context 'with replacement file' do
+      let(:replacement) { fixture_file_upload('interesting.csv', 'text/csv') }
+
+      it 'locks the attachment' do
+        foi_attachment.replacement_file = replacement
+        foi_attachment.save
+        expect(foi_attachment.locked?).to be true
+      end
+
+      it 'uploads the replacement file to active storage' do
+        expect(foi_attachment.file).to receive(:attach).with(
+          io: replacement,
+          filename: 'interesting.csv.txt',
+          content_type: 'text/plain'
+        )
+        foi_attachment.replacement_file = replacement
+        foi_attachment.save
+      end
+    end
+
+    context 'with replacement body' do
+      let(:new_body) { "This is the new body content" }
+
+      before do
+        allow(foi_attachment).to receive(:mail_attributes).
+          and_return(body: 'The original body content', filename: 'foo')
+      end
+
+      it 'locks the attachment' do
+        foi_attachment.replacement_body = new_body
+        foi_attachment.save
+        expect(foi_attachment.locked?).to be true
+      end
+
+      it 'uploads the replacement body to active storage' do
+        expect(foi_attachment.file_blob).to receive(:upload) do |io, options|
+          expect(io.read).to eq(new_body)
+          expect(options).to eq(identify: false)
+        end
+        expect(foi_attachment.file_blob).to receive(:save)
+        foi_attachment.replacement_body = new_body
+        foi_attachment.save
       end
     end
   end
