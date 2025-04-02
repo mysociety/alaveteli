@@ -534,6 +534,24 @@ RSpec.describe IncomingMessage do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe '#locked?' do
+    subject { message.locked? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'if there are locked attachments' do
+      before do
+        FactoryBot.create(:body_text, incoming_message: message, locked: true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'if there are no locked attachments' do
+      it { is_expected.to eq(false) }
+    end
+  end
 end
 
 RSpec.describe IncomingMessage, "when the prominence is changed" do
