@@ -79,14 +79,15 @@
 # the new version. It is always preferable to upgrade our code.
 source 'https://rubygems.org'
 
+git_source(:mysociety) { |repo| "https://github.com/mysociety/#{repo}.git" }
+
 gem 'rails', '~> 8.0.2'
 
 gem 'pg', '~> 1.5.9'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'addressable', '~> 2.8.7'
-gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.git',
-                         ref: '13e928b'
+gem 'acts_as_versioned', mysociety: 'acts_as_versioned', ref: '13e928b'
 gem 'active_model_otp'
 gem 'activejob-uniqueness', '~> 0.4.0'
 gem 'bcrypt', '~> 3.1.20'
@@ -119,13 +120,13 @@ gem 'net-protocol', '~> 0.1.3'
 gem 'redcarpet', '~> 3.6.1'
 gem 'redis', '~> 4.8.1'
 gem 'rolify', '~> 6.0.1'
-gem 'ruby-msg', '~> 1.5.0', git: 'https://github.com/mysociety/ruby-msg.git', branch: 'ascii-encoding'
+gem 'ruby-msg', '~> 1.5.0', mysociety: 'ruby-msg', branch: 'ascii-encoding'
 gem 'rubyzip', '~> 2.4.1'
 gem 'secure_headers', '~> 7.0.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails8'
+gem 'strip_attributes', mysociety: 'strip_attributes', branch: 'globalize3-rails8'
 gem 'stripe', '~> 11.7.0'
 gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
@@ -141,6 +142,7 @@ gem 'benchmark', '~> 0.4.0'
 gem 'csv', '~> 3.3.3'
 gem 'drb', '~> 2.2.1'
 gem 'pstore', '~> 0.2.0'
+gem 'rdoc', '~> 6.13.0'
 gem 'uri', '~> 1.0.3'
 
 # Gems only used by the research export task
