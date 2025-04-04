@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve citation form field width (Gareth Rees)
 * Add report link to user profile pages (Gareth Rees)
 * Only list users who have made requests in search (Gareth Rees)
 * Collect cancellation reasons when Pro users cancel their subscriptions (Graeme
