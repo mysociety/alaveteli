@@ -26,7 +26,7 @@ on [the project website](http://alaveteli.org). There's background
 information and notes on [our
 wiki](https://github.com/mysociety/alaveteli/wiki/Home/), and upgrade
 notes in the [`doc/`
-folder](https://github.com/mysociety/alaveteli/tree/master/doc/CHANGES.md)
+folder](https://github.com/mysociety/alaveteli/tree/master/doc/CHANGES.md).
 
 ## Installing
 
@@ -35,13 +35,13 @@ see [the project website](http://alaveteli.org) for instructions on installing A
 
 ## Compatibility
 
-Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/develop/.github/workflows/ci.yml#L27-L29)
+Every Alaveteli commit is tested by GitHub Actions on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/develop/.github/workflows/ci.yml#L27-L29):
 
-* ruby-3.2
-* ruby-3.3
-* ruby-3.4
+* `ruby-3.2`
+* `ruby-3.3`
+* `ruby-3.4`
 
-If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the Alaveteli team (currently 3.2.6), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
+If you use a ruby version management tool (such as RVM or `.rbenv`) and want to use the default development version used by the Alaveteli team (currently 3.2.6), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
 
 ## How to contribute
 
