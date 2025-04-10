@@ -479,6 +479,12 @@ RSpec.describe IncomingMessage do
         expect(message.get_attachment_text_full).to include('[REDACTED]')
         expect(message.get_attachment_text_full).not_to include('hide_me')
       end
+
+      it 'does not apply censor rules to the attachment text if locked' do
+        allow(message.foi_attachments.last).to receive(:locked?).and_return(true)
+        expect(message.get_attachment_text_full).not_to include('[REDACTED]')
+        expect(message.get_attachment_text_full).to include('hide_me')
+      end
     end
   end
 
@@ -518,6 +524,12 @@ RSpec.describe IncomingMessage do
       it 'applies censor rules to the attachment text' do
         expect(message.get_attachment_text_clipped).to include('[REDACTED]')
         expect(message.get_attachment_text_clipped).not_to include('hide_me')
+      end
+
+      it 'does not apply censor rules to the attachment text if locked' do
+        allow(message.foi_attachments.last).to receive(:locked?).and_return(true)
+        expect(message.get_attachment_text_full).not_to include('[REDACTED]')
+        expect(message.get_attachment_text_full).to include('hide_me')
       end
     end
   end
@@ -1252,6 +1264,12 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
     it 'applies censor rules to the main body text' do
       expect(message.get_main_body_text_unfolded).to include('[REDACTED]')
       expect(message.get_main_body_text_unfolded).not_to include('hide_me')
+    end
+
+    it 'does not apply censor rules to the main body text if locked' do
+      allow(message.get_main_body_text_part).to receive(:locked?).and_return(true)
+      expect(message.get_main_body_text_unfolded).not_to include('[REDACTED]')
+      expect(message.get_main_body_text_unfolded).to include('hide_me')
     end
   end
 

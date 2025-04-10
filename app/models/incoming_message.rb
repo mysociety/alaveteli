@@ -310,7 +310,7 @@ class IncomingMessage < ApplicationRecord
     end
 
     # apply masks for this message
-    text = apply_masks(text, 'text/html')
+    text = apply_masks(text, 'text/html') unless get_main_body_text_part&.locked?
 
     # Remove existing quoted sections
     folded_quoted_text = remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
@@ -591,7 +591,7 @@ class IncomingMessage < ApplicationRecord
         attachment.content_type, attachment.default_body, attachment.charset
       )
       text = convert_string_to_utf8(text, 'UTF-8').string
-      text = apply_masks(text, 'text/html')
+      text = apply_masks(text, 'text/html') unless attachment.locked?
 
       memo += text
     }
