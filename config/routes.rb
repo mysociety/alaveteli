@@ -454,6 +454,11 @@ Rails.application.routes.draw do
   resource :refusal_advice, only: [:create], controller: 'refusal_advice'
   ####
 
+  #### Learn controller
+  match '/learn' => 'learn#index',
+   :as => :learn,
+   :via => :get
+
   #### Help controller
   match '/help/unhappy(/:url_title)' => 'help#unhappy',
         :as => :help_unhappy,
