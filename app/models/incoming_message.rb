@@ -556,7 +556,6 @@ class IncomingMessage < ApplicationRecord
   # Returns text version of attachment text
   def get_attachment_text_full
     text = _get_attachment_text_internal
-    text = apply_masks(text, 'text/html')
 
     # This can be useful for memory debugging
     #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
@@ -592,6 +591,7 @@ class IncomingMessage < ApplicationRecord
         attachment.content_type, attachment.default_body, attachment.charset
       )
       text = convert_string_to_utf8(text, 'UTF-8').string
+      text = apply_masks(text, 'text/html')
 
       memo += text
     }
