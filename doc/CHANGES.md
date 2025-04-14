@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add attachment locking (Graeme Porteous)
 * Improve citation form field width (Gareth Rees)
 * Add report link to user profile pages (Gareth Rees)
 * Only list users who have made requests in search (Gareth Rees)
@@ -13,6 +14,10 @@
 * Add additional InfoRequest embargo scopes (Graeme Porteous)
 
 ## Upgrade Notes
+
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
 
 * _Recommended:_ This release limits user indexing to users who've made requests
 to prevent users stumbling across spam user profiles via the on-site search.
