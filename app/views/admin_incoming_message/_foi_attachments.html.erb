@@ -21,6 +21,9 @@
               <% if attachment.main_body_part? %>
                 <span class="label">Main Body</span>
               <% end %>
+              <% if attachment.replaced? %>
+                <span class="label">Replaced</span>
+              <% end %>
             </td>
             <td><tt><%= attachment.content_type %></tt></td>
             <td><tt><%= attachment.hexdigest %></tt></td>
