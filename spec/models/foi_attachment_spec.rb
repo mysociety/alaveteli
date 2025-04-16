@@ -317,8 +317,8 @@ RSpec.describe FoiAttachment do
 
     context 'when mail handler finds original attachment by hexdigest' do
       before do
-        allow(MailHandler).to receive(:attachment_body_for_hexdigest).
-          and_return('hereistheunmaskedtext')
+        allow(MailHandler).to receive(:attachment_attributes_for_hexdigest).
+          and_return(body: 'hereistheunmaskedtext')
       end
 
       it 'returns the attachment body from the raw email' do

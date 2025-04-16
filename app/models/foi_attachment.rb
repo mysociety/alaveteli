@@ -146,28 +146,7 @@ class FoiAttachment < ApplicationRecord
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
-    MailHandler.attachment_body_for_hexdigest(
-      raw_email.mail,
-      hexdigest: hexdigest
-    )
-
-  rescue MailHandler::MismatchedAttachmentHexdigest
-    begin
-      attributes = MailHandler.attempt_to_find_original_attachment_attributes(
-        raw_email.mail,
-        body: file.download
-      ) if file.attached?
-
-    rescue ActiveStorage::FileNotFoundError
-      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
-    end
-
-    unless attributes
-      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
-    end
-
-    update(hexdigest: attributes[:hexdigest])
-    attributes[:body]
+    mail_attributes[:body]
   end
 
   def masked?
@@ -304,6 +283,31 @@ class FoiAttachment < ApplicationRecord
   end
 
   private
+
+  def mail_attributes
+    MailHandler.attachment_attributes_for_hexdigest(
+      raw_email.mail,
+      hexdigest: hexdigest
+    )
+
+  rescue MailHandler::MismatchedAttachmentHexdigest
+    begin
+      attributes = MailHandler.attempt_to_find_original_attachment_attributes(
+        raw_email.mail,
+        body: file.download
+      ) if file.attached?
+
+    rescue ActiveStorage::FileNotFoundError
+      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
+    end
+
+    unless attributes
+      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
+    end
+
+    update(hexdigest: attributes[:hexdigest])
+    attributes
+  end
 
   def load_attachment_from_incoming_message!
     attachment = load_attachment_from_incoming_message
