@@ -16,7 +16,8 @@ class Project::Export
 
   def data
     @data ||= project.info_requests.map do |info_request|
-      Project::Export::InfoRequest.new(project, info_request).data
+      Project::Export::InfoRequest.new(project, info_request).data.
+        select { columns.empty? || columns.include?(_1.to_s) }
     end
   end
 
@@ -50,5 +51,9 @@ class Project::Export
       csv << header.keys.map(&:to_s) if header
       data.each { |row| csv << row.values }
     end
+  end
+
+  def columns
+    @columns ||= project.dataset_public_columns.reject(&:empty?)
   end
 end

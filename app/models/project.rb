@@ -1,15 +1,16 @@
 # == Schema Information
-# Schema version: 20240724010118
+# Schema version: 20250416084424
 #
 # Table name: projects
 #
-#  id             :bigint           not null, primary key
-#  title          :string
-#  briefing       :text
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  invite_token   :string
-#  dataset_public :boolean          default(FALSE)
+#  id                     :bigint           not null, primary key
+#  title                  :string
+#  briefing               :text
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  invite_token           :string
+#  dataset_public         :boolean          default(FALSE)
+#  dataset_public_columns :jsonb
 #
 
 ##
@@ -90,6 +91,15 @@ class Project < ApplicationRecord
     return 0 if total.zero?
 
     ((extracted_count / total.to_f) * 100).floor
+  end
+
+  def dataset_columns
+    %i(
+      request request_url requested_by requested_by_url
+      public_body public_body_url
+      classified_by classified_by_url classification
+      extracted_by extracted_by_url
+    ) + key_set.keys.pluck(:title)
   end
 
   private

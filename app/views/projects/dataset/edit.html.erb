@@ -37,6 +37,14 @@
           </div>
         </div>
 
+        <div class="form_input">
+          <%= f.label :dataset_public_columns, _('Columns to export'), class: 'form_label' %>
+
+          <div class="check_boxes">
+            <%= f.collection_checkboxes :dataset_public_columns, @project.dataset_columns, :to_s, :to_s %>
+          </div>
+        </div>
+
         <div class="form_button">
           <%= f.submit _('Update dataset') %>
         </div>

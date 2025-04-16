@@ -40,6 +40,8 @@ class Projects::DatasetController < Projects::BaseController
   end
 
   def project_dataset_params
-    params.require(:project).permit(:dataset_description, :dataset_public)
+    params.require(:project).permit(
+      :dataset_description, :dataset_public, dataset_public_columns: []
+    )
   end
 end
