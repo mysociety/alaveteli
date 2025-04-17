@@ -462,6 +462,24 @@ RSpec.describe IncomingMessage do
 
       expect(im.get_attachment_text_full.valid_encoding?).to be true
     end
+
+    context 'when censor rules apply' do
+      let(:message) { FactoryBot.create(:incoming_message, :with_text_attachment) }
+      let(:censor_rule) do
+        FactoryBot.create(:censor_rule, text: 'hide_me', replacement: '[REDACTED]')
+      end
+
+      before do
+        allow(message.foi_attachments.last).to receive(:default_body).
+          and_return('This text contains hide_me that should be censored')
+        message.info_request.censor_rules << censor_rule
+      end
+
+      it 'applies censor rules to the attachment text' do
+        expect(message.get_attachment_text_full).to include('[REDACTED]')
+        expect(message.get_attachment_text_full).not_to include('hide_me')
+      end
+    end
   end
 
   describe '#get_attachment_text_clipped' do
@@ -483,6 +501,24 @@ RSpec.describe IncomingMessage do
         create(:body_text, body: "hi\u0000", incoming_message: message)
       message.reload
       expect(message.get_attachment_text_clipped).to eq("hi\n\n")
+    end
+
+    context 'when censor rules apply' do
+      let(:message) { FactoryBot.create(:incoming_message, :with_text_attachment) }
+      let(:censor_rule) do
+        FactoryBot.create(:censor_rule, text: 'hide_me', replacement: '[REDACTED]')
+      end
+
+      before do
+        allow(message.foi_attachments.last).to receive(:default_body).
+          and_return('This text contains hide_me that should be censored')
+        message.info_request.censor_rules << censor_rule
+      end
+
+      it 'applies censor rules to the attachment text' do
+        expect(message.get_attachment_text_clipped).to include('[REDACTED]')
+        expect(message.get_attachment_text_clipped).not_to include('hide_me')
+      end
     end
   end
 
@@ -1198,6 +1234,24 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
                       "problem or similar"
       expect { @incoming_message.get_main_body_text_unfolded }.
         to raise_error(RuntimeError, expected_text)
+    end
+  end
+
+  context 'when censor rules apply' do
+    let(:message) { FactoryBot.create(:incoming_message, :with_text_attachment) }
+    let(:censor_rule) do
+      FactoryBot.create(:censor_rule, text: 'hide_me', replacement: '[REDACTED]')
+    end
+
+    before do
+      allow(message).to receive(:get_main_body_text_internal).
+        and_return('This text contains hide_me that should be censored')
+      message.info_request.censor_rules << censor_rule
+    end
+
+    it 'applies censor rules to the main body text' do
+      expect(message.get_main_body_text_unfolded).to include('[REDACTED]')
+      expect(message.get_main_body_text_unfolded).not_to include('hide_me')
     end
   end
 
