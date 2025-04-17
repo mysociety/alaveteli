@@ -583,19 +583,18 @@ class IncomingMessage < ApplicationRecord
     cached_attachment_text_clipped
   end
 
-  def _extract_text
+  def _get_attachment_text_internal
     # Extract text from each attachment
     get_attachments_for_display.reduce('') { |memo, attachment|
       return memo if Ability.guest.cannot?(:read, attachment)
 
-      memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
-                                                       attachment.default_body,
-                                                       attachment.charset)
-    }
-  end
+      text = MailHandler.get_attachment_text_one_file(
+        attachment.content_type, attachment.default_body, attachment.charset
+      )
+      text = convert_string_to_utf8(text, 'UTF-8').string
 
-  def _get_attachment_text_internal
-    convert_string_to_utf8(_extract_text, 'UTF-8').string
+      memo += text
+    }
   end
 
   # Returns text for indexing

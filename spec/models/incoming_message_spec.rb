@@ -448,7 +448,7 @@ RSpec.describe IncomingMessage do
     end
   end
 
-  describe '#_extract_text' do
+  describe '#_get_attachment_text_internal' do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.create(:body_text,
@@ -461,7 +461,7 @@ RSpec.describe IncomingMessage do
                         url_part_number: 3)
       message.reload
 
-      expect { message._extract_text }.
+      expect { message._get_attachment_text_internal }.
         to_not raise_error
     end
   end
@@ -1084,8 +1084,9 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
   end
 
   it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:_extract_text).and_return("\xBF")
+    im = FactoryBot.create(:incoming_message, :with_text_attachment)
+    allow(im.foi_attachments.last).to receive(:default_body).
+      and_return("\xBF")
 
     expect(im._get_attachment_text_internal.valid_encoding?).to be true
   end
