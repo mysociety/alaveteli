@@ -1085,7 +1085,7 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
 
   it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
     im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:extract_text).and_return("\xBF")
+    allow(im).to receive(:_extract_text).and_return("\xBF")
 
     expect(im._get_attachment_text_internal.valid_encoding?).to be true
   end
