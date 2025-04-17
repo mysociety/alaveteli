@@ -439,16 +439,6 @@ RSpec.describe IncomingMessage do
   end
 
   describe '#get_attachment_text_full' do
-    it 'strips null bytes from the extracted clipped text' do
-      message = FactoryBot.create(:incoming_message)
-      FactoryBot.
-        create(:body_text, body: "hi\u0000", incoming_message: message)
-      message.reload
-      expect(message.get_attachment_text_clipped).to eq("hi\n\n")
-    end
-  end
-
-  describe '#get_attachment_text_full' do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.create(:body_text,
@@ -463,6 +453,36 @@ RSpec.describe IncomingMessage do
 
       expect { message.get_attachment_text_full }.
         to_not raise_error
+    end
+
+    it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
+      im = FactoryBot.create(:incoming_message, :with_text_attachment)
+      allow(im.foi_attachments.last).to receive(:default_body).
+        and_return("\xBF")
+
+      expect(im.get_attachment_text_full.valid_encoding?).to be true
+    end
+  end
+
+  describe '#get_attachment_text_clipped' do
+    it 'should clip to characters not bytes' do
+      incoming_message = FactoryBot.build(:incoming_message)
+      # This character is 2 bytes so the string should get sliced unless
+      # we are handling multibyte chars correctly
+      multibyte_string = "å" * 500_002
+      incoming_message = FactoryBot.create(:incoming_message, :with_text_attachment)
+      allow(incoming_message.foi_attachments.last).to receive(:default_body).
+        and_return(multibyte_string)
+      # an extra two bytes added for new lines at the end of the string
+      expect(incoming_message.get_attachment_text_clipped.length).to eq(500_004)
+    end
+
+    it 'strips null bytes from the extracted clipped text' do
+      message = FactoryBot.create(:incoming_message)
+      FactoryBot.
+        create(:body_text, body: "hi\u0000", incoming_message: message)
+      message.reload
+      expect(message.get_attachment_text_clipped).to eq("hi\n\n")
     end
   end
 
@@ -1083,14 +1103,6 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     expect(attachments.first.body).to eq('No way!')
   end
 
-  it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
-    im = FactoryBot.create(:incoming_message, :with_text_attachment)
-    allow(im.foi_attachments.last).to receive(:default_body).
-      and_return("\xBF")
-
-    expect(im.get_attachment_text_full.valid_encoding?).to be true
-  end
-
   it 'does not raise error if existing hidden attachment will be retained' do
     incoming_message = FactoryBot.create(:incoming_message)
     foi_attachment = incoming_message.foi_attachments.first
@@ -1168,20 +1180,6 @@ RSpec.describe IncomingMessage, 'when getting the body of a message for html dis
 
     expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
     expect(incoming_message.get_body_for_html_display).to include(expected)
-  end
-end
-
-RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
-  it 'should clip to characters not bytes' do
-    incoming_message = FactoryBot.build(:incoming_message)
-    # This character is 2 bytes so the string should get sliced unless
-    # we are handling multibyte chars correctly
-    multibyte_string = "å" * 500_002
-    incoming_message = FactoryBot.create(:incoming_message, :with_text_attachment)
-    allow(incoming_message.foi_attachments.last).to receive(:default_body).
-      and_return(multibyte_string)
-    # an extra two bytes added for new lines at the end of the string
-    expect(incoming_message.get_attachment_text_clipped.length).to eq(500_004)
   end
 end
 
