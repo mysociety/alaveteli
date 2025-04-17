@@ -448,7 +448,7 @@ RSpec.describe IncomingMessage do
     end
   end
 
-  describe '#_get_attachment_text_internal' do
+  describe '#get_attachment_text_full' do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.create(:body_text,
@@ -461,7 +461,7 @@ RSpec.describe IncomingMessage do
                         url_part_number: 3)
       message.reload
 
-      expect { message._get_attachment_text_internal }.
+      expect { message.get_attachment_text_full }.
         to_not raise_error
     end
   end
@@ -1088,7 +1088,7 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     allow(im.foi_attachments.last).to receive(:default_body).
       and_return("\xBF")
 
-    expect(im._get_attachment_text_internal.valid_encoding?).to be true
+    expect(im.get_attachment_text_full.valid_encoding?).to be true
   end
 
   it 'does not raise error if existing hidden attachment will be retained' do
@@ -1177,8 +1177,11 @@ RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
     # This character is 2 bytes so the string should get sliced unless
     # we are handling multibyte chars correctly
     multibyte_string = "å" * 500_002
-    allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
-    expect(incoming_message.get_attachment_text_clipped.length).to eq(500_002)
+    incoming_message = FactoryBot.create(:incoming_message, :with_text_attachment)
+    allow(incoming_message.foi_attachments.last).to receive(:default_body).
+      and_return(multibyte_string)
+    # an extra two bytes added for new lines at the end of the string
+    expect(incoming_message.get_attachment_text_clipped.length).to eq(500_004)
   end
 end
 
