@@ -195,7 +195,7 @@ group :test do
 end
 
 group :test, :development do
-  gem 'bullet', '~> 8.0.3'
+  gem 'bullet', '~> 8.0.4'
   gem 'factory_bot_rails', '~> 6.4.4'
   gem 'rspec-activemodel-mocks', '~> 1.2.1'
   gem 'rspec-rails', '~> 7.1.1'
