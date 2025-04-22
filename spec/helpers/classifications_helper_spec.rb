@@ -61,5 +61,35 @@ RSpec.describe ClassificationsHelper do
       let(:classifications) { 101 }
       it { is_expected.to eq(false) }
     end
+
+    context 'when the count is over 4 digits and repeated' do
+      let(:classifications) { 66666 }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the count is under 5 digits and repeated' do
+      let(:classifications) { 6666 }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the count is over 4 digits and palindromic' do
+      let(:classifications) { 12321 }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the count is under 5 digits and palindromic' do
+      let(:classifications) { 1221 }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the count is over 4 digits and sequential' do
+      let(:classifications) { 12345 }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the count is under 5 digits and sequential' do
+      let(:classifications) { 1234 }
+      it { is_expected.to eq(false) }
+    end
   end
 end
