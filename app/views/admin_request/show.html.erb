@@ -372,6 +372,16 @@
 
 <hr>
 
+<h2> Attachments </h2>
+
+<div class="span12 help-block">
+  <p>Excludes main body part attachments.</p>
+</div>
+
+<%= render partial: 'admin_incoming_message/foi_attachments',
+           locals: { foi_attachments: @info_request.foi_attachments.substantive } %>
+<hr>
+
 <h2>Annotations</h2>
 
 <%= render partial: 'admin_request/some_annotations' ,
