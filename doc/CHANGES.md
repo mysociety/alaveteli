@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Only send clarification notifications to recent requests (Gareth Rees)
 * Improve citation form field width (Gareth Rees)
 * Add report link to user profile pages (Gareth Rees)
 * Only list users who have made requests in search (Gareth Rees)

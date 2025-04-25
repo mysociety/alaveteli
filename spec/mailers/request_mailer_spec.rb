@@ -1049,6 +1049,23 @@ RSpec.describe RequestMailer do
       end
     end
 
+    context "when request has needed clarification for over 3 months ago" do
+      let(:info_request) do
+        FactoryBot.create(:info_request, :with_incoming, :waiting_clarification)
+      end
+
+      before do
+        last_incoming_message.update(created_at: 3.months.ago)
+      end
+
+      it "should not send an alert" do
+        RequestMailer.alert_not_clarified_request
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+      end
+    end
+
     context "when request doesn't have a public last response" do
       let(:info_request) do
         FactoryBot.create(:info_request, :with_incoming, :waiting_clarification)
