@@ -425,6 +425,7 @@ class RequestMailer < ApplicationMailer
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
       next if alert_event_id.nil?
+      next if last_response_message&.created_at < 3.months.ago
 
       # To the user who created the request
       sent_already = UserInfoRequestSentAlert.
