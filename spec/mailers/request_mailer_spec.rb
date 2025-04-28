@@ -1026,8 +1026,8 @@ RSpec.describe RequestMailer do
     end
 
     it "should send an alert" do
-      info_request = info_requests(:fancy_dog_request)
-      info_request.set_described_state('waiting_clarification')
+      info_request = FactoryBot.create(:info_request, :with_incoming,
+                                       :waiting_clarification)
       force_updated_at_to_past(info_request)
 
       RequestMailer.alert_not_clarified_request
@@ -1036,7 +1036,7 @@ RSpec.describe RequestMailer do
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       expect(mail.body).to match(/asked you to explain/)
-      expect(mail.to_addrs.first.to_s).to eq(info_requests(:fancy_dog_request).user.email)
+      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
       mail.body.to_s =~ /(http:\/\/.*)/
       mail_url = $1
 
@@ -1049,8 +1049,9 @@ RSpec.describe RequestMailer do
     end
 
     it "skips requests that don't have a public last response" do
-      info_request = info_requests(:fancy_dog_request)
-      info_request.set_described_state('waiting_clarification')
+      info_request = FactoryBot.create(:info_request, :with_incoming,
+                                       :waiting_clarification)
+      force_updated_at_to_past(info_request)
 
       im = info_request.incoming_messages.last
       old_prominence = im.prominence
@@ -1065,19 +1066,14 @@ RSpec.describe RequestMailer do
         prominence_reason: 'test'
       )
 
-      force_updated_at_to_past(info_request)
       RequestMailer.alert_not_clarified_request
 
       expect(ActionMailer::Base.deliveries.size).to eq(0)
     end
 
     it "should not send an alert to banned users" do
-      info_request = info_requests(:fancy_dog_request)
-      info_request.set_described_state('waiting_clarification')
-
-      info_request.user.ban_text = 'Banned'
-      info_request.user.save!
-
+      info_request = FactoryBot.create(:info_request, :waiting_clarification,
+                                       user: FactoryBot.build(:user, :banned))
       force_updated_at_to_past(info_request)
 
       RequestMailer.alert_not_clarified_request
@@ -1087,8 +1083,8 @@ RSpec.describe RequestMailer do
     end
 
     it "should alert about embargoed requests" do
-      info_request = FactoryBot.create(:embargoed_request)
-      info_request.set_described_state('waiting_clarification')
+      info_request = FactoryBot.create(:embargoed_request,
+                                       :waiting_clarification)
       force_updated_at_to_past(info_request)
 
       RequestMailer.alert_not_clarified_request
@@ -1101,9 +1097,8 @@ RSpec.describe RequestMailer do
     end
 
     it "should not send an alert for requests where use_notifications is true" do
-      info_request = FactoryBot.create(:use_notifications_request)
-      info_request.set_described_state('waiting_clarification')
-
+      info_request = FactoryBot.create(:use_notifications_request,
+                                       :waiting_clarification)
       force_updated_at_to_past(info_request)
 
       RequestMailer.alert_not_clarified_request
