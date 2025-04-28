@@ -1025,86 +1025,96 @@ RSpec.describe RequestMailer do
       request.update_column(:updated_at, Time.zone.now - 5.days)
     end
 
-    it "should send an alert" do
-      info_request = FactoryBot.create(:info_request, :with_incoming,
-                                       :waiting_clarification)
-      force_updated_at_to_past(info_request)
+    context "when request needs clarification" do
+      it "should send an alert" do
+        info_request = FactoryBot.create(:info_request, :with_incoming,
+                                         :waiting_clarification)
+        force_updated_at_to_past(info_request)
 
-      RequestMailer.alert_not_clarified_request
+        RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.body).to match(/asked you to explain/)
-      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
-      mail.body.to_s =~ /(http:\/\/.*)/
-      mail_url = $1
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+        mail = deliveries[0]
+        expect(mail.body).to match(/asked you to explain/)
+        expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+        mail.body.to_s =~ /(http:\/\/.*)/
+        mail_url = $1
 
-      expect(mail_url).to match(
-        new_request_incoming_followup_path(
-          info_request.url_title,
-          incoming_message_id: info_request.incoming_messages.last.id
+        expect(mail_url).to match(
+          new_request_incoming_followup_path(
+            info_request.url_title,
+            incoming_message_id: info_request.incoming_messages.last.id
+          )
         )
-      )
+      end
     end
 
-    it "skips requests that don't have a public last response" do
-      info_request = FactoryBot.create(:info_request, :with_incoming,
-                                       :waiting_clarification)
-      force_updated_at_to_past(info_request)
+    context "when request doesn't have a public last response" do
+      it "should not send an alert" do
+        info_request = FactoryBot.create(:info_request, :with_incoming,
+                                         :waiting_clarification)
+        force_updated_at_to_past(info_request)
 
-      im = info_request.incoming_messages.last
-      old_prominence = im.prominence
-      im.update(prominence: 'hidden')
-      im.info_request.log_event(
-        'edit_incoming',
-        incoming_message_id: im.id,
-        editor: FactoryBot.create(:admin_user).id,
-        old_prominence: 'normal',
-        prominence: 'hidden',
-        old_prominence_reason: 'test',
-        prominence_reason: 'test'
-      )
+        im = info_request.incoming_messages.last
+        old_prominence = im.prominence
+        im.update(prominence: 'hidden')
+        im.info_request.log_event(
+          'edit_incoming',
+          incoming_message_id: im.id,
+          editor: FactoryBot.create(:admin_user).id,
+          old_prominence: 'normal',
+          prominence: 'hidden',
+          old_prominence_reason: 'test',
+          prominence_reason: 'test'
+        )
 
-      RequestMailer.alert_not_clarified_request
+        RequestMailer.alert_not_clarified_request
 
-      expect(ActionMailer::Base.deliveries.size).to eq(0)
+        expect(ActionMailer::Base.deliveries.size).to eq(0)
+      end
     end
 
-    it "should not send an alert to banned users" do
-      info_request = FactoryBot.create(:info_request, :waiting_clarification,
-                                       user: FactoryBot.build(:user, :banned))
-      force_updated_at_to_past(info_request)
+    context "when requester is banned" do
+      it "should not send an alert" do
+        info_request = FactoryBot.create(:info_request, :waiting_clarification,
+                                         user: FactoryBot.build(:user, :banned))
+        force_updated_at_to_past(info_request)
 
-      RequestMailer.alert_not_clarified_request
+        RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+      end
     end
 
-    it "should alert about embargoed requests" do
-      info_request = FactoryBot.create(:embargoed_request,
-                                       :waiting_clarification)
-      force_updated_at_to_past(info_request)
+    context "when request is embargoed" do
+      it "should send alert" do
+        info_request = FactoryBot.create(:embargoed_request,
+                                         :waiting_clarification)
+        force_updated_at_to_past(info_request)
 
-      RequestMailer.alert_not_clarified_request
+        RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(1)
-      mail = deliveries[0]
-      expect(mail.body).to match(/asked you to explain/)
-      expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+        mail = deliveries[0]
+        expect(mail.body).to match(/asked you to explain/)
+        expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+      end
     end
 
-    it "should not send an alert for requests where use_notifications is true" do
-      info_request = FactoryBot.create(:use_notifications_request,
-                                       :waiting_clarification)
-      force_updated_at_to_past(info_request)
+    context 'when request has use_notifications enabled' do
+      it "should not send an alert" do
+        info_request = FactoryBot.create(:use_notifications_request,
+                                         :waiting_clarification)
+        force_updated_at_to_past(info_request)
 
-      RequestMailer.alert_not_clarified_request
+        RequestMailer.alert_not_clarified_request
 
-      deliveries = ActionMailer::Base.deliveries
-      expect(deliveries.size).to eq(0)
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
+      end
     end
   end
 
