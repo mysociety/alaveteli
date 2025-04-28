@@ -1017,20 +1017,19 @@ RSpec.describe RequestMailer do
   end
 
   describe "clarification required alerts" do
-    before(:each) do
-      load_raw_emails_data
-    end
+    let(:info_request) { FactoryBot.create(:info_request) }
 
-    def force_updated_at_to_past(request)
-      request.update_column(:updated_at, Time.zone.now - 5.days)
+    before do
+      load_raw_emails_data
+      info_request.update_column(:updated_at, Time.zone.now - 5.days)
     end
 
     context "when request needs clarification" do
-      it "should send an alert" do
-        info_request = FactoryBot.create(:info_request, :with_incoming,
-                                         :waiting_clarification)
-        force_updated_at_to_past(info_request)
+      let(:info_request) do
+        FactoryBot.create(:info_request, :with_incoming, :waiting_clarification)
+      end
 
+      it "should send an alert" do
         RequestMailer.alert_not_clarified_request
 
         deliveries = ActionMailer::Base.deliveries
@@ -1051,11 +1050,11 @@ RSpec.describe RequestMailer do
     end
 
     context "when request doesn't have a public last response" do
-      it "should not send an alert" do
-        info_request = FactoryBot.create(:info_request, :with_incoming,
-                                         :waiting_clarification)
-        force_updated_at_to_past(info_request)
+      let(:info_request) do
+        FactoryBot.create(:info_request, :with_incoming, :waiting_clarification)
+      end
 
+      it "should not send an alert" do
         im = info_request.incoming_messages.last
         old_prominence = im.prominence
         im.update(prominence: 'hidden')
@@ -1076,11 +1075,12 @@ RSpec.describe RequestMailer do
     end
 
     context "when requester is banned" do
-      it "should not send an alert" do
-        info_request = FactoryBot.create(:info_request, :waiting_clarification,
-                                         user: FactoryBot.build(:user, :banned))
-        force_updated_at_to_past(info_request)
+      let(:info_request) do
+        FactoryBot.create(:info_request, :waiting_clarification,
+                          user: FactoryBot.build(:user, :banned))
+      end
 
+      it "should not send an alert" do
         RequestMailer.alert_not_clarified_request
 
         deliveries = ActionMailer::Base.deliveries
@@ -1089,11 +1089,11 @@ RSpec.describe RequestMailer do
     end
 
     context "when request is embargoed" do
-      it "should send alert" do
-        info_request = FactoryBot.create(:embargoed_request,
-                                         :waiting_clarification)
-        force_updated_at_to_past(info_request)
+      let(:info_request) do
+        FactoryBot.create(:embargoed_request, :waiting_clarification)
+      end
 
+      it "should send alert" do
         RequestMailer.alert_not_clarified_request
 
         deliveries = ActionMailer::Base.deliveries
@@ -1105,11 +1105,11 @@ RSpec.describe RequestMailer do
     end
 
     context 'when request has use_notifications enabled' do
-      it "should not send an alert" do
-        info_request = FactoryBot.create(:use_notifications_request,
-                                         :waiting_clarification)
-        force_updated_at_to_past(info_request)
+      let(:info_request) do
+        FactoryBot.create(:use_notifications_request, :waiting_clarification)
+      end
 
+      it "should not send an alert" do
         RequestMailer.alert_not_clarified_request
 
         deliveries = ActionMailer::Base.deliveries
