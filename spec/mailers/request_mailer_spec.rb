@@ -1018,10 +1018,11 @@ RSpec.describe RequestMailer do
 
   describe "clarification required alerts" do
     let(:info_request) { FactoryBot.create(:info_request) }
+    let(:last_incoming_message) { info_request.incoming_messages.last }
 
     before do
       load_raw_emails_data
-      info_request.update_column(:updated_at, Time.zone.now - 5.days)
+      info_request.update_column(:updated_at, 5.days.ago)
     end
 
     context "when request needs clarification" do
@@ -1037,9 +1038,8 @@ RSpec.describe RequestMailer do
         mail = deliveries[0]
         expect(mail.body).to match(/asked you to explain/)
         expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
-        mail.body.to_s =~ /(http:\/\/.*)/
-        mail_url = $1
 
+        mail_url = mail.body.to_s.match(/(http:\/\/.*)/)[0]
         expect(mail_url).to match(
           new_request_incoming_followup_path(
             info_request.url_title,
@@ -1054,23 +1054,15 @@ RSpec.describe RequestMailer do
         FactoryBot.create(:info_request, :with_incoming, :waiting_clarification)
       end
 
-      it "should not send an alert" do
-        im = info_request.incoming_messages.last
-        old_prominence = im.prominence
-        im.update(prominence: 'hidden')
-        im.info_request.log_event(
-          'edit_incoming',
-          incoming_message_id: im.id,
-          editor: FactoryBot.create(:admin_user).id,
-          old_prominence: 'normal',
-          prominence: 'hidden',
-          old_prominence_reason: 'test',
-          prominence_reason: 'test'
-        )
+      before do
+        last_incoming_message.update(prominence: 'hidden')
+      end
 
+      it "should not send an alert" do
         RequestMailer.alert_not_clarified_request
 
-        expect(ActionMailer::Base.deliveries.size).to eq(0)
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(0)
       end
     end
 
@@ -1101,6 +1093,14 @@ RSpec.describe RequestMailer do
         mail = deliveries[0]
         expect(mail.body).to match(/asked you to explain/)
         expect(mail.to_addrs.first.to_s).to eq(info_request.user.email)
+
+        mail_url = mail.body.to_s.match(/(http:\/\/.*)/)[0]
+        expect(mail_url).to match(
+          new_request_incoming_followup_path(
+            info_request.url_title,
+            incoming_message_id: info_request.incoming_messages.last.id
+          )
+        )
       end
     end
 
