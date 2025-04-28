@@ -1026,9 +1026,9 @@ RSpec.describe RequestMailer do
     end
 
     it "should send an alert" do
-      ir = info_requests(:fancy_dog_request)
-      ir.set_described_state('waiting_clarification')
-      force_updated_at_to_past(ir)
+      info_request = info_requests(:fancy_dog_request)
+      info_request.set_described_state('waiting_clarification')
+      force_updated_at_to_past(info_request)
 
       RequestMailer.alert_not_clarified_request
 
@@ -1042,17 +1042,17 @@ RSpec.describe RequestMailer do
 
       expect(mail_url).to match(
         new_request_incoming_followup_path(
-          ir.url_title,
-          incoming_message_id: ir.incoming_messages.last.id
+          info_request.url_title,
+          incoming_message_id: info_request.incoming_messages.last.id
         )
       )
     end
 
     it "skips requests that don't have a public last response" do
-      ir = info_requests(:fancy_dog_request)
-      ir.set_described_state('waiting_clarification')
+      info_request = info_requests(:fancy_dog_request)
+      info_request.set_described_state('waiting_clarification')
 
-      im = ir.incoming_messages.last
+      im = info_request.incoming_messages.last
       old_prominence = im.prominence
       im.update(prominence: 'hidden')
       im.info_request.log_event(
@@ -1065,20 +1065,20 @@ RSpec.describe RequestMailer do
         prominence_reason: 'test'
       )
 
-      force_updated_at_to_past(ir)
+      force_updated_at_to_past(info_request)
       RequestMailer.alert_not_clarified_request
 
       expect(ActionMailer::Base.deliveries.size).to eq(0)
     end
 
     it "should not send an alert to banned users" do
-      ir = info_requests(:fancy_dog_request)
-      ir.set_described_state('waiting_clarification')
+      info_request = info_requests(:fancy_dog_request)
+      info_request.set_described_state('waiting_clarification')
 
-      ir.user.ban_text = 'Banned'
-      ir.user.save!
+      info_request.user.ban_text = 'Banned'
+      info_request.user.save!
 
-      force_updated_at_to_past(ir)
+      force_updated_at_to_past(info_request)
 
       RequestMailer.alert_not_clarified_request
 
