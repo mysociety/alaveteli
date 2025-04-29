@@ -653,6 +653,10 @@ class IncomingMessage < ApplicationRecord
     refusals.any?
   end
 
+  def locked?
+    foi_attachments.locked.any?
+  end
+
   private
 
   def legislation_references

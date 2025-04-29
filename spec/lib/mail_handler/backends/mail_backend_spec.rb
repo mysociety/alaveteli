@@ -379,7 +379,7 @@ when it really should be application/pdf.\n
     end
   end
 
-  describe 'attachment_body_for_hexdigest' do
+  describe 'attachment_attributes_for_hexdigest' do
     let(:mail) do
       Mail.new do
         add_file filename: 'file.txt', content: 'hereisthetext'
@@ -387,19 +387,24 @@ when it really should be application/pdf.\n
     end
 
     context 'matching hexdigest' do
-      it 'returns the body of the attachment' do
-        body = attachment_body_for_hexdigest(
-          mail, hexdigest: Digest::MD5.hexdigest('hereisthetext')
+      it 'returns the attributes of the attachment' do
+        hexdigest = Digest::MD5.hexdigest('hereisthetext')
+        attributes = attachment_attributes_for_hexdigest(
+          mail, hexdigest: hexdigest
         )
 
-        expect(body).to eq('hereisthetext')
+        expect(attributes).to include(
+          body: 'hereisthetext',
+          filename: 'file.txt',
+          hexdigest: hexdigest
+        )
       end
     end
 
     context 'non-matching hexdigest' do
       it 'raises MismatchedAttachmentHexdigest error' do
         expect {
-          attachment_body_for_hexdigest(mail, hexdigest: 'incorrect')
+          attachment_attributes_for_hexdigest(mail, hexdigest: 'incorrect')
         }.to raise_error(MailHandler::MismatchedAttachmentHexdigest)
       end
     end

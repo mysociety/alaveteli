@@ -4,6 +4,10 @@ require "net/imap"
 class EncodingNormalizationError < StandardError
 end
 
+def normalize_line_endings(text)
+  text.gsub(/\r\n?/, "\n") # Converts Windows line endings to Unix line endings
+end
+
 def normalize_string_to_utf8(s, suggested_character_encoding=nil)
   # Make a list of encodings to try:
   to_try = []

@@ -142,6 +142,11 @@ body.admin {
     border-color: #771414;
   }
 
+  i.icon-foi-attachment--locked {
+    @include prominence_icon;
+    @extend .icon-lock;
+  }
+
   body.admin blockquote p {
     font-size: 13px;
     display: inline;

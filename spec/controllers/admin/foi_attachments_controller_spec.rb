@@ -55,6 +55,9 @@ RSpec.describe Admin::FoiAttachmentsController do
       {
         id: attachment.id,
         foi_attachment: {
+          locked: true,
+          replaced_reason: 'GDPR case',
+          replacement_body: 'This is the new replacement body',
           prominence: 'hidden',
           prominence_reason: 'This was accidentally published'
         }
@@ -74,13 +77,15 @@ RSpec.describe Admin::FoiAttachmentsController do
 
       it 'sets a notice' do
         patch :update, params: params
-        expect(flash[:notice]).to eq('Attachment successfully updated.')
+        expect(flash[:notice]).to_not be_nil
       end
 
       it 'should log an "edit_attachment" event on the info_request' do
         expect(NotifyCacheJob).to receive(:perform_later).with(attachment)
         allow(@controller).to receive(:admin_current_user).
           and_return("Admin user")
+        allow_any_instance_of(FoiAttachment).to receive(:replaced_at).
+          and_return(Time.new(2025, 4, 10, 10, 30))
 
         patch :update, params: params
 
@@ -90,11 +95,51 @@ RSpec.describe Admin::FoiAttachmentsController do
         expect(last_event.params).to eq(
           editor: 'Admin user',
           attachment_id: attachment.id,
+          old_locked: false,
+          locked: true,
+          replaced: true,
+          replaced_reason: 'GDPR case',
+          replaced_filename: 'attachment.txt',
+          replaced_at: Time.new(2025, 4, 10, 10, 30).as_json,
           old_prominence: 'normal',
           prominence: 'hidden',
           old_prominence_reason: nil,
           prominence_reason: 'This was accidentally published'
         )
+      end
+    end
+
+    context 'when locking an attachment' do
+      let(:params) do
+        {
+          id: attachment.id,
+          foi_attachment: { locked: true }
+        }
+      end
+
+      it 'sets a notice' do
+        patch :update, params: params
+        expect(flash[:notice]).to eq(<<~TXT.squish)
+          Attachment successfully updated and locked. Please wait for masking to
+          complete before adding additional censor rules.
+        TXT
+      end
+    end
+
+    context 'when replacing an attachment' do
+      let(:params) do
+        {
+          id: attachment.id,
+          foi_attachment: {
+            replaced_reason: 'GDPR case',
+            replacement_body: 'This is the new replacement body'
+          }
+        }
+      end
+
+      it 'sets a notice' do
+        patch :update, params: params
+        expect(flash[:notice]).to eq('Attachment successfully updated.')
       end
     end
 

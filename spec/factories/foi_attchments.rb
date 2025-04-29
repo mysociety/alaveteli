@@ -24,6 +24,33 @@ FactoryBot.define do
       masked_at { nil }
     end
 
+    trait :locked do
+      locked { true }
+    end
+
+    trait :unlocked do
+      locked { false }
+    end
+
+    trait :replaced do
+      locked { true }
+      masked_at { 12.hours.ago }
+      replaced_at { 12.hours.ago }
+      replaced_reason { 'GDPR case' }
+
+      transient do
+        replacement_body { 'Replacement body' }
+      end
+
+      after(:build) do |foi_attachment, evaluator|
+        foi_attachment.file.attach(
+          io: StringIO.new(evaluator.replacement_body),
+          filename: foi_attachment.filename,
+          content_type: foi_attachment.content_type
+        )
+      end
+    end
+
     factory :body_text do
       content_type { 'text/plain' }
       body { 'hereisthetext' }
