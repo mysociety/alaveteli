@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230717201410
+# Schema version: 20250304205550
 #
 # Table name: foi_attachments
 #
@@ -17,6 +17,7 @@
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
 #  masked_at             :datetime
+#  locked                :boolean          default(FALSE)
 #
 
 # models/foi_attachment.rb:
@@ -49,6 +50,8 @@ class FoiAttachment < ApplicationRecord
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
+  scope :locked, -> { where(locked: true) }
+  scope :unlocked, -> { where(locked: false) }
 
   delegate :expire, :log_event, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true

@@ -845,7 +845,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def clear_attachment_masks!
-    foi_attachments.update_all(masked_at: nil)
+    foi_attachments.unlocked.update_all(masked_at: nil)
   end
 
   # Removes anything cached about the object in the database, and saves

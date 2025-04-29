@@ -473,17 +473,26 @@ class IncomingMessage < ApplicationRecord
 
     # Purge old public attachments that will be rebuilt with a new hexdigest
     old_attachments = (foi_attachments - attachments)
-    hidden_old_attachments = old_attachments.reject { _1.is_public? }
 
-    if hidden_old_attachments.any?
-      # if there are hidden attachments error as we don't want to re-build and
-      # lose the prominence as this will make them public
+    non_public_old_attachments = old_attachments.reject(&:is_public?)
+    if non_public_old_attachments.any?
+      # if there are non public attachments error as we don't want to re-build
+      # and lose the prominence as this will make them public
       raise UnableToExtractAttachments, "unable to extract attachments due " \
         "to prominence of attachments " \
-        "(ID=#{hidden_old_attachments.map(&:id).join(', ')})"
-    else
-      old_attachments.each(&:mark_for_destruction)
+        "(ID=#{non_public_old_attachments.map(&:id).join(', ')})"
     end
+
+    locked_old_attachments = old_attachments.select(&:locked?)
+    if locked_old_attachments.any?
+      # if there are locked attachments error as we don't want to re-build and
+      # lose any changes made outside Alaveteli
+      raise UnableToExtractAttachments, "unable to extract attachments due " \
+        "to locked attachments " \
+        "(ID=#{locked_old_attachments.map(&:id).join(', ')})"
+    end
+
+    old_attachments.each(&:mark_for_destruction)
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.

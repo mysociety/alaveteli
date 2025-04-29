@@ -1089,6 +1089,16 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
       IncomingMessage::UnableToExtractAttachments
     )
   end
+
+  it 'raises error if existing locked attachment will be deleted' do
+    incoming_message = FactoryBot.create(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.first
+    foi_attachment.update(locked: true, hexdigest: '123')
+
+    expect { incoming_message.extract_attachments! }.to raise_error(
+      IncomingMessage::UnableToExtractAttachments
+    )
+  end
 end
 
 RSpec.describe IncomingMessage, 'when getting the body of a message for html display' do
