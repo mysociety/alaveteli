@@ -57,6 +57,10 @@ FactoryBot.define do
       prominence { 'hidden' }
     end
 
+    trait :with_text_attachment do
+      foi_attachments_factories { [[:body_text]] }
+    end
+
     trait :with_html_attachment do
       foi_attachments_factories { [[:html_attachment]] }
     end
