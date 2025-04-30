@@ -51,7 +51,10 @@
     <% end %>
     <div class="entirebody">
 
-    <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
+      <nav aria-label="Skip navigation bar">
+        <a href="#content" class="show-with-keyboard-focus-only skip-to-link" tabindex="0">Skip to content</a>
+      </nav>
+
       <% unless @render_to_file %>
       <!-- begin popups -->
         <%= render 'general/site_wide_announcement' if site_wide_announcement.present? %>
@@ -79,6 +82,12 @@
           <div style="clear:both"></div>
         </div>
       </div>
+
+      <nav aria-label="Skip footer">
+        <a href="#content" class="show-with-keyboard-focus-only skip-to-link">
+          <%= _('Back to content') %>
+        </a>
+      </nav>
 
       <%= render :partial => 'general/responsive_footer' %>
     </div>
@@ -118,8 +127,5 @@
 
     <%= render :partial => 'general/before_body_end' %>
 
-    <a href="#content" class="show-with-keyboard-focus-only skip-to-link">
-      <%= _('Back to content') %>
-    </a>
   </body>
 </html>
