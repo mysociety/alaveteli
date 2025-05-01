@@ -331,7 +331,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def replacement_body
-    super || body
+    super || normalize_string_to_utf8(body)
   end
 
   def replacement_body=(new_replacement_body)

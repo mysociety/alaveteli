@@ -730,6 +730,31 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#replacement_body' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    before do
+      allow(foi_attachment).to receive(:body).and_return('hello'.b)
+    end
+
+    context 'when set' do
+      it 'returns the set value' do
+        foi_attachment.replacement_body = 'goodbye'
+        expect(foi_attachment.replacement_body).to eq('goodbye')
+      end
+    end
+
+    context 'when unset' do
+      it 'returns the original body' do
+        expect(foi_attachment.replacement_body).to eq('hello')
+      end
+
+      it 'returns a UTF-8 string of the original body' do
+        expect(foi_attachment.replacement_body.is_utf8?).to eq(true)
+      end
+    end
+  end
+
   describe '#replacement_body=' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     let(:original_body) { "Original content\n" }
