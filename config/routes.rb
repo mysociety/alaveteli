@@ -398,7 +398,7 @@ Rails.application.routes.draw do
         :via => :get
 
   #### Comment controller
-  match '/request/:url_title/annotate' => 'comment#new',
+  match '/request/:url_title/annotate' => 'comments#new',
         :as => :new_comment,
         :type => 'request',
         :via => [:get, :post]

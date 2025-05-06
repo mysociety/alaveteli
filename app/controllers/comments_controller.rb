@@ -1,10 +1,10 @@
-# app/controllers/comment_controller.rb:
+# app/controllers/comments_controller.rb:
 # Show annotations upon a request or other object.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class CommentController < ApplicationController
+class CommentsController < ApplicationController
   before_action :build_comment, only: [:new]
   before_action :check_read_only, only: [ :new ]
   before_action :find_info_request, only: [ :new ]
@@ -122,7 +122,7 @@ class CommentController < ApplicationController
       @details = authenticated_user.can_fail_html
       render template: 'user/banned'
     else
-      render template: 'comment/rate_limited'
+      render template: 'comments/rate_limited'
     end
   end
 

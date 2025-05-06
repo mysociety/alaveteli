@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe CommentController, "when commenting on a request" do
+RSpec.describe CommentsController, "when commenting on a request" do
   render_views
 
   describe 'dealing with embargoed requests' do
@@ -229,7 +229,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       preview: 0
     }
 
-    expect(response).to render_template('comment/rate_limited')
+    expect(response).to render_template('comments/rate_limited')
   end
 
   describe 'when handling a comment that looks like spam' do

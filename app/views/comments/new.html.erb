@@ -21,9 +21,9 @@
 
 <%# These partials show a list of suggested topics for annotations %>
 <% if @info_request.embargo %>
-  <%= render :partial => 'alaveteli_pro/comment/suggestions' %>
+  <%= render :partial => 'alaveteli_pro/comments/suggestions' %>
 <% else %>
-  <%= render :partial => 'comment/suggestions' %>
+  <%= render :partial => 'comments/suggestions' %>
 <% end %>
 
 <p>
@@ -36,5 +36,5 @@
   <% end %>
 </p>
 
-<%= render :partial => 'comment/comment_form',
+<%= render :partial => 'comments/comment_form',
            :locals => { :track_thing => @track_thing } %>
