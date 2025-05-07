@@ -68,8 +68,7 @@ class CommentsController < ApplicationController
       end
 
       # This automatically saves dependent objects in the same transaction
-      @comment = @info_request.add_comment(params[:comment][:body], authenticated_user)
-      @info_request.save!
+      @comment = @info_request.add_comment(@comment)
 
       # we don't use comment_url here, as then you don't see the flash at top of page
       redirect_to request_url(@info_request)
@@ -80,7 +79,7 @@ class CommentsController < ApplicationController
 
   def build_comment
     if params[:comment]
-      @comment = Comment.new(comment_params.merge(user: @user))
+      @comment = Comment.new(comment_params.merge(user: authenticated_user))
     end
   end
 

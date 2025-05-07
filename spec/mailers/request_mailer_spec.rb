@@ -1147,7 +1147,9 @@ RSpec.describe RequestMailer do
       existing_comment = info_requests(:fancy_dog_request).comments[0]
       existing_comment.info_request_events[0].destroy
       existing_comment.destroy
-      new_comment = info_requests(:fancy_dog_request).add_comment('I really love making annotations.', users(:silly_name_user))
+      new_comment = info_requests(:fancy_dog_request).add_comment(
+        FactoryBot.build(:comment, body: 'I really love making annotations.')
+      )
 
       # send comment alert
       RequestMailer.alert_comment_on_request
@@ -1173,7 +1175,14 @@ RSpec.describe RequestMailer do
       existing_comment = info_requests(:fancy_dog_request).comments[0]
       existing_comment.info_request_events[0].destroy
       existing_comment.destroy
-      new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
+      info_request = info_requests(:fancy_dog_request)
+      info_request.add_comment(
+        FactoryBot.build(
+          :comment,
+          body: 'I also love making annotations.',
+          user: info_request.user
+        )
+      )
 
       # try to send comment alert
       RequestMailer.alert_comment_on_request
@@ -1184,7 +1193,9 @@ RSpec.describe RequestMailer do
 
     it 'should not send an alert for a comment on an external request' do
       external_request = info_requests(:external_request)
-      external_request.add_comment("This external request is interesting", users(:silly_name_user))
+      external_request.add_comment(
+        FactoryBot.build(:comment, body: "This external request is interesting")
+      )
       # try to send comment alert
       RequestMailer.alert_comment_on_request
 
@@ -1193,10 +1204,17 @@ RSpec.describe RequestMailer do
     end
 
     it "should send an alert when there are two new comments" do
+      info_request = info_requests(:fancy_dog_request)
       # add two comments - the second one should be ignored, as is by the user who made the request.
       # the new comment here, will cause the one in the fixture to be picked up as a new comment by alert_comment_on_request also.
-      new_comment = info_requests(:fancy_dog_request).add_comment('Not as daft as this one', users(:silly_name_user))
-      new_comment = info_requests(:fancy_dog_request).add_comment('Or this one!!!', users(:bob_smith_user))
+      info_request.add_comment(
+        FactoryBot.build(:comment, body: 'Not as daft as this one')
+      )
+      info_request.add_comment(
+        FactoryBot.build(
+          :comment, body: 'Or this one!!!', user: info_request.user
+        )
+      )
 
       RequestMailer.alert_comment_on_request
 
@@ -1212,9 +1230,9 @@ RSpec.describe RequestMailer do
 
     it "should send alerts for comments on embargoed requests" do
       info_request = FactoryBot.create(:embargoed_request)
-      new_comment = info_request.add_comment(
-        "Test comment on embargoed_request",
-        FactoryBot.create(:user))
+      info_request.add_comment(
+        FactoryBot.build(:comment, body: "Test comment on embargoed_request")
+      )
 
       RequestMailer.alert_comment_on_request
 
