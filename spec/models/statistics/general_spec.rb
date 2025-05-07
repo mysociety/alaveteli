@@ -30,9 +30,13 @@ RSpec.describe Statistics::General do
                                      prominence: 'hidden')
     FactoryBot.create(:user, email_confirmed: false)
     FactoryBot.create(:visible_comment,
-                      default_args.dup.slice!(:public_body))
+                      default_args.dup.slice!(:public_body).merge(
+                        body: 'Visible comment'
+                      ))
     FactoryBot.create(:hidden_comment,
-                      default_args.dup.slice!(:public_body))
+                      default_args.dup.slice!(:public_body).merge(
+                        body: 'Hidden comment'
+                      ))
     FactoryBot.create(:search_track, tracking_user: user)
     FactoryBot.create(:widget_vote,
                       default_args.dup.slice!(:user, :public_body))

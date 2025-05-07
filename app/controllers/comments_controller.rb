@@ -5,25 +5,20 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CommentsController < ApplicationController
+  before_action :find_info_request, only: [ :new ]
   before_action :build_comment, only: [:new]
   before_action :check_read_only, only: [ :new ]
-  before_action :find_info_request, only: [ :new ]
   before_action :create_track_thing, only: [ :new ]
   before_action :reject_unless_comments_allowed, only: [ :new ]
   before_action :reject_if_user_banned, only: [ :new ]
   before_action :set_in_pro_area, only: [ :new ]
 
   def new
-    if params[:comment]
-      # TODO: this check should theoretically be a validation rule in the model
-      @existing_comment = Comment.find_existing(@info_request.id, params[:comment][:body])
-    else
-      # Default to subscribing to request when first viewing form
-      params[:subscribe_to_request] = true
-    end
+    # Default to subscribing to request when first viewing form
+    params[:subscribe_to_request] = true unless params[:comment]
 
     # See if values were valid or not
-    if !params[:comment] || !@existing_comment.nil? || !@comment.valid? || params[:reedit]
+    if !params[:comment] || !@comment.valid? || params[:reedit]
       @comment ||= @info_request.comments.new
       render action: 'new'
       return
@@ -79,7 +74,7 @@ class CommentsController < ApplicationController
 
   def build_comment
     if params[:comment]
-      @comment = Comment.new(comment_params.merge(user: authenticated_user))
+      @comment = @info_request.comments.build(comment_params.merge(user: @user))
     end
   end
 

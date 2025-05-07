@@ -54,6 +54,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: { message: _('Please enter your annotation') }
   validate :check_body_uses_mixed_capitals
+  validate :no_duplicate_comment
 
   scope :visible, -> {
     joins(:info_request).
@@ -224,5 +225,15 @@ class Comment < ApplicationRecord
     msg = _('Please write your annotation using a mixture of capital and ' \
             'lower case letters. This makes it easier for others to read.')
     errors.add(:body, msg)
+  end
+
+  def no_duplicate_comment
+    return unless body && info_request_id
+
+    existing = Comment.find_existing(info_request_id, body)
+    return unless existing && existing != self
+
+    errors.add(:body, _('This annotation on was already made on {{date}}',
+               date: existing.created_at.strftime("%d %B %Y")))
   end
 end
