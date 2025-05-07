@@ -52,8 +52,8 @@ class Comment < ApplicationRecord
            inverse_of: :comment,
            dependent: :destroy
 
-  validate :check_body_has_content,
-           :check_body_uses_mixed_capitals
+  validates :body, presence: { message: _('Please enter your annotation') }
+  validate :check_body_uses_mixed_capitals
 
   scope :visible, -> {
     joins(:info_request).
@@ -218,17 +218,11 @@ class Comment < ApplicationRecord
 
   private
 
-  def check_body_has_content
-    if body.empty? || body =~ /^\s+$/
-      errors.add(:body, _('Please enter your annotation'))
-    end
-  end
-
   def check_body_uses_mixed_capitals
-    unless MySociety::Validate.uses_mixed_capitals(body)
-      msg = _('Please write your annotation using a mixture of capital and ' \
-              'lower case letters. This makes it easier for others to read.')
-      errors.add(:body, msg)
-    end
+    return if !body || MySociety::Validate.uses_mixed_capitals(body)
+
+    msg = _('Please write your annotation using a mixture of capital and ' \
+            'lower case letters. This makes it easier for others to read.')
+    errors.add(:body, msg)
   end
 end
