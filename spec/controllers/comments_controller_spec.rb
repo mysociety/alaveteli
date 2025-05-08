@@ -13,7 +13,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
     context "when the user is not logged in" do
       it 'returns a 404 when the info request is embargoed' do
         expect {
-          post :new, params: {
+          post :preview, params: {
             url_title: embargoed_request.url_title,
             comment: { body: "Some content" },
             type: 'request',
@@ -31,7 +31,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
       it 'returns a 404 when the info request is embargoed' do
         expect {
-          post :new, params: {
+          post :preview, params: {
             url_title: embargoed_request.url_title,
             comment: { body: "Some content" },
             type: 'request',
@@ -48,7 +48,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
       end
 
       it 'allows them to comment' do
-        post :new, params: {
+        post :preview, params: {
           url_title: embargoed_request.url_title,
           comment: { body: "Some content" },
           type: 'request',
@@ -61,7 +61,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
   end
 
   it "should give an error and render 'new' template when body text is just some whitespace" do
-    post :new, params: {
+    post :preview, params: {
       url_title: info_requests(:naughty_chicken_request).url_title,
       comment: { body: "   " },
       type: 'request',
@@ -73,7 +73,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
   end
 
   it "should show preview when input is good" do
-    post :new, params: {
+    post :preview, params: {
       url_title: info_requests(:naughty_chicken_request).url_title,
       comment: {
         body: "A good question, but why not also ask about nice chickens?"
@@ -86,7 +86,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
   end
 
   it "should redirect to sign in page when input is good and nobody is logged in" do
-    post :new, params: {
+    post :create, params: {
       url_title: info_requests(:naughty_chicken_request).url_title,
       comment: {
         body: "A good question, but why not also ask about nice chickens?"
@@ -104,7 +104,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
   it "should create the comment, and redirect to request page when input is good and somebody is logged in" do
     sign_in users(:bob_smith_user)
 
-    post :new, params: {
+    post :create, params: {
       url_title: info_requests(:naughty_chicken_request).url_title,
       comment: {
         body: "A good question, but why not also ask about nice chickens?"
@@ -140,7 +140,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
     sign_in user
 
-    post :new, params: {
+    post :create, params: {
       url_title: info_request.url_title,
       comment: { body: comment.body },
       type: 'request',
@@ -155,7 +155,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
     sign_in users(:silly_name_user)
     info_request = info_requests(:spam_1_request)
 
-    post :new, params: {
+    post :create, params: {
       url_title: info_request.url_title,
       comment: { body: "I demand to be heard!" },
       type: 'request',
@@ -175,7 +175,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
     sign_in users(:silly_name_user)
     info_request = info_requests(:fancy_dog_request)
 
-    post :new, params: {
+    post :create, params: {
       url_title: info_request.url_title,
       comment: { body: "I demand to be heard!" },
       type: 'request',
@@ -189,7 +189,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
   it "allows the comment to be re-edited" do
     expected = "Updated text"
-    post :new, params: {
+    post :create, params: {
       url_title: info_requests(:naughty_chicken_request).url_title,
       comment: { body: expected },
       type: 'request',
@@ -203,7 +203,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
   it 'does not allow comments from banned users' do
     sign_in FactoryBot.create(:user, :banned)
 
-    post :new, params: {
+    post :create, params: {
       url_title: FactoryBot.create(:info_request).url_title,
       comment: { body: 'Comment will be rejected' },
       type: 'request',
@@ -220,7 +220,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
     sign_in FactoryBot.create(:user)
 
-    post :new, params: {
+    post :create, params: {
       url_title: FactoryBot.create(:info_request).url_title,
       comment: { body: 'Rate limited comment' },
       type: 'request',
@@ -246,7 +246,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
       it 'sends an exception notification' do
         sign_in user
-        post :new, params: {
+        post :create, params: {
           url_title: request.url_title,
           comment: {
             body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
@@ -261,7 +261,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
       it 'shows an error message' do
         sign_in user
-        post :new, params: {
+        post :create, params: {
           url_title: request.url_title,
           comment: {
             body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
@@ -278,7 +278,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
       it 'renders the compose interface' do
         sign_in user
-        post :new, params: {
+        post :create, params: {
           url_title: request.url_title,
           comment: {
             body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
@@ -294,7 +294,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
         user.confirmed_not_spam = true
         user.save!
         sign_in user
-        post :new, params: {
+        post :create, params: {
           url_title: request.url_title,
           comment: {
             body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
@@ -314,7 +314,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
       it 'sends an exception notification' do
         sign_in user
-        post :new, params: {
+        post :create, params: {
           url_title: request.url_title,
           comment: {
             body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
@@ -329,7 +329,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
       it 'allows the comment' do
         sign_in user
-        post :new, params: {
+        post :create, params: {
           url_title: request.url_title,
           comment: {
             body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"

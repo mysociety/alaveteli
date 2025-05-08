@@ -3,7 +3,7 @@
 <%= form_for(
     @comment,
     :html => { :id => 'preview_form' },
-    :url => new_comment_path(:type => "request", :url_title => @info_request.url_title)
+    :url => comments_path(@info_request.url_title)
   ) do |f| %>
 
   <h1><%= _('Now preview your annotation') %></h1>

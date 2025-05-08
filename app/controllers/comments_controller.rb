@@ -18,64 +18,32 @@ class CommentsController < ApplicationController
   before_action :build_comment
   before_action :build_track_thing
 
+  before_action :reedit_comment, only: [:create]
+  before_action :authenticate, only: [:create]
+  before_action :check_for_spam_comment, only: [:create]
+
+  before_action :validate_comment, only: [:preview, :create]
+
   def new
     # Default to subscribing to request when first viewing form
     params[:subscribe_to_request] = true unless params[:comment]
+    @comment ||= @info_request.comments.build
+  end
 
-    # See if values were valid or not
-    if !params[:comment] || !@comment.valid? || params[:reedit]
-      @comment ||= @info_request.comments.new
-      render action: 'new'
-      return
-    end
+  def preview; end
 
-    # Show preview page, if it is a preview
-    if params[:preview].to_i == 1
-      render action: 'preview'
-      return
-    end
+  def create
+    # This automatically saves dependent objects in the same transaction
+    @comment = @info_request.add_comment(@comment)
 
-    if !authenticated?
-      ask_to_login(
-        web: _('To post your annotation'),
-        email: _('Then your annotation to {{info_request_title}} will be ' \
-                 'posted.',
-                 info_request_title: @info_request.title),
-        email_subject: _('Confirm your annotation to {{info_request_title}}',
-                         info_request_title: @info_request.title)
-      )
-    else
-      if spam_comment?(params[:comment][:body], @user)
-        handle_spam_comment(@user) && return
-      end
+    # Also subscribe to track for this request, so they get updates
+    # (do this first, so definitely don't send alert)
+    flash[:notice] = _("Thank you for making an annotation!")
+    handle_subscription if params[:subscribe_to_request]
 
-      # Also subscribe to track for this request, so they get updates
-      # (do this first, so definitely don't send alert)
-      flash[:notice] = _("Thank you for making an annotation!")
-
-      if params[:subscribe_to_request]
-        @existing_track = TrackThing.find_existing(@user, @track_thing)
-        if @user && @info_request.user == @user
-          # don't subscribe to own request!
-        elsif !@existing_track
-          @track_thing.track_medium = 'email_daily'
-          @track_thing.tracking_user_id = @user.id
-          @track_thing.save!
-          flash[:notice] += _(" You will also be emailed updates about the " \
-                              "request.")
-        else
-          flash[:notice] += _(" You are already being emailed updates about " \
-                              "the request.")
-        end
-      end
-
-      # This automatically saves dependent objects in the same transaction
-      @comment = @info_request.add_comment(@comment)
-
-      # we don't use comment_url here, as then you don't see the flash at top
-      # of page
-      redirect_to request_url(@info_request)
-    end
+    # we don't use comment_url here, as then you don't see the flash at top of
+    # page
+    redirect_to request_url(@info_request)
   end
 
   private
@@ -145,9 +113,11 @@ class CommentsController < ApplicationController
   end
 
   # Sends an exception and blocks the comment depending on configuration.
-  def handle_spam_comment(user)
+  def check_for_spam_comment
+    return unless spam_comment?(@comment.body, @user)
+
     if send_exception_notifications?
-      e = Exception.new("Possible spam annotation from user #{ user.id }")
+      e = Exception.new("Possible spam annotation from user #{ @user.id }")
       ExceptionNotifier.notify_exception(e, env: request.env)
     end
 
@@ -156,6 +126,46 @@ class CommentsController < ApplicationController
     flash.now[:error] = _("Sorry, we're currently unable to add your " \
                           "annotation. Please try again later.")
     render action: 'new'
-    true
+  end
+
+  def reedit_comment
+    return unless params[:reedit]
+
+    render action: 'new'
+  end
+
+  def authenticate
+    authenticated? || ask_to_login(
+      web: _('To post your annotation'),
+      email: _('Then your annotation to {{info_request_title}} will be ' \
+               'posted.',
+               info_request_title: @info_request.title),
+      email_subject: _('Confirm your annotation to {{info_request_title}}',
+                       info_request_title: @info_request.title)
+    )
+  end
+
+  def handle_subscription
+    @existing_track = TrackThing.find_existing(@user, @track_thing)
+
+    if @user && @info_request.user == @user
+      # don't subscribe to own request!
+    elsif !@existing_track
+      @track_thing.track_medium = 'email_daily'
+      @track_thing.tracking_user_id = @user.id
+      @track_thing.save!
+      flash[:notice] += _(" You will also be emailed updates about the " \
+                          "request.")
+    else
+      flash[:notice] += _(" You are already being emailed updates about the " \
+                          "request.")
+    end
+  end
+
+  def validate_comment
+    return if params[:comment] && @comment.valid?
+
+    flash.now[:error] = _("Please correct the errors below")
+    render action: 'new'
   end
 end

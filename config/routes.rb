@@ -23,6 +23,12 @@ class AdminConstraint # :nodoc:
   end
 end
 
+class PreviewConstraint # :nodoc:
+  def self.matches?(request)
+    request.params[:preview].present? && request.params[:preview].to_i > 0
+  end
+end
+
 Rails.application.routes.draw do
   draw :redirects
 
@@ -398,10 +404,15 @@ Rails.application.routes.draw do
         :via => :get
 
   #### Comment controller
-  match '/request/:url_title/annotate' => 'comments#new',
-        :as => :new_comment,
-        :type => 'request',
-        :via => [:get, :post]
+  get '/request/:url_title/annotate' => 'comments#new',
+      as: :new_comment,
+      type: 'request'
+  post '/request/:url_title/annotate' => 'comments#preview',
+       as: :comments,
+       type: 'request',
+       constraints: PreviewConstraint
+  post '/request/:url_title/annotate' => 'comments#create',
+       type: 'request'
   ####
 
   #### Services controller
