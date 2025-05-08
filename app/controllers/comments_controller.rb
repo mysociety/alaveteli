@@ -8,13 +8,15 @@
 # Comments Controller handles adding annotations to requests.
 #
 class CommentsController < ApplicationController
-  before_action :find_info_request, only: [ :new ]
-  before_action :build_comment, only: [:new]
-  before_action :check_read_only, only: [ :new ]
-  before_action :create_track_thing, only: [ :new ]
-  before_action :reject_unless_comments_allowed, only: [ :new ]
-  before_action :reject_if_user_banned, only: [ :new ]
-  before_action :set_in_pro_area, only: [ :new ]
+  before_action :find_info_request
+
+  before_action :check_read_only
+  before_action :reject_unless_comments_allowed
+  before_action :reject_if_user_banned
+  before_action :set_in_pro_area
+
+  before_action :build_comment
+  before_action :build_track_thing
 
   def new
     # Default to subscribing to request when first viewing form
@@ -97,7 +99,7 @@ class CommentsController < ApplicationController
     raise ActiveRecord::RecordNotFound
   end
 
-  def create_track_thing
+  def build_track_thing
     @track_thing = TrackThing.create_track_for_request(@info_request)
   end
 
