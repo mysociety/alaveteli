@@ -112,7 +112,7 @@ class CommentsController < ApplicationController
     return if feature_enabled?(:annotations) && @info_request.comments_allowed?
 
     redirect_to request_url(@info_request),
-                notice: "Comments are not allowed on this request"
+                notice: _("Comments are not allowed on this request")
   end
 
   # Banned from adding comments?
