@@ -4,6 +4,9 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+##
+# Comments Controller handles adding annotations to requests.
+#
 class CommentsController < ApplicationController
   before_action :find_info_request, only: [ :new ]
   before_action :build_comment, only: [:new]
@@ -56,16 +59,19 @@ class CommentsController < ApplicationController
           @track_thing.track_medium = 'email_daily'
           @track_thing.tracking_user_id = @user.id
           @track_thing.save!
-          flash[:notice] += _(" You will also be emailed updates about the request.")
+          flash[:notice] += _(" You will also be emailed updates about the " \
+                              "request.")
         else
-          flash[:notice] += _(" You are already being emailed updates about the request.")
+          flash[:notice] += _(" You are already being emailed updates about " \
+                              "the request.")
         end
       end
 
       # This automatically saves dependent objects in the same transaction
       @comment = @info_request.add_comment(@comment)
 
-      # we don't use comment_url here, as then you don't see the flash at top of page
+      # we don't use comment_url here, as then you don't see the flash at top
+      # of page
       redirect_to request_url(@info_request)
     end
   end
@@ -73,9 +79,9 @@ class CommentsController < ApplicationController
   private
 
   def build_comment
-    if params[:comment]
-      @comment = @info_request.comments.build(comment_params.merge(user: @user))
-    end
+    return unless params[:comment]
+
+    @comment = @info_request.comments.build(comment_params.merge(user: @user))
   end
 
   def comment_params
@@ -83,14 +89,12 @@ class CommentsController < ApplicationController
   end
 
   def find_info_request
-    if params[:type] == 'request'
-      @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-      if @info_request.embargo && cannot?(:read, @info_request)
-        raise ActiveRecord::RecordNotFound
-      end
-    else
-      raise "Unknown type #{ params[:type] }"
-    end
+    raise "Unknown type #{ params[:type] }" unless params[:type] == 'request'
+
+    @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+    return unless @info_request.embargo && cannot?(:read, @info_request)
+
+    raise ActiveRecord::RecordNotFound
   end
 
   def create_track_thing
@@ -99,13 +103,14 @@ class CommentsController < ApplicationController
 
   # Are comments disabled on this request, or globally?
   #
-  # There is no “add comment” link when comments are disabled, so users should
+  # There is no "add comment" link when comments are disabled, so users should
   # not usually hit this unless they are explicitly attempting to avoid the
   # comment block.
   def reject_unless_comments_allowed
-    unless feature_enabled?(:annotations) && @info_request.comments_allowed?
-      redirect_to request_url(@info_request), notice: "Comments are not allowed on this request"
-    end
+    return if feature_enabled?(:annotations) && @info_request.comments_allowed?
+
+    redirect_to request_url(@info_request),
+                notice: "Comments are not allowed on this request"
   end
 
   # Banned from adding comments?
@@ -144,11 +149,11 @@ class CommentsController < ApplicationController
       ExceptionNotifier.notify_exception(e, env: request.env)
     end
 
-    if block_spam_comments?
-      flash.now[:error] = _("Sorry, we're currently unable to add your " \
-                            "annotation. Please try again later.")
-      render action: 'new'
-      true
-    end
+    return unless block_spam_comments?
+
+    flash.now[:error] = _("Sorry, we're currently unable to add your " \
+                          "annotation. Please try again later.")
+    render action: 'new'
+    true
   end
 end
