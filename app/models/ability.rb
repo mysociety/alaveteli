@@ -184,6 +184,13 @@ class Ability
       user && (user.is_admin? || user.is_pro? || content.user == user)
     end
 
+    can :create_comment, InfoRequest do |info_request|
+      next false unless feature_enabled?(:annotations)
+      next false unless info_request.comments_allowed?
+
+      true
+    end
+
     can :share, InfoRequest do |info_request|
       info_request.embargo &&
         (user&.is_pro_admin? || info_request.is_actual_owning_user?(user))

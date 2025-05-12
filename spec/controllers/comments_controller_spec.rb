@@ -3,6 +3,12 @@ require 'spec_helper'
 RSpec.describe CommentsController, "when commenting on a request" do
   render_views
 
+  let(:ability) { Ability.new(nil) }
+
+  before do
+    allow(controller).to receive(:current_ability).and_return(ability)
+  end
+
   describe 'dealing with embargoed requests' do
     let(:user) { FactoryBot.create(:user) }
     let(:pro_user) { FactoryBot.create(:pro_user) }
@@ -25,6 +31,8 @@ RSpec.describe CommentsController, "when commenting on a request" do
     end
 
     context "when the user is logged in but not the request owner" do
+      let(:ability) { Ability.new(user) }
+
       before do
         sign_in user
       end
@@ -43,6 +51,8 @@ RSpec.describe CommentsController, "when commenting on a request" do
     end
 
     context "when the user is the request owner" do
+      let(:ability) { Ability.new(pro_user) }
+
       before do
         sign_in pro_user
       end
@@ -151,29 +161,11 @@ RSpec.describe CommentsController, "when commenting on a request" do
     expect(response).to render_template('new')
   end
 
-  it "should not allow comments if comments are not allowed on the request" do
-    sign_in users(:silly_name_user)
-    info_request = info_requests(:spam_1_request)
+  it "should redirect if comments are not allowed" do
+    info_request = FactoryBot.create(:info_request)
+    sign_in info_request.user
 
-    post :create, params: {
-      url_title: info_request.url_title,
-      comment: { body: "I demand to be heard!" },
-      type: 'request',
-      submitted_comment: 1,
-      preview: 0
-    }
-
-    expect(response).to redirect_to(show_request_path(info_request.url_title))
-    expect(flash[:notice]).to eq('Comments are not allowed on this request')
-  end
-
-  it "should not allow comments if comments are not allowed globally" do
-    allow(controller).
-      to receive(:feature_enabled?).
-      with(:annotations).
-      and_return(false)
-    sign_in users(:silly_name_user)
-    info_request = info_requests(:fancy_dog_request)
+    ability.cannot :create_comment, info_request
 
     post :create, params: {
       url_title: info_request.url_title,
@@ -366,6 +358,8 @@ RSpec.describe CommentsController, "when commenting on a request" do
     let(:embargoed_request) do
       FactoryBot.create(:embargoed_request, user: pro_user)
     end
+
+    let(:ability) { Ability.new(pro_user) }
 
     it "sets @in_pro_area" do
       sign_in pro_user

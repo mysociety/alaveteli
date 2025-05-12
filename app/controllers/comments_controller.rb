@@ -71,13 +71,9 @@ class CommentsController < ApplicationController
     @track_thing = TrackThing.create_track_for_request(@info_request)
   end
 
-  # Are comments disabled on this request, or globally?
-  #
-  # There is no "add comment" link when comments are disabled, so users should
-  # not usually hit this unless they are explicitly attempting to avoid the
-  # comment block.
+  # Are comments allowed on this request?
   def reject_unless_comments_allowed
-    return if feature_enabled?(:annotations) && @info_request.comments_allowed?
+    return if can? :create_comment, @info_request
 
     redirect_to request_url(@info_request),
                 notice: _("Comments are not allowed on this request")
