@@ -188,7 +188,11 @@ class Ability
       next false unless feature_enabled?(:annotations)
       next false unless info_request.comments_allowed?
 
-      true
+      next true if feature_enabled?(:public_annotations)
+      next true if info_request.embargo && user&.is_pro_admin?
+      next true if !info_request.embargo && user&.is_admin?
+
+      user && info_request.user == user
     end
 
     can :share, InfoRequest do |info_request|

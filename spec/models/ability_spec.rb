@@ -445,6 +445,25 @@ RSpec.describe Ability do
         expect(guest_ability).to_not be_able_to(:create_comment, info_request)
       end
     end
+
+    context 'when public annotations are disabled', features: { public_annotations: false } do
+      it 'only admins and owners can create comments for InfoRequest' do
+        expect(admin_ability).to be_able_to(:create_comment, info_request)
+        expect(pro_admin_ability).to be_able_to(:create_comment, info_request)
+        expect(owner_ability).to be_able_to(:create_comment, info_request)
+
+        expect(pro_ability).to_not be_able_to(:create_comment, info_request)
+        expect(other_user_ability).to_not be_able_to(:create_comment, info_request)
+        expect(guest_ability).to_not be_able_to(:create_comment, info_request)
+      end
+
+      context 'if the request is embargoed' do
+        let(:info_request) { FactoryBot.create(:embargoed_request) }
+
+        it { expect(admin_ability).to_not be_able_to(:create_comment, info_request) }
+        it { expect(pro_admin_ability).to be_able_to(:create_comment, info_request) }
+      end
+    end
   end
 
   describe 'sharing InfoRequests' do

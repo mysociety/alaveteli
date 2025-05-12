@@ -13,6 +13,7 @@ features = %i[
   projects
   pro_pricing
   pro_self_serve
+  public_annotations
 ]
 
 backend = AlaveteliFeatures.backend

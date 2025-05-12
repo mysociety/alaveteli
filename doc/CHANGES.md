@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add public annotations configuration (Graeme Porteous)
 * Add attachment locking and replacement (Graeme Porteous)
 * Only send clarification notifications to recent requests (Gareth Rees)
 * Improve citation form field width (Gareth Rees)
