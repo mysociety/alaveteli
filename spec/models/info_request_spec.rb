@@ -1408,6 +1408,11 @@ RSpec.describe InfoRequest do
       expect { info_request.destroy }.
         to change(AlaveteliPro::Embargo, :count).by(-1)
     end
+
+    it 'notifies the public body' do
+      expect(info_request.public_body).to receive(:info_request_count_changed)
+      info_request.destroy
+    end
   end
 
   describe '#expire' do
@@ -3568,13 +3573,14 @@ RSpec.describe InfoRequest do
     end
 
     it 'notifies the public body when created' do
-      expect(info_request.public_body).to receive(:request_created)
+      expect(info_request.public_body).to receive(:info_request_count_changed)
       info_request.save!
     end
 
     it 'does not notify the public body when updated' do
       info_request.save!
-      expect(info_request.public_body).not_to receive(:request_created)
+      expect(info_request.public_body).
+        not_to receive(:info_request_count_changed)
       info_request.save!
     end
   end
