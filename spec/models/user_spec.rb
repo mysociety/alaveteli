@@ -2231,4 +2231,13 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#info_request_count_changed' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'mark as needed to be indexed' do
+      expect(user).to receive(:xapian_mark_needs_index)
+      user.info_request_count_changed
+    end
+  end
 end

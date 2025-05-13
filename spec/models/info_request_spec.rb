@@ -1409,8 +1409,9 @@ RSpec.describe InfoRequest do
         to change(AlaveteliPro::Embargo, :count).by(-1)
     end
 
-    it 'notifies the public body' do
+    it 'notifies the associations' do
       expect(info_request.public_body).to receive(:info_request_count_changed)
+      expect(info_request.user).to receive(:info_request_count_changed)
       info_request.destroy
     end
   end
@@ -3572,15 +3573,17 @@ RSpec.describe InfoRequest do
       info_request.save!
     end
 
-    it 'notifies the public body when created' do
+    it 'notifies the associations when created' do
       expect(info_request.public_body).to receive(:info_request_count_changed)
+      expect(info_request.user).to receive(:info_request_count_changed)
       info_request.save!
     end
 
-    it 'does not notify the public body when updated' do
+    it 'does not notify the associations when updated' do
       info_request.save!
       expect(info_request.public_body).
         not_to receive(:info_request_count_changed)
+      expect(info_request.user).not_to receive(:info_request_count_changed)
       info_request.save!
     end
   end

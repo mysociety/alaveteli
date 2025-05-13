@@ -1964,5 +1964,6 @@ class InfoRequest < ApplicationRecord
 
   def notify_associations
     public_body.info_request_count_changed
+    user&.info_request_count_changed
   end
 end
