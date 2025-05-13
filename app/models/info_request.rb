@@ -194,7 +194,7 @@ class InfoRequest < ApplicationRecord
   before_create :set_use_notifications
   before_validation :compute_idhash
   before_validation :set_law_used, on: :create
-  after_create :notify_public_body
+  after_create :notify_associations
   after_save :update_counter_cache
   after_update :reindex_request_events, if: :reindexable_attribute_changed?
   before_destroy :expire
@@ -1962,7 +1962,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def notify_public_body
+  def notify_associations
     public_body.request_created
   end
 end
