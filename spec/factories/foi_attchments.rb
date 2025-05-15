@@ -88,6 +88,14 @@ FactoryBot.define do
       end
     end
 
+    factory :deeply_nested_html_attachment do
+      content_type { 'text/html' }
+      filename { 'deeply_nested_html.html' }
+      body do
+        Mail::Utilities.to_crlf(load_file_fixture('deeply_nested_html.html'))
+      end
+    end
+
     factory :jpeg_attachment do
       content_type { 'image/jpeg' }
       filename { 'interesting.jpg' }

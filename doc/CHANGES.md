@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix blank responses caused by deeply nested emails (Graeme Porteous)
 * Ensure only readable requests can be added to a Project (Gareth Rees)
 * Remove "Previously known as" from profile pages due to performance issues
   (Gareth Rees)
