@@ -2,6 +2,7 @@
 # applying TextMask and CensorRule redactions.
 module FoiAttachment::Maskable
   extend ActiveSupport::Concern
+  include ActionView::Helpers::SanitizeHelper
 
   def masked?
     file.attached? && masked_at.present? && masked_at < Time.zone.now
@@ -15,10 +16,11 @@ module FoiAttachment::Maskable
     )
 
     if content_type == 'text/html'
-      body =
-        Loofah.scrub_document(body, :prune).
-        to_html(encoding: 'UTF-8').
-        try(:html_safe)
+      script_scrubber = Rails::HTML::TargetScrubber.new(prune: true)
+      script_scrubber.tags = ['script']
+
+      body = sanitize(body, scrubber: script_scrubber)
+      body = sanitize(body) # HTML5 scrubber
     end
 
     update(body: body, masked_at: Time.zone.now)

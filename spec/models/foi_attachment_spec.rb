@@ -819,21 +819,8 @@ RSpec.describe FoiAttachment do
     end
 
     it 'sanitises HTML attachments' do
-      # Nokogiri adds the meta tag; see
-      # https://github.com/sparklemotion/nokogiri/issues/1008
-      expected = <<-EOF.squish
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        </head>
-        <body>dull
-        </body>
-      </html>
-      EOF
-
       subject
-      expect(attachment.body.squish).to eq(expected)
+      expect(attachment.body.strip).to eq('dull')
     end
 
     it 'censors attachments downloaded directly' do
