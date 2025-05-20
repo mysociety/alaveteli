@@ -2006,7 +2006,7 @@ RSpec.describe User do
         user.create_profile_photo!(data: load_file_fixture('parrot.png'))
       end
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to eq(true) }
     end
 
     context 'with a profile photo and banned' do
@@ -2016,12 +2016,31 @@ RSpec.describe User do
         user.create_profile_photo!(data: load_file_fixture('parrot.png'))
       end
 
-      it { is_expected.to be_falsey }
+      it { is_expected.to eq(false) }
     end
 
     context 'without a profile_photo' do
       let(:user) { FactoryBot.build(:user) }
-      it { is_expected.to be_falsey }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe 'show_about_me?' do
+    subject { user.show_about_me? }
+
+    context 'with about_me text' do
+      let(:user) { FactoryBot.create(:user, about_me: 'Hello') }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with about_me text and banned' do
+      let(:user) { FactoryBot.create(:user, :banned, about_me: 'Hello') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'without about_me text' do
+      let(:user) { FactoryBot.build(:user, about_me: nil) }
+      it { is_expected.to eq(false) }
     end
   end
 

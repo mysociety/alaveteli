@@ -568,7 +568,11 @@ class User < ApplicationRecord
   end
 
   def show_profile_photo?
-    active? && profile_photo
+    active? && profile_photo.present?
+  end
+
+  def show_about_me?
+    active? && about_me.present?
   end
 
   def about_me_already_exists?
