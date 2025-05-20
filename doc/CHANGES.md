@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Limit user profile visibility until user accounts are confirmed active,
+  reducing exposure of spam accounts (Graeme Porteous)
 * Add `User#status_update_count` counter column (Graeme Porteous)
 * Add public annotations configuration (Graeme Porteous)
 * Add attachment locking and replacement (Graeme Porteous)

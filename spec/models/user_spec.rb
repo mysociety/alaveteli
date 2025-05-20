@@ -1997,6 +1997,34 @@ RSpec.describe User do
     end
   end
 
+  describe 'limited_profile?' do
+    subject { user.limited_profile? }
+
+    context 'when limited' do
+      let(:user) { FactoryBot.create(:user, :limited) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when confirmed_not_spam' do
+      let(:user) do
+        FactoryBot.create(:user, :limited, confirmed_not_spam: true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when there are info_requests and classifications' do
+      let(:user) do
+        FactoryBot.create(
+          :user, :limited,
+          info_requests_count: 1, status_update_count: 1
+        )
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#show_profile_photo?' do
     subject { user.show_profile_photo? }
 
@@ -2012,6 +2040,16 @@ RSpec.describe User do
 
     context 'with a profile photo and banned' do
       let(:user) { FactoryBot.create(:user, :banned) }
+
+      before do
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with profile_photo but profile is limited' do
+      let(:user) { FactoryBot.create(:user, :limited) }
 
       before do
         user.create_profile_photo!(data: load_file_fixture('parrot.png'))
@@ -2036,6 +2074,11 @@ RSpec.describe User do
 
     context 'with about_me text and banned' do
       let(:user) { FactoryBot.create(:user, :banned, about_me: 'Hello') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with about_me text but profile is limited' do
+      let(:user) { FactoryBot.create(:user, :limited, about_me: 'Hello') }
       it { is_expected.to eq(false) }
     end
 

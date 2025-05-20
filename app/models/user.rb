@@ -568,12 +568,17 @@ class User < ApplicationRecord
     end
   end
 
+  def limited_profile?
+    !confirmed_not_spam? && info_requests_count.zero? &&
+      status_update_count.zero?
+  end
+
   def show_profile_photo?
-    active? && profile_photo.present?
+    active? && profile_photo.present? && !limited_profile?
   end
 
   def show_about_me?
-    active? && about_me.present?
+    active? && about_me.present? && !limited_profile?
   end
 
   def about_me_already_exists?

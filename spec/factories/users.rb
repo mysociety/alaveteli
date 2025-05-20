@@ -100,6 +100,12 @@ FactoryBot.define do
       ban_text { 'Banned' }
     end
 
+    trait :limited do
+      confirmed_not_spam { false }
+      info_requests_count { 0 }
+      status_update_count { 0 }
+    end
+
     trait :closed do
       closed_at { Time.zone.now }
       receive_email_alerts { false }
