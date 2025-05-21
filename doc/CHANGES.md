@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add `User#status_update_count` counter column (Graeme Porteous)
 * Add public annotations configuration (Graeme Porteous)
 * Add attachment locking and replacement (Graeme Porteous)
 * Only send clarification notifications to recent requests (Gareth Rees)
@@ -21,6 +22,10 @@
 * _Required:_ There are some database structure updates so remember to run:
 
       bin/rails db:migrate
+
+* _Required:_ To populate `User#status_update_count`, please run:
+
+      bin/rails temp:populate_user_status_update_count
 
 * _Recommended:_ This release limits user indexing to users who've made requests
 to prevent users stumbling across spam user profiles via the on-site search.

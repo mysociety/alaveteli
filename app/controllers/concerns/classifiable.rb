@@ -80,6 +80,7 @@ module Classifiable
 
     # InfoRequest#set_described_state requires this event to be created first
     event = @info_request.log_event('status_update', log_params)
+    current_user.increment!(:status_update_count)
 
     # Make the state change
     @info_request.set_described_state(described_state, current_user, message)
