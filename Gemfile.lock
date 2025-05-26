@@ -190,7 +190,7 @@ GEM
     digest-crc (0.7.0)
       rake (>= 12.0.0, < 14.0.0)
     docile (1.4.0)
-    drb (2.2.1)
+    drb (2.2.3)
     erubi (1.13.1)
     exception_notification (5.0.0)
       actionmailer (>= 7.1, < 9)
@@ -659,7 +659,7 @@ DEPENDENCIES
   charlock_holmes (~> 0.7.9)
   csv (~> 3.3.4)
   dalli (~> 3.2.8)
-  drb (~> 2.2.1)
+  drb (~> 2.2.3)
   excel_analyzer!
   exception_notification (~> 5.0.0)
   factory_bot_rails (~> 6.4.4)
