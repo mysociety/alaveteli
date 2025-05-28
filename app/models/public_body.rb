@@ -922,7 +922,7 @@ class PublicBody < ApplicationRecord
     ]
   end
 
-  def request_created
+  def info_request_count_changed
     update_not_many_requests_tag
   end
 

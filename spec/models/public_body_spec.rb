@@ -2314,8 +2314,8 @@ RSpec.describe PublicBody do
     end
   end
 
-  describe '#request_created' do
-    subject { public_body.request_created }
+  describe '#info_request_count_changed' do
+    subject { public_body.info_request_count_changed }
 
     context 'when there are not many public requests' do
       let!(:public_body) { FactoryBot.create(:public_body) }
