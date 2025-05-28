@@ -40,10 +40,14 @@ module PublicBodyHelper
     categories = PublicBody.category_list.
       where(category_tag: public_body.tag_string.split).order(:id)
 
-    types = categories.each_with_index.map do |category, index|
+    types = categories.each_with_index.inject([]) do |links, (category, index)|
       desc = category.description
+      next links if desc.empty?
+
       desc = desc.sub(/\S/, &:upcase) if index.zero?
-      link_to(desc, list_public_bodies_by_tag_path(category.category_tag))
+      links << link_to(
+        desc, list_public_bodies_by_tag_path(category.category_tag)
+      )
     end
 
     if types.any?
