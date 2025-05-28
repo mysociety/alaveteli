@@ -8,9 +8,9 @@
 
         <td>
           <% if name == 'body' %>
-            <% truncated_value = truncate(h(value&.squish), length: 100, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+            <% truncated_value = truncate(h(value&.squish), length: 100, omission: '') { link_to '…', '#', title: 'Show more', class: 'toggle-hidden' } %>
             <%= simple_format(truncated_value) %>
-            <div style="display:none;"><%= simple_format(value) %></div>
+            <div style="display:none;"><%= simple_format(value&.truncate(1000)) %></div>
           <% elsif name == 'prominence' %>
             <%= h highlight_prominence(value) %>
           <% else %>
@@ -26,10 +26,10 @@
       </td>
 
       <td>
-        <% truncated_value = truncate(h(outgoing_message.raw_body&.squish), length: 100, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+        <% truncated_value = truncate(h(outgoing_message.raw_body&.squish), length: 100, omission: '') { link_to '…', '#', title: 'Show more', class: 'toggle-hidden' } %>
         <%= simple_format(truncated_value) %>
         <div style="display:none;">
-          <%= simple_format(outgoing_message.raw_body) %>
+          <%= simple_format(outgoing_message.raw_body&.truncate(1000)) %>
         </div>
       </td>
     </tr>
