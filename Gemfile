@@ -140,7 +140,7 @@ gem 'zip_tricks', '~> 5.6.0'
 # they are required by other Gem dependencies
 gem 'benchmark', '~> 0.4.0'
 gem 'csv', '~> 3.3.4'
-gem 'drb', '~> 2.2.1'
+gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.0'
 gem 'rdoc', '~> 6.13.0'
 gem 'uri', '~> 1.0.3'
