@@ -44,6 +44,7 @@ module AlaveteliConfiguration
       ENABLE_ALAVETELI_PRO: false,
       ENABLE_ANNOTATIONS: true,
       ENABLE_ANTI_SPAM: false,
+      ENABLE_PUBLIC_ANNOTATIONS: true,
       ENABLE_PROJECTS: false,
       ENABLE_PRO_PRICING: false,
       ENABLE_PRO_SELF_SERVE: false,

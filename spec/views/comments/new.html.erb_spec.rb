@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "comment/new" do
+RSpec.describe "comments/new" do
   context "when the request is embargoed" do
     let(:info_request) { FactoryBot.create(:embargoed_request) }
     let(:comment) { info_request.comments.new }
@@ -24,7 +24,7 @@ RSpec.describe "comment/new" do
 
     it "renders the professional comment suggestions" do
       expect(view).
-        to render_template(partial: "alaveteli_pro/comment/_suggestions")
+        to render_template(partial: "alaveteli_pro/comments/_suggestions")
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.describe "comment/new" do
     end
 
     it "renders the normal comment suggestions" do
-      expect(view).to render_template(partial: "comment/_suggestions")
+      expect(view).to render_template(partial: "comments/_suggestions")
     end
   end
 end

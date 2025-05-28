@@ -17,6 +17,10 @@ RSpec.describe 'when displaying actions that can be taken with regard to a reque
       show_other_user_update_status_action: nil }
   end
 
+  before do
+    allow(controller).to receive(:current_user).and_return(user)
+  end
+
   context 'if show_owner_update_status_action is true' do
     before { locals.merge!(show_owner_update_status_action: true) }
 

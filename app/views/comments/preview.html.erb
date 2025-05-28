@@ -3,18 +3,18 @@
 <%= form_for(
     @comment,
     :html => { :id => 'preview_form' },
-    :url => new_comment_path(:type => "request", :url_title => @info_request.url_title)
+    :url => comments_path(@info_request.url_title)
   ) do |f| %>
 
   <h1><%= _('Now preview your annotation') %></h1>
 
-  <%= render :partial => 'comment/single_comment', :locals => { :comment => @comment } %>
+  <%= render :partial => 'comments/single_comment', :locals => { :comment => @comment } %>
 
   <p>
     <% if @info_request.embargo %>
-      <%= render :partial => 'alaveteli_pro/comment/note' %>
+      <%= render :partial => 'alaveteli_pro/comments/note' %>
     <% else %>
-      <%= render :partial => 'comment/note' %>
+      <%= render :partial => 'comments/note' %>
       <% end %>
   </p>
 
@@ -27,9 +27,9 @@
     <%= hidden_field_tag(:preview, 0 ) %>
     <%= submit_tag _("Re-edit this annotation"), :name => 'reedit' %>
     <% if @info_request.embargo %>
-      <%= render :partial => 'alaveteli_pro/comment/submit' %>
+      <%= render :partial => 'alaveteli_pro/comments/submit' %>
     <% else %>
-       <%= render :partial => 'comment/submit' %>
+       <%= render :partial => 'comments/submit' %>
     <% end %>
 
   </p>

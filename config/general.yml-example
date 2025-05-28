@@ -1312,3 +1312,14 @@ SURVEY_URL: ''
 #
 # ---
 USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0
+
+# If ENABLE_PUBLIC_ANNOTATIONS is set to true, comments (annotations) will
+# be allowed on all requests regardless of who made the request.
+#
+# If set to false, comments will only be allowed by the requester or admin
+# users.
+#
+# ENABLE_PUBLIC_ANNOTATIONS - Boolean (default: true)
+#
+# ---
+ENABLE_PUBLIC_ANNOTATIONS: true

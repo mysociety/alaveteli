@@ -969,14 +969,9 @@ class InfoRequest < ApplicationRecord
   end
 
   # An annotation (comment) is made
-  def add_comment(body, user)
-    comment = Comment.new
+  def add_comment(comment)
     ActiveRecord::Base.transaction do
-      comment.body = body
-      comment.user = user
-      comment.info_request = self
-      comment.save!
-
+      comments << comment
       log_event('comment', comment_id: comment.id)
       save!
     end

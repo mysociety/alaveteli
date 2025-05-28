@@ -18,7 +18,7 @@
 <%= render :partial => 'request/resent_outgoing_correspondence', :formats => [:text], :locals => { :outgoing_message => info_request_event.outgoing_message, :info_request_event => info_request_event } %>
 <% when 'comment' %>
 -------------------------------
-<%= render :partial => 'comment/single_comment', :formats => [:text], :locals => { :comment => info_request_event.comment } %>
+<%= render :partial => 'comments/single_comment', :formats => [:text], :locals => { :comment => info_request_event.comment } %>
 <% end %>
 <% end %>
 <% end %>

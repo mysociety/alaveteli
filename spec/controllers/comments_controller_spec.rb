@@ -1,7 +1,13 @@
 require 'spec_helper'
 
-RSpec.describe CommentController, "when commenting on a request" do
+RSpec.describe CommentsController, "when commenting on a request" do
   render_views
+
+  let(:ability) { Ability.new(nil) }
+
+  before do
+    allow(controller).to receive(:current_ability).and_return(ability)
+  end
 
   describe 'dealing with embargoed requests' do
     let(:user) { FactoryBot.create(:user) }
@@ -13,82 +19,84 @@ RSpec.describe CommentController, "when commenting on a request" do
     context "when the user is not logged in" do
       it 'returns a 404 when the info request is embargoed' do
         expect {
-          post :new, params: {
-                       url_title: embargoed_request.url_title,
-                       comment: { body: "Some content" },
-                       type: 'request',
-                       submitted_comment: 1,
-                       preview: 1
-                     }
+          post :preview, params: {
+            url_title: embargoed_request.url_title,
+            comment: { body: "Some content" },
+            type: 'request',
+            submitted_comment: 1,
+            preview: 1
+          }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
     context "when the user is logged in but not the request owner" do
+      let(:ability) { Ability.new(user) }
+
       before do
         sign_in user
       end
 
       it 'returns a 404 when the info request is embargoed' do
         expect {
-          post :new, params: {
-                       url_title: embargoed_request.url_title,
-                       comment: { body: "Some content" },
-                       type: 'request',
-                       submitted_comment: 1,
-                       preview: 1
-                     }
+          post :preview, params: {
+            url_title: embargoed_request.url_title,
+            comment: { body: "Some content" },
+            type: 'request',
+            submitted_comment: 1,
+            preview: 1
+          }
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
     context "when the user is the request owner" do
+      let(:ability) { Ability.new(pro_user) }
+
       before do
         sign_in pro_user
       end
 
       it 'allows them to comment' do
-        post :new, params: {
-                     url_title: embargoed_request.url_title,
-                     comment: { body: "Some content" },
-                     type: 'request',
-                     submitted_comment: 1,
-                     preview: 1
-                   }
+        post :preview, params: {
+          url_title: embargoed_request.url_title,
+          comment: { body: "Some content" },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
         expect(response).to be_successful
       end
     end
   end
 
   it "should give an error and render 'new' template when body text is just some whitespace" do
-    post :new,
-         params: {
-           url_title: info_requests(:naughty_chicken_request).url_title,
-           comment: { body: "   " },
-           type: 'request',
-           submitted_comment: 1,
-           preview: 1
-         }
+    post :preview, params: {
+      url_title: info_requests(:naughty_chicken_request).url_title,
+      comment: { body: "   " },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 1
+    }
     expect(assigns[:comment].errors[:body]).not_to be_nil
     expect(response).to render_template('new')
   end
 
   it "should show preview when input is good" do
-    post :new,
-         params: {
-           url_title: info_requests(:naughty_chicken_request).url_title,
-           comment: {
-             body: "A good question, but why not also ask about nice chickens?"
-           },
-           type: 'request',
-           submitted_comment: 1,
-           preview: 1
-         }
+    post :preview, params: {
+      url_title: info_requests(:naughty_chicken_request).url_title,
+      comment: {
+        body: "A good question, but why not also ask about nice chickens?"
+      },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 1
+    }
     expect(response).to render_template('preview')
   end
 
   it "should redirect to sign in page when input is good and nobody is logged in" do
-    params = {
+    post :create, params: {
       url_title: info_requests(:naughty_chicken_request).url_title,
       comment: {
         body: "A good question, but why not also ask about nice chickens?"
@@ -97,7 +105,6 @@ RSpec.describe CommentController, "when commenting on a request" do
       submitted_comment: 1,
       preview: 0
     }
-    post :new, params: params
     expect(response).
       to redirect_to(signin_path(token: get_last_post_redirect.token))
     # post_redirect.post_params.should == params # TODO: get this working.
@@ -107,16 +114,15 @@ RSpec.describe CommentController, "when commenting on a request" do
   it "should create the comment, and redirect to request page when input is good and somebody is logged in" do
     sign_in users(:bob_smith_user)
 
-    post :new,
-         params: {
-           url_title: info_requests(:naughty_chicken_request).url_title,
-           comment: {
-             body: "A good question, but why not also ask about nice chickens?"
-           },
-           type: 'request',
-           submitted_comment: 1,
-           preview: 0
-         }
+    post :create, params: {
+      url_title: info_requests(:naughty_chicken_request).url_title,
+      comment: {
+        body: "A good question, but why not also ask about nice chickens?"
+      },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     comment_array = Comment.where(body: "A good question, but why not " \
                                            "also ask about nice chickens?")
@@ -144,46 +150,30 @@ RSpec.describe CommentController, "when commenting on a request" do
 
     sign_in user
 
-    post :new, params: { url_title: info_request.url_title,
-                         comment: { body: comment.body },
-                         type: 'request',
-                         submitted_comment: 1,
-                         preview: 0 }
+    post :create, params: {
+      url_title: info_request.url_title,
+      comment: { body: comment.body },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     expect(response).to render_template('new')
   end
 
-  it "should not allow comments if comments are not allowed on the request" do
-    sign_in users(:silly_name_user)
-    info_request = info_requests(:spam_1_request)
+  it "should redirect if comments are not allowed" do
+    info_request = FactoryBot.create(:info_request)
+    sign_in info_request.user
 
-    post :new, params: {
-                 url_title: info_request.url_title,
-                 comment: { body: "I demand to be heard!" },
-                 type: 'request',
-                 submitted_comment: 1,
-                 preview: 0
-               }
+    ability.cannot :create_comment, info_request
 
-    expect(response).to redirect_to(show_request_path(info_request.url_title))
-    expect(flash[:notice]).to eq('Comments are not allowed on this request')
-  end
-
-  it "should not allow comments if comments are not allowed globally" do
-    allow(controller).
-      to receive(:feature_enabled?).
-      with(:annotations).
-      and_return(false)
-    sign_in users(:silly_name_user)
-    info_request = info_requests(:fancy_dog_request)
-
-    post :new, params: {
-                 url_title: info_request.url_title,
-                 comment: { body: "I demand to be heard!" },
-                 type: 'request',
-                 submitted_comment: 1,
-                 preview: 0
-               }
+    post :create, params: {
+      url_title: info_request.url_title,
+      comment: { body: "I demand to be heard!" },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     expect(response).to redirect_to(show_request_path(info_request.url_title))
     expect(flash[:notice]).to eq('Comments are not allowed on this request')
@@ -191,14 +181,13 @@ RSpec.describe CommentController, "when commenting on a request" do
 
   it "allows the comment to be re-edited" do
     expected = "Updated text"
-    post :new,
-         params: {
-           url_title: info_requests(:naughty_chicken_request).url_title,
-           comment: { body: expected },
-           type: 'request',
-           submitted_comment: 1,
-           reedit: 1
-         }
+    post :create, params: {
+      url_title: info_requests(:naughty_chicken_request).url_title,
+      comment: { body: expected },
+      type: 'request',
+      submitted_comment: 1,
+      reedit: 1
+    }
     expect(assigns[:comment].body).to eq(expected)
     expect(response).to render_template('new')
   end
@@ -206,11 +195,13 @@ RSpec.describe CommentController, "when commenting on a request" do
   it 'does not allow comments from banned users' do
     sign_in FactoryBot.create(:user, :banned)
 
-    post :new, params: { url_title: FactoryBot.create(:info_request).url_title,
-                         comment: { body: 'Comment will be rejected' },
-                         type: 'request',
-                         submitted_comment: 1,
-                         preview: 0 }
+    post :create, params: {
+      url_title: FactoryBot.create(:info_request).url_title,
+      comment: { body: 'Comment will be rejected' },
+      type: 'request',
+      submitted_comment: 1,
+      preview: 0
+    }
 
     expect(response).to render_template('user/banned')
   end
@@ -221,7 +212,7 @@ RSpec.describe CommentController, "when commenting on a request" do
 
     sign_in FactoryBot.create(:user)
 
-    post :new, params: {
+    post :create, params: {
       url_title: FactoryBot.create(:info_request).url_title,
       comment: { body: 'Rate limited comment' },
       type: 'request',
@@ -229,7 +220,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       preview: 0
     }
 
-    expect(response).to render_template('comment/rate_limited')
+    expect(response).to render_template('comments/rate_limited')
   end
 
   describe 'when handling a comment that looks like spam' do
@@ -247,32 +238,30 @@ RSpec.describe CommentController, "when commenting on a request" do
 
       it 'sends an exception notification' do
         sign_in user
-        post :new,
-             params: {
-               url_title: request.url_title,
-               comment: {
-                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
-               },
-               type: 'request',
-               submitted_comment: 1,
-               preview: 0
-             }
+        post :create, params: {
+          url_title: request.url_title,
+          comment: {
+            body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+          },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 0
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
       end
 
       it 'shows an error message' do
         sign_in user
-        post :new,
-             params: {
-               url_title: request.url_title,
-               comment: {
-                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
-               },
-               type: 'request',
-               submitted_comment: 1,
-               preview: 0
-             }
+        post :create, params: {
+          url_title: request.url_title,
+          comment: {
+            body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+          },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 0
+        }
         expect(flash[:error]).to eq(
           "Sorry, we're currently unable to add your annotation. " \
           "Please try again later."
@@ -281,16 +270,15 @@ RSpec.describe CommentController, "when commenting on a request" do
 
       it 'renders the compose interface' do
         sign_in user
-        post :new,
-             params: {
-               url_title: request.url_title,
-               comment: {
-                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
-               },
-               type: 'request',
-               submitted_comment: 1,
-               preview: 0
-             }
+        post :create, params: {
+          url_title: request.url_title,
+          comment: {
+            body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+          },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 0
+        }
         expect(response).to render_template('new')
       end
 
@@ -298,16 +286,15 @@ RSpec.describe CommentController, "when commenting on a request" do
         user.confirmed_not_spam = true
         user.save!
         sign_in user
-        post :new,
-             params: {
-               url_title: request.url_title,
-               comment: {
-                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
-               },
-               type: 'request',
-               submitted_comment: 1,
-               preview: 0
-             }
+        post :create, params: {
+          url_title: request.url_title,
+          comment: {
+            body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+          },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 0
+        }
         expect(response).to redirect_to show_request_path(request.url_title)
       end
     end
@@ -319,32 +306,30 @@ RSpec.describe CommentController, "when commenting on a request" do
 
       it 'sends an exception notification' do
         sign_in user
-        post :new,
-             params: {
-               url_title: request.url_title,
-               comment: {
-                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
-               },
-               type: 'request',
-               submitted_comment: 1,
-               preview: 0
-             }
+        post :create, params: {
+          url_title: request.url_title,
+          comment: {
+            body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+          },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 0
+        }
         mail = ActionMailer::Base.deliveries.first
         expect(mail.subject).to match(/spam annotation from user #{ user.id }/)
       end
 
       it 'allows the comment' do
         sign_in user
-        post :new,
-             params: {
-               url_title: request.url_title,
-               comment: {
-                 body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
-               },
-               type: 'request',
-               submitted_comment: 1,
-               preview: 0
-             }
+        post :create, params: {
+          url_title: request.url_title,
+          comment: {
+            body: "[HD] Watch Jason Bourne Online free MOVIE Full-HD"
+          },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 0
+        }
         expect(response).to redirect_to show_request_path(request.url_title)
       end
     end
@@ -359,8 +344,10 @@ RSpec.describe CommentController, "when commenting on a request" do
       end
 
       it 'should be successful' do
-        get :new, params: { url_title: @external_request.url_title,
-                            type: 'request' }
+        get :new, params: {
+          url_title: @external_request.url_title,
+          type: 'request'
+        }
         expect(response).to be_successful
       end
     end
@@ -372,11 +359,15 @@ RSpec.describe CommentController, "when commenting on a request" do
       FactoryBot.create(:embargoed_request, user: pro_user)
     end
 
+    let(:ability) { Ability.new(pro_user) }
+
     it "sets @in_pro_area" do
       sign_in pro_user
       with_feature_enabled(:alaveteli_pro) do
-        get :new, params: { url_title: embargoed_request.url_title,
-                            type: 'request' }
+        get :new, params: {
+          url_title: embargoed_request.url_title,
+          type: 'request'
+        }
         expect(assigns[:in_pro_area]).to eq true
       end
     end

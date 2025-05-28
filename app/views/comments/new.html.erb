@@ -1,17 +1,6 @@
 <% @title = _("Add an annotation to &ldquo;{{request_title}}&rdquo;",
               :request_title => h(@info_request.title)) %>
 
-<% if @existing_comment %>
-<div class="errorExplanation" id="errorExplanation">
-  <ul>
-    <li>
-      <%= user_or_you_capital(@existing_comment.user) %> already
-      made this annotation on <%=simple_date(@existing_comment.created_at)%>.
-    </li>
-  </ul>
-</div>
-<% end %>
-
 <%= foi_error_messages_for :comment %>
 
 <h1>
@@ -21,9 +10,9 @@
 
 <%# These partials show a list of suggested topics for annotations %>
 <% if @info_request.embargo %>
-  <%= render :partial => 'alaveteli_pro/comment/suggestions' %>
+  <%= render :partial => 'alaveteli_pro/comments/suggestions' %>
 <% else %>
-  <%= render :partial => 'comment/suggestions' %>
+  <%= render :partial => 'comments/suggestions' %>
 <% end %>
 
 <p>
@@ -36,5 +25,5 @@
   <% end %>
 </p>
 
-<%= render :partial => 'comment/comment_form',
+<%= render :partial => 'comments/comment_form',
            :locals => { :track_thing => @track_thing } %>
