@@ -111,9 +111,11 @@ module Alaveteli
     # Insert a bit of middleware code to prevent unneeded cookie setting.
     require "#{Rails.root}/lib/strip_empty_sessions"
     config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, key: '_wdtk_cookie_session', path: "/", httponly: true
+    Rails.backtrace_cleaner.add_silencer { |line| %r{^lib/strip_empty_sessions}.match?(line) }
 
     require "#{Rails.root}/lib/deeply_nested_params"
     config.middleware.insert Rack::Head, DeeplyNestedParams
+    Rails.backtrace_cleaner.add_silencer { |line| %r{^lib/deeply_nested_params}.match?(line) }
 
     # Strip non-UTF-8 request parameters
     config.middleware.insert 0, Rack::UTF8Sanitizer
