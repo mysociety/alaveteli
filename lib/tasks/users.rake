@@ -141,4 +141,10 @@ namespace :users do
   task update_hashed_password: :environment do
     User.sha1.find_each { |user| user.update(password: user.hashed_password) }
   end
+
+  desc 'Destroy user accounts that have not created any content'
+  task destroy_dormant: :environment do
+    users = User.dormant.where(created_at: ...2.years.ago)
+    users.destroy_all
+  end
 end

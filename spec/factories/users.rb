@@ -106,6 +106,10 @@ FactoryBot.define do
       status_update_count { 0 }
     end
 
+    trait :dormant do
+      info_requests_count { 0 }
+    end
+
     trait :closed do
       closed_at { Time.zone.now }
       receive_email_alerts { false }

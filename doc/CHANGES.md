@@ -1,7 +1,8 @@
-# develop
+j develop
 
 ## Highlighted Features
 
+* Add task to destroy users deemed dormant after two years (Graeme Porteous)
 * Limit user profile visibility until user accounts are confirmed active,
   reducing exposure of spam accounts (Graeme Porteous)
 * Add `User#status_update_count` counter column (Graeme Porteous)
@@ -28,6 +29,10 @@
 * _Required:_ To populate `User#status_update_count`, please run:
 
       bin/rails temp:populate_user_status_update_count
+
+* _Required:_ The crontab needs to be regenerated to include the new
+modifications:
+https://alaveteli.org/docs/installing/cron_and_daemons/#generate-crontab
 
 * _Recommended:_ This release limits user indexing to users who've made requests
 to prevent users stumbling across spam user profiles via the on-site search.
