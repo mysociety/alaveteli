@@ -45,6 +45,7 @@ RAILS_LOG_LEVEL=warn
 43 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/request-creation-graph
 48 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/user-use-graph
 40 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/users-signins-purge.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails users:sign_ins:purge" || echo "stalled?"
+50 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/users-purge-limited.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails users:purge_limited" || echo "stalled?"
 53 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/users-destroy-dormant.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails users:destroy_dormant" || echo "stalled?"
 38 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/public-body-export.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails public_body:export" || echo "stalled?"
 

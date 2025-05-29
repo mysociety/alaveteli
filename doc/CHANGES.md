@@ -2,6 +2,8 @@ j develop
 
 ## Highlighted Features
 
+* Add task to purge profile content for limited user profiles after six months
+  (Graeme Porteous)
 * Add task to destroy users deemed dormant after two years (Graeme Porteous)
 * Limit user profile visibility until user accounts are confirmed active,
   reducing exposure of spam accounts (Graeme Porteous)

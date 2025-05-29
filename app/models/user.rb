@@ -294,6 +294,15 @@ class User < ApplicationRecord
                 user.name, true, user.id).order(:created_at)
   end
 
+  # return an array of limited users i.e. untrusted users without any requests
+  # or classifications
+  def self.limited_profile
+    User.
+      where(confirmed_not_spam: false).
+      where(info_requests_count: 0).
+      where(status_update_count: 0)
+  end
+
   # return an array of dormant users i.e. users without any user generated
   # content, without granted an user role or recent sign ins
   def self.dormant

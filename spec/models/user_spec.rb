@@ -2114,6 +2114,45 @@ RSpec.describe User do
     end
   end
 
+  describe '.limited_profile' do
+    subject { User.limited_profile }
+
+    let!(:user) { FactoryBot.create(:user) }
+
+    let!(:confirmed_user) do
+      FactoryBot.create(:user, :limited, confirmed_not_spam: true)
+    end
+
+    let!(:user_with_request) do
+      FactoryBot.create(:user, :limited, info_requests_count: 1)
+    end
+
+    let!(:user_with_classification) do
+      FactoryBot.create(:user, :limited, status_update_count: 1)
+    end
+
+    let!(:limited_user_1) { FactoryBot.create(:user, :limited) }
+    let!(:limited_user_2) { FactoryBot.create(:user, :limited) }
+
+    it { is_expected.to_not include(user) }
+    it { is_expected.to_not include(confirmed_user) }
+    it { is_expected.to_not include(user_with_request) }
+    it { is_expected.to_not include(user_with_classification) }
+    it { is_expected.to include(limited_user_1) }
+    it { is_expected.to include(limited_user_2) }
+
+    it 'returns an ActiveRecord::Relation' do
+      is_expected.to be_a(ActiveRecord::Relation)
+    end
+
+    it 'is chainable with other scopes' do
+      FactoryBot.create(:user, :limited)
+      FactoryBot.create(:user, :limited, :banned)
+
+      expect(subject.banned).to have_attributes(count: 1)
+    end
+  end
+
   describe 'limited_profile?' do
     subject { user.limited_profile? }
 
@@ -2372,12 +2411,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
 
@@ -2387,12 +2426,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
 
@@ -2402,12 +2441,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
   end
