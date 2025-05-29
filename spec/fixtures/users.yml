@@ -72,6 +72,8 @@ silly_name_user:
   locale: 'en'
   about_me: ''
   receive_email_alerts: true
+  comments_count: 1
+  track_things_count: 2
 admin_user:
   id: "3"
   name: Joe Admin
