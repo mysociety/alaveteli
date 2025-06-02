@@ -146,7 +146,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
-    benchmark (0.4.0)
+    benchmark (0.4.1)
     bigdecimal (3.1.9)
     bindex (0.8.1)
     bootstrap-sass (2.3.2.2)
@@ -652,7 +652,7 @@ DEPENDENCIES
   annotaterb (~> 4.14.0)
   aws-sdk-s3
   bcrypt (~> 3.1.20)
-  benchmark (~> 0.4.0)
+  benchmark (~> 0.4.1)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 8.0.7)
   cancancan (~> 3.6.1)
