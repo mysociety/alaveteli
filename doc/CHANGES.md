@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve visual accessibility and UX (Lucas Cumsille Montesinos)
 * Add attachment locking and replacement (Graeme Porteous)
 * Only send clarification notifications to recent requests (Gareth Rees)
 * Improve citation form field width (Gareth Rees)
