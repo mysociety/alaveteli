@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improve visual accessibility and UX (Lucas Cumsille Montesinos)
 * Add public annotations configuration (Graeme Porteous)
 * Add attachment locking and replacement (Graeme Porteous)
 * Only send clarification notifications to recent requests (Gareth Rees)

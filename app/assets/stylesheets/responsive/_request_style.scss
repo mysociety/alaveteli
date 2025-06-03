@@ -41,14 +41,14 @@ $color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
   color: #333;
 
   a {
-    color: #2688dc;
+    color: #075292;
     &:hover,
     &:active,
     &:focus {
       color: #333333;
     }
     &:visited {
-      color: darken(#2688dc, 10%);
+      color: darken(#075292, 10%);
     }
   }
 }

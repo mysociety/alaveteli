@@ -11,14 +11,14 @@ body {
 }
 
 a {
-  color: #2688dc;
+  color: #075292; // Pass AAA contrast test
   &:hover,
   &:active,
   &:focus {
     color: #333333;
   }
   &:visited {
-    color: darken(#2688dc, 10%);
+    color: darken(#075292, 10%);
   }
 }
 
