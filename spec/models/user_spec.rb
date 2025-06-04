@@ -2025,6 +2025,17 @@ RSpec.describe User do
     end
   end
 
+  describe 'get_about_me_for_html_display' do
+    subject { user.get_about_me_for_html_display }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    it "adds anchors with rel nofollow links to plain text links" do
+      user.about_me = link = "http://example.com"
+      is_expected.to include(%Q[<a href="#{link}" rel="nofollow">#{link}</a>])
+    end
+  end
+
   describe '#can_file_requests?' do
     subject { user.can_file_requests? }
 
