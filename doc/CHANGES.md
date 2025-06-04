@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add `rel=nofollow` attributes to links in outgoing messages (Graeme Porteous)
 * Improve visual accessibility and UX (Lucas Cumsille Montesinos)
 * Add public annotations configuration (Graeme Porteous)
 * Add attachment locking and replacement (Graeme Porteous)
