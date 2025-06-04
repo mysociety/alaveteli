@@ -40,6 +40,13 @@ RSpec.describe Users::MessagesController do
       end
     end
 
+    context 'when user-to-user messaging is disabled', features: { user_to_user_messaging: false } do
+      it 'prevents user messages' do
+        get :contact, params: { url_name: recipient.url_name }
+        expect(response).to render_template('users/messages/disabled')
+      end
+    end
+
     it 'prevents messages from users who have reached their rate limit' do
       allow_any_instance_of(User).
         to receive(:exceeded_limit?).with(:user_messages).and_return(true)
@@ -78,6 +85,22 @@ RSpec.describe Users::MessagesController do
 
         expect(ActionMailer::Base.deliveries).to be_empty
         expect(response).to render_template('users/messages/opted_out')
+      end
+    end
+
+    context 'when user-to-user messaging is disabled', features: { user_to_user_messaging: false } do
+      it 'prevents the submission' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Hi',
+            message: 'Gah'
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(response).to render_template('users/messages/disabled')
       end
     end
 

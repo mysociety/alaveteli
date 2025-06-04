@@ -14,6 +14,7 @@ features = %i[
   pro_pricing
   pro_self_serve
   public_annotations
+  user_to_user_messaging
 ]
 
 backend = AlaveteliFeatures.backend

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add user-to-user messaging configuration (Graeme Porteous)
 * Improve visual accessibility and UX (Lucas Cumsille Montesinos)
 * Add public annotations configuration (Graeme Porteous)
 * Add attachment locking and replacement (Graeme Porteous)
