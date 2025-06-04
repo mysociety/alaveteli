@@ -36,8 +36,17 @@ class Users::MessagesController < UserController
     @recipient_user = User.find_by!(url_name: params[:url_name])
   end
 
+  def signed_recipient
+    return unless params[:sgid]
+
+    GlobalID::Locator.locate_signed(
+      params[:sgid], for: 'user_to_user_messaging'
+    )
+  end
+
   def check_messaging_enabled
     return if feature_enabled?(:user_to_user_messaging)
+    return if @recipient_user == signed_recipient
 
     render template: 'users/messages/disabled'
   end
