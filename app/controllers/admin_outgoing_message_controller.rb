@@ -28,7 +28,7 @@ class AdminOutgoingMessageController < AdminController
     old_prominence_reason = @outgoing_message.prominence_reason
     old_tag_string = @outgoing_message.tag_string
     if @outgoing_message.update(outgoing_message_params)
-      @outgoing_message.info_request.log_event(
+      @outgoing_message.log_event(
         'edit_outgoing',
         outgoing_message_id: @outgoing_message.id,
         editor: admin_current_user,
@@ -42,7 +42,7 @@ class AdminOutgoingMessageController < AdminController
         tag_string: @outgoing_message.tag_string
       )
       flash[:notice] = 'Outgoing message successfully updated.'
-      @outgoing_message.info_request.expire
+      @outgoing_message.expire
       redirect_to admin_request_url(@outgoing_message.info_request)
     else
       render action: 'edit'

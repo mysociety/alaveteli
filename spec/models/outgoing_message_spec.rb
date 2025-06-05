@@ -1881,6 +1881,24 @@ RSpec.describe OutgoingMessage do
       expect{ subject }.to change{ outgoing_message.last_sent_at }
     end
   end
+
+  describe '#expire' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+
+    it 'delegates to info_request' do
+      expect(outgoing_message.info_request).to receive(:expire)
+      outgoing_message.expire
+    end
+  end
+
+  describe '#log_event' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+
+    it 'delegates to info_request' do
+      expect(outgoing_message.info_request).to receive(:log_event).with('edit')
+      outgoing_message.log_event('edit')
+    end
+  end
 end
 
 RSpec.describe OutgoingMessage, " when making an outgoing message" do

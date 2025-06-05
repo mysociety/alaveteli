@@ -68,6 +68,7 @@ class OutgoingMessage < ApplicationRecord
            inverse_of: :outgoing_message,
            dependent: :destroy
 
+  delegate :expire, :log_event, to: :info_request
   delegate :public_body, to: :info_request, private: true, allow_nil: true
 
   after_initialize :set_default_letter
@@ -241,7 +242,7 @@ class OutgoingMessage < ApplicationRecord
     self.status = 'failed'
     save!
 
-    info_request.log_event(
+    log_event(
       'send_error',
       reason: failure_reason,
       outgoing_message_id: id
@@ -258,7 +259,7 @@ class OutgoingMessage < ApplicationRecord
       log_event_type = "followup_#{ log_event_type }"
     end
 
-    info_request.log_event(
+    log_event(
       log_event_type,
       email: to_addrs,
       outgoing_message_id: id,
