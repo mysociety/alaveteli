@@ -23,26 +23,13 @@ class AdminOutgoingMessageController < AdminController
   end
 
   def update
-    old_body = @outgoing_message.raw_body
-    old_prominence = @outgoing_message.prominence
-    old_prominence_reason = @outgoing_message.prominence_reason
-    old_tag_string = @outgoing_message.tag_string
-    if @outgoing_message.update(outgoing_message_params)
-      @outgoing_message.log_event(
-        'edit_outgoing',
-        outgoing_message_id: @outgoing_message.id,
-        editor: admin_current_user,
-        old_body: old_body,
-        body: @outgoing_message.raw_body,
-        old_prominence: old_prominence,
-        prominence: @outgoing_message.prominence,
-        old_prominence_reason: old_prominence_reason,
-        prominence_reason: @outgoing_message.prominence_reason,
-        old_tag_string: old_tag_string,
-        tag_string: @outgoing_message.tag_string
-      )
-      flash[:notice] = 'Outgoing message successfully updated.'
+    if @outgoing_message.update_and_log_event(
+      **outgoing_message_params,
+      event: { editor: admin_current_user }
+    )
       @outgoing_message.expire
+
+      flash[:notice] = 'Outgoing message successfully updated.'
       redirect_to admin_request_url(@outgoing_message.info_request)
     else
       render action: 'edit'
