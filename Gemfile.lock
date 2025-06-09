@@ -289,7 +289,7 @@ GEM
       mutex_m
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    icalendar (2.11.0)
+    icalendar (2.11.1)
       base64
       ice_cube (~> 0.16)
       logger
@@ -678,7 +678,7 @@ DEPENDENCIES
   holidays (~> 8.8.0)
   htmlentities (~> 4.3.0)
   i18n (~> 1.14.7)
-  icalendar (~> 2.11.0)
+  icalendar (~> 2.11.1)
   image_processing (~> 1.14)
   importmap-rails (~> 2.1.0)
   iso_country_codes (~> 0.7.8)
