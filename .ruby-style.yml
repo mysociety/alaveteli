@@ -833,6 +833,9 @@ Lint/UselessAssignment:
 Lint/UselessConstantScoping:
   Enabled: false
 
+Lint/UselessDefaultValueArgument:
+  Enabled: false
+
 Lint/UselessDefined:
   Enabled: false
 
@@ -843,6 +846,9 @@ Lint/UselessMethodDefinition:
   Enabled: false
 
 Lint/UselessNumericOperation:
+  Enabled: false
+
+Lint/UselessOr:
   Enabled: false
 
 Lint/UselessRescue:
@@ -941,8 +947,11 @@ Naming/MethodName:
 Naming/MethodParameterName:
   Enabled: false
 
-Naming/PredicateName:
+Naming/PredicateMethod:
   Enabled: true
+
+Naming/PredicatePrefix:
+  Enabled: false
 
 Naming/RescuedExceptionsVariableName:
   Enabled: false
@@ -1741,6 +1750,9 @@ Style/EmptyLiteral:
 Style/EmptyMethod:
   Enabled: false
 
+Style/EmptyStringInsideInterpolation:
+  Enabled: false
+
 Style/Encoding:
   Enabled: false
 
@@ -2098,6 +2110,9 @@ Style/RedundantArgument:
   Enabled: false
 
 Style/RedundantArrayConstructor:
+  Enabled: false
+
+Style/RedundantArrayFlatten:
   Enabled: false
 
 Style/RedundantAssignment:
