@@ -1,7 +1,9 @@
 ---
-require:
+plugins:
   - rubocop-performance
   - rubocop-rails
+
+require:
   - "./lib/custom_cops/empty_lines_around_rescued_exceptions.rb"
 
 AllCops:
