@@ -65,7 +65,7 @@ def censor_part(part)
   elsif part.attachment?
     encoding = part.content_transfer_encoding
     encoder = Mail::Encodings.get_encoding(encoding)
-    raise 'Unknow encoding' unless encoder
+    raise 'Unknown encoding' unless encoder
 
     part.body = encoder.encode(
       censor_data(part.body.decoded, part.content_type)

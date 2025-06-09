@@ -61,7 +61,7 @@ RSpec.describe 'when handling incoming mail' do
     expect(page).to have_content "tënde"
   end
 
-  it "generates a valid HTML verson of plain text attachments" do
+  it "generates a valid HTML version of plain text attachments" do
     receive_incoming_mail('incoming-request-two-same-name.email',
                           email_to: info_request.incoming_email)
     attachment_path = get_attachment_as_html_path(
@@ -79,7 +79,7 @@ RSpec.describe 'when handling incoming mail' do
     expect(page).to have_content "Second hello"
   end
 
-  it "generates a valid HTML verson of PDF attachments" do
+  it "generates a valid HTML version of PDF attachments" do
     receive_incoming_mail('incoming-request-pdf-attachment.email',
                           email_to: info_request.incoming_email)
     attachment_path = get_attachment_as_html_path(

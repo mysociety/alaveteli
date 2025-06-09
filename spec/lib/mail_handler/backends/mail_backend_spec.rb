@@ -84,7 +84,7 @@ RSpec.describe MailHandler::Backends::MailBackend do
   describe :get_part_body do
     it 'returns the body of a part' do
       expected = <<-DOC
-Here's a PDF attachement which has a document/pdf content-type,
+Here's a PDF attachment which has a document/pdf content-type,
 when it really should be application/pdf.\n
       DOC
       mail = get_fixture_mail('document-pdf.email')

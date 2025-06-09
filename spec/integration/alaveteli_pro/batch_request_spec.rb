@@ -215,7 +215,7 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
       expect(page).to have_content("3 recipients")
       expect(page).to have_content("Subject Does the pro batch request " \
                                    "form work?")
-      # It should substitue an authority name in when previewing
+      # It should substitute an authority name in when previewing
       first_authority = draft.public_bodies.first
       expect(page).
         to have_content("Dear #{first_authority.name}, this is a " \

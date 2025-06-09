@@ -20,7 +20,7 @@ RSpec.describe 'when creating a mail object from raw data' do
     expect(mail.multipart?).to eq(true)
   end
 
-  it 'should parse multiple to addresses with unqoted display names' do
+  it 'should parse multiple to addresses with unquoted display names' do
     mail = get_fixture_mail('multiple-unquoted-display-names.email')
     expect(mail.to).to eq(["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"])
   end
@@ -471,7 +471,7 @@ RSpec.describe 'when getting attachment attributes' do
                             { content_type: "application/vnd.ms-excel",
                               url_part_number: 6,
                               within_rfc822_subject: "example",
-                              filename: "particpant list.xls" },
+                              filename: "participant list.xls" },
                             { content_type: "text/plain",
                               url_part_number: 7,
                               within_rfc822_subject: "RE: example",

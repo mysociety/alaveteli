@@ -205,7 +205,7 @@ msgstr ""
 msgid "Allow blank"
 msgstr ""
 
-msgid "Allow muliple"
+msgid "Allow multiple"
 msgstr ""
 
 msgid "Also called {{other_name}}."
@@ -271,7 +271,7 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
-msgid "Bringing facts about campagin overspending to light with the privacy features"
+msgid "Bringing facts about campaign overspending to light with the privacy features"
 msgstr ""
 
 msgid "Browse by category"
@@ -1331,7 +1331,7 @@ msgstr ""
 msgid "You haven't added any authorities to your batch yet"
 msgstr ""
 
-msgid "You haven't added any reqeusts to your project yet"
+msgid "You haven't added any requests to your project yet"
 msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."

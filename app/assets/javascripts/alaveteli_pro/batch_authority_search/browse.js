@@ -11,7 +11,7 @@
   var closedClass = 'batch-builder__list__group--closed';
   var loadingClass = 'batch-builder__list__group--loading';
 
-  var toggleCaret = function toogleCaret(group) {
+  var toggleCaret = function toggleCaret(group) {
     group.toggleClass(closedClass);
   };
 

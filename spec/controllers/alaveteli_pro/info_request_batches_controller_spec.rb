@@ -65,7 +65,7 @@ shared_examples_for "an info_request_batch action" do
       draft.save!
     end
 
-    it "sets @embargo to an embargo with the same emabrgo_duration" do
+    it "sets @embargo to an embargo with the same embargo_duration" do
       with_feature_enabled(:alaveteli_pro) do
         action
         expect(assigns[:embargo]).not_to be_nil

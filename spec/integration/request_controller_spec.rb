@@ -43,7 +43,7 @@ RSpec.describe RequestController do
     end
   end
 
-  describe 'FOI officer uploading a reponse' do
+  describe 'FOI officer uploading a response' do
     let(:public_body) do
       FactoryBot.create(:public_body, request_email: "foi@example.com")
     end

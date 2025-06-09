@@ -398,7 +398,7 @@ RSpec.describe TrackController do
       expect(TrackThing.find_by(id: track_thing.id)).to eq(nil)
     end
 
-    it 'also responds to GET for backwards compatability' do
+    it 'also responds to GET for backwards compatibility' do
       get :update, params: {
                      track_id: track_thing.id,
                      track_medium: 'delete',

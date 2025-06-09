@@ -2405,10 +2405,10 @@ to match the new templates.
 * Ensure memcached is installed (`sudo apt-get install memcached`) and running
   (`sudo service memcached start`).
 * `app/views/track/_track_set.erb` has been renamed to
-  `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
+  `app/views/track/_track_set.html.erb`, so if you've overridden it you will need
   to update the override.
 * `app/views/general/_opengraph_tags.erb` has been renamed to
-  `app/views/general/_opengraph_tags.html.erb`, so if you've overriden it you
+  `app/views/general/_opengraph_tags.html.erb`, so if you've overridden it you
   will need to update the override.
 * Run `bundle exec rake temp:populate_last_event_time` after deployment to populate
   the cached `last_event_time` attribute on info_requests, used in the admin interface.
@@ -2926,7 +2926,7 @@ There are some database structure updates so remember to rake db:migrate
 ## Upgrade Notes
 * You can run this release without using the Alaveteli Pro functionality - by
   default it is switched off.
-* Please update any overriden templates and theme code that reference times and
+* Please update any overridden templates and theme code that reference times and
   dates to reference the local time zone where appropriate. e.g.
 
   Time.now => Time.zone.now
@@ -3169,7 +3169,7 @@ There are some database structure updates so remember to rake db:migrate
   geoip databases.
 * To update events to use the new 'hide' event type you need to run
   `rake temp:update_hide_event_type`
-* If you've added Javascript to overriden view templates, you should wrap it
+* If you've added Javascript to overridden view templates, you should wrap it
   in a `content_for :javascript` block. See http://api.rubyonrails.org/v3.2.22/classes/ActionView/Helpers/CaptureHelper.html#method-i-content_for
   for more information.
 * If you've overridden models that use `attr_accessible` or `attr_protected`,
@@ -3970,7 +3970,7 @@ to match the new templates.
 * root no longer required to read mail logs
 * Code quality improvements to ActsAsXapian (Louise Crow).
 * Don't put HTML entities in email subject lines (Henare Degan).
-* Defunct authorities are removed from the list of authorities with mising
+* Defunct authorities are removed from the list of authorities with missing
   emails on the admin summary page (Henare Degan).
 * Correctly encode words to highlight (Caleb Tutty).
 * The request email of a PublicBody with a blank request_email database
@@ -3979,7 +3979,7 @@ to match the new templates.
 * Fixed a bug in the HealthChecksHelper when applying 'OK' style (Caleb Tutty).
 * Keep cookies from txt files in suggested Varnish configuration (Henare Degan).
 * Improvements to the Categorisation Game charts (Henare Degan).
-* Destroing an InfoRequest now destroys associated Comments and CensorRules
+* Destroying an InfoRequest now destroys associated Comments and CensorRules
   (Louise Crow).
 * There is experimental support for using an STMP server, rather than sendmail,
   for outgoing mail. There is not yet any ability to retry if the SMTP server is
@@ -4222,7 +4222,7 @@ See https://github.com/mysociety/alaveteli/pull/1889 for the full changes and fe
   Conlan)
 * Removed more mySociety internal dependencies from install script and example configuration and template files (Gareth Rees)
 * Improved example configuration files (Gareth Rees)
-* Support Portugese locale (Louise Crow)
+* Support Portuguese locale (Louise Crow)
 * Default to using UTF-8 encoded database for new installs and CI (Gareth Rees)
 * Better config file generators in `lib/tasks/config_files.rake` (Gareth Rees)
 * Improved search term highlighting (Gareth Rees)
@@ -4282,7 +4282,7 @@ candidate:
   location of `APP_ROOT/tmp/pids`.
 * rails-post-deploy no longer handles linking `APP_ROOT/log` to a log directory
   outside the app. Capistrano users will find that `:symlink_configuration` now
-  links `APP_ROOT/log` to `SHARED_PATH/log`. Users who aleady use the
+  links `APP_ROOT/log` to `SHARED_PATH/log`. Users who already use the
   `SHARED_FILES` and `SHARED_DIRECTORIES` settings in `config/general.yml`
   should add `log/` to the `SHARED_DIRECTORIES` setting. The existing mechanism
   for shared directories (in `script/rails-deploy-before-down`) will create the
@@ -4663,7 +4663,7 @@ Example:
 # Version 0.6.7
 ## Highlighted features
 * The ability to calculate due dates using calendar, not working days (Matthew Landauer)
-* A refactor and standardization of the configuation variables and defaults using a central module (Matthew Landauer)
+* A refactor and standardization of the configuration variables and defaults using a central module (Matthew Landauer)
 * The use of full URLs in admin attention emails, and associated modification of the admin_url helper to always return full urls (Henare Degan)
 * The ability to disable comments on a request (Robin Houston)
 * Some previously missed strings for translation, courtesy of the Czech translation team

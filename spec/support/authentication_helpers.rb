@@ -1,4 +1,4 @@
-module AuthenicationHelpers
+module AuthenticationHelpers
   def sign_in(user)
     session[:user_id] = user&.id
     session[:user_login_token] = user&.login_token
@@ -6,5 +6,5 @@ module AuthenicationHelpers
 end
 
 RSpec.configure do |config|
-  config.include AuthenicationHelpers, type: :controller
+  config.include AuthenticationHelpers, type: :controller
 end

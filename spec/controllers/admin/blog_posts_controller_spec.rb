@@ -26,15 +26,15 @@ RSpec.describe Admin::BlogPostsController do
     end
 
     it 'paginates blog posts' do
-      assoication = double.as_null_object
-      allow(Blog::Post).to receive(:order).and_return(assoication)
+      association = double.as_null_object
+      allow(Blog::Post).to receive(:order).and_return(association)
 
       get :index
-      expect(assoication).to have_received(:paginate).
+      expect(association).to have_received(:paginate).
         with(page: nil, per_page: 25)
 
       get :index, params: { page: 1 }
-      expect(assoication).to have_received(:paginate).
+      expect(association).to have_received(:paginate).
         with(page: '1', per_page: 25)
     end
   end

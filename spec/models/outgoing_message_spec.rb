@@ -93,7 +93,7 @@ RSpec.describe OutgoingMessage do
     it { is_expected.to include(IOError) }
     it { is_expected.to_not include(TestError) }
 
-    context '.additional_send_errors has been overriden to include a custom error' do
+    context '.additional_send_errors has been overridden to include a custom error' do
       before do
         allow(described_class).to receive(:additional_send_errors).
           and_return([ TestError ])
@@ -122,7 +122,7 @@ RSpec.describe OutgoingMessage do
 
     it { is_expected.to be_valid }
 
-    it 'requires info_reqeust' do
+    it 'requires info_request' do
       outgoing_message.info_request = nil
       expect(outgoing_message).not_to be_valid
     end

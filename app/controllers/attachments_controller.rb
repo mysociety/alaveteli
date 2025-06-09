@@ -2,7 +2,7 @@
 # Controller to serve FoiAttachment records in both raw and as HTML.
 #
 class AttachmentsController < ApplicationController
-  include FragmentCachable
+  include FragmentCacheable
   include InfoRequestHelper
   include PublicTokenable
 

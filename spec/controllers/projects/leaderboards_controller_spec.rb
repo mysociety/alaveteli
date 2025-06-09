@@ -22,7 +22,7 @@ RSpec.describe Projects::LeaderboardsController, spec_meta do
     context 'when not authorised to download project' do
       before { ability.cannot :download, project }
 
-      it 'raises access denied expection' do
+      it 'raises access denied exception' do
         expect { show }.to raise_error(CanCan::AccessDenied)
       end
     end

@@ -8,7 +8,7 @@ module AttachmentToHTML
     # Just Work.
     class GoogleDocsViewer < Adapter
       # rubocop:disable Layout/LineLength
-      VIEWABLE_CONTENT_TYPPES = [
+      VIEWABLE_CONTENT_TYPES = [
         'application/pdf', # .pdf
         'image/tiff', # .tiff
         'application/vnd.ms-word', # .doc
@@ -25,7 +25,7 @@ module AttachmentToHTML
       # The full list of supported types can be found at
       #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
       def self.viewable?(content_type)
-        VIEWABLE_CONTENT_TYPPES.include?(content_type)
+        VIEWABLE_CONTENT_TYPES.include?(content_type)
       end
 
       attr_reader :attachment_url

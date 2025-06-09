@@ -28,7 +28,7 @@ RSpec.describe AlaveteliPro::PublicBodiesHelper, type: :helper do
         and_return(in_controller)
     end
 
-    context 'within a controler' do
+    context 'within a controller' do
       let(:in_controller) { true }
 
       it 'returns hash with applicable search attribute' do

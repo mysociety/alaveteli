@@ -1,6 +1,6 @@
-<div class="incoming correspondence <%= incoming_message.prominence %> js-collapsable" id="<%= dom_id(incoming_message) %>">
+<div class="incoming correspondence <%= incoming_message.prominence %> js-collapsible" id="<%= dom_id(incoming_message) %>">
   <div class="correspondence__header">
-    <span class="correspondence__header__author js-collapsable-trigger">
+    <span class="correspondence__header__author js-collapsible-trigger">
       <% if incoming_message.specific_from_name? %>
         <%= incoming_message.safe_from_name %>,
       <% end %>

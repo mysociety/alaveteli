@@ -59,7 +59,7 @@ RSpec.describe Announcement do
     end
 
     describe '.site_wide_for_user' do
-      it 'without auguments, return all site wide announcements' do
+      it 'without arguments, return all site wide announcements' do
         expect(Announcement.site_wide_for_user).
           to match_array([site_wide_announcement_1, site_wide_announcement_2])
       end

@@ -118,10 +118,10 @@ Content-Transfer-Encoding: base64
 
 --_006_B3BDF1D06801114FA040D0F1BEE7CF9C48FD3549evs02ukcommonpu_
 Content-Type: application/vnd.ms-excel;
-  name="particpant list.xls"
-Content-Description: particpant list.xls
+  name="participant list.xls"
+Content-Description: participant list.xls
 Content-Disposition: attachment;
-  filename="particpant list.xls"; size=21504;
+  filename="participant list.xls"; size=21504;
   creation-date="Mon, 02 Nov 2009 09:42:37 GMT";
   modification-date="Tue, 24 Nov 2009 10:45:52 GMT"
 Content-Transfer-Encoding: base64
