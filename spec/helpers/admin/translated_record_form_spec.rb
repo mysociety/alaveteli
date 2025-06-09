@@ -82,7 +82,7 @@ RSpec.describe Admin::TranslatedRecordForm do
 
       let(:html) do
         <<~HTML.gsub(/\n\s*/, '').strip
-        <div class="error-mesages">
+        <div class="error-messages">
           <div>
             English
             <ul>
@@ -105,7 +105,7 @@ RSpec.describe Admin::TranslatedRecordForm do
 
       let(:html) do
         <<~HTML.gsub(/\n\s*/, '').strip
-        <div class="error-mesages">
+        <div class="error-messages">
           <div>
             español
             <ul>
@@ -128,7 +128,7 @@ RSpec.describe Admin::TranslatedRecordForm do
 
       let(:html) do
         <<~HTML.gsub(/\n\s*/, '').strip
-        <div class="error-mesages">
+        <div class="error-messages">
           <div>
             English
             <ul>

@@ -59,7 +59,7 @@ RSpec.describe IncomingMessage do
 
     it { is_expected.to be_valid }
 
-    it 'requires info_reqeust' do
+    it 'requires info_request' do
       incoming_message.info_request = nil
       expect(incoming_message).not_to be_valid
     end

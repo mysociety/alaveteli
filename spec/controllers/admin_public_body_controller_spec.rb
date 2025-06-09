@@ -141,7 +141,7 @@ RSpec.describe AdminPublicBodyController do
 
       it 'creates a new body in the default locale' do
         # FIXME: Can't call PublicBody.destroy_all because database
-        # database contstraints prevent them being deleted.
+        # database constraints prevent them being deleted.
         existing = PublicBody.count
         expected = existing + 1
         expect {
@@ -184,7 +184,7 @@ RSpec.describe AdminPublicBodyController do
 
       it 'saves the body' do
         # FIXME: Can't call PublicBody.destroy_all because database
-        # database contstraints prevent them being deleted.
+        # database constraints prevent them being deleted.
         existing = PublicBody.count
         expected = existing + 1
         expect {

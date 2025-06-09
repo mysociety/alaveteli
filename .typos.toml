@@ -1,0 +1,30 @@
+[files]
+extend-exclude = [
+  "*/app.po",
+  "commonlib/*",
+  "config/locales/*.yml",
+  "spec/fixtures/files/*.email",
+  "vendor/*",
+]
+
+[default]
+extend-ignore-re = [
+    "(?i)signins",
+    "HELO",
+    "PNGs",
+
+    # foreign words used in specs
+    "Responde",
+    "foto",
+    "Appen",
+
+    # requires in JS
+    "//= require.*",
+
+    # truncated words
+    "\\w+\\.\\.\\.",
+    "fre",
+
+    # country codes
+    "(?i)(ba|fo|nd)"
+]

@@ -106,7 +106,7 @@ RSpec.describe Category, type: :model do
     let(:parent_2) { FactoryBot.create(:category) }
 
     let(:child) { FactoryBot.create(:category, parents: [parent_1]) }
-    let(:child_with_muliple_parents) do
+    let(:child_with_multiple_parents) do
       FactoryBot.create(:category, parents: [parent_1, parent_2])
     end
 
@@ -115,7 +115,7 @@ RSpec.describe Category, type: :model do
     subject { described_class.with_parent(parent_1) }
 
     it { is_expected.to include(child) }
-    it { is_expected.to include(child_with_muliple_parents) }
+    it { is_expected.to include(child_with_multiple_parents) }
     it { is_expected.to_not include(other_child) }
   end
 

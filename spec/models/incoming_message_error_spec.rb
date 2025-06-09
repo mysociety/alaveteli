@@ -15,7 +15,7 @@ require 'spec_helper'
 
 RSpec.describe IncomingMessageError do
   describe '.new' do
-    it 'requres a unique ID' do
+    it 'requires a unique ID' do
       expect(IncomingMessageError.new).not_to be_valid
       expect(IncomingMessageError.new(unique_id: 'xxx')).to be_valid
     end

@@ -2,11 +2,11 @@
               :site_name => site_name) %>
 
 <div id="change_password" class="change_password">
-  <% form_parms = { as: :password_change_user,
-                    url: password_change_path,
-                    method: :put } %>
+  <% form_params = { as: :password_change_user,
+                     url: password_change_path,
+                     method: :put } %>
 
-  <%= form_for @password_change_user, form_parms do |f| %>
+  <%= form_for @password_change_user, form_params do |f| %>
     <%= foi_error_messages_for :password_change_user %>
 
     <div class="form_note">

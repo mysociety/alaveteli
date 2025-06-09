@@ -443,7 +443,7 @@ RSpec.describe InfoRequestHelper do
       end
 
       shared_examples_for "when we can't ask the user to update the status" do
-        context "when there's one new reponse" do
+        context "when there's one new response" do
           it 'asks the user to answer the question' do
             expected = "We're waiting for " \
                        "#{user_link_for_request(info_request)} to read a " \
@@ -463,7 +463,7 @@ RSpec.describe InfoRequestHelper do
       end
 
       context 'owning user' do
-        context "when there's one new reponse" do
+        context "when there's one new response" do
           it 'asks the user to answer the question' do
             expected = 'Please read the recent response and ' \
                        '<strong>update the status</strong> ' \
@@ -495,7 +495,7 @@ RSpec.describe InfoRequestHelper do
       end
 
       context 'old, unclassified request' do
-        context "when there's one new reponse" do
+        context "when there's one new response" do
           it 'asks the user to answer the question' do
             expected = "This request has an <strong>unknown status</strong>. " \
                        "We're waiting for someone to read a recent response " \

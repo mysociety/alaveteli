@@ -53,7 +53,7 @@ class Notification < ApplicationRecord
     end
   end
 
-  # Overriden #expired? so that we can check against the actual current state
+  # Overridden #expired? so that we can check against the actual current state
   # of our request (or whatever else might expire a notification)
   def expired
     send("#{info_request_event.event_type}_expired".to_sym)

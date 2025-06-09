@@ -74,13 +74,13 @@ RSpec.describe Users::NamesController do
     context 'with bad parameters' do
       before { sign_in FactoryBot.create(:user) }
 
-      it 'can raise missing parameter exeception' do
+      it 'can raise missing parameter exception' do
         expect {
           put :update, params: { name: 'Bobby' }
         }.to raise_error(ActionController::ParameterMissing)
       end
 
-      it 'can raise unpermitted parameter exeception' do
+      it 'can raise unpermitted parameter exception' do
         expect {
           put :update, params: { user: { name: 'Updated text', role_ids: [1] } }
         }.to raise_error(ActionController::UnpermittedParameters)

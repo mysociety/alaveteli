@@ -61,8 +61,8 @@ RSpec.describe Dataset::ValueSet, type: :model do
     end
   end
 
-  describe 'nested attibutes' do
-    it 'accpets attributes for values' do
+  describe 'nested attributes' do
+    it 'accepts attributes for values' do
       key = FactoryBot.create(:dataset_key)
       value_set = FactoryBot.create(
         :dataset_value_set,

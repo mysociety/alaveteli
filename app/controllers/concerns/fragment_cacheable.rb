@@ -1,4 +1,4 @@
-module FragmentCachable
+module FragmentCacheable
   extend ActiveSupport::Concern
 
   private

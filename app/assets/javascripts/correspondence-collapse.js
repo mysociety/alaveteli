@@ -1,7 +1,7 @@
 var setUpCorrespondenceCollapsing = function(){
-  $('.js-collapsable').each(function(){
-    var $collapsable = $(this);
-    var $triggers = $(this).find('.js-collapsable-trigger');
+  $('.js-collapsible').each(function(){
+    var $collapsible = $(this);
+    var $triggers = $(this).find('.js-collapsible-trigger');
     var $correspondenceHeader = $(this).find('.correspondence__header');
 
     // Set the default state of the triggers.
@@ -9,9 +9,9 @@ var setUpCorrespondenceCollapsing = function(){
       'role': 'button',
       'tabindex': 0,
       'aria-expanded': function(){
-        return $collapsable.is('.collapsed') ? 'false' : 'true';
+        return $collapsible.is('.collapsed') ? 'false' : 'true';
       },
-      'aria-controls': $collapsable.attr('id')
+      'aria-controls': $collapsible.attr('id')
     });
 
     // Make spacebar / enter on triggers work the same as click.
@@ -25,30 +25,30 @@ var setUpCorrespondenceCollapsing = function(){
 
     // Collapse/uncollapse when the trigger is clicked.
     $triggers.on('click', function(){
-      $collapsable.trigger('toggle');
+      $collapsible.trigger('toggle');
     });
 
-    // Listen for events on the collapsable.
-    $collapsable.on('collapse', function(){
-      $collapsable.addClass('collapsed');
+    // Listen for events on the collapsible.
+    $collapsible.on('collapse', function(){
+      $collapsible.addClass('collapsed');
       $triggers.attr({
         'aria-expanded': 'false'
       });
     }).on('expand', function(){
-      $collapsable.removeClass('collapsed');
+      $collapsible.removeClass('collapsed');
       $triggers.attr({
         'aria-expanded': 'true'
       });
     }).on('toggle', function(){
-      $collapsable.toggleClass('collapsed');
+      $collapsible.toggleClass('collapsed');
       $triggers.attr({
         'aria-expanded': function(){
-          return $collapsable.is('.collapsed') ? 'false' : 'true';
+          return $collapsible.is('.collapsed') ? 'false' : 'true';
         }
       });
     });
 
-    // If the collapsable unit includes a .correspondence__header
+    // If the collapsible unit includes a .correspondence__header
     // (it will), then we want that to act as a proxy for the trigger.
     // Clicks anywhere on the header (but not its children) should
     // toggle the collapse, and hovers into / out of the header (but
@@ -80,7 +80,7 @@ var setUpCorrespondenceCollapsing = function(){
     });
   });
 
-  $('.js-collapsable-trigger-all').on('click', function(e){
+  $('.js-collapsible-trigger-all').on('click', function(e){
     e.preventDefault();
 
     var currentText = $.trim($(this).text());
@@ -88,10 +88,10 @@ var setUpCorrespondenceCollapsing = function(){
     var collapsedText = $(this).attr('data-text-collapsed');
 
     if (currentText === expandedText) {
-      $('.js-collapsable').trigger('collapse');
+      $('.js-collapsible').trigger('collapse');
       $(this).text(collapsedText);
     } else if (currentText === collapsedText) {
-      $('.js-collapsable').trigger('expand');
+      $('.js-collapsible').trigger('expand');
       $(this).text(expandedText);
     }
   });

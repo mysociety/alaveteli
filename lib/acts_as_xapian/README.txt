@@ -136,7 +136,7 @@ e.g. :texts => [ :title, :body ]
 
 * :values, things which have a range of values for sorting, or for collapsing.
 Specify an array quadruple of [ field, identifier, prefix, type ] where
-** identifier is an arbitary numeric identifier for use in the Xapian database
+** identifier is an arbitrary numeric identifier for use in the Xapian database
 ** prefix is the part to use in search queries that goes before the :
 ** type can be any of :string, :number or :date
 
@@ -145,7 +145,7 @@ e.g. :values => [ [ :created_at, 0, "created_at", :date ],
 
 * :terms, things which come with a prefix (before a :) in search queries.
 Specify an array triple of [ field, char, prefix ] where
-** char is an arbitary single upper case char used in the Xapian database, just
+** char is an arbitrary single upper case char used in the Xapian database, just
 pick any single uppercase character, but use a different one for each prefix.
 ** prefix is the part to use in search queries that goes before the :
 For example, if you were making Google and indexing to be able to later do a

@@ -32,7 +32,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
       allow(message).to receive(:delivery_status).and_return(status)
     end
 
-    shared_examples 'authenicated' do
+    shared_examples 'authenticated' do
       it 'assigns the outgoing message' do
         get :show, params: { outgoing_message_id: 1 }
         expect(assigns[:outgoing_message]).to eq(message)
@@ -59,7 +59,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
       let(:user) { FactoryBot.create(:user) }
       let(:info_request) { FactoryBot.build(:info_request, user: user) }
 
-      include_examples 'authenicated'
+      include_examples 'authenticated'
 
       it 'sets show_mail_server_logs to true' do
         get :show, params: { outgoing_message_id: 1 }
@@ -81,7 +81,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
       let(:user) { FactoryBot.create(:admin_user) }
       let(:info_request) { FactoryBot.build(:info_request, user: user) }
 
-      include_examples 'authenicated'
+      include_examples 'authenticated'
 
       it 'sets show_mail_server_logs to true' do
         get :show, params: { outgoing_message_id: 1 }
@@ -100,7 +100,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
     end
 
     context 'as other user' do
-      include_examples 'authenicated'
+      include_examples 'authenticated'
 
       it 'sets show_mail_server_logs to false if the user is not an owner' do
         get :show, params: { outgoing_message_id: 1 }

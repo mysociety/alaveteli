@@ -9,7 +9,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesHelper do
     let(:count) { 0 }
 
     before do
-      public_bodies = double(:public_bodies_assoication, count: count)
+      public_bodies = double(:public_bodies_association, count: count)
       @draft_batch_request = double(
         :draft_batch_request, public_bodies: public_bodies
       )

@@ -58,6 +58,3 @@ RAILS_LOG_LEVEL=warn
 
 # Once a year :)
 0 0 1 11 * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/send-public-holiday-reminder
-
-
-

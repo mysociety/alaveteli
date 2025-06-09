@@ -160,7 +160,7 @@ RSpec.describe InfoRequest do
       let(:foi) { FactoryBot.build(:public_body) }
       let(:eir) { FactoryBot.build(:public_body, :eir_only) }
 
-      it 'sets law used to the public body legislation on validataion' do
+      it 'sets law used to the public body legislation on validation' do
         request = FactoryBot.build(:info_request, public_body: eir)
 
         expect { request.valid? }.to change(request, :law_used).
@@ -2086,7 +2086,7 @@ RSpec.describe InfoRequest do
     end
 
     context 'email with a broken id and an intact idhash but broken format' do
-      let(:email) { "reqeust=123ab#{ info_request.idhash }@example.com" }
+      let(:email) { "request=123ab#{ info_request.idhash }@example.com" }
 
       let(:guess) do
         Guess.new(
@@ -4557,7 +4557,7 @@ RSpec.describe InfoRequest do
       end
     end
 
-    it 'sets the last event forming the intial request to the event' do
+    it 'sets the last event forming the initial request to the event' do
       expect(info_request.last_event_forming_initial_request_id)
         .to eq @event.id
     end

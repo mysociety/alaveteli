@@ -219,7 +219,7 @@ RSpec.describe MailServerLog do
     describe ".load_postfix_log_data" do
       # Postfix logs for a single email go over multiple lines. They are all tied together with the Queue ID.
       # See http://onlamp.com/onlamp/2004/01/22/postfix.html
-      it "loads the postfix log and untangles seperate email transactions using the queue ID" do
+      it "loads the postfix log and untangles separate email transactions using the queue ID" do
         allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
         allow(AlaveteliConfiguration).to receive(:incoming_email_prefix).and_return("foi+")
         allow(log).to receive(:rewind)

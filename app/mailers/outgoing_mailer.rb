@@ -6,7 +6,7 @@
 
 # NOTE: The layout for this wraps messages by lines rather than (blank line
 # separated) paragraphs, as is the convention for all the other mailers. This
-# turned out to fit better with user exepectations when formatting messages.
+# turned out to fit better with user expectations when formatting messages.
 #
 # TODO: The other mail templates are written to use blank line separated
 # paragraphs. They could be rewritten, and the wrapping method made uniform

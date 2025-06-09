@@ -143,7 +143,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
         key_set_attributes: [
           :id, keys_attributes: [
             :id, :title, :format, :order, :_destroy, options: [
-              :select_allow_blank, :select_allow_muliple, { select_options: [] }
+              :select_allow_blank, :select_allow_multiple, { select_options: [] }
             ]
           ]
         ]

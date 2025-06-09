@@ -26,7 +26,7 @@ RSpec.describe Projects::DatasetController, spec_meta do
     context 'when not authorised to view dataset key set' do
       before { ability.cannot :view, dataset_key_set }
 
-      it 'raises access denied expection' do
+      it 'raises access denied exception' do
         expect { show }.to raise_error(CanCan::AccessDenied)
       end
     end

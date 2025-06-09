@@ -8,7 +8,7 @@ RSpec.describe Legislation::Reference do
     Legislation::Reference.new(legislation: foi, reference: "#{type} 1")
   end
 
-  describe 'initialiation' do
+  describe 'initialization' do
     it 'accepts legislation, type and reference attributes' do
       ref = Legislation::Reference.new(
         legislation: foi, reference: 'Section 12(1)'

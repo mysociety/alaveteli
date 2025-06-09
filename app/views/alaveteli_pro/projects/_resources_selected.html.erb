@@ -1,5 +1,5 @@
 <div class="project-resources__list">
-  <%= content_tag(:div, _("You haven't added any reqeusts to your project yet"), class: 'blank-slate') if @batches.empty? && @requests.empty? %>
+  <%= content_tag(:div, _("You haven't added any requests to your project yet"), class: 'blank-slate') if @batches.empty? && @requests.empty? %>
 
   <% @batches.each do |batch| %>
     <div class="project-resource">

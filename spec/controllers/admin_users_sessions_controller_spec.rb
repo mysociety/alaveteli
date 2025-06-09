@@ -34,7 +34,7 @@ RSpec.describe AdminUsersSessionsController do
       expect(response).to redirect_to(user_path(target_user))
     end
 
-    it 'loads target user when next authenicating' do
+    it 'loads target user when next authenticating' do
       post :create, params: { id: target_user.id }
       expect(controller.send(:authenticated_user)).to eq(admin_user)
       # reset user so authenticated_user reloads

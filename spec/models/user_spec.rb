@@ -1122,14 +1122,14 @@ RSpec.describe User do
   end
 
   describe '#entered_otp_code' do
-    it 'gets the virtual attribue for use in validation' do
+    it 'gets the virtual attribute for use in validation' do
       user = User.new(entered_otp_code: '123456')
       expect(user.entered_otp_code).to eq('123456')
     end
   end
 
   describe '#entered_otp_code=' do
-    it 'sets the virtual attribue for use in validation' do
+    it 'sets the virtual attribute for use in validation' do
       user = User.new
       user.entered_otp_code = '123456'
       expect(user.entered_otp_code).to eq('123456')
