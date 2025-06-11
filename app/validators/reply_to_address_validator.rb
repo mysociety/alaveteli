@@ -20,4 +20,19 @@ class ReplyToAddressValidator
   def self.invalid_reply_addresses=(addresses)
     @invalid_reply_addresses = addresses.map(&:downcase)
   end
+
+  def self.invalid_reply_address?(email_address)
+    return false if email_address.blank?
+    
+    # Debug logging
+    Rails.logger.info "DEBUG: Checking invalid reply address for: '#{email_address}'"
+    Rails.logger.info "DEBUG: Database check result: #{InvalidReplyAddress.invalid?(email_address)}"
+    Rails.logger.info "DEBUG: Manual config check result: #{invalid_reply_addresses.include?(email_address.downcase)}"
+    
+    # Check against database first
+    return true if InvalidReplyAddress.invalid?(email_address)
+    
+    # Check against manually configured addresses (for backward compatibility)
+    invalid_reply_addresses.include?(email_address.downcase)
+  end
 end
