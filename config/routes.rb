@@ -808,6 +808,14 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminInvalidReplyAddresses controller
+  scope '/admin', :as => 'admin' do
+    resources :invalid_reply_addresses,
+      :controller => 'admin_invalid_reply_addresses',
+      :only => [:index, :create, :destroy]
+  end
+  ####
+
   #### AdminAnnouncement controller
   scope '/admin', :as => 'admin' do
     resources :announcements, :controller => 'admin_announcements'

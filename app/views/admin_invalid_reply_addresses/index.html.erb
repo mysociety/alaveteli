@@ -1,0 +1,50 @@
+<% @title = 'Invalid Reply Addresses' %>
+
+<h1><%= @title %></h1>
+
+<div class="row">
+  <div class="span12">
+    <p>
+      Email addresses on this list will be marked as invalid for reply-to 
+      addresses, preventing automated responses to these addresses.
+    </p>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+  <div class="span12">
+    <%= form_for(@invalid_reply_address, :url => admin_invalid_reply_addresses_path, :html => { :class => 'form-inline' }) do |f| -%>
+      <%= foi_error_messages_for :invalid_reply_address %>
+      <%= f.text_field :email, :class => 'input-xxlarge', :placeholder => 'Enter email' %>
+      <%= f.submit 'Add Invalid Reply Address', :class => 'btn btn-success' %>
+    <% end -%>
+  </div>
+</div>
+
+<hr />
+
+<% if @invalid_reply_addresses.any? %>
+  <div class="row">
+    <table class="table table-hover span12">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invalid_reply_addresses.each do |invalid_address| %>
+          <tr>
+            <td><%= invalid_address.email %></td>
+            <td><%= link_to 'Remove', admin_invalid_reply_address_path(invalid_address),
+              :method => :delete,
+              :data => { :confirm => 'This is permanent! Are you sure?' },
+              :class => 'btn btn-mini btn-danger' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
