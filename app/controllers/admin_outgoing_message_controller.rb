@@ -25,7 +25,8 @@ class AdminOutgoingMessageController < AdminController
   def update
     if @outgoing_message.update_and_log_event(
       **outgoing_message_params,
-      event: { editor: admin_current_user }
+      event: { editor: admin_current_user },
+      options: { skip_body_logging: params[:skip_body_logging] }
     )
       @outgoing_message.expire
 

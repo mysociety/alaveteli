@@ -413,7 +413,9 @@ class OutgoingMessage < ApplicationRecord
     self.body = get_default_message if raw_body == original_default
   end
 
-  def update_and_log_event(event: {}, **params)
+  def update_and_log_event(event: {}, options: {}, **params)
+    options[:skip_body_logging] ||= false
+
     old_tag_string = tag_string
 
     return false unless update(params)
@@ -422,8 +424,9 @@ class OutgoingMessage < ApplicationRecord
       'edit_outgoing',
       event.merge(
         outgoing_message_id: id,
-        old_body: body_previously_was,
-        body: raw_body,
+        old_body: options[:skip_body_logging] ? nil : body_previously_was,
+        body: options[:skip_body_logging] ? nil : raw_body,
+        body_changed: body_previously_changed?,
         old_prominence: prominence_previously_was,
         prominence: prominence,
         old_prominence_reason: prominence_reason_previously_was,
