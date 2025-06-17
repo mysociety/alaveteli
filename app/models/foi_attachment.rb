@@ -68,7 +68,7 @@ class FoiAttachment < ApplicationRecord
   delegate :metadata, to: :file_blob, allow_nil: true
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
-                include: %i[metadata]
+                include: %i[redacted_filename display_filename metadata]
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
