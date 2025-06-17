@@ -189,17 +189,20 @@ class FoiAttachment < ApplicationRecord
     filename.gsub(/\//, "-")
   end
 
+  def redacted_filename
+    return replaced_filename if replaced_filename.present?
+    return filename unless info_request
+    return filename if locked? && !locking?
+
+    info_request.apply_censor_rules_to_text(filename)
+  end
+
   # TODO: changing this will break existing URLs, so have a care - maybe
   # make another old_display_filename see above
   def display_filename
-    filename = self.filename
-    unless locked? || incoming_message.nil?
-      filename = info_request.apply_censor_rules_to_text(filename)
-    end
     # Sometimes filenames have e.g. %20 in - no point butchering that
     # (without unescaping it, this would remove the % and leave 20s in there)
-    filename = CGI.unescape(filename)
-
+    filename = CGI.unescape(redacted_filename)
     # Remove weird spaces
     filename = filename.gsub(/\s+/, " ")
     # Remove non-alphabetic characters
@@ -208,6 +211,7 @@ class FoiAttachment < ApplicationRecord
     filename = filename.gsub(/\s*\.\s*/, ".")
     # Compress adjacent spaces down to a single one
     filename = filename.gsub(/\s+/, " ")
+    # Strip leading/trailing whitespace
     filename.strip
   end
 
@@ -392,6 +396,8 @@ class FoiAttachment < ApplicationRecord
       self.filename = mail_attributes[:filename]
       ensure_filename!
     end
+
+    self.filename = redacted_filename if locking?
 
     if locking? || unlocking?
       FoiAttachmentMaskJob.perform_later(self) unless masked_at
