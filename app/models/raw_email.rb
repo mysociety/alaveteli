@@ -18,8 +18,11 @@ class RawEmail < ApplicationRecord
 
   has_one :incoming_message,
           inverse_of: :raw_email
+  has_many :foi_attachments, through: :incoming_message
 
   has_one_attached :file, service: :raw_emails
+
+  before_destroy :ensure_attachments_locked
 
   delegate :date, to: :mail
   delegate :message_id, to: :mail
@@ -126,5 +129,12 @@ class RawEmail < ApplicationRecord
 
   def incoming_message_id
     incoming_message.id.to_s
+  end
+
+  def ensure_attachments_locked
+    return unless foi_attachments.unlocked.any?
+
+    errors.add(:base, 'Cannot delete raw email with unlocked attachments')
+    throw(:abort)
   end
 end
