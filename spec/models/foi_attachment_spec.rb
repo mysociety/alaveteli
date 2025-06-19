@@ -780,6 +780,7 @@ RSpec.describe FoiAttachment do
     let(:original_body) { 'The original body content' }
 
     before do
+      allow(foi_attachment).to receive(:raw_email).and_return(double)
       allow(foi_attachment).to receive(:mail_attributes).
         and_return(body: original_body)
     end

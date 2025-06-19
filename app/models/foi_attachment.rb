@@ -54,6 +54,7 @@ class FoiAttachment < ApplicationRecord
   validates :replaced_filename, absence: true, unless: :replacing_or_replaced?
   validates :replaced_reason, absence: true, unless: :replacing_or_replaced?
   validates :replaced_reason, presence: true, if: :replacing_or_replaced?
+  validate :must_have_raw_email_to_unlock
 
   before_validation :ensure_filename!, only: [:filename]
   before_save :handle_locked
@@ -348,6 +349,8 @@ class FoiAttachment < ApplicationRecord
   private
 
   def mail_attributes
+    return {} unless raw_email
+
     MailHandler.attachment_attributes_for_hexdigest(
       raw_email.mail,
       hexdigest: hexdigest
@@ -382,6 +385,13 @@ class FoiAttachment < ApplicationRecord
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
+  end
+
+  def must_have_raw_email_to_unlock
+    return if raw_email
+    return unless unlocking?
+
+    errors.add(:base, "Cannot unlock attachment without raw email")
   end
 
   def handle_locked

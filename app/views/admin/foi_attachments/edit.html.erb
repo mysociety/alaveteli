@@ -112,7 +112,7 @@
   </div>
 <% end %>
 
-<% if @foi_attachment.main_body_part? %>
+<% if @foi_attachment.raw_email && @foi_attachment.main_body_part? %>
   <hr />
   <h2>Unmasked message body (quotes unfolded):</h2>
 
