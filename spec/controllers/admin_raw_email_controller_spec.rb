@@ -12,6 +12,7 @@ RSpec.describe AdminRawEmailController do
 
       it 'renders the show template' do
         get :show, params: { id: raw_email.id }
+        expect(response).to render_template(:show)
       end
 
       context 'when showing a message with a "From" address in the holding pen' do
@@ -121,6 +122,47 @@ RSpec.describe AdminRawEmailController do
           get :show, params: { id: raw_email }
           expect(response).to be_successful
         end
+      end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:info_request) { raw_email.incoming_message.info_request }
+
+    before { sign_in admin_user }
+
+    context 'when all attachments are locked' do
+      before do
+        raw_email.incoming_message.foi_attachments.each do |attachment|
+          attachment.update!(locked: true)
+        end
+      end
+
+      it 'deletes the raw email' do
+        delete :destroy, params: { id: raw_email.id }
+        expect(RawEmail.exists?(raw_email.id)).to be false
+      end
+
+      it 'redirects to the request with a success notice' do
+        delete :destroy, params: { id: raw_email.id }
+        expect(response).to redirect_to(admin_request_path(info_request))
+        expect(flash[:notice]).to eq('Raw email was successfully deleted')
+      end
+    end
+
+    context 'when attachments are unlocked' do
+      it 'does not delete the raw email' do
+        delete :destroy, params: { id: raw_email.id }
+        expect(RawEmail.exists?(raw_email.id)).to be true
+      end
+
+      it 'redirects to the request with an error message' do
+        delete :destroy, params: { id: raw_email.id }
+        expect(response).to render_template(:show)
+        expect(flash.now[:error]).
+          to eq('Cannot delete raw email with unlocked attachments')
       end
     end
   end
