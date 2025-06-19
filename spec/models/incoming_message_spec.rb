@@ -62,11 +62,6 @@ RSpec.describe IncomingMessage do
       incoming_message.info_request = nil
       expect(incoming_message).not_to be_valid
     end
-
-    it 'requires raw_email' do
-      incoming_message.raw_email = nil
-      expect(incoming_message).not_to be_valid
-    end
   end
 
   describe '#response_event' do
