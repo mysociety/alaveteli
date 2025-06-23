@@ -67,6 +67,9 @@ Bundler/OrderedGems:
 Gemspec/AddRuntimeDependency:
   Enabled: false
 
+Gemspec/AttributeAssignment:
+  Enabled: false
+
 Gemspec/DependencyVersion:
   Enabled: false
 
@@ -1645,6 +1648,9 @@ Style/CollectionCompact:
   Enabled: false
 
 Style/CollectionMethods:
+  Enabled: false
+
+Style/CollectionQuerying:
   Enabled: false
 
 Style/ColonMethodCall:
