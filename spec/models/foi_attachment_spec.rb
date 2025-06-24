@@ -795,6 +795,25 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when locking attachment with redacted filename' do
+      let(:info_request) { FactoryBot.create(:info_request, :with_incoming) }
+      let(:foi_attachment) { info_request.foi_attachments.first }
+
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          info_request: info_request,
+          text: foi_attachment.filename,
+          replacement: 'redacted.txt'
+        )
+      end
+
+      it 'retains redacted filename' do
+        expect { foi_attachment.update(locked: true) }.
+          to_not change(foi_attachment, :display_filename).from('redacted.txt')
+      end
+    end
+
     context 'when locking an masked attachment' do
       let(:foi_attachment) { FactoryBot.create(:body_text, masked_at: 1.day.ago) }
 
