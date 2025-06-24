@@ -6,6 +6,7 @@ plugins:
 require:
   - "./lib/custom_cops/empty_lines_around_rescued_exceptions.rb"
 
+#################### AllCops ####################
 AllCops:
   TargetRubyVersion: 3.2
   RubyInterpreters:
@@ -964,10 +965,10 @@ Naming/VariableName:
 Naming/VariableNumber:
   Enabled: false
 
+#################### Performance ####################
+
 Performance:
   Enabled: false
-
-#################### Performance ####################
 
 Performance/AncestorsInclude:
   Enabled: false
@@ -1125,10 +1126,10 @@ Performance/UriDefaultParser:
 Performance/ZipWithoutBlock:
   Enabled: false
 
+#################### Rails ####################
+
 Rails:
   Enabled: false
-
-#################### Rails ####################
 
 Rails/ActionControllerFlashBeforeRender:
   Enabled: false
