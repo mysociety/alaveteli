@@ -2,6 +2,7 @@ j develop
 
 ## Highlighted Features
 
+* Add `rel=nofollow` attributes to links in outgoing messages (Graeme Porteous)
 * Add task to purge profile content for limited user profiles after six months
   (Graeme Porteous)
 * Add task to destroy users deemed dormant after two years (Graeme Porteous)

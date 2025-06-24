@@ -894,6 +894,12 @@ RSpec.describe OutgoingMessage do
       @outgoing_message.body = split_line
       expect(@outgoing_message.get_body_for_html_display).to include(expected)
     end
+
+    it "adds anchors with rel nofollow links to plain text links" do
+      @outgoing_message.body = link = "http://example.com"
+      expect(@outgoing_message.get_body_for_html_display).
+        to include(%Q[<p><a href="#{link}" rel="nofollow">#{link}</a></p>])
+    end
   end
 
   describe '#get_text_for_indexing' do

@@ -389,7 +389,9 @@ class OutgoingMessage < ApplicationRecord
     text = CGI.escapeHTML(text)
     text = MySociety::Format.make_clickable(text, { contract: 1, nofollow: true })
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
-    text = ActionController::Base.helpers.simple_format(text)
+    text = ActionController::Base.helpers.simple_format(
+      text, {}, sanitize_options: { attributes: %w[href rel title] }
+    )
     text.html_safe
   end
 
