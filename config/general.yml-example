@@ -1323,3 +1323,13 @@ USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0
 #
 # ---
 ENABLE_PUBLIC_ANNOTATIONS: true
+
+# If ENABLE_USER_TO_USER_MESSAGING is set to true, Alaveteli will allow users
+# to send messages to each other through the site.
+#
+# If set to false, user-to-user messaging functionality will be disabled.
+#
+# ENABLE_USER_TO_USER_MESSAGING- Boolean (default: true)
+#
+# ---
+ENABLE_USER_TO_USER_MESSAGING: true

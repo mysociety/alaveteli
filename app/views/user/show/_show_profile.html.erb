@@ -63,7 +63,7 @@
       <% end %>
     </p>
 
-    <% if @display_user.active? %>
+    <% if @display_user.active? && feature_enabled?(:user_to_user_messaging) %>
       <p>
         <% if @is_you %>
           <%= link_to _('Send message to {{user_name}} just to see how it works',
@@ -75,7 +75,7 @@
                       contact_user_path(url_name: @display_user.url_name) %>
         <% end %>
       </p>
-    <% else %>
+    <% elsif @display_user.suspended? %>
       <div id="user_public_suspended">
         <p>
           <strong>

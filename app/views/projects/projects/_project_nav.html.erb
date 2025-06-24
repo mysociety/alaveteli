@@ -11,7 +11,7 @@
         </li>
 
         <li>
-          <%= link_to contact_user_path(url_name: project.owner.url_name) do %>
+          <%= link_to contact_user_path(url_name: project.owner.url_name, sgid: project.owner.to_sgid(expires_in: 1.day, for: :user_to_user_messaging)) do %>
             <%= _('Contact {{recipient}}', recipient: project.owner.name) %>
           <% end %>
         </li>

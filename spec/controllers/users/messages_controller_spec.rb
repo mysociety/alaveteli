@@ -40,6 +40,23 @@ RSpec.describe Users::MessagesController do
       end
     end
 
+    context 'when user-to-user messaging is disabled', features: { user_to_user_messaging: false } do
+      it 'prevents user messages' do
+        get :contact, params: { url_name: recipient.url_name }
+        expect(response).to render_template('users/messages/disabled')
+      end
+    end
+
+    context 'when user-to-user messaging is disabled but there is a signed global ID', features: { user_to_user_messaging: false } do
+      it 'shows the contact form' do
+        get :contact, params: {
+          url_name: recipient.url_name,
+          sgid: recipient.to_sgid(for: 'user_to_user_messaging')
+        }
+        expect(response).to render_template('contact')
+      end
+    end
+
     it 'prevents messages from users who have reached their rate limit' do
       allow_any_instance_of(User).
         to receive(:exceeded_limit?).with(:user_messages).and_return(true)
@@ -78,6 +95,45 @@ RSpec.describe Users::MessagesController do
 
         expect(ActionMailer::Base.deliveries).to be_empty
         expect(response).to render_template('users/messages/opted_out')
+      end
+    end
+
+    context 'when user-to-user messaging is disabled', features: { user_to_user_messaging: false } do
+      it 'prevents the submission' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Hi',
+            message: 'Gah'
+          },
+          submitted_contact_form: 1
+        }
+
+        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(response).to render_template('users/messages/disabled')
+      end
+    end
+
+    context 'when user-to-user messaging is disabled but there is a signed global ID', features: { user_to_user_messaging: false } do
+      it 'sends the message' do
+        post :contact, params: {
+          url_name: recipient.url_name,
+          contact: {
+            subject: 'Dearest you',
+            message: 'Just a test!'
+          },
+          submitted_contact_form: 1,
+          sgid: recipient.to_sgid(for: 'user_to_user_messaging')
+        }
+        expect(response).to redirect_to(user_url(recipient))
+
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+        expect(deliveries[0].body).to include(
+          "Bob Smith has used #{site_name} to send you the message below"
+        )
+        expect(deliveries[0].body).to include('Just a test!')
+        expect(deliveries[0].header['Reply-To'].to_s).to match(sender.email)
       end
     end
 
