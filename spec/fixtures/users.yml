@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230301110831
+# Schema version: 20250521110346
 #
 # Table name: users
 #
@@ -37,6 +37,7 @@
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
+#  status_update_count               :integer          default(0), not null
 #
 
 # If sample data has been loaded you can log in as any of these users with their
@@ -71,6 +72,8 @@ silly_name_user:
   locale: 'en'
   about_me: ''
   receive_email_alerts: true
+  comments_count: 1
+  track_things_count: 2
 admin_user:
   id: "3"
   name: Joe Admin

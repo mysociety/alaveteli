@@ -34,7 +34,6 @@ class UserController < ApplicationController
     set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
-    @show_about_me = show_about_me?
 
     set_show_requests if @show_requests
 
@@ -583,16 +582,6 @@ class UserController < ApplicationController
 
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
-  end
-
-  def show_about_me?
-    return true if @is_you
-    return false unless @display_user.get_about_me_for_html_display.present?
-    return false unless @display_user.active?
-    return true if @display_user.confirmed_not_spam?
-    return true if @user
-
-    false
   end
 
   # Redirects to front page later if nothing else specified

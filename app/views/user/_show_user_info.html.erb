@@ -1,4 +1,4 @@
-<% if @show_about_me %>
+<% if (@is_you && @display_user.about_me) || @display_user.show_about_me? %>
   <div class="user_about_me">
     <%= image_tag "quote-marks.png", :class => "comment_quote" %>
     <%= @display_user.get_about_me_for_html_display %>

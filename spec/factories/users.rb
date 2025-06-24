@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230301110831
+# Schema version: 20250521110346
 #
 # Table name: users
 #
@@ -37,6 +37,7 @@
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
+#  status_update_count               :integer          default(0), not null
 #
 
 FactoryBot.define do
@@ -97,6 +98,16 @@ FactoryBot.define do
 
     trait :banned do
       ban_text { 'Banned' }
+    end
+
+    trait :limited do
+      confirmed_not_spam { false }
+      info_requests_count { 0 }
+      status_update_count { 0 }
+    end
+
+    trait :dormant do
+      info_requests_count { 0 }
     end
 
     trait :closed do

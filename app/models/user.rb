@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230301110831
+# Schema version: 20250521110346
 #
 # Table name: users
 #
@@ -37,6 +37,7 @@
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
+#  status_update_count               :integer          default(0), not null
 #
 
 class User < ApplicationRecord
@@ -291,6 +292,46 @@ class User < ApplicationRecord
   def self.find_similar_named_users(user)
     User.where('name ILIKE ? AND email_confirmed = ? AND id <> ?',
                 user.name, true, user.id).order(:created_at)
+  end
+
+  # return an array of limited users i.e. untrusted users without any requests
+  # or classifications
+  def self.limited_profile
+    User.
+      where(confirmed_not_spam: false).
+      where(info_requests_count: 0).
+      where(status_update_count: 0)
+  end
+
+  # return an array of dormant users i.e. users without any user generated
+  # content, without granted an user role or recent sign ins
+  def self.dormant
+    citations = Citation.arel_table
+    citations_exists = citations.project(1).
+      where(citations[:user_id].eq(User.arel_table[:id])).
+      exists
+
+    # don't return admins, pros, project members, or any other roles
+    user_roles = Arel::Table.new(:users_roles)
+    user_roles_exists = user_roles.project(1).
+      where(user_roles[:user_id].eq(User.arel_table[:id])).
+      exists
+
+    # don't return users who have signed in recently
+    sign_ins = User::SignIn.arel_table
+    sign_ins_exists = sign_ins.project(1).
+      where(sign_ins[:user_id].eq(User.arel_table[:id])).
+      exists
+
+    User.
+      where(info_requests_count: 0).
+      where(info_request_batches_count: 0).
+      where(status_update_count: 0).
+      where(track_things_count: 0).
+      where(comments_count: 0).
+      where.not(citations_exists).
+      where.not(user_roles_exists).
+      where.not(sign_ins_exists)
   end
 
   def view_hidden?
@@ -567,8 +608,17 @@ class User < ApplicationRecord
     end
   end
 
+  def limited_profile?
+    !confirmed_not_spam? && info_requests_count.zero? &&
+      status_update_count.zero?
+  end
+
   def show_profile_photo?
-    active? && profile_photo
+    active? && profile_photo.present? && !limited_profile?
+  end
+
+  def show_about_me?
+    active? && about_me.present? && !limited_profile?
   end
 
   def about_me_already_exists?

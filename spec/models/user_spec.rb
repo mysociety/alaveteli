@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230301110831
+# Schema version: 20250521110346
 #
 # Table name: users
 #
@@ -37,6 +37,7 @@
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
+#  status_update_count               :integer          default(0), not null
 #
 
 require 'spec_helper'
@@ -1537,6 +1538,123 @@ RSpec.describe User do
     end
   end
 
+  describe '.dormant' do
+    subject { User.dormant }
+
+    let!(:dormant_user) { FactoryBot.create(:user, :dormant) }
+
+    context 'when user has no activity' do
+      it 'includes users with zero counters and no roles or sign-ins' do
+        is_expected.to include(dormant_user)
+      end
+    end
+
+    context 'when user has info requests' do
+      let!(:user_with_requests) do
+        FactoryBot.create(:user, :dormant, info_requests_count: 1)
+      end
+
+      it 'excludes users with info_requests_count > 0' do
+        is_expected.not_to include(user_with_requests)
+      end
+    end
+
+    context 'when user has info request batches' do
+      let!(:user_with_batches) do
+        FactoryBot.create(:user, :dormant, info_request_batches_count: 1)
+      end
+
+      it 'excludes users with info_request_batches_count > 0' do
+        is_expected.not_to include(user_with_batches)
+      end
+    end
+
+    context 'when user has classified requests' do
+      let!(:user_with_classifications) do
+        FactoryBot.create(:user, :dormant, status_update_count: 1)
+      end
+
+      it 'excludes users with status_update_count > 0' do
+        is_expected.not_to include(user_with_classifications)
+      end
+    end
+
+    context 'when user has tracked things' do
+      let!(:user_with_tracks) do
+        FactoryBot.create(:user, :dormant, track_things_count: 1)
+      end
+
+      it 'excludes users with track_things_count > 0' do
+        is_expected.not_to include(user_with_tracks)
+      end
+    end
+
+    context 'when user has comments' do
+      let!(:user_with_comments) do
+        FactoryBot.create(:user, :dormant, comments_count: 1)
+      end
+
+      it 'excludes users with comments_count > 0' do
+        is_expected.not_to include(user_with_comments)
+      end
+    end
+
+    context 'when user has citations' do
+      let!(:user_with_citations) { FactoryBot.create(:user, :dormant) }
+
+      before do
+        FactoryBot.create(:citation, user: user_with_citations)
+      end
+
+      it 'excludes users with citations' do
+        is_expected.not_to include(user_with_citations)
+      end
+    end
+
+    context 'when user has roles' do
+      let!(:admin_user) { FactoryBot.create(:admin_user, :dormant) }
+      let!(:pro_user) { FactoryBot.create(:pro_user, :dormant) }
+      let!(:pro_admin_user) { FactoryBot.create(:pro_admin_user, :dormant) }
+
+      it 'excludes admin users' do
+        is_expected.not_to include(admin_user)
+      end
+
+      it 'excludes pro users' do
+        is_expected.not_to include(pro_user)
+      end
+
+      it 'excludes pro admin users' do
+        is_expected.not_to include(pro_admin_user)
+      end
+    end
+
+    context 'when user has recent sign-ins' do
+      let!(:user_with_signin) { FactoryBot.create(:user, :dormant) }
+
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+        FactoryBot.create(:user_sign_in, user: user_with_signin)
+      end
+
+      it 'excludes users with sign-ins' do
+        is_expected.not_to include(user_with_signin)
+      end
+    end
+
+    it 'returns an ActiveRecord::Relation' do
+      is_expected.to be_a(ActiveRecord::Relation)
+    end
+
+    it 'is chainable with other scopes' do
+      FactoryBot.create(:user, :dormant)
+      FactoryBot.create(:user, :dormant, :banned)
+
+      expect(subject.banned).to have_attributes(count: 1)
+    end
+  end
+
   describe '#confirm' do
     it 'confirms an unconfirmed user' do
        user = FactoryBot.build(:user, email_confirmed: false)
@@ -1996,6 +2114,73 @@ RSpec.describe User do
     end
   end
 
+  describe '.limited_profile' do
+    subject { User.limited_profile }
+
+    let!(:user) { FactoryBot.create(:user) }
+
+    let!(:confirmed_user) do
+      FactoryBot.create(:user, :limited, confirmed_not_spam: true)
+    end
+
+    let!(:user_with_request) do
+      FactoryBot.create(:user, :limited, info_requests_count: 1)
+    end
+
+    let!(:user_with_classification) do
+      FactoryBot.create(:user, :limited, status_update_count: 1)
+    end
+
+    let!(:limited_user_1) { FactoryBot.create(:user, :limited) }
+    let!(:limited_user_2) { FactoryBot.create(:user, :limited) }
+
+    it { is_expected.to_not include(user) }
+    it { is_expected.to_not include(confirmed_user) }
+    it { is_expected.to_not include(user_with_request) }
+    it { is_expected.to_not include(user_with_classification) }
+    it { is_expected.to include(limited_user_1) }
+    it { is_expected.to include(limited_user_2) }
+
+    it 'returns an ActiveRecord::Relation' do
+      is_expected.to be_a(ActiveRecord::Relation)
+    end
+
+    it 'is chainable with other scopes' do
+      FactoryBot.create(:user, :limited)
+      FactoryBot.create(:user, :limited, :banned)
+
+      expect(subject.banned).to have_attributes(count: 1)
+    end
+  end
+
+  describe 'limited_profile?' do
+    subject { user.limited_profile? }
+
+    context 'when limited' do
+      let(:user) { FactoryBot.create(:user, :limited) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when confirmed_not_spam' do
+      let(:user) do
+        FactoryBot.create(:user, :limited, confirmed_not_spam: true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when there are info_requests and classifications' do
+      let(:user) do
+        FactoryBot.create(
+          :user, :limited,
+          info_requests_count: 1, status_update_count: 1
+        )
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#show_profile_photo?' do
     subject { user.show_profile_photo? }
 
@@ -2006,7 +2191,7 @@ RSpec.describe User do
         user.create_profile_photo!(data: load_file_fixture('parrot.png'))
       end
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to eq(true) }
     end
 
     context 'with a profile photo and banned' do
@@ -2016,12 +2201,46 @@ RSpec.describe User do
         user.create_profile_photo!(data: load_file_fixture('parrot.png'))
       end
 
-      it { is_expected.to be_falsey }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with profile_photo but profile is limited' do
+      let(:user) { FactoryBot.create(:user, :limited) }
+
+      before do
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+      end
+
+      it { is_expected.to eq(false) }
     end
 
     context 'without a profile_photo' do
       let(:user) { FactoryBot.build(:user) }
-      it { is_expected.to be_falsey }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe 'show_about_me?' do
+    subject { user.show_about_me? }
+
+    context 'with about_me text' do
+      let(:user) { FactoryBot.create(:user, about_me: 'Hello') }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with about_me text and banned' do
+      let(:user) { FactoryBot.create(:user, :banned, about_me: 'Hello') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with about_me text but profile is limited' do
+      let(:user) { FactoryBot.create(:user, :limited, about_me: 'Hello') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'without about_me text' do
+      let(:user) { FactoryBot.build(:user, about_me: nil) }
+      it { is_expected.to eq(false) }
     end
   end
 
@@ -2192,12 +2411,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
 
@@ -2207,12 +2426,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
 
@@ -2222,12 +2441,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
   end

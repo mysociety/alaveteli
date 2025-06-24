@@ -715,7 +715,7 @@ class RequestController < ApplicationController
 
   def set_render_recaptcha
     @render_recaptcha = AlaveteliConfiguration.new_request_recaptcha &&
-                        (!@user || !@user.confirmed_not_spam?)
+                        (!@user || @user.limited_profile?)
   end
 
   def redirect_new_form_to_pro_version
