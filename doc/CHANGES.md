@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add admin ability to destroy raw emails (Graeme Porteous)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
 * Add support for Ubuntu 24.04 LTS "Nobel Numbat" (Graeme Porteous)
 * Add new script to reconcile theme (Graeme Porteous)
