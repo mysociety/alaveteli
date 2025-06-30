@@ -165,7 +165,7 @@ gem 'mime-types', '< 4.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
-gem 'mini_racer', '~> 0.16.0'
+gem 'mini_racer', '~> 0.19.0'
 gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', '~> 3.7.5'
 gem 'uglifier', '~> 4.2.1'
