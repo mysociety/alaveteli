@@ -1,3 +1,7 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags("admin", importmap: Rails.application.admin_importmap) %>
+<% end %>
+
 <% @title = 'New insight' %>
 
 <div class="row">
