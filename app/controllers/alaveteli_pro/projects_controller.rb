@@ -129,6 +129,13 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     steps[current_step_index + 1]
   end
 
+  def next_step_path
+    return project_path unless next_step
+
+    url_for(action: next_step, id: @project.to_param)
+  end
+  helper_method :next_step_path
+
   def project_params
     case current_step
     when 'edit_resources', 'update_resources'
@@ -158,7 +165,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     if current_step == 'invite'
       redirect_to action: 'edit_contributors', id: @project.to_param
     elsif session[:new_project] && next_step
-      redirect_to action: next_step, id: @project.to_param
+      redirect_to next_step_path
     else
       session.delete(:new_project)
       redirect_to @project, **args

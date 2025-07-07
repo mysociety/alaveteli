@@ -22,6 +22,7 @@
         <div class="form_button">
           <%= hidden_field_tag :step, current_step %>
           <%= f.submit _('Update Project') %>
+          <%= link_to _("Back to project"), project_path, class: 'button-secondary' %>
         </div>
       <% end %>
     </div> <!-- .row -->
