@@ -118,19 +118,15 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   end
   helper_method :current_step
 
-  def pending_steps
-    return [] unless session[:new_project]
-
-    steps = []
-    steps << 'edit' unless @project.persisted?
-    steps << 'edit_resources' unless @project.info_requests.any?
-    steps << 'edit_key_set' unless @project.key_set.present?
-    steps << 'edit_contributors' if current_step != 'edit_contributors'
-    steps
+  def steps
+    %w[edit_resources edit_key_set edit_contributors]
   end
 
   def next_step
-    pending_steps.first
+    current_step_index = steps.index(current_step)
+    return steps.first unless current_step_index
+
+    steps[current_step_index + 1]
   end
 
   def project_params
@@ -161,7 +157,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   def redirect_to_next_step(**args)
     if current_step == 'invite'
       redirect_to action: 'edit_contributors', id: @project.to_param
-    elsif next_step
+    elsif session[:new_project] && next_step
       redirect_to action: next_step, id: @project.to_param
     else
       session.delete(:new_project)
