@@ -1,23 +1,27 @@
 <%= turbo_frame_tag :contributors do %>
-  <%= content_tag(:div, _('No contributors have joined this project yet'), class: 'blank-state') if @contributors.empty? %>
+  <%= content_tag(:div, _('No contributors have joined this project yet'), class: 'blank-state') if @memberships.empty? %>
 
-  <% @contributors.each do |contributor| %>
-    <div class="project-contributors__contributor">
-      <%= f.hidden_field :contributor_ids, value: contributor.id, name: 'project[contributor_ids][]' %>
+  <% @memberships.each do |membership| %>
+    <%= content_tag :div, class: ['project-contributors__contributor', { removed: !@contributor_ids.include?(membership.user_id) }] do %>
+      <%= f.hidden_field :contributor_ids, value: membership.user_id, name: 'project[contributor_ids][]', disabled: !@contributor_ids.include?(membership.user_id) %>
 
       <div class="project-contributors__info">
-        <%= link_to contributor.name, user_path(contributor), data: { turbo: false } %>
-        <% if contributor.show_about_me? %>
-          &ndash; <%= contributor.about_me %>
+        <%= link_to membership.user.name, user_path(membership.user), data: { turbo: false } %>
+        <% if membership.user.show_about_me? %>
+          &ndash; <%= membership.user.about_me %>
         <% end %>
       </div>
 
       <div class="project-contributors__actions">
         <%= link_to _('Remove'), nil, class: 'project-contributors__remove-button button', data: {
-          projects__contributors_id_param: contributor.id,
+          projects__contributors_id_param: membership.user_id,
           action: 'click->projects--contributors#remove'
         } %>
+        <%= link_to _('Undo'), nil, class: 'project-contributors__undo-button button', data: {
+          projects__contributors_id_param: membership.user_id,
+          action: 'click->projects--contributors#undo'
+        } %>
       </div>
-    </div>
+    <% end %>
   <% end %>
 <% end %>

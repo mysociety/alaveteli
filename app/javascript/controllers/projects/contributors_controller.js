@@ -25,6 +25,14 @@ export default class extends Controller {
     streamUpdate(this.element);
   }
 
+  undo(event) {
+    this.dirty.markAsUnsaved();
+    event.preventDefault();
+
+    this.contributorInputs(event).forEach((input) => input.disabled = false);
+    streamUpdate(this.element);
+  }
+
   contributorInputs(event) {
     return this.element
       .querySelectorAll(

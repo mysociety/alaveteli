@@ -104,6 +104,10 @@ table.dataset {
     .project-contributors__remove-button {
       display: none;
     }
+
+    .project-contributors__undo-button {
+      display: inline-block !important;
+    }
   }
 
   .project-contributors__info {
@@ -113,5 +117,9 @@ table.dataset {
   .project-contributors__actions {
     display: flex;
     gap: 0.5em;
+  }
+
+  .project-contributors__undo-button {
+    display: none;
   }
 }

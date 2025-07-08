@@ -89,16 +89,21 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   end
 
   def edit_contributors
-    @contributors = @project.contributors.
-      order(:name, :id).
-      distinct
+    @memberships = @project.contributor_memberships.
+      joins(:user).
+      select('DISTINCT ON (users.name, user_id) *').
+      order('users.name', 'user_id').
+      eager_load(:user)
+    @contributor_ids = @memberships.pluck(:user_id)
   end
 
   def update_contributors
-    @contributors = @project.contributors.
-      where(id: project_params[:contributor_ids]).
-      order(:name, :id).
-      distinct
+    @memberships = @project.contributor_memberships.
+      joins(:user).
+      select('DISTINCT ON (users.name, user_id) *').
+      order('users.name', 'user_id').
+      eager_load(:user)
+    @contributor_ids = project_params[:contributor_ids].map(&:to_i)
   end
 
   private
