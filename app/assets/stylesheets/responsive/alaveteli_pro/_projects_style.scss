@@ -85,3 +85,33 @@ table.dataset {
     min-width: 200px;
   }
 }
+
+.project-contributors__contributor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  border: 1px solid #e6e4df;
+  border-radius: 4px;
+
+  &.removed {
+    .project-contributors__info {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .project-contributors__remove-button {
+      display: none;
+    }
+  }
+
+  .project-contributors__info {
+    flex: 1;
+  }
+
+  .project-contributors__actions {
+    display: flex;
+    gap: 0.5em;
+  }
+}

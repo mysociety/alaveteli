@@ -5,13 +5,19 @@
     <div class="project-contributors__contributor">
       <%= f.hidden_field :contributor_ids, value: contributor.id, name: 'project[contributor_ids][]' %>
 
-      <%= link_to contributor.name, user_path(contributor), data: { turbo: false } %>
-      <%= contributor.about_me %>
+      <div class="project-contributors__info">
+        <%= link_to contributor.name, user_path(contributor), data: { turbo: false } %>
+        <% if contributor.show_about_me? %>
+          &ndash; <%= contributor.about_me %>
+        <% end %>
+      </div>
 
-      <%= link_to _('Remove'), nil, class: 'project-contributors__remove-button button', data: {
-        projects__contributors_id_param: contributor.id,
-        action: 'click->projects--contributors#remove'
-      } %>
+      <div class="project-contributors__actions">
+        <%= link_to _('Remove'), nil, class: 'project-contributors__remove-button button', data: {
+          projects__contributors_id_param: contributor.id,
+          action: 'click->projects--contributors#remove'
+        } %>
+      </div>
     </div>
   <% end %>
 <% end %>
