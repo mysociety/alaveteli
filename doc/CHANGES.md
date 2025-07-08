@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improvements to project setup and editing workflow (Graeme Porteous)
 * Add user-to-user messaging configuration (Graeme Porteous)
 * Add `rel=nofollow` attributes to links in outgoing messages (Graeme Porteous)
 * Add task to purge profile content for limited user profiles after six months
