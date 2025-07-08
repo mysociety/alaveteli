@@ -17,7 +17,7 @@
 # info requests.
 #
 class Project < ApplicationRecord
-  has_many :memberships, class_name: 'Project::Membership'
+  has_many :memberships, class_name: 'Project::Membership', dependent: :destroy
   has_one  :owner_membership,
            -> { where(role: Role.project_owner_role) },
            class_name: 'Project::Membership'
@@ -29,7 +29,7 @@ class Project < ApplicationRecord
   has_one  :owner, through: :owner_membership, source: :user
   has_many :contributors, through: :contributor_memberships, source: :user
 
-  has_many :resources, class_name: 'Project::Resource'
+  has_many :resources, class_name: 'Project::Resource', dependent: :destroy
   has_many :requests,
            through: :resources,
            source: :resource,
