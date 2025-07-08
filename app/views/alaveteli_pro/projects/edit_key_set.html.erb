@@ -28,7 +28,7 @@
         </div>
 
         <div class="form_button">
-          <%= f.submit _('Update Project') %>
+          <%= f.submit _('Update project') %>
           <%= link_to _("Back to project"), project_path, class: 'button-secondary' unless session[:new_project] %>
           <%= link_to _("I'll do this later"), next_step_path, class: 'button-secondary' if session[:new_project] %>
         </div>
