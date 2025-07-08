@@ -2,6 +2,9 @@
 import "@hotwired/turbo-rails";
 import "controllers";
 
+// Disable Turbo Drive background page loads when hovering over links
+Turbo.session.drive = false
+
 // Disable old jQuery UJS event handling, allowing Turbo to handle instead
 $(document).off("click.rails");
 $(document).off("change.rails");
