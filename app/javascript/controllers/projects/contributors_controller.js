@@ -21,12 +21,14 @@ export default class extends Controller {
     this.dirty.markAsUnsaved();
     event.preventDefault();
 
-    this.element
-      .querySelectorAll(
-        `input[name="project[contributor_ids][]"][value="${event.params.id}"]`,
-      )
-      .forEach((input) => input.remove());
-
+    this.contributorInputs(event).forEach((input) => input.disabled = true);
     streamUpdate(this.element);
+  }
+
+  contributorInputs(event) {
+    return this.element
+      .querySelectorAll(
+        `input[name="project[contributor_ids][]"][value="${event.params.id}"]`
+      )
   }
 }
