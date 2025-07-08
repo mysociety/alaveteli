@@ -3,7 +3,7 @@
 #
 class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   skip_before_action :html_response, only: [
-    :update_resources, :update_key_set, :update_contributors
+    :update, :update_resources, :update_key_set, :update_contributors
   ]
 
   before_action :find_project, only: [
@@ -69,9 +69,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
       order(:title, :id).
       paginate(page: current_page, per_page: PER_PAGE)
 
-    respond_to do |format|
-      format.turbo_stream
-    end
+    render current_edit_step
   end
 
   def edit_key_set
@@ -86,6 +84,8 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     @key_set = @project.key_set || @project.build_key_set
     @key_set.keys.build if @key_set.keys.empty? || params[:new]
     @keys = @key_set.keys
+
+    render current_edit_step
   end
 
   def edit_contributors
@@ -104,6 +104,8 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
       order('users.name', 'user_id').
       eager_load(:user)
     @contributor_ids = project_params[:contributor_ids].map(&:to_i)
+
+    render current_edit_step
   end
 
   private
@@ -122,6 +124,10 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     params.fetch(:step, action_name)
   end
   helper_method :current_step
+
+  def current_edit_step
+    current_step.sub(/^update_/, 'edit_')
+  end
 
   def steps
     %w[edit_resources edit_key_set edit_contributors]

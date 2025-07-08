@@ -349,9 +349,9 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
       expect(assigns(:keys)[1]).to be_new_record
     end
 
-    it 'renders the update_key_set template' do
+    it 'renders the edit_key_set template' do
       patch :update_key_set, params: key_set_params, format: :turbo_stream
-      expect(response).to render_template(:update_key_set)
+      expect(response).to render_template(:edit_key_set)
     end
   end
 
@@ -410,10 +410,10 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
       expect(project.contributors).to eq([contributor1, contributor2])
     end
 
-    it 'renders the update_contributors template' do
+    it 'renders the edit_contributors template' do
       patch :update_contributors, params: contributors_params,
         format: :turbo_stream
-      expect(response).to render_template(:update_contributors)
+      expect(response).to render_template(:edit_contributors)
     end
   end
 end
