@@ -1,10 +1,19 @@
 import { Controller } from "@hotwired/stimulus";
 import { streamUpdate } from "helpers/stream_update";
+import { DirtyTracker } from "helpers/dirty_tracker";
 
 export default class extends Controller {
   static targets = ["query"];
 
   connect() {
+    this.dirty = new DirtyTracker();
+
+    // Auto-watch form for submission
+    const form = this.element.closest("form");
+    if (form) {
+      this.dirty.watchForm(form);
+    }
+
     if (this.queryTarget.value) {
       this.search();
     }
@@ -22,6 +31,10 @@ export default class extends Controller {
     });
   }
 
+  disconnect() {
+    this.dirty.cleanup();
+  }
+
   search() {
     const query = this.queryTarget.value;
 
@@ -29,10 +42,12 @@ export default class extends Controller {
   }
 
   add(name, id) {
+    this.dirty.markAsUnsaved();
     streamUpdate(this.element, { [`project[${name}_ids][]`]: id });
   }
 
   remove(name, id) {
+    this.dirty.markAsUnsaved();
     this.element
       .querySelectorAll(`input[name="project[${name}_ids][]"][value="${id}"]`)
       .forEach((input) => input.remove());
