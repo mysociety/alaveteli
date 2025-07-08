@@ -193,6 +193,7 @@
 
 #project-resources {
   @include grid-column($columns: 12);
+  padding: 0;
   display: grid;
   grid-template-columns: none;
   gap: 1em;
