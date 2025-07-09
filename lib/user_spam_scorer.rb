@@ -105,6 +105,13 @@ class UserSpamScorer
                       :suspicious_user_agents,
                       :suspicious_ip_ranges].freeze
 
+  # Custom scoring methods registry
+  @custom_scoring_methods = {}
+
+  def self.custom_scoring_methods
+    @custom_scoring_methods ||= {}
+  end
+
   # Class attribute accessors
   CLASS_ATTRIBUTES.each do |key|
     define_singleton_method "#{ key }=" do |value|
@@ -122,6 +129,18 @@ class UserSpamScorer
     CLASS_ATTRIBUTES.each do |key|
       instance_variable_set("@#{ key }", const_get("DEFAULT_#{ key }".upcase))
     end
+
+    old_methods = custom_scoring_methods.keys
+    custom_scoring_methods.clear
+
+    CLASS_ATTRIBUTES + old_methods
+  end
+
+  def self.register_custom_scoring_method(method_name, score_value, method_proc)
+    custom_scoring_methods[method_name] = {
+      score: score_value,
+      proc: method_proc
+    }
   end
 
   # Instance attribute accessors
@@ -133,6 +152,11 @@ class UserSpamScorer
     CLASS_ATTRIBUTES.each do |key|
       instance_variable_set("@#{ key }", opts.fetch(key, self.class.send(key)))
     end
+
+    @score_mappings ||= []
+    self.class.custom_scoring_methods.each do |method_name, config|
+      @score_mappings = @score_mappings.merge(method_name => config[:score])
+    end
   end
 
   def spam?(user)
@@ -143,8 +167,18 @@ class UserSpamScorer
     return 0 if user.comments.any? || user.track_things.any?
 
     score_mappings.inject(0) do |score_count, score_mapping|
-      if send(score_mapping.first, user)
-        score_count + score_mapping.last
+      method_name = score_mapping.first
+      score_value = score_mapping.last
+
+      result = if self.class.custom_scoring_methods.key?(method_name)
+                 config = self.class.custom_scoring_methods[method_name]
+                 config[:proc].call(user)
+               else
+                 send(method_name, user)
+               end
+
+      if result
+        score_count + score_value
       else
         score_count
       end
