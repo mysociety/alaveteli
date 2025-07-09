@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220225214524
+# Schema version: 20250709114001
 #
 # Table name: user_sign_ins
 #
@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  country    :string
+#  user_agent :text
 #
 
 require 'spec_helper'

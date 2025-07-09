@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Track user agents strings associated with User sign ins if configured (Graeme
+  Porteous)
 * Add user-to-user messaging configuration (Graeme Porteous)
 * Add `rel=nofollow` attributes to links in outgoing messages (Graeme Porteous)
 * Add task to purge profile content for limited user profiles after six months
