@@ -44,3 +44,4 @@
 /tmp/
 /vendor/bundle
 /vendor/data/
+.devenv
