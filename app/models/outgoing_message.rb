@@ -68,6 +68,7 @@ class OutgoingMessage < ApplicationRecord
            inverse_of: :outgoing_message,
            dependent: :destroy
 
+  delegate :expire, :log_event, to: :info_request
   delegate :public_body, to: :info_request, private: true, allow_nil: true
 
   after_initialize :set_default_letter
@@ -241,7 +242,7 @@ class OutgoingMessage < ApplicationRecord
     self.status = 'failed'
     save!
 
-    info_request.log_event(
+    log_event(
       'send_error',
       reason: failure_reason,
       outgoing_message_id: id
@@ -258,7 +259,7 @@ class OutgoingMessage < ApplicationRecord
       log_event_type = "followup_#{ log_event_type }"
     end
 
-    info_request.log_event(
+    log_event(
       log_event_type,
       email: to_addrs,
       outgoing_message_id: id,
@@ -410,6 +411,30 @@ class OutgoingMessage < ApplicationRecord
     original_default = get_default_message.clone
     @default_letter = text
     self.body = get_default_message if raw_body == original_default
+  end
+
+  def update_and_log_event(event: {}, options: {}, **params)
+    options[:skip_body_logging] ||= false
+
+    old_tag_string = tag_string
+
+    return false unless update(params)
+
+    log_event(
+      'edit_outgoing',
+      event.merge(
+        outgoing_message_id: id,
+        old_body: options[:skip_body_logging] ? nil : body_previously_was,
+        body: options[:skip_body_logging] ? nil : raw_body,
+        body_changed: body_previously_changed?,
+        old_prominence: prominence_previously_was,
+        prominence: prominence,
+        old_prominence_reason: prominence_reason_previously_was,
+        prominence_reason: prominence_reason,
+        old_tag_string: old_tag_string,
+        tag_string: tag_string
+      )
+    )
   end
 
   private

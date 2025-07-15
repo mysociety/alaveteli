@@ -68,6 +68,16 @@
         </div>
       </div>
 
+      <div class="control-group">
+        <label class="control-label">Logging</label>
+        <div class="controls">
+          <label class="checkbox">
+            <%= checkbox_tag 'skip_body_logging', checked: false %>
+            Skip logging of body edits
+          </label>
+        </div>
+      </div>
+
       <div class="form-actions" >
         <% if @outgoing_message.from_name != @info_request.user_name %>
           <div class="alert alert-error">
