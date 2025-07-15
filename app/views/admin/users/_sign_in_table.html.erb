@@ -14,12 +14,12 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <p class="help-block">
-            Sign in tracking records the IP address and date of sign in, as well
-            as a geolocation estimation, and links this IP address to sign ins
-            from other user accounts using the same IP address. This can be
-            useful for investigating misuse, but may also reveal legitimate use
-            of alternative accounts. Care should be taken when revealing this
-            information.
+            Sign in tracking records the IP address, user agent, and date of
+            sign in, as well as a geolocation estimation, and links this IP
+            address to sign ins from other user accounts using the same IP
+            address. This can be useful for investigating misuse, but may also
+            reveal legitimate use of alternative accounts. Care should be taken
+            when revealing this information.
           </p>
 
           <p>
@@ -32,36 +32,58 @@
         <div id="sign-ins-accordion-table" class="accordion-body collapse">
           <div class="accordion-inner">
             <table class="table table-condensed table-striped">
-              <% sign_ins.each do |sign_in| %>
-                <tr class="<%= cycle('odd', 'even') %>">
-                  <td><%= user_both_links(sign_in.user) %></td>
-
-                  <td>
-                    <tt>
-                      <%= link_to sign_in.ip, admin_sign_ins_path(query: sign_in.ip) %>
-                    </tt>
-                  </td>
-
-                  <td>
-                    <tt>
-                      <% if sign_in.country %>
-                        <%= link_to admin_sign_ins_path(query: sign_in.country) do %>
-                          <%= sign_in.country %>
-                        <% end %>
-                      <% else %>
-                        ??
-                      <% end %>
-                    </tt>
-                  </td>
-
-                  <td><%= admin_date(sign_in.created_at, ago_only: true) %></td>
-
-                  <td>
-                    <strong><%= sign_in.other_users.size %></strong> others using this
-                    IP
-                  </td>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>IP</th>
+                  <th>Country</th>
+                  <th>User Agent</th>
+                  <th>Date</th>
+                  <th>Other Users</th>
                 </tr>
-              <% end %>
+              </thead>
+              <tbody>
+                <% sign_ins.each do |sign_in| %>
+                  <tr class="<%= cycle('odd', 'even') %>">
+                    <td><%= user_both_links(sign_in.user) %></td>
+
+                    <td>
+                      <tt>
+                        <%= link_to sign_in.ip, admin_sign_ins_path(query: sign_in.ip) %>
+                      </tt>
+                    </td>
+
+                    <td>
+                      <tt>
+                        <% if sign_in.country %>
+                          <%= link_to admin_sign_ins_path(query: sign_in.country) do %>
+                            <%= sign_in.country %>
+                          <% end %>
+                        <% else %>
+                          ??
+                        <% end %>
+                      </tt>
+                    </td>
+
+                    <td>
+                      <% if sign_in.user_agent %>
+                        <span title="<%= sign_in.user_agent %>">
+                          <%= truncate(sign_in.user_agent, length: 50) %>
+                        </span>
+                      <% else %>
+                        <em>Not recorded</em>
+                      <% end %>
+                    </td>
+
+                    <td><%= admin_date(sign_in.created_at, ago_only: true) %></td>
+
+                    <td>
+                      <strong><%= sign_in.other_users.size %></strong> others using this
+                      IP
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
             </table>
           </div>
         </div>

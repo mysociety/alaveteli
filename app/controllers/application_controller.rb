@@ -167,7 +167,9 @@ class ApplicationController < ActionController::Base
     session[:remember_me] = remember_me
     # Intentionally allow to fail silently so that we don't have to care whether
     # sign in recording is enabled.
-    user.sign_ins.create(ip: user_ip, country: country_from_ip)
+    user.sign_ins.create(
+      ip: user_ip, country: country_from_ip, user_agent: request.user_agent
+    )
   end
 
   # Logout form
