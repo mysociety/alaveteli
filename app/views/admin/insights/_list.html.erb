@@ -1,0 +1,35 @@
+<div class="row">
+  <% if insights.any? %>
+    <table class="table table-condensed table-hover span12">
+      <tr>
+        <th>ID</th>
+        <th>Model</th>
+        <th>Temperature</th>
+        <th>Template</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Actions</th>
+      </tr>
+
+      <% insights.each do |insight| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td class="id"><%= insight.to_param %></td>
+          <td class="model"><%= insight.model %></td>
+          <td class="temperature"><%= insight.temperature %></td>
+          <td class="template"><%= truncate(insight.template, length: 150) %></td>
+          <td class="created_at"><%= admin_date(insight.created_at) %></td>
+          <td class="updated_at"><%= admin_date(insight.updated_at) %></td>
+          <td><%= link_to "Show", admin_info_request_insight_path(info_request, insight), class: 'btn' %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p class="span12">None yet.</p>
+  <% end %>
+</div>
+
+<div class="row">
+  <p class="span12">
+    <%= link_to "New insight", new_admin_info_request_insight_path(info_request), :class => "btn btn-info" %>
+  </p>
+</div>

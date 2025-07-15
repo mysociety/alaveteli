@@ -27,6 +27,12 @@ features.each do |feature|
   end
 end
 
+if ENV['OLLAMA_URL']
+  backend.enable(:insights) unless backend.enabled?(:insights)
+else
+  backend.disable(:insights)
+end
+
 Rails.configuration.after_initialize do
   poller = AlaveteliFeatures.features.add(
     :accept_mail_from_poller,
