@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add ability to define custom spam scoring (Graeme Porteous)
 * Improvements to project setup and editing workflow (Graeme Porteous)
 * Add admin ability to edit outgoing messages without storing old body content
   (Graeme Porteous)
