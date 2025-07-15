@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update outgoing mail failure handling (Graeme Porteous)
 * Track user agents strings associated with User sign ins if configured (Graeme
   Porteous)
 * Add ability to define custom spam scoring (Graeme Porteous)
