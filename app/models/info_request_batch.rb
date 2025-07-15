@@ -144,14 +144,22 @@ class InfoRequestBatch < ApplicationRecord
   # Send a FOI request to a public body
   def send_request(info_request)
     outgoing_message = info_request.outgoing_messages.first
-    outgoing_message.sendable?
+
     mail_message = OutgoingMailer.initial_request(
       outgoing_message.info_request,
       outgoing_message
-    ).deliver_now
+    ).deliver_now if outgoing_message.sendable?
+
+  rescue *OutgoingMessage.expected_send_errors => e
+    outgoing_message.record_email_failure(
+      e.message
+    )
+
+  else
     outgoing_message.record_email_delivery(
       mail_message.to_addrs.join(', '),
-      mail_message.message_id)
+      mail_message.message_id
+    )
   end
 
   # Do we consider the InfoRequestBatch to be sent to all authorities?

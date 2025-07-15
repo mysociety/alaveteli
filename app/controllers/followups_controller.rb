@@ -134,8 +134,6 @@ class FollowupsController < ApplicationController
   end
 
   def send_followup
-    @outgoing_message.sendable?
-
     # OutgoingMailer.followup() depends on DB id of the
     # outgoing message, save just before sending.
     @outgoing_message.save!
@@ -145,7 +143,7 @@ class FollowupsController < ApplicationController
         @outgoing_message.info_request,
         @outgoing_message,
         @outgoing_message.incoming_message_followup
-      ).deliver_now
+      ).deliver_now if @outgoing_message.sendable?
 
     rescue *OutgoingMessage.expected_send_errors => e
       authority_name = @outgoing_message.info_request.public_body.name
