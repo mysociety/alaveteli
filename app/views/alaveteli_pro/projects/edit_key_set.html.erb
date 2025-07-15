@@ -12,6 +12,10 @@
 
   <div class="inner-canvas-body">
     <div class="row">
+      <p class="project-explanatory-notes">
+        <%= _("Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project.") %>
+      </p>
+
       <%= foi_error_messages_for :project, full_message: true %>
     </div>
 
@@ -28,7 +32,9 @@
         </div>
 
         <div class="form_button">
-          <%= f.submit _('Update Project') %>
+          <%= f.submit _('Update project') %>
+          <%= link_to _("Back to project"), project_path, class: 'button-secondary' unless session[:new_project] %>
+          <%= link_to _("I'll do this later"), next_step_path, class: 'button-secondary' if session[:new_project] %>
         </div>
       <% end %>
     </div> <!-- .row -->

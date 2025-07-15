@@ -3,6 +3,8 @@
     <%= link_to project.title, project_path(project) %>
   </h3>
 
+  <p><%= project.briefing.to_plain_text.truncate(100) %></p>
+
   <div class="project__meta">
     <div class="project__classification">
       <span class="project__meta__label">

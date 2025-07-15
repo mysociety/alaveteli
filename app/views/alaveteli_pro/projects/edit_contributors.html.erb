@@ -30,6 +30,10 @@
     </div>
 
     <div class="row">
+      <p class="project-explanatory-notes">
+        <%= _("Collaborate with others by inviting contributors to help classify and extract data from your requests.") %>
+      </p>
+
       <%= foi_error_messages_for :project, full_message: true %>
     </div>
 
@@ -43,7 +47,9 @@
         </div>
 
         <div class="form_button">
-          <%= f.submit _('Update Project') %>
+          <%= f.submit _('Update project') %>
+          <%= link_to _("Back to project"), project_path, class: 'button-secondary' unless session[:new_project] %>
+          <%= link_to _("I'll do this later"), next_step_path, class: 'button-secondary' if session[:new_project] %>
         </div>
       <% end %>
     </div> <!-- .row -->

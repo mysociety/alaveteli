@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improvements to project setup and editing workflow (Graeme Porteous)
 * Add admin ability to edit outgoing messages without storing old body content
   (Graeme Porteous)
 * Add experimental request insights feature (Graeme Porteous)

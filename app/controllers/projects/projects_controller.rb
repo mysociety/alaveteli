@@ -4,6 +4,7 @@ class Projects::ProjectsController < Projects::BaseController
 
   def show
     authorize! :read, @project
+    session.delete(:new_project)
     @leaderboard = Project::Leaderboard.new(@project)
   end
 

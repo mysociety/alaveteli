@@ -20,7 +20,9 @@
         <%= render partial: 'form', locals: { f: f } %>
 
         <div class="form_button">
-          <%= f.submit _('Update Project') %>
+          <%= hidden_field_tag :step, current_step %>
+          <%= f.submit _('Update project') %>
+          <%= link_to _("Back to project"), project_path, class: 'button-secondary' %>
         </div>
       <% end %>
     </div> <!-- .row -->
