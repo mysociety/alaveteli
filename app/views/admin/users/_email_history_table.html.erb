@@ -1,0 +1,24 @@
+<div id="sign-ins">
+  <% if email_histories.any? %>
+    <table class="table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>Old email</th>
+          <th>New email</th>
+          <th>Changed at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% email_histories.each do |history| %>
+          <tr class="<%= cycle('odd', 'even') %>">
+            <td><%= mail_to history.old_email %></td>
+            <td><%= mail_to history.new_email %></td>
+            <td><%= history.changed_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>None yet.</p>
+  <% end %>
+</div>

@@ -272,8 +272,12 @@ class UserController < ApplicationController
     end
 
     # circumstance is 'change_email', so can actually change the email
+    old_email = @user.email
     @user.email = @signchangeemail.new_email
     @user.save!
+
+    # Record the email change in history
+    @user.email_histories.record_change(old_email, @signchangeemail.new_email)
 
     sign_in(@user)
 
