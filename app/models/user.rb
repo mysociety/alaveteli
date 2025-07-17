@@ -482,6 +482,7 @@ class User < ApplicationRecord
     transaction do
       slugs.destroy_all
       sign_ins.destroy_all
+      email_histories.destroy_all
       profile_photo&.destroy!
 
       outgoing_messages.update!(
