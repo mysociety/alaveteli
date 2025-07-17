@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Switch to sending user email change confirmation emails to the old email
+  address for increased security verification (Graeme Porteous)
 * Add tracking of user profile email address changes (Graeme Porteous)
 * Update outgoing mail failure handling (Graeme Porteous)
 * Track user agents strings associated with User sign ins if configured (Graeme

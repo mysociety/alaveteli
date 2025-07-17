@@ -33,7 +33,7 @@ class UserMailer < ApplicationMailer
       "Confirm your new email address on {{site_name}}",
       site_name: site_name
     )
-    mail_user(new_email, subject: -> { subject })
+    mail_user(user, subject: -> { subject })
   end
 
   def changeemail_already_used(old_email, new_email)
