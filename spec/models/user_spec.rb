@@ -1293,6 +1293,7 @@ RSpec.describe User do
         allow(AlaveteliConfiguration).
           to receive(:user_sign_in_activity_retention_days).and_return(1)
         FactoryBot.create(:user_sign_in, user: user)
+        FactoryBot.create(:user_email_history, user: user)
         FactoryBot.create(:profile_photo, user: user)
 
         allow(Digest::SHA1).to receive(:hexdigest).and_return('a1b2c3d4')
@@ -1338,6 +1339,10 @@ RSpec.describe User do
 
       it 'destroys any sign_ins' do
         expect(user.sign_ins).to be_empty
+      end
+
+      it 'destroys any email_histories' do
+        expect(user.email_histories).to be_empty
       end
 
       it 'destroys any profile photo' do

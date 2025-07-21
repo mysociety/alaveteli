@@ -171,6 +171,12 @@ class User < ApplicationRecord
            inverse_of: :user,
            dependent: :destroy
 
+  has_many :email_histories,
+           -> { order(changed_at: :desc) },
+           class_name: 'User::EmailHistory',
+           inverse_of: :user,
+           dependent: :destroy
+
   scope :active, -> { not_banned.not_closed }
   scope :banned, -> { where.not(ban_text: '') }
   scope :not_banned, -> { where(ban_text: '') }
@@ -476,6 +482,7 @@ class User < ApplicationRecord
     transaction do
       slugs.destroy_all
       sign_ins.destroy_all
+      email_histories.destroy_all
       profile_photo&.destroy!
 
       outgoing_messages.update!(

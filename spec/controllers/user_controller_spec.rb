@@ -1078,6 +1078,54 @@ RSpec.describe UserController, "when changing email address" do
     expect(mail.body).to include("perhaps you, just tried to change their")
     expect(mail.to).to eq([ 'silly@localhost' ])
   end
+
+  it "should record email change in history when email is successfully changed" do
+    @user = users(:bob_smith_user)
+    sign_in @user
+
+    old_email = @user.email
+    new_email = 'newbob@localhost'
+
+    # First, send the confirmation email
+    post :signchangeemail, params: {
+      signchangeemail: {
+        old_email: old_email,
+        password: 'jonespassword',
+        new_email: new_email
+      },
+      submitted_signchangeemail_do: 1
+    }
+
+    expect(response).to render_template('signchangeemail_confirm')
+
+    # Simulate clicking the confirmation link
+    post_redirect = PostRedirect.order(:id).last
+    session[:user_circumstance] = 'change_email'
+    session[:post_redirect_token] = post_redirect.token
+
+    # Ensure user is still logged in even if login_token has changed
+    @user.reload
+    sign_in @user
+
+    # Submit the form again with the confirmation token
+    post :signchangeemail, params: {
+      signchangeemail: {
+        old_email: old_email,
+        new_email: new_email
+      },
+      submitted_signchangeemail_do: 1
+    }
+
+    @user.reload
+    expect(@user.email).to eq(new_email)
+
+    # Check that email history was recorded
+    history = @user.email_histories.last
+    expect(history).not_to be_nil
+    expect(history.old_email).to eq(old_email)
+    expect(history.new_email).to eq(new_email)
+    expect(history.changed_at).to be_within(1.minute).of(Time.current)
+  end
 end
 
 RSpec.describe UserController, "when using profile photos" do

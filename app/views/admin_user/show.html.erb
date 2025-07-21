@@ -185,6 +185,13 @@
   <hr>
 <% end %>
 
+<h2>Email history</h2>
+
+<%= render partial: 'admin/users/email_history_table',
+           locals: { email_histories: @admin_user.email_histories } %>
+
+<hr>
+
 <h2>Sign Ins</h2>
 
 <%= render partial: 'admin/users/sign_in_table',
