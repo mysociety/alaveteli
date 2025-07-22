@@ -75,17 +75,8 @@ module ReadOnly
   def check_read_only_feature(feature)
     return false unless read_only_feature?(feature)
 
-    if feature_enabled?(:annotations)
-      flash[:notice] = {
-        partial: "general/read_only_annotations",
-        locals: { site_name: site_name, read_only: read_only_message }
-      }
-    else
-      flash[:notice] = {
-        partial: "general/read_only",
-        locals: { site_name: site_name, read_only: read_only_message }
-      }
-    end
+    flash[:notice] = _("{{site_name}} is currently in maintenance. {{message}}",
+                       site_name: site_name, message: read_only_message)
 
     redirect_to frontpage_url
   end
