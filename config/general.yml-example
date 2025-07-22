@@ -475,6 +475,7 @@ READ_ONLY: ''
 #   'classifications' - Blocks request status classifications
 #   'followups'       - Blocks followup messages on requests
 #   'requests'        - Blocks new FOI requests
+#   'signups'         - Blocks new user registration
 #
 # Examples:
 #

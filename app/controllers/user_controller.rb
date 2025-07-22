@@ -9,11 +9,14 @@ require 'set'
 class UserController < ApplicationController
   include UserSpamCheck
 
+  read_only :signups, only: [:signup]
+
   skip_before_action :html_response, only: [
     :show, :wall, :get_draft_profile_photo, :get_profile_photo
   ]
 
   layout :select_layout
+
   before_action :normalize_url_name, only: :show
   before_action :work_out_post_redirect, only: [ :signup ]
   before_action :set_request_from_foreign_country, only: [ :signup ]
