@@ -8,9 +8,10 @@
 # Comments Controller handles adding annotations to requests.
 #
 class CommentsController < ApplicationController
+  read_only
+
   before_action :find_info_request
 
-  before_action :check_read_only
   before_action :reject_unless_comments_allowed
   before_action :reject_if_user_banned
   before_action :set_in_pro_area
