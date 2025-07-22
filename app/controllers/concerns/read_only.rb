@@ -59,25 +59,28 @@ module ReadOnly
   #
   # @return [Boolean] true if a read-only redirect was performed, false otherwise
   def check_read_only
-    unless AlaveteliConfiguration.read_only.empty?
-      if feature_enabled?(:annotations)
-        flash[:notice] = {
-          partial: "general/read_only_annotations",
-          locals: {
-            site_name: site_name,
-            read_only: AlaveteliConfiguration.read_only
-          }
-        }
-      else
-        flash[:notice] = {
-          partial: "general/read_only",
-          locals: {
-            site_name: site_name,
-            read_only: AlaveteliConfiguration.read_only
-          }
-        }
-      end
-      redirect_to frontpage_url
+    return false unless read_only?
+
+    if feature_enabled?(:annotations)
+      flash[:notice] = {
+        partial: "general/read_only_annotations",
+        locals: { site_name: site_name, read_only: read_only_message }
+      }
+    else
+      flash[:notice] = {
+        partial: "general/read_only",
+        locals: { site_name: site_name, read_only: read_only_message }
+      }
     end
+
+    redirect_to frontpage_url
+  end
+
+  def read_only?
+    read_only_message.present?
+  end
+
+  def read_only_message
+    AlaveteliConfiguration.read_only
   end
 end
