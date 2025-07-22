@@ -1,5 +1,5 @@
 class FollowupsController < ApplicationController
-  read_only
+  read_only :followups
 
   before_action :set_incoming_message,
                 :set_info_request,

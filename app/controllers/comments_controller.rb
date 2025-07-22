@@ -8,7 +8,7 @@
 # Comments Controller handles adding annotations to requests.
 #
 class CommentsController < ApplicationController
-  read_only
+  read_only :comments
 
   before_action :find_info_request
 

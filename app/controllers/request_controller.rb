@@ -7,7 +7,8 @@
 require 'zip'
 
 class RequestController < ApplicationController
-  read_only only: [:new, :upload_response]
+  read_only :requests, only: [:new]
+  read_only only: [:upload_response]
 
   skip_before_action :html_response, only: [:show, :select_authorities]
 

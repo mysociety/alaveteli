@@ -18,14 +18,20 @@
 # class MyController < ApplicationController
 #   include ReadOnly
 #
-#   # Check for all actions:
-#   read_only
+#   # Check a single feature for all actions:
+#   read_only :comments
 #
-#   # Check for specific actions:
-#   read_only only: [:create, :update, :destroy]
+#   # Check multiple features for all actions:
+#   read_only :classifications, :comments
 #
-#   # Check for all actions except specific ones:
-#   read_only except: [:index, :show]
+#   # Check a feature for specific actions:
+#   read_only :feature1, only: [:create, :update, :destroy]
+#
+#   # Check a feature for all actions except specific ones:
+#   read_only :feature2, except: [:index, :show]
+#
+#   # Check the global read-only status for specific actions:
+#   read_only only: [:create]
 # end
 #
 # Configuration:
@@ -36,30 +42,38 @@
 # 1. Global read-only mode:
 #    Set READ_ONLY to a non-empty value
 #
+# 2. Feature-specific read-only mode:
+#    Set READ_ONLY_FEATURES to an array of feature names
+#
 module ReadOnly
   extend ActiveSupport::Concern
 
   # Class methods to be added to the including class
   module ClassMethods
-    # Define which actions should be checked for read-only status
+    # Define which features should be checked for read-only status
     #
+    # @param feature [Symbol, String, nil] The feature to check for read-only
+    #   status (optional)
     # @param options [Hash] Options for the before_action callback
     # @option options [Array<Symbol>] :only Actions to limit the callback to
-    # @option options [Array<Symbol>] :except Actions to exclude from the callback
-    def read_only(**options)
-      before_action(options) do |controller|
-        controller.send(:check_read_only)
+    # @option options [Array<Symbol>] :except Actions to exclude from the
+    #   callback
+    def read_only(*feature, **options)
+      prepend_before_action(options) do |controller|
+        controller.send(:check_read_only_feature, feature[0])
       end
     end
   end
 
   private
 
-  # Check if the site is in general read-only mode
+  # Check if a specific feature is in read-only mode
   #
-  # @return [Boolean] true if a read-only redirect was performed, false otherwise
-  def check_read_only
-    return false unless read_only?
+  # @param feature [Symbol, String] The feature to check
+  # @return [Boolean] true if a read-only redirect was performed, false
+  #   otherwise
+  def check_read_only_feature(feature)
+    return false unless read_only_feature?(feature)
 
     if feature_enabled?(:annotations)
       flash[:notice] = {
@@ -82,5 +96,14 @@ module ReadOnly
 
   def read_only_message
     AlaveteliConfiguration.read_only
+  end
+
+  def read_only_feature?(feature)
+    read_only? ||
+      (feature && read_only_features.include?(feature.to_sym))
+  end
+
+  def read_only_features
+    AlaveteliConfiguration.read_only_features.map(&:to_sym)
   end
 end

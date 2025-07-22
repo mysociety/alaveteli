@@ -4,7 +4,7 @@
 class ClassificationsController < ApplicationController
   include Classifiable
 
-  read_only only: :create
+  read_only :classifications, only: :create
 
   rescue_from CanCan::AccessDenied do
     authenticated?(as: @info_request.user) || ask_to_login(

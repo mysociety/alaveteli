@@ -94,6 +94,7 @@ module AlaveteliConfiguration
       PUBLIC_BODY_STATISTICS_PAGE: false,
       RAW_EMAILS_LOCATION: 'files/raw_emails',
       READ_ONLY: '',
+      READ_ONLY_FEATURES: [],
       RECAPTCHA_SECRET_KEY: 'x',
       RECAPTCHA_SITE_KEY: 'x',
       REPLY_LATE_AFTER_DAYS: 20,

@@ -456,15 +456,36 @@ SECRET_KEY_BASE: 'your secret key here, make it long and random'
 # checks in a few obvious places. Typically, you do not want to run your site
 # in read-only mode.
 #
-# READ_ONLY - String (default: nil)
+# READ_ONLY - String (default: '')
 #
-# Examples:
-#
+# Simple read-only mode that blocks all write operations:
 #   READ_ONLY: 'The site is not currently accepting requests while we move the
 #   server.'
 #
 # ---
 READ_ONLY: ''
+
+# READ_ONLY_FEATURES - Array of strings (default: [])
+#
+# Granular read-only control for specific features. This allows you to disable
+# specific functionality without putting the entire site in read-only mode.
+#
+# Available features:
+#   'annotations'     - Blocks annotations on requests
+#   'classifications' - Blocks request status classifications
+#   'followups'       - Blocks followup messages on requests
+#   'requests'        - Blocks new FOI requests
+#
+# Examples:
+#
+# Block only new requests:
+#   READ_ONLY_FEATURES: ['requests']
+#
+# Block new requests and annotations:
+#   READ_ONLY_FEATURES: ['requests', 'annotations']
+#
+# ---
+READ_ONLY_FEATURES: []
 
 # Is this a staging or development site? If not, it's a live production site.
 # This setting controls whether or not the rails-post-deploy script will create
