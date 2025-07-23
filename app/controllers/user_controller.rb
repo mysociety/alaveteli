@@ -157,7 +157,7 @@ class UserController < ApplicationController
       # Block signups from suspicious countries
       # TODO: Add specs (see RequestController#create)
       # TODO: Extract to UserSpamScorer?
-      if blocked_ip?(country_from_ip, @user_signup)
+      if blocked_ip?
         handle_blocked_ip(@user_signup) && return
       end
 
@@ -414,11 +414,6 @@ class UserController < ApplicationController
   def block_restricted_country_ips?
     AlaveteliConfiguration.block_restricted_country_ips ||
       AlaveteliConfiguration.enable_anti_spam
-  end
-
-  def blocked_ip?(country, _user)
-    AlaveteliConfiguration.restricted_countries.include?(country) &&
-      country != AlaveteliConfiguration.iso_country_code
   end
 
   def handle_blocked_ip(user)
