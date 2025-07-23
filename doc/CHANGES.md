@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* Update `RESTRICTED_COUNTRIES` configuration option to allow countries to be
+  marked as permitted countries. With `BLOCK_RESTRICTED_COUNTRY_IPS` this will
+  restrict sign ups and new requests to IP addresses from permitted countries
+  (Graeme Porteous)
 * Add tracking of user profile email address changes (Graeme Porteous)
 * Update outgoing mail failure handling (Graeme Porteous)
 * Track user agents strings associated with User sign ins if configured (Graeme
