@@ -582,6 +582,68 @@ RSpec.describe UserController do
       allow(controller).to receive(:country_from_ip).and_return('gb')
     end
 
+    context 'when signups are in read-only mode' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:read_only_features).
+          and_return(['signups'])
+      end
+
+      it 'redirects to the frontpage' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(response).to redirect_to frontpage_url
+      end
+
+      it 'shows a default read only flash message' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(flash[:notice]).to match(/Alaveteli is currently in maintenance/)
+      end
+    end
+
+    context 'when site is in general read-only mode' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:read_only).
+          and_return('Database upgrade')
+      end
+
+      it 'redirects to the frontpage' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(response).to redirect_to frontpage_url
+      end
+
+      it 'shows a flash message' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(flash[:notice]).to match(/Database upgrade/)
+      end
+    end
+
     it "should be an error if you type the password differently each time" do
       post :signup, params: {
                       user_signup: {

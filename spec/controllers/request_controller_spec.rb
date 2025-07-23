@@ -1998,22 +1998,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
 
   it "shows a flash message to alert the user" do
     get :new
-    expect(flash[:notice][:partial]).
-      to eq "general/read_only_annotations"
-  end
-
-  context "when annotations are disabled" do
-    before do
-      allow(controller).
-        to receive(:feature_enabled?).
-        with(:annotations).
-        and_return(false)
-    end
-
-    it "doesn't mention annotations in the flash message" do
-      get :new
-      expect(flash[:notice][:partial]).to eq "general/read_only"
-    end
+    expect(flash[:notice]).to match(/Down for maintenance/)
   end
 end
 

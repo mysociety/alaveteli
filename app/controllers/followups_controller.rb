@@ -1,6 +1,7 @@
 class FollowupsController < ApplicationController
-  before_action :check_read_only,
-                :set_incoming_message,
+  read_only :followups
+
+  before_action :set_incoming_message,
                 :set_info_request,
                 :set_last_request_data,
                 :check_can_followup,

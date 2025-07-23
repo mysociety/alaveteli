@@ -7,9 +7,11 @@
 require 'zip'
 
 class RequestController < ApplicationController
+  read_only :requests, only: [:new]
+  read_only only: [:upload_response]
+
   skip_before_action :html_response, only: [:show, :select_authorities]
 
-  before_action :check_read_only, only: [:new, :upload_response]
   before_action :set_render_recaptcha, only: [ :new ]
   before_action :set_info_request, only: [:show]
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]

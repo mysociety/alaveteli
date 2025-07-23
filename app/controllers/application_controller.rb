@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
 
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
+  include ReadOnly
 
   # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response
@@ -353,30 +354,6 @@ class ApplicationController < ActionController::Base
   # Default layout shows user in corner, so needs access to it
   def authentication_check
     @user ||= authenticated_user
-  end
-
-  #
-  def check_read_only
-    unless AlaveteliConfiguration.read_only.empty?
-      if feature_enabled?(:annotations)
-        flash[:notice] = {
-          partial: "general/read_only_annotations",
-          locals: {
-            site_name: site_name,
-            read_only: AlaveteliConfiguration.read_only
-          }
-        }
-      else
-        flash[:notice] = {
-          partial: "general/read_only",
-          locals: {
-            site_name: site_name,
-            read_only: AlaveteliConfiguration.read_only
-          }
-        }
-      end
-      redirect_to frontpage_url
-    end
   end
 
   # Convert URL name for sort by order, to Xapian query
