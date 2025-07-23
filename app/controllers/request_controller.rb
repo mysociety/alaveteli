@@ -269,7 +269,7 @@ class RequestController < ApplicationController
       handle_spam_subject(@info_request.user) && return
     end
 
-    if blocked_ip?(country_from_ip, @user)
+    if !@user.confirmed_not_spam? && blocked_ip?
       handle_blocked_ip(@info_request) && return
     end
 
@@ -766,12 +766,6 @@ class RequestController < ApplicationController
       render action: 'new'
       true
     end
-  end
-
-  def blocked_ip?(ip, user)
-    !user.confirmed_not_spam? &&
-      AlaveteliConfiguration.restricted_countries.include?(ip) &&
-      country_from_ip != AlaveteliConfiguration.iso_country_code
   end
 
   def block_restricted_country_ips?

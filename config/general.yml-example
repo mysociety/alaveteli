@@ -1008,12 +1008,16 @@ BLOCK_SPAM_REQUESTS: false
 # If set, requests from IP addresses in the countries specified will be
 # prevented from making new requests on the site.
 #
+# Country codes can be prefixed with ! to invert the list from restricted
+# to permitted (i.e., only allow requests from the specified countries).
+#
 # RESTRICTED_COUNTRIES – String of space-separated uppercase ISO Alpha-2 codes
 # (default '')
 #
 # Examples:
 #
-#    RESTRICTED_COUNTRIES: 'GB ES'
+#    RESTRICTED_COUNTRIES: 'GB ES'     # Block GB and ES
+#    RESTRICTED_COUNTRIES: '!GB !ES'   # Only allow GB and ES
 #
 # ---
 RESTRICTED_COUNTRIES: ''

@@ -1532,6 +1532,38 @@ RSpec.describe RequestController, "when creating a new request" do
     end
   end
 
+  describe 'when the request is from an IP address in a permitted country' do
+    let(:user) { FactoryBot.create(:user, confirmed_not_spam: false) }
+    let(:body) { FactoryBot.create(:public_body) }
+
+    before do
+      allow(@controller).
+        to receive(:block_restricted_country_ips?).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:restricted_countries).
+        and_return('!EN !ES')
+      allow(controller).to receive(:country_from_ip).and_return('EN')
+    end
+
+    it 'allows the request' do
+      sign_in user
+      post :new, params: {
+        info_request: {
+          public_body_id: body.id,
+          title: "Some request content",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please supply the answer from your files."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_path('some_request_content')
+      )
+    end
+  end
+
   describe 'when the request is from an IP address in a blocked country' do
     let(:user) { FactoryBot.create(:user,
                                    confirmed_not_spam: false) }

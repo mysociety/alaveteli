@@ -431,6 +431,19 @@ class ApplicationController < ActionController::Base
     AlaveteliConfiguration.iso_country_code
   end
 
+  def blocked_ip?
+    return false if country_from_ip == AlaveteliConfiguration.iso_country_code
+
+    restricted = Array(AlaveteliConfiguration.restricted_countries.split(' '))
+    permitted = restricted.map { |c| c.delete_prefix!('!') }.compact
+
+    if permitted.any?
+      !permitted.include?(country_from_ip)
+    else
+      restricted.include?(country_from_ip)
+    end
+  end
+
   def user_ip
     request.remote_ip
   rescue ActionDispatch::RemoteIp::IpSpoofAttackError
