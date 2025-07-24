@@ -55,7 +55,11 @@
               password = "changeme";
             };
           });
-          # alaveteli_config = nixpkgs.writeText
+          # ideally, this would load general.yml-example and override its contents
+          # with whatever is passed below
+          alaveteli_config_general = pkgs.writeText "general.yml" (toYAML {
+            OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS = "publicbody@localhost";
+          });
         in {
           default = devenv.lib.mkShell {
             inherit inputs pkgs;
@@ -95,28 +99,45 @@
               ];
 
               enterShell = ''
-                # FIXME: where should we run `git submodule update`?
+                git submodule update --init
                 # TODO: move init scripts to a custom command to speed up shell start?
                 # why does it install in the current source tree? can it all be moved in the nix store?
+                bundle config build.statistics2 --with-cflags=-Wno-error=implicit-int
                 bundle
+                # TODO: make sure we use local file storage by default in dev env
                 cp config/storage.yml-example config/storage.yml
-                cp config/general.yml-example config/general.yml
+                rm -f config/general.yml
+                ln -s "${alaveteli_config_general}" config/general.yml
                 rm -f config/database.yml
                 ln -s "${rails_db_conf_file}" config/database.yml
                 echo "Alaveteli core dev env ready"
-                echo "The services you need are all running (postgres, redis...)"
+                echo "The services you need (postgres, redis, rails server...) can be started with 'devenv up' "
                 echo "useful commands:"
                 echo "rails c (no path, just this!)"
-                echo "rails dev (same here)"
+                echo "Outgoing emails are here: http://localhost:8025"
               '';
 
-              # this is required by the pg gem on linux
+              # this is required to build the pg gem on linux
               env = {
                 LD_LIBRARY_PATH =
                   nixpkgs.lib.makeLibraryPath [ pkgs.krb5 pkgs.openldap ];
               };
 
-              # FIXME: change db port to avoid conflict with pre-existing postgres instance
+              processes = {
+                # run migrations once postgres is started
+                migrate = {
+                  exec = "rails db:migrate";
+                  process-compose.depends_on.postgres.condition =
+                    "process_healthy";
+                };
+                # start the dev web server after migrations
+                web = {
+                  exec = "rails server";
+                  process-compose.depends_on.migrate.condition =
+                    "process_completed_successfully";
+                };
+              };
+
               services.postgres = {
                 enable = true;
                 package = pkgs.postgresql_13;
@@ -140,6 +161,8 @@
                 port = dbPort;
                 extensions = extensions: [ ];
               };
+              # alaveteli knows to send email to port 1025 in dev
+              # which is the default for mailpit
               services.mailpit = { enable = true; };
               services.redis = { enable = true; };
               languages.ruby = {
