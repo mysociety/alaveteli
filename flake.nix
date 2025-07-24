@@ -98,7 +98,6 @@
                 # FIXME: where should we run `git submodule update`?
                 # TODO: move init scripts to a custom command to speed up shell start?
                 # why does it install in the current source tree? can it all be moved in the nix store?
-                bundle config build.syck --with-cflags=-Wno-incompatible-function-pointer-types
                 bundle
                 cp config/storage.yml-example config/storage.yml
                 cp config/general.yml-example config/general.yml
