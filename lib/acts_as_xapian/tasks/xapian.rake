@@ -4,6 +4,12 @@ require 'rake/testtask'
 require 'active_record'
 
 namespace :xapian do
+  desc 'initialize xapian db'
+  task create_index: :environment do
+    ActsAsXapian.prepare_environment
+    ActsAsXapian.writable_init
+  end
+
   # Parameters - specify "flush=true" to save changes to the Xapian database
   # after each model that is updated. This is safer, but slower. Specify
   # "verbose=true" to print model name as it is run.
