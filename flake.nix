@@ -41,6 +41,7 @@
           dbUser = "postgres";
           dbHost = "localhost";
           dbPort = 54321;
+          railsPort = "3030"; # to avoid conflict with commonly used 3000
           pkgs = nixpkgs.legacyPackages.${system};
           toYAML = nixpkgs.lib.generators.toYAML { };
           rails_db_conf_file = pkgs.writeText "database.yml" (toYAML {
@@ -126,14 +127,14 @@
               processes = {
                 # run migrations once postgres is started
                 migrate = {
-                  exec = "rails db:migrate";
+                  exec = "rails db:migrate && rails db:seed";
                   process-compose.depends_on.postgres.condition =
                     "process_healthy";
                 };
                 # start the dev web server after migrations
                 web = {
-                  exec = "rails server";
                   process-compose.depends_on.migrate.condition =
+                  exec = "rails server -p ${railsPort}";
                     "process_completed_successfully";
                 };
               };
