@@ -74,6 +74,7 @@
                 libsass
                 catdoc
                 elinks
+                figlet # for the text banner in the dev shell
                 file # libmagic
                 ghostscript
                 gnuplot
@@ -111,6 +112,10 @@
                 ln -s "${alaveteli_config_general}" config/general.yml
                 rm -f config/database.yml
                 ln -s "${rails_db_conf_file}" config/database.yml
+                #
+                # The env is now ready
+                #
+                figlet -f roman -w 90 Alaveteli
                 echo "Alaveteli core dev env ready"
                 echo "The services you need (postgres, redis, rails server...) can be started with 'devenv up' "
                 echo "useful commands:"
