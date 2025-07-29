@@ -3,9 +3,7 @@
   # to start the shell:
   # nix develop --no-pure-eval (to setup the dev shell)
   # devenv up (to start pg, redis... services)
-  # bundle exec rails db:migrate
-  # bundle exec rails db:seed
-  # bundle exec rails s
+  # you're ready to code!
 
   # QUESTIONS
   # - where to run migrations?
@@ -117,7 +115,9 @@
                 #
                 figlet -f roman -w 90 Alaveteli
                 echo "Alaveteli core dev env ready"
-                echo "The services you need (postgres, redis, rails server...) can be started with 'devenv up' "
+                echo "The services you need (postgres, redis, rails server...) can be started with 'devenv up'"
+                echo "(keep them running in a separate terminal)"
+                echo "once devenv up is ready, alaveteli will be running at http://localhost:${railsPort}/"
                 echo "useful commands:"
                 echo "rails c (no path, just this!)"
                 echo "Outgoing emails are here: http://localhost:8025"
