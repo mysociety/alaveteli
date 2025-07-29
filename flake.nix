@@ -136,10 +136,20 @@
                   process-compose.depends_on.postgres.condition =
                     "process_healthy";
                 };
+                init_xapian = {
+                  exec = ''
+                    cd $DEVENV_ROOT
+                    trap 'kill -KILL $(jobs -p); wait; exit 0;' SIGTERM
+                    RAILS_ENV=development rake xapian:create_index
+                    wait
+                  '';
+                  process-compose.depends_on.migrate.condition =
+                    "process_completed_successfully";
+                };
                 # start the dev web server after migrations
                 web = {
-                  process-compose.depends_on.migrate.condition =
                   exec = "rails server -p ${railsPort}";
+                  process-compose.depends_on.init_xapian.condition =
                     "process_completed_successfully";
                 };
               };
