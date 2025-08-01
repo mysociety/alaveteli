@@ -12,8 +12,9 @@ module Admin::LinkHelper
     icon = prominence_icon(info_request)
 
     link_to(icon, request_path(info_request), title: title) + ' ' +
-      link_to(info_request.title, admin_request_path(info_request),
-              title: admin_title)
+      classification_icon(info_request) + ' ' +
+        link_to(info_request.title, admin_request_path(info_request),
+                title: admin_title)
   end
 
   def outgoing_message_both_links(outgoing_message)

@@ -352,3 +352,74 @@ pre.error {
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+/* Classification Icons */
+.classification_icon {
+  background-image: image-url('status/status-sprite.png');
+  background-size: auto 14px;
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('status/status-sprite@2.png');
+  }
+}
+
+.classification_icon--waiting_classification {
+  background-position: 0 0;
+}
+
+.classification_icon--waiting_response,
+.classification_icon--waiting_clarification {
+  background-position: -182px 0;
+}
+
+.classification_icon--attention_requested {
+  background-position: -126px 0;
+}
+
+.classification_icon--not_held {
+  background-position: -56px 0;
+}
+
+.classification_icon--successful {
+  background-position: -154px 0;
+}
+
+.classification_icon--partially_successful {
+  background-position: -84px 0;
+}
+
+.classification_icon--requires_admin {
+  background-position: -182px 0;
+}
+
+.classification_icon--waiting_response_overdue {
+  background-position: -14px 0;
+}
+
+.classification_icon--waiting_response_very_overdue {
+  background-position: -70px 0;
+}
+
+.classification_icon--gone_postal {
+  background-position: -98px 0;
+}
+
+.classification_icon--error_message {
+  background-position: -28px 0;
+}
+
+.classification_icon--internal_review {
+  background-position: -140px 0;
+}
+
+.classification_icon--user_withdrawn {
+  background-position: -196px 0;
+}
+
+.classification_icon--failed,
+.classification_icon--rejected {
+  background-position: -112px 0;
+}
