@@ -5,9 +5,13 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRequestController < AdminController
+  include Admin::Sortable
+
   before_action :set_info_request, :check_info_request, only: %i[
     show edit update destroy move generate_upload_url hide
   ]
+
+  sortable default: :updated_at_desc, only: [:index]
 
   def index
     @query = params[:query]
@@ -21,9 +25,10 @@ class AdminRequestController < AdminController
       info_requests = info_requests.not_embargoed
     end
 
-    @info_requests = info_requests.order(created_at: :desc).paginate(
-      page: params[:page],
-      per_page: 100)
+    @info_requests =
+      info_requests.
+      order(sort_query).
+      paginate(page: params[:page], per_page: 100)
   end
 
   def show
