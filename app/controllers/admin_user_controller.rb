@@ -5,6 +5,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminUserController < AdminController
+  include Admin::Sortable
+
   layout 'admin/users'
 
   before_action :set_admin_user, only: %i[show
@@ -18,16 +20,14 @@ class AdminUserController < AdminController
                 :check_role_authorisation,
                 :check_role_requirements, only: %i[update]
 
+  sortable :name, :created_at, :updated_at, only: [:index]
+
   def index
     @title ||= 'Listing users'
 
     @query = params[:query].try(:strip)
 
     @roles = params[:roles] || []
-    @sort_options = index_sort_options
-
-    @sort_order =
-      @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
     users = @base_scope || User
     users = users.search(@query) if @query.present?
@@ -40,7 +40,7 @@ class AdminUserController < AdminController
     end
 
     @admin_users =
-      users.order(@sort_options[@sort_order]).
+      users.order(sort_query).
         paginate(page: params[:page], per_page: 100)
 
     render action: :index
@@ -203,14 +203,5 @@ class AdminUserController < AdminController
   def set_admin_user
     # Don't use @user as that is any logged in user
     @admin_user = User.find(params[:id])
-  end
-
-  def index_sort_options
-    { 'name_asc' => 'name ASC',
-      'name_desc' => 'name DESC',
-      'created_at_desc' => 'created_at DESC',
-      'created_at_asc' => 'created_at ASC',
-      'updated_at_desc' => 'updated_at DESC',
-      'updated_at_asc' => 'updated_at ASC' }
   end
 end
