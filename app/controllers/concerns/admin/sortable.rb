@@ -20,12 +20,12 @@ module Admin::Sortable
   class_methods do
     DEFAULT_SORTABLE_ATTRS = [:created_at, :updated_at]
 
-    def sortable(*attrs, only: nil, except: nil)
+    def sortable(*attrs, default: nil, only: nil, except: nil)
       attrs = attrs.any? ? attrs : DEFAULT_SORTABLE_ATTRS
 
       before_action only: only, except: except do
         configure_sort_options(attrs)
-        configure_sort_order
+        configure_sort_order(default: default.to_s)
       end
     end
   end
@@ -51,10 +51,11 @@ module Admin::Sortable
     end.with_indifferent_access
   end
 
-  def configure_sort_order
+  def configure_sort_order(default: nil)
+    sort_order = params[:sort_order] || default
     @sort_order =
-      if params[:sort_order].in?(@sort_options.keys)
-        params[:sort_order]
+      if sort_order.in?(@sort_options.keys)
+        sort_order
       else
         @sort_options.keys.first
       end
