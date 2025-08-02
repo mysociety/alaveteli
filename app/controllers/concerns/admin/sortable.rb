@@ -18,7 +18,11 @@ module Admin::Sortable
   end
 
   class_methods do
+    DEFAULT_SORTABLE_ATTRS = [:created_at, :updated_at]
+
     def sortable(*attrs, only: nil, except: nil)
+      attrs = attrs.any? ? attrs : DEFAULT_SORTABLE_ATTRS
+
       before_action only: only, except: except do
         configure_sort_options(attrs)
         configure_sort_order
