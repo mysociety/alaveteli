@@ -22,6 +22,8 @@ class AdminUserController < AdminController
 
   sortable :name, :created_at, :updated_at, only: [:index]
 
+  sortable default: :updated_at_desc, only: [:show]
+
   def index
     @title ||= 'Listing users'
 
@@ -57,7 +59,10 @@ class AdminUserController < AdminController
       @comments = @admin_user.comments.not_embargoed
     end
 
-    @info_requests = @info_requests.paginate(page: params[:page], per_page: 100)
+    @info_requests =
+      @info_requests.
+      reorder(sort_query).
+      paginate(page: params[:page], per_page: 100)
   end
 
   def edit

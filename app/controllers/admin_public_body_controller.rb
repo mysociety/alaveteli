@@ -5,9 +5,12 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminPublicBodyController < AdminController
+  include Admin::Sortable
   include TranslatableParams
 
   before_action :set_public_body, only: [:edit, :update, :destroy]
+
+  sortable default: :updated_at_desc, only: [:show]
 
   def index
     lookup_query
@@ -21,8 +24,12 @@ class AdminPublicBodyController < AdminController
       if cannot? :admin, AlaveteliPro::Embargo
         info_requests = info_requests.not_embargoed
       end
-      @info_requests = info_requests.paginate(page: params[:page],
-                                              per_page: 100)
+
+      @info_requests =
+        info_requests.
+        reorder(sort_query).
+        paginate(page: params[:page], per_page: 100)
+
       @versions = @public_body.versions.order(version: :desc)
       render
     end
