@@ -1,5 +1,5 @@
 <% if defined?(sort_options) && sort_options %>
-  <div class="btn-group sort-order">
+  <div class="btn-group sort-options">
     <% sort_options.keys.each do |sort_option| %>
       <%=
         link_to_unless(sort_order == sort_option, sort_order_humanized(sort_option), url_for(sort_order: sort_option, query: @query), class: 'btn') do
