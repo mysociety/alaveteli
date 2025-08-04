@@ -21,8 +21,14 @@
         <%= render_tags user.tags %>
       </span>
     </span>
+
     <span class="item-metadata">
-      updated <%= admin_date(user.updated_at, ago: false) %>
+      <% if defined?(sort_order) && sort_order =~ /created_at/ %>
+        created <%= admin_date(user.created_at, ago: false) %>
+      <% else %>
+        updated <%= admin_date(user.updated_at, ago: false) %>
+      <% end %>
+      </span>
     </span>
   </div>
   <div id="user_<%= user.id %>" class="accordion-body collapse">
