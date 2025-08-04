@@ -405,7 +405,7 @@ GEM
     os (1.1.4)
     ostruct (0.6.2)
     parallel (1.27.0)
-    parser (3.3.8.0)
+    parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
@@ -485,7 +485,7 @@ GEM
       connection_pool
     redlock (2.0.6)
       redis-client (>= 0.14.1, < 1.0.0)
-    regexp_parser (2.10.0)
+    regexp_parser (2.11.0)
     reline (0.6.1)
       io-console (~> 0.5)
     representable (3.2.0)
@@ -519,7 +519,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.4)
-    rubocop (1.78.0)
+    rubocop (1.79.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -527,10 +527,10 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.45.1, < 2.0)
+      rubocop-ast (>= 1.46.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.45.1)
+    rubocop-ast (1.46.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     rubocop-performance (1.25.0)
@@ -729,7 +729,7 @@ DEPENDENCIES
   rolify (~> 6.0.1)
   rspec-activemodel-mocks (~> 1.2.1)
   rspec-rails (~> 8.0.1)
-  rubocop (~> 1.78.0)
+  rubocop (~> 1.79.1)
   rubocop-performance
   rubocop-rails
   ruby-msg (~> 1.5.0)!
