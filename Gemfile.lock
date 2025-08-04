@@ -408,7 +408,11 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
-    pg (1.5.9)
+    pg (1.6.1)
+    pg (1.6.1-aarch64-linux)
+    pg (1.6.1-arm64-darwin)
+    pg (1.6.1-x86_64-darwin)
+    pg (1.6.1-x86_64-linux)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -713,7 +717,7 @@ DEPENDENCIES
   nokogiri (~> 1.18.9)
   ollama-ai (~> 1.3.0)
   open4 (~> 1.3.0)
-  pg (~> 1.5.9)
+  pg (~> 1.6.1)
   pry (~> 0.15.2)
   pstore (~> 0.2.0)
   puma (~> 6.6.0)
