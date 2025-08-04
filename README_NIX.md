@@ -8,12 +8,16 @@ Use `nix` to get a working dev environment for alaveteli with:
 
 To start:
 
-- install nix
-- make sure you have enough free space on your disk (10+GB)
+- install nix:
+
+  - https://nix.dev/install-nix
+  - or https://lix.systems/install if you like pink and icecream :)
+
+- make sure you have enough free space on your disk (10+GB) as nix will download everything that is needed to run
+  alaveteli (even if you "already have it")
 - run `nix develop --no-pure-eval` in this folder.
 - go grab a cup of coffee or something :D
-  After a few moments, you should see your prompt changing to say "devenv-shell-env". Now you have access to all the tools
-  you need
+  After a few moments, you should see your prompt change with a clear message that you are in the dev env.
 - run `devenv up` to start the services you need, and alaveteli itself. Keep that running while you're developing
 - open a second term, and run `nix develop --no-pure-eval` again if you need a term in the dev env for various commands,
   like `rails c` and so on...
@@ -26,7 +30,7 @@ deployments properly, so that the "it works on my machine" finally disappears fr
 It does a lot of this by putting everything it needs (programs, libraries, config files...) under `/nix/store/` which it
 manages by itself (do not go and mess with the contents of that folder! let `nix` take care of it).
 
-When using it for development environments, it put everything you need in there (ruby, postgresql, gems, etc...) so that
+When using it for development environments, it puts everything you need in there (ruby, postgresql, gems, etc...) so that
 these don't conflict with whatever is already on your machine. And conversely, the alaveteli devenv won't mess up other
 projects you have setup on your machine.
 
