@@ -126,7 +126,8 @@ gem 'secure_headers', '~> 7.0.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'statistics2', '~> 0.54'
-gem 'strip_attributes', mysociety: 'strip_attributes', branch: 'globalize3-rails8'
+gem 'strip_attributes', mysociety: 'strip_attributes',
+                        branch: 'globalize3-rails8'
 gem 'stripe', '~> 11.7.0'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'vpim', '~> 24.2.20'
@@ -164,7 +165,7 @@ gem 'mime-types', '< 4.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
-gem 'mini_racer', '~> 0.16.0'
+gem 'mini_racer', '~> 0.19.0'
 gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', '~> 3.7.5'
 gem 'uglifier', '~> 4.2.1'
