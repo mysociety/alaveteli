@@ -5,10 +5,6 @@
   # devenv up (to start pg, redis... services)
   # you're ready to code!
 
-  # QUESTIONS
-  # - where to run migrations?
-  # - how to best build dev env conf files for rails (which have
-  #   hardcoded paths in ./config/*?
 
   inputs = {
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
@@ -42,6 +38,53 @@
           railsPort = "3030"; # to avoid conflict with commonly used 3000
           pkgs = nixpkgs.legacyPackages.${system};
           toYAML = nixpkgs.lib.generators.toYAML { };
+          alaveteliGems = pkgs.bundlerEnv {
+            name = "gems-for-alaveteli";
+            gemdir = ./.;
+            ruby = pkgs.ruby_3_4;
+            extraConfigPaths = [ "${./.}/gems" ];
+            gemset = let gems = import ./gemset.nix;
+            in gems // {
+              mini_racer = gems.mini_racer // {
+                buildInputs = [ pkgs.icu ];
+                dontBuild = false;
+                NIX_LDFLAGS = "-licui18n";
+              };
+              libv8-node = let
+                noopScript = pkgs.writeShellScript "noop" "exit 0";
+                linkFiles = pkgs.writeShellScript "link-files" ''
+                  cd ../..
+
+                  mkdir -p vendor/v8/${pkgs.stdenv.hostPlatform.system}/libv8/obj/
+                  ln -s "${pkgs.nodejs.libv8}/lib/libv8.a" vendor/v8/${pkgs.stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
+
+                  ln -s ${pkgs.nodejs.libv8}/include vendor/v8/include
+
+                  mkdir -p ext/libv8-node
+                  echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
+                '';
+              in gems.libv8-node // {
+                dontBuild = false;
+                postPatch = ''
+                  cp ${noopScript} libexec/build-libv8
+                  cp ${noopScript} libexec/build-monolith
+                  cp ${noopScript} libexec/download-node
+                  cp ${noopScript} libexec/extract-node
+                  cp ${linkFiles} libexec/inject-libv8
+                '';
+              };
+            };
+            gemConfig = pkgs.defaultGemConfig // {
+              mahoro = attrs: { nativeBuildInputs = [ pkgs.file ]; };
+              xapian-full-alaveteli = attrs: {
+                nativeBuildInputs = [ pkgs.zlib ];
+              };
+              statistics2 = attrs: {
+                buildFlags = [ "--with-cflags=-Wno-error=implicit-int" ];
+              };
+            };
+          };
+
           rails_db_conf_file = pkgs.writeText "database.yml" (toYAML {
             # this config must be overridden in the theme
             development = {
@@ -64,8 +107,10 @@
             inherit inputs pkgs;
 
             modules = [{
-              # https://devenv.sh/reference/options/
               packages = with pkgs; [
+                alaveteliGems
+                alaveteliGems.wrappedRuby
+                bundix
                 libpqxx
                 # node
                 nodePackages.yarn
@@ -73,7 +118,7 @@
                 catdoc
                 elinks
                 figlet # for the text banner in the dev shell
-                file # libmagic
+                # file # libmagic
                 ghostscript
                 gnuplot
                 icu
@@ -87,23 +132,22 @@
                 tnef
                 unrtf
                 xapian
+                wget
                 wv
                 # For gem: Nokogiri
                 libiconv
                 libxml2
                 libxslt
                 transifex-cli
-                zlib
+                # zlib
                 # For gem: psych
                 libyaml
               ];
 
               enterShell = ''
+                export GIT_DIR=$DEVENV_ROOT/.git
+                export GIT_WORK_TREE=$DEVENV_ROOT
                 git submodule update --init
-                # TODO: move init scripts to a custom command to speed up shell start?
-                # why does it install in the current source tree? can it all be moved in the nix store?
-                bundle config build.statistics2 --with-cflags=-Wno-error=implicit-int
-                bundle
                 # TODO: make sure we use local file storage by default in dev env
                 cp config/storage.yml-example config/storage.yml
                 rm -f config/general.yml
@@ -181,11 +225,6 @@
               # which is the default for mailpit
               services.mailpit = { enable = true; };
               services.redis = { enable = true; };
-              languages.ruby = {
-                enable = true;
-                version = "3.4";
-                bundler.enable = true;
-              };
             }];
           };
         });
