@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make requests sortable in the admin interface (Gareth Rees)
 * Switch to sending user email change confirmation emails to the old email
   address for increased security verification (Graeme Porteous)
 * Allow users to be tagged (Graeme Porteous)
