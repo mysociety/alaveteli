@@ -6,14 +6,14 @@
 #  id                           :integer          not null, primary key
 #  info_request_id              :integer          not null
 #  body                         :text             not null
-#  status                       :string(255)      not null
-#  message_type                 :string(255)      not null
+#  status                       :string           not null
+#  message_type                 :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  last_sent_at                 :datetime
 #  incoming_message_followup_id :integer
-#  what_doing                   :string(255)      not null
-#  prominence                   :string(255)      default("normal"), not null
+#  what_doing                   :string           not null
+#  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
 #
 
@@ -25,9 +25,62 @@ describe OutgoingMessage do
 
     it 'replaces the batch request salutation with the body name' do
       text = 'Dear [Authority name],'
-      public_body = mock_model(PublicBody, :name => 'A Body')
+      public_body = FactoryBot.build(:public_body, name: 'A Body')
       expect(described_class.fill_in_salutation(text, public_body)).
         to eq('Dear A Body,')
+    end
+
+  end
+
+  describe '.with_body' do
+
+    let(:message) { FactoryBot.create(:initial_request, body: "foo\r\nbar") }
+
+    it 'should return message if body matches exactly' do
+      expect(OutgoingMessage.with_body("foo\r\nbar")).to include(message)
+    end
+
+    context 'when using PostgreSQL database' do
+
+      before do
+        if ActiveRecord::Base.connection.adapter_name != 'PostgreSQL'
+          skip 'These tests only work for PostgreSQL'
+        end
+      end
+
+      it 'should match message body when whitespace is ignored' do
+        expect(OutgoingMessage.with_body('foobar')).to include(message)
+        expect(OutgoingMessage.with_body('foo bar')).to include(message)
+        expect(OutgoingMessage.with_body("foo\nbar")).to include(message)
+      end
+
+      it 'should match whole message body' do
+        expect(OutgoingMessage.with_body('foo')).to_not include(message)
+        expect(OutgoingMessage.with_body('foobarbaz')).to_not include(message)
+        expect(OutgoingMessage.with_body('foo bar baz')).to_not include(message)
+        expect(OutgoingMessage.with_body("foo\nbar\nbaz")).to_not include(message)
+        expect(OutgoingMessage.with_body("foo\r\nbar\r\nbaz")).to_not include(message)
+      end
+
+    end
+
+  end
+
+  describe '.expected_send_errors' do
+    subject { described_class.expected_send_errors }
+    class TestError < StandardError; end
+
+    it { is_expected.to be_an(Array) }
+    it { is_expected.to include(IOError) }
+    it { is_expected.to_not include(TestError) }
+
+    context '.additional_send_errors has been overriden to include a custom error' do
+      before do
+        allow(described_class).to receive(:additional_send_errors).
+          and_return([ TestError ])
+      end
+
+      it { is_expected.to include(TestError) }
     end
 
   end
@@ -40,10 +93,29 @@ describe OutgoingMessage do
                 :body => 'abc',
                 :what_doing => 'normal_sort' }
 
-      message = FactoryGirl.create(:outgoing_message, attrs)
+      message = FactoryBot.create(:outgoing_message, attrs)
 
       expect_any_instance_of(OutgoingMessage).not_to receive(:body).and_call_original
       OutgoingMessage.find(message.id)
+    end
+
+  end
+
+  describe '#default_letter' do
+
+    it 'reloads the default body when set after initialization' do
+      req = FactoryBot.build(:info_request)
+      message = described_class.new(:info_request => req)
+      message.default_letter = 'test'
+      expect(message.body).to include('test')
+    end
+
+    it 'does not replace the body if it has already been changed' do
+      req = FactoryBot.build(:info_request)
+      message = described_class.new(:info_request => req)
+      message.body = 'toast'
+      message.default_letter = 'test'
+      expect(message.body).not_to include('test')
     end
 
   end
@@ -52,30 +124,30 @@ describe OutgoingMessage do
 
     it 'allows a value of normal_sort' do
       message =
-        FactoryGirl.build(:initial_request, :what_doing => 'normal_sort')
+        FactoryBot.build(:initial_request, :what_doing => 'normal_sort')
       expect(message).to be_valid
     end
 
     it 'allows a value of internal_review' do
       message =
-        FactoryGirl.build(:initial_request, :what_doing => 'internal_review')
+        FactoryBot.build(:initial_request, :what_doing => 'internal_review')
       expect(message).to be_valid
     end
 
     it 'allows a value of external_review' do
       message =
-        FactoryGirl.build(:initial_request, :what_doing => 'external_review')
+        FactoryBot.build(:initial_request, :what_doing => 'external_review')
       expect(message).to be_valid
     end
 
     it 'allows a value of new_information' do
       message =
-        FactoryGirl.build(:initial_request, :what_doing => 'new_information')
+        FactoryBot.build(:initial_request, :what_doing => 'new_information')
       expect(message).to be_valid
     end
 
     it 'adds an error to :what_doing_dummy if an invalid value is provided' do
-      message = FactoryGirl.build(:initial_request, :what_doing => 'invalid')
+      message = FactoryBot.build(:initial_request, :what_doing => 'invalid')
       message.valid?
       expect(message.errors[:what_doing_dummy]).
         to eq(['Please choose what sort of reply you are making.'])
@@ -89,13 +161,13 @@ describe OutgoingMessage do
                 :message_type => 'initial_request',
                 :body => 'abc',
                 :what_doing => 'normal_sort' }
-      outgoing_message = FactoryGirl.create(:outgoing_message, attrs)
+      outgoing_message = FactoryBot.create(:outgoing_message, attrs)
       outgoing_message.destroy
       expect(OutgoingMessage.where(:id => outgoing_message.id)).to be_empty
     end
 
     it 'should destroy the associated info_request_events' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       outgoing_message = info_request.outgoing_messages.first
       outgoing_message.destroy
       expect(InfoRequestEvent.where(:outgoing_message_id => outgoing_message.id)).to be_empty
@@ -105,9 +177,9 @@ describe OutgoingMessage do
   describe '#from' do
 
     it 'uses the user name and request magic email' do
-      user = FactoryGirl.create(:user, :name => 'Spec User 862')
-      request = FactoryGirl.create(:info_request, :user => user)
-      message = FactoryGirl.build(:initial_request, :info_request => request)
+      user = FactoryBot.create(:user, :name => 'Spec User 862')
+      request = FactoryBot.create(:info_request, :user => user)
+      message = FactoryBot.build(:initial_request, :info_request => request)
       expected = "Spec User 862 <request-#{ request.id }-#{ request.idhash }@localhost>"
       expect(message.from).to eq(expected)
     end
@@ -119,10 +191,10 @@ describe OutgoingMessage do
     context 'when sending an initial request' do
 
       it 'uses the public body name and email' do
-        body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
-                                                :short_name => 'EPB')
-        request = FactoryGirl.create(:info_request, :public_body => body)
-        message = FactoryGirl.build(:initial_request, :info_request => request)
+        body = FactoryBot.create(:public_body, :name => 'Example Public Body',
+                                               :short_name => 'EPB')
+        request = FactoryBot.create(:info_request, :public_body => body)
+        message = FactoryBot.build(:initial_request, :info_request => request)
         expected = 'FOI requests at EPB <request@example.com>'
         expect(message.to).to eq(expected)
       end
@@ -132,7 +204,7 @@ describe OutgoingMessage do
     context 'when following up to an incoming message' do
 
       it 'uses the safe_mail_from if the incoming message has a valid address' do
-        message = FactoryGirl.build(:internal_review_request)
+        message = FactoryBot.build(:internal_review_request)
 
         followup =
           mock_model(IncomingMessage, :from_email => 'specific@example.com',
@@ -145,11 +217,11 @@ describe OutgoingMessage do
       end
 
       it 'uses the public body address if the incoming message has an invalid address' do
-        body = FactoryGirl.create(:public_body, :name => 'Example Public Body',
-                                                :short_name => 'EPB')
-        request = FactoryGirl.create(:info_request, :public_body => body)
-        message = FactoryGirl.build(:new_information_followup,
-                                    :info_request => request)
+        body = FactoryBot.create(:public_body, :name => 'Example Public Body',
+                                               :short_name => 'EPB')
+        request = FactoryBot.create(:info_request, :public_body => body)
+        message = FactoryBot.build(:new_information_followup,
+                                   :info_request => request)
 
         followup =
           mock_model(IncomingMessage, :from_email => 'invalid@example',
@@ -170,8 +242,8 @@ describe OutgoingMessage do
     context 'when sending an initial request' do
 
       it 'uses the request title with the law prefixed' do
-        request = FactoryGirl.create(:info_request, :title => 'Example Request')
-        message = FactoryGirl.build(:initial_request, :info_request => request)
+        request = FactoryBot.create(:info_request, :title => 'Example Request')
+        message = FactoryBot.build(:initial_request, :info_request => request)
         expected = 'Freedom of Information request - Example Request'
         expect(message.subject).to eq(expected)
       end
@@ -181,9 +253,9 @@ describe OutgoingMessage do
     context 'when sending a followup that is not a reply to an incoming message' do
 
       it 'prefixes the initial request subject with Re:' do
-        request = FactoryGirl.create(:info_request, :title => 'Example Request')
-        message = FactoryGirl.build(:new_information_followup,
-                                    :info_request => request)
+        request = FactoryBot.create(:info_request, :title => 'Example Request')
+        message = FactoryBot.build(:new_information_followup,
+                                   :info_request => request)
         allow(message).to receive(:incoming_message_followup).and_return(nil)
         expected = 'Re: Freedom of Information request - Example Request'
         expect(message.subject).to eq(expected)
@@ -194,9 +266,9 @@ describe OutgoingMessage do
     context 'when following up to an incoming message' do
 
       it 'uses the request title prefixed with Re: if the incoming message does not have a valid reply address' do
-        request = FactoryGirl.create(:info_request, :title => 'Example Request')
-        message = FactoryGirl.build(:new_information_followup,
-                                    :info_request => request)
+        request = FactoryBot.create(:info_request, :title => 'Example Request')
+        message = FactoryBot.build(:new_information_followup,
+                                   :info_request => request)
 
         followup =
           mock_model(IncomingMessage, :valid_to_reply_to? => false)
@@ -208,9 +280,9 @@ describe OutgoingMessage do
       end
 
       it 'uses the request title prefixed with Re: if the incoming message does not have a subject' do
-        request = FactoryGirl.create(:info_request, :title => 'Example Request')
-        message = FactoryGirl.build(:new_information_followup,
-                                    :info_request => request)
+        request = FactoryBot.create(:info_request, :title => 'Example Request')
+        message = FactoryBot.build(:new_information_followup,
+                                   :info_request => request)
 
         followup = mock_model(IncomingMessage, :subject => nil,
                                                :valid_to_reply_to? => true)
@@ -222,9 +294,9 @@ describe OutgoingMessage do
       end
 
       it 'uses the incoming message subject if it is already prefixed with Re:' do
-        request = FactoryGirl.create(:info_request, :title => 'Example Request')
-        message = FactoryGirl.build(:new_information_followup,
-                                    :info_request => request)
+        request = FactoryBot.create(:info_request, :title => 'Example Request')
+        message = FactoryBot.build(:new_information_followup,
+                                   :info_request => request)
 
         followup =
           mock_model(IncomingMessage, :valid_to_reply_to? => true,
@@ -236,9 +308,9 @@ describe OutgoingMessage do
       end
 
       it 'prefixes the incoming message subject if it is not prefixed with Re:' do
-        request = FactoryGirl.create(:info_request, :title => 'Example Request')
-        message = FactoryGirl.build(:new_information_followup,
-                                    :info_request => request)
+        request = FactoryBot.create(:info_request, :title => 'Example Request')
+        message = FactoryBot.build(:new_information_followup,
+                                   :info_request => request)
 
         followup =
           mock_model(IncomingMessage, :valid_to_reply_to? => true,
@@ -254,8 +326,8 @@ describe OutgoingMessage do
     context 'when requesting an internal review' do
 
       it 'prefixes the request title with the internal review message' do
-        request = FactoryGirl.create(:info_request, :title => 'Example Request')
-        message = FactoryGirl.build(:internal_review_request, :info_request => request)
+        request = FactoryBot.create(:info_request, :title => 'Example Request')
+        message = FactoryBot.build(:internal_review_request, :info_request => request)
         expected = 'Internal review of Freedom of Information request - Example Request'
         expect(message.subject).to eq(expected)
       end
@@ -272,7 +344,7 @@ describe OutgoingMessage do
                 :body => 'abc',
                 :what_doing => 'normal_sort' }
 
-      message = FactoryGirl.build(:outgoing_message, attrs)
+      message = FactoryBot.build(:outgoing_message, attrs)
       expect(message.body).to eq('abc')
     end
 
@@ -282,7 +354,7 @@ describe OutgoingMessage do
                 :body => ' abc ',
                 :what_doing => 'normal_sort' }
 
-      message = FactoryGirl.build(:outgoing_message, attrs)
+      message = FactoryBot.build(:outgoing_message, attrs)
       expect(message.body).to eq('abc')
     end
 
@@ -292,7 +364,7 @@ describe OutgoingMessage do
                 :body => "ab\n\nc\n\n",
                 :what_doing => 'normal_sort' }
 
-      message = FactoryGirl.build(:outgoing_message, attrs)
+      message = FactoryBot.build(:outgoing_message, attrs)
       expect(message.body).to eq("ab\n\nc")
     end
 
@@ -301,10 +373,10 @@ describe OutgoingMessage do
                 :message_type => 'initial_request',
                 :body => 'This sensitive text contains secret info!',
                 :what_doing => 'normal_sort' }
-      message = FactoryGirl.build(:outgoing_message, attrs)
+      message = FactoryBot.build(:outgoing_message, attrs)
 
-      rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
-               FactoryGirl.build(:censor_rule, :text => 'sensitive')]
+      rules = [FactoryBot.build(:censor_rule, :text => 'secret'),
+               FactoryBot.build(:censor_rule, :text => 'sensitive')]
       allow_any_instance_of(InfoRequest).to receive(:censor_rules).and_return(rules)
 
       expected = 'This [REDACTED] text contains [REDACTED] info!'
@@ -316,14 +388,14 @@ describe OutgoingMessage do
                 :message_type => 'initial_request',
                 :body => 'This sensitive text contains secret info!',
                 :what_doing => 'normal_sort' }
-      message = FactoryGirl.build(:outgoing_message, attrs)
+      message = FactoryBot.build(:outgoing_message, attrs)
 
-      request_rules = [FactoryGirl.build(:censor_rule, :text => 'secret'),
-                       FactoryGirl.build(:censor_rule, :text => 'sensitive')]
+      request_rules = [FactoryBot.build(:censor_rule, :text => 'secret'),
+                       FactoryBot.build(:censor_rule, :text => 'sensitive')]
       allow_any_instance_of(InfoRequest).to receive(:censor_rules).and_return(request_rules)
 
-      censor_rules = [FactoryGirl.build(:censor_rule, :text => 'text'),
-                      FactoryGirl.build(:censor_rule, :text => 'contains')]
+      censor_rules = [FactoryBot.build(:censor_rule, :text => 'text'),
+                      FactoryBot.build(:censor_rule, :text => 'contains')]
 
       expected = 'This sensitive [REDACTED] [REDACTED] secret info!'
       expect(message.body(:censor_rules => censor_rules)).to eq(expected)
@@ -331,14 +403,14 @@ describe OutgoingMessage do
 
     context "validation" do
       let(:public_body) do
-        FactoryGirl.create(:public_body, :name => 'a test public body')
+        FactoryBot.create(:public_body, :name => 'a test public body')
       end
 
       let(:info_request) do
-        FactoryGirl.create(:info_request,
-                           :public_body => public_body,
-                           :url_title => 'a_test_title',
-                           :title => 'A test title')
+        FactoryBot.create(:info_request,
+                          :public_body => public_body,
+                          :url_title => 'a_test_title',
+                          :title => 'A test title')
       end
 
       it "adds an error message if the text has not been changed" do
@@ -381,13 +453,13 @@ describe OutgoingMessage do
       end
 
       it "can cope with HTML entities in the message body" do
-        test_body = FactoryGirl.create(:public_body,
-                                       :name => "D's Test Authority")
+        test_body = FactoryBot.create(:public_body,
+                                      :name => "D's Test Authority")
 
-        info_request = FactoryGirl.create(:info_request,
-                                          :public_body => test_body,
-                                          :url_title => 'a_test_title',
-                                          :title => 'A test title')
+        info_request = FactoryBot.create(:info_request,
+                                         :public_body => test_body,
+                                         :url_title => 'a_test_title',
+                                         :title => 'A test title')
 
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
@@ -490,6 +562,34 @@ describe OutgoingMessage do
             to include("Please give details explaining why you want a review")
         end
 
+        it 'includes a all correspondence being available online' do
+          outgoing_message =
+            OutgoingMessage.new(:status => 'ready',
+                                :message_type => 'followup',
+                                :what_doing => 'internal_review',
+                                :info_request => info_request)
+
+          expect(outgoing_message.body).
+            to include("A full history of my FOI request and all " \
+                       "correspondence is available on the Internet at this " \
+                       "address")
+        end
+
+        it 'removes the all correspondence line if the message is embargoed' do
+          FactoryBot.create(:embargo, :info_request => info_request)
+          info_request.reload
+          outgoing_message =
+            OutgoingMessage.new(:status => 'ready',
+                                :message_type => 'followup',
+                                :what_doing => 'internal_review',
+                                :info_request => info_request)
+
+          expect(outgoing_message.body).
+            not_to include("A full history of my FOI request and all " \
+                          "correspondence is available on the Internet at " \
+                          "this address")
+        end
+
       end
 
       context "when it's an followup" do
@@ -515,7 +615,7 @@ describe OutgoingMessage do
   describe '#apply_masks' do
 
     before(:each) do
-      @message = FactoryGirl.create(:initial_request)
+      @message = FactoryBot.create(:initial_request)
 
       @default_opts = { :last_edit_editor => 'unknown',
                         :last_edit_comment => 'none' }
@@ -597,14 +697,11 @@ describe OutgoingMessage do
     context 'an initial_request' do
 
       it 'produces the expected text for a batch request template' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryBot.build(:public_body,
+                                       name: 'a test public body')
+        info_request = FactoryBot.build(:info_request,
+                                        title: 'A test title',
+                                        public_body: public_body)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'initial_request',
@@ -620,14 +717,13 @@ describe OutgoingMessage do
     context 'a batch request template' do
 
       it 'produces the expected text for a batch request template' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => true)
+        public_body = FactoryBot.build(:public_body,
+                                       name: 'a test public body')
+        info_request = FactoryBot.build(:info_request,
+                                        title: 'A test title',
+                                        public_body: public_body)
+        allow(info_request).
+          to receive(:is_batch_request_template?).and_return(true)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'initial_request',
@@ -643,14 +739,11 @@ describe OutgoingMessage do
     context 'a followup' do
 
       it 'produces the expected text for a followup' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryBot.build(:public_body,
+                                       name: 'a test public body')
+        info_request = FactoryBot.build(:info_request,
+                                        title: 'A test title',
+                                        public_body: public_body)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'followup',
@@ -662,14 +755,11 @@ describe OutgoingMessage do
       end
 
       it 'produces the expected text for an incoming message followup' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryBot.build(:public_body,
+                                       name: 'A test public body')
+        info_request = FactoryBot.build(:info_request,
+                                        title: 'A test title',
+                                        public_body: public_body)
         incoming_message =
           mock_model(IncomingMessage, :safe_mail_from => 'helpdesk',
                                       :valid_to_reply_to? => true)
@@ -689,14 +779,11 @@ describe OutgoingMessage do
     context 'an internal_review' do
 
       it 'produces the expected text for an internal review request' do
-        public_body = mock_model(PublicBody, :name => 'a test public body')
-        info_request =
-          mock_model(InfoRequest, :public_body => public_body,
-                                  :url_title => 'a_test_title',
-                                  :title => 'a test title',
-                                  :applicable_censor_rules => [],
-                                  :apply_censor_rules_to_text! => nil,
-                                  :is_batch_request_template? => false)
+        public_body = FactoryBot.build(:public_body,
+                                       name: 'a test public body')
+        info_request = FactoryBot.build(:info_request,
+                                        title: 'a test title',
+                                        public_body: public_body)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
                               :message_type => 'followup',
@@ -712,7 +799,7 @@ describe OutgoingMessage do
 
 
 
-         [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] 
+         [ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]
 
 
 
@@ -737,7 +824,7 @@ describe OutgoingMessage do
                                                 :status => 'ready',
                                                 :message_type => 'initial_request',
                                                 :body => 'This request contains a foo@bar.com email address',
-                                                :last_sent_at => Time.now,
+                                                :last_sent_at => Time.zone.now,
                                                 :what_doing => 'normal_sort'
       })
     end
@@ -784,7 +871,7 @@ describe OutgoingMessage do
   describe '#indexed_by_search?' do
 
     before do
-      @info_request = FactoryGirl.create(:info_request)
+      @info_request = FactoryBot.create(:info_request)
       @outgoing_message = @info_request.outgoing_messages.first
     end
 
@@ -808,69 +895,16 @@ describe OutgoingMessage do
   describe '#is_owning_user?' do
 
     it 'returns true if the user is the owning user of the info request' do
-      user = mock_model(User)
-      request = mock_model(InfoRequest, :is_owning_user? => true)
-      message = FactoryGirl.build(:initial_request, :info_request => request)
-      expect(message.is_owning_user?(user)).to eq(true)
+      request = FactoryBot.build(:info_request)
+      message = FactoryBot.build(:initial_request, :info_request => request)
+      expect(message.is_owning_user?(request.user)).to eq(true)
     end
 
     it 'returns false if the user is not the owning user of the info request' do
-      user = mock_model(User)
-      request = mock_model(InfoRequest, :is_owning_user? => false)
-      message = FactoryGirl.build(:initial_request, :info_request => request)
+      user = FactoryBot.create(:user)
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.build(:initial_request, :info_request => request)
       expect(message.is_owning_user?(user)).to eq(false)
-    end
-
-  end
-
-  describe '#user_can_view?' do
-
-    before do
-      @info_request = FactoryGirl.create(:info_request)
-      @outgoing_message = @info_request.outgoing_messages.first
-    end
-
-    context 'if the prominence is hidden' do
-
-      before do
-        @outgoing_message.prominence = 'hidden'
-      end
-
-      it 'should return true for an admin user' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:admin_user))).to be true
-      end
-
-      it 'should return false for a non-admin user' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be false
-      end
-
-    end
-
-    context 'if the prominence is requester_only' do
-
-      before do
-        @outgoing_message.prominence = 'requester_only'
-      end
-
-      it 'should return true if the user owns the associated request' do
-        expect(@outgoing_message.user_can_view?(@info_request.user)).to be true
-      end
-
-      it 'should return false if the user does not own the associated request' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be false
-      end
-    end
-
-    context 'if the prominence is normal' do
-
-      before do
-        @outgoing_message.prominence = 'normal'
-      end
-
-      it 'should return true for a non-admin user' do
-        expect(@outgoing_message.user_can_view?(FactoryGirl.create(:user))).to be true
-      end
-
     end
 
   end
@@ -880,26 +914,25 @@ describe OutgoingMessage do
     context 'a sent message' do
 
       it 'returns one smtp_message_id when a message has been sent once' do
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         smtp_id = message.info_request_events.first.params[:smtp_message_id]
         expect(message.smtp_message_ids).to eq([smtp_id])
       end
 
       it 'removes the enclosing angle brackets' do
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         smtp_id = message.info_request_events.first.params[:smtp_message_id]
         old_format_smtp_id = "<#{ smtp_id }>"
         message.
           info_request_events.
             first.
-              update_attributes(:params => {
-                                  :smtp_message_id => old_format_smtp_id })
+              update(:params => { :smtp_message_id => old_format_smtp_id })
         expect(message.smtp_message_ids).to eq([smtp_id])
       end
 
       it 'returns an empty array if the smtp_message_id was not logged' do
-        message = FactoryGirl.create(:initial_request)
-        message.info_request_events.first.update_attributes(:params => {})
+        message = FactoryBot.create(:initial_request)
+        message.info_request_events.first.update(:params => {})
         expect(message.smtp_message_ids).to be_empty
       end
 
@@ -908,7 +941,7 @@ describe OutgoingMessage do
     context 'a resent message' do
 
       it 'returns an smtp_message_id each time the message has been sent' do
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         smtp_id_1 = message.info_request_events.first.params[:smtp_message_id]
 
         message.prepare_message_for_resend
@@ -916,7 +949,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -931,7 +964,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -946,7 +979,7 @@ describe OutgoingMessage do
       end
 
       it 'returns known smtp_message_ids if some were not logged' do
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         smtp_id_1 = message.info_request_events.first.params[:smtp_message_id]
 
         message.prepare_message_for_resend
@@ -954,7 +987,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -969,7 +1002,7 @@ describe OutgoingMessage do
         mail_message = OutgoingMailer.initial_request(
           message.info_request,
           message
-        ).deliver
+        ).deliver_now
 
         message.record_email_delivery(
           mail_message.to_addrs.join(', '),
@@ -998,7 +1031,7 @@ describe OutgoingMessage do
       context 'a sent message' do
 
         it 'returns one mta_id when a message has been sent once' do
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
           request_subject = message.info_request.email_subject_request(:html => false)
@@ -1013,8 +1046,24 @@ describe OutgoingMessage do
           expect(message.mta_ids).to eq(['1ZsFHb-0004dK-SM'])
         end
 
+        it 'returns one mta_id when a message has syslog format logs' do
+          message = FactoryBot.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(:html => false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          Oct  30 19:24:16 host exim[7706]: 2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+          Oct  30 19:24:16 host exim[7706]: 2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          Oct  30 19:24:15 host exim[7706]: 2015-10-30 19:24:15 [17814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+          EOF
+
+          expect(message.mta_ids).to eq(['1ZsFHb-0004dK-SM'])
+        end
+
         it 'returns an empty array if the mta_id could not be found' do
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = 'unknown@localhost'
           request_subject = 'Unknown'
@@ -1034,7 +1083,7 @@ describe OutgoingMessage do
       context 'a resent message' do
 
         it 'returns an mta_id each time the message has been sent' do
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
           request_subject = message.info_request.email_subject_request(:html => false)
@@ -1051,7 +1100,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1072,7 +1121,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1096,7 +1145,7 @@ describe OutgoingMessage do
         end
 
         it 'returns the known mta_ids if some outgoing messages were not logged' do
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
           request_subject = message.info_request.email_subject_request(:html => false)
@@ -1115,7 +1164,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1128,7 +1177,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1158,7 +1207,7 @@ describe OutgoingMessage do
         context 'a sent message' do
 
           it 'returns one mta_id when a message has been sent once' do
-            message = FactoryGirl.create(:initial_request)
+            message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
             request_email = message.info_request.incoming_email
             request_subject = message.info_request.email_subject_request(:html => false)
@@ -1176,7 +1225,7 @@ describe OutgoingMessage do
           end
 
           it 'returns an empty array if the mta_id could not be found' do
-            message = FactoryGirl.create(:initial_request)
+            message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
             request_email = 'unknown@localhost'
             request_subject = 'Unknown'
@@ -1198,7 +1247,7 @@ describe OutgoingMessage do
         context 'a resent message' do
 
           it 'returns an mta_id each time the message has been sent' do
-            message = FactoryGirl.create(:initial_request)
+            message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
             request_email = message.info_request.incoming_email
             request_subject = message.info_request.email_subject_request(:html => false)
@@ -1217,7 +1266,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1240,7 +1289,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1266,7 +1315,7 @@ describe OutgoingMessage do
           end
 
           it 'returns the known mta_ids if some outgoing messages were not logged' do
-            message = FactoryGirl.create(:initial_request)
+            message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
             request_email = message.info_request.incoming_email
             request_subject = message.info_request.email_subject_request(:html => false)
@@ -1287,7 +1336,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1300,7 +1349,7 @@ describe OutgoingMessage do
             mail_message = OutgoingMailer.initial_request(
               message.info_request,
               message
-            ).deliver
+            ).deliver_now
 
             message.record_email_delivery(
               mail_message.to_addrs.join(', '),
@@ -1337,7 +1386,7 @@ describe OutgoingMessage do
         end
 
         it 'finds the mail server logs associated with a sent message' do
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
           request_subject = message.info_request.email_subject_request(:html => false)
@@ -1376,7 +1425,7 @@ describe OutgoingMessage do
         end
 
         it 'finds the mail server logs associated with a resent message' do
-          message = FactoryGirl.create(:internal_review_request)
+          message = FactoryBot.create(:internal_review_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
           request_subject = message.info_request.email_subject_request(:html => false)
@@ -1387,7 +1436,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1432,6 +1481,61 @@ describe OutgoingMessage do
             to eq(expected_lines.scan(/[^\n]*\n/))
         end
 
+        it 'finds logs passed through an indirect router' do
+          message = FactoryBot.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(:html => false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          2017-01-01 16:26:56 [6537] 1cNiyG-0001hR-8R <= #{ request_email } U=alaveteli P=local S=2489 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2017-01-01 16:26:56 [6540] cwd=/var/spool/exim4 3 args: /usr/sbin/exim4 -Mc 1cNiyG-0001hR-8R
+          2017-01-01 16:26:57 [6540] 1cNiyG-0001hR-8R => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=send_to_smarthost T=remote_smtp S=2555 H=mail.example.com [62.208.144.158]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="CN=mx0.mysociety.org" C="250 OK id=1cNiyG-00040U-Ls" QT=1s DT=1s
+          2017-01-01 16:26:57 [6540] 1cNiyG-0001hR-8R Completed QT=1s
+          2017-01-01 16:26:57 [15406] 1cNiyG-00040U-Ls <= #{ request_email } H=mail.example.com [127.0.0.1]:57486 I=[127.0.0.1]:25 P=esmtps X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no S=2773 id=ogm-609600+58692dd023de0-dcdd@whatdotheyknow.com T="#{ request_subject }" from <#{ request_email }> for #{ body_email }
+          2017-01-01 16:26:57 [15407] cwd=/disk1/spool/exim4 3 args: /usr/sbin/exim4 -Mc 1cNiyG-00040U-Ls
+          2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup_returnpath_dkim T=remote_smtp_dkim_returnpath S=2845 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8630B4C0035" QT=1s DT=0s
+          2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls Completed QT=1s
+          EOF
+
+          expected_lines = <<-EOF.strip_heredoc
+          2017-01-01 16:26:56 [6537] 1cNiyG-0001hR-8R <= #{ request_email } U=alaveteli P=local S=2489 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2017-01-01 16:26:57 [6540] 1cNiyG-0001hR-8R => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=send_to_smarthost T=remote_smtp S=2555 H=mail.example.com [62.208.144.158]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="CN=mx0.mysociety.org" C="250 OK id=1cNiyG-00040U-Ls" QT=1s DT=1s
+          2017-01-01 16:26:57 [15406] 1cNiyG-00040U-Ls <= #{ request_email } H=mail.example.com [127.0.0.1]:57486 I=[127.0.0.1]:25 P=esmtps X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no S=2773 id=ogm-609600+58692dd023de0-dcdd@whatdotheyknow.com T="#{ request_subject }" from <#{ request_email }> for #{ body_email }
+          2017-01-01 16:26:57 [15407] 1cNiyG-00040U-Ls => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup_returnpath_dkim T=remote_smtp_dkim_returnpath S=2845 H=prefilter.emailsecurity.trendmicro.eu [150.70.226.147]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Cupertino,O=Trend Micro Inc.,CN=*.emailsecurity.trendmicro.eu" C="250 2.0.0 Ok: queued as 8630B4C0035" QT=1s DT=0s
+          EOF
+
+          expect(message.mail_server_logs.map(&:line)).
+            to eq(expected_lines.scan(/[^\n]*\n/))
+        end
+
+
+        it 'handles log lines where a delivery status cant be parsed' do
+          message = FactoryBot.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(:html => false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          2014-03-25 15:35:42 [3719] 1WSTOA-0000xz-JF <= #{ request_email } U=alaveteli P=local S=2949 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2014-03-25 15:35:50 [3723] 1WSTOA-0000xz-JF SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:35:55 [3721] 1WSTOA-0000xz-JF == #{ body_email } R=dnslookup T=remote_smtp defer (-44): SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.core.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:51:01 [7248] 1WSTOA-0000xz-JF => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=3003 H=mx.core.canterbury.ac.uk [127.0.0.1]:25 X=TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=GB,postalCode=CT1 1QU,ST=Kent,L=CANTERBURY,STREET=North Holmes Road,O=Canterbury Christ Church University,OU=Computing Services,CN=mx.core.canterbury.ac.uk" C="250 OK id=1WSTcz-0002ft-2W" QT=15m19s DT=1s
+          EOF
+
+          expected_lines = <<-EOF.strip_heredoc
+          2014-03-25 15:35:42 [3719] 1WSTOA-0000xz-JF <= #{ request_email } U=alaveteli P=local S=2949 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2014-03-25 15:35:50 [3723] 1WSTOA-0000xz-JF SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:35:55 [3721] 1WSTOA-0000xz-JF == #{ body_email } R=dnslookup T=remote_smtp defer (-44): SMTP error from remote mail server after RCPT TO:<#{ body_email }>: host mx.core.canterbury.ac.uk [127.0.0.1]: 451-127.0.0.2 is not yet authorized to deliver mail from\\n451-<#{ request_email }> to <#{ body_email }>.\\n451 Please try later.
+          2014-03-25 15:51:01 [7248] 1WSTOA-0000xz-JF => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=3003 H=mx.core.canterbury.ac.uk [127.0.0.1]:25 X=TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=GB,postalCode=CT1 1QU,ST=Kent,L=CANTERBURY,STREET=North Holmes Road,O=Canterbury Christ Church University,OU=Computing Services,CN=mx.core.canterbury.ac.uk" C="250 OK id=1WSTcz-0002ft-2W" QT=15m19s DT=1s
+          EOF
+
+          expect(message.mail_server_logs.map(&:line)).
+            to eq(expected_lines.scan(/[^\n]*\n/))
+        end
+
       end
 
       context 'when postfix is the MTA' do
@@ -1442,7 +1546,7 @@ describe OutgoingMessage do
         end
 
         it 'finds the mail server logs associated with a sent message' do
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
           request_subject = message.info_request.email_subject_request(:html => false)
@@ -1484,7 +1588,7 @@ describe OutgoingMessage do
         end
 
         it 'finds the mail server logs associated with a resent message' do
-          message = FactoryGirl.create(:internal_review_request)
+          message = FactoryBot.create(:internal_review_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
           request_subject = message.info_request.email_subject_request(:html => false)
@@ -1495,7 +1599,7 @@ describe OutgoingMessage do
           mail_message = OutgoingMailer.initial_request(
             message.info_request,
             message
-          ).deliver
+          ).deliver_now
 
           message.record_email_delivery(
             mail_message.to_addrs.join(', '),
@@ -1551,6 +1655,31 @@ describe OutgoingMessage do
 
     describe '#delivery_status' do
 
+      it 'returns a failed status if the message send failed' do
+        message = FactoryBot.create(:failed_sent_request_event).outgoing_message
+        status = MailServerLog::DeliveryStatus.new(:failed)
+        expect(message.delivery_status).to eq(status)
+      end
+
+      it 'returns an unknown delivery status if there are no mail logs' do
+        message = FactoryBot.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return([])
+        status = MailServerLog::DeliveryStatus.new(:unknown)
+        expect(message.delivery_status).to eq(status)
+      end
+
+      it 'returns an unknown delivery status if we cannot parse a status' do
+        log_lines = <<-EOF.strip_heredoc.split("\n")
+        junk
+        garbage
+        EOF
+        logs = log_lines.map { |line| MailServerLog.new(:line => line) }
+        message = FactoryBot.create(:initial_request)
+        allow(message).to receive(:mail_server_logs).and_return(logs)
+        status = MailServerLog::DeliveryStatus.new(:unknown)
+        expect(message.delivery_status).to eq(status)
+      end
+
       context 'when the MTA is exim' do
 
         before do
@@ -1562,11 +1691,12 @@ describe OutgoingMessage do
           log_lines = <<-EOF.strip_heredoc.split("\n")
           2015-10-30 19:24:16 [17814] 1ZsFHb-0004dK-SM <= request-123-abc987@example.net U=alaveteli P=local S=2252 id=ogm-14+537f69734b97c-1ebd@localhost T="FOI Request about stuff" from <request-123-abc987@example.net> for authority@example.com authority@example.com
           2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM => authority@example.com F=<request-123-abc987@example.net> P=<request-123-abc987@example.net> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+          2015-10-30 19:24:16 [17817] 1ZsFHb-0004dK-SM junk
           EOF
           logs = log_lines.map { |line| MailServerLog.new(:line => line) }
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           allow(message).to receive(:mail_server_logs).and_return(logs)
-          status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
+          status = MailServerLog::DeliveryStatus.new(:delivered)
           expect(message.delivery_status).to eq(status)
         end
 
@@ -1580,9 +1710,9 @@ describe OutgoingMessage do
           2016-04-22 13:24:41 [29720] 1atZxH-0006Uk-KF => foi@example.net F=<request-326806-hk82iwn7@localhost> P=<request-326806-hk82iwn7@localhost> R=dnslookup T=remote_smtp S=1975 H=mail.example.net [213.161.89.103]:25 X=TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256 CV=no DN="ST=CA,L=CU,O=TREND,OU=IMSVA,CN=IMSVA.TREND" C="250 2.0.0 Ok: queued as 8D6E6AA66C" QT=11m38s DT=0s
           EOF
           logs = log_lines.map { |line| MailServerLog.new(:line => line) }
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           allow(message).to receive(:mail_server_logs).and_return(logs)
-          status = MailServerLog::EximDeliveryStatus.new(:normal_message_delivery)
+          status = MailServerLog::DeliveryStatus.new(:delivered)
           expect(message.delivery_status).to eq(status)
         end
 
@@ -1594,9 +1724,9 @@ describe OutgoingMessage do
           2016-04-06 12:01:08 [14935] 1anlCu-0003st-1p <= <> R=1anlCt-0003sm-LG U=Debian-exim P=local S=2934 T="Mail delivery failed: returning message to sender" from <> for request-326806-hk82iwn7@localhost
           EOF
           logs = log_lines.map { |line| MailServerLog.new(:line => line) }
-          message = FactoryGirl.create(:initial_request)
+          message = FactoryBot.create(:initial_request)
           allow(message).to receive(:mail_server_logs).and_return(logs)
-          status = MailServerLog::EximDeliveryStatus.new(:bounce_arrival)
+          status = MailServerLog::DeliveryStatus.new(:failed)
           expect(message.delivery_status).to eq(status)
         end
 
@@ -1622,9 +1752,9 @@ describe OutgoingMessage do
         Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed
         EOF
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:deferred)
+        status = MailServerLog::DeliveryStatus.new(:sent)
         expect(message.delivery_status).to eq(status)
       end
 
@@ -1638,9 +1768,9 @@ describe OutgoingMessage do
         Nov 19 22:56:04 host postfix/pickup[27268]: 3742D3602065: uid=1003 from=<foi+request@localhost>
         EOF
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:bounced)
+        status = MailServerLog::DeliveryStatus.new(:failed)
         expect(message.delivery_status).to eq(status)
       end
 
@@ -1653,9 +1783,9 @@ describe OutgoingMessage do
         Oct  3 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed
         EOF
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:sent)
+        status = MailServerLog::DeliveryStatus.new(:delivered)
         expect(message.delivery_status).to eq(status)
       end
 
@@ -1674,11 +1804,65 @@ describe OutgoingMessage do
         Nov 20 16:39:38 host postfix/qmgr[15615]: CB55836EE58C: removed
         EOF
         logs = log_lines.map { |line| MailServerLog.new(:line => line) }
-        message = FactoryGirl.create(:initial_request)
+        message = FactoryBot.create(:initial_request)
         allow(message).to receive(:mail_server_logs).and_return(logs)
-        status = MailServerLog::PostfixDeliveryStatus.new(:sent)
+        status = MailServerLog::DeliveryStatus.new(:delivered)
         expect(message.delivery_status).to eq(status)
       end
+    end
+
+  end
+
+  describe '#prepare_message_for_resend' do
+    let(:outgoing_message) { FactoryBot.build(:initial_request) }
+    subject { outgoing_message.prepare_message_for_resend }
+
+    it 'raises an error if it receives an unexpected message_type' do
+      allow(outgoing_message).to receive(:message_type).and_return('fake')
+      expect{ subject }.to raise_error(RuntimeError)
+    end
+
+    it 'raises an error if it receives an unexpected status' do
+      outgoing_message.status = 'ready'
+      expect{ subject }.to raise_error(RuntimeError)
+    end
+
+    it 'sets status to "ready" if the current status is "sent"' do
+      outgoing_message.status = 'sent'
+      expect{ subject }.to change{ outgoing_message.status }.to('ready')
+    end
+
+    it 'sets status to "ready" if the current status is "failed"' do
+      outgoing_message.status = 'failed'
+      expect{ subject }.to change{ outgoing_message.status }.to('ready')
+    end
+
+  end
+
+  describe '#record_email_failure' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+    subject { outgoing_message.record_email_failure('Exception#message') }
+
+    it 'sets the status to "failed"' do
+      subject
+      expect(outgoing_message.status).to eq 'failed'
+    end
+
+    it 'records the reason for the failure in the event log' do
+      subject
+      event = outgoing_message.info_request.info_request_events.last
+      expect(event.event_type).to eq('send_error')
+      expect(event.params[:reason]).to eq('Exception#message')
+    end
+
+    it 'sets described_state to "error_message"' do
+      subject
+      expect(outgoing_message.info_request.described_state).
+        to eq 'error_message'
+    end
+
+    it 'updates OutgoingMessage#last_sent_at' do
+      expect{ subject }.to change{ outgoing_message.last_sent_at }
     end
 
   end
@@ -1693,7 +1877,7 @@ describe OutgoingMessage, " when making an outgoing message" do
                                               :status => 'ready',
                                               :message_type => 'initial_request',
                                               :body => 'This request contains a foo@bar.com email address',
-                                              :last_sent_at => Time.now,
+                                              :last_sent_at => Time.zone.now,
                                               :what_doing => 'normal_sort'
     })
   end
@@ -1709,20 +1893,17 @@ describe OutgoingMessage, " when making an outgoing message" do
   end
 
   it 'should produce the expected text for an internal review request' do
-    public_body = mock_model(PublicBody, :name => 'A test public body')
-    info_request = mock_model(InfoRequest, :public_body => public_body,
-                              :url_title => 'a_test_title',
-                              :title => 'A test title',
-                              :applicable_censor_rules => [],
-                              :apply_censor_rules_to_text! => nil,
-                              :is_batch_request_template? => false)
+    public_body = FactoryBot.build(:public_body, name: 'A test public body')
+    info_request = FactoryBot.build(:info_request,
+                                    title: 'A test title',
+                                    public_body: public_body)
     outgoing_message = OutgoingMessage.new({
                                              :status => 'ready',
                                              :message_type => 'followup',
                                              :what_doing => 'internal_review',
                                              :info_request => info_request
     })
-    expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ] \n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
+    expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]\n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
     expect(outgoing_message.body).to eq(expected_text)
   end
 
@@ -1731,9 +1912,9 @@ end
 describe OutgoingMessage, "when validating the format of the message body" do
 
   it 'should handle a salutation with a bracket in it' do
-    outgoing_message = FactoryGirl.build(:initial_request)
+    outgoing_message = FactoryBot.build(:initial_request)
     allow(outgoing_message).to receive(:get_salutation).and_return("Dear Bob (Robert,")
-    expect{ outgoing_message.valid? }.not_to raise_error
+    expect { outgoing_message.valid? }.not_to raise_error
   end
 
 end

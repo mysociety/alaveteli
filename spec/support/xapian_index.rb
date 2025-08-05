@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 # Rebuild the current xapian index
-def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
+def destroy_and_rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
   if dropfirst
     begin
       ActsAsXapian.readable_init
-      FileUtils.rm_r(ActsAsXapian.db_path)
+      FileUtils.rm_rf(ActsAsXapian.db_path)
     rescue RuntimeError
     end
     ActsAsXapian.writable_init
@@ -14,7 +14,7 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
   # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec.
   # unsafe is significantly faster, and we can afford possible memory leaks while testing.
   models = [PublicBody, User, InfoRequestEvent]
-  ActsAsXapian.rebuild_index(models, verbose=false, terms, values, texts, safe_rebuild=false)
+  ActsAsXapian.destroy_and_rebuild_index(models, verbose=false, terms, values, texts, safe_rebuild=false)
 end
 
 def update_xapian_index
@@ -32,6 +32,20 @@ def get_fixtures_xapian_index
   path_array.pop
   temp_path = File.join(path_array, 'test.temp')
   FileUtils.remove_entry_secure(temp_path, force=true)
+
+  # HACK: Sometimes VirtualBox seems unable to read the original xapian files
+  # until we've forcefully read them – maybe it uncaches them in the virtual box
+  # sharing system?
+  if ENV['USER'] == 'vagrant'
+    Pathname.new($original_xapian_path).children.each do |child|
+      begin
+        File.read(child)
+      rescue Errno::ENOENT
+        File.read(child)
+      end
+    end
+  end
+
   FileUtils.cp_r($original_xapian_path, temp_path)
   ActsAsXapian.db_path = temp_path
 end
@@ -39,5 +53,5 @@ end
 # Create a clean xapian index based on the fixture files and the raw_email data.
 def create_fixtures_xapian_index
   load_raw_emails_data
-  rebuild_xapian_index
+  destroy_and_rebuild_xapian_index
 end

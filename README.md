@@ -1,7 +1,8 @@
 # Welcome to Alaveteli!
 
-[![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Dependency Status](https://gemnasium.com/mysociety/alaveteli.png)](https://gemnasium.com/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=develop)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
+[![Build Status](https://secure.travis-ci.org/mysociety/alaveteli.png)](http://travis-ci.org/mysociety/alaveteli) [![Coverage Status](https://coveralls.io/repos/mysociety/alaveteli/badge.png?branch=develop)](https://coveralls.io/r/mysociety/alaveteli) [![Code Climate](https://codeclimate.com/github/mysociety/alaveteli.png)](https://codeclimate.com/github/mysociety/alaveteli)
 [![Installability: Gold](http://img.shields.io/badge/installability-gold-ffd700.svg "Installability: Gold")](http://mysociety.github.io/installation-standards.html)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 This is an open source project to create a standard, internationalised
 platform for making Freedom of Information (FOI) requests in different
@@ -34,13 +35,12 @@ see [the project website](http://alaveteli.org) for instructions on installing A
 
 Every Alaveteli commit is tested by Travis on the [following Ruby platforms](https://github.com/mysociety/alaveteli/blob/master/.travis.yml#L7)
 
-* ruby-1.9.3
-* ruby-2.0.0
-* ruby-2.1.5
 * ruby-2.3.0
+* ruby-2.4.0
+* ruby-2.5.0
+* ruby-2.6.0
 
-
-If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the alaveteli team (currently 2.0.0), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
+If you use a ruby version management tool (such as RVM or .rbenv) and want to use the default development version used by the alaveteli team (currently 2.3.8), you can create a `.ruby-version` symlink with a target of `.ruby-version.example` to switch to that automatically in the project directory.
 
 ## How to contribute
 
@@ -71,3 +71,11 @@ We have some more notes for developers [on the project site](http://alaveteli.or
 * [fyi.org.nz](https://fyi.org.nz)
 
 See more at [alaveteli.org](http://alaveteli.org/deployments/).
+
+## Acknowledgements
+
+Thanks to [Browserstack](https://www.browserstack.com/) who let us use their
+web-based cross-browser testing tools for this project.
+
+This product includes GeoLite data created by MaxMind, available from
+<a href="http://www.maxmind.com">http://www.maxmind.com</a>.

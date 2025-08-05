@@ -8,16 +8,18 @@
 
     <%= javascript_include_tag "admin" %>
     <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
+    <%= render :partial => 'layouts/favicon' %>
 
   </head>
   <body class="admin">
     <div id="main" class="container">
       <%= render :partial => 'admin_general/admin_navbar' %>
+
       <% if flash[:error] %>
         <div class="row">
           <div class="span12">
             <div class="alert alert-error">
-              <%= flash[:error] %>
+              <%= render_flash(flash[:error]) %>
             </div>
           </div>
         </div>
@@ -27,13 +29,34 @@
         <div class="row">
           <div class="span12">
             <div class="alert alert-info">
-              <%= flash[:notice] %>
+              <%= render_flash(flash[:notice]) %>
             </div>
           </div>
         </div>
       <% end %>
 
       <%= yield  %>
+    </div>
+
+    <div class="admin-footer">
+      <div class="container">
+        <div class="row">
+          <span class="span4 offset8">
+            <ul class="nav nav-pills">
+              <li>
+                <a href="http://alaveteli.org/docs/running/admin_manual/">
+                  Admin Manual
+                </a>
+              </li>
+              <li>
+                <a href="http://alaveteli.org/community/">
+                  Alaveteli Community
+                </a>
+              </li>
+            </ul>
+          </span>
+        </div>
+      </div>
     </div>
   </body>
 </html>

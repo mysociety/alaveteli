@@ -6,28 +6,42 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+
+  before_action :set_footer_template, :only => :event_digest
+
+  # Note that this is different from all the other mailers, as tracks are
+  # sent from a different email address and have different bounce handling.
+  def contact_from_name_and_email
+    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
+  end
+
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
 
-    post_redirect = PostRedirect.new(
-      :uri => user_url(user, :anchor => "email_subscriptions"),
-      :user_id => user.id)
-    post_redirect.save!
-    @unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)
+    @unsubscribe_url =
+      signin_url(r: user_url(user,
+                             anchor: 'email_subscriptions',
+                             only_path: true))
 
-    headers('Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-            'Precedence' => 'bulk')# http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
+    token = CGI.escape(User::EmailAlerts.token(user))
+    @disable_email_alerts_url = users_disable_email_alerts_url(token: token)
+
+    headers(
+      # http://tools.ietf.org/html/rfc3834
+      'Auto-Submitted' => 'auto-generated',
+      # http://www.vbulletin.com/forum/project.php?issueid=27687
+      # (Exchange hack)
+      'Precedence' => 'bulk'
+    )
+
     # 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces for tracks
     # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
     # etc. don't decide we are spammers.)
 
     mail(:from => contact_from_name_and_email,
          :to => user.name_and_email,
-         :subject => _("Your {{site_name}} email alert", :site_name => site_name))
-  end
-
-  def contact_from_name_and_email
-    "#{AlaveteliConfiguration::track_sender_name} <#{AlaveteliConfiguration::track_sender_email}>"
+         :subject => _("Your {{site_name}} email alert",
+                       :site_name => site_name.html_safe))
   end
 
   # Send email alerts for tracked things.  Never more than one email
@@ -36,13 +50,12 @@ class TrackMailer < ApplicationMailer
   # weeks.
 
   # Useful query to run by hand to see how many alerts are due:
-  #   User.where("last_daily_track_email < ?", Time.now - 1.day).size
+  #   User.where("last_daily_track_email < ?", Time.zone.now - 1.day).size
   def self.alert_tracks
     done_something = false
-    now = Time.now
+    now = Time.zone.now
     one_week_ago = now - 7.days
-    User.find_each(:conditions => [ "last_daily_track_email < ?",
-    now - 1.day ]) do |user|
+    User.where(["last_daily_track_email < ?", now - 1.day ]).find_each do |user|
       next if !user.should_be_emailed? || !user.receive_email_alerts
 
       email_about_things = []
@@ -96,8 +109,8 @@ class TrackMailer < ApplicationMailer
       if email_about_things.size > 0
         # Send the email
 
-        I18n.with_locale(user.get_locale) do
-          TrackMailer.event_digest(user, email_about_things).deliver
+        AlaveteliLocalization.with_locale(user.locale) do
+          TrackMailer.event_digest(user, email_about_things).deliver_now
         end
       end
 
@@ -116,7 +129,7 @@ class TrackMailer < ApplicationMailer
       end
       user.last_daily_track_email = now
       user.no_xapian_reindex = true
-      user.save!
+      user.save!(touch: false)
       done_something = true
     end
     return done_something
@@ -132,6 +145,12 @@ class TrackMailer < ApplicationMailer
         sleep_seconds = 300 if sleep_seconds > 300
       end
     end
+  end
+
+  private
+
+  def set_footer_template
+    @footer_template = 'default'
   end
 
 end

@@ -1,0 +1,13 @@
+# == Schema Information
+#
+# Table name: public_body_headings
+#
+#  id            :integer          not null, primary key
+#  display_order :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
+useless_lonely_heading:
+  id: 1
+  display_order: 0

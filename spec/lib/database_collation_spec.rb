@@ -45,9 +45,19 @@ describe DatabaseCollation do
       expect(database.supports?('es')).to be false
     end
 
-    it 'supports collation if the collation exists' do
+    it 'does not support collation if the collation has a different encoding' do
+      database = DatabaseCollation.new(mock_connection)
+      expect(database.supports?('en_GB.utf8')).to be false
+    end
+
+    it 'supports collation if the collation exists for current encoding' do
       database = DatabaseCollation.new(mock_connection)
       expect(database.supports?('en_GB')).to be true
+    end
+
+    it 'supports installed collations with "-1" (universal) encoding' do
+      database = DatabaseCollation.new(mock_connection)
+      expect(database.supports?('default')).to be true
     end
 
   end
@@ -64,18 +74,33 @@ def mock_connection(connection_double_opts = {})
   connection = double('ActiveRecord::FakeConnection', connection_double_opts)
 
   installed_collations = [
-    { "collname" => "default" },
-    { "collname" => "C" },
-    { "collname" => "POSIX" },
-    { "collname" => "C.UTF-8" },
-    { "collname" => "en_GB" },
-    { "collname" => "en_GB.utf8" }
+    { "collname" => "default", "collencoding" => "-1"},
+    { "collname" => "C", "collencoding" => "-1" },
+    { "collname" => "POSIX", "collencoding" => "-1" },
+    { "collname" => "C.UTF-8", "collencoding" => "6" },
+    { "collname" => "en_GB", "collencoding" => "8" },
+    { "collname" => "en_GB.utf8", "collencoding" => "6" }
   ]
+
+  allow(connection).to receive(:current_database).and_return("alaveteli_test")
 
   allow(connection).
     to receive(:execute).
-      with(%q(SELECT collname FROM pg_collation;)).
-        and_return(installed_collations)
+      with("SELECT encoding FROM pg_database WHERE datname = " \
+           "'alaveteli_test';").
+      and_return([{ "encoding" => "8" }])
+
+  # Simulate SQL filtering of returned collations
+  allow(connection).
+    to receive(:execute).
+      with("SELECT collname FROM pg_collation " \
+           "WHERE collencoding = '-1' OR collencoding = '8';").
+        and_return(filter_collations(installed_collations, %w(-1 8)))
 
   connection
+end
+
+def filter_collations(collations, encodings)
+  collations.
+    select { |collation| encodings.include?(collation["collencoding"]) }
 end

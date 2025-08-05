@@ -12,7 +12,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
 
     it 'finds and sets the holding_pen' do
       rejection = described_class.new(double, double, double)
-      expect(rejection.holding_pen).to eq(InfoRequest.holding_pen_request)
+      expect(rejection.holding_pen).to be_holding_pen_request
     end
 
   end
@@ -26,7 +26,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
     end
 
     it 'redirects the mail to the holding pen' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       raw_email = <<-EOF.strip_heredoc
       From: sender@example.com
       To: FOI Person <authority@example.com>
@@ -38,7 +38,7 @@ describe InfoRequest::ResponseRejection::HoldingPen do
 
       described_class.new(*args).reject
 
-      expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+      expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
   end

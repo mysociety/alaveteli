@@ -1,4 +1,4 @@
-<% @title = _("Listing FOI requests") %>
+<% @title = 'Listing FOI requests' %>
 
 <h1><%=@title%></h1>
 
@@ -8,6 +8,3 @@
 <% end %>
 
 <%= render :partial => 'some_requests', :locals => { :info_requests => @info_requests } %>
-
-<%= will_paginate(@info_requests, :class => "paginator") %>
-

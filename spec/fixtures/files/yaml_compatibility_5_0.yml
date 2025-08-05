@@ -1,0 +1,223 @@
+---
+:user: !ruby/object:User
+  raw_attributes:
+    name: Annie All Roles
+    ban_text: ''
+    closed_at:
+    email: annie@localhost
+    id: 8
+    hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8
+    salt: "-6116981980.392287733335677"
+    created_at: '2007-10-31 10:39:15.491593'
+    updated_at: '2007-10-31 10:39:15.491593'
+    email_confirmed: true
+    url_name: annie_admin
+    last_daily_track_email: '2000-01-01 00:00:00'
+    about_me: All the roles
+    locale: en
+    email_bounced_at:
+    email_bounce_message: ''
+    no_limit: false
+    receive_email_alerts: true
+    can_make_batch_requests: false
+    otp_enabled: false
+    otp_secret_key:
+    otp_counter: 1
+    confirmed_not_spam: false
+    comments_count: 0
+    info_requests_count: 1
+    track_things_count: 0
+    request_classifications_count: 0
+    public_body_change_requests_count: 0
+    info_request_batches_count: 0
+    daily_summary_hour:
+    daily_summary_minute:
+  attributes: !ruby/object:ActiveRecord::AttributeSet
+    attributes: !ruby/object:ActiveRecord::LazyAttributeHash
+      delegate_hash:
+        name: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: name
+          value_before_type_cast: Annie All Roles
+          type: &1 !ruby/object:ActiveModel::Type::String
+            precision:
+            scale:
+            limit:
+          original_attribute:
+          value: Annie All Roles
+        ban_text: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: ban_text
+          value_before_type_cast: ''
+          type: &3 !ruby/object:ActiveModel::Type::Text
+            precision:
+            scale:
+            limit:
+          original_attribute:
+          value: ''
+        closed_at: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: closed_at
+          value_before_type_cast:
+          type: !ruby/object:ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter
+            delegate_dc_obj: &2 !ruby/object:ActiveRecord::ConnectionAdapters::PostgreSQL::OID::DateTime
+              precision:
+              scale:
+              limit:
+          original_attribute:
+          value:
+        email: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: email
+          value_before_type_cast: annie@localhost
+          type: *1
+          original_attribute:
+          value: annie@localhost
+        id: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: id
+          value_before_type_cast: 8
+          type: &5 !ruby/object:ActiveModel::Type::Integer
+            precision:
+            scale:
+            limit:
+            range: !ruby/range
+              begin: -2147483648
+              end: 2147483648
+              excl: true
+          original_attribute:
+          value: 8
+        hashed_password: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: hashed_password
+          value_before_type_cast: 6b7cd45a5f35fd83febc0452a799530398bfb6e8
+          type: *1
+          original_attribute:
+        salt: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: salt
+          value_before_type_cast: "-6116981980.392287733335677"
+          type: *1
+          original_attribute:
+        created_at: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: created_at
+          value_before_type_cast: '2007-10-31 10:39:15.491593'
+          type: !ruby/object:ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter
+            delegate_dc_obj: *2
+          original_attribute:
+        updated_at: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: updated_at
+          value_before_type_cast: '2007-10-31 10:39:15.491593'
+          type: !ruby/object:ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter
+            delegate_dc_obj: *2
+          original_attribute:
+        email_confirmed: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: email_confirmed
+          value_before_type_cast: true
+          type: &4 !ruby/object:ActiveModel::Type::Boolean
+            precision:
+            scale:
+            limit:
+          original_attribute:
+        url_name: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: url_name
+          value_before_type_cast: annie_admin
+          type: *3
+          original_attribute:
+        last_daily_track_email: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: last_daily_track_email
+          value_before_type_cast: '2000-01-01 00:00:00'
+          type: !ruby/object:ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter
+            delegate_dc_obj: *2
+          original_attribute:
+        about_me: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: about_me
+          value_before_type_cast: All the roles
+          type: *3
+          original_attribute:
+        locale: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: locale
+          value_before_type_cast: en
+          type: *1
+          original_attribute:
+        email_bounced_at: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: email_bounced_at
+          value_before_type_cast:
+          type: !ruby/object:ActiveRecord::AttributeMethods::TimeZoneConversion::TimeZoneConverter
+            delegate_dc_obj: *2
+          original_attribute:
+        email_bounce_message: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: email_bounce_message
+          value_before_type_cast: ''
+          type: *3
+          original_attribute:
+        no_limit: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: no_limit
+          value_before_type_cast: false
+          type: *4
+          original_attribute:
+        receive_email_alerts: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: receive_email_alerts
+          value_before_type_cast: true
+          type: *4
+          original_attribute:
+        can_make_batch_requests: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: can_make_batch_requests
+          value_before_type_cast: false
+          type: *4
+          original_attribute:
+        otp_enabled: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: otp_enabled
+          value_before_type_cast: false
+          type: *4
+          original_attribute:
+        otp_secret_key: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: otp_secret_key
+          value_before_type_cast:
+          type: *1
+          original_attribute:
+        otp_counter: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: otp_counter
+          value_before_type_cast: 1
+          type: *5
+          original_attribute:
+        confirmed_not_spam: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: confirmed_not_spam
+          value_before_type_cast: false
+          type: *4
+          original_attribute:
+        comments_count: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: comments_count
+          value_before_type_cast: 0
+          type: *5
+          original_attribute:
+        info_requests_count: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: info_requests_count
+          value_before_type_cast: 1
+          type: *5
+          original_attribute:
+        track_things_count: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: track_things_count
+          value_before_type_cast: 0
+          type: *5
+          original_attribute:
+        request_classifications_count: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: request_classifications_count
+          value_before_type_cast: 0
+          type: *5
+          original_attribute:
+        public_body_change_requests_count: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: public_body_change_requests_count
+          value_before_type_cast: 0
+          type: *5
+          original_attribute:
+        info_request_batches_count: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: info_request_batches_count
+          value_before_type_cast: 0
+          type: *5
+          original_attribute:
+        daily_summary_hour: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: daily_summary_hour
+          value_before_type_cast:
+          type: *5
+          original_attribute:
+        daily_summary_minute: !ruby/object:ActiveRecord::Attribute::FromDatabase
+          name: daily_summary_minute
+          value_before_type_cast:
+          type: *5
+          original_attribute:
+  new_record: false
+  active_record_yaml_version: 1

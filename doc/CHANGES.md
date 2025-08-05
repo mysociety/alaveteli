@@ -1,3 +1,1871 @@
+# 0.38.4.0
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+* Force mail data to have CRLF line endings to fix mail gem upgrade regression
+  (Graeme Porteous, Matthew Somerville, Gareth Rees)
+
+## Upgrade Notes
+
+* You can run `bundle exec rake temp:reparse_multipart_incoming_with_unicode` to
+  re-parse any incoming messages which may have been affected by
+  https://github.com/mysociety/alaveteli/issues/5905.
+
+# 0.38.3.0
+
+## Highlighted Features
+
+* Prevent overflowing of long censor rules in admin interface (Gareth Rees)
+* Truncate search queries that are too long (Gareth Rees)
+* Remove translation markup from admin interface (Gareth Rees)
+* Improve handling of pluralised translations for locales with multiple
+  pluralisation rules (Graeme Porteous)
+* Allow setting log level through the environment (Gareth Rees)
+* Fixes errors when attempting to parse some Outlook emails (Gareth Rees)
+* Remove unicode dependency when running later Ruby versions (Graeme Porteous)
+* Dependencies upgrades (Graeme Porteous)
+
+# 0.38.2.0
+
+## Highlighted Features
+
+* Fix locale fallback issue (Gareth Rees)
+* Fix issue where locale switcher wouldn't update (Graeme Porteous)
+* Updated translations from Transifex (Graeme Porteous)
+* Dependencies upgrades (Gareth Rees, Graeme Porteous)
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/alaveteli_pro/account_request/_marketing_batch_features.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/campaigners/_marketing_testimonials.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/journalists/_marketing_testimonials.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/researchers/_marketing_testimonials.html.erb
+
+# 0.38.1.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.38.1.0
+
+## Highlighted Features
+
+* Fixes i18n string loading for locales with country specific subtags (Graeme
+  Porteous)
+
+# 0.38.0.0
+
+## Highlighted Features
+
+* Upgrade to Rails 5.2 (Graeme Porteous)
+* Upgrade to Xapian to 1.4.11 (Sam Pearson, Graeme Porteous)
+* Dependencies upgrades (Gareth Rees, Graeme Porteous)
+* Don't show profile photos of banned users (Gareth Rees)
+* Link to change request form when asking users to contact us about request
+  email updates (Gareth Rees)
+* Configure Google Analytics to anonymise their IP address and disable storing
+  browser cookies. (Graeme Porteous)
+* Removed New Relic support (Graeme Porteous)
+* Fixes encoding issue when viewing attachment as HTML. See related upgrade note
+  regarding checking requests/censor rules below (Graeme Porteous, Gareth Rees)
+* Fixes and improvements to geoip database download rake task (Graeme Porteous)
+
+## Highlighted Pro Features
+
+* Foundational work on a new "Projects" feature allowing users to collaborate on
+  requests and batches together (Gareth Rees, Graeme Porteous)
+  See: https://www.mysociety.org/2020/07/24/whatdotheyknow-projects/
+
+## Upgrade Notes
+
+* **IMPORTANT! We now depend on Xapian 1.4**, which means you may need to
+  convert your flint database to a chert database prior to upgrading Alaveteli.
+  See: https://getting-started-with-xapian.readthedocs.io/en/latest/advanced/admin_notes.html#converting-a-flint-database-to-a-chert-database)
+* **IMPORTANT! We no longer support PostgreSQL 9.4**. Please upgrade to 9.6
+  before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.6/release-9-6.html
+* **NOTE:** This release will be the last to support Ruby 2.3 and 2.4. Please
+  consider upgrading to either 2.6. See: https://www.ruby-lang.org/en/news/2020/03/31/ruby-2-6-6-released/
+* CoffeeScript support has been dropped. You may find issues when pre-compiling
+  assets. If so please delete `./tmp/cache/assets` and try again.
+* Run `bundle exec rake temp:identify_broken_binary_censor_rules` to generate
+  a list of requests which should be manually checked to ensure censor rules are
+  applied correctly.
+* The Google Analytics code has been extracted into
+  `views/application/_ga_code.html.erb`, and to avoid the GDPR requirement to
+  show cookie opt-in notices, now sets cookie-less tracking. Additionally, we
+  are instructing Google to anonymise visitors IP address using the
+  `anonymizeIp` option. This means that visitors are no longer individually
+  profiled. If you wish to continue individually targeting users, you'll need
+  to override `app/views/application/_ga_code.html.erb` in your theme and set
+  appropriate options.
+* There are some database structure updates so remember to run
+  `bundle exec rails db:migrate`
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_create_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_extension_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/classifications/message.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_suggestions.html.erb
+    app/views/followups/new.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_citations.html.erb
+    app/views/request/_correspondence.html.erb
+    app/views/request/_describe_state.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_view_html_prefix.html.erb
+    app/views/request/show.html.erb
+    app/views/request/show.text.erb
+    app/views/request_mailer/requires_admin.text.erb
+    app/views/statistics/_people_leaderboard.html.erb
+    app/views/track/_tracking_links_simple.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/show/_show_profile.html.erb
+    app/views/widgets/show.html.erb
+
+# 0.37.1.4
+
+## Highlighted Features
+
+* Fix missing translations in 0.37.1.3 (Graeme Porteous)
+
+# 0.37.1.3
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
+# 0.37.1.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
+# 0.37.1.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
+# 0.37.1.0
+
+## Highlighted Features
+
+* Fix broken Ubuntu install steps (Gareth Rees)
+
+## Upgrade Notes
+
+* Remove the cosmic preferences in `/etc/apt/preferences` before installing:
+
+```
+Package: *
+Pin: release n=cosmic
+Pin-Priority: 50
+```
+
+# 0.37.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+* Support plans with a yearly billing interval (Gareth Rees)
+
+# 0.37.0.0
+
+## Highlighted Features
+
+* Automatically run `db:seed` on deployment (Gareth Rees)
+* Highlight the importance of remembering OTP (Gareth Rees)
+* Updated world sites index with new Alaveteli installs (Jen Bramley)
+* Fetch MaxMind database weekly (Sam Pearson)
+* Link requests to news articles through citations (Graeme Porteous)
+* Account for new MaxMind license restrictions (Gareth Rees)
+* Fix HTML output in Zip download correspondence extract (Gareth Rees)
+* Clean up Censor Rule admin forms (Gareth Rees)
+* Improve flow of closing public body change requests (Gareth Rees)
+* Fix usage statistics for new installations (Graeme Porteous)
+
+## Highlighted Pro Features
+
+* Respect locale when composing batch request (Gareth Rees)
+* Add configurable `STRIPE_TAX_RATE` to correctly calculate gross amounts for
+  Pro plans (Gareth Rees)
+* Improve handling of failed Stripe payments (Graeme Porteous)
+* Add CSV download for batch requests (Graeme Porteous)
+* Add targeted Pro marketing pages (Myfanwy Nixon, Martin Wright, Gareth Rees)
+* Fix embargoed requests email response notification (Graeme Porteous)
+
+## Upgrade Notes
+
+* Set `STRIPE_TAX_RATE` in `config/general.yml` if you charge for Pro features.
+* MaxMind – the providers of the GeoLite2 GeoIP databases – now require a free
+  license key to download the databases. You must now add your license key to
+  `MAXMIND_LICENSE_KEY` in order to continue using the `GEOIP_DATABASE` setting.
+  See https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+  for more information.
+* There are some database structure updates so remember to run
+  `bundle exec rails db:migrate`
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_batch.html.erb
+    app/views/request/_incoming_correspondence.text.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/show.html.erb
+    app/views/request_mailer/new_response.text.erb
+
+# 0.36.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.36.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.36.0.0
+
+## Highlighted Features
+
+* Upgrade to Rails 5.1 (Liz Conlan, Graeme Porteous)
+* Add the password requirements to change password form (Gareth Rees)
+* Fix wording on password reset page (Gareth Rees)
+* Add spam addresses controller to admin navigation (Gareth Rees)
+* Show improved censor rule help in admin interface (Gareth Rees)
+* Show incoming message attachments in admin interface (Gareth Rees)
+* Add Facebook link to blog sidebar (Zarino Zappia)
+* Fix users updated at timestamps being inadvertently changed by background jobs
+  (Graeme Porteous)
+* Fixed issue with YAML generated in old Alaveteli versions and stored in
+  InfoRequestEvent (Graeme Porteous)
+
+## Highlighted Pro Features
+
+* Support payments using Strong Customer Authentication (Graeme Porteous)
+* Add Pro self serve configuration option allowing users to upgrade their
+  accounts to Pro and bypass the payment/subscription form (Graeme Porteous)
+* Add expired embargoes to weekly metric report (Graeme Porteous)
+
+## Upgrade Notes
+
+* You can run this release with Pro self serve to allow users to upgrade to
+  Alaveteli Pro accounts - only applicable if you don't take Pro payments and
+  by default it is switched off.
+
+### Changed Templates
+
+    app/views/admin_censor_rule/_form.html.erb
+    app/views/admin_censor_rule/index.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_incoming_message/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/alaveteli_pro/account_mailer/account_request.text.erb
+    app/views/alaveteli_pro/account_request/_account_request_form.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/alaveteli_pro/subscriptions/_add_card.html.erb
+    app/views/alaveteli_pro/subscriptions/_card.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/general/blog.html.erb
+    app/views/layouts/default.html.erb
+    app/views/password_changes/check_email.html.erb
+    app/views/password_changes/edit.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+
+# 0.35.0.0
+
+## Highlighted Features
+
+* This release rolls out Alaveteli Pro Pricing - a way to ask users to support
+  your site by paying for access to the advanced Alaveteli Pro features
+  (Liz Conlan, Gareth Rees, Graeme Porteous)
+* Switch to using the new MaxMind DB data format for geoip lookups. Adds a rake
+  task to download the geoip data file (Liz Conlan)
+* Add new rake task to create the Stripe webhook endpoint (Liz Conlan)
+* Send weekly metrics email to the Pro Admin team (Liz Conlan, Gareth Rees)
+* Improve error handling when sending request-related emails (initial request
+  mails and followups) - failed messages are captured and a send_error event is
+  logged to make it easier for site admins to see what's happened (Nigel Jones)
+* Fixed bug where expiring embargoes were not fully removed from batches when
+  the related requests reached the publication data (Liz Conlan)
+* Send daily webhook digest to the Pro Admin team (Graeme Porteous)
+* Improved admin user search feature to also search the users' about me profile
+  text (Graeme Porteous)
+* Removed support for Ubuntu 16.04 LTS (Xenial Xerus) (Liz Conlan)
+* Add support for Ruby 2.6 (Liz Conlan)
+
+## Upgrade Notes
+
+* You can run this release without using the Alaveteli Pro Pricing
+  functionality - by default it is switched off.
+* This release officially adds support for Ruby 2.6
+* We have specified a Stripe API version of `2017-01-27` if you are already
+  running Pro with pricing enabled you should consider re-creating the Stripe
+  Webhook using the new `bundle exec rails stripe:create_webhook_endpoint` to
+  ensure the versions are consistent. Any old Webhooks should then be disabled
+  from the Stripe dashboard
+* We no longer support PostgreSQL 9.3 or earlier. Please upgrade to 9.4 or above
+  before upgrading Alaveteli. See: https://www.postgresql.org/docs/9.4/release-9-4.html
+* Run `rails geoip:download_data` to download a fresh copy of the geoip data
+  and follow the steps in the output to update your general.yml config
+* There are some database structure updates so remember to run
+  `bundle exec rails db:migrate`
+* We no longer support Ubuntu 16.04 LTS (Xenial Xerus). Please upgrade to Ubuntu
+  18.04 LTS (Bionic Beaver) at the earliest opportunity.
+
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/request/_batch.html.erb
+    app/views/request/_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+
+# 0.34.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan, Graeme Porteous)
+
+# 0.34.0.0
+
+## Highlighted Features
+
+* Removed support for Ubuntu 14.04 LTS (Trusty Tahr) (Liz Conlan)
+* Dropped support for Ruby 2.0 (Liz Conlan)
+* Dropped support for Ruby 2.1 and 2.2 (Liz Conlan)
+* Upgrade to Rails 5.0 (Liz Conlan, Graeme Porteous)
+
+## Upgrade Notes
+
+* Update your theme's `lib/alavetelitheme.rb` with
+  https://github.com/mysociety/alavetelitheme/commit/e08fbdbb11dd6ede3a5490f0ac6a5f73c1c3b216
+* Run `bundle exec rake temp:update_params_yaml` to prevent errors when trying to
+  load stored event log params after upgrading to Rails 5.0.
+* This version of Rails offers database environment protection. We recommend
+  enabling this by running:
+  `bundle exec rails db:environment:set RAILS_ENV=production`
+* We no longer support Ruby 2.0, 2.1 or 2.2.
+* We no longer support Ubuntu 14.04 LTS (Trusty Tahr). Please upgrade to Ubuntu
+  16.04 LTS (Xenial Xerus) or Ubuntu 18.04 LTS (Bionic Beaver) at the earliest
+  opportunity.
+* This will be the last release to support Ubuntu 16.04 LTS (Xenial Xerus)
+
+# 0.33.0.0
+
+## Highlighted Features
+
+* Added support for Ubuntu 18.04 LTS (Bionic Beaver) (Gareth Rees)
+* Fix broken display of blank contact authorities (Gareth Rees)
+* Fixed a bug in AlaveteliExternalCommand where the full program path was
+  not being returned correctly (Laurent Savaete)
+* Fixed a bug that meant request urls could unexpectedly change when the request
+  is edited if they're in the middle of a numbered sequence (Liz Conlan)
+* Fix search.png not being included in precompiled assets (Nigel Jones)
+* Drop support for Debian Jessie (Gareth Rees)
+* Disable the destroy authority button in the admin interface rather than hiding
+  it as that can be confusing with embargoed requests (Liz Conlan)
+* Handle missing query param in body search typeahead (Gareth Rees)
+* Add experimental ability to deter personal requests (Graeme Porteous)
+* Multiple performance refactorings (Graeme Porteous)
+* Don't show followup options if the request is closed to new responses
+  (Liz Conlan)
+* Highlight non-default states of "Prominence" in the admin
+  interface (Gareth Rees)
+* Fix bug were the header was displayed at the wrong width if the site only had
+  one language configured (Martin Wright)
+* Show the message from the user on the admin summary page for requests and
+  comments which have been flagged as needing administrator attention (Liz Conlan)
+* Log an event when a user reports a request and capture the message data
+  supplied by the user when they report a request as needing administrator
+  attention in the log (Liz Conlan)
+* Uses the url_name instead of a numeric id when sending messages between users
+  to prevent id guessing (Liz Conlan)
+* Reopen closed requests to allow responses from anybody when a new followup
+  message is sent, or an admin resends an outgoing message (Liz Conlan)
+* Cache the number of incoming messages belonging to an `InfoRequest` to improve
+  performance (Graeme Porteous)
+* Simplify layout of "Find an authority" page (Zarino Zappia)
+* Warn users when their request is getting too long (Zarino Zappia)
+* Add a customisable email footer for emails sent to users (Liz Conlan)
+* Add one-click unsubscribe to `TrackMailer`-generated email notifications
+  (Gareth Rees)
+* Use the original subject line when sending an email reply to a
+  PublicBodyChangeRequest through the admin interface (Liz Conlan)
+* Improve logic for showing contact options when making followups to a request
+  (Liz Conlan)
+* Add guessing from the subject line of an incoming email in the holding pen
+  (Liz Conlan)
+* Encourage reporting correspondence through the request page (Gareth Rees)
+* Link to parent batch from request page (Zarino Zappia, Gareth Rees)
+* Improve guessing from addresses with missing punctuation for incoming email in
+  the holding pen (Liz Conlan)
+* Improve guessing from malformed addresses for incoming email in the holding
+  pen (Gareth Rees)
+* Add a `USER_CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA
+  on the user-to-user contact form if set to true (defaults to false)
+  (Liz Conlan)
+* Add a note to the top of the request page when a request thread is closed to
+  further correspondence (Liz Conlan)
+* Add an option to hide a request containing personal information (Gareth Rees)
+* Prevent censor rules from being unintentionally made permanent when admins
+  edit outgoing messages. Allow admins to see the unredacted outgoing message
+  text on request's admin page and in the associated event log (Liz Conlan)
+* Add a `CONTACT_FORM_RECAPTCHA` config setting to show a reCAPTCHA on the
+  contact form if set to true (defaults to false). Needs a small code snippet -
+  documented in the `general.yml-example` file to be added to the theme's
+  contact form for the reCAPTCHA to be displayed correctly (Liz Conlan)
+* Added support for Ubuntu 16.04 LTS (Xenial Xerus) (Graeme Porteous)
+* Preparation for upgrading to Rails 5 (Graeme Porteous, Liz Conlan, Gareth
+  Rees)
+* Add missing `gettext:remove_fuzzy_alaveteli_pro` task (Liz Conlan)
+* Fix erroneously escaped HTML on admin request pages (Gareth Rees)
+* Fix edge-case bug in following requests (Gareth Rees)
+* Add experimental "Close and anonymise" user feature (Graeme Porteous)
+
+## Upgrade Notes
+
+* We no longer support Debian Jessie. Please upgrade to Debian Stretch at the
+  earliest opportinuity.
+* This will be the last release to support Ubuntu 14.04 LTS (Trusty)
+* This will be the last release to support Ruby 2.0
+* This will be the last release to support Ruby 2.1
+* This will be the last release to support Ruby 2.2
+* This release officially adds support for Ruby 2.4 and 2.5
+* This release temporarily reverts back to the `geoip-database` package from
+  `geoip-database-contrib`. See
+  https://github.com/mysociety/alaveteli/issues/5040 for details.
+* The `hidden_incoming_message` factory has been removed. Use the `:hidden`
+  _trait_ instead if you rely on this in theme specs. See
+  https://github.com/thoughtbot/factory_bot/blob/v4.10.0/GETTING_STARTED.md#traits
+  for more information on traits.
+    * Factory: `hidden_incoming_message` Trait: `:hidden`
+    * Factory: `defunct_public_body` Trait: `:defunct`
+    * Factory: `not_apply_public_body` Trait: `:not_apply`
+* `ContactMailer#change_request_message` has been extracted to
+  `PublicBodyChangeRequestMailer#add_public_body` and
+  `PublicBodyChangeRequestMailer#update_public_body`.
+* `UserController#contact` has been extracted to
+  `Users::MessagesController#contact`.
+* The changes to the way dynamic routes work means that any themes that use
+  the `help_general_url` helper will need to pass in `:template` instead of
+  `:action`
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+* There are some database structure updates so remember to run
+  `bundle exec rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_holidays/index.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/_locale_fields.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/edit.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_browse.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_create_form.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_suggestions.html.erb
+    app/views/contact_mailer/add_public_body.text.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
+    app/views/followups/_followup.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_locale_switcher.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/contact_mailer.text.erb
+    app/views/layouts/outgoing_mailer.text.erb
+    app/views/layouts/request_mailer.text.erb
+    app/views/layouts/user_mailer.text.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/new.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request_mailer/comment_on_alert.text.erb
+    app/views/request_mailer/comment_on_alert_plural.text.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/request_mailer/new_response_reminder_alert.text.erb
+    app/views/request_mailer/not_clarified_alert.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/track_mailer/event_digest.text.erb
+    app/views/user/contact.html.erb
+    app/views/user/show/_show_profile.html.erb
+
+# 0.32.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.32.0.1
+
+## Highlighted Features
+
+* Upgrade Rails to 4.2.11.1 (Gareth Rees, Liz Conlan)
+
+# 0.32.0.0
+
+## Highlighted Features
+
+* Move the user menu and sign up/sign in links from the navigation bar to the
+  header to allow space for longer navigation link translations (Martin Wright)
+* Better duplicate request detection (Graeme Porteous)
+* Strip leading and trailing whitespace when searching for users in the admin
+  interface (Gareth Rees)
+* Fall back to the theme's standard opengraph logo rather than the example pro
+  logo from core if there's no opengraph-pro logo available in the theme
+  (Liz Conlan)
+* Don't show the pro blank slate message when the user has a saved draft (Graeme
+  Porteous)
+* Improve the pro blank slate/"Getting started" message (Martin Wright)
+* Add message navigation buttons to pro request pages to make it easier to move
+  through long request threads (Martin Wright)
+* Make the pro sidebar sticky (Martin Wright)
+* Improvements to the pro sidebar to make it easier for a pro user to see when
+  a private request will be published from the request page (Martin Wright)
+* Parse and display incoming email headers in the admin interface (Gareth Rees)
+* Don't update the Atom feed timestamp if there are no events (Graeme Porteous)
+* Fix padding around delivery status and hidden message containers (Martin
+  Wright, Zarino Zappia)
+* Fix vertical alignment of follower count for easier theme overrides (Martin
+  Wright)
+* Avoid drawing border under final attachment in list (Zarino Zappia)
+* Better user menu behaviour with long names (Martin Wright)
+* Add the ability to collapse the correspondence on the request page (Martin
+  Wright)
+* Fix clash between the action menu and the sidebar in the mobile view (Martin
+  Wright)
+* Add missing background colour for "awaiting classification" status message
+  (Martin Wright)
+* Better HTML encoding on new request and admin email forms (Liz Conlan)
+* Add Google Analytics events for clicks for "Related requests" links (Zarino
+  Zappia)
+* Add support for the `foi_no` tag for authorities so that new requests can
+  still be made while making it clearer that they are not obliged by law to
+  respond (Liz Conlan)
+* Add tooltip prompts and an "Are you sure?" dialogue on save to the admin
+  interface when marking a request as "vexatious" or "not_foi" without hiding it
+  using the prominence dropdown (Liz Conlan)
+* Ability to blacklist known addresses that cannot be replied to (Gareth Rees)
+* Ability to customise no-reply address Regexp (Gareth Rees)
+* Extend time before closing requests to all responses (Gareth Rees)
+* Add a footer to the Admin layout with useful links to alaveteli.org (Gareth
+  Rees)
+* Add user name spam checking (Gareth Rees)
+* Run the full user spam check during signup rather than just checking the
+  email domain (Liz Conlan)
+* Improve the spam checker code, make it easier to reuse and enable it on the
+  sign in page (Graeme Porteous)
+* Make it quicker to ban users for spamming in admin interface (Gareth Rees)
+* Limit the frequency that `PublicBody#updated_at` gets updated by unrelated
+  changes to an associated `InfoRequest` (Gareth Rees)
+* Add standard Rails timestamp columns to all tables (Gareth Rees)
+* Fix broken migrations introduced in 0.30 (Gareth Rees)
+* Destroy embargoes when the attached info request is destroyed (Gareth Rees)
+* Fix case sensitivity bug in password reset form (Gareth Rees)
+* Rename dangerous Xapian commands (Gareth Rees)
+* Improved handling of Xapian indexing failures (Gareth Rees)
+* Prioritise direct matches on `PublicBody#name` in search results (Liz Conlan,
+  Gareth Rees)
+* Fix double encoding of URL params for search (Gareth Rees)
+* Log an `InfoRequestEvent` when updating response handling attributes in
+  `InfoRequest.stop_new_responses_on_old_requests` (Gareth Rees)
+* Show that a request is part of a batch on the request page in the admin
+  interface (Gareth Rees)
+* Improve batch sending - better checks for whether a batch has finished
+  sending, allows batch sending to be resumed if it exits before completion
+  (Graeme Porteous)
+* Add "Rejected incoming count" do the request page in the admin interface
+  (Gareth Rees)
+* Highlight non-default states of "Allow new responses from" in the admin
+  interface (Gareth Rees)
+* Add collapse/expand to request correspondence (Zarino Zappia)
+* Fix downloading a Zip of entire request when the request contains a resent
+  message (Gareth Rees)
+* Add Pro opengraph logo (Martin Wright)
+* Create site-wide and user role announcements from within the administrative
+  interface (Graeme Porteous)
+* Increase minimum password length for new users or updated passwords
+  (Graeme Porteous)
+* Improve password encryption by switching to bcrypt algorithm, existing
+  password hashes will be upgraded when a user signs in (Graeme Porteous)
+* Restore translated attributes to Public Body admin view (Gareth Rees)
+* Updates the addresses of the OS base boxes in the Vagrantfile
+* Various improvements to the test suite (Gareth Rees, Graeme Porteous, Liz Conlan)
+
+## Upgrade Notes
+
+* We've removed the spring preloader so run `bundle exec spring stop` before
+  switching away from your current git branch otherwise you might see some odd
+  code caching effects (if you're happy managing processes manually, you can
+  find and kill the spring processes yourself instead)
+* There are some database structure updates so remember to run `bundle exec rake db:migrate`
+* Run `bundle exec rake temp:populate_missing_timestamps` to populate the new
+  timestamp columns.
+* You'll need to reindex your public bodies to benefit from the improved direct
+  match results:
+  `bundle exec rake reindex:public_bodies verbose="true"`
+* Run `bundle exec rake users:update_hashed_password` to improve password
+  encryption for existing users. As we don't know the original passwords this
+  double encrypts the old SHA1 hash using the bcrypt algorithm.
+* The reCAPTCHA config settings have changed, `RECAPTCHA_PUBLIC_KEY` is now
+`RECAPTCHA_SITE_KEY` and `RECAPTCHA_PRIVATE_KEY` has changed to `RECAPTCHA_SECRET_KEY`
+* The `BLOCK_SPAM_EMAIL_DOMAINS` config setting has been renamed to `BLOCK_SPAM_SIGNUPS` to reflect the change in functionality (it will now also run the full spam checker against the new user data rather than just looking at the email domain)
+* The "very old" calculation driven by
+  `RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS` has been increased from
+  `2 *` to `4 *`. Please check that this config value is acceptable for your
+  site's usage profile.
+* Add a 256x256 image named `logo-opengraph-pro.png` to
+  `YOUR_THEME_ROOT/assets/images`, to be shown next to pages from your site when
+  shared on Facebook. You can just duplicate `logo-opengraph.png` if you don't
+  have specific Pro branding.
+* `InfoRequest.get_last_event` is deprecated and will be removed in 0.33. Please
+  use `InfoRequest.last_event`.
+* Xapian's `rebuild_index` is now called `destroy_and_rebuild_index`.
+* The no-reply address handling can be customised in your theme. You can do this
+  in `lib/model_patches.rb` by assigning a `Regexp` of your choice to
+  `ReplyToAddressValidator.no_reply_regexp`. e.g.
+  `ReplyToAddressValidator.no_reply_regexp = /hello/`. Note that this only acts
+  on the local part of an email address (before the `@`) rather than the full
+  address.
+* A list of addresses that are known to cause problems when replying to them can
+  be set by assigning an Array of addresses to
+  `ReplyToAddressValidator.invalid_reply_addresses` in `lib/model_patches.rb`.
+  e.g: `ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)`.
+* FactoryGirl is now called FactoryBot so you may need to update your test code
+  accordingly.
+* We've removed the Foundation gem as we're no longer using it so you will need
+  to edit your theme code if you've relied on Foundation for any customisation.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
+### Changed Templates
+
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_public_body/_form.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/hidden_user_explanation.text.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/account_request/index.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_add_authority_to_draft_button.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_remove_authority_from_draft_button.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_search_result.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/_search_results.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/index.html.erb
+    app/views/alaveteli_pro/dashboard/_no_to_dos.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/draft_info_request_batches/_summary.html.erb
+    app/views/alaveteli_pro/general/_nav_items.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
+    app/views/alaveteli_pro/info_request_batches/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_extension_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_message_preview.html.erb
+    app/views/alaveteli_pro/info_requests/_no_requests.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/index.html.erb
+    app/views/alaveteli_pro/plans/index.html.erb
+    app/views/alaveteli_pro/plans/show.html.erb
+    app/views/alaveteli_pro/subscriptions/index.html.erb
+    app/views/api/request_events.atom.builder
+    app/views/followups/_followup.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_opengraph_tags.html.erb
+    app/views/general/_popup_banner.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_stylesheets.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
+    app/views/notification_mailer/very_overdue_notification.text.erb
+    app/views/public_body/show.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_subtitle.html.erb
+    app/views/request/describe_notices/_waiting_response.html.erb
+    app/views/request/describe_notices/_waiting_response_overdue.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/show.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/set_draft_profile_photo.html.erb
+    app/views/user/set_profile_about_me.html.erb
+    app/views/user/show/_show_profile.html.erb
+    app/views/user_profile/about_me/edit.html.erb
+
+# 0.31.0.4
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.31.0.3
+
+## Highlighted Features
+
+* Fix broken translation string (Gareth Rees)
+
+# 0.31.0.2
+
+## Highlighted Features
+
+* Remove obsolete pro msgids (Gareth Rees)
+
+# 0.31.0.1
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.31.0.0
+
+## Highlighted Features
+
+* Rescue from POP poller timeouts (Graeme Porteous)
+* Fixed issue where an attempted password reset with cookies disabled caused a
+  redirect loop (Graeme Porteous)
+* Improved user drop down positioning (Martin Wright)
+* Fixed an issue where selectize was blocking other scripts from running
+  (Graeme Porteous)
+* Dropped support for Ruby 1.9 (Liz Conlan)
+* Default to Ruby 2.x for all install scripts (Liz Conlan)
+* Removed support for Debian Wheezy (Liz Conlan)
+* Add Debian Stretch support (Louise Crow, Gareth Rees)
+* Replace out of support zip gem with rubyzip to address an issue where some
+  zip files created by the site may not be openable on Windows PCs (Liz Conlan,
+  Graeme Porteous)
+* Fix bug in `stats:show` task (Liz Conlan, Gareth Rees)
+* Use `.eml` file extension when downloading raw emails through the admin
+  interface (Gareth Rees)
+* Reduce usage of auto-login links in emails (Gareth Rees)
+* Remove rendering of exceptions in admin interface (Gareth Rees)
+* Pass through sign-in form if a user is already signed in (Gareth Rees)
+* Make the event history table responsive (Miroslav Schlossberg)
+* Fix bug that prevented private requests from being published across the whole
+  site once the embargo period had expired (Liz Conlan)
+* Update format of `robots.txt` for Baidu compatibility (Gareth Rees)
+* Removed support for Ubuntu Precise (Louise Crow)
+* Remove the use of purge requests to Varnish (Louise Crow)
+* Add a temp task to recache any attachments whose content has changed
+  (Louise Crow)
+
+## Upgrade Notes
+
+* This release drops support for Ruby 1.9.x. If you are using Ubuntu Trusty you
+  will need to install a newer ruby version either using a ruby environment
+  manager like [rbenv](https://github.com/rbenv/rbenv#basic-github-checkout) or
+  by installing the ruby2.1 (and ruby2.1-dev) or ruby2.3 (and ruby2.3-dev)
+  [Ubuntu packages from Brightbox](https://www.brightbox.com/docs/ruby/ubuntu/).
+  (If you are setting up a fresh Trusty box using our script, the 2.1 Brightbox
+  package is supplied.)
+
+* Please note that this release removes support for Ubuntu Precise as it has
+  reached End of Life and will no longer receive security patches. If you are
+  running Alaveteli on Ubuntu Precise, you should upgrade your OS to
+  Ubuntu Trusty before upgrading to this release. This
+  [Ubuntu upgrade guide](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes#Upgrading_from_Ubuntu_12.04_LTS_or_Ubuntu_13.10)
+  can guide you through the process. If you have
+  questions about upgrading OS, please don't hesitate to ask on the
+  [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+
+* Please note that this release also removes support for Debian Wheezy as it
+  only packages Ruby 1.9.3. If you are running Alaveteli on Debian Wheezy, you
+  should upgrade your OS to Debian Jessie before upgrading to this release. This
+  [Debian upgrade guide](https://www.debian.org/releases/jessie/amd64/release-notes/ch-upgrading.en.html)
+  can guide you through the process. If you have questions about upgrading OS,
+  please don't hesitate to ask on the [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) group.
+
+* This release removes the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty before upgrading.
+
+* There's a new temp task that can be used to recache any attachments whose
+  content has slightly changed (e.g. due to an upgrade in the `mail` gem that
+  alters e.g the trailing space on attachment bodies). You can run it with
+  `bundle exec rake temp:populate_missing_attachment_files` if you're seeing
+  `No such file or directory @ rb_sysopen` errors from `foi_attachment.rb`.
+
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_general/_to_do_list.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/account_request/new.html.erb
+    app/views/alaveteli_pro/batch_request_authority_searches/index.html.erb
+    app/views/alaveteli_pro/dashboard/_projects.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/general/_log_in_bar_links.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_request_batches/_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_form.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_form.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_new_request_advice.html.erb
+    app/views/alaveteli_pro/info_requests/_select_authority_form.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/index.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/general/_frontpage_bodies_list.html.erb
+    app/views/general/_frontpage_requests_list.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_responsive_footer.html.erb
+    app/views/general/exception_caught.html.erb
+    app/views/notification_mailer/info_request_batches/messages/_overdue.text.erb
+    app/views/notification_mailer/info_request_batches/messages/_very_overdue.text.erb
+    app/views/notification_mailer/info_requests/messages/_overdue.text.erb
+    app/views/notification_mailer/info_requests/messages/_very_overdue.text.erb
+    app/views/outgoing_mailer/_followup_footer.text.erb
+    app/views/password_changes/new.html.erb
+    app/views/request/_act.html.erb
+    app/views/request/_request_listing_single.html.erb
+    app/views/request/_request_listing_via_event.html.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/details.html.erb
+    app/views/request/show.html.erb
+    app/views/track/_rss_feed.html.erb
+    app/views/user/_signin.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/show.html.erb
+    app/views/user/sign.html.erb
+    app/views/users/sessions/show.html.erb
+
+# 0.30.0.5
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.30.0.4
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.30.0.3
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+* New pro strings for translation (Liz Conlan)
+
+# 0.30.0.2
+
+## Highlighted Features
+
+* Added a fix for the holiday imports admin tool (Liz Conlan)
+
+# 0.30.0.1
+
+## Highlighted Features
+
+* Moved `rake temp:set_daily_summary_times` from upgrade notes
+  for release 0.29.0.0 to release 0.30.0.0 (Louise Crow)
+
+# 0.30.0.0
+
+## Highlighted Features
+
+* Added some extra margin space to the `#logged_in_bar` when javascript is
+  disabled to avoid the user's name from overlapping the 'Sign out' link -
+  otherwise if there is enough space to do so, the secondary menu will try to
+  float alongside the nav bar content (Liz Conlan)
+* Make it clearer to users that they must complete an action when receiving the
+  email to remind them to update the status of a request (Gareth Rees)
+* Removed non-responsive assets (Gareth Rees)
+* Upgrade to Rails 4.2 (Liz Conlan, Gareth Rees)
+* Fixed problem where the routing filter doesn't recognise default locales with
+  underscores properly (Liz Conlan)
+* Added wrapper methods to `AlaveteliLocalization` to be used in preference to
+  the underlying `I18n` and `FastGettext` methods, avoiding confusion about
+  which should be used and reducing the likelihood of getting hyphenated and
+  underscore locale formats mixed up (Liz Conlan)
+* Prevent null bytes getting saved to `IncomingMessage` attachment cache
+  columns (Gareth Rees)
+* Add `:inverse_of` option to ActiveRecord associations to improve performance
+  (Gareth Rees)
+* Make Vagrant settings configurable through `.vagrant.yml` (Gareth Rees)
+* Make sure geoip-database-contrib is installed when installing Alaveteli
+  (Gareth Rees)
+* Make sure memcached is installed when installing Alaveteli (Gareth Rees)
+* Remove front-end caching from delivery status calculation (Gareth Rees)
+* Remove unconventional PublicBody database constraints (Gareth Rees,
+  Liz Conlan)
+* Improve public body data validations (Gareth Rees)
+* Increase truncation length of comments on admin page so that its easier to
+  spot spam without expanding each comment (Gareth Rees)
+* Handle unicode in spam request subject lines (Gareth Rees)
+* Improve public body data validation test coverage (Gareth Rees)
+* Move some more flash messages to be rendered from partials (Gareth Rees)
+* Admin timeline can now show events filtered by type (Louise Crow)
+* As promised the `notifications_testers` role as been removed. Access to
+  the experimental notification features is now controlled by a feature flag.
+* Request numbers in search and list views are now more clearly displayed as
+  estimates (Liz Conlan)
+* Functionality of 'was clarification' admin button restored (Louise Crow)
+* A new method for receiving incoming mail has been introduced. Setting the experimental
+  config variable `PRODUCTION_MAILER_RETRIEVER_METHOD` to `pop` and generating
+  a daemon from the `poll-for-incoming-debian.example` template will
+  cause Alaveteli to poll a mailbox for incoming mail via POP, in addition to
+  passively accepting mail piped into the application via `script/mailin` (Louise Crow)
+* Only publicly visible requests are now counted in the text for a user search
+  result (Louise Crow)
+* Similar request IDs are now cached, rather than template partials displaying
+  similar requests, in order to make better usage of the cache space (Louise Crow)
+* You can now filter users by their role on the admin user list page (Louise Crow)
+* Remove the obsolete `admin_level` user attribute (Louise Crow)
+* Allow embargoed requests to be displayed separately in the admin interface
+  to admins with pro_admin permissions (Louise Crow)
+* Add a cookie_passthrough param to ensure that image files in responses can be
+  accessed by authorised users on embargoed requests (Louise Crow)
+* Add `oink` memory debugging setup. Use `ALAVETELI_USE_OINK=1` to produce
+  object allocation debugging output (Louise Crow)
+
+## Upgrade Notes
+
+* This release removes the `admin_level` user attribute. You will need to migrate
+  to this release via 0.29.0.0 and follow the instructions in the release notes for
+  that release to migrate admin and pro statuses to the role-based system first, in
+  order to retain admin status for your admin users.
+* Ensure memcached is installed (`sudo apt-get install memcached`) and running
+  (`sudo service memcached start`).
+* `app/views/track/_track_set.erb` has been renamed to
+  `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
+  to update the override.
+* `app/views/general/_opengraph_tags.erb` has been renamed to
+  `app/views/general/_opengraph_tags.html.erb`, so if you've overriden it you
+  will need to update the override.
+* Run `bundle exec rake temp:populate_last_event_time` after deployment to populate
+  the cached `last_event_time` attribute on info_requests, used in the admin interface.
+* Run `bundle exec rake temp:remove_notifications_tester_role` to remove the
+  notification tester role from the database.
+* Use of the `PRODUCTION_MAILER_RETRIEVER_METHOD` config setting is currently
+  not recommended.
+* Upgrading to Rails 4.2 requires that themes have a new section in their
+  `alavetelitheme.rb` file as in:
+  https://github.com/mysociety/whatdotheyknow-theme/commit/f99f7fd4538e57c2429ee2301317785c76eb08b0
+  For more details, see the [preparatory changes](https://github.com/mysociety/alaveteli/pull/4124/commits)
+  and [the upgrade itself](https://github.com/mysociety/alaveteli/pull/4114/commits)
+* To start the Rails server from a Vagrant box, you will now need to tell it
+  what address to bind to as it now defaults to localhost.
+  e.g. `bundle exec rails s -b 0.0.0.0` to bind to all addresses (as before)
+  or `bundle exec rails s -b 10.10.10.30` to just use the Vagrantfile address.
+* File-type icons have been moved from `images` to `images/content_type`. Please
+  ensure any direct use of these uses the new path.
+* This release deprecates the use of purge requests to Varnish. Please make sure
+  your site works with `VARNISH_HOST` empty - it will be removed as a param in
+  the next release.
+* Run `bundle exec rake temp:set_daily_summary_times` to set some default
+  times for users to receive daily summaries of notifications. This won't have
+  any effect on emails for most users until the new notifications system is
+  rolled out.
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_comment/index.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/alaveteli_pro/account_mailer/account_request.text.erb
+    app/views/alaveteli_pro/account_request/new.html.erb
+    app/views/alaveteli_pro/draft_info_request_batches/_draft_info_request_batch.html.erb
+    app/views/alaveteli_pro/embargo_mailer/expiring_alert.text.erb
+    app/views/alaveteli_pro/info_request_batches/_authority_list.html.erb
+    app/views/alaveteli_pro/info_request_batches/_form.html.erb
+    app/views/alaveteli_pro/info_request_batches/_info_request_batch.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/comment/preview.html.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_header.html.erb
+    app/views/general/_opengraph_tags.html.erb
+    app/views/general/_orglink.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_stylesheet_includes.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/general/search.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/_more_info.html.erb
+    app/views/public_body/show.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_list_results.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_view_html_stylesheet.html.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/track/_track_set.erb
+    app/views/user/_user_listing_single.html.erb
+
+# 0.29.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Louise Crow)
+
+# 0.29.0.1
+
+## Highlighted Features
+
+* Fixed problem where the routing filter doesn't recognise default locales with
+  underscores properly (Liz Conlan)
+* Added wrapper methods to AlaveteliLocalization to be used in preference to the
+  underlying I18n and FastGettext methods, avoiding confusion about which should
+  be used and reducing the likelihood of getting hyphenated and underscore
+  locale formats mixed up (Liz Conlan)
+
+# 0.29.0.0
+
+## Highlighted Features
+
+* Upgrade to Rails 4.1 (Liz Conlan, Gareth Rees)
+* Add sample public body headings and categories (Gareth Rees)
+* Allow translation of delivery statuses (Gareth Rees)
+* Fix stripping Syslog prefix from mail logs (Gareth Rees)
+* Fix parsing of Syslog-format mail logs (Gareth Rees)
+* Log spam domain signups instead of sending exception notifications
+  (Gareth Rees)
+* Finer control of anti-spam features (Gareth Rees)
+* Fixed bug which redirected people trying to request a change to the email of
+  a public body back to the missing body form post sign in (Liz Conlan)
+* Tweak wording of bounce reply to make it easier for admins to locate the
+  related request (Gareth Rees)
+* Fix the layout of the request preview page so that the request body text is
+  in line with the heading (Keerti Gautam)
+* Add an unknown delivery status for better user experience when we haven't yet
+  parsed MTA logs for a recent message (Gareth Rees)
+* Switch MTA-specific delivery status to MTA-agnostic delivery status
+  (Gareth Rees)
+* Prevent deletion of initial outgoing messages through the admin interface
+  (Gareth Rees)
+* Make it easier to find the "Resend" message button in the admin interface
+  (Gareth Rees)
+* Install supported version of bundler through Rubygems on Debian Wheezy (Gareth
+  Rees)
+* Update Czechia country name in `WorldFOIWebsites` (Gareth Rees)
+* Prevent null bytes getting saved to `IncomingMessage` cache columns (Gareth
+  Rees)
+* Add missing erb tags (Sam Smith)
+* Introduction of role-based permissions system (Louise Crow)
+* Link to the #internal_review section of the `help/unhappy` page instead of
+  the UK-specific external link to FOIWiki (Liz Conlan)
+* Allow comments to be reported for admin attention (Liz Conlan, Gareth Rees)
+* Fix a bug in typeahead search where a search ending in a one or two letter
+  word would automatically return zero results (Louise Crow)
+* Update the spam scorer to hold lists of suspicious domains (email domains with
+  a higher than average chance of being spam) and spam domains (email domains
+  we're fairly confident are spam), and prevent spam domains from creating new
+  accounts (Liz Conlan)
+* Prevent the `/request/search_ahead` page from raising an error if there are
+  no query parameters (Liz Conlan)
+* Change "Send message" and "Send request" buttons to read "Send and publish" to
+  make it clearer that your message is going to be shared via the website (Liz
+  Conlan)
+* Prevent new request titles from containing line breaks (Liz Conlan)
+* Make the `users:stats_by_domain` task report percentages to 2 decimal places
+  to avoid the situation where 374 out of 375 appears as 100% (Liz Conlan)
+* Make `users:ban_by_domain` send a simpler message to say they've been banned
+  rather than helping them work around our spam measures (Liz Conlan)
+* A new role `notifications_testers` has been added, this is a temporary role
+  to help us test new email configuration options for Alaveteli Professional,
+  please don't give this role to any of your users - it may change and/or
+  disappear without warning!
+* Prevent Vagrant assigning more CPU cores than VirtualBox recognises (Liz
+  Conlan)
+* Improvements to the `load-sample-data` script to make it possible to run
+  without the superuser db permissions and for Rails 4.1 compatibility
+  (Liz Conlan)
+* Prevent autoresponder emails from authorities resetting the withdrawn status
+  on requests (Liz Conlan)
+* Fix bug that prevented the categorisation game page from displaying when there
+  are no requests (Liz Conlan)
+* Switch to Trusty as the preferred OS for Travis CI and use Debian Wheezy as
+  the new Vagrant default (Liz Conlan)
+* Fix a bug that could cause misdelivered message links in the admin interface
+  to appear without any text in the link if the message body contained unicode
+  spaces (Liz Conlan)
+* Use partial templates to render flash messages containing HTML rather than
+  assigning the content directly to flash (Liz Conlan, Steven Day)
+* Ensure info_requests are expired when censor rules are added, changed or
+  removed (Liz Conlan)
+* Fix the select authorities form when Javascript is disabled (Louise Crow)
+
+## Upgrade Notes
+
+* Spring is now used as the application preloader in development mode. No action
+  required, but worth being familiar with if you're running Alaveteli in
+  development: http://guides.rubyonrails.org/v4.1.16/upgrading_ruby_on_rails.html#spring
+* The `COOKIE_STORE_SESSION_SECRET` config item has been removed and replaced
+  with `SECRET_KEY_BASE`. You should migrate the original value to the new
+  config key.
+* Anti-spam feaures can now be enabled independently
+  (`BLOCK_RATE_LIMITED_IPS`, `BLOCK_RESTRICTED_COUNTRY_IPS`,
+  `BLOCK_SPAM_ABOUT_ME_TEXT`, `BLOCK_SPAM_COMMENTS`, `BLOCK_SPAM_EMAIL_DOMAINS`,
+  `BLOCK_SPAM_REQUESTS`) or all at once (`ENABLE_ANTI_SPAM`). Check that your
+  configuration is enabling the anti-spam measures that you're expecting.
+* `MailServerLog::EximDeliveryStatus` and `MailServerLog::PostfixDeliveryStatus`
+  have been deprecated in favour of an MTA-agnostic
+  `MailServerLog::DeliveryStatus`. You should run
+  `bundle exec rake temp:cache_delivery_status` to convert any cached delivery
+  statuses to the new format.
+* To migrate admin and pro statuses to the role-based system, you must run
+  `bundle exec rake db:seed` and then
+  `bundle exec rake temp:migrate_admins_and_pros_to_roles` after deployment.
+* There are some database structure updates so remember to `rake db:migrate`
+* Run `bundle exec rake temp:remove_line_breaks_from_request_titles` after
+  deployment to remove stray line breaks (could effect Atom feeds)
+* Run `bundle exec rake temp:generate_request_summaries` after deployment to
+  create the new facade models that the Alaveteli Pro dashboard uses to
+  display all forms of requests in a unified list.
+* Run `bundle exec rake temp:set_use_notifications` after deployment to
+  opt all existing requests out of the new notifications feature. This is VERY
+  IMPORTANT to run, as without it, existing requests won't trigger any alert
+  emails at all.
+* The way that flash messages are rendered has changed so if you have overridden
+  a template which renders flash (e.g. `<%= flash[:notice] %>`), you will need
+  to use the new `<%= render_flash(flash[:notice]) %>` style instead.
+* This release deprecates non-responsive stylesheets. Please make sure your site
+  works with `RESPONSIVE_STYLING` set to `true`.
+* This is likely to be the last release that supports Ruby 1.9.x. We have some
+  [notes](https://git.io/vLNg0) on migrating away from 1.8.7; migrating to
+  Ruby 2+ should be a similar process. Debian Jessie and Ubuntu 14.04+ include
+  packaged versions of Ruby 2+.
+
+
+### Changed Templates
+
+    app/views/admin_comment/edit.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_general/timeline.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_public_body/show.html.erb
+    app/views/admin_public_body_categories/_form.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/comment/_suggestions.html.erb
+    app/views/alaveteli_pro/dashboard/_activity_list_item.html.erb
+    app/views/alaveteli_pro/dashboard/_projects.html.erb
+    app/views/alaveteli_pro/dashboard/index.html.erb
+    app/views/alaveteli_pro/draft_info_requests/_draft_info_request.html.erb
+    app/views/alaveteli_pro/embargo_mailer/expiring_alert.text.erb
+    app/views/alaveteli_pro/followups/_embargoed_form_title.html.erb
+    app/views/alaveteli_pro/general/_log_in_bar_links.html.erb
+    app/views/alaveteli_pro/info_requests/_embargo_info.html.erb
+    app/views/alaveteli_pro/info_requests/_info_request.html.erb
+    app/views/alaveteli_pro/info_requests/_request_list.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/new.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/alaveteli_pro/public_bodies/_search_result.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/_topnav.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/outgoing_messages/delivery_statuses/show.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/_more_info.html.erb
+    app/views/reports/new.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_filter_form.html.erb
+    app/views/request/describe_notices/_error_message.html.erb
+    app/views/request/describe_notices/_internal_review.html.erb
+    app/views/request/describe_notices/_not_held.html.erb
+    app/views/request/describe_notices/_successful.html.erb
+    app/views/request/describe_notices/_waiting_response.html.erb
+    app/views/request/describe_notices/_waiting_response_overdue.html.erb
+    app/views/request/details.html.erb
+    app/views/request/new.html.erb
+    app/views/request/preview.html.erb
+    app/views/request_mailer/stopped_responses.text.erb
+
+# 0.28.0.10
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.28.0.9
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.28.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.28.0.7
+
+## Highlighted Features
+
+* Fix locale handling bug which prevented locales containing underscores from
+  being used as an additional site language (Liz Conlan)
+
+# 0.28.0.6
+
+## Highlighted Features
+
+* Break model constants containing translated text out into new methods in
+  TranslatedConstants modules to prevent accidental caching of the default
+  locale's translations (Liz Conlan, Gareth Rees)
+
+## Upgrade Notes
+
+* If you have overridden `LAW_USED_READABLE_DATA` in your theme, you will need
+  to rewrite this code to override the `law_used_readable_data` class method of
+  `InfoRequest::TranslatedConstants` instead
+
+# 0.28.0.5
+
+## Highlighted Features
+
+* Fix bug in `Statistics.by_week_to_today_with_noughts` causing comparisons to
+  fail (Gareth Rees)
+
+# 0.28.0.4
+
+## Highlighted Features
+
+* Fix bug causing `MailServerLog#delivery_status` to return an ActiveRecord
+  serialized attribute (Gareth Rees)
+
+# 0.28.0.3
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.28.0.2
+
+## Highlighted Features
+
+* Fix indexing error when creating batch requests (Louise Crow)
+
+## Upgrade Notes
+
+There are some database structure updates so remember to rake db:migrate
+
+# 0.28.0.1
+
+## Highlighted Features
+
+* Add config for `SECRET_KEY_BASE` (Gareth Rees).
+
+## Upgrade Notes
+
+* Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
+  which to generate and verify signed cookies (among other things). Generate a
+  secret with `bundle exec rake secret` and use this for the value of
+  `SECRET_KEY_BASE` in `config/general.yml`.
+
+# 0.28.0.0
+
+## Highlighted Features
+
+* Upgrade to Rails 4.0 (Gareth Rees, Louise Crow, Steve Day, Liz Conlan)
+* The test-unit gem has been removed from the project's Gemfile.
+  Alaveteli has used RSpec to run tests for a long time, but Test::Unit was
+  also available. Due to an incompatibility between the two, and a desire to
+  support a single environment, this is no longer the case.
+
+## Upgrade Notes
+
+* This release upgrades Alaveteli to use Rails 4.0. No public-facing API has
+  been changed, but if you have custom theme code you may need to update it for
+  Rails 4 compatibility. Follow instructions in the official Rails guide (
+  http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0-active-record)
+  and review our commits in this release to investigate deprecation warnings.
+* You may need to migrate any tests in your theme that were using Test::Unit
+  to RSpec.
+
+### Changed Templates
+
+    app/views/admin_general/debug.html.erb
+    app/views/admin_public_body_headings/_form.html.erb
+    app/views/alaveteli_pro/info_requests/_sidebar.html.erb
+    app/views/alaveteli_pro/info_requests/preview.html.erb
+    app/views/comment/_comment_form.html.erb
+    app/views/comment/preview.html.erb
+    app/views/request/describe_state_message.html.erb
+    app/views/request/preview.html.erb
+    app/views/user/_signup.html.erb
+
+# 0.27.1.2
+
+# Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+# 0.27.1.1
+
+# Highlighted Features
+
+* Updated translations from Transifex (Liz Conlan)
+
+# 0.27.1.0
+
+## Highlighted Features
+
+* Always send warnings of possible spam activity – configure blocking of spam
+  activity with `ENABLE_ANTI_SPAM` (Gareth Rees)
+* Fix downloading request Zips when they're unclassified (Gareth Rees)
+* Handle parsing mail server logs when using a smarthost (Gareth Rees)
+* Removed a reference to `MySociety::Config` (Caleb Tutty)
+* Hide admin navigation items in request PDF download (Gareth Rees)
+* Added a set of rake tasks to provide stats on user signups by email domain
+  with the option to ban by domain if required (Liz Conlan)
+* Added a data export task to help with research (Alex Parsons)
+* Add slightly stricter constraints to InfoRequest summaries to prevent really
+  short titles like "re" from being used while still allowing acronyms like
+  RNIB through - only affects new requests, pre-existing requests which don't
+  meet these new requirements will still be treated as valid (Liz Conlan)
+* Make the "Show all attachments" and "Show fewer attachments" links on the
+  request page translatable (Liz Conlan)
+
+## Upgrade Notes
+
+* The `:redact_idhash` option of `MailServerLog#line` has been replaced by the
+  `:redact` option. It will be removed in release 0.29.
+
+### Changed Templates
+
+    app/views/comment/_single_comment.html.erb
+    app/views/followups/preview.html.erb
+    app/views/general/_log_in_bar.html.erb
+    app/views/general/_nav_items.html.erb
+    app/views/public_body/_search_ahead.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/user/bad_token.html.erb
+
+# 0.27.0.9
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.27.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.27.0.7
+
+## Highlighted Features
+
+* Reverts changes in 0.27.0.6 (Louise Crow)
+
+# 0.27.0.6
+
+## Highlighted Features
+
+* Incoming mails with large main body texts no longer raise error in calling
+  code, just send exception notification (Louise Crow)
+
+# 0.27.0.5
+
+## Highlighted Features
+
+* Updated translations from Transifex (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.27.0.4
+
+## Highlighted Features
+
+* Fix a bug that meant a Postgres collation that was not compatible with the
+  local database encoding could be chosen (Liz Conlan)
+
+# 0.27.0.3
+
+## Highlighted Features
+* Added some more documentation on the 0.27.0.0 release (Louise Crow)
+
+# 0.27.0.2
+
+## Highlighted Features
+* Made `script/alert-expiring-embargoes` executable (Louise Crow)
+
+# 0.27.0.1
+
+## Highlighted Features
+* Added some more documentation on the 0.27.0.0 release (Louise Crow)
+* Fixed `rake temp:populate_request_due_dates` to not validate requests
+  on saving, or try to populate fields that have already been populated
+  (Louise Crow)
+* Fixed a typo in the `delete-expired-embargoes` script
+
+# 0.27.0.0
+
+## Highlighted Features
+* Time in application time zone is used where appropriate in code, this fixes
+  a bug in due date calculation for zones offset from UTC (Louise Crow)
+* Prevent long authority names overflowing on statistics page (Gareth Rees)
+* Fix css bug which allowed some "visually-hidden" elements to affect page
+  length (Liz Conlan)
+* Header now contains pull-down menu for user-specific links, which has
+  swapped place with the search box (Martin Wright)
+* This release rolls out the first implementation of Alaveteli Pro - a service
+  for use by journalists and campaigners. Includes ability to embargo requests,
+  and dashboard for managing to-do items and requests. This is functionality
+  being piloted in the UK and is not yet recommended for use in other locales
+  (Steve Day, Martin Wright, Louise Crow)
+
+## Upgrade Notes
+* You can run this release without using the Alaveteli Pro functionality - by
+  default it is switched off.
+* Please update any overriden templates and theme code that reference times and
+  dates to reference the local time zone where appropriate. e.g.
+
+  Time.now => Time.zone.now
+  Date.today => Date.current
+  DateTime.parse => Time.zone.parse
+
+  See https://robots.thoughtbot.com/its-about-time-zones for a description of
+  how Rails handles time zones
+* To store the significant dates for requests in the database, you must run
+  `bundle exec rake temp:populate_request_due_dates` after deployment.
+* To store events identifying at what point requests became overdue and very
+  overdue, you must run `bundle exec rake temp:backload_overdue_info_request_events`
+  and `bundle exec rake temp:backload_very_overdue_info_request_events`.
+* This release contains some fairly extensive template changes, including the header
+  change mentioned in Highlighted Features. If you're deploying in place (rather
+  than using capistrano), you may find you need to run `bundle exec rake
+  assets:clean`, `bundle exec rake
+  assets:precompile` and restart your app server to fully flush cached old
+  templates.
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+    app/views/admin_holiday_imports/new.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_request/edit.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/comment/_single_comment.text.erb
+    app/views/comment/new.html.erb
+    app/views/followups/_followup.html.erb
+    app/views/followups/new.html.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_frontpage_search_box.html.erb
+    app/views/general/_responsive_header.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/search.html.erb
+    app/views/info_request_batch/show.html.erb
+    app/views/layouts/default.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_describe_state.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_incoming_correspondence.text.erb
+    app/views/request/_other_describe_state.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.text.erb
+    app/views/request/_request_sent.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_wall_listing.html.erb
+    app/views/request/describe_notices/_successful.html.erb
+    app/views/request/hidden.html.erb
+    app/views/request/new.html.erb
+    app/views/request/show.html.erb
+    app/views/user/_user_listing_single.html.erb
+    app/views/user/banned.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/show.html.erb
+    app/views/widgets/show.html.erb
+# 0.26.0.9
+
+## Highlighted Features
+
+* Fix a bug that meant a Postgres collation that was not compatible with the
+  local database encoding could be chosen (Liz Conlan)
+
+# 0.26.0.8
+
+## Highlighted Features
+
+* Updated translations from Transifex (Louise Crow)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.26.0.7
+
+## Highlighted Features
+
+* Fix a bug in the handling of incoming mail with no body, just
+  attachments (Louise Crow)
+
+# 0.26.0.6
+
+## Highlighted Features
+
+* Apply text masks and censor rules to attachments when downloading a whole
+  request as a Zip file (Louise Crow, Gareth Rees)
+
+## Upgrade Notes
+
+* Check what information may have been released by auditing cached zip
+  downloads:
+  `bundle exec rake temp:audit_cached_zip_downloads_with_censor_rules`. Save
+  this information somewhere to refer back to.
+* Clear all cached Zip downloads so that masks and censor rules are applied the
+  next time they are accessed:
+  `bundle exec rake temp:remove_cached_zip_downloads`.
+
+# 0.26.0.5
+
+## Highlighted Features
+
+* Added an instruction line to the translation source to warn against using
+  double quotes for the email name translation string (Liz Conlan)
+* Updated translations for Italy and Nepal (Liz Conlan)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.26.0.4
+
+## Highlighted Features
+
+* Updated translations for Italian locales (Liz Conlan)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.26.0.3
+
+## Highlighted Features
+
+* Updated translations for Italian translations to fix a bug that prevents
+  mail sending from working properly if there are double quotes in the string
+  used when constructing to email's to field (Liz Conlan)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.26.0.2
+
+## Highlighted Features
+
+* Updated translations (Liz Conlan)
+
+## Upgrade Notes
+
+* This hotfix just includes translation updates.
+
+# 0.26.0.1
+
+## Highlighted Features
+
+* Minor tweaks to unify the action bars used on the authority and request pages
+  (Martin Wright)
+* Added the new action menu to the bottom of the correspondence thread after
+  user feedback (Gareth Rees)
+
+## Upgrade Notes
+
+* This hotfix just makes a couple of template and style tweaks. You may need to
+  update styles for the authority and request page action bars.
+
+### Changed Templates
+
+    app/views/admin_public_body/edit.html.erb
+    app/views/widgets/show.html.erb
+
+# 0.26.0.0
+
+## Highlighted Features
+
+* Moved user actions to an "action menu" on the request pages (Martin Wright,
+  Gareth Rees, Liz Conlan)
+* Added sorting to admin users list (Gareth Rees)
+* Add `required` attribute to select authority form to prevent blank searches
+  (Gareth Rees)
+* Make spam term checking configurable (Gareth Rees)
+* Exclude banned users from graphs and stats tasks (Liz Conlan)
+* New statistics page that includes user stats to show top requesters and
+  annotators, and hidden  requests. Includes a new event type of "hide" to
+  make tracking and reporting on hidden requests much simpler. Need to run
+  `rake temp:update_hide_event_type` to set up the data for this feature
+  (Henare Degan, Luke Bacon)
+* Added task to export last 2 days of requests (`cleanup:spam_requests`)
+  (Gareth Rees)
+* Added admin comments list page (Gareth Rees)
+* Add "banned" label to banned users in admin users list for better visibility
+  (Gareth Rees)
+* Fix request counts for authorities on the body stats page (Henare Degan)
+* Cached mail server log delivery status (Liz Conlan, Gareth Rees)
+* Improved display of authority list in search results (Martin Wright)
+* Added favicon to `admin`, `no_chrome` and attachment to html layouts
+  (Gareth Rees)
+* Search for requests made to a tagged set of public authorities (Henare Degan)
+* Allow format to be parsed correctly so JSON searches work (Henare Degan)
+* Improve styling of request status messages (Martin Wright)
+* Stopped HTML Entities being included in emails (Liz Conlan)
+* Added support for Ubuntu 14.04 LTS (Trusty Tahr) (Louise Crow)
+* Stopped including the original mail in bounce messages to prevent us
+  redistributing spam (Louise Crow)
+* Added more modern request status icons from the default Alaveteli theme
+  (Louise Crow)
+* Made search interfaces more consistent (Martin Wright, Louise Crow)
+* Added a package to automate updating the geoip databases (Henare Degan)
+* New requests are now recorded as virtual pageviews in Google Analytics (Louise Crow)
+* Fixed broken table cell markup (Luke Bacon)
+* Added an admin link to outgoing correspondence (Gareth Rees)
+* Fixed some minor bugs on the admin debug page (Henare Degan)
+* Moved Javascript to end of body tag (Louse Crow)
+* Improve Public Body import from CSV documentation and page layout (Liz Conlan,
+  Gareth Rees)
+* Apache and nginx example files now have far-future expiration dates for static assets
+  to allow browser-based caching (Louise Crow)
+* Improved design of request correspondence boxes (Martin Wright).
+* Improved the listing of similar requests in the request page sidebar (Martin
+  Wright)
+* Added a "Make a Request" call to action to the sidebar of the request pages
+  (Martin Wright)
+* Fixed some missing markup on request description notices (Sam Smith)
+* Improved wording of lists of requests requiring attention on the admin summary
+  page (Louise Crow)
+* Added strong parameters gem for better mass assignment security (Gareth Rees)
+* Added experimental Xapian database replication (Hazel Smith, Louise Crow)
+* Request prominence logic more consistent, embargoed requests introduced as an
+  Alaveteli Pro feature (Louise Crow)
+
+
+## Upgrade Notes
+
+* To cache delivery status of existing mail server logs run
+  `bundle exec rake temp:cache_delivery_status` after deployment.
+* `InfoRequest.last_public_response_clause`,
+  `InfoRequest.old_unclassified_params`,
+  `InfoRequest.count_old_unclassified`,
+  `InfoRequest.get_random_old_unclassified` and
+  `InfoRequest.find_old_unclassified` have been removed. Use
+  `InfoRequest.where_old_unclassified` and additional ARel query methods where
+  necessary.
+* You can improve the speed of your site by making sure that far-future expiration dates
+  are being set on static assets - see the examples in the example config files (`config/
+  httpd.conf-example` and `config/nginx.conf.example`).
+* Install the `geoip-database-contrib` package to automatically fetch latest
+  geoip databases.
+* To update events to use the new 'hide' event type you need to run
+  `rake temp:update_hide_event_type`
+* If you've added Javascript to overriden view templates, you should wrap it
+  in a `content_for :javascript` block. See http://api.rubyonrails.org/v3.2.22/classes/ActionView/Helpers/CaptureHelper.html#method-i-content_for
+  for more information.
+* If you've overridden models that use `attr_accessible` or `attr_protected`,
+  you'll need to update them as per the [strong parameters migration guide]
+  (https://github.com/rails/strong_parameters#migration-path-to-rails-4).
+* There are some database structure updates so remember to `rake db:migrate`
+
+### Changed Templates
+
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/debug.html.erb
+    app/views/admin_general/index.html.erb
+    app/views/admin_public_body/edit.html.erb
+    app/views/admin_public_body/import_csv.html.erb
+    app/views/admin_public_body/new.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/comment/_single_comment.html.erb
+    app/views/contact_mailer/add_public_body.text.erb
+    app/views/contact_mailer/to_admin_message.text.erb
+    app/views/contact_mailer/update_public_body_email.text.erb
+    app/views/contact_mailer/user_message.text.erb
+    app/views/general/_advanced_search_tips.html.erb
+    app/views/general/_footer.html.erb
+    app/views/general/_frontpage_hero.html.erb
+    app/views/general/_localised_datepicker.html.erb
+    app/views/general/_new_request.html.erb
+    app/views/general/_popup_banner.html.erb
+    app/views/general/blog.html.erb
+    app/views/general/search.html.erb
+    app/views/info_request_batch_mailer/batch_sent.text.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/layouts/no_chrome.html.erb
+    app/views/outgoing_mailer/initial_request.text.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/public_body/_list_sidebar_extra.html.erb
+    app/views/public_body/_search_ahead.html.erb
+    app/views/public_body/statistics.html.erb
+    app/views/public_body/view_email.html.erb
+    app/views/public_body/view_email_captcha.html.erb
+    app/views/request/_bubble.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_request_listing.html.erb
+    app/views/request/_sidebar.html.erb
+    app/views/request/_view_html_stylesheet.html.erb
+    app/views/request/describe_notices/_requires_admin.html.erb
+    app/views/request/new.html.erb
+    app/views/request/select_authorities.html.erb
+    app/views/request/select_authority.html.erb
+    app/views/request/show.html.erb
+    app/views/request_game/play.html.erb
+    app/views/request_mailer/comment_on_alert.text.erb
+    app/views/request_mailer/comment_on_alert_plural.text.erb
+    app/views/request_mailer/new_response.text.erb
+    app/views/request_mailer/new_response_reminder_alert.text.erb
+    app/views/request_mailer/not_clarified_alert.text.erb
+    app/views/request_mailer/old_unclassified_updated.text.erb
+    app/views/request_mailer/overdue_alert.text.erb
+    app/views/request_mailer/stopped_responses.text.erb
+    app/views/request_mailer/very_overdue_alert.text.erb
+    app/views/track_mailer/event_digest.text.erb
+    app/views/user/set_crop_profile_photo.html.erb
+    app/views/user_mailer/already_registered.text.erb
+    app/views/user_mailer/changeemail_already_used.text.erb
+    app/views/user_mailer/changeemail_confirm.text.erb
+    app/views/user_mailer/confirm_login.text.erb
+
+# Version 0.25.0.15
+
+## Highlighted Features
+
+* Added an IP rate limiter and rate limit signups to 3 per hour per IP if
+  `ENABLE_ANTI_SPAM` is configured (Gareth Rees)
+* Added a reCAPTCHA to the new request process for users who are not signed in,
+  or have not been marked as `confirmed_not_spam`. This is controlled
+  independently through `NEW_REQUEST_RECAPTCHA` (Louise Crow, Gareth Rees)
+* Allow the additional anti-spam measures to be turned on and off by setting
+  `ENABLE_ANTI_SPAM` (Louise Crow)
+* Ability to block requests from country-based IP ranges. See
+  `RESTRICTED_COUNTRIES` in `config/general.yml-example` for details
+  (Louise Crow)
+* Requests, about me text and comments are rejected if they match known spam
+  patterns (Louise Crow)
+* User-supplied links are now `rel=nofollow` (Louise Crow)
+* Remove banned users from the search index to prevent them appearing in search
+  results (Gareth Rees)
+
+## Upgrade Notes
+
+* Run `bundle exec rake cleanup:reindex_spam_users` to reindex banned users.
+
 # Version 0.25.0.0
 
 ## Highlighted Features
@@ -36,7 +1904,7 @@
 * Added a workaround for a compatibility issue with Xapian character encoding
   (Louise Crow)
 * Minor accessibility improvements (Martin Wright)
-* Add a task to output a CSV of the requests made to the top 20 authorities 
+* Add a task to output a CSV of the requests made to the top 20 authorities
   (Nick Jackson)
 * Allow local code coverage to be generated by setting `COVERAGE=local` in the
   environment when running rspec (Liz Conlan)

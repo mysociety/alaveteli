@@ -75,7 +75,11 @@ class PublicBodyCSV
 
   def collect_public_body_attributes(public_body)
     fields.map do |field|
-      public_body.respond_to?(field) ? public_body.send(field) : ''
+      if public_body.respond_to?(field) && public_body.send(field)
+        public_body.send(field)
+      else
+        ''
+      end
     end
   end
 

@@ -1,0 +1,38 @@
+<div class="js-draft-batch-request-summary"
+  <% if draft && draft.persisted? %>
+     data-draft-id="<%= draft.id %>"
+  <%end %>>
+  <% if draft && draft.public_bodies.present? %>
+    <ul class="batch-builder__list">
+    <% draft.public_bodies.each do |authority| %>
+      <li class="batch-builder__list__item">
+        <div class="batch-builder__list__item__details">
+          <span class="batch-builder__list__item__name">
+            <%= authority.name %>
+          </span>
+
+          <% if authority.has_notes?(tag: 'important_notes') %>
+            <details class="batch-builder__list__item__notes">
+              <summary>
+                <%= _('Important info about requests to this authority') %>
+              </summary>
+
+              <p>
+                <%= sanitize(authority.notes, tags: batch_notes_allowed_tags) %>
+              </p>
+            </details>
+          <% end %>
+        </div>
+
+        <%= render partial: 'alaveteli_pro/batch_request_authority_searches/remove_authority_from_draft_button',
+                   locals: { draft: draft,
+                             query: query,
+                             page: page,
+                             authority_id: authority.id } %>
+      </li>
+    <% end %>
+    </ul>
+  <% else %>
+    <div class="blank-slate"><%= _("You haven't added any authorities to your batch yet") %></div>
+  <% end %>
+</div>

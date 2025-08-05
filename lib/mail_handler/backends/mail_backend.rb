@@ -35,13 +35,15 @@ end
 module MailHandler
   module Backends
     module MailBackend
+      include ConfigHelper
 
       def backend
         'Mail'
       end
 
       def mail_from_raw_email(data)
-        Mail.new(data)
+        data = data.force_encoding(Encoding::BINARY) if data.is_a? String
+        Mail.new(Mail::Utilities.binary_unsafe_to_crlf(data.to_s))
       end
 
       # Extracts all attachments from the given TNEF file as a Mail object
@@ -60,6 +62,13 @@ module MailHandler
         mail = mail_from_raw_email(msg.to_mime.to_s)
         mail.ready_to_send!
         mail
+      end
+
+      def get_subject(mail)
+        subject = mail.subject
+        if subject
+          convert_string_to_utf8(subject).string
+        end
       end
 
       # Return a copy of the file name for the mail part
@@ -125,11 +134,14 @@ module MailHandler
         end
       end
 
-      def get_all_addresses(mail)
-        envelope_to = mail['envelope-to'] ? [mail['envelope-to'].value.to_s] : []
-        ((mail.to || []) +
-         (mail.cc || []) +
-         (envelope_to || [])).compact.uniq
+      def get_all_addresses(mail, include_invalid: false)
+        addrs = []
+        addrs << mail.to
+        addrs << mail[:to].try(:value) if mail.to.nil? && include_invalid
+        addrs << mail.cc
+        addrs << mail[:cc].try(:value) if mail.cc.nil? && include_invalid
+        addrs << (mail['envelope-to'] ? mail['envelope-to'].value.to_s : nil)
+        addrs.flatten.compact.uniq
       end
 
       def empty_return_path?(mail)
@@ -175,7 +187,18 @@ module MailHandler
             part.content_type = 'text/plain'
           end
         elsif is_outlook?(part)
-          part.rfc822_attachment = mail_from_outlook(part.body.decoded)
+          begin
+            part.rfc822_attachment = mail_from_outlook(part.body.decoded)
+          rescue Encoding::CompatibilityError => e
+            if send_exception_notifications?
+              data = { message: 'Exception while parsing outlook attachment.',
+                       parent_mail: parent_mail.inspect }
+              ExceptionNotifier.notify_exception(e, data: data)
+            end
+
+            part.rfc822_attachment = nil
+          end
+
           if part.rfc822_attachment.nil?
             # Attached mail didn't parse, so treat as binary
             part.content_type = 'application/octet-stream'
@@ -203,7 +226,7 @@ module MailHandler
       # set. Tries to set a more specific content type for binary content types.
       def expand_and_normalize_parts(part, parent_mail)
         if part.multipart?
-          part.parts.each{ |sub_part| expand_and_normalize_parts(sub_part, parent_mail) }
+          Mail::PartsList.new(part.parts.each { |sub_part| expand_and_normalize_parts(sub_part, parent_mail) })
         else
           part_filename = get_part_file_name(part)
           if part.has_charset?

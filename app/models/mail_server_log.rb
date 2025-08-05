@@ -10,6 +10,7 @@
 #  line                    :text             not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  delivery_status         :string
 #
 
 # We load log file lines for requests in here, for display in the admin interface.
@@ -17,9 +18,17 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class MailServerLog < ActiveRecord::Base
-  belongs_to :info_request
-  belongs_to :mail_server_log_done
+class MailServerLog < ApplicationRecord
+  # `serialize` needs to be called before all other ActiveRecord code.
+  # See http://stackoverflow.com/a/15610692/387558
+  serialize :delivery_status, DeliveryStatusSerializer
+
+  belongs_to :info_request,
+             :inverse_of => :mail_server_logs
+  belongs_to :mail_server_log_done,
+             :inverse_of => :mail_server_logs
+
+  before_create :calculate_delivery_status
 
   # Load in exim or postfix log file from disk, or update if we already have it
   # Assumes files are named with date, rather than cyclically.
@@ -41,7 +50,7 @@ class MailServerLog < ActiveRecord::Base
           # already have that, nothing to do
           return
         else
-          MailServerLog.delete_all "mail_server_log_done_id = " + done.id.to_s
+          MailServerLog.where("mail_server_log_done_id = ?", done.id).delete_all
         end
       else
         done = MailServerLogDone.new(:filename => file_name_db)
@@ -168,8 +177,8 @@ class MailServerLog < ActiveRecord::Base
     info_requests = InfoRequest.where("created_at < ?
                                       AND created_at > ?
                                       AND user_id IS NOT null",
-                                      Time.now - 2.days,
-                                      Time.now - 10.days)
+                                      Time.zone.now - 2.days,
+                                      Time.zone.now - 10.days)
 
     # Go through each request and check it
     ok = true
@@ -202,28 +211,87 @@ class MailServerLog < ActiveRecord::Base
   # Public: Overrides the ActiveRecord attribute accessor
   #
   # opts = Hash of options (default: {})
-  #        :redact_idhash - Redacts instances of the InfoRequest#idhash
+  #        :redact - Redacts potentially sensitive information from the line
   #        :decorate - Wrap the line in a decorator appropriate to the MTA
   #
   # Returns a String, EximLine or PostfixLine
   def line(opts = {})
-    line = read_attribute(:line).dup
-    if opts[:redact_idhash] && info_request && info_request.idhash
-      line.gsub!(info_request.idhash, _('[REDACTED]'))
+    _line = read_attribute(:line)
+
+    if opts[:redact]
+      _line = strip_syslog_prefix(_line)
+      _line = redact_hostname(_line) if sent_to_smarthost?(_line)
+      _line =
+        redact_idhash(_line, info_request.idhash) if info_request.try(:idhash)
     end
-    line = line_decorator.new(line) if opts[:decorate]
-    line
+
+    _line = line_decorator.new(_line) if opts[:decorate]
+    _line
+  end
+
+  def delivery_status
+    begin
+      unless attributes['delivery_status'].present?
+        # attempt to parse the status from the log line and store if successful
+        set_delivery_status
+      end
+
+      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+    # TODO: This rescue can be removed when there are no more cached
+    # MTA-specific statuses
+    rescue ArgumentError
+      warn %q(MailServerLog#delivery_status rescuing from invalid delivery
+              status. Run bundle exec rake temp:cache_delivery_status to update
+              cached values. This error handling will be removed soon.).
+              squish unless Rails.env.test?
+
+      # re-try setting the delivery status, forcing the write by avoiding the
+      # Rails 4.2 call to old_attribute_value hidden inside write_attribute as
+      # that will re-raise the 'Invalid delivery status' ArgumentError we're
+      # attempting to rescue
+      # https://apidock.com/rails/v4.2.7/ActiveRecord/AttributeMethods/Dirty/write_attribute
+      set_delivery_status(true)
+      save
+      DeliveryStatusSerializer.load(read_attribute(:delivery_status))
+    end
   end
 
   private
+
+  # attempt to parse the status from the log line and store if successful
+  def set_delivery_status(force = false)
+    decorated = line(:decorate => true)
+    if decorated && decorated.delivery_status
+      if force
+        force_delivery_status(decorated.delivery_status)
+      else
+        write_attribute(:delivery_status, decorated.delivery_status)
+      end
+    end
+  end
+
+  def force_delivery_status(new_status)
+    # write the value without checking the old (invalid) value, avoiding the
+    # unintended ArgumentError caused by reading the old value
+    write_attribute_without_type_cast(:delivery_status, new_status)
+
+    # record the new value in `changes` so that save will have something
+    # to do as write_attribute_without_type_cast just updates the value
+    delivery_status_will_change!
+  end
+
+  def calculate_delivery_status
+    delivery_status
+    true
+  end
 
   def self.create_mail_server_logs(emails, line, order, done)
     emails.each do |email|
       info_request = InfoRequest.find_by_incoming_email(email)
       if info_request
-        info_request.mail_server_logs.create!(:line => line, :order => order, :mail_server_log_done => done)
-      else
-        puts "Warning: Could not find request with email #{email}"
+        info_request.
+          mail_server_logs.
+          create!(:line => line, :order => order, :mail_server_log_done => done)
       end
     end
   end
@@ -238,6 +306,34 @@ class MailServerLog < ActiveRecord::Base
     else
       raise "Unexpected MTA type: #{ mta }"
     end
+  end
+
+  def strip_syslog_prefix(line)
+    prefix_regexp = /\A(.*?\s)\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*/
+    match = line.match(prefix_regexp).try(:[], 1)
+    if match
+      line.gsub(match, '')
+    else
+      line
+    end
+  end
+
+  def sent_to_smarthost?(line)
+    line.match(/R=(\w+)/).try(:[], 1).to_s.downcase == 'send_to_smarthost'
+  end
+
+  def redact_hostname(line)
+    hostname_regexp = /H=(.*?\s\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]\:\d{1,5})/
+    match = line.match(hostname_regexp).try(:[], 1)
+    if match
+      line.gsub(match, _('[REDACTED]'))
+    else
+      line
+    end
+  end
+
+  def redact_idhash(line, idhash)
+    line.gsub(idhash, _('[REDACTED]'))
   end
 
 end

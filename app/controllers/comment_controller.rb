@@ -6,18 +6,16 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CommentController < ApplicationController
-  before_filter :check_read_only, :only => [ :new ]
-  before_filter :find_info_request, :only => [ :new ]
-  before_filter :create_track_thing, :only => [ :new ]
-  before_filter :reject_unless_comments_allowed, :only => [ :new ]
-  before_filter :reject_if_user_banned, :only => [ :new ]
+  before_action :check_read_only, :only => [ :new ]
+  before_action :find_info_request, :only => [ :new ]
+  before_action :create_track_thing, :only => [ :new ]
+  before_action :reject_unless_comments_allowed, :only => [ :new ]
+  before_action :reject_if_user_banned, :only => [ :new ]
+  before_action :set_in_pro_area, :only => [ :new ]
 
   def new
     if params[:comment]
-      @comment = Comment.new(params[:comment].merge({
-                                                      :comment_type => 'request',
-                                                      :user => @user
-      }))
+      @comment = Comment.new(comment_params.merge({ :user => @user }))
     end
 
     if params[:comment]
@@ -30,6 +28,7 @@ class CommentController < ApplicationController
 
     # See if values were valid or not
     if !params[:comment] || !@existing_comment.nil? || !@comment.valid? || params[:reedit]
+      @comment ||= @info_request.comments.new
       render :action => 'new'
       return
     end
@@ -45,6 +44,10 @@ class CommentController < ApplicationController
         :email => _("Then your annotation to {{info_request_title}} will be posted.",:info_request_title=>@info_request.title),
         :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
       )
+
+      if spam_comment?(params[:comment][:body], @user)
+        handle_spam_comment(@user) && return
+      end
 
       # Also subscribe to track for this request, so they get updates
       # (do this first, so definitely don't send alert)
@@ -78,9 +81,16 @@ class CommentController < ApplicationController
 
   private
 
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+
   def find_info_request
     if params[:type] == 'request'
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+      if @info_request.embargo && cannot?(:read, @info_request)
+        raise ActiveRecord::RecordNotFound
+      end
     else
       raise "Unknown type #{ params[:type] }"
     end
@@ -96,7 +106,7 @@ class CommentController < ApplicationController
   # not usually hit this unless they are explicitly attempting to avoid the
   # comment block.
   def reject_unless_comments_allowed
-    unless AlaveteliConfiguration.enable_annotations && @info_request.comments_allowed?
+    unless feature_enabled?(:annotations) && @info_request.comments_allowed?
       redirect_to request_url(@info_request), :notice => "Comments are not allowed on this request"
     end
   end
@@ -109,4 +119,35 @@ class CommentController < ApplicationController
     end
   end
 
+  # An override of ApplicationController#set_in_pro_area to set the flag
+  # whenever the info_request has an embargo, because we might not have a :pro
+  # parameter to go on.
+  def set_in_pro_area
+    @in_pro_area = @info_request.embargo.present?
+  end
+
+  def spam_comment?(comment_body, user)
+    !user.confirmed_not_spam? &&
+      AlaveteliSpamTermChecker.new.spam?(comment_body)
+  end
+
+  def block_spam_comments?
+    AlaveteliConfiguration.block_spam_comments ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  # Sends an exception and blocks the comment depending on configuration.
+  def handle_spam_comment(user)
+    if send_exception_notifications?
+      e = Exception.new("Possible spam annotation from user #{ user.id }")
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_spam_comments?
+      flash.now[:error] = _("Sorry, we're currently unable to add your " \
+                            "annotation. Please try again later.")
+      render :action => 'new'
+      true
+    end
+  end
 end

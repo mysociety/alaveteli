@@ -1,6 +1,11 @@
-<% @title = _("FOI request – {{title}}", :title => h(@info_request.title)) %>
+<% @title = "FOI request – #{ @info_request.title }" %>
 
-<h1><%=@title%></h1>
+<h1>
+  <%= @title %>
+  <% if @info_request.embargo %>
+    <%= content_tag(:span, 'embargoed', :class => 'label') %>
+  <% end %>
+</h1>
 
 <%= form_tag move_admin_request_path(@info_request), { :class => "form form-horizontal" } do %>
   <div class="accordion" id="info_request">
@@ -27,25 +32,46 @@
           </thead>
           <tbody>
             <tr>
-              <th>Public page:</th>
-              <td><%= link_to request_url(@info_request), request_path(@info_request) %></td>
+              <% if @info_request.embargo %>
+                <th>Request page:</th>
+                <td><%= link_to show_alaveteli_pro_request_url(@info_request.url_title), show_alaveteli_pro_request_path(@info_request.url_title) %></td>
+              <% else %>
+                <th>Public page:</th>
+                <td><%= link_to request_url(@info_request), request_path(@info_request) %></td>
+              <% end %>
             </tr>
-            <% @info_request.for_admin_column do |name, value, type, column_name|%>
+            <% if @info_request.embargo %>
+              <tr>
+                <th>Private until:</th>
+                <td>
+                  <strong>
+                    <%= @info_request.embargo.publish_at.strftime('%d %B %Y') %>
+                  </strong>
+                </td>
+              </tr>
+            <% end %>
+
+            <% @info_request.for_admin_column do |name, value, type, column_name| %>
               <tr>
                 <td>
                   <b><%= name %>:</b>
                 </td>
                 <td>
                   <% if type == 'datetime' && value %>
-                    <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
-                    (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
+                    <%= value.to_s(:db) %>
+                    (<%= time_ago_in_words(value) %> ago)
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
+                  <% elsif column_name == 'allow_new_responses_from' %>
+                    <%= h highlight_allow_new_responses_from(value) %>
                   <% else %>
                     <%= h value %>
                   <% end %>
+
                   <% if column_name == 'described_state' %>
                     <ul>
-                      <li><strong>Initial request last sent at:</strong> <%= @info_request.calculate_status %></li>
-                      <li><strong>Initial request last sent at:</strong> <%=@info_request.date_initial_request_last_sent_at.to_date %></li>
+                      <li><strong>Request status:</strong> <%= @info_request.calculate_status %></li>
+                      <li><strong>Date initial request last sent at:</strong> <%= @info_request.date_initial_request_last_sent_at %></li>
                       <li><strong>Date response required by:</strong> <%= @info_request.date_response_required_by %></li>
                       <li><strong>Very overdue after:</strong> <%= @info_request.date_very_overdue_after %></li>
                     </ul>
@@ -53,6 +79,7 @@
                 </td>
               </tr>
             <% end %>
+
             <tr>
               <td>
                 <b>Created by</b>
@@ -60,10 +87,10 @@
               <td>
                 <% if @info_request.is_external? %>
                   <%= link_to(eye, @info_request.external_url, :title => "view URL of original request on external website") %>
-                  <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || _('an anonymous user'))%> (using API)
+                  <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || 'an anonymous user') %> (using API)
                 <% else %>
                   <%= user_both_links(@info_request.user) %>
-                  <%= link_to _("move..."), "#", :class => "btn btn-mini btn-warning toggle-hidden" %>
+                  <%= link_to 'move...', '#', class: 'btn btn-mini btn-warning toggle-hidden' %>
                   <div style="display:none;">
                     <strong>url_name of new user:</strong>
                     <%= text_field_tag 'user_url_name', "", { :size => 20 } %>
@@ -86,9 +113,21 @@
                 </div>
               </td>
             </tr>
+
+            <% if @info_request.info_request_batch %>
+              <tr>
+                <td>
+                  <b>Info Request Batch:</b>
+                </td>
+                <td>
+                  <%= @info_request.info_request_batch_id %>
+                </td>
+              </tr>
+            <% end %>
+
             <tr>
               <td>
-                <b><%=_("Incoming email address")%></b>
+                <b>Incoming email address</b>
               </td>
               <td>
                 <%= link_to h(@info_request.incoming_email), "mailto:#{@info_request.incoming_email}" %>
@@ -96,7 +135,7 @@
             </tr>
             <tr>
               <td>
-                <b><%=_("Tags")%></b>
+                <b>Tags</b>
               </td>
               <td>
                 <%= render :partial => 'tags', :locals => { :info_request => @info_request} %>
@@ -137,20 +176,15 @@
       <% end %>
 
       <div class="controls" id="request_hidden_user_explanation_reasons">
-        <% if ['hidden', 'requester_only'].include? @info_request.prominence %>
+        <% if @info_request.prominence(:decorate => true).is_private? %>
           <p class="help-block">This request has already been hidden</p>
         <% else %>
-          <label class="radio inline">
-            <%= radio_button_tag "reason", "not_foi" %> <%= _("Not a valid FOI request") %>
-          </label>
-          <label class="radio inline">
-            <%= radio_button_tag "reason", "vexatious" %> <%= _("A vexatious request") %>
-          </label>
+          <%= render partial: 'hidden_user_explanation_reasons' %>
         <% end %>
       </div>
     </div>
 
-    <% if !['hidden', 'requester_only'].include? @info_request.prominence %>
+    <% if !@info_request.prominence(:decorate => true).is_private? %>
       <% if ! @info_request.is_external? %>
 
         <div class="control-group" id="request_hidden_user_subject">
@@ -163,13 +197,13 @@
         <div class="control-group" id="request_hidden_user_explanation">
           <label for="request_hidden_user_explanation_field" class="control-label">Reason for hiding the request (will be emailed to user):</label>
           <div class="controls">
-            <%= text_area_tag "explanation", h(@request_hidden_user_explanation), {:id => "request_hidden_user_explanation_field"} %>
+            <%= text_area_tag "explanation", "", {:id => "request_hidden_user_explanation_field"} %>
           </div>
         </div>
 
       <% end %>
       <div class="form-actions" id="request_hide_button">
-        <%= submit_tag _("Hide request"), :class => "btn" %>
+        <%= submit_tag 'Hide request', class: 'btn' %>
       </div>
     <% end %>
   <% end %>
@@ -183,7 +217,7 @@
       <div class="accordion-heading">
         <span class="item-title">
           <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
-          <%= _("Event {{id}}", :id => info_request_event.id) %>:
+          <%= "Event #{info_request_event.id}" %>:
           <strong>
             <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
           </strong>
@@ -252,25 +286,42 @@
             <tr>
               <td colspan="2">
                 <%= form_tag resend_admin_outgoing_message_path(outgoing_message), :class => "admin-table-form" do %>
-                  <%= submit_tag "Resend", :class => "btn" %>
+                  <% msg = "Are you sure you want to resend this message " \
+                           "to the authority?" %>
+                  <%= submit_tag "Resend", :class => "btn btn-warning",
+                                           :data => { :confirm => msg } %>
                 <% end %>
               </td>
             </tr>
             <% outgoing_message.for_admin_column do |name, value, type, column_name| %>
               <tr>
                 <td class="span3">
-                  <b><%=name%></b>
+                  <b><%= name %></b>
                 </td>
                 <td>
                   <% if column_name == 'body' %>
-                    <%= simple_format(truncate(h(outgoing_message.body), :length => 400, :omission => link_to("...", "#", :class => "toggle-hidden" )).html_safe) %>
-                    <div style="display:none;"><%= simple_format( outgoing_message.body ) %></div>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
+                    <div style="display:none;"><%= simple_format(value) %></div>
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= admin_value(value) %>
                   <% end %>
                 </td>
               </tr>
             <% end %>
+            <tr>
+              <td class="span3">
+                <b>Raw body</b>
+              <td>
+                <% truncated_value = truncate(h(outgoing_message.raw_body), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                <%= simple_format(truncated_value) %>
+                <div style="display:none;">
+                  <%= simple_format(outgoing_message.raw_body) %>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -289,7 +340,7 @@
           <%=incoming_message.id%>
           --
           <%= h(incoming_message.mail_from) %>
-          <%=_("at")%> <%=admin_value(incoming_message.sent_at)%>
+          at <%=admin_value(incoming_message.sent_at) %>
         <% end %>
         <blockquote class="incoming-message">
           <% if !incoming_message.cached_main_body_text_folded.nil? %>
@@ -314,8 +365,11 @@
                 </td>
                 <td>
                   <% if column_name =~ /^cached_.*?$/ %>
-                    <%= simple_format( truncate(h(value), :length => 400, :omission => link_to("...", "#", :class => "toggle-hidden")).html_safe) %>
+                    <% truncated_value = truncate(h(value), length: 400, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+                    <%= simple_format(truncated_value) %>
                     <div style="display:none;"><%= simple_format(value) %></div>
+                  <% elsif column_name == 'prominence' %>
+                    <%= h highlight_prominence(value) %>
                   <% else %>
                     <%= simple_format(value.to_s) %>
                   <% end %>
@@ -327,7 +381,7 @@
       </div>
     </div>
   <% end %>
-  <% if @info_request.incoming_messages.count > 0 %>
+  <% if @info_request.incoming_messages.any? %>
     <%= form_tag bulk_destroy_admin_incoming_messages_path do %>
       <%= hidden_field_tag(:ids) %>
       <%= hidden_field_tag(:request_id, @info_request.id) %>
@@ -356,6 +410,9 @@
 <% end %>
 
 <hr>
-<h2>Censor rules</h2>
-<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @info_request.censor_rules, :info_request => @info_request } %>
 
+<h2>Censor rules</h2>
+
+<%= render partial: 'admin_censor_rule/show',
+           locals: { censor_rules: @info_request.censor_rules,
+                     info_request: @info_request } %>

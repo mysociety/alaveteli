@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
+<html lang="<%= AlaveteliLocalization.html_lang %>">
   <head>
     <meta charset="utf-8">
     <%= csrf_meta_tags %>
@@ -14,24 +14,17 @@
 
     <%= javascript_include_tag "application" %>
 
-    <% if AlaveteliConfiguration::responsive_styling || params[:responsive] %>
-      <%= render :partial => 'general/responsive_stylesheets' %>
-    <% else %>
-      <%= stylesheet_link_tag 'application', :title => "Main", :rel => "stylesheet" %>
-      <%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
-      <!--[if LT IE 7]>
-        <%= stylesheet_link_tag 'ie6', :rel => "stylesheet" %>
-        <![endif]-->
-      <% end %>
+    <%= render :partial => 'general/responsive_stylesheets' %>
+    <%= render :partial => 'layouts/favicon' %>
   </head>
   <body>
     <div class="entirebody">
       <div id="content">
         <% if flash[:notice] %>
-          <div id="notice"><%= flash[:notice] %></div>
+          <div id="notice"><%= render_flash(flash[:notice]) %></div>
         <% end %>
         <% if flash[:error] %>
-          <div id="error"><%= flash[:error] %></div>
+          <div id="error"><%= render_flash(flash[:error]) %></div>
         <% end %>
 
         <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">

@@ -9,7 +9,7 @@
 #  public_body_id    :integer
 #  text              :text             not null
 #  replacement       :text             not null
-#  last_edit_editor  :string(255)      not null
+#  last_edit_editor  :string           not null
 #  last_edit_comment :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -22,12 +22,14 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class CensorRule < ActiveRecord::Base
+class CensorRule < ApplicationRecord
   include AdminColumn
-  belongs_to :info_request
-  belongs_to :user
-  belongs_to :public_body
-
+  belongs_to :info_request,
+             :inverse_of => :censor_rules
+  belongs_to :user,
+             :inverse_of => :censor_rules
+  belongs_to :public_body,
+             :inverse_of => :censor_rules
 
   validate :require_valid_regexp, :if => proc { |rule| rule.regexp? == true }
 
@@ -49,11 +51,42 @@ class CensorRule < ActiveRecord::Base
 
   def apply_to_binary(binary_to_censor)
     return nil if binary_to_censor.nil?
-    binary_to_censor.gsub(to_replace('ASCII-8BIT')) { |match| match.gsub(single_char_regexp, 'x') }
+
+    binary_to_censor.gsub(to_replace(binary_to_censor.encoding)) do |match|
+      match.gsub(single_char_regexp) { |m| 'x' * m.bytesize }
+    end
   end
 
   def is_global?
     info_request_id.nil? && user_id.nil? && public_body_id.nil?
+  end
+
+  def expire_requests
+    if info_request
+      info_request.expire
+    elsif user
+      user.expire_requests
+    elsif public_body
+      public_body.expire_requests
+    else # global rule
+      InfoRequest.find_in_batches do |group|
+        group.each { |request| request.expire }
+      end
+    end
+  end
+
+  def censorable_requests
+    if info_request
+      # Prefer a chainable query instead of wrapping in Array for similar API
+      # between CensorRule types
+      InfoRequest.where(id: info_request_id)
+    elsif user
+      user.info_requests
+    elsif public_body
+      public_body.info_requests
+    else
+      InfoRequest.unscoped
+    end
   end
 
   private

@@ -9,7 +9,7 @@
   <li><%= _('<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href="{{varieties_url}}">table of varieties</a> below.', :varieties_url => "#varieties") %></li>
   <li><%= _('<strong><code>requested_from:home_office</code></strong> to search requests from the Home Office, typing the name as in the URL.')%></li>
   <li><%= _('<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL.') %></li>
-  <% if AlaveteliConfiguration.enable_annotations %>
+  <% if feature_enabled?(:annotations) %>
     <li><%= _('<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL.')%></li>
   <% end %>
   <li><%= _('<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL.')%>
@@ -22,6 +22,9 @@
             'default any of the tags can be present, you have to put ' \
             '<code>AND</code> explicitly if you only want results them ' \
             'all present.') %></li>
+  <li><%= _('<strong><code>request_public_body_tag:charity</code></strong> ' \
+            'to find requests to public authorities with a given ' \
+            'tag.') %></li>
   <li><%= _('Read about <a href="{{advanced_search_url}}">advanced search operators</a>, such as proximity and wildcards.', :advanced_search_url => "http://www.xapian.org/docs/queryparser.html") %></li>
 </ul>
 
@@ -35,10 +38,10 @@
   <tr><td><strong><%=search_link('status:partially_successful')%></strong></td><td><%= _('Some of the information requested has been received') %></td></tr>
   <tr><td><strong><%=search_link('status:successful')%></strong></td><td><%= _('All of the information requested has been received') %></td></tr>
   <tr><td><strong><%=search_link('status:waiting_clarification')%></strong></td><td><%= _('The public authority would like part of the request explained') %></td></tr>
-  <tr><td><strong><%=search_link('status:gone_postal')%></strong></td><td><%= _('The public authority would like to / has responded by post') %></td></tr>
+  <tr><td><strong><%=search_link('status:gone_postal')%></strong></td><td><%= _('The public authority would like to / has responded by postal mail') %></td></tr>
   <tr><td><strong><%=search_link('status:internal_review')%></strong></td><td><%= _('Waiting for the public authority to complete an internal review of their handling of the request') %></td></tr>
   <tr><td><strong><%=search_link('status:error_message')%></strong></td><td><%= _('Received an error message, such as delivery failure.') %></td></tr>
-  <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td><%= _('A strange reponse, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
+  <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td><%= _('A strange response, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
   <tr><td><strong><%=search_link('status:user_withdrawn')%></strong></td><td><%= _('The requester has abandoned this request for some reason') %></td></tr>
 </table>
 
@@ -51,7 +54,7 @@
   # the initial request
   _('Follow up message sent by requester') %></td></tr>
   <tr><td><strong><%=search_link('variety:response')%></strong></td><td><%= _('Response from a public authority') %></td></tr>
-  <% if AlaveteliConfiguration.enable_annotations %>
+  <% if feature_enabled?(:annotations) %>
     <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
   <% end %>
   <tr><td><strong><%=search_link('variety:authority')%></strong></td><td><%= _('A public authority') %></td></tr>

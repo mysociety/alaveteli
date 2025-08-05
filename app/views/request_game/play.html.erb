@@ -17,7 +17,7 @@
   <table>
     <% @league_table_28_days.each_with_index do |classifications, index| %>
       <tr>
-        <td> <%= index += 1 %>. <td>
+        <td> <%= index += 1 %>. </td>
         <td> <%= user_link(classifications.user) %> </td>
         <td>
 
@@ -33,7 +33,7 @@
   <table>
     <% @league_table_all_time.each_with_index do |classifications, index| %>
       <tr>
-        <td> <%= index += 1 %>. <td>
+        <td> <%= index += 1 %>. </td>
         <td> <%= user_link(classifications.user) %> </td>
         <td> <%= n_("{{number_of_requests}} request",
                     "{{number_of_requests}} requests",

@@ -4,22 +4,15 @@
 # Table name: public_bodies
 #
 #  id                                     :integer          not null, primary key
-#  name                                   :text             not null
-#  short_name                             :text             default(""), not null
-#  request_email                          :text             not null
 #  version                                :integer          not null
-#  last_edit_editor                       :string(255)      not null
-#  last_edit_comment                      :text             not null
+#  last_edit_editor                       :string           not null
+#  last_edit_comment                      :text
 #  created_at                             :datetime         not null
 #  updated_at                             :datetime         not null
-#  url_name                               :text             not null
-#  home_page                              :text             default(""), not null
-#  notes                                  :text             default(""), not null
-#  first_letter                           :string(255)      not null
-#  publication_scheme                     :text             default(""), not null
-#  api_key                                :string(255)      not null
+#  home_page                              :text
+#  api_key                                :string           not null
 #  info_requests_count                    :integer          default(0), not null
-#  disclosure_log                         :text             default(""), not null
+#  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
@@ -30,11 +23,12 @@
 require 'csv'
 require 'securerandom'
 require 'set'
+require 'confidence_intervals'
 
-class PublicBody < ActiveRecord::Base
+class PublicBody < ApplicationRecord
   include AdminColumn
 
-  class ImportCSVDryRun < StandardError ; end
+  class ImportCSVDryRun < StandardError; end
 
   @non_admin_columns = %w(name last_edit_comment)
 
@@ -55,44 +49,80 @@ class PublicBody < ActiveRecord::Base
     ]
   end
 
-  has_many :info_requests, :order => 'created_at desc'
-  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
-  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
+  has_many :info_requests,
+           -> { order('created_at desc') },
+           :inverse_of => :public_body
+  has_many :track_things,
+           -> { order('created_at desc') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :censor_rules,
+           -> { order('created_at desc') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           -> { order('created_at DESC') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :public_body_change_requests,
+           -> { order('created_at DESC') },
+           :inverse_of => :public_body,
+           :dependent => :destroy
+  has_many :draft_info_requests,
+           -> { order('created_at DESC') },
+           :inverse_of => :public_body
+
+  has_and_belongs_to_many :info_request_batches,
+                          :inverse_of => :public_bodies
+  has_and_belongs_to_many :draft_info_request_batches,
+                          :class_name => 'AlaveteliPro::DraftInfoRequestBatch',
+                          :inverse_of => :public_bodies
 
   validates_presence_of :name, :message => N_("Name can't be blank")
   validates_presence_of :url_name, :message => N_("URL name can't be blank")
+  validates_presence_of :last_edit_editor,
+                        :message => N_("Last edit editor can't be blank")
 
-  validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+  validates :request_email,
+            not_nil: { message: N_("Request email can't be nil") }
+
+  validates_uniqueness_of :short_name,
+                          :message => N_("Short name is already taken"),
+                          :allow_blank => true
   validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
   validates_uniqueness_of :name, :message => N_("Name is already taken")
+
+  validates :last_edit_editor,
+            length: { maximum: 255,
+                      too_long: N_("Last edit editor can't be longer than " \
+                                   "255 characters") }
 
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  before_save :set_default_publication_scheme
-  after_save :purge_in_cache
   after_update :reindex_requested_from
 
 
   # Every public body except for the internal admin one is visible
-  scope :visible, lambda {
-    {
-      :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
-    }
-  }
+  scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
   acts_as_xapian :texts => [:name, :short_name, :notes],
-  :values => [
-    # for sorting
-    [:created_at_numeric, 1, "created_at", :number]
-  ],
-  :terms => [
-    [:variety, 'V', "variety"],
-    [:tag_array_for_search, 'U', "tag"]
-  ]
+                 :values => [
+                   # for sorting
+                   [:created_at_numeric, 1, "created_at", :number]
+                 ],
+                 :terms => [
+                   [:name_for_search, 'N', 'name'],
+                   [:variety, 'V', "variety"],
+                   [:tag_array_for_search, 'U', "tag"]
+                 ],
+                 :eager_load => [:translations]
   has_tag_string
-  strip_attributes :allow_empty => true
+
+  strip_attributes :allow_empty => false, :except => [:request_email]
+  strip_attributes :allow_empty => true, :only => [:request_email]
+
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
   # Cannot be grouped at top as it depends on the `translates` macro
@@ -131,6 +161,17 @@ class PublicBody < ActiveRecord::Base
   #
   # [1] http://git.io/vIetK
   class Version
+    before_save :copy_translated_attributes
+
+    def copy_translated_attributes
+      public_body.attributes.each do |name, value|
+        if public_body.translated?(name) &&
+           !public_body.non_versioned_columns.include?(name)
+          send("#{name}=", value)
+        end
+      end
+    end
+
     def last_edit_comment_for_html_display
       text = self.last_edit_comment.strip
       text = CGI.escapeHTML(text)
@@ -139,23 +180,32 @@ class PublicBody < ActiveRecord::Base
       return text
     end
 
-    def compare(previous = nil)
+    def compare(previous = nil, &block)
       if previous.nil?
-        yield([])
+        changes = []
       else
         v = self
-        changes = self.class.content_columns.inject([]) {|memo, c|
-          unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
+        changes = self.class.content_columns.inject([]) { |memo, c|
+          unless %w(version
+                    last_edit_editor
+                    last_edit_comment
+                    created_at
+                    updated_at).include?(c.name)
             from = previous.send(c.name)
             to = self.send(c.name)
-            memo << { :name => c.name.humanize, :from => from, :to => to } if from != to
+            memo << { :name => c.name.humanize,
+                      :from => from,
+                      :to => to } if from != to
           end
           memo
         }
+      end
+      if block_given?
         changes.each do |change|
           yield(change)
         end
       end
+      changes
     end
   end
 
@@ -164,12 +214,10 @@ class PublicBody < ActiveRecord::Base
   #
   # query  - String to query the searchable fields
   # locale - String to specify the language of the seach query
-  #          (default: I18n.locale)
+  #          (default: AlaveteliLocalization.locale)
   #
   # Returns an ActiveRecord::Relation
-  def self.search(query, locale = I18n.locale)
-    locale = locale.to_s.gsub('-', '_') # Clean the locale string
-
+  def self.search(query, locale = AlaveteliLocalization.locale)
     sql = <<-SQL
     (
       lower(public_body_translations.name) like lower('%'||?||'%')
@@ -187,12 +235,29 @@ class PublicBody < ActiveRecord::Base
       uniq
   end
 
+  def self.with_domain(domain)
+    return none unless domain
+
+    with_translations(AlaveteliLocalization.locale).
+      where("lower(public_body_translations.request_email) " \
+            "like lower('%'||?||'%')", domain).
+        order('public_body_translations.name')
+  end
+
   def set_api_key
     set_api_key! if api_key.nil?
   end
 
   def set_api_key!
     self.api_key = SecureRandom.base64(33)
+  end
+
+  def self.find_by_name(name)
+    find_by(name: name)
+  end
+
+  def self.find_by_url_name(url_name)
+    find_by(url_name: url_name)
   end
 
   # like find_by_url_name but also search historic url_name if none found
@@ -210,7 +275,8 @@ class PublicBody < ActiveRecord::Base
     # public bodies in it
     old = PublicBody::Version.
       where(:url_name => name).
-      pluck('DISTINCT public_body_id')
+      distinct.
+      pluck(:public_body_id)
 
     # Maybe return the first one, so we show something relevant,
     # rather than throwing an error?
@@ -220,15 +286,40 @@ class PublicBody < ActiveRecord::Base
     PublicBody.find(old.first)
   end
 
+  def self.without_request_email
+    joins(:translations).
+      where(public_body_translations: { request_email: '' }).
+      not_defunct
+  end
+
+  def self.with_request_email
+    joins(:translations).
+      where.not(public_body_translations: { request_email: '' })
+  end
+
   # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
+  # and the site will not accept further requests for them
   def not_apply?
     has_tag?('not_apply')
+  end
+
+  scope :foi_applies, -> { without_tag('not_apply') }
+
+  # If tagged "foi_no", then the authority is not subject to FOI law but
+  # requests may still be made through the site (e.g. they may have agreed to
+  # respond to requests on a voluntary basis)
+  # This will apply in all cases if the site has been configured not to state
+  # that authorities have a legal obligation
+  def not_subject_to_law?
+    has_tag?('foi_no') || !AlaveteliConfiguration.authority_must_respond
   end
 
   # If tagged "defunct", then the authority no longer exists at all
   def defunct?
     has_tag?('defunct')
   end
+
+  scope :not_defunct, -> { without_tag('defunct') }
 
   # Are all requests to this body under the Environmental Information
   # Regulations?
@@ -244,6 +335,8 @@ class PublicBody < ActiveRecord::Base
   def is_requestable?
     has_request_email? && !defunct? && !not_apply?
   end
+
+  scope :is_requestable, -> { with_request_email.not_defunct.foi_applies }
 
   # Strict superset of is_requestable?
   def is_followupable?
@@ -299,23 +392,39 @@ class PublicBody < ActiveRecord::Base
 
   # The "internal admin" is a special body for internal use.
   def self.internal_admin_body
-    # Use find_by_sql to avoid the search being specific to a
-    # locale, since url_name is a translated field:
-    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-    matching_pbs = PublicBody.find_by_sql sql
-    case
-    when matching_pbs.empty? then
-      I18n.with_locale(I18n.default_locale) do
-        PublicBody.create!(:name => 'Internal admin authority',
-                           :short_name => "",
-                           :request_email => AlaveteliConfiguration::contact_email,
-                           :home_page => "",
-                           :notes => "",
-                           :publication_scheme => "",
-                           :last_edit_editor => "internal_admin",
-                           :last_edit_comment => "Made by PublicBody.internal_admin_body")
+    matching_pbs = AlaveteliLocalization.
+      with_locale(AlaveteliLocalization.default_locale) do
+      default_scoped.where(url_name: 'internal_admin_authority')
+    end
+
+    if matching_pbs.empty?
+      # "internal admin" exists but has the wrong default locale - fix & return
+      if invalid_locale = PublicBody::Translation.
+                            find_by_url_name('internal_admin_authority')
+        found_pb = PublicBody.find(invalid_locale.public_body_id)
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
+          found_pb.name = "Internal admin authority"
+          found_pb.request_email = AlaveteliConfiguration.contact_email
+          found_pb.save!
+        end
+        found_pb
+      else
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
+          default_scoped.
+            create!(:name => 'Internal admin authority',
+                    :short_name => "",
+                    :request_email => AlaveteliConfiguration.contact_email,
+                    :home_page => nil,
+                    :notes => nil,
+                    :publication_scheme => nil,
+                    :last_edit_editor => "internal_admin",
+                    :last_edit_comment =>
+                      "Made by PublicBody.internal_admin_body")
+        end
       end
-    when matching_pbs.length == 1 then
+    elsif matching_pbs.length == 1
       matching_pbs[0]
     else
       raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
@@ -350,7 +459,8 @@ class PublicBody < ActiveRecord::Base
         bodies_by_name = {}
         set_of_existing = Set.new
         internal_admin_body_id = PublicBody.internal_admin_body.id
-        I18n.with_locale(I18n.default_locale) do
+        AlaveteliLocalization.
+          with_locale(AlaveteliLocalization.default_locale) do
           bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
           for existing_body in bodies
             # Hide InternalAdminBody from import notes
@@ -379,13 +489,13 @@ class PublicBody < ActiveRecord::Base
 
           # Parse the first line as a field list if it starts with '#'
           if line==1 and row.first.to_s =~ /^#(.*)$/
-            row[0] = row[0][1..-1]  # Remove the # sign on first field
-            row.each_with_index {|field, i| field_names[field] = i}
+            row[0] = row[0][1..-1] # Remove the # sign on first field
+            row.each_with_index { |field, i| field_names[field] = i }
             next
           end
 
           fields = {}
-          field_names.each{ |name, i| fields[name] = row[i] }
+          field_names.each { |name, i| fields[name] = row[i] }
 
           yield line, fields if block_given?
 
@@ -428,9 +538,12 @@ class PublicBody < ActiveRecord::Base
   end
 
   def self.localized_csv_field_name(locale, field_name)
-    (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
+    if AlaveteliLocalization.default_locale?(locale)
+      field_name
+    else
+      "#{field_name}.#{locale}"
+    end
   end
-
 
   # import values from a csv row (that may include localized columns)
   def import_values_from_csv_row(row, line, name, options)
@@ -443,9 +556,9 @@ class PublicBody < ActiveRecord::Base
         :comment => 'Updated from spreadsheet' }
     end
     locales = options[:available_locales]
-    locales = [I18n.default_locale] if locales.empty?
+    locales = [AlaveteliLocalization.default_locale] if locales.empty?
     locales.each do |locale|
-      I18n.with_locale(locale) do
+      AlaveteliLocalization.with_locale(locale) do
         changed = set_locale_fields_from_csv_row(is_new, locale, row, options)
         unless changed.empty?
           options[:notes].push "line #{ line }: #{ edit_info[:action] } '#{ name }' (locale: #{ locale }):\n\t#{ changed.to_json }"
@@ -474,260 +587,394 @@ class PublicBody < ActiveRecord::Base
       localized_field_name = self.class.localized_csv_field_name(locale, field_name)
       column = csv_field_names[localized_field_name]
       value = column && row[column]
-      # Tags are a special case, as we support adding to the field, not just setting a new value
+      # Tags are a special case, as we support adding to the field,
+      # not just setting a new value
       if field_name == 'tag_string'
-        new_tags = [value, options[:tag]].select{ |new_tag| !new_tag.blank? }
+        new_tags = [value, options[:tag]].select { |new_tag| !new_tag.blank? }
         if new_tags.empty?
           value = nil
         else
           value = new_tags.join(" ")
           value = "#{value} #{tag_string}"if options[:tag_behaviour] == 'add'
-          end
-
-        end
-
-        if value and read_attribute_value(field_name, locale) != value
-          if is_new
-            changed[field_name] = value
-          else
-            changed[field_name] = "#{read_attribute_value(field_name, locale)}: #{value}"
-          end
-          assign_attributes({ field_name => value })
         end
       end
-      changed
-    end
 
-    # Does this user have the power of FOI officer for this body?
-    def is_foi_officer?(user)
-      user_domain = user.email_domain
-      our_domain = request_email_domain
-
-      return false if user_domain.nil? or our_domain.nil?
-      our_domain == user_domain
-    end
-
-    def request_email
-      if AlaveteliConfiguration::override_all_public_body_request_emails.blank? || read_attribute(:request_email).blank?
-        read_attribute(:request_email)
-      else
-        AlaveteliConfiguration::override_all_public_body_request_emails
-      end
-    end
-
-    # Domain name of the request email
-    def request_email_domain
-      PublicBody.extract_domain_from_email(request_email)
-    end
-
-    alias_method :foi_officer_domain_required, :request_email_domain
-
-    # Return the canonicalised domain part of an email address
-    #
-    # TODO: Extract to library class
-    def self.extract_domain_from_email(email)
-      email =~ /@(.*)/
-      $1.nil? ? nil : $1.downcase
-    end
-
-    # TODO: Could this be defined as `sorted_versions.reverse`?
-    def reverse_sorted_versions
-      versions.sort { |a,b| b.version <=> a.version }
-    end
-
-    def sorted_versions
-      versions.sort { |a,b| a.version <=> b.version }
-    end
-
-    def has_notes?
-      !notes.nil? && notes != ""
-    end
-
-    # TODO: Deprecate this method. Its only used in a couple of views so easy to
-    # update to just call PublicBody#notes
-    def notes_as_html
-      notes
-    end
-
-    def notes_without_html
-      # assume notes are reasonably behaved HTML, so just use simple regexp
-      # on this
-      @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
-    end
-
-    def json_for_api
-      {
-        :id => id,
-        :url_name => url_name,
-        :name => name,
-        :short_name => short_name,
-        # :request_email  # we hide this behind a captcha, to stop people
-        # doing bulk requests easily
-        :created_at => created_at,
-        :updated_at => updated_at,
-        # don't add the history as some edit comments contain sensitive
-        # information
-        # :version, :last_edit_editor, :last_edit_comment
-        :home_page => calculated_home_page,
-        :notes => notes,
-        :publication_scheme => publication_scheme,
-        :tags => tag_array,
-        :info => {
-          :requests_count => info_requests_count,
-          :requests_successful_count => info_requests_successful_count,
-          :requests_not_held_count   => info_requests_not_held_count,
-          :requests_overdue_count    => info_requests_overdue_count,
-          :requests_visible_classified_count => info_requests_visible_classified_count
-        },
-      }
-    end
-
-    def purge_in_cache
-      info_requests.each { |x| x.purge_in_cache }
-    end
-
-    def self.where_clause_for_stats(minimum_requests, total_column)
-      # When producing statistics for public bodies, we want to
-      # exclude any that are tagged with 'test' - we use a
-      # sub-select to find the IDs of those public bodies.
-      test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
-        " WHERE model = 'PublicBody' AND name = 'test'"
-      "#{total_column} >= #{minimum_requests} AND id NOT IN (#{test_tagged_query})"
-    end
-
-    # Return data for the 'n' public bodies with the highest (or
-    # lowest) number of requests, but only returning data for those
-    # with at least 'minimum_requests' requests.
-    def self.get_request_totals(n, highest, minimum_requests)
-      ordering = "info_requests_count"
-      ordering += " DESC" if highest
-      where_clause = where_clause_for_stats minimum_requests, 'info_requests_count'
-      public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
-      public_bodies.reverse! if highest
-      y_values = public_bodies.map { |pb| pb.info_requests_count }
-      return {
-        'public_bodies' => public_bodies,
-        'y_values' => y_values,
-        'y_max' => y_values.max,
-      'totals' => y_values}
-    end
-
-    # Return data for the 'n' public bodies with the highest (or
-    # lowest) score according to the metric of the value in 'column'
-    # divided by the total number of requests, expressed as a
-    # percentage.  This only returns data for those public bodies with
-    # at least 'minimum_requests' requests.
-    def self.get_request_percentages(column, n, highest, minimum_requests)
-      total_column = "info_requests_visible_classified_count"
-      ordering = "y_value"
-      ordering += " DESC" if highest
-      y_value_column = "(cast(#{column} as float) / #{total_column})"
-      where_clause = where_clause_for_stats minimum_requests, total_column
-      where_clause += " AND #{column} IS NOT NULL"
-      public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").
-                                  order(ordering).
-                                    where(where_clause).
-                                      limit(n)
-      public_bodies.reverse! if highest
-      y_values = public_bodies.map { |pb| pb.y_value.to_f }
-
-      original_values = public_bodies.map { |pb| pb.send(column) }
-      # If these are all nil, then probably the values have never
-      # been set; some have to be set by a rake task.  In that case,
-      # just return nil:
-      return nil unless original_values.any? { |ov| !ov.nil? }
-
-      original_totals = public_bodies.map { |pb| pb.send(total_column) }
-      # Calculate confidence intervals, as offsets from the proportion:
-      cis_below = []
-      cis_above = []
-      original_totals.each_with_index.map { |total, i|
-        lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
-        cis_below.push(y_values[i] - lower_ci)
-        cis_above.push(higher_ci - y_values[i])
-      }
-      # Turn the y values and confidence interval offsets into
-      # percentages:
-      [y_values, cis_below, cis_above].each { |l|
-        l.map! { |v| 100 * v }
-      }
-      return {
-        'public_bodies' => public_bodies,
-        'y_values' => y_values,
-        'cis_below' => cis_below,
-        'cis_above' => cis_above,
-        'y_max' => 100,
-      'totals' => original_totals}
-    end
-
-    def self.popular_bodies(locale)
-      # get some example searches and public bodies to display
-      # either from config, or based on a (slow!) query if not set
-      body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/)
-      underscore_locale = locale.gsub '-', '_'
-      bodies = []
-      I18n.with_locale(locale) do
-        if body_short_names.empty?
-          # This is too slow
-          bodies = visible.
-                    where('public_body_translations.locale = ?',
-                           underscore_locale).
-                      order("info_requests_visible_count desc").
-                        limit(32).
-                          joins(:translations)
+      if value && read_attribute_value(field_name, locale) != value
+        if is_new
+          changed[field_name] = value
         else
-          bodies = where("public_body_translations.locale = ?
-                          AND public_bodies.url_name in (?)",
-                          underscore_locale, body_short_names).
-                    joins(:translations)
+          changed[field_name] = "#{read_attribute_value(field_name, locale)}:" \
+                                " #{value}"
         end
-      end
-      return bodies
-    end
-
-    private
-
-    # TODO: This could be removed by updating the default value (to '') of the
-    # `publication_scheme` column in the `public_body_translations` table.
-    def set_default_publication_scheme
-      # Make sure publication_scheme gets the correct default value.
-      # (This would work automatically, were publication_scheme not a
-      # translated attribute)
-      self.publication_scheme = "" if publication_scheme.nil?
-    end
-
-    # if the URL name has changed, then all requested_from: queries
-    # will break unless we update index for every event for every
-    # request linked to it
-    def reindex_requested_from
-      if changes.include?('url_name')
-        info_requests.each do |info_request|
-          info_request.info_request_events.each do |info_request_event|
-            info_request_event.xapian_mark_needs_index
-          end
-        end
+        assign_attributes({ field_name => value })
       end
     end
+    changed
+  end
 
-    # Read an attribute value (without using locale fallbacks if the attribute is translated)
-    def read_attribute_value(name, locale)
-      if self.class.translates.include?(name.to_sym)
-        if globalize.stash.contains?(locale, name)
-          globalize.stash.read(locale, name)
-        else
-          translation_for(locale).send(name)
-        end
+  # Does this user have the power of FOI officer for this body?
+  def is_foi_officer?(user)
+    user_domain = user.email_domain
+    our_domain = request_email_domain
+
+    return false if user_domain.nil? || our_domain.nil?
+    our_domain == user_domain
+  end
+
+  def request_email
+    if AlaveteliConfiguration.override_all_public_body_request_emails.blank? ||
+       read_attribute(:request_email).blank?
+      read_attribute(:request_email)
+    else
+      AlaveteliConfiguration.override_all_public_body_request_emails
+    end
+  end
+
+  # Domain name of the request email
+  def request_email_domain
+    PublicBody.extract_domain_from_email(request_email)
+  end
+
+  alias_method :foi_officer_domain_required, :request_email_domain
+
+  # Return the canonicalised domain part of an email address
+  #
+  # TODO: Extract to library class
+  def self.extract_domain_from_email(email)
+    email =~ /@(.*)/
+    $1.nil? ? nil : $1.downcase
+  end
+
+  def has_notes?(opts = {})
+    tag = opts[:tag]
+
+    if tag
+      notes.present? && has_tag?(tag)
+    else
+      notes.present?
+    end
+  end
+
+  # TODO: Deprecate this method. Its only used in a couple of views so easy to
+  # update to just call PublicBody#notes
+  def notes_as_html
+    notes
+  end
+
+  def notes_without_html
+    # assume notes are reasonably behaved HTML, so just use simple regexp
+    # on this
+    @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
+  end
+
+  def json_for_api
+    {
+      :id => id,
+      :url_name => url_name,
+      :name => name,
+      :short_name => short_name,
+      # :request_email  # we hide this behind a captcha, to stop people
+      # doing bulk requests easily
+      :created_at => created_at,
+      :updated_at => updated_at,
+      # don't add the history as some edit comments contain sensitive
+      # information
+      # :version, :last_edit_editor, :last_edit_comment
+      :home_page => calculated_home_page,
+      :notes => notes.to_s,
+      :publication_scheme => publication_scheme.to_s,
+      :tags => tag_array,
+      :info => {
+        :requests_count => info_requests_count,
+        :requests_successful_count => info_requests_successful_count,
+        :requests_not_held_count   => info_requests_not_held_count,
+        :requests_overdue_count    => info_requests_overdue_count,
+        :requests_visible_classified_count =>
+          info_requests_visible_classified_count
+      },
+    }
+  end
+
+  def expire_requests
+    info_requests.each { |request| request.expire }
+  end
+
+  def self.where_clause_for_stats(minimum_requests, total_column)
+    # When producing statistics for public bodies, we want to
+    # exclude any that are tagged with 'test' - we use a
+    # sub-select to find the IDs of those public bodies.
+    test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
+      " WHERE model = 'PublicBody' AND name = 'test'"
+    "#{total_column} >= #{minimum_requests} " \
+    "AND id NOT IN (#{test_tagged_query})"
+  end
+
+  # Return data for the 'n' public bodies with the highest (or
+  # lowest) number of requests, but only returning data for those
+  # with at least 'minimum_requests' requests.
+  def self.get_request_totals(n, highest, minimum_requests)
+    ordering = "info_requests_visible_count"
+    ordering += " DESC" if highest
+    where_clause = where_clause_for_stats minimum_requests,
+                  'info_requests_visible_count'
+    public_bodies = PublicBody.order(ordering).
+                      where(where_clause).
+                        limit(n).
+                          to_a
+    public_bodies.reverse! if highest
+    y_values = public_bodies.map { |pb| pb.info_requests_visible_count }
+    return {
+      'public_bodies' => public_bodies,
+      'y_values' => y_values,
+      'y_max' => y_values.max,
+    'totals' => y_values}
+  end
+
+  # Return data for the 'n' public bodies with the highest (or
+  # lowest) score according to the metric of the value in 'column'
+  # divided by the total number of requests, expressed as a
+  # percentage.  This only returns data for those public bodies with
+  # at least 'minimum_requests' requests.
+  def self.get_request_percentages(column, n, highest, minimum_requests)
+    total_column = "info_requests_visible_classified_count"
+    ordering = "y_value"
+    ordering += " DESC" if highest
+    y_value_column = "(cast(#{column} as float) / #{total_column})"
+    where_clause = where_clause_for_stats minimum_requests, total_column
+    where_clause += " AND #{column} IS NOT NULL"
+    public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").
+                                order(ordering).
+                                  where(where_clause).
+                                    limit(n).
+                                      to_a
+    public_bodies.reverse! if highest
+    y_values = public_bodies.map { |pb| pb.y_value.to_f }
+
+    original_values = public_bodies.map { |pb| pb.send(column) }
+    # If these are all nil, then probably the values have never
+    # been set; some have to be set by a rake task.  In that case,
+    # just return nil:
+    return nil unless original_values.any? { |ov| !ov.nil? }
+
+    original_totals = public_bodies.map { |pb| pb.send(total_column) }
+    # Calculate confidence intervals, as offsets from the proportion:
+    cis_below = []
+    cis_above = []
+    original_totals.each_with_index.map { |total, i|
+      lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
+      cis_below.push(y_values[i] - lower_ci)
+      cis_above.push(higher_ci - y_values[i])
+    }
+    # Turn the y values and confidence interval offsets into
+    # percentages:
+    [y_values, cis_below, cis_above].each { |l|
+      l.map! { |v| 100 * v }
+    }
+    return {
+      'public_bodies' => public_bodies,
+      'y_values' => y_values,
+      'cis_below' => cis_below,
+      'cis_above' => cis_above,
+      'y_max' => 100,
+    'totals' => original_totals}
+  end
+
+  def self.popular_bodies(locale)
+    # get some example searches and public bodies to display
+    # either from config, or based on a (slow!) query if not set
+    body_short_names = AlaveteliConfiguration.
+                         frontpage_publicbody_examples.
+                           split(/\s*;\s*/)
+    underscore_locale = locale.gsub '-', '_'
+    bodies = []
+    AlaveteliLocalization.with_locale(locale) do
+      if body_short_names.empty?
+        # This is too slow
+        bodies = visible.
+                  where('public_body_translations.locale = ?',
+                         underscore_locale).
+                    order("info_requests_visible_count desc").
+                      limit(32).
+                        joins(:translations)
       else
-        send(name)
+        bodies = where("public_body_translations.locale = ?
+                        AND public_body_translations.url_name in (?)",
+                        underscore_locale, body_short_names).
+                  joins(:translations)
       end
     end
+    return bodies
+  end
 
-    def request_email_if_requestable
-      # Request_email can be blank, meaning we don't have details
-      if self.is_requestable?
-        unless MySociety::Validate.is_valid_email(self.request_email)
-          errors.add(:request_email, "Request email doesn't look like a valid email address")
-        end
+  def self.tag_search_sql(name, value = nil)
+    scope = HasTagString::HasTagStringTag.
+      select(1).
+      where("has_tag_string_tags.model_id = public_bodies.id").
+      where("has_tag_string_tags.model = 'PublicBody'").
+      where(name: name)
+    scope = scope.where(value: value) if value
+    scope.to_sql
+  end
+  private_class_method :tag_search_sql
+
+  def self.with_tag(tag)
+    return all if tag.size == 1 || tag.nil? || tag == 'all'
+
+    if tag == 'other'
+      tags = PublicBodyCategory.get.tags - ['other']
+      where.not("EXISTS(#{tag_search_sql(tags)})")
+    elsif tag.include?(':')
+      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
+      where("EXISTS(#{tag_search_sql(tag, value)})")
+    else
+      where("EXISTS(#{tag_search_sql(tag)})")
+    end
+  end
+
+  def self.without_tag(tag)
+    if tag.include?(':')
+      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
+      where.not("EXISTS(#{tag_search_sql(tag, value)})")
+    else
+      where.not("EXISTS(#{tag_search_sql(tag)})")
+    end
+  end
+
+  def self.with_query(query, tag)
+    like_query = "%#{query}%"
+    has_first_letter = tag.size == 1
+
+    underscore_locale = AlaveteliLocalization.locale
+    underscore_default_locale = AlaveteliLocalization.default_locale
+    where_parameters = {
+      locale: underscore_locale,
+      query: like_query,
+      first_letter: tag
+    }
+
+    if AlaveteliConfiguration::public_body_list_fallback_to_default_locale
+      # Unfortunately, when we might fall back to the
+      # default locale, this is a rather complex query:
+      if DatabaseCollation.supports?(underscore_locale)
+        select_sql = %Q(public_bodies.*, COALESCE(current_locale.name, default_locale.name) COLLATE "#{underscore_locale}" AS display_name)
+      else
+        select_sql = %Q(public_bodies.*, COALESCE(current_locale.name, default_locale.name) AS display_name)
+      end
+
+      select(select_sql).
+        joins(
+          "LEFT OUTER JOIN public_body_translations as current_locale ON " \
+          "(public_bodies.id = current_locale.public_body_id AND " \
+          "current_locale.locale = '#{sanitize_sql(underscore_locale)}')"
+        ).
+        joins(
+          "LEFT OUTER JOIN public_body_translations as default_locale ON " \
+          "(public_bodies.id = default_locale.public_body_id AND " \
+          "default_locale.locale = " \
+          "'#{sanitize_sql(underscore_default_locale)}')"
+        ).
+        where("(#{get_public_body_list_translated_condition('current_locale', has_first_letter)}) OR " \
+              "(#{get_public_body_list_translated_condition('default_locale', has_first_letter)}) ", where_parameters).
+        where('COALESCE(current_locale.name, default_locale.name) IS NOT NULL').
+        order('display_name')
+    else
+      # The simpler case where we're just searching in the current locale:
+      where_condition = get_public_body_list_translated_condition('public_body_translations', has_first_letter, true)
+
+      if DatabaseCollation.supports?(underscore_locale)
+        where(where_condition, where_parameters).
+          joins(:translations).
+          order(Arel.sql(%Q(public_body_translations.name COLLATE "#{underscore_locale}")))
+      else
+        where(where_condition, where_parameters).
+          joins(:translations).
+          order('public_body_translations.name')
       end
     end
   end
+
+  # This method updates the count columns of the PublicBody that
+  # store the number of "not held", "to some extent successful" and
+  # "both visible and classified" requests.
+  def update_counter_cache
+    success_states = %w(successful partially_successful)
+
+    mappings = {
+      info_requests_not_held_count: { awaiting_description: false,
+                                      described_state: 'not_held' },
+      info_requests_successful_count: { awaiting_description: false,
+                                        described_state: success_states },
+      info_requests_visible_classified_count: { awaiting_description: false},
+      info_requests_visible_count: {}
+    }
+
+    info_request_scope = InfoRequest.where(public_body_id: id).is_searchable
+
+    updated_counts = mappings.each_with_object({}) do |(column, params), memo|
+      memo[column] = info_request_scope.where(params).count
+    end
+
+    update_columns(updated_counts)
+  end
+
+  def questions
+    PublicBodyQuestion.fetch(self)
+  end
+
+  private
+
+  # if the URL name has changed, then all requested_from: queries
+  # will break unless we update index for every event for every
+  # request linked to it
+  def reindex_requested_from
+    return unless saved_change_to_attribute?(:url_name)
+
+    info_requests.find_each do |info_request|
+      info_request.info_request_events.find_each do |info_request_event|
+        info_request_event.xapian_mark_needs_index
+      end
+    end
+  end
+
+  # Read an attribute value (without using locale fallbacks if the
+  # attribute is translated)
+  def read_attribute_value(name, locale)
+    if self.class.translated?(name.to_sym)
+      if globalize.stash.contains?(locale, name)
+        globalize.stash.read(locale, name)
+      else
+        translation_for(locale).send(name)
+      end
+    else
+      send(name)
+    end
+  end
+
+  def request_email_if_requestable
+    # Request_email can be blank, meaning we don't have details
+    if self.is_requestable?
+      unless MySociety::Validate.is_valid_email(self.request_email)
+        errors.add(:request_email,
+                   "Request email doesn't look like a valid email address")
+      end
+    end
+
+  end
+
+  def name_for_search
+    name.downcase
+  end
+
+  def self.get_public_body_list_translated_condition(table, has_first_letter=false, locale=nil)
+    result = "(upper(#{table}.name) LIKE upper(:query)" \
+      " OR upper(#{table}.notes) LIKE upper(:query)" \
+        " OR upper(#{table}.short_name) LIKE upper(:query))"
+    if has_first_letter
+      result += " AND #{table}.first_letter = :first_letter"
+    end
+    if locale
+      result += " AND #{table}.locale = :locale"
+    end
+    result
+  end
+end

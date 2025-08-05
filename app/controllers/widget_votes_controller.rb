@@ -9,7 +9,7 @@ require 'securerandom'
 
 class WidgetVotesController < ApplicationController
 
-  before_filter :check_widget_config, :find_info_request, :check_prominence
+  before_action :check_widget_config, :find_info_request, :check_prominence
 
   # Track interest in a request from a non-logged in user
   def create
@@ -39,12 +39,12 @@ class WidgetVotesController < ApplicationController
   end
 
   def find_info_request
-    @info_request = InfoRequest.find(params[:request_id])
+    @info_request = InfoRequest.not_embargoed.find(params[:request_id])
   end
 
   def check_prominence
-    unless @info_request.prominence == 'normal'
-      render :nothing => true, :status => :forbidden
+    unless @info_request.prominence(:decorate => true).is_searchable?
+      head :forbidden
     end
   end
 

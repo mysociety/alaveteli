@@ -15,7 +15,7 @@ class InfoRequest
           else
             RequestMailer.
               stopped_responses(info_request, email, raw_email_data).
-                deliver
+                deliver_now
           end
         end
       end

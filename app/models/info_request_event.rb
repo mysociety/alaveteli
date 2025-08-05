@@ -8,12 +8,13 @@
 #  event_type          :text             not null
 #  params_yaml         :text             not null
 #  created_at          :datetime         not null
-#  described_state     :string(255)
-#  calculated_state    :string(255)
+#  described_state     :string
+#  calculated_state    :string
 #  last_described_at   :datetime
 #  incoming_message_id :integer
 #  outgoing_message_id :integer
 #  comment_id          :integer
+#  updated_at          :datetime
 #
 
 # models/info_request_event.rb:
@@ -21,7 +22,9 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class InfoRequestEvent < ActiveRecord::Base
+require 'yaml_compatibility'
+
+class InfoRequestEvent < ApplicationRecord
   include AdminColumn
   extend XapianQueries
 
@@ -30,10 +33,12 @@ class InfoRequestEvent < ActiveRecord::Base
     'resent',
     'followup_sent',
     'followup_resent',
-
     'edit', # title etc. edited (in admin interface)
     'edit_outgoing', # outgoing message edited (in admin interface)
     'edit_comment', # comment edited (in admin interface)
+    'hide_comment', # comment hidden by admin
+    'report_comment', # comment reported for admin attention by user
+    'report_request', # a request reported for admin attention by user
     'destroy_incoming', # deleted an incoming message (in admin interface)
     'destroy_outgoing', # deleted an outgoing message (in admin interface)
     'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
@@ -41,32 +46,51 @@ class InfoRequestEvent < ActiveRecord::Base
     'move_request', # changed user or public body (in admin interface)
     'hide', # hid a request (in admin interface)
     'manual', # you did something in the db by hand
-    'response',
-    'comment',
-    'status_update'
+    'response', # an incoming message is received
+    'comment', # an annotation is added
+    'status_update', # someone updates the status of the request
+    'overdue', # the request becomes overdue
+    'very_overdue', # the request becomes very overdue
+    'embargo_expiring', # an embargo is about to expire
+    'expire_embargo', # an embargo on the request expires
+    'set_embargo', # an embargo is added or extended
+    'send_error' # an error during sending
   ].freeze
 
-  belongs_to :info_request
+  belongs_to :info_request,
+             :inverse_of => :info_request_events
+
   validates_presence_of :info_request
 
-  belongs_to :outgoing_message
-  belongs_to :incoming_message
-  belongs_to :comment
+  belongs_to :outgoing_message,
+             :inverse_of => :info_request_events
+  belongs_to :incoming_message,
+             :inverse_of => :info_request_events
+  belongs_to :comment,
+             :inverse_of => :info_request_events
 
-  has_one :request_classification
+  has_one :request_classification,
+          :inverse_of => :info_request_event
 
-  has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things_sent_emails, :dependent => :destroy
+  has_many :user_info_request_sent_alerts,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
+  has_many :track_things_sent_emails,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
+  has_many :notifications,
+           :inverse_of => :info_request_event,
+           :dependent => :destroy
 
   validates_presence_of :event_type
 
+  before_save(:if => :only_editing_prominence_to_hide?) do
+    self.event_type = "hide"
+  end
   after_create :update_request, :if => :response?
 
-  def self.enumerate_event_types
-    warn %q([DEPRECATION] InfoRequestEvent.enumerate_event_types will be removed
-            in 0.26. Use InfoRequestEvent::EVENT_TYPES instead).squish
-    EVENT_TYPES
-  end
+  after_commit -> { self.info_request.create_or_update_request_summary },
+                  :on => [:create]
 
   validates_inclusion_of :event_type, :in => EVENT_TYPES
 
@@ -74,7 +98,7 @@ class InfoRequestEvent < ActiveRecord::Base
   validate :must_be_valid_state
 
   def must_be_valid_state
-    if described_state and !InfoRequest.enumerate_states.include?(described_state)
+    if described_state and !InfoRequest::State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
     end
   end
@@ -98,10 +122,14 @@ class InfoRequestEvent < ActiveRecord::Base
                              [ :latest_status, 'L', "latest_status" ],
                              [ :waiting_classification, 'W', "waiting_classification" ],
                              [ :filetype, 'T', "filetype" ],
-                             [ :tags, 'U', "tag" ]
-                            ],
+                             [ :tags, 'U', "tag" ],
+                             [ :request_public_body_tags, 'X', "request_public_body_tag" ] ],
                  :if => :indexed_by_search?,
                  :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
+
+  def self.count_of_hides_by_week
+    where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort
+  end
 
   def requested_by
     info_request.user_name_slug
@@ -113,7 +141,7 @@ class InfoRequestEvent < ActiveRecord::Base
     # although it relies on a translated field in PublicBody. Hence, we need to
     # manually add all the localized values to the index (Xapian can handle a list
     # of values in a term, btw)
-    info_request.public_body.translations.map {|t| t.url_name}
+    info_request.public_body.translations.map { |t| t.url_name }
   end
 
   def commented_by
@@ -249,6 +277,10 @@ class InfoRequestEvent < ActiveRecord::Base
     info_request.tag_array_for_search
   end
 
+  def request_public_body_tags
+    info_request.public_body.tag_array_for_search
+  end
+
   def indexed_by_search?
     if ['sent', 'followup_sent', 'response', 'comment'].include?(event_type)
       if !info_request.indexed_by_search?
@@ -297,7 +329,7 @@ class InfoRequestEvent < ActiveRecord::Base
   end
 
   def params
-    param_hash = YAML.load(params_yaml)
+    param_hash = YAMLCompatibility.load(params_yaml) || {}
     param_hash.each do |key, value|
       param_hash[key] = value.force_encoding('UTF-8') if value.respond_to?(:force_encoding)
     end
@@ -312,6 +344,7 @@ class InfoRequestEvent < ActiveRecord::Base
     ignore = {}
     for key, value in params
       key = key.to_s
+      value = value.url_name if value.is_a?(User)
       if key.match(/^old_(.*)$/)
         if params[$1.to_sym] == value
           ignore[$1.to_sym] = ''
@@ -338,6 +371,43 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def is_comment?
     comment_id? or (comment if new_record?)
+  end
+
+  def resets_due_dates?
+     is_request_sending? || is_clarification?
+  end
+
+  def is_request_sending?
+    ['sent', 'resent'].include?(event_type) ||
+    (event_type == 'send_error' &&
+     outgoing_message.message_type == 'initial_request')
+  end
+
+  def is_clarification?
+    waiting_clarification = false
+    # A follow up is a clarification only if it's the first
+    # follow up when the request is in a state of
+    # waiting for clarification
+    previous_events(:reverse => true).each do |event|
+      if event.described_state == 'waiting_clarification'
+        waiting_clarification = true
+        break
+      end
+      if event.event_type == 'followup_sent'
+        break
+      end
+    end
+    waiting_clarification && event_type == 'followup_sent'
+  end
+
+  # Public: Checks to see if any subsequent event now resets due dates
+  # on the request and resets them if so
+  def recheck_due_dates
+    subsequent_events.each do |event|
+      if event.resets_due_dates?
+        info_request.set_due_dates(event)
+      end
+    end
   end
 
   # Display version of status
@@ -381,6 +451,13 @@ class InfoRequestEvent < ActiveRecord::Base
 
   def response?
     event_type == 'response'
+  end
+
+  def only_editing_prominence_to_hide?
+    event_type == 'edit' &&
+      params_diff[:new].keys == [:prominence] &&
+      params_diff[:old][:prominence] == "normal" &&
+      %w(hidden requester_only backpage).include?(params_diff[:new][:prominence])
   end
 
   # This method updates the cached column of the InfoRequest that
@@ -440,12 +517,31 @@ class InfoRequestEvent < ActiveRecord::Base
   def set_calculated_state!(state)
     unless calculated_state == state
       self.calculated_state = state
-      self.last_described_at = Time.now
+      self.last_described_at = Time.zone.now
       save!
     end
   end
 
   private
+
+  def previous_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self.
+               class.
+                 where(:info_request_id => info_request_id).
+                   where('created_at < ?', self.created_at).
+                     order(order)
+
+  end
+
+  def subsequent_events(opts = {})
+    order = opts[:reverse] ? 'created_at DESC' : 'created_at'
+    events = self.
+               class.
+                 where(:info_request_id => info_request_id).
+                   where('created_at > ?', self.created_at).
+                     order(order)
+  end
 
   def sibling_events(opts = {})
     order = opts[:reverse] ? 'created_at DESC' : 'created_at'

@@ -12,6 +12,8 @@
 #  within_rfc822_subject :text
 #  incoming_message_id   :integer
 #  hexdigest             :string(32)
+#  created_at            :datetime
+#  updated_at            :datetime
 #
 
 # models/foi_attachment.rb:
@@ -23,14 +25,18 @@
 
 require 'digest'
 
-class FoiAttachment < ActiveRecord::Base
-  belongs_to :incoming_message
+class FoiAttachment < ApplicationRecord
+  belongs_to :incoming_message,
+             :inverse_of => :foi_attachments
+
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
 
   before_validation :ensure_filename!, :only => [:filename]
   before_destroy :delete_cached_file!
+
+  scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
@@ -54,7 +60,7 @@ class FoiAttachment < ActiveRecord::Base
 
   def body=(d)
     self.hexdigest = Digest::MD5.hexdigest(d)
-    if !File.exists?(self.directory)
+    if !File.exist?(self.directory)
       FileUtils.mkdir_p self.directory
     end
     File.open(self.filepath, "wb") { |file|
@@ -73,7 +79,7 @@ class FoiAttachment < ActiveRecord::Base
       tries = 0
       delay = 1
       begin
-        @cached_body = File.open(filepath, "rb" ){ |file| file.read }
+        @cached_body = File.open(filepath, "rb" ) { |file| file.read }
       rescue Errno::ENOENT
         # we've lost our cached attachments for some reason.  Reparse them.
         if tries > BODY_MAX_TRIES
@@ -229,6 +235,7 @@ class FoiAttachment < ActiveRecord::Base
   end
 
   def filename=(filename)
+    filename.try(:delete!, "\0")
     calc_ext = AlaveteliFileTypes.mimetype_to_extension(self.content_type)
     # Put right extension on if missing
     if !filename.nil? && !filename.match(/\.#{calc_ext}$/) && calc_ext

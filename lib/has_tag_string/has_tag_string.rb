@@ -143,11 +143,28 @@ module HasTagString
   module ClassMethods
     # Find all public bodies with a particular tag
     def find_by_tag(tag_as_string)
-      return HasTagStringTag.where(:name => tag_as_string,
-                                   :model => self.to_s).
-                                map { |t| t.tagged_model }.
-                                  sort { |a,b| a.name <=> b.name }.
-                                    uniq
+      join_sql = <<-EOF.strip_heredoc.squish
+      LEFT JOIN has_tag_string_tags
+      ON has_tag_string_tags.model = '#{ to_s }'
+      AND has_tag_string_tags.model_id = #{ table_name }.id
+      EOF
+
+      search =
+        joins(join_sql).
+        where(has_tag_string_tags: { name: tag_as_string, model: to_s }).
+        references(:has_tag_string_tags)
+
+      ordered =
+        if respond_to?(:translated_locales)
+          search.
+            includes(:translations).
+            references(:translations).
+            order("#{ translations_table_name }.name ASC")
+        else
+          search.order("#{ table_name }.name ASC")
+        end
+
+      ordered.distinct
     end
   end
 
@@ -155,7 +172,10 @@ module HasTagString
   # Main entry point, add has_tag_string to your model.
   module HasMethods
     def has_tag_string
-      has_many :tags, :conditions => "model = '" + self.to_s + "'", :foreign_key => "model_id", :class_name => 'HasTagString::HasTagStringTag'
+      klass = to_s
+      has_many :tags, -> { where(:model => klass) },
+               :foreign_key => "model_id",
+               :class_name => 'HasTagString::HasTagStringTag'
 
       include InstanceMethods
       self.class.send :include, ClassMethods

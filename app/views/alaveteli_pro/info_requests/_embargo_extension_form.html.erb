@@ -1,0 +1,26 @@
+<%= form_for(AlaveteliPro::EmbargoExtension.new,
+             html: { class: 'js-embargo-form' }) do |f| %>
+  <%= f.hidden_field :embargo_id, value: embargo.id %>
+
+  <% if embargo.expiring_soon? %>
+    <p>
+
+      <%= f.label :extension_duration, class: 'form_label' do %>
+        <%= _('Keep private for a further:') %>
+      <% end %>
+
+      <%= f.select :extension_duration,
+                   options_for_select(embargo_extension_options(embargo)),
+                   {},
+                   class: 'js-embargo-duration' %>
+
+      <%= f.submit _('Update'), class: 'embargo__submit js-embargo-submit' %>
+    </p>
+  <% else %>
+    <p>
+      <%= _('You will be able to extend this privacy period from ' \
+            '{{embargo_extend_from}}.',
+            embargo_extend_from: embargo_extend_from(embargo)) %>
+    </p>
+  <% end %>
+<% end %>

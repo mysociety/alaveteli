@@ -1,33 +1,45 @@
 <div class="comment_in_request box" id="comment-<%=comment.id.to_s%>">
-  <% if comment.user && comment.user.profile_photo && !@render_to_file %>
-    <div class="user_photo_on_comment">
-      <img src="<%= get_profile_photo_url(:url_name => comment.user.url_name) %>" alt="">
+  <div class="comment_content">
+    <% if comment.user && comment.user.show_profile_photo? && !@render_to_file %>
+      <div class="user_photo_on_comment">
+        <img src="<%= get_profile_photo_url(:url_name => comment.user.url_name) %>" alt="">
+      </div>
+    <% end %>
+
+    <h2>
+      <%# When not logged in, but mid-comment-leaving, there'll be no comment.user %>
+      <%= comment.user ?
+        _("{{user_name}} left an annotation ({{date}})",
+            :user_name => user_link(comment.user),
+            :date => simple_date(comment.created_at || Time.zone.now)) :
+        _("You left an annotation ({{date}})",
+            :date => simple_date(comment.created_at || Time.zone.now)) %>
+    </h2>
+
+    <div class="comment_in_request_text">
+      <p>
+        <%= comment.get_body_for_html_display %>
+      </p>
     </div>
-  <% end %>
 
-  <h2>
-    <%# When not logged in, but mid-comment-leaving, there'll be no comment.user %>
-    <%= comment.user ?
-      _("{{user_name}} left an annotation ({{date}})",
-          :user_name => user_link(comment.user),
-          :date => simple_date(comment.created_at || Time.now)) :
-      _("You left an annotation ({{date}})",
-          :date => simple_date(comment.created_at || Time.now)) %>
-  </h2>
-
-  <div class="comment_in_request_text">
-    <p>
-      <%= comment.get_body_for_html_display %>
+    <p class="event_actions">
+      <% if comment.id %>
+        <% if @user && @user.admin_page_links? %>
+          <%= link_to "Admin", edit_admin_comment_path(comment) %>
+        <% end %>
+      <% end %>
     </p>
   </div>
 
-  <p class="event_actions">
-    <% if !comment.id.nil? %>
-      <% if !@user.nil? && @user.admin_page_links? %>
-        <%= link_to "Admin", edit_admin_comment_path(comment) %> |
-      <% end %>
-      <%= link_to "Link to this", comment_path(comment), :class => "link_to_this" %>
-      <!-- | <%= link_to _('Report abuse'), comment_path(comment) %> -->
-    <% end %>
-  </p>
+  <% if comment.id && show_correspondence_footer %>
+    <% link_to_this_url = comment_url(comment) %>
+
+    <% report_path =
+         new_request_report_path(request_id: @info_request.url_title,
+                                 comment_id: comment.id) %>
+
+    <%= render partial: 'request/correspondence_footer',
+               locals: { link_to_this_url: link_to_this_url,
+                         report_path: report_path } %>
+  <% end %>
 </div>

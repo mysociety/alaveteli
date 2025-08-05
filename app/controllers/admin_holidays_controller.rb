@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AdminHolidaysController < AdminController
 
-  before_filter :set_holiday, :only => [:edit, :update, :destroy]
+  before_action :set_holiday, :only => [:edit, :update, :destroy]
 
   def index
     get_all_holidays
@@ -35,7 +35,7 @@ class AdminHolidaysController < AdminController
   end
 
   def update
-    if @holiday.update_attributes(holiday_params)
+    if @holiday.update(holiday_params)
       flash[:notice] = 'Holiday successfully updated.'
       redirect_to admin_holidays_path
     else
@@ -58,7 +58,8 @@ class AdminHolidaysController < AdminController
 
   def holiday_params
     if params[:holiday]
-      params[:holiday].slice(:description, 'day(1i)', 'day(2i)', 'day(3i)')
+      params.require(:holiday).
+        permit(:description, 'day(1i)', 'day(2i)', 'day(3i)')
     else
       {}
     end

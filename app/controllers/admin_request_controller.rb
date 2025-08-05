@@ -7,7 +7,7 @@
 
 class AdminRequestController < AdminController
 
-  before_filter :set_info_request, :only => [ :show,
+  before_action :set_info_request, :only => [ :show,
                                               :edit,
                                               :update,
                                               :destroy,
@@ -21,19 +21,20 @@ class AdminRequestController < AdminController
     else
       info_requests = InfoRequest
     end
-    @info_requests = info_requests.paginate :order => "created_at desc",
+
+    if cannot? :admin, AlaveteliPro::Embargo
+      info_requests = info_requests.not_embargoed
+    end
+
+    @info_requests = info_requests.order('created_at DESC').paginate(
       :page => params[:page],
-      :per_page => 100
+      :per_page => 100)
   end
 
   def show
-    vars_for_explanation = {:reason => params[:reason],
-                            :info_request => @info_request,
-                            :name_to => @info_request.user_name,
-                            :name_from => AlaveteliConfiguration::contact_name,
-                            :info_request_url => request_url(@info_request, :only_path => false)}
-    @request_hidden_user_explanation = render_to_string(:template => "admin_request/hidden_user_explanation",
-                                                        :locals => vars_for_explanation)
+    if cannot? :admin, @info_request
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def edit
@@ -50,7 +51,7 @@ class AdminRequestController < AdminController
     old_comments_allowed = @info_request.comments_allowed
 
 
-    if @info_request.update_attributes(info_request_params)
+    if @info_request.update(info_request_params)
       @info_request.log_event("edit",
                               { :editor => admin_current_user,
                                 :old_title => old_title, :title => @info_request.title,
@@ -88,22 +89,16 @@ class AdminRequestController < AdminController
   # change user or public body of a request magically
   def move
     if params[:commit] == 'Move request to user' && !params[:user_url_name].blank?
-      old_user = @info_request.user
       destination_user = User.find_by_url_name(params[:user_url_name])
-      if destination_user.nil?
-        flash[:error] = "Couldn't find user '#{params[:user_url_name]}'"
-      else
-        @info_request.user = destination_user
-        @info_request.save!
-        @info_request.log_event("move_request", {
-                                 :editor => admin_current_user,
-                                 :old_user_url_name => old_user.url_name,
-                                 :user_url_name => destination_user.url_name
-        })
 
-        @info_request.reindex_request_events
+      if @info_request.move_to_user(destination_user,
+                                    :editor => admin_current_user,
+                                    :reindex => true)
         flash[:notice] = "Message has been moved to new user"
+      else
+        flash[:error] = "Couldn't find user '#{params[:user_url_name]}'"
       end
+
       redirect_to admin_request_url(@info_request)
     elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
       destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
@@ -124,7 +119,6 @@ class AdminRequestController < AdminController
   end
 
   def generate_upload_url
-
     if params[:incoming_message_id]
       incoming_message = IncomingMessage.find(params[:incoming_message_id])
       email = incoming_message.from_email
@@ -152,9 +146,15 @@ class AdminRequestController < AdminController
       :uri => upload_response_url(:url_title => @info_request.url_title),
     :user_id => user.id)
     post_redirect.save!
-    url = confirm_url(:email_token => post_redirect.email_token)
 
-    flash[:notice] = ("Send \"#{CGI.escapeHTML(name)}\" &lt;<a href=\"mailto:#{email}\">#{email}</a>&gt; this URL: <a href=\"#{url}\">#{url}</a> - it will log them in and let them upload a response to this request.").html_safe
+    flash[:notice] = {
+      :partial => "upload_email_message.html.erb",
+      :locals => {
+        :name => name,
+        :email => email,
+        :url => confirm_url(:email_token => post_redirect.email_token)
+      }
+    }
     redirect_to admin_request_url(@info_request)
   end
 
@@ -180,8 +180,11 @@ class AdminRequestController < AdminController
           @info_request.user.email,
           subject,
           params[:explanation].strip.html_safe
-        ).deliver
-        flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(@info_request.user.name))
+        ).deliver_now
+        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
+                           "been sent",
+                           :recipient_user_name => @info_request.user.
+                                                     name.html_safe)
       else
         flash[:notice] = _("This external request has been hidden")
       end
@@ -195,20 +198,21 @@ class AdminRequestController < AdminController
 
   def info_request_params
     if params[:info_request]
-      params[:info_request].slice(:title,
-                                  :prominence,
-                                  :awaiting_description,
-                                  :allow_new_responses_from,
-                                  :handle_rejected_responses,
-                                  :tag_string,
-                                  :comments_allowed)
+      params.require(:info_request).permit(:title,
+                                           :prominence,
+                                           :described_state,
+                                           :awaiting_description,
+                                           :allow_new_responses_from,
+                                           :handle_rejected_responses,
+                                           :tag_string,
+                                           :comments_allowed)
     else
       {}
     end
   end
 
   def set_info_request
-    @info_request = InfoRequest.find(params[:id])
+    @info_request = InfoRequest.find(params[:id].to_i)
   end
 
 end

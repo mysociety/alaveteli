@@ -7,8 +7,9 @@
     :user_name => raw(@reported_by.name),
     :law_used => raw(@info_request.law_used_human(:short))) %>
 
-<%= _("Request '{{request_title}}':",
-    :request_title => raw(@info_request.title)) %>
+<%= _("Request '{{request_title}}' to {{public_body_name}}:",
+    :request_title => raw(@info_request.title),
+    :public_body_name => raw(@info_request.public_body.name)) %>
 <%= @url %>
 
 <%= _('Administration URL:') %>

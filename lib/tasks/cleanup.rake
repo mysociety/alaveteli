@@ -8,9 +8,9 @@ namespace :cleanup do
       $stderr.puts "This is a dryrun - nothing will be deleted"
     end
     holding_pen = InfoRequest.holding_pen_request
-    holding_pen.info_request_events.find_each(:conditions => ['event_type in (?)',
-                                                ['redeliver_incoming',
-                                                 'destroy_incoming']]) do |event|
+    holding_pen.info_request_events.
+      where(:event_type => %w(redeliver_incoming destroy_incoming)).
+        find_each do |event|
       $stderr.puts event.inspect if verbose or dryrun
       if not dryrun
         event.destroy
@@ -46,15 +46,53 @@ namespace :cleanup do
         case input
         when 'Y'
           puts "Banning #{ user.id }\n\n"
-          user.update_attributes!(:ban_text => 'Banned for spamming')
+          user.update!(:ban_text => 'Banned for spamming')
         when 'n'
           puts "Marking #{ user.id } as genuine\n\n"
-          user.update_attributes!(:confirmed_not_spam => true)
+          user.update!(:confirmed_not_spam => true)
         when 's'
           puts "Skipping #{ user.id }\n\n"
         end
       end
     end
+  end
+
+  desc 'Reindex banned users'
+  task :reindex_banned_users => :environment do
+    User.banned.find_each do |user|
+      user.xapian_mark_needs_index
+    end
+  end
+
+  desc 'Export of last 2 days of requests to search for spam'
+  task :spam_requests => :environment do
+    str = CSV.generate do |csv|
+      # Make headers
+      csv << [
+        'info_request_id',
+        'info_request_title',
+        'user_id',
+        'public_body_id',
+        'public_body_name',
+        'public_body_request_email',
+        'created_at',
+      ]
+
+      # Add rows
+      InfoRequest.where(:created_at => [2.days.ago..Time.zone.now]).find_each do |request|
+        csv << [
+         request.id,
+         request.title,
+         request.user_id,
+         request.public_body_id,
+         request.public_body.name,
+         request.public_body.request_email,
+         request.created_at.to_s,
+        ]
+      end
+    end
+
+    puts str
   end
 
 end

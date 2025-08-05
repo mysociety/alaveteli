@@ -1,0 +1,7 @@
+<%- @customer_webhooks.each do |customer, webhooks| %>
+* https://dashboard.stripe.com/customers/<%= customer %>
+<%- webhooks.each do |webhook| %>
+  - <%= webhook.state %>
+<% end %>
+
+<% end %>

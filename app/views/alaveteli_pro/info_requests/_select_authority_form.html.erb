@@ -1,0 +1,37 @@
+<form action="<%= alaveteli_pro_select_authority_path %>"
+      method="get"
+      class="new_info_request">
+  <p id="to_public_body" class="to_public_body">
+    <label for="public_body_query">
+      <span class="to_public_body_label"><%= _('To') %></span>
+    </label>
+    <input type="text"
+           name="query"
+           id="public_body_query"
+           placeholder="<%= _('Search for an authority') %>"
+           class="js-authority-select public-body-query"
+           data-no-results="<%= _('No results found') %>"
+           data-search-url="<%= alaveteli_pro_public_bodies_path %>"
+           <% if info_request.public_body %>
+             value="<%= @info_request.public_body.name %>"
+             data-initial-authority="<%= public_body_search_attributes(info_request.public_body).to_json %>"
+           <% end %>>
+    <input type="submit"
+           value="<%= _('Search') %>"
+           class="js-authority-select-submit public-body-query__submit">
+
+    <%= link_to _('or start a batch request'),
+                alaveteli_pro_batch_request_authority_searches_path,
+                class: 'pro_batch_link' %>
+  </p>
+</form>
+
+<% if @info_request.public_body && @info_request.public_body.has_notes? %>
+  <div class="to_public_body_notes js-public-body-notes">
+    <p><%= @info_request.public_body.notes.html_safe %></p>
+  </div>
+<% else %>
+  <div class="to_public_body_notes js-public-body-notes"
+       style="display: none;">
+  </div>
+<% end %>

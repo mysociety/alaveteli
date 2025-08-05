@@ -17,7 +17,7 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
-#  prominence                     :string(255)      default("normal"), not null
+#  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
 #
 
@@ -26,31 +26,28 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage do
 
-  describe '#valid_to_reply_to' do
+  describe '.unparsed' do
+    subject { described_class.unparsed }
+    before { IncomingMessage.destroy_all }
 
-    it 'is true if _calculate_valid_to_reply_to is true' do
-      message = FactoryGirl.create(:incoming_message)
-      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(true)
-      message.parse_raw_email!(true)
-      expect(message.valid_to_reply_to).to eq(true)
+    it 'does not include parsed messages' do
+      FactoryBot.create(:incoming_message)
+      unparsed = FactoryBot.create(:incoming_message, :unparsed)
+      expect(subject).to match_array [unparsed]
     end
-
-    it 'is false if _calculate_valid_to_reply_to is false' do
-      message = FactoryGirl.create(:incoming_message)
-      allow(message).to receive(:_calculate_valid_to_reply_to).and_return(false)
-      message.parse_raw_email!(true)
-      expect(message.valid_to_reply_to).to eq(false)
-    end
-
   end
 
-  describe '#valid_to_reply_to?' do
+  describe '.pro' do
+    subject { described_class.pro }
+    before { IncomingMessage.destroy_all }
 
-    it 'returns the value of #valid_to_reply_to' do
-      message = FactoryGirl.create(:incoming_message)
-      expect(message.valid_to_reply_to?).to eq(message.valid_to_reply_to)
+    it 'finds messages belonging to pro users' do
+      FactoryBot.create(:incoming_message)
+      pro_user = FactoryBot.create(:pro_user)
+      embargoed_request = FactoryBot.create(:embargoed_request, user: pro_user)
+      pro_message = embargoed_request.incoming_messages.first
+      expect(subject).to match_array [pro_message]
     end
-
   end
 
   describe '#mail_from' do
@@ -63,7 +60,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.mail_from).to eq('FOI Person')
@@ -77,7 +74,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.mail_from).to be_nil
@@ -92,7 +89,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.mail_from).
@@ -111,12 +108,13 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
-      FactoryGirl.create(:censor_rule,
-                         :text => 'Person',
-                         :info_request => message.info_request)
+      message.reload
+      FactoryBot.create(:censor_rule,
+                        :text => 'Person',
+                        :info_request => message.info_request)
 
       expect(message.safe_mail_from).to eq('FOI [REDACTED]')
     end
@@ -133,7 +131,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.mail_from_domain).to eq('mail.example.com')
@@ -146,7 +144,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.mail_from_domain).to eq('')
@@ -164,7 +162,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.subject).to eq('A response')
@@ -177,7 +175,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.subject).to be_nil
@@ -191,7 +189,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.subject).to eq('Câmara Responde:  Banco de ideias')
@@ -210,7 +208,7 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.sent_at).
@@ -225,12 +223,54 @@ describe IncomingMessage do
       Hello, World
       EOF
 
-      message = FactoryGirl.create(:incoming_message)
+      message = FactoryBot.create(:incoming_message)
       message.raw_email.data = raw_email_data
       message.parse_raw_email!(true)
       expect(message.sent_at).to eq(message.created_at)
     end
 
+  end
+
+  describe '#specific_from_name?' do
+    subject { incoming_message.specific_from_name? }
+
+    let(:body) { FactoryBot.build(:public_body, name: 'Foo') }
+    let(:request) { FactoryBot.build(:info_request, public_body: body) }
+
+    context 'when mail_from is nil' do
+      let(:incoming_message) do
+        FactoryBot.build(:incoming_message, mail_from: nil)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when safe_mail_from is the same as the body name' do
+      let(:incoming_message) do
+        FactoryBot.
+          build(:incoming_message, info_request: request, mail_from: 'Foo')
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when safe_mail_from differs from the body name' do
+      let(:incoming_message) do
+        FactoryBot.
+          build(:incoming_message, info_request: request, mail_from: 'Bar')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'a censor rule masks mail_from' do
+      let(:incoming_message) do
+        FactoryBot.create(:global_censor_rule, text: 'Bar')
+        FactoryBot.build(:incoming_message, mail_from: 'Bar')
+      end
+
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe '#apply_masks' do
@@ -314,22 +354,45 @@ describe IncomingMessage do
 
   end
 
+  describe '#get_body_for_quoting' do
+
+    it 'does not incorrectly cache without the FOLDED_QUOTED_SECTION marker' do
+      message = FactoryBot.create(:plain_incoming_message)
+      message.get_body_for_quoting
+      expect(message.get_main_body_text_folded).
+        to include('FOLDED_QUOTED_SECTION')
+    end
+
+  end
+
+  describe '#get_attachment_text_full' do
+
+    it 'strips null bytes from the extracted clipped text' do
+      message = FactoryBot.create(:incoming_message)
+      FactoryBot.
+        create(:body_text, :body => "hi\u0000", :incoming_message => message)
+      message.reload
+      expect(message.get_attachment_text_clipped).to eq("hi\n\n")
+    end
+
+  end
+
   describe '#_extract_text' do
 
     it 'does not generate incompatible character encodings' do
       if String.respond_to?(:encode)
-        message = FactoryGirl.create(:incoming_message)
-        FactoryGirl.create(:body_text,
-                           :body => 'hí',
-                           :incoming_message => message,
-                           :url_part_number => 2)
-        FactoryGirl.create(:pdf_attachment,
-                           :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
-                           :incoming_message => message,
-                           :url_part_number => 3)
+        message = FactoryBot.create(:incoming_message)
+        FactoryBot.create(:body_text,
+                          :body => 'hí',
+                          :incoming_message => message,
+                          :url_part_number => 2)
+        FactoryBot.create(:pdf_attachment,
+                          :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
+                          :incoming_message => message,
+                          :url_part_number => 3)
         message.reload
 
-        expect{ message._extract_text }.
+        expect { message._extract_text }.
           to_not raise_error
       end
     end
@@ -371,11 +434,11 @@ describe IncomingMessage, 'when getting a response event' do
 end
 
 describe IncomingMessage, "when the prominence is changed" do
-  let(:request) { FactoryGirl.create(:info_request) }
+  let(:request) { FactoryBot.create(:info_request) }
 
   it "updates the info_request's last_public_response_at to nil when hidden" do
-    im = FactoryGirl.create(:incoming_message, :info_request => request)
-    response_event = FactoryGirl.
+    im = FactoryBot.create(:incoming_message, :info_request => request)
+    response_event = FactoryBot.
                       create(:info_request_event, :event_type => 'response',
                                                   :info_request => request,
                                                   :incoming_message => im)
@@ -386,12 +449,12 @@ describe IncomingMessage, "when the prominence is changed" do
 
   it "updates the info_request's last_public_response_at to a timestamp \
       when unhidden" do
-    im = FactoryGirl.create(:incoming_message, :prominence => 'hidden',
-                                               :info_request => request)
-    response_event = FactoryGirl.
-                      create(:info_request_event, :event_type => 'response',
-                                                  :info_request => request,
-                                                  :incoming_message => im)
+    im = FactoryBot.create(:incoming_message, :prominence => 'hidden',
+                                              :info_request => request)
+    response_event = FactoryBot.
+                       create(:info_request_event, :event_type => 'response',
+                                                   :info_request => request,
+                                                   :incoming_message => im)
     im.prominence = 'normal'
     im.save
     expect(request.last_public_response_at).to be_within(1.second).
@@ -400,65 +463,8 @@ describe IncomingMessage, "when the prominence is changed" do
 
 end
 
-describe IncomingMessage, 'when asked if a user can view it' do
-
-  before do
-    @user = mock_model(User)
-    @info_request = mock_model(InfoRequest)
-    @incoming_message = IncomingMessage.new(:info_request => @info_request)
-  end
-
-  context 'if the prominence is hidden' do
-
-    before do
-      @incoming_message.prominence = 'hidden'
-    end
-
-    it 'should return true if the user can view hidden things' do
-      allow(User).to receive(:view_hidden?).with(@user).and_return(true)
-      expect(@incoming_message.user_can_view?(@user)).to be true
-    end
-
-    it 'should return false if the user cannot view hidden things' do
-      allow(User).to receive(:view_hidden?).with(@user).and_return(false)
-      expect(@incoming_message.user_can_view?(@user)).to be false
-    end
-
-  end
-
-  context 'if the prominence is requester_only' do
-
-    before do
-      @incoming_message.prominence = 'requester_only'
-    end
-
-    it 'should return true if the user owns the associated request' do
-      allow(@info_request).to receive(:is_owning_user?).with(@user).and_return(true)
-      expect(@incoming_message.user_can_view?(@user)).to be true
-    end
-
-    it 'should return false if the user does not own the associated request' do
-      allow(@info_request).to receive(:is_owning_user?).with(@user).and_return(false)
-      expect(@incoming_message.user_can_view?(@user)).to be false
-    end
-  end
-
-  context 'if the prominence is normal' do
-
-    before do
-      @incoming_message.prominence = 'normal'
-    end
-
-    it 'should return true' do
-      expect(@incoming_message.user_can_view?(@user)).to be true
-    end
-
-  end
-
-end
-
 describe 'when destroying a message' do
-  let(:incoming_message) { FactoryGirl.create(:plain_incoming_message) }
+  let(:incoming_message) { FactoryBot.create(:plain_incoming_message) }
 
   it 'destroys the incoming message' do
     incoming_message.destroy
@@ -476,7 +482,7 @@ describe 'when destroying a message' do
   end
 
   it 'should nullify outgoing_message_followups' do
-    outgoing_message = FactoryGirl.
+    outgoing_message = FactoryBot.
                          create(:initial_request,
                                 :info_request => incoming_message.info_request,
                                 :incoming_message_followup_id => incoming_message.id)
@@ -489,9 +495,15 @@ describe 'when destroying a message' do
       to eq([outgoing_message])
   end
 
+  it 'destroys the associated raw email' do
+    raw_email = incoming_message.raw_email
+    incoming_message.destroy
+    expect(RawEmail.where(:id => raw_email.id)).to be_empty
+  end
+
   context 'with attachments' do
     let(:incoming_with_attachment) {
-      FactoryGirl.create(:incoming_message_with_html_attachment)
+      FactoryBot.create(:incoming_message_with_html_attachment)
     }
 
     it 'destroys the incoming message' do
@@ -554,8 +566,8 @@ describe IncomingMessage, " when dealing with incoming mail" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('space-boundary.email', ir.incoming_email)
     message = ir.incoming_messages[1]
-    expect(message.mail.parts.size).to eq(2)
-    expect(message.mail.multipart?).to eq(true)
+    expect(message.parts.size).to eq(2)
+    expect(message.multipart?).to eq(true)
   end
 
   it "should correctly fold various types of footer" do
@@ -619,13 +631,21 @@ describe IncomingMessage, " when dealing with incoming mail" do
     end
   end
 
+  it 'should insert some text for messages without a body' do
+    ir = info_requests(:fancy_dog_request)
+    receive_incoming_mail('no-body.email', ir.incoming_email)
+    message = ir.incoming_messages[1]
+    message.parse_raw_email!
+    expect(message.get_main_body_text_internal).
+      to eq "[ Email has no body, please see attachments ]"
+  end
 
   it "should load an email with funny MIME settings" do
     ActionMailer::Base.deliveries.clear
     # just send it to the holding pen
-    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(0)
+    expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     receive_incoming_mail("humberside-police-odd-mime-type.email", 'dummy')
-    expect(InfoRequest.holding_pen_request.incoming_messages.size).to eq(1)
+    expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
 
     # clear the notification of new message in holding pen
     deliveries = ActionMailer::Base.deliveries
@@ -723,84 +743,23 @@ describe IncomingMessage, " folding quoted parts of emails" do
 
 end
 
-describe IncomingMessage, " checking validity to reply to" do
-  def test_email(result, email, empty_return_path, autosubmitted = nil)
-    @mail = double('mail')
-    allow(MailHandler).to receive(:get_from_address).and_return(email)
-    allow(MailHandler).to receive(:empty_return_path?).with(@mail).and_return(empty_return_path)
-    allow(MailHandler).to receive(:get_auto_submitted).with(@mail).and_return(autosubmitted)
-    @incoming_message = IncomingMessage.new
-    allow(@incoming_message).to receive(:mail).and_return(@mail)
-    expect(@incoming_message._calculate_valid_to_reply_to).to eq(result)
-  end
-
-  it "says a valid email is fine" do
-    test_email(true, "team@mysociety.org", false)
-  end
-
-  it "says postmaster email is bad" do
-    test_email(false, "postmaster@mysociety.org", false)
-  end
-
-  it "says Mailer-Daemon email is bad" do
-    test_email(false, "Mailer-Daemon@mysociety.org", false)
-  end
-
-  it "says case mangled MaIler-DaemOn email is bad" do
-    test_email(false, "MaIler-DaemOn@mysociety.org", false)
-  end
-
-  it "says Auto_Reply email is bad" do
-    test_email(false, "Auto_Reply@mysociety.org", false)
-  end
-
-  it "says DoNotReply email is bad" do
-    test_email(false, "DoNotReply@tube.tfl.gov.uk", false)
-  end
-
-  it "says a filled-out return-path is fine" do
-    test_email(true, "team@mysociety.org", false)
-  end
-
-  it "says an empty return-path is bad" do
-    test_email(false, "team@mysociety.org", true)
-  end
-
-  it "says an auto-submitted keyword is bad" do
-    test_email(false, "team@mysociety.org", false, "auto-replied")
-  end
-
-end
-
-describe IncomingMessage, " checking validity to reply to with real emails" do
-
-  after(:all) do
-    ActionMailer::Base.deliveries.clear
-  end
-  it "should allow a reply to plain emails" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(true)
-  end
-  it "should not allow a reply to emails with empty return-paths" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('empty-return-path.email', ir.incoming_email)
-    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(false)
-  end
-  it "should not allow a reply to emails with autoresponse headers" do
-    ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('autoresponse-header.email', ir.incoming_email)
-    expect(ir.incoming_messages[1].valid_to_reply_to?).to eq(false)
-  end
-
-end
-
 describe IncomingMessage, " when uudecoding bad messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it "decodes a valid uuencoded attachment" do
-    mail = get_fixture_mail('simple-uuencoded-attachment.email')
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('simple-uuencoded-attachment.email')
     im.extract_attachments!
 
     im.reload
@@ -812,9 +771,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should be able to do it at all" do
-    mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-bad-uuencoding.email')
     im.extract_attachments!
 
     im.reload
@@ -826,9 +783,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
 
   it "decodes an attachment where the uudecode program reports a 'No end line' error" do
     # See https://github.com/mysociety/alaveteli/issues/2508
-    mail = get_fixture_mail('incoming-request-bad-uuencoding-2.email')
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-bad-uuencoding-2.email')
     im.extract_attachments!
 
     im.reload
@@ -840,9 +795,11 @@ describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should still work when parsed from the raw email" do
-    raw_email = load_file_fixture 'inline-uuencode.email'
-    mail = MailHandler.mail_from_raw_email(raw_email)
-    im = incoming_messages :useless_incoming_message
+    data = load_file_fixture('inline-uuencode.email')
+    mail = MailHandler.mail_from_raw_email(data)
+    im = incoming_messages(:useless_incoming_message)
+    raw_email = RawEmail.new
+    allow(raw_email).to receive(:data).and_return(data)
     allow(im).to receive(:raw_email).and_return(raw_email)
     allow(im).to receive(:mail).and_return(mail)
     im.parse_raw_email!(true)
@@ -851,11 +808,8 @@ describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should apply censor rules" do
-    mail = get_fixture_mail('incoming-request-bad-uuencoding.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
-    ir = info_requests(:fancy_dog_request)
+    populate_raw_email('incoming-request-bad-uuencoding.email')
+    ir = im.info_request
 
     @censor_rule = CensorRule.new
     @censor_rule.text = "moo"
@@ -873,16 +827,25 @@ describe IncomingMessage, " when uudecoding bad messages" do
 end
 
 describe IncomingMessage, "when messages are attached to messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it 'should expand an RFC822 attachment' do
     # Note that this spec will only pass using Tmail in the timezone set as datetime headers
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
-      mail_body = load_file_fixture('rfc822-attachment.email')
-      mail = MailHandler.mail_from_raw_email(mail_body)
-
-      im = incoming_messages(:useless_incoming_message)
-      allow(im).to receive(:mail).and_return(mail)
+      populate_raw_email('rfc822-attachment.email')
       im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(1)
@@ -897,11 +860,7 @@ describe IncomingMessage, "when messages are attached to messages" do
   end
 
   it "should flatten all the attachments out" do
-    mail = get_fixture_mail('incoming-request-attach-attachments.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
-
+    populate_raw_email('incoming-request-attach-attachments.email')
     im.extract_attachments!
 
     attachments = im.get_attachments_for_display
@@ -916,11 +875,7 @@ describe IncomingMessage, "when messages are attached to messages" do
     # Note that this spec will only pass using Tmail in the timezone set as datetime headers
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
-      mail_body = load_file_fixture('incoming-request-attachment-headers.email')
-      mail = MailHandler.mail_from_raw_email(mail_body)
-
-      im = incoming_messages(:useless_incoming_message)
-      allow(im).to receive(:mail).and_return(mail)
+      populate_raw_email('incoming-request-attachment-headers.email')
       im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(2)
@@ -931,28 +886,48 @@ describe IncomingMessage, "when messages are attached to messages" do
 end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it "should flatten all the attachments out" do
-    mail = get_fixture_mail('incoming-request-oft-attachments.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-oft-attachments.email')
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
-      'test.html',  # picks HTML rather than text by default, as likely to render better
+      'test.html', # picks HTML rather than text by default, as likely to render better
       'attach.txt',
     ])
   end
 end
 
 describe IncomingMessage, "when TNEF attachments are attached to messages" do
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:im) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { im.info_request.incoming_email }
+  let(:from) { im.info_request.public_body.request_email }
+
+  def populate_raw_email(fixture)
+    mail = get_fixture_mail(fixture, to, from)
+    raw_email.update!(data: mail)
+  end
 
   it "should flatten all the attachments out" do
-    mail = get_fixture_mail('incoming-request-tnef-attachments.email')
-
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:mail).and_return(mail)
+    populate_raw_email('incoming-request-tnef-attachments.email')
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
@@ -960,6 +935,16 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
       'FOI 09 02976iii.doc',
     ])
   end
+
+  it 'does not attempt to save null bytes to the database' do
+    populate_raw_email('incoming-request-tnef-only.email')
+    im.extract_attachments!
+
+    expect { im.get_main_body_text_unfolded }.not_to raise_error
+    expect { im.get_main_body_text_folded }.not_to raise_error
+    expect { im.cached_attachment_text_clipped }.not_to raise_error
+  end
+
 end
 
 describe IncomingMessage, "when extracting attachments" do
@@ -1073,11 +1058,35 @@ end
 describe IncomingMessage, 'when getting clipped attachment text' do
 
   it 'should clip to characters not bytes' do
-    incoming_message = FactoryGirl.build(:incoming_message)
+    incoming_message = FactoryBot.build(:incoming_message)
     # This character is 2 bytes so the string should get sliced unless
     # we are handling multibyte chars correctly
     multibyte_string = "å" * 500002
     allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
     expect(incoming_message.get_attachment_text_clipped.length).to eq(500002)
   end
+
+end
+
+describe IncomingMessage, 'when getting the main body text' do
+
+  context 'when the main body text is more than 1MB' do
+
+    before do
+      @incoming_message = FactoryBot.create(:incoming_message)
+      allow(@incoming_message).to receive(:get_main_body_text_internal).
+        and_return("x" * 1000010)
+    end
+
+    it 'raises an exception' do
+      expected_text = "main body text more than 1 MB, need " \
+                      "to implement clipping like for attachment " \
+                      "text, or there is some other MIME decoding " \
+                      "problem or similar"
+      expect { @incoming_message.get_main_body_text_unfolded }.
+        to raise_error(RuntimeError, expected_text)
+    end
+
+  end
+
 end

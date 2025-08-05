@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class OutgoingMessages::DeliveryStatusesController < ApplicationController
-  before_filter :set_outgoing_message, :check_prominence
+  before_action :set_outgoing_message, :check_prominence
 
   def show
     @title = _('Delivery Status for Outgoing Message #{{id}}',
@@ -12,7 +12,7 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
 
     if @show_mail_server_logs
       @mail_server_logs = @outgoing_message.mail_server_logs.map do |log|
-        log.line(:redact_idhash => !@user.super?)
+        log.line(:redact => !@user.is_admin?)
       end
     end
 
@@ -26,8 +26,8 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
   end
 
   def check_prominence
-    unless @outgoing_message.user_can_view?(@user) &&
-      @outgoing_message.info_request.user_can_view?(@user)
+    unless can?(:read, @outgoing_message) && \
+           can?(:read, @outgoing_message.info_request)
         return render_hidden('request/_hidden_correspondence',
                              :locals => { :message => @outgoing_message })
     end

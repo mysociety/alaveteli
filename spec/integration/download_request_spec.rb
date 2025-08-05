@@ -11,13 +11,15 @@ describe 'when making a zipfile available' do
   def inspect_zip_download(session, info_request)
     using_session(session) do
       visit show_request_path(info_request)
-      find_link('Download a zip file of all correspondence').click
+      within('.request-header__action-bar') do
+        find_link('Download a zip file of all correspondence').click
+      end
 
       Tempfile.open('download') do |f|
         f.binmode
         f.write(page.body)
         f.flush
-        Zip::ZipFile::open(f.path) do |zip|
+        Zip::File.open(f.path) do |zip|
           yield zip
         end
       end
@@ -48,8 +50,8 @@ describe 'when making a zipfile available' do
                 by a non-request owner but should retain them for owner and admin' do
 
         # Non-owner can download zip with incoming and attachments
-        non_owner = login(FactoryGirl.create(:user))
-        info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request_with_incoming_attachments)
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(3)
@@ -57,7 +59,7 @@ describe 'when making a zipfile available' do
         end
 
         # Admin makes the incoming message requester only
-        admin = login(FactoryGirl.create(:admin_user))
+        admin = login(FactoryBot.create(:admin_user))
 
         using_session(admin) do
           hide_incoming_message(info_request.incoming_messages.first,
@@ -97,8 +99,8 @@ describe 'when making a zipfile available' do
                 by a non-request owner but should retain them for owner and admin' do
 
         # Non-owner can download zip with outgoing
-        non_owner = login(FactoryGirl.create(:user))
-        info_request = FactoryGirl.create(:info_request)
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(1)
@@ -106,7 +108,7 @@ describe 'when making a zipfile available' do
         end
 
         # Admin makes the outgoing message requester only
-        admin = login(FactoryGirl.create(:admin_user))
+        admin = login(FactoryBot.create(:admin_user))
 
         using_session(admin) do
           hide_outgoing_message(info_request.outgoing_messages.first,
@@ -140,6 +142,54 @@ describe 'when making a zipfile available' do
 
     end
 
+    context 'when a message contains redacted material' do
+
+      it 'should use associated censor rules on outgoing messages' do
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request)
+        FactoryBot.create(:censor_rule,
+                          :replacement => 'REDACTED',
+                          :text => 'information')
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.pdf')).
+            to match('Some REDACTED please')
+        end
+      end
+
+      it 'should use associated censor rules on the incoming messages' do
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request_with_incoming)
+        FactoryBot.create(:censor_rule,
+                          :replacement => 'REDACTED',
+                          :text => 'hereisthe')
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.pdf')).to match('REDACTEDtext')
+        end
+      end
+
+      it 'uses associated censor rules on attachments' do
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request_with_plain_incoming)
+        FactoryBot.create(:censor_rule,
+                          :text => 'First',
+                          :replacement => 'REDACTED',
+                          :info_request => info_request)
+
+        sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.read('2_2_hello world.txt')).to match('Second hello')
+          expect(zip.read('2_3_hello world.txt')).to match('REDACTED hello')
+        end
+
+      end
+
+    end
+
   end
 
   context 'when no html to pdf converter is supplied' do
@@ -150,8 +200,8 @@ describe 'when making a zipfile available' do
 
     it "should update the contents of the zipfile when the request changes" do
 
-      info_request = FactoryGirl.create(:info_request_with_incoming,
-                                        :title => 'Example Title')
+      info_request = FactoryBot.create(:info_request_with_incoming,
+                                       :title => 'Example Title')
       request_owner = login(info_request.user)
       inspect_zip_download(request_owner, info_request) do |zip|
         expect(zip.count).to eq(1) # just the message
@@ -170,7 +220,7 @@ describe 'when making a zipfile available' do
       sleep_and_receive_mail('incoming-request-attachment-unknown-extension.email', info_request)
 
       inspect_zip_download(request_owner, info_request) do |zip|
-        expect(zip.count).to eq(4)  # the message plus two "hello-world.txt" files, and the new attachment
+        expect(zip.count).to eq(4) # the message plus two "hello-world.txt" files, and the new attachment
         expect(zip.read('3_2_hello.qwglhm')).to match('This is an unusual')
       end
     end
@@ -178,11 +228,11 @@ describe 'when making a zipfile available' do
     context 'when a request is "requester_only"' do
 
       before do
-        @non_owner = login(FactoryGirl.create(:user))
-        @info_request = FactoryGirl.create(:info_request_with_incoming,
-                                           :prominence => 'requester_only')
+        @non_owner = login(FactoryBot.create(:user))
+        @info_request = FactoryBot.create(:info_request_with_incoming,
+                                          :prominence => 'requester_only')
         @request_owner = login(@info_request.user)
-        @admin = login(FactoryGirl.create(:admin_user))
+        @admin = login(FactoryBot.create(:admin_user))
       end
 
 
@@ -212,11 +262,11 @@ describe 'when making a zipfile available' do
     context 'when a request is "hidden"' do
 
       it 'should not allow a download of the request by an admin only' do
-        @non_owner = login(FactoryGirl.create(:user))
-        @info_request = FactoryGirl.create(:info_request_with_incoming,
-                                           :prominence => 'hidden')
+        @non_owner = login(FactoryBot.create(:user))
+        @info_request = FactoryBot.create(:info_request_with_incoming,
+                                          :prominence => 'hidden')
         @request_owner = login(@info_request.user)
-        @admin = login(FactoryGirl.create(:admin_user))
+        @admin = login(FactoryBot.create(:admin_user))
 
         # Requester can't access the zip
         using_session(@request_owner) do
@@ -245,8 +295,8 @@ describe 'when making a zipfile available' do
                 by a non-request owner but should retain them for owner and admin' do
 
         # Non-owner can download zip with outgoing
-        non_owner = login(FactoryGirl.create(:user))
-        info_request = FactoryGirl.create(:info_request_with_incoming_attachments)
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request_with_incoming_attachments)
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(3)
@@ -254,7 +304,7 @@ describe 'when making a zipfile available' do
         end
 
         # Admin makes the incoming message requester only
-        admin = login(FactoryGirl.create(:admin_user))
+        admin = login(FactoryBot.create(:admin_user))
 
         using_session(admin) do
           hide_incoming_message(info_request.incoming_messages.first,
@@ -293,17 +343,17 @@ describe 'when making a zipfile available' do
       it 'should not include the outgoing message in a download of the entire request
                 by a non-request owner but should retain them for owner and admin' do
 
-        # Non-owner can download zip with incoming and attachments
-        non_owner = login(FactoryGirl.create(:user))
-        info_request = FactoryGirl.create(:info_request)
+        # Non-owner can download zip with original message initially
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request)
 
         inspect_zip_download(non_owner, info_request) do |zip|
           expect(zip.count).to eq(1)
           expect(zip.read('correspondence.txt')).to match('Some information please')
         end
 
-        # Admin makes the incoming message requester only
-        admin = login(FactoryGirl.create(:admin_user))
+        # Admin makes the outgoing message requester only
+        admin = login(FactoryBot.create(:admin_user))
 
         using_session(admin) do
           visit edit_admin_outgoing_message_path info_request.outgoing_messages.first
@@ -338,10 +388,57 @@ describe 'when making a zipfile available' do
 
     end
 
+    context 'when a message contains redacted material' do
+
+      it 'should use associated censor rules on outgoing messages' do
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request)
+        FactoryBot.create(:censor_rule,
+                          :text => 'information',
+                          :replacement => 'REDACTED')
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('Some REDACTED please')
+        end
+      end
+
+      it 'should use associated censor rules on the incoming messages' do
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request_with_incoming)
+        FactoryBot.create(:censor_rule,
+                          :text => 'hereisthe',
+                          :replacement => 'REDACTED')
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.count).to eq(1)
+          expect(zip.read('correspondence.txt')).to match('REDACTEDtext')
+        end
+      end
+
+      it 'uses associated censor rules on attachments' do
+        non_owner = login(FactoryBot.create(:user))
+        info_request = FactoryBot.create(:info_request_with_plain_incoming)
+        FactoryBot.create(:censor_rule,
+                          :text => 'First',
+                          :replacement => 'REDACTED',
+                          :info_request => info_request)
+
+        sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
+
+        inspect_zip_download(non_owner, info_request) do |zip|
+          expect(zip.read('2_2_hello world.txt')).to match('Second hello')
+          expect(zip.read('2_3_hello world.txt')).to match("REDACTED hello")
+        end
+
+      end
+
+    end
+
     it 'should successfully make a zipfile for an external request' do
-      external_request = FactoryGirl.create(:external_request)
-      user = login(FactoryGirl.create(:user))
-      inspect_zip_download(user, external_request){ |zip|  expect(zip.count).to eq(1) }
+      external_request = FactoryBot.create(:external_request)
+      user = login(FactoryBot.create(:user))
+      inspect_zip_download(user, external_request) { |zip| expect(zip.count).to eq(1) }
     end
   end
 

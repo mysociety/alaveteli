@@ -1,0 +1,30 @@
+<fieldset id="attachments" class="form-horizontal">
+  <legend>Attachments</legend>
+
+  <% if foi_attachments.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Filename</th>
+          <th>Content Type</th>
+          <th>Hexdigest</th>
+          <th>Display Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% foi_attachments.each do |attachment| %>
+          <tr>
+            <td><tt><%= attachment.id %></tt></td>
+            <td><tt><%= attachment.filename %></tt></td>
+            <td><tt><%= attachment.content_type %></tt></td>
+            <td><tt><%= attachment.hexdigest %></tt></td>
+            <td><tt><%= attachment.display_size %></tt></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No attachments.</p>
+  <% end %>
+</fieldset>

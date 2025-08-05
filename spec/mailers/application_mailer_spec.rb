@@ -14,10 +14,13 @@ describe ApplicationMailer do
     end
 
     def add_mail_methods(method_names)
-      method_names.each{ |method_name| ApplicationMailer.send(:define_method, method_name){ mail } }
+      @previous_layout = ApplicationMailer._layout.dup
+      ApplicationMailer.send(:layout, nil)
+      method_names.each { |method_name| ApplicationMailer.send(:define_method, method_name) { mail } }
     end
 
     def remove_mail_methods(method_names)
+      ApplicationMailer.send(:layout, @previous_layout)
       method_names.each do |method_name|
         if ApplicationMailer.respond_to?(method_name)
           ApplicationMailer.send(:remove_method, method_name)
@@ -46,7 +49,7 @@ describe ApplicationMailer do
     def create_multipart_method(method_name)
       ApplicationMailer.send(:define_method, method_name) do
         attachments['original.eml'] = 'xxx'
-        mail
+        mail(content_type: 'multipart/mixed')
       end
     end
 
@@ -75,10 +78,11 @@ describe ApplicationMailer do
         expect(@mail.body).to match('Core only')
       end
 
-      it 'should render an empty body if the template is in neither core nor theme' do
+      it 'should raise a missing template error if the template is in
+          neither core nor theme' do
         prepend_theme_views('theme_one')
         @mail = ApplicationMailer.neither
-        expect(@mail.body).to be_empty
+        expect { @mail.body }.to raise_error(ActionView::MissingTemplate)
       end
 
       it 'should render a multipart email using a theme template' do
@@ -121,10 +125,11 @@ describe ApplicationMailer do
         expect(@mail.body).to match('Core only')
       end
 
-      it 'should render an empty body if the template is in neither core nor theme' do
+      it 'should raise a missing template error if the template is in
+          neither core nor theme' do
         append_theme_views('theme_one')
         @mail = ApplicationMailer.neither
-        expect(@mail.body).to be_empty
+        expect { @mail.body }.to raise_error(ActionView::MissingTemplate)
       end
 
       it 'should render a multipart email using a core template' do

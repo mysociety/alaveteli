@@ -35,8 +35,68 @@ module AdminHelper
       link_to(h(user.name), admin_user_path(user), :title => "view full details")
   end
 
+  def comment_both_links(comment)
+    link_to(eye, comment_path(comment),
+            :title => "view comment on public website") + " " +
+      link_to(h(truncate(comment.body)), edit_admin_comment_path(comment),
+              :title => "view full details")
+  end
+
   def comment_visibility(comment)
     comment.visible? ? 'Visible' : 'Hidden'
   end
 
+  def sort_order_humanized(sort_order)
+    { 'name_asc' => 'Name ▲',
+      'name_desc' => 'Name ▼',
+      'created_at_asc' => 'Oldest',
+      'created_at_desc' => 'Newest',
+      'updated_at_asc' => 'Least Recently Updated',
+      'updated_at_desc' => 'Recently Updated' }.
+    fetch(sort_order.to_s) { sort_order.to_s.titleize }
+  end
+
+  def significant_event_params(event)
+    params = { 'edit' => [:title, :described_state, :awaiting_description],
+               'edit_comment' => [:body],
+               'edit_outgoing' => [:body] }
+    params.fetch(event.event_type, [])
+  end
+
+  def event_params_description(event)
+    text = ''
+    if can?(:admin, AlaveteliPro::Embargo) || !event.info_request.embargo
+      diff = event.params_diff
+      significant_event_params(event).each do |key|
+        if diff[:new].has_key? key
+          text += "Changed #{key} from '#{diff[:old][key]}' to '#{diff[:new][key]}'. "
+         end
+      end
+    end
+    text
+  end
+
+  def highlight_allow_new_responses_from(string)
+    case string
+    when 'authority_only'
+      content_tag :span, string, class: 'text-warning'
+    when 'nobody'
+      content_tag :span, string, class: 'text-error'
+    else
+      string
+    end
+  end
+
+  def highlight_prominence(string)
+    case string
+    when 'backpage'
+      content_tag :span, string, class: 'text-warning'
+    when 'requester_only'
+      content_tag :span, string, class: 'text-warning'
+    when 'hidden'
+      content_tag :span, string, class: 'text-error'
+    else
+      string
+    end
+  end
 end

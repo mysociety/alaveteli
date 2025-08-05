@@ -1,0 +1,5 @@
+The following request will be made public on Alaveteli in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer.
+
+http://test.host/en/request/here_is_a_character_that_needs_q
+
+-- the Alaveteli team

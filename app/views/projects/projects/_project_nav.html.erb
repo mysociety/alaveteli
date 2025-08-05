@@ -1,0 +1,21 @@
+<div class="row">
+  <nav class="projects-nav">
+    <div class="projects-nav__title">
+      <h1><%= link_to_unless_current project.title, project %></h1>
+    </div>
+
+    <div class="projects-nav__menu">
+      <ul class="inline-list">
+        <li>
+          <%= link_to _('Tasks'), project_path(project, anchor: 'tasks') %>
+        </li>
+
+        <li>
+          <%= link_to contact_user_path(url_name: project.owner.url_name) do %>
+            <%= _('Contact {{recipient}}', recipient: project.owner.name) %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

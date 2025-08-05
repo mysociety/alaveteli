@@ -102,7 +102,7 @@ module AlaveteliTextMasker
 
   def apply_binary_masks(text, options = {})
     # Keep original size, so can check haven't resized it
-    orig_size = text.size
+    orig_size = text.bytesize
     text = text.dup
 
     # Replace ASCII email addresses...
@@ -131,7 +131,7 @@ module AlaveteliTextMasker
     # Replace censor items
     censor_rules = options[:censor_rules] || []
     text = censor_rules.reduce(text) { |text, rule| rule.apply_to_binary(text) }
-    raise "internal error in apply_binary_masks" if text.size != orig_size
+    raise "internal error in apply_binary_masks" if text.bytesize != orig_size
 
     text
   end

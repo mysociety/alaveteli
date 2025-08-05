@@ -1,0 +1,19 @@
+<div class="undescribed_requests">
+  <p>
+    <%= _('Please <strong>go to the following requests</strong>, and let ' \
+          'us know if there was information in the recent responses to ' \
+          'them.') %>
+  </p>
+
+  <ul>
+    <% @undescribed_requests.each do |undescribed_request| %>
+      <li><%= request_link(undescribed_request) %></li>
+    <% end %>
+  </ul>
+
+  <p>
+    <%= _("Thanks very much - this will help others find useful stuff. " \
+          "We'll also, if you need it, give advice on what to do next " \
+          "about your requests.") %>
+  </p>
+</div>

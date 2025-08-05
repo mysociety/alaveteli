@@ -5,16 +5,22 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
+include AlaveteliFeatures::Constraints
+
 # Allow easy extension from themes. Note these will have the highest priority.
 $alaveteli_route_extensions.each do |f|
   load File.join('config', f)
 end
 
-Alaveteli::Application.routes.draw do
+Rails.application.routes.draw do
+  admin_constraint = lambda { |request| request.session[:using_admin] }
+
+  root to: 'general#frontpage'
+
   #### General contoller
-  match '/' => 'general#frontpage',
-        :as => :frontpage,
-        :via => :get
+  root :to => 'general#frontpage',
+       :as => :frontpage,
+       :via => :get
   match '/blog' => 'general#blog',
         :as => :blog,
         :via => :get
@@ -42,7 +48,12 @@ Alaveteli::Application.routes.draw do
   match '/version.:format' => 'general#version',
         :as => :version,
         :via => :get
+
   #####
+
+  ##### Statistics controller
+  get '/statistics' => 'statistics#index'
+  get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
 
   ##### Request controller
   match '/list/recent' => 'request#list',
@@ -74,7 +85,7 @@ Alaveteli::Application.routes.draw do
         :via => :get
   match '/select_authorities' => 'request#select_authorities',
         :as => :select_authorities,
-        :via => :get
+        :via => [:get, :post]
 
   match '/new' => 'request#new',
         :as => :new_request,
@@ -103,17 +114,11 @@ Alaveteli::Application.routes.draw do
         :as => :similar_request,
         :via => :get
 
-  match '/request/:id/describe' => 'request#describe_state',
-        :as => :describe_state,
-        :via => [:post, :put]
-  match '/request/:url_title/describe/:described_state' => 'request#describe_state_message',
-        :as => :describe_state_message,
-        :via => :get
-  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'request#get_attachment_as_html',
+  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'attachments#show_as_html',
         :format => false,
         :as => :get_attachment_as_html,
         :via => :get
-  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'request#get_attachment',
+  match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'attachments#show',
         :format => false,
         :as => :get_attachment,
         :via => :get
@@ -130,6 +135,19 @@ Alaveteli::Application.routes.draw do
         :via => :get
   ####
 
+  scope path: 'request/:url_title' do
+    #### Citations controller
+    resources :citations, only: [:new, :create]
+    ####
+
+    #### Classifications controller
+    resources :classifications, only: [:create], param: :described_state do
+      get :message, on: :member
+    end
+    ####
+  end
+
+
   #### Followups controller
   match '/request/:request_id/followups/new' => 'followups#new',
         :as => :new_request_followup,
@@ -143,6 +161,28 @@ Alaveteli::Application.routes.draw do
   match '/request/:request_id/followups' => 'followups#create',
         :as => :request_followups,
         :via => :post
+  ####
+
+  #### Projects
+  constraints FeatureConstraint.new(:projects) do
+    match '/p/:token' => 'projects/invites#create',
+          as: :project_invite,
+          via: :get
+
+    scope module: :projects do
+      resources :projects, only: [:show] do
+        resource :extract, only: [:show, :update, :create]
+        resource :classify, only: [:show, :update]
+        resources :classifications, only: :create, param: :described_state do
+          get :message, on: :member
+        end
+
+        resources :contributors, only: [:destroy]
+
+        resource :download, only: [:show], format: true
+      end
+    end
+  end
   ####
 
   resources :health_checks, :only => [:index]
@@ -165,27 +205,27 @@ Alaveteli::Application.routes.draw do
   # Use /profile for things to do with the currently signed in user.
   # Use /user/XXXX for things that anyone can see about that user.
   # Note that /profile isn't indexed by search (see robots.txt)
-  resource :password_change,
-           :only => [:new, :create, :edit, :update],
-           :path => '/profile/change_password',
-           :path_names => { :edit => '' }
+  resources :password_changes,
+            :only => [:new, :create, :edit, :update],
+            :path => '/profile/change_password',
+            :path_names => { :edit => '' }
 
   resource :one_time_password,
            :only => [:show, :create, :update, :destroy],
            :path => '/profile/two_factor'
 
-  match '/profile/sign_in' => 'user#signin',
+  match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
-        :via => [:get, :post]
-  match '/profile/sign_up' => 'user#signup',
-        :as => :signup, :via => :post
-  match '/profile/sign_up' => 'user#signin',
         :via => :get
-  match '/profile/sign_out' => 'user#signout',
+  match '/profile/sign_in' => 'users/sessions#create',
+        :as => :create_session,
+        :via => :post
+  match '/profile/sign_out' => 'users/sessions#destroy',
         :as => :signout,
         :via => :get
-
-  match '/c/:email_token' => 'user#confirm',
+  match '/profile/sign_up' => 'user#signup',
+        :as => :signup, :via => :post
+  match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
         :via => :get
   match '/user/:url_name' => 'user#show',
@@ -202,7 +242,7 @@ Alaveteli::Application.routes.draw do
   match '/user/:url_name/wall' => 'user#wall',
         :as => :show_user_wall,
         :via => :get
-  match '/user/contact/:id' => 'user#contact',
+  match '/user/contact/:url_name' => 'users/messages#contact',
         :as => :contact_user,
         :via => [:get, :post]
   match '/profile/change_email' => 'user#signchangeemail',
@@ -221,16 +261,24 @@ Alaveteli::Application.routes.draw do
         :as => :get_draft_profile_photo,
         :via => :get
 
+  namespace :users do
+    get 'email_alerts/disable/:token',
+        to: 'email_alerts#destroy',
+        as: :disable_email_alerts
+  end
+
   namespace :profile, :module => 'user_profile' do
     resource :about_me, :only => [:edit, :update], :controller => 'about_me'
   end
 
   # Legacy route for setting about_me
   match '/profile/set_about_me' => redirect('/profile/about_me/edit'),
-        :as => :set_profile_about_me
+        :as => :set_profile_about_me,
+        :via => [:get, :post]
 
   match '/profile/set_receive_alerts' => 'user#set_receive_email_alerts',
-        :as => :set_receive_email_alerts
+        :as => :set_receive_email_alerts,
+        :via => [:get, :post]
 
   match '/profile/river' => 'user#river',
         :as => :river,
@@ -284,12 +332,13 @@ Alaveteli::Application.routes.draw do
   match '/body/:url_name/:tag/:view' => 'public_body#show',
         :as => :show_public_body_tag_view,
         :via => :get
-  match '/body_statistics' => 'public_body#statistics',
-        :as => :public_bodies_statistics,
-        :via => :get
   ####
 
+  #### PublicBodyChangeRequest controller
   resource :change_request, :only => [:new, :create], :controller => 'public_body_change_requests'
+  match 'change_request/new/:body' => 'public_body_change_requests#new',
+        :as => :new_change_request_body,
+        :via => :get
 
   #### Comment controller
   match '/annotate/request/:url_title' => 'comment#new',
@@ -327,7 +376,6 @@ Alaveteli::Application.routes.draw do
         :as => :track_user,
         :feed => /(track|feed)/,
         :via => :get
-  # TODO: :format doesn't work. See hacky code in the controller that makes up for this.
   match '/:feed/search/:query_array' => 'track#track_search_query',
         :as => :track_search,
         :feed => /(track|feed)/,
@@ -346,7 +394,7 @@ Alaveteli::Application.routes.draw do
   ####
 
   #### Help controller
-  match '/help/unhappy/:url_title' => 'help#unhappy',
+  match '/help/unhappy(/:url_title)' => 'help#unhappy',
         :as => :help_unhappy,
         :via => :get
   match '/help/about' => 'help#about',
@@ -373,9 +421,17 @@ Alaveteli::Application.routes.draw do
   match '/help/credits' => 'help#credits',
         :as => :help_credits,
         :via => :get
-  match '/help/:action' => 'help#action',
+
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+    match '/help/pro' => 'help#pro',
+          as: :help_pro,
+          via: :get
+  end
+
+  match '/help/:template' => 'help#action',
         :as => :help_general,
-        :via => :get
+        :via => :get,
+        :template => /[-_a-z]+/
   match '/help' => 'help#index',
         :via => :get
   ####
@@ -396,6 +452,10 @@ Alaveteli::Application.routes.draw do
   match '/categorise/stop' => 'request_game#stop',
         :as => :categorise_stop,
         :via => :post
+  ####
+
+  #### Announcement controller
+  resources :announcements, :only => [:destroy]
   ####
 
   #### AdminPublicBody controller
@@ -421,7 +481,7 @@ Alaveteli::Application.routes.draw do
   ####
 
   #### AdminPublicBodyHeading controller
-  scope '/admin', :as => 'admin'  do
+  scope '/admin', :as => 'admin' do
     resources :headings,
       :controller => 'admin_public_body_headings',
     :except => [:index] do
@@ -447,7 +507,7 @@ Alaveteli::Application.routes.draw do
   ####
 
   #### AdminPublicBodyChangeRequest controller
-  scope '/admin', :as => 'admin'  do
+  scope '/admin', :as => 'admin' do
     resources :change_requests,
       :controller => 'admin_public_body_change_requests',
       :only => [:edit, :update]
@@ -488,7 +548,7 @@ Alaveteli::Application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :comments,
       :controller => 'admin_comment',
-      :only => [:edit, :update]
+      :only => [:index, :edit, :update]
   end
   ####
 
@@ -540,13 +600,28 @@ Alaveteli::Application.routes.draw do
       get 'banned', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
-      post 'login_as', :on => :member
       post 'clear_profile_photo', :on => :member
       post 'modify_comment_visibility', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
       end
+  end
+  ####
+
+  #### AdminUsersAccountSuspensions controller
+  scope '/admin', :as => 'admin' do
+    resources :users_account_suspensions,
+      :controller => 'admin_users_account_suspensions',
+      :only => [:create]
+  end
+  ####
+
+  #### AdminUsersSessions controller
+  scope '/admin', :as => 'admin' do
+    resources :users_sessions,
+      :controller => 'admin_users_sessions',
+      :only => [:create]
   end
   ####
 
@@ -572,6 +647,12 @@ Alaveteli::Application.routes.draw do
   end
   ####
 
+  #### AdminAnnouncement controller
+  scope '/admin', :as => 'admin' do
+    resources :announcements, :controller => 'admin_announcements'
+  end
+  ####
+
   #### Api controller
   match '/api/v2/request.json' => 'api#create_request',
         :as => :api_create_request,
@@ -589,7 +670,113 @@ Alaveteli::Application.routes.draw do
 
   match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events',
         :as => :api_body_request_events,
-        :feed_type => '^(json|atom)$'
+        :feed_type => '^(json|atom)$',
+        :via => :get
+  ####
+
+  #### Pro Pages
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+    namespace :alaveteli_pro, path: :pro, as: :pro do
+      resources :pages, only: [:show]
+    end
+  end
+
+  #### Pro Pricing
+  constraints FeatureConstraint.new(:pro_pricing) do
+
+    namespace :alaveteli_pro, path: :pro, as: :pro do
+      resources :plans, only: [:index], path: :pricing
+    end
+
+    scope module: :alaveteli_pro do
+      resources :plans, only: [:show]
+
+      scope path: :profile do
+        resources :subscriptions, only: [:index, :create, :destroy] do
+          collection do
+            resource :payment_method, only: [:update]
+          end
+          member do
+            get :authorise
+          end
+        end
+      end
+
+      match '/pro/subscriptions/stripe-webhook' => 'stripe_webhooks#receive',
+            :via => :post
+    end
+
+  end
+
+  #### Alaveteli Pro
+  constraints FeatureConstraint.new(:alaveteli_pro) do
+
+    scope module: :alaveteli_pro do
+      resources :account_request, :only => [:index, :create], path: :pro do
+        collection do
+          get :training, to: redirect('/pro')
+        end
+      end
+    end
+
+    namespace :alaveteli_pro do
+      root to: 'dashboard#index', :as => :dashboard, :via => :get
+      resources :draft_info_requests, :only => [:create, :update]
+      resources :info_requests, only: [:new, :create, :index] do
+        get :preview, on: :new # /info_request/new/preview
+      end
+      scope path: 'info_requests/:url_title' do
+        resources :classifications, only: :create, param: :described_state do
+          get :message, on: :member
+        end
+      end
+      resources :embargoes, :only => [:destroy, :create] do
+        collection do
+          post :destroy_batch
+        end
+      end
+      resources :embargo_extensions, :only => [:create] do
+        collection do
+          post :create_batch
+        end
+      end
+      resources :batch_request_authority_searches, :only => [:index, :new]
+      resources :draft_info_request_batches, :only => [:create, :update] do
+        collection do
+          put :update_bodies
+        end
+      end
+      resources :info_request_batches, :only => [:new, :create] do
+        get :preview, on: :new # /info_request_batch/new/preview
+        resource :batch_download, only: [:show], format: true, path: 'download'
+      end
+      resources :public_bodies, :only => [:index]
+    end
+
+    scope path: :alaveteli_pro do
+      # So that we can show a request using the existing controller from the
+      # pro context
+      match '/info_requests/:url_title' => 'request#show',
+            :as => :show_alaveteli_pro_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
+
+      # So that we can show a batch request using the existing controller from
+      # the pro context
+      match '/info_request_batches/:id' => 'info_request_batch#show',
+            :as => :show_alaveteli_pro_batch_request,
+            :via => :get,
+            :defaults => { :pro => '1' }
+
+      # So that we can show the authority selection screen using the existing
+      # controller but in a pro context
+      match '/select_authority' => 'request#select_authority',
+            :as => :alaveteli_pro_select_authority,
+            :via => :get,
+            :defaults => { :pro => '1' }
+    end
+
+  end
   ####
 
   filter :conditionallyprependlocale

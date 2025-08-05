@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="span12">
+    <div class="alert alert-info alert-dismissible">
+      <%= link_to announcement_path(announcement), method: :delete, remote: true, class: 'close', data: { dismiss: 'alert' }, aria: { label: 'Close' } do %>
+        <span aria-hidden="true">&times;</span>
+      <% end %>
+      <% if announcement.title.present? %><strong><%= announcement.title %> - </strong><% end %>
+      <%= sanitize announcement.content %>
+    </div>
+  </div>
+</div>

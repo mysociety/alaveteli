@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AdminSpamAddressesController < AdminController
 
-  before_filter :set_spam_address, :only => [:destroy]
+  before_action :set_spam_address, :only => [:destroy]
 
   def index
     @spam_addresses = SpamAddress.all
@@ -29,7 +29,7 @@ class AdminSpamAddressesController < AdminController
 
   def spam_address_params
     if params[:spam_address]
-      params[:spam_address].slice(:email)
+      params.require(:spam_address).permit(:email)
     else
       {}
     end

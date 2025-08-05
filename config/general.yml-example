@@ -59,6 +59,23 @@ FORCE_SSL: true
 # ---
 ISO_COUNTRY_CODE: GB
 
+# ISO currency code of the currency Alaveteli Professional cost should be
+# displayed in.
+# (https://en.wikipedia.org/wiki/ISO_4217#Active_codes)
+#
+# Doesn't affect what currency the plans are setup in so this should match what
+# is configured at Stripe.com
+# (https://stripe.com/docs/currencies)
+#
+# ISO_CURRENCY_CODE - String currency code (default: GBP)
+#
+# Examples:
+#
+#   ISO_CURRENCY_CODE: GBP
+#
+# ---
+ISO_CURRENCY_CODE: GBP
+
 # This is the timezone that times and dates are displayed in
 # If not set defaults to UTC.
 #
@@ -212,9 +229,9 @@ WORKING_OR_CALENDAR_DAYS: working
 # a request has not been updated after
 # RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS, allow_new_responses_from is
 # set to 'authority_only'. After RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS
-# * 2, allow_new_responses_from is set to 'nobody'.
+# * 4, allow_new_responses_from is set to 'nobody'.
 #
-# WORKING_OR_CALENDAR_DAYS - Integer (default: 6)
+# RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS - Integer (default: 6)
 #
 # Examples:
 #
@@ -429,19 +446,21 @@ TRACK_SENDER_NAME: 'Alaveteli'
 # ---
 RAW_EMAILS_LOCATION: 'files/raw_emails'
 
-# Secret key for signing cookie_store sessions. Make it long and random.
+# Rails 4.0 introduces ActiveSupport::KeyGenerator and uses this as a base from
+# which to generate and verify signed cookies (among other things). You can
+# generate a key with `rake secret`.
 #
-# COOKIE_STORE_SESSION_SECRET - String (default: 'this default is insecure as
-#                                       code is open source, please override
-#                                       for live sites in config/general; this
-#                                       will do for local development')
+# SECRET_KEY_BASE - String (default: 'this default is insecure as
+#                           code is open source, please override
+#                           for live sites in config/general; this
+#                           will do for local development')
 #
 # Examples:
 #
-#   COOKIE_STORE_SESSION_SECRET: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'
+#   SECRET_KEY_BASE: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'
 #
 # ---
-COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
+SECRET_KEY_BASE: 'your secret key here, make it long and random'
 
 # If present, puts the site in read only mode, and uses the text as reason
 # (whole paragraph). Please use a read-only database user as well, as it only
@@ -476,20 +495,22 @@ READ_ONLY: ''
 STAGING_SITE: 1
 
 # Recaptcha, for detecting humans. Get keys here:
-# http://recaptcha.net/whyrecaptcha.html
+# https://www.google.com/recaptcha
+# Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 #
-# RECAPTCHA_PUBLIC_KEY - String (default: 'x')
+# RECAPTCHA_SITE_KEY - String (default: 'x')
 #
 # ---
-RECAPTCHA_PUBLIC_KEY: 'x'
+RECAPTCHA_SITE_KEY: 'x'
 
 # Recaptcha, for detecting humans. Get keys here:
-# http://recaptcha.net/whyrecaptcha.html
+# https://www.google.com/recaptcha
+# Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 #
-# RECAPTCHA_PRIVATE_KEY - String (default: 'x')
+# RECAPTCHA_SECRET_KEY - String (default: 'x')
 #
 # ---
-RECAPTCHA_PRIVATE_KEY: 'x'
+RECAPTCHA_SECRET_KEY: 'x'
 
 # Number of days after which to send a 'new response reminder'
 #
@@ -528,12 +549,22 @@ USE_GHOSTSCRIPT_COMPRESSION: false
 # country if one exists). You shouldn't need to change this if you have the
 # geoip-database package installed as specified in the config/packages files.
 #
-# GEOIP_DATABASE - String (default: /usr/share/GeoIP/GeoIP.dat)
+# You **must** add MAXMIND_LICENSE_KEY with this setting.
+#
+# GEOIP_DATABASE - String (default: vendor/data/GeoLite2-Country.mmdb)
 #
 # ---
-GEOIP_DATABASE: /usr/share/GeoIP/GeoIP.dat
+GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb
 
-# In the absence of a GeoIP database (see above), Alateveli can use Gaze,
+# MaxMind requires a free license key to download the GeoLite2 databases.
+# https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+#
+# MAXMIND_LICENSE_KEY - String (default: '')
+#
+# ---
+MAXMIND_LICENSE_KEY: ''
+
+# In the absence of a GeoIP database (see above), Alaveteli can use Gaze,
 # mySociety's gazeteer, to determine the country from the IP address of an HTTP
 # request to the site. You shouldn't normally need to change this.
 #
@@ -557,6 +588,18 @@ GAZE_URL: http://gaze.mysociety.org
 #
 # ---
 FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
+
+# The email address to which non-bounce responses to emails sent out to
+# Alaveteli Professional users by Alaveteli should be forwarded
+#
+# FORWARD_PRO_NONBOUNCE_RESPONSES_TO - String (default: pro-user-support@localhost)
+#
+# Examples:
+#
+#   FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@example.com
+#
+# ---
+FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 
 # Path to a program that converts an HTML page in a file to PDF. Also used to
 # download a zip file of all the correspondence for a request. It should take
@@ -613,18 +656,6 @@ EXCEPTION_NOTIFICATIONS_TO:
 #
 # ---
 MAX_REQUESTS_PER_USER_PER_DAY: 6
-
-# If you're running behind Varnish set this to work out where to send purge
-# requests. Otherwise, don't set it.
-#
-# VARNISH_HOST - String (default: nil)
-#
-# Examples:
-#
-#   VARNISH_HOST: localhost
-#
-# ---
-VARNISH_HOST: null
 
 # Adding a value here will enable Google Analytics on all non-admin pages for
 # non-admin users.
@@ -804,7 +835,6 @@ SHARED_FILES:
   - config/database.yml
   - config/general.yml
   - config/rails_env.rb
-  - config/newrelic.yml
   - config/httpd.conf
   - public/foi-live-creation.png
   - public/foi-user-use.png
@@ -840,16 +870,6 @@ SHARED_DIRECTORIES:
 #
 # ---
 ALLOW_BATCH_REQUESTS: false
-
-# Use the responsive base stylesheets and templates, rather than those that
-# only render the site at a fixed width. They allow the site to render nicely
-# on mobile devices as well as larger screens. Set this to false if you want to
-# continue using fixed width stylesheets.
-#
-# RESPONSIVE_STYLING - Boolean (default: true)
-#
-# ---
-RESPONSIVE_STYLING: true
 
 # Define the mailer delivery method to be used only in the production environment.
 # By default, use sendmail.
@@ -922,3 +942,354 @@ EXTERNAL_REVIEWERS: ''
 #
 # ---
 ENABLE_ANNOTATIONS: true
+
+# Enable anti-spam measures.
+# If ENABLE_ANTI_SPAM is set to true, Alaveteli will enforce a set of extra
+# restrictions to combat spam requests, annotations and profile content. This
+# will include the ability to restrict IP addresses from some countries from
+# performing some actions (see RESTRICTED_COUNTRIES), showing a reCAPTCHA
+# on new request submission, and preventing the submission of requests,
+# annotations and profile text matching a set of spam content patterns.
+#
+# ENABLE_ANTI_SPAM – Boolean (default: false)
+#
+# ---
+ENABLE_ANTI_SPAM: false
+
+# Prevent user signups if several signup attempts from the same IP address are
+# made in quick succession.
+#
+# BLOCK_RATE_LIMITED_IPS - Boolean (default: false)
+#
+# ---
+BLOCK_RATE_LIMITED_IPS: false
+
+# Prevent users making requests if their IP originates in one of the
+# RESTRICTED_COUNTRIES.
+#
+# BLOCK_RESTRICTED_COUNTRY_IPS - Boolean (default: false)
+#
+# ---
+BLOCK_RESTRICTED_COUNTRY_IPS: false
+
+# Prevent users submitting spam as their "About Me" profile text.
+#
+# BLOCK_SPAM_ABOUT_ME_TEXT - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_ABOUT_ME_TEXT: false
+
+# Prevent users submitting comments that appear to be spam.
+#
+# BLOCK_SPAM_COMMENTS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_COMMENTS: false
+
+# Prevent user signups from spam email domains or names which appear to be spam.
+#
+# BLOCK_SPAM_SIGNUPS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_SIGNUPS: false
+
+# Prevent user signins from spam email domains or names which appear to be spam.
+#
+# BLOCK_SPAM_SIGNINS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_SIGNINS: false
+
+# Prevent users submitting requests that appear to be spam.
+#
+# BLOCK_SPAM_REQUESTS - Boolean (default: false)
+#
+# ---
+BLOCK_SPAM_REQUESTS: false
+
+# Restrict IP addresses from some countries from performing some actions.
+# If set, requests from IP addresses in the countries specified will be
+# prevented from making new requests on the site.
+#
+# RESTRICTED_COUNTRIES – String of space-separated uppercase ISO Alpha-2 codes
+# (default '')
+#
+# Examples:
+#
+#    RESTRICTED_COUNTRIES: 'GB ES'
+#
+# ---
+RESTRICTED_COUNTRIES: ''
+
+# Show a reCAPTCHA on new request submission form if a user is not signed in or
+# not marked as confirmed_not_spam.
+#
+# NEW_REQUEST_RECAPTCHA – Boolean (default: false)
+#
+# ---
+NEW_REQUEST_RECAPTCHA: false
+
+# Show a reCAPTCHA on the contact form to discourage spammers
+#
+# Add the following code to `help/_contact_form.html.erb` in your theme (just
+# above the submit button works best) and a reCAPTCHA will be shown if
+# CONTACT_FORM_RECAPTCHA is set to true.
+#
+#     <% if @recaptcha_required %>
+#       <%= recaptcha_tags %><br />
+#     <% end %>
+#
+# CONTACT_FORM_RECAPTCHA – Boolean (default: false)
+#
+# ---
+CONTACT_FORM_RECAPTCHA: false
+
+# Show a reCAPTCHA on the user to user contact form to discourage spammers
+#
+# USER_CONTACT_FORM_RECAPTCHA – Boolean (default: false)
+#
+# ---
+USER_CONTACT_FORM_RECAPTCHA: false
+
+# Enable AlaveteliProfessional
+# If ENABLE_ALAVETELI_PRO is set to true, Alaveteli will include extra
+# functionality and account levels for professional FOI users, e.g.
+# journalists. Professional users have access to a new dashboard, a more
+# streamlined request process, and crucially, the ability to embargo their
+# requests so that they remain private.
+#
+# Enabling this is a large change, and this is still in Alpha development, so
+# you may want to contact the Alaveteli team before doing so.
+#
+# ENABLE_ALAVETELI_PRO – Boolean (default: false)
+#
+# ---
+ENABLE_ALAVETELI_PRO: false
+
+# Contact email address for Alaveteli Professional.
+# Requests made through Alaveteli Professional may be embargoed, meaning that
+# the user has an expectation that they're private, and this can include
+# being private from some of the site's administration team. Even if this is
+# not the case, you may wish to redirect pro support email away from the usual
+# email address for everybody else. These details allow you to specify a
+# different address.
+#
+# If you want all support mail to go to the same address, make this the same
+# as CONTACT_EMAIL.
+#
+# PRO_CONTACT_EMAIL - String email address (default: pro-contact@localhost)
+#
+# ---
+PRO_CONTACT_EMAIL: 'pro-contact@localhost'
+
+# Contact name for Alaveteli Professional.
+# The corresponding name to address emails to when sending email to
+# PRO_CONTACT_EMAIL.
+#
+# If you want all support mail to go to the same address, make this the same
+# as CONTACT_NAME.
+#
+# PRO_CONTACT_NAME - String contact name (default: Alaveteli Professional)
+#
+# ---
+PRO_CONTACT_NAME: 'Alaveteli Professional'
+
+# Site name for Alaveteli Professional.
+# The name to use when referring to the Alaveteli Professional parts of an
+# Alaveteli site. For example, in the UK our Alaveteli instance is called
+# "WhatDoTheyKnow" but we refer to the pro parts of the site as
+# "WhatDoTheyKnow Pro".
+#
+# If you don't want a different name for the pro pages, make this the same as
+# SITE_NAME.
+#
+# PRO_SITE_NAME - String site name (default: Alaveteli Professional)
+#
+# ---
+PRO_SITE_NAME: 'Alaveteli Professional'
+
+# The total number of authorities that can be added to a Alaveteli Professional
+# batch request.
+#
+# PRO_BATCH_AUTHORITY_LIMIT - Integer (default: 500)
+#
+# ---
+PRO_BATCH_AUTHORITY_LIMIT: 500
+
+# Define the mailer retriever method to be used only in the production environment.
+# By default, mail is accepted passively via script/mailin. You can set this param
+# to 'pop' to poll for mail via pop.
+#
+# If you choose to do this then you will need to also include the POP_
+# configuration settings.
+#
+# As a string this is coerced into a symbol in config/environments/production.rb
+#
+# PRODUCTION_MAILER_RETRIEVER_METHOD - String (default: passive)
+#
+# Examples:
+#
+# PRODUCTION_MAILER_RETRIEVER_METHOD: pop
+#
+# ---
+PRODUCTION_MAILER_RETRIEVER_METHOD: passive
+
+# Set the address of the POP server used if the PRODUCTION_MAILER_RETRIEVER_METHOD
+# is set to 'pop'.
+#
+# POP_MAILER_ADDRESS - String (default: localhost)
+#
+# Examples:
+#
+# POP_MAILER_ADDRESS: pop.gmail.com
+#
+# ---
+POP_MAILER_ADDRESS: localhost
+
+# Set the port of the POP server used if the PRODUCTION_MAILER_RETRIEVER_METHOD
+# is set to 'pop'.
+#
+# POP_MAILER_PORT - Integer (default: 995)
+#
+# ---
+POP_MAILER_PORT: 995
+
+# Set the username of the account user to connect to the POP server used if the
+# PRODUCTION_MAILER_RETRIEVER_METHOD is set to 'pop'.
+#
+# POP_MAILER_USER_NAME - String (default: '')
+#
+# Examples:
+#
+# POP_MAILER_USER_NAME: jane322
+#
+# ---
+POP_MAILER_USER_NAME: ''
+
+# Set the password of the account user to connect to the POP server used if the
+# PRODUCTION_MAILER_RETRIEVER_METHOD is set to 'pop'.
+#
+# POP_MAILER_PASSWORD - String (default: '')
+#
+# Examples:
+#
+# POP_MAILER_PASSWORD: supersecretpassword
+#
+# ---
+POP_MAILER_PASSWORD: ''
+
+# Should Alaveteli use SSL when connecting to the POP server used if the
+# PRODUCTION_MAILER_RETRIEVER_METHOD is set to 'pop'?
+#
+# POP_MAILER_ENABLE_SSL - Boolean (default: true)
+#
+# Examples:
+#
+# POP_MAILER_ENABLE_SSL: true
+#
+# ---
+POP_MAILER_ENABLE_SSL: true
+
+# Stripe.com publishable key. Only required for Alaveteli Pro.
+#
+# STRIPE_PUBLISHABLE_KEY - String (default: '')
+#
+# Examples:
+#
+# STRIPE_PUBLISHABLE_KEY: pk_test_UD6BDsARFZIYb8273dbdl
+#
+# ---
+STRIPE_PUBLISHABLE_KEY: ''
+
+# Stripe.com secret key. Only required for Alaveteli Pro.
+#
+# STRIPE_SECRET_KEY - String (default: '')
+#
+# Examples:
+#
+# STRIPE_SECRET_KEY: sk_test_UD6BDsARFZIYb8273dbdl
+#
+# ---
+STRIPE_SECRET_KEY: ''
+
+# An optional Stripe.com namespace which allows plans & coupons to be separated
+# from other resources within Stripe. If used the Stripe resources will need IDs
+# like: '<namespace>-<id>'
+#
+# STRIPE_NAMESPACE - String (default: '')
+#
+# Examples:
+#
+# STRIPE_NAMESPACE: 'alaveteli'
+#
+# ---
+STRIPE_NAMESPACE: ''
+
+# Stripe.com webhook secret. Only required for Alaveteli Pro.
+#
+# STRIPE_WEBHOOK_SECRET: - String (default: '')
+#
+# Examples:
+#
+# STRIPE_WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl
+# ---
+STRIPE_WEBHOOK_SECRET: ''
+
+# The rate of Tax / VAT to add to Pro subscriptions. Note that the Price per
+# unit of your Stripe Product Plan must be created without tax. Alaveteli will
+# automatically calculate the gross amount to charge.
+#
+# STRIPE_TAX_RATE: - String (default: '0.20')
+#
+# Examples:
+#
+# STRIPE_TAX_RATE: '0.21' # 21%
+# ---
+STRIPE_TAX_RATE: '0.20'
+
+# A Stripe coupon code – displayed to existing Pro users on their subscriptions
+# page – that they can share with friends for their friends to receive a signup
+# discount.
+#
+# This should *not* include the `STRIPE_NAMESPACE`.
+#
+# You *must* set a `humanized_terms` key in the Coupon Metadata to display the
+# discount that will be applied when using the coupon (e.g. "50% off for 1
+# month").
+#
+# PRO_REFERRAL_COUPON: - String (default: '')
+#
+# Examples:
+#
+# PRO_REFERRAL_COUPON: 'PROREFERRAL'
+# ---
+PRO_REFERRAL_COUPON: ''
+
+# If ENABLE_PRO_PRICING is set to true, Alaveteli let users enter their bank
+# details and subscribe to a Stripe subscription which grants them access to the
+# pro role and all the features of Alaveteli Professional.
+#
+# ENABLE_PRO_PRICING – Boolean (default: false)
+#
+# ---
+ENABLE_PRO_PRICING: false
+
+# This option is only used when ENABLE_PRO_PRICING is set to false.
+#
+# If ENABLE_PRO_SELF_SERVE is set to true, Alaveteli will let users upgrade
+# their accounts to Pro without needing to enter payment details.
+#
+# If ENABLE_PRO_SELF_SERVE is set to false, admins will receive an account
+# request email and has to assign the role in the Alaveteli admin interface.
+#
+# ENABLE_PRO_SELF_SERVE – Boolean (default: false)
+#
+# ---
+ENABLE_PRO_SELF_SERVE: false
+
+# **WARNING** Projects is not ready for re-use.
+#
+# ENABLE_PROJECTS – Boolean (default: false)
+#
+# ---
+ENABLE_PROJECTS: false

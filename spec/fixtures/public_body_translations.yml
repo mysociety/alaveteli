@@ -132,18 +132,3 @@ humpadink_he_IL_public_body_translation:
   disclosure_log: ""
   created_at: 2007-10-24 10:51:01.161639
   updated_at: 2007-10-24 10:51:01.161639
-
-accented_public_body_translation:
-  id: 10
-  public_body_id: 8
-  locale: cs
-  name: "Åčçèñtéd Authority"
-  first_letter: 'Å'
-  request_email: accented@localhost
-  short_name: "Åčçèñtéd Authority"
-  url_name: accented_authority
-  notes: This is to test unicode handling in body names
-  publication_scheme: ""
-  disclosure_log: ""
-  created_at: 2008-10-25 10:51:01.161639
-  updated_at: 2008-10-25 10:51:01.161639

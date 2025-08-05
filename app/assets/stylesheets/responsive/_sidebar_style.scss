@@ -11,6 +11,19 @@
   .report-this-request {
     text-align: center;
   }
+  .form_label {
+    font-size: 0.875em;
+  }
+}
+
+// Blog page doesn't have the request page header, so extra
+// padding is required to stop its contents touching the nav.
+#general_blog .right_column {
+  padding-top: 2.5em;
+}
+
+.sidebar_similar_requests__more-link {
+  font-size: 0.75em;
 }
 
 /* #track-request .feed_link is here to override specificity in the request sidebar,
@@ -23,48 +36,70 @@
   }
 }
 
-.request_short_listing {
-  h3 {
-    font-size: 1.125em;
-  }
-  p {
-    font-size: 0.875em;
-    line-height: 1.5em;
-  }
-}
-
-.act_link a {
+.act_link {
   line-height: 1.5em;
-  padding-left: 20px;
-  background-size: 16px;
-  background-position: 0 3px;
-  background-repeat: no-repeat;
+  .act-link-icon {
+    float: left;
+    position: relative;
+    top: 4px;
+  }
+  a {
+    padding-left: 25px;
+    display: block;
+  }
+}
+
+.act-link-icon {
   display: inline-block;
-}
-
-.act_link--facebook a {
-  background-image: image-url('facebook-16.png');
+  height: 16px;
+  width: 16px;
+  background-size: 128px 16px;
+  background-repeat: no-repeat;
+  background-image: image-url('act-links-sprite.png');
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('facebook-32.png');
+    background-image: image-url('act-links-sprite@2.png');
   }
 }
 
-.act_link--medium a {
-  background-image: image-url('medium-16.png');
-  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-    background-image: image-url('medium-32.png');
+.act-link-icon--facebook {
+  background-position: 0 0;
+}
+
+.act-link-icon--twitter {
+  background-position: -16px 0;
+}
+
+.act-link-icon--medium {
+  background-position: -32px 0;
+}
+
+.act-link-icon--widget {
+  background-position: -48px 0;
+}
+
+.act-link-icon--wordpress {
+  background-position: -64px 0;
+}
+
+.act-link-icon--write {
+  background-position: -80px 0;
+}
+
+.act-link-icon--youtube {
+  background-position: -96px 0;
+}
+
+.act-link-icon--rss {
+  background-position: -112px 0;
+}
+
+.sidebar__section.citations {
+  .citations-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .citations-new {
+    font-size: 0.875rem
   }
 }
-
-.act_link--twitter a {
-  background-image: image-url('twitter-16.png');
-}
-
-.act_link--wordpress a {
-  background-image: image-url('wordpress.png');
-}
-
-.act_link--widget a {
-  background-image: image-url('widget.png');
-}
-

@@ -2,28 +2,35 @@
 #
 # Table name: info_requests
 #
-#  id                        :integer          not null, primary key
-#  title                     :text             not null
-#  user_id                   :integer
-#  public_body_id            :integer          not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  described_state           :string(255)      not null
-#  awaiting_description      :boolean          default(FALSE), not null
-#  prominence                :string(255)      default("normal"), not null
-#  url_title                 :text             not null
-#  law_used                  :string(255)      default("foi"), not null
-#  allow_new_responses_from  :string(255)      default("anybody"), not null
-#  handle_rejected_responses :string(255)      default("bounce"), not null
-#  idhash                    :string(255)      not null
-#  external_user_name        :string(255)
-#  external_url              :string(255)
-#  attention_requested       :boolean          default(FALSE)
-#  comments_allowed          :boolean          default(TRUE), not null
-#  info_request_batch_id     :integer
-#  last_public_response_at   :datetime
-#  reject_incoming_at_mta    :boolean          default(FALSE), not null
-#  rejected_incoming_count   :integer          default(0)
+#  id                                    :integer          not null, primary key
+#  title                                 :text             not null
+#  user_id                               :integer
+#  public_body_id                        :integer          not null
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  described_state                       :string           not null
+#  awaiting_description                  :boolean          default(FALSE), not null
+#  prominence                            :string           default("normal"), not null
+#  url_title                             :text             not null
+#  law_used                              :string           default("foi"), not null
+#  allow_new_responses_from              :string           default("anybody"), not null
+#  handle_rejected_responses             :string           default("bounce"), not null
+#  idhash                                :string           not null
+#  external_user_name                    :string
+#  external_url                          :string
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
+#  info_request_batch_id                 :integer
+#  last_public_response_at               :datetime
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
+#  date_initial_request_last_sent_at     :date
+#  date_response_required_by             :date
+#  date_very_overdue_after               :date
+#  last_event_forming_initial_request_id :integer
+#  use_notifications                     :boolean
+#  last_event_time                       :datetime
+#  incoming_messages_count               :integer          default(0)
 #
 
 fancy_dog_request:
@@ -39,6 +46,7 @@ fancy_dog_request:
     comments_allowed: true
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 50929748
+    use_notifications: false
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
@@ -51,6 +59,7 @@ naughty_chicken_request:
     awaiting_description: false
     comments_allowed: true
     idhash: e8d18c84
+    use_notifications: false
 badger_request:
     id: 104
     title: Are you really a badger?
@@ -62,7 +71,8 @@ badger_request:
     described_state: waiting_response
     awaiting_description: false
     comments_allowed: true
-    idhash: e8d18c84
+    idhash: e8d18c85
+    use_notifications: false
 boring_request:
     id: 105
     title: The cost of boring
@@ -76,6 +86,7 @@ boring_request:
     comments_allowed: true
     last_public_response_at: 2007-11-13 18:00:20
     idhash: 173fd003
+    use_notifications: false
 another_boring_request:
     id: 106
     title: The cost of boring
@@ -89,6 +100,7 @@ another_boring_request:
     comments_allowed: true
     last_public_response_at: 2007-11-13 18:09:20.042061
     idhash: 173fd004
+    use_notifications: false
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
 # used to test the request de-duplication features.
@@ -105,6 +117,7 @@ spam_1_request:
     comments_allowed: false
     last_public_response_at: 2001-01-03 01:23:45.6789100
     idhash: 173fd005
+    use_notifications: false
 spam_2_request:
     id: 108
     title: Cheap v1agra
@@ -116,7 +129,8 @@ spam_2_request:
     described_state: successful
     awaiting_description: false
     comments_allowed: true
-    idhash: 173fd005
+    idhash: 173fd006
+    use_notifications: false
 external_request:
     id: 109
     title: Balalas
@@ -127,8 +141,11 @@ external_request:
     described_state: waiting_response
     awaiting_description: false
     comments_allowed: true
+    created_at: 2001-01-02 02:23:45.6789100
+    updated_at: 2001-01-02 02:23:45.6789100
     last_public_response_at: 2001-01-03 02:23:45.6789100
     idhash: a1234567
+    use_notifications: false
 anonymous_external_request:
     id: 110
     title: Anonymous request
@@ -140,6 +157,9 @@ anonymous_external_request:
     awaiting_description: false
     comments_allowed: true
     idhash: 7654321a
+    created_at: 2010-01-01 01:23:45.6789100
+    updated_at: 2010-01-01 01:23:45.6789100
+    use_notifications: false
 other_request:
     id: 111
     title: Another request
@@ -151,4 +171,5 @@ other_request:
     described_state: waiting_response
     awaiting_description: false
     comments_allowed: true
-    idhash: b234567
+    idhash: b234567a
+    use_notifications: false

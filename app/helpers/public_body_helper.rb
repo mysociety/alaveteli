@@ -40,12 +40,14 @@ module PublicBodyHelper
   # Returns a String
   def type_of_authority(public_body)
     categories = PublicBodyCategory.
-      where(:category_tag => public_body.tag_string.split)
+      where(category_tag: public_body.tag_string.split).order(:id)
 
     types = categories.each_with_index.map do |category, index|
       desc = category.description
       if index.zero?
-        desc = desc.sub(/\S/) { |m| Unicode.upcase(m) }
+        desc = desc.sub(/\S/) do |m|
+          RUBY_VERSION < '2.4' ? Unicode.upcase(m) : m.upcase
+        end
       end
       link_to(desc, list_public_bodies_by_tag_path(category.category_tag))
     end

@@ -22,7 +22,7 @@ describe InfoRequest::ResponseGatekeeper do
       const = 'InfoRequest::ResponseGatekeeper::SPECIALIZED_CLASSES'
       err = described_class::UnknownResponseGatekeeperError
       stub_const(const, {})
-      expect{ described_class.for('unknown', double('info_request')) }.
+      expect { described_class.for('unknown', double('info_request')) }.
         to raise_error(err)
     end
 

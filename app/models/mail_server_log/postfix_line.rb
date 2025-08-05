@@ -9,8 +9,42 @@ class MailServerLog::PostfixLine
     'status=expired' =>     :expired
   }.freeze
 
+  DELIVERED_FLAGS = [
+    :sent
+  ].freeze
+
+  SENT_FLAGS = [
+    :deferred
+  ].freeze
+
+  FAILED_FLAGS = [
+    :bounced,
+    :expired
+  ].freeze
+
   def initialize(line)
     @line = line.to_s
+  end
+
+  # Public: The Exim log flag parsed from the log line
+  #
+  # Returns a String
+  def flag
+    LOG_LINE_FLAGS.keys.find { |flag| to_s.include?(flag) }
+  end
+
+  # Public: The human-readable meaning of the #flag
+  #
+  # Returns a Symbol
+  def status
+    LOG_LINE_FLAGS[flag]
+  end
+
+  # Public: A value object encapsulating generic delivery status information
+  #
+  # Returns a MailServerLog::DeliveryStatus
+  def delivery_status
+    MailServerLog::DeliveryStatus.new(parse_delivery_status)
   end
 
   def <=>(other)
@@ -21,12 +55,6 @@ class MailServerLog::PostfixLine
     line
   end
 
-  def delivery_status
-    flag = LOG_LINE_FLAGS.keys.find { |flag| to_s.include?(flag) }
-    status = LOG_LINE_FLAGS[flag]
-    MailServerLog::PostfixDeliveryStatus.new(status) if status
-  end
-
   def inspect
     %Q(#<#{self.class}:#{"0x00%x" % (object_id << 1)} @line="#{ line }">)
   end
@@ -34,4 +62,19 @@ class MailServerLog::PostfixLine
   private
 
   attr_reader :line
+
+  def parse_delivery_status
+    case status
+    when nil?
+      :unknown
+    when *DELIVERED_FLAGS
+      :delivered
+    when *SENT_FLAGS
+      :sent
+    when *FAILED_FLAGS
+      :failed
+    else
+      :unknown
+    end
+  end
 end

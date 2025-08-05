@@ -1,35 +1,67 @@
 <% unless @batch %>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      // Avoid triggering too often (on each keystroke) by using the
-      // debounce jQuery plugin:
-      // http://benalman.com/projects/jquery-throttle-debounce-plugin/
-      $("#typeahead_search").keypress($.debounce( 300, function() {
-        if ( $('#request_search_ahead_results').text().trim().length > 0) {
-          $('#typeahead_response').slideUp('fast');
-        }
-
-      $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+
-        "&requested_from=<%= @info_request.public_body.url_name %>"+
-        "&per_page=3", function() {
-
+  <% content_for :javascript do %>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // Avoid triggering too often (on each keystroke) by using the
+        // debounce jQuery plugin:
+        // http://benalman.com/projects/jquery-throttle-debounce-plugin/
+        $("#typeahead_search").keypress($.debounce( 300, function() {
           if ( $('#request_search_ahead_results').text().trim().length > 0) {
-            $('#typeahead_response').hide().slideDown('fast');
-
-            // When following links in typeahead results, open new
-            // tab/window
-            $("#typeahead_response a").attr("target","_blank");
-
-            // Update the public body site search link
-            $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
-              "+site:<%= @info_request.public_body.calculated_home_page %>");
-
-            $('.close-button').click(function() { $(this).parent().hide() });
+            $('#typeahead_response').slideUp('fast');
           }
-        });
-      }));
-    });
-  </script>
+
+        $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+
+          "&requested_from=<%= @info_request.public_body.url_name %>"+
+          "&per_page=3", function() {
+
+            if ( $('#request_search_ahead_results').text().trim().length > 0) {
+              $('#typeahead_response').hide().slideDown('fast');
+
+              $("#typeahead_response .request_short_listing a").on('click', function(){
+                <%= raw(track_analytics_event(
+                  AnalyticsEvent::Category::VIEW_REQUEST,
+                  AnalyticsEvent::Action::POSSIBLE_RELATED,
+                  :label => "$.trim($(this).text())",
+                  :label_is_script => true
+                )) %>
+              }).attr({
+                "target": "_blank"
+              });
+
+              $("#body-site-search-link").on('click', function(){
+                <%= raw(track_analytics_event(
+                  AnalyticsEvent::Category::SEARCH_OFFICIAL_WEBSITE,
+                  AnalyticsEvent::Action::POSSIBLE_RELATED,
+                  :label => @info_request.public_body.calculated_home_page
+                )) %>
+              }).attr({
+                "target": "_blank",
+                "href": "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
+                        "+site:<%= @info_request.public_body.calculated_home_page %>"
+              });
+
+              $('.close-button').click(function() { $(this).parent().hide() });
+            }
+          });
+        }));
+
+        var questions = $('#request_form_questions')
+        var questionInputs = $('input[name=request_form_response]', questions)
+        var questionResponses = $('.request_form_response')
+
+        // when inputs are checked update which response is focused.
+        questionInputs.on('click', function () {
+          var id = '#request_form_response--' + $(this).val()
+          questionResponses.removeClass('request_form_response--focused')
+          questionResponses.filter(id).addClass('request_form_response--focused')
+        })
+
+        // checked state can follow manual page reloads, ensure correct response
+        // is focused.
+        questionInputs.filter(':checked').click()
+      });
+    </script>
+  <% end %>
 <% end %>
 
 <% if @batch %>
@@ -80,11 +112,7 @@
 
       <%= foi_error_messages_for :info_request, :outgoing_message %>
 
-      <% if !AlaveteliConfiguration::override_all_public_body_request_emails.blank? %>
-        <div class="warning">
-          <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => AlaveteliConfiguration::override_all_public_body_request_emails) %>
-        </div>
-      <% end %>
+      <%= render :partial => 'request/email_override_warning' %>
 
       <% if @batch %>
         <label class="form_label"><%= _('To:') %></label>
@@ -102,7 +130,7 @@
         </div>
       <% else %>
         <p id="to_public_body" class="to_public_body">
-          <span class="to_public_body_label"><%= _('To:') %></span>
+          <span class="to_public_body_label"><%= _('To') %></span>
           <%= h(@info_request.public_body.name) %>
         </p>
       <% end %>
@@ -203,55 +231,36 @@
     </div>
 
     <div id="request_form" class="request_form">
-      <div id="request_header_subject" class="request_header_subject">
-        <p>
-          <label class="form_label" for="typeahead_search"><%= _('Summary:') %></label>
-          <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
-        </p>
+      <% if @batch || @info_request.public_body.questions.blank? %>
+        <%= render 'form', f: f %>
+      <% else %>
+        <div id="request_form_questions">
+          <p><%= _('Are you asking about your, or others\', personal information or personal situation?') %></p>
 
-        <div class="form_item_note">
-          <%= _("A one line summary of the information you are requesting, e.g.") %>
-          <%= render :partial => "summary_suggestion" %>
-        </div>
-      </div>
-
-      <div id="typeahead_response" class="typeahead_response">
-      </div>
-
-      <%= fields_for :outgoing_message do |o| %>
-        <p>
-          <label class="form_label" for="outgoing_message_body">
-            <%= _('Your request:') %></label>
-          <%= o.text_area :body, :rows => 20, :cols => 60 %>
-        </p>
-      <% end %>
-
-      <div class="form_button">
-        <% if @batch %>
-          <% params[:public_body_ids].each do |public_body_id| %>
-            <%= hidden_field_tag("public_body_ids[]", public_body_id)%>
+          <% @info_request.public_body.questions.each do |question| %>
+            <label for="<%= question.key %>">
+              <input type="radio" name="request_form_response" id="<%= question.key %>" value="<%= question.key %>" <%= 'checked="checked"' if params[:request_form_response] == question.key.to_s %>>
+              <%= question.text %>
+            </label>
           <% end %>
-        <% else %>
-          <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+        </div>
+
+        <% @info_request.public_body.questions.each do |question| %>
+          <div class="request_form_response request_form_response--<%= question.action %>" id="request_form_response--<%= question.key %>">
+            <% if question.action == :allow %>
+              <%= render 'form', f: f %>
+            <% else %>
+              <div class="request_deny_response"><%= question.response %></div>
+            <% end %>
+          </div>
         <% end %>
-        <%= hidden_field_tag(:submitted_new_request, 1 ) %>
-        <%= hidden_field_tag(:preview, 1 ) %>
-        <%= submit_tag _("Preview your public request") %>
-      </div>
-
-      <% if !@info_request.tag_string.empty? %>
-        <p class="form_note">
-          <!-- <label class="form_label" for="info_request_tag_string"><%= _("Tags (separated by a space):") %></label>
-            <%= f.text_field :tag_string, :size => 50 %> -->
-
-            <%= f.hidden_field(:tag_string) %>
-            <strong>Tags:</strong> <%=h @info_request.tag_string %>
-        </p>
       <% end %>
     </div>
   </div>
 <% end %>
 
 <% if @batch %>
-  <%= javascript_include_tag 'new-request.js' %>
+  <% content_for :javascript do %>
+    <%= javascript_include_tag 'new-request.js' %>
+  <% end %>
 <% end %>

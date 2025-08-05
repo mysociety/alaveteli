@@ -1,0 +1,14 @@
+<%= n_('The following request will be made public on {{site_name}} in the ' \
+       'next week. If you do not wish this request to go public at that ' \
+       'time, please click on the link below to keep it private for longer.',
+       'The following requests will be made public on {{site_name}} in the ' \
+       'next week. If you do not wish for any of these requests to go ' \
+       'public, please click on the links below to extend them.',
+       @info_requests.count,
+       :site_name => site_name.html_safe) %>
+
+<% @info_requests.each do |info_request| %>
+  <%= request_url(info_request) %>
+<% end %>
+
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
 describe AttachmentToHTML::Adapters::PDF do
 
-  let(:attachment) { FactoryGirl.build(:pdf_attachment) }
+  let(:attachment) { FactoryBot.build(:pdf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::PDF.new(attachment) }
 
   describe :tmpdir do

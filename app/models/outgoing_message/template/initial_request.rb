@@ -7,8 +7,23 @@ class OutgoingMessage
         template_string(opts)
       end
 
+      def self.placeholder_salutation
+        _('Dear {{placeholder_body_name}},',
+          placeholder_body_name: self.placeholder_body_name)
+      end
+
+      # Separate so that it can be referred to directly elsewhere (e.g. to
+      # pass to javascript functions that have to replicate placeholders)
+      def self.placeholder_body_name
+        _('[Authority name]')
+      end
+
       def salutation(replacements = {})
-        _("Dear {{public_body_name}},", replacements)
+        if replacements[:public_body_name]
+          _("Dear {{public_body_name}},", replacements)
+        else
+          self.class.placeholder_salutation
+        end
       end
 
       def letter(replacements = {})

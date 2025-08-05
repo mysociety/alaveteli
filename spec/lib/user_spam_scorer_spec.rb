@@ -33,11 +33,25 @@ describe UserSpamScorer do
 
   end
 
+  describe '.suspicious_domains' do
+
+    it 'sets a default suspicious_domains value' do
+      expect(described_class.suspicious_domains).
+        to eq(described_class::DEFAULT_SUSPICIOUS_DOMAINS)
+    end
+
+    it 'sets a custom suspicious_domains value' do
+      described_class.suspicious_domains = %w(example.com)
+      expect(described_class.suspicious_domains).to eq(%w(example.com))
+    end
+
+  end
+
   describe '.spam_domains' do
 
     it 'sets a default spam_domains value' do
       expect(described_class.spam_domains).
-        to eq(described_class::DEFAULT_SPAM_DOMAINS)
+        to eq(described_class::DEFAULT_SPAM_DOMAINS )
     end
 
     it 'sets a custom spam_domains value' do
@@ -47,16 +61,30 @@ describe UserSpamScorer do
 
   end
 
-  describe '.spam_formats' do
+  describe '.spam_name_formats' do
 
-    it 'sets a default spam_formats value' do
-      expect(described_class.spam_formats).
-        to eq(described_class::DEFAULT_SPAM_FORMATS)
+    it 'sets a default spam_name_formats value' do
+      expect(described_class.spam_name_formats).
+        to eq(described_class::DEFAULT_SPAM_NAME_FORMATS)
     end
 
-    it 'sets a custom spam_formats value' do
-      described_class.spam_formats = [/\A.*$/]
-      expect(described_class.spam_formats).to eq([/\A.*$/])
+    it 'sets a custom spam_name_formats value' do
+      described_class.spam_name_formats = [/\A.*$/]
+      expect(described_class.spam_name_formats).to eq([/\A.*$/])
+    end
+
+  end
+
+  describe '.spam_about_me_formats' do
+
+    it 'sets a default spam_about_me_formats value' do
+      expect(described_class.spam_about_me_formats).
+        to eq(described_class::DEFAULT_SPAM_ABOUT_ME_FORMATS)
+    end
+
+    it 'sets a custom spam_about_me_formats value' do
+      described_class.spam_about_me_formats = [/\A.*$/]
+      expect(described_class.spam_about_me_formats).to eq([/\A.*$/])
     end
 
   end
@@ -99,7 +127,7 @@ describe UserSpamScorer do
         memo
       end
 
-      described_class.spam_domains = %w(example.net)
+      described_class.suspicious_domains = %w(example.net)
       described_class.reset
 
       current = attrs.reduce({}) do |memo, key|
@@ -136,22 +164,34 @@ describe UserSpamScorer do
       expect(scorer.score_mappings).to eq({ :check => 1 })
     end
 
-    it 'sets a default spam_domains value' do
-      expect(subject.spam_domains).to eq(described_class.spam_domains)
+    it 'sets a default suspicious_domains value' do
+      expect(subject.suspicious_domains).
+        to eq(described_class.suspicious_domains)
     end
 
-    it 'sets a custom spam_domains value' do
-      scorer = described_class.new(:spam_domains => %w(example.com))
-      expect(scorer.spam_domains).to eq(%w(example.com))
+    it 'sets a custom suspicious_domains value' do
+      scorer = described_class.new(:suspicious_domains => %w(example.com))
+      expect(scorer.suspicious_domains).to eq(%w(example.com))
     end
 
-    it 'sets a default spam_formats value' do
-      expect(subject.spam_formats).to eq(described_class.spam_formats)
+    it 'sets a default spam_name_formats value' do
+      expect(subject.spam_name_formats).
+        to eq(described_class.spam_name_formats)
     end
 
-    it 'sets a custom spam_formats value' do
-      scorer = described_class.new(:spam_formats => [/spam/])
-      expect(scorer.spam_formats).to eq([/spam/])
+    it 'sets a custom spam_name_formats value' do
+      scorer = described_class.new(:spam_name_formats => [/spam/])
+      expect(scorer.spam_name_formats).to eq([/spam/])
+    end
+
+    it 'sets a default spam_about_me_formats value' do
+      expect(subject.spam_about_me_formats).
+        to eq(described_class.spam_about_me_formats)
+    end
+
+    it 'sets a custom spam_about_me_formats value' do
+      scorer = described_class.new(:spam_about_me_formats => [/spam/])
+      expect(scorer.spam_about_me_formats).to eq([/spam/])
     end
 
     it 'sets a default spam_score_threshold value' do
@@ -241,7 +281,7 @@ describe UserSpamScorer do
       user = mock_model(User, user_attrs)
       opts = { :score_mappings => { :name_is_all_lowercase? => 1,
                                     :name_is_one_word? => 2,
-                                    :email_from_spam_domain? => 3 } }
+                                    :email_from_suspicious_domain? => 3 } }
       scorer = described_class.new(opts)
       expect(scorer.score(user)).to eq(5)
     end
@@ -252,7 +292,7 @@ describe UserSpamScorer do
                      :track_things => [] }
       user = mock_model(User, user_attrs)
       scorer = described_class.new(:score_mappings => { :invalid_method => 1 })
-      expect{ scorer.score(user) }.to raise_error(NoMethodError)
+      expect { scorer.score(user) }.to raise_error(NoMethodError)
     end
 
   end
@@ -323,6 +363,26 @@ describe UserSpamScorer do
 
   end
 
+  describe '#email_from_suspicious_domain?' do
+
+    it 'is true if the email is from a suspicious domain' do
+      mock_suspicious_domains = %w(example.com example.net example.org)
+      user = mock_model(User, :email_domain => 'example.net')
+      scorer = described_class.new(
+                 :suspicious_domains => mock_suspicious_domains)
+      expect(scorer.email_from_suspicious_domain?(user)).to eq(true)
+    end
+
+    it 'is false if the email is not from a suspicious domain' do
+      mock_suspicious_domains = %w(example.com example.org)
+      user = mock_model(User, :email_domain => 'example.net')
+      scorer = described_class.new(
+                 :suspicious_domains => mock_suspicious_domains)
+      expect(scorer.email_from_suspicious_domain?(user)).to eq(false)
+    end
+
+  end
+
   describe '#email_from_spam_domain?' do
 
     it 'is true if the email is from a spam domain' do
@@ -355,6 +415,98 @@ describe UserSpamScorer do
       user = mock_model(User, :email_domain => 'example.net')
       scorer = described_class.new(:spam_tlds => mock_spam_tlds)
       expect(scorer.email_from_spam_tld?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#name_is_spam_format?' do
+
+    it 'is true if the name matches a spammy format' do
+      mock_spam_formats = [/\A.*support.*\z/]
+      user = mock_model(User, name: 'support')
+      scorer = described_class.new(spam_name_formats: mock_spam_formats)
+      expect(scorer.name_is_spam_format?(user)).to eq(true)
+    end
+
+    it 'is false if the name is not a spammy format' do
+      mock_spam_formats = [/\A.*support.*\z/]
+      user = mock_model(User, name: 'Bob Smith')
+      scorer = described_class.new(spam_name_formats: mock_spam_formats)
+      expect(scorer.name_is_spam_format?(user)).to eq(false)
+    end
+
+    context 'the default spam formats' do
+
+      it 'is true if it matches bitcoin' do
+        user = mock_model(User, name: 'bitcointocash')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches currency' do
+        user = mock_model(User, name: 'Currency Transfers')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches support' do
+        user = mock_model(User, name: 'Apple Technical Support')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches customer service' do
+        user = mock_model(User, name: 'Apple Customer Service Number')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches customer care' do
+        user = mock_model(User, name: 'Dell Customer Care')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches buy online' do
+        user = mock_model(User, name: 'Buy Spam Online')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches real estate' do
+        user = mock_model(User, name: 'Buy Real Estate')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches web design' do
+        user = mock_model(User, name: 'Web Design')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches mac desktop' do
+        user = mock_model(User, name: 'Mac Desktop')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches Inc' do
+        user = mock_model(User, name: 'Spam Co, Inc')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches LLC' do
+        user = mock_model(User, name: 'Spam Co, LLC')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches spyware' do
+        user = mock_model(User, name: 'spywareremoval')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches malware' do
+        user = mock_model(User, name: 'malwareremoval')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
+      it 'is true if it matches CRM' do
+        user = mock_model(User, name: 'Unify CRM')
+        expect(subject.name_is_spam_format?(user)).to eq(true)
+      end
+
     end
 
   end
@@ -420,14 +572,14 @@ describe UserSpamScorer do
 
       http://www.example.org/
       EOF
-      scorer = described_class.new(:spam_formats => mock_spam_formats)
+      scorer = described_class.new(:spam_about_me_formats => mock_spam_formats)
       expect(scorer.about_me_is_spam_format?(user)).to eq(true)
     end
 
     it 'is false if the about me is not a spammy format' do
       mock_spam_formats = [/\A.*+\n{2,}https?:\/\/[^\s]+\z/]
       user = mock_model(User, :about_me => 'No spam here')
-      scorer = described_class.new(:spam_formats => mock_spam_formats)
+      scorer = described_class.new(:spam_about_me_formats => mock_spam_formats)
       expect(scorer.about_me_is_spam_format?(user)).to eq(false)
     end
 
@@ -436,7 +588,7 @@ describe UserSpamScorer do
       user = mock_model(User, :about_me => <<-EOF.strip_heredoc)
       spam\r\nspam
       EOF
-      scorer = described_class.new(:spam_formats => mock_spam_formats)
+      scorer = described_class.new(:spam_about_me_formats => mock_spam_formats)
       expect(scorer.about_me_is_spam_format?(user)).to eq(true)
     end
 
@@ -498,6 +650,50 @@ describe UserSpamScorer do
     it 'is false if the about me is unique to the user' do
       user = mock_model(User, :about_me_already_exists? => false)
       expect(subject.about_me_already_exists?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#user_agent_is_suspicious?' do
+
+    before { UserSpamScorer.suspicious_user_agents = ['cURL'] }
+    after { UserSpamScorer.reset }
+
+    it 'is true if the user agent matches' do
+      user = mock_model(User, :user_agent => 'cURL')
+      expect(subject.user_agent_is_suspicious?(user)).to eq(true)
+    end
+
+    it 'is false if the user agent does not match' do
+      user = mock_model(User, :user_agent => 'Firefox')
+      expect(subject.user_agent_is_suspicious?(user)).to eq(false)
+    end
+
+    it 'is false if the user does not have a user agent' do
+      user = mock_model(User)
+      expect(subject.user_agent_is_suspicious?(user)).to eq(false)
+    end
+
+  end
+
+  describe '#ip_range_is_suspicious?' do
+
+    before { UserSpamScorer.suspicious_ip_ranges = [IPAddr.new('127.0.0.0/8')] }
+    after { UserSpamScorer.reset }
+
+    it 'is true if the IP address is within a suspicious range' do
+      user = mock_model(User, :ip => '127.0.0.1')
+      expect(subject.ip_range_is_suspicious?(user)).to eq(true)
+    end
+
+    it 'is false if the IP address is not within a suspicious range' do
+      user = mock_model(User, :ip => '10.0.0.1')
+      expect(subject.ip_range_is_suspicious?(user)).to eq(false)
+    end
+
+    it 'is false if the user does not have a IP address' do
+      user = mock_model(User)
+      expect(subject.ip_range_is_suspicious?(user)).to eq(false)
     end
 
   end

@@ -1,0 +1,17 @@
+<%= n_('{{count}} request will be made public on {{site_name}} in the next ' \
+       'week. If you do not wish this request to go public at that ' \
+       'time, please click on the link below to keep it private for ' \
+       'longer.',
+       '{{count}} requests will be made public on {{site_name}} in the next ' \
+       'week. If you do not wish these requests to go public at that ' \
+       'time, please click on the links below to keep them private for ' \
+       'longer.',
+       notifications.size,
+       count: notifications.size,
+       site_name: AlaveteliConfiguration.site_name.html_safe) %>
+<% notifications.each do |notification| %>
+  <% info_request = notification.info_request_event.info_request %>
+  <%= _('{{public_body_name}}: {{request_url}}',
+        public_body_name: info_request.public_body.name.html_safe,
+        request_url: request_url(info_request)) %>
+<% end %>

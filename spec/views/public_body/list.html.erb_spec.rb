@@ -14,7 +14,7 @@ describe "public_body/list" do
       :eir_only? => nil,
       :publication_scheme => '')
     pb_info_requests = [1, 2, 3, 4]
-    allow(pb_info_requests).to receive(:visible).and_return([2, 3, 4])
+    allow(pb_info_requests).to receive(:is_searchable).and_return([2, 3, 4])
 
     allow(@pb).to receive(:info_requests).and_return(pb_info_requests)
 
@@ -31,12 +31,12 @@ describe "public_body/list" do
 
   it "should be successful" do
     render
-    expect(controller.response).to be_success
+    expect(controller.response).to be_successful
   end
 
   it "should show the body's name" do
     render
-    expect(response).to have_css('span.head', :text => "Test Quango")
+    expect(response).to have_css('div.head', :text => "Test Quango")
   end
 
   it "should show total number visible of requests" do

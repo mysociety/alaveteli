@@ -1,3 +1,5 @@
+require 'pp'
+require 'yaml'
 # Welcome! Thanks for taking an interest in contributing to Alaveteli.
 # This Vagrantfile should get you started with the minimum of fuss.
 #
@@ -25,7 +27,7 @@
 # at http://10.10.10.30:3000
 #
 #   # Guest
-#   bundle exec rails server
+#   bundle exec rails server -b 0.0.0.0
 #
 # Customizing the Vagrant instance
 # ================================
@@ -33,18 +35,23 @@
 # This Vagrantfile allows customisation of some aspects of the virtaual machine
 # See the customization options below for details.
 #
-# The options can be set either by prefixing the vagrant command, or by
-# exporting to the environment.
+# The options can be set either by prefixing the vagrant command, using
+# `.vagrant.yml`, or by exporting to the environment.
 #
 #   # Prefixing the command
 #   $ ALAVETELI_VAGRANT_MEMORY=2048 vagrant up
+#
+#   # .vagrant.yml
+#   $ echo "memory: 2048" >> .vagrant.yml
+#   $ vagrant up
 #
 #   # Exporting to the environment
 #   $ export ALAVETELI_VAGRANT_MEMORY=2048
 #   $ vagrant up
 #
-# Both have the same effect, but exporting will retain the variable for the
-# duration of your shell session.
+# All have the same effect, but exporting will retain the variable for the
+# duration of your shell session, whereas `.vagrant.yml` will be persistent.
+# The environment takes precedence over `.vagrant.yml`.
 #
 # Using Themes
 # ------------
@@ -54,97 +61,151 @@
 # that the default location is used on the guest. You can use the env var
 # ALAVETELI_THEMES_DIR to change where this Vagrantfile looks for the themes
 # directory on the host.
-#
+
+def cpu_count
+  host = RbConfig::CONFIG['host_os']
+  # Give VM access to all cpu cores on the host
+  if host =~ /darwin/
+    `sysctl -n hw.ncpu`.to_i
+  elsif host =~ /linux/
+    `nproc`.to_i
+  else # sorry Windows folks, I can't help you
+    1
+  end
+end
+
 # Customization Options
 # =====================
-ALAVETELI_FQDN = ENV['ALAVETELI_VAGRANT_FQDN'] || "alaveteli.10.10.10.30.xip.io"
-ALAVETELI_MEMORY = ENV['ALAVETELI_VAGRANT_MEMORY'] || 1536
-ALAVETELI_THEMES_DIR = ENV['ALAVETELI_THEMES_DIR'] || '../alaveteli-themes'
-ALAVETELI_OS = ENV['ALAVETELI_VAGRANT_OS'] || 'precise64'
+#
+# Defaults can be overridden either in `.vagrant.yml` with the same key name, or
+# via the environment by prefixing the key with `ALAVETELI_VAGRANT_` and
+# upcasing. Boolean values can be set to `false` in the environment with "0",
+# "false" or "no".
+DEFAULTS = {
+  'fqdn' => 'alaveteli.10.10.10.30.nip.io',
+  'ip' => '10.10.10.30',
+  'public_network' => false,
+  'memory' => 1536,
+  'themes_dir' => '../alaveteli-themes',
+  'os' => 'stretch64',
+  'name' => 'default',
+  'use_nfs' => false,
+  'show_settings' => false,
+  'cpus' => cpu_count
+}.freeze
+
+env = DEFAULTS.keys.reduce({}) do |memo, key|
+  value = ENV["ALAVETELI_VAGRANT_#{ key.upcase }"]
+  value = false if %w(0 false no).include?(value)
+  memo[key] = value unless value.nil?
+  memo
+end
+
+settings_file_path = File.dirname(__FILE__) + '/.vagrant.yml'
+settings_file = if File.exist?(settings_file_path)
+  YAML.load(File.read(settings_file_path))
+else
+  {}
+end
 
 SUPPORTED_OPERATING_SYSTEMS = {
-  'precise64' => 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box',
-  'wheezy64' => 'http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box',
-  'jessie64' => 'https://atlas.hashicorp.com/puppetlabs/boxes/debian-8.2-64-nocm'
+  'bionic64' => {
+    box: 'ubuntu/bionic64',
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
+  },
+  'stretch64' => {
+    box: 'debian/stretch64',
+    box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
+  }
 }
 
-def box
-  ALAVETELI_OS
+def os
+  SUPPORTED_OPERATING_SYSTEMS.fetch(SETTINGS['os'], box: SETTINGS['os'])
 end
 
-def box_url
-  SUPPORTED_OPERATING_SYSTEMS[ALAVETELI_OS]
+SETTINGS = DEFAULTS.merge(settings_file).merge(env).freeze
+
+if SETTINGS['show_settings']
+  puts 'Current machine settings:'
+  puts "\n"
+  pp SETTINGS
+  puts "\n"
+  puts 'Current OS settings:'
+  puts "\n"
+  pp os
+  puts "\n"
 end
 
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = if box == 'jessie64'
-    'puppetlabs/debian-8.2-64-nocm'
-  else
-    box
+  config.vm.box = os[:box]
+  config.vm.define SETTINGS['name']
+  config.vm.box_url = os[:box_url]
+  config.vm.hostname = "alaveteli-#{ SETTINGS['os'] }"
+
+  if SETTINGS['public_network']
+    config.vm.network :public_network
   end
-  config.vm.box_url = box_url
-  config.vm.network :private_network, :ip => "10.10.10.30"
 
-  config.vm.synced_folder ".", "/home/vagrant/alaveteli", :owner => "vagrant", :group => "vagrant"
+  config.vm.network :private_network, ip: SETTINGS['ip']
 
-  if File.directory?(ALAVETELI_THEMES_DIR)
-    config.vm.synced_folder ALAVETELI_THEMES_DIR,
-                            "/home/vagrant/alaveteli-themes",
-                            :owner => "vagrant",
-                            :group => "vagrant"
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+  if SETTINGS['use_nfs']
+    config.vm.synced_folder '.', '/home/vagrant/alaveteli', nfs: true
+  else
+    config.vm.synced_folder '.',
+                            '/home/vagrant/alaveteli',
+                            owner: 'vagrant',
+                            group: 'vagrant'
+  end
+
+  if File.directory?(SETTINGS['themes_dir'])
+    if SETTINGS['use_nfs']
+      config.vm.synced_folder SETTINGS['themes_dir'],
+                              '/home/vagrant/alaveteli-themes',
+                              nfs: true
+    else
+      config.vm.synced_folder SETTINGS['themes_dir'],
+                              '/home/vagrant/alaveteli-themes',
+                              owner: 'vagrant',
+                              group: 'vagrant'
+    end
   end
 
   config.ssh.forward_agent = true
 
   # The bundle install fails unless you have quite a large amount of
   # memory; insist on 1.5GiB:
-  config.vm.provider "virtualbox" do |vb|
-    host = RbConfig::CONFIG['host_os']
-    # Give VM access to all cpu cores on the host
-    if host =~ /darwin/
-      cpus = `sysctl -n hw.ncpu`.to_i
-    elsif host =~ /linux/
-      cpus = `nproc`.to_i
-    else # sorry Windows folks, I can't help you
-      cpus = 1
-    end
-
-    vb.customize ["modifyvm", :id, "--memory", ALAVETELI_MEMORY]
-    vb.customize ["modifyvm", :id, "--cpus", cpus]
+  config.vm.provider 'virtualbox' do |vb|
+    vb.customize ['modifyvm', :id, '--memory', SETTINGS['memory']]
+    vb.customize ['modifyvm', :id, '--cpus', SETTINGS['cpus']]
   end
 
-  # Fetch and run the install script:
-  config.vm.provision :shell, :inline => "apt-get -y install curl"
-  config.vm.provision :shell, :inline => "curl -O https://raw.githubusercontent.com/mysociety/commonlib/master/bin/install-site.sh"
-  config.vm.provision :shell, :inline => "chmod a+rx install-site.sh"
-  config.vm.provision :shell, :inline => "./install-site.sh " \
-                                             "--dev " \
-                                             "alaveteli " \
-                                             "vagrant " \
-                                             "#{ ALAVETELI_FQDN }"
+  config.vm.provision :shell, keep_color: true, inline: <<-EOF
+  if [[ -f "/home/vagrant/alaveteli/commonlib/bin/install-site.sh" ]]
+    then
+      /home/vagrant/alaveteli/commonlib/bin/install-site.sh \
+        --dev \
+        alaveteli \
+        vagrant \
+        #{ SETTINGS['fqdn'] }
+  else
+    echo "Couldn't find provisioning script." >&2
+    echo "Did you forget to run git submodule update --init?" >&2
+    exit 1
+  fi
+EOF
 
   # Append basic usage instructions to the MOTD
   motd = <<-EOF
 To start your alaveteli instance:
 * cd alaveteli
-* bundle exec rails server
+* bundle exec rails server -b 0.0.0.0
 EOF
 
-  if ALAVETELI_OS == 'jessie64'
-    # workaround for dynamic MOTD support on jessie
-    # adapted from: https://oitibs.com/debian-jessie-dynamic-motd/
-    config.vm.provision :shell, :inline => "mkdir /etc/update-motd.d/"
-    config.vm.provision :shell, :inline => "cd /etc/update-motd.d/ && touch 00-header && touch 10-sysinfo && touch 90-footer
-"
-    config.vm.provision :shell, :inline => "echo '#!/bin/sh' >> /etc/update-motd.d/90-footer"
-    config.vm.provision :shell, :inline => "echo '[ -f /etc/motd.tail ] && cat /etc/motd.tail || true' >> /etc/update-motd.d/90-footer"
-    config.vm.provision :shell, :inline => "chmod +x /etc/update-motd.d/*"
-    config.vm.provision :shell, :inline => "rm /etc/motd"
-    config.vm.provision :shell, :inline => "ln -s /var/run/motd /etc/motd"
-  end
-  config.vm.provision :shell, :inline => "echo '#{ motd }' >> /etc/motd.tail"
+  config.vm.provision :shell, keep_color: true, inline: "echo '#{ motd }' >> /etc/motd.tail"
 
   # Display next steps info at the end of a successful install
   instructions = <<-EOF
@@ -165,5 +226,5 @@ Type `vagrant ssh` to log into the Vagrant box to start the site
 or run the test suite
 EOF
 
-  config.vm.provision :shell, :inline => "echo '#{ instructions }'"
+  config.vm.provision :shell, keep_color: true, inline: "echo '#{ instructions }'"
 end

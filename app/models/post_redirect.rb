@@ -28,11 +28,12 @@
 
 require 'openssl' # for random bytes function
 
-class PostRedirect < ActiveRecord::Base
-  CIRCUMSTANCES = %w(login_as change_password change_email normal)
+class PostRedirect < ApplicationRecord
+  CIRCUMSTANCES = %w(change_password change_email normal)
 
   # Optional, does a login confirm before redirect for use in email links.
-  belongs_to :user
+  belongs_to :user,
+             :inverse_of => :post_redirects
 
   validates :circumstance, :inclusion => CIRCUMSTANCES
 
@@ -47,7 +48,7 @@ class PostRedirect < ActiveRecord::Base
 
   # Called from cron job delete-old-things
   def self.delete_old_post_redirects
-    PostRedirect.delete_all("updated_at < (now() - interval '2 months')")
+    PostRedirect.where("updated_at < (now() - interval '2 months')").delete_all
   end
 
   # We store YAML version of POST parameters in the database

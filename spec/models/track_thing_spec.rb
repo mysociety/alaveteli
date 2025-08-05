@@ -9,8 +9,8 @@
 #  info_request_id  :integer
 #  tracked_user_id  :integer
 #  public_body_id   :integer
-#  track_medium     :string(255)      not null
-#  track_type       :string(255)      default("internal_error"), not null
+#  track_medium     :string           not null
+#  track_type       :string           default("internal_error"), not null
 #  created_at       :datetime
 #  updated_at       :datetime
 #
@@ -80,7 +80,7 @@ describe TrackThing, "when tracking changes" do
 end
 
 describe TrackThing, "destroy" do
-  let(:track_thing) { FactoryGirl.create(:search_track) }
+  let(:track_thing) { FactoryBot.create(:search_track) }
 
   it "should destroy the track_thing" do
     track_thing.destroy

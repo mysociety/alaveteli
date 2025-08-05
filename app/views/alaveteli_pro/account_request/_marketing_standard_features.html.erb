@@ -1,0 +1,46 @@
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2>
+      <%= _('Plus, all the power of {{site_name}}', site_name: site_name) %>
+    </h2>
+
+    <p>
+      <%= _('<strong>{{pro_site_name}}</strong> runs on the UK’s ' \
+            'best-known FOI service',
+            pro_site_name: pro_site_name) %>
+    </p>
+  </div>
+
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li>
+          <%= _('Up-to-date database of <strong class="marketing-highlight">' \
+                'contact details</strong> for {{authority_count}} authorities',
+                authority_count: PublicBody.is_requestable.count) %>
+        </li>
+
+        <li>
+          <%= _('A <strong class="marketing-highlight">searchable archive' \
+                '</strong> of Freedom of Information requests') %>
+        </li>
+
+        <li>
+          <%= _('<strong class="marketing-highlight">Delivery verification' \
+                '</strong> for proof of receipt') %>
+        </li>
+
+        <li>
+          <%= _('A permanent, searchable, ' \
+                '<strong class="marketing-highlight">public record</strong> ' \
+                'of your request and the responses') %>
+        </li>
+
+        <li>
+          <%= _('<strong class="marketing-highlight">Streamlined process' \
+                '</strong> for requesting internal reviews') %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -12,15 +12,17 @@
   // Hide menu items by default on mobile
   #logged_in_bar,
   #topnav,
-  #user_locale_switcher{
+  #user_locale_switcher,
+  #navigation_search{
     display:none;
   }
 
   // …and show a button to reveal them
   .rsp_menu_button{
-    @include grid-column(4);
     padding: 1em 1em 0 1em;
-    float: right;
+    position: absolute;
+    top: 0.66em;
+    right: 0.9375rem;
     a {
       text-align: right;
       &.open{
@@ -37,7 +39,7 @@
     @include grid-column(8);
     padding: 1em 1em 0 1em;
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column(4);
+      @include grid-column(3);
       padding: 1em;
       margin-bottom: 1em;
       @include lte-ie7 {
@@ -69,7 +71,7 @@
     padding-top: 1.125em; //18px
     padding-bottom: 1.125em;
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column(5);
+      @include grid-column(4);
       padding-top: 1.6875em; //27px
       padding-bottom: 1.6875em;
     }
@@ -92,7 +94,8 @@
       // Show menu items when menu is targeted
       #logged_in_bar,
       #topnav,
-      #user_locale_switcher{
+      #user_locale_switcher,
+      #navigation_search{
         display:block;
         clear:both;
       }
@@ -104,7 +107,8 @@
     #banner_nav,
     #logged_in_bar,
     #topnav,
-    #user_locale_switcher{
+    #user_locale_switcher,
+    #navigation_search{
       display:block;
     }
 
@@ -116,8 +120,16 @@
 
 }
 
+.no-js #banner {
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    #logged_in_bar {
+      margin-left: 50%;
+    }
+  }
+}
+
 .site-title__logo {
-  @extend .image-replacement;
+  @include image-replacement;
   width: $logo-width;
   height: $logo-height;
   background-size: $logo-width $logo-height;
@@ -138,7 +150,7 @@
   }
 }
 
-#navigation {
+.navigation {
   list-style: none outside none;
   @include grid-row;
   padding: 0;
@@ -146,10 +158,6 @@
 
   @include ie8{
     width: $main_menu-mobile_menu_cutoff;
-  }
-
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    padding-right: 15em; // Stop nav links disappearing behind search box
   }
 
   // Spread the nav elements horizontally on larger screens
@@ -176,25 +184,39 @@
   }
 }
 
+.logged_in_bar {
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    @include grid-column($columns:3);
+    padding-top: 1.8125em; //vertically centers it in the banner
+  }
+
+  .js-loaded & {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      position: relative;
+    }
+  }
+}
+
 #navigation_search {
   @include respond-min( $main_menu-mobile_menu_cutoff ){
-    position: absolute;
-    top: 0;
-    right: 0;
+    @include grid-column($columns:3);
+    padding-top: 1.8125em; //vertically centers it in the banner
   }
   form{
     @include grid-row;
-    padding: 1em 1em 0;
+    padding: 1em 1em 0 1em;
     @include lte-ie7 {
       display: inline;
     }
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-      padding-top: 0;
+      padding: 0;
+ 
     }
   }
   input{
     @include grid-column($columns:10);
     margin-right:0;
+    margin-bottom: 0;
     @include lte-ie7 {
       width: 10.063em;
     }
@@ -206,58 +228,26 @@
     @include lte-ie7 {
       width: 2.125em;
     }
-  }
-}
-
-#logged_in_bar{
-  a, .greeting {
-    display:block;
-    padding: 0.5em 1em;
-  }
-
-  @include respond-min( $main_menu-mobile_menu_cutoff ){
-    position: absolute; // relative to #banner_content
-    top: 2em; // leave space for the language switcher
-    left: 40%; // leave space for the logo
-    right: 0;
-    bottom: 0;
-
-    #logged_in_links {
-      position: absolute;
-      right: 0.9375em; // match the grid padding
-      top: 50%;
-      -webkit-transform: translateY(-50%); // vertically centre in Safari and Android
-      -ms-transform: translateY(-50%); // vertically centre in IE9
-      transform: translateY(-50%); // vertically centre in modern browsers
-      top: 0px\9; // fallback for IE8 and below (which don't support transform)
-      text-align: right;
-
-      a, .greeting{
-        display:inline;
-        font-weight: bold;
-        padding:0 0 0 1em;
-      }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      margin-bottom: 0;
     }
   }
 }
 
 .locale-list {
-  border-bottom: 1px solid #e9e9e9;
-
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
-    position: absolute;
-    right: 0;
-    top: 0;
     border: 0;
+    @include grid-column($columns:2);
+    padding-top: 1.5625em; //vertically centers it in the banner (based on having two languages)
   }
 
   a,
   .locale-list-trigger {
     display: block;
     padding: 0.5em 1em;
-
     @include respond-min( $main_menu-mobile_menu_cutoff ) {
       display: inline-block;
+      padding: 0 0.35em;
     }
   }
 }
@@ -273,14 +263,172 @@
   list-style: none outside none;
   margin:0;
   padding: 0;
-
-  @include respond-min( $main_menu-mobile_menu_cutoff ) {
-    display: inline;
-  }
-
   li {
     @include respond-min( $main_menu-mobile_menu_cutoff ) {
       display: inline-block;
     }
   }
+}
+
+.sign_in_link {
+  display: block;
+  padding: 1em;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    padding: 0.5em 1em;
+    text-align: right;
+  }
+}
+
+.js-loaded {
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    .logged-in-menu {
+      position: absolute;
+      right: 0.935em; //line up with grid boundaries
+      top: 4.3em; //flush with bottom of button
+      width: 275px;
+      background-color: white;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      padding: 1em;
+      z-index: 10;
+
+      a {
+        padding: 0;
+      }
+
+      li {
+        display: block;
+        float: none;
+      }
+    }
+
+    .logged-in-menu__signout-link {
+      border-top: 1px solid #CCC;
+      padding: 1em 0 0 0;
+      margin-top: 1em;
+      a {
+        padding: 0;
+      }
+    }
+
+    .logged-in-menu__links {
+      padding: 0;
+    }
+    .profile-summary {
+      border-bottom: 1px solid #CCC;
+      margin-bottom: 1em;
+    }
+
+    .profile-summary__name {
+      //stop long first names from breaking the layout
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 15em;
+      display: inline-block;
+      margin-bottom: -0.4em; // making this inline-block adds space below, this fixes that
+    }
+  }
+}
+
+.logged-in-menu li {
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inline-block;
+  }
+}
+
+.logged-in-menu {
+  margin-bottom: 1em;
+  li a {
+    display: block;
+    padding: 0.5em 1em; //13px 16px
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    color: black;
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
+    li a {
+      font-size: 1em;
+      padding: 0.5em 1em;
+    }
+  }
+}
+
+.logged-in-menu__links {
+  margin: 0;
+}
+
+.account-link {
+  position: relative;
+  
+  //stop long first names from breaking the layout
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  display: block;
+  padding: 0.5em 1em;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    max-width: 15em;
+    text-align: right;
+  }
+
+  .js-loaded & {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      text-align: right;
+    }
+    &:after {
+        display: block;
+        position: absolute;
+        content: '';
+        right: 27px;
+        top: 1.2em;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid rgba(0, 0, 0, 0.4);
+        @include respond-min( $main_menu-mobile_menu_cutoff ) {
+          right: 0;
+        }
+    }
+  }
+}
+
+.account-link--with-pro-pill {
+  padding-right: 3em;
+}
+
+.no-js {
+  .profile-summary {
+    display: none
+  }
+}
+
+.profile-summary {
+  display: none;
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    display: inherit;
+    padding-bottom: 1em;
+  }
+}
+
+.logged-in-menu__links {
+  padding: 0;
+}
+
+.js-loaded {
+  .logged-in-menu {
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      display: none;
+    }
+  }
+}
+
+
+.profile-summary__image {
+  height: 50px;
+  width: 50px;
+  float: left;
+  margin-right: 1em;
 }

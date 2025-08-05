@@ -20,11 +20,14 @@ end %>
       <%= event_description(event) %>
     </div>
 
-    <span class="bottomline icon_<%= event.info_request.calculate_status %>">
+    <p>
+      <i class="icon-standalone icon_<%= event.info_request.calculate_status %>"></i>
       <strong>
         <%= event.info_request.display_status(cached_value_ok=true) %>
-      </strong><br>
+      </strong>
+    </p>
     </span>
+
   </div>
 
   <div class="request_right">

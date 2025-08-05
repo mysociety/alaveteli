@@ -3,7 +3,7 @@ class AdminPublicBodyHeadingsController < AdminController
 
   include TranslatableParams
 
-  before_filter :set_public_body_heading, :only => [:edit, :update, :destroy]
+  before_action :set_public_body_heading, :only => [:edit, :update, :destroy]
 
   def new
     @public_body_heading = PublicBodyHeading.new
@@ -11,7 +11,7 @@ class AdminPublicBodyHeadingsController < AdminController
   end
 
   def create
-    I18n.with_locale(I18n.default_locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       @public_body_heading = PublicBodyHeading.new(public_body_heading_params)
       if @public_body_heading.save
         flash[:notice] = 'Heading was successfully created.'
@@ -28,8 +28,8 @@ class AdminPublicBodyHeadingsController < AdminController
   end
 
   def update
-    I18n.with_locale(I18n.default_locale) do
-      if @public_body_heading.update_attributes(public_body_heading_params)
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
+      if @public_body_heading.update(public_body_heading_params)
         flash[:notice] = 'Heading was successfully updated.'
         redirect_to edit_admin_heading_path(@public_body_heading)
       else
@@ -48,18 +48,19 @@ class AdminPublicBodyHeadingsController < AdminController
   def reorder
     transaction = reorder_headings(params[:headings])
     if transaction[:success]
-      render :nothing => true, :status => :ok
+      head :ok
     else
-      render :text => transaction[:error], :status => :unprocessable_entity
+      render :plain => transaction[:error], :status => :unprocessable_entity
     end
   end
 
   def reorder_categories
     transaction = reorder_categories_for_heading(params[:id], params[:categories])
     if transaction[:success]
-      render :nothing => true, :status => :ok and return
+      head :ok
+      return
     else
-      render :text => transaction[:error], :status => :unprocessable_entity
+      render :plain => transaction[:error], :status => :unprocessable_entity
     end
   end
 

@@ -14,25 +14,34 @@ class ApplicationController < ActionController::Base
   end
   class RouteNotFound < StandardError
   end
-  protect_from_forgery :if => :user?
-  skip_before_filter :verify_authenticity_token, :unless => :user?
+
+  before_action :set_gettext_locale
+  before_action :collect_locales
+
+  protect_from_forgery :if => :user?, :with => :exception
+  skip_before_action :verify_authenticity_token, :unless => :user?
+
+  # Deal with access denied errors from CanCan
+  rescue_from CanCan::AccessDenied do |exception|
+    raise PermissionDenied
+  end
 
   # assign our own handler method for non-local exceptions
   rescue_from Exception, :with => :render_exception
 
   # Standard headers, footers and navigation for whole site
   layout "default"
+
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
+  include AlaveteliPro::PostRedirectHandler
 
   # Note: a filter stops the chain if it redirects or renders something
-  before_filter :authentication_check
-  before_filter :set_gettext_locale
-  before_filter :check_in_post_redirect
-  before_filter :session_remember_me
-  before_filter :set_vary_header
-  before_filter :validate_session_timestamp
-  before_filter :collect_locales
-  after_filter  :persist_session_timestamp
+  before_action :authentication_check
+  before_action :check_in_post_redirect
+  before_action :session_remember_me
+  before_action :set_vary_header
+  before_action :validate_session_timestamp
+  after_action  :persist_session_timestamp
 
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
@@ -41,7 +50,7 @@ class ApplicationController < ActionController::Base
   helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
   def anonymous_cache(time)
     if session[:user_id].nil?
-      expires_in time, :public => true
+      headers['Cache-Control'] = "max-age=#{time}, public"
     end
   end
 
@@ -57,28 +66,30 @@ class ApplicationController < ActionController::Base
     anonymous_cache(24.hours)
   end
 
-  # This is an override of the method provided by gettext_i18n_rails - note the explicit
-  # setting of I18n.locale, required due to the I18nProxy used in Rails 3 to trigger the
+  # This is an override of the method provided by gettext_i18n_rails.
+  # AlaveteliLocalization.set_session_locale explicitly sets I18n.locale,
+  # required due to the I18nProxy used in Rails to trigger the
   # lookup_context and expire the template cache
   def set_gettext_locale
-    if AlaveteliConfiguration::include_default_locale_in_urls == false
-      params_locale = params[:locale] ? params[:locale] : I18n.default_locale
-    else
-      params_locale = params[:locale]
+    params_locale = params[:locale]
+
+    if AlaveteliConfiguration.include_default_locale_in_urls == false
+      params_locale ||= AlaveteliLocalization.default_locale
     end
-    if AlaveteliConfiguration::use_default_browser_language
-      requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
-    else
-      requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
+
+    if AlaveteliConfiguration.use_default_browser_language
+      browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
     end
-    requested_locale = FastGettext.best_locale_in(requested_locale)
-    session[:locale] = I18n.locale = FastGettext.set_locale(requested_locale)
-    if !@user.nil?
-      if @user.locale != requested_locale
-        @user.locale = session[:locale]
-        @user.save!
-      end
-    end
+
+    locale = AlaveteliLocalization.set_session_locale(
+      params_locale, session[:locale], cookies[:locale], browser_locale
+    )
+
+    # set the current locale to the requested_locale
+    session[:locale] = locale
+
+    # ensure current user locale attribute is up-to-date
+    current_user.update_column(:locale, locale) if current_user
   end
 
   # Help work out which request causes RAM spike.
@@ -92,7 +103,7 @@ class ApplicationController < ActionController::Base
   #
   # To find things that are using causing LOTS of peak memory, then do something like:
   # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
-  around_filter :record_memory
+  around_action :record_memory
   def record_memory
     record_memory = AlaveteliConfiguration::debug_record_memory
     if record_memory
@@ -132,7 +143,7 @@ class ApplicationController < ActionController::Base
   end
 
   def persist_session_timestamp
-    session[:ttl] = Time.now if session[:user_id] && !session[:remember_me]
+    session[:ttl] = Time.zone.now if session[:user_id] && !session[:remember_me]
   end
 
   # Logout form
@@ -148,9 +159,9 @@ class ApplicationController < ActionController::Base
   end
 
   def render_exception(exception)
-    # In development or the admin interface let Rails handle the exception
-    # with its stack trace templates
-    if Rails.application.config.consider_all_requests_local || show_rails_exceptions?
+    # In development let Rails handle the exception with its stack trace
+    # templates.
+    if Rails.application.config.consider_all_requests_local
       raise exception
     end
 
@@ -163,71 +174,46 @@ class ApplicationController < ActionController::Base
       sanitize_path(params)
     when PermissionDenied
       @status = 403
+    when ActionController::UnknownFormat
+      @status = 406
     else
       message = "\n#{@exception_class} (#{@exception_message}):\n"
       backtrace = Rails.backtrace_cleaner.clean(exception.backtrace, :silent)
       message << "  " << backtrace.join("\n  ")
       Rails.logger.fatal("#{message}\n\n")
-      if !AlaveteliConfiguration.exception_notifications_from.blank? && !AlaveteliConfiguration.exception_notifications_to.blank?
+      if send_exception_notifications?
         ExceptionNotifier.notify_exception(exception, :env => request.env)
       end
       @status = 500
     end
     respond_to do |format|
-      format.html{ render :template => "general/exception_caught", :status => @status }
-      format.any{ render :nothing => true, :status => @status }
+      format.html { render :template => "general/exception_caught", :status => @status }
+      format.any { head @status }
     end
   end
 
   def render_hidden(template='request/hidden', opts = {})
+    # An embargoed is totally hidden - no indication that anything exists there
+    # to see
+    raise ActiveRecord::RecordNotFound if @info_request && @info_request.embargo
+
     response_code = opts.delete(:response_code) { 403 } # forbidden
     options = { :template => template, :status => response_code }.merge(opts)
 
     respond_to do |format|
       format.html { render(options) }
-      format.any { render :nothing => true, :status => response_code }
+      format.any { head response_code }
     end
     false
   end
 
-  def show_rails_exceptions?
-    false
-  end
-
-  # Used to work out where to cache fragments. We add an extra path to the
-  # URL using the first three digits of the info request id, because we can't
-  # have more than 32,000 entries in one directory on an ext3 filesystem.
-  def foi_fragment_cache_part_path(param)
-    path = url_for(param)
-    id = param['id'] || param[:id]
-    first_three_digits = id.to_s[0..2]
-    path = path.sub("/request/", "/request/" + first_three_digits + "/")
-    return path
-  end
-
-  def foi_fragment_cache_path(param)
-    path = File.join(Rails.root, 'cache', 'views', foi_fragment_cache_part_path(param))
-    max_file_length = 255 - 35 # we subtract 35 because tempfile
-    # adds on a variable number of
-    # characters
-    return File.join(File.split(path).map{|x| x[0...max_file_length]})
-  end
-
-  def foi_fragment_cache_exists?(key_path)
-    return File.exists?(key_path)
-  end
-
-  def foi_fragment_cache_read(key_path)
-    logger.info "Reading from fragment cache #{key_path}"
-    return File.read(key_path)
-  end
-
-  def foi_fragment_cache_write(key_path, content)
-    FileUtils.mkdir_p(File.dirname(key_path))
-    logger.info "Writing to fragment cache #{key_path}"
-    File.atomic_write(key_path) do |f|
-      f.write(content)
-    end
+  # A helper method to set @in_pro_area, for controller actions which are
+  # used in both a pro and non-pro context and depend on the :pro parameter
+  # to know which one they're displaying.
+  # Intended to be used as a before_action, see RequestController for example
+  # usage.
+  def set_in_pro_area
+    @in_pro_area = params[:pro] == "1" && current_user.present? && current_user.is_pro?
   end
 
   private
@@ -236,31 +222,33 @@ class ApplicationController < ActionController::Base
     !session[:user_id].nil?
   end
 
-  def form_authenticity_token
-    if user?
-      session[:_csrf_token] ||= SecureRandom.base64(32)
-    end
+  # Override the Rails method to only set the CSRF form token if there is a
+  # logged in user
+  def form_authenticity_token(*args)
+    super if user?
   end
 
   # Check the user is logged in
-  def authenticated?(reason_params)
-    unless session[:user_id]
-      post_redirect = PostRedirect.new(:uri => request.fullpath, :post_params => params,
-                                       :reason_params => reason_params)
-      post_redirect.save!
-      # Make sure this redirect does not get cached - it only applies to this user.
-      # HTTP 1.1
-      headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
-      # HTTP 1.0
-      headers['Pragma'] = 'no-cache'
-      # Proxies
-      headers['Expires'] = '0'
-      # 'modal' controls whether the sign-in form will be displayed in the typical full-blown
-      # page or on its own, useful for pop-ups
-      redirect_to signin_url(:token => post_redirect.token, :modal => params[:modal])
-      return false
-    end
-    return true
+  def authenticated?(reason_params, post_redirect: nil)
+    return true if session[:user_id]
+
+    post_redirect ||= PostRedirect.new(uri: request.fullpath,
+                                       post_params: params,
+                                       reason_params: reason_params)
+    post_redirect.save!
+
+    # Make sure this redirect does not get cached - it only applies to this user
+    # HTTP 1.1
+    headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    # HTTP 1.0
+    headers['Pragma'] = 'no-cache'
+    # Proxies
+    headers['Expires'] = '0'
+
+    # 'modal' controls whether the sign-in form will be displayed in the typical
+    # full-blown page or on its own, useful for pop-ups
+    redirect_to signin_url(token: post_redirect.token, modal: params[:modal])
+    return false
   end
 
   def authenticated_as_user?(user, reason_params)
@@ -294,14 +282,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # For CanCanCan and other libs which need a Devise-like current_user method
+  alias_method :current_user, :authenticated_user
+  helper_method :current_user
+
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
-  def do_post_redirect(post_redirect)
-    uri = URI.parse(post_redirect.uri).path
-
+  def do_post_redirect(post_redirect, user=nil)
+    uri = SafeRedirect.new(post_redirect.uri).path
+    if feature_enabled?(:alaveteli_pro) &&
+       user &&
+       user.is_pro? &&
+       session[:admin_confirmation] != 1
+      uri = override_post_redirect_for_pro(uri,
+                                           post_redirect,
+                                           user)
+    end
     session[:post_redirect_token] = post_redirect.token
+    uri = add_post_redirect_param_to_uri(uri)
+    session.delete(:admin_confirmation)
+    redirect_to uri
+  end
 
+  def add_post_redirect_param_to_uri(uri)
     # TODO: what is the built in Ruby URI munging function that can do this
     # choice of & vs. ? more elegantly than this dumb if statement?
     if uri.include?("?")
@@ -319,16 +323,26 @@ class ApplicationController < ActionController::Base
         uri += "?post_redirect=1"
       end
     end
-    redirect_to uri
+    return uri
   end
 
   # If we are in a faked redirect to POST request, then set post params.
   def check_in_post_redirect
-    if params[:post_redirect] and session[:post_redirect_token]
-      post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
-      if post_redirect
-        params.update(post_redirect.post_params)
-        params[:post_redirect_user] = post_redirect.user
+    if params[:post_redirect]
+      if session[:post_redirect_token]
+        post_redirect =
+          PostRedirect.find_by_token(session[:post_redirect_token])
+        if post_redirect
+          post_redirect_params =
+            params_to_unsafe_hash(post_redirect.post_params)
+          params.merge!(post_redirect_params)
+          params[:post_redirect_user] = post_redirect.user
+        end
+      else
+        logger.warn "Missing post redirect token. " \
+                    "Session: #{session.to_hash} " \
+                    "IP: #{user_ip} " \
+                    "Params: #{params}"
       end
     end
   end
@@ -343,14 +357,22 @@ class ApplicationController < ActionController::Base
   #
   def check_read_only
     if !AlaveteliConfiguration::read_only.empty?
-      if AlaveteliConfiguration::enable_annotations
-        flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
-                           :site_name => site_name,
-                           :read_only => AlaveteliConfiguration::read_only)
+      if feature_enabled?(:annotations)
+        flash[:notice] = {
+          :partial => "general/read_only_annotations.html.erb",
+          :locals => {
+            :site_name => site_name,
+            :read_only => AlaveteliConfiguration.read_only
+          }
+        }
       else
-        flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>",
-                           :site_name => site_name,
-                           :read_only => AlaveteliConfiguration::read_only)
+        flash[:notice] = {
+          :partial => "general/read_only.html.erb",
+          :locals => {
+            :site_name => site_name,
+            :read_only => AlaveteliConfiguration.read_only
+          }
+        }
       end
       redirect_to frontpage_url
     end
@@ -402,49 +424,13 @@ class ApplicationController < ActionController::Base
     return page
   end
 
-  def perform_search_typeahead(query, model, per_page=25)
+  def typeahead_search(query, options)
     @page = get_search_page_from_params
-    @per_page = per_page
-    query_words = query.split(/ +(?![-+]+)/)
-    if query_words.last.nil? || query_words.last.strip.length < 3
-      xapian_requests = nil
-    else
-      if model == PublicBody
-        collapse = nil
-      elsif model == InfoRequestEvent
-        collapse = 'request_collapse'
-      end
-      options = {
-        :offset => (@page - 1) * @per_page,
-        :limit => @per_page,
-        :sort_by_prefix => nil,
-        :sort_by_ascending => true,
-        :collapse_by_prefix => collapse,
-      }
-      ActsAsXapian.readable_init
-      old_default_op = ActsAsXapian.query_parser.default_op
-      ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
-      begin
-        user_query =  ActsAsXapian.query_parser.parse_query(
-          query.strip + '*',
-          Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
-        Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-        xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
-      rescue RuntimeError => e
-        if e.message =~ /^QueryParserError: Wildcard/
-          # Wildcard expands to too many terms
-          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message.force_encoding('UTF-8')}"
-
-          user_query =  ActsAsXapian.query_parser.parse_query(
-            query,
-            Xapian::QueryParser::FLAG_LOVEHATE |
-          Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-          xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
-        end
-      end
-      ActsAsXapian.query_parser.default_op = old_default_op
-    end
-    return xapian_requests
+    @per_page = options[:per_page] || 25
+    options.merge!( :page => @page,
+                    :per_page => @per_page )
+    typeahead_search = TypeaheadSearch.new(query, options)
+    typeahead_search.xapian_search
   end
 
   # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
@@ -462,13 +448,16 @@ class ApplicationController < ActionController::Base
   end
 
   def country_from_ip
-    begin
-      ip = request.remote_ip
-    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-      ip = nil
-    end
-    return AlaveteliGeoIP.country_code_from_ip(ip) if ip
+    return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
     AlaveteliConfiguration::iso_country_code
+  end
+
+  def user_ip
+    begin
+      request.remote_ip
+    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+      nil
+    end
   end
 
   def alaveteli_git_commit
@@ -488,9 +477,9 @@ class ApplicationController < ActionController::Base
   #
   # Returns a Hash
   def collect_locales
-    @locales = { :current => FastGettext.locale, :available => [] }
-    FastGettext.default_available_locales.each do |possible_locale|
-      if possible_locale == FastGettext.locale
+    @locales = { :current => AlaveteliLocalization.locale, :available => [] }
+    AlaveteliLocalization.available_locales.each do |possible_locale|
+      if possible_locale == AlaveteliLocalization.locale
         @locales[:current] = possible_locale
       else
         @locales[:available] << possible_locale
@@ -505,4 +494,6 @@ class ApplicationController < ActionController::Base
 
   # Site-wide access to configuration settings
   include ConfigHelper
+
+  include HashableParams
 end

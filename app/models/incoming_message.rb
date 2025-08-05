@@ -17,7 +17,7 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
-#  prominence                     :string(255)      default("normal"), not null
+#  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
 #
 
@@ -33,90 +33,57 @@
 # general not specific to IncomingMessage.
 
 require 'rexml/document'
-require 'zip/zip'
+require 'zip'
 require 'iconv' unless String.method_defined?(:encode)
 
-class IncomingMessage < ActiveRecord::Base
+class IncomingMessage < ApplicationRecord
   include AdminColumn
-  extend MessageProminence
+  include MessageProminence
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
-  belongs_to :info_request
+  belongs_to :info_request,
+             inverse_of: :incoming_messages,
+             counter_cache: true
+
   validates_presence_of :info_request
 
   validates_presence_of :raw_email
 
   has_many :outgoing_message_followups,
+           :inverse_of => :incoming_message_followup,
            :foreign_key => 'incoming_message_followup_id',
            :class_name => 'OutgoingMessage',
            :dependent => :nullify
-  has_many :foi_attachments, :order => 'id', :dependent => :destroy
+  has_many :foi_attachments,
+           -> { order('id') },
+           :inverse_of => :incoming_message,
+           :dependent => :destroy
   # never really has many info_request_events, but could in theory
-  has_many :info_request_events, :dependent => :destroy
+  has_many :info_request_events,
+           :dependent => :destroy,
+           :inverse_of => :incoming_message
 
-  belongs_to :raw_email
-
-  has_prominence
+  belongs_to :raw_email,
+             :inverse_of => :incoming_message,
+             :dependent => :destroy
 
   after_destroy :update_request
   after_update :update_request
   before_destroy :destroy_email_file
 
+  scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
+  scope :unparsed, -> { where(last_parsed: nil) }
+
+  delegate :from_email, to: :raw_email
+  delegate :message_id, to: :raw_email
+  delegate :multipart?, to: :raw_email
+  delegate :parts, to: :raw_email
+
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
   def response_event
-    self.info_request_events.detect{ |e| e.event_type == 'response' }
-  end
-
-  # Return a cached structured mail object
-  def mail(force = nil)
-    if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
-      @mail = MailHandler.mail_from_raw_email(self.raw_email.data)
-    end
-    @mail
-  end
-
-  def empty_from_field?
-    self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
-  end
-
-  def from_email
-    MailHandler.get_from_address(self.mail)
-  end
-
-  def addresses
-    MailHandler.get_all_addresses(self.mail)
-  end
-
-  def message_id
-    self.mail.message_id
-  end
-
-  # Return false if for some reason this is a message that we shouldn't let them reply to
-  def _calculate_valid_to_reply_to
-    # check validity of email
-    email = self.from_email
-    if email.nil? || !MySociety::Validate.is_valid_email(email)
-      return false
-    end
-
-    # reject postmaster - authorities seem to nearly always not respond to
-    # email to postmaster, and it tends to only happen after delivery failure.
-    # likewise Mailer-Daemon, Auto_Reply...
-    prefix = email
-    prefix =~ /^(.*)@/
-    prefix = $1
-    if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.reply)$/)
-      return false
-    end
-    if MailHandler.empty_return_path?(self.mail)
-      return false
-    end
-    if !MailHandler.get_auto_submitted(self.mail).nil?
-      return false
-    end
-    return true
+    self.info_request_events.detect { |e| e.event_type == 'response' }
   end
 
   def parse_raw_email!(force = nil)
@@ -129,17 +96,18 @@ class IncomingMessage < ActiveRecord::Base
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
         self.extract_attachments!
-        write_attribute(:sent_at, self.mail.date || self.created_at)
-        write_attribute(:subject, self.mail.subject)
-        write_attribute(:mail_from, MailHandler.get_from_name(self.mail))
-        if self.from_email
-          self.mail_from_domain = PublicBody.extract_domain_from_email(self.from_email)
+        write_attribute(:sent_at, raw_email.date || self.created_at)
+        write_attribute(:subject, raw_email.subject)
+        write_attribute(:mail_from, raw_email.from_name)
+        if from_email
+          self.mail_from_domain =
+            PublicBody.extract_domain_from_email(from_email)
         else
           self.mail_from_domain = ""
         end
-        write_attribute(:valid_to_reply_to, self._calculate_valid_to_reply_to)
-        self.last_parsed = Time.now
-        self.foi_attachments reload=true
+        write_attribute(:valid_to_reply_to, raw_email.valid_to_reply_to?)
+        self.last_parsed = Time.zone.now
+        self.foi_attachments.reload
         self.save!
       end
     end
@@ -152,7 +120,7 @@ class IncomingMessage < ActiveRecord::Base
   # The cached fields mentioned in the previous comment
 
   # Public: Can this message be replied to?
-  # Caches the value set by _calculate_valid_to_reply_to in #parse_raw_email!
+  # Caches the value set by raw_email.valid_to_reply_to? in #parse_raw_email!
   # #valid_to_reply_to overrides the ActiveRecord provided #valid_to_reply_to
   #
   # Returns a Boolean
@@ -263,6 +231,10 @@ class IncomingMessage < ActiveRecord::Base
     info_request.update_last_public_response_at
   end
 
+  def destroy_raw_email
+    raw_email.destroy
+  end
+
   # And look up by URL part number and display filename to get an attachment
   # TODO: relies on extract_attachments calling MailHandler.ensure_parts_counted
   # The filename here is passed from the URL parameter, so it's the
@@ -286,6 +258,31 @@ class IncomingMessage < ActiveRecord::Base
         nil
       end
     end
+  end
+
+  def self.get_attachment_by_url_part_number_and_filename!(
+    attachments, found_url_part_number, display_filename
+  )
+    attachment = get_attachment_by_url_part_number_and_filename(
+      attachments, found_url_part_number, display_filename
+    )
+
+    return unless attachment
+
+    # check filename in URL matches that in database (use a censor rule if you
+    # want to change a filename)
+    if attachment.display_filename != display_filename &&
+       attachment.old_display_filename != display_filename
+      msg = 'please use same filename as original file has, display: '
+      msg += "'#{ attachment.display_filename }' "
+      msg += 'old_display: '
+      msg += "'#{ attachment.old_display_filename }' "
+      msg += 'original: '
+      msg += "'#{ display_filename }'"
+      raise ActiveRecord::RecordNotFound, msg
+    end
+
+    attachment
   end
 
   def apply_masks(text, content_type)
@@ -421,8 +418,8 @@ class IncomingMessage < ActiveRecord::Base
     folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
     folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
 
-    self.cached_main_body_text_unfolded = text
-    self.cached_main_body_text_folded = folded_quoted_text
+    self.cached_main_body_text_unfolded = text.delete("\0")
+    self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
     self.save!
   end
   # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
@@ -465,9 +462,9 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Add an annotation if the text had to be scrubbed
-    if part.body_as_text.scrubbed?
+    if part && part.body_as_text.scrubbed?
       text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+                :site_name => AlaveteliConfiguration.site_name)
     end
     # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
     text = text.gsub(/\r\n/, "\n")
@@ -537,10 +534,10 @@ class IncomingMessage < ActiveRecord::Base
         content_type = 'application/octet-stream'
       end
       hexdigest = Digest::MD5.hexdigest(content)
-      attachment = foi_attachments.find_or_create_by_hexdigest(hexdigest)
-      attachment.update_attributes(:filename => filename,
-                                   :content_type => content_type,
-                                   :body => content)
+      attachment = foi_attachments.find_or_create_by(:hexdigest => hexdigest)
+      attachment.update(:filename => filename,
+                        :content_type => content_type,
+                        :body => content)
       attachment.save!
       attachments << attachment
     end
@@ -560,11 +557,12 @@ class IncomingMessage < ActiveRecord::Base
 
   def extract_attachments!
     force = true
-    attachment_attributes = MailHandler.get_attachment_attributes(self.mail(force))
+    _mail = raw_email.mail!
+    attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachments = []
     attachment_attributes.each do |attrs|
-      attachment = self.foi_attachments.find_or_create_by_hexdigest(attrs[:hexdigest])
-      attachment.update_attributes(attrs)
+      attachment = self.foi_attachments.find_or_create_by(:hexdigest => attrs[:hexdigest])
+      attachment.update(attrs)
       attachment.save!
       attachments << attachment
     end
@@ -583,7 +581,7 @@ class IncomingMessage < ActiveRecord::Base
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if !main_part.nil?
       uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
-      c = self.mail.count_first_uudecode_count
+      c = _mail.count_first_uudecode_count
       for uudecode_attachment in uudecoded_attachments
         c += 1
         uudecode_attachment.url_part_number = c
@@ -592,10 +590,14 @@ class IncomingMessage < ActiveRecord::Base
       end
     end
 
-    attachment_ids = attachments.map{ |attachment| attachment.id }
+    attachment_ids = attachments.map { |attachment| attachment.id }
     # now get rid of any attachments we no longer have
-    FoiAttachment.destroy_all(["id NOT IN (?) AND incoming_message_id = ?",
-                               attachment_ids, self.id])
+    FoiAttachment.
+      where(
+        ["id NOT IN (?) AND incoming_message_id = ?",
+         attachment_ids,
+         self.id]
+      ).destroy_all
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.
@@ -647,7 +649,7 @@ class IncomingMessage < ActiveRecord::Base
   # Returns text of email for using in quoted section when replying
   def get_body_for_quoting
     # Get the body text with emails and quoted sections removed
-    text = get_main_body_text_folded
+    text = get_main_body_text_folded.dup
     text.gsub!("FOLDED_QUOTED_SECTION", " ")
     text.strip!
     raise "internal error" if text.nil?
@@ -664,8 +666,9 @@ class IncomingMessage < ActiveRecord::Base
 
     # Save clipped version for snippets
     if self.cached_attachment_text_clipped.nil?
-      self.cached_attachment_text_clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED]
-      self.save!
+      clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
+      self.cached_attachment_text_clipped = clipped
+      save!
     end
 
     return text
@@ -684,7 +687,7 @@ class IncomingMessage < ActiveRecord::Base
 
   def _extract_text
     # Extract text from each attachment
-    self.get_attachments_for_display.reduce(''){ |memo, attachment|
+    self.get_attachments_for_display.reduce('') { |memo, attachment|
       memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
                                                        attachment.default_body,
                                                        attachment.charset)
@@ -706,7 +709,7 @@ class IncomingMessage < ActiveRecord::Base
 
   # Has message arrived "recently"?
   def recently_arrived
-    (Time.now - self.created_at) <= 3.days
+    (Time.zone.now - self.created_at) <= 3.days
   end
 
   # Search all info requests for

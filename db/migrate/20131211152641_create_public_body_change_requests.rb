@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreatePublicBodyChangeRequests < ActiveRecord::Migration
+class CreatePublicBodyChangeRequests < ActiveRecord::Migration[4.2] # 3.2
   def up
     create_table :public_body_change_requests do |t|
       t.column :user_email, :string
@@ -11,7 +11,7 @@ class CreatePublicBodyChangeRequests < ActiveRecord::Migration
       t.column :source_url, :text
       t.column :notes, :text
       t.column :is_open, :boolean, :null => false, :default => true
-      t.timestamps
+      t.timestamps :null => false
     end
   end
 

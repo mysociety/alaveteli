@@ -8,7 +8,7 @@ describe 'Editing a Public Body Heading' do
 
     confirm(:admin_user)
     @admin = login(:admin_user)
-    @heading = FactoryGirl.create(:public_body_heading)
+    @heading = FactoryBot.create(:public_body_heading)
   end
 
   it 'can edit the default locale' do
@@ -29,7 +29,7 @@ describe 'Editing a Public Body Heading' do
       click_button 'Save'
     end
     @heading.reload
-    I18n.with_locale(:fr) do
+    AlaveteliLocalization.with_locale(:fr) do
       expect(@heading.name).to eq('New Heading FR')
     end
   end
@@ -50,11 +50,11 @@ describe 'Editing a Public Body Heading' do
     end
 
     @heading.reload
-    I18n.with_locale(:fr) do
+    AlaveteliLocalization.with_locale(:fr) do
       expect(@heading.name).to eq('New Heading FR')
     end
 
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       expect(@heading.name).to eq('New Heading ES')
     end
   end

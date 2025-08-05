@@ -3,9 +3,11 @@
 #
 # Table name: raw_emails
 #
-#  id :integer          not null, primary key
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :raw_email
 end

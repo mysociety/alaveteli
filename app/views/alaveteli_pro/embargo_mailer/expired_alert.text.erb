@@ -1,0 +1,11 @@
+<%= n_('The following request has been made public on {{site_name}} this week.',
+       'The following requests have been made public on {{site_name}} this ' \
+       'week.',
+       @info_requests.count,
+       :site_name => site_name.html_safe) %>
+
+<% @info_requests.each do |info_request| %>
+  <%= request_url(info_request) %>
+<% end %>
+
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

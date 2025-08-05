@@ -1,0 +1,142 @@
+/* Layout for the dashboard */
+
+$dashboard-collapse: 50em; //where the dashboard layout needs to change
+
+.dashboard-left-column {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include grid-column(3);
+  }
+}
+
+.dashboard-right-column {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include grid-column(9);
+    padding-left: 1.875em; // double margin, ease up on the information density
+  }
+}
+
+.dashboard-nav {
+  padding: 0;
+  margin: 0;
+  @include clearfix;
+}
+
+.dashboard-nav__item {
+  float: left;
+  padding-bottom: 0.5em;
+  padding-right: 1em;
+}
+
+.dashboard-nav__item--right {
+  float: right;
+}
+
+.dashboard-folders,
+.dashboard-sub-folders {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-sub-folders {
+  .dashboard-folder {
+    font-size: 0.875em; //14px
+  }
+  .dashboard-folder__name {
+    padding-left: 0.5em;
+  }
+}
+
+.dashboard-folder--selected {
+  margin-bottom: 0;
+}
+
+.dashboard-folder__count {
+  float: right;
+  position: relative;
+  top: 3px;
+}
+
+.dashboard-todo {
+  margin-bottom: 3em;
+}
+
+.dashboard-todo__list {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-todo__title,
+.dashboard-activity__title {
+  padding-bottom: 1em;
+  margin-bottom: 0;
+  margin-top: 0.8em;
+}
+
+.dashboard-todo__list__item,
+.dashboard-activity__item {
+  padding: 1em 0 1em 0;
+}
+
+.dashboard-activity__item {
+  @include flexbox;
+}
+
+.dashboard-activity__item__description {
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.dashboard-activity__item__time {
+  flex: 0 0 20%;
+  padding-right: 2em;
+  font-size: 0.875em;
+}
+
+.dashboard-activity__item__dashboard {
+  flex: 0 0 80%;
+  padding-left: 2em;
+}
+
+.dashboard__announcements {
+  margin-bottom: 2em;
+}
+
+.dashboard__announcement {
+  position: relative;
+}
+
+.dashboard__announcements__list {
+  list-style: none outside none;
+  padding-left: 0;
+}
+
+.dashboard__announcements__list-item {
+  &[aria-hidden="false"] {
+    display: block;
+  }
+  &[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+.dashboard__announcement_dismiss {
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+}
+
+.dashboard__announcements__controls__status {
+  display: inline-block;
+  padding: 0 0.5em;
+}

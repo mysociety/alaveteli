@@ -5,9 +5,11 @@
 #
 #  id            :integer          not null, primary key
 #  display_order :integer
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :public_body_heading do
     sequence(:name) { |n| "Example Public Body Heading #{n}" }
   end

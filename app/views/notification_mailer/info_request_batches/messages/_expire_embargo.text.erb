@@ -1,0 +1,11 @@
+<%= n_('{{count}} request has been made public on {{site_name}}.',
+       '{{count}} requests have been made public on {{site_name}}.',
+       notifications.size,
+       count: notifications.size,
+       site_name: AlaveteliConfiguration.site_name.html_safe) %>
+<% notifications.each do |notification| %>
+  <% info_request = notification.info_request_event.info_request %>
+  <%= _('{{public_body_name}}: {{request_url}}',
+        public_body_name: info_request.public_body.name.html_safe,
+        request_url: request_url(info_request)) %>
+<% end %>

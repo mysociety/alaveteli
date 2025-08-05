@@ -1,0 +1,199 @@
+<h1 class="pricing__title centered"><%= _('Pricing') %></h1>
+
+<div class="pricing__tiers">
+  <div class="pricing__tier pricing__tier--primary">
+
+    <div class="pricing__tier__heading">
+      <h2><%= _('Professional') %></h2>
+      <p class="pricing__tier__subhead"><%= _('For journalists, academics and power users') %></p>
+      <p class="price-label">
+        <% if @plan.interval == 'month' %>
+          <%= _('<span class="price-label__amount">{{monthly_price}}</span> ' \
+                'per user, per month',
+                monthly_price: format_currency(
+                                 @plan.amount_with_tax,
+                                 no_cents_if_whole: true)) %>
+        <% elsif @plan.interval == 'year' %>
+          <%= _('<span class="price-label__amount">{{yearly_price}}</span> ' \
+                'per user, per year',
+                yearly_price: format_currency(
+                                @plan.amount_with_tax,
+                                no_cents_if_whole: true)) %>
+        <% end %>
+      </p>
+      <p class="pricing__tier__subhead pricing__tier__subhead--intro_pricing"><%= _('Introductory Pricing') %></p>
+    </div>
+
+    <div class="pricing__tier__content">
+      <h3><%= _('Featuring') %></h3>
+      <ul class="pricing__tier__features">
+        <li><%= _('Public requests for information') %></li>
+        <li><%= _('Private requests for information') %></li>
+        <li><%= _('Dashboard and workflow features') %></li>
+        <li><%= _('Friendly support') %></li>
+      </ul>
+      <%= link_to _('Sign up'), plan_path('pro'), :class => 'button button-pop' %>
+    </div>
+
+  </div>
+</div>
+
+<p class="pricing__free-message">
+  <%= _('Don’t worry – <a href="{{signup_link}}">our free accounts</a> are still available and always will be.',
+        signup_link: signin_path) %>
+</p>
+
+<div class="pricing__feature-message">
+  <h2><%= _('New to Professional – Batch') %></h2>
+  <p><%= _('Make a request to multiple authorities and manage the responses.') %></p>
+</div>
+
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%= @pro_site_name.html_safe %></h2>
+    <p><%= _('An all-in-one FOI toolkit for journalists, activists and campaigners') %></p>
+  </div>
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li><%= _('Keep <strong class="marketing-highlight">requests and responses private</strong> while you work on your story') %></li>
+        <li><%= _('A powerful <strong class="marketing-highlight">private dashboard</strong>: track and manage your FOI projects') %></li>
+        <li><%= _('A super-smart <strong class="marketing-highlight">to-do list</strong>: follow the progress of your requests') %></li>
+        <li><%= _('<strong class="marketing-highlight">Action alerts</strong>: know when it’s time to take the next step') %></li>
+        <li><%= _('<strong class="marketing-highlight">Daily summary emails</strong> to keep your inbox clean') %></li>
+        <li><%= _('<strong class="marketing-highlight">Save as draft</strong> to get back to it later') %></li>
+      </ul>
+
+      <ul class="marketing__section__feature-list">
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-dashboard.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-dashboard.jpg", :alt => _('Pro brings a new dashboard view')) %></a></li>
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-requests.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-requests.jpg", :alt => _('Pro features a new request list view')) %></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%= _('Plus, all the power of {{site_name}}', site_name: site_name) %></h2>
+    <p><%= _('<strong>{{pro_site_name}}</strong> runs on the UK’s ' \
+             'best-known FOI service',
+             pro_site_name: @pro_site_name.html_safe) %></p>
+  </div>
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li><%= _('Up-to-date database of <strong class="marketing-highlight">' \
+                  'contact details</strong> for {{authority_count}} authorities',
+                  authority_count: PublicBody.is_requestable.count) %></li>
+        <li><%= _('A <strong class="marketing-highlight">searchable archive</strong> of Freedom of Information requests') %></li>
+        <li><%= _('<strong class="marketing-highlight">Delivery verification</strong> for proof of receipt</strong>') %></li>
+        <li><%= _('A permanent, searchable, <strong class="marketing-highlight">public record</strong> of your request and the responses') %></li>
+        <li><%= _('<strong class="marketing-highlight">Streamlined process</strong> for requesting internal reviews') %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%= _('Batch') %></h2>
+  </div>
+  <div class="marketing__section__content">
+
+
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li><%= _('<strong class="marketing-highlight">Make a request to multiple authorities</strong>: select authorities at the click of a button') %></li>
+        <li><%= _('<strong class="marketing-highlight">Manage large volumes of responses</strong>: easily keep track of the status of each request') %></li>
+        <li><%= _('<strong class="marketing-highlight">Get regular updates</strong> as the responses come in — without overwhelming your inbox') %></li>
+      </ul>
+
+
+      <ul class="marketing__section__feature-list">
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-batch-selection.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-batch-selection.jpg", :alt => _('Batch requests allow multiple recipients of a single request')) %></a></li>
+        <li><a href="<%= image_path("alaveteli-pro/screenshot-batch-list.jpg") %>"><%= image_tag("alaveteli-pro/screenshot-batch-list.jpg", :alt => _('Batch requests are part of a new workflow')) %></a></li>
+      </ul>
+
+      <%= link_to _('Sign up'), plan_path('pro'), :class => 'button' %>
+    </div>
+  </div>
+</div>
+
+<% if feature_enabled?(:pro_pricing_testimonials) %>
+  <div class="pricing__testimonials">
+    <h2 class="pricing__testimonials__title">What people say about WhatDoTheyKnow<sup>pro</sup></h2>
+    <ul class="testimonials__list">
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+
+      <li class="testimonials__list__item">
+        <div class="testimonial">
+          <blockquote class="testimonial__content">
+            <p>WhatDoTheyKnowPro has transformed my workflow. Managing big stories is so much easier now</p>
+            <cite class="testimonial__source"><img src="http://placehold.it/100x100" alt="" class="testimonial__source__thumbnail"/>Jenny Realuser</cite>
+          </blockquote>
+        </div>
+      </li>
+    </ul>
+  </div>
+<% end %>
+
+<% if feature_enabled?(:pro_pricing_faqs) %>
+  <div class="pricing__faqs">
+    <h2 class="pricing__faqs__title">Frequently Asked Questions</h2>
+    <dl class="pricing__faqs__list">
+      <dt class="faqs__term">How do I cancel my account?</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+      <dt class="faqs__term">What does my subscription fee go towards?</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+      <dt class="faqs__term">How do I change my payment details?</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+
+      <dt class="faqs__term">I’ve got a vouncher code</dt>
+      <dd class="faqs__def">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at porttitor orci, nec sollicitudin turpis. Donec vel nisl justo. Praesent blandit ex ut massa faucibus, cursus tincidunt dui consectetur. In suscipit lorem felis. Sed elementum, augue euismod dignissim vulputate, ligula elit blandit sem, non vehicula nisl turpis ultricies nisi. Integer accumsan luctus hendrerit.</dd>
+    </dl>
+  </div>
+<% end %>

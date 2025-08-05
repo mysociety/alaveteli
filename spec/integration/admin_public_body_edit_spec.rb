@@ -36,7 +36,7 @@ describe 'Editing a Public Body' do
       click_button 'Save'
     end
     pb = @body.reload
-    I18n.with_locale(:fr) do
+    AlaveteliLocalization.with_locale(:fr) do
       expect(pb.name).to eq('New Quango FR')
     end
   end
@@ -63,11 +63,11 @@ describe 'Editing a Public Body' do
 
     expect(pb.name).to eq('New Quango EN')
 
-    I18n.with_locale(:fr) do
+    AlaveteliLocalization.with_locale(:fr) do
       expect(pb.name).to eq('New Quango FR')
     end
 
-    I18n.with_locale(:es) do
+    AlaveteliLocalization.with_locale(:es) do
       expect(pb.name).to eq('New Quango ES')
     end
   end

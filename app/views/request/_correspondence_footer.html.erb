@@ -1,0 +1,9 @@
+<div class="correspondence__footer">
+  <div class="correspondence__footer__cplink">
+    <%= text_field_tag nil, link_to_this_url, class: 'cplink__field' %>
+
+    <a class="cplink__button"><%= _('Link to this') %></a>
+
+    <%= link_to _('Report'), report_path, class: 'cplink__button' %>
+  </div>
+</div>

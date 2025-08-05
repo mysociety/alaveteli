@@ -1,4 +1,8 @@
-<%= form_for(@comment, :as => :comment, :url => { :controller => "comment", :action => "new", :type => "request" },  :html => { :id => 'comment_form' } ) do |f| %>
+<%= form_for(
+    @comment,
+    :url => new_comment_path(:type => "request", :url_title => @info_request.url_title),
+    :html => { :id => 'comment_form' }
+  ) do |f| %>
   <p>
     <%= f.text_area :body, :rows => 10, :cols => 55 %>
   </p>

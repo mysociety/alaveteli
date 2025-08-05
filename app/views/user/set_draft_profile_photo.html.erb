@@ -11,7 +11,7 @@
     <p>
       <label class="form_label" for="file_1"><%= _('Photo of you:')%></label>
       <% file_opts = { :size => 35, :id => 'file_1' } %>
-      <% file_opts.merge!({ :disabled => true }) if @user.banned? %>
+      <% file_opts.merge!({ :disabled => true }) if @user.suspended? %>
       <%= file_field_tag :file, file_opts %>
     </p>
 

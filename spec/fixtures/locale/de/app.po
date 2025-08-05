@@ -1,0 +1,26 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: version 0.0.1\n"
+"POT-Creation-Date: 2009-02-26 19:50+0100\n"
+"PO-Revision-Date: 2011-12-04 18:54+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Apple"
+msgid_plural "Apples"
+msgstr[0] "Apfel"
+msgstr[1] "Äpfel"
+
+msgid "I eat {{count}} apple"
+msgid_plural "I eat {{count}} apples"
+msgstr[0] "Ich esse {{count}} Apfel"
+msgstr[1] "Ich esse {{count}} Äpfel"

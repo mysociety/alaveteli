@@ -12,14 +12,16 @@ class GeneralController < ApplicationController
 
   MAX_RESULTS = 500
 
+  before_action :redirect_pros_to_dashboard, only: :frontpage
+
   # New, improved front page!
   def frontpage
     medium_cache
-    @locale = I18n.locale.to_s
+    @locale = AlaveteliLocalization.locale
     successful_query = InfoRequestEvent.make_query_from_params( :latest_status => ['successful'] )
     @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
-    @number_of_requests = InfoRequest.visible.count
+    @number_of_requests = InfoRequest.is_searchable.count
     @number_of_authorities = PublicBody.visible.count
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'),
                            :title => _('Successful requests'),
@@ -45,7 +47,8 @@ class GeneralController < ApplicationController
     @feed_autodetect = []
     @feed_url = AlaveteliConfiguration::blog_feed
     separator = @feed_url.include?('?') ? '&' : '?'
-    @feed_url = "#{@feed_url}#{separator}lang=#{I18n.locale}"
+    @feed_url = "#{ @feed_url }#{ separator }lang=" \
+                "#{ AlaveteliLocalization.html_lang }"
     @blog_items = []
     if not @feed_url.empty?
       timeout = if AlaveteliConfiguration.blog_timeout.blank?
@@ -61,7 +64,8 @@ class GeneralController < ApplicationController
         @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
       end
     end
-    @twitter_user = AlaveteliConfiguration::twitter_username
+    @twitter_user = AlaveteliConfiguration.twitter_username
+    @facebook_user = AlaveteliConfiguration.facebook_username
   end
 
   # Just does a redirect from ?query= search to /query
@@ -87,8 +91,11 @@ class GeneralController < ApplicationController
     # TODO: Why is this so complicated with arrays and stuff? Look at the route
     # in config/routes.rb for comments.
 
-    # respond with a 404 and do not execute the search if request was not for html
-    if request.format && !request.format.html?
+    # 404 if the request is a format we don't support (e.g:.json)
+    # 200 if the request is an invalid format (e.g: .invalid). This allows
+    # invalid search terms to render the search results page with a "no results
+    # found" message.
+    if !request.format.nil? && !request.format.html?
       respond_to { |format| format.any { head :not_found } }
       return
     end
@@ -220,8 +227,9 @@ class GeneralController < ApplicationController
           :alaveteli_version => ALAVETELI_VERSION,
           :ruby_version => RUBY_VERSION,
           :visible_public_body_count => PublicBody.visible.count,
-          :visible_request_count => InfoRequest.visible.count,
-          :confirmed_user_count => User.where(:email_confirmed => true).count,
+          :visible_request_count => InfoRequest.is_searchable.count,
+          :confirmed_user_count => User.active.
+                                     where(:email_confirmed => true).count,
           :visible_comment_count => Comment.visible.count,
           :track_thing_count => TrackThing.count,
           :widget_vote_count => WidgetVote.count,
@@ -231,6 +239,14 @@ class GeneralController < ApplicationController
             OutgoingMessage.where(:prominence => 'normal',
                                   :message_type => 'followup').count
       }}
+    end
+  end
+
+  private
+
+  def redirect_pros_to_dashboard
+    if feature_enabled?(:alaveteli_pro) && current_user && current_user.is_pro?
+      redirect_to alaveteli_pro_dashboard_path
     end
   end
 end

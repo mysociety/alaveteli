@@ -2,39 +2,74 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-describe RequestController, "when classifying an information request" do
+describe RequestController do
 
-  describe 'when the request is internal' do
+  describe 'when the site is in read only mode' do
 
-    before(:each) do
-      load_raw_emails_data
-      @dog_request = info_requests(:fancy_dog_request)
-      # This should happen automatically before each test but doesn't with these integration
-      # tests for some reason.
-      ActionMailer::Base.deliveries = []
+    before do
+      allow(AlaveteliConfiguration).to receive(:read_only).
+        and_return("Down for maintenance")
     end
 
-    describe 'when logged in as the requestor' do
+    it 'shows a flash alert to users' do
+      expected_message = "Alaveteli is currently in maintenance. You " \
+                         "can only view existing requests. You cannot " \
+                         "make new ones, add followups or annotations, or " \
+                         "otherwise change the database." \
+                         "\nDown for maintenance"
 
-      before :each do
-        @bob = login(:bob_smith_user)
-      end
-
-      it "should send an email including the message" do
-        using_session(@bob) do
-          visit describe_state_message_path(:url_title => @dog_request.url_title,
-                                            :described_state => "requires_admin")
-          fill_in "Please tell us more:", :with => "Okay. I don't quite understand."
-          click_button "Submit status and send message"
-          expect(page).to have_content "Thank you! We'll look into what happened and try and fix it up."
-        end
-
-        deliveries = ActionMailer::Base.deliveries
-        expect(deliveries.size).to eq(1)
-        mail = deliveries[0]
-        expect(mail.body).to match(/as needing admin/)
-        expect(mail.body).to match(/Okay. I don't quite understand./)
-      end
+      visit new_request_path
+      expect(page).to have_content(expected_message)
     end
+
+    context 'when annotations are disabled' do
+
+      before do
+        allow_any_instance_of(ApplicationController).
+          to receive(:feature_enabled?).
+            and_call_original
+
+        allow_any_instance_of(ApplicationController).
+          to receive(:feature_enabled?).
+            with(:annotations).
+              and_return(false)
+      end
+
+      it 'shows a flash alert to users' do
+        expected_message = "Alaveteli is currently in maintenance. You " \
+                           "can only view existing requests. You cannot make " \
+                           "new ones, add followups or otherwise change the " \
+                           "database.\nDown for maintenance"
+
+        visit new_request_path
+        expect(page).to have_content(expected_message)
+      end
+
+    end
+
   end
+
+  describe 'FOI officer uploading a reponse' do
+
+    let(:public_body) do
+      FactoryBot.create(:public_body, :request_email => "foi@example.com")
+    end
+    let(:officer) { FactoryBot.create(:user, :email => "officer@example.com") }
+    let(:user) { FactoryBot.create(:user, :name => "Awkward > Name") }
+    let(:request) { FactoryBot.create(:info_request, :user => user) }
+
+    it 'should render a message confirming the response has been published' do
+      message = "Thank you for responding to this FOI request! " \
+                "Your response has been published below, and a " \
+                "link to your response has been emailed to Awkward > Name."
+      using_session(login(officer)) do
+        visit upload_response_path :url_title => request.url_title
+        fill_in(:body, :with => 'Additional information')
+        click_button("Upload FOI response")
+        expect(page).to have_content(message)
+      end
+    end
+
+  end
+
 end

@@ -84,9 +84,9 @@ module MailHandler
                          :timeout => 1200 }
       if content_type == 'application/vnd.ms-word'
         AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
-                                     { :memory_limit => 536870912,  :timeout => 120 } )
+                                     { :memory_limit => 536870912, :timeout => 120 } )
         # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
-        if not File.exists?(tempfile.path + ".txt")
+        if not File.exist?(tempfile.path + ".txt")
           AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
         else
           text += File.read(tempfile.path + ".txt") + "\n\n"
@@ -127,12 +127,12 @@ module MailHandler
                                            {:binary_output => false})
         if !xml.nil?
           doc = REXML::Document.new(xml)
-          text += doc.each_element( './/text()' ){}.join(" ")
+          text += doc.each_element( './/text()' ) {}.join(" ")
         end
       elsif content_type == 'application/zip'
         # recurse into zip files
         begin
-          zip_file = Zip::ZipFile.open(tempfile.path)
+          zip_file = Zip::File.open(tempfile.path)
           text += get_attachment_text_from_zip_file(zip_file)
           zip_file.close
         rescue
@@ -164,9 +164,10 @@ module MailHandler
         else
           content_type = 'application/octet-stream'
         end
-
+        if content_type == 'text/plain' && body.encoding.to_s == 'ASCII-8BIT'
+          body = convert_string_to_utf8(body, 'ASCII-8BIT').string
+        end
         text += get_attachment_text_one_file(content_type, body)
-
       end
     end
     return text

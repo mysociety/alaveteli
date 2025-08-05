@@ -1,0 +1,35 @@
+<% if info_request.info_request_batch %>
+  <%= render partial: 'request/request_subtitle/batch',
+             locals: { info_request: info_request,
+                       user: user } %>
+<% else %>
+  <%= render partial: 'request/request_subtitle/single',
+             locals: { info_request: info_request,
+                       user: user } %>
+<% end %>
+
+<% if info_request.public_body.eir_only? %>
+  <span class="request-header__foi_no">
+    <br>
+    <%= _('You only have a right in law to access information about the ' \
+          'environment from this authority') %>
+    </span>
+<% elsif info_request.public_body.not_subject_to_law? %>
+  <span class="request-header__foi_no">
+    <br>
+    <%= _('This authority is not subject to FOI law, so is not ' \
+          'legally obliged to respond') %>
+    (<%= link_to _('details'),
+                 help_requesting_path(anchor: 'authorities') %>).
+    </span>
+<% end %>
+
+<% if info_request.allow_new_responses_from == 'nobody' %>
+  <span class="request-header__closed_to_correspondence">
+    <br><br>
+    <%= _('This request has been <strong>closed to new correspondence ' \
+          'from the public body</strong>. <a href="{{url}}"">Contact us</a> ' \
+          'if you think it ought be re-opened.',
+          url: help_contact_path) %>
+  </span>
+<% end %>

@@ -3,11 +3,11 @@ class AdminPublicBodyCategoriesController < AdminController
 
   include TranslatableParams
 
-  before_filter :set_public_body_category, :only => [:edit, :update, :destroy]
+  before_action :set_public_body_category, :only => [:edit, :update, :destroy]
 
   def index
-    @locale = I18n.locale.to_s
-    @category_headings = PublicBodyHeading.all
+    @locale = AlaveteliLocalization.locale
+    @category_headings = PublicBodyHeading.by_display_order
     @without_heading = PublicBodyCategory.without_headings
   end
 
@@ -17,7 +17,7 @@ class AdminPublicBodyCategoriesController < AdminController
   end
 
   def create
-    I18n.with_locale(I18n.default_locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       @public_body_category = PublicBodyCategory.new(public_body_category_params)
       if @public_body_category.save
         # FIXME: This can't handle failure (e.g. if a PublicBodyHeading
@@ -46,7 +46,7 @@ class AdminPublicBodyCategoriesController < AdminController
 
     heading_ids = []
 
-    I18n.with_locale(I18n.default_locale) do
+    AlaveteliLocalization.with_locale(AlaveteliLocalization.default_locale) do
       if params[:public_body_category][:category_tag] && PublicBody.find_by_tag(@public_body_category.category_tag).count > 0 && @public_body_category.category_tag != params[:public_body_category][:category_tag]
         flash[:error] = "There are authorities associated with this category, so the tag can't be renamed"
         render :action => 'edit'
@@ -60,7 +60,7 @@ class AdminPublicBodyCategoriesController < AdminController
             # remove the link objects
             deleted_links = PublicBodyCategoryLink.where(
               :public_body_category_id => @public_body_category.id,
-              :public_body_heading_id => [removed_headings]
+              :public_body_heading_id => [removed_headings].flatten
             )
             deleted_links.delete_all
 
@@ -75,7 +75,7 @@ class AdminPublicBodyCategoriesController < AdminController
           end
         end
 
-        if @public_body_category.update_attributes(public_body_category_params)
+        if @public_body_category.update(public_body_category_params)
           flash[:notice] = 'Category was successfully updated.'
           redirect_to edit_admin_category_path(@public_body_category)
         else
