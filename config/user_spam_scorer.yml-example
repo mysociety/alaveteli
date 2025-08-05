@@ -1,0 +1,59 @@
+# The DEFAULT_* values defined in lib/user_spam_scorer.rb will still apply
+# unless you override their key in this optional file.
+#
+# Unfortunately at this time you can't override the regular expressions defined
+# for DEFAULT_SPAM_NAME_FORMAT or DEFAULT_SPAM_ABOUT_ME_FORMAT.
+
+user_spam_scorer:
+  currency_symbols:
+    - £
+    - $
+    - €
+    - ¥
+    - ¢
+  suspicious_domains:
+    - mail.ru
+    - temp-mail.de
+    - tempmail.de
+    - shitmail.de
+    - yopmail.com
+    - yandex.com
+  spam_domains:
+    - 7x.cz
+    - allemaling.com
+    - brmailing.com
+    - businessmailsystem.com
+    - checknowmail.com
+    - colde-mail.com
+    - consimail.com
+    - continumail.com
+    - contumail.com
+    - emailber.com
+    - grow-mail.com
+    - inemaling.com
+    - inmailing.com
+    - itemailing.com
+    - itmailing.com
+    - kod-emailing.com
+    - kod-maling.com
+    - kodemailing.com
+    - kodmailing.com
+    - left-mail.com
+    - mabermail.com
+    - mailphar.com
+    - out-email.com
+    - semi-mile.com
+    - sin-mailing.com
+    - sinemailing.com
+    - sinmailing.com
+    - takmailing.com
+    - themailemail.com
+    - visitinbox.com
+    - webgarden.com
+    - webgarden.cz
+    - wgz.cz
+    - wowmailing.com
+  suspicious_user_agents:
+    - curl
+  suspicious_ip_ranges:
+    - 127.0.0.0/8

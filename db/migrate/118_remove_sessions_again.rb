@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RemoveSessionsAgain < ActiveRecord::Migration
+class RemoveSessionsAgain < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     drop_table :sessions
   end
@@ -8,7 +8,7 @@ class RemoveSessionsAgain < ActiveRecord::Migration
     create_table :sessions do |t|
       t.string :session_id, :null => false
       t.text :data
-      t.timestamps
+      t.timestamps :null => false
     end
 
     add_index :sessions, :session_id

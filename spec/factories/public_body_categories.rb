@@ -5,10 +5,11 @@
 #
 #  id           :integer          not null, primary key
 #  category_tag :text             not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
-
-FactoryGirl.define do
+FactoryBot.define do
   factory :public_body_category do
     sequence(:title) { |n| "Example Public Body Category #{n}" }
     sequence(:category_tag) { |n| "example_tag_#{n}" }

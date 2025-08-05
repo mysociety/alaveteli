@@ -1,39 +1,82 @@
 # -*- encoding : utf-8 -*-
 namespace :gettext do
+  def msgmerge(*files)
+    destination = files.first
+    options = %w[--sort-output --no-location --no-wrap --no-obsolete-entries]
 
-  desc 'Rewrite .po files into a consistent msgmerge format'
-  task :clean do
-    load_gettext
+    output = Tempfile.new(destination)
 
-    Dir.glob("locale/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, po_file, 'alaveteli', :msgmerge => [:sort_output, :no_location, :no_wrap])
+    GetText::Tools::MsgMerge.run(*options, '--output', output.path, *files)
+    content = output.read
+    content.sub!(/(Project-Id-Version\:).*$/, '\\1 alaveteli\\n"')
+    File.open(destination, 'w') { |file| file.write(content) }
+
+    output.close!
+  end
+
+  def clean(root:)
+    Dir.glob("#{root}/*/#{text_domain}.po") do |po_file|
+      # merge PO file with themselves - using msgmerge options above to clean
+      msgmerge(po_file, po_file)
     end
   end
 
-  desc "Update pot/po files for a theme."
-  task :find_theme => :environment do
-    theme = find_theme(ENV['THEME'])
-    load_gettext
-    msgmerge = Rails.application.config.gettext_i18n_rails.msgmerge
-    msgmerge ||= %w[--sort-output --no-location --no-wrap]
-    GetText.update_pofiles_org(
-      text_domain,
-      theme_files_to_translate(theme),
-      "version 0.0.1",
-      :po_root => theme_locale_path(theme),
-      :msgmerge => msgmerge
-    )
+  desc 'Rewrite .po files into a consistent msgmerge format'
+  task :clean do
+    clean(root: locale_path)
+  end
+
+  desc 'Rewrite Alaveteli Pro .po files into a consistent msgmerge format'
+  task :clean_alaveteli_pro do
+    clean(root: pro_locale_path)
   end
 
   desc 'Rewrite theme .po files into a consistent msgmerge format'
   task :clean_theme do
-    theme = find_theme(ENV['THEME'])
-    load_gettext
+    clean(root: theme_locale_path)
+  end
 
-    Dir.glob("#{ theme_locale_path(theme) }/*/app.po") do |po_file|
-      GetText::msgmerge(po_file, po_file, 'alaveteli',
-                        :msgmerge => [:sort_output, :no_location, :no_wrap])
+  def xgettext(pot_file, *files)
+    output = Tempfile.new(pot_file)
+    output_path = output.path
+
+    # find new strings and write to temp file
+    GetText::Tools::XGetText.run(
+      '--add-comments=TRANSLATORS', '--output', output_path, *files
+    )
+
+    # merge new string temp file with POT file
+    msgmerge(pot_file, output_path)
+
+    output.close!
+  end
+
+  def find(files:, root:)
+    pot_file = File.join(root, "#{text_domain}.pot")
+
+    # extract new strings from files and update POT file
+    xgettext(pot_file, *files)
+
+    Dir.glob("#{root}/*/#{text_domain}.po") do |po_file|
+      # merge POT file with localised PO files
+      msgmerge(po_file, pot_file)
     end
+  end
+
+  Rake::Task['find'].clear
+  desc "Update pot/po files."
+  task :find => :environment do
+    find(files: files_to_translate, root: locale_path)
+  end
+
+  desc "Update pot/po files for Alaveteli Pro."
+  task :find_alaveteli_pro => :environment do
+    find(files: pro_files_to_translate, root: pro_locale_path)
+  end
+
+  desc "Update pot/po files for a theme."
+  task :find_theme => :environment do
+    find(files: theme_files_to_translate, root: theme_locale_path)
   end
 
   desc 'Remove fuzzy translations'
@@ -42,6 +85,18 @@ namespace :gettext do
     fuzzy_cleaner = AlaveteliGetText::FuzzyCleaner.new
 
     Dir.glob("locale/**/app.po").each do |po_file|
+      lines = File.read(po_file)
+      output = fuzzy_cleaner.clean_po(lines)
+      File.open(po_file, "w") { |f| f.puts(output) }
+    end
+  end
+
+  desc 'Remove fuzzy translations for Alaveteli Pro'
+  task :remove_fuzzy_alaveteli_pro do
+    require "alaveteli_gettext/fuzzy_cleaner.rb"
+    fuzzy_cleaner = AlaveteliGetText::FuzzyCleaner.new
+
+    Dir.glob("locale_alaveteli_pro/**/app.po").each do |po_file|
       lines = File.read(po_file)
       output = fuzzy_cleaner.clean_po(lines)
       File.open(po_file, "w") { |f| f.puts(output) }
@@ -81,6 +136,37 @@ namespace :gettext do
     data
   end
 
+  def find_mapping_file(file)
+    unless file
+      puts "Usage: Specify a csv file mapping old to new strings with MAPPING_FILE=[file name]"
+      exit(1)
+    end
+    unless File.exist?(file)
+      puts "Error: MAPPING_FILE #{file} not found"
+      exit(1)
+    end
+    file
+  end
+
+  def files_to_translate
+    files = FileList.new("{app,lib,config,#{locale_path}}/**/*.{rb,erb}") do |fl|
+      fl.exclude(/\balaveteli_pro\b/)
+    end
+    files
+  end
+
+  def pro_files_to_translate
+    files = FileList.new do |fl|
+      fl.include('app/{models,views,helpers,controllers}/alaveteli_pro/**/*.{rb,erb}')
+      fl.include('lib/alaveteli_pro/**/*.{rb,erb}')
+    end
+    files
+  end
+
+  def pro_locale_path
+    Rails.root.join "locale_alaveteli_pro"
+  end
+
   def find_theme(theme)
     unless theme
       puts "Usage: Specify an Alaveteli-theme with THEME=[theme directory name]"
@@ -89,24 +175,13 @@ namespace :gettext do
     theme
   end
 
-  def find_mapping_file(file)
-    unless file
-      puts "Usage: Specify a csv file mapping old to new strings with MAPPING_FILE=[file name]"
-      exit(1)
-    end
-    unless File.exists?(file)
-      puts "Error: MAPPING_FILE #{file} not found"
-      exit(1)
-    end
-    file
-  end
-
-  def theme_files_to_translate(theme)
+  def theme_files_to_translate
+    theme = find_theme(ENV['THEME'])
     Dir.glob("{lib/themes/#{theme}/lib}/**/*.{rb,erb}")
   end
 
-  def theme_locale_path(theme)
+  def theme_locale_path
+    theme = find_theme(ENV['THEME'])
     Rails.root.join "lib", "themes", theme, "locale-theme"
   end
-
 end

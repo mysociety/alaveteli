@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AlaveteliFileTypes
   # To add an image, create a file with appropriate name corresponding to the
-  # mime type in public/images e.g. icon_image_tiff_large.png
+  # mime type in app/assets/images/content_type/ e.g. icon_image_tiff_large.png
   FileExtensionToMimeType = {
     "txt" => 'text/plain',
     "pdf" => 'application/pdf',

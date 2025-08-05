@@ -1,4 +1,148 @@
 /* Layout for request page */
+
+
+.request-status {
+  @include grid-column(12);
+  margin-bottom: 1.5em;
+}
+
+.request-header {
+  width: 100%;
+  clear: both;
+  h1 {
+    @include grid-column(12);
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+}
+
+.request-header__action-bar-container {
+  @include grid-column(12);
+}
+
+.request-header__action-bar {
+  margin-bottom: 1.5em;
+  position: relative;
+}
+
+.request-header__profile-photo {
+  //we use --narrow when a profile photo is available
+  @include grid-column(2, $collapse:true);
+  img {
+    max-width: 100%;
+    padding-right: 1em;
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(1, $collapse:true);
+  }
+}
+
+.request-header__subtitle {
+  @include grid-column(12, $collapse:true);
+  margin-top: 0;
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-bottom: 0;
+    @include grid-column(7, $collapse:true);
+  }
+}
+
+.request-header__subtitle--narrow {
+  //we use --narrow when a profile photo is available
+  @include grid-column(10, $collapse:true);
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(6, $collapse:true);
+  }
+}
+
+.request-header__action-bar__actions {
+  @include grid-column(12, $collapse:true);
+  @media (min-width: 30em) {
+    justify-content: flex-start;
+    @include flexbox();
+    align-items: stretch;
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    text-align: right;
+    justify-content: flex-end;
+    @include grid-column(5, $collapse:true);
+  }
+
+  /*
+   * .after-actions and .feed_link_toolbar form the grid
+   * for the follow button and action menu. We want them to align
+   * side-by-side until there isn't enough room, when they stack
+   */
+
+  .after-actions {
+    display: inline-block;
+    @include respond-min( $main_menu-mobile_menu_cutoff) {
+
+    }
+    .action-menu__button {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 0.5em;
+      margin-right: 1em;
+      @include respond-min( $main_menu-mobile_menu_cutoff ){
+        margin-bottom: 0;
+      }
+    }
+  }
+
+
+  .action-bar__follow {
+    display: inline-block;
+    margin: 0;
+    @include respond-min( 30em ){
+      margin-left: 1em;
+    }
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      text-align: right;
+    }
+  }
+  .action-bar__follow-button {
+    text-decoration: underline;
+  }
+  .action-bar__follow-button,
+  .action-bar__follower-count {
+    margin: 0;
+  }
+}
+
+.request-header__action-bar__actions--narrow {
+  //we use --narrow when a profile photo is available
+  @media (min-width: 30em) {
+    @include grid-column(10, $collapse:true);
+  }
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    @include grid-column(5, $collapse:true);
+  }
+}
+
+
+.feed_link_toolbar {
+  width: 100%;
+  @media (min-width: 30em) {
+    width: 50%;
+  }
+}
+
+a.track-request-action {
+  margin-top: 0;
+  width: 100%;
+  @media (min-width: 30em) {
+    margin-left: 1em;
+  }
+}
+
+.action-menu {
+  position: relative;
+  text-align: left;
+  @media (min-width: $main_menu-mobile_menu_cutoff) {
+    text-align: right;
+  }
+}
+
 .correspondence {
   word-wrap: break-word;
 }
@@ -43,13 +187,29 @@
   }
 }
 
+.correspondence {
+  h2 {
+    padding: 1.2em 1.2em 0;
+  }
+
+  &.collapsed {
+    // When collapsed, hide everything except the header.
+    // TODO: Screenreaders?
+    & > * {
+      display: none;
+    }
+
+    & > .correspondence__header {
+      display: block;
+    }
+  }
+}
+
 .correspondence_delivery {
   padding: 1em;
-  margin: 0 -1em;
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     padding: 1.2em;
-    margin: 0 -1.2em;
   }
 
   & > :last-child {
@@ -57,10 +217,167 @@
   }
 }
 
+.correspondence__header {
+  padding: 0.6em 1.2em;
+}
+
+@include respond-min( $main_menu-mobile_menu_cutoff ){
+  .correspondence__header--with-delivery-status {
+    padding-right: 8.6em;
+  }
+
+  .correspondence__header__delivery-status {
+    position: absolute;
+    right: 1.2em;
+    top: 0.6em;
+    max-width: 8em;
+  }
+}
+
+.correspondence_text {
+  padding: 1.2em;
+}
+
+.event_actions {
+  padding: 1.2em;
+}
+
+.correspondence__footer {
+  padding: 0.6em 1.2em;
+ }
+
+.attachments {}
+
+.list-of-attachments {
+  list-style: none outside none;
+  padding: 0 1em;
+}
+
+.attachment {
+  padding: 0.75em 0 0;
+}
+
+.attachment__image {
+  float:left;
+  border:0;
+  vertical-align:middle;
+  margin:0 0.2em 0.2em 0;
+}
+
+.attachments__show-more {
+  display: block;
+  margin: 1em;
+  padding-top: 0.75em;
+}
+
+/* Request correspondence footer action menu */
+.request-footer__action-bar__actions {
+  @include grid-column(12, $collapse:true);
+  @media (min-width: 30em) {
+    justify-content: flex-start;
+    @include flexbox();
+    align-items: stretch;
+  }
+
+  float: none;
+
+  .after-actions {
+    .action-menu__button {
+      margin-right: 1em;
+    }
+  }
+}
 
 /* Event history details */
 #request_details {
   table {
     margin-bottom:1em;
+  }
+  @media( max-width: $main_menu-mobile_menu_cutoff ){
+    table {
+      width: 100%;
+
+      thead {
+        display: none;
+      }
+
+      th {
+        font-size: .85em;
+        padding: .625em;
+      }
+
+      tr {
+        display: block;
+        margin-bottom: .625em;
+      }
+
+      td {
+        display: block;
+        font-size: .8em;
+        text-align: right;
+        border-bottom-width: 0;
+      }
+
+      td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        padding-left: 0.5em;
+      }
+
+      td:last-child {
+        border-bottom-width: 1px;
+      }
+    }
+  }
+}
+
+.correspondence__footer__cplink {
+  @include flexbox();
+}
+
+.cplink__label {
+  @include flex(0 0 auto);
+  margin-right: 0.5em;
+  white-space: nowrap;
+  font-size: 0.875em;
+  height: 2em; //match cplink_field
+  padding: 0.5em 0;
+  line-height: 1em;
+}
+
+input.cplink__field {
+  @include flex(1 0 8em);
+  height: 2em;
+  padding: 0 0.5em;
+  margin-bottom: 0;
+  @include ie8 {
+    width: 100%;
+  }
+}
+
+.cplink__button {
+  @include flex(0 0 auto);
+  padding: 0.5em;
+  font-size: 0.875em;
+  height: 2em; //match cplink_field
+  margin-bottom: 0;
+  line-height: 1em;
+}
+
+#reports_new {
+    form {
+      max-width: 38em;
+    }
+    textarea {
+      width: 100%;
+    }
+}
+
+.hidden_message {
+  padding: 1.2em 1.2em 0;
+
+  &:last-child {
+    padding-bottom: 1.2em;
   }
 }

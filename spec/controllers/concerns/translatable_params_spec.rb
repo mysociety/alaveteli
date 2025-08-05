@@ -24,8 +24,10 @@ describe TranslatableParams do
                     { :en =>
                       { :locale => 'en',
                         :name => 'Other name' } } }
+
+      params = ActionController::Parameters.new(params)
       expect(translatable_params(keys, params)).
-        to eq(expected)
+        to eq(ActionController::Parameters.new(expected).permit!)
     end
 
   end
@@ -45,8 +47,10 @@ describe TranslatableParams::WhitelistedParams do
                  :id => 40 }
       expected = { :name => 'Some name',
                    :status => 'good' }
+
+      params = ActionController::Parameters.new(params)
       expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
-        to eq(expected)
+        to eq(ActionController::Parameters.new(expected).permit!)
     end
 
     it 'allows id in the translation params' do
@@ -55,8 +59,11 @@ describe TranslatableParams::WhitelistedParams do
                    { :id => 40,
                      :locale => 'en',
                      :name => 'Other name' } } }
+      expected = ActionController::Parameters.new(params).permit!
+
+      params = params = ActionController::Parameters.new(params)
       expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params.dup)).
-        to eq(params)
+        to eq(expected)
     end
 
     it 'removes a non-whitelisted translation param' do
@@ -68,9 +75,11 @@ describe TranslatableParams::WhitelistedParams do
       expected = { :translations_attributes =>
                    { :en =>
                     { :locale => 'en',
-                      :name => 'Other name'} } }
+                      :name => 'Other name' } } }
+
+      params = ActionController::Parameters.new(params)
       expect(TranslatableParams::WhitelistedParams.new(keys).whitelist(params)).
-        to eq(expected)
+        to eq(ActionController::Parameters.new(expected).permit!)
     end
 
   end

@@ -1,0 +1,170 @@
+<% @title = _("Statistics") %>
+<div id="main_content" class="main_content">
+  <h1><%= site_name %> <%= @title %></h1>
+
+  <p><%= _('Here you can ' \
+           '<a href="#public_bodies">see how well public bodies have responded</a> ' \
+           'to requests on {{site_name}} and ' \
+           '<a href="#people">meet the people most actively using it</a>. ' \
+           'You can also find ' \
+           '<a href="#requests">statistics about requests</a> ' \
+           'over time.',
+           site_name: site_name) %></p>
+
+  <h2 id="public_bodies"><%= _("Public Bodies") %></h2>
+
+  <p><%= _("This section on public body statistics is currently experimental, " \
+              "so there are some caveats that should be borne in mind:") %></p>
+
+  <ul>
+    <li><%= _("The percentages are calculated with respect to the total " \
+                 "number of requests, which includes invalid requests; " \
+                 "this is a known problem that will be fixed in a " \
+                 "later release.") %></li>
+
+    <li><%= _("The classification of requests (e.g. to say whether they " \
+                 "were successful or not) is done manually by users and " \
+                 "administrators of the site, which means that they are " \
+                 "subject to error.") %></li>
+
+    <li><%= _("Requests are considered successful if they were classified " \
+                 "as either 'Successful' or 'Partially Successful'.") %></li>
+
+    <li><%= _("Requests are considered overdue if they are in the 'Overdue' " \
+                 "or 'Very Overdue' states.") %></li>
+
+    <li><%= _("The error bars shown are 95% confidence intervals for the " \
+                 "hypothesized underlying proportion (i.e. that which you " \
+                 "would obtain by making an infinite number of requests " \
+                 "through this site to that authority). In other words, the " \
+                 "population being sampled is all the current and future " \
+                 "requests to the authority through this site, rather than, " \
+                 "say, all requests that have been made to the public body by "\
+                 "any means.") %></li>
+
+    <li><%= _("Hidden requests are not counted. Unclassified requests do not count towards the percentages.") %></li>
+  </ul>
+
+  <p><%= _("These graphs were partly inspired by "\
+             "<a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">" \
+             "some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, " \
+             "so thanks are due to him.") %></p>
+
+  <% @public_bodies.each do |graph_data| %>
+    <h3 class="public-body-ranking-title"><%= graph_data['title']%></h3>
+    <div class="public-body-ranking" id="<%= graph_data['id'] %>">
+      <% if graph_data['x_values'] %>
+        <table border=0>
+          <thead>
+            <tr>
+              <th><%= _('Public Body') %></th>
+              <th><%= graph_data['y_axis'] %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% graph_data['public_bodies'].each_with_index do |pb, i| %>
+              <tr>
+                <td><%= link_to pb['name'], pb['url'] %></td>
+                <td class="statistic"><%= graph_data['y_values'][i].round %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <%= _("There was no data calculated for this graph yet.") %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <h2 id="people"><%= _("People") %></h2>
+
+  <h3><%= _("Most frequent requesters") %></h3>
+
+  <div class="leaderboard-block">
+    <div class="leaderboard-item">
+      <h4><%= _("Last 28 days") %></h4>
+      <%= render "people_leaderboard", users_with_counts: @users[:last_28_day_requesters] %>
+    </div>
+    <div class="leaderboard-item">
+      <h4><%= _("All time") %></h4>
+      <%= render "people_leaderboard", users_with_counts: @users[:all_time_requesters] %>
+    </div>
+  </div>
+
+  <h3><%= _("Most frequent annotators") %></h3>
+
+  <div class="leaderboard-block">
+    <div class="leaderboard-item">
+      <h4><%= _("Last 28 days") %></h4>
+      <%= render "people_leaderboard", users_with_counts: @users[:last_28_day_commenters] %>
+    </div>
+    <div class="leaderboard-item">
+      <h4><%= _("All time") %></h4>
+      <%= render "people_leaderboard", users_with_counts: @users[:all_time_commenters] %>
+    </div>
+  </div>
+
+  <h2 id="requests"><%= _("Requests") %></h2>
+
+  <h3 id="request-hide-events"><%= _("Hidden") %></h3>
+
+  <p><%= _("From time to time requests need to be hidden on {{site_name}}. " \
+           "This can happen for a number of reasons. " \
+           "For example, the request could be about someone’s personal information " \
+           "that shouldn’t be public or the contents could be abusive.",
+           site_name: site_name) %></p>
+
+  <p><%= _("Here you can see how often {{site_name}} administrators have hidden requests.",
+           site_name: site_name) %></p>
+
+  <div id="request-hide-events-data">
+    <table>
+      <thead>
+        <tr>
+          <th><%= _("Week starting") %></th>
+          <th><%= _("Request hide events") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @request_hides_by_week.each do |row| %>
+          <tr>
+            <th><%= row.first %></th>
+            <td><%= row.last %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% content_for :javascript do %>
+    <script type="text/javascript">
+      var graphs_data = <%= @public_bodies.to_json.html_safe %>;
+    </script>
+    <!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
+    <%= javascript_include_tag "stats" %>
+
+    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js" %>
+    <%= javascript_include_tag "time_series" %>
+    <script type="text/javascript">
+      if (typeof d3TimeSeries == 'function') {
+        d3.json("<%= statistics_url(:format => 'json') %>", function(data) {
+          d3TimeSeries(
+            "#request-hide-events-data",
+            data["requests"]["hides_by_week"],
+            "<%= _("Number of request hide events over time") %>",
+            "<%= _("request hide events") %>"
+          );
+        });
+
+        // Make the table only visible to screen readers
+        var table = document.querySelectorAll('#request-hide-events-data table')[0]
+
+        if (table.classList) {
+          table.classList.add('visually-hidden');
+        } else {
+          table.className += ' visually-hidden';
+        }
+      }
+    </script>
+  <% end %>
+</div>

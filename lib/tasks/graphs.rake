@@ -15,12 +15,18 @@ namespace :graphs do
     # set the local font path for the current task
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
 
-    active_users = "SELECT DATE(created_at), COUNT(distinct user_id) " \
-                   "FROM info_requests GROUP BY DATE(created_at) " \
-                   "ORDER BY DATE(created_at)"
+    active_users = "SELECT DATE(ir.created_at), COUNT(distinct user_id) " \
+                   "FROM info_requests ir " \
+                   "JOIN users on ir.user_id = users.id " \
+                   "WHERE users.ban_text = '' " \
+                   "AND users.closed_at IS NULL " \
+                   "GROUP BY DATE(ir.created_at) " \
+                   "ORDER BY DATE(ir.created_at)"
 
     confirmed_users = "SELECT DATE(created_at), COUNT(*) FROM users " \
                       "WHERE email_confirmed = 't' " \
+                      "AND ban_text = '' " \
+                      "AND closed_at IS NULL " \
                       "GROUP BY DATE(created_at) " \
                       "ORDER BY DATE(created_at)"
 
@@ -29,7 +35,10 @@ namespace :graphs do
     # is reportedly available in MariaDB from 10.2 onward (and Postgres 9.1+)
     aggregate_signups = "SELECT DATE(created_at), COUNT(*), SUM(count(*)) " \
                         "OVER (ORDER BY DATE(created_at)) " \
-                        "FROM users GROUP BY DATE(created_at)"
+                        "FROM users " \
+                        "WHERE ban_text = '' " \
+                        "AND closed_at IS NULL " \
+                        "GROUP BY DATE(created_at)"
 
     Gnuplot.open(false) do |gp|
       Gnuplot::Plot.new(gp) do |plot|
@@ -62,7 +71,8 @@ namespace :graphs do
         # start plotting the data from largest to smallest so
         # that the shorter bars overlay the taller bars
 
-        state_list = [ {
+        state_list = [
+                       {
                           :title => "users each day ... who registered",
                           :colour => :lightblue
                         },
@@ -143,12 +153,15 @@ namespace :graphs do
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
 
     def assemble_sql(where_clause="")
-      "SELECT DATE(created_at), COUNT(*) " \
+      "SELECT DATE(info_requests.created_at), COUNT(*) " \
               "FROM info_requests " \
+              "LEFT OUTER JOIN embargoes " \
+              "ON embargoes.info_request_id = info_requests.id " \
               "WHERE #{where_clause} " \
-              "AND PROMINENCE != 'backpage' " \
-              "GROUP BY DATE(created_at)" \
-              "ORDER BY DATE(created_at)"
+              "AND PROMINENCE = 'normal' " \
+              "AND (embargoes.id IS NULL) " \
+              "GROUP BY DATE(info_requests.created_at)" \
+              "ORDER BY DATE(info_requests.created_at)"
     end
 
     def state_exclusion_sql(states)
@@ -187,15 +200,15 @@ namespace :graphs do
 
         state_list = [ {:state => 'waiting_response', :colour => :darkblue},
                    {:state => 'waiting_clarification', :colour => :lightblue},
-                   {:state => 'not_held',  :colour => :yellow},
-                   {:state => 'rejected', :colour =>  :red},
-                   {:state => 'successful',  :colour => :lightgreen},
-                   {:state => 'partially_successful',  :colour => :darkgreen},
-                   {:state => 'requires_admin', :colour =>  :cyan},
-                   {:state => 'gone_postal',  :colour => :darkyellow},
-                   {:state => 'internal_review', :colour =>  :mauve},
-                   {:state => 'error_message', :colour =>  :redbrown},
-                   {:state => 'user_withdrawn',  :colour => :pink} ]
+                   {:state => 'not_held', :colour => :yellow},
+                   {:state => 'rejected', :colour => :red},
+                   {:state => 'successful', :colour => :lightgreen},
+                   {:state => 'partially_successful', :colour => :darkgreen},
+                   {:state => 'requires_admin', :colour => :cyan},
+                   {:state => 'gone_postal', :colour => :darkyellow},
+                   {:state => 'internal_review', :colour => :mauve},
+                   {:state => 'error_message', :colour => :redbrown},
+                   {:state => 'user_withdrawn', :colour => :pink} ]
 
         options = {:with => "impulses",
                    :linecolor => COLOURS[state_list[0][:colour]],

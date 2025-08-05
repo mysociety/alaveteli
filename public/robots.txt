@@ -16,24 +16,21 @@
 #   http://help.yahoo.com/l/us/yahoo/search/webcrawler/slurp-02.html
 
 User-agent: *
-Disallow: */annotate/
-Disallow: */new/
-Disallow: */search/
-Disallow: */similar/
-Disallow: */track/
-Disallow: */upload/
-Disallow: */user/contact/
-Disallow: */feed/
-Disallow: */profile/
-Disallow: */signin
+Disallow: */annotate/*
+Disallow: */new/*
+Disallow: */search/*
+Disallow: */similar/*
+Disallow: */track/*
+Disallow: */upload/*
+Disallow: */user/contact/*
+Disallow: */feed/*
+Disallow: */profile/*
+Disallow: */signin*
 Allow: */request/*/response/*/attach/*
-Disallow: */request/*/response/
+Disallow: */request/*/response/*
+Disallow: */request/*/download*
 Disallow: */body/*/view_email$
 Disallow: */change_request/*
 Disallow: */outgoing_messages/*/mail_server_logs*
-
-# The following adding Jan 2012 to stop robots crawling pages
-# generated in error (see
-# https://github.com/mysociety/alaveteli/issues/311).  Can be removed
-# later in 2012 when the error pages have been dropped from the index
-Disallow: *.json.j*
+Disallow: */outgoing_messages/*/delivery_status*
+Disallow: *?*update_status=1*

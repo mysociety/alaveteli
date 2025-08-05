@@ -1,0 +1,43 @@
+<% form_url =
+  project_classifications_path(project, url_title: info_request.url_title) %>
+
+<%= form_for(:classification, url: form_url, method: :post) do |f| %>
+  <h2><%= _('What best describes the status of this request now?') %></h2>
+
+  <h3><%= _('This request is still in progress:') %></h3>
+
+  <%= render partial: 'request/state_transition',
+             collection: state_transitions[:pending] %>
+
+  <%= render partial: 'general/custom_state_transitions_pending' %>
+
+  <hr>
+
+  <h3><%= _('This particular request is finished:') %></h3>
+
+  <% if info_request.described_state == 'internal_review' %>
+    <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
+  <% end %>
+
+  <%= render partial: 'request/state_transition',
+             collection: state_transitions[:complete] %>
+
+  <%= render partial: 'general/custom_state_transitions_complete' %>
+
+  <hr>
+
+  <h3><%= _('Other:') %></h3>
+
+  <%= render partial: 'request/state_transition',
+             collection: state_transitions[:other] %>
+
+  <hr>
+
+  <p>
+    <%= hidden_field_tag 'last_info_request_event_id',
+                         info_request.last_event_id_needing_description,
+                         id: 'last_info_request_event_id' %>
+
+    <%= submit_tag _('Submit status') %>
+  </p>
+<% end %>

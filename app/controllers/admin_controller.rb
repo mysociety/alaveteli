@@ -7,16 +7,11 @@
 
 class AdminController < ApplicationController
   layout "admin"
-  before_filter :authenticate
+  before_action :authenticate
 
   # action to take if expecting an authenticity token and one isn't received
   def handle_unverified_request
     raise(ActionController::InvalidAuthenticityToken)
-  end
-
-  # Always give full stack trace for admin interface
-  def show_rails_exceptions?
-    true
   end
 
   # For administration interface, return display name of authenticated user
@@ -55,7 +50,7 @@ class AdminController < ApplicationController
               :email => _("Then you can log into the administrative interface"),
               :email_subject => _("Log into the admin interface"),
             :user_name => "a superuser")
-            if !@user.nil? && @user.admin_level == "super"
+            if !@user.nil? && @user.is_admin?
               session[:using_admin] = 1
               session[:admin_name] = @user.url_name
             else

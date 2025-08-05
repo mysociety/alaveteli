@@ -7,13 +7,16 @@
 #  public_body_heading_id  :integer          not null
 #  category_display_order  :integer
 #  id                      :integer          not null, primary key
+#  created_at              :datetime
+#  updated_at              :datetime
 #
 
-class PublicBodyCategoryLink < ActiveRecord::Base
-  attr_accessible :public_body_category_id, :public_body_heading_id, :category_display_order
+class PublicBodyCategoryLink < ApplicationRecord
+  belongs_to :public_body_category,
+             :inverse_of => :public_body_category_links
+  belongs_to :public_body_heading,
+             :inverse_of => :public_body_category_links
 
-  belongs_to :public_body_category
-  belongs_to :public_body_heading
   validates_presence_of :public_body_category
   validates_presence_of :public_body_heading
   validates :category_display_order, :numericality => { :only_integer => true,

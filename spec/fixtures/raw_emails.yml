@@ -2,7 +2,9 @@
 #
 # Table name: raw_emails
 #
-#  id :integer          not null, primary key
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 # The actual email messages are in fixtures/files/raw_emails

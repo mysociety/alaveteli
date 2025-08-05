@@ -9,7 +9,7 @@
 #  public_body_id    :integer
 #  text              :text             not null
 #  replacement       :text             not null
-#  last_edit_editor  :string(255)      not null
+#  last_edit_editor  :string           not null
 #  last_edit_comment :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -23,20 +23,20 @@ describe CensorRule do
   describe '#apply_to_text' do
 
     it 'applies the rule to the text' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       expect(rule.apply_to_text(text)).to eq('Some [REDACTED] text')
     end
 
     it 'does not mutate the input' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       rule.apply_to_text(text)
       expect(text).to eq('Some secret text')
     end
 
     it 'returns the text if the rule is unmatched' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some text'
       expect(rule.apply_to_text(text)).to eq('Some text')
     end
@@ -45,7 +45,7 @@ describe CensorRule do
       attrs = { :text => '--PRIVATE.*--PRIVATE',
                 :replacement => "--REMOVED\nHidden private info\n--REMOVED",
                 :regexp => true }
-      rule = FactoryGirl.build(:censor_rule, attrs)
+      rule = FactoryBot.build(:censor_rule, attrs)
       text = <<-EOF.strip_heredoc
       Some public information
       --PRIVATE
@@ -66,34 +66,49 @@ describe CensorRule do
   describe '#apply_to_binary' do
 
     it 'applies the rule to the text' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       expect(rule.apply_to_binary(text)).to eq('Some xxxxxx text')
     end
 
     it 'does not modify the size of the string' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       original_text = text.dup
       redacted = rule.apply_to_binary(text)
-      expect(redacted.size).to eq(original_text.size)
+      expect(redacted.bytesize).to eq(original_text.bytesize)
+    end
+
+    it 'does not modify the size of UTF-8 string' do
+      rule = FactoryBot.build(:censor_rule, text: 'sécret')
+      text = 'Some sécret text'
+      original_text = text.dup
+      redacted = rule.apply_to_binary(text)
+      expect(redacted.bytesize).to eq(original_text.bytesize)
     end
 
     it 'does not mutate the input' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some secret text'
       rule.apply_to_binary(text)
       expect(text).to eq('Some secret text')
     end
 
     it 'returns the text if the rule is unmatched' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'secret')
+      rule = FactoryBot.build(:censor_rule, :text => 'secret')
       text = 'Some text'
       expect(rule.apply_to_binary(text)).to eq('Some text')
     end
 
+    it 'handles UTF-8 text' do
+      rule = FactoryBot.build(:censor_rule, text: 'sécret')
+      text = 'Some sécret text'
+      text.force_encoding('UTF-8') if String.method_defined?(:encode)
+      expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
+    end
+
     it 'handles a UTF-8 rule and ASCII-8BIT text' do
-      rule = FactoryGirl.build(:censor_rule, :text => 'sécret')
+      rule = FactoryBot.build(:censor_rule, :text => 'sécret')
       text = 'Some sécret text'
       text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
       expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
@@ -104,7 +119,7 @@ describe CensorRule do
       attrs = { :text => '--PRIVATE.*--PRIVATE',
                 :replacement => "--REMOVED\nHidden private info\n--REMOVED",
                 :regexp => true }
-      rule = FactoryGirl.build(:censor_rule, attrs)
+      rule = FactoryBot.build(:censor_rule, attrs)
       text = <<-EOF.strip_heredoc
       Some public information
       --PRIVATE
@@ -124,7 +139,7 @@ describe CensorRule do
       attrs = { :text => '--PRIVATE.*--P‘RIVATE',
                 :replacement => "--REMOVED\nHidden private info\n--REMOVED",
                 :regexp => true }
-      rule = FactoryGirl.build(:censor_rule, attrs)
+      rule = FactoryBot.build(:censor_rule, attrs)
       text = <<-EOF.strip_heredoc
       Some public information
       --PRIVATE
@@ -143,6 +158,76 @@ describe CensorRule do
 
   end
 
+  describe '#expire_requests' do
+
+    it 'calls expire on the request if it is a request rule' do
+      request = FactoryBot.create(:info_request)
+      rule = FactoryBot.create(:info_request_censor_rule,
+                               :info_request => request)
+      expect(request).to receive(:expire)
+      rule.expire_requests
+    end
+
+    it 'calls expire_requests on the user if it is a user rule' do
+      user = FactoryBot.create(:user)
+      rule = FactoryBot.create(:user_censor_rule, :user => user)
+      expect(user).to receive(:expire_requests)
+      rule.expire_requests
+    end
+
+    it 'calls expire_requests on the public body if it is a public body rule' do
+      body = FactoryBot.create(:public_body)
+      rule = FactoryBot.create(:public_body_censor_rule, :public_body => body)
+      expect(body).to receive(:expire_requests)
+      rule.expire_requests
+    end
+
+    it 'calls expire on all public requests if it is a global rule' do
+      rule = FactoryBot.build(:global_censor_rule)
+      requests = [double, double]
+      expect(InfoRequest).to receive(:find_in_batches).and_yield(requests)
+
+      requests.each do |request|
+        expect(request).to receive(:expire)
+      end
+
+      rule.expire_requests
+    end
+
+  end
+
+  describe '#censorable_requests' do
+    subject { censor_rule.censorable_requests }
+
+    context 'with an info_request censor rule' do
+      let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
+      let(:requests) { censorable.info_requests }
+      it { is_expected.to match_array([censor_rule.info_request]) }
+    end
+
+    context 'with a public_body censor rule' do
+      let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
+      let(:censorable) { censor_rule.public_body }
+
+      before { FactoryBot.create(:info_request, public_body: censorable) }
+
+      it { is_expected.to match_array(censorable.info_requests) }
+    end
+
+    context 'with a user censor rule' do
+      let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
+      let(:censorable) { censor_rule.user }
+
+      before { FactoryBot.create(:info_request, user: censorable) }
+
+      it { is_expected.to match_array(censorable.info_requests) }
+    end
+
+    context 'with a global censor rule' do
+      let(:censor_rule) { FactoryBot.create(:global_censor_rule) }
+      it { is_expected.to eq(InfoRequest.unscoped) }
+    end
+  end
 end
 
 describe 'when validating rules' do
@@ -225,7 +310,7 @@ describe 'when handling global rules' do
 
   end
 
-  describe 'the scope CensorRule.global.all' do
+  describe '.global' do
 
     before do
       @global_rule = CensorRule.create!(:text => 'hide me',
@@ -240,11 +325,11 @@ describe 'when handling global rules' do
     end
 
     it 'should include an instance without user_id, request_id or public_body_id' do
-      expect(CensorRule.global.all.include?(@global_rule)).to eq(true)
+      expect(CensorRule.global.include?(@global_rule)).to eq(true)
     end
 
     it 'should not include a request with user_id' do
-      expect(CensorRule.global.all.include?(@user_rule)).to eq(false)
+      expect(CensorRule.global.include?(@user_rule)).to eq(false)
     end
 
     after do

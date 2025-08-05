@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class AdminIncomingMessageController < AdminController
 
-  before_filter :set_incoming_message, :only => [:edit, :update, :destroy, :redeliver]
+  before_action :set_incoming_message, :only => [:edit, :update, :destroy, :redeliver]
 
   def edit
   end
@@ -9,7 +9,7 @@ class AdminIncomingMessageController < AdminController
   def update
     old_prominence = @incoming_message.prominence
     old_prominence_reason = @incoming_message.prominence_reason
-    if @incoming_message.update_attributes(incoming_message_params)
+    if @incoming_message.update(incoming_message_params)
       @incoming_message.info_request.log_event('edit_incoming',
                                                :incoming_message_id => @incoming_message.id,
                                                :editor => admin_current_user,
@@ -41,7 +41,8 @@ class AdminIncomingMessageController < AdminController
       redirect_to(admin_request_url(params[:request_id]))
     end
 
-    @incoming_messages = IncomingMessage.where(:id => params[:ids].split(","))
+    @incoming_messages = IncomingMessage.
+                           where(:id => params[:ids].split(",").flatten)
     if params[:commit] == "Yes"
       errors = []
       info_request = InfoRequest.find(params[:request_id])
@@ -71,7 +72,7 @@ class AdminIncomingMessageController < AdminController
 
   def redeliver
 
-    message_ids = params[:url_title].split(",").each {|x| x.strip}
+    message_ids = params[:url_title].split(",").each { |x| x.strip }
     previous_request = @incoming_message.info_request
     destination_request = nil
 
@@ -94,7 +95,10 @@ class AdminIncomingMessageController < AdminController
 
         raw_email_data = @incoming_message.raw_email.data
         mail = MailHandler.mail_from_raw_email(raw_email_data)
-        destination_request.receive(mail, raw_email_data, true)
+        destination_request.
+          receive(mail,
+                  raw_email_data,
+                  { :override_stop_new_responses => true })
 
         @incoming_message.info_request.log_event("redeliver_incoming", {
                                                   :editor => admin_current_user,
@@ -115,7 +119,7 @@ class AdminIncomingMessageController < AdminController
 
   def incoming_message_params
     if params[:incoming_message]
-      params[:incoming_message].slice(:prominence, :prominence_reason)
+      params.require(:incoming_message).permit(:prominence, :prominence_reason)
     else
       {}
     end

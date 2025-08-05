@@ -1,4 +1,4 @@
-<%- if not outgoing_message.user_can_view?(@user) %>
+<%- if cannot?(:read, outgoing_message) %>
   <%= render :partial =>  'request/hidden_correspondence', :formats => 'text', :locals => { :message => outgoing_message }%>
 <%- else %>
   <%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>

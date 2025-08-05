@@ -5,31 +5,98 @@ class UserSpamScorer
     :name_is_one_word? => 1,
     :name_includes_non_alpha_characters? => 3,
     :name_is_garbled? => 5,
-    :email_from_spam_domain? => 5,
+    :email_from_suspicious_domain? => 5,
+    :email_from_spam_domain? => 8,
     :email_from_spam_tld? => 3,
+    :name_is_spam_format? => 5,
     :about_me_includes_currency_symbol? => 2,
     :about_me_is_link_only? => 3,
     :about_me_is_spam_format? => 1,
     :about_me_includes_anchor_tag? => 1,
-    :about_me_already_exists? => 4
+    :about_me_already_exists? => 4,
+    :user_agent_is_suspicious? => 5,
+    :ip_range_is_suspicious? => 5
   }.freeze
 
   DEFAULT_CURRENCY_SYMBOLS = %w(£ $ € ¥ ¢).freeze
-  DEFAULT_SPAM_DOMAINS = %w(mail.ru temp-mail.de tempmail.de shitmail.de).freeze
-  DEFAULT_SPAM_FORMATS = [
+  DEFAULT_SUSPICIOUS_DOMAINS =
+    %w(mail.ru
+       temp-mail.de
+       tempmail.de
+       shitmail.de
+       yopmail.com
+       yandex.com).freeze
+  DEFAULT_SPAM_DOMAINS =
+    %w(7x.cz
+       allemaling.com
+       brmailing.com
+       businessmailsystem.com
+       checknowmail.com
+       colde-mail.com
+       consimail.com
+       continumail.com
+       contumail.com
+       emailber.com
+       grow-mail.com
+       inemaling.com
+       inmailing.com
+       itemailing.com
+       itmailing.com
+       kod-emailing.com
+       kod-maling.com
+       kodemailing.com
+       kodmailing.com
+       left-mail.com
+       mabermail.com
+       mailphar.com
+       out-email.com
+       semi-mile.com
+       sin-mailing.com
+       sinemailing.com
+       sinmailing.com
+       takmailing.com
+       themailemail.com
+       visitinbox.com
+       webgarden.com
+       webgarden.cz
+       wgz.cz
+       wowmailing.com).freeze
+  DEFAULT_SPAM_NAME_FORMATS = [
+    /\A.*bitcoin.*\z/i,
+    /\A.*currency.*\z/i,
+    /\A.*support.*\z/i,
+    /\A.*customer.*service.*\z/i,
+    /\A.*customer.*care.*\z/i,
+    /\A.*buy.*online.*\z/i,
+    /\A.*real.*estate.*\z/i,
+    /\A.*web.*design.*\z/i,
+    /\A.*Mac\sDesktop.*\z/i,
+    /\A.*Inc\z/,
+    /\A.*LLC\z/,
+    /\A.*spyware.*\z/i,
+    /\A.*malware.*\z/i,
+    /\A.*CRM.*\z/
+  ].freeze
+  DEFAULT_SPAM_ABOUT_ME_FORMATS = [
     /\A.+\n{2,}https?:\/\/[^\s]+\z/,
     /\Ahttps?:\/\/[^\s]+\n{2,}.+$/,
     /\A.*\n{2,}.*\n{2,}https?:\/\/[^\s]+$/
   ].freeze
   DEFAULT_SPAM_SCORE_THRESHOLD = 4
   DEFAULT_SPAM_TLDS = %w(ru pl).freeze
+  DEFAULT_SUSPICIOUS_USER_AGENTS = [].freeze
+  DEFAULT_SUSPICIOUS_IP_RANGES = [].freeze
 
   CLASS_ATTRIBUTES = [:currency_symbols,
                       :score_mappings,
+                      :suspicious_domains,
                       :spam_domains,
-                      :spam_formats,
+                      :spam_name_formats,
+                      :spam_about_me_formats,
                       :spam_score_threshold,
-                      :spam_tlds].freeze
+                      :spam_tlds,
+                      :suspicious_user_agents,
+                      :suspicious_ip_ranges].freeze
 
   # Class attribute accessors
   CLASS_ATTRIBUTES.each do |key|
@@ -39,7 +106,7 @@ class UserSpamScorer
 
     define_singleton_method key do
       value = instance_variable_get("@#{ key }") ||
-        const_get("DEFAULT_#{ key }".upcase)
+              const_get("DEFAULT_#{ key }".upcase)
       instance_variable_set("@#{ key }", value)
     end
   end
@@ -92,12 +159,20 @@ class UserSpamScorer
     user.name.strip =~ /[^aeiou]{5,}/i ? true : false
   end
 
+  def email_from_suspicious_domain?(user)
+    suspicious_domains.include?(user.email_domain)
+  end
+
   def email_from_spam_domain?(user)
     spam_domains.include?(user.email_domain)
   end
 
   def email_from_spam_tld?(user)
     spam_tlds.any? { |tld| user.email_domain.split('.').last == tld }
+  end
+
+  def name_is_spam_format?(user)
+    spam_name_formats.any? { |regexp| user.name.strip =~ regexp }
   end
 
   def about_me_includes_currency_symbol?(user)
@@ -109,7 +184,7 @@ class UserSpamScorer
   end
 
   def about_me_is_spam_format?(user)
-    spam_formats.any? do |regexp|
+    spam_about_me_formats.any? do |regexp|
       user.about_me.gsub("\r\n", "\n").strip =~ regexp
     end
   end
@@ -120,6 +195,16 @@ class UserSpamScorer
 
   def about_me_already_exists?(user)
     user.about_me_already_exists?
+  end
+
+  def user_agent_is_suspicious?(user)
+    return false unless user.respond_to?(:user_agent)
+    suspicious_user_agents.include?(user.user_agent)
+  end
+
+  def ip_range_is_suspicious?(user)
+    return false unless user.respond_to?(:ip)
+    suspicious_ip_ranges.any? { |range| range.include?(user.ip) }
   end
 
   # TODO: Akismet thinks user is spam

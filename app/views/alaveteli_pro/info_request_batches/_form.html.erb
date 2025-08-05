@@ -1,0 +1,67 @@
+<%= form_tag(@draft_info_request_batch,
+             :method => :put,
+             :id => 'write_form',
+             :class => 'new_info_request') do %>
+
+  <%= fields_for @draft_info_request_batch do |f| %>
+
+    <% @draft_info_request_batch.public_body_ids.each do |id| %>
+      <%= f.hidden_field(:public_body_ids, multiple: true, value: id) %>
+    <% end %>
+
+    <div id="request_subject" class="request_subject">
+      <p>
+        <label class="form_label" for="alaveteli_pro_draft_info_request_batch_title">
+          <%= _('Subject') %>
+        </label>
+        <%= f.text_field :title, :size => 50 %>
+      </p>
+      <div class="form_item_note">
+        <%= _("A one line summary of the information you are requesting, e.g.") %>
+        <%= _("'Crime statistics by ward level for Wales'") -%>
+      </div>
+    </div> <!-- .request_subject -->
+
+    <p>
+      <label class="form_label" for="alaveteli_pro_draft_info_request_batch_body">
+        <%= _('Your request') %>
+      </label>
+      <%= f.text_area :body, :rows => 20, :cols => 60 %>
+    </p>
+
+    <div class="request_embargo">
+      <p>
+        <label class="form_label" for="alaveteli_pro_draft_info_request_batch_embargo_duration">
+          <%= _('Privacy') %>
+        </label>
+        <%= f.select :embargo_duration,
+                     options_for_select(
+                       publish_at_options,
+                       :selected => @embargo ? @embargo.embargo_duration : ''
+                     ),
+                     {},
+                     { class: 'js-embargo-duration' } %>
+      </p>
+      <div class="form_item_note">
+        <%= render partial: "alaveteli_pro/info_request_batches/embargo_info",
+                   locals: { embargo: @embargo, tense: :future } %>
+        <%= render partial: "alaveteli_pro/info_requests/embargo_note" %>
+        <p>
+          <%= _("All requests within this batch will remain private for the " \
+                "same duration. When an individual request is made public all " \
+                "other requests in this batch will also be published on " \
+                "{{site_name}}.", site_name: AlaveteliConfiguration.site_name) %>
+        </p>
+      </div>
+    </div> <!-- .request_embargo -->
+
+    <div class="form_button">
+      <button name="preview" value="true" class="button">
+        <%= _("Preview and send request") %>
+      </button>
+      <button class="button-tertiary"><%= _("Save draft") %></button>
+    </div>
+
+  <% end %>
+
+<% end %>

@@ -1,3 +1,5 @@
+@import "responsive/_utils_print";
+
 $fix-mqs: false !default;
 
 @mixin respond-min($width) {
@@ -34,6 +36,73 @@ $lte-ie7: false !default;
   }
 }
 
+
+// flexbox with prefixes
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex: $values;
+  -webkit-flex: $values;
+  -ms-flex: $values;
+  flex: $values;
+}
+
+@mixin flex-align($alignment) {
+  -webkit-box-align: $alignment;
+  -webkit-align-items: $alignment;
+  -ms-flex-align: $alignment;
+  align-items: $alignment;
+}
+
+@mixin flex-direction($direction) {
+  @if ($direction == column) {
+    -webkit-box-orient: vertical;
+  } @elseif ($direction == row) {
+    -webkit-box-orient: horizontal;
+  }
+  -moz-flex-direction: $direction;
+  -ms-flex-direction: $direction;
+  -webkit-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+@mixin justify-content($alignment) {
+  -webkit-justify-content: $alignment;
+  -moz-justify-content: $alignment;
+  -ms-justify-content: $alignment;
+  justify-content: $alignment;
+}
+
+@mixin flex-wrap($wrap) {
+  -moz-box-wrap: $wrap;
+  -webkit-box-wrap: $wrap;
+  -webkit-flex-wrap: $wrap;
+  -ms-flex-wrap: $wrap;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-order($order) {
+  // 2009 syntax
+  -webkit-box-ordinal-group: $order;
+  -moz-box-ordinal-group: $order;
+
+   // 2011 syntax https://www.w3.org/TR/2012/WD-css3-flexbox-20120322/#flex-order
+  -ms-flex-order: $order;
+  flex-order: $order;
+
+  // Modern syntax
+  -webkit-order: $order;
+  -ms-order: $order;
+  order: $order;
+}
+
 // Hide content visually, but keep it available to screen readers
 // source: http://a11yproject.com/posts/how-to-hide-content/
 .visually-hidden {
@@ -46,14 +115,19 @@ $lte-ie7: false !default;
   height: 1px !important;
   width: 1px !important;
   overflow: hidden;
+  display: block;
 }
 body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .visually-hidden button { display: none !important; }
 
-/* Hide text when it's replaced by an image */
-.image-replacement {
+
+@mixin image-replacement() {
   overflow: hidden;
   text-indent: 150%;
   white-space: nowrap;
+}
+/* Hide text when it's replaced by an image */
+.image-replacement {
+  @include image-replacement();
 }
 
 .only-show-for-print {
@@ -64,8 +138,41 @@ body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .vi
 .show-with-keyboard-focus-only {
   position: absolute;
   left: -9999999px;
+  top: 0;
   &:focus {
     left: 0;
     z-index: 100;
   }
+}
+
+
+//Build our site wrapper, width optional max-width
+@mixin wrapper($max-width: $row-width) {
+  @include grid-row();
+  @include ie8{
+    width: $main_menu-mobile_menu_cutoff;
+  }
+  max-width: $max-width;
+}
+
+
+/* A global 12 column element provides padding for all pages */
+@mixin content() {
+  @include grid-column(12);
+  @include ie8{
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+  }
+  @include lte-ie7 {
+    width: 56.125em;
+  }
+}
+
+//
+@mixin status-icon() {
+    background-image: image-url('status/status-sprite.png');
+    background-size: 330px 22px;
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: image-url('status/status-sprite@2.png');
+    }
 }

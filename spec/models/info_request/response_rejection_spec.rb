@@ -24,7 +24,7 @@ describe InfoRequest::ResponseRejection do
       stub_const(const, {})
       args = [double('info_request'), double('email'), double('raw_email_data')]
 
-      expect{ described_class.for('unknown', *args) }.
+      expect { described_class.for('unknown', *args) }.
         to raise_error(err)
     end
 

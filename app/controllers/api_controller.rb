@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class ApiController < ApplicationController
-  before_filter :check_api_key
-  before_filter :check_external_request,
+  before_action :check_api_key
+  before_action :check_external_request,
     :only => [:add_correspondence, :update_state]
-  before_filter :check_request_ownership,
+  before_action :check_request_ownership,
     :only => [:add_correspondence, :update_state]
 
   def show_request
@@ -42,7 +42,7 @@ class ApiController < ApplicationController
       :status => 'ready',
       :message_type => 'initial_request',
       :body => json["body"],
-      :last_sent_at => Time.now,
+      :last_sent_at => Time.zone.now,
       :what_doing => 'normal_sort',
       :info_request => request
     )
@@ -144,7 +144,9 @@ class ApiController < ApplicationController
 
       mail = RequestMailer.external_response(@request, body, sent_at, attachment_hashes)
 
-      @request.receive(mail, mail.encoded, true)
+      @request.receive(mail,
+                       mail.encoded,
+                       { :override_stop_new_responses => true })
 
       if new_state
         # we've already checked above that the status is valid
@@ -207,7 +209,8 @@ class ApiController < ApplicationController
         since_date = Date.strptime(since_date_str, "%Y-%m-%d")
       rescue ArgumentError
         render :json => {"errors" => [
-        "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')" ] },
+          "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')"
+        ] },
           :status => 500
         return
       end
@@ -221,7 +224,8 @@ class ApiController < ApplicationController
         event = InfoRequestEvent.find(since_event_id)
       rescue ActiveRecord::RecordNotFound
         render :json => {"errors" => [
-        "Event ID #{since_event_id} not found" ] },
+          "Event ID #{since_event_id} not found"
+        ] },
           :status => 500
         return
       end
@@ -230,7 +234,7 @@ class ApiController < ApplicationController
 
 
     if feed_type == "atom"
-      render :template => "api/request_events", :formats => ['atom'], :layout => false
+      render :template => "api/request_events", :formats => [:atom], :layout => false
     elsif feed_type == "json"
       @event_data = []
       @events.each do |event|

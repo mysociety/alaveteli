@@ -71,7 +71,7 @@ describe InfoRequest::ResponseRejection::Bounce do
     end
 
     it 'bounces the email' do
-      info_request = FactoryGirl.create(:info_request)
+      info_request = FactoryBot.create(:info_request)
       raw_email = <<-EOF.strip_heredoc
       From: sender@example.com
       To: Requester <request-333-xxx@example.com>

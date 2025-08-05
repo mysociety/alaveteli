@@ -5,17 +5,16 @@
 #
 #  id           :integer          not null, primary key
 #  category_tag :text             not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
-require 'forwardable'
-
-class PublicBodyCategory < ActiveRecord::Base
-  attr_accessible :locale, :category_tag, :title, :description,
-    :translated_versions, :translations_attributes,
-    :display_order
-
-  has_many :public_body_category_links, :dependent => :destroy
-  has_many :public_body_headings, :through => :public_body_category_links
+class PublicBodyCategory < ApplicationRecord
+  has_many :public_body_category_links,
+           :inverse_of => :public_body_category,
+           :dependent => :destroy
+  has_many :public_body_headings,
+           :through => :public_body_category_links
 
   translates :title, :description
 
@@ -27,10 +26,10 @@ class PublicBodyCategory < ActiveRecord::Base
   include Translatable
 
   def self.get
-    locale = I18n.locale.to_s || default_locale.to_s || ""
+    locale = AlaveteliLocalization.locale || default_locale || ""
     categories = CategoryCollection.new
-    I18n.with_locale(locale) do
-      headings = PublicBodyHeading.all
+    AlaveteliLocalization.with_locale(locale) do
+      headings = PublicBodyHeading.by_display_order
       headings.each do |heading|
         categories << heading.name
         heading.public_body_categories.each do |category|
@@ -62,11 +61,11 @@ PublicBodyCategory::Translation.class_eval do
   end
 
   def default_locale?
-    locale == I18n.default_locale
+    AlaveteliLocalization.default_locale?(locale)
   end
 
   def required_attribute_submitted?
-    PublicBodyCategory.required_translated_attributes.compact.any? do |attribute|
+    PublicBodyCategory.translated_attribute_names.compact.any? do |attribute|
       !read_attribute(attribute).blank?
     end
   end

@@ -1,0 +1,19 @@
+<li class="<%= 'selected' if controller?('request') && action?('new', 'select_authority') %>">
+  <%= link_to _("Make a request"), select_authority_path, :id => 'make-request-link' %>
+</li>
+
+<li class="<%= 'selected' if controller?('request') && !action?('new', 'select_authority') %>">
+  <%= link_to _("Browse requests"), request_list_successful_path %>
+</li>
+
+<li class="<%= 'selected' if controller?('public_body') %>">
+  <%= link_to _("View authorities"), list_public_bodies_default_path %>
+</li>
+
+<% unless AlaveteliConfiguration::blog_feed.empty? %>
+  <li class="<%= 'selected' if controller?('general') && action?('blog') %>"><%= link_to _("Read blog"), blog_path %></li>
+<% end %>
+
+<li class="<%= 'selected' if controller?('help') %>">
+  <%= link_to _("Help"), help_about_path %>
+</li>

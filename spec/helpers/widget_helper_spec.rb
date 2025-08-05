@@ -8,7 +8,7 @@ describe WidgetHelper do
   describe '#status_description' do
 
     before do
-      @info_request = FactoryGirl.build(:info_request)
+      @info_request = FactoryBot.build(:info_request)
     end
 
     it 'should return "Awaiting classification" for "waiting_classification' do

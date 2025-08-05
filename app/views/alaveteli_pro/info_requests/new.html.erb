@@ -1,0 +1,66 @@
+<% batch_request = @info_request_batch.present? %>
+
+<% if batch_request %>
+  <% @title = _("Make a batch request") %>
+<% else %>
+  <% @title = _("Make an {{law_used_short}} request",
+                :law_used_short => h(@info_request.law_used_human(:short))) %>
+<% end %>
+
+<div class="inner-canvas">
+
+  <div class="inner-canvas-header">
+    <div class="row">
+      <h1><%= @title %></h1>
+    </div>
+  </div>
+
+  <div class="inner-canvas-body">
+    <div class="row">
+      <% if batch_request %>
+        <%= foi_error_messages_for :info_request_batch,
+                                   :example_info_request,
+                                   :outgoing_message %>
+      <% else %>
+        <%= foi_error_messages_for :info_request, :outgoing_message %>
+      <% end %>
+    </div>
+
+    <%= render partial: 'request/email_override_warning' %>
+
+    <div class="row">
+
+      <div class="request-to-header">
+        <% if batch_request %>
+        <p id="to_public_body" class="to_public_body">
+          <span class="to_public_body_label"><%= _('To') %></span>
+          <%= render partial: 'alaveteli_pro/info_request_batches/authority_list_with_link',
+                     locals: { batch: @info_request_batch,
+                               draft: @draft_info_request_batch } %>
+        </p>
+        <% else %>
+          <%= render partial: 'alaveteli_pro/info_requests/select_authority_form',
+                     locals: { info_request: @info_request } %>
+        <% end %>
+      </div> <!-- .request-to-header -->
+
+
+      <div id="request_advice" class="request_advice">
+        <%= render partial: 'alaveteli_pro/info_requests/new_request_advice' %>
+      </div>
+
+      <div id="request_form" class="request_form">
+
+        <% if batch_request %>
+          <%= render partial: 'alaveteli_pro/info_request_batches/form' %>
+        <% else %>
+          <%= render partial: 'alaveteli_pro/info_requests/form' %>
+        <% end %>
+
+      </div>  <!-- .request_form -->
+
+    </div>  <!-- .row -->
+
+  </div>  <!-- .inner-canvas-body -->
+
+</div> <!-- .inner-canvas -->

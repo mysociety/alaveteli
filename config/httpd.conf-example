@@ -129,7 +129,7 @@
     # Cache assets
     ExpiresActive On
     <LocationMatch "^/(assets).*\.(ico|gif|jpe?g|png|js|css|svg|ttf|otf|eot|woff)$">
-        ExpiresDefault "access plus 1 day"
+        ExpiresDefault "access plus 1 year"
     </LocationMatch>
 
     # Compress font resources

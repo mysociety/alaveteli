@@ -10,16 +10,16 @@ describe AlaveteliTextMasker do
     context 'applying censor rules' do
 
       before do
-        @cheese_censor_rule = FactoryGirl.build(:censor_rule,
-                                                :text => 'Stilton',
-                                                :replacement => 'Jarlsberg')
-        @colour_censor_rule = FactoryGirl.build(:censor_rule,
-                                                :text => 'blue',
-                                                :replacement => 'yellow')
-        @regex_censor_rule = FactoryGirl.build(:censor_rule,
-                                               :text => 'm[a-z][a-z][a-z]e',
-                                               :replacement => 'cat',
-                                               :regexp => true)
+        @cheese_censor_rule = FactoryBot.build(:censor_rule,
+                                               :text => 'Stilton',
+                                               :replacement => 'Jarlsberg')
+        @colour_censor_rule = FactoryBot.build(:censor_rule,
+                                               :text => 'blue',
+                                               :replacement => 'yellow')
+        @regex_censor_rule = FactoryBot.build(:censor_rule,
+                                              :text => 'm[a-z][a-z][a-z]e',
+                                              :replacement => 'cat',
+                                              :regexp => true)
         @censor_rules = [@cheese_censor_rule,
                          @colour_censor_rule,
                          @regex_censor_rule]
@@ -81,6 +81,15 @@ describe AlaveteliTextMasker do
         expect(result).to eq(expected)
       end
 
+      it 'replaces UTF-8 double width characters' do
+        data = 'Héllø world'
+        rule = CensorRule.new(text: 'Héllø')
+        result = class_instance.apply_masks(
+          data, 'application/vnd.ms-word', censor_rules: [rule]
+        )
+        expect(result).to eq 'xxxxxxx world'
+      end
+
     end
 
     context 'applying masks to PDF' do
@@ -127,7 +136,7 @@ describe AlaveteliTextMasker do
       it 'keeps the uncensored original if uncompression of a PDF fails' do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
-        allow(class_instance).to receive(:uncompress_pdf){ nil }
+        allow(class_instance).to receive(:uncompress_pdf) { nil }
         result = class_instance.apply_masks(pdf, "application/pdf")
         expect(result).to eq(orig_pdf)
       end
@@ -135,8 +144,8 @@ describe AlaveteliTextMasker do
       it 'uses the uncompressed PDF text if re-compression of a compressed PDF fails' do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
-        allow(class_instance).to receive(:uncompress_pdf){ "something about foi@tfl.gov.uk" }
-        allow(class_instance).to receive(:compress_pdf){ nil }
+        allow(class_instance).to receive(:uncompress_pdf) { "something about foi@tfl.gov.uk" }
+        allow(class_instance).to receive(:compress_pdf) { nil }
         result = class_instance.apply_masks(pdf, "application/pdf")
         expect(result).to match "something about xxx@xxx.xxx.xx"
       end
@@ -197,9 +206,9 @@ describe AlaveteliTextMasker do
         data = "here is a mouse"
         expected = "here is a cat"
 
-        censor_rule = FactoryGirl.build(:censor_rule,
-                                        :text => 'mouse',
-                                        :replacement => 'cat')
+        censor_rule = FactoryBot.build(:censor_rule,
+                                       :text => 'mouse',
+                                       :replacement => 'cat')
 
         result = class_instance.apply_masks(data,
                                             'text/html',

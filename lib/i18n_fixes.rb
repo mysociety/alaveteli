@@ -12,13 +12,13 @@ def _(key, options = {})
 end
 
 def n_(*keys)
-  # The last parameter should be the values to do the interpolation with
-  if keys.count > 3
-    options = keys.pop
-  else
-    options = {}
-  end
-  translation = FastGettext.n_(*keys).html_safe
+  # The last parameter could be the values to do the interpolation with
+  options = keys.extract_options!
+
+  # The last key needs to be the pluralisation count and should be a integer
+  count = keys.pop.to_i
+
+  translation = FastGettext.n_(*keys, count).html_safe
   gettext_interpolate(translation, options)
 end
 
@@ -52,7 +52,7 @@ end
 module GettextI18nRails
   class Backend
     def available_locales
-      FastGettext.available_locales.map{|l| l.to_sym} || []
+      FastGettext.available_locales.map { |l| l.to_sym } || []
     end
   end
 end
@@ -63,7 +63,7 @@ end
 module Globalize
   class << self
     def locale
-      read_locale || I18n.locale.to_s.gsub('-', '_').to_sym
+      read_locale || AlaveteliLocalization.locale
     end
   end
 end

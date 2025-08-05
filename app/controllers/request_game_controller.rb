@@ -8,29 +8,38 @@
 class RequestGameController < ApplicationController
 
   def play
-    session[:request_game] = Time.now
+    session[:request_game] = Time.zone.now
 
     @missing = InfoRequest.
       where_old_unclassified.
-        where(:prominence => 'normal').
+        is_searchable.
           count
     @total = InfoRequest.count
     @done = @total - @missing
-    @percentage = (@done.to_f / @total.to_f * 10000).round / 100.0
+    @percentage = if @total > 0
+      (@done.to_f / @total.to_f * 10000).round / 100.0
+    else
+      100.0
+    end
     @requests = InfoRequest.
       includes(:public_body, :user).
         where_old_unclassified.
           limit(3).
-            where(:prominence => 'normal').
-              order('random()')
+            is_searchable.
+              order(Arel.sql('random()'))
 
     if @missing == 0
-      flash[:notice] = _('<p>All done! Thank you very much for your help.</p><p>There are <a href="{{helpus_url}}">more things you can do</a> to help {{site_name}}.</p>',
-                         :helpus_url => help_credits_path(:anchor => "helpus"),
-                         :site_name => site_name)
+      flash.now[:notice] = {
+        :partial => "request_game/game_over.html.erb",
+        :locals => {
+          :helpus_url => help_credits_path(:anchor => "helpus"),
+          :site_name => site_name
+        }
+      }
     end
 
-    @league_table_28_days = RequestClassification.league_table(10, [ "created_at >= ?", Time.now - 28.days ])
+    @league_table_28_days = RequestClassification.league_table(10,
+      [ "created_at >= ?", Time.zone.now - 28.days ])
     @league_table_all_time = RequestClassification.league_table(10)
     @play_urls = true
   end

@@ -82,7 +82,7 @@ EOF
 
     it 'sanitizes input' do
       assert_equal(
-        "This is a <mark>beautiful</mark> morning",
+        "This is a <mark>beautiful</mark> morningcode!",
         highlight_matches("This is a beautiful morning<script>code!</script>", "beautiful")
       )
     end

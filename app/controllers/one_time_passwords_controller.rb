@@ -5,7 +5,7 @@
 # Copyright (c) 2015 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 class OneTimePasswordsController < ApplicationController
-  before_filter :check_two_factor_config, :authenticate
+  before_action :check_two_factor_config, :authenticate
 
   def show
   end

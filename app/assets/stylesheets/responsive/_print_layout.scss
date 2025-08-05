@@ -1,7 +1,6 @@
 div#content, div#left_column, div.entirebody div#wrapper {
   width: 100%;
   margin: 0;
-  float: none;
 }
 
 div#content {
@@ -36,11 +35,10 @@ p#request_status {
   page-break-before: avoid;
 }
 
-#other-country-notice {
+.popup {
   display: none;
 }
 
 .not-for-print {
   display: none !IMPORTANT;
 }
-

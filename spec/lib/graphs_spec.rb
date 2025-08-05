@@ -8,20 +8,23 @@ describe Graphs do
 
   describe "when asked to select data as columns" do
 
-    let(:user1) { FactoryGirl.create(:user) }
-    let(:user2) { FactoryGirl.create(:user) }
+    let(:user1) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
 
     it "returns an array containing arrays of column values" do
       sql = "SELECT name, id FROM users where id IN (#{user1.id}, #{user2.id}) " \
             "ORDER BY id"
       result = dummy_class.select_as_columns(sql)
-      expect(result).to eq [[user1.name, user2.name], [user1.id.to_s, user2.id.to_s]]
+      expected = [[user1.name, user2.name], [user1.id, user2.id]]
+      expect(result).to eq expected
     end
 
     it "returns an array containing single value arrays if there is a single result row" do
       sql = "SELECT name, id FROM users where id = #{user1.id}"
       result = dummy_class.select_as_columns(sql)
-      expect(result).to eq [[user1.name], [user1.id.to_s]]
+      expected = [[user1.name], [user1.id]]
+      expect(result).to eq expected
+
     end
 
     it "returns nil if there are no results" do
@@ -31,7 +34,7 @@ describe Graphs do
 
     it "raises an error if there is a mistake in the SQL statement" do
       sql = "SELECT * FROM there_is_no_table_here"
-      expect {dummy_class.select_as_columns(sql)}.
+      expect { dummy_class.select_as_columns(sql) }.
         to raise_error(ActiveRecord::StatementInvalid)
     end
 

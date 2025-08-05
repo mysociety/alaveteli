@@ -2,8 +2,6 @@
 
 <h1><%= _('View FOI email address for {{public_body_name}}',:public_body_name=>public_body_link(@public_body))%></h1>
 
-<p><%= _('To view the email address that we use to send FOI requests to {{public_body_name}}, please enter these words.', :public_body_name => h(@public_body.name))%></p>
-
 <%= form_for :contact do |f| %>
   <%= recaptcha_tags %>
 

@@ -43,9 +43,9 @@ end
 
 # Not in the rake namespace because we're also specifying app-specific arguments here
 namespace :xapian do
-  desc 'Rebuilds the Xapian index as per the ./scripts/rebuild-xapian-index script'
-  task :rebuild_index do
-    run "cd #{current_path} && bundle exec rake xapian:rebuild_index models='PublicBody User InfoRequestEvent' RAILS_ENV=#{rails_env}"
+  desc 'Rebuilds the Xapian index as per the ./scripts/destroy-and-rebuild-xapian-index script'
+  task :destroy_and_rebuild_index do
+    run "cd #{current_path} && bundle exec rake xapian:destroy_and_rebuild_index models='PublicBody User InfoRequestEvent' RAILS_ENV=#{rails_env}"
   end
 end
 
@@ -70,7 +70,6 @@ namespace :deploy do
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
-      "#{release_path}/config/newrelic.yml" => "#{shared_path}/newrelic.yml",
       "#{release_path}/config/httpd.conf" => "#{shared_path}/httpd.conf",
       "#{release_path}/config/aliases" => "#{shared_path}/aliases",
       "#{release_path}/public/foi-live-creation.png" => "#{shared_path}/foi-live-creation.png",
@@ -91,7 +90,14 @@ namespace :deploy do
     end
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
-    run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
+    run links.map { |a| "ln -sf #{a.last} #{a.first}" }.join(";")
+  end
+
+  namespace :assets do
+    desc 'Symlink non-digest asset paths to the most recent digest versions'
+    task :link_non_digest do
+      run "cd #{latest_release} && bundle exec rake assets:link_non_digest RAILS_ENV=#{rails_env}"
+    end
   end
 
   after 'deploy:setup' do
@@ -108,6 +114,7 @@ end
 after 'deploy:assets:symlink', 'deploy:symlink_configuration'
 
 before 'deploy:assets:precompile', 'themes:install'
+after 'deploy:assets:precompile', 'deploy:assets:link_non_digest'
 
 # Put up a maintenance notice if doing a migration which could take a while
 before 'deploy:migrate', 'deploy:web:disable'

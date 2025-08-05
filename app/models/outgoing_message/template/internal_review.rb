@@ -27,11 +27,16 @@ class OutgoingMessage
                    "'{{info_request_title}}'.",
                    replacements)
           msg += "\n\n\n\n"
-          msg += " [ #{ self.class.details_placeholder } ] "
-          msg += "\n\n\n\n"
-          msg += _("A full history of my FOI request and all correspondence " \
-                   "is available on the Internet at this address: {{url}}",
-                   replacements)
+          msg += " [ #{ self.class.details_placeholder } ]"
+
+          unless replacements[:embargo]
+            msg += "\n\n\n\n"
+            msg += _("A full history of my FOI request and all " \
+                     "correspondence is available on the Internet at this " \
+                     "address: {{url}}",
+                     replacements)
+          end
+
           ActiveSupport::SafeBuffer.new("\n\n") << msg
         end
       end

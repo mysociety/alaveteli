@@ -41,12 +41,12 @@
                   'and asking them to reply to this request. Or you could ' \
                   'phone them.',
               :postal_email => h(@postal_email_name),
-              :postal_email_link => "&lt;#{mail_to h(@postal_email)}&gt;") %>
+              :postal_email_link => "<#{mail_to h(@postal_email)}>".html_safe) %>
 
         <%= _('When you receive the paper response, please help others find ' \
                  'out what it says:') %>
         <ul>
-          <% if AlaveteliConfiguration.enable_annotations %>
+          <% if feature_enabled?(:annotations) %>
             <li><%= _('Add an annotation to your request with choice quotes, ' \
                       'or a <strong>summary of the response</strong>.') %></li>
           <% end %>
@@ -78,7 +78,11 @@
       <% end %>
     <% end %>
 
-    <%= render :partial => 'request/correspondence', :locals => { :info_request_event => @incoming_message.response_event } %>
+    <%= render partial: 'request/correspondence',
+               locals: {
+                 info_request_event: @incoming_message.response_event,
+                 show_correspondence_footer: false
+               } %>
   <% end %>
 
   <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>

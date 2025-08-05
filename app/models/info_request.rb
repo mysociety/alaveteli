@@ -3,95 +3,180 @@
 #
 # Table name: info_requests
 #
-#  id                        :integer          not null, primary key
-#  title                     :text             not null
-#  user_id                   :integer
-#  public_body_id            :integer          not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  described_state           :string(255)      not null
-#  awaiting_description      :boolean          default(FALSE), not null
-#  prominence                :string(255)      default("normal"), not null
-#  url_title                 :text             not null
-#  law_used                  :string(255)      default("foi"), not null
-#  allow_new_responses_from  :string(255)      default("anybody"), not null
-#  handle_rejected_responses :string(255)      default("bounce"), not null
-#  idhash                    :string(255)      not null
-#  external_user_name        :string(255)
-#  external_url              :string(255)
-#  attention_requested       :boolean          default(FALSE)
-#  comments_allowed          :boolean          default(TRUE), not null
-#  info_request_batch_id     :integer
-#  last_public_response_at   :datetime
-#  reject_incoming_at_mta    :boolean          default(FALSE), not null
-#  rejected_incoming_count   :integer          default(0)
+#  id                                    :integer          not null, primary key
+#  title                                 :text             not null
+#  user_id                               :integer
+#  public_body_id                        :integer          not null
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  described_state                       :string           not null
+#  awaiting_description                  :boolean          default(FALSE), not null
+#  prominence                            :string           default("normal"), not null
+#  url_title                             :text             not null
+#  law_used                              :string           default("foi"), not null
+#  allow_new_responses_from              :string           default("anybody"), not null
+#  handle_rejected_responses             :string           default("bounce"), not null
+#  idhash                                :string           not null
+#  external_user_name                    :string
+#  external_url                          :string
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
+#  info_request_batch_id                 :integer
+#  last_public_response_at               :datetime
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
+#  date_initial_request_last_sent_at     :date
+#  date_response_required_by             :date
+#  date_very_overdue_after               :date
+#  last_event_forming_initial_request_id :integer
+#  use_notifications                     :boolean
+#  last_event_time                       :datetime
+#  incoming_messages_count               :integer          default(0)
 #
 
 require 'digest/sha1'
 require 'fileutils'
 
-class InfoRequest < ActiveRecord::Base
+class InfoRequest < ApplicationRecord
+  Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
+  OLD_AGE_IN_DAYS = 21.days
+
   include AdminColumn
   include Rails.application.routes.url_helpers
-
-  # Two sorts of laws for requests, FOI or EIR
-  LAW_USED_READABLE_DATA =
-    { :foi => { :short => _('FOI'),
-                :full => _('Freedom of Information'),
-                :with_a => _('A Freedom of Information request'),
-                :act => _('Freedom of Information Act') },
-      :eir => { :short => _('EIR'),
-                :full => _('Environmental Information Regulations'),
-                :with_a => _('An Environmental Information request'),
-                :act => _('Environmental Information Regulations') }
-    }
+  include AlaveteliPro::RequestSummaries
+  include AlaveteliFeatures::Helpers
+  include InfoRequest::Sluggable
 
   @non_admin_columns = %w(title url_title)
+  @additional_admin_columns = %w(rejected_incoming_count)
 
   strip_attributes :allow_empty => true
+  strip_attributes :only => [:title],
+                   :replace_newlines => true, :collapse_spaces => true
 
   validates_presence_of :title, :message => N_("Please enter a summary of your request")
-  validates_format_of :title, :with => /[[:alpha:]]/,
-    :message => N_("Please write a summary with some text in it"),
-    :unless => Proc.new { |info_request| info_request.title.blank? }
+
+  validates_format_of :title,
+    with: /\A.*[[:alpha:]]+.*\z/,
+    message: N_('Please write a summary with some text in it'),
+    unless: proc { |info_request| info_request.title.blank? }
+
   validates :title, :length => {
     :maximum => 200,
     :message => _('Please keep the summary short, like in the subject of an ' \
                   'email. You can use a phrase, rather than a full sentence.')
   }
+  validates :title, :length => {
+    :minimum => 3,
+    :message => _('Summary is too short. Please be a little more descriptive ' \
+                  'about the information you are asking for.'),
+    :unless => Proc.new { |info_request| info_request.title.blank? },
+    :on => :create
+  }
 
-  belongs_to :user, :counter_cache => true
+  belongs_to :user,
+             :inverse_of => :info_requests,
+             :counter_cache => true
+
   validate :must_be_internal_or_external
 
-  belongs_to :public_body, :counter_cache => true
-  belongs_to :info_request_batch
-  validates_presence_of :public_body_id, :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+  belongs_to :public_body,
+             :inverse_of => :info_requests,
+             :counter_cache => true
+  belongs_to :info_request_batch,
+             :inverse_of => :info_requests
 
-  has_many :info_request_events, :order => 'created_at, id', :dependent => :destroy
-  has_many :outgoing_messages, :order => 'created_at', :dependent => :destroy
-  has_many :incoming_messages, :order => 'created_at', :dependent => :destroy
-  has_many :user_info_request_sent_alerts, :dependent => :destroy
-  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
-  has_many :widget_votes, :dependent => :destroy
-  has_many :comments, :order => 'created_at', :dependent => :destroy
-  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
-  has_many :mail_server_logs, :order => 'mail_server_log_done_id, "order"', :dependent => :destroy
+  validates_presence_of :public_body, :message => N_("Please select an authority"),
+                                      :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+
+  has_many :info_request_events,
+           -> { order('created_at, id') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :outgoing_messages,
+           -> { order('created_at') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :incoming_messages,
+           -> { order('created_at') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :user_info_request_sent_alerts,
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :track_things,
+           -> { order('created_at desc') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :widget_votes,
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :citations,
+           -> (info_request) { unscope(:where).for_request(info_request) },
+           as: :citable,
+           inverse_of: :citable,
+           dependent: :destroy
+  has_many :comments,
+           -> { order('created_at') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :censor_rules,
+           -> { order('created_at desc') },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_many :mail_server_logs,
+           -> { order(:mail_server_log_done_id, :order) },
+           :inverse_of => :info_request,
+           :dependent => :destroy
+  has_one :embargo,
+          :inverse_of => :info_request,
+          :class_name => 'AlaveteliPro::Embargo',
+          :dependent => :destroy
+
+  has_many :foi_attachments, through: :incoming_messages
+
+  has_many :project_submissions, class_name: 'Project::Submission'
+  has_many :classification_project_submissions,
+           -> { classification },
+           class_name: 'Project::Submission'
+  has_many :extraction_project_submissions,
+           -> { extraction },
+           class_name: 'Project::Submission'
+
   attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
 
   has_tag_string
 
-  scope :visible, -> { where(prominence: "normal") }
+  scope :pro, ProQuery.new
+  scope :is_public, Prominence::PublicQuery.new
+  scope :is_searchable, Prominence::SearchableQuery.new
+  scope :embargoed, Prominence::EmbargoedQuery.new
+  scope :not_embargoed, Prominence::NotEmbargoedQuery.new
+  scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
+  scope :embargo_expired_today, Prominence::EmbargoExpiredTodayQuery.new
+  scope :visible_to_requester, Prominence::VisibleToRequesterQuery.new
+  scope :been_published, Prominence::BeenPublishedQuery.new
+
+  scope :awaiting_response, State::AwaitingResponseQuery.new
+  scope :response_received, State::ResponseReceivedQuery.new
+  scope :clarification_needed, State::ClarificationNeededQuery.new
+  scope :complete, State::CompleteQuery.new
+  scope :other, State::OtherQuery.new
+  scope :overdue, State::OverdueQuery.new
+  scope :very_overdue, State::VeryOverdueQuery.new
+
+  scope :for_project, Project::InfoRequestQuery.new
+
+  class << self
+    alias_method :in_progress, :awaiting_response
+  end
+  scope :action_needed, State::ActionNeededQuery.new
+  scope :updated_before, ->(ts) { where('"info_requests"."updated_at" < ?', ts) }
 
   # user described state (also update in info_request_event, admin_request/edit.rhtml)
   validate :must_be_valid_state
-
-  validates_inclusion_of :prominence, :in => [
-    'normal',
-    'backpage',
-    'hidden',
-    'requester_only'
-  ]
+  validates_inclusion_of :prominence, :in => Prominence::VALUES
 
   validates_inclusion_of :law_used, :in => [
     'foi', # Freedom of Information Act
@@ -119,34 +204,34 @@ class InfoRequest < ActiveRecord::Base
   after_destroy :update_counter_cache
   after_update :reindex_some_request_events
   before_destroy :expire
-  before_save :purge_in_cache
-  # make sure the url_title is unique but don't update
-  # existing requests unless the title is being changed
-  before_save :update_url_title,
-    :if => Proc.new { |request| request.title_changed? }
   before_validation :compute_idhash
+  before_create :set_use_notifications
 
-  def self.enumerate_states
-    states = [
-      'waiting_response',
-      'waiting_clarification',
-      'gone_postal',
-      'not_held',
-      'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
-      'successful',
-      'partially_successful',
-      'internal_review',
-      'error_message',
-      'requires_admin',
-      'user_withdrawn',
-      'attention_requested',
-      'vexatious',
-      'not_foi'
-    ]
-    if @@custom_states_loaded
-      states += InfoRequest.theme_extra_states
+  # Return info request corresponding to an incoming email address, or nil if
+  # none found. Checks the hash to ensure the email came from the public body -
+  # only they are sent the email address with the has in it. (We don't check
+  # the prefix and domain, as sometimes those change, or might be elided by
+  # copying an email, and that doesn't matter)
+  def self.find_by_incoming_email(incoming_email)
+    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
+    if hash_from_id(id) == hash
+      # Not using find(id) because we don't exception raised if nothing found
+      find_by_id(id)
     end
-    states
+  end
+
+  # Public: Find by a list of incoming email addresses.
+  # TODO: It would be better to make this return a chainable
+  # ActiveRecord::Relation
+  #
+  # Examples:
+  #
+  #   InfoRequest.matching_incoming_email('request-1-ae63fb73@localhost')
+  #   InfoRequest.matching_incoming_email(@array_of_email_addresses)
+  #
+  # Returns an Array
+  def self.matching_incoming_email(emails)
+    Array(emails).map { |email| find_by_incoming_email(email) }.compact
   end
 
   # Subset of states accepted via the API
@@ -159,6 +244,459 @@ class InfoRequest < ActiveRecord::Base
     ]
   end
 
+  def self.custom_states_loaded
+    @@custom_states_loaded
+  end
+
+  # Public: Attempt to find InfoRequests by matching against extracted `id` and
+  # `idhash` elements of an `incoming_email`.
+  #
+  # emails - A String email address or an Array of String email addresses.
+  #
+  # Returns an Array
+  def self.guess_by_incoming_email(*emails)
+    guesses = emails.flatten.reduce([]) do |memo, email|
+      id, idhash = _extract_id_hash_from_email(email)
+      if idhash.nil? || id.nil?
+        id, idhash = _guess_idhash_from_email(email)
+      end
+      memo << Guess.new(find_by_id(id), email, :id)
+      memo << Guess.new(find_by_idhash(idhash), email, :idhash)
+    end
+
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
+  end
+
+  # Internal function used by guess_by_incoming_email
+  def self._guess_idhash_from_email(incoming_email)
+    incoming_email = incoming_email.downcase
+    incoming_email =~ /request\-?(\w+)-?(\w{8})@/
+
+    id = _id_string_to_i(_clean_idhash($1))
+    id_hash = $2
+
+    if id_hash.nil? && incoming_email.include?('@')
+      # try to grab the last 8 chars of the local part of the address instead
+      local_part = incoming_email[0..incoming_email.index('@')-1]
+      id_hash =
+        if local_part.length >= 8
+          _clean_idhash(local_part[-8..-1])
+        end
+    end
+
+    [id, id_hash]
+  end
+
+  # Internal function - attempts to convert a guessed id String from incoming
+  # email addresses to an Integer. Returns nil if it fails to avoid accidentally
+  # stripping trailing letters e.g. '123ab' should not match 123
+  #
+  # Returns an Integer
+  def self._id_string_to_i(id_string)
+    Integer(id_string) if id_string
+  rescue ArgumentError
+    nil
+  end
+
+  # Internal function used to clean the id_hash from incoming email addresses.
+  # Converts l to 1, and o to 0. FOI officers quite often retype the email
+  # address and make this kind of error.
+  def self._clean_idhash(hash)
+    return unless hash
+    hash.gsub(/l/, "1").gsub(/o/, "0")
+  end
+
+  # Public: Attempt to find InfoRequests by matching against extracted `subject`
+  # element of an `incoming_email`.
+  #
+  # subject_line - A String an email subject line
+  # Returns an Array
+  def self.guess_by_incoming_subject(subject_line)
+    return [] unless subject_line
+
+    # try to find a match on InfoRequest#title
+    reply_format = InfoRequest.new(title: '').email_subject_followup
+    requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+
+    # try to find a match on IncomingMessage#subject
+    requests +=
+      IncomingMessage.
+        includes(:info_request).
+          where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
+            map(&:info_request).uniq
+
+    requests.delete_if(&:holding_pen_request?)
+    guesses = requests.each.reduce([]) do |memo, request|
+      memo << Guess.new(request, subject_line, :subject)
+    end
+
+    # Unique Guesses where we've found an `InfoRequest`
+    guesses.select(&:info_request).uniq(&:info_request)
+  end
+
+  # Internal function used by find_by_magic_email and guess_by_incoming_email
+  def self._extract_id_hash_from_email(incoming_email)
+    # Match case insensitively, FOI officers often write Request with capital R.
+    incoming_email = incoming_email.downcase
+
+    # The optional bounce- dates from when we used to have separate emails for the envelope from.
+    # (that was abandoned because councils would send hand written responses to them, not just
+    # bounce messages)
+    incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
+
+    id = _id_string_to_i($1)
+    hash = _clean_idhash($2)
+
+    [id, hash]
+  end
+
+  # When constructing a new request, use this to check user hasn't double submitted.
+  # TODO: could have a date range here, so say only check last month's worth of new requests. If somebody is making
+  # repeated requests, say once a quarter for time information, then might need to do that.
+  # TODO: this *should* also check outgoing message joined to is an initial
+  # request (rather than follow up)
+  def self.find_existing(title, public_body_id, body)
+    conditions = { title: title, public_body_id: public_body_id }
+
+    InfoRequest.
+      includes(:outgoing_messages).
+        where(conditions).
+          merge(OutgoingMessage.with_body(body)).
+            references(:outgoing_messages).
+              first
+  end
+
+  # The "holding pen" is a special request which stores incoming emails whose
+  # destination request is unknown.
+  def self.holding_pen_request
+    ir = InfoRequest.find_by_url_title("holding_pen")
+    if ir.nil?
+      ir = InfoRequest.new(
+        :user => User.internal_admin_user,
+        :public_body => PublicBody.internal_admin_body,
+        :title => 'Holding pen',
+        :described_state => 'waiting_response',
+        :awaiting_description => false,
+        :prominence  => 'hidden'
+      )
+      om = OutgoingMessage.new({
+        :status => 'ready',
+        :message_type => 'initial_request',
+        :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
+        :last_sent_at => Time.zone.now,
+        :what_doing => 'normal_sort'
+
+      })
+      ir.outgoing_messages << om
+      om.info_request = ir
+      ir.save!
+      ir.log_event('sent', { :outgoing_message_id => om.id, :email => ir.public_body.request_email })
+    end
+    ir
+  end
+
+  # states which require administrator action (hence email administrators
+  # when they are entered, and offer state change dialog to them)
+  def self.requires_admin_states
+    %w(requires_admin error_message attention_requested)
+  end
+
+  # Display version of status
+  def self.get_status_description(status)
+    descriptions = {
+      'waiting_classification'        => _("Awaiting classification."),
+      'waiting_response'              => _("Awaiting response."),
+      'waiting_response_overdue'      => _("Delayed."),
+      'waiting_response_very_overdue' => _("Long overdue."),
+      'not_held'                      => _("Information not held."),
+      'rejected'                      => _("Refused."),
+      'partially_successful'          => _("Partially successful."),
+      'successful'                    => _("Successful."),
+      'waiting_clarification'         => _("Waiting clarification."),
+      'gone_postal'                   => _("Handled by postal mail."),
+      'internal_review'               => _("Awaiting internal review."),
+      'error_message'                 => _("Delivery error"),
+      'requires_admin'                => _("Unusual response."),
+      'attention_requested'           => _("Reported for administrator attention."),
+      'user_withdrawn'                => _("Withdrawn by the requester."),
+      'vexatious'                     => _("Considered by administrators as " \
+                                           "vexatious."),
+      'not_foi'                       => _("Considered by administrators as " \
+                                           "not an FOI request."),
+    }
+    if descriptions[status]
+      descriptions[status]
+    elsif respond_to?(:theme_display_status)
+      theme_display_status(status)
+    else
+      raise _("unknown status {{status}}", :status => status)
+    end
+  end
+
+  def self.magic_email_for_id(prefix_part, id)
+    magic_email = AlaveteliConfiguration::incoming_email_prefix
+    magic_email += prefix_part + id.to_s
+    magic_email += "-" + InfoRequest.hash_from_id(id)
+    magic_email += "@" + AlaveteliConfiguration::incoming_email_domain
+    magic_email
+  end
+
+  def self.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+    info_request = new(info_request_atts)
+    default_message_params = {
+      :status => 'ready',
+      :message_type => 'initial_request',
+      :what_doing => 'normal_sort'
+    }
+
+    attrs = outgoing_message_atts.merge(default_message_params)
+
+    if attrs.respond_to?(:permit)
+      attrs.permit(:body, :what_doing, :status, :message_type, :what_doing)
+    end
+
+    outgoing_message = OutgoingMessage.new(attrs)
+    info_request.outgoing_messages << outgoing_message
+    outgoing_message.info_request = info_request
+    info_request.user = user
+    info_request
+  end
+
+  def self.from_draft(draft)
+    info_request = new(:title => draft.title,
+                       :user => draft.user,
+                       :public_body => draft.public_body)
+    info_request.outgoing_messages.new(:body => draft.body,
+                                       :status => 'ready',
+                                       :message_type => 'initial_request',
+                                       :what_doing => 'normal_sort',
+                                       :info_request => info_request)
+    if draft.embargo_duration
+      info_request.embargo = AlaveteliPro::Embargo.new(
+        :embargo_duration => draft.embargo_duration,
+        :info_request => info_request
+      )
+    end
+    info_request
+  end
+
+  def self.hash_from_id(id)
+    Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
+  end
+
+  # Used to find when event last changed
+  def self.last_event_time_clause(event_type=nil, join_table=nil, join_clause=nil)
+    event_type_clause = ''
+    event_type_clause = " AND info_request_events.event_type = '#{event_type}'" if event_type
+    tables = ['info_request_events']
+    tables << join_table if join_table
+    join_clause = "AND #{join_clause}" if join_clause
+    "(SELECT info_request_events.created_at
+          FROM #{tables.join(', ')}
+          WHERE info_request_events.info_request_id = info_requests.id
+          #{event_type_clause}
+          #{join_clause}
+          ORDER BY created_at desc
+          LIMIT 1)"
+  end
+
+  def self.where_old_unclassified(age_in_days=nil)
+    age_in_days =
+      if age_in_days
+        age_in_days.days
+      else
+        OLD_AGE_IN_DAYS
+      end
+
+    where("awaiting_description = ?
+          AND last_public_response_at < ?
+          AND url_title != 'holding_pen'
+          AND user_id IS NOT NULL",
+          true, Time.zone.now - age_in_days)
+  end
+
+  def self.download_zip_dir
+    File.join(Rails.root, "cache", "zips", "#{Rails.env}")
+  end
+
+  def self.reject_incoming_at_mta(options)
+    query = InfoRequest.where(["updated_at < (now() -
+                                interval ?)
+                                AND allow_new_responses_from = 'nobody'
+                                AND rejected_incoming_count >= ?
+                                AND reject_incoming_at_mta = ?
+                                AND url_title <> 'holding_pen'",
+                                "#{options[:age_in_months]} months",
+                                options[:rejection_threshold], false])
+    yield query.pluck(:id) if block_given?
+
+    if options[:dryrun]
+      0
+    else
+      query.update_all(:reject_incoming_at_mta => true)
+    end
+  end
+
+  # This is called from cron regularly.
+  def self.stop_new_responses_on_old_requests
+    old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
+    very_old = old * 4
+
+    # 'old' months since last change to request, only allow new incoming
+    # messages from authority domains
+    InfoRequest
+      .been_published
+      .where(allow_new_responses_from: 'anybody')
+      .where.not(url_title: 'holding_pen')
+      .updated_before(old.months.ago.to_date)
+      .find_in_batches do |batch|
+        batch.each do |info_request|
+          old_allow_new_responses_from = info_request.allow_new_responses_from
+
+          info_request.
+            update_column(:allow_new_responses_from, 'authority_only')
+
+          params =
+            { old_allow_new_responses_from: old_allow_new_responses_from,
+              allow_new_responses_from: info_request.allow_new_responses_from,
+              editor: 'InfoRequest.stop_new_responses_on_old_requests' }
+
+          info_request.log_event('edit', params)
+        end
+      end
+
+    # 'very_old' months since last change to request, don't allow any new
+    # incoming messages
+    InfoRequest
+      .been_published
+      .where(allow_new_responses_from: %w[anybody authority_only])
+      .where.not(url_title: 'holding_pen')
+      .updated_before(very_old.months.ago.to_date)
+      .find_in_batches do |batch|
+        batch.each do |info_request|
+          old_allow_new_responses_from = info_request.allow_new_responses_from
+
+          info_request.
+            update_column(:allow_new_responses_from, 'nobody')
+
+          params =
+            { old_allow_new_responses_from: old_allow_new_responses_from,
+              allow_new_responses_from: info_request.allow_new_responses_from,
+              editor: 'InfoRequest.stop_new_responses_on_old_requests' }
+
+          info_request.log_event('edit', params)
+        end
+      end
+  end
+
+  def self.request_list(filters, page, per_page, max_results)
+    query = InfoRequestEvent.make_query_from_params(filters)
+    search_options = {
+      :limit => 25,
+      :offset => (page - 1) * per_page,
+      :collapse_by_prefix => 'request_collapse' }
+
+    xapian_object = search_events(query, search_options)
+    list_results = xapian_object.results.map { |r| r[:model] }
+    matches_estimated = xapian_object.matches_estimated
+    show_no_more_than = [matches_estimated, max_results].min
+    return { :results => list_results,
+             :matches_estimated => matches_estimated,
+             :show_no_more_than => show_no_more_than }
+  end
+
+  def self.recent_requests
+    request_events = []
+    request_events_all_successful = false
+    # Get some successful requests
+    begin
+      query = 'variety:response (status:successful OR status:partially_successful)'
+      max_count = 5
+      search_options = {
+        :limit => max_count,
+        :collapse_by_prefix => 'request_title_collapse' }
+
+      xapian_object = search_events(query, search_options)
+      xapian_object.results
+      request_events = xapian_object.results.map { |r| r[:model] }
+
+      # If there are not yet enough successful requests, fill out the list with
+      # other requests
+      if request_events.count < max_count
+        query = 'variety:sent'
+        search_options[:limit] = max_count-request_events.count
+        xapian_object = search_events(query, search_options)
+        xapian_object.results
+        more_events = xapian_object.results.map { |r| r[:model] }
+        request_events += more_events
+        # Overall we still want the list sorted with the newest first
+        request_events.sort! { |e1,e2| e2.created_at <=> e1.created_at }
+      else
+        request_events_all_successful = true
+      end
+    rescue
+      request_events = []
+    end
+
+    [request_events, request_events_all_successful]
+  end
+
+  def self.find_in_state(state)
+    where(:described_state => state).
+      order('last_event_time')
+  end
+
+  def self.log_overdue_events
+    log_overdue_event_type('overdue')
+  end
+
+  def self.log_very_overdue_events
+    log_overdue_event_type('very_overdue')
+  end
+
+  def self.log_overdue_event_type(event_type)
+    date_field = case event_type
+    when 'overdue'
+      'date_response_required_by'
+    when 'very_overdue'
+      'date_very_overdue_after'
+    else
+      raise ArgumentError("Event type #{event_type} not handled")
+    end
+
+    query =
+      where(["awaiting_description = ?
+              AND described_state = ?
+              AND #{date_field} < ?
+              AND (SELECT id
+              FROM info_request_events
+              WHERE info_request_id = info_requests.id
+              AND event_type = ?
+              AND created_at > info_requests.#{date_field})
+              IS NULL",
+              false,
+              'waiting_response',
+              Time.zone.today,
+              event_type])
+
+    query.find_each(:batch_size => 100) do |info_request|
+      # Date to DateTime representing beginning of day
+      created_at = info_request.send(date_field).beginning_of_day + 1.day
+      event = info_request.log_event(event_type,
+                                     { :event_created_at => Time.zone.now },
+                                     { :created_at => created_at })
+      if info_request.use_notifications?
+        info_request.user.notify(event)
+      end
+    end
+
+  end
+
+  def self.request_sent_types
+    %w(sent resent followup_sent followup_resent send_error)
+  end
+
   # Possible reasons that a request could be reported for administrator attention
   def report_reasons
     [_("Contains defamatory material"),
@@ -169,14 +707,34 @@ class InfoRequest < ActiveRecord::Base
      _("Other")]
   end
 
-  def must_be_valid_state
-    unless InfoRequest.enumerate_states.include?(described_state)
-      errors.add(:described_state, "is not a valid state")
+  # Public: Overrides the ActiveRecord attribute accessor
+  #
+  # opts = Hash of options (default: {})
+  #        :decorate - Wrap the string in a ProminenceCalculator decorator that
+  #        has methods indicating whether the InfoRequest is public, searchable
+  #        etc.
+  # Returns a String or ProminenceCalculator
+  def prominence(opts = {})
+    decorate = opts.fetch(:decorate, false)
+    if decorate
+      Prominence::Calculator.new(self)
+    else
+      read_attribute(:prominence)
     end
+  end
+
+  # opts = Hash of options (default: {})
+  # Returns a StateCalculator
+  def state(opts = {})
+    State::Calculator.new(self)
   end
 
   def is_batch_request_template?
     is_batch_request_template == true
+  end
+
+  def indexed_by_search?
+    prominence(:decorate => true).is_searchable?
   end
 
   # The request must either be internal, in which case it has
@@ -225,22 +783,22 @@ class InfoRequest < ActiveRecord::Base
     require 'customstates'
     include InfoRequestCustomStates
     @@custom_states_loaded = true
-  rescue MissingSourceFile, NameError
+  rescue LoadError, NameError
   end
-
-  OLD_AGE_IN_DAYS = 21.days
 
   # If the URL name has changed, then all request: queries will break unless
   # we update index for every event. Also reindex if prominence changes.
   def reindex_some_request_events
-    if changes.include?('url_title') || changes.include?('prominence') || changes.include?('user_id')
-      reindex_request_events
-    end
+    return unless saved_change_to_attribute?(:url_title) ||
+                  saved_change_to_attribute?(:prominence) ||
+                  saved_change_to_attribute?(:user_id)
+
+    reindex_request_events
   end
 
   def reindex_request_events
-    for info_request_event in info_request_events
-      info_request_event.xapian_mark_needs_index
+    info_request_events.find_each do |event|
+      event.xapian_mark_needs_index
     end
   end
 
@@ -255,7 +813,7 @@ class InfoRequest < ActiveRecord::Base
   def expire(options={})
     # Clear out cached entries, by removing files from disk (the built in
     # Rails fragment cache made doing this and other things too hard)
-    foi_fragment_cache_directories.each{ |dir| FileUtils.rm_rf(dir) }
+    foi_fragment_cache_directories.each { |dir| FileUtils.rm_rf(dir) }
 
     # Remove any download zips
     FileUtils.rm_rf(download_zip_dir)
@@ -266,8 +824,6 @@ class InfoRequest < ActiveRecord::Base
 
     # also force a search reindexing (so changed text reflected in search)
     reindex_request_events
-    # and remove from varnish
-    purge_in_cache
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -275,40 +831,6 @@ class InfoRequest < ActiveRecord::Base
     for incoming_message in incoming_messages
       incoming_message.clear_in_database_caches!
     end
-  end
-
-  # When name is changed, also change the url name
-  def title=(title)
-    write_attribute(:title, title)
-    update_url_title
-  end
-
-  # Public: url_title attribute reader
-  #
-  # opts - Hash of options (default: {})
-  #        :collapse - Set true to strip the numeric section. Use this to group
-  #                    lots of similar requests by url_title.
-  #
-  # Returns a String
-  def url_title(opts = {})
-    _url_title = super()
-    return _url_title.gsub(/[_0-9]+$/, "") if opts[:collapse]
-    _url_title
-  end
-
-  def update_url_title
-    return unless title
-    url_title = MySociety::Format.simplify_url_part(title, 'request', 32)
-    # For request with same title as others, add on arbitary numeric identifier
-    unique_url_title = url_title
-    suffix_num = 2 # as there's already one without numeric suffix
-    while InfoRequest.
-            find_by_url_title(unique_url_title,
-                              :conditions => id.nil? ? nil : ["id <> ?", id])
-      unique_url_title = "#{url_title}_#{suffix_num}"
-      suffix_num = suffix_num + 1
-    end
-    write_attribute(:url_title, unique_url_title)
   end
 
   def update_last_public_response_at
@@ -324,11 +846,11 @@ class InfoRequest < ActiveRecord::Base
   # Remove spaces from ends (for when used in emails etc.)
   # Needed for legacy reasons, even though we call strip_attributes now
   def title
-    title = read_attribute(:title)
-    if title
-      title.strip!
+    _title = read_attribute(:title)
+    if _title
+      _title.strip!
     end
-    title
+    _title
   end
 
   # Email which public body should use to respond to request. This is in
@@ -372,80 +894,8 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Return info request corresponding to an incoming email address, or nil if
-  # none found. Checks the hash to ensure the email came from the public body -
-  # only they are sent the email address with the has in it. (We don't check
-  # the prefix and domain, as sometimes those change, or might be elided by
-  # copying an email, and that doesn't matter)
-  def self.find_by_incoming_email(incoming_email)
-    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-    if hash_from_id(id) == hash
-      # Not using find(id) because we don't exception raised if nothing found
-      find_by_id(id)
-    end
-  end
-
-  # Return list of info requests which *might* be right given email address
-  # e.g. For the id-hash email addresses, don't match the hash.
-  def self.guess_by_incoming_email(incoming_message)
-    guesses = []
-    # 1. Try to guess based on the email address(es)
-    incoming_message.addresses.each do |address|
-      id, hash = InfoRequest._extract_id_hash_from_email(address)
-      guesses.push(InfoRequest.find_by_id(id))
-      guesses.push(InfoRequest.find_by_idhash(hash))
-    end
-    guesses.compact.uniq
-  end
-
-  # Internal function used by find_by_magic_email and guess_by_incoming_email
-  def self._extract_id_hash_from_email(incoming_email)
-    # Match case insensitively, FOI officers often write Request with capital R.
-    incoming_email = incoming_email.downcase
-
-    # The optional bounce- dates from when we used to have separate emails for the envelope from.
-    # (that was abandoned because councils would send hand written responses to them, not just
-    # bounce messages)
-    incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
-    id = $1.to_i
-    hash = $2
-
-    if hash
-      # Convert l to 1, and o to 0. FOI officers quite often retype the
-      # email address and make this kind of error.
-      hash.gsub!(/l/, "1")
-      hash.gsub!(/o/, "0")
-    end
-
-    [id, hash]
-  end
-
-  # When constructing a new request, use this to check user hasn't double submitted.
-  # TODO: could have a date range here, so say only check last month's worth of new requests. If somebody is making
-  # repeated requests, say once a quarter for time information, then might need to do that.
-  # TODO: this *should* also check outgoing message joined to is an initial
-  # request (rather than follow up)
-  def self.find_existing(title, public_body_id, body)
-    InfoRequest.where("title = ?
-                       AND public_body_id = ?
-                       AND outgoing_messages.body = ?",
-                       title, public_body_id, body).
-      includes(:outgoing_messages).
-        first
-  end
-
   def find_existing_outgoing_message(body)
-    # TODO: can add other databases here which have regexp_replace
-    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      # Exclude spaces from the body comparison using regexp_replace
-      outgoing_messages.where("regexp_replace(outgoing_messages.body,
-                                              '[[:space:]]', '', 'g') =
-                               regexp_replace(?, '[[:space:]]', '', 'g')",
-                               body).first
-    else
-      # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
-      outgoing_messages.where("outgoing_messages.body = ?", body).first
-    end
+    outgoing_messages.with_body(body).first
   end
 
   # Has this email already been received here? Based just on message id.
@@ -464,26 +914,51 @@ class InfoRequest < ActiveRecord::Base
     false
   end
 
-  # A new incoming email to this request
-  def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = nil)
-    # Is this request allowing responses?
-    accepted =
-      if override_stop_new_responses
-        true
-      else
-        accept_incoming?(email, raw_email_data)
-      end
+  def receive(email, raw_email_data, *args)
+    defaults = { :override_stop_new_responses => false,
+                 :rejected_reason => nil,
+                 :source => :internal }
 
-    if accepted
-      incoming_message =
-        create_response!(email, raw_email_data, rejected_reason)
+    opts = if args.first.is_a?(Hash)
+      defaults.merge(args.shift)
+    else
+      defaults
+    end
 
-      # Notify the user that a new response has been received, unless the
-      # request is external
-      unless is_external?
-        RequestMailer.new_response(self, incoming_message).deliver
+    if receive_mail_from_source? opts[:source]
+      # Is this request allowing responses?
+      accepted =
+        if opts[:override_stop_new_responses]
+          true
+        else
+          accept_incoming?(email, raw_email_data)
+        end
+
+      if accepted
+        incoming_message =
+          create_response!(email, raw_email_data, opts[:rejected_reason])
+
+        # Notify the user that a new response has been received, unless the
+        # request is external
+        unless is_external?
+          if use_notifications?
+            info_request_event = info_request_events.find_by(
+              event_type: 'response',
+              incoming_message_id: incoming_message.id
+            )
+            user.notify(info_request_event)
+          else
+            RequestMailer.new_response(self, incoming_message).deliver_now
+          end
+        end
       end
     end
+  end
+
+  # Called when outgoing_messages are sent to ensure that the request
+  # is not closed during an active discussion or an internal review
+  def reopen_to_new_responses
+    update(allow_new_responses_from: 'anybody', reject_incoming_at_mta: false)
   end
 
   # An annotation (comment) is made
@@ -492,7 +967,6 @@ class InfoRequest < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       comment.body = body
       comment.user = user
-      comment.comment_type = 'request'
       comment.info_request = self
       comment.save!
 
@@ -502,41 +976,6 @@ class InfoRequest < ActiveRecord::Base
     comment
   end
 
-  # The "holding pen" is a special request which stores incoming emails whose
-  # destination request is unknown.
-  def self.holding_pen_request
-    ir = InfoRequest.find_by_url_title("holding_pen")
-    if ir.nil?
-      ir = InfoRequest.new(
-        :user => User.internal_admin_user,
-        :public_body => PublicBody.internal_admin_body,
-        :title => 'Holding pen',
-        :described_state => 'waiting_response',
-        :awaiting_description => false,
-        :prominence  => 'hidden'
-      )
-      om = OutgoingMessage.new({
-        :status => 'ready',
-        :message_type => 'initial_request',
-        :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-        :last_sent_at => Time.now,
-        :what_doing => 'normal_sort'
-
-      })
-      ir.outgoing_messages << om
-      om.info_request = ir
-      ir.save!
-      ir.log_event('sent', { :outgoing_message_id => om.id, :email => ir.public_body.request_email })
-    end
-    ir
-  end
-
-  # states which require administrator action (hence email administrators
-  # when they are entered, and offer state change dialog to them)
-  def self.requires_admin_states
-    %w(requires_admin error_message attention_requested)
-  end
-
   def requires_admin?
     self.class.requires_admin_states.include?(described_state)
   end
@@ -544,6 +983,14 @@ class InfoRequest < ActiveRecord::Base
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
+      log_event('report_request',
+                request_id: id,
+                editor: user,
+                reason: reason,
+                message: message,
+                old_attention_requested: attention_requested,
+                attention_requested: true)
+
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
       save!
@@ -570,12 +1017,13 @@ class InfoRequest < ActiveRecord::Base
     if requires_admin?
       # Check there is someone to send the message "from"
       if set_by && user
-        RequestMailer.requires_admin(self, set_by, message).deliver
+        RequestMailer.requires_admin(self, set_by, message).deliver_now
       end
     end
 
     unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-      RequestMailer.old_unclassified_updated(self).deliver unless is_external?
+      RequestMailer.
+        old_unclassified_updated(self).deliver_now unless is_external?
     end
   end
 
@@ -599,9 +1047,9 @@ class InfoRequest < ActiveRecord::Base
     return described_state unless described_state == "waiting_response"
     # Compare by date, so only overdue on next day, not if 1 second late
     return 'waiting_response_very_overdue' if
-    Time.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
-    Time.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
+    Time.zone.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
     return 'waiting_response'
   end
 
@@ -623,7 +1071,7 @@ class InfoRequest < ActiveRecord::Base
   def calculate_event_states
     curr_state = nil
     for event in info_request_events.reverse
-      event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
+      event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
       if curr_state.nil?
         if event.described_state
           curr_state = event.described_state
@@ -634,7 +1082,7 @@ class InfoRequest < ActiveRecord::Base
         event.set_calculated_state!(curr_state)
 
         if event.last_described_at.nil? # TODO: actually maybe this isn't needed
-          event.last_described_at = Time.now
+          event.last_described_at = Time.zone.now
           event.save!
         end
         curr_state = nil
@@ -667,27 +1115,11 @@ class InfoRequest < ActiveRecord::Base
   # -- OR the same message was resent
   # -- OR the public body requested clarification, and a follow up was sent
   def last_event_forming_initial_request
-    last_sent = nil
-    expecting_clarification = false
-
-    info_request_events.each do |event|
-      if event.described_state == 'waiting_clarification'
-        expecting_clarification = true
-      end
-
-      if %w(sent resent followup_sent followup_resent).include?(event.event_type)
-        if last_sent.nil?
-          last_sent = event
-        elsif event.event_type == 'resent'
-          last_sent = event
-        elsif expecting_clarification && event.event_type == 'followup_sent'
-          # TODO: this needs to cope with followup_resent, which it doesn't.
-          # Not really easy to do, and only affects cases where followups
-          # were resent after a clarification.
-          last_sent = event
-          expecting_clarification = false
-        end
-      end
+    info_request_event_id = read_attribute(:last_event_forming_initial_request_id)
+    last_sent = if info_request_event_id
+      InfoRequestEvent.find_by_id(info_request_event_id)
+    else
+      calculate_last_event_forming_initial_request
     end
 
     if last_sent.nil?
@@ -700,34 +1132,117 @@ class InfoRequest < ActiveRecord::Base
     last_sent
   end
 
+  def calculate_last_event_forming_initial_request
+    # TODO: This can be removed when last_event_forming_initial_request_id has
+    # been populated for all requests
+
+    expecting_clarification = false
+    last_sent = nil
+    info_request_events.each do |event|
+      if event.described_state == 'waiting_clarification'
+        expecting_clarification = true
+      end
+
+      if self.class.request_sent_types.include?(event.event_type)
+        if last_sent.nil?
+          last_sent = event
+        elsif event.event_type == 'resent' ||
+              (event.event_type == 'send_error' &&
+               event.outgoing_message.message_type == 'initial_request')
+          last_sent = event
+        elsif expecting_clarification && event.event_type == 'followup_sent'
+          # TODO: this needs to cope with followup_resent, which it doesn't.
+          # Not really easy to do, and only affects cases where followups
+          # were resent after a clarification.
+          last_sent = event
+          expecting_clarification = false
+        end
+      end
+    end
+    last_sent
+  end
+
+  # Log an event to the history of some things that have happened to this request
+  def log_event(type, params, options = {})
+    event = info_request_events.create!(:event_type => type, :params => params)
+    set_due_dates(event) if event.resets_due_dates?
+    if options[:created_at]
+      event.update_column(:created_at, options[:created_at])
+    end
+    if !last_event_time || (event.created_at > last_event_time)
+      update_column(:last_event_time, event.created_at)
+    end
+    event
+  end
+
+  def set_due_dates(sent_event)
+    self.last_event_forming_initial_request_id = sent_event.id
+    self.date_initial_request_last_sent_at = sent_event.created_at.to_date
+    self.date_response_required_by = calculate_date_response_required_by
+    self.date_very_overdue_after = calculate_date_very_overdue_after
+    save!
+  end
+
+  # TODO: once date_initial_request_sent_at is populated for all
+  # requests, this can be removed
   # The last time that the initial request was sent/resent
   def date_initial_request_last_sent_at
+    date = read_attribute(:date_initial_request_last_sent_at)
+    return date.to_date if date
+    calculate_date_initial_request_last_sent_at
+  end
+
+  # TODO: once date_initial_request_sent_at is populated for all
+  # requests, this can be removed
+  def calculate_date_initial_request_last_sent_at
     last_sent = last_event_forming_initial_request
-    last_sent.outgoing_message.last_sent_at
+    last_sent.outgoing_message.last_sent_at.to_date
   end
 
   def late_calculator
     @late_calculator ||= DefaultLateCalculator.new
   end
 
-  # How do we cope with case where extra info was required from the requester
-  # by the public body in order to fulfill the request, as per sections 1(3)
-  # and 10(6b) ? For clarifications this is covered by
-  # last_event_forming_initial_request. There may be more obscure
-  # things, e.g. fees, not properly covered.
+  # TODO: once date_response_required_by is populated for all
+  # requests, this can be removed
   def date_response_required_by
+    date = read_attribute(:date_response_required_by)
+    return date if date
+    calculate_date_response_required_by
+  end
+
+  def calculate_date_response_required_by
     Holiday.due_date_from(date_initial_request_last_sent_at,
                           late_calculator.reply_late_after_days,
                           AlaveteliConfiguration.working_or_calendar_days)
   end
 
-  # This is a long stop - even with UK public interest test extensions, 40
-  # days is a very long time.
+  # TODO: once date_very_overdue_after is populated for all
+  # requests, this can be removed
   def date_very_overdue_after
-    # public interest test ICO guidance gives 40 working maximum
+    date = read_attribute(:date_very_overdue_after)
+    return date if date
+    calculate_date_very_overdue_after
+  end
+
+  def calculate_date_very_overdue_after
     Holiday.due_date_from(date_initial_request_last_sent_at,
                           late_calculator.reply_very_late_after_days,
                           AlaveteliConfiguration.working_or_calendar_days)
+  end
+
+  def last_embargo_set_event
+    info_request_events.
+      where(:event_type => 'set_embargo').
+        reorder('created_at DESC').
+          first
+  end
+
+  def last_embargo_expire_event
+    info_request_events.
+      where(:event_type => 'expire_embargo').
+        reorder('created_at DESC').
+          first
   end
 
   # Where the initial request is sent to
@@ -741,16 +1256,14 @@ class InfoRequest < ActiveRecord::Base
 
   def recipient_name_and_email
     MailHandler.address_from_name_and_email(
+      # TRANSLATORS: Please don't use double quotes (") in this translation
+      # or it will break the site's ability to send emails to authorities!
       _("{{law_used}} requests at {{public_body}}",
         :law_used => law_used_human(:short),
         :public_body => public_body.short_or_long_name),
         recipient_email)
   end
 
-  # History of some things that have happened
-  def log_event(type, params)
-    info_request_events.create!(:event_type => type, :params => params)
-  end
 
   def public_response_events
     condition = <<-SQL
@@ -777,7 +1290,7 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def public_outgoing_events
-    info_request_events.select{|e| e.outgoing? && e.outgoing_message.all_can_view? }
+    info_request_events.select { |e| e.outgoing? && e.outgoing_message.is_public? }
   end
 
   # The last public outgoing message
@@ -790,18 +1303,7 @@ class InfoRequest < ActiveRecord::Base
     return '' if outgoing_messages.empty?
     body_opts = { :censor_rules => applicable_censor_rules }
     first_message = outgoing_messages.first
-    first_message.all_can_view? ? first_message.get_text_for_indexing(true, body_opts) : ''
-  end
-
-  # Returns index of last event which is described or nil if none described.
-  def index_of_last_described_event
-    events = info_request_events
-    events.each_index do |i|
-      revi = events.size - 1 - i
-      m = events[revi]
-      return revi if m.described_state
-    end
-    nil
+    first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
   end
 
   def last_event_id_needing_description
@@ -820,14 +1322,11 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
-  # Returns last event
-  def get_last_event
-    events = info_request_events
-    if events.size == 0
-      return nil
-    else
-      return events[-1]
-    end
+  # Public: The most recent InfoRequestEvent.
+  #
+  # Returns an InfoRequestEvent or nil
+  def last_event
+    info_request_events.last
   end
 
   def last_update_hash
@@ -848,36 +1347,6 @@ class InfoRequest < ActiveRecord::Base
     last_email
   end
 
-  # Display version of status
-  def self.get_status_description(status)
-    descriptions = {
-      'waiting_classification'        => _("Awaiting classification."),
-      'waiting_response'              => _("Awaiting response."),
-      'waiting_response_overdue'      => _("Delayed."),
-      'waiting_response_very_overdue' => _("Long overdue."),
-      'not_held'                      => _("Information not held."),
-      'rejected'                      => _("Refused."),
-      'partially_successful'          => _("Partially successful."),
-      'successful'                    => _("Successful."),
-      'waiting_clarification'         => _("Waiting clarification."),
-      'gone_postal'                   => _("Handled by post."),
-      'internal_review'               => _("Awaiting internal review."),
-      'error_message'                 => _("Delivery error"),
-      'requires_admin'                => _("Unusual response."),
-      'attention_requested'           => _("Reported for administrator attention."),
-      'user_withdrawn'                => _("Withdrawn by the requester."),
-      'vexatious'                     => _("Considered by administrators as vexatious and hidden from site."),
-      'not_foi'                       => _("Considered by administrators as not an FOI request and hidden from site."),
-    }
-    if descriptions[status]
-      descriptions[status]
-    elsif respond_to?(:theme_display_status)
-      theme_display_status(status)
-    else
-      raise _("unknown status {{status}}", :status => status)
-    end
-  end
-
   def display_status(cached_value_ok=false)
     InfoRequest.get_status_description(calculate_status(cached_value_ok))
   end
@@ -889,126 +1358,8 @@ class InfoRequest < ActiveRecord::Base
     InfoRequest.magic_email_for_id(prefix_part, id)
   end
 
-  def self.magic_email_for_id(prefix_part, id)
-    magic_email = AlaveteliConfiguration::incoming_email_prefix
-    magic_email += prefix_part + id.to_s
-    magic_email += "-" + InfoRequest.hash_from_id(id)
-    magic_email += "@" + AlaveteliConfiguration::incoming_email_domain
-    magic_email
-  end
-
   def compute_idhash
     self.idhash = InfoRequest.hash_from_id(id)
-  end
-
-  def self.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
-    info_request = new(info_request_atts)
-    default_message_params = {
-      :status => 'ready',
-      :message_type => 'initial_request',
-      :what_doing => 'normal_sort'
-    }
-    outgoing_message = OutgoingMessage.new(outgoing_message_atts.merge(default_message_params))
-    info_request.outgoing_messages << outgoing_message
-    outgoing_message.info_request = info_request
-    info_request.user = user
-    info_request
-  end
-
-  def self.hash_from_id(id)
-    Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
-  end
-
-  # Used to find when event last changed
-  def self.last_event_time_clause(event_type=nil, join_table=nil, join_clause=nil)
-    event_type_clause = ''
-    event_type_clause = " AND info_request_events.event_type = '#{event_type}'" if event_type
-    tables = ['info_request_events']
-    tables << join_table if join_table
-    join_clause = "AND #{join_clause}" if join_clause
-    "(SELECT info_request_events.created_at
-          FROM #{tables.join(', ')}
-          WHERE info_request_events.info_request_id = info_requests.id
-          #{event_type_clause}
-          #{join_clause}
-          ORDER BY created_at desc
-          LIMIT 1)"
-  end
-
-  def self.last_public_response_clause
-    warn %q([DEPRECATION] InfoRequest#last_public_response_clause will be removed
-              in 0.26).squish
-    join_clause = "incoming_messages.id = info_request_events.incoming_message_id
-                       AND incoming_messages.prominence = 'normal'"
-    last_event_time_clause('response', 'incoming_messages', join_clause)
-  end
-
-  def self.old_unclassified_params(extra_params, include_last_response_time=false)
-    warn %q([DEPRECATION] InfoRequest#old_unclassified_params will be removed
-              in 0.26).squish
-    age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-    params = { :conditions => ["awaiting_description = ?
-                                    AND last_public_response_at < ?
-                                    AND url_title != 'holding_pen'
-                                    AND user_id IS NOT NULL",
-                                      true, Time.zone.now - age] }
-    if include_last_response_time
-      params[:order] = 'last_public_response_at'
-    end
-    return params
-  end
-
-
-  def self.where_old_unclassified(age_in_days=nil)
-    age_in_days =
-      if age_in_days
-        age_in_days.days
-      else
-        OLD_AGE_IN_DAYS
-      end
-
-    where("awaiting_description = ?
-          AND last_public_response_at < ?
-          AND url_title != 'holding_pen'
-          AND user_id IS NOT NULL",
-          true, Time.zone.now - age_in_days)
-  end
-
-  def self.count_old_unclassified(extra_params={})
-    warn %q([DEPRECATION] InfoRequest#count_old_unclassified will be removed
-              in 0.26).squish
-    params = old_unclassified_params(extra_params)
-    add_conditions_from_extra_params(params, extra_params)
-    count(:all, params)
-  end
-
-  def self.get_random_old_unclassified(limit, extra_params)
-    warn %q([DEPRECATION] InfoRequest#get_random_old_unclassified will be removed
-              in 0.26).squish
-    params = old_unclassified_params({})
-    add_conditions_from_extra_params(params, extra_params)
-    params[:limit] = limit
-    params[:order] = "random()"
-    find(:all, params)
-  end
-
-  def self.find_old_unclassified(extra_params={})
-    warn %q([DEPRECATION] InfoRequest#find_old_unclassified will be removed
-              in 0.26).squish
-    params = old_unclassified_params(extra_params, include_last_response_time=true)
-    [:limit, :include, :offset].each do |extra|
-      params[extra] = extra_params[extra] if extra_params[extra]
-    end
-    if extra_params[:order]
-      params[:order] = extra_params[:order]
-      params.delete(:select)
-    end
-    add_conditions_from_extra_params(params, extra_params)
-    find(:all, params)
-  end
-
-  def self.download_zip_dir
-    File.join(Rails.root, "cache", "zips", "#{Rails.env}")
   end
 
   def foi_fragment_cache_directories
@@ -1017,8 +1368,8 @@ class InfoRequest < ActiveRecord::Base
     path = File.join("request", request_dirs)
     foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
     directories << File.join(foi_cache_path, path)
-    I18n.available_locales.each do |locale|
-      directories << File.join(foi_cache_path, locale.to_s, path)
+    AlaveteliLocalization.available_locales.each do |locale|
+      directories << File.join(foi_cache_path, locale, path)
     end
 
     directories
@@ -1067,38 +1418,57 @@ class InfoRequest < ActiveRecord::Base
   end
 
   def make_zip_cache_path(user)
+    # The zip file varies depending on user because it can include different
+    # messages depending on whether the user can access hidden or
+    # requester_only messages. We name it appropriately, so that every user
+    # with the right permissions gets a file with only the right things in.
     cache_file_dir = File.join(InfoRequest.download_zip_dir,
                                "download",
                                request_dirs,
                                last_update_hash)
-    cache_file_suffix = if all_can_view_all_correspondence?
-                          ""
-                        elsif Ability.can_view_with_prominence?('hidden', self, user)
-                          "_hidden"
-                        elsif Ability.can_view_with_prominence?('requester_only', self, user)
-                          "_requester_only"
-                        else
-                          ""
-                        end
+    cache_file_suffix = zip_cache_file_suffix(user)
     File.join(cache_file_dir, "#{url_title}#{cache_file_suffix}.zip")
+  end
+
+  def zip_cache_file_suffix(user)
+    # Simple short circuit for requests where everything is public
+    if all_correspondence_is_public?
+      ""
+    # If the user can view hidden things, they can view anything, so no need
+    # to go any further
+    elsif User.view_hidden?(user)
+      "_hidden"
+    # If the user can't view hidden things, but owns the request, they can
+    # see more than the public, so they get requester_only
+    elsif is_owning_user?(user)
+      "_requester_only"
+    # Everyone else can only see public stuff, which is the default case
+    else
+      ""
+    end
   end
 
   def is_old_unclassified?
     !is_external? && awaiting_description && url_title != 'holding_pen' && get_last_public_response_event &&
-      Time.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
+      Time.zone.now > get_last_public_response_event.created_at + OLD_AGE_IN_DAYS
   end
 
   # List of incoming messages to followup, by unique email
   def who_can_followup_to(skip_message = nil)
     ret = []
     done = {}
+    if skip_message
+      if email = OutgoingMailer.email_for_followup(self, skip_message)
+        done[email.downcase] = 1
+      end
+    end
     for incoming_message in incoming_messages.reverse
       if incoming_message == skip_message
         next
       end
       incoming_message.safe_mail_from
 
-      next if ! incoming_message.all_can_view?
+      next if ! incoming_message.is_public?
 
       email = OutgoingMailer.email_for_followup(self, incoming_message)
       name = OutgoingMailer.name_for_followup(self, incoming_message)
@@ -1119,8 +1489,8 @@ class InfoRequest < ActiveRecord::Base
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    applicable_rules = [censor_rules, CensorRule.global.all]
-    unless is_batch_request_template?
+    applicable_rules = [censor_rules, CensorRule.global]
+    unless public_body.blank?
       applicable_rules << public_body.censor_rules
     end
     applicable_rules << user.censor_rules if user
@@ -1169,67 +1539,10 @@ class InfoRequest < ActiveRecord::Base
     user.id == user_id
   end
 
-  def user_can_view?(user)
-    Ability.can_view_with_prominence?(prominence, self, user)
-  end
-
-  # Is this request visible to everyone?
-  def all_can_view?
-    %w(normal backpage).include?(prominence)
-  end
-
-  def all_can_view_all_correspondence?
-    all_can_view? &&
-      incoming_messages.all?{ |message| message.all_can_view? } &&
-      outgoing_messages.all?{ |message| message.all_can_view? }
-  end
-
-  def indexed_by_search?
-    if prominence == 'backpage' || prominence == 'hidden' || prominence == 'requester_only'
-      return false
-    end
-    true
-  end
-
-  def self.reject_incoming_at_mta(options)
-    query = InfoRequest.where(["updated_at < (now() -
-                                interval ?)
-                                AND allow_new_responses_from = 'nobody'
-                                AND rejected_incoming_count >= ?
-                                AND reject_incoming_at_mta = ?
-                                AND url_title <> 'holding_pen'",
-                                "#{options[:age_in_months]} months",
-                                options[:rejection_threshold], false])
-    yield query.pluck(:id) if block_given?
-
-    if options[:dryrun]
-      0
-    else
-      query.update_all(:reject_incoming_at_mta => true)
-    end
-  end
-
-  # This is called from cron regularly.
-  def self.stop_new_responses_on_old_requests
-    old = AlaveteliConfiguration.restrict_new_responses_on_old_requests_after_months
-    very_old = old * 2
-    # 'old' months since last change to request, only allow new incoming
-    # messages from authority domains
-    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
-    allow_new_responses_from = 'authority_only'
-    WHERE updated_at < (now() - interval '#{ old } months')
-    AND allow_new_responses_from = 'anybody'
-    AND url_title <> 'holding_pen'
-    EOF
-
-    # 'very_old' months since last change to request, don't allow any new
-    # incoming messages
-    InfoRequest.update_all <<-EOF.strip_heredoc.delete("\n")
-    allow_new_responses_from = 'nobody'
-    WHERE updated_at < (now() - interval '#{ very_old } months')
-    AND allow_new_responses_from IN ('anybody', 'authority_only')
-    AND url_title <> 'holding_pen'
-    EOF
+  def all_correspondence_is_public?
+    prominence(:decorate => true).is_public? &&
+      incoming_messages.all? { |message| message.is_public? } &&
+      outgoing_messages.all? { |message| message.is_public? }
   end
 
   def json_for_api(deep)
@@ -1263,119 +1576,47 @@ class InfoRequest < ActiveRecord::Base
     ret
   end
 
-  def purge_in_cache
-    if AlaveteliConfiguration::varnish_host.present? && id
-      # we only do this for existing info_requests (new ones have a nil id)
-      path = url_for(:controller => 'request', :action => 'show', :url_title => url_title, :only_path => true, :locale => :none)
-      req = PurgeRequest.find_by_url(path)
-      if req.nil?
-        req = PurgeRequest.new(:url => path,
-                               :model => self.class.base_class.to_s,
-                               :model_id => id)
-      end
-      req.save
-    end
-  end
-
   # This method updates the count columns of the PublicBody that
   # store the number of "not held", "to some extent successful" and
   # "both visible and classified" requests when saving or destroying
   # an InfoRequest associated with the body:
-  def update_counter_cache
-    PublicBody.skip_callback(:save, :after, :purge_in_cache)
-    success_states = ['successful', 'partially_successful']
-    basic_params = {
-      :public_body_id => public_body_id,
-      :prominence => 'normal'
-    }
-    [['info_requests_not_held_count', {:awaiting_description => false, :described_state => 'not_held'}],
-     ['info_requests_successful_count', {:awaiting_description => false, :described_state => success_states}],
-     ['info_requests_visible_classified_count', {:awaiting_description => false}],
-     ['info_requests_visible_count', {}]].each do |column, extra_params|
-       params = basic_params.clone.update extra_params
-       public_body.send "#{column}=", InfoRequest.where(params).count
-     end
-     public_body.without_revision do
-       public_body.no_xapian_reindex = true
-       public_body.save
-     end
-     PublicBody.set_callback(:save, :after, :purge_in_cache)
+  def update_counter_cache(body = public_body)
+    body.update_counter_cache
+  end
+
+  def similar_cache_key
+    "request/similar/#{id}"
   end
 
   # Get requests that have similar important terms
   def similar_requests(limit=10)
-    xapian_similar = nil
-    xapian_similar_more = false
-    begin
-      xapian_similar = ActsAsXapian::Similar.new([InfoRequestEvent],
-                                                 info_request_events,
-                                                 :limit => limit,
-                                                 :collapse_by_prefix => 'request_collapse')
-      xapian_similar_more = (xapian_similar.matches_estimated > limit)
-    rescue
-    end
-    [xapian_similar, xapian_similar_more]
+    ids, more = similar_ids(limit)
+    [InfoRequest.includes(public_body: :translations).where(id: ids), more]
   end
 
-  def self.request_list(filters, page, per_page, max_results)
-    query = InfoRequestEvent.make_query_from_params(filters)
-    search_options = {
-      :limit => 25,
-      :offset => (page - 1) * per_page,
-      :collapse_by_prefix => 'request_collapse' }
-
-    xapian_object = search_events(query, search_options)
-    list_results = xapian_object.results.map { |r| r[:model] }
-    matches_estimated = xapian_object.matches_estimated
-    show_no_more_than = [matches_estimated, max_results].min
-    return { :results => list_results,
-             :matches_estimated => matches_estimated,
-             :show_no_more_than => show_no_more_than }
-  end
-
-  def self.recent_requests
-    request_events = []
-    request_events_all_successful = false
-    # Get some successful requests
-    begin
-      query = 'variety:response (status:successful OR status:partially_successful)'
-      max_count = 5
-      search_options = {
-        :limit => max_count,
-        :collapse_by_prefix => 'request_title_collapse' }
-
-      xapian_object = search_events(query, search_options)
-      xapian_object.results
-      request_events = xapian_object.results.map { |r| r[:model] }
-
-      # If there are not yet enough successful requests, fill out the list with
-      # other requests
-      if request_events.count < max_count
-        query = 'variety:sent'
-        search_options[:limit] = max_count-request_events.count
-        xapian_object = search_events(query, search_options)
-        xapian_object.results
-        more_events = xapian_object.results.map { |r| r[:model] }
-        request_events += more_events
-        # Overall we still want the list sorted with the newest first
-        request_events.sort!{|e1,e2| e2.created_at <=> e1.created_at}
-      else
-        request_events_all_successful = true
+  # Get the ids of similar requests, and whether there are more
+  def similar_ids(limit=10)
+    Rails.cache.fetch(similar_cache_key, expires_in: 3.days) do
+      ids = []
+      xapian_similar_more = false
+      begin
+        xapian_similar =
+          ActsAsXapian::Similar.new([InfoRequestEvent],
+                                    info_request_events,
+                                    :limit => limit,
+                                    :collapse_by_prefix => 'request_collapse')
+        xapian_similar_more = (xapian_similar.matches_estimated > limit)
+        ids = xapian_similar.results.map do |result|
+          result[:model].info_request_id
+        end
+      rescue
       end
-    rescue
-      request_events = []
+      [ids, xapian_similar_more]
     end
-
-    [request_events, request_events_all_successful]
-  end
-
-  def self.find_in_state(state)
-    select("*, #{ last_event_time_clause } as last_event_time").
-    where(:described_state => state).
-      order('last_event_time')
   end
 
   def move_to_public_body(destination_public_body, opts = {})
+    return nil unless destination_public_body.try(:persisted?)
     old_body = public_body
     editor = opts.fetch(:editor)
 
@@ -1387,7 +1628,7 @@ class InfoRequest < ActiveRecord::Base
       })
     end
 
-    if update_attributes(attrs)
+    return_val = if update(attrs)
       log_event('move_request',
                 :editor => editor,
                 :public_body_url_name => public_body.url_name,
@@ -1397,18 +1638,154 @@ class InfoRequest < ActiveRecord::Base
 
       public_body
     end
+
+    # HACK: Manually reset counter caches
+    # https://github.com/rails/rails/issues/10865
+    old_body.class.reset_counters(old_body.id, :info_requests)
+    update_counter_cache(old_body)
+    public_body.class.reset_counters(public_body.id, :info_requests)
+    update_counter_cache
+    return_val
   end
 
-  # The DateTime of the last InfoRequestEvent belonging to the InfoRequest
-  # Only available if the last_event_time attribute has been set. This is
-  # currentlt only set through .find_in_state
+  def move_to_user(destination_user, opts = {})
+    return nil unless destination_user.try(:persisted?)
+    old_user = user
+    editor = opts.fetch(:editor)
+
+    return_val = if update(:user => destination_user)
+      log_event('move_request',
+                :editor => editor,
+                :user_url_name => user.url_name,
+                :old_user_url_name => old_user.url_name)
+
+      reindex_request_events
+
+      user
+    end
+
+    # HACK: Manually reset counter caches
+    # https://github.com/rails/rails/issues/10865
+    old_user.class.reset_counters(old_user.id, :info_requests)
+    user.class.reset_counters(user.id, :info_requests)
+    return_val
+  end
+
+  # Is the attached embargo expiring soon?
   #
-  # Returns a DateTime
-  def last_event_time
-    attributes['last_event_time'].try(:to_datetime)
+  # Returns boolean
+  def embargo_expiring?
+    embargo ? embargo.expiring_soon? : false
+  end
+
+  # Has a previously attached embargo expired?
+  #
+  # Returns boolean
+  def embargo_expired?
+    if !embargo && last_embargo_expire_event
+      true
+    else
+      false
+    end
+  end
+
+  # Is the attached embargo still present but has reached its publication date
+  #
+  # Returns boolean
+  def embargo_pending_expiry?
+    embargo ? embargo.expired? : false
+  end
+
+  # @see RequestSummaries#should_summarise?
+  def should_summarise?
+    info_request_batch_id.blank?
+  end
+
+  # Requests in a batch should update their parent batch request when they
+  # are updated.
+  #
+  # @see RequestSummaries#should_update_parent_summary?
+  def should_update_parent_summary?
+    info_request_batch_id.present?
+  end
+
+  # @see RequestSummaries#request_summary_parent
+  def request_summary_parent
+    if info_request_batch_id.blank?
+      nil
+    else
+      info_request_batch
+    end
+  end
+
+  # @see RequestSummaries#request_summary_body
+  def request_summary_body
+    outgoing_messages.any? ? outgoing_messages.first.body : ""
+  end
+
+  # @see RequestSummaries#request_summary_public_body_names
+  def request_summary_public_body_names
+    public_body.name unless public_body.blank?
+  end
+
+  # @see RequestSummaries#request_summary_categories
+  def request_summary_categories
+    categories = []
+    if embargo_expiring?
+      categories << AlaveteliPro::RequestSummaryCategory.embargo_expiring
+    end
+    # A request with no events is in the process of being sent (probably
+    # having been created within our tests rather than in real code) and will
+    # error if we try to get the phase, skip it for now because it'll be saved
+    # when it's sent and trigger this code again anyway.
+    if last_event_forming_initial_request_id.present?
+      phase_slug = state.phase.to_s
+      phase = AlaveteliPro::RequestSummaryCategory.find_by(slug: phase_slug)
+      categories << phase unless phase.blank?
+    end
+    categories
+  end
+
+  def holding_pen_request?
+    return true if url_title == 'holding_pen'
+    self == self.class.holding_pen_request
   end
 
   private
+
+  def self.add_conditions_from_extra_params(params, extra_params)
+    if extra_params[:conditions]
+      condition_string = extra_params[:conditions].shift
+      params[:conditions][0] += " AND #{condition_string}"
+      params[:conditions] += extra_params[:conditions]
+    end
+  end
+  private_class_method :add_conditions_from_extra_params
+
+  def self.search_events(query, opts = {})
+    defaults = {
+      :offset => 0,
+      :limit => 20,
+      :sort_by_prefix => 'created_at',
+      :sort_by_ascending => true
+    }
+    ActsAsXapian::Search.new([InfoRequestEvent], query, defaults.merge(opts))
+  end
+  private_class_method :search_events
+
+  def receive_mail_from_source?(source)
+    if source == :internal
+      true
+    elsif feature_enabled?(:accept_mail_from_anywhere)
+      true
+    else
+      if feature_enabled?(:accept_mail_from_poller, user)
+        source == :poller
+      else
+        source == :mailin
+      end
+    end
+  end
 
   def accept_incoming?(email, raw_email_data)
     # See if new responses are prevented
@@ -1438,7 +1815,7 @@ class InfoRequest < ActiveRecord::Base
     will_be_rejected = (response_rejector && response_rejection) ? true : false
     if will_be_rejected && response_rejection.reject(response_rejector.reason)
       # update without changing the updated_at field
-      self.update_column(:rejected_incoming_count, self.rejected_incoming_count.next)
+      update_column(:rejected_incoming_count, rejected_incoming_count.next)
       logger.info "Rejected incoming mail: #{ response_rejector.reason } request: #{ id }"
       false
     else
@@ -1460,7 +1837,9 @@ class InfoRequest < ActiveRecord::Base
       raw_email.data = raw_email_data
       raw_email.save!
 
-      self.awaiting_description = true
+      unless described_state == 'user_withdrawn'
+        self.awaiting_description = true
+      end
 
       params = { :incoming_message_id => incoming_message.id }
       params[:rejected_reason] = rejected_reason.to_s if rejected_reason
@@ -1473,6 +1852,17 @@ class InfoRequest < ActiveRecord::Base
     reindex_request_events
 
     incoming_message
+  end
+
+  # Returns index of last event which is described or nil if none described.
+  def index_of_last_described_event
+    info_request_events.reverse.each_with_index do |event, index|
+      if event.described_state
+        reverse_index = info_request_events.size - 1 - index
+        return reverse_index
+      end
+    end
+    nil
   end
 
   def set_defaults
@@ -1491,40 +1881,44 @@ class InfoRequest < ActiveRecord::Base
     end
   end
 
+  def set_use_notifications
+    if use_notifications.nil?
+      self.use_notifications = feature_enabled?(:notifications, user) && \
+                               info_request_batch_id.present?
+    end
+    return true
+  end
+
   def applicable_law
     begin
-      LAW_USED_READABLE_DATA.fetch(law_used.to_sym)
+      TranslatedConstants.law_used_readable_data.fetch(law_used.to_sym)
     rescue KeyError
       raise "Unknown law used '#{law_used}'"
     end
   end
 
   def title_formatting
-    if title && !MySociety::Validate.uses_mixed_capitals(title, 10)
+    return unless title
+    unless MySociety::Validate.uses_mixed_capitals(title, 1) ||
+           title_starts_with_number || title_is_acronym(6)
       errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
     end
-    if title && title =~ /^(FOI|Freedom of Information)\s*requests?$/i
+    if title =~ /^(FOI|Freedom of Information)\s*requests?$/i
       errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
     end
   end
 
-  def self.add_conditions_from_extra_params(params, extra_params)
-    if extra_params[:conditions]
-      condition_string = extra_params[:conditions].shift
-      params[:conditions][0] += " AND #{condition_string}"
-      params[:conditions] += extra_params[:conditions]
+  def title_is_acronym(max_length)
+    title.upcase == title && title.length <= max_length && !title.include?(" ")
+  end
+
+  def title_starts_with_number
+    title.include?(" ") && title.split(" ").first =~ /^\d+$/
+  end
+
+  def must_be_valid_state
+    unless State.all.include?(described_state)
+      errors.add(:described_state, "is not a valid state")
     end
   end
-  private_class_method :add_conditions_from_extra_params
-
-  def self.search_events(query, opts = {})
-    defaults = {
-      :offset => 0,
-      :limit => 20,
-      :sort_by_prefix => 'created_at',
-      :sort_by_ascending => true
-    }
-    ActsAsXapian::Search.new([InfoRequestEvent], query, defaults.merge(opts))
-  end
-  private_class_method :search_events
 end

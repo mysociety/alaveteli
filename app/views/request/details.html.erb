@@ -28,27 +28,30 @@
 <% columns = ['id', 'event_type', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
 
 <table>
-  <tr>
+  <thead>
+  <tr scope="col">
   <% for column in @columns%>
     <th><%= column %></th>
   <% end %>
-  <th>link</th>
+  <th scope="col">link</th>
   </tr>
+  </thead>
 
   <% @info_request.info_request_events.each do |info_request_event| %>
     <tr class="<%= cycle('odd', 'even') %>">
     <% for column in @columns %>
-      <td>
-        <%=h info_request_event.send(column) %>
+      <td data-label="<%= column %>">
+        <%=h info_request_event.send(column) %>&nbsp;
       </td>
     <% end %>
-    <td>
+    <td data-label="link">
     <% if info_request_event.outgoing_message %>
       <%= link_to "outgoing", outgoing_message_path(info_request_event.outgoing_message) %>
     <% end %>
     <% if info_request_event.incoming_message %>
       <%= link_to "incoming", incoming_message_path(info_request_event.incoming_message) %>
     <% end %>
+    &nbsp;
     </td>
     </tr>
   <% end %>
@@ -61,11 +64,13 @@
       '{{site_name}} for intermediate events, which weren\'t given an ' \
       'explicit description by a user. See the <a href="{{search_path}}">' \
       'search tips</a> for description of the states.',
-      :site_name => site_name, :search_path => search_redirect_path) %>
+      :site_name => site_name, :search_path => advanced_search_path) %>
 </p>
 
 <p>
 <%= _('You can get this page in computer-readable format as part of the ' \
-      'main JSON page for the request.  See the <a href="{{api_path}}">' \
-      'API documentation</a>.', :api_path => help_api_path) %>
+      '<a href="{{json_path}}">main JSON page</a> for the request. See the ' \
+      '<a href="{{api_path}}">API documentation</a>.',
+      json_path: request_path(@info_request, format: :json),
+      api_path: help_api_path) %>
 </p>

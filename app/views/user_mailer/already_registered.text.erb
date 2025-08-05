@@ -3,10 +3,10 @@
 <%= _('You just tried to sign up to {{site_name}}, when you ' \
       'already have an account. Your name and password have been ' \
       'left as they previously were. Please click on the link below.',
-      :site_name => site_name) %>
+      :site_name => site_name.html_safe) %>
 
 <%= raw @reasons[:email] %>
 
 <%= @url %>
 
--- <%= _('the {{site_name}} team', :site_name => site_name) %>
+-- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

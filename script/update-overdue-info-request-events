@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd `dirname $0`
+bundle exec rake --silent stats:update_overdue_info_request_events

@@ -15,10 +15,52 @@ describe MailHandler::Backends::MailBackend do
 
   describe :mail_from_raw_email do
 
-    it 'returns a new mail instance of the email' do
-      raw_mail = load_file_fixture('raw_emails/1.email')
-      expected = Mail.read_from_string(raw_mail)
-      expect(mail_from_raw_email(raw_mail)).to eq(expected)
+    subject { mail_from_raw_email(raw_email) }
+
+    context 'when passed a binary string' do
+      # Read fixture file using 'rb' mode so we end up with a ASCII-8BIT string
+      let(:raw_email) { load_file_fixture('raw_emails/1.email', 'rb') }
+
+      it 'does not raise error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'returns a new mail instance of the email' do
+        is_expected.to eq Mail.read_from_string(raw_email)
+      end
+    end
+
+    context 'when passed an UTF-8 string' do
+      let(:raw_email) do
+        # Read fixture file using 'r' mode so we end up with a UTF-8 string
+        load_file_fixture('iso8859_1_with_extended_character_set.email', 'r')
+      end
+
+      it 'does not raise error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'returns a new mail with binary body' do
+        expect(subject.body.to_s).to eq(
+          "Information Governance\xA0Unit".force_encoding(Encoding::BINARY)
+        )
+      end
+    end
+
+    context 'when passed a mail' do
+      let(:raw_email) do
+        Mail.new(
+          load_file_fixture('incoming-request-attach-attachments.email')
+        ).body
+      end
+
+      it 'does not raise error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'returns a new mail instance of the email' do
+        is_expected.to eq Mail.read_from_string(raw_email)
+      end
     end
 
   end
@@ -62,6 +104,22 @@ when it really should be application/pdf.\n
 
   end
 
+  describe :get_subject do
+
+    it 'returns nil for a nil subject' do
+      mail = Mail.new
+      expect(get_subject(mail)).to be nil
+    end
+
+    it 'returns valid UTF-8 for a non UTF-8 subject' do
+      mail = Mail.new
+      allow(mail).to receive(:subject).and_return("FOI ACT \x96 REQUEST")
+      expect(get_subject(mail).force_encoding('UTF-8').valid_encoding?)
+        .to be true
+    end
+
+  end
+
   describe :first_from do
 
     it 'finds the first from field' do
@@ -90,14 +148,75 @@ when it really should be application/pdf.\n
 
   end
 
-  describe :get_all_addresses do
+  describe '.get_all_addresses' do
+    let(:valid_only) do
+      mail = Mail.new(<<-EOF.strip_heredoc)
+      From: "FOI Person" <foiperson@localhost>
+      To: "Bob Smith" <bob@localhost>
+      Cc: bob@example.com
+      Envelope-To: bob@example.net
+      Date: Tue, 13 Nov 2007 11:39:55 +0000
+      Bcc:
+      Subject: Test
+      Reply-To:
 
-    it 'returns all addresses present in an email' do
-      mail = get_fixture_mail('raw_emails/1.email')
-      mail.cc = 'bob@example.com'
-      mail['envelope-to'] = 'bob@example.net'
-      expected = %w(bob@localhost bob@example.com bob@example.net)
-      expect(get_all_addresses(mail)).to eq(expected)
+      Test
+      EOF
+    end
+
+    let(:with_invalid) do
+      mail = Mail.new(<<-EOF.strip_heredoc)
+      From: "FOI Person" <foiperson@localhost>
+      To: <Bob Smith <bob@localhost>
+      Cc: bob@example.com>
+      Envelope-To: bob@example.net
+      Date: Tue, 13 Nov 2007 11:39:55 +0000
+      Bcc:
+      Subject: Test
+      Reply-To:
+
+      Test
+      EOF
+    end
+
+    context 'include_invalid: false' do
+      subject { MailHandler.get_all_addresses(mail) }
+
+      context 'with a mail with only valid addresses' do
+        let(:mail) { valid_only }
+
+        it do
+          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+        end
+      end
+
+      context 'with an email with invalid addresses' do
+        let(:mail) { with_invalid }
+        it { is_expected.to eq(%w(bob@example.net)) }
+      end
+    end
+
+    context 'include_invalid: true' do
+      subject { MailHandler.get_all_addresses(mail, include_invalid: true) }
+
+      context 'with a mail with only valid addresses' do
+        let(:mail) { valid_only }
+
+        it do
+          is_expected.to eq(%w(bob@localhost bob@example.com bob@example.net))
+        end
+      end
+
+      context 'with an email with invalid addresses' do
+        let(:mail) { with_invalid }
+
+        it do
+          expected = ['<Bob Smith <bob@localhost>',
+                      'bob@example.com>',
+                      'bob@example.net']
+          is_expected.to eq(expected)
+        end
+      end
     end
 
   end
@@ -167,5 +286,11 @@ when it really should be application/pdf.\n
 
   end
 
-
+  describe '#decode_attached_part' do
+    it 'does not error if mapi cannot parse a part' do
+      allow(Mapi::Msg).to receive(:open).and_raise(Encoding::CompatibilityError)
+      mail = get_fixture_mail('incoming-request-oft-attachments.email')
+      expect { decode_attached_part(mail.parts.last, mail) }.not_to raise_error
+    end
+  end
 end

@@ -22,11 +22,6 @@ describe 'when creating a mail object from raw data' do
     expect(mail.multipart?).to eq(true)
   end
 
-  it "should not fail on invalid byte sequence in content-disposition header" do
-    part = Mail::Part.new("Content-Disposition: inline; filename=a\xB8z\r\n\r\nThis is the body text.")
-    expect { part.inline? }.not_to raise_error
-  end
-
   it 'should parse multiple to addresses with unqoted display names' do
     mail = get_fixture_mail('multiple-unquoted-display-names.email')
     expect(mail.to).to eq(["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"])
@@ -49,12 +44,12 @@ describe 'when creating a mail object from raw data' do
     #   printf "hello\360" | base64
     # ... and wrapping the result in '=?UTF-8?B?' and '?='
     mail = get_fixture_mail('subject-bad-utf-8-trailing-base64.email')
-    expect(mail.subject).to eq('hello')
+    expect(mail.subject).to eq('hello�')
     # The quoted printable subject line was generated with:
     #   printf "hello\360" | qprint -b -e
     # ... and wrapping the result in '=?UTF-8?Q?' and '?='
     mail = get_fixture_mail('subject-bad-utf-8-trailing-quoted-printable.email')
-    expect(mail.subject).to eq('hello')
+    expect(mail.subject).to eq('hello�')
   end
 
 
@@ -81,9 +76,13 @@ describe 'when creating a mail object from raw data' do
 
   it 'should not error on a subject line with an encoding encoding not recognized by iconv' do
     mail = get_fixture_mail('unrecognized-encoding-mail.email')
-    expect{ mail.subject }.not_to raise_error
+    expect { mail.subject }.not_to raise_error
   end
 
+  it 'identifies parts in multipart emails with utf8 and unix line endings' do
+    mail = get_fixture_mail('multipart-unicode-unix-endings.eml')
+    expect(mail.parts.map(&:content_type)).to eq(%w(text/plain text/html))
+  end
 end
 
 describe 'when asked for the from name' do
@@ -285,7 +284,7 @@ describe 'when getting the content type of a mail part' do
 
   it 'should correctly return the types in an example bounce report' do
     mail = get_fixture_mail('track-response-ms-bounce.email')
-    report = mail.parts.detect{ |part| MailHandler.get_content_type(part) == 'multipart/report'}
+    report = mail.parts.detect { |part| MailHandler.get_content_type(part) == 'multipart/report' }
     expect(MailHandler.get_content_type(report.parts[0])).to eq('text/plain')
     expect(MailHandler.get_content_type(report.parts[1])).to eq('message/delivery-status')
     expect(MailHandler.get_content_type(report.parts[2])).to eq('message/rfc822')
@@ -331,12 +330,18 @@ end
 
 describe "when getting the attachment text" do
   it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = double('ZipFile entry', :file? => true)
+    mock_entry = double('Zip::File entry', :file? => true)
     mock_entries = [mock_entry]
     allow(mock_entries).to receive(:close)
     allow(mock_entry).to receive(:get_input_stream).and_raise("invalid distance too far back")
-    allow(Zip::ZipFile).to receive(:open).and_return(mock_entries)
+    allow(Zip::File).to receive(:open).and_return(mock_entries)
     MailHandler.get_attachment_text_one_file('application/zip', "some string")
+  end
+
+  it 'extracts plain text as UTF-8 from a zip file' do
+    zip_contents = load_file_fixture('example.zip')
+    text = MailHandler.get_attachment_text_one_file('application/zip', zip_contents)
+    expect(text.encoding.to_s).to eq('UTF-8')
   end
 
 end
@@ -441,7 +446,7 @@ describe 'when getting attachment attributes' do
     attributes = MailHandler.get_attachment_attributes(mail)
     expect(attributes.length).to eq(1)
     expect(attributes[0][:body]).to match(/This is an acknowledgement of your email/)
-    expect(attributes[0][:content_type]).to eq("text/plain")
+    expect(attributes[0][:content_type]).to eq("text/html")
     expect(attributes[0][:url_part_number]).to eq(1)
   end
 

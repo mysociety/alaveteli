@@ -3,6 +3,11 @@ file_filter = locale/<lang>/app.po
 source_lang = en
 source_file = locale/en/app.po
 
+[alaveteli.alaveteli-pro]
+file_filter = locale_alaveteli_pro/<lang>/app.po
+source_lang = en
+source_file = locale_alaveteli_pro/en/app.po
+
 [main]
 host = https://www.transifex.com
 

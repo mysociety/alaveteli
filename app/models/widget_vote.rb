@@ -4,17 +4,17 @@
 # Table name: widget_votes
 #
 #  id              :integer          not null, primary key
-#  cookie          :string(255)
+#  cookie          :string
 #  info_request_id :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
 
-class WidgetVote < ActiveRecord::Base
-  belongs_to :info_request
-  validates :info_request, :presence => true
+class WidgetVote < ApplicationRecord
+  belongs_to :info_request,
+             :inverse_of => :widget_votes
 
-  attr_accessible :cookie
+  validates :info_request, :presence => true
   validates :cookie, length: { is: 20 }
   validates :cookie, uniqueness: { scope: :info_request_id }
 end

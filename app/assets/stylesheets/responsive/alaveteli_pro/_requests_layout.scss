@@ -1,0 +1,333 @@
+/* Layout for the requests page */
+
+.requests__folder-title {
+  h2 {
+    font-size: 2.375em;
+    margin-top: 0;
+    font-weight: bold;
+    margin-bottom: 0.75em;
+  }
+}
+.requests__header {
+  padding: 0.5em;
+  width: 100%;
+  form {
+    margin-bottom: 0;
+  }
+}
+
+.requests__filter_form {
+  @include flexbox;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.requests__search {
+  @include flex(1 0 100%);
+  margin-bottom: 1em;
+  position: relative;
+  @include respond-min( $dashboard-collapse ){
+    @include flex(7 0 0);
+    margin-bottom: 0;
+  }
+  input[type=text]{
+    width: 100%;
+    max-width: none;
+    border: 1px solid #ddd;
+    font-size: 0.875em;
+    border-radius: 3px;
+  }
+}
+
+.requests__search__button {
+  position: absolute;
+  right: 14px;
+  top: 0.6em;
+  background-image: image-url('/assets/alaveteli-pro/search--light.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 20px;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  width: 16px;
+  height: 20px;
+  border: 0;
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('alaveteli-pro/search--light@2.png');
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+.requests__sort {
+  @include flex(1 0 100%);
+  max-width: 15em;
+  @include respond-min( 24em ){
+    @include flex(1 2 50%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(4 2 0);
+    text-align: right;
+  }
+}
+
+.requests__search,
+.requests__sort {
+  input, select, label {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  select {
+    max-width: 60%;
+    padding-right: 2em;
+  }
+}
+
+.requests__list {
+  margin-top: 0.5em;
+}
+
+.request {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.request__title {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+.request__meta {
+  @include flexbox;
+  flex-wrap: wrap;
+  margin: 0 0 1em;
+}
+
+.request__meta__label {
+  margin-top: 1em;
+  @include respond-min( $dashboard-collapse ){
+    margin-top: 0;
+  }
+}
+
+.request__status,
+.request__recipient,
+.request__created,
+.request__updated,
+.request__due,
+.request__responses {
+  @include respond-min( $dashboard-collapse ){
+    margin-right: 1em;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// TODO - the flex() rules for these add up to way less than 100%, yet the
+// elements still overflow their container. Not sure why. I've hacked it by
+// reducing the width of the select in the last element and floating it right
+.request__status {
+  position: relative;
+  padding-left: 25px;
+  @include flex(1 0 60%);
+  @include respond-min( 24em ){
+    @include flex(1 0 40%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(5 0 0);
+  }
+  .phase-icon {
+    position: absolute;
+    top: 1.45em;
+    left: 0;
+    @include respond-min( $dashboard-collapse ){
+      top: 0.7em;
+    }
+  }
+}
+
+.request__recipient {
+  @include flex(1 0 100%);
+  @include respond-min( 24em ){
+    @include flex(1 0 100%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(8 0 0);
+  }
+}
+
+.request__created,
+.request__updated,
+.request__due,
+.request__responses {
+  @include flex(1 0 50%);
+  @include respond-min( 24em ){
+    @include flex(1 0 25%);
+  }
+  @include respond-min( $dashboard-collapse ){
+    @include flex(3 0 0);
+  }
+}
+
+.request__meta__label {
+  display: block;
+}
+
+.request__download a {
+  @include button($padding: 0.428rem, $bg: #AAA, $radius: true);
+  font-size: 0.786rem;
+  margin: 0;
+}
+
+.search-and-filter-overview {
+  margin: 1em 0 0;
+}
+
+/*
+ * The progress-bar-and-labels summary of a batch of requests
+ */
+.batch-summary {
+  @include flexbox;
+  @include justify-content(center);
+  margin-top: 1em;
+}
+
+// Each section of the progress bar represents a "phase" requests can be in
+.batch-summary__phase {
+  // Each section is initially set to take up an equal amount of space in the
+  // bar. We then make them proportional to the number of requests in the
+  // phase by setting a flex-grow style on the element directly in the html.
+  @include flex(1 0 auto);
+  font-size: 0.875em;
+
+  // Basic bar styling
+  .progress-bar {
+    height: 0.25em  ;
+    width: 100%;
+    background-color: #f3f1eb;
+    display: block;
+    margin-bottom: 1em;
+  }
+
+  // Round the start of the first phase's bar, so that it looks like a pill
+  &.batch-summary__phase:first-of-type {
+    .progress-bar {
+      border-top-left-radius: 0.5em;
+      border-bottom-left-radius: 0.5em;
+    }
+  }
+
+  // Round the end of the last phase's bar, so that it looks like a pill
+  &.batch-summary__phase:last-of-type {
+    text-align: right;
+
+    .progress-bar {
+      border-top-right-radius: 0.5em;
+      border-bottom-right-radius: 0.5em;
+    }
+  }
+
+  // Make sure when there's only one, the text is on the left (the bar will
+  // inherit both first-of and last-of's rounded ends but last-of wins with
+  // it seems).
+  &.batch-summary__phase:only-of-type {
+    text-align: left;
+  }
+
+  // Add colours to the bar for the various different phases
+  &.batch-summary__phase--in_progress {
+    .progress-bar {
+      background-color: rgb(255, 216, 54);
+    }
+  }
+
+  &.batch-summary__phase--action_needed {
+    .progress-bar {
+      background-color: rgb(224, 75, 75);
+    }
+  }
+
+  &.batch-summary__phase--complete {
+    .progress-bar {
+      background-color: rgb(112, 203, 99);
+    }
+  }
+}
+
+// The collapsable list of requests inside a batch request
+// We need the houdini-target class to override houdini's margin-top
+.batch-request__requests.houdini-target {
+  padding-left: 2em;
+  margin-top: 1em;
+  border-top: 1px solid #ddd;
+}
+
+.batch-request__requests__request {
+  @include flexbox;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.875em;
+  padding: 0.5em 0;
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.batch-request__requests__request__recipient {
+  font-size: 1em;
+  font-weight: normal;
+  @include flex(1 0 50%);
+  margin: 0;
+}
+
+.batch-request__requests__request__phase {
+  @include flex(1 0 35%);
+  margin: 0;
+}
+
+.batch-request__requests__request__responses {
+  @include flex(1 0 15%);
+  margin: 0;
+}
+
+.request__phase-summary-icon {
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.5em;
+  display: inline-block;
+  border-radius: 0.5em;
+  margin-bottom: 1px;
+}
+
+
+.show-all-batch-link {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  a {
+    font-size: 0.875em;
+  }
+}
+
+//Request navigation controls 
+
+.request-navigation {
+  display: none;
+  @include respond-min($main_menu-mobile_menu_cutoff) {
+    @include flexbox();
+    vertical-align: middle;
+    @include flex-wrap(nowrap);
+  }
+}
+
+.request-navigation__button {
+  @include flex(0 1 auto);
+}
+
+.request-navigation__button--current {
+  @include flex(2 1 auto);
+}

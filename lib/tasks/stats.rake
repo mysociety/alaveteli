@@ -7,18 +7,20 @@ namespace :stats do
     check_for_env_vars(['START_YEAR'], example)
     start_year = (ENV['START_YEAR']).to_i
     start_month = (ENV['START_MONTH'] || 1).to_i
-    end_year = (ENV['END_YEAR'] || Time.now.year).to_i
-    end_month = (ENV['END_MONTH'] || Time.now.month).to_i
+    end_year = (ENV['END_YEAR'] || Time.zone.now.year).to_i
+    end_month = (ENV['END_MONTH'] || Time.zone.now.month).to_i
 
     month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
 
     headers = ['Period',
                'Requests sent',
+               'Pro requests sent',
                'Visible comments',
                'Track this request email signups',
                'Comments on own requests',
                'Follow up messages sent',
                'Confirmed users',
+               'Confirmed pro users',
                'Request classifications',
                'Public body change requests',
                'Widget votes',
@@ -34,6 +36,9 @@ namespace :stats do
                          month_start, month_end+1]
 
       request_count = InfoRequest.where(date_conditions).count
+      pro_request_count = InfoRequest.pro.where('info_requests.created_at >= ?
+                                                AND info_requests.created_at < ?',
+                                                month_start, month_end+1).count
       visible_comments_count = Comment.visible.where('comments.created_at >= ?
                                                       AND comments.created_at < ?',
                                                       month_start, month_end+1).count
@@ -56,8 +61,9 @@ namespace :stats do
       comment_on_own_request_count =
         Comment.
           includes(:info_request).
-            where(comment_on_own_request_conditions).
-              count
+            references(:info_request).
+              where(comment_on_own_request_conditions).
+                count
 
       followup_conditions = ['message_type = ?
                                AND prominence = ?
@@ -70,9 +76,17 @@ namespace :stats do
       follow_up_count = OutgoingMessage.where(followup_conditions).count
 
       confirmed_users_count =
-        User.
+        User.active.
           where(:email_confirmed => true).
             where(date_conditions).
+              count
+
+      pro_confirmed_users_count =
+        User.pro.active.
+          where(:email_confirmed => true).
+            where('users.created_at >= ?
+                   AND users.created_at < ?',
+                   month_start, month_end+1).
               count
 
       request_classifications_count =
@@ -88,11 +102,13 @@ namespace :stats do
 
       puts [period,
             request_count,
+            pro_request_count,
             visible_comments_count,
             email_request_track_count,
             comment_on_own_request_count,
             follow_up_count,
             confirmed_users_count,
+            pro_confirmed_users_count,
             request_classifications_count,
             public_body_change_requests_count,
             widget_votes_count,
@@ -106,8 +122,8 @@ namespace :stats do
     first_request_datetime = InfoRequest.minimum(:created_at)
     start_year = first_request_datetime.strftime("%Y").to_i
     start_month = first_request_datetime.strftime("%m").to_i
-    end_year = Time.now.strftime("%Y").to_i
-    end_month = Time.now.strftime("%m").to_i
+    end_year = Time.zone.now.strftime("%Y").to_i
+    end_month = Time.zone.now.strftime("%m").to_i
     puts "Start year: #{start_year}"
     puts "Start month: #{start_month}"
     puts "End year: #{end_year}"
@@ -118,7 +134,7 @@ namespace :stats do
       puts "Bodies with tag '#{tag}': #{tag_bodies.size}"
       public_bodies += tag_bodies
     end
-    public_body_ids = public_bodies.map{ |body| body.id }.uniq
+    public_body_ids = public_bodies.map { |body| body.id }.uniq
     public_body_condition_string = 'AND public_bodies.id in (?)'
     month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
     headers = ['Period',
@@ -129,14 +145,21 @@ namespace :stats do
       month_end = month_start.end_of_month
       period = "#{month_start}-#{month_end}"
       date_condition_string = 'info_requests.created_at >= ? AND info_requests.created_at < ?'
+
       conditions = [date_condition_string + " " + public_body_condition_string,
                     month_start,
                     month_end+1,
                     public_body_ids]
-      request_count = InfoRequest.count(:conditions => conditions,
-                                        :include => :public_body)
 
-      total_count = InfoRequest.count(:conditions => [date_condition_string, month_start, month_end+1])
+      request_count =
+        InfoRequest.includes(:public_body).where(conditions).
+          references(:public_bodies).count
+
+      total_count =
+        InfoRequest.
+          where([date_condition_string, month_start, month_end+1]).
+            count
+
       if total_count > 0
         percent = ((request_count.to_f / total_count.to_f ) * 100).round(2)
       else
@@ -164,7 +187,7 @@ namespace :stats do
     public_bodies.each do |body|
       stats = quarters.map do |quarter|
         conditions = ['created_at >= ? AND created_at < ?', quarter[0], quarter[1]]
-        count = body.info_requests.count(:conditions => conditions)
+        count = body.info_requests.where(conditions).count
         count ? count : 0
       end
 
@@ -192,7 +215,7 @@ namespace :stats do
       stats = quarters.map do |quarter|
         conditions = ['created_at >= ? AND created_at < ? AND described_state = ?',
                       quarter[0], quarter[1], 'successful']
-        count = body.info_requests.count(:conditions => conditions)
+        count = body.info_requests.where(conditions).count
         count ? count : 0
       end
 
@@ -212,12 +235,12 @@ namespace :stats do
       # described_state column, and instead need to be calculated:
       overdue_count = 0
       very_overdue_count = 0
-      InfoRequest.find_each(:batch_size => 200,
-                            :conditions => {
-                              :public_body_id => public_body.id,
-                              :awaiting_description => false,
-                              :prominence => 'normal'
-      }) do |ir|
+
+      conditions = { :public_body_id => public_body.id,
+                     :awaiting_description => false }
+
+      InfoRequest.
+        is_searchable.where(conditions).find_each(:batch_size => 200) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
           very_overdue_count += 1
@@ -231,6 +254,19 @@ namespace :stats do
         public_body.save!
       end
     end
+  end
+
+  desc 'Add InfoRequestEvents for the points when requests became overdue
+        and very overdue'
+  task :update_overdue_info_request_events => :environment do
+    InfoRequest.log_overdue_events
+    InfoRequest.log_very_overdue_events
+  end
+
+  desc 'Add InfoRequestEvents for the points when requests embargoes began to
+        expire'
+  task :update_expiring_embargo_info_request_events => :environment do
+    AlaveteliPro::Embargo.log_expiring_events
   end
 
   desc 'Print a list of the admin URLs of requests with hidden material'
@@ -278,7 +314,7 @@ namespace :stats do
     puts CSV.generate_line(["public_body_id", "public_body_name", "request_created_timestamp", "request_title", "request_body"])
 
     PublicBody.limit(20).order('info_requests_visible_count DESC').each do |body|
-      body.info_requests.where(:prominence => 'normal').find_each do |request|
+      body.info_requests.is_searchable.find_each do |request|
         puts CSV.generate_line([request.public_body.id, request.public_body.name, request.created_at, request.url_title, request.initial_request_text.gsub("\r\n", " ").gsub("\n", " ")])
       end
     end

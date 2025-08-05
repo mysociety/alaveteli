@@ -39,7 +39,7 @@
   @include grid-column(12);
 
   ul {
-    @extend .inline-list;
+    @include inline-list();
     margin-top: 0;
     li {
       @media (min-width: 32em) {

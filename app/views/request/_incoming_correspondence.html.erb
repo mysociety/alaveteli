@@ -1,21 +1,23 @@
-<div class="incoming correspondence box <%= incoming_message.prominence %>" id="incoming-<%=incoming_message.id.to_s%>">
-  <%- if not incoming_message.user_can_view?(@user) %>
-    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message }%>
+<div class="incoming correspondence <%= incoming_message.prominence %> js-collapsable" id="incoming-<%= incoming_message.id %>">
+  <div class="correspondence__header">
+    <span class="correspondence__header__author js-collapsable-trigger">
+      <% if incoming_message.specific_from_name? %>
+        <%= incoming_message.safe_mail_from %>,
+      <% end %>
+      <% if incoming_message.from_public_body? %>
+        <%= @info_request.public_body.name %>
+      <% end %>
+    </span>
+
+    <%= link_to incoming_message_path(incoming_message), :class => 'correspondence__header__date' do %>
+      <%= simple_date(incoming_message.sent_at) %>
+    <% end %>
+  </div>
+
+  <%- if cannot?(:read, incoming_message) %>
+    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => incoming_message } %>
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => incoming_message } %>
-
-    <h2>
-      <% if incoming_message.specific_from_name? %>
-        <%= _("From:") %> <%= incoming_message.safe_mail_from %><br>
-      <% end %>
-
-      <% if incoming_message.from_public_body? %>
-        <%= @info_request.public_body.name %><br>
-      <% end %>
-
-      <br><%= simple_date(incoming_message.sent_at) %>
-    </h2>
-
     <%= render :partial => 'request/bubble',
                :locals => { :incoming_message => incoming_message,
                             :body => incoming_message.get_body_for_html_display(@collapse_quotes),
@@ -23,10 +25,20 @@
 
     <p class="event_actions">
       <% if !@user.nil? && @user.admin_page_links? %>
-        <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %> |
+        <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %>
       <% end %>
-
-      <%= link_to _("Link to this"), incoming_message_path(incoming_message), :class => "link_to_this" %>
     </p>
+
+    <% if show_correspondence_footer %>
+      <% link_to_this_url = incoming_message_url(incoming_message) %>
+
+      <% report_path =
+           new_request_report_path(request_id: @info_request.url_title,
+                                   incoming_message_id: incoming_message.id) %>
+
+      <%= render partial: 'request/correspondence_footer',
+                 locals: { link_to_this_url: link_to_this_url,
+                           report_path: report_path } %>
+    <% end %>
   <%- end %>
 </div>

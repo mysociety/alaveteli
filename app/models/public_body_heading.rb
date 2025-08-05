@@ -5,15 +5,19 @@
 #
 #  id            :integer          not null, primary key
 #  display_order :integer
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
-class PublicBodyHeading < ActiveRecord::Base
-  attr_accessible :locale, :name, :display_order, :translated_versions,
-    :translations_attributes
+class PublicBodyHeading < ApplicationRecord
+  has_many :public_body_category_links,
+           :inverse_of => :public_body_heading,
+           :dependent => :destroy
+  has_many :public_body_categories,
+           -> { order('public_body_category_links.category_display_order') },
+           :through => :public_body_category_links
 
-  has_many :public_body_category_links, :dependent => :destroy
-  has_many :public_body_categories, :order => :category_display_order, :through => :public_body_category_links
-  default_scope -> { order("display_order ASC") }
+  scope :by_display_order, -> { order('display_order ASC') }
 
   translates :name
 

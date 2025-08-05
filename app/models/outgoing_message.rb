@@ -1,20 +1,19 @@
 # -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20131024114346
 #
 # Table name: outgoing_messages
 #
 #  id                           :integer          not null, primary key
 #  info_request_id              :integer          not null
 #  body                         :text             not null
-#  status                       :string(255)      not null
-#  message_type                 :string(255)      not null
+#  status                       :string           not null
+#  message_type                 :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  last_sent_at                 :datetime
 #  incoming_message_followup_id :integer
-#  what_doing                   :string(255)      not null
-#  prominence                   :string(255)      default("normal"), not null
+#  what_doing                   :string           not null
+#  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
 #
 
@@ -25,9 +24,9 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-class OutgoingMessage < ActiveRecord::Base
+class OutgoingMessage < ApplicationRecord
   include AdminColumn
-  extend MessageProminence
+  include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -49,26 +48,49 @@ class OutgoingMessage < ActiveRecord::Base
   validate :body_has_signature
   validate :what_doing_value
 
-  belongs_to :info_request
-  belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
+  belongs_to :info_request,
+             :inverse_of => :outgoing_messages
+  belongs_to :incoming_message_followup,
+             :inverse_of => :outgoing_message_followups,
+             :foreign_key => 'incoming_message_followup_id',
+             :class_name => 'IncomingMessage'
 
   # can have many events, for items which were resent by site admin e.g. if
   # contact address changed
-  has_many :info_request_events, :dependent => :destroy
+  has_many :info_request_events,
+           :inverse_of => :outgoing_message,
+           :dependent => :destroy
 
   after_initialize :set_default_letter
-  after_save :purge_in_cache
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
 
   strip_attributes :allow_empty => true
-  has_prominence
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 
   # https links in emails if forcing SSL
   if AlaveteliConfiguration::force_ssl
     self.default_url_options[:protocol] = "https"
+  end
+
+  def self.expected_send_errors
+    [ EOFError,
+      IOError,
+      Timeout::Error,
+      Errno::ECONNRESET,
+      Errno::ECONNABORTED,
+      Errno::EPIPE,
+      Errno::ETIMEDOUT,
+      Net::SMTPAuthenticationError,
+      Net::SMTPServerBusy,
+      Net::SMTPSyntaxError,
+      Net::SMTPUnknownError,
+      OpenSSL::SSL::SSLError ].concat(additional_send_errors)
+  end
+
+  def self.additional_send_errors
+    []
   end
 
   def self.default_salutation(public_body)
@@ -80,6 +102,18 @@ class OutgoingMessage < ActiveRecord::Base
               default_salutation(public_body))
   end
 
+  def self.with_body(body)
+    # TODO: can add other databases here which have regexp_replace
+    if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+      # Exclude whitespace from the body comparison using regexp_replace
+      where("regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') =
+             regexp_replace(?, '[[:space:]]', '', 'g')", body)
+    else
+      # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
+      where(body: body)
+    end
+  end
+
   def get_internal_review_insert_here_note
     _("GIVE DETAILS ABOUT YOUR COMPLAINT HERE")
   end
@@ -89,9 +123,10 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def set_signature_name(name)
-    # TODO: We use raw_body here to get unstripped one
+    # We compare against raw_body as body strips linebreaks and applies
+    # censor rules
     if raw_body == get_default_message
-      self.body = raw_body + name
+      self.body = get_default_message + name
     end
   end
 
@@ -180,8 +215,20 @@ class OutgoingMessage < ActiveRecord::Base
     info_request.is_owning_user?(user)
   end
 
+  # Without recording the send failure, parts of the public and admin
+  # interfaces for the request and authority may become inaccessible.
+  def record_email_failure(failure_reason)
+    self.last_sent_at = Time.zone.now
+    self.status = 'failed'
+    save!
+
+    info_request.log_event('send_error', reason: failure_reason,
+                                         outgoing_message_id: id)
+    set_info_request_described_state
+  end
+
   def record_email_delivery(to_addrs, message_id, log_event_type = 'sent')
-    self.last_sent_at = Time.now
+    self.last_sent_at = Time.zone.now
     self.status = 'sent'
     save!
 
@@ -252,15 +299,20 @@ class OutgoingMessage < ActiveRecord::Base
   end
 
   def delivery_status
-    mail_server_logs.
-      map { |log| log.line(:decorate => true).delivery_status }.
-        compact.
-          last
+    # If the outgoing status is failed, we won't have mail logs, and know we can
+    # present a failed status to the end user.
+    if status == 'failed'
+      MailServerLog::DeliveryStatus.new(:failed)
+    else
+      mail_server_logs.map(&:delivery_status).compact.reject(&:unknown?).last ||
+        MailServerLog::DeliveryStatus.new(:unknown)
+    end
   end
 
   # An admin function
   def prepare_message_for_resend
-    if MESSAGE_TYPES.include?(message_type) and status == 'sent'
+    if MESSAGE_TYPES.include?(message_type) &&
+         (status == 'sent' || status == 'failed')
       self.status = 'ready'
     else
       raise "Message id #{id} has type '#{message_type}' status " \
@@ -306,7 +358,7 @@ class OutgoingMessage < ActiveRecord::Base
     text = body.strip
     self.remove_privacy_sensitive_things!(text)
     text = CGI.escapeHTML(text)
-    text = MySociety::Format.make_clickable(text, :contract => 1)
+    text = MySociety::Format.make_clickable(text, { :contract => 1, :nofollow => true })
     text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/officers#mobiles">\1</a>]')
     text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
@@ -317,22 +369,24 @@ class OutgoingMessage < ActiveRecord::Base
     get_text_for_indexing(strip_salutation=false)
   end
 
-  def purge_in_cache
-    info_request.purge_in_cache
+  def xapian_reindex_after_update
+    return unless saved_change_to_attribute?(:body)
+
+    info_request_events.find_each { |event| event.xapian_mark_needs_index }
   end
 
-  def xapian_reindex_after_update
-    if changes.include?('body')
-      info_request_events.each do |event|
-        event.xapian_mark_needs_index
-      end
-    end
+  def default_letter=(text)
+    original_default = get_default_message.clone
+    @default_letter = text
+    self.body = get_default_message if raw_body == original_default
   end
 
   private
 
   def set_info_request_described_state
-    if message_type == 'initial_request'
+    if status == 'failed'
+      info_request.set_described_state('error_message')
+    elsif message_type == 'initial_request'
       info_request.set_described_state('waiting_response')
     elsif message_type == 'followup'
       if info_request.described_state == 'waiting_clarification'
@@ -367,6 +421,7 @@ class OutgoingMessage < ActiveRecord::Base
     if info_request
       opts[:url] = request_url(info_request) if info_request.url_title
       opts[:info_request_title] = info_request.title if info_request.title
+      opts[:embargo] = true if info_request.embargo
     end
 
     opts[:public_body_name] =
@@ -385,24 +440,13 @@ class OutgoingMessage < ActiveRecord::Base
   def replying_to_incoming_message?
     message_type == 'followup' &&
       incoming_message_followup &&
-        incoming_message_followup.safe_mail_from &&
-          incoming_message_followup.valid_to_reply_to?
-  end
-
-  def format_of_body
-    warn %q([DEPRECATION] OutgoingMessage#format_of_body will be removed in
-            0.26. It has been broken up in to OutgoingMessage#template_changed,
-            OutgoingMessage#body_uses_mixed_capitals,
-            OutgoingMessage#body_has_signature and
-            OutgoingMessage#what_doing_value).squish
-    template_changed
-    body_uses_mixed_capitals
-    body_has_signature
-    what_doing_value
+      incoming_message_followup.safe_mail_from &&
+      incoming_message_followup.valid_to_reply_to?
   end
 
   def template_changed
-    if body.empty? || HTMLEntities.new.decode(raw_body) =~ /\A#{template_regex(letter_template.body(default_message_replacements))}/
+    if raw_body.empty? || HTMLEntities.new.decode(raw_body) =~
+                          /\A#{template_regex(letter_template.body(default_message_replacements))}/
       if message_type == 'followup'
         if what_doing == 'internal_review'
           errors.add(:body, _("Please give details explaining why you want a review"))
@@ -454,15 +498,35 @@ class OutgoingMessage < ActiveRecord::Base
                 try(:line)
     end
 
-    lines.compact.map { |line| line.split(' ').fourth.strip }
+    lines.compact.map { |line| line[/\w{6}-\w{6}-\w{2}/].strip }.compact
   end
 
   def exim_mail_server_logs
-    mta_ids.flat_map do |mta_id|
+    logs = mta_ids.flat_map do |mta_id|
       info_request.
         mail_server_logs.
           where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
     end
+
+    smarthost_mta_ids = logs.flat_map do |log|
+      line = log.line(:decorate => true)
+      if line.delivery_status.try(:delivered?)
+        match = line.to_s.match(/C=".*?id=(?<message_id>\w+-\w+-\w+).*"/)
+        match[:message_id] if match
+      end
+    end
+
+    smarthost_mta_ids.compact!
+
+    smarthost_logs = smarthost_mta_ids.flat_map do |mta_id|
+      info_request.
+        mail_server_logs.
+          where('line ILIKE :mta_id', mta_id: "%#{ mta_id }%")
+    end
+
+    # Need to call #uniq because the more_logs query pulls out the initial
+    # delivery line
+    (logs + smarthost_logs).uniq
   end
 
   def postfix_mta_ids

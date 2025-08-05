@@ -8,21 +8,54 @@
 require 'set'
 
 class UserController < ApplicationController
+  include UserSpamCheck
+
   layout :select_layout
-  # NOTE: Rails 4 syntax: change before_filter to before_action
-  before_filter :normalize_url_name, :only => :show
+  before_action :normalize_url_name, :only => :show
+  before_action :work_out_post_redirect, :only => [ :signup ]
+  before_action :set_request_from_foreign_country, :only => [ :signup ]
+  before_action :set_in_pro_area, :only => [ :signup ]
+
+  # Normally we wouldn't be verifying the authenticity token on these actions
+  # anyway as there shouldn't be a user_id in the session when the before
+  # filter run. This skip handles cases where an already logged in user
+  # tries to sign in or sign up. There's little CSRF potential here as
+  # these actions only sign in or up users with valid credentials. The
+  # user_id in the session is not expected, and gives no extra privilege
+  skip_before_action :verify_authenticity_token, :only => [:signin, :signup]
 
   # Show page about a user
   def show
     long_cache
-    set_view_instance_variables
     @display_user = set_display_user
+    set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
 
     set_show_requests if @show_requests
 
+    @private_requests = []
+
     if @is_you
+      private_requests =
+        @display_user.
+          info_requests.
+          visible_to_requester.
+          embargoed
+
+      if params[:user_query]
+        private_requests = private_requests.
+          where("info_requests.title ILIKE :q", q: "%#{ params[:user_query] }%")
+      end
+
+      unless params[:request_latest_status].blank?
+        private_requests = private_requests.
+          where(described_state: params[:request_latest_status])
+      end
+
+      @private_requests =
+        private_requests.page(params[:page]).per_page(@per_page)
+
       # All tracks for the user
       @track_things = TrackThing.
         where(:tracking_user_id => @display_user, :track_medium => 'email_daily').
@@ -57,8 +90,8 @@ class UserController < ApplicationController
       @xapian_comments = nil
     end
 
-    feed_results += @xapian_requests.results.map {|x| x[:model]} if @xapian_requests
-    feed_results += @xapian_comments.results.map {|x| x[:model]} if @xapian_comments
+    feed_results += @xapian_requests.results.map { |x| x[:model] } if @xapian_requests
+    feed_results += @xapian_comments.results.map { |x| x[:model] } if @xapian_comments
 
     # All tracks for the user
     if @is_you
@@ -73,11 +106,13 @@ class UserController < ApplicationController
                                                  :sort_by_ascending => true,
                                                  :collapse_by_prefix => nil,
                                                  :limit => 20)
-        feed_results += xapian_object.results.map {|x| x[:model]}
+        feed_results += xapian_object.results.map { |x| x[:model] }
       end
     end
 
     @feed_results = feed_results.to_a.sort { |x, y| y.created_at <=> x.created_at }.first(20)
+
+    @feed_results = [] if @display_user.closed?
 
     respond_to do |format|
       format.html { @has_json = true }
@@ -86,70 +121,22 @@ class UserController < ApplicationController
 
   end
 
-  # Login form
-  def signin
-    work_out_post_redirect
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
-    # make sure we have cookies
-    if session.instance_variable_get(:@dbman)
-      unless session.instance_variable_get(:@dbman).instance_variable_get(:@original)
-        # try and set them if we don't
-        unless params[:again]
-          return redirect_to signin_url(:r => params[:r], :again => 1)
-        end
-        return render :action => 'no_cookies'
-      end
-    end
-    # remove "cookie setting attempt has happened" parameter if there is one and cookies worked
-    if params[:again]
-      return redirect_to signin_url(:r => params[:r], :again => nil)
-    end
-    # First time page is shown
-    return render :action => 'sign' unless params[:user_signin]
-
-    if @post_redirect.present?
-      @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name])
-    end
-
-    if @post_redirect.nil? || @user_signin.errors.size > 0
-      # Failed to authenticate
-      render :action => 'sign'
-    else
-      # Successful login
-      if @user_signin.email_confirmed
-        session[:user_id] = @user_signin.id
-        session[:ttl] = nil
-        session[:user_circumstance] = nil
-        session[:remember_me] = params[:remember_me] ? true : false
-
-        if is_modal_dialog
-          render :action => 'signin_successful'
-        else
-          do_post_redirect @post_redirect
-        end
-      else
-        send_confirmation_mail @user_signin
-      end
-    end
-  end
-
   # Create new account form
   def signup
-    work_out_post_redirect
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
     error = false
-    @request_from_foreign_country = country_from_ip != AlaveteliConfiguration::iso_country_code
     if @request_from_foreign_country && !verify_recaptcha
-      flash.now[:error] = _("There was an error with the words you entered, please try again.")
+      flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
+                              'Please try again.')
       error = true
     end
     @user_signup.valid?
-    user_alreadyexists = User.find_user_by_email(params[:user_signup][:email].strip)
+    user_alreadyexists = User.find_user_by_email(params[:user_signup][:email])
     if user_alreadyexists
       # attempt to remove the 'already in use message' from the errors hash
       # so it doesn't get accidentally shown to the end user
-      @user_signup.errors[:email].delete_if{|message| message == _("This email is already in use")}
+      @user_signup.errors[:email].delete_if { |message| message == _("This email is already in use") }
     end
     if error || !@user_signup.errors.empty?
       # Show the form
@@ -160,6 +147,21 @@ class UserController < ApplicationController
         return
       else
         # New unconfirmed user
+
+        # Rate limit signups
+        ip_rate_limiter.record(user_ip)
+
+        if ip_rate_limiter.limit?(user_ip)
+          handle_rate_limited_signup(user_ip, @user_signup.email) && return
+        end
+
+        # Prevent signups from potential spammers
+        if spam_user?(@user_signup)
+          handle_spam_user(@user_signup) do
+            render action: 'sign'
+          end && return
+        end
+
         @user_signup.email_confirmed = false
         @user_signup.save!
         send_confirmation_mail @user_signup
@@ -168,50 +170,8 @@ class UserController < ApplicationController
     end
   end
 
-  def confirm
-    post_redirect = PostRedirect.find_by_email_token(params[:email_token])
-
-    if post_redirect.nil?
-      render :template => 'user/bad_token'
-      return
-    end
-
-    case post_redirect.circumstance
-    when 'login_as'
-      @user = confirm_user!(post_redirect.user)
-      session[:user_id] = @user.id
-    when 'change_password'
-      unless session[:user_id] == post_redirect.user_id
-        clear_session_credentials
-      end
-
-      session[:change_password_post_redirect_id] = post_redirect.id
-    when 'normal', 'change_email'
-      # !User.stay_logged_in_on_redirect?(nil)
-      # # => true
-      # !User.stay_logged_in_on_redirect?(user)
-      # # => true
-      # !User.stay_logged_in_on_redirect?(admin)
-      # # => false
-      unless User.stay_logged_in_on_redirect?(@user)
-        @user = confirm_user!(post_redirect.user)
-      end
-
-      session[:user_id] = @user.id
-    end
-
-    session[:user_circumstance] = post_redirect.circumstance
-
-    do_post_redirect post_redirect
-  end
-
-  def signout
-    clear_session_credentials
-    if params[:r]
-      redirect_to URI.parse(params[:r]).path
-    else
-      redirect_to :controller => "general", :action => "frontpage"
-    end
+  def ip_rate_limiter
+    @ip_rate_limiter ||= AlaveteliRateLimiter::IPRateLimiter.new(:signup)
   end
 
   # Change your email
@@ -242,7 +202,11 @@ class UserController < ApplicationController
     # if new email already in use, send email there saying what happened
     user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
     if user_alreadyexists
-      UserMailer.changeemail_already_used(@user.email, @signchangeemail.new_email).deliver
+      UserMailer.
+        changeemail_already_used(
+          @user.email,
+          @signchangeemail.new_email
+        ).deliver_now
       # it is important this screen looks the same as the one below, so
       # you can't change to someone's email in order to tell if they are
       # registered with that email on the site
@@ -263,7 +227,11 @@ class UserController < ApplicationController
       post_redirect.save!
 
       url = confirm_url(:email_token => post_redirect.email_token)
-      UserMailer.changeemail_confirm(@user, @signchangeemail.new_email, url).deliver
+      UserMailer.
+        changeemail_confirm(
+          @user,
+          @signchangeemail.new_email, url
+        ).deliver_now
       # it is important this screen looks the same as the one above, so
       # you can't change to someone's email in order to tell if they are
       # registered with that email on the site
@@ -281,55 +249,6 @@ class UserController < ApplicationController
     redirect_to user_url(@user)
   end
 
-  # Send a message to another user
-  def contact
-    @recipient_user = User.find(params[:id])
-
-    # Banned from messaging users?
-    if authenticated_user && !authenticated_user.can_contact_other_users?
-      @details = authenticated_user.can_fail_html
-      render :template => 'user/banned'
-      return
-    end
-
-    # You *must* be logged into send a message to another user. (This is
-    # partly to avoid spam, and partly to have some equanimity of openess
-    # between the two users)
-    #
-    # "authenticated?" has done the redirect to signin page for us
-    return unless authenticated?(
-        :web => _("To send a message to {{user_name}}",
-                  :user_name => CGI.escapeHTML(@recipient_user.name)),
-        :email => _("Then you can send a message to {{user_name}}.",
-                    :user_name => @recipient_user.name),
-        :email_subject => _("Send a message to {{user_name}}",
-                            :user_name => @recipient_user.name)
-      )
-
-    if params[:submitted_contact_form]
-      params[:contact][:name] = @user.name
-      params[:contact][:email] = @user.email
-      @contact = ContactValidator.new(params[:contact])
-      if @contact.valid?
-        ContactMailer.user_message(
-          @user,
-          @recipient_user,
-          user_url(@user),
-          params[:contact][:subject],
-          params[:contact][:message]
-        ).deliver
-        flash[:notice] = _("Your message to {{recipient_user_name}} has been sent!",:recipient_user_name=>CGI.escapeHTML(@recipient_user.name))
-        redirect_to user_url(@recipient_user)
-        return
-      end
-    else
-      @contact = ContactValidator.new(
-        { :message => "" + @recipient_user.name + _(",\n\n\n\nYours,\n\n{{user_name}}",:user_name=>@user.name) }
-      )
-    end
-
-  end
-
   # River of News: What's happening with your tracked things
   def river
     @results = @user.nil? ? [] : @user.track_things.collect { |thing|
@@ -345,8 +264,8 @@ class UserController < ApplicationController
       return
     end
     if params[:submitted_draft_profile_photo].present?
-      if @user.banned?
-        flash[:error]= _('Banned users cannot edit their profile')
+      if @user.suspended?
+        flash[:error]= _('Suspended users cannot edit their profile')
         redirect_to set_profile_photo_path
         return
       end
@@ -390,9 +309,7 @@ class UserController < ApplicationController
 
 
       if @user.get_about_me_for_html_display.empty?
-        flash[:notice] = _("<p>Thanks for updating your profile photo.</p>" \
-                "<p><strong>Next...</strong> You can put some text about " \
-                "you and your research on your profile.</p>")
+        flash[:notice] = { :partial => "user/update_profile_photo.html.erb" }
         redirect_to edit_profile_about_me_url
       else
         flash[:notice] = _("Thank you for updating your profile photo")
@@ -423,8 +340,8 @@ class UserController < ApplicationController
   # before they've cropped it
   def get_draft_profile_photo
     profile_photo = ProfilePhoto.find(params[:id])
-    response.content_type = "image/png"
-    render :text => profile_photo.data
+    render :body => profile_photo.data,
+           :content_type => 'image/png'
   end
 
   # actual profile photo of a user
@@ -435,53 +352,8 @@ class UserController < ApplicationController
       raise ActiveRecord::RecordNotFound.new("user has no profile photo, url_name=" + params[:url_name])
     end
 
-    response.content_type = "image/png"
-    render :text => @display_user.profile_photo.data
-  end
-
-  # Change about me text on your profile page
-  def set_profile_about_me
-    warn %q([DEPRECATION] UserController#set_profile_about_me has been replaced
-            with UserProfile::AboutMeController and will be removed in Alaveteli
-            release 0.26).squish
-
-    if authenticated_user.nil?
-      flash[:error] = _("You need to be logged in to change the text about you on your profile.")
-      redirect_to frontpage_url
-      return
-    end
-
-    unless params[:submitted_about_me]
-      params[:about_me] = {}
-      params[:about_me][:about_me] = @user.about_me
-      @about_me = AboutMeValidator.new(params[:about_me])
-      render :action => 'set_profile_about_me'
-      return
-    end
-
-    if @user.banned?
-      flash[:error] = _('Banned users cannot edit their profile')
-      redirect_to set_profile_about_me_path
-      return
-    end
-
-    @about_me = AboutMeValidator.new(params[:about_me])
-    unless @about_me.valid?
-      render :action => 'set_profile_about_me'
-      return
-    end
-
-    @user.about_me = @about_me.about_me
-    @user.save!
-    if @user.profile_photo
-      flash[:notice] = _("You have now changed the text about you on your profile.")
-      redirect_to user_url(@user)
-    else
-      flash[:notice] = _("<p>Thanks for changing the text about you on your " \
-                         "profile.</p><p><strong>Next...</strong> You can " \
-                         "upload a profile photograph too.</p>")
-      redirect_to set_profile_photo_url
-    end
+    render :body => @display_user.profile_photo.data,
+           :content_type => 'image/png'
   end
 
   # Change about me text on your profile page
@@ -493,14 +365,23 @@ class UserController < ApplicationController
     end
     @user.receive_email_alerts = params[:receive_email_alerts]
     @user.save!
-    redirect_to URI.parse(params[:came_from]).path
+    redirect_to SafeRedirect.new(params[:came_from]).path
   end
 
   private
 
+  def set_request_from_foreign_country
+    @request_from_foreign_country =
+      country_from_ip != AlaveteliConfiguration.iso_country_code
+  end
+
+  def set_in_pro_area
+    @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
+  end
+
   def normalize_url_name
     unless MySociety::Format.simplify_url_part(params[:url_name], 'user') == params[:url_name]
-      redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
+      redirect_to :url_name => MySociety::Format.simplify_url_part(params[:url_name], 'user'), :status => :moved_permanently
     end
   end
 
@@ -518,10 +399,15 @@ class UserController < ApplicationController
       @show_requests = true
       @show_batches = true
     end
+
+    if @display_user.closed?
+      @show_requests = false
+      @show_batches = false
+    end
   end
 
   def user_params(key = :user)
-    params[key].slice(:name, :email, :password, :password_confirmation)
+    params.require(key).permit(:name, :email, :password, :password_confirmation)
   end
 
   def is_modal_dialog
@@ -533,7 +419,8 @@ class UserController < ApplicationController
     is_modal_dialog ? 'no_chrome' : 'default'
   end
 
-  # Decide where we are going to redirect back to after signin/signup, and record that
+  # Decide where we are going to redirect back to after signin/signup,
+  # and record that
   def work_out_post_redirect
     # Redirect to front page later if nothing else specified
     params[:r] = "/" if params[:r].nil? && params[:token].nil?
@@ -556,7 +443,12 @@ class UserController < ApplicationController
     post_redirect.save!
 
     url = confirm_url(:email_token => post_redirect.email_token)
-    UserMailer.confirm_login(user, post_redirect.reason_params, url).deliver
+    UserMailer.
+      confirm_login(
+        user,
+        post_redirect.reason_params,
+        url
+      ).deliver_now
     render :action => 'confirm'
   end
 
@@ -568,7 +460,12 @@ class UserController < ApplicationController
     post_redirect.save!
 
     url = confirm_url(:email_token => post_redirect.email_token)
-    UserMailer.already_registered(user, post_redirect.reason_params, url).deliver
+    UserMailer.
+      already_registered(
+        user,
+        post_redirect.reason_params,
+        url
+      ).deliver_now
     render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
   end
 
@@ -581,8 +478,7 @@ class UserController < ApplicationController
   end
 
   def set_display_user
-    # NOTE: Rails 4 syntax: User.find_by(url_name: url_name, email_confirmed: true)
-    User.find_by_url_name_and_email_confirmed!(params[:url_name], true)
+    User.find_by!(url_name: params[:url_name], email_confirmed: true)
   end
 
   def set_show_requests
@@ -621,11 +517,6 @@ class UserController < ApplicationController
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
   end
 
-  def confirm_user!(user)
-    user.confirm!
-    user
-  end
-
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
   end
@@ -641,4 +532,33 @@ class UserController < ApplicationController
                        :email_subject => _("Confirm your account on {{site_name}}", :site_name => site_name)
                      })
   end
+
+  def block_rate_limited_ips?
+    AlaveteliConfiguration.block_rate_limited_ips ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
+  def handle_rate_limited_signup(user_ip, email_address)
+    if send_exception_notifications?
+      msg = "Rate limited signup from #{ user_ip } email: " \
+            " #{ email_address }"
+      e = Exception.new(msg)
+      ExceptionNotifier.notify_exception(e, :env => request.env)
+    end
+
+    if block_rate_limited_ips?
+      flash.now[:error] =
+        _("Sorry, we're currently unable to sign up new users, " \
+          "please try again later")
+      error = true
+      render :action => 'sign'
+      true
+    end
+  end
+
+  def spam_should_be_blocked?
+    AlaveteliConfiguration.block_spam_signups ||
+      AlaveteliConfiguration.enable_anti_spam
+  end
+
 end

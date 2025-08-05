@@ -7,11 +7,13 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackController < ApplicationController
-  before_filter :medium_cache
+  before_action :medium_cache
 
   # Track all updates to a particular request
   def track_request
-    @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+    @info_request = InfoRequest
+                      .not_embargoed
+                        .find_by_url_title!(params[:url_title])
     @track_thing = TrackThing.create_track_for_request(@info_request)
 
     return atom_feed_internal if params[:feed] == 'feed'
@@ -52,7 +54,7 @@ class TrackController < ApplicationController
     @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
     raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
     # If found by historic name, or alternate locale name, redirect to new name
-    if  @public_body.url_name != params[:url_name]
+    if @public_body.url_name != params[:url_name]
       redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed], :event_type => params[:event_type])
       return
     end
@@ -123,7 +125,9 @@ class TrackController < ApplicationController
     if @user
       @existing_track = TrackThing.find_existing(@user, @track_thing)
       if @existing_track
-        flash[:notice] = view_context.already_subscribed_notice(@track_thing)
+        flash[:notice] =
+          { :partial => 'track/already_tracking',
+            :locals => { :track_thing_id => @existing_track.id } }
         return true
       end
     end
@@ -135,11 +139,16 @@ class TrackController < ApplicationController
     @track_thing.track_medium = 'email_daily'
     @track_thing.tracking_user_id = @user.id
     if @track_thing.save
-      flash[:notice] = render_to_string(:partial => 'track_set').html_safe
+      flash[:notice] =
+        { :partial => 'track/track_set',
+          :locals => {
+            :user_receive_email_alerts => @user.receive_email_alerts,
+            :user_url_name => @user.url_name,
+            :track_thing_id => @track_thing.id } }
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length
-      flash[:error] = @track_thing.errors.map{ |_, msg| msg }.join(", ")
+      flash[:error] = @track_thing.errors.map { |_, msg| msg }.join(", ")
       return false
     end
   end
@@ -161,7 +170,7 @@ class TrackController < ApplicationController
     @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1)
     # We're assuming that a request to a feed url with no format suffix wants atom/xml
     # so set that as the default, regardless of content negotiation
-    request.format = 'xml' unless params[:format]
+    request.format = params[:format] || 'xml'
     respond_to do |format|
       format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
                                                                                             lambda do |t|
@@ -175,7 +184,7 @@ class TrackController < ApplicationController
                                                                                             end
                                                                                             ) } }
       format.any { render :template => 'track/atom_feed',
-                   :formats => ['atom'],
+                   :formats => [:atom],
                    :layout => false,
                    :content_type => 'application/atom+xml' }
     end
@@ -198,9 +207,16 @@ class TrackController < ApplicationController
     if new_medium == 'delete'
       track_thing.destroy
       flash[:notice] = view_context.unsubscribe_notice(track_thing)
-      redirect_to URI.parse(params[:r]).path
+      redirect_to SafeRedirect.new(params[:r]).path
     else
-      raise "new medium not handled " + new_medium
+      msg =
+        if new_medium
+          "Given track_medium not handled: #{ new_medium }"
+        else
+          'No track_medium supplied'
+        end
+
+      raise msg
     end
   end
 
@@ -223,7 +239,7 @@ class TrackController < ApplicationController
     TrackThing.
       where(:track_type => track_type, :tracking_user_id => user_id).
         destroy_all
-    redirect_to URI.parse(params[:r]).path
+    redirect_to SafeRedirect.new(params[:r]).path
   end
 
 end

@@ -14,10 +14,11 @@ class ServicesController < ApplicationController
 
     if user_country_code != site_country_code
       user_site = WorldFOIWebsites.by_code(user_country_code)
-      old_fgt_locale = FastGettext.locale
+      old_fgt_locale = AlaveteliLocalization.locale
 
       begin
-        FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
+        AlaveteliLocalization.
+          set_session_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
 
         if user_site
           country_link = %Q(<a href="#{ user_site[:url] }">#{ user_site[:name] }</a>)
@@ -44,24 +45,25 @@ class ServicesController < ApplicationController
           end
         end
       ensure
-        FastGettext.locale = old_fgt_locale
+        AlaveteliLocalization.set_session_locale(old_fgt_locale)
       end
     end
 
     # TODO: workaround the HTML validation in test suite
-    render :text => text, :content_type => "text/plain"
+    render :plain => text
   end
 
   def hidden_user_explanation
     info_request = InfoRequest.find(params[:info_request_id])
-    render :template => "admin_request/hidden_user_explanation",
-      :content_type => "text/plain",
-      :layout => false,
-      :locals => {:name_to => info_request.user_name,
-                  :name_from => AlaveteliConfiguration.contact_name,
-                  :info_request => info_request, :reason => params[:reason],
-                  :info_request_url => 'http://' + AlaveteliConfiguration.domain + request_path(info_request),
-                  :site_name => site_name}
+    render template: "admin_request/hidden_user_explanation",
+           formats: [:text],
+           layout: false,
+           locals: {
+             name_to: info_request.user_name.html_safe,
+             info_request: info_request,
+             message: params[:message],
+             info_request_url: request_url(info_request),
+             site_name: site_name.html_safe }
   end
 
   private

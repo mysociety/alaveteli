@@ -1,2 +1,2 @@
-<%= _("{{username}} left an annotation:", :username =>comment.user.name) %> (<%= simple_date((comment.created_at || Time.now), :format => :text) %>)
+<%= _("{{username}} left an annotation:", :username =>comment.user.name) %> (<%= simple_date((comment.created_at || Time.zone.now), :format => :text) %>)
 <%= comment.body.strip %>

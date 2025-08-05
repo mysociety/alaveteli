@@ -49,7 +49,11 @@ namespace :themes do
 
   def move_old_theme(old_theme_directory)
     puts "There was an old-style theme at #{old_theme_directory}" if verbose
-    moved_directory = "#{old_theme_directory}-moved"
+
+    # remove trailing slashes
+    old_theme_directory.gsub!(/\/\z/, '')
+
+    moved_directory = "#{ old_theme_directory }-moved"
     begin
       File.rename old_theme_directory, moved_directory
     rescue Errno::ENOTEMPTY, Errno::EEXIST
@@ -126,24 +130,32 @@ namespace :themes do
     puts ""
   end
 
+  def theme_urls
+    urls = AlaveteliConfiguration.theme_urls || []
+    urls.delete_if(&:blank?)
+  end
+
   desc "Install themes specified in the config file's THEME_URLS"
   task :install => :environment do
     verbose = true
-    AlaveteliConfiguration::theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
-    if ! AlaveteliConfiguration::theme_url.blank?
-      # Old version of the above, for backwards compatibility
-      install_theme(AlaveteliConfiguration::theme_url, verbose, deprecated=true)
+    theme_urls.each do |theme_url|
+      install_theme(theme_url, verbose)
+    end
+    # Old version of the above, for backwards compatibility
+    unless AlaveteliConfiguration.theme_url.blank?
+      install_theme(AlaveteliConfiguration.theme_url, verbose, deprecated=true)
     end
   end
 
 
   def locale_extensions(locale)
-    locale_extensions = if locale == I18n.default_locale
+    locale_extensions = if AlaveteliLocalization.default_locale?(locale)
       ['']
     else
       [".#{locale}"]
     end
-    if locale != I18n.default_locale && locale.to_s.include?('_')
+    if !AlaveteliLocalization.default_locale?(locale) &&
+       locale.to_s.include?('_')
       locale_extensions << ".#{locale.to_s.split('_').first}"
     end
     locale_extensions
@@ -153,7 +165,7 @@ namespace :themes do
     locale_extensions(locale).each do |locale_extension|
       filename = "#{template_name}#{locale_extension}.html.erb"
       filepath = "lib/themes/#{theme_name}/lib/views/help/#{filename}"
-      if File.exists?(filepath)
+      if File.exist?(filepath)
         return filepath
       end
     end
@@ -165,7 +177,7 @@ namespace :themes do
     missing_templates = []
     missing_sections = []
     if !template_file
-      missing_templates <<  template_file
+      missing_templates << template_file
       puts "Missing help template:  #{help_template_info[:name]} #{locale}"
     else
       contents = File.read(template_file)
@@ -186,7 +198,7 @@ namespace :themes do
   desc "Check that all help sections referred to in the application are present in theme"
   task :check_help_sections => :environment do
 
-  intro_message = <<-EOF
+    intro_message = <<-EOF
 
 Checking that all help templates linked to from Alaveteli are present in the theme,
 and that all sections linked to from Alaveteli are present in the templates. For
@@ -201,12 +213,14 @@ structure:
 
 EOF
     puts intro_message
-    theme_names = AlaveteliConfiguration::theme_urls.map do |theme_url|
+    theme_names = theme_urls.map do |theme_url|
       theme_url_to_theme_name(theme_url)
     end
 
     help_templates_info = [{:name => 'about',
-                            :sections => ['whybother_them']},
+                            :sections => ['whybother_them',
+                                          'reporting',
+                                          'reporting_unavailable']},
                            {:name => 'alaveteli',
                             :sections => []},
                            {:name => 'api',
@@ -222,22 +236,20 @@ EOF
                                           'full_address',
                                           'postal_answer',
                                           'public_request',
-                                          'real_name'
-                                          ]},
+                                          'real_name']},
                            {:name => 'requesting',
                             :sections => ['focused',
                                           'data_protection',
                                           'missing_body',
-                                          'quickly_response',
-                                          ]},
+                                          'quickly_response',]},
                            {:name => 'unhappy',
                             :sections => ['internal_review',
-                                          'other_means'
-                                          ]},
+                                          'other_means']},
                            {:name => '_why_they_should_reply_by_email',
                             :sections => []}]
+
     theme_names.each do |theme_name|
-      I18n.available_locales.each do |locale|
+      AlaveteliLocalization.available_locales.each do |locale|
         puts ""
         puts "theme: #{theme_name} locale: #{locale}"
         puts ""

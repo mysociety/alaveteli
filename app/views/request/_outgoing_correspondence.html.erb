@@ -1,28 +1,32 @@
-<div class="outgoing correspondence box" id="outgoing-<%= outgoing_message.id.to_s %>">
-  <%- if not outgoing_message.user_can_view?(@user) %>
-    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message }%>
+<div class="outgoing correspondence js-collapsable" id="outgoing-<%= outgoing_message.id %>">
+  <%- if cannot?(:read, outgoing_message) %>
+    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
   <%- else %>
     <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
 
-    <h2>
-      <%= _("From:") %> <%= @info_request.user_name %>
-      <br>
-      <br>
-      <% cache_if_caching_fragments("outgoing_messages/#{ outgoing_message.id }/delivery_status", :expires_in => 6.hours) do %>
-        <% delivery_status = outgoing_message.delivery_status %>
-        <% if delivery_status %>
+    <% delivery_status = outgoing_message.delivery_status %>
+
+    <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %>">
+      <span class="correspondence__header__author js-collapsable-trigger">
+        <%= @info_request.user_name %>
+      </span>
+
+      <%= link_to outgoing_message_path(outgoing_message), :class => 'correspondence__header__date' do %>
+          <%= simple_date(info_request_event.created_at) %>
+      <% end %>
+
+      <% if delivery_status %>
+        <div class="correspondence__header__delivery-status">
           <%= link_to outgoing_message_delivery_status_path(outgoing_message), :class => "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.simple} js-toggle-delivery-log", :'data-delivery-status' => outgoing_message.delivery_status.simple do -%>
             <%= outgoing_message.delivery_status.simple.to_s.humanize -%>
           <% end -%>
-        <% end %>
+        </div>
       <% end %>
-
-      <%= simple_date(info_request_event.created_at) %>
-    </h2>
+    </div>
 
     <div class="js-delivery-log-ajax-error" hidden aria-hidden="true" style="display: none; visibility: hidden;">
-        <p><%= _('We couldn’t load the mail server logs for this message.') %></p>
-        <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_delivery_status_path(outgoing_message), :target => '_blank' %></p>
+      <p><%= _('We couldn’t load the mail server logs for this message.') %></p>
+      <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_delivery_status_path(outgoing_message), :target => '_blank' %></p>
     </div>
 
     <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
@@ -32,7 +36,22 @@
         <%= _('<strong>Warning:</strong> This message has <strong>not yet ' \
                  'been sent</strong> for an unknown reason.') %>
       <% end %>
-      <%= link_to _("Link to this"), outgoing_message_path(outgoing_message), :class => "link_to_this" %>
+
+      <% if !@user.nil? && @user.admin_page_links? %>
+        <%= link_to "Admin", edit_admin_outgoing_message_path(outgoing_message.id) %>
+      <% end %>
     </p>
+
+    <% if show_correspondence_footer %>
+      <% link_to_this_url = outgoing_message_url(outgoing_message) %>
+
+      <% report_path =
+           new_request_report_path(request_id: @info_request.url_title,
+                                   outgoing_message_id: outgoing_message.id) %>
+
+      <%= render partial: 'request/correspondence_footer',
+                 locals: { link_to_this_url: link_to_this_url,
+                           report_path: report_path } %>
+    <% end %>
   <%- end %>
 </div>

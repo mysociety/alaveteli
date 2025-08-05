@@ -7,12 +7,13 @@
 #  event_type          :text             not null
 #  params_yaml         :text             not null
 #  created_at          :datetime         not null
-#  described_state     :string(255)
-#  calculated_state    :string(255)
+#  described_state     :string
+#  calculated_state    :string
 #  last_described_at   :datetime
 #  incoming_message_id :integer
 #  outgoing_message_id :integer
 #  comment_id          :integer
+#  updated_at          :datetime
 #
 
 useless_outgoing_message_event:
@@ -198,6 +199,6 @@ other_request_outgoing_message_event:
   outgoing_message_id: 10
   info_request_id: 111
   event_type: sent
-  created_at: <%= Time.now %>
+  created_at: <%= Time.now.utc %>
   described_state: waiting_response
   calculated_state: waiting_response

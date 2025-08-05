@@ -7,9 +7,9 @@
 
 class AdminCensorRuleController < AdminController
 
-  before_filter :set_editor, :only => [:create, :update]
-  before_filter :set_censor_rule, :only => [:edit, :update, :destroy]
-  before_filter :set_subject_and_censor_rule_and_form_url, :only => [:new, :create]
+  before_action :set_editor, :only => [:create, :update]
+  before_action :set_censor_rule, :only => [:edit, :update, :destroy]
+  before_action :set_subject_and_censor_rule_and_form_url, :only => [:new, :create]
 
   def index
     @censor_rules = CensorRule.global
@@ -31,7 +31,7 @@ class AdminCensorRuleController < AdminController
   end
 
   def update
-    if @censor_rule.update_attributes(censor_rule_params)
+    if @censor_rule.update(censor_rule_params)
       flash[:notice] = 'Censor rule was successfully updated.'
       expire_requests_and_redirect
     else
@@ -88,18 +88,19 @@ class AdminCensorRuleController < AdminController
 
   def censor_rule_params
     if params[:censor_rule]
-      params[:censor_rule].slice(:regexp, :text, :replacement, :last_edit_comment, :last_edit_editor)
+      params.require(:censor_rule).
+        permit(:regexp, :text, :replacement, :last_edit_comment, :last_edit_editor)
     else
       {}
     end
   end
 
   def expire_requests_and_redirect
+    @censor_rule.expire_requests
+
     if @censor_rule.info_request
-      @censor_rule.info_request.expire
       redirect_to admin_request_url(@censor_rule.info_request)
     elsif @censor_rule.user
-      @censor_rule.user.expire_requests
       redirect_to admin_user_url(@censor_rule.user)
     elsif @censor_rule.public_body
       redirect_to admin_body_url(@censor_rule.public_body)

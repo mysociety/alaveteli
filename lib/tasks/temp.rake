@@ -1,6 +1,273 @@
 # -*- coding: utf-8 -*-
 namespace :temp do
 
+  desc 'Convert serialized params_yaml from PostgreSQL::OID::Integer to ActiveModel::Type::Integer'
+  task :update_params_yaml => :environment do
+    InfoRequestEvent.where("params_yaml LIKE '%OID::Integer%'").find_each do |event|
+      new_params =
+        event.params_yaml.gsub('!ruby/object:ActiveRecord::ConnectionAdapters::PostgreSQL::OID::Integer',
+                               '!ruby/object:ActiveModel::Type::Integer')
+      event.update(params_yaml: new_params)
+    end
+  end
+
+  desc 'Populate missing timestamp columns'
+  task :populate_missing_timestamps => :environment do
+    puts 'Populating FoiAttachment created_at, updated_at'
+    FoiAttachment.where(created_at: nil, updated_at: nil).find_each do |foi_attachment|
+      value = foi_attachment.try(:incoming_message).try(:last_parsed)
+      value ||= foi_attachment.try(:incoming_message).try(:created_at)
+      foi_attachment.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating Holiday created_at, updated_at'
+    Holiday.where(created_at: nil, updated_at: nil).find_each do |holiday|
+      value = Time.zone.now
+      holiday.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating InfoRequestEvent updated_at'
+    InfoRequestEvent.where(updated_at: nil).find_each do |event|
+      value = event.created_at
+      event.update_columns(updated_at: value)
+    end
+
+    puts 'Populating ProfilePhoto created_at, updated_at'
+    ProfilePhoto.where(created_at: nil, updated_at: nil).find_each do |photo|
+      value = photo.try(:user).try(:created_at)
+      photo.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating PublicBodyCategoryLink created_at, updated_at'
+    PublicBodyCategoryLink.where(created_at: nil, updated_at: nil).find_each do |pbcl|
+      value = Time.zone.now
+      pbcl.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating PublicBodyCategory created_at, updated_at'
+    PublicBodyCategory.where(created_at: nil, updated_at: nil).find_each do |pbc|
+      value = Time.zone.now
+      pbc.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating PublicBodyHeading created_at, updated_at'
+    PublicBodyHeading.where(created_at: nil, updated_at: nil).find_each do |pbh|
+      value = Time.zone.now
+      pbh.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating RawEmail created_at, updated_at'
+    RawEmail.where(created_at: nil, updated_at: nil).find_each do |raw_email|
+      value = raw_email.try(:incoming_message).try(:created_at)
+      raw_email.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating UserInfoRequestSentAlert created_at, updated_at'
+    UserInfoRequestSentAlert.where(created_at: nil, updated_at: nil).find_each do |alert|
+      value = alert.try(:info_request_event).try(:created_at)
+      alert.update_columns(created_at: value, updated_at: value)
+    end
+
+    puts 'Populating HasTagStringTag updated_at'
+    HasTagString::HasTagStringTag.where(updated_at: nil).find_each do |tag|
+      value = tag.created_at
+      tag.update_columns(updated_at: value)
+    end
+
+    puts 'Populating ActsAsXapianJob created_at, updated_at'
+    ActsAsXapian::ActsAsXapianJob.where(created_at: nil, updated_at: nil).find_each do |job|
+      value = Time.zone.now
+      job.update_columns(created_at: value, updated_at: value)
+    end
+  end
+
+  desc 'Populate any missing FoiAttachment files'
+  task :populate_missing_attachment_files => :environment do
+    verbose = ENV['VERBOSE'] == '1'
+    offset = (ENV['OFFSET'] || 0).to_i
+    IncomingMessage.find_each(:start => offset) do |incoming_message|
+      id = incoming_message.id
+      begin
+        puts id if verbose
+        incoming_message.get_attachment_text_full
+        incoming_message.get_text_for_indexing_full
+      rescue Errno::ENOENT
+        puts "Reparsing" if verbose
+        incoming_message.parse_raw_email!(true)
+      rescue ArgumentError, Encoding::InvalidByteSequenceError => e
+        if verbose
+          STDERR.puts "ERROR: #{id} #{e.class}: #{e.message}"
+        end
+      rescue StandardError => e
+        if verbose
+          STDERR.puts "UNKNOWN ERROR: #{id} #{e.class}: #{e.message}"
+        end
+      end
+    end
+  end
+
+  desc 'Populate last_event_time column of InfoRequest'
+  task :populate_last_event_time => :environment do
+    InfoRequest.
+      where('last_event_time IS NULL').
+          includes(:info_request_events).
+            find_each do |info_request|
+      info_request.update_column(:last_event_time,
+        info_request.info_request_events.last.created_at)
+    end
+  end
+
+  desc 'Remove cached zip download files'
+  task :remove_cached_zip_downloads => :environment do
+    FileUtils.rm_rf(InfoRequest.download_zip_dir)
+  end
+
+  desc 'Audit cached zip download files with censor rules'
+  task :audit_cached_zip_downloads_with_censor_rules => :environment do
+    puts [
+           "Info Request ID",
+           "URL Title",
+           "Censor rule IDs",
+           "Censor rule patterns",
+           "Cached file types"
+         ].join("\t")
+    requests_with_censor_rules.each do |info_request|
+      find_cached_zip_downloads(info_request)
+    end
+  end
+
+  def requests_with_censor_rules
+    info_requests_with_rules = CensorRule.
+                                where("info_request_id IS NOT NULL").
+                                  pluck("info_request_id")
+    info_requests_with_user_rules = User.
+                                      joins(:censor_rules, :info_requests).
+                                        pluck("info_requests.id")
+    info_requests_with_public_body_rules = PublicBody.
+                                             joins(:censor_rules, :info_requests).
+                                               pluck("info_requests.id")
+    info_requests_to_audit = (info_requests_with_rules +
+                              info_requests_with_user_rules +
+                              info_requests_with_public_body_rules).uniq
+    InfoRequest.find(info_requests_to_audit)
+  end
+
+  def find_cached_zip_downloads(info_request)
+    if File.exist?(info_request.download_zip_dir)
+      cached_types = []
+      cached_zips = Dir.glob(File.join(info_request.download_zip_dir, "**", "*.zip"))
+      cached_zips.each do |zip|
+        file_name = File.basename(zip, '.zip')
+        if file_name =~ /requester_only$/
+          cached_types << :requester_only
+        elsif file_name =~ /hidden$/
+          cached_types << :hidden
+        else
+          cached_types << :public
+        end
+      end
+      puts [
+             info_request.id,
+             info_request.url_title,
+             info_request.applicable_censor_rules.map { |rule| rule.id }.join(","),
+             info_request.applicable_censor_rules.map { |rule| rule.text }.join(","),
+             cached_types.uniq.join(",")
+           ].join("\t")
+    end
+  end
+
+  desc 'Populate the last_event_forming_initial_request_id,
+        date_initial_request_last_sent_at,
+        date_response_required_by and date_very_overdue_after
+        fields for all requests'
+  task :populate_request_due_dates => :environment do
+    ActiveRecord::Base.record_timestamps = false
+    begin
+      InfoRequest.
+        where('last_event_forming_initial_request_id is NULL').
+          find_each do |info_request|
+        sent_event = info_request.last_event_forming_initial_request
+        info_request.last_event_forming_initial_request_id = sent_event.id
+        info_request.date_initial_request_last_sent_at = sent_event.created_at.to_date
+        info_request.date_response_required_by = info_request.calculate_date_response_required_by
+        info_request.date_very_overdue_after = info_request.calculate_date_very_overdue_after
+        info_request.save(:validate => false)
+      end
+    ensure
+      ActiveRecord::Base.record_timestamps = true
+    end
+  end
+
+  def backload_overdue(event_type, verbose)
+    UserInfoRequestSentAlert.
+      where(['alert_type = ?
+              AND info_request_event_id IS NOT NULL',
+              "#{event_type}_1"]).
+        find_each do |overdue_alert|
+
+      event_forming_request = InfoRequestEvent.find(overdue_alert.info_request_event_id)
+      days_to_count = case event_type
+                      when 'overdue'
+                        overdue_alert.info_request.late_calculator.reply_late_after_days
+                      when 'very_overdue'
+                        overdue_alert.info_request.late_calculator.reply_very_late_after_days
+                      else
+                        raise "Unknown event type #{event_type}"
+                      end
+      due_date = Holiday.due_date_from(event_forming_request.created_at,
+                                       days_to_count,
+                                       AlaveteliConfiguration.working_or_calendar_days)
+      created_at = due_date.beginning_of_day + 1.day
+
+      existing_event = InfoRequestEvent.where("info_request_id = ?
+                                              AND event_type = ?
+                                              AND created_at > ?",
+                                              overdue_alert.info_request,
+                                              event_type,
+                                              event_forming_request.created_at)
+      if existing_event.empty?
+        overdue_alert.info_request.log_event(event_type,
+          { :event_created_at => Time.zone.now },
+          { :created_at => created_at })
+
+        if verbose
+          puts "Logging #{event_type} for #{overdue_alert.info_request.id}"
+        end
+      end
+    end
+  end
+
+  desc 'Backload overdue InfoRequestEvents'
+  task :backload_overdue_info_request_events => :environment do
+    verbose = ENV['VERBOSE'] == '1'
+    backload_overdue('overdue', verbose)
+  end
+
+  desc 'Backload very overdue InfoRequestEvents'
+  task :backload_very_overdue_info_request_events => :environment do
+    verbose = ENV['VERBOSE'] == '1'
+    backload_overdue('very_overdue', verbose)
+  end
+
+  desc 'Update EventType when only editing prominence to hide'
+  task :update_hide_event_type => :environment do
+    InfoRequestEvent.where(:event_type => 'edit').find_each do |event|
+      if event.only_editing_prominence_to_hide?
+        event.update!(event_type: "hide")
+      end
+    end
+  end
+
+  desc 'Cache the delivery status of mail server logs'
+  task :cache_delivery_status => :environment do
+    mta_agnostic_statuses =
+      MailServerLog::DeliveryStatus::TranslatedConstants.
+        humanized.keys.map(&:to_s)
+    MailServerLog.where.not(:delivery_status => mta_agnostic_statuses).find_each do |mail_log|
+      mail_log.update!(:delivery_status => mail_log.delivery_status)
+      puts "Cached MailServerLog#delivery_status of id: #{ mail_log.id }"
+    end
+  end
 
   desc 'Analyse rails log specified by LOG_FILE to produce a list of request volume'
   task :request_volume => :environment do
@@ -83,11 +350,11 @@ namespace :temp do
     IncomingMessage.find_each do |incoming_message|
       if (incoming_message.cached_attachment_text_clipped &&
         !incoming_message.cached_attachment_text_clipped.valid_encoding?) ||
-          (incoming_message.cached_main_body_text_folded &&
-           !incoming_message.cached_main_body_text_folded.valid_encoding?) ||
-          (incoming_message.cached_main_body_text_unfolded &&
-           !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
-          puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
+         (incoming_message.cached_main_body_text_folded &&
+          !incoming_message.cached_main_body_text_folded.valid_encoding?) ||
+         (incoming_message.cached_main_body_text_unfolded &&
+          !incoming_message.cached_main_body_text_unfolded.valid_encoding?)
+        puts "Bad encoding in IncomingMessage cached fields, :id #{incoming_message.id} "
         unless dryrun
           incoming_message.clear_in_database_caches!
         end
@@ -146,4 +413,114 @@ namespace :temp do
     end
   end
 
+  desc 'Look for a fix requests with line breaks in titles'
+  task :remove_line_breaks_from_request_titles => :environment do
+    InfoRequest.where("title LIKE ? OR title LIKE ?", "%\n%", "%\r%").
+                each { |request| request.save! }
+  end
+
+  desc "Generate request summaries for every user"
+  task :generate_request_summaries => :environment do
+    User.find_each do |user|
+      user.info_requests.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.draft_info_requests.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.info_request_batches.each do |request|
+        request.create_or_update_request_summary
+      end
+      user.draft_info_request_batches.each do |request|
+        request.create_or_update_request_summary
+      end
+    end
+  end
+
+  desc 'Set use_notifications to false on all existing requests'
+  task :set_use_notifications => :environment do
+    InfoRequest.update_all use_notifications: false
+  end
+
+  desc 'Set a default time for users daily summary notifications'
+  task :set_daily_summary_times => :environment do
+    query = "UPDATE users " \
+            "SET daily_summary_hour = floor(random() * 24), " \
+            "daily_summary_minute = floor(random() * 60)"
+    ActiveRecord::Base.connection.execute(query)
+  end
+
+  desc 'Remove notifications_tester role'
+  task :remove_notifications_tester_role => :environment do
+    if Role.where(name: 'notifications_tester').exists?
+      Role.where(name: 'notifications_tester').destroy_all
+    end
+  end
+
+  desc 'Re-parse attachments affected by mysociety/alaveteli#5905'
+  task reparse_multipart_incoming_with_unicode: :environment do
+    since = ENV.fetch('FROM_DATE', Date.parse('2020-08-10'))
+
+    IncomingMessage.
+      where('created_at > ?', since).
+      where("cached_main_body_text_folded ILIKE '%Content-Type%'").
+      find_each do |message|
+        message.clear_in_database_caches! && message.parse_raw_email!(true)
+      end
+  end
+
+  desc 'Identify broken binary censor rules'
+  task identify_broken_binary_censor_rules: :environment do
+    helper = ApplicationController.helpers
+    helper.class_eval { include Rails.application.routes.url_helpers }
+
+    module ConfigHelper
+      def send_exception_notifications?
+        false
+      end
+    end
+
+    # 0.37.0.0 broken implementation of CensorRule#apply_to_binary
+    # Need to monkeypatch it here to cause the error when searching the affected
+    # attachments.
+    CensorRule.class_eval do
+      def apply_to_binary(binary_to_censor)
+        return nil if binary_to_censor.nil?
+        binary_to_censor.gsub(to_replace('ASCII-8BIT')) do |match|
+          match.gsub(single_char_regexp, 'x')
+        end
+      end
+    end
+
+    ApplicationController.allow_forgery_protection = false
+    app = ActionDispatch::Integration::Session.new(Rails.application)
+    checked_attachments = []
+
+    CensorRule.find_each do |rule|
+      rule.censorable_requests.find_each do |info_request|
+        next unless info_request.foi_attachments.binary.any?
+
+        info_request.foi_attachments.binary.find_each do |attachment|
+          params =
+            helper.
+            send(:attachment_params, attachment, html: true, only_path: true)
+
+          next if checked_attachments.include?(attachment.id)
+
+          path = helper.get_attachment_as_html_url(params)
+          protocol = AlaveteliConfiguration.force_ssl ? 'https' : 'http'
+          domain = AlaveteliConfiguration.domain
+          url = "#{protocol}://#{domain}#{path}?skip_cache=#{rand}"
+
+          app.get(url)
+
+          if app.response.code == '500'
+            puts url
+          end
+
+          checked_attachments << attachment.id
+        end
+      end
+    end
+  end
 end

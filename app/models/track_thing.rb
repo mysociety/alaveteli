@@ -9,8 +9,8 @@
 #  info_request_id  :integer
 #  tracked_user_id  :integer
 #  public_body_id   :integer
-#  track_medium     :string(255)      not null
-#  track_type       :string(255)      default("internal_error"), not null
+#  track_medium     :string           not null
+#  track_type       :string           default("internal_error"), not null
 #  created_at       :datetime
 #  updated_at       :datetime
 #
@@ -25,26 +25,29 @@ require 'set'
 
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
-class TrackThing < ActiveRecord::Base
-  # { TRACK_TYPE => DESCRIPTION }
-  TRACK_TYPES = { 'request_updates'         => _('Individual requests'),
-                  'all_new_requests'        => _('Many requests'),
-                  'all_successful_requests' => _('Many requests'),
-                  'public_body_updates'     => _('Public authorities'),
-                  'user_updates'            => _('People'),
-                  'search_query'            => _('Search queries') }
+class TrackThing < ApplicationRecord
 
   TRACK_MEDIUMS = %w(email_daily feed)
 
-  belongs_to :info_request
-  belongs_to :public_body
-  belongs_to :tracking_user, :class_name => 'User', :counter_cache => true
-  belongs_to :tracked_user, :class_name => 'User'
-  has_many :track_things_sent_emails, :dependent => :destroy
+  belongs_to :info_request,
+             :inverse_of => :track_things
+  belongs_to :public_body,
+             :inverse_of => :track_things
+  belongs_to :tracking_user,
+             :class_name => 'User',
+             :inverse_of => :track_things,
+             :counter_cache => true
+  belongs_to :tracked_user,
+             :class_name => 'User',
+             :inverse_of => :track_things
+  has_many :track_things_sent_emails,
+           :inverse_of => :track_thing,
+           :dependent => :destroy
 
   validates_presence_of :track_query, :message => _("Query can't be blank")
   validates_presence_of :track_type
-  validates_inclusion_of :track_type, :in => TRACK_TYPES.keys
+  validates_inclusion_of :track_type,
+                         :in => TranslatedConstants.track_types.keys
   validates_inclusion_of :track_medium, :in => TRACK_MEDIUMS
   validates_length_of :track_query, :maximum => 500, :message => _("Query is too long")
 
@@ -58,7 +61,8 @@ class TrackThing < ActiveRecord::Base
   end
 
   def self.track_type_description(track_type)
-    TRACK_TYPES.fetch(track_type) { raise "internal error #{ track_type }" }
+    TranslatedConstants.track_types.
+      fetch(track_type) { raise "internal error #{ track_type }" }
   end
 
   def self.create_track_for_request(info_request)

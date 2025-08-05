@@ -1,6 +1,11 @@
 <%= _('Disclaimer: This message and any reply that you make will be ' \
-         'published on the internet. Our privacy and copyright policies:')%>
+      'published on the internet. Our privacy and copyright policies:') %>
 <%= help_officers_url %>
 
+<% if feature_enabled? :alaveteli_pro %>
+<%= _('Please note that in some cases publication of requests and ' \
+      'responses will be delayed.') %>
+<% end %>
+
 <%= _('If you find this service useful as an FOI officer, please ask your ' \
-         'web manager to link to us from your organisation\'s FOI page.')%>
+      'web manager to link to us from your organisation\'s FOI page.') %>

@@ -1,0 +1,27 @@
+From authority@example.org  Tue Dec  3 11:13:02 2013
+Return-path: <authority@example.org>
+Envelope-to: requester@example.org
+Delivery-date: Tue, 03 Dec 2013 11:13:00 +0000
+From: Test Authority <authority@example.org>
+To: FOI Person <EMAIL_TO>
+Subject: testing no body
+Date: Tue, 03 Dec 2013 11:12:45 +0000
+Message-ID: <87li09xuasdfasdfpoija@blahblah>
+Content-Type: multipart/mixed;
+ boundary="Apple-Mail=_E858CD9A-4180-432B-BC5E-B22B11A1D700"
+Mime-Version: 1.0 (Mac OS X Mail 10.1 \(3251\))
+X-Mailer: Apple Mail (2.3251)
+X-mySociety-Spam-Score: -1.9
+
+
+--Apple-Mail=_E858CD9A-4180-432B-BC5E-B22B11A1D700
+Content-Disposition: attachment;
+	filename="test.xlsx"
+Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;
+	x-unix-mode=0666;
+	name="test.xlsx"
+Content-Transfer-Encoding: base64
+
+xxxx
+--Apple-Mail=_E858CD9A-4180-432B-BC5E-B22B11A1D700--
+

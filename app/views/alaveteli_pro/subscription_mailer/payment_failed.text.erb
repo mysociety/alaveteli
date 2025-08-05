@@ -1,0 +1,23 @@
+<%= _('Dear {{user_name}},', user_name: @user_name) %>
+
+<%= _('Thank you for your interest in {{pro_site_name}}.',
+      pro_site_name: @pro_site_name) %>
+
+<%= _('We’ve tried to bill your card but the charge was unsuccessful.') %>
+
+<%= _('We’ll attempt to bill your card again over the coming days.') %>
+
+<%= _('If payment continues to fail, unfortunately your account will revert ' \
+      'back to a free account, and you’ll no longer have access to ' \
+      '{{pro_site_name}}.',
+      pro_site_name: @pro_site_name) %>
+
+<%= _('If you wish to preserve your access to {{pro_site_name}}, please ' \
+      'could you check that your card has sufficient funds, and that the ' \
+      'card details are correct on your subscriptions page: ' \
+      '{{subscriptions_page_url}}',
+      pro_site_name: @pro_site_name,
+      subscriptions_page_url: @subscriptions_url) %>
+
+-- <%= _('the {{pro_site_name}} team',
+         pro_site_name: @pro_site_name) %>

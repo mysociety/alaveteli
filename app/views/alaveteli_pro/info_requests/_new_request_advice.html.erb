@@ -1,0 +1,36 @@
+<p>
+  <%= _("<strong>Can I request information about myself?</strong> " \
+        "<a href=\"{{url}}\">No!</a>",
+        :url => help_requesting_path(:anchor => "data_protection").html_safe) %>
+</p>
+<p>
+  <strong>
+    <%= _("Are you sure the information you’re after isn’t available " \
+       "elsewhere?") %>
+  </strong>
+  <%= _("Check the authority’s responses on {{site_name}} or conduct " \
+        "a quick Internet search.", site_name: site_name) %>
+</p>
+<p>
+  <%= _("Once you’re happy with your request, click preview and send.") %>
+  <strong>
+  <% if AlaveteliConfiguration::working_or_calendar_days == 'working' %>
+      <%= _("Remember, public authorities have {{late_number_of_days}} " \
+            "working days to respond to FOI requests.",
+            late_number_of_days: AlaveteliConfiguration::reply_late_after_days
+            ) %>
+  <% else %>
+      <%= _("Remember, public authorities have {{late_number_of_days}} " \
+            "calendar days to respond to FOI requests.",
+            late_number_of_days: AlaveteliConfiguration::reply_late_after_days,
+            ) %>
+  <% end %>
+  </strong>
+</p>
+<p>
+  <%= _('Once the privacy period ends, everything that you enter on ' \
+        'this page, including <strong>your name</strong>, will be ' \
+        '<strong><a href="{{url}}">displayed publicly</a></strong> on this ' \
+        'website.',
+        :url => help_privacy_path(:anchor => "public_request").html_safe) %>
+</p>

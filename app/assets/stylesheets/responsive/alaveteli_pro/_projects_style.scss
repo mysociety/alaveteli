@@ -1,0 +1,15 @@
+.project-workload-indicator {
+
+  -webkit-progress-bar {
+    background-color: #f4f4f4;
+  }
+
+  -moz-progress-bar,
+  -webkit-progress-value {
+    background-color: #008CBA;
+  }
+
+  //ie10
+
+  color: #008CBA;
+}

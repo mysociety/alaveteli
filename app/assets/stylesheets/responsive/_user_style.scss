@@ -4,10 +4,6 @@
   background:image-url('defaultprofilepic.png');
 }
 
-#user_public_banned {
-  background-color:#d0d0d0;
-}
-
 #user_photo_on_profile {
   img, #set_photo {
     width:96px;
@@ -25,8 +21,9 @@ div.user_about_me {
   padding:0 0.5em;
 }
 
-#user_public_banned {
+#user_public_suspended {
 
+  background-color:#d0d0d0;
   padding:0.5em 1em;
 
   .details {

@@ -1,0 +1,82 @@
+/* Layout for statistics page */
+.public-body-ranking {
+  margin-bottom: 40px;
+}
+
+.public-body-ranking-title {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.public-body-ranking table {
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.public-body-ranking td, th {
+  border: 0px;
+  padding: 5px;
+  padding-right: 20px;
+}
+
+.public-body-ranking td.statistic {
+  text-align: center;
+}
+
+.leaderboard-block {
+  margin: 0 0 4em;
+  @include respond-min( 35em ) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.leaderboard-item {
+  @include respond-min( 35em ) {
+    width: 45%;
+  }
+}
+
+.leaderboard-people {
+  padding: 0;
+}
+
+.leaderboard-person {
+  margin: 0 0 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  img,
+  .leaderboard-person-initial {
+    margin: 0 1rem 0 0;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .u-name {
+    font-size: 1.125em;
+    margin: 0 0 .5em;
+  }
+}
+
+.leaderboard-person-initial {
+  padding: .6rem;
+  font-size: 1.5em;
+}
+
+a.leaderboard-person-details {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  p {
+    margin: 0;
+  }
+}
+
+.leaderboard-count {
+  margin: 0;
+  font-size: 1.125em;
+  padding: 0 0 1em 1em;
+}

@@ -1,4 +1,5 @@
-class AddInfoRequestsVisibleCountToPublicBodies < ActiveRecord::Migration
+# -*- encoding : utf-8 -*-
+class AddInfoRequestsVisibleCountToPublicBodies < ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :public_bodies, :info_requests_visible_count, :integer, :null => false, :default => 0
 

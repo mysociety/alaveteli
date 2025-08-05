@@ -1,15 +1,21 @@
 <% @title = _("Preview new annotation on '{{info_request_title}}'",:info_request_title=>h(@info_request.title)) %>
 
-<%= form_for(@comment, :html => { :id => 'preview_form' },
-                       :url => { :controller => "comment",
-                       :action => "new", :type => "request" } ) do |f| %>
+<%= form_for(
+    @comment,
+    :html => { :id => 'preview_form' },
+    :url => new_comment_path(:type => "request", :url_title => @info_request.url_title)
+  ) do |f| %>
 
   <h1><%= _('Now preview your annotation') %></h1>
 
   <%= render :partial => 'comment/single_comment', :locals => { :comment => @comment } %>
 
   <p>
-    <%= _('Your name and annotation will appear in <strong>search engines</strong>.')%>
+    <% if @info_request.embargo %>
+      <%= render :partial => 'alaveteli_pro/comment/note' %>
+    <% else %>
+      <%= render :partial => 'comment/note' %>
+      <% end %>
   </p>
 
   <p>
@@ -20,7 +26,12 @@
     <%= hidden_field_tag(:submitted_comment, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
     <%= submit_tag _("Re-edit this annotation"), :name => 'reedit' %>
-    <%= submit_tag _("Post annotation"), :name => 'submit' %>
+    <% if @info_request.embargo %>
+      <%= render :partial => 'alaveteli_pro/comment/submit' %>
+    <% else %>
+       <%= render :partial => 'comment/submit' %>
+    <% end %>
+
   </p>
 
 <% end %>

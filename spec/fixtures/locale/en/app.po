@@ -1799,7 +1799,7 @@ msgid "Password: (again)"
 msgstr ""
 
 #: app/views/layouts/default.rhtml:153
-msgid "Paste this link into emails, tweets, and anywhere else:"
+msgid "Back to content"
 msgstr ""
 
 #: app/views/general/search.rhtml:177
@@ -2602,7 +2602,7 @@ msgid "The accounts have been left as they previously were."
 msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:48
-msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
+msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr ""
 
 #: app/views/request/show_response.rhtml:26
@@ -4229,4 +4229,7 @@ msgstr ""
 
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
+msgstr ""
+
+msgid "sent"
 msgstr ""

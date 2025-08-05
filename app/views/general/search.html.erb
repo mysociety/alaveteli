@@ -52,22 +52,27 @@
 
       </p>
 
-      <div id="common-subfilters" class="common-subfilters">
-        <div id="variety-filter" class="variety-filter">
+      <div id="common-subfilters" class="list-filter-item">
+        <div id="variety-filter" class="filter-request-types">
           <h3 class="title"><%= _("Showing") %></h3>
+          <ul>
           <% labels = [
             ["requests", _("requests")],
             ["users", _("users")],
             ["bodies", _("authorities")],
             ["all", _("everything")]]%>
           <% for variety, label in labels %>
-            <% if @variety_postfix != variety %>
-              <%=  link_to label, search_path([params[:query], variety, @sort_postfix]) %>
-            <% else %>
-              <%= label %>
-            <% end %>
-            <%= "|" unless variety == labels.last[0]%>
+            <li>
+              <% if @variety_postfix != variety %>
+                <%=  link_to label, search_path([params[:query], variety, @sort_postfix]) %>
+              <% else %>
+                <span>
+                  <%= label %>
+                </span>
+              <% end %>
+            </li>
           <% end %>
+          </ul>
         </div>
       </div>
 
@@ -88,7 +93,7 @@
 
           <div>
             <h3 class="title"><%= _("Search in") %></h3>
-            <% filters = if AlaveteliConfiguration.enable_annotations
+            <% filters = if feature_enabled?(:annotations)
                  [["sent", _("messages from users")],
                   ["response", _("messages from authorities")],
                   ["comment", _("comments")]]
@@ -198,7 +203,7 @@
       <% if @xapian_requests_hits == 1 && @page == 1 %>
         <h2 class="foi_results"><%= _("One FOI request found") %></h2>
       <% else %>
-        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
+        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of about {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">

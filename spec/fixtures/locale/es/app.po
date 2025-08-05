@@ -1950,8 +1950,8 @@ msgid "Password: (again)"
 msgstr "Contraseña: (otra vez)"
 
 #: app/views/layouts/default.rhtml:153
-msgid "Paste this link into emails, tweets, and anywhere else:"
-msgstr "Pegue este enlace en correos, tweets, o cualquier otro sitio XOXO:"
+msgid "Back to content"
+msgstr "Volver al contenido XOXO"
 
 #: app/views/general/search.rhtml:177
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
@@ -2790,8 +2790,8 @@ msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
 #: app/views/request/_other_describe_state.rhtml:48
 msgid ""
 "The authority do <strong>not have</strong> the information <small>(maybe "
-"they say who does)"
-msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)"
+"they say who does)</small>"
+msgstr "El organismo <strong>no tiene</strong> la información <small>(tal vez dicen quién la tiene)</small>"
 
 #: app/views/request/show_response.rhtml:26
 msgid ""
@@ -4519,3 +4519,18 @@ msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) hizo esta solicitud 
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} hizo esta solicitud de {{law_used_full}}"
+
+msgid "sent"
+msgstr "expedido"
+
+msgid "Choose a duration"
+msgstr "Elija una duración"
+
+msgid "3 Months"
+msgstr "3 Meses"
+
+msgid "6 Months"
+msgstr "6 Meses"
+
+msgid "12 Months"
+msgstr "12 Meses"

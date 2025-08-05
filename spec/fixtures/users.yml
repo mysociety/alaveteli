@@ -3,26 +3,25 @@
 # Table name: users
 #
 #  id                                :integer          not null, primary key
-#  email                             :string(255)      not null
-#  name                              :string(255)      not null
-#  hashed_password                   :string(255)      not null
-#  salt                              :string(255)      not null
+#  email                             :string           not null
+#  name                              :string           not null
+#  hashed_password                   :string           not null
+#  salt                              :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(2000-01-01 00:00:00 UTC)
-#  admin_level                       :string(255)      default("none"), not null
+#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00 GMT +00:00)
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
-#  locale                            :string(255)
+#  locale                            :string
 #  email_bounced_at                  :datetime
 #  email_bounce_message              :text             default(""), not null
 #  no_limit                          :boolean          default(FALSE), not null
 #  receive_email_alerts              :boolean          default(TRUE), not null
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
-#  otp_secret_key                    :string(255)
+#  otp_secret_key                    :string
 #  otp_counter                       :integer          default(1)
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
@@ -31,6 +30,9 @@
 #  request_classifications_count     :integer          default(0), not null
 #  public_body_change_requests_count :integer          default(0), not null
 #  info_request_batches_count        :integer          default(0), not null
+#  daily_summary_hour                :integer
+#  daily_summary_minute              :integer
+#  closed_at                         :datetime
 #
 
 bob_smith_user:
@@ -43,7 +45,6 @@ bob_smith_user:
   updated_at: 2007-10-31 10:39:15.491593
   created_at: 2007-10-31 10:39:15.491593
   email_confirmed: true
-  admin_level: 'none'
   ban_text: ''
   locale: 'en'
   about_me: 'I like making requests about fancy dogs and naughty chickens and stuff.'
@@ -58,7 +59,6 @@ silly_name_user:
   updated_at: 2007-11-01 10:39:15.491593
   created_at: 2007-11-01 10:39:15.491593
   email_confirmed: true
-  admin_level: 'none'
   ban_text: ''
   locale: 'en'
   about_me: ''
@@ -73,7 +73,6 @@ admin_user:
   updated_at: 2007-11-01 10:39:15.491593
   created_at: 2007-11-01 10:39:15.491593
   email_confirmed: false
-  admin_level: 'super'
   ban_text: ''
   locale: ''
   about_me: ''
@@ -88,7 +87,6 @@ unconfirmed_user:
   updated_at: 2007-11-01 10:39:15.491593
   created_at: 2007-11-01 10:39:15.491593
   email_confirmed: false
-  admin_level: 'none'
   ban_text: ''
   about_me: ''
   receive_email_alerts: true
@@ -102,7 +100,6 @@ robin_user:
   updated_at: 2012-01-01 10:39:15.491593
   created_at: 2012-01-01 10:39:15.491593
   email_confirmed: true
-  admin_level: 'none'
   ban_text: ''
   about_me: 'I am the best'
   receive_email_alerts: true
@@ -116,7 +113,48 @@ another_user:
   updated_at: 2012-01-01 10:39:15.491593
   created_at: 2012-01-01 10:39:15.491593
   email_confirmed: true
-  admin_level: 'none'
   ban_text: ''
   about_me: 'Just another user'
+  receive_email_alerts: true
+paul_pro_user:
+  id: 7
+  name: Paul Pro
+  url_name: paul_pro
+  email: paul@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: 'Totes profesh'
+  receive_email_alerts: true
+annie_all_roles_user:
+  id: 8
+  name: Annie All Roles
+  url_name: annie_admin
+  email: annie@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: 'All the roles'
+  receive_email_alerts: true
+peter_pro_admin_user:
+  id: 9
+  name: Peter Pro Admin
+  url_name: peter_pro_admin
+  email: peter@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+  email_confirmed: true
+  ban_text: ''
+  locale: 'en'
+  about_me: ''
   receive_email_alerts: true

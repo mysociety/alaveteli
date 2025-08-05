@@ -14,3 +14,6 @@ set -e
 
 # upgrade database
 bundle exec rake db:migrate #--trace
+
+# Make sure seeds exist
+bundle exec rake db:seed

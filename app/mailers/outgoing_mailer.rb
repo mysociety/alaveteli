@@ -91,7 +91,7 @@ class OutgoingMailer < ApplicationMailer
   # Message-ID to use
   def self.id_for_message(outgoing_message)
     message_id = "ogm-" + outgoing_message.id.to_s
-    t = Time.now
+    t = Time.zone.now
     message_id += "+" + '%08x%05x-%04x' % [t.to_i, t.tv_usec, rand(0xffff)]
     message_id += "@" + AlaveteliConfiguration::incoming_email_domain
     return "<" + message_id + ">"

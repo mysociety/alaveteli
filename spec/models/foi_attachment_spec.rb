@@ -12,11 +12,30 @@
 #  within_rfc822_subject :text
 #  incoming_message_id   :integer
 #  hexdigest             :string(32)
+#  created_at            :datetime
+#  updated_at            :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe FoiAttachment do
+  describe '.binary' do
+    subject { described_class.binary }
+
+    before do
+      FactoryBot.create(:body_text)
+      FactoryBot.create(:html_attachment)
+    end
+
+    let(:binary_attachments) do
+      [FactoryBot.create(:pdf_attachment),
+       FactoryBot.create(:rtf_attachment),
+       FactoryBot.create(:jpeg_attachment),
+       FactoryBot.create(:unknown_attachment)]
+    end
+
+    it { is_expected.to match_array(binary_attachments) }
+  end
 
   describe '#body=' do
 
@@ -53,7 +72,7 @@ describe FoiAttachment do
   describe '#body' do
 
     it 'returns a binary encoded string when newly created' do
-      foi_attachment = FactoryGirl.create(:body_text)
+      foi_attachment = FactoryBot.create(:body_text)
       if String.method_defined?(:encode)
         expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
       end
@@ -61,8 +80,8 @@ describe FoiAttachment do
 
 
     it 'returns a binary encoded string when saved' do
-      foi_attachment = FactoryGirl.create(:body_text)
-      foi_attachment = FoiAttachment.find(foi_attachment)
+      foi_attachment = FactoryBot.create(:body_text)
+      foi_attachment = FoiAttachment.find(foi_attachment.id)
       if String.method_defined?(:encode)
         expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
       end
@@ -73,7 +92,7 @@ describe FoiAttachment do
   describe '#body_as_text' do
 
     it 'has a valid UTF-8 string when newly created' do
-      foi_attachment = FactoryGirl.create(:body_text)
+      foi_attachment = FactoryBot.create(:body_text)
       if String.method_defined?(:encode)
         expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
         expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
@@ -81,8 +100,8 @@ describe FoiAttachment do
     end
 
     it 'has a valid UTF-8 string when saved' do
-      foi_attachment = FactoryGirl.create(:body_text)
-      foi_attachment = FoiAttachment.find(foi_attachment)
+      foi_attachment = FactoryBot.create(:body_text)
+      foi_attachment = FoiAttachment.find(foi_attachment.id)
       if String.method_defined?(:encode)
         expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
         expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
@@ -91,13 +110,13 @@ describe FoiAttachment do
 
 
     it 'has a true scrubbed? value if the body has been coerced to valid UTF-8' do
-      foi_attachment = FactoryGirl.create(:body_text)
+      foi_attachment = FactoryBot.create(:body_text)
       foi_attachment.body = "\x0FX\x1C\x8F\xA4\xCF\xF6\x8C\x9D\xA7\x06\xD9\xF7\x90lo"
       expect(foi_attachment.body_as_text.scrubbed?).to be true
     end
 
     it 'has a false scrubbed? value if the body has not been coerced to valid UTF-8' do
-      foi_attachment = FactoryGirl.create(:body_text)
+      foi_attachment = FactoryBot.create(:body_text)
       foi_attachment.body = "κόσμε"
       expect(foi_attachment.body_as_text.scrubbed?).to be false
     end
@@ -107,7 +126,7 @@ describe FoiAttachment do
   describe '#default_body' do
 
     it 'returns valid UTF-8 for a text attachment' do
-      foi_attachment = FactoryGirl.create(:body_text)
+      foi_attachment = FactoryBot.create(:body_text)
       if String.method_defined?(:encode)
         expect(foi_attachment.default_body.encoding.to_s).to eq('UTF-8')
         expect(foi_attachment.default_body.valid_encoding?).to be true
@@ -115,7 +134,7 @@ describe FoiAttachment do
     end
 
     it 'returns binary for a PDF attachment' do
-      foi_attachment = FactoryGirl.create(:pdf_attachment)
+      foi_attachment = FactoryBot.create(:pdf_attachment)
       if String.method_defined?(:encode)
         expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
       end
@@ -123,6 +142,13 @@ describe FoiAttachment do
 
   end
 
+  describe '#filename=' do
+    it 'strips null bytes' do
+      attachment = FactoryBot.build(:pdf_attachment)
+      attachment.filename = "Tender Loving Care Trust (Europe).pdf\u0000"
+      expect(attachment.filename).to eq('Tender Loving Care Trust (Europe).pdf')
+    end
+  end
 
   describe '#ensure_filename!' do
 
@@ -138,11 +164,11 @@ describe FoiAttachment do
   describe '#has_body_as_html?' do
 
     it 'should be true for a pdf attachment' do
-      expect(FactoryGirl.build(:pdf_attachment).has_body_as_html?).to be true
+      expect(FactoryBot.build(:pdf_attachment).has_body_as_html?).to be true
     end
 
     it 'should be false for an html attachment' do
-      expect(FactoryGirl.build(:html_attachment).has_body_as_html?).to be false
+      expect(FactoryBot.build(:html_attachment).has_body_as_html?).to be false
     end
 
   end
