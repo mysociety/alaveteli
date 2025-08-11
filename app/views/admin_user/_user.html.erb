@@ -17,6 +17,9 @@
       <span class="user-labels">
         <%= user_labels(user) %>
       </span>
+      <span class="user-tags">
+        <%= render_tags user.tags %>
+      </span>
     </span>
     <span class="item-metadata">
       updated <%= admin_date(user.updated_at, ago: false) %>

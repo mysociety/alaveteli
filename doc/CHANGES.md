@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow users to be tagged (Graeme Porteous)
 * Update `RESTRICTED_COUNTRIES` configuration option to allow countries to be
   marked as permitted countries. With `BLOCK_RESTRICTED_COUNTRY_IPS` this will
   restrict sign ups and new requests to IP addresses from permitted countries
