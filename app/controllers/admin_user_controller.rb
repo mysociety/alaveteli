@@ -143,7 +143,8 @@ class AdminUserController < AdminController
                                          :about_me,
                                          :no_limit,
                                          :can_make_batch_requests,
-                                         :confirmed_not_spam)
+                                         :confirmed_not_spam,
+                                         :tag_string)
     else
       {}
     end
