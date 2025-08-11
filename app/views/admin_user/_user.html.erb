@@ -1,0 +1,58 @@
+<div class="accordion-group">
+  <div class="accordion-heading accordion-toggle">
+    <span class="item-title">
+      <a href="#user_<%= user.id %>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+
+      <%= both_links(user) %>
+
+      <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
+
+      <% if user.profile_photo %>
+        <% photo_html = image_tag(get_profile_photo_url(url_name: user.url_name)).gsub('"', "'") %>
+        <%= link_to '#', rel: 'popover', data: { trigger: 'hover', placement: 'top', html: true, content: photo_html } do %>
+          <%= icon(:picture) %>
+        <% end %>
+      <% end %>
+
+      <span class="user-labels">
+        <%= user_labels(user) %>
+      </span>
+    </span>
+    <span class="item-metadata">
+      updated <%= admin_date(user.updated_at, ago: false) %>
+    </span>
+  </div>
+  <div id="user_<%= user.id %>" class="accordion-body collapse">
+    <table class="table table-striped table-condensed">
+      <tbody>
+        <% if user.banned? %>
+          <tr>
+            <td><b>Ban text</b></td>
+            <td><%= h user.ban_text %></td>
+          </tr>
+        <% end %>
+
+        <% user.for_admin_column(
+             :created_at, :updated_at, :email_confirmed, :about_me
+           ) do |name, value| %>
+          <tr>
+            <td><b><%= name.humanize %></b></td>
+            <td>
+              <%= admin_value(value) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="span12 text-right">
+        <%= form_tag admin_users_account_suspensions_path(user_id: user.id, suspension_reason: 'Banned for spamming'), class: 'form form-inline' do %>
+          <% disabled = user.suspended? %>
+          <% submit_class = %w(btn btn-danger) %>
+          <% submit_class << 'disabled' if disabled %>
+          <%= submit_tag 'Ban for spamming', class: submit_class, disabled: disabled %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
