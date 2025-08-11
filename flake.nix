@@ -10,10 +10,10 @@
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
     nixpkgs-21_11.url = "github:nixos/nixpkgs/nixos-21.11";
     systems.url = "github:nix-systems/default";
-    devenv.url = "github:cachix/devenv";
-    devenv.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs-ruby.url = "github:bobvanderlinden/nixpkgs-ruby";
-    nixpkgs-ruby.inputs = { nixpkgs.follows = "nixpkgs"; };
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
