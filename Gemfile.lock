@@ -197,7 +197,7 @@ GEM
     erubi (1.13.1)
     ethon (0.16.0)
       ffi (>= 1.15.0)
-    exception_notification (5.0.0)
+    exception_notification (5.0.1)
       actionmailer (>= 7.1, < 9)
       activesupport (>= 7.1, < 9)
     execjs (2.9.1)
@@ -369,7 +369,7 @@ GEM
     mutex_m (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.7)
+    net-imap (0.5.9)
       date
       net-protocol
     net-pop (0.1.2)
@@ -676,7 +676,7 @@ DEPENDENCIES
   dalli (~> 3.2.8)
   drb (~> 2.2.3)
   excel_analyzer!
-  exception_notification (~> 5.0.0)
+  exception_notification (~> 5.0.1)
   factory_bot_rails (~> 6.5.0)
   fancybox-rails (~> 0.3.0)
   fast_gettext (~> 4.1.0)
