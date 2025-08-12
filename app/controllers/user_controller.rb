@@ -173,7 +173,7 @@ class UserController < ApplicationController
 
       # Prevent signups from potential spammers
       if spam_user?(@user_signup)
-        handle_spam_user(@user_signup) do
+        handle_spam_user(@user_signup, 'signup') do
           render action: 'sign'
         end && return
       end
