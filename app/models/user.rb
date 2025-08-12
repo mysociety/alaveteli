@@ -49,6 +49,7 @@ class User < ApplicationRecord
   include User::Slug
   include User::SpreadableAlerts
   include User::Survey
+  include Taggable
   include Rails.application.routes.url_helpers
   include LinkToHelper
 

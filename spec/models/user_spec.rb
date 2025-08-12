@@ -41,12 +41,13 @@
 #
 
 require 'spec_helper'
-
 require 'models/user/spreadable_alerts'
+require 'models/concerns/taggable'
 
 RSpec.describe User do
   it_behaves_like 'PhaseCounts'
   it_behaves_like 'user/spreadable_alerts'
+  it_behaves_like 'concerns/taggable', :user
 end
 
 RSpec.describe User, 'associations' do

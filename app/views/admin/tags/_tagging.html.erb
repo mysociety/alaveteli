@@ -24,6 +24,11 @@
     blog_post: tagging
   } %>
 
+<% when User %>
+  <%= render partial: 'admin_user/user', locals: {
+    user: tagging
+  } %>
+
 <% else %>
   <pre><%= tagging.to_json %></pre>
 <% end %>
