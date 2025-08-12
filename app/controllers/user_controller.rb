@@ -277,6 +277,13 @@ class UserController < ApplicationController
     # circumstance is 'change_email', so can actually change the email
     old_email = @user.email
     @user.email = @signchangeemail.new_email
+
+    if spam_user?(@user)
+      handle_spam_user(@user, 'email change') do
+        render action: 'signchangeemail'
+      end && return
+    end
+
     @user.save!
 
     # Record the email change in history
