@@ -1,0 +1,8 @@
+test:
+  max_wildcard_expansion: 10
+
+development:
+  max_wildcard_expansion: 500
+
+production:
+  max_wildcard_expansion: 1000

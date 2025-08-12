@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 shared_examples_for "an ActivityList::Item with standard #call_to_action" do
 
   describe '#call_to_action' do

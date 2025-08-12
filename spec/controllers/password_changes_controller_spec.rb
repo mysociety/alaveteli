@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe PasswordChangesController do
+RSpec.describe PasswordChangesController do
 
   describe 'GET new' do
 
@@ -27,14 +26,14 @@ describe PasswordChangesController do
 
     it 'pre-fills the email field for a signed in user' do
       user = FactoryBot.create(:user)
-      session[:user_id] = user.id
+      sign_in user
       get :new
       expect(assigns[:email_field_options][:value]).to eq(user.email)
     end
 
     it 'disables the email field for a signed in user' do
       user = FactoryBot.create(:user)
-      session[:user_id] = user.id
+      sign_in user
       get :new
       expect(assigns[:email_field_options][:disabled]).to eq(true)
     end
@@ -52,7 +51,7 @@ describe PasswordChangesController do
 
       it 'ignores an email submitted in the post params' do
         user = FactoryBot.create(:user)
-        session[:user_id] = user.id
+        sign_in user
         post :create, params: {
                         :password_change_user => {
                           :email => 'hacker@localhost'
@@ -63,7 +62,7 @@ describe PasswordChangesController do
 
       it 'does not require an email to be submitted' do
         user = FactoryBot.create(:user)
-        session[:user_id] = user.id
+        sign_in user
         post :create
         expect(assigns[:password_change_user]).to eq(user)
       end
@@ -99,15 +98,15 @@ describe PasswordChangesController do
       it 'creates a post redirect' do
         user = FactoryBot.create(:user)
         expected_attrs =
-          { :post_params => {},
-            :reason_params => {
-              :web => '',
-              :email => _('Then you can change your password on {{site_name}}',
-                          :site_name => AlaveteliConfiguration.site_name),
-              :email_subject => _('Change your password on {{site_name}}',
-                                  :site_name =>
-                                    AlaveteliConfiguration.site_name) },
-            :circumstance => 'change_password' }
+          { post_params: {},
+            reason_params: {
+              web: '',
+              email: _('Then you can change your password on {{site_name}}',
+                       site_name: site_name),
+              email_subject: _('Change your password on {{site_name}}',
+                               site_name: site_name)
+            },
+            circumstance: 'change_password' }
 
         post :create, params: {
                         :password_change_user => { :email => user.email }

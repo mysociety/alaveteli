@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddInfoRequestsCountToPublicBodies < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :public_bodies, :info_requests_count, :integer, :null => false, :default => 0

@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# -*- encoding : utf-8 -*-
 
 # A simple script to swap around your Alaveteli themes when you're
 # hacking on Alaveteli.  By default this assumes that you have an
@@ -30,6 +29,7 @@
 #   config/general-yourrighttoknow.yml
 
 require 'tempfile'
+require 'pathname'
 
 $no_theme_name = 'none'
 theme_directory = ENV['ALAVETELI_THEMES_DIR']
@@ -95,15 +95,16 @@ if File.exist?(general_filename) && ! (File.symlink? general_filename)
   exit 1
 end
 
-unless File.exist? theme_filename
+unless requested_theme == $no_theme_name || File.exist?(theme_filename)
   STDERR.puts "'#{theme_filename}' didn't exist"
   exit 1
 end
 
 def symlink target, link_directory, link_name
   tmp = Tempfile.new link_name, link_directory
-  if system("ln", "-sfn", target, tmp.path)
-    full_link_name = File.join(link_directory, link_name)
+  full_link_name = File.join(link_directory, link_name)
+  target = Pathname.new(target).relative_path_from(File.dirname(full_link_name))
+  if system("ln", "-sfn", target.to_s, tmp.path)
     begin
       File.rename tmp.path, full_link_name
     rescue Errno::EISDIR
@@ -116,14 +117,15 @@ def symlink target, link_directory, link_name
   end
 end
 
-symlink(File.basename(theme_filename),
+symlink(File.join(alaveteli_directory, 'config', File.basename(theme_filename)),
         config_directory,
         "general.yml")
 
 public_directory = File.join(alaveteli_directory, 'public')
 
 if requested_theme == $no_theme_name
-  File.unlink File.join(public_directory, 'alavetelitheme')
+  link = File.join(public_directory, 'alavetelitheme')
+  File.unlink(link) if Dir.exist?(link)
 else
   symlink(File.join(full_theme_path, 'public'),
           public_directory,

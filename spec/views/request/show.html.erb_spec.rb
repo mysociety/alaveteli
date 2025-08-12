@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "request/show" do
+RSpec.describe "request/show" do
 
   let(:mock_body) { FactoryBot.create(:public_body, :name => "test body") }
 
@@ -91,7 +90,7 @@ describe "request/show" do
                           :incoming_message_id => mock_response.id)
           expect(response.body).
             to have_css(
-              "a[href='#{expected_url}#followup']",
+              "a[href='#{expected_url}']",
               :text => "send a follow up message")
         end
       end
@@ -106,7 +105,7 @@ describe "request/show" do
           expected_url = new_request_followup_path(:request_id => mock_request.id)
           expect(response.body).
             to have_css(
-              "a[href='#{expected_url}#followup']",
+              "a[href='#{expected_url}']",
               :text => "send a follow up message")
         end
       end
@@ -236,15 +235,26 @@ describe "request/show" do
 
   end
 
-  describe 'when the request is closed to new authority responses' do
+  describe 'when the request is restricted to new authority responses' do
+    it 'displays to say that the request is restricted to authority correspondence' do
+      mock_request.update_attribute(:allow_new_responses_from, 'authority_only')
+      request_page
+      expect(rendered).
+        to have_content('Automatic anti-spam measures are in place for this ' \
+                        'older request. Please let us know if a further ' \
+                        'response is expected or if you are having trouble ' \
+                        'responding.')
+    end
+  end
+
+  describe 'when the request is closed to all responses' do
 
     it 'displays to say that the request is closed to further correspondence' do
       mock_request.update_attribute(:allow_new_responses_from, 'nobody')
       request_page
       expect(rendered).
-        to have_content('This request has been closed to new correspondence ' \
-                        'from the public body. Contact us if you think it ' \
-                        'ought be re-opened.')
+        to have_content('This request has been closed to new correspondence. ' \
+                        'Contact us if you think it should be reopened.')
     end
 
   end
@@ -297,8 +307,16 @@ describe "request/show" do
   end
 
   describe "follow links" do
+    context "when the request being shown by public token" do
+      it "should not show a follow link" do
+        request_page
+        expect(rendered).to_not have_css("a", text: "Follow")
+      end
+    end
+
     context "when the request is a normal request" do
-      it "should show a follow link" do
+      it "should show a follow link in action menu" do
+        assign :show_action_menu, true
         request_page
         expect(rendered).to have_css("a", text: "Follow")
       end

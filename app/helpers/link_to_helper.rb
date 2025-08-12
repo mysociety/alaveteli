@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/helpers/link_to_helper.rb:
 # This module is included into all controllers via controllers/application.rb
 # -
@@ -296,8 +295,10 @@ module LinkToHelper
   # Private: Generate a request_url linking to the new correspondence
   def message_url(message, options = {})
     message_type = message.class.to_s.gsub('Message', '').downcase
+    anchor = "#{ message_type }-#{ message.id }"
 
-    default_options = { :anchor => "#{ message_type }-#{ message.id }" }
+    return "##{anchor}" if options[:anchor_only]
+    default_options = { anchor: anchor }
 
     if options.delete(:cachebust)
       default_options.merge!(:nocache => "#{ message_type }-#{ message.id }")

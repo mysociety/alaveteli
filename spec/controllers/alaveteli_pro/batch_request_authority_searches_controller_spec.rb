@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 shared_examples_for "creating a search" do
@@ -27,7 +26,7 @@ shared_examples_for "creating a search" do
   end
 end
 
-describe AlaveteliPro::BatchRequestAuthoritySearchesController do
+RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "#index" do
@@ -36,22 +35,11 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     let(:authority_3) { FactoryBot.build(:public_body) }
 
     before do
-      get_fixtures_xapian_index
-    end
-
-    before do
-      authority_1.save
-      authority_2.save
-      authority_3.save
+      authority_1.save!
+      authority_2.save!
+      authority_3.save!
       update_xapian_index
-      session[:user_id] = pro_user.id
-    end
-
-    after do
-      authority_1.destroy
-      authority_2.destroy
-      authority_3.destroy
-      update_xapian_index
+      sign_in pro_user
     end
 
     context 'without a draft_id param' do
@@ -146,7 +134,7 @@ describe AlaveteliPro::BatchRequestAuthoritySearchesController do
   describe '#new' do
 
     before do
-      session[:user_id] = pro_user.id
+      sign_in pro_user
     end
 
     it 'redirects to index action' do

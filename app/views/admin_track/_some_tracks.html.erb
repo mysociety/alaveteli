@@ -47,13 +47,10 @@
                     <b><%=column.name.humanize%></b>
                   </td>
                   <td>
-                    <% if column.type.to_s == 'datetime' %>
-                      <%= track_thing.send(column.name).to_s(:db) %>
-                      (<%= time_ago_in_words(track_thing.send(column.name)) %> ago)
-                    <% elsif column.name == 'track_medium' and track_thing.track_medium == 'feed' %>
+                    <% if column.name == 'track_medium' and track_thing.track_medium == 'feed' %>
                       <%= link_to track_thing.track_medium, atom_feed_path(:track_id => track_thing.id) %>
                     <% else %>
-                      <%= h track_thing.send(column.name)%>
+                      <%= admin_value(track_thing.send(column.name)) %>
                     <% end %>
                   </td>
                 </tr>

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreatePublicBodyChangeRequests < ActiveRecord::Migration[4.2] # 3.2
   def up
     create_table :public_body_change_requests do |t|

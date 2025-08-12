@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'view'
 
 require 'attachment_to_html/adapter'

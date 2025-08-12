@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/application_mailer.rb:
 # Shared code between different mailers.
 #
@@ -12,6 +11,14 @@ class ApplicationMailer < ActionMailer::Base
   layout 'default_mailer'
   include MailerHelper
   include AlaveteliFeatures::Helpers
+
+  # URL generating functions are needed by all controllers (for redirects),
+  # views (for links) and mailers (for use in emails), so include them into
+  # all of all.
+  include LinkToHelper
+
+  # Site-wide access to configuration settings
+  include ConfigHelper
 
   # This really should be the default - otherwise you lose any information
   # about the errors, and have to do error checking on return codes.
@@ -73,13 +80,4 @@ class ApplicationMailer < ActionMailer::Base
   def set_footer_template
     @footer_template = nil
   end
-
-  # URL generating functions are needed by all controllers (for redirects),
-  # views (for links) and mailers (for use in emails), so include them into
-  # all of all.
-  include LinkToHelper
-
-  # Site-wide access to configuration settings
-  include ConfigHelper
-
 end

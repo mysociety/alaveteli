@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe RequestMailer do
+RSpec.describe RequestMailer do
 
   describe "when receiving incoming mail" do
 
@@ -541,12 +540,7 @@ describe RequestMailer do
 
     before do
       info_request.described_state = 'error_message'
-      info_request.save
-    end
-
-    it 'body should contain the full admin URL' do
-      mail = RequestMailer.requires_admin(info_request).deliver_now
-      expect(mail.body).to include('http://test.host/en/admin/requests/123')
+      info_request.save!
     end
 
     it "body should contain the message from the user" do

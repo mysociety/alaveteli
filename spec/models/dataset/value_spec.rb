@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20210114161442
+#
+# Table name: dataset_values
+#
+#  id                   :bigint           not null, primary key
+#  dataset_value_set_id :bigint
+#  dataset_key_id       :bigint
+#  value                :string
+#  notes                :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
+
 require 'spec_helper'
 
 RSpec.describe Dataset::Value, type: :model do

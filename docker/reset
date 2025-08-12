@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+while true
+do
+  read -r -p 'This will remove your development database. Do you want to continue? ' choice
+  case "$choice" in
+    n|N) exit;;
+    y|Y) break;;
+    *) echo 'Response not valid';;
+  esac
+done
+
+docker compose down
+docker volume rm "$(basename $(pwd))_postgres"
+docker compose build --pull
+
+./docker/bootstrap

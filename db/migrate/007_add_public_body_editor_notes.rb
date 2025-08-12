@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddPublicBodyEditorNotes < ActiveRecord::Migration[4.2] # 1.2
   def self.up
     add_column :public_bodies, :last_edit_editor, :string

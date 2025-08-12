@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: incoming_messages
 #
@@ -34,7 +34,6 @@
 
 require 'rexml/document'
 require 'zip'
-require 'iconv' unless String.method_defined?(:encode)
 
 class IncomingMessage < ApplicationRecord
   include AdminColumn
@@ -79,6 +78,7 @@ class IncomingMessage < ApplicationRecord
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
+  delegate :legislation, to: :info_request
 
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
@@ -96,16 +96,16 @@ class IncomingMessage < ApplicationRecord
     if (!force.nil? || self.last_parsed.nil?)
       ActiveRecord::Base.transaction do
         self.extract_attachments!
-        write_attribute(:sent_at, raw_email.date || self.created_at)
-        write_attribute(:subject, raw_email.subject)
-        write_attribute(:mail_from, raw_email.from_name)
+        self.sent_at = raw_email.date || created_at
+        self.subject = raw_email.subject
+        self.mail_from = raw_email.from_name
         if from_email
           self.mail_from_domain =
             PublicBody.extract_domain_from_email(from_email)
         else
           self.mail_from_domain = ""
         end
-        write_attribute(:valid_to_reply_to, raw_email.valid_to_reply_to?)
+        self.valid_to_reply_to = raw_email.valid_to_reply_to?
         self.last_parsed = Time.zone.now
         self.foi_attachments.reload
         self.save!
@@ -464,7 +464,7 @@ class IncomingMessage < ApplicationRecord
     # Add an annotation if the text had to be scrubbed
     if part && part.body_as_text.scrubbed?
       text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                :site_name => AlaveteliConfiguration.site_name)
+                site_name: site_name)
     end
     # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
     text = text.gsub(/\r\n/, "\n")
@@ -741,5 +741,19 @@ class IncomingMessage < ApplicationRecord
   # Return space separated list of all file extensions known
   def self.get_all_file_extensions
     return AlaveteliFileTypes.all_extensions.join(" ")
+  end
+
+  def refusals
+    legislation_references.select(&:refusal?).map(&:parent).uniq(&:to_s)
+  end
+
+  def refusals?
+    refusals.any?
+  end
+
+  private
+
+  def legislation_references
+    legislation.find_references(get_main_body_text_folded)
   end
 end

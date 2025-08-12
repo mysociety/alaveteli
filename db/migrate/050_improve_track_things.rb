@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class ImproveTrackThings < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     # SQLite at least needs a default for this

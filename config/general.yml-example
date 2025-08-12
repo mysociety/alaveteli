@@ -89,7 +89,9 @@ ISO_CURRENCY_CODE: GBP
 # ---
 TIME_ZONE: UTC
 
-# These feeds are displayed accordingly on the Alaveteli "blog" page:
+# These feeds are displayed accordingly on the Alaveteli "blog" page. Currently
+# WordPress is the only "officially supported" external blog feed, but other
+# feeds may work if they use the same data format.
 #
 # BLOG_FEED - String url to the blog feed (default: nil)
 #
@@ -147,7 +149,7 @@ TWITTER_WIDGET_ID: ''
 # The locales you want your site to support. If there is more than one, use
 # spaces betwween the entries.
 #
-# AVAILABLE_LOCALES – String of space-separated locales (default: nil)
+# AVAILABLE_LOCALES – String of space-separated locales (default: en)
 #
 # Examples:
 #
@@ -158,7 +160,7 @@ AVAILABLE_LOCALES: 'en'
 
 # Nominate one of the AVAILABLE_LOCALES locales as the default
 #
-# DEFAULT_LOCALE – String locale (default: nil)
+# DEFAULT_LOCALE – String locale (default: en)
 #
 # Examples:
 #
@@ -265,12 +267,12 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: ''
 # Examples:
 #
 #   THEME_URLS:
-#     - 'git://github.com/mysociety/alavetelitheme.git'
-#     - 'git://github.com/mysociety/whatdotheyknow-theme.git'
+#     - 'https://github.com/mysociety/alavetelitheme.git'
+#     - 'https://github.com/mysociety/whatdotheyknow-theme.git'
 #
 # ---
 THEME_URLS:
-  - 'git://github.com/mysociety/alavetelitheme.git'
+  - 'https://github.com/mysociety/alavetelitheme.git'
 
 # When rails-post-deploy installs the themes, it will try to use the branch
 # specified by THEME_BRANCH first. If the branch doesn't exist it will fall
@@ -606,7 +608,7 @@ FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 # two arguments: the URL, and a path to an output file.
 #
 # A static binary of wkhtmltopdf is recommended:
-# http://code.google.com/p/wkhtmltopdf/downloads/list
+# https://github.com/wkhtmltopdf/packaging/releases
 # If the command is not present, a text-only version will be rendered
 # instead.
 #
@@ -615,10 +617,9 @@ FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@localhost
 # Examples:
 #
 #   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
-#   HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
 #
 # ---
-HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
+HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf
 
 # Email address used for sending exception notifications.
 #
@@ -686,13 +687,16 @@ GA_CODE: ''
 OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 
 # Search path for external commandline utilities (such as pdftohtml, pdftk,
-# unrtf)
+# unrtf).
+# When set to an empty array the the standard environment PATH will be used to
+# search for external commandline utilities.
 #
 # UTILITY_SEARCH_PATH - Array of Strings
 #                       (default: ["/usr/bin", "/usr/local/bin"])
 #
 # Examples:
 #
+#  UTILITY_SEARCH_PATH: []
 #  UTILITY_SEARCH_PATH: ["/usr/bin"]
 #  UTILITY_SEARCH_PATH: ["/usr/local/bin", "/opt/bin"]
 #
@@ -1216,11 +1220,13 @@ STRIPE_SECRET_KEY: ''
 # from other resources within Stripe. If used the Stripe resources will need IDs
 # like: '<namespace>-<id>'
 #
+# **Must be uppercase**.
+#
 # STRIPE_NAMESPACE - String (default: '')
 #
 # Examples:
 #
-# STRIPE_NAMESPACE: 'alaveteli'
+# STRIPE_NAMESPACE: 'ALAVETELI'
 #
 # ---
 STRIPE_NAMESPACE: ''
@@ -1293,3 +1299,11 @@ ENABLE_PRO_SELF_SERVE: false
 #
 # ---
 ENABLE_PROJECTS: false
+
+# If SURVEY_URL is present, one month after a request has been made, Alaveteli
+# will email users with a link to a survey.
+#
+# SURVEY_URL – String (default: '')
+#
+# ---
+SURVEY_URL: ''

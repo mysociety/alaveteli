@@ -108,6 +108,38 @@ body.admin {
     }
   }
 
+  @mixin prominence_icon {
+    border: 1px solid rgba(1,1,1,0);
+    border-radius: 20px;
+    vertical-align: text-bottom;
+  }
+
+  i.icon-prominence--normal {
+    @include prominence_icon;
+    @extend .icon-eye-open;
+  }
+
+  i.icon-prominence--backpage {
+    @include prominence_icon;
+    @extend .icon-eye-close;
+    background-color: #e8e8e8;
+    border-color: #adadad;
+  }
+
+  i.icon-prominence--requester_only {
+    @include prominence_icon;
+    @extend .icon-eye-close;
+    background-color: #ffe819;
+    border-color: #ffb100;
+  }
+
+  i.icon-prominence--hidden {
+    @include prominence_icon;
+    @extend .icon-eye-close;
+    background-color: #c59690;
+    border-color: #771414;
+  }
+
   body.admin blockquote p {
     font-size: 13px;
     display: inline;

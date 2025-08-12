@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::ToDoList::Item do
+RSpec.describe AlaveteliPro::ToDoList::Item do
 
   describe '.new' do
 

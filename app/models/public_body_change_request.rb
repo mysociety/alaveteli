@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_body_change_requests
 #
@@ -12,7 +12,7 @@
 #  public_body_email :string
 #  source_url        :text
 #  notes             :text
-#  is_open           :boolean          default(TRUE), not null
+#  is_open           :boolean          default("true"), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -42,6 +42,8 @@ class PublicBodyChangeRequest < ApplicationRecord
   scope :body_update_requests, -> {
     where("public_body_id IS NOT NULL").order("created_at")
   }
+
+  singleton_class.undef_method :open # Undefine Kernel.open to avoid warning
   scope :open, -> { where(is_open: true) }
 
   def self.from_params(params, user)
@@ -78,6 +80,10 @@ class PublicBodyChangeRequest < ApplicationRecord
 
   def get_public_body_name
     public_body ? public_body.name : public_body_name
+  end
+
+  def current_public_body_email
+    public_body&.request_email
   end
 
   def send_message

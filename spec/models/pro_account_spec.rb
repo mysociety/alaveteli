@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: pro_accounts
 #
@@ -14,9 +14,10 @@
 require 'spec_helper'
 require 'stripe_mock'
 
-describe ProAccount, feature: :pro_pricing do
-
+RSpec.describe ProAccount, feature: :pro_pricing do
   around { |example| StripeMock.mock(&example) }
+
+  it { is_expected.to strip_attribute(:default_embargo_duration) }
 
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:product) { stripe_helper.create_product }

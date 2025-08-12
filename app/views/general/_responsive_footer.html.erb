@@ -19,7 +19,7 @@
         <% if feature_enabled?(:pro_pricing) %>
         <li>
           <%= link_to _('{{pro_site_name}} Terms',
-                        pro_site_name: AlaveteliConfiguration.pro_site_name),
+                        pro_site_name: pro_site_name),
                         pro_page_path(:id => 'legal') %>
         </li>
         <% end %>

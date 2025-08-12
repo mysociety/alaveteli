@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 Rails.application.configure do
   rails_41_default_tags = %w(strong em b i p code pre tt samp kbd var sub
                              sup dfn cite big small address hr br div span h1

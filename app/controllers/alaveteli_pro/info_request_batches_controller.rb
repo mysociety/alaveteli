@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/alaveteli_pro/info_request_batches_controller.rb
 # Controller for batch info requests
 #
@@ -33,7 +32,7 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
         handle_rate_monitor_limit_hit(current_user.id)
       end
 
-      @info_request_batch.save
+      @info_request_batch.save!
       @draft_info_request_batch.destroy
       redirect_to show_alaveteli_pro_batch_request_path(id: @info_request_batch.id)
     else

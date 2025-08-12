@@ -3,10 +3,10 @@
 set -e
 set -x
 
-if [ $# -ne 4 ]
+if [ $# -ne 6 ]
 then
     cat >&2 <<EOUSAGE
-Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION>
+Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY> <RUBY-VERSION> <USE_RBENV> <DEVELOPMENT_INSTALL>
 EOUSAGE
     exit 1
 fi
@@ -15,6 +15,8 @@ UNIX_USER="$1"
 HOST="$2"
 DIRECTORY="$3"
 RUBY_VERSION="$4"
+USE_RBENV="$5"
+DEVELOPMENT_INSTALL="$6"
 DB_NAME="alaveteli"
 
 # Check that the arguments we've been passed are sensible:
@@ -42,7 +44,11 @@ fi
 REPOSITORY="$DIRECTORY/alaveteli"
 LINK_DESTINATION="$HOME/alaveteli"
 
-ln -sfn "$REPOSITORY" $LINK_DESTINATION
+if [ "$REPOSITORY" != "$LINK_DESTINATION" ]
+then
+  ln -sfn "$REPOSITORY" $LINK_DESTINATION
+fi
+
 cd "$REPOSITORY"
 
 BASHRC="$HOME/.bashrc"
@@ -61,16 +67,66 @@ sed -ibackup "/$BASHRC_START/,/$BASHRC_END/d" "$BASHRC"
 # commands in the shell non-interactively.
 TMP_BASHRC="$(mktemp "$BASHRC.XXXXXXX")"
 
-cat >>$TMP_BASHRC <<EOBRC
+if [ $USE_RBENV = true ]; then
+  RBENV="$HOME/.rbenv"
+  if ! [ -d $RBENV ]; then
+    echo 'Install rbenv & ruby-build'
+    git clone https://github.com/rbenv/rbenv.git "$RBENV"
+    cd $RBENV && src/configure && make -C src
+    mkdir -p "$RBENV/plugins"
+    git clone https://github.com/rbenv/ruby-build.git "$RBENV/plugins/ruby-build"
+  else
+    echo 'Update rbenv & ruby-build'
+    cd $RBENV && git pull
+    cd $RBENV/plugins/ruby-build && git pull
+  fi
+  cd "$REPOSITORY"
+
+  cat >>$TMP_BASHRC <<EOBRC
+$BASHRC_START
+export PATH="$RBENV/bin:\$HOME/.gem/ruby/$RUBY_VERSION/bin:\$PATH"
+eval "\$(rbenv init -)"
+$BASHRC_END
+EOBRC
+
+else
+  cat >>$TMP_BASHRC <<EOBRC
 $BASHRC_START
 export PATH="\$HOME/.gem/ruby/$RUBY_VERSION/bin:\$PATH"
 $BASHRC_END
 EOBRC
+fi
 
 cat "$BASHRC" >> "$TMP_BASHRC"
 mv "$TMP_BASHRC" "$BASHRC"
 
 source "$BASHRC"
+
+if [ $USE_RBENV = true ]; then
+  echo "Installing Ruby $RUBY_VERSION"
+  # Compile and install Ruby and set as global default for this user
+  rbenv install -s $RUBY_VERSION
+  rbenv global $RUBY_VERSION
+  gem install bundler
+fi
+
+# Prevent extreme deprecation warnings on Ruby 2.7.0 provided by Ubuntu Focal
+# (Fixed in Ruby 2.7.2). ensure_line_present is not available here, so just do
+# this as it's pretty temporary.
+RUBY27_OPT_COMMENT="Set Ruby options for Ruby 2.7"
+RUBY27_OPT_START="# START $RUBY27_OPT_COMMENT"
+RUBY27_OPT_END="# END $RUBY27_OPT_COMMENT"
+if ruby -v | grep "2.7.[01]" > /dev/null && ! grep "$RUBY27_OPT_START" "$BASHRC" > /dev/null
+then
+  cat >>$BASHRC <<EOF
+
+$RUBY27_OPT_START
+if [ -x \$(which ruby) ] && ruby -v | grep "2.7.[01]" > /dev/null; then
+  export RUBYOPT='-W:no-deprecated -W:no-experimental'
+fi
+$RUBY27_OPT_END
+EOF
+fi
 
 # Speed up the installation of gems:
 echo 'gem: --no-ri --no-rdoc' > "$HOME/.gemrc"
@@ -103,7 +159,7 @@ then
         -e "s,^( *TRACK_SENDER_EMAIL:).*,\\1 'postmaster@$HOST'," \
         -e "s,^( *SECRET_KEY_BASE:).*,\\1 '$RANDOM_COOKIE_SECRET'," \
         -e "s,^( *FORWARD_NONBOUNCE_RESPONSES_TO:).*,\\1 'user-support@$HOST'," \
-        -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/bin/wkhtmltopdf-static'," \
+        -e "s,^( *HTML_TO_PDF_COMMAND:).*,\\1 '/usr/local/bin/wkhtmltopdf'," \
         -e "s,^( *EXCEPTION_NOTIFICATIONS_FROM:).*,\\1 'do-not-reply-to-this-address@$HOST'," \
         -e "/EXCEPTION_NOTIFICATIONS_TO:/,/^$/c EXCEPTION_NOTIFICATIONS_TO:\n - team@$HOST\n" \
         -e "s,^( *MTA_LOG_PATH:).*,\\1 '/var/log/mail/mail.log-*'," \
@@ -142,6 +198,16 @@ done
 
 echo Running rails-post-deploy
 script/rails-post-deploy
+
+# We created the test database above and migrated the development / production
+# database through `script/rails-post-deploy`, but in a development install
+# we're left without a ready-to-go test database. We don't want to run
+# `script/rails-post-deploy` with `RAILS_ENV=test` since that runs all sorts of
+# other things, so just migrate the test database as a separate task.
+if [ "$DEVELOPMENT_INSTALL" = true ]; then
+  echo Migrating test database
+  RAILS_ENV=test bundle exec rake db:migrate
+fi
 
 LOADED_INDICATOR="$HOME/.alaveteli-sample-data-loaded"
 

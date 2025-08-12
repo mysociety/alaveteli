@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require Rails.root.join('commonlib', 'rblib', 'git')
 
 namespace :themes do

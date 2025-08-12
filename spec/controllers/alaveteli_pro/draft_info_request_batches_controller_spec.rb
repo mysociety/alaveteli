@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 shared_examples_for "creating a request" do
@@ -19,7 +18,7 @@ shared_examples_for "adding a body to a request" do
     let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
-      session[:user_id] = other_pro_user.id
+      sign_in other_pro_user
     end
 
     it "creates new draft object" do
@@ -52,7 +51,7 @@ shared_examples_for "removing a body from a request" do
     let(:other_pro_user) { FactoryBot.create(:pro_user) }
 
     before do
-      session[:user_id] = other_pro_user.id
+      sign_in other_pro_user
     end
 
     it "raises an ActiveRecord::RecordNotFound error" do
@@ -76,14 +75,14 @@ shared_examples_for 'respecting the selected page' do
   end
 end
 
-describe AlaveteliPro::DraftInfoRequestBatchesController do
+RSpec.describe AlaveteliPro::DraftInfoRequestBatchesController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:authority_1) { FactoryBot.create(:public_body) }
   let(:authority_2) { FactoryBot.create(:public_body) }
   let(:authority_3) { FactoryBot.create(:public_body) }
 
   before do
-    session[:user_id] = pro_user.id
+    sign_in pro_user
   end
 
   describe "#create" do

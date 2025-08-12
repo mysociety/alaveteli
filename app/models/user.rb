@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210921094059
 #
 # Table name: users
 #
@@ -10,42 +10,45 @@
 #  salt                              :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
-#  email_confirmed                   :boolean          default(FALSE), not null
+#  email_confirmed                   :boolean          default("false"), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00 GMT +00:00)
+#  last_daily_track_email            :datetime         default("2000-01-01 00:00:00")
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string
 #  email_bounced_at                  :datetime
 #  email_bounce_message              :text             default(""), not null
-#  no_limit                          :boolean          default(FALSE), not null
-#  receive_email_alerts              :boolean          default(TRUE), not null
-#  can_make_batch_requests           :boolean          default(FALSE), not null
-#  otp_enabled                       :boolean          default(FALSE), not null
+#  no_limit                          :boolean          default("false"), not null
+#  receive_email_alerts              :boolean          default("true"), not null
+#  can_make_batch_requests           :boolean          default("false"), not null
+#  otp_enabled                       :boolean          default("false"), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default(1)
-#  confirmed_not_spam                :boolean          default(FALSE), not null
-#  comments_count                    :integer          default(0), not null
-#  info_requests_count               :integer          default(0), not null
-#  track_things_count                :integer          default(0), not null
-#  request_classifications_count     :integer          default(0), not null
-#  public_body_change_requests_count :integer          default(0), not null
-#  info_request_batches_count        :integer          default(0), not null
+#  otp_counter                       :integer          default("1")
+#  confirmed_not_spam                :boolean          default("false"), not null
+#  comments_count                    :integer          default("0"), not null
+#  info_requests_count               :integer          default("0"), not null
+#  track_things_count                :integer          default("0"), not null
+#  request_classifications_count     :integer          default("0"), not null
+#  public_body_change_requests_count :integer          default("0"), not null
+#  info_request_batches_count        :integer          default("0"), not null
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
+#  login_token                       :string
 #
 
 class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
   include User::Authentication
+  include User::LoginToken
+  include User::OneTimePassword
+  include User::Survey
 
   rolify before_add: :setup_pro_account
   strip_attributes :allow_empty => true
 
   attr_accessor :no_xapian_reindex
-  attr_accessor :entered_otp_code
 
   has_many :info_requests,
            -> { order('info_requests.created_at desc') },
@@ -145,8 +148,6 @@ class User < ApplicationRecord
                       :message => _("This email is already in use") }
 
   validate :email_and_name_are_valid
-  validate :verify_otp_code,
-           :if => Proc.new { |u| u.otp_enabled? && u.require_otp? }
 
   after_initialize :set_defaults
   after_update :reindex_referencing_models, :update_pro_account
@@ -158,7 +159,6 @@ class User < ApplicationRecord
   :terms => [ [ :variety, 'V', "variety" ] ],
   :if => :indexed_by_search?
 
-  has_one_time_password :counter_based => true
 
   def self.pro
     with_role :pro
@@ -222,20 +222,28 @@ class User < ApplicationRecord
   end
 
   def self.owns_every_request?(user)
-    !user.nil? && user.owns_every_request?
+    warn %q([DEPRECATION] User#owns_every_request? will be removed in 0.41.
+            It has been replaced by User#owns_every_request?).squish
+    user&.owns_every_request?
   end
 
-  # Can the user see every request, response, and outgoing message, even hidden ones?
   def self.view_hidden?(user)
-    !user.nil? && user.is_admin?
+    warn %q([DEPRECATION] User.view_hidden? will be removed in 0.41.
+            It has been replaced by User#view_hidden?).squish
+    user&.view_hidden?
   end
 
   def self.view_embargoed?(user)
-    !user.nil? && user.is_pro_admin?
+    warn %q([DEPRECATION] User.view_embargoed? will be removed in 0.41.
+            It has been replaced by User#view_embargoed?).squish
+    user&.view_embargoed?
   end
 
   def self.view_hidden_and_embargoed?(user)
-    view_hidden?(user) && view_embargoed?(user)
+    warn %q([DEPRECATION] User.view_hidden_and_embargoed? will be removed in
+            0.41. It has been replaced by User#view_hidden_and_embargoed?).
+            squish
+    user&.view_hidden_and_embargoed?
   end
 
   # Should the user be kept logged into their own account
@@ -280,52 +288,16 @@ class User < ApplicationRecord
                 user.name, true, user.id).order(:created_at)
   end
 
-  def self.all_time_requesters
-    InfoRequest.is_public.
-                joins(:user).
-                group(:user).
-                order("count_info_requests_all DESC").
-                limit(10).
-                count
+  def view_hidden?
+    is_admin?
   end
 
-  def self.last_28_day_requesters
-    # TODO: Refactor as it's basically the same as all_time_requesters
-    InfoRequest.is_public.
-                where("info_requests.created_at >= ?", 28.days.ago).
-                joins(:user).
-                group(:user).
-                order("count_info_requests_all DESC").
-                limit(10).
-                count
+  def view_embargoed?
+    is_pro_admin?
   end
 
-  def self.all_time_commenters
-    commenters = Comment.visible.
-                         joins(:user).
-                         group("comments.user_id").
-                         order("count_all DESC").
-                         limit(10).
-                         count
-    # TODO: Have user objects automatically instantiated like the InfoRequest queries above
-    result = {}
-    commenters.each { |user_id,count| result[User.find(user_id)] = count }
-    result
-  end
-
-  def self.last_28_day_commenters
-    # TODO: Refactor as it's basically the same as all_time_commenters
-    commenters = Comment.visible.
-                         where("comments.created_at >= ?", 28.days.ago).
-                         joins(:user).
-                         group("comments.user_id").
-                         order("count_all DESC").
-                         limit(10).
-                         count
-    # TODO: Have user objects automatically instantiated like the InfoRequest queries above
-    result = {}
-    commenters.each { |user_id,count| result[User.find(user_id)] = count }
-    result
+  def view_hidden_and_embargoed?
+    view_hidden? && view_embargoed?
   end
 
   def transactions(*associations)
@@ -348,14 +320,18 @@ class User < ApplicationRecord
     return if no_xapian_reindex == true
     return unless saved_change_to_attribute?(:url_name)
 
-    comments.find_each do |comment|
-      comment.info_request_events.find_each do |info_request_event|
-        info_request_event.xapian_mark_needs_index
-      end
-    end
+    expire_comments
+    expire_requests
+  end
 
-    info_requests.find_each do |info_request|
-      info_request.info_request_events.find_each do |info_request_event|
+  def expire_requests
+    info_requests.find_each(&:expire)
+  end
+
+  def expire_comments
+    comments.find_each do |comment|
+      # TODO: Extract to Comment#expire
+      comment.info_request_events.find_each do |info_request_event|
         info_request_event.xapian_mark_needs_index
       end
     end
@@ -389,32 +365,7 @@ class User < ApplicationRecord
       unique_url_name = url_name + "_" + suffix_num.to_s
       suffix_num = suffix_num + 1
     end
-    write_attribute(:url_name, unique_url_name)
-  end
-
-  def otp_enabled?
-    (otp_secret_key && otp_counter && otp_enabled) ? true : false
-  end
-
-  def enable_otp
-    otp_regenerate_secret
-    otp_regenerate_counter
-    self.otp_enabled = true
-  end
-
-  def disable_otp
-    self.otp_enabled = false
-    self.require_otp = false
-    true
-  end
-
-  def require_otp?
-    @require_otp = false if @require_otp.nil?
-    @require_otp
-  end
-
-  def require_otp=(value)
-    @require_otp = value ? true : false
+    self.url_name = unique_url_name
   end
 
   # For use in to/from in email messages
@@ -506,10 +457,6 @@ class User < ApplicationRecord
     recent_requests >= AlaveteliConfiguration.max_requests_per_user_per_day
   end
 
-  def expire_requests
-    info_requests.each { |request| request.expire }
-  end
-
   def next_request_permitted_at
     return nil if no_limit
 
@@ -561,7 +508,7 @@ class User < ApplicationRecord
     ActiveRecord::Base.transaction do
       profile_photo.destroy unless profile_photo.nil?
       self.profile_photo = new_profile_photo
-      save
+      save!
     end
   end
 
@@ -604,7 +551,7 @@ class User < ApplicationRecord
 
   def confirm(save_record = false)
     self.email_confirmed = true
-    save if save_record
+    save! if save_record
   end
 
   def confirm!
@@ -613,7 +560,7 @@ class User < ApplicationRecord
   end
 
   def should_be_emailed?
-    email_confirmed && email_bounced_at.nil? && active?
+    active? && email_confirmed? && receive_email_alerts? && !email_bounced_at
   end
 
   def indexed_by_search?
@@ -706,15 +653,6 @@ class User < ApplicationRecord
     if MySociety::Validate.is_valid_email(name)
       errors.add(:name, _("Please enter your name, not your email address, in the name field."))
     end
-  end
-
-  def verify_otp_code
-    opts = { :auto_increment => true }
-    if entered_otp_code.nil? || !authenticate_otp(entered_otp_code, opts)
-      msg = _('Invalid one time password')
-      errors.add(:otp_code, msg)
-    end
-    self.entered_otp_code = nil
   end
 
   def setup_pro_account(role)

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/track_controller.rb:
 # Publically visible email alerts and RSS - think an alert system crossed with
 # social bookmarking.
@@ -7,6 +6,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackController < ApplicationController
+  skip_before_action :html_response
+
   before_action :medium_cache
 
   # Track all updates to a particular request
@@ -132,7 +133,8 @@ class TrackController < ApplicationController
       end
     end
 
-    if not authenticated?(@track_thing.params)
+    unless authenticated?
+      ask_to_login(**@track_thing.params)
       return false
     end
 
@@ -148,7 +150,11 @@ class TrackController < ApplicationController
       return true
     else
       # this will most likely be tripped by a single error - probably track_query length
-      flash[:error] = @track_thing.errors.map { |_, msg| msg }.join(", ")
+      if rails_upgrade?
+        flash[:error] = @track_thing.errors.map { |e| e.message }.join(", ")
+      else
+        flash[:error] = @track_thing.errors.map { |_, msg| msg }.join(", ")
+      end
       return false
     end
   end
@@ -167,7 +173,10 @@ class TrackController < ApplicationController
   end
 
   def atom_feed_internal
-    @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1)
+    @xapian_object = perform_search(
+      [InfoRequestEvent], @track_thing.track_query,
+      @track_thing.params[:feed_sortby], nil, 25
+    )
     # We're assuming that a request to a feed url with no format suffix wants atom/xml
     # so set that as the default, regardless of content negotiation
     request.format = params[:format] || 'xml'
@@ -194,19 +203,20 @@ class TrackController < ApplicationController
   def update
     track_thing = TrackThing.find(params[:track_id].to_i)
 
-    if not authenticated_as_user?(track_thing.tracking_user,
-                                  :web => _("To cancel this alert"),
-                                  :email => _("Then you can cancel the alert."),
-                                  :email_subject => _("Cancel a {{site_name}} alert",:site_name=>site_name)
-                                  )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
+    unless authenticated?(as: track_thing.tracking_user)
+      ask_to_login(
+        as: track_thing.tracking_user,
+        web: _('To cancel this alert'),
+        email: _('Then you can cancel the alert.'),
+        email_subject: _('Cancel a {{site_name}} alert', site_name: site_name)
+      )
       return
     end
 
     new_medium = params[:track_medium]
     if new_medium == 'delete'
       track_thing.destroy
-      flash[:notice] = view_context.unsubscribe_notice(track_thing)
+      flash[:notice] = { inline: view_context.unsubscribe_notice(track_thing) }
       redirect_to SafeRedirect.new(params[:r]).path
     else
       msg =
@@ -224,12 +234,14 @@ class TrackController < ApplicationController
   def delete_all_type
     user_id = User.find(params[:user].to_i)
 
-    if not authenticated_as_user?(user_id,
-                                  :web => _("To cancel these alerts"),
-                                  :email => _("Then you can cancel the alerts."),
-                                  :email_subject => _("Cancel some {{site_name}} alerts",:site_name=>site_name)
-                                  )
-      # do nothing - as "authenticated?" has done the redirect to signin page for us
+    unless authenticated?(as: user_id)
+      ask_to_login(
+        as: user_id,
+        web: _('To cancel these alerts'),
+        email: _('Then you can cancel the alerts.'),
+        email_subject: _('Cancel some {{site_name}} alerts',
+                         site_name: site_name)
+      )
       return
     end
 

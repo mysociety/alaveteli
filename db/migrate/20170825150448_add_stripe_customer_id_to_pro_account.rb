@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class AddStripeCustomerIdToProAccount < ActiveRecord::Migration[4.2]
   def up
     unless column_exists?(:pro_accounts, :stripe_customer_id)

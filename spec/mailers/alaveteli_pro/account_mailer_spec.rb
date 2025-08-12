@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::AccountMailer do
+RSpec.describe AlaveteliPro::AccountMailer do
 
   describe '#account_request' do
     let(:account_request) do

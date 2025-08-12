@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddLastEventIdToAlertTable < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     add_column :user_info_request_sent_alerts, :info_request_event_id, :integer, :default => nil

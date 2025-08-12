@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: mail_server_logs
 #
@@ -13,9 +13,9 @@
 #  delivery_status         :string
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe MailServerLog do
+RSpec.describe MailServerLog do
   describe ".load_file" do
     before :each do
       allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")

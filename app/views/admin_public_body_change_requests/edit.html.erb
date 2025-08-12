@@ -13,9 +13,11 @@
     <%= link_to 'Close', admin_change_request_path(@change_request),
                   method: :put,
                   accesskey: 'c',
-                  class: 'btn btn-danger' %>
+                  class: 'btn' %>
 
-    <%= submit_tag 'Close and respond', accesskey: 'r', class: 'btn' %>
+    <%= submit_tag 'Close and respond',
+                   accesskey: 'r',
+                   class: 'btn btn-primary' %>
   </div>
 <% end %>
 

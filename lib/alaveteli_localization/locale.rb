@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AlaveteliLocalization
   autoload :HyphenatedLocale, 'alaveteli_localization/hyphenated_locale'
   autoload :UnderscorredLocale, 'alaveteli_localization/underscorred_locale'

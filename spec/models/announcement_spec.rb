@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: announcements
 #
@@ -7,11 +8,13 @@
 #  user_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  title      :string
+#  content    :text
 #
 
 require 'spec_helper'
 
-describe Announcement do
+RSpec.describe Announcement do
   describe 'scopes' do
     let!(:admin) { FactoryBot.create(:admin_user) }
     let!(:user) { FactoryBot.create(:user) }

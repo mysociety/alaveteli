@@ -205,7 +205,8 @@ a.track-request-action {
   }
 }
 
-.correspondence_delivery {
+.correspondence_delivery,
+.correspondence__suggestion {
   padding: 1em;
 
   @include respond-min( $main_menu-mobile_menu_cutoff ){

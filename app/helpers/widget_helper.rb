@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module WidgetHelper
   def status_description(info_request, status)
     case status

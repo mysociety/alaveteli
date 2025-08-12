@@ -11,7 +11,7 @@
         <%= @info_request.user_name %>
       </span>
 
-      <%= link_to outgoing_message_path(outgoing_message), :class => 'correspondence__header__date' do %>
+      <%= link_to outgoing_message_path(outgoing_message, anchor_only: true), :class => 'correspondence__header__date' do %>
           <%= simple_date(info_request_event.created_at) %>
       <% end %>
 

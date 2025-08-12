@@ -25,7 +25,7 @@
                      in_pro_area: @in_pro_area,
                      track_thing: @track_thing,
                      show_profile_photo: @show_profile_photo,
-                     show_action_menu: !@render_to_file,
+                     show_action_menu: @show_action_menu,
                      new_responses_count: @new_responses_count,
                      is_owning_user: @is_owning_user,
                      render_to_file: @render_to_file,
@@ -57,7 +57,7 @@
           <%= render partial: 'alaveteli_pro/info_requests/after_actions',
                      locals: { info_request: @info_request,
                                last_response: @last_response } %>
-        <% else %>
+        <% elsif @show_action_menu %>
           <%= render partial: 'request/after_actions',
                      locals: { info_request: @info_request,
                                track_thing: @track_thing,

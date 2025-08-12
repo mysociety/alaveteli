@@ -21,7 +21,8 @@ $color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
 }
 
 .request-header__foi_no,
-.request-header__closed_to_correspondence {
+.request-header__closed_to_correspondence,
+.request-header__restricted_correspondence {
   font-size: 0.85em;
   color: #666;
 
@@ -332,6 +333,18 @@ div.comment_in_request {
 
 .correspondence_delivery--unknown {
   background-color: mix(#fff, $color-delivery-unknown, 85%);
+}
+
+.correspondence__suggestion {
+  background-color: #fff1b6;
+  border-bottom: 1px solid #ffd836;
+
+  h2 {
+    text-align: inherit;
+    font-size: 1.2em;
+    padding-left: 0;
+    padding-top: 0;
+  }
 }
 
 .toggle-delivery-log {

@@ -28,7 +28,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.can :read, project
         project.requests << FactoryBot.create(:awaiting_description)
         get :show, params: { project_id: project.id }
@@ -62,7 +62,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.can :read, project
         project.info_requests.update_all(awaiting_description: false)
         get :show, params: { project_id: project.id }
@@ -82,7 +82,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
 
         project.info_requests.classifiable.each do |info_request|
           queue.skip(info_request)
@@ -115,7 +115,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.cannot :read, project
       end
 
@@ -160,7 +160,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       let(:skipped_request) { FactoryBot.create(:awaiting_description) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.can :read, project
         project.requests << skipped_request
         patch :update, params: { project_id: project.id,
@@ -197,7 +197,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         ability.cannot :read, project
       end
 

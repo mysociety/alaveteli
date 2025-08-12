@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20210114161442
+#
+# Table name: projects
+#
+#  id           :bigint           not null, primary key
+#  title        :string
+#  briefing     :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  invite_token :string
+#
+
 require 'spec_helper'
 
 RSpec.describe Project, type: :model, feature: :projects do

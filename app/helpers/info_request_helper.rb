@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module InfoRequestHelper
   include ConfigHelper
   include DateTimeHelper
@@ -115,9 +114,9 @@ module InfoRequestHelper
       str += ' '
       str += _('You can <strong>complain</strong> by')
       str += ' '
-      str += link_to _("requesting an internal review"),
+      str += link_to _('requesting an internal review'),
                     new_request_followup_path(:request_id => info_request.id) +
-                    "?internal_review=1#followup"
+                    '?internal_review=1'
       str += '.'
     end
 
@@ -156,7 +155,7 @@ module InfoRequestHelper
       str += _('Please')
       str += ' '
       str += link_to _("send a follow up message"),
-                     respond_to_last_path(info_request, :anchor => 'followup')
+                     respond_to_last_path(info_request)
       str += '.'
     else
       str += _('The request is <strong>waiting for clarification</strong>.')
@@ -284,8 +283,13 @@ module InfoRequestHelper
 
   def attachment_url(attachment, options = {})
     attach_params = attachment_params(attachment, options)
-    if options[:html]
+
+    if options[:html] && public_token?
+      share_attachment_as_html_url(attach_params)
+    elsif options[:html]
       get_attachment_as_html_url(attach_params)
+    elsif public_token?
+      share_attachment_url(attach_params)
     else
       get_attachment_url(attach_params)
     end
@@ -301,12 +305,16 @@ module InfoRequestHelper
 
   def attachment_params(attachment, options = {})
     attach_params = {
-      id: attachment.incoming_message.info_request_id,
       incoming_message_id: attachment.incoming_message_id,
       part: attachment.url_part_number,
       file_name: attachment.display_filename,
       only_path: options.fetch(:only_path, false)
     }
+    if public_token?
+      attach_params[:public_token] = public_token
+    else
+      attach_params[:id] = attachment.incoming_message.info_request_id
+    end
     if options[:html]
       attach_params[:file_name] = "#{attachment.display_filename}.html"
     else
@@ -321,4 +329,7 @@ module InfoRequestHelper
     attach_params
   end
 
+  def public_token?
+    defined?(public_token) && public_token.present?
+  end
 end

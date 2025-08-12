@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::ActivityList::Comment do
+RSpec.describe AlaveteliPro::ActivityList::Comment do
   include Rails.application.routes.url_helpers
 
   let!(:user) { FactoryBot.create(:user) }

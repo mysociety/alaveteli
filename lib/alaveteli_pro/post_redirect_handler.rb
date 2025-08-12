@@ -18,7 +18,7 @@ module AlaveteliPro
         # Clear out the post_redirect, so that we don't get a lot of other
         # params put into our URL later on
         post_redirect.post_params = {}
-        post_redirect.save
+        post_redirect.save!
         flash[:notice] = _("Thanks for logging in. We've saved your " \
                            "request as a draft, in case you wanted to " \
                            "add an embargo before sending it. You can " \

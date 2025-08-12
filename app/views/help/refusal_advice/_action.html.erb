@@ -1,0 +1,14 @@
+<div class="wizard__action" data-block="<%= action.id %>">
+  <h2><%= action.header %></h2>
+  <div><%= render action.body %></div>
+
+  <%= f.fields_for 'actions[]', action, include_id: false do |f| %>
+    <%= render action.suggestions, f: f %>
+  <% end %>
+
+  <% if refusal_advice_actionable?(action, info_request: @info_request) %>
+    <%= f.button name: "#{f.object_name}[id]", value: action.id, class: 'button' do %>
+      <%= action.button %>
+    <% end %>
+  <% end %>
+</div>

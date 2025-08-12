@@ -6,6 +6,13 @@ require 'yaml'
 # Usage
 # =====
 #
+# Install a vagrant plugin (if you don't already have it) that
+# automatically install guest additions
+#
+#   # Host
+#   $ vagrant plugin install vagrant-vbguest
+#   $ vagrant vbguest
+#
 # Get a copy of Alaveteli from GitHub and create the Vagrant instance
 #
 #   # Host
@@ -28,6 +35,14 @@ require 'yaml'
 #
 #   # Guest
 #   bundle exec rails server -b 0.0.0.0
+#
+#
+# Log-in to the Vagrant instance
+# ================================
+#
+# Once the application is running, you can login with any of the sample users
+# that get created automatically. You can find more details of these users in
+# spec/fixtures/users.yml.
 #
 # Customizing the Vagrant instance
 # ================================
@@ -113,9 +128,21 @@ SUPPORTED_OPERATING_SYSTEMS = {
     box: 'ubuntu/bionic64',
     box_url: 'https://app.vagrantup.com/ubuntu/boxes/bionic64'
   },
+  'focal64' => {
+    box: 'ubuntu/focal64',
+    box_url: 'https://app.vagrantup.com/ubuntu/boxes/focal64'
+  },
   'stretch64' => {
     box: 'debian/stretch64',
     box_url: 'https://app.vagrantup.com/debian/boxes/stretch64'
+  },
+  'buster64' => {
+    box: 'debian/buster64',
+    box_url: 'https://app.vagrantup.com/debian/boxes/buster64'
+  },
+  'bullseye64' => {
+    box: 'debian/bullseye64',
+    box_url: 'https://app.vagrantup.com/debian/boxes/bullseye64'
   }
 }
 

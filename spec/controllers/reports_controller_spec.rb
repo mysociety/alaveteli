@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe ReportsController do
+RSpec.describe ReportsController do
 
   describe 'POST #create' do
     let(:info_request) { FactoryBot.create(:info_request) }
@@ -22,7 +21,7 @@ describe ReportsController do
 
     context "when reporting a request (logged in)" do
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it "finds the expected request" do
@@ -168,7 +167,7 @@ describe ReportsController do
 
     context "when reporting a comment (logged in)" do
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       let(:comment) do
@@ -320,7 +319,7 @@ describe ReportsController do
 
     context "when reporting a request (logged in)" do
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it "finds the expected request" do
@@ -369,7 +368,7 @@ describe ReportsController do
       render_views
 
       before :each do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       let(:comment) do

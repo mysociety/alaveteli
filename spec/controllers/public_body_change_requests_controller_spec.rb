@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe PublicBodyChangeRequestsController do
+RSpec.describe PublicBodyChangeRequestsController do
 
   describe 'GET #new' do
 
@@ -16,7 +15,7 @@ describe PublicBodyChangeRequestsController do
     end
 
     it 'does not instruct the view to render recaptcha if there is a logged in user' do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       get :new
       expect(assigns[:render_recaptcha]).to eq(false)
     end
@@ -64,7 +63,7 @@ describe PublicBodyChangeRequestsController do
     end
 
     it 'sets render_recaptcha to false if there is a logged in user' do
-      session[:user_id] = FactoryBot.create(:user).id
+      sign_in FactoryBot.create(:user)
       post :create, params: {
                       :public_body_change_request => @change_request_params
                     }

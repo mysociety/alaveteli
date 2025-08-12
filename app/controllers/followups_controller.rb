@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class FollowupsController < ApplicationController
   before_action :check_read_only,
                 :set_incoming_message,
@@ -10,6 +9,7 @@ class FollowupsController < ApplicationController
                 :set_params,
                 :set_internal_review,
                 :set_outgoing_message,
+                :set_refusal_advice,
                 :set_in_pro_area
 
   before_action :check_reedit, :only => [:preview, :create]
@@ -88,15 +88,16 @@ class FollowupsController < ApplicationController
     # We want to make sure they're the right user first, before they start
     # writing a message and wasting their time if they are not the requester.
     params = get_login_params(@incoming_message, @info_request)
-    return if !authenticated_as_user?(@info_request.user, params)
-    if authenticated_user and !authenticated_user.can_make_followup?
+    unless authenticated?(as: @info_request.user)
+      ask_to_login(as: @info_request.user, **params)
+      return
+    end
+    if authenticated? && !authenticated_user.can_make_followup?
       @details = authenticated_user.can_fail_html
       render :template => 'user/banned'
       return
     end
-    if authenticated_user && cannot?(:read, @info_request)
-      return render_hidden
-    end
+    render_hidden if authenticated? && cannot?(:read, @info_request)
   end
 
   def get_login_params(is_incoming, info_request)
@@ -206,6 +207,14 @@ class FollowupsController < ApplicationController
   def set_outgoing_message
     @outgoing_message = OutgoingMessage.new(outgoing_message_params)
     @outgoing_message.set_signature_name(@user.name) if @user
+  end
+
+  def set_refusal_advice
+    @refusal_advice = RefusalAdvice.default(
+      @info_request,
+      internal_review: @internal_review,
+      user: current_user
+    )
   end
 
   def set_params

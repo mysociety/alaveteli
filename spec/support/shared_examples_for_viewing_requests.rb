@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 shared_examples_for 'allows the embargo to be lifted' do
 
   it 'allows the user to publish a request' do

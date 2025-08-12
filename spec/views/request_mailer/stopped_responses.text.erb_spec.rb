@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "request_mailer/stopped_responses" do
+RSpec.describe "request_mailer/stopped_responses" do
   let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
   let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
   let(:request) do
@@ -18,7 +17,9 @@ describe "request_mailer/stopped_responses" do
   end
 
   it "does not add HTMLEntities to the FOI law title" do
-    allow(request).to receive(:law_used_human).and_return("Test's Law")
+    allow(request).to receive(:legislation).and_return(
+      FactoryBot.build(:legislation, short: "Test's Law")
+    )
     assign(:info_request, request)
     render
     expect(response).to match("an Test's Law request")

@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: draft_info_request_batches
 #
@@ -13,8 +13,14 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/info_request/draft_title_validation'
 
-describe AlaveteliPro::DraftInfoRequestBatch do
+RSpec.describe AlaveteliPro::DraftInfoRequestBatch do
+  it_behaves_like 'concerns/info_request/draft_title_validation',
+                  FactoryBot.build(:draft_info_request_batch)
+
+  it { is_expected.to strip_attribute(:embargo_duration) }
+
   let(:draft_batch) { FactoryBot.create(:draft_info_request_batch) }
   let(:pro_user) { FactoryBot.create(:pro_user) }
 

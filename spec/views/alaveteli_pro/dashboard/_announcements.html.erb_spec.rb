@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'alaveteli_pro/dashboard/_announcements.html.erb' do
+RSpec.describe 'alaveteli_pro/dashboard/_announcements.html.erb' do
 
   let(:announcement) do
     FactoryBot.

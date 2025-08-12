@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/track_mailer.rb:
 # Emails which go to users who are tracking things.
 #
@@ -6,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackMailer < ApplicationMailer
+  helper UnsubscribeHelper
 
   before_action :set_footer_template, :only => :event_digest
 
@@ -17,14 +17,6 @@ class TrackMailer < ApplicationMailer
 
   def event_digest(user, email_about_things)
     @user, @email_about_things = user, email_about_things
-
-    @unsubscribe_url =
-      signin_url(r: user_url(user,
-                             anchor: 'email_subscriptions',
-                             only_path: true))
-
-    token = CGI.escape(User::EmailAlerts.token(user))
-    @disable_email_alerts_url = users_disable_email_alerts_url(token: token)
 
     headers(
       # http://tools.ietf.org/html/rfc3834
@@ -56,7 +48,7 @@ class TrackMailer < ApplicationMailer
     now = Time.zone.now
     one_week_ago = now - 7.days
     User.where(["last_daily_track_email < ?", now - 1.day ]).find_each do |user|
-      next if !user.should_be_emailed? || !user.receive_email_alerts
+      next unless user.should_be_emailed?
 
       email_about_things = []
       track_things = TrackThing.where(:tracking_user_id => user.id,
@@ -150,7 +142,7 @@ class TrackMailer < ApplicationMailer
   private
 
   def set_footer_template
-    @footer_template = 'default'
+    @footer_template = 'default_with_unsubscribe'
   end
 
 end

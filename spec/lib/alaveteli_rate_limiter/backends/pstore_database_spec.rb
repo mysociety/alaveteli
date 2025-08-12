@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe AlaveteliRateLimiter::Backends::PStoreDatabase do
+RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
 
   let(:test_path) { Rails.root + '/tmp/test.pstore' }
 

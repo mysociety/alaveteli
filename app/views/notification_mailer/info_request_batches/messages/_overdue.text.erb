@@ -11,7 +11,7 @@
 
 <% notifications.each do |notification| %>
   <% info_request = notification.info_request_event.info_request %>
-  <% target = respond_to_last_path(info_request, anchor: 'followup') %>
+  <% target = respond_to_last_path(info_request) %>
   <% url = signin_url(r: target) %>
   <%= _('{{public_body_name}}: {{confirm_url}}',
         public_body_name: info_request.public_body.name.html_safe,

@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_body_change_requests
 #
@@ -12,14 +12,34 @@
 #  public_body_email :string
 #  source_url        :text
 #  notes             :text
-#  is_open           :boolean          default(TRUE), not null
+#  is_open           :boolean          default("true"), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe PublicBodyChangeRequest do
+RSpec.describe PublicBodyChangeRequest do
+  describe '#current_public_body_email' do
+    subject { change_request.current_public_body_email }
+
+    context 'when adding a public body' do
+      let(:change_request) { FactoryBot.build(:add_body_request) }
+      it { is_expected.to be_nil }
+    end
+
+    context 'when updating a public body' do
+      let(:change_request) do
+        body = FactoryBot.build(:public_body, request_email: 'prev@localhost')
+        FactoryBot.create(:update_body_request,
+                          public_body: body,
+                          public_body_email: 'new@localhost')
+      end
+
+      it { is_expected.to eq('prev@localhost') }
+    end
+  end
+
   describe '#send_message' do
     subject { change_request.send_message }
 
@@ -38,7 +58,7 @@ describe PublicBodyChangeRequest do
   end
 end
 
-describe PublicBodyChangeRequest, 'when validating' do
+RSpec.describe PublicBodyChangeRequest, 'when validating' do
 
   it 'should not be valid without a public body name' do
     change_request = PublicBodyChangeRequest.new
@@ -81,7 +101,7 @@ describe PublicBodyChangeRequest, 'when validating' do
 
 end
 
-describe PublicBodyChangeRequest, 'get_user_name' do
+RSpec.describe PublicBodyChangeRequest, 'get_user_name' do
 
   it 'should return the user_name field if there is no user association' do
     change_request = PublicBodyChangeRequest.new(:user_name => 'Test User')
@@ -97,7 +117,7 @@ describe PublicBodyChangeRequest, 'get_user_name' do
 end
 
 
-describe PublicBodyChangeRequest, 'get_user_email' do
+RSpec.describe PublicBodyChangeRequest, 'get_user_email' do
 
   it 'should return the user_email field if there is no user association' do
     change_request = PublicBodyChangeRequest.new(:user_email => 'user@example.com')
@@ -112,7 +132,7 @@ describe PublicBodyChangeRequest, 'get_user_email' do
 
 end
 
-describe PublicBodyChangeRequest, '.new_body_requests' do
+RSpec.describe PublicBodyChangeRequest, '.new_body_requests' do
   let(:new_request) { FactoryBot.create(:add_body_request) }
   let(:update_request) { FactoryBot.create(:update_body_request) }
 
@@ -122,7 +142,7 @@ describe PublicBodyChangeRequest, '.new_body_requests' do
   end
 end
 
-describe PublicBodyChangeRequest, '.body_update_requests' do
+RSpec.describe PublicBodyChangeRequest, '.body_update_requests' do
   let(:new_request) { FactoryBot.create(:add_body_request) }
   let(:update_request) { FactoryBot.create(:update_body_request) }
 
@@ -131,7 +151,7 @@ describe PublicBodyChangeRequest, '.body_update_requests' do
   end
 end
 
-describe PublicBodyChangeRequest, '.open' do
+RSpec.describe PublicBodyChangeRequest, '.open' do
   let(:open_request) do
     FactoryBot.create(:update_body_request, :is_open => true)
   end
@@ -145,7 +165,7 @@ describe PublicBodyChangeRequest, '.open' do
   end
 end
 
-describe PublicBodyChangeRequest, 'get_public_body_name' do
+RSpec.describe PublicBodyChangeRequest, 'get_public_body_name' do
 
   it 'should return the public_body_name field if there is no public body association' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test Authority')
@@ -160,7 +180,7 @@ describe PublicBodyChangeRequest, 'get_public_body_name' do
 
 end
 
-describe PublicBodyChangeRequest, 'when creating a comment for the associated public body' do
+RSpec.describe PublicBodyChangeRequest, 'when creating a comment for the associated public body' do
 
   it 'should include requesting user, source_url and notes' do
     change_request = PublicBodyChangeRequest.new(:user_name => 'Test User',
@@ -173,7 +193,7 @@ describe PublicBodyChangeRequest, 'when creating a comment for the associated pu
 
 end
 
-describe PublicBodyChangeRequest, '#request_subject' do
+RSpec.describe PublicBodyChangeRequest, '#request_subject' do
 
   context 'requesting a new authority' do
 
@@ -218,7 +238,7 @@ describe PublicBodyChangeRequest, '#request_subject' do
 
 end
 
-describe PublicBodyChangeRequest, '#add_body_request?' do
+RSpec.describe PublicBodyChangeRequest, '#add_body_request?' do
 
   it 'returns false if there is an associated public_body' do
     public_body = FactoryBot.build(:public_body)
@@ -233,7 +253,7 @@ describe PublicBodyChangeRequest, '#add_body_request?' do
 
 end
 
-describe PublicBodyChangeRequest, 'when creating a default subject for a response email' do
+RSpec.describe PublicBodyChangeRequest, 'when creating a default subject for a response email' do
 
   it 'should create an appropriate subject for a request to add a body' do
     change_request = PublicBodyChangeRequest.new(:public_body_name => 'Test Body')

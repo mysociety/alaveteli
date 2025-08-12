@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AlaveteliSpamTermChecker do
+RSpec.describe AlaveteliSpamTermChecker do
 
   after(:each) do
     described_class.default_spam_terms = described_class::DEFAULT_SPAM_TERMS

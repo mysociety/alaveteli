@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class UserSpamScorer
   DEFAULT_SCORE_MAPPINGS = {
     :name_is_all_lowercase? => 1,
@@ -27,7 +26,8 @@ class UserSpamScorer
        yopmail.com
        yandex.com).freeze
   DEFAULT_SPAM_DOMAINS =
-    %w(7x.cz
+    %w(163.com
+       7x.cz
        allemaling.com
        brmailing.com
        businessmailsystem.com
@@ -36,12 +36,17 @@ class UserSpamScorer
        consimail.com
        continumail.com
        contumail.com
+       customprintingfabric.com
+       cyclingitems.com
+       elong-led.com
        emailber.com
+       fulldesigns.net
        grow-mail.com
        inemaling.com
        inmailing.com
        itemailing.com
        itmailing.com
+       juchanghn.com
        kod-emailing.com
        kod-maling.com
        kodemailing.com
@@ -49,8 +54,10 @@ class UserSpamScorer
        left-mail.com
        mabermail.com
        mailphar.com
+       msqmakeupbrush.com
        out-email.com
        semi-mile.com
+       showerspasystem.com
        sin-mailing.com
        sinemailing.com
        sinmailing.com

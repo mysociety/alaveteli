@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AdminHolidaysController do
+RSpec.describe AdminHolidaysController do
 
   describe 'GET index' do
 

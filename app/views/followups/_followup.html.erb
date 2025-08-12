@@ -75,19 +75,15 @@
                 'to reply, they should normally have responded by ' \
                 '<strong>{{date}}</strong>',
                 date: simple_date(@info_request.date_response_required_by)) %>
-
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'authorities') %>).
         <% else %>
           <%= _('The response to your request has been <strong>delayed' \
                 '</strong>. You can say that, by law, the authority should ' \
                 'normally have responded <strong>promptly</strong> and by ' \
                 '<strong>{{date}}</strong>',
                 date: simple_date(@info_request.date_response_required_by)) %>
+        <% end %>
 
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'quickly_response') %>).
-       <% end %>
+        (<%= details_help_link(@info_request.public_body) %>).
       </p>
     <% elsif status == 'waiting_response_very_overdue' %>
       <p>
@@ -95,18 +91,20 @@
           <%= _('The response to your request is <strong>long overdue' \
                 '</strong>. Although the authority has no legal obligation ' \
                 'to reply, they should have responded by now') %>
-
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'authorities') %>).
         <% else %>
           <%= _('The response to your request is <strong>long overdue' \
                 '</strong>. You can say that, by law, under all ' \
                 'circumstances, the authority should have responded by now') %>
-
-          (<%= link_to _('details'),
-                       help_requesting_path(anchor: 'quickly_response') %>).
         <% end %>
+
+        (<%= details_help_link(@info_request.public_body) %>).
       </p>
+    <% end %>
+
+    <% if feature_enabled?(:refusal_snippets) %>
+      <% if @info_request.reason_to_be_unhappy? %>
+        <%= render partial: 'snippets' %>
+      <% end %>
     <% end %>
 
     <% form_url =

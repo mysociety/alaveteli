@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'general/_opengraph_tags.html.erb' do
+RSpec.describe 'general/_opengraph_tags.html.erb' do
 
   def render_view
     render :partial => 'general/opengraph_tags'

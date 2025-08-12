@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '../../../../spec_helper')
+require 'spec_helper'
 
-describe MailHandler::Backends::MailBackend do
+RSpec.describe MailHandler::Backends::MailBackend do
   include MailHandler
   include MailHandler::Backends::MailBackend
 
@@ -83,9 +82,7 @@ describe MailHandler::Backends::MailBackend do
       mail = get_fixture_mail('non-utf8-filename.email')
       part = mail.attachments.first
       filename = get_part_file_name(part)
-      if filename.respond_to?(:valid_encoding)
-        expect(filename.valid_encoding?).to eq(true)
-      end
+      expect(filename.valid_encoding?).to eq(true)
     end
 
   end
@@ -98,8 +95,14 @@ Here's a PDF attachement which has a document/pdf content-type,
 when it really should be application/pdf.\n
       DOC
       mail = get_fixture_mail('document-pdf.email')
-      part = mail.parts.first
+      part = MailHandler.get_attachment_leaves(mail).first
       expect(get_part_body(part)).to eq(expected)
+    end
+
+    it 'returns unfrozen string' do
+      mail = get_fixture_mail('empty-8bit.email')
+      part = MailHandler.get_attachment_leaves(mail).first
+      expect(get_part_body(part).frozen?).to eq(false)
     end
 
   end
@@ -118,6 +121,19 @@ when it really should be application/pdf.\n
         .to be true
     end
 
+  end
+
+  describe '#get_within_rfc822_subject' do
+    it 'returns nil for a nil subject' do
+      leaf = double(within_rfc822_attachment: double(subject: nil))
+      expect(get_within_rfc822_subject(leaf)).to be_nil
+    end
+
+    it 'returns valid UTF-8 for a non UTF-8 subject' do
+      leaf = double(within_rfc822_attachment: double(subject: "FOI \x97 REQ"))
+      encoding = get_within_rfc822_subject(leaf).force_encoding('UTF-8')
+      expect(encoding.valid_encoding?).to eq(true)
+    end
   end
 
   describe :first_from do

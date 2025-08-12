@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'alaveteli_pro/plans/index.html.erb' do
+RSpec.describe 'alaveteli_pro/plans/index.html.erb' do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }

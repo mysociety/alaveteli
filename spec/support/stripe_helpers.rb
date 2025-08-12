@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 def signed_headers(signing_secret: nil, payload: nil, timestamp: Time.zone.now)
   raise ArgumentError, "must provide signing_secret key" unless signing_secret
   raise ArgumentError, "must provide payload key" unless payload

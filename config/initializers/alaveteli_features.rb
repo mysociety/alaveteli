@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Set up our available features and (optionally) get some defaults for
 # them from the config/general.yml configuration.
 

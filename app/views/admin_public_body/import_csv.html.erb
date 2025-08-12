@@ -50,10 +50,12 @@
   <div class="span8">
     <div class="alert alert-info">
       <p><strong>CSV file format:</strong> The first row should be a list
-        of fields, starting with <code>#</code>. The fields <code>name</code> and
-        <code>request_email</code> are required; additionally, translated values are
-        supported by adding the locale name to the field name,
-        e.g. <code>name.es</code>, <code>name.de</code>&hellip;<br />
+        of field headers, starting with <code>#</code>. The fields
+        <code>name</code> and <code>request_email</code> are required, but the
+        values for <code>request_email</code> may be left blank to leave the
+        existing <code>request_email</code> unchanged. Translated values are
+        supported by adding the locale name to the field name, e.g.
+        <code>name.es</code>, <code>name.de</code>&hellip;<br />
         <strong>Example:</strong>
       </p>
 

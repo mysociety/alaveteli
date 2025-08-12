@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20210114161442
+#
+# Table name: project_resources
+#
+#  id            :bigint           not null, primary key
+#  project_id    :bigint
+#  resource_type :string
+#  resource_id   :bigint
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'spec_helper'
 
 RSpec.describe Project::Resource, type: :model, feature: :projects do

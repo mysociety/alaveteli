@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_comment_controller.rb:
 # Controller for editing comments from the admin interface.
 #

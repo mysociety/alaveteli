@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # override behaviour in fast_gettext/translation.rb
 # so that we can interpolate our translation strings nicely
 

@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: request_classifications
 #
@@ -10,9 +10,9 @@
 #  updated_at            :datetime         not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe RequestClassification do
+RSpec.describe RequestClassification do
 
   describe '.league_table' do
 

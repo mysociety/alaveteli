@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AlaveteliPro::StripeNamespace do
+RSpec.describe AlaveteliPro::StripeNamespace do
   include AlaveteliPro::StripeNamespace
 
   context 'with namespace' do

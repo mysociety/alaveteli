@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # config/routes.rb:
 # Mapping URLs to controllers for FOIFA.
 #
@@ -41,6 +40,9 @@ Rails.application.routes.draw do
   match '/search(/*combined)' => 'general#search',
         :as => :search_general,
         :via => :get
+  match '/search/:query/users' => 'general#search',
+        as: :search_users,
+        via: :get
   match '/advancedsearch' => 'general#search_redirect',
         :as => :advanced_search,
         :advanced => true,
@@ -133,6 +135,24 @@ Rails.application.routes.draw do
   match '/request/:url_title/download' => 'request#download_entire_request',
         :as => :download_entire_request,
         :via => :get
+  ####
+
+  #### Public Tokens controller
+  resources :public_tokens, only: [:show], path: 'r', param: :public_token
+
+  scope path: 'request/:url_title' do
+    post :public_tokens, to: 'public_tokens#create'
+    delete :public_tokens, to: 'public_tokens#destroy'
+  end
+
+  scope 'r/:public_token/response/:incoming_message_id' do
+    get 'attach/html/:part/*file_name' => 'attachments#show_as_html',
+        as: :share_attachment_as_html,
+        format: false
+    get 'attach/:part(/*file_name)' => 'attachments#show',
+        as: :share_attachment,
+        format: false
+  end
   ####
 
   scope path: 'request/:url_title' do
@@ -393,6 +413,10 @@ Rails.application.routes.draw do
         :via => :get
   ####
 
+  #### Refusal Advice controller
+  resource :refusal_advice, only: [:create], controller: 'refusal_advice'
+  ####
+
   #### Help controller
   match '/help/unhappy(/:url_title)' => 'help#unhappy',
         :as => :help_unhappy,
@@ -650,6 +674,14 @@ Rails.application.routes.draw do
   #### AdminAnnouncement controller
   scope '/admin', :as => 'admin' do
     resources :announcements, :controller => 'admin_announcements'
+  end
+  ####
+
+  #### Admin::Snippets controller
+  namespace :admin do
+    scope module: :outgoing_messages do
+      resources :snippets, except: [:show]
+    end
   end
   ####
 

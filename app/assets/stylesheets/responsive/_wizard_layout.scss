@@ -1,0 +1,107 @@
+.wizard {
+  margin: 2rem 0;
+  display: block;
+}
+
+.no-js {
+  .wizard {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+// Hide questions by default.
+.wizard__question {
+  display: none;
+}
+
+// Show answerable and answered questions...
+.wizard__question--answerable,
+.wizard__question--answered {
+  display: block;
+}
+
+// ...but only show the *first* answerable question.
+.wizard__question--answerable ~ .wizard__question--answerable {
+  display: none;
+}
+
+.wizard__options {
+  margin-top: -1rem;
+
+  & > div {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  input {
+    position: absolute;
+    margin: 0.4em 0 0 -1.5em;
+  }
+
+  label {
+    margin: 0;
+    color: inherit;
+  }
+}
+
+.wizard__options--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+}
+
+.wizard__suggestion {
+  display: none;
+
+  &.wizard__suggestion--suggested {
+    display: block;
+  }
+}
+
+.wizard__action {
+  display: none;
+
+  &.wizard__action--active,
+  &.wizard__action--suggested {
+    display: block;
+  }
+}
+
+.wizard__next-step {
+  display: block;
+}
+
+
+.js-wizard {
+  /*
+   * if JS is available, let's limit the height of the first question, which asks
+   * the question about which exemptions apply
+   */
+
+  [data-block="exemption"] fieldset {
+    max-height: 16em;
+    @include respond-min( 35em ) {
+      max-height: 8.3em; 
+    }
+  
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+   }
+
+  [data-block="exemption"].expanded fieldset {
+    /*
+    * We're toggling the .expanded class with JS
+    */
+    max-height: none;
+    transition: max-height 0.2s ease-out;
+  }
+
+  .maximise-questions {
+    position: relative;
+    left: 50%;
+    top: -1.2em;
+    transform: translateX(-50%);
+    border: 0;
+  }
+}

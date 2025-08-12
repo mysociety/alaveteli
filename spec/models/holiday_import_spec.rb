@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe HolidayImport do
+RSpec.describe HolidayImport do
 
   it 'validates the presence of a feed if the source is a feed' do
     holiday_import = HolidayImport.new(:source => 'feed')
@@ -157,7 +156,7 @@ describe HolidayImport do
 
   end
 
-  describe 'when saving' do
+  describe '#save' do
 
     it 'saves all holidays' do
       holiday = Holiday.new
@@ -165,6 +164,18 @@ describe HolidayImport do
       holiday_import.holidays = [ holiday ]
       expect(holiday).to receive(:save)
       holiday_import.save
+    end
+
+  end
+
+  describe '#save!' do
+
+    it 'saves all holidays' do
+      holiday = Holiday.new
+      holiday_import = HolidayImport.new
+      holiday_import.holidays = [ holiday ]
+      expect(holiday).to receive(:save!)
+      holiday_import.save!
     end
 
   end

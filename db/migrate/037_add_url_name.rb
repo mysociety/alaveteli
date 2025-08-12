@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddUrlName < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     add_column :public_bodies, :url_name, :text

@@ -1,0 +1,9 @@
+<ul class="locales nav nav-tabs">
+  <% record.ordered_translations.each do |translation| %>
+    <li>
+      <a href="#div-locale-<%= translation.locale.to_s %>" data-toggle="tab">
+        <%= locale_name(translation.locale.to_s) || translation.locale.to_s %>
+      </a>
+    </li>
+  <% end %>
+</ul>

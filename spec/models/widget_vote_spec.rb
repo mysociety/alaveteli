@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: widget_votes
 #
@@ -10,9 +10,9 @@
 #  updated_at      :datetime         not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe WidgetVote do
+RSpec.describe WidgetVote do
 
   describe '.new' do
 

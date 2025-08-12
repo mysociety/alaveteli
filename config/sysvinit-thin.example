@@ -1,39 +1,42 @@
 #! /bin/sh
+#
 ### BEGIN INIT INFO
-# Provides:          application-thin-!!(*= $site *)!!
+# Provides:          application-thin-<%= site %>
 # Required-Start:    $local_fs $network
 # Required-Stop:     $local_fs $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Starts the Thin app server for the "!!(*= $site *)!!" site
-# Description:       The Thin app server for the "!!(*= $site *)!!" site
+# Short-Description: Starts the Thin app server for the "<%= site %>" site
+# Description:       The Thin app server for the "<%= site %>" site
 ### END INIT INFO
 
 # This example sysvinit script is based on the helpful example here:
 # http://richard.wallman.org.uk/2010/02/howto-deploy-a-catalyst-application-using-fastcgi-and-nginx/
 
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-NAME=!!(*= $site *)!!
-SITE_HOME=!!(*= $vhost_dir *)!!/!!(*= $vcspath *)!!
+PATH=/usr/local/bin:/usr/bin:/bin
+NAME=<%= site %>
+SITE_HOME=<%= vhost_dir %>/<%= vcspath %>
 DESC="Alaveteli app server"
-USER=!!(*= $user *)!!
-CPUS=!!(*= $cpus *)!!
-RAILS_ENV=!!(*= $rails_env *)!!
+USER=<%= user %>
+CPUS=<%= cpus %>
+# Set RAILS_ENV - not needed if using config/rails_env.rb
+# RAILS_ENV=<%= rails_env %>
+# export RAILS_ENV
 
-set -e
+CMD="bundle exec thin"
 
-# Check that the Daemon can be run
-CURRENT_USER=$(whoami)
-if [ "$CURRENT_USER" = "$USER" ]
-  then
-    cd $SITE_HOME && bundle exec thin --version > /dev/null 2>&1 || exit 0
-  else
-    su -l -c "cd $SITE_HOME && bundle exec thin --version &> /dev/null || exit 0" $USER
-fi
+<% if use_rbenv? %>
+RBENV_ROOT="/home/<%= user %>/.rbenv"
+PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
+CMD="cd <%= vhost_dir %>/<%= vcspath %>; rbenv rehash; rbenv local <%= ruby_version %>; $CMD"
+<% else %>
+PATH="/home/<%= user %>/.gem/ruby/<%= ruby_version %>/bin:$PATH"
+CMD="cd <%= vhost_dir %>/<%= vcspath %>; $CMD"
+<% end %>
 
 start_daemon() {
   echo -n "Starting $DESC: "
-  cd "$SITE_HOME" && bundle exec thin \
+  su - $USER -c "$CMD \
     --environment=$RAILS_ENV \
     --user="$USER" \
     --group="$USER" \
@@ -41,19 +44,19 @@ start_daemon() {
     --daemonize \
     --servers="$CPUS" \
     --quiet \
-    start || true
+    start || true"
   echo "$NAME."
 }
 
 stop_daemon() {
   echo -n "Stopping $DESC: "
-  cd "$SITE_HOME" && bundle exec thin --quiet --servers="$CPUS" stop || true
+  su - $USER -c "$CMD --quiet --servers="$CPUS" stop || true"
   echo "$NAME."
 }
 
 restart_daemon() {
   echo -n "Restarting $DESC: "
-  cd "$SITE_HOME" && bundle exec thin --onebyone --quiet restart || true
+  su - $USER -c "$CMD --onebyone --quiet restart || true"
   echo "$NAME."
 }
 

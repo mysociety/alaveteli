@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: post_redirects
 #
@@ -18,7 +18,7 @@
 FactoryBot.define do
   factory :post_redirect do
     user
-    uri { frontpage_path }
+    uri { '/' }
     reason_params_yaml do
       {
         web: 'To test the post redirect',

@@ -45,7 +45,7 @@ RSpec.describe ClassificationsController, type: :controller do
       end
 
       it 'should not classify the request if logged in as the wrong user' do
-        session[:user_id] = FactoryBot.create(:user).id
+        sign_in FactoryBot.create(:user)
         post_status('rejected')
         expect(response).to render_template('user/wrong_user')
       end
@@ -55,7 +55,7 @@ RSpec.describe ClassificationsController, type: :controller do
 
         describe 'when the user is not logged in' do
           before do
-            session[:user_id] = nil
+            sign_in nil
           end
 
           it 'should require login' do
@@ -70,7 +70,7 @@ RSpec.describe ClassificationsController, type: :controller do
           let(:other_user) { FactoryBot.create(:user) }
 
           before do
-            session[:user_id] = other_user.id
+            sign_in other_user
           end
 
           it 'should classify the request' do
@@ -169,7 +169,7 @@ RSpec.describe ClassificationsController, type: :controller do
         let(:info_request) { FactoryBot.create(:info_request) }
 
         before do
-          session[:user_id] = admin_user.id
+          sign_in admin_user
         end
 
         it 'should update the status of the request' do
@@ -224,7 +224,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         before do
-          session[:user_id] = admin_user.id
+          sign_in admin_user
         end
 
         it 'should update the status of the request' do
@@ -268,7 +268,7 @@ RSpec.describe ClassificationsController, type: :controller do
         end
 
         before do
-          session[:user_id] = info_request.user_id
+          sign_in info_request.user
         end
 
         it 'should let you know when you forget to select a status' do
@@ -393,7 +393,7 @@ RSpec.describe ClassificationsController, type: :controller do
         let(:info_request) { FactoryBot.create(:info_request) }
 
         before do
-          session[:user_id] = info_request.user_id
+          sign_in info_request.user
         end
 
         context 'when status is updated to "waiting_response"' do

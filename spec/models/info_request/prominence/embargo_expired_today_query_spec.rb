@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper.rb'
 
-describe InfoRequest::Prominence::EmbargoExpiredTodayQuery do
+RSpec.describe InfoRequest::Prominence::EmbargoExpiredTodayQuery do
 
   describe '#call' do
     let(:info_request) { info_request = FactoryBot.create(:info_request) }

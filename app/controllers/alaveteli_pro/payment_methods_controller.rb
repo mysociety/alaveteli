@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
   before_action :authenticate
 
@@ -35,11 +34,11 @@ class AlaveteliPro::PaymentMethodsController < AlaveteliPro::BaseController
   private
 
   def authenticate
-    post_redirect_params = {
-      :web => _('To update your payment details'),
-      :email => _('Then you can update your payment details'),
-      :email_subject => _('To update your payment details') }
-    authenticated?(post_redirect_params)
+    authenticated? || ask_to_login(
+      web: _('To update your payment details'),
+      email: _('Then you can update your payment details'),
+      email_subject: _('To update your payment details')
+    )
   end
 
 end

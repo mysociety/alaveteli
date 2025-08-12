@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: censor_rules
 #
@@ -92,11 +92,7 @@ class CensorRule < ApplicationRecord
   private
 
   def single_char_regexp
-    if String.method_defined?(:encode)
-      Regexp.new('.'.force_encoding('ASCII-8BIT'))
-    else
-      Regexp.new('.', nil, 'N')
-    end
+    Regexp.new('.'.force_encoding('ASCII-8BIT'))
   end
 
   def require_valid_regexp
@@ -112,11 +108,14 @@ class CensorRule < ApplicationRecord
   end
 
   def encoded_text(encoding)
-    String.method_defined?(:encode) ? text.dup.force_encoding(encoding) : text
+    text.dup.force_encoding(encoding)
   end
 
   def make_regexp(encoding)
-    Regexp.new(encoded_text(encoding), Regexp::MULTILINE)
+    ::Warning.with_raised_warnings do
+      Regexp.new(encoded_text(encoding), Regexp::MULTILINE)
+    end
+  rescue RaisedWarning => e
+    raise RegexpError, e.message.split('warning: ').last.chomp
   end
-
 end

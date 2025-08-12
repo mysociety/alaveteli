@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe InfoRequestBatchMailer do
+RSpec.describe InfoRequestBatchMailer do
 
   describe 'when sending batch sent notification' do
 

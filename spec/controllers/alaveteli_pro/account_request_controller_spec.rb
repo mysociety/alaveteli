@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe AlaveteliPro::AccountRequestController do
+RSpec.describe AlaveteliPro::AccountRequestController do
 
   describe "#index" do
     it "renders index.html.erb" do
@@ -88,7 +87,7 @@ describe AlaveteliPro::AccountRequestController do
         let(:user) { FactoryBot.create(:user) }
 
         before do
-          session[:user_id] = user.id
+          sign_in user
           allow(controller).to receive(:current_user).and_return(user)
         end
 

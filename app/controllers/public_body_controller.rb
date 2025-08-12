@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/public_body_controller.rb:
 # Show information about a public body.
 #
@@ -8,6 +7,7 @@
 require 'tempfile'
 
 class PublicBodyController < ApplicationController
+  skip_before_action :html_response, only: [:show, :list_all_csv]
 
   MAX_RESULTS = 500
   # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -117,9 +117,7 @@ class PublicBodyController < ApplicationController
     long_cache
 
     @tag = params[:tag] || 'all'
-    if @tag.scan(/./mu).size == 1
-      @tag = RUBY_VERSION < '2.4' ? Unicode.upcase(@tag) : @tag.upcase
-    end
+    @tag = @tag.upcase if @tag.scan(/./mu).size == 1
 
     @country_code = AlaveteliConfiguration.iso_country_code
     @locale = AlaveteliLocalization.locale
@@ -165,9 +163,7 @@ class PublicBodyController < ApplicationController
           end
         end
 
-      respond_to do |format|
-        format.html { render :template => 'public_body/list' }
-      end
+      render :template => 'public_body/list'
     end
   end
 
