@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Switch to sending user email change confirmation emails to the old email
+  address for increased security verification (Graeme Porteous)
 * Allow users to be tagged (Graeme Porteous)
 * Update `RESTRICTED_COUNTRIES` configuration option to allow countries to be
   marked as permitted countries. With `BLOCK_RESTRICTED_COUNTRY_IPS` this will
