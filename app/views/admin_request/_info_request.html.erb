@@ -12,7 +12,12 @@
       <%= both_links(info_request.user) %>
       <%= arrow_right %>
       <%= both_links(info_request.public_body) %>,
-      <%= admin_date(info_request.updated_at, ago_only: true) %>
+
+      <% if defined?(sort_order) && sort_order =~ /created_at/ %>
+        <%= admin_date(info_request.created_at, ago: false) %>
+      <% else %>
+        <%= admin_date(info_request.updated_at, ago_only: true) %>
+      <% end %>
     </span>
   </div>
 

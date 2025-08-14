@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make requests sortable in the admin interface (Gareth Rees)
 * Add classification icons to request lists in admin (Gareth Rees)
 * Switch to sending user email change confirmation emails to the old email
   address for increased security verification (Graeme Porteous)
