@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Check user spam scoring on email address change (Graeme Porteous)
 * Switch to sending user email change confirmation emails to the old email
   address for increased security verification (Graeme Porteous)
 * Allow users to be tagged (Graeme Porteous)
