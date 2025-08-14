@@ -274,7 +274,7 @@ RSpec.describe UserSpamScorer do
 
   describe '#spam?' do
     it 'returns true if the user spam score is above the threshold' do
-      user_attrs = { name: 'spammer', comments: [], track_things: [] }
+      user_attrs = { name: 'spammer' }
       user = mock_model(User, user_attrs)
       attrs = { score_mappings: { name_is_one_word?: 100 },
                 spam_score_threshold: 5 }
@@ -283,7 +283,7 @@ RSpec.describe UserSpamScorer do
     end
 
     it 'returns false if the user spam score is equal to the threshold' do
-      user_attrs = { name: 'genuine', comments: [], track_things: [] }
+      user_attrs = { name: 'genuine' }
       user = mock_model(User, user_attrs)
       attrs = { score_mappings: { name_is_one_word?: 5 },
                 spam_score_threshold: 5 }
@@ -292,7 +292,7 @@ RSpec.describe UserSpamScorer do
     end
 
     it 'returns false if the user spam score is below the threshold' do
-      user_attrs = { name: 'genuine', comments: [], track_things: [] }
+      user_attrs = { name: 'genuine' }
       user = mock_model(User, user_attrs)
       attrs = { score_mappings: { name_is_one_word?: 5 },
                 spam_score_threshold: 100 }
@@ -302,36 +302,8 @@ RSpec.describe UserSpamScorer do
   end
 
   describe '#score' do
-    it 'returns 0 if no mappings return true' do
-      user_attrs = { name: 'Bob Smith',
-                     comments: [],
-                     track_things: [] }
-      user = mock_model(User, user_attrs)
-      scorer = described_class.new(score_mappings: {})
-      expect(scorer.score(user)).to eq(0)
-    end
-
-    it 'returns 0 if the user has comments' do
-      user_attrs = { name: 'dubious',
-                     comments: [double],
-                     track_things: [] }
-      user = mock_model(User, user_attrs)
-      expect(subject.score(user)).to eq(0)
-    end
-
-    it 'returns 0 if the user has track_things' do
-      user_attrs = { name: 'dubious',
-                     comments: [],
-                     track_things: [double] }
-      user = mock_model(User, user_attrs)
-      expect(subject.score(user)).to eq(0)
-    end
-
     it 'increases the score for each score mapping that returns true' do
-      user_attrs = { name: 'Spammer',
-                     email_domain: 'mail.ru',
-                     comments: [],
-                     track_things: [] }
+      user_attrs = { name: 'Spammer', email_domain: 'mail.ru' }
       user = mock_model(User, user_attrs)
       opts = { score_mappings: { name_is_all_lowercase?: 1,
                                     name_is_one_word?: 2,
@@ -341,9 +313,7 @@ RSpec.describe UserSpamScorer do
     end
 
     it 'raises an error if a mapping is invalid' do
-      user_attrs = { name: 'Bob Smith',
-                     comments: [],
-                     track_things: [] }
+      user_attrs = { name: 'Bob Smith' }
       user = mock_model(User, user_attrs)
       scorer = described_class.new(score_mappings: { invalid_method: 1 })
       expect { scorer.score(user) }.to raise_error(NoMethodError)
@@ -352,8 +322,6 @@ RSpec.describe UserSpamScorer do
     it 'executes custom scoring methods' do
       user = FactoryBot.build(:user, name: 'Test Name')
       allow(user).to receive(:email_domain).and_return('example.com')
-      allow(user).to receive(:comments).and_return([])
-      allow(user).to receive(:track_things).and_return([])
 
       described_class.register_custom_scoring_method(
         :custom_name_check, 50, proc { |u| u.name == 'Test Name' }
@@ -368,8 +336,6 @@ RSpec.describe UserSpamScorer do
     it 'combines custom and built-in scoring methods' do
       user = FactoryBot.build(:user, name: 'testuser')
       allow(user).to receive(:email_domain).and_return('mail.ru')
-      allow(user).to receive(:comments).and_return([])
-      allow(user).to receive(:track_things).and_return([])
 
       described_class.register_custom_scoring_method(
         :custom_check, 3, proc { |u| u.name.include?('test') }
@@ -793,8 +759,6 @@ RSpec.describe UserSpamScorer do
     it 'continues to work with existing scoring methods' do
       user = FactoryBot.build(:user, name: 'alllowercase',
                                      email: 'test@mail.ru')
-      allow(user).to receive(:comments).and_return([])
-      allow(user).to receive(:track_things).and_return([])
       scorer = UserSpamScorer.new
 
       # Should still calculate scores using existing methods

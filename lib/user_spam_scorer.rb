@@ -164,8 +164,6 @@ class UserSpamScorer
   end
 
   def score(user)
-    return 0 if user.comments.any? || user.track_things.any?
-
     score_mappings.inject(0) do |score_count, score_mapping|
       method_name = score_mapping.first
       score_value = score_mapping.last

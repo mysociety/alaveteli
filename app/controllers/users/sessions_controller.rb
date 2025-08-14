@@ -37,7 +37,7 @@ class Users::SessionsController < UserController
       # Successful login
       if spam_user?(@user_signin)
         # Prevent signins from potential spammers
-        handle_spam_user(@user_signin) do
+        handle_spam_user(@user_signin, 'signin') do
           render template: 'user/sign'
         end && return
       end

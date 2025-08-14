@@ -173,7 +173,7 @@ class UserController < ApplicationController
 
       # Prevent signups from potential spammers
       if spam_user?(@user_signup)
-        handle_spam_user(@user_signup) do
+        handle_spam_user(@user_signup, 'signup') do
           render action: 'sign'
         end && return
       end
@@ -277,6 +277,13 @@ class UserController < ApplicationController
     # circumstance is 'change_email', so can actually change the email
     old_email = @user.email
     @user.email = @signchangeemail.new_email
+
+    if spam_user?(@user)
+      handle_spam_user(@user, 'email change') do
+        render action: 'signchangeemail'
+      end && return
+    end
+
     @user.save!
 
     # Record the email change in history

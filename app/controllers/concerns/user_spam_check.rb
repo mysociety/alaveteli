@@ -12,8 +12,8 @@ module UserSpamCheck
     UserSpamScorer.new(spam_scorer_config).spam?(user_with_request)
   end
 
-  def handle_spam_user(user, &block)
-    msg = "Attempted signup from suspected spammer, " \
+  def handle_spam_user(user, action, &block)
+    msg = "Attempted #{action} from suspected spammer, " \
           "email: #{user.email}, " \
           "name: '#{user.name}'"
 
