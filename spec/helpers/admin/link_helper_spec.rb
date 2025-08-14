@@ -21,6 +21,7 @@ RSpec.describe Admin::LinkHelper do
       let(:record) { FactoryBot.create(:info_request) }
 
       it { is_expected.to include('icon-prominence') }
+      it { is_expected.to include('classification_icon') }
       it { is_expected.to include(request_path(record)) }
       it { is_expected.to include(admin_request_path(record)) }
     end
