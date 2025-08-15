@@ -2,6 +2,11 @@
 
 <h1><%= @title %></h1>
 
+<div class="request-category-filter hide">
+  <label for="request-category-filter-input"><%= _("Filter by topic or area of interest") %></label>
+  <input type="search" id="request-category-filter-input" autocomplete="off">
+</div>
+
 <div class="request-category_container">
   <% InfoRequest.categories.each do |heading| %>
     <% next unless heading.children.present? %>

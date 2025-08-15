@@ -15,3 +15,4 @@
 //= require wizard
 //= require clipboard.min
 //= require snippets
+//= require request-category-filter
