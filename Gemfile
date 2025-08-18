@@ -150,7 +150,7 @@ gem 'gender_detector', '~> 2.0.0'
 
 # Gems related to internationalisation
 gem 'i18n', '~> 1.14.7'
-gem 'rails-i18n', '~> 8.0.0'
+gem 'rails-i18n', '~> 8.0.2'
 gem 'gettext_i18n_rails', '~> 1.13.0'
   gem 'fast_gettext', '~> 4.1.0'
 gem 'gettext', '~> 3.5.1'
