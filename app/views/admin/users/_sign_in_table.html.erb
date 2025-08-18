@@ -90,6 +90,9 @@
       </div>
     </div>
   <% elsif User::SignIn.retain_signins? %>
-    <p>None yet.</p>
+    <p>
+      None within the retention period
+      (<%= User::SignIn.retention_days %> days).
+    </p>
   <% end %>
 </div>
