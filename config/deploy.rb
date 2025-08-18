@@ -1,5 +1,4 @@
 require 'bundler/capistrano'
-require "capistrano-rbenv"
 
 set :stage, 'staging' unless exists? :stage
 
@@ -48,12 +47,6 @@ namespace :xapian do
   end
 end
 
-namespace :rbenv do
-  task :setup do
-    # Do nothing
-  end
-end
-
 namespace :deploy do
 
   [:start, :stop, :restart].each do |t|
@@ -78,14 +71,11 @@ namespace :deploy do
       "#{release_path}/log" => "#{shared_path}/log",
       "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
-      "#{release_path}/vendor/data" => "#{shared_path}/vendor_data"
+      "#{release_path}/lib/themes" => "#{shared_path}/themes",
     }
 
-    # TODO: Remove .rbenv-version in favour of .ruby-version
-    # For the time being we're using both to allow a smooth transition
     if rbenv_ruby_version
       links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
-      links["#{release_path}/.ruby-version"] = "#{shared_path}/rbenv-version"
     end
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
@@ -106,7 +96,6 @@ namespace :deploy do
     run "mkdir -p #{shared_path}/tmp/pids"
     run "mkdir -p #{shared_path}/xapiandbs"
     run "mkdir -p #{shared_path}/themes"
-    run "mkdir -p #{shared_path}/vendor_data"
   end
 end
 
@@ -118,6 +107,3 @@ after 'deploy:assets:precompile', 'deploy:assets:link_non_digest'
 # Put up a maintenance notice if doing a migration which could take a while
 before 'deploy:migrate', 'deploy:web:disable'
 after 'deploy:migrate', 'deploy:web:enable'
-
-# Clean up old releases so we don't fill up the disk
-after "deploy:restart", "deploy:cleanup"

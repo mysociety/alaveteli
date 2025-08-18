@@ -971,7 +971,7 @@ msgid "Subscription began"
 msgstr "Έναρξη συνδρομής"
 
 msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
-msgstr "Οι ακυρώσεις συνδρομής εφαρμόζονται στο τέλος της τρέχουσας περιόδου χρέωσης (<strong> {{ημερομηνία}}</strong>)."
+msgstr "Οι ακυρώσεις συνδρομής εφαρμόζονται στο τέλος της τρέχουσας περιόδου χρέωσης (<strong> {{date}}</strong>)."
 
 msgid "Subscription ends"
 msgstr "Η συνδρομή λήγει"
