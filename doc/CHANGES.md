@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add `UserSpamScorer.spam_email_formats` to test email addresses against
+  regular expressions to see if they are spammy or not (Graeme Porteous)
 * Render Alaveteli configuration values on admin debug page (Gareth Rees)
 * Clarify no sign ins message (Gareth Rees)
 * Check user spam scoring on email address change (Graeme Porteous)
