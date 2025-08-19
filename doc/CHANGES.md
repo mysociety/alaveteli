@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add no crawl meta tags to banned/closed user profile pages (Graeme Porteous)
 * Clarify no sign ins message (Gareth Rees)
 * Check user spam scoring on email address change (Graeme Porteous)
 * Make requests sortable in the admin interface (Gareth Rees)
