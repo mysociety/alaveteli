@@ -171,6 +171,7 @@ class ApplicationController < ActionController::Base
     user.sign_ins.create(
       ip: user_ip, country: country_from_ip, user_agent: request.user_agent
     )
+    user.touch(:last_sign_in_at)
   end
 
   # Logout form
