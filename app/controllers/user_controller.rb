@@ -21,6 +21,7 @@ class UserController < ApplicationController
   before_action :work_out_post_redirect, only: [ :signup ]
   before_action :set_request_from_foreign_country, only: [ :signup ]
   before_action :set_in_pro_area, only: [ :signup ]
+  before_action :set_display_user, only: [ :show, :wall, :get_profile_photo ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -33,7 +34,6 @@ class UserController < ApplicationController
   # Show page about a user
   def show
     long_cache
-    @display_user = set_display_user
     set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
@@ -80,7 +80,6 @@ class UserController < ApplicationController
   # Show the user's wall
   def wall
     long_cache
-    @display_user = set_display_user
     @is_you = current_user_is_display_user
     feed_results = Set.new
     # Use search query for this so can collapse and paginate easily
@@ -398,7 +397,6 @@ class UserController < ApplicationController
   # actual profile photo of a user
   def get_profile_photo
     long_cache
-    @display_user = set_display_user
     unless @display_user.profile_photo
       raise ActiveRecord::RecordNotFound, "user has no profile photo, url_name=" + params[:url_name]
     end
@@ -549,7 +547,8 @@ class UserController < ApplicationController
   end
 
   def set_display_user
-    User.where(email_confirmed: true).friendly.find(params[:url_name])
+    @display_user = User.where(email_confirmed: true).
+                         friendly.find(params[:url_name])
   end
 
   def set_show_requests
