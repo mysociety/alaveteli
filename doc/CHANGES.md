@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Clarify no sign ins message (Gareth Rees)
 * Check user spam scoring on email address change (Graeme Porteous)
 * Make requests sortable in the admin interface (Gareth Rees)
 * Add classification icons to request lists in admin (Gareth Rees)
