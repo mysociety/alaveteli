@@ -20,7 +20,8 @@ class AdminUserController < AdminController
                 :check_role_authorisation,
                 :check_role_requirements, only: %i[update]
 
-  sortable :name, :created_at, :updated_at, only: [:index]
+  sortable :name, :created_at, :updated_at,
+           only: [:index, :active, :banned, :closed]
 
   sortable default: :updated_at_desc, only: [:show]
 
