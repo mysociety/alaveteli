@@ -2477,4 +2477,55 @@ RSpec.describe User do
       user.info_request_count_changed
     end
   end
+
+  describe '#record_sign_in' do
+    let(:user) { FactoryBot.create(:user) }
+
+    let(:ip) { '192.168.1.1' }
+    let(:country) { 'GB' }
+    let(:user_agent) { 'Mozilla/5.0' }
+
+    context 'when retaining sign ins is enabled' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+      end
+
+      it 'creates sign_in instance with given arguments' do
+        expect {
+          user.record_sign_in(ip: ip, country: country, user_agent: user_agent)
+        }.to change { user.sign_ins.count }.by(1)
+
+        sign_in = user.sign_ins.first
+        expect(sign_in.ip).to eq(ip)
+        expect(sign_in.country).to eq(country)
+        expect(sign_in.user_agent).to eq(user_agent)
+      end
+
+      it 'touches last_sign_in_at' do
+        expect { user.record_sign_in(ip: '192.168.1.1') }.
+          to change(user, :last_sign_in_at).from(nil)
+        expect(user.last_sign_in_at).to be_a(Time)
+      end
+    end
+
+    context 'when retaining sign ins is disabled' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(0)
+      end
+
+      it 'does not create sign_in instance' do
+        expect {
+          user.record_sign_in(ip: ip, country: country, user_agent: user_agent)
+        }.not_to change { user.sign_ins.count }
+      end
+
+      it 'touches last_sign_in_at' do
+        expect { user.record_sign_in(ip: '192.168.1.1') }.
+          to change(user, :last_sign_in_at).from(nil)
+        expect(user.last_sign_in_at).to be_a(Time)
+      end
+    end
+  end
 end

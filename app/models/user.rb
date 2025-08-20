@@ -742,6 +742,11 @@ class User < ApplicationRecord
     xapian_mark_needs_index
   end
 
+  def record_sign_in(*args)
+    sign_ins.create(*args)
+    touch(:last_sign_in_at)
+  end
+
   private
 
   def email_and_name_are_valid
