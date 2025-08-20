@@ -157,15 +157,6 @@
     en: Moldova
     es: Moldavia
 
-- title: Ask Data
-  url: http://askdata.org.il
-  image: ask-data.jpg
-  featured: false
-  pro: false
-  country:
-    en: Israel
-    es: Israel
-
 - title: Informini
   url: https://www.informini.org
   image: informini.jpg
@@ -175,15 +166,6 @@
     en: Tunisia
     es: Túnez
 
-- title: Sobanukirwa
-  url: https://sobanukirwa.rw
-  image: sobanukirwa.jpg
-  featured: false
-  pro: false
-  country:
-    en: Rwanda
-    es: Ruanda
-
 - title: accessinfo.hk
   url: https://accessinfo.hk
   image: access-info-hk.jpg
@@ -192,15 +174,6 @@
   country:
     en: Hong Kong
     es: Hong Kong
-
-- title: Ask Your Gov
-  url: https://askyourgov.ug
-  image: ask-your-gov-uganda.jpg
-  featured: false
-  pro: false
-  country:
-    en: Uganda
-    es: Uganda
 
 - title: Right To Know
   url: https://www.righttoknow.org.au
@@ -264,15 +237,6 @@
   country:
     en: Argentina
     es: Argentina
-
-- title: Tunabakonzi
-  url: http://tunabakonzi.org
-  image: tunabakonzi.jpg
-  featured: false
-  pro: false
-  country:
-    en: Democratic Republic of the Congo
-    es: República Democrática del Congo
 
 - title: Ask Nepal
   url: https://asknepal.info
