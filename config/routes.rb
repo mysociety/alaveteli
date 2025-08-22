@@ -547,7 +547,12 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Debug controller
+  namespace :admin do
+    resources :debug, only: :index
+  end
   ####
+
   #### AdminTag controller
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show],
@@ -637,9 +642,6 @@ Rails.application.routes.draw do
         :via => :get
   match '/admin/timeline' => 'admin_general#timeline',
         :as => :admin_timeline,
-        :via => :get
-  match '/admin/debug' => 'admin_general#debug',
-        :as => :admin_debug,
         :via => :get
   match '/admin/stats' => 'admin_general#stats',
         :as => :admin_stats,

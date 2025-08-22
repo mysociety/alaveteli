@@ -12,6 +12,13 @@
 # Default values for these settings can be found in
 # RAILS_ROOT/lib/configuration.rb
 #
+#
+# WARNING: AlaveteliConfiguration is rendered to admin users in
+#          Admin::DebugController.
+#
+# Ensure any sensitive values are matched by
+# AlaveteliConfiguration.sensitive_key_patterns
+#
 # ==============================================================================
 
 # Site name appears in various places throughout the site
