@@ -153,9 +153,10 @@ Rails.application.routes.draw do
         :as => :info_request_event,
         :via => :get
 
-  match '/request/:url_title/upload' => 'request#upload_response',
+  match '/request/:url_title/upload' => 'upload_response#new',
         :as => :upload_response,
         :via => [:get, :post]
+
   match '/request/:url_title/download' => 'request#download_entire_request',
         :as => :download_entire_request,
         :via => :get
