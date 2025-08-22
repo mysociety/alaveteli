@@ -370,22 +370,28 @@ class RequestController < ApplicationController
 
       unless @info_request.public_body.is_foi_officer?(@user)
         domain_required = @info_request.public_body.foi_officer_domain_required
+
         if domain_required.nil?
           render template: 'user/wrong_user_unknown_email'
           return
         end
+
         @reason_params[:user_name] = "an email @" + domain_required
+
         render template: 'user/wrong_user'
         return
       end
     end
+
     if params[:submitted_upload_response]
       file_name = nil
       file_content = nil
+
       unless params[:file_1].nil?
         file_name = params[:file_1].original_filename
         file_content = params[:file_1].read
       end
+
       body = params[:body] || ""
 
       if file_name.nil? && body.empty?
@@ -400,10 +406,12 @@ class RequestController < ApplicationController
         receive(mail,
                 mail.encoded,
                 override_stop_new_responses: true)
+
       flash[:notice] = _("Thank you for responding to this FOI request! " \
                            "Your response has been published below, and a " \
                            "link to your response has been emailed to {{user_name}}.",
                          user_name: @info_request.user.name.html_safe)
+
       redirect_to request_url(@info_request)
       nil
     end
