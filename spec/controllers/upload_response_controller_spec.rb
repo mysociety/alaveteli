@@ -64,6 +64,36 @@ RSpec.describe UploadResponseController, type: :controller do
       end
     end
 
+    context 'when the domain is restricted' do
+      before do
+        PublicBody.excluded_foi_officer_access_domains << 'example.com'
+      end
+
+      after do
+        PublicBody.excluded_foi_officer_access_domains.delete('example.com')
+      end
+
+      it 'says only the main foi address can be used' do
+        @ir = info_requests(:fancy_dog_request)
+        @ir.public_body.update(request_email: 'foi@example.com')
+        @foi_officer_user.update(email: 'david@example.com')
+
+        expect(@ir.public_body.is_foi_officer?(@foi_officer_user)).
+          to eq(false)
+
+        sign_in @foi_officer_user
+
+        get :new, params: {
+          url_title: 'why_do_you_have_such_a_fancy_dog'
+        }
+
+        expect(response).to render_template('user/wrong_user')
+
+        expect(assigns(:reason_params)[:user_name]).
+          to match(/main FOI address/)
+      end
+    end
+
     it "should let you view upload form if you are an FOI officer" do
       @ir = info_requests(:fancy_dog_request)
       expect(@ir.public_body.is_foi_officer?(@foi_officer_user)).to eq(true)

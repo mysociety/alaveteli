@@ -34,7 +34,12 @@ class UploadResponseController < RequestController
           return
         end
 
-        @reason_params[:user_name] = "an email @" + domain_required
+        @reason_params[:user_name] =
+          if @info_request.public_body.foi_officer_domain_excluded?
+            'users registered with the main FOI address of this authority'
+          else
+            "an email @" + domain_required
+          end
 
         render template: 'user/wrong_user'
         return
