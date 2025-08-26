@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
-describe "When creating requests" do
+RSpec.describe "When creating requests" do
 
   before do
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   let!(:admin_user) { FactoryBot.create(:admin_user) }
@@ -80,7 +79,7 @@ describe "When creating requests" do
         visit show_public_body_path(:url_name => public_body.url_name)
         click_link("Make a request to this authority")
         fill_in 'Summary', :with => "HTML test"
-        find_button('Preview your public request').click
+        find_button('Next Step: Preview your public request').click
 
         expect(page).to have_content("Dear Test's <sup>html</sup> authority")
       end

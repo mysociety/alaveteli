@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: info_request_batches
 #
@@ -14,8 +14,14 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/info_request/title_validation'
 
-describe InfoRequestBatch do
+RSpec.describe InfoRequestBatch do
+  it_behaves_like 'concerns/info_request/title_validation',
+                  FactoryBot.build(:info_request_batch)
+
+  it { is_expected.to strip_attribute(:embargo_duration) }
+
   context "when validating" do
     let(:info_request_batch) { FactoryBot.build(:info_request_batch) }
 
@@ -23,12 +29,6 @@ describe InfoRequestBatch do
       info_request_batch.user = nil
       expect(info_request_batch.valid?).to be false
       expect(info_request_batch.errors.full_messages).to eq(["User can't be blank"])
-    end
-
-    it 'should require a title' do
-      info_request_batch.title = nil
-      expect(info_request_batch.valid?).to be false
-      expect(info_request_batch.errors.full_messages).to eq(["Title can't be blank"])
     end
 
     it 'should require a body' do
@@ -270,7 +270,7 @@ describe InfoRequestBatch do
 
       it "fills out the salutation in the body with the public body name" do
         info_request_batch.body = "Dear [Authority name],\n\nSome request"
-        info_request_batch.save
+        info_request_batch.save!
         expected_body = info_request_batch.body.gsub(
           "[Authority name]",
           info_request_batch.public_bodies.first.name)
@@ -305,7 +305,7 @@ describe InfoRequestBatch do
 
       it "fills out the salutation in the body with the public body name" do
         info_request_batch.body = "Dear [Authority name],\n\nSome request"
-        info_request_batch.save
+        info_request_batch.save!
         expected_body = info_request_batch.body.gsub(
           "[Authority name]",
           info_request_batch.public_bodies.first.name)

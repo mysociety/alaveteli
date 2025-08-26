@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class OutgoingMessage
   module Template
     class InternalReview

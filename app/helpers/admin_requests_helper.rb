@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Helpers for managing InfoRequests in the admin interface.
 module AdminRequestsHelper
   # Public: A radio button for choosing a pre-populated explanation for hiding

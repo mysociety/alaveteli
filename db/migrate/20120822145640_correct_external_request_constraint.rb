@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CorrectExternalRequestConstraint < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

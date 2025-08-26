@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: censor_rules
 #
@@ -16,9 +16,9 @@
 #  regexp            :boolean
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe CensorRule do
+RSpec.describe CensorRule do
 
   describe '#apply_to_text' do
 
@@ -103,14 +103,14 @@ describe CensorRule do
     it 'handles UTF-8 text' do
       rule = FactoryBot.build(:censor_rule, text: 'sécret')
       text = 'Some sécret text'
-      text.force_encoding('UTF-8') if String.method_defined?(:encode)
+      text.force_encoding('UTF-8')
       expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
     end
 
     it 'handles a UTF-8 rule and ASCII-8BIT text' do
       rule = FactoryBot.build(:censor_rule, :text => 'sécret')
       text = 'Some sécret text'
-      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      text.force_encoding('ASCII-8BIT')
       expect(rule.apply_to_binary(text)).to eq("Some xxxxxxx text")
     end
 
@@ -146,7 +146,7 @@ describe CensorRule do
       Some private information
       --P‘RIVATE
       EOF
-      text.force_encoding('ASCII-8BIT') if String.method_defined?(:encode)
+      text.force_encoding('ASCII-8BIT')
 
       expect(rule.apply_to_binary(text)).to eq <<-EOF.strip_heredoc
       Some public information
@@ -230,7 +230,7 @@ describe CensorRule do
   end
 end
 
-describe 'when validating rules' do
+RSpec.describe 'when validating rules' do
 
   it 'must have the text to redact' do
     censor_rule = CensorRule.new
@@ -282,6 +282,20 @@ describe 'when validating rules' do
 
     end
 
+    describe 'if a regexp contains unescaped characters' do
+      before { @censor_rule.text = 'foo]' }
+
+      it 'does not output a warning' do
+        expect { @censor_rule.valid? }.not_to output.to_stderr
+      end
+
+      it 'adds an error message to the text field' do
+        msg = "regular expression has ']' without escape: /foo]/"
+        @censor_rule.valid?
+        expect(@censor_rule.errors[:text]).to eq([msg])
+      end
+    end
+
     describe 'if no regexp error is produced' do
 
       it 'should not add any error message to the text field' do
@@ -296,7 +310,7 @@ describe 'when validating rules' do
 
 end
 
-describe 'when handling global rules' do
+RSpec.describe 'when handling global rules' do
 
   describe 'an instance without user_id, request_id or public_body_id' do
 

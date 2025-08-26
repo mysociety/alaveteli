@@ -1,12 +1,12 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: profile_photos
 #
 #  id         :integer          not null, primary key
 #  data       :binary           not null
 #  user_id    :integer
-#  draft      :boolean          default(FALSE), not null
+#  draft      :boolean          default("false"), not null
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -70,7 +70,7 @@ class ProfilePhoto < ApplicationRecord
     end
 
     if altered
-      write_attribute(:data, image.to_blob)
+      self.data = image.to_blob
     end
   end
 

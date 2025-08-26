@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 #
 # Public: methods for getting stats about users on a per domain basis
 
@@ -23,11 +22,7 @@ class UserStats
     end
     sql = "#{sql} LIMIT #{params[:limit]}" if params[:limit]
 
-    if rails_upgrade?
-      User.connection.select_all(sql).to_a
-    else
-      User.connection.select_all(sql).to_hash
-    end
+    User.connection.select_all(sql).to_a
   end
 
   # Returns the number of domant users for the given domain

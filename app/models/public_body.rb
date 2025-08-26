@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_bodies
 #
@@ -11,13 +11,22 @@
 #  updated_at                             :datetime         not null
 #  home_page                              :text
 #  api_key                                :string           not null
-#  info_requests_count                    :integer          default(0), not null
+#  info_requests_count                    :integer          default("0"), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer          default(0), not null
+#  info_requests_visible_count            :integer          default("0"), not null
+#  public_body_id                         :integer          not null
+#  name                                   :text
+#  short_name                             :text
+#  request_email                          :text
+#  url_name                               :text
+#  notes                                  :text
+#  first_letter                           :string
+#  publication_scheme                     :text
+#  disclosure_log                         :text
 #
 
 require 'csv'
@@ -27,6 +36,7 @@ require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
   include AdminColumn
+  include Taggable
 
   class ImportCSVDryRun < StandardError; end
 
@@ -118,10 +128,9 @@ class PublicBody < ApplicationRecord
                    [:tag_array_for_search, 'U', "tag"]
                  ],
                  :eager_load => [:translations]
-  has_tag_string
 
-  strip_attributes :allow_empty => false, :except => [:request_email]
-  strip_attributes :allow_empty => true, :only => [:request_email]
+  strip_attributes allow_empty: false, except: %i[request_email]
+  strip_attributes allow_empty: true, only: %i[request_email]
 
   translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
@@ -134,7 +143,8 @@ class PublicBody < ApplicationRecord
   # Cannot be grouped at top as it depends on the `translates` macro
   class Translation
     include PublicBodyDerivedFields
-    strip_attributes :allow_empty => true
+    strip_attributes allow_empty: false, except: %i[request_email]
+    strip_attributes allow_empty: true, only: %i[request_email]
   end
 
   self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
@@ -373,8 +383,12 @@ class PublicBody < ApplicationRecord
     "authority"
   end
 
-  def law_only_short
-    eir_only? ? 'EIR' : 'FOI'
+  def legislations
+    @legislations ||= Legislation.for_public_body(self)
+  end
+
+  def legislation
+    legislations.first
   end
 
   # Guess home page from the request email, or use explicit override, or nil
@@ -569,8 +583,14 @@ class PublicBody < ApplicationRecord
           begin
             save!
           rescue ActiveRecord::RecordInvalid
-            errors.full_messages.each do |msg|
-              options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+            if rails_upgrade?
+              errors.each do |error|
+                options[:errors].push "error: line #{ line }: #{ error.full_message } for authority '#{ name }'"
+              end
+            else
+              errors.full_messages.each do |msg|
+                options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+              end
             end
             next
           end
@@ -696,7 +716,7 @@ class PublicBody < ApplicationRecord
   end
 
   def expire_requests
-    info_requests.each { |request| request.expire }
+    info_requests.find_each(&:expire)
   end
 
   def self.where_clause_for_stats(minimum_requests, total_column)
@@ -806,16 +826,9 @@ class PublicBody < ApplicationRecord
     return bodies
   end
 
-  def self.tag_search_sql(name, value = nil)
-    scope = HasTagString::HasTagStringTag.
-      select(1).
-      where("has_tag_string_tags.model_id = public_bodies.id").
-      where("has_tag_string_tags.model = 'PublicBody'").
-      where(name: name)
-    scope = scope.where(value: value) if value
-    scope.to_sql
+  class << self
+    alias original_with_tag with_tag
   end
-  private_class_method :tag_search_sql
 
   def self.with_tag(tag)
     return all if tag.size == 1 || tag.nil? || tag == 'all'
@@ -823,20 +836,8 @@ class PublicBody < ApplicationRecord
     if tag == 'other'
       tags = PublicBodyCategory.get.tags - ['other']
       where.not("EXISTS(#{tag_search_sql(tags)})")
-    elsif tag.include?(':')
-      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      where("EXISTS(#{tag_search_sql(tag, value)})")
     else
-      where("EXISTS(#{tag_search_sql(tag)})")
-    end
-  end
-
-  def self.without_tag(tag)
-    if tag.include?(':')
-      tag, value = HasTagString::HasTagStringTag.split_tag_into_name_value(tag)
-      where.not("EXISTS(#{tag_search_sql(tag, value)})")
-    else
-      where.not("EXISTS(#{tag_search_sql(tag)})")
+      original_with_tag(tag)
     end
   end
 
@@ -923,17 +924,10 @@ class PublicBody < ApplicationRecord
 
   private
 
-  # if the URL name has changed, then all requested_from: queries
-  # will break unless we update index for every event for every
-  # request linked to it
+  # If the url_name has changed, then all requested_from: queries will break
+  # unless we update index for every event for every request linked to it.
   def reindex_requested_from
-    return unless saved_change_to_attribute?(:url_name)
-
-    info_requests.find_each do |info_request|
-      info_request.info_request_events.find_each do |info_request_event|
-        info_request_event.xapian_mark_needs_index
-      end
-    end
+    expire_requests if saved_change_to_attribute?(:url_name)
   end
 
   # Read an attribute value (without using locale fallbacks if the

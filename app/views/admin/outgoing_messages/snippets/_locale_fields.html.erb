@@ -1,0 +1,19 @@
+<div class="tab-pane" id="div-locale-<%= locale %>">
+  <%= t.hidden_field :locale, value: locale %>
+
+  <div class="control-group">
+    <%= t.label :name, class: 'control-label' %>
+
+    <div class="controls">
+      <%= t.text_field :name, class: 'span4' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= t.label :body, class: 'control-label' %>
+
+    <div class="controls">
+      <%= t.text_area :body, class: 'span4' %>
+    </div>
+  </div>
+</div>

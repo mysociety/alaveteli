@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 #
 # Public: Class to check whether the current database supports collation for
 # a given language. Prefer the class method .supports? rather than creating a

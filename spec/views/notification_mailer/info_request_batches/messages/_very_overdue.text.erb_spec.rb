@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe(
+RSpec.describe(
   "notification_mailer/info_request_batches/messages/_very_overdue.text.erb") do
   let!(:public_body_1) { FactoryBot.create(:public_body, name: "One & Two") }
   let!(:public_body_2) { FactoryBot.create(:public_body) }
@@ -48,7 +47,7 @@ describe(
     batch_notifications.each do |notification|
       info_request = notification.info_request_event.info_request
       public_body_name = info_request.public_body.name
-      target = respond_to_last_path(info_request, anchor: 'followup')
+      target = respond_to_last_path(info_request)
       expected_url = signin_url(r: target)
       expected_text = "#{public_body_name}: #{expected_url}"
       expect(response).to have_text(expected_text)

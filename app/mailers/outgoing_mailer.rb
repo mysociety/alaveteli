@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/outgoing_mailer.rb:
 # Emails which go to public bodies on behalf of users.
 #

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'admin_general/_to_do_list.html.erb' do
+RSpec.describe 'admin_general/_to_do_list.html.erb' do
 
   describe 'handling requests in an admin_required state' do
     let(:items) { [ request ] }

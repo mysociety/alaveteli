@@ -5,11 +5,12 @@
 class AlaveteliPro::BatchDownloadsController < AlaveteliPro::BaseController
   include ActionController::Live
 
+  skip_before_action :html_response
+
   def show
     authorize! :download, info_request_batch
 
     respond_to do |format|
-      format.html { head :bad_request }
       format.zip { download_zip }
       format.csv do
         metrics = InfoRequestBatchMetrics.new(info_request_batch)

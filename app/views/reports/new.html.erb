@@ -18,7 +18,7 @@
       </p>
       <p>
         <label class="form_label" for="message"><%= _("Please tell us more:") %></label>
-        <%= text_area_tag :message, @message, :rows => 10, :cols => 60 %>
+        <%= text_area_tag :message, @message, rows: 10, cols: 60, required: true %>
       </p>
 
       <%= hidden_field_tag :comment_id, params[:comment_id] %>

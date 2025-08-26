@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: holidays
 #
@@ -10,9 +10,9 @@
 #  updated_at  :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe Holiday do
+RSpec.describe Holiday do
 
   describe '.new' do
 

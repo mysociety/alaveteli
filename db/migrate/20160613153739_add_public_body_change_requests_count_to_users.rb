@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddPublicBodyChangeRequestsCountToUsers < ActiveRecord::Migration[4.2] # 3.2
   def up
     add_column :users, :public_body_change_requests_count, :integer, :default => 0, :null => false

@@ -75,7 +75,7 @@ RSpec.describe CitationsController, type: :controller do
     context 'logged in' do
       let(:info_request) { FactoryBot.create(:info_request) }
       let(:user) { info_request.user }
-      before { session[:user_id] = user.id }
+      before { sign_in user }
 
       def action
         get :new, params: { url_title: info_request.url_title }
@@ -118,7 +118,7 @@ RSpec.describe CitationsController, type: :controller do
     context 'logged in' do
       let(:info_request) { FactoryBot.create(:info_request) }
       let(:user) { info_request.user }
-      before { session[:user_id] = user.id }
+      before { sign_in user }
 
       def action
         post :create, params: {

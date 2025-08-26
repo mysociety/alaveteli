@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210921094059
 #
 # Table name: users
 #
@@ -10,39 +10,40 @@
 #  salt                              :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
-#  email_confirmed                   :boolean          default(FALSE), not null
+#  email_confirmed                   :boolean          default("false"), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00 GMT +00:00)
+#  last_daily_track_email            :datetime         default("2000-01-01 00:00:00")
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string
 #  email_bounced_at                  :datetime
 #  email_bounce_message              :text             default(""), not null
-#  no_limit                          :boolean          default(FALSE), not null
-#  receive_email_alerts              :boolean          default(TRUE), not null
-#  can_make_batch_requests           :boolean          default(FALSE), not null
-#  otp_enabled                       :boolean          default(FALSE), not null
+#  no_limit                          :boolean          default("false"), not null
+#  receive_email_alerts              :boolean          default("true"), not null
+#  can_make_batch_requests           :boolean          default("false"), not null
+#  otp_enabled                       :boolean          default("false"), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default(1)
-#  confirmed_not_spam                :boolean          default(FALSE), not null
-#  comments_count                    :integer          default(0), not null
-#  info_requests_count               :integer          default(0), not null
-#  track_things_count                :integer          default(0), not null
-#  request_classifications_count     :integer          default(0), not null
-#  public_body_change_requests_count :integer          default(0), not null
-#  info_request_batches_count        :integer          default(0), not null
+#  otp_counter                       :integer          default("1")
+#  confirmed_not_spam                :boolean          default("false"), not null
+#  comments_count                    :integer          default("0"), not null
+#  info_requests_count               :integer          default("0"), not null
+#  track_things_count                :integer          default("0"), not null
+#  request_classifications_count     :integer          default("0"), not null
+#  public_body_change_requests_count :integer          default("0"), not null
+#  info_request_batches_count        :integer          default("0"), not null
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
+#  login_token                       :string
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe User do
+RSpec.describe User do
   it_behaves_like 'PhaseCounts'
 end
 
-describe User, "making up the URL name" do
+RSpec.describe User, "making up the URL name" do
   before do
     @user = User.new
   end
@@ -58,7 +59,7 @@ describe User, "making up the URL name" do
   end
 end
 
-describe User, "banning the user" do
+RSpec.describe User, "banning the user" do
 
   it 'does not change the URL name' do
     user = FactoryBot.create(:user, :name => 'nasty user 123')
@@ -79,7 +80,7 @@ describe User, "banning the user" do
 
 end
 
-describe User, "showing the name" do
+RSpec.describe User, "showing the name" do
   before do
     @user = User.new
     @user.name = 'Some Name '
@@ -104,7 +105,7 @@ describe User, "showing the name" do
 
 end
 
-describe User, 'password hashing algorithms' do
+RSpec.describe User, 'password hashing algorithms' do
   def create_user(options = {})
     User.create(options.merge(
       name: 'User',
@@ -222,7 +223,7 @@ describe User, 'password hashing algorithms' do
 
 end
 
-describe User, 'when saving' do
+RSpec.describe User, 'when saving' do
   before do
     @user = User.new
   end
@@ -280,7 +281,7 @@ describe User, 'when saving' do
     @user.password = 'insecurepassword'
     @user.password_confirmation = 'insecurepassword'
     @user.email = 'reasonable@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
   end
 
@@ -288,14 +289,14 @@ describe User, 'when saving' do
     @user.name = 'Mr. Flobble'
     @user.password = 'insecurepassword'
     @user.email = 'flobble@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
 
     @user2 = User.new
     @user2.name = 'Mr. Flobble'
     @user2.password = 'insecurepassword'
     @user2.email = 'flobble2@localhost'
-    @user2.save
+    @user2.save!
     expect(@user2).to be_valid
   end
 
@@ -303,7 +304,7 @@ describe User, 'when saving' do
     @user.name = 'Mr. Flobble'
     @user.password = 'insecurepassword'
     @user.email = 'flobble@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
 
     @user2 = User.new
@@ -330,7 +331,7 @@ describe User, 'when saving' do
     @user = User.find_by(email: 'elderly@localhost')
     @user.name = 'Mr. Young'
     @user.email = 'young@localhost'
-    @user.save
+    @user.save!
     expect(@user).to be_valid
   end
 
@@ -364,7 +365,7 @@ describe User, 'when saving' do
 end
 
 
-describe User, "when reindexing referencing models" do
+RSpec.describe User, "when reindexing referencing models" do
   let(:user) { FactoryBot.create(:user) }
   let!(:comment) { FactoryBot.create(:comment, :with_event, user: user) }
   let(:comment_event) { comment.reload.info_request_events.last }
@@ -373,7 +374,7 @@ describe User, "when reindexing referencing models" do
 
   it "should reindex events associated with that user's comments when URL changes" do
     user.url_name = 'updated_url_name'
-    user.save
+    user.save!
 
     query = { model: 'InfoRequestEvent',
               model_id: comment_event.id,
@@ -384,7 +385,7 @@ describe User, "when reindexing referencing models" do
 
   it "should reindex events associated with that user's requests when URL changes" do
     user.url_name = 'updated_url_name'
-    user.save
+    user.save!
 
     query = { model: 'InfoRequestEvent',
               model_id: request_event.id,
@@ -401,18 +402,18 @@ describe User, "when reindexing referencing models" do
     it 'should not reindex events associated with that user\'s comments when URL changes' do
       expect(comment_event).to_not receive(:xapian_mark_needs_index)
       user.url_name = 'updated_url_name'
-      user.save
+      user.save!
     end
 
     it 'should not reindex events associated with that user\'s requests when URL changes' do
       expect(request_event).to_not receive(:xapian_mark_needs_index)
       user.url_name = 'updated_url_name'
-      user.save
+      user.save!
     end
   end
 end
 
-describe User, "when checking abilities" do
+RSpec.describe User, "when checking abilities" do
 
   before do
     @user = users(:bob_smith_user)
@@ -428,29 +429,7 @@ describe User, "when checking abilities" do
 
 end
 
-describe User, 'when asked if a user owns every request' do
-
-  before do
-    @mock_user = mock_model(User)
-  end
-
-  it 'should return false if no user is passed' do
-    expect(User.owns_every_request?(nil)).to be false
-  end
-
-  it 'should return true if the user has "requires admin" power' do
-    allow(@mock_user).to receive(:owns_every_request?).and_return true
-    expect(User.owns_every_request?(@mock_user)).to be true
-  end
-
-  it 'should return false if the user does not have "requires admin" power' do
-    allow(@mock_user).to receive(:owns_every_request?).and_return false
-    expect(User.owns_every_request?(@mock_user)).to be false
-  end
-
-end
-
-describe User, " when making name and email address" do
+RSpec.describe User, " when making name and email address" do
   it "should generate a name and email" do
     @user = User.new
     @user.name = "Sensible User"
@@ -469,7 +448,7 @@ describe User, " when making name and email address" do
 end
 
 # TODO: not finished
-describe User, "when setting a profile photo" do
+RSpec.describe User, "when setting a profile photo" do
   before do
     @user = User.new
     @user.name = "Sensible User"
@@ -501,7 +480,7 @@ describe User, "when setting a profile photo" do
   #    end
 end
 
-describe User, '#should_be_emailed?' do
+RSpec.describe User, '#should_be_emailed?' do
 
   context 'when confirmed and active' do
     let(:user) { FactoryBot.build(:user) }
@@ -515,6 +494,14 @@ describe User, '#should_be_emailed?' do
   context 'when confirmed and inactive' do
     let(:user) { FactoryBot.build(:user) }
     before { allow(user).to receive(:active?).and_return(false) }
+
+    it 'should not be emailed' do
+      expect(user).to_not be_should_be_emailed
+    end
+  end
+
+  context 'when confirmed and unsubscribed' do
+    let(:user) { FactoryBot.build(:user, receive_email_alerts: false) }
 
     it 'should not be emailed' do
       expect(user).to_not be_should_be_emailed
@@ -541,7 +528,7 @@ describe User, '#should_be_emailed?' do
 
 end
 
-describe User, "when emails have bounced" do
+RSpec.describe User, "when emails have bounced" do
 
   it "should record bounces" do
     User.record_bounce_for_email("bob@localhost", "A bounce message")
@@ -559,7 +546,7 @@ describe User, "when emails have bounced" do
 
 end
 
-describe User, "when calculating if a user has exceeded the request limit" do
+RSpec.describe User, "when calculating if a user has exceeded the request limit" do
 
   before do
     @info_request = FactoryBot.create(:info_request)
@@ -590,7 +577,7 @@ describe User, "when calculating if a user has exceeded the request limit" do
 
 end
 
-describe User do
+RSpec.describe User do
 
   describe '.authenticate_from_form' do
     let(:empty_user) { described_class.new }
@@ -659,83 +646,6 @@ describe User do
       expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
     end
 
-  end
-
-  describe '.all_time_requesters' do
-
-    it 'gets most frequent requesters' do
-      User.destroy_all
-
-      user1 = FactoryBot.create(:user)
-      user2 = FactoryBot.create(:user)
-      user3 = FactoryBot.create(:user)
-
-      travel_to(6.months.ago) do
-        5.times { FactoryBot.create(:info_request, user: user1) }
-        2.times { FactoryBot.create(:info_request, user: user2) }
-        FactoryBot.create(:info_request, user: user3)
-      end
-
-      expect(User.all_time_requesters).
-        to eq({ user1 => 5,
-                user2 => 2,
-                user3 => 1 })
-    end
-
-  end
-
-  describe '.last_28_day_requesters' do
-    it 'gets recent frequent requesters' do
-      user_with_3_requests = FactoryBot.create(:user)
-      3.times { FactoryBot.create(:info_request, user: user_with_3_requests) }
-      user_with_2_requests = FactoryBot.create(:user)
-      2.times { FactoryBot.create(:info_request, user: user_with_2_requests) }
-      user_with_1_request = FactoryBot.create(:user)
-      FactoryBot.create(:info_request, user: user_with_1_request)
-      user_with_an_old_request = FactoryBot.create(:user)
-      FactoryBot.create(:info_request, user: user_with_an_old_request, created_at: 2.months.ago)
-
-      expect(User.last_28_day_requesters).to eql(
-        {
-          user_with_3_requests => 3,
-          user_with_2_requests => 2,
-          user_with_1_request => 1
-        }
-      )
-    end
-  end
-
-  describe '.all_time_commenters' do
-    it 'gets most frequent commenters' do
-      # FIXME: This uses fixtures. Change it to use factories when we can.
-      expect(User.all_time_commenters).to eql(
-        {
-          users(:bob_smith_user) => 1,
-          users(:silly_name_user) => 1
-        }
-      )
-    end
-  end
-
-  describe '.last_28_day_commenters' do
-    it 'gets recent frequent commenters' do
-      user_with_3_comments = FactoryBot.create(:user)
-      3.times { FactoryBot.create(:comment, user: user_with_3_comments) }
-      user_with_2_comments = FactoryBot.create(:user)
-      2.times { FactoryBot.create(:comment, user: user_with_2_comments) }
-      user_with_1_comment = FactoryBot.create(:user)
-      FactoryBot.create(:comment, user: user_with_1_comment)
-      user_with_an_old_comment = FactoryBot.create(:user)
-      FactoryBot.create(:comment, user: user_with_an_old_comment, created_at: 2.months.ago)
-
-      expect(User.last_28_day_commenters).to eql(
-        {
-          user_with_3_comments => 3,
-          user_with_2_comments => 2,
-          user_with_1_comment => 1
-        }
-      )
-    end
   end
 
   describe '#locale' do
@@ -851,19 +761,19 @@ describe User do
   end
 
   describe '#expire_requests' do
-
     it 'calls expire on all associated requests' do
       user = FactoryBot.build(:user)
-      requests = [double, double]
-      expect(user).to receive(:info_requests).and_return(requests)
 
-      requests.each do |request|
-        expect(request).to receive(:expire)
-      end
+      request_1, request_2 = double(:info_request), double(:info_request)
+
+      allow(user).to receive_message_chain(:info_requests, :find_each).
+        and_yield(request_1).and_yield(request_2)
+
+      expect(request_1).to receive(:expire)
+      expect(request_2).to receive(:expire)
 
       user.expire_requests
     end
-
   end
 
   describe '#valid?' do
@@ -1502,80 +1412,6 @@ describe User do
     end
   end
 
-  describe '.view_hidden?' do
-    it 'returns false if there is no user' do
-      expect(User.view_hidden?(nil)).to be false
-    end
-
-    it 'returns false if the user is not a superuser' do
-      expect(User.view_hidden?(FactoryBot.create(:user))).to be false
-    end
-
-    it 'returns true if the user is an admin user' do
-      expect(User.view_hidden?(FactoryBot.create(:admin_user))).to be true
-    end
-  end
-
-  describe '.view_embargoed' do
-    it 'returns false if there is no user' do
-      expect(User.view_embargoed?(nil)).to be false
-    end
-
-    it 'returns false if the user has no roles' do
-      expect(User.view_embargoed?(FactoryBot.create(:user))).to be false
-    end
-
-    it 'returns false if the user is an admin user' do
-      expect(User.view_embargoed?(FactoryBot.create(:admin_user))).to be false
-    end
-
-    context 'with pro enabled' do
-
-      it 'returns false if the user is an admin user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_embargoed?(FactoryBot.create(:admin_user))).to be false
-        end
-      end
-
-      it 'returns true if the user is a pro_admin user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_embargoed?(FactoryBot.create(:pro_admin_user))).to be true
-        end
-      end
-
-    end
-  end
-
-  describe '.view_hidden_and_embargoed' do
-    it 'returns false if there is no user' do
-      expect(User.view_hidden_and_embargoed?(nil)).to be false
-    end
-
-    it 'returns false if the user has no role' do
-      expect(User.view_hidden_and_embargoed?(FactoryBot.create(:user))).to be false
-    end
-
-    it 'returns false if the user is an admin user' do
-      expect(User.view_hidden_and_embargoed?(FactoryBot.create(:admin_user))).to be false
-    end
-
-    context 'with pro enabled' do
-
-      it 'returns false if the user is an admin user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_hidden_and_embargoed?(FactoryBot.create(:admin_user))).to be false
-        end
-      end
-
-      it 'returns true if pro is enabled and the user is a pro_admin user' do
-        with_feature_enabled(:alaveteli_pro) do
-          expect(User.view_hidden_and_embargoed?(FactoryBot.create(:pro_admin_user)))
-            .to be true
-        end
-      end
-    end
-  end
-
   describe '.info_request_events' do
     let(:user) { FactoryBot.create(:user) }
     let(:info_request) { FactoryBot.create(:info_request, :user => user) }
@@ -1608,6 +1444,107 @@ describe User do
       expect(Notification.where(id: notification.id)).to exist
       user.destroy
       expect(Notification.where(id: notification.id)).not_to exist
+    end
+  end
+
+  describe '#owns_every_request?' do
+    subject { user.owns_every_request? }
+
+    context 'when the user has no roles' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is a pro' do
+      let(:user) { FactoryBot.create(:pro_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#view_hidden?' do
+    subject { user.view_hidden? }
+
+    context 'when the user has no roles' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is a pro' do
+      let(:user) { FactoryBot.create(:pro_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is a pro_admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#view_embargoed?' do
+    subject { user.view_embargoed? }
+
+    context 'when the user has no roles' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is a pro_admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#view_hidden_and_embargoed?' do
+    subject { user.view_hidden_and_embargoed? }
+
+    context 'when the user has no roles' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is an admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is only a pro_admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user is a pro_admin', feature: :alaveteli_pro do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+      it { is_expected.to eq(true) }
     end
   end
 
@@ -1813,4 +1750,5 @@ describe User do
       it { is_expected.to be_falsey }
     end
   end
+
 end

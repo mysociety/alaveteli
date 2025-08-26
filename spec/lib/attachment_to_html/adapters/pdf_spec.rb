@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
+require 'spec_helper'
 
-describe AttachmentToHTML::Adapters::PDF do
+RSpec.describe AttachmentToHTML::Adapters::PDF do
 
   let(:attachment) { FactoryBot.build(:pdf_attachment) }
   let(:adapter) { AttachmentToHTML::Adapters::PDF.new(attachment) }
@@ -52,6 +51,23 @@ describe AttachmentToHTML::Adapters::PDF do
         valid UTF-8' do
       allow(adapter).to receive(:convert).and_return("\xBF")
       expect(adapter.body).to be_valid_encoding
+    end
+
+    context 'PDF attachment with images' do
+
+      let(:attachment) do
+        FactoryBot.build(
+          :pdf_attachment,
+          filename: 'cat.pdf',
+          body: load_file_fixture('cat.pdf')
+        )
+      end
+
+      it 'extract and link to images with relative paths' do
+        expect(adapter.body).to_not include('<img src="/')
+        expect(adapter.body).to include('<img src="./')
+      end
+
     end
 
   end

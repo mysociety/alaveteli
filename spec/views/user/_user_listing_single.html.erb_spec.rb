@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'when displaying user listings' do
+RSpec.describe 'when displaying user listings' do
   let(:highlighted_words) { [] }
   let(:user) { FactoryBot.create(:user) }
 

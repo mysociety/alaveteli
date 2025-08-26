@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 namespace :incoming_messages do
   desc 'Update InfoRequest#incoming_messages_count counter cache'
   task update_counter_cache: :environment do

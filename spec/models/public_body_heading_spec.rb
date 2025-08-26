@@ -1,17 +1,19 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_body_headings
 #
-#  id            :integer          not null, primary key
-#  display_order :integer
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id                     :integer          not null, primary key
+#  display_order          :integer
+#  created_at             :datetime
+#  updated_at             :datetime
+#  public_body_heading_id :integer          not null
+#  name                   :text
 #
 
 require 'spec_helper'
 
-describe PublicBodyHeading do
+RSpec.describe PublicBodyHeading do
 
   context 'when validating' do
 
@@ -63,7 +65,7 @@ describe PublicBodyHeading do
       heading.translations_attributes = { :es => { :locale => 'es',
                                                    :name => 'El Heading' } }
 
-      heading.save
+      heading.save!
       expect(PublicBodyHeading.find(heading.id).translations.size).to eq(2)
     end
 
@@ -85,7 +87,7 @@ describe PublicBodyHeading do
         heading = FactoryBot.create(:public_body_heading)
         heading.translations_attributes = { :es => { :locale => 'es',
                                                      :name => 'El Heading' } }
-        heading.save
+        heading.save!
         heading.reload
         expect(heading.name(:es)).to eq('El Heading')
       end
@@ -94,12 +96,12 @@ describe PublicBodyHeading do
         heading = FactoryBot.create(:public_body_heading)
         heading.translations_attributes = { 'es' => { :locale => 'es',
                                                       :name => 'Name' } }
-        heading.save
+        heading.save!
 
         heading.translations_attributes = { 'es' => { :id => heading.translation_for(:es).id,
                                                       :locale => 'es',
                                                       :name => 'Renamed' } }
-        heading.save
+        heading.save!
         expect(heading.name(:es)).to eq('Renamed')
       end
 
@@ -147,7 +149,7 @@ describe PublicBodyHeading do
   end
 end
 
-describe PublicBodyHeading::Translation do
+RSpec.describe PublicBodyHeading::Translation do
 
   it 'requires a locale' do
     translation = PublicBodyHeading::Translation.new

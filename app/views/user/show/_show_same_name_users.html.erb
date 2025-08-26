@@ -1,8 +1,8 @@
 <p>
+  <% search_user_link =
+    link_to(@display_user.name, search_users_path(@display_user.name)) %>
+
   <%= _('There is <strong>more than one person</strong> who uses this site ' \
-        'and has this name. One of them is shown below, you may mean a ' \
-        'different one:')%>
-  <% @same_name_users.each do |same_name_user| %>
-    <%= user_link(same_name_user) %>
-  <% end %>
+        'and has this name. Search for other users named ' \
+        '"{{search_user_link}}"', search_user_link: search_user_link) %>
 </p>

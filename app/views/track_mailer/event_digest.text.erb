@@ -68,18 +68,6 @@
   end
 %>
 
-<%= raw main_text -%>
-<%= _('Alter your subscription') %>
-=======================
-
-<% _('Please click on the link below to cancel or alter these emails.') %>
-<%= @unsubscribe_url %>
-
-<%= _('Unsubscribe') %>
-===========
-
-<% _('Please click on the link below to stop these emails.') %>
-<%= @disable_email_alerts_url %>
+<%= raw main_text.strip %>
 
 -- <%= _('the {{site_name}} team', site_name: site_name.html_safe) %>
-

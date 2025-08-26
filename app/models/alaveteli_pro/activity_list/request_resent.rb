@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AlaveteliPro
   module ActivityList
     class RequestResent < Item

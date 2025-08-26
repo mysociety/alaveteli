@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # models/contact_validator.rb:
 # Validates contact form submissions.
 #

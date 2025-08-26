@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module DateTimeHelper
   # Public: Usually-correct format for a DateTime-ish object
   # To define a new new format define the `simple_date_{FORMAT}` method

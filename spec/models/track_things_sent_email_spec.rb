@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: track_things_sent_emails
 #
@@ -12,7 +12,7 @@
 #  updated_at            :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe TrackThingsSentEmail, "when tracking things sent email" do
+RSpec.describe TrackThingsSentEmail, "when tracking things sent email" do
 end

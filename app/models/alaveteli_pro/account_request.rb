@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Validates pro account request submissions.
 #
 # Copyright (c) 2017 UK Citizens Online Democracy. All rights reserved.

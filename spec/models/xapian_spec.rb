@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe User, " when indexing users with Xapian" do
+RSpec.describe User, " when indexing users with Xapian" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should search by name" do
@@ -34,10 +33,10 @@ describe User, " when indexing users with Xapian" do
   end
 end
 
-describe PublicBody, " when indexing public bodies with Xapian" do
+RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should search index the main name field" do
@@ -66,11 +65,11 @@ describe PublicBody, " when indexing public bodies with Xapian" do
 
 end
 
-describe PublicBody, " when indexing requests by body they are to" do
+RSpec.describe PublicBody, " when indexing requests by body they are to" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find requests to the body" do
@@ -122,10 +121,10 @@ describe PublicBody, " when indexing requests by body they are to" do
   end
 end
 
-describe User, " when indexing requests by user they are from" do
+RSpec.describe User, " when indexing requests by user they are from" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find requests from the user" do
@@ -256,10 +255,10 @@ describe User, " when indexing requests by user they are from" do
   end
 end
 
-describe User, " when indexing comments by user they are by" do
+RSpec.describe User, " when indexing comments by user they are by" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find requests from the user" do
@@ -291,10 +290,10 @@ describe User, " when indexing comments by user they are by" do
   end
 end
 
-describe InfoRequest, " when indexing requests by their title" do
+RSpec.describe InfoRequest, " when indexing requests by their title" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find events for the request" do
@@ -320,10 +319,10 @@ describe InfoRequest, " when indexing requests by their title" do
   end
 end
 
-describe InfoRequest, " when indexing requests by tag" do
+RSpec.describe InfoRequest, " when indexing requests by tag" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find request by tag, even when changes" do
@@ -341,10 +340,10 @@ describe InfoRequest, " when indexing requests by tag" do
   end
 end
 
-describe PublicBody, " when indexing authorities by tag" do
+RSpec.describe PublicBody, " when indexing authorities by tag" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should find request by tag, even when changes" do
@@ -365,10 +364,10 @@ describe PublicBody, " when indexing authorities by tag" do
   end
 end
 
-describe PublicBody, " when only indexing selected things on a rebuild" do
+RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it "should only index what we ask it to" do
@@ -423,11 +422,11 @@ describe PublicBody, " when only indexing selected things on a rebuild" do
   end
 end
 
-describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
+RSpec.describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
 
   before(:each) do
     load_raw_emails_data
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   it 'should not raise an error but should fail silently' do

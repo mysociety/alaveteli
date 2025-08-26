@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateInfoRequestBatches < ActiveRecord::Migration[4.2] # 3.2
   def up
     create_table :info_request_batches do |t|

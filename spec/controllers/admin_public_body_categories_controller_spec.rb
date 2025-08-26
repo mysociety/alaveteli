@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AdminPublicBodyCategoriesController do
+RSpec.describe AdminPublicBodyCategoriesController do
 
   describe 'GET index' do
 

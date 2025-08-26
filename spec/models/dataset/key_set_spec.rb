@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20210114161442
+#
+# Table name: dataset_key_sets
+#
+#  id            :bigint           not null, primary key
+#  resource_type :string
+#  resource_id   :bigint
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'spec_helper'
 
 RSpec.describe Dataset::KeySet, type: :model do

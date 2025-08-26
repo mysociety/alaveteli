@@ -24,6 +24,8 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
 # beckymak <makpowan@gmail.com>, 2015
 # caxekis <caxekis@gmail.com>, 2013
 # caxekis <caxekis@gmail.com>, 2013
@@ -31,7 +33,7 @@
 # Hailey Zhang <s1132151@s.eduhk.hk>, 2020
 # Liz Conlan <liz@mysociety.org>, 2018
 # beckymak <makpowan@gmail.com>, 2015
-# gensitu <pstew892@protonmail.com>, 2018,2020
+# gensitu <pstew892@protonmail.com>, 2018,2020-2021
 # spions kwong, 2015
 # spions kwong, 2015-2016
 # wen xing, 2019
@@ -42,8 +44,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 10:35+0100\n"
-"PO-Revision-Date: 2020-10-16 11:44+0000\n"
+"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"PO-Revision-Date: 2021-11-12 15:05+0000\n"
 "Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
 "Language-Team: Chinese (Hong Kong) (http://www.transifex.com/mysociety/alavete"
 "li/language/zh_HK/)\n"
@@ -60,10 +62,10 @@ msgid ""
 msgstr ""
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr "（<strong>不要謾罵或作人身攻擊</strong>，請查看我們的 <a href=\"{{url}}\">管理政策</a>）"
+msgstr "（<strong>不要謾罵或作人身攻擊</strong>，請細閲我們的 <a href=\"{{url}}\">管理政策</a>）"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr "（請<strong>耐心等候</strong>，上載大型檔案可能需要一段時間）"
+msgstr "（請<strong>耐心等候</strong>，上載大型檔案需要一段時間）"
 
 msgid " (you)"
 msgstr "（你）"
@@ -119,6 +121,9 @@ msgstr "根據狀態過濾：「{{status}}」"
 msgid " when you send this message."
 msgstr "當您傳送此訊息時。"
 
+msgid "&#8592; Previous"
+msgstr ""
+
 msgid "'Crime statistics by ward level for Wales'"
 msgstr "「東區每月的罪案數字」"
 
@@ -158,15 +163,20 @@ msgid ""
 "\n"
 "{{user_name}}"
 msgstr ""
+"，\n"
+"\n"
+"\n"
+"\n"
+"{{user_name}}謹啟"
 
 msgid "12 characters minimum. 72 characters maximum."
 msgstr "長短必為12和72個字元之間。"
 
 msgid "5 minutes+"
-msgstr ""
+msgstr "多於5分鐘"
 
 msgid "60 minutes+"
-msgstr ""
+msgstr "多於60分鐘"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
 msgstr "<a href=\"{{browse_url}}\">瀏覽全部</a>或<a href=\"{{add_url}}\">建議加入公共機構</a>。"
@@ -184,7 +194,7 @@ msgid "<a href=\"{{url}}\">Do you want to request private information about your
 msgstr "<a href=\"{{url}}\">你是否希望查詢有關你的個人私隱資料？</a>"
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
-msgstr "<a href=\"{{url}}\">請直接説明<strong>重點</strong></a>，不要拐彎抹角，你會更容易得到你想要的資料。"
+msgstr "<a href=\"{{url}}\">請直接説明<strong>重點</strong></a>，不要拐彎抹角，你會更容易取得你要的資料。"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
 msgstr "<a href=\"{{url}}\">登入</a>後可更改密碼、訂閱選項等（只適用於{{user_name}}）"
@@ -268,6 +278,9 @@ msgstr "已提供<strong>所有資料</strong>"
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr "<strong>其他事項</strong>，例如澄清資料、提醒機構回應和感謝機構的回覆"
 
+msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>根據《公開資料守則》，公共機構必須作出回應</strong>（<a href=\"{{url}}\">為甚麼？</a>）。"
 
@@ -277,6 +290,9 @@ msgstr ""
 "\t\t\t<a href=\"{{url}}\">不可以！</a>"
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
+msgstr ""
+
+msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
 msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
@@ -364,6 +380,9 @@ msgstr ""
 msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
+msgid "A survey about your recent Freedom of Information request"
+msgstr ""
+
 msgid "A {{site_name}} user"
 msgstr "{{site_name}}用户"
 
@@ -377,7 +396,7 @@ msgid "About {{count}} FOI requests found"
 msgstr "找到約{{count}}項索取資料要求"
 
 msgid "Academic paper"
-msgstr ""
+msgstr "學術文章"
 
 msgid "Account closed at user request"
 msgstr "賬户在用户要求下停用"
@@ -392,15 +411,6 @@ msgid "Action needed"
 msgstr ""
 
 msgid "Actions"
-msgstr ""
-
-msgid "Acts as xapian/acts as xapian job"
-msgstr ""
-
-msgid "ActsAsXapian::ActsAsXapianJob|Action"
-msgstr ""
-
-msgid "ActsAsXapian::ActsAsXapianJob|Model"
 msgstr ""
 
 msgid "Add a widget"
@@ -420,9 +430,6 @@ msgstr "新增公共機構「{{public_body_name}}」"
 
 msgid "Add the authority:"
 msgstr "新增公共機構："
-
-msgid "Administration URL:"
-msgstr ""
 
 msgid "Advanced search"
 msgstr "進階搜尋"
@@ -517,430 +524,7 @@ msgstr "匿名用户"
 msgid "Any device"
 msgstr ""
 
-msgid "Application record"
-msgstr ""
-
-msgid "ApplicationRecord|About me"
-msgstr ""
-
-msgid "ApplicationRecord|Alert type"
-msgstr ""
-
-msgid "ApplicationRecord|Allow new responses from"
-msgstr ""
-
-msgid "ApplicationRecord|Api key"
-msgstr ""
-
-msgid "ApplicationRecord|Attention requested"
-msgstr ""
-
-msgid "ApplicationRecord|Awaiting description"
-msgstr ""
-
-msgid "ApplicationRecord|Backtrace"
-msgstr ""
-
-msgid "ApplicationRecord|Ban text"
-msgstr ""
-
-msgid "ApplicationRecord|Body"
-msgstr ""
-
-msgid "ApplicationRecord|Cached attachment text clipped"
-msgstr ""
-
-msgid "ApplicationRecord|Cached main body text folded"
-msgstr ""
-
-msgid "ApplicationRecord|Cached main body text unfolded"
-msgstr ""
-
-msgid "ApplicationRecord|Calculated state"
-msgstr ""
-
-msgid "ApplicationRecord|Can make batch requests"
-msgstr ""
-
-msgid "ApplicationRecord|Category display order"
-msgstr ""
-
-msgid "ApplicationRecord|Category tag"
-msgstr ""
-
-msgid "ApplicationRecord|Charset"
-msgstr ""
-
-msgid "ApplicationRecord|Circumstance"
-msgstr ""
-
-msgid "ApplicationRecord|Citable type"
-msgstr ""
-
-msgid "ApplicationRecord|Closed at"
-msgstr ""
-
-msgid "ApplicationRecord|Comments allowed"
-msgstr "程式紀錄|允許評論"
-
-msgid "ApplicationRecord|Comments count"
-msgstr "程式紀錄|評論數目"
-
-msgid "ApplicationRecord|Confirmed not spam"
-msgstr ""
-
-msgid "ApplicationRecord|Content type"
-msgstr ""
-
-msgid "ApplicationRecord|Cookie"
-msgstr ""
-
-msgid "ApplicationRecord|Daily summary hour"
-msgstr ""
-
-msgid "ApplicationRecord|Daily summary minute"
-msgstr ""
-
-msgid "ApplicationRecord|Data"
-msgstr ""
-
-msgid "ApplicationRecord|Date initial request last sent at"
-msgstr ""
-
-msgid "ApplicationRecord|Date response required by"
-msgstr ""
-
-msgid "ApplicationRecord|Date very overdue after"
-msgstr ""
-
-msgid "ApplicationRecord|Day"
-msgstr ""
-
-msgid "ApplicationRecord|Default embargo duration"
-msgstr ""
-
-msgid "ApplicationRecord|Delivery status"
-msgstr ""
-
-msgid "ApplicationRecord|Described state"
-msgstr ""
-
-msgid "ApplicationRecord|Description"
-msgstr ""
-
-msgid "ApplicationRecord|Disclosure log"
-msgstr ""
-
-msgid "ApplicationRecord|Display order"
-msgstr ""
-
-msgid "ApplicationRecord|Display size"
-msgstr ""
-
-msgid "ApplicationRecord|Draft"
-msgstr ""
-
-msgid "ApplicationRecord|Email"
-msgstr ""
-
-msgid "ApplicationRecord|Email bounce message"
-msgstr ""
-
-msgid "ApplicationRecord|Email bounced at"
-msgstr ""
-
-msgid "ApplicationRecord|Email confirmed"
-msgstr ""
-
-msgid "ApplicationRecord|Email token"
-msgstr ""
-
-msgid "ApplicationRecord|Embargo duration"
-msgstr ""
-
-msgid "ApplicationRecord|Event type"
-msgstr "程式紀錄|活動類型"
-
-msgid "ApplicationRecord|Expired"
-msgstr "程式紀錄|逾期"
-
-msgid "ApplicationRecord|Expiring notification at"
-msgstr ""
-
-msgid "ApplicationRecord|Extension duration"
-msgstr ""
-
-msgid "ApplicationRecord|External url"
-msgstr ""
-
-msgid "ApplicationRecord|External user name"
-msgstr ""
-
-msgid "ApplicationRecord|Filename"
-msgstr "程式紀錄|檔案名"
-
-msgid "ApplicationRecord|Frequency"
-msgstr ""
-
-msgid "ApplicationRecord|Handle rejected responses"
-msgstr ""
-
-msgid "ApplicationRecord|Hashed password"
-msgstr ""
-
-msgid "ApplicationRecord|Hexdigest"
-msgstr ""
-
-msgid "ApplicationRecord|Home page"
-msgstr ""
-
-msgid "ApplicationRecord|Idhash"
-msgstr ""
-
-msgid "ApplicationRecord|Incoming messages count"
-msgstr ""
-
-msgid "ApplicationRecord|Info request batches count"
-msgstr ""
-
-msgid "ApplicationRecord|Info requests count"
-msgstr ""
-
-msgid "ApplicationRecord|Info requests not held count"
-msgstr ""
-
-msgid "ApplicationRecord|Info requests overdue count"
-msgstr ""
-
-msgid "ApplicationRecord|Info requests successful count"
-msgstr ""
-
-msgid "ApplicationRecord|Info requests visible classified count"
-msgstr ""
-
-msgid "ApplicationRecord|Info requests visible count"
-msgstr ""
-
-msgid "ApplicationRecord|Is open"
-msgstr ""
-
-msgid "ApplicationRecord|Last daily track email"
-msgstr ""
-
-msgid "ApplicationRecord|Last described at"
-msgstr ""
-
-msgid "ApplicationRecord|Last edit comment"
-msgstr ""
-
-msgid "ApplicationRecord|Last edit editor"
-msgstr ""
-
-msgid "ApplicationRecord|Last event time"
-msgstr "程式紀錄|最後活動時間"
-
-msgid "ApplicationRecord|Last parsed"
-msgstr ""
-
-msgid "ApplicationRecord|Last public response at"
-msgstr ""
-
-msgid "ApplicationRecord|Last sent at"
-msgstr ""
-
-msgid "ApplicationRecord|Last stat"
-msgstr ""
-
-msgid "ApplicationRecord|Law used"
-msgstr ""
-
-msgid "ApplicationRecord|Line"
-msgstr ""
-
-msgid "ApplicationRecord|Locale"
-msgstr ""
-
-msgid "ApplicationRecord|Mail from"
-msgstr ""
-
-msgid "ApplicationRecord|Mail from domain"
-msgstr ""
-
-msgid "ApplicationRecord|Message type"
-msgstr ""
-
-msgid "ApplicationRecord|Name"
-msgstr ""
-
-msgid "ApplicationRecord|No limit"
-msgstr ""
-
-msgid "ApplicationRecord|Notes"
-msgstr ""
-
-msgid "ApplicationRecord|Notified at"
-msgstr ""
-
-msgid "ApplicationRecord|Order"
-msgstr ""
-
-msgid "ApplicationRecord|Otp counter"
-msgstr ""
-
-msgid "ApplicationRecord|Otp enabled"
-msgstr ""
-
-msgid "ApplicationRecord|Otp secret key"
-msgstr ""
-
-msgid "ApplicationRecord|Params"
-msgstr ""
-
-msgid "ApplicationRecord|Params yaml"
-msgstr ""
-
-msgid "ApplicationRecord|Post params yaml"
-msgstr ""
-
-msgid "ApplicationRecord|Prominence"
-msgstr ""
-
-msgid "ApplicationRecord|Prominence reason"
-msgstr ""
-
-msgid "ApplicationRecord|Public body change requests count"
-msgstr ""
-
-msgid "ApplicationRecord|Public body email"
-msgstr ""
-
-msgid "ApplicationRecord|Public body name"
-msgstr ""
-
-msgid "ApplicationRecord|Public body names"
-msgstr "程式紀錄|公共機構名稱"
-
-msgid "ApplicationRecord|Publish at"
-msgstr ""
-
-msgid "ApplicationRecord|Reason params yaml"
-msgstr ""
-
-msgid "ApplicationRecord|Receive email alerts"
-msgstr ""
-
-msgid "ApplicationRecord|Regexp"
-msgstr ""
-
-msgid "ApplicationRecord|Reject incoming at mta"
-msgstr ""
-
-msgid "ApplicationRecord|Rejected incoming count"
-msgstr ""
-
-msgid "ApplicationRecord|Replacement"
-msgstr ""
-
-msgid "ApplicationRecord|Request classifications count"
-msgstr ""
-
-msgid "ApplicationRecord|Request created at"
-msgstr ""
-
-msgid "ApplicationRecord|Request updated at"
-msgstr ""
-
-msgid "ApplicationRecord|Resource type"
-msgstr ""
-
-msgid "ApplicationRecord|Retry at"
-msgstr ""
-
-msgid "ApplicationRecord|Salt"
-msgstr ""
-
-msgid "ApplicationRecord|Seen at"
-msgstr ""
-
-msgid "ApplicationRecord|Send after"
-msgstr ""
-
-msgid "ApplicationRecord|Sent at"
-msgstr ""
-
-msgid "ApplicationRecord|Slug"
-msgstr ""
-
-msgid "ApplicationRecord|Source url"
-msgstr ""
-
-msgid "ApplicationRecord|Status"
-msgstr "程式紀錄|狀態"
-
-msgid "ApplicationRecord|Subject"
-msgstr "程式紀錄|標題"
-
-msgid "ApplicationRecord|Summarisable type"
-msgstr ""
-
-msgid "ApplicationRecord|Text"
-msgstr ""
-
-msgid "ApplicationRecord|Title"
-msgstr ""
-
-msgid "ApplicationRecord|Token"
-msgstr ""
-
-msgid "ApplicationRecord|Track medium"
-msgstr ""
-
-msgid "ApplicationRecord|Track query"
-msgstr ""
-
-msgid "ApplicationRecord|Track things count"
-msgstr ""
-
-msgid "ApplicationRecord|Track type"
-msgstr ""
-
-msgid "ApplicationRecord|Uri"
-msgstr "程式紀錄|網址"
-
-msgid "ApplicationRecord|Url name"
-msgstr ""
-
-msgid "ApplicationRecord|Url part number"
-msgstr ""
-
-msgid "ApplicationRecord|Url title"
-msgstr ""
-
-msgid "ApplicationRecord|Use notifications"
-msgstr ""
-
-msgid "ApplicationRecord|User email"
-msgstr ""
-
-msgid "ApplicationRecord|User name"
-msgstr ""
-
-msgid "ApplicationRecord|Valid to reply to"
-msgstr ""
-
-msgid "ApplicationRecord|Version"
-msgstr ""
-
-msgid "ApplicationRecord|Visibility"
-msgstr ""
-
-msgid "ApplicationRecord|Visible"
-msgstr ""
-
-msgid "ApplicationRecord|What doing"
-msgstr ""
-
-msgid "ApplicationRecord|Within rfc822 subject"
+msgid "Anyone with the link will be able to view this request."
 msgstr ""
 
 msgid "Are we missing a public authority?"
@@ -960,6 +544,9 @@ msgstr ""
 
 msgid "Are you the owner of any commercial copyright on this page?"
 msgstr "你對本頁的內容擁有商業版權嗎？"
+
+msgid "Article"
+msgstr ""
 
 msgid "Ask EU Authorities"
 msgstr "詢問歐盟公共機構"
@@ -1048,6 +635,12 @@ msgstr "查看及搜尋要求"
 msgid "Browse and search requests (page {{count}})"
 msgstr "查看及搜尋要求（第{{count}}頁）"
 
+msgid "Browse latest requests"
+msgstr ""
+
+msgid "Browse latest responses"
+msgstr ""
+
 msgid "Browse requests"
 msgstr "查看要求"
 
@@ -1067,7 +660,7 @@ msgid "By law, {{public_body_link}} should normally have responded <strong>promp
 msgstr "根據《公開資料守則》，{{public_body_link}}在一般情況下，應該<strong>盡快</strong>回應索取資料的要求。"
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Can't find the one you want?"
 msgstr ""
@@ -1150,6 +743,9 @@ msgstr "點擊下面的鏈接，向{{public_body}}發送消息，提醒他們回
 msgid "Close"
 msgstr "關閉"
 
+msgid "Close preview"
+msgstr ""
+
 msgid "Close the request and respond:"
 msgstr ""
 
@@ -1219,6 +815,12 @@ msgstr ""
 msgid "Cookies not enabled"
 msgstr "未開啟cookies"
 
+msgid "Copied!"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
 msgid "Could not identify the request from the email address"
 msgstr "無法從電子郵件地址中識別請求"
 
@@ -1250,6 +852,9 @@ msgid "Crop your profile photo"
 msgstr "剪裁你的頭像"
 
 msgid "Cultural sites and built structures (as they may be affected by the environmental factors listed above)"
+msgstr ""
+
+msgid "Current Email:"
 msgstr ""
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they should respond promptly and"
@@ -1299,6 +904,9 @@ msgstr "要求「{{request_title}}」的詳情"
 
 msgid "Did you mean: {{correction}}"
 msgstr "你是否想找：{{correction}}"
+
+msgid "Disable"
+msgstr ""
 
 msgid "Disable two factor authentication"
 msgstr "關閉雙重認證"
@@ -1371,6 +979,9 @@ msgstr "以電郵通知我關於此要求的更新"
 
 msgid "Email:"
 msgstr "電郵："
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable two factor authentication"
 msgstr "啟用雙重認證"
@@ -1462,24 +1073,6 @@ msgstr ""
 msgid "First, type in the <strong>name of the public authority</strong> you'd like information from."
 msgstr "請先輸入你想披露資料的<strong>公共機構</strong>。"
 
-msgid "Flipper/adapters/active record/feature"
-msgstr ""
-
-msgid "Flipper/adapters/active record/gate"
-msgstr ""
-
-msgid "Flipper::Adapters::ActiveRecord::Feature|Key"
-msgstr ""
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Feature key"
-msgstr ""
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Key"
-msgstr ""
-
-msgid "Flipper::Adapters::ActiveRecord::Gate|Value"
-msgstr ""
-
 msgid "Follow"
 msgstr " 關注"
 
@@ -1569,6 +1162,9 @@ msgid_plural "Found {{count}} public authorities matching the tag ‘{{tag_name}
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "Four weeks ago you made a Freedom of Information request to {{public_body_name}} using {{site_name}}."
+msgstr ""
+
 msgid "Freedom of Information"
 msgstr "公開資料"
 
@@ -1611,46 +1207,13 @@ msgstr "由："
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "請在此詳述你的投訴"
 
+msgid "Get help to challenge it."
+msgstr ""
+
 msgid "Getting long – remember to keep it focussed"
 msgstr ""
 
-msgid "Globalize/active record/translation"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Content"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Description"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Disclosure log"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|First letter"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Locale"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Name"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Notes"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Publication scheme"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Request email"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Short name"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Title"
-msgstr ""
-
-msgid "Globalize::ActiveRecord::Translation|Url name"
+msgid "Go back to refusal advice questions"
 msgstr ""
 
 msgid "Got a {{site_name}} account?"
@@ -1665,28 +1228,10 @@ msgstr "郵寄處理"
 msgid "Handled by postal mail."
 msgstr "郵寄處理。"
 
-msgid "Has tag string tag"
+msgid "Has this request been referenced in a news article or academic paper?"
 msgstr ""
 
-msgid "Has tag string/has tag string tag"
-msgstr ""
-
-msgid "HasTagString::HasTagStringTag|Model"
-msgstr ""
-
-msgid "HasTagString::HasTagStringTag|Name"
-msgstr ""
-
-msgid "HasTagString::HasTagStringTag|Value"
-msgstr ""
-
-msgid "HasTagStringTag|Model"
-msgstr ""
-
-msgid "HasTagStringTag|Name"
-msgstr ""
-
-msgid "HasTagStringTag|Value"
+msgid "Has this request been referenced in a news article or academic paper? Let us know:"
 msgstr ""
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
@@ -1714,6 +1259,9 @@ msgid "Help us classify requests that haven't been updated"
 msgstr ""
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by {{site_name}} for intermediate events, which weren't given an explicit description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
+msgstr ""
+
+msgid "Here are some snippets that may help you <strong>challenge a refusal</strong>:"
 msgstr ""
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
@@ -1827,6 +1375,9 @@ msgstr "如果你是{{user_link}}，請"
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators using this form"
 msgstr "如你認為此索取資料要求不妥當，你可以使用本表格向本站管理員舉報要求"
 
+msgid "If you can spare a few minutes to complete our short survey, it will help us make the site better. Just follow the link below."
+msgstr ""
+
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place you would type the address of any other webpage."
 msgstr ""
 
@@ -1839,7 +1390,7 @@ msgstr "如果您認為此服務對於資訊詢問自由權（FOI）官員很有
 msgid "If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr ""
 
-msgid "If you got the email <strong>more than two months ago</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
+msgid "If you got the email <strong>more than two months ago</strong> or <strong>updated your user profile</strong>, then this login link won't work any more. Please try doing what you were doing from the beginning."
 msgstr ""
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
@@ -1862,7 +1413,7 @@ msgstr ""
 "如果你不認同有關公共機構沒有持有相關資料，你可以\n"
 "            <a href=\"{{complain_url}}\">作出投訴</a>。"
 
-msgid "If you would like us to lift this ban, then you may politely<a href=\"/help/contact\">contact us</a> giving reasons."
+msgid "If you would like us to lift this ban, then you may politely <a href=\"/help/contact\">contact us</a> giving reasons."
 msgstr ""
 
 msgid "If you write about these requests (for example in a forum or a blog) please link to this page."
@@ -1916,14 +1467,17 @@ msgstr "部門覆檢要求"
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "{{info_request_user}}已於{{date}}要求{{public_body_name}}覆檢索取資料的要求。"
 
+msgid "Invalid form submission"
+msgstr ""
+
 msgid "Invalid one time password"
 msgstr ""
 
 msgid "Invalid token"
 msgstr ""
 
-msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr "{{email_address}}對{{public_body_name}}的{{type_of_request}}請求的地址是否錯誤？如果是這樣，請使用以下表格與我們聯繫："
+msgid "Is {{email_address}} the wrong address for {{law_used_full}} requests to {{public_body_name}}? If so, please contact us using this form:"
+msgstr "{{email_address}}對{{public_body_name}}的{{law_used_full}}請求的地址是否錯誤？如果是這樣，請使用以下表格與我們聯繫："
 
 msgid "It looks like something has gone wrong when sending this message. It could be a technical issue, or an issue with the email address we have for the authority."
 msgstr ""
@@ -1976,6 +1530,9 @@ msgstr ""
 msgid "Last request viewed: {{request_url}}"
 msgstr "最後已讀要求：{{request_url}}"
 
+msgid "Latest"
+msgstr ""
+
 msgid "Learn more &rarr;"
 msgstr ""
 
@@ -1983,6 +1540,9 @@ msgid "Leave project"
 msgstr ""
 
 msgid "Let us know"
+msgstr ""
+
+msgid "Let us know and we’ll help you challenge it."
 msgstr ""
 
 msgid "Let us know what you were doing when this message appeared and your browser and operating system type and version."
@@ -2135,6 +1695,12 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
+msgid "Next &#8594;"
+msgstr ""
+
+msgid "Next Step: Preview your public request"
+msgstr ""
+
 msgid "Next message"
 msgstr ""
 
@@ -2257,6 +1823,12 @@ msgstr "其他"
 
 msgid "Other:"
 msgstr "其他："
+
+msgid "Page {{page}}"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Partial success"
 msgstr "部分成功"
@@ -2457,8 +2029,8 @@ msgstr ""
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "請輸入消息或選擇包含您的回复的文件。"
 
-msgid "Please update the status of your request"
-msgstr "請更新索取資料要求的狀態"
+msgid "Please update the status of your request - {{request_title}}"
+msgstr "請更新索取資料要求的狀態 - {{request_title}}"
 
 msgid "Please use this email address for all replies to this request:"
 msgstr "請將此電子郵件地址用於對此請求的所有回复："
@@ -2485,6 +2057,9 @@ msgid "Possible related requests"
 msgstr ""
 
 msgid "Post annotation"
+msgstr ""
+
+msgid "Posted on {{date}}"
 msgstr ""
 
 msgid "Posted on {{date}} by {{author}}"
@@ -2517,9 +2092,6 @@ msgstr "預覽備註"
 msgid "Preview your message"
 msgstr "預覽訊息"
 
-msgid "Preview your public request"
-msgstr "預覽公開的索取資料要求"
-
 msgid "Preview your request"
 msgstr "預覽索取資料的要求"
 
@@ -2536,6 +2108,9 @@ msgid "Profile image for {{user_name}}"
 msgstr "{{user_name}}的頭像"
 
 msgid "Project owner"
+msgstr ""
+
+msgid "Proposed Email:"
 msgstr ""
 
 msgid "Public Bodies"
@@ -2571,27 +2146,6 @@ msgstr "最多要求的公共機構"
 msgid "Public bodies with the most successful requests"
 msgstr "最多成功要求的公共機構"
 
-msgid "Public body category translation"
-msgstr "公共機構分類翻譯"
-
-msgid "Public body heading translation"
-msgstr ""
-
-msgid "PublicBodyCategoryTranslation|Description"
-msgstr ""
-
-msgid "PublicBodyCategoryTranslation|Locale"
-msgstr ""
-
-msgid "PublicBodyCategoryTranslation|Title"
-msgstr ""
-
-msgid "PublicBodyHeadingTranslation|Locale"
-msgstr ""
-
-msgid "PublicBodyHeadingTranslation|Name"
-msgstr ""
-
 msgid "Publication scheme"
 msgstr "出版方案"
 
@@ -2619,6 +2173,9 @@ msgstr ""
 msgid "Read blog"
 msgstr "閲讀網誌"
 
+msgid "Read more"
+msgstr ""
+
 msgid "Read through authority responses and choose if their answer satisfies the intention of the original request, flag any problems and show the project owner if they need to intervene to keep the project movng forward."
 msgstr ""
 
@@ -2641,6 +2198,9 @@ msgid "Refused."
 msgstr "已拒絕。"
 
 msgid "Regenerate one time passcode"
+msgstr ""
+
+msgid "Regulation"
 msgstr ""
 
 msgid "Rejected"
@@ -2832,6 +2392,9 @@ msgstr "在本站搜尋你想要的資料"
 msgid "Search your contributions"
 msgstr "搜尋你的貢獻"
 
+msgid "Section"
+msgstr ""
+
 msgid "Send a followup"
 msgstr "跟進要求"
 
@@ -2893,6 +2456,12 @@ msgstr "顯示所有附件"
 msgid "Show fewer attachments"
 msgstr "顯示更少附件"
 
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
 msgid "Show most relevant results first"
 msgstr "優先顯示最相關的結果"
 
@@ -2930,6 +2499,9 @@ msgid "Skip"
 msgstr ""
 
 msgid "Skipped!"
+msgstr ""
+
+msgid "Snippets related to"
 msgstr ""
 
 msgid "Some notes have been added to your FOI request - {{request_title}}"
@@ -3229,6 +2801,9 @@ msgstr ""
 msgid "The public authority would like to / has responded by postal mail"
 msgstr ""
 
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr ""
+
 msgid "The request has been <strong>refused</strong>"
 msgstr "要求遭<strong>拒絕</strong>"
 
@@ -3370,10 +2945,10 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
-msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
+msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr ""
 
-msgid "There is <strong>more than one person</strong> who uses this site and has this name. One of them is shown below, you may mean a different one:"
+msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3516,7 +3091,7 @@ msgstr ""
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "此要求<strong>狀態不明</strong>。"
 
-msgid "This request has been <strong>closed to new correspondence from the public body</strong>. <a href=\"{{url}}\"\">Contact us</a> if you think it ought be re-opened."
+msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
@@ -3550,6 +3125,9 @@ msgid "This request has prominence 'hidden'. You can only see it because you are
 msgstr ""
 
 msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgstr ""
+
+msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
@@ -3786,7 +3364,7 @@ msgstr "不再關注"
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
 msgstr ""
 
-msgid "Unfortunately, we do not have a working {{info_request_law_used_full}} address for"
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
 msgstr ""
 
 msgid "Unknown"
@@ -3882,9 +3460,6 @@ msgstr "正等待公共機構回應"
 msgid "Want to know something?"
 msgstr "想知道甚麼嗎？"
 
-msgid "We consider it is not a valid FOI request as it was correspondence about your personal circumstances, and we have therefore hidden it from other users."
-msgstr ""
-
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
 msgstr ""
 
@@ -3898,6 +3473,9 @@ msgid "We couldn’t display any logs for this message."
 msgstr ""
 
 msgid "We couldn’t load the mail server logs for this message."
+msgstr ""
+
+msgid "We do not allow requests for information via {{site_name}} about your personal circumstances. We have therefore hidden your request from other users."
 msgstr ""
 
 msgid "We do not have a working request email address for this authority."
@@ -3925,6 +3503,9 @@ msgid "We will not reveal your email address to anybody unless you or the law te
 msgstr ""
 
 msgid "We will not reveal your email addresses to anybody unless you or the law tell us to."
+msgstr ""
+
+msgid "We would like to know more about you, and your experience making a Freedom of Information request through the site."
 msgstr ""
 
 msgid "We'll drop you an email as soon as your request gets a response."
@@ -4158,9 +3739,6 @@ msgstr[1] ""
 
 msgid "You can't update your profile text at this time."
 msgstr "你不可現在更改個人簡介。"
-
-msgid "You have a new response to the {{law_used_full}} request"
-msgstr ""
 
 msgid "You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}."
 msgstr ""
@@ -4436,7 +4014,7 @@ msgid "Yours,"
 msgstr "市民"
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "[Authority URL will be inserted here]"
 msgstr "[公共機構的網址將出現在此]"
@@ -4479,6 +4057,9 @@ msgstr "至"
 
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr "我們會建議<strong>下一步行動</strong>"
+
+msgid "any section"
+msgstr ""
 
 msgid "anything matching text '{{query}}'"
 msgstr "任何符合「{{query}}」的文字"
@@ -4618,9 +4199,6 @@ msgstr ""
 msgid "successful requests"
 msgstr "成功案件"
 
-msgid "that you made to"
-msgstr ""
-
 msgid "the main FOI contact address for {{public_body}}"
 msgstr "{{public_body}}的主要公開資料電郵地址"
 
@@ -4744,9 +4322,6 @@ msgstr[0] "{{count}}項要求。"
 msgid "{{existing_request_user}} already created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>, or edit the details below to make a new but similar request."
 msgstr ""
 
-msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr "向「{{public_body_name}}」根據{{foi_law}}提出的索取資料要求"
-
 msgid "{{info_request_user_name}}"
 msgstr "{{info_request_user_name}}"
 
@@ -4755,8 +4330,11 @@ msgstr ""
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
-msgid "{{law_used}} requests at {{public_body}}"
+msgid "{{law_used_short}} requests at {{public_body}}"
 msgstr ""
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "向「{{public_body_name}}」根據{{law_used_short}}提出的索取資料要求"
 
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}}前"
@@ -4810,7 +4388,7 @@ msgstr "{{public_body_name}}：{{request_url}}"
 msgid "{{public_body_name}}: {{response_url}}"
 msgstr "{{public_body_name}}：{{response_url}}"
 
-msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
+msgid "{{public_body}} has asked you to explain part of your {{law_used_short}} request."
 msgstr ""
 
 msgid "{{public_body}} sent a response to {{user_name}}"
@@ -4834,6 +4412,12 @@ msgstr ""
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "{{site_name}}能幫你向{{number_of_authorities}}個公共機構提出索取資料的要求，其中包括："
+
+msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} login link"
+msgstr ""
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
 msgstr ""
@@ -4869,7 +4453,7 @@ msgstr "{{user_name}}加入了一個備註"
 msgid "{{user_name}} has annotated your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr ""
 
-msgid "{{user_name}} has reported an {{law_used}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
+msgid "{{user_name}} has reported an {{law_used_short}} response as needing administrator attention. Take a look, and reply to this email to let them know what you are going to do about it."
 msgstr ""
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Emails about PublicBodyChangeRequests.
 class PublicBodyChangeRequestMailer < ApplicationMailer
   # Send a request to the administrator to add a new PublicBody.

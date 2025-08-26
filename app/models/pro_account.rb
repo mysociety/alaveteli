@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: pro_accounts
 #
@@ -20,6 +20,8 @@ class ProAccount < ApplicationRecord
              :inverse_of => :pro_account
 
   validates :user, presence: true
+
+  strip_attributes only: %i[default_embargo_duration]
 
   def subscription?
     subscriptions.current.any?

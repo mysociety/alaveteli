@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require "spec_helper"
 require "external_command"
 
@@ -12,7 +11,7 @@ def mail_reply_test(email_filename)
   end
 end
 
-describe "When filtering" do
+RSpec.describe "When filtering" do
 
   describe "when not in test mode" do
 

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Handles the parsing of email
 require 'tmpdir'
 

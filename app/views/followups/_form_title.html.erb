@@ -1,3 +1,9 @@
+<% if @refusal_advice.suggested_actions %>
+  <br />
+  <%= link_to _('Go back to refusal advice questions'),
+              help_unhappy_path(url_title: @info_request.url_title) %>
+<% end %>
+
 <% if @internal_review %>
   <h1><%= _('Request an internal review from {{person_or_body}}',
             :person_or_body => name_for_followup) %></h1>

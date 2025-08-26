@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: spam_addresses
 #
@@ -11,7 +11,7 @@
 
 require 'spec_helper'
 
-describe SpamAddress do
+RSpec.describe SpamAddress do
   it { is_expected.to strip_attribute(:email) }
 
   describe '.new' do

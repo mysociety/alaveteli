@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'digest/sha1'
 
 class AddAttentionRequestedFlagToInfoRequests < ActiveRecord::Migration[4.2] # 2.3

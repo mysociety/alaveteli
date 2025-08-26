@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe ActsAsXapian do
+RSpec.describe ActsAsXapian do
 
   before { update_xapian_index }
 
@@ -42,7 +41,7 @@ describe ActsAsXapian do
 
 end
 
-describe ActsAsXapian::FailedJob do
+RSpec.describe ActsAsXapian::FailedJob do
   let(:error) { StandardError.new('Testing the error handling') }
   let(:model_data) { { model: 'PublicBody', model_id: 7 } }
   let(:failed_job) { described_class.new(1, error, model_data) }
@@ -171,21 +170,16 @@ describe ActsAsXapian::FailedJob do
 
 end
 
-describe ActsAsXapian::Search do
+RSpec.describe ActsAsXapian::Search do
 
   describe "#words_to_highlight" do
 
     before do
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     before do
       @alice = FactoryBot.create(:public_body, :name => 'alice')
-      update_xapian_index
-    end
-
-    after do
-      @alice.destroy
       update_xapian_index
     end
 
@@ -255,7 +249,7 @@ describe ActsAsXapian::Search do
 
     before do
       load_raw_emails_data
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     before do
@@ -264,18 +258,10 @@ describe ActsAsXapian::Search do
       update_xapian_index
     end
 
-    after do
-      @alice.destroy
-      @bob.destroy
-      update_xapian_index
-    end
-
     it 'returns a UTF-8 encoded string' do
       s = ActsAsXapian::Search.new([PublicBody], "alece", :limit => 100)
       expect(s.spelling_correction).to eq("alice")
-      if s.spelling_correction.respond_to? :encoding
-        expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
-      end
+      expect(s.spelling_correction.encoding.to_s).to eq('UTF-8')
     end
 
     it 'handles non-ASCII characters' do

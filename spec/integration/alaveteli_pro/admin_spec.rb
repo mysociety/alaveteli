@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
-describe "administering requests" do
+RSpec.describe "administering requests" do
 
   before do
-    get_fixtures_xapian_index
+    update_xapian_index
   end
 
   context 'when the admin user is a pro' do

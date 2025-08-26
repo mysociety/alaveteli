@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 require "cancan/matchers"
 
 shared_examples_for "a class with message prominence" do
@@ -60,13 +60,30 @@ shared_examples_for "a class with message prominence" do
   end
 end
 
-describe Ability do
+RSpec.describe Ability do
   describe "reading IncomingMessages" do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
     let!(:resource) { info_request.incoming_messages.first }
     let!(:owner_ability) { Ability.new(info_request.user) }
 
     it_behaves_like "a class with message prominence"
+  end
+
+  describe 'managing OutgoingMessage::Snippet' do
+    subject { ability }
+
+    let(:ability) { Ability.new(user) }
+    let(:snippet) { FactoryBot.create(:outgoing_message_snippet) }
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:user, :admin) }
+      it { is_expected.to be_able_to(:manage, snippet) }
+    end
+
+    context 'when the user is a normal user' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.not_to be_able_to(:manage, snippet) }
+    end
   end
 
   describe "reading OutgoingMessages" do
@@ -237,6 +254,32 @@ describe Ability do
           end
         end
 
+        context 'with public token' do
+          let(:admin_ability) do
+            Ability.new(FactoryBot.create(:admin_user), public_token: true)
+          end
+
+          let(:pro_admin_ability) do
+            Ability.new(FactoryBot.create(:pro_admin_user), public_token: true)
+          end
+
+          let(:other_user_ability) do
+            Ability.new(FactoryBot.create(:user), public_token: true)
+          end
+
+          it 'should return true for an admin user' do
+            expect(admin_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a pro admin user' do
+            expect(pro_admin_ability).to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a non-admin user' do
+            expect(other_user_ability).to be_able_to(:read, resource)
+          end
+        end
+
         it 'should return true if the user owns the right resource' do
           expect(owner_ability).to be_able_to(:read, resource)
         end
@@ -244,6 +287,91 @@ describe Ability do
 
     end
 
+  end
+
+  describe 'sharing InfoRequests' do
+    let(:request) { FactoryBot.build(:info_request) }
+
+    context 'when logged out' do
+      let(:ability) { Ability.new(nil) }
+
+      it 'should return false' do
+        expect(ability).not_to be_able_to(:share, request)
+      end
+    end
+
+    context 'when the request is embargoed' do
+      let(:request) { FactoryBot.create(:embargoed_request) }
+      let(:ability) { Ability.new(user) }
+
+      context 'as request owner' do
+        let(:user) { request.user }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+
+      context 'as another user' do
+        let(:user) { FactoryBot.create(:user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an Pro admin' do
+        let(:user) { FactoryBot.create(:pro_admin_user) }
+
+        it 'should return true' do
+          expect(ability).to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an admin' do
+        let(:user) { FactoryBot.create(:admin_user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+    end
+
+    context 'when the request is public' do
+      let(:ability) { Ability.new(user) }
+
+      context 'as request owner' do
+        let(:user) { request.user }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+
+      context 'as another user' do
+        let(:user) { FactoryBot.create(:user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an Pro admin' do
+        let(:user) { FactoryBot.create(:pro_admin_user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+
+      context 'as an admin' do
+        let(:user) { FactoryBot.create(:admin_user) }
+
+        it 'should return false' do
+          expect(ability).not_to be_able_to(:share, request)
+        end
+      end
+    end
   end
 
   describe "updating request state of InfoRequests" do

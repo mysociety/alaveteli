@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/help_controller.rb:
 # Show information about one particular request.
 #
@@ -25,6 +24,8 @@ class HelpController < ApplicationController
         .not_embargoed
           .find_by_url_title!(params[:url_title])
     end
+
+    @refusal_advice = RefusalAdvice.default(@info_request)
   end
 
   def contact

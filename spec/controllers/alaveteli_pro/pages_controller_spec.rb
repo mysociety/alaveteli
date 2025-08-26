@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::PagesController do
+RSpec.describe AlaveteliPro::PagesController do
 
   describe 'GET #show' do
 

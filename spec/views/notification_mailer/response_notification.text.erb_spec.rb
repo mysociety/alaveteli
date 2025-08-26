@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "notification_mailer/response_notification.text.erb" do
+RSpec.describe "notification_mailer/response_notification.text.erb" do
   let(:notification) { FactoryBot.create(:notification) }
   let(:info_request_event) { notification.info_request_event }
   let(:incoming_message) { info_request_event.incoming_message }
@@ -13,7 +12,9 @@ describe "notification_mailer/response_notification.text.erb" do
   end
 
   it "does not add HTMLEntities to the FOI law title" do
-    allow(info_request).to receive(:law_used_human).and_return("Test's Law")
+    allow(info_request).to receive(:legislation).and_return(
+      FactoryBot.build(:legislation, full: "Test's Law")
+    )
     assign(:info_request, info_request)
     assign(:incoming_message, incoming_message)
     render

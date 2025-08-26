@@ -1,17 +1,20 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: public_body_categories
 #
-#  id           :integer          not null, primary key
-#  category_tag :text             not null
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id                      :integer          not null, primary key
+#  category_tag            :text             not null
+#  created_at              :datetime
+#  updated_at              :datetime
+#  public_body_category_id :integer          not null
+#  title                   :text
+#  description             :text
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe PublicBodyCategory do
+RSpec.describe PublicBodyCategory do
 
   context 'when validating' do
 
@@ -65,7 +68,7 @@ describe PublicBodyCategory do
                                                     :title => 'El Category',
                                                     :description => 'Spanish description' } }
 
-      category.save
+      category.save!
       expect(PublicBodyCategory.find(category.id).translations.size).to eq(2)
     end
 
@@ -89,7 +92,7 @@ describe PublicBodyCategory do
         category.translations_attributes = { :es => { :locale => 'es',
                                                       :title => 'El Category',
                                                       :description => 'Spanish description' } }
-        category.save
+        category.save!
         category.reload
         expect(category.title(:es)).to eq('El Category')
       end
@@ -99,13 +102,13 @@ describe PublicBodyCategory do
         category.translations_attributes = { 'es' => { :locale => 'es',
                                                        :title => 'Name',
                                                        :description => 'Desc' } }
-        category.save
+        category.save!
 
         category.translations_attributes = { 'es' => { :id => category.translation_for(:es).id,
                                                        :locale => 'es',
                                                        :title => 'Renamed',
                                                        :description => 'Desc' } }
-        category.save
+        category.save!
         expect(category.title(:es)).to eq('Renamed')
       end
 
@@ -157,7 +160,7 @@ describe PublicBodyCategory do
 
 end
 
-describe PublicBodyCategory::Translation do
+RSpec.describe PublicBodyCategory::Translation do
 
   it 'requires a locale' do
     translation = PublicBodyCategory::Translation.new

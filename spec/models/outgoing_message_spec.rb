@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: outgoing_messages
 #
@@ -17,9 +17,28 @@
 #  prominence_reason            :text
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe OutgoingMessage do
+RSpec.describe OutgoingMessage do
+  describe '.is_searchable' do
+    subject { described_class.is_searchable }
+
+    let!(:searchable_message) { FactoryBot.create(:initial_request) }
+    let!(:unsearchable_message) { FactoryBot.create(:initial_request, :hidden) }
+
+    it { is_expected.to include(searchable_message) }
+    it { is_expected.not_to include(unsearchable_message) }
+  end
+
+  describe '.followup' do
+    subject { described_class.followup }
+
+    let!(:followup_message) { FactoryBot.create(:new_information_followup) }
+    let!(:initial_message) { FactoryBot.create(:initial_request) }
+
+    it { is_expected.to include(followup_message) }
+    it { is_expected.not_to include(initial_message) }
+  end
 
   describe '.fill_in_salutation' do
 
@@ -1869,7 +1888,7 @@ describe OutgoingMessage do
 
 end
 
-describe OutgoingMessage, " when making an outgoing message" do
+RSpec.describe OutgoingMessage, " when making an outgoing message" do
 
   before do
     @om = outgoing_messages(:useless_outgoing_message)
@@ -1909,7 +1928,7 @@ describe OutgoingMessage, " when making an outgoing message" do
 
 end
 
-describe OutgoingMessage, "when validating the format of the message body" do
+RSpec.describe OutgoingMessage, "when validating the format of the message body" do
 
   it 'should handle a salutation with a bracket in it' do
     outgoing_message = FactoryBot.build(:initial_request)

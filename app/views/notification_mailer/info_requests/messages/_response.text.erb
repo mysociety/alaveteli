@@ -1,8 +1,8 @@
 <% incoming_message = info_request_event.incoming_message %>
 <%= _("You have a new response to the {{law_used_full}} request '{{request_title}}' that you made to {{public_body_name}}.",
-      :law_used_full => info_request.law_used_human(:full).html_safe,
-      :request_title => info_request.title.html_safe,
-      :public_body_name => info_request.public_body.name.html_safe) %>
+      law_used_full: info_request.legislation.to_s(:full).html_safe,
+      request_title: info_request.title.html_safe,
+      public_body_name: info_request.public_body.name.html_safe) %>
 
 <%= _('To view the response, click on the link below.') %>
 

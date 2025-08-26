@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'alaveteli_pro/subscription_mailer/payment_failed.text.erb' do
+RSpec.describe 'alaveteli_pro/subscription_mailer/payment_failed.text.erb' do
   subject { render }
 
   before do

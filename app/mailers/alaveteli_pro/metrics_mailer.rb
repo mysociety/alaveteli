@@ -17,7 +17,7 @@ module AlaveteliPro
       set_auto_generated_headers
 
       subject = _("{{pro_site_name}} Weekly Metrics",
-                  pro_site_name: AlaveteliConfiguration.pro_site_name.html_safe)
+                  pro_site_name: pro_site_name.html_safe)
 
       mail(from: pro_contact_from_name_and_email,
            to: pro_contact_from_name_and_email,

@@ -53,7 +53,7 @@ FRONTPAGE_SEARCH_EXAMPLES: 'Geraldine Quango; Department for Humpadinking'
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 
 # URL of theme to install (when running rails-post-deploy script)
-THEME_URL: 'git://github.com/mysociety/alavetelitheme.git'
+THEME_URL: 'https://github.com/mysociety/alavetelitheme.git'
 
 
 ## Incoming email
@@ -120,5 +120,6 @@ EXCEPTION_NOTIFICATIONS_TO: exception-recipient@example.com
 
 MAX_REQUESTS_PER_USER_PER_DAY: 2
 
-
 SKIP_ADMIN_AUTH: true
+
+UTILITY_SEARCH_PATH: []

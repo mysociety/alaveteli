@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/admin_info_request_event_controller.rb:
 # Controller for FOI request event manipulation from the admin interface.
 #
@@ -21,7 +20,7 @@ class AdminInfoRequestEventController < AdminController
     # Reset the due dates for the request if necessary
     @info_request_event.recheck_due_dates
 
-    flash[:notice] = "Old response marked as having been a clarification"
+    flash[:notice] = "Old response marked as having been a request for clarification"
     redirect_to admin_request_url(@info_request_event.info_request)
   end
 

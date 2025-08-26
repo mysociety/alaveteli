@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: info_requests
 #
@@ -10,7 +10,7 @@
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  described_state                       :string           not null
-#  awaiting_description                  :boolean          default(FALSE), not null
+#  awaiting_description                  :boolean          default("false"), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
 #  law_used                              :string           default("foi"), not null
@@ -19,19 +19,20 @@
 #  idhash                                :string           not null
 #  external_user_name                    :string
 #  external_url                          :string
-#  attention_requested                   :boolean          default(FALSE)
-#  comments_allowed                      :boolean          default(TRUE), not null
+#  attention_requested                   :boolean          default("false")
+#  comments_allowed                      :boolean          default("true"), not null
 #  info_request_batch_id                 :integer
 #  last_public_response_at               :datetime
-#  reject_incoming_at_mta                :boolean          default(FALSE), not null
-#  rejected_incoming_count               :integer          default(0)
+#  reject_incoming_at_mta                :boolean          default("false"), not null
+#  rejected_incoming_count               :integer          default("0")
 #  date_initial_request_last_sent_at     :date
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
-#  incoming_messages_count               :integer          default(0)
+#  incoming_messages_count               :integer          default("0")
+#  public_token                          :string
 #
 
 require 'digest/sha1'
@@ -45,7 +46,9 @@ class InfoRequest < ApplicationRecord
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+  include InfoRequest::PublicToken
   include InfoRequest::Sluggable
+  include InfoRequest::TitleValidation
 
   @non_admin_columns = %w(title url_title)
   @additional_admin_columns = %w(rejected_incoming_count)
@@ -53,26 +56,6 @@ class InfoRequest < ApplicationRecord
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],
                    :replace_newlines => true, :collapse_spaces => true
-
-  validates_presence_of :title, :message => N_("Please enter a summary of your request")
-
-  validates_format_of :title,
-    with: /\A.*[[:alpha:]]+.*\z/,
-    message: N_('Please write a summary with some text in it'),
-    unless: proc { |info_request| info_request.title.blank? }
-
-  validates :title, :length => {
-    :maximum => 200,
-    :message => _('Please keep the summary short, like in the subject of an ' \
-                  'email. You can use a phrase, rather than a full sentence.')
-  }
-  validates :title, :length => {
-    :minimum => 3,
-    :message => _('Summary is too short. Please be a little more descriptive ' \
-                  'about the information you are asking for.'),
-    :unless => Proc.new { |info_request| info_request.title.blank? },
-    :on => :create
-  }
 
   belongs_to :user,
              :inverse_of => :info_requests,
@@ -148,6 +131,9 @@ class InfoRequest < ApplicationRecord
 
   has_tag_string
 
+  scope :internal, -> { where.not(user_id: nil) }
+  scope :external, -> { where(user_id: nil) }
+
   scope :pro, ProQuery.new
   scope :is_public, Prominence::PublicQuery.new
   scope :is_searchable, Prominence::SearchableQuery.new
@@ -168,6 +154,8 @@ class InfoRequest < ApplicationRecord
 
   scope :for_project, Project::InfoRequestQuery.new
 
+  scope :surveyable, Survey::InfoRequestQuery.new
+
   class << self
     alias_method :in_progress, :awaiting_response
   end
@@ -178,10 +166,7 @@ class InfoRequest < ApplicationRecord
   validate :must_be_valid_state
   validates_inclusion_of :prominence, :in => Prominence::VALUES
 
-  validates_inclusion_of :law_used, :in => [
-    'foi', # Freedom of Information Act
-    'eir', # Environmental Information Regulations
-  ]
+  validates_inclusion_of :law_used, in: Legislation.keys
 
   # who can send new responses
   validates_inclusion_of :allow_new_responses_from, :in => [
@@ -196,16 +181,14 @@ class InfoRequest < ApplicationRecord
     'blackhole' # just dump them
   ]
 
-  # only check on create, so existing models with mixed case are allowed
-  validate :title_formatting, :on => :create
-
   after_initialize :set_defaults
-  after_save :update_counter_cache
-  after_destroy :update_counter_cache
-  after_update :reindex_some_request_events
-  before_destroy :expire
-  before_validation :compute_idhash
   before_create :set_use_notifications
+  before_validation :compute_idhash
+  before_validation :set_law_used, on: :create
+  after_save :update_counter_cache
+  after_update :reindex_request_events, if: :reindexable_attribute_changed?
+  before_destroy :expire
+  after_destroy :update_counter_cache
 
   # Return info request corresponding to an incoming email address, or nil if
   # none found. Checks the hash to ensure the email came from the public body -
@@ -317,16 +300,20 @@ class InfoRequest < ApplicationRecord
 
     # try to find a match on InfoRequest#title
     reply_format = InfoRequest.new(title: '').email_subject_followup
-    requests = where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+    requests_by_title = InfoRequest.left_joins(:incoming_messages).
+      where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
 
     # try to find a match on IncomingMessage#subject
-    requests +=
-      IncomingMessage.
-        includes(:info_request).
-          where(subject: [subject_line.gsub(/^Re: /i, ''), subject_line]).
-            map(&:info_request).uniq
+    requests_by_subject = InfoRequest.left_joins(:incoming_messages).
+      where(incoming_messages: {
+              subject: [subject_line.gsub(/^Re: /i, ''), subject_line].uniq
+            })
 
-    requests.delete_if(&:holding_pen_request?)
+    requests = requests_by_title.or(requests_by_subject).
+      distinct.
+      where.not(url_title: 'holding_pen').
+      limit(25)
+
     guesses = requests.each.reduce([]) do |memo, request|
       memo << Guess.new(request, subject_line, :subject)
     end
@@ -357,7 +344,7 @@ class InfoRequest < ApplicationRecord
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    conditions = { title: title, public_body_id: public_body_id }
+    conditions = { title: title&.strip, public_body_id: public_body_id }
 
     InfoRequest.
       includes(:outgoing_messages).
@@ -442,7 +429,7 @@ class InfoRequest < ApplicationRecord
     magic_email
   end
 
-  def self.create_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
+  def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
     info_request = new(info_request_atts)
     default_message_params = {
       :status => 'ready',
@@ -786,16 +773,6 @@ class InfoRequest < ApplicationRecord
   rescue LoadError, NameError
   end
 
-  # If the URL name has changed, then all request: queries will break unless
-  # we update index for every event. Also reindex if prominence changes.
-  def reindex_some_request_events
-    return unless saved_change_to_attribute?(:url_title) ||
-                  saved_change_to_attribute?(:prominence) ||
-                  saved_change_to_attribute?(:user_id)
-
-    reindex_request_events
-  end
-
   def reindex_request_events
     info_request_events.find_each do |event|
       event.xapian_mark_needs_index
@@ -840,7 +817,7 @@ class InfoRequest < ApplicationRecord
     else
       self.last_public_response_at = nil
     end
-    save
+    save!
   end
 
   # Remove spaces from ends (for when used in emails etc.)
@@ -868,8 +845,8 @@ class InfoRequest < ApplicationRecord
   def email_subject_request(opts = {})
     html = opts.fetch(:html, true)
     _('{{law_used_full}} request - {{title}}',
-      :law_used_full => law_used_human(:full),
-      :title => (html ? title : title.html_safe))
+      law_used_full: legislation.to_s(:full),
+      title: (html ? title : title.html_safe))
   end
 
   def email_subject_followup(opts = {})
@@ -886,12 +863,9 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def law_used_human(key = :full)
-    begin
-      applicable_law.fetch(key)
-    rescue KeyError
-      raise "Unknown key '#{key}' for '#{law_used}'"
-    end
+  def legislation
+    return Legislation.find!(law_used) if law_used
+    public_body&.legislation || Legislation.default
   end
 
   def find_existing_outgoing_message(body)
@@ -1258,9 +1232,9 @@ class InfoRequest < ApplicationRecord
     MailHandler.address_from_name_and_email(
       # TRANSLATORS: Please don't use double quotes (") in this translation
       # or it will break the site's ability to send emails to authorities!
-      _("{{law_used}} requests at {{public_body}}",
-        :law_used => law_used_human(:short),
-        :public_body => public_body.short_or_long_name),
+      _("{{law_used_short}} requests at {{public_body}}",
+        law_used_short: legislation,
+        public_body: public_body.short_or_long_name),
         recipient_email)
   end
 
@@ -1436,7 +1410,7 @@ class InfoRequest < ApplicationRecord
       ""
     # If the user can view hidden things, they can view anything, so no need
     # to go any further
-    elsif User.view_hidden?(user)
+    elsif user&.view_hidden?
       "_hidden"
     # If the user can't view hidden things, but owns the request, they can
     # see more than the public, so they get requester_only
@@ -1446,6 +1420,14 @@ class InfoRequest < ApplicationRecord
     else
       ""
     end
+  end
+
+  def reason_to_be_unhappy?
+    classified? && State.unhappy.include?(calculate_status)
+  end
+
+  def classified?
+    !awaiting_description?
   end
 
   def is_old_unclassified?
@@ -1516,12 +1498,11 @@ class InfoRequest < ApplicationRecord
   # Masks we apply to text associated with this request convert email addresses
   # we know about into textual descriptions of them
   def masks
-    masks = [{ :to_replace => incoming_email,
-               :replacement =>  _('[FOI #{{request}} email]',
-                                  :request => id.to_s) },
-             { :to_replace => AlaveteliConfiguration::contact_email,
-               :replacement => _("[{{site_name}} contact email]",
-                                 :site_name => AlaveteliConfiguration::site_name)} ]
+    masks = [{ to_replace: incoming_email,
+               replacement: _('[FOI #{{request}} email]', request: id.to_s) },
+             { to_replace: AlaveteliConfiguration.contact_email,
+               replacement: _("[{{site_name}} contact email]",
+                              site_name: site_name) }]
     if public_body.is_followupable?
       masks << { :to_replace => public_body.request_email,
                  :replacement => _("[{{public_body}} request email]",
@@ -1623,9 +1604,7 @@ class InfoRequest < ApplicationRecord
     attrs = { :public_body => destination_public_body }
 
     if destination_public_body
-      attrs.merge!({
-        :law_used => destination_public_body.law_only_short.downcase
-      })
+      attrs[:law_used] = destination_public_body.legislation.key
     end
 
     return_val = if update(attrs)
@@ -1751,6 +1730,10 @@ class InfoRequest < ApplicationRecord
     self == self.class.holding_pen_request
   end
 
+  def latest_refusals
+    incoming_messages.select(&:refusals?).last&.refusals || []
+  end
+
   private
 
   def self.add_conditions_from_extra_params(params, extra_params)
@@ -1874,11 +1857,11 @@ class InfoRequest < ApplicationRecord
       # this should only happen on Model.exists? call. It can be safely ignored.
       # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/
     end
+  end
 
-    # FOI or EIR?
-    if new_record? && public_body && public_body.eir_only?
-      self.law_used = 'eir'
-    end
+  def set_law_used
+    return if law_used_changed?
+    self.law_used = public_body.legislation.key if public_body
   end
 
   def set_use_notifications
@@ -1889,36 +1872,17 @@ class InfoRequest < ApplicationRecord
     return true
   end
 
-  def applicable_law
-    begin
-      TranslatedConstants.law_used_readable_data.fetch(law_used.to_sym)
-    rescue KeyError
-      raise "Unknown law used '#{law_used}'"
-    end
-  end
-
-  def title_formatting
-    return unless title
-    unless MySociety::Validate.uses_mixed_capitals(title, 1) ||
-           title_starts_with_number || title_is_acronym(6)
-      errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
-    end
-    if title =~ /^(FOI|Freedom of Information)\s*requests?$/i
-      errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
-    end
-  end
-
-  def title_is_acronym(max_length)
-    title.upcase == title && title.length <= max_length && !title.include?(" ")
-  end
-
-  def title_starts_with_number
-    title.include?(" ") && title.split(" ").first =~ /^\d+$/
-  end
-
   def must_be_valid_state
     unless State.all.include?(described_state)
       errors.add(:described_state, "is not a valid state")
+    end
+  end
+
+  # If the URL name has changed, then all request: queries will break unless
+  # we update index for every event. Also reindex if prominence changes.
+  def reindexable_attribute_changed?
+    %i[url_title prominence user_id].any? do |attr|
+      saved_change_to_attribute?(attr)
     end
   end
 end

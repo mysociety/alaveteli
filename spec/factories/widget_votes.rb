@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: widget_votes
 #
@@ -9,7 +9,6 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-
 require 'securerandom'
 FactoryBot.define do
   factory :widget_vote do

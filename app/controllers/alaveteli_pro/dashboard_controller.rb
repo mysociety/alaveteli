@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # app/controllers/alaveteli_pro/dashboard_controller.rb
 # Dashboard controller, for pro user dashboards.
 #

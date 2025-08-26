@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class UserProfile::AboutMeController < ApplicationController
   before_action :set_title
   before_action :check_user_logged_in
@@ -44,11 +43,11 @@ class UserProfile::AboutMeController < ApplicationController
   private
 
   def check_user_logged_in
-    if authenticated_user.nil?
-      flash[:error] = _("You need to be logged in to change the text about you on your profile.")
-      redirect_to frontpage_url
-      return
-    end
+    return if authenticated?
+
+    flash[:error] = _('You need to be logged in to change the text about you ' \
+                      'on your profile.')
+    redirect_to frontpage_url
   end
 
   def set_title

@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe TrackMailer do
+RSpec.describe TrackMailer do
   describe '.alert_tracks' do
     subject { described_class.alert_tracks }
 
@@ -24,7 +23,7 @@ describe TrackMailer do
       allow(mail_mock).to receive(:deliver_now)
       allow(TrackMailer).to receive(:event_digest).and_return(mail_mock)
       allow(Time).to receive(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
-      get_fixtures_xapian_index
+      update_xapian_index
     end
 
     it 'asks for all the users whose last daily track email was sent more than a day ago' do

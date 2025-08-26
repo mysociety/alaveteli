@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class RemoveCommentTypeFromComment < ActiveRecord::Migration[4.2] # 3.2
   def up
     remove_column :comments, :comment_type

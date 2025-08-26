@@ -7,8 +7,8 @@ class ClassificationsController < ApplicationController
   prepend_before_action :check_read_only, only: :create
 
   rescue_from CanCan::AccessDenied do
-    authenticated_as_user?(
-      @info_request.user,
+    authenticated?(as: @info_request.user) || ask_to_login(
+      as: @info_request.user,
       web: _('To classify the response to this FOI request'),
       email: _('Then you can classify the FOI response you have got from ' \
                '{{authority_name}}.',
@@ -81,7 +81,7 @@ class ClassificationsController < ApplicationController
     when 'waiting_response', 'waiting_response_overdue', 'not_held',
       'successful', 'internal_review', 'error_message', 'requires_admin'
       redirect_to_info_request
-    when 'waiting_response_very_overdue', 'rejected', 'partially_successful'
+    when *InfoRequest::State.unhappy
       redirect_to unhappy_url(@info_request)
     when 'waiting_clarification', 'user_withdrawn'
       redirect_to respond_to_last_url(@info_request)

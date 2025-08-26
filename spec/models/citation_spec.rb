@@ -1,11 +1,12 @@
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: citations
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
+#  id           :bigint           not null, primary key
+#  user_id      :bigint
 #  citable_type :string
-#  citable_id   :integer
+#  citable_id   :bigint
 #  source_url   :string
 #  type         :string
 #  created_at   :datetime         not null
@@ -65,6 +66,25 @@ def setup_for_x_scope_data
 end
 
 RSpec.describe Citation, type: :model do
+  describe '.newest' do
+    let!(:citations) do
+      3.times.map { FactoryBot.create(:citation) }
+    end
+
+    context 'without a given limit' do
+      subject { described_class.newest }
+      it { is_expected.to include(citations.last) }
+      it { is_expected.not_to match_array(citations.take(2)) }
+    end
+
+    context 'with a given limit' do
+      subject { described_class.newest(limit) }
+      let(:limit) { 2 }
+      it { is_expected.to match_array(citations.last(2)) }
+      it { is_expected.not_to include(citations.first) }
+    end
+  end
+
   describe '.for_request' do
     subject { described_class.for_request(info_request) }
 

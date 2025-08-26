@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Account requests
 #
 # Copyright (c) 2017 UK Citizens Online Democracy. All rights reserved.
@@ -14,7 +13,7 @@ module AlaveteliPro
       mail(:from => blackhole_email,
            :to => pro_contact_from_name_and_email,
            :subject => _("{{pro_site_name}} account request",
-                         pro_site_name: AlaveteliConfiguration.pro_site_name)
+                         pro_site_name: pro_site_name)
           )
     end
   end

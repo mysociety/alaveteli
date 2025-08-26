@@ -5,7 +5,7 @@ def render_view
          locals: stub_locals
 end
 
-describe 'request/citations' do
+RSpec.describe 'request/citations' do
   let(:info_request) { FactoryBot.create(:info_request) }
 
   let(:ability) { Object.new.extend(CanCan::Ability) }

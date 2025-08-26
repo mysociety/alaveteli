@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: post_redirects
 #
@@ -15,9 +15,33 @@
 #  circumstance       :text             default("normal"), not null
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe PostRedirect do
+RSpec.describe PostRedirect do
+
+  describe '.generate_verifiable_token' do
+    subject do
+      described_class.generate_verifiable_token(
+        user: user, circumstance: 'normal'
+      )
+    end
+
+    let(:user) { double(:user, id: 101, login_token: 'abc') }
+
+    it 'matches expected token' do
+      is_expected.to eq(
+        described_class.verifier.generate(
+          { user_id: user.id, login_token: user.login_token },
+          purpose: 'normal'
+        )
+      )
+    end
+  end
+
+  describe '.verifier' do
+    subject { described_class.verifier }
+    it { is_expected.to be_a(ActiveSupport::MessageVerifier) }
+  end
 
   describe '#valid?' do
 
@@ -28,9 +52,50 @@ describe PostRedirect do
 
   end
 
+  describe '#email_token_valid?' do
+
+    subject { post_redirect.email_token_valid? }
+
+    # Using attributes_for as PostRedirect redirect assigns attributes in
+    # after_initialize callbacks. FactoryBot doesn't handle this correctly
+    let!(:post_redirect) { PostRedirect.create(attributes.merge(user: user)) }
+    let(:user) { FactoryBot.create(:user) }
+
+    context 'when an old non-message verifier tokens' do
+      let(:attributes) do
+        FactoryBot.attributes_for(
+          :post_redirect,
+          circumstance: 'change_email',
+          email_token: 'ABC'
+        )
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'when user login token has not changed' do
+      let(:attributes) do
+        FactoryBot.attributes_for(:post_redirect, circumstance: 'change_email')
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'when user login token has changed' do
+      let(:attributes) do
+        FactoryBot.attributes_for(:post_redirect, circumstance: 'change_email')
+      end
+
+      before { user.update(email: 'new@email') }
+
+      it { is_expected.to eq false }
+    end
+
+  end
+
 end
 
-describe PostRedirect, " when constructing" do
+RSpec.describe PostRedirect, " when constructing" do
   before do
   end
 
@@ -64,9 +129,31 @@ describe PostRedirect, " when constructing" do
     pr = PostRedirect.new
     expect(pr.email_token).to match(/[a-z0-9]+/);
   end
+
+  context 'when normal circumstance' do
+    it 'should call not .generate_verifiable_token' do
+      allow(PostRedirect).to receive(:generate_verifiable_token)
+      PostRedirect.new(circumstance: 'normal')
+      expect(PostRedirect).to_not receive(:generate_verifiable_token)
+    end
+  end
+
+  context 'when not normal circumstance' do
+    it 'should call .generate_verifiable_token' do
+      allow(PostRedirect).to receive(:generate_verifiable_token)
+
+      user = FactoryBot.build(:user, login_token: 'abc')
+      pr = PostRedirect.new(user: user, circumstance: 'change_password')
+
+      expect(PostRedirect).to receive(:generate_verifiable_token)
+      expect(pr.email_token).to eq described_class.generate_verifiable_token(
+        user: user, circumstance: 'change_password'
+      )
+    end
+  end
 end
 
-describe PostRedirect, " when accessing values" do
+RSpec.describe PostRedirect, " when accessing values" do
   before do
   end
 
@@ -90,6 +177,6 @@ describe PostRedirect, " when accessing values" do
     pr = PostRedirect.new
     utf8_params = "--- \n:foo: !binary |\n  0KLQvtCz0LDRiCDR\n"
     pr.reason_params_yaml = utf8_params
-    expect(pr.reason_params[:foo].encoding.to_s).to eq('UTF-8') if pr.reason_params[:foo].respond_to?(:encoding)
+    expect(pr.reason_params[:foo].encoding.to_s).to eq('UTF-8')
   end
 end

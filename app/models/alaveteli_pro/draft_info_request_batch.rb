@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: draft_info_request_batches
 #
@@ -14,6 +14,7 @@
 
 class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
   include AlaveteliPro::RequestSummaries
+  include InfoRequest::DraftTitleValidation
 
   belongs_to :user,
              :inverse_of => :draft_info_request_batches
@@ -27,6 +28,8 @@ class AlaveteliPro::DraftInfoRequestBatch < ApplicationRecord
   validates_presence_of :user
 
   after_initialize :set_default_body
+
+  strip_attributes only: %i[embargo_duration]
 
   def set_default_body
     if body.blank?

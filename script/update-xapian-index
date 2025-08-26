@@ -1,4 +1,8 @@
 #!/bin/bash
 
+# If we get a SIGTERM, send a SIGKILL to our children before exiting.
+trap 'kill -KILL $(jobs -p); wait; exit 0;' SIGTERM
+
 cd `dirname $0`
-bundle exec rake --silent xapian:update_index "$@"
+bundle exec rake --silent xapian:update_index "$@" &
+wait

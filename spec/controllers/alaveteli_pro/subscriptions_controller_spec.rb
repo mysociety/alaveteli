@@ -1,8 +1,7 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 require 'stripe_mock'
 
-describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
+RSpec.describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
@@ -50,7 +49,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       RSpec.shared_examples 'successful example' do
@@ -99,12 +98,14 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         let(:user) { FactoryBot.create(:user) }
 
         before do
-          session[:user_id] = user.id
+          sign_in user
           post :create, params: {
             'stripe_token' => token,
             'plan_id' => 'pro',
             'coupon_code' => ''
           }
+          # reset user so authenticated_user reloads
+          controller.instance_variable_set(:@user, nil)
           post :create, params: {
             'stripe_token' => token,
             'plan_id' => 'pro',
@@ -493,7 +494,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       let(:user) { pro_account.user }
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         allow(controller).to receive(:current_user).and_return(user)
       end
 
@@ -763,7 +764,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'redirects to the pricing page' do
@@ -789,7 +790,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       before do
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'successfully loads the page' do
@@ -894,7 +895,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
 
       before do
         user.pro_account.update(stripe_customer_id: nil)
-        session[:user_id] = user.id
+        sign_in user
       end
 
       it 'raise an error' do
@@ -925,7 +926,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
       end
 
       before do
-        session[:user_id] = user.id
+        sign_in user
         delete :destroy, params: { id: subscription.id }
       end
 
@@ -958,7 +959,7 @@ describe AlaveteliPro::SubscriptionsController, feature: :pro_pricing do
         end
 
         it 'raises an error' do
-          session[:user_id] = user.id
+          sign_in user
           expect {
             delete :destroy, params: { id: other_subscription.id }
           }.to raise_error ActiveRecord::RecordNotFound

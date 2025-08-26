@@ -1,5 +1,5 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
+# Schema version: 20210114161442
 #
 # Table name: request_summaries
 #
@@ -7,8 +7,8 @@
 #  title              :text
 #  body               :text
 #  public_body_names  :text
-#  summarisable_id    :integer          not null
 #  summarisable_type  :string           not null
+#  summarisable_id    :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
@@ -89,7 +89,7 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
         batch.title = "Updated title"
         batch.body = "Updated body"
         batch.public_bodies << public_body
-        batch.save
+        batch.save!
         updated_summary = AlaveteliPro::RequestSummary.
           create_or_update_from(batch)
         expect(updated_summary.id).to eq summary.id

@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
+require 'spec_helper'
 
-describe "contact_mailer/user_message" do
+RSpec.describe "contact_mailer/user_message" do
   let(:user) { FactoryBot.create(:user, :name => "Test Us'r") }
 
   before do

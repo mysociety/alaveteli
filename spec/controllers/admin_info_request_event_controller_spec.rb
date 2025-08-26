@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-describe AdminInfoRequestEventController do
+RSpec.describe AdminInfoRequestEventController do
 
   describe 'PUT update' do
     let(:info_request_event) do
@@ -47,7 +46,7 @@ describe AdminInfoRequestEventController do
       it 'shows a success notice' do
         put :update, params: { :id => info_request_event }
         expect(flash[:notice]).
-          to eq('Old response marked as having been a clarification')
+          to eq('Old response marked as having been a request for clarification')
       end
 
       it 'redirects to the request admin page' do

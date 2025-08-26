@@ -19,6 +19,7 @@
 /config/newrelic.yml
 /config/rails_env.rb
 /config/user_spam_scorer.yml
+/config/xapian.yml
 /coverage/
 /db/schema.rb
 /db/structure.sql

@@ -1,7 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AlaveteliPro::RequestFilter do
+RSpec.describe AlaveteliPro::RequestFilter do
 
   describe '#update' do
 
