@@ -1,0 +1,21 @@
+
+# 2025-08-28 17:44:32.681365
++start_all()
+
+# 2025-09-02 16:10:42.186062
++root
+
+# 2025-09-02 16:11:04.918520
++start_all()
+
+# 2025-09-02 18:27:39.514388
++    server.succeed("curl http://server/ | grep -o Alaveteli")
+
+# 2025-09-02 18:29:24.857814
++server.succeed("curl -v http://server/ ")
+
+# 2025-09-02 18:29:50.646841
++server.succeed("curl -v http://localhost:3000/ ")
+
+# 2025-09-02 18:35:19.047891
++start_all()
