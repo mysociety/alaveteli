@@ -1,0 +1,58 @@
+{ stdenvNoCC, lib, nixosTests, fetchFromGitHub, applyPatches, bundlerEnv
+, callPackage, git, procps, makeWrapper, ruby, postgresql, cacert, valkey
+, dataDir ? "/var/www/alaveteli", mkBundleEnv, system }:
+
+let
+  pname = "alaveteli";
+  # TODO: get this from git?
+  version = "0.0.1";
+  # TODO: make this a function arg?
+  dataDir = "/var/lib/alaveteli";
+
+  src = applyPatches {
+    src = ./.;
+
+    # TODO: patch Gemfile.lock with theme gems
+    postPatch = ''
+      sed -i -e "s|ruby '3.2.[0-9]\+'|ruby '${ruby.version}'|" Gemfile
+      sed -i -e "s|ruby 3.2.[0-9]\+p[0-9]\+|ruby ${ruby.version}|" Gemfile.lock
+      rm public/views_cache
+    '';
+  };
+
+  rubyEnv = mkBundleEnv.default {
+    themeGemset = { };
+    themeLockfile = ./Gemfile.lock;
+  };
+
+in stdenvNoCC.mkDerivation {
+  inherit pname version src;
+
+  buildInputs = [ git rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
+
+  nativeBuildInputs = [ valkey postgresql procps cacert ];
+
+  env.RAILS_ENV = "production";
+
+  installPhase = ''
+    cp -R . $out
+    rm -rf $out/config/database.yml $out/tmp $out/log
+    # dataDir will be set in the module, and the package gets overriden there
+    ln -s ${dataDir}/config/database.yml $out/config/database.yml
+    ln -s ${dataDir}/tmp $out/tmp
+    ln -s ${dataDir}/log $out/log
+  '';
+
+  passthru = {
+    inherit rubyEnv;
+  };
+
+  meta = with lib; {
+    description =
+      "Alaveteli, a Freedom of Information request system for your jurisdiction";
+    homepage = "https://alaveteli.org";
+    license = licenses.agpl3Plus;
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [ laurents ];
+  };
+}

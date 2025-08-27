@@ -7,6 +7,7 @@
 
 
   inputs = {
+    # self.submodules = true;
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
     nixpkgs-21_11.url = "github:nixos/nixpkgs/nixos-21.11";
     systems.url = "github:nix-systems/default";
@@ -14,6 +15,8 @@
       url = "github:cachix/devenv";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # nixpkgs-ruby.url = "github:bobvanderlinden/nixpkgs-ruby";
+    # nixpkgs-ruby.inputs = { nixpkgs.follows = "nixpkgs"; };
   };
 
   nixConfig = {
@@ -25,10 +28,18 @@
   outputs = { self, nixpkgs, nixpkgs-21_11, devenv, systems, ... }@inputs:
     let forEachSystem = nixpkgs.lib.genAttrs (import systems);
     in {
-      packages = forEachSystem (system: {
-        devenv-up = self.devShells.${system}.default.config.procfileScript;
-        devenv-test = self.devShells.${system}.default.config.test;
-      });
+      # imports = [ ./package.nix ];
+      packages = forEachSystem (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          ruby = pkgs.ruby_3_4;
+        in {
+          devenv-up = self.devShells.${system}.default.config.procfileScript;
+          devenv-test = self.devShells.${system}.default.config.test;
+          serverTests = pkgs.testers.runNixOSTest ./alaveteli-server-test.nix;
+          default =
+            pkgs.callPackage ./package.nix { mkBundleEnv = self.mkBundleEnv; };
+        });
 
       # allow the theme flake to override these
       themeGemset = { };
@@ -36,57 +47,7 @@
 
       mkBundleEnv = forEachSystem (system:
         let pkgs = nixpkgs.legacyPackages.${system};
-        in {
-          default = { themeGemset, themeLockfile }:
-            pkgs.bundlerEnv {
-              name = "gems-for-alaveteli";
-              gemdir = ./.;
-              ruby = pkgs.ruby_3_4;
-              extraConfigPaths = [ "${./.}/gems" ];
-              lockfile = themeLockfile;
-              gemset = let gems = import ./gemset.nix;
-              in gems // {
-                mini_racer = gems.mini_racer // {
-                  buildInputs = [ pkgs.icu ];
-                  dontBuild = false;
-                  NIX_LDFLAGS = "-licui18n";
-                };
-                libv8-node = let
-                  noopScript = pkgs.writeShellScript "noop" "exit 0";
-                  linkFiles = pkgs.writeShellScript "link-files" ''
-                    cd ../..
-
-                    mkdir -p vendor/v8/${pkgs.stdenv.hostPlatform.system}/libv8/obj/
-                    ln -s "${pkgs.nodejs.libv8}/lib/libv8.a" vendor/v8/${pkgs.stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
-
-                    ln -s ${pkgs.nodejs.libv8}/include vendor/v8/include
-
-                    mkdir -p ext/libv8-node
-                    echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
-                  '';
-                in gems.libv8-node // {
-                  dontBuild = false;
-                  postPatch = ''
-                    cp ${noopScript} libexec/build-libv8
-                    cp ${noopScript} libexec/build-monolith
-                    cp ${noopScript} libexec/download-node
-                    cp ${noopScript} libexec/extract-node
-                    cp ${linkFiles} libexec/inject-libv8
-                  '';
-                };
-              } // builtins.trace themeGemset themeGemset;
-              gemConfig = pkgs.defaultGemConfig // {
-                mahoro = attrs: { nativeBuildInputs = [ pkgs.file ]; };
-                xapian-full-alaveteli = attrs: {
-                  nativeBuildInputs = [ pkgs.zlib ];
-                };
-                statistics2 = attrs: {
-                  buildFlags = [ "--with-cflags=-Wno-error=implicit-int" ];
-                };
-              };
-              # preBuild = if themeGems != { } then
-            };
-        });
+        in { default = pkgs.callPackage ./bundlerEnv.nix { }; });
       alaveteliGems = forEachSystem (system:
         # let pkgs = nixpkgs.legacyPackages.${system};
         # in {
@@ -170,6 +131,7 @@
           # with whatever is passed below
           alaveteli_config_general = pkgs.writeText "general.yml" (toYAML {
             OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS = "publicbody@localhost";
+            # THEME_URLS = [ "https://github.com/mysociety/alavetelitheme.git" ];
           });
         in {
           # commonModules are exposed here so that each devenv can access
@@ -186,6 +148,8 @@
               cp config/storage.yml-example config/storage.yml
               rm -f config/general.yml
               ln -s "${alaveteli_config_general}" config/general.yml
+              # use the madada config file
+              # ln -s ../../dada-core/config/general_dada.yml config/general.yml
               rm -f config/database.yml
               ln -s "${rails_db_conf_file}" config/database.yml
               #
