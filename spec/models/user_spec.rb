@@ -2167,6 +2167,13 @@ RSpec.describe User do
 
     let!(:user) { FactoryBot.create(:user) }
 
+    let!(:internal_admin_user) do
+      FactoryBot.create(:user, :limited, :internal_admin_user)
+    end
+
+    let!(:admin) { FactoryBot.create(:user, :limited, :admin) }
+    let!(:pro_admin) { FactoryBot.create(:user, :limited, :pro_admin) }
+
     let!(:confirmed_user) do
       FactoryBot.create(:user, :limited, confirmed_not_spam: true)
     end
@@ -2183,6 +2190,9 @@ RSpec.describe User do
     let!(:limited_user_2) { FactoryBot.create(:user, :limited) }
 
     it { is_expected.to_not include(user) }
+    it { is_expected.to_not include(internal_admin_user) }
+    it { is_expected.to_not include(admin) }
+    it { is_expected.to_not include(pro_admin) }
     it { is_expected.to_not include(confirmed_user) }
     it { is_expected.to_not include(user_with_request) }
     it { is_expected.to_not include(user_with_classification) }
@@ -2207,6 +2217,21 @@ RSpec.describe User do
     context 'when limited' do
       let(:user) { FactoryBot.create(:user, :limited) }
       it { is_expected.to eq(true) }
+    end
+
+    context 'when the internal_admin_user' do
+      let(:user) { FactoryBot.create(:user, :limited, :internal_admin_user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when an admin' do
+      let(:user) { FactoryBot.create(:user, :limited, :admin) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when an pro_admin' do
+      let(:user) { FactoryBot.create(:user, :limited, :pro_admin) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when confirmed_not_spam' do
