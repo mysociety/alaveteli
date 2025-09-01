@@ -51,6 +51,18 @@ RSpec.describe UserSpamScorer do
     end
   end
 
+  describe '.spam_email_formats' do
+    it 'sets a default spam_email_formats value' do
+      expect(described_class.spam_email_formats).
+        to eq(described_class::DEFAULT_SPAM_EMAIL_FORMATS)
+    end
+
+    it 'sets a custom spam_email_formats value' do
+      described_class.spam_email_formats = [/\A.*$/]
+      expect(described_class.spam_email_formats).to eq([/\A.*$/])
+    end
+  end
+
   describe '.spam_name_formats' do
     it 'sets a default spam_name_formats value' do
       expect(described_class.spam_name_formats).
@@ -492,6 +504,22 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, email_domain: 'example.net')
       scorer = described_class.new(spam_tlds: mock_spam_tlds)
       expect(scorer.email_from_spam_tld?(user)).to eq(false)
+    end
+  end
+
+  describe '#email_is_spam_format?' do
+    let(:mock_spam_formats) { [/\A[^+]+\+[^@]+@.*$/] }
+
+    it 'is true if the email matches a spammy format' do
+      user = mock_model(User, email: 'foo+bar@localhost')
+      scorer = described_class.new(spam_email_formats: mock_spam_formats)
+      expect(scorer.email_is_spam_format?(user)).to eq(true)
+    end
+
+    it 'is false if the email is not a spammy format' do
+      user = mock_model(User, email: 'bob@localhost')
+      scorer = described_class.new(spam_email_formats: mock_spam_formats)
+      expect(scorer.email_is_spam_format?(user)).to eq(false)
     end
   end
 

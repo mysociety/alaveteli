@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add `UserSpamScorer.spam_email_formats` to test email addresses against
+  regular expressions to see if they are spammy or not (Graeme Porteous)
 * Add `last_sign_in_at` column to users (Graeme Porteous)
 * Render Alaveteli configuration values on admin debug page (Gareth Rees)
 * Clarify no sign ins message (Gareth Rees)
