@@ -144,7 +144,7 @@ namespace :users do
 
   desc 'Purge profile content from limited users'
   task purge_limited: :environment do
-    users = User.dormant.limited_profile.where(created_at: ...6.months.ago)
+    users = User.unused.limited_profile.where(created_at: ...6.months.ago)
     users.find_each do |user|
       user.update!(about_me: '') if user.about_me.present?
       user.profile_photo&.destroy
@@ -152,8 +152,8 @@ namespace :users do
   end
 
   desc 'Destroy user accounts that have not created any content'
-  task destroy_dormant: :environment do
-    users = User.dormant.where(created_at: ...2.years.ago)
+  task destroy_unused: :environment do
+    users = User.unused.where(created_at: ...2.years.ago)
     users.destroy_all
   end
 end
