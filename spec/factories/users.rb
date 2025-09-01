@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20250521110346
+# Schema version: 20250819094321
 #
 # Table name: users
 #
@@ -38,6 +38,7 @@
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
 #  status_update_count               :integer          default(0), not null
+#  last_sign_in_at                   :datetime
 #
 
 FactoryBot.define do

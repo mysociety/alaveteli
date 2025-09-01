@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add `last_sign_in_at` column to users (Graeme Porteous)
 * Render Alaveteli configuration values on admin debug page (Gareth Rees)
 * Clarify no sign ins message (Gareth Rees)
 * Check user spam scoring on email address change (Graeme Porteous)

@@ -166,9 +166,7 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
     session[:user_login_token] = user.login_token
     session[:remember_me] = remember_me
-    # Intentionally allow to fail silently so that we don't have to care whether
-    # sign in recording is enabled.
-    user.sign_ins.create(
+    user.record_sign_in(
       ip: user_ip, country: country_from_ip, user_agent: request.user_agent
     )
   end
