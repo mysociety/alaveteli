@@ -10,6 +10,12 @@ let
   settingsFormat = pkgs.formats.yaml { };
   appPort = 3000;
   railsMaxThreads = 3;
+
+  alaveteliConfig = settingsFormat.generate "general.yml" {
+    # drop emails in /tmp/mails while debugging
+    PRODUCTION_MAILER_DELIVERY_METHOD = "file";
+  };
+
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
 
   storageConfig = settingsFormat.generate "storage.yml" {
@@ -223,6 +229,8 @@ in {
 
     users.groups.${cfg.group} = { };
 
+    services.memcached = { enable = true; };
+
     services.postgresql = lib.optionalAttrs (cfg.database.createLocally) {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
@@ -294,6 +302,7 @@ in {
         mkdir -p ${cfg.dataDir}/tmp
         cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
         cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
+        cat ${alaveteliConfig} > ${cfg.dataDir}/config/general.yml
 
         ./script/rails-deploy-while-down
       '';
