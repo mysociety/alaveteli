@@ -296,6 +296,20 @@ RSpec.describe Users::SessionsController do
           expect(session[:user_id]).to eq user.id
         end
       end
+
+      context 'when the user is an admin' do
+        before do
+          user.add_role(:admin)
+
+          allow(@controller).
+            to receive(:spam_should_be_blocked?).and_return(true)
+        end
+
+        it 'allows the signin' do
+          do_signin(user.email, 'password1234')
+          expect(session[:user_id]).to eq user.id
+        end
+      end
     end
 
     it "should ask you to confirm your email if it isn't confirmed, after log in" do

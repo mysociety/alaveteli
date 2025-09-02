@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Don't run the spam checker for admin accounts on sign in (Gareth Rees)
 * Add no crawl meta tags to banned/closed user profile pages (Graeme Porteous)
 * Add `UserSpamScorer.spam_email_formats` to test email addresses against
   regular expressions to see if they are spammy or not (Graeme Porteous)

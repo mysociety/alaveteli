@@ -8,6 +8,8 @@ module UserSpamCheck
   end
 
   def spam_user?(user)
+    return false if user.admin?
+
     user_with_request = User::WithRequest.new(user, request)
     UserSpamScorer.new(spam_scorer_config).spam?(user_with_request)
   end
