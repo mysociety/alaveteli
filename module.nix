@@ -11,6 +11,23 @@ let
   appPort = 3000;
   railsMaxThreads = 3;
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
+
+  storageConfig = settingsFormat.generate "storage.yml" {
+
+    local = {
+      service = "Disk";
+      root = "${cfg.dataDir}/storage/local";
+    };
+    raw_emails = {
+      service = "Disk";
+      # can't use Rails.root here, as it would end up in /nix/store
+      root = "${cfg.dataDir}/storage/raw_emails";
+    };
+    attachments = {
+      service = "Disk";
+      root = "${cfg.dataDir}/storage/attachments";
+    };
+  };
   environment = {
     RAILS_ENV = "production";
     # env vars below are picked up by config/puma.rb
@@ -275,6 +292,7 @@ in {
         mkdir -p ${cfg.dataDir}/log
         mkdir -p ${cfg.dataDir}/tmp
         cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
+        cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
       '';
     };
 
