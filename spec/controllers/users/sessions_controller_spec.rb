@@ -236,7 +236,8 @@ RSpec.describe Users::SessionsController do
         FactoryBot.create(
           :user,
           email: 'spammer@example.com', name: 'Download New Person 1080p!',
-          password: 'password1234', email_confirmed: true
+          password: 'password1234', email_confirmed: true,
+          confirmed_not_spam: false
         )
       end
 
@@ -300,6 +301,20 @@ RSpec.describe Users::SessionsController do
       context 'when the user is an admin' do
         before do
           user.add_role(:admin)
+
+          allow(@controller).
+            to receive(:spam_should_be_blocked?).and_return(true)
+        end
+
+        it 'allows the signin' do
+          do_signin(user.email, 'password1234')
+          expect(session[:user_id]).to eq user.id
+        end
+      end
+
+      context 'when the user is confirmed_not_spam' do
+        before do
+          user.update(confirmed_not_spam: true)
 
           allow(@controller).
             to receive(:spam_should_be_blocked?).and_return(true)
