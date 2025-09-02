@@ -29,6 +29,7 @@ let
     };
   };
   environment = {
+    LOGFILE = "${cfg.dataDir}/log/production.log";
     RAILS_ENV = "production";
     # env vars below are picked up by config/puma.rb
     RAILS_MAX_THREADS = toString railsMaxThreads;
