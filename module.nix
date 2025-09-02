@@ -285,7 +285,7 @@ in {
       };
 
       # make these programs available to the alaveteli service
-      path = [ pkgs.git ];
+      path = [ package pkgs.git ];
 
       # TODO: should this be here or in a separate service definition? (and rails-post-deploy?)
       preStart = ''
@@ -294,6 +294,8 @@ in {
         mkdir -p ${cfg.dataDir}/tmp
         cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
         cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
+
+        ./script/rails-deploy-while-down
       '';
     };
 
