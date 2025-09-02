@@ -44,4 +44,7 @@
 /tmp/
 /vendor/bundle
 /vendor/data/
+# nix files
 .devenv
+.nixos-test-history
+result
