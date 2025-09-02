@@ -39,6 +39,7 @@ in stdenvNoCC.mkDerivation {
     rm -rf $out/config/database.yml $out/tmp $out/log
     # dataDir will be set in the module, and the package gets overriden there
     ln -s ${dataDir}/config/database.yml $out/config/database.yml
+    ln -s ${dataDir}/config/storage.yml $out/config/storage.yml
     ln -s ${dataDir}/tmp $out/tmp
     ln -s ${dataDir}/log $out/log
   '';
