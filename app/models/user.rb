@@ -398,6 +398,10 @@ class User < ApplicationRecord
     is_admin?
   end
 
+  def admin?
+    is_admin? || is_pro_admin?
+  end
+
   def can_admin_roles
     roles.
       flat_map { |role| Role.grants_and_revokes(role.name.to_sym) }.
