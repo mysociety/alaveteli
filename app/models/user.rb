@@ -42,8 +42,14 @@
 #
 
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
+  include Taggable
+
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
+
   include User::Authentication
   include User::InternalAdmin
   include User::LimitedProfile
@@ -53,9 +59,6 @@ class User < ApplicationRecord
   include User::SpreadableAlerts
   include User::Survey
   include User::Unused
-  include Taggable
-  include Rails.application.routes.url_helpers
-  include LinkToHelper
 
   DEFAULT_CONTENT_LIMITS = {
     info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,

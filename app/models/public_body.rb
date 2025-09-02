@@ -31,13 +31,15 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
-  include CalculatedHomePage
-  include Categorisable
-  include CsvImport
-  include Taggable
-  include Notable
   include Rails.application.routes.url_helpers
   include LinkToHelper
+
+  include Categorisable
+  include Taggable
+  include Notable
+
+  include PublicBody::CalculatedHomePage
+  include PublicBody::CsvImport
 
   admin_columns exclude: %i[name last_edit_editor]
 

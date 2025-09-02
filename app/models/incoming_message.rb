@@ -38,8 +38,9 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
-  include CacheAttributesFromRawEmail
   include Taggable
+
+  include IncomingMessage::CacheAttributesFromRawEmail
 
   UnableToExtractAttachments = Class.new(StandardError)
 

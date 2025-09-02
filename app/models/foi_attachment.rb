@@ -34,6 +34,7 @@ require 'digest'
 class FoiAttachment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
+
   include MessageProminence
 
   MissingAttachment = Class.new(StandardError)
