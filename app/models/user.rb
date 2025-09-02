@@ -45,6 +45,7 @@ class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
   include User::Authentication
+  include User::InternalAdmin
   include User::LimitedProfile
   include User::LoginToken
   include User::OneTimePassword
@@ -268,21 +269,6 @@ class User < ApplicationRecord
     return nil if email.blank?
 
     where('lower(email) = lower(?)', email.strip).first
-  end
-
-  # The "internal admin" is a special user for internal use.
-  def self.internal_admin_user
-    user = find_by(email: AlaveteliConfiguration.contact_email)
-    return user if user
-
-    password = PostRedirect.generate_random_token
-
-    create!(
-      name: 'Internal admin user',
-      email: AlaveteliConfiguration.contact_email,
-      password: password,
-      password_confirmation: password
-    )
   end
 
   # Should the user be kept logged into their own account
