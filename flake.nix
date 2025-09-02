@@ -7,7 +7,7 @@
 
 
   inputs = {
-    # self.submodules = true;
+    self.submodules = true;
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
     nixpkgs-21_11.url = "github:nixos/nixpkgs/nixos-21.11";
     systems.url = "github:nix-systems/default";
