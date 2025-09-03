@@ -1710,6 +1710,25 @@ RSpec.describe User do
     end
   end
 
+  describe '#admin?' do
+    subject { user.admin? }
+
+    context 'normal user' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'admin' do
+      let(:user) { FactoryBot.create(:user, :admin) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'pro admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe 'pro scope' do
     it "only includes pro user" do
       pro_user = FactoryBot.create(:pro_user)
