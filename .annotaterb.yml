@@ -3,3 +3,4 @@
 :include_version: true
 :show_foreign_keys: false
 :show_indexes: false
+:hide_default_column_types: 'datetime,json,jsonb,hstore'
