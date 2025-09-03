@@ -6,6 +6,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 module LinkToHelper
+  # Required for when LinkToHelper is included in ActiveRecord models
+  include Rails.application.routes.url_helpers
+
   # Links to various models
 
   # Requests

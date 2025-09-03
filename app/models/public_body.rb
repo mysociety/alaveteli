@@ -31,7 +31,6 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
-  include Rails.application.routes.url_helpers
   include LinkToHelper
 
   include Categorisable
