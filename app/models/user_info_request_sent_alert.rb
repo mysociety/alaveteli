@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: user_info_request_sent_alerts
 #

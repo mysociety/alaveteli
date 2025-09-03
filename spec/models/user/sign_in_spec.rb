@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20250709114001
 #
 # Table name: user_sign_ins
 #

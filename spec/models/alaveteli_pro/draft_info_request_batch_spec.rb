@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: draft_info_request_batches
 #

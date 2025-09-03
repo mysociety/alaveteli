@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230222154014
 #
 # Table name: user_messages
 #

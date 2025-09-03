@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20241024140606
 #
 # Table name: insights
 #

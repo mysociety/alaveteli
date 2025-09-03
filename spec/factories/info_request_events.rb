@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230127132719
 #
 # Table name: info_request_events
 #

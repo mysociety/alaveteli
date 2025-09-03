@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210120801
 #
 # Table name: incoming_messages
 #

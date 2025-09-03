@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210114052
 #
 # Table name: profile_photos
 #

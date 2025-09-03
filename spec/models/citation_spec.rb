@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20241007090524
 #
 # Table name: citations
 #
