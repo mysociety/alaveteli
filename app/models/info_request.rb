@@ -43,16 +43,20 @@ class InfoRequest < ApplicationRecord
   OLD_AGE_IN_DAYS = 21.days
 
   include Rails.application.routes.url_helpers
+  include LinkToHelper
+
+  include Categorisable
+  include Taggable
+  include Notable
+
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+
   include InfoRequest::BatchPagination
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
-  include Categorisable
-  include Taggable
-  include Notable
-  include LinkToHelper
+
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
