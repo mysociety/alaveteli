@@ -161,6 +161,13 @@ namespace :users do
   desc 'Destroy user accounts that have not created any content'
   task destroy_unused: :environment do
     users = User.unused.where(created_at: ...2.years.ago)
-    users.destroy_all
+
+    TrackThing.where(tracked_user_id: users).update_all(tracked_user_id: nil)
+
+    ActiveRecord::Base.logger.silence do
+      users.preload(
+        User.reflect_on_all_associations.map(&:name)
+      ).in_batches.destroy_all
+    end
   end
 end
