@@ -8,6 +8,7 @@ let
   cfg = config.services.alaveteli;
   filterNull = lib.filterAttrs (_: v: v != null);
   settingsFormat = pkgs.formats.yaml { };
+  appListeningAddress = "127.0.0.1";
   appPort = 3000;
   railsMaxThreads = 3;
   # the hostname used in alaveteli-server-test.nix
@@ -269,7 +270,7 @@ in {
         forceSSL = (cfg.domainName != testHostname);
         enableACME = (cfg.domainName != testHostname);
         locations."/" = {
-          proxyPass = "http://localhost:${toString appPort}";
+          proxyPass = "http://${appListeningAddress}:${toString appPort}";
           recommendedProxySettings = true;
         };
       };
@@ -292,7 +293,9 @@ in {
         ++ lib.optionals (cfg.database.createLocally) [ "postgresql.service" ]
         ++ lib.optionals cfg.redis.createLocally
         [ "redis-${cfg.redis.name}.service" ];
-      script = "./bin/puma -C config/puma.rb";
+      script = "./bin/puma -C config/puma.rb -b tcp://${appListeningAddress}:${
+          toString appPort
+        }";
       preStop = "./bin/pumactl stop -F config/puma.rb";
       serviceConfig = serviceConfig // {
         TimeoutStartSec = 1200;
