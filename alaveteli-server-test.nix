@@ -14,19 +14,15 @@
     # can't find this service, how to add it?
     services.alaveteli = {
       enable = true;
-      domainName = "alaveteli.test";
+      domainName = "server";
       database.passwordFile = "/etc/railsPass";
     };
   };
 
-  # nodes.client = { pkgs, ... }: {
-  #   environment.systemPackages = with pkgs; [ curl ];
-  # };
-
   testScript = ''
     start_all()
-    server.wait_for_unit("default.target")
     server.wait_for_unit("alaveteli-puma.service")
-    server.succeed("curl http://server/ | grep -o Alaveteli")
+    server.succeed("curl -s4 http://server/ | grep -o 'h1.*Alaveteli'")
+    server.succeed("curl -s6 http://server/ | grep -o 'h1.*Alaveteli'")
   '';
 }

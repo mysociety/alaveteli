@@ -10,6 +10,8 @@ let
   settingsFormat = pkgs.formats.yaml { };
   appPort = 3000;
   railsMaxThreads = 3;
+  # the hostname used in alaveteli-server-test.nix
+  testHostname = "server";
 
   alaveteliConfig = settingsFormat.generate "general.yml" {
     # drop emails in /tmp/mails while debugging
@@ -260,11 +262,17 @@ in {
     # must run rails-post-deploy
 
     # TODO: configure nginx
-    services.nginx.enable = lib.mkDefault true;
+    services.nginx = {
+      enable = lib.mkDefault true;
 
-    services.nginx.virtualHosts.${cfg.domainName} = {
-      forceSSL = (cfg.domainName != "alaveteli.test");
-      enableACME = (cfg.domainName != "alaveteli.test");
+      virtualHosts.${cfg.domainName} = {
+        forceSSL = (cfg.domainName != testHostname);
+        enableACME = (cfg.domainName != testHostname);
+        locations."/" = {
+          proxyPass = "http://localhost:${toString appPort}";
+          recommendedProxySettings = true;
+        };
+      };
     };
 
     # TODO: configure varnish
@@ -285,6 +293,7 @@ in {
         ++ lib.optionals cfg.redis.createLocally
         [ "redis-${cfg.redis.name}.service" ];
       script = "./bin/puma -C config/puma.rb";
+      preStop = "./bin/pumactl stop -F config/puma.rb";
       serviceConfig = serviceConfig // {
         TimeoutStartSec = 1200;
         # ExecStop = "bundle exec pumactl stop -F config/puma.rb";
