@@ -48,6 +48,7 @@ class InfoRequest < ApplicationRecord
   include Categorisable
   include Taggable
   include Notable
+  include RateLimited
 
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
@@ -64,6 +65,8 @@ class InfoRequest < ApplicationRecord
   def self.admin_title
     'Request'
   end
+
+  rate_limited 1 => 1.minute, 2 => 8.minutes, 3 => 15.minutes, 5 => 1.hour
 
   strip_attributes allow_empty: true
   strip_attributes only: [:title],

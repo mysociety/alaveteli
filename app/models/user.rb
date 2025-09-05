@@ -494,7 +494,10 @@ class User < ApplicationRecord
 
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
-    active? && !exceeded_limit?(:info_requests)
+    return false unless active?
+
+    !exceeded_limit?(:info_requests) &&
+      !InfoRequest.exceeded_creation_rate?(info_requests)
   end
 
   def can_make_followup?
