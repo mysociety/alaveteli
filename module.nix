@@ -56,9 +56,8 @@ let
     Group = cfg.group;
     PrivateTmp = true;
     StateDirectory = "alaveteli";
-    WorkingDirectory = package; # cfg.dataDir;
+    WorkingDirectory = package;
   };
-  # package = cfg.package;
   package = pkgs.callPackage ./package.nix {
     mkBundleEnv = pkgs.callPackage ./bundleEnv.nix { };
   };
@@ -70,6 +69,7 @@ in {
       enable = lib.mkEnableOption
         "Alaveteli, a Freedom of Information request system for your jurisdiction";
 
+      # TODO: how to fix this option if package is not in nixpkgs?
       # package = lib.mkPackageOption "alaveteli" { };
 
       user = lib.mkOption {
@@ -299,7 +299,6 @@ in {
       preStop = "./bin/pumactl stop -F config/puma.rb";
       serviceConfig = serviceConfig // {
         TimeoutStartSec = 1200;
-        # ExecStop = "bundle exec pumactl stop -F config/puma.rb";
         RestartSec = 1;
         # watchDogSec = 10;
       };
