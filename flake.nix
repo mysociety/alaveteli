@@ -36,9 +36,11 @@
         in {
           devenv-up = self.devShells.${system}.default.config.procfileScript;
           devenv-test = self.devShells.${system}.default.config.test;
-          serverTests = pkgs.testers.runNixOSTest ./alaveteli-server-test.nix;
-          default =
-            pkgs.callPackage ./package.nix { mkBundleEnv = self.mkBundleEnv; };
+          serverTests =
+            pkgs.testers.runNixOSTest ./nix/alaveteli-server-test.nix;
+          default = pkgs.callPackage ./nix/package.nix {
+            mkBundleEnv = self.mkBundleEnv;
+          };
         });
 
       # allow the theme flake to override these
@@ -47,17 +49,14 @@
 
       mkBundleEnv = forEachSystem (system:
         let pkgs = nixpkgs.legacyPackages.${system};
-        in { default = pkgs.callPackage ./bundlerEnv.nix { }; });
-      alaveteliGems = forEachSystem (system:
-        # let pkgs = nixpkgs.legacyPackages.${system};
-        # in {
-        {
-          # pass themeGems from the theme's dev env flake
-          default = self.outputs.mkBundleEnv.${system}.default {
-            themeGemset = self.outputs.themeGemset;
-            themeLockfile = self.outputs.themeLockfile;
-          };
-        });
+        in { default = pkgs.callPackage ./nix/bundlerEnv.nix { }; });
+      alaveteliGems = forEachSystem (system: {
+        # pass themeGems from the theme's dev env flake
+        default = self.outputs.mkBundleEnv.${system}.default {
+          themeGemset = self.outputs.themeGemset;
+          themeLockfile = self.outputs.themeLockfile;
+        };
+      });
 
       packagesForAlaveteli = forEachSystem (system:
         let pkgs = nixpkgs.legacyPackages.${system};
