@@ -10,7 +10,7 @@ let
   dataDir = "/var/lib/alaveteli";
 
   src = applyPatches {
-    src = ./.;
+    src = ./..;
 
     # TODO: patch Gemfile.lock with theme gems
     postPatch = ''
@@ -22,7 +22,7 @@ let
 
   rubyEnv = mkBundleEnv.default {
     themeGemset = { };
-    themeLockfile = ./Gemfile.lock;
+    themeLockfile = ../Gemfile.lock;
   };
 
 in stdenvNoCC.mkDerivation {

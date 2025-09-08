@@ -2,11 +2,11 @@
   default = { themeGemset, themeLockfile }:
     pkgs.bundlerEnv {
       name = "gems-for-alaveteli";
-      gemdir = ./.;
+      gemdir = ./..;
       ruby = pkgs.ruby_3_4;
-      extraConfigPaths = [ "${./.}/gems" ];
+      extraConfigPaths = [ "${./..}/gems" ];
       lockfile = themeLockfile;
-      gemset = let gems = import ./gemset.nix;
+      gemset = let gems = import ../gemset.nix;
       in gems // {
         mini_racer = gems.mini_racer // {
           buildInputs = [ pkgs.icu ];
