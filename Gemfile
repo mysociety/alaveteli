@@ -191,7 +191,7 @@ group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.25.1'
   gem 'simplecov', '~> 0.22.0'
-  gem 'simplecov-lcov', '~> 0.7.0'
+  gem 'simplecov-lcov', '~> 0.9.0'
   gem 'capybara', '~> 3.40.0'
   gem 'stripe-ruby-mock', '~> 5.0.0'
   gem 'rails-controller-testing'
