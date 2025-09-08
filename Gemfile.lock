@@ -124,7 +124,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    annotaterb (4.18.0)
+    annotaterb (4.19.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
     ast (2.4.3)
@@ -666,7 +666,7 @@ DEPENDENCIES
   acts_as_versioned!
   addressable (~> 2.8.7)
   alaveteli_features!
-  annotaterb (~> 4.18.0)
+  annotaterb (~> 4.19.0)
   aws-sdk-s3
   bcrypt (~> 3.1.20)
   benchmark (~> 0.4.1)
