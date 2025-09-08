@@ -527,22 +527,6 @@ class User < ApplicationRecord
     recent_content >= content_limit(content)
   end
 
-  def next_request_permitted_at
-    return nil if no_limit
-
-    request_limit = content_limit(:info_requests)
-    n_most_recent_requests =
-      InfoRequest.
-        where(["user_id = ? AND created_at > now() - '1 day'::interval", id]).
-          order(created_at: :desc).
-            limit(request_limit)
-
-    return nil if n_most_recent_requests.size < request_limit
-
-    nth_most_recent_request = n_most_recent_requests[-1]
-    nth_most_recent_request.created_at + 1.day
-  end
-
   def can_fail_html
     if banned?
       text = ban_text.strip

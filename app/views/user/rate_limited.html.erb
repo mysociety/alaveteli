@@ -2,13 +2,12 @@
 
 <h1><%=@title%></h1>
 
-<p><%= _("You have hit the rate limit on new requests. Users are ordinarily " \
-	       "limited to {{max_requests_per_user_per_day}} requests in any " \
-	       "rolling 24-hour period. You will be able to make another request " \
-	       "in {{can_make_another_request}}.",
-	     :max_requests_per_user_per_day => AlaveteliConfiguration::max_requests_per_user_per_day,
-	     :can_make_another_request => distance_of_time_in_words(
-      Time.zone.now, @next_request_permitted_at)) %></p>
+<p>
+  <%= _("You have hit the rate limit on new requests. Users are ordinarily " \
+        "limited to {{max_requests_per_user_per_day}} requests in any " \
+        "rolling 24-hour period." ,
+        max_requests_per_user_per_day: AlaveteliConfiguration.max_requests_per_user_per_day) %>
+</p>
 
 <p><%= _("There is a limit on the number of requests you can make in a day, " \
 	        "because we don’t want public authorities to be bombarded with " \
