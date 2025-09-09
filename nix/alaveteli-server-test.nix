@@ -2,22 +2,30 @@
 {
   name = "Alaveteli server test";
 
-  nodes.server = { pkgs, ... }: {
-    imports = [ ./module.nix ];
-    networking = { firewall = { allowedTCPPorts = [ 80 ]; }; };
+  nodes.server =
+    { pkgs, ... }:
+    {
+      imports = [ ./module.nix ];
+      networking = {
+        firewall = {
+          allowedTCPPorts = [ 80 ];
+        };
+      };
 
-    environment.etc."railsPass".text = ''
-      supersecurepassword
-    '';
+      environment.etc."railsPass".text = ''
+        supersecurepassword
+      '';
 
-    # environment.systemPackages = [ pkgs.git ];
-    # can't find this service, how to add it?
-    services.alaveteli = {
-      enable = true;
-      domainName = "server";
-      database.passwordFile = "/etc/railsPass";
+      # environment.systemPackages = [ pkgs.git ];
+      # can't find this service, how to add it?
+      services.alaveteli = {
+        enable = true;
+        domainName = "server";
+        database.passwordFile = "/etc/railsPass";
+        # TEMP while hydra rebuilds postgres
+        # database.createLocally = false;
+      };
     };
-  };
 
   testScript = ''
     start_all()
