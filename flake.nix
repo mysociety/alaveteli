@@ -104,7 +104,6 @@
               icu
               imagemagick
               krb5
-              postgresql_13
               libzip
               pdftk
               poppler
