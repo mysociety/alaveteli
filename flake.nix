@@ -19,36 +19,52 @@
   };
 
   nixConfig = {
-    extra-trusted-public-keys =
-      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
+    extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
     extra-substituters = "https://devenv.cachix.org";
   };
 
-  outputs = { self, nixpkgs, devenv, systems, ... }@inputs:
-    let forEachSystem = nixpkgs.lib.genAttrs (import systems);
-    in {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      devenv,
+      systems,
+      ...
+    }@inputs:
+    let
+      forEachSystem = nixpkgs.lib.genAttrs (import systems);
+    in
+    {
       # imports = [ ./package.nix ];
-      packages = forEachSystem (system:
+      packages = forEachSystem (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           ruby = pkgs.ruby_3_4;
-        in {
+        in
+        {
           devenv-up = self.devShells.${system}.default.config.procfileScript;
           devenv-test = self.devShells.${system}.default.config.test;
-          serverTests =
-            pkgs.testers.runNixOSTest ./nix/alaveteli-server-test.nix;
+          serverTests = pkgs.testers.runNixOSTest ./nix/alaveteli-server-test.nix;
           default = pkgs.callPackage ./nix/package.nix {
             mkBundleEnv = self.mkBundleEnv;
           };
-        });
+        }
+      );
 
       # allow the theme flake to override these
       themeGemset = { };
       themeLockfile = null;
 
-      mkBundleEnv = forEachSystem (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in { default = pkgs.callPackage ./nix/bundlerEnv.nix { }; });
+      mkBundleEnv = forEachSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.callPackage ./nix/bundlerEnv.nix { };
+        }
+      );
       alaveteliGems = forEachSystem (system: {
         # pass themeGems from the theme's dev env flake
         default = self.outputs.mkBundleEnv.${system}.default {
@@ -57,13 +73,20 @@
         };
       });
 
-      packagesForAlaveteli = forEachSystem (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in {
+      packagesForAlaveteli = forEachSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
           # packages required to run alaveteli, in production
           # and for development
-          running = { myGems ? self.alaveteliGems.${system}.default }:
-            with pkgs; [
+          running =
+            {
+              myGems ? self.alaveteliGems.${system}.default,
+            }:
+            with pkgs;
+            [
               # self.alaveteliGems.${system}.default
               # self.alaveteliGems.${system}.default.wrappedRuby
               myGems
@@ -101,10 +124,15 @@
               libyaml
             ];
           # additional packages only needed for the dev env
-          developing = with pkgs; [ bundix figlet ];
-        });
+          developing = with pkgs; [
+            bundix
+            figlet
+          ];
+        }
+      );
 
-      devShells = forEachSystem (system:
+      devShells = forEachSystem (
+        system:
         let
           dbUser = "postgres";
           dbHost = "localhost";
@@ -131,12 +159,13 @@
             OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS = "publicbody@localhost";
             # THEME_URLS = [ "https://github.com/mysociety/alavetelitheme.git" ];
           });
-        in {
+        in
+        {
           # commonModules are exposed here so that each devenv can access
           # the various components and override them
           commonModules = {
-            packages = self.packagesForAlaveteli.${system}.running { }
-              ++ self.packagesForAlaveteli.${system}.developing;
+            packages =
+              self.packagesForAlaveteli.${system}.running { } ++ self.packagesForAlaveteli.${system}.developing;
 
             enterShell = ''
               export GIT_DIR=$DEVENV_ROOT/.git
@@ -167,16 +196,17 @@
             # TODO: can we move this to gemConfig instead? we don't need
             # this env var once the gem is built
             env = {
-              LD_LIBRARY_PATH =
-                nixpkgs.lib.makeLibraryPath [ pkgs.krb5 pkgs.openldap ];
+              LD_LIBRARY_PATH = nixpkgs.lib.makeLibraryPath [
+                pkgs.krb5
+                pkgs.openldap
+              ];
             };
 
             processes = {
               # run migrations once postgres is started
               migrate = {
                 exec = "rails db:migrate && rails db:seed";
-                process-compose.depends_on.postgres.condition =
-                  "process_healthy";
+                process-compose.depends_on.postgres.condition = "process_healthy";
               };
               init_xapian = {
                 exec = ''
@@ -185,14 +215,12 @@
                   RAILS_ENV=development rake xapian:create_index
                   wait
                 '';
-                process-compose.depends_on.migrate.condition =
-                  "process_completed_successfully";
+                process-compose.depends_on.migrate.condition = "process_completed_successfully";
               };
               # start the dev web server after migrations
               web = {
                 exec = "rails server -p ${railsPort}";
-                process-compose.depends_on.init_xapian.condition =
-                  "process_completed_successfully";
+                process-compose.depends_on.init_xapian.condition = "process_completed_successfully";
               };
             };
 
@@ -213,16 +241,19 @@
                   user = dbUser;
                 }
               ];
-              initialScript =
-                "CREATE ROLE postgres SUPERUSER; ALTER ROLE postgres WITH LOGIN;";
+              initialScript = "CREATE ROLE postgres SUPERUSER; ALTER ROLE postgres WITH LOGIN;";
               listen_addresses = dbHost;
               port = dbPort;
               extensions = extensions: [ ];
             };
             # alaveteli knows to send email to port 1025 in dev
             # which is the default for mailpit
-            services.mailpit = { enable = true; };
-            services.redis = { enable = true; };
+            services.mailpit = {
+              enable = true;
+            };
+            services.redis = {
+              enable = true;
+            };
           };
 
           # use this one to develop on core alaveteli
@@ -238,16 +269,19 @@
           devWithTheme = devenv.lib.mkShell {
             inherit inputs pkgs;
             modules = [
-              (self.devShells.${system}.commonModules // {
-                # enterShell = self.devShells.${system}.default.enterShell
-                enterShell = self.devShells.${system}.commonModules.enterShell
-                  + "echo booyah";
-                env = self.devShells.${system}.commonModules.env // {
-                  FOOENV = "themeON";
-                };
-              })
+              (
+                self.devShells.${system}.commonModules
+                // {
+                  # enterShell = self.devShells.${system}.default.enterShell
+                  enterShell = self.devShells.${system}.commonModules.enterShell + "echo booyah";
+                  env = self.devShells.${system}.commonModules.env // {
+                    FOOENV = "themeON";
+                  };
+                }
+              )
             ];
           };
-        });
+        }
+      );
     };
 }
