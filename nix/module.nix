@@ -2,7 +2,12 @@
 # Design decisions:
 # alaveteli is run with puma and nginx (for opensource reasons)
 # postfix for email, with opndkim, rspamd
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # forEachSystem = lib.genAttrs (import systems);
   cfg = config.services.alaveteli;
@@ -62,12 +67,12 @@ let
     mkBundleEnv = pkgs.callPackage ./bundleEnv.nix { };
   };
 
-in {
+in
+{
   options = {
     services.alaveteli = {
 
-      enable = lib.mkEnableOption
-        "Alaveteli, a Freedom of Information request system for your jurisdiction";
+      enable = lib.mkEnableOption "Alaveteli, a Freedom of Information request system for your jurisdiction";
 
       # TODO: how to fix this option if package is not in nixpkgs?
       # package = lib.mkPackageOption "alaveteli" { };
@@ -213,8 +218,7 @@ in {
         database = cfg.database.name;
         encoding = "utf8";
         host = cfg.database.host;
-        password =
-          "<%= begin IO.read('${cfg.database.passwordFile}') rescue '' end %>";
+        password = "<%= begin IO.read('${cfg.database.passwordFile}') rescue '' end %>";
         pool = railsMaxThreads + 2;
         port = cfg.database.port;
         template = "template_utf8";
@@ -223,7 +227,10 @@ in {
       });
     };
 
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
 
     users.users.${cfg.user} = {
       group = "${cfg.group}";
@@ -232,15 +239,19 @@ in {
 
     users.groups.${cfg.group} = { };
 
-    services.memcached = { enable = true; };
+    services.memcached = {
+      enable = true;
+    };
 
     services.postgresql = lib.optionalAttrs (cfg.database.createLocally) {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
-        name = cfg.database.user;
-        ensureDBOwnership = true;
-      }];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensureDBOwnership = true;
+        }
+      ];
     };
 
     services.redis = lib.optionalAttrs cfg.redis.createLocally {
@@ -286,16 +297,15 @@ in {
       description = "Alaveteli web service";
       requires =
         lib.optionals (cfg.database.createLocally) [ "postgresql.service" ]
-        ++ lib.optionals cfg.redis.createLocally
-        [ "redis-${cfg.redis.name}.service" ];
+        ++ lib.optionals cfg.redis.createLocally [ "redis-${cfg.redis.name}.service" ];
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "systemd-tmpfiles-setup.service" ]
-        ++ lib.optionals (cfg.database.createLocally) [ "postgresql.service" ]
-        ++ lib.optionals cfg.redis.createLocally
-        [ "redis-${cfg.redis.name}.service" ];
-      script = "./bin/puma -C config/puma.rb -b tcp://${appListeningAddress}:${
-          toString appPort
-        }";
+      after = [
+        "network.target"
+        "systemd-tmpfiles-setup.service"
+      ]
+      ++ lib.optionals (cfg.database.createLocally) [ "postgresql.service" ]
+      ++ lib.optionals cfg.redis.createLocally [ "redis-${cfg.redis.name}.service" ];
+      script = "./bin/puma -C config/puma.rb -b tcp://${appListeningAddress}:${toString appPort}";
       preStop = "./bin/pumactl stop -F config/puma.rb";
       serviceConfig = serviceConfig // {
         TimeoutStartSec = 1200;
@@ -304,7 +314,10 @@ in {
       };
 
       # make these programs available to the alaveteli service
-      path = [ package pkgs.git ];
+      path = [
+        package
+        pkgs.git
+      ];
 
       # TODO: should this be here or in a separate service definition? (and rails-post-deploy?)
       preStart = ''
