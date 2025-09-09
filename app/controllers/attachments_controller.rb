@@ -102,6 +102,9 @@ class AttachmentsController < ApplicationController
         request.format = :html
         render_hidden('request/hidden_attachment')
       end
+    elsif params[:file_name] =~ /^foiextract.*/
+      # 404 for AttachmentToHTML sub-files that can't be found
+      raise ActiveRecord::RecordNotFound
     elsif params[:file_name]
       # If we can't find the right attachment, redirect to the incoming message:
       redirect_to incoming_message_url(@incoming_message), status: 303

@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Don't redirect missing HTML conversion attachments to the request page
+  (Matthew Somerville, Gareth Rees)
 * Don't run the spam checker for admin accounts or accounts confirmed as not
   spam on sign in (Gareth Rees)
 * Add no crawl meta tags to banned/closed user profile pages (Graeme Porteous)

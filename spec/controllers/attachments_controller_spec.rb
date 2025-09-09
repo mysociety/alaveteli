@@ -59,6 +59,15 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(response).to redirect_to(incoming_message_path(message))
     end
 
+    it '404s for HTML extraction sub-files that are not found' do
+      params = {
+        part: attachment.url_part_number + 1,
+        file_name: 'foiextract20250908-21-h85mbn-1_1.jpg'
+      }
+
+      expect { show(params) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
     it 'should find a uniquely named filename even if the URL part number was wrong' do
       show(part: 5)
       expect(response.body).to match('hereisthemaskedtext')
