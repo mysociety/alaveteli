@@ -9,7 +9,6 @@
   inputs = {
     self.submodules = true;
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
-    nixpkgs-21_11.url = "github:nixos/nixpkgs/nixos-21.11";
     systems.url = "github:nix-systems/default";
     devenv = {
       url = "github:cachix/devenv";
@@ -25,7 +24,7 @@
     extra-substituters = "https://devenv.cachix.org";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-21_11, devenv, systems, ... }@inputs:
+  outputs = { self, nixpkgs, devenv, systems, ... }@inputs:
     let forEachSystem = nixpkgs.lib.genAttrs (import systems);
     in {
       # imports = [ ./package.nix ];
