@@ -1,6 +1,24 @@
-{ stdenvNoCC, lib, nixosTests, fetchFromGitHub, applyPatches, bundlerEnv
-, callPackage, git, procps, makeWrapper, ruby, postgresql, cacert, valkey
-, dataDir ? "/var/www/alaveteli", mkBundleEnv, system }:
+{
+  stdenvNoCC,
+  lib,
+  nixosTests,
+  fetchFromGitHub,
+  applyPatches,
+  bash,
+  bundlerEnv,
+  writeScript,
+  callPackage,
+  git,
+  procps,
+  makeWrapper,
+  ruby,
+  postgresql,
+  cacert,
+  valkey,
+  dataDir ? "/var/www/alaveteli",
+  mkBundleEnv,
+  system,
+}:
 
 let
   pname = "alaveteli";
@@ -25,12 +43,22 @@ let
     themeLockfile = ../Gemfile.lock;
   };
 
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   inherit pname version src;
 
-  buildInputs = [ git rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
+  buildInputs = [
+    git
+    rubyEnv
+    rubyEnv.wrappedRuby
+    rubyEnv.bundler
+  ];
 
-  nativeBuildInputs = [ valkey postgresql procps cacert ];
+  nativeBuildInputs = [
+    postgresql
+    procps
+    cacert
+  ];
 
   env.RAILS_ENV = "production";
 
@@ -49,11 +77,13 @@ in stdenvNoCC.mkDerivation {
   };
 
   meta = with lib; {
-    description =
-      "Alaveteli, a Freedom of Information request system for your jurisdiction";
+    description = "Alaveteli, a Freedom of Information request system for your jurisdiction";
     homepage = "https://alaveteli.org";
     license = licenses.agpl3Plus;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ laurents ];
   };
 }
