@@ -703,7 +703,7 @@ RSpec.describe UserController do
     end
 
     it "should send confirmation mail in other languages or different locales" do
-      session[:locale] = "es"
+      cookies[:locale] = 'es'
       post :signup, params: {
                       user_signup: {
                         email: 'new@localhost',

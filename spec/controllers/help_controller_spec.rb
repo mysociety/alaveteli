@@ -74,7 +74,8 @@ RSpec.describe HelpController do
       end
 
       it 'should render the locale-specific template if available' do
-        get :contact, session: { locale: 'es' }
+        cookies[:locale] = 'es'
+        get :contact
         expect(response.body).to match('contáctenos theme one')
       end
     end

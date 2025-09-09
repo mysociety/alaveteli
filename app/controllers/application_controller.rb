@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
     end
 
     AlaveteliLocalization.set_session_locale(
-      params_locale, session[:locale], cookies[:locale], browser_locale,
+      params_locale, cookies[:locale], browser_locale,
       AlaveteliLocalization.default_locale
     )
 
@@ -88,13 +88,12 @@ class ApplicationController < ActionController::Base
 
   def store_gettext_locale
     # set the current stored locale to the requested_locale
-    current_session_locale = session[:locale]
-    if current_session_locale != AlaveteliLocalization.locale
-      session[:locale] = AlaveteliLocalization.locale
+    locale = params[:locale].presence || AlaveteliLocalization.locale
 
-      # we need to set something other than StripEmptySessions::STRIPPABLE_KEYS
-      # otherwise the cookie will be striped from the response
-      session[:previous_locale] = current_session_locale
+    if locale == AlaveteliLocalization.default_locale
+      cookies.delete(:locale)
+    else
+      cookies[:locale] = locale
     end
 
     # ensure current user locale attribute is up-to-date
