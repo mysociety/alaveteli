@@ -53,9 +53,9 @@ RSpec.describe Users::ConfirmationsController do
         expect(assigns[:user]).to eq(user)
       end
 
-      it 'does not confirm an unconfirmed user' do
+      it 'confirms an unconfirmed user' do
         get :confirm, params: { email_token: post_redirect.email_token }
-        expect(user.reload.email_confirmed).to eq(false)
+        expect(user.reload.email_confirmed).to eq(true)
       end
 
       it 'redirects to the post redirect uri' do
