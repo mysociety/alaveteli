@@ -69,6 +69,12 @@ let
 
 in
 {
+  imports = [
+    (import ./postfix.nix {
+      inherit config lib;
+      pkgPath = package;
+    })
+  ];
   options = {
     services.alaveteli = {
 
@@ -200,7 +206,27 @@ in
         createLocally = lib.mkOption {
           type = lib.types.bool;
           default = true;
-          description = "Whether to create a local postfix automatically.";
+          description = ''
+            Whether to create a local postfix automatically.
+            If false, no email services are configured (postfix, opendkim, rspamd).
+          '';
+        };
+
+        rootAlias = lib.mkOption {
+          type = lib.types.str;
+          default = "";
+          description = ''
+            Email address that should receive mail for root@ and postmaster@.
+            Multiple values can be separated by commas.
+            Leave empty for no redirection.
+          '';
+        };
+        extraAliases = lib.mkOption {
+          type = lib.types.lines;
+          default = "";
+          description = ''
+            Email aliases, copied verbatim into postfix aliases config file.
+          '';
         };
       };
 
@@ -260,9 +286,6 @@ in
         port = cfg.redis.port;
       };
     };
-
-    services.postfix =
-      lib.optionalAttrs (cfg.mailserver.createLocally) { enable = true; };
 
     # TODO: configure opendkim
 
