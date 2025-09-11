@@ -2,8 +2,13 @@
 {
   name = "Alaveteli server test";
 
-  nodes.server =
-    { pkgs, ... }:
+  nodes.testserver =
+    {
+      nodes,
+      config,
+      pkgs,
+      ...
+    }:
     {
       imports = [ ./module.nix ];
       networking = {
@@ -16,11 +21,18 @@
         supersecurepassword
       '';
 
+      security.acme = {
+        defaults.email = "test@example.com";
+        # TODO: make acme use a test provider
+        defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+        acceptTerms = true;
+      };
+
       # environment.systemPackages = [ pkgs.git ];
       # can't find this service, how to add it?
       services.alaveteli = {
         enable = true;
-        domainName = "server";
+        domainName = "testserver";
         database.passwordFile = "/etc/railsPass";
         # TEMP while hydra rebuilds postgres
         # database.createLocally = false;
