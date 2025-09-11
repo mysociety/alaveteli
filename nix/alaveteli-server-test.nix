@@ -37,6 +37,12 @@
         # TEMP while hydra rebuilds postgres
         # database.createLocally = false;
       };
+
+      environment.systemPackages = [
+        # for debugging tests, remove it
+        pkgs.net-tools
+        pkgs.ripgrep
+      ];
     };
 
   testScript =

@@ -344,7 +344,9 @@ in
         pkgs.git
       ];
 
-      # TODO: should this be here or in a separate service definition? (and rails-post-deploy?)
+      # TODO: add systemd job to upgrade alaveteli (see example in nextcloud module)
+      # must run rails-post-deploy
+      # nixos converts this to a separate systemd unit that is run before the main one
       preStart = ''
         mkdir -p ${cfg.dataDir}/config
         mkdir -p ${cfg.dataDir}/log
