@@ -27,10 +27,12 @@
       };
     };
 
-  testScript = ''
-    start_all()
-    server.wait_for_unit("alaveteli-puma.service")
-    server.succeed("curl -s4 http://server/ | grep -o 'h1.*Alaveteli'")
-    server.succeed("curl -s6 http://server/ | grep -o 'h1.*Alaveteli'")
-  '';
+  testScript =
+    # python
+    ''
+      start_all()
+      testserver.wait_for_unit("alaveteli-puma.service")
+      testserver.succeed("curl -ks4 https://testserver/ | grep -o 'h1.*Alaveteli'")
+      testserver.succeed("curl -ks6 https://testserver/ | grep -o 'h1.*Alaveteli'")
+    '';
 }
