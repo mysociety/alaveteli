@@ -74,6 +74,9 @@ in
       inherit config lib;
       pkgPath = package;
     })
+    (import ./rspamd.nix {
+      inherit config lib;
+    })
   ];
   options = {
     services.alaveteli = {
