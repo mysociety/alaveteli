@@ -17,7 +17,6 @@ let
   appPort = 3000;
   railsMaxThreads = 3;
   # the hostname used in alaveteli-server-test.nix
-  testHostname = "server";
 
   alaveteliConfig = settingsFormat.generate "general.yml" {
     # drop emails in /tmp/mails while debugging
@@ -304,8 +303,8 @@ in
       enable = lib.mkDefault true;
 
       virtualHosts.${cfg.domainName} = {
-        forceSSL = (cfg.domainName != testHostname);
-        enableACME = (cfg.domainName != testHostname);
+        forceSSL = true;
+        enableACME = true;
         locations."/" = {
           proxyPass = "http://${appListeningAddress}:${toString appPort}";
           recommendedProxySettings = true;
