@@ -52,10 +52,9 @@ in
     recipient_delimiter = "+";
 
     smtpd_tls_chain_files = [
-      "${certs.${cfg.domainName}.directory}/privkey.pem"
+      "${certs.${cfg.domainName}.directory}/key.pem"
       "${certs.${cfg.domainName}.directory}/fullchain.pem"
     ];
-    smtpd_use_tls = "yes";
     smtpd_tls_session_cache_database = "btree:\${data_directory}/smtpd_scache";
 
     # TLS parameters for sending (postfix acting as a client)
@@ -90,8 +89,7 @@ in
     #
     # smtpd_milters: opendkim, rspamd
     # TODO: get these from cfg, but see services.rspamd.postfix.enable
-    smtpd_milters = "local:/var/run/opendkim/opendkim.sock, inet:localhost:11332";
-    non_smtpd_milters = config.services.opendkim.socket;
+    smtpd_milters = "local:/run/opendkim/opendkim.sock, inet:localhost:11332";
     # non_smtpd_milters = "local:/var/run/opendkim/opendkim.sock";
 
     # configure SASL auth via dovecot: see
