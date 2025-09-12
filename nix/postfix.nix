@@ -18,9 +18,12 @@ in
 
   services.postfix = {
     enable = true;
-    # enableSmtp = true; # port 25
+    enableSmtp = false; # port 25 (define config manually below)
     enableSubmission = true; # port 587
     rootAlias = cfg.mailserver.rootAlias;
+    localRecipients = cfg.mailserver.localRecipients ++ [
+      "/^postmaster@/"
+    ];
     extraAliases = cfg.mailserver.extraAliases;
     submissionOptions = {
       smtpd_tls_security_level = "encrypt";
@@ -30,7 +33,6 @@ in
       smtpd_sasl_security_options = "noanonymous";
       smtpd_sasl_local_domain = "$myhostname";
       smtpd_client_restrictions = "permit_sasl_authenticated,reject";
-      smtpd_sender_login_maps = "hash:/etc/postfix/virtual";
       smtpd_sender_restrictions = "reject_sender_login_mismatch";
       smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
     };
@@ -51,10 +53,17 @@ in
     message_size_limit = 30720000;
     recipient_delimiter = "+";
 
-    smtpd_tls_chain_files = [
-      "${certs.${cfg.domainName}.directory}/key.pem"
-      "${certs.${cfg.domainName}.directory}/fullchain.pem"
-    ];
+    smtpd_tls_chain_files =
+      if (cfg.sslCertificate != null && cfg.sslCertificateKey != null) then
+        [
+          cfg.sslCertificateKey
+          cfg.sslCertificate
+        ]
+      else
+        [
+          "${certs.${cfg.domainName}.directory}/key.pem"
+          "${certs.${cfg.domainName}.directory}/fullchain.pem"
+        ];
     smtpd_tls_session_cache_database = "btree:\${data_directory}/smtpd_scache";
 
     # TLS parameters for sending (postfix acting as a client)
@@ -79,7 +88,7 @@ in
     # during the smtp exchange, instead of first accepting the email and then
     # sending an error message.
     # TODO: where does the local_recipient_maps file end up?
-    local_recipient_maps = "proxy:unix:passwd.byname regexp:/etc/postfix/recipients";
+    local_recipient_maps = lib.mkForce "proxy:unix:passwd.byname regexp:/etc/postfix/local_recipients";
 
     # TODO: figure out what happens with this, how do we build the mapping file?
     recipient_bcc_maps = "regexp:/etc/postfix/recipient_bcc";

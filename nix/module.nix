@@ -119,6 +119,26 @@ in
         example = "example.com";
       };
 
+      sslCertificate = lib.mkOption {
+        type = with lib.types; nullOr path;
+        default = null;
+        example = "/run/keys/ssl.cert";
+        description = ''
+          The path to the server SSL certificate. If unset, a certificate
+          will be created using letsencrypt.
+        '';
+      };
+
+      sslCertificateKey = lib.mkOption {
+        type = with lib.types; nullOr path;
+        default = null;
+        example = "/run/keys/ssl.key";
+        description = ''
+          The path to the server SSL certificate key. If unset, a certificate
+          will be created using letsencrypt.
+        '';
+      };
+
       database = {
         host = lib.mkOption {
           type = lib.types.str;
@@ -228,16 +248,17 @@ in
           '';
         };
         localRecipients = lib.mkOption {
-          type = with lib.types; nullOr (listOf str);
-          default = null;
+          type = with lib.types; (listOf str);
+          default = [ ];
           description = ''
             List of accepted local users. Specify a bare username, an
             `"@domain.tld"` wild-card, or a complete
             `"user@domain.tld"` address. This should be set to help reduce backscatter:
             if a recipient does not exist, postfix will notify the sender immediately,
             during the smtp exchange, instead of first accepting the email and then
-            sending an error message (which would increase our volume of spam-looking
-            outgoing emails and lower our reputation).
+            sending an error message (which would increase your volume of spam-looking
+            outgoing emails and lower your reputation).
+            `postmaster` and request "magic" emails are automatically added to this list.
           '';
         };
         extraAliases = lib.mkOption {
@@ -253,6 +274,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    assertions = [
+      {
+        assertion = (cfg.sslCertificate != null) -> (cfg.sslCertificateKey != null);
+        message = "If sslCertificate is set, sslCertificateKey must be set as well. Unset both to use letsencrypt instead.";
+      }
+    ];
 
     # TODO: where do we put packages required by the service?
     # environment.systemPackages = with pkgs; [ git wkhtmltopdf ];
@@ -320,8 +348,9 @@ in
       enable = lib.mkDefault true;
 
       virtualHosts.${cfg.domainName} = {
+        inherit (cfg) sslCertificate sslCertificateKey;
         forceSSL = true;
-        enableACME = true;
+        enableACME = (cfg.sslCertificate == null && cfg.sslCertificateKey == null);
         locations."/" = {
           proxyPass = "http://${appListeningAddress}:${toString appPort}";
           recommendedProxySettings = true;
