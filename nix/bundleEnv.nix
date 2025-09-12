@@ -51,7 +51,7 @@
               '';
             };
         }
-        // builtins.trace themeGemset themeGemset;
+        // themeGemset;
       gemConfig = pkgs.defaultGemConfig // {
         mahoro = attrs: { nativeBuildInputs = [ pkgs.file ]; };
         xapian-full-alaveteli = attrs: { nativeBuildInputs = [ pkgs.zlib ]; };
