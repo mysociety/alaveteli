@@ -1,4 +1,5 @@
 # run tests with `nix -L build  --no-pure-eval .#serverTests`
+# or `nix -L build  --no-pure-eval .#serverTests.driverInteractive`
 { inputs, ... }:
 {
   name = "Alaveteli server test";
@@ -14,6 +15,14 @@
     }:
     let
       domain = "alaveteli.test";
+      tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+        mkdir -p $out
+        openssl req -x509 \
+          -subj '/CN=pleroma.nixos.test/' -days 49710 \
+          -addext 'subjectAltName = DNS:${domain}' \
+          -keyout "$out/key.pem" -newkey ed25519 \
+          -out "$out/cert.pem" -noenc
+      '';
     in
     {
       imports = [
@@ -38,28 +47,52 @@
         supersecurepassword
       '';
 
-      security.acme = {
-        # TODO: make acme use a test provider
-        defaults.email = "test@${domain}";
-        defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-        acceptTerms = true;
-      };
+      security.pki.certificateFiles = [
+        "${tls-cert}/cert.pem"
+      ];
 
-      # environment.systemPackages = [ pkgs.git ];
-      # can't find this service, how to add it?
       services.alaveteli = {
         enable = true;
         domainName = domain;
         database.passwordFile = "/etc/railsPass";
-        # TEMP while hydra rebuilds postgres
-        # database.createLocally = false;
+        database.createLocally = true;
+        sslCertificate = "${tls-cert}/cert.pem";
+        sslCertificateKey = "${tls-cert}/key.pem";
       };
 
-      environment.systemPackages = [
-        # for debugging tests, remove it
-        pkgs.net-tools
-        pkgs.ripgrep
-      ];
+      networking.extraHosts = ''
+        127.0.0.1 ${domain}
+        ::1 ${domain}
+      '';
+
+      environment.systemPackages =
+        let
+          # check that the server can receive a response to a magic email
+          sendTestResponse = pkgs.writeScriptBin "send-request-response-email" ''
+            #!${pkgs.python3.interpreter}
+            import smtplib
+            import ssl
+
+            ctx = ssl.create_default_context()
+
+            with smtplib.SMTP('${domain}') as smtp:
+              smtp.ehlo()
+              smtp.starttls(context=ctx)
+              smtp.ehlo()
+              smtp.sendmail(
+                'root@localhost',
+                'publicbody@localhost',
+                'Subject: Test Response\n\nTest data.'
+              )
+              smtp.quit()
+          '';
+        in
+        [
+          sendTestResponse
+          # for debugging tests, remove it
+          pkgs.net-tools
+          pkgs.ripgrep
+        ];
     };
 
   testScript =
@@ -73,5 +106,6 @@
       testserver.wait_for_open_port(587)
       testserver.succeed("curl -ks4 https://testserver/ | grep -o 'h1.*Alaveteli'")
       testserver.succeed("curl -ks6 https://testserver/ | grep -o 'h1.*Alaveteli'")
+      testserver.succeed("send-request-response-email")
     '';
 }
