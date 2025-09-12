@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  nixpkgsrspamd,
   ...
 }:
 let
@@ -69,12 +70,15 @@ let
 in
 {
   imports = [
+    (import ./opendkim.nix {
+      inherit config pkgs;
+    })
     (import ./postfix.nix {
       inherit config lib;
       pkgPath = package;
     })
     (import ./rspamd.nix {
-      inherit config lib;
+      inherit config lib nixpkgsrspamd;
     })
   ];
   options = {
@@ -221,6 +225,19 @@ in
             Email address that should receive mail for root@ and postmaster@.
             Multiple values can be separated by commas.
             Leave empty for no redirection.
+          '';
+        };
+        localRecipients = lib.mkOption {
+          type = with lib.types; nullOr (listOf str);
+          default = null;
+          description = ''
+            List of accepted local users. Specify a bare username, an
+            `"@domain.tld"` wild-card, or a complete
+            `"user@domain.tld"` address. This should be set to help reduce backscatter:
+            if a recipient does not exist, postfix will notify the sender immediately,
+            during the smtp exchange, instead of first accepting the email and then
+            sending an error message (which would increase our volume of spam-looking
+            outgoing emails and lower our reputation).
           '';
         };
         extraAliases = lib.mkOption {

@@ -1,4 +1,5 @@
 # run tests with `nix -L build  --no-pure-eval .#serverTests`
+{ inputs, ... }:
 {
   name = "Alaveteli server test";
 
@@ -6,14 +7,27 @@
     {
       nodes,
       config,
+      lib,
       pkgs,
+      nixpkgsrspamd,
       ...
     }:
     let
       domain = "alaveteli.test";
     in
     {
-      imports = [ ./module.nix ];
+      imports = [
+        (import ./module.nix {
+          inherit (inputs)
+            nixpkgsrspamd
+            ;
+          inherit
+            config
+            lib
+            pkgs
+            ;
+        })
+      ];
       networking = {
         firewall = {
           allowedTCPPorts = [ 80 ];
@@ -53,6 +67,10 @@
     ''
       start_all()
       testserver.wait_for_unit("alaveteli-puma.service")
+      testserver.wait_for_open_port(80)
+      testserver.wait_for_open_port(443)
+      testserver.wait_for_open_port(25)
+      testserver.wait_for_open_port(587)
       testserver.succeed("curl -ks4 https://testserver/ | grep -o 'h1.*Alaveteli'")
       testserver.succeed("curl -ks6 https://testserver/ | grep -o 'h1.*Alaveteli'")
     '';

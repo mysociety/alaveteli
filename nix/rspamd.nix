@@ -1,17 +1,20 @@
 {
   config,
   lib,
+  nixpkgsrspamd,
   ...
 }:
 let
   cfg = config.services.alaveteli;
 in
 {
+  # use rspamd service definition from our PR
+  disabledModules = [ "services/mail/rspamd.nix" ];
+  imports = [
+    "${nixpkgsrspamd}/nixos/modules/services/mail/rspamd.nix"
+  ];
   services.rspamd = {
     enable = true;
-    postfix = {
-      enable = true;
-    };
     locals = {
       "actions.conf".text = ''
         reject = 35; # default is 15, we do not want to reject for now
@@ -25,18 +28,16 @@ in
       '';
 
       "milter_headers.conf".text = ''
-
         # Add "extended Rspamd headers" (default false) (enables x-spamd-result, x-rspamd-server & x-rspamd-queue-id routines)
         # (only for incoming emails)
         extended_spam_headers = true;
       '';
 
-      # TODO: check that LOCAL_CONFDIR is preceded by a single $
       "multimap.conf".text = ''
               # add points to email from countries listed in country_bl
         COUNTRY_BL {
                 type = "country";
-                map = "$${LOCAL_CONFDIR}/local.d/country_bl.map";
+                map = "''${LOCAL_CONFDIR}/local.d/country_bl.map";
                 score = 6;
                 description = "List of countries with heavy spam usage";
         }
@@ -48,11 +49,16 @@ in
       '';
     };
     workers = {
+      controller = { };
       normal = {
         type = "normal";
         bindSockets = [ "localhost:11333" ];
       };
-      proxy = {
+
+      rspamd_proxy = {
+        bindSockets = [
+          "localhost:11332"
+        ];
         type = "rspamd_proxy";
         count = 2;
         extraConfig = ''
