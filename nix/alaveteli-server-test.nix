@@ -68,24 +68,27 @@
       environment.systemPackages =
         let
           # check that the server can receive a response to a magic email
-          sendTestResponse = pkgs.writeScriptBin "send-request-response-email" ''
-            #!${pkgs.python3.interpreter}
-            import smtplib
-            import ssl
+          sendTestResponse =
+            pkgs.writeScriptBin "send-mail-to-postmaster"
+              # python
+              ''
+                #!${pkgs.python3.interpreter}
+                import smtplib
+                import ssl
 
-            ctx = ssl.create_default_context()
+                ctx = ssl.create_default_context()
 
-            with smtplib.SMTP('${domain}') as smtp:
-              smtp.ehlo()
-              smtp.starttls(context=ctx)
-              smtp.ehlo()
-              smtp.sendmail(
-                'root@localhost',
-                'publicbody@localhost',
-                'Subject: Test Response\n\nTest data.'
-              )
-              smtp.quit()
-          '';
+                with smtplib.SMTP('${domain}', timeout=10) as smtp:
+                  smtp.ehlo()
+                  smtp.starttls(context=ctx)
+                  smtp.ehlo()
+                  smtp.sendmail(
+                    'root@alaveteli.remote', # from
+                    'postmaster@${domain}', # to
+                    'Subject: Test Response\n\nTest data.'
+                  )
+                  smtp.quit()
+              '';
         in
         [
           sendTestResponse
@@ -99,13 +102,17 @@
     # python
     ''
       start_all()
+      testserver.wait_for_unit("postfix.service")
+      testserver.wait_for_unit("opendkim.service")
+      testserver.wait_for_unit("dovecot.service")
       testserver.wait_for_unit("alaveteli-puma.service")
       testserver.wait_for_open_port(80)
       testserver.wait_for_open_port(443)
       testserver.wait_for_open_port(25)
       testserver.wait_for_open_port(587)
+      testserver.wait_for_open_port(110)
+      testserver.succeed("send-mail-to-postmaster")
       testserver.succeed("curl -ks4 https://testserver/ | grep -o 'h1.*Alaveteli'")
       testserver.succeed("curl -ks6 https://testserver/ | grep -o 'h1.*Alaveteli'")
-      testserver.succeed("send-request-response-email")
     '';
 }

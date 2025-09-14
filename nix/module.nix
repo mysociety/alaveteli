@@ -70,11 +70,14 @@ let
 in
 {
   imports = [
+    (import ./dovecot.nix {
+      inherit config lib pkgs;
+    })
     (import ./opendkim.nix {
       inherit config pkgs;
     })
     (import ./postfix.nix {
-      inherit config lib;
+      inherit config lib pkgs;
       pkgPath = package;
     })
     (import ./rspamd.nix {
