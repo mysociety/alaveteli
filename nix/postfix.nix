@@ -2,6 +2,7 @@
   config,
   lib,
   pkgPath,
+  pkgs,
   ...
 }:
 let
@@ -25,12 +26,15 @@ in
       "/^postmaster@/"
     ];
     extraAliases = cfg.mailserver.extraAliases;
+    # https://doc.dovecot.org/2.3/configuration_manual/howto/postfix_and_dovecot_sasl/#using-sasl-with-postfix-submission-port
     submissionOptions = {
       smtpd_tls_security_level = "encrypt";
       smtpd_sasl_auth_enable = "yes";
       smtpd_sasl_type = "dovecot";
       smtpd_sasl_path = "private/auth";
       smtpd_sasl_security_options = "noanonymous";
+      smtpd_sasl_tls_security_options = "$smtpd_sasl_security_options";
+      smtpd_tls_auth_only = "yes";
       smtpd_sasl_local_domain = "$myhostname";
       smtpd_client_restrictions = "permit_sasl_authenticated,reject";
       smtpd_sender_restrictions = "reject_sender_login_mismatch";
@@ -64,6 +68,9 @@ in
           "${certs.${cfg.domainName}.directory}/key.pem"
           "${certs.${cfg.domainName}.directory}/fullchain.pem"
         ];
+
+    # TODO: "smtpd_use_tls" will be removed; instead, specify "smtpd_tls_security_level"
+    # smtpd_use_tls = "yes";
     smtpd_tls_session_cache_database = "btree:\${data_directory}/smtpd_scache";
 
     # TLS parameters for sending (postfix acting as a client)
@@ -99,18 +106,20 @@ in
     # smtpd_milters: opendkim, rspamd
     # TODO: get these from cfg, but see services.rspamd.postfix.enable
     smtpd_milters = "local:/run/opendkim/opendkim.sock, inet:localhost:11332";
+    # TODO: why does this not get merged with the value from rspamd?
+    # non_smtpd_milters = config.services.opendkim.socket;
     # non_smtpd_milters = "local:/var/run/opendkim/opendkim.sock";
 
     # configure SASL auth via dovecot: see
     # https://doc.dovecot.org/2.3/configuration_manual/howto/postfix_and_dovecot_sasl/
     # https://www.postfix.org/SASL_README.html#server_sasl_enable
-    smtpd_sasl_type = "dovecot";
-    smtpd_sasl_path = "private/auth";
-    smtpd_sasl_auth_enable = "yes";
+    # smtpd_sasl_type = "dovecot";
+    # smtpd_sasl_path = "private/auth";
+    # smtpd_sasl_auth_enable = "yes";
 
-    smtpd_sasl_security_options = "noanonymous";
-    smtpd_sasl_tls_security_options = "$smtpd_sasl_security_options";
-    smtpd_tls_auth_only = "yes";
+    # smtpd_sasl_security_options = "noanonymous";
+    # smtpd_sasl_tls_security_options = "$smtpd_sasl_security_options";
+    # smtpd_tls_auth_only = "yes";
 
     #
     # rspamd milter options
@@ -121,6 +130,10 @@ in
     # 6 is the default milter protocol version;
     milter_protocol = 6;
   };
+
+  systemd.services.postfix.preStart = ''
+    ln -s ${recipientBccFile} /etc/postfix/recipient_bcc
+  '';
 
   services.postfix.settings.master = {
 
