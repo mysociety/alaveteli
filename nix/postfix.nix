@@ -42,6 +42,9 @@ in
     };
   };
 
+  # add postfix to opendkim group so it can access opendkim.sock
+  users.users.${config.services.postfix.user}.extraGroups = [ config.services.opendkim.group ];
+
   services.postfix.settings.main = {
     myhostname = cfg.domainName;
     mydestination = [
@@ -97,7 +100,6 @@ in
     # TODO: where does the local_recipient_maps file end up?
     local_recipient_maps = lib.mkForce "proxy:unix:passwd.byname regexp:/etc/postfix/local_recipients";
 
-    # TODO: figure out what happens with this, how do we build the mapping file?
     recipient_bcc_maps = "regexp:/etc/postfix/recipient_bcc";
 
     #
@@ -167,7 +169,7 @@ in
     # which we need for dkim signing (?)
     smtp = {
       type = "inet";
-      chroot = true;
+      chroot = false;
       private = false;
       command = "smtpd";
       args = [ ];
