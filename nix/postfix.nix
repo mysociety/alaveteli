@@ -9,8 +9,10 @@ let
   cfg = config.services.alaveteli;
   inherit (config.security.acme) certs;
 
-  # postfixServiceCfg = lib.optionalAttrs (cfg.mailserver.createLocally) {
-
+  recipientBccFile = pkgs.writeText "recipient_bcc" ''
+    # format for the file:
+    # /regex/                     bcc_username
+  '';
 in
 {
   # TODO: possible bug in optionalAttrs when passed the postfix config???
@@ -27,6 +29,7 @@ in
     ];
     extraAliases = cfg.mailserver.extraAliases;
     # https://doc.dovecot.org/2.3/configuration_manual/howto/postfix_and_dovecot_sasl/#using-sasl-with-postfix-submission-port
+    # https://www.postfix.org/SASL_README.html#server_sasl_enable
     submissionOptions = {
       smtpd_tls_security_level = "encrypt";
       smtpd_sasl_auth_enable = "yes";
@@ -105,23 +108,8 @@ in
     #
     # DKIM settings
     #
-    # smtpd_milters: opendkim, rspamd
-    # TODO: get these from cfg, but see services.rspamd.postfix.enable
-    smtpd_milters = "local:/run/opendkim/opendkim.sock, inet:localhost:11332";
-    # TODO: why does this not get merged with the value from rspamd?
-    # non_smtpd_milters = config.services.opendkim.socket;
-    # non_smtpd_milters = "local:/var/run/opendkim/opendkim.sock";
-
-    # configure SASL auth via dovecot: see
-    # https://doc.dovecot.org/2.3/configuration_manual/howto/postfix_and_dovecot_sasl/
-    # https://www.postfix.org/SASL_README.html#server_sasl_enable
-    # smtpd_sasl_type = "dovecot";
-    # smtpd_sasl_path = "private/auth";
-    # smtpd_sasl_auth_enable = "yes";
-
-    # smtpd_sasl_security_options = "noanonymous";
-    # smtpd_sasl_tls_security_options = "$smtpd_sasl_security_options";
-    # smtpd_tls_auth_only = "yes";
+    smtpd_milters = "${config.services.opendkim.socket}, inet:${(builtins.head config.services.rspamd.workers.rspamd_proxy.bindSockets).socket}";
+    non_smtpd_milters = config.services.opendkim.socket;
 
     #
     # rspamd milter options
