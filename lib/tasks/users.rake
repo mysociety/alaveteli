@@ -145,15 +145,29 @@ namespace :users do
   desc 'Purge profile content from limited users'
   task purge_limited: :environment do
     users = User.limited_profile.where(created_at: ...6.months.ago)
-    users.find_each do |user|
-      user.update!(about_me: '') if user.about_me.present?
-      user.profile_photo&.destroy
+
+    users_with_about_me = users.where.not(about_me: '')
+    users_with_profile_photos = users.joins(:profile_photo)
+    ids = users_with_about_me.ids + users_with_profile_photos.ids
+
+    users_with_about_me.update_all(about_me: '')
+    ProfilePhoto.joins(:user).merge(users_with_profile_photos).destroy_all
+
+    ActiveRecord::Base.logger.silence do
+      User.where(id: ids).in_batches.each_record(&:xapian_mark_needs_index)
     end
   end
 
   desc 'Destroy user accounts that have not created any content'
   task destroy_unused: :environment do
     users = User.unused.where(created_at: ...2.years.ago)
-    users.destroy_all
+
+    TrackThing.where(tracked_user_id: users).update_all(tracked_user_id: nil)
+
+    ActiveRecord::Base.logger.silence do
+      users.preload(
+        User.reflect_on_all_associations.map(&:name)
+      ).in_batches.destroy_all
+    end
   end
 end
