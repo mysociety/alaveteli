@@ -9,6 +9,7 @@
   inputs = {
     self.submodules = true;
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
+    nixpkgsrspamd.url = "github:laurents/nixpkgs/fix-rspamd-config-file";
     systems.url = "github:nix-systems/default";
     devenv = {
       url = "github:cachix/devenv";
@@ -27,6 +28,7 @@
     {
       self,
       nixpkgs,
+      nixpkgsrspamd,
       devenv,
       systems,
       ...
@@ -69,7 +71,7 @@
       );
       alaveteliGems = forEachSystem (system: {
         # pass themeGems from the theme's dev env flake
-        default = self.outputs.mkBundleEnv.${system}.default {
+        default = self.outputs.mkBundleEnv.${system}.default.default {
           themeGemset = self.outputs.themeGemset;
           themeLockfile = self.outputs.themeLockfile;
         };

@@ -181,17 +181,33 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1755783167,
-        "narHash": "sha256-gj7qvMNz7YvhjYxNq4I370cAYIZEw2PbVs5BSwaLrD4=",
-        "owner": "cachix",
-        "repo": "devenv-nixpkgs",
-        "rev": "4a880fb247d24fbca57269af672e8f78935b0328",
+        "dirtyRev": "1af715a92ad06bf3873202765c8ec348ef2a7ba5-dirty",
+        "dirtyShortRev": "1af715a92ad0-dirty",
+        "lastModified": 1757801805,
+        "narHash": "sha256-bXFn1YDUmyLk4WM3DnR0TylXPsyteoNxjuMSgElsfJ8=",
+        "shallow": true,
+        "type": "git",
+        "url": "file:/home/laurent/Sites/nixpkgs"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "file:/home/laurent/Sites/nixpkgs"
+      }
+    },
+    "nixpkgsrspamd": {
+      "locked": {
+        "lastModified": 1757704226,
+        "narHash": "sha256-CIA0+ZsuZKwg83XvEUWHWGZItVd1/s1aOMpJJLmB378=",
+        "owner": "laurents",
+        "repo": "nixpkgs",
+        "rev": "aca8dc49d2d5a8246e9bcc2a6c8c95b716576036",
         "type": "github"
       },
       "original": {
-        "owner": "cachix",
-        "ref": "rolling",
-        "repo": "devenv-nixpkgs",
+        "owner": "laurents",
+        "ref": "fix-rspamd-config-file",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -199,6 +215,7 @@
       "inputs": {
         "devenv": "devenv",
         "nixpkgs": "nixpkgs",
+        "nixpkgsrspamd": "nixpkgsrspamd",
         "systems": "systems"
       }
     },
