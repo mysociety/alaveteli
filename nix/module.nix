@@ -51,18 +51,6 @@ let
     # TODO: set the var and find where solid_queue is
     # SOLID_QUEUE_IN_PUMA = "true";
   };
-  # common service config
-  serviceConfig = {
-    Type = "simple";
-    Restart = "no"; # TODO: remove this once it works
-    # Restart = "always";
-
-    User = cfg.user;
-    Group = cfg.group;
-    PrivateTmp = true;
-    StateDirectory = "alaveteli";
-    WorkingDirectory = package;
-  };
   package = pkgs.callPackage ./package.nix {
     mkBundleEnv = pkgs.callPackage ./bundleEnv.nix { };
   };
@@ -384,7 +372,15 @@ in
       ++ lib.optionals cfg.redis.createLocally [ "redis-${cfg.redis.name}.service" ];
       script = "./bin/puma -C config/puma.rb -b tcp://${appListeningAddress}:${toString appPort}";
       preStop = "./bin/pumactl stop -F config/puma.rb";
-      serviceConfig = serviceConfig // {
+      serviceConfig = {
+        Type = "simple";
+        Restart = "on-failure";
+
+        User = cfg.user;
+        Group = cfg.group;
+        PrivateTmp = true;
+        StateDirectory = "alaveteli";
+        WorkingDirectory = package;
         TimeoutStartSec = 1200;
         RestartSec = 1;
         # watchDogSec = 10;
@@ -399,16 +395,24 @@ in
       # TODO: add systemd job to upgrade alaveteli (see example in nextcloud module)
       # must run rails-post-deploy
       # nixos converts this to a separate systemd unit that is run before the main one
-      preStart = ''
-        mkdir -p ${cfg.dataDir}/config
-        mkdir -p ${cfg.dataDir}/log
-        mkdir -p ${cfg.dataDir}/tmp
-        cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
-        cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
-        cat ${alaveteliConfig} > ${cfg.dataDir}/config/general.yml
+      preStart =
+        # bash
+        ''
+          mkdir -p ${cfg.dataDir}/config
+          mkdir -p ${cfg.dataDir}/log
+          mkdir -p ${cfg.dataDir}/tmp
+          cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
+          cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
+          cat ${alaveteliConfig} > ${cfg.dataDir}/config/general.yml
 
-        ./script/rails-deploy-while-down
-      '';
+          ./script/rails-deploy-while-down
+        '';
+      postStart =
+        # bash
+        ''
+          # force ruby to load the code
+          curl http://localhost:${toString appPort}
+        '';
     };
 
   };
