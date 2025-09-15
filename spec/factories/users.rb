@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20250819094321
 #
 # Table name: users
 #
@@ -12,7 +11,7 @@
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(2000-01-01 00:00:00.000000000 GMT +00:00)
+#  last_daily_track_email            :datetime
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string

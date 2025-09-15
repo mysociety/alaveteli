@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220928093559
 #
 # Table name: info_requests
 #

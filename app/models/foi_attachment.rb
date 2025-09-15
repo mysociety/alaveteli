@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20250408105243
 #
 # Table name: foi_attachments
 #

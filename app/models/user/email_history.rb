@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20250717064136
 #
 # Table name: user_email_histories
 #

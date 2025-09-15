@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20240313094449
 #
 # Table name: censor_rules
 #

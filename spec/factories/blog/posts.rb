@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230314171033
 #
 # Table name: blog_posts
 #

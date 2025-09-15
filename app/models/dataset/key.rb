@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20240926164308
 #
 # Table name: dataset_keys
 #
