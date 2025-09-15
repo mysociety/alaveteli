@@ -105,6 +105,7 @@
       testserver.wait_for_unit("postfix.service")
       testserver.wait_for_unit("opendkim.service")
       testserver.wait_for_unit("dovecot.service")
+      testserver.wait_for_unit("rspamd.service")
       testserver.wait_for_unit("alaveteli-puma.service")
       testserver.wait_for_open_port(80)
       testserver.wait_for_open_port(443)
