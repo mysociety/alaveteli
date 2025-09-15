@@ -83,6 +83,9 @@ in
     (import ./rspamd.nix {
       inherit config lib nixpkgsrspamd;
     })
+    (import ./ssh.nix {
+      inherit config lib pkgs;
+    })
   ];
   options = {
     services.alaveteli = {
