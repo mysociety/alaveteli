@@ -52,7 +52,7 @@ let
     # SOLID_QUEUE_IN_PUMA = "true";
   };
   package = pkgs.callPackage ./package.nix {
-    mkBundleEnv = pkgs.callPackage ./bundleEnv.nix { };
+    mkBundleEnv = pkgs.callPackage ./bundlerEnv.nix { };
   };
 
 in
