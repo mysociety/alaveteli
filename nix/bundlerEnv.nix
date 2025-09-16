@@ -18,6 +18,7 @@
           gems = import ../gemset.nix;
         in
         gems
+        # add build dependencies for gems alaveteli uses
         // {
           mini_racer = gems.mini_racer // {
             buildInputs = [ pkgs.icu ];
@@ -59,6 +60,12 @@
           buildFlags = [ "--with-cflags=-Wno-error=implicit-int" ];
         };
       };
-      # preBuild = if themeGems != { } then
+      preBuild =
+        lib.mkIf themeLockfile != null
+          # bash
+          ''
+            sed -i '/^\nBUNDLED WITH$/i\
+              @sparql (~> 3.3)' Gemfile.lock
+          '';
     };
 }
