@@ -139,7 +139,22 @@ namespace :users do
 
   desc 'Update hashed password to the latest algorithm (bcrypt)'
   task update_hashed_password: :environment do
-    User.sha1.find_each { |user| user.update(password: user.hashed_password) }
+    users = User.sha1
+    count = users.count
+
+    progressbar = ProgressBar.create(
+      title: 'Updating hashed passwords',
+      total: count,
+      format: '%t: %c/%C |%w>%i| %e'
+    ) if Rake.verbose
+
+    users.find_each do |user|
+      user.update(password: user.hashed_password)
+      progressbar&.increment
+    end
+
+    progressbar&.finish
+    puts("Updating hashed passwords completed.") if Rake.verbose
   end
 
   desc 'Purge profile content from limited users'
@@ -150,24 +165,50 @@ namespace :users do
     users_with_profile_photos = users.joins(:profile_photo)
     ids = users_with_about_me.ids + users_with_profile_photos.ids
 
+    progressbar = ProgressBar.create(
+      title: 'Purging limited user profiles',
+      total: ids.count,
+      format: '%t: %c/%C |%w>%i| %e'
+    ) if Rake.verbose
+
     users_with_about_me.update_all(about_me: '')
     ProfilePhoto.joins(:user).merge(users_with_profile_photos).destroy_all
 
     ActiveRecord::Base.logger.silence do
-      User.where(id: ids).in_batches.each_record(&:xapian_mark_needs_index)
+      User.where(id: ids).in_batches.each_record do |user|
+        user.xapian_mark_needs_index
+        progressbar&.increment
+      end
     end
+
+    progressbar&.finish
+    puts("Purging limited user profiles completed.") if Rake.verbose
   end
 
   desc 'Destroy user accounts that have not created any content'
   task destroy_unused: :environment do
     users = User.unused.where(created_at: ...2.years.ago)
+    count = users.count
 
+    progressbar = ProgressBar.create(
+      title: "Destroying unused user accounts",
+      total: count,
+      format: '%t: %c/%C |%w>%i| %e'
+    ) if Rake.verbose
+
+    # Clean up TrackThing references first
     TrackThing.where(tracked_user_id: users).update_all(tracked_user_id: nil)
 
     ActiveRecord::Base.logger.silence do
       users.preload(
         User.reflect_on_all_associations.map(&:name)
-      ).in_batches.destroy_all
+      ).in_batches.each_record do |user|
+        user.destroy
+        progressbar&.increment
+      end
     end
+
+    progressbar&.finish
+    puts("Destroying unused user accounts completed.") if Rake.verbose
   end
 end
