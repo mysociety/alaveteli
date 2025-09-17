@@ -57,7 +57,8 @@
       );
 
       # allow the theme flake to override these
-      themeGemset = { };
+      # TODO: pass this from theme flake
+      themeGemset = import ./gemset_theme.nix;
       themeLockfile = null;
 
       mkBundleEnv = forEachSystem (
