@@ -214,9 +214,12 @@
               init_xapian = {
                 exec = ''
                   cd $DEVENV_ROOT
-                  trap 'kill -KILL $(jobs -p); wait; exit 0;' SIGTERM
-                  RAILS_ENV=development rake xapian:create_index
-                  wait
+                  echo "initing xapian (todo, needs to be run in the alaveteli root folder)"
+                  # trap 'kill -KILL $(jobs -p); wait; exit 0;' SIGTERM
+                  # TODO: patch task code to allow configuring the db path outside
+                  # of rails root dir
+                  # RAILS_ENV=development rake xapian:create_index
+                  # wait
                 '';
                 process-compose.depends_on.migrate.condition = "process_completed_successfully";
               };
