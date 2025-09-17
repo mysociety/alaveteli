@@ -1,8 +1,13 @@
 #request_new .pro-upsell {
   .pro-upsell__headers {
-    column-count: 2;
-    column-gap: 40px;
-    margin: 0 auto;
+
+    @media #{$large-up} {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 4rem;
+      row-gap: 0rem;
+      margin: 0 auto;
+    }
 
     .pro-upsell__header {
       display: inline-block;
@@ -13,18 +18,36 @@
 
   .pro-upsell__features {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+
+    @media #{$large-up} {
+        grid-template-columns: 3fr 2fr 2fr;
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
 
     div {
       display: flex;
+      flex-direction: row-reverse;
       align-items: center;
       gap: 10px;
+      font-size: 1.2rem;
+
+      @media #{$large-up} {
+        flex-direction: row;
+      }
     }
 
     img {
       width: 100%;
       height: auto;
+    }
+    
+    .pro-upsell__features__feature {
+      img {
+        max-width: 7rem;
+      }
     }
 
     .pro-upsell__features__screenshot img {
