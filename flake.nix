@@ -93,8 +93,8 @@
             [
               # self.alaveteliGems.${system}.default
               # self.alaveteliGems.${system}.default.wrappedRuby
-              myGems
               myGems.wrappedRuby
+              (lib.lowPrio myGems)
               libpqxx
               # node
               nodePackages.yarn
