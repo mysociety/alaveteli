@@ -101,7 +101,6 @@
               libsass
               catdoc
               elinks
-              figlet # for the text banner in the dev shell
               # file # libmagic
               ghostscript
               gnuplot
@@ -129,7 +128,7 @@
           # additional packages only needed for the dev env
           developing = with pkgs; [
             bundix
-            figlet
+            figlet # for the text banner in the dev shell
           ];
         }
       );
