@@ -60,12 +60,5 @@
           buildFlags = [ "--with-cflags=-Wno-error=implicit-int" ];
         };
       };
-      preBuild =
-        lib.mkIf themeLockfile != null
-          # bash
-          ''
-            sed -i '/^\nBUNDLED WITH$/i\
-              @sparql (~> 3.3)' Gemfile.lock
-          '';
     };
 }
