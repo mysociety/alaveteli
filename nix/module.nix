@@ -412,12 +412,6 @@ in
 
           ./script/rails-deploy-while-down
         '';
-      postStart =
-        # bash
-        ''
-          # force ruby to load the code
-          curl http://localhost:${toString appPort}
-        '';
     };
 
   };
