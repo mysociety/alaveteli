@@ -352,6 +352,11 @@ in
       };
     };
 
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = cfg.mailserver.rootAlias;
+    };
+
     # TODO: configure varnish
 
     # systemd services
