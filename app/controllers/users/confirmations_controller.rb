@@ -13,9 +13,10 @@ class Users::ConfirmationsController < UserController
         clear_session_credentials
       end
 
+      confirm_user!(post_redirect.user)
+
       redirect_to SafeRedirect.new(post_redirect.uri).path
       return
-
     when 'normal', 'change_email'
       # !User.stay_logged_in_on_redirect?(nil)
       # # => true

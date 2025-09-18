@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Confirm unconfirmed users after following a password reset confirmation link
+  (Gareth Rees)
 * Don't redirect missing HTML conversion attachments to the request page
   (Matthew Somerville, Gareth Rees)
 * Add rate limiting to request creation (Gareth Rees)
