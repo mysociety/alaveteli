@@ -64,6 +64,10 @@ stdenvNoCC.mkDerivation {
 
   env.RAILS_ENV = "production";
 
+  buildPhase = ''
+    # replace the default call to configure/make/make install
+    echo "TODO: precompile assets, etc..."
+  '';
   installPhase = ''
     cp -R . $out
     rm -rf $out/config/database.yml $out/tmp $out/log
