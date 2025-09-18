@@ -3,26 +3,8 @@ module PublicBody::CalculatedHomePage
   extend ActiveSupport::Concern
 
   included do
-    cattr_accessor :excluded_calculated_home_page_domains, default: %w[
-      aol.com
-      gmail.com
-      googlemail.com
-      gmx.com
-      hotmail.com
-      icloud.com
-      live.com
-      mac.com
-      mail.com
-      mail.ru
-      me.com
-      outlook.com
-      protonmail.com
-      qq.com
-      yahoo.com
-      yandex.com
-      ymail.com
-      zoho.com
-    ]
+    cattr_accessor :excluded_calculated_home_page_domains,
+                   default: Domains.webmail_providers
   end
 
   def calculated_home_page

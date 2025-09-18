@@ -1954,6 +1954,66 @@ RSpec.describe PublicBody do
     end
   end
 
+  describe '#is_foi_officer?' do
+    subject { FactoryBot.build(:public_body).is_foi_officer?(user) }
+
+    let(:user) { FactoryBot.build(:user, email: email) }
+
+    context 'the user email domain is different to the body' do
+      let(:email) { 'u@example.net' }
+      it { is_expected.to eq false }
+    end
+
+    context 'the user email domain is the same as the body' do
+      let(:email) { 'u@example.com' }
+      it { is_expected.to eq true }
+    end
+
+    context 'the body domain is excluded from general access' do
+      before do
+        described_class.excluded_foi_officer_access_domains << 'example.com'
+      end
+
+      after do
+        described_class.
+          excluded_foi_officer_access_domains.delete('example.com')
+      end
+
+      context 'the user is from the body but not the main foi address' do
+        let(:email) { 'u@example.com' }
+        it { is_expected.to eq false }
+      end
+
+      context 'the user is the main foi address' do
+        let(:email) { 'request@example.com' }
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#foi_officer_domain_excluded?' do
+    subject do
+      FactoryBot.build(:public_body).foi_officer_domain_excluded?
+    end
+
+    context 'there are no exclusions for the domain' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the body domain is excluded from general access' do
+      before do
+        described_class.excluded_foi_officer_access_domains << 'example.com'
+      end
+
+      after do
+        described_class.
+          excluded_foi_officer_access_domains.delete('example.com')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#has_request_email?' do
     before do
       @body = PublicBody.new(request_email: 'test@example.com')

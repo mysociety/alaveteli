@@ -39,6 +39,7 @@ class PublicBody < ApplicationRecord
 
   include PublicBody::CalculatedHomePage
   include PublicBody::CsvImport
+  include PublicBody::FoiOfficerAccess
 
   admin_columns exclude: %i[name last_edit_editor]
 
@@ -434,16 +435,6 @@ class PublicBody < ApplicationRecord
     else
       raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
     end
-  end
-
-  # Does this user have the power of FOI officer for this body?
-  def is_foi_officer?(user)
-    user_domain = user.email_domain
-    our_domain = request_email_domain
-
-    return false if user_domain.nil? || our_domain.nil?
-
-    our_domain == user_domain
   end
 
   def request_email
