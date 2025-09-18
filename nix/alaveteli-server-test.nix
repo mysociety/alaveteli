@@ -10,7 +10,6 @@
       config,
       lib,
       pkgs,
-      nixpkgsrspamd,
       ...
     }:
     let
@@ -27,11 +26,9 @@
     {
       imports = [
         (import ./module.nix {
-          inherit (inputs)
-            nixpkgsrspamd
-            ;
           inherit
             config
+            inputs
             lib
             pkgs
             ;
