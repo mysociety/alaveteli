@@ -69,8 +69,7 @@ in
       pkgPath = package;
     })
     (import ./rspamd.nix {
-      inherit config lib;
-      inherit (inputs) nixpkgsrspamd;
+      inherit config inputs;
     })
     (import ./ssh.nix {
       inherit config lib pkgs;
