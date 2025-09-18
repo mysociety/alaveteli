@@ -20,8 +20,6 @@ let
 
   src = applyPatches {
     src = ./..;
-
-    # TODO: patch Gemfile.lock with theme gems
     postPatch =
       # bash
       ''
@@ -52,6 +50,7 @@ stdenvNoCC.mkDerivation {
     cacert
   ];
 
+  # force production env here, as we don't build the package in development
   env.RAILS_ENV = "production";
 
   buildPhase = ''

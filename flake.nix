@@ -37,12 +37,10 @@
       forEachSystem = nixpkgs.lib.genAttrs (import systems);
     in
     {
-      # imports = [ ./package.nix ];
       packages = forEachSystem (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          ruby = pkgs.ruby_3_4;
         in
         {
           devenv-up = self.devShells.${system}.default.config.procfileScript;
@@ -56,7 +54,6 @@
         }
       );
 
-      # allow the theme flake to override these
       # TODO: pass this from theme flake
       themeGemset = import ./gemset_theme.nix;
       themeLockfile = null;
