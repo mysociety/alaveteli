@@ -1054,155 +1054,164 @@ RSpec.describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
   end
 
-  it "should let you submit another request with the same title" do
-    sign_in @user
+  context 'ignore creation_rate_limits' do
+    around do |example|
+      old = InfoRequest.creation_rate_limits
+      InfoRequest.creation_rate_limits = {}
+      example.run
+      InfoRequest.creation_rate_limits = old
+    end
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why is your quango called Geraldine?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "This is a silly letter. It is too short to be interesting."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
+    it "should let you submit another request with the same title" do
+      sign_in @user
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why is your quango called Geraldine?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "This is a sensible letter. It is too long to be boring."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why is your quango called Geraldine?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "This is a silly letter. It is too short to be interesting."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
 
-    ir_array = InfoRequest.where(title: "Why is your quango called Geraldine?").
-      order(:id)
-    expect(ir_array.size).to eq(2)
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why is your quango called Geraldine?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "This is a sensible letter. It is too long to be boring."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
 
-    ir = ir_array[0]
-    ir2 = ir_array[1]
+      ir_array = InfoRequest.where(title: "Why is your quango called Geraldine?").
+        order(:id)
+      expect(ir_array.size).to eq(2)
 
-    expect(ir.url_title).not_to eq(ir2.url_title)
+      ir = ir_array[0]
+      ir2 = ir_array[1]
 
-    expect(response).to redirect_to show_request_url(ir2.url_title)
-  end
+      expect(ir.url_title).not_to eq(ir2.url_title)
 
-  it 'should respect the rate limit' do
-    # Try to create three requests in succession.
-    # (The limit set in config/test.yml is two.)
-    sign_in users(:robin_user)
+      expect(response).to redirect_to show_request_url(ir2.url_title)
+    end
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What is the answer to the ultimate question?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please supply the answer from your files."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('what_is_the_answer_to_the_ultima')
-    )
+    it 'should respect the daily cap' do
+      # Try to create three requests in succession.
+      # (The limit set in config/test.yml is two.)
+      sign_in users(:robin_user)
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why did the chicken cross the road?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send me all the relevant documents you hold."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('why_did_the_chicken_cross_the_ro')
-    )
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What is the answer to the ultimate question?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please supply the answer from your files."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('what_is_the_answer_to_the_ultima')
+      )
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What's black and white and red all over?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send all minutes of meetings and email records " \
-                "that address this question."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to render_template('user/rate_limited')
-  end
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why did the chicken cross the road?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send me all the relevant documents you hold."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('why_did_the_chicken_cross_the_ro')
+      )
 
-  it 'should ignore the rate limit for specified users' do
-    # Try to create three requests in succession.
-    # (The limit set in config/test.yml is two.)
-    sign_in users(:robin_user)
-    users(:robin_user).no_limit = true
-    users(:robin_user).save!
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What's black and white and red all over?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send all minutes of meetings and email records " \
+                  "that address this question."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to render_template('user/rate_limited')
+    end
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What is the answer to the ultimate question?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please supply the answer from your files."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('what_is_the_answer_to_the_ultima')
-    )
+    it 'should ignore the rate limit for specified users' do
+      # Try to create three requests in succession.
+      # (The limit set in config/test.yml is two.)
+      sign_in users(:robin_user)
+      users(:robin_user).no_limit = true
+      users(:robin_user).save!
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why did the chicken cross the road?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send me all the relevant documents you hold."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('why_did_the_chicken_cross_the_ro')
-    )
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What is the answer to the ultimate question?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please supply the answer from your files."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('what_is_the_answer_to_the_ultima')
+      )
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What's black and white and red all over?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send all minutes of meetings and email records " \
-                "that address this question."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('whats_black_and_white_and_red_al')
-    )
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why did the chicken cross the road?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send me all the relevant documents you hold."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('why_did_the_chicken_cross_the_ro')
+      )
+
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What's black and white and red all over?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send all minutes of meetings and email records " \
+                  "that address this question."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('whats_black_and_white_and_red_al')
+      )
+    end
   end
 
   describe 'when rendering a reCAPTCHA' do

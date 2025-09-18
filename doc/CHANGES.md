@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add rate limiting to request creation (Gareth Rees)
 * Ability to exclude certain domains from creating responses via the web UI
   (Gareth Rees)
 * Don't run the spam checker for admin accounts or accounts confirmed as not

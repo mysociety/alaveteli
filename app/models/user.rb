@@ -493,7 +493,10 @@ class User < ApplicationRecord
 
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
-    active? && !exceeded_limit?(:info_requests)
+    return false unless active?
+
+    !exceeded_limit?(:info_requests) &&
+      !InfoRequest.exceeded_creation_rate?(info_requests)
   end
 
   def can_make_followup?
@@ -524,22 +527,6 @@ class User < ApplicationRecord
         count
 
     recent_content >= content_limit(content)
-  end
-
-  def next_request_permitted_at
-    return nil if no_limit
-
-    request_limit = content_limit(:info_requests)
-    n_most_recent_requests =
-      InfoRequest.
-        where(["user_id = ? AND created_at > now() - '1 day'::interval", id]).
-          order(created_at: :desc).
-            limit(request_limit)
-
-    return nil if n_most_recent_requests.size < request_limit
-
-    nth_most_recent_request = n_most_recent_requests[-1]
-    nth_most_recent_request.created_at + 1.day
   end
 
   def can_fail_html

@@ -2110,12 +2110,38 @@ RSpec.describe User do
       it { is_expected.to eq(false) }
     end
 
-    context 'when the user has reached their rate limit' do
+    context 'when the user has reached their daily limit' do
       let(:user) { FactoryBot.build(:user) }
 
       before do
         allow(user).
           to receive(:exceeded_limit?).with(:info_requests).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has not reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        expect(InfoRequest).
+          to receive(:exceeded_creation_rate?).
+          with(user.info_requests).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        expect(InfoRequest).
+          to receive(:exceeded_creation_rate?).
+          with(user.info_requests).
+          and_return(true)
       end
 
       it { is_expected.to eq(false) }

@@ -129,6 +129,107 @@ RSpec.describe InfoRequest do
     end
   end
 
+  # rubocop:disable Layout/FirstArrayElementIndentation
+  describe '.exceeded_creation_rate?' do
+    subject { described_class.exceeded_creation_rate?(records) }
+
+    context 'when there are no records' do
+      let(:records) { described_class.where(id: nil) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last record was created in the last second' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 0.seconds.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last record was created a few minutes ago' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last 2 records were created in the last 8 minutes' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 1.second.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 3 records were created in the last 15 minutes' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 1.second.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 5.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 10.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 5 records were created in the last hour' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 1.second.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 5.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 10.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 40.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 50.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the records are reasonably spaced' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 15.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 12.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 40.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.hours.ago),
+          FactoryBot.create(:info_request, created_at: 8.hours.ago),
+          FactoryBot.create(:info_request, created_at: 1.day.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the records are provided out of order' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 3.days.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 1.second.ago)
+        ]).order(created_at: :asc)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+  # rubocop:enable Layout/FirstArrayElementIndentation
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 

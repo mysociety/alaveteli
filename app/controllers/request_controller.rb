@@ -188,13 +188,12 @@ class RequestController < ApplicationController
       # can squirrel it away for tomorrow, so we detect this later after
       # we have constructed the InfoRequest.
       user_exceeded_limit = authenticated_user.exceeded_limit?(:info_requests)
+
       unless user_exceeded_limit
         @details = authenticated_user.can_fail_html
         render template: 'user/banned'
         return
       end
-      # User did exceed limit
-      @next_request_permitted_at = authenticated_user.next_request_permitted_at
     end
 
     # First time we get to the page, just display it
