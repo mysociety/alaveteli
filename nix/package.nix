@@ -82,6 +82,10 @@ stdenvNoCC.mkDerivation {
     inherit rubyEnv;
   };
 
+  # TODO: this was to get around a ./result symlink that points to the test runner
+  # but why??
+  dontCheckForBrokenSymlinks = true;
+
   meta = with lib; {
     description = "Alaveteli, a Freedom of Information request system for your jurisdiction";
     homepage = "https://alaveteli.org";
