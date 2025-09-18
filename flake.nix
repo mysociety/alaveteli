@@ -262,16 +262,17 @@
             };
           };
 
-          # use this one to develop on core alaveteli
+          # use this one to develop on core alaveteli, without a theme
           default = devenv.lib.mkShell {
             inherit inputs pkgs;
             modules = [ self.devShells.${system}.commonModules ];
           };
 
           # use this env to develop with some custom theme
-          # this should be in the theme repo, as the goal here is to work
-          # on the theme itself
-          # start it with: nix develop --no-pure-eval .#devWithTheme
+          # This lives here as creating a dev env from a separate folder than
+          # Rails.root is tricky. The theme folder must be linked from, or copied to,
+          # ./lib/themes
+          # Start it with: nix develop --no-pure-eval .#devWithTheme
           devWithTheme = devenv.lib.mkShell {
             inherit inputs pkgs;
             modules = [
@@ -279,7 +280,7 @@
                 self.devShells.${system}.commonModules
                 // {
                   # enterShell = self.devShells.${system}.default.enterShell
-                  enterShell = self.devShells.${system}.commonModules.enterShell + "echo booyah";
+                  enterShell = self.devShells.${system}.commonModules.enterShell + "echo Using theme";
                   env = self.devShells.${system}.commonModules.env // {
                     FOOENV = "themeON";
                   };
