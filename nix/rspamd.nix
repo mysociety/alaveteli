@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  nixpkgsrspamd,
+  inputs,
   ...
 }:
 let
@@ -11,7 +11,7 @@ in
   # use rspamd service definition from our PR
   disabledModules = [ "services/mail/rspamd.nix" ];
   imports = [
-    "${nixpkgsrspamd}/nixos/modules/services/mail/rspamd.nix"
+    "${inputs.nixpkgsrspamd}/nixos/modules/services/mail/rspamd.nix"
   ];
   services.rspamd = {
     enable = true;

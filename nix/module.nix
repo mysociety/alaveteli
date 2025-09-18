@@ -6,7 +6,7 @@
   config,
   lib,
   pkgs,
-  nixpkgsrspamd,
+  inputs,
   ...
 }:
 let
@@ -69,7 +69,8 @@ in
       pkgPath = package;
     })
     (import ./rspamd.nix {
-      inherit config lib nixpkgsrspamd;
+      inherit config lib;
+      inherit (inputs) nixpkgsrspamd;
     })
     (import ./ssh.nix {
       inherit config lib pkgs;
