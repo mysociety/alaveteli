@@ -1,23 +1,14 @@
 {
   stdenvNoCC,
   lib,
-  nixosTests,
-  fetchFromGitHub,
   applyPatches,
-  bash,
-  bundlerEnv,
-  writeScript,
-  callPackage,
   git,
   procps,
-  makeWrapper,
   ruby,
   postgresql,
   cacert,
-  valkey,
-  dataDir ? "/var/www/alaveteli",
+  dataDir, # ? "/var/www/alaveteli",
   mkBundleEnv,
-  system,
 }:
 
 let
@@ -25,7 +16,7 @@ let
   # TODO: get this from git?
   version = "0.0.1";
   # TODO: make this a function arg?
-  dataDir = "/var/lib/alaveteli";
+  # dataDir = "/var/lib/alaveteli";
 
   src = applyPatches {
     src = ./..;
@@ -44,7 +35,6 @@ let
     themeGemset = { };
     themeLockfile = ../Gemfile.lock;
   };
-
 in
 stdenvNoCC.mkDerivation {
   inherit pname version src;
