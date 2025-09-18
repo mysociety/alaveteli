@@ -53,6 +53,7 @@ let
   };
   package = pkgs.callPackage ./package.nix {
     mkBundleEnv = pkgs.callPackage ./bundlerEnv.nix { };
+    inherit (cfg) dataDir;
   };
 
 in
