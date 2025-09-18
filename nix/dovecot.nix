@@ -31,7 +31,7 @@ in
       if (cfg.sslCertificate != null && cfg.sslCertificateKey != null) then
         cfg.sslCertificateKey
       else
-        "${certs.${cfg.domainName}.directory}/privkey.pem";
+        "${certs.${cfg.domainName}.directory}/key.pem";
     sslServerCert =
       if (cfg.sslCertificate != null && cfg.sslCertificateKey != null) then
         cfg.sslCertificate
