@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Don't redirect missing HTML conversion attachments to the request page
+  (Matthew Somerville, Gareth Rees)
 * Add rate limiting to request creation (Gareth Rees)
 * Ability to exclude certain domains from creating responses via the web UI
   (Gareth Rees)
