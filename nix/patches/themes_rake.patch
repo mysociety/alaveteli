@@ -1,0 +1,20 @@
+--- a/lib/tasks/themes.rake
++++ b/lib/tasks/themes.rake
+@@ -6,7 +6,7 @@ namespace :themes do
+   Git = MySociety::Git
+
+   def all_themes_dir
+-    File.join(Rails.root,"lib","themes")
++    File.join("/var/lib/alaveteli", "lib", "themes")
+   end
+
+   def theme_dir(theme_name)
+@@ -161,7 +161,7 @@ namespace :themes do
+   def template_file(template_name, theme_name, locale)
+     locale_extensions(locale).each do |locale_extension|
+       filename = "#{template_name}#{locale_extension}.html.erb"
+-      filepath = "lib/themes/#{theme_name}/lib/views/help/#{filename}"
++      filepath = "/var/lib/alaveteli/lib/themes/#{theme_name}/lib/views/help/#{filename}"
+       return filepath if File.exist?(filepath)
+     end
+     nil
