@@ -20,6 +20,13 @@ let
 
   src = applyPatches {
     src = ./..;
+    patches = [
+      # move xapiandb out of source tree and into /var/lib/alaveteli
+      # TODO: how to move it to dataDir?
+      ./patches/lib_acts_as_xapian.patch
+      ./patches/themes_rake.patch
+      ./patches/theme_loader_rb.patch
+    ];
     postPatch =
       # bash
       ''

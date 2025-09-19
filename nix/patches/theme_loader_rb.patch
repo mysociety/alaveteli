@@ -1,0 +1,11 @@
+--- a/config/initializers/theme_loader.rb
++++ b/config/initializers/theme_loader.rb
+@@ -3,7 +3,7 @@
+ $alaveteli_route_extensions = []
+
+ def theme_root(theme_name)
+-  Rails.root.join('lib/themes', theme_name)
++  Pathname.new("/var/lib/alaveteli").join('lib/themes', theme_name)
+ end
+
+ def require_theme(theme_name)
