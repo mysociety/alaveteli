@@ -7,6 +7,7 @@ module ClassificationsHelper
 
   def classification_label(state, text, id_suffix: nil)
     id = "#{ state }#{ id_suffix }"
+    text = tag.i(class: "icon-standalone icon_#{ state }") + tag.span(text)
     label_tag(id, text)
   end
 
