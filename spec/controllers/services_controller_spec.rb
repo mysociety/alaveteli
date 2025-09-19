@@ -59,9 +59,9 @@ RSpec.describe ServicesController do
       it "shows an EU message if the user location has a deployed FOI website and is covered by AskTheEU" do
         allow(AlaveteliConfiguration).
           to receive(:iso_country_code).and_return("DE")
-        allow(controller).to receive(:country_from_ip).and_return('GB')
+        allow(controller).to receive(:country_from_ip).and_return('FR')
         get :other_country_message
-        expect(response.body).to match(/within United Kingdom at/)
+        expect(response.body).to match(/within France at/)
         expect(response.body).to match(/EU institutions/)
       end
 
