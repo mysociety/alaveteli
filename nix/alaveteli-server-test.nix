@@ -48,6 +48,8 @@
         "${tls-cert}/cert.pem"
       ];
 
+      services.geoipupdate.enable = false;
+
       services.alaveteli = {
         enable = true;
         domainName = domain;
@@ -55,6 +57,7 @@
         database.createLocally = true;
         sslCertificate = "${tls-cert}/cert.pem";
         sslCertificateKey = "${tls-cert}/key.pem";
+        geoipLicenseKey = "/dev/null";
       };
 
       networking.extraHosts = ''

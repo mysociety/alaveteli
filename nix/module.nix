@@ -22,6 +22,8 @@ let
   alaveteliConfig = settingsFormat.generate "general.yml" {
     # drop emails in /tmp/mails while debugging
     PRODUCTION_MAILER_DELIVERY_METHOD = "file";
+
+    GEOIP_DATABASE = "${config.services.geoipupdate.settings.DatabaseDirectory}/GeoLite2-Country.mmdb";
   };
 
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
@@ -112,6 +114,18 @@ in
         type = lib.types.str;
         description = "The domain name on which your site will run";
         example = "example.com";
+      };
+
+      geoipLicenseKey = lib.mkOption {
+        type = with lib.types; either path (attrsOf path);
+        description = ''
+          A file containing the MaxMind license key.
+
+          Always handled as a secret whether the value is
+          wrapped in a `{ _secret = ...; }`
+          attrset or not (refer to [](#opt-services.geoipupdate.settings) for
+          details).
+        '';
       };
 
       sslCertificate = lib.mkOption {
@@ -356,6 +370,23 @@ in
     security.acme = {
       acceptTerms = true;
       defaults.email = cfg.mailserver.rootAlias;
+    };
+
+    users.users."geoip" = {
+      group = "geoip";
+      isSystemUser = true;
+    };
+    users.groups.geoip = { };
+
+    services.geoipupdate = {
+      # enable = (cfg.geoipLicenseKey != null);
+      enable = lib.trace cfg.geoipLicenseKey false;
+      settings = {
+        EditionsIDs = [
+          "GeoLite2-Country"
+        ];
+        LicenseKey = cfg.geoipLicenseKey;
+      };
     };
 
     # TODO: configure varnish
