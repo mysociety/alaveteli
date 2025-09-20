@@ -24,6 +24,9 @@ let
     PRODUCTION_MAILER_DELIVERY_METHOD = "file";
 
     GEOIP_DATABASE = "${config.services.geoipupdate.settings.DatabaseDirectory}/GeoLite2-Country.mmdb";
+    THEME_URLS = [
+      cfg.theme.url
+    ];
   };
 
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
@@ -58,6 +61,24 @@ let
     inherit (cfg) dataDir;
   };
 
+  themeName =
+    with lib.strings;
+    (builtins.head (splitString "." (lib.last (splitString "/" cfg.theme.url))));
+  themePackage =
+    if themeName == "alavetelitheme" then
+      pkgs.stdenvNoCC.mkDerivation {
+        pname = lib.trace themeName "alavetelitheme";
+        version = "9426f758";
+        src = pkgs.fetchFromGitHub {
+          owner = "mysociety";
+          repo = "alavetelitheme";
+          rev = "9426f7589cbd4393611c99c059332c613523682a";
+          hash = "sha256-Mo2v8KBniikfxdSUAn8aVYtGmHcHkrmUrMy192GlozI=";
+        };
+        installPhase = "cp -R . $out";
+      }
+    else
+      cfg.theme.package;
 in
 {
   imports = [
@@ -114,6 +135,19 @@ in
         type = lib.types.str;
         description = "The domain name on which your site will run";
         example = "example.com";
+      };
+
+      theme = {
+        url = lib.mkOption {
+          type = lib.types.str;
+          description = "The url for the repository of the theme to use";
+          default = "https://github.com/mysociety/alavetelitheme.git";
+          example = "https://github.com/mysociety/someothertheme.git";
+        };
+        package = lib.mkOption {
+          type = lib.types.package;
+
+        };
       };
 
       geoipLicenseKey = lib.mkOption {
@@ -314,6 +348,8 @@ in
       443
     ];
 
+    # configure theme if provided
+
     users.users.${cfg.user} = {
       group = "${cfg.group}";
       isSystemUser = true;
@@ -435,6 +471,9 @@ in
       preStart =
         # bash
         ''
+          mkdir -p ${cfg.dataDir}/lib/themes
+          rm -f ${cfg.dataDir}/lib/themes/${themeName}
+          ln -s ${themePackage} ${cfg.dataDir}/lib/themes/${themeName}
           mkdir -p ${cfg.dataDir}/config
           mkdir -p ${cfg.dataDir}/log
           mkdir -p ${cfg.dataDir}/tmp
@@ -442,7 +481,8 @@ in
           cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
           cat ${alaveteliConfig} > ${cfg.dataDir}/config/general.yml
 
-          ./script/rails-deploy-while-down
+          rake db:migrate
+          rake db:seed
         '';
     };
 

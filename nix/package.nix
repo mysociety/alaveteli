@@ -60,10 +60,29 @@ stdenvNoCC.mkDerivation {
   # force production env here, as we don't build the package in development
   env.RAILS_ENV = "production";
 
-  buildPhase = ''
-    # replace the default call to configure/make/make install
-    echo "TODO: precompile assets, etc..."
-  '';
+  buildPhase =
+    # bash
+    ''
+      runHook preBuild
+
+      # redis does not seem to be required to compile assets
+      mkdir postgres-work
+      initdb -D postgres-work --encoding=utf8
+      pg_ctl start -D postgres-work -o "-k $PWD/postgres-work -h '''"
+      createuser -h $PWD/postgres-work alaveteli -R -S
+      createdb -h $PWD/postgres-work --encoding=utf8 --owner=alaveteli alaveteli_production
+
+      rake DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:precompile
+      rake DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:link_non_digest
+
+      ps aux | grep redis
+
+      pg_ctl stop -D postgres-work -m immediate
+      rm -r postgres-work
+
+      runHook postBuild
+    '';
+
   installPhase = ''
     cp -R . $out
     rm -rf $out/config/database.yml $out/tmp $out/log
