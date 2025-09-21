@@ -160,6 +160,9 @@
           alaveteli_config_general = pkgs.writeText "general.yml" (toYAML {
             OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS = "publicbody@localhost";
             # THEME_URLS = [ "https://github.com/mysociety/alavetelitheme.git" ];
+            THEME_URLS = [
+              "https://gitlab.com/madada-team/dada-core.git"
+            ];
           });
         in
         {
