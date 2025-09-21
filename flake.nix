@@ -48,9 +48,15 @@
           serverTests = pkgs.testers.runNixOSTest (
             import ./nix/alaveteli-server-test.nix { inherit inputs; }
           );
-          default = pkgs.callPackage ./nix/package.nix {
-            mkBundleEnv = self.mkBundleEnv;
+          alaveteli = pkgs.callPackage ./nix/package.nix {
+            mkBundleEnv = pkgs.callPackage ./nix/bundlerEnv.nix {
+              themeGemfile = ./Gemfile_theme;
+              themeGemset = import ./gemset_theme.nix;
+              themeLockfile = ./Gemfile_theme.lock;
+            };
+            dataDir = "/var/lib/alaveteli";
           };
+          default = self.packages.alaveteli;
         }
       );
 
