@@ -6,16 +6,23 @@
 }:
 {
   default =
-    { themeGemset, themeLockfile }:
+    {
+      # pass 3 files that represent the *entire* set of gems used
+      # by the theme, ie. core alaveteli + theme gems
+      themeGemfile ? null,
+      themeLockfile ? null,
+      themeGemset,
+    }:
     pkgs.bundlerEnv {
       name = "gems-for-alaveteli";
       gemdir = ./..;
       ruby = pkgs.ruby_3_4;
       extraConfigPaths = [ "${./..}/gems" ];
       lockfile = themeLockfile;
+      gemfile = themeGemfile;
       gemset =
         let
-          gems = import ../gemset.nix;
+          gems = if themeGemset != null then themeGemset else import ../gemset.nix;
         in
         gems
         # add build dependencies for gems alaveteli uses
@@ -51,8 +58,7 @@
                 cp ${linkFiles} libexec/inject-libv8
               '';
             };
-        }
-        // themeGemset;
+        };
 
       gemConfig = pkgs.defaultGemConfig // {
         mahoro = attrs: { nativeBuildInputs = [ pkgs.file ]; };
