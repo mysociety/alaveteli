@@ -22,20 +22,21 @@ let
   railsMaxThreads = 3;
   # the hostname used in alaveteli-server-test.nix
 
-  alaveteliConfig = settingsFormat.generate "general.yml" {
-    # drop emails in /tmp/mails while debugging
-    PRODUCTION_MAILER_DELIVERY_METHOD = "file";
+  alaveteliConfig =
+    settingsFormat.generate "general.yml" {
+      # drop emails in /tmp/mails while debugging
+      # PRODUCTION_MAILER_DELIVERY_METHOD = "file";
 
-    GEOIP_DATABASE = "${config.services.geoipupdate.settings.DatabaseDirectory}/GeoLite2-Country.mmdb";
-    THEME_URLS = [
-      cfg.theme.url
-    ];
-  };
+      GEOIP_DATABASE = "${config.services.geoipupdate.settings.DatabaseDirectory}/GeoLite2-Country.mmdb";
+      THEME_URLS = [
+        "${cfg.theme.url}"
+      ];
+    }
+    // cfg.settings.general;
 
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
 
   storageConfig = settingsFormat.generate "storage.yml" {
-
     local = {
       service = "Disk";
       root = "${cfg.dataDir}/storage/local";
@@ -136,6 +137,18 @@ in
         type = lib.types.str;
         description = "The domain name on which your site will run";
         example = "example.com";
+      };
+
+      settings = {
+        general = lib.mkOption {
+          type = settingsFormat.type;
+          description = "Settings that should go in config/general.yml. These get merged with default settings.";
+          default = { };
+          example = {
+            ISO_COUNTRY_CODE = "en";
+            SITE_NAME = "My FOI Site";
+          };
+        };
       };
 
       theme = {
