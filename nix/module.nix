@@ -2,6 +2,9 @@
 # Design decisions:
 # alaveteli is run with puma and nginx (for opensource reasons)
 # postfix for email, with opndkim, rspamd
+
+# self is the alaveteli flake
+self:
 {
   config,
   lib,
@@ -56,14 +59,6 @@ let
     # TODO: set the var and find where solid_queue is
     # SOLID_QUEUE_IN_PUMA = "true";
   };
-  package = pkgs.callPackage ./package.nix {
-    mkBundleEnv = pkgs.callPackage ./bundlerEnv.nix {
-      themeGemfile = cfg.theme.gemfile;
-      themeLockfile = cfg.theme.gemfileLock;
-      themeGemset = cfg.theme.gemset;
-    };
-    inherit (cfg) dataDir;
-  };
 
   themeName =
     with lib.strings;
@@ -94,7 +89,7 @@ in
     })
     (import ./postfix.nix {
       inherit config lib pkgs;
-      pkgPath = package;
+      pkgPath = cfg.package;
     })
     (import ./rspamd.nix {
       inherit config inputs;
@@ -109,7 +104,9 @@ in
       enable = lib.mkEnableOption "Alaveteli, a Freedom of Information request system for your jurisdiction";
 
       # TODO: how to fix this option if package is not in nixpkgs?
-      # package = lib.mkPackageOption "alaveteli" { };
+      package = lib.mkPackageOption self.packages.${pkgs.system} "alaveteli" {
+        default = self.packages.${pkgs.system}.alaveteli;
+      };
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -462,7 +459,7 @@ in
         Group = cfg.group;
         PrivateTmp = true;
         StateDirectory = "alaveteli";
-        WorkingDirectory = package;
+        WorkingDirectory = cfg.package;
         TimeoutStartSec = 1200;
         RestartSec = 1;
         # watchDogSec = 10;
@@ -470,7 +467,7 @@ in
 
       # make these programs available to the alaveteli service
       path = [
-        package
+        cfg.package
         pkgs.git
       ];
 

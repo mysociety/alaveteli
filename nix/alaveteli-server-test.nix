@@ -25,7 +25,7 @@
     in
     {
       imports = [
-        (import ./module.nix {
+        (import ./module.nix inputs.self {
           inherit
             config
             inputs
