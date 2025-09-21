@@ -57,7 +57,11 @@ let
     # SOLID_QUEUE_IN_PUMA = "true";
   };
   package = pkgs.callPackage ./package.nix {
-    mkBundleEnv = pkgs.callPackage ./bundlerEnv.nix { };
+    mkBundleEnv = pkgs.callPackage ./bundlerEnv.nix {
+      themeGemfile = cfg.theme.gemfile;
+      themeLockfile = cfg.theme.gemfileLock;
+      themeGemset = cfg.theme.gemset;
+    };
     inherit (cfg) dataDir;
   };
 
@@ -147,6 +151,18 @@ in
         package = lib.mkOption {
           type = lib.types.package;
 
+        };
+        gemfile = lib.mkOption {
+          type = with lib.types; nullOr str;
+          default = null;
+        };
+        gemfileLock = lib.mkOption {
+          type = with lib.types; nullOr str;
+          default = null;
+        };
+        gemset = lib.mkOption {
+          type = with lib.types; nullOr str;
+          default = null;
         };
       };
 

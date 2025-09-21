@@ -37,8 +37,9 @@ let
   };
 
   rubyEnv = mkBundleEnv.default {
-    themeGemset = { };
-    themeLockfile = ../Gemfile.lock;
+    themeGemfile = ../Gemfile_theme;
+    themeGemset = import ../gemset_theme.nix;
+    themeLockfile = ../Gemfile_theme.lock;
   };
 in
 stdenvNoCC.mkDerivation {

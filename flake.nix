@@ -55,8 +55,9 @@
       );
 
       # TODO: pass this from theme flake
+      themeGemfile = ./Gemfile_theme;
       themeGemset = import ./gemset_theme.nix;
-      themeLockfile = null;
+      themeLockfile = ./Gemfile_theme.lock;
 
       mkBundleEnv = forEachSystem (
         system:
@@ -70,6 +71,7 @@
       alaveteliGems = forEachSystem (system: {
         # pass themeGems from the theme's dev env flake
         default = self.outputs.mkBundleEnv.${system}.default.default {
+          themeGemfile = self.outputs.themeGemfile;
           themeGemset = self.outputs.themeGemset;
           themeLockfile = self.outputs.themeLockfile;
         };
