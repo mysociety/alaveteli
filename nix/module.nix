@@ -395,16 +395,9 @@ in
       };
     };
 
-    # TODO: configure opendkim
-
-    # TODO: configure rspamd
-
-    # TODO: add systemd job to run alaveteli
-
     # TODO: add systemd job to upgrade alaveteli (see example in nextcloud module)
     # must run rails-post-deploy
 
-    # TODO: configure nginx
     services.nginx = {
       enable = lib.mkDefault true;
 
