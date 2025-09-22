@@ -21,14 +21,18 @@ class Note < ApplicationRecord
   delegate :rich_body, :rich_body=, :rich_body?, to: :translation
   after_save { rich_body.save if rich_body.changed? }
 
-  cattr_accessor :default_style, default: 'original'
-  cattr_accessor :style_labels, default: {
-    '🔴 Red': 'red',
-    '🟡 Yellow': 'yellow',
-    '🟢 Green': 'green',
-    '🔵 Blue': 'blue',
-    'Original': 'original'
-  }
+  cattr_accessor :default_style,
+                 instance_accessor: false,
+                 default: 'original'
+  cattr_accessor :style_labels,
+                 instance_accessor: false,
+                 default: {
+                   '🔴 Red': 'red',
+                   '🟡 Yellow': 'yellow',
+                   '🟢 Green': 'green',
+                   '🔵 Blue': 'blue',
+                   'Original': 'original'
+                 }
 
   enum :style, Note.style_labels.values.index_by(&:itself),
                default: Note.default_style,

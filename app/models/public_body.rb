@@ -54,7 +54,9 @@ class PublicBody < ApplicationRecord
 
   # Any PublicBody tagged with any of the follow tags won't be returned in the
   # batch authority search results or batch category UI
-  cattr_accessor :batch_excluded_tags, default: %w[not_apply defunct]
+  cattr_accessor :batch_excluded_tags,
+                 instance_accessor: false,
+                 default: %w[not_apply defunct]
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
