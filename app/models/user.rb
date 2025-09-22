@@ -503,8 +503,11 @@ class User < ApplicationRecord
       InfoRequest.exceeded_creation_rate?(info_requests)
   end
 
-  def can_make_followup?
-    active?
+  def exceeded_followup_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    false
   end
 
   def can_make_comments?

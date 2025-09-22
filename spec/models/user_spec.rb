@@ -448,6 +448,7 @@ RSpec.describe User, "when checking abilities" do
 
   it "should not exceed limits" do
     expect(@user.exceeded_request_limits?).to be false
+    expect(@user.exceeded_followup_limits?).to be false
   end
 end
 
