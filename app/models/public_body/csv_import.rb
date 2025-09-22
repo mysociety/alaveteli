@@ -9,7 +9,7 @@ module PublicBody::CsvImport
   included do
     # Default fields available for importing from CSV, in the format
     # [field_name, 'short description of field (basic html allowed)']
-    cattr_accessor :csv_import_fields do
+    cattr_accessor :csv_import_fields, instance_writer: false do
       [
         ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
         ['short_name', '(i18n)'],

@@ -252,7 +252,12 @@ RSpec.describe PublicBody do
       let!(:public_body) { FactoryBot.create(:public_body) }
 
       # Reduce size for test so we have to create fewer records
-      before { public_body.not_many_public_requests_size = 2 }
+      around do |example|
+        original_size = PublicBody.not_many_public_requests_size
+        PublicBody.not_many_public_requests_size = 2
+        example.run
+        PublicBody.not_many_public_requests_size = original_size
+      end
 
       before do
         FactoryBot.create_list(:info_request, 2, public_body: public_body)
@@ -2376,10 +2381,15 @@ RSpec.describe PublicBody do
   describe '#info_request_count_changed' do
     subject { public_body.info_request_count_changed }
 
+    around do |example|
+      original_size = PublicBody.not_many_public_requests_size
+      PublicBody.not_many_public_requests_size = 2
+      example.run
+      PublicBody.not_many_public_requests_size = original_size
+    end
+
     context 'when there are not many public requests' do
       let!(:public_body) { FactoryBot.create(:public_body) }
-
-      before { public_body.not_many_public_requests_size = 2 }
 
       it 'adds the not many requests tag' do
         subject
@@ -2389,8 +2399,6 @@ RSpec.describe PublicBody do
 
     context 'when a request email is removed' do
       let!(:public_body) { FactoryBot.create(:public_body) }
-
-      before { public_body.not_many_public_requests_size = 2 }
 
       before do
         FactoryBot.create_list(:info_request, 3, public_body: public_body)

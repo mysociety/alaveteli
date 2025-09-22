@@ -65,7 +65,9 @@ class User < ApplicationRecord
     user_messages: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
-  cattr_accessor :content_limits, default: DEFAULT_CONTENT_LIMITS
+  cattr_accessor :content_limits,
+                 instance_writer: false,
+                 default: DEFAULT_CONTENT_LIMITS
 
   rolify before_add: :setup_pro_account,
          after_add: :assign_role_features,
