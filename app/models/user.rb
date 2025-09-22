@@ -518,8 +518,11 @@ class User < ApplicationRecord
       Comment.exceeded_creation_rate?(comments)
   end
 
-  def can_contact_other_users?
-    active? && !exceeded_limit?(:user_messages)
+  def exceeded_user_message_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    exceeded_limit?(:user_messages)
   end
 
   def exceeded_limit?(content)

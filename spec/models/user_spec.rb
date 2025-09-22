@@ -450,6 +450,7 @@ RSpec.describe User, "when checking abilities" do
     expect(@user.exceeded_request_limits?).to be false
     expect(@user.exceeded_followup_limits?).to be false
     expect(@user.exceeded_comment_limits?).to be false
+    expect(@user.exceeded_user_message_limits?).to be false
   end
 end
 
