@@ -2096,6 +2096,28 @@ RSpec.describe User do
     end
   end
 
+  describe '#no_limit?' do
+    subject { user.no_limit? }
+
+    let(:user) { FactoryBot.build(:user) }
+    it { is_expected.to eq(false) }
+
+    context 'when user has no limit set' do
+      let(:user) { FactoryBot.build(:user, no_limit: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when user is an pro admin' do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#can_file_requests?' do
     subject { user.can_file_requests? }
 

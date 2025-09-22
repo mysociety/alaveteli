@@ -491,6 +491,10 @@ class User < ApplicationRecord
     'normal'
   end
 
+  def no_limit?
+    super || is_admin? || is_pro_admin?
+  end
+
   # Various ways the user can be banned, and text to describe it if failed
   def can_file_requests?
     return false unless active?
@@ -505,7 +509,7 @@ class User < ApplicationRecord
 
   def can_make_comments?
     return false unless active?
-    return true if no_limit? || is_admin? || is_pro_admin?
+    return true if no_limit?
 
     !exceeded_limit?(:comments) &&
       !Comment.exceeded_creation_rate?(comments)
