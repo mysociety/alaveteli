@@ -3,13 +3,19 @@
 module PublicBody::FoiOfficerAccess
   extend ActiveSupport::Concern
 
-  included do
-    cattr_accessor :excluded_foi_officer_access_domains,
-                   default: Domains.webmail_providers
+  class_methods do
+    def excluded_foi_officer_access_domains
+      @excluded_foi_officer_access_domains ||= Domains.webmail_providers
+    end
+
+    def excluded_foi_officer_access_domains=(domains)
+      @excluded_foi_officer_access_domains = domains
+    end
   end
 
   def foi_officer_domain_excluded?
-    excluded_foi_officer_access_domains.include?(request_email_domain)
+    self.class.excluded_foi_officer_access_domains.
+      include?(request_email_domain)
   end
 
   # Does this user have the power of FOI officer for this body?
@@ -32,7 +38,7 @@ module PublicBody::FoiOfficerAccess
   end
 
   def no_restrictions_on_domain?(user)
-    !excluded_foi_officer_access_domains.include?(user.email_domain)
+    !self.class.excluded_foi_officer_access_domains.include?(user.email_domain)
   end
 
   def outside_user?(user)
