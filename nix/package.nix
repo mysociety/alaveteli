@@ -26,6 +26,7 @@ let
       ./patches/lib_acts_as_xapian.patch
       ./patches/themes_rake.patch
       ./patches/theme_loader_rb.patch
+      ./patches/routes_rb.patch
       ./patches/conf_env_prod.patch
     ];
     postPatch =
