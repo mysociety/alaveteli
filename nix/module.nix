@@ -22,17 +22,19 @@ let
   railsMaxThreads = 3;
   # the hostname used in alaveteli-server-test.nix
 
-  alaveteliConfig =
-    settingsFormat.generate "general.yml" {
-      # drop emails in /tmp/mails while debugging
-      # PRODUCTION_MAILER_DELIVERY_METHOD = "file";
+  alaveteliConfig = settingsFormat.generate "general.yml" (
+    {
+      EXCEPTION_NOTIFICATIONS_FROM = "errors@${cfg.domainName}";
+      EXCEPTION_NOTIFICATIONS_TO = cfg.mailserver.rootAlias;
 
       GEOIP_DATABASE = "${config.services.geoipupdate.settings.DatabaseDirectory}/GeoLite2-Country.mmdb";
       THEME_URLS = [
         "${cfg.theme.url}"
       ];
+      MAXMIND_LICENSE_KEY = cfg.geoipLicenseKey;
     }
-    // cfg.settings.general;
+    // cfg.settings.general
+  );
 
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
 
@@ -51,6 +53,7 @@ let
       root = "${cfg.dataDir}/storage/attachments";
     };
   };
+
   environment = {
     LOGFILE = "${cfg.dataDir}/log/production.log";
     RAILS_ENV = "production";
