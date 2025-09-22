@@ -13,7 +13,6 @@ class CommentsController < ApplicationController
   before_action :find_info_request
 
   before_action :reject_unless_comments_allowed
-  before_action :reject_if_user_banned
   before_action :set_in_pro_area
 
   before_action :build_comment
@@ -21,6 +20,7 @@ class CommentsController < ApplicationController
 
   before_action :reedit_comment, only: [:create]
   before_action :authenticate, only: [:create]
+  before_action :reject_if_user_banned
   before_action :check_for_spam_comment, only: [:create]
 
   before_action :validate_comment, only: [:preview, :create]
@@ -80,14 +80,13 @@ class CommentsController < ApplicationController
                 notice: _("Comments are not allowed on this request")
   end
 
-  # Banned from adding comments?
   def reject_if_user_banned
-    return if !authenticated? || authenticated_user.can_make_comments?
+    return unless authenticated?
 
-    if authenticated_user.banned?
+    if authenticated_user.suspended?
       @details = authenticated_user.can_fail_html
       render template: 'user/banned'
-    else
+    elsif authenticated_user.exceeded_comment_limits?
       render template: 'comments/rate_limited'
     end
   end

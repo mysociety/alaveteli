@@ -142,7 +142,8 @@ RSpec.describe CommentsController, "when commenting on a request" do
     user = FactoryBot.build(:user)
 
     # Ignore rate limiting
-    allow_any_instance_of(User).to receive(:can_make_comments?).and_return(true)
+    allow_any_instance_of(User).to receive(:exceeded_comment_limits?).
+      and_return(false)
 
     info_request = FactoryBot.build(:info_request, user: user)
     comment =

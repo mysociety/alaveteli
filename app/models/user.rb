@@ -510,12 +510,12 @@ class User < ApplicationRecord
     false
   end
 
-  def can_make_comments?
-    return false unless active?
-    return true if no_limit?
+  def exceeded_comment_limits?
+    return true if suspended?
+    return false if no_limit?
 
-    !exceeded_limit?(:comments) &&
-      !Comment.exceeded_creation_rate?(comments)
+    exceeded_limit?(:comments) ||
+      Comment.exceeded_creation_rate?(comments)
   end
 
   def can_contact_other_users?
