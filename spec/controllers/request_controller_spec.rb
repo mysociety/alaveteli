@@ -1722,7 +1722,8 @@ RSpec.describe RequestController, "when making a new request" do
   before do
     @user = mock_model(User, id: 3481, name: 'Testy').as_null_object
     allow(@user).to receive(:get_undescribed_requests).and_return([])
-    allow(@user).to receive(:can_file_requests?).and_return(true)
+    allow(@user).to receive(:suspended?).and_return(false)
+    allow(@user).to receive(:exceeded_request_limits?).and_return(false)
     allow(@user).to receive(:locale).and_return("en")
     allow(@user).to receive(:login_token).and_return('abc')
     allow(User).to receive(:find_by).with(id: @user.id, login_token: 'abc').
@@ -1745,9 +1746,7 @@ RSpec.describe RequestController, "when making a new request" do
   end
 
   it "should fail if user is banned" do
-    allow(@user).to receive(:can_file_requests?).and_return(false)
-    allow(@user).
-      to receive(:exceeded_limit?).with(:info_requests).and_return(false)
+    allow(@user).to receive(:suspended?).and_return(true)
     expect(@user).to receive(:can_fail_html).and_return('FAIL!')
     sign_in @user
     get :new, params: { public_body_id: @body.id }
