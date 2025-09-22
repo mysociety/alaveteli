@@ -1,0 +1,16 @@
+--- a/config/environments/production.rb
++++ b/config/environments/production.rb
+@@ -107,6 +107,13 @@ Rails.application.configure do
+     }
+   end
+
++  if AlaveteliConfiguration.production_mailer_delivery_method.to_sym == :sendmail
++    config.action_mailer.sendmail_settings = {
++      location: '/run/wrappers/bin/sendmail',
++      arguments: ["-i", "-t"]
++    }
++  end
++
+   exception_notifier_prefix = '[ERROR] '
+   unless AlaveteliConfiguration.domain.blank?
+     exception_notifier_prefix << "[#{ AlaveteliConfiguration.domain }] "
