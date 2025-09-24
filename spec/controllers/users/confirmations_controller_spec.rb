@@ -59,8 +59,9 @@ RSpec.describe Users::ConfirmationsController do
       end
 
       it 'redirects to the post redirect uri' do
-        expect(response).
-          to redirect_to("/profile/change_password/#{post_redirect.token}")
+        expect(response).to redirect_to(
+          "/profile/change_password/#{post_redirect.token}?post_redirect=1"
+        )
       end
 
       context 'with a malicious post_redirect URI' do
@@ -73,7 +74,7 @@ RSpec.describe Users::ConfirmationsController do
         end
 
         it 'does not redirect to another domain' do
-          expect(response).to redirect_to('/blah')
+          expect(response).to redirect_to('/blah?post_redirect=1')
         end
       end
     end

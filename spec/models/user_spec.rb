@@ -733,19 +733,15 @@ RSpec.describe User do
     end
   end
 
-  describe '.stay_logged_in_on_redirect?' do
-    it 'is false if the user is nil' do
-      expect(User.stay_logged_in_on_redirect?(nil)).to be_falsey
-    end
-
+  describe '#stay_logged_in_on_redirect?' do
     it 'is true if the user is an admin' do
-      admin = double(is_admin?: true)
-      expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
+      admin = FactoryBot.create(:admin_user)
+      expect(admin.stay_logged_in_on_redirect?).to eq(true)
     end
 
     it 'is false if the user is not an admin' do
-      user = double(is_admin?: false)
-      expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
+      user = FactoryBot.create(:user)
+      expect(user.stay_logged_in_on_redirect?).to eq(false)
     end
   end
 

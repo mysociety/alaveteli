@@ -277,8 +277,8 @@ class User < ApplicationRecord
 
   # Should the user be kept logged into their own account
   # if they follow a /c/ redirect link belonging to another user?
-  def self.stay_logged_in_on_redirect?(user)
-    user&.is_admin?
+  def stay_logged_in_on_redirect?
+    is_admin?
   end
 
   def self.record_bounce_for_email(email, message)
