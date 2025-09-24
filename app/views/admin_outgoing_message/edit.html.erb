@@ -123,4 +123,8 @@
     </div>
   </div>
 <% end %>
+<hr>
+<h2>Notes</h2>
+<%= render partial: 'admin/notes/show', 
+           locals: { notes: @outgoing_message.notes, notable: @outgoing_message } %>
 
