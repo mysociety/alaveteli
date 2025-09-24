@@ -54,7 +54,11 @@ class PublicBody < ApplicationRecord
 
   # Any PublicBody tagged with any of the follow tags won't be returned in the
   # batch authority search results or batch category UI
-  cattr_accessor :batch_excluded_tags, default: %w[not_apply defunct]
+  cattr_accessor :batch_excluded_tags, default: %w[
+    defunct
+    not_apply
+    not_requestable
+  ]
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
@@ -338,6 +342,13 @@ class PublicBody < ApplicationRecord
 
   scope :not_defunct, -> { without_tag('defunct') }
 
+  # If tagged "not_requestable", then requests can't be made to the authority
+  def not_requestable?
+    has_tag?('not_requestable')
+  end
+
+  scope :requestable, -> { without_tag('not_requestable') }
+
   # Are all requests to this body under the Environmental Information
   # Regulations?
   def eir_only?
@@ -350,10 +361,12 @@ class PublicBody < ApplicationRecord
 
   # Can an FOI (etc.) request be made to this body?
   def is_requestable?
-    has_request_email? && !defunct? && !not_apply?
+    has_request_email? && !defunct? && !not_apply? && !not_requestable?
   end
 
-  scope :is_requestable, -> { with_request_email.not_defunct.foi_applies }
+  scope :is_requestable, -> {
+    with_request_email.not_defunct.foi_applies.requestable
+  }
 
   # Strict superset of is_requestable?
   def is_followupable?
@@ -370,6 +383,8 @@ class PublicBody < ApplicationRecord
       'defunct'
     elsif not_apply?
       'not_apply'
+    elsif not_requestable?
+      'not_requestable'
     elsif !has_request_email?
       'bad_contact'
     else
@@ -378,7 +393,7 @@ class PublicBody < ApplicationRecord
   end
 
   def special_not_requestable_reason?
-    defunct? || not_apply?
+    defunct? || not_apply? || not_requestable?
   end
 
   def created_at_numeric
