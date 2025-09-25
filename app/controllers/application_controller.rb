@@ -412,15 +412,15 @@ class ApplicationController < ActionController::Base
   def set_last_request(info_request)
     return unless authenticated?
 
-    cookies["last_request_id"] = info_request.id
-    cookies["last_body_id"] = nil
+    cookies[:last_request_id] = info_request.id
+    cookies[:last_body_id] = nil
   end
 
   def set_last_body(public_body)
     return unless authenticated?
 
-    cookies["last_request_id"] = nil
-    cookies["last_body_id"] = public_body.id
+    cookies[:last_request_id] = nil
+    cookies[:last_body_id] = public_body.id
   end
 
   def country_from_ip

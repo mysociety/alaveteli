@@ -42,13 +42,13 @@ RSpec.describe WidgetVotesController do
 
     context 'for a non-logged-in user with a tracking cookie' do
       it 'retains the existing tracking cookie' do
-        request.cookies['widget_vote'] = mock_cookie
+        cookies[:widget_vote] = mock_cookie
         post :create, params: { request_url_title: info_request.url_title }
         expect(cookies[:widget_vote]).to eq(mock_cookie)
       end
 
       it 'creates a widget vote' do
-        request.cookies['widget_vote'] = mock_cookie
+        cookies[:widget_vote] = mock_cookie
         votes = info_request.
           widget_votes.
           where(cookie: mock_cookie)

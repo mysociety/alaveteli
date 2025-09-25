@@ -37,15 +37,15 @@ class HelpController < ApplicationController
     # if they clicked remove for link to request/body, remove it
     if params[:remove]
       @last_request = nil
-      cookies['last_request_id'] = nil
-      cookies['last_body_id'] = nil
+      cookies[:last_request_id] = nil
+      cookies[:last_body_id] = nil
     end
 
     # look up link to request/body
-    request = InfoRequest.find_by(id: cookies['last_request_id'].to_i)
+    request = InfoRequest.find_by(id: cookies[:last_request_id].to_i)
     @last_request = request if can?(:read, request)
 
-    @last_body = PublicBody.find_by(id: cookies['last_body_id'].to_i)
+    @last_body = PublicBody.find_by(id: cookies[:last_body_id].to_i)
 
     # submit form
     return unless params[:submitted_contact_form]
