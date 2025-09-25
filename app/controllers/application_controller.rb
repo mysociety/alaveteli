@@ -74,11 +74,12 @@ class ApplicationController < ActionController::Base
     params_locale = params[:locale]
 
     if AlaveteliConfiguration.use_default_browser_language
-      browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
+      browser_locales = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.split(',')
+      browser_locales.map! { _1.split(';', 2)[0] }
     end
 
     AlaveteliLocalization.set_session_locale(
-      params_locale, cookies[:locale], browser_locale,
+      params_locale, cookies[:locale], *browser_locales,
       AlaveteliLocalization.default_locale
     )
 
