@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Store user locale preference in a separate cookie instead of the encrypted
+  Rails session cookie to enable Varnish and other caching layers to read it
+  (Matthew Somerville, Graeme Porteous)
 * Confirm unconfirmed users after following a password reset confirmation link
   (Gareth Rees)
 * Don't redirect missing HTML conversion attachments to the request page
