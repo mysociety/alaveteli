@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Simplify IncomingMessage/RawEmail admin actions so that only relevant actions
+  are shown in various admin UI screens (Gareth Rees)
 * Confirm unconfirmed users after following a password reset confirmation link
   (Gareth Rees)
 * Don't redirect missing HTML conversion attachments to the request page
