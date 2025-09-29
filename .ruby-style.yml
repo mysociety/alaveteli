@@ -1588,6 +1588,9 @@ Style/ArrayFirstLast:
 Style/ArrayIntersect:
   Enabled: false
 
+Style/ArrayIntersectWithSingleElement:
+  Enabled: false
+
 Style/ArrayJoin:
   Enabled: true
 
