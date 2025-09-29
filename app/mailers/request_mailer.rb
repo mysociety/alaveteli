@@ -334,7 +334,7 @@ class RequestMailer < ApplicationMailer
           store_sent.info_request_event_id = alert_event_id
           # Only send the alert if the user can act on it by making a followup
           # (otherwise they are banned, and there is no point sending it)
-          if info_request.user.can_make_followup?
+          if info_request.user.active?
             if calculated_status == 'waiting_response_overdue'
               RequestMailer.
                 overdue_alert(
@@ -446,7 +446,7 @@ class RequestMailer < ApplicationMailer
         store_sent.info_request_event_id = alert_event_id
         # Only send the alert if the user can act on it by making a followup
         # (otherwise they are banned, and there is no point sending it)
-        if info_request.user.can_make_followup?
+        if info_request.user.active?
           RequestMailer.not_clarified_alert(
             info_request,
             last_response_message

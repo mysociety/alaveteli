@@ -180,28 +180,17 @@ class RequestController < ApplicationController
     end
 
     # Banned from making new requests?
-    user_exceeded_limit = false
-    if authenticated? && !authenticated_user.can_file_requests?
-      # If the reason the user cannot make new requests is that they are
-      # rate-limited, it’s possible they composed a request before they
-      # logged in and we want to include the text of the request so they
-      # can squirrel it away for tomorrow, so we detect this later after
-      # we have constructed the InfoRequest.
-      user_exceeded_limit = authenticated_user.exceeded_limit?(:info_requests)
+    if authenticated? && authenticated_user.suspended?
+      @details = authenticated_user.can_fail_html
+      render(template: 'user/banned') && return
+    end
 
-      unless user_exceeded_limit
-        @details = authenticated_user.can_fail_html
-        render template: 'user/banned'
-        return
-      end
+    if authenticated? && authenticated_user.exceeded_request_limits?
+      render(template: 'user/rate_limited') && return
     end
 
     # First time we get to the page, just display it
     if params[:submitted_new_request].nil? || params[:reedit]
-      if user_exceeded_limit
-        render template: 'user/rate_limited'
-        return
-      end
       return render_new_compose
     end
 
@@ -244,7 +233,7 @@ class RequestController < ApplicationController
     # Show preview page, if it is a preview
     return render_new_preview if params[:preview].to_i == 1
 
-    if user_exceeded_limit
+    if authenticated? && authenticated_user.exceeded_request_limits?
       render template: 'user/rate_limited'
       return
     end

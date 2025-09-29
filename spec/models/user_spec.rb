@@ -446,8 +446,11 @@ RSpec.describe User, "when checking abilities" do
     expect(@user.admin_page_links?).to be false
   end
 
-  it "should be able to file requests" do
-    expect(@user.can_file_requests?).to be true
+  it "should not exceed limits" do
+    expect(@user.exceeded_request_limits?).to be false
+    expect(@user.exceeded_followup_limits?).to be false
+    expect(@user.exceeded_comment_limits?).to be false
+    expect(@user.exceeded_user_message_limits?).to be false
   end
 end
 
@@ -2096,18 +2099,40 @@ RSpec.describe User do
     end
   end
 
-  describe '#can_file_requests?' do
-    subject { user.can_file_requests? }
+  describe '#no_limit?' do
+    subject { user.no_limit? }
+
+    let(:user) { FactoryBot.build(:user) }
+    it { is_expected.to eq(false) }
+
+    context 'when user has no limit set' do
+      let(:user) { FactoryBot.build(:user, no_limit: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when user is an pro admin' do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#exceeded_request_limits?' do
+    subject { user.exceeded_request_limits? }
 
     context 'in ordinary circumstances' do
       let(:user) { FactoryBot.build(:user) }
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user is inactive' do
       let(:user) { FactoryBot.build(:user) }
       before { allow(user).to receive(:active?).and_return(false) }
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
     context 'when the user has reached their daily limit' do
@@ -2118,7 +2143,7 @@ RSpec.describe User do
           to receive(:exceeded_limit?).with(:info_requests).and_return(true)
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
     context 'when the user has not reached their rate limit' do
@@ -2131,7 +2156,7 @@ RSpec.describe User do
           and_return(false)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user has reached their rate limit' do
@@ -2144,22 +2169,22 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
   end
 
-  describe '#can_make_comments?' do
-    subject { user.can_make_comments? }
+  describe '#exceeded_comment_limits?' do
+    subject { user.exceeded_comment_limits? }
 
     context 'in ordinary circumstances' do
       let(:user) { FactoryBot.build(:user) }
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user is inactive' do
       let(:user) { FactoryBot.build(:user) }
       before { allow(user).to receive(:active?).and_return(false) }
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
     context 'when the user is an admin' do
@@ -2176,7 +2201,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user is a pro_admin' do
@@ -2193,7 +2218,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user has no limit set' do
@@ -2210,7 +2235,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user has reached their daily limit' do
@@ -2221,7 +2246,7 @@ RSpec.describe User do
           to receive(:exceeded_limit?).with(:comments).and_return(true)
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
     context 'when the user has not reached their rate limit' do
@@ -2234,7 +2259,7 @@ RSpec.describe User do
           and_return(false)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user has reached their rate limit' do
@@ -2247,7 +2272,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
   end
 

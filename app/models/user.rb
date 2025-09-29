@@ -493,28 +493,38 @@ class User < ApplicationRecord
     'normal'
   end
 
-  # Various ways the user can be banned, and text to describe it if failed
-  def can_file_requests?
-    return false unless active?
-
-    !exceeded_limit?(:info_requests) &&
-      !InfoRequest.exceeded_creation_rate?(info_requests)
+  def no_limit?
+    super || is_admin? || is_pro_admin?
   end
 
-  def can_make_followup?
-    active?
+  def exceeded_request_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    exceeded_limit?(:info_requests) ||
+      InfoRequest.exceeded_creation_rate?(info_requests)
   end
 
-  def can_make_comments?
-    return false unless active?
-    return true if no_limit? || is_admin? || is_pro_admin?
+  def exceeded_followup_limits?
+    return true if suspended?
+    return false if no_limit?
 
-    !exceeded_limit?(:comments) &&
-      !Comment.exceeded_creation_rate?(comments)
+    false
   end
 
-  def can_contact_other_users?
-    active? && !exceeded_limit?(:user_messages)
+  def exceeded_comment_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    exceeded_limit?(:comments) ||
+      Comment.exceeded_creation_rate?(comments)
+  end
+
+  def exceeded_user_message_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    exceeded_limit?(:user_messages)
   end
 
   def exceeded_limit?(content)

@@ -4,9 +4,10 @@ class FollowupsController < ApplicationController
   before_action :set_incoming_message,
                 :set_info_request,
                 :set_last_request_data,
-                :check_can_followup,
-                :check_user_credentials,
+                :check_incoming_message_can_be_followed_up,
                 :check_request_matches_incoming_message,
+                :authenticate,
+                :check_user_can_followup,
                 :set_params,
                 :set_internal_review,
                 :set_outgoing_message,
@@ -43,7 +44,7 @@ class FollowupsController < ApplicationController
 
   private
 
-  def check_can_followup
+  def check_incoming_message_can_be_followed_up
     unless @info_request.is_followupable?(@incoming_message)
       @reason = @info_request.followup_bad_reason
       render action: 'followup_bad'
@@ -80,20 +81,22 @@ class FollowupsController < ApplicationController
     end
   end
 
-  def check_user_credentials
+  def authenticate
     # We want to make sure they're the right user first, before they start
     # writing a message and wasting their time if they are not the requester.
-    params = get_login_params(@incoming_message, @info_request)
-    unless authenticated?(as: @info_request.user)
-      ask_to_login(as: @info_request.user, **params)
-      return
-    end
-    if authenticated? && !authenticated_user.can_make_followup?
+    authenticated?(as: @info_request.user) || ask_to_login(
+      as: @info_request.user,
+      **get_login_params(@incoming_message, @info_request)
+    )
+  end
+
+  def check_user_can_followup
+    return unless authenticated?
+
+    if authenticated_user.suspended?
       @details = authenticated_user.can_fail_html
       render template: 'user/banned'
-      return
     end
-    render_hidden if authenticated? && cannot?(:read, @info_request)
   end
 
   def get_login_params(is_incoming, info_request)
@@ -195,6 +198,10 @@ class FollowupsController < ApplicationController
 
     @info_request ||= InfoRequest.not_embargoed.
       find_by!(url_title: params[:request_url_title])
+
+    return unless cannot?(:read, @info_request)
+
+    render_hidden
   end
 
   def set_last_request_data
