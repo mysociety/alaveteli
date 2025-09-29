@@ -1,13 +1,19 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags("public") %>
+<% end %>
+
 <%= render partial: 'tabs' %>
 
 <h1><%= @title %></h1>
 
-<div class="request-category-filter hide">
+<div data-controller="request-category">
+
+<div class="request-category-filter hide" data-request-category-target="filter">
   <label for="request-category-filter-input"><%= _("Filter by topic or area of interest") %></label>
-  <input type="search" id="request-category-filter-input" autocomplete="off">
+  <input type="search" id="request-category-filter-input" autocomplete="off" data-request-category-target="input" data-action="input->request-category#filter">
 </div>
 
-<div class="request-category_container">
+<div class="request-category_container" data-request-category-target="container">
   <% InfoRequest.categories.each do |heading| %>
     <% next unless heading.children.present? %>
     <div class="request-category">
@@ -22,4 +28,6 @@
       </ul>
     </div>
   <% end %>
+</div>
+
 </div>
