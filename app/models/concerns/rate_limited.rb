@@ -23,8 +23,6 @@ module RateLimited
     end
 
     cattr_accessor :creation_rate_limits,
-                   instance_reader: false,
-                   instance_writer: false,
                    instance_accessor: false,
                    default: DEFAULT_CREATION_RATE_LIMITS
   end

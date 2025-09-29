@@ -2,9 +2,14 @@
 module PublicBody::CalculatedHomePage
   extend ActiveSupport::Concern
 
-  included do
-    cattr_accessor :excluded_calculated_home_page_domains,
-                   default: Domains.webmail_providers
+  class_methods do
+    def excluded_calculated_home_page_domains
+      @excluded_calculated_home_page_domains ||= Domains.webmail_providers
+    end
+
+    def excluded_calculated_home_page_domains=(domains)
+      @excluded_calculated_home_page_domains = domains
+    end
   end
 
   def calculated_home_page
@@ -34,6 +39,6 @@ module PublicBody::CalculatedHomePage
   end
 
   def excluded_calculated_home_page_domain?(domain)
-    excluded_calculated_home_page_domains.include?(domain)
+    self.class.excluded_calculated_home_page_domains.include?(domain)
   end
 end

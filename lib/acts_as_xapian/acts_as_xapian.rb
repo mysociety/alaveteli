@@ -1181,7 +1181,7 @@ module ActsAsXapian
 
       include InstanceMethods
 
-      cattr_accessor :xapian_options
+      cattr_accessor :xapian_options, instance_writer: false
       self.xapian_options = options
 
       ActsAsXapian.init(self.class.to_s, options)

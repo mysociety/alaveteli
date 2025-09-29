@@ -50,11 +50,15 @@ class PublicBody < ApplicationRecord
   attr_accessor :no_xapian_reindex
 
   # Set to 0 to prevent application of the not_many_requests tag
-  cattr_accessor :not_many_public_requests_size, default: 5
+  cattr_accessor :not_many_public_requests_size,
+                 instance_writer: false,
+                 default: 5
 
   # Any PublicBody tagged with any of the follow tags won't be returned in the
   # batch authority search results or batch category UI
-  cattr_accessor :batch_excluded_tags, default: %w[not_apply defunct]
+  cattr_accessor :batch_excluded_tags,
+                 instance_accessor: false,
+                 default: %w[not_apply defunct]
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
