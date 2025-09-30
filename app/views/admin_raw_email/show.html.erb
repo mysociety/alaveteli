@@ -2,13 +2,12 @@
 
 <% if @holding_pen %>
   <%= render partial: 'admin_raw_email/holding_pen' %>
+
+  <div>
+    <%= render partial: 'admin_incoming_message/holding_pen_actions',
+               locals: { incoming_message: @raw_email.incoming_message } %>
+  </div>
 <% end %>
-
-<div>
-  <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
-</div>
-
-<h2>Preview</h2>
 
 <p>
   <%= link_to 'Download', admin_raw_email_path(@raw_email, format: 'eml'), class: 'btn' %>
