@@ -67,6 +67,23 @@ input.use-datepicker[type=text] {
   margin-bottom: 3em;
 }
 
+.collapsable-list-filter {
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+  margin-top: 2rem;
+
+  summary {
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #list-filter {
+    margin-bottom: 0;
+    margin-top: 1rem;
+  }
+}
+
 #filter_requests_form label.title {
   display: block;
   width: auto;
