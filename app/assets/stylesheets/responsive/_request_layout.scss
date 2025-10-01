@@ -391,19 +391,17 @@ input.cplink__field {
 
 .request-category_container {
   display: block;
-  margin: 0 -10px;
+  columns: 3 15rem;
+  column-gap: 5rem;
 
-  @include respond-min($main_menu-mobile_menu_cutoff) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  // More specific version of Foundation’s .hide
+  .hide {
+    display: none;
   }
 }
 
 .request-category {
-  padding: 10px;
-
-  @include respond-min($main_menu-mobile_menu_cutoff) {
-    flex: 1 1 30%;
-  }
+  display: inline-block;
+  padding: 0;
+  width: 100%;
 }

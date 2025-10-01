@@ -2,10 +2,18 @@
 
 <div id="header_left" class="header_left">
   <h1><%= @title %></h1>
-  <%= render :partial => 'request/request_search_form',
-             :locals => { :after_form_fields => render(:partial => 'request/request_filter_form') } %>
-
-  <%= render partial: 'category' if @category %>
+  <% if @category %>
+    <%= render partial: 'category' %>
+    <details class="collapsable-list-filter">
+      <summary><%= _("Filter these requests by keyword, date, or status") %></summary>
+      <%= render :partial => 'request/request_search_form',
+                 :locals => { :after_form_fields => render(
+                 :partial => 'request/request_filter_form') } %>
+    </details>
+  <% else %>
+    <%= render :partial => 'request/request_search_form',
+               :locals => { :after_form_fields => render(:partial => 'request/request_filter_form') } %>
+  <% end %>
 </div>
 
 <div id="header_right" class="sidebar header_right">

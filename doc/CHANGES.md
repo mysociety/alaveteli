@@ -47,6 +47,7 @@
 * Add `User#status_update_count` counter column (Graeme Porteous)
 * Update admin text column rendering (Graeme Porteous)
 * Improve visual accessibility and UX (Lucas Cumsille Montesinos)
+* Improve /browse page and individual category page UX (Zarino Zappia)
 * Add public annotations configuration (Graeme Porteous)
 * Add attachment locking and replacement (Graeme Porteous)
 * Only send clarification notifications to recent requests (Gareth Rees)

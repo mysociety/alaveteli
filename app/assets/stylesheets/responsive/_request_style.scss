@@ -497,3 +497,34 @@ div.comment_in_request {
     }
   }
 }
+
+// Browse page.
+
+.request-category {
+  h3 {
+    font-size: 1.125em;
+    margin-bottom: 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  a {
+    display: block;
+    padding: 0.25em 0;
+  }
+}
+
+.request-category-filter {
+  max-width: 30rem;
+  margin: 2rem 0;
+
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125em;
+  }
+}
