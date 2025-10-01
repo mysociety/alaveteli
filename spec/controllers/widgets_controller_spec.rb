@@ -70,7 +70,7 @@ RSpec.describe WidgetsController do
 
     context 'for a non-logged-in user with a tracking cookie' do
       it 'will not find existing tracks' do
-        request.cookies['widget_vote'] = mock_cookie
+        cookies[:widget_vote] = mock_cookie
         get :show, params: { request_url_title: @info_request.url_title }
         expect(assigns[:existing_track]).to be_nil
       end
@@ -79,14 +79,14 @@ RSpec.describe WidgetsController do
         vote = FactoryBot.create(:widget_vote,
                                  info_request: @info_request,
                                  cookie: mock_cookie)
-        request.cookies['widget_vote'] = vote.cookie
+        cookies[:widget_vote] = vote.cookie
         get :show, params: { request_url_title: @info_request.url_title }
         expect(assigns[:existing_vote]).to be true
       end
 
       it 'will not find any existing votes if none exist' do
         WidgetVote.delete_all
-        request.cookies['widget_vote'] = mock_cookie
+        cookies[:widget_vote] = mock_cookie
         get :show, params: { request_url_title: @info_request.url_title }
         expect(assigns[:existing_vote]).to be false
       end
@@ -94,13 +94,13 @@ RSpec.describe WidgetsController do
 
     context 'for a non-logged-in user without a tracking cookie' do
       it 'will not find existing tracks' do
-        request.cookies['widget_vote'] = nil
+        cookies[:widget_vote] = nil
         get :show, params: { request_url_title: @info_request.url_title }
         expect(assigns[:existing_track]).to be_nil
       end
 
       it 'will not find any existing votes' do
-        request.cookies['widget_vote'] = nil
+        cookies[:widget_vote] = nil
         get :show, params: { request_url_title: @info_request.url_title }
         expect(assigns[:existing_vote]).to be false
       end
@@ -138,7 +138,7 @@ RSpec.describe WidgetsController do
                                  info_request: @info_request,
                                  cookie: mock_cookie)
         sign_in @info_request.user
-        request.cookies['widget_vote'] = mock_cookie
+        cookies[:widget_vote] = mock_cookie
 
         get :show, params: { request_url_title: @info_request.url_title }
 
@@ -149,7 +149,7 @@ RSpec.describe WidgetsController do
         TrackThing.delete_all
         WidgetVote.delete_all
         sign_in @info_request.user
-        request.cookies['widget_vote'] = mock_cookie
+        cookies[:widget_vote] = mock_cookie
 
         get :show, params: { request_url_title: @info_request.url_title }
 

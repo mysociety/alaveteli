@@ -74,11 +74,12 @@ class ApplicationController < ActionController::Base
     params_locale = params[:locale]
 
     if AlaveteliConfiguration.use_default_browser_language
-      browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
+      browser_locales = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.split(',')
+      browser_locales.map! { _1.split(';', 2)[0] }
     end
 
     AlaveteliLocalization.set_session_locale(
-      params_locale, session[:locale], cookies[:locale], browser_locale,
+      params_locale, cookies[:locale], *browser_locales,
       AlaveteliLocalization.default_locale
     )
 
@@ -88,13 +89,12 @@ class ApplicationController < ActionController::Base
 
   def store_gettext_locale
     # set the current stored locale to the requested_locale
-    current_session_locale = session[:locale]
-    if current_session_locale != AlaveteliLocalization.locale
-      session[:locale] = AlaveteliLocalization.locale
+    locale = params[:locale].presence || AlaveteliLocalization.locale
 
-      # we need to set something other than StripEmptySessions::STRIPPABLE_KEYS
-      # otherwise the cookie will be striped from the response
-      session[:previous_locale] = current_session_locale
+    if locale == AlaveteliLocalization.default_locale
+      cookies.delete(:locale)
+    else
+      cookies[:locale] = locale
     end
 
     # ensure current user locale attribute is up-to-date
@@ -412,15 +412,15 @@ class ApplicationController < ActionController::Base
   def set_last_request(info_request)
     return unless authenticated?
 
-    cookies["last_request_id"] = info_request.id
-    cookies["last_body_id"] = nil
+    cookies[:last_request_id] = info_request.id
+    cookies[:last_body_id] = nil
   end
 
   def set_last_body(public_body)
     return unless authenticated?
 
-    cookies["last_request_id"] = nil
-    cookies["last_body_id"] = public_body.id
+    cookies[:last_request_id] = nil
+    cookies[:last_body_id] = public_body.id
   end
 
   def country_from_ip

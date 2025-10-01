@@ -53,15 +53,15 @@ RSpec.describe PublicBodyController, "when showing a body" do
   end
 
   it "should display the body using same locale as that used in url_name" do
-    get :show, params: { url_name: "edfh", view: 'all' },
-               session: { locale: 'es' }
+    cookies[:locale] = 'es'
+    get :show, params: { url_name: "edfh", view: 'all' }
     expect(response.body).to have_content("Baguette")
   end
 
   it 'should show public body names in the selected locale language if present for a locale with underscores' do
     AlaveteliLocalization.set_locales('he_IL en', 'en')
-    get :show, params: { url_name: 'dfh', view: 'all' },
-               session: { locale: 'he_IL' }
+    cookies[:locale] = 'he_IL'
+    get :show, params: { url_name: 'dfh', view: 'all' }
     expect(response.body).to have_content('Hebrew Humpadinking')
   end
 
@@ -147,7 +147,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   it "with no fallback, should only return bodies from the current locale" do
     @english_only = make_single_language_example :en
     @spanish_only = make_single_language_example :es
-    get :list, session: { locale: 'es' }
+    cookies[:locale] = 'es'
+    get :list
     expect(assigns[:public_bodies].include?(@english_only)).to eq(false)
     expect(assigns[:public_bodies].include?(@spanish_only)).to eq(true)
   end
@@ -157,7 +158,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
       to receive(:public_body_list_fallback_to_default_locale).
       and_return(true)
     @english_only = make_single_language_example :en
-    get :list, session: { locale: 'es' }
+    cookies[:locale] = 'es'
+    get :list
     expect(assigns[:public_bodies].include?(@english_only)).to eq(true)
   end
 
@@ -166,7 +168,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
       to receive(:public_body_list_fallback_to_default_locale).
       and_return(true)
     @spanish_only = make_single_language_example :es
-    get :list, session: { locale: 'es' }
+    cookies[:locale] = 'es'
+    get :list
     expect(assigns[:public_bodies].include?(@spanish_only)).to eq(true)
   end
 
@@ -174,14 +177,16 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     allow(AlaveteliConfiguration).
       to receive(:public_body_list_fallback_to_default_locale).
       and_return(true)
-    get :list, session: { locale: 'es' }
+    cookies[:locale] = 'es'
+    get :list
     pb_ids = assigns[:public_bodies].map(&:id)
     unique_pb_ids = pb_ids.uniq
     expect(pb_ids.sort).to eq(unique_pb_ids.sort)
   end
 
   it 'should show public body names in the selected locale language if present' do
-    get :list, session: { locale: 'es' }
+    cookies[:locale] = 'es'
+    get :list
     expect(response.body).to have_content('El Department for Humpadinking')
   end
 
@@ -189,13 +194,15 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     AlaveteliLocalization.set_locales(available_locales='en en_GB',
                                       default_locale='en')
     @gb_only = make_single_language_example :en_GB
-    get :list, session: { locale: 'en_GB' }
+    cookies[:locale] = 'en_GB'
+    get :list
     expect(response.body).to have_content(@gb_only.name)
   end
 
   it 'should not show the internal admin authority' do
     PublicBody.internal_admin_body
-    get :list, session: { locale: 'en' }
+    cookies[:locale] = 'en'
+    get :list
     expect(response.body).not_to have_content('Internal admin authority')
   end
 
@@ -206,7 +213,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
     allow(AlaveteliConfiguration).
       to receive(:public_body_list_fallback_to_default_locale).
       and_return(true)
-    get :list, session: { locale: 'es' }
+    cookies[:locale] = 'es'
+    get :list
     parsed = Nokogiri::HTML(response.body)
     public_body_names = parsed.xpath '//span[@class="head"]/a/text()'
     public_body_names = public_body_names.map(&:to_s)
@@ -215,7 +223,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
 
   it 'should show public body names in the selected locale language if present for a locale with underscores' do
     AlaveteliLocalization.set_locales('he_IL en', 'en')
-    get :list, session: { locale: 'he_IL' }
+    cookies[:locale] = 'he_IL'
+    get :list
     expect(response.body).to have_content('Hebrew Humpadinking')
   end
 
@@ -248,7 +257,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
       with(an_instance_of(String)).
         and_return(true)
 
-    get :list, session: { locale: 'en_GB' }
+    cookies[:locale] = 'en_GB'
+    get :list
     expect(assigns[:public_bodies].to_sql).to include('COLLATE')
   end
 
@@ -261,7 +271,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
       with(an_instance_of(String)).
         and_return(false)
 
-    get :list, session: { locale: 'unknown' }
+    cookies[:locale] = 'unknown'
+    get :list
 
     expect(assigns[:public_bodies].to_sql).to_not include('COLLATE')
   end
@@ -275,7 +286,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
       with(an_instance_of(String)).
         and_return(true)
 
-    get :list, session: { locale: 'en_GB' }
+    cookies[:locale] = 'en_GB'
+    get :list
 
     expect(assigns[:public_bodies].to_sql).to include('COLLATE')
   end
@@ -289,7 +301,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
       with(an_instance_of(String)).
         and_return(false)
 
-    get :list, session: { locale: 'unknown' }
+    cookies[:locale] = 'unknown'
+    get :list
 
     expect(assigns[:public_bodies].to_sql).to_not include('COLLATE')
   end
@@ -419,7 +432,8 @@ RSpec.describe PublicBodyController, "when listing bodies" do
       FactoryBot.create(:public_body, name: "Åčçèñtéd Authority")
     end
 
-    get :list, params: { tag: "å" }, session: { locale: 'cs' }
+    cookies[:locale] = 'cs'
+    get :list, params: { tag: "å" }
     expect(response).to render_template('list')
     expect(assigns[:public_bodies]).to eq([ authority ])
     expect(assigns[:tag]).to eq("Å")

@@ -14,7 +14,8 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "searches for 'humpa' in another locale" do
-      get :index, params: { query: "humpa" }, session: { locale: "es" }
+      cookies[:locale] = 'es'
+      get :index, params: { query: "humpa" }
       expect(assigns[:public_bodies]).
         to eq([public_bodies(:humpadink_public_body)])
     end
@@ -45,7 +46,8 @@ RSpec.describe AdminPublicBodyController do
         public_body.save!
       end
       sign_in admin_user
-      get :show, params: { id: public_body.id }, session: { locale: 'es' }
+      cookies[:locale] = 'es'
+      get :show, params: { id: public_body.id }
       expect(assigns[:public_body].name).to eq 'El Public Body'
     end
 
@@ -329,7 +331,8 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "edits a public body in another locale" do
-      get :edit, params: { id: 3 }, session: { locale: 'en' }
+      cookies[:locale] = 'en'
+      get :edit, params: { id: 3 }
 
       # When editing a body, the controller returns all available translations
       expect(assigns[:public_body].find_translation_by_locale("es").name).

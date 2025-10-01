@@ -22,7 +22,7 @@ RSpec.describe TrackController do
       info_request.widget_votes.create(cookie: mock_cookie)
 
       sign_in user
-      request.cookies['widget_vote'] = mock_cookie
+      cookies[:widget_vote] = mock_cookie
 
       get :track_request, params: {
                             url_title: info_request.url_title,

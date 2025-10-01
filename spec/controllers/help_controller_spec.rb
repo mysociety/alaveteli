@@ -74,7 +74,8 @@ RSpec.describe HelpController do
       end
 
       it 'should render the locale-specific template if available' do
-        get :contact, session: { locale: 'es' }
+        cookies[:locale] = 'es'
+        get :contact
         expect(response.body).to match('contáctenos theme one')
       end
     end
@@ -84,7 +85,7 @@ RSpec.describe HelpController do
 
       context "when the user can access the specified request" do
         it 'assigns @last_request' do
-          request.cookies["last_request_id"] = info_request.id
+          cookies[:last_request_id] = info_request.id
           get :contact
           expect(assigns[:last_request]).to eq info_request
         end
@@ -93,7 +94,7 @@ RSpec.describe HelpController do
       context "when the user can't access the specified request" do
         it 'sets @last_request to nil' do
           info_request = FactoryBot.create(:embargoed_request)
-          request.cookies["last_request_id"] = info_request.id
+          cookies[:last_request_id] = info_request.id
           get :contact
           expect(assigns[:last_request]).to be nil
         end
@@ -101,7 +102,7 @@ RSpec.describe HelpController do
 
       context "when the request cannot be found" do
         it 'sets @last_request to nil' do
-          request.cookies["last_request_id"] = InfoRequest.maximum(:id)+1
+          cookies[:last_request_id] = InfoRequest.maximum(:id)+1
           get :contact
           expect(assigns[:last_request]).to be nil
         end
@@ -112,14 +113,14 @@ RSpec.describe HelpController do
       let(:body) { FactoryBot.create(:public_body) }
 
       it 'assigns @last_body' do
-        request.cookies["last_body_id"] = body.id
+        cookies[:last_body_id] = body.id
         get :contact
         expect(assigns[:last_body]).to eq body
       end
 
       context "when the body cannot be found" do
         it 'sets @last_body to nil' do
-          request.cookies["last_body_id"] = PublicBody.maximum(:id)+1
+          cookies[:last_body_id] = PublicBody.maximum(:id)+1
           get :contact
           expect(assigns[:last_body]).to be nil
         end

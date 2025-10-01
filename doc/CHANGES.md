@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Store user locale preference in a separate cookie instead of the encrypted
+  Rails session cookie to enable Varnish and other caching layers to read it
+  (Matthew Somerville, Graeme Porteous)
 * Simplify IncomingMessage/RawEmail admin actions so that only relevant actions
   are shown in various admin UI screens (Gareth Rees)
 * Confirm unconfirmed users after following a password reset confirmation link
