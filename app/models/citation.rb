@@ -34,8 +34,8 @@ class Citation < ApplicationRecord
   validates :source_url, length: { maximum: 255,
                                    message: _('Source URL is too long') },
                          format: { with: /\Ahttps?:\/\/.*\z/,
-                                   message: _('Please enter a Source URL') },
-                         format: { without: /\Ahttps?:\/\/#{AlaveteliConfiguration.domain}.*\z/,
+                                   message: _('Please enter a Source URL') }
+  validates :source_url, format: { without: /\Ahttps?:\/\/#{AlaveteliConfiguration.domain}.*\z/,
                          message: _('Citations can only be added for external URLs') }
 
   validates :type, inclusion: { in: %w(journalism research campaigning other),
