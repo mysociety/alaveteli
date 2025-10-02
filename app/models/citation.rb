@@ -30,10 +30,14 @@ class Citation < ApplicationRecord
   belongs_to :info_request_batch, via: :citable, optional: true
 
   validates :citable_type, inclusion: { in: %w(InfoRequest InfoRequestBatch) }
+
   validates :source_url, length: { maximum: 255,
                                    message: _('Source URL is too long') },
                          format: { with: /\Ahttps?:\/\/.*\z/,
-                                   message: _('Please enter a Source URL') }
+                                   message: _('Please enter a Source URL') },
+                         format: { without: /\Ahttps?:\/\/#{AlaveteliConfiguration.domain}.*\z/,
+                         message: _('Citations can only be added for external URLs') }
+
   validates :type, inclusion: { in: %w(journalism research campaigning other),
                                 message: _('Please select a type') }
 
