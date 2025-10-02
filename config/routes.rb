@@ -231,11 +231,9 @@ Rails.application.routes.draw do
         resource :extract, only: [:show, :create] do
           patch :skip
         end
-        resource :classify, only: [:show] do
+        resource :classify, only: [:show, :create] do
           patch :skip
-        end
-        resources :classifications, only: :create, param: :described_state do
-          get :message, on: :member
+          get :message
         end
 
         resource :contributors, only: [:destroy]

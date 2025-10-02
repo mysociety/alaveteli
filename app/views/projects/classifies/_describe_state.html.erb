@@ -1,5 +1,4 @@
-<% form_url =
-  project_classifications_path(project, url_title: info_request.url_title) %>
+<% form_url = project_classify_path(project, url_title: info_request.url_title) %>
 
 <%= form_for(:classification, url: form_url, method: :post) do |f| %>
   <h2><%= _('What best describes the status of this request now?') %></h2>

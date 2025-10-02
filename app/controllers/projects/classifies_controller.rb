@@ -10,6 +10,8 @@ class Projects::ClassifiesController < Projects::BaseController
 
   before_action :redirect_to_project_if_queue_is_empty, only: :show
 
+  include Classifiable
+
   def show
     @state_transitions = info_request.state.transitions(
       is_pro_user: false,
@@ -24,6 +26,17 @@ class Projects::ClassifiesController < Projects::BaseController
     queue.skip(info_request)
 
     redirect_to project_classify_path(@project), notice: _('Skipped!')
+  end
+
+  def create
+    submission = @project.submissions.new(**submission_params)
+
+    if submission.save
+      redirect_to project_classify_path
+    else
+      flash.now[:error] = _("Classification couldn't be saved.")
+      render :show
+    end
   end
 
   private
@@ -65,5 +78,13 @@ class Projects::ClassifiesController < Projects::BaseController
     end
 
     redirect_to @project, notice: msg
+  end
+
+  def submission_params
+    {
+      user: current_user,
+      info_request: info_request,
+      resource: set_described_state
+    }
   end
 end
