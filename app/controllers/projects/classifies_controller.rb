@@ -2,13 +2,10 @@ require_dependency 'project/queue'
 
 # Classify a request in a Project
 class Projects::ClassifiesController < Projects::BaseController
-  before_action :authenticate
+  before_action :authenticate, :find_info_request
 
   def show
     authorize! :read, @project
-
-    @queue = Project::Queue.classifiable(@project, session)
-    @info_request = @queue.next
 
     unless @info_request
       if @project.info_requests.classifiable.any?
@@ -34,11 +31,8 @@ class Projects::ClassifiesController < Projects::BaseController
   def skip
     authorize! :read, @project
 
-    info_request =
-      @project.info_requests.find_by!(url_title: params.require(:url_title))
-
     queue = Project::Queue.classifiable(@project, session)
-    queue.skip(info_request)
+    queue.skip(@info_request)
 
     redirect_to project_classify_path(@project), notice: _('Skipped!')
   end
@@ -52,5 +46,16 @@ class Projects::ClassifiesController < Projects::BaseController
       email_subject: _('Confirm your account on {{site_name}}',
                        site_name: site_name)
     )
+  end
+
+  def find_info_request
+    if params[:url_title]
+      @info_request = @project.info_requests.classifiable.find_by!(
+        url_title: params[:url_title]
+      )
+    else
+      @queue = Project::Queue.classifiable(@project, session)
+      @info_request = @queue.next
+    end
   end
 end
