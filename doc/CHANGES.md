@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Only allow Citations to be added for external URLs (Gareth Rees)
 * Store user locale preference in a separate cookie instead of the encrypted
   Rails session cookie to enable Varnish and other caching layers to read it
   (Matthew Somerville, Graeme Porteous)
