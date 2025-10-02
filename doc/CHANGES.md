@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Only allow Citations to be added for external URLs (Gareth Rees)
 * Allow censor rules to ignore diacritics (Gareth Rees)
 * Allow censor rules to be case insensitive (Gareth Rees)
 * Add Content Security Policy with nonce-based script protection (Graeme
