@@ -146,7 +146,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
     end
   end
 
-  describe 'PATCH #update' do
+  describe 'PATCH #skip' do
     let(:project) { FactoryBot.create(:project, requests_count: 1) }
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
@@ -163,8 +163,8 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
         sign_in user
         ability.can :read, project
         project.requests << skipped_request
-        patch :update, params: { project_id: project.id,
-                                 url_title: skipped_request.url_title }
+        patch :skip, params: { project_id: project.id,
+                               url_title: skipped_request.url_title }
       end
 
       it 'assigns the project' do
@@ -188,7 +188,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
 
       it "raises an ActiveRecord::RecordNotFound when the request can't be found" do
         expect {
-          patch :update, params: { project_id: project.id, url_title: 'foo' }
+          patch :skip, params: { project_id: project.id, url_title: 'foo' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -203,14 +203,14 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
 
       it 'raises an CanCan::AccessDenied error' do
         expect {
-          patch :update, params: { project_id: project.id, url_title: 'foo' }
+          patch :skip, params: { project_id: project.id, url_title: 'foo' }
         }.to raise_error(CanCan::AccessDenied)
       end
     end
 
     context 'logged out' do
       before do
-        patch :update, params: { project_id: project.id, url_title: 'foo' }
+        patch :skip, params: { project_id: project.id, url_title: 'foo' }
       end
 
       it 'redirects to sign in form' do
@@ -220,7 +220,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       it 'saves a post redirect' do
         post_redirect = get_last_post_redirect
 
-        expect(post_redirect.uri).to eq project_classify_path(project)
+        expect(post_redirect.uri).to eq skip_project_classify_path(project)
         expect(post_redirect.reason_params).to eq(
           web: 'To join this project',
           email: 'Then you can join this project',

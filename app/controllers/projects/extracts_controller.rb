@@ -23,8 +23,7 @@ class Projects::ExtractsController < Projects::BaseController
     @value_set = Dataset::ValueSet.new
   end
 
-  # Skip a request
-  def update
+  def skip
     authorize! :read, @project
 
     queue = Project::Queue.extractable(@project, session)

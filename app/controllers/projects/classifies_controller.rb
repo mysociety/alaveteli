@@ -31,8 +31,7 @@ class Projects::ClassifiesController < Projects::BaseController
     )
   end
 
-  # Skip a request
-  def update
+  def skip
     authorize! :read, @project
 
     info_request =
