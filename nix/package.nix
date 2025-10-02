@@ -9,14 +9,13 @@
   cacert,
   dataDir, # ? "/var/www/alaveteli",
   mkBundleEnv,
+  pkgs,
 }:
 
 let
   pname = "alaveteli";
   # TODO: get this from git?
   version = "0.0.1";
-  # TODO: make this a function arg?
-  # dataDir = "/var/lib/alaveteli";
 
   src = applyPatches {
     src = ./..;
@@ -42,6 +41,30 @@ let
     themeGemfile = ../Gemfile_theme;
     themeGemset = import ../gemset_theme.nix;
     themeLockfile = ../Gemfile_theme.lock;
+  };
+  # TODO: move package.nix under the module, as we don't need the package
+  # by itself, then we can access config more easily to grab the general conf
+  # during buildPhase (but what happens in dev env if we don't want the theme?)
+  settingsFormat = pkgs.formats.yaml { };
+  alaveteliConfig = settingsFormat.generate "general.yml" ({
+    THEME_URLS = [
+      "https://gitlab.com/madada-team/dada-core.git"
+    ];
+  });
+  storageConfig = settingsFormat.generate "storage.yml" {
+    local = {
+      service = "Disk";
+      root = "storage/local";
+    };
+    raw_emails = {
+      service = "Disk";
+      # can't use Rails.root here, as it would end up in /nix/store
+      root = "storage/raw_emails";
+    };
+    attachments = {
+      service = "Disk";
+      root = "storage/attachments";
+    };
   };
 in
 stdenvNoCC.mkDerivation {
@@ -75,8 +98,18 @@ stdenvNoCC.mkDerivation {
       createuser -h $PWD/postgres-work alaveteli -R -S
       createdb -h $PWD/postgres-work --encoding=utf8 --owner=alaveteli alaveteli_production
 
-      rake DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:precompile
-      rake DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:link_non_digest
+      # we need to have access to the theme here in config/general.yml, otherwise
+      # theme assets can't be found
+      cat ${alaveteliConfig} > config/general.yml
+      cat ${storageConfig} > config/storage.yml
+      rake ALAVETELI_NIX_BUILD_PHASE=1 DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:precompile
+      rake ALAVETELI_NIX_BUILD_PHASE=1 DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:link_non_digest
+
+      rm config/general.yml
+      rm config/storage.yml
+
+      # remove some useless files
+      rm config/*example
 
       ps aux | grep redis
 
