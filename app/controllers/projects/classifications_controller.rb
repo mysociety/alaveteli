@@ -15,14 +15,10 @@ class Projects::ClassificationsController < Projects::BaseController
 
   private
 
-  def find_info_request
-    @info_request = @project.info_requests.classifiable.find_by!(
+  def info_request
+    @info_request ||= @project.info_requests.classifiable.find_by!(
       url_title: url_title
     )
-  end
-
-  def authorise_info_request
-    authorize! :update_request_state, @info_request
   end
 
   def url_title
@@ -32,7 +28,7 @@ class Projects::ClassificationsController < Projects::BaseController
   def submission_params
     {
       user: current_user,
-      info_request: @info_request,
+      info_request: info_request,
       resource: set_described_state
     }
   end

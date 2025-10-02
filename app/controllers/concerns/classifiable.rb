@@ -5,7 +5,7 @@ module Classifiable
   extend ActiveSupport::Concern
 
   included do
-    before_action :find_info_request, :authorise_info_request
+    before_action :authorise_info_request, only: [:create, :message]
     before_action :ensure_message, if: :message_required_for_state?,
                                    only: :create
 
@@ -22,7 +22,7 @@ module Classifiable
 
   def message
     @described_state = params[:described_state]
-    @last_info_request_event_id = @info_request.
+    @last_info_request_event_id = info_request.
       last_event_id_needing_description
     @title = case @described_state
              when 'error_message'
@@ -38,12 +38,12 @@ module Classifiable
 
   private
 
-  def find_info_request
+  def info_request
     raise NotImplementedError
   end
 
   def authorise_info_request
-    raise NotImplementedError
+    authorize! :update_request_state, info_request
   end
 
   def classification_params
@@ -55,7 +55,7 @@ module Classifiable
 
     redirect_to url_for(
       action: :message,
-      url_title: @info_request.url_title,
+      url_title: info_request.url_title,
       described_state: classification_params[:described_state]
     )
   end
@@ -72,18 +72,18 @@ module Classifiable
 
     log_params = {
       user_id: current_user.id,
-      old_described_state: @info_request.described_state,
+      old_described_state: info_request.described_state,
       described_state: described_state
     }
 
     log_params[:message] = message if message
 
     # InfoRequest#set_described_state requires this event to be created first
-    event = @info_request.log_event('status_update', log_params)
+    event = info_request.log_event('status_update', log_params)
     current_user.increment!(:status_update_count)
 
     # Make the state change
-    @info_request.set_described_state(described_state, current_user, message)
+    info_request.set_described_state(described_state, current_user, message)
 
     event
   end
