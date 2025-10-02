@@ -9,9 +9,7 @@ class Projects::ExtractsController < Projects::BaseController
   attr_reader :info_request
 
   def show
-    authorize! :read, @project
-
-    unless @info_request
+    unless info_request
       if @project.info_requests.extractable.any?
         msg = _('Nice work! How about having another try at the requests you ' \
                 'skipped?')
@@ -28,17 +26,13 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def skip
-    authorize! :read, @project
-
     queue = Project::Queue.extractable(@project, session)
-    queue.skip(@info_request)
+    queue.skip(info_request)
 
     redirect_to project_extract_path(@project), notice: _('Skipped!')
   end
 
   def create
-    authorize! :read, @project
-
     @value_set = Dataset::ValueSet.new(extract_params)
     submission = @project.submissions.new(**submission_params)
 
@@ -53,7 +47,9 @@ class Projects::ExtractsController < Projects::BaseController
   private
 
   def authenticate
-    authenticated? || ask_to_login(
+    return authorize!(:read, @project) if authenticated?
+
+    ask_to_login(
       web: _('To join this project'),
       email: _('Then you can join this project'),
       email_subject: _('Confirm your account on {{site_name}}',
@@ -83,7 +79,7 @@ class Projects::ExtractsController < Projects::BaseController
   def submission_params
     {
       user: current_user,
-      info_request: @info_request,
+      info_request: info_request,
       resource: @value_set
     }
   end

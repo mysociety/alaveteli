@@ -168,6 +168,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     let(:project) { FactoryBot.create(:project) }
 
     before do
+      ability.can :read, project
       allow(Project).to receive(:find).with(project.id.to_s).and_return(project)
     end
   end
@@ -242,10 +243,9 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       end
 
       it 'raises an CanCan::AccessDenied error' do
-        # TODO: Should check project access before trying to look up requests
         expect {
           patch :skip, params: { project_id: project.id, url_title: 'foo' }
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
 
@@ -300,6 +300,16 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect {
           post :create, params: { project_id: project.id, url_title: 'invalid' }
         }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'url_title param not submitted' do
+      include_context 'project can be found'
+
+      it 'raises an ActionController::ParameterMissing error' do
+        expect {
+          post :create, params: { project_id: project.id }
+        }.to raise_error(ActionController::ParameterMissing)
       end
     end
 
