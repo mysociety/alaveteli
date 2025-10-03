@@ -508,6 +508,24 @@ in
         '';
     };
 
+    # TODO: improve this to help with DNS config just before activating
+    # the new system
+    system.activationScripts.showDNSrecords = {
+      text = ''
+        #!/bin/sh
+        echo "############################"
+        echo "DNS records to set for Alaveteli"
+        echo "Example: A  ${cfg.domainName}"
+        echo "############################"
+      '';
+    };
+    system.preSwitchChecks.verifyDNSConfig = ''
+      echo "############################"
+      echo "Verifying DNS config"
+      echo "############################"
+      # false <- to prevent the config from being activated
+    '';
+
   };
 
   meta.maintainers = with lib.maintainers; [ laurents ];
