@@ -505,6 +505,9 @@ in
 
           rake db:migrate
           rake db:seed
+
+          # ensure we have a xapian db
+          rake xapian:create_index
         '';
     };
 
