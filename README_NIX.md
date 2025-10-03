@@ -9,7 +9,6 @@ Use `nix` to get a working dev environment for alaveteli with:
 To start:
 
 - install nix:
-
   - https://nix.dev/install-nix
   - or https://lix.systems/install if you like pink and icecream :)
 
@@ -41,3 +40,17 @@ essentially adds a hash for each gem to a `gemset.nix` file, which ensures you a
 is also caching that comes for free from nix, which helps speed up installation of the required gems.
 These steps mean that there is no more imperative action (bundle install) required after the env or deployment has been
 computed, so it's one less point of failure at start time.
+
+## How the nix setup is organized for Alaveteli
+
+`Alaveteli` (or rails?) expects a variety of files under `Rails.root`. With `nix`, these end up under a read-only
+`/nix/store/<somehash>/` folder, where they cannot be modified at runtime.
+
+In production, the "live" files (such as the xapian index, raw files...) are therefore moved out of the rails code tree, to `/var/lib/alaveteli`, and the alaveteli code base is patched where needed to go look for these files in the right place.
+
+During development, files remain under `Rails.root` as you are used to:
+
+- if you work on the alaveteli code base, just work in this folder.
+- if you are modifying a theme for a specific site, clone your theme repo in the same parent folder as this one (so that you
+  have `./yourtheme` and `./alaveteli` under the same folder), activate the devenv in this folder (see above) and then
+  modify your code
