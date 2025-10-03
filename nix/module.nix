@@ -107,7 +107,6 @@ in
 
       enable = lib.mkEnableOption "Alaveteli, a Freedom of Information request system for your jurisdiction";
 
-      # TODO: how to fix this option if package is not in nixpkgs?
       package = lib.mkPackageOption self.packages.${pkgs.system} "alaveteli" {
         default = self.packages.${pkgs.system}.alaveteli;
       };
@@ -502,6 +501,11 @@ in
           cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
           cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
           cat ${alaveteliConfig} > ${cfg.dataDir}/config/general.yml
+
+          # some of the rails-post-deploy script is run during package
+          # compilation instead of service startup, which allows caching
+          # between deployments, and is also needed for readonlyness of
+          # the produced site code base
 
           rake db:migrate
           rake db:seed
