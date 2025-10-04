@@ -21,7 +21,7 @@ in
 
   services.postfix = {
     enable = true;
-    enableSmtp = false; # port 25 (define config manually below)
+    enableSmtp = true; # port 25 (define config manually below)
     enableSubmission = true; # port 587
     rootAlias = cfg.mailserver.rootAlias;
     localRecipients = cfg.mailserver.localRecipients ++ [
@@ -63,6 +63,14 @@ in
     message_size_limit = 30720000;
     recipient_delimiter = "+";
 
+    # settings for mandatory encryption
+    smtpd_tls_mandatory_ciphers = "high";
+    smtpd_tls_mandatory_protocols = ">=TLSv1.2";
+    # same for opportunistic encryption
+    smtpd_tls_ciphers = "high";
+    smtpd_tls_protocols = ">=TLSv1.2";
+    smtpd_tls_exclude_ciphers = "ADH-AES256-SHA, ADH-AES128-SHA";
+
     smtpd_tls_chain_files =
       if (cfg.sslCertificate != null && cfg.sslCertificateKey != null) then
         [
@@ -83,7 +91,8 @@ in
     # try tls when sending ("encrypt" is too strict as multiple legitimate recipient
     # servers do not offer TLS yet, so we stick to opportunistic TLS)
     # https://www.postfix.org/TLS_README.html#client_tls_levels
-    smtp_tls_security_level = "may";
+    smtp_tls_security_level = "dane";
+    smtp_dns_support_level = "dnssec";
 
     smtp_tls_session_cache_database = "btree:\${data_directory}/smtp_scache";
 
@@ -155,12 +164,5 @@ in
 
     # use this instead of enableSmtp to enable chrooting
     # which we need for dkim signing (?)
-    smtp = {
-      type = "inet";
-      chroot = false;
-      private = false;
-      command = "smtpd";
-      args = [ ];
-    };
   };
 }
