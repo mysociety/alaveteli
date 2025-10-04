@@ -82,6 +82,41 @@ let
       }
     else
       cfg.theme.package;
+
+  domainCertFile =
+    if (cfg.sslCertificate != null && cfg.sslCertificateKey != null) then
+      cfg.sslCertificate
+    else
+      "${config.security.acme.certs.${cfg.domainName}.directory}/fullchain.pem";
+
+  generateTlsaRecord =
+    # bash
+    ''
+      export CERT_CONTENTS=`cat ${domainCertFile}`
+      ${pkgs.curl}/bin/curl --no-progress-meter \
+        'https://www.huque.com/bin/gen_tlsa' \
+        -X POST \
+        -H 'Content-Type: application/x-www-form-urlencoded' \
+        --data-urlencode "cert=''${CERT_CONTENTS}" \
+        --data-raw 'usage=3&selector=1&mtype=1&port=25&transport=tcp&domain=${cfg.domainName}&Generate=Generate' |
+        ${pkgs.ripgrep}/bin/rg -A4 '<div class="tlsa_rec">' |
+        tail -n3 |
+        ${pkgs.gnused}/bin/sed -z 's/\n//g' |
+        ${pkgs.gnused}/bin/sed 's/ \{2,\}//g' |
+        ${pkgs.gnused}/bin/sed 's/(//g'
+    '';
+  serverIPv4Address =
+    # bash
+    ''
+      export ipv4Add=`${pkgs.nettools}/bin/ifconfig | ${pkgs.ripgrep}/bin/rg 'inet ' | ${pkgs.ripgrep}/bin/rg -v '127.0.0.1' | ${pkgs.gawk}/bin/awk '{ print $2}'`
+      echo "${cfg.domainName} A $ipv4Add"
+    '';
+  serverIPv6Address =
+    # bash
+    ''
+      export ipv6Add=`${pkgs.nettools}/bin/ifconfig | ${pkgs.ripgrep}/bin/rg 'inet6 .*global' | ${pkgs.gawk}/bin/awk '{ print $2}'`
+      echo "${cfg.domainName} AAAA $ipv6Add"
+    '';
 in
 {
   imports = [
@@ -354,7 +389,13 @@ in
     ];
 
     # TODO: where do we put packages required by the service?
-    # environment.systemPackages = with pkgs; [ git wkhtmltopdf ];
+    environment.systemPackages = [
+      pkgs.curl
+      pkgs.gnused
+      pkgs.ripgrep
+      pkgs.urlencode
+      pkgs.wkhtmltopdf
+    ];
 
     services.alaveteli.database.settings = {
       production = lib.mapAttrs (_: v: lib.mkDefault v) (filterNull {
@@ -372,6 +413,7 @@ in
     };
 
     networking.firewall.allowedTCPPorts = [
+      25
       80
       443
     ];
@@ -522,7 +564,24 @@ in
         #!/bin/sh
         echo "############################"
         echo "DNS records to set for Alaveteli"
-        echo "Example: A  ${cfg.domainName}"
+        ${serverIPv4Address}
+        echo "--------------------------------"
+        ${serverIPv6Address}
+        echo "--------------------------------"
+        echo "${cfg.domainName} IN MX 10 ${cfg.domainName}."
+        echo "--------------------------------"
+        echo 'SPF: @ 300 IN TXT "v=spf1 mx ~all"'
+        echo "--------------------------------"
+        echo "TLSA record:"
+        ${generateTlsaRecord}
+        echo
+        echo "--------------------------------"
+        echo "CAA  0 issue \"letsencrypt.org\""
+        echo "--------------------------------"
+        cat /var/lib/opendkim/keys/${config.services.opendkim.selector}.txt
+        echo "--------------------------------"
+        echo '_dmarc.${cfg.domainName} TXT "v=DMARC1; p=quarantine;"'
+        echo "--------------------------------"
         echo "############################"
       '';
     };
