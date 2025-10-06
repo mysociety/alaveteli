@@ -2,7 +2,11 @@ require_dependency 'project/queue'
 
 # Extract data from a Project
 class Projects::ExtractsController < Projects::BaseController
-  before_action :authenticate, :find_info_request
+  before_action :authenticate
+
+  before_action :load_info_request_from_queue, only: :show
+  before_action :load_info_request_from_url_title, except: :show
+  attr_reader :info_request
 
   def show
     authorize! :read, @project
@@ -57,15 +61,17 @@ class Projects::ExtractsController < Projects::BaseController
     )
   end
 
-  def find_info_request
-    if params[:url_title]
-      @info_request = @project.info_requests.extractable.find_by!(
-        url_title: params[:url_title]
-      )
-    else
+  def load_info_request_from_queue
+    @info_request = (
       @queue = Project::Queue.extractable(@project, session)
-      @info_request = @queue.next
-    end
+      @queue.next
+    )
+  end
+
+  def load_info_request_from_url_title
+    @info_request = @project.info_requests.extractable.find_by!(
+      url_title: params.require(:url_title)
+    )
   end
 
   def extract_params
