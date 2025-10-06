@@ -480,9 +480,10 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.3.0)
-    rdoc (6.14.2)
+    rdoc (6.15.0)
       erb
       psych (>= 4.0.0)
+      tsort
     recaptcha (5.21.1)
     redcarpet (3.6.1)
     redis (4.8.1)
@@ -728,7 +729,7 @@ DEPENDENCIES
   rails (~> 8.0.3)
   rails-controller-testing
   rails-i18n (~> 8.0.2)
-  rdoc (~> 6.14.2)
+  rdoc (~> 6.15.0)
   recaptcha (~> 5.21.1)
   redcarpet (~> 3.6.1)
   redis (~> 4.8.1)
