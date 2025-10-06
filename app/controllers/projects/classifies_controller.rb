@@ -8,20 +8,9 @@ class Projects::ClassifiesController < Projects::BaseController
   before_action :load_info_request_from_url_title, except: :show
   attr_reader :info_request
 
+  before_action :redirect_to_project_if_queue_is_empty, only: :show
+
   def show
-    unless info_request
-      if @project.info_requests.classifiable.any?
-        msg = _('Nice work! How about having another try at the requests you ' \
-                'skipped?')
-        @queue.reset
-      else
-        msg = _('There are no requests to classify right now. Great job!')
-      end
-
-      redirect_to @project, notice: msg
-      return
-    end
-
     @state_transitions = info_request.state.transitions(
       is_pro_user: false,
       is_owning_user: false,
@@ -61,5 +50,20 @@ class Projects::ClassifiesController < Projects::BaseController
     @info_request = @project.info_requests.classifiable.find_by!(
       url_title: params.require(:url_title)
     )
+  end
+
+  def redirect_to_project_if_queue_is_empty
+    return if info_request
+
+
+    if @project.info_requests.classifiable.any?
+      msg = _('Nice work! How about having another try at the requests you ' \
+              'skipped?')
+      @queue.reset
+    else
+      msg = _('There are no requests to classify right now. Great job!')
+    end
+
+    redirect_to @project, notice: msg
   end
 end

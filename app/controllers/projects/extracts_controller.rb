@@ -8,20 +8,9 @@ class Projects::ExtractsController < Projects::BaseController
   before_action :load_info_request_from_url_title, except: :show
   attr_reader :info_request
 
+  before_action :redirect_to_project_if_queue_is_empty, only: :show
+
   def show
-    unless info_request
-      if @project.info_requests.extractable.any?
-        msg = _('Nice work! How about having another try at the requests you ' \
-                'skipped?')
-        @queue.reset
-      else
-        msg = _('There are no requests to extract right now. Great job!')
-      end
-
-      redirect_to @project, notice: msg
-      return
-    end
-
     @value_set = Dataset::ValueSet.new
   end
 
@@ -68,6 +57,20 @@ class Projects::ExtractsController < Projects::BaseController
     @info_request = @project.info_requests.extractable.find_by!(
       url_title: params.require(:url_title)
     )
+  end
+
+  def redirect_to_project_if_queue_is_empty
+    return if info_request
+
+    if @project.info_requests.extractable.any?
+      msg = _('Nice work! How about having another try at the requests you ' \
+              'skipped?')
+      @queue.reset
+    else
+      msg = _('There are no requests to extract right now. Great job!')
+    end
+
+    redirect_to @project, notice: msg
   end
 
   def extract_params
