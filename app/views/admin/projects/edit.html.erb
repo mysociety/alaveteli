@@ -22,6 +22,7 @@
       </div>
     </div>
 
+    <% if feature_enabled?(:projects_publishing) %>
     <div class="control-group">
       <%= f.label :dataset_description, class: "control-label" %>
       <div class="controls">
@@ -39,6 +40,7 @@
         </label>
       </div>
     </div>
+    <% end %>
 
     <div class="control-group">
       <%= f.label :invite_token, 'Invite token', class: 'control-label' %>
