@@ -225,6 +225,8 @@ class Ability
     end
 
     if feature_enabled? :projects
+      can :admin, Project if user && user.is_pro_admin?
+
       can :read, Project do |target_project|
         user && (user.is_pro_admin? || target_project.member?(user))
       end

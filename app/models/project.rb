@@ -16,6 +16,8 @@
 # info requests.
 #
 class Project < ApplicationRecord
+  admin_columns exclude: %i[title briefing]
+
   has_many :memberships, class_name: 'Project::Membership', dependent: :destroy
   has_one  :owner_membership,
            -> { where(role: Role.project_owner_role) },

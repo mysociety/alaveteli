@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added project administration UI (Graeme Porteous)
 * Project submission contribution editing (Graeme Porteous)
 * Store user locale preference in a separate cookie instead of the encrypted
   Rails session cookie to enable Varnish and other caching layers to read it
