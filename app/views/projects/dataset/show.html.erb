@@ -33,17 +33,27 @@
       </p>
 
       <table class="dataset">
-        <% @export.data_for_web.each_with_index do |data, index| %>
+        <% @export.data_for_web.each_with_index do |web, index| %>
+          <% data = @export.data[index] %>
           <% if index == 0 %>
             <tr>
-              <% data.keys.each do |key| %>
+              <% web.keys.each do |key| %>
                 <th class="dataset__<%= key.to_s.parameterize %>"><%= key.to_s.humanize %></th>
+              <% end %>
+              <% if can?(:edit, @project) %>
+                <th class="dataset__actions"><%= _('Actions') %></th>
               <% end %>
             </tr>
           <% end %>
           <tr>
-            <% data.each do |key, value| %>
+            <% web.each do |key, value| %>
               <td class="dataset__<%= key.to_s.parameterize %>"><%= value %></td>
+            <% end %>
+            <% if can?(:edit, @project) %>
+              <td class="dataset__actions">
+                <%= link_to _('Classify'), edit_project_classify_path(@project, url_title: data[:info_request].url_title, resource_id: data[:classification_resource]) %>
+                <%= link_to _('Extract'), edit_project_extract_path(@project, url_title: data[:info_request].url_title, resource_id: data[:extraction_resource]) %>
+              </td>
             <% end %>
           </tr>
         <% end %>

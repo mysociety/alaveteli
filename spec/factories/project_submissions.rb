@@ -23,11 +23,11 @@ FactoryBot.define do
     for_classification
 
     trait :for_classification do
-      association :resource, factory: :status_update_event
+      resource { association :status_update_event, info_request: info_request }
     end
 
     trait :for_extraction do
-      association :resource, factory: :dataset_value_set
+      resource { association :dataset_value_set }
     end
   end
 end

@@ -85,7 +85,9 @@ RSpec.describe Project::Submission, type: :model do
     end
 
     it 'can scope to classification submissions' do
-      expect(described_class.classification).to match_array([classification])
+      expect(described_class.classification).to match_array([
+        classification, historical_submission, current_submission
+      ])
     end
 
     it 'can scope to extraction submissions' do

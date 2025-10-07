@@ -23,11 +23,15 @@ class Project::Export::InfoRequest < SimpleDelegator
       requested_by_url: user_url(user),
       public_body: public_body.name,
       public_body_url: public_body_url(public_body),
-      classified_by: status_contributor&.name,
-      classified_by_url: (user_url(status_contributor) if status_contributor),
-      classification: InfoRequest.get_status_description(described_state),
+      classified_by: classification_contributor&.name,
+      classified_by_url:
+        (user_url(classification_contributor) if classification_contributor),
+      status: InfoRequest.get_status_description(described_state),
       extracted_by: dataset_contributor&.name,
-      extracted_by_url: (user_url(dataset_contributor) if dataset_contributor)
+      extracted_by_url: (user_url(dataset_contributor) if dataset_contributor),
+      info_request: __getobj__,
+      classification_resource: last_status_update_event,
+      extraction_resource: extraction_submission&.resource
     }.merge(dataset_values)
   end
 
@@ -37,18 +41,28 @@ class Project::Export::InfoRequest < SimpleDelegator
     project.submissions.where(info_request: id)
   end
 
-  def status_submission
+  def classification_submission
     submissions.classification.last
+  end
+
+  def last_status_update_event
+    info_request_events.where(event_type: 'status_update').last
+  end
+
+  def classification_is_latest_status_update?
+    return false unless classification_submission && last_status_update_event
+
+    classification_submission.resource == last_status_update_event
   end
 
   def extraction_submission
     submissions.extraction.last
   end
 
-  def status_contributor
-    return project.owner unless status_submission
+  def classification_contributor
+    return unless classification_is_latest_status_update?
 
-    status_submission.user
+    classification_submission.user
   end
 
   def dataset_contributor
