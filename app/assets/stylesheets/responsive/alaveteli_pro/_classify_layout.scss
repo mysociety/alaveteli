@@ -29,6 +29,7 @@
 
   input[name="commit"] {
     @extend .button--full-width;
+    margin-bottom: 1em;
   }
 
   hr {

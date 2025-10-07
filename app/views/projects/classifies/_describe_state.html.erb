@@ -38,5 +38,6 @@
                          id: 'last_info_request_event_id' %>
 
     <%= submit_tag _('Submit status') %>
+    <%= link_to _('Skip'), skip_project_classify_path(project, url_title: info_request.url_title), method: :patch, class: 'button-tertiary button--full-width' %>
   </p>
 <% end %>

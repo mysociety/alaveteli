@@ -7,9 +7,3 @@
 .extract-answer-form__question {
   font-weight: bold;
 }
-
-.extract-answer-form {
-  input[name="commit"] {
-    @extend .button--full-width;
-  }
-}
