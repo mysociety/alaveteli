@@ -228,10 +228,10 @@ Rails.application.routes.draw do
 
     scope module: :projects do
       resources :projects, only: [:show] do
-        resource :extract, only: [:show, :create] do
+        resource :extract, only: [:show, :create, :edit, :update] do
           patch :skip
         end
-        resource :classify, only: [:show, :create] do
+        resource :classify, only: [:show, :create, :edit, :update] do
           patch :skip
           get :message
         end

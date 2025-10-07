@@ -1,6 +1,8 @@
 <% form_url = project_classify_path(project, url_title: info_request.url_title) %>
 
 <%= form_for(resource, as: :classification, url: form_url) do |f| %>
+  <%= hidden_field_tag 'resource_id', resource.id %>
+
   <h2><%= _('What best describes the status of this request now?') %></h2>
 
   <h3><%= _('This request is still in progress:') %></h3>
@@ -37,7 +39,12 @@
                          info_request.last_event_id_needing_description,
                          id: 'last_info_request_event_id' %>
 
-    <%= submit_tag _('Submit status') %>
-    <%= link_to _('Skip'), skip_project_classify_path(project, url_title: info_request.url_title), method: :patch, class: 'button-tertiary button--full-width' %>
+    <% if resource.persisted? %>
+      <%= submit_tag _('Update classification') %>
+      <%= link_to _('Cancel'), project_dataset_path(project), class: 'button-tertiary button--full-width' %>
+    <% else %>
+      <%= submit_tag _('Submit status') %>
+      <%= link_to _('Skip'), skip_project_classify_path(project, url_title: info_request.url_title), method: :patch, class: 'button-tertiary button--full-width' %>
+    <% end %>
   </p>
 <% end %>

@@ -33,6 +33,28 @@ class Projects::ExtractsController < Projects::BaseController
     end
   end
 
+  def edit
+    @info_request = @submission.info_request
+    @value_set = @submission.resource
+
+    render :show
+  end
+
+  def update
+    @value_set = Dataset::ValueSet.new(extract_params)
+    @submission = @submission.create_new_version(
+      user: current_user, **submission_params
+    )
+
+    if @submission.persisted?
+      flash[:notice] = _('Extraction updated successfully!')
+      redirect_to project_dataset_path(@project)
+    else
+      flash.now[:error] = _("Extraction couldn't be updated.")
+      render :show
+    end
+  end
+
   private
 
   def authenticate
@@ -47,7 +69,15 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def find_submission
-    @submission = @project.submissions.new(resource: Dataset::ValueSet.new)
+    @submission = (
+      if params[:resource_id].present?
+        resource = @project.key_set.value_sets.find(params[:resource_id])
+        scope = @project.submissions.extraction.where(resource: resource)
+        scope.last || scope.new
+      else
+        @project.submissions.new(resource: Dataset::ValueSet.new)
+      end
+    )
   end
 
   def load_info_request_from_queue
@@ -58,7 +88,7 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def load_info_request_from_url_title
-    @info_request = @project.info_requests.extractable.find_by!(
+    @info_request = @project.info_requests.find_by!(
       url_title: params.require(:url_title)
     )
   end

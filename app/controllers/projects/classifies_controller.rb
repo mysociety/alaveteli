@@ -37,6 +37,24 @@ class Projects::ClassifiesController < Projects::BaseController
     end
   end
 
+  def edit
+    render :show
+  end
+
+  def update
+    @submission = @submission.create_new_version(
+      user: current_user, **submission_params
+    )
+
+    if @submission.persisted?
+      flash[:notice] = _('Classification updated successfully!')
+      redirect_to project_dataset_path(@project)
+    else
+      flash.now[:error] = _("Classification couldn't be updated.")
+      render :show
+    end
+  end
+
   private
 
   def authenticate
@@ -51,7 +69,15 @@ class Projects::ClassifiesController < Projects::BaseController
   end
 
   def find_submission
-    @submission = @project.submissions.new(resource: InfoRequestEvent.new)
+    @submission = (
+      if params[:resource_id].present?
+        resource = info_request.info_request_events.find(params[:resource_id])
+        scope = @project.submissions.classification.where(resource: resource)
+        scope.last || scope.new
+      else
+        @project.submissions.new(resource: InfoRequestEvent.new)
+      end
+    )
   end
 
   def load_info_request_from_queue
@@ -62,7 +88,7 @@ class Projects::ClassifiesController < Projects::BaseController
   end
 
   def load_info_request_from_url_title
-    @info_request = @project.info_requests.classifiable.find_by!(
+    @info_request = @project.info_requests.find_by!(
       url_title: params.require(:url_title)
     )
   end
