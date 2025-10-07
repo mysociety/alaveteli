@@ -10,15 +10,11 @@ class Projects::ClassifiesController < Projects::BaseController
 
   before_action :redirect_to_project_if_queue_is_empty, only: :show
 
+  before_action :assign_state_transition_variables, except: :skip
+
   include Classifiable
 
   def show
-    @state_transitions = info_request.state.transitions(
-      is_pro_user: false,
-      is_owning_user: false,
-      in_internal_review: info_request.described_state == 'internal_review',
-      user_asked_to_update_status: false
-    )
   end
 
   def skip
@@ -62,6 +58,17 @@ class Projects::ClassifiesController < Projects::BaseController
   def load_info_request_from_url_title
     @info_request = @project.info_requests.classifiable.find_by!(
       url_title: params.require(:url_title)
+    )
+  end
+
+  def assign_state_transition_variables
+    return unless info_request
+
+    @state_transitions = info_request.state.transitions(
+      is_pro_user: false,
+      is_owning_user: false,
+      in_internal_review: info_request.described_state == 'internal_review',
+      user_asked_to_update_status: false
     )
   end
 
