@@ -30,6 +30,7 @@
               <li><%= link_to 'Categories', admin_categories_path(model_type: 'InfoRequest') %></li>
               <li><%= link_to 'Tags', admin_tags_path(model_type: 'InfoRequest') %></li>
               <li><%= link_to 'Citations', admin_citations_path %></li>
+              <% if feature_enabled?(:projects) && can?(:admin, Project) %><li><%= link_to 'Projects', admin_projects_path %></li><% end %>
               <% if feature_enabled?(:refusal_snippets) %><li><%= link_to 'Snippets', admin_snippets_path %></li><% end %>
             </ul>
           </li>
