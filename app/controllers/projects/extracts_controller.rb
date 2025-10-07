@@ -10,8 +10,9 @@ class Projects::ExtractsController < Projects::BaseController
 
   before_action :redirect_to_project_if_queue_is_empty, only: :show
 
+  before_action :find_submission, except: [:skip, :create]
+
   def show
-    @value_set = Dataset::ValueSet.new
   end
 
   def skip
@@ -22,10 +23,9 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def create
-    @value_set = Dataset::ValueSet.new(extract_params)
-    submission = @project.submissions.new(**submission_params)
+    @submission = @project.submissions.new(**submission_params)
 
-    if submission.save
+    if @submission.save
       redirect_to project_extract_path
     else
       flash.now[:error] = _("Extraction couldn't be saved.")
@@ -44,6 +44,10 @@ class Projects::ExtractsController < Projects::BaseController
       email_subject: _('Confirm your account on {{site_name}}',
                        site_name: site_name)
     )
+  end
+
+  def find_submission
+    @submission = @project.submissions.new(resource: Dataset::ValueSet.new)
   end
 
   def load_info_request_from_queue
@@ -80,10 +84,11 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def submission_params
+    value_set = Dataset::ValueSet.new(extract_params)
     {
       user: current_user,
       info_request: info_request,
-      resource: @value_set
+      resource: value_set
     }
   end
 end

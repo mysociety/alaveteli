@@ -33,5 +33,7 @@
   <%= render partial: 'sidebar',
              locals: { project: @project,
                        info_request: @info_request,
+                       submission: @submission,
+                       resource: @submission.resource,
                        state_transitions: @state_transitions } %>
 </div>

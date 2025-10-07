@@ -12,6 +12,8 @@ class Projects::ClassifiesController < Projects::BaseController
 
   before_action :assign_state_transition_variables, except: :skip
 
+  before_action :find_submission, except: [:skip, :create]
+
   include Classifiable
 
   def show
@@ -25,9 +27,9 @@ class Projects::ClassifiesController < Projects::BaseController
   end
 
   def create
-    submission = @project.submissions.new(**submission_params)
+    @submission = @project.submissions.new(**submission_params)
 
-    if submission.save
+    if @submission.save
       redirect_to project_classify_path
     else
       flash.now[:error] = _("Classification couldn't be saved.")
@@ -46,6 +48,10 @@ class Projects::ClassifiesController < Projects::BaseController
       email_subject: _('Confirm your account on {{site_name}}',
                        site_name: site_name)
     )
+  end
+
+  def find_submission
+    @submission = @project.submissions.new(resource: InfoRequestEvent.new)
   end
 
   def load_info_request_from_queue
