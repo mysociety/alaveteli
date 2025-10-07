@@ -10,6 +10,8 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  info_request_id :bigint
+#  parent_id       :bigint
+#  current         :boolean          default(TRUE), not null
 #
 
 FactoryBot.define do
