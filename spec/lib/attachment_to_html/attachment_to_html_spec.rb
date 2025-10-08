@@ -25,7 +25,7 @@ RSpec.describe AttachmentToHTML do
     it 'accepts a hash of options to pass to the adapter' do
       options = { attachment_url: 'http://example.com/cat.pdf' }
       expect(AttachmentToHTML::Adapters::Text).to receive(:new).with(attachment, options).and_call_original
-      to_html(attachment, options)
+      to_html(attachment, **options)
     end
 
     it 'converts an attachment that has an adapter, fails to convert, but has a google viewer' do

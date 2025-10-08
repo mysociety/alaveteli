@@ -35,14 +35,7 @@ class AttachmentsController < ApplicationController
   end
 
   def show_as_html
-    # images made during conversion (e.g. images in PDF files) are put in the
-    # cache directory, so the same cache code in cache_attachments above will
-    # display them.
-    image_dir = File.dirname(cache_key_path)
-    FileUtils.mkdir_p(image_dir)
-
     html = @attachment.body_as_html(
-      image_dir,
       attachment_url: attachment_url(@attachment),
       content_for: {
         head_suffix: render_to_string(

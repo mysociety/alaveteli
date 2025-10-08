@@ -9,7 +9,7 @@ end
 module AttachmentToHTML
   extend self
 
-  def to_html(attachment, opts = {})
+  def to_html(attachment, **opts)
     adapter = adapter_for(attachment).new(attachment, opts)
 
     unless adapter.success?
