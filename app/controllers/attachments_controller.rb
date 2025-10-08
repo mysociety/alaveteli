@@ -33,7 +33,7 @@ class AttachmentsController < ApplicationController
 
     html = @attachment.body_as_html(
       image_dir,
-      attachment_url: Rack::Utils.escape(attachment_url(@attachment)),
+      attachment_url: attachment_url(@attachment),
       content_for: {
         head_suffix: render_to_string(
           partial: 'request/view_html_stylesheet',

@@ -27,8 +27,8 @@ RSpec.describe AttachmentToHTML::Adapters::GoogleDocsViewer do
   end
 
   describe :body do
-    it 'contains the google docs viewer iframe' do
-      expected = %Q(<iframe src="https://docs.google.com/viewer?url=http://example.com/test.pdf&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
+    it 'contains the google docs viewer iframe with encoded attachment URL' do
+      expected = %Q(<iframe src="https://docs.google.com/viewer?url=http%3A%2F%2Fexample.com%2Ftest.pdf&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
       expect(adapter.body).to eq(expected)
     end
   end
