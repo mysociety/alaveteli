@@ -14,7 +14,7 @@ module AttachmentToHTML
       self.title    = adapter.title
       self.body     = adapter.body
       self.template = opts.fetch(:template, self.class.template)
-      self.wrapper  = opts.fetch(:wrapper, 'wrapper')
+      self.wrapper  = adapter.embed? ? 'wrapper_embed' : 'wrapper'
       super(File.read(template))
     end
 

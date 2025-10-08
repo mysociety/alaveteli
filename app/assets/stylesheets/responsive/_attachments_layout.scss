@@ -1,12 +1,8 @@
 /* Layout for the HTML view of attachments */
 
-/* Generated HTML should be full row width */
-#view-html-content {
-  @include grid-column(12);
-  @include ie8{
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-  }
+body#wrapper {
+  width: 100%;
+
   table {
     border-collapse:collapse;
     margin-bottom:1em;
@@ -17,11 +13,26 @@
     max-width:30em;
     overflow:auto;
   }
+}
 
+body#wrapper_embed {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+
+    flex-grow: 1;
+  }
 }
 
 .view_html_prefix {
-
   @include grid-column(12);
   @include ie8{
     padding-left: 0.9375em;
@@ -60,15 +71,3 @@
     }
   }
 }
-
-#wrapper_google_embed iframe {
-  min-height: 400px;
-  @include respond-min($main_menu-mobile_menu_cutoff ){
-    min-height: 800px;
-    @include lte-ie7{
-      height:800px !important;
-    }
-  }
-}
-
-

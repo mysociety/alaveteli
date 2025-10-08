@@ -23,7 +23,7 @@ RSpec.describe AttachmentToHTML do
     end
 
     it 'accepts a hash of options to pass to the adapter' do
-      options = { wrapper: 'wrap' }
+      options = { attachment_url: 'http://example.com/cat.pdf' }
       expect(AttachmentToHTML::Adapters::Text).to receive(:new).with(attachment, options).and_call_original
       to_html(attachment, options)
     end
@@ -51,7 +51,7 @@ RSpec.describe AttachmentToHTML do
     describe 'when wrapping the content' do
       it 'uses a the default wrapper' do
         attachment = FactoryBot.create(:pdf_attachment)
-        expect(to_html(attachment)).to include(%Q(<div id="wrapper">))
+        expect(to_html(attachment)).to include(%Q(<body id="wrapper">))
       end
 
       it 'uses a custom wrapper for GoogleDocsViewer attachments' do
@@ -59,7 +59,7 @@ RSpec.describe AttachmentToHTML do
         # TODO: Add a document that will always render in a
         # GoogleDocsViewer for testing
         allow_any_instance_of(AttachmentToHTML::Adapters::PDF).to receive(:success?).and_return(false)
-        expect(to_html(attachment)).to include(%Q(<div id="wrapper_google_embed">))
+        expect(to_html(attachment)).to include(%Q(<body id="wrapper_embed">))
       end
     end
   end

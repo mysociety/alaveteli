@@ -41,6 +41,10 @@ module AttachmentToHTML
         @attachment_url = opts.fetch(:attachment_url, nil)
       end
 
+      def embed?
+        true
+      end
+
       private
 
       def parse_body

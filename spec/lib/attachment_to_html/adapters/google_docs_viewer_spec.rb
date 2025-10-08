@@ -38,4 +38,10 @@ RSpec.describe AttachmentToHTML::Adapters::GoogleDocsViewer do
       expect(adapter.success?).to be true
     end
   end
+
+  describe :embed? do
+    it 'returns true' do
+      expect(adapter.embed?).to eq true
+    end
+  end
 end
