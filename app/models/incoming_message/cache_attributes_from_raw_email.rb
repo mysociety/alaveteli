@@ -10,7 +10,7 @@ module IncomingMessage::CacheAttributesFromRawEmail
 
     def cache_attribute_from_raw_email(attr)
       define_method(attr) do
-        parse_raw_email!
+        parse_raw_email! unless last_parsed
         super()
       end
     end

@@ -57,3 +57,11 @@
 </table>
 
 <pre><%= h(@raw_email.data_as_text).gsub(/\n/, '<br>').html_safe %></pre>
+
+<%= form_tag admin_raw_email_path(@raw_email), method: :delete do %>
+  <%= hidden_field_tag 'raw_email_id', @raw_email.id %>
+  <%= submit_tag 'Destroy raw email',
+                 class: 'btn btn-danger',
+                 data: { confirm: 'This is permanent! Are you sure?' },
+                 id: "destroy_raw_email_#{@raw_email.id}" %>
+<% end %>

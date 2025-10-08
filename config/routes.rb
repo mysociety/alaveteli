@@ -679,7 +679,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :raw_emails,
       :controller => 'admin_raw_email',
-      :only => [:show]
+      :only => [:show, :destroy]
   end
   ####
 
