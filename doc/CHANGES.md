@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Remove PDF to HTML parsing and instead use modern browsers inline PDF viewer
+  (Graeme Porteous)
 * Store user locale preference in a separate cookie instead of the encrypted
   Rails session cookie to enable Varnish and other caching layers to read it
   (Matthew Somerville, Graeme Porteous)

@@ -50,15 +50,12 @@ RSpec.describe AttachmentToHTML do
 
     describe 'when wrapping the content' do
       it 'uses a the default wrapper' do
-        attachment = FactoryBot.create(:pdf_attachment)
+        attachment = FactoryBot.create(:body_text)
         expect(to_html(attachment)).to include(%Q(<body id="wrapper">))
       end
 
-      it 'uses a custom wrapper for GoogleDocsViewer attachments' do
+      it 'uses a custom wrapper for embedded attachments' do
         attachment = FactoryBot.create(:pdf_attachment)
-        # TODO: Add a document that will always render in a
-        # GoogleDocsViewer for testing
-        allow_any_instance_of(AttachmentToHTML::Adapters::PDF).to receive(:success?).and_return(false)
         expect(to_html(attachment)).to include(%Q(<body id="wrapper_embed">))
       end
     end
