@@ -21,7 +21,17 @@ class AttachmentsController < ApplicationController
   around_action :cache_attachments, only: :show_as_html
 
   def show
-    render body: @attachment.body, content_type: content_type
+    if request.headers['Sec-Fetch-Dest'] == 'iframe' &&
+       request.headers['Sec-Fetch-Site'] == 'same-origin'
+
+      render body: @attachment.body, content_type: content_type
+    else
+      send_data(
+        @attachment.body,
+        filename: @attachment.filename,
+        type: content_type
+      )
+    end
   end
 
   def show_as_html

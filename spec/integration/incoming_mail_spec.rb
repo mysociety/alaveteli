@@ -42,15 +42,11 @@ RSpec.describe 'when handling incoming mail' do
     perform_enqueued_jobs
 
     visit attachment_1_path
-    expect(page.response_headers['Content-Type']).to eq(
-      "text/plain; charset=utf-8"
-    )
+    expect(page.response_headers['Content-Type']).to eq("text/plain")
     expect(page).to have_content "Second hello"
 
     visit attachment_2_path
-    expect(page.response_headers['Content-Type']).to eq(
-      "text/plain; charset=utf-8"
-    )
+    expect(page.response_headers['Content-Type']).to eq("text/plain")
     expect(page).to have_content "First hello"
   end
 
@@ -137,7 +133,7 @@ RSpec.describe 'when handling incoming mail' do
     perform_enqueued_jobs
 
     visit attachment_path
-    expect(page.response_headers['Content-Type']).to eq("application/octet-stream; charset=utf-8")
+    expect(page.response_headers['Content-Type']).to eq("application/octet-stream")
     expect(page).to have_content "an unusual sort of file"
   end
 
