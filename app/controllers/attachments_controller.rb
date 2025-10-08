@@ -2,7 +2,6 @@
 # Controller to serve FoiAttachment records in both raw and as HTML.
 #
 class AttachmentsController < ApplicationController
-  include FragmentCacheable
   include InfoRequestHelper
   include PublicTokenable
 
@@ -18,7 +17,6 @@ class AttachmentsController < ApplicationController
   before_action :set_cors
 
   around_action :ensure_masked
-  around_action :cache_attachments, only: :show_as_html
 
   def show
     if request.headers['Sec-Fetch-Dest'] == 'iframe' &&
@@ -155,33 +153,7 @@ class AttachmentsController < ApplicationController
     headers['Access-Control-Request-Method'] = 'GET'
   end
 
-  # special caching code so mime types are handled right
-  def cache_attachments
-    if !params[:skip_cache].nil?
-      yield
-    else
-      if foi_fragment_cache_exists?(cache_key_path)
-        logger.info("Reading cache for #{cache_key_path}")
 
-        render body: foi_fragment_cache_read(cache_key_path),
-               content_type: content_type
-        return
-      end
-
-      yield
-
-      if params[:skip_cache].nil? && response.status == 200
-        # write it to the filesystem ourselves, so is just a plain file. (The
-        # various fragment cache functions using Ruby Marshall to write the file
-        # which adds a header, so isn't compatible with images that have been
-        # extracted elsewhere from PDFs)
-        if attachment_is_cacheable?
-          logger.info("Writing cache for #{cache_key_path}")
-          foi_fragment_cache_write(cache_key_path, response.body)
-        end
-      end
-    end
-  end
 
   def part_number
     params[:part].to_i
@@ -213,23 +185,7 @@ class AttachmentsController < ApplicationController
       @attachment.is_public?
   end
 
-  def attachment_is_cacheable?
-    # If this a request, message and attachment are searchable then we can cache
-    # as there are no custom response headers (EG X-Robots-Tag)
-    prominence.is_searchable? &&
-      @incoming_message.indexed_by_search? &&
-      @attachment.indexed_by_search?
-  end
 
-  def cache_key_path
-    foi_fragment_cache_path(
-      id: @info_request.id,
-      incoming_message_id: @incoming_message.id,
-      part: part_number,
-      file_name: original_filename,
-      locale: false
-    )
-  end
 
   def current_ability
     @current_ability ||= Ability.new(

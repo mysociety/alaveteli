@@ -26,15 +26,13 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello world.txt',
-      skip_cache: 1
+      file_name: 'hello world.txt'
     )
     attachment_2_path = get_attachment_path(
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 3,
-      file_name: 'hello world.txt',
-      skip_cache: 1
+      file_name: 'hello world.txt'
     )
 
     visit attachment_1_path
@@ -64,8 +62,8 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello world.txt.html',
-      skip_cache: 1)
+      file_name: 'hello world.txt.html'
+    )
 
     visit attachment_path
     perform_enqueued_jobs
@@ -82,8 +80,8 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'fs 50379341.pdf.html',
-      skip_cache: 1)
+      file_name: 'fs 50379341.pdf.html'
+    )
 
     attachment_url = get_attachment_url(
       info_request.url_title,
@@ -110,8 +108,7 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello world.txt.baz.html',
-      skip_cache: 1
+      file_name: 'hello world.txt.baz.html'
     )
 
     expect(current_path).to eq(show_request_path(info_request.url_title))
@@ -125,8 +122,7 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello.qwglhm',
-      skip_cache: 1
+      file_name: 'hello.qwglhm'
     )
 
     visit attachment_path
