@@ -33,17 +33,20 @@ module ClassificationsHelper
     # palindromic numbers (42424, 12321, etc.)
     return true if num_str == num_str.reverse && num_str.length > 4
 
-    # sequential digits (12345, 56789, etc.)
+    # sequential or descending digits (12345, 56789, 54321, 98765, etc.)
     digits = num_str.chars.map(&:to_i)
     if digits.length > 4
-      is_sequential = true
+      is_ascending_sequential = true
+      is_descending_sequential = true
       (0...digits.length - 1).each do |i|
         if digits[i + 1] != (digits[i] + 1) % 10
-          is_sequential = false
-          break
+          is_ascending_sequential = false
+        end
+        if digits[i + 1] != (digits[i] - 1) % 10
+          is_descending_sequential = false
         end
       end
-      return true if is_sequential
+      return true if is_ascending_sequential || is_descending_sequential
     end
 
     false
