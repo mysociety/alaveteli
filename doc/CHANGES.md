@@ -66,6 +66,7 @@
 * Add Pro upsell on the user rate limited page (Graeme Porteous)
 * Update Stripe payment description after Pro payments (Graeme Porteous)
 * Add additional InfoRequest embargo scopes (Graeme Porteous)
+* Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
 
