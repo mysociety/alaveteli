@@ -9,8 +9,12 @@
 </div>
 
 <%= form_tag({}, :method => "get", :class => "form form-search") do %>
-  <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query" } %>
-  <%= submit_tag "Search", :class => "btn" %> <span class="help-inline">(substring search, titles only)</span>
+  <div class="input-append">
+    <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query" } %>
+    <%= submit_tag "Search", :class => "btn" %>
+  </div>
+
+  <span class="help-inline">(substring search, titles only)</span>
 <% end %>
 
 <%= render :partial => 'some_requests', :locals => { :info_requests => @info_requests } %>
