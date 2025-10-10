@@ -524,6 +524,11 @@ $select-hover-bg-color: scale-color($select-bg-color, $lightness: -3%) !default;
       margin-#{$opposite-direction}: $form-spacing;
       margin-bottom: 0;
       vertical-align: baseline;
+
+      .icon-standalone {
+        vertical-align: middle;
+        margin-right: 0.25rem;
+      }
     }
 
     /* Normalize file input width */

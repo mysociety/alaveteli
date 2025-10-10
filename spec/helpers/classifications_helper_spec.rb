@@ -34,8 +34,12 @@ RSpec.describe ClassificationsHelper do
     let(:id_suffix) { nil }
 
     it 'builds a label for the given field' do
-      html = %q(<label for="successful">All the information was sent</label>)
-      expect(subject).to eq(html)
+      expect(subject).to match_html(<<~HTML)
+      <label for="successful">
+        <i class="icon-standalone icon_successful"></i>
+        <span>All the information was sent</span>
+      </label>
+      HTML
     end
 
     context 'with an id_suffix' do
