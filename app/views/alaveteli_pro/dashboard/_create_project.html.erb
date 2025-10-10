@@ -1,0 +1,16 @@
+<div class="dashboard__announcements">
+  <div class="dashboard__announcement">
+    <div class="dashboard__announcement__content">
+      <p>
+        <%= _('{{site_name}} Projects helps manage large FOI ' \
+              'investigations by grouping requests, coordinating ' \
+              'contributors, and extracting structured data — making ' \
+              'complex research faster and more collaborative.',
+              site_name: site_name) %>
+      </p>
+      <% if feature_enabled?(:pro_projects_self_serve, current_user) %>
+        <%= link_to _("Create a new Project"), new_alaveteli_pro_project_path, :class => 'button' %>
+      <% end %>
+    </div>
+  </div>
+</div>
