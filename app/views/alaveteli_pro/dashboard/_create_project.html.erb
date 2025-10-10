@@ -8,8 +8,9 @@
               'complex research faster and more collaborative.',
               site_name: site_name) %>
       </p>
+
       <% if feature_enabled?(:pro_projects_self_serve, current_user) %>
-        <%= link_to _("Create a new Project"), new_alaveteli_pro_project_path, :class => 'button' %>
+        <%= link_to _('Create a new Project'), new_alaveteli_pro_project_path, class: 'button' %>
       <% end %>
     </div>
   </div>
