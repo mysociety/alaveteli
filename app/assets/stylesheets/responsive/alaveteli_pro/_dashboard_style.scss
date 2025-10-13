@@ -155,8 +155,7 @@
   }
 }
 
-.dashboard__announcements,
-.dashboard__warnings {
+.dashboard__announcements {
   background-color: #F3F1EB;
   padding: 0.5em 1.5em 1em 1.5em;
   position: relative;
@@ -189,18 +188,6 @@
     background-image: image-url('alaveteli-pro/announcement.png');
     @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
       background-image: image-url('alaveteli-pro/announcement@2.png');
-    }
-  }
-}
-
-.dashboard__warnings {
-  &:after {
-    background-image: image-url('alaveteli-pro/warning.png');
-    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-      background-image: image-url('alaveteli-pro/warning@2.png');
-    }
-    @include respond-min( $dashboard-collapse ){
-      top: 14px;
     }
   }
 }
