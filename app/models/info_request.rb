@@ -146,6 +146,8 @@ class InfoRequest < ApplicationRecord
 
   attr_reader :followup_bad_reason
 
+  scope :via_batch, -> { where.not(info_request_batch_id: nil) }
+
   scope :internal, -> { where.not(user_id: nil) }
   scope :external, -> { where(user_id: nil) }
 

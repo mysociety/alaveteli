@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added batch stats to /version.json endpoint (Gareth Rees)
 * Add icons to classification forms (Gareth Rees, Lucas Cumsille Montesinos)
 * Store user locale preference in a separate cookie instead of the encrypted
   Rails session cookie to enable Varnish and other caching layers to read it
