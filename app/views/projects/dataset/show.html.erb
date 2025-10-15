@@ -51,8 +51,8 @@
             <% end %>
             <% if can?(:edit, @project) %>
               <td class="dataset__actions">
-                <%= link_to _('Classify'), edit_project_classify_path(@project, url_title: data[:info_request].url_title, resource_id: data[:classification_resource]) %>
-                <%= link_to _('Extract'), edit_project_extract_path(@project, url_title: data[:info_request].url_title, resource_id: data[:extraction_resource]) %>
+                <%= link_to _('Classify'), edit_project_classify_path(@project, url_title: data[:info_request].url_title, resource_id: data[:classification_resource], r: url_for) %>
+                <%= link_to _('Extract'), edit_project_extract_path(@project, url_title: data[:info_request].url_title, resource_id: data[:extraction_resource], r: url_for) %>
               </td>
             <% end %>
           </tr>

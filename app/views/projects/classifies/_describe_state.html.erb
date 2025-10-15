@@ -1,6 +1,7 @@
 <% form_url = project_classify_path(project, url_title: info_request.url_title) %>
 
 <%= form_for(resource, as: :classification, url: form_url) do |f| %>
+  <%= hidden_field_tag 'r', params[:r] %>
   <%= hidden_field_tag 'resource_id', resource.id %>
 
   <h2><%= _('What best describes the status of this request now?') %></h2>
