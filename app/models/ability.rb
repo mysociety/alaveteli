@@ -239,12 +239,7 @@ class Ability
         user && target_project.contributor?(user)
       end
 
-      can :view, Dataset::KeySet do |dataset_key_set|
-        resource = dataset_key_set.resource
-        next false unless resource.is_a?(Project)
-
-        target_project = resource
-
+      can :export, Project do |target_project|
         next true if target_project.dataset_public?
         next false unless user
         next true if user&.is_pro_admin?
