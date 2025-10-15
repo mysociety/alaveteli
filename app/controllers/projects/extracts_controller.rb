@@ -63,9 +63,7 @@ class Projects::ExtractsController < Projects::BaseController
 
     ask_to_login(
       web: _('To extract data for this project'),
-      email: _('Then you can extract data for this project'),
-      email_subject: _('Confirm your account on {{site_name}}',
-                       site_name: site_name)
+      email: _('Then you can extract data for this project')
     )
   end
 

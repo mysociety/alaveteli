@@ -63,9 +63,7 @@ class Projects::ClassifiesController < Projects::BaseController
 
     ask_to_login(
       web: _('To classify requests in this project'),
-      email: _('Then you can classify requests in this project'),
-      email_subject: _('Confirm your account on {{site_name}}',
-                       site_name: site_name)
+      email: _('Then you can classify requests in this project')
     )
   end
 

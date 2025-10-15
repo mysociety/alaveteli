@@ -131,8 +131,7 @@ RSpec.describe CitationsController, type: :controller do
         expect(post_redirect.uri).to eq '/request/request_title/citations/new'
         expect(post_redirect.reason_params).to eq(
           web: 'To add a citation',
-          email: 'Then you can add citations',
-          email_subject: 'Confirm your account on SITE'
+          email: 'Then you can add citations'
         )
       end
     end
@@ -285,8 +284,7 @@ RSpec.describe CitationsController, type: :controller do
         expect(post_redirect.uri).to eq '/request/request_title/citations'
         expect(post_redirect.reason_params).to eq(
           web: 'To add a citation',
-          email: 'Then you can add citations',
-          email_subject: 'Confirm your account on SITE'
+          email: 'Then you can add citations'
         )
       end
     end

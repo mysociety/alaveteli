@@ -17,9 +17,7 @@ class Projects::ContributorsController < Projects::BaseController
       post_params: params,
       reason_params: {
         web: _('To leave this project'),
-        email: _('Then you can leave this project'),
-        email_subject: _('Confirm your account on {{site_name}}',
-                         site_name: site_name)
+        email: _('Then you can leave this project')
       }
     )
 
