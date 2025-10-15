@@ -1,0 +1,18 @@
+<h5>Dataset Values</h5>
+
+<table class="table table-condensed table-bordered">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% value_set.values.each do |value| %>
+      <tr>
+        <td><%= h value.key.title %></td>
+        <td><%= h truncate(value.value.to_s, length: 100) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

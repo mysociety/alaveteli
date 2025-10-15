@@ -585,7 +585,11 @@ Rails.application.routes.draw do
 
   #### Admin::Projects controller
   namespace :admin do
-    resources :projects, except: [:new, :create]
+    resources :projects, except: [:new, :create] do
+      scope module: :projects do
+        resources :submissions, only: [:destroy]
+      end
+    end
   end
   ####
 

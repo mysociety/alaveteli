@@ -87,3 +87,10 @@
     </dl>
   </div>
 </div>
+
+<hr>
+
+<h2>Submissions</h2>
+
+<%= render partial: 'admin/projects/submissions',
+           locals: { submissions: @project.submissions.includes(:user, :info_request).order(created_at: :desc) } %>
