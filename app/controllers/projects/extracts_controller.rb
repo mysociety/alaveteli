@@ -19,7 +19,7 @@ class Projects::ExtractsController < Projects::BaseController
     queue = Project::Queue.extractable(@project, session)
     queue.skip(info_request)
 
-    redirect_to project_extract_path(@project), notice: _('Skipped!')
+    redirect_to project_extract_path, notice: _('Skipped!')
   end
 
   def create
@@ -49,7 +49,7 @@ class Projects::ExtractsController < Projects::BaseController
 
     if @submission.persisted?
       flash[:notice] = _('Extraction updated successfully!')
-      redirect_to project_dataset_path(@project)
+      redirect_to project_dataset_path
     else
       flash.now[:error] = _("Extraction couldn't be updated.")
       render :show
