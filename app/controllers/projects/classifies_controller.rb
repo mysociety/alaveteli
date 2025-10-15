@@ -62,8 +62,8 @@ class Projects::ClassifiesController < Projects::BaseController
     return authorize!(:read, @project) if authenticated?
 
     ask_to_login(
-      web: _('To join this project'),
-      email: _('Then you can join this project'),
+      web: _('To classify requests in this project'),
+      email: _('Then you can classify requests in this project'),
       email_subject: _('Confirm your account on {{site_name}}',
                        site_name: site_name)
     )

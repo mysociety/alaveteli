@@ -62,8 +62,8 @@ class Projects::ExtractsController < Projects::BaseController
     return authorize!(:read, @project) if authenticated?
 
     ask_to_login(
-      web: _('To join this project'),
-      email: _('Then you can join this project'),
+      web: _('To extract data for this project'),
+      email: _('Then you can extract data for this project'),
       email_subject: _('Confirm your account on {{site_name}}',
                        site_name: site_name)
     )

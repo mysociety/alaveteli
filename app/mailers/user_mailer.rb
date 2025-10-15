@@ -10,7 +10,10 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    mail_user(user, subject: -> { reasons[:email_subject] })
+    subject = reasons[:email_subject] || _(
+      'Confirm your account on {{site_name}}', site_name: site_name
+    )
+    mail_user(user, subject: -> { subject })
   end
 
   def already_registered(user, reasons, url)
@@ -18,7 +21,10 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    mail_user(user, subject: -> { reasons[:email_subject] })
+    subject = reasons[:email_subject] || _(
+      'Your account on {{site_name}}', site_name: site_name
+    )
+    mail_user(user, subject: -> { subject })
   end
 
   def changeemail_confirm(user, new_email, url)
