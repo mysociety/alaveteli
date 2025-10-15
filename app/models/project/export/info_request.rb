@@ -43,6 +43,7 @@ class Project::Export::InfoRequest < SimpleDelegator
 
   def extracted_data
     {
+      key_set: project.key_set,
       extracted_by: dataset_contributor&.name,
       extracted_by_url: (user_url(dataset_contributor) if dataset_contributor),
       extraction_resource: extraction_submission&.resource

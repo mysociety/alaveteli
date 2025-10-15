@@ -53,6 +53,7 @@
             <% end %>
           </div>
 
+          <% if @project.key_set %>
           <div class="project-task">
             <h3><%= _('Extract data') %></h3>
 
@@ -84,6 +85,17 @@
               <% end %>
             <% end %>
           </div>
+          <% elsif can? :edit, @project %>
+          <div class="project-task">
+            <h3><%= _('Extract data') %></h3>
+            <p>
+              <%= _("Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project.") %>
+            </p>
+            <%= link_to questions_alaveteli_pro_project_path(@project), class: 'button-tertiary' do %>
+              <%= _('Edit questions') %>
+            <% end %>
+          </div>
+          <% end %>
         </div>
       </div>
 
