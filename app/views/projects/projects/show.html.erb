@@ -159,6 +159,7 @@
           </div>
         <% end %>
 
+        <% if @leaderboard.all_time.present? %>
         <div class="project-leaderboard">
           <h2><%= _("Top recent contributors") %></h2>
           <table>
@@ -198,6 +199,7 @@
                   project_leaderboard_path(@project, format: :csv),
                   class: 'button-tertiary' %>
           </div>
+        <% end %>
         <% end %>
       </aside>
     </div>
