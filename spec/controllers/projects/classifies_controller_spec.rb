@@ -138,8 +138,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
 
         expect(post_redirect.uri).to eq project_classify_path(project)
         expect(post_redirect.reason_params).to eq(
-          web: 'To help on this project',
-          email: 'Then you can join this project'
+          web: 'To help on this project'
         )
       end
     end
@@ -221,8 +220,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
 
         expect(post_redirect.uri).to eq skip_project_classify_path(project)
         expect(post_redirect.reason_params).to eq(
-          web: 'To help on this project',
-          email: 'Then you can join this project'
+          web: 'To help on this project'
         )
       end
     end

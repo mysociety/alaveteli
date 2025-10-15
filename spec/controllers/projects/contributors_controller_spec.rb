@@ -96,8 +96,7 @@ RSpec.describe Projects::ContributorsController, spec_meta do
 
         expect(post_redirect.uri).to eq project_path(project)
         expect(post_redirect.reason_params).to eq(
-          web: 'To leave this project',
-          email: 'Then you can leave this project'
+          web: 'To leave this project'
         )
       end
     end

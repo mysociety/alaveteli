@@ -61,10 +61,7 @@ class Projects::ClassifiesController < Projects::BaseController
   def authenticate
     return authorize!(:read, @project) if authenticated?
 
-    ask_to_login(
-      web: _('To classify requests in this project'),
-      email: _('Then you can classify requests in this project')
-    )
+    ask_to_login(web: _('To help on this project'))
   end
 
   def find_submission

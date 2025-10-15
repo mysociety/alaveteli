@@ -20,9 +20,6 @@ class Projects::InvitesController < Projects::BaseController
   end
 
   def authenticate
-    authenticated? || ask_to_login(
-      web: _('To join this project'),
-      email: _('Then you can join this project')
-    )
+    authenticated? || ask_to_login(web: _('To join this project'))
   end
 end
