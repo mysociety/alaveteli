@@ -205,7 +205,7 @@
           </table>
         </div>
 
-        <% if can? :download, @project %>
+        <% if can? :export, @project %>
           <div class="project-download-data">
             <%= link_to _('Download leaderboard data'),
                   project_leaderboard_path(@project, format: :csv),
