@@ -30,6 +30,7 @@ class Projects::ClassifiesController < Projects::BaseController
     @submission = @project.submissions.new(**submission_params)
 
     if @submission.save
+      flash[:notice] = _('Classification saved successfully!')
       redirect_to project_classify_path
     else
       flash.now[:error] = _("Classification couldn't be saved.")

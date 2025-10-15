@@ -26,6 +26,7 @@ class Projects::ExtractsController < Projects::BaseController
     @submission = @project.submissions.new(**submission_params)
 
     if @submission.save
+      flash[:notice] = _('Extraction saved successfully!')
       redirect_to project_extract_path
     else
       flash.now[:error] = _("Extraction couldn't be saved.")
