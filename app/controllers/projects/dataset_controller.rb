@@ -4,6 +4,7 @@
 class Projects::DatasetController < Projects::BaseController
   skip_before_action :html_response
 
+  before_action :authenticate
   before_action :load_dataset_key_set, only: :show
 
   def show
@@ -34,6 +35,10 @@ class Projects::DatasetController < Projects::BaseController
   end
 
   private
+
+  def authenticate
+    authenticated? || ask_to_login(web: _('To view this project'))
+  end
 
   def load_dataset_key_set
     @dataset_key_set = @project.key_set

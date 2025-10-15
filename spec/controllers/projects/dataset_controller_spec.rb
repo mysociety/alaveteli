@@ -15,10 +15,12 @@ RSpec.describe Projects::DatasetController, spec_meta do
       FactoryBot.create(:dataset_key_set, resource: project)
     end
 
+    let(:user) { FactoryBot.create(:user) }
     let(:project) { FactoryBot.create(:project) }
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
     before do
+      sign_in user
       allow(Project).to receive(:find).with('1').and_return(project)
       allow(controller).to receive(:current_ability).and_return(ability)
     end
