@@ -343,6 +343,10 @@ class FoiAttachment < ApplicationRecord
                  normalize_line_endings(body)
   end
 
+  def storage_key
+    file.blob.key if file&.attached?
+  end
+
   private
 
   def mail_attributes

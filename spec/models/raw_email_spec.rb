@@ -211,4 +211,24 @@ RSpec.describe RawEmail do
 
     it { is_expected.to eq('example.net') }
   end
+
+  describe '#storage_key' do
+    let(:raw_email) { FactoryBot.create(:raw_email, :with_file) }
+
+    context 'when file is attached' do
+      it 'returns the blob key' do
+        expect(raw_email.file).to be_attached
+        storage_key = raw_email.storage_key
+        expect(storage_key).to eq(raw_email.file.blob.key)
+      end
+    end
+
+    context 'when file is not attached' do
+      let(:raw_email) { FactoryBot.create(:raw_email) }
+
+      it 'returns nil' do
+        expect(raw_email.storage_key).to be_nil
+      end
+    end
+  end
 end

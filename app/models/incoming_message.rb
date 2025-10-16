@@ -656,6 +656,13 @@ class IncomingMessage < ApplicationRecord
     foi_attachments.locked.any?
   end
 
+  def storage_keys
+    keys = {}
+    keys[:raw_email] = raw_email.storage_key
+    keys[:attachments] = foi_attachments.map(&:storage_key)
+    keys
+  end
+
   private
 
   def legislation_references

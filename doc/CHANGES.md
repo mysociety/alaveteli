@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add logging of storage keys when destroying and redelivering incoming messages
+  (Graeme Porteous)
 * Add icons to classification forms (Gareth Rees, Lucas Cumsille Montesinos)
 * Store user locale preference in a separate cookie instead of the encrypted
   Rails session cookie to enable Varnish and other caching layers to read it

@@ -110,6 +110,10 @@ class RawEmail < ApplicationRecord
     MailHandler.get_subject(mail)
   end
 
+  def storage_key
+    file.blob.key if file&.attached?
+  end
+
   private
 
   def empty_return_path?
