@@ -48,15 +48,6 @@
           serverTests = pkgs.testers.runNixOSTest (
             import ./nix/alaveteli-server-test.nix { inherit inputs; }
           );
-          alaveteli = pkgs.callPackage ./nix/package.nix {
-            mkBundleEnv = pkgs.callPackage ./nix/bundlerEnv.nix {
-              themeGemfile = ./Gemfile_theme;
-              themeGemset = import ./gemset_theme.nix;
-              themeLockfile = ./Gemfile_theme.lock;
-            };
-            dataDir = "/var/lib/alaveteli";
-          };
-          default = self.packages.alaveteli;
         }
       );
 
@@ -97,8 +88,7 @@
             }:
             with pkgs;
             [
-              # self.alaveteliGems.${system}.default
-              # self.alaveteliGems.${system}.default.wrappedRuby
+              # TODO: remove packages needed only to build gems
               myGems.wrappedRuby
               (lib.lowPrio myGems)
               libpqxx

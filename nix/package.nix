@@ -7,9 +7,13 @@
   ruby,
   postgresql,
   cacert,
-  dataDir, # ? "/var/www/alaveteli",
-  mkBundleEnv,
+  dataDir,
   pkgs,
+  themeGemfile,
+  themeLockfile,
+  themeGemset,
+  themeUrl,
+  themeFiles,
 }:
 
 let
@@ -18,10 +22,12 @@ let
   version = "0.0.1";
 
   src = applyPatches {
+    # TODO: should the code version be fixed, or just the local src tree?
     src = ./..;
     patches = [
-      # move xapiandb out of source tree and into /var/lib/alaveteli
-      # TODO: how to move it to dataDir?
+      # move xapiandb out of source tree and into dataDir
+      # TODO: these patches hardcode /var/lib/alaveteli, but we should really
+      # use cfg.dataDir instead. Maybe use substituteInPlace?
       ./patches/lib_acts_as_xapian.patch
       ./patches/themes_rake.patch
       ./patches/theme_loader_rb.patch
@@ -37,10 +43,8 @@ let
       '';
   };
 
-  rubyEnv = mkBundleEnv.default {
-    themeGemfile = ../Gemfile_theme;
-    themeGemset = import ../gemset_theme.nix;
-    themeLockfile = ../Gemfile_theme.lock;
+  rubyEnv = pkgs.callPackage ./bundlerEnv.nix {
+    inherit themeGemfile themeLockfile themeGemset;
   };
   # TODO: move package.nix under the module, as we don't need the package
   # by itself, then we can access config more easily to grab the general conf
@@ -48,7 +52,7 @@ let
   settingsFormat = pkgs.formats.yaml { };
   alaveteliConfig = settingsFormat.generate "general.yml" ({
     THEME_URLS = [
-      "https://gitlab.com/madada-team/dada-core.git"
+      themeUrl
     ];
   });
   storageConfig = settingsFormat.generate "storage.yml" {
@@ -66,6 +70,10 @@ let
       root = "storage/attachments";
     };
   };
+
+  themeNameFromUrl =
+    with lib.strings;
+    (builtins.head (splitString "." (lib.last (splitString "/" themeUrl))));
 in
 stdenvNoCC.mkDerivation {
   inherit pname version src;
@@ -86,12 +94,24 @@ stdenvNoCC.mkDerivation {
   # force production env here, as we don't build the package in development
   env.RAILS_ENV = "production";
 
+  # copy theme files into the main rails tree before building the package,
+  # as they are needed for asset precompilation. Without this, the site
+  # builds and runs, but the theme CSS is not applied, for instance.
+  preBuild =
+    # bash
+    ''
+      mkdir -p lib/themes/${themeNameFromUrl}/
+      cp -R ${themeFiles}/* lib/themes/${themeNameFromUrl}/
+    '';
+
   buildPhase =
     # bash
     ''
       runHook preBuild
 
-      # redis does not seem to be required to compile assets
+      # redis does not seem to be required to compile assets,
+      # but rails expects a database, although it does not seem
+      # to actually use it
       mkdir postgres-work
       initdb -D postgres-work --encoding=utf8
       pg_ctl start -D postgres-work -o "-k $PWD/postgres-work -h '''"
