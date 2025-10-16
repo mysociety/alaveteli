@@ -13,14 +13,12 @@ self:
   ...
 }:
 let
-  # forEachSystem = lib.genAttrs (import systems);
   cfg = config.services.alaveteli;
   filterNull = lib.filterAttrs (_: v: v != null);
   settingsFormat = pkgs.formats.yaml { };
   appListeningAddress = "127.0.0.1";
   appPort = 3000;
   railsMaxThreads = 3;
-  # the hostname used in alaveteli-server-test.nix
 
   alaveteliConfig = settingsFormat.generate "general.yml" (
     {
@@ -35,6 +33,15 @@ let
     }
     // cfg.settings.general
   );
+
+  alaveteliPackage = pkgs.callPackage ./package.nix {
+    themeGemfile = cfg.theme.gemfile;
+    themeLockfile = cfg.theme.gemfileLock;
+    themeGemset = cfg.theme.gemset;
+    themeUrl = cfg.theme.url;
+    themeFiles = cfg.theme.files;
+    inherit (cfg) dataDir;
+  };
 
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
 
@@ -64,9 +71,11 @@ let
     # SOLID_QUEUE_IN_PUMA = "true";
   };
 
+  # mirrors the ruby function used in various scripts to get themeName from themeUrl
   themeName =
     with lib.strings;
     (builtins.head (splitString "." (lib.last (splitString "/" cfg.theme.url))));
+
   themePackage =
     if themeName == "alavetelitheme" then
       pkgs.stdenvNoCC.mkDerivation {
@@ -83,6 +92,7 @@ let
     else
       cfg.theme.package;
 
+  # use the user provided certs or default to letsencrypt ones
   domainCertFile =
     if (cfg.sslCertificate != null && cfg.sslCertificateKey != null) then
       cfg.sslCertificate
@@ -128,7 +138,8 @@ in
     })
     (import ./postfix.nix {
       inherit config lib pkgs;
-      pkgPath = cfg.package;
+      pkgPath = cfg.package.outPath;
+    })
     (import ./postgresql.nix {
       inherit config lib pkgs;
       pkgPath = cfg.package.outPath;
@@ -145,8 +156,9 @@ in
 
       enable = lib.mkEnableOption "Alaveteli, a Freedom of Information request system for your jurisdiction";
 
-      package = lib.mkPackageOption self.packages.${pkgs.system} "alaveteli" {
-        default = self.packages.${pkgs.system}.alaveteli;
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = alaveteliPackage;
       };
 
       user = lib.mkOption {
@@ -198,21 +210,25 @@ in
           default = "https://github.com/mysociety/alavetelitheme.git";
           example = "https://github.com/mysociety/someothertheme.git";
         };
+        files = lib.mkOption {
+          type = lib.types.path;
+          description = "Path to the theme files in the repo (relative to nix file)";
+        };
         package = lib.mkOption {
           type = lib.types.package;
-
         };
         gemfile = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
+          type = with lib.types; nullOr path;
+          description = "Gemfile to be used by alaveteli, leave empty if the theme requires no extra gems";
+          default = ../Gemfile;
         };
         gemfileLock = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
+          type = with lib.types; nullOr path;
+          default = ../Gemfile.lock;
         };
         gemset = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
+          type = with lib.types; nullOr path;
+          default = ../gemset.nix;
         };
       };
 
@@ -426,7 +442,6 @@ in
       }
     ];
 
-    # TODO: where do we put packages required by the service?
     environment.systemPackages = [
       pkgs.curl
       pkgs.gnused
@@ -456,8 +471,6 @@ in
       443
     ];
 
-    # configure theme if provided
-
     users.users.${cfg.user} = {
       group = "${cfg.group}";
       isSystemUser = true;
@@ -477,8 +490,6 @@ in
     };
 
     # TODO: add systemd job to upgrade alaveteli (see example in nextcloud module)
-    # must run rails-post-deploy
-
     services.nginx = {
       enable = lib.mkDefault true;
 
@@ -555,9 +566,9 @@ in
         pkgs.git
       ];
 
-      # TODO: add systemd job to upgrade alaveteli (see example in nextcloud module)
-      # must run rails-post-deploy
+      # This preStart script replaces rails-post-deploy
       # nixos converts this to a separate systemd unit that is run before the main one
+      # TODO: how to run version specific scripts? how to find old/new version?
       preStart =
         # bash
         ''
@@ -581,6 +592,10 @@ in
 
           # ensure we have a xapian db
           rake xapian:create_index
+
+          # TODO: run the install and post_install.rb hooks before starting the
+          # actual service (see themes.rake / install_theme)
+          # (this is only used on BE/UK for now, not urgent)
         '';
     };
 
