@@ -129,6 +129,9 @@ in
     (import ./postfix.nix {
       inherit config lib pkgs;
       pkgPath = cfg.package;
+    (import ./postgresql.nix {
+      inherit config lib pkgs;
+      pkgPath = cfg.package.outPath;
     })
     (import ./rspamd.nix {
       inherit config inputs;
@@ -302,6 +305,41 @@ in
             for list of configuration parameters.
           '';
         };
+
+        backup = {
+          # docs: https://wal-g.readthedocs.io/#storage
+          # https://wal-g.readthedocs.io/STORAGES/#s3
+          # https://wal-g.readthedocs.io/PostgreSQL/
+          enable = lib.mkEnableOption "postgres backup with wal-g";
+
+          s3AccessKeyId = lib.mkOption {
+            type = lib.types.str;
+            description = "Access key id for the s3 compatible storage for postgres backups";
+          };
+          s3SecretAccessKey = lib.mkOption {
+            type = lib.types.str;
+            description = "Secret Access key for the s3 compatible storage for postgres backups";
+          };
+          s3Prefix = lib.mkOption {
+            type = lib.types.str;
+            description = "Prefix for the s3 compatible storage for postgres backups";
+            example = "s3://bucket/path";
+          };
+          s3Endpoint = lib.mkOption {
+            type = lib.types.str;
+            description = "Endpoint for the s3 compatible storage for postgres backups";
+            example = "https://location.example.com";
+            default = "";
+          };
+          s3Region = lib.mkOption {
+            type = lib.types.str;
+            description = "Region for the s3 compatible storage for postgres backups";
+          };
+          libsodiumWalgKeyPath = lib.mkOption {
+            type = lib.types.path;
+            description = "Path to a key for libsodium encryption of backups, generated with `openssl rand -hex 32`.";
+          };
+        };
       };
 
       redis = {
@@ -429,17 +467,6 @@ in
 
     services.memcached = {
       enable = true;
-    };
-
-    services.postgresql = lib.optionalAttrs (cfg.database.createLocally) {
-      enable = true;
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
-        {
-          name = cfg.database.user;
-          ensureDBOwnership = true;
-        }
-      ];
     };
 
     services.redis = lib.optionalAttrs cfg.redis.createLocally {
