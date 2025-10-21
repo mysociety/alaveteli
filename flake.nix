@@ -228,6 +228,14 @@
               };
             };
 
+            scripts.db = {
+              description = "Open the database in psql";
+              exec = ''
+                psql -U ${dbUser} -h ${dbHost} -p ${toString dbPort} ${rails_db_conf.development.database}
+              '';
+              packages = [ pkgs.postgresql_13 ];
+            };
+
             services.postgres = {
               enable = true;
               package = pkgs.postgresql_13;
