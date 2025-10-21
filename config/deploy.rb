@@ -60,6 +60,7 @@ namespace :deploy do
   task :symlink_configuration do
     links = {
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
+      "#{release_path}/config/storage.yml" => "#{shared_path}/storage.yml",
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
       "#{release_path}/config/httpd.conf" => "#{shared_path}/httpd.conf",
