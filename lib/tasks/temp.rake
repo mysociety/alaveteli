@@ -1,4 +1,11 @@
 namespace :temp do
+  desc 'Remove raw email records not assoicated with an incoming message'
+  task remove_orphan_raw_email_records: :environment do
+    RawEmail.left_joins(:incoming_message).
+      where(incoming_messages: { id: nil }).
+      delete_all
+  end
+
   desc 'Convert old Syck YAML to Psych YAML'
   task convert_syck_to_psych_yaml: :environment do
     require 'syck'
