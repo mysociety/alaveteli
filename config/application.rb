@@ -104,8 +104,5 @@ module Alaveteli
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
-
-    # Force a single manifest file location
-    config.assets.manifest = Rails.root.join('public', 'assets')
   end
 end
