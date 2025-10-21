@@ -97,7 +97,7 @@ gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versio
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.18'
 gem 'cancancan', '~> 3.4.0'
-gem 'charlock_holmes', '~> 0.7.7'
+gem 'charlock_holmes', '~> 0.7.9'
 gem 'dalli', '~> 3.2.3'
 gem 'exception_notification', '~> 4.5.0'
 gem 'fancybox-rails', '~> 0.3.0'
@@ -122,14 +122,15 @@ gem 'rolify', '~> 5.3.0'
 gem 'ruby-msg', '~> 1.5.0', :git => 'https://github.com/mysociety/ruby-msg.git', :branch => 'ascii-encoding'
 gem 'rubyzip', '~> 2.3.2'
 gem 'secure_headers', '~> 6.4.0'
-gem 'statistics2', '~> 0.54'
+# gem 'statistics2', '~> 0.54'
+gem 'statistics3', '~> 0.0.5'
 if rails_upgrade?
   gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails7'
 else
   gem 'strip_attributes', :git => 'https://github.com/mysociety/strip_attributes.git', :branch => 'globalize3-rails5.2'
 end
 gem 'stripe', '~> 5.55.0'
-gem 'syck', '~> 1.4.1', require: false
+gem 'syck', '~> 1.5.1.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.8.1'
 gem 'vpim', '~> 13.11.11'
@@ -150,7 +151,8 @@ gem 'gettext', '~> 3.4.3'
 gem 'globalize', '~> 6.2.1'
 gem 'locale', '~> 2.1.3'
 gem 'routing-filter', '~> 0.7.0'
-gem 'unicode', '~> 0.4.4'
+gem 'unicode', '~> 0.4.4.5'
+
 gem 'unidecoder', '~> 1.1.0'
 gem 'money', '~> 6.16.0'
 
