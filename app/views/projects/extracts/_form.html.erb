@@ -1,14 +1,16 @@
-<div class="extract-answer-form">
-  <%= form_for value_set, url: project_extract_path, as: :extract do |f| %>
-    <%= hidden_field_tag :url_title, info_request.url_title %>
-    <%= render project.key_set, f: f %>
+<%= form_for resource, url: project_extract_path, as: :extract do |f| %>
+  <%= hidden_field_tag 'r', params[:r] %>
+  <%= hidden_field_tag 'resource_id', resource.id %>
 
-    <%= f.submit _('Submit data') %>
+  <%= render project.key_set, f: f %>
 
-    <% skip_path = skip_project_extract_path(project, url_title: info_request.url_title) %>
-    <% skip_css = 'button-tertiary button--full-width form__skip-button' %>
-    <%= link_to skip_path, method: :patch, class: skip_css do %>
-      <%= _('Skip') %>
+  <p>
+    <% if resource.persisted? %>
+      <%= submit_tag _('Update data') %>
+      <%= link_to _('Cancel'), project_dataset_path(project), class: 'button-tertiary button--full-width' %>
+    <% else %>
+      <%= submit_tag _('Submit data') %>
+      <%= link_to _('Skip'), skip_project_extract_path(project, url_title: info_request.url_title), method: :patch, class: 'button-tertiary button--full-width' %>
     <% end %>
-  <% end %>
-</div>
+  </p>
+<% end %>

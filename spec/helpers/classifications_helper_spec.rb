@@ -4,10 +4,15 @@ RSpec.describe ClassificationsHelper do
   include ClassificationsHelper
 
   describe '#classification_radio_button' do
-    subject { classification_radio_button(state, id_suffix: id_suffix) }
+    subject do
+      classification_radio_button(
+        state, id_suffix: id_suffix, current_state: current_state
+      )
+    end
 
     let(:state) { 'successful' }
     let(:id_suffix) { nil }
+    let(:current_state) { nil }
 
     it 'builds a radio_button for the given state' do
       html = <<-HTML.squish
@@ -23,6 +28,16 @@ RSpec.describe ClassificationsHelper do
     context 'with an id_suffix' do
       let(:id_suffix) { 3 }
       it { is_expected.to match('id="successful3"') }
+    end
+
+    context 'with a matching current_state' do
+      let(:current_state) { 'successful' }
+      it { is_expected.to match('checked="checked"') }
+    end
+
+    context 'with a matching current_state' do
+      let(:current_state) { 'unsuccessful' }
+      it { is_expected.to_not match('checked="checked"') }
     end
   end
 

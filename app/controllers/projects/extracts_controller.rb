@@ -10,25 +10,48 @@ class Projects::ExtractsController < Projects::BaseController
 
   before_action :redirect_to_project_if_queue_is_empty, only: :show
 
+  before_action :find_submission, except: [:skip, :create]
+
   def show
-    @value_set = Dataset::ValueSet.new
   end
 
   def skip
     queue = Project::Queue.extractable(@project, session)
     queue.skip(info_request)
 
-    redirect_to project_extract_path(@project), notice: _('Skipped!')
+    redirect_to project_extract_path, notice: _('Skipped!')
   end
 
   def create
-    @value_set = Dataset::ValueSet.new(extract_params)
-    submission = @project.submissions.new(**submission_params)
+    @submission = @project.submissions.new(**submission_params)
 
-    if submission.save
-      redirect_to project_extract_path
+    if @submission.save
+      flash[:notice] = _('Extraction saved successfully!')
+      redirect_to params.fetch(:r, project_extract_path)
     else
       flash.now[:error] = _("Extraction couldn't be saved.")
+      render :show
+    end
+  end
+
+  def edit
+    @info_request = @submission.info_request
+    @value_set = @submission.resource
+
+    render :show
+  end
+
+  def update
+    @value_set = Dataset::ValueSet.new(extract_params)
+    @submission = @submission.create_new_version(
+      user: current_user, **submission_params
+    )
+
+    if @submission.persisted?
+      flash[:notice] = _('Extraction updated successfully!')
+      redirect_to project_dataset_path
+    else
+      flash.now[:error] = _("Extraction couldn't be updated.")
       render :show
     end
   end
@@ -46,6 +69,18 @@ class Projects::ExtractsController < Projects::BaseController
     )
   end
 
+  def find_submission
+    @submission = (
+      if params[:resource_id].present?
+        resource = @project.key_set.value_sets.find(params[:resource_id])
+        scope = @project.submissions.extraction.where(resource: resource)
+        scope.last || scope.new
+      else
+        @project.submissions.new(resource: Dataset::ValueSet.new)
+      end
+    )
+  end
+
   def load_info_request_from_queue
     @info_request = (
       @queue = Project::Queue.extractable(@project, session)
@@ -54,7 +89,7 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def load_info_request_from_url_title
-    @info_request = @project.info_requests.extractable.find_by!(
+    @info_request = @project.info_requests.find_by!(
       url_title: params.require(:url_title)
     )
   end
@@ -80,10 +115,11 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def submission_params
+    value_set = Dataset::ValueSet.new(extract_params)
     {
       user: current_user,
       info_request: info_request,
-      resource: @value_set
+      resource: value_set
     }
   end
 end

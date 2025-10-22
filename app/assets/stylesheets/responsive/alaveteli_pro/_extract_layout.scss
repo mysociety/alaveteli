@@ -29,7 +29,8 @@
     width: 100%;
   }
 
-  .button {
+  input[name="commit"] {
+    @extend .button--full-width;
     margin-bottom: 1em;
   }
 }
@@ -49,8 +50,4 @@
   label {
     flex: 1;
   }
-}
-
-.form__skip-button {
-  margin-top: 1em;
 }

@@ -60,10 +60,6 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect(current_request_id).to eq(assigns[:info_request].to_param)
       end
 
-      it 'assigns the value set' do
-        expect(assigns[:value_set]).to be_a(Dataset::ValueSet)
-      end
-
       it 'renders the project template' do
         expect(response).to render_template('projects/extracts/show')
       end
@@ -390,11 +386,6 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       it 'assigns the info request' do
         post_extract
         expect(assigns[:info_request]).to eq(info_request)
-      end
-
-      it 'assigns the value set' do
-        post_extract
-        expect(assigns[:value_set]).to be_a(Dataset::ValueSet)
       end
 
       it 'sets flash now error' do

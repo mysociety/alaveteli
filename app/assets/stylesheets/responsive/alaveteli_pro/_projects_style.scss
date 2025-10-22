@@ -61,18 +61,51 @@ table.dataset {
       white-space: normal;
     }
 
-    &:last-child,
     &:last-child {
       border-right: none;
+    }
+
+    &.dataset__actions {
+      position: sticky;
+      right: 0;
+      box-shadow: rgba(100, 100, 100, 0.5) -5px 5px 10px 0px;
+      white-space: nowrap;
+    }
+  }
+
+ th {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    font-weight: 600;
+
+    &.dataset__actions {
+      background: #ffffff;
     }
   }
 
   tr:nth-child(even) {
     background-color: #f9f9f9;
+
+    td.dataset__actions {
+      background-color: #f9f9f9;
+    }
   }
 
   tr:nth-child(odd) {
     background-color: #ffffff;
+
+    td.dataset__actions {
+      background-color: #ffffff;
+    }
+  }
+
+  td.dataset__actions {
+    a {
+      @include button($padding: 0.375rem, $bg: #aaa, $radius: true);
+      font-size: 0.75rem;
+      margin-bottom: 0.125rem;
+    }
   }
 
   .dataset__request,
@@ -83,6 +116,10 @@ table.dataset {
   .dataset__extracted_by {
     max-width: 200px;
     min-width: 200px;
+  }
+  .dataset__actions {
+    max-width: inherit;
+    min-width: inherit;
   }
 }
 
