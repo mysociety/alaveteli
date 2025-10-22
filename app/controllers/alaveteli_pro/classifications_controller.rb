@@ -11,17 +11,13 @@ class AlaveteliPro::ClassificationsController < AlaveteliPro::BaseController
 
     flash[:notice] = _('Your request has been updated!')
     redirect_to show_request_path(
-      url_title: @info_request.url_title
+      url_title: info_request.url_title
     )
   end
 
   private
 
-  def find_info_request
-    @info_request = InfoRequest.find_by!(url_title: params[:url_title])
-  end
-
-  def authorise_info_request
-    authorize! :update_request_state, @info_request
+  def info_request
+    @info_request ||= InfoRequest.find_by!(url_title: params[:url_title])
   end
 end

@@ -168,6 +168,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     let(:project) { FactoryBot.create(:project) }
 
     before do
+      ability.can :read, project
       allow(Project).to receive(:find).with(project.id.to_s).and_return(project)
     end
   end
@@ -186,7 +187,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
     end
   end
 
-  describe 'PATCH #update' do
+  describe 'PATCH #skip' do
     let(:project) { FactoryBot.create(:project, requests_count: 1) }
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
@@ -203,8 +204,8 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         sign_in user
         ability.can :read, project
         project.requests << skipped_request
-        patch :update, params: { project_id: project.id,
-                                 url_title: skipped_request.url_title }
+        patch :skip, params: { project_id: project.id,
+                               url_title: skipped_request.url_title }
       end
 
       it 'assigns the project' do
@@ -228,7 +229,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       it "raises an ActiveRecord::RecordNotFound when the request can't be found" do
         expect {
-          patch :update, params: { project_id: project.id, url_title: 'foo' }
+          patch :skip, params: { project_id: project.id, url_title: 'foo' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -242,16 +243,15 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       end
 
       it 'raises an CanCan::AccessDenied error' do
-        # TODO: Should check project access before trying to look up requests
         expect {
-          patch :update, params: { project_id: project.id, url_title: 'foo' }
-        }.to raise_error(ActiveRecord::RecordNotFound)
+          patch :skip, params: { project_id: project.id, url_title: 'foo' }
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
 
     context 'logged out' do
       before do
-        patch :update, params: { project_id: project.id, url_title: 'foo' }
+        patch :skip, params: { project_id: project.id, url_title: 'foo' }
       end
 
       it 'redirects to sign in form' do
@@ -261,7 +261,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       it 'saves a post redirect' do
         post_redirect = get_last_post_redirect
 
-        expect(post_redirect.uri).to eq project_extract_path(project)
+        expect(post_redirect.uri).to eq skip_project_extract_path(project)
         expect(post_redirect.reason_params).to eq(
           web: 'To join this project',
           email: 'Then you can join this project',
@@ -300,6 +300,16 @@ RSpec.describe Projects::ExtractsController, spec_meta do
         expect {
           post :create, params: { project_id: project.id, url_title: 'invalid' }
         }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'url_title param not submitted' do
+      include_context 'project can be found'
+
+      it 'raises an ActionController::ParameterMissing error' do
+        expect {
+          post :create, params: { project_id: project.id }
+        }.to raise_error(ActionController::ParameterMissing)
       end
     end
 

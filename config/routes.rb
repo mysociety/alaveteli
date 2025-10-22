@@ -228,10 +228,12 @@ Rails.application.routes.draw do
 
     scope module: :projects do
       resources :projects, only: [:show] do
-        resource :extract, only: [:show, :update, :create]
-        resource :classify, only: [:show, :update]
-        resources :classifications, only: :create, param: :described_state do
-          get :message, on: :member
+        resource :extract, only: [:show, :create] do
+          patch :skip
+        end
+        resource :classify, only: [:show, :create] do
+          patch :skip
+          get :message
         end
 
         resource :contributors, only: [:destroy]
