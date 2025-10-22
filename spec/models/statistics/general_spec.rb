@@ -52,6 +52,7 @@ RSpec.describe Statistics::General do
     FactoryBot.create(:request_classification, user: user,
                                                info_request_event: event)
     FactoryBot.create(:citation, user: user, citable: info_request)
+    FactoryBot.create(:project, owner: user)
 
     allow(statistics).to receive(:alaveteli_git_commit).and_return('SHA')
   end
@@ -72,7 +73,8 @@ RSpec.describe Statistics::General do
       public_body_change_request_count: 1,
       request_classification_count: 1,
       visible_followup_message_count: 1,
-      citation_count: 1 }
+      citation_count: 1,
+      project_count: 1 }
   end
 
   describe '#to_h' do

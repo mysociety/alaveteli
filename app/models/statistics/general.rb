@@ -19,7 +19,8 @@ module Statistics
         request_classification_count: RequestClassification.count,
         visible_followup_message_count: OutgoingMessage.
           followup.is_searchable.count,
-        citation_count: Citation.count
+        citation_count: Citation.count,
+        project_count: Project.count
       }
     end
 
