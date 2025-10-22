@@ -61,12 +61,7 @@ class Projects::ExtractsController < Projects::BaseController
   def authenticate
     return authorize!(:read, @project) if authenticated?
 
-    ask_to_login(
-      web: _('To join this project'),
-      email: _('Then you can join this project'),
-      email_subject: _('Confirm your account on {{site_name}}',
-                       site_name: site_name)
-    )
+    ask_to_login(web: _('To help on this project'))
   end
 
   def find_submission

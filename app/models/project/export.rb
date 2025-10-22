@@ -39,6 +39,7 @@ class Project::Export
     @data_for_csv ||= data.map do |row|
       row.except(
         :info_request,
+        :key_set,
         :classification_resource,
         :extraction_resource
       )

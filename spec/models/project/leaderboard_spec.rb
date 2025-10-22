@@ -42,11 +42,16 @@ RSpec.describe Project::Leaderboard do
     it 'orders the data by descending total contributions' do
       expect(data[0][:total_contributions]).to eq(2)
       expect(data[1][:total_contributions]).to eq(1)
-      expect(data[2][:total_contributions]).to eq(0)
     end
 
     context 'when project has more than 5 members' do
       let(:project) { FactoryBot.create(:project, contributors_count: 10) }
+
+      before do
+        scope = double(classification: [1], extraction: [1], size: 2)
+        allow(project).to receive_message_chain(:submissions, :where).
+          and_return(scope)
+      end
 
       it 'returns a maximum of 5 rows' do
         expect(data.count).to eq(5)
@@ -63,18 +68,20 @@ RSpec.describe Project::Leaderboard do
       is_expected.to include(
         classifications: 1, extractions: 1, total_contributions: 2, user: user_1
       )
-      is_expected.to include(
-        classifications: 0, extractions: 0, total_contributions: 0, user: user_2
-      )
     end
 
     it 'orders the data by descending total contributions' do
       expect(data[0][:total_contributions]).to eq(2)
-      expect(data[1][:total_contributions]).to eq(0)
     end
 
     context 'when project has more than 5 members' do
       let(:project) { FactoryBot.create(:project, contributors_count: 10) }
+
+      before do
+        scope = double(classification: [1], extraction: [1], size: 2)
+        allow(project).to receive_message_chain(:submissions, :where, :where).
+          and_return(scope)
+      end
 
       it 'returns a maximum of 5 rows' do
         expect(data.count).to eq(5)

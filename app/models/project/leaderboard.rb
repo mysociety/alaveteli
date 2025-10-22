@@ -53,6 +53,7 @@ class Project::Leaderboard
         total_contributions: user_scope.size
       }
     end
+    leaderboard.select! { |row| row[:total_contributions] > 0 }
     leaderboard.sort_by { |row| row[:total_contributions] }.reverse
   end
 end

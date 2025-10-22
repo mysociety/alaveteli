@@ -95,6 +95,7 @@ RSpec.describe Project::Export::InfoRequest do
           :extracted_by_url => nil,
           'Were there any errors?' => nil,
           :info_request => info_request,
+          :key_set => project.key_set,
           :classification_resource => classification_submission.resource,
           :extraction_resource => nil
         )
@@ -120,6 +121,7 @@ RSpec.describe Project::Export::InfoRequest do
           :extracted_by_url => contributor_url,
           'Were there any errors?' => 'Yes',
           :info_request => info_request,
+          :key_set => project.key_set,
           :classification_resource => classification_submission.resource,
           :extraction_resource => extraction_submission.resource
         )

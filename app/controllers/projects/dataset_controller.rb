@@ -4,10 +4,10 @@
 class Projects::DatasetController < Projects::BaseController
   skip_before_action :html_response
 
-  before_action :load_dataset_key_set, only: :show
+  before_action :authenticate
 
   def show
-    authorize! :view, @dataset_key_set
+    authorize! :export, @project
     @export = Project::Export.new(@project)
 
     respond_to do |format|
@@ -35,8 +35,8 @@ class Projects::DatasetController < Projects::BaseController
 
   private
 
-  def load_dataset_key_set
-    @dataset_key_set = @project.key_set
+  def authenticate
+    authenticated? || ask_to_login(web: _('To view this project'))
   end
 
   def project_dataset_params

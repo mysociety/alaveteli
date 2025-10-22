@@ -19,20 +19,20 @@ RSpec.describe Projects::LeaderboardsController, spec_meta do
       allow(controller).to receive(:current_ability).and_return(ability)
     end
 
-    context 'when not authorised to download project' do
-      before { ability.cannot :download, project }
+    context 'when not authorised to export project' do
+      before { ability.cannot :export, project }
 
       it 'raises access denied exception' do
         expect { show }.to raise_error(CanCan::AccessDenied)
       end
     end
 
-    shared_context 'when authorised to download project' do
-      before { ability.can :download, project }
+    shared_context 'when authorised to export project' do
+      before { ability.can :export, project }
     end
 
     context 'when HTML format' do
-      include_context 'when authorised to download project'
+      include_context 'when authorised to export project'
 
       it 'raises unknown format error' do
         expect { show(format: 'html') }.to raise_error(
@@ -42,7 +42,7 @@ RSpec.describe Projects::LeaderboardsController, spec_meta do
     end
 
     context 'when CSV format' do
-      include_context 'when authorised to download project'
+      include_context 'when authorised to export project'
 
       before do
         allow(Project::Leaderboard).to receive(:new).with(project).and_return(

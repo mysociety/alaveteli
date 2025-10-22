@@ -16,7 +16,17 @@ class Project::Export::InfoRequest < SimpleDelegator
   end
 
   def data
+    base_data.tap do |data|
+      data.merge!(extracted_data) if project.key_set
+      data.merge!(dataset_values)
+    end
+  end
+
+  private
+
+  def base_data
     {
+      info_request: __getobj__,
       request: title,
       request_url: request_url(self),
       requested_by: user&.name,
@@ -27,15 +37,18 @@ class Project::Export::InfoRequest < SimpleDelegator
       classified_by_url:
         (user_url(classification_contributor) if classification_contributor),
       status: InfoRequest.get_status_description(described_state),
-      extracted_by: dataset_contributor&.name,
-      extracted_by_url: (user_url(dataset_contributor) if dataset_contributor),
-      info_request: __getobj__,
-      classification_resource: last_status_update_event,
-      extraction_resource: extraction_submission&.resource
-    }.merge(dataset_values)
+      classification_resource: last_status_update_event
+    }
   end
 
-  private
+  def extracted_data
+    {
+      key_set: project.key_set,
+      extracted_by: dataset_contributor&.name,
+      extracted_by_url: (user_url(dataset_contributor) if dataset_contributor),
+      extraction_resource: extraction_submission&.resource
+    }
+  end
 
   def submissions
     project.submissions.where(info_request: id)
@@ -72,6 +85,8 @@ class Project::Export::InfoRequest < SimpleDelegator
   end
 
   def dataset_values
+    return {} unless project.key_set
+
     project.key_set.keys.pluck(:title).each_with_object({}) do |key, memo|
       memo[key] = extracted_values_as_hash[key]
     end

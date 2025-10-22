@@ -10,9 +10,7 @@ class UploadResponseController < RequestController
         web: _('To upload a response, you must be logged in using an ' \
                'email address from {{authority_name}}',
                authority_name: CGI.escapeHTML(@info_request.public_body.name)),
-        email: _('Then you can upload an FOI response. '),
-        email_subject: _('Confirm your account on {{site_name}}',
-                         site_name: site_name)
+        email: _('Then you can upload an FOI response.')
       }
 
       unless authenticated?

@@ -5,8 +5,10 @@
       'left as they previously were. Please click on the link below.',
       :site_name => site_name.html_safe) %>
 
+<% if @reasons[:email] %>
 <%= raw @reasons[:email] %>
 
+<% end %>
 <%= @url %>
 
 -- <%= _('the {{site_name}} team', :site_name => site_name.html_safe) %>

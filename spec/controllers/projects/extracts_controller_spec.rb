@@ -152,9 +152,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
         expect(post_redirect.uri).to eq "/projects/#{ project.id }/extract"
         expect(post_redirect.reason_params).to eq(
-          web: 'To join this project',
-          email: 'Then you can join this project',
-          email_subject: 'Confirm your account on SITE'
+          web: 'To help on this project'
         )
       end
     end
@@ -259,9 +257,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
         expect(post_redirect.uri).to eq skip_project_extract_path(project)
         expect(post_redirect.reason_params).to eq(
-          web: 'To join this project',
-          email: 'Then you can join this project',
-          email_subject: 'Confirm your account on SITE'
+          web: 'To help on this project'
         )
       end
     end
@@ -433,9 +429,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
         expect(post_redirect.uri).to eq "/projects/#{ project.id }/extract"
         expect(post_redirect.reason_params).to eq(
-          web: 'To join this project',
-          email: 'Then you can join this project',
-          email_subject: 'Confirm your account on SITE'
+          web: 'To help on this project'
         )
       end
     end
