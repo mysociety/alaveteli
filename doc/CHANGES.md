@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added batch stats to /version.json endpoint (Gareth Rees)
 * Add logging of storage keys when destroying and redelivering incoming messages
   (Graeme Porteous)
 * Remove PDF to HTML parsing and instead use modern browsers inline PDF viewer

@@ -51,6 +51,23 @@ RSpec.describe InfoRequest do
   it_behaves_like 'concerns/taggable', :info_request
   it_behaves_like 'info_request/batch_pagination'
 
+  describe '.via_batch' do
+    subject { described_class.via_batch }
+
+    let!(:request_in_batch) do
+      FactoryBot.create(:info_request_batch, :sent).info_requests.first
+    end
+
+    let!(:other) do
+      FactoryBot.create(:info_request)
+    end
+
+    it 'can scope to internal info requests' do
+      is_expected.to include(request_in_batch)
+      is_expected.to_not include(other)
+    end
+  end
+
   describe '.internal' do
     subject { described_class.internal }
 
