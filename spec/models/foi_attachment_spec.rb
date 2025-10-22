@@ -919,4 +919,27 @@ RSpec.describe FoiAttachment do
       end
     end
   end
+
+  describe '#storage_key' do
+    let(:foi_attachment) { FactoryBot.create(:foi_attachment) }
+
+    context 'when file is attached' do
+      it 'returns the blob key' do
+        expect(foi_attachment.file).to be_attached
+        storage_key = foi_attachment.storage_key
+        expect(storage_key).to eq(foi_attachment.file.blob.key)
+      end
+    end
+
+    context 'when file is not attached' do
+      before do
+        allow(foi_attachment).to receive(:file).
+          and_return(double(attached?: false))
+      end
+
+      it 'returns nil' do
+        expect(foi_attachment.storage_key).to be_nil
+      end
+    end
+  end
 end

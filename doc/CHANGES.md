@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add logging of storage keys when destroying and redelivering incoming messages
+  (Graeme Porteous)
 * Remove PDF to HTML parsing and instead use modern browsers inline PDF viewer
   (Graeme Porteous)
 * Added project administration UI (Graeme Porteous)

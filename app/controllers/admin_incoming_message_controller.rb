@@ -34,7 +34,8 @@ class AdminIncomingMessageController < AdminController
     @incoming_message.info_request.log_event(
       'destroy_incoming',
       editor: admin_current_user,
-      deleted_incoming_message_id: @incoming_message.id
+      deleted_incoming_message_id: @incoming_message.id,
+      storage_keys: @incoming_message.storage_keys
     )
     # expire cached files
     @incoming_message.info_request.expire(preserve_database_cache: true)
@@ -57,7 +58,8 @@ class AdminIncomingMessageController < AdminController
         info_request.log_event(
           'destroy_incoming',
           editor: admin_current_user,
-          deleted_incoming_message_id: message.id
+          deleted_incoming_message_id: message.id,
+          storage_keys: message.storage_keys
         )
       rescue
         errors << message.id
@@ -114,7 +116,8 @@ class AdminIncomingMessageController < AdminController
           'redeliver_incoming',
           editor: admin_current_user,
           destination_request: destination_request.id,
-          deleted_incoming_message_id: @incoming_message.id
+          deleted_incoming_message_id: @incoming_message.id,
+          storage_keys: @incoming_message.storage_keys
         )
 
         flash[:notice] =

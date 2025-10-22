@@ -1300,4 +1300,33 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
       )
     end
   end
+
+  describe '#storage_keys' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    it 'returns blob keys from raw email and foi attachments' do
+      storage_keys = incoming_message.storage_keys
+
+      expect(storage_keys).to be_an(Hash)
+      expect(storage_keys).to include(
+        raw_email: incoming_message.raw_email.file.blob.key,
+        attachments: incoming_message.foi_attachments.map { _1.file.blob.key }
+      )
+    end
+
+    context 'when no attachments are present' do
+      let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+      before do
+        allow(incoming_message.raw_email).to receive(:file).
+          and_return(double(attached?: false))
+        allow(incoming_message).to receive(:foi_attachments).and_return([])
+      end
+
+      it 'returns an hash without any keys' do
+        expect(incoming_message.storage_keys).
+          to eq({ raw_email: nil, attachments: [] })
+      end
+    end
+  end
 end
