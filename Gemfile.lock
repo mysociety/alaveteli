@@ -124,7 +124,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    annotaterb (4.19.0)
+    annotaterb (4.20.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
     ast (2.4.3)
@@ -150,7 +150,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.20)
     benchmark (0.4.1)
-    bigdecimal (3.2.3)
+    bigdecimal (3.3.1)
     bindex (0.8.1)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
@@ -365,7 +365,7 @@ GEM
     mini_portile2 (2.8.9)
     mini_racer (0.16.0)
       libv8-node (~> 18.19.0.0)
-    minitest (5.25.5)
+    minitest (5.26.0)
     money (6.19.0)
       i18n (>= 0.6.4, <= 2)
     multi_json (1.17.0)
@@ -671,7 +671,7 @@ DEPENDENCIES
   acts_as_versioned!
   addressable (~> 2.8.7)
   alaveteli_features!
-  annotaterb (~> 4.19.0)
+  annotaterb (~> 4.20.0)
   aws-sdk-s3
   bcrypt (~> 3.1.20)
   benchmark (~> 0.4.1)
