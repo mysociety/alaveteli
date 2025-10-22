@@ -582,6 +582,15 @@ Rails.application.routes.draw do
       admin_general_index_path
     end
   end
+
+  #### Admin::Projects controller
+  namespace :admin do
+    resources :projects, except: [:new, :create] do
+      scope module: :projects do
+        resources :submissions, only: [:destroy]
+      end
+    end
+  end
   ####
 
   #### Admin::PostRedirectsController

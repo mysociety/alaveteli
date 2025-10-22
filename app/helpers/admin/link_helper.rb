@@ -118,6 +118,14 @@ module Admin::LinkHelper
               title: admin_title)
   end
 
+  def project_both_links(project)
+    title = 'View project'
+    icon = eye
+
+    link_to(icon, project_path(project), title: title) + ' ' +
+      link_to(project.title, admin_project_path(project))
+  end
+
   def admin_title
     'View full details'
   end

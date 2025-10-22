@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added project administration UI (Graeme Porteous)
 * Project submission contribution editing (Graeme Porteous)
 * Add icons to classification forms (Gareth Rees, Lucas Cumsille Montesinos)
 * Store user locale preference in a separate cookie instead of the encrypted

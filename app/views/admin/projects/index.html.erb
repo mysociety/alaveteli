@@ -1,0 +1,71 @@
+<% @title = "Projects" %>
+
+<div class="row">
+<h1><%= @title %></h1>
+</div>
+
+<div class="row">
+  <%= form_tag({}, :method => "get", :class => "form form-search") do %>
+    <div class="input-append">
+      <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query" } %>
+      <%= submit_tag "Search", :class => "btn" %>
+    </div>
+
+    <span class="help-inline">(substring search, titles only)</span>
+  <% end %>
+</div>
+
+<% if @projects.any? %>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Owner</th>
+      <th>Contributors</th>
+      <th>Requests</th>
+      <th>Public Dataset</th>
+      <th>Created</th>
+      <th>Latest contribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td>
+          <%= both_links project %>
+          <% if project.briefing.present? %>
+            <br><small class="project-description"><%= truncate(strip_tags(project.briefing.to_s), length: 100) %></small>
+          <% end %>
+        </td>
+        <td>
+          <%= both_links project.owner %>
+        </td>
+        <td>
+          <%= project.contributors.count %>
+        </td>
+        <td>
+          <%= project.info_requests.count %>
+        </td>
+        <td>
+          <% if project.dataset_public? %>
+            <span class="badge badge-success">Public</span>
+          <% else %>
+            <span class="badge badge-secondary">Private</span>
+          <% end %>
+        </td>
+        <td>
+          <%= admin_date(project.created_at, ago: false) %>
+        </td>
+        <td>
+          <%= admin_date(project.submissions.last&.created_at, ago: false) if project.submissions.last %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+
+  <%= will_paginate(@projects) %>
+
+<% else %>
+  <p>None yet.</p>
+<% end %>

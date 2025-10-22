@@ -16,6 +16,8 @@
 # info requests.
 #
 class Project < ApplicationRecord
+  admin_columns exclude: %i[title briefing]
+
   has_many :memberships, class_name: 'Project::Membership', dependent: :destroy
   has_one  :owner_membership,
            -> { where(role: Role.project_owner_role) },
@@ -48,9 +50,9 @@ class Project < ApplicationRecord
 
   accepts_nested_attributes_for :key_set
 
-  attr_accessor :regenerate_invite_token
+  attr_accessor :invite_token_action
 
-  before_validation :generate_invite_token, if: -> { regenerate_invite_token }
+  before_validation :generate_invite_token
   validates :title, :owner, presence: true
 
   has_rich_text :briefing
@@ -94,6 +96,11 @@ class Project < ApplicationRecord
   private
 
   def generate_invite_token
-    self.invite_token = SecureRandom.hex(10)
+    case invite_token_action
+    when 'regenerate'
+      self.invite_token = SecureRandom.hex(10)
+    when 'remove'
+      self.invite_token = nil
+    end
   end
 end

@@ -166,7 +166,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
       params.fetch(:project, {}).permit(contributor_ids: []).
         with_defaults(contributor_ids: [])
     when 'invite'
-      { regenerate_invite_token: true }
+      { invite_token_action: 'regenerate' }
     else
       params.require(:project).permit(:title, :briefing)
     end
