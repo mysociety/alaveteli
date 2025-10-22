@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Made "Projects" feature available to all Pro users (Graeme Porteous)
 * Added batch stats to /version.json endpoint (Gareth Rees)
 * Add logging of storage keys when destroying and redelivering incoming messages
   (Graeme Porteous)
