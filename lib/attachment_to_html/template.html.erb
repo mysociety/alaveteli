@@ -5,13 +5,9 @@
   <title><%= title %></title>
   <%= content_for(:head_suffix) %>
 </head>
-<body>
+<body id="<%= wrapper %>">
   <%= content_for(:body_prefix) %>
-  <div id="<%= wrapper %>">
-    <div id="view-html-content">
-      <%= body %>
-    </div>
-  </div>
+  <%= body %>
   <%= content_for(:body_suffix) %>
 </body>
 </html>

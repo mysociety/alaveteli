@@ -41,10 +41,14 @@ module AttachmentToHTML
         @attachment_url = opts.fetch(:attachment_url, nil)
       end
 
+      def embed?
+        true
+      end
+
       private
 
       def parse_body
-        %Q(<iframe src="https://docs.google.com/viewer?url=#{ attachment_url }&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
+        %Q(<iframe src="https://docs.google.com/viewer?url=#{Rack::Utils.escape(attachment_url)}&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
       end
     end
   end

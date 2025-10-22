@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Remove PDF to HTML parsing and instead use modern browsers inline PDF viewer
+  (Graeme Porteous)
 * Added project administration UI (Graeme Porteous)
 * Project submission contribution editing (Graeme Porteous)
 * Add icons to classification forms (Gareth Rees, Lucas Cumsille Montesinos)

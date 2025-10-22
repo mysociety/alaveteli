@@ -685,8 +685,7 @@ GA_CODE: ''
 # ---
 OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 
-# Search path for external commandline utilities (such as pdftohtml, pdftk,
-# unrtf).
+# Search path for external commandline utilities (such as pdftk, unrtf).
 # When set to an empty array the the standard environment PATH will be used to
 # search for external commandline utilities.
 #

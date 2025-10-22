@@ -26,15 +26,13 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello world.txt',
-      skip_cache: 1
+      file_name: 'hello world.txt'
     )
     attachment_2_path = get_attachment_path(
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 3,
-      file_name: 'hello world.txt',
-      skip_cache: 1
+      file_name: 'hello world.txt'
     )
 
     visit attachment_1_path
@@ -42,15 +40,11 @@ RSpec.describe 'when handling incoming mail' do
     perform_enqueued_jobs
 
     visit attachment_1_path
-    expect(page.response_headers['Content-Type']).to eq(
-      "text/plain; charset=utf-8"
-    )
+    expect(page.response_headers['Content-Type']).to eq("text/plain")
     expect(page).to have_content "Second hello"
 
     visit attachment_2_path
-    expect(page.response_headers['Content-Type']).to eq(
-      "text/plain; charset=utf-8"
-    )
+    expect(page.response_headers['Content-Type']).to eq("text/plain")
     expect(page).to have_content "First hello"
   end
 
@@ -68,8 +62,8 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello world.txt.html',
-      skip_cache: 1)
+      file_name: 'hello world.txt.html'
+    )
 
     visit attachment_path
     perform_enqueued_jobs
@@ -82,19 +76,27 @@ RSpec.describe 'when handling incoming mail' do
   it "generates a valid HTML version of PDF attachments" do
     receive_incoming_mail('incoming-request-pdf-attachment.email',
                           email_to: info_request.incoming_email)
-    attachment_path = get_attachment_as_html_path(
+    attachment_as_html_path = get_attachment_as_html_path(
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'fs 50379341.pdf.html',
-      skip_cache: 1)
+      file_name: 'fs 50379341.pdf.html'
+    )
 
-    visit attachment_path
+    attachment_url = get_attachment_url(
+      info_request.url_title,
+      incoming_message_id: info_request.incoming_messages.first.id,
+      part: 2,
+      file_name: 'fs 50379341.pdf',
+      cookie_passthrough: 1
+    )
+
+    visit attachment_as_html_path
     perform_enqueued_jobs
 
-    visit attachment_path
+    visit attachment_as_html_path
     expect(page.response_headers['Content-Type']).to eq("text/html; charset=utf-8")
-    expect(page).to have_content "Walberswick Parish Council"
+    expect(page).to have_element('iframe', src: attachment_url)
   end
 
   it "redirects back to incoming message when the attachment can't be found" do
@@ -106,8 +108,7 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello world.txt.baz.html',
-      skip_cache: 1
+      file_name: 'hello world.txt.baz.html'
     )
 
     expect(current_path).to eq(show_request_path(info_request.url_title))
@@ -121,15 +122,14 @@ RSpec.describe 'when handling incoming mail' do
       info_request.url_title,
       incoming_message_id: info_request.incoming_messages.first.id,
       part: 2,
-      file_name: 'hello.qwglhm',
-      skip_cache: 1
+      file_name: 'hello.qwglhm'
     )
 
     visit attachment_path
     perform_enqueued_jobs
 
     visit attachment_path
-    expect(page.response_headers['Content-Type']).to eq("application/octet-stream; charset=utf-8")
+    expect(page.response_headers['Content-Type']).to eq("application/octet-stream")
     expect(page).to have_content "an unusual sort of file"
   end
 

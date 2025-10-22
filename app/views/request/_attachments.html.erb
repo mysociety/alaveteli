@@ -28,10 +28,10 @@
 
             <p class="attachment__meta">
               <%= a.display_size %>
-              <%= link_to "Download", attachment_path(a) %>
               <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
-                <%= link_to "View as HTML", attachment_path(a, :html => true) %>
+                <%= link_to _('View'), attachment_path(a, :html => true) %>
               <% end %>
+              <%= link_to _('Download'), attachment_path(a) %>
 
               <%= explore_in_datasette(a) %>
 
@@ -40,7 +40,7 @@
               <% end %>
 
               <% if @user.present? && @user.admin_page_links? %>
-                <%= link_to 'Admin', edit_admin_foi_attachment_path(a) %>
+                <%= link_to _('Admin'), edit_admin_foi_attachment_path(a) %>
               <% end %>
             </p>
 
