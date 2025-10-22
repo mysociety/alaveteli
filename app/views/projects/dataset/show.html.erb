@@ -6,6 +6,7 @@
   </div>
 
   <div class="inner-canvas-body">
+    <% if feature_enabled?(:projects_publishing) %>
     <div class="row project-dataset__description">
       <%= @project.dataset_description %>
 
@@ -18,6 +19,7 @@
         <%= link_to button_text, edit_project_dataset_path(@project), class: 'button' %>
       <% end %>
     </div>
+    <% end %>
 
     <div class="row">
       <p>
