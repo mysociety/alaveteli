@@ -35,14 +35,10 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def edit
-    @info_request = @submission.info_request
-    @value_set = @submission.resource
-
     render :show
   end
 
   def update
-    @value_set = Dataset::ValueSet.new(extract_params)
     @submission = @submission.create_new_version(
       user: current_user, **submission_params
     )
