@@ -7,23 +7,29 @@ class Project::Export
   include DownloadHelper
   include ActionView::Helpers::TagHelper
 
-  attr_reader :project, :page, :per_page
-  protected :project
+  attr_reader :project, :key_set, :page, :per_page
+  protected :project, :key_set, :page, :per_page
 
   def initialize(project, page: nil, per_page: 20)
     @project = project
+    @key_set = project.key_set
     @page = page
     @per_page = per_page
   end
 
   def data
     @data ||= info_requests_scope.map do |info_request|
-      Project::Export::InfoRequest.new(project, info_request).data
+      Project::Export::InfoRequest.new(project, key_set, info_request).data
     end
   end
 
   def info_requests_scope
-    base_scope = project.info_requests.order(:id)
+    base_scope = project.info_requests.order(:id).preload(
+      :user,
+      public_body: [:translations],
+      classification_project_submissions: [:user, :resource],
+      extraction_project_submissions: [:user, { resource: [{ values: :key }]}]
+    )
 
     @info_requests_scope ||= (
       if page.present?
