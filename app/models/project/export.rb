@@ -7,17 +7,31 @@ class Project::Export
   include DownloadHelper
   include ActionView::Helpers::TagHelper
 
-  attr_reader :project
+  attr_reader :project, :page, :per_page
   protected :project
 
-  def initialize(project)
+  def initialize(project, page: nil, per_page: 20)
     @project = project
+    @page = page
+    @per_page = per_page
   end
 
   def data
-    @data ||= project.info_requests.map do |info_request|
+    @data ||= info_requests_scope.map do |info_request|
       Project::Export::InfoRequest.new(project, info_request).data
     end
+  end
+
+  def info_requests_scope
+    base_scope = project.info_requests.order(:id)
+
+    @info_requests_scope ||= (
+      if page.present?
+        base_scope.paginate(page: page, per_page: per_page)
+      else
+        base_scope
+      end
+    )
   end
 
   def data_for_web
