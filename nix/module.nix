@@ -118,14 +118,12 @@ let
   serverIPv4Address =
     # bash
     ''
-      export ipv4Add=`${pkgs.nettools}/bin/ifconfig | ${pkgs.ripgrep}/bin/rg 'inet ' | ${pkgs.ripgrep}/bin/rg -v '127.0.0.1' | ${pkgs.gawk}/bin/awk '{ print $2}'`
-      echo "${cfg.domainName} A $ipv4Add"
+      ${pkgs.nettools}/bin/ifconfig | ${pkgs.ripgrep}/bin/rg 'inet ' | ${pkgs.ripgrep}/bin/rg -v '127.0.0.1' | ${pkgs.gawk}/bin/awk '{ print $2}'
     '';
   serverIPv6Address =
     # bash
     ''
-      export ipv6Add=`${pkgs.nettools}/bin/ifconfig | ${pkgs.ripgrep}/bin/rg 'inet6 .*global' | ${pkgs.gawk}/bin/awk '{ print $2}'`
-      echo "${cfg.domainName} AAAA $ipv6Add"
+      ${pkgs.nettools}/bin/ifconfig | ${pkgs.ripgrep}/bin/rg 'inet6 .*global' | ${pkgs.gawk}/bin/awk '{ print $2}'
     '';
 in
 {
@@ -446,8 +444,11 @@ in
       }
     ];
 
+    # packages required to deploy and run alaveteli
+    # tools required to build ruby gems and such do NOT go here
     environment.systemPackages = [
       pkgs.curl
+      pkgs.dig
       pkgs.gnused
       pkgs.ripgrep
       pkgs.urlencode
@@ -558,6 +559,7 @@ in
         Group = cfg.group;
         PrivateTmp = true;
         StateDirectory = "alaveteli";
+
         WorkingDirectory = cfg.package;
         TimeoutStartSec = 1200;
         RestartSec = 1;
@@ -606,37 +608,50 @@ in
     # TODO: improve this to help with DNS config just before activating
     # the new system
     system.activationScripts.showDNSrecords = {
-      text = ''
-        #!/bin/sh
-        echo "############################"
-        echo "DNS records to set for Alaveteli"
-        ${serverIPv4Address}
-        echo "--------------------------------"
-        ${serverIPv6Address}
-        echo "--------------------------------"
-        echo "${cfg.domainName} IN MX 10 ${cfg.domainName}."
-        echo "--------------------------------"
-        echo 'SPF: @ 300 IN TXT "v=spf1 mx ~all"'
-        echo "--------------------------------"
-        echo "TLSA record:"
-        ${generateTlsaRecord}
-        echo
-        echo "--------------------------------"
-        echo "CAA  0 issue \"letsencrypt.org\""
-        echo "--------------------------------"
-        cat /var/lib/opendkim/keys/${config.services.opendkim.selector}.txt
-        echo "--------------------------------"
-        echo '_dmarc.${cfg.domainName} TXT "v=DMARC1; p=quarantine;"'
-        echo "--------------------------------"
-        echo "############################"
-      '';
+      text =
+        # bash
+        ''
+          #!/bin/sh
+          echo "########################################################"
+          echo "DNS records to set for Alaveteli"
+          echo "${cfg.domainName} A `${serverIPv4Address}`"
+          echo "--------------------------------------------------------"
+          echo "${cfg.domainName} AAAA `${serverIPv6Address}`"
+          echo "--------------------------------------------------------"
+          echo "${cfg.domainName} IN MX 10 ${cfg.domainName}."
+          echo "--------------------------------------------------------"
+          echo 'SPF: @ 300 IN TXT "v=spf1 mx ~all"'
+          echo "--------------------------------------------------------"
+          echo "TLSA record:"
+          ${generateTlsaRecord}
+          echo
+          echo "--------------------------------------------------------"
+          echo "CAA  0 issue \"letsencrypt.org\""
+          echo "--------------------------------------------------------"
+          echo "DKIM record:"
+          cat /var/lib/opendkim/keys/${config.services.opendkim.selector}.txt
+          echo "--------------------------------------------------------"
+          echo "DMARC record:"
+          echo '_dmarc.${cfg.domainName} TXT "v=DMARC1; p=quarantine;"'
+          echo "--------------------------------------------------------"
+          echo "Do not forget to set the reverse DNS to ${cfg.domainName}"
+          echo "########################################################"
+        '';
     };
-    system.preSwitchChecks.verifyDNSConfig = ''
-      echo "############################"
-      echo "Verifying DNS config"
-      echo "############################"
-      # false <- to prevent the config from being activated
-    '';
+    system.preSwitchChecks = {
+      # return false/non-0 in any check to prevent the new config from being activated
+      verifyDNSConfig =
+        # bash
+        ''
+          echo "#####################################"
+          echo "Verifying DNS config (A/AAAA records)"
+          IPV4ADD=$(${serverIPv4Address})
+          IPV6ADD=$(${serverIPv6Address})
+          ${pkgs.dig}/bin/dig A ${cfg.domainName} | ${pkgs.ripgrep}/bin/rg "$IPV4ADD"
+          ${pkgs.dig}/bin/dig AAAA ${cfg.domainName} | ${pkgs.ripgrep}/bin/rg "$IPV6ADD"
+          echo "#####################################"
+        '';
+    };
 
   };
 
