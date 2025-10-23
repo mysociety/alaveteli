@@ -2,7 +2,10 @@ require 'spec_helper'
 
 RSpec.describe Project::Export do
   let(:project) { instance_double('Project') }
+  let(:key_set) { instance_double('KeySet') }
   let(:instance) { described_class.new(project) }
+
+  before { allow(project).to receive(:key_set).and_return(key_set) }
 
   describe '#data' do
     subject { instance.data }
@@ -11,16 +14,16 @@ RSpec.describe Project::Export do
     let(:info_request_b) { instance_double('InfoRequest') }
 
     before do
-      allow(project).to receive_message_chain(:info_requests).
+      allow(project).to receive_message_chain(:info_requests, :order, :preload).
         and_return([info_request_a, info_request_b])
     end
 
     it 'individually exports info requests' do
       expect(Project::Export::InfoRequest).to receive(:new).
-        with(project, info_request_a).
+        with(project, key_set, info_request_a).
         and_return(double(data: { header: 'DATA A' }))
       expect(Project::Export::InfoRequest).to receive(:new).
-        with(project, info_request_b).
+        with(project, key_set, info_request_b).
         and_return(double(data: { header: 'DATA B' }))
 
       is_expected.to match_array [{ header: 'DATA A' }, { header: 'DATA B' }]
