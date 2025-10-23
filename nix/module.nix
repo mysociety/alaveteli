@@ -130,6 +130,10 @@ let
 in
 {
   imports = [
+    (import ./cron_jobs.nix {
+      inherit config lib;
+      pkgPath = cfg.package.outPath;
+    })
     (import ./dovecot.nix {
       inherit config lib pkgs;
     })
