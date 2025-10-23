@@ -54,3 +54,32 @@ During development, files remain under `Rails.root` as you are used to:
 - if you are modifying a theme for a specific site, clone your theme repo in the same parent folder as this one (so that you
   have `./yourtheme` and `./alaveteli` under the same folder), activate the devenv in this folder (see above) and then
   modify your code
+
+## Running tests
+
+This `nix` setup does not try to replicate the alaveteli test suite written in ruby. Instead it focuses on making sure
+that the deployment is functional. Things like checking the email server is working, that rails can talk to it, that
+some key routes do function, etc...
+
+`nix` tests work by building a VM image which contains the whole deployments, running it and running a few checks
+against it.
+
+These can be run interactively:
+
+```bash
+# requires lix built from main (as of sept 1, 2025) to have self.submodules support
+# once 2.94 is released, it should be ok to revert to stable
+# build_tests:
+nix -L build  --no-pure-eval --extra-experimental-features flake-self-attrs .#serverTests.driverInteractive
+# run_tests (results is created by the command above)
+./result/bin/nixos-test-driver --interactive
+
+# To build lix from its master branch before 2.94 is released:
+# 	sudo -i -H --preserve-env=SSH_AUTH_SOCK nix --experimental-features 'nix-command flakes' profile install --profile /nix/var/nix/profiles/default git+https://git.lix.systems/lix-project/lix --priority 3
+```
+
+Alternatively, the tests can be run non-interactively, for instance in CI:
+
+```bash
+nix -L build  --no-pure-eval --extra-experimental-features flake-self-attrs .#serverTests
+```
