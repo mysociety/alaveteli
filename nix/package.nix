@@ -74,98 +74,106 @@ let
   themeNameFromUrl =
     with lib.strings;
     (builtins.head (splitString "." (lib.last (splitString "/" themeUrl))));
-in
-stdenvNoCC.mkDerivation {
-  inherit pname version src;
 
-  buildInputs = [
-    git
-    rubyEnv
-    rubyEnv.wrappedRuby
-    rubyEnv.bundler
-  ];
+  alaveteli = stdenvNoCC.mkDerivation {
+    inherit pname version src;
 
-  nativeBuildInputs = [
-    postgresql
-    procps
-    cacert
-  ];
-
-  # force production env here, as we don't build the package in development
-  env.RAILS_ENV = "production";
-
-  # copy theme files into the main rails tree before building the package,
-  # as they are needed for asset precompilation. Without this, the site
-  # builds and runs, but the theme CSS is not applied, for instance.
-  preBuild =
-    # bash
-    ''
-      mkdir -p lib/themes/${themeNameFromUrl}/
-      cp -R ${themeFiles}/* lib/themes/${themeNameFromUrl}/
-    '';
-
-  buildPhase =
-    # bash
-    ''
-      runHook preBuild
-
-      # redis does not seem to be required to compile assets,
-      # but rails expects a database, although it does not seem
-      # to actually use it
-      mkdir postgres-work
-      initdb -D postgres-work --encoding=utf8
-      pg_ctl start -D postgres-work -o "-k $PWD/postgres-work -h '''"
-      createuser -h $PWD/postgres-work alaveteli -R -S
-      createdb -h $PWD/postgres-work --encoding=utf8 --owner=alaveteli alaveteli_production
-
-      # we need to have access to the theme here in config/general.yml, otherwise
-      # theme assets can't be found
-      cat ${alaveteliConfig} > config/general.yml
-      cat ${storageConfig} > config/storage.yml
-      rake ALAVETELI_NIX_BUILD_PHASE=1 DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:precompile
-      rake ALAVETELI_NIX_BUILD_PHASE=1 DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:link_non_digest
-
-      rm config/general.yml
-      rm config/storage.yml
-
-      # remove some useless files
-      rm config/*example
-
-      ps aux | grep redis
-
-      pg_ctl stop -D postgres-work -m immediate
-      rm -r postgres-work
-
-      runHook postBuild
-    '';
-
-  installPhase = ''
-    cp -R . $out
-    rm -rf $out/config/database.yml $out/tmp $out/log
-    # dataDir will be set in the module, and the package gets overriden there
-    ln -s ${dataDir}/config/general.yml $out/config/general.yml
-    ln -s ${dataDir}/config/database.yml $out/config/database.yml
-    ln -s ${dataDir}/config/storage.yml $out/config/storage.yml
-    ln -s ${dataDir}/tmp $out/tmp
-    ln -s ${dataDir}/log $out/log
-  '';
-
-  passthru = {
-    inherit rubyEnv;
-  };
-
-  # TODO: this was to get around a ./result symlink that points to the test runner
-  # but why??
-  dontCheckForBrokenSymlinks = true;
-
-  meta = with lib; {
-    description = "Alaveteli, a Freedom of Information request system for your jurisdiction";
-    homepage = "https://alaveteli.org";
-    license = licenses.agpl3Plus;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
+    buildInputs = [
+      git
+      rubyEnv
+      rubyEnv.wrappedRuby
+      rubyEnv.bundler
     ];
-    maintainers = with maintainers; [ laurents ];
+
+    nativeBuildInputs = [
+      postgresql
+      procps
+      cacert
+    ];
+
+    # force production env here, as we don't build the package in development
+    env.RAILS_ENV = "production";
+
+    # copy theme files into the main rails tree before building the package,
+    # as they are needed for asset precompilation. Without this, the site
+    # builds and runs, but the theme CSS is not applied, for instance.
+    preBuild =
+      # bash
+      ''
+        mkdir -p lib/themes/${themeNameFromUrl}/
+        cp -R ${themeFiles}/* lib/themes/${themeNameFromUrl}/
+      '';
+
+    buildPhase =
+      # bash
+      ''
+        runHook preBuild
+
+        # redis does not seem to be required to compile assets,
+        # but rails expects a database, although it does not seem
+        # to actually use it
+        mkdir postgres-work
+        initdb -D postgres-work --encoding=utf8
+        pg_ctl start -D postgres-work -o "-k $PWD/postgres-work -h '''"
+        createuser -h $PWD/postgres-work alaveteli -R -S
+        createdb -h $PWD/postgres-work --encoding=utf8 --owner=alaveteli alaveteli_production
+
+        # we need to have access to the theme here in config/general.yml, otherwise
+        # theme assets can't be found
+        cat ${alaveteliConfig} > config/general.yml
+        cat ${storageConfig} > config/storage.yml
+        echo "BUILDING PKG"
+        pwd
+        command -v rake
+        echo $PATH
+        rake ALAVETELI_NIX_BUILD_PHASE=1 DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:precompile
+        rake ALAVETELI_NIX_BUILD_PHASE=1 DATABASE_URL="postgresql:///alaveteli_production?host=$PWD/postgres-work" assets:link_non_digest
+
+        rm config/general.yml
+        rm config/storage.yml
+
+        # remove some useless files
+        rm config/*example
+
+        ps aux | grep redis
+
+        pg_ctl stop -D postgres-work -m immediate
+        rm -r postgres-work
+
+        runHook postBuild
+      '';
+
+    installPhase = ''
+      cp -R . $out
+      rm -rf $out/config/database.yml $out/tmp $out/log
+      # dataDir will be set in the module, and the package gets overriden there
+      ln -s ${dataDir}/config/general.yml $out/config/general.yml
+      ln -s ${dataDir}/config/database.yml $out/config/database.yml
+      ln -s ${dataDir}/config/storage.yml $out/config/storage.yml
+      ln -s ${dataDir}/tmp $out/tmp
+      ln -s ${dataDir}/log $out/log
+    '';
+
+
+    passthru = {
+      inherit rubyEnv;
+
+    };
+
+    # TODO: this was to get around a ./result symlink that points to the test runner
+    # but why??
+    dontCheckForBrokenSymlinks = true;
+
+    meta = with lib; {
+      description = "Alaveteli, a Freedom of Information request system for your jurisdiction";
+      homepage = "https://alaveteli.org";
+      license = licenses.agpl3Plus;
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      maintainers = with maintainers; [ laurents ];
+    };
   };
-}
+in
+alaveteli
