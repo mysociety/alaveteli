@@ -449,6 +449,7 @@ in
     environment.systemPackages = [
       pkgs.curl
       pkgs.dig
+      pkgs.git
       pkgs.gnused
       pkgs.ripgrep
       pkgs.urlencode
