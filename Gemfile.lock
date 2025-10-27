@@ -325,7 +325,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.15.1)
+    json (2.15.2)
     jwt (2.10.2)
       base64
     language_server-protocol (3.17.0.5)
@@ -707,7 +707,7 @@ DEPENDENCIES
   iso_country_codes (~> 0.7.8)
   jquery-rails (~> 4.6.1)
   jquery-ui-rails (~> 6.0.0)
-  json (~> 2.15.1)
+  json (~> 2.15.2)
   launchy (< 3.2.0)
   locale (~> 2.1.4)
   mahoro (~> 0.5)
