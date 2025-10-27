@@ -447,6 +447,8 @@ in
     # packages required to deploy and run alaveteli
     # tools required to build ruby gems and such do NOT go here
     environment.systemPackages = [
+      cfg.package.rails
+      cfg.package.rake
       pkgs.curl
       pkgs.dig
       pkgs.git

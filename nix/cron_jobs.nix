@@ -33,7 +33,9 @@ in
     description = "Import incoming mail into Alaveteli";
 
     serviceConfig = commonServiceConfig // {
-      ExecStart = "${pkgPath}/script/runner AlaveteliMailPoller.poll_for_incoming_loop";
+      # TODO: get rid of runner, call rails runner directly
+      # but which rails?
+      ExecStart = "${cfg.package.rails}/bin/rails-alaveteli runner AlaveteliMailPoller.poll_for_incoming_loop";
       StandardOutput = "append:${cfg.dataDir}/log/poll-for-incoming.service.log";
     };
   };
@@ -44,7 +46,7 @@ in
     description = "Send Alaveteli notifications";
 
     serviceConfig = commonServiceConfig // {
-      ExecStart = "${pkgPath}/script/runner NotificationMailer.send_notifications_loop";
+      ExecStart = "${cfg.package.rails}/bin/rails-alaveteli runner NotificationMailer.send_notifications_loop";
       StandardOutput = "append:${cfg.dataDir}/log/send-notifications.service.log";
     };
   };
@@ -55,7 +57,7 @@ in
     description = "Send Alaveteli email alerts";
 
     serviceConfig = commonServiceConfig // {
-      ExecStart = "${pkgPath}/script/runner TrackMailer.alert_tracks_loop";
+      ExecStart = "${cfg.package.rails}/bin/rails-alaveteli runner TrackMailer.alert_tracks_loop";
       StandardOutput = "append:${cfg.dataDir}/log/alert-tracks.service.log";
     };
   };
