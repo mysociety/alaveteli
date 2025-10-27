@@ -140,7 +140,7 @@ gem 'zip_tricks', '~> 5.6.0'
 
 # Gems that are part of Ruby's standard library but need version constraints as
 # they are required by other Gem dependencies
-gem 'benchmark', '~> 0.4.1'
+gem 'benchmark', '~> 0.5.0'
 gem 'csv', '~> 3.3.5'
 gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.0'
