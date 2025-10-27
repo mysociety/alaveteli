@@ -599,8 +599,10 @@ in
           rake db:migrate
           rake db:seed
 
-          # ensure we have a xapian db
-          rake xapian:create_index
+          # ensure we have a xapian db if it does not exist
+          if [ ! -f ${cfg.dataDir}/xapiandbs/${environment.RAILS_ENV}/iamglass ]; then
+              rake --silent "$@" xapian:destroy_and_rebuild_index models="PublicBody User InfoRequestEvent"
+          fi
 
           # TODO: run the install and post_install.rb hooks before starting the
           # actual service (see themes.rake / install_theme)
