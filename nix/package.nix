@@ -43,6 +43,43 @@ let
       '';
   };
 
+  # binaries needed by alaveteli's rails/rake... at runtime
+  runtimeDeps = [
+    rubyEnv.wrappedRuby
+    pkgs.git
+  ];
+
+  # make rake/rails commands available on the server
+  # with the correct gems and dependencies configured
+  # Run these with sudo -u alaveteli to allow database connection
+  rails =
+    pkgs.runCommand "rails-alaveteli"
+      {
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+      }
+      # bash
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${rubyEnv}/bin/rails $out/bin/rails-alaveteli \
+            --prefix PATH : ${lib.makeBinPath runtimeDeps} \
+            --set RAILS_ENV production \
+            --chdir '${alaveteli}'
+      '';
+
+  rake =
+    pkgs.runCommand "rake-alaveteli"
+      {
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+      }
+      # bash
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${rubyEnv}/bin/rake $out/bin/rake-alaveteli \
+            --prefix PATH : ${lib.makeBinPath runtimeDeps} \
+            --set RAILS_ENV production \
+            --chdir '${alaveteli}'
+      '';
+
   rubyEnv = pkgs.callPackage ./bundlerEnv.nix {
     inherit themeGemfile themeLockfile themeGemset;
   };
@@ -156,7 +193,7 @@ let
 
 
     passthru = {
-      inherit rubyEnv;
+      inherit rails rake rubyEnv;
 
     };
 
