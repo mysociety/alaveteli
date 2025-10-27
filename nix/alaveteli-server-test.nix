@@ -115,5 +115,6 @@
       testserver.succeed("send-mail-to-postmaster")
       testserver.succeed("curl -ks4 https://testserver/ | grep -o 'h1.*Alaveteli'")
       testserver.succeed("curl -ks6 https://testserver/ | grep -o 'h1.*Alaveteli'")
+      testserver.succeed("rails-alaveteli boot")
     '';
 }
