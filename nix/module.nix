@@ -610,8 +610,6 @@ in
         '';
     };
 
-    # TODO: improve this to help with DNS config just before activating
-    # the new system
     system.activationScripts.showDNSrecords = {
       text =
         # bash
@@ -638,6 +636,11 @@ in
           echo "--------------------------------------------------------"
           echo "DMARC record:"
           echo '_dmarc.${cfg.domainName} TXT "v=DMARC1; p=quarantine;"'
+          echo "--------------------------------------------------------"
+          echo "MTA-STS records"
+          echo "mta-sts.${cfg.domainName}   300   A      `${serverIPv4Address}`"
+          echo "mta-sts.${cfg.domainName}   300   AAAA   `${serverIPv6Address}`"
+          echo '_mta-sts.${cfg.domainName}  300  TXT  "v=STSv1; id=20251028T090000;"'
           echo "--------------------------------------------------------"
           echo "Do not forget to set the reverse DNS to ${cfg.domainName}"
           echo "########################################################"

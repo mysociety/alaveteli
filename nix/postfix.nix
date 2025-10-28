@@ -28,6 +28,13 @@ let
     "AECDH-AES128-SHA"
     "AECDH-AES256-SHA"
   ];
+
+  mtaStsPolicy = ''
+    version: STSv1
+    mode: testing
+    max_age: 10368000
+    mx: ${cfg.domainName}
+  '';
 in
 {
   # TODO: possible bug in optionalAttrs when passed the postfix config???
@@ -181,8 +188,21 @@ in
         "argv=${pkgPath}/script/handle-mail-replies"
       ];
     };
+  };
 
-    # use this instead of enableSmtp to enable chrooting
-    # which we need for dkim signing (?)
+  # MTA-STS for outbound email
+  # https://wiki.archlinux.org/title/TLS-RPT,_DANE_and_MTA-STS#MTA-STS
+  services.postfix-tlspol = {
+    enable = true;
+  };
+
+  # MTA-STS for inboud email
+  services.nginx.virtualHosts."mta-sts.${cfg.domainName}" = {
+    inherit (cfg) sslCertificate sslCertificateKey;
+    onlySSL = true;
+    enableACME = (cfg.sslCertificate == null && cfg.sslCertificateKey == null);
+    locations."=/.well-known/mta-sts.txt".alias = pkgs.writeText "well-known-mta-sts-txt" "${
+      mtaStsPolicy
+    }";
   };
 }
