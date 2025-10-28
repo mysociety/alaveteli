@@ -78,6 +78,9 @@ in
     message_size_limit = 30720000;
     recipient_delimiter = "+";
 
+    # prefer our order of ciphers
+    tls_preempt_cipherlist = "yes";
+
     # settings for mandatory encryption
     smtpd_tls_mandatory_ciphers = "high";
     smtpd_tls_mandatory_protocols = ">=TLSv1.2";
