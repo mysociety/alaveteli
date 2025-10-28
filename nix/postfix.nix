@@ -13,6 +13,21 @@ let
     # format for the file:
     # /regex/                     bcc_username
   '';
+
+  insecureCiphers = [
+    "ADH-AES128-SHA"
+    "ADH-AES256-SHA"
+    "ADH-AES128-GCM-SHA256"
+    "ADH-AES256-GCM-SHA384"
+    "ADH-AES128-SHA256"
+    "ADH-AES256-SHA256"
+    "ADH-CAMELLIA128-SHA"
+    "ADH-CAMELLIA128-SHA256"
+    "ADH-CAMELLIA256-SHA"
+    "ADH-CAMELLIA256-SHA256"
+    "AECDH-AES128-SHA"
+    "AECDH-AES256-SHA"
+  ];
 in
 {
   # TODO: possible bug in optionalAttrs when passed the postfix config???
@@ -66,10 +81,12 @@ in
     # settings for mandatory encryption
     smtpd_tls_mandatory_ciphers = "high";
     smtpd_tls_mandatory_protocols = ">=TLSv1.2";
+    smtpd_tls_mandatory_exclude_ciphers = builtins.concatStringsSep ", " insecureCiphers;
     # same for opportunistic encryption
     smtpd_tls_ciphers = "high";
     smtpd_tls_protocols = ">=TLSv1.2";
-    smtpd_tls_exclude_ciphers = "ADH-AES256-SHA, ADH-AES128-SHA";
+    # list based on https://internet.nl email tester
+    smtpd_tls_exclude_ciphers = builtins.concatStringsSep ", " insecureCiphers;
 
     smtpd_tls_chain_files =
       if (cfg.sslCertificate != null && cfg.sslCertificateKey != null) then
