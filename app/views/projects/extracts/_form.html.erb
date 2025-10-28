@@ -1,5 +1,6 @@
-<%= form_for resource, url: project_extract_path, as: :extract do |f| %>
+<%= form_for resource, as: :extract, url: project_extract_path do |f| %>
   <%= hidden_field_tag 'r', params[:r] %>
+  <%= hidden_field_tag 'url_title', info_request.url_title %>
   <%= hidden_field_tag 'resource_id', resource.id %>
 
   <%= render project.key_set, f: f %>
