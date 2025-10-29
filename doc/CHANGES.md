@@ -1,3 +1,9 @@
+# 0.45.3.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.45.3.1
 
 ## Highlighted Features
