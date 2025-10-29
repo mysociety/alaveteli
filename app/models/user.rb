@@ -153,13 +153,17 @@ class User < ApplicationRecord
            inverse_of: :user,
            dependent: :destroy
   has_many :track_things_sent_emails,
+           inverse_of: :user,
            dependent: :destroy
   has_many :announcements,
            inverse_of: :user
   has_many :announcement_dismissals,
            inverse_of: :user,
            dependent: :destroy
-  has_many :memberships, class_name: 'Project::Membership'
+  has_many :memberships,
+           inverse_of: :user,
+           dependent: :destroy,
+           class_name: 'Project::Membership'
   has_many :projects, through: :memberships do
     def owner
       unscope(:joins).joins(:owner_membership)

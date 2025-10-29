@@ -187,7 +187,10 @@ namespace :users do
 
   desc 'Destroy user accounts that have not created any content'
   task destroy_unused: :environment do
-    users = User.unused.where(created_at: ...2.years.ago)
+    time_range = ...2.years.ago
+    users = User.unused.where(
+      created_at: time_range, last_sign_in_at: [nil, time_range]
+    )
     count = users.count
 
     progressbar = ProgressBar.create(
