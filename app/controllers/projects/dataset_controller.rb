@@ -8,12 +8,14 @@ class Projects::DatasetController < Projects::BaseController
 
   def show
     authorize! :export, @project
-    @export = Project::Export.new(@project)
 
     respond_to do |format|
-      format.html
+      format.html do
+        @export = Project::Export.new(@project, page: params.fetch(:page, 1))
+      end
       format.csv do
-        send_data @export.to_csv, filename: @export.name, type: 'text/csv'
+        export = Project::Export.new(@project)
+        send_data export.to_csv, filename: export.name, type: 'text/csv'
       end
     end
   end

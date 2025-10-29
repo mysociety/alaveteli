@@ -17,7 +17,7 @@ RSpec.describe Project::Export::InfoRequest do
     FactoryBot.build(:info_request, public_body: public_body)
   end
 
-  let(:instance) { described_class.new(project, info_request) }
+  let(:instance) { described_class.new(project, key_set, info_request) }
 
   describe '#data' do
     subject(:data) { instance.data }
