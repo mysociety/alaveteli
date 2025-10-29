@@ -1,4 +1,4 @@
-# develop
+# 0.46.0.0
 
 ## Highlighted Features
 
@@ -112,6 +112,114 @@ enables administrators to analyse outgoing requests using a Large Language Model
 (LLM) via Ollama integration. Currently, this admin-only feature processes data
 in the backend only. To enable this functionality, you'll need to set up Ollama
 on your infrastructure and configure the `OLLAMA_URL` environment variable.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin/changelog/index.html.erb
+    app/views/admin/citations/edit.html.erb
+    app/views/admin/foi_attachments/edit.html.erb
+    app/views/admin/info_request_batches/_admin_columns.html.erb
+    app/views/admin/tags/_tagging.html.erb
+    app/views/admin/users/_sign_in_table.html.erb
+    app/views/admin/users/sign_ins/index.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/debug.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_incoming_message/_admin_columns.html.erb
+    app/views/admin_incoming_message/_foi_attachments.html.erb
+    app/views/admin_outgoing_message/_admin_columns.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/_info_request.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/comments/_note.html.erb
+    app/views/alaveteli_pro/comments/_submit.html.erb
+    app/views/alaveteli_pro/comments/_suggestions.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/journalists/_marketing_testimonials.html.erb
+    app/views/alaveteli_pro/projects/_contributors.html.erb
+    app/views/alaveteli_pro/projects/_project.html.erb
+    app/views/alaveteli_pro/projects/_resources.html.erb
+    app/views/alaveteli_pro/projects/_resources_selected.html.erb
+    app/views/alaveteli_pro/projects/_select_key.html.erb
+    app/views/alaveteli_pro/projects/edit.html.erb
+    app/views/alaveteli_pro/projects/edit_contributors.html.erb
+    app/views/alaveteli_pro/projects/edit_contributors.turbo_stream.erb
+    app/views/alaveteli_pro/projects/edit_key_set.html.erb
+    app/views/alaveteli_pro/projects/edit_key_set.turbo_stream.erb
+    app/views/alaveteli_pro/projects/edit_resources.html.erb
+    app/views/alaveteli_pro/projects/edit_resources.turbo_stream.erb
+    app/views/alaveteli_pro/projects/index.html.erb
+    app/views/alaveteli_pro/subscriptions/_cancel_subscription.html.erb
+    app/views/attachment_masks/wait.html.erb
+    app/views/comments/_comment_form.html.erb
+    app/views/comments/_note.html.erb
+    app/views/comments/_single_comment.html.erb
+    app/views/comments/_single_comment.text.erb
+    app/views/comments/_submit.html.erb
+    app/views/comments/_suggestions.html.erb
+    app/views/comments/new.html.erb
+    app/views/comments/preview.html.erb
+    app/views/comments/rate_limited.html.erb
+    app/views/general/_read_only.html.erb
+    app/views/general/_read_only_annotations.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/help/_sidebar.html.erb
+    app/views/help/_why_they_should_reply_by_email.html.erb
+    app/views/help/about.html.erb
+    app/views/help/alaveteli.html.erb
+    app/views/help/api.html.erb
+    app/views/help/contact.html.erb
+    app/views/help/credits.html.erb
+    app/views/help/officers.html.erb
+    app/views/help/privacy.html.erb
+    app/views/help/pro.html.erb
+    app/views/help/requesting.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/password_changes/edit.html.erb
+    app/views/projects/classifies/_describe_state.html.erb
+    app/views/projects/classifies/_sidebar.html.erb
+    app/views/projects/classifies/show.html.erb
+    app/views/projects/dataset/keys/_select_key.html.erb
+    app/views/projects/dataset/show.html.erb
+    app/views/projects/extracts/_form.html.erb
+    app/views/projects/extracts/_sidebar.html.erb
+    app/views/projects/extracts/show.html.erb
+    app/views/projects/projects/_project_nav.html.erb
+    app/views/projects/projects/show.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_attachments.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_share_by_link.html.erb
+    app/views/request/_state_transition.html.erb
+    app/views/request/details.html.erb
+    app/views/request/events/_comment.html.erb
+    app/views/request/index.html.erb
+    app/views/request/list.html.erb
+    app/views/request/show.text.erb
+    app/views/request_mailer/old_unclassified_updated.text.erb
+    app/views/upload_response/new.html.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/contact.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/show/_show_profile.html.erb
+    app/views/user/signchangeemail.html.erb
+    app/views/user/signchangeemail_confirm.html.erb
+    app/views/user/wrong_user.html.erb
+    app/views/user_mailer/already_registered.text.erb
 
 # 0.45.3.2
 
