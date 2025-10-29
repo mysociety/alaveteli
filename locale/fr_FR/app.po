@@ -47,7 +47,7 @@
 # Gareth Rees <gareth@mysociety.org>, 2016
 # Graeme Porteous <graeme@mysociety.org>, 2021
 # Laurent S, 2019
-# Laurent S, 2019-2024
+# Laurent S, 2019-2025
 # louisecrow <louise@mysociety.org>, 2013,2017
 # mySociety <transifex@mysociety.org>, 2016
 # Pascal Romain <aka.keronos@gmail.com>, 2019-2021
@@ -65,7 +65,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: vickyanderica <victoria@access-info.org>, 2011\n"
+"Last-Translator: Laurent S, 2019-2025\n"
 "Language-Team: French (France) (http://app.transifex.com/mysociety/alaveteli/l"
 "anguage/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -210,7 +210,7 @@ msgid "<a href=\"{{info_request_batch_url}}\">{{title}}</a> part of a batch sent
 msgstr ""
 
 msgid "<a href=\"{{info_request_url}}\">{{title}}</a> requested from <a href=\"{{public_body_url}}\">{{public_body_name}}</a> on {{date}}"
-msgstr ""
+msgstr "{{title}}: demande du {{date}} à {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
 msgstr "<a href=\"{{sign_in_link}}\">se connecter</a>pour des nouvelles sur ce que vous suivez ou pour réactiver des alertes email."
@@ -329,7 +329,7 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>Des précisions</strong> ont été demandées"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
-msgstr ""
+msgstr "Soutenez {{site_name}}"
 
 msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
@@ -461,10 +461,10 @@ msgid "Add authority - {{public_body_name}}"
 msgstr "Ajouter l'autorité publique - {{public_body_name}}"
 
 msgid "Add description"
-msgstr ""
+msgstr "Ajouter une description"
 
 msgid "Add description and make dataset public"
-msgstr ""
+msgstr "Ajouter une description et rendre le jeu de données public"
 
 msgid "Add the authority:"
 msgstr "Ajouter l'autorité publique :"
@@ -608,13 +608,13 @@ msgid "Attachment (optional):"
 msgstr "Pièce jointe (optionnel) :"
 
 msgid "Attachment available for download."
-msgstr ""
+msgstr "Pièce jointe prête à télécharger"
 
 msgid "Attachment has been removed"
 msgstr "Une pièce jointe à été supprimée"
 
 msgid "Attachment processing..."
-msgstr ""
+msgstr "Pièce jointe en cours de préparation"
 
 msgid "Attachment:"
 msgstr "Pièce jointe :"
@@ -644,7 +644,7 @@ msgid "Back to content"
 msgstr "Retour au contenu"
 
 msgid "Back to project"
-msgstr ""
+msgstr "Retour au projet"
 
 msgid "Banned for evading another ban"
 msgstr ""
@@ -683,7 +683,7 @@ msgid "Browse all requests &rarr;"
 msgstr "Voir toutes les demandes &rarr;"
 
 msgid "Browse by category"
-msgstr ""
+msgstr "Parcourir par catégorie"
 
 msgid "Browse latest requests"
 msgstr "Parcourir les dernières demandes"
@@ -713,10 +713,10 @@ msgid "CSV"
 msgstr "CSV"
 
 msgid "Campaigning"
-msgstr ""
+msgstr "Campagnes"
 
 msgid "Campaigning and Advocacy"
-msgstr ""
+msgstr "Campagnes et plaidoyer"
 
 msgid "Can't find the one you want?"
 msgstr "Vous ne trouvez pas l’autorité que vous cherchez ?"
@@ -749,7 +749,7 @@ msgid "Change your email address used on {{site_name}}"
 msgstr "Modifier votre adresse email utilisée sur {{site_name}}"
 
 msgid "Change your name"
-msgstr ""
+msgstr "Changez votre nom"
 
 msgid "Change your name used on {{site_name}}"
 msgstr ""
@@ -944,7 +944,7 @@ msgid "Data interpretation"
 msgstr "Interprétation de la donnée"
 
 msgid "Dataset was successfully updated."
-msgstr ""
+msgstr "Jeu de données mis à jour"
 
 msgid "Date:"
 msgstr "Date :"
@@ -1151,7 +1151,7 @@ msgid "Expand all correspondence"
 msgstr "Développer toute la correspondance"
 
 msgid "Explore in Datasette"
-msgstr ""
+msgstr "Explorer le jeu de données dans Datasette"
 
 msgid "Extract data"
 msgstr "Extraire les données"
@@ -1166,7 +1166,7 @@ msgid "FOI"
 msgstr "droit d'accès à l'information"
 
 msgid "FOI in Action"
-msgstr ""
+msgstr "Le droit d'accès en action"
 
 msgid "FOI law does not apply to this authority."
 msgstr "La loi sur l’accès à l’information n’est pas applicable pour cette autorité publique."
@@ -1644,7 +1644,7 @@ msgid "Joined {{site_name}} in {{year}}"
 msgstr "Inscrit à {{site_name}} en {{year}}"
 
 msgid "Journalism"
-msgstr ""
+msgstr "Journalisme"
 
 msgid "Just one more thing"
 msgstr "Juste une dernière chose "
@@ -2478,7 +2478,7 @@ msgid "Requires admin attention"
 msgstr "Requiert l'attention de l'administrateur"
 
 msgid "Research"
-msgstr ""
+msgstr "Recherche"
 
 msgid "Respond by email"
 msgstr "Répondre par email "
@@ -2556,7 +2556,7 @@ msgid "Search queries"
 msgstr "Requêtes de recherche"
 
 msgid "Search requests"
-msgstr ""
+msgstr "Rechercher des demandes"
 
 msgid "Search requests (page {{count}})"
 msgstr ""
@@ -2577,7 +2577,7 @@ msgid "See all &rarr;"
 msgstr ""
 
 msgid "See more examples of <a href=\"{{citations_path}}\">FOI in Action</a>."
-msgstr ""
+msgstr "Voir plus d'exemples de demandes"
 
 msgid "Select"
 msgstr ""
@@ -3670,7 +3670,7 @@ msgid "Unusual response"
 msgstr "Réponse inattendue"
 
 msgid "Update dataset"
-msgstr ""
+msgstr "Mettre à jour le jeu de données"
 
 msgid "Update email address - {{public_body_name}}"
 msgstr "Mise à jour de l'adresse email - {{public_body_name}}"

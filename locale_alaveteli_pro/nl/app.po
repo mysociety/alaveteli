@@ -5,7 +5,7 @@
 #
 # Translators:
 # Gareth Rees <gareth@mysociety.org>, 2019
-# Liset Hamming <elhamming@gmail.com>, 2022
+# Liset Hamming <elhamming@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Liset Hamming <elhamming@gmail.com>, 2022\n"
+"Last-Translator: Liset Hamming <elhamming@gmail.com>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/mysociety/teams/33529/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,10 +42,10 @@ msgid "12 Months"
 msgstr "12 maanden"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29 april 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3 juli 2017"
 
 msgid "3 Months"
 msgstr "3 maanden"
@@ -57,7 +57,7 @@ msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of inves
 msgstr ""
 
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
-msgstr ""
+msgstr "<span class=\"current-page\">{{current_page}}</span> van <span class=\"total-pages\">{{total_pages}}</span>"
 
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
 msgstr ""
@@ -72,13 +72,13 @@ msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the
 msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Dien een verzoek in bij meerdere instanties</strong>: selecteer instanties met een druk op de knop"
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Beheer grote hoeveelheden reacties</strong>: houd eenvoudig de status van elk verzoek bij"
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr ""
+msgstr "<strong class=\"marketing-highlight\">Opslaan als concept</strong> om er later op terug te komen"
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
 msgstr ""
@@ -123,10 +123,10 @@ msgid "A  powerful, fully-featured toolset that solves problems for campaigners 
 msgstr ""
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
-msgstr ""
+msgstr "Een <strong class=\"marketing-highlight\">doorzoekbaar archief</strong> van Woo-verzoeken"
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
-msgstr ""
+msgstr "Een <strong>samenvatting</strong> van de reactie als je deze per post hebt ontvangen. "
 
 msgid "A one line summary of the information you are requesting, e.g."
 msgstr "Een omschrijving in één regel van de informatie waar je naar op zoek bent, bijv."
@@ -144,7 +144,7 @@ msgid "A powerful, fully-featured toolset that solves problems for researchers a
 msgstr ""
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr ""
+msgstr "Een superslimme <strong class=\"marketing-highlight\">takenlijst</strong>: volg de voortgang van je verzoeken"
 
 msgid "About {{public_body_name}}"
 msgstr "Over {{public_body_name}}"
@@ -159,10 +159,10 @@ msgid "Activity"
 msgstr "Activiteit"
 
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 msgid "Add Card Details"
-msgstr ""
+msgstr "Kaartgegevens toevoegen"
 
 msgid "Add all"
 msgstr ""
@@ -180,16 +180,16 @@ msgid "Add credibility"
 msgstr ""
 
 msgid "Add question"
-msgstr ""
+msgstr "Vraag toevoegen"
 
 msgid "Add questions to your project"
-msgstr ""
+msgstr "Vragen toevoegen aan je project"
 
 msgid "Add request"
-msgstr ""
+msgstr "Verzoek toevoegen"
 
 msgid "Add requests to your project"
-msgstr ""
+msgstr "Verzoeken toevoegen aan je project"
 
 msgid "Add whole batch and related requests"
 msgstr ""
@@ -198,7 +198,7 @@ msgid "Added"
 msgstr "Toegevoegd"
 
 msgid "Adding your payment card requires your browser to have JavaScript enabled."
-msgstr ""
+msgstr "Om uw betaalkaart toe te voegen, moet JavaScript in uw browser zijn ingeschakeld."
 
 msgid "All requests"
 msgstr "Alle verzoeken"
@@ -210,7 +210,7 @@ msgid "Allow blank"
 msgstr ""
 
 msgid "Allow muliple"
-msgstr ""
+msgstr "Meerdere toestaan"
 
 msgid "Also called {{other_name}}."
 msgstr "Ook genoemd {{other_name}}"
@@ -222,7 +222,7 @@ msgid "Annotations allow you to add extra notes on a request, which will eventua
 msgstr "Het plaatsen van opmerkingen geeft je de mogelijkheid om je verzoek te duiden. Ook deze opmerkingen zullen uiteindelijk zichtbaar worden gemaakt. Bijv.:"
 
 msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
-msgstr ""
+msgstr "Ben je geïnteresseerd in gratis trainingen, seminars en workshops over {{pro_site_name}}?"
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
 msgstr "Weet je zeker dat de informatie waar je om vraagt niet elders te vinden is?"
@@ -246,7 +246,7 @@ msgid "Batch request"
 msgstr "Bulkverzoek"
 
 msgid "Batch requests"
-msgstr ""
+msgstr "Bulkverzoeken"
 
 msgid "Batch requests allow multiple recipients of a single request"
 msgstr "Bulkverzoeken maken het mogelijk om hetzelfde verzoek naar meerdere ontvangers tegelijk te sturen"
@@ -285,7 +285,7 @@ msgid "CSV"
 msgstr ""
 
 msgid "Campaigners"
-msgstr ""
+msgstr "Campagnevoerders"
 
 msgid "Campaigning for better wheelchair accessibility"
 msgstr ""
@@ -303,7 +303,7 @@ msgid "Cancelled subscriptions:"
 msgstr ""
 
 msgid "Card details"
-msgstr ""
+msgstr "Kaartgegevens"
 
 msgid "Change privacy"
 msgstr "Verander je privacy-instellingen"
@@ -324,22 +324,22 @@ msgid "Choose a duration"
 msgstr "Kies een periode"
 
 msgid "Classify responses"
-msgstr ""
+msgstr "Antwoorden classificeren"
 
 msgid "Collapse all correspondence"
 msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Bevestig je account op {{site_name}}"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "Doorgaan naar checkout vereist dat je browser JavaScript toelaat"
 
 msgid "Copied!"
-msgstr ""
+msgstr "Gekopieerd!"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopiëren"
 
 msgid "Coupon code has expired."
 msgstr "Je kortingscode is vervallen"
@@ -348,10 +348,10 @@ msgid "Coupon code is invalid."
 msgstr "Je kortingscode is niet geldig"
 
 msgid "Create Project"
-msgstr ""
+msgstr "Project Aanmaken"
 
 msgid "Create a new Project"
-msgstr ""
+msgstr "Een nieuw project aanmaken"
 
 msgid "Created"
 msgstr "Gecreëerd"
@@ -378,13 +378,13 @@ msgid "Disabled while sending remaining requests."
 msgstr ""
 
 msgid "Dismiss"
-msgstr ""
+msgstr "Afwijzen"
 
 msgid "Do you have a coupon code?"
 msgstr "Heb je een kortingsbon met code?"
 
 msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
-msgstr ""
+msgstr "Maak je geen zorgen – <a href=\"{{signup_link}}\">onze gratis accounts</a> zijn nog steeds beschikbaar en zullen dat altijd blijven."
 
 msgid "Download a zip file of all correspondence"
 msgstr "Download een zip file met alle correspondentie over dit verzoek "
@@ -396,7 +396,7 @@ msgid "Drafts"
 msgstr "Conceptversies"
 
 msgid "Edit your project"
-msgstr ""
+msgstr "Bewerk je project"
 
 msgid "Edit your request"
 msgstr "Wijzig je verzoek"
@@ -408,7 +408,7 @@ msgid "Email doesn't look like a valid address"
 msgstr "Het e-mailadres ziet er niet uit als een geldig adres."
 
 msgid "Estimated total number of Pro requests:"
-msgstr ""
+msgstr "Geschat totaal aantal Pro-verzoeken:"
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
 msgstr "Alles wat u nodig heeft om complexe, op de Woo steunende dossiers tot een goed einde te brengen"
@@ -423,28 +423,28 @@ msgid "Extract data"
 msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
-msgstr ""
+msgstr "Woo-beheertools voor journalisten, campagnevoerders en onderzoekers"
 
 msgid "FOI Management for Campaigners"
-msgstr ""
+msgstr "Woo-beheer voor campagnevoerders"
 
 msgid "FOI Management for Journalists"
-msgstr ""
+msgstr "Woo-beheer voor journalisten"
 
 msgid "FOI Management for Researchers"
-msgstr ""
+msgstr "Woo-beheer voor onderzoekers"
 
 msgid "FOI address book"
-msgstr ""
+msgstr "Woo-adresboek"
 
 msgid "FOI for campaigners"
-msgstr ""
+msgstr "Woo voor campagnevoerders"
 
 msgid "FOI for journalists"
-msgstr ""
+msgstr "Woo voor journalisten"
 
 msgid "FOI for researchers"
-msgstr ""
+msgstr "Woo voor onderzoekers"
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
 msgstr ""
@@ -462,7 +462,7 @@ msgid "Find out how {{pro_site_name}} can take the hard work out of FOI investig
 msgstr ""
 
 msgid "Finding it hard to keep on top of your FOI requests?"
-msgstr ""
+msgstr "Vind je het moeilijk om je Woo-verzoeken bij te houden?"
 
 msgid "First created"
 msgstr "Voor het eerst gecreëerd"
@@ -486,22 +486,22 @@ msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_
 msgstr ""
 
 msgid "Generate invite link"
-msgstr ""
+msgstr "Genereer uitnodigingslink"
 
 msgid "Get email updates about {{pro_site_name}}?"
 msgstr ""
 
 msgid "Get in touch"
-msgstr ""
+msgstr "Neem contact op"
 
 msgid "Get started with your first request"
 msgstr "Begin aan je eerste verzoek"
 
 msgid "Got questions?"
-msgstr ""
+msgstr "Heb je vragen?"
 
 msgid "Hard to keep track of your many requests?"
-msgstr ""
+msgstr "Moeilijk om je vele verzoeken bij te houden?"
 
 msgid "Help"
 msgstr "Hulp"
@@ -510,16 +510,16 @@ msgid "Helping startups find the best location for their business"
 msgstr ""
 
 msgid "How campaigners are using Pro"
-msgstr ""
+msgstr "Hoe campagnevoerders Pro gebruiken"
 
 msgid "How it works"
-msgstr ""
+msgstr "Hoe het werkt"
 
 msgid "How journalists are using Pro"
-msgstr ""
+msgstr "Hoe journalisten Pro gebruiken"
 
 msgid "How researchers are using Pro"
-msgstr ""
+msgstr "Hoe onderzoekers Pro gebruiken"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr "Ik heb de voorwaarden gelezen en ben akkoord"
@@ -540,7 +540,7 @@ msgid "Image credits:"
 msgstr ""
 
 msgid "Important info about requests to this authority"
-msgstr ""
+msgstr "Belangrijke informatie over verzoeken aan deze instantie"
 
 msgid "Investigating asbestos use in schools"
 msgstr ""
@@ -549,31 +549,31 @@ msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s priv
 msgstr ""
 
 msgid "Invite contributors"
-msgstr ""
+msgstr "Bijdragers uitnodigen"
 
 msgid "Invite others to the project"
-msgstr ""
+msgstr "Anderen uitnodigen voor het project"
 
 msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
 msgid "Invoices"
-msgstr ""
+msgstr "Facturen"
 
 msgid "I’m a campaigner"
-msgstr ""
+msgstr "Ik ben een campagnevoerder"
 
 msgid "I’m a journalist"
-msgstr ""
+msgstr "Ik ben een journalist"
 
 msgid "I’m a researcher"
-msgstr ""
+msgstr "Ik ben een onderzoeker"
 
 msgid "Join {{pro_site_name}}"
 msgstr ""
 
 msgid "Journalists"
-msgstr ""
+msgstr "Journalisten"
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
 msgstr ""
@@ -585,7 +585,7 @@ msgid "Keep private for:"
 msgstr ""
 
 msgid "Keep track of FOI requests"
-msgstr ""
+msgstr "Houd Woo-verzoeken bij"
 
 msgid "Last updated"
 msgstr "Laatste update"
@@ -612,7 +612,7 @@ msgid "Make a request"
 msgstr "Doe een verzoek"
 
 msgid "Make a request to multiple authorities and manage the responses."
-msgstr ""
+msgstr "Dien een verzoek in bij meerdere instanties en beheer de reacties."
 
 msgid "Make an {{law_used_short}} request"
 msgstr "Doe een {{law_used_short}}-verzoek"
@@ -624,28 +624,28 @@ msgid "My subscription"
 msgstr "Mijn abonnement"
 
 msgid "My wall"
-msgstr "Mijn muur"
+msgstr "Mijn overzichtspagina"
 
 msgid "Need a helping hand with your FOI requests?"
-msgstr ""
+msgstr "Een helpende hand nodig bij je Woo-verzoeken?"
 
 msgid "Need to keep things under wraps?"
 msgstr ""
 
 msgid "Need to keep your requests private?"
-msgstr ""
+msgstr "Wil je je verzoeken privé houden?"
 
 msgid "Need to protect your research?"
-msgstr ""
+msgstr "Wil je je onderzoek beschermen?"
 
 msgid "Need to protect your scoop?"
 msgstr ""
 
 msgid "New Pro accounts this week:"
-msgstr ""
+msgstr "Nieuwe Pro-accounts deze week:"
 
 msgid "New Pro requests this week:"
-msgstr ""
+msgstr "Pro-verzoeken deze week:"
 
 msgid "New Pro subscriptions this week:"
 msgstr ""
@@ -666,10 +666,10 @@ msgid "No bodies selected"
 msgstr "Geen overheidsinstantie geselecteerd "
 
 msgid "No contributors have joined this project yet"
-msgstr ""
+msgstr "Er hebben zich nog geen bijdragers bij dit project aangesloten"
 
 msgid "No more authorities can be added to this batch request."
-msgstr ""
+msgstr "Er kunnen geen instanties meer worden toegevoegd aan dit bulkverzoek."
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
 msgstr ""
@@ -702,10 +702,10 @@ msgid "Number of expired embargoes this week:"
 msgstr ""
 
 msgid "Number of free trial users:"
-msgstr ""
+msgstr "Aantal gebruikers van de gratis proefperiode:"
 
 msgid "Number of paying users:"
-msgstr ""
+msgstr "Aantal betalende gebruikers:"
 
 msgid "On the project"
 msgstr ""
@@ -735,13 +735,13 @@ msgid "Open"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "Opties"
 
 msgid "Overflowing inbox?"
-msgstr ""
+msgstr "Overvolle inbox?"
 
 msgid "Paid"
-msgstr ""
+msgstr "Betaald"
 
 msgid "Payments past due:"
 msgstr ""
@@ -825,16 +825,16 @@ msgid "Professional"
 msgstr ""
 
 msgid "Profile"
-msgstr ""
+msgstr "Profiel"
 
 msgid "Projects"
-msgstr ""
+msgstr "Projecten"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr "Verstrek context bij je verzoek en de reden(en) om het in te dienen."
 
 msgid "Public requests for information"
-msgstr ""
+msgstr "Openbare verzoeken om informatie"
 
 msgid "Publish immediately"
 msgstr "Publiceer onmiddellijk"
@@ -872,13 +872,13 @@ msgid "Reminders"
 msgstr ""
 
 msgid "Remove"
-msgstr ""
+msgstr "Verwijderen"
 
 msgid "Remove question"
-msgstr ""
+msgstr "Vraag verwijderen"
 
 msgid "Remove request"
-msgstr ""
+msgstr "Verzoek verwijderen"
 
 msgid "Remove whole batch"
 msgstr ""
@@ -928,7 +928,7 @@ msgid "Requests that will be made public soon"
 msgstr "Verzoeken die binnenkort zichtbaar worden"
 
 msgid "Researchers"
-msgstr ""
+msgstr "Onderzoekers"
 
 msgid "Response due"
 msgstr "De termijn voor een beslissing loopt af"
@@ -995,7 +995,7 @@ msgstr[0] "Verzend {{count}} aanvraag"
 msgstr[1] "Verstuur {{count}} verzoeken"
 
 msgid "Sending to multiple authorities at once?"
-msgstr ""
+msgstr "Verzenden naar meerdere instanties tegelijk?"
 
 msgid "Sending..."
 msgstr "Wordt verzonden ..."
@@ -1045,7 +1045,7 @@ msgid "Sorry, something went wrong updating your requests' privacy settings, ple
 msgstr "Tot onze spijt ging er iets mis bij het updaten van de privacy-instellingen van je verzoeken, probeer opnieuw."
 
 msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
-msgstr ""
+msgstr "Sorry, je kunt je niet aanmelden bij  {{pro_site_name}} op dit moment."
 
 msgid "Sort by"
 msgstr "Orden op"
@@ -1078,10 +1078,10 @@ msgid "Subscription ends"
 msgstr "Abonnement eindigt"
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Algemene voorwaarden"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
-msgstr ""
+msgstr "Bedankt voor je interesse in {{pro_site_name}}."
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
 msgstr "Bedankt voor het inloggen. We hebben je verzoek als concept opgeslagen, voor het geval je het verzoek pas later wilt versturen. Je kunt dat instellen (of het verzoek onmiddellijk verzenden) via het formulier hieronder"
@@ -1190,7 +1190,7 @@ msgid "To upgrade your account"
 msgstr "Om je account te upgraden"
 
 msgid "Total number of Pro accounts:"
-msgstr ""
+msgstr "Totaal aantal Pro-accounts:"
 
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
 msgstr ""
@@ -1202,10 +1202,10 @@ msgid "Unless you choose a privacy option, your request will be public on {{site
 msgstr "Tenzij je kiest voor afscherming wordt dit verzoek onmiddelijk zichtbaar op {{site_name}}"
 
 msgid "Until that date you will continue to have full access to {{pro_site_name}}."
-msgstr ""
+msgstr "Tot die datum blijf je volledige toegang houden tot {{pro_site_name}}."
 
 msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
-msgstr ""
+msgstr "Actuele database met <strong class=\"marketing-highlight\">contactgegevens </strong> van {{authority_count}} instanties"
 
 msgid "Update"
 msgstr "Update"
@@ -1214,7 +1214,7 @@ msgid "Update Card Details"
 msgstr "Wijzig betaalkaartgegevens"
 
 msgid "Update Project"
-msgstr ""
+msgstr "Project bijwerken"
 
 msgid "Update its status."
 msgid_plural "Update statuses."
@@ -1237,7 +1237,7 @@ msgid "View"
 msgstr "Bekijk "
 
 msgid "View Invoice and Pay"
-msgstr ""
+msgstr "Factuur bekijken en betalen"
 
 msgid "View Receipt"
 msgstr ""
@@ -1246,10 +1246,10 @@ msgid "View authorities"
 msgstr "Bekijk de overheidsinstanties"
 
 msgid "View public requests"
-msgstr ""
+msgstr "Openbare verzoeken bekijken"
 
 msgid "Wall"
-msgstr "Muur"
+msgstr "Overzichtspagina"
 
 msgid "Want to add weight to your campaign?"
 msgstr ""
@@ -1336,7 +1336,7 @@ msgid "You haven't added any authorities to your batch yet"
 msgstr "Je hebt nog geen overheidsinstanties geselecteerd voor je bulkverzoek"
 
 msgid "You haven't added any reqeusts to your project yet"
-msgstr ""
+msgstr "Je hebt nog geen verzoeken aan je project toegevoegd."
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Je kent de oorzaak van de fout en kunt <strong>een oplossing voorstellen</strong>, zoals een werkend e-mailadres."
@@ -1375,7 +1375,7 @@ msgid "Your current subscription"
 msgstr "Je huidige abonnement"
 
 msgid "Your dashboard"
-msgstr "Je dashbooard"
+msgstr "Je dashboard"
 
 msgid "Your draft has been saved!"
 msgstr "Je concept is opgeslagen!"
@@ -1395,7 +1395,7 @@ msgid "Your payment details"
 msgstr "Je betalingsgegevens"
 
 msgid "Your payment details have been updated"
-msgstr ""
+msgstr "Je betalingsgegevens zijn bijgewerkt"
 
 msgid "Your request"
 msgstr "Je verzoek"
@@ -1404,7 +1404,7 @@ msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resen
 msgstr "Je verzoek \"{{info_request_title}}\" aan {{public_body_name}} is opnieuw verstuurd."
 
 msgid "Your request has been updated!"
-msgstr "Je verzoek is geupdate! "
+msgstr "Je verzoek is geüpdatet! "
 
 msgid "Your request is now public!"
 msgstr "Je verzoek is gepubliceerd! "
@@ -1461,7 +1461,7 @@ msgid "last updated"
 msgstr "meest recente update "
 
 msgid "or start a batch request"
-msgstr ""
+msgstr "of start een bulkverzoek"
 
 msgid "per user, every {{interval}}"
 msgstr ""
@@ -1473,7 +1473,7 @@ msgid "requests that will be made public soon"
 msgstr "verzoeken die binnenkort gepubliceerd zullen worden op de site"
 
 msgid "the {{pro_site_name}} team"
-msgstr ""
+msgstr "het {{pro_site_name}}-team"
 
 msgid "the {{site_name}} team"
 msgstr "het {{site_name}} team"
@@ -1554,13 +1554,13 @@ msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time 
 msgstr ""
 
 msgid "{{pro_site_name}} does the hard work for you"
-msgstr ""
+msgstr "{{pro_site_name}} doet het harde werk voor je "
 
 msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
 msgstr ""
 
 msgid "{{pro_site_name}} is here to help"
-msgstr ""
+msgstr "{{pro_site_name}} is hier om te helpen"
 
 msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
 msgstr ""

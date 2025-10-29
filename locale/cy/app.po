@@ -37,6 +37,7 @@
 # skenaja <alex@alexskene.com>, 2011-2012
 # baragouiner <graham.craig@gmail.com>, 2013
 # bc36d957be14c2eb7503c3ffd494e629, 2013
+# Carl Morris <carl@morris.cymru>, 2025
 # Cymrodor <aled@aledpowell.cymru>, 2014,2017
 # Gareth Rees <gareth@mysociety.org>, 2015,2020
 # Graeme Porteous <graeme@mysociety.org>, 2024
@@ -58,7 +59,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-17 12:50+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: PerryX <wyeboy@gmail.com>, 2013\n"
+"Last-Translator: Carl Morris <carl@morris.cymru>, 2025\n"
 "Language-Team: Welsh (http://app.transifex.com/mysociety/alaveteli/language/cy"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +73,9 @@ msgid ""
 "\n"
 "\n"
 "[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr "[Nodyn {{site_name}} : Roedd y testun uchod wedi'i amgodio'n wael, ac mae nodau rhyfedd wedi eu dileu. ]"
+msgstr ""
+"\n"
+"[Nodyn {{site_name}} : Roedd y testun uchod wedi'i amgodio'n wael, ac mae nodau rhyfedd wedi eu dileu. ]"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
 msgstr " (<strong>Dim</strong> gwleidyddiaeth ymfflamychol, darllenwch ein <a href=\"{{url}}\">polisi safoni</a>)"
