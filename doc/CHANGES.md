@@ -113,6 +113,12 @@ enables administrators to analyse outgoing requests using a Large Language Model
 in the backend only. To enable this functionality, you'll need to set up Ollama
 on your infrastructure and configure the `OLLAMA_URL` environment variable.
 
+# 0.45.3.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.45.3.1
 
 ## Highlighted Features
