@@ -19,11 +19,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Check for [skip changelog]
+    - name: Check for skip changelog checkbox
       id: skip
       run: |
         PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
-        if echo "$PR_DESCRIPTION" | grep -q "\[skip changelog\]"; then
+        if echo "$PR_DESCRIPTION" | grep -q "\[x\].*Skip changelog"; then
           echo "skip_changelog=true" >> $GITHUB_OUTPUT
         else
           echo "skip_changelog=false" >> $GITHUB_OUTPUT
@@ -44,9 +44,9 @@ jobs:
       if: ${{ github.event.pull_request.user.login != 'dependabot[bot]' }}
       run: |
         if [[ "${{ steps.skip.outputs.skip_changelog }}" == "true" || "${{ steps.changes.outputs.changes_found }}" == "true" ]]; then
-          echo "Either [skip changelog] was found or doc/CHANGES.md was modified. Passing the action."
+          echo "Either skip changelog checkbox was checked or doc/CHANGES.md was modified. Passing the action."
           exit 0
         else
-          echo "Neither [skip changelog] was found nor was doc/CHANGES.md modified. Failing the action."
+          echo "Neither skip changelog checkbox was checked nor was doc/CHANGES.md modified. Failing the action."
           exit 1
         fi
