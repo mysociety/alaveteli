@@ -31,7 +31,7 @@ class Projects::ClassifiesController < Projects::BaseController
 
     if @submission.save
       flash[:notice] = _('Classification saved successfully!')
-      redirect_to params.fetch(:r, project_classify_path)
+      redirect_to params[:r].presence || project_classify_path
     else
       flash.now[:error] = _("Classification couldn't be saved.")
       render :show
