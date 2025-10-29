@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 12:50+0000\n"
+"POT-Creation-Date: 2025-10-29 13:44+0000\n"
 "PO-Revision-Date: 2017-01-20 17:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,6 +175,9 @@ msgstr "Add authorities to your batch"
 msgid "Add credibility"
 msgstr "Add credibility"
 
+msgid "Add individual requests or entire batches you've created to this project. All items will be organized together for streamlined management, classification, and information extraction."
+msgstr "Add individual requests or entire batches you've created to this project. All items will be organized together for streamlined management, classification, and information extraction."
+
 msgid "Add question"
 msgstr "Add question"
 
@@ -205,8 +208,8 @@ msgstr "All requests within this batch will remain private for the same duration
 msgid "Allow blank"
 msgstr "Allow blank"
 
-msgid "Allow muliple"
-msgstr "Allow muliple"
+msgid "Allow multiple"
+msgstr "Allow multiple"
 
 msgid "Also called {{other_name}}."
 msgstr "Also called {{other_name}}"
@@ -231,6 +234,9 @@ msgstr "Are you sure?"
 
 msgid "Automate FOI request management"
 msgstr "Automate FOI request management"
+
+msgid "Back to project"
+msgstr "Back to project"
 
 msgid "Batch"
 msgstr "Batch"
@@ -271,8 +277,8 @@ msgstr "Billed: every {{interval}}"
 msgid "Billing"
 msgstr "Billing"
 
-msgid "Bringing facts about campagin overspending to light with the privacy features"
-msgstr "Bringing facts about campagin overspending to light with the privacy features"
+msgid "Bringing facts about campaign overspending to light with the privacy features"
+msgstr "Bringing facts about campaign overspending to light with the privacy features"
 
 msgid "Browse by category"
 msgstr "Browse by category"
@@ -322,11 +328,11 @@ msgstr "Choose a duration"
 msgid "Classify responses"
 msgstr "Classify responses"
 
+msgid "Collaborate with others by inviting contributors to help classify and extract data from your requests."
+msgstr "Collaborate with others by inviting contributors to help classify and extract data from your requests."
+
 msgid "Collapse all correspondence"
 msgstr "Collapse all correspondence"
-
-msgid "Confirm your account on {{site_name}}"
-msgstr "Confirm your account on {{site_name}}"
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "Continuing with checkout requires your browser to have JavaScript enabled."
@@ -349,8 +355,14 @@ msgstr "Create Project"
 msgid "Create a new Project"
 msgstr "Create a new Project"
 
+msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+msgstr "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+
 msgid "Created"
 msgstr "Created"
+
+msgid "Customer service was less than expected"
+msgstr "Customer service was less than expected"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -390,6 +402,9 @@ msgstr "Draft"
 
 msgid "Drafts"
 msgstr "Drafts"
+
+msgid "Ease of use was less than expected"
+msgstr "Ease of use was less than expected"
 
 msgid "Edit your project"
 msgstr "Edit your project"
@@ -517,11 +532,20 @@ msgstr "How journalists are using Pro"
 msgid "How researchers are using Pro"
 msgstr "How researchers are using Pro"
 
+msgid "I don't use the service enough"
+msgstr "I don't use the service enough"
+
 msgid "I have read and accepted these terms and conditions"
 msgstr "I have read and accepted these terms and conditions"
 
 msgid "I understand and still want to cancel"
 msgstr "I understand and still want to cancel"
+
+msgid "I'll do this later"
+msgstr "I'll do this later"
+
+msgid "I'm switching to a different service"
+msgstr "I'm switching to a different service"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
 msgstr "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
@@ -555,6 +579,9 @@ msgstr "Invoice {{invoice_number}} for {{invoice_amount}}"
 
 msgid "Invoices"
 msgstr "Invoices"
+
+msgid "It's too expensive"
+msgstr "It's too expensive"
 
 msgid "I’m a campaigner"
 msgstr "I’m a campaigner"
@@ -733,6 +760,9 @@ msgstr "Open"
 msgid "Options"
 msgstr "Options"
 
+msgid "Other reason"
+msgstr "Other reason"
+
 msgid "Overflowing inbox?"
 msgstr "Overflowing inbox?"
 
@@ -762,6 +792,9 @@ msgstr "Please include links to some examples of your journalism or blogging if 
 
 msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
 msgstr "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+
+msgid "Please select a cancellation reason..."
+msgstr "Please select a cancellation reason..."
 
 msgid "Please tell us if you want to get updates"
 msgstr "Please tell us if you want to get updates"
@@ -845,6 +878,9 @@ msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] "Publish this request or keep it private for longer."
 msgstr[1] "Publish these requests or keep them private for longer."
+
+msgid "Quality was less than expected"
+msgstr "Quality was less than expected"
 
 msgid "Read blog"
 msgstr "Read blog"
@@ -1015,6 +1051,9 @@ msgstr "Sign up"
 
 msgid "Simple, affordable pricing"
 msgstr "Simple, affordable pricing"
+
+msgid "Some features are missing"
+msgstr "Some features are missing"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Sorry, no authorities matched that search"
@@ -1191,6 +1230,9 @@ msgstr "Total number of Pro accounts:"
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
 msgstr "Uncovering which UK councils are paying exorbitant LOBO loans"
 
+msgid "Undo"
+msgstr "Undo"
+
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 
@@ -1209,13 +1251,13 @@ msgstr "Update"
 msgid "Update Card Details"
 msgstr "Update Card Details"
 
-msgid "Update Project"
-msgstr "Update Project"
-
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Update its status."
 msgstr[1] "Update statuses."
+
+msgid "Update project"
+msgstr "Update project"
 
 msgid "Updated"
 msgstr "Updated"
@@ -1331,8 +1373,8 @@ msgstr "You have successfully cancelled your subscription to {{pro_site_name}}"
 msgid "You haven't added any authorities to your batch yet"
 msgstr "You haven't added any authorities to your batch yet"
 
-msgid "You haven't added any reqeusts to your project yet"
-msgstr "You haven't added any reqeusts to your project yet"
+msgid "You haven't added any requests to your project yet"
+msgstr "You haven't added any requests to your project yet"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
@@ -1565,5 +1607,5 @@ msgstr "{{public_body_name}} are delayed in responding to your request \"{{info_
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 
-msgid "{{site_name}} Projects is a early beta feature."
-msgstr "{{site_name}} Projects is a early beta feature."
+msgid "{{site_name}} Projects helps manage large FOI investigations by grouping requests, coordinating contributors, and extracting structured data — making complex research faster and more collaborative."
+msgstr "{{site_name}} Projects helps manage large FOI investigations by grouping requests, coordinating contributors, and extracting structured data — making complex research faster and more collaborative."

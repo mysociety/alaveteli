@@ -43,7 +43,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 12:50+0000\n"
+"POT-Creation-Date: 2025-10-29 13:43+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: ΜΑΡΙΑ ΝΑΘΑΝΑΗΛ <memcommunication@gmail.com>, 2021\n"
 "Language-Team: Greek (http://app.transifex.com/mysociety/alaveteli/language/el"
@@ -235,11 +235,14 @@ msgstr "<p>Δεν χρειάζεται να συμπεριλάβετε το emai
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Το αίτημά σας περιλαμβάνει έναν <strong>ταχυδρομικό κωδικό</strong>. Εκτός και αν σχετίζεται άμεσα με το θέμα του αιτήματός σας, παρακαλούμε αφαιρέστε οποιαδήποτε διεύθυνση γιατί <strong>θα εμφανιστεί δημόσια στο Internet</strong>.</p>"
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>Το {{site_name}} βρίσκεται υπό συντήρηση. Μπορείτε μόνο να δείτε υφιστάμενα αιτήματα. Δεν μπορείτε να κάνετε καινούρια, να προσθέσετε σημειώσεις ή να μεταβάλετε το περιεχόμενο της βάσης δεδομένων</p> <p>{{read_only}}</p>"
+msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
+msgstr ""
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>Το {{site_name}} βρίσκεται υπό συντήρηση. Μπορείτε μόνο να δείτε υπάρχουσες αιτήσεις. Δεν μπορείτε να κάνετε καινούριες, να προσθέσετε σημειώσεις ή να μεταβάλλετε το περιεχόμενο της βάσης δεδομένων</p> <p>{{read_only}}</p>"
+msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
+msgstr ""
+
+msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
+msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>Σχόλιο_του:tony_bowden</code></strong> Για να αναζητήσετε σχόλια του Tony Bowden, πληκτρολογήστε το όνομα όπως στο URL."
@@ -280,14 +283,14 @@ msgstr "<strong>Οτιδήποτε άλλο</strong>, όπως διευκριν�
 msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
 msgstr ""
 
+msgid "<strong>Be careful!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>Σύμφωνα με τον νόμο, θα πρέπει να απαντήσουν</strong> (<a href=\"{{url}}\">γιατί;</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong>Μπορώ να ζητήσω πληροφορίες για τον εαυτό μου</strong> <a href=\"{{url}}\">Όχι!</a>"
-
-msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr "<strong>Προειδοποίηση!</strong> Για να χρησιμοποιηθούν αυτά τα δεδομένα έντιμα, θα πρέπει να έχετε καλή γνώση της συμπεριφοράς χρηστών στο {{site_name}}. Πως, γιατί και από ποιόν ταξινομούνται οι αιτήσεις δεν είναι ξεκάθαρο εκ πρώτης όψεως και θα υπάρξουν λάθη χρηστών και ασάφεια. Θα πρέπει επίσης να κατανοήσετε τον νόμο περί ΑΚΕ και πρόσβαση στη ΔΠ, και τον τρόπο που τον χρησιμοποιούν οι αρχές. Επιπλέον θα πρέπει να είστε ένας ικανότατος στατιστικός. Παρακαλούμε <a href=\"{{contact_path}}\">επικοινωνήστε μαζί μας</a> για τυχόν απορίες."
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
 msgstr ""
@@ -301,9 +304,6 @@ msgstr ""
 msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
-msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
-msgstr "<strong>Δημοσιογράφος, Πανεπιστημιακός ή Έμπειρος Χρήστης;</strong>Το {{pro_site_link}} είναι μια ολοκληρωμένη εργαλειοθήκη FOI που περιλαμβάνει όλα όσα χρειάζεστε για να έχετε το πάνω χέρι σε περίπλοκες αναζητήσεις σχετικά με τα αιτήματα κατάθεσης εγγράφων και πρόσβασης στη δημόσια πληροφορία"
-
 msgid "<strong>Keep this passcode safe.</strong> You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
 msgstr ""
 
@@ -313,8 +313,8 @@ msgstr "<strong>Καμία απάντηση</strong> δεν έχει ληφθε�
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Σημείωση:</strong> Επειδή κάνουμε ελέγχους, τα αιτήματα στέλνονται στο {{email}} και όχι στη δημόσια αρχή."
 
-msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr "<strong>Σημείωση:</strong> Θα στείλουμε ένα email στην νέα ηλεκτρονική σας διεύθυνση. Ακολουθήστε τις οδηγίες για να επιβεβαιώσετε την αλλαγή email."
+msgid "<strong>Note:</strong> We will send an email to your old email address. Follow the instructions in it to confirm changing your email."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr "<strong>Σημείωση:</strong> Θα σας στείλουμε ένα email για να επιβεβαιώσουμε ότι είστε ο ιδιοκτήτης αυτού του λογαριασμού. Ακολουθήστε τις οδηγίες σε αυτό για να αλλάξετε τον κωδικό."
@@ -435,6 +435,9 @@ msgstr ""
 
 msgid "Add the authority:"
 msgstr "Δείτε την δημόσια αρχή:"
+
+msgid "Admin"
+msgstr ""
 
 msgid "Advanced search"
 msgstr "Προηγμένη αναζήτηση"
@@ -625,8 +628,17 @@ msgstr ""
 msgid "Banned from this site"
 msgstr "Έχει εκδιωχτεί από αυτό το site"
 
+msgid "Batch FOI requests"
+msgstr ""
+
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Παρτίδα που δημιουργήθηκε από {{info_request_user}} στις {{date}}."
+
+msgid "Batch requests allow multiple recipients of a single request"
+msgstr ""
+
+msgid "Batch requests are part of a new workflow"
+msgstr ""
 
 msgid "Before you start"
 msgstr ""
@@ -687,6 +699,9 @@ msgstr ""
 
 msgid "Can't find the one you want?"
 msgstr "Δεν μπορείτε να βρείτε αυτό που ζητάτε;"
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Ακυρώστε μια ειδοποίηση από το {{site_name}}"
@@ -754,6 +769,21 @@ msgstr "Διευκρίνηση έχει αποσταλεί στο {{public_body_
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Ξεκαθαρίστε το αίτημά σας για κατάθεση εγγράφων και πρόσβαση στη δημόσια πληροφορία - {{request_title}}"
 
+msgid "Classification couldn't be saved."
+msgstr ""
+
+msgid "Classification couldn't be updated."
+msgstr ""
+
+msgid "Classification saved successfully!"
+msgstr ""
+
+msgid "Classification updated successfully!"
+msgstr ""
+
+msgid "Classify"
+msgstr ""
+
 msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Ταξινομήστε το αίτημά σας για κατάθεση εγγράφων και πρόσβαση στη δημόσια πληροφορία - {{request_title}}"
 
@@ -786,6 +816,9 @@ msgstr "Κλείστε το αίτημα και απαντήστε:"
 
 msgid "Collapse all correspondence"
 msgstr "Σύμπτυξη όλης της αλληλογραφίας"
+
+msgid "Comments are not allowed on this request"
+msgstr ""
 
 msgid "Complete"
 msgstr "Ολοκλήρωση"
@@ -876,6 +909,9 @@ msgstr "Δημιουργήστε έναν καινούριο λογαριασμ�
 
 msgid "Create a widget for this request"
 msgstr "Δημιουργήστε ένα widget γι' αυτό το αίτημα "
+
+msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Δημιουργήθηκε από {{info_request_user}} στις {{date}}."
@@ -1081,6 +1117,9 @@ msgstr "Επέκταση όλης της αλληλογραφίας"
 msgid "Explore in Datasette"
 msgstr ""
 
+msgid "Extract"
+msgstr ""
+
 msgid "Extract data"
 msgstr "Εξαγάγετε δεδομένα"
 
@@ -1089,6 +1128,15 @@ msgstr "Εξάγετε σχετικές πληροφορίες από κάθε �
 
 msgid "Extraction couldn't be saved."
 msgstr "Η εξαγωγή δεν μπορούσε να σωθεί. "
+
+msgid "Extraction couldn't be updated."
+msgstr ""
+
+msgid "Extraction saved successfully!"
+msgstr ""
+
+msgid "Extraction updated successfully!"
+msgstr ""
 
 msgid "FOI"
 msgstr "Δικαίωμα Πρόσβασης στη Δημόσια Πληροφορία "
@@ -1126,6 +1174,12 @@ msgstr "Φίλτρο"
 msgid "Filter by Request Status (optional)"
 msgstr "Φίλτρο με Κατάσταση Αίτησης (προαιρετικό)"
 
+msgid "Filter by topic or area of interest"
+msgstr ""
+
+msgid "Filter these requests by keyword, date, or status"
+msgstr ""
+
 msgid "Find an authority"
 msgstr "Βρείτε μια δημόσια αρχή"
 
@@ -1161,9 +1215,6 @@ msgstr "Παρακολουθήστε αυτά τα αιτήματα"
 
 msgid "Follow things matching this search"
 msgstr "Παρακολουθήστε πράγματα που ταιριάζουν με αυτή την αναζήτηση"
-
-msgid "Follow this link to see the request:"
-msgstr "Πατήστε σε αυτό τον σύνδεσμο για να δείτε το αίτημα:"
 
 msgid "Follow this link to see the requests:"
 msgstr "Πατήστε σε αυτόν τον σύνδεσμο για να δείτε τα αιτήματα:"
@@ -1573,6 +1624,9 @@ msgstr "Έγινε μέλος του {{site_name}} το {{year}}"
 msgid "Journalism"
 msgstr ""
 
+msgid "Journalist, Academic or Power User?"
+msgstr ""
+
 msgid "Just one more thing"
 msgstr "Κάτι ακόμα"
 
@@ -1792,6 +1846,9 @@ msgstr "Καλή δουλειά! Τι λέτε να δοκιμάσετε ξαν�
 msgid "No"
 msgstr "Όχι"
 
+msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
+msgstr ""
+
 msgid "No requests of this sort yet."
 msgstr "Δεν υπάρχουν αιτήματα αυτού του τύπου ακόμα."
 
@@ -1998,6 +2055,9 @@ msgstr "Παρακαλώ επιλέξτε τον παρακάτω σύνδεσμ
 
 msgid "Please click on the link below to stop these emails."
 msgstr "Κάντε κλικ στον παρακάτω σύνδεσμο για να σταματήσετε αυτά τα μηνύματα να έρχονται στο ηλεκτρονικό ταχυδρομείο."
+
+msgid "Please correct the errors below"
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Παρακαλούμε δημιουργήστε ένα λογαριασμό ή συνδεθείτε"
@@ -2310,6 +2370,9 @@ msgstr "Καταγγελία σχολίου"
 msgid "Report annotation on request: {{title}}"
 msgstr "Καταγγελία σχολίου επί του αιτήματος: {{title}}"
 
+msgid "Report inappropriate content"
+msgstr ""
+
 msgid "Report request"
 msgstr "Αναφορά αιτήματος"
 
@@ -2535,6 +2598,9 @@ msgstr "Αποστολή μηνύματος στον {{user_name}}"
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Αποστολή μηνύματος στον {{user_name}} για να δείτε πως δουλεύει"
 
+msgid "Sending to multiple authorities at once?"
+msgstr ""
+
 msgid "Sending..."
 msgstr "Αποστολή..."
 
@@ -2665,9 +2731,6 @@ msgstr "Μερικοί άνθρωποι που έχουν κάνει αιτήμ�
 msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "Κάποιος προσέθεσε ένα σημείωμα στο αίτημά σας για κατάθεση εγγράφων και πρόσβαση στη δημόσια πληροφορία {{request_title}}"
 
-msgid "Someone has updated the status of your request"
-msgstr "Κάποιος/-α έχει ενημερώσει την κατάσταση του αιτήματος σας."
-
 msgid "Someone, perhaps you, just tried to change their email address on {{site_name}} from {{old_email}} to {{new_email}}."
 msgstr "Κάποιος, πιθανά εσείς, μόλις προσπάθησε να αλλάξει τη διεύθυνση ηλεκτρονικού ταχυδρομείου στο {{site_name}} από {{old_email}} σε {{new_email}}."
 
@@ -2677,8 +2740,8 @@ msgstr "Συγγνώμη - δεν μπορείτε να απαντήσετε σ�
 msgid "Sorry, '{{authority_name}}' has been marked as defunct, which means we can no longer process requests to them. You may need to check whether their responsibilities have been taken over by a different authority."
 msgstr "Λυπούμαστε, '{{authority_name}}' εμφανίζεται ως αδρανής, ως εκ τούτου δεν είμαστε πλέον σε θέση να επεξεργαζόμαστε αιτήματα προς την αρχή αυτή. Θα πρέπει ίσως να ελέγξετε αν κάποια άλλη αρχή ανέλαβε τις αρμοδιότητες τους, "
 
-msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr "Λυπούμαστε, αλλά μόνο ο/η {{user_name}}  επιτρέπεται να το κάνει αυτό. "
+msgid "Sorry, but only {{user_name}} can do that."
+msgstr ""
 
 msgid "Sorry, there was a problem processing this page"
 msgstr "Λυπούμαστε, υπήρξε πρόβλημα στην επεξεργασία της σελίδας"
@@ -2760,6 +2823,9 @@ msgstr "Υποβάλλετε την κατάσταση και στείλτε μ�
 
 msgid "Subscribe to blog"
 msgstr "Εγγραφείτε στο blog"
+
+msgid "Subscribe to {{pro_site_name}}"
+msgstr ""
 
 msgid "Subscription cancelled"
 msgstr "Η συνδρομή ακυρώθηκε"
@@ -3040,12 +3106,6 @@ msgstr "Μπορείτε να ταξινομήσετε την απάντηση �
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Τότε μπορείτε να κατεβάσετε ένα αρχείο zip της {{info_request_title}}."
 
-msgid "Then you can join this project"
-msgstr "Στη συνέχεια, μπορείτε να συμμετάσχετε σε αυτό το έργο"
-
-msgid "Then you can leave this project"
-msgstr "Στη συνέχεια, μπορείτε να εγκαταλείψετε αυτό το έργο"
-
 msgid "Then you can log into the administrative interface"
 msgstr "Τότε μπορείτε να συνδεθείτε στην κονσόλα διαχειριστή"
 
@@ -3064,8 +3124,8 @@ msgstr "Τότε μπορείτε να συνδεθείτε στο {{site_name}}
 msgid "Then you can update the status of your request to {{authority_name}}."
 msgstr "Στη συνέχεια μπορείτε να ενημερώσετε την κατάσταση της αίτησης στο {{authority_name}}."
 
-msgid "Then you can upload an FOI response. "
-msgstr "Τότε μπορείτε να ανεβάσετε μία απάντηση στο Αίτημα Κατάθεσης Εγγράφων και Πρόσβασης στη Δημόσια Πληροφορία."
+msgid "Then you can upload an FOI response."
+msgstr ""
 
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr "Τότε, μπορείτε να γράψετε ένα μήνυμα συνέχειας στο {{authority_name}}."
@@ -3127,6 +3187,9 @@ msgstr "Υπάρχει ένα όριο στον αριθμό αιτημάτων 
 msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
 msgstr ""
 
+msgid "There is also a limit on the speed at which you are able to create requests. Please try again later if you have not hit your daily limit."
+msgstr ""
+
 msgid "There is nothing to display yet."
 msgstr "Δεν υπάρχει τίποτα για να εμφανιστεί ακόμα."
 
@@ -3180,6 +3243,9 @@ msgstr "Αυτός ο λογαριασμός έχει κλείσει."
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "Το σχόλιο αυτό έχει παραπεμφθεί προς έλεγχο από τον διαχειριστή "
+
+msgid "This annotation on was already made on {{date}}"
+msgstr ""
 
 msgid "This attachment has been hidden. {{reason}}"
 msgstr ""
@@ -3410,7 +3476,7 @@ msgstr "Για να παρακολουθήσετε αιτήσεις μέσω τ�
 msgid "To follow the request '{{request_title}}'"
 msgstr "Για να παρακολουθήσετε την αίτηση '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help on this project"
 msgstr ""
 
 msgid "To join this project"
@@ -3460,6 +3526,9 @@ msgstr "Για να χρησιμοποιήσετε την προηγμένη α�
 
 msgid "To view the response, click on the link below."
 msgstr "Για να δείτε την απάντηση, κάντε κλικ στον παρακάτω σύνδεσμο."
+
+msgid "To view this project"
+msgstr ""
 
 msgid "To view your two factor authentication details"
 msgstr "Δείτε λεπτομέρειες για την ταυτοποίησή σας."
@@ -3578,6 +3647,12 @@ msgstr "Καταργήστε την εγγραφή"
 msgid "Unusual response"
 msgstr "Ασυνήθιστη απάντηση"
 
+msgid "Update classification"
+msgstr ""
+
+msgid "Update data"
+msgstr ""
+
 msgid "Update dataset"
 msgstr ""
 
@@ -3605,6 +3680,9 @@ msgstr "Χρησιμοποιείστε αποσπάσματα όταν θέλε�
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Χρησιμοποιήστε αυτόν τον ιστότοπο για να υποβάλετε το αίτημά σας για πληροφορίες – θα σας δείξουμε πώς."
 
+msgid "User-to-user messaging has been disabled."
+msgstr ""
+
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Οι χρήστες/-ριες συνήθως δεν μπορούν να κάνουν πολλαπλά αιτήματα σε πολλές αρχές ταυτόχρονα, επειδή δεν θέλουμε οι δημόσιες αρχές να βομβαρδίζονται με μεγάλο αριθμό ακατάλληλων αιτημάτων. Παρακαλούμε <a href=\"{{url}}\">επικοινωνήστε μαζί μας </a>αν νομίζετε ότι έχετε καλό λόγο να στείλετε το ίδιο αίτημα σε πολλές αρχές ταυτόχρονα."
 
@@ -3616,6 +3694,9 @@ msgstr "Ενοχλητικό"
 
 msgid "Vexatious annotation"
 msgstr "Κακόβουλος σχολιασμός"
+
+msgid "View"
+msgstr ""
 
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Δείτε τα Αιτήματα Κατάθεσης Εγγράφων και Πρόσβασης στη Δημόσια Πληροφορία από {{user_name}}"
@@ -3677,9 +3758,6 @@ msgstr ""
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Δεν διαθέτουμε έγκυρη  {{law_used_full}} διεύθυνση για {{public_body_name}}."
 
-msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
-msgstr ""
-
 msgid "We don't know the delivery status for this message."
 msgstr "Δεν γνωρίζουμε το καθεστώς παράδοσης του παρόντος μηνύματος."
 
@@ -3719,6 +3797,9 @@ msgstr "Είμαστε ευτυχείς που πήρατε μερικές απ�
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Είμαστε ευτυχείς που πήρατε μερικές από τις πληροφορίες που θέλατε. Εάν βρήκατε το {{site_name}} χρήσιμο, <a href=\"{{donation_url}}\">κάντε μια δωρεά </a>στον οργανισμό που το τρέχει. "
 
+msgid "We're still preparing this attachment. The page will reload automatically once it's ready."
+msgstr ""
+
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgstr[0] "Περιμένουμε κάποιον να διαβάσει τις πρόσφατες απαντήσεις και να ενημερώσει ανάλογα την κατάσταση. Ίσως <strong>θα θέλατε </strong>να βοηθήσετε κάνοντας αυτό;"
@@ -3732,8 +3813,8 @@ msgstr[1] "Περιμένουμε τον/ην {{user}} να διαβάσει τ�
 msgid "We've received a delivery status notification from the mailserver belonging to the authority."
 msgstr "Λάβαμε ειδοποίηση παράδοσης από τον εξυπηρετητή ηλεκτρονικής αλληλογραφίας της αρχής."
 
-msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
-msgstr "Σας έχουμε στείλει ένα email στη νέα σας διεύθυνση ηλεκτρονικού ταχυδρομείου. Θα χρειαστεί να κάνετε κλικ στον σύνδεσμο μέσα σε αυτό προτού η ηλεκτρονική σας διεύθυνση αλλάξει."
+msgid "We've sent an email to your old email address. You'll need to click the link in it before your email address will be changed."
+msgstr ""
 
 msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
 msgstr "Στείλαμε το μήνυμα αλλά δεν έχουμε λάβει ειδοποίηση λήψης από τον εξυπηρετητή ηλεκτρονικής αλληλογραφίας της αρχής. Η ειδοποίηση είναι πιθανόν να καθυστερήσει."
@@ -3957,8 +4038,8 @@ msgstr "Βρήκατε ένα σφάλμα. Παρακαλούμε <a href=\"{{c
 msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
 msgstr ""
 
-msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr "Φτάσατε το όριο νέων αιτημάτων. Οι χρήστες/-ριες συνήθως περιορίζονται σε {{max_requests_per_user_per_day}} αιτήματα σε κάθε 24ωρο. Θα μπορείτε να καταθέσετε νέο αίτημα σε {{can_make_another_request}}."
+msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period."
+msgstr ""
 
 msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
 msgstr ""
@@ -4093,6 +4174,9 @@ msgid "Your Freedom of Information request"
 msgid_plural "Your Freedom of Information requests (approximately {{count}})"
 msgstr[0] "Τα αιτήματά σας για την ελευθερία της πληροφόρησης"
 msgstr[1] "Τα Αιτήματά σας Κατάθεσης Εγγράφων και Πρόσβασης στη Δημόσια Πληροφορία (κατά προσέγγιση {{count}})"
+
+msgid "Your account on {{site_name}}"
+msgstr ""
 
 msgid "Your annotations"
 msgstr "Οι σημειώσεις σας"
@@ -4603,6 +4687,9 @@ msgid_plural "{{number_of_requests}} requests left to categorise / {{total_numbe
 msgstr[0] "{{number_of_requests}} εναπομείναν αίτημα προς ταξινόμηση / {{total_number_of_requests}} σύνολο"
 msgstr[1] "{{number_of_requests}} εναπομείναντα αιτήματα προς ταξινόμηση / {{total_number_of_requests}} σύνολο"
 
+msgid "{{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "{{pro_site_name}} Terms"
 msgstr "{{pro_site_name}} όροι"
 
@@ -4666,6 +4753,9 @@ msgstr[0] "Το {{site_name}} καλύπτει αιτήματα προς {{numbe
 msgstr[1] "Το {{site_name}} καλύπτει αιτήματα προς {{number_of_authorities}} αρχές, συμπεριλαμβανομένων:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} is currently in maintenance. {{message}}"
 msgstr ""
 
 msgid "{{site_name}} login link"

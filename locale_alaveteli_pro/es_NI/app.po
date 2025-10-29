@@ -5,14 +5,15 @@
 #
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
+# Graeme Porteous <graeme@mysociety.org>, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 12:50+0000\n"
+"POT-Creation-Date: 2025-10-29 13:44+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>, 2017\n"
+"Last-Translator: Graeme Porteous <graeme@mysociety.org>, 2025\n"
 "Language-Team: Spanish (Nicaragua) (https://app.transifex.com/mysociety/teams/"
 "33529/es_NI/)\n"
 "MIME-Version: 1.0\n"
@@ -180,6 +181,9 @@ msgstr "Añadir Entidad a su Grupo"
 msgid "Add credibility"
 msgstr ""
 
+msgid "Add individual requests or entire batches you've created to this project. All items will be organized together for streamlined management, classification, and information extraction."
+msgstr ""
+
 msgid "Add question"
 msgstr ""
 
@@ -210,7 +214,7 @@ msgstr ""
 msgid "Allow blank"
 msgstr ""
 
-msgid "Allow muliple"
+msgid "Allow multiple"
 msgstr ""
 
 msgid "Also called {{other_name}}."
@@ -235,6 +239,9 @@ msgid "Are you sure?"
 msgstr ""
 
 msgid "Automate FOI request management"
+msgstr ""
+
+msgid "Back to project"
 msgstr ""
 
 msgid "Batch"
@@ -276,7 +283,7 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
-msgid "Bringing facts about campagin overspending to light with the privacy features"
+msgid "Bringing facts about campaign overspending to light with the privacy features"
 msgstr ""
 
 msgid "Browse by category"
@@ -327,10 +334,10 @@ msgstr "Elige una duración"
 msgid "Classify responses"
 msgstr ""
 
-msgid "Collapse all correspondence"
+msgid "Collaborate with others by inviting contributors to help classify and extract data from your requests."
 msgstr ""
 
-msgid "Confirm your account on {{site_name}}"
+msgid "Collapse all correspondence"
 msgstr ""
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
@@ -354,8 +361,14 @@ msgstr ""
 msgid "Create a new Project"
 msgstr ""
 
+msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+msgstr ""
+
 msgid "Created"
 msgstr "Creado"
+
+msgid "Customer service was less than expected"
+msgstr ""
 
 msgid "Dashboard"
 msgstr "Tablero"
@@ -395,6 +408,9 @@ msgstr "Borrador"
 
 msgid "Drafts"
 msgstr "Borradores"
+
+msgid "Ease of use was less than expected"
+msgstr ""
 
 msgid "Edit your project"
 msgstr ""
@@ -522,10 +538,19 @@ msgstr ""
 msgid "How researchers are using Pro"
 msgstr ""
 
+msgid "I don't use the service enough"
+msgstr ""
+
 msgid "I have read and accepted these terms and conditions"
 msgstr ""
 
 msgid "I understand and still want to cancel"
+msgstr ""
+
+msgid "I'll do this later"
+msgstr ""
+
+msgid "I'm switching to a different service"
 msgstr ""
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
@@ -559,6 +584,9 @@ msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
 msgid "Invoices"
+msgstr ""
+
+msgid "It's too expensive"
 msgstr ""
 
 msgid "I’m a campaigner"
@@ -738,6 +766,9 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
+msgid "Other reason"
+msgstr ""
+
 msgid "Overflowing inbox?"
 msgstr ""
 
@@ -766,6 +797,9 @@ msgid "Please include links to some examples of your journalism or blogging if y
 msgstr ""
 
 msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+msgstr ""
+
+msgid "Please select a cancellation reason..."
 msgstr ""
 
 msgid "Please tell us if you want to get updates"
@@ -851,6 +885,9 @@ msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] "Publique estas solicitudes o manténgalas privadas por más tiempo."
 msgstr[1] "Publique estas solicitudes o manténgalas privadas por más tiempo."
 msgstr[2] "Publique estas solicitudes o manténgalas privadas por más tiempo."
+
+msgid "Quality was less than expected"
+msgstr ""
 
 msgid "Read blog"
 msgstr "Leer el blog"
@@ -1022,6 +1059,9 @@ msgid "Sign up"
 msgstr ""
 
 msgid "Simple, affordable pricing"
+msgstr ""
+
+msgid "Some features are missing"
 msgstr ""
 
 msgid "Sorry, no authorities matched that search"
@@ -1200,6 +1240,9 @@ msgstr ""
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
 msgstr ""
 
+msgid "Undo"
+msgstr ""
+
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr ""
 
@@ -1218,14 +1261,14 @@ msgstr "Actualizar"
 msgid "Update Card Details"
 msgstr ""
 
-msgid "Update Project"
-msgstr ""
-
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "Actualizar Status"
 msgstr[1] "Actualizar Status"
 msgstr[2] "Actualizar Status"
+
+msgid "Update project"
+msgstr ""
 
 msgid "Updated"
 msgstr "Actualizar"
@@ -1341,11 +1384,11 @@ msgstr ""
 msgid "You haven't added any authorities to your batch yet"
 msgstr "Todavía no has añadido ninguna entidad a tu grupo"
 
-msgid "You haven't added any reqeusts to your project yet"
+msgid "You haven't added any requests to your project yet"
 msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr "Sabes lo que causó el error, y puedes <strong> sugerir una solución </ strong>, como una dirección de correo electrónico que funcione."
+msgstr "Sabes lo que causó el error, y puedes <strong> sugerir una solución</strong>, como una dirección de correo electrónico que funcione."
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "Enviaste una aclaración a {{public_body_name}} para \"{{info_request_title}}\"."
@@ -1575,10 +1618,10 @@ msgid "{{pro_site_name}} moves request handling out of your email and onto a ded
 msgstr ""
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
-msgstr "{{Public_body_name}} se demoran en responder a su solicitud \"{{info_request_title}}\"."
+msgstr "{{public_body_name}} se demoran en responder a su solicitud \"{{info_request_title}}\"."
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
-msgstr "{{Public_body_name}} tardó mucho tiempo en responder a su solicitud \"{{info_request_title}}\"."
+msgstr "{{public_body_name}} tardó mucho tiempo en responder a su solicitud \"{{info_request_title}}\"."
 
-msgid "{{site_name}} Projects is a early beta feature."
+msgid "{{site_name}} Projects helps manage large FOI investigations by grouping requests, coordinating contributors, and extracting structured data — making complex research faster and more collaborative."
 msgstr ""

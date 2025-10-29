@@ -57,9 +57,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 12:50+0000\n"
+"POT-Creation-Date: 2025-10-29 13:43+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Carl Morris <carl@morris.cymru>, 2025\n"
+"Last-Translator: PerryX <wyeboy@gmail.com>, 2013\n"
 "Language-Team: Welsh (http://app.transifex.com/mysociety/alaveteli/language/cy"
 "/)\n"
 "MIME-Version: 1.0\n"
@@ -249,10 +249,13 @@ msgstr "<p>Does dim rhaid i chi roi'ich cyfeiriad yn y cais er mwyn cael ymateb,
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Mae'ch cais yn cynnwys <strong>cod post</strong>. Oni bai ei fod o'n ymwneud yn uniongyrchol â'r cais, dilewch unrhyw gyfeiriad os gwelwch yn dda, oherwydd y bydd yn <strong>ymddangos yn gyhoeddus ar y Rhyngrwyd</strong>.</p>"
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>Mae {{site_name}} ar hyn o bryd yn cael ei chynnal a chadw. Gweld y ceisiadau presennol yn unig y gallwch. Ni allwch wneud rhai newydd, ychwanegu straenon dilynol neu anodiadau, neu newid y gronfa ddata mewn ffordd arall.</p> <p>{{read_only}}</p>"
+msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
+msgstr ""
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
+msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
+msgstr ""
+
+msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
 msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
@@ -294,14 +297,14 @@ msgstr "<strong>Unrhywbeth arall</strong>, megis egluro, annog, diolch"
 msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
 msgstr ""
 
+msgid "<strong>Be careful!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr ""
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "<strong>A gaf i wneud cais am wybodaeth amdanaf fi fy hun?</strong> <a href=\"{{url}}\">Na chewch! (Cliciwch yma am fanylion)</a>"
-
-msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr "<strong>Caveat Emptor!</strong> Er mwyn defnyddio'r data hwn mewn ffordd anrhydeddus, bydd angen gwybodaeth fewnol dda o ymddygiad defnyddwyr ar {{site_name}}. Nid yw sut, pam a chan bwy y bydd ceisiadau yn cael eu categoreiddio yn syml, a bydd gwallau defnyddiwr ac amwysedd. Bydd angen i chi hefyd ddeall cyfraith Rhyddid Gwybodaeth, a sut y mae awdurdodau yn ei defnyddio. Yn ogystal bydd angen i chi fod yn ystadegydd prin. <a href=\"{{contact_path}}\">Cysylltwch â ni</a> gyda chwestiynau."
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
 msgstr ""
@@ -315,9 +318,6 @@ msgstr ""
 msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
-msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
-msgstr ""
-
 msgid "<strong>Keep this passcode safe.</strong> You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
 msgstr ""
 
@@ -327,8 +327,8 @@ msgstr "<strong>Does dim ymateb</strong> wedi cael ei dderbyn  <small>(efallai n
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Nodyn:</strong> Oherwydd ein bod yn profi, mae ceisiadau yn cael eu hanfon at {{email}} yn hytrach nag at yr awdurdod ei hun."
 
-msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr "<strong>Nodyn:</strong>  Byddwn yn anfon e-bost at eich cyfeiriad e-bost newydd. Dilynwch y cyfarwyddiadau ynddo i gadarnhau newid eich e-bost."
+msgid "<strong>Note:</strong> We will send an email to your old email address. Follow the instructions in it to confirm changing your email."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr ""
@@ -449,6 +449,9 @@ msgstr ""
 
 msgid "Add the authority:"
 msgstr "Ychwanegu'r awdurdod:"
+
+msgid "Admin"
+msgstr ""
 
 msgid "Advanced search"
 msgstr "Chwilio manwl"
@@ -639,8 +642,17 @@ msgstr ""
 msgid "Banned from this site"
 msgstr "Wedi ei wahardd o'r safle hwn"
 
+msgid "Batch FOI requests"
+msgstr ""
+
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Swp a grëwyd gan {{info_request_user}} ar {{date}}."
+
+msgid "Batch requests allow multiple recipients of a single request"
+msgstr ""
+
+msgid "Batch requests are part of a new workflow"
+msgstr ""
 
 msgid "Before you start"
 msgstr ""
@@ -701,6 +713,9 @@ msgstr ""
 
 msgid "Can't find the one you want?"
 msgstr "Methu dod o hyd i'r un sy eisiau arnoch?"
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Canslo rhybudd {{site_name}}"
@@ -768,6 +783,21 @@ msgstr "Eglurhad a anfonwyd at {{public_body_name}} gan {{info_request_user}} ar
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Eglurwch eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
+msgid "Classification couldn't be saved."
+msgstr ""
+
+msgid "Classification couldn't be updated."
+msgstr ""
+
+msgid "Classification saved successfully!"
+msgstr ""
+
+msgid "Classification updated successfully!"
+msgstr ""
+
+msgid "Classify"
+msgstr ""
+
 msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Dosbarthwch ymateb Rh.G. oddiwrth {{authority_name}}"
 
@@ -799,6 +829,9 @@ msgid "Close the request and respond:"
 msgstr "Cau'r cais ac ymateb:"
 
 msgid "Collapse all correspondence"
+msgstr ""
+
+msgid "Comments are not allowed on this request"
 msgstr ""
 
 msgid "Complete"
@@ -890,6 +923,9 @@ msgstr "Creu cyfrif newydd"
 
 msgid "Create a widget for this request"
 msgstr "Creu teclyn ar gyfer y cais hwn"
+
+msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Crëwyd gan {{info_request_user}} ar {{date}}."
@@ -1095,6 +1131,9 @@ msgstr ""
 msgid "Explore in Datasette"
 msgstr ""
 
+msgid "Extract"
+msgstr ""
+
 msgid "Extract data"
 msgstr ""
 
@@ -1102,6 +1141,15 @@ msgid "Extract relevant information from each successful freedom of information 
 msgstr ""
 
 msgid "Extraction couldn't be saved."
+msgstr ""
+
+msgid "Extraction couldn't be updated."
+msgstr ""
+
+msgid "Extraction saved successfully!"
+msgstr ""
+
+msgid "Extraction updated successfully!"
 msgstr ""
 
 msgid "FOI"
@@ -1140,6 +1188,12 @@ msgstr "Hidlo"
 msgid "Filter by Request Status (optional)"
 msgstr ""
 
+msgid "Filter by topic or area of interest"
+msgstr ""
+
+msgid "Filter these requests by keyword, date, or status"
+msgstr ""
+
 msgid "Find an authority"
 msgstr "Dewiswch yr awdurdod i ysgrifennu ato"
 
@@ -1175,9 +1229,6 @@ msgstr "Dilynwch y ceisiadau hyn"
 
 msgid "Follow things matching this search"
 msgstr "Dilynwch bethau sy'n matsio'r chwiliad hwn"
-
-msgid "Follow this link to see the request:"
-msgstr "Dilynwch y ddolen hon i weld y cais:"
 
 msgid "Follow this link to see the requests:"
 msgstr "Dilynwch y ddolen hon i weld y ceisiadau:"
@@ -1588,6 +1639,9 @@ msgstr "Ymunodd â(g) {{site_name}} yn {{year}}"
 msgid "Journalism"
 msgstr ""
 
+msgid "Journalist, Academic or Power User?"
+msgstr ""
+
 msgid "Just one more thing"
 msgstr "Dim ond un peth arall"
 
@@ -1807,6 +1861,9 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
+msgstr ""
+
 msgid "No requests of this sort yet."
 msgstr "Dim ceisiadau o'r math hwn eto."
 
@@ -2012,6 +2069,9 @@ msgid "Please click on the link below to confirm your email address."
 msgstr "Cliciwch ar y ddolen isod i gadarnhau eich cyfeiriad e-bost."
 
 msgid "Please click on the link below to stop these emails."
+msgstr ""
+
+msgid "Please correct the errors below"
 msgstr ""
 
 msgid "Please create an account or sign in"
@@ -2325,6 +2385,9 @@ msgstr ""
 msgid "Report annotation on request: {{title}}"
 msgstr ""
 
+msgid "Report inappropriate content"
+msgstr ""
+
 msgid "Report request"
 msgstr "Rhoi gwybod am gais"
 
@@ -2550,6 +2613,9 @@ msgstr "Anfon neges i {{user_name}}"
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Anfon neges i {{user_name}} dim ond i weld sut mae'n gweithio"
 
+msgid "Sending to multiple authorities at once?"
+msgstr ""
+
 msgid "Sending..."
 msgstr "Yn anfon..."
 
@@ -2682,9 +2748,6 @@ msgstr "Nid yw rhai pobl sydd wedi gwneud ceisiadau wedi rhoi gwybod i ni a oedd
 msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "Ychwanegodd rhywun nodyn at eich cais Rhyddid Gwybodaeth - {{request_title}}"
 
-msgid "Someone has updated the status of your request"
-msgstr "Mae rhywun wedi diweddaru statws eich cais"
-
 msgid "Someone, perhaps you, just tried to change their email address on {{site_name}} from {{old_email}} to {{new_email}}."
 msgstr "Mae rhywun, efallai chi, newydd geisio newid eu cyfeiriad e-bost ar {{site_name}} o {{old_email}} i {{new_email}}."
 
@@ -2694,8 +2757,8 @@ msgstr "Mae'n ddrwg gennym - ni allwch ymateb i'r cais hwn trwy {{site_name}}, g
 msgid "Sorry, '{{authority_name}}' has been marked as defunct, which means we can no longer process requests to them. You may need to check whether their responsibilities have been taken over by a different authority."
 msgstr ""
 
-msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr "Mae'n ddrwg gennym, ond dim ond {{user_name}} sy'n cael gwneud hynny."
+msgid "Sorry, but only {{user_name}} can do that."
+msgstr ""
 
 msgid "Sorry, there was a problem processing this page"
 msgstr "Mae'n ddrwg gennym, roedd problem wrth brosesu'r dudalen hon"
@@ -2777,6 +2840,9 @@ msgstr "Cyflwyno statws ac anfon neges"
 
 msgid "Subscribe to blog"
 msgstr "Tanysgrifio i flog"
+
+msgid "Subscribe to {{pro_site_name}}"
+msgstr ""
 
 msgid "Subscription cancelled"
 msgstr ""
@@ -3057,12 +3123,6 @@ msgstr "Yna gallwch ddosbarthu'r ymateb Rhyddid Gwybodaeth yr ydych wedi'i gael 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Yna gallwch lawrlwytho ffeil zip o {{info_request_title}}."
 
-msgid "Then you can join this project"
-msgstr ""
-
-msgid "Then you can leave this project"
-msgstr ""
-
 msgid "Then you can log into the administrative interface"
 msgstr "Yna gallwch logio i mewn i'r rhyngwyneb gweinyddol"
 
@@ -3081,8 +3141,8 @@ msgstr "Yna gallwch lofnodi i mewn i {{site_name}}"
 msgid "Then you can update the status of your request to {{authority_name}}."
 msgstr "Yna gallwch ddiweddaru statws eich cais i {{authority_name}}."
 
-msgid "Then you can upload an FOI response. "
-msgstr "Yna gallwch lwytho ymateb Rhyddid Gwybodaeth i fyny. "
+msgid "Then you can upload an FOI response."
+msgstr ""
 
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr ""
@@ -3144,6 +3204,9 @@ msgstr "Mae cyfyngiad ar y nifer o geisiadau y gallwch eu gwneud mewn diwrnod, o
 msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
 msgstr ""
 
+msgid "There is also a limit on the speed at which you are able to create requests. Please try again later if you have not hit your daily limit."
+msgstr ""
+
 msgid "There is nothing to display yet."
 msgstr "Does dim i'w ddangos eto."
 
@@ -3196,6 +3259,9 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This annotation on was already made on {{date}}"
 msgstr ""
 
 msgid "This attachment has been hidden. {{reason}}"
@@ -3429,7 +3495,7 @@ msgstr "I ddilyn ceisiadau a wnaed gan ddefnyddio {{site_name}} i'r awdurdod cyh
 msgid "To follow the request '{{request_title}}'"
 msgstr "I ddilyn y cais '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help on this project"
 msgstr ""
 
 msgid "To join this project"
@@ -3479,6 +3545,9 @@ msgstr "I ddefnyddio'r chwiliad uwch, cyfunwch ymadroddion a labeli fel y'i disg
 
 msgid "To view the response, click on the link below."
 msgstr "I weld yr ymateb, cliciwch ar y ddolen isod."
+
+msgid "To view this project"
+msgstr ""
 
 msgid "To view your two factor authentication details"
 msgstr ""
@@ -3597,6 +3666,12 @@ msgstr "Dad-danysgrifio"
 msgid "Unusual response"
 msgstr "Ymateb anarferol"
 
+msgid "Update classification"
+msgstr ""
+
+msgid "Update data"
+msgstr ""
+
 msgid "Update dataset"
 msgstr ""
 
@@ -3624,6 +3699,9 @@ msgstr "Defnyddiwch ddyfynodau pan fyddwch am ddod o hyd i'r union ymadrodd, ee 
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr ""
 
+msgid "User-to-user messaging has been disabled."
+msgstr ""
+
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Ni all defnyddwyr fel arfer wneud ceisiadau swp i awdurdodau lluosog yr un pryd oherwydd nad ydym am i awdurdodau cyhoeddus gael eu peledu â niferoedd mawr o geisiadau amhriodol. Cysylltwch <a href=\"{{url}}\">â ni</a> os ydych yn meddwl bod gennych reswm da i anfon yr un cais i lawer o awdurdodau lluosog ar yr un pryd."
 
@@ -3634,6 +3712,9 @@ msgid "Vexatious"
 msgstr "Blinderus"
 
 msgid "Vexatious annotation"
+msgstr ""
+
+msgid "View"
 msgstr ""
 
 msgid "View Freedom of Information requests made by {{user_name}}:"
@@ -3696,9 +3777,6 @@ msgstr ""
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nid oes gennym gyfeiriad {{law_used_full}} sy'n gweithio ar gyfer {{public_body_name}}."
 
-msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
-msgstr ""
-
 msgid "We don't know the delivery status for this message."
 msgstr ""
 
@@ -3738,6 +3816,9 @@ msgstr "Rydym yn falch i chi gael rhywfaint o'r wybodaeth oedd arnoch ei heisiau
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Rydym yn falch i chi gael rhywfaint o'r wybodaeth oedd arnoch ei heisiau. Os cawsoch {{site_name}} yn ddefnyddiol, <a href=\"{{donation_url}}\">gwnewch gyfraniad</a> i'r elusen sy'n gyfrifol amdani.</p> <p>Os ydych am geisio cael gweddill y wybodaeth, dyma beth i'w wneud yn awr."
 
+msgid "We're still preparing this attachment. The page will reload automatically once it's ready."
+msgstr ""
+
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgstr[0] ""
@@ -3751,8 +3832,8 @@ msgstr[1] ""
 msgid "We've received a delivery status notification from the mailserver belonging to the authority."
 msgstr ""
 
-msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
-msgstr "Rydyn ni wedi anfon e-bost i'ch cyfeiriad e-bost newydd. Bydd angen i chi glicio ar y ddolen yn cyn y bydd eich cyfeiriad e-bost yn cael ei newid."
+msgid "We've sent an email to your old email address. You'll need to click the link in it before your email address will be changed."
+msgstr ""
 
 msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
 msgstr ""
@@ -3976,8 +4057,8 @@ msgstr "Rydych wedi dod o hyd i fyg. <a href=\"{{contact_url}}\">Cysylltwch  â 
 msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
 msgstr ""
 
-msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr "Rydych chi wedi cyrraedd y terfyn cyfradd ar geisiadau newydd. Fel arfer cyfyngir defnyddwyr i {{max_requests_per_user_per_day}}  cais mewn unrhyw gyfnod treigl 24-awr. Byddwch yn gallu gwneud cais arall ymhen {{can_make_another_request}}."
+msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period."
+msgstr ""
 
 msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
 msgstr ""
@@ -4112,6 +4193,9 @@ msgid "Your Freedom of Information request"
 msgid_plural "Your Freedom of Information requests (approximately {{count}})"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Your account on {{site_name}}"
+msgstr ""
 
 msgid "Your annotations"
 msgstr "Eich anodiadau"
@@ -4640,6 +4724,9 @@ msgid_plural "{{number_of_requests}} requests left to categorise / {{total_numbe
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "{{pro_site_name}} Terms"
 msgstr ""
 
@@ -4703,6 +4790,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} is currently in maintenance. {{message}}"
 msgstr ""
 
 msgid "{{site_name}} login link"
