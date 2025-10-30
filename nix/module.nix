@@ -76,10 +76,20 @@ let
     with lib.strings;
     (builtins.head (splitString "." (lib.last (splitString "/" cfg.theme.url))));
 
+  defaultThemePackage = pkgs.stdenvNoCC.mkDerivation {
+    pname = themeName;
+    version = "0.0.1";
+    src = cfg.theme.files;
+    # this is to prevent weird errors when there is a Makefile
+    # in the theme folder
+    buildPhase = "echo 'skipping buildPhase'";
+    installPhase = "cp -R . $out";
+  };
+
   themePackage =
     if themeName == "alavetelitheme" then
       pkgs.stdenvNoCC.mkDerivation {
-        pname = lib.trace themeName "alavetelitheme";
+        pname = "alavetelitheme";
         version = "9426f758";
         src = pkgs.fetchFromGitHub {
           owner = "mysociety";
@@ -218,6 +228,7 @@ in
         };
         package = lib.mkOption {
           type = lib.types.package;
+          default = defaultThemePackage;
         };
         gemfile = lib.mkOption {
           type = with lib.types; nullOr path;
