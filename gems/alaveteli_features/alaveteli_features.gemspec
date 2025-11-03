@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails", ">= 8.0.1", "< 8.1.0"
+  spec.add_dependency "rails", ">= 8.0.1", "< 8.2.0"
   spec.add_dependency "flipper", "~> 1.3.2"
   spec.add_dependency "flipper-active_record", "~> 1.3.2"
   # Mime types 3 needs Ruby 2.0.0 or greater, but we need to support 1.9.3 so
