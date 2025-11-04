@@ -4,7 +4,7 @@ class RemoveInfoRequestEventParamsYaml < ActiveRecord::Migration[7.0]
       raise <<~TXT
         We can't run the RemoveInfoRequestEventParamsYaml database migration.
 
-        We have dectected InfoRequestEvent objects which haven't been migrated
+        We have detected InfoRequestEvent objects which haven't been migrated
         to the new JSONB params column.
 
         Please deploy Alaveteli 0.42.0.0 and run the upgrade tasks:

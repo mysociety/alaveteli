@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -12,7 +11,7 @@
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00.000000000 GMT +00:00)
+#  last_daily_track_email            :datetime
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string
@@ -37,19 +36,28 @@
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
+#  status_update_count               :integer          default(0), not null
+#  last_sign_in_at                   :datetime
 #
 
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include LinkToHelper
+
+  include Taggable
+
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
+
   include User::Authentication
+  include User::InternalAdmin
+  include User::LimitedProfile
   include User::LoginToken
   include User::OneTimePassword
   include User::Slug
   include User::SpreadableAlerts
   include User::Survey
-  include Rails.application.routes.url_helpers
-  include LinkToHelper
+  include User::Unused
 
   DEFAULT_CONTENT_LIMITS = {
     info_requests: AlaveteliConfiguration.max_requests_per_user_per_day,
@@ -57,7 +65,9 @@ class User < ApplicationRecord
     user_messages: AlaveteliConfiguration.max_requests_per_user_per_day
   }.freeze
 
-  cattr_accessor :content_limits, default: DEFAULT_CONTENT_LIMITS
+  cattr_accessor :content_limits,
+                 instance_writer: false,
+                 default: DEFAULT_CONTENT_LIMITS
 
   rolify before_add: :setup_pro_account,
          after_add: :assign_role_features,
@@ -143,13 +153,17 @@ class User < ApplicationRecord
            inverse_of: :user,
            dependent: :destroy
   has_many :track_things_sent_emails,
+           inverse_of: :user,
            dependent: :destroy
   has_many :announcements,
            inverse_of: :user
   has_many :announcement_dismissals,
            inverse_of: :user,
            dependent: :destroy
-  has_many :memberships, class_name: 'Project::Membership'
+  has_many :memberships,
+           inverse_of: :user,
+           dependent: :destroy,
+           class_name: 'Project::Membership'
   has_many :projects, through: :memberships do
     def owner
       unscope(:joins).joins(:owner_membership)
@@ -167,6 +181,12 @@ class User < ApplicationRecord
 
   has_many :user_messages,
            -> { order(created_at: :desc) },
+           inverse_of: :user,
+           dependent: :destroy
+
+  has_many :email_histories,
+           -> { order(changed_at: :desc) },
+           class_name: 'User::EmailHistory',
            inverse_of: :user,
            dependent: :destroy
 
@@ -259,25 +279,10 @@ class User < ApplicationRecord
     where('lower(email) = lower(?)', email.strip).first
   end
 
-  # The "internal admin" is a special user for internal use.
-  def self.internal_admin_user
-    user = find_by(email: AlaveteliConfiguration.contact_email)
-    return user if user
-
-    password = PostRedirect.generate_random_token
-
-    create!(
-      name: 'Internal admin user',
-      email: AlaveteliConfiguration.contact_email,
-      password: password,
-      password_confirmation: password
-    )
-  end
-
   # Should the user be kept logged into their own account
   # if they follow a /c/ redirect link belonging to another user?
-  def self.stay_logged_in_on_redirect?(user)
-    user&.is_admin?
+  def stay_logged_in_on_redirect?
+    is_admin?
   end
 
   def self.record_bounce_for_email(email, message)
@@ -387,6 +392,10 @@ class User < ApplicationRecord
     is_admin?
   end
 
+  def admin?
+    is_admin? || is_pro_admin?
+  end
+
   def can_admin_roles
     roles.
       flat_map { |role| Role.grants_and_revokes(role.name.to_sym) }.
@@ -435,6 +444,7 @@ class User < ApplicationRecord
     transaction do
       slugs.destroy_all
       sign_ins.destroy_all
+      email_histories.destroy_all
       profile_photo&.destroy!
 
       outgoing_messages.update!(
@@ -487,25 +497,38 @@ class User < ApplicationRecord
     'normal'
   end
 
-  # Various ways the user can be banned, and text to describe it if failed
-  def can_file_requests?
-    active? && !exceeded_limit?(:info_requests)
+  def no_limit?
+    super || is_admin? || is_pro_admin?
   end
 
-  def can_make_followup?
-    active?
+  def exceeded_request_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    exceeded_limit?(:info_requests) ||
+      InfoRequest.exceeded_creation_rate?(info_requests)
   end
 
-  def can_make_comments?
-    return false unless active?
-    return true if no_limit? || is_admin? || is_pro_admin?
+  def exceeded_followup_limits?
+    return true if suspended?
+    return false if no_limit?
 
-    !exceeded_limit?(:comments) &&
-      !Comment.exceeded_creation_rate?(comments)
+    false
   end
 
-  def can_contact_other_users?
-    active? && !exceeded_limit?(:user_messages)
+  def exceeded_comment_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    exceeded_limit?(:comments) ||
+      Comment.exceeded_creation_rate?(comments)
+  end
+
+  def exceeded_user_message_limits?
+    return true if suspended?
+    return false if no_limit?
+
+    exceeded_limit?(:user_messages)
   end
 
   def exceeded_limit?(content)
@@ -520,23 +543,6 @@ class User < ApplicationRecord
         count
 
     recent_content >= content_limit(content)
-  end
-
-  def next_request_permitted_at
-    return nil if no_limit
-
-    n_most_recent_requests =
-      InfoRequest.
-        where(["user_id = ? AND created_at > now() - '1 day'::interval", id]).
-          order(created_at: :desc).
-            limit(AlaveteliConfiguration.max_requests_per_user_per_day)
-
-    if n_most_recent_requests.size < AlaveteliConfiguration.max_requests_per_user_per_day
-      return nil
-    end
-
-    nth_most_recent_request = n_most_recent_requests[-1]
-    nth_most_recent_request.created_at + 1.day
   end
 
   def can_fail_html
@@ -568,7 +574,11 @@ class User < ApplicationRecord
   end
 
   def show_profile_photo?
-    active? && profile_photo
+    active? && profile_photo.present? && !limited_profile?
+  end
+
+  def show_about_me?
+    active? && about_me.present? && !limited_profile?
   end
 
   def about_me_already_exists?
@@ -621,7 +631,7 @@ class User < ApplicationRecord
   end
 
   def indexed_by_search?
-    email_confirmed && active?
+    email_confirmed && active? && info_requests.any?
   end
 
   # Notify a user about an info_request_event, allowing the user's preferences
@@ -678,6 +688,15 @@ class User < ApplicationRecord
     [
       user_path(self)
     ]
+  end
+
+  def info_request_count_changed
+    xapian_mark_needs_index
+  end
+
+  def record_sign_in(*args)
+    sign_ins.create(*args)
+    touch(:last_sign_in_at)
   end
 
   private

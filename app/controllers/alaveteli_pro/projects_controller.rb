@@ -3,7 +3,7 @@
 #
 class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   skip_before_action :html_response, only: [
-    :update_resources, :update_key_set, :update_contributors
+    :update, :update_resources, :update_key_set, :update_contributors
   ]
 
   before_action :find_project, only: [
@@ -69,9 +69,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
       order(:title, :id).
       paginate(page: current_page, per_page: PER_PAGE)
 
-    respond_to do |format|
-      format.turbo_stream
-    end
+    render current_edit_step
   end
 
   def edit_key_set
@@ -86,19 +84,28 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     @key_set = @project.key_set || @project.build_key_set
     @key_set.keys.build if @key_set.keys.empty? || params[:new]
     @keys = @key_set.keys
+
+    render current_edit_step
   end
 
   def edit_contributors
-    @contributors = @project.contributors.
-      order(:name, :id).
-      distinct
+    @memberships = @project.contributor_memberships.
+      joins(:user).
+      select('DISTINCT ON (users.name, user_id) *').
+      order('users.name', 'user_id').
+      eager_load(:user)
+    @contributor_ids = @memberships.pluck(:user_id)
   end
 
   def update_contributors
-    @contributors = @project.contributors.
-      where(id: project_params[:contributor_ids]).
-      order(:name, :id).
-      distinct
+    @memberships = @project.contributor_memberships.
+      joins(:user).
+      select('DISTINCT ON (users.name, user_id) *').
+      order('users.name', 'user_id').
+      eager_load(:user)
+    @contributor_ids = project_params[:contributor_ids].map(&:to_i)
+
+    render current_edit_step
   end
 
   private
@@ -118,20 +125,27 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   end
   helper_method :current_step
 
-  def pending_steps
-    return [] unless session[:new_project]
+  def current_edit_step
+    current_step.sub(/^update_/, 'edit_')
+  end
 
-    steps = []
-    steps << 'edit' unless @project.persisted?
-    steps << 'edit_resources' unless @project.info_requests.any?
-    steps << 'edit_key_set' unless @project.key_set.present?
-    steps << 'edit_contributors' if current_step != 'edit_contributors'
-    steps
+  def steps
+    %w[edit_resources edit_key_set edit_contributors]
   end
 
   def next_step
-    pending_steps.first
+    current_step_index = steps.index(current_step)
+    return steps.first unless current_step_index
+
+    steps[current_step_index + 1]
   end
+
+  def next_step_path
+    return project_path unless next_step
+
+    url_for(action: next_step, id: @project.to_param)
+  end
+  helper_method :next_step_path
 
   def project_params
     case current_step
@@ -143,7 +157,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
         key_set_attributes: [
           :id, keys_attributes: [
             :id, :title, :format, :order, :_destroy, options: [
-              :select_allow_blank, :select_allow_muliple, { select_options: [] }
+              :select_allow_blank, :select_allow_multiple, { select_options: [] }
             ]
           ]
         ]
@@ -152,7 +166,7 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
       params.fetch(:project, {}).permit(contributor_ids: []).
         with_defaults(contributor_ids: [])
     when 'invite'
-      { regenerate_invite_token: true }
+      { invite_token_action: 'regenerate' }
     else
       params.require(:project).permit(:title, :briefing)
     end
@@ -161,8 +175,8 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   def redirect_to_next_step(**args)
     if current_step == 'invite'
       redirect_to action: 'edit_contributors', id: @project.to_param
-    elsif next_step
-      redirect_to action: next_step, id: @project.to_param
+    elsif session[:new_project] && next_step
+      redirect_to next_step_path
     else
       session.delete(:new_project)
       redirect_to @project, **args

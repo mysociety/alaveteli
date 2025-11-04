@@ -12,6 +12,13 @@
 # Default values for these settings can be found in
 # RAILS_ROOT/lib/configuration.rb
 #
+#
+# WARNING: AlaveteliConfiguration is rendered to admin users in
+#          Admin::DebugController.
+#
+# Ensure any sensitive values are matched by
+# AlaveteliConfiguration.sensitive_key_patterns
+#
 # ==============================================================================
 
 # Site name appears in various places throughout the site
@@ -456,15 +463,37 @@ SECRET_KEY_BASE: 'your secret key here, make it long and random'
 # checks in a few obvious places. Typically, you do not want to run your site
 # in read-only mode.
 #
-# READ_ONLY - String (default: nil)
+# READ_ONLY - String (default: '')
 #
-# Examples:
-#
+# Simple read-only mode that blocks all write operations:
 #   READ_ONLY: 'The site is not currently accepting requests while we move the
 #   server.'
 #
 # ---
 READ_ONLY: ''
+
+# READ_ONLY_FEATURES - Array of strings (default: [])
+#
+# Granular read-only control for specific features. This allows you to disable
+# specific functionality without putting the entire site in read-only mode.
+#
+# Available features:
+#   'annotations'     - Blocks annotations on requests
+#   'classifications' - Blocks request status classifications
+#   'followups'       - Blocks followup messages on requests
+#   'requests'        - Blocks new FOI requests
+#   'signups'         - Blocks new user registration
+#
+# Examples:
+#
+# Block only new requests:
+#   READ_ONLY_FEATURES: ['requests']
+#
+# Block new requests and annotations:
+#   READ_ONLY_FEATURES: ['requests', 'annotations']
+#
+# ---
+READ_ONLY_FEATURES: []
 
 # Is this a staging or development site? If not, it's a live production site.
 # This setting controls whether or not the rails-post-deploy script will create
@@ -656,8 +685,7 @@ GA_CODE: ''
 # ---
 OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 
-# Search path for external commandline utilities (such as pdftohtml, pdftk,
-# unrtf).
+# Search path for external commandline utilities (such as pdftk, unrtf).
 # When set to an empty array the the standard environment PATH will be used to
 # search for external commandline utilities.
 #
@@ -986,12 +1014,16 @@ BLOCK_SPAM_REQUESTS: false
 # If set, requests from IP addresses in the countries specified will be
 # prevented from making new requests on the site.
 #
+# Country codes can be prefixed with ! to invert the list from restricted
+# to permitted (i.e., only allow requests from the specified countries).
+#
 # RESTRICTED_COUNTRIES – String of space-separated uppercase ISO Alpha-2 codes
 # (default '')
 #
 # Examples:
 #
-#    RESTRICTED_COUNTRIES: 'GB ES'
+#    RESTRICTED_COUNTRIES: 'GB ES'     # Block GB and ES
+#    RESTRICTED_COUNTRIES: '!GB !ES'   # Only allow GB and ES
 #
 # ---
 RESTRICTED_COUNTRIES: ''
@@ -1312,3 +1344,24 @@ SURVEY_URL: ''
 #
 # ---
 USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0
+
+# If ENABLE_PUBLIC_ANNOTATIONS is set to true, comments (annotations) will
+# be allowed on all requests regardless of who made the request.
+#
+# If set to false, comments will only be allowed by the requester or admin
+# users.
+#
+# ENABLE_PUBLIC_ANNOTATIONS - Boolean (default: true)
+#
+# ---
+ENABLE_PUBLIC_ANNOTATIONS: true
+
+# If ENABLE_USER_TO_USER_MESSAGING is set to true, Alaveteli will allow users
+# to send messages to each other through the site.
+#
+# If set to false, user-to-user messaging functionality will be disabled.
+#
+# ENABLE_USER_TO_USER_MESSAGING- Boolean (default: true)
+#
+# ---
+ENABLE_USER_TO_USER_MESSAGING: true

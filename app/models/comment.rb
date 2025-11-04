@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210114052
 #
 # Table name: comments
 #
@@ -24,18 +23,7 @@ class Comment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
-  DEFAULT_CREATION_RATE_LIMITS = {
-    1 => 2.seconds,
-    2 => 5.minutes,
-    4 => 30.minutes,
-    6 => 1.hour
-  }.freeze
-
-  cattr_accessor :creation_rate_limits,
-                 instance_reader: false,
-                 instance_writer: false,
-                 instance_accessor: false,
-                 default: DEFAULT_CREATION_RATE_LIMITS
+  include RateLimited
 
   strip_attributes allow_empty: true
 
@@ -52,8 +40,9 @@ class Comment < ApplicationRecord
            inverse_of: :comment,
            dependent: :destroy
 
-  validate :check_body_has_content,
-           :check_body_uses_mixed_capitals
+  validates :body, presence: { message: _('Please enter your annotation') }
+  validate :check_body_uses_mixed_capitals
+  validate :no_duplicate_comment
 
   scope :visible, -> {
     joins(:info_request).
@@ -98,14 +87,6 @@ class Comment < ApplicationRecord
       # For other databases (e.g. SQLite) not the end of the world being
       # space-sensitive for this check
       Comment.where(info_request_id: info_request_id, body: body).first
-    end
-  end
-
-  def self.exceeded_creation_rate?(comments)
-    comments = comments.reorder(created_at: :desc)
-
-    creation_rate_limits.any? do |limit, duration|
-      comments.where(created_at: duration.ago..).size >= limit
     end
   end
 
@@ -218,17 +199,21 @@ class Comment < ApplicationRecord
 
   private
 
-  def check_body_has_content
-    if body.empty? || body =~ /^\s+$/
-      errors.add(:body, _('Please enter your annotation'))
-    end
+  def check_body_uses_mixed_capitals
+    return if !body || MySociety::Validate.uses_mixed_capitals(body)
+
+    msg = _('Please write your annotation using a mixture of capital and ' \
+            'lower case letters. This makes it easier for others to read.')
+    errors.add(:body, msg)
   end
 
-  def check_body_uses_mixed_capitals
-    unless MySociety::Validate.uses_mixed_capitals(body)
-      msg = _('Please write your annotation using a mixture of capital and ' \
-              'lower case letters. This makes it easier for others to read.')
-      errors.add(:body, msg)
-    end
+  def no_duplicate_comment
+    return unless body && info_request_id
+
+    existing = Comment.find_existing(info_request_id, body)
+    return unless existing && existing != self
+
+    errors.add(:body, _('This annotation on was already made on {{date}}',
+               date: existing.created_at.strftime("%d %B %Y")))
   end
 end

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210120801
 #
 # Table name: incoming_messages
 #
@@ -55,6 +54,10 @@ FactoryBot.define do
 
     trait :hidden do
       prominence { 'hidden' }
+    end
+
+    trait :with_text_attachment do
+      foi_attachments_factories { [[:body_text]] }
     end
 
     trait :with_html_attachment do

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220928093559
 #
 # Table name: info_requests
 #
@@ -185,6 +184,7 @@ FactoryBot.define do
 
     trait :re_embargoed do
       after(:create) do |info_request, _evaluator|
+        info_request.log_event('set_embargo', {})
         info_request.log_event('expire_embargo', {})
         create(:embargo, info_request: info_request)
         info_request
@@ -193,7 +193,8 @@ FactoryBot.define do
 
     trait :embargo_expired do
       after(:create) do |info_request, _evaluator|
-        info_request.log_event('expire_embargo', info_request: info_request)
+        info_request.log_event('set_embargo', {})
+        info_request.log_event('expire_embargo', {})
         info_request.reload
       end
     end

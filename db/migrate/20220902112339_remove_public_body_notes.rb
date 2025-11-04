@@ -4,7 +4,7 @@ class RemovePublicBodyNotes < ActiveRecord::Migration[6.1]
       raise <<~TXT
         We can't run the RemovePublicBodyNotes database migration.
 
-        We have dectected PublicBody::Translation objects which haven't been
+        We have detected PublicBody::Translation objects which haven't been
         migrated to the new Note model.
 
         Please deploy Alaveteli 0.42.0.0 and run the upgrade tasks:

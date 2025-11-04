@@ -20,9 +20,7 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
       web: _('To signup to {{site_name}}',
              site_name: pro_site_name),
       email: _('Then you can activate your {{site_name}} account',
-               site_name: pro_site_name),
-      email_subject: _('Confirm your account on {{site_name}}',
-                       site_name: pro_site_name)
+               site_name: pro_site_name)
     )
   end
 

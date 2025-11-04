@@ -18,7 +18,7 @@
               <li><%= link_to 'Summary', admin_general_index_path %></li>
               <li><%= link_to 'Timeline', admin_timeline_path %></li>
               <li><%= link_to 'Stats', admin_stats_path %></li>
-              <li><%= link_to 'Debug', admin_debug_path %></li>
+              <li><%= link_to 'Debug', admin_debug_index_path %></li>
             </ul>
           </li>
 
@@ -30,6 +30,7 @@
               <li><%= link_to 'Categories', admin_categories_path(model_type: 'InfoRequest') %></li>
               <li><%= link_to 'Tags', admin_tags_path(model_type: 'InfoRequest') %></li>
               <li><%= link_to 'Citations', admin_citations_path %></li>
+              <% if feature_enabled?(:projects) && can?(:admin, Project) %><li><%= link_to 'Projects', admin_projects_path %></li><% end %>
               <% if feature_enabled?(:refusal_snippets) %><li><%= link_to 'Snippets', admin_snippets_path %></li><% end %>
             </ul>
           </li>
@@ -48,6 +49,7 @@
             <ul class="dropdown-menu" role="menu">
               <li><%= link_to 'Users', admin_users_path %></li>
               <li><%= link_to 'Tracks', admin_tracks_path %></li>
+              <li><%= link_to 'Tags', admin_tags_path(model_type: 'User') %></li>
             </ul>
           </li>
 

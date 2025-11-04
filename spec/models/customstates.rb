@@ -28,7 +28,7 @@ module InfoRequestCustomStates
 
   def date_deadline_extended
     # TODO: shouldn't this be 15 days after the date the status was
-    # changed to "deadline extended"? Or perhaps 15 days ater the
+    # changed to "deadline extended"? Or perhaps 15 days after the
     # initial request due date?
     Holiday.due_date_from_working_days(date_response_required_by, 15)
   end

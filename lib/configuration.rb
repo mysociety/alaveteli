@@ -13,6 +13,14 @@ MySociety::Config.load_default
 # TODO: Make this return different values depending on the current rails environment
 
 module AlaveteliConfiguration
+  # WARNING: AlaveteliConfiguration is rendered to admin users in
+  #          Admin::DebugController.
+  #
+  # Ensure any sensitive values match this pattern, or add to the pattern if
+  # adding a new value that doesn't fit.
+  mattr_accessor :sensitive_key_patterns,
+                 default: /SECRET|PASSWORD|LICENSE_KEY/
+
   unless const_defined?(:DEFAULTS)
 
     # rubocop:disable Layout/LineLength
@@ -44,10 +52,12 @@ module AlaveteliConfiguration
       ENABLE_ALAVETELI_PRO: false,
       ENABLE_ANNOTATIONS: true,
       ENABLE_ANTI_SPAM: false,
+      ENABLE_PUBLIC_ANNOTATIONS: true,
       ENABLE_PROJECTS: false,
       ENABLE_PRO_PRICING: false,
       ENABLE_PRO_SELF_SERVE: false,
       ENABLE_TWO_FACTOR_AUTH: false,
+      ENABLE_USER_TO_USER_MESSAGING: true,
       ENABLE_WIDGETS: false,
       EXCEPTION_NOTIFICATIONS_FROM: 'errors@localhost',
       EXCEPTION_NOTIFICATIONS_TO: 'user-support@localhost',
@@ -92,6 +102,7 @@ module AlaveteliConfiguration
       PUBLIC_BODY_STATISTICS_PAGE: false,
       RAW_EMAILS_LOCATION: 'files/raw_emails',
       READ_ONLY: '',
+      READ_ONLY_FEATURES: [],
       RECAPTCHA_SECRET_KEY: 'x',
       RECAPTCHA_SITE_KEY: 'x',
       REPLY_LATE_AFTER_DAYS: 20,
@@ -155,6 +166,14 @@ module AlaveteliConfiguration
       end
     else
       super
+    end
+  end
+
+  def self.to_sanitized_hash
+    DEFAULTS.keys.each_with_object({}) do |key, memo|
+      value = send(key)
+      value = '[FILTERED]' if value.present? && key =~ sensitive_key_patterns
+      memo[key] = value
     end
   end
 end

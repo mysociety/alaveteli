@@ -7,6 +7,7 @@ class UserSpamScorer
     email_from_suspicious_domain?: 5,
     email_from_spam_domain?: 8,
     email_from_spam_tld?: 3,
+    email_is_spam_format?: 3,
     name_is_spam_format?: 5,
     about_me_includes_currency_symbol?: 2,
     about_me_is_link_only?: 3,
@@ -68,6 +69,7 @@ class UserSpamScorer
        webgarden.cz
        wgz.cz
        wowmailing.com).freeze
+  DEFAULT_SPAM_EMAIL_FORMATS = [].freeze
   DEFAULT_SPAM_NAME_FORMATS = [
     /\A.*bitcoin.*\z/i,
     /\A.*currency.*\z/i,
@@ -98,12 +100,20 @@ class UserSpamScorer
                       :score_mappings,
                       :suspicious_domains,
                       :spam_domains,
+                      :spam_email_formats,
                       :spam_name_formats,
                       :spam_about_me_formats,
                       :spam_score_threshold,
                       :spam_tlds,
                       :suspicious_user_agents,
                       :suspicious_ip_ranges].freeze
+
+  # Custom scoring methods registry
+  @custom_scoring_methods = {}
+
+  def self.custom_scoring_methods
+    @custom_scoring_methods ||= {}
+  end
 
   # Class attribute accessors
   CLASS_ATTRIBUTES.each do |key|
@@ -122,6 +132,18 @@ class UserSpamScorer
     CLASS_ATTRIBUTES.each do |key|
       instance_variable_set("@#{ key }", const_get("DEFAULT_#{ key }".upcase))
     end
+
+    old_methods = custom_scoring_methods.keys
+    custom_scoring_methods.clear
+
+    CLASS_ATTRIBUTES + old_methods
+  end
+
+  def self.register_custom_scoring_method(method_name, score_value, method_proc)
+    custom_scoring_methods[method_name] = {
+      score: score_value,
+      proc: method_proc
+    }
   end
 
   # Instance attribute accessors
@@ -133,6 +155,11 @@ class UserSpamScorer
     CLASS_ATTRIBUTES.each do |key|
       instance_variable_set("@#{ key }", opts.fetch(key, self.class.send(key)))
     end
+
+    @score_mappings ||= []
+    self.class.custom_scoring_methods.each do |method_name, config|
+      @score_mappings = @score_mappings.merge(method_name => config[:score])
+    end
   end
 
   def spam?(user)
@@ -140,11 +167,19 @@ class UserSpamScorer
   end
 
   def score(user)
-    return 0 if user.comments.any? || user.track_things.any?
-
     score_mappings.inject(0) do |score_count, score_mapping|
-      if send(score_mapping.first, user)
-        score_count + score_mapping.last
+      method_name = score_mapping.first
+      score_value = score_mapping.last
+
+      result = if self.class.custom_scoring_methods.key?(method_name)
+                 config = self.class.custom_scoring_methods[method_name]
+                 config[:proc].call(user)
+               else
+                 send(method_name, user)
+               end
+
+      if result
+        score_count + score_value
       else
         score_count
       end
@@ -177,6 +212,10 @@ class UserSpamScorer
 
   def email_from_spam_tld?(user)
     spam_tlds.any? { |tld| user.email_domain.split('.').last == tld }
+  end
+
+  def email_is_spam_format?(user)
+    spam_email_formats.any? { |regexp| user.email =~ regexp }
   end
 
   def name_is_spam_format?(user)

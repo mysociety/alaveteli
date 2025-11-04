@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: raw_emails
 #
@@ -109,6 +108,10 @@ class RawEmail < ApplicationRecord
 
   def subject
     MailHandler.get_subject(mail)
+  end
+
+  def storage_key
+    file.blob.key if file&.attached?
   end
 
   private

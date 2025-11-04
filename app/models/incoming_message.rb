@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210120801
 #
 # Table name: incoming_messages
 #
@@ -38,8 +37,9 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
-  include CacheAttributesFromRawEmail
   include Taggable
+
+  include IncomingMessage::CacheAttributesFromRawEmail
 
   UnableToExtractAttachments = Class.new(StandardError)
 
@@ -310,7 +310,7 @@ class IncomingMessage < ApplicationRecord
     end
 
     # apply masks for this message
-    text = apply_masks(text, 'text/html')
+    text = apply_masks(text, 'text/html') unless get_main_body_text_part&.locked?
 
     # Remove existing quoted sections
     folded_quoted_text = remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
@@ -473,17 +473,26 @@ class IncomingMessage < ApplicationRecord
 
     # Purge old public attachments that will be rebuilt with a new hexdigest
     old_attachments = (foi_attachments - attachments)
-    hidden_old_attachments = old_attachments.reject { _1.is_public? }
 
-    if hidden_old_attachments.any?
-      # if there are hidden attachments error as we don't want to re-build and
-      # lose the prominence as this will make them public
+    non_public_old_attachments = old_attachments.reject(&:is_public?)
+    if non_public_old_attachments.any?
+      # if there are non public attachments error as we don't want to re-build
+      # and lose the prominence as this will make them public
       raise UnableToExtractAttachments, "unable to extract attachments due " \
         "to prominence of attachments " \
-        "(ID=#{hidden_old_attachments.map(&:id).join(', ')})"
-    else
-      old_attachments.each(&:mark_for_destruction)
+        "(ID=#{non_public_old_attachments.map(&:id).join(', ')})"
     end
+
+    locked_old_attachments = old_attachments.select(&:locked?)
+    if locked_old_attachments.any?
+      # if there are locked attachments error as we don't want to re-build and
+      # lose any changes made outside Alaveteli
+      raise UnableToExtractAttachments, "unable to extract attachments due " \
+        "to locked attachments " \
+        "(ID=#{locked_old_attachments.map(&:id).join(', ')})"
+    end
+
+    old_attachments.each(&:mark_for_destruction)
   end
 
   # Returns body text as HTML with quotes flattened, and emails removed.
@@ -547,7 +556,6 @@ class IncomingMessage < ApplicationRecord
   # Returns text version of attachment text
   def get_attachment_text_full
     text = _get_attachment_text_internal
-    text = apply_masks(text, 'text/html')
 
     # This can be useful for memory debugging
     #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
@@ -574,19 +582,19 @@ class IncomingMessage < ApplicationRecord
     cached_attachment_text_clipped
   end
 
-  def _extract_text
+  def _get_attachment_text_internal
     # Extract text from each attachment
     get_attachments_for_display.reduce('') { |memo, attachment|
       return memo if Ability.guest.cannot?(:read, attachment)
 
-      memo += MailHandler.get_attachment_text_one_file(attachment.content_type,
-                                                       attachment.default_body,
-                                                       attachment.charset)
-    }
-  end
+      text = MailHandler.get_attachment_text_one_file(
+        attachment.content_type, attachment.default_body, attachment.charset
+      )
+      text = convert_string_to_utf8(text, 'UTF-8').string
+      text = apply_masks(text, 'text/html') unless attachment.locked?
 
-  def _get_attachment_text_internal
-    convert_string_to_utf8(_extract_text, 'UTF-8').string
+      memo += text
+    }
   end
 
   # Returns text for indexing
@@ -642,6 +650,17 @@ class IncomingMessage < ApplicationRecord
 
   def refusals?
     refusals.any?
+  end
+
+  def locked?
+    foi_attachments.locked.any?
+  end
+
+  def storage_keys
+    keys = {}
+    keys[:raw_email] = raw_email.storage_key
+    keys[:attachments] = foi_attachments.map(&:storage_key)
+    keys
   end
 
   private

@@ -393,15 +393,15 @@ module MailHandler
         end
       end
 
-      def attachment_body_for_hexdigest(mail, hexdigest:)
+      def attachment_attributes_for_hexdigest(mail, hexdigest:)
         attributes = get_attachment_attributes(mail).find do |attrs|
           attrs[:hexdigest] == hexdigest
         end
 
-        return attributes.fetch(:body) if attributes
-
-        raise MismatchedAttachmentHexdigest,
+        attributes || raise(
+          MismatchedAttachmentHexdigest,
           "can't find attachment matching hexdigest: #{hexdigest}"
+        )
       end
 
       def attempt_to_find_original_attachment_attributes(mail, body:, nested: false)

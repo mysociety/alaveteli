@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210114052
 #
 # Table name: comments
 #
@@ -224,6 +223,17 @@ RSpec.describe Comment do
       comment.destroy
       events.select { |event| event.reload && event.persisted? }
       expect(events).to be_empty
+    end
+  end
+
+  describe 'get_body_for_html_display' do
+    subject { comment.get_body_for_html_display }
+
+    let(:comment) { FactoryBot.build(:comment) }
+
+    it "adds anchors with rel nofollow links to plain text links" do
+      comment.body = link = "http://example.com"
+      is_expected.to include(%Q[<a href="#{link}" rel="nofollow">#{link}</a>])
     end
   end
 

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210120801
 #
 # Table name: incoming_messages
 #
@@ -59,7 +58,7 @@ RSpec.describe IncomingMessage do
 
     it { is_expected.to be_valid }
 
-    it 'requires info_reqeust' do
+    it 'requires info_request' do
       incoming_message.info_request = nil
       expect(incoming_message).not_to be_valid
     end
@@ -439,16 +438,6 @@ RSpec.describe IncomingMessage do
   end
 
   describe '#get_attachment_text_full' do
-    it 'strips null bytes from the extracted clipped text' do
-      message = FactoryBot.create(:incoming_message)
-      FactoryBot.
-        create(:body_text, body: "hi\u0000", incoming_message: message)
-      message.reload
-      expect(message.get_attachment_text_clipped).to eq("hi\n\n")
-    end
-  end
-
-  describe '#_extract_text' do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
       FactoryBot.create(:body_text,
@@ -461,8 +450,86 @@ RSpec.describe IncomingMessage do
                         url_part_number: 3)
       message.reload
 
-      expect { message._extract_text }.
+      expect { message.get_attachment_text_full }.
         to_not raise_error
+    end
+
+    it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
+      im = FactoryBot.create(:incoming_message, :with_text_attachment)
+      allow(im.foi_attachments.last).to receive(:default_body).
+        and_return("\xBF")
+
+      expect(im.get_attachment_text_full.valid_encoding?).to be true
+    end
+
+    context 'when censor rules apply' do
+      let(:message) { FactoryBot.create(:incoming_message, :with_text_attachment) }
+      let(:censor_rule) do
+        FactoryBot.create(:censor_rule, text: 'hide_me', replacement: '[REDACTED]')
+      end
+
+      before do
+        allow(message.foi_attachments.last).to receive(:default_body).
+          and_return('This text contains hide_me that should be censored')
+        message.info_request.censor_rules << censor_rule
+      end
+
+      it 'applies censor rules to the attachment text' do
+        expect(message.get_attachment_text_full).to include('[REDACTED]')
+        expect(message.get_attachment_text_full).not_to include('hide_me')
+      end
+
+      it 'does not apply censor rules to the attachment text if locked' do
+        allow(message.foi_attachments.last).to receive(:locked?).and_return(true)
+        expect(message.get_attachment_text_full).not_to include('[REDACTED]')
+        expect(message.get_attachment_text_full).to include('hide_me')
+      end
+    end
+  end
+
+  describe '#get_attachment_text_clipped' do
+    it 'should clip to characters not bytes' do
+      incoming_message = FactoryBot.build(:incoming_message)
+      # This character is 2 bytes so the string should get sliced unless
+      # we are handling multibyte chars correctly
+      multibyte_string = "å" * 500_002
+      incoming_message = FactoryBot.create(:incoming_message, :with_text_attachment)
+      allow(incoming_message.foi_attachments.last).to receive(:default_body).
+        and_return(multibyte_string)
+      # an extra two bytes added for new lines at the end of the string
+      expect(incoming_message.get_attachment_text_clipped.length).to eq(500_004)
+    end
+
+    it 'strips null bytes from the extracted clipped text' do
+      message = FactoryBot.create(:incoming_message)
+      FactoryBot.
+        create(:body_text, body: "hi\u0000", incoming_message: message)
+      message.reload
+      expect(message.get_attachment_text_clipped).to eq("hi\n\n")
+    end
+
+    context 'when censor rules apply' do
+      let(:message) { FactoryBot.create(:incoming_message, :with_text_attachment) }
+      let(:censor_rule) do
+        FactoryBot.create(:censor_rule, text: 'hide_me', replacement: '[REDACTED]')
+      end
+
+      before do
+        allow(message.foi_attachments.last).to receive(:default_body).
+          and_return('This text contains hide_me that should be censored')
+        message.info_request.censor_rules << censor_rule
+      end
+
+      it 'applies censor rules to the attachment text' do
+        expect(message.get_attachment_text_clipped).to include('[REDACTED]')
+        expect(message.get_attachment_text_clipped).not_to include('hide_me')
+      end
+
+      it 'does not apply censor rules to the attachment text if locked' do
+        allow(message.foi_attachments.last).to receive(:locked?).and_return(true)
+        expect(message.get_attachment_text_full).not_to include('[REDACTED]')
+        expect(message.get_attachment_text_full).to include('hide_me')
+      end
     end
   end
 
@@ -531,6 +598,24 @@ RSpec.describe IncomingMessage do
 
     context 'if there are no refusals' do
       before { allow(message).to receive(:refusals).and_return([]) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#locked?' do
+    subject { message.locked? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'if there are locked attachments' do
+      before do
+        FactoryBot.create(:body_text, incoming_message: message, locked: true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'if there are no locked attachments' do
       it { is_expected.to eq(false) }
     end
   end
@@ -1065,13 +1150,6 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     expect(attachments.first.body).to eq('No way!')
   end
 
-  it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:extract_text).and_return("\xBF")
-
-    expect(im._get_attachment_text_internal.valid_encoding?).to be true
-  end
-
   it 'does not raise error if existing hidden attachment will be retained' do
     incoming_message = FactoryBot.create(:incoming_message)
     foi_attachment = incoming_message.foi_attachments.first
@@ -1084,6 +1162,16 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     incoming_message = FactoryBot.create(:incoming_message)
     foi_attachment = incoming_message.foi_attachments.first
     foi_attachment.update(prominence: 'hidden', hexdigest: '123')
+
+    expect { incoming_message.extract_attachments! }.to raise_error(
+      IncomingMessage::UnableToExtractAttachments
+    )
+  end
+
+  it 'raises error if existing locked attachment will be deleted' do
+    incoming_message = FactoryBot.create(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.first
+    foi_attachment.update(locked: true, hexdigest: '123')
 
     expect { incoming_message.extract_attachments! }.to raise_error(
       IncomingMessage::UnableToExtractAttachments
@@ -1142,17 +1230,6 @@ RSpec.describe IncomingMessage, 'when getting the body of a message for html dis
   end
 end
 
-RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
-  it 'should clip to characters not bytes' do
-    incoming_message = FactoryBot.build(:incoming_message)
-    # This character is 2 bytes so the string should get sliced unless
-    # we are handling multibyte chars correctly
-    multibyte_string = "å" * 500_002
-    allow(incoming_message).to receive(:_get_attachment_text_internal).and_return(multibyte_string)
-    expect(incoming_message.get_attachment_text_clipped.length).to eq(500_002)
-  end
-end
-
 RSpec.describe IncomingMessage, 'when getting the main body text' do
   context 'when the main body text is more than 1MB' do
     before do
@@ -1168,6 +1245,30 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
                       "problem or similar"
       expect { @incoming_message.get_main_body_text_unfolded }.
         to raise_error(RuntimeError, expected_text)
+    end
+  end
+
+  context 'when censor rules apply' do
+    let(:message) { FactoryBot.create(:incoming_message, :with_text_attachment) }
+    let(:censor_rule) do
+      FactoryBot.create(:censor_rule, text: 'hide_me', replacement: '[REDACTED]')
+    end
+
+    before do
+      allow(message).to receive(:get_main_body_text_internal).
+        and_return('This text contains hide_me that should be censored')
+      message.info_request.censor_rules << censor_rule
+    end
+
+    it 'applies censor rules to the main body text' do
+      expect(message.get_main_body_text_unfolded).to include('[REDACTED]')
+      expect(message.get_main_body_text_unfolded).not_to include('hide_me')
+    end
+
+    it 'does not apply censor rules to the main body text if locked' do
+      allow(message.get_main_body_text_part).to receive(:locked?).and_return(true)
+      expect(message.get_main_body_text_unfolded).not_to include('[REDACTED]')
+      expect(message.get_main_body_text_unfolded).to include('hide_me')
     end
   end
 
@@ -1197,6 +1298,35 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
       expect(incoming_message.get_main_body_text_internal).to eq(
         'hereisthetext'
       )
+    end
+  end
+
+  describe '#storage_keys' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    it 'returns blob keys from raw email and foi attachments' do
+      storage_keys = incoming_message.storage_keys
+
+      expect(storage_keys).to be_an(Hash)
+      expect(storage_keys).to include(
+        raw_email: incoming_message.raw_email.file.blob.key,
+        attachments: incoming_message.foi_attachments.map { _1.file.blob.key }
+      )
+    end
+
+    context 'when no attachments are present' do
+      let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+      before do
+        allow(incoming_message.raw_email).to receive(:file).
+          and_return(double(attached?: false))
+        allow(incoming_message).to receive(:foi_attachments).and_return([])
+      end
+
+      it 'returns an hash without any keys' do
+        expect(incoming_message.storage_keys).
+          to eq({ raw_email: nil, attachments: [] })
+      end
     end
   end
 end

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230412084830
 #
 # Table name: outgoing_messages
 #
@@ -93,7 +92,7 @@ RSpec.describe OutgoingMessage do
     it { is_expected.to include(IOError) }
     it { is_expected.to_not include(TestError) }
 
-    context '.additional_send_errors has been overriden to include a custom error' do
+    context '.additional_send_errors has been overridden to include a custom error' do
       before do
         allow(described_class).to receive(:additional_send_errors).
           and_return([ TestError ])
@@ -122,7 +121,7 @@ RSpec.describe OutgoingMessage do
 
     it { is_expected.to be_valid }
 
-    it 'requires info_reqeust' do
+    it 'requires info_request' do
       outgoing_message.info_request = nil
       expect(outgoing_message).not_to be_valid
     end
@@ -893,6 +892,12 @@ RSpec.describe OutgoingMessage do
       expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
       @outgoing_message.body = split_line
       expect(@outgoing_message.get_body_for_html_display).to include(expected)
+    end
+
+    it "adds anchors with rel nofollow links to plain text links" do
+      @outgoing_message.body = link = "http://example.com"
+      expect(@outgoing_message.get_body_for_html_display).
+        to include(%Q[<p><a href="#{link}" rel="nofollow">#{link}</a></p>])
     end
   end
 
@@ -1873,6 +1878,76 @@ RSpec.describe OutgoingMessage do
 
     it 'updates OutgoingMessage#last_sent_at' do
       expect{ subject }.to change{ outgoing_message.last_sent_at }
+    end
+  end
+
+  describe '#expire' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+
+    it 'delegates to info_request' do
+      expect(outgoing_message.info_request).to receive(:expire)
+      outgoing_message.expire
+    end
+  end
+
+  describe '#log_event' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+
+    it 'delegates to info_request' do
+      expect(outgoing_message.info_request).to receive(:log_event).with('edit')
+      outgoing_message.log_event('edit')
+    end
+  end
+
+  describe '#update_and_log_event' do
+    let(:outgoing_message) do
+      FactoryBot.create(:initial_request, tag_string: 'foo')
+    end
+
+    let(:info_request) { outgoing_message.info_request }
+
+    def last_event
+      info_request.info_request_events.last
+    end
+
+    it 'updates and logs edit_attachment event' do
+      expect do
+        outgoing_message.update_and_log_event(prominence: 'hidden')
+      end.to change { last_event }
+
+      expect(last_event.event_type).to eq('edit_outgoing')
+    end
+
+    it 'logs prominence and reason changes' do
+      outgoing_message.update_and_log_event(
+        prominence: 'hidden', prominence_reason: 'just because'
+      )
+      expect(last_event.params[:old_prominence]).to eq('normal')
+      expect(last_event.params[:prominence]).to eq('hidden')
+      expect(last_event.params[:old_prominence_reason]).to be_nil
+      expect(last_event.params[:prominence_reason]).to eq('just because')
+    end
+
+    it 'logs tag_string changes' do
+      outgoing_message.update_and_log_event(tag_string: 'foo bar')
+      expect(last_event.params[:old_tag_string]).to eq('foo')
+      expect(last_event.params[:tag_string]).to eq('foo bar')
+      outgoing_message.update_and_log_event(tag_string: 'foo bar baz')
+      expect(last_event.params[:old_tag_string]).to eq('foo bar')
+      expect(last_event.params[:tag_string]).to eq('foo bar baz')
+    end
+
+    it 'logs additional event data' do
+      outgoing_message.update_and_log_event(
+        prominence: 'hidden', event: { editor: 'me' }
+      )
+      expect(last_event.params[:editor]).to eq('me')
+    end
+
+    it 'does not log event if update fails' do
+      expect do
+        outgoing_message.update_and_log_event(prominence: nil)
+      end.to_not change { last_event }
     end
   end
 end

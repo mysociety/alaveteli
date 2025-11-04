@@ -2,7 +2,6 @@
 # Controller to serve FoiAttachment records in both raw and as HTML.
 #
 class AttachmentsController < ApplicationController
-  include FragmentCachable
   include InfoRequestHelper
   include PublicTokenable
 
@@ -18,22 +17,24 @@ class AttachmentsController < ApplicationController
   before_action :set_cors
 
   around_action :ensure_masked
-  around_action :cache_attachments, only: :show_as_html
 
   def show
-    render body: @attachment.body, content_type: content_type
+    if request.headers['Sec-Fetch-Dest'] == 'iframe' &&
+       request.headers['Sec-Fetch-Site'] == 'same-origin'
+
+      render body: @attachment.body, content_type: content_type
+    else
+      send_data(
+        @attachment.body,
+        filename: @attachment.filename,
+        type: content_type
+      )
+    end
   end
 
   def show_as_html
-    # images made during conversion (e.g. images in PDF files) are put in the
-    # cache directory, so the same cache code in cache_attachments above will
-    # display them.
-    image_dir = File.dirname(cache_key_path)
-    FileUtils.mkdir_p(image_dir)
-
     html = @attachment.body_as_html(
-      image_dir,
-      attachment_url: Rack::Utils.escape(attachment_url(@attachment)),
+      attachment_url: attachment_url(@attachment),
       content_for: {
         head_suffix: render_to_string(
           partial: 'request/view_html_stylesheet',
@@ -102,6 +103,9 @@ class AttachmentsController < ApplicationController
         request.format = :html
         render_hidden('request/hidden_attachment')
       end
+    elsif params[:file_name] =~ /^foiextract.*/
+      # 404 for AttachmentToHTML sub-files that can't be found
+      raise ActiveRecord::RecordNotFound
     elsif params[:file_name]
       # If we can't find the right attachment, redirect to the incoming message:
       redirect_to incoming_message_url(@incoming_message), status: 303
@@ -149,33 +153,7 @@ class AttachmentsController < ApplicationController
     headers['Access-Control-Request-Method'] = 'GET'
   end
 
-  # special caching code so mime types are handled right
-  def cache_attachments
-    if !params[:skip_cache].nil?
-      yield
-    else
-      if foi_fragment_cache_exists?(cache_key_path)
-        logger.info("Reading cache for #{cache_key_path}")
 
-        render body: foi_fragment_cache_read(cache_key_path),
-               content_type: content_type
-        return
-      end
-
-      yield
-
-      if params[:skip_cache].nil? && response.status == 200
-        # write it to the filesystem ourselves, so is just a plain file. (The
-        # various fragment cache functions using Ruby Marshall to write the file
-        # which adds a header, so isn't compatible with images that have been
-        # extracted elsewhere from PDFs)
-        if attachment_is_cacheable?
-          logger.info("Writing cache for #{cache_key_path}")
-          foi_fragment_cache_write(cache_key_path, response.body)
-        end
-      end
-    end
-  end
 
   def part_number
     params[:part].to_i
@@ -207,23 +185,7 @@ class AttachmentsController < ApplicationController
       @attachment.is_public?
   end
 
-  def attachment_is_cacheable?
-    # If this a request, message and attachment are searchable then we can cache
-    # as there are no custom response headers (EG X-Robots-Tag)
-    prominence.is_searchable? &&
-      @incoming_message.indexed_by_search? &&
-      @attachment.indexed_by_search?
-  end
 
-  def cache_key_path
-    foi_fragment_cache_path(
-      id: @info_request.id,
-      incoming_message_id: @incoming_message.id,
-      part: part_number,
-      file_name: original_filename,
-      locale: false
-    )
-  end
 
   def current_ability
     @current_ability ||= Ability.new(

@@ -6,6 +6,7 @@
   </div>
 
   <div class="inner-canvas-body">
+    <% if feature_enabled?(:projects_publishing) %>
     <div class="row project-dataset__description">
       <%= @project.dataset_description %>
 
@@ -18,24 +19,9 @@
         <%= link_to button_text, edit_project_dataset_path(@project), class: 'button' %>
       <% end %>
     </div>
+    <% end %>
 
     <div class="row">
-      <table class="dataset">
-        <% @export.data_for_web.each_with_index do |data, index| %>
-          <% if index == 0 %>
-            <tr>
-              <% data.keys.each do |key| %>
-                <th class="dataset__<%= key.to_s.parameterize %>"><%= key.to_s.humanize %></th>
-              <% end %>
-            </tr>
-          <% end %>
-          <tr>
-            <% data.each do |key, value| %>
-              <td class="dataset__<%= key.to_s.parameterize %>"><%= value %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
       <p>
         <% if can? :read, @project %>
           <%= link_to _('Back to project'),
@@ -47,6 +33,33 @@
               project_dataset_path(@project, format: :csv),
               class: 'button' %>
       </p>
+
+      <table class="dataset">
+        <% @export.data_for_web.each_with_index do |web, index| %>
+          <% data = @export.data[index] %>
+          <% if index == 0 %>
+            <tr>
+              <% web.keys.each do |key| %>
+                <th class="dataset__<%= key.to_s.parameterize %>"><%= key.to_s.humanize %></th>
+              <% end %>
+              <% if can?(:edit, @project) %>
+                <th class="dataset__actions"><%= _('Actions') %></th>
+              <% end %>
+            </tr>
+          <% end %>
+          <tr>
+            <% web.each do |key, value| %>
+              <td class="dataset__<%= key.to_s.parameterize %>"><%= value %></td>
+            <% end %>
+            <% if can?(:edit, @project) %>
+              <td class="dataset__actions">
+                <%= link_to _('Classify'), edit_project_classify_path(@project, url_title: data[:info_request].url_title, resource_id: data[:classification_resource], r: url_for) %>
+                <%= link_to _('Extract'), edit_project_extract_path(@project, url_title: data[:info_request].url_title, resource_id: data[:extraction_resource], r: url_for) if data[:key_set] %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

@@ -1,0 +1,71 @@
+<% if submissions.any? %>
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Info Request</th>
+        <th>Resource Type</th>
+        <th>Current</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% submissions.each do |submission| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= h submission.id %></td>
+
+          <td>
+            <%= both_links(submission.user) %>
+          </td>
+
+          <td>
+            <%= both_links(submission.info_request) %>
+          </td>
+
+          <td><%= h submission.resource_type %></td>
+
+          <td>
+            <% if submission.current? %>
+              <span class="badge badge-success">Current</span>
+            <% else %>
+              <span class="badge badge-secondary">Historical</span>
+            <% end %>
+          </td>
+
+          <td><%= h submission.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+
+          <td>
+            <%= link_to 'Delete', admin_project_submission_path(submission.project, submission),
+                        method: :delete,
+                        accesskey: 'd',
+                        class: 'btn btn-small btn-danger',
+                        data: { confirm: 'Deleting a submission is permanent. Are you sure?' } %>
+          </td>
+        </tr>
+
+        <% if submission.resource %>
+          <tr>
+            <td colspan="7" class="submission-details">
+              <details>
+                <summary>View submission details</summary>
+                <div class="well well-small">
+                  <% if submission.resource_type == 'Dataset::ValueSet' %>
+                    <%= render partial: 'admin/projects/submission_dataset_values',
+                               locals: { value_set: submission.resource } %>
+                  <% elsif submission.resource_type == 'InfoRequestEvent' %>
+                    <%= render partial: 'admin/projects/submission_classification',
+                               locals: { event: submission.resource } %>
+                  <% end %>
+                </div>
+              </details>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>None yet.</p>
+<% end %>

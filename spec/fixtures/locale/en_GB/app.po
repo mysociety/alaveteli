@@ -452,7 +452,7 @@ msgid "A response will be sent <strong>by post</strong>"
 msgstr ""
 
 #: app/views/general/_advanced_search_tips.rhtml:35
-msgid "A strange reponse, required attention by the {{site_name}} team"
+msgid "A strange response, required attention by the {{site_name}} team"
 msgstr ""
 
 #: app/views/general/_advanced_search_tips.rhtml:47

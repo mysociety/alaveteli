@@ -1,0 +1,49 @@
+<fieldset class="form-horizontal">
+  <legend>Actions</legend>
+
+  <%= form_tag redeliver_admin_incoming_message_path(incoming_message), class: 'form form-inline' do %>
+    <div class="control-group">
+      <label class="control-label" for="url_title_<%= incoming_message.id %>">
+        Redeliver message to one or more other requests
+      </label>
+
+      <div class="controls">
+        <%
+          redeliver_to =
+          if @guessed_info_requests&.one?
+            @guessed_info_requests.first.info_request.url_title
+          else
+              ''
+          end
+        %>
+
+        <div class="input-append">
+          <%= text_field_tag 'url_title', redeliver_to, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
+          <%= submit_tag 'Redeliver to another request', class: 'btn' %>
+        </div>
+
+        <p class="help-block">
+          <code>id</code> or <code>url_title</code>; you can supply more than one,
+          separated by commas
+        </p>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form_tag admin_incoming_message_path(incoming_message), method: 'delete', class: 'form form-inline' do %>
+    <div class="control-group">
+      <label class="control-label" for="destroy_message_<%= incoming_message.id %>">
+        Destroy message
+      </label>
+
+      <div class="controls">
+        <%= hidden_field_tag 'incoming_message_id', incoming_message.id, id: nil %>
+
+        <%= submit_tag 'Destroy message',
+                       class: 'btn btn-danger',
+                       data: { confirm: 'This is permanent! Are you sure?' },
+                       id: "destroy_message_#{ incoming_message.id }" %>
+      </div>
+    </div>
+  <% end %>
+</fieldset>

@@ -349,9 +349,9 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
       expect(assigns(:keys)[1]).to be_new_record
     end
 
-    it 'renders the update_key_set template' do
+    it 'renders the edit_key_set template' do
       patch :update_key_set, params: key_set_params, format: :turbo_stream
-      expect(response).to render_template(:update_key_set)
+      expect(response).to render_template(:edit_key_set)
     end
   end
 
@@ -361,9 +361,14 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
       project.contributors << contributor2
     end
 
-    it 'assigns @contributors' do
+    it 'assigns @memberships' do
       get :edit_contributors, params: { id: project.id }
-      expect(assigns(:contributors)).to contain_exactly(contributor1, contributor2)
+      expect(assigns(:memberships).map(&:user)).to contain_exactly(contributor1, contributor2)
+    end
+
+    it 'assigns @contributor_ids' do
+      get :edit_contributors, params: { id: project.id }
+      expect(assigns(:contributor_ids)).to contain_exactly(contributor1.id, contributor2.id)
     end
 
     it 'renders the edit_contributors template' do
@@ -385,24 +390,30 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
       }
     end
 
-    it 'assigns @contributors' do
+    it 'assigns @memberships' do
       patch :update_contributors, params: contributors_params,
         format: :turbo_stream
-      expect(assigns(:contributors)).to eq([contributor1])
+      expect(assigns(:memberships).map(&:user)).to contain_exactly(contributor1, contributor2)
+    end
+
+    it 'assigns @contributor_ids' do
+      patch :update_contributors, params: contributors_params,
+        format: :turbo_stream
+      expect(assigns(:contributor_ids)).to eq([contributor1.id])
     end
 
     it 'removes contributors from the project does not persist the change' do
       patch :update_contributors, params: contributors_params,
         format: :turbo_stream
-      expect(assigns(:contributors)).to_not include(contributor2)
+      expect(assigns(:contributor_ids)).to_not include(contributor2.id)
       project.contributors.reload
       expect(project.contributors).to eq([contributor1, contributor2])
     end
 
-    it 'renders the update_contributors template' do
+    it 'renders the edit_contributors template' do
       patch :update_contributors, params: contributors_params,
         format: :turbo_stream
-      expect(response).to render_template(:update_contributors)
+      expect(response).to render_template(:edit_contributors)
     end
   end
 end

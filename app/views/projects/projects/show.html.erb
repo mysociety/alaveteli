@@ -53,6 +53,7 @@
             <% end %>
           </div>
 
+          <% if @project.key_set %>
           <div class="project-task">
             <h3><%= _('Extract data') %></h3>
 
@@ -84,6 +85,17 @@
               <% end %>
             <% end %>
           </div>
+          <% elsif can? :edit, @project %>
+          <div class="project-task">
+            <h3><%= _('Extract data') %></h3>
+            <p>
+              <%= _("Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project.") %>
+            </p>
+            <%= link_to questions_alaveteli_pro_project_path(@project), class: 'button-tertiary' do %>
+              <%= _('Edit questions') %>
+            <% end %>
+          </div>
+          <% end %>
         </div>
       </div>
 
@@ -114,7 +126,7 @@
             </p>
           <% end %>
 
-          <% if can? :view, @project.key_set %>
+          <% if can? :export, @project %>
             <p>
               <%= _('Request classifications and extracted data is compiled ' \
                     'into a dataset') %>
@@ -138,7 +150,7 @@
               <p><%= @project.owner.about_me %></p>
             <% end %>
 
-             <%= link_to contact_user_path(url_name: @project.owner.url_name),
+             <%= link_to contact_user_path(url_name: @project.owner.url_name, sgid: @project.owner.to_sgid(expires_in: 1.day, for: :user_to_user_messaging)),
                  class: 'button-tertiary' do %>
               <%= _('Contact {{recipient}}', recipient: @project.owner.name) %>
             <% end %>
@@ -159,6 +171,7 @@
           </div>
         <% end %>
 
+        <% if @leaderboard.all_time.present? %>
         <div class="project-leaderboard">
           <h2><%= _("Top recent contributors") %></h2>
           <table>
@@ -192,12 +205,13 @@
           </table>
         </div>
 
-        <% if can? :download, @project %>
+        <% if can? :export, @project %>
           <div class="project-download-data">
             <%= link_to _('Download leaderboard data'),
                   project_leaderboard_path(@project, format: :csv),
                   class: 'button-tertiary' %>
           </div>
+        <% end %>
         <% end %>
       </aside>
     </div>

@@ -340,7 +340,7 @@ module ActsAsXapian
         offset = offset.to_i
         limit = options[:limit]
         unless limit
-          raise "please specifiy maximum number of results to return with parameter :limit"
+          raise "please specify maximum number of results to return with parameter :limit"
         end
 
         limit = limit.to_i
@@ -502,7 +502,7 @@ module ActsAsXapian
     # model_classes - model classes to search within, e.g. [PublicBody,
     # User]. Can take a single model class, or you can express the model
     # class names in strings if you like.
-    # query_string - user inputed query string, with syntax much like Google Search
+    # query_string - user inputted query string, with syntax much like Google Search
     def initialize(model_classes, query_string, options = {}, user_query = nil)
       # Check parameters, convert to actual array of model classes
       new_model_classes = []
@@ -660,7 +660,7 @@ module ActsAsXapian
   class ActsAsXapianJob < ActiveRecord::Base
   end
 
-  # Encapsulates an ActsAsXapianJob ID that failed, the error that occured and
+  # Encapsulates an ActsAsXapianJob ID that failed, the error that occurred and
   # information about the model that was being indexed in order to print
   # diagnostic information.
   class FailedJob
@@ -1181,7 +1181,7 @@ module ActsAsXapian
 
       include InstanceMethods
 
-      cattr_accessor :xapian_options
+      cattr_accessor :xapian_options, instance_writer: false
       self.xapian_options = options
 
       ActsAsXapian.init(self.class.to_s, options)

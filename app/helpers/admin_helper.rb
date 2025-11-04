@@ -2,6 +2,7 @@ module AdminHelper
   include Admin::BootstrapHelper
   include Admin::CensorRulesHelper
   include Admin::CitationsHelper
+  include Admin::ClassificationsHelper
   include Admin::LinkHelper
   include Admin::ProminenceHelper
 

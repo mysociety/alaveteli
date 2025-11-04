@@ -228,6 +228,7 @@ RSpec.describe AdminOutgoingMessageController do
         editor: 'Admin user',
         old_body: 'Some information please',
         body: 'changed body',
+        body_changed: true,
         old_prominence: 'normal',
         prominence: 'hidden',
         old_prominence_reason: nil,

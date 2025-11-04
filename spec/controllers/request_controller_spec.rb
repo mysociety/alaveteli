@@ -18,6 +18,8 @@ RSpec.describe RequestController, "when listing request categories" do
 end
 
 RSpec.describe RequestController, "when listing recent requests" do
+  before { update_xapian_index }
+
   it "should be successful" do
     get :list, params: { view: 'all' }
     expect(response).to be_successful
@@ -63,7 +65,6 @@ RSpec.describe RequestController, "when listing recent requests" do
   end
 
   it 'sets title based on if tag does not match an request category' do
-    update_xapian_index
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
 
@@ -1053,155 +1054,164 @@ RSpec.describe RequestController, "when creating a new request" do
     expect(response).to render_template('new')
   end
 
-  it "should let you submit another request with the same title" do
-    sign_in @user
+  context 'ignore creation_rate_limits' do
+    around do |example|
+      old = InfoRequest.creation_rate_limits
+      InfoRequest.creation_rate_limits = {}
+      example.run
+      InfoRequest.creation_rate_limits = old
+    end
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why is your quango called Geraldine?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "This is a silly letter. It is too short to be interesting."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
+    it "should let you submit another request with the same title" do
+      sign_in @user
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why is your quango called Geraldine?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "This is a sensible letter. It is too long to be boring."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why is your quango called Geraldine?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "This is a silly letter. It is too short to be interesting."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
 
-    ir_array = InfoRequest.where(title: "Why is your quango called Geraldine?").
-      order(:id)
-    expect(ir_array.size).to eq(2)
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why is your quango called Geraldine?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "This is a sensible letter. It is too long to be boring."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
 
-    ir = ir_array[0]
-    ir2 = ir_array[1]
+      ir_array = InfoRequest.where(title: "Why is your quango called Geraldine?").
+        order(:id)
+      expect(ir_array.size).to eq(2)
 
-    expect(ir.url_title).not_to eq(ir2.url_title)
+      ir = ir_array[0]
+      ir2 = ir_array[1]
 
-    expect(response).to redirect_to show_request_url(ir2.url_title)
-  end
+      expect(ir.url_title).not_to eq(ir2.url_title)
 
-  it 'should respect the rate limit' do
-    # Try to create three requests in succession.
-    # (The limit set in config/test.yml is two.)
-    sign_in users(:robin_user)
+      expect(response).to redirect_to show_request_url(ir2.url_title)
+    end
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What is the answer to the ultimate question?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please supply the answer from your files."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('what_is_the_answer_to_the_ultima')
-    )
+    it 'should respect the daily cap' do
+      # Try to create three requests in succession.
+      # (The limit set in config/test.yml is two.)
+      sign_in users(:robin_user)
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why did the chicken cross the road?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send me all the relevant documents you hold."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('why_did_the_chicken_cross_the_ro')
-    )
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What is the answer to the ultimate question?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please supply the answer from your files."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('what_is_the_answer_to_the_ultima')
+      )
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What's black and white and red all over?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send all minutes of meetings and email records " \
-                "that address this question."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to render_template('user/rate_limited')
-  end
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why did the chicken cross the road?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send me all the relevant documents you hold."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('why_did_the_chicken_cross_the_ro')
+      )
 
-  it 'should ignore the rate limit for specified users' do
-    # Try to create three requests in succession.
-    # (The limit set in config/test.yml is two.)
-    sign_in users(:robin_user)
-    users(:robin_user).no_limit = true
-    users(:robin_user).save!
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What's black and white and red all over?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send all minutes of meetings and email records " \
+                  "that address this question."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to render_template('user/rate_limited')
+    end
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What is the answer to the ultimate question?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please supply the answer from your files."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('what_is_the_answer_to_the_ultima')
-    )
+    it 'should ignore the rate limit for specified users' do
+      # Try to create three requests in succession.
+      # (The limit set in config/test.yml is two.)
+      sign_in users(:robin_user)
+      users(:robin_user).no_limit = true
+      users(:robin_user).save!
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "Why did the chicken cross the road?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send me all the relevant documents you hold."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('why_did_the_chicken_cross_the_ro')
-    )
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What is the answer to the ultimate question?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please supply the answer from your files."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('what_is_the_answer_to_the_ultima')
+      )
 
-    post :new, params: {
-      info_request: {
-        public_body_id: @body.id,
-        title: "What's black and white and red all over?",
-        tag_string: ""
-      },
-      outgoing_message: {
-        body: "Please send all minutes of meetings and email records " \
-                "that address this question."
-      },
-      submitted_new_request: 1,
-      preview: 0
-    }
-    expect(response).to redirect_to(
-      show_request_url('whats_black_and_white_and_red_al')
-    )
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "Why did the chicken cross the road?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send me all the relevant documents you hold."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('why_did_the_chicken_cross_the_ro')
+      )
+
+      post :new, params: {
+        info_request: {
+          public_body_id: @body.id,
+          title: "What's black and white and red all over?",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please send all minutes of meetings and email records " \
+                  "that address this question."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_url('whats_black_and_white_and_red_al')
+      )
+    end
   end
 
   describe 'when rendering a reCAPTCHA' do
@@ -1531,6 +1541,38 @@ RSpec.describe RequestController, "when creating a new request" do
     end
   end
 
+  describe 'when the request is from an IP address in a permitted country' do
+    let(:user) { FactoryBot.create(:user, confirmed_not_spam: false) }
+    let(:body) { FactoryBot.create(:public_body) }
+
+    before do
+      allow(@controller).
+        to receive(:block_restricted_country_ips?).and_return(true)
+      allow(AlaveteliConfiguration).to receive(:restricted_countries).
+        and_return('!EN !ES')
+      allow(controller).to receive(:country_from_ip).and_return('EN')
+    end
+
+    it 'allows the request' do
+      sign_in user
+      post :new, params: {
+        info_request: {
+          public_body_id: body.id,
+          title: "Some request content",
+          tag_string: ""
+        },
+        outgoing_message: {
+          body: "Please supply the answer from your files."
+        },
+        submitted_new_request: 1,
+        preview: 0
+      }
+      expect(response).to redirect_to(
+        show_request_path('some_request_content')
+      )
+    end
+  end
+
   describe 'when the request is from an IP address in a blocked country' do
     let(:user) { FactoryBot.create(:user,
                                    confirmed_not_spam: false) }
@@ -1680,7 +1722,8 @@ RSpec.describe RequestController, "when making a new request" do
   before do
     @user = mock_model(User, id: 3481, name: 'Testy').as_null_object
     allow(@user).to receive(:get_undescribed_requests).and_return([])
-    allow(@user).to receive(:can_file_requests?).and_return(true)
+    allow(@user).to receive(:suspended?).and_return(false)
+    allow(@user).to receive(:exceeded_request_limits?).and_return(false)
     allow(@user).to receive(:locale).and_return("en")
     allow(@user).to receive(:login_token).and_return('abc')
     allow(User).to receive(:find_by).with(id: @user.id, login_token: 'abc').
@@ -1703,9 +1746,7 @@ RSpec.describe RequestController, "when making a new request" do
   end
 
   it "should fail if user is banned" do
-    allow(@user).to receive(:can_file_requests?).and_return(false)
-    allow(@user).
-      to receive(:exceeded_limit?).with(:info_requests).and_return(false)
+    allow(@user).to receive(:suspended?).and_return(true)
     expect(@user).to receive(:can_fail_html).and_return('FAIL!')
     sign_in @user
     get :new, params: { public_body_id: @body.id }
@@ -1735,151 +1776,6 @@ RSpec.describe RequestController, "when viewing comments" do
       expect(s).to have_text(/Silly.*left an annotation/m)
       expect(s).not_to have_text(/You.*left an annotation/m)
     end
-  end
-end
-
-RSpec.describe RequestController, "authority uploads a response from the web interface" do
-  before(:each) do
-    # domain after the @ is used for authentication of FOI officers, so to test
-    # it, we need a user which isn't at localhost.
-    @normal_user = User.new(
-      name: "Mr. Normal",
-      email: "normal-user@flourish.org",
-      password: PostRedirect.generate_random_token
-    )
-    @normal_user.save!
-
-    @foi_officer_user = User.new(
-      name: "The Geraldine Quango",
-      email: "geraldine-requests@localhost",
-      password: PostRedirect.generate_random_token
-    )
-    @foi_officer_user.save!
-  end
-
-  context 'when the request is embargoed' do
-    let(:embargoed_request) { FactoryBot.create(:embargoed_request) }
-
-    it 'raises an ActiveRecord::RecordNotFound error' do
-      expect {
-        get :upload_response, params: { url_title: embargoed_request.url_title }
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  context 'when user is signed out' do
-    it 'redirect to the login page' do
-      get :upload_response, params: {
-        url_title: 'why_do_you_have_such_a_fancy_dog'
-      }
-      expect(response).
-        to redirect_to(signin_path(token: get_last_post_redirect.token))
-    end
-  end
-
-  it "should require login to view the form to upload" do
-    @ir = info_requests(:fancy_dog_request)
-    expect(@ir.public_body.is_foi_officer?(@normal_user)).to eq(false)
-    sign_in @normal_user
-
-    get :upload_response, params: {
-      url_title: 'why_do_you_have_such_a_fancy_dog'
-    }
-    expect(response).to render_template('user/wrong_user')
-  end
-
-  context 'when the request is closed to responses' do
-    let(:closed_request) do
-      FactoryBot.create(:info_request, allow_new_responses_from: 'nobody')
-    end
-    it "should prevent uploads if closed to all responses" do
-      sign_in @normal_user
-      get :upload_response, params: { url_title: closed_request.url_title }
-      expect(response).to render_template(
-        'request/request_subtitle/allow_new_responses_from/_nobody'
-      )
-    end
-  end
-
-  it "should let you view upload form if you are an FOI officer" do
-    @ir = info_requests(:fancy_dog_request)
-    expect(@ir.public_body.is_foi_officer?(@foi_officer_user)).to eq(true)
-    sign_in @foi_officer_user
-
-    get :upload_response, params: {
-      url_title: 'why_do_you_have_such_a_fancy_dog'
-    }
-    expect(response).to render_template('request/upload_response')
-  end
-
-  it "should prevent uploads if you are not a requester" do
-    @ir = info_requests(:fancy_dog_request)
-    incoming_before = @ir.incoming_messages.count
-    sign_in @normal_user
-
-    # post up a photo of the parrot
-    parrot_upload = fixture_file_upload('parrot.png', 'image/png')
-    post :upload_response, params: {
-      url_title: 'why_do_you_have_such_a_fancy_dog',
-      body: "Find attached a picture of a parrot",
-      file_1: parrot_upload,
-      submitted_upload_response: 1
-    }
-    expect(response).to render_template('user/wrong_user')
-  end
-
-  it "should prevent entirely blank uploads" do
-    sign_in @foi_officer_user
-
-    post :upload_response, params: {
-      url_title: 'why_do_you_have_such_a_fancy_dog',
-      body: "", submitted_upload_response: 1
-    }
-    expect(response).to render_template('request/upload_response')
-    expect(flash[:error]).to match(/Please type a message/)
-  end
-
-  it 'should 404 for non existent requests' do
-    expect {
-      post :upload_response, params: { url_title: 'i_dont_exist' }
-    }.to raise_error(ActiveRecord::RecordNotFound)
-  end
-
-  # How do I test a file upload in rails?
-  # http://stackoverflow.com/questions/1178587/how-do-i-test-a-file-upload-in-rails
-  it "should let the authority upload a file" do
-    @ir = info_requests(:fancy_dog_request)
-    incoming_before = @ir.incoming_messages.count
-    sign_in @foi_officer_user
-
-    # post up a photo of the parrot
-    parrot_upload = fixture_file_upload('parrot.png', 'image/png')
-    post :upload_response, params: {
-      url_title: 'why_do_you_have_such_a_fancy_dog',
-      body: "Find attached a picture of a parrot",
-      file_1: parrot_upload,
-      submitted_upload_response: 1
-    }
-
-    expect(response).to redirect_to(
-      action: 'show',
-      url_title: 'why_do_you_have_such_a_fancy_dog'
-    )
-    expect(flash[:notice]).
-      to match(/Thank you for responding to this FOI request/)
-
-    # check there is a new attachment
-    incoming_after = @ir.incoming_messages.count
-    expect(incoming_after).to eq(incoming_before + 1)
-
-    # check new attachment looks vaguely OK
-    new_im = @ir.incoming_messages[-1]
-    expect(new_im.get_main_body_text_unfolded).
-      to match(/Find attached a picture of a parrot/)
-    attachments = new_im.get_attachments_for_display
-    expect(attachments.size).to eq(1)
-    expect(attachments[0].filename).to eq("parrot.png")
-    expect(attachments[0].display_size).to eq("94K")
   end
 end
 
@@ -1997,22 +1893,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
 
   it "shows a flash message to alert the user" do
     get :new
-    expect(flash[:notice][:partial]).
-      to eq "general/read_only_annotations"
-  end
-
-  context "when annotations are disabled" do
-    before do
-      allow(controller).
-        to receive(:feature_enabled?).
-        with(:annotations).
-        and_return(false)
-    end
-
-    it "doesn't mention annotations in the flash message" do
-      get :new
-      expect(flash[:notice][:partial]).to eq "general/read_only"
-    end
+    expect(flash[:notice]).to match(/Down for maintenance/)
   end
 end
 

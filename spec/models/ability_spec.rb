@@ -54,6 +54,7 @@ end
 RSpec.describe Ability do
   let(:pro_ability) { Ability.new(FactoryBot.create(:pro_user)) }
   let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
+  let(:pro_admin_ability) { Ability.new(FactoryBot.create(:pro_admin_user)) }
   let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
   let(:guest_ability) { Ability.guest }
 
@@ -412,6 +413,55 @@ RSpec.describe Ability do
 
       it 'does not allow creating citations for InfoRequestBatch' do
         expect(guest_ability).not_to be_able_to(:create_citation, info_request_batch)
+      end
+    end
+  end
+
+  describe 'create_comment', features: { annotations: true } do
+    let(:info_request) { InfoRequest.new(user: owner) }
+    let(:owner) { FactoryBot.create(:user) }
+    let(:owner_ability) { Ability.new(owner) }
+
+    context 'when annotations are disabled', features: { annotations: false } do
+      it 'no one can create comments for InfoRequest' do
+        expect(admin_ability).to_not be_able_to(:create_comment, info_request)
+        expect(pro_admin_ability).to_not be_able_to(:create_comment, info_request)
+        expect(owner_ability).to_not be_able_to(:create_comment, info_request)
+        expect(pro_ability).to_not be_able_to(:create_comment, info_request)
+        expect(other_user_ability).to_not be_able_to(:create_comment, info_request)
+        expect(guest_ability).to_not be_able_to(:create_comment, info_request)
+      end
+    end
+
+    context 'info_request does not allow comments' do
+      before { info_request.comments_allowed = false }
+
+      it 'no one can create comments for InfoRequest' do
+        expect(admin_ability).to_not be_able_to(:create_comment, info_request)
+        expect(pro_admin_ability).to_not be_able_to(:create_comment, info_request)
+        expect(owner_ability).to_not be_able_to(:create_comment, info_request)
+        expect(pro_ability).to_not be_able_to(:create_comment, info_request)
+        expect(other_user_ability).to_not be_able_to(:create_comment, info_request)
+        expect(guest_ability).to_not be_able_to(:create_comment, info_request)
+      end
+    end
+
+    context 'when public annotations are disabled', features: { public_annotations: false } do
+      it 'only admins and owners can create comments for InfoRequest' do
+        expect(admin_ability).to be_able_to(:create_comment, info_request)
+        expect(pro_admin_ability).to be_able_to(:create_comment, info_request)
+        expect(owner_ability).to be_able_to(:create_comment, info_request)
+
+        expect(pro_ability).to_not be_able_to(:create_comment, info_request)
+        expect(other_user_ability).to_not be_able_to(:create_comment, info_request)
+        expect(guest_ability).to_not be_able_to(:create_comment, info_request)
+      end
+
+      context 'if the request is embargoed' do
+        let(:info_request) { FactoryBot.create(:embargoed_request) }
+
+        it { expect(admin_ability).to_not be_able_to(:create_comment, info_request) }
+        it { expect(pro_admin_ability).to be_able_to(:create_comment, info_request) }
       end
     end
   end
@@ -1726,85 +1776,65 @@ RSpec.describe Ability, 'with project' do
     end
   end
 
-  describe 'view dataset key set', feature: :projects do
-    let(:resource) { project }
-    let(:key_set) { FactoryBot.create(:dataset_key_set, resource: resource) }
-
-    context 'when the resource is a info request' do
-      let(:resource) { FactoryBot.create(:info_request) }
-
-      it 'project owner cannot view the dataset key set' do
-        expect(owner_ability).not_to be_able_to(:view, key_set)
-      end
+  describe 'export project', feature: :projects do
+    it 'project owner can export the project' do
+      expect(owner_ability).to be_able_to(:export, project)
     end
 
-    context 'when the resource is a info request batch' do
-      let(:resource) { FactoryBot.create(:info_request_batch) }
-
-      it 'project owner cannot view the dataset key set' do
-        expect(owner_ability).not_to be_able_to(:view, key_set)
-      end
+    it 'project contributors cannot export the project' do
+      expect(contributor_ability).not_to be_able_to(:export, project)
     end
 
-    it 'project owner can view the dataset key set' do
-      expect(owner_ability).to be_able_to(:view, key_set)
+    it 'pro admins can export the project' do
+      expect(pro_admin_ability).to be_able_to(:export, project)
     end
 
-    it 'project contributors cannot view the dataset key set' do
-      expect(contributor_ability).not_to be_able_to(:view, key_set)
+    it 'admins cannot export the project' do
+      expect(admin_ability).not_to be_able_to(:export, project)
     end
 
-    it 'pro admins can view the dataset key set' do
-      expect(pro_admin_ability).to be_able_to(:view, key_set)
+    it 'non project contributors cannot export the project' do
+      expect(non_contributor_ability).not_to be_able_to(:export, project)
     end
 
-    it 'admins cannot view the dataset key set' do
-      expect(admin_ability).not_to be_able_to(:view, key_set)
-    end
-
-    it 'non project contributors cannot view the dataset key set' do
-      expect(non_contributor_ability).not_to be_able_to(:view, key_set)
-    end
-
-    it 'logged out users cannot view the dataset key set' do
-      expect(guest_ability).not_to be_able_to(:view, key_set)
+    it 'logged out users cannot export the project' do
+      expect(guest_ability).not_to be_able_to(:export, project)
     end
 
     context 'when project dataset is public' do
-      let(:resource) { FactoryBot.create(:project, dataset_public: true) }
+      let(:project) { FactoryBot.create(:project, dataset_public: true) }
 
-      it 'project owner can view the dataset key set' do
-        expect(owner_ability).to be_able_to(:view, key_set)
+      it 'project owner can export the project' do
+        expect(owner_ability).to be_able_to(:export, project)
       end
 
-      it 'project contributors not view the dataset key set' do
-        expect(contributor_ability).to be_able_to(:view, key_set)
+      it 'project contributors not export the project' do
+        expect(contributor_ability).to be_able_to(:export, project)
       end
 
-      it 'pro admins can view the dataset key set' do
-        expect(pro_admin_ability).to be_able_to(:view, key_set)
+      it 'pro admins can export the project' do
+        expect(pro_admin_ability).to be_able_to(:export, project)
       end
 
-      it 'admins not view the dataset key set' do
-        expect(admin_ability).to be_able_to(:view, key_set)
+      it 'admins not export the project' do
+        expect(admin_ability).to be_able_to(:export, project)
       end
 
-      it 'non project contributors not view the dataset key set' do
-        expect(non_contributor_ability).to be_able_to(:view, key_set)
+      it 'non project contributors not export the project' do
+        expect(non_contributor_ability).to be_able_to(:export, project)
       end
 
-      it 'logged out users can view the dataset key set' do
-        expect(guest_ability).to be_able_to(:view, key_set)
+      it 'logged out users can export the project' do
+        expect(guest_ability).to be_able_to(:export, project)
       end
     end
   end
 
-  describe 'view dataset key set when projects feature is disabled' do
+  describe 'export the project when projects feature is disabled' do
     let(:resource) { project }
-    let(:key_set) { FactoryBot.create(:dataset_key_set, resource: resource) }
 
-    it 'project owner cannot view the dataset key set' do
-      expect(owner_ability).not_to be_able_to(:view, key_set)
+    it 'project owner cannot export the project' do
+      expect(owner_ability).not_to be_able_to(:export, project)
     end
   end
 end

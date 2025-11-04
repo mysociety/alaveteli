@@ -42,6 +42,7 @@
 
   <div class="form_button">
     <%= hidden_field_tag(:submitted_contact_form, { :value => 1 } ) %>
+    <%= hidden_field_tag(:sgid, params[:sgid]) if params[:sgid] %>
     <%= submit_tag _("Send message") %>
   </div>
 <% end %>

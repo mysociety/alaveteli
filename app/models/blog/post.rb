@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20230314171033
 #
 # Table name: blog_posts
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  title      :string
 #  url        :string
 #  data       :jsonb

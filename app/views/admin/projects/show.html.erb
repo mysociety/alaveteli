@@ -1,0 +1,96 @@
+<% @title = "Project: #{@project.title}" %>
+
+<h1><%= @project.title %></h1>
+
+<table class="table table-striped table-condensed">
+  <tbody>
+    <tr>
+      <td>
+        <b>Owner</b>
+      </td>
+      <td>
+        <%= both_links(@project.owner) %>
+      </td>
+    </tr>
+
+    <% @project.for_admin_column do |name, value| %>
+      <tr>
+        <td>
+          <b><%= name.humanize %></b>
+        </td>
+
+        <td>
+          <% if name == 'invite_token' %>
+            <% if value %><code><%= @project.invite_token %></code><% end %>
+          <% elsif name == 'dataset_public' %>
+            <% if value %>
+              <span class="badge badge-success">Public</span>
+            <% else %>
+              <span class="badge badge-secondary">Private</span>
+            <% end %>
+          <% else %>
+            <%=h value %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_admin_project_path(@project), class: "btn btn-primary" %>
+<%= link_to 'Public page', project_path(@project), class: 'btn' %>
+
+<hr>
+
+<% if @project.briefing.present? %>
+  <h2>Briefing</h2>
+  <div class="project-briefing">
+    <%= @project.briefing %>
+  </div>
+<% end %>
+
+<% if @project.dataset_description.present? %>
+  <h2>Dataset Description</h2>
+  <div class="project-dataset-description">
+    <%= @project.dataset_description %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="span4">
+    <h3>Progress</h3>
+
+    <h4>Classification Progress</h4>
+    <div class="progress">
+      <div class="bar" style="width: <%= @project.classification_progress %>%"></div>
+    </div>
+    <p><%= @project.classification_progress %>% complete</p>
+
+    <h4>Extraction Progress</h4>
+    <div class="progress">
+      <div class="bar bar-success" style="width: <%= @project.extraction_progress %>%"></div>
+    </div>
+    <p><%= @project.extraction_progress %>% complete</p>
+  </div>
+
+  <div class="span6 offset2">
+    <h3>Statistics</h3>
+    <dl>
+      <dt>Total Contributors:</dt>
+      <dd><span class="badge badge-info"><%= @project.contributors.count %></span></dd>
+
+      <dt>Total Requests:</dt>
+      <dd><span class="badge"><%= @project.info_requests.count %></span></dd>
+
+      <dt>Submissions:</dt>
+      <dd><span class="badge badge-warning"><%= @project.submissions.count %></span></dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+<h2>Submissions</h2>
+
+<%= render partial: 'admin/projects/submissions',
+           locals: { submissions: @project.submissions.includes(:user, :info_request).order(created_at: :desc) } %>

@@ -198,8 +198,8 @@ EOF
     it 'excerpts with omission' do
       assert_equal("[...]is a beautiful morn[...]", excerpt("This is a beautiful morning", "beautiful", omission: "[...]",radius: 5))
       assert_equal(
-        "This is the ultimate supercalifragilisticexpialidoceous very looooooooooooooooooong looooooooooooong beautiful morning with amazing sunshine and awesome tempera[...]",
-        excerpt("This is the ultimate supercalifragilisticexpialidoceous very looooooooooooooooooong looooooooooooong beautiful morning with amazing sunshine and awesome temperatures. So what are you gonna do about it?", "very",
+        "This is the ultimate supercalifragilisticexpialidocious very looooooooooooooooooong looooooooooooong beautiful morning with amazing sunshine and awesome tempera[...]",
+        excerpt("This is the ultimate supercalifragilisticexpialidocious very looooooooooooooooooong looooooooooooong beautiful morning with amazing sunshine and awesome temperatures. So what are you gonna do about it?", "very",
                 omission: "[...]")
       )
     end

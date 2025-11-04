@@ -15,28 +15,30 @@ RSpec.describe Projects::DatasetController, spec_meta do
       FactoryBot.create(:dataset_key_set, resource: project)
     end
 
+    let(:user) { FactoryBot.create(:user) }
     let(:project) { FactoryBot.create(:project) }
     let(:ability) { Object.new.extend(CanCan::Ability) }
 
     before do
+      sign_in user
       allow(Project).to receive(:find).with('1').and_return(project)
       allow(controller).to receive(:current_ability).and_return(ability)
     end
 
-    context 'when not authorised to view dataset key set' do
-      before { ability.cannot :view, dataset_key_set }
+    context 'when not authorised to export project' do
+      before { ability.cannot :export, project }
 
-      it 'raises access denied expection' do
+      it 'raises access denied exception' do
         expect { show }.to raise_error(CanCan::AccessDenied)
       end
     end
 
-    shared_context 'when authorised to view dataset key set' do
-      before { ability.can :view, dataset_key_set }
+    shared_context 'when authorised to export project' do
+      before { ability.can :export, project }
     end
 
     context 'when HTML format' do
-      include_context 'when authorised to view dataset key set'
+      include_context 'when authorised to export project'
 
       it 'renders show template' do
         show(format: 'html')
@@ -45,7 +47,7 @@ RSpec.describe Projects::DatasetController, spec_meta do
     end
 
     context 'when CSV format' do
-      include_context 'when authorised to view dataset key set'
+      include_context 'when authorised to export project'
 
       before do
         allow(Project::Export).to receive(:new).with(project).and_return(

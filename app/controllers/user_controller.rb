@@ -9,15 +9,20 @@ require 'set'
 class UserController < ApplicationController
   include UserSpamCheck
 
+  read_only :signups, only: [:signup]
+
   skip_before_action :html_response, only: [
     :show, :wall, :get_draft_profile_photo, :get_profile_photo
   ]
 
   layout :select_layout
+
   before_action :normalize_url_name, only: :show
   before_action :work_out_post_redirect, only: [ :signup ]
   before_action :set_request_from_foreign_country, only: [ :signup ]
   before_action :set_in_pro_area, only: [ :signup ]
+  before_action :set_display_user, only: [ :show, :wall, :get_profile_photo ]
+  before_action :set_no_crawl, only: [ :show, :wall ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -30,11 +35,9 @@ class UserController < ApplicationController
   # Show page about a user
   def show
     long_cache
-    @display_user = set_display_user
     set_view_instance_variables
     @same_name_users = User.find_similar_named_users(@display_user)
     @is_you = current_user_is_display_user
-    @show_about_me = show_about_me?
 
     set_show_requests if @show_requests
 
@@ -78,7 +81,6 @@ class UserController < ApplicationController
   # Show the user's wall
   def wall
     long_cache
-    @display_user = set_display_user
     @is_you = current_user_is_display_user
     feed_results = Set.new
     # Use search query for this so can collapse and paginate easily
@@ -158,7 +160,7 @@ class UserController < ApplicationController
       # Block signups from suspicious countries
       # TODO: Add specs (see RequestController#create)
       # TODO: Extract to UserSpamScorer?
-      if blocked_ip?(country_from_ip, @user_signup)
+      if blocked_ip?
         handle_blocked_ip(@user_signup) && return
       end
 
@@ -171,7 +173,7 @@ class UserController < ApplicationController
 
       # Prevent signups from potential spammers
       if spam_user?(@user_signup)
-        handle_spam_user(@user_signup) do
+        handle_spam_user(@user_signup, 'signup') do
           render action: 'sign'
         end && return
       end
@@ -273,8 +275,19 @@ class UserController < ApplicationController
     end
 
     # circumstance is 'change_email', so can actually change the email
+    old_email = @user.email
     @user.email = @signchangeemail.new_email
+
+    if spam_user?(@user)
+      handle_spam_user(@user, 'email change') do
+        render action: 'signchangeemail'
+      end && return
+    end
+
     @user.save!
+
+    # Record the email change in history
+    @user.email_histories.record_change(old_email, @signchangeemail.new_email)
 
     sign_in(@user)
 
@@ -385,7 +398,6 @@ class UserController < ApplicationController
   # actual profile photo of a user
   def get_profile_photo
     long_cache
-    @display_user = set_display_user
     unless @display_user.profile_photo
       raise ActiveRecord::RecordNotFound, "user has no profile photo, url_name=" + params[:url_name]
     end
@@ -413,11 +425,6 @@ class UserController < ApplicationController
       AlaveteliConfiguration.enable_anti_spam
   end
 
-  def blocked_ip?(country, _user)
-    AlaveteliConfiguration.restricted_countries.include?(country) &&
-      country != AlaveteliConfiguration.iso_country_code
-  end
-
   def handle_blocked_ip(user)
     if send_exception_notifications?
       msg = "Possible spam signup (ip_in_blocklist) from " \
@@ -440,6 +447,10 @@ class UserController < ApplicationController
 
   def set_in_pro_area
     @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
+  end
+
+  def set_no_crawl
+    @no_crawl = true unless @display_user&.active?
   end
 
   def normalize_url_name
@@ -541,7 +552,8 @@ class UserController < ApplicationController
   end
 
   def set_display_user
-    User.where(email_confirmed: true).friendly.find(params[:url_name])
+    @display_user = User.where(email_confirmed: true).
+                         friendly.find(params[:url_name])
   end
 
   def set_show_requests
@@ -583,16 +595,6 @@ class UserController < ApplicationController
 
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
-  end
-
-  def show_about_me?
-    return true if @is_you
-    return false unless @display_user.get_about_me_for_html_display.present?
-    return false unless @display_user.active?
-    return true if @display_user.confirmed_not_spam?
-    return true if @user
-
-    false
   end
 
   # Redirects to front page later if nothing else specified

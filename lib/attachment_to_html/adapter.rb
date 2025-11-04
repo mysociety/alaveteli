@@ -36,6 +36,10 @@ module AttachmentToHTML
       true
     end
 
+    def embed?
+      false
+    end
+
     def has_content?
       !body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "").empty?
     end

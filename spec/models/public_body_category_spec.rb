@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210114052
 #
 # Table name: public_body_categories
 #
@@ -7,6 +6,8 @@
 #  category_tag :text             not null
 #  created_at   :datetime
 #  updated_at   :datetime
+#  title        :text
+#  description  :text
 #
 
 require 'spec_helper'

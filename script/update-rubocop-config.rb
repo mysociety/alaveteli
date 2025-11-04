@@ -45,7 +45,8 @@ def current_config
 end
 
 def merge_config(default, current)
-  config = { 'AllCops' => current['AllCops'] }
+  config = {}
+
   non_cops_groupings_from_config(current).each do |g|
     config[g] = current[g]
   end
@@ -68,7 +69,7 @@ def non_cops_groupings_from_config(config)
 end
 
 def cops_from_config(config)
-  config.keys - non_cops_groupings_from_config(config) - ['AllCops']
+  config.keys - non_cops_groupings_from_config(config)
 end
 
 def groupings_from_config(config)
@@ -76,24 +77,31 @@ def groupings_from_config(config)
 end
 
 def write_config(config, comments)
-  yaml = config.sort.to_h.to_yaml
+  yaml_groups = ["---"]
 
-  # add lines between cops
-  yaml.gsub!(/^(?!AllCops)([^ -]+:)$/, "\n\\1")
+  non_cops_groupings_from_config(config).each do |g|
+    yaml_groups << config.slice(g).to_yaml.sub(/---\n/, '')
+  end
+
+  groupings_from_config(config).sort.each do |g|
+    keys = config.keys.select { |k| k.start_with?(g) }
+    content = config.slice(*keys).to_yaml.sub(/---\n/, '')
+
+    # add lines between cops
+    content.gsub!(/^(?!AllCops)([^ -]+:)$/, "\n\\1")
+
+    # add headers for each grouping
+    header = '#' * 20 + " #{g} " + '#' * 20 + "\n"
+    yaml_groups << header + content
+  end
+
+  # build yaml string
+  yaml = yaml_groups.join("\n")
 
   # increase indent of array items
   yaml.gsub!(/^( *- )/, '  \1')
 
-  non_cops_groupings_from_config(config).each do |g|
-    # move non-cop groupings keys to top
-    yaml.gsub!(/(---\n)(.*)\n^(#{g}:.*)/m, "\\1\\3\n\\2")
-  end
-
-  groupings_from_config(config).each do |g|
-    # add headers for each grouping
-    yaml.sub!(g + '/', '#' * 20 + " #{g} " + '#' * 20 + "\n\n#{g}/")
-  end
-
+  # re-add any comments for cops
   comments.each do |cop, comment_lines|
     yaml.gsub!(/^(#{cop}:)/, "#{comment_lines.join("\n")}\n\\1")
   end

@@ -29,6 +29,7 @@
 
   input[name="commit"] {
     @extend .button--full-width;
+    margin-bottom: 1em;
   }
 
   hr {
@@ -40,10 +41,14 @@
 .input-label-aligned {
   display: flex;
   align-items: flex-start;
+  padding: 0.15rem 0;
 
   input[type="checkbox"],
   input[type="radio"] {
-    margin-top: 3px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    width: 14px;
+    height: 14px;
   }
 
   label {

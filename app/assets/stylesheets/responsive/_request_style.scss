@@ -41,14 +41,14 @@ $color-delivery-unknown: darken(#F3BD2A, 20%) !default; // yellow
   color: #333;
 
   a {
-    color: #2688dc;
+    color: #075292;
     &:hover,
     &:active,
     &:focus {
       color: #333333;
     }
     &:visited {
-      color: darken(#2688dc, 10%);
+      color: darken(#075292, 10%);
     }
   }
 }
@@ -99,7 +99,7 @@ a.track-request-action {
 }
 
 // Interactive styling for header if JavaScript has loaded.
-.js-loaded .js-collapsable {
+.js-loaded .js-collapsible {
   .correspondence__header {
     cursor: pointer;
 
@@ -112,8 +112,9 @@ a.track-request-action {
 .correspondence__header__date,
 .correspondence__header__date:visited {
   font-size: 0.875em;
-  color: #777;
+  color: #626262;
   text-decoration: none;
+  margin-left: 0.25rem;
   &:hover,
   &:active,
   &:focus {
@@ -173,7 +174,8 @@ a.cplink__button {
    padding: 1.25em 1.25em;
    .icon-standalone {
      float: left;
-     margin-right: 11px;
+     margin-right: 8px;
+     margin-top: 1px;
    }
    :last-child {
      margin-bottom: 0;
@@ -494,5 +496,36 @@ div.comment_in_request {
     &:focus {
       text-decoration: underline;
     }
+  }
+}
+
+// Browse page.
+
+.request-category {
+  h3 {
+    font-size: 1.125em;
+    margin-bottom: 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  a {
+    display: block;
+    padding: 0.25em 0;
+  }
+}
+
+.request-category-filter {
+  max-width: 30rem;
+  margin: 2rem 0;
+
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125em;
   }
 }

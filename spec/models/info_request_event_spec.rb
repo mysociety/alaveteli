@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230127132719
 #
 # Table name: info_request_events
 #
@@ -34,7 +33,7 @@ RSpec.describe InfoRequestEvent do
 
     it { is_expected.to be_valid }
 
-    it 'requires info_reqeust' do
+    it 'requires info_request' do
       ire.info_request = nil
       expect(ire).not_to be_valid
     end
@@ -63,7 +62,7 @@ RSpec.describe InfoRequestEvent do
       expect(ire.params).to eq(example_params)
     end
 
-    it "should store the incoming_message, outgoing_messsage and comment ids" do
+    it "should store the incoming_message, outgoing_message and comment ids" do
       comment = FactoryBot.create(:comment)
       example_params = { incoming_message_id: 1,
                         outgoing_message_id: 2,
@@ -74,7 +73,7 @@ RSpec.describe InfoRequestEvent do
       expect(ire.comment_id).to eq(comment.id)
     end
 
-    it "allow events to be created when assoication to deleted records" do
+    it "allow events to be created when association to deleted records" do
       comment = FactoryBot.create(:comment)
       comment.destroy
       ire = FactoryBot.create(:info_request_event, params: { comment: comment })
@@ -905,7 +904,7 @@ RSpec.describe InfoRequestEvent do
   end
 
   describe '#foi_attachment' do
-    it 'loads FoiAttachment from params as if it was an assoication' do
+    it 'loads FoiAttachment from params as if it was an association' do
       event = FactoryBot.build(
         :info_request_event, params: { attachment_id: 1 }
       )

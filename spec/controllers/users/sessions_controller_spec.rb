@@ -236,7 +236,8 @@ RSpec.describe Users::SessionsController do
         FactoryBot.create(
           :user,
           email: 'spammer@example.com', name: 'Download New Person 1080p!',
-          password: 'password1234', email_confirmed: true
+          password: 'password1234', email_confirmed: true,
+          confirmed_not_spam: false
         )
       end
 
@@ -258,8 +259,8 @@ RSpec.describe Users::SessionsController do
             to receive(:spam_should_be_blocked?).and_return(true)
         end
 
-        it 'logs the signup attempt' do
-          msg = "Attempted signup from suspected spammer, " \
+        it 'logs the signin attempt' do
+          msg = "Attempted signin from suspected spammer, " \
                 "email: spammer@example.com, " \
                 "name: 'Download New Person 1080p!'"
           allow(Rails.logger).to receive(:info)
@@ -268,7 +269,7 @@ RSpec.describe Users::SessionsController do
           do_signin(user.email, 'password1234')
         end
 
-        it 'blocks the signup' do
+        it 'blocks the signin' do
           do_signin(user.email, 'password1234')
           expect(session[:user_id]).to be_nil
         end
@@ -288,7 +289,35 @@ RSpec.describe Users::SessionsController do
         it 'sends an exception notification' do
           do_signin(user.email, 'password1234')
           mail = ActionMailer::Base.deliveries.first
-          expect(mail.subject).to match(/signup from suspected spammer/)
+          expect(mail.subject).to match(/signin from suspected spammer/)
+        end
+
+        it 'allows the signin' do
+          do_signin(user.email, 'password1234')
+          expect(session[:user_id]).to eq user.id
+        end
+      end
+
+      context 'when the user is an admin' do
+        before do
+          user.add_role(:admin)
+
+          allow(@controller).
+            to receive(:spam_should_be_blocked?).and_return(true)
+        end
+
+        it 'allows the signin' do
+          do_signin(user.email, 'password1234')
+          expect(session[:user_id]).to eq user.id
+        end
+      end
+
+      context 'when the user is confirmed_not_spam' do
+        before do
+          user.update(confirmed_not_spam: true)
+
+          allow(@controller).
+            to receive(:spam_should_be_blocked?).and_return(true)
         end
 
         it 'allows the signin' do

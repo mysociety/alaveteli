@@ -30,9 +30,9 @@ RSpec.describe AttachmentMasksController, type: :controller do
       end
     end
 
-    context 'when attachment is masked and refered from show as HTML action' do
+    context 'when attachment is masked and referred from show as HTML action' do
       it 'redirects to referer' do
-        allow(controller).to receive(:refered_from_show_as_html?).
+        allow(controller).to receive(:referred_from_show_as_html?).
           and_return(true)
         allow(attachment).to receive(:to_signed_global_id).and_return('ABC')
         wait

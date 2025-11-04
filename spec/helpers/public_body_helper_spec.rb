@@ -82,6 +82,23 @@ RSpec.describe PublicBodyHelper do
       expect(type_of_authority(public_body)).to eq(expected)
     end
 
+    it 'ignores categories without descriptions' do
+      3.times do |i|
+        FactoryBot.create(
+          :category, :public_body,
+          category_tag: "spec_#{i}",
+          description: i.even? ? "spec category #{i}" : ""
+        )
+      end
+      public_body = FactoryBot.create(
+        :public_body,
+        tag_string: 'unknown spec_0 spec_1 spec_2'
+      )
+      expected = '<a href="/body/list/spec_0">Spec category 0</a> and ' \
+        '<a href="/body/list/spec_2">spec category 2</a>'
+      expect(type_of_authority(public_body)).to eq(expected)
+    end
+
     context 'when categories are descendents of non-root parents' do
       it 'returns the description wrapped in an anchor tag' do
         FactoryBot.create(

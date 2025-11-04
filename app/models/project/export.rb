@@ -21,7 +21,7 @@ class Project::Export
   end
 
   def data_for_web
-    @data_for_web ||= data.map do |row|
+    @data_for_web ||= data_for_csv.map do |row|
       row.each_with_object({}) do |(key, value), obj|
         if key.to_s.end_with?('_url')
           base_key = key.to_s.sub('_url', '').to_sym
@@ -32,6 +32,17 @@ class Project::Export
 
         obj[base_key || key] = value
       end
+    end
+  end
+
+  def data_for_csv
+    @data_for_csv ||= data.map do |row|
+      row.except(
+        :info_request,
+        :key_set,
+        :classification_resource,
+        :extraction_resource
+      )
     end
   end
 
@@ -46,9 +57,9 @@ class Project::Export
 
   def to_csv
     CSV.generate do |csv|
-      header = data.first
+      header = data_for_csv.first
       csv << header.keys.map(&:to_s) if header
-      data.each { |row| csv << row.values }
+      data_for_csv.each { |row| csv << row.values }
     end
   end
 end

@@ -1,6 +1,6 @@
 class FixBrokenMigrationTimestamps < ActiveRecord::Migration[4.2]
   def up
-    # We can just delete the old migration version from the database beacuse:
+    # We can just delete the old migration version from the database because:
     # * We know the renamed migration has been applied, because the timestamp
     #   is less than the timestamp of this migration.
     # * The renamed migration will be a no-op, because the columns already exist

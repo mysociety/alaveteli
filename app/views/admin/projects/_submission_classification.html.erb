@@ -1,0 +1,20 @@
+<h5>Classification Details</h5>
+
+<table class="table table-condensed table-bordered">
+  <tbody>
+    <tr>
+      <td><strong>Event Type:</strong></td>
+      <td><%= h (event.event_type rescue 'Unknown') %></td>
+    </tr>
+    <tr>
+      <td><strong>Status:</strong></td>
+      <td>
+        <span class="badge badge-info"><%= h event.described_state %></span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Created:</strong></td>
+      <td><%= h event.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+    </tr>
+  </tbody>
+</table>

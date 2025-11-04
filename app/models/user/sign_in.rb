@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20220225214524
 #
 # Table name: user_sign_ins
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
+#  id         :bigint           not null, primary key
+#  user_id    :bigint
 #  ip         :inet
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  country    :string
+#  user_agent :text
 #
 
 # Record medadata about User sign in activity
@@ -27,6 +27,7 @@ class User::SignIn < ApplicationRecord
     joins(:user).references(:users).where(<<~SQL, query: query)
       lower(user_sign_ins.ip::text) LIKE lower('%'||:query||'%') OR
       lower(user_sign_ins.country) LIKE lower('%'||:query||'%') OR
+      lower(user_sign_ins.user_agent) LIKE lower('%'||:query||'%') OR
       lower(users.name) LIKE lower('%'||:query||'%') OR
       lower(users.email) LIKE lower('%'||:query||'%')
     SQL

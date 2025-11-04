@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: announcements
 #
@@ -8,6 +7,8 @@
 #  user_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  title      :string
+#  content    :text
 #
 
 class Announcement < ApplicationRecord

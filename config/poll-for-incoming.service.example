@@ -1,5 +1,5 @@
 #
-# systemd service unit for Alaveteli imcoming mail poller daemon
+# systemd service unit for Alaveteli incoming mail poller daemon
 #
 [Unit]
 Description=<%= daemon_name %> imports incoming mail into Alaveteli as required

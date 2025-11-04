@@ -1,16 +1,17 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: project_submissions
 #
-#  id              :integer          not null, primary key
-#  project_id      :integer
-#  user_id         :integer
+#  id              :bigint           not null, primary key
+#  project_id      :bigint
+#  user_id         :bigint
 #  resource_type   :string
-#  resource_id     :integer
+#  resource_id     :bigint
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  info_request_id :integer
+#  info_request_id :bigint
+#  parent_id       :bigint
+#  current         :boolean          default(TRUE), not null
 #
 
 require 'spec_helper'
@@ -29,6 +30,20 @@ RSpec.describe Project::Submission, type: :model do
 
     it 'belongs to an info request' do
       expect(submission.info_request).to be_an InfoRequest
+    end
+
+    it 'optionally belongs to a parent submission' do
+      parent = FactoryBot.create(:project_submission)
+      child = FactoryBot.build(:project_submission, parent: parent)
+      expect(child.parent).to eq(parent)
+    end
+
+    it 'has many versions' do
+      parent = FactoryBot.create(:project_submission)
+      version1 = FactoryBot.create(:project_submission, parent: parent)
+      version2 = FactoryBot.create(:project_submission, parent: parent)
+
+      expect(parent.versions).to include(version1, version2)
     end
 
     context 'when classification submission' do
@@ -61,12 +76,32 @@ RSpec.describe Project::Submission, type: :model do
       FactoryBot.create(:project_submission, :for_extraction)
     end
 
+    let!(:historical_submission) do
+      FactoryBot.create(:project_submission, current: false)
+    end
+
+    let!(:current_submission) do
+      FactoryBot.create(:project_submission, current: true)
+    end
+
     it 'can scope to classification submissions' do
-      expect(described_class.classification).to match_array([classification])
+      expect(described_class.classification).to match_array([
+        classification, historical_submission, current_submission
+      ])
     end
 
     it 'can scope to extraction submissions' do
       expect(described_class.extraction).to match_array([extraction])
+    end
+
+    it 'can scope to current submissions' do
+      expect(described_class.current).to include(classification, extraction, current_submission)
+      expect(described_class.current).not_to include(historical_submission)
+    end
+
+    it 'can scope to historical submissions' do
+      expect(described_class.historical).to include(historical_submission)
+      expect(described_class.historical).not_to include(classification, extraction, current_submission)
     end
   end
 
@@ -100,6 +135,48 @@ RSpec.describe Project::Submission, type: :model do
       is_expected.to be_valid
       submission.resource = FactoryBot.build(:dataset_value_set)
       is_expected.to be_valid
+    end
+  end
+
+  describe 'versioning methods' do
+    let(:original) { FactoryBot.create(:project_submission) }
+    let(:version1) { FactoryBot.create(:project_submission, parent: original) }
+    let(:version2) { FactoryBot.create(:project_submission, parent: original) }
+
+    describe '#original_submission' do
+      it 'returns self for original submission' do
+        expect(original.original_submission).to eq(original)
+      end
+
+      it 'returns parent for versioned submission' do
+        expect(version1.original_submission).to eq(original)
+      end
+    end
+
+    describe '#create_new_version' do
+      let(:editor) { FactoryBot.create(:user) }
+      let(:new_resource) { FactoryBot.create(:status_update_event) }
+
+      it 'creates a new version with correct attributes' do
+        new_version = original.create_new_version(
+          user: editor,
+          resource: new_resource
+        )
+
+        expect(new_version).to be_persisted
+        expect(new_version.parent).to eq(original)
+        expect(new_version.user).to eq(editor)
+        expect(new_version.resource).to eq(new_resource)
+        expect(new_version.current).to be true
+      end
+
+      it 'marks previous versions as not current' do
+        version1.update!(current: true)
+        original.create_new_version(
+          user: editor, resource: new_resource
+        )
+        expect(version1.reload.current).to be false
+      end
     end
   end
 end

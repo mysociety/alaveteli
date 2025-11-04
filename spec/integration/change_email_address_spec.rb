@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'changing your email address' do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, email: 'oldbob@localhost') }
 
   it "sends a confirmation email if you get all the details right" do
     using_session(login(user)) do
@@ -16,7 +16,7 @@ RSpec.describe 'changing your email address' do
 
       mail = ActionMailer::Base.deliveries.first
       expect(mail.body).to include("confirm that you want to change")
-      expect(mail.to).to eq([ 'newbob@localhost' ])
+      expect(mail.to).to eq([ 'oldbob@localhost' ])
 
       # Check confirmation URL works
       visit confirmation_url_from_email

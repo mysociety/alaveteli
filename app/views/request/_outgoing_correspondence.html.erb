@@ -1,11 +1,11 @@
-<div class="outgoing correspondence js-collapsable" id="<%= dom_id(outgoing_message) %>">
+<div class="outgoing correspondence js-collapsible" id="<%= dom_id(outgoing_message) %>">
   <%= render partial: 'request/prominence', locals: { prominenceable: outgoing_message } %>
 
   <%- if can?(:read, outgoing_message) %>
     <% delivery_status = outgoing_message.delivery_status %>
 
     <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %>">
-      <span class="correspondence__header__author js-collapsable-trigger">
+      <span class="correspondence__header__author js-collapsible-trigger">
         <%= outgoing_message.safe_from_name || _('Anonymous user') %>
       </span>
 

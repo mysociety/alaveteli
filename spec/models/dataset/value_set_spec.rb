@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: dataset_value_sets
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  resource_type      :string
-#  resource_id        :integer
-#  dataset_key_set_id :integer
+#  resource_id        :bigint
+#  dataset_key_set_id :bigint
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
@@ -61,8 +60,8 @@ RSpec.describe Dataset::ValueSet, type: :model do
     end
   end
 
-  describe 'nested attibutes' do
-    it 'accpets attributes for values' do
+  describe 'nested attributes' do
+    it 'accepts attributes for values' do
       key = FactoryBot.create(:dataset_key)
       value_set = FactoryBot.create(
         :dataset_value_set,

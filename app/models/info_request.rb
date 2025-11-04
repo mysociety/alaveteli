@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220928093559
 #
 # Table name: info_requests
 #
@@ -43,16 +42,21 @@ class InfoRequest < ApplicationRecord
   OLD_AGE_IN_DAYS = 21.days
 
   include Rails.application.routes.url_helpers
+  include LinkToHelper
+
+  include Categorisable
+  include Taggable
+  include Notable
+  include RateLimited
+
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
+
   include InfoRequest::BatchPagination
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
-  include Categorisable
-  include Taggable
-  include Notable
-  include LinkToHelper
+
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -60,6 +64,8 @@ class InfoRequest < ApplicationRecord
   def self.admin_title
     'Request'
   end
+
+  rate_limited 1 => 1.minute, 2 => 8.minutes, 3 => 15.minutes, 5 => 1.hour
 
   strip_attributes allow_empty: true
   strip_attributes only: [:title],
@@ -136,7 +142,11 @@ class InfoRequest < ApplicationRecord
            -> { extraction },
            class_name: 'Project::Submission'
 
+  has_many :insights, dependent: :destroy
+
   attr_reader :followup_bad_reason
+
+  scope :via_batch, -> { where.not(info_request_batch_id: nil) }
 
   scope :internal, -> { where.not(user_id: nil) }
   scope :external, -> { where(user_id: nil) }
@@ -146,6 +156,8 @@ class InfoRequest < ApplicationRecord
   scope :is_searchable, Prominence::SearchableQuery.new
   scope :embargoed, Prominence::EmbargoedQuery.new
   scope :not_embargoed, Prominence::NotEmbargoedQuery.new
+  scope :ever_embargoed, Prominence::EverEmbargoedQuery.new
+  scope :never_embargoed, Prominence::NeverEmbargoedQuery.new
   scope :embargo_expiring, Prominence::EmbargoExpiringQuery.new
   scope :embargo_expired_today, Prominence::EmbargoExpiredTodayQuery.new
   scope :visible_to_requester, Prominence::VisibleToRequesterQuery.new
@@ -192,11 +204,11 @@ class InfoRequest < ApplicationRecord
   before_create :set_use_notifications
   before_validation :compute_idhash
   before_validation :set_law_used, on: :create
-  after_create :notify_public_body
+  after_create :notify_associations
   after_save :update_counter_cache
   after_update :reindex_request_events, if: :reindexable_attribute_changed?
   before_destroy :expire
-  after_destroy :update_counter_cache
+  after_destroy :notify_associations, :update_counter_cache
 
   # Return info request corresponding to an incoming email address, or nil if
   # none found. Checks the hash to ensure the email came from the public body -
@@ -843,7 +855,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def clear_attachment_masks!
-    foi_attachments.update_all(masked_at: nil)
+    foi_attachments.unlocked.update_all(masked_at: nil)
   end
 
   # Removes anything cached about the object in the database, and saves
@@ -967,14 +979,9 @@ class InfoRequest < ApplicationRecord
   end
 
   # An annotation (comment) is made
-  def add_comment(body, user)
-    comment = Comment.new
+  def add_comment(comment)
     ActiveRecord::Base.transaction do
-      comment.body = body
-      comment.user = user
-      comment.info_request = self
-      comment.save!
-
+      comments << comment
       log_event('comment', comment_id: comment.id)
       save!
     end
@@ -1026,11 +1033,6 @@ class InfoRequest < ApplicationRecord
       if set_by && user
         RequestMailer.requires_admin(self, set_by, message).deliver_now
       end
-    end
-
-    unless set_by.nil? || is_actual_owning_user?(set_by) || described_state == 'attention_requested'
-      RequestMailer.
-        old_unclassified_updated(self).deliver_now unless is_external?
     end
   end
 
@@ -1965,7 +1967,8 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def notify_public_body
-    public_body.request_created
+  def notify_associations
+    public_body.info_request_count_changed
+    user&.info_request_count_changed
   end
 end

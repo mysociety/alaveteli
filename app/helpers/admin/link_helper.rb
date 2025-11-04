@@ -12,8 +12,9 @@ module Admin::LinkHelper
     icon = prominence_icon(info_request)
 
     link_to(icon, request_path(info_request), title: title) + ' ' +
-      link_to(info_request.title, admin_request_path(info_request),
-              title: admin_title)
+      classification_icon(info_request) + ' ' +
+        link_to(info_request.title, admin_request_path(info_request),
+                title: admin_title)
   end
 
   def outgoing_message_both_links(outgoing_message)
@@ -115,6 +116,14 @@ module Admin::LinkHelper
     link_to(icon, citation.source_url, title: title) + ' ' +
       link_to(citation.source_url, edit_admin_citation_path(citation),
               title: admin_title)
+  end
+
+  def project_both_links(project)
+    title = 'View project'
+    icon = eye
+
+    link_to(icon, project_path(project), title: title) + ' ' +
+      link_to(project.title, admin_project_path(project))
   end
 
   def admin_title

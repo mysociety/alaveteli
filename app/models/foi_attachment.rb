@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230717201410
 #
 # Table name: foi_attachments
 #
@@ -17,6 +16,9 @@
 #  prominence            :string           default("normal")
 #  prominence_reason     :text
 #  masked_at             :datetime
+#  locked                :boolean          default(FALSE)
+#  replaced_at           :datetime
+#  replaced_reason       :string
 #
 
 # models/foi_attachment.rb:
@@ -31,9 +33,14 @@ require 'digest'
 class FoiAttachment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
+
   include MessageProminence
 
   MissingAttachment = Class.new(StandardError)
+
+  attribute :replacement_file
+  attribute :replacement_body, :string
+  attribute :replaced_filename, :string
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :info_request, through: :incoming_message, source: :info_request
@@ -44,17 +51,24 @@ class FoiAttachment < ApplicationRecord
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
+  validates :replaced_filename, absence: true, unless: :replacing_or_replaced?
+  validates :replaced_reason, absence: true, unless: :replacing_or_replaced?
+  validates :replaced_reason, presence: true, if: :replacing_or_replaced?
 
   before_validation :ensure_filename!, only: [:filename]
+  before_save :handle_locked
+  before_save :handle_replacements
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
+  scope :locked, -> { where(locked: true) }
+  scope :unlocked, -> { where(locked: false) }
 
   delegate :expire, :log_event, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
-                include: %i[metadata]
+                include: %i[redacted_filename display_filename metadata]
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
@@ -114,10 +128,11 @@ class FoiAttachment < ApplicationRecord
     return @cached_body if @cached_body
 
     begin
-      return file.download if masked?
-    rescue ActiveStorage::FileNotFoundError
+      return file.download if locked? || masked?
+    rescue ActiveStorage::FileNotFoundError => ex
       # file isn't in storage and has gone missing, rescue to allow the masking
       # job to run and rebuild the stored file or even the whole attachment.
+      raise ex if locked?
     end
 
     if persisted?
@@ -143,28 +158,7 @@ class FoiAttachment < ApplicationRecord
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
-    MailHandler.attachment_body_for_hexdigest(
-      raw_email.mail,
-      hexdigest: hexdigest
-    )
-
-  rescue MailHandler::MismatchedAttachmentHexdigest
-    begin
-      attributes = MailHandler.attempt_to_find_original_attachment_attributes(
-        raw_email.mail,
-        body: file.download
-      ) if file.attached?
-
-    rescue ActiveStorage::FileNotFoundError
-      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
-    end
-
-    unless attributes
-      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
-    end
-
-    update(hexdigest: attributes[:hexdigest])
-    attributes[:body]
+    mail_attributes[:body]
   end
 
   def masked?
@@ -195,17 +189,20 @@ class FoiAttachment < ApplicationRecord
     filename.gsub(/\//, "-")
   end
 
+  def redacted_filename
+    return replaced_filename if replaced_filename.present?
+    return filename unless info_request
+    return filename if locked? && !locking?
+
+    info_request.apply_censor_rules_to_text(filename)
+  end
+
   # TODO: changing this will break existing URLs, so have a care - maybe
   # make another old_display_filename see above
   def display_filename
-    filename = self.filename
-    unless incoming_message.nil?
-      filename = info_request.apply_censor_rules_to_text(filename)
-    end
     # Sometimes filenames have e.g. %20 in - no point butchering that
     # (without unescaping it, this would remove the % and leave 20s in there)
-    filename = CGI.unescape(filename)
-
+    filename = CGI.unescape(redacted_filename)
     # Remove weird spaces
     filename = filename.gsub(/\s+/, " ")
     # Remove non-alphabetic characters
@@ -214,6 +211,7 @@ class FoiAttachment < ApplicationRecord
     filename = filename.gsub(/\s*\.\s*/, ".")
     # Compress adjacent spaces down to a single one
     filename = filename.gsub(/\s+/, " ")
+    # Strip leading/trailing whitespace
     filename.strip
   end
 
@@ -265,10 +263,8 @@ class FoiAttachment < ApplicationRecord
   end
 
   # For "View as HTML" of attachment
-  def body_as_html(dir, opts = {})
-    attachment_url = opts.fetch(:attachment_url, nil)
-    to_html_opts = opts.merge(tmpdir: dir, attachment_url: attachment_url)
-    AttachmentToHTML.to_html(self, to_html_opts)
+  def body_as_html(**kwargs)
+    AttachmentToHTML.to_html(self, **kwargs)
   end
 
   def cached_urls
@@ -288,10 +284,20 @@ class FoiAttachment < ApplicationRecord
   def update_and_log_event(event: {}, **params)
     return false unless update(params)
 
+    replaced = locked? && (
+               replacement_body_previously_changed? ||
+               replacement_file_previously_changed?)
+
     log_event(
       'edit_attachment',
       event.merge(
         attachment_id: id,
+        old_locked: locked_previously_was,
+        locked: locked,
+        replaced: replaced,
+        replaced_at: replaced ? replaced_at : nil,
+        replaced_filename: replaced ? filename : nil,
+        replaced_reason: replaced ? replaced_reason : nil,
         old_prominence: prominence_previously_was,
         prominence: prominence,
         old_prominence_reason: prominence_reason_previously_was,
@@ -300,7 +306,71 @@ class FoiAttachment < ApplicationRecord
     )
   end
 
+  def locking?
+    locked? && locked_changed?
+  end
+
+  def unlocking?
+    !locked? && locked_changed?
+  end
+
+  def replacing?
+    !unlocking? && (replacement_file_changed? || replacement_body_changed?)
+  end
+
+  def replaced?
+    replaced_at.present?
+  end
+
+  def replacing_or_replaced?
+    replacing? || replaced?
+  end
+
+  def replaced_filename
+    return filename if replaced? && !replaced_filename_changed?
+
+    super
+  end
+
+  def replacement_body
+    super || normalize_string_to_utf8(body)
+  end
+
+  def replacement_body=(new_replacement_body)
+    super unless normalize_line_endings(new_replacement_body) ==
+                 normalize_line_endings(body)
+  end
+
+  def storage_key
+    file.blob.key if file&.attached?
+  end
+
   private
+
+  def mail_attributes
+    MailHandler.attachment_attributes_for_hexdigest(
+      raw_email.mail,
+      hexdigest: hexdigest
+    )
+
+  rescue MailHandler::MismatchedAttachmentHexdigest
+    begin
+      attributes = MailHandler.attempt_to_find_original_attachment_attributes(
+        raw_email.mail,
+        body: file.download
+      ) if file.attached?
+
+    rescue ActiveStorage::FileNotFoundError
+      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
+    end
+
+    unless attributes
+      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
+    end
+
+    update(hexdigest: attributes[:hexdigest])
+    attributes
+  end
 
   def load_attachment_from_incoming_message!
     attachment = load_attachment_from_incoming_message
@@ -312,5 +382,57 @@ class FoiAttachment < ApplicationRecord
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
+  end
+
+  def handle_locked
+    if unlocking? && replaced?
+      file_blob.upload(StringIO.new(unmasked_body), identify: false)
+      file_blob.save
+
+      self.replaced_at = nil
+      self.replaced_reason = nil
+    end
+
+    if unlocking?
+      self.masked_at = nil
+      self.filename = mail_attributes[:filename]
+      ensure_filename!
+    end
+
+    self.filename = redacted_filename if locking?
+
+    if locking? || unlocking?
+      FoiAttachmentMaskJob.perform_later(self) unless masked_at
+    end
+
+    true
+  end
+
+  def handle_replacements
+    if replacing? || (replaced? && replaced_filename_changed?)
+      self.filename = replaced_filename.presence ||
+                      replacement_file&.original_filename ||
+                      mail_attributes[:filename]
+      ensure_filename!
+    end
+
+    if replacing?
+      self.replaced_at = Time.zone.now
+      self.masked_at = Time.zone.now
+      self.locked = true
+
+      if replacement_file_changed?
+        file.attach(
+          io: replacement_file,
+          filename: filename,
+          content_type: content_type
+        )
+      elsif replacement_body_changed?
+        file_blob.upload(StringIO.new(replacement_body), identify: false)
+        file_blob.save
+      end
+    end
+
+    true
   end
 end

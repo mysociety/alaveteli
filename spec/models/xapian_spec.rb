@@ -7,9 +7,9 @@ RSpec.describe User, " when indexing users with Xapian" do
   end
 
   it "should search by name" do
-    xapian_object = ActsAsXapian::Search.new([User], "Silly", limit: 100)
+    xapian_object = ActsAsXapian::Search.new([User], "Bob", limit: 100)
     expect(xapian_object.results.size).to eq(1)
-    expect(xapian_object.results[0][:model]).to eq(users(:silly_name_user))
+    expect(xapian_object.results[0][:model]).to eq(users(:bob_smith_user))
   end
 
   it "should search by 'about me' text" do

@@ -78,7 +78,7 @@ RSpec.describe SurveyMailer do
       end
     end
 
-    context 'when survery is not enabled' do
+    context 'when survey is not enabled' do
       before do
         allow(Survey).to receive(:enabled?).and_return(false)
       end

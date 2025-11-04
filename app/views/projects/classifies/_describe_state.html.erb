@@ -1,15 +1,18 @@
-<% form_url =
-  project_classifications_path(project, url_title: info_request.url_title) %>
+<%= form_for(resource, as: :classification, url: project_classify_path) do |f| %>
+  <%= hidden_field_tag 'r', params[:r] %>
+  <%= hidden_field_tag 'url_title', info_request.url_title %>
+  <%= hidden_field_tag 'resource_id', resource.id %>
 
-<%= form_for(:classification, url: form_url, method: :post) do |f| %>
   <h2><%= _('What best describes the status of this request now?') %></h2>
 
   <h3><%= _('This request is still in progress:') %></h3>
 
   <%= render partial: 'request/state_transition',
-             collection: state_transitions[:pending] %>
+             collection: state_transitions[:pending],
+             locals: { current_state: resource.described_state } %>
 
-  <%= render partial: 'general/custom_state_transitions_pending' %>
+  <%= render partial: 'general/custom_state_transitions_pending',
+             locals: { current_state: resource.described_state } %>
 
   <hr>
 
@@ -20,16 +23,19 @@
   <% end %>
 
   <%= render partial: 'request/state_transition',
-             collection: state_transitions[:complete] %>
+             collection: state_transitions[:complete],
+             locals: { current_state: resource.described_state } %>
 
-  <%= render partial: 'general/custom_state_transitions_complete' %>
+  <%= render partial: 'general/custom_state_transitions_complete',
+             locals: { current_state: resource.described_state } %>
 
   <hr>
 
   <h3><%= _('Other:') %></h3>
 
   <%= render partial: 'request/state_transition',
-             collection: state_transitions[:other] %>
+             collection: state_transitions[:other],
+             locals: { current_state: resource.described_state } %>
 
   <hr>
 
@@ -38,6 +44,12 @@
                          info_request.last_event_id_needing_description,
                          id: 'last_info_request_event_id' %>
 
-    <%= submit_tag _('Submit status') %>
+    <% if resource.persisted? %>
+      <%= submit_tag _('Update classification') %>
+      <%= link_to _('Cancel'), project_dataset_path(project), class: 'button-tertiary button--full-width' %>
+    <% else %>
+      <%= submit_tag _('Submit status') %>
+      <%= link_to _('Skip'), skip_project_classify_path(project, url_title: info_request.url_title), method: :patch, class: 'button-tertiary button--full-width' %>
+    <% end %>
   </p>
 <% end %>

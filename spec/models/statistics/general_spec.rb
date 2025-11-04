@@ -28,11 +28,16 @@ RSpec.describe Statistics::General do
     FactoryBot.create(:info_request, user: user,
                                      public_body: body,
                                      prominence: 'hidden')
+    FactoryBot.create(:info_request_batch, :sent, user: user)
     FactoryBot.create(:user, email_confirmed: false)
     FactoryBot.create(:visible_comment,
-                      default_args.dup.slice!(:public_body))
+                      default_args.dup.slice!(:public_body).merge(
+                        body: 'Visible comment'
+                      ))
     FactoryBot.create(:hidden_comment,
-                      default_args.dup.slice!(:public_body))
+                      default_args.dup.slice!(:public_body).merge(
+                        body: 'Hidden comment'
+                      ))
     FactoryBot.create(:search_track, tracking_user: user)
     FactoryBot.create(:widget_vote,
                       default_args.dup.slice!(:user, :public_body))
@@ -47,6 +52,7 @@ RSpec.describe Statistics::General do
     FactoryBot.create(:request_classification, user: user,
                                                info_request_event: event)
     FactoryBot.create(:citation, user: user, citable: info_request)
+    FactoryBot.create(:project, owner: user)
 
     allow(statistics).to receive(:alaveteli_git_commit).and_return('SHA')
   end
@@ -55,9 +61,11 @@ RSpec.describe Statistics::General do
     { alaveteli_git_commit: 'SHA',
       alaveteli_version: ALAVETELI_VERSION,
       ruby_version: RUBY_VERSION,
-      visible_public_body_count: 1,
-      visible_request_count: 1,
+      visible_public_body_count: 2,
+      visible_request_count: 2,
       private_request_count: 1,
+      request_via_batch_count: 1,
+      batch_count: 1,
       confirmed_user_count: 1,
       visible_comment_count: 1,
       track_thing_count: 1,
@@ -65,7 +73,8 @@ RSpec.describe Statistics::General do
       public_body_change_request_count: 1,
       request_classification_count: 1,
       visible_followup_message_count: 1,
-      citation_count: 1 }
+      citation_count: 1,
+      project_count: 1 }
   end
 
   describe '#to_h' do

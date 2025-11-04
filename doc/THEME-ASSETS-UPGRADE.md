@@ -62,7 +62,7 @@ with:
     config.assets.precompile.push 'extra.css'
 
 Any custom Javascript should be moved to `assets/javascripts` in
-your theme directory, and, simlarly to the additional CSS, it
+your theme directory, and, similarly to the additional CSS, it
 should be mentioned in `lib/alavetelitheme.rb` with:
 
     config.assets.precompile.push 'fancy-effects.js'

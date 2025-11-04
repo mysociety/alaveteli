@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -12,7 +11,7 @@
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00.000000000 GMT +00:00)
+#  last_daily_track_email            :datetime
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string
@@ -37,6 +36,8 @@
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
+#  status_update_count               :integer          default(0), not null
+#  last_sign_in_at                   :datetime
 #
 
 # If sample data has been loaded you can log in as any of these users with their
@@ -71,6 +72,8 @@ silly_name_user:
   locale: 'en'
   about_me: ''
   receive_email_alerts: true
+  comments_count: 1
+  track_things_count: 2
 admin_user:
   id: "3"
   name: Joe Admin

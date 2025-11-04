@@ -58,8 +58,8 @@ module CustomCops
       node.resbody_branches.each do |resbody|
         next unless resbody.body && resbody.body.multiline?
 
-        preceeding_line = processed_source[resbody.first_line - 2]
-        unless preceeding_line.blank?
+        preceding_line = processed_source[resbody.first_line - 2]
+        unless preceding_line.blank?
           add_offense(resbody, message: MSG_BEFORE) do |corrector|
             range = range_by_whole_lines(resbody.source_range)
             corrector.insert_before(range, "\n")

@@ -43,7 +43,7 @@ RSpec.describe '_search_results' do
     end
 
     describe 'and there are no results' do
-      let(:query) { 'serach term' }
+      let(:query) { 'search term' }
       let(:search) { ActsAsXapian::Search.new([PublicBody], query, limit: 3) }
 
       it 'renders a no results message' do

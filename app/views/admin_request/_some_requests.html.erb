@@ -1,3 +1,9 @@
+<div class="row">
+  <div class="span12">
+    <%= render partial: 'concerns/admin/sortable/sort_options' %>
+  </div>
+</div>
+
 <div class="accordion" id="requests">
   <% if info_requests.any? %>
     <%= render partial: 'admin_request/info_request', collection: info_requests %>

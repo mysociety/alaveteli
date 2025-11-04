@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220210114052
 #
 # Table name: notifications
 #
@@ -53,7 +52,7 @@ class Notification < ApplicationRecord
     end
   end
 
-  # Overriden #expired? so that we can check against the actual current state
+  # Overridden #expired? so that we can check against the actual current state
   # of our request (or whatever else might expire a notification)
   def expired
     send("#{info_request_event.event_type}_expired".to_sym)
@@ -91,13 +90,13 @@ class Notification < ApplicationRecord
     info_request = info_request_event.info_request
     user = info_request.user
     status = info_request.calculate_status
-    !(user.can_make_followup? && status == 'waiting_response_overdue')
+    !(user.active? && status == 'waiting_response_overdue')
   end
 
   def very_overdue_expired
     info_request = info_request_event.info_request
     user = info_request.user
     status = info_request.calculate_status
-    !(user.can_make_followup? && status == 'waiting_response_very_overdue')
+    !(user.active? && status == 'waiting_response_very_overdue')
   end
 end

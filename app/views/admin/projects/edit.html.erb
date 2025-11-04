@@ -1,0 +1,108 @@
+<% @title = "Edit Project: #{@project.title}" %>
+
+<h1>Edit Project</h1>
+
+<%= form_for [:admin, @project], class: "form-horizontal" do |f| %>
+  <fieldset class="form-horizontal">
+    <legend>Attributes</legend>
+
+    <div class="control-group">
+      <%= f.label :title, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :title, class: "span6", placeholder: "Enter project title" %>
+        <span class="help-block">A clear, descriptive title for the project</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :briefing, class: "control-label" %>
+      <div class="controls">
+        <%= f.rich_text_area :briefing %>
+        <span class="help-block">Detailed briefing explaining the project's purpose and goals</span>
+      </div>
+    </div>
+
+    <% if feature_enabled?(:projects_publishing) %>
+    <div class="control-group">
+      <%= f.label :dataset_description, class: "control-label" %>
+      <div class="controls">
+        <%= f.rich_text_area :dataset_description %>
+        <span class="help-block">Description of the dataset that will be generated from this project</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <label class="checkbox">
+          <%= f.check_box :dataset_public %>
+          Make dataset public
+          <span class="help-block">Allow the generated dataset to be publicly accessible</span>
+        </label>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="control-group">
+      <%= f.label :invite_token, 'Invite token', class: 'control-label' %>
+
+      <% if @project.invite_token.present? %>
+        <div class="controls">
+          <p class="form-control-static">
+            <code><%= @project.invite_token %></code>
+          </p>
+          <span class="help-block">Contributors can use this token to join the project</span>
+        </div>
+        <br>
+
+        <div class="controls">
+          <div class="inline-elements">
+            <%= f.label :invite_token_action_keep, class: 'inline-element' do %>
+              <%= f.radio_button :invite_token_action, '' %>
+              Keep current token
+            <% end %>
+
+            <%= f.label :invite_token_action_regenerate, class: 'inline-element' do %>
+              <%= f.radio_button :invite_token_action, 'regenerate' %>
+              Regenerate token
+            <% end %>
+
+            <%= f.label :invite_token_action_remove, class: 'inline-element' do %>
+              <%= f.radio_button :invite_token_action, 'remove' %>
+              Remove token
+            <% end %>
+
+            <span class="help-block">Choose whether to keep, regenerate, or remove the invite token for the project</span>
+          </div>
+        </div>
+      <% else %>
+        <div class="controls">
+          <div class="inline-elements">
+            <%= f.label :invite_token_action_keep, class: 'inline-element' do %>
+              <%= f.radio_button :invite_token_action, '' %>
+              Don't generate token
+            <% end %>
+
+            <%= f.label :invite_token_action_regenerate, class: 'inline-element' do %>
+              <%= f.radio_button :invite_token_action, 'regenerate' %>
+              Generate token
+            <% end %>
+
+            <span class="help-block">Choose to generate the invite token for the project</span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit "Update Project", class: "btn btn-success" %>
+    <%= link_to 'Cancel', admin_project_path(@project), class: "btn" %>
+  </div>
+<% end %>
+
+<%= form_for [:admin, @project], class: 'form form-inline', method: 'delete' do |f| %>
+  <%= f.submit 'Destroy project',
+               class: 'btn btn-danger',
+               data: { confirm: 'Are you sure? This is irreversible.' } %>
+  (this is permanent!)
+<% end %>

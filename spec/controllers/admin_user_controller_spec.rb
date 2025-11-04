@@ -395,7 +395,7 @@ RSpec.describe AdminUserController do
       Comment.find(comment_ids).each { |comment| expect(comment).to be_visible }
     end
 
-    it 'only modifes the given list of comments' do
+    it 'only modifies the given list of comments' do
       unaffected_comment = FactoryBot.create(:hidden_comment, user: @user)
       affected_comment = FactoryBot.create(:hidden_comment, user: @user)
 

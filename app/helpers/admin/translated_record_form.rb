@@ -35,7 +35,7 @@ class Admin::TranslatedRecordForm < ActionView::Helpers::FormBuilder
   end
 
   def error_messages
-    @template.tag.div class: 'error-mesages' do
+    @template.tag.div class: 'error-messages' do
       default_locale_error_messages
       translation_error_messages
     end

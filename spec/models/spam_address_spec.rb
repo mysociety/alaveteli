@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: spam_addresses
 #
@@ -15,7 +14,7 @@ RSpec.describe SpamAddress do
   it { is_expected.to strip_attribute(:email) }
 
   describe '.new' do
-    it 'requres an email address' do
+    it 'requires an email address' do
       expect(SpamAddress.new).not_to be_valid
       expect(SpamAddress.new(email: 'spam@example.org')).to be_valid
     end

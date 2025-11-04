@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20240724010118
 #
 # Table name: projects
 #
@@ -17,7 +16,9 @@
 # info requests.
 #
 class Project < ApplicationRecord
-  has_many :memberships, class_name: 'Project::Membership'
+  admin_columns exclude: %i[title briefing]
+
+  has_many :memberships, class_name: 'Project::Membership', dependent: :destroy
   has_one  :owner_membership,
            -> { where(role: Role.project_owner_role) },
            class_name: 'Project::Membership'
@@ -29,7 +30,7 @@ class Project < ApplicationRecord
   has_one  :owner, through: :owner_membership, source: :user
   has_many :contributors, through: :contributor_memberships, source: :user
 
-  has_many :resources, class_name: 'Project::Resource'
+  has_many :resources, class_name: 'Project::Resource', dependent: :destroy
   has_many :requests,
            through: :resources,
            source: :resource,
@@ -49,9 +50,9 @@ class Project < ApplicationRecord
 
   accepts_nested_attributes_for :key_set
 
-  attr_accessor :regenerate_invite_token
+  attr_accessor :invite_token_action
 
-  before_validation :generate_invite_token, if: -> { regenerate_invite_token }
+  before_validation :generate_invite_token
   validates :title, :owner, presence: true
 
   has_rich_text :briefing
@@ -95,6 +96,11 @@ class Project < ApplicationRecord
   private
 
   def generate_invite_token
-    self.invite_token = SecureRandom.hex(10)
+    case invite_token_action
+    when 'regenerate'
+      self.invite_token = SecureRandom.hex(10)
+    when 'remove'
+      self.invite_token = nil
+    end
   end
 end

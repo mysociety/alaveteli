@@ -546,100 +546,6 @@ RSpec.describe UserController do
         expect(assigns[:private_requests]).to be_empty
       end
     end
-
-    context 'when the display_user does not have an about_me' do
-      before { user.update(about_me: '') }
-
-      it 'does not show the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(false)
-      end
-    end
-
-    context 'when the display_user is banned' do
-      before { user.update(about_me: 'x', ban_text: 'spam') }
-
-      it 'does not show the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(false)
-      end
-    end
-
-    context 'when the display_user is inactive' do
-      before { user.update(about_me: 'x', closed_at: Time.zone.now) }
-
-      it 'does not show the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(false)
-      end
-    end
-
-    context 'when display_user is not confirmed as genuine' do
-      before { user.update(about_me: 'x', confirmed_not_spam: false) }
-
-      it 'does not show the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(false)
-      end
-    end
-
-    context 'when the display_user is confirmed as genuine' do
-      before { user.update(about_me: 'x', confirmed_not_spam: true) }
-
-      it 'shows the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(true)
-      end
-    end
-
-    context 'when logged in as the display_user' do
-      before { sign_in(user) }
-
-      it 'shows the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(true)
-      end
-    end
-
-    context 'when logged in as a different in user' do
-      before { user.update(about_me: 'x', confirmed_not_spam: false) }
-      before { sign_in(FactoryBot.create(:user)) }
-
-      it 'shows the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(true)
-      end
-    end
-
-    context 'when logged in as a different in user but the display_user has no about_me' do
-      before { user.update(about_me: '') }
-      before { sign_in(FactoryBot.create(:user)) }
-
-      it 'does not show the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(false)
-      end
-    end
-
-    context 'when logged in as a different in user but the display_user is inactive' do
-      before { user.update(about_me: 'x', closed_at: Time.zone.now) }
-      before { sign_in(FactoryBot.create(:user)) }
-
-      it 'does not show the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(false)
-      end
-    end
-
-    context 'when logged in as a different in user but the display_user is banned' do
-      before { user.update(ban_text: 'spam') }
-      before { sign_in(FactoryBot.create(:user)) }
-
-      it 'does not show the about_me' do
-        get :show, params: { url_name: user.url_name }
-        expect(assigns[:show_about_me]).to eq(false)
-      end
-    end
   end
 
   describe 'POST set_profile_photo' do
@@ -674,6 +580,68 @@ RSpec.describe UserController do
     before do
       # Don't call out to external url during tests
       allow(controller).to receive(:country_from_ip).and_return('gb')
+    end
+
+    context 'when signups are in read-only mode' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:read_only_features).
+          and_return(['signups'])
+      end
+
+      it 'redirects to the frontpage' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(response).to redirect_to frontpage_url
+      end
+
+      it 'shows a default read only flash message' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(flash[:notice]).to match(/Alaveteli is currently in maintenance/)
+      end
+    end
+
+    context 'when site is in general read-only mode' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:read_only).
+          and_return('Database upgrade')
+      end
+
+      it 'redirects to the frontpage' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(response).to redirect_to frontpage_url
+      end
+
+      it 'shows a flash message' do
+        post :signup, params: {
+          user_signup: {
+            email: 'new@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(flash[:notice]).to match(/Database upgrade/)
+      end
     end
 
     it "should be an error if you type the password differently each time" do
@@ -735,7 +703,7 @@ RSpec.describe UserController do
     end
 
     it "should send confirmation mail in other languages or different locales" do
-      session[:locale] = "es"
+      cookies[:locale] = 'es'
       post :signup, params: {
                       user_signup: {
                         email: 'new@localhost',
@@ -1171,6 +1139,54 @@ RSpec.describe UserController, "when changing email address" do
 
     expect(mail.body).to include("perhaps you, just tried to change their")
     expect(mail.to).to eq([ 'silly@localhost' ])
+  end
+
+  it "should record email change in history when email is successfully changed" do
+    @user = users(:bob_smith_user)
+    sign_in @user
+
+    old_email = @user.email
+    new_email = 'newbob@localhost'
+
+    # First, send the confirmation email
+    post :signchangeemail, params: {
+      signchangeemail: {
+        old_email: old_email,
+        password: 'jonespassword',
+        new_email: new_email
+      },
+      submitted_signchangeemail_do: 1
+    }
+
+    expect(response).to render_template('signchangeemail_confirm')
+
+    # Simulate clicking the confirmation link
+    post_redirect = PostRedirect.order(:id).last
+    session[:user_circumstance] = 'change_email'
+    session[:post_redirect_token] = post_redirect.token
+
+    # Ensure user is still logged in even if login_token has changed
+    @user.reload
+    sign_in @user
+
+    # Submit the form again with the confirmation token
+    post :signchangeemail, params: {
+      signchangeemail: {
+        old_email: old_email,
+        new_email: new_email
+      },
+      submitted_signchangeemail_do: 1
+    }
+
+    @user.reload
+    expect(@user.email).to eq(new_email)
+
+    # Check that email history was recorded
+    history = @user.email_histories.last
+    expect(history).not_to be_nil
+    expect(history.old_email).to eq(old_email)
+    expect(history.new_email).to eq(new_email)
+    expect(history.changed_at).to be_within(1.minute).of(Time.current)
   end
 end
 

@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: project_resources
 #
-#  id            :integer          not null, primary key
-#  project_id    :integer
+#  id            :bigint           not null, primary key
+#  project_id    :bigint
 #  resource_type :string
-#  resource_id   :integer
+#  resource_id   :bigint
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

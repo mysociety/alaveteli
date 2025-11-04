@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20220928093559
 #
 # Table name: info_requests
 #
@@ -51,6 +50,23 @@ RSpec.describe InfoRequest do
   it_behaves_like 'concerns/notable_and_taggable', :info_request
   it_behaves_like 'concerns/taggable', :info_request
   it_behaves_like 'info_request/batch_pagination'
+
+  describe '.via_batch' do
+    subject { described_class.via_batch }
+
+    let!(:request_in_batch) do
+      FactoryBot.create(:info_request_batch, :sent).info_requests.first
+    end
+
+    let!(:other) do
+      FactoryBot.create(:info_request)
+    end
+
+    it 'can scope to internal info requests' do
+      is_expected.to include(request_in_batch)
+      is_expected.to_not include(other)
+    end
+  end
 
   describe '.internal' do
     subject { described_class.internal }
@@ -130,6 +146,107 @@ RSpec.describe InfoRequest do
     end
   end
 
+  # rubocop:disable Layout/FirstArrayElementIndentation
+  describe '.exceeded_creation_rate?' do
+    subject { described_class.exceeded_creation_rate?(records) }
+
+    context 'when there are no records' do
+      let(:records) { described_class.where(id: nil) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last record was created in the last second' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 0.seconds.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last record was created a few minutes ago' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the last 2 records were created in the last 8 minutes' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 1.second.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 3 records were created in the last 15 minutes' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 1.second.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 5.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 10.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the last 5 records were created in the last hour' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 1.second.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 5.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 10.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 40.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 50.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the records are reasonably spaced' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 15.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 12.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 40.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 3.hours.ago),
+          FactoryBot.create(:info_request, created_at: 8.hours.ago),
+          FactoryBot.create(:info_request, created_at: 1.day.ago),
+          FactoryBot.create(:info_request, created_at: 3.days.ago)
+        ])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the records are provided out of order' do
+      let(:records) do
+        described_class.where(id: [
+          FactoryBot.create(:info_request, created_at: 3.days.ago),
+          FactoryBot.create(:info_request, created_at: 2.minutes.ago),
+          FactoryBot.create(:info_request, created_at: 1.second.ago)
+        ]).order(created_at: :asc)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+  # rubocop:enable Layout/FirstArrayElementIndentation
+
   describe '#foi_attachments' do
     subject { info_request.foi_attachments }
 
@@ -160,7 +277,7 @@ RSpec.describe InfoRequest do
       let(:foi) { FactoryBot.build(:public_body) }
       let(:eir) { FactoryBot.build(:public_body, :eir_only) }
 
-      it 'sets law used to the public body legislation on validataion' do
+      it 'sets law used to the public body legislation on validation' do
         request = FactoryBot.build(:info_request, public_body: eir)
 
         expect { request.valid? }.to change(request, :law_used).
@@ -1408,6 +1525,17 @@ RSpec.describe InfoRequest do
       expect { info_request.destroy }.
         to change(AlaveteliPro::Embargo, :count).by(-1)
     end
+
+    it 'notifies the associations' do
+      expect(info_request.public_body).to receive(:info_request_count_changed)
+      expect(info_request.user).to receive(:info_request_count_changed)
+      info_request.destroy
+    end
+
+    it 'destroys associated insights' do
+      FactoryBot.create(:insight, info_request: info_request)
+      expect { info_request.destroy }.to change(Insight, :count).by(-1)
+    end
   end
 
   describe '#expire' do
@@ -1454,13 +1582,26 @@ RSpec.describe InfoRequest do
     let(:info_request) { FactoryBot.create(:info_request_with_plain_incoming) }
     let(:attachment) { info_request.foi_attachments.first }
 
-    before { attachment.update(masked_at: Time.zone.now) }
+    context 'attachment unlocked' do
+      before { attachment.update(locked: false, masked_at: Time.zone.now) }
 
-    it 'sets attachments masked_at to nil' do
-      expect { info_request.clear_attachment_masks! }.to change {
-        attachment.reload
-        attachment.masked_at
-      }.from(Time).to(nil)
+      it 'sets attachments masked_at to nil' do
+        expect { info_request.clear_attachment_masks! }.to change {
+          attachment.reload
+          attachment.masked_at
+        }.from(Time).to(nil)
+      end
+    end
+
+    context 'attachment locked' do
+      before { attachment.update(locked: true, masked_at: Time.zone.now) }
+
+      it 'does not set attachments masked_at to nil' do
+        expect { info_request.clear_attachment_masks! }.to_not change {
+          attachment.reload
+          attachment.masked_at
+        }.from(Time)
+      end
     end
   end
 
@@ -2067,7 +2208,7 @@ RSpec.describe InfoRequest do
     end
 
     context 'email with a broken id and an intact idhash but broken format' do
-      let(:email) { "reqeust=123ab#{ info_request.idhash }@example.com" }
+      let(:email) { "request=123ab#{ info_request.idhash }@example.com" }
 
       let(:guess) do
         Guess.new(
@@ -3554,14 +3695,17 @@ RSpec.describe InfoRequest do
       info_request.save!
     end
 
-    it 'notifies the public body when created' do
-      expect(info_request.public_body).to receive(:request_created)
+    it 'notifies the associations when created' do
+      expect(info_request.public_body).to receive(:info_request_count_changed)
+      expect(info_request.user).to receive(:info_request_count_changed)
       info_request.save!
     end
 
-    it 'does not notify the public body when updated' do
+    it 'does not notify the associations when updated' do
       info_request.save!
-      expect(info_request.public_body).not_to receive(:request_created)
+      expect(info_request.public_body).
+        not_to receive(:info_request_count_changed)
+      expect(info_request.user).not_to receive(:info_request_count_changed)
       info_request.save!
     end
   end
@@ -4535,7 +4679,7 @@ RSpec.describe InfoRequest do
       end
     end
 
-    it 'sets the last event forming the intial request to the event' do
+    it 'sets the last event forming the initial request to the event' do
       expect(info_request.last_event_forming_initial_request_id)
         .to eq @event.id
     end

@@ -167,7 +167,7 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
 
         it "translates the subject" do
           expect(@message.subject). to eq(
-            "*** Spanish missings *** 2 *** Alaveteli"
+            "*** Spanish multiple missing *** 2 *** Alaveteli"
           )
         end
       end
@@ -321,7 +321,7 @@ RSpec.describe AlaveteliPro::EmbargoMailer do
 
         it "translates the subject" do
           expect(@message.subject). to eq(
-            "*** Spanish missings *** 2 *** Alaveteli"
+            "*** Spanish multiple missing *** 2 *** Alaveteli"
           )
         end
       end

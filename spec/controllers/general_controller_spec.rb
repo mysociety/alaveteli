@@ -143,7 +143,8 @@ RSpec.describe GeneralController, "when showing the frontpage" do
 
   describe 'when using locales' do
     it "should use our test PO files rather than the application one" do
-      get :frontpage, session: { locale: 'es' }
+      cookies[:locale] = 'es'
+      get :frontpage
       expect(response.body).to match(/XOXO/)
     end
   end
@@ -334,17 +335,6 @@ RSpec.describe GeneralController, 'when using xapian search' do
     get :search, params: { combined: "unconfirmed/users" }
     expect(response).to render_template('search')
     expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([])
-  end
-
-  it "should show newly-confirmed users" do
-    u = users(:unconfirmed_user)
-    u.email_confirmed = true
-    u.save!
-    update_xapian_index
-
-    get :search, params: { combined: "unconfirmed/users" }
-    expect(response).to render_template('search')
-    expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([u])
   end
 
   it "should show tracking links for requests-only searches" do

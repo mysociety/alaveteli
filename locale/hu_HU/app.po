@@ -49,7 +49,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 12:50+0000\n"
+"POT-Creation-Date: 2025-10-29 13:43+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Dohány Tamás, 2021-2022,2024\n"
 "Language-Team: Hungarian (Hungary) (http://app.transifex.com/mysociety/alavete"
@@ -249,11 +249,14 @@ msgstr "<p>Az igénylésben nem kell feltüntetnie e-mailcímét ahhoz, hogy vá
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Igénylésében szerepel <strong>irányítószám</strong>. Amennyiben az nem kapcsolódik közvetlenül az igénylés tárgyához, kérjük, címének adatait távolítsa el, mivel az <strong>nyilvánosan is megjelenik az interneten</strong>.</p> "
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>A {{site_name}} jelenleg karbantartás alatt áll. Csak a meglevő igényléseket tudja megtekinteni. Új igénylést vagy hozzászólást most nem tud beküldeni.</p> <p>{{read_only}}</p> "
+msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
+msgstr ""
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>{{site_name}} pillanatnyilag karbantartás alatt. Kizárólag a létező kéréseket lehet megtekinteni. Nem készíthető új lekérés, vagy bármi egyéb ami az adatbázis módosítására irányul.</p> <p>{{read_only}}</p>"
+msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
+msgstr ""
+
+msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
+msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>commented_by:tony_bowden</code></strong> Kovács János hozzászólásainak kereséséhez a név beírásával az URL szerint."
@@ -297,20 +300,14 @@ msgstr "<strong>Bármi más</strong> - mint például pontosítás, felszólít�
 msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
 msgstr "<strong>Automatikus anti-spam mérések helyben</strong> ehhez a régi kéréshez. Kérjük<a href=\"{{url}}\">tudassa velünk</a> ha további válaszra vár vagy ha gondja van a válaszolással."
 
+msgid "<strong>Be careful!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>A törvény szerint válaszolniuk kell.</strong> (<a href=\"{{url}}\">miért?</a>)."
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
 msgstr "Saját magamról is kérhetek információt? <br><strong>Nem!</strong> (<a href=\"{{url}}\">Itt olvashat arról, hogy miért nem</a>)"
-
-msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr ""
-"<strong>Caveat emptor!</strong> Az adatok tisztességes felhasználása érdekében \n"
-"ismernie kell a {{site_name}} weboldal felhasználóinak viselkedését. Nem világos, hogy hogyan, \n"
-"miért és ki kategorizálja az igényléseket, és \n"
-"felhasználói hiba és félreérthetőség is előfordulhat. Meg kell ismerkednie az információ szabadságáról szóló jogszabállyal is, valamint azzal, hogy az abban foglaltakat a\n"
-"közintézmények hogyan alkalmazzák. Továbbá kiváló statisztikusnak is kell lennie. Kérdéseivel\n"
-"<a href=\"{{contact_path}}\">forduljon hozzánk</a>. "
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
 msgstr "<strong>Elutasításban részesülsz?</strong> Van itt néhány tipp, ami segíthet:"
@@ -324,9 +321,6 @@ msgstr "<strong>Támogatás</strong> {{site_name}}"
 msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr "<strong>Ha megváltoztatja a nevét, a régi kéréseiben szereplő név nem fog megváltozni.</strong> Amikor kérelmet küld, az Ön által megadott nevet használjuk. Ez megnehezíti a régi és az új nevek összekapcsolását. Ez azt jelenti, hogy régi neve továbbra is megjelenik a már elküldött kéréseken és nyilvános profiloldalán."
 
-msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
-msgstr "<strong>Újságíró? Akadémikus? Vagy talán profi felhasználó?</strong>A {{pro_site_link}}  egy integrált FOI eszköz, ideértve mindent, amit szükséges fenntartanod egy komplex FOI vezérelt kutatáshoz."
-
 msgid "<strong>Keep this passcode safe.</strong> You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
 msgstr ""
 
@@ -338,8 +332,8 @@ msgstr ""
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Megjegyzés:</strong> Mivel egyelőre a tesztelést végezzük, az igényléseket az adott adatgazda helyett a(z) {{email}} e-mail címre küldjük."
 
-msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
-msgstr "<strong>Megjegyzés:</strong>E-mailt küldünk új e-mail címére. Kövesse az abban található utasításokat az e-mail cím módosításának megerősítéséhez!"
+msgid "<strong>Note:</strong> We will send an email to your old email address. Follow the instructions in it to confirm changing your email."
+msgstr ""
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr "<strong>Megjegyzés:</strong>Küldünk egy emailt, hogy megerősíthesse: Ön a hozzáférés tulajdonosa. Kövesse az emailben található instrukciókat, hogy megváltoztassa jelszavát."
@@ -464,6 +458,9 @@ msgstr ""
 
 msgid "Add the authority:"
 msgstr "A felhatalmazás hozzáadása: "
+
+msgid "Admin"
+msgstr ""
 
 msgid "Advanced search"
 msgstr "Összetett keresés "
@@ -660,8 +657,17 @@ msgstr "Spammelés miatt kitiltva"
 msgid "Banned from this site"
 msgstr "Kitiltva az oldalról"
 
+msgid "Batch FOI requests"
+msgstr ""
+
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "A köteget létrehozta: {{info_request_user}}, {{date}}."
+
+msgid "Batch requests allow multiple recipients of a single request"
+msgstr ""
+
+msgid "Batch requests are part of a new workflow"
+msgstr ""
 
 msgid "Before you start"
 msgstr "Mielőtt elkezdi"
@@ -722,6 +728,9 @@ msgstr ""
 
 msgid "Can't find the one you want?"
 msgstr "Nem találja, amit keresett?"
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "{{site_name}} értesítő törlése "
@@ -789,6 +798,21 @@ msgstr "Pontosítást küldött: {{info_request_user}} a {{public_body_name}} c�
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "A közérdekűadat-igénylés pontosítása {{request_title}}"
 
+msgid "Classification couldn't be saved."
+msgstr ""
+
+msgid "Classification couldn't be updated."
+msgstr ""
+
+msgid "Classification saved successfully!"
+msgstr ""
+
+msgid "Classification updated successfully!"
+msgstr ""
+
+msgid "Classify"
+msgstr ""
+
 msgid "Classify an FOI response from {{authority_name}}"
 msgstr "-tól/-től származó közérdekű adat igénylésére érkező válasz besorolása {{authority_name}}"
 
@@ -823,6 +847,9 @@ msgstr "Zárja be a kérést és válaszoljon:"
 
 msgid "Collapse all correspondence"
 msgstr "Az összes levelezés összecsukása"
+
+msgid "Comments are not allowed on this request"
+msgstr ""
 
 msgid "Complete"
 msgstr "Teljes"
@@ -913,6 +940,9 @@ msgstr "Új felhasználó létrehozása"
 
 msgid "Create a widget for this request"
 msgstr "Hozzon létre egy widgetet ehhez a kéréshez"
+
+msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Létrehozta {{info_request_user}}, ekkor: {{date}}."
@@ -1125,6 +1155,9 @@ msgstr "Bontsa ki az összes levelezést"
 msgid "Explore in Datasette"
 msgstr ""
 
+msgid "Extract"
+msgstr ""
+
 msgid "Extract data"
 msgstr "Adatok kinyerése"
 
@@ -1133,6 +1166,15 @@ msgstr "Vonja ki a releváns információkat minden sikeres információszabads�
 
 msgid "Extraction couldn't be saved."
 msgstr "A kivonat nem menthető."
+
+msgid "Extraction couldn't be updated."
+msgstr ""
+
+msgid "Extraction saved successfully!"
+msgstr ""
+
+msgid "Extraction updated successfully!"
+msgstr ""
 
 msgid "FOI"
 msgstr "KözAdat"
@@ -1170,6 +1212,12 @@ msgstr "Szűrő"
 msgid "Filter by Request Status (optional)"
 msgstr "Szűrés az igénylések állapota szerint (opcionális)"
 
+msgid "Filter by topic or area of interest"
+msgstr ""
+
+msgid "Filter these requests by keyword, date, or status"
+msgstr ""
+
 msgid "Find an authority"
 msgstr "Válassza ki azt az adatgazdát, amelytől adatot szeretne igényelni "
 
@@ -1205,9 +1253,6 @@ msgstr "Értesítőt kérek az adatigénylés(ek) fejleményeiről."
 
 msgid "Follow things matching this search"
 msgstr "Keresési feltételnek megfelelő elemek követése"
-
-msgid "Follow this link to see the request:"
-msgstr "Ezen a hivatkozáson tekinthető meg az igénylés:"
 
 msgid "Follow this link to see the requests:"
 msgstr "Kövesse ezt a linket a kérések megtekintéséhez:"
@@ -1652,6 +1697,9 @@ msgstr "Csatlakozott {{site_name}} webhely {{year}} évben"
 msgid "Journalism"
 msgstr ""
 
+msgid "Journalist, Academic or Power User?"
+msgstr ""
+
 msgid "Just one more thing"
 msgstr "Csak még egy dolog"
 
@@ -1873,6 +1921,9 @@ msgstr "Szép munka! Mit szólnál, ha még egyszer megpróbálnád a kihagyott 
 msgid "No"
 msgstr "Nem"
 
+msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
+msgstr ""
+
 msgid "No requests of this sort yet."
 msgstr "Nincsen ilyen típusú igénylés eddig. "
 
@@ -2084,6 +2135,9 @@ msgstr "Az alábbi hivatkozásra kattintva megerősítheti e-mail címét. "
 
 msgid "Please click on the link below to stop these emails."
 msgstr "Kérjük, kattintson az alábbi linkre az e-mailek leállításához."
+
+msgid "Please correct the errors below"
+msgstr ""
 
 msgid "Please create an account or sign in"
 msgstr "Jelentkezzen be vagy hozzon létre új fiókot."
@@ -2402,6 +2456,9 @@ msgstr "Szövegmagyarázat jelentés"
 msgid "Report annotation on request: {{title}}"
 msgstr "Szövegmagyarázat jelentés kérésre: {{title}}"
 
+msgid "Report inappropriate content"
+msgstr ""
+
 msgid "Report request"
 msgstr "Jelentés kérés"
 
@@ -2630,6 +2687,9 @@ msgstr "Üzenet küldése a következőnek: {{user_name}}"
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Üzenet küldése a következőnek: {{user_name}} Csak hogy megnézzük, hogyan működik "
 
+msgid "Sending to multiple authorities at once?"
+msgstr ""
+
 msgid "Sending..."
 msgstr "Küldés..."
 
@@ -2764,9 +2824,6 @@ msgstr ""
 msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "Közérdekűadat-igényléséhez valaki hozzászólt - {{request_title}}"
 
-msgid "Someone has updated the status of your request"
-msgstr "Valaki módosította az igénylés állapotát"
-
 msgid "Someone, perhaps you, just tried to change their email address on {{site_name}} from {{old_email}} to {{new_email}}."
 msgstr ""
 "Valaki (talán ön) megpróbálta e-mail címét módosítani a \n"
@@ -2778,8 +2835,8 @@ msgstr "Az igénylésre sajnos nem tud a {{site_name}} weboldalon választ adni,
 msgid "Sorry, '{{authority_name}}' has been marked as defunct, which means we can no longer process requests to them. You may need to check whether their responsibilities have been taken over by a different authority."
 msgstr "Sajnáljuk, a \"{{authority_name}}\" megszűntként lett megjelölve, ami azt jelenti, hogy a továbbiakban nem tudjuk feldolgozni a hozzájuk intézett kéréseket. Előfordulhat, hogy ellenőriznie kell, hogy a felelősségüket egy másik hatóság vette-e át."
 
-msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr "Erre csak {{user_name}} jogosult. "
+msgid "Sorry, but only {{user_name}} can do that."
+msgstr ""
 
 msgid "Sorry, there was a problem processing this page"
 msgstr "Probléma merült fel az oldal feldolgozása közben "
@@ -2861,6 +2918,9 @@ msgstr "Státusz beküldése és üzenet küldése"
 
 msgid "Subscribe to blog"
 msgstr "Feliratkozás a blogra "
+
+msgid "Subscribe to {{pro_site_name}}"
+msgstr ""
 
 msgid "Subscription cancelled"
 msgstr "Az előfizetés lemondva"
@@ -3155,12 +3215,6 @@ msgstr "Ezután besorolhatja a közérdekűadat-igénylésre adott választ, ame
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Ezután letöltheti a(z) {{info_request_title}} igénylést zip-fájlban. "
 
-msgid "Then you can join this project"
-msgstr "Akkor csatlakozhat ehhez a projekthez"
-
-msgid "Then you can leave this project"
-msgstr "Ezután kiléphet ebből a projektből"
-
 msgid "Then you can log into the administrative interface"
 msgstr "Ezután bejelentkezhet az adminisztrátori interfészre"
 
@@ -3179,8 +3233,8 @@ msgstr "Ezután bejelentkezhet a {{site_name}} weboldalra "
 msgid "Then you can update the status of your request to {{authority_name}}."
 msgstr "Ezután frissítheti igénylésének állapotát a következőre: {{authority_name}}."
 
-msgid "Then you can upload an FOI response. "
-msgstr "Ezután feltöltheti a közérdekű adat igénylésére kapott választ. "
+msgid "Then you can upload an FOI response."
+msgstr ""
 
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr "Ezután írhat nyomonkövetési üzenetet a {{authority_name}} címre."
@@ -3242,6 +3296,9 @@ msgstr "Ennek a korlátozásnak az az oka hogy nem szeretnénk ha nagy mennyisé
 msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
 msgstr "A megjegyzések létrehozásának sebessége is korlátozott. Kérjük, próbálja újra később, ha nem érte el a napi limitet."
 
+msgid "There is also a limit on the speed at which you are able to create requests. Please try again later if you have not hit your daily limit."
+msgstr ""
+
 msgid "There is nothing to display yet."
 msgstr "Még nincs mit megjeleníteni."
 
@@ -3295,6 +3352,9 @@ msgstr "Ezt a fiókot lezárták."
 
 msgid "This annotation has been reported for administrator attention"
 msgstr "Ezt a megjegyzést a rendszergazda figyelmébe ajánljuk"
+
+msgid "This annotation on was already made on {{date}}"
+msgstr ""
 
 msgid "This attachment has been hidden. {{reason}}"
 msgstr "Ez a melléklet el lett rejtve. {{reason}}"
@@ -3539,8 +3599,8 @@ msgstr "{{site_name}} weboldalon a(z) '{{public_body_name}}' részére küldött
 msgid "To follow the request '{{request_title}}'"
 msgstr "A(z) '{{request_title}}' igénylés követése"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr "A weboldal áttekinthetősége érdekében valaki más frissítette a {{law_used_full}} '{{title}}' igénylésének állapotát, amelyet Ön küldött a(z) {{public_body}} számára.  Igénylés új állapota: \"{{display_status}}” Ha nem ért egyet, kérjük, módosítsa."
+msgid "To help on this project"
+msgstr ""
 
 msgid "To join this project"
 msgstr "Csatlakozni ehhez a projekthez"
@@ -3589,6 +3649,9 @@ msgstr "Az összetett keresés funkció használatához kombinálja a kifejezés
 
 msgid "To view the response, click on the link below."
 msgstr "A válasz megtekintéséhez kattintson az alábbi hivatkozásra!"
+
+msgid "To view this project"
+msgstr ""
 
 msgid "To view your two factor authentication details"
 msgstr "A kétfaktoros hitelesítés részleteinek megtekintéséhez"
@@ -3709,6 +3772,12 @@ msgstr "Leiratkozás"
 msgid "Unusual response"
 msgstr "Szokatlan válasz"
 
+msgid "Update classification"
+msgstr ""
+
+msgid "Update data"
+msgstr ""
+
 msgid "Update dataset"
 msgstr ""
 
@@ -3736,6 +3805,9 @@ msgstr "Ha egy adott kifejezést keres, használjon idézőjeleket; például: <
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Használja ezt az oldalt információkéréshez – mi megmutatjuk, hogyan."
 
+msgid "User-to-user messaging has been disabled."
+msgstr ""
+
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "A felhasználók általában nem küldhetnek kötegelt kérelmeket egyszerre több hatóságnak, mert nem akarjuk, hogy a hatóságokat nagyszámú nem megfelelő kéréssel bombázzák. Kérjük, <a href=\"{{url}}\">vegye fel velünk a kapcsolatot</a> ha úgy gondolja, hogy alapos oka van arra, hogy ugyanazt a kérést egyszerre több hatóságnak is elküldje."
 
@@ -3747,6 +3819,9 @@ msgstr "Bosszantó"
 
 msgid "Vexatious annotation"
 msgstr "Bosszantó megjegyzés"
+
+msgid "View"
+msgstr ""
 
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "{{user_name}} által benyújtott  közérdekűadat-igénylések megtekintése "
@@ -3808,9 +3883,6 @@ msgstr "Nem engedélyezzük a {{site_name}} webhelyen keresztül az Ön személy
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nem rendelkezünk a(z) {{public_body_name}} működő {{law_used_full}} e-mailcímével. "
 
-msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
-msgstr "Ez a melléklet jelenleg nincs a gyorsítótárunkban, jelenleg feldolgozzuk kérését, és az oldal újra betöltődik, amint a melléklet elérhető lesz."
-
 msgid "We don't know the delivery status for this message."
 msgstr "Nem ismerjük ennek az üzenetnek a kézbesítési állapotát."
 
@@ -3860,6 +3932,9 @@ msgstr "Örülünk, hogy megkapta a kért információk egy részét."
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Örülünk, hogy megkapta a kért információk egy részét. Amennyiben a {{site_name}} weboldalt hasznosnak találta, <a href=\"{{donation_url}}\">adományával támogassa</a> a weboldalt üzemeltető jótékonysági szervezetet."
 
+msgid "We're still preparing this attachment. The page will reload automatically once it's ready."
+msgstr ""
+
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgstr[0] "Várjuk, hogy valaki elolvassa a legutóbbi válaszokat, és ennek megfelelően frissítse az állapotot. Talán <strong>Te</strong> szeretne segíteni ezzel?"
@@ -3873,10 +3948,8 @@ msgstr[1] "Várjuk, hogy {{user}} elolvassa a legutóbbi válaszokat, és friss�
 msgid "We've received a delivery status notification from the mailserver belonging to the authority."
 msgstr "Kézbesítési állapotról szóló értesítést kaptunk a hatósághoz tartozó levelezőszervertől."
 
-msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
+msgid "We've sent an email to your old email address. You'll need to click the link in it before your email address will be changed."
 msgstr ""
-"E-mailt küldtünk az új e-mailcímére. E-mailcíme csak azután módosul, ha\n"
-"az üzenetben található hivatkozásra kattint. "
 
 msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
 msgstr "Elküldtük ezt az üzenetet, de nem kaptunk visszaigazolást a kézhezvételről a hatóság levelezőszerverétől. Ez eltarthat egy ideig."
@@ -4106,8 +4179,8 @@ msgstr "Hibát talált. Kérjük, <a href=\"{{contact_url}}\">lépjen velünk ka
 msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
 msgstr "Elérte a kommentek korlátját. A felhasználók általában napi {{comment_limit}} kommentárra korlátozódnak."
 
-msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr "Felhasználóink 24 órán belül legfeljebb {{max_requests_per_user_per_day}} új adatigénylést kezdeményezhetnek. Ön elérte ezt a számot, ezért a következő adatigénylését legkorábban kb. {{can_make_another_request}} óra múlva küldheti el."
+msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period."
+msgstr ""
 
 msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
 msgstr "Elérte a felhasználói üzenetek korlátját. A felhasználók napi rendszerint legfeljebb {{message_limit}} üzenetet küldhetnek."
@@ -4262,6 +4335,9 @@ msgid "Your Freedom of Information request"
 msgid_plural "Your Freedom of Information requests (approximately {{count}})"
 msgstr[0] "Az Ön információszabadságra vonatkozó kérései"
 msgstr[1] "Az Ön információszabadságra vonatkozó kérései (körülbelül {{count}})"
+
+msgid "Your account on {{site_name}}"
+msgstr ""
 
 msgid "Your annotations"
 msgstr "Hozzászólásaim"
@@ -4777,6 +4853,9 @@ msgid_plural "{{number_of_requests}} requests left to categorise / {{total_numbe
 msgstr[0] "{{number_of_requests}} kérés maradt kategorizálva / összesen {{total_number_of_requests}}"
 msgstr[1] "{{number_of_requests}} még nem besorolt a {{total_number_of_requests}} igénylésből"
 
+msgid "{{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "{{pro_site_name}} Terms"
 msgstr "{{pro_site_name}} Feltételek"
 
@@ -4844,6 +4923,9 @@ msgstr[1] "{{site_name}} eddig {{number_of_authorities}} igényléssel fordult a
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 msgstr "{{site_name}} azonosította {{authority_name}} visszautasíthatja az egész kérést vagy annak a részét <strong>{{refusals}}</strong>alatt ."
+
+msgid "{{site_name}} is currently in maintenance. {{message}}"
+msgstr ""
 
 msgid "{{site_name}} login link"
 msgstr "{{site_name}} belépési hivatkozás"

@@ -8,12 +8,14 @@ module UserSpamCheck
   end
 
   def spam_user?(user)
+    return false if user.admin? || user.confirmed_not_spam?
+
     user_with_request = User::WithRequest.new(user, request)
     UserSpamScorer.new(spam_scorer_config).spam?(user_with_request)
   end
 
-  def handle_spam_user(user, &block)
-    msg = "Attempted signup from suspected spammer, " \
+  def handle_spam_user(user, action, &block)
+    msg = "Attempted #{action} from suspected spammer, " \
           "email: #{user.email}, " \
           "name: '#{user.name}'"
 
@@ -41,6 +43,7 @@ module UserSpamCheck
         email_from_suspicious_domain?: 10,
         email_from_spam_domain?: 13,
         email_from_spam_tld?: 1,
+        email_is_spam_format?: 3,
         name_is_spam_format?: 10,
         about_me_includes_currency_symbol?: 0,
         about_me_is_link_only?: 0,

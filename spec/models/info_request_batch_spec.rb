@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: info_request_batches
 #
@@ -83,13 +82,13 @@ RSpec.describe InfoRequestBatch do
       expect(InfoRequestBatch.with_body("foo\r\nbar")).to include(batch)
     end
 
-    it 'matchs batch body when whitespace is ignored' do
+    it 'matches batch body when whitespace is ignored' do
       ['foobar', 'foo bar', "foo\nbar"].each do |str|
         expect(InfoRequestBatch.with_body(str)).to include(batch)
       end
     end
 
-    it 'matchs whole batch body' do
+    it 'matches whole batch body' do
       strings = ['foo', 'foobarbaz', 'foo bar baz', "foo\nbar\nbaz",
                  "foo\r\nbar\r\nbaz"]
       strings.each do |str|

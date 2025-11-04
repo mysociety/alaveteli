@@ -38,7 +38,7 @@ EXAMPLES
   Open each template in vim's diff mode, which compares the current version of
   the alaveteli-core template with the override in your theme. You can
   reconcile the changes in vim. Exiting vim will open the next file until you've
-  covered all overriden templates.
+  covered all overridden templates.
 
 EOF
 }

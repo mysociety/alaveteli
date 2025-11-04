@@ -51,6 +51,18 @@ RSpec.describe UserSpamScorer do
     end
   end
 
+  describe '.spam_email_formats' do
+    it 'sets a default spam_email_formats value' do
+      expect(described_class.spam_email_formats).
+        to eq(described_class::DEFAULT_SPAM_EMAIL_FORMATS)
+    end
+
+    it 'sets a custom spam_email_formats value' do
+      described_class.spam_email_formats = [/\A.*$/]
+      expect(described_class.spam_email_formats).to eq([/\A.*$/])
+    end
+  end
+
   describe '.spam_name_formats' do
     it 'sets a default spam_name_formats value' do
       expect(described_class.spam_name_formats).
@@ -122,6 +134,73 @@ RSpec.describe UserSpamScorer do
     it 'returns the list of attributes that were reset' do
       expect(described_class.reset).to eq(described_class::CLASS_ATTRIBUTES)
     end
+
+    it 'returns the list including custom methods that were reset' do
+      described_class.register_custom_scoring_method(
+        :custom_method_1, 3, proc { |_u| false }
+      )
+      described_class.register_custom_scoring_method(
+        :custom_method_2, 5, proc { |_u| true }
+      )
+
+      reset_result = described_class.reset
+
+      expect(reset_result).to include(*described_class::CLASS_ATTRIBUTES)
+      expect(reset_result).to include(:custom_method_1)
+      expect(reset_result).to include(:custom_method_2)
+    end
+
+    it 'clears custom scoring methods' do
+      described_class.register_custom_scoring_method(
+        :custom_method, 5, proc { |_u| true }
+      )
+
+      custom_methods = described_class.custom_scoring_methods
+      expect(custom_methods).to have_key(:custom_method)
+
+      described_class.reset
+
+      expect(described_class.custom_scoring_methods).to be_empty
+    end
+  end
+
+  describe '.custom_scoring_methods' do
+    after do
+      described_class.reset
+    end
+
+    it 'returns an empty hash by default' do
+      expect(described_class.custom_scoring_methods).to eq({})
+    end
+
+    it 'persists custom methods' do
+      described_class.register_custom_scoring_method(
+        :custom_method, 3, proc { |_u| false }
+      )
+
+      custom_methods = described_class.custom_scoring_methods
+      expect(custom_methods).to have_key(:custom_method)
+      expect(custom_methods[:custom_method][:score]).to eq(3)
+    end
+  end
+
+  describe '.register_custom_scoring_method' do
+    after do
+      described_class.reset
+    end
+
+    it 'registers a custom scoring method' do
+      method_proc = proc { |u| u.name.include?('test') }
+
+      described_class.register_custom_scoring_method(
+        :custom_method, 7, method_proc
+      )
+
+      custom_methods = described_class.custom_scoring_methods
+      expect(custom_methods).to have_key(:custom_method)
+      expect(custom_methods[:custom_method][:score]).to eq(7)
+      expect(custom_methods[:custom_method][:proc]).to eq(method_proc)
+    end
   end
 
   describe '.new' do
@@ -191,11 +270,23 @@ RSpec.describe UserSpamScorer do
       scorer = described_class.new(spam_tlds: %w(com))
       expect(scorer.spam_tlds).to eq(%w(com))
     end
+
+    it 'includes custom scoring methods in score_mappings' do
+      described_class.register_custom_scoring_method(
+        :custom_method, 5, proc { |_u| false }
+      )
+
+      scorer = described_class.new
+      expect(scorer.score_mappings).to have_key(:custom_method)
+      expect(scorer.score_mappings[:custom_method]).to eq(5)
+
+      described_class.reset
+    end
   end
 
   describe '#spam?' do
     it 'returns true if the user spam score is above the threshold' do
-      user_attrs = { name: 'spammer', comments: [], track_things: [] }
+      user_attrs = { name: 'spammer' }
       user = mock_model(User, user_attrs)
       attrs = { score_mappings: { name_is_one_word?: 100 },
                 spam_score_threshold: 5 }
@@ -204,7 +295,7 @@ RSpec.describe UserSpamScorer do
     end
 
     it 'returns false if the user spam score is equal to the threshold' do
-      user_attrs = { name: 'genuine', comments: [], track_things: [] }
+      user_attrs = { name: 'genuine' }
       user = mock_model(User, user_attrs)
       attrs = { score_mappings: { name_is_one_word?: 5 },
                 spam_score_threshold: 5 }
@@ -213,7 +304,7 @@ RSpec.describe UserSpamScorer do
     end
 
     it 'returns false if the user spam score is below the threshold' do
-      user_attrs = { name: 'genuine', comments: [], track_things: [] }
+      user_attrs = { name: 'genuine' }
       user = mock_model(User, user_attrs)
       attrs = { score_mappings: { name_is_one_word?: 5 },
                 spam_score_threshold: 100 }
@@ -223,36 +314,8 @@ RSpec.describe UserSpamScorer do
   end
 
   describe '#score' do
-    it 'returns 0 if no mappings return true' do
-      user_attrs = { name: 'Bob Smith',
-                     comments: [],
-                     track_things: [] }
-      user = mock_model(User, user_attrs)
-      scorer = described_class.new(score_mappings: {})
-      expect(scorer.score(user)).to eq(0)
-    end
-
-    it 'returns 0 if the user has comments' do
-      user_attrs = { name: 'dubious',
-                     comments: [double],
-                     track_things: [] }
-      user = mock_model(User, user_attrs)
-      expect(subject.score(user)).to eq(0)
-    end
-
-    it 'returns 0 if the user has track_things' do
-      user_attrs = { name: 'dubious',
-                     comments: [],
-                     track_things: [double] }
-      user = mock_model(User, user_attrs)
-      expect(subject.score(user)).to eq(0)
-    end
-
     it 'increases the score for each score mapping that returns true' do
-      user_attrs = { name: 'Spammer',
-                     email_domain: 'mail.ru',
-                     comments: [],
-                     track_things: [] }
+      user_attrs = { name: 'Spammer', email_domain: 'mail.ru' }
       user = mock_model(User, user_attrs)
       opts = { score_mappings: { name_is_all_lowercase?: 1,
                                     name_is_one_word?: 2,
@@ -262,12 +325,77 @@ RSpec.describe UserSpamScorer do
     end
 
     it 'raises an error if a mapping is invalid' do
-      user_attrs = { name: 'Bob Smith',
-                     comments: [],
-                     track_things: [] }
+      user_attrs = { name: 'Bob Smith' }
       user = mock_model(User, user_attrs)
       scorer = described_class.new(score_mappings: { invalid_method: 1 })
       expect { scorer.score(user) }.to raise_error(NoMethodError)
+    end
+
+    it 'executes custom scoring methods' do
+      user = FactoryBot.build(:user, name: 'Test Name')
+      allow(user).to receive(:email_domain).and_return('example.com')
+
+      described_class.register_custom_scoring_method(
+        :custom_name_check, 50, proc { |u| u.name == 'Test Name' }
+      )
+
+      scorer = described_class.new
+      expect(scorer.score(user)).to eq(50)
+
+      described_class.reset
+    end
+
+    it 'combines custom and built-in scoring methods' do
+      user = FactoryBot.build(:user, name: 'testuser')
+      allow(user).to receive(:email_domain).and_return('mail.ru')
+
+      described_class.register_custom_scoring_method(
+        :custom_check, 3, proc { |u| u.name.include?('test') }
+      )
+
+      opts = {
+        score_mappings: {
+          name_is_one_word?: 2, email_from_suspicious_domain?: 5
+        }
+      }
+      scorer = described_class.new(opts)
+
+      # Built-in methods:
+      #   name_is_one_word (2) + email_from_suspicious_domain (5) = 7
+      # Custom method:
+      #   custom_check (3) = 3
+      # Total: 10
+      expect(scorer.score(user)).to eq(10)
+
+      described_class.reset
+    end
+
+    it 'isolates custom scoring methods per class' do
+      # This test verifies that the class instance variable fix works correctly
+      # and that custom methods don't leak between different classes
+
+      # Create a subclass to test isolation
+      subclass = Class.new(described_class)
+
+      # Register method on main class
+      described_class.register_custom_scoring_method(
+        :main_class, 5, proc { |_u| true }
+      )
+
+      # Register method on subclass
+      subclass.register_custom_scoring_method(
+        :subclass, 3, proc { |_u| true }
+      )
+
+      # Main class should only have its own method
+      expect(described_class.custom_scoring_methods).to have_key(:main_class)
+      expect(described_class.custom_scoring_methods).not_to have_key(:subclass)
+
+      # Subclass should only have its own method
+      expect(subclass.custom_scoring_methods).to have_key(:subclass)
+      expect(subclass.custom_scoring_methods).not_to have_key(:main_class)
+
+      described_class.reset
     end
   end
 
@@ -376,6 +504,22 @@ RSpec.describe UserSpamScorer do
       user = mock_model(User, email_domain: 'example.net')
       scorer = described_class.new(spam_tlds: mock_spam_tlds)
       expect(scorer.email_from_spam_tld?(user)).to eq(false)
+    end
+  end
+
+  describe '#email_is_spam_format?' do
+    let(:mock_spam_formats) { [/\A[^+]+\+[^@]+@.*$/] }
+
+    it 'is true if the email matches a spammy format' do
+      user = mock_model(User, email: 'foo+bar@localhost')
+      scorer = described_class.new(spam_email_formats: mock_spam_formats)
+      expect(scorer.email_is_spam_format?(user)).to eq(true)
+    end
+
+    it 'is false if the email is not a spammy format' do
+      user = mock_model(User, email: 'bob@localhost')
+      scorer = described_class.new(spam_email_formats: mock_spam_formats)
+      expect(scorer.email_is_spam_format?(user)).to eq(false)
     end
   end
 
@@ -636,6 +780,19 @@ RSpec.describe UserSpamScorer do
     it 'is false if the user does not have a IP address' do
       user = mock_model(User)
       expect(subject.ip_range_is_suspicious?(user)).to eq(false)
+    end
+  end
+
+  describe 'backwards compatibility' do
+    it 'continues to work with existing scoring methods' do
+      user = FactoryBot.build(:user, name: 'alllowercase',
+                                     email: 'test@mail.ru')
+      scorer = UserSpamScorer.new
+
+      # Should still calculate scores using existing methods
+      expect(scorer.score(user)).to be > 0
+      expect(scorer.name_is_all_lowercase?(user)).to be true
+      expect(scorer.email_from_suspicious_domain?(user)).to be true
     end
   end
 end

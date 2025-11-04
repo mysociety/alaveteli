@@ -12,12 +12,16 @@
       <% if feature_enabled?(:annotations) %>
         <br><a href="#annotations"><%= _('Annotations') %></a>
       <% end %>
+
+      <hr style="margin:1em 0;">
+
+      <%= link_to _('Report inappropriate content'), help_contact_path %>
     <% end %>
   </div>
 
   <div id="header_left" class="header_left">
     <p id="user_photo_on_profile" class="user_photo_on_profile">
-      <% if @display_user.show_profile_photo? %>
+      <% if (@is_you && @display_user.profile_photo) || @display_user.show_profile_photo? %>
         <% if @is_you %>
           <a href="<%= set_profile_photo_url %>">
         <% end %>
@@ -59,7 +63,7 @@
       <% end %>
     </p>
 
-    <% if @display_user.active? %>
+    <% if @display_user.active? && feature_enabled?(:user_to_user_messaging) %>
       <p>
         <% if @is_you %>
           <%= link_to _('Send message to {{user_name}} just to see how it works',
@@ -71,7 +75,7 @@
                       contact_user_path(url_name: @display_user.url_name) %>
         <% end %>
       </p>
-    <% else %>
+    <% elsif @display_user.suspended? %>
       <div id="user_public_suspended">
         <p>
           <strong>

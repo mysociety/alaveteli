@@ -86,6 +86,14 @@
         </ul>
       </td>
     </tr>
+    <tr>
+      <td>
+        <b>Tags</b>
+      </td>
+      <td>
+        <%= render_tags @admin_user.tags %>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -184,6 +192,13 @@
 
   <hr>
 <% end %>
+
+<h2>Email history</h2>
+
+<%= render partial: 'admin/users/email_history_table',
+           locals: { email_histories: @admin_user.email_histories } %>
+
+<hr>
 
 <h2>Sign Ins</h2>
 

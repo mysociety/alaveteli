@@ -1,3 +1,226 @@
+# 0.46.0.0
+
+## Highlighted Features
+
+* Made "Projects" feature available to all Pro users (Graeme Porteous)
+* Added batch and project stats to /version.json endpoint (Gareth Rees)
+* Add logging of storage keys when destroying and redelivering incoming messages
+  (Graeme Porteous)
+* Remove PDF to HTML parsing and instead use modern browsers inline PDF viewer
+  (Graeme Porteous)
+* Added project administration UI (Graeme Porteous)
+* Project submission contribution editing (Graeme Porteous)
+* Add icons to classification forms (Gareth Rees, Lucas Cumsille Montesinos)
+* Store user locale preference in a separate cookie instead of the encrypted
+  Rails session cookie to enable Varnish and other caching layers to read it
+  (Matthew Somerville, Graeme Porteous)
+* Simplify IncomingMessage/RawEmail admin actions so that only relevant actions
+  are shown in various admin UI screens (Gareth Rees)
+* Confirm unconfirmed users after following a password reset confirmation link
+  (Gareth Rees)
+* Don't redirect missing HTML conversion attachments to the request page
+  (Matthew Somerville, Gareth Rees)
+* Add rate limiting to request creation (Gareth Rees)
+* Ability to exclude certain domains from creating responses via the web UI
+  (Gareth Rees)
+* Don't run the spam checker for admin accounts or accounts confirmed as not
+  spam on sign in (Gareth Rees)
+* Add no crawl meta tags to banned/closed user profile pages (Graeme Porteous)
+* Add `UserSpamScorer.spam_email_formats` to test email addresses against
+  regular expressions to see if they are spammy or not (Graeme Porteous)
+* Add `last_sign_in_at` column to users (Graeme Porteous)
+* Render Alaveteli configuration values on admin debug page (Gareth Rees)
+* Clarify no sign ins message (Gareth Rees)
+* Check user spam scoring on email address change (Graeme Porteous)
+* Make requests sortable in the admin interface (Gareth Rees)
+* Add classification icons to request lists in admin (Gareth Rees)
+* Switch to sending user email change confirmation emails to the old email
+  address for increased security verification (Graeme Porteous)
+* Allow users to be tagged (Graeme Porteous)
+* Update `RESTRICTED_COUNTRIES` configuration option to allow countries to be
+  marked as permitted countries. With `BLOCK_RESTRICTED_COUNTRY_IPS` this will
+  restrict sign ups and new requests to IP addresses from permitted countries
+  (Graeme Porteous)
+* Add ability to set individual features to read-only (Graeme Porteous)
+* Add tracking of user profile email address changes (Graeme Porteous)
+* Update outgoing mail failure handling (Graeme Porteous)
+* Track user agents strings associated with User sign ins if configured (Graeme
+  Porteous)
+* Add ability to define custom spam scoring (Graeme Porteous)
+* Improvements to project setup and editing workflow (Graeme Porteous)
+* Add admin ability to edit outgoing messages without storing old body content
+  (Graeme Porteous)
+* Add experimental request insights feature (Graeme Porteous)
+* Add user-to-user messaging configuration (Graeme Porteous)
+* Add `rel=nofollow` attributes to links in outgoing messages (Graeme Porteous)
+* Add task to purge profile content for limited user profiles after six months
+  (Graeme Porteous)
+* Add task to destroy users deemed unused after two years (Graeme Porteous)
+* Limit user profile visibility until user accounts are confirmed active,
+  reducing exposure of spam accounts (Graeme Porteous)
+* Add `User#status_update_count` counter column (Graeme Porteous)
+* Update admin text column rendering (Graeme Porteous)
+* Improve visual accessibility and UX (Lucas Cumsille Montesinos)
+* Improve /browse page and individual category page UX (Zarino Zappia)
+* Add public annotations configuration (Graeme Porteous)
+* Add attachment locking and replacement (Graeme Porteous)
+* Only send clarification notifications to recent requests (Gareth Rees)
+* Improve citation form field width (Gareth Rees)
+* Add report link to user profile pages (Gareth Rees)
+* Only list users who have made requests in search results (Gareth Rees, Graeme
+  Porteous)
+* Collect cancellation reasons when Pro users cancel their subscriptions (Graeme
+  Porteous)
+* Removed `old_unclassified_updated` email (Graeme Porteous)
+* Add Pro upsell on the user rate limited page (Graeme Porteous)
+* Update Stripe payment description after Pro payments (Graeme Porteous)
+* Add additional InfoRequest embargo scopes (Graeme Porteous)
+
+## Upgrade Notes
+
+* _Required:_ There are some database structure updates so remember to run:
+
+      bin/rails db:migrate
+
+* _Required:_ To populate `User#status_update_count`, please run:
+
+      bin/rails temp:populate_user_status_update_count
+
+* _Required:_ The crontab needs to be regenerated to include the new
+modifications:
+https://alaveteli.org/docs/installing/cron_and_daemons/#generate-crontab
+
+* _Recommended:_ This release limits user indexing to users who've made requests
+to prevent users stumbling across spam user profiles via the on-site search.
+
+You can wait for this change to eventually percolate as account records
+are updated, or manually update the search index with the following:
+
+    bin/rails runner "User.where(info_requests_count: 0).in_batches.each_record(&:xapian_mark_needs_index)"
+
+Depending on the number of affected records and compute resources, you
+may wish to throttle the reindexing by running a similar version of this
+in the rails console:
+
+    User.where(info_requests_count: 0).in_batches do |users|
+      users.each(&:xapian_mark_needs_index)
+      sleep(360) # Throttle the reindexing
+    end
+
+* _Note:_ This release introduces an experimental request insights feature that
+enables administrators to analyse outgoing requests using a Large Language Model
+(LLM) via Ollama integration. Currently, this admin-only feature processes data
+in the backend only. To enable this functionality, you'll need to set up Ollama
+on your infrastructure and configure the `OLLAMA_URL` environment variable.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin/changelog/index.html.erb
+    app/views/admin/citations/edit.html.erb
+    app/views/admin/foi_attachments/edit.html.erb
+    app/views/admin/info_request_batches/_admin_columns.html.erb
+    app/views/admin/tags/_tagging.html.erb
+    app/views/admin/users/_sign_in_table.html.erb
+    app/views/admin/users/sign_ins/index.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/admin_general/debug.html.erb
+    app/views/admin_incoming_message/_actions.html.erb
+    app/views/admin_incoming_message/_admin_columns.html.erb
+    app/views/admin_incoming_message/_foi_attachments.html.erb
+    app/views/admin_outgoing_message/_admin_columns.html.erb
+    app/views/admin_outgoing_message/edit.html.erb
+    app/views/admin_raw_email/show.html.erb
+    app/views/admin_request/_info_request.html.erb
+    app/views/admin_request/_some_requests.html.erb
+    app/views/admin_request/index.html.erb
+    app/views/admin_request/show.html.erb
+    app/views/admin_user/_form.html.erb
+    app/views/admin_user/_user_table.html.erb
+    app/views/admin_user/index.html.erb
+    app/views/admin_user/show.html.erb
+    app/views/alaveteli_pro/comments/_note.html.erb
+    app/views/alaveteli_pro/comments/_submit.html.erb
+    app/views/alaveteli_pro/comments/_suggestions.html.erb
+    app/views/alaveteli_pro/info_requests/_after_actions.html.erb
+    app/views/alaveteli_pro/pages/marketing_roles/journalists/_marketing_testimonials.html.erb
+    app/views/alaveteli_pro/projects/_contributors.html.erb
+    app/views/alaveteli_pro/projects/_project.html.erb
+    app/views/alaveteli_pro/projects/_resources.html.erb
+    app/views/alaveteli_pro/projects/_resources_selected.html.erb
+    app/views/alaveteli_pro/projects/_select_key.html.erb
+    app/views/alaveteli_pro/projects/edit.html.erb
+    app/views/alaveteli_pro/projects/edit_contributors.html.erb
+    app/views/alaveteli_pro/projects/edit_contributors.turbo_stream.erb
+    app/views/alaveteli_pro/projects/edit_key_set.html.erb
+    app/views/alaveteli_pro/projects/edit_key_set.turbo_stream.erb
+    app/views/alaveteli_pro/projects/edit_resources.html.erb
+    app/views/alaveteli_pro/projects/edit_resources.turbo_stream.erb
+    app/views/alaveteli_pro/projects/index.html.erb
+    app/views/alaveteli_pro/subscriptions/_cancel_subscription.html.erb
+    app/views/attachment_masks/wait.html.erb
+    app/views/comments/_comment_form.html.erb
+    app/views/comments/_note.html.erb
+    app/views/comments/_single_comment.html.erb
+    app/views/comments/_single_comment.text.erb
+    app/views/comments/_submit.html.erb
+    app/views/comments/_suggestions.html.erb
+    app/views/comments/new.html.erb
+    app/views/comments/preview.html.erb
+    app/views/comments/rate_limited.html.erb
+    app/views/general/_read_only.html.erb
+    app/views/general/_read_only_annotations.html.erb
+    app/views/general/_responsive_topnav.html.erb
+    app/views/help/_sidebar.html.erb
+    app/views/help/_why_they_should_reply_by_email.html.erb
+    app/views/help/about.html.erb
+    app/views/help/alaveteli.html.erb
+    app/views/help/api.html.erb
+    app/views/help/contact.html.erb
+    app/views/help/credits.html.erb
+    app/views/help/officers.html.erb
+    app/views/help/privacy.html.erb
+    app/views/help/pro.html.erb
+    app/views/help/requesting.html.erb
+    app/views/help/unhappy.html.erb
+    app/views/layouts/admin.html.erb
+    app/views/layouts/default.html.erb
+    app/views/password_changes/edit.html.erb
+    app/views/projects/classifies/_describe_state.html.erb
+    app/views/projects/classifies/_sidebar.html.erb
+    app/views/projects/classifies/show.html.erb
+    app/views/projects/dataset/keys/_select_key.html.erb
+    app/views/projects/dataset/show.html.erb
+    app/views/projects/extracts/_form.html.erb
+    app/views/projects/extracts/_sidebar.html.erb
+    app/views/projects/extracts/show.html.erb
+    app/views/projects/projects/_project_nav.html.erb
+    app/views/projects/projects/show.html.erb
+    app/views/request/_after_actions.html.erb
+    app/views/request/_attachments.html.erb
+    app/views/request/_incoming_correspondence.html.erb
+    app/views/request/_outgoing_correspondence.html.erb
+    app/views/request/_share_by_link.html.erb
+    app/views/request/_state_transition.html.erb
+    app/views/request/details.html.erb
+    app/views/request/events/_comment.html.erb
+    app/views/request/index.html.erb
+    app/views/request/list.html.erb
+    app/views/request/show.text.erb
+    app/views/request_mailer/old_unclassified_updated.text.erb
+    app/views/upload_response/new.html.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signup.html.erb
+    app/views/user/contact.html.erb
+    app/views/user/rate_limited.html.erb
+    app/views/user/show/_show_profile.html.erb
+    app/views/user/signchangeemail.html.erb
+    app/views/user/signchangeemail_confirm.html.erb
+    app/views/user/wrong_user.html.erb
+    app/views/user_mailer/already_registered.text.erb
+
 # 0.45.3.2
 
 ## Highlighted Features
@@ -2369,10 +2592,10 @@ to match the new templates.
 * Ensure memcached is installed (`sudo apt-get install memcached`) and running
   (`sudo service memcached start`).
 * `app/views/track/_track_set.erb` has been renamed to
-  `app/views/track/_track_set.html.erb`, so if you've overriden it you will need
+  `app/views/track/_track_set.html.erb`, so if you've overridden it you will need
   to update the override.
 * `app/views/general/_opengraph_tags.erb` has been renamed to
-  `app/views/general/_opengraph_tags.html.erb`, so if you've overriden it you
+  `app/views/general/_opengraph_tags.html.erb`, so if you've overridden it you
   will need to update the override.
 * Run `bundle exec rake temp:populate_last_event_time` after deployment to populate
   the cached `last_event_time` attribute on info_requests, used in the admin interface.
@@ -2890,7 +3113,7 @@ There are some database structure updates so remember to rake db:migrate
 ## Upgrade Notes
 * You can run this release without using the Alaveteli Pro functionality - by
   default it is switched off.
-* Please update any overriden templates and theme code that reference times and
+* Please update any overridden templates and theme code that reference times and
   dates to reference the local time zone where appropriate. e.g.
 
   Time.now => Time.zone.now
@@ -3133,7 +3356,7 @@ There are some database structure updates so remember to rake db:migrate
   geoip databases.
 * To update events to use the new 'hide' event type you need to run
   `rake temp:update_hide_event_type`
-* If you've added Javascript to overriden view templates, you should wrap it
+* If you've added Javascript to overridden view templates, you should wrap it
   in a `content_for :javascript` block. See http://api.rubyonrails.org/v3.2.22/classes/ActionView/Helpers/CaptureHelper.html#method-i-content_for
   for more information.
 * If you've overridden models that use `attr_accessible` or `attr_protected`,
@@ -3934,7 +4157,7 @@ to match the new templates.
 * root no longer required to read mail logs
 * Code quality improvements to ActsAsXapian (Louise Crow).
 * Don't put HTML entities in email subject lines (Henare Degan).
-* Defunct authorities are removed from the list of authorities with mising
+* Defunct authorities are removed from the list of authorities with missing
   emails on the admin summary page (Henare Degan).
 * Correctly encode words to highlight (Caleb Tutty).
 * The request email of a PublicBody with a blank request_email database
@@ -3943,7 +4166,7 @@ to match the new templates.
 * Fixed a bug in the HealthChecksHelper when applying 'OK' style (Caleb Tutty).
 * Keep cookies from txt files in suggested Varnish configuration (Henare Degan).
 * Improvements to the Categorisation Game charts (Henare Degan).
-* Destroing an InfoRequest now destroys associated Comments and CensorRules
+* Destroying an InfoRequest now destroys associated Comments and CensorRules
   (Louise Crow).
 * There is experimental support for using an STMP server, rather than sendmail,
   for outgoing mail. There is not yet any ability to retry if the SMTP server is
@@ -4186,7 +4409,7 @@ See https://github.com/mysociety/alaveteli/pull/1889 for the full changes and fe
   Conlan)
 * Removed more mySociety internal dependencies from install script and example configuration and template files (Gareth Rees)
 * Improved example configuration files (Gareth Rees)
-* Support Portugese locale (Louise Crow)
+* Support Portuguese locale (Louise Crow)
 * Default to using UTF-8 encoded database for new installs and CI (Gareth Rees)
 * Better config file generators in `lib/tasks/config_files.rake` (Gareth Rees)
 * Improved search term highlighting (Gareth Rees)
@@ -4246,7 +4469,7 @@ candidate:
   location of `APP_ROOT/tmp/pids`.
 * rails-post-deploy no longer handles linking `APP_ROOT/log` to a log directory
   outside the app. Capistrano users will find that `:symlink_configuration` now
-  links `APP_ROOT/log` to `SHARED_PATH/log`. Users who aleady use the
+  links `APP_ROOT/log` to `SHARED_PATH/log`. Users who already use the
   `SHARED_FILES` and `SHARED_DIRECTORIES` settings in `config/general.yml`
   should add `log/` to the `SHARED_DIRECTORIES` setting. The existing mechanism
   for shared directories (in `script/rails-deploy-before-down`) will create the
@@ -4627,7 +4850,7 @@ Example:
 # Version 0.6.7
 ## Highlighted features
 * The ability to calculate due dates using calendar, not working days (Matthew Landauer)
-* A refactor and standardization of the configuation variables and defaults using a central module (Matthew Landauer)
+* A refactor and standardization of the configuration variables and defaults using a central module (Matthew Landauer)
 * The use of full URLs in admin attention emails, and associated modification of the admin_url helper to always return full urls (Henare Degan)
 * The ability to disable comments on a request (Robin Houston)
 * Some previously missed strings for translation, courtesy of the Czech translation team

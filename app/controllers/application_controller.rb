@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
 
   include FastGettext::Translation # make functions like _, n_, N_ etc available)
   include AlaveteliPro::PostRedirectHandler
+  include ReadOnly
 
   # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response
@@ -73,11 +74,12 @@ class ApplicationController < ActionController::Base
     params_locale = params[:locale]
 
     if AlaveteliConfiguration.use_default_browser_language
-      browser_locale = request.env['HTTP_ACCEPT_LANGUAGE']
+      browser_locales = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.split(',')
+      browser_locales.map! { _1.split(';', 2)[0] }
     end
 
     AlaveteliLocalization.set_session_locale(
-      params_locale, session[:locale], cookies[:locale], browser_locale,
+      params_locale, cookies[:locale], *browser_locales,
       AlaveteliLocalization.default_locale
     )
 
@@ -87,13 +89,12 @@ class ApplicationController < ActionController::Base
 
   def store_gettext_locale
     # set the current stored locale to the requested_locale
-    current_session_locale = session[:locale]
-    if current_session_locale != AlaveteliLocalization.locale
-      session[:locale] = AlaveteliLocalization.locale
+    locale = params[:locale].presence || AlaveteliLocalization.locale
 
-      # we need to set something other than StripEmptySessions::STRIPPABLE_KEYS
-      # otherwise the cookie will be striped from the response
-      session[:previous_locale] = current_session_locale
+    if locale == AlaveteliLocalization.default_locale
+      cookies.delete(:locale)
+    else
+      cookies[:locale] = locale
     end
 
     # ensure current user locale attribute is up-to-date
@@ -165,9 +166,9 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
     session[:user_login_token] = user.login_token
     session[:remember_me] = remember_me
-    # Intentionally allow to fail silently so that we don't have to care whether
-    # sign in recording is enabled.
-    user.sign_ins.create(ip: user_ip, country: country_from_ip)
+    user.record_sign_in(
+      ip: user_ip, country: country_from_ip, user_agent: request.user_agent
+    )
   end
 
   # Logout form
@@ -353,30 +354,6 @@ class ApplicationController < ActionController::Base
     @user ||= authenticated_user
   end
 
-  #
-  def check_read_only
-    unless AlaveteliConfiguration.read_only.empty?
-      if feature_enabled?(:annotations)
-        flash[:notice] = {
-          partial: "general/read_only_annotations",
-          locals: {
-            site_name: site_name,
-            read_only: AlaveteliConfiguration.read_only
-          }
-        }
-      else
-        flash[:notice] = {
-          partial: "general/read_only",
-          locals: {
-            site_name: site_name,
-            read_only: AlaveteliConfiguration.read_only
-          }
-        }
-      end
-      redirect_to frontpage_url
-    end
-  end
-
   # Convert URL name for sort by order, to Xapian query
   def order_to_sort_by(sortby)
     if sortby.nil?
@@ -435,21 +412,34 @@ class ApplicationController < ActionController::Base
   def set_last_request(info_request)
     return unless authenticated?
 
-    cookies["last_request_id"] = info_request.id
-    cookies["last_body_id"] = nil
+    cookies[:last_request_id] = info_request.id
+    cookies[:last_body_id] = nil
   end
 
   def set_last_body(public_body)
     return unless authenticated?
 
-    cookies["last_request_id"] = nil
-    cookies["last_body_id"] = public_body.id
+    cookies[:last_request_id] = nil
+    cookies[:last_body_id] = public_body.id
   end
 
   def country_from_ip
     return AlaveteliGeoIP.country_code_from_ip(user_ip) if user_ip
 
     AlaveteliConfiguration.iso_country_code
+  end
+
+  def blocked_ip?
+    return false if country_from_ip == AlaveteliConfiguration.iso_country_code
+
+    restricted = Array(AlaveteliConfiguration.restricted_countries.split(' '))
+    permitted = restricted.map { |c| c.delete_prefix!('!') }.compact
+
+    if permitted.any?
+      !permitted.include?(country_from_ip)
+    else
+      restricted.include?(country_from_ip)
+    end
   end
 
   def user_ip

@@ -13,7 +13,7 @@ Content-Type: multipart/mixed; boundary="=-=-="
 --=-=-=
 Content-Type: text/plain
 
-Here's a PDF attachement which has a document/pdf content-type,
+Here's a PDF attachment which has a document/pdf content-type,
 when it really should be application/pdf.
 
 

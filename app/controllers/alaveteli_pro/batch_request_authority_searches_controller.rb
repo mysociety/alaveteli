@@ -10,7 +10,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
   end
 
   def search
-    # perform_seach sets @query but typeahead_search doesn't
+    # perform_search sets @query but typeahead_search doesn't
     @query = params[:authority_query] || ""
     @search = typeahead_search(
       @query,

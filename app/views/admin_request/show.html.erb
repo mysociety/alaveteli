@@ -334,6 +334,7 @@
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
         <%= check_box_tag "message_id_#{incoming_message.id}", incoming_message.id, false, :class => "delete-checkbox" %>
         <%= both_links(incoming_message) %>
+        <%= locked_icon(incoming_message) %>
 
         <span class="muted">
           --
@@ -413,3 +414,13 @@
 <%= render partial: 'admin/notes/show',
   locals: { notes: @info_request.all_notes,
             notable: @info_request } %>
+
+<hr>
+
+<% if feature_enabled?(:insights) %>
+  <h2>Insights</h2>
+
+  <%= render partial: 'admin/insights/list',
+    locals: { info_request: @info_request,
+              insights: @info_request.insights } %>
+<% end %>

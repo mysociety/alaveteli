@@ -9,6 +9,8 @@ module Statistics
         visible_public_body_count: PublicBody.visible.count,
         visible_request_count: InfoRequest.is_searchable.count,
         private_request_count: InfoRequest.embargoed.count,
+        request_via_batch_count: InfoRequest.via_batch.count,
+        batch_count: InfoRequestBatch.count,
         confirmed_user_count: User.active.where(email_confirmed: true).count,
         visible_comment_count: Comment.visible.count,
         track_thing_count: TrackThing.count,
@@ -17,7 +19,8 @@ module Statistics
         request_classification_count: RequestClassification.count,
         visible_followup_message_count: OutgoingMessage.
           followup.is_searchable.count,
-        citation_count: Citation.count
+        citation_count: Citation.count,
+        project_count: Project.count
       }
     end
 

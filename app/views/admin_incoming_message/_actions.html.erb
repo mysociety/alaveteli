@@ -21,17 +21,8 @@
     </label>
 
     <div class="controls">
-      <%
-        redeliver_to =
-        if @guessed_info_requests&.one?
-          @guessed_info_requests.first.info_request.url_title
-        else
-            ''
-        end
-      %>
-
       <div class="input-append">
-        <%= text_field_tag 'url_title', redeliver_to, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
+        <%= text_field_tag 'url_title', nil, size: 20, id: "url_title_#{ incoming_message.id }", required: true %>
         <%= submit_tag 'Redeliver to another request', class: 'btn' %>
       </div>
 
@@ -73,18 +64,14 @@
   </div>
 <% end %>
 
-<% if @raw_email.nil? %>
-  <%# we're not on the raw_email page itself %>
-  <div class="control-group">
-    <label class="control-label">Inspect raw email</label>
+<div class="control-group">
+  <label class="control-label">Inspect raw email</label>
 
-    <div class="controls">
-      <div class="btn-group">
-        <%= link_to 'View', admin_raw_email_path(incoming_message.raw_email_id), class: 'btn' %>
-        <%= link_to 'Download', admin_raw_email_path(incoming_message.raw_email, format: 'eml'), class: 'btn' %>
-      </div>
+  <div class="controls">
+    <div class="btn-group">
+      <%= link_to 'View', admin_raw_email_path(incoming_message.raw_email_id), class: 'btn' %>
+      <%= link_to 'Download', admin_raw_email_path(incoming_message.raw_email, format: 'eml'), class: 'btn' %>
     </div>
   </div>
-<% end %>
-
+</div>
 </fieldset>

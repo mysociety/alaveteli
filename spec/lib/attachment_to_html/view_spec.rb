@@ -5,7 +5,8 @@ RSpec.describe AttachmentToHTML::View do
     double(:adapter,
            body: '<p>hello</p>',
            title: 'An attachment.txt',
-           success?: true)
+           success?: true,
+           embed?: false)
   end
 
   let(:view) { AttachmentToHTML::View.new(adapter) }
@@ -87,8 +88,8 @@ RSpec.describe AttachmentToHTML::View do
 
   describe :wrapper= do
     it 'allows the wrapper div to be customised' do
-      view.wrapper = 'wrap'
-      expect(view.wrapper).to eq('wrap')
+      allow(adapter).to receive(:embed?).and_return(true)
+      expect(view.wrapper).to eq('wrapper_embed')
     end
   end
 
@@ -96,7 +97,6 @@ RSpec.describe AttachmentToHTML::View do
   # ERB adds additional indentation after ERB tags
   describe :render do
     it 'renders the contents in to the template' do
-      view.wrapper = 'wrap'
       expected = <<-HTML
       <!DOCTYPE html>
       <html>
@@ -104,12 +104,8 @@ RSpec.describe AttachmentToHTML::View do
       <meta charset="UTF-8">
       <title>An attachment.txt</title>
       </head>
-      <body>
-      <div id="wrap">
-      <div id="view-html-content">
+      <body id="wrapper">
       <p>hello</p>
-      </div>
-      </div>
       </body>
       </html>
       HTML

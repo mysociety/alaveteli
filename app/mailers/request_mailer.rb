@@ -10,7 +10,7 @@ class RequestMailer < ApplicationMailer
   before_action :set_footer_template,
                 only: [
                   :new_response, :overdue_alert, :very_overdue_alert,
-                  :new_response_reminder_alert, :old_unclassified_updated,
+                  :new_response_reminder_alert,
                   :not_clarified_alert, :comment_on_alert,
                   :comment_on_alert_plural
                 ]
@@ -149,17 +149,6 @@ class RequestMailer < ApplicationMailer
           request_title: info_request.title.html_safe
         )
       }
-    )
-  end
-
-  # Tell the requester that someone updated their old unclassified request
-  def old_unclassified_updated(info_request)
-    @url = request_url(info_request)
-    @info_request = info_request
-
-    mail_user(
-      info_request.user,
-      subject: -> { _("Someone has updated the status of your request") }
     )
   end
 
@@ -345,7 +334,7 @@ class RequestMailer < ApplicationMailer
           store_sent.info_request_event_id = alert_event_id
           # Only send the alert if the user can act on it by making a followup
           # (otherwise they are banned, and there is no point sending it)
-          if info_request.user.can_make_followup?
+          if info_request.user.active?
             if calculated_status == 'waiting_response_overdue'
               RequestMailer.
                 overdue_alert(
@@ -436,6 +425,7 @@ class RequestMailer < ApplicationMailer
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
       next if alert_event_id.nil?
+      next if last_response_message&.created_at < 3.months.ago
 
       # To the user who created the request
       sent_already = UserInfoRequestSentAlert.
@@ -456,7 +446,7 @@ class RequestMailer < ApplicationMailer
         store_sent.info_request_event_id = alert_event_id
         # Only send the alert if the user can act on it by making a followup
         # (otherwise they are banned, and there is no point sending it)
-        if info_request.user.can_make_followup?
+        if info_request.user.active?
           RequestMailer.not_clarified_alert(
             info_request,
             last_response_message

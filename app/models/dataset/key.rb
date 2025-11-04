@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20240926164308
 #
 # Table name: dataset_keys
 #
@@ -51,7 +50,7 @@ class Dataset::Key < ApplicationRecord
     options.fetch('select_allow_blank', '0').to_i == 1
   end
 
-  def select_allow_muliple?
-    options.fetch('select_allow_muliple', '0').to_i == 1
+  def select_allow_multiple?
+    options.fetch('select_allow_multiple', '0').to_i == 1
   end
 end

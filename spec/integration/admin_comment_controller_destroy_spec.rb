@@ -13,7 +13,7 @@ RSpec.describe 'Destroying a Comment' do
     update_xapian_index
   end
 
-  it 'destroing a comment removes it from the search index' do
+  it 'destroying a comment removes it from the search index' do
     # prove the comment is in the search index
     using_session(without_login) do
       visit search_requests_path(query: 'PII')

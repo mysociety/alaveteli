@@ -6,9 +6,9 @@
       <%= text_field_tag 'share_by_link',
         public_token_url(info_request.public_token, locale: false) %>
 
-      <%= button_to _('Disable'), public_tokens_path, method: :delete %>
+      <%= button_to _('Disable'), public_tokens_path, method: :delete, class: 'button' %>
     <% else %>
-      <%= button_to _('Enable'), public_tokens_path %>
+      <%= button_to _('Enable'), public_tokens_path, class: 'button' %>
     <% end %>
 
     <p class="sidebar__note">

@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20220225214524
 #
 # Table name: user_sign_ins
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
+#  id         :bigint           not null, primary key
+#  user_id    :bigint
 #  ip         :inet
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  country    :string
+#  user_agent :text
 #
 
 require 'spec_helper'

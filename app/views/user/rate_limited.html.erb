@@ -2,13 +2,18 @@
 
 <h1><%=@title%></h1>
 
-<p><%= _("You have hit the rate limit on new requests. Users are ordinarily " \
-	       "limited to {{max_requests_per_user_per_day}} requests in any " \
-	       "rolling 24-hour period. You will be able to make another request " \
-	       "in {{can_make_another_request}}.",
-	     :max_requests_per_user_per_day => AlaveteliConfiguration::max_requests_per_user_per_day,
-	     :can_make_another_request => distance_of_time_in_words(
-      Time.zone.now, @next_request_permitted_at)) %></p>
+<p>
+  <%= _("You have hit the rate limit on new requests. Users are ordinarily " \
+        "limited to {{max_requests_per_user_per_day}} requests in any " \
+        "rolling 24-hour period." ,
+        max_requests_per_user_per_day: AlaveteliConfiguration.max_requests_per_user_per_day) %>
+</p>
+
+<p>
+  <%= _('There is also a limit on the speed at which you are able to create ' \
+        'requests. Please try again later if you have not hit your daily ' \
+        'limit.') %>
+</p>
 
 <p><%= _("There is a limit on the number of requests you can make in a day, " \
 	        "because we don’t want public authorities to be bombarded with " \
@@ -18,13 +23,61 @@
 	     :help_contact_path => help_contact_path) %></p>
 
 <% if feature_enabled?(:alaveteli_pro) %>
-  <p>
-    <%= _('<strong>Journalist, Academic or Power User?</strong> ' \
-          '{{pro_site_link}} is an all-in-one FOI toolkit including ' \
-          'everything you need to keep on top of complex FOI-driven ' \
-          'investigations.',
-          pro_site_link: link_to(pro_site_name, account_request_index_path)) %>
-  </p>
+  <div class="pro-upsell">
+    <div class="pro-upsell__headers">
+      <div class="pro-upsell__header">
+        <h2><%= _('Sending to multiple authorities at once?') %></h2>
+        <p>
+          <%=_('<strong class="marketing-highlight">Make a request to ' \
+               'multiple authorities</strong>: select authorities at the ' \
+               'click of a button') %>
+          <br>
+          <%=_('<strong class="marketing-highlight">Manage large volumes of ' \
+               'responses</strong>: easily keep track of the status of each ' \
+               'request') %>
+          <br>
+          <%=_('<strong class="marketing-highlight">Get regular updates' \
+               '</strong> as the responses come in — without overwhelming ' \
+               'your inbox') %>
+        </p>
+        <p>
+          <%= link_to _('Subscribe to {{pro_site_name}}',
+                        pro_site_name: pro_site_name),
+                        account_request_index_path, class: 'button' %>
+        </p>
+      </div>
+
+      <div class="pro-upsell__header">
+        <h2><%= _('Journalist, Academic or Power User?') %></h2>
+        <p>
+            <%= _('{{pro_site_link}} is an all-in-one FOI toolkit including ' \
+                  'everything you need to keep on top of complex FOI-driven ' \
+                  'investigations.',
+                  pro_site_link: link_to(pro_site_name,
+                                         account_request_index_path)) %>
+        </p>
+      </div>
+    </div>
+
+    <div class="pro-upsell__features">
+      <div class="pro-upsell__features__feature">
+        <%= image_tag('alaveteli-pro/pro-multi-send.png',
+                      alt: _('Batch FOI requests')) %>
+        <%= _('No more copy and paste emails: our Batch Request tool helps ' \
+              'you create one request and send it to many authorities at ' \
+              'once.') %>
+      </div>
+      <div class="pro-upsell__features__screenshot">
+        <%= image_tag('alaveteli-pro/screenshot-batch-selection.jpg',
+                      alt: _('Batch requests allow multiple recipients of a ' \
+                             'single request')) %>
+      </div>
+      <div class="pro-upsell__features__screenshot">
+        <%= image_tag('alaveteli-pro/screenshot-batch-list.jpg',
+                      alt: _('Batch requests are part of a new workflow')) %>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <% if @info_request %>

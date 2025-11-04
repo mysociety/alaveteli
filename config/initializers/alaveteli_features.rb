@@ -13,6 +13,8 @@ features = %i[
   projects
   pro_pricing
   pro_self_serve
+  public_annotations
+  user_to_user_messaging
 ]
 
 backend = AlaveteliFeatures.backend
@@ -23,6 +25,12 @@ features.each do |feature|
   elsif backend.enabled?(feature)
     backend.disable(feature)
   end
+end
+
+if ENV['OLLAMA_URL']
+  backend.enable(:insights) unless backend.enabled?(:insights)
+else
+  backend.disable(:insights)
 end
 
 Rails.configuration.after_initialize do
@@ -47,10 +55,6 @@ Rails.configuration.after_initialize do
   AlaveteliFeatures.features.add(
     :pro_batch_category_add_all,
     label: 'Batch category "add all" button'
-  )
-  AlaveteliFeatures.features.add(
-    :pro_projects_self_serve,
-    label: 'Projects creation'
   )
 
   next unless ActiveRecord::Base.connection.data_source_exists?(:roles)

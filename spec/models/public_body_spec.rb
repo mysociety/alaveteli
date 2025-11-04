@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20231011091031
 #
 # Table name: public_bodies
 #
@@ -253,7 +252,12 @@ RSpec.describe PublicBody do
       let!(:public_body) { FactoryBot.create(:public_body) }
 
       # Reduce size for test so we have to create fewer records
-      before { public_body.not_many_public_requests_size = 2 }
+      around do |example|
+        original_size = PublicBody.not_many_public_requests_size
+        PublicBody.not_many_public_requests_size = 2
+        example.run
+        PublicBody.not_many_public_requests_size = original_size
+      end
 
       before do
         FactoryBot.create_list(:info_request, 2, public_body: public_body)
@@ -1955,6 +1959,66 @@ RSpec.describe PublicBody do
     end
   end
 
+  describe '#is_foi_officer?' do
+    subject { FactoryBot.build(:public_body).is_foi_officer?(user) }
+
+    let(:user) { FactoryBot.build(:user, email: email) }
+
+    context 'the user email domain is different to the body' do
+      let(:email) { 'u@example.net' }
+      it { is_expected.to eq false }
+    end
+
+    context 'the user email domain is the same as the body' do
+      let(:email) { 'u@example.com' }
+      it { is_expected.to eq true }
+    end
+
+    context 'the body domain is excluded from general access' do
+      before do
+        described_class.excluded_foi_officer_access_domains << 'example.com'
+      end
+
+      after do
+        described_class.
+          excluded_foi_officer_access_domains.delete('example.com')
+      end
+
+      context 'the user is from the body but not the main foi address' do
+        let(:email) { 'u@example.com' }
+        it { is_expected.to eq false }
+      end
+
+      context 'the user is the main foi address' do
+        let(:email) { 'request@example.com' }
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#foi_officer_domain_excluded?' do
+    subject do
+      FactoryBot.build(:public_body).foi_officer_domain_excluded?
+    end
+
+    context 'there are no exclusions for the domain' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the body domain is excluded from general access' do
+      before do
+        described_class.excluded_foi_officer_access_domains << 'example.com'
+      end
+
+      after do
+        described_class.
+          excluded_foi_officer_access_domains.delete('example.com')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#has_request_email?' do
     before do
       @body = PublicBody.new(request_email: 'test@example.com')
@@ -2314,13 +2378,18 @@ RSpec.describe PublicBody do
     end
   end
 
-  describe '#request_created' do
-    subject { public_body.request_created }
+  describe '#info_request_count_changed' do
+    subject { public_body.info_request_count_changed }
+
+    around do |example|
+      original_size = PublicBody.not_many_public_requests_size
+      PublicBody.not_many_public_requests_size = 2
+      example.run
+      PublicBody.not_many_public_requests_size = original_size
+    end
 
     context 'when there are not many public requests' do
       let!(:public_body) { FactoryBot.create(:public_body) }
-
-      before { public_body.not_many_public_requests_size = 2 }
 
       it 'adds the not many requests tag' do
         subject
@@ -2330,8 +2399,6 @@ RSpec.describe PublicBody do
 
     context 'when a request email is removed' do
       let!(:public_body) { FactoryBot.create(:public_body) }
-
-      before { public_body.not_many_public_requests_size = 2 }
 
       before do
         FactoryBot.create_list(:info_request, 3, public_body: public_body)

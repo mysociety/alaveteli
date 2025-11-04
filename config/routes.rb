@@ -23,6 +23,12 @@ class AdminConstraint # :nodoc:
   end
 end
 
+class PreviewConstraint # :nodoc:
+  def self.matches?(request)
+    request.params[:preview].present? && request.params[:preview].to_i > 0
+  end
+end
+
 Rails.application.routes.draw do
   draw :redirects
 
@@ -147,9 +153,10 @@ Rails.application.routes.draw do
         :as => :info_request_event,
         :via => :get
 
-  match '/request/:url_title/upload' => 'request#upload_response',
+  match '/request/:url_title/upload' => 'upload_response#new',
         :as => :upload_response,
         :via => [:get, :post]
+
   match '/request/:url_title/download' => 'request#download_entire_request',
         :as => :download_entire_request,
         :via => :get
@@ -221,10 +228,12 @@ Rails.application.routes.draw do
 
     scope module: :projects do
       resources :projects, only: [:show] do
-        resource :extract, only: [:show, :update, :create]
-        resource :classify, only: [:show, :update]
-        resources :classifications, only: :create, param: :described_state do
-          get :message, on: :member
+        resource :extract, only: [:show, :create, :edit, :update] do
+          patch :skip
+        end
+        resource :classify, only: [:show, :create, :edit, :update] do
+          patch :skip
+          get :message
         end
 
         resource :contributors, only: [:destroy]
@@ -398,10 +407,15 @@ Rails.application.routes.draw do
         :via => :get
 
   #### Comment controller
-  match '/request/:url_title/annotate' => 'comment#new',
-        :as => :new_comment,
-        :type => 'request',
-        :via => [:get, :post]
+  get '/request/:url_title/annotate' => 'comments#new',
+      as: :new_comment,
+      type: 'request'
+  post '/request/:url_title/annotate' => 'comments#preview',
+       as: :comments,
+       type: 'request',
+       constraints: PreviewConstraint
+  post '/request/:url_title/annotate' => 'comments#create',
+       type: 'request'
   ####
 
   #### Services controller
@@ -536,7 +550,12 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::Debug controller
+  namespace :admin do
+    resources :debug, only: :index
+  end
   ####
+
   #### AdminTag controller
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show],
@@ -561,6 +580,15 @@ Rails.application.routes.draw do
       url_for([:admin, note.notable])
     else
       admin_general_index_path
+    end
+  end
+
+  #### Admin::Projects controller
+  namespace :admin do
+    resources :projects, except: [:new, :create] do
+      scope module: :projects do
+        resources :submissions, only: [:destroy]
+      end
     end
   end
   ####
@@ -626,9 +654,6 @@ Rails.application.routes.draw do
         :via => :get
   match '/admin/timeline' => 'admin_general#timeline',
         :as => :admin_timeline,
-        :via => :get
-  match '/admin/debug' => 'admin_general#debug',
-        :as => :admin_debug,
         :via => :get
   match '/admin/stats' => 'admin_general#stats',
         :as => :admin_stats,
@@ -807,6 +832,14 @@ Rails.application.routes.draw do
   namespace :admin do
     scope module: :outgoing_messages do
       resources :snippets, except: [:show]
+    end
+  end
+  ####
+
+  #### Admin::Insights controller
+  namespace :admin do
+    resources :info_requests, only: [], path: 'requests' do
+      resources :insights, only: [:show, :new, :create, :destroy]
     end
   end
   ####

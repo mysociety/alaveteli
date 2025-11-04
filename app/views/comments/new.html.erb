@@ -1,0 +1,29 @@
+<% @title = _("Add an annotation to &ldquo;{{request_title}}&rdquo;",
+              :request_title => h(@info_request.title)) %>
+
+<%= foi_error_messages_for :comment %>
+
+<h1>
+  <%= _("Add an annotation to &ldquo;{{request_title}}&rdquo;",
+        :request_title => request_link(@info_request)) %>
+</h1>
+
+<%# These partials show a list of suggested topics for annotations %>
+<% if @info_request.embargo %>
+  <%= render :partial => 'alaveteli_pro/comments/suggestions' %>
+<% else %>
+  <%= render :partial => 'comments/suggestions' %>
+<% end %>
+
+<p>
+  <span class="big">
+    <%= content_for :public_warning %>
+  </span>
+
+  <% if @info_request.is_external? %>
+    <span class="big"><%= _('Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf.', :public_body_name => @info_request.public_body.name) %></span>
+  <% end %>
+</p>
+
+<%= render :partial => 'comments/comment_form',
+           :locals => { :track_thing => @track_thing } %>

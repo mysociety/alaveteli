@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: pro_accounts
 #
@@ -86,6 +85,15 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       expect { pro_account.update_stripe_customer }.to change(
         customer, :default_source
       ).from(old_source)
+    end
+
+    context 'when user uses localhost development email' do
+      before { user.update(email: 'user@localhost') }
+
+      it 'does not create Stripe customer' do
+        expect(Stripe::Customer).to_not receive(:create)
+        pro_account.update_stripe_customer
+      end
     end
 
     context 'with pro_pricing disabled' do

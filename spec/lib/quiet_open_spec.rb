@@ -13,7 +13,7 @@ RSpec.describe "quietly_try_to_open" do
     controller.send(:quietly_try_to_open, uri)
   end
 
-  it "should allow the timeout out be overriden" do
+  it "should allow the timeout out be overridden" do
     expect(URI).to receive(:open).with(uri, read_timeout: 100).and_call_original
     controller.send(:quietly_try_to_open, uri, 100)
   end

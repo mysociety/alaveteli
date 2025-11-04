@@ -67,7 +67,7 @@
               </li>
             <% end %>
 
-            <% if feature_enabled?(:annotations) && info_request.comments_allowed? %>
+            <% if can? :create_comment, info_request %>
               <li>
                 <%= link_to _('Add an annotation'), new_comment_path(:url_title => info_request.url_title) %>
               </li>
@@ -88,7 +88,7 @@
             </li>
 
             <li>
-              <a tabindex="0" class="js-collapsable-trigger-all" data-text-expanded="<%= _('Collapse all correspondence') %>" data-text-collapsed="<%= _('Expand all correspondence') %>"><%= _('Collapse all correspondence') %></a>
+              <a tabindex="0" class="js-collapsible-trigger-all" data-text-expanded="<%= _('Collapse all correspondence') %>" data-text-collapsed="<%= _('Expand all correspondence') %>"><%= _('Collapse all correspondence') %></a>
             </li>
 
             <li>

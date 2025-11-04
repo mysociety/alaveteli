@@ -96,7 +96,7 @@ shared_examples_for "PhaseCounts" do
   end
 
   describe '#phase_counts!' do
-    it 'resets the cache so the results are recalcuated' do
+    it 'resets the cache so the results are recalculated' do
       before = resource.phase_counts!['awaiting_response']
       summary =
         AlaveteliPro::RequestSummary.

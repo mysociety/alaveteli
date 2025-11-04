@@ -100,11 +100,7 @@ RSpec.describe Projects::InvitesController, spec_meta do
         post_redirect = get_last_post_redirect
 
         expect(post_redirect.uri).to eq "/p/#{ project.invite_token }"
-        expect(post_redirect.reason_params).to eq(
-          web: 'To join this project',
-          email: 'Then you can join this project',
-          email_subject: 'Confirm your account on SITE'
-        )
+        expect(post_redirect.reason_params).to eq(web: 'To join this project')
       end
     end
   end

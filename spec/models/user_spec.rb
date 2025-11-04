@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -12,7 +11,7 @@
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00.000000000 GMT +00:00)
+#  last_daily_track_email            :datetime
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string
@@ -37,15 +36,18 @@
 #  login_token                       :string
 #  receive_user_messages             :boolean          default(TRUE), not null
 #  user_messages_count               :integer          default(0), not null
+#  status_update_count               :integer          default(0), not null
+#  last_sign_in_at                   :datetime
 #
 
 require 'spec_helper'
-
 require 'models/user/spreadable_alerts'
+require 'models/concerns/taggable'
 
 RSpec.describe User do
   it_behaves_like 'PhaseCounts'
   it_behaves_like 'user/spreadable_alerts'
+  it_behaves_like 'concerns/taggable', :user
 end
 
 RSpec.describe User, 'associations' do
@@ -444,8 +446,11 @@ RSpec.describe User, "when checking abilities" do
     expect(@user.admin_page_links?).to be false
   end
 
-  it "should be able to file requests" do
-    expect(@user.can_file_requests?).to be true
+  it "should not exceed limits" do
+    expect(@user.exceeded_request_limits?).to be false
+    expect(@user.exceeded_followup_limits?).to be false
+    expect(@user.exceeded_comment_limits?).to be false
+    expect(@user.exceeded_user_message_limits?).to be false
   end
 end
 
@@ -728,19 +733,15 @@ RSpec.describe User do
     end
   end
 
-  describe '.stay_logged_in_on_redirect?' do
-    it 'is false if the user is nil' do
-      expect(User.stay_logged_in_on_redirect?(nil)).to be_falsey
-    end
-
+  describe '#stay_logged_in_on_redirect?' do
     it 'is true if the user is an admin' do
-      admin = double(is_admin?: true)
-      expect(User.stay_logged_in_on_redirect?(admin)).to eq(true)
+      admin = FactoryBot.create(:admin_user)
+      expect(admin.stay_logged_in_on_redirect?).to eq(true)
     end
 
     it 'is false if the user is not an admin' do
-      user = double(is_admin?: false)
-      expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
+      user = FactoryBot.create(:user)
+      expect(user.stay_logged_in_on_redirect?).to eq(false)
     end
   end
 
@@ -1122,14 +1123,14 @@ RSpec.describe User do
   end
 
   describe '#entered_otp_code' do
-    it 'gets the virtual attribue for use in validation' do
+    it 'gets the virtual attribute for use in validation' do
       user = User.new(entered_otp_code: '123456')
       expect(user.entered_otp_code).to eq('123456')
     end
   end
 
   describe '#entered_otp_code=' do
-    it 'sets the virtual attribue for use in validation' do
+    it 'sets the virtual attribute for use in validation' do
       user = User.new
       user.entered_otp_code = '123456'
       expect(user.entered_otp_code).to eq('123456')
@@ -1292,6 +1293,7 @@ RSpec.describe User do
         allow(AlaveteliConfiguration).
           to receive(:user_sign_in_activity_retention_days).and_return(1)
         FactoryBot.create(:user_sign_in, user: user)
+        FactoryBot.create(:user_email_history, user: user)
         FactoryBot.create(:profile_photo, user: user)
 
         allow(Digest::SHA1).to receive(:hexdigest).and_return('a1b2c3d4')
@@ -1337,6 +1339,10 @@ RSpec.describe User do
 
       it 'destroys any sign_ins' do
         expect(user.sign_ins).to be_empty
+      end
+
+      it 'destroys any email_histories' do
+        expect(user.email_histories).to be_empty
       end
 
       it 'destroys any profile photo' do
@@ -1649,8 +1655,13 @@ RSpec.describe User do
       expect(user.indexed_by_search?).to eq(false)
     end
 
-    it 'is true if the user is confirmed and not banned' do
+    it 'is false if the user has no requests' do
       user = User.new(email_confirmed: true, ban_text: '')
+      expect(user.indexed_by_search?).to eq(false)
+    end
+
+    it 'is true if the user is active and has requests' do
+      user = FactoryBot.create(:info_request).user
       expect(user.indexed_by_search?).to eq(true)
     end
   end
@@ -1694,6 +1705,25 @@ RSpec.describe User do
     it 'returns false for a pro user and the pro role' do
       expect(pro_user.can_admin_role?(:pro))
         .to be false
+    end
+  end
+
+  describe '#admin?' do
+    subject { user.admin? }
+
+    context 'normal user' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'admin' do
+      let(:user) { FactoryBot.create(:user, :admin) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'pro admin' do
+      let(:user) { FactoryBot.create(:user, :pro_admin) }
+      it { is_expected.to eq(true) }
     end
   end
 
@@ -2001,7 +2031,7 @@ RSpec.describe User do
         user.create_profile_photo!(data: load_file_fixture('parrot.png'))
       end
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to eq(true) }
     end
 
     context 'with a profile photo and banned' do
@@ -2011,30 +2041,97 @@ RSpec.describe User do
         user.create_profile_photo!(data: load_file_fixture('parrot.png'))
       end
 
-      it { is_expected.to be_falsey }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with profile_photo but profile is limited' do
+      let(:user) { FactoryBot.create(:user, :limited) }
+
+      before do
+        user.create_profile_photo!(data: load_file_fixture('parrot.png'))
+      end
+
+      it { is_expected.to eq(false) }
     end
 
     context 'without a profile_photo' do
       let(:user) { FactoryBot.build(:user) }
-      it { is_expected.to be_falsey }
+      it { is_expected.to eq(false) }
     end
   end
 
-  describe '#can_file_requests?' do
-    subject { user.can_file_requests? }
+  describe 'show_about_me?' do
+    subject { user.show_about_me? }
+
+    context 'with about_me text' do
+      let(:user) { FactoryBot.create(:user, about_me: 'Hello') }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with about_me text and banned' do
+      let(:user) { FactoryBot.create(:user, :banned, about_me: 'Hello') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with about_me text but profile is limited' do
+      let(:user) { FactoryBot.create(:user, :limited, about_me: 'Hello') }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'without about_me text' do
+      let(:user) { FactoryBot.build(:user, about_me: nil) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe 'get_about_me_for_html_display' do
+    subject { user.get_about_me_for_html_display }
+
+    let(:user) { FactoryBot.build(:user) }
+
+    it "adds anchors with rel nofollow links to plain text links" do
+      user.about_me = link = "http://example.com"
+      is_expected.to include(%Q[<a href="#{link}" rel="nofollow">#{link}</a>])
+    end
+  end
+
+  describe '#no_limit?' do
+    subject { user.no_limit? }
+
+    let(:user) { FactoryBot.build(:user) }
+    it { is_expected.to eq(false) }
+
+    context 'when user has no limit set' do
+      let(:user) { FactoryBot.build(:user, no_limit: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when user is an admin' do
+      let(:user) { FactoryBot.create(:admin_user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when user is an pro admin' do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#exceeded_request_limits?' do
+    subject { user.exceeded_request_limits? }
 
     context 'in ordinary circumstances' do
       let(:user) { FactoryBot.build(:user) }
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user is inactive' do
       let(:user) { FactoryBot.build(:user) }
       before { allow(user).to receive(:active?).and_return(false) }
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
-    context 'when the user has reached their rate limit' do
+    context 'when the user has reached their daily limit' do
       let(:user) { FactoryBot.build(:user) }
 
       before do
@@ -2042,22 +2139,48 @@ RSpec.describe User do
           to receive(:exceeded_limit?).with(:info_requests).and_return(true)
       end
 
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user has not reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        expect(InfoRequest).
+          to receive(:exceeded_creation_rate?).
+          with(user.info_requests).
+          and_return(false)
+      end
+
       it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        expect(InfoRequest).
+          to receive(:exceeded_creation_rate?).
+          with(user.info_requests).
+          and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
     end
   end
 
-  describe '#can_make_comments?' do
-    subject { user.can_make_comments? }
+  describe '#exceeded_comment_limits?' do
+    subject { user.exceeded_comment_limits? }
 
     context 'in ordinary circumstances' do
       let(:user) { FactoryBot.build(:user) }
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user is inactive' do
       let(:user) { FactoryBot.build(:user) }
       before { allow(user).to receive(:active?).and_return(false) }
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
     context 'when the user is an admin' do
@@ -2074,7 +2197,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user is a pro_admin' do
@@ -2091,7 +2214,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user has no limit set' do
@@ -2108,7 +2231,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user has reached their daily limit' do
@@ -2119,7 +2242,7 @@ RSpec.describe User do
           to receive(:exceeded_limit?).with(:comments).and_return(true)
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
     context 'when the user has not reached their rate limit' do
@@ -2132,7 +2255,7 @@ RSpec.describe User do
           and_return(false)
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to eq(false) }
     end
 
     context 'when the user has reached their rate limit' do
@@ -2145,7 +2268,7 @@ RSpec.describe User do
           and_return(true)
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
   end
 
@@ -2187,12 +2310,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
 
@@ -2202,12 +2325,12 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
       end
     end
 
@@ -2217,12 +2340,72 @@ RSpec.describe User do
 
       it 'returns false if the user has not submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(2)
-        expect(subject).to eq(false)
+        is_expected.to eq(false)
       end
 
       it 'returns true if the user has submitted more than the limit' do
         allow(user).to receive(:content_limit).with(content).and_return(0)
-        expect(subject).to eq(true)
+        is_expected.to eq(true)
+      end
+    end
+  end
+
+  describe '#info_request_count_changed' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'mark as needed to be indexed' do
+      expect(user).to receive(:xapian_mark_needs_index)
+      user.info_request_count_changed
+    end
+  end
+
+  describe '#record_sign_in' do
+    let(:user) { FactoryBot.create(:user) }
+
+    let(:ip) { '192.168.1.1' }
+    let(:country) { 'GB' }
+    let(:user_agent) { 'Mozilla/5.0' }
+
+    context 'when retaining sign ins is enabled' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+      end
+
+      it 'creates sign_in instance with given arguments' do
+        expect {
+          user.record_sign_in(ip: ip, country: country, user_agent: user_agent)
+        }.to change { user.sign_ins.count }.by(1)
+
+        sign_in = user.sign_ins.first
+        expect(sign_in.ip).to eq(ip)
+        expect(sign_in.country).to eq(country)
+        expect(sign_in.user_agent).to eq(user_agent)
+      end
+
+      it 'touches last_sign_in_at' do
+        expect { user.record_sign_in(ip: '192.168.1.1') }.
+          to change(user, :last_sign_in_at).from(nil)
+        expect(user.last_sign_in_at).to be_a(Time)
+      end
+    end
+
+    context 'when retaining sign ins is disabled' do
+      before do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(0)
+      end
+
+      it 'does not create sign_in instance' do
+        expect {
+          user.record_sign_in(ip: ip, country: country, user_agent: user_agent)
+        }.not_to change { user.sign_ins.count }
+      end
+
+      it 'touches last_sign_in_at' do
+        expect { user.record_sign_in(ip: '192.168.1.1') }.
+          to change(user, :last_sign_in_at).from(nil)
+        expect(user.last_sign_in_at).to be_a(Time)
       end
     end
   end
