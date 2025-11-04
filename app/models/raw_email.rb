@@ -41,7 +41,7 @@ class RawEmail < ApplicationRecord
     return false if email.nil? || !MySociety::Validate.is_valid_email(email)
 
     # Check whether the email is a known invalid reply address
-    if ReplyToAddressValidator.invalid_reply_addresses.include?(email)
+    if ReplyToAddressValidator.invalid_reply_address?(email)
       return false
     end
 
