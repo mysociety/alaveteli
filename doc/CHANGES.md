@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Only allow Citations to be added for external URLs (Gareth Rees)
 * Add admin ability to destroy raw emails (Graeme Porteous)
 * Improve scrubbing bad content from HTML emails (Graeme Porteous)
 
