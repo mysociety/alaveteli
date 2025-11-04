@@ -57,7 +57,7 @@ class Project::Export
 
   def to_csv
     CSV.generate do |csv|
-      header = data.first
+      header = data_for_csv.first
       csv << header.keys.map(&:to_s) if header
       data_for_csv.each { |row| csv << row.values }
     end
