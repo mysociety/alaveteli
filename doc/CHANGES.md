@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add admin ability to destroy raw emails (Graeme Porteous)
 * Improve scrubbing bad content from HTML emails (Graeme Porteous)
 
 # 0.46.0.0

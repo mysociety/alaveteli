@@ -5,9 +5,9 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRawEmailController < AdminController
-  skip_before_action :html_response
+  skip_before_action :html_response, only: :show
 
-  before_action :set_raw_email, only: [:show]
+  before_action :set_raw_email, only: [:show, :destroy]
   before_action :set_info_request, :check_info_request
 
   def show
@@ -41,6 +41,16 @@ class AdminRawEmailController < AdminController
       format.eml do
         render body: @raw_email.data, content_type: 'message/rfc822'
       end
+    end
+  end
+
+  def destroy
+    if @raw_email.destroy
+      redirect_to admin_request_path(@info_request),
+                  notice: 'Raw email was successfully deleted'
+    else
+      flash.now[:error] = @raw_email.errors.full_messages.to_sentence
+      render :show
     end
   end
 

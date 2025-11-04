@@ -26,6 +26,7 @@ class Admin::FoiAttachmentsController < AdminController
       redirect_to edit_admin_incoming_message_path(@incoming_message)
 
     else
+      flash.now[:error] = @foi_attachment.errors.full_messages.to_sentence
       render action: 'edit'
     end
   end

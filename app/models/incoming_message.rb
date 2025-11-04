@@ -66,7 +66,8 @@ class IncomingMessage < ApplicationRecord
 
   belongs_to :raw_email,
              inverse_of: :incoming_message,
-             dependent: :destroy
+             dependent: :destroy,
+             optional: true
 
   after_destroy :update_request
   after_update :update_request

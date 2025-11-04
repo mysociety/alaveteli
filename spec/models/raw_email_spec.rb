@@ -231,4 +231,41 @@ RSpec.describe RawEmail do
       end
     end
   end
+
+  describe '#ensure_attachments_locked' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+
+    context 'when all attachments are locked' do
+      before do
+        raw_email.incoming_message.foi_attachments.each do |attachment|
+          attachment.update!(locked: true)
+        end
+      end
+
+      it 'allows the raw email to be destroyed' do
+        expect(raw_email.destroy).to be_truthy
+      end
+    end
+
+    context 'when any attachments are unlocked' do
+      it 'prevents the raw email from being destroyed' do
+        expect(raw_email.destroy).to be false
+      end
+
+      it 'adds an error message' do
+        raw_email.destroy
+        expect(raw_email.errors[:base]).to include('Cannot delete raw email with unlocked attachments')
+      end
+    end
+
+    context 'when there are no attachments' do
+      before do
+        raw_email.incoming_message.foi_attachments.destroy_all
+      end
+
+      it 'allows the raw email to be destroyed' do
+        expect(raw_email.destroy).to be_truthy
+      end
+    end
+  end
 end
