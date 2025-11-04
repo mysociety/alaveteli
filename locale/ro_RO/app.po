@@ -61,7 +61,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 12:50+0000\n"
+"POT-Creation-Date: 2025-10-29 13:43+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Vitalie Zama <vitalie.zama@gmail.com>, 2016\n"
 "Language-Team: Romanian (Romania) (http://app.transifex.com/mysociety/alavetel"
@@ -256,11 +256,14 @@ msgstr "<p>Nu e nevoie să-ţi laşi emailul în solicitare pentru a obţine un 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Solicitarea ta conţine  un <strong>cod poştal</strong>.  Dacă nu e legat în mod direct de subiectul solicităarii tale. te rugăm să nu incluzi nicio adresă din motive de confidenţialitate,  întrucât <strong> va fi afişată public pe Internet </strong>.</p>"
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>{{site_name}} este momentan în mentenanţă. Poţi vedea numai solicitările deja existente. Nu poţi adăuga solicitări noi, nici comentarii, adnotări sau alte modificări asupra bazei de date.</p> <p>{{read_only}}</p>"
+msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
+msgstr ""
 
-msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr "<p>{{site_name}} este momentan în mentenanţă. Poţi vedea numai solicitările deja existente. Nu poţi adăuga solicitări noi, nici comentarii, adnotări sau alte modificări asupra bazei de date.</p> <p>{{read_only}}</p>"
+msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
+msgstr ""
+
+msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
+msgstr ""
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr "<strong><code>comentariu_de:tony_bowden</code></strong> pentru a cauta adnotări făcute de Tony Bowden, tastaţi numele aşa cum apare în URL."
@@ -304,6 +307,9 @@ msgstr "<strong>Orice altceva</strong>, cum ar fi: clarificări, precizări, mul
 msgid "<strong>Automatic anti-spam measures are in place</strong> for this older request. Please <a href=\"{{url}}\">let us know</a> if a further response is expected or if you are having trouble responding."
 msgstr ""
 
+msgid "<strong>Be careful!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
+msgstr ""
+
 msgid "<strong>By law, they have to respond</strong> (<a href=\"{{url}}\">why?</a>)."
 msgstr "<strong>În concordanță cu legea, sunt obligați să răspundă</strong> (<a href=\"{{url}}\">De ce?</a>)."
 
@@ -311,14 +317,6 @@ msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}
 msgstr ""
 "<strong> Pot să solicit informaţii despre mine însumi?</strong>\n"
 "\t\t\t<a href=\"{{url}}\">Nu! (Click aici pentru detalii)</a>"
-
-msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need a good internal knowledge of user behaviour on {{site_name}}. How, why and by whom requests are categorised is not straightforward, and there will be user error and ambiguity. You will also need to understand FOI law, and the way authorities use it. Plus you'll need to be an elite statistician.  Please <a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr ""
-"<strong>Caveat emptor!</strong> Pentru a folosi aceste date corect, vei avea nevoie de \n"
-"a o bună cunoaștere a comportamentului utilizatorului pe {{site_name}}.  Modul de împărțire a solicitărilor pe categorii este complicat și pot exista\n"
-" erori sau ambiguități. De asemenea, va trebui să înțelegi legea accesului la informații și \n"
-"modul în care autoritățile o folosesc. În plus, trebuie să fii un bun statistician. Te rugăm\n"
-"<a href=\"{{contact_path}}\">să ne contactezi</a> pentru întrebări."
 
 msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may help:"
 msgstr ""
@@ -332,9 +330,6 @@ msgstr ""
 msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
-msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
-msgstr ""
-
 msgid "<strong>Keep this passcode safe.</strong> You will need it to confirm your account when changing your password. You can add it to a password manager or print it and store it in a safe place."
 msgstr ""
 
@@ -346,11 +341,8 @@ msgstr ""
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
 msgstr "<strong>Notă:</strong> Deoarece acum testăm, cererile sunt trimise către {{email}} în loc de autoritatea efectivă."
 
-msgid "<strong>Note:</strong> We will send an email to your new email address. Follow the instructions in it to confirm changing your email."
+msgid "<strong>Note:</strong> We will send an email to your old email address. Follow the instructions in it to confirm changing your email."
 msgstr ""
-"<strong>Notă:</strong>\n"
-" Vom trimite un email către noua ta adresă de email.  Urmărește instrucţiunile \n"
-" din acesta pentru a confirma schimbarea emailului tău."
 
 msgid "<strong>Note:</strong> We will send you an email to confirm you are the owner of this account. Follow the instructions in it to change your password."
 msgstr "Notă: Îți vom trimite un email pentru a confirma faptul că deții acest cont. Urmărește instrucțiunile pentru a-ți schimba parola."
@@ -481,6 +473,9 @@ msgstr ""
 
 msgid "Add the authority:"
 msgstr "Adaugă autoritatea:"
+
+msgid "Admin"
+msgstr ""
 
 msgid "Advanced search"
 msgstr "Căutare avansată:"
@@ -677,8 +672,17 @@ msgstr ""
 msgid "Banned from this site"
 msgstr "Blocat pe acest site"
 
+msgid "Batch FOI requests"
+msgstr ""
+
 msgid "Batch created by {{info_request_user}} on {{date}}."
 msgstr "Grup de solicitări create de {{info_request_user}} la data de {{date}}."
+
+msgid "Batch requests allow multiple recipients of a single request"
+msgstr ""
+
+msgid "Batch requests are part of a new workflow"
+msgstr ""
 
 msgid "Before you start"
 msgstr ""
@@ -739,6 +743,9 @@ msgstr ""
 
 msgid "Can't find the one you want?"
 msgstr "Nu găsești persoana căutată?"
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Cancel a {{site_name}} alert"
 msgstr "Anulaţi o alerta {{site_name}} "
@@ -806,6 +813,21 @@ msgstr "Clarificare trimisă către {{public_body_name}} ce către {{info_reques
 msgid "Clarify your FOI request - {{request_title}}"
 msgstr "Clarifică solicitarea de acces la informații - {{request_title}}"
 
+msgid "Classification couldn't be saved."
+msgstr ""
+
+msgid "Classification couldn't be updated."
+msgstr ""
+
+msgid "Classification saved successfully!"
+msgstr ""
+
+msgid "Classification updated successfully!"
+msgstr ""
+
+msgid "Classify"
+msgstr ""
+
 msgid "Classify an FOI response from {{authority_name}}"
 msgstr "Clasificaţi un formular de răspuns pentru o solicitare de acces la informații {{authority_name}}"
 
@@ -839,6 +861,9 @@ msgid "Close the request and respond:"
 msgstr "Selectează solicitarea și răspunde:"
 
 msgid "Collapse all correspondence"
+msgstr ""
+
+msgid "Comments are not allowed on this request"
 msgstr ""
 
 msgid "Complete"
@@ -930,6 +955,9 @@ msgstr "Creează un cont nou"
 
 msgid "Create a widget for this request"
 msgstr "Creează un widget pentru această solicitare"
+
+msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+msgstr ""
 
 msgid "Created by {{info_request_user}} on {{date}}."
 msgstr "Creat de {{info_request_user}} la data de {{date}}."
@@ -1144,6 +1172,9 @@ msgstr ""
 msgid "Explore in Datasette"
 msgstr ""
 
+msgid "Extract"
+msgstr ""
+
 msgid "Extract data"
 msgstr ""
 
@@ -1151,6 +1182,15 @@ msgid "Extract relevant information from each successful freedom of information 
 msgstr ""
 
 msgid "Extraction couldn't be saved."
+msgstr ""
+
+msgid "Extraction couldn't be updated."
+msgstr ""
+
+msgid "Extraction saved successfully!"
+msgstr ""
+
+msgid "Extraction updated successfully!"
 msgstr ""
 
 msgid "FOI"
@@ -1189,6 +1229,12 @@ msgstr "Filtrare"
 msgid "Filter by Request Status (optional)"
 msgstr "Filtrează după statusul solicitării (opțional)"
 
+msgid "Filter by topic or area of interest"
+msgstr ""
+
+msgid "Filter these requests by keyword, date, or status"
+msgstr ""
+
 msgid "Find an authority"
 msgstr "Selectaţi autoritatea căreia să îi scrieţi"
 
@@ -1224,9 +1270,6 @@ msgstr "Urmăriţi aceste cereri"
 
 msgid "Follow things matching this search"
 msgstr "Urmărește chestiuni relevante pentru această căutare"
-
-msgid "Follow this link to see the request:"
-msgstr "Urmăriţi acest link pentru a vedea solicitarea:"
 
 msgid "Follow this link to see the requests:"
 msgstr "Urmați link-ul acesta pentru a vedea solicitările:"
@@ -1676,6 +1719,9 @@ msgstr "S-a alăturat {{site_name}} în anul {{year}}"
 msgid "Journalism"
 msgstr ""
 
+msgid "Journalist, Academic or Power User?"
+msgstr ""
+
 msgid "Just one more thing"
 msgstr "Încă un singur lucru"
 
@@ -1897,6 +1943,9 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
+msgstr ""
+
 msgid "No requests of this sort yet."
 msgstr "Nici o cerere de acest tip încă."
 
@@ -2109,6 +2158,9 @@ msgid "Please click on the link below to confirm your email address."
 msgstr "Te rugăm să dai click pe link-ul de mai  jos pentru a confirma adresa ta de email."
 
 msgid "Please click on the link below to stop these emails."
+msgstr ""
+
+msgid "Please correct the errors below"
 msgstr ""
 
 msgid "Please create an account or sign in"
@@ -2428,6 +2480,9 @@ msgstr ""
 msgid "Report annotation on request: {{title}}"
 msgstr ""
 
+msgid "Report inappropriate content"
+msgstr ""
+
 msgid "Report request"
 msgstr "Raportați solicitarea"
 
@@ -2656,6 +2711,9 @@ msgstr "Trimite un mesaj către {{user_name}}"
 msgid "Send message to {{user_name}} just to see how it works"
 msgstr "Trimite un mesaj către {{user_name}} doar să vedeţi cum funcţionează"
 
+msgid "Sending to multiple authorities at once?"
+msgstr ""
+
 msgid "Sending..."
 msgstr "Se trimite..."
 
@@ -2790,9 +2848,6 @@ msgstr ""
 msgid "Somebody added a note to your FOI request - {{request_title}}"
 msgstr "Cineva a adăugat o notă la solicitarea ta de acces la informații - {{request_title}}"
 
-msgid "Someone has updated the status of your request"
-msgstr "Cineva a actualizat starea solicitării tale"
-
 msgid "Someone, perhaps you, just tried to change their email address on {{site_name}} from {{old_email}} to {{new_email}}."
 msgstr ""
 "Cineva, probabil tu, tocmai a încercat să schimbe adresa de email de pe \n"
@@ -2804,8 +2859,8 @@ msgstr "Ne pare rău - nu poți răspunde acestei solicitări via {{site_name}},
 msgid "Sorry, '{{authority_name}}' has been marked as defunct, which means we can no longer process requests to them. You may need to check whether their responsibilities have been taken over by a different authority."
 msgstr ""
 
-msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr "Scuze, dar numai {{user_name}} este abilitat să facă asta."
+msgid "Sorry, but only {{user_name}} can do that."
+msgstr ""
 
 msgid "Sorry, there was a problem processing this page"
 msgstr "Scuze, este o problemă cu accesarea acestei pagini."
@@ -2887,6 +2942,9 @@ msgstr "Transmite statusul și trimite mesaj"
 
 msgid "Subscribe to blog"
 msgstr "Înscriere pentru blog"
+
+msgid "Subscribe to {{pro_site_name}}"
+msgstr ""
 
 msgid "Subscription cancelled"
 msgstr ""
@@ -3177,12 +3235,6 @@ msgstr "Apoi poți clasifica răspunsul la solicitare pe care l-ai primit de la 
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Apoi puteţi descărca un fişier zip cu  {{info_request_title}}."
 
-msgid "Then you can join this project"
-msgstr ""
-
-msgid "Then you can leave this project"
-msgstr ""
-
 msgid "Then you can log into the administrative interface"
 msgstr "Apoi vă puteţi conecta la interfaţa administrativă"
 
@@ -3201,8 +3253,8 @@ msgstr "Apoi poţi să intri în contul tău de pe {{site_name}}"
 msgid "Then you can update the status of your request to {{authority_name}}."
 msgstr "Apoi poţi să actualizezi starea solicitării tale în {{authority_name}}."
 
-msgid "Then you can upload an FOI response. "
-msgstr "Apoi poți uploada un răspuns la o solicitare."
+msgid "Then you can upload an FOI response."
+msgstr ""
 
 msgid "Then you can write follow up message to {{authority_name}}."
 msgstr "Apoi puteți scrie un mesaj de urmărire pentru {{authority_name}}."
@@ -3264,6 +3316,9 @@ msgstr "Există o limită a numărului de cereri pe care le puteţi face într-o
 msgid "There is also a limit on the speed at which you are able to create annotations. Please try again later if you have not hit your daily limit."
 msgstr ""
 
+msgid "There is also a limit on the speed at which you are able to create requests. Please try again later if you have not hit your daily limit."
+msgstr ""
+
 msgid "There is nothing to display yet."
 msgstr "Încă nu este nimic de afișat."
 
@@ -3316,6 +3371,9 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This annotation on was already made on {{date}}"
 msgstr ""
 
 msgid "This attachment has been hidden. {{reason}}"
@@ -3562,7 +3620,7 @@ msgstr "Pentru  a urmări solicitările făcute utilizând  {{site_name}} către
 msgid "To follow the request '{{request_title}}'"
 msgstr "Pentru a urmări solicitarea '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help on this project"
 msgstr ""
 
 msgid "To join this project"
@@ -3612,6 +3670,9 @@ msgstr "Pentru a utiliza căutarea avansată, combinaţi fraze şi etichete dup�
 
 msgid "To view the response, click on the link below."
 msgstr "Pentru a vedea răspunsul, daţi click pe linkul de mai jos."
+
+msgid "To view this project"
+msgstr ""
 
 msgid "To view your two factor authentication details"
 msgstr "Pentru a vedea detaliile autentificării în doi pași"
@@ -3732,6 +3793,12 @@ msgstr "Dezabonare"
 msgid "Unusual response"
 msgstr "Răspuns neobișnuit"
 
+msgid "Update classification"
+msgstr ""
+
+msgid "Update data"
+msgstr ""
+
 msgid "Update dataset"
 msgstr ""
 
@@ -3759,6 +3826,9 @@ msgstr "Utilizaţi ghilimele când doriţi să găsiţi o frază exactă, de exe
 msgid "Use this site to make your request for information – we'll show you how."
 msgstr "Folosiți acest site pentru a trimite solicitări de access la infromații - vă vom arăta cum."
 
+msgid "User-to-user messaging has been disabled."
+msgstr ""
+
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
 msgstr "Utilizatorii de obicei nu pot face solicitări multiple către mai multe instituții publice pentru că nu dorim ca instituțiile să fie bombardate cu multe solicitări nepotrivite.  Vă rugăm <a href=\"{{url}}\">să ne contactați</a> dacă aveți un motiv bun pentru a trimite aceeași solicitare la mai multe instituții."
 
@@ -3769,6 +3839,9 @@ msgid "Vexatious"
 msgstr "Ofensator"
 
 msgid "Vexatious annotation"
+msgstr ""
+
+msgid "View"
 msgstr ""
 
 msgid "View Freedom of Information requests made by {{user_name}}:"
@@ -3831,9 +3904,6 @@ msgstr ""
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "Nu avem o  adresă {{law_used_full}}  valabilă pentru {{public_body_name}}."
 
-msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
-msgstr ""
-
 msgid "We don't know the delivery status for this message."
 msgstr ""
 
@@ -3883,6 +3953,9 @@ msgstr "Ne bucurăm că aţi obţinut informaţiile pe care le doreaţi."
 msgid "We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it."
 msgstr "Ne bucurăm că aţi obţinut informaţiile pe care le doreaţi.  Dacă aţi găsit acest site {{site_name}} util puteţi face , <a href=\"{{donation_url}}\"> o donaţie</a>  organizaţiei care îl întreţine."
 
+msgid "We're still preparing this attachment. The page will reload automatically once it's ready."
+msgstr ""
+
 msgid "We're waiting for someone to read a recent response and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgid_plural "We're waiting for someone to read recent responses and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
 msgstr[0] "Așteptăm ca cineva să citească răspunsul recent și să actualizeze statusul corespunzător. Dacă dorești ai putea face asta chiar <strong>tu</strong>."
@@ -3898,10 +3971,8 @@ msgstr[2] "Așteptăm ca {{user}} să citească răspunsurile recente și să le
 msgid "We've received a delivery status notification from the mailserver belonging to the authority."
 msgstr ""
 
-msgid "We've sent an email to your new email address. You'll need to click the link in it before your email address will be changed."
+msgid "We've sent an email to your old email address. You'll need to click the link in it before your email address will be changed."
 msgstr ""
-"Ţi-am trimis un email la noua ta adresă de email. Va trebui să accesezi link-ul din el\n"
-"înainte pentru ca adresa de email să îţi fie schimbată."
 
 msgid "We've sent this message but we have not received a confirmation of receipt from the authority's mailserver. This can take some time."
 msgstr ""
@@ -4131,8 +4202,8 @@ msgstr "Aveţi  o problema tehnică. Vă rugăm <a href=\"{{contact_url}}\">să 
 msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
 msgstr ""
 
-msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr "Aţi atins limita maximă pentru cereri. Utilizatorii sunt de obicei limitaţi  la {{max_requests_per_user_per_day}} cereri într-un interval de 24 de ore. Veţi putea face o nouă cerere  în {{can_make_another_request}}."
+msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period."
+msgstr ""
 
 msgid "You have hit the rate limit on user messages. Users are ordinarily limited to {{message_limit}} messages per day."
 msgstr ""
@@ -4289,6 +4360,9 @@ msgid "Your Freedom of Information request"
 msgid_plural "Your Freedom of Information requests (approximately {{count}})"
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Your account on {{site_name}}"
+msgstr ""
 
 msgid "Your annotations"
 msgstr "Adnotările tale"
@@ -4812,6 +4886,9 @@ msgid_plural "{{number_of_requests}} requests left to categorise / {{total_numbe
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "{{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
+msgstr ""
+
 msgid "{{pro_site_name}} Terms"
 msgstr ""
 
@@ -4877,6 +4954,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+
+msgid "{{site_name}} is currently in maintenance. {{message}}"
 msgstr ""
 
 msgid "{{site_name}} login link"

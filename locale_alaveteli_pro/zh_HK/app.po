@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 12:50+0000\n"
+"POT-Creation-Date: 2025-10-29 13:44+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: gensitu <pstew892@protonmail.com>, 2021\n"
 "Language-Team: Chinese (Hong Kong) (https://app.transifex.com/mysociety/teams/"
@@ -180,6 +180,9 @@ msgstr "添加政府部門或公營機構到你的列表"
 msgid "Add credibility"
 msgstr "增加可信度"
 
+msgid "Add individual requests or entire batches you've created to this project. All items will be organized together for streamlined management, classification, and information extraction."
+msgstr ""
+
 msgid "Add question"
 msgstr ""
 
@@ -210,7 +213,7 @@ msgstr "該組內的所有請求將同一時間內保持私密狀態。 單個�
 msgid "Allow blank"
 msgstr ""
 
-msgid "Allow muliple"
+msgid "Allow multiple"
 msgstr ""
 
 msgid "Also called {{other_name}}."
@@ -236,6 +239,9 @@ msgstr "你確定嗎？"
 
 msgid "Automate FOI request management"
 msgstr "自動化資訊詢問自由權（FOI）的管理"
+
+msgid "Back to project"
+msgstr ""
 
 msgid "Batch"
 msgstr ""
@@ -276,7 +282,7 @@ msgstr ""
 msgid "Billing"
 msgstr "付費"
 
-msgid "Bringing facts about campagin overspending to light with the privacy features"
+msgid "Bringing facts about campaign overspending to light with the privacy features"
 msgstr ""
 
 msgid "Browse by category"
@@ -327,11 +333,11 @@ msgstr ""
 msgid "Classify responses"
 msgstr ""
 
-msgid "Collapse all correspondence"
+msgid "Collaborate with others by inviting contributors to help classify and extract data from your requests."
 msgstr ""
 
-msgid "Confirm your account on {{site_name}}"
-msgstr "在{{site_name}}上確認您的帳戶"
+msgid "Collapse all correspondence"
+msgstr ""
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
 msgstr "要繼續付款，請先啟用JavaScript。"
@@ -354,7 +360,13 @@ msgstr ""
 msgid "Create a new Project"
 msgstr ""
 
+msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
+msgstr ""
+
 msgid "Created"
+msgstr ""
+
+msgid "Customer service was less than expected"
 msgstr ""
 
 msgid "Dashboard"
@@ -395,6 +407,9 @@ msgstr "草稿"
 
 msgid "Drafts"
 msgstr "草稿"
+
+msgid "Ease of use was less than expected"
+msgstr ""
 
 msgid "Edit your project"
 msgstr ""
@@ -522,11 +537,20 @@ msgstr ""
 msgid "How researchers are using Pro"
 msgstr ""
 
+msgid "I don't use the service enough"
+msgstr ""
+
 msgid "I have read and accepted these terms and conditions"
 msgstr "我已經閲讀且接受此等條款細節"
 
 msgid "I understand and still want to cancel"
 msgstr "我明白，但我依然希望取消"
+
+msgid "I'll do this later"
+msgstr ""
+
+msgid "I'm switching to a different service"
+msgstr ""
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
 msgstr "如果您再無法付款，您的賬户將轉成免費賬户，到時候您將無法使用{{pro_site_name}}。"
@@ -559,6 +583,9 @@ msgid "Invoice {{invoice_number}} for {{invoice_amount}}"
 msgstr ""
 
 msgid "Invoices"
+msgstr ""
+
+msgid "It's too expensive"
 msgstr ""
 
 msgid "I’m a campaigner"
@@ -738,6 +765,9 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
+msgid "Other reason"
+msgstr ""
+
 msgid "Overflowing inbox?"
 msgstr ""
 
@@ -766,6 +796,9 @@ msgid "Please include links to some examples of your journalism or blogging if y
 msgstr ""
 
 msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+msgstr ""
+
+msgid "Please select a cancellation reason..."
 msgstr ""
 
 msgid "Please tell us if you want to get updates"
@@ -850,6 +883,9 @@ msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
 msgstr[0] ""
 msgstr[1] ""
+
+msgid "Quality was less than expected"
+msgstr ""
 
 msgid "Read blog"
 msgstr "閲讀網誌"
@@ -1016,6 +1052,9 @@ msgid "Sign up"
 msgstr "註冊"
 
 msgid "Simple, affordable pricing"
+msgstr ""
+
+msgid "Some features are missing"
 msgstr ""
 
 msgid "Sorry, no authorities matched that search"
@@ -1193,6 +1232,9 @@ msgstr ""
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
 msgstr ""
 
+msgid "Undo"
+msgstr ""
+
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr ""
 
@@ -1211,12 +1253,12 @@ msgstr "更新"
 msgid "Update Card Details"
 msgstr "更新付款卡資料"
 
-msgid "Update Project"
-msgstr ""
-
 msgid "Update its status."
 msgid_plural "Update statuses."
 msgstr[0] "更新狀態。"
+
+msgid "Update project"
+msgstr ""
 
 msgid "Updated"
 msgstr "已更新"
@@ -1332,7 +1374,7 @@ msgstr "你已取消訂閲{{pro_site_name}}"
 msgid "You haven't added any authorities to your batch yet"
 msgstr ""
 
-msgid "You haven't added any reqeusts to your project yet"
+msgid "You haven't added any requests to your project yet"
 msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
@@ -1562,5 +1604,5 @@ msgstr ""
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
 msgstr ""
 
-msgid "{{site_name}} Projects is a early beta feature."
+msgid "{{site_name}} Projects helps manage large FOI investigations by grouping requests, coordinating contributors, and extracting structured data — making complex research faster and more collaborative."
 msgstr ""
