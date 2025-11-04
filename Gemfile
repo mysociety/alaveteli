@@ -148,7 +148,7 @@ gem 'rdoc', '~> 6.15.0'
 gem 'uri', '~> 1.1.0'
 
 # Gems only used by the research export task
-gem 'gender_detector', '~> 2.0.0'
+gem 'gender_detector', '~> 2.1.0'
 
 # Gems related to internationalisation
 gem 'i18n', '~> 1.14.7'
