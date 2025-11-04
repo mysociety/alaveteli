@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Improve scrubbing bad content from HTML emails (Graeme Porteous)
+
 # 0.46.0.0
 
 ## Highlighted Features

@@ -6,6 +6,8 @@
 #   FoiAttachmentMaskJob.perform(FoiAttachment.first)
 #
 class FoiAttachmentMaskJob < ApplicationJob
+  include ActionView::Helpers::SanitizeHelper
+
   queue_as :default
   unique :until_and_while_executing, on_conflict: :log
 
@@ -40,10 +42,11 @@ class FoiAttachmentMaskJob < ApplicationJob
     )
 
     if attachment.content_type == 'text/html'
-      body =
-        Loofah.scrub_document(body, :prune).
-        to_html(encoding: 'UTF-8').
-        try(:html_safe)
+      script_scrubber = Rails::HTML::TargetScrubber.new(prune: true)
+      script_scrubber.tags = ['script']
+
+      body = sanitize(body, scrubber: script_scrubber)
+      body = sanitize(body) # HTML5 scrubber
     end
 
     attachment.update(body: body, masked_at: Time.zone.now)
