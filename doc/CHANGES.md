@@ -1,3 +1,9 @@
+# 0.46.0.1
+
+## Highlighted Features
+
+* Bump bundler to 2.7.2 to prevent warnings (Graeme Porteous)
+
 # 0.46.0.0
 
 ## Highlighted Features
