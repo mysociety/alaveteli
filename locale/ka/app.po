@@ -615,7 +615,7 @@ msgid "Beginning with"
 msgstr "რომლებიც იწყება"
 
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "გაეცანი <a href=\"{{requests_url}}\">{{number_of_requests}} გამოთხოვილ ინფორმაციას</a>  <a href=\"{{authorities_url}}\">{{number_of_authorities}} დაწესებულებიდან</a>"
+msgstr "გაეცანი <a href=\"{{requests_url}}\">{{number_of_requests}} გამოთხოვილ ინფორმაციას</a> <a href=\"{{authorities_url}}\">{{number_of_authorities}} საჯარო დაწესებულებიდან</a>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "დაათვალიერე <a href='{{url}}'>სხვა მოთხოვნები</a> ნიმუშების სანახავად, თუ როგორ დაწერო მოთხოვნის ტექსტი. "
@@ -627,7 +627,7 @@ msgid "Browse all authorities &rarr;"
 msgstr "ნახე ყველა საჯარო დაწესებულება &rarr;"
 
 msgid "Browse all requests &rarr;"
-msgstr "ყველა განცხადების ნახვა &rarr;"
+msgstr "გაეცანი ყველა გამოთხოვილ ინფორმაციას &rarr;"
 
 msgid "Browse and search requests"
 msgstr "მოძებნე გამოთხოვილი ინფორმაცია "
@@ -2358,7 +2358,7 @@ msgid "Response to your request"
 msgstr "პასუხი შენს მოთხოვნაზე "
 
 msgid "Response to {{law_used_short}} request"
-msgstr "პასუხი {{law_used_short}}ზე"
+msgstr "პასუხი მოთხოვნაზე {{law_used_short}} "
 
 msgid "Response:"
 msgstr "პასუხი:"
@@ -4409,7 +4409,7 @@ msgid "{{info_request_user_name}}"
 msgstr ""
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr "{{law_used_full}} - {{title}}"
+msgstr "{{law_used_full}} მოთხოვნა - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
@@ -4420,7 +4420,7 @@ msgid "{{law_used_short}} requests to '{{public_body_name}}'"
 msgstr "{{law_used_short}} საჯარო უწყებას - '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
-msgstr "გასულია {{length_of_time}} "
+msgstr "{{length_of_time}} წინ"
 
 msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
@@ -4497,7 +4497,7 @@ msgstr "{{site_name}} ბლოგი და ტვიტები"
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "{{site_name}} ვებგვერდი ფარავს {{number_of_authorities}} საჯარო დაწესებულებას, მათ შორის:"
-msgstr[1] "{{site_name}} {{number_of_authorities}} საჯარო დაწესებულებას აერთიანებს. ინფორმაციის მოთხოვნით, ყველაზე ხშირად, მოქალაქეებმა შემდეგ დაწესებულებებს მიმართეს:"
+msgstr[1] "{{site_name}} აერთიანებს გაგზავნილ მოთხოვნას {{number_of_authorities}} საჯარო დაწესებულებასთან, მათ შორის:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 msgstr "{{site_name}}-მ აღმოაჩინა, რომ უწყებამ -{{authority_name}} შესაძლოა უარყო ნაწილი ან მთლიანად შენი მოთხოვნა <strong>{{refusals}}</strong>."
@@ -4511,7 +4511,7 @@ msgstr "{{site_name}} ინფორმაციის მოთხოვნი
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
-msgstr[1] "{{site_name}}-ის მომხმარებლებმა უკვე გაგზავნეს ინფორმაციის {{number_of_requests}} მოთხოვნა, მათ შორის:"
+msgstr[1] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - საჯარო ინფორმაციის მოთხოვნა {{public_body}}"
