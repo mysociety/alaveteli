@@ -1,0 +1,31 @@
+<div class="accordion-group">
+  <div class="accordion-heading accordion-toggle row">
+    <span class="item-title span6">
+      <a href="#request_<%=info_request.id%>" data-toggle="collapse" data-parent="requests"><%= chevron_right %></a>
+      <%= both_links(info_request) %>
+      <% if info_request.embargo %>
+        <%= content_tag(:span, 'embargoed', :class => 'label') %>
+      <% end %>
+    </span>
+
+    <span class="item-metadata span6">
+      <%= both_links(info_request.user) %>
+      <%= arrow_right %>
+      <%= both_links(info_request.public_body) %>,
+      <%= admin_date(info_request.updated_at, ago_only: true) %>
+    </span>
+  </div>
+
+  <div id="request_<%=info_request.id%>" class="item-detail accordion-body collapse row">
+    <% info_request.for_admin_column do |name, value| %>
+      <div>
+        <span class="span6">
+          <%= name.humanize %>
+        </span>
+        <span class="span6">
+          <%= admin_value(value) %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>

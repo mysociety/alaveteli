@@ -150,10 +150,14 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
     session[:user_login_token] = user.login_token
     session[:remember_me] = remember_me
+    # Intentionally allow to fail silently so that we don't have to care whether
+    # sign in recording is enabled.
+    user.sign_ins.create(ip: user_ip, country: country_from_ip)
   end
 
   # Logout form
   def clear_session_credentials
+    session[:admin_id] = nil
     session[:user_id] = nil
     session[:user_login_token] = nil
     session[:user_circumstance] = nil
@@ -225,13 +229,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def user?
-    warn 'DEPRECATION: ApplicationController#user? will be removed in 0.41. ' \
-         'It has been replaced with authenticated?'
-
-    authenticated?
-  end
-
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
   def form_authenticity_token(*args)
@@ -239,15 +236,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Check the user is logged in
-  def authenticated?(as: nil, **reason_params)
-    unless reason_params.empty?
-      warn 'DEPRECATION: ApplicationController#authenticated?(reason_params) ' \
-           'will be removed in 0.41. It has been replaced with ' \
-           'ApplicationController#authenticated? || ' \
-           'ApplicationController#ask_to_login(**reason_params)'
-      return authenticated?(as: as) || ask_to_login(**reason_params)
-    end
-
+  def authenticated?(as: nil)
     if as
       authenticated_user == as
     else
@@ -286,15 +275,6 @@ class ApplicationController < ActionController::Base
     redirect_to signin_url(token: post_redirect.token, modal: params[:modal])
 
     false
-  end
-
-  def authenticated_as_user?(user, reason_params = nil)
-    warn 'DEPRECATION: ApplicationController#authenticated_as_user?(user, ' \
-         'reason_params) will be removed in 0.41. It has been replaced with ' \
-         'ApplicationController#authenticated?(as: user) || ' \
-         'ApplicationController#ask_to_login(as: user, **reason_params)'
-
-    authenticated?(as: user) || ask_to_login(as: user, **reason_params)
   end
 
   # Return logged in user
@@ -385,7 +365,7 @@ class ApplicationController < ActionController::Base
     if !AlaveteliConfiguration::read_only.empty?
       if feature_enabled?(:annotations)
         flash[:notice] = {
-          :partial => "general/read_only_annotations.html.erb",
+          :partial => "general/read_only_annotations",
           :locals => {
             :site_name => site_name,
             :read_only => AlaveteliConfiguration.read_only
@@ -393,7 +373,7 @@ class ApplicationController < ActionController::Base
         }
       else
         flash[:notice] = {
-          :partial => "general/read_only.html.erb",
+          :partial => "general/read_only",
           :locals => {
             :site_name => site_name,
             :read_only => AlaveteliConfiguration.read_only

@@ -26,14 +26,21 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Luis Villegas, 2022
+# Luis Villegas, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
-"Language-Team: Papiamento (http://www.transifex.com/mysociety/alaveteli/langua"
+"Last-Translator: Luis Villegas, 2022\n"
+"Language-Team: Papiamento (http://app.transifex.com/mysociety/alaveteli/langua"
 "ge/pap/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,99 +53,102 @@ msgid ""
 "\n"
 "[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 msgstr ""
+"\n"
+"\n"
+"[ {{site_name}} nota: E texto akiriba a wordo codifica incorectamente, el a wordo kita. ]"
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr ""
+msgstr " (<strong>no tin nodo di bringa</strong> bo por lesa nos <a href=\"{{url}}\">politica di moderacion</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr ""
+msgstr " (<strong>tene pasenshi</strong>, specialmente pa filenan grandi, e lo por tarda)"
 
 msgid " (you)"
-msgstr ""
+msgstr " (abo)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr " - pidi pa gobierno haci documentonan publico cu e Ordenansa Nacional Maneho Transparente y wak cua peticionnan hende a haci den pasado"
 
 msgid " < "
-msgstr ""
+msgstr " < "
 
 msgid " << "
-msgstr ""
+msgstr " << "
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr ""
+msgstr " <strong>Nota di privacidad:</strong> Bo adres di email lo wordo duna na"
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Resumi</strong> e contenido di cualkier informacion debolbi."
 
 msgid " > "
-msgstr ""
+msgstr " > "
 
 msgid " >> "
-msgstr ""
+msgstr " >> "
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr " Conseha con pa <strong>miho clarifica</strong> e peticion."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr ""
+msgstr "Ideanan riba ki<strong>otro documentonan  bo por pidi</strong> cu e autoridad lo por tin. "
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
-msgstr ""
+msgstr " Inclui un enlace na e informacion cu a wordo pidi, si e ta <strong>disponibel caba</strong> riba Internet. "
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr ""
+msgstr " Ofrece miho maneranan pa <strong>splica e peticion</strong> pa haya e informacion. "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr "Splica con bo <strong>uza e informacion</strong>, cu enlacenan si ta posibel."
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr " Sugeri <strong>unda otro</strong> e persona pidiendo documento por haya e informacion. "
 
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr "Ya bo ta ricibiendo actualisacionnan tocante e peticion."
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr "Bo tambe lo haya actualisacionnan tocante e peticion via email."
 
 msgid " filtered by status: '{{status}}'"
-msgstr ""
+msgstr "filtra a base di status: '{{status}}'"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "ora bo manda e mensahe aki."
 
 msgid "&#8592; Previous"
-msgstr ""
+msgstr "&#8592; Previo"
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Estadisticanan di crimen den districto Noord'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'Desaroyo di nivelnan di polucion na Parkietenbos'"
 
 msgid "'{{authority_name}}' is defunct"
-msgstr ""
+msgstr "'{{authority_name}}' no ta traha mas"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', un autoridad publico"
 
 msgid "'{{link_to_request}}', a request"
-msgstr ""
+msgstr "'{{link_to_request}}', un peticion"
 
 msgid "'{{link_to_user}}', a person"
-msgstr ""
+msgstr "'{{link_to_user}}', un persona"
 
 msgid "(You will be asked to sign in as {{user_name}})"
-msgstr ""
+msgstr "(Bo lo wordo pidi pa ingresa manera {{user_name}})"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(sconde)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(of <a href=\"{{url}}\">ingresa</a>)"
 
 msgid "(show)"
-msgstr ""
+msgstr "(mustra)"
 
 msgid ""
 ",\n"
@@ -149,42 +159,49 @@ msgid ""
 "\n"
 "{{user_name}}"
 msgstr ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Atentamente,\n"
+"\n"
+"{{user_name}}"
 
 msgid "12 characters minimum. 72 characters maximum."
 msgstr ""
 
 msgid "5 minutes+"
-msgstr ""
+msgstr "mas cu 5 minuut"
 
 msgid "60 minutes+"
-msgstr ""
+msgstr "mas cu 60 minuut"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
-msgstr ""
+msgstr "<a href=\"{{browse_url}}\">Mira tur</a> of <a href=\"{{add_url}}\">pidi nos pa agrega un</a>."
 
 msgid "<a href=\"{{new_request_link}}\">Make a new EIR request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Haci un peticion di Lob nobo</a> cerca {{public_body_name}}"
 
 msgid "<a href=\"{{new_request_link}}\">Make a new FOI request</a> to {{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"{{new_request_link}}\">Haci un peticion di Lob nobo</a> cerca {{public_body_name}}"
 
 msgid "<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{sign_in_link}}\">Ingresa</a> pa ricibi actualidadnan riba loke bo ta sigui of bolbe activa alertanan via e-mail."
 
 msgid "<a href=\"{{url}}\">Do you want to request private information about yourself?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Bo kier pidi bo propio informacion priva? </a>"
 
 msgid "<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more likely to get what you want."
-msgstr ""
+msgstr "<a href=\"{{url}}\">Manten'e <strong>enfoca</strong></a>, lo tin mas chens cu bo lo haya kico bo ta buscando."
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Ingresa</a> pa cambia bo clave, abona y mas ({{user_name}} solamente)"
 
 msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Bo ta pensando di uza un otro nomber bou cual bo lo haci peticionnan?</a>"
 
 msgid "<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you follow or re-enable email alerts."
-msgstr ""
+msgstr "<a href=\"{{wall_link}}\">Bishita bo Wall</a>pa ricibi actualidadnan riba loke bo ta sigui of bolbe activa alertanan via e-mail."
 
 msgid "<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
 msgid_plural "<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
@@ -192,43 +209,43 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
-msgstr ""
+msgstr "<p>Ful cla! Masha danki pa bo ayudo.</p><p>Esaki ta <a href=\"{{helpus_url}}\">mas cosnan cu bo por haci</a> pa yuda {{site_name}}.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p><p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr ""
+msgstr "<p>Danki pa cambia e texto tocante bo mes den bo perfil.</p><p><strong>Proximamente...</strong> Bo por upload un potret di perfil tambe.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr ""
+msgstr "<p>Danki pa cambia e potret riba bo perfil.</p><p><strong>Proximamente...</strong> Bo por pone texto tocante bo mes y bo investigacion riba bo perfil.</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address. If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>Nos ta recomenda pa bo edita bo peticion y kita bo adres di e-mail. Si bo lag'e, e adres lo wordo manda na e autoridad, pero no lo wordo mustra riba e website.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Bo no tin cu inclui bo adres di e-mail den bo peticion pa por haya un contesta (<a href=\"{{url}}\">detayenan</a>).</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Bo no tin cu inclui bo adres di e-mail den bo peticion pa por haya un contesta, pasobra den e proximo pagina nos lo pidi p'e (<a href=\"{{url}}\">detayenan</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr ""
+msgstr "<p>Bo peticion ta contene un <strong>adres</strong>. Si e no ta esencial pa bo peticion, por fabor kita cualkier adres pasobra e lo <strong>aparece publicamente riba Internet</strong>.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}} actualmente ta bou mantencion. Bo solamente por wak peticionnan cu a wordo haci caba. Bo no por haci peticionnan nobo, bolbe tuma contacto of agrega anotacionnan, of cambia e base di datonan di cualkier manera.</p> <p>{{read_only}}</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}} actualmente ta bou mantencion. Bo por solamente mira peticionnan cu a wordo haci caba. Bo no por haci peticionnan nobo, bolbe tuma contacto of agrega anotacionnan, of cambia e base di datonan di cualkier manera.</p> <p>{{read_only}}</p>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
 msgstr ""
 
 msgid "<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
-msgstr ""
+msgstr "<strong><code>filetype:pdf</code></strong> pa haya tur contesta adhunta cu filenan den formato PDF. Of purba esakinan: <code>{{list_of_file_extensions}}</code>"
 
 msgid "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
-msgstr ""
+msgstr "<strong><code>request:</code></strong> pa restringi e buskeda na un peticion specifico, skirbiendo e titulo mescos cu den e URL. "
 
 msgid "<strong><code>request_public_body_tag:charity</code></strong> to find requests to public authorities with a given tag."
-msgstr ""
+msgstr "<strong><code>request_public_body_tag:charity</code></strong> pa haya un peticion na un autoridad cu un tag specifico."
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
 msgstr ""
@@ -270,6 +287,9 @@ msgid "<strong>Challenging a refusal?</strong> Here are some snippets that may h
 msgstr ""
 
 msgid "<strong>Clarification</strong> has been requested"
+msgstr ""
+
+msgid "<strong>Donate</strong> to {{site_name}}"
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -500,9 +520,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr ""
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr ""
 
@@ -539,6 +556,9 @@ msgstr ""
 msgid "Attachment (optional):"
 msgstr ""
 
+msgid "Attachment has been removed"
+msgstr ""
+
 msgid "Attachment:"
 msgstr ""
 
@@ -573,6 +593,15 @@ msgid "Awaiting response."
 msgstr ""
 
 msgid "Back to content"
+msgstr ""
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
 msgstr ""
 
 msgid "Banned from this site"
@@ -1333,10 +1362,13 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
 msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1537,9 +1569,6 @@ msgstr ""
 msgid "Made between"
 msgstr ""
 
-msgid "Make a batch request"
-msgstr ""
-
 msgid "Make a request"
 msgstr ""
 
@@ -1552,10 +1581,16 @@ msgstr ""
 msgid "Make a request to this authority"
 msgstr ""
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
+msgstr ""
+
+msgid "Make an {{legislation}} request to this authority"
 msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
@@ -1780,9 +1815,6 @@ msgstr ""
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr ""
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr ""
-
 msgid "Original request sent"
 msgstr ""
 
@@ -1847,9 +1879,6 @@ msgid "Play the request categorisation game!"
 msgstr ""
 
 msgid "Please"
-msgstr ""
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
@@ -2017,6 +2046,9 @@ msgid "Please write your follow up message containing the necessary clarificatio
 msgstr ""
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
+msgstr ""
+
+msgid "Please {{contact_us_link}} if you have any questions."
 msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
@@ -2408,6 +2440,9 @@ msgstr ""
 msgid "Share on Facebook"
 msgstr ""
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr ""
 
@@ -2459,6 +2494,9 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
+
 msgid "Simple search"
 msgstr ""
 
@@ -2505,6 +2543,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr ""
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2753,6 +2794,12 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr ""
 
@@ -2790,9 +2837,6 @@ msgid "The request was <strong>successful</strong>."
 msgstr ""
 
 msgid "The request was refused by the public authority"
-msgstr ""
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
 msgstr ""
 
 msgid "The requester has abandoned this request for some reason"
@@ -2852,9 +2896,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr ""
 
-msgid "Then you can make a batch request"
-msgstr ""
-
 msgid "Then you can play the request categorisation game."
 msgstr ""
 
@@ -2912,10 +2953,16 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr ""
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -2954,10 +3001,13 @@ msgstr ""
 msgid "They have been given the following explanation:"
 msgstr ""
 
-msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
 msgstr ""
 
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
@@ -2970,6 +3020,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -2996,7 +3058,7 @@ msgstr ""
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr ""
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
@@ -3017,16 +3079,16 @@ msgstr ""
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr ""
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
@@ -3063,10 +3125,13 @@ msgstr ""
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
 msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
+msgstr ""
+
+msgid "This request has been hidden. {{reason}}"
 msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
@@ -3090,10 +3155,13 @@ msgstr ""
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr ""
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
@@ -3180,7 +3248,7 @@ msgstr ""
 msgid "To follow the request '{{request_title}}'"
 msgstr ""
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
 
 msgid "To join this project"
@@ -3193,9 +3261,6 @@ msgid "To let everyone know, follow this link and then select the appropriate bo
 msgstr ""
 
 msgid "To log into the administrative interface"
-msgstr ""
-
-msgid "To make a batch request"
 msgstr ""
 
 msgid "To play the request categorisation game"
@@ -3244,6 +3309,9 @@ msgid "To:"
 msgstr ""
 
 msgid "Today"
+msgstr ""
+
+msgid "Too many annotations"
 msgstr ""
 
 msgid "Too many requests"
@@ -3544,6 +3612,9 @@ msgstr ""
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3713,6 +3784,9 @@ msgid "You have a new response to the {{law_used_full}} request '{{request_title
 msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
+msgstr ""
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
 msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
@@ -3933,7 +4007,7 @@ msgstr ""
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
 msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
@@ -3999,7 +4073,22 @@ msgstr ""
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
+msgstr ""
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
 msgstr ""
 
 msgid "[{{public_body}} request email]"
@@ -4060,6 +4149,9 @@ msgid "comments"
 msgstr ""
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

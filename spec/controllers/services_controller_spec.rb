@@ -92,13 +92,17 @@ RSpec.describe ServicesController do
 
   describe '#hidden_user_explanation' do
 
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
     let(:user) { FactoryBot.create(:user, name: "P O'Toole") }
     let(:info_request) { FactoryBot.create(:info_request, user: user) }
 
-    it 'generates plaintext output' do
+    before { sign_in(admin_user) }
+
+    it 'generates JSON output' do
       get :hidden_user_explanation,
           params: { info_request_id: info_request.id, message: 'not_foi' }
-      expect(response.media_type).to eq 'text/plain'
+      expect(response.media_type).to eq 'application/json'
     end
 
     it 'does not HTML escape the user or site name' do
@@ -106,8 +110,36 @@ RSpec.describe ServicesController do
         to receive(:site_name).and_return('A&B Test')
       get :hidden_user_explanation,
           params: { info_request_id: info_request.id, message: 'not_foi' }
-      expect(response.body).to match(/Dear P O'Toole/)
-      expect(response.body).to match(/Yours,\n\nThe A&B Test team/)
+      explanation = JSON.parse(response.body)['explanation']
+      expect(explanation).to match(/Dear P O'Toole/)
+      expect(explanation).to match(/Yours,\n\nThe A&B Test team/)
+    end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :hidden_user_explanation,
+                params: { info_request_id: info_request.id, message: 'not_foi' }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'renders the view' do
+          get :hidden_user_explanation,
+              params: { info_request_id: info_request.id, message: 'not_foi' }
+          expect(response).to render_template(
+            'admin_request/hidden_user_explanation'
+          )
+        end
+      end
     end
 
   end

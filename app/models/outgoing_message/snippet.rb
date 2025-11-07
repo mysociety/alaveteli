@@ -1,24 +1,26 @@
 # == Schema Information
-# Schema version: 20210928115500
+# Schema version: 20220210114052
 #
 # Table name: outgoing_message_snippets
 #
-#  id                          :bigint           not null, primary key
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  outgoing_message_snippet_id :bigint           not null
-#  name                        :string
-#  body                        :text
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  name       :string
+#  body       :text
 #
 
 ##
 # Predefined helpful text snippets which can added to outgoing messages
 #
 class OutgoingMessage::Snippet < ApplicationRecord
-  include AdminColumn
   include Taggable
 
-  @non_admin_columns = %w(name)
+  admin_columns exclude: %i[name]
+
+  def self.admin_title
+    'Snippet'
+  end
 
   translates :name, :body
   include Translatable # include after call to translates

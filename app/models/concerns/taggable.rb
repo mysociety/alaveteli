@@ -4,7 +4,13 @@
 module Taggable
   extend ActiveSupport::Concern
 
+  def self.models
+    @models ||= []
+  end
+
   included do
+    Taggable.models << self
+
     has_tag_string
 
     def self.with_tag(tag)
@@ -21,7 +27,7 @@ module Taggable
         select(1).
         where("has_tag_string_tags.model_id = #{quoted_table_name}." \
               "#{quoted_primary_key}").
-        where("has_tag_string_tags.model = '#{self}'").
+        where("has_tag_string_tags.model_type = '#{self}'").
         where(name: name)
       scope = scope.where(value: value) if value
       scope.to_sql
@@ -29,7 +35,7 @@ module Taggable
     private_class_method :tag_search_sql
 
     def self.tags
-      HasTagString::HasTagStringTag.where(model_id: all, model: to_s).
+      HasTagString::HasTagStringTag.where(model_id: all, model_type: to_s).
         map(&:name_and_value)
     end
   end

@@ -58,15 +58,14 @@ RSpec.describe ReportsController do
                       }
         last_event = info_request.reload.last_event
         expect(last_event.event_type).to eq('report_request')
-        expect(last_event.params).
-          to match(
-            request_id: info_request.id,
-            editor: user,
-            reason: 'my reason',
-            message: '',
-            old_attention_requested: false,
-            attention_requested: true
-          )
+        expect(last_event.params).to eq(
+          request: { gid: info_request.to_global_id.to_s },
+          editor: { gid: user.to_global_id.to_s },
+          reason: 'my reason',
+          message: '',
+          old_attention_requested: false,
+          attention_requested: true
+        )
       end
 
       it 'ignores an empty comment_id param' do

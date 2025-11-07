@@ -16,9 +16,9 @@
 FactoryBot.define do
 
   factory :info_request_batch do
-    title { 'Example title' }
+    sequence(:title) { |n| "Example Title #{n}" }
     user
-    body { 'Some text' }
+    sequence(:body) { |n| "Some text #{n}" }
 
     # NB order of the traits is important as the after callbacks are run in the
     # order the traits are defined.

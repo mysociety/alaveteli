@@ -13,7 +13,7 @@ class RequestGameController < ApplicationController
       where_old_unclassified.
         is_searchable.
           count
-    @total = InfoRequest.count
+    @total = InfoRequest.is_searchable.count
     @done = @total - @missing
     @percentage = if @total > 0
       (@done.to_f / @total.to_f * 10000).round / 100.0
@@ -29,7 +29,7 @@ class RequestGameController < ApplicationController
 
     if @missing == 0
       flash.now[:notice] = {
-        :partial => "request_game/game_over.html.erb",
+        :partial => "request_game/game_over",
         :locals => {
           :helpus_url => help_credits_path(:anchor => "helpus"),
           :site_name => site_name

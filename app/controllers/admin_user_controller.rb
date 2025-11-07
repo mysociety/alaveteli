@@ -5,19 +5,22 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminUserController < AdminController
+  layout 'admin/users'
 
-  before_action :set_admin_user, :only => [ :show,
-                                            :edit,
-                                            :update,
-                                            :show_bounce_message,
-                                            :clear_bounce,
-                                            :clear_profile_photo ]
+  before_action :set_admin_user, only: %i[show
+                                          edit
+                                          update
+                                          show_bounce_message
+                                          clear_bounce
+                                          clear_profile_photo]
 
-  before_action :clear_roles,
+  before_action :clear_roles, :clear_features,
                 :check_role_authorisation,
-                :check_role_requirements, :only => [ :update ]
+                :check_role_requirements, only: %i[update]
 
   def index
+    @title ||= 'Listing users'
+
     @query = params[:query].try(:strip)
 
     @roles = params[:roles] || []
@@ -26,16 +29,8 @@ class AdminUserController < AdminController
     @sort_order =
       @sort_options.key?(params[:sort_order]) ? params[:sort_order] : 'name_asc'
 
-    users = if @query.present?
-      User.where(
-        "lower(users.name) LIKE lower('%'||:query||'%') OR " \
-        "lower(users.email) LIKE lower('%'||:query||'%') OR " \
-        "lower(users.about_me) LIKE lower('%'||:query||'%')",
-        query: @query
-      )
-    else
-      User
-    end
+    users = @base_scope || User
+    users = users.search(@query) if @query.present?
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
@@ -47,6 +42,8 @@ class AdminUserController < AdminController
     @admin_users =
       users.order(@sort_options[@sort_order]).
         paginate(:page => params[:page], :per_page => 100)
+
+    render action: :index
   end
 
   def show
@@ -85,11 +82,22 @@ class AdminUserController < AdminController
     end
   end
 
+  def active
+    @title = 'Active users'
+    @base_scope = User.active
+    index
+  end
+
   def banned
-    @banned_users =
-      User.banned.
-        order('name ASC').
-          paginate(:page => params[:page], :per_page => 100)
+    @title = 'Banned users'
+    @base_scope = User.banned
+    index
+  end
+
+  def closed
+    @title = 'Closed users'
+    @base_scope = User.closed
+    index
   end
 
   def show_bounce_message
@@ -112,8 +120,13 @@ class AdminUserController < AdminController
   end
 
   def modify_comment_visibility
-    Comment.where(:id => params[:comment_ids]).
-      update_all(:visible => !params[:hide_selected])
+    desired_visibility = params[:hide_selected] ? false : true
+
+    Comment.
+      where(id: params[:comment_ids]).
+      where(visible: !desired_visibility).
+      find_each { |comment| comment.toggle!(:visible) }
+
     redirect_back(fallback_location: admin_users_url)
   end
 
@@ -123,7 +136,8 @@ class AdminUserController < AdminController
     if params[:admin_user]
       params.require(:admin_user).permit(:name,
                                          :email,
-                                         {:role_ids => []},
+                                         { role_ids: [] },
+                                         { features: [] },
                                          :ban_text,
                                          :about_me,
                                          :no_limit,
@@ -137,6 +151,11 @@ class AdminUserController < AdminController
   def clear_roles
     # Clear roles if none checked
     params[:admin_user][:role_ids] ||= []
+  end
+
+  def clear_features
+    # Clear features if none checked
+    params[:admin_user][:features] ||= []
   end
 
   # Check all changed roles exist, current user can grant and revoke them

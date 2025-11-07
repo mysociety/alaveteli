@@ -47,7 +47,33 @@ namespace :xapian do
   end
 end
 
+# Disable the default asset pipeline
+set :normalize_asset_timestamps, false
+
 namespace :deploy do
+
+  namespace :assets do
+    desc 'Clean up old manifest files before precompilation'
+    task :clean_manifests do
+      run "rm -f #{shared_path}/assets/manifest*"
+      run "rm -f #{shared_path}/assets/.sprockets-manifest*"
+    end
+
+    # Override the default asset pipeline check to avoid manifest file conflicts
+    task :update_asset_mtimes do
+      # Skip the problematic manifest file check
+    end
+
+    desc 'Precompile assets manually'
+    task :precompile do
+      run "cd #{latest_release} && RAILS_ENV=#{rails_env} RAILS_GROUPS=assets bundle exec rake assets:precompile"
+    end
+
+    desc 'Symlink non-digest asset paths to the most recent digest versions'
+    task :link_non_digest do
+      run "cd #{latest_release} && bundle exec rake assets:link_non_digest RAILS_ENV=#{rails_env}"
+    end
+  end
 
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
@@ -60,6 +86,7 @@ namespace :deploy do
   task :symlink_configuration do
     links = {
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
+      "#{release_path}/config/storage.yml" => "#{shared_path}/storage.yml",
       "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
       "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
       "#{release_path}/config/httpd.conf" => "#{shared_path}/httpd.conf",
@@ -101,6 +128,7 @@ end
 
 after 'deploy:assets:symlink', 'deploy:symlink_configuration'
 
+before 'deploy:assets:precompile', 'deploy:assets:clean_manifests'
 before 'deploy:assets:precompile', 'themes:install'
 after 'deploy:assets:precompile', 'deploy:assets:link_non_digest'
 

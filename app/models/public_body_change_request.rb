@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: public_body_change_requests
 #
@@ -12,7 +12,7 @@
 #  public_body_email :string
 #  source_url        :text
 #  notes             :text
-#  is_open           :boolean          default("true"), not null
+#  is_open           :boolean          default(TRUE), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -37,10 +37,10 @@ class PublicBodyChangeRequest < ApplicationRecord
   validate :body_email_format, :unless => proc { |change_request| change_request.public_body_email.blank? }
 
   scope :new_body_requests, -> {
-    where(public_body_id: nil).order("created_at")
+    where(public_body_id: nil).order(:created_at)
   }
   scope :body_update_requests, -> {
-    where("public_body_id IS NOT NULL").order("created_at")
+    where("public_body_id IS NOT NULL").order(:created_at)
   }
 
   singleton_class.undef_method :open # Undefine Kernel.open to avoid warning

@@ -25,10 +25,10 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class OutgoingMessage < ApplicationRecord
-  include AdminColumn
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include Taggable
 
   STATUS_TYPES = %w(ready sent failed).freeze
   MESSAGE_TYPES = %w(initial_request followup).freeze
@@ -61,11 +61,15 @@ class OutgoingMessage < ApplicationRecord
            :inverse_of => :outgoing_message,
            :dependent => :destroy
 
+  delegate :public_body, to: :info_request, private: true, allow_nil: true
+
   after_initialize :set_default_letter
   # reindex if body text is edited (e.g. by admin interface)
   after_update :xapian_reindex_after_update
 
   strip_attributes :allow_empty => true
+
+  admin_columns include: [:to, :from, :subject]
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 
@@ -141,8 +145,8 @@ class OutgoingMessage < ApplicationRecord
   # Returns a String
   def to
     if replying_to_incoming_message?
-      # calling safe_mail_from from so censor rules are run
-      MailHandler.address_from_name_and_email(incoming_message_followup.safe_mail_from,
+      # calling safe_from_name from so censor rules are run
+      MailHandler.address_from_name_and_email(incoming_message_followup.safe_from_name,
                                               incoming_message_followup.from_email)
     else
       info_request.recipient_name_and_email
@@ -220,8 +224,11 @@ class OutgoingMessage < ApplicationRecord
     self.status = 'failed'
     save!
 
-    info_request.log_event('send_error', reason: failure_reason,
-                                         outgoing_message_id: id)
+    info_request.log_event(
+      'send_error',
+      reason: failure_reason,
+      outgoing_message_id: id
+    )
     set_info_request_described_state
   end
 
@@ -232,9 +239,12 @@ class OutgoingMessage < ApplicationRecord
 
     log_event_type = "followup_#{ log_event_type }" if message_type == 'followup'
 
-    info_request.log_event(log_event_type, { :email => to_addrs,
-                                             :outgoing_message_id => id,
-                                             :smtp_message_id => message_id })
+    info_request.log_event(
+      log_event_type,
+      email: to_addrs,
+      outgoing_message_id: id,
+      smtp_message_id: message_id
+    )
     set_info_request_described_state
   end
 
@@ -260,7 +270,7 @@ class OutgoingMessage < ApplicationRecord
   # Returns an Array
   def smtp_message_ids
     info_request_events.
-      order('created_at ASC').
+      order(:created_at).
         map { |event| event.params[:smtp_message_id] }.
           compact.
             map do |smtp_id|
@@ -342,8 +352,10 @@ class OutgoingMessage < ApplicationRecord
       text = body(opts).strip
     end
 
-    # Remove salutation
-    text.sub!(/Dear .+,/, "") if strip_salutation
+    if strip_salutation && public_body
+      salutation = self.class.default_salutation(public_body)
+      text.sub!(/#{Regexp.escape(salutation)}\s*/, '')
+    end
 
     # Remove email addresses from display/index etc.
     self.remove_privacy_sensitive_things!(text)
@@ -404,8 +416,6 @@ class OutgoingMessage < ApplicationRecord
     @letter_template ||=
       if what_doing == 'internal_review'
         Template::InternalReview.new
-      elsif info_request.is_batch_request_template?
-        Template::BatchRequest.new
       elsif replying_to_incoming_message?
         Template::IncomingMessageFollowup.new
       else
@@ -427,7 +437,7 @@ class OutgoingMessage < ApplicationRecord
         OutgoingMailer.
           name_for_followup(info_request, incoming_message_followup)
       else
-        info_request.try(:public_body).try(:name)
+        public_body&.name
       end
 
     opts[:letter] = default_letter if default_letter
@@ -438,7 +448,7 @@ class OutgoingMessage < ApplicationRecord
   def replying_to_incoming_message?
     message_type == 'followup' &&
       incoming_message_followup &&
-      incoming_message_followup.safe_mail_from &&
+      incoming_message_followup.safe_from_name &&
       incoming_message_followup.valid_to_reply_to?
   end
 

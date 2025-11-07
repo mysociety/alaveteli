@@ -10,7 +10,7 @@
 
   <div class="inner-canvas-body">
 
-    <% if feature_enabled? :pro_batch_category_ui, current_user %>
+    <% if current_user.features.enabled?(:pro_batch_category_ui) %>
       <div class="batch-builder-mode">
         <ul class="tabs" data-tab="">
           <li class="tab-title <%= 'active' if mode == 'search' %> js-batch-builder-mode" data-mode="search">
@@ -82,6 +82,8 @@
         </div>
       </div>
       <div class="batch-builder__actions">
+        <%= batch_authority_count %>
+
         <%= form_tag new_alaveteli_pro_info_request_batch_path, method: :get do %>
           <%= hidden_field_tag :draft_id,
                                @draft_batch_request.id,

@@ -8,7 +8,7 @@
 #   # => User::ActiveRecord_Relation
 #
 #   # ID of most active user:
-#   q.call.order('activity DESC').first.id
+#   q.call.order(activity: :desc).first.id
 #   # => 19
 #
 #   # Activity in date range:

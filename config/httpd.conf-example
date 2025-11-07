@@ -45,6 +45,10 @@
         # the environments listed in APP_ROOT/config/environments.
         RailsEnv production
         RackEnv production
+
+        # Require bundler so correct versions gems that shipped with Ruby are
+        # loaded
+        SetEnv RUBYOPT "-r bundler/setup"
     </IfModule>
 
     # This is your Rails app's public directory

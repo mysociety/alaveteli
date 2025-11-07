@@ -25,8 +25,8 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
   def check_prominence
     unless can?(:read, @outgoing_message) && \
            can?(:read, @outgoing_message.info_request)
-        return render_hidden('request/_hidden_correspondence',
-                             :locals => { :message => @outgoing_message })
+        return render_hidden('request/_prominence',
+                             locals: { prominenceable: @outgoing_message })
     end
   end
 end

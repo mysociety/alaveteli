@@ -5,7 +5,7 @@ module Statistics
       InfoRequest.is_public.
                   joins(:user).
                   group(:user).
-                  order('count_info_requests_all DESC').
+                  order(count_info_requests_all: :desc).
                   limit(10).
                   count
     end
@@ -16,7 +16,7 @@ module Statistics
                   where('info_requests.created_at >= ?', 28.days.ago).
                   joins(:user).
                   group(:user).
-                  order('count_info_requests_all DESC').
+                  order(count_info_requests_all: :desc).
                   limit(10).
                   count
     end
@@ -25,7 +25,7 @@ module Statistics
       commenters = Comment.visible.
                            joins(:user).
                            group('comments.user_id').
-                           order('count_all DESC').
+                           order(count_all: :desc).
                            limit(10).
                            count
       # TODO: Have user objects automatically instantiated like the InfoRequest
@@ -41,7 +41,7 @@ module Statistics
                            where('comments.created_at >= ?', 28.days.ago).
                            joins(:user).
                            group('comments.user_id').
-                           order('count_all DESC').
+                           order(count_all: :desc).
                            limit(10).
                            count
       # TODO: Have user objects automatically instantiated like the InfoRequest

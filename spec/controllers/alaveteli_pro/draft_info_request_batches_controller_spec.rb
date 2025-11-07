@@ -144,7 +144,7 @@ RSpec.describe AlaveteliPro::DraftInfoRequestBatchesController do
 
       it_behaves_like "creating a request"
 
-      it "renders the _summary.html.erb partial" do
+      it "renders the summary partial" do
         subject
         expect(response).to render_template("_summary")
       end
@@ -213,7 +213,7 @@ RSpec.describe AlaveteliPro::DraftInfoRequestBatchesController do
 
         it_behaves_like "adding a body to a request"
 
-        it "renders the _summary.html.erb partial" do
+        it "renders the summary partial" do
           subject
           expect(response).to render_template("_summary")
         end
@@ -296,7 +296,7 @@ RSpec.describe AlaveteliPro::DraftInfoRequestBatchesController do
 
         it_behaves_like "removing a body from a request"
 
-        it "renders the _summary.html.erb partial" do
+        it "renders the summary partial" do
           subject
           expect(response).to render_template("_summary")
         end

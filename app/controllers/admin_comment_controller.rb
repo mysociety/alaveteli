@@ -14,9 +14,9 @@ class AdminCommentController < AdminController
 
     comments = if @query
       Comment.where(["lower(body) LIKE lower('%'||?||'%')", @query]).
-        order('created_at DESC')
+        order(created_at: :desc)
     else
-      Comment.order('created_at DESC')
+      Comment.order(created_at: :desc)
     end
 
     if cannot? :admin, AlaveteliPro::Embargo
@@ -42,21 +42,21 @@ class AdminCommentController < AdminController
 
     if @comment.update(comment_params)
       update_type = if comment_hidden?(old_visible, old_body)
-        "hide_comment"
-      else
-        "edit_comment"
-      end
-      @comment.
-        info_request.
-          log_event(update_type,
-                    { :comment_id => @comment.id,
-                      :editor => admin_current_user,
-                      :old_body => old_body,
-                      :body => @comment.body,
-                      :old_visible => old_visible,
-                      :visible => @comment.visible,
-                      :old_attention_requested => old_attention,
-                      :attention_requested => @comment.attention_requested })
+                      'hide_comment'
+                    else
+                      'edit_comment'
+                    end
+      @comment.info_request.log_event(
+        update_type,
+        comment_id: @comment.id,
+        editor: admin_current_user,
+        old_body: old_body,
+        body: @comment.body,
+        old_visible: old_visible,
+        visible: @comment.visible,
+        old_attention_requested: old_attention,
+        attention_requested: @comment.attention_requested
+      )
       flash[:notice] = 'Comment successfully updated.'
       redirect_to admin_request_url(@comment.info_request)
     else

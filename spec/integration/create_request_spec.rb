@@ -46,7 +46,7 @@ RSpec.describe "When creating requests" do
     it 'does not HTML escape the apostrophe in the request form' do
       using_session(user_session) do
         visit show_public_body_path(:url_name => public_body.url_name)
-        click_link("Make a request to this authority")
+        click_link('Make a Freedom of Information request to this authority')
 
         expect(page).not_to have_content "Test&#39;s Authority"
         expect(page).to have_content "Dear Test's Authority"
@@ -56,7 +56,7 @@ RSpec.describe "When creating requests" do
     it 'appends the user name' do
       using_session(user_session) do
         visit show_public_body_path(:url_name => public_body.url_name)
-        click_link("Make a request to this authority")
+        click_link('Make a Freedom of Information request to this authority')
 
         expect(page.source).
           to include("Yours faithfully,\n\n#{user.name}")
@@ -67,7 +67,7 @@ RSpec.describe "When creating requests" do
       public_body.update_attribute(:name, 'Test ("special" chars)')
       using_session(user_session) do
         visit show_public_body_path(:url_name => public_body.url_name)
-        click_link("Make a request to this authority")
+        click_link('Make a Freedom of Information request to this authority')
 
         expect(page).to have_content 'Dear Test ("special" chars)'
       end
@@ -77,7 +77,7 @@ RSpec.describe "When creating requests" do
       public_body.update_attribute(:name, "Test's <sup>html</sup> authority")
       using_session(user_session) do
         visit show_public_body_path(:url_name => public_body.url_name)
-        click_link("Make a request to this authority")
+        click_link('Make a Freedom of Information request to this authority')
         fill_in 'Summary', :with => "HTML test"
         find_button('Next Step: Preview your public request').click
 

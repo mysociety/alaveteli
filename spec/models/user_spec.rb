@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210921094059
+# Schema version: 20220210114052
 #
 # Table name: users
 #
@@ -10,27 +10,27 @@
 #  salt                              :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
-#  email_confirmed                   :boolean          default("false"), not null
+#  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default("2000-01-01 00:00:00")
+#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00.000000000 GMT +00:00)
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string
 #  email_bounced_at                  :datetime
 #  email_bounce_message              :text             default(""), not null
-#  no_limit                          :boolean          default("false"), not null
-#  receive_email_alerts              :boolean          default("true"), not null
-#  can_make_batch_requests           :boolean          default("false"), not null
-#  otp_enabled                       :boolean          default("false"), not null
+#  no_limit                          :boolean          default(FALSE), not null
+#  receive_email_alerts              :boolean          default(TRUE), not null
+#  can_make_batch_requests           :boolean          default(FALSE), not null
+#  otp_enabled                       :boolean          default(FALSE), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default("1")
-#  confirmed_not_spam                :boolean          default("false"), not null
-#  comments_count                    :integer          default("0"), not null
-#  info_requests_count               :integer          default("0"), not null
-#  track_things_count                :integer          default("0"), not null
-#  request_classifications_count     :integer          default("0"), not null
-#  public_body_change_requests_count :integer          default("0"), not null
-#  info_request_batches_count        :integer          default("0"), not null
+#  otp_counter                       :integer          default(1)
+#  confirmed_not_spam                :boolean          default(FALSE), not null
+#  comments_count                    :integer          default(0), not null
+#  info_requests_count               :integer          default(0), not null
+#  track_things_count                :integer          default(0), not null
+#  request_classifications_count     :integer          default(0), not null
+#  public_body_change_requests_count :integer          default(0), not null
+#  info_request_batches_count        :integer          default(0), not null
 #  daily_summary_hour                :integer
 #  daily_summary_minute              :integer
 #  closed_at                         :datetime
@@ -546,38 +546,50 @@ RSpec.describe User, "when emails have bounced" do
 
 end
 
-RSpec.describe User, "when calculating if a user has exceeded the request limit" do
-
-  before do
-    @info_request = FactoryBot.create(:info_request)
-    @user = @info_request.user
-  end
-
-  it 'should return false if no request limit is set' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return nil
-    expect(@user.exceeded_limit?).to be false
-  end
-
-  it 'should return false if the user has not submitted more than the limit' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(2)
-    expect(@user.exceeded_limit?).to be false
-  end
-
-  it 'should return true if the user has submitted more than the limit' do
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
-    expect(@user.exceeded_limit?).to be true
-  end
-
-  it 'should return false if the user is allowed to make batch requests' do
-    @user.can_make_batch_requests = true
-    allow(AlaveteliConfiguration).to receive(:max_requests_per_user_per_day).and_return(0)
-    expect(@user.exceeded_limit?).to be false
-  end
-
-
-end
-
 RSpec.describe User do
+  describe '.search' do
+    subject { described_class.search(query) }
+
+    let(:user_1) do
+      attrs = { name: 'Alice', email: 'alice@example.com', about_me: 'foo bar' }
+      FactoryBot.create(:user, attrs)
+    end
+
+    let(:user_2) do
+      attrs = { name: 'James', email: 'james@example.com', about_me: 'bar' }
+      FactoryBot.create(:user, attrs)
+    end
+
+    context 'when given a name' do
+      let(:query) { 'Alice' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given a partial name' do
+      let(:query) { 'lic' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given an email' do
+      let(:query) { 'alice@example.com' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given a partial email' do
+      let(:query) { 'alice@' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given an about_me matching a single user' do
+      let(:query) { 'foo' }
+      it { is_expected.to match_array([user_1]) }
+    end
+
+    context 'when given an about_me matching multiple users' do
+      let(:query) { 'bar' }
+      it { is_expected.to match_array([user_1, user_2]) }
+    end
+  end
 
   describe '.authenticate_from_form' do
     let(:empty_user) { described_class.new }
@@ -633,7 +645,7 @@ RSpec.describe User do
   describe '.stay_logged_in_on_redirect?' do
 
     it 'is false if the user is nil' do
-      expect(User.stay_logged_in_on_redirect?(nil)).to eq(false)
+      expect(User.stay_logged_in_on_redirect?(nil)).to be_falsey
     end
 
     it 'is true if the user is an admin' do
@@ -646,6 +658,22 @@ RSpec.describe User do
       expect(User.stay_logged_in_on_redirect?(user)).to eq(false)
     end
 
+  end
+
+  describe '#sign_ins' do
+    subject { user.sign_ins }
+
+    context 'sort order is most recent first' do
+      let(:user) { FactoryBot.create(:user) }
+
+      let!(:sign_ins) do
+        allow(AlaveteliConfiguration).
+          to receive(:user_sign_in_activity_retention_days).and_return(1)
+        FactoryBot.create_list(:user_sign_in, 2, user: user)
+      end
+
+      it { is_expected.to match_array(sign_ins.reverse) }
+    end
   end
 
   describe '#locale' do
@@ -773,6 +801,22 @@ RSpec.describe User do
       expect(request_2).to receive(:expire)
 
       user.expire_requests
+    end
+  end
+
+  describe '#expire_comments' do
+    it 'calls reindex_request_events on all associated requests' do
+      user = FactoryBot.build(:user)
+
+      comment_1, comment_2 = double(:comment), double(:comment)
+
+      allow(user).to receive_message_chain(:comments, :find_each).
+        and_yield(comment_1).and_yield(comment_2)
+
+      expect(comment_1).to receive(:reindex_request_events)
+      expect(comment_2).to receive(:reindex_request_events)
+
+      user.expire_comments
     end
   end
 
@@ -1059,6 +1103,9 @@ RSpec.describe User do
     before do
       allow(Digest::SHA1).to receive(:hexdigest).and_return('1234')
       allow(MySociety::Util).to receive(:generate_token).and_return('ABCD')
+      allow(AlaveteliConfiguration).
+        to receive(:user_sign_in_activity_retention_days).and_return(1)
+      FactoryBot.create(:user_sign_in, user: user)
     end
 
     it 'creates a censor rule for user name if the user has info requests' do
@@ -1073,6 +1120,11 @@ RSpec.describe User do
     it 'does not create a censor rule for user name if the user does not have info requests' do
       user.close_and_anonymise
       expect(user.censor_rules).to be_empty
+    end
+
+    it 'destroys any sign_ins' do
+      user.close_and_anonymise
+      expect(user.sign_ins).to be_empty
     end
 
     it 'should anonymise user name' do
@@ -1110,6 +1162,15 @@ RSpec.describe User do
         to change(user, :closed?).to(true)
     end
 
+  end
+
+  describe '#close' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'closes the user account' do
+      user.close
+      expect(user).to be_closed
+    end
   end
 
   describe '#closed?' do
@@ -1189,6 +1250,35 @@ RSpec.describe User do
       expect(user).to be_suspended
     end
 
+  end
+
+  describe '#prominence' do
+    subject { user.prominence }
+
+    context 'when the user is banned' do
+      let(:user) { FactoryBot.build(:user, :banned) }
+      it { is_expected.to eq('hidden') }
+    end
+
+    context 'when the user is banned and closed' do
+      let(:user) { FactoryBot.build(:user, :banned, :closed) }
+      it { is_expected.to eq('hidden') }
+    end
+
+    context 'when the user is closed' do
+      let(:user) { FactoryBot.build(:user, :closed) }
+      it { is_expected.to eq('backpage') }
+    end
+
+    context 'when the user is unconfirmed' do
+      let(:user) { FactoryBot.build(:user, :unconfirmed) }
+      it { is_expected.to eq('backpage') }
+    end
+
+    context 'in normal circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq('normal') }
+    end
   end
 
   describe '.active' do
@@ -1626,7 +1716,7 @@ RSpec.describe User do
       end
 
       it 'returns Notification::DAILY' do
-        expect(user.notification_frequency).to eq (Notification::DAILY)
+        expect(user.notification_frequency).to eq(Notification::DAILY)
       end
     end
 
@@ -1634,7 +1724,7 @@ RSpec.describe User do
       let(:user) { FactoryBot.create(:user) }
 
       it 'returns Notification::INSTANTLY' do
-        expect(user.notification_frequency).to eq (Notification::INSTANTLY)
+        expect(user.notification_frequency).to eq(Notification::INSTANTLY)
       end
     end
   end
@@ -1654,6 +1744,28 @@ RSpec.describe User do
     end
   end
 
+  describe '#features' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'delegates to AlaveteliFeatures' do
+      features = double(:features)
+      expect(AlaveteliFeatures).to receive(:features).and_return(features)
+      expect(features).to receive(:with_actor).with(user)
+      user.features
+    end
+  end
+
+  describe '#features=' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'enables features' do
+      features = double(:features)
+      allow(user).to receive(:features).and_return(features)
+      expect(features).to receive(:assign_features).with([:new_feature])
+      user.features = [:new_feature]
+    end
+  end
+
   describe "#flipper_id" do
     let(:user) { FactoryBot.create(:user) }
 
@@ -1668,8 +1780,10 @@ RSpec.describe User do
 
     context 'adding unknown role' do
 
-      it 'should not call grant pro access' do
-        expect(AlaveteliPro::Access).to_not receive(:grant)
+      it 'enables user role features' do
+        features = double(:features)
+        allow(user).to receive(:features).and_return(features)
+        expect(features).to receive(:assign_role_features)
         user.add_role(:unknown)
       end
 
@@ -1677,8 +1791,10 @@ RSpec.describe User do
 
     context 'adding pro role' do
 
-      it 'should call grant pro access' do
-        expect(AlaveteliPro::Access).to receive(:grant).with(user)
+      it 'enables user role features' do
+        features = double(:features)
+        allow(user).to receive(:features).and_return(features)
+        expect(features).to receive(:assign_role_features)
         user.add_role(:pro)
       end
 
@@ -1751,4 +1867,118 @@ RSpec.describe User do
     end
   end
 
+  describe '#can_file_requests?' do
+    subject { user.can_file_requests? }
+
+    context 'in ordinary circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is inactive' do
+      let(:user) { FactoryBot.build(:user) }
+      before { allow(user).to receive(:active?).and_return(false) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:info_requests).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#can_make_comments?' do
+    subject { user.can_make_comments? }
+
+    context 'in ordinary circumstances' do
+      let(:user) { FactoryBot.build(:user) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user is inactive' do
+      let(:user) { FactoryBot.build(:user) }
+      before { allow(user).to receive(:active?).and_return(false) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the user has reached their rate limit' do
+      let(:user) { FactoryBot.build(:user) }
+
+      before do
+        allow(user).
+          to receive(:exceeded_limit?).with(:comments).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#exceeded_limit?' do
+    subject { user.exceeded_limit?(content) }
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:content) { :stub_class }
+
+    context 'no limit is set' do
+      before do
+        allow(user).to receive(:content_limit).with(content).and_return(nil)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the user has no limit' do
+      before do
+        user.no_limit = true
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'the user can make batch requests' do
+      before do
+        user.can_make_batch_requests = true
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'limiting info_requests' do
+      let(:content) { :info_requests }
+      before { FactoryBot.create(:info_request, user: user) }
+
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
+        expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
+      end
+    end
+
+    context 'limiting comments' do
+      let(:content) { :comments }
+      before { FactoryBot.create(:comment, user: user) }
+
+      it 'returns false if the user has not submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(2)
+        expect(subject).to eq(false)
+      end
+
+      it 'returns true if the user has submitted more than the limit' do
+        allow(user).to receive(:content_limit).with(content).and_return(0)
+        expect(subject).to eq(true)
+      end
+    end
+  end
 end

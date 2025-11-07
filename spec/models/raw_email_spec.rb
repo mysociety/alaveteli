@@ -19,6 +19,17 @@ RSpec.describe RawEmail do
     raw_email.data
   end
 
+  describe 'before destroy callbacks' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+
+    it 'should only delete the directory if it exists' do
+      expect(File).to receive(:delete).once.and_call_original
+      raw_email.run_callbacks(:destroy)
+      expect { raw_email.run_callbacks(:destroy) }.
+        not_to raise_error
+    end
+  end
+
   describe '#valid_to_reply_to?' do
     def test_email(result, email, empty_return_path, autosubmitted = nil)
       stubs = { :from_email => email,
@@ -173,15 +184,14 @@ RSpec.describe RawEmail do
   end
 
   describe '#data' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
     it 'roundtrips data unchanged' do
-      raw_email = FactoryBot.create(:incoming_message).raw_email
       data = roundtrip_data(raw_email, "Hello, world!")
       expect(data).to eq("Hello, world!")
     end
 
     it 'returns an unchanged binary string with a valid encoding if the data is non-ascii and non-utf-8' do
-      raw_email = FactoryBot.create(:incoming_message).raw_email
       data = roundtrip_data(raw_email, "\xA0")
 
       expect(data.encoding.to_s).to eq('ASCII-8BIT')
@@ -189,7 +199,6 @@ RSpec.describe RawEmail do
       data = data.force_encoding('UTF-8')
       expect(data).to eq("\xA0")
     end
-
   end
 
   describe '#data_as_text' do
@@ -201,23 +210,6 @@ RSpec.describe RawEmail do
       expect(data_as_text).to eq("ccc")
       expect(data_as_text.encoding.to_s).to eq('UTF-8')
       expect(data_as_text.valid_encoding?).to be true
-    end
-
-  end
-
-  describe '#destroy_file_representation!' do
-
-    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
-
-    it 'should delete the directory' do
-      raw_email.destroy_file_representation!
-      expect(File.exist?(raw_email.filepath)).to eq(false)
-    end
-
-    it 'should only delete the directory if it exists' do
-      expect(File).to receive(:delete).once.and_call_original
-      raw_email.destroy_file_representation!
-      expect { raw_email.destroy_file_representation! }.not_to raise_error
     end
 
   end

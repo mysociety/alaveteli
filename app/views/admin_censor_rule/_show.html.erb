@@ -6,15 +6,22 @@
         <% CensorRule.content_columns.each do |column| %>
           <th><%= column.name.humanize %></th>
         <% end %>
+        <th>Applies to</th>
         <th>Actions</th>
       </tr>
 
       <% censor_rules.each do |censor_rule| %>
         <tr class="<%= cycle('odd', 'even') %>">
           <td class="id"><%=h censor_rule.id %></td>
+
           <% CensorRule.content_columns.map { |c| c.name }.each do |column| %>
             <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
           <% end %>
+
+          <td class="applies-to">
+            <%= censor_rule_applicable_class(censor_rule) %>
+          </td>
+
           <td>
             <%= link_to "Edit", edit_admin_censor_rule_path(censor_rule) %>
           </td>

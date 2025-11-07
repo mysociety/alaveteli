@@ -102,6 +102,20 @@ shared_examples_for "an info_request_batch action" do
   end
 end
 
+RSpec.shared_context 'existing batch request' do
+  let!(:existing_batch) do
+    FactoryBot.create(
+      :info_request_batch,
+      title: draft.title, body: draft.body,
+      public_bodies: draft.public_bodies, user: draft.user
+    )
+  end
+
+  after do
+    expect(assigns[:info_request_batch].existing_batch).to eq(existing_batch)
+  end
+end
+
 RSpec.describe AlaveteliPro::InfoRequestBatchesController do
   let(:body_1) { FactoryBot.create(:public_body) }
   let(:body_2) { FactoryBot.create(:public_body) }
@@ -124,7 +138,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
 
     it_behaves_like "an info_request_batch action"
 
-    it "renders alaveteli_pro/info_requests/new.html.erb" do
+    it "renders alaveteli_pro/info_requests/new" do
       with_feature_enabled(:alaveteli_pro) do
         action
         expect(response).to render_template("alaveteli_pro/info_requests/new")
@@ -138,11 +152,20 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
     it_behaves_like "an info_request_batch action"
 
     context "when everything is valid" do
-      it "renders alaveteli_pro/info_requests/preview.html.erb" do
+      it "renders alaveteli_pro/info_requests/preview" do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(response).to render_template("alaveteli_pro/info_requests/preview")
         end
+      end
+    end
+
+    context 'when the draft is a duplicate' do
+      include_context 'existing batch request'
+
+      it 'renders preview template' do
+        action
+        expect(response).to render_template('preview')
       end
     end
 
@@ -163,7 +186,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         end
       end
 
-      it "renders alaveteli_pro/info_requests/new.html.erb" do
+      it "renders alaveteli_pro/info_requests/new" do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(response).to render_template("alaveteli_pro/info_requests/new")
@@ -177,9 +200,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
     let(:params) { {draft_id: draft.id} }
     let(:action) { post :create, params: params }
 
-    it_behaves_like "an info_request_batch action"
-
-    context "when everything is valid" do
+    shared_examples "when batch is created" do
       it "creates an info_request_batch" do
         with_feature_enabled(:alaveteli_pro) do
           expect { action }.to change { InfoRequestBatch.count }.by(1)
@@ -206,6 +227,28 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
           expect(response).to redirect_to(show_alaveteli_pro_batch_request_path(new_batch.id))
         end
       end
+    end
+
+    it_behaves_like "an info_request_batch action"
+
+    context "when everything is valid" do
+      include_examples "when batch is created"
+    end
+
+    context 'when the draft is a duplicate' do
+      include_context 'existing batch request'
+
+      it 'renders preview template' do
+        action
+        expect(response).to render_template('preview')
+      end
+    end
+
+    context 'when the existing batch has been ignored' do
+      let(:params) { { draft_id: draft.id, ignore_existing_batch: true } }
+
+      include_context 'existing batch request'
+      include_examples "when batch is created"
     end
 
     context 'when a user is below the rate limit' do
@@ -254,7 +297,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         end
       end
 
-      it "renders alaveteli_pro/info_requests/new.html.erb" do
+      it "renders alaveteli_pro/info_requests/new" do
         with_feature_enabled(:alaveteli_pro) do
           action
           expect(response).to render_template("alaveteli_pro/info_requests/new")

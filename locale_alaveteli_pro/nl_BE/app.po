@@ -11,11 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:12+0000\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: claude transparencia <audit.citoyen.quartier@gmail.com>, 2020"
 "\n"
-"Language-Team: Dutch (Belgium) (https://www.transifex.com/mysociety/teams/3352"
+"Language-Team: Dutch (Belgium) (https://app.transifex.com/mysociety/teams/3352"
 "9/nl_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -117,6 +117,9 @@ msgstr ""
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Dank</strong> de overheid."
+
+msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
+msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr "<strong>{{brand}}</strong>eindigt in  {{last4}}, verstrijkt op {{exp_month}}/{{exp_year}}"
@@ -294,6 +297,9 @@ msgstr ""
 
 msgid "Change privacy"
 msgstr "Verander het privacyniveau "
+
+msgid "Change privacy or <strong>publish now</strong>"
+msgstr ""
 
 msgid "Change status"
 msgstr "Verander de status"
@@ -696,6 +702,9 @@ msgstr "Gelieve hier uw e-mailadres in te vullen"
 msgid "Please include links to some examples of your journalism or blogging if you can."
 msgstr "Gelieve, zo mogelijk, enkele links naar voorbeelden van uw journalistiek of blogwerk te geven."
 
+msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+msgstr ""
+
 msgid "Please tell us if you want to get updates"
 msgstr "Wil u updates krijgen?"
 
@@ -897,6 +906,9 @@ msgstr "Verzend een boodschap"
 msgid "Send request"
 msgstr "Verzend een aanvraag"
 
+msgid "Send this batch anyway?"
+msgstr ""
+
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
 msgstr[0] "Verzend {{count}} aanvraag"
@@ -948,6 +960,9 @@ msgstr "Tot onze spijt ging iets fout bij het updaten van de privacy-instellinge
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr " Tot onze spijt ging iets fout bij het updaten van de privacy settings van uw aanvraag. Probeer opnieuw aub"
+
+msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
+msgstr ""
 
 msgid "Sort by"
 msgstr "Sorteer volgens"
@@ -1171,8 +1186,8 @@ msgstr "We zullen proberen uw kaart de komende dagen opnieuw te factureren."
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr "We hebben geprobeerd uw kaart te factureren, maar de afschrijving is mislukt."
 
-msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Wanneer een aanvraag privé is waarborgen we dat het enkel zichtbaar is op {{site_name}} voor de periode die u selecteert. De {{pro_site_name}} site-beheerders kunnen je aanvraag zien, doch zullen dit enkel bekijken in het geval ze een technisch probleem moeten oplossen (bv. een niet gelukte aflevering van aanvraag bij de betrokken overheid). Ze zullen nooit de inhoud van je aanvraag of antwoorden erop vrijmaken voor derden. De betrokken overheid kan het wel zoals gebruikelijk op een geanonimiseerde wijze in een log vrijgeven."
+msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr ""
 
 msgid "When the current billing period ends:"
 msgstr "Einde van de lopende betaalperiode: "
@@ -1212,6 +1227,9 @@ msgstr ""
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr "U kan herinschrijven op elk ogenblik; en de volledige toegang tot deze features zal hersteld worden."
+
+msgid "You can view the <a href=\"{{existing_batch_url}}\">existing batch</a>, <a href=\"{{edit_batch_url}}\">edit your request</a>, or ignore this warning by confirming you want to proceed anyway."
+msgstr ""
 
 msgid "You don't currently have a Pro subscription"
 msgstr ""
@@ -1364,6 +1382,11 @@ msgstr "{{commenter_name}} deed een nieuwe aantekening bij uw aanvraag  {{public
 
 msgid "{{count}} Pending"
 msgstr "{{count}} Hangende"
+
+msgid "{{count}} of {{limit}} authorities"
+msgid_plural "{{count}} of {{limit}} authorities"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"

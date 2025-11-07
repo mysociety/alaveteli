@@ -1,0 +1,29 @@
+<% @title = "Batch FOI request – #{ @info_request_batch.title }" %>
+
+<h1>
+  <%= @title %>
+
+  <% if @info_request_batch.embargoed? %>
+    <%= content_tag(:span, 'embargoed', class: 'label') %>
+  <% end %>
+</h1>
+
+<%= render partial: 'admin/info_request_batches/admin_columns',
+           locals: { info_request_batch: @info_request_batch } %>
+
+<h2>Requests</h2>
+
+<%= render partial: 'admin_request/prominence_counts',
+           locals: { info_requests: @info_requests } %>
+
+<%= render partial: 'admin_request/some_requests',
+           locals: { info_requests: @info_requests } %>
+
+<hr>
+
+<h2>Citations</h2>
+
+<%= render partial: 'admin/citations/list' ,
+           locals: { citations: @info_request_batch.citations } %>
+
+<hr>

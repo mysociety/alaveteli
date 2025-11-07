@@ -33,7 +33,10 @@
         <p>
       <% end %>
 
-      <h3><%= simple_date(event_at) %></h3>
+      <h3 class="timeline_date">
+        <%= simple_date(event_at) %>
+        <span class="timeline_day"><%= event_at.strftime('%A') %></span>
+      </h3>
 
       <p>
     <% else %>
@@ -42,24 +45,29 @@
 
     <% last_date = event_at.to_date %>
 
-    <%= simple_time(event_at) %>
+    <%= time_tag event_at, simple_time(event_at), title: event_at %>
 
     <% if event.is_a? InfoRequestEvent %>
 
       <% if event.info_request.embargo && cannot?(:admin, AlaveteliPro::Embargo) %>
         An embargoed request
       <% else %>
-        <%= request_both_links(event.info_request) %>
+        <%= both_links(event.info_request) %>
       <% end %>
 
       <% if lookup_context.template_exists?(event.event_type, ['admin_general'], true) %>
       <%= render :partial => event.event_type, :locals => { :event => event } %>
       <% else %>
-      had '<%=event.event_type%>' done to it, parameters <%= event.params_yaml %>.
+
+        <% if event.info_request.embargo && can?(:admin, AlaveteliPro::Embargo) %>
+          had '<%= event.event_type %>' done to it, parameters <%= event.params %>.
+        <% else %>
+          had '<%= event.event_type %>' done to it, parameters hidden.
+        <% end %>
       <% end %>
 
     <% else %>
-      <%= public_body_both_links(event.public_body) %>
+      <%= both_links(event.public_body) %>
       <% if event.previous %>
       was updated by administrator <strong><%= event.last_edit_editor %></strong>.
       Changed fields:
@@ -72,7 +80,7 @@
     <% end %>
 <% end %>
 
-<%= will_paginate(@events, :class => 'paginator') %>
+<%= will_paginate(@events) %>
 
 <% if not @events.empty? %>
   </p>

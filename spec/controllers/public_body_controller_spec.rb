@@ -406,34 +406,28 @@ RSpec.describe PublicBodyController, "when showing JSON version for API" do
 end
 
 RSpec.describe PublicBodyController, "when asked to export public bodies as CSV" do
-
-  it "should return a valid CSV file with the right number of rows" do
-    get :list_all_csv
-    all_data = CSV.parse response.body
-    expect(all_data.length).to eq(7)
-    # Check that the header has the right number of columns:
-    expect(all_data[0].length).to eq(11)
-    # And an actual line of data:
-    expect(all_data[1].length).to eq(11)
+  before do
+    allow(Rails.root).to receive(:join).with('cache', 'all-authorities.csv').
+      and_return(fixture)
   end
 
-  it "only includes visible bodies" do
-    get :list_all_csv
-    all_data = CSV.parse(response.body)
-    expect(all_data.any? { |row| row.include?('Internal admin authority') }).to be false
+  context 'with cached CSV' do
+    let(:fixture) { Rails.root.join('spec', 'fixtures', 'all-authorities.csv') }
+
+    it 'sends CSV file as response' do
+      get :list_all_csv
+      response.body.should eq IO.binread(fixture)
+    end
   end
 
-  it "does not include site_administration bodies" do
-    FactoryBot.create(:public_body,
-                       :name => 'Site Admin Body',
-                       :tag_string => 'site_administration')
+  context 'without cached CSV' do
+    let(:fixture) { Rails.root.join('spec', 'fixtures', 'missing.csv') }
 
-    get :list_all_csv
-
-    all_data = CSV.parse(response.body)
-    expect(all_data.any? { |row| row.include?('Site Admin Body') }).to be false
+    it 'respond with 204 "no content" status' do
+      get :list_all_csv
+      expect(response.status).to eq 204
+    end
   end
-
 end
 
 RSpec.describe PublicBodyController, "when doing type ahead searches" do

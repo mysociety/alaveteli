@@ -159,9 +159,14 @@ body.admin {
     width: 100%;
     height: 15em;
   }
+  #request_hidden_user_prominence_reason_field {
+    width: 100%;
+    height: 5em;
+  }
   #request_hidden_user_subject,
   #request_hide_button,
-  #request_hidden_user_explanation {
+  #request_hidden_user_explanation,
+  #request_hidden_user_prominence_reason {
     display: none;
   }
 
@@ -253,10 +258,63 @@ body.admin {
 
 }
 
+/* Timeline */
+
+.timeline_date {
+  .timeline_day {
+    color: #ddd;
+  }
+}
+
 /* Users */
 
 .user-labels {
   .label ~ .label {
     margin-left: 0.4em;
   }
+}
+
+/* RawEmails */
+
+.holding_pen {
+  border: 12px solid #c09853;
+  border-radius: 5px;
+  padding: 2em;
+}
+
+/* Bootstrap Extensions */
+/* These must come last because we @import bootstrap in .admin  */
+
+.alert.alert-disabled {
+  color: #6b6d70;
+  background-color: #f7f7f9;
+  border-color: #e1e1e8;
+
+  h4 {
+    color: #6b6d70;
+  }
+}
+
+pre.info {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+pre.success {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+pre.warning {
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #fbeed5;
+}
+
+pre.error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
 }

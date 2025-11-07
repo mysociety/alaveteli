@@ -228,6 +228,30 @@ RSpec.describe CensorRule do
       it { is_expected.to eq(InfoRequest.unscoped) }
     end
   end
+
+  describe '#censorable' do
+    subject { censor_rule.censorable }
+
+    context 'with an info_request censor rule' do
+      let(:censor_rule) { FactoryBot.build(:info_request_censor_rule) }
+      it { is_expected.to eq(censor_rule.info_request) }
+    end
+
+    context 'with a public_body censor rule' do
+      let(:censor_rule) { FactoryBot.build(:public_body_censor_rule) }
+      it { is_expected.to eq(censor_rule.public_body) }
+    end
+
+    context 'with a user censor rule' do
+      let(:censor_rule) { FactoryBot.build(:user_censor_rule) }
+      it { is_expected.to eq(censor_rule.user) }
+    end
+
+    context 'with a global censor rule' do
+      let(:censor_rule) { FactoryBot.build(:global_censor_rule) }
+      it { is_expected.to be_nil }
+    end
+  end
 end
 
 RSpec.describe 'when validating rules' do

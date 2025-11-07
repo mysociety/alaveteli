@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:12+0000\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
 "Last-Translator: Liset Hamming <elhamming@gmail.com>, 2022\n"
-"Language-Team: Dutch (https://www.transifex.com/mysociety/teams/33529/nl/)\n"
+"Language-Team: Dutch (https://app.transifex.com/mysociety/teams/33529/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -115,6 +115,9 @@ msgstr ""
 
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Bedank</strong> de overheidsinstantie."
+
+msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
+msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr "<strong>{{brand}}</strong>eindigend met {{last4}}, verstrijkt op {{exp_month}}/{{exp_year}}"
@@ -292,6 +295,9 @@ msgstr ""
 
 msgid "Change privacy"
 msgstr "Verander je privacy-instellingen"
+
+msgid "Change privacy or <strong>publish now</strong>"
+msgstr ""
 
 msgid "Change status"
 msgstr "Verander de status"
@@ -692,6 +698,9 @@ msgstr "Vul hier je e-mailadres in"
 msgid "Please include links to some examples of your journalism or blogging if you can."
 msgstr "Voeg ook een paar links naar voorbeelden van je journalistieke werk toe"
 
+msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+msgstr ""
+
 msgid "Please tell us if you want to get updates"
 msgstr "Wil je updates ontvangen?"
 
@@ -893,6 +902,9 @@ msgstr "Stuur een bericht"
 msgid "Send request"
 msgstr "Verstuur het verzoek"
 
+msgid "Send this batch anyway?"
+msgstr ""
+
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
 msgstr[0] "Verzend {{count}} aanvraag"
@@ -944,6 +956,9 @@ msgstr "Er gings iets mis bij het updaten van de privacy-instellingen van je ver
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr "Tot onze spijt ging er iets mis bij het updaten van de privacy-instellingen van je verzoeken, probeer opnieuw."
+
+msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
+msgstr ""
 
 msgid "Sort by"
 msgstr "Orden op"
@@ -1167,8 +1182,8 @@ msgstr ""
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr ""
 
-msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Als een verzoek is afgeschermd, waarborgen we dat het gedurende de gekozen periode enkel voor jou zichtbaar is op {{site_name}}. De {{pro_site_name}} site-beheerders kunnen je verzoek wel zien, maar ze zullen het enkel en alleen bekijken als dat nodig is om een technisch probleem op te lossen (bijv. een mislukte aflevering van het verzoek bij de betreffende overheidsinstantie). Ze zullen nooit de inhoud van je verzoek of antwoorden erop vrijgeven voor derden. Dit staat uiteraard los van eventuele publicatie door de overheid op een overheidswebsite."
+msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr ""
 
 msgid "When the current billing period ends:"
 msgstr "Einde van de lopende betaalperiode: "
@@ -1208,6 +1223,9 @@ msgstr ""
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr "Je kunt je op elk gewenst moment opnieuw abonneren. Volledige toegang tot deze functies wordt dan hersteld."
+
+msgid "You can view the <a href=\"{{existing_batch_url}}\">existing batch</a>, <a href=\"{{edit_batch_url}}\">edit your request</a>, or ignore this warning by confirming you want to proceed anyway."
+msgstr ""
 
 msgid "You don't currently have a Pro subscription"
 msgstr ""
@@ -1360,6 +1378,11 @@ msgstr "{{commenter_name}} heeft een nieuwe opmerking geplaatst bij je Woo-verzo
 
 msgid "{{count}} Pending"
 msgstr "{{count}} Hangende"
+
+msgid "{{count}} of {{limit}} authorities"
+msgid_plural "{{count}} of {{limit}} authorities"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"

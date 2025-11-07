@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210120801
 #
 # Table name: incoming_messages
 #
@@ -12,13 +12,14 @@
 #  cached_main_body_text_folded   :text
 #  cached_main_body_text_unfolded :text
 #  subject                        :text
-#  mail_from_domain               :text
+#  from_email_domain              :text
 #  valid_to_reply_to              :boolean
 #  last_parsed                    :datetime
-#  mail_from                      :text
+#  from_name                      :text
 #  sent_at                        :datetime
 #  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
+#  from_email                     :text
 #
 
 FactoryBot.define do

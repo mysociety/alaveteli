@@ -12,7 +12,7 @@ RSpec.describe PublicBodyCSV do
                   :calculated_home_page,
                   :publication_scheme,
                   :disclosure_log,
-                  :notes,
+                  :notes_as_string,
                   :created_at,
                   :updated_at,
                   :version]
@@ -35,6 +35,32 @@ RSpec.describe PublicBodyCSV do
                   'Updated at',
                   'Version']
       expect(PublicBodyCSV.default_headers).to eq(defaults)
+    end
+  end
+
+  describe '.export' do
+    it 'should return a valid CSV file with the right number of rows' do
+      all_data = CSV.parse(PublicBodyCSV.export)
+      expect(all_data.length).to eq(7)
+      # Check that the header has the right number of columns:
+      expect(all_data[0].length).to eq(11)
+      # And an actual line of data:
+      expect(all_data[1].length).to eq(11)
+    end
+
+    it 'only includes visible bodies' do
+      PublicBody.internal_admin_body
+      all_data = CSV.parse(PublicBodyCSV.export)
+      expect(all_data.map(&:first)).to_not include('Internal admin authority')
+    end
+
+    it 'does not include site_administration bodies' do
+      FactoryBot.create(
+        :public_body, name: 'Site Admin Body', tag_string: 'site_administration'
+      )
+
+      all_data = CSV.parse(PublicBodyCSV.export)
+      expect(all_data.map(&:first)).to_not include('Site Admin Body')
     end
   end
 
@@ -134,7 +160,7 @@ RSpec.describe PublicBodyCSV do
 
       # Miss out the tags field because the specs keep changing the order
       # that the tags are returned in
-      fields = [:name, :short_name, :url_name, :calculated_home_page, :publication_scheme, :disclosure_log, :notes, :created_at, :updated_at, :version]
+      fields = [:name, :short_name, :url_name, :calculated_home_page, :publication_scheme, :disclosure_log, :notes_as_string, :created_at, :updated_at, :version]
       headers = ['Name', 'Short name', 'URL name', 'Home page', 'Publication scheme', 'Disclosure log', 'Notes', 'Created at', 'Updated at', 'Version']
 
       csv = PublicBodyCSV.new(:fields => fields, :headers => headers)

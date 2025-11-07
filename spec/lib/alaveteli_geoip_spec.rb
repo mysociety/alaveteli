@@ -67,21 +67,6 @@ RSpec.describe AlaveteliGeoIP do
         expect(subject.geoip).to eq(mock_db)
       end
     end
-
-    context 'if there is only a Gaze URL configured' do
-      let(:gaze_url) { 'http://gaze.example.net' }
-
-      before do
-        allow(AlaveteliConfiguration).to receive(:geoip_database).
-          and_return(nil)
-        allow(AlaveteliConfiguration).to receive(:gaze_url).
-          and_return(gaze_url)
-      end
-
-      it 'configures the instance with the Gaze URL' do
-        expect(subject.gaze_url).to eq(gaze_url)
-      end
-    end
   end
 
   describe '#country_code_from_ip' do
@@ -92,65 +77,6 @@ RSpec.describe AlaveteliGeoIP do
     before(:each) do
       allow(AlaveteliConfiguration).
         to receive(:iso_country_code).and_return current_code
-    end
-
-    context 'when the Gaze service is configured and is in different states' do
-      before(:each) do
-        allow(AlaveteliConfiguration).to receive(:geoip_database).and_return ''
-      end
-
-      context 'the service returns a country code' do
-        before do
-          allow(AlaveteliConfiguration).to receive(:gaze_url).
-            and_return('http://denmark.com')
-          stub_request(:get, %r|denmark.com|).to_return(body: 'DK')
-        end
-
-        it { is_expected.to eq('DK') }
-      end
-
-      context 'the service domain does not exist' do
-        before do
-          allow(AlaveteliConfiguration).to receive(:gaze_url).
-            and_return('http://12123sdf14qsd.com')
-          stub_request(:get, %r|12123sdf14qsd.com|).to_raise(SocketError)
-        end
-
-        it { is_expected.to eq(current_code) }
-      end
-
-      context 'the service does not exist' do
-        before do
-          allow(AlaveteliConfiguration).to receive(:gaze_url).
-            and_return('http://www.google.com')
-          stub_request(:get, %r|google.com|).to_return(status: 404)
-        end
-
-        it { is_expected.to eq(current_code) }
-      end
-
-      context 'the service is not configured' do
-        before do
-          allow(AlaveteliConfiguration).to receive(:gaze_url).and_return('')
-        end
-
-        it { is_expected.to eq(current_code) }
-      end
-
-      context 'the service returns an error' do
-        before do
-          stub_request(:get, %r|500.com|).to_return(status: [500, 'Error'])
-          allow(AlaveteliConfiguration).to receive(:gaze_url).
-            and_return('http://500.com')
-        end
-
-        it 'logs the error url' do
-          expect(Rails.logger).to receive(:warn).with /500\.com.*500 Error/
-          subject
-        end
-
-        it { is_expected.to eq(current_code) }
-      end
     end
 
     context 'when the geoip database is configured' do

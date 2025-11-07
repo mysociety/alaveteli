@@ -26,7 +26,7 @@ class PublicBodyCSV
      :calculated_home_page,
      :publication_scheme,
      :disclosure_log,
-     :notes,
+     :notes_as_string,
      :created_at,
      :updated_at,
      :version]
@@ -45,6 +45,17 @@ class PublicBodyCSV
      'Created at',
      'Updated at',
      'Version']
+  end
+
+  def self.export
+    csv = new
+
+    PublicBody.includes(:translations, :tags).visible.find_each do |public_body|
+      next if public_body.site_administration?
+      csv << public_body
+    end
+
+    csv.generate
   end
 
   attr_reader :fields, :headers, :rows

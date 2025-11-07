@@ -7,36 +7,34 @@ RSpec.describe 'request/attention_requested' do
   end
 
   context 'when the request is hidden' do
-    let(:info_request) do
-      instance_double('InfoRequest', prominence: double(is_hidden?: true))
-    end
+    let(:info_request) { FactoryBot.build(:info_request, prominence: 'hidden') }
+
+    before { allow(view).to receive(:current_user) }
 
     it 'shows the request is hidden' do
       render_view
-      expect(rendered).to match(/This request has prominence 'hidden'/)
+      expect(rendered).to include 'This request has been hidden'
     end
   end
 
   context 'when the request is requester_only' do
     let(:info_request) do
-      prominence = double(is_hidden?: false, is_requester_only?: true)
-      instance_double('InfoRequest', prominence: prominence)
+      FactoryBot.build(:info_request, prominence: 'requester_only')
+    end
+
+    before do
+      allow(view).to receive(:current_user).and_return(info_request.user)
     end
 
     it 'shows the request is requester_only' do
       render_view
-      expect(rendered).to match(/so that only you the requester/)
+      expect(rendered).to include 'so that only you, the requester'
     end
   end
 
   context 'when the request state is not attention_requested' do
     let(:info_request) do
-      stubs = {
-        prominence: double(is_hidden?: false, is_requester_only?: false),
-        described_state: 'successful'
-      }
-
-      instance_double('InfoRequest', stubs)
+      FactoryBot.build(:info_request, described_state: 'successful')
     end
 
     it 'shows that the request has been reviewed' do

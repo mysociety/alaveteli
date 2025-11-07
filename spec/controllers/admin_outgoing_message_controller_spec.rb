@@ -2,7 +2,12 @@ require 'spec_helper'
 
 RSpec.describe AdminOutgoingMessageController do
 
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
   describe 'GET #edit' do
+
+    before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
@@ -37,9 +42,33 @@ RSpec.describe AdminOutgoingMessageController do
 
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :edit, params: { id: outgoing }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :edit, params: { id: outgoing }
+          expect(response).to be_successful
+        end
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
+
+    before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) do
@@ -131,17 +160,46 @@ RSpec.describe AdminOutgoingMessageController do
 
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            delete :destroy, params: { id: outgoing }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          delete :destroy, params: { id: outgoing }
+          expect(response).to redirect_to(admin_request_url(info_request))
+        end
+      end
+    end
   end
 
   describe 'PUT #update' do
 
+    before { sign_in(admin_user) }
+
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
     let(:default_params) do
-      { :id => outgoing.id,
-        :outgoing_message => { :prominence => 'hidden',
-                               :prominence_reason => 'dull',
-                               :body => 'changed body' } }
+      {
+        id: outgoing.id,
+        outgoing_message: {
+          prominence: 'hidden',
+          prominence_reason: 'dull',
+          body: 'changed body',
+          tag_string: 'foo'
+        }
+      }
     end
 
     def make_request(params = default_params)
@@ -166,21 +224,30 @@ RSpec.describe AdminOutgoingMessageController do
       expect(outgoing.prominence_reason).to eq('dull')
     end
 
+    it 'should save a tag string for the message' do
+      make_request
+      outgoing.reload
+      expect(outgoing.tag_string).to eq('foo')
+    end
+
     it 'should log an "edit_outgoing" event on the info_request' do
       allow(@controller).to receive(:admin_current_user).and_return("Admin user")
       make_request
       info_request.reload
       last_event = info_request.info_request_events.last
       expect(last_event.event_type).to eq('edit_outgoing')
-      expect(last_event.params).
-        to eq({ outgoing_message_id: outgoing.id,
-                editor: 'Admin user',
-                old_prominence: 'normal',
-                prominence: 'hidden',
-                old_prominence_reason: nil,
-                old_body: 'Some information please',
-                body: 'changed body',
-                prominence_reason: 'dull' })
+      expect(last_event.params).to eq(
+        outgoing_message: { gid: outgoing.to_global_id.to_s },
+        editor: 'Admin user',
+        old_body: 'Some information please',
+        body: 'changed body',
+        old_prominence: 'normal',
+        prominence: 'hidden',
+        old_prominence_reason: nil,
+        prominence_reason: 'dull',
+        old_tag_string: '',
+        tag_string: 'foo'
+      )
     end
 
     it 'should expire the file cache for the info request' do
@@ -222,9 +289,31 @@ RSpec.describe AdminOutgoingMessageController do
 
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect { make_request }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          make_request
+          expect(response).to redirect_to(admin_request_url(info_request))
+        end
+      end
+    end
   end
 
   describe 'POST #resend' do
+    before { sign_in(admin_user) }
+
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:outgoing) { info_request.outgoing_messages.first }
 
@@ -264,6 +353,28 @@ RSpec.describe AdminOutgoingMessageController do
       expect(info_request.reload.reject_incoming_at_mta).to eq(false)
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :resend, params: { id: outgoing }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          post :resend, params: { id: outgoing }
+          expect(response).to redirect_to(admin_request_url(info_request))
+        end
+      end
+    end
   end
 
 end

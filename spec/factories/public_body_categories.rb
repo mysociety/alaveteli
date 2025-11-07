@@ -1,15 +1,14 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: public_body_categories
 #
-#  id                      :integer          not null, primary key
-#  category_tag            :text             not null
-#  created_at              :datetime
-#  updated_at              :datetime
-#  public_body_category_id :integer          not null
-#  title                   :text
-#  description             :text
+#  id           :integer          not null, primary key
+#  category_tag :text             not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#  title        :text
+#  description  :text
 #
 
 FactoryBot.define do

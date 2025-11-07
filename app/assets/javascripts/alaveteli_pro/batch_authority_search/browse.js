@@ -22,7 +22,7 @@
   var fetchBodies = function fetchBodies(url, group) {
     toggleSpinner(group);
     $.ajax({
-      url: url,
+      url: DraftBatchSummary.urlWithDraftID(url),
       dataType: 'html',
       success: function (data) {
         group.append(data);
@@ -30,6 +30,7 @@
         toggleSpinner(group);
         $draft.trigger(DraftEvents.bodyAdded);
         $search.trigger(SearchEvents.domUpdated);
+        $search.trigger(SearchEvents.rendered);
       }
     });
   }
@@ -59,8 +60,6 @@
   $(function(){
     $search = BatchAuthoritySearch.$el;
     $draft = DraftBatchSummary.$el;
-
-    $search.on(SearchEvents.rendered, bindListItemAnchors);
 
     collapseTopLevelGroups();
     bindListItemAnchors();

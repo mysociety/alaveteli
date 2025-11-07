@@ -1,20 +1,20 @@
 require 'spec_helper'
 
 RSpec.describe AdminRequestController, "when administering requests" do
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
   describe 'GET #index' do
     let(:info_request) { FactoryBot.create(:info_request) }
-    let(:admin_user) { FactoryBot.create(:admin_user) }
-    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+    before { sign_in(admin_user) }
 
     it "is successful" do
-      sign_in admin_user
       get :index
       expect(response).to be_successful
     end
 
     it 'assigns all info requests to the view' do
-      sign_in admin_user
       get :index
       expect(assigns[:info_requests]).to match_array(InfoRequest.all)
     end
@@ -22,7 +22,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      sign_in admin_user
       get :index
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
@@ -34,7 +33,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          sign_in admin_user
           get :index
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
@@ -59,7 +57,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'assigns info requests with titles matching the query to the view
           case insensitively' do
-        sign_in admin_user
         get :index, params: { :query => 'Cat' }
         expect(assigns[:info_requests].include?(dog_request)).to be false
         expect(assigns[:info_requests].include?(cat_request)).to be true
@@ -68,7 +65,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
       it 'does not include embargoed requests if the current user is an
           admin user' do
         cat_request.create_embargo
-        sign_in admin_user
         get :index, params: { :query => 'cat' }
         expect(assigns[:info_requests].include?(cat_request)).to be false
       end
@@ -78,7 +74,6 @@ RSpec.describe AdminRequestController, "when administering requests" do
             admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            sign_in admin_user
             get :index, params: { :query => 'cat' }
             expect(assigns[:info_requests].include?(cat_request)).to be false
           end
@@ -102,72 +97,84 @@ RSpec.describe AdminRequestController, "when administering requests" do
   describe 'GET #show' do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:external_request) { FactoryBot.create(:external_request) }
-    let(:admin_user) { FactoryBot.create(:admin_user) }
-    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+    before { sign_in(admin_user) }
 
     render_views
 
     it "is successful" do
-      sign_in admin_user
       get :show, params: { :id => info_request }
       expect(response).to be_successful
     end
 
     it 'shows an external info request with no username' do
-      sign_in admin_user
       get :show, params: { :id => external_request }
       expect(response).to be_successful
     end
 
-    context 'if the request is embargoed' do
-
+    context 'if the request is embargoed', feature: :alaveteli_pro do
       before do
         info_request.create_embargo
       end
 
-      it 'raises ActiveRecord::RecordNotFound for an admin user' do
-        expect {
-          sign_in admin_user
-          get :show, params: { :id => info_request.id }
-        }.to raise_error ActiveRecord::RecordNotFound
-      end
-
-      context 'with pro enabled' do
-
-        it 'raises ActiveRecord::RecordNotFound for an admin user' do
-          with_feature_enabled(:alaveteli_pro) do
-            expect {
-              sign_in admin_user
-              get :show, params: { :id => info_request.id }
-            }.to raise_error ActiveRecord::RecordNotFound
-          end
-        end
-
-        it 'is successful for a pro admin user' do
-          with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_admin_user
-            get :show, params: { :id => info_request.id }
-            expect(response).to be_successful
-          end
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :show, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :show, params: { id: info_request }
+          expect(response).to be_successful
+        end
+      end
     end
-
   end
 
   describe 'GET #edit' do
     let(:info_request) { FactoryBot.create(:info_request) }
+
+    before { sign_in(admin_user) }
 
     it "is successful" do
       get :edit, params: { :id => info_request }
       expect(response).to be_successful
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :edit, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :edit, params: { id: info_request }
+          expect(response).to be_successful
+        end
+      end
+    end
+
   end
 
   describe 'PUT #update' do
     let(:info_request) { FactoryBot.create(:info_request) }
+
+    before { sign_in(admin_user) }
 
     it "saves edits to a request" do
       post :update, params: {
@@ -203,10 +210,41 @@ RSpec.describe AdminRequestController, "when administering requests" do
                     }
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :update, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          post :update, params: { id: info_request, info_request: {
+            title: 'Renamed',
+            prominence: 'normal',
+            described_state: 'waiting_response',
+            awaiting_description: false,
+            allow_new_responses_from: 'anybody',
+            handle_rejected_responses: 'bounce'
+          } }
+          expect(response).to redirect_to admin_request_url(info_request)
+        end
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
     let(:info_request) { FactoryBot.create(:info_request) }
+
+    before { sign_in(admin_user) }
 
     it 'calls destroy on the info_request object' do
       allow(InfoRequest).to receive(:find).
@@ -229,10 +267,34 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(response).to redirect_to(admin_requests_url)
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            delete :destroy, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to requests index admin' do
+          delete :destroy, params: { id: info_request }
+          expect(response).to redirect_to admin_requests_url
+        end
+      end
+    end
   end
 
   describe 'POST #hide' do
     let(:info_request) { FactoryBot.create(:info_request) }
+
+    before { sign_in(admin_user) }
 
     it "hides requests and sends a notification email that it has done so" do
       post :hide, params: {
@@ -263,17 +325,10 @@ RSpec.describe AdminRequestController, "when administering requests" do
     context 'when hiding an external request' do
 
       before do
-        @info_request = mock_model(InfoRequest, :prominence= => nil,
-                                   :log_event => nil,
-                                   :set_described_state => nil,
-                                   :save! => nil,
-                                   :user => nil,
-                                   :user_name => 'External User',
-                                   :is_external? => true)
-        allow(@info_request).to receive(:expire)
-
+        @info_request = FactoryBot.create(:external_request)
         allow(InfoRequest).to receive(:find).with(@info_request.id).
           and_return(@info_request)
+
         @default_params = { :id => @info_request.id,
                             :explanation => 'Foo',
                             :reason => 'vexatious' }
@@ -291,9 +346,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
 
       it 'should set the request prominence to "requester_only"' do
-        expect(@info_request).to receive(:prominence=).with('requester_only')
-        expect(@info_request).to receive(:save!)
-        make_request
+        expect { make_request }.to change(@info_request, :prominence).
+          to('requester_only')
       end
 
       it 'should not send a notification email' do
@@ -312,6 +366,32 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
 
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :hide, params: { id: info_request }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'redirects to request admin' do
+          post :hide, params: {
+            id: info_request,
+            explanation: 'Foo',
+            reason: 'vexatious'
+          }
+          expect(response).to redirect_to admin_request_url(info_request)
+        end
+      end
+    end
   end
 
 end

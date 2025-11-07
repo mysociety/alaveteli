@@ -23,6 +23,7 @@ Disallow: */user/contact/*
 Disallow: */feed/*
 Disallow: */profile/*
 Disallow: */signin*
+Disallow: */tor*
 Allow: */request/*/response/*/attach/*
 Disallow: */request/*/response/*
 Disallow: */request/*/download*

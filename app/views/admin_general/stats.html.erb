@@ -22,7 +22,7 @@
     <h2>State of requests (includes backpaged)</h2>
     <div class="container">
       <% for state, count in @request_by_state %>
-        <div class="row">
+        <div class="row stats-row">
           <div class="span1">
             <span class="label label-info"><%=count%></span>
           </div>
@@ -49,7 +49,7 @@
     <h2>Tracks by type</h2>
     <div class="container">
       <% for state, count in @tracks_by_type %>
-        <div class="row">
+        <div class="row stats-row">
           <div class="span1">
             <span class="label label-info"><%=count%></span>
           </div>

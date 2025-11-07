@@ -1,0 +1,8 @@
+<% @title = "Raw Email #{raw_email.id} of FOI request '#{raw_email.incoming_message.info_request.title}'" %>
+<h1>Raw email <%= raw_email.id %></h1>
+
+<ul class="breadcrumb">
+  <li>FOI request: <%= both_links(raw_email.incoming_message.info_request) %> <span class="divider">/</span></li>
+  <li>Message: <%= both_links(raw_email.incoming_message) %> <span class="divider">/</span></li>
+  <li class="active">Raw Email</li>
+</ul>

@@ -2,7 +2,7 @@
 
 <% if @delivery_status %>
   <h2><%= @delivery_status.humanize %></h2>
-  <%= render :partial => @delivery_status.simple.to_s %>
+  <%= render :partial => @delivery_status.to_s %>
 <% end %>
 
 <% if @show_mail_server_logs %>

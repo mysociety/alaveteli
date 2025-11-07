@@ -27,7 +27,7 @@ namespace :cleanup do
              AND about_me LIKE '%http%'
              AND ban_text = ''
              AND confirmed_not_spam = ?", false).
-        order("users.created_at DESC").find_each do |user|
+        order(created_at: :desc).find_each do |user|
           results[user.id] = spam_scorer.score(user)
     end
 

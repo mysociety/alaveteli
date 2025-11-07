@@ -1079,7 +1079,7 @@ RSpec.describe RequestController, "when creating a new request" do
          }
 
     ir_array = InfoRequest.where(:title => "Why is your quango called Geraldine?").
-                            order("id")
+                            order(:id)
     expect(ir_array.size).to eq(2)
 
     ir = ir_array[0]
@@ -1572,7 +1572,8 @@ RSpec.describe RequestController, "when creating a new request" do
                      :preview => 0
                    }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+        expect(mail.subject).
+          to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
 
       it 'shows an error message' do
@@ -1654,7 +1655,8 @@ RSpec.describe RequestController, "when creating a new request" do
                      :preview => 0
                    }
         mail = ActionMailer::Base.deliveries.first
-        expect(mail.subject).to match(/\(ip_in_blocklist\) from #{ user.id }/)
+        expect(mail.subject).
+          to match(/\(ip_in_blocklist\) from User##{ user.id }/)
       end
 
       it 'allows the request' do
@@ -1712,7 +1714,8 @@ RSpec.describe RequestController, "when making a new request" do
 
   it "should fail if user is banned" do
     allow(@user).to receive(:can_file_requests?).and_return(false)
-    allow(@user).to receive(:exceeded_limit?).and_return(false)
+    allow(@user).
+      to receive(:exceeded_limit?).with(:info_requests).and_return(false)
     expect(@user).to receive(:can_fail_html).and_return('FAIL!')
     sign_in @user
     get :new, params: { :public_body_id => @body.id }
@@ -1806,11 +1809,7 @@ RSpec.describe RequestController, "authority uploads a response from the web int
     sign_in @normal_user
 
     # post up a photo of the parrot
-    if rails_upgrade?
-      parrot_upload = fixture_file_upload('parrot.png','image/png')
-    else
-      parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
-    end
+    parrot_upload = fixture_file_upload('parrot.png', 'image/png')
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
@@ -1842,11 +1841,7 @@ RSpec.describe RequestController, "authority uploads a response from the web int
     sign_in @foi_officer_user
 
     # post up a photo of the parrot
-    if rails_upgrade?
-      parrot_upload = fixture_file_upload('parrot.png', 'image/png')
-    else
-      parrot_upload = fixture_file_upload('/files/parrot.png', 'image/png')
-    end
+    parrot_upload = fixture_file_upload('parrot.png', 'image/png')
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
@@ -1974,315 +1969,6 @@ RSpec.describe RequestController, "when showing similar requests" do
 
 end
 
-RSpec.describe RequestController, "#new_batch" do
-
-  context "when batch requests is enabled" do
-
-    before do
-      allow(AlaveteliConfiguration).to receive(:allow_batch_requests).and_return(true)
-    end
-
-    context "when the current user can make batch requests" do
-
-      before do
-        @user = FactoryBot.create(:user, :can_make_batch_requests => true)
-        @public_body = FactoryBot.create(:public_body)
-        @other_public_body = FactoryBot.create(:public_body)
-        @public_body_ids = [@public_body.id, @other_public_body.id]
-        @default_post_params = { :info_request => { :title => "What does it all mean?",
-                                                    :tag_string => "" },
-                                 :public_body_ids => @public_body_ids,
-                                 :outgoing_message => { :body => "This is a silly letter." },
-                                 :submitted_new_request => 1,
-                                 :preview => 1 }
-      end
-
-      it 'should be successful' do
-        sign_in @user
-        get :new_batch, params: { :public_body_ids => @public_body_ids }
-        expect(response).to be_successful
-      end
-
-      it 'should render the "new" template' do
-        sign_in @user
-        get :new_batch, params: { :public_body_ids => @public_body_ids }
-        expect(response).to render_template('request/new')
-      end
-
-      it 'should redirect to "select_authorities" if no public_body_ids param is passed' do
-        sign_in @user
-        get :new_batch
-        expect(response).to redirect_to select_authorities_path
-      end
-
-      it "should render 'preview' when given a good title and body" do
-        sign_in @user
-        post :new_batch, params: @default_post_params
-        expect(response).to render_template('preview')
-      end
-
-      it "should give an error and render 'new' template when a summary isn't given" do
-        @default_post_params[:info_request].delete(:title)
-        sign_in @user
-        post :new_batch, params: @default_post_params
-        expect(assigns[:info_request].errors[:title]).to eq(['Please enter a summary of your request'])
-        expect(response).to render_template('new')
-      end
-
-      it "should allow re-editing of a request" do
-        params = @default_post_params.merge(:preview => 0, :reedit => 1)
-        sign_in @user
-        post :new_batch, params: params
-        expect(response).to render_template('new')
-      end
-
-      it "re-editing preserves the message body" do
-        params = @default_post_params.merge(:preview => 0, :reedit => 1)
-        sign_in @user
-        post :new_batch, params: params
-        expect(assigns[:outgoing_message].body).
-          to include('This is a silly letter.')
-      end
-
-      context "on success" do
-
-        def make_request
-          @params = @default_post_params.merge(:preview => 0)
-          sign_in @user
-          post :new_batch, params: @params
-        end
-
-        it 'should create an info request batch and redirect to the new batch on success' do
-          make_request
-          new_info_request_batch = assigns[:info_request_batch]
-          expect(new_info_request_batch).not_to be_nil
-          expect(response).to redirect_to(info_request_batch_path(new_info_request_batch))
-        end
-
-        it 'should prevent double submission of a batch request' do
-          make_request
-          sign_in @user
-          post :new_batch, params: @params
-          expect(response).to render_template('new')
-          expect(assigns[:existing_batch]).not_to be_nil
-        end
-
-        it 'sets the batch_sent flash to true' do
-          make_request
-          expect(flash[:batch_sent]).to be true
-        end
-
-      end
-
-      context "when the user is banned" do
-
-        before do
-          @user.ban_text = "bad behaviour"
-          @user.save!
-        end
-
-        it 'should show the "banned" template' do
-          sign_in @user
-          post :new_batch, params: @default_post_params
-          expect(response).to render_template('user/banned')
-          expect(assigns[:details]).to eq('bad behaviour')
-        end
-
-      end
-
-    end
-
-    context "when the current user can't make batch requests" do
-
-      render_views
-
-      before do
-        @user = FactoryBot.create(:user)
-      end
-
-      it 'should return a 403 with an appropriate message' do
-        sign_in @user
-        get :new_batch
-        expect(response.code).to eq('403')
-        expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
-      end
-
-    end
-
-    context 'when there is no logged-in user' do
-
-      it 'should return a redirect to the login page' do
-        get :new_batch
-        expect(response).
-          to redirect_to(signin_path(:token => get_last_post_redirect.token))
-      end
-    end
-
-
-  end
-
-  context "when batch requests is not enabled" do
-
-    it 'should return a 404', local_requests: false do
-      get :new_batch
-      expect(response.code).to eq('404')
-    end
-
-  end
-
-end
-
-RSpec.describe RequestController, "#select_authorities" do
-
-  context "when batch requests is enabled" do
-
-    before do
-      update_xapian_index
-      load_raw_emails_data
-      allow(AlaveteliConfiguration).to receive(:allow_batch_requests).and_return(true)
-    end
-
-    context "when the current user can make batch requests" do
-
-      before do
-        @user = FactoryBot.create(:user, :can_make_batch_requests => true)
-      end
-
-      context 'when asked for HTML' do
-
-        it 'should be successful' do
-          sign_in @user
-          get :select_authorities
-          expect(response).to be_successful
-        end
-
-        it 'recognizes a GET request' do
-          expect(:get => '/select_authorities').
-            to route_to(:controller => 'request', :action => 'select_authorities')
-        end
-
-        it 'recognizes a POST request' do
-          expect(:post => '/select_authorities').
-            to route_to(:controller => 'request', :action => 'select_authorities')
-        end
-
-        it 'should render the "select_authorities" template' do
-          sign_in @user
-          get :select_authorities
-          expect(response).to render_template('request/select_authorities')
-        end
-
-        it 'should assign a list of search results to the view if passed a query' do
-          sign_in @user
-          get :select_authorities, params: { :public_body_query => "Quango" }
-          expect(assigns[:search_bodies].results.size).to eq(1)
-          expect(assigns[:search_bodies].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
-        end
-
-        it 'should assign a list of public bodies to the view if passed a list of ids' do
-          sign_in @user
-          get :select_authorities,
-              params: {
-                :public_body_ids => [public_bodies(:humpadink_public_body).id]
-              }
-          expect(assigns[:public_bodies].size).to eq(1)
-          expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
-        end
-
-        it 'should subtract a list of public bodies to remove from the list of bodies assigned to
-                    the view' do
-          sign_in @user
-          get :select_authorities,
-              params: {
-                :public_body_ids => [
-                  public_bodies(:humpadink_public_body).id,
-                  public_bodies(:geraldine_public_body).id
-                ],
-                :remove_public_body_ids => [
-                  public_bodies(:geraldine_public_body).id
-                ]
-              }
-          expect(assigns[:public_bodies].size).to eq(1)
-          expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
-        end
-
-      end
-
-      context 'when asked for JSON' do
-
-        it 'should be successful' do
-          sign_in @user
-          get :select_authorities, params: { :public_body_query => "Quan",
-                                             :format => 'json' }
-          expect(response).to be_successful
-        end
-
-        it 'should return a list of public body names and ids' do
-          sign_in @user
-          get :select_authorities, params: { :public_body_query => "Quan",
-                                             :format => 'json' }
-
-          expect(JSON(response.body)).to eq([{ 'id' => public_bodies(:geraldine_public_body).id,
-                                           'name' => public_bodies(:geraldine_public_body).name }])
-        end
-
-        it 'should return an empty list if no search is passed' do
-          sign_in @user
-          get :select_authorities, params: { :format => 'json' }
-          expect(JSON(response.body)).to eq([])
-        end
-
-        it 'should return an empty list if there are no bodies' do
-          sign_in @user
-          get :select_authorities, params: { :public_body_query => 'fknkskalnr',
-                                             :format => 'json' }
-          expect(JSON(response.body)).to eq([])
-        end
-
-      end
-
-    end
-
-    context "when the current user can't make batch requests" do
-
-      render_views
-
-      before do
-        @user = FactoryBot.create(:user)
-      end
-
-      it 'should return a 403 with an appropriate message' do
-        sign_in @user
-        get :select_authorities
-        expect(response.code).to eq('403')
-        expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
-      end
-
-    end
-
-    context 'when there is no logged-in user' do
-
-      it 'should return a redirect to the login page' do
-        get :select_authorities
-        expect(response).
-          to redirect_to(signin_path(:token => get_last_post_redirect.token))
-      end
-    end
-
-
-  end
-
-  context "when batch requests is not enabled" do
-
-    it 'should return a 404', local_requests: false do
-      get :select_authorities
-      expect(response.code).to eq('404')
-    end
-
-  end
-
-end
-
 RSpec.describe RequestController, "when the site is in read_only mode" do
   before do
     allow(AlaveteliConfiguration).to receive(:read_only).and_return("Down for maintenance")
@@ -2296,7 +1982,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
   it "shows a flash message to alert the user" do
     get :new
     expect(flash[:notice][:partial]).
-      to eq "general/read_only_annotations.html.erb"
+      to eq "general/read_only_annotations"
   end
 
   context "when annotations are disabled" do
@@ -2306,7 +1992,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
 
     it "doesn't mention annotations in the flash message" do
       get :new
-      expect(flash[:notice][:partial]).to eq "general/read_only.html.erb"
+      expect(flash[:notice][:partial]).to eq "general/read_only"
     end
   end
 end

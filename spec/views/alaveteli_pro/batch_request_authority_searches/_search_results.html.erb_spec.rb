@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe '_search_results.html.erb' do
+RSpec.describe '_search_results' do
   let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new }
 
   def render_view(locals)

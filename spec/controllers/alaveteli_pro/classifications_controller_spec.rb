@@ -56,9 +56,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
       before { ability.can :update_request_state, info_request }
     end
 
-    context 'user is allowed to update the request' do
-      include_context 'user can classify request'
-
+    shared_examples 'classify request as successful' do
       it 'should create status_update log' do
         post_status('successful')
 
@@ -66,7 +64,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         expect(event.event_type).to eq 'status_update'
         expect(event.params[:described_state]).to eq 'successful'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params[:user]).to eq(user)
       end
 
       it 'should call set_described_state on the request' do
@@ -80,6 +78,18 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
           show_alaveteli_pro_request_path(url_title: info_request.url_title)
         )
       end
+    end
+
+    context 'user is allowed to update the request' do
+      include_context 'user can classify request'
+      include_examples 'classify request as successful'
+    end
+
+    context 'non-pro is allowed to update the request' do
+      let(:user) { FactoryBot.create(:user) }
+
+      include_context 'user can classify request'
+      include_examples 'classify request as successful'
     end
 
     context 'user sets the request as error_message without a message' do
@@ -107,7 +117,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         expect(event.params[:described_state]).to eq 'error_message'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params[:user]).to eq(user)
       end
 
       it 'should call set_described_state on the request' do
@@ -148,7 +158,7 @@ RSpec.describe AlaveteliPro::ClassificationsController, type: :controller do
         expect(event.params[:described_state]).to eq 'requires_admin'
         expect(event.params[:old_described_state]).to eq 'waiting_response'
         expect(event.params[:message]).to eq 'A message'
-        expect(event.params[:user_id]).to eq info_request.user_id
+        expect(event.params[:user]).to eq(user)
       end
 
       it 'should call set_described_state on the request' do

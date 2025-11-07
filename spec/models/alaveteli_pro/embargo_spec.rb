@@ -102,8 +102,9 @@ RSpec.describe AlaveteliPro::Embargo, :type => :model do
     it 'records an "set_embargo" event on the request' do
       latest_event = embargo.info_request.info_request_events.last
       expect(latest_event.event_type).to eq 'set_embargo'
-      expect(latest_event.params[:embargo_id]).
-        to eq embargo.id
+      expect(latest_event.params).to include(
+        embargo: { gid: embargo.to_global_id.to_s }
+      )
       expect(latest_event.params[:embargo_extension_id]).
         to be_nil
     end
@@ -125,8 +126,9 @@ RSpec.describe AlaveteliPro::Embargo, :type => :model do
       embargo.extend(embargo_extension)
       latest_event = embargo.info_request.info_request_events.last
       expect(latest_event.event_type).to eq 'set_embargo'
-      expect(latest_event.params[:embargo_extension_id]).
-        to eq embargo_extension.id
+      expect(latest_event.params).to include(
+        embargo_extension: { gid: embargo_extension.to_global_id.to_s }
+      )
     end
 
     it 'updates the expiring_notification_at date' do

@@ -27,6 +27,11 @@ RSpec.describe UserStats do
         expect(user_stats).to eq(expected)
       end
 
+      it 'ignores case in domains' do
+        FactoryBot.create(:user, email: 'test3@LoCalHost')
+        domain = user_stats.first { |s| s['domain'] == 'localhost' }
+        expect(domain['count']).to eq(3)
+      end
     end
 
     context "when passed a start date" do

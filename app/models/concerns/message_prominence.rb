@@ -2,6 +2,7 @@ module MessageProminence
   extend ActiveSupport::Concern
 
   included do
+    strip_attributes only: [:prominence_reason]
     validates_inclusion_of :prominence, in: self.prominence_states
   end
 

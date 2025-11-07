@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "alaveteli_pro/info_requests/new.html.erb" do
+RSpec.describe "alaveteli_pro/info_requests/new" do
   let!(:public_body) { FactoryBot.create(:public_body) }
   let(:draft_info_request) { FactoryBot.create(:draft_info_request) }
   let(:info_request) { InfoRequest.from_draft(draft_info_request) }
@@ -19,7 +19,7 @@ RSpec.describe "alaveteli_pro/info_requests/new.html.erb" do
       id: public_body.id,
       name: public_body.name,
       short_name: public_body.short_name,
-      notes: public_body.notes,
+      notes: public_body.notes_as_string,
       info_requests_visible_count: public_body.info_requests_visible_count
     }
     expect(view).to receive(:public_body_search_attributes)
@@ -42,6 +42,7 @@ RSpec.describe "alaveteli_pro/info_requests/new.html.erb" do
     assign_variables
     render
     expected_input = "<input class=\"js-public-body-id\" " \
+                     "autocomplete=\"off\" " \
                      "type=\"hidden\" " \
                      "value=\"#{info_request.public_body.id}\" " \
                      "name=\"info_request\\[public_body_id\\]\" " \

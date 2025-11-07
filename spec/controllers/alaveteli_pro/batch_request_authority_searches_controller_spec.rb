@@ -82,7 +82,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
         end
       end
 
-      it "renders index.html.erb" do
+      it "renders index" do
         expect(response).to render_template('index')
       end
 
@@ -113,7 +113,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
         end
       end
 
-      it "only renders _search_results.html.erb" do
+      it "only renders search_results partial" do
         expect(response).to render_template '_search_results'
         expect(response).not_to render_template('new')
       end

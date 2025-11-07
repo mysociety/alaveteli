@@ -1,14 +1,12 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-shared_examples_for "a class with message prominence" do
+RSpec.shared_examples_for "a class with message prominence" do
   let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
   let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
   context 'if the prominence is hidden' do
-    before do
-      resource.prominence = 'hidden'
-    end
+    let(:prominence) { 'hidden' }
 
     it 'should return true for an admin user' do
       expect(admin_ability).to be_able_to(:read, resource)
@@ -24,9 +22,7 @@ shared_examples_for "a class with message prominence" do
   end
 
   context 'if the prominence is requester_only' do
-    before do
-      resource.prominence = 'requester_only'
-    end
+    let(:prominence) { 'requester_only' }
 
     it 'should return true if the user owns the right resource' do
       expect(owner_ability).to be_able_to(:read, resource)
@@ -42,9 +38,7 @@ shared_examples_for "a class with message prominence" do
   end
 
   context 'if the prominence is normal' do
-    before do
-      resource.prominence = 'normal'
-    end
+    let(:prominence) { 'normal' }
 
     it 'should return true for a non-admin user' do
       expect(other_user_ability).to be_able_to(:read, resource)
@@ -61,12 +55,81 @@ shared_examples_for "a class with message prominence" do
 end
 
 RSpec.describe Ability do
+  describe '.guest' do
+    it 'returns Ability instance with no user' do
+      guest = Ability.guest
+      expect(guest).to be_an(Ability)
+      expect(guest.user).to eq nil
+    end
+
+    it 'allows project or public_token arguments' do
+      project = double('Project')
+      public_token = double('Token')
+      guest = Ability.guest(project: project, public_token: public_token)
+      expect(guest.project).to eq(project)
+      expect(guest.public_token).to eq(public_token)
+    end
+  end
+
+  describe "reading FoiAttachment" do
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+    let!(:resource) { incoming_message.foi_attachments.first }
+    let!(:owner_ability) { Ability.new(info_request.user) }
+
+    before do
+      resource.update(prominence: prominence)
+    end
+
+    it_behaves_like "a class with message prominence"
+
+    context 'when resource is readable but incoming message is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, incoming_message).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
+
+    context 'when resource is readable but info request is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, info_request).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
+  end
+
   describe "reading IncomingMessages" do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
     let!(:resource) { info_request.incoming_messages.first }
     let!(:owner_ability) { Ability.new(info_request.user) }
 
+    before do
+      resource.update(prominence: prominence)
+    end
+
     it_behaves_like "a class with message prominence"
+
+    context 'when resource is readable but info request is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, info_request).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
   end
 
   describe 'managing OutgoingMessage::Snippet' do
@@ -91,25 +154,39 @@ RSpec.describe Ability do
     let!(:resource) { info_request.outgoing_messages.first }
     let!(:owner_ability) { Ability.new(info_request.user) }
 
+    before do
+      resource.update(prominence: prominence)
+    end
+
     it_behaves_like "a class with message prominence"
+
+    context 'when resource is readable but info request is not' do
+      let(:prominence) { 'normal' }
+
+      before do
+        allow(owner_ability).to receive(:can?).and_call_original
+        allow(owner_ability).to receive(:can?).with(:read, info_request).
+          and_return(false)
+      end
+
+      it { expect(owner_ability).not_to be_able_to(:read, resource) }
+    end
   end
 
   describe "reading InfoRequests" do
-    let!(:resource) { FactoryBot.create(:info_request) }
+    let!(:resource) { FactoryBot.create(:info_request, prominence: prominence) }
     let!(:owner_ability) { Ability.new(resource.user) }
 
     it_behaves_like "a class with message prominence"
 
     context 'when the request is embargoed' do
-      let!(:resource) { FactoryBot.create(:embargoed_request) }
+      let!(:resource) { FactoryBot.create(:embargoed_request, prominence: prominence) }
       let(:admin_ability) { Ability.new(FactoryBot.create(:admin_user)) }
       let(:pro_admin_ability) { Ability.new(FactoryBot.create(:pro_admin_user)) }
       let(:other_user_ability) { Ability.new(FactoryBot.create(:user)) }
 
       context 'if the prominence is hidden' do
-        before do
-          resource.prominence = 'hidden'
-        end
+        let(:prominence) { 'hidden' }
 
         it 'should return false for an admin user' do
           expect(admin_ability).not_to be_able_to(:read, resource)
@@ -140,9 +217,7 @@ RSpec.describe Ability do
       end
 
       context 'if the prominence is requester_only' do
-        before do
-          resource.prominence = 'requester_only'
-        end
+        let(:prominence) { 'requester_only' }
 
         it 'should return true if the user owns the right resource' do
           expect(owner_ability).to be_able_to(:read, resource)
@@ -174,9 +249,7 @@ RSpec.describe Ability do
       end
 
       context 'if the prominence is normal' do
-        before do
-          resource.prominence = 'normal'
-        end
+        let(:prominence) { 'normal' }
 
         it 'should return false for a non-admin user' do
           expect(other_user_ability).not_to be_able_to(:read, resource)
@@ -293,7 +366,7 @@ RSpec.describe Ability do
     let(:request) { FactoryBot.build(:info_request) }
 
     context 'when logged out' do
-      let(:ability) { Ability.new(nil) }
+      let(:ability) { Ability.guest }
 
       it 'should return false' do
         expect(ability).not_to be_able_to(:share, request)
@@ -379,7 +452,7 @@ RSpec.describe Ability do
       let(:request) { FactoryBot.create(:old_unclassified_request) }
 
       context "when logged out" do
-        let(:ability) { Ability.new(nil) }
+        let(:ability) { Ability.guest }
 
         it "should return false" do
           expect(ability).not_to be_able_to(:update_request_state, request)
@@ -409,7 +482,7 @@ RSpec.describe Ability do
       let(:request) { FactoryBot.create(:info_request) }
 
       context "when logged out" do
-        let(:ability) { Ability.new(nil) }
+        let(:ability) { Ability.guest }
 
         it "should return false" do
           expect(ability).not_to be_able_to(:update_request_state, request)
@@ -451,7 +524,7 @@ RSpec.describe Ability do
       let(:request) { project.info_requests.first }
 
       context 'when logged out' do
-        let(:ability) { Ability.new(nil, project: project) }
+        let(:ability) { Ability.guest(project: project) }
 
         it 'should return false' do
           expect(ability).not_to be_able_to(:update_request_state, request)
@@ -571,7 +644,7 @@ RSpec.describe Ability do
           pro_user_ability,
           other_user_ability,
           Ability.new(resource.user),
-          Ability.new(nil) # Even an anon user should be able to read it
+          Ability.guest # Even an anon user should be able to read it
         ]
       end
 
@@ -877,7 +950,7 @@ RSpec.describe Ability do
 
     it "doesnt allow anonymous users to update it" do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:update, embargo)
       end
     end
@@ -931,7 +1004,7 @@ RSpec.describe Ability do
 
     it "doesnt allow anonymous users to destroy it" do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:destroy, embargo)
       end
     end
@@ -987,7 +1060,7 @@ RSpec.describe Ability do
 
     it "doesnt allow anonymous users to destroy it" do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:destroy_embargo, batch)
       end
     end
@@ -1189,7 +1262,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, info_request)
         end
       end
@@ -1229,12 +1302,97 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, info_request)
         end
       end
     end
+  end
 
+  describe 'administering InfoRequestBatch' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:pro_user) { FactoryBot.create(:pro_user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+    context 'when the batch is embargoed' do
+      let(:batch) { FactoryBot.create(:info_request_batch, :embargoed) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.guest
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+    end
+
+    context 'when the batch is not embargoed' do
+      let(:batch) { FactoryBot.create(:info_request_batch) }
+
+      it 'allows a pro admin user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_admin_user)
+          expect(ability).to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does allow an admin to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(admin_user)
+          expect(ability).to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a pro user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(pro_user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow a user with no roles to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.new(user)
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+
+      it 'does not allow no user to administer' do
+        with_feature_enabled(:alaveteli_pro) do
+          ability = Ability.guest
+          expect(ability).not_to be_able_to(:admin, batch)
+        end
+      end
+    end
   end
 
   describe 'administering comments' do
@@ -1278,7 +1436,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, comment)
         end
       end
@@ -1320,7 +1478,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to administer' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:admin, comment)
         end
       end
@@ -1363,7 +1521,7 @@ RSpec.describe Ability do
 
     it 'does not allow no user to administer' do
       with_feature_enabled(:alaveteli_pro) do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:admin, AlaveteliPro::Embargo)
       end
     end
@@ -1394,7 +1552,7 @@ RSpec.describe Ability do
       end
 
       it 'does not allow no user to read' do
-        ability = Ability.new(nil)
+        ability = Ability.guest
         expect(ability).not_to be_able_to(:read, :api_key)
       end
 
@@ -1432,7 +1590,7 @@ RSpec.describe Ability do
 
       it 'does not allow no user to read' do
         with_feature_enabled(:alaveteli_pro) do
-          ability = Ability.new(nil)
+          ability = Ability.guest
           expect(ability).not_to be_able_to(:read, :api_key)
         end
       end

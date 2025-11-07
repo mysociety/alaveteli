@@ -20,6 +20,10 @@ class RawEmail < ApplicationRecord
   has_one :incoming_message,
           :inverse_of => :raw_email
 
+  has_one_attached :file, service: :raw_emails
+
+  before_destroy :destroy_file_representation!
+
   delegate :date, to: :mail
   delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
@@ -65,27 +69,6 @@ class RawEmail < ApplicationRecord
     mail.from_addrs.nil? || mail.from_addrs.size == 0
   end
 
-  def directory
-    if request_id.empty?
-      raise "Failed to find the id number of the associated request: has it been saved?"
-    end
-
-    if Rails.env.test?
-      File.join(Rails.root, 'files/raw_email_test')
-    else
-      File.join(AlaveteliConfiguration::raw_emails_location,
-                request_id[0..2], request_id)
-    end
-  end
-
-  def filepath
-    if incoming_message_id.empty?
-      raise "Failed to find the id number of the associated incoming message: has it been saved?"
-    end
-
-    File.join(directory, incoming_message_id)
-  end
-
   def mail
     @mail ||= mail!
   end
@@ -95,25 +78,22 @@ class RawEmail < ApplicationRecord
   end
 
   def data=(d)
-    FileUtils.mkdir_p(directory) unless File.exist?(directory)
-    File.atomic_write(filepath) do |file|
-      file.binmode
-      file.write(d)
-    end
+    @data = d.to_s
+    file.attach(
+      io: StringIO.new(@data),
+      filename: "#{incoming_message_id}.eml",
+      content_type: 'message/rfc822'
+    )
   end
 
   def data
-    File.open(filepath, "rb").read
+    @data ||= file.download if file.attached?
   end
 
   def data_as_text
     data.encode("UTF-8", :invalid => :replace,
                          :undef => :replace,
                          :replace => "")
-  end
-
-  def destroy_file_representation!
-    File.delete(filepath) if File.exist?(filepath)
   end
 
   def from_name
@@ -148,5 +128,9 @@ class RawEmail < ApplicationRecord
 
   def incoming_message_id
     incoming_message.id.to_s
+  end
+
+  def destroy_file_representation!
+    file.purge if file.attached?
   end
 end

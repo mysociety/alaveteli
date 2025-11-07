@@ -581,7 +581,7 @@ RSpec.describe NotificationMailer do
     end
   end
 
-  describe '#embargo_expired_notification' do
+  describe '#expire_embargo_notification' do
     let(:public_body) do
       FactoryBot.build(:public_body, name: 'Test public body')
     end
@@ -602,7 +602,7 @@ RSpec.describe NotificationMailer do
     context 'when the subject has characters which need quoting' do
 
       it 'should not error' do
-        NotificationMailer.embargo_expired_notification(notification)
+        NotificationMailer.expire_embargo_notification(notification)
       end
 
     end
@@ -616,7 +616,7 @@ RSpec.describe NotificationMailer do
       end
 
       it 'should not create HTML entities' do
-        mail = NotificationMailer.embargo_expired_notification(notification)
+        mail = NotificationMailer.expire_embargo_notification(notification)
         expected = "Your FOI request - Here's a request has been made " \
                    "public on Something & something"
         expect(mail.subject).to eq expected
@@ -624,17 +624,17 @@ RSpec.describe NotificationMailer do
     end
 
     it 'sends the message to the right user' do
-      mail = NotificationMailer.embargo_expired_notification(notification)
+      mail = NotificationMailer.expire_embargo_notification(notification)
       expect(mail.to).to eq [info_request.user.email]
     end
 
     it 'sends the message from the right address' do
-      mail = NotificationMailer.embargo_expired_notification(notification)
+      mail = NotificationMailer.expire_embargo_notification(notification)
       expect(mail.from).to eq ['postmaster@localhost']
     end
 
     it 'sets reply_to headers' do
-      mail = NotificationMailer.embargo_expired_notification(notification)
+      mail = NotificationMailer.expire_embargo_notification(notification)
       expected_reply_to = "#{AlaveteliConfiguration.contact_name} " \
                           "<#{AlaveteliConfiguration.contact_email}>"
       expect(mail.header['Reply-To'].value).to eq expected_reply_to
@@ -643,15 +643,15 @@ RSpec.describe NotificationMailer do
     end
 
     it 'sets auto-generated headers' do
-      mail = NotificationMailer.embargo_expired_notification(notification)
+      mail = NotificationMailer.expire_embargo_notification(notification)
       expect(mail.header['Auto-Submitted'].value).to eq 'auto-generated'
       expect(mail.header['X-Auto-Response-Suppress'].value).to eq 'OOF'
     end
 
     it 'should send the expected message' do
-      mail = NotificationMailer.embargo_expired_notification(notification)
+      mail = NotificationMailer.expire_embargo_notification(notification)
       expected_message = load_file_fixture(
-        'notification_mailer/embargo_expired.txt', 'r:utf-8')
+        'notification_mailer/expire_embargo.txt', 'r:utf-8')
       expect(mail.body.encoded).to eq(expected_message)
     end
 

@@ -336,11 +336,7 @@ RSpec.describe ApiController, "when using the API" do
                'body' => 'Are you joking, or are you serious?'
              }.to_json,
              :attachments => [
-               if rails_upgrade?
-                 fixture_file_upload('tfl.pdf')
-               else
-                 fixture_file_upload('/files/tfl.pdf')
-               end
+               fixture_file_upload('tfl.pdf')
              ]
            }
 
@@ -371,11 +367,7 @@ RSpec.describe ApiController, "when using the API" do
                'body' => response_body
              }.to_json,
              :attachments => [
-               if rails_upgrade?
-                 fixture_file_upload('tfl.pdf')
-               else
-                 fixture_file_upload('/files/tfl.pdf')
-               end
+               fixture_file_upload('tfl.pdf')
              ]
            }
 
@@ -423,7 +415,9 @@ RSpec.describe ApiController, "when using the API" do
       last_event = request.info_request_events.last
       expect(last_event.event_type).to eq('status_update')
       expect(last_event.described_state).to eq('partially_successful')
-      expect(last_event.params_yaml).to match(/script: Geraldine Quango on behalf of requester via API/)
+      expect(last_event.params).to include(
+        script: 'Geraldine Quango on behalf of requester via API'
+      )
     end
 
     it 'should return a JSON 500 error if an invalid state is sent' do

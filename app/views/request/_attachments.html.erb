@@ -1,0 +1,56 @@
+<% attachments = incoming_message.get_attachments_for_display %>
+<% if not attachments.nil? and attachments.size > 0 %>
+  <div class="attachments">
+    <div class="attachments__header">
+      <h3>
+        <%= n_('{{count}} Attachment',
+               '{{count}} Attachments',
+               attachments.size,
+               :count => attachments.size) %>
+      </h3>
+    </div>
+
+    <ul class="list-of-attachments">
+      <% attachments.each do |a| %>
+        <%= tag.li class: 'attachment', id: dom_id(a) do %>
+          <% if cannot?(:read, a) %>
+            <%= image_tag('content_type/icon_unknown.png', class: 'attachment__image') %>
+          <% end %>
+          <% if concealed_prominence?(a) %>
+            <span class="hidden_attachment"><%= render_prominence(a) %></span>
+          <% end %>
+          <% if can?(:read, a) %>
+            <%= attachment_link(incoming_message, a) %>
+
+            <p class="attachment__name">
+              <%= h a.display_filename %>
+            </p>
+
+            <p class="attachment__meta">
+              <%= a.display_size %>
+              <%= link_to "Download", attachment_path(a) %>
+              <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
+                <%= link_to "View as HTML", attachment_path(a, :html => true) %>
+              <% end %>
+              <%= a.extra_note %>
+            </p>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+
+    <a href="#" class="attachments__show-more" style="display: none;" data-show-all="<%= _('Show all attachments') %>" data-show-fewer="<%= _('Show fewer attachments') %>"></a>
+  </div>
+<% end %>
+
+<%= tag.div incoming_message.get_body_for_html_display(@collapse_quotes),
+            id: incoming_message_dom_id(incoming_message) do %>
+  <% if concealed_prominence?(incoming_message.get_main_body_text_part) %>
+    <p class="hidden_attachment">
+      <%= render_prominence(incoming_message.get_main_body_text_part) %>
+    </p>
+  <% end %>
+  <% if can?(:read, incoming_message.get_main_body_text_part) %>
+    <%= incoming_message.get_body_for_html_display(@collapse_quotes) %>
+  <% end %>
+<% end %>

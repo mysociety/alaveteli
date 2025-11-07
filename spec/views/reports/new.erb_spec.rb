@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'reports/new.html.erb' do
+RSpec.describe 'reports/new' do
   let(:info_request) { FactoryBot.build(:info_request) }
   before :each do
     assign(:info_request, info_request)

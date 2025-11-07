@@ -5,8 +5,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Filename</th>
+          <th>Attachment</th>
           <th>Content Type</th>
           <th>Hexdigest</th>
           <th>Display Size</th>
@@ -15,8 +14,13 @@
       <tbody>
         <% foi_attachments.each do |attachment| %>
           <tr>
-            <td><tt><%= attachment.id %></tt></td>
-            <td><tt><%= attachment.filename %></tt></td>
+            <td>
+              <%= both_links attachment %>
+
+              <% if attachment.main_body_part? %>
+                <span class="label">Main Body</span>
+              <% end %>
+            </td>
             <td><tt><%= attachment.content_type %></tt></td>
             <td><tt><%= attachment.hexdigest %></tt></td>
             <td><tt><%= attachment.display_size %></tt></td>

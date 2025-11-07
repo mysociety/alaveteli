@@ -91,7 +91,7 @@ class RefusalAdvice
     ).order(created_at: :desc).select do |event|
       # TODO: Add user association to InfoRequestEvent so that we can filter by
       # user during the SQL query to improve performance.
-      event.params[:user_id] == user.id
+      event.params[:user] == user
     end
   end
 end

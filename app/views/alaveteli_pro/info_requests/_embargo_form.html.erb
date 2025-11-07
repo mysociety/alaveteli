@@ -7,7 +7,7 @@
   <%= render partial: "alaveteli_pro/info_requests/embargo_info",
              locals: {embargo: info_request.embargo, tense: :present} %>
 
-  <label class="houdini-label" for="input1"><%= _("Change privacy") %></label>
+  <label class="houdini-label" for="input1"><%= _("Change privacy or <strong>publish now</strong>") %></label>
   <input class="houdini-input" type="checkbox" id="input1">
   <div class="houdini-target extend-embargo-sidebar">
   <% if info_request.embargo && can?(:update, info_request.embargo) %>

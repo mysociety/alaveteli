@@ -6,7 +6,7 @@
       incoming_email: @info_request.incoming_email,
       law_used_short: @info_request.legislation.to_s.html_safe) %>
 
-<%= _('This is because {{title}} is an old request that has been ' \
+<%= _("This is because '{{title}}' is an old request that has been " \
       'marked to no longer receive responses.',
       :title => @info_request.title.html_safe) %>
 

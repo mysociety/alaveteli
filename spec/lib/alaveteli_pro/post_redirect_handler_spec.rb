@@ -32,6 +32,22 @@ RSpec.describe AlaveteliPro::PostRedirectHandler, type: :controller do
       end
     end
 
+    context "when the post redirect has no params" do
+      let(:uri) { '/en/new' }
+      let(:user) { FactoryBot.create(:pro_user) }
+      let(:post_redirect) do
+        FactoryBot.create(
+          :new_request_post_redirect, user: user, uri: uri, post_params: {}
+        )
+      end
+
+      it "returns new pro info request path" do
+        expect(
+          controller.override_post_redirect_for_pro(uri, post_redirect, user)
+        ).to eq new_alaveteli_pro_info_request_path
+      end
+    end
+
     context "when the uri does not match /<locale>/new" do
       let(:uri) { '/en/new/public_body' }
       let(:user) { FactoryBot.create(:pro_user) }

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: comments
 #
@@ -7,11 +7,11 @@
 #  user_id             :integer          not null
 #  info_request_id     :integer
 #  body                :text             not null
-#  visible             :boolean          default("true"), not null
+#  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  locale              :text             default(""), not null
-#  attention_requested :boolean          default("false"), not null
+#  attention_requested :boolean          default(FALSE), not null
 #
 
 require 'spec_helper'
@@ -85,6 +85,20 @@ RSpec.describe Comment do
       expect(Comment.not_embargoed.include?(@request_comment)).to be true
     end
 
+  end
+
+  describe '#prominence' do
+    subject { comment.prominence }
+
+    context 'when the comment is visible' do
+      let(:comment) { described_class.new(visible: true) }
+      it { is_expected.to eq('normal') }
+    end
+
+    context 'when the comment is hidden' do
+      let(:comment) { described_class.new(visible: false) }
+      it { is_expected.to eq('hidden') }
+    end
   end
 
   describe '#hidden?' do
@@ -184,12 +198,13 @@ RSpec.describe Comment do
 
     it 'returns the last report event' do
       comment.report!("Vexatious comment", "report", user)
-      comment.info_request.log_event("edit_comment",
-                             { :comment_id => comment.id,
-                               :editor => user,
-                               :old_body => comment.body,
-                               :body => 'fake change'
-                             })
+      comment.info_request.log_event(
+        'edit_comment',
+        comment_id: comment.id,
+        editor: user,
+        old_body: comment.body,
+        body: 'fake change'
+      )
       comment.reload
 
       expect(comment.info_request_events.last.event_type).to eq("edit_comment")
@@ -216,27 +231,26 @@ RSpec.describe Comment do
 
   end
 
-  describe 'for_admin_event_column' do
+  describe '#hide' do
+    subject { comment.hide(editor: editor) }
 
     let(:comment) { FactoryBot.create(:comment) }
-    let(:user) { FactoryBot.create(:user) }
+    let(:editor) { FactoryBot.create(:user, :admin) }
 
-    it "returns nil unless passed an event" do
-      # shouldn't happen but just in case
-      expect(comment.for_admin_event_column(nil)).to be_nil
+    it 'hides the comment' do
+      subject
+      expect(comment).not_to be_visible
     end
 
-    it "returns a subset of the event's for_admin_column data" do
-      comment.report!("Vexatious comment", "reported", user)
-      columns = comment.for_admin_event_column(comment.last_report) {
-                  |name, value, type, column_name| }
-
-      expect(columns[0].name).to eq("event_type")
-      expect(columns[1].name).to eq("params_yaml")
-      expect(columns[2].name).to eq("created_at")
+    it 'logs an event on the request' do
+      subject
+      event = comment.info_request.last_event
+      expect(event.event_type).to eq('hide_comment')
+      expect(event.params[:comment]).to eq(comment)
+      expect(event.params[:editor]).to eq(editor.url_name)
+      expect(event.params[:old_visible]).to eq(true)
+      expect(event.params[:visible]).to eq(false)
     end
-
   end
-
 
 end

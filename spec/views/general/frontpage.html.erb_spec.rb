@@ -6,7 +6,6 @@ RSpec.describe "general/frontpage" do
       :name => 'Test Quango',
       :short_name => 'tq',
       :url_name => 'testquango',
-      :notes_without_html => '',
       :created_at => Time.now.utc,
       :tags => [],
       :special_not_requestable_reason? => false,

@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-RSpec.describe "alaveteli_pro/info_request_batches/_authority_list.html.erb" do
+RSpec.describe "alaveteli_pro/info_request_batches/_authority_list" do
   let(:html_body) { FactoryBot.create(:public_body, name: "One & Two") }
   let(:other_body) { FactoryBot.create(:public_body) }
   let(:other_body_2) { FactoryBot.create(:public_body) }
   let(:public_bodies) { [html_body, other_body, other_body_2] }
   let(:template) do
-    "alaveteli_pro/info_request_batches/authority_list.html.erb"
+    "alaveteli_pro/info_request_batches/authority_list"
   end
 
   def render_html_partial(public_bodies)

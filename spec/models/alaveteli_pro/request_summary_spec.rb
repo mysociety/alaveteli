@@ -318,8 +318,9 @@ RSpec.describe AlaveteliPro::RequestSummary, type: :model do
             :incoming_message,
             info_request: first_request)
           first_request.log_event(
-            "response",
-            incoming_message_id: incoming_message.id)
+            'response',
+            incoming_message_id: incoming_message.id
+          )
           first_request.awaiting_description = true
           first_request.save!
 

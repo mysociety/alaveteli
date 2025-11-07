@@ -85,18 +85,12 @@ Rails.application.routes.draw do
   match '/select_authority' => 'request#select_authority',
         :as => :select_authority,
         :via => :get
-  match '/select_authorities' => 'request#select_authorities',
-        :as => :select_authorities,
-        :via => [:get, :post]
 
   match '/new' => 'request#new',
         :as => :new_request,
         :via => [:get, :post]
   match '/new/:url_name' => 'request#new',
         :as => :new_request_to_body,
-        :via => [:get, :post]
-  match '/new_batch' => 'request#new_batch',
-        :as => :new_batch,
         :via => [:get, :post]
 
   match '/request/search_ahead' => 'request#search_typeahead',
@@ -116,14 +110,17 @@ Rails.application.routes.draw do
         :as => :similar_request,
         :via => :get
 
-  match '/request/:id/response/:incoming_message_id/attach/html/:part/*file_name' => 'attachments#show_as_html',
+  match '/request/:id/response/:incoming_message_id/attach/html' \
+        '/(:part(/*file_name))' => 'attachments#show_as_html',
         :format => false,
         :as => :get_attachment_as_html,
-        :via => :get
+        :via => :get,
+        :constraints => { :part => /\d+/ }
   match '/request/:id/response/:incoming_message_id/attach/:part(/*file_name)' => 'attachments#show',
         :format => false,
         :as => :get_attachment,
-        :via => :get
+        :via => :get,
+        :constraints => { :part => /\d+/ }
 
   match '/request_event/:info_request_event_id' => 'request#show_request_event',
         :as => :info_request_event,
@@ -245,6 +242,9 @@ Rails.application.routes.draw do
         :via => :get
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
+
+  match '/tor' => 'user#tor', via: :get
+
   match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
         :via => :get
@@ -482,18 +482,54 @@ Rails.application.routes.draw do
   resources :announcements, :only => [:destroy]
   ####
 
+  #### AdminTag controller
+  namespace :admin do
+    resources :tags, param: :tag, only: [:index, :show]
+  end
+  ####
+
+  #### Admin::InfoRequestBatches controller
+  namespace :admin do
+    resources :info_request_batches, path: :batches, only: [:show]
+  end
+
+  #### AdminNote controller
+  namespace :admin do
+    resources :notes, except: [:index, :show]
+  end
+
+  direct :admin_note_parent do |note|
+    if note.notable_tag
+      admin_tag_path(tag: note.notable_tag)
+    elsif note.notable
+      url_for([:admin, note.notable])
+    else
+      admin_general_index_path
+    end
+  end
+  ####
+
+  #### Admin::PostRedirectsController
+  namespace :admin do
+    resources :post_redirects, only: [:destroy]
+  end
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,
     :controller => 'admin_public_body' do
-      get 'missing_scheme', :on => :collection
-      post 'mass_tag_add', :on => :collection
+      post 'mass_tag', on: :collection
+      delete 'mass_tag', on: :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
       resources :censor_rules,
         :controller => 'admin_censor_rule',
         :only => [:new, :create]
     end
+  end
+  direct :admin_public_body do |pb|
+    admin_body_path(pb)
   end
   ####
 
@@ -566,6 +602,9 @@ Rails.application.routes.draw do
         :only => [:new, :create]
     end
   end
+  direct :admin_info_request do |ir|
+    admin_request_path(ir)
+  end
   ####
 
   #### AdminComment controller
@@ -616,12 +655,21 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminFoiAttachment controller
+  namespace :admin do
+    resources :foi_attachments, path: :attachments,
+                                only: [:edit, :update]
+  end
+  ####
+
   #### AdminUser controller
   scope '/admin', :as => 'admin' do
     resources :users,
       :controller => 'admin_user',
     :except => [:new, :create, :destroy] do
+      get 'active', :on => :collection
       get 'banned', :on => :collection
+      get 'closed', :on => :collection
       get 'show_bounce_message', :on => :member
       post 'clear_bounce', :on => :member
       post 'clear_profile_photo', :on => :member
@@ -643,9 +691,17 @@ Rails.application.routes.draw do
 
   #### AdminUsersSessions controller
   scope '/admin', :as => 'admin' do
-    resources :users_sessions,
+    resource :users_sessions,
       :controller => 'admin_users_sessions',
-      :only => [:create]
+      :only => [:create, :destroy]
+  end
+  ####
+
+  #### Admin::Users::SignIns controller
+  namespace :admin do
+    scope module: 'users' do
+      resources :sign_ins, only: [:index]
+    end
   end
   ####
 

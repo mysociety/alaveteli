@@ -103,7 +103,7 @@ RSpec.describe 'classifying a request' do
         expect(last_event.event_type).to eq('status_update')
         expect(last_event.params).
           to match(
-            user_id: user.id,
+            user: { gid: user.to_global_id.to_s },
             described_state: 'error_message',
             old_described_state: 'waiting_response',
             message: 'test data'
@@ -213,7 +213,7 @@ RSpec.describe 'classifying a request' do
         expect(last_event.event_type).to eq('status_update')
         expect(last_event.params).
           to match(
-            user_id: user.id,
+            user: { gid: user.to_global_id.to_s },
             described_state: 'requires_admin',
             old_described_state: 'waiting_response',
             message: 'test data'

@@ -23,7 +23,14 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CensorRule < ApplicationRecord
-  include AdminColumn
+  DEFAULT_CANNED_REPLACEMENTS = [
+    _('[Personally Identifiable Information removed]'),
+    _('[name removed]'),
+    _('[extraneous material removed]'),
+    _('[potentially defamatory material removed]'),
+    _('[extraneous and potentially defamatory material removed]')
+  ].freeze
+
   belongs_to :info_request,
              :inverse_of => :censor_rules
   belongs_to :user,
@@ -43,6 +50,10 @@ class CensorRule < ApplicationRecord
           user_id: nil,
           public_body_id: nil)
   }
+
+  cattr_accessor :canned_replacements,
+                 instance_writer: false,
+                 default: DEFAULT_CANNED_REPLACEMENTS.dup
 
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?
@@ -87,6 +98,10 @@ class CensorRule < ApplicationRecord
     else
       InfoRequest.unscoped
     end
+  end
+
+  def censorable
+    info_request || user || public_body || nil
   end
 
   private

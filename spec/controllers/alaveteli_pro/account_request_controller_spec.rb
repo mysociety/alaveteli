@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe AlaveteliPro::AccountRequestController do
 
   describe "#index" do
-    it "renders index.html.erb" do
+    it "renders index" do
       get :index
       expect(response).to render_template('index')
     end
