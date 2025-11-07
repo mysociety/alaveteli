@@ -42,3 +42,5 @@
 /tmp/
 /vendor/bundle/
 /vendor/data/
+config/storage.yml
+/storage/
