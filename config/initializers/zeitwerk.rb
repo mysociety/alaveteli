@@ -9,7 +9,6 @@ Rails.autoloaders.main.inflector.inflect(
 )
 
 Rails.autoloaders.main.ignore(
-  "lib/confidence_intervals.rb",
   "lib/configuration.rb",
   "lib/i18n_fixes.rb",
   "lib/languages.rb",
