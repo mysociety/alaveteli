@@ -66,7 +66,6 @@ install_daemon() {
 [ -z "$SITE" ] && misuse SITE
 [ -z "$DEFAULT_SERVER" ] && misuse DEFAULT_SERVER
 [ -z "$HOST" ] && misuse HOST
-[ -z "$DISTRIBUTION" ] && misuse DISTRIBUTION
 [ -z "$VERSIONS" ] && misuse VERSIONS
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
@@ -180,11 +179,11 @@ then
 EOF
 fi
 
-if { [ "$DISTRIBUTION" = "ubuntu" ] && [ "$DISTVERSION" = "jammy" ]; } ||
-   { [ "$DISTRIBUTION" = "debian" ] && [ "$DISTVERSION" = "bookworm" ]; }
+if which systemctl > /dev/null && systemctl is-active --quiet rsyslog
 then
   systemctl restart rsyslog.service
-else
+elif [ -f /etc/init.d/rsyslog ]
+then
   /etc/init.d/rsyslog restart
 fi
 
@@ -194,14 +193,6 @@ postmap /etc/postfix/recipients
 postfix reload
 
 # (end of the Postfix configuration)
-
-# Ubuntu Focal Fixes
-if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"focal" ]
-then
-  # Install more up-to-date bundler.
-  # Fixes errors described in https://github.com/rails/thor/issues/721.
-  gem install bundler
-fi
 
 # Ensure we have required Ruby version from the current distribution package, if
 # not then install using rbenv
