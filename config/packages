@@ -19,6 +19,7 @@ libreoffice-calc-nogui
 libsqlite3-dev
 libxml2-dev
 libxslt1-dev
+libyaml-dev
 links
 lockfile-progs
 memcached
