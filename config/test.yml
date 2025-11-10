@@ -105,12 +105,6 @@ RECAPTCHA_PRIVATE_KEY: 'xxx'
 # show any consumption for the later request.
 DEBUG_RECORD_MEMORY: false
 
-# Path to a program that converts a page in a file to PDF.  It should
-# take two arguments: the URL, and a path to an output file.  A static
-# binary of wkhtmltopdf is recommended:
-# http://code.google.com/p/wkhtmltopdf/downloads/list
-HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
-
 # Exception notifications
 EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
 EXCEPTION_NOTIFICATIONS_TO: exception-recipient@example.com
