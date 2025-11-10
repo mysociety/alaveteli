@@ -159,12 +159,6 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     cancancan (3.6.1)
-    capistrano (2.15.11)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -294,7 +288,6 @@ GEM
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
     hashdiff (1.2.1)
-    highline (2.1.0)
     holidays (8.8.0)
     htmlentities (4.3.4)
     i18n (1.14.7)
@@ -378,15 +371,8 @@ GEM
       net-protocol
     net-protocol (0.1.3)
       timeout
-    net-scp (4.0.0)
-      net-ssh (>= 2.6.5, < 8.0.0)
-    net-sftp (4.0.0)
-      net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.1)
       net-protocol
-    net-ssh (7.3.0)
-    net-ssh-gateway (2.0.0)
-      net-ssh (>= 4.0.0)
     nio4r (2.7.5)
     nokogiri (1.18.10)
       mini_portile2 (~> 2.8.2)
@@ -678,7 +664,6 @@ DEPENDENCIES
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 8.1.0)
   cancancan (~> 3.6.1)
-  capistrano (~> 2.15.11)
   capybara (~> 3.40.0)
   charlock_holmes (~> 0.7.9)
   compare-xml (~> 0.66)
@@ -718,8 +703,6 @@ DEPENDENCIES
   mini_racer (~> 0.16.0)
   money (~> 6.19.0)
   net-protocol (~> 0.1.3)
-  net-ssh (~> 7.3.0)
-  net-ssh-gateway (>= 1.1.0, < 3.0.0)
   nokogiri (~> 1.18.10)
   ollama-ai (~> 1.3.0)
   open4 (~> 1.3.0)

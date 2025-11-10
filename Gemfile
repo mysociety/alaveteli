@@ -209,9 +209,6 @@ end
 
 group :development do
   gem 'annotaterb', '~> 4.20.0'
-  gem 'capistrano', '~> 2.15.11'
-    gem 'net-ssh', '~> 7.3.0'
-      gem 'net-ssh-gateway', '>= 1.1.0', '< 3.0.0'
   gem 'launchy', '< 3.2.0'
   gem 'web-console', '>= 3.3.0'
   gem 'rubocop', '~> 1.81.7', require: false
