@@ -1,3 +1,10 @@
+# develop
+
+## Highlighted Features
+
+* Drop support for Ruby 3.3 (Graeme Porteous)
+* Drop support for Ruby 3.2 (Graeme Porteous)
+
 # 0.46.0.1
 
 ## Highlighted Features
