@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Dropped support for generating PDF of request correspondence (Graeme Porteous)
+
 # 0.46.0.1
 
 ## Highlighted Features
