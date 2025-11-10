@@ -13,3 +13,4 @@
 <hr>
 
 - [ ] Skip changelog
+- [ ] Skip RuboCop
