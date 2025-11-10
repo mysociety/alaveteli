@@ -180,11 +180,11 @@ then
 EOF
 fi
 
-if { [ "$DISTRIBUTION" = "ubuntu" ] && [ "$DISTVERSION" = "jammy" ]; } ||
-   { [ "$DISTRIBUTION" = "debian" ] && [ "$DISTVERSION" = "bookworm" ]; }
+if which systemctl > /dev/null && systemctl is-active --quiet rsyslog
 then
   systemctl restart rsyslog.service
-else
+elif [ -f /etc/init.d/rsyslog ]
+then
   /etc/init.d/rsyslog restart
 fi
 
