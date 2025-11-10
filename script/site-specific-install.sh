@@ -66,7 +66,6 @@ install_daemon() {
 [ -z "$SITE" ] && misuse SITE
 [ -z "$DEFAULT_SERVER" ] && misuse DEFAULT_SERVER
 [ -z "$HOST" ] && misuse HOST
-[ -z "$DISTRIBUTION" ] && misuse DISTRIBUTION
 [ -z "$VERSIONS" ] && misuse VERSIONS
 [ -z "$DEVELOPMENT_INSTALL" ] && misuse DEVELOPMENT_INSTALL
 [ -z "$BIN_DIRECTORY" ] && misuse BIN_DIRECTORY
