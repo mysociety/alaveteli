@@ -12,4 +12,5 @@
 
 <hr>
 
-Have you updated the changelog? If this is not necessary, put square brackets around this: skip changelog
+- [ ] Skip changelog
+- [ ] Skip RuboCop
