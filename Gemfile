@@ -130,7 +130,6 @@ gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', mysociety: 'strip_attributes', branch: 'globalize3-rails8'
 gem 'stripe', '~> 13.5.1'
-gem 'syck', '~> 1.4.1', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'vpim', '~> 24.2.20'
 gem 'will_paginate', '~> 4.0.1'
