@@ -195,14 +195,6 @@ postfix reload
 
 # (end of the Postfix configuration)
 
-# Ubuntu Focal Fixes
-if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"focal" ]
-then
-  # Install more up-to-date bundler.
-  # Fixes errors described in https://github.com/rails/thor/issues/721.
-  gem install bundler
-fi
-
 # Ensure we have required Ruby version from the current distribution package, if
 # not then install using rbenv
 if [ -f $REPOSITORY/.ruby-version ]; then
