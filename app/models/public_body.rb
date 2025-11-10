@@ -27,7 +27,6 @@
 
 require 'securerandom'
 require 'set'
-require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
   include Rails.application.routes.url_helpers
@@ -571,9 +570,11 @@ class PublicBody < ApplicationRecord
     cis_below = []
     cis_above = []
     original_totals.each_with_index.map { |total, i|
-      lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
-      cis_below.push(y_values[i] - lower_ci)
-      cis_above.push(higher_ci - y_values[i])
+      ci = WilsonScore.interval(
+        original_values[i], total, confidence: 0.05, correction: false
+      )
+      cis_below.push(y_values[i] - ci.first)
+      cis_above.push(ci.end - y_values[i])
     }
     # Turn the y values and confidence interval offsets into
     # percentages:
