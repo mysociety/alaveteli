@@ -135,11 +135,12 @@ let
     # as they are needed for asset precompilation. Without this, the site
     # builds and runs, but the theme CSS is not applied, for instance.
     preBuild =
-      # bash
-      ''
-        mkdir -p lib/themes/${themeNameFromUrl}/
-        cp -R ${themeFiles}/* lib/themes/${themeNameFromUrl}/
-      '';
+      lib.optional (themeFiles != null)
+        # bash
+        ''
+          mkdir -p lib/themes/${themeNameFromUrl}/
+          cp -R ${themeFiles}/* lib/themes/${themeNameFromUrl}/
+        '';
 
     buildPhase =
       # bash
