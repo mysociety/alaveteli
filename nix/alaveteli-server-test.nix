@@ -55,9 +55,13 @@
         domainName = domain;
         database.passwordFile = "/etc/railsPass";
         database.createLocally = true;
+        database.backup.enable = false;
         sslCertificate = "${tls-cert}/cert.pem";
         sslCertificateKey = "${tls-cert}/key.pem";
         geoipLicenseKey = "/dev/null";
+        theme = {
+          url = "https://github.com/mysociety/alavetelitheme.git";
+        };
       };
 
       networking.extraHosts = ''
