@@ -578,6 +578,12 @@ in
         TimeoutStartSec = 1200;
         RestartSec = 1;
         # watchDogSec = 10;
+        # hardening
+        ProtectClock = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        NoNewPrivileges = true;
+        SystemCallFilter = "~@clock @cpu-emulation @debug @module @mount @reboot @swap";
       };
 
       # make these programs available to the alaveteli service

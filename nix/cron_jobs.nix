@@ -19,6 +19,12 @@ let
     StandardError = "inherit";
     Restart = "on-failure";
     RestartSec = 1;
+    # hardening
+    ProtectClock = true;
+    ProtectKernelTunables = true;
+    ProtectKernelModules = true;
+    NoNewPrivileges = true;
+    SystemCallFilter = "~@clock @cpu-emulation @debug @module @mount @reboot @swap";
   };
   environment = {
     RAILS_ENV = "production";
