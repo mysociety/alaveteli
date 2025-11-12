@@ -1,5 +1,5 @@
 {
-  description = "Ruby environment for Alaveteli development using devenv.sh";
+  description = "Development environment and production module for Alaveteli";
   # to start the shell:
   # nix develop --no-pure-eval (to setup the dev shell)
   # devenv up (to start pg, redis... services)
@@ -15,8 +15,6 @@
       url = "github:cachix/devenv";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nixpkgs-ruby.url = "github:bobvanderlinden/nixpkgs-ruby";
-    # nixpkgs-ruby.inputs = { nixpkgs.follows = "nixpkgs"; };
   };
 
   nixConfig = {
@@ -139,7 +137,8 @@
           pkgs = nixpkgs.legacyPackages.${system};
           toYAML = nixpkgs.lib.generators.toYAML { };
 
-          rails_db_conf_file = pkgs.writeText "database.yml" (toYAML {
+          rails_db_conf_file = pkgs.writeText "database.yml" (toYAML rails_db_conf);
+          rails_db_conf = {
             # this config must be overridden in the theme
             development = {
               adapter = "postgresql";
@@ -150,7 +149,7 @@
               username = dbUser;
               password = "changeme";
             };
-          });
+          };
           # ideally, this would load general.yml-example and override its contents
           # with whatever is passed below
           alaveteli_config_general = pkgs.writeText "general.yml" (toYAML {
@@ -176,8 +175,6 @@
               cp config/storage.yml-example config/storage.yml
               rm -f config/general.yml
               ln -s "${alaveteli_config_general}" config/general.yml
-              # use the madada config file
-              # ln -s ../../dada-core/config/general_dada.yml config/general.yml
               rm -f config/database.yml
               ln -s "${rails_db_conf_file}" config/database.yml
               #
@@ -206,7 +203,7 @@
             processes = {
               # run migrations once postgres is started
               migrate = {
-                exec = "rails db:migrate && rails db:seed";
+                exec = "RAILS_ENV=development rails db:migrate && rails db:seed";
                 process-compose.depends_on.postgres.condition = "process_healthy";
               };
               init_xapian = {
@@ -221,7 +218,7 @@
               };
               # start the dev web server after migrations
               web = {
-                exec = "rails server -p ${railsPort}";
+                exec = "RAILS_ENV=development rails server -p ${railsPort}";
                 process-compose.depends_on.init_xapian.condition = "process_completed_successfully";
               };
             };
