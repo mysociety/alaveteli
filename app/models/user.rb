@@ -221,11 +221,16 @@ class User < ApplicationRecord
                  if: :indexed_by_search?
 
   def self.search(query)
-    where(<<~SQL, query: query)
-      lower(users.name) LIKE lower('%'||:query||'%') OR
-      lower(users.email) LIKE lower('%'||:query||'%') OR
-      lower(users.about_me) LIKE lower('%'||:query||'%')
+    sql = <<~SQL
+      users.name ILIKE '%'||:query||'%' OR
+      users.email ILIKE '%'||:query||'%' OR
+      users.about_me ILIKE '%'||:query||'%' OR
+      has_tag_string_tags.name ILIKE :query
     SQL
+
+    left_outer_joins(:tags).
+      where(sql, query: query).
+      distinct
   end
 
   def self.pro
