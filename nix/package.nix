@@ -40,6 +40,8 @@ let
         sed -i -e "s|ruby '3.2.[0-9]\+'|ruby '${ruby.version}'|" Gemfile
         sed -i -e "s|ruby 3.2.[0-9]\+p[0-9]\+|ruby ${ruby.version}|" Gemfile.lock
         rm public/views_cache
+        substituteInPlace ./script/* --replace-quiet "bundle exec rails" "rails-alaveteli"
+        substituteInPlace ./script/* --replace-quiet "bundle exec rake" "rake-alaveteli"
       '';
   };
 
