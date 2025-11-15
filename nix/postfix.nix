@@ -31,7 +31,7 @@ let
 
   mtaStsPolicy = ''
     version: STSv1
-    mode: testing
+    mode: ${cfg.mailserver.mtaStsMode}
     max_age: 10368000
     mx: ${cfg.domainName}
   '';

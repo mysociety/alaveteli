@@ -441,6 +441,18 @@ in
             Email aliases, copied verbatim into postfix aliases config file.
           '';
         };
+        mtaStsMode = lib.mkOption {
+          type = lib.types.enum [
+            "testing"
+            "enforce"
+          ];
+          description = ''
+            The mode for the MTA-STS policy for the email server. Do not turn on "enforce"
+            until the testing period results look acceptable, or you might have email
+            delivery issues.
+          '';
+          default = "testing";
+        };
       };
 
     };
