@@ -134,3 +134,10 @@ Finland and other non-EU locations):
 --build-on-remote` (this command is only to be used the first time, as it wipes out the server and rebuilds it entirely,
   including partitioning disks, etc...)
 - once the server has restarted, you can update your config and redeploy with `nixos-rebuild switch --flake .#staging --target-host <yourserver> --build-host <yourserver>`
+
+## Email setup
+
+Test with a variety of tools to ensure everything is correct:
+
+- https://mecsa.jrc.ec.europa.eu/en/
+- mail-tester.com

@@ -650,15 +650,15 @@ in
           echo "--------------------------------------------------------"
           echo "${cfg.domainName} AAAA `${serverIPv6Address}`"
           echo "--------------------------------------------------------"
-          echo "${cfg.domainName} IN MX 10 ${cfg.domainName}."
+          echo "${cfg.domainName} IN MX 10 ${cfg.domainName}.  (do not forget the dot at the end!)"
           echo "--------------------------------------------------------"
-          echo 'SPF: @ 300 IN TXT "v=spf1 mx ~all"'
+          echo 'SPF: ${cfg.domainName} 300 IN TXT "v=spf1 mx ~all"'
           echo "--------------------------------------------------------"
           echo "TLSA record:"
           ${generateTlsaRecord}
           echo
           echo "--------------------------------------------------------"
-          echo "CAA  0 issue \"letsencrypt.org\""
+          echo "${cfg.domainName} CAA  0 issue \"letsencrypt.org\""
           echo "--------------------------------------------------------"
           echo "DKIM record:"
           cat /var/lib/opendkim/keys/${config.services.opendkim.selector}.txt
@@ -666,10 +666,11 @@ in
           echo "DMARC record:"
           echo '_dmarc.${cfg.domainName} TXT "v=DMARC1; p=quarantine;"'
           echo "--------------------------------------------------------"
-          echo "MTA-STS records"
+          echo "MTA-STS and TLS-RPT records"
           echo "mta-sts.${cfg.domainName}   300   A      `${serverIPv4Address}`"
           echo "mta-sts.${cfg.domainName}   300   AAAA   `${serverIPv6Address}`"
           echo '_mta-sts.${cfg.domainName}  300  TXT  "v=STSv1; id=20251028T090000;"'
+          echo '_smtp._tls.${cfg.domainName} 300 TXT "v=TLSRPTv1; rua=mailto:<your_email_address>;"  (use an address on another domain/server)'
           echo "--------------------------------------------------------"
           echo "Do not forget to set the reverse DNS to ${cfg.domainName}"
           echo "########################################################"
