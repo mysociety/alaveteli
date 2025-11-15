@@ -7,9 +7,6 @@
 let
   cfg = config.services.alaveteli;
   inherit (config.security.acme) certs;
-  dovecotConf = pkgs.writeText "dovecot.conf" ''
-    listen = "127.0.0.1, ::1, "
-  '';
 in
 {
 
@@ -19,6 +16,8 @@ in
     enableImap = true;
 
     extraConfig = ''
+      listen = "127.0.0.1, ::1"
+
       service auth {
         # Postfix smtp-auth over submission port
         unix_listener /var/lib/postfix/queue/private/auth {
