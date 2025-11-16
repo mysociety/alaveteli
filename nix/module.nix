@@ -35,6 +35,7 @@ let
       STAGING_SITE = 0;
 
       MTA_LOG_TYPE = "postfix";
+      MTA_LOG_PATH = "/var/log/mail/mail.log-*";
 
       # how alaveteli retrieves incoming email
       PRODUCTION_MAILER_RETRIEVER_METHOD = "pop";
@@ -156,6 +157,9 @@ in
       inherit config lib pkgs;
     })
     (import ./opendkim.nix {
+      inherit config pkgs;
+    })
+    (import ./logrotate.nix {
       inherit config pkgs;
     })
     (import ./postfix.nix {
