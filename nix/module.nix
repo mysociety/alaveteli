@@ -549,6 +549,11 @@ in
           proxyPass = "http://${appListeningAddress}:${toString appPort}";
           recommendedProxySettings = true;
         };
+        extraConfig = ''
+          client_max_body_size 15M;
+          access_log /var/log/nginx/alaveteli_ssl_access.log;
+          error_log /var/log/nginx/alaveteli_ssl_error.log error;
+        '';
       };
     };
 
