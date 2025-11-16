@@ -159,7 +159,7 @@ in
   };
 
   systemd.services.postfix.preStart = ''
-    ln -s ${recipientBccFile} /etc/postfix/recipient_bcc
+    ln -sf ${recipientBccFile} /etc/postfix/recipient_bcc
   '';
 
   services.postfix.settings.master = {
