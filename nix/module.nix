@@ -238,7 +238,8 @@ in
           example = "https://github.com/mysociety/someothertheme.git";
         };
         files = lib.mkOption {
-          type = lib.types.path;
+          type = with lib.types; nullOr path;
+          default = null;
           description = "Path to the theme files in the repo (relative to nix file)";
         };
         package = lib.mkOption {
