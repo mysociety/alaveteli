@@ -37,8 +37,6 @@ let
     postPatch =
       # bash
       ''
-        sed -i -e "s|ruby '3.2.[0-9]\+'|ruby '${ruby.version}'|" Gemfile
-        sed -i -e "s|ruby 3.2.[0-9]\+p[0-9]\+|ruby ${ruby.version}|" Gemfile.lock
         rm public/views_cache
         substituteInPlace ./script/* --replace-quiet "bundle exec rails" "rails-alaveteli"
         substituteInPlace ./script/* --replace-quiet "bundle exec rake" "rake-alaveteli"
@@ -85,9 +83,6 @@ let
   rubyEnv = pkgs.callPackage ./bundlerEnv.nix {
     inherit themeGemfile themeLockfile themeGemset;
   };
-  # TODO: move package.nix under the module, as we don't need the package
-  # by itself, then we can access config more easily to grab the general conf
-  # during buildPhase (but what happens in dev env if we don't want the theme?)
   settingsFormat = pkgs.formats.yaml { };
   alaveteliConfig = settingsFormat.generate "general.yml" ({
     THEME_URLS = [
@@ -193,7 +188,6 @@ let
       ln -s ${dataDir}/tmp $out/tmp
       ln -s ${dataDir}/log $out/log
     '';
-
 
     passthru = {
       inherit rails rake rubyEnv;
