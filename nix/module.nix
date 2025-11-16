@@ -516,6 +516,9 @@ in
 
     users.users.${cfg.user} = {
       group = "${cfg.group}";
+      # postdrop allows cron jobs running as alaveteli to use
+      # the postdrop "emailing" utility. See man 1 postdrop
+      extraGroups = [ "postdrop" ];
       isSystemUser = true;
     };
 
