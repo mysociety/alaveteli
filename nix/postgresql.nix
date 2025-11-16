@@ -23,6 +23,10 @@ in
     ];
 
     checkConfig = true;
+    # do not upgrade to pg 18 yet, as it's not clear whether
+    # it is supported by ruby gem pg v1.5.9
+    # https://deveiate.org/code/pg/CHANGELOG_md.html
+    package = pkgs.postgresql_17;
 
     settings = lib.optionalAttrs (cfg.database.backup.enable) {
       archive_mode = "on";
