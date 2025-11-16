@@ -44,7 +44,9 @@ in
     enable = true;
     enableSmtp = true; # port 25 (define config manually below)
     enableSubmission = true; # port 587
-    rootAlias = cfg.mailserver.rootAlias;
+    aliasFiles = {
+      "alaveteli" = cfg.mailserver.aliasFile;
+    };
     localRecipients = cfg.mailserver.localRecipients ++ [
       "/^postmaster@/"
     ];

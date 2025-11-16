@@ -24,7 +24,6 @@ let
     {
       DOMAIN = cfg.domainName;
       EXCEPTION_NOTIFICATIONS_FROM = "errors@${cfg.domainName}";
-      EXCEPTION_NOTIFICATIONS_TO = cfg.mailserver.rootAlias;
       FORCE_SSL = true;
 
       GEOIP_DATABASE = "${config.services.geoipupdate.settings.DatabaseDirectory}/GeoLite2-Country.mmdb";
@@ -426,14 +425,12 @@ in
             If false, no email services are configured (postfix, opendkim, rspamd).
           '';
         };
-
-        rootAlias = lib.mkOption {
-          type = lib.types.str;
-          default = "";
+        aliasFile = lib.mkOption {
+          type = lib.types.path;
           description = ''
-            Email address that should receive mail for root@ and postmaster@.
-            Multiple values can be separated by commas.
-            Leave empty for no redirection.
+            Path to a postfix alias file that is typically an encrypted
+            template listing email aliases. Format:
+            <alias>: <email to forward to>
           '';
         };
         localRecipients = lib.mkOption {
@@ -556,7 +553,7 @@ in
 
     security.acme = {
       acceptTerms = true;
-      defaults.email = cfg.mailserver.rootAlias;
+      defaults.email = "root@${cfg.domainName}";
     };
 
     users.users."geoip" = {
