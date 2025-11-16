@@ -18,9 +18,16 @@ in
     ensureUsers = [
       {
         name = cfg.database.user;
-        ensureDBOwnership = true;
       }
     ];
+    authentication = ''
+      # TYPE  DATABASE        USER            ADDRESS                 METHOD
+      local  ${cfg.database.name}  ${cfg.database.user}  peer map=alaveteliUsers
+    '';
+
+    identMap = ''
+      alaveteliUsers ${cfg.user} ${cfg.database.user}
+    '';
 
     checkConfig = true;
     # do not upgrade to pg 18 yet, as it's not clear whether

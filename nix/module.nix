@@ -318,7 +318,7 @@ in
 
         user = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
-          default = "alaveteli";
+          default = "foi";
           description = "Database user.";
         };
 
