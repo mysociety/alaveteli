@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -66,6 +67,10 @@ in
       StandardOutput = "append:${cfg.dataDir}/log/alert-tracks.service.log";
     };
   };
+
+  environment.systemPackages = [
+    pkgs.lockfileProgs # used by run-with-lockfile.sh
+  ];
 
   services.cron = {
     enable = true;

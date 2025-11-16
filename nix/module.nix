@@ -139,7 +139,7 @@ in
 {
   imports = [
     (import ./cron_jobs.nix {
-      inherit config lib;
+      inherit config lib pkgs;
     })
     (import ./dovecot.nix {
       inherit config lib pkgs;
