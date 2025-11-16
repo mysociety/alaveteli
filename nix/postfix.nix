@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgPath,
   pkgs,
   ...
 }:
@@ -172,7 +171,7 @@ in
       args = [
         "flags=R"
         "user=alaveteli"
-        "argv=${pkgPath}/script/mailin"
+        "argv=${cfg.package}/script/mailin"
       ];
     };
 
@@ -185,7 +184,7 @@ in
       args = [
         "flags=R"
         "user=alaveteli"
-        "argv=${pkgPath}/script/handle-mail-replies"
+        "argv=${cfg.package}/script/handle-mail-replies"
       ];
     };
   };

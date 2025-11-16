@@ -140,7 +140,6 @@ in
   imports = [
     (import ./cron_jobs.nix {
       inherit config lib;
-      pkgPath = cfg.package.outPath;
     })
     (import ./dovecot.nix {
       inherit config lib pkgs;
@@ -150,11 +149,9 @@ in
     })
     (import ./postfix.nix {
       inherit config lib pkgs;
-      pkgPath = cfg.package.outPath;
     })
     (import ./postgresql.nix {
       inherit config lib pkgs;
-      pkgPath = cfg.package.outPath;
     })
     (import ./rspamd.nix {
       inherit config inputs;

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgPath,
   ...
 }:
 let
@@ -29,7 +28,7 @@ let
   environment = {
     RAILS_ENV = "production";
   };
-
+  pkgPath = cfg.package.outPath;
   wantedBy = [ "multi-user.target" ];
 in
 {
