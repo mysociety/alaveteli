@@ -22,14 +22,25 @@ let
 
   alaveteliConfig = settingsFormat.generate "general.yml" (
     {
+      DOMAIN = cfg.domainName;
       EXCEPTION_NOTIFICATIONS_FROM = "errors@${cfg.domainName}";
       EXCEPTION_NOTIFICATIONS_TO = cfg.mailserver.rootAlias;
+      FORCE_SSL = true;
 
       GEOIP_DATABASE = "${config.services.geoipupdate.settings.DatabaseDirectory}/GeoLite2-Country.mmdb";
       THEME_URLS = [
         "${cfg.theme.url}"
       ];
       MAXMIND_LICENSE_KEY = cfg.geoipLicenseKey;
+      STAGING_SITE = 0;
+
+      MTA_LOG_TYPE = "postfix";
+
+      # how alaveteli retrieves incoming email
+      PRODUCTION_MAILER_RETRIEVER_METHOD = "pop";
+      POP_MAILER_ADDRESS = "localhost";
+      POP_MAILER_PORT = 995;
+
     }
     // cfg.settings.general
   );
@@ -209,6 +220,10 @@ in
             ISO_COUNTRY_CODE = "en";
             SITE_NAME = "My FOI Site";
           };
+        };
+        secretsFile = lib.mkOption {
+          type = lib.types.path;
+          description = "Path to a file with settings that should go in config/general.yml but not appear in the nix store. They get passed to alaveteli services as env vars, prefix your values with ALAVETELI_.";
         };
       };
 
@@ -582,6 +597,8 @@ in
         Group = cfg.group;
         PrivateTmp = true;
         StateDirectory = "alaveteli";
+
+        EnvironmentFile = cfg.settings.secretsFile;
 
         WorkingDirectory = cfg.package;
         TimeoutStartSec = 1200;

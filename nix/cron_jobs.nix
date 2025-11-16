@@ -15,6 +15,7 @@ let
     Type = "simple";
     User = cfg.user;
     Group = cfg.group;
+    EnvironmentFile = cfg.settings.secretsFile;
     WorkingDirectory = cfg.package;
     StandardError = "inherit";
     Restart = "on-failure";
