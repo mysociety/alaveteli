@@ -49,6 +49,9 @@ Rails.application.routes.draw do
   match '/search/all' => 'general#search_redirect',
         :as => :search_redirect_all,
         :via => :get
+  match '/access-to-information-around-the-world' => 'general#access_to_information_around_the_world',
+        :as => :access_to_information_around_the_world,
+        :via => :get
   # `combined` is the search query, and then if sorted a "/newest" at the end.
   # Couldn't find a way to do this in routes which also picked up multiple other slashes
   # and dots and other characters that can appear in search query. So we sort it all

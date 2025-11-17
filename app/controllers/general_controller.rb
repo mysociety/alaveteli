@@ -26,6 +26,9 @@ class GeneralController < ApplicationController
                            has_json: true } ]
   end
 
+  def access_to_information_around_the_world
+  end
+
   # Display blog entries
   def blog
     raise(ActiveRecord::RecordNotFound, "Page not enabled") unless Blog.enabled?
