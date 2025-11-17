@@ -619,12 +619,23 @@ RSpec.describe User do
     subject { described_class.search(query) }
 
     let(:user_1) do
-      attrs = { name: 'Alice', email: 'alice@example.com', about_me: 'foo bar' }
+      attrs = {
+        name: 'Alice',
+        email: 'alice@example.com',
+        about_me: 'foo bar'
+      }
+
       FactoryBot.create(:user, attrs)
     end
 
     let(:user_2) do
-      attrs = { name: 'James', email: 'james@example.com', about_me: 'bar' }
+      attrs = {
+        name: 'James',
+        email: 'james@example.com',
+        about_me: 'bar',
+        tag_string: 'foo_bar'
+      }
+
       FactoryBot.create(:user, attrs)
     end
 
@@ -656,6 +667,17 @@ RSpec.describe User do
     context 'when given an about_me matching multiple users' do
       let(:query) { 'bar' }
       it { is_expected.to match_array([user_1, user_2]) }
+    end
+
+    context 'when given an exact tag' do
+      let(:query) { 'foo_bar' }
+      it { is_expected.to match_array([user_2]) }
+    end
+
+    context 'when given a partial tag' do
+      let(:query) { 'foo' }
+      # Matches user_1 about_me; doesn't match the initial part of user_2 tag 
+      it { is_expected.to match_array([user_1]) }
     end
   end
 

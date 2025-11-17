@@ -1,3 +1,13 @@
+# develop
+
+## Highlighted Features
+
+* Ability to search users by tag in admin interface (Gareth Rees)
+
+## Upgrade Notes
+
+### Changed Templates
+
 # 0.46.0.1
 
 ## Highlighted Features
