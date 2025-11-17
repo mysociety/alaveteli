@@ -145,7 +145,7 @@ gem 'csv', '~> 3.3.5'
 gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.0'
 gem 'rdoc', '~> 6.15.1'
-gem 'uri', '~> 1.1.0'
+gem 'uri', '~> 1.1.1'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 2.1.0'
