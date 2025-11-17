@@ -1254,6 +1254,9 @@ Rails/EnumSyntax:
 Rails/EnumUniqueness:
   Enabled: false
 
+Rails/Env:
+  Enabled: false
+
 Rails/EnvLocal:
   Enabled: false
 
@@ -1278,6 +1281,9 @@ Rails/FindBy:
 Rails/FindById:
   Enabled: false
 
+Rails/FindByOrAssignmentMemoization:
+  Enabled: false
+
 Rails/FindEach:
   Enabled: false
 
@@ -1297,6 +1303,9 @@ Rails/HttpPositionalArguments:
   Enabled: false
 
 Rails/HttpStatus:
+  Enabled: false
+
+Rails/HttpStatusNameConsistency:
   Enabled: false
 
 Rails/I18nLazyLookup:
@@ -1350,6 +1359,9 @@ Rails/NegateInclude:
 Rails/NotNullColumn:
   Enabled: false
 
+Rails/OrderArguments:
+  Enabled: false
+
 Rails/OrderById:
   Enabled: false
 
@@ -1384,6 +1396,9 @@ Rails/RakeEnvironment:
   Enabled: false
 
 Rails/ReadWriteAttribute:
+  Enabled: false
+
+Rails/RedirectBackOrTo:
   Enabled: false
 
 Rails/RedundantActiveRecordAllMethod:
