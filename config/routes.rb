@@ -76,6 +76,11 @@ Rails.application.routes.draw do
 
   #####
 
+  ##### AtiNetwork controller
+  match '/access-to-information-around-the-world' => 'ati_network#showcase',
+        as: :ati_network_showcase,
+        via: :get
+
   ##### Statistics controller
   get '/statistics' => 'statistics#index'
   get '/body_statistics' => redirect('/statistics#public_bodies'), :as => :public_bodies_statistics
