@@ -1,0 +1,15 @@
+--- a/config/initializers/theme_loader.rb
++++ b/config/initializers/theme_loader.rb
+@@ -3,7 +3,11 @@
+ $alaveteli_route_extensions = []
+
+ def theme_root(theme_name)
+-  Rails.root.join('lib/themes', theme_name)
++  if ENV['ALAVETELI_NIX_BUILD_PHASE']
++    Pathname.pwd.join('lib/themes', theme_name)
++  else
++    Pathname.new("/var/lib/alaveteli").join('lib/themes', theme_name)
++  end
+ end
+
+ def require_theme(theme_name)
