@@ -87,6 +87,12 @@ pkgs.bundlerEnv {
     statistics2 = attrs: {
       buildFlags = [ "--with-cflags=-Wno-error=implicit-int" ];
     };
+    syck = attrs: {
+      # buildFlags = [ "--with-cflags=-Wincompatible-pointer-types" ];
+      env.NIX_CFLAGS_COMPILE = toString [
+        "-Wno-error=incompatible-pointer-types"
+      ];
+    };
   };
 }
 # }
