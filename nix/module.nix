@@ -51,6 +51,8 @@ let
     themeGemset = cfg.theme.gemset;
     themeUrl = cfg.theme.url;
     themeFiles = cfg.theme.files;
+    themeTranslationFiles = cfg.theme.translationFiles;
+    themeProTranslationFiles = cfg.theme.proTranslationFiles;
     inherit (cfg) dataDir;
   };
 
@@ -245,6 +247,16 @@ in
         package = lib.mkOption {
           type = lib.types.package;
           default = defaultThemePackage;
+        };
+        translationFiles = lib.mkOption {
+          type = lib.types.attrsOf lib.types.path;
+          default = { };
+          description = "Attribute set of locale = path_to_po_file";
+        };
+        proTranslationFiles = lib.mkOption {
+          type = lib.types.attrsOf lib.types.path;
+          default = { };
+          description = "Attribute set of locale = path_to_po_file";
         };
         gemfile = lib.mkOption {
           type = with lib.types; nullOr path;

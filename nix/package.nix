@@ -14,11 +14,12 @@
   themeGemset,
   themeUrl,
   themeFiles,
+  themeTranslationFiles,
+  themeProTranslationFiles,
 }:
 
 let
   pname = "alaveteli";
-  # TODO: get this from git?
   version = "0.0.1";
 
   src = applyPatches {
@@ -174,6 +175,21 @@ let
 
         pg_ctl stop -D postgres-work -m immediate
         rm -r postgres-work
+
+        # copy locale translation files
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (locale: f: ''
+            mkdir -p locale/${locale}
+            cp ${f} locale/${locale}
+          '') themeTranslationFiles
+        )}
+
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (locale: f: ''
+            mkdir -p locale_alaveteli_pro/${locale}
+            cp ${f} locale_alaveteli_pro/${locale}
+          '') themeProTranslationFiles
+        )}
 
         runHook postBuild
       '';
