@@ -1,7 +1,7 @@
 # definition of the alaveteli service for production deployments
 # Design decisions:
 # alaveteli is run with puma and nginx (for opensource reasons)
-# postfix for email, with opndkim, rspamd
+# postfix for email, with opendkim, rspamd, dovecot for imap/pop
 
 # self is the alaveteli flake
 self:
@@ -58,21 +58,23 @@ let
 
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
 
-  storageConfig = settingsFormat.generate "storage.yml" {
-    local = {
-      service = "Disk";
-      root = "${cfg.dataDir}/storage/local";
-    };
-    raw_emails = {
-      service = "Disk";
-      # can't use Rails.root here, as it would end up in /nix/store
-      root = "${cfg.dataDir}/storage/raw_emails";
-    };
-    attachments = {
-      service = "Disk";
-      root = "${cfg.dataDir}/storage/attachments";
-    };
-  };
+  defaultStorageConfig =
+    lib.mkIf (cfg.settings.storage == null) settingsFormat.generate "storage.yml"
+      {
+        local = {
+          service = "Disk";
+          root = "${cfg.dataDir}/storage/local";
+        };
+        raw_emails = {
+          service = "Disk";
+          # can't use Rails.root here, as it would end up in /nix/store
+          root = "${cfg.dataDir}/storage/raw_emails";
+        };
+        attachments = {
+          service = "Disk";
+          root = "${cfg.dataDir}/storage/attachments";
+        };
+      };
 
   environment = {
     LOGFILE = "${cfg.dataDir}/log/production.log";
@@ -229,6 +231,14 @@ in
         secretsFile = lib.mkOption {
           type = lib.types.path;
           description = "Path to a file with settings that should go in config/general.yml but not appear in the nix store. They get passed to alaveteli services as env vars, prefix your values with ALAVETELI_.";
+        };
+        storageConfigFile = lib.mkOption {
+          type = with lib.types; nullOr path;
+          default = null;
+          description = ''
+            Path to the file to be used by Rails as config/storage.yml.
+            The default will create a basic local file storage.
+          '';
         };
       };
 
@@ -653,7 +663,17 @@ in
           mkdir -p ${cfg.dataDir}/log
           mkdir -p ${cfg.dataDir}/tmp
           cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
-          cat ${storageConfig} > ${cfg.dataDir}/config/storage.yml
+          ${
+            if cfg.settings.storageConfigFile == null then
+              ''
+                cat ${defaultStorageConfig} > ${cfg.dataDir}/config/storage.yml
+              ''
+            else
+              ''
+                rm ${cfg.dataDir}/config/storage.yml
+                ln -s ${cfg.settings.storageConfigFile} ${cfg.dataDir}/config/storage.yml
+              ''
+          }
           cat ${alaveteliConfig} > ${cfg.dataDir}/config/general.yml
 
           # some of the rails-post-deploy script is run during package
@@ -662,6 +682,8 @@ in
           # the produced site code base
 
           rake db:migrate
+          # seeding causes some non-fatal error messages in postgres
+          # logs when it tries to insert duplicate flipper_features
           rake db:seed
 
           # ensure we have a xapian db if it does not exist
