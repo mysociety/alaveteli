@@ -1,25 +1,26 @@
 {
-  # config,
   pkgs,
-  # TODO: move theme file args here to get rid of one level of function below
   themeGemfile,
   themeLockfile,
   themeGemset,
   ...
 }:
-# {
-# default =
-#   {
-#     # pass 3 files that represent the *entire* set of gems used
-#     # by the theme, ie. core alaveteli + theme gems
-#     themeGemfile ? null,
-#     themeLockfile ? null,
-#     themeGemset,
-#   }:
+let
+  # src: https://github.com/ruby/openssl/issues/949#issuecomment-3367944960
+  sslFix = pkgs.writeText "rubyssl_default_store.rb" ''
+    require "openssl"
+    s = OpenSSL::X509::Store.new.tap(&:set_default_paths)
+    OpenSSL::SSL::SSLContext.send(:remove_const, :DEFAULT_CERT_STORE) rescue nil
+    OpenSSL::SSL::SSLContext.const_set(:DEFAULT_CERT_STORE, s.freeze)
+  '';
+in
 pkgs.bundlerEnv {
   name = "gems-for-alaveteli";
   gemdir = ./..;
+  # ruby versions that fix the openssl bug: 3.3.10, 3.4.8 (not in nixpkgs yet!)
   ruby = pkgs.ruby_3_4;
+
+  env = "RUBYOPT='-r${sslFix} $RUBYOPT'";
   extraConfigPaths = [ "${./..}/gems" ];
   lockfile = themeLockfile;
   gemfile = themeGemfile;
