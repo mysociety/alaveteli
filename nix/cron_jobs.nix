@@ -69,6 +69,21 @@ in
     };
   };
 
+  systemd.services.alaveteli-sidekiq = {
+    inherit after environment wantedBy;
+
+    description = "Process sidekiq job queue for Alaveteli ";
+
+    serviceConfig = commonServiceConfig // {
+      Type = "notify";
+      Restart = "always";
+      ExecStart = "${cfg.package}/bin/sidekiq -e production";
+      StandardOutput = "append:${cfg.dataDir}/log/sidekiq.service.log";
+      UMask = "0002";
+      WatchdogSec = 10;
+    };
+  };
+
   environment.systemPackages = [
     pkgs.lockfileProgs # used by run-with-lockfile.sh
   ];
@@ -108,8 +123,8 @@ in
       "43 2 * * * ${cfg.user} ${pkgPath}/script/request-creation-graph"
       "48 2 * * * ${cfg.user} ${pkgPath}/script/user-use-graph"
       "40 2 * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/users-signins-purge.lock 'rails users:sign_ins:purge' || echo 'stalled?'"
-      "50 2 * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/users-purge-limited.lock 'rails users:purge_limited' || echo 'stalled?'"
-      "53 2 * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/users-destroy-dormant.lock 'rails users:destroy_dormant' || echo 'stalled?'"
+      "50 2 * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/users-purge-limited.lock 'rails --quiet users:purge_limited' || echo 'stalled?'"
+      "53 2 * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/users-destroy-dormant.lock 'rails --quiet users:destroy_unused' || echo 'stalled?'"
       "38 2 * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/public-body-export.lock 'rails public_body:export' || echo 'stalled?'"
 
       # Once a week (very early Monday morning)
