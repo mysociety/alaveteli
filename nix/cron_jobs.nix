@@ -31,6 +31,7 @@ let
     RAILS_ENV = "production";
   };
   pkgPath = cfg.package.outPath;
+  servicePath = [ pkgs.git ];
   wantedBy = [ "multi-user.target" ];
 in
 {
@@ -38,7 +39,7 @@ in
     inherit after environment wantedBy;
 
     description = "Import incoming mail into Alaveteli";
-
+    path = servicePath;
     serviceConfig = commonServiceConfig // {
       # TODO: get rid of runner, call rails runner directly
       # but which rails?
@@ -51,7 +52,7 @@ in
     inherit after environment wantedBy;
 
     description = "Send Alaveteli notifications";
-
+    path = servicePath;
     serviceConfig = commonServiceConfig // {
       ExecStart = "${cfg.package.rails}/bin/rails-alaveteli runner NotificationMailer.send_notifications_loop";
       StandardOutput = "append:${cfg.dataDir}/log/send-notifications.service.log";
@@ -62,7 +63,7 @@ in
     inherit after environment wantedBy;
 
     description = "Send Alaveteli email alerts";
-
+    path = servicePath;
     serviceConfig = commonServiceConfig // {
       ExecStart = "${cfg.package.rails}/bin/rails-alaveteli runner TrackMailer.alert_tracks_loop";
       StandardOutput = "append:${cfg.dataDir}/log/alert-tracks.service.log";
@@ -73,7 +74,7 @@ in
     inherit after environment wantedBy;
 
     description = "Process sidekiq job queue for Alaveteli ";
-
+    path = servicePath;
     serviceConfig = commonServiceConfig // {
       Type = "notify";
       Restart = "always";
@@ -85,6 +86,7 @@ in
   };
 
   environment.systemPackages = [
+    pkgs.git
     pkgs.lockfileProgs # used by run-with-lockfile.sh
   ];
 
