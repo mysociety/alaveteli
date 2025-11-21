@@ -11,6 +11,9 @@ let
   recipientBccFile = pkgs.writeText "recipient_bcc" ''
     # format for the file:
     # /regex/                     bcc_username
+    /^${
+      builtins.replaceStrings [ "+" ] [ "" ] incomingEmailPrefix
+    }.*@${cfg.domainName}$/           foimailredirect
   '';
 
   insecureCiphers = [
@@ -34,6 +37,7 @@ let
     max_age: 10368000
     mx: ${cfg.domainName}
   '';
+  incomingEmailPrefix = config.services.alaveteli.settings.general.INCOMING_EMAIL_PREFIX;
 in
 {
   # TODO: possible bug in optionalAttrs when passed the postfix config???
@@ -44,13 +48,27 @@ in
     enable = true;
     enableSmtp = true; # port 25 (define config manually below)
     enableSubmission = true; # port 587
-    aliasFiles = {
-      "alaveteli" = cfg.mailserver.aliasFile;
-    };
-    localRecipients = cfg.mailserver.localRecipients ++ [
+    localRecipients = [
+      "/^${builtins.replaceStrings [ "+" ] [ "" ] incomingEmailPrefix}.*/"
       "/^postmaster@/"
-    ];
-    extraAliases = cfg.mailserver.extraAliases;
+      "/^abuse@/"
+      "/^webmaster@/"
+    ]
+    ++ cfg.mailserver.localRecipients;
+    transport = ''
+      /^${
+        builtins.replaceStrings [ "+" ] [ "\\+" ] incomingEmailPrefix
+      }.*@${cfg.domainName}$/           alaveteli
+      /^support-utilisateurs@${cfg.domainName}$/            alaveteli_replies
+    '';
+
+    extraAliases = ''
+      abuse: root
+      webmaster: root
+      foimailredirect: ${config.users.users.alaveteliPopUser.name}, backupfoi
+    ''
+    + cfg.mailserver.extraAliases;
+
     # https://doc.dovecot.org/2.3/configuration_manual/howto/postfix_and_dovecot_sasl/#using-sasl-with-postfix-submission-port
     # https://www.postfix.org/SASL_README.html#server_sasl_enable
     submissionOptions = {
@@ -156,6 +174,10 @@ in
 
     # 6 is the default milter protocol version;
     milter_protocol = 6;
+
+    # default value is "hash:..." record, which does not work
+    # with our regexp content in transports
+    transport_maps = lib.mkForce "regexp:/etc/postfix/transport";
   };
 
   systemd.services.postfix.preStart = ''
@@ -173,7 +195,7 @@ in
       args = [
         "flags=R"
         "user=alaveteli"
-        "argv=${cfg.package}/script/mailin"
+        "argv=${cfg.package.mailin}/bin/mailin-alaveteli"
       ];
     };
 
@@ -206,4 +228,12 @@ in
       mtaStsPolicy
     }";
   };
+
+  users.users.backupfoi = {
+    name = "backupfoi";
+    group = "backupfoi";
+    isSystemUser = true;
+  };
+  users.groups.backupfoi = { };
+
 }

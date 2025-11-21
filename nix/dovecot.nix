@@ -7,8 +7,20 @@
 let
   cfg = config.services.alaveteli;
   inherit (config.security.acme) certs;
+  alaveteliPopUser = "alaveteli_pop_user";
 in
 {
+  # the user that alaveteli uses to retrieve email via pop/dovecot
+  # we use a system user and configure dovecot to use the passwd-file
+  # auth method:
+  # https://doc.dovecot.org/2.3/configuration_manual/authentication/passwd_file/#passwd-file
+  users.users.alaveteliPopUser = {
+    name = alaveteliPopUser;
+    group = alaveteliPopUser;
+    isSystemUser = true;
+    hashedPasswordFile = cfg.mailserver.alaveteliPopUserPasswordFile;
+  };
+  users.groups.${alaveteliPopUser} = { };
 
   services.dovecot2 = {
     enable = true;
@@ -24,6 +36,19 @@ in
           mode = 0666
         }
       }
+
+      passdb {
+        driver = passwd-file
+        # use Blowfish encryption, allow username@domain login
+        args = scheme=blf-crypt username_format=%n ${cfg.mailserver.imapPasswdFile}
+      }
+
+      userdb {
+        driver = passwd-file
+        args = username_format=%n ${cfg.mailserver.imapPasswdFile}
+      }
+
+      auth_mechanisms = plain login
     '';
 
     sslServerKey =

@@ -40,6 +40,7 @@ let
       PRODUCTION_MAILER_RETRIEVER_METHOD = "pop";
       POP_MAILER_ADDRESS = "localhost";
       POP_MAILER_PORT = 995;
+      POP_MAILER_USER_NAME = config.users.users.alaveteliPopUser.name;
 
     }
     // cfg.settings.general
@@ -448,6 +449,22 @@ in
             If false, no email services are configured (postfix, opendkim, rspamd).
           '';
         };
+        alaveteliPopUserPasswordFile = lib.mkOption {
+          type = lib.types.path;
+          description = ''
+            Full path to a file containing the hashed password for the pop
+            account used by alaveteli to retrieve incoming email.
+          '';
+          example = "/run/secrets/pop_user_hashed_password";
+        };
+        imapPasswdFile = lib.mkOption {
+          type = lib.types.path;
+          description = ''
+            Full path to a file containing the passwd-file accounts.
+            See: https://doc.dovecot.org/2.3/configuration_manual/authentication/passwd_file/#passwd-file for the expected file format
+          '';
+          example = "/run/secrets/imap.passwd";
+        };
         aliasFile = lib.mkOption {
           type = lib.types.path;
           description = ''
@@ -547,6 +564,10 @@ in
     };
 
     users.groups.${cfg.group} = { };
+
+    # prevent manually adding/changing system users, they need to
+    # be defined in nix config
+    users.mutableUsers = false;
 
     services.memcached = {
       enable = true;

@@ -29,11 +29,12 @@ let
       # move xapiandb out of source tree and into dataDir
       # TODO: these patches hardcode /var/lib/alaveteli, but we should really
       # use cfg.dataDir instead. Maybe use substituteInPlace?
-      ./patches/lib_acts_as_xapian.patch
-      ./patches/themes_rake.patch
-      ./patches/theme_loader_rb.patch
-      ./patches/routes_rb.patch
       ./patches/conf_env_prod.patch
+      ./patches/lib_acts_as_xapian.patch
+      ./patches/mailin.patch
+      ./patches/routes_rb.patch
+      ./patches/theme_loader_rb.patch
+      ./patches/themes_rake.patch
     ];
     postPatch =
       # bash
@@ -77,6 +78,26 @@ let
         mkdir -p $out/bin
         makeWrapper ${rubyEnv}/bin/rake $out/bin/rake-alaveteli \
             --prefix PATH : ${lib.makeBinPath runtimeDeps} \
+            --set RAILS_ENV production \
+            --chdir '${alaveteli}'
+      '';
+
+  mailin =
+    pkgs.runCommand "mailin-alaveteli"
+      {
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+      }
+      # bash
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${alaveteli}/script/mailin $out/bin/mailin-alaveteli \
+            --prefix PATH : ${
+              lib.makeBinPath [
+                pkgs.mktemp
+                pkgs.coreutils
+                pkgs.mutt
+              ]
+            } \
             --set RAILS_ENV production \
             --chdir '${alaveteli}'
       '';
@@ -206,7 +227,12 @@ let
     '';
 
     passthru = {
-      inherit rails rake rubyEnv;
+      inherit
+        mailin
+        rails
+        rake
+        rubyEnv
+        ;
 
     };
 
