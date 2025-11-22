@@ -28,9 +28,10 @@ let
     patches = [
       # move xapiandb out of source tree and into dataDir
       # TODO: these patches hardcode /var/lib/alaveteli, but we should really
-      # use cfg.dataDir instead. Maybe use substituteInPlace?
+      # use cfg.dataDir instead. Maybe use substituteInPlace in postPatch?
       ./patches/conf_env_prod.patch
       ./patches/lib_acts_as_xapian.patch
+      ./patches/lib_configuration.patch
       ./patches/mailin.patch
       ./patches/routes_rb.patch
       ./patches/theme_loader_rb.patch

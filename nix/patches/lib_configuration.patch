@@ -1,0 +1,12 @@
+--- a/lib/configuration.rb
++++ b/lib/configuration.rb
+@@ -150,7 +150,9 @@ module AlaveteliConfiguration
+   def self.get(key, default)
+     # Don't use the `Rails.env.test?` as this has to work for external commands
+     # when Rails environment isn't loaded.
+-    value = ENV["ALAVETELI_#{key}"] if ENV['RAILS_ENV'] == 'test'
++    # Override default behaviour in nix: try env vars (used for secrets via systemd)
++    # and fallback to the normal system (conf files, then defaults above)
++    value = ENV["ALAVETELI_#{key}"]
+     value || MySociety::Config.get(key, default)
+   end
