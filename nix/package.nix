@@ -32,6 +32,7 @@ let
       ./patches/conf_env_prod.patch
       ./patches/lib_acts_as_xapian.patch
       ./patches/lib_configuration.patch
+      ./patches/lib_mail_handler.patch
       ./patches/mailin.patch
       ./patches/routes_rb.patch
       ./patches/theme_loader_rb.patch

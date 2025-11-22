@@ -668,7 +668,12 @@ in
       # make these programs available to the alaveteli service
       path = [
         cfg.package
+        pkgs.catdoc
+        pkgs.elinks
         pkgs.git
+        pkgs.poppler-utils
+        pkgs.unrtf
+        pkgs.unzip
       ];
 
       # This preStart script replaces rails-post-deploy

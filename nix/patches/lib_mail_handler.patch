@@ -1,0 +1,20 @@
+--- a/lib/mail_handler.rb
++++ b/lib/mail_handler.rb
+@@ -105,7 +105,7 @@ module MailHandler
+         # py_xls2txt only extract text from cells, not from floating
+         # notes. catdoc may be fooled by weird character sets, but will
+         # probably do for UK FOI requests.
+-        AlaveteliExternalCommand.run("/usr/bin/strings", tempfile.path, default_params)
++        AlaveteliExternalCommand.run("strings", tempfile.path, default_params)
+       elsif content_type == 'application/vnd.ms-powerpoint'
+         # ppthtml seems to catch more text, but only outputs HTML when
+         # we want text, so just use catppt for now
+@@ -115,7 +115,7 @@ module MailHandler
+       elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+         # This is Microsoft's XML office document format.
+         # Just pull out the main XML file, and strip it of text.
+-        xml = AlaveteliExternalCommand.run("/usr/bin/unzip", "-qq",
++        xml = AlaveteliExternalCommand.run("unzip", "-qq",
+                                            "-c",
+                                            tempfile.path,
+                                            "word/document.xml",
