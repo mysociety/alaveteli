@@ -18,7 +18,6 @@ in
     name = alaveteliPopUser;
     group = alaveteliPopUser;
     isSystemUser = true;
-    hashedPasswordFile = cfg.mailserver.alaveteliPopUserPasswordFile;
   };
   users.groups.${alaveteliPopUser} = { };
 
@@ -26,9 +25,13 @@ in
     enable = true;
     enablePop3 = true;
     enableImap = true;
+    # disable PAM to allow non-unix users to receive email
+    enablePAM = false;
 
     extraConfig = ''
       listen = "127.0.0.1, ::1"
+      # auth_debug = yes
+      # auth_debug_passwords=yes
 
       service auth {
         # Postfix smtp-auth over submission port

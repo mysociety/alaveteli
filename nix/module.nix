@@ -42,6 +42,10 @@ let
       POP_MAILER_PORT = 995;
       POP_MAILER_USER_NAME = config.users.users.alaveteliPopUser.name;
 
+      # empty custom search path so AlaveteliExternalCommand
+      # uses ENV["PATH"] instead
+      UTILITY_SEARCH_PATH = [ ];
+
     }
     // cfg.settings.general
   );
@@ -449,14 +453,6 @@ in
             If false, no email services are configured (postfix, opendkim, rspamd).
           '';
         };
-        alaveteliPopUserPasswordFile = lib.mkOption {
-          type = lib.types.path;
-          description = ''
-            Full path to a file containing the hashed password for the pop
-            account used by alaveteli to retrieve incoming email.
-          '';
-          example = "/run/secrets/pop_user_hashed_password";
-        };
         imapPasswdFile = lib.mkOption {
           type = lib.types.path;
           description = ''
@@ -525,6 +521,7 @@ in
     environment.systemPackages = [
       cfg.package.rails
       cfg.package.rake
+      cfg.package.mailin
       pkgs.curl
       pkgs.dig
       pkgs.git

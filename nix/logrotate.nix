@@ -7,8 +7,7 @@ let
   cfg = config.services.alaveteli;
 in
 {
-  # TODO: easier to set maillog_xxx in postfix instead?
-  # this seems to have brought in a ton of dependencies
+  # /var/log/mail is 0755 postfix:postfix
   services.rsyslogd = {
     enable = true;
     defaultConfig = ''

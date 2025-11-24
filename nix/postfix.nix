@@ -8,13 +8,6 @@ let
   cfg = config.services.alaveteli;
   inherit (config.security.acme) certs;
 
-  recipientBccFile = pkgs.writeText "recipient_bcc" ''
-    # format for the file:
-    # /regex/                     bcc_username
-    /^${
-      builtins.replaceStrings [ "+" ] [ "" ] incomingEmailPrefix
-    }.*@${cfg.domainName}$/           foimailredirect
-  '';
 
   insecureCiphers = [
     "ADH-AES128-SHA"
@@ -38,34 +31,32 @@ let
     mx: ${cfg.domainName}
   '';
   incomingEmailPrefix = config.services.alaveteli.settings.general.INCOMING_EMAIL_PREFIX;
+  incomingEmailPrefixNoPlus = builtins.replaceStrings [ "+" ] [ "" ] incomingEmailPrefix;
 in
 {
-  # TODO: possible bug in optionalAttrs when passed the postfix config???
-  # using the line below breaks the eval
-  # services.postfix = lib.optionalAttrs (cfg.mailserver.createLocally) {
-
+  # NOTE: the setup used here is a little unusual:
+  # script/mailin is not used at all, instead we rely entirely on the pop mailer
+  # to load incoming email for ALL accounts with it, whether pro is active or not
   services.postfix = {
     enable = true;
     enableSmtp = true; # port 25 (define config manually below)
     enableSubmission = true; # port 587
     localRecipients = [
-      "/^${builtins.replaceStrings [ "+" ] [ "" ] incomingEmailPrefix}.*/"
+      "/^${incomingEmailPrefixNoPlus}.*/"
       "/^postmaster@/"
       "/^abuse@/"
       "/^webmaster@/"
     ]
     ++ cfg.mailserver.localRecipients;
     transport = ''
-      /^${
-        builtins.replaceStrings [ "+" ] [ "\\+" ] incomingEmailPrefix
-      }.*@${cfg.domainName}$/           alaveteli
       /^support-utilisateurs@${cfg.domainName}$/            alaveteli_replies
     '';
 
     extraAliases = ''
       abuse: root
       webmaster: root
-      foimailredirect: ${config.users.users.alaveteliPopUser.name}, backupfoi
+      ${incomingEmailPrefixNoPlus}: ${config.users.users.alaveteliPopUser.name}, backupfoi
+      ne-pas-repondre: /dev/null
     ''
     + cfg.mailserver.extraAliases;
 
@@ -158,7 +149,6 @@ in
     # TODO: where does the local_recipient_maps file end up?
     local_recipient_maps = lib.mkForce "proxy:unix:passwd.byname regexp:/etc/postfix/local_recipients";
 
-    recipient_bcc_maps = "regexp:/etc/postfix/recipient_bcc";
 
     #
     # DKIM settings
@@ -180,24 +170,9 @@ in
     transport_maps = lib.mkForce "regexp:/etc/postfix/transport";
   };
 
-  systemd.services.postfix.preStart = ''
-    ln -sf ${recipientBccFile} /etc/postfix/recipient_bcc
-  '';
 
   services.postfix.settings.master = {
 
-    alaveteli = {
-      type = "unix";
-      privileged = true;
-      chroot = false;
-      maxproc = 50;
-      command = "pipe";
-      args = [
-        "flags=R"
-        "user=alaveteli"
-        "argv=${cfg.package.mailin}/bin/mailin-alaveteli"
-      ];
-    };
 
     alaveteli_replies = {
       type = "unix";
@@ -219,7 +194,7 @@ in
     enable = true;
   };
 
-  # MTA-STS for inboud email
+  # MTA-STS for inbound email
   services.nginx.virtualHosts."mta-sts.${cfg.domainName}" = {
     inherit (cfg) sslCertificate sslCertificateKey;
     onlySSL = true;
