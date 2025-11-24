@@ -1,0 +1,10 @@
+<div class="row">
+  <%= form_tag({}, method: :get, class: 'form form-search span12') do %>
+    <div class="input-append">
+      <%= text_field_tag :query, params[:query], size: 30, class: 'input-large search-query' %>
+      <%= hidden_field_tag :model_type, params[:model_type] %>
+      <%= submit_tag 'Search tags', class: 'btn' %>
+    </div>
+    <span class="help-inline">(substring search for tag <code>name</code>, <code>name:value</code>, or <code>:value</code>)</span>
+  <% end %>
+</div>

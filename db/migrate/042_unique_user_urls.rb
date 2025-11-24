@@ -1,7 +1,7 @@
 class UniqueUserUrls < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     # do last registered ones first, so the last ones get rubbish URLs
-    User.order("id desc").each do |user|
+    User.order(id: :desc).each do |user|
       user.update_url_name
       user.save!
     end

@@ -36,11 +36,14 @@ RSpec.describe 'when making a zipfile available' do
   context 'when an html to pdf converter is supplied' do
 
     before do
-      # We want to test the contents of the pdf, and we don't know whether a particular
-      # instance will have a working html_to_pdf tool, so just copy the HTML rendered
-      # to the PDF file for the purposes of checking it doesn't contain anything that
-      # shouldn't be there.
-      allow(AlaveteliConfiguration).to receive(:html_to_pdf_command).and_return('/bin/cp')
+      # We want to test the contents of the pdf, and we don't know whether a
+      # particular instance will have a working tool, so just copy the HTML
+      # rendered to the PDF file for the purposes of checking it doesn't
+      # contain anything that shouldn't be there.
+      allow(HTMLtoPDFConverter).to receive(:exist?).and_return(true)
+      allow(HTMLtoPDFConverter).to receive(:command).and_return(
+        AlaveteliExternalCommand.new('cp')
+      )
     end
 
     context 'when an incoming message is made "requester_only"' do
@@ -77,7 +80,7 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.pdf')
           expect(correspondence_text).not_to match('hereisthetext')
-          expected_text = "This message has been hidden.\n    boring"
+          expected_text = 'This message has been hidden. boring'
           expect(correspondence_text).to match(expected_text)
         end
 
@@ -126,7 +129,7 @@ RSpec.describe 'when making a zipfile available' do
           expect(zip.count).to eq(1)
           correspondence_text = zip.read('correspondence.pdf')
           expect(correspondence_text).not_to match('Some information please')
-          expected_text = "This message has been hidden.\n    boring"
+          expected_text = 'This message has been hidden. boring'
           expect(correspondence_text).to match(expected_text)
         end
 
@@ -194,7 +197,7 @@ RSpec.describe 'when making a zipfile available' do
   context 'when no html to pdf converter is supplied' do
 
     before do
-      allow(AlaveteliConfiguration).to receive(:html_to_pdf_command).and_return('')
+      allow(HTMLtoPDFConverter).to receive(:exist?).and_return(false)
     end
 
     it "should update the contents of the zipfile when the request changes" do

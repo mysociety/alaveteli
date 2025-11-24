@@ -35,21 +35,6 @@ RSpec.describe AdminHelper do
 
   end
 
-  describe '#comment_both_links' do
-
-    let(:comment) { FactoryBot.create(:comment) }
-
-    it 'includes a link to the comment on the site' do
-      expect(comment_both_links(comment)).to include(comment_path(comment))
-    end
-
-    it 'includes a link to admin edit page for the comment' do
-      expect(comment_both_links(comment)).
-        to include(edit_admin_comment_path(comment))
-    end
-
-  end
-
   describe '#highlight_allow_new_responses_from' do
 
     context 'anybody' do

@@ -1,4 +1,6 @@
-RSpec.shared_examples 'concerns/info_request/title_validation' do |record|
+RSpec.shared_examples 'concerns/info_request/title_validation' do |factory_opts|
+  let(:record) { FactoryBot.build(*factory_opts) }
+
   subject { record }
 
   before do

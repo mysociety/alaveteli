@@ -10,7 +10,6 @@ class RequestController < ApplicationController
   skip_before_action :html_response, only: [:show, :select_authorities]
 
   before_action :check_read_only, only: [:new, :upload_response]
-  before_action :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   before_action :set_render_recaptcha, :only => [ :new ]
   before_action :redirect_numeric_id_to_url_title, :only => [:show]
   before_action :set_info_request, only: [:show]
@@ -44,34 +43,6 @@ class RequestController < ApplicationController
       @xapian_requests = typeahead_search(query, :model => PublicBody)
     end
     medium_cache
-  end
-
-  def select_authorities
-    if !params[:public_body_query].nil?
-      @search_bodies = typeahead_search(params[:public_body_query],
-                                        :model => PublicBody,
-                                        :per_page => 1000 )
-    end
-    respond_to do |format|
-      format.html do
-        if !params[:public_body_ids].nil?
-          if !params[:remove_public_body_ids].nil?
-            body_ids = params[:public_body_ids] - params[:remove_public_body_ids]
-          else
-            body_ids = params[:public_body_ids]
-          end
-          @public_bodies = PublicBody.where(:id => body_ids)
-        end
-      end
-      format.json do
-        if @search_bodies
-          render :json => @search_bodies.results.map { |result| {:name => result[:model].name,
-                                                                :id => result[:model].id } }
-        else
-          render :json => []
-        end
-      end
-    end
   end
 
   def show
@@ -203,67 +174,6 @@ class RequestController < ApplicationController
     end
   end
 
-  def new_batch
-    if params[:public_body_ids].blank?
-      redirect_to select_authorities_path and return
-    end
-
-    # TODO: Decide if we make batch requesters describe their undescribed requests
-    # before being able to make a new batch request
-
-    if !authenticated_user.can_file_requests?
-      @details = authenticated_user.can_fail_html
-      render :template => 'user/banned' and return
-    end
-
-    @batch = true
-
-    AlaveteliLocalization.with_locale(locale) do
-      @public_bodies =
-        PublicBody.
-          where(:id => params[:public_body_ids]).
-            includes(:translations).
-              order('public_body_translations.name')
-    end
-
-    if params[:submitted_new_request].nil? || params[:reedit]
-      return render_new_compose(batch=true)
-    end
-
-    # Check for double submission of batch
-    @existing_batch = InfoRequestBatch.find_existing(authenticated_user,
-                                                     params[:info_request][:title],
-                                                     params[:outgoing_message][:body],
-                                                     params[:public_body_ids])
-
-    @info_request = InfoRequest.build_from_attributes(info_request_params(@batch),
-                                                      outgoing_message_params,
-                                                      authenticated_user)
-    @outgoing_message = @info_request.outgoing_messages.first
-    @info_request.is_batch_request_template = true
-    if !@existing_batch.nil? || !@info_request.valid?
-      # We don't want the error "Outgoing messages is invalid", as in this
-      # case the list of errors will also contain a more specific error
-      # describing the reason it is invalid.
-      @info_request.errors.delete(:outgoing_messages)
-      render :action => 'new'
-      return
-    end
-
-    # Show preview page, if it is a preview
-    if params[:preview].to_i == 1
-      return render_new_preview
-    end
-
-    @info_request_batch = InfoRequestBatch.create!(:title => params[:info_request][:title],
-                                                   :body => params[:outgoing_message][:body],
-                                                   :public_bodies => @public_bodies,
-                                                   :user => authenticated_user)
-
-    flash[:batch_sent] = true
-    redirect_to info_request_batch_path(@info_request_batch)
-  end
-
   # Page new form posts to
   def new
     # All new requests are of normal_sort
@@ -292,7 +202,7 @@ class RequestController < ApplicationController
       # logged in and we want to include the text of the request so they
       # can squirrel it away for tomorrow, so we detect this later after
       # we have constructed the InfoRequest.
-      user_exceeded_limit = authenticated_user.exceeded_limit?
+      user_exceeded_limit = authenticated_user.exceeded_limit?(:info_requests)
       if !user_exceeded_limit
         @details = authenticated_user.can_fail_html
         render :template => 'user/banned'
@@ -308,7 +218,7 @@ class RequestController < ApplicationController
         render :template => 'user/rate_limited'
         return
       end
-      return render_new_compose(batch=false)
+      return render_new_compose
     end
 
     # CREATE ACTION
@@ -564,14 +474,8 @@ class RequestController < ApplicationController
 
   private
 
-  def info_request_params(batch = false)
-    if batch
-      unless params[:info_request].nil? || params[:info_request].empty?
-        params.require(:info_request).permit(:title, :tag_string)
-      end
-    else
-      params.require(:info_request).permit(:title, :public_body_id, :tag_string)
-    end
+  def info_request_params
+    params.require(:info_request).permit(:title, :public_body_id, :tag_string)
   end
 
   def outgoing_message_params
@@ -665,6 +569,7 @@ class RequestController < ApplicationController
         next unless can?(:read, message)
         message_index += 1
         message.get_attachments_for_display.each do |attachment|
+          next unless can?(:read, attachment)
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
             body = message.apply_masks(attachment.default_body, attachment.content_type)
@@ -677,28 +582,28 @@ class RequestController < ApplicationController
 
   def make_request_summary_file(info_request)
     done = false
-    convert_command = AlaveteliConfiguration::html_to_pdf_command
     @render_to_file = true
     assign_variables_for_show_template(info_request)
-    if !convert_command.blank? && File.exist?(convert_command)
+    if HTMLtoPDFConverter.exist?
       html_output = render_to_string(:template => 'request/show')
       tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
       tmp_input.write(html_output)
       tmp_input.close
       tmp_output = Tempfile.new('foihtml2pdf-output')
-      output = AlaveteliExternalCommand.run(convert_command, tmp_input.path, tmp_output.path)
+      command = HTMLtoPDFConverter.new(tmp_input, tmp_output)
+      output = command.run
       if !output.nil?
         file_info = { :filename => 'correspondence.pdf',
                       :data => File.open(tmp_output.path).read }
         done = true
       else
-        logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{tmp_input.path} #{tmp_output.path}'")
+        logger.error("Could not convert info request #{info_request.id} to PDF with command '#{command}'")
       end
       tmp_output.close
       tmp_input.delete
       tmp_output.delete
     else
-      logger.warn("No HTML -> PDF converter found at #{convert_command}")
+      logger.warn("No HTML -> PDF converter found")
     end
     if !done
       file_info = { :filename => 'correspondence.txt',
@@ -709,60 +614,37 @@ class RequestController < ApplicationController
     file_info
   end
 
-  def check_batch_requests_and_user_allowed
-    if !AlaveteliConfiguration::allow_batch_requests
-      raise RouteNotFound.new("Page not enabled")
-    end
-    unless authenticated?
-      ask_to_login(
-        web: _('To make a batch request'),
-        email: _('Then you can make a batch request'),
-        email_subject: _('Make a batch request'),
-        user_name: 'a user who has been authorised to make batch requests'
-      )
-      return
-    end
-    if !@user.can_make_batch_requests?
-      return render_hidden('request/batch_not_allowed')
-    end
-  end
-
-  def render_new_compose(batch)
+  def render_new_compose
     params[:info_request] = { } if !params[:info_request]
 
     # Reconstruct the params
-    unless batch
-      # first the public body (by URL name or id)
-      params[:info_request][:public_body_id] ||=
-        if params[:url_name]
-          if params[:url_name].match(/^[0-9]+$/)
-            PublicBody.find(params[:url_name]).id
-          else
-            public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-            raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # TODO: proper 404
-            public_body.id
-          end
-        elsif params[:public_body_id]
-          params[:public_body_id]
+    # first the public body (by URL name or id)
+    params[:info_request][:public_body_id] ||=
+      if params[:url_name]
+        if params[:url_name].match(/^[0-9]+$/)
+          PublicBody.find(params[:url_name]).id
+        else
+          public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+          raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # TODO: proper 404
+          public_body.id
         end
-
-      if !params[:info_request][:public_body_id]
-        # compulsory to have a body by here, or go to front page which is start
-        # of process
-        redirect_to frontpage_url
-        return
+      elsif params[:public_body_id]
+        params[:public_body_id]
       end
+
+    if !params[:info_request][:public_body_id]
+      # compulsory to have a body by here, or go to front page which is start
+      # of process
+      redirect_to frontpage_url
+      return
     end
 
     # ... next any tags or other things
     params[:info_request][:title] = params[:title] if params[:title]
     params[:info_request][:tag_string] = params[:tags] if params[:tags]
 
-    @info_request = InfoRequest.new(info_request_params(batch))
+    @info_request = InfoRequest.new(info_request_params)
 
-    if batch
-      @info_request.is_batch_request_template = true
-    end
     params[:info_request_id] = @info_request.id
 
     # Manually permit params because strong params was too difficult given the
@@ -794,19 +676,15 @@ class RequestController < ApplicationController
     end
     @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
-    if batch
+    if @info_request.public_body.is_requestable?
       render :action => 'new'
     else
-      if @info_request.public_body.is_requestable?
-        render :action => 'new'
+      if @info_request.public_body.not_requestable_reason == 'bad_contact'
+        render :action => 'new_bad_contact'
       else
-        if @info_request.public_body.not_requestable_reason == 'bad_contact'
-          render :action => 'new_bad_contact'
-        else
-          # if not requestable because defunct or not_apply, redirect to main page
-          # (which doesn't link to the /new/ URL)
-          redirect_to public_body_url(@info_request.public_body)
-        end
+        # if not requestable because defunct or not_apply, redirect to main page
+        # (which doesn't link to the /new/ URL)
+        redirect_to public_body_url(@info_request.public_body)
       end
     end
     return
@@ -816,7 +694,7 @@ class RequestController < ApplicationController
   def render_new_preview
     if @outgoing_message.contains_email? || @outgoing_message.contains_postcode?
       flash.now[:error] = {
-        :partial => "preview_errors.html.erb",
+        :partial => "preview_errors",
         :locals => {
           :contains_email => @outgoing_message.contains_email?,
           :contains_postcode => @outgoing_message.contains_postcode?,
@@ -933,8 +811,9 @@ class RequestController < ApplicationController
 
   def handle_blocked_ip(info_request)
     if send_exception_notifications?
-      e = Exception.new("Possible spam (ip_in_blocklist) from #{ info_request.user_id }: #{ info_request.title }")
-      ExceptionNotifier.notify_exception(e, :env => request.env)
+      msg = "Possible spam request (ip_in_blocklist) from " \
+            "User##{info_request.user_id}: #{user_ip} (#{country_from_ip})"
+      ExceptionNotifier.notify_exception(Exception.new(msg), env: request.env)
     end
 
     if block_restricted_country_ips?

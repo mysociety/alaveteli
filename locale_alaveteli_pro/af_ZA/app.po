@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# FOI Monkey, 2022
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:12+0000\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Language-Team: Afrikaans (South Africa) (https://www.transifex.com/mysociety/t"
+"Last-Translator: FOI Monkey, 2022\n"
+"Language-Team: Afrikaans (South Africa) (https://app.transifex.com/mysociety/t"
 "eams/33529/af_ZA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,25 +36,25 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "(no title)"
-msgstr ""
+msgstr "(geen titel)"
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
 msgstr ""
 
 msgid "12 Months"
-msgstr ""
+msgstr "12 maande"
 
 msgid "29 April 2019"
-msgstr ""
+msgstr "29 April 2019"
 
 msgid "3 July 2017"
-msgstr ""
+msgstr "3 Julie 2017"
 
 msgid "3 Months"
-msgstr ""
+msgstr "3 maande"
 
 msgid "6 Months"
-msgstr ""
+msgstr "6 maande"
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
 msgstr ""
@@ -112,6 +116,9 @@ msgstr ""
 msgid "<strong>Thank</strong> the public authority."
 msgstr ""
 
+msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
+msgstr ""
+
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr ""
 
@@ -149,7 +156,7 @@ msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: 
 msgstr ""
 
 msgid "About {{public_body_name}}"
-msgstr ""
+msgstr "Oor {{public_body_name}}"
 
 msgid "Account"
 msgstr ""
@@ -158,10 +165,10 @@ msgid "Activist Doug Paulley uncovered councils across the UK who, through inact
 msgstr ""
 
 msgid "Activity"
-msgstr ""
+msgstr "Aktiwiteit"
 
 msgid "Add"
-msgstr ""
+msgstr "Voeg by"
 
 msgid "Add Card Details"
 msgstr ""
@@ -212,7 +219,7 @@ msgid "Are you sure you want to publish this request?"
 msgstr ""
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Is jy seker?"
 
 msgid "Automate FOI request management"
 msgstr ""
@@ -263,7 +270,7 @@ msgid "Browse public requests"
 msgstr ""
 
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 msgid "Campaigners"
 msgstr ""
@@ -272,7 +279,7 @@ msgid "Campaigning for better wheelchair accessibility"
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Kanselleer"
 
 msgid "Cancel subscription"
 msgstr ""
@@ -287,6 +294,9 @@ msgid "Card details"
 msgstr ""
 
 msgid "Change privacy"
+msgstr ""
+
+msgid "Change privacy or <strong>publish now</strong>"
 msgstr ""
 
 msgid "Change status"
@@ -326,7 +336,7 @@ msgid "Dashboard and workflow features"
 msgstr ""
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Geagte {{user_name}}"
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
 msgstr ""
@@ -362,7 +372,7 @@ msgid "Edit your request"
 msgstr ""
 
 msgid "Email address"
-msgstr ""
+msgstr "E-posadres"
 
 msgid "Email doesn't look like a valid address"
 msgstr ""
@@ -455,7 +465,7 @@ msgid "Hard to keep track of your many requests?"
 msgstr ""
 
 msgid "Help"
-msgstr ""
+msgstr "Hulp"
 
 msgid "Helping startups find the best location for their business"
 msgstr ""
@@ -599,7 +609,7 @@ msgid "Next payment"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 msgid "No bodies selected"
 msgstr ""
@@ -688,6 +698,9 @@ msgstr ""
 msgid "Please include links to some examples of your journalism or blogging if you can."
 msgstr ""
 
+msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+msgstr ""
+
 msgid "Please tell us if you want to get updates"
 msgstr ""
 
@@ -713,10 +726,10 @@ msgid "Pricing"
 msgstr ""
 
 msgid "Privacy"
-msgstr ""
+msgstr "Privaatheid"
 
 msgid "Private"
-msgstr ""
+msgstr "Privaat"
 
 msgid "Private FOI requests"
 msgstr ""
@@ -746,7 +759,7 @@ msgid "Professional"
 msgstr ""
 
 msgid "Profile"
-msgstr ""
+msgstr "Profiel"
 
 msgid "Provide extra context on the request and your reasons for making it."
 msgstr ""
@@ -790,7 +803,7 @@ msgid "Remove"
 msgstr ""
 
 msgid "Replies"
-msgstr ""
+msgstr "Antwoorde"
 
 msgid "Request access to {{pro_site_name}}"
 msgstr ""
@@ -810,7 +823,7 @@ msgid "Request to"
 msgstr ""
 
 msgid "Requests"
-msgstr ""
+msgstr "Versoeke"
 
 msgid "Requests can stay completely private until you’re ready to go public with your story."
 msgstr ""
@@ -846,7 +859,7 @@ msgid "Save time managing FOI requests"
 msgstr ""
 
 msgid "Search"
-msgstr ""
+msgstr "Soek"
 
 msgid "Search by name"
 msgstr ""
@@ -884,9 +897,12 @@ msgid "Send a reply to {{person_or_body}}"
 msgstr ""
 
 msgid "Send message"
-msgstr ""
+msgstr "Stuur boodskap"
 
 msgid "Send request"
+msgstr ""
+
+msgid "Send this batch anyway?"
 msgstr ""
 
 msgid "Send {{count}} requests"
@@ -901,7 +917,7 @@ msgid "Sending..."
 msgstr ""
 
 msgid "Sent"
-msgstr ""
+msgstr "Gestuur"
 
 msgid "Settings"
 msgstr ""
@@ -915,7 +931,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Sign up"
-msgstr ""
+msgstr "Registreer"
 
 msgid "Simple, affordable pricing"
 msgstr ""
@@ -941,6 +957,9 @@ msgstr ""
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr ""
 
+msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
+msgstr ""
+
 msgid "Sort by"
 msgstr ""
 
@@ -954,13 +973,13 @@ msgid "Status"
 msgstr ""
 
 msgid "Subject"
-msgstr ""
+msgstr "Onderwerp"
 
 msgid "Submit Search"
 msgstr ""
 
 msgid "Subscribe"
-msgstr ""
+msgstr "Teken in"
 
 msgid "Subscription began"
 msgstr ""
@@ -972,7 +991,7 @@ msgid "Subscription ends"
 msgstr ""
 
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Bepalings en voorwaardes"
 
 msgid "Thank you for your interest in {{pro_site_name}}."
 msgstr ""
@@ -1066,10 +1085,10 @@ msgid "Tired of the fiddly details that add time to your investigation?"
 msgstr ""
 
 msgid "Title (A-Z)"
-msgstr ""
+msgstr "Titel (A-Z)"
 
 msgid "To"
-msgstr ""
+msgstr "Aan"
 
 msgid "To access {{pro_site_name}}"
 msgstr ""
@@ -1102,7 +1121,7 @@ msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact deta
 msgstr ""
 
 msgid "Update"
-msgstr ""
+msgstr "Opdateer"
 
 msgid "Update Card Details"
 msgstr ""
@@ -1113,7 +1132,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Updated"
-msgstr ""
+msgstr "Opgedateer"
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
 msgstr ""
@@ -1163,7 +1182,7 @@ msgstr ""
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr ""
 
-msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
 msgstr ""
 
 msgid "When the current billing period ends:"
@@ -1185,7 +1204,7 @@ msgid "Write request"
 msgstr ""
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
 msgstr ""
@@ -1203,6 +1222,9 @@ msgid "You can choose to keep your requests private on the site for up to a year
 msgstr ""
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
+msgstr ""
+
+msgid "You can view the <a href=\"{{existing_batch_url}}\">existing batch</a>, <a href=\"{{edit_batch_url}}\">edit your request</a>, or ignore this warning by confirming you want to proceed anyway."
 msgstr ""
 
 msgid "You don't currently have a Pro subscription"
@@ -1317,10 +1339,10 @@ msgid "You’ve got plenty of other things to think about, so you don’t want t
 msgstr ""
 
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 msgid "all requests"
-msgstr ""
+msgstr "alle versoeke"
 
 msgid "drafts"
 msgstr ""
@@ -1354,6 +1376,11 @@ msgstr ""
 
 msgid "{{count}} Pending"
 msgstr ""
+
+msgid "{{count}} of {{limit}} authorities"
+msgid_plural "{{count}} of {{limit}} authorities"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"

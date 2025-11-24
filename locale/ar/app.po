@@ -26,6 +26,11 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
 # Aladdin El-Haraty <aelharaty@gmail.com>, 2012
@@ -45,10 +50,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:11+0000\n"
-"PO-Revision-Date: 2021-11-12 15:05+0000\n"
-"Last-Translator: Graeme Porteous <graeme@mysociety.org>\n"
-"Language-Team: Arabic (http://www.transifex.com/mysociety/alaveteli/language/a"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
+"PO-Revision-Date: 2011-03-09 17:48+0000\n"
+"Last-Translator: <sana_bj@live.fr>, 2013\n"
+"Language-Team: Arabic (http://app.transifex.com/mysociety/alaveteli/language/a"
 "r/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -310,6 +315,9 @@ msgstr ""
 msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>توضيح</strong> وقع الطلب"
 
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
 msgstr ""
 
@@ -557,9 +565,6 @@ msgstr ""
 msgid "Are we missing a public authority?"
 msgstr ""
 
-msgid "Are you asking about your, or others', personal information or personal situation?"
-msgstr ""
-
 msgid "Are you sure you want to disable two factor authentication?"
 msgstr ""
 
@@ -596,6 +601,9 @@ msgstr ""
 msgid "Attachment (optional):"
 msgstr "ملحق (اختياري) "
 
+msgid "Attachment has been removed"
+msgstr ""
+
 msgid "Attachment:"
 msgstr "ملحق"
 
@@ -630,6 +638,15 @@ msgid "Awaiting response."
 msgstr "في انتظار الرد"
 
 msgid "Back to content"
+msgstr ""
+
+msgid "Banned for evading another ban"
+msgstr ""
+
+msgid "Banned for misuse in breach of house rules"
+msgstr ""
+
+msgid "Banned for spamming"
 msgstr ""
 
 msgid "Banned from this site"
@@ -1404,10 +1421,13 @@ msgstr ""
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
 msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the attachment."
 msgstr ""
 
-msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
+msgid "If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr ""
+
+msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1627,9 +1647,6 @@ msgstr "تأخير مطول"
 msgid "Made between"
 msgstr "تم بين"
 
-msgid "Make a batch request"
-msgstr ""
-
 msgid "Make a request"
 msgstr "قدم مطلبا"
 
@@ -1642,11 +1659,17 @@ msgstr ""
 msgid "Make a request to this authority"
 msgstr ""
 
+msgid "Make a {{legislation}} request to this authority"
+msgstr ""
+
 msgid "Make an {{law_used_short}} request"
 msgstr ""
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr "قدم {{law_used_short}}مطلبا ل '{{public_body_name}}'"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr ""
 
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "اضف وتصفح طلبات لحرية النفاذ للمعلومةّ(FOI)"
@@ -1870,9 +1893,6 @@ msgstr "السلطة فقط قادرة على الرد على هذا الطلب,
 msgid "Only the correct combination of confirming your account through an email token and entering the correct one time passcode will allow your account password to be changed."
 msgstr ""
 
-msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr ""
-
 msgid "Original request sent"
 msgstr "تمّ إرسال المطلب الأصلي"
 
@@ -1938,9 +1958,6 @@ msgstr "العب لعبة تصنيف الطلب!"
 
 msgid "Please"
 msgstr "من فضلكم"
-
-msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
 msgstr ""
@@ -2119,6 +2136,9 @@ msgstr "الرجاء كتابة رسالة المتابعة و تضمينها ا
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
 msgstr "الرجاء كتابة رسالة واضحة لتسهيل القراءة على الاخرين."
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
 msgstr "أشر الى <strong>المعلومات ذات الصلة</strong>, الحملات او المنتديات التي قد تكون مفيدة."
@@ -2512,6 +2532,9 @@ msgstr "ضع صورة لحسابك"
 msgid "Share on Facebook"
 msgstr ""
 
+msgid "Share with private link"
+msgstr ""
+
 msgid "Share your batch request"
 msgstr ""
 
@@ -2562,6 +2585,9 @@ msgstr "تسجيل الخروج"
 
 msgid "Sign up"
 msgstr "اشترك"
+
+msgid "Signups from Tor have been blocked due to extensive misuse. Please contact us if this is a problem for you."
+msgstr ""
 
 msgid "Simple search"
 msgstr "بحث بسيط"
@@ -2615,6 +2641,9 @@ msgid "Sorry, we couldn't find that page"
 msgstr "المعذرة, لم نتمكن من ايجاد الصفحة "
 
 msgid "Sorry, we're currently unable to add your annotation. Please try again later."
+msgstr ""
+
+msgid "Sorry, we're currently unable to create your account. Please try again later."
 msgstr ""
 
 msgid "Sorry, we're currently unable to send your request. Please try again later."
@@ -2873,6 +2902,12 @@ msgstr ""
 msgid "The last user was created over a day ago"
 msgstr ""
 
+msgid "The oldest Xapian index job, has been idle for more than 1 hour"
+msgstr ""
+
+msgid "The oldest Xapian index job, hasn't been idle for more than 1 hour"
+msgstr ""
+
 msgid "The page doesn't exist. Things you can try now:"
 msgstr "هذه الصفحة غير موجودة. الاشياء التي لمكن ان تجربها:"
 
@@ -2911,9 +2946,6 @@ msgstr "كان الطلب <strong>ناجحا</strong>."
 
 msgid "The request was refused by the public authority"
 msgstr "تم رفض الطلب من طرف السلطة العامةّ"
-
-msgid "The request you have tried to view has been removed. There are various reasons why we might have done this, sorry we can't be more specific here. Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
 
 msgid "The requester has abandoned this request for some reason"
 msgstr "تخلى صاحب الطلب عن هذا الطلب لأسباب معينة"
@@ -2972,9 +3004,6 @@ msgstr ""
 msgid "Then you can log into the administrative interface"
 msgstr "ثم يمكنك تسجيل دخولك للمجال الاداري"
 
-msgid "Then you can make a batch request"
-msgstr ""
-
 msgid "Then you can play the request categorisation game."
 msgstr "ثم بامكانك ان تلعب لعبة تصنيف الطلب"
 
@@ -3032,10 +3061,16 @@ msgstr ""
 msgid "There are no requests to extract right now. Great job!"
 msgstr ""
 
+msgid "There are various reasons why we might have done this, sorry we can't be more specific here."
+msgstr ""
+
 msgid "There are {{count}} new annotations on your {{law_used_short}} request. Follow this link to see what they wrote."
 msgstr "يوجد {{count}} ملاحظات جديدة {{law_used_short}} تخص طلبك. اتبع هذا الرابط لرؤية ما كتبوا."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid "There is a limit on the number of annotations you can make in a day because we don’t want the site to be bombarded with large numbers of inappropriate annotations. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
 msgstr ""
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
@@ -3074,13 +3109,16 @@ msgstr "لا <strong>يملكون</strong> المعلومة <small>(ربما س�
 msgid "They have been given the following explanation:"
 msgstr "قدم لهم الشرح التالي:"
 
+msgid "They have not replied to your {{law_used_short}} request '{{title}}' promptly, as normally required by law"
+msgstr ""
+
+msgid "They have not replied to your {{law_used_short}} request '{{title}}', as normally required by law"
+msgstr ""
+
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
 msgstr ""
 "لم يقوموا بالرد على {{law_used_short}}طلبك  {{title}}, \n"
 " فورا كما هو مطلوب بموجب القانون عادة"
-
-msgid "They have not replied to your {{law_used_short}} request {{title}}, as normally required by law"
-msgstr ""
 
 msgid "They have still not replied to your {{law_used_short}} request {{title}}, as normally required by law"
 msgstr ""
@@ -3092,6 +3130,18 @@ msgid "This account has been closed."
 msgstr ""
 
 msgid "This annotation has been reported for administrator attention"
+msgstr ""
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr ""
+
+msgid "This attachment has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This attachment is hidden, so that only you, the requester, can see it. {{reason}}"
 msgstr ""
 
 msgid "This authority is not subject to FOI law, so is not legally obliged to respond"
@@ -3120,10 +3170,8 @@ msgstr " هذه نسخة نص مجرد  بخصوص حرية النفاذ للم�
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
 msgstr " هذه النسخة من ملحق حرية النفاذ الى المعلومة ترد في صيغة    لغة توصيف النصوص المترابطة  HTML"
 
-msgid "This is because {{title}} is an old request that has been marked to no longer receive responses."
+msgid "This is because '{{title}}' is an old request that has been marked to no longer receive responses."
 msgstr ""
-"حدث هذا لأن {{title}} طلب قديم قد تم \n"
-"برمجته بحيث لا يستقبل مزيدا من الردود."
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
 msgstr "هذا طلبك الشخصي, ستبعث لك رسالة الكترونية بصفة الية عندما يصل الرد الجديد."
@@ -3143,16 +3191,16 @@ msgstr ""
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
 msgstr ""
 
+msgid "This message has been hidden. {{reason}}"
+msgstr ""
+
 msgid "This message has been sent."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This message has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
-msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
-
-msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
+msgid "This message has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
@@ -3189,13 +3237,16 @@ msgstr "هذا الطلب لديه <strong>حالة مجهولة</strong>."
 msgid "This request has been <strong>closed to new correspondence</strong>. <a href=\"{{help_contact_url}}\">Contact us</a> if you think it should be reopened."
 msgstr ""
 
-msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr "قد تم  <strong>التبليغ عن هذا الطلب على اساس انه يحتاج اهتماما من الادارة (ربما لاعتباره مخلا, او طلبا لمعلومات شخصية)"
+msgid "This request has been <strong>reported</strong> as needing administrator attention."
+msgstr ""
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it. There may be an explanation in the correspondence below."
 msgstr ""
 "هذا الطلب <strong>وقع سحبه</strong>من قبل الشخص الذي قام به .\n"
 "               قد يوجد تفسير في المراسلات اسفله ."
+
+msgid "This request has been hidden. {{reason}}"
+msgstr ""
 
 msgid "This request has been made public on {{site_name}}."
 msgstr ""
@@ -3218,13 +3269,14 @@ msgstr "تمت برمجة هذا الطلب من قبل مشرف ل \"لعدم �
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
 msgstr "الرد على هذا الطلب غير مألوف, و <strong>يستوجب اهتماما</strong> من {{site_name}} الفريق."
 
-msgid "This request has prominence 'hidden'. You can only see it because you are logged in as a super user."
+msgid "This request has prominence \"hidden\". {{reason}} You can only see it because you are logged in as a super user."
 msgstr ""
-"تم اخفاء اهمية هذا الطلب. تستطيع رؤيته فقط لانك سجلت دخولك\n"
-"    iكمستخدم متميز."
 
-msgid "This request is hidden, so that only you the requester can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr "المتابعات و الردود الجدبدة  على هذا المطلب وقع ايقافها للتجنب الرسائل الغير مرغوب فيها. يرجى <a href=\"{{url}}\">الاتصال بنا</a> اذا كنت {{user_link}} و تحتاج الى ارسال متابعات."
+msgid "This request has prominence \"requester_only\". {{reason}} You can only see it because you are logged in as a super user."
+msgstr ""
+
+msgid "This request is hidden, so that only you, the requester, can see it. {{reason}}"
+msgstr ""
 
 msgid "This request is now publicly accessible via {{public_url}}"
 msgstr ""
@@ -3319,7 +3371,7 @@ msgstr "لمتابعة الطلبات المقدمة باستعمال {{site_nam
 msgid "To follow the request '{{request_title}}'"
 msgstr "لمتابعة الطلب '{{request_title}}'"
 
-msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
+msgid "To help us keep the site tidy, someone else has updated the status of the {{law_used_full}} request '{{title}}' that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
 
 msgid "To join this project"
@@ -3333,9 +3385,6 @@ msgstr "لاعلام الجميع, اتبع الرابط ثم قم باختيا�
 
 msgid "To log into the administrative interface"
 msgstr " لتسجيل الدخول في المجال الاداري"
-
-msgid "To make a batch request"
-msgstr ""
 
 msgid "To play the request categorisation game"
 msgstr "للعب لعبة تصنيف الطلب"
@@ -3384,6 +3433,9 @@ msgstr "الى:"
 
 msgid "Today"
 msgstr "اليوم"
+
+msgid "Too many annotations"
+msgstr ""
 
 msgid "Too many requests"
 msgstr "طلبات كثيرة جدا"
@@ -3701,6 +3753,9 @@ msgstr ""
 msgid "What type of article is it?"
 msgstr ""
 
+msgid "What would you like to do?"
+msgstr ""
+
 msgid "What's happened:"
 msgstr ""
 
@@ -3875,6 +3930,9 @@ msgstr ""
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
 msgstr "لقد وجدت خللا.  الرجاء <a href=\"{{contact_url}}\">الاتصال بنا</a> لاعلامنا بالمشكل"
+
+msgid "You have hit the rate limit on annotations. Users are ordinarily limited to {{comment_limit}} annotations per day."
+msgstr ""
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
 msgstr "لقد بلغت السقف الأقصى للطلبات الجديدة. المستخدمون محددون عادة ب {{max_requests_per_user_per_day}} طلب في كل 24 ساعة. ستتمكن من القيام بطلب جديد خلال{{can_make_another_request}}."
@@ -4114,8 +4172,8 @@ msgstr ""
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
 msgstr ""
 
-msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr "تمت تسمية طلبك {{info_request}}. اعلام الجميع عما اذا تحصلت على المعلومات سيساعدنا في التبويب"
+msgid "Your request was called '{{info_request}}'. Letting everyone know whether you got the information will help us keep tabs on"
+msgstr ""
 
 msgid "Your requests will be <strong>sent</strong> shortly!"
 msgstr ""
@@ -4180,7 +4238,22 @@ msgstr "[حرية النفاذ للمعلومة #{{request}}البريد الا�
 msgid "[Name Removed]"
 msgstr ""
 
+msgid "[Personally Identifiable Information removed]"
+msgstr ""
+
 msgid "[REDACTED]"
+msgstr ""
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr ""
+
+msgid "[extraneous material removed]"
+msgstr ""
+
+msgid "[name removed]"
+msgstr ""
+
+msgid "[potentially defamatory material removed]"
 msgstr ""
 
 msgid "[{{public_body}} request email]"
@@ -4241,6 +4314,9 @@ msgid "comments"
 msgstr "تعاليق"
 
 msgid "complete"
+msgstr ""
+
+msgid "contact us"
 msgstr ""
 
 msgid "delivered"

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220928093559
 #
 # Table name: info_requests
 #
@@ -10,7 +10,7 @@
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  described_state                       :string           not null
-#  awaiting_description                  :boolean          default("false"), not null
+#  awaiting_description                  :boolean          default(FALSE), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
 #  law_used                              :string           default("foi"), not null
@@ -19,20 +19,21 @@
 #  idhash                                :string           not null
 #  external_user_name                    :string
 #  external_url                          :string
-#  attention_requested                   :boolean          default("false")
-#  comments_allowed                      :boolean          default("true"), not null
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
 #  last_public_response_at               :datetime
-#  reject_incoming_at_mta                :boolean          default("false"), not null
-#  rejected_incoming_count               :integer          default("0")
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
 #  date_initial_request_last_sent_at     :date
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
-#  incoming_messages_count               :integer          default("0")
+#  incoming_messages_count               :integer          default(0)
 #  public_token                          :string
+#  prominence_reason                     :text
 #
 
 FactoryBot.define do
@@ -57,8 +58,10 @@ FactoryBot.define do
       after(:create) do |info_request, evaluator|
         incoming_message = create(evaluator.incoming_message_factory,
                                   info_request: info_request)
-        info_request.log_event("response",
-                               { incoming_message_id: incoming_message.id })
+        info_request.log_event(
+          'response',
+          incoming_message_id: incoming_message.id
+        )
       end
     end
 
@@ -139,13 +142,15 @@ FactoryBot.define do
 
     trait :attention_requested do
       after(:create) do |info_request, _evaluator|
-        info_request.log_event('report_request',
-                               request_id: info_request.id,
-                               editor: info_request.user,
-                               reason: 'Not a valid request',
-                               message: 'Useful info',
-                               old_attention_requested: false,
-                               attention_requested: true)
+        info_request.log_event(
+          'report_request',
+          request_id: info_request.id,
+          editor: info_request.user,
+          reason: 'Not a valid request',
+          message: 'Useful info',
+          old_attention_requested: false,
+          attention_requested: true
+        )
         info_request.set_described_state('attention_requested')
       end
     end
@@ -180,7 +185,7 @@ FactoryBot.define do
 
     trait :embargo_expired do
       after(:create) do |info_request, evaluator|
-        info_request.log_event("expire_embargo", info_request: info_request)
+        info_request.log_event('expire_embargo', info_request: info_request)
         info_request.reload
       end
     end

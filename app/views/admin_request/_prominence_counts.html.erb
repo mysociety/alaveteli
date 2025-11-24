@@ -1,0 +1,12 @@
+<ul class="thumbnails">
+  <% InfoRequest::Prominence::VALUES.each do |prominence| %>
+    <li class="span3">
+      <div class="thumbnail">
+        <%= prominence_icon(prominence) %>
+
+        <%= prominence %>:
+        <%= info_requests.where(prominence: prominence).size %>
+      </div>
+    </li>
+  <% end %>
+</ul>

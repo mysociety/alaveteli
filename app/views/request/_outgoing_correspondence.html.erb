@@ -1,9 +1,7 @@
-<div class="outgoing correspondence js-collapsable" id="outgoing-<%= outgoing_message.id %>">
-  <%- if cannot?(:read, outgoing_message) %>
-    <%= render :partial => 'request/hidden_correspondence', :locals => { :message => outgoing_message } %>
-  <%- else %>
-    <%= render :partial => 'request/restricted_correspondence', :locals => {:message => outgoing_message } %>
+<div class="outgoing correspondence js-collapsable" id="<%= dom_id(outgoing_message) %>">
+  <%= render partial: 'request/prominence', locals: { prominenceable: outgoing_message } %>
 
+  <%- if can?(:read, outgoing_message) %>
     <% delivery_status = outgoing_message.delivery_status %>
 
     <div class="correspondence__header <% if delivery_status %>correspondence__header--with-delivery-status<% end %>">
@@ -17,8 +15,8 @@
 
       <% if delivery_status %>
         <div class="correspondence__header__delivery-status">
-          <%= link_to outgoing_message_delivery_status_path(outgoing_message), :class => "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.simple} js-toggle-delivery-log", :'data-delivery-status' => outgoing_message.delivery_status.simple do -%>
-            <%= outgoing_message.delivery_status.simple.to_s.humanize -%>
+          <%= link_to outgoing_message_delivery_status_path(outgoing_message), class: "toggle-delivery-log toggle-delivery-log--#{outgoing_message.delivery_status.to_s} js-toggle-delivery-log", data: { delivery_status: outgoing_message.delivery_status.to_s } do -%>
+            <%= outgoing_message.delivery_status.to_s!.humanize -%>
           <% end -%>
         </div>
       <% end %>
@@ -29,7 +27,9 @@
       <p><%= link_to _('Try opening the logs in a new window.'), outgoing_message_delivery_status_path(outgoing_message), :target => '_blank' %></p>
     </div>
 
-    <%= render :partial => 'request/bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
+    <div class="correspondence_text">
+      <div><%= outgoing_message.get_body_for_html_display %></div>
+    </div>
 
     <p class="event_actions">
       <% if outgoing_message.status == 'ready' && !@info_request.is_external? %>

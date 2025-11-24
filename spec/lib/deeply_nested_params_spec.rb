@@ -11,9 +11,11 @@ RSpec.describe DeeplyNestedParams do
     expect(status).to eq(200)
   end
 
-  context 'if Rack::Utils.parse_query raises an RangeError' do
+  context 'if Rack::Utils.parse_query raises an ParamsTooDeepError' do
     before do
-      allow(Rack::Utils).to receive(:parse_query).and_raise(RangeError)
+      allow(Rack::Utils).to receive(:parse_query).and_raise(
+        Rack::QueryParser::ParamsTooDeepError
+      )
     end
 
     it 'returns 400 response' do

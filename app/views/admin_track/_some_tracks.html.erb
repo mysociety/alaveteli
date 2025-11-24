@@ -23,7 +23,7 @@
           <% end %>
           <% if @admin_user.nil? %>
             <%# Do not show this on the list of tracks on the user page, because it’s rather repetitive there %>
-            tracked by <%= user_both_links track_thing.tracking_user %>
+            tracked by <%= both_links track_thing.tracking_user %>
         <% end %>
         </div>
         <div id="track_<%=track_thing.id%>" class="accordion-body collapse">

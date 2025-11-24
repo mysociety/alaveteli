@@ -87,6 +87,7 @@ RSpec.configure do |config|
     if File.directory?(raw_email_dir)
       FileUtils.rm_rf(raw_email_dir)
     end
+    FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
   end
 
   # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being
@@ -248,7 +249,7 @@ def get_last_post_redirect
   # TODO: yeuch - no other easy way of getting the token so we can check
   # the redirect URL, as it is by definition opaque to the controller
   # apart from in the place that it redirects to.
-  post_redirects = PostRedirect.order("id DESC").first
+  post_redirects = PostRedirect.order(id: :desc).first
 end
 
 RSpec::Matchers.define :be_equal_modulo_whitespace_to do |expected|

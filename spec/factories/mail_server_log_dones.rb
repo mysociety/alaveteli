@@ -13,7 +13,13 @@
 FactoryBot.define do
 
   factory :mail_server_log_done do
-    filename { "/var/log/mail/mail.log-#{ Date.current.to_s(:number )} " }
+    filename {
+      if rails_upgrade?
+        "/var/log/mail/mail.log-#{ Date.current.to_fs(:number)} "
+      else
+        "/var/log/mail/mail.log-#{ Date.current.to_s(:number)} "
+      end
+    }
     last_stat { Time.current }
   end
 

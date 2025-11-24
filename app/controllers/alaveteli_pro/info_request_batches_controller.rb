@@ -14,7 +14,7 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
   def preview
     @draft_info_request_batch = load_draft
     load_data_from_draft(@draft_info_request_batch)
-    if all_models_valid?
+    if all_models_valid?(ignore_existing_batch: true)
       render 'alaveteli_pro/info_requests/preview'
     else
       remove_duplicate_errors
@@ -35,6 +35,8 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
       @info_request_batch.save!
       @draft_info_request_batch.destroy
       redirect_to show_alaveteli_pro_batch_request_path(id: @info_request_batch.id)
+    elsif all_models_valid?(ignore_existing_batch: true)
+      render 'alaveteli_pro/info_requests/preview'
     else
       remove_duplicate_errors
       render 'alaveteli_pro/info_requests/new'
@@ -101,7 +103,10 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
     @outgoing_message = @example_info_request.outgoing_messages.first
   end
 
-  def all_models_valid?
+  def all_models_valid?(ignore_existing_batch: nil)
+    ignore_existing_batch ||= params.fetch(:ignore_existing_batch, false)
+    @info_request_batch.ignore_existing_batch = ignore_existing_batch
+
     @example_info_request.valid? && \
       @outgoing_message.valid? && \
       (@embargo.nil? || @embargo.present? && @embargo.valid?) && \

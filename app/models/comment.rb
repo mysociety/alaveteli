@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: comments
 #
@@ -7,11 +7,11 @@
 #  user_id             :integer          not null
 #  info_request_id     :integer
 #  body                :text             not null
-#  visible             :boolean          default("true"), not null
+#  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  locale              :text             default(""), not null
-#  attention_requested :boolean          default("false"), not null
+#  attention_requested :boolean          default(FALSE), not null
 #
 
 # models/comments.rb:
@@ -21,7 +21,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class Comment < ApplicationRecord
-  include AdminColumn
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
@@ -63,7 +62,7 @@ class Comment < ApplicationRecord
             references(:embargoes)
   }
 
-  after_save :event_xapian_update
+  after_save :reindex_request_events
 
   default_url_options[:host] = AlaveteliConfiguration.domain
 
@@ -97,13 +96,22 @@ class Comment < ApplicationRecord
     ret
   end
 
+  def prominence
+    hidden? ? 'hidden' : 'normal'
+  end
+
   def hidden?
     !visible?
   end
 
-  # So when takes changes it updates, or when made invisble it vanishes
-  def event_xapian_update
+  def reindex_request_events
     info_request_events.find_each(&:xapian_mark_needs_index)
+  end
+
+  def event_xapian_update
+    warn 'DEPRECATION: Comment#event_xapian_update will be removed in 0.42. ' \
+         'It has been replaced with Comment#reindex_request_events'
+    reindex_request_events
   end
 
   # Return body for display as HTML
@@ -113,38 +121,6 @@ class Comment < ApplicationRecord
     text = MySociety::Format.make_clickable(text, contract: 1, nofollow: true)
     text = text.gsub(/\n/, '<br>')
     text.html_safe
-  end
-
-  def for_admin_column(complete = false)
-    if complete
-      columns = self.class.content_columns
-    else
-      columns = self.class.content_columns.map do |c|
-        c if %w(body visible created_at updated_at).include?(c.name)
-      end.compact
-    end
-
-    columns.each do |column|
-      name = column.name
-      yield(name.humanize, send(name), column.type.to_s, name)
-    end
-  end
-
-  def for_admin_event_column(event)
-    return unless event
-
-    columns = event.for_admin_column { |name, value, type, column_name| }
-
-    columns = columns.map do |c|
-      c if %w(event_type params_yaml created_at).include?(c.name)
-    end
-
-    columns.compact.each do |column|
-      yield(column.name.humanize,
-            event.send(column.name),
-            column.type.to_s,
-            column.name)
-    end
   end
 
   def report_reasons
@@ -168,14 +144,15 @@ class Comment < ApplicationRecord
 
       RequestMailer.requires_admin(info_request, user, message).deliver_now
 
-      info_request.
-        log_event('report_comment',
-                  comment_id: id,
-                  editor: user,
-                  reason: reason,
-                  message: raw_message,
-                  old_attention_requested: old_attention,
-                  attention_requested: true)
+      info_request.log_event(
+        'report_comment',
+        comment_id: id,
+        editor: user,
+        reason: reason,
+        message: raw_message,
+        old_attention_requested: old_attention,
+        attention_requested: true
+      )
     end
   end
 
@@ -185,6 +162,20 @@ class Comment < ApplicationRecord
 
   def last_reported_at
     last_report.try(:created_at)
+  end
+
+  def hide(editor:)
+    ActiveRecord::Base.transaction do
+      event_params = {
+        comment_id: id,
+        editor: editor.url_name,
+        old_visible: visible?,
+        visible: false
+      }
+
+      update!(visible: false)
+      info_request.log_event('hide_comment', event_params)
+    end
   end
 
   private

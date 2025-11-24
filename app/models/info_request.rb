@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220928093559
 #
 # Table name: info_requests
 #
@@ -10,7 +10,7 @@
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  described_state                       :string           not null
-#  awaiting_description                  :boolean          default("false"), not null
+#  awaiting_description                  :boolean          default(FALSE), not null
 #  prominence                            :string           default("normal"), not null
 #  url_title                             :text             not null
 #  law_used                              :string           default("foi"), not null
@@ -19,20 +19,21 @@
 #  idhash                                :string           not null
 #  external_user_name                    :string
 #  external_url                          :string
-#  attention_requested                   :boolean          default("false")
-#  comments_allowed                      :boolean          default("true"), not null
+#  attention_requested                   :boolean          default(FALSE)
+#  comments_allowed                      :boolean          default(TRUE), not null
 #  info_request_batch_id                 :integer
 #  last_public_response_at               :datetime
-#  reject_incoming_at_mta                :boolean          default("false"), not null
-#  rejected_incoming_count               :integer          default("0")
+#  reject_incoming_at_mta                :boolean          default(FALSE), not null
+#  rejected_incoming_count               :integer          default(0)
 #  date_initial_request_last_sent_at     :date
 #  date_response_required_by             :date
 #  date_very_overdue_after               :date
 #  last_event_forming_initial_request_id :integer
 #  use_notifications                     :boolean
 #  last_event_time                       :datetime
-#  incoming_messages_count               :integer          default("0")
+#  incoming_messages_count               :integer          default(0)
 #  public_token                          :string
+#  prominence_reason                     :text
 #
 
 require 'digest/sha1'
@@ -42,16 +43,21 @@ class InfoRequest < ApplicationRecord
   Guess = Struct.new(:info_request, :matched_value, :match_method).freeze
   OLD_AGE_IN_DAYS = 21.days
 
-  include AdminColumn
   include Rails.application.routes.url_helpers
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
+  include Taggable
+  include Notable
 
-  @non_admin_columns = %w(title url_title)
-  @additional_admin_columns = %w(rejected_incoming_count)
+  admin_columns exclude: %i[title url_title],
+                include: %i[rejected_incoming_count]
+
+  def self.admin_title
+    'Request'
+  end
 
   strip_attributes :allow_empty => true
   strip_attributes :only => [:title],
@@ -69,26 +75,25 @@ class InfoRequest < ApplicationRecord
   belongs_to :info_request_batch,
              :inverse_of => :info_requests
 
-  validates_presence_of :public_body, :message => N_("Please select an authority"),
-                                      :unless => Proc.new { |info_request| info_request.is_batch_request_template? }
+  validates_presence_of :public_body, message: N_("Please select an authority")
 
   has_many :info_request_events,
-           -> { order('created_at, id') },
+           -> { order(:created_at, :id) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :outgoing_messages,
-           -> { order('created_at') },
+           -> { order(:created_at) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :incoming_messages,
-           -> { order('created_at') },
+           -> { order(:created_at) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :user_info_request_sent_alerts,
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :track_things,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :widget_votes,
@@ -100,11 +105,11 @@ class InfoRequest < ApplicationRecord
            inverse_of: :citable,
            dependent: :destroy
   has_many :comments,
-           -> { order('created_at') },
+           -> { order(:created_at) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :censor_rules,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :info_request,
            :dependent => :destroy
   has_many :mail_server_logs,
@@ -126,10 +131,7 @@ class InfoRequest < ApplicationRecord
            -> { extraction },
            class_name: 'Project::Submission'
 
-  attr_accessor :is_batch_request_template
   attr_reader :followup_bad_reason
-
-  has_tag_string
 
   scope :internal, -> { where.not(user_id: nil) }
   scope :external, -> { where(user_id: nil) }
@@ -378,7 +380,11 @@ class InfoRequest < ApplicationRecord
       ir.outgoing_messages << om
       om.info_request = ir
       ir.save!
-      ir.log_event('sent', { :outgoing_message_id => om.id, :email => ir.public_body.request_email })
+      ir.log_event(
+        'sent',
+        outgoing_message_id: om.id,
+        email: ir.public_body.request_email
+      )
     end
     ir
   end
@@ -631,7 +637,7 @@ class InfoRequest < ApplicationRecord
 
   def self.find_in_state(state)
     where(:described_state => state).
-      order('last_event_time')
+      order(:last_event_time)
   end
 
   def self.log_overdue_events
@@ -670,9 +676,11 @@ class InfoRequest < ApplicationRecord
     query.find_each(:batch_size => 100) do |info_request|
       # Date to DateTime representing beginning of day
       created_at = info_request.send(date_field).beginning_of_day + 1.day
-      event = info_request.log_event(event_type,
-                                     { :event_created_at => Time.zone.now },
-                                     { :created_at => created_at })
+      event = info_request.log_event(
+        event_type,
+        { event_created_at: Time.zone.now },
+        created_at: created_at
+      )
       if info_request.use_notifications?
         info_request.user.notify(event)
       end
@@ -714,10 +722,6 @@ class InfoRequest < ApplicationRecord
   # Returns a StateCalculator
   def state(opts = {})
     State::Calculator.new(self)
-  end
-
-  def is_batch_request_template?
-    is_batch_request_template == true
   end
 
   def indexed_by_search?
@@ -774,9 +778,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each do |event|
-      event.xapian_mark_needs_index
-    end
+    info_request_events.find_each(&:xapian_mark_needs_index)
   end
 
   # Force reindex when tag string changes
@@ -944,7 +946,7 @@ class InfoRequest < ApplicationRecord
       comment.info_request = self
       comment.save!
 
-      log_event("comment", { :comment_id => comment.id })
+      log_event('comment', comment_id: comment.id)
       save!
     end
     comment
@@ -957,13 +959,15 @@ class InfoRequest < ApplicationRecord
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
-      log_event('report_request',
-                request_id: id,
-                editor: user,
-                reason: reason,
-                message: message,
-                old_attention_requested: attention_requested,
-                attention_requested: true)
+      log_event(
+        'report_request',
+        request_id: id,
+        editor: user,
+        reason: reason,
+        message: message,
+        old_attention_requested: attention_requested,
+        attention_requested: true
+      )
 
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
@@ -1208,14 +1212,14 @@ class InfoRequest < ApplicationRecord
   def last_embargo_set_event
     info_request_events.
       where(:event_type => 'set_embargo').
-        reorder('created_at DESC').
+        reorder(created_at: :desc).
           first
   end
 
   def last_embargo_expire_event
     info_request_events.
       where(:event_type => 'expire_embargo').
-        reorder('created_at DESC').
+        reorder(created_at: :desc).
           first
   end
 
@@ -1448,7 +1452,7 @@ class InfoRequest < ApplicationRecord
       if incoming_message == skip_message
         next
       end
-      incoming_message.safe_mail_from
+      incoming_message.safe_from_name
 
       next if ! incoming_message.is_public?
 
@@ -1608,15 +1612,17 @@ class InfoRequest < ApplicationRecord
     end
 
     return_val = if update(attrs)
-      log_event('move_request',
-                :editor => editor,
-                :public_body_url_name => public_body.url_name,
-                :old_public_body_url_name => old_body.url_name)
+                   log_event(
+                     'move_request',
+                     editor: editor,
+                     public_body_url_name: public_body.url_name,
+                     old_public_body_url_name: old_body.url_name
+                   )
 
-      reindex_request_events
+                   reindex_request_events
 
-      public_body
-    end
+                   public_body
+                 end
 
     # HACK: Manually reset counter caches
     # https://github.com/rails/rails/issues/10865
@@ -1633,21 +1639,30 @@ class InfoRequest < ApplicationRecord
     editor = opts.fetch(:editor)
 
     return_val = if update(:user => destination_user)
-      log_event('move_request',
-                :editor => editor,
-                :user_url_name => user.url_name,
-                :old_user_url_name => old_user.url_name)
+                   log_event(
+                     'move_request',
+                     editor: editor,
+                     user_url_name: user.url_name,
+                     old_user_url_name: old_user.url_name
+                   )
 
-      reindex_request_events
+                   reindex_request_events
 
-      user
-    end
+                   user
+                 end
 
     # HACK: Manually reset counter caches
     # https://github.com/rails/rails/issues/10865
     old_user.class.reset_counters(old_user.id, :info_requests)
     user.class.reset_counters(user.id, :info_requests)
     return_val
+  end
+
+  # Is the request currently embargoed?
+  #
+  # Returns Boolean
+  def embargoed?
+    embargo.present?
   end
 
   # Is the attached embargo expiring soon?
@@ -1761,12 +1776,10 @@ class InfoRequest < ApplicationRecord
       true
     elsif feature_enabled?(:accept_mail_from_anywhere)
       true
+    elsif user.features.enabled?(:accept_mail_from_poller)
+      source == :poller
     else
-      if feature_enabled?(:accept_mail_from_poller, user)
-        source == :poller
-      else
-        source == :mailin
-      end
+      source == :mailin
     end
   end
 
@@ -1826,7 +1839,7 @@ class InfoRequest < ApplicationRecord
 
       params = { :incoming_message_id => incoming_message.id }
       params[:rejected_reason] = rejected_reason.to_s if rejected_reason
-      log_event("response", params)
+      log_event('response', params)
 
       save!
     end
@@ -1866,7 +1879,8 @@ class InfoRequest < ApplicationRecord
 
   def set_use_notifications
     if use_notifications.nil?
-      self.use_notifications = feature_enabled?(:notifications, user) && \
+      self.use_notifications = user &&
+                               user.features.enabled?(:notifications) && \
                                info_request_batch_id.present?
     end
     return true

@@ -47,3 +47,12 @@
     <%= link_to _("Create a widget for this request"), new_request_widget_path(info_request) %>
   </div>
 <% end %>
+
+<% if AlaveteliConfiguration.donation_url.present? %>
+  <div class="act_link">
+    <i class="act-link-icon act-link-icon--donation"></i>
+    <%= link_to AlaveteliConfiguration.donation_url do %>
+      <%= _('<strong>Donate</strong> to {{site_name}}', site_name: site_name) %>
+    <% end %>
+  </div>
+<% end %>

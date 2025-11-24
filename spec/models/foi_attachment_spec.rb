@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220916134847
 #
 # Table name: foi_attachments
 #
@@ -14,11 +14,16 @@
 #  hexdigest             :string(32)
 #  created_at            :datetime
 #  updated_at            :datetime
+#  prominence            :string           default("normal")
+#  prominence_reason     :text
 #
 
 require 'spec_helper'
+require 'models/concerns/message_prominence'
 
 RSpec.describe FoiAttachment do
+  it_behaves_like 'concerns/message_prominence', :body_text
+
   describe '.binary' do
     subject { described_class.binary }
 
@@ -65,6 +70,15 @@ RSpec.describe FoiAttachment do
       main.delete_cached_file!
       main = im.get_main_body_text_part
       expect(main.body).to eq(orig_body)
+    end
+
+    it 'can parse raw email and read attachment inside DB transaction' do
+      im = FactoryBot.create(:plain_incoming_message)
+      FoiAttachment.transaction do
+        expect { im.get_text_for_indexing_full }.to_not raise_error
+        main_part = im.get_main_body_text_part
+        expect(main_part.body).to match(/That's so totally a rubbish question/)
+      end
     end
 
   end
@@ -128,6 +142,22 @@ RSpec.describe FoiAttachment do
       expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
     end
 
+  end
+
+  describe '#main_body_part?' do
+    subject { attachment.main_body_part? }
+
+    let(:message) { FactoryBot.build(:incoming_message_with_attachments) }
+
+    context 'when the attachment is the main body' do
+      let(:attachment) { message.get_main_body_text_part }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the attachment is not the main body' do
+      let(:attachment) { message.get_attachments_for_display.first }
+      it { is_expected.to eq(false) }
+    end
   end
 
   describe '#filename=' do

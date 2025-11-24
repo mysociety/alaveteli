@@ -4,4 +4,35 @@
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     text-align: center;
   }
+
+  // modified version of https://codepen.io/alvarotrigo/pen/PoKMyNO
+  .milestone {
+    background-image: linear-gradient(
+    -225deg,
+    #4faded 0%,
+    #a94ca6 29%,
+    #e04b4b 67%,
+    #ffd836 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 300% auto;
+    color: #000;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: textclip 4s ease-in-out 0.25s 1;
+    display:inline-block;
+  }
+
+  @keyframes textclip {
+    from {
+      text-fill-color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    to {
+      background-position: 300% center;
+      text-fill-color: unset;
+      -webkit-text-fill-color: unset;
+    }
+  }
 }

@@ -98,6 +98,7 @@ RSpec.describe AlaveteliSpamTermChecker do
   end
 
   describe '#spam?' do
+    subject { described_class.new }
 
     it 'returns true if the term matches a spam term' do
       subject = described_class.new([/hello/, 'world'])
@@ -109,6 +110,14 @@ RSpec.describe AlaveteliSpamTermChecker do
       expect(subject.spam?('hey globe')).to eq(false)
     end
 
+    # Tests for false positives
+    it 'returns false if the term includes ADHD' do
+      expect(subject.spam?('Request about ADHD diagnosis')).to eq(false)
+    end
+
+    it 'returns false if the term includes PhD' do
+      expect(subject.spam?('Request about PhD theses')).to eq(false)
+    end
   end
 
 end

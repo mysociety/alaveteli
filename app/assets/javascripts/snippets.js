@@ -33,7 +33,7 @@
     });
   });
 
-  var clipboard = new ClipboardJS('button', {
+  var clipboard = new ClipboardJS('[data-clipboard-text]', {
     text: function(button) {
       var txt = document.createElement('textarea');
       txt.innerHTML = $(button).data('clipboard-text');

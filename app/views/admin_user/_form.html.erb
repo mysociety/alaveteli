@@ -54,6 +54,26 @@
 </div>
 
 <div class="control-group">
+  <div class="control-label">Features</div>
+  <div class="controls">
+    <% @admin_user.features.each do |feature| %>
+      <div>
+        <label class="checkbox-inline">
+          <%= check_box_tag "admin_user[features][]",
+                            feature.key,
+                            feature.enabled?,
+                            :disabled => feature.roles? %>
+          <% if feature.roles? && feature.enabled? %>
+            <%= hidden_field_tag "admin_user[features][]", feature.key %>
+          <% end %>
+          <%= feature.label %>
+        </label>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="control-group">
   <label for="ban_text" class="control-label">Ban text</label>
   <div class="controls">
     <%= text_area 'admin_user', 'ban_text', :class => "span6", :rows => 3  %>

@@ -5,16 +5,16 @@
 #
 # Translators:
 # Gareth Rees <gareth@mysociety.org>, 2019
-# Liset Hamming <elhamming@gmail.com>, 2020
+# Liset Hamming <elhamming@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:12+0000\n"
+"POT-Creation-Date: 2022-12-22 13:14+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Liset Hamming <elhamming@gmail.com>, 2020\n"
-"Language-Team: Dutch (https://www.transifex.com/mysociety/teams/33529/nl/)\n"
+"Last-Translator: Liset Hamming <elhamming@gmail.com>, 2022\n"
+"Language-Team: Dutch (https://app.transifex.com/mysociety/teams/33529/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -116,6 +116,9 @@ msgstr ""
 msgid "<strong>Thank</strong> the public authority."
 msgstr "<strong>Bedank</strong> de overheidsinstantie."
 
+msgid "<strong>You have already sent this request</strong> to some authorities in this batch on {{date}}."
+msgstr ""
+
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
 msgstr "<strong>{{brand}}</strong>eindigend met {{last4}}, verstrijkt op {{exp_month}}/{{exp_year}}"
 
@@ -201,7 +204,7 @@ msgid "Also called {{other_name}}."
 msgstr "Ook genoemd {{other_name}}"
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr "Een alles-in-één Wob-toolkit voor journalisten"
+msgstr "Een alles-in-één Woo-toolkit voor journalisten"
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
 msgstr "Het plaatsen van opmerkingen geeft je de mogelijkheid om je verzoek te duiden. Ook deze opmerkingen zullen uiteindelijk zichtbaar worden gemaakt. Bijv.:"
@@ -293,6 +296,9 @@ msgstr ""
 msgid "Change privacy"
 msgstr "Verander je privacy-instellingen"
 
+msgid "Change privacy or <strong>publish now</strong>"
+msgstr ""
+
 msgid "Change status"
 msgstr "Verander de status"
 
@@ -375,7 +381,7 @@ msgid "Estimated total number of Pro requests:"
 msgstr ""
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
-msgstr "Alles wat u nodig heeft om complexe Wob-gedreven dossiers tot een goed einde te brengen"
+msgstr "Alles wat u nodig heeft om complexe, op de Woo steunende dossiers tot een goed einde te brengen"
 
 msgid "Expand all correspondence"
 msgstr ""
@@ -435,7 +441,7 @@ msgid "Friendly support"
 msgstr ""
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
-msgstr "Op deze pagina zie je een handig overzicht van je Wob-verzoeken, en kun je snel de voor verschillende verzoeken benodigde acties te ondernemen. Begin nu aan je eerste verzoek!"
+msgstr "Op deze pagina zie je een handig overzicht van je Woo-verzoeken, en kun je snel de voor verschillende verzoeken benodigde acties te ondernemen. Begin nu aan je eerste verzoek!"
 
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
 msgstr "Op deze pagina kun je zien welke volgende stap je bij deze verzoeken moet nemen. Begin nu aan je eerste verzoek!"
@@ -692,6 +698,9 @@ msgstr "Vul hier je e-mailadres in"
 msgid "Please include links to some examples of your journalism or blogging if you can."
 msgstr "Voeg ook een paar links naar voorbeelden van je journalistieke werk toe"
 
+msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</a> include <strong>making responsible requests</strong>."
+msgstr ""
+
 msgid "Please tell us if you want to get updates"
 msgstr "Wil je updates ontvangen?"
 
@@ -782,10 +791,10 @@ msgid "Refer a friend"
 msgstr ""
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
-msgstr "Houd er rekening mee dat overheden {{late_number_of_days}} kalenderdagen de tijd hebben om op Wob-verzoeken te beslissen."
+msgstr "Houd er rekening mee dat overheden {{late_number_of_days}} kalenderdagen de tijd hebben om op Woo-verzoeken te beslissen."
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
-msgstr "Houd er rekening mee dat overheden {{late_number_of_days}} werkdagen de tijd hebben om op Wob-verzoeken te beslissen. "
+msgstr "Houd er rekening mee dat overheden {{late_number_of_days}} werkdagen de tijd hebben om op Woo-verzoeken te beslissen. "
 
 msgid "Reminders"
 msgstr ""
@@ -893,6 +902,9 @@ msgstr "Stuur een bericht"
 msgid "Send request"
 msgstr "Verstuur het verzoek"
 
+msgid "Send this batch anyway?"
+msgstr ""
+
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
 msgstr[0] "Verzend {{count}} aanvraag"
@@ -944,6 +956,9 @@ msgstr "Er gings iets mis bij het updaten van de privacy-instellingen van je ver
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
 msgstr "Tot onze spijt ging er iets mis bij het updaten van de privacy-instellingen van je verzoeken, probeer opnieuw."
+
+msgid "Sorry, you can't sign up to {{pro_site_name}} at this time."
+msgstr ""
 
 msgid "Sort by"
 msgstr "Orden op"
@@ -1167,8 +1182,8 @@ msgstr ""
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
 msgstr ""
 
-msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Als een verzoek is afgeschermd, waarborgen we dat het gedurende de gekozen periode enkel voor jou zichtbaar is op {{site_name}}. De {{pro_site_name}} site-beheerders kunnen je verzoek wel zien, maar ze zullen het enkel en alleen bekijken als dat nodig is om een technisch probleem op te lossen (bijv. een mislukte aflevering van het verzoek bij de betreffende overheidsinstantie). Ze zullen nooit de inhoud van je verzoek of antwoorden erop vrijgeven voor derden. Dit staat uiteraard los van eventuele publicatie door de overheid op een overheidswebsite."
+msgid "When a request is private we guarantee that it will only be publicly viewable on {{site_name}} after the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
+msgstr ""
 
 msgid "When the current billing period ends:"
 msgstr "Einde van de lopende betaalperiode: "
@@ -1209,6 +1224,9 @@ msgstr ""
 msgid "You can re-subscribe at any time and full access to these features will be restored."
 msgstr "Je kunt je op elk gewenst moment opnieuw abonneren. Volledige toegang tot deze functies wordt dan hersteld."
 
+msgid "You can view the <a href=\"{{existing_batch_url}}\">existing batch</a>, <a href=\"{{edit_batch_url}}\">edit your request</a>, or ignore this warning by confirming you want to proceed anyway."
+msgstr ""
+
 msgid "You don't currently have a Pro subscription"
 msgstr ""
 
@@ -1228,7 +1246,7 @@ msgid "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\
 msgstr "Je hebt een follow-up bericht gestuurd naar {{public_body_name}} over \"{{info_request_title}}\"."
 
 msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
-msgstr "Je Wob-verzoek \"{{info_request_title}}\" is verstuurd naar {{public_body_name}}."
+msgstr "Je Woo-verzoek \"{{info_request_title}}\" is verstuurd naar {{public_body_name}}."
 
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
 msgstr "Je hebt een bezwaarschrift verstuurd naar {{public_body_name}} over \"{{info_request_title}}\"."
@@ -1290,19 +1308,19 @@ msgid "Your request is now public!"
 msgstr "Je verzoek is gepubliceerd! "
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
-msgstr "Je Wob-verzoek aan {{public_body_name}} betreffende \"{{info_request_title}}\" is nu zichtbaar voor alle gebruikers van de site."
+msgstr "Je Woo-verzoek aan {{public_body_name}} betreffende \"{{info_request_title}}\" is nu zichtbaar voor alle gebruikers van de site."
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
-msgstr "Er is een nieuw bericht binnengekomen op je Wob-verzoek aan {{public_body_name}} betreffende \"{{info_request_title}}\"."
+msgstr "Er is een nieuw bericht binnengekomen op je Woo-verzoek aan {{public_body_name}} betreffende \"{{info_request_title}}\"."
 
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
-msgstr "Je Wob-verzoek op {{site_name}} blijft nu afgeschermd tot {{expiry_date}}."
+msgstr "Je Woo-verzoek op {{site_name}} blijft nu afgeschermd tot {{expiry_date}}."
 
 msgid "Your request will now be private until {{expiry_date}}."
 msgstr ""
 
 msgid "Your requests are now public!"
-msgstr "Je Wob-verzoeken zijn nu zichtbaar voor alle gebruikers van de site! "
+msgstr "Je Woo-verzoeken zijn nu zichtbaar voor alle gebruikers van de site! "
 
 msgid "Your requests will now be private until {{expiry_date}}."
 msgstr ""
@@ -1311,7 +1329,7 @@ msgid "Your subscription has been cancelled, your access to {{pro_site_name}} wi
 msgstr "Je abonnement is geannuleerd, je toegang tot {{pro_site_name}} eindigt op <strong>{{date}}</strong>."
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
-msgstr "Jouw mening over wat de {{site_name}}<strong>beheerders</strong>zouden moeten doen met dit Wob-verzoek. "
+msgstr "Jouw mening over wat de {{site_name}}<strong>beheerders</strong>zouden moeten doen met dit Woo-verzoek. "
 
 msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
 msgstr ""
@@ -1356,10 +1374,15 @@ msgid "title (A-Z)"
 msgstr "titel (A-Z)"
 
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
-msgstr "{{commenter_name}} heeft een nieuwe opmerking geplaatst bij je Wob-verzoek aan  {{public_body_name}}\" betreffende {{info_request_title}}.\""
+msgstr "{{commenter_name}} heeft een nieuwe opmerking geplaatst bij je Woo-verzoek aan  {{public_body_name}}\" betreffende {{info_request_title}}.\""
 
 msgid "{{count}} Pending"
 msgstr "{{count}} Hangende"
+
+msgid "{{count}} of {{limit}} authorities"
+msgid_plural "{{count}} of {{limit}} authorities"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"

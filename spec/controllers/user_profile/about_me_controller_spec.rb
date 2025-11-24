@@ -124,7 +124,7 @@ RSpec.describe UserProfile::AboutMeController do
 
         it 'sets a message suggesting they add one' do
           put :update, params: { :user => { :about_me => 'My bio' } }
-          expect(flash[:notice][:partial]).to eq("update_profile_text.html.erb")
+          expect(flash[:notice][:partial]).to eq("update_profile_text")
         end
 
         it 'redirects to the set profile photo page' do

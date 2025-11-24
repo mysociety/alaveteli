@@ -77,7 +77,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
         sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
           post :preview, params: { draft_id: draft }
-          expect(response).to render_template('request/new_defunct.html.erb')
+          expect(response).to render_template('request/new_defunct')
         end
       end
     end

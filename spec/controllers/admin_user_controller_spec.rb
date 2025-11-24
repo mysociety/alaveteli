@@ -431,6 +431,23 @@ RSpec.describe AdminUserController do
       Comment.find(comment_ids).each { |c| expect(c).to be_visible }
     end
 
-  end
+    it 'reindexes affected comments' do
+      comments = [
+        FactoryBot.create(:hidden_comment, :with_event, user: @user),
+        FactoryBot.create(:visible_comment, :with_event, user: @user)
+      ]
 
+      # Destroy the jobs added from the factory creation step above
+      ActsAsXapian::ActsAsXapianJob.destroy_all
+
+      # Only :hidden_comment has been updated since :visible_comment is already
+      # in the correct state
+      expect {
+        post :modify_comment_visibility,
+             params: { id: @user.id,
+                       comment_ids: comments.map(&:id),
+                       unhide_selected: 'visible' }
+      }.to change(ActsAsXapian::ActsAsXapianJob, :count).by(1)
+    end
+  end
 end

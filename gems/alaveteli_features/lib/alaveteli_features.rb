@@ -1,11 +1,22 @@
 require "alaveteli_features/version"
 require "alaveteli_features/helpers"
 require "alaveteli_features/constraints"
+require "alaveteli_features/collection"
+require "alaveteli_features/feature"
+require "alaveteli_features/group"
 require "alaveteli_features/railtie" if defined?(Rails)
 require "flipper"
 require "flipper-active_record" if defined?(Rails)
 
 module AlaveteliFeatures
+  def self.features
+    @features ||= Collection.new(Feature)
+  end
+
+  def self.groups
+    @groups ||= Collection.new(Group)
+  end
+
   def self.backend
     return @backend if @backend
     if self.tables_exist?

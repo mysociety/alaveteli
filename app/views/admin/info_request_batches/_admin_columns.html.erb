@@ -1,0 +1,32 @@
+<table class="table table-striped table-condensed">
+  <tbody>
+    <% info_request_batch.for_admin_column do |name, value| %>
+      <tr>
+        <td>
+          <b><%= name.humanize %></b>
+        </td>
+
+        <td>
+          <% if name == 'body' %>
+            <% truncated_value = truncate(h(value&.squish), length: 100, omission: '') { link_to '…', '#', title: 'Toggle hidden', class: 'toggle-hidden' } %>
+            <%= simple_format(truncated_value) %>
+            <div style="display:none;"><%= simple_format(value) %></div>
+          <% else %>
+            <%= admin_value(value) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td>
+        <b>Created by</b>
+      </td>
+
+      <td>
+        <%= both_links(info_request_batch.user) %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

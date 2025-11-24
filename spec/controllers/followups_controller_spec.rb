@@ -549,7 +549,7 @@ RSpec.describe FollowupsController do
 
       expect(response).to render_template('new')
 
-      expect(flash.now[:error][:partial]).to eq("followup_not_sent.html.erb")
+      expect(flash.now[:error][:partial]).to eq("followup_not_sent")
 
       expect(response.body).
         to include('Your follow up has not been sent because this ' \

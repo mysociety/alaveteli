@@ -57,7 +57,7 @@ class User
           user.
             send(assoc).
               group("DATE_TRUNC('month', created_at)").
-                reorder("date_trunc_month_created_at").
+                reorder(:date_trunc_month_created_at).
                   count
 
         # Add the counts to existing keys, or set new keys if they don't exist

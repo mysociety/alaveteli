@@ -58,7 +58,7 @@ RSpec.describe RequestGameController do
       it 'assigns the game_over template to the flash message' do
         get :play
         expect(flash.now[:notice][:partial]).
-          to eq("request_game/game_over.html.erb")
+          to eq("request_game/game_over")
         expect(flash.now[:notice][:locals]).to include({
           :helpus_url => test_url,
           :site_name => site_name

@@ -5,7 +5,11 @@
       <b>Authority</b>
     </td>
     <td>
-      <%= @change_request.get_public_body_name %>
+      <% if @change_request.public_body %>
+        <%= both_links(@change_request.public_body) %>
+      <% else %>
+        <%= @change_request.get_public_body_name %>
+      <% end %>
     </td>
   </tr>
 
@@ -34,7 +38,7 @@
       <b>Source</b>
     </td>
     <td>
-      <%= @change_request.source_url %>
+      <tt><%= link_to nil, @change_request.source_url %></tt>
     </td>
   </tr>
 
@@ -44,6 +48,15 @@
     </td>
     <td>
       <%= @change_request.get_user_name %> (<%= @change_request.get_user_email %>)
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <b>Notes</b>
+    </td>
+    <td>
+      <%= @change_request.notes %>
     </td>
   </tr>
 

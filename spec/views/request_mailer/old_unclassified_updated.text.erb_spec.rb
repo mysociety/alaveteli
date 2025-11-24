@@ -25,7 +25,8 @@ RSpec.describe "request_mailer/old_unclassified_updated" do
   it "does not add HTMLEntities to the request title" do
     assign(:info_request, request)
     render
-    expect(response).to match("request Request apostrophe's data that you made")
+    expect(response).
+      to match("request 'Request apostrophe's data' that you made")
   end
 
   it "does not add HTMLEntities to the public body name" do

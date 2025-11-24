@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'reply_handler'
+require 'mail_handler/reply_handler'
 
 RSpec.describe MailHandler::ReplyHandler do
   describe '.forward_on' do

@@ -13,7 +13,7 @@
     <li><%= _('<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL.')%></li>
   <% end %>
   <li><%= _('<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL.')%>
-  <li><%= _('<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>', :list_of_file_extensions => IncomingMessage.get_all_file_extensions)%></li>
+  <li><%= _('<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>', list_of_file_extensions: AlaveteliFileTypes.all_extensions.join(' '))%></li>
   <li><%= _('Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January.')%></li>
   <li><%= _('<strong><code>tag:charity</code></strong> to find all public ' \
             'authorities or requests with a given tag. You can include ' \

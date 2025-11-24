@@ -1,6 +1,24 @@
 require 'spec_helper'
 
 RSpec.describe HasTagString::HasTagStringTag do
+  describe '.from_string' do
+    subject { described_class.from_string(tag) }
+
+    context 'with a name' do
+      let(:tag) { 'foo' }
+      it { is_expected.to be_a(described_class) }
+      it { is_expected.to have_attributes(name: 'foo', value: nil) }
+    end
+
+    context 'with a name and value' do
+      let(:tag) { 'foo:bar' }
+      it { is_expected.to be_a(described_class) }
+      it { is_expected.to have_attributes(name: 'foo', value: 'bar') }
+    end
+  end
+end
+
+RSpec.describe HasTagString::HasTagStringTag, 'taggable model' do
 
   class ModelWithTag < ApplicationRecord
     has_tag_string
@@ -164,7 +182,7 @@ RSpec.describe HasTagString::HasTagStringTag, " when fiddling with tag strings" 
 
   it "should be able to make a new tag and save it" do
     @tag = HasTagString::HasTagStringTag.new
-    @tag.model = 'PublicBody'
+    @tag.model_type = 'PublicBody'
     @tag.model_id = public_bodies(:geraldine_public_body).id
     @tag.name = "moo"
     @tag.save!

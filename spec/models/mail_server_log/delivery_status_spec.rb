@@ -94,14 +94,6 @@ RSpec.describe MailServerLog::DeliveryStatus do
 
   end
 
-  describe '#simple' do
-
-    it 'returns the status' do
-      expect(described_class.new(:sent).simple).to eq(:sent)
-    end
-
-  end
-
   describe '#delivered?' do
 
     it 'returns true when the status is :delivered' do

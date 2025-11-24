@@ -1,14 +1,13 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: public_body_headings
 #
-#  id                     :integer          not null, primary key
-#  display_order          :integer
-#  created_at             :datetime
-#  updated_at             :datetime
-#  public_body_heading_id :integer          not null
-#  name                   :text
+#  id            :integer          not null, primary key
+#  display_order :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  name          :text
 #
 
 useless_lonely_heading:

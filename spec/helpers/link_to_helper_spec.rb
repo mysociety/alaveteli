@@ -139,6 +139,36 @@ RSpec.describe LinkToHelper do
     end
   end
 
+  describe 'when linking to attachments' do
+    let(:info_request) do
+      FactoryBot.create(:info_request, :with_plain_incoming)
+    end
+    let(:incoming_message) { info_request.incoming_messages.first }
+    let(:attachment) { incoming_message.foi_attachments.first }
+
+    context 'for external links' do
+      subject { foi_attachment_url(attachment) }
+
+      it 'generates the url to the info request of the message' do
+        is_expected.to include \
+          "http://test.host/request/#{info_request.url_title}"
+      end
+
+      it 'includes an anchor to the attachment' do
+        is_expected.to include("#attachment-#{attachment.id}")
+      end
+    end
+
+    context 'for internal links' do
+      subject { foi_attachment_path(attachment) }
+
+      it 'generates the outgoing_message_url with the path only' do
+        is_expected.to eq \
+          "/request/#{info_request.url_title}#attachment-#{attachment.id}"
+      end
+    end
+  end
+
   describe 'when displaying a user link for a request' do
     context "for external requests" do
       let(:info_request) do
@@ -247,6 +277,23 @@ RSpec.describe LinkToHelper do
         )
       )
       expect(current_path_as_json).to eq '/body/welsh_government.json'
+    end
+  end
+
+  describe '#incoming_message_dom_id' do
+    subject { incoming_message_dom_id(incoming_message) }
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    context 'incoming message with main body part' do
+      it 'returns main body part attachment dom ID' do
+        main_body_part = incoming_message.get_main_body_text_part
+        is_expected.to eq "attachment-#{main_body_part.to_param}"
+      end
+    end
+
+    context 'incoming message without main body part' do
+      before { allow(incoming_message).to receive(:get_main_body_text_part) }
+      it { is_expected.to be_nil }
     end
   end
 end

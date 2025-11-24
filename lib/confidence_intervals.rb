@@ -16,7 +16,7 @@
 # with the proportions that represent the lower and higher confidence
 # intervals around that.
 
-require 'statistics2'
+require 'statistics3'
 
 def ci_bounds(successes, total, power)
   if total == 0

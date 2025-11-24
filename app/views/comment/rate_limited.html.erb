@@ -1,0 +1,29 @@
+<% @title = _('Too many annotations') %>
+
+<h1><%= @title %></h1>
+
+<p>
+  <%= _('You have hit the rate limit on annotations. Users are ordinarily ' \
+        'limited to {{comment_limit}} annotations per day.',
+        comment_limit: User::CONTENT_LIMIT[:comments]) %>
+</p>
+
+<p>
+  <%= _("There is a limit on the number of annotations you can make in a day " \
+        "because we don’t want the site to be bombarded with " \
+        "large numbers of inappropriate annotations. If you feel you have a " \
+        "good reason to ask for the limit to be lifted in your case, " \
+        "please <a href='{{help_contact_path}}'>get in touch</a>.",
+        help_contact_path: help_contact_path) %>
+</p>
+
+<% if @comment %>
+  <p>
+    <%= _('Here is the message you wrote, in case you would like to copy ' \
+          'the text and save it for later.') %>
+  </p>
+
+  <div class="comment_in_request box">
+    <div class="comment_content"><%= @comment.get_body_for_html_display %></div>
+  </div>
+<% end %>

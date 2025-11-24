@@ -4,6 +4,10 @@ class Ability
 
   attr_reader :user, :project, :public_token
 
+  def self.guest(*args)
+    new(nil, *args)
+  end
+
   def initialize(user, project: nil, public_token: false)
     # Define abilities for the passed in user here. For example:
     #
@@ -41,14 +45,65 @@ class Ability
       can_update_request_state?(request)
     end
 
-    # Viewing messages with prominence
-    can :read, [IncomingMessage, OutgoingMessage] do |msg|
-      can_view_with_prominence?(msg.prominence, msg.info_request)
+    # Viewing requests, messages & attachments as Pro admin
+    if user&.view_hidden_and_embargoed?
+      can :_read, InfoRequest
+      can :_read, OutgoingMessage
+      can :_read, IncomingMessage
+      can :_read, FoiAttachment
     end
 
-    # Viewing requests with prominence
-    can :read, InfoRequest do |request|
-      can_view_with_prominence?(request.prominence, request)
+    # Viewing requests, messages & attachments as admin
+    if user&.view_hidden?
+      can :_read, InfoRequest do |info_request|
+        !info_request.embargo
+      end
+      can :_read, [IncomingMessage, OutgoingMessage] do |message|
+        !message.info_request.embargo
+      end
+      can :_read, FoiAttachment do |attachment|
+        !attachment.incoming_message.info_request.embargo
+      end
+    end
+
+    can :_read, InfoRequest do |info_request|
+      !info_request.embargo &&
+        %w[normal backpage].include?(info_request.prominence)
+    end
+    can :_read, OutgoingMessage, prominence: 'normal'
+    can :_read, IncomingMessage, prominence: 'normal'
+    can :_read, FoiAttachment, prominence: 'normal'
+
+    if user
+      # Viewing their own embargoed requests with public prominence
+      can :_read, InfoRequest do |info_request|
+        info_request.embargo &&
+          info_request.user == user &&
+          %w[normal backpage].include?(info_request.prominence)
+      end
+
+      # Viewing their own request, messages & attachments with requester only prominence
+      can :_read, InfoRequest, user: user, prominence: 'requester_only'
+      can :_read, OutgoingMessage, info_request: { user: user }, prominence: 'requester_only'
+      can :_read, IncomingMessage, info_request: { user: user }, prominence: 'requester_only'
+      can :_read, FoiAttachment, incoming_message: { info_request: { user: user } }, prominence: 'requester_only'
+    end
+
+    # Reading attachments with prominence
+    can :read, FoiAttachment do |attachment|
+      can?(:_read, attachment) && can?(:read, attachment.incoming_message)
+    end
+
+    # Reading messages with prominence
+    can :read, [IncomingMessage, OutgoingMessage] do |message|
+      can?(:_read, message) && can?(:read, message.info_request)
+    end
+
+    # Reading requests with prominence or via a project or public token
+    can :read, InfoRequest do |info_request|
+      can?(:_read, info_request) ||
+        project&.member?(user) ||
+        public_token
     end
 
     can :manage, OutgoingMessage::Snippet do |request|
@@ -117,8 +172,8 @@ class Ability
 
     can :admin, AlaveteliPro::Embargo if user && user.is_pro_admin?
 
-    can :admin, InfoRequest do |info_request|
-      if info_request.embargo
+    can :admin, [InfoRequest, InfoRequestBatch] do |content|
+      if content.embargoed?
         user && user.is_pro_admin?
       else
         user && user.is_admin?
@@ -187,31 +242,5 @@ class Ability
 
   def requester_or_admin?(request)
     user == request.user || user.is_admin?
-  end
-
-  def can_view_with_prominence?(prominence, info_request)
-    if info_request.embargo
-      case prominence
-      when 'hidden'
-        user&.view_hidden_and_embargoed?
-      when 'requester_only'
-        info_request.is_actual_owning_user?(user) ||
-          user&.view_hidden_and_embargoed?
-      else
-        info_request.is_actual_owning_user?(user) ||
-          user&.view_embargoed? ||
-          project&.member?(user) ||
-          public_token
-      end
-    else
-      case prominence
-      when 'hidden'
-        user&.view_hidden?
-      when 'requester_only'
-        info_request.is_actual_owning_user?(user) || user&.view_hidden?
-      else
-        true
-      end
-    end
   end
 end

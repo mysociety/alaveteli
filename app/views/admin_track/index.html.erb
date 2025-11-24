@@ -9,7 +9,7 @@
 
 <%= render :partial => 'some_tracks', :locals => { :track_things => @admin_tracks } %>
 
-<%= will_paginate(@admin_tracks, :class => "paginator" ) %>
+<%= will_paginate(@admin_tracks) %>
 
 <h2>Current top tracks:</h2>
 <ol>

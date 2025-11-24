@@ -130,7 +130,7 @@ class NotificationMailer < ApplicationMailer
               template_name: 'embargo_expiring_notification')
   end
 
-  def embargo_expired_notification(notification)
+  def expire_embargo_notification(notification)
     @info_request = notification.info_request_event.info_request
 
     set_reply_to_headers(@info_request.user)
@@ -145,7 +145,7 @@ class NotificationMailer < ApplicationMailer
 
     mail_user(@info_request.user,
               subject,
-              template_name: 'embargo_expired_notification')
+              template_name: 'expire_embargo_notification')
   end
 
   def overdue_notification(notification)

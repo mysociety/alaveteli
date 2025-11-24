@@ -40,6 +40,18 @@ RSpec.describe "Signing in" do
         to have_content user.name
     end
 
+    it 'records your IP when configured' do
+      allow(AlaveteliConfiguration).
+        to receive(:user_sign_in_activity_retention_days).and_return(1)
+      expect { try_login(user) }.to change { user.sign_ins.count }.from(0).to(1)
+    end
+
+    it 'does not record your IP when not configured' do
+      allow(AlaveteliConfiguration).
+        to receive(:user_sign_in_activity_retention_days).and_return(0)
+      expect { try_login(user) }.not_to change { user.sign_ins.count }
+    end
+
     it "it redirects to the redirect path" do
       try_login(user, { :redirect => '/list' })
       expect(page).

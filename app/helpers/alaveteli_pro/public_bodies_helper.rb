@@ -4,7 +4,7 @@ module AlaveteliPro::PublicBodiesHelper
       id: body.id,
       name: body.name,
       short_name: body.short_name,
-      notes: body.notes,
+      notes: body.notes_as_string,
       info_requests_visible_count: body.info_requests_visible_count,
       about: _('About {{public_body_name}}', public_body_name: body.name)
     }
@@ -20,6 +20,13 @@ module AlaveteliPro::PublicBodiesHelper
       partial: 'alaveteli_pro/public_bodies/search_result',
       layout: false,
       locals: { result: result }
+    )
+
+    result[:notes_as_html] = public_send(
+      render_method,
+      partial: 'alaveteli_pro/public_bodies/notes',
+      layout: false,
+      locals: { notes: body.notes }
     )
 
     result

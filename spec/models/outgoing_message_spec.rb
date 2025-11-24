@@ -18,8 +18,13 @@
 #
 
 require 'spec_helper'
+require 'models/concerns/message_prominence'
+require 'models/concerns/taggable'
 
 RSpec.describe OutgoingMessage do
+  it_behaves_like 'concerns/message_prominence', :initial_request
+  it_behaves_like 'concerns/taggable', :initial_request
+
   describe '.is_searchable' do
     subject { described_class.is_searchable }
 
@@ -222,12 +227,12 @@ RSpec.describe OutgoingMessage do
 
     context 'when following up to an incoming message' do
 
-      it 'uses the safe_mail_from if the incoming message has a valid address' do
+      it 'uses the safe_from_name if the incoming message has a valid address' do
         message = FactoryBot.build(:internal_review_request)
 
         followup =
           mock_model(IncomingMessage, :from_email => 'specific@example.com',
-                                      :safe_mail_from => 'Specific Person',
+                                      :safe_from_name => 'Specific Person',
                                       :valid_to_reply_to? => true)
         allow(message).to receive(:incoming_message_followup).and_return(followup)
 
@@ -244,7 +249,7 @@ RSpec.describe OutgoingMessage do
 
         followup =
           mock_model(IncomingMessage, :from_email => 'invalid@example',
-                                      :safe_mail_from => 'Specific Person',
+                                      :safe_from_name => 'Specific Person',
                                       :valid_to_reply_to? => false)
         allow(message).to receive(:incoming_message_followup).and_return(followup)
 
@@ -733,28 +738,6 @@ RSpec.describe OutgoingMessage do
 
     end
 
-    context 'a batch request template' do
-
-      it 'produces the expected text for a batch request template' do
-        public_body = FactoryBot.build(:public_body,
-                                       name: 'a test public body')
-        info_request = FactoryBot.build(:info_request,
-                                        title: 'A test title',
-                                        public_body: public_body)
-        allow(info_request).
-          to receive(:is_batch_request_template?).and_return(true)
-        outgoing_message =
-          OutgoingMessage.new(:status => 'ready',
-                              :message_type => 'initial_request',
-                              :what_doing => 'normal_sort',
-                              :info_request => info_request)
-
-        expected_text = "Dear [Authority name],\n\n\n\nYours faithfully,\n\n"
-        expect(outgoing_message.get_default_message).to eq(expected_text)
-      end
-
-    end
-
     context 'a followup' do
 
       it 'produces the expected text for a followup' do
@@ -780,7 +763,7 @@ RSpec.describe OutgoingMessage do
                                         title: 'A test title',
                                         public_body: public_body)
         incoming_message =
-          mock_model(IncomingMessage, :safe_mail_from => 'helpdesk',
+          mock_model(IncomingMessage, :safe_from_name => 'helpdesk',
                                       :valid_to_reply_to? => true)
         outgoing_message =
           OutgoingMessage.new(:status => 'ready',
@@ -887,28 +870,43 @@ RSpec.describe OutgoingMessage do
 
   end
 
-  describe '#indexed_by_search?' do
+  describe '#get_text_for_indexing' do
+    subject { message.get_text_for_indexing(strip_salutation, opts) }
 
-    before do
-      @info_request = FactoryBot.create(:info_request)
-      @outgoing_message = @info_request.outgoing_messages.first
+    # Default opts
+    let(:strip_salutation) { true }
+    let(:opts) { {} }
+
+    let(:message) do
+      public_body = FactoryBot.build(:public_body, name: 'Example Body')
+      info_request = FactoryBot.build(:info_request, public_body: public_body)
+      FactoryBot.build(:initial_request, info_request: info_request, body: body)
     end
 
-    it 'should return false if it has prominence "hidden"' do
-      @outgoing_message.prominence = 'hidden'
-      expect(@outgoing_message.indexed_by_search?).to be false
+    let(:body) { "Dear Example Body,\n\n\r\nSome information please." }
+
+    context 'when stripping salutation' do
+      let(:strip_salutation) { true }
+      it { is_expected.not_to match(/Dear Example Body/) }
+      it { is_expected.not_to start_with(/\s+/) }
     end
 
-    it 'should return false if it has prominence "requester_only"' do
-      @outgoing_message.prominence = 'requester_only'
-      expect(@outgoing_message.indexed_by_search?).to be false
+    context 'when stripping localised salutation' do
+      let(:body) { "Estimado Example Body,\n\nAlguna información por favor." }
+
+      around do |example|
+        AlaveteliLocalization.with_locale(:es) do
+          example.run
+        end
+      end
+
+      it { is_expected.not_to match(/Estimado Example Body/) }
     end
 
-    it 'should return true if it has prominence "normal"' do
-      @outgoing_message.prominence = 'normal'
-      expect(@outgoing_message.indexed_by_search?).to be true
+    context 'when not stripping salutation' do
+      let(:strip_salutation) { false }
+      it { is_expected.to match(/Dear Example Body/) }
     end
-
   end
 
   describe '#is_owning_user?' do

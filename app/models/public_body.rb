@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20220210114052
 #
 # Table name: public_bodies
 #
@@ -11,14 +11,13 @@
 #  updated_at                             :datetime         not null
 #  home_page                              :text
 #  api_key                                :string           not null
-#  info_requests_count                    :integer          default("0"), not null
+#  info_requests_count                    :integer          default(0), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer          default("0"), not null
-#  public_body_id                         :integer          not null
+#  info_requests_visible_count            :integer          default(0), not null
 #  name                                   :text
 #  short_name                             :text
 #  request_email                          :text
@@ -35,12 +34,16 @@ require 'set'
 require 'confidence_intervals'
 
 class PublicBody < ApplicationRecord
-  include AdminColumn
   include Taggable
+  include Notable
 
   class ImportCSVDryRun < StandardError; end
 
-  @non_admin_columns = %w(name last_edit_comment)
+  admin_columns exclude: %i[name last_edit_editor]
+
+  def self.admin_title
+    'Authority'
+  end
 
   attr_accessor :no_xapian_reindex
 
@@ -51,7 +54,6 @@ class PublicBody < ApplicationRecord
       ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
       ['short_name', '(i18n)'],
       ['request_email', '(i18n)'],
-      ['notes', '(i18n)'],
       ['publication_scheme', '(i18n)'],
       ['disclosure_log', '(i18n)'],
       ['home_page', ''],
@@ -60,26 +62,26 @@ class PublicBody < ApplicationRecord
   end
 
   has_many :info_requests,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body
   has_many :track_things,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :censor_rules,
-           -> { order('created_at desc') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :track_things_sent_emails,
-           -> { order('created_at DESC') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :public_body_change_requests,
-           -> { order('created_at DESC') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body,
            :dependent => :destroy
   has_many :draft_info_requests,
-           -> { order('created_at DESC') },
+           -> { order(created_at: :desc) },
            :inverse_of => :public_body
 
   has_and_belongs_to_many :info_request_batches,
@@ -110,14 +112,16 @@ class PublicBody < ApplicationRecord
   validate :request_email_if_requestable
 
   before_save :set_api_key!, :unless => :api_key
-  after_update :reindex_requested_from
 
+  after_save :update_missing_email_tag
+
+  after_update :reindex_requested_from
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian :texts => [:name, :short_name, :notes],
+  acts_as_xapian :texts => [:name, :short_name, :notes_as_string],
                  :values => [
                    # for sorting
                    [:created_at_numeric, 1, "created_at", :number]
@@ -169,7 +173,7 @@ class PublicBody < ApplicationRecord
   # We could add an `extend_version_class` option pretty trivially by
   # following the pattern for the existing `extend` option.
   #
-  # [1] http://git.io/vIetK
+  # [1] https://github.com/technoweenie/acts_as_versioned/blob/63b1fc8529/lib/acts_as_versioned.rb#L98-L118
   class Version
     before_save :copy_translated_attributes
 
@@ -217,6 +221,10 @@ class PublicBody < ApplicationRecord
       end
       changes
     end
+
+    def editor
+      User.find_by(url_name: last_edit_editor)
+    end
   end
 
   # Public: Search for Public Bodies whose name, short_name, request_email or
@@ -236,7 +244,7 @@ class PublicBody < ApplicationRecord
       OR lower(has_tag_string_tags.name) like lower('%'||?||'%' )
     )
     AND has_tag_string_tags.model_id = public_bodies.id
-    AND has_tag_string_tags.model = 'PublicBody'
+    AND has_tag_string_tags.model_type = 'PublicBody'
     AND (public_body_translations.locale = ?)
     SQL
 
@@ -251,7 +259,7 @@ class PublicBody < ApplicationRecord
     with_translations(AlaveteliLocalization.locale).
       where("lower(public_body_translations.request_email) " \
             "like lower('%'||?||'%')", domain).
-        order('public_body_translations.name')
+        merge(PublicBody::Translation.order(:name))
   end
 
   def set_api_key
@@ -583,14 +591,9 @@ class PublicBody < ApplicationRecord
           begin
             save!
           rescue ActiveRecord::RecordInvalid
-            if rails_upgrade?
-              errors.each do |error|
-                options[:errors].push "error: line #{ line }: #{ error.full_message } for authority '#{ name }'"
-              end
-            else
-              errors.full_messages.each do |msg|
-                options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
-              end
+            errors.each do |error|
+              options[:errors].push "error: line #{ line }: " \
+                "#{ error.full_message } for authority '#{ name }'"
             end
             next
           end
@@ -665,26 +668,28 @@ class PublicBody < ApplicationRecord
     $1.nil? ? nil : $1.downcase
   end
 
-  def has_notes?(opts = {})
-    tag = opts[:tag]
+  def notes
+    [legacy_note].compact + all_notes
+  end
 
-    if tag
-      notes.present? && has_tag?(tag)
-    else
-      notes.present?
+  def notes_as_string
+    notes.map(&:body).join(' ')
+  end
+
+  def legacy_note
+    return unless read_attribute(:notes).present?
+
+    Note.new(notable: self) do |note|
+      AlaveteliLocalization.available_locales.each do |locale|
+        AlaveteliLocalization.with_locale(locale) do
+          note.body = read_attribute(:notes)
+        end
+      end
     end
   end
 
-  # TODO: Deprecate this method. Its only used in a couple of views so easy to
-  # update to just call PublicBody#notes
-  def notes_as_html
-    notes
-  end
-
-  def notes_without_html
-    # assume notes are reasonably behaved HTML, so just use simple regexp
-    # on this
-    @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
+  def has_notes?
+    notes.present?
   end
 
   def json_for_api
@@ -701,7 +706,7 @@ class PublicBody < ApplicationRecord
       # information
       # :version, :last_edit_editor, :last_edit_comment
       :home_page => calculated_home_page,
-      :notes => notes.to_s,
+      :notes => notes_as_string,
       :publication_scheme => publication_scheme.to_s,
       :tags => tag_array,
       :info => {
@@ -724,7 +729,7 @@ class PublicBody < ApplicationRecord
     # exclude any that are tagged with 'test' - we use a
     # sub-select to find the IDs of those public bodies.
     test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
-      " WHERE model = 'PublicBody' AND name = 'test'"
+      " WHERE model_type = 'PublicBody' AND name = 'test'"
     "#{total_column} >= #{minimum_requests} " \
     "AND id NOT IN (#{test_tagged_query})"
   end
@@ -813,7 +818,7 @@ class PublicBody < ApplicationRecord
         bodies = visible.
                   where('public_body_translations.locale = ?',
                          underscore_locale).
-                    order("info_requests_visible_count desc").
+                    order(info_requests_visible_count: :desc).
                       limit(32).
                         joins(:translations)
       else
@@ -877,7 +882,7 @@ class PublicBody < ApplicationRecord
         where("(#{get_public_body_list_translated_condition('current_locale', has_first_letter)}) OR " \
               "(#{get_public_body_list_translated_condition('default_locale', has_first_letter)}) ", where_parameters).
         where('COALESCE(current_locale.name, default_locale.name) IS NOT NULL').
-        order('display_name')
+        order(:display_name)
     else
       # The simpler case where we're just searching in the current locale:
       where_condition = get_public_body_list_translated_condition('public_body_translations', has_first_letter, true)
@@ -889,7 +894,7 @@ class PublicBody < ApplicationRecord
       else
         where(where_condition, where_parameters).
           joins(:translations).
-          order('public_body_translations.name')
+            merge(PublicBody::Translation.order(:name))
       end
     end
   end
@@ -970,5 +975,17 @@ class PublicBody < ApplicationRecord
       result += " AND #{table}.locale = :locale"
     end
     result
+  end
+
+  def update_missing_email_tag
+    if missing_email? && !defunct?
+      add_tag_if_not_already_present('missing_email')
+    else
+      remove_tag('missing_email')
+    end
+  end
+
+  def missing_email?
+    !has_request_email?
   end
 end

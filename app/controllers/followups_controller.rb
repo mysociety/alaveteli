@@ -76,7 +76,7 @@ class FollowupsController < ApplicationController
 
   def check_responses_allowed
     if @info_request.allow_new_responses_from == "nobody"
-      flash.now[:error] = { :partial => "followup_not_sent.html.erb",
+      flash.now[:error] = { :partial => "followup_not_sent",
                             :locals => {
                             :help_contact_path => help_contact_path } }
       render :action => 'new'
