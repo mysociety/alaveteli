@@ -20,6 +20,29 @@ let
   appPort = 3000;
   railsMaxThreads = 3;
 
+  maintenanceFile = pkgs.writeText "maintenanceFile" ''
+      <!DOCTYPE html>
+    <head>
+    <meta charset="utf-8"/>
+    <title>Maintenance en cours</title>
+    <style>
+      body { text-align: center; padding: 150px; }
+      h1 { font-size: 50px; }
+      body { font: 20px Helvetica, sans-serif; color: #333; }
+      article { display: block; text-align: left; width: 650px; margin: 0 auto; }
+      a { color: #dc8100; text-decoration: none; }
+      a:hover { color: #333; text-decoration: none; }
+    </style>
+    </head>
+
+    <article>
+        <h1>Ma Dada remonte en selle bientôt!</h1>
+        <div>
+            <p>Maintenance en cours, le site est temporairement indisponible. Retour prévu dans quelques heures.</p>
+        </div>
+    </article>
+  '';
+
   alaveteliConfig = settingsFormat.generate "general.yml" (
     {
       DOMAIN = cfg.domainName;
@@ -586,8 +609,9 @@ in
         forceSSL = true;
         enableACME = (cfg.sslCertificate == null && cfg.sslCertificateKey == null);
         locations."/" = {
-          proxyPass = "http://${appListeningAddress}:${toString appPort}";
-          recommendedProxySettings = true;
+          # proxyPass = "http://${appListeningAddress}:${toString appPort}";
+          # recommendedProxySettings = true;
+          tryFiles = "${maintenanceFile} =503";
         };
         extraConfig = ''
           client_max_body_size 15M;
