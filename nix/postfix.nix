@@ -54,6 +54,7 @@ in
 
     extraAliases = ''
       abuse: root
+      postmaster: root
       webmaster: root
       ${incomingEmailPrefixNoPlus}: ${config.users.users.alaveteliPopUser.name}, backupfoi
       ne-pas-repondre: /dev/null
