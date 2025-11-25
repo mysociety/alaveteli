@@ -710,6 +710,7 @@ in
           mkdir -p ${cfg.dataDir}/log
           mkdir -p ${cfg.dataDir}/tmp
           cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
+          rm -f ${cfg.dataDir}/config/storage.yml
           ${
             if cfg.settings.storageConfigFile == null then
               ''
@@ -717,7 +718,6 @@ in
               ''
             else
               ''
-                rm ${cfg.dataDir}/config/storage.yml
                 ln -s ${cfg.settings.storageConfigFile} ${cfg.dataDir}/config/storage.yml
               ''
           }
