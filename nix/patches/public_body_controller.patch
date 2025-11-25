@@ -1,0 +1,11 @@
+--- a/app/controllers/public_body_controller.rb
++++ b/app/controllers/public_body_controller.rb
+@@ -160,7 +160,7 @@ class PublicBodyController < ApplicationController
+   #
+   # Returns all public bodies (except for the internal admin authority) as CSV
+   def list_all_csv
+-    output = Rails.root.join('cache', 'all-authorities.csv')
++    output = Pathname.new("/var/lib/alaveteli").join('cache', 'all-authorities.csv')
+     return head :no_content unless output.exist?
+
+     # Send the file

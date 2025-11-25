@@ -706,6 +706,7 @@ in
           mkdir -p ${cfg.dataDir}/lib/themes
           rm -f ${cfg.dataDir}/lib/themes/${themeName}
           ln -s ${themePackage} ${cfg.dataDir}/lib/themes/${themeName}
+          mkdir -p ${cfg.dataDir}/cache
           mkdir -p ${cfg.dataDir}/config
           mkdir -p ${cfg.dataDir}/log
           mkdir -p ${cfg.dataDir}/tmp

@@ -1,5 +1,23 @@
 --- a/app/models/info_request.rb
 +++ b/app/models/info_request.rb
+@@ -530,7 +530,7 @@ class InfoRequest < ApplicationRecord
+   end
+
+   def self.download_zip_dir
+-    File.join(Rails.root, "cache", "zips", Rails.env)
++    File.join("/var/lib/alaveteli", "cache", "zips", Rails.env)
+   end
+
+   def self.reject_incoming_at_mta(options)
+@@ -1384,7 +1384,7 @@ class InfoRequest < ApplicationRecord
+     # return stub path so admin can expire it
+     directories = []
+     path = File.join("request", request_dirs)
+-    foi_cache_path = File.expand_path(File.join(Rails.root, 'cache', 'views'))
++    foi_cache_path = File.expand_path(File.join("/var/lib/alaveteli", "cache", "views"))
+     directories << File.join(foi_cache_path, path)
+     AlaveteliLocalization.available_locales.each do |locale|
+       directories << File.join(foi_cache_path, locale, path)
 @@ -1846,8 +1846,9 @@ class InfoRequest < ApplicationRecord
        true
      elsif feature_enabled?(:accept_mail_from_anywhere)

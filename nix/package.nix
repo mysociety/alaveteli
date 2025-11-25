@@ -30,6 +30,7 @@ let
       # TODO: these patches hardcode /var/lib/alaveteli, but we should really
       # use cfg.dataDir instead. Maybe use substituteInPlace in postPatch?
       ./patches/models_info_request.patch
+      ./patches/public_body_controller.patch
       ./patches/conf_env_prod.patch
       ./patches/lib_acts_as_xapian.patch
       ./patches/lib_configuration.patch
