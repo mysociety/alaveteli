@@ -29,9 +29,19 @@ let
   };
   environment = {
     RAILS_ENV = "production";
+    RUBYOPT = "-r${sslFix}";
   };
   pkgPath = cfg.package.outPath;
   servicePath = [ pkgs.git ];
+
+  # required for outbound connections to cloud storage, etc...
+  # see in ./bundlerEnv.nix for version info
+  sslFix = pkgs.writeText "rubyssl_default_store.rb" ''
+    require "openssl"
+    s = OpenSSL::X509::Store.new.tap(&:set_default_paths)
+    OpenSSL::SSL::SSLContext.send(:remove_const, :DEFAULT_CERT_STORE) rescue nil
+    OpenSSL::SSL::SSLContext.const_set(:DEFAULT_CERT_STORE, s.freeze)
+  '';
   wantedBy = [ "multi-user.target" ];
 in
 {
@@ -41,8 +51,6 @@ in
     description = "Import incoming mail into Alaveteli";
     path = servicePath;
     serviceConfig = commonServiceConfig // {
-      # TODO: get rid of runner, call rails runner directly
-      # but which rails?
       ExecStart = "${cfg.package.rails}/bin/rails-alaveteli runner AlaveteliMailPoller.poll_for_incoming_loop";
       StandardOutput = "append:${cfg.dataDir}/log/poll-for-incoming.service.log";
     };
