@@ -692,6 +692,7 @@ in
         pkgs.catdoc
         pkgs.elinks
         pkgs.git
+        pkgs.pdftk
         pkgs.poppler-utils
         pkgs.unrtf
         pkgs.unzip
