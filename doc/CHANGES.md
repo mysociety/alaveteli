@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Block various action links via robots.txt (Laurent Savaete)
+
 # 0.46.0.1
 
 ## Highlighted Features
