@@ -5,6 +5,8 @@ on:
     types:
       - opened
       - synchronize
+      - reopened
+      - edited
 
 permissions:
   contents: read
@@ -12,15 +14,32 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check for skip RuboCop checkbox
+      id: skip
+      run: |
+        PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
+        if echo "$PR_DESCRIPTION" | grep -q "\[x\].*Skip RuboCop"; then
+          echo "skip_rubocop=true" >> $GITHUB_OUTPUT
+        else
+          echo "skip_rubocop=false" >> $GITHUB_OUTPUT
+        fi
 
     - name: Install Ruby
+      if: steps.skip.outputs.skip_rubocop == 'false'
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.2
 
     - name: Run RuboCop linter
+      if: steps.skip.outputs.skip_rubocop == 'false'
       uses: reviewdog/action-rubocop@v2.14.0
       with:
         github_token: ${{ secrets.github_token }}
