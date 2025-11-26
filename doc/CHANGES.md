@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 0.46.0.1
 
 ## Highlighted Features
@@ -259,6 +260,10 @@ to match the new templates.
 * Upgrade to Rails 7.2 (Graeme Porteous)
 * Add support for Ruby 3.3 (Graeme Porteous)
 
+# 0.45.1.1
+
+* No code changes. Hotfix for missing upgrade note. See below.
+
 # 0.45.1.0
 
 ## Highlighted Features
@@ -268,6 +273,10 @@ to match the new templates.
 * Drop support for Ruby 3.1 (Graeme Porteous)
 
 ## Upgrade Notes
+
+* _Required:_ The storage configuration needs to be regenerated to include the
+  new modifications. Please add the `local` storage as specified in
+  `config/storage.yml-example`.
 
 * _Required:_ This upgrade requires upgrading Ruby from 3.1 to 3.2 or later.
 
