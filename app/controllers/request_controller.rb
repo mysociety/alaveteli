@@ -507,37 +507,14 @@ class RequestController < ApplicationController
   end
 
   def make_request_summary_file(info_request)
-    done = false
     @render_to_file = true
     assign_variables_for_show_template(info_request)
-    if HTMLtoPDFConverter.exist?
-      html_output = render_to_string(template: 'request/show')
-      tmp_input = Tempfile.new(['foihtml2pdf-input', '.html'])
-      tmp_input.write(html_output)
-      tmp_input.close
-      tmp_output = Tempfile.new('foihtml2pdf-output')
-      command = HTMLtoPDFConverter.new(tmp_input, tmp_output)
-      output = command.run
-      if !output.nil?
-        file_info = { filename: 'correspondence.pdf',
-                      data: File.open(tmp_output.path).read }
-        done = true
-      else
-        logger.error("Could not convert info request #{info_request.id} to PDF with command '#{command}'")
-      end
-      tmp_output.close
-      tmp_input.delete
-      tmp_output.delete
-    else
-      logger.warn("No HTML -> PDF converter found")
-    end
-    unless done
-      file_info = { filename: 'correspondence.txt',
-                    data: render_to_string(template: 'request/show',
-                                              layout: false,
-                                              formats: [:text]) }
-    end
-    file_info
+    {
+      filename: 'correspondence.txt',
+      data: render_to_string(
+        template: 'request/show', layout: false, formats: [:text]
+      )
+    }
   end
 
   def render_new_compose
