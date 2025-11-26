@@ -60,6 +60,7 @@ let
   );
 
   alaveteliPackage = pkgs.callPackage ./package.nix {
+    secretsFile = cfg.settings.secretsFile;
     themeGemfile = cfg.theme.gemfile;
     themeLockfile = cfg.theme.gemfileLock;
     themeGemset = cfg.theme.gemset;

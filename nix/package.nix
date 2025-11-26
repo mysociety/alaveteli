@@ -9,6 +9,7 @@
   cacert,
   dataDir,
   pkgs,
+  secretsFile ? null,
   themeGemfile,
   themeLockfile,
   themeGemset,
@@ -68,7 +69,15 @@ let
         makeWrapper ${rubyEnv}/bin/rails $out/bin/rails-alaveteli \
             --prefix PATH : ${lib.makeBinPath runtimeDeps} \
             --set RAILS_ENV production \
-            --chdir '${alaveteli}'
+            --chdir '${alaveteli}' \
+            ${
+              if secretsFile != null then
+                ''
+                  --run "set -a; source ${secretsFile}; set +a"
+                ''
+              else
+                ''''
+            }
       '';
 
   rake =
@@ -82,7 +91,15 @@ let
         makeWrapper ${rubyEnv}/bin/rake $out/bin/rake-alaveteli \
             --prefix PATH : ${lib.makeBinPath runtimeDeps} \
             --set RAILS_ENV production \
-            --chdir '${alaveteli}'
+            --chdir '${alaveteli}' \
+            ${
+              if secretsFile != null then
+                ''
+                  --run "set -a; source ${secretsFile}; set +a"
+                ''
+              else
+                ''''
+            }
       '';
 
   mailin =
