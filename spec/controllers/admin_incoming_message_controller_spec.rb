@@ -7,7 +7,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   describe 'when destroying an incoming message' do
     before(:each) do
       sign_in(admin_user)
-      load_raw_emails_data
     end
 
     before do
@@ -65,7 +64,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
   describe 'when redelivering an incoming message' do
     before(:each) do
       sign_in(admin_user)
-      load_raw_emails_data
     end
 
     let(:previous_info_request) { FactoryBot.build(:info_request) }

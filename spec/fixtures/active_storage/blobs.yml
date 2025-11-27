@@ -1,0 +1,9 @@
+useless_raw_email_blob: <%= ActiveStorage::FixtureSet.blob filename: "raw_email_1.eml", service_name: "test_fixtures" %>
+
+useful_raw_email_blob: <%= ActiveStorage::FixtureSet.blob filename: "raw_email_2.eml", service_name: "test_fixtures" %>
+
+another_useful_raw_email_blob: <%= ActiveStorage::FixtureSet.blob filename: "raw_email_3.eml", service_name: "test_fixtures" %>
+
+spam_1_raw_email_blob: <%= ActiveStorage::FixtureSet.blob filename: "raw_email_4.eml", service_name: "test_fixtures" %>
+
+spam_2_raw_email_blob: <%= ActiveStorage::FixtureSet.blob filename: "raw_email_5.eml", service_name: "test_fixtures" %>

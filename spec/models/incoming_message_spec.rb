@@ -331,8 +331,6 @@ RSpec.describe IncomingMessage do
 
       @default_opts = { last_edit_editor: 'unknown',
                         last_edit_comment: 'none' }
-
-      load_raw_emails_data
     end
 
     it 'replaces text with global censor rules' do
@@ -713,7 +711,6 @@ end
 RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   before(:each) do
     @im = incoming_messages(:useless_incoming_message)
-    load_raw_emails_data
   end
 
   after(:all) do
@@ -1108,10 +1105,6 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
 end
 
 RSpec.describe IncomingMessage, "when extracting attachments" do
-  before do
-    load_raw_emails_data
-  end
-
   it 'handles the case where reparsing changes the body of the main part
         and the cached attachment has been deleted' do
     # original set of attachment attributes

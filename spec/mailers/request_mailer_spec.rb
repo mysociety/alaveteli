@@ -3,7 +3,6 @@ require 'spec_helper'
 RSpec.describe RequestMailer do
   describe "when receiving incoming mail" do
     before(:each) do
-      load_raw_emails_data
       ActionMailer::Base.deliveries = []
     end
 
@@ -611,10 +610,6 @@ RSpec.describe RequestMailer do
   end
 
   describe "sending unclassified new response reminder alerts" do
-    before(:each) do
-      load_raw_emails_data
-    end
-
     it "sends an alert" do
       RequestMailer.alert_new_response_reminders
       info_request = info_requests(:fancy_dog_request)
@@ -1021,7 +1016,6 @@ RSpec.describe RequestMailer do
     let(:last_incoming_message) { info_request.incoming_messages.last }
 
     before do
-      load_raw_emails_data
       info_request.update_column(:updated_at, 5.days.ago)
     end
 
@@ -1136,10 +1130,6 @@ RSpec.describe RequestMailer do
   end
 
   describe "comment alerts" do
-    before(:each) do
-      load_raw_emails_data
-    end
-
     it "should send an alert (once and once only)" do
       # delete fixture comment and make new one, so is in last month (as
       # alerts are only for comments in last month, see

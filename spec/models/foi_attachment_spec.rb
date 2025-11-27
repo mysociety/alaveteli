@@ -104,7 +104,6 @@ RSpec.describe FoiAttachment do
     end
 
     it "reparses the body if it disappears" do
-      load_raw_emails_data
       im = incoming_messages(:useless_incoming_message)
       im.extract_attachments!
       main = im.get_main_body_text_part

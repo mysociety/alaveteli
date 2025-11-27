@@ -68,7 +68,9 @@ RSpec.configure do |config|
                            :category_translations,
                            :category_relationships,
                            :notes,
-                           :note_translations
+                           :note_translations,
+                           'active_storage/blobs',
+                           'active_storage/attachments'
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -86,11 +88,10 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  # Clean up raw emails directory
+  # Clean up storage directories
   config.after(:suite) do
-    raw_email_dir = File.join(Rails.root, 'files/raw_email_test')
-    FileUtils.rm_rf(raw_email_dir) if File.directory?(raw_email_dir)
-    FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
+    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test).root)
+    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
   end
 
   # This is a workaround for a strange thing where ActionMailer::Base.deliveries isn't being

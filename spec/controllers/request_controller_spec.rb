@@ -78,10 +78,6 @@ end
 RSpec.describe RequestController, "when showing one request" do
   render_views
 
-  before(:each) do
-    load_raw_emails_data
-  end
-
   it "should be successful" do
     get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to be_successful
@@ -1756,9 +1752,6 @@ end
 
 RSpec.describe RequestController, "when viewing comments" do
   render_views
-  before(:each) do
-    load_raw_emails_data
-  end
 
   it "should link to the user who submitted it" do
     sign_in users(:bob_smith_user)
@@ -1780,10 +1773,6 @@ RSpec.describe RequestController, "when viewing comments" do
 end
 
 RSpec.describe RequestController, "when showing JSON version for API" do
-  before(:each) do
-    load_raw_emails_data
-  end
-
   it "should return data in JSON form" do
     get :show, params: {
       url_title: 'why_do_you_have_such_a_fancy_dog',
@@ -1824,7 +1813,6 @@ end
 RSpec.describe RequestController, "when showing similar requests" do
   before do
     update_xapian_index
-    load_raw_emails_data
   end
 
   let(:badger_request) { info_requests(:badger_request) }
