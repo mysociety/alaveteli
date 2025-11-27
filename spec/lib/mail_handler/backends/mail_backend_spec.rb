@@ -15,7 +15,7 @@ RSpec.describe MailHandler::Backends::MailBackend do
 
     context 'when passed a binary string' do
       # Read fixture file using 'rb' mode so we end up with a ASCII-8BIT string
-      let(:raw_email) { load_file_fixture('raw_emails/1.email', 'rb') }
+      let(:raw_email) { load_file_fixture('raw_email_1.eml', 'rb') }
 
       it 'does not raise error' do
         expect { subject }.to_not raise_error
@@ -128,7 +128,7 @@ when it really should be application/pdf.\n
 
   describe :first_from do
     it 'finds the first from field' do
-      mail = get_fixture_mail('raw_emails/1.email')
+      mail = get_fixture_mail('raw_email_1.eml')
       expected = Mail::Address.new('FOI Person <foiperson@localhost>').to_s
       expect(first_from(mail).to_s).to eq(expected)
     end
@@ -136,14 +136,14 @@ when it really should be application/pdf.\n
 
   describe :get_from_address do
     it 'finds the first address' do
-      mail = get_fixture_mail('raw_emails/1.email')
+      mail = get_fixture_mail('raw_email_1.eml')
       expect(get_from_address(mail)).to eq('foiperson@localhost')
     end
   end
 
   describe :get_from_name do
     it 'finds the first from name' do
-      mail = get_fixture_mail('raw_emails/1.email')
+      mail = get_fixture_mail('raw_email_1.eml')
       expect(get_from_name(mail)).to eq('FOI Person')
     end
   end

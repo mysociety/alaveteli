@@ -14,6 +14,7 @@ require Rails.root.join("spec", "support", "email_helpers")
 
 RSpec.configure do |config|
   config.fixture_paths = [Rails.root.join("spec", "fixtures")]
+  config.file_fixture_path = Rails.root.join("spec", "fixtures", 'files')
 end
 
 # HACK: Normally to load fixtures you'd run `rake db:fixtures:load` (with
@@ -26,6 +27,9 @@ end
 # but that was fixed in Rails 3.2
 
 fixtures_dir = Rails.root.join("spec","fixtures").to_s
+
+file_fixture_path = File.join(fixtures_dir, 'files').to_s
+ActiveStorage::FixtureSet.file_fixture_path = file_fixture_path
 
 # specify the order in which to unload and load the data
 # (create_fixtures reverses the order during deletion then loads forwards)
@@ -48,8 +52,6 @@ end
 
 # run everything as a single transaction - all the deletes then all the inserts
 ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
-
-load_raw_emails_data
 EOF
 
 bundle exec rails runner tmp/data-loader.rb

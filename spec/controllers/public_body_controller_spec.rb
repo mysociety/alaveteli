@@ -5,7 +5,6 @@ RSpec.describe PublicBodyController, "when showing a body" do
   render_views
 
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -481,7 +480,6 @@ RSpec.describe PublicBodyController, "when doing type ahead searches" do
   render_views
 
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
