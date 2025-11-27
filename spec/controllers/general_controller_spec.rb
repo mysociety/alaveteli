@@ -203,7 +203,6 @@ RSpec.describe GeneralController, 'when using xapian search' do
 
   # rebuild xapian index after fixtures loaded
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 

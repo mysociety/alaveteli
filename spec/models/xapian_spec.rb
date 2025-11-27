@@ -2,7 +2,6 @@ require 'spec_helper'
 
 RSpec.describe User, " when indexing users with Xapian" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -34,7 +33,6 @@ end
 
 RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -67,7 +65,6 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
   include ActiveJob::TestHelper
 
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -126,7 +123,6 @@ RSpec.describe User, " when indexing requests by user they are from" do
   include ActiveJob::TestHelper
 
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -261,7 +257,6 @@ end
 
 RSpec.describe User, " when indexing comments by user they are by" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -296,7 +291,6 @@ end
 
 RSpec.describe InfoRequest, " when indexing requests by their title" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -325,7 +319,6 @@ end
 
 RSpec.describe InfoRequest, " when indexing requests by tag" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -346,7 +339,6 @@ end
 
 RSpec.describe PublicBody, " when indexing authorities by tag" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -370,7 +362,6 @@ end
 
 RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 
@@ -428,7 +419,6 @@ end
 
 RSpec.describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 

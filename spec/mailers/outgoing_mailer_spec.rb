@@ -51,10 +51,6 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
 end
 
 RSpec.describe OutgoingMailer, "when working out follow up subjects" do
-  before(:each) do
-    load_raw_emails_data
-  end
-
   it "should prefix the title with 'Freedom of Information request -' for initial requests" do
     ir = info_requests(:fancy_dog_request)
     im = ir.incoming_messages[0]

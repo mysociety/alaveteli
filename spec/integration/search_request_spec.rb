@@ -3,7 +3,6 @@ require 'integration/alaveteli_dsl'
 
 RSpec.describe "When searching" do
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 

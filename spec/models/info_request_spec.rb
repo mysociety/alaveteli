@@ -2557,7 +2557,6 @@ RSpec.describe InfoRequest do
     end
 
     it "copes with indexing after item is deleted" do
-      load_raw_emails_data
       IncomingMessage.find_each(&:parse_raw_email!)
       destroy_and_rebuild_xapian_index
       # delete event from underneath indexing; shouldn't cause error
@@ -3839,7 +3838,6 @@ RSpec.describe InfoRequest do
 
   describe InfoRequest, "when constructing a list of requests by query" do
     before(:each) do
-      load_raw_emails_data
       update_xapian_index
     end
 

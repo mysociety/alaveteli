@@ -9,7 +9,6 @@ def destroy_and_rebuild_xapian_index(terms = true, values = true, texts = true, 
     ActsAsXapian.writable_init
     ActsAsXapian.writable_db.close
   end
-  load_raw_emails_data
   parse_all_incoming_messages
   ActsAsXapian::ActsAsXapianJob.destroy_all
   # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec.

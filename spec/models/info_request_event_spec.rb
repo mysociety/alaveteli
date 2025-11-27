@@ -316,7 +316,6 @@ RSpec.describe InfoRequestEvent do
 
   describe "doing search/index stuff" do
     before(:each) do
-      load_raw_emails_data
       parse_all_incoming_messages
     end
 

@@ -225,7 +225,6 @@ RSpec.describe ActsAsXapian::Search do
 
   describe '#spelling_correction' do
     before do
-      load_raw_emails_data
       update_xapian_index
     end
 
