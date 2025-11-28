@@ -1,0 +1,125 @@
+/*
+ * Modal
+*/
+
+$modal-transition-speed: 0.3s;
+
+// Modal content wrapper
+.modal-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow-y: scroll;
+
+  &.modal-hidden {
+    display: none;
+  }
+
+  // Animation for modal appearance
+  &[aria-hidden="false"] {
+    .modal-container {
+      animation: modalFadeIn $modal-transition-speed ease forwards;
+    }
+  }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 2rem;
+
+  .modal-title {
+    margin: 0;
+  }
+}
+
+.modal-close {
+    margin: 0;
+    padding: 0.5em 1.25em;
+
+    &--just-icon {
+      padding: 0.25rem 1rem 0.5rem;
+      font-size: 2rem;
+      line-height: 0rem;
+      text-indent: -1px;
+      height: 3rem;
+      width: 3rem;
+    }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 999;
+  animation: overlayFadeIn $modal-transition-speed ease forwards;
+}
+
+.modal-container {
+  --modal-container-max-width-tablet: 80dvw;
+  --modal-container-max-width-desktop: 50dvw;
+  --modal-container-max-width-desktop-xl: 50dvw;
+  background-color: $color_off_white;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 90dvw;
+  overflow-y: auto;
+  position: relative;
+  max-height: 90dvh;
+
+  @media screen and (min-width: 768px) {
+    max-width: var(--modal-container-max-width-tablet);
+    padding: 2rem;
+    width: 90%;
+  }
+
+  @media screen and (min-width: 1280px) {
+    max-width: var(--modal-container-max-width-desktop);
+  }
+
+  @media screen and (min-width: 1536px) {
+    max-width: var(--modal-container-max-width-desktop-xl);
+  }
+
+  .lead {
+    font-size: 1.2rem;
+  }
+}
+
+.modal-button {
+  cursor: pointer;
+}
+
+/*
+ * Animations
+*/
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
