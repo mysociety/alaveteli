@@ -569,8 +569,8 @@ RSpec.describe OutgoingMessage do
                                 info_request: info_request)
 
           expect(outgoing_message.body).
-            to include("A full history of my FOI request and all " \
-                       "correspondence is available on the Internet at this " \
+            to include("A full history of my FOI request, including " \
+                       "all correspondence is available online at this " \
                        "address")
         end
 
@@ -584,8 +584,8 @@ RSpec.describe OutgoingMessage do
                                 info_request: info_request)
 
           expect(outgoing_message.body).
-            not_to include("A full history of my FOI request and all " \
-                          "correspondence is available on the Internet at " \
+            not_to include("A full history of my FOI request, including " \
+                          "all correspondence, is available on the online at " \
                           "this address")
         end
       end
@@ -834,7 +834,7 @@ RSpec.describe OutgoingMessage do
 
 
 
-        A full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title
+        A full history of my FOI request, including all correspondence, is available online at this address: http://test.host/request/a_test_title
 
 
         Yours faithfully,
@@ -1984,7 +1984,7 @@ RSpec.describe OutgoingMessage, " when making an outgoing message" do
                                              what_doing: 'internal_review',
                                              info_request: info_request
     })
-    expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]\n\nA full history of my FOI request and all correspondence is available on the Internet at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
+    expected_text = "Dear A test public body,\n\nPlease pass this on to the person who conducts Freedom of Information reviews.\n\nI am writing to request an internal review of A test public body's handling of my FOI request 'A test title'.\n\n[ GIVE DETAILS ABOUT YOUR COMPLAINT HERE ]\n\nA full history of my FOI request, including all correspondence, is available online at this address: http://test.host/request/a_test_title\n\nYours faithfully,"
     expect(outgoing_message.body).to eq(expected_text)
   end
 end
