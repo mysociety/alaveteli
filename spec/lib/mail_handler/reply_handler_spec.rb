@@ -4,7 +4,7 @@ require 'mail_handler/reply_handler'
 RSpec.describe MailHandler::ReplyHandler do
   describe '.forward_on' do
     describe 'non-bounce messages' do
-      let(:raw_email) { load_file_fixture('normal-contact-reply.email') }
+      let(:raw_email) { load_file_fixture('normal-contact-reply.eml') }
       let(:message) { MailHandler.mail_from_raw_email(raw_email) }
 
       it 'forwards the message to sendmail' do
@@ -20,8 +20,8 @@ RSpec.describe MailHandler::ReplyHandler do
     let(:normal_contact_email) { AlaveteliConfiguration.contact_email }
     let(:pro_contact_email) { AlaveteliConfiguration.pro_contact_email }
 
-    let(:normal_message) { get_fixture_mail('normal-contact-reply.email') }
-    let(:pro_message) { get_fixture_mail('pro-contact-reply.email') }
+    let(:normal_message) { get_fixture_mail('normal-contact-reply.eml') }
+    let(:pro_message) { get_fixture_mail('pro-contact-reply.eml') }
 
     let(:both_message) do
       MailHandler.mail_from_raw_email(<<~EOF)

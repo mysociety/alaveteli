@@ -99,15 +99,15 @@ RSpec.describe RawEmail do
       end
 
       it "should allow a reply to plain emails" do
-        test_real('incoming-request-plain.email', true)
+        test_real('incoming-request-plain.eml', true)
       end
 
       it "should not allow a reply to emails with empty return-paths" do
-        test_real('empty-return-path.email', false)
+        test_real('empty-return-path.eml', false)
       end
 
       it "should not allow a reply to emails with autoresponse headers" do
-        test_real('autoresponse-header.email', false)
+        test_real('autoresponse-header.eml', false)
       end
     end
   end
@@ -202,7 +202,7 @@ RSpec.describe RawEmail do
 
     let(:raw_email) do
       mail =
-        get_fixture_mail('incoming-request-plain.email', nil, 'b@example.net')
+        get_fixture_mail('incoming-request-plain.eml', nil, 'b@example.net')
       raw_email = FactoryBot.create(:raw_email)
       FactoryBot.create(:incoming_message, raw_email: raw_email)
       raw_email.update!(data: mail)

@@ -40,7 +40,7 @@ RSpec.describe "When administering the site" do
 
     # deliver an incoming message to the closed request -
     # it gets bounced to the holding pen
-    receive_incoming_mail('incoming-request-plain.email',
+    receive_incoming_mail('incoming-request-plain.eml',
                           email_to: info_request.incoming_email,
                           email_from: "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
@@ -75,7 +75,7 @@ RSpec.describe "When administering the site" do
 
     # deliver an incoming message to the closed request -
     # it gets bounced to the holding pen
-    receive_incoming_mail('incoming-request-plain.email',
+    receive_incoming_mail('incoming-request-plain.eml',
                           email_to: info_request.incoming_email,
                           email_from: "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
@@ -117,7 +117,7 @@ RSpec.describe "When administering the site" do
       info_request = FactoryBot.create(:info_request,
                                        allow_new_responses_from: 'authority_only',
                                        handle_rejected_responses: 'holding_pen')
-      receive_incoming_mail('incoming-request-plain.email',
+      receive_incoming_mail('incoming-request-plain.eml',
                             email_to: info_request.incoming_email,
                             email_from: "frob@nowhere.com")
       using_session(@admin) do

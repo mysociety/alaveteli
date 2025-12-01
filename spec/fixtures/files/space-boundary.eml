@@ -1,0 +1,37 @@
+From responder@example.com Wed Sep 03 10:44:18 2008
+Return-path: <responder@example.com>
+Envelope-to: foi@sandwich.ukcod.org.uk
+Delivery-date: Wed, 03 Sep 2008 10:44:18 +0100
+X-MimeOLE: Produced By Microsoft Exchange V6.5
+Content-class: urn:content-classes:message
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary=
+    "----_=_NextPart_001_01C90DA9.9B158D0D"
+Subject: A subject
+Date: Wed, 3 Sep 2008 10:44:05 +0100
+Message-ID: <D403C5D38B9BD6468928738951034DDE85A457@aglnex02.attorneygeneral.gsi.gov.uk>
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+Thread-Topic: Freedom of Information request - An information request about
+    stuff
+Thread-Index: AckNqOAr459KZB17Q1OIy1jxNVd9xAAAAnVAAAAWJ+A=
+From: "A responder" <responder@example.com>
+To: FOI Person <EMAIL_TO>
+
+This is a multi-part message in MIME format.
+
+------_=_NextPart_001_01C90DA9.9B158D0D
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+=20Apologies.=20Herewith.
+
+------_=_NextPart_001_01C90DA9.9B158D0D
+Content-Type: application/octet-stream; name="Mr Gradwick.pdf"
+Content-Transfer-Encoding: base64
+Content-Description: Mr Gradwick.pdf
+Content-Disposition: attachment; filename="Mr Gradwick.pdf"
+
+xxx
+
+------_=_NextPart_001_01C90DA9.9B158D0D--

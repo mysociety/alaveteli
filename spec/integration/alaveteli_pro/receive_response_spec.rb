@@ -11,7 +11,7 @@ RSpec.describe "receiving responses to requests in alaveteli_pro" do
     end
 
     it "appears in the request list as having received a response" do
-      receive_incoming_mail('incoming-request-plain.email',
+      receive_incoming_mail('incoming-request-plain.eml',
                             email_to: info_request.incoming_email,
                             email_from: "Frob <frob@bonce.com>")
 

@@ -29,7 +29,7 @@ RSpec.describe MailHandler::Backends::MailBackend do
     context 'when passed an UTF-8 string' do
       let(:raw_email) do
         # Read fixture file using 'r' mode so we end up with a UTF-8 string
-        load_file_fixture('iso8859_1_with_extended_character_set.email', 'r')
+        load_file_fixture('iso8859_1_with_extended_character_set.eml', 'r')
       end
 
       it 'does not raise error' do
@@ -38,7 +38,7 @@ RSpec.describe MailHandler::Backends::MailBackend do
 
       it 'returns a new mail with binary body' do
         expect(subject.body.to_s).to eq(
-          "Information Governance\xA0Unit".force_encoding(Encoding::BINARY)
+          "Information Governance\xA0Unit\n".force_encoding(Encoding::BINARY)
         )
       end
     end
@@ -46,7 +46,7 @@ RSpec.describe MailHandler::Backends::MailBackend do
     context 'when passed a mail' do
       let(:raw_email) do
         Mail.new(
-          load_file_fixture('incoming-request-attach-attachments.email')
+          load_file_fixture('incoming-request-attach-attachments.eml')
         ).body
       end
 
@@ -62,19 +62,19 @@ RSpec.describe MailHandler::Backends::MailBackend do
 
   describe :get_part_file_name do
     it 'returns the part file name' do
-      mail = get_fixture_mail('document-pdf.email')
+      mail = get_fixture_mail('document-pdf.eml')
       part = mail.attachments.first
       expect(get_part_file_name(part)).to eq('tiny-example.pdf')
     end
 
     it 'returns nil if there is no file name' do
-      mail = get_fixture_mail('document-pdf.email')
+      mail = get_fixture_mail('document-pdf.eml')
       part = mail.parts.first
       expect(get_part_file_name(part)).to be_nil
     end
 
     it 'turns an invalid UTF-8 name into a valid one' do
-      mail = get_fixture_mail('non-utf8-filename.email')
+      mail = get_fixture_mail('non-utf8-filename.eml')
       part = mail.attachments.first
       filename = get_part_file_name(part)
       expect(filename.valid_encoding?).to eq(true)
@@ -87,13 +87,13 @@ RSpec.describe MailHandler::Backends::MailBackend do
 Here's a PDF attachment which has a document/pdf content-type,
 when it really should be application/pdf.\n
       DOC
-      mail = get_fixture_mail('document-pdf.email')
+      mail = get_fixture_mail('document-pdf.eml')
       part = MailHandler.get_attachment_leaves(mail).first
       expect(get_part_body(part)).to eq(expected)
     end
 
     it 'returns unfrozen string' do
-      mail = get_fixture_mail('empty-8bit.email')
+      mail = get_fixture_mail('empty-8bit.eml')
       part = MailHandler.get_attachment_leaves(mail).first
       expect(get_part_body(part).frozen?).to eq(false)
     end
@@ -268,7 +268,7 @@ when it really should be application/pdf.\n
   describe :expand_and_normalize_parts do
     context 'when given a multipart message' do
       it 'should return a Mail::PartsList' do
-        mail = get_fixture_mail('incoming-request-oft-attachments.email')
+        mail = get_fixture_mail('incoming-request-oft-attachments.eml')
         expect(expand_and_normalize_parts(mail, mail).class).to eq(Mail::PartsList)
       end
     end
@@ -291,14 +291,14 @@ when it really should be application/pdf.\n
   describe '#decode_attached_part' do
     it 'does not error if mapi cannot parse a part' do
       allow(Mapi::Msg).to receive(:open).and_raise(Encoding::CompatibilityError)
-      mail = get_fixture_mail('incoming-request-oft-attachments.email')
+      mail = get_fixture_mail('incoming-request-oft-attachments.eml')
       expect { decode_attached_part(mail.parts.last, mail) }.not_to raise_error
     end
   end
 
   describe :get_emails_within_received_headers do
     it 'returns an empty list if there is no Received header' do
-      mail = get_fixture_mail('bcc-contact-reply.email')
+      mail = get_fixture_mail('bcc-contact-reply.eml')
       expect(get_emails_within_received_headers(mail)).to eq([])
     end
 
