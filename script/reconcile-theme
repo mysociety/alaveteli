@@ -1,0 +1,206 @@
+#!/usr/bin/env ruby
+
+require 'English'
+require 'fileutils'
+require 'find'
+require 'open3'
+require 'tmpdir'
+
+##
+# A class that helps reconcile changes between the core Alaveteli repository
+# and a theme repository. It tracks changes made to view files in the core
+# repository between given refs and helps apply those changes to corresponding
+# files in the theme repository.
+#
+class ThemeReconciler
+  THEME_VIEW_PATH = 'lib/views'
+  CORE_VIEW_PATH = 'app/views'
+
+  def initialize(start_ref, end_ref, theme_repo_path)
+    @core_repo_path = Dir.pwd
+    @theme_repo_path = File.expand_path(theme_repo_path)
+    @start_ref = validate_ref(start_ref)
+    @end_ref = validate_ref(end_ref)
+    @temp_dir = File.join(Dir.tmpdir, "git_reconcile_#{Time.now.to_i}")
+    @diff_command = detect_diff_command
+  end
+
+  def reconcile_all_files
+    setup_temp_directory
+
+    changed_files = find_changed_core_files
+    puts "Found #{changed_files.length} changed files in core repository " \
+         "between #{@start_ref}..#{@end_ref}"
+
+    theme_files = find_corresponding_theme_files(changed_files)
+    puts "Found #{theme_files.length} corresponding theme files to update"
+
+    theme_files.each do |theme_file|
+      reconcile_file(theme_file)
+    rescue UserAbortError
+      puts "\nReconciliation paused. Press Enter to continue with next file, " \
+           "or Ctrl+C to exit"
+      $stdin.gets
+    end
+  ensure
+    cleanup_temp_directory
+  end
+
+  private
+
+  class UserAbortError < StandardError; end
+
+  def detect_diff_command
+    nvim_exists, = Open3.capture2e("which nvim")
+    nvim_exists.empty? ? "vimdiff" : "nvim -d"
+  end
+
+  def validate_ref(ref)
+    _stdout, status = Open3.capture2e("git rev-parse #{ref}")
+    return ref if status.success?
+
+    raise "Reference #{ref} not found in core repository"
+  end
+
+  def find_changed_core_files
+    # Get list of changed files between refs
+    stdout, = Open3.capture2("git diff --name-only #{@start_ref} #{@end_ref} " \
+                             "-- #{CORE_VIEW_PATH}")
+    stdout.split("\n").select { |f| File.file?(f) }
+  end
+
+  def find_corresponding_theme_files(core_files)
+    theme_files = []
+
+    core_files.each do |core_path|
+      theme_path = get_theme_path(core_path)
+      next unless File.exist?(File.join(@theme_repo_path, theme_path))
+
+      theme_files << theme_path
+    end
+
+    theme_files
+  end
+
+  def get_theme_path(core_path)
+    # Convert app/views/path/to/file.erb to lib/views/path/to/file.erb
+    core_path.sub(%r{^#{CORE_VIEW_PATH}/}, "#{THEME_VIEW_PATH}/")
+  end
+
+  def get_corresponding_core_path(theme_path)
+    # Convert lib/views/path/to/file.erb to app/views/path/to/file.erb
+    theme_path.sub(%r{^#{THEME_VIEW_PATH}/}, "#{CORE_VIEW_PATH}/")
+  end
+
+  def setup_temp_directory
+    FileUtils.mkdir_p(@temp_dir)
+  end
+
+  def cleanup_temp_directory
+    FileUtils.rm_rf(@temp_dir)
+  end
+
+  def reconcile_file(theme_relative_path)
+    core_relative_path = get_corresponding_core_path(theme_relative_path)
+
+    core_file = File.join(@core_repo_path, core_relative_path)
+    theme_file = File.join(@theme_repo_path, theme_relative_path)
+
+    placeholder = "Placeholder to be overridden by theme"
+
+    # Skip if core file contains placeholder text
+    if File.read(core_file).strip.include?(placeholder)
+      puts "Skipping #{theme_relative_path} - core file contains placeholder text"
+      return
+    else
+      puts "\nProcessing: #{theme_relative_path}"
+    end
+
+    # Create backup of theme file
+    theme_backup = create_backup(theme_file)
+
+    # Get the diff between refs
+    core_diff = get_core_changes(core_relative_path)
+
+    if core_diff.empty?
+      puts "No changes detected in core file: #{core_relative_path}"
+      return
+    end
+
+    begin
+      # Try to apply the patch
+      success = apply_patch(theme_file, core_diff)
+
+      if success
+        puts "Successfully updated #{theme_relative_path}"
+      else
+        # If patch fails, open diff tool
+        handle_conflict(theme_file, core_file)
+      end
+    rescue UserAbortError => e
+      raise e
+    rescue => e
+      puts "Error processing #{theme_relative_path}: #{e.message}"
+      restore_backup(theme_backup, theme_file)
+    end
+  end
+
+  def create_backup(file)
+    backup_path = File.join(@temp_dir, File.basename(file))
+    FileUtils.cp(file, backup_path)
+    backup_path
+  end
+
+  def restore_backup(backup_file, original_file)
+    FileUtils.cp(backup_file, original_file)
+  end
+
+  def get_core_changes(file_path)
+    stdout, = Open3.capture2("git diff #{@start_ref} #{@end_ref} -- " \
+                             "#{file_path}")
+    stdout
+  end
+
+  def apply_patch(theme_file, patch_content)
+    patch_file = File.join(@temp_dir, "changes.patch")
+    File.write(patch_file, patch_content)
+
+    _, status = Open3.capture2e("patch -f --no-backup-if-mismatch " \
+                                "#{theme_file} #{patch_file}")
+    status.success?
+  end
+
+  def handle_conflict(theme_file, core_file)
+    puts "Conflict detected in #{theme_file}"
+    puts "Opening #{@diff_command} to resolve conflicts..."
+
+    system("#{@diff_command} #{theme_file} #{core_file}")
+
+    if $CHILD_STATUS.exitstatus == 1
+      raise UserAbortError, "User aborted at #{theme_file}"
+    end
+
+    puts "Please check the changes and make sure they are correct"
+  end
+end
+
+# Example usage:
+if __FILE__ == $PROGRAM_NAME
+  if ARGV.length != 2
+    puts "Usage: #{$PROGRAM_NAME} refs theme_repo_path"
+    puts "  Run from the core repository directory"
+    puts "  refs: Git ref representing start point (or start..end range)"
+    exit 1
+  end
+
+  if ARGV[0].include?('..')
+    start_ref, end_ref = ARGV[0].split('..')
+  else
+    start_ref = ARGV[0]
+    end_ref = 'HEAD'
+  end
+  theme_repo = ARGV[1]
+
+  reconciler = ThemeReconciler.new(start_ref, end_ref, theme_repo)
+  reconciler.reconcile_all_files
+end

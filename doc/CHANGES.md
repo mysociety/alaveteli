@@ -2,10 +2,20 @@
 
 ## Highlighted Features
 
+* Add new script to reconcile theme (Graeme Porteous)
 * Dropped support for generating PDF of request correspondence (Graeme Porteous)
 * Drop support for Ruby 3.3 (Graeme Porteous)
 * Drop support for Ruby 3.2 (Graeme Porteous)
 * Block various action links via robots.txt (Laurent Savaete)
+
+## Upgrade Notes
+
+### Changed Templates
+
+The following templates have been changed. Please use `script/reconcile-theme`
+to update overrides in your theme to match the new templates.
+
+    None yet
 
 # 0.46.0.1
 
