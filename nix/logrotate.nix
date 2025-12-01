@@ -8,6 +8,9 @@ let
 in
 {
   # /var/log/mail is 0755 postfix:postfix
+  # use rsyslogd to log from postfix as some errors cannot be
+  # logged directly by postlogd (see
+  # https://www.postfix.org/MAILLOG_README.html)
   services.rsyslogd = {
     enable = true;
     defaultConfig = ''
@@ -19,31 +22,6 @@ in
   services.logrotate = {
     enable = true;
     configFile = pkgs.writeText "logrotate.conf" ''
-      /var/log/syslog
-      {
-              rotate 180
-              daily
-              missingok
-              notifempty
-              delaycompress
-              compress
-              postrotate
-                      /usr/lib/rsyslog/rsyslog-rotate
-              endscript
-      }
-      /var/log/messages
-      {
-              rotate 26
-              weekly
-              missingok
-              notifempty
-              compress
-              delaycompress
-              sharedscripts
-              postrotate
-                      /usr/lib/rsyslog/rsyslog-rotate
-              endscript
-      }
       /var/log/mail/mail.log
       {
           rotate 180
@@ -54,10 +32,24 @@ in
           compress
           delaycompress
           sharedscripts
+          # alaveteli load-mail-server-logs cron job needs to read postfix logs
+          create 0640 root alaveteli
           postrotate
-                  reload rsyslog >/dev/null 2>&1 || true
-                  reload postfix >/dev/null 2>&1 || true
+                  systemctl kill --kill-whom=main --signal=SIGHUP syslog.service > /dev/null 2>&1 || true
+                  systemctl reload postfix.service > /dev/null 2>&1 || true
           endscript
+      }
+      ${cfg.dataDir}/log/*.log
+      {
+          rotate 180
+          size 10M
+          daily
+          dateext
+          missingok
+          notifempty
+          compress
+          delaycompress
+          su alaveteli alaveteli
       }
     '';
   };
