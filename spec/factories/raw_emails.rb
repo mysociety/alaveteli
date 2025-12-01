@@ -2,9 +2,16 @@
 #
 # Table name: raw_emails
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime
-#  updated_at :datetime
+#  id                :integer          not null, primary key
+#  created_at        :datetime
+#  updated_at        :datetime
+#  from_email        :text
+#  from_email_domain :text
+#  from_name         :text
+#  message_id        :text
+#  sent_at           :datetime
+#  subject           :text
+#  valid_to_reply_to :boolean
 #
 
 FactoryBot.define do
