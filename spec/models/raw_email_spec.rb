@@ -26,7 +26,7 @@ RSpec.describe RawEmail do
 
   describe '#valid_to_reply_to?' do
     subject { raw_email.valid_to_reply_to? }
-    let(:raw_email) { RawEmail.new }
+    let(:raw_email) { FactoryBot.create(:raw_email, :with_file) }
 
     before do
       allow(ReplyToAddressValidator).to receive(:valid?).and_return(true)
@@ -186,6 +186,197 @@ RSpec.describe RawEmail do
       it 'returns nil' do
         expect(raw_email.storage_key).to be_nil
       end
+    end
+  end
+
+  describe '#from_email' do
+    it 'returns the email address in the From header' do
+      data = <<~EML
+        From: FOI Person <authority@mail.example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.from_email).to eq('authority@mail.example.com')
+    end
+
+    it 'returns an empty string if there is no From header' do
+      data = <<~EML
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.from_email).to eq('')
+    end
+  end
+
+  describe '#from_email_domain' do
+    it 'returns the domain part of the email address in the From header' do
+      data = <<~EML
+        From: FOI Person <authority@mail.example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.from_email_domain).to eq('mail.example.com')
+    end
+
+    it 'returns an empty string if there is no From header' do
+      data = <<~EML
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.from_email_domain).to eq('')
+    end
+  end
+
+  describe '#from_name' do
+    it 'returns the name in the From: field of an email' do
+      data = <<~EML
+        From: FOI Person <authority@example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.from_name).to eq('FOI Person')
+    end
+
+    it 'returns nil if there is no name in the From: field of an email' do
+      data = <<~EML
+        From: authority@example.com
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.from_name).to be_nil
+    end
+
+    it 'unquotes RFC 2047 headers' do
+      data = <<~EML
+        From: =?iso-8859-1?Q?Coordena=E7=E3o_de_Relacionamento=2C_Pesquisa_e_Informa=E7?=
+          =?iso-8859-1?Q?=E3o/CEDI?= <geraldinequango@localhost>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.from_name).
+        to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
+    end
+  end
+
+  describe '#message_id' do
+    it 'uses the Message-ID header' do
+      data = <<~EML
+        Message-ID: <12345@foo.local>
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.message_id).to eq('12345@foo.local')
+    end
+
+    it 'uses the Message-Id header' do
+      data = <<~EML
+        Message-Id: <12345@bar.local>
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.message_id).to eq('12345@bar.local')
+    end
+  end
+
+  describe '#subject' do
+    it 'returns the Subject: field of an email' do
+      data = <<~EML
+        From: FOI Person <authority@example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.subject).to eq('A response')
+    end
+
+    it 'returns nil if there is no Subject: field' do
+      data = <<~EML
+        From: FOI Person <authority@example.com>
+        To: Jane Doe <request-magic-email@example.net>
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.subject).to be_nil
+    end
+
+    it 'unquotes RFC 2047 headers' do
+      data = <<~EML
+        From: FOI Person <authority@example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: =?iso-8859-1?Q?C=E2mara_Responde=3A__Banco_de_ideias?=
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.subject).to eq('Câmara Responde:  Banco de ideias')
+    end
+  end
+
+  describe '#sent_at' do
+    it 'uses the Date header if the mail has one' do
+      data = <<~EML
+        From: FOI Person <authority@example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+        Date: Fri, 9 Dec 2011 10:42:02 -0200
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.sent_at).
+        to eq(DateTime.parse('Fri, 9 Dec 2011 10:42:02 -0200').in_time_zone)
+    end
+
+    it 'uses the created_at attribute if there is no Date header' do
+      data = <<~EML
+        From: FOI Person <authority@example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
+
+        Hello, World
+      EML
+
+      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
+      expect(raw_email.sent_at).to be_within(1.second).of raw_email.created_at
     end
   end
 end

@@ -20,7 +20,8 @@ FactoryBot.define do
   trait :with_file do
     transient do
       sequence(:filename) { |n| "#{n + 1}.eml" }
-      mail { Mail.new }
+      mail { Mail.new(data) }
+      data {}
     end
 
     after(:build) do |foi_attachment, evaluator|

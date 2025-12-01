@@ -23,24 +23,18 @@
 class RawEmail < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw email properly
 
+  prepend RawEmail::CacheAttributes
+
   has_one :incoming_message,
           inverse_of: :raw_email
 
   has_one_attached :file, service: :raw_emails
 
-  delegate :date, to: :mail
-  delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
   delegate :parts, to: :mail
 
   def addresses(include_invalid: false)
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
-  end
-
-  def valid_to_reply_to?
-    ReplyToAddressValidator.valid?(from_email) &&
-      !empty_return_path? &&
-      !auto_submitted?
   end
 
   def empty_from_field?
