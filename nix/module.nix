@@ -532,7 +532,6 @@ in
     environment.systemPackages = [
       cfg.package.rails
       cfg.package.rake
-      cfg.package.mailin
       pkgs.curl
       pkgs.dig
       pkgs.git

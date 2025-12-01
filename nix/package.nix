@@ -104,27 +104,6 @@ let
             }
       '';
 
-  mailin =
-    pkgs.runCommand "mailin-alaveteli"
-      {
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-      }
-      # bash
-      ''
-        mkdir -p $out/bin
-        makeWrapper ${alaveteli}/script/mailin $out/bin/mailin-alaveteli \
-            --prefix PATH : ${
-              lib.makeBinPath [
-                pkgs.mktemp
-                pkgs.coreutils
-                pkgs.mutt
-                rails
-              ]
-            } \
-            --set RAILS_ENV production \
-            --chdir '${alaveteli}'
-      '';
-
   rubyEnv = pkgs.callPackage ./bundlerEnv.nix {
     inherit themeGemfile themeLockfile themeGemset;
   };
@@ -251,7 +230,6 @@ let
 
     passthru = {
       inherit
-        mailin
         rails
         rake
         rubyEnv
