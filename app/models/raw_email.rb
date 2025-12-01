@@ -37,10 +37,6 @@ class RawEmail < ApplicationRecord
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
   end
 
-  def empty_from_field?
-    mail.from_addrs.nil? || mail.from_addrs.empty?
-  end
-
   def mail
     @mail ||= mail!
   end
