@@ -1,0 +1,49 @@
+--- a/app/models/mail_server_log.rb
++++ b/app/models/mail_server_log.rb
+@@ -86,24 +86,25 @@ class MailServerLog < ApplicationRecord
+
+   def self.load_postfix_log_data(f, done)
+     order = 0
+-    emails = scan_for_postfix_queue_ids(f)
++    re = Regexp.new(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\S{5,13}|[a-zA-Z]{3} .\d \d\d:\d\d:\d\d) \S+ \S+: ([0-9A-F]{10}):/)
++    emails = scan_for_postfix_queue_ids(f, re)
+     # Go back to the beginning of the file
+     f.rewind
+     f.each do |line|
+       sanitised_line = scrub(line)
+       order += 1
+-      queue_id = extract_postfix_queue_id_from_syslog_line(sanitised_line)
++      queue_id = extract_postfix_queue_id_from_syslog_line(sanitised_line, re)
+       if emails.key?(queue_id)
+         create_mail_server_logs(emails[queue_id], sanitised_line, order, done)
+       end
+     end
+   end
+
+-  def self.scan_for_postfix_queue_ids(f)
++  def self.scan_for_postfix_queue_ids(f, re)
+     result = {}
+     f.each do |line|
+       emails = email_addresses_on_line(line)
+-      queue_id = extract_postfix_queue_id_from_syslog_line(line)
++      queue_id = extract_postfix_queue_id_from_syslog_line(line, re)
+       result[queue_id] = [] unless result.key?(queue_id)
+       result[queue_id] = (result[queue_id] + emails).uniq
+     end
+@@ -111,10 +112,13 @@ class MailServerLog < ApplicationRecord
+   end
+
+   # Returns nil if there is no queue id
+-  def self.extract_postfix_queue_id_from_syslog_line(line)
++  def self.extract_postfix_queue_id_from_syslog_line(line, re)
+     # Assume the log file was written using syslog and parse accordingly
+-    m = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)
+-    m[1] if m
++    # This handles 2 distinct timestamp formats:
++    # - legacy: Oct 21, 12:34:56
++    # - modern rsyslog: 2025-10-21T12:34:56.848517+00:00
++    m = re.match(line)
++    m[2] if m
+   end
+
+   # We also check the email prefix so that we could, for instance, separately handle a staging and production

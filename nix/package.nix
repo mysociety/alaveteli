@@ -31,6 +31,7 @@ let
       # TODO: these patches hardcode /var/lib/alaveteli, but we should really
       # use cfg.dataDir instead. Maybe use substituteInPlace in postPatch?
       ./patches/models_info_request.patch
+      ./patches/models_mail_server_log.patch
       ./patches/public_body_controller.patch
       ./patches/conf_env_prod.patch
       ./patches/lib_acts_as_xapian.patch
@@ -58,6 +59,7 @@ let
   # make rake/rails commands available on the server
   # with the correct gems and dependencies configured
   # Run these with sudo -u alaveteli to allow database connection
+  # and access to relevant secrets
   rails =
     pkgs.runCommand "rails-alaveteli"
       {
