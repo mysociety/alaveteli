@@ -28,6 +28,8 @@ in
     # disable PAM to allow non-unix users to receive email
     enablePAM = false;
 
+    # duplicate lines in dovecot config are ok, only the last
+    # line is considered.
     extraConfig = ''
       listen = "127.0.0.1, ::1"
       # auth_debug = yes

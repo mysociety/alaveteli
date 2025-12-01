@@ -141,3 +141,15 @@ Test with a variety of tools to ensure everything is correct:
 
 - https://mecsa.jrc.ec.europa.eu/en/
 - mail-tester.com
+
+- check IP reputation with https://mxtoolbox.com/SuperTool.aspx (blacklist Check function)
+
+## Admin work on production servers
+
+The nix flake provides two scripts:
+
+- `rails-alaveteli`
+- `rake-alaveteli`
+  which are guaranteed to run with the same version of gems/ruby/etc as your production webserver.
+  Call them with `sudo -u alaveteli rails-alaveteli` followed by the usual rails commands (`console` ...). If you forget
+  the `sudo` part, they will complain about a missing database because they will not be able to connect to it.
