@@ -7,6 +7,7 @@
   ruby,
   postgresql,
   cacert,
+  customAlaveteliPatches ? [ ],
   dataDir,
   pkgs,
   secretsFile ? null,
@@ -41,7 +42,8 @@ let
       ./patches/routes_rb.patch
       ./patches/theme_loader_rb.patch
       ./patches/themes_rake.patch
-    ];
+    ]
+    ++ customAlaveteliPatches;
     postPatch =
       # bash
       ''

@@ -60,6 +60,7 @@ let
   );
 
   alaveteliPackage = pkgs.callPackage ./package.nix {
+    customAlaveteliPatches = cfg.theme.customAlaveteliPatches;
     secretsFile = cfg.settings.secretsFile;
     themeGemfile = cfg.theme.gemfile;
     themeLockfile = cfg.theme.gemfileLock;
@@ -296,6 +297,12 @@ in
         gemset = lib.mkOption {
           type = with lib.types; nullOr path;
           default = ../gemset.nix;
+        };
+        customAlaveteliPatches = lib.mkOption {
+          type = with lib.types; listOf path;
+          default = [ ];
+          description = "A list of paths to patches to be applied to the alaveteli source code";
+          example = "[ ./path/to/patch ]";
         };
       };
 
