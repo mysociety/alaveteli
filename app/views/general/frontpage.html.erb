@@ -1,3 +1,5 @@
+<% content_for :body_class, 'front' %>
+
 <% cache_if_caching_fragments("frontpage-#{@locale}", expires_in: 5.minutes) do %>
   <%= render partial: 'frontpage_how_it_works' %>
 
