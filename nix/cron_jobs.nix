@@ -96,6 +96,7 @@ in
   environment.systemPackages = [
     pkgs.git
     pkgs.lockfileProgs # used by run-with-lockfile.sh
+    pkgs.xapian # xapian-compact is called in compact-xapian-database
   ];
 
   services.cron = {
