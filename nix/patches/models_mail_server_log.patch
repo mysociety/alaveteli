@@ -5,7 +5,7 @@
    def self.load_postfix_log_data(f, done)
      order = 0
 -    emails = scan_for_postfix_queue_ids(f)
-+    re = Regexp.new(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\S{5,13}|[a-zA-Z]{3} .\d \d\d:\d\d:\d\d) \S+ \S+: ([0-9A-F]{10}):/)
++    re = Regexp.new(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\S{5,13}|[a-zA-Z]{3} .\d \d\d:\d\d:\d\d) \S+ \S+: ([0-9A-F]{10,12}):/)
 +    emails = scan_for_postfix_queue_ids(f, re)
      # Go back to the beginning of the file
      f.rewind

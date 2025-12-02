@@ -32,6 +32,7 @@ let
       # use cfg.dataDir instead. Maybe use substituteInPlace in postPatch?
       ./patches/models_info_request.patch
       ./patches/models_mail_server_log.patch
+      ./patches/models_outgoing_message.patch
       ./patches/public_body_controller.patch
       ./patches/conf_env_prod.patch
       ./patches/lib_acts_as_xapian.patch

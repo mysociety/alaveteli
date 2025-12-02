@@ -1,0 +1,11 @@
+--- a/app/models/outgoing_message.rb
++++ b/app/models/outgoing_message.rb
+@@ -596,7 +596,7 @@ class OutgoingMessage < ApplicationRecord
+               last.
+                 try(:line)
+     end
+-    lines.compact.map { |line| line.split(' ')[5].strip.chomp(':') }
++    lines.compact.map { |line| line.slice(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\S{5,13}|[a-zA-Z]{3} .\d \d\d:\d\d:\d\d) \S+ \S+: ([0-9A-F]{10,12}): message-id/, 2) }
+   end
+
+   def postfix_mail_server_logs
