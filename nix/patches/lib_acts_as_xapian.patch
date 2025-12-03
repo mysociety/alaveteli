@@ -19,3 +19,12 @@
      end
 
      # make the directory for the xapian databases to go in
+@@ -877,7 +877,7 @@ module ActsAsXapian
+         if verbose
+           STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index: Rebuilding #{model_class}")
+         end
+-        model_class.find_each do |model|
++        model_class.find_each(batch_size: 100) do |model|
+           if verbose
+             STDOUT.puts("ActsAsXapian.destroy_and_rebuild_index      #{model_class} #{model.id}")
+           end
