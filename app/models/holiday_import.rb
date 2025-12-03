@@ -65,7 +65,7 @@ class HolidayImport
   end
 
   def populate_from_ical_feed
-    cal_file = open(ical_feed_url)
+    cal_file = URI.open(ical_feed_url)
     cal_parser = Icalendar::Parser.new(cal_file)
     cals = cal_parser.parse
     cal = cals.first
