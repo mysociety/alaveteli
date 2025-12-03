@@ -96,6 +96,9 @@ in
   environment.systemPackages = [
     pkgs.git
     pkgs.lockfileProgs # used by run-with-lockfile.sh
+  ];
+
+  systemd.services.cron.path = [
     pkgs.xapian # xapian-compact is called in compact-xapian-database
   ];
 
@@ -103,7 +106,7 @@ in
     enable = true;
     systemCronJobs = [
       # Every 5 minutes
-      "*/5 * * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/change-xapian-database.lock '${pkgPath}/script/update-xapian-index verbose=true' >> ${cfg.dataDir}/log/update-xapian-index.log || echo 'stalled?'"
+      "*/5 * * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/change-xapian-database.lock '${pkgPath}/script/update-xapian-index flush=true verbose=true' >> ${cfg.dataDir}/log/update-xapian-index.log || echo 'stalled?'"
       # Every 10 minutes
       "0,10,20,30,40,50 * * * * ${cfg.user} ${pkgPath}/commonlib/bin/run-with-lockfile.sh -n ${cfg.dataDir}/send-batch-requests.lock ${pkgPath}/script/send-batch-requests || echo 'stalled?'"
 
