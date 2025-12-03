@@ -63,7 +63,16 @@ let
   # binaries needed by alaveteli's rails/rake... at runtime
   runtimeDeps = [
     rubyEnv.wrappedRuby
+    pkgs.binutils_nogold # provides strings to extract text from Excel files
+    pkgs.catdoc
+    pkgs.elinks
     pkgs.git
+    pkgs.pdftk
+    pkgs.poppler-utils
+    pkgs.unrtf
+    pkgs.unzip
+    pkgs.wkhtmltopdf
+    pkgs.wv # wvText handles doc files
   ];
 
   # make rake/rails commands available on the server

@@ -689,6 +689,8 @@ in
         pkgs.poppler-utils
         pkgs.unrtf
         pkgs.unzip
+        pkgs.wkhtmltopdf
+        pkgs.wv # wvText handles doc files
       ];
 
       # This preStart script replaces rails-post-deploy
