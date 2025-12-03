@@ -24,6 +24,13 @@ let
   pname = "alaveteli";
   version = "0.0.1";
 
+  sslFix = pkgs.writeText "rubyssl_default_store.rb" ''
+    require "openssl"
+    s = OpenSSL::X509::Store.new.tap(&:set_default_paths)
+    OpenSSL::SSL::SSLContext.send(:remove_const, :DEFAULT_CERT_STORE) rescue nil
+    OpenSSL::SSL::SSLContext.const_set(:DEFAULT_CERT_STORE, s.freeze)
+  '';
+
   src = applyPatches {
     # TODO: should the code version be fixed, or just the local src tree?
     src = ./..;
@@ -74,6 +81,7 @@ let
         makeWrapper ${rubyEnv}/bin/rails $out/bin/rails-alaveteli \
             --prefix PATH : ${lib.makeBinPath runtimeDeps} \
             --set RAILS_ENV production \
+            --set RUBYOPT "-r${sslFix} $RUBYOPT" \
             --chdir '${alaveteli}' \
             ${
               if secretsFile != null then
@@ -96,6 +104,7 @@ let
         makeWrapper ${rubyEnv}/bin/rake $out/bin/rake-alaveteli \
             --prefix PATH : ${lib.makeBinPath runtimeDeps} \
             --set RAILS_ENV production \
+            --set RUBYOPT "-r${sslFix} $RUBYOPT" \
             --chdir '${alaveteli}' \
             ${
               if secretsFile != null then
