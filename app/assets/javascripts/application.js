@@ -18,3 +18,4 @@
 //= require masonry.pkgd.min
 //= require imagesloaded.min
 //= require modal
+//= require ati-masonry
