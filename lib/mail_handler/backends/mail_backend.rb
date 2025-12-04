@@ -162,7 +162,9 @@ module MailHandler
       end
 
       def get_auto_submitted(mail)
-        mail['auto-submitted'] ? mail['auto-submitted'].value : nil
+        field = mail['auto-submitted']
+        return nil unless field
+        field.is_a?(Array) ? field.first.value : field.value
       end
 
       def get_content_type(part)
