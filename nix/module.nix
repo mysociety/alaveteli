@@ -402,32 +402,18 @@ in
           # https://wal-g.readthedocs.io/PostgreSQL/
           enable = lib.mkEnableOption "postgres backup with wal-g";
 
-          s3AccessKeyId = lib.mkOption {
-            type = lib.types.str;
-            description = "Access key id for the s3 compatible storage for postgres backups";
-          };
-          s3SecretAccessKey = lib.mkOption {
-            type = lib.types.str;
-            description = "Secret Access key for the s3 compatible storage for postgres backups";
-          };
-          s3Prefix = lib.mkOption {
-            type = lib.types.str;
-            description = "Prefix for the s3 compatible storage for postgres backups";
-            example = "s3://bucket/path";
-          };
-          s3Endpoint = lib.mkOption {
-            type = lib.types.str;
-            description = "Endpoint for the s3 compatible storage for postgres backups";
-            example = "https://location.example.com";
-            default = "";
-          };
-          s3Region = lib.mkOption {
-            type = lib.types.str;
-            description = "Region for the s3 compatible storage for postgres backups";
-          };
-          libsodiumWalgKeyPath = lib.mkOption {
-            type = lib.types.path;
-            description = "Path to a key for libsodium encryption of backups, generated with `openssl rand -hex 32`.";
+          storageConfigFile = lib.mkOption {
+            type = with lib.types; nullOr path;
+            default = null;
+            description = "Path to a file containing the required env vars for backup to function. See example for required values";
+            example = ''
+              AWS_ACCESS_KEY_ID = "Access key id for the s3 compatible storage for postgres backups"
+              AWS_SECRET_ACCESS_KEY = "Secret Access key for the s3 compatible storage for postgres backups"
+              WALG_S3_PREFIX = "Prefix for the s3 compatible storage for postgres backups"
+              AWS_ENDPOINT = "Endpoint for the s3 compatible storage for postgres backups"
+              AWS_REGION = "Region for the s3 compatible storage for postgres backups"
+              WALG_LIBSODIUM_KEY = "Key for libsodium encryption/decryption of backups, generated with `openssl rand -hex 32`."
+            '';
           };
         };
       };
@@ -531,6 +517,10 @@ in
       {
         assertion = (cfg.sslCertificate != null) -> (cfg.sslCertificateKey != null);
         message = "If sslCertificate is set, sslCertificateKey must be set as well. Unset both to use letsencrypt instead.";
+      }
+      {
+        assertion = (cfg.database.backup.enable == true) -> (cfg.database.backup.storageConfigFile != null);
+        message = "database.backup.storageConfigFile is required when backup is enabled";
       }
     ];
 
