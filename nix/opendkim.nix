@@ -28,8 +28,8 @@ in
       # PidFile                 /var/spool/postfix/run/opendkim/opendkim.pid
       # UserID                  opendkim
 
-      # Commonly-used options; the commented-out versions show the defaults.
-      #Canonicalization       simple
+      # https://www.wordtothewise.com/2016/12/dkim-canonicalization-or-why-microsoft-breaks-your-mail/
+      Canonicalization       relaxed/relaxed
       Mode                   sv
       #SubDomains             no
 

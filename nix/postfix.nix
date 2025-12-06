@@ -8,7 +8,6 @@ let
   cfg = config.services.alaveteli;
   inherit (config.security.acme) certs;
 
-
   insecureCiphers = [
     "ADH-AES128-SHA"
     "ADH-AES256-SHA"
@@ -150,7 +149,6 @@ in
     # TODO: where does the local_recipient_maps file end up?
     local_recipient_maps = lib.mkForce "proxy:unix:passwd.byname regexp:/etc/postfix/local_recipients";
 
-
     #
     # DKIM settings
     #
@@ -171,9 +169,7 @@ in
     transport_maps = lib.mkForce "regexp:/etc/postfix/transport";
   };
 
-
   services.postfix.settings.master = {
-
 
     alaveteli_replies = {
       type = "unix";
