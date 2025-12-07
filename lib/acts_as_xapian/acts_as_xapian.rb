@@ -110,7 +110,35 @@ module ActsAsXapian
   end
 
   def self.values_by_prefix
-    @@values_by_prefix
+    Thread.current[:acts_as_xapian_values_by_prefix]
+  end
+
+  def self.values_by_prefix=(values_by_prefix)
+    Thread.current[:acts_as_xapian_values_by_prefix] = values_by_prefix
+  end
+
+  def self.values_by_number
+    Thread.current[:acts_as_xapian_values_by_number]
+  end
+
+  def self.values_by_number=(values_by_number)
+    Thread.current[:acts_as_xapian_values_by_number] = values_by_number
+  end
+
+  def self.terms_by_capital
+    Thread.current[:acts_as_xapian_terms_by_capital]
+  end
+
+  def self.terms_by_capital=(terms_by_capital)
+    Thread.current[:acts_as_xapian_terms_by_capital] = terms_by_capital
+  end
+
+  def self.value_ranges_store
+    Thread.current[:acts_as_xapian_value_ranges_store]
+  end
+
+  def self.value_ranges_store=(value_ranges_store)
+    Thread.current[:acts_as_xapian_value_ranges_store] = value_ranges_store
   end
 
   def self.config
@@ -225,10 +253,10 @@ module ActsAsXapian
     @@stopper.add("&")
     self.query_parser.stopper = @@stopper
 
-    @@terms_by_capital = {}
-    @@values_by_number = {}
-    @@values_by_prefix = {}
-    @@value_ranges_store = []
+    self.terms_by_capital = {}
+    self.values_by_number = {}
+    self.values_by_prefix = {}
+    self.value_ranges_store = []
 
     @@init_values.each do |_classname, options|
       # go through the various field types, and tell query parser about them,
@@ -246,12 +274,12 @@ module ActsAsXapian
         raise "Value index '#{index}' must be an Integer, is #{index.class}"
       end
 
-      if @@values_by_number.include?(index) && @@values_by_number[index] != prefix
+      if self.values_by_number.include?(index) && self.values_by_number[index] != prefix
         raise "Already have value index '#{index}' in another model " \
-          "but with different prefix '#{@@values_by_number[index]}'"
+          "but with different prefix '#{self.values_by_number[index]}'"
       end
       # date types are special, mark them so the first model they're seen for
-      unless @@values_by_number.include?(index)
+      unless self.values_by_number.include?(index)
         case value_type
         when :date
           value_range = Xapian::DateValueRangeProcessor.new(index)
@@ -267,11 +295,11 @@ module ActsAsXapian
 
         # stop it being garbage collected, as
         # add_valuerangeprocessor ref is outside Ruby's GC
-        @@value_ranges_store.push(value_range)
+        self.value_ranges_store.push(value_range)
       end
 
-      @@values_by_number[index] = prefix
-      @@values_by_prefix[prefix] = index
+      self.values_by_number[index] = prefix
+      self.values_by_prefix[prefix] = index
     end
   end
 
@@ -288,11 +316,11 @@ module ActsAsXapian
       end
       raise "Z is reserved for stemming terms" if term_code == "Z"
 
-      if @@terms_by_capital.include?(term_code) && @@terms_by_capital[term_code] != prefix
+      if self.terms_by_capital.include?(term_code) && self.terms_by_capital[term_code] != prefix
         raise "Already have code '#{term_code}' in another model but with different prefix " \
-          "'#{@@terms_by_capital[term_code]}'"
+          "'#{self.terms_by_capital[term_code]}'"
       end
-      @@terms_by_capital[term_code] = prefix
+      self.terms_by_capital[term_code] = prefix
       # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
       # If making acts_as_xapian generic, would really need to make the :terms have
       # another option that lets people choose non-boolean for terms that need it
