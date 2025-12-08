@@ -6,7 +6,6 @@ RSpec.describe "When sending track alerts" do
     # TODO: required to make sure xapian index can find files for raw emails
     # associated with fixtures - can be removed when fixtures no longer
     # automatically loaded for all specs
-    load_raw_emails_data
     update_xapian_index
   end
 

@@ -42,7 +42,7 @@ RSpec.describe 'when making a zipfile available' do
       expect(zip.read('correspondence.txt')).to match expected
     end
 
-    sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
+    sleep_and_receive_mail('incoming-request-two-same-name.eml', info_request)
 
     inspect_zip_download(request_owner, info_request) do |zip|
       expect(zip.count).to eq(3) # the message plus two "hello-world.txt" files
@@ -50,7 +50,7 @@ RSpec.describe 'when making a zipfile available' do
       expect(zip.read('2_3_hello world.txt')).to match('First hello')
     end
 
-    sleep_and_receive_mail('incoming-request-attachment-unknown-extension.email', info_request)
+    sleep_and_receive_mail('incoming-request-attachment-unknown-extension.eml', info_request)
 
     inspect_zip_download(request_owner, info_request) do |zip|
       expect(zip.count).to eq(4) # the message plus two "hello-world.txt" files, and the new attachment
@@ -245,7 +245,7 @@ RSpec.describe 'when making a zipfile available' do
                         replacement: 'REDACTED',
                         info_request: info_request)
 
-      sleep_and_receive_mail('incoming-request-two-same-name.email', info_request)
+      sleep_and_receive_mail('incoming-request-two-same-name.eml', info_request)
 
       inspect_zip_download(non_owner, info_request) do |zip|
         expect(zip.read('2_2_hello world.txt')).to match('Second hello')

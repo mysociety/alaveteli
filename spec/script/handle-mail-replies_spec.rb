@@ -21,7 +21,7 @@ RSpec.describe "When filtering" do
   describe "when not in test mode" do
     it "should not fail handling a bounce mail" do
       xc = ExternalCommand.new("script/handle-mail-replies", {
-        stdin_string: load_file_fixture("track-response-exim-bounce.email")
+        stdin_string: load_file_fixture("track-response-exim-bounce.eml")
       })
       xc.run
       expect(xc.err).to eq("")
@@ -29,7 +29,7 @@ RSpec.describe "When filtering" do
 
     it 'should not fail handling a UTF8 encoded mail' do
       xc = ExternalCommand.new("script/handle-mail-replies", {
-        stdin_string: load_file_fixture("russian.email")
+        stdin_string: load_file_fixture("russian.eml")
       })
       xc.run
       expect(xc.err).to eq("")
@@ -38,7 +38,7 @@ RSpec.describe "When filtering" do
     it "should pass on a non-bounce message with Received headers and Pro enabled" do
       xc = ExternalCommand.new("script/handle-mail-replies", {
         env: { 'ALAVETELI_ENABLE_ALAVETELI_PRO' => 'true' },
-        stdin_string: load_file_fixture("apple-mail-with-attachments.email")
+        stdin_string: load_file_fixture("apple-mail-with-attachments.eml")
       })
       xc.run
       expect(xc.err).to eq("")
@@ -46,67 +46,67 @@ RSpec.describe "When filtering" do
   end
 
   it "should detect an Exim bounce" do
-    r = mail_reply_test("track-response-exim-bounce.email")
+    r = mail_reply_test("track-response-exim-bounce.eml")
     expect(r.status).to eq(1)
     expect(r.out).to eq("user@example.com\n")
   end
 
   it "should detect a WebShield delivery error message" do
-    r = mail_reply_test("track-response-webshield-bounce.email")
+    r = mail_reply_test("track-response-webshield-bounce.eml")
     expect(r.status).to eq(1)
     expect(r.out).to eq("failed.user@example.co.uk\n")
   end
 
   it "should detect a MS Exchange non-permanent delivery error message" do
-    r = mail_reply_test("track-response-ms-bounce.email")
+    r = mail_reply_test("track-response-ms-bounce.eml")
     expect(r.status).to eq(1)
     expect(r.out).to eq("")
   end
 
   it "should pass on a non-bounce message" do
-    r = mail_reply_test("incoming-request-bad-uuencoding.email")
+    r = mail_reply_test("incoming-request-bad-uuencoding.eml")
     expect(r.status).to eq(0)
     expect(r.out).to eq("")
   end
 
   it "should detect a multipart bounce" do
-    r = mail_reply_test("track-response-multipart-report.email")
+    r = mail_reply_test("track-response-multipart-report.eml")
     expect(r.status).to eq(1)
     expect(r.out).to eq("FailedUser@example.com\n")
   end
 
   it "should detect a generic out-of-office" do
-    r = mail_reply_test("track-response-generic-oof.email")
+    r = mail_reply_test("track-response-generic-oof.eml")
     expect(r.status).to eq(2)
   end
 
   it "should detect an Exchange-style out-of-office" do
-    r = mail_reply_test("track-response-exchange-oof-1.email")
+    r = mail_reply_test("track-response-exchange-oof-1.eml")
     expect(r.status).to eq(2)
   end
 
   it "should detect a Lotus Domino-style out-of-office" do
-    r = mail_reply_test("track-response-lotus-oof-1.email")
+    r = mail_reply_test("track-response-lotus-oof-1.eml")
     expect(r.status).to eq(2)
   end
 
   it "should detect a Messagelabs-style out-of-office" do
-    r = mail_reply_test("track-response-messagelabs-oof-1.email")
+    r = mail_reply_test("track-response-messagelabs-oof-1.eml")
     expect(r.status).to eq(2)
   end
 
   it "should detect an out-of-office that has an X-POST-MessageClass header" do
-    r = mail_reply_test("track-response-messageclass-oof.email")
+    r = mail_reply_test("track-response-messageclass-oof.eml")
     expect(r.status).to eq(2)
   end
 
   it "should detect an Outlook(?)-style out-of-office" do
-    r = mail_reply_test("track-response-outlook-oof.email")
+    r = mail_reply_test("track-response-outlook-oof.eml")
     expect(r.status).to eq(2)
   end
 
   it "should detect an ABCMail-style out-of-office" do
-    r = mail_reply_test("track-response-abcmail-oof.email")
+    r = mail_reply_test("track-response-abcmail-oof.eml")
     expect(r.status).to eq(2)
   end
 end

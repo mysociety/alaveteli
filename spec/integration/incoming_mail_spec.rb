@@ -7,7 +7,7 @@ RSpec.describe 'when handling incoming mail' do
   let(:info_request) { FactoryBot.create(:info_request) }
 
   it "receives incoming messages, sends email to requester, and shows them" do
-    receive_incoming_mail('incoming-request-plain.email',
+    receive_incoming_mail('incoming-request-plain.eml',
                           email_to: info_request.incoming_email)
     deliveries = ActionMailer::Base.deliveries
     expect(deliveries.size).to eq(1)
@@ -19,7 +19,7 @@ RSpec.describe 'when handling incoming mail' do
   end
 
   it "makes attachments available for download" do
-    receive_incoming_mail('incoming-request-two-same-name.email',
+    receive_incoming_mail('incoming-request-two-same-name.eml',
                           email_to: info_request.incoming_email)
 
     attachment_1_path = get_attachment_path(
@@ -49,14 +49,14 @@ RSpec.describe 'when handling incoming mail' do
   end
 
   it "converts message body to UTF8" do
-    receive_incoming_mail('iso8859_2_raw_email.email',
+    receive_incoming_mail('iso8859_2_raw_email.eml',
                           email_to: info_request.incoming_email)
     visit show_request_path(info_request.url_title)
     expect(page).to have_content "tënde"
   end
 
   it "generates a valid HTML version of plain text attachments" do
-    receive_incoming_mail('incoming-request-two-same-name.email',
+    receive_incoming_mail('incoming-request-two-same-name.eml',
                           email_to: info_request.incoming_email)
     attachment_path = get_attachment_as_html_path(
       info_request.url_title,
@@ -74,7 +74,7 @@ RSpec.describe 'when handling incoming mail' do
   end
 
   it "generates a valid HTML version of PDF attachments" do
-    receive_incoming_mail('incoming-request-pdf-attachment.email',
+    receive_incoming_mail('incoming-request-pdf-attachment.eml',
                           email_to: info_request.incoming_email)
     attachment_as_html_path = get_attachment_as_html_path(
       info_request.url_title,
@@ -100,7 +100,7 @@ RSpec.describe 'when handling incoming mail' do
   end
 
   it "redirects back to incoming message when the attachment can't be found" do
-    receive_incoming_mail('incoming-request-two-same-name.email',
+    receive_incoming_mail('incoming-request-two-same-name.eml',
                           email_to: info_request.incoming_email)
     # asking for an attachment by the wrong filename should result in
     # redirecting back to the incoming message
@@ -115,7 +115,7 @@ RSpec.describe 'when handling incoming mail' do
   end
 
   it "treats attachments with unknown extensions as binary" do
-    receive_incoming_mail('incoming-request-attachment-unknown-extension.email',
+    receive_incoming_mail('incoming-request-attachment-unknown-extension.eml',
                           email_to: info_request.incoming_email)
 
     attachment_path = get_attachment_path(
@@ -134,7 +134,7 @@ RSpec.describe 'when handling incoming mail' do
   end
 
   it "does not automatically extract attachments after receiving email" do
-    receive_incoming_mail('incoming-request-plain.email',
+    receive_incoming_mail('incoming-request-plain.eml',
                           email_to: info_request.incoming_email)
     perform_enqueued_jobs
 
