@@ -8,6 +8,7 @@
     <%= render partial: 'frontpage_requests_list' %>
   </div>
 
+  <%= render partial: 'frontpage_ati_showcase_cta' if AtiNetworkController.showcase_enabled? %>
   <%= render partial: 'frontpage_blog' if Blog.enabled? %>
   <%= render partial: 'frontpage_extra' %>
 <% end %>
