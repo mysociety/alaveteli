@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Move raw email cache columns from incoming messages (Graeme Porteous)
 * Improve raw email testing fixtures (Graeme Porteous)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
 * Add support for Ubuntu 24.04 LTS "Nobel Numbat" (Graeme Porteous)
@@ -12,6 +13,10 @@
 * Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
+
+* _Recommended:_ To migrate `RawEmail` cache columns, please run:
+
+      bin/rails temp:migrate_cache_columns_to_raw_emails
 
 ### Changed Templates
 

@@ -83,203 +83,103 @@ RSpec.describe IncomingMessage do
     it { is_expected.to eq(response_event) }
   end
 
-  describe '#from_name' do
-    it 'returns the name in the From: field of an email' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
-
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.from_name).to eq('FOI Person')
-    end
-
-    it 'returns nil if there is no name in the From: field of an email' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: authority@example.com
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
-
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.from_name).to be_nil
-    end
-
-    it 'unquotes RFC 2047 headers' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: =?iso-8859-1?Q?Coordena=E7=E3o_de_Relacionamento=2C_Pesquisa_e_Informa=E7?=
-      	=?iso-8859-1?Q?=E3o/CEDI?= <geraldinequango@localhost>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
-
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.from_name).
-        to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
-    end
-  end
-
   describe '#safe_from_name' do
     it 'applies the info request censor rules to from_name' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
+      data = <<~EML.strip_heredoc
+        From: FOI Person <authority@example.com>
+        To: Jane Doe <request-magic-email@example.net>
+        Subject: A response
 
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      message.reload
-      FactoryBot.create(:censor_rule,
-                        text: 'Person',
-                        info_request: message.info_request)
+        Hello, World
+      EML
+
+      info_request = FactoryBot.build(:info_request)
+      message = FactoryBot.create(
+        :incoming_message, raw_email_data: data, info_request: info_request
+      )
+
+      FactoryBot.create(
+        :censor_rule, text: 'Person', info_request: info_request
+      )
 
       expect(message.safe_from_name).to eq('FOI [REDACTED]')
     end
   end
 
   describe '#from_email' do
-    it 'returns the email address in the From header' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@mail.example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
 
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.from_email).to eq('authority@mail.example.com')
-    end
-
-    it 'returns an empty string if there is no From header' do
-      raw_email_data = <<-EOF.strip_heredoc
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
-
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.from_email).to eq('')
+    it 'delegates to raw_email' do
+      expected = double(:from_email)
+      allow(raw_email).to receive(:from_email).and_return(expected)
+      expect(incoming_message.from_email).to eq expected
     end
   end
 
   describe '#from_email_domain' do
-    it 'returns the domain part of the email address in the From header' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@mail.example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
 
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.from_email_domain).to eq('mail.example.com')
-    end
-
-    it 'returns an empty string if there is no From header' do
-      raw_email_data = <<-EOF.strip_heredoc
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
-
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.from_email_domain).to eq('')
+    it 'delegates to raw_email' do
+      expected = double(:from_email_domain)
+      allow(raw_email).to receive(:from_email_domain).and_return(expected)
+      expect(incoming_message.from_email_domain).to eq expected
     end
   end
 
-  describe '#subject' do
-    it 'returns the Subject: field of an email' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
+  describe '#from_name' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
 
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.subject).to eq('A response')
+    it 'delegates to raw_email' do
+      expected = double(:from_name)
+      allow(raw_email).to receive(:from_name).and_return(expected)
+      expect(incoming_message.from_name).to eq expected
     end
+  end
 
-    it 'returns nil if there is no Subject: field' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Hello, World
-      EOF
+  describe '#message_id' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
 
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.subject).to be_nil
-    end
-
-    it 'unquotes RFC 2047 headers' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: =?iso-8859-1?Q?C=E2mara_Responde=3A__Banco_de_ideias?=
-      Hello, World
-      EOF
-
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.subject).to eq('Câmara Responde:  Banco de ideias')
+    it 'delegates to raw_email' do
+      expected = double(:message_id)
+      allow(raw_email).to receive(:message_id).and_return(expected)
+      expect(incoming_message.message_id).to eq expected
     end
   end
 
   describe '#sent_at' do
-    it 'uses the Date header if the mail has one' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Date: Fri, 9 Dec 2011 10:42:02 -0200
-      Hello, World
-      EOF
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
 
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.sent_at).
-        to eq(DateTime.parse('Fri, 9 Dec 2011 10:42:02 -0200').in_time_zone)
+    it 'delegates to raw_email' do
+      expected = double(:sent_at)
+      allow(raw_email).to receive(:sent_at).and_return(expected)
+      expect(incoming_message.sent_at).to eq expected
     end
+  end
 
-    it 'uses the created_at attribute if there is no Date header' do
-      raw_email_data = <<-EOF.strip_heredoc
-      From: FOI Person <authority@example.com>
-      To: Jane Doe <request-magic-email@example.net>
-      Subject: A response
-      Hello, World
-      EOF
+  describe '#subject' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
 
-      message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
-      message.parse_raw_email!(true)
-      expect(message.sent_at).to eq(message.created_at)
+    it 'delegates to raw_email' do
+      expected = double(:subject)
+      allow(raw_email).to receive(:subject).and_return(expected)
+      expect(incoming_message.subject).to eq expected
+    end
+  end
+
+  describe '#valid_to_reply_to?' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
+
+    it 'delegates to raw_email' do
+      expected = double(:valid_to_reply_to?)
+      allow(raw_email).to receive(:valid_to_reply_to?).and_return(expected)
+      expect(incoming_message.valid_to_reply_to?).to eq expected
     end
   end
 
@@ -288,37 +188,38 @@ RSpec.describe IncomingMessage do
 
     let(:body) { FactoryBot.build(:public_body, name: 'Foo') }
     let(:request) { FactoryBot.build(:info_request, public_body: body) }
+    let(:incoming_message) do
+      FactoryBot.build(:incoming_message, info_request: request)
+    end
 
     context 'when from_name is nil' do
-      let(:incoming_message) do
-        FactoryBot.build(:incoming_message, from_name: nil)
+      before do
+        allow(incoming_message).to receive(:from_name).and_return(nil)
       end
 
       it { is_expected.to eq(false) }
     end
 
     context 'when safe_from_name is the same as the body name' do
-      let(:incoming_message) do
-        FactoryBot.
-          build(:incoming_message, info_request: request, from_name: 'Foo')
+      before do
+        allow(incoming_message).to receive(:from_name).and_return('Foo')
       end
 
       it { is_expected.to eq(false) }
     end
 
     context 'when safe_from_name differs from the body name' do
-      let(:incoming_message) do
-        FactoryBot.
-          build(:incoming_message, info_request: request, from_name: 'Bar')
+      before do
+        allow(incoming_message).to receive(:from_name).and_return('Bar')
       end
 
       it { is_expected.to eq(true) }
     end
 
     context 'a censor rule masks from_name' do
-      let(:incoming_message) do
+      before do
         FactoryBot.create(:global_censor_rule, text: 'Bar')
-        FactoryBot.build(:incoming_message, from_name: 'Bar')
+        allow(incoming_message).to receive(:from_name).and_return('Bar')
       end
 
       it { is_expected.to eq(true) }

@@ -20,6 +20,31 @@ namespace :temp do
     puts "Populating User#status_update_count completed."
   end
 
+  desc 'Migrate cache columns from incoming_messages to raw_emails'
+  task migrate_cache_columns_to_raw_emails: :environment do
+    scope = IncomingMessage.where.not(last_parsed: nil).
+      joins(:raw_email).where(raw_emails: { message_id: nil }).
+      includes(raw_email: :file_blob)
+    count = scope.count
+
+    puts "Migrating cache columns for #{count} incoming messages..."
+
+    scope.find_each.with_index do |incoming_message, index|
+      raw_email = incoming_message.raw_email
+
+      next unless raw_email.send(:should_cache_attributes?)
+
+      raw_email.send(:cache_attributes_from_mail)
+      raw_email.save!
+
+      erase_line
+      print "Migrating cache columns #{index + 1}/#{count}"
+    end
+
+    erase_line
+    puts "Migrating cache columns completed."
+  end
+
   def erase_line
     # https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences
     print "\e[1G\e[K"
