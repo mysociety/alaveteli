@@ -39,8 +39,6 @@ class IncomingMessage < ApplicationRecord
   include MessageProminence
   include Taggable
 
-  include IncomingMessage::CacheAttributesFromRawEmail
-
   UnableToExtractAttachments = Class.new(StandardError)
 
   MAX_ATTACHMENT_TEXT_CLIPPED = 1_000_000 # 1Mb ish
@@ -74,13 +72,9 @@ class IncomingMessage < ApplicationRecord
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
 
-  cache_from_raw_email :subject, :sent_at,
-                       :from_name, :from_email, :from_email_domain,
-                       :valid_to_reply_to
-
-  delegate :message_id, to: :raw_email
-  delegate :multipart?, to: :raw_email
-  delegate :parts, to: :raw_email
+  delegate :from_email, :from_email_domain, :from_name,
+           :message_id, :multipart?, :parts, :sent_at, :subject,
+           :valid_to_reply_to?, to: :raw_email
   delegate :legislation, to: :info_request
 
   # Given that there are in theory many info request events, a convenience
@@ -98,19 +92,11 @@ class IncomingMessage < ApplicationRecord
     if !force.nil? || last_parsed.nil?
       ActiveRecord::Base.transaction do
         extract_attachments
-        self.sent_at = raw_email.date || created_at
-        self.subject = raw_email.subject
-        self.from_name = raw_email.from_name
-        self.from_email = raw_email.from_email || ''
-        self.from_email_domain = raw_email.from_email_domain || ''
-        self.valid_to_reply_to = raw_email.valid_to_reply_to?
         self.last_parsed = Time.zone.now
         save!
       end
     end
   end
-
-  alias valid_to_reply_to? valid_to_reply_to
 
   # Public: The display name of the email sender with the associated
   # InfoRequest's censor rules applied.
