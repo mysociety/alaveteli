@@ -2,16 +2,9 @@
 #
 # Table name: raw_emails
 #
-#  id                :integer          not null, primary key
-#  created_at        :datetime
-#  updated_at        :datetime
-#  from_email        :text
-#  from_email_domain :text
-#  from_name         :text
-#  message_id        :text
-#  sent_at           :datetime
-#  subject           :text
-#  valid_to_reply_to :boolean
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 # models/raw_email.rb:
@@ -23,18 +16,55 @@
 class RawEmail < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw email properly
 
-  prepend RawEmail::CacheAttributes
-
   has_one :incoming_message,
           inverse_of: :raw_email
 
   has_one_attached :file, service: :raw_emails
 
+  delegate :date, to: :mail
+  delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
   delegate :parts, to: :mail
 
   def addresses(include_invalid: false)
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
+  end
+
+  # Return false if for some reason this is a message that we shouldn't let them
+  # reply to
+  #
+  # TODO: Extract this validation out in to ReplyToAddressValidator#valid?
+  def valid_to_reply_to?
+    email = from_email.try(:downcase)
+
+    # check validity of email
+    return false if email.nil? || !MySociety::Validate.is_valid_email(email)
+
+    # Check whether the email is a known invalid reply address
+    if ReplyToAddressValidator.invalid_reply_addresses.include?(email)
+      return false
+    end
+
+    prefix = email
+    prefix =~ /^(.*)@/
+    prefix = $1
+
+    return false unless prefix
+
+    no_reply_regexp = ReplyToAddressValidator.no_reply_regexp
+
+    # reject postmaster - authorities seem to nearly always not respond to
+    # email to postmaster, and it tends to only happen after delivery failure.
+    # likewise Mailer-Daemon, Auto_Reply...
+    return false if prefix.match(no_reply_regexp)
+    return false if empty_return_path?
+    return false if auto_submitted?
+
+    true
+  end
+
+  def empty_from_field?
+    mail.from_addrs.nil? || mail.from_addrs.empty?
   end
 
   def mail

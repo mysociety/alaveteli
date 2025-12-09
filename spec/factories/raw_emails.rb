@@ -2,16 +2,9 @@
 #
 # Table name: raw_emails
 #
-#  id                :integer          not null, primary key
-#  created_at        :datetime
-#  updated_at        :datetime
-#  from_email        :text
-#  from_email_domain :text
-#  from_name         :text
-#  message_id        :text
-#  sent_at           :datetime
-#  subject           :text
-#  valid_to_reply_to :boolean
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 FactoryBot.define do
@@ -20,12 +13,11 @@ FactoryBot.define do
   trait :with_file do
     transient do
       sequence(:filename) { |n| "#{n + 1}.eml" }
-      mail { Mail.new(data) }
-      data {}
+      mail { Mail.new }
     end
 
-    after(:build) do |raw_email, evaluator|
-      raw_email.file.attach(
+    after(:build) do |foi_attachment, evaluator|
+      foi_attachment.file.attach(
         io: StringIO.new(evaluator.mail.to_s),
         filename: evaluator.filename,
         content_type: 'message/rfc822'

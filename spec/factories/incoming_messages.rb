@@ -30,7 +30,6 @@ FactoryBot.define do
 
     transient do
       foi_attachments_factories { [] }
-      raw_email_data {}
     end
 
     after(:build) do |incoming_message, evaluator|
@@ -44,8 +43,8 @@ FactoryBot.define do
         )
       end
 
-      incoming_message.raw_email.data = evaluator.raw_email_data ||
-        build_incoming_message_mail(incoming_message)
+      mail = build_incoming_message_mail(incoming_message)
+      incoming_message.raw_email.data = mail
     end
 
     trait :unparsed do

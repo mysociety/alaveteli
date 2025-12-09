@@ -2,64 +2,22 @@
 #
 # Table name: raw_emails
 #
-#  id                :integer          not null, primary key
-#  created_at        :datetime
-#  updated_at        :datetime
-#  from_email        :text
-#  from_email_domain :text
-#  from_name         :text
-#  message_id        :text
-#  sent_at           :datetime
-#  subject           :text
-#  valid_to_reply_to :boolean
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 useless_raw_email:
   id: 1
-  from_email: foiperson@localhost
-  from_email_domain: localhost
-  from_name: FOI Person
-  message_id: '1'
-  sent_at: 2007-11-13 11:39:55.000000000 Z
-  subject: Geraldine FOI Code AZXB421
-  valid_to_reply_to: true
 
 useful_raw_email:
   id: 2
-  from_email: foiperson@localhost
-  from_email_domain: localhost
-  from_name: FOI Person
-  message_id: '2'
-  sent_at: 2007-11-13 11:39:55.000000000 Z
-  subject: 'Re: Your email'
-  valid_to_reply_to: true
 
 another_useful_raw_email:
   id: 3
-  from_email: msw@localhost
-  from_email_domain: localhost
-  from_name: The Minister
-  message_id: '3'
-  sent_at: 2009-11-13 11:39:55.000000000 Z
-  subject: 'Re: Your message'
-  valid_to_reply_to: true
 
 spam_1_raw_email:
   id: 4
-  from_email: msw@localhost
-  from_email_domain: localhost
-  from_name: The Minister
-  message_id: '4'
-  sent_at: 2008-11-13 11:39:55.000000000 Z
-  subject: 'Re: v1agra'
-  valid_to_reply_to: true
 
 spam_2_raw_email:
   id: 5
-  from_email: sensewalk@localhost
-  from_email_domain: localhost
-  from_name: The Minister
-  message_id: '5'
-  sent_at: 2008-11-13 12:39:55.000000000 Z
-  subject: 'Re: v1agra'
-  valid_to_reply_to: true

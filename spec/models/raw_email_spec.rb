@@ -2,16 +2,9 @@
 #
 # Table name: raw_emails
 #
-#  id                :integer          not null, primary key
-#  created_at        :datetime
-#  updated_at        :datetime
-#  from_email        :text
-#  from_email_domain :text
-#  from_name         :text
-#  message_id        :text
-#  sent_at           :datetime
-#  subject           :text
-#  valid_to_reply_to :boolean
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 require 'spec_helper'
@@ -25,25 +18,75 @@ RSpec.describe RawEmail do
   end
 
   describe '#valid_to_reply_to?' do
-    subject { raw_email.valid_to_reply_to? }
-    let(:raw_email) { FactoryBot.create(:raw_email, :with_file) }
-
-    before do
-      allow(ReplyToAddressValidator).to receive(:valid?).and_return(true)
+    def test_email(result, email, empty_return_path, autosubmitted = nil)
+      stubs = { from_email: email,
+                empty_return_path?: empty_return_path,
+                auto_submitted?: autosubmitted }
+      raw_email = RawEmail.new
+      stubs.each do |method, value|
+        allow(raw_email).to receive(method).and_return(value)
+      end
+      expect(raw_email.valid_to_reply_to?).to eq(result)
     end
 
-    it 'returns true if from email is valid' do
-      is_expected.to eq true
+    it "says a valid email is fine" do
+      test_email(true, "team@mysociety.org", false)
     end
 
-    it "returns false an empty return-path is bad" do
-      allow(raw_email).to receive(:empty_return_path?).and_return(true)
-      is_expected.to eq false
+    it "says postmaster email is bad" do
+      test_email(false, "postmaster@mysociety.org", false)
     end
 
-    it "returns false if auto-submitted keyword is bad" do
-      allow(raw_email).to receive(:auto_submitted?).and_return(true)
-      is_expected.to eq false
+    it "says Mailer-Daemon email is bad" do
+      test_email(false, "Mailer-Daemon@mysociety.org", false)
+    end
+
+    it "says case mangled MaIler-DaemOn email is bad" do
+      test_email(false, "MaIler-DaemOn@mysociety.org", false)
+    end
+
+    it "says Auto_Reply email is bad" do
+      test_email(false, "Auto_Reply@mysociety.org", false)
+    end
+
+    it "says DoNotReply email is bad" do
+      test_email(false, "DoNotReply@tube.tfl.gov.uk", false)
+    end
+
+    it "says no reply email is bad" do
+      test_email(false, "noreply@tube.tfl.gov.uk", false)
+      test_email(false, "no.reply@tube.tfl.gov.uk", false)
+      test_email(false, "no-reply@tube.tfl.gov.uk", false)
+    end
+
+    it "says a filled-out return-path is fine" do
+      test_email(true, "team@mysociety.org", false)
+    end
+
+    it "says an empty return-path is bad" do
+      test_email(false, "team@mysociety.org", true)
+    end
+
+    it "says an auto-submitted keyword is bad" do
+      test_email(false, "team@mysociety.org", false, "auto-replied")
+    end
+
+    it 'returns true if the full email is not included in the invalid reply addresses' do
+      ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
+
+      test_email(true, 'b@example.com', false)
+
+      ReplyToAddressValidator.invalid_reply_addresses =
+        ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
+    end
+
+    it 'returns false if the full email is included in the invalid reply addresses' do
+      ReplyToAddressValidator.invalid_reply_addresses = %w(a@example.com)
+
+      test_email(false, 'a@example.com', false)
+
+      ReplyToAddressValidator.invalid_reply_addresses =
+        ReplyToAddressValidator::DEFAULT_INVALID_REPLY_ADDRESSES
     end
 
     context 'checking validity to reply to with real emails' do
@@ -186,197 +229,6 @@ RSpec.describe RawEmail do
       it 'returns nil' do
         expect(raw_email.storage_key).to be_nil
       end
-    end
-  end
-
-  describe '#from_email' do
-    it 'returns the email address in the From header' do
-      data = <<~EML
-        From: FOI Person <authority@mail.example.com>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.from_email).to eq('authority@mail.example.com')
-    end
-
-    it 'returns an empty string if there is no From header' do
-      data = <<~EML
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.from_email).to eq('')
-    end
-  end
-
-  describe '#from_email_domain' do
-    it 'returns the domain part of the email address in the From header' do
-      data = <<~EML
-        From: FOI Person <authority@mail.example.com>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.from_email_domain).to eq('mail.example.com')
-    end
-
-    it 'returns an empty string if there is no From header' do
-      data = <<~EML
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.from_email_domain).to eq('')
-    end
-  end
-
-  describe '#from_name' do
-    it 'returns the name in the From: field of an email' do
-      data = <<~EML
-        From: FOI Person <authority@example.com>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.from_name).to eq('FOI Person')
-    end
-
-    it 'returns nil if there is no name in the From: field of an email' do
-      data = <<~EML
-        From: authority@example.com
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.from_name).to be_nil
-    end
-
-    it 'unquotes RFC 2047 headers' do
-      data = <<~EML
-        From: =?iso-8859-1?Q?Coordena=E7=E3o_de_Relacionamento=2C_Pesquisa_e_Informa=E7?=
-          =?iso-8859-1?Q?=E3o/CEDI?= <geraldinequango@localhost>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.from_name).
-        to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
-    end
-  end
-
-  describe '#message_id' do
-    it 'uses the Message-ID header' do
-      data = <<~EML
-        Message-ID: <12345@foo.local>
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.message_id).to eq('12345@foo.local')
-    end
-
-    it 'uses the Message-Id header' do
-      data = <<~EML
-        Message-Id: <12345@bar.local>
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.message_id).to eq('12345@bar.local')
-    end
-  end
-
-  describe '#subject' do
-    it 'returns the Subject: field of an email' do
-      data = <<~EML
-        From: FOI Person <authority@example.com>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.subject).to eq('A response')
-    end
-
-    it 'returns nil if there is no Subject: field' do
-      data = <<~EML
-        From: FOI Person <authority@example.com>
-        To: Jane Doe <request-magic-email@example.net>
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.subject).to be_nil
-    end
-
-    it 'unquotes RFC 2047 headers' do
-      data = <<~EML
-        From: FOI Person <authority@example.com>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: =?iso-8859-1?Q?C=E2mara_Responde=3A__Banco_de_ideias?=
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.subject).to eq('Câmara Responde:  Banco de ideias')
-    end
-  end
-
-  describe '#sent_at' do
-    it 'uses the Date header if the mail has one' do
-      data = <<~EML
-        From: FOI Person <authority@example.com>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-        Date: Fri, 9 Dec 2011 10:42:02 -0200
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.sent_at).
-        to eq(DateTime.parse('Fri, 9 Dec 2011 10:42:02 -0200').in_time_zone)
-    end
-
-    it 'uses the created_at attribute if there is no Date header' do
-      data = <<~EML
-        From: FOI Person <authority@example.com>
-        To: Jane Doe <request-magic-email@example.net>
-        Subject: A response
-
-        Hello, World
-      EML
-
-      raw_email = FactoryBot.create(:raw_email, :with_file, data: data)
-      expect(raw_email.sent_at).to be_within(1.second).of raw_email.created_at
     end
   end
 end

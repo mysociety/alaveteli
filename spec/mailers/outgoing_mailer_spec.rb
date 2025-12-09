@@ -90,19 +90,21 @@ RSpec.describe OutgoingMailer, "when working out follow up subjects" do
     om = outgoing_messages(:useless_outgoing_message)
     om.incoming_message_followup = im
 
-    allow(im.raw_email).to receive(:subject).and_return("re: Geraldine FOI Code AZXB421")
+    im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: re: Geraldine FOI Code AZXB421")
+    im.parse_raw_email! true
 
     expect(OutgoingMailer.subject_for_followup(ir, om, html: false)).to eq("re: Geraldine FOI Code AZXB421")
   end
 
-  it "should use 'Re:' and initial request subject when replying to mails without valid reply to addresses" do
+  it "should use 'Re:' and initial request subject when replying to failed delivery notifications" do
     ir = info_requests(:fancy_dog_request)
     im = ir.incoming_messages[0]
     om = outgoing_messages(:useless_outgoing_message)
     om.incoming_message_followup = im
 
-    allow(im.raw_email).to receive(:from_email).and_return("postmaster@localhost")
-    allow(im.raw_email).to receive(:valid_to_reply_to?).and_return(false)
+    im.raw_email.data = im.raw_email.data.sub("foiperson@localhost", "postmaster@localhost")
+    im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: Delivery Failed")
+    im.parse_raw_email! true
 
     expect(OutgoingMailer.subject_for_followup(ir, om, html: false)).to eq("Re: Freedom of Information request - Why do you have & such a fancy dog?")
   end
