@@ -64,22 +64,6 @@ class RawEmail < ApplicationRecord
                          replace: "")
   end
 
-  def from_name
-    MailHandler.get_from_name(mail)
-  end
-
-  def from_email
-    MailHandler.get_from_address(mail)
-  end
-
-  def from_email_domain
-    PublicBody.extract_domain_from_email(from_email)
-  end
-
-  def subject
-    MailHandler.get_subject(mail)
-  end
-
   def storage_key
     file.blob.key if file&.attached?
   end
