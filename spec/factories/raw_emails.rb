@@ -17,8 +17,10 @@ FactoryBot.define do
     end
 
     after(:build) do |raw_email, evaluator|
+      data_string = evaluator.mail.to_s
+      raw_email.instance_variable_set(:@data, data_string)
       raw_email.file.attach(
-        io: StringIO.new(evaluator.mail.to_s),
+        io: StringIO.new(data_string),
         filename: evaluator.filename,
         content_type: 'message/rfc822'
       )
