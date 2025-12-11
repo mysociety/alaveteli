@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/mysociety/ruby-msg.git
-  revision: fae72e547299ab1f8b23239a79f5a1d353426b40
+  revision: 0c9ebb75a4dca40495b1caf8a37e6e628bb421f5
   branch: ascii-encoding
   specs:
     ruby-msg (1.5.2)
@@ -530,7 +530,7 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.44.0, < 2.0)
-    ruby-ole (1.2.12.1)
+    ruby-ole (1.2.13.1)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.3)
       ffi (~> 1.12)
