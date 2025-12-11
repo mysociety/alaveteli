@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add ATI Network Impacts Showcase (Lucas Cumsille Montesinos, Gareth Rees)
 * Improve raw email testing fixtures (Graeme Porteous)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
 * Add support for Ubuntu 24.04 LTS "Nobel Numbat" (Graeme Porteous)
@@ -12,6 +13,15 @@
 * Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
+
+
+* _Optional:_ The new ATI Network Impacts Showcase page can be disabled by
+  adding a configuration setting in the theme controller patches:
+
+    Rails.application.config.after_initialize do
+      AtiNetworkController.showcase_enabled = false
+    end
+
 
 ### Changed Templates
 
