@@ -67,6 +67,9 @@ RSpec.describe RawEmail do
     let(:mock_mail) { double }
 
     before do
+      # Unset @mail to ensure we're not using a cached value from the factory
+      # creation
+      raw_email.instance_variable_set(:@mail, nil)
       allow(raw_email).to receive(:mail!).and_return(mock_mail)
     end
 
