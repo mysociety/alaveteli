@@ -59,7 +59,7 @@ let
     // cfg.settings.general
   );
 
-  alaveteliPackage = pkgs.callPackage ./package.nix {
+  packageVersions = import ./package.nix {
     customAlaveteliPatches = cfg.theme.customAlaveteliPatches;
     secretsFile = cfg.settings.secretsFile;
     themeGemfile = cfg.theme.gemfile;
@@ -70,6 +70,7 @@ let
     themeTranslationFiles = cfg.theme.translationFiles;
     themeProTranslationFiles = cfg.theme.proTranslationFiles;
     inherit (cfg) dataDir;
+    inherit pkgs;
   };
 
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
@@ -202,7 +203,7 @@ in
 
       package = lib.mkOption {
         type = lib.types.package;
-        default = alaveteliPackage;
+        default = packageVersions.alaveteli_develop;
       };
 
       user = lib.mkOption {
