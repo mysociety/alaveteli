@@ -6,11 +6,10 @@
 }:
 let
   cfg = config.services.alaveteli;
-  # env vars passed to wal-g
+
   walg_environment = {
     WALG_LIBSODIUM_KEY_TRANSFORM = "hex";
     WALG_COMPRESSION_METHOD = "zstd";
-    # PGUSER = config.users.users.db_backup_user.name;
     PGUSER = config.users.users.postgres.name;
     PGHOST = "/run/postgresql";
   };
@@ -50,7 +49,6 @@ in
   };
   systemd.services.postgresql.environment = walg_environment;
 
-  # why does this result in merging the various items of SystemCallFilter?
   # this is required to run wal-g wal-push. Without this seccomp setting,
   # wal-g is killed with a sigsys immediately.
   systemd.services.postgresql.serviceConfig.SystemCallFilter = [ "setrlimit" ];
@@ -71,19 +69,20 @@ in
       };
 
   systemd.services."wal-g-base-backup" =
-    lib.optionalAttrs (cfg.database.createLocally && cfg.database.backup.enable) {
-      # pass secrets as a file via the --config option, and other settings
-      # as env vars (in https://github.com/spf13/viper env vars take precedence
-      # over config files)
-      environment = walg_environment;
-      script = ''
-        set -eu
-        ${pkgs.wal-g}/bin/wal-g --config ${cfg.database.backup.storageConfigFile} backup-push ${config.services.postgresql.dataDir}
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-        User = config.users.users.postgres.name;
+    lib.optionalAttrs (cfg.database.createLocally && cfg.database.backup.enable)
+      {
+        # pass secrets as a file via the --config option, and other settings
+        # as env vars (in https://github.com/spf13/viper env vars take precedence
+        # over config files)
+        environment = walg_environment;
+        script = ''
+          set -eu
+          ${pkgs.wal-g}/bin/wal-g --config ${cfg.database.backup.storageConfigFile} backup-push ${config.services.postgresql.dataDir}
+        '';
+        serviceConfig = {
+          Type = "oneshot";
+          User = config.users.users.postgres.name;
+        };
       };
-    };
 
 }
