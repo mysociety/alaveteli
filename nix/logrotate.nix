@@ -39,6 +39,21 @@ in
                   systemctl reload postfix.service > /dev/null 2>&1 || true
           endscript
       }
+      /var/log/nginx/*.log
+      {
+          rotate 180
+          daily
+          dateext
+          missingok
+          notifempty
+          compress
+          delaycompress
+          sharedscripts
+          postrotate
+                  systemctl kill --kill-whom=main --signal=SIGHUP syslog.service > /dev/null 2>&1 || true
+                  [ ! -f /var/run/nginx/nginx.pid ] || kill -USR1 `cat /var/run/nginx/nginx.pid`
+          endscript
+      }
       ${cfg.dataDir}/log/*.log
       {
           rotate 180
