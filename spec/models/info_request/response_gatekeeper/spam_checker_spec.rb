@@ -66,7 +66,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       X-Spam-Score: 1000
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_raw_email(spam_email)
+      email = MailHandler.mail_from_string(spam_email)
       attrs = { spam_header: nil,
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
@@ -81,7 +81,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       X-Spam-Score: 10
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(raw_email)
+      email = MailHandler.mail_from_string(raw_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100,
                 spam_action: 'discard' }
@@ -97,7 +97,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       X-Spam-Score: 1000
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_raw_email(spam_email)
+      email = MailHandler.mail_from_string(spam_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100,
                 spam_action: 'discard' }
@@ -124,7 +124,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       X-Spam-Score: 1000.4
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_raw_email(spam_email)
+      email = MailHandler.mail_from_string(spam_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
@@ -139,7 +139,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       X-Spam-Score: 10
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(spam_email)
+      email = MailHandler.mail_from_string(spam_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
@@ -153,7 +153,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Subject: Not spam
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(spam_email)
+      email = MailHandler.mail_from_string(spam_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
@@ -170,7 +170,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       X-Spam-Score: 1000.4
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_raw_email(spam_email)
+      email = MailHandler.mail_from_string(spam_email)
       gatekeeper = described_class.new(spam_header: 'X-Spam-Score')
       expect(gatekeeper.spam_score(email)).to eq(1000.4)
     end
@@ -182,7 +182,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
       Subject: No spam header
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(raw_email)
+      email = MailHandler.mail_from_string(raw_email)
       gatekeeper = described_class.new
       expect(gatekeeper.spam_score(email)).to eq(0.0)
     end

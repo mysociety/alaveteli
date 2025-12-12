@@ -10,8 +10,8 @@ RSpec.describe MailHandler::Backends::MailBackend do
     end
   end
 
-  describe :mail_from_raw_email do
-    subject { mail_from_raw_email(raw_email) }
+  describe :mail_from_string do
+    subject { mail_from_string(raw_email) }
 
     context 'when passed a binary string' do
       # Read fixture file using 'rb' mode so we end up with a ASCII-8BIT string

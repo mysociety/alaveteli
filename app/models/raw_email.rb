@@ -45,7 +45,7 @@ class RawEmail < ApplicationRecord
   end
 
   def mail!
-    @mail = MailHandler.mail_from_raw_email(data)
+    @mail = MailHandler.mail_from_string(data)
   end
 
   def data=(d)

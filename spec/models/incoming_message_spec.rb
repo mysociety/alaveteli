@@ -956,7 +956,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
 
   it "should still work when parsed from the raw email" do
     data = load_file_fixture('inline-uuencode.eml')
-    mail = MailHandler.mail_from_raw_email(data)
+    mail = MailHandler.mail_from_string(data)
     im = incoming_messages(:useless_incoming_message)
     raw_email = RawEmail.new
     allow(raw_email).to receive(:data).and_return(data)

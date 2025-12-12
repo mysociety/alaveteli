@@ -9,7 +9,7 @@ end
 def get_fixture_mail(filename, email_to = nil, email_from = nil)
   content = load_file_fixture(filename)
   content = gsub_addresses(content, email_from: email_from, email_to: email_to)
-  MailHandler.mail_from_raw_email(content)
+  MailHandler.mail_from_string(content)
 end
 
 def parse_all_incoming_messages
