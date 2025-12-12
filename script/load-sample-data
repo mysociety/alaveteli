@@ -52,6 +52,19 @@ end
 
 # run everything as a single transaction - all the deletes then all the inserts
 ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
+
+# Copy the RawEmail fixture data into the development environment
+raw_emails_yml = Rails.root.join('spec', 'fixtures', 'raw_emails.yml')
+
+yamls = YAML.load_file(raw_emails_yml, permitted_classes: [Time])
+yamls.map { |_,v| v['id'] }.each do |raw_email_id|
+  raw_email = RawEmail.find(raw_email_id)
+  raw_email.data = load_file_fixture("raw_email_#{raw_email_id}.eml")
+  raw_email.save!
+end
+
+# Destroy temporary fixture records that are now migrated to development env
+ActiveStorage::Blob.where(service_name: 'test_fixtures').destroy_all
 EOF
 
 bundle exec rails runner tmp/data-loader.rb
