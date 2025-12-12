@@ -24,6 +24,16 @@ RSpec.describe RawEmail do
     raw_email.data
   end
 
+  # This mirrors actual implementation of InfoRequest#create_response
+  def create_response(info_request, mail)
+    incoming_message = info_request.incoming_messages.build
+    raw_email = RawEmail.new
+    incoming_message.raw_email = raw_email
+    incoming_message.save!
+    raw_email.data = mail
+    raw_email
+  end
+
   describe '#valid_to_reply_to?' do
     subject { raw_email.valid_to_reply_to? }
     let(:raw_email) { RawEmail.new }
@@ -124,6 +134,92 @@ RSpec.describe RawEmail do
       # Now when we call the safe mail, we should get the last cached
       # version, _not_ the initial cache
       expect(raw_email.mail).to eq(updated)
+    end
+  end
+
+  describe '#data=' do
+    let(:from) { 'FOI Officer <f@example.com>' }
+
+    context 'with a fresh instance' do
+      let(:raw_email) { described_class.new }
+
+      before do
+        allow(raw_email).to receive(:incoming_message_id).and_return('99')
+
+        raw_email.data =
+          get_fixture_mail('incoming-request-plain.eml', nil, from)
+      end
+
+      it 'attaches a file' do
+        expect(raw_email.file).to be_attached
+      end
+
+      it 'does not persist the file' do
+        expect(raw_email.file).not_to be_persisted
+      end
+
+      it 'clears cached attributes' do
+        expect(raw_email.read_attribute(:message_id)).not_to be_present
+      end
+    end
+
+    context 'mirroring a new response' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+      let(:mail) { get_fixture_mail('incoming-request-plain.eml', nil, from) }
+
+      let(:raw_email) { create_response(info_request, mail) }
+
+      it 'has an attached file' do
+        expect(raw_email.file).to be_attached
+      end
+
+      it 'has a persisted file' do
+        expect(raw_email.file).to be_persisted
+      end
+
+      it 'has cached attributes' do
+        expect(raw_email.read_attribute(:message_id)).to be_present
+      end
+    end
+
+    context 'updating a persisted record' do
+      let(:mail) { get_fixture_mail('incoming-request-plain.eml', nil, from) }
+
+      let!(:raw_email) do
+        FactoryBot.create(
+          :raw_email,
+          :with_file,
+          incoming_message: FactoryBot.create(:incoming_message),
+          mail: mail
+        )
+      end
+
+      let!(:previous_file) { raw_email.file.blob.checksum }
+
+      before do
+        new_from = 'REDACTED <redacted@example.com>'
+        raw_email.data =
+          get_fixture_mail('incoming-request-plain.eml', nil, new_from)
+      end
+
+      it 'attaches the new file' do
+        expect(raw_email.file).to be_attached
+        expect(raw_email.file.blob.checksum).not_to eq(previous_file)
+      end
+
+      it 'does not persist the new file' do
+        expect(raw_email.file).not_to be_persisted
+      end
+
+      it 'clears cached attributes' do
+        expect(raw_email.read_attribute(:message_id)).not_to be_present
+      end
+
+      it 'caches attributes after being read directly' do
+        expect(raw_email.message_id).to be_present
+        expect(raw_email.read_attribute(:message_id)).to be_present
+        expect(raw_email.from_name).to eq('REDACTED')
+      end
     end
   end
 
