@@ -25,6 +25,11 @@ require 'spec_helper'
 require 'models/concerns/message_prominence'
 require 'models/concerns/taggable'
 
+def populate_raw_email(fixture)
+  mail = get_fixture_mail(fixture, to, from)
+  raw_email.update!(data: mail)
+end
+
 RSpec.describe IncomingMessage do
   it_behaves_like 'concerns/message_prominence', :incoming_message
   it_behaves_like 'concerns/taggable', :incoming_message
@@ -912,11 +917,6 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
   let(:to) { im.info_request.incoming_email }
   let(:from) { im.info_request.public_body.request_email }
 
-  def populate_raw_email(fixture)
-    mail = get_fixture_mail(fixture, to, from)
-    raw_email.update!(data: mail)
-  end
-
   it "decodes a valid uuencoded attachment" do
     populate_raw_email('simple-uuencoded-attachment.eml')
     im.extract_attachments!
@@ -995,11 +995,6 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
   let(:to) { im.info_request.incoming_email }
   let(:from) { im.info_request.public_body.request_email }
 
-  def populate_raw_email(fixture)
-    mail = get_fixture_mail(fixture, to, from)
-    raw_email.update!(data: mail)
-  end
-
   it 'should expand an RFC822 attachment' do
     # Note that this spec will only pass using Tmail in the timezone set as datetime headers
     # are rendered out in the local time - using the Mail gem this is not necessary
@@ -1053,11 +1048,6 @@ RSpec.describe IncomingMessage, "when Outlook messages are attached to messages"
   let(:to) { im.info_request.incoming_email }
   let(:from) { im.info_request.public_body.request_email }
 
-  def populate_raw_email(fixture)
-    mail = get_fixture_mail(fixture, to, from)
-    raw_email.update!(data: mail)
-  end
-
   it "should flatten all the attachments out" do
     populate_raw_email('incoming-request-oft-attachments.eml')
     im.extract_attachments!
@@ -1078,11 +1068,6 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
 
   let(:to) { im.info_request.incoming_email }
   let(:from) { im.info_request.public_body.request_email }
-
-  def populate_raw_email(fixture)
-    mail = get_fixture_mail(fixture, to, from)
-    raw_email.update!(data: mail)
-  end
 
   it "should flatten all the attachments out" do
     populate_raw_email('incoming-request-tnef-attachments.eml')
