@@ -225,7 +225,7 @@ class RequestMailer < ApplicationMailer
     unless logger.nil?
       logger.debug "Received mail from #{source}:\n #{raw_email}"
     end
-    mail = MailHandler.mail_from_raw_email(raw_email)
+    mail = MailHandler.mail_from_string(raw_email)
     new.receive(mail, raw_email, source)
   end
 

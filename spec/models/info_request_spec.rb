@@ -4214,7 +4214,7 @@ RSpec.describe InfoRequest do
     raw_email.gsub!('EMAIL_TO', email_to)
     raw_email.gsub!('EMAIL_FROM', email_from)
 
-    email = MailHandler.mail_from_raw_email(raw_email)
+    email = MailHandler.mail_from_string(raw_email)
     [email, raw_email]
   end
 

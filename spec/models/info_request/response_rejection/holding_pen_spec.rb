@@ -28,7 +28,7 @@ RSpec.describe InfoRequest::ResponseRejection::HoldingPen do
       Subject: External
       Hello, World
       EOF
-      email = MailHandler.mail_from_raw_email(raw_email)
+      email = MailHandler.mail_from_string(raw_email)
       args = [info_request, email, raw_email]
 
       described_class.new(*args).reject
