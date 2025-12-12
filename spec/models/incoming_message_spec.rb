@@ -90,7 +90,7 @@ RSpec.describe IncomingMessage do
 
   describe '#from_name' do
     it 'returns the name in the From: field of an email' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -98,13 +98,13 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.from_name).to eq('FOI Person')
     end
 
     it 'returns nil if there is no name in the From: field of an email' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: authority@example.com
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -112,13 +112,13 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.from_name).to be_nil
     end
 
     it 'unquotes RFC 2047 headers' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: =?iso-8859-1?Q?Coordena=E7=E3o_de_Relacionamento=2C_Pesquisa_e_Informa=E7?=
       	=?iso-8859-1?Q?=E3o/CEDI?= <geraldinequango@localhost>
       To: Jane Doe <request-magic-email@example.net>
@@ -127,7 +127,7 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.from_name).
         to eq('Coordenação de Relacionamento, Pesquisa e Informação/CEDI')
@@ -136,7 +136,7 @@ RSpec.describe IncomingMessage do
 
   describe '#safe_from_name' do
     it 'applies the info request censor rules to from_name' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -144,7 +144,7 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       message.reload
       FactoryBot.create(:censor_rule,
@@ -157,7 +157,7 @@ RSpec.describe IncomingMessage do
 
   describe '#from_email' do
     it 'returns the email address in the From header' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@mail.example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -165,20 +165,20 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.from_email).to eq('authority@mail.example.com')
     end
 
     it 'returns an empty string if there is no From header' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
       Hello, World
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.from_email).to eq('')
     end
@@ -186,7 +186,7 @@ RSpec.describe IncomingMessage do
 
   describe '#from_email_domain' do
     it 'returns the domain part of the email address in the From header' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@mail.example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -194,20 +194,20 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.from_email_domain).to eq('mail.example.com')
     end
 
     it 'returns an empty string if there is no From header' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
       Hello, World
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.from_email_domain).to eq('')
     end
@@ -215,7 +215,7 @@ RSpec.describe IncomingMessage do
 
   describe '#subject' do
     it 'returns the Subject: field of an email' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -223,26 +223,26 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.subject).to eq('A response')
     end
 
     it 'returns nil if there is no Subject: field' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
       To: Jane Doe <request-magic-email@example.net>
       Hello, World
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.subject).to be_nil
     end
 
     it 'unquotes RFC 2047 headers' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: =?iso-8859-1?Q?C=E2mara_Responde=3A__Banco_de_ideias?=
@@ -250,7 +250,7 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.subject).to eq('Câmara Responde:  Banco de ideias')
     end
@@ -258,7 +258,7 @@ RSpec.describe IncomingMessage do
 
   describe '#sent_at' do
     it 'uses the Date header if the mail has one' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -267,14 +267,14 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.sent_at).
         to eq(DateTime.parse('Fri, 9 Dec 2011 10:42:02 -0200').in_time_zone)
     end
 
     it 'uses the created_at attribute if there is no Date header' do
-      raw_email_data = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: FOI Person <authority@example.com>
       To: Jane Doe <request-magic-email@example.net>
       Subject: A response
@@ -282,7 +282,7 @@ RSpec.describe IncomingMessage do
       EOF
 
       message = FactoryBot.create(:incoming_message)
-      message.raw_email.data = raw_email_data
+      message.raw_email.data = inbound_email
       message.parse_raw_email!(true)
       expect(message.sent_at).to eq(message.created_at)
     end

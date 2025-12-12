@@ -1,15 +1,15 @@
 class InfoRequest
   module ResponseGatekeeper
     class AuthorityOnly < Base
-      def allow?(email)
-        @allow, @reason = calculate_allow_reason(info_request, email)
+      def allow?(mail)
+        @allow, @reason = calculate_allow_reason(info_request, mail)
         allow
       end
 
       private
 
-      def calculate_allow_reason(info_request, email)
-        sender_email = MailHandler.get_from_address(email)
+      def calculate_allow_reason(info_request, mail)
+        sender_email = MailHandler.get_from_address(mail)
         if sender_email.nil?
           allow = false
           reason = _('Only the authority can reply to this request, but there is no "From" address to check against')

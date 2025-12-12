@@ -52,14 +52,14 @@ class AlaveteliMailPoller
 
   def get_mail(popmail)
     unique_id = nil
-    raw_email = nil
+    inbound_email = nil
     received = false
     begin
       unique_id = popmail.unique_id
       if retrieve?(unique_id)
-        raw_email = popmail.pop
+        inbound_email = popmail.pop
         Rails.logger.info "#{ self } retrieving #{ unique_id }"
-        RequestMailer.receive(raw_email, :poller)
+        RequestMailer.receive(inbound_email, :poller)
         received = true
         popmail.delete
       end
@@ -69,8 +69,7 @@ class AlaveteliMailPoller
       if send_exception_notifications?
         ExceptionNotifier.notify_exception(
           error,
-          data: { mail: raw_email,
-                     unique_id: unique_id }
+          data: { inbound_email: inbound_email, unique_id: unique_id }
         )
       end
       record_error(unique_id, received, error)

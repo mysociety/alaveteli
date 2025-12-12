@@ -82,7 +82,7 @@ RSpec.describe RawEmail do
   end
 
   describe '#mail!' do
-    let(:data) do
+    let(:inbound_email) do
       <<-EOF.strip_heredoc
       From: mikel@test.lindsaar.net
       To: you@test.lindsaar.net
@@ -93,7 +93,7 @@ RSpec.describe RawEmail do
     end
 
     let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
-    let(:mock_mail) { Mail.new(data) }
+    let(:mock_mail) { Mail.new(inbound_email) }
 
     before do
       allow(MailHandler).to receive(:mail_from_string).and_return(mock_mail)

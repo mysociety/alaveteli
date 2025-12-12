@@ -18,7 +18,7 @@ RSpec.describe 'Updating censor rules' do
   end
 
   let!(:incoming_message) do
-    raw_email_data = <<-EOF.strip_heredoc
+    inbound_email = <<-EOF.strip_heredoc
     From: authority@example.com
     To: Jane Doe <request-magic-email@example.net>
     Subject: A response
@@ -28,7 +28,7 @@ RSpec.describe 'Updating censor rules' do
 
     incoming_message = FactoryBot.create(:incoming_message,
                                          info_request: request)
-    incoming_message.raw_email.data = raw_email_data
+    incoming_message.raw_email.data = inbound_email
     incoming_message.parse_raw_email!(true)
     InfoRequestEvent.create(event_type: "response",
                             incoming_message: incoming_message,

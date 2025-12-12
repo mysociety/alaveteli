@@ -15,7 +15,7 @@ RSpec.describe AdminRawEmailController do
       end
 
       context 'when showing a message with a "From" address in the holding pen' do
-        let(:raw_email_data) do
+        let(:inbound_email) do
           <<-EOF.strip_heredoc
           From: bob@example.uk
           To: #{ invalid_to }
@@ -39,7 +39,7 @@ RSpec.describe AdminRawEmailController do
             :plain_incoming_message,
             info_request: InfoRequest.holding_pen_request
           )
-          incoming_message.raw_email.data = raw_email_data
+          incoming_message.raw_email.data = inbound_email
           incoming_message.raw_email.save!
           incoming_message
         end
