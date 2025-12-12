@@ -102,12 +102,9 @@ class AdminIncomingMessageController < AdminController
                  error: "Failed to find destination request '#{m}'"
         end
 
-        raw_email_data = @incoming_message.raw_email.data
-        mail = MailHandler.mail_from_raw_email(raw_email_data)
-
         destination_request.
-          receive(mail,
-                  raw_email_data,
+          receive(@incoming_message.raw_email.mail,
+                  @incoming_message.raw_email.data,
                   { override_stop_new_responses: true })
 
         @incoming_message.info_request.log_event(
