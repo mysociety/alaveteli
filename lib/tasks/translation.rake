@@ -95,8 +95,7 @@ namespace :translation do
 
     response_mail.from = "authority@example.com"
     stopped_responses_email = RequestMailer.stopped_responses(info_request,
-                                                              response_mail,
-                                                              content)
+                                                              response_mail)
     write_email(stopped_responses_email,
                 'Bounce if someone sends email to a request that has had responses stopped',
                 output_file)
