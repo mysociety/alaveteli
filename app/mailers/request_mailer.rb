@@ -211,8 +211,8 @@ class RequestMailer < ApplicationMailer
 
   # Class function, called by script/mailin with all incoming responses.
   # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,
-  # but which additionally passes the raw_email to the member function, as we
-  # want to record it.
+  # but which additionally passes the inbound email to the member function, as
+  # we want to record it.
   #
   # That is because we want to be sure we properly record the actual message
   # received in its raw form - so any information won't be lost in a round
@@ -221,48 +221,48 @@ class RequestMailer < ApplicationMailer
   # actual original mail sent by the authority in the admin interface (so
   # can check that attachment decoding failures are problems in the message,
   # not in our code). ]
-  def self.receive(raw_email, source = :mailin)
+  def self.receive(inbound_email, source = :mailin)
     unless logger.nil?
-      logger.debug "Received mail from #{source}:\n #{raw_email}"
+      logger.debug "Received mail from #{source}:\n #{inbound_email}"
     end
-    mail = MailHandler.mail_from_string(raw_email)
-    new.receive(mail, raw_email, source)
+    mail = MailHandler.mail_from_string(inbound_email)
+    new.receive(mail, inbound_email, source)
   end
 
   # Find which info requests the email is for
-  def requests_matching_email(email)
-    addresses = MailHandler.get_all_addresses(email)
+  def requests_matching_email(mail)
+    addresses = MailHandler.get_all_addresses(mail)
     InfoRequest.matching_incoming_email(addresses)
   end
 
-  def send_to_holding_pen(email, raw_email, opts)
+  def send_to_holding_pen(mail, inbound_email, opts)
     opts[:rejected_reason] =
       _("Could not identify the request from the email address")
     request = InfoRequest.holding_pen_request
-    request.receive(email, raw_email, opts)
+    request.receive(mail, inbound_email, opts)
   end
 
   # Member function, called on the new class made in self.receive above
-  def receive(email, raw_email, source = :mailin)
+  def receive(mail, inbound_email, source = :mailin)
     opts = { source: source }
 
     # Only check mail that doesn't have spam in the header
-    return if SpamAddress.spam?(MailHandler.get_all_addresses(email))
+    return if SpamAddress.spam?(MailHandler.get_all_addresses(mail))
 
     # Find exact matches for info requests
-    exact_info_requests = requests_matching_email(email)
+    exact_info_requests = requests_matching_email(mail)
 
     if exact_info_requests.count > 0
       # Go through each exact info request and deliver the email
       exact_info_requests.each do |info_request|
-        info_request.receive(email, raw_email, opts)
+        info_request.receive(mail, inbound_email, opts)
       end
 
       return
     end
 
     # If there are no exact matches, find any guessed requests
-    guessed_info_requests = Guess.guessed_info_requests(email)
+    guessed_info_requests = Guess.guessed_info_requests(mail)
 
     if guessed_info_requests.count == 1
       # If there one guess automatically redeliver the email to that and log it
@@ -273,11 +273,11 @@ class RequestMailer < ApplicationMailer
         editor: 'automatic',
         destination_request: info_request
       )
-      info_request.receive(email, raw_email, opts)
+      info_request.receive(mail, inbound_email, opts)
 
     else
       # Otherwise we send the mail to the holding pen
-      send_to_holding_pen(email, raw_email, opts)
+      send_to_holding_pen(mail, inbound_email, opts)
     end
   end
 

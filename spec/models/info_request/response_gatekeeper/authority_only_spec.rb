@@ -7,125 +7,125 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
   end
 
   describe '#allow?' do
-    it 'requires an email' do
+    it 'requires a mail' do
       gatekeeper = described_class.new(FactoryBot.build(:info_request))
       expect { gatekeeper.allow? }.to raise_error(ArgumentError)
     end
 
-    context 'if the email has no From address' do
-      it 'does not allow the email' do
-        raw = <<-EOF.strip_heredoc
+    context 'if the mail has no From address' do
+      it 'does not allow the mail' do
+        inbound_email = <<-EOF.strip_heredoc
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
-        expect(gatekeeper.allow?(email)).to eq(false)
+        expect(gatekeeper.allow?(mail)).to eq(false)
       end
 
       it 'sets a reason' do
-        raw = <<-EOF.strip_heredoc
+        inbound_email = <<-EOF.strip_heredoc
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         reason = 'Only the authority can reply to this request, but there is ' \
                  'no "From" address to check against'
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
-        gatekeeper.allow?(email)
+        gatekeeper.allow?(mail)
         expect(gatekeeper.reason).to eq(reason)
       end
     end
 
-    context 'if the email is not from the authority' do
-      it 'does not allow the email' do
-        raw = <<-EOF.strip_heredoc
+    context 'if the mail is not from the authority' do
+      it 'does not allow the mail' do
+        inbound_email = <<-EOF.strip_heredoc
         From: spam@example.org
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
-        expect(gatekeeper.allow?(email)).to eq(false)
+        expect(gatekeeper.allow?(mail)).to eq(false)
       end
 
       it 'sets a reason' do
-        raw = <<-EOF.strip_heredoc
+        inbound_email = <<-EOF.strip_heredoc
         From: spam@example.org
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         reason = "Only the authority can reply to this request, and I don't " \
                  "recognise the address this reply was sent from"
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
-        gatekeeper.allow?(email)
+        gatekeeper.allow?(mail)
         expect(gatekeeper.reason).to eq(reason)
       end
     end
 
-    context 'if the email is from the authority' do
-      it 'allows the email' do
-        raw = <<-EOF.strip_heredoc
+    context 'if the mail is from the authority' do
+      it 'allows the mail' do
+        inbound_email = <<-EOF.strip_heredoc
         From: authority@example.com
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
-        expect(gatekeeper.allow?(email)).to eq(true)
+        expect(gatekeeper.allow?(mail)).to eq(true)
       end
 
       it 'sets the reason to nil' do
-        raw = <<-EOF.strip_heredoc
+        inbound_email = <<-EOF.strip_heredoc
         From: authority@example.com
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
-        gatekeeper.allow?(email)
+        gatekeeper.allow?(mail)
 
         expect(gatekeeper.reason).to be_nil
       end
     end
 
     context 'if the request already has a reply from a given domain' do
-      it 'allows the email' do
-        raw = <<-EOF.strip_heredoc
+      it 'allows the mail' do
+        inbound_email = <<-EOF.strip_heredoc
         From: someone@example.org
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         info_request = FactoryBot.create(:info_request)
-        info_request.receive(email, raw)
+        info_request.receive(mail, inbound_email)
 
         gatekeeper = described_class.new(info_request)
 
-        expect(gatekeeper.allow?(email)).to eq(true)
+        expect(gatekeeper.allow?(mail)).to eq(true)
       end
 
       it 'sets the reason to nil' do
-        raw = <<-EOF.strip_heredoc
+        inbound_email = <<-EOF.strip_heredoc
         From: someone@example.org
         To: request-123@example.com
         Subject: Basic Email
         Hello, World
         EOF
-        email = MailHandler.mail_from_string(raw)
+        mail = MailHandler.mail_from_string(inbound_email)
         info_request = FactoryBot.create(:info_request)
-        info_request.receive(email, raw)
+        info_request.receive(mail, inbound_email)
 
         gatekeeper = described_class.new(info_request)
 

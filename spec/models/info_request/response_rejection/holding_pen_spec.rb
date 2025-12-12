@@ -22,14 +22,14 @@ RSpec.describe InfoRequest::ResponseRejection::HoldingPen do
 
     it 'redirects the mail to the holding pen' do
       info_request = FactoryBot.create(:info_request)
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: sender@example.com
       To: FOI Person <authority@example.com>
       Subject: External
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
-      args = [info_request, email, raw_email]
+      mail = MailHandler.mail_from_string(inbound_email)
+      args = [info_request, mail, inbound_email]
 
       described_class.new(*args).reject
 

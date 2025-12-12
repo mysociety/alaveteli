@@ -16,8 +16,8 @@ class InfoRequest
         @spam_threshold = opts[:spam_threshold] || DEFAULT_CONFIGURATION[:spam_threshold]
       end
 
-      def allow?(email)
-        configured? ? !spam?(email) : true
+      def allow?(mail)
+        configured? ? !spam?(mail) : true
       end
 
       def reason
@@ -25,12 +25,12 @@ class InfoRequest
           '({{spam_threshold}}).', spam_threshold: spam_threshold)
       end
 
-      def spam?(email)
-        spam_score(email) > spam_threshold
+      def spam?(mail)
+        spam_score(mail) > spam_threshold
       end
 
-      def spam_score(email)
-        email.header[spam_header].try(:value).to_f
+      def spam_score(mail)
+        mail.header[spam_header].try(:value).to_f
       end
 
       def configured?

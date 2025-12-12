@@ -7,7 +7,7 @@ RSpec.describe InfoRequest::ResponseRejection do
       specialized_classes = { 'known' => described_class::Base,
                               'bounce' => described_class::Bounce }
       stub_const(const, specialized_classes)
-      args = [double('info_request'), double('email'), double('raw_email_data')]
+      args = [double('info_request'), double('mail'), double('inbound_email')]
 
       expect(described_class::Base).
         to receive(:new).with(*args).and_call_original
@@ -19,7 +19,7 @@ RSpec.describe InfoRequest::ResponseRejection do
       const = 'InfoRequest::ResponseRejection::SPECIALIZED_CLASSES'
       err = described_class::UnknownResponseRejectionError
       stub_const(const, {})
-      args = [double('info_request'), double('email'), double('raw_email_data')]
+      args = [double('info_request'), double('mail'), double('inbound_email')]
 
       expect { described_class.for('unknown', *args) }.
         to raise_error(err)

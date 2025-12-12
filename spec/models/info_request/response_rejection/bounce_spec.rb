@@ -8,13 +8,13 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
 
   describe '#reject' do
     it 'does nothing and returns true if the mail has no From address' do
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       To: Requester <request-333-xxx@example.com>
       Subject: No From header
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
-      args = [double('info_request'), email, double('raw_email_data')]
+      mail = MailHandler.mail_from_string(inbound_email)
+      args = [double('info_request'), mail, double('inbound_email')]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -23,14 +23,14 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
        'request address' do
       info_request = object_double(InfoRequest.new,
                                    incoming_email: 'request-333-xxx@example.com')
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       To: Requester <request-333-xxx@example.com>
       From: Bad person <request-333-xxx@example.com>
       Subject: Spoofed from address
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
-      args = [info_request, email, double('raw_email_data')]
+      mail = MailHandler.mail_from_string(inbound_email)
+      args = [info_request, mail, double('inbound_email')]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -39,14 +39,14 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
        'request address regardless of case' do
       info_request = object_double(InfoRequest.new,
                                    incoming_email: 'request-333-xxx@example.com')
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       To: Requester <Request-333-xxx@example.com>
       From: Bad person <Request-333-xxx@example.com>
       Subject: Spoofed from address
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
-      args = [info_request, email, double('raw_email_data')]
+      mail = MailHandler.mail_from_string(inbound_email)
+      args = [info_request, mail, double('inbound_email')]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -55,28 +55,28 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       info_request = object_double(InfoRequest.new,
                                    is_external?: true,
                                    incoming_email: 'request-333-xxx@example.com')
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: sender@example.com
       To: Requester <request-333-xxx@example.com>
       Subject: External
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
-      args = [info_request, email, double('raw_email_data')]
+      mail = MailHandler.mail_from_string(inbound_email)
+      args = [info_request, mail, double('inbound_email')]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
 
     it 'bounces the email' do
       info_request = FactoryBot.create(:info_request)
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: sender@example.com
       To: Requester <request-333-xxx@example.com>
       Subject: External
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
-      args = [info_request, email, raw_email]
+      mail = MailHandler.mail_from_string(inbound_email)
+      args = [info_request, mail, inbound_email]
 
       described_class.new(*args).reject
 

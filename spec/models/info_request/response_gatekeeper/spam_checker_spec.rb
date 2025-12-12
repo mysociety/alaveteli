@@ -59,55 +59,55 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
 
   describe '#allow?' do
     it 'allows a mail if the spam checker is not configured' do
-      spam_email = <<-EOF.strip_heredoc
+      spam_inbound_email = <<-EOF.strip_heredoc
       From: spam@example.org
       To: FOI Person <authority@example.com>
       Subject: BUY MY SPAM
       X-Spam-Score: 1000
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_string(spam_email)
+      mail = MailHandler.mail_from_string(spam_inbound_email)
       attrs = { spam_header: nil,
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
-      expect(gatekeeper.allow?(email)).to eq(true)
+      expect(gatekeeper.allow?(mail)).to eq(true)
     end
 
     it 'allows a mail if the mail is not spam' do
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: person@example.org
       To: FOI Person <authority@example.com>
       Subject: Not spam
       X-Spam-Score: 10
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
+      mail = MailHandler.mail_from_string(inbound_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100,
                 spam_action: 'discard' }
       gatekeeper = described_class.new(attrs)
-      expect(gatekeeper.allow?(email)).to eq(true)
+      expect(gatekeeper.allow?(mail)).to eq(true)
     end
 
     it 'does not allow spam' do
-      spam_email = <<-EOF.strip_heredoc
+      spam_inbound_email = <<-EOF.strip_heredoc
       From: spammer@example.org
       To: FOI Person <authority@example.com>
       Subject: BUY MY SPAM
       X-Spam-Score: 1000
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_string(spam_email)
+      mail = MailHandler.mail_from_string(spam_inbound_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100,
                 spam_action: 'discard' }
       gatekeeper = described_class.new(attrs)
-      expect(gatekeeper.allow?(email)).to eq(false)
+      expect(gatekeeper.allow?(mail)).to eq(false)
     end
   end
 
   describe '#reason' do
-    it 'returns the reason that the email was rejected' do
+    it 'returns the reason that the mail was rejected' do
       gatekeeper = described_class.new(spam_threshold: 10.0)
       message = 'Incoming message has a spam score above the configured ' \
                 'threshold (10.0).'
@@ -116,75 +116,75 @@ RSpec.describe InfoRequest::ResponseGatekeeper::SpamChecker do
   end
 
   describe '#spam?' do
-    it 'is spam if the email has a spam score above the spam threshold' do
-      spam_email = <<-EOF.strip_heredoc
+    it 'is spam if the mail has a spam score above the spam threshold' do
+      spam_inbound_email = <<-EOF.strip_heredoc
       From: spammer@example.org
       To: FOI Person <authority@example.com>
       Subject: BUY MY SPAM
       X-Spam-Score: 1000.4
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_string(spam_email)
+      mail = MailHandler.mail_from_string(spam_inbound_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
-      expect(gatekeeper.spam?(email)).to eq(true)
+      expect(gatekeeper.spam?(mail)).to eq(true)
     end
 
     it 'is not spam if the spam score is below the spam threshold' do
-      spam_email = <<-EOF.strip_heredoc
+      spam_inbound_email = <<-EOF.strip_heredoc
       From: person@example.org
       To: FOI Person <authority@example.com>
       Subject: Not spam
       X-Spam-Score: 10
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(spam_email)
+      mail = MailHandler.mail_from_string(spam_inbound_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
-      expect(gatekeeper.spam?(email)).to eq(false)
+      expect(gatekeeper.spam?(mail)).to eq(false)
     end
 
-    it 'is not spam if the email does not have a spam header' do
-      spam_email = <<-EOF.strip_heredoc
+    it 'is not spam if the mail does not have a spam header' do
+      spam_inbound_email = <<-EOF.strip_heredoc
       From: person@example.org
       To: FOI Person <authority@example.com>
       Subject: Not spam
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(spam_email)
+      mail = MailHandler.mail_from_string(spam_inbound_email)
       attrs = { spam_header: 'X-Spam-Score',
                 spam_threshold: 100 }
       gatekeeper = described_class.new(attrs)
-      expect(gatekeeper.spam?(email)).to eq(false)
+      expect(gatekeeper.spam?(mail)).to eq(false)
     end
   end
 
   describe '#spam_score' do
-    it 'returns the spam score of an email' do
-      spam_email = <<-EOF.strip_heredoc
+    it 'returns the spam score of a mail' do
+      spam_inbound_email = <<-EOF.strip_heredoc
       From: spammer@example.org
       To: FOI Person <authority@example.com>
       Subject: BUY MY SPAM
       X-Spam-Score: 1000.4
       Plz buy my spam
       EOF
-      email = MailHandler.mail_from_string(spam_email)
+      mail = MailHandler.mail_from_string(spam_inbound_email)
       gatekeeper = described_class.new(spam_header: 'X-Spam-Score')
-      expect(gatekeeper.spam_score(email)).to eq(1000.4)
+      expect(gatekeeper.spam_score(mail)).to eq(1000.4)
     end
 
     it 'returns 0.0 if the mail does not have the spam header' do
-      raw_email = <<-EOF.strip_heredoc
+      inbound_email = <<-EOF.strip_heredoc
       From: from@example.org
       To: FOI Person <authority@example.com>
       Subject: No spam header
       Hello, World
       EOF
-      email = MailHandler.mail_from_string(raw_email)
+      mail = MailHandler.mail_from_string(inbound_email)
       gatekeeper = described_class.new
-      expect(gatekeeper.spam_score(email)).to eq(0.0)
+      expect(gatekeeper.spam_score(mail)).to eq(0.0)
     end
   end
 

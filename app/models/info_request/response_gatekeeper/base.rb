@@ -9,7 +9,7 @@ class InfoRequest
         @reason = nil
       end
 
-      def allow?(_email)
+      def allow?(mail)
         allow
       end
 
