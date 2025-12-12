@@ -972,6 +972,20 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def receive_redelivery(incoming_message, editor:)
+    receive(incoming_message.raw_email.mail,
+            incoming_message.raw_email.data,
+            { override_stop_new_responses: true })
+
+    incoming_message.info_request.log_event(
+      'redeliver_incoming',
+      editor: editor,
+      destination_request: id,
+      deleted_incoming_message_id: incoming_message.id,
+      storage_keys: incoming_message.storage_keys
+    )
+  end
+
   # Called when outgoing_messages are sent to ensure that the request
   # is not closed during an active discussion or an internal review
   def reopen_to_new_responses

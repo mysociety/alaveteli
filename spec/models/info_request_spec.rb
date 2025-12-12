@@ -1154,6 +1154,77 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#receive_redelivery' do
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:previous_request) { FactoryBot.create(:info_request) }
+    let(:destination) { FactoryBot.create(:info_request) }
+    let(:incoming_message) do
+      FactoryBot.create(:incoming_message, info_request: previous_request)
+    end
+
+    it 'receives the message on the destination request' do
+      expect {
+        destination.receive_redelivery(incoming_message, editor: admin_user)
+      }.to change { destination.incoming_messages.count }.by(1)
+    end
+
+    it 'bypasses response restriction settings' do
+      destination.update!(allow_new_responses_from: 'nobody')
+
+      expect {
+        destination.receive_redelivery(incoming_message, editor: admin_user)
+      }.to change { destination.incoming_messages.count }.by(1)
+    end
+
+    it 'logs a redeliver_incoming event on the previous request' do
+      expect {
+        destination.receive_redelivery(incoming_message, editor: admin_user)
+      }.to change { previous_request.info_request_events.count }.by(1)
+
+      event = previous_request.info_request_events.last
+      expect(event.event_type).to eq('redeliver_incoming')
+    end
+
+    it 'includes the editor in the logged event' do
+      destination.receive_redelivery(incoming_message, editor: admin_user)
+
+      event = previous_request.info_request_events.last
+      expect(event.params).to include(
+        editor: { gid: admin_user.to_global_id.to_s }
+      )
+    end
+
+    it 'includes the destination request ID in the logged event' do
+      destination.receive_redelivery(incoming_message, editor: admin_user)
+
+      event = previous_request.info_request_events.last
+      expect(event.params[:destination_request]).to eq(destination.id)
+    end
+
+    it 'includes the redelivered incoming message ID in the logged event' do
+      destination.receive_redelivery(incoming_message, editor: admin_user)
+
+      event = previous_request.info_request_events.last
+      expect(event.params[:deleted_incoming_message_id]).
+        to eq(incoming_message.id)
+    end
+
+    it 'includes the storage keys in the logged event' do
+      destination.receive_redelivery(incoming_message, editor: admin_user)
+
+      event = previous_request.info_request_events.last
+      expect(event.params[:storage_keys]).to eq(incoming_message.storage_keys)
+    end
+
+    it 'succeeds even if a duplicate xapian indexing job is created' do
+      with_duplicate_xapian_job_creation do
+        expect {
+          destination.receive_redelivery(incoming_message, editor: admin_user)
+        }.not_to raise_error
+      end
+    end
+  end
+
   describe "#url_title" do
     let(:request) { FactoryBot.create(:info_request, title: "Test 101") }
 

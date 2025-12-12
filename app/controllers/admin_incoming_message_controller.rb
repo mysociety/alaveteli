@@ -103,17 +103,7 @@ class AdminIncomingMessageController < AdminController
         end
 
         destination_request.
-          receive(@incoming_message.raw_email.mail,
-                  @incoming_message.raw_email.data,
-                  { override_stop_new_responses: true })
-
-        @incoming_message.info_request.log_event(
-          'redeliver_incoming',
-          editor: admin_current_user,
-          destination_request: destination_request.id,
-          deleted_incoming_message_id: @incoming_message.id,
-          storage_keys: @incoming_message.storage_keys
-        )
+          receive_redelivery(@incoming_message, editor: admin_current_user)
 
         flash[:notice] =
           'Message has been moved to request(s). Showing the last one:'

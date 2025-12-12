@@ -82,16 +82,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
                        }
     end
 
-    it 'should succeed, even if a duplicate xapian indexing job is created' do
-      with_duplicate_xapian_job_creation do
-        post :redeliver, params: {
-                           id: incoming_message.id,
-                           url_title: destination_info_request.url_title
-                         }
-      end
-    end
-
-    it 'shouldn\'t do anything if no message_id is supplied' do
+    it 'takes no action if no message_id is supplied' do
       post :redeliver, params: {
                          id: incoming_message.id,
                          url_title: ''
