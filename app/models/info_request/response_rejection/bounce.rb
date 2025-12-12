@@ -11,9 +11,7 @@ class InfoRequest
         elsif info_request.is_external?
           true
         else
-          RequestMailer.
-            stopped_responses(info_request, email, raw_email_data).
-              deliver_now
+          RequestMailer.stopped_responses(info_request, email).deliver_now
         end
       end
     end
