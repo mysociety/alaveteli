@@ -52,7 +52,9 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
       @subscription = @pro_account.subscriptions.build
       @subscription.update_attributes(
         plan: params.require(:plan_id),
-        tax_percent: tax_percent,
+        automatic_tax: {
+            enabled: "true"
+        },
         payment_behavior: 'allow_incomplete'
       )
 
