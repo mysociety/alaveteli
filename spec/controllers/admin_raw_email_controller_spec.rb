@@ -35,14 +35,17 @@ RSpec.describe AdminRawEmailController do
           info_request.incoming_email.sub(info_request.id.to_s, 'invalid')
         end
 
-        let(:incoming_message) do
-          incoming_message = FactoryBot.create(
-            :plain_incoming_message,
-            info_request: InfoRequest.holding_pen_request
+        let!(:incoming_message) do
+          # Avoid conflicts with IncomingMessage factory after(:create) callback
+          # that overrides our custom email data.
+          raw_email = RawEmail.create!
+          im = IncomingMessage.create!(
+            info_request: InfoRequest.holding_pen_request,
+            raw_email: raw_email
           )
-          incoming_message.raw_email.data = inbound_email
-          incoming_message.raw_email.save!
-          incoming_message
+          raw_email.data = inbound_email
+          raw_email.save!
+          im
         end
 
         let!(:info_request_event) do
