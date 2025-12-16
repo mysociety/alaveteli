@@ -1,11 +1,12 @@
 --- a/config/routes.rb
 +++ b/config/routes.rb
-@@ -10,7 +10,7 @@ include AlaveteliFeatures::Constraints
+@@ -10,7 +10,8 @@ include AlaveteliFeatures::Constraints
 
  # Allow easy extension from themes. Note these will have the highest priority.
  $alaveteli_route_extensions.each do |f|
 -  load File.join('config', f)
-+  load f
++  puts "#{Dir.pwd} ||| #{f}"
++  load File.expand_path("../config/#{f}")
  end
 
  class AdminConstraint # :nodoc:
