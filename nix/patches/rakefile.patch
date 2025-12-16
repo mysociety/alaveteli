@@ -1,0 +1,9 @@
+--- a/Rakefile
++++ b/Rakefile
+@@ -9,3 +9,6 @@ if Rails.env == 'test'
+ end
+ # Make sure the the acts_as_xapian tasks are also loaded:
+ Dir[Rails.root.join('lib','acts_as_xapian','tasks','*.rake')].each { |file| load(file) }
++
++# load theme tasks
++Dir[Pathname.new('/var/lib/alaveteli/lib/themes/*/lib/tasks/*.rake')].each { |file| load(file) }

@@ -26,6 +26,7 @@ applyPatches {
     ../patches/lib_configuration.patch
     ../patches/lib_mail_handler.patch
     # ../patches/routes_rb.patch
+    ../patches/rakefile.patch
     ../patches/theme_loader_rb.patch
     ../patches/themes_rake.patch
   ]
