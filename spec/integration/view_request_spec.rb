@@ -57,19 +57,19 @@ RSpec.describe "When viewing requests" do
       using_session(non_owner) { visit(attachment_url) }
 
       expect {
-        perform_enqueued_jobs
-        attachment.reload
-      }.to change { attachment.masked? }.from(false).to(true)
+        perform_enqueued_jobs do
+          using_session(non_owner) { visit(attachment_url) }
+        end
+      }.to change { attachment.reload.masked? }.from(false).to(true)
 
       # Admin makes the incoming message requester only
-      using_session(admin) do
-        hide_incoming_message(incoming_message, 'hidden', 'boring')
-      end
-
       expect {
-        perform_enqueued_jobs
-        attachment.reload
-      }.to change { attachment.masked? }.from(true).to(false)
+        perform_enqueued_jobs do
+          using_session(admin) do
+            hide_incoming_message(incoming_message, 'hidden', 'boring')
+          end
+        end
+      }.to change { attachment.reload.masked? }.from(true).to(false)
     end
   end
 
