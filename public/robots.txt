@@ -12,6 +12,9 @@
 #   http://code.google.com/web/controlcrawlindex/docs/robots_txt.html
 #   http://help.yahoo.com/l/us/yahoo/search/webcrawler/slurp-02.html
 
+User-agent: ClaudeBot
+Disallow: /
+
 User-agent: *
 Disallow: */annotate/*
 Disallow: */new/*
