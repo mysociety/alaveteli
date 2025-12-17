@@ -43,8 +43,12 @@ FactoryBot.define do
         )
       end
 
-      mail = build_incoming_message_mail(incoming_message)
-      incoming_message.raw_email.data = mail
+      # Only set data if raw_email doesn't already have a file attached, e.g.
+      # if we pass an existing raw_email to this factory.
+      unless incoming_message.raw_email.file.attached?
+        mail = build_incoming_message_mail(incoming_message)
+        incoming_message.raw_email.data = mail
+      end
     end
 
     trait :unparsed do
