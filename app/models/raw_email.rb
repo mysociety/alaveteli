@@ -89,6 +89,12 @@ class RawEmail < ApplicationRecord
     file.blob.key if file&.attached?
   end
 
+  def reload(*)
+    @data = nil
+    @mail = nil
+    super
+  end
+
   private
 
   def empty_return_path?

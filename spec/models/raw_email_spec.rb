@@ -184,4 +184,26 @@ RSpec.describe RawEmail do
       end
     end
   end
+
+  describe '#reload' do
+    let(:raw_email) { FactoryBot.create(:raw_email, :with_file) }
+    let(:memoized_ivars) { %w[@data @mail] }
+
+    before do
+      # prime memoization
+      memoized_ivars.each { |v| raw_email.public_send(v.delete('@')) }
+    end
+
+    it 'clears memoized instance variables' do
+      memoized_ivars.each do |ivar|
+        expect(raw_email.instance_variable_get(ivar)).not_to be_nil
+      end
+
+      raw_email.reload
+
+      memoized_ivars.each do |ivar|
+        expect(raw_email.instance_variable_get(ivar)).to be_nil
+      end
+    end
+  end
 end
