@@ -1,0 +1,713 @@
+// ATI Network Showcase variables
+
+// Change to true, if the primary_color is too light and will cause contrast
+// issues between backgrounds and text colours.
+$is_primary_color_light: true !default;
+
+$color_primary: #e5e1de !default;
+$color_white: #fff !default;
+$color_black: #333 !default;
+$color_light_grey: lightgray !default;
+$color_off_white: ivory !default;
+
+$ati-network-showcase-body-bg: lighten($color_primary, 50%) !default;
+
+// Hero section
+$ati-network-showcase-hero-bg: linear-gradient(180deg, $color_primary 0%, adjust-hue($color_primary, 10deg) 50%, adjust-hue($color_primary, 20deg) 100%) !default;
+$ati-network-showcase-hero-color: $color_white !default;
+$ati-network-showcase-hero-image-bg-mix-blend-mode: overlay !default;
+$ati-network-showcase-hero-image-bg-opacity: 0.2 !default;
+
+// List of sites in the hero section
+$deployment-link-background: rgba(255, 255, 255, 0.8) !default;
+$deployment-link-padding: 0.35rem 0.5rem !default;
+$deployment-link-border-radius: 1rem !default;
+$deployment-link-border: 1px solid transparent !default;
+$deployment-link-color: #075292 !default;
+
+$deployment-link-border-hover: 1px solid #fff !default;
+$deployment-link-background-hover: rgba(255, 255, 255, 0.6) !default;
+$deployment-link-color-hover: #075292 !default;
+
+$deployment-link-background-focus: #ffee00 !default;
+$deployment-link-color-focus: #000 !default;
+$deployment-link-border-focus: 1px solid #000 !default;
+
+// Impact board variables
+$gallery-grid-section-max-width: 90rem !default;
+$gallery-card-padding: 1rem !default;
+$gallery-card-box-shadow: 0px -4px 6px 0px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.1) !default;
+$gallery-card-box-shadow-hover: 0px -4px 6px 0px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.2) !default;
+$gallery-card-background: $color_white !default;
+$gallery-card-border-radius: 25px !default;
+$gallery-card-header-background-color: lighten($color_primary, 50%) !default;
+$gallery-card-header-color: rgba(0, 0, 0, 0.8) !default;
+$gallery-card-header-font-size: 0.85rem !default;
+$gallery-card-header-border-bottom: 1px solid lighten($color_light_grey, 10%) !default;
+$gallery-card-header-text-transform: uppercase !default;
+$gallery-card-title-background-color: lighten($color_primary, 45%) !default;
+$gallery-card-title-background-color-second-column: adjust-hue(lighten($color_primary, 45%), 5deg) !default;
+$gallery-card-title-background-color-third-column: adjust-hue(lighten($color_primary, 45%), 10deg) !default;
+
+// Showcase section
+$showcase-quote-section-bg-color: lighten($color_primary, 47%) !default;
+
+// Buttons
+$ati-button-color: $color_white !default;
+$ati-button-background-color: $color_primary !default;
+$ati-button-border: 2px solid darken($color_primary, 10%) !default;
+$ati-button-color-hover: $color_primary !default;
+$ati-button-background-color-hover: $color_white !default;
+$ati-button-border-hover: 2px solid $color_primary !default;
+$ati-button-color-focus: #000 !default;
+$ati-button-background-color-focus: #ffee00 !default;
+
+// ATI Advocacy section
+$ati-advocacy-section-background: linear-gradient(180deg, $color_primary 0%, adjust-hue($color_primary, -30deg) 100%) !default;
+$ati-advocacy-section-color: $color_white !default;
+$ati-advocacy-container-max-width: 75rem !default;
+
+@if $is_primary_color_light {
+  $ati-network-showcase-hero-color: $color_black;
+  $ati-network-showcase-hero-image-bg-opacity: 0.7;
+  $ati-button-color: $color_black;
+  $ati-button-color-hover: $color_black;
+  $ati-advocacy-section-color: $color_black;
+  $gallery-card-title-background-color: lighten($color_primary, 10%);
+  $gallery-card-title-background-color-second-column: adjust-hue(lighten($color_primary, 10%), 10deg);
+  $gallery-card-title-background-color-third-column: adjust-hue(lighten($color_primary, 10%), 20deg);
+}
+
+body.ati_network_showcase {
+  background-color: $ati-network-showcase-body-bg;
+
+  .container {
+    max-width: 64rem;
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+
+  section {
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .container--subheading {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 1.8rem;
+
+      @include respond-min($main_menu-mobile_menu_cutoff) {
+        font-size: 3rem;
+      }
+    }
+
+    .subheading--lead {
+      font-size: 1.2rem;
+    }
+  }
+
+  #wrapper {
+    max-width: unset;
+  }
+
+  #content {
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+    width: auto;
+  }
+
+  .card--button,
+  a.link_button_green,
+  #load-more {
+    text-decoration: none;
+    background: $ati-button-background-color;
+    color: $ati-button-color;
+    transition: color 300ms cubic-bezier(.25,.1,.25,1), background-color 300ms cubic-bezier(.25,.1,.25,1), border 300ms cubic-bezier(.25,.1,.25,1);
+    font-weight: 700;
+    font-size: 0.9rem;
+
+    border-radius: calc(#{$gallery-card-border-radius} / 2);
+    border: $ati-button-border;
+    padding: 0.5rem 0.75rem;
+  
+    &:visited {
+      color: $ati-button-color;
+    }
+
+    &:hover {
+      color: $ati-button-color-hover;
+      background-color: $ati-button-background-color-hover;
+      border: $ati-button-border-hover;
+    }
+
+    &:focus-visible {
+      color: $ati-button-color-focus;
+      background-color: $ati-button-background-color-focus;
+    }
+  }
+
+  .modal-close {
+    background: $ati-button-background-color;
+    color: $ati-button-color;
+    border: none;
+
+    &:visited {
+      color: $ati-button-color;
+    }
+
+    &:hover {
+      color: $ati-button-color-hover;
+      background-color: $ati-button-background-color-hover;
+      border: none;
+    }
+
+    &:focus-visible {
+      color: $ati-button-color-focus;
+      background-color: $ati-button-background-color-focus;
+    }
+  }
+
+  #load-more {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .ati-hero-section {
+    background: $ati-network-showcase-hero-bg;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+
+    .ati-hero-section-image {
+      position: absolute;
+      z-index: 1;
+      height: 95%;
+      max-width: unset;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 1rem;
+      mix-blend-mode: $ati-network-showcase-hero-image-bg-mix-blend-mode;
+      opacity: $ati-network-showcase-hero-image-bg-opacity;
+    }
+
+    .ati-hero-content {
+      z-index: 2;
+      position: relative;
+      color: $ati-network-showcase-hero-color;
+      padding: 4rem;
+
+      h1, h2, h3, h4, h5, h6 {
+        color: $ati-network-showcase-hero-color;
+      }
+
+      @include respond-min($main_menu-mobile_menu_cutoff) {
+        padding: 6rem;
+      }
+
+      .ati-hero-main-content {
+        @if not $is_primary_color_light {
+          text-shadow: 0 1px 2px rgba(51, 51, 51, 0.3);
+        }
+
+        margin-bottom: 4rem;
+
+        .ati-hero-preheading {
+          font-size: 1.3rem;
+          @include respond-min($main_menu-mobile_menu_cutoff) {
+            font-size: 1.6rem;
+          }
+        }
+
+        h1 {
+          display: block;
+          font-size: 2.2rem;
+          margin-top: 0.25em;
+
+          @include respond-min($main_menu-mobile_menu_cutoff) {
+            font-size: 3.4rem;
+          }
+        }
+
+        .ati-hero-subtitle {
+          max-width: 55rem;
+          font-size: 1.5rem;
+          line-height: 120%;
+          margin: 0.5em auto 0;
+
+          @include respond-min($main_menu-mobile_menu_cutoff) {
+            font-size: 2rem;
+          }
+        }
+      }
+
+      .ati-hero-list-sites-section {
+        margin-top: 2rem;
+
+        .mysociety-logo {
+          display: inline-block;
+          background-image: image-url('ati_network/showcase/logo-mysociety-white.svg');
+          background-repeat: no-repeat;
+          background-size: auto 26px;
+          background-position: 50%;
+          height: 2rem;
+          width: 126px;
+
+          @if $is_primary_color_light { 
+            background-image: image-url('ati_network/showcase/logo-mysociety.svg');
+          }
+
+          @include respond-min($main_menu-mobile_menu_cutoff) {
+            background-position: 0px 5px;
+          }
+        }
+
+        h2 {
+          font-size: 1.3rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          align-items: center;
+          line-height: 1.3rem;
+
+
+          a {
+            color: $ati-network-showcase-hero-color;
+          }
+
+          @include respond-min($main_menu-mobile_menu_cutoff) {
+            flex-direction: row;
+            justify-content: center;
+          }
+        }
+
+        @include respond-min($main_menu-mobile_menu_cutoff) {
+          margin-top: 3rem;
+
+          h2 {
+            font-size: 1.5rem;
+            line-height: 1.5rem;
+          }
+        }
+
+        ul {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          column-gap: 0.5rem;
+          row-gap: 0.5rem;
+          justify-content: center;
+          margin: 1rem 0 3rem;
+          padding-inline-start: 0;
+
+          a {
+            display: block;
+            text-decoration: none;
+            font-size: 0.9rem;
+            background: $deployment-link-background;
+            padding: $deployment-link-padding;
+            border-radius: $deployment-link-border-radius;
+            border: $deployment-link-border;
+            color: $deployment-link-color;
+
+            &:hover {
+              border: $deployment-link-border-hover;
+              background: $deployment-link-background-hover;
+              color: $deployment-link-color-hover;
+            }
+
+            &:focus {
+              background: $deployment-link-background-focus;
+              color: $deployment-link-color-focus;
+              border: $deployment-link-border-focus;
+            }
+
+            .deployment-flag {
+              font-size: 1.2rem;
+              vertical-align: bottom;
+            }
+          }
+        }
+
+        :last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .footer {
+    margin-top: 0;
+    border-top: 0;
+  }
+
+  .showcase-quote-section {
+    padding: 3rem 0;
+    background-color: $showcase-quote-section-bg-color;
+    border-top: 1px solid $color_light_grey;
+    text-align: left;
+
+    @include respond-min($main_menu-mobile_menu_cutoff) {
+      padding: 5rem 0;
+      text-align: center;
+    }
+
+    h2 {
+      font-style: italic;
+      font-size: 1.5rem;
+      @include respond-min($main_menu-mobile_menu_cutoff) {
+        font-size: 2rem;
+      }
+    }
+
+    .container {
+      max-width: 46.875rem;
+    }
+  }
+}
+
+.gallery-grid-section {
+  // the masonry container should not have padding, otherwise it messes the
+  // calculations
+  padding: 3rem 1rem;
+}
+
+//Fallback if no JS
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
+  gap: 1rem;
+  justify-content: center;
+}
+
+.js-gallery-grid {
+  margin: 0 auto;
+  max-width: $gallery-grid-section-max-width;
+
+  .gallery-grid--gutter-sizer {
+    width: 2%;
+  }
+
+  .gallery-grid--sizer,
+  .gallery-grid--card {
+    width: 23.5%;
+  }
+
+  .gallery-grid--card--width2 {
+    width: 49%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .js-gallery-grid {
+    .gallery-grid--gutter-sizer {
+      width: 2%;
+    }
+
+    .gallery-grid--sizer,
+    .gallery-grid--card {
+      width: 32%;
+    }
+
+    .gallery-grid--card--width2 {
+      width: 66%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    // fallback if no JS
+    grid-template-columns: repeat(2, minmax(15.625rem, 18.75rem));
+  }
+
+  .js-gallery-grid {
+    .gallery-grid--gutter-sizer {
+      width: 4%;
+    }
+
+    .gallery-grid--sizer,
+    .gallery-grid--card {
+      width: 48%;
+    }
+
+    .gallery-grid--card--width2 {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .gallery-grid {
+    // fallback if no JS
+    grid-template-columns: repeat(1, minmax(15.625rem, 100%));
+  }
+
+  .js-gallery-grid {
+    .gallery-grid--gutter-sizer {
+      width: 0%;
+    }
+
+    .gallery-grid--sizer,
+    .gallery-grid--card {
+      width: 100%;
+    }
+
+    .gallery-grid--card--width2 {
+      width: 100%;
+    }
+  }
+}
+
+.gallery-grid--card {
+  background: $gallery-card-background;
+  border-radius: $gallery-card-border-radius;
+  margin-bottom: 1rem;
+  padding: $gallery-card-padding;
+  box-shadow: $gallery-card-box-shadow;
+  overflow: hidden;
+  transition: box-shadow 300ms cubic-bezier(.25,.1,.25,1);
+
+  &.grid-hidden {
+    display: none;
+  }
+
+  &:has(.card--button):hover {
+    box-shadow: $gallery-card-box-shadow-hover;
+  }
+
+  .card--header-badge {
+    text-align: left;
+    padding: 0.5rem $gallery-card-padding;
+    margin: calc(#{$gallery-card-padding} * -1) calc(#{$gallery-card-padding} * -1) 0.5rem;
+    width: calc(100% + (#{$gallery-card-padding} * 2));
+    max-width: calc(100% + (#{$gallery-card-padding} * 2));
+    background-color: $gallery-card-header-background-color;
+    font-weight: 600;
+    text-transform: $gallery-card-header-text-transform;
+    font-size: $gallery-card-header-font-size;
+    border-bottom: $gallery-card-header-border-bottom;
+    color: $gallery-card-header-color;
+
+    & + .card--image {
+      margin-top: -0.5rem;
+    }
+
+    .badge--flag {
+      margin-right: 0.25rem;
+      font-size: 1.5rem;
+      vertical-align: middle;
+    }
+
+  }
+
+  .card--image {
+    margin: calc(#{$gallery-card-padding} * -1) calc(#{$gallery-card-padding} * -1) 1rem;
+    width: calc(100% + (#{$gallery-card-padding} * 2));
+    max-width: calc(100% + (#{$gallery-card-padding} * 2));
+
+    & + .card--button {
+      margin: -1rem calc(#{$gallery-card-padding} * -1) calc(#{$gallery-card-padding} * -1);
+    }
+  }
+
+  &.gallery-grid--card--report-cover {
+    text-decoration: none;
+    .card--image {
+      object-fit: cover;
+      margin: -0.5rem calc(#{$gallery-card-padding} * -1) calc(#{$gallery-card-padding} * -1);
+    }
+  }
+
+  &.gallery-grid--card-quote {
+    box-shadow: none;
+    background-color: transparent;
+
+    .card--header-badge {
+      margin-bottom: -0.5rem;
+      background-color: transparent;
+      border-bottom: 0;
+    }
+
+    .card--title {
+      font-style: italic;
+      line-height: 130%;
+    }
+
+    &--small {
+      .card--title {
+        font-size: 1.15rem;
+      }
+    }
+
+    &--medium {
+      .card--title {
+        font-size: 1.4rem;
+      }
+    }
+  }
+
+  .card--title {
+    margin-top: 0;
+
+    &.with--background {
+      margin: calc(#{$gallery-card-padding} * -1) calc(#{$gallery-card-padding} * -1) $gallery-card-padding;
+      padding: $gallery-card-padding;
+      background: $gallery-card-title-background-color;
+    }
+  }
+
+  .card--video-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  &:nth-child(3n + 1) .card--title.with--background {
+    background: $gallery-card-title-background-color;
+  }
+
+  &:nth-child(3n + 2) .card--title.with--background {
+    background: $gallery-card-title-background-color-second-column;
+  }
+
+  &:nth-child(3n + 3) .card--title.with--background {
+    background: $gallery-card-title-background-color-third-column;
+  }
+
+  .card--text {
+    & + .card-thumbnail {
+      padding: $gallery-card-padding;
+
+      img {
+        border-radius: calc(#{$gallery-card-border-radius} / 2);
+      }
+    }
+  }
+
+  .card--button {
+    display: block;
+    text-align: center;
+    margin: 1rem 0 0;
+    width: fit-content;
+
+    // Makes the entire card clickable
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+  }
+
+  .card-thumbnail {
+    padding: 0;
+    aspect-ratio: 16 / 9;
+    margin: calc(#{$gallery-card-padding} * -0.5) calc(#{$gallery-card-padding} * -1) calc(#{$gallery-card-padding} * -1);
+    width: calc(100% + (#{$gallery-card-padding} * 2));
+
+    .video-thumbnail {
+      position: relative;
+    }
+  }
+
+  
+
+  .card-thumbnail .youtube-svg {
+    background-image: image-url('youtube.png');
+    width: 4rem;
+    height: 4rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  ul {
+    padding-inline-start: $gallery-card-padding;
+  }
+
+  .modal-button {
+    // Makes the entire card clickable
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+  }
+}
+
+#ati-advocacy {
+  background: $ati-advocacy-section-background;
+  padding: 3rem 0;
+
+  .container {
+    max-width: $ati-advocacy-container-max-width;
+
+    &--subheading {
+      color: $ati-advocacy-section-color;
+
+      h1, h2, h3, h4, h5, h6 {
+        color: $ati-advocacy-section-color;
+      }
+    }
+  }
+
+  .card--title {
+    color: $color_black;
+  }
+
+  a.link_button_green {
+    display: block;
+    width: fit-content;
+    margin: 1rem auto 0;
+  }
+}
+
+#load-more {
+  display: none;
+
+  &.visible {
+    display: block;
+    margin: 2rem auto 2rem;
+  }
+}
+
+.showcase-quote-section {
+  padding: 5rem 0;
+  background-color: #f1eaea;
+  border-top: 1px solid #d6d4d4;
+  text-align: center;
+}
+
+.showcase-quote-section h2 {
+  font-style: italic;
+}
+
+.showcase-quote-section .container {
+  max-width: 46.875rem;
+}

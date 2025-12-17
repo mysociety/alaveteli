@@ -15,3 +15,7 @@
 //= require wizard
 //= require clipboard.min
 //= require snippets
+//= require masonry.pkgd.min
+//= require imagesloaded.min
+//= require modal
+//= require ati-masonry

@@ -146,3 +146,41 @@
 .learn-more-foi {
   @include grid-column(12);
 }
+
+#frontpage_ati_network {
+  margin-top: 2em;
+  padding: 3rem 0 2rem;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    margin-top: 0;
+    padding: 5rem 0 3rem;
+  }
+
+  .container {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  &::after { 
+    min-height: 400px;
+    width: 100%;
+  }
+
+  .flag-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    display: flex;
+    gap: 0.25rem;
+    margin: 1.25rem auto;
+
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      justify-content: center;
+    }
+  }
+}
+

@@ -1,0 +1,124 @@
+<% cards = 'ati_network/showcase/cards' %>
+
+<section class="gallery-grid-section">
+  <div class="container--subheading">
+    <h2><%= _('From local communities to the international stage') %></h2>
+
+    <p class="subheading--lead"><%= _('Access to Information contributes to high-impact <em>journalism</em>, <em>campaigns</em> and <em>research</em> in all corners of the world.').html_safe %></p>
+  </div>
+
+  <div class="gallery-grid js-gallery-grid" id="gallery-masonry" masonry-initial-cards="20" masonry-cards-per-load="10">
+    <div class="gallery-grid--sizer"></div>
+    <div class="gallery-grid--gutter-sizer"></div>
+
+    <%# render partial: "#{cards}/ai_decision_making_placeholder" %>
+
+    <%= render partial: "#{cards}/ai_decision_making_international" %>
+
+    <%= render partial: "#{cards}/cross_border_immigrant_detention" %>
+
+    <%= render partial: "#{cards}/automating_society_report" %>
+
+    <%= render partial: "#{cards}/france_mayors_spending" %>
+
+    <%= render partial: "#{cards}/belgium_video_surveillance" %>
+
+    <%= render partial: "#{cards}/europe_forever_lobbying" %>
+
+    <%= render partial: "#{cards}/uk_government_data_systems" %>
+
+    <%= render partial: "#{cards}/moldova_judicial_case_allocation" %>
+
+    <%= render partial: "#{cards}/croatia_health_it_delays" %>
+
+    <%= render partial: "#{cards}/quote_google_search" %>
+
+    <%= render partial: "#{cards}/uk_sold_from_under_you" %>
+
+    <%= render partial: "#{cards}/germany_food_industry" %>
+
+    <%= render partial: "#{cards}/mining_depths_influence" %>
+
+    <%= render partial: "#{cards}/international_climate_crisis" %>
+
+    <%= render partial: "#{cards}/europe_atlas_network" %>
+
+    <%= render partial: "#{cards}/cross_border_lost_in_europe" %>
+
+    <%= render partial: "#{cards}/quote_already_asked" %>
+
+    <%= render partial: "#{cards}/hungary_battery_factories" %>
+
+    <%= render partial: "#{cards}/ukraine_transparency_shadow" %>
+
+    <%= render partial: "#{cards}/europe_uber_files" %>
+
+    <%= render partial: "#{cards}/moldova_medical_malpractice" %>
+
+    <%= render partial: "#{cards}/france_macrons_payslips" %>
+
+    <%= render partial: "#{cards}/georgia_undrinkable" %>
+
+    <%= render partial: "#{cards}/europe_crowdsourced_foi" %>
+
+    <%= render partial: "#{cards}/france_smart_city" %>
+
+    <%= render partial: "#{cards}/poland_2020_elections" %>
+
+    <%= render partial: "#{cards}/uk_whos_watching_you" %>
+
+    <%= render partial: "#{cards}/uk_lobbying_transparency" %>
+
+    <%= render partial: "#{cards}/uk_dark_money" %>
+
+    <%= render partial: "#{cards}/international_networked_auditors" %>
+
+    <%= render partial: "#{cards}/international_foi_data_visualizations" %>
+
+    <%= render partial: "#{cards}/quote_batch_requesting" %>
+
+    <%= render partial: "#{cards}/georgia_russian_software" %>
+
+    <%= render partial: "#{cards}/france_mayoral_expenses" %>
+
+    <%= render partial: "#{cards}/energy_sector_croatia_serbia" %>
+
+    <%= render partial: "#{cards}/uk_digital_stop_and_search" %>
+
+    <%= render partial: "#{cards}/blood_on_the_green_deal" %>
+
+    <%= render partial: "#{cards}/belgium_electrical_compliance" %>
+
+    <%= render partial: "#{cards}/cross_border_alcohol_industry" %>
+
+    <%= render partial: "#{cards}/hungary_railway_contract" %>
+
+    <%= render partial: "#{cards}/president_influence" %>
+
+    <%= render partial: "#{cards}/uk_superinjunction" %>
+
+    <%= render partial: "#{cards}/uk_army_sexual_assault" %>
+
+    <%= render partial: "#{cards}/ukraine_macroeconomic_threats" %>
+
+    <%= render partial: "#{cards}/europe_gh_advocates" %>
+
+    <%= render partial: "#{cards}/europe_imi_report" %>
+
+    <%= render partial: "#{cards}/belgium_transparency_policy" %>
+
+    <%= render partial: "#{cards}/sweden_preschool_principlals_notions" %>
+  </div>
+
+  <button id="load-more"><%= _('Load more') %></button>
+
+  <div class="container--subheading">
+    <p>
+      <%= _('This is just a small sample of the impacts we’ve tracked ' \
+            'across the network. Know of other examples that have used ' \
+            'requests made on this site? ' \
+            '<a href="{{contact_path}}">Let us know!</a>',
+            contact_path: help_contact_path) %>
+    </p>
+  </div>
+</section>
