@@ -88,6 +88,38 @@ RSpec.describe IncomingMessage do
     it { is_expected.to eq(response_event) }
   end
 
+  describe '#parse_raw_email!' do
+    subject { message.parse_raw_email! }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'when the raw_email is erased' do
+      before do
+        allow(message).to receive(:raw_email).and_return(double(erased?: true))
+      end
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+      end
+    end
+  end
+
+  describe '#extract_attachments!' do
+    subject { message.extract_attachments! }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'when the raw_email is erased' do
+      before do
+        allow(message).to receive(:raw_email).and_return(double(erased?: true))
+      end
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+      end
+    end
+  end
+
   describe '#raw_email_erased?' do
     subject { message.raw_email_erased? }
 
