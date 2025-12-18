@@ -28,6 +28,8 @@ class RawEmail < ApplicationRecord
   delegate :multipart?, to: :mail
   delegate :parts, to: :mail
 
+  delegate :expire, :log_event, to: :info_request
+
   def addresses(include_invalid: false)
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
   end
