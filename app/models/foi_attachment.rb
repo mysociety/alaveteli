@@ -51,6 +51,9 @@ class FoiAttachment < ApplicationRecord
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
+
+  validate :must_be_unlockable_to_unlock, on: :update
+
   validates :replaced_filename, absence: true, unless: :replacing_or_replaced?
   validates :replaced_reason, absence: true, unless: :replacing_or_replaced?
   validates :replaced_reason, presence: true, if: :replacing_or_replaced?
@@ -394,6 +397,12 @@ class FoiAttachment < ApplicationRecord
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
+  end
+
+  def must_be_unlockable_to_unlock
+    return if !unlocking? || unlockable?
+
+    errors.add(:base, 'This attachment cannot be unlocked.')
   end
 
   def handle_locked
