@@ -75,6 +75,33 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe 'validation: must_be_unlockable_to_unlock' do
+    let(:foi_attachment) do
+      attachment = FactoryBot.create(:body_text, :locked)
+      attachment.incoming_message = FactoryBot.create(:plain_incoming_message)
+      attachment
+    end
+
+    # Attempt to unlock
+    before { foi_attachment.locked = false }
+
+    context 'when attempting to unlock an attachment that is not unlockable' do
+      before do
+        allow(foi_attachment).to receive(:unlockable?).and_return(false)
+        foi_attachment.valid?
+      end
+
+      it 'is invalid' do
+        expect(foi_attachment).not_to be_valid
+      end
+
+      it 'adds an error' do
+        msg = 'This attachment cannot be unlocked.'
+        expect(foi_attachment.errors[:base]).to include(msg)
+      end
+    end
+  end
+
   describe 'replacement attributes' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
 
