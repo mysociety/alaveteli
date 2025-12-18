@@ -6,6 +6,8 @@ module FoiAttachment::Lockable
   included do
     before_save :handle_locked
 
+    validate :must_be_unlockable_to_unlock, on: :update
+
     scope :locked, -> { where(locked: true) }
     scope :unlocked, -> { where(locked: false) }
   end
@@ -69,6 +71,12 @@ module FoiAttachment::Lockable
   end
 
   private
+
+  def must_be_unlockable_to_unlock
+    return if !unlocking? || unlockable?
+
+    errors.add(:base, 'This attachment cannot be unlocked.')
+  end
 
   def handle_locked
     if unlocking? && replaced?
