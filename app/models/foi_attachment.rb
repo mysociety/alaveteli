@@ -314,6 +314,10 @@ class FoiAttachment < ApplicationRecord
     unlocked?
   end
 
+  def unlockable?
+    !incoming_message.raw_email_erased?
+  end
+
   def locking?
     locked? && locked_changed?
   end

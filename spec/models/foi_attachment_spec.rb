@@ -646,6 +646,27 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#unlockable?' do
+    subject { foi_attachment.unlockable? }
+    let(:foi_attachment) { FactoryBot.build(:body_text) }
+
+    before do
+      allow(foi_attachment).
+        to receive(:incoming_message).
+        and_return(incoming_message)
+    end
+
+    context 'when the raw email is persisted' do
+      let(:incoming_message) { double(raw_email_erased?: false) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the raw email is erased' do
+      let(:incoming_message) { double(raw_email_erased?: true) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#locking?' do
     let(:foi_attachment) { FactoryBot.create(:body_text, locked: false) }
     subject { foi_attachment.locking? }

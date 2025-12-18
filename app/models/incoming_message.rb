@@ -113,6 +113,10 @@ class IncomingMessage < ApplicationRecord
 
   alias valid_to_reply_to? valid_to_reply_to
 
+  def raw_email_erased?
+    raw_email.erased?
+  end
+
   # Public: The display name of the email sender with the associated
   # InfoRequest's censor rules applied.
   #
