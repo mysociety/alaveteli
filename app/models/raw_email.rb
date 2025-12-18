@@ -67,6 +67,10 @@ class RawEmail < ApplicationRecord
                          replace: "")
   end
 
+  def erased?
+    false
+  end
+
   def from_name
     MailHandler.get_from_name(mail)
   end
