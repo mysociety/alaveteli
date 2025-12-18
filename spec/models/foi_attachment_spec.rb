@@ -618,6 +618,20 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#unlocked?' do
+    subject { foi_attachment.unlocked? }
+
+    context 'when it is not locked' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :unlocked) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when it is locked' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :locked) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#locking?' do
     let(:foi_attachment) { FactoryBot.create(:body_text, locked: false) }
     subject { foi_attachment.locking? }
