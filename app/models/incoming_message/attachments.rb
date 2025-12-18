@@ -155,6 +155,8 @@ module IncomingMessage::Attachments
 
   # rubocop:disable Lint::UnderscorePrefixedVariableName
   def extract_attachments
+    raise RawEmailErasedError if raw_email_erased?
+
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
     attachment_attributes = attachment_attributes.inject({}) do |memo, attrs|
