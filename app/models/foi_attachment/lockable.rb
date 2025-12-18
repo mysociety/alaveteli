@@ -52,6 +52,10 @@ module FoiAttachment::Lockable
     !locked?
   end
 
+  def lockable?
+    unlocked?
+  end
+
   def locking?
     locked? && locked_changed?
   end
