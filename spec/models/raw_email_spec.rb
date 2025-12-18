@@ -11,6 +11,8 @@
 require 'spec_helper'
 
 RSpec.describe RawEmail do
+  include ActiveJob::TestHelper
+
   def roundtrip_data(raw_email, data)
     raw_email.data = data
     raw_email.save!
@@ -181,12 +183,173 @@ RSpec.describe RawEmail do
       expect(subject.encoding.to_s).to eq('UTF-8')
       expect(subject.valid_encoding?).to be true
     end
+
+    context 'when erased' do
+      before do
+        raw_email.erase(
+          editor: FactoryBot.create(:admin_user),
+          reason: 'PII'
+        )
+      end
+
+      it { is_expected.to be_nil }
+    end
   end
 
   describe '#erased?' do
     subject { raw_email.erased? }
-    let(:raw_email) { FactoryBot.create(:raw_email, :with_file) }
+
+    let(:raw_email) do
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      message.raw_email = FactoryBot.create(:raw_email, :with_file)
+      message.save!
+      message.raw_email
+    end
+
     it { is_expected.to eq(false) }
+
+    context 'when erased' do
+      before do
+        raw_email.erase(
+          editor: FactoryBot.create(:admin_user),
+          reason: 'PII'
+        )
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#erase' do
+    subject { raw_email.erase(editor: editor, reason: reason) }
+
+    let(:raw_email) do
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      message.raw_email = FactoryBot.create(:raw_email, :with_file)
+      message.save!
+      message.raw_email
+    end
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Removing PII' }
+
+    it 'locks all attachments' do
+      expect(raw_email.incoming_message).to receive(:lock_all_attachments).with(
+        editor: editor,
+        reason: 'RawEmail#erase',
+        raw_email: raw_email
+      )
+      subject
+    end
+
+    it 'purges later' do
+      expect { subject }.to have_enqueued_job(ActiveStorage::PurgeJob)
+    end
+
+    it 'purges the attached file' do
+      subject
+      expect(raw_email.reload.file).not_to be_attached
+    end
+
+    it 'touches erased_at' do
+      expect { subject }.to change(raw_email, :erased_at).from(nil)
+      expect(raw_email.erased_at).to be_a(Time)
+    end
+
+    def last_event
+      raw_email.info_request.info_request_events.last
+    end
+
+    it 'logs an event on the associated info_request' do
+      expect { subject }.to change { last_event }
+      expect(last_event.event_type).to eq('erase_raw_email')
+    end
+
+    it 'expires the associated info_request' do
+      expect(raw_email.info_request).to receive(:expire)
+      subject
+    end
+
+    it { is_expected.to eq(true) }
+
+    context 'when already erased' do
+      before { allow(raw_email).to receive(:erased?).and_return(true) }
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(described_class::AlreadyErasedError)
+      end
+    end
+
+    context 'when an attachment cannot be locked' do
+      before do
+        expect(raw_email).to receive(:lock_all_attachments).and_return(false)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when an event cannot be logged' do
+      before do
+        expect(raw_email).to receive(:log_event).and_return(false)
+      end
+
+      it 'does not erase the file' do
+        subject
+        perform_enqueued_jobs
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the file cannot be purged' do
+      before do
+        expect_any_instance_of(ActiveStorage::Attached::One).
+          to receive(:purge_later).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        perform_enqueued_jobs
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the record cannot be touched' do
+      before do
+        expect(raw_email).
+          to receive(:touch).and_raise(ActiveRecord::ActiveRecordError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the info request cannot be expired' do
+      before do
+        expect(raw_email).to receive(:expire).and_raise(StandardError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
   end
 
   describe '#from_email_domain' do
