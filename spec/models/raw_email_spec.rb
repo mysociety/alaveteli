@@ -17,6 +17,26 @@ RSpec.describe RawEmail do
     raw_email.data
   end
 
+  describe '#expire' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
+
+    it 'delegates to info_request' do
+      expect(raw_email.info_request).to receive(:expire)
+      raw_email.expire
+    end
+  end
+
+  describe '#log_event' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
+
+    it 'delegates to info_request' do
+      expect(raw_email.info_request).to receive(:log_event).with('edit')
+      raw_email.log_event('edit')
+    end
+  end
+
   describe '#valid_to_reply_to?' do
     subject { raw_email.valid_to_reply_to? }
     let(:raw_email) { RawEmail.new }
