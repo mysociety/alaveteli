@@ -306,6 +306,10 @@ class FoiAttachment < ApplicationRecord
     )
   end
 
+  def unlocked?
+    !locked?
+  end
+
   def locking?
     locked? && locked_changed?
   end
