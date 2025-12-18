@@ -19,6 +19,8 @@ class RawEmail < ApplicationRecord
   has_one :incoming_message,
           inverse_of: :raw_email
 
+  has_one :info_request, through: :incoming_message
+
   has_one_attached :file, service: :raw_emails
 
   delegate :date, to: :mail
@@ -102,7 +104,7 @@ class RawEmail < ApplicationRecord
   end
 
   def request_id
-    incoming_message.info_request.id.to_s
+    info_request.id.to_s
   end
 
   def incoming_message_id
