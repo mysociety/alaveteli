@@ -70,7 +70,11 @@
       <%= f.label :locked, class: 'control-label' %>
 
       <div class="controls">
-        <%= f.check_box :locked %>
+        <% if @foi_attachment.locked? %>
+          <%= f.check_box :locked, disabled: !@foi_attachment.unlockable? %>
+        <% else %>
+          <%= f.check_box :locked, disabled: !@foi_attachment.lockable? %>
+        <% end %>
       </div>
     </div>
   </fieldset>
