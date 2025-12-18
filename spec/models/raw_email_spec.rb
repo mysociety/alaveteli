@@ -147,6 +147,12 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#erased?' do
+    subject { raw_email.erased? }
+    let(:raw_email) { FactoryBot.create(:raw_email, :with_file) }
+    it { is_expected.to eq(false) }
+  end
+
   describe '#from_email_domain' do
     subject { raw_email.from_email_domain }
 
