@@ -13,7 +13,7 @@ title: Cron jobs and Daemons
 From Alaveteli version `0.39` the crontab and init scripts use the `erb` file
 format, which is a standard templating format used by many Ruby applications.
 
-Previously scripts use the `ugly` file format, which is a strange templating
+Previously scripts use the `ugly` file format, which is a legacy templating
 format used by mySociety.
 
 The `ugly` format uses simple variable substitution. A variable looks like
