@@ -15,6 +15,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RawEmail < ApplicationRecord
+  class AlreadyErasedError < StandardError; end
+
   # deliberately don't strip_attributes, so keeps raw email properly
 
   has_one :incoming_message,
@@ -69,13 +71,46 @@ class RawEmail < ApplicationRecord
   end
 
   def data_as_text
-    data.encode("UTF-8", invalid: :replace,
-                         undef: :replace,
-                         replace: "")
+    data&.encode('UTF-8', invalid: :replace,
+                          undef: :replace,
+                          replace: '')
   end
 
   def erased?
-    false
+    !file.attached? && erased_at.present?
+  end
+
+  def erase(editor:, reason:)
+    raise AlreadyErasedError if erased?
+
+    incoming_message.parse_raw_email
+
+    transaction do |t|
+      t.after_rollback { return false }
+
+      raise ActiveRecord::Rollback unless
+        lock_all_attachments(
+          editor: editor,
+          reason: 'RawEmail#erase',
+          raw_email: self
+        )
+
+      raise ActiveRecord::Rollback unless
+        log_event(
+          'erase_raw_email',
+          editor: editor,
+          reason: reason,
+          raw_email: self,
+          storage_key: storage_key
+        )
+
+      file.purge
+      touch(:erased_at)
+
+      expire(preserve_database_cache: true)
+
+      true
+    end
   end
 
   def from_name
