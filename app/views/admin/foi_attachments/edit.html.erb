@@ -152,9 +152,22 @@
   <hr />
   <h2>Unmasked message body (quotes unfolded):</h2>
 
-  <blockquote>
-    <div class="well well-small">
-      <%= simple_format(@foi_attachment.unmasked_body) %>
+  <% if @foi_attachment.incoming_message.raw_email_erased? %>
+    <div class="row">
+      <div class="span12">
+        <div class="alert alert-warning">
+          <p>
+            Cannot show the unmasked data as the underlying data for this
+            message has been erased.
+          </p>
+        </div>
+      </div>
     </div>
-  </blockquote>
+  <% else %>
+    <blockquote>
+      <div class="well well-small">
+        <%= simple_format(@foi_attachment.unmasked_body) %>
+      </div>
+    </blockquote>
+  <% end %>
 <% end %>
