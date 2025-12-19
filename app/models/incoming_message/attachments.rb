@@ -136,6 +136,20 @@ module IncomingMessage::Attachments
     ret.keys.join(" ")
   end
 
+  def lock_all_attachments(editor:, reason:, **event)
+    result = nil
+
+    transaction do
+      result = foi_attachments.all? do |attachment|
+        attachment.lock(**event, editor: editor, reason: reason)
+      end
+
+      raise ActiveRecord::Rollback unless result
+    end
+
+    result
+  end
+
   private
 
   def _get_attachment_text_internal
