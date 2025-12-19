@@ -37,6 +37,16 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#lock_all_attachments' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
+
+    it 'delegates to incoming_message' do
+      expect(raw_email.incoming_message).to receive(:lock_all_attachments)
+      raw_email.lock_all_attachments
+    end
+  end
+
   describe '#valid_to_reply_to?' do
     subject { raw_email.valid_to_reply_to? }
     let(:raw_email) { RawEmail.new }
