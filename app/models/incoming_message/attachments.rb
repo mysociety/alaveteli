@@ -140,6 +140,22 @@ module IncomingMessage::Attachments
     foi_attachments.locked.any?
   end
 
+  def lock_all_attachments(editor:, reason:, **event)
+    transaction do
+      foi_attachments.each { _1.lock!(**event, editor: editor, reason: reason) }
+    end
+
+    # We need to expire the attachments after _all_ have been locked to ensure
+    # the expiry process doesn't clear masks of all but the first attachment
+    # before they are locked. If this happens then the attachments are locked in
+    # an unmasked state.
+    foi_attachments.each(&:expire)
+
+    true
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
   private
 
   def _get_attachment_text_internal
