@@ -74,4 +74,62 @@
   </div>
 <% else %>
   <pre><%= h(@raw_email.data_as_text).gsub(/\n/, '<br>').html_safe %></pre>
+
+  <% if feature_enabled? :raw_email_erase %>
+  <div class="row">
+    <div class="span12 danger-zone">
+      <h1 class="span12 danger-zone__header">Danger Zone</h1>
+
+      <div class="danger-zone__item">
+        <div class="span7">
+          <p>
+            <strong>Erase this Raw Email</strong>
+          </p>
+
+          <details>
+            <summary>
+              Destroy the underlying data from this response.
+            </summary>
+
+            <br />
+
+            <p>
+              This can be used to <strong>permanently destroy data</strong>
+              received in a response by a public body.
+            </p>
+
+            <p>
+              <ul>
+                <li>Destroys the underlying file representation of the response email received</li>
+                <li>Locks all attachments that were extracted from this response</li>
+              </ul>
+            </p>
+
+            <p>
+              Note that <strong>this will not erase from any backups</strong>
+              or file storage retention policies created outside of Alaveteli.
+              In most cases allowing the backed up file to be rotated out is
+              fine, but in the most extreme cases you may wish to manually purge
+              the file from backups.
+            </p>
+          </details>
+
+          <br/>
+        </div>
+
+        <%= form_with url: admin_raw_email_erasure_path(@raw_email), scope: :raw_email, class: 'span4' do |f| %>
+          <div class="input-append">
+            <%= f.text_field :erasure_reason,
+                             placeholder: 'Reason for erasure',
+                             required: true %>
+
+            <%= f.submit 'Erase',
+                         class: 'btn btn-danger',
+                         data: { confirm: 'Are you sure? This is irreversible.' } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% end %>
 <% end %>
