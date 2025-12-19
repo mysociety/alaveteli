@@ -699,6 +699,16 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::RawEmails::Erasures controller
+  namespace :admin do
+    resources :raw_emails, only: [] do
+      scope module: :raw_emails do
+        resource :erasure, only: [:create]
+      end
+    end
+  end
+  ####
+
   #### AdminInfoRequestEvent controller
   scope '/admin', :as => 'admin' do
     resources :info_request_events,
