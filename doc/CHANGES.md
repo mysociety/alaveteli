@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Complete thread-safety fix for acts_as_xapian metadata dictionaries (gfrmin)
 * Bump bundler to 2.7.2 to prevent warnings (Graeme Porteous)
 
 # 0.46.0.0

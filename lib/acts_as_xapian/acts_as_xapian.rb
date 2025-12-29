@@ -67,6 +67,8 @@ module ActsAsXapian
     Thread.current[:acts_as_xapian_db]
   end
 
+  # rubocop:disable Style/TrivialAccessors
+  # Thread-local storage setters - cannot use attr_accessor
   def self.db=(db)
     Thread.current[:acts_as_xapian_db] = db
   end
@@ -140,6 +142,7 @@ module ActsAsXapian
   def self.value_ranges_store=(value_ranges_store)
     Thread.current[:acts_as_xapian_value_ranges_store] = value_ranges_store
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def self.config
     @@config
