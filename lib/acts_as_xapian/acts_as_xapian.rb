@@ -67,6 +67,8 @@ module ActsAsXapian
     Thread.current[:acts_as_xapian_db]
   end
 
+  # rubocop:disable Style/TrivialAccessors
+  # Thread-local storage setters - cannot use attr_accessor
   def self.db=(db)
     Thread.current[:acts_as_xapian_db] = db
   end
@@ -108,6 +110,7 @@ module ActsAsXapian
   def self.query_parser=(query_parser)
     Thread.current[:acts_as_xapian_query_parser] = query_parser
   end
+  # rubocop:enable Style/TrivialAccessors
 
   def self.values_by_prefix
     @@values_by_prefix
