@@ -11,7 +11,7 @@
           }
 
         $("#typeahead_response").load("<%= search_ahead_url %>?q="+encodeURI(this.value)+
-          "&requested_from=<%= @info_request.public_body.url_name %>"+
+          "&requested_from=<%= @info_request.public_body&.url_name %>"+
           "&per_page=3", function() {
 
             if ( $('#request_search_ahead_results').text().trim().length > 0) {

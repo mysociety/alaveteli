@@ -213,6 +213,13 @@ class RequestController < ApplicationController
                                                       outgoing_message_params)
     @outgoing_message = @info_request.outgoing_messages.first
 
+    # Check if public body exists and is requestable
+    if @info_request.public_body.nil?
+      @info_request.errors.add(:public_body, "Please select an authority")
+      render action: 'new'
+      return
+    end
+
     # Maybe we lost the address while they're writing it
     unless @info_request.public_body.is_requestable?
       render action: "new_#{ @info_request.public_body.not_requestable_reason }"
@@ -545,7 +552,7 @@ class RequestController < ApplicationController
 
     # Reconstruct the params
     # first the public body (by URL name or id)
-    params[:info_request][:public_body_id] ||=
+    params[:info_request][:public_body_id] =
       if params[:url_name]
         if params[:url_name].match(/^[0-9]+$/)
           PublicBody.find(params[:url_name]).id
@@ -606,6 +613,13 @@ class RequestController < ApplicationController
       @outgoing_message.what_doing = permitted[:outgoing_message][:what_doing]
     end
     @outgoing_message.set_signature_name(@user.name) unless @user.nil?
+
+    # Check if public body exists
+    if @info_request.public_body.nil?
+      @info_request.errors.add(:public_body, "Please select an authority")
+      render action: 'new'
+      return
+    end
 
     if @info_request.public_body.is_requestable?
       render action: 'new'
