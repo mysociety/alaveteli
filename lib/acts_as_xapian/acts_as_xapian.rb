@@ -48,7 +48,8 @@ module ActsAsXapian
   NoXapianRubyBindingsError = Class.new(StandardError)
   UnhandledRuntimeError = Class.new(StandardError)
 
-  @@db = nil
+  # Thread-local storage for database connections to avoid race conditions
+  # in multi-threaded environments (e.g., Puma with multiple threads)
   @@db_path = nil
   @@writable_db = nil
   @@init_values = []
@@ -61,8 +62,14 @@ module ActsAsXapian
     $acts_as_xapian_class_var_init = true
   end
 
+  # Use thread-local storage for read-only database connections
   def self.db
-    @@db
+    Thread.current[:acts_as_xapian_db]
+  end
+
+  # Thread-local storage setters - cannot use attr_accessor
+  def self.db=(db)
+    Thread.current[:acts_as_xapian_db] = db
   end
 
   def self.db_path=(db_path)
@@ -85,16 +92,54 @@ module ActsAsXapian
     @@term_generator
   end
 
+  # Use thread-local storage for enquire objects
   def self.enquire
-    @@enquire
+    Thread.current[:acts_as_xapian_enquire]
   end
 
+  def self.enquire=(enquire)
+    Thread.current[:acts_as_xapian_enquire] = enquire
+  end
+
+  # Use thread-local storage for query parser objects
   def self.query_parser
-    @@query_parser
+    Thread.current[:acts_as_xapian_query_parser]
   end
 
+  def self.query_parser=(query_parser)
+    Thread.current[:acts_as_xapian_query_parser] = query_parser
+  end
+  # Use thread-local storage for metadata dictionaries
   def self.values_by_prefix
-    @@values_by_prefix
+    Thread.current[:acts_as_xapian_values_by_prefix]
+  end
+
+  def self.values_by_prefix=(values_by_prefix)
+    Thread.current[:acts_as_xapian_values_by_prefix] = values_by_prefix
+  end
+
+  def self.values_by_number
+    Thread.current[:acts_as_xapian_values_by_number]
+  end
+
+  def self.values_by_number=(values_by_number)
+    Thread.current[:acts_as_xapian_values_by_number] = values_by_number
+  end
+
+  def self.terms_by_capital
+    Thread.current[:acts_as_xapian_terms_by_capital]
+  end
+
+  def self.terms_by_capital=(terms_by_capital)
+    Thread.current[:acts_as_xapian_terms_by_capital] = terms_by_capital
+  end
+
+  def self.value_ranges_store
+    Thread.current[:acts_as_xapian_value_ranges_store]
+  end
+
+  def self.value_ranges_store=(value_ranges_store)
+    Thread.current[:acts_as_xapian_value_ranges_store] = value_ranges_store
   end
 
   def self.config
@@ -170,12 +215,14 @@ module ActsAsXapian
     # only speculate about at the moment. (It is easy to reproduce this by
     # changing the code below to use reopen rather than open followed by
     # close, and running rake spec.)
-    @@db.close unless @@db.nil?
+    # Use thread-local storage to avoid closing other threads' connections
+    current_db = db
+    current_db.close unless current_db.nil?
 
-    # basic Xapian objects
+    # basic Xapian objects - stored in thread-local storage
     begin
-      @@db = Xapian::Database.new(@@db_path)
-      @@enquire = Xapian::Enquire.new(@@db)
+      self.db = Xapian::Database.new(@@db_path)
+      self.enquire = Xapian::Enquire.new(db)
     rescue IOError => e
       raise "Failed to open Xapian database #{@@db_path}: #{e.message}"
     end
@@ -186,37 +233,37 @@ module ActsAsXapian
   # Make a new query parser
   def self.init_query_parser
     # for queries
-    @@query_parser = Xapian::QueryParser.new
-    @@query_parser.stemmer = @@stemmer
-    @@query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
-    @@query_parser.database = @@db
-    @@query_parser.default_op = Xapian::Query::OP_AND
+    self.query_parser = Xapian::QueryParser.new
+    query_parser.stemmer = @@stemmer
+    query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
+    query_parser.database = db
+    query_parser.default_op = Xapian::Query::OP_AND
     # The set_max_wildcard_expansion method was introduced in Xapian 1.2.7,
     # so may legitimately not be available.
     #
     # Large installations of Alaveteli should consider
     # upgrading, because uncontrolled wildcard expansion
     # can crash the whole server: see http://trac.xapian.org/ticket/350
-    if @@query_parser.respond_to? :set_max_wildcard_expansion
-      @@query_parser.set_max_wildcard_expansion(@@max_wildcard_expansion)
+    if query_parser.respond_to? :set_max_wildcard_expansion
+      query_parser.set_max_wildcard_expansion(@@max_wildcard_expansion)
     end
 
     @@stopper = Xapian::SimpleStopper.new
     @@stopper.add("and")
     @@stopper.add("of")
     @@stopper.add("&")
-    @@query_parser.stopper = @@stopper
+    query_parser.stopper = @@stopper
 
-    @@terms_by_capital = {}
-    @@values_by_number = {}
-    @@values_by_prefix = {}
-    @@value_ranges_store = []
+    self.terms_by_capital = {}
+    self.values_by_number = {}
+    self.values_by_prefix = {}
+    self.value_ranges_store = []
 
     @@init_values.each do |_classname, options|
       # go through the various field types, and tell query parser about them,
       # and error check them - i.e. check for consistency between models
-      @@query_parser.add_boolean_prefix("model", "M")
-      @@query_parser.add_boolean_prefix("modelid", "I")
+      query_parser.add_boolean_prefix("model", "M")
+      query_parser.add_boolean_prefix("modelid", "I")
       init_terms(options[:terms]) if options[:terms]
       init_values(options[:values]) if options[:values]
     end
@@ -228,12 +275,13 @@ module ActsAsXapian
         raise "Value index '#{index}' must be an Integer, is #{index.class}"
       end
 
-      if @@values_by_number.include?(index) && @@values_by_number[index] != prefix
+      if values_by_number.include?(index) &&
+         values_by_number[index] != prefix
         raise "Already have value index '#{index}' in another model " \
-          "but with different prefix '#{@@values_by_number[index]}'"
+          "but with different prefix '#{values_by_number[index]}'"
       end
       # date types are special, mark them so the first model they're seen for
-      unless @@values_by_number.include?(index)
+      unless values_by_number.include?(index)
         case value_type
         when :date
           value_range = Xapian::DateValueRangeProcessor.new(index)
@@ -245,15 +293,15 @@ module ActsAsXapian
           raise "Unknown value type '#{value_type}'"
         end
 
-        @@query_parser.add_valuerangeprocessor(value_range)
+        query_parser.add_valuerangeprocessor(value_range)
 
         # stop it being garbage collected, as
         # add_valuerangeprocessor ref is outside Ruby's GC
-        @@value_ranges_store.push(value_range)
+        value_ranges_store.push(value_range)
       end
 
-      @@values_by_number[index] = prefix
-      @@values_by_prefix[prefix] = index
+      values_by_number[index] = prefix
+      values_by_prefix[prefix] = index
     end
   end
 
@@ -270,16 +318,17 @@ module ActsAsXapian
       end
       raise "Z is reserved for stemming terms" if term_code == "Z"
 
-      if @@terms_by_capital.include?(term_code) && @@terms_by_capital[term_code] != prefix
+      if terms_by_capital.include?(term_code) &&
+         terms_by_capital[term_code] != prefix
         raise "Already have code '#{term_code}' in another model but with different prefix " \
-          "'#{@@terms_by_capital[term_code]}'"
+          "'#{terms_by_capital[term_code]}'"
       end
-      @@terms_by_capital[term_code] = prefix
+      terms_by_capital[term_code] = prefix
       # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
       # If making acts_as_xapian generic, would really need to make the :terms have
       # another option that lets people choose non-boolean for terms that need it
       # (i.e. searching explicitly within a free text field)
-      @@query_parser.add_boolean_prefix(prefix, term_code)
+      query_parser.add_boolean_prefix(prefix, term_code)
     end
   end
 
@@ -302,7 +351,7 @@ module ActsAsXapian
 
     # for indexing
     @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN | _xapian_backend_format(full_path))
-    @@enquire = Xapian::Enquire.new(@@writable_db)
+    self.enquire = Xapian::Enquire.new(@@writable_db)
     @@term_generator = Xapian::TermGenerator.new
     @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
     @@term_generator.database = @@writable_db

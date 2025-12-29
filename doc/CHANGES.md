@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix thread-safety issues in acts_as_xapian for multi-threaded servers (gfrmin)
 * Add ATI Network Impacts Showcase (Lucas Cumsille Montesinos, Gareth Rees)
 * Improve raw email testing fixtures (Graeme Porteous)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
