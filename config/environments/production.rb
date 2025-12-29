@@ -119,7 +119,9 @@ Rails.application.configure do
   if notify_exceptions
     ignored_exceptions = %w(
       ActionController::BadRequest
+      ActionController::InvalidAuthenticityToken
       ActionDispatch::Http::MimeNegotiation::InvalidType
+      URI::InvalidURIError
     ) + ExceptionNotifier.ignored_exceptions
 
     middleware.use ExceptionNotification::Rack,
