@@ -246,8 +246,8 @@ module ActsAsXapian
     # Large installations of Alaveteli should consider
     # upgrading, because uncontrolled wildcard expansion
     # can crash the whole server: see http://trac.xapian.org/ticket/350
-    if self.query_parser.respond_to? :set_max_wildcard_expansion
-      self.query_parser.set_max_wildcard_expansion(@@max_wildcard_expansion)
+    if query_parser.respond_to? :set_max_wildcard_expansion
+      query_parser.set_max_wildcard_expansion(@@max_wildcard_expansion)
     end
 
     @@stopper = Xapian::SimpleStopper.new
@@ -351,7 +351,7 @@ module ActsAsXapian
 
     # for indexing
     @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN | _xapian_backend_format(full_path))
-    @@enquire = Xapian::Enquire.new(@@writable_db)
+    self.enquire = Xapian::Enquire.new(@@writable_db)
     @@term_generator = Xapian::TermGenerator.new
     @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
     @@term_generator.database = @@writable_db
