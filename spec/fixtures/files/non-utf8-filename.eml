@@ -1,0 +1,52 @@
+From authority@example.org  Tue Dec  3 11:13:02 2013
+Return-path: <authority@example.org>
+Envelope-to: requester@example.org
+Delivery-date: Tue, 03 Dec 2013 11:13:00 +0000
+From: Test Authority <authority@example.org>
+To: requester@example.org
+Subject: testing a PDF attachment with the wrong content-type
+Date: Tue, 03 Dec 2013 11:12:45 +0000
+Message-ID: <87li09xuasdfasdfpoija@blahblah>
+Content-Type: multipart/mixed;
+	boundary="_006_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_"
+MIME-Version: 1.0
+X-GlobalCerts-Milter: WDC-SECUREMAIL02.wokingham.gov.uk 13Feb2014-16:41:39.109
+X-Scanned-By: MailControl 26514.0 (www.mailcontrol.com) on 10.70.0.132
+
+--_006_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_
+Content-Type: multipart/alternative;
+	boundary="_000_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_"
+
+--_000_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Some text
+
+--_000_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Some html
+
+--_000_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_--
+
+
+--_006_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_
+Content-Type: application/vnd.ms-excel;
+	name="RV %A312000 or more.xls"
+Content-Description: RV %A312000 or more.xls
+Content-Disposition: attachment; creation-date="Thu, 13 Feb 2014 16:36:59 GMT"; filename="RV %A312000 or more.xls"; modification-date="Thu, 13 Feb 2014 16:41:36 GMT"; size="332288"
+Content-Transfer-Encoding: base64
+
+some base 64as;dm mklasd
+
+--_006_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_
+Content-Type: application/vnd.ms-excel; name="other.xls"
+Content-Description: other.xls
+Content-Disposition: attachment; creation-date="Thu, 13 Feb 2014 16:37:02 GMT"; filename="other.xls"; modification-date="Thu, 13 Feb 2014 16:41:36 GMT"; size="33280"
+Content-Transfer-Encoding: base64
+
+some base 64
+
+--_006_939C1F941DBEE94A9BEF493DF88519F71F13B5FCWDCEXMAIL02woki_--

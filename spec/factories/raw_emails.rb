@@ -16,8 +16,8 @@ FactoryBot.define do
       mail { Mail.new }
     end
 
-    after(:build) do |foi_attachment, evaluator|
-      foi_attachment.file.attach(
+    after(:build) do |raw_email, evaluator|
+      raw_email.file.attach(
         io: StringIO.new(evaluator.mail.to_s),
         filename: evaluator.filename,
         content_type: 'message/rfc822'

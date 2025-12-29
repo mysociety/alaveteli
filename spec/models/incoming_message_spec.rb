@@ -331,8 +331,6 @@ RSpec.describe IncomingMessage do
 
       @default_opts = { last_edit_editor: 'unknown',
                         last_edit_comment: 'none' }
-
-      load_raw_emails_data
     end
 
     it 'replaces text with global censor rules' do
@@ -713,7 +711,6 @@ end
 RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   before(:each) do
     @im = incoming_messages(:useless_incoming_message)
-    load_raw_emails_data
   end
 
   after(:all) do
@@ -722,7 +719,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should correctly parse multipart mails with a linebreak in the boundary marker' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('space-boundary.email', email_to: ir.incoming_email)
+    receive_incoming_mail('space-boundary.eml', email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.parts.size).to eq(2)
     expect(message.multipart?).to eq(true)
@@ -742,7 +739,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it "should ensure cached body text has been parsed correctly" do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('quoted-subject-iso8859-1.email',
+    receive_incoming_mail('quoted-subject-iso8859-1.eml',
                           email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_unfolded).not_to include("Email has no body")
@@ -750,7 +747,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it "should correctly convert HTML even when there's a meta tag asserting that it is iso-8859-1 which would normally confuse elinks" do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('quoted-subject-iso8859-1.email',
+    receive_incoming_mail('quoted-subject-iso8859-1.eml',
                           email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
@@ -760,7 +757,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should deal with GB18030 text even if the charset is missing' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('no-part-charset-bad-utf8.email',
+    receive_incoming_mail('no-part-charset-bad-utf8.eml',
                           email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
@@ -769,7 +766,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should not error on display of a message which has no charset set on the body part and is not good UTF-8' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('no-part-charset-random-data.email',
+    receive_incoming_mail('no-part-charset-random-data.eml',
                           email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
@@ -778,7 +775,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should convert DOS-style linebreaks to Unix style' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('dos-linebreaks.email', email_to: ir.incoming_email)
+    receive_incoming_mail('dos-linebreaks.eml', email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
     expect(message.get_main_body_text_internal).not_to match(/\r\n/)
@@ -798,7 +795,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should insert some text for messages without a body' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('no-body.email', email_to: ir.incoming_email)
+    receive_incoming_mail('no-body.eml', email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email!
     expect(message.get_main_body_text_internal).
@@ -809,7 +806,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     ActionMailer::Base.deliveries.clear
     # just send it to the holding pen
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
-    receive_incoming_mail("humberside-police-odd-mime-type.email",
+    receive_incoming_mail("humberside-police-odd-mime-type.eml",
                           email_to: 'dummy')
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
 
@@ -857,7 +854,7 @@ end
 RSpec.describe IncomingMessage, " folding quoted parts of emails" do
   it 'should fold an example lotus notes quoted part converted from HTML correctly' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('lotus-notes-quoting.email',
+    receive_incoming_mail('lotus-notes-quoting.eml',
                           email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
@@ -887,7 +884,7 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
 
   it 'should fold an example of another kind of forward quoting' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('forward-quoting-example.email',
+    receive_incoming_mail('forward-quoting-example.eml',
                           email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
@@ -895,7 +892,7 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
 
   it 'should fold a further example of forward quoting' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('forward-quoting-example-2.email',
+    receive_incoming_mail('forward-quoting-example-2.eml',
                           email_to: ir.incoming_email)
     message = ir.incoming_messages[1]
     body_text = message.get_main_body_text_folded
@@ -921,7 +918,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "decodes a valid uuencoded attachment" do
-    populate_raw_email('simple-uuencoded-attachment.email')
+    populate_raw_email('simple-uuencoded-attachment.eml')
     im.extract_attachments!
 
     im.reload
@@ -934,7 +931,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should be able to do it at all" do
-    populate_raw_email('incoming-request-bad-uuencoding.email')
+    populate_raw_email('incoming-request-bad-uuencoding.eml')
     im.extract_attachments!
 
     im.reload
@@ -946,7 +943,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
 
   it "decodes an attachment where the uudecode program reports a 'No end line' error" do
     # See https://github.com/mysociety/alaveteli/issues/2508
-    populate_raw_email('incoming-request-bad-uuencoding-2.email')
+    populate_raw_email('incoming-request-bad-uuencoding-2.eml')
     im.extract_attachments!
 
     im.reload
@@ -958,7 +955,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should still work when parsed from the raw email" do
-    data = load_file_fixture('inline-uuencode.email')
+    data = load_file_fixture('inline-uuencode.eml')
     mail = MailHandler.mail_from_raw_email(data)
     im = incoming_messages(:useless_incoming_message)
     raw_email = RawEmail.new
@@ -971,7 +968,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should apply censor rules" do
-    populate_raw_email('incoming-request-bad-uuencoding.email')
+    populate_raw_email('incoming-request-bad-uuencoding.eml')
     ir = im.info_request
 
     @censor_rule = CensorRule.new
@@ -1007,7 +1004,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
     # Note that this spec will only pass using Tmail in the timezone set as datetime headers
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
-      populate_raw_email('rfc822-attachment.email')
+      populate_raw_email('rfc822-attachment.eml')
       im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(1)
@@ -1022,7 +1019,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
   end
 
   it "should flatten all the attachments out" do
-    populate_raw_email('incoming-request-attach-attachments.email')
+    populate_raw_email('incoming-request-attach-attachments.eml')
     im.extract_attachments!
 
     attachments = im.get_attachments_for_display
@@ -1037,7 +1034,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
     # Note that this spec will only pass using Tmail in the timezone set as datetime headers
     # are rendered out in the local time - using the Mail gem this is not necessary
     with_env_tz('London') do
-      populate_raw_email('incoming-request-attachment-headers.email')
+      populate_raw_email('incoming-request-attachment-headers.eml')
       im.parse_raw_email!(true)
       attachments = im.get_attachments_for_display
       expect(attachments.size).to eq(2)
@@ -1062,7 +1059,7 @@ RSpec.describe IncomingMessage, "when Outlook messages are attached to messages"
   end
 
   it "should flatten all the attachments out" do
-    populate_raw_email('incoming-request-oft-attachments.email')
+    populate_raw_email('incoming-request-oft-attachments.eml')
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
@@ -1088,7 +1085,7 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
   end
 
   it "should flatten all the attachments out" do
-    populate_raw_email('incoming-request-tnef-attachments.email')
+    populate_raw_email('incoming-request-tnef-attachments.eml')
     im.extract_attachments!
 
     expect(im.get_attachments_for_display.map(&:display_filename)).to eq([
@@ -1098,7 +1095,7 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
   end
 
   it 'does not attempt to save null bytes to the database' do
-    populate_raw_email('incoming-request-tnef-only.email')
+    populate_raw_email('incoming-request-tnef-only.eml')
     im.extract_attachments!
 
     expect { im.get_main_body_text_unfolded }.not_to raise_error
@@ -1108,10 +1105,6 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
 end
 
 RSpec.describe IncomingMessage, "when extracting attachments" do
-  before do
-    load_raw_emails_data
-  end
-
   it 'handles the case where reparsing changes the body of the main part
         and the cached attachment has been deleted' do
     # original set of attachment attributes

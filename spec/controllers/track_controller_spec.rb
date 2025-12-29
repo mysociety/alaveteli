@@ -85,7 +85,6 @@ RSpec.describe TrackController do
 
     context 'when getting feeds' do
       before do
-        load_raw_emails_data
         update_xapian_index
       end
 
@@ -248,7 +247,6 @@ RSpec.describe TrackController do
     before do
       # these tests depend on the xapian index existing, although
       # not on its specific contents.
-      load_raw_emails_data
       update_xapian_index
     end
 

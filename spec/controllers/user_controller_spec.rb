@@ -123,7 +123,6 @@ RSpec.describe UserController do
 
     context 'when filtering requests' do
       before do
-        load_raw_emails_data
         update_xapian_index
       end
 
@@ -1315,7 +1314,6 @@ RSpec.describe UserController, "when viewing the wall" do
   render_views
 
   before(:each) do
-    load_raw_emails_data
     update_xapian_index
   end
 

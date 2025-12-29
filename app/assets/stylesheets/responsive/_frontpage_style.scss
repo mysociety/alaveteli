@@ -135,3 +135,52 @@
 .learn-more-foi {
   text-align: center;
 }
+
+#frontpage_ati_network {
+  text-align: left;
+  position: relative;
+  border-top: 1px solid #e9e9e9;
+  margin-top: 2rem;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    text-align: center;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    background-image: image-url('ati_network/showcase/worldmap-pale.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 105% auto;
+    position: absolute;
+    bottom: 0;
+    z-index: 0;
+    mix-blend-mode: overlay;
+
+    @include respond-min( 37.5em ){
+      bottom: -4rem;
+      background-size: auto 75%;
+    }
+
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      text-align: center;
+      background-position: center bottom;
+      background-size: auto 90%;
+      bottom: 0;
+    }
+  }
+
+  .container {
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flag-wrapper {
+    font-size: 1.4rem;
+    @include respond-min( $main_menu-mobile_menu_cutoff ){
+      font-size: 1.5rem;
+    }
+  }
+}

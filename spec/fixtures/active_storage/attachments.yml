@@ -1,0 +1,29 @@
+useless_raw_email_attachment:
+  name: file
+  record_id: 1
+  record_type: "RawEmail"
+  blob: useless_raw_email_blob
+
+useful_raw_email_attachment:
+  name: file
+  record_id: 2
+  record_type: "RawEmail"
+  blob: useful_raw_email_blob
+
+another_useful_raw_email_attachment:
+  name: file
+  record_id: 3
+  record_type: "RawEmail"
+  blob: another_useful_raw_email_blob
+
+spam_1_raw_email_attachment:
+  name: file
+  record_id: 4
+  record_type: "RawEmail"
+  blob: spam_1_raw_email_blob
+
+spam_2_raw_email_attachment:
+  name: file
+  record_id: 5
+  record_type: "RawEmail"
+  blob: spam_2_raw_email_blob

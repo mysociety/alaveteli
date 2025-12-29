@@ -26,7 +26,7 @@ RSpec.describe "When importing mail into the application" do
   end
 
   it "should not produce any output and should return a 0 code on importing a plain email" do
-    r = mailin_test("incoming-request-empty.email")
+    r = mailin_test("incoming-request-empty.eml")
     expect(r.status).to eq(0)
     expect(r.out).to eq("")
   end
