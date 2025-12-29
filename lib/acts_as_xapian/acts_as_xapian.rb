@@ -67,7 +67,6 @@ module ActsAsXapian
     Thread.current[:acts_as_xapian_db]
   end
 
-  # rubocop:disable Style/TrivialAccessors
   # Thread-local storage setters - cannot use attr_accessor
   def self.db=(db)
     Thread.current[:acts_as_xapian_db] = db
@@ -142,7 +141,6 @@ module ActsAsXapian
   def self.value_ranges_store=(value_ranges_store)
     Thread.current[:acts_as_xapian_value_ranges_store] = value_ranges_store
   end
-  # rubocop:enable Style/TrivialAccessors
 
   def self.config
     @@config
@@ -218,13 +216,13 @@ module ActsAsXapian
     # changing the code below to use reopen rather than open followed by
     # close, and running rake spec.)
     # Use thread-local storage to avoid closing other threads' connections
-    current_db = self.db
+    current_db = db
     current_db.close unless current_db.nil?
 
     # basic Xapian objects - stored in thread-local storage
     begin
       self.db = Xapian::Database.new(@@db_path)
-      self.enquire = Xapian::Enquire.new(self.db)
+      self.enquire = Xapian::Enquire.new(db)
     rescue IOError => e
       raise "Failed to open Xapian database #{@@db_path}: #{e.message}"
     end
@@ -236,10 +234,10 @@ module ActsAsXapian
   def self.init_query_parser
     # for queries
     self.query_parser = Xapian::QueryParser.new
-    self.query_parser.stemmer = @@stemmer
-    self.query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
-    self.query_parser.database = self.db
-    self.query_parser.default_op = Xapian::Query::OP_AND
+    query_parser.stemmer = @@stemmer
+    query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
+    query_parser.database = db
+    query_parser.default_op = Xapian::Query::OP_AND
     # The set_max_wildcard_expansion method was introduced in Xapian 1.2.7,
     # so may legitimately not be available.
     #
@@ -254,7 +252,7 @@ module ActsAsXapian
     @@stopper.add("and")
     @@stopper.add("of")
     @@stopper.add("&")
-    self.query_parser.stopper = @@stopper
+    query_parser.stopper = @@stopper
 
     self.terms_by_capital = {}
     self.values_by_number = {}
@@ -264,8 +262,8 @@ module ActsAsXapian
     @@init_values.each do |_classname, options|
       # go through the various field types, and tell query parser about them,
       # and error check them - i.e. check for consistency between models
-      self.query_parser.add_boolean_prefix("model", "M")
-      self.query_parser.add_boolean_prefix("modelid", "I")
+      query_parser.add_boolean_prefix("model", "M")
+      query_parser.add_boolean_prefix("modelid", "I")
       init_terms(options[:terms]) if options[:terms]
       init_values(options[:values]) if options[:values]
     end
@@ -277,12 +275,13 @@ module ActsAsXapian
         raise "Value index '#{index}' must be an Integer, is #{index.class}"
       end
 
-      if self.values_by_number.include?(index) && self.values_by_number[index] != prefix
+      if values_by_number.include?(index) &&
+         values_by_number[index] != prefix
         raise "Already have value index '#{index}' in another model " \
-          "but with different prefix '#{self.values_by_number[index]}'"
+          "but with different prefix '#{values_by_number[index]}'"
       end
       # date types are special, mark them so the first model they're seen for
-      unless self.values_by_number.include?(index)
+      unless values_by_number.include?(index)
         case value_type
         when :date
           value_range = Xapian::DateValueRangeProcessor.new(index)
@@ -294,15 +293,15 @@ module ActsAsXapian
           raise "Unknown value type '#{value_type}'"
         end
 
-        self.query_parser.add_valuerangeprocessor(value_range)
+        query_parser.add_valuerangeprocessor(value_range)
 
         # stop it being garbage collected, as
         # add_valuerangeprocessor ref is outside Ruby's GC
-        self.value_ranges_store.push(value_range)
+        value_ranges_store.push(value_range)
       end
 
-      self.values_by_number[index] = prefix
-      self.values_by_prefix[prefix] = index
+      values_by_number[index] = prefix
+      values_by_prefix[prefix] = index
     end
   end
 
@@ -319,16 +318,17 @@ module ActsAsXapian
       end
       raise "Z is reserved for stemming terms" if term_code == "Z"
 
-      if self.terms_by_capital.include?(term_code) && self.terms_by_capital[term_code] != prefix
+      if terms_by_capital.include?(term_code) &&
+         terms_by_capital[term_code] != prefix
         raise "Already have code '#{term_code}' in another model but with different prefix " \
-          "'#{self.terms_by_capital[term_code]}'"
+          "'#{terms_by_capital[term_code]}'"
       end
-      self.terms_by_capital[term_code] = prefix
+      terms_by_capital[term_code] = prefix
       # TODO: use boolean here so doesn't stem our URL names in WhatDoTheyKnow
       # If making acts_as_xapian generic, would really need to make the :terms have
       # another option that lets people choose non-boolean for terms that need it
       # (i.e. searching explicitly within a free text field)
-      self.query_parser.add_boolean_prefix(prefix, term_code)
+      query_parser.add_boolean_prefix(prefix, term_code)
     end
   end
 
