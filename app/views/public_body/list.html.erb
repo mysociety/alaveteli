@@ -11,12 +11,18 @@
     </div>
   <% end %>
 
-  <h2 class="publicbody_results">
-    <%= @description %>
-  </h2>
-
   <% if @category %>
+    <h2 class="publicbody_results">
+      <%= @category.title %>
+    </h2>
+
     <%= render partial: 'category' %>
+
+    <p><i><%= @description %></i></p>
+  <% else %>
+    <h2 class="publicbody_results">
+      <%= @description %>
+    </h2>
   <% end %>
 
   <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
