@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Ability to search users by tag in admin interface (Gareth Rees)
 * Add ATI Network Impacts Showcase (Lucas Cumsille Montesinos, Gareth Rees)
 * Improve raw email testing fixtures (Graeme Porteous)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
