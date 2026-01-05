@@ -128,7 +128,11 @@ RSpec.describe HolidayImport do
     end
 
     it 'should populate holidays from the feed that are between the dates' do
-      allow(@holiday_import).to receive(:open).and_return(load_file_fixture('ical-holidays.ics'))
+      stub_request(:get, 'http://www.example.com/').to_return(
+        status: 200,
+        body: load_file_fixture('ical-holidays.ics')
+      )
+
       @holiday_import.populate
       expect(@holiday_import.holidays.size).to eq(1)
       holiday = @holiday_import.holidays.first
@@ -137,14 +141,20 @@ RSpec.describe HolidayImport do
     end
 
     it 'should add an error if the calendar cannot be parsed' do
-      allow(@holiday_import).to receive(:open).and_return('some invalid data')
+      stub_request(:get, 'http://www.example.com/').to_return(
+        status: 200,
+        body: 'some invalid data'
+      )
+
       @holiday_import.populate
       expected = ["Sorry, there's a problem with the format of that feed."]
       expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
     end
 
     it 'should add an error if the calendar cannot be found' do
-      allow(@holiday_import).to receive(:open).and_raise Errno::ENOENT.new('No such file or directory')
+      allow(URI).to receive(:open).
+        and_raise(Errno::ENOENT.new('No such file or directory'))
+
       @holiday_import.populate
       expected = ["Sorry we couldn't find that feed."]
       expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
