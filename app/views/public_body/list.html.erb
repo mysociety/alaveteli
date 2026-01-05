@@ -15,6 +15,10 @@
     <%= @description %>
   </h2>
 
+  <% if @category %>
+    <%= render partial: 'category' %>
+  <% end %>
+
   <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
   <%= will_paginate(@public_bodies) %><br/>
   <%= link_to _("Can't find the one you want?"), help_requesting_path(:anchor => 'missing_body') %>
