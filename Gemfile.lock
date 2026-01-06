@@ -174,7 +174,7 @@ GEM
     coderay (1.1.3)
     compare-xml (0.66)
       nokogiri (~> 1.8)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.6)
     connection_pool (2.5.5)
     crack (1.0.1)
       bigdecimal
@@ -351,7 +351,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.26.2)
-    money (7.0.0)
+    money (7.0.2)
       bigdecimal
       i18n (~> 1.9)
     multi_json (1.17.0)
@@ -690,7 +690,7 @@ DEPENDENCIES
   matrix (~> 0.4.3)
   maxmind-db (~> 1.4.0)
   mime-types (< 4.0.0)
-  money (~> 7.0.0)
+  money (~> 7.0.2)
   net-protocol (~> 0.1.3)
   nokogiri (~> 1.18.10)
   ollama-ai (~> 1.3.0)
