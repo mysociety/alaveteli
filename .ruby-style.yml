@@ -1989,6 +1989,9 @@ Style/MixinUsage:
 Style/ModuleFunction:
   Enabled: false
 
+Style/ModuleMemberExistenceCheck:
+  Enabled: false
+
 Style/MultilineBlockChain:
   Enabled: true
 
