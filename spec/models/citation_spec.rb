@@ -232,6 +232,17 @@ RSpec.describe Citation, type: :model do
       is_expected.not_to be_valid
     end
 
+    it 'requires source_url to be an external domain' do
+      citation.source_url = "https://#{AlaveteliConfiguration.domain}/foo.pdf"
+      is_expected.not_to be_valid
+    end
+
+    it 'allows source_url where the external domain is incidental' do
+      domain = AlaveteliConfiguration.domain
+      citation.source_url = "https://example.com/#{domain}-is-great.pdf"
+      is_expected.to be_valid
+    end
+
     it 'requires type' do
       citation.type = nil
       is_expected.not_to be_valid

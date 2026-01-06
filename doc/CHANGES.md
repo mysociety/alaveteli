@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Only allow Citations to be added for external URLs (Gareth Rees)
 * Fix importing holidays from iCal feed (Gareth Rees)
 * Ability to search users by tag in admin interface (Gareth Rees)
 * Add ATI Network Impacts Showcase (Lucas Cumsille Montesinos, Gareth Rees)
