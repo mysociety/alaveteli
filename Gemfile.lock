@@ -289,7 +289,7 @@ GEM
     hashdiff (1.2.1)
     holidays (8.8.0)
     htmlentities (4.4.2)
-    i18n (1.14.7)
+    i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     icalendar (2.12.1)
       base64
@@ -675,7 +675,7 @@ DEPENDENCIES
   google-cloud-storage (~> 1.57)
   holidays (~> 8.8.0)
   htmlentities (~> 4.4.2)
-  i18n (~> 1.14.7)
+  i18n (~> 1.14.8)
   icalendar (~> 2.12.1)
   image_processing (~> 1.14)
   importmap-rails (~> 2.2.2)
