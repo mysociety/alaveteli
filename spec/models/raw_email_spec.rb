@@ -168,13 +168,18 @@ RSpec.describe RawEmail do
   end
 
   describe '#data_as_text' do
-    it 'returns a utf-8 string with a valid encoding if the data is non-ascii and non-utf8' do
+    subject { raw_email.data_as_text }
+
+    let(:raw_email) do
       raw_email = FactoryBot.create(:incoming_message).raw_email
       roundtrip_data(raw_email, "\xA0ccc")
-      data_as_text = raw_email.data_as_text
-      expect(data_as_text).to eq("ccc")
-      expect(data_as_text.encoding.to_s).to eq('UTF-8')
-      expect(data_as_text.valid_encoding?).to be true
+      raw_email
+    end
+
+    it 'returns a utf-8 string with a valid encoding if the data is non-ascii and non-utf8' do
+      expect(subject).to eq("ccc")
+      expect(subject.encoding.to_s).to eq('UTF-8')
+      expect(subject.valid_encoding?).to be true
     end
   end
 
