@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Reduce exception notification spam from invalid public body requests (gfrmin)
 * Fix importing holidays from iCal feed (Gareth Rees)
 * Ability to search users by tag in admin interface (Gareth Rees)
 * Add ATI Network Impacts Showcase (Lucas Cumsille Montesinos, Gareth Rees)
