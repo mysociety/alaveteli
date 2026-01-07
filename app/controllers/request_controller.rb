@@ -213,6 +213,12 @@ class RequestController < ApplicationController
                                                       outgoing_message_params)
     @outgoing_message = @info_request.outgoing_messages.first
 
+    # Redirect if public body doesn't exist (invalid public_body_id)
+    unless @info_request.public_body
+      redirect_to frontpage_url
+      return
+    end
+
     # Maybe we lost the address while they're writing it
     unless @info_request.public_body.is_requestable?
       render action: "new_#{ @info_request.public_body.not_requestable_reason }"
@@ -550,6 +556,12 @@ class RequestController < ApplicationController
     params[:info_request][:tag_string] = params[:tags] if params[:tags]
 
     @info_request = InfoRequest.new(info_request_params)
+
+    # Redirect if public body doesn't exist (invalid public_body_id)
+    unless @info_request.public_body
+      redirect_to frontpage_url
+      return
+    end
 
     params[:info_request_id] = @info_request.id
 
