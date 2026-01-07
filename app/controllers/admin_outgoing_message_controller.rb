@@ -17,8 +17,8 @@ class AdminOutgoingMessageController < AdminController
       flash[:notice] = 'Outgoing message successfully destroyed.'
       redirect_to admin_request_url(@outgoing_message.info_request)
     else
-      flash[:error] = 'Could not destroy the outgoing message.'
-      redirect_to edit_admin_outgoing_message_path(@outgoing_message)
+      redirect_to edit_admin_outgoing_message_path(@outgoing_message),
+                  error: 'Could not destroy the outgoing message.'
     end
   end
 

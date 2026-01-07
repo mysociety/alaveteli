@@ -314,14 +314,14 @@ class UserController < ApplicationController
   def set_profile_photo
     # check they are logged in (the upload photo option is anyway only available when logged in)
     unless authenticated?
-      flash[:error] = _("You need to be logged in to change your profile photo.")
-      redirect_to frontpage_url
+      msg = _("You need to be logged in to change your profile photo.")
+      redirect_to frontpage_url, error: msg
       return
     end
     if params[:submitted_draft_profile_photo].present?
       if @user.suspended?
-        flash[:error]= _('Suspended users cannot edit their profile')
-        redirect_to set_profile_photo_path
+        msg = _('Suspended users cannot edit their profile')
+        redirect_to set_profile_photo_path, error: msg
         return
       end
 
@@ -377,8 +377,8 @@ class UserController < ApplicationController
   def clear_profile_photo
     # check they are logged in (the upload photo option is anyway only available when logged in)
     unless authenticated?
-      flash[:error] = _("You need to be logged in to clear your profile photo.")
-      redirect_to frontpage_url
+      msg = _("You need to be logged in to clear your profile photo.")
+      redirect_to frontpage_url, error: msg
       return
     end
 
@@ -409,8 +409,8 @@ class UserController < ApplicationController
   # Change about me text on your profile page
   def set_receive_email_alerts
     unless authenticated?
-      flash[:error] = _("You need to be logged in to edit your profile.")
-      redirect_to frontpage_url
+      redirect_to frontpage_url,
+                  error: _("You need to be logged in to edit your profile.")
       return
     end
     @user.receive_email_alerts = params[:receive_email_alerts]

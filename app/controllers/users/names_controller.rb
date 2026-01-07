@@ -22,15 +22,15 @@ class Users::NamesController < ApplicationController
   def check_user_logged_in
     return if authenticated?
 
-    flash[:error] = _('You need to be logged in to change your name')
-    redirect_to frontpage_url
+    redirect_to frontpage_url,
+                error: _('You need to be logged in to change your name')
   end
 
   def check_user_suspension
     return unless current_user.suspended?
 
-    flash[:error] = _('Suspended users cannot edit their profile')
-    redirect_to edit_profile_about_me_path
+    redirect_to edit_profile_about_me_path,
+                error: _('Suspended users cannot edit their profile')
   end
 
   def load_user
