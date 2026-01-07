@@ -43,6 +43,8 @@ class ApplicationController < ActionController::Base
   before_action :validate_session_timestamp
   after_action  :persist_session_timestamp
 
+  add_flash_types :error
+
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
   end
