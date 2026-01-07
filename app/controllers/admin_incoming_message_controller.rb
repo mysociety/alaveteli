@@ -84,10 +84,8 @@ class AdminIncomingMessageController < AdminController
     destination_request = nil
 
     if message_ids.empty?
-      flash[:error] =
-        'You must supply at least one request to redeliver the message to.'
-
-      return redirect_to admin_request_url(previous_request)
+      msg = 'You must supply at least one request to redeliver the message to.'
+      return redirect_to admin_request_url(previous_request), error: msg
     end
 
     ActiveRecord::Base.transaction do
@@ -100,8 +98,8 @@ class AdminIncomingMessageController < AdminController
           end
 
         if destination_request.nil?
-          flash[:error] = "Failed to find destination request '#{m}'"
-          return redirect_to admin_request_url(previous_request)
+          return redirect_to admin_request_url(previous_request),
+                 error: "Failed to find destination request '#{m}'"
         end
 
         raw_email_data = @incoming_message.raw_email.data

@@ -10,9 +10,8 @@ class AdminUsersSessionsController < AdminController
     @user_to_login_as = User.find(params[:id])
 
     if cannot? :login_as, @user_to_login_as
-      flash[:error] =
-        "You don't have permission to log in as #{ @user_to_login_as.name }"
-      return redirect_to admin_user_path(@user_to_login_as)
+      msg = "You don't have permission to log in as #{ @user_to_login_as.name }"
+      return redirect_to admin_user_path(@user_to_login_as), error: msg
     end
 
     @user_to_login_as.confirm!

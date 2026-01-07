@@ -65,8 +65,8 @@ class AdminCommentController < AdminController
       flash[:notice] = 'Comment successfully destroyed.'
       redirect_to admin_request_url(@comment.info_request)
     else
-      flash[:error] = 'Could not destroy the comment.'
-      redirect_to edit_admin_comment_path(@comment)
+      redirect_to edit_admin_comment_path(@comment),
+                  error: 'Could not destroy the comment.'
     end
   end
 
