@@ -6,3 +6,6 @@
 Rails.application.config.filter_parameters += [
   :passw, :email, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn, :cvv, :cvc
 ]
+
+# Explicitly override above Rails defaults to allow logging of email parameters.
+Rails.application.config.filter_parameters.delete(:email)
