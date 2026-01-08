@@ -1114,6 +1114,15 @@ RSpec.describe FoiAttachment do
         end
       end
 
+      context 'when replaced_filename and replacement_file are blank' do
+        it 'uses the current filename' do
+          foi_attachment.replaced_filename = ''
+          foi_attachment.replacement_body = new_body
+          foi_attachment.save
+          expect(foi_attachment.filename).to eq('current.txt')
+        end
+      end
+
       context 'when all other options are blank' do
         it 'falls back to mail_attributes filename' do
           foi_attachment.filename = nil
