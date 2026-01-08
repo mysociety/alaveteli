@@ -41,10 +41,10 @@
   </fieldset>
 
   <fieldset class="form-horizontal">
-    <legend>Locking and replacement</legend>
+    <legend>Locking</legend>
 
     <div class="controls">
-      <p class="help-block">
+      <div class="help-block">
         <strong>When locking an attachment:</strong>
         <ol>
           <li>Attachment will be preserved with current applicable censor rules applied</li>
@@ -56,9 +56,7 @@
           <li>Replaced attachment will revert back to the original copy</li>
           <li>All applicable censor rules will be applied</li>
         </ol>
-
-        <strong>When replacing the attachment locking will be enabled.</strong>
-      </p>
+      </div>
     </div>
 
     <div class="control-group">
@@ -68,43 +66,53 @@
         <%= f.check_box :locked %>
       </div>
     </div>
+  </fieldset>
 
-    <div class="control-group">
-      <%= f.label :replacement_file, class: 'control-label' %>
-
-      <div class="controls">
-        <%= f.file_field :replacement_file %>
-      </div>
-    </div>
-
-    <% if @foi_attachment.main_body_part? %>
-      <div class="control-group">
-        <%= f.label :replacement_body, class: 'control-label' %>
-
-        <div class="controls">
-          <%= f.text_area :replacement_body, rows: 5, class: 'span6' %>
-        </div>
-      </div>
-    <% else %>
-      <div class="control-group">
-        <%= f.label :replaced_filename, class: 'control-label' %>
-
-        <div class="controls">
-          <%= f.text_field :replaced_filename %>
-        </div>
-      </div>
-    <% end %>
-
-    <div class="control-group">
-      <%= f.label :replaced_reason, class: 'control-label' %>
+  <fieldset class="form-horizontal">
+    <legend>Replacement</legend>
 
       <div class="controls">
-        <%= f.text_field :replaced_reason %>
-        <span class="help-inline">
-          Private reason why attachment as been replaced, such as GDPR case reference
-        </span>
+        <p class="help-block">
+          <strong>When replacing the attachment locking will be enabled.</strong>
+        </p>
       </div>
-    </div>
+
+      <div class="control-group">
+        <%= f.label :replacement_file, class: 'control-label' %>
+
+        <div class="controls">
+          <%= f.file_field :replacement_file %>
+        </div>
+      </div>
+
+      <% if @foi_attachment.main_body_part? %>
+        <div class="control-group">
+          <%= f.label :replacement_body, class: 'control-label' %>
+
+          <div class="controls">
+            <%= f.text_area :replacement_body, rows: 5, class: 'span6' %>
+          </div>
+        </div>
+      <% else %>
+        <div class="control-group">
+          <%= f.label :replaced_filename, class: 'control-label' %>
+
+          <div class="controls">
+            <%= f.text_field :replaced_filename %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="control-group">
+        <%= f.label :replaced_reason, class: 'control-label' %>
+
+        <div class="controls">
+          <%= f.text_field :replaced_reason %>
+          <span class="help-inline">
+            Private reason why attachment as been replaced, such as GDPR case reference
+          </span>
+        </div>
+      </div>
   </fieldset>
 
   <div class="form-actions">
