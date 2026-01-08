@@ -91,5 +91,20 @@ RSpec.describe Admin::IncomingMessages::RedeliveriesController do
         end
       end
     end
+
+    context 'when the raw email has been erased' do
+      before do
+        incoming_message.raw_email.erase(editor: admin_user, reason: 'test')
+      end
+
+      it 'raises an error' do
+        expect {
+          post :create, params: {
+            incoming_message_id: incoming_message,
+            url_title: destination_info_request.url_title
+          }
+        }.to raise_error(described_class::NotRedeliverableError)
+      end
+    end
   end
 end

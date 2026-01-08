@@ -1,7 +1,10 @@
 # Allow admins to redeliver an IncomingMessage to a different InfoRequest
 class Admin::IncomingMessages::RedeliveriesController < AdminController
+  class NotRedeliverableError < StandardError; end
+
   before_action :set_incoming_message
   before_action :set_info_request, :check_info_request
+  before_action :check_redeliverable
 
   def create
     message_ids = params[:url_title].split(',').map(&:strip)
@@ -56,5 +59,9 @@ class Admin::IncomingMessages::RedeliveriesController < AdminController
     return if can? :admin, @info_request
 
     raise ActiveRecord::RecordNotFound
+  end
+
+  def check_redeliverable
+    raise NotRedeliverableError unless @incoming_message.redeliverable?
   end
 end
