@@ -45,7 +45,14 @@
 
     <div class="controls">
       <div class="help-block">
+        <p>
+          Attachments can be “<%= icon(:lock) %> locked” to prevent further
+          modification of their contents, either from automated parsing of the
+          underlying data or admin actions like applying/removing redactions.
+        </p>
+
         <strong>When locking an attachment:</strong>
+
         <ol>
           <li>Attachment will be preserved with current applicable censor rules applied</li>
           <li>New censor rules will not be applied</li>
@@ -53,8 +60,8 @@
 
         <strong>When unlocking an attachment:</strong>
         <ol>
-          <li>Replaced attachment will revert back to the original copy</li>
-          <li>All applicable censor rules will be applied</li>
+          <li>All applicable censor rules at the point of unlocking will be re-applied to the original attachment</li>
+          <li>Any replacement will be removed and the attachment will revert back to the original copy</li>
         </ol>
       </div>
     </div>
@@ -72,9 +79,20 @@
     <legend>Replacement</legend>
 
       <div class="controls">
-        <p class="help-block">
-          <strong>When replacing the attachment locking will be enabled.</strong>
-        </p>
+        <div class="help-block">
+          <p>
+            A replacement attachment can be uploaded to provide an alternative
+            version that appears to users of the site. Once a replacement is
+            added, the original will only be available to admins. This may be
+            used to upload a version that fixes formatting errors, or apply
+            redactions that are difficult to do via censor rules, for example.
+          </p>
+
+          <p>
+            <strong>Uploading a replacement will automatically enable locking
+            </strong> for this attachment.
+          </p>
+        </div>
       </div>
 
       <div class="control-group">
