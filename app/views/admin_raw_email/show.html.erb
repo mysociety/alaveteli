@@ -75,7 +75,7 @@
 <% else %>
   <pre><%= h(@raw_email.data_as_text).gsub(/\n/, '<br>').html_safe %></pre>
 
-  <% if feature_enabled? :raw_email_erase %>
+  <% if feature_enabled?(:raw_email_erase) && !@holding_pen %>
   <div class="row">
     <div class="span12 danger-zone">
       <h1 class="span12 danger-zone__header">Danger Zone</h1>
