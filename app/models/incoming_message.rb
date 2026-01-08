@@ -120,6 +120,14 @@ class IncomingMessage < ApplicationRecord
     raw_email.erased?
   end
 
+  # We can't redeliver when the RawEmail has been erased because redelivery
+  # currently extracts the underlying data and creates a new response as if it
+  # had been received in an email. Since we don't have the RawEmail data, this
+  # will break.
+  def redeliverable?
+    !raw_email_erased?
+  end
+
   # Public: The display name of the email sender with the associated
   # InfoRequest's censor rules applied.
   #
