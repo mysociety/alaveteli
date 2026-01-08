@@ -1445,6 +1445,50 @@ RSpec.describe FoiAttachment do
         foi_attachment.save
       end
     end
+
+    context 'filename selection' do
+      let(:new_body) { 'Replacement content' }
+
+      before do
+        foi_attachment.filename = 'current.txt'
+        allow(foi_attachment).to receive(:mail_attributes).
+          and_return(body: 'Original', filename: 'attachment.txt')
+      end
+
+      context 'when replaced_filename is provided' do
+        it 'uses the replaced_filename' do
+          foi_attachment.replaced_filename = 'custom.txt'
+          foi_attachment.replacement_body = new_body
+          foi_attachment.save
+          expect(foi_attachment.filename).to eq('custom.txt')
+        end
+      end
+
+      context 'when replaced_filename is blank and replacement_file is present' do
+        let(:replacement) do
+          fixture_file_upload('interesting.csv', 'text/csv')
+        end
+
+        it 'uses the replacement file original_filename' do
+          foi_attachment.replaced_filename = ''
+          foi_attachment.replacement_file = replacement
+          foi_attachment.save
+          # FIXME: Ideally this would eq('interesting.csv')
+          # See https://github.com/mysociety/alaveteli/issues/9016
+          expect(foi_attachment.filename).to eq('interesting.csv.txt')
+        end
+      end
+
+      context 'when all other options are blank' do
+        it 'falls back to mail_attributes filename' do
+          foi_attachment.filename = nil
+          foi_attachment.replaced_filename = ''
+          foi_attachment.replacement_body = new_body
+          foi_attachment.save
+          expect(foi_attachment.filename).to eq('attachment.txt')
+        end
+      end
+    end
   end
 
   describe '#storage_key' do
