@@ -169,7 +169,7 @@ gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', '~> 3.7.5'
 # Modern Assets
-gem 'importmap-rails', '~> 2.2.2'
+gem 'importmap-rails', '~> 2.2.3'
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0.20'
 
