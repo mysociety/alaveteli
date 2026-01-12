@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Handle array return value for auto-submitted mail header (gfrmin)
 * Restore logging of :email parameters (Gareth Rees)
 * Fix importing holidays from iCal feed (Gareth Rees)
 * Ability to search users by tag in admin interface (Gareth Rees)
