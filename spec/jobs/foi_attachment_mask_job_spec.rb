@@ -107,7 +107,7 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
     end
 
     it 'parses raw email again' do
-      expect(incoming_message).to receive(:parse_raw_email!).with(true)
+      expect(incoming_message).to receive(:parse_raw_email!)
       perform
     end
 

@@ -270,7 +270,7 @@ RSpec.describe FoiAttachment do
           with(foi_attachment).
           and_invoke(-> (_) {
             # mock the job
-            incoming_message.parse_raw_email!(true)
+            incoming_message.parse_raw_email!
           })
       end
 

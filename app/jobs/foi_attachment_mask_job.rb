@@ -19,7 +19,7 @@ class FoiAttachmentMaskJob < ApplicationJob
     mask
 
   rescue FoiAttachment::MissingAttachment
-    incoming_message.parse_raw_email!(true)
+    incoming_message.parse_raw_email!
 
     begin
       attachment.reload
