@@ -2,31 +2,6 @@
 module IncomingMessage::MainBody
   extend ActiveSupport::Concern
 
-  # Internal function to cache two sorts of main body text.
-  # Cached as loading raw_email can be quite huge, and need this for just
-  # search results
-  def _cache_main_body_text
-    text = get_main_body_text_internal
-    # Strip the uudecode parts from main text
-    # - this also effectively does a .dup as well, so text mods don't alter original
-    text = text.split(/^begin.+^`\n^end\n/m).join(" ")
-
-    if text.size > 1_000_000 # 1 MB ish
-      raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
-    end
-
-    # apply masks for this message
-    text = apply_masks(text, 'text/html') unless get_main_body_text_part&.locked?
-
-    # Remove existing quoted sections
-    folded_quoted_text = remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
-    folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
-
-    self.cached_main_body_text_unfolded = text.delete("\0")
-    self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
-    save!
-  end
-
   # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
   # emails and privacy sensitive things remove, censored, and folded to remove excess quoted text
   # (marked with FOLDED_QUOTED_SECTION)
@@ -42,6 +17,8 @@ module IncomingMessage::MainBody
   end
 
   # Returns body text from main text part of email, converted to UTF-8
+  # TODO: This could be a private method – it is only called by IncomingMessage
+  # and is directly tested.
   def get_main_body_text_internal
     parse_raw_email
     main_part = get_main_body_text_part
@@ -51,36 +28,6 @@ module IncomingMessage::MainBody
     # occasionally the main body part gets rebuilt while being masked, we should
     # be able to just retry to get the new main body part instance from the db.
     retry
-  end
-
-  # Given a main text part, converts it to text
-  def _convert_part_body_to_text(part)
-    if part.nil?
-      text = "[ Email has no body, please see attachments ]"
-    else
-      # whatever kind of attachment it is, get the UTF-8 encoded text
-      text = part.body_as_text.string
-      if part.content_type == 'text/html'
-        # e.g. http://www.whatdotheyknow.com/request/35/response/177
-        # TODO: This is a bit of a hack as it is calling a
-        # convert to text routine.  Could instead call a
-        # sanitize HTML one.
-        text = MailHandler.get_attachment_text_one_file(part.content_type, text, "UTF-8")
-      end
-    end
-
-    # Add an annotation if the text had to be scrubbed
-    if part && part.body_as_text.scrubbed?
-      text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
-                site_name: site_name)
-    end
-    # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
-    text = text.gsub(/\r\n/, "\n")
-
-    # Compress extra spaces down to save space, and to stop regular expressions
-    # breaking in strange extreme cases. e.g. for
-    # http://www.whatdotheyknow.com/request/spending_on_consultants
-    text.gsub(/ +/, " ")
   end
 
   # Returns part which contains main body text, or nil if there isn't one,
@@ -162,6 +109,8 @@ module IncomingMessage::MainBody
     text.html_safe
   end
 
+  # TODO: This could be a private method – it is only called by IncomingMessage
+  # and is directly tested.
   def get_body_for_indexing # rubocop:disable Naming/AccessorMethodName
     return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
 
@@ -177,5 +126,62 @@ module IncomingMessage::MainBody
     raise "internal error" if text.nil?
 
     text
+  end
+
+  private
+
+  # Internal function to cache two sorts of main body text.
+  # Cached as loading raw_email can be quite huge, and need this for just
+  # search results
+  def _cache_main_body_text
+    text = get_main_body_text_internal
+    # Strip the uudecode parts from main text
+    # - this also effectively does a .dup as well, so text mods don't alter original
+    text = text.split(/^begin.+^`\n^end\n/m).join(" ")
+
+    if text.size > 1_000_000 # 1 MB ish
+      raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
+    end
+
+    # apply masks for this message
+    text = apply_masks(text, 'text/html') unless get_main_body_text_part&.locked?
+
+    # Remove existing quoted sections
+    folded_quoted_text = remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
+    folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
+
+    self.cached_main_body_text_unfolded = text.delete("\0")
+    self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
+    save!
+  end
+
+  # Given a main text part, converts it to text
+  def _convert_part_body_to_text(part)
+    if part.nil?
+      text = "[ Email has no body, please see attachments ]"
+    else
+      # whatever kind of attachment it is, get the UTF-8 encoded text
+      text = part.body_as_text.string
+      if part.content_type == 'text/html'
+        # e.g. http://www.whatdotheyknow.com/request/35/response/177
+        # TODO: This is a bit of a hack as it is calling a
+        # convert to text routine.  Could instead call a
+        # sanitize HTML one.
+        text = MailHandler.get_attachment_text_one_file(part.content_type, text, "UTF-8")
+      end
+    end
+
+    # Add an annotation if the text had to be scrubbed
+    if part && part.body_as_text.scrubbed?
+      text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
+                site_name: site_name)
+    end
+    # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
+    text = text.gsub(/\r\n/, "\n")
+
+    # Compress extra spaces down to save space, and to stop regular expressions
+    # breaking in strange extreme cases. e.g. for
+    # http://www.whatdotheyknow.com/request/spending_on_consultants
+    text.gsub(/ +/, " ")
   end
 end
