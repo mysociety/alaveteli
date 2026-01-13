@@ -1039,7 +1039,8 @@ end
 
 RSpec.describe IncomingMessage, " display attachments" do
   it "should not show slashes in filenames" do
-    foi_attachment = FoiAttachment.new
+    incoming_message = FactoryBot.build(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.build
     # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
     foi_attachment.filename = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009.txt"
     expected_display_filename = foi_attachment.filename.gsub(/\//, " ")
@@ -1047,7 +1048,8 @@ RSpec.describe IncomingMessage, " display attachments" do
   end
 
   it "should not show slashes in subject generated filenames" do
-    foi_attachment = FoiAttachment.new
+    incoming_message = FactoryBot.build(:incoming_message)
+    foi_attachment = incoming_message.foi_attachments.build
     # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
     foi_attachment.within_rfc822_subject = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009"
     foi_attachment.content_type = 'text/plain'

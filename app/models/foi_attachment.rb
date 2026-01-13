@@ -43,6 +43,7 @@ class FoiAttachment < ApplicationRecord
   include Replaceable
 
   MissingAttachment = Class.new(StandardError)
+  AlreadyErasedError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :info_request, through: :incoming_message, source: :info_request
@@ -58,6 +59,7 @@ class FoiAttachment < ApplicationRecord
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
+  scope :erased, -> { where.not(erased_at: nil) }
 
   delegate :expire, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true
@@ -96,7 +98,7 @@ class FoiAttachment < ApplicationRecord
 
   def delete_cached_file!
     @cached_body = nil
-    file.purge if file.attached?
+    file.purge_later if file.attached?
   end
 
   def body=(d)
@@ -122,12 +124,14 @@ class FoiAttachment < ApplicationRecord
   def body
     return @cached_body if @cached_body
 
+    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+
     begin
       return file.download if locked? || masked?
     rescue ActiveStorage::FileNotFoundError => ex
       # file isn't in storage and has gone missing, rescue to allow the masking
       # job to run and rebuild the stored file or even the whole attachment.
-      raise ex if locked?
+      raise ex if locked? || erased?
     end
 
     if persisted?
@@ -141,18 +145,24 @@ class FoiAttachment < ApplicationRecord
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
   def body_as_text
+    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+
     convert_string_to_utf8(body, 'UTF-8')
   end
 
   # for text types, the scrubbed UTF-8 text. For all other types, the
   # raw binary
   def default_body
+    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+
     text_type? ? body_as_text.string : body
   end
 
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
+    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+
     mail_attributes[:body]
   end
 
@@ -244,6 +254,8 @@ class FoiAttachment < ApplicationRecord
 
   # Whether this type has a "View as HTML"
   def has_body_as_html?
+    return false if erased?
+
     AttachmentToHTML.extractable?(self)
   end
 
@@ -255,6 +267,8 @@ class FoiAttachment < ApplicationRecord
 
   # For "View as HTML" of attachment
   def body_as_html(**kwargs)
+    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+
     AttachmentToHTML.to_html(self, **kwargs)
   end
 
@@ -270,6 +284,37 @@ class FoiAttachment < ApplicationRecord
       url_part_number,
       display_filename
     )
+  end
+
+  def erased?
+    erased_at.present?
+  end
+
+  def erase(editor:, reason:)
+    raise AlreadyErasedError if erased?
+
+    transaction do |t|
+      t.after_rollback { return false }
+
+      raise ActiveRecord::Rollback unless
+        log_event(
+          'erase_attachment',
+          editor: editor,
+          reason: reason,
+          attachment: self,
+          storage_key: storage_key
+        )
+
+      self.filename = nil
+      ensure_filename!
+
+      delete_cached_file!
+      touch(:erased_at)
+
+      expire
+
+      true
+    end
   end
 
   def storage_key

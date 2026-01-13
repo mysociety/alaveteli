@@ -15,15 +15,16 @@ module FoiAttachment::Replaceable
   end
 
   def replacing?
-    !unlocking? && (replacement_file_changed? || replacement_body_changed?)
+    !erased? && !unlocking? &&
+      (replacement_file_changed? || replacement_body_changed?)
   end
 
   def replaced?
-    replaced_at.present?
+    !erased? && replaced_at.present?
   end
 
   def replacing_or_replaced?
-    replacing? || replaced?
+    !erased? && (replacing? || replaced?)
   end
 
   def replaced_filename
