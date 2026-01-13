@@ -319,6 +319,19 @@ class FoiAttachment < ApplicationRecord
     true
   end
 
+  def unlock(expire: true, editor:, reason:, **event)
+    return true if unlocked?
+
+    update_and_log_event(
+      event: { **event, editor: editor, reason: reason },
+      locked: false
+    )
+
+    public_send(:expire) if expire
+
+    true
+  end
+
   def unlocked?
     !locked?
   end
