@@ -108,8 +108,8 @@ class GeneralController < ApplicationController
       begin
         dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, limit: 1)
       rescue => e
-        flash[:error] = "Your query was not quite right. #{e.message}"
-        redirect_to search_url("")
+        redirect_to search_url(""),
+                    error: "Your query was not quite right. #{e.message}"
         return
       end
       if dummy_query.has_normal_search_terms?

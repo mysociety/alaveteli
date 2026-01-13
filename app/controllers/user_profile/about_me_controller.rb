@@ -6,8 +6,8 @@ class UserProfile::AboutMeController < ApplicationController
 
   def update
     if @user.suspended?
-      flash[:error] = _('Suspended users cannot edit their profile')
-      redirect_to edit_profile_about_me_path
+      redirect_to edit_profile_about_me_path,
+                  error: _('Suspended users cannot edit their profile')
       return
     end
 
@@ -18,8 +18,8 @@ class UserProfile::AboutMeController < ApplicationController
 
     unless @user.confirmed_not_spam?
       if UserSpamScorer.new.spam?(@user)
-        flash[:error] = _("You can't update your profile text at this time.")
-        redirect_to user_url(@user)
+        redirect_to user_url(@user),
+                    error: _("You can't update your profile text at this time.")
         return
       end
     end
@@ -46,9 +46,9 @@ class UserProfile::AboutMeController < ApplicationController
   def check_user_logged_in
     return if authenticated?
 
-    flash[:error] = _('You need to be logged in to change the text about you ' \
-                      'on your profile.')
-    redirect_to frontpage_url
+    msg = _('You need to be logged in to change the text about you ' \
+            'on your profile.')
+    redirect_to frontpage_url, error: msg
   end
 
   def set_title
@@ -73,8 +73,8 @@ class UserProfile::AboutMeController < ApplicationController
     end
 
     if block_spam_about_me_text?
-      flash[:error] = _("You can't update your profile text at this time.")
-      redirect_to user_url(user)
+      redirect_to user_url(user),
+                  error: _("You can't update your profile text at this time.")
       true
     end
   end
