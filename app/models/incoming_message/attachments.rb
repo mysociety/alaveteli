@@ -59,24 +59,6 @@ module IncomingMessage::Attachments
 
       attachment
     end
-
-    # Search all info requests for
-    def find_all_unknown_mime_types
-      IncomingMessage.find_each do |incoming_message|
-        incoming_message.get_attachments_for_display.each do |attachment|
-          if attachment.content_type.nil?
-            raise "internal error incoming_message " + incoming_message.id.to_s
-          end
-
-          if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?
-            $stderr.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
-            $stderr.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s
-          end
-        end
-      end
-
-      nil
-    end
   end
 
   def get_attachments_for_display
