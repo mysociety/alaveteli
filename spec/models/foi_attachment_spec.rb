@@ -19,6 +19,7 @@
 #  locked                :boolean          default(FALSE)
 #  replaced_at           :datetime
 #  replaced_reason       :string
+#  erased_at             :datetime
 #
 
 require 'spec_helper'
