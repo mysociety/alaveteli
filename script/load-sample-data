@@ -52,6 +52,10 @@ end
 
 # run everything as a single transaction - all the deletes then all the inserts
 ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
+
+# Destroy deprecated external requests
+# See https://github.com/mysociety/alaveteli/issues/6893
+InfoRequest.external.destroy_all
 EOF
 
 bundle exec rails runner tmp/data-loader.rb
