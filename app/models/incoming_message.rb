@@ -434,7 +434,7 @@ class IncomingMessage < ApplicationRecord
 
     if collapse_quoted_sections
       text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
-      text.strip!
+      text = text.strip
       # if there is nothing but quoted stuff, then show the subject
       if text == "FOLDED_QUOTED_SECTION"
         text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
@@ -444,7 +444,7 @@ class IncomingMessage < ApplicationRecord
     elsif folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
       text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
     end
-    text.strip!
+    text = text.strip
 
     text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
