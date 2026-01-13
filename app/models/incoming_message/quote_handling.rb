@@ -94,4 +94,25 @@ module IncomingMessage::QuoteHandling
     # http://www.whatdotheyknow.com/request/229/response/809
     text.gsub(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/im, "\n\n" + replacement)
   end
+
+  private
+
+  def handle_quoted_sections(text, collapse: true)
+    if collapse
+      text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
+      text = text.strip
+
+      # if there is nothing but quoted stuff, then show the subject
+      if text == "FOLDED_QUOTED_SECTION"
+        text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
+      end
+
+      # and display link for quoted stuff
+      text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
+    elsif get_main_body_text_folded.include?('FOLDED_QUOTED_SECTION')
+      text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
+    end
+
+    text.strip
+  end
 end

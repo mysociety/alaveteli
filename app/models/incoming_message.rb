@@ -413,14 +413,13 @@ class IncomingMessage < ApplicationRecord
   def get_body_for_html_display(collapse_quoted_sections = true)
     # Find the body text and remove emails for privacy/anti-spam reasons
     text = get_main_body_text_unfolded
-    folded_quoted_text = get_main_body_text_folded
 
     # Remove quoted sections, adding HTML. TODO: The FOLDED_QUOTED_SECTION is
     # a nasty hack so we can escape other HTML before adding the unfold
     # links, without escaping them. Rather than using some proper parser
     # making a tree structure (I don't know of one that is to hand, that
     # works well in this kind of situation, such as with regexps).
-    text = folded_quoted_text if collapse_quoted_sections
+    text = get_main_body_text_folded if collapse_quoted_sections
     text = MySociety::Format.simplify_angle_bracketed_urls(text)
     text = CGI.escapeHTML(text)
     text = MySociety::Format.make_clickable(text, contract: 1)
@@ -432,20 +431,7 @@ class IncomingMessage < ApplicationRecord
     text.gsub!(/\[(#{email_pattern}|#{mobile_pattern})\]/,
                '[<a href="/help/officers#mobiles">\1</a>]')
 
-    if collapse_quoted_sections
-      text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
-      text = text.strip
-      # if there is nothing but quoted stuff, then show the subject
-      if text == "FOLDED_QUOTED_SECTION"
-        text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
-      end
-      # and display link for quoted stuff
-      text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
-    elsif folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-      text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
-    end
-    text = text.strip
-
+    text = handle_quoted_sections(text, collapse: collapse_quoted_sections)
     text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
   end
