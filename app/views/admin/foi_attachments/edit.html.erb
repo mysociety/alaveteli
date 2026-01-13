@@ -45,6 +45,16 @@
   </div>
 <% end %>
 
+<% if @foi_attachment.erased? %>
+  <div class="row">
+    <div class="span12">
+      <div class="alert alert-warning">
+        <p>Cannot show the mask, lock or replacement options as this attachment has been erased.</p>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <% # TODO: fix indent %>
 <%= form_for @foi_attachment, url: admin_foi_attachment_masks_path(@foi_attachment), method: :post, class: 'form form-inline' do |f| %>
   <fieldset class="form-horizontal">
     <legend>Masking</legend>
@@ -146,6 +156,34 @@
   <div class="form-actions">
     <%= f.submit 'Upload Replacement', class: 'btn btn-warning' %>
   </div>
+<% end %>
+
+<div class="row">
+  <div class="span12 danger-zone">
+    <h1 class="span12 danger-zone__header">Danger Zone</h1>
+
+    <div class="danger-zone__item">
+      <div class="span7">
+        <p>
+          <strong>Erase this Attachment</strong>
+        </p>
+      </div>
+
+      <%= form_for @foi_attachment, url: admin_foi_attachment_erasures_path(@foi_attachment), method: :post, class: 'span4' do |f| %>
+        <div class="input-append">
+          <%= f.text_field :erasure_reason,
+                           value: '',
+                           placeholder: 'Reason for erasure',
+                           required: true %>
+
+          <%= f.submit 'Erase',
+                       class: 'btn btn-danger',
+                       data: { confirm: 'Are you sure? This is irreversible.' } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 <% end %>
 
 <% if @foi_attachment.main_body_part? %>

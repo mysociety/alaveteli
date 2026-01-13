@@ -761,6 +761,8 @@ Rails.application.routes.draw do
                        only: [:create, :destroy]
       resource :replacements, controller: 'foi_attachments/replacements',
                               only: [:create]
+      resources :erasures, controller: 'foi_attachments/erasures',
+                           only: [:create]
     end
   end
   ####
