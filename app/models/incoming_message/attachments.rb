@@ -79,16 +79,6 @@ module IncomingMessage::Attachments
     end
   end
 
-  # Returns attachments that are uuencoded in main body part
-  def _uudecode_attachments(text, start_part_number)
-    MailHandler.uudecode(text, start_part_number).map do |attrs|
-      hexdigest = attrs.delete(:hexdigest)
-      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
-      attachment.attributes = attrs
-      attachment
-    end
-  end
-
   def get_attachments_for_display
     parse_raw_email
     # return what user would consider attachments, i.e. not the main body
@@ -103,6 +93,68 @@ module IncomingMessage::Attachments
   def extract_attachments!
     extract_attachments
     save!
+  end
+
+  # Returns text version of attachment text
+  # TODO: This could be a private method – it is only called by IncomingMessage
+  # and is directly tested.
+  def get_attachment_text_full
+    text = _get_attachment_text_internal
+
+    # This can be useful for memory debugging
+    #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
+
+    # Save clipped version for snippets
+    if cached_attachment_text_clipped.nil?
+      clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
+      self.cached_attachment_text_clipped = clipped
+      save!
+    end
+
+    text
+  end
+
+  # Returns a version reduced to a sensible maximum size - this
+  # is for performance reasons when showing snippets in search results.
+  def get_attachment_text_clipped
+    if cached_attachment_text_clipped.nil?
+      # As side effect, get_attachment_text_full makes snippet text
+      attachment_text = get_attachment_text_full
+      raise "internal error" if cached_attachment_text_clipped.nil?
+    end
+
+    cached_attachment_text_clipped
+  end
+
+  # Returns space separated list of file extensions of attachments to this message. Defaults to
+  # the normal extension for known mime type, otherwise uses other extensions.
+  def get_present_file_extensions
+    ret = {}
+    get_attachments_for_display.each do |attachment|
+      ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
+      if ext.nil? && !attachment.filename.nil?
+        ext = File.extname(attachment.filename).gsub(/^[.]/, "")
+      end
+      ret[ext] = 1 unless ext.nil?
+    end
+    ret.keys.join(" ")
+  end
+
+  private
+
+  def _get_attachment_text_internal
+    # Extract text from each attachment
+    get_attachments_for_display.reduce('') { |memo, attachment|
+      return memo if Ability.guest.cannot?(:read, attachment)
+
+      text = MailHandler.get_attachment_text_one_file(
+        attachment.content_type, attachment.default_body, attachment.charset
+      )
+      text = convert_string_to_utf8(text, 'UTF-8').string
+      text = apply_masks(text, 'text/html') unless attachment.locked?
+
+      memo += text
+    }
   end
 
   def extract_attachments
@@ -159,61 +211,14 @@ module IncomingMessage::Attachments
     old_attachments.each(&:mark_for_destruction)
   end
 
-  # Returns text version of attachment text
-  def get_attachment_text_full
-    text = _get_attachment_text_internal
-
-    # This can be useful for memory debugging
-    #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
-
-    # Save clipped version for snippets
-    if cached_attachment_text_clipped.nil?
-      clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
-      self.cached_attachment_text_clipped = clipped
-      save!
+  # Returns attachments that are uuencoded in main body part
+  def _uudecode_attachments(text, start_part_number)
+    MailHandler.uudecode(text, start_part_number).map do |attrs|
+      hexdigest = attrs.delete(:hexdigest)
+      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+      attachment.attributes = attrs
+      attachment
     end
-
-    text
   end
 
-  # Returns a version reduced to a sensible maximum size - this
-  # is for performance reasons when showing snippets in search results.
-  def get_attachment_text_clipped
-    if cached_attachment_text_clipped.nil?
-      # As side effect, get_attachment_text_full makes snippet text
-      attachment_text = get_attachment_text_full
-      raise "internal error" if cached_attachment_text_clipped.nil?
-    end
-
-    cached_attachment_text_clipped
-  end
-
-  def _get_attachment_text_internal
-    # Extract text from each attachment
-    get_attachments_for_display.reduce('') { |memo, attachment|
-      return memo if Ability.guest.cannot?(:read, attachment)
-
-      text = MailHandler.get_attachment_text_one_file(
-        attachment.content_type, attachment.default_body, attachment.charset
-      )
-      text = convert_string_to_utf8(text, 'UTF-8').string
-      text = apply_masks(text, 'text/html') unless attachment.locked?
-
-      memo += text
-    }
-  end
-
-  # Returns space separated list of file extensions of attachments to this message. Defaults to
-  # the normal extension for known mime type, otherwise uses other extensions.
-  def get_present_file_extensions
-    ret = {}
-    get_attachments_for_display.each do |attachment|
-      ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
-      if ext.nil? && !attachment.filename.nil?
-        ext = File.extname(attachment.filename).gsub(/^[.]/, "")
-      end
-      ret[ext] = 1 unless ext.nil?
-    end
-    ret.keys.join(" ")
-  end
 end
