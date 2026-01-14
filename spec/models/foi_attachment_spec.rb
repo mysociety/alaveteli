@@ -619,8 +619,11 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#lock' do
-    subject { foi_attachment.lock(editor: editor, reason: reason) }
+    subject do
+      foi_attachment.lock(expire: expire, editor: editor, reason: reason)
+    end
 
+    let(:expire) { true }
     let(:editor) { FactoryBot.create(:admin_user) }
     let(:reason) { 'Locking' }
 
@@ -672,6 +675,16 @@ RSpec.describe FoiAttachment do
       end
 
       it { is_expected.to eq(true) }
+    end
+
+    context 'when told not to expire' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unlocked) }
+      let(:expire) { false }
+
+      it 'does not expire the attachment' do
+        expect(foi_attachment).not_to receive(:expire)
+        subject
+      end
     end
 
     context 'when logging the event' do
