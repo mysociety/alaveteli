@@ -141,11 +141,17 @@ module IncomingMessage::Attachments
 
     transaction do
       result = foi_attachments.all? do |attachment|
-        attachment.lock(**event, editor: editor, reason: reason)
+        attachment.lock(**event, editor: editor, reason: reason, expire: false)
       end
 
       raise ActiveRecord::Rollback unless result
     end
+
+    # We need to expire the attachments after _all_ have been locked to ensure
+    # the expiry process doesn't clear masks of all but the first attachment
+    # before they are locked. If this happens then the attachments are locked in
+    # an unmasked state.
+    foi_attachments.each(&:expire)
 
     result
   end
