@@ -17,12 +17,22 @@ module IncomingMessage::Attachments
 
   class_methods do
     # And look up by URL part number and display filename to get an attachment
-    # TODO: relies on extract_attachments calling MailHandler.ensure_parts_counted
+    # TODO: relies on extract_attachments calling
+    # MailHandler.ensure_parts_counted
     # The filename here is passed from the URL parameter, so it's the
     # display_filename rather than the real filename.
+    # rubocop:disable Layout/LineLength
     def get_attachment_by_url_part_number_and_filename(attachments, found_url_part_number, display_filename)
-      attachment_by_part_number = attachments.detect { |a| a.url_part_number == found_url_part_number }
-      if attachment_by_part_number && attachment_by_part_number.display_filename == display_filename
+      # rubocop:enable Layout/LineLength
+      attachment_by_part_number = attachments.detect do |a|
+        a.url_part_number == found_url_part_number
+      end
+
+      filename_matches =
+        attachment_by_part_number &&
+        attachment_by_part_number.display_filename == display_filename
+
+      if filename_matches
         # Then the filename matches, which is fine:
         attachment_by_part_number
       else
@@ -30,14 +40,17 @@ module IncomingMessage::Attachments
         # match - this is probably due to a reparsing of the
         # email.  In that case, try to find a unique matching
         # filename from any attachment.
-        attachments_by_filename = attachments.select { |a|
+        attachments_by_filename = attachments.select do |a|
           a.display_filename == display_filename
-        }
+        end
+
         attachments_by_filename[0] if attachments_by_filename.length == 1
       end
     end
 
+    # rubocop:disable Layout/LineLength
     def get_attachment_by_url_part_number_and_filename!(attachments, found_url_part_number, display_filename)
+      # rubocop:enable Layout/LineLength
       attachment = get_attachment_by_url_part_number_and_filename(
         attachments, found_url_part_number, display_filename
       )
@@ -61,7 +74,7 @@ module IncomingMessage::Attachments
     end
   end
 
-  def get_attachments_for_display
+  def get_attachments_for_display # rubocop:disable Naming/AccessorMethodName
     parse_raw_email
     # return what user would consider attachments, i.e. not the main body
     main_part = get_main_body_text_part
@@ -80,11 +93,11 @@ module IncomingMessage::Attachments
   # Returns text version of attachment text
   # TODO: This could be a private method – it is only called by IncomingMessage
   # and is directly tested.
-  def get_attachment_text_full
+  def get_attachment_text_full # rubocop:disable Naming/AccessorMethodName
     text = _get_attachment_text_internal
 
     # This can be useful for memory debugging
-    #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
+    # puts 'xxx ' + MySociety::DebugHelpers.allocated_string_size_around_gc
 
     # Save clipped version for snippets
     if cached_attachment_text_clipped.nil?
@@ -98,7 +111,7 @@ module IncomingMessage::Attachments
 
   # Returns a version reduced to a sensible maximum size - this
   # is for performance reasons when showing snippets in search results.
-  def get_attachment_text_clipped
+  def get_attachment_text_clipped # rubocop:disable Naming/AccessorMethodName
     if cached_attachment_text_clipped.nil?
       # As side effect, get_attachment_text_full makes snippet text
       attachment_text = get_attachment_text_full
@@ -108,9 +121,10 @@ module IncomingMessage::Attachments
     cached_attachment_text_clipped
   end
 
-  # Returns space separated list of file extensions of attachments to this message. Defaults to
-  # the normal extension for known mime type, otherwise uses other extensions.
-  def get_present_file_extensions
+  # Returns space separated list of file extensions of attachments to this
+  # message. Defaults to the normal extension for known mime type, otherwise
+  # uses other extensions.
+  def get_present_file_extensions # rubocop:disable Naming/AccessorMethodName
     ret = {}
     get_attachments_for_display.each do |attachment|
       ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
@@ -139,6 +153,7 @@ module IncomingMessage::Attachments
     }
   end
 
+  # rubocop:disable Lint::UnderscorePrefixedVariableName
   def extract_attachments
     _mail = raw_email.mail!
     attachment_attributes = MailHandler.get_attachment_attributes(_mail)
@@ -192,6 +207,7 @@ module IncomingMessage::Attachments
 
     old_attachments.each(&:mark_for_destruction)
   end
+  # rubocop:enable Lint::UnderscorePrefixedVariableName
 
   # Returns attachments that are uuencoded in main body part
   def _uudecode_attachments(text, start_part_number)
@@ -202,5 +218,4 @@ module IncomingMessage::Attachments
       attachment
     end
   end
-
 end
