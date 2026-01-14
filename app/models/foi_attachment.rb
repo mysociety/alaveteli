@@ -309,7 +309,7 @@ class FoiAttachment < ApplicationRecord
     )
   end
 
-  def lock(editor:, reason:, **event)
+  def lock(expire: true, editor:, reason:, **event)
     return true if locked?
 
     update_and_log_event(
@@ -317,7 +317,7 @@ class FoiAttachment < ApplicationRecord
       locked: true
     )
 
-    expire
+    public_send(:expire) if expire
 
     true
   end
