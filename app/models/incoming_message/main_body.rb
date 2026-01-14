@@ -2,16 +2,17 @@
 module IncomingMessage::MainBody
   extend ActiveSupport::Concern
 
-  # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
-  # emails and privacy sensitive things remove, censored, and folded to remove excess quoted text
-  # (marked with FOLDED_QUOTED_SECTION)
-  # TODO: returns a .dup of the text, so calling functions can in place modify it
-  def get_main_body_text_folded
+  # Returns body text from main text part of email, converted to UTF-8, with
+  # uudecode removed, emails and privacy sensitive things remove, censored, and
+  # folded to remove excess quoted text (marked with FOLDED_QUOTED_SECTION)
+  # TODO: returns a .dup of the text, so calling functions can in place modify
+  # it
+  def get_main_body_text_folded # rubocop:disable Naming/AccessorMethodName
     _cache_main_body_text if cached_main_body_text_folded.nil?
     cached_main_body_text_folded
   end
 
-  def get_main_body_text_unfolded
+  def get_main_body_text_unfolded # rubocop:disable Naming/AccessorMethodName
     _cache_main_body_text if cached_main_body_text_unfolded.nil?
     cached_main_body_text_unfolded
   end
@@ -19,7 +20,7 @@ module IncomingMessage::MainBody
   # Returns body text from main text part of email, converted to UTF-8
   # TODO: This could be a private method – it is only called by IncomingMessage
   # and is directly tested.
-  def get_main_body_text_internal
+  def get_main_body_text_internal # rubocop:disable Naming/AccessorMethodName
     parse_raw_email
     main_part = get_main_body_text_part
     _convert_part_body_to_text(main_part)
@@ -33,7 +34,7 @@ module IncomingMessage::MainBody
   # Returns part which contains main body text, or nil if there isn't one,
   # from a set of foi_attachments. If the leaves parameter is empty or not
   # supplied, uses its own foi_attachments.
-  def get_main_body_text_part(leaves=[])
+  def get_main_body_text_part(leaves = [])
     leaves = foi_attachments if leaves.empty?
 
     # Find first part which is text/plain or text/html
@@ -56,8 +57,8 @@ module IncomingMessage::MainBody
     p = leaves[0]
     # if it is a known type then don't use it, return no body (nil)
     if !p.nil? && AlaveteliFileTypes.mimetype_to_extension(p.content_type)
-      # this is guess of case where there are only attachments, no body text
-      # e.g. http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
+      # this is guess of case where there are only attachments, no body text eg:
+      # http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
       return nil
     end
 
@@ -92,16 +93,31 @@ module IncomingMessage::MainBody
                '[<a href="/help/officers#mobiles">\1</a>]')
 
     if collapse_quoted_sections
-      text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
+      text =
+        text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
       text.strip!
+
       # if there is nothing but quoted stuff, then show the subject
       if text == "FOLDED_QUOTED_SECTION"
         text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
       end
+
       # and display link for quoted stuff
-      text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
+      link = <<~HTML
+      <span class="unfold_link">
+        <a href="?unfold=1#incoming-#{id}">#{_('show quoted sections')}</a>
+      </span>
+      HTML
+
+      text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + link + "\n\n")
     elsif folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-      text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+id.to_s+'">'+_("hide quoted sections")+'</a></span>'
+      link = <<~HTML
+      <span class="unfold_link">
+        <a href="?#incoming-#{id}">#{_('hide quoted sections')}</a>
+      </span>
+      HTML
+
+      text = text + "\n\n" + link
     end
     text.strip!
 
@@ -118,7 +134,7 @@ module IncomingMessage::MainBody
   end
 
   # Returns text of email for using in quoted section when replying
-  def get_body_for_quoting
+  def get_body_for_quoting # rubocop:disable Naming/AccessorMethodName
     # Get the body text with emails and quoted sections removed
     text = get_main_body_text_folded.dup
     text.gsub!("FOLDED_QUOTED_SECTION", " ")
@@ -136,19 +152,26 @@ module IncomingMessage::MainBody
   def _cache_main_body_text
     text = get_main_body_text_internal
     # Strip the uudecode parts from main text
-    # - this also effectively does a .dup as well, so text mods don't alter original
+    # - this also effectively does a .dup as well, so text mods don't alter
+    # original
     text = text.split(/^begin.+^`\n^end\n/m).join(" ")
 
     if text.size > 1_000_000 # 1 MB ish
-      raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
+      raise 'main body text more than 1 MB, need to implement clipping like ' \
+            'for attachment text, or there is some other MIME decoding ' \
+            'problem or similar'
     end
 
     # apply masks for this message
-    text = apply_masks(text, 'text/html') unless get_main_body_text_part&.locked?
+    unless get_main_body_text_part&.locked?
+      text = apply_masks(text, 'text/html')
+    end
 
     # Remove existing quoted sections
     folded_quoted_text = remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
-    folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, "FOLDED_QUOTED_SECTION")
+    folded_quoted_text =
+      IncomingMessage.
+      remove_quoted_sections(folded_quoted_text, 'FOLDED_QUOTED_SECTION')
 
     self.cached_main_body_text_unfolded = text.delete("\0")
     self.cached_main_body_text_folded = folded_quoted_text.delete("\0")
@@ -167,16 +190,20 @@ module IncomingMessage::MainBody
         # TODO: This is a bit of a hack as it is calling a
         # convert to text routine.  Could instead call a
         # sanitize HTML one.
-        text = MailHandler.get_attachment_text_one_file(part.content_type, text, "UTF-8")
+        text =
+          MailHandler.
+          get_attachment_text_one_file(part.content_type, text, 'UTF-8')
       end
     end
 
     # Add an annotation if the text had to be scrubbed
     if part && part.body_as_text.scrubbed?
-      text += _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
+      text += _("\n\n[ {{site_name}} note: The above text was badly " \
+                "encoded, and has had strange characters removed. ]",
                 site_name: site_name)
     end
-    # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
+    # Fix DOS style linefeeds to Unix style ones (or other later regexps won't
+    # work)
     text = text.gsub(/\r\n/, "\n")
 
     # Compress extra spaces down to save space, and to stop regular expressions
