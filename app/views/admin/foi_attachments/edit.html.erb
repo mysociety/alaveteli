@@ -41,45 +41,6 @@
   </fieldset>
 
   <fieldset class="form-horizontal">
-    <legend>Locking</legend>
-
-    <div class="controls">
-      <div class="help-block">
-        <p>
-          Attachments can be “<%= icon(:lock) %> locked” to prevent further
-          modification of their contents, either from automated parsing of the
-          underlying data or admin actions like applying/removing redactions.
-        </p>
-
-        <strong>When locking an attachment:</strong>
-
-        <ol>
-          <li>Attachment will be preserved with current applicable censor rules applied</li>
-          <li>New censor rules will not be applied</li>
-        </ol>
-
-        <strong>When unlocking an attachment:</strong>
-        <ol>
-          <li>All applicable censor rules at the point of unlocking will be re-applied to the original attachment</li>
-          <li>Any replacement will be removed and the attachment will revert back to the original copy</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :locked, class: 'control-label' %>
-
-      <div class="controls">
-        <% if @foi_attachment.locked? %>
-          <%= f.check_box :locked, disabled: !@foi_attachment.unlockable? %>
-        <% else %>
-          <%= f.check_box :locked, disabled: !@foi_attachment.lockable? %>
-        <% end %>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset class="form-horizontal">
     <legend>Replacement</legend>
 
       <div class="controls">
@@ -141,6 +102,59 @@
     <%= f.submit 'Save', class: 'btn btn-success' %>
   </div>
 <% end %>
+
+  <fieldset class="form-horizontal">
+    <legend>Locking</legend>
+
+    <div class="controls">
+      <div class="help-block">
+        <p>
+          Attachments can be “<%= icon(:lock) %> locked” to prevent further
+          modification of their contents, either from automated parsing of the
+          underlying data or admin actions like applying/removing redactions.
+        </p>
+
+        <strong>When locking an attachment:</strong>
+
+        <ol>
+          <li>Attachment will be preserved with current applicable censor rules applied</li>
+          <li>New censor rules will not be applied</li>
+        </ol>
+
+        <strong>When unlocking an attachment:</strong>
+        <ol>
+          <li>All applicable censor rules at the point of unlocking will be re-applied to the original attachment</li>
+          <li>Any replacement will be removed and the attachment will revert back to the original copy</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <% if @foi_attachment.locked? %>
+          <%= form_with url: admin_foi_attachment_lock_path(@foi_attachment), scope: :foi_attachment, method: :delete, class: 'span4' do |f| %>
+            <div class="input-append">
+              <%= f.text_field :lock_reason,
+                               placeholder: 'Reason for unlocking',
+                               required: true %>
+
+              <%= f.submit 'Unlock', class: 'btn btn-warning' %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= form_with url: admin_foi_attachment_lock_path(@foi_attachment), scope: :foi_attachment, class: 'span4' do |f| %>
+            <div class="input-append">
+              <%= f.text_field :lock_reason,
+                               placeholder: 'Reason for locking',
+                               required: true %>
+
+              <%= f.submit 'Lock', class: 'btn btn-warning' %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
 
 <% if @foi_attachment.main_body_part? %>
   <hr />

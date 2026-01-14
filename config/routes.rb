@@ -746,6 +746,17 @@ Rails.application.routes.draw do
   end
   ####
 
+
+  #### Admin::FoiAttachments::Locks controller
+  namespace :admin do
+    resources :foi_attachments, only: [] do
+      scope module: :foi_attachments do
+        resource :lock, only: [:create, :destroy]
+      end
+    end
+  end
+  ####
+
   #### AdminUser controller
   scope '/admin', :as => 'admin' do
     resources :users,
