@@ -104,7 +104,7 @@ class RawEmail < ApplicationRecord
           storage_key: storage_key
         )
 
-      file.purge
+      file.purge_later
       touch(:erased_at)
 
       expire(preserve_database_cache: true)

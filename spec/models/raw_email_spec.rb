@@ -11,6 +11,8 @@
 require 'spec_helper'
 
 RSpec.describe RawEmail do
+  include ActiveJob::TestHelper
+
   def roundtrip_data(raw_email, data)
     raw_email.data = data
     raw_email.save!
@@ -247,6 +249,10 @@ RSpec.describe RawEmail do
       subject
     end
 
+    it 'purges later' do
+      expect { subject }.to have_enqueued_job(ActiveStorage::PurgeJob)
+    end
+
     it 'purges the attached file' do
       subject
       expect(raw_email.reload.file).not_to be_attached
@@ -301,6 +307,7 @@ RSpec.describe RawEmail do
 
       it 'does not erase the file' do
         subject
+        perform_enqueued_jobs
         expect(raw_email.reload).not_to be_erased
       end
 
@@ -309,12 +316,13 @@ RSpec.describe RawEmail do
 
     context 'when the file cannot be purged' do
       before do
-        expect(raw_email.file).
+        expect_any_instance_of(ActiveStorage::Attached::One).
           to receive(:purge).and_raise(ActiveStorage::FileNotFoundError)
       end
 
       it 'does not erase the file' do
         subject
+        perform_enqueued_jobs
         expect(raw_email.reload).not_to be_erased
       end
 
