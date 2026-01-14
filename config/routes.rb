@@ -710,15 +710,24 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :incoming_messages,
       :controller => 'admin_incoming_message',
-    :only => [:edit, :update, :destroy] do
-      post 'redeliver', :on => :member
-    end
+      :only => [:edit, :update, :destroy]
     resource :incoming_messages,
       :controller => 'admin_incoming_message' do
         post 'bulk_destroy'
       end
   end
   ####
+
+  #### Admin::IncomingMessages::RedeliveriesController
+  namespace :admin do
+    resources :incoming_messages, only: [] do
+      scope module: :incoming_messages do
+        resource :redelivery, only: [:create]
+      end
+    end
+  end
+  ####
+
 
   #### AdminOutgoingMessage controller
   scope '/admin', :as => 'admin' do

@@ -1,5 +1,5 @@
 class AdminIncomingMessageController < AdminController
-  before_action :set_incoming_message, only: [:edit, :update, :destroy, :redeliver]
+  before_action :set_incoming_message, only: [:edit, :update, :destroy]
   before_action :set_info_request, :check_info_request
 
   def edit
@@ -76,58 +76,6 @@ class AdminIncomingMessageController < AdminController
       end
       redirect_to(admin_request_url(params[:request_id]))
     end
-  end
-
-  def redeliver
-    message_ids = params[:url_title].split(',').map(&:strip)
-    previous_request = @incoming_message.info_request
-    destination_request = nil
-
-    if message_ids.empty?
-      msg = 'You must supply at least one request to redeliver the message to.'
-      return redirect_to admin_request_url(previous_request), error: msg
-    end
-
-    ActiveRecord::Base.transaction do
-      message_ids.each do |m|
-        destination_request =
-          if m.match(/^[0-9]+$/)
-            InfoRequest.find_by_id(m.to_i)
-          else
-            InfoRequest.find_by_url_title!(m)
-          end
-
-        if destination_request.nil?
-          return redirect_to admin_request_url(previous_request),
-                 error: "Failed to find destination request '#{m}'"
-        end
-
-        raw_email_data = @incoming_message.raw_email.data
-        mail = MailHandler.mail_from_raw_email(raw_email_data)
-
-        destination_request.
-          receive(mail,
-                  raw_email_data,
-                  { override_stop_new_responses: true })
-
-        @incoming_message.info_request.log_event(
-          'redeliver_incoming',
-          editor: admin_current_user,
-          destination_request: destination_request.id,
-          deleted_incoming_message_id: @incoming_message.id,
-          storage_keys: @incoming_message.storage_keys
-        )
-
-        flash[:notice] =
-          'Message has been moved to request(s). Showing the last one:'
-      end
-
-      # expire cached files
-      previous_request.expire
-      @incoming_message.destroy
-    end
-
-    redirect_to admin_request_url(destination_request)
   end
 
   private
