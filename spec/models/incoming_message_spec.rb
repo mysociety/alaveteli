@@ -104,8 +104,8 @@ RSpec.describe IncomingMessage do
     end
   end
 
-  describe '#extract_attachments' do
-    subject { message.extract_attachments }
+  describe '#extract_attachments!' do
+    subject { message.extract_attachments! }
 
     let(:message) { FactoryBot.build(:incoming_message) }
 
