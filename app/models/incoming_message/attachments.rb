@@ -136,6 +136,10 @@ module IncomingMessage::Attachments
     ret.keys.join(" ")
   end
 
+  def locked?
+    foi_attachments.locked.any?
+  end
+
   private
 
   def _get_attachment_text_internal
