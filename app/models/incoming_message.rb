@@ -42,6 +42,7 @@ class IncomingMessage < ApplicationRecord
   include IncomingMessage::Attachments
   include IncomingMessage::CacheAttributesFromRawEmail
   include IncomingMessage::QuoteHandling
+  include IncomingMessage::Refusals
 
   UnableToExtractAttachments = Class.new(StandardError)
 
@@ -77,7 +78,6 @@ class IncomingMessage < ApplicationRecord
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
-  delegate :legislation, to: :info_request
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
@@ -337,14 +337,6 @@ class IncomingMessage < ApplicationRecord
     (Time.zone.now - created_at) <= 3.days
   end
 
-  def refusals
-    legislation_references.select(&:refusal?).map(&:parent).uniq(&:to_s)
-  end
-
-  def refusals?
-    refusals.any?
-  end
-
   def locked?
     foi_attachments.locked.any?
   end
@@ -354,11 +346,5 @@ class IncomingMessage < ApplicationRecord
     keys[:raw_email] = raw_email.storage_key
     keys[:attachments] = foi_attachments.map(&:storage_key)
     keys
-  end
-
-  private
-
-  def legislation_references
-    legislation.find_references(get_main_body_text_folded)
   end
 end
