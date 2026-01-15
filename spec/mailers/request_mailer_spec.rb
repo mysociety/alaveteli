@@ -42,7 +42,7 @@ RSpec.describe RequestMailer do
 
     it "should append the email to each exact request address, unless that request has already received the email" do
       ir = info_requests(:fancy_dog_request)
-      raw_email_data = <<~EML
+      inbound_email = <<~EML
         From: EMAIL_FROM
         To: EMAIL_TO
         Message-ID: abcdefg@example.com
@@ -52,19 +52,19 @@ RSpec.describe RequestMailer do
       EML
       expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail(
-        raw_email_data,
+        inbound_email,
         email_to: ir.incoming_email
       )
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
       # send the email again
       receive_incoming_mail(
-        raw_email_data,
+        inbound_email,
         email_to: ir.incoming_email
       )
       # this shouldn't add to the number of incoming mails
       expect(ir.incoming_messages.count).to eq(2)
       # send an email with a new Message-ID
-      raw_email_data = <<~EML
+      inbound_email = <<~EML
         From: EMAIL_FROM
         To: EMAIL_TO
         Message-ID: ab@example.com
@@ -73,7 +73,7 @@ RSpec.describe RequestMailer do
         Hello, World
       EML
       receive_incoming_mail(
-        raw_email_data,
+        inbound_email,
         email_to: ir.incoming_email
       )
       # this should add to the number of incoming mails
@@ -87,7 +87,7 @@ RSpec.describe RequestMailer do
       expect(info_request_1.incoming_messages.count).to eq(0)
       expect(info_request_2.incoming_messages.count).to eq(0)
 
-      raw_email_data = <<~EML
+      inbound_email = <<~EML
         From: EMAIL_FROM
         To: EMAIL_TO
         Message-ID: ab@example.com
@@ -98,7 +98,7 @@ RSpec.describe RequestMailer do
 
       # send email to one request
       receive_incoming_mail(
-        raw_email_data,
+        inbound_email,
         email_to: info_request_1.incoming_email
       )
 
@@ -108,7 +108,7 @@ RSpec.describe RequestMailer do
       # send same email to both requests, should only be delivered to the
       # request which hasn't already received the email
       receive_incoming_mail(
-        raw_email_data,
+        inbound_email,
         email_to: [
           info_request_1.incoming_email,
           info_request_2.incoming_email

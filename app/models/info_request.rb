@@ -923,14 +923,14 @@ class InfoRequest < ApplicationRecord
   end
 
   # Has this email already been received here? Based just on message id.
-  def already_received?(email)
-    return false unless email.message_id
+  def already_received?(mail)
+    return false unless mail.message_id
 
-    incoming_messages.any? { email.message_id == _1.message_id }
+    incoming_messages.any? { mail.message_id == _1.message_id }
   end
 
-  def receive(email, raw_email_data, *args)
-    return if already_received?(email)
+  def receive(mail, inbound_email, *args)
+    return if already_received?(mail)
 
     defaults = { override_stop_new_responses: false,
                  rejected_reason: nil,
@@ -948,12 +948,12 @@ class InfoRequest < ApplicationRecord
         if opts[:override_stop_new_responses]
           true
         else
-          accept_incoming?(email, raw_email_data)
+          accept_incoming?(mail, inbound_email)
         end
 
       if accepted
         incoming_message =
-          create_response!(email, raw_email_data, opts[:rejected_reason])
+          create_response!(mail, inbound_email, opts[:rejected_reason])
 
         # Notify the user that a new response has been received, unless the
         # request is external
@@ -1867,7 +1867,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def accept_incoming?(email, raw_email_data)
+  def accept_incoming?(mail, inbound_email)
     # See if new responses are prevented
     gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
     # Take action if the message looks like spam
@@ -1875,8 +1875,8 @@ class InfoRequest < ApplicationRecord
 
     # What rejected the email – the gatekeeper or the spam checker?
     response_rejector =
-      if gatekeeper.allow?(email)
-        if spam_checker.allow?(email)
+      if gatekeeper.allow?(mail)
+        if spam_checker.allow?(mail)
           nil
         else
           spam_checker
@@ -1889,7 +1889,7 @@ class InfoRequest < ApplicationRecord
     response_rejection =
       if response_rejector
         ResponseRejection.
-          for(response_rejector.rejection_action, self, email, raw_email_data)
+          for(response_rejector.rejection_action, self, mail, inbound_email)
       end
 
     will_be_rejected = (response_rejector && response_rejection) ? true : false
@@ -1903,7 +1903,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def create_response!(_email, raw_email_data, rejected_reason = nil)
+  def create_response!(_mail, inbound_email, rejected_reason = nil)
     incoming_message = incoming_messages.build
 
     # To avoid a deadlock when simultaneously dealing with two
@@ -1914,7 +1914,7 @@ class InfoRequest < ApplicationRecord
       raw_email = RawEmail.new
       incoming_message.raw_email = raw_email
       incoming_message.save!
-      raw_email.data = raw_email_data
+      raw_email.data = inbound_email
       raw_email.save!
 
       unless described_state == 'user_withdrawn'

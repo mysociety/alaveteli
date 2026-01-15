@@ -3,15 +3,15 @@ require 'spec_helper'
 def create_message_from(from_field)
   mail_data = load_file_fixture('incoming-request-plain.eml')
   mail_data.gsub!('EMAIL_FROM', from_field)
-  mail = MailHandler.mail_from_raw_email(mail_data)
+  mail = MailHandler.mail_from_string(mail_data)
 end
 
 RSpec.describe 'when creating a mail object from raw data' do
   it "should be able to parse a large email without raising an exception" do
     m = Mail.new
     m.add_file(filename: "attachment.data", content: "a" * (8 * 1024 * 1024))
-    raw_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m}"
-    expect { Mail::Message.new(raw_email) }.not_to raise_error
+    inbound_email = "From jamis_buck@byu.edu Mon May  2 16:07:05 2005\r\n#{m}"
+    expect { Mail::Message.new(inbound_email) }.not_to raise_error
   end
 
   it 'should correctly parse a multipart email with a linebreak in the boundary' do
@@ -138,7 +138,7 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
                     'Envelope-to: request-5555-xxxxxxxx@whatdotheyknow.com')
     mail_data.gsub!('Cc: request-5335-xxxxxxxx@whatdotheyknow.com',
                     'Cc: request-3333-xxxxxxxx@whatdotheyknow.com')
-    mail = MailHandler.mail_from_raw_email(mail_data)
+    mail = MailHandler.mail_from_string(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq(['request-5335-xxxxxxxx@whatdotheyknow.com',
                                                    'request-3333-xxxxxxxx@whatdotheyknow.com',
                                                    'request-5555-xxxxxxxx@whatdotheyknow.com'])
@@ -154,7 +154,7 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
     mail_data = load_file_fixture('autoresponse-header.eml')
     mail_data.gsub!('To: FOI Person <EMAIL_TO>',
                     'To: FOI Person <request-5555-xxxxxxxx@whatdotheyknow.com>')
-    mail = MailHandler.mail_from_raw_email(mail_data)
+    mail = MailHandler.mail_from_string(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq(["request-5555-xxxxxxxx@whatdotheyknow.com"])
   end
 
@@ -162,7 +162,7 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
     mail_data = load_file_fixture('autoresponse-header.eml')
     mail_data.gsub!('To: FOI Person <EMAIL_TO>',
                     'To: <request-5555-xxxxxxxx>')
-    mail = MailHandler.mail_from_raw_email(mail_data)
+    mail = MailHandler.mail_from_string(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq([])
   end
 end

@@ -34,15 +34,15 @@ RSpec.describe InfoRequest::ResponseGatekeeper::Base do
   end
 
   describe '#allow?' do
-    it 'requires an email' do
+    it 'requires a mail' do
       gatekeeper = described_class.new(FactoryBot.build(:info_request))
       expect { gatekeeper.allow? }.to raise_error(ArgumentError)
     end
 
-    it 'allows all emails' do
-      email = double
+    it 'allows all mail' do
+      mail = double
       gatekeeper = described_class.new(FactoryBot.build(:info_request))
-      expect(gatekeeper.allow?(email)).to eq(true)
+      expect(gatekeeper.allow?(mail)).to eq(true)
     end
   end
 

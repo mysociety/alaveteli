@@ -70,7 +70,7 @@ def main(in_test_mode)
     raw_message = $stdin.read
 
     begin
-      message = MailHandler.mail_from_raw_email(raw_message)
+      message = MailHandler.mail_from_string(raw_message)
     rescue
       # Error parsing message. Just pass it on, to be on the safe side.
       MailHandler::ReplyHandler.forward_on(raw_message) unless in_test_mode
