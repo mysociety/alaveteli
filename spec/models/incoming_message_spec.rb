@@ -1142,7 +1142,7 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     foi_attachment.update(prominence: 'hidden', hexdigest: '123')
 
     expect { incoming_message.extract_attachments! }.to raise_error(
-      IncomingMessage::UnableToExtractAttachments
+      IncomingMessage::Attachments::UnableToExtractAttachments
     )
   end
 
@@ -1152,7 +1152,7 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
     foi_attachment.update(locked: true, hexdigest: '123')
 
     expect { incoming_message.extract_attachments! }.to raise_error(
-      IncomingMessage::UnableToExtractAttachments
+      IncomingMessage::Attachments::UnableToExtractAttachments
     )
   end
 end
