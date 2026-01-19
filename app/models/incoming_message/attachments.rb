@@ -156,6 +156,10 @@ module IncomingMessage::Attachments
     result
   end
 
+  def locked?
+    foi_attachments.locked.any?
+  end
+
   private
 
   def _get_attachment_text_internal

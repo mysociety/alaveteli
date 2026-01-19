@@ -94,7 +94,7 @@ gem 'bcrypt', '~> 3.1.21'
 gem 'cancancan', '~> 3.6.1'
 gem 'charlock_holmes', '~> 0.7.9'
 gem 'compare-xml', '~> 0.66'
-gem 'dalli', '~> 3.2.8'
+gem 'dalli', '~> 4.0.0'
 gem 'exception_notification', '~> 5.0.1'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'friendly_id', '~> 5.6.0'
@@ -143,7 +143,7 @@ gem 'benchmark', '~> 0.5.0'
 gem 'csv', '~> 3.3.5'
 gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.0'
-gem 'rdoc', '~> 7.0.3'
+gem 'rdoc', '~> 7.1.0'
 gem 'uri', '~> 1.1.1'
 
 # Gems only used by the research export task
@@ -169,16 +169,16 @@ gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', '~> 3.7.5'
 # Modern Assets
-gem 'importmap-rails', '~> 2.2.2'
+gem 'importmap-rails', '~> 2.2.3'
 gem 'stimulus-rails', '~> 1.3.4'
-gem 'turbo-rails', '~> 2.0.20'
+gem 'turbo-rails', '~> 2.0.21'
 
 # Feature flags
 gem 'alaveteli_features', path: 'gems/alaveteli_features'
 
 # Storage backends
 gem 'aws-sdk-s3', require: false
-gem 'google-cloud-storage', '~> 1.57', require: false
+gem 'google-cloud-storage', '~> 1.58', require: false
 
 # Storage content analyzers
 gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false

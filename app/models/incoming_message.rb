@@ -190,10 +190,6 @@ class IncomingMessage < ApplicationRecord
     (Time.zone.now - created_at) <= 3.days
   end
 
-  def locked?
-    foi_attachments.locked.any?
-  end
-
   def storage_keys
     keys = {}
     keys[:raw_email] = raw_email.storage_key
