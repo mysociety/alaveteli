@@ -12,6 +12,7 @@ RSpec.describe AdminRawEmailController do
 
       it 'renders the show template' do
         get :show, params: { id: raw_email.id }
+        expect(response).to be_successful
       end
 
       context 'when showing a message with a "From" address in the holding pen' do
