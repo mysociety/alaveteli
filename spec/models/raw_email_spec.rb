@@ -317,7 +317,7 @@ RSpec.describe RawEmail do
     context 'when the file cannot be purged' do
       before do
         expect_any_instance_of(ActiveStorage::Attached::One).
-          to receive(:purge).and_raise(ActiveStorage::FileNotFoundError)
+          to receive(:purge_later).and_raise(ActiveStorage::FileNotFoundError)
       end
 
       it 'does not erase the file' do
