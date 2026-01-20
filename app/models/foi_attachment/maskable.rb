@@ -24,6 +24,10 @@ module FoiAttachment::Maskable
     update(body: body, masked_at: Time.zone.now)
   end
 
+  def mask_later
+    FoiAttachmentMaskJob.perform_later(self)
+  end
+
   private
 
   def masks

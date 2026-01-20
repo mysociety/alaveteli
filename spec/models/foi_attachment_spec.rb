@@ -695,6 +695,17 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#mask_later' do
+    subject { foi_attachment.mask_later }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    it 'enqueues the job' do
+      expect { subject }.
+        to have_enqueued_job(FoiAttachmentMaskJob).with(foi_attachment)
+    end
+  end
+
   describe '#locking?' do
     let(:foi_attachment) { FactoryBot.create(:body_text, locked: false) }
     subject { foi_attachment.locking? }
@@ -864,8 +875,7 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
       it 'masks the attachment' do
-        expect(FoiAttachmentMaskJob).to receive(:perform_later).
-          with(foi_attachment)
+        expect(foi_attachment).to receive(:mask_later)
         foi_attachment.update(locked: true)
       end
     end
@@ -893,7 +903,7 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:body_text, masked_at: 1.day.ago) }
 
       it 'does not mask the attachment' do
-        expect(FoiAttachmentMaskJob).to_not receive(:perform_later)
+        expect(foi_attachment).to_not receive(:mask_later)
         foi_attachment.update(locked: true)
       end
     end
@@ -904,8 +914,7 @@ RSpec.describe FoiAttachment do
 
       it 'masks the attachment even if already masked' do
         expect(foi_attachment.masked_at).to_not be_nil
-        expect(FoiAttachmentMaskJob).to receive(:perform_later).
-          with(foi_attachment)
+        expect(foi_attachment).to receive(:mask_later)
         foi_attachment.update(locked: false)
       end
 

@@ -43,9 +43,8 @@ RSpec.describe AttachmentMasksController, type: :controller do
     context 'when attachment is unmasked' do
       let(:attachment) { FactoryBot.build(:body_text, :unmasked, id: 1) }
 
-      it 'queues FoiAttachmentMaskJob' do
-        expect(FoiAttachmentMaskJob).to receive(:perform_later).
-          with(attachment)
+      it 'masks the attachment' do
+        expect(attachment).to receive(:mask_later)
         wait
       end
 

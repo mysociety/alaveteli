@@ -400,7 +400,7 @@ class FoiAttachment < ApplicationRecord
     self.filename = redacted_filename if locking?
 
     if locking? || unlocking?
-      FoiAttachmentMaskJob.perform_later(self) unless masked_at
+      mask_later unless masked_at
     end
 
     true
