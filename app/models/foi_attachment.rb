@@ -36,6 +36,8 @@ class FoiAttachment < ApplicationRecord
 
   include MessageProminence
 
+  include Maskable
+
   MissingAttachment = Class.new(StandardError)
 
   attribute :replacement_file
@@ -159,10 +161,6 @@ class FoiAttachment < ApplicationRecord
   # applied
   def unmasked_body
     mail_attributes[:body]
-  end
-
-  def masked?
-    file.attached? && masked_at.present? && masked_at < Time.zone.now
   end
 
   def main_body_part?
