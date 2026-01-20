@@ -134,6 +134,10 @@
     <div class="control-group">
       <div class="controls">
         <% if @foi_attachment.locked? %>
+          <p class="text-warning">
+            This attachment is <strong>locked</strong>.
+          </p>
+
           <%= form_with url: admin_foi_attachment_lock_path(@foi_attachment), scope: :foi_attachment, method: :delete, class: 'span4' do |f| %>
             <div class="input-append">
               <%= f.text_field :lock_reason,
@@ -144,6 +148,10 @@
             </div>
           <% end %>
         <% else %>
+          <p class="muted">
+            This attachment is unlocked.
+          </p>
+
           <%= form_with url: admin_foi_attachment_lock_path(@foi_attachment), scope: :foi_attachment, class: 'span4' do |f| %>
             <div class="input-append">
               <%= f.text_field :lock_reason,
