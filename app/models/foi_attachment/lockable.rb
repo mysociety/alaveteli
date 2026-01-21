@@ -10,6 +10,17 @@ module FoiAttachment::Lockable
     scope :unlocked, -> { where(locked: false) }
   end
 
+  def lock!(editor:, reason:, **event)
+    return true if locked?
+
+    update_and_log_event(
+      event: { **event, editor: editor, reason: reason },
+      locked: true
+    )
+
+    true
+  end
+
   def unlocked?
     !locked?
   end
