@@ -795,6 +795,34 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#lock' do
+    subject do
+      foi_attachment.lock(editor: editor, reason: reason, extra: 'context')
+    end
+
+    let(:foi_attachment) { FactoryBot.create(:body_text, :unlocked) }
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Locking' }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    before do
+      allow(foi_attachment).to receive(:info_request).and_return(info_request)
+    end
+
+    it 'calls lock! with the given arguments' do
+      expect(foi_attachment).to receive(:lock!).
+        with(editor: editor, reason: reason, extra: 'context')
+      subject
+    end
+
+    it 'expires the attachment' do
+      expect(foi_attachment).to receive(:expire)
+      subject
+    end
+  end
+
   describe '#lock!' do
     subject { foi_attachment.lock!(editor: editor, reason: reason) }
 

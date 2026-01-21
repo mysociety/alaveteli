@@ -10,6 +10,14 @@ module FoiAttachment::Lockable
     scope :unlocked, -> { where(locked: false) }
   end
 
+  # Note that #lock still raises on failure. This version also runs
+  # pre-and-post-locking steps, whereas #lock! omits these for more flexibility
+  # when composing with other actions.
+  def lock(...)
+    lock!(...)
+    expire
+  end
+
   def lock!(editor:, reason:, **event)
     return true if locked?
 
