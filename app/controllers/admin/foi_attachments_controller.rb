@@ -23,7 +23,7 @@ class Admin::FoiAttachmentsController < AdminController
       else
         flash[:notice] = 'Attachment successfully updated.'
       end
-      redirect_to edit_admin_incoming_message_path(@incoming_message)
+      redirect_to edit_admin_foi_attachment_path(@foi_attachment)
 
     else
       render action: 'edit'

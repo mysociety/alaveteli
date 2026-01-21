@@ -146,10 +146,10 @@ RSpec.describe Admin::FoiAttachmentsController do
     context 'on a successful update of attachment' do
       include_context 'successful update'
 
-      it 'redirects to the incoming message admin' do
+      it 'redirects to the attachment admin' do
         patch :update, params: params
         expect(response).to redirect_to(
-          edit_admin_incoming_message_path(incoming_message)
+          edit_admin_foi_attachment_path(attachment)
         )
       end
     end
@@ -190,10 +190,10 @@ RSpec.describe Admin::FoiAttachmentsController do
       context 'as pro admin' do
         before { sign_in(pro_admin_user) }
 
-        it 'redirects to the incoming message admin' do
+        it 'redirects to the attachment admin' do
           patch :update, params: params
           expect(response).to redirect_to(
-            edit_admin_incoming_message_path(incoming_message)
+            edit_admin_foi_attachment_path(attachment)
           )
         end
       end
