@@ -745,6 +745,8 @@ Rails.application.routes.draw do
                                 only: [:edit, :update] do
       resource :prominence, controller: 'foi_attachments/prominence',
                             only: [:update]
+      resource :locks, controller: 'foi_attachments/locks',
+                       only: [:create, :destroy]
       resource :replacements, controller: 'foi_attachments/replacements',
                               only: [:create]
     end
