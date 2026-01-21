@@ -4,8 +4,7 @@ class Admin::FoiAttachments::LocksController < AdminController
   before_action :check_info_request
 
   def create
-    @foi_attachment.lock!(editor: admin_current_user, reason: reason) &&
-      @foi_attachment.expire
+    @foi_attachment.lock(editor: admin_current_user, reason: reason)
 
     if @foi_attachment.locked? && !@foi_attachment.masked?
       flash[:notice] = <<~TXT.squish
@@ -20,8 +19,7 @@ class Admin::FoiAttachments::LocksController < AdminController
   end
 
   def destroy
-    @foi_attachment.unlock!(editor: admin_current_user, reason: reason) &&
-      @foi_attachment.expire
+    @foi_attachment.unlock(editor: admin_current_user, reason: reason)
 
     redirect_to edit_admin_foi_attachment_path(@foi_attachment),
                 notice: 'Attachment unlocked.'
