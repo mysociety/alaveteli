@@ -76,64 +76,12 @@
   </div>
 <% end %>
 
-<%
-  locking_form =
-    if @foi_attachment.locked?
-      { method: :delete, button: 'Unlock attachment' }
-    else
-      { method: :post, button: 'Lock attachment' }
-    end
-%>
-
-<%= form_for @foi_attachment, url: admin_foi_attachment_locks_path(@foi_attachment), method: locking_form[:method], class: 'form form-inline' do |f| %>
-  <fieldset class="form-horizontal">
-    <legend>Locking</legend>
-
-    <div class="controls">
-      <div class="help-block">
-        <p>
-          Attachments can be “<%= icon(:lock) %> locked” to prevent further
-          modification of their contents, either from automated parsing of the
-          underlying data or admin actions like applying/removing redactions.
-        </p>
-
-        <strong>When locking an attachment:</strong>
-
-        <ol>
-          <li>Attachment will be preserved with current applicable censor rules applied</li>
-          <li>New censor rules will not be applied</li>
-        </ol>
-
-        <strong>When unlocking an attachment:</strong>
-        <ol>
-          <li>All applicable censor rules at the point of unlocking will be re-applied to the original attachment</li>
-          <li>Any replacement will be removed and the attachment will revert back to the original copy</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :locked, class: 'control-label' %>
-
-      <div class="controls">
-        <%= f.check_box :locked, disabled: true %>
-
-        <span class="help-inline">
-          <% if @foi_attachment.locked? %>
-            <span class="text-warning">
-              Attachment is <strong>locked</strong>.
-            </span>
-          <% else %>
-            <span class="muted">Attachment is unlocked</span>.
-          <% end %>
-        </span>
-      </div>
-    </div>
-  </fieldset>
-
-  <div class="form-actions">
-    <%= f.submit locking_form[:button], class: 'btn btn-warning' %>
-  </div>
+<% if @foi_attachment.unlocked? %>
+  <%= render partial: 'admin/foi_attachments/locks/lock_form',
+             locals: { foi_attachment: @foi_attachment } %>
+<% else %>
+  <%= render partial: 'admin/foi_attachments/locks/unlock_form',
+             locals: { foi_attachment: @foi_attachment } %>
 <% end %>
 
 <%= form_for @foi_attachment, url: admin_foi_attachment_replacements_path(@foi_attachment), method: :post, class: 'form form-inline' do |f| %>
