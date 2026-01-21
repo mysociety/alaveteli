@@ -45,7 +45,16 @@
   </div>
 <% end %>
 
-<%= form_for [:admin, @foi_attachment], class: 'form form-inline' do |f| %>
+<%
+  locking_form =
+    if @foi_attachment.locked?
+      { method: :delete, button: 'Unlock attachment' }
+    else
+      { method: :post, button: 'Lock attachment' }
+    end
+%>
+
+<%= form_for @foi_attachment, url: admin_foi_attachment_locks_path(@foi_attachment), method: locking_form[:method], class: 'form form-inline' do |f| %>
   <fieldset class="form-horizontal">
     <legend>Locking</legend>
 
@@ -82,7 +91,7 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit 'Save', class: 'btn btn-success' %>
+    <%= f.submit locking_form[:button], class: 'btn btn-warning' %>
   </div>
 <% end %>
 

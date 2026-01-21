@@ -8,35 +8,7 @@ class Admin::FoiAttachmentsController < AdminController
   def edit
   end
 
-  def update
-    if @foi_attachment.update_and_log_event(
-        **foi_attachment_params,
-        event: { editor: admin_current_user }
-      )
-      @foi_attachment.expire
-
-      if @foi_attachment.locked? && !@foi_attachment.masked?
-        flash[:notice] = <<~TXT.squish
-          Attachment successfully updated and locked. Please wait for masking to
-          complete before adding additional censor rules.
-        TXT
-      else
-        flash[:notice] = 'Attachment successfully updated.'
-      end
-      redirect_to edit_admin_foi_attachment_path(@foi_attachment)
-
-    else
-      render action: 'edit'
-    end
-  end
-
   private
-
-  def foi_attachment_params
-    params.require(:foi_attachment).permit(
-      :locked
-    )
-  end
 
   def set_foi_attachment
     @foi_attachment = FoiAttachment.find(params[:id])
