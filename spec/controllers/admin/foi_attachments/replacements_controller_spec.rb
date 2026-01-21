@@ -1,0 +1,244 @@
+require 'spec_helper'
+
+RSpec.describe Admin::FoiAttachments::ReplacementsController do
+  let(:admin_user) { FactoryBot.create(:admin_user) }
+  let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+  before { sign_in(admin_user) }
+
+  let(:info_request) { FactoryBot.create(:info_request, :with_plain_incoming) }
+  let(:incoming_message) { info_request.incoming_messages.first }
+  let!(:attachment) { incoming_message.foi_attachments.first }
+
+  describe 'POST #create' do
+    context 'when replacing with replacement_body' do
+      let(:params) do
+        {
+          foi_attachment_id: attachment.id,
+          foi_attachment: {
+            replacement_body: 'This is the new replacement body',
+            replaced_reason: 'GDPR case'
+          }
+        }
+      end
+
+      it 'assigns the attachment' do
+        post :create, params: params
+        expect(assigns[:foi_attachment]).to eq(attachment)
+      end
+
+      it 'locks the attachment' do
+        post :create, params: params
+        expect(attachment.reload).to be_locked
+      end
+
+      it 'sets the replacement body' do
+        post :create, params: params
+        expect(attachment.reload.body).to eq('This is the new replacement body')
+      end
+
+      it 'sets the replaced reason' do
+        post :create, params: params
+        expect(attachment.reload.replaced_reason).to eq('GDPR case')
+      end
+
+      it 'expires the attachment' do
+        expect_any_instance_of(FoiAttachment).to receive(:expire)
+        post :create, params: params
+      end
+
+      it 'sets a success notice' do
+        post :create, params: params
+        expect(flash[:notice]).to eq('Attachment successfully updated.')
+      end
+
+      it 'redirects to the attachment edit page' do
+        post :create, params: params
+        expect(response).to redirect_to(
+          edit_admin_foi_attachment_path(attachment)
+        )
+      end
+
+      it 'logs an edit_attachment event on the info_request' do
+        allow(@controller).to receive(:admin_current_user).
+          and_return('Admin user')
+        allow_any_instance_of(FoiAttachment).to receive(:replaced_at).
+          and_return(Time.new(2025, 4, 10, 10, 30))
+
+        post :create, params: params
+
+        info_request.reload
+        last_event = info_request.info_request_events.last
+        expect(last_event.event_type).to eq('edit_attachment')
+        expect(last_event.params).to include(
+          editor: 'Admin user',
+          attachment_id: attachment.id,
+          old_locked: false,
+          locked: true,
+          replaced: true,
+          replaced_reason: 'GDPR case',
+          replaced_at: Time.new(2025, 4, 10, 10, 30).as_json
+        )
+      end
+    end
+
+    context 'when replacing with a file upload' do
+      let(:uploaded_file) { fixture_file_upload('parrot.png', 'image/png') }
+      let(:params) do
+        {
+          foi_attachment_id: attachment.id,
+          foi_attachment: {
+            replacement_file: uploaded_file,
+            replaced_filename: 'redacted_document.png',
+            replaced_reason: 'Redacted version'
+          }
+        }
+      end
+
+      it 'locks the attachment' do
+        post :create, params: params
+        expect(attachment.reload).to be_locked
+      end
+
+      it 'sets the replaced filename' do
+        post :create, params: params
+        # FIXME: See https://github.com/mysociety/alaveteli/issues/9016
+        expect(attachment.reload.filename).to eq('redacted_document.png.txt')
+      end
+
+      it 'sets the replaced reason' do
+        post :create, params: params
+        expect(attachment.reload.replaced_reason).to eq('Redacted version')
+      end
+
+      it 'sets a success notice' do
+        post :create, params: params
+        expect(flash[:notice]).to eq('Attachment successfully updated.')
+      end
+
+      it 'redirects to the attachment edit page' do
+        post :create, params: params
+        expect(response).to redirect_to(
+          edit_admin_foi_attachment_path(attachment)
+        )
+      end
+    end
+
+    context 'when attachment is locked but not yet masked' do
+      let(:params) do
+        {
+          foi_attachment_id: attachment.id,
+          foi_attachment: {
+            replacement_body: 'New body content',
+            replaced_reason: 'Update'
+          }
+        }
+      end
+
+      before do
+        allow_any_instance_of(FoiAttachment).to receive(:masked?).
+          and_return(false)
+      end
+
+      it 'sets a notice about waiting for masking' do
+        post :create, params: params
+        expect(flash[:notice]).to eq(<<~TXT.squish)
+          Attachment successfully updated and locked. Please wait for masking to
+          complete before adding additional censor rules.
+        TXT
+      end
+    end
+
+    context 'when attachment is already masked' do
+      let(:params) do
+        {
+          foi_attachment_id: attachment.id,
+          foi_attachment: {
+            replacement_body: 'New body content',
+            replaced_reason: 'Update'
+          }
+        }
+      end
+
+      before do
+        allow_any_instance_of(FoiAttachment).to receive(:masked?).
+          and_return(true)
+      end
+
+      it 'sets a standard success notice' do
+        post :create, params: params
+        expect(flash[:notice]).to eq('Attachment successfully updated.')
+      end
+    end
+
+    context 'on an unsuccessful update' do
+      let(:params) do
+        {
+          foi_attachment_id: attachment.id,
+          foi_attachment: {
+            replacement_body: '',
+            replaced_reason: ''
+          }
+        }
+      end
+
+      before do
+        allow(FoiAttachment).to receive(:find).and_return(attachment)
+        allow(attachment).to receive(:update_and_log_event).and_return(false)
+      end
+
+      it 'assigns the attachment' do
+        post :create, params: params
+        expect(assigns[:foi_attachment]).to eq(attachment)
+      end
+
+      it 'does not expire the attachment' do
+        expect(attachment).not_to receive(:expire)
+        post :create, params: params
+      end
+
+      it 'renders the edit template' do
+        post :create, params: params
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      let(:params) do
+        {
+          foi_attachment_id: attachment.id,
+          foi_attachment: {
+            replacement_body: 'Replacement content',
+            replaced_reason: 'GDPR'
+          }
+        }
+      end
+
+      before { info_request.create_embargo }
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            post :create, params: params
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'creates the replacement' do
+          post :create, params: params
+          expect(attachment.reload.body).to eq('Replacement content')
+        end
+
+        it 'redirects to the attachment edit page' do
+          post :create, params: params
+          expect(response).to redirect_to(
+            edit_admin_foi_attachment_path(attachment)
+          )
+        end
+      end
+    end
+  end
+end

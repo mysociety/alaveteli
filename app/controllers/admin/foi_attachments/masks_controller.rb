@@ -1,17 +1,18 @@
-##
-# Controller to manage FoiAttachment instances
-#
-class Admin::FoiAttachmentsController < AdminController
+# Allow admins to force the masking of FoiAttachment records.
+class Admin::FoiAttachments::MasksController < AdminController
   before_action :set_foi_attachment, :set_incoming_message, :set_info_request
   before_action :check_info_request
 
-  def edit
+  def create
+    @foi_attachment.mask_later
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment),
+                notice: 'Masking queued.'
   end
 
   private
 
   def set_foi_attachment
-    @foi_attachment = FoiAttachment.find(params[:id])
+    @foi_attachment = FoiAttachment.find(params[:foi_attachment_id])
   end
 
   def set_incoming_message
@@ -28,3 +29,4 @@ class Admin::FoiAttachmentsController < AdminController
     raise ActiveRecord::RecordNotFound
   end
 end
+

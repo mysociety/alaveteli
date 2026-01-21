@@ -1,4 +1,4 @@
-<%= render partial: 'intro', locals: {
+<%= render partial: 'admin/foi_attachments/intro', locals: {
   info_request: @info_request,
   incoming_message: @incoming_message,
   foi_attachment: @foi_attachment
@@ -19,7 +19,7 @@
   </tbody>
 </table>
 
-<%= form_for [:admin, @foi_attachment], class: 'form form-inline' do |f| %>
+<%= form_for @foi_attachment, url: admin_foi_attachment_prominence_path(@foi_attachment), class: 'form form-inline' do |f| %>
   <fieldset class="form-horizontal">
     <legend>Prominence</legend>
 
@@ -40,6 +40,52 @@
     </div>
   </fieldset>
 
+  <div class="form-actions">
+    <%= f.submit 'Update Prominence', class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+<%= form_for @foi_attachment, url: admin_foi_attachment_masks_path(@foi_attachment), method: :post, class: 'form form-inline' do |f| %>
+  <fieldset class="form-horizontal">
+    <legend>Masking</legend>
+
+    <div class="controls">
+      <div class="help-block">
+        <p>
+          Masking is the application of Text Masks and Censor Rules. When an
+          attachment is masked it means that the cached copy of the attachment
+          has been created with all applicable redaction rules applied.
+        </p>
+
+        <p>
+          Attachments are masked when first viewed by a user. Admins can force
+          masking to happen from here.
+        </p>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit 'Mask now', disabled: @foi_attachment.masked?, class: 'btn' %>
+
+    <% if @foi_attachment.masked? %>
+      <span class="help-inline">
+        Already masked.
+      </span>
+    <% end %>
+  </div>
+<% end %>
+
+<%
+  locking_form =
+    if @foi_attachment.locked?
+      { method: :delete, button: 'Unlock attachment' }
+    else
+      { method: :post, button: 'Lock attachment' }
+    end
+%>
+
+<%= form_for @foi_attachment, url: admin_foi_attachment_locks_path(@foi_attachment), method: locking_form[:method], class: 'form form-inline' do |f| %>
   <fieldset class="form-horizontal">
     <legend>Locking</legend>
 
@@ -75,6 +121,12 @@
     </div>
   </fieldset>
 
+  <div class="form-actions">
+    <%= f.submit locking_form[:button], class: 'btn btn-warning' %>
+  </div>
+<% end %>
+
+<%= form_for @foi_attachment, url: admin_foi_attachment_replacements_path(@foi_attachment), method: :post, class: 'form form-inline' do |f| %>
   <fieldset class="form-horizontal">
     <legend>Replacement</legend>
 
@@ -134,7 +186,7 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit 'Save', class: 'btn btn-success' %>
+    <%= f.submit 'Upload Replacement', class: 'btn btn-warning' %>
   </div>
 <% end %>
 
