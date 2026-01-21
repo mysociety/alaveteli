@@ -57,9 +57,7 @@ RSpec.describe Admin::FoiAttachmentsController do
         foi_attachment: {
           locked: true,
           replaced_reason: 'GDPR case',
-          replacement_body: 'This is the new replacement body',
-          prominence: 'hidden',
-          prominence_reason: 'This was accidentally published'
+          replacement_body: 'This is the new replacement body'
         }
       }
     end
@@ -68,11 +66,6 @@ RSpec.describe Admin::FoiAttachmentsController do
       it 'assigns the attachment' do
         patch :update, params: params
         expect(assigns[:foi_attachment]).to eq(attachment)
-      end
-
-      it 'updates the attachment' do
-        patch :update, params: params
-        expect(attachment.reload.prominence).to eq('hidden')
       end
 
       it 'sets a notice' do
@@ -102,9 +95,9 @@ RSpec.describe Admin::FoiAttachmentsController do
           replaced_filename: 'attachment.txt',
           replaced_at: Time.new(2025, 4, 10, 10, 30).as_json,
           old_prominence: 'normal',
-          prominence: 'hidden',
+          prominence: 'normal',
           old_prominence_reason: nil,
-          prominence_reason: 'This was accidentally published'
+          prominence_reason: nil
         )
       end
     end
@@ -163,11 +156,6 @@ RSpec.describe Admin::FoiAttachmentsController do
       it 'assigns the attachment' do
         patch :update, params: params
         expect(assigns[:foi_attachment]).to eq(attachment)
-      end
-
-      it 'does not update the attachment' do
-        patch :update, params: params
-        expect(attachment.reload.prominence).not_to be_blank
       end
 
       it 'renders the form again' do

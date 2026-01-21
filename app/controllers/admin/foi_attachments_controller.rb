@@ -36,8 +36,7 @@ class Admin::FoiAttachmentsController < AdminController
     params.require(:foi_attachment).permit(
       :locked,
       :replacement_body, :replacement_file,
-      :replaced_filename, :replaced_reason,
-      :prominence, :prominence_reason
+      :replaced_filename, :replaced_reason
     )
   end
 
