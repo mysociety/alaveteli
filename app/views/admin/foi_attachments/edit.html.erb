@@ -81,6 +81,12 @@
     </div>
   </fieldset>
 
+  <div class="form-actions">
+    <%= f.submit 'Save', class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+<%= form_for @foi_attachment, url: admin_foi_attachment_replacements_path(@foi_attachment), method: :post, class: 'form form-inline' do |f| %>
   <fieldset class="form-horizontal">
     <legend>Replacement</legend>
 
@@ -140,7 +146,7 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit 'Save', class: 'btn btn-success' %>
+    <%= f.submit 'Upload Replacement', class: 'btn btn-warning' %>
   </div>
 <% end %>
 

@@ -55,9 +55,7 @@ RSpec.describe Admin::FoiAttachmentsController do
       {
         id: attachment.id,
         foi_attachment: {
-          locked: true,
-          replaced_reason: 'GDPR case',
-          replacement_body: 'This is the new replacement body'
+          locked: true
         }
       }
     end
@@ -77,8 +75,6 @@ RSpec.describe Admin::FoiAttachmentsController do
         expect(NotifyCacheJob).to receive(:perform_later).with(attachment)
         allow(@controller).to receive(:admin_current_user).
           and_return("Admin user")
-        allow_any_instance_of(FoiAttachment).to receive(:replaced_at).
-          and_return(Time.new(2025, 4, 10, 10, 30))
 
         patch :update, params: params
 
@@ -90,14 +86,14 @@ RSpec.describe Admin::FoiAttachmentsController do
           attachment_id: attachment.id,
           old_locked: false,
           locked: true,
-          replaced: true,
-          replaced_reason: 'GDPR case',
-          replaced_filename: 'attachment.txt',
-          replaced_at: Time.new(2025, 4, 10, 10, 30).as_json,
           old_prominence: 'normal',
           prominence: 'normal',
           old_prominence_reason: nil,
-          prominence_reason: nil
+          prominence_reason: nil,
+          replaced: false,
+          replaced_at: nil,
+          replaced_filename: nil,
+          replaced_reason: nil
         )
       end
     end
@@ -116,23 +112,6 @@ RSpec.describe Admin::FoiAttachmentsController do
           Attachment successfully updated and locked. Please wait for masking to
           complete before adding additional censor rules.
         TXT
-      end
-    end
-
-    context 'when replacing an attachment' do
-      let(:params) do
-        {
-          id: attachment.id,
-          foi_attachment: {
-            replaced_reason: 'GDPR case',
-            replacement_body: 'This is the new replacement body'
-          }
-        }
-      end
-
-      it 'sets a notice' do
-        patch :update, params: params
-        expect(flash[:notice]).to eq('Attachment successfully updated.')
       end
     end
 
