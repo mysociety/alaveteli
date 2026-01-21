@@ -36,13 +36,11 @@ class FoiAttachment < ApplicationRecord
 
   include MessageProminence
 
+  include Lockable
   include Maskable
+  include Replaceable
 
   MissingAttachment = Class.new(StandardError)
-
-  attribute :replacement_file
-  attribute :replacement_body, :string
-  attribute :replaced_filename, :string
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :info_request, through: :incoming_message, source: :info_request
@@ -53,18 +51,11 @@ class FoiAttachment < ApplicationRecord
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
-  validates :replaced_filename, absence: true, unless: :replacing_or_replaced?
-  validates :replaced_reason, absence: true, unless: :replacing_or_replaced?
-  validates :replaced_reason, presence: true, if: :replacing_or_replaced?
 
   before_validation :ensure_filename!, only: [:filename]
-  before_save :handle_locked
-  before_save :handle_replacements
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
-  scope :locked, -> { where(locked: true) }
-  scope :unlocked, -> { where(locked: false) }
 
   delegate :expire, :log_event, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true
@@ -304,41 +295,6 @@ class FoiAttachment < ApplicationRecord
     )
   end
 
-  def locking?
-    locked? && locked_changed?
-  end
-
-  def unlocking?
-    !locked? && locked_changed?
-  end
-
-  def replacing?
-    !unlocking? && (replacement_file_changed? || replacement_body_changed?)
-  end
-
-  def replaced?
-    replaced_at.present?
-  end
-
-  def replacing_or_replaced?
-    replacing? || replaced?
-  end
-
-  def replaced_filename
-    return filename if replaced? && !replaced_filename_changed?
-
-    super
-  end
-
-  def replacement_body
-    super || normalize_string_to_utf8(body)
-  end
-
-  def replacement_body=(new_replacement_body)
-    super unless normalize_line_endings(new_replacement_body) ==
-                 normalize_line_endings(body)
-  end
-
   def storage_key
     file.blob.key if file&.attached?
   end
@@ -380,57 +336,5 @@ class FoiAttachment < ApplicationRecord
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
-  end
-
-  def handle_locked
-    if unlocking? && replaced?
-      file_blob.upload(StringIO.new(unmasked_body), identify: false)
-      file_blob.save
-
-      self.replaced_at = nil
-      self.replaced_reason = nil
-    end
-
-    if unlocking?
-      self.masked_at = nil
-      self.filename = mail_attributes[:filename]
-      ensure_filename!
-    end
-
-    self.filename = redacted_filename if locking?
-
-    if locking? || unlocking?
-      mask_later unless masked_at
-    end
-
-    true
-  end
-
-  def handle_replacements
-    if replacing? || (replaced? && replaced_filename_changed?)
-      self.filename = replaced_filename.presence ||
-                      replacement_file&.original_filename ||
-                      mail_attributes[:filename]
-      ensure_filename!
-    end
-
-    if replacing?
-      self.replaced_at = Time.zone.now
-      self.masked_at = Time.zone.now
-      self.locked = true
-
-      if replacement_file_changed?
-        file.attach(
-          io: replacement_file,
-          filename: filename,
-          content_type: content_type
-        )
-      elsif replacement_body_changed?
-        file_blob.upload(StringIO.new(replacement_body), identify: false)
-        file_blob.save
-      end
-    end
-
-    true
   end
 end
