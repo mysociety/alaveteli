@@ -742,7 +742,10 @@ Rails.application.routes.draw do
   #### AdminFoiAttachment controller
   namespace :admin do
     resources :foi_attachments, path: :attachments,
-                                only: [:edit, :update]
+                                only: [:edit, :update] do
+      resource :prominence, controller: 'foi_attachments/prominence',
+                            only: [:update]
+    end
   end
   ####
 
