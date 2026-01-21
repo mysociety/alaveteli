@@ -4,10 +4,7 @@ class Admin::FoiAttachments::LocksController < AdminController
   before_action :check_info_request
 
   def create
-    if @foi_attachment.update_and_log_event(
-        locked: true,
-        event: { editor: admin_current_user }
-      )
+    if @foi_attachment.lock!(editor: admin_current_user, reason: reason)
       @foi_attachment.expire
 
       if @foi_attachment.locked? && !@foi_attachment.masked?
@@ -27,10 +24,7 @@ class Admin::FoiAttachments::LocksController < AdminController
   end
 
   def destroy
-    if @foi_attachment.update_and_log_event(
-        locked: false,
-        event: { editor: admin_current_user }
-      )
+    if @foi_attachment.unlock!(editor: admin_current_user, reason: reason)
       @foi_attachment.expire
 
       redirect_to edit_admin_foi_attachment_path(@foi_attachment),
@@ -42,6 +36,10 @@ class Admin::FoiAttachments::LocksController < AdminController
   end
 
   private
+
+  def reason
+    params[:reason]
+  end
 
   def set_foi_attachment
     @foi_attachment = FoiAttachment.find(params[:foi_attachment_id])
