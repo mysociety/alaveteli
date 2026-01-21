@@ -84,24 +84,13 @@ RSpec.describe Admin::FoiAttachments::LocksController do
 
     context 'on an unsuccessful lock' do
       before do
-        allow(FoiAttachment).to receive(:find).and_return(attachment)
-        allow(attachment).to receive(:lock!).and_return(false)
-        attachment.errors.add(:base, 'Something went wrong')
+        allow_any_instance_of(FoiAttachment).to receive(:lock!).
+          and_raise(ActiveRecord::RecordInvalid)
       end
 
-      it 'assigns the attachment' do
-        post :create, params: params
-        expect(assigns[:foi_attachment]).to eq(attachment)
-      end
-
-      it 'sets an error flash' do
-        post :create, params: params
-        expect(flash[:error]).to eq('Something went wrong')
-      end
-
-      it 'renders the edit template' do
-        post :create, params: params
-        expect(response).to render_template('admin/foi_attachments/edit')
+      it 'raises an exception' do
+        expect { post :create, params: params }.
+          to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 

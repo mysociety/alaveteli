@@ -4,23 +4,19 @@ class Admin::FoiAttachments::LocksController < AdminController
   before_action :check_info_request
 
   def create
-    if @foi_attachment.lock!(editor: admin_current_user, reason: reason)
+    @foi_attachment.lock!(editor: admin_current_user, reason: reason) &&
       @foi_attachment.expire
 
-      if @foi_attachment.locked? && !@foi_attachment.masked?
-        flash[:notice] = <<~TXT.squish
-          Attachment locked. Please wait for masking to complete before adding
-          additional censor rules.
-        TXT
-      else
-        flash[:notice] = 'Attachment locked.'
-      end
-
-      redirect_to edit_admin_foi_attachment_path(@foi_attachment)
+    if @foi_attachment.locked? && !@foi_attachment.masked?
+      flash[:notice] = <<~TXT.squish
+        Attachment locked. Please wait for masking to complete before adding
+        additional censor rules.
+      TXT
     else
-      flash.now[:error] = @foi_attachment.errors.full_messages.to_sentence
-      render 'admin/foi_attachments/edit'
+      flash[:notice] = 'Attachment locked.'
     end
+
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment)
   end
 
   def destroy
