@@ -18,6 +18,14 @@ module FoiAttachment::Lockable
     expire
   end
 
+  # Note that #unlock still raises on failure. This version also runs
+  # pre-and-post-unlocking steps, whereas #unlock! omits these for more
+  # flexibility when composing with other actions.
+  def unlock(...)
+    unlock!(...)
+    expire
+  end
+
   def lock!(editor:, reason:, **event)
     return true if locked?
 
