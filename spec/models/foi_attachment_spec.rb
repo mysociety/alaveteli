@@ -982,24 +982,29 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
 
       before do
-        allow(foi_attachment).to receive(:update).and_return(false)
+        allow(foi_attachment).to receive(:update_and_log_event!).
+          and_raise(ActiveRecord::RecordInvalid)
       end
 
-      it 'remains locked' do
-        subject
-        expect(foi_attachment.reload).to be_locked
+      it 'raises an exception' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'does not unlock the attachment' do
+        expect do
+          subject
+        rescue ActiveRecord::RecordInvalid
+          # expected
+        end.not_to change { foi_attachment.reload.locked? }
       end
 
       it 'does not log an event' do
-        expect { subject }.not_to change { last_event }
+        expect do
+          subject
+        rescue ActiveRecord::RecordInvalid
+          # expected
+        end.not_to change { last_event }
       end
-
-      it 'does not expire the attachment' do
-        expect(foi_attachment).not_to receive(:expire)
-        subject
-      end
-
-      it { is_expected.to eq(false) }
     end
   end
 

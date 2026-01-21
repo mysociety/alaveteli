@@ -177,26 +177,13 @@ RSpec.describe Admin::FoiAttachments::LocksController do
 
     context 'on an unsuccessful unlock' do
       before do
-        allow(FoiAttachment).to receive(:find).and_return(attachment)
-        allow(attachment).to receive(:unlock!).and_return(false)
-        attachment.errors.add(:base, 'Cannot unlock')
+        allow_any_instance_of(FoiAttachment).to receive(:unlock!).
+          and_raise(ActiveRecord::RecordInvalid)
       end
 
-      it 'assigns the attachment' do
-        delete :destroy, params: params
-        expect(assigns[:foi_attachment]).to eq(attachment)
-      end
-
-      it 'sets an error flash' do
-        delete :destroy, params: params
-        expect(flash[:error]).to eq('Cannot unlock')
-      end
-
-      it 'redirects to the attachment edit page' do
-        post :create, params: params
-        expect(response).to redirect_to(
-          edit_admin_foi_attachment_path(attachment)
-        )
+      it 'raises an exception' do
+        expect { delete :destroy, params: params }.
+          to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
