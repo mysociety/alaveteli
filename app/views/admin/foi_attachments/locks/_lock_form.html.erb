@@ -20,6 +20,9 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit 'Lock attachment', class: 'btn btn-warning' %>
+    <div class="input-prepend">
+      <%= f.submit 'Lock attachment', class: 'btn btn-warning' %>
+      <%= text_field_tag :reason, nil, placeholder: 'Reason for locking', required: true, class: 'input-xlarge' %>
+    </div>
   </div>
 <% end %>

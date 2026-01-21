@@ -22,6 +22,9 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit 'Unlock attachment', class: 'btn btn-warning' %>
+    <div class="input-prepend">
+      <%= f.submit 'Unlock attachment', class: 'btn btn-warning' %>
+      <%= text_field_tag :reason, nil, placeholder: 'Reason for unlocking', required: true, class: 'input-xlarge' %>
+    </div>
   </div>
 <% end %>
