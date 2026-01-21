@@ -36,6 +36,7 @@ class FoiAttachment < ApplicationRecord
 
   include MessageProminence
 
+  include Lockable
   include Maskable
   include Replaceable
 
@@ -52,12 +53,9 @@ class FoiAttachment < ApplicationRecord
   validates_presence_of :display_size
 
   before_validation :ensure_filename!, only: [:filename]
-  before_save :handle_locked
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
-  scope :locked, -> { where(locked: true) }
-  scope :unlocked, -> { where(locked: false) }
 
   delegate :expire, :log_event, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true
@@ -297,14 +295,6 @@ class FoiAttachment < ApplicationRecord
     )
   end
 
-  def locking?
-    locked? && locked_changed?
-  end
-
-  def unlocking?
-    !locked? && locked_changed?
-  end
-
   def storage_key
     file.blob.key if file&.attached?
   end
@@ -346,29 +336,5 @@ class FoiAttachment < ApplicationRecord
 
   def text_type?
     AlaveteliTextMasker::TextMask.include?(content_type)
-  end
-
-  def handle_locked
-    if unlocking? && replaced?
-      file_blob.upload(StringIO.new(unmasked_body), identify: false)
-      file_blob.save
-
-      self.replaced_at = nil
-      self.replaced_reason = nil
-    end
-
-    if unlocking?
-      self.masked_at = nil
-      self.filename = mail_attributes[:filename]
-      ensure_filename!
-    end
-
-    self.filename = redacted_filename if locking?
-
-    if locking? || unlocking?
-      mask_later unless masked_at
-    end
-
-    true
   end
 end
