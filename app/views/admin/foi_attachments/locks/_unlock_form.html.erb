@@ -1,0 +1,27 @@
+<%= form_for foi_attachment, url: admin_foi_attachment_locks_path(foi_attachment), method: :delete, class: 'form form-inline' do |f| %>
+  <fieldset class="form-horizontal">
+    <legend>Locking</legend>
+
+    <div class="controls">
+      <%= render partial: 'admin/foi_attachments/locks/form_help' %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :locked, class: 'control-label' %>
+
+      <div class="controls">
+        <%= f.check_box :locked, disabled: true %>
+
+        <span class="help-inline">
+          <span class="text-warning">
+            Attachment is <strong>locked</strong>.
+          </span>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit 'Unlock attachment', class: 'btn btn-warning' %>
+  </div>
+<% end %>
