@@ -116,7 +116,17 @@
       <%= f.label :locked, class: 'control-label' %>
 
       <div class="controls">
-        <%= f.check_box :locked %>
+        <%= f.check_box :locked, disabled: true %>
+
+        <span class="help-inline">
+          <% if @foi_attachment.locked? %>
+            <span class="text-warning">
+              Attachment is <strong>locked</strong>.
+            </span>
+          <% else %>
+            <span class="muted">Attachment is unlocked</span>.
+          <% end %>
+        </span>
       </div>
     </div>
   </fieldset>
