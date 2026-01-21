@@ -975,6 +975,35 @@ RSpec.describe FoiAttachment do
         expect(last_event.params[:extra]).to eq('context')
       end
     end
+
+    context 'when unlocking fails' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
+
+      before do
+        allow(foi_attachment).to receive(:update_and_log_event!).
+          and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an exception' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'does not unlock the attachment' do
+        expect do
+          subject
+        rescue ActiveRecord::RecordInvalid
+          # expected
+        end.not_to change { foi_attachment.reload.locked? }
+      end
+
+      it 'does not log an event' do
+        expect do
+          subject
+        rescue ActiveRecord::RecordInvalid
+          # expected
+        end.not_to change { last_event }
+      end
+    end
   end
 
   describe '#unlocked?' do

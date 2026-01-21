@@ -20,15 +20,11 @@ class Admin::FoiAttachments::LocksController < AdminController
   end
 
   def destroy
-    if @foi_attachment.unlock!(editor: admin_current_user, reason: reason)
+    @foi_attachment.unlock!(editor: admin_current_user, reason: reason) &&
       @foi_attachment.expire
 
-      redirect_to edit_admin_foi_attachment_path(@foi_attachment),
-                  notice: 'Attachment unlocked.'
-    else
-      flash.now[:error] = @foi_attachment.errors.full_messages.to_sentence
-      render 'admin/foi_attachments/edit'
-    end
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment),
+                notice: 'Attachment unlocked.'
   end
 
   private
