@@ -17,7 +17,7 @@ class AttachmentMasksController < ApplicationController
       )
 
     else
-      FoiAttachmentMaskJob.perform_later(@attachment)
+      @attachment.mask_later
     end
   end
 

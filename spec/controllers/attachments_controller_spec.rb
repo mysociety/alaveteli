@@ -123,9 +123,8 @@ RSpec.describe AttachmentsController, type: :controller do
           allow(attachment).to receive(:masked?).and_return(false, true)
         end
 
-        it 'queues FoiAttachmentMaskJob' do
-          expect(FoiAttachmentMaskJob).to receive(:perform_later).
-            with(attachment)
+        it 'masks the attachment' do
+          expect(attachment).to receive(:mask_later)
           show
         end
 
@@ -136,9 +135,8 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       shared_examples 'redirects to attachment mask route' do
-        it 'queues FoiAttachmentMaskJob' do
-          expect(FoiAttachmentMaskJob).to receive(:perform_later).
-            with(attachment)
+        it 'masks the attachment' do
+          expect_any_instance_of(FoiAttachment).to receive(:mask_later)
           show
         end
 
@@ -484,9 +482,8 @@ RSpec.describe AttachmentsController, type: :controller do
           allow(attachment).to receive(:masked?).and_return(false, true)
         end
 
-        it 'queues FoiAttachmentMaskJob' do
-          expect(FoiAttachmentMaskJob).to receive(:perform_later).
-            with(attachment)
+        it 'masks the attachment' do
+          expect(attachment).to receive(:mask_later)
           show_as_html
         end
 
@@ -501,9 +498,8 @@ RSpec.describe AttachmentsController, type: :controller do
           allow(Timeout).to receive(:timeout).and_raise(Timeout::Error)
         end
 
-        it 'queues FoiAttachmentMaskJob' do
-          expect(FoiAttachmentMaskJob).to receive(:perform_later).
-            with(attachment)
+        it 'masks the attachment' do
+          expect_any_instance_of(FoiAttachment).to receive(:mask_later)
           show_as_html
         end
 
