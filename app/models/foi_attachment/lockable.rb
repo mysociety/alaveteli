@@ -21,6 +21,17 @@ module FoiAttachment::Lockable
     true
   end
 
+  def unlock!(editor:, reason:, **event)
+    return true if unlocked?
+
+    update_and_log_event(
+      event: { **event, editor: editor, reason: reason },
+      locked: false
+    )
+
+    true
+  end
+
   def unlocked?
     !locked?
   end

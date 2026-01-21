@@ -869,6 +869,85 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#unlock!' do
+    subject { foi_attachment.unlock!(editor: editor, reason: reason) }
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Unlocking' }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    before do
+      allow(foi_attachment).to receive(:info_request).and_return(info_request)
+      # HACK: The FoiAttachment factory doesn't create the associations required
+      # in order to access the mail object; it's incidental to this test so stub
+      # it for now
+      allow(foi_attachment).to receive(:mail_attributes).
+        and_return(filename: 'original.txt')
+    end
+
+    def last_event
+      foi_attachment.info_request.info_request_events.last
+    end
+
+    context 'when it is locked' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
+
+      it 'unlocks the attachment' do
+        subject
+        expect(foi_attachment.reload).to be_unlocked
+      end
+
+      it 'logs an event on the associated info_request' do
+        expect { subject }.to change { last_event }
+        expect(last_event.event_type).to eq('edit_attachment')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when it is already unlocked' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unlocked) }
+
+      it 'remains unlocked' do
+        expect(foi_attachment.reload).to be_unlocked
+      end
+
+      it 'does not log an event' do
+        expect { subject }.not_to change { last_event }
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when logging the event' do
+      subject do
+        foi_attachment.unlock!(
+          editor: editor,
+          reason: reason,
+          extra: 'context'
+        )
+      end
+
+      let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
+
+      it 'logs the required editor parameter' do
+        subject
+        expect(last_event.params[:editor]).to eq(editor)
+      end
+
+      it 'logs the required reason parameter' do
+        subject
+        expect(last_event.params[:reason]).to eq(reason)
+      end
+
+      it 'logs the optional additional parameters' do
+        subject
+        expect(last_event.params[:extra]).to eq('context')
+      end
+    end
+  end
+
   describe '#unlocked?' do
     subject { foi_attachment.unlocked? }
 
