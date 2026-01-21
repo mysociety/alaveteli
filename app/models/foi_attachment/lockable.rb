@@ -13,7 +13,7 @@ module FoiAttachment::Lockable
   def lock!(editor:, reason:, **event)
     return true if locked?
 
-    return false unless update_and_log_event(
+    update_and_log_event!(
       event: { **event, editor: editor, reason: reason },
       locked: true
     )
