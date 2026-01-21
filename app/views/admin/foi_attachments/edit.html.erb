@@ -45,6 +45,37 @@
   </div>
 <% end %>
 
+<%= form_for @foi_attachment, url: admin_foi_attachment_masks_path(@foi_attachment), method: :post, class: 'form form-inline' do |f| %>
+  <fieldset class="form-horizontal">
+    <legend>Masking</legend>
+
+    <div class="controls">
+      <div class="help-block">
+        <p>
+          Masking is the application of Text Masks and Censor Rules. When an
+          attachment is masked it means that the cached copy of the attachment
+          has been created with all applicable redaction rules applied.
+        </p>
+
+        <p>
+          Attachments are masked when first viewed by a user. Admins can force
+          masking to happen from here.
+        </p>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit 'Mask now', disabled: @foi_attachment.masked?, class: 'btn' %>
+
+    <% if @foi_attachment.masked? %>
+      <span class="help-inline">
+        Already masked.
+      </span>
+    <% end %>
+  </div>
+<% end %>
+
 <%
   locking_form =
     if @foi_attachment.locked?
