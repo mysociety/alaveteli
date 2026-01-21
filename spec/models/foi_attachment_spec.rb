@@ -618,6 +618,95 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#update_and_log_event!' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:info_request) { incoming_message.info_request }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    def last_event
+      info_request.info_request_events.last
+    end
+
+    it 'updates and logs edit_attachment event' do
+      expect do
+        foi_attachment.update_and_log_event!(prominence: 'hidden')
+      end.to change { last_event }
+
+      expect(last_event.event_type).to eq('edit_attachment')
+    end
+
+    it 'logs prominence and reason changes' do
+      foi_attachment.update_and_log_event!(
+        prominence: 'hidden', prominence_reason: 'just because'
+      )
+      expect(last_event.params[:old_prominence]).to eq('normal')
+      expect(last_event.params[:prominence]).to eq('hidden')
+      expect(last_event.params[:old_prominence_reason]).to be_nil
+      expect(last_event.params[:prominence_reason]).to eq('just because')
+    end
+
+    it 'logs locked changes' do
+      foi_attachment.update_and_log_event!(locked: true)
+      expect(last_event.params[:old_locked]).to eq(false)
+      expect(last_event.params[:locked]).to eq(true)
+    end
+
+    it 'logs replaced changes' do
+      allow(foi_attachment).to receive(:replaced_at).
+        and_return(Time.new(2025, 4, 10, 10, 30))
+      foi_attachment.update_and_log_event!(
+        replacement_body: 'new body', replaced_reason: 'GDPR case'
+      )
+      expect(last_event.params[:old_locked]).to eq(false)
+      expect(last_event.params[:locked]).to eq(true)
+      expect(last_event.params[:replaced]).to eq(true)
+      expect(last_event.params[:replaced_at]).
+        to eq(Time.new(2025, 04, 10, 10, 30).as_json)
+      expect(last_event.params[:replaced_reason]).to eq('GDPR case')
+    end
+
+    it 'logs additional event data' do
+      foi_attachment.update_and_log_event!(
+        prominence: 'hidden', event: { editor: 'me' }
+      )
+      expect(last_event.params[:editor]).to eq('me')
+    end
+
+    it 'raises an exception if update fails' do
+      expect do
+        foi_attachment.update_and_log_event!(prominence: nil)
+      end.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it 'does not log event if update fails' do
+      expect do
+        foi_attachment.update_and_log_event!(prominence: nil)
+      rescue ActiveRecord::RecordInvalid
+        # expected
+      end.to_not change { last_event }
+    end
+
+    it 'raises an exception if logging fails' do
+      allow(foi_attachment).to receive(:log_event).
+        and_raise(ActiveRecord::RecordInvalid)
+
+      expect do
+        foi_attachment.update_and_log_event!(prominence: 'hidden')
+      end.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it 'rolls back update if logging fails' do
+      allow(foi_attachment).to receive(:log_event).
+        and_raise(ActiveRecord::RecordInvalid)
+
+      expect do
+        foi_attachment.update_and_log_event!(prominence: 'hidden')
+      rescue ActiveRecord::RecordInvalid
+        # expected
+      end.to_not change { foi_attachment.reload.prominence }
+    end
+  end
+
   describe '#mask' do
     subject { attachment.mask }
 
