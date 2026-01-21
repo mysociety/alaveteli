@@ -926,6 +926,39 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#unlock' do
+    subject do
+      foi_attachment.unlock(editor: editor, reason: reason, extra: 'context')
+    end
+
+    let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Unlocking' }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    before do
+      allow(foi_attachment).to receive(:info_request).and_return(info_request)
+      # HACK: The FoiAttachment factory doesn't create the associations required
+      # in order to access the mail object; it's incidental to this test so stub
+      # it for now
+      allow(foi_attachment).to receive(:mail_attributes).
+        and_return(filename: 'original.txt')
+    end
+
+    it 'calls unlock! with the given arguments' do
+      expect(foi_attachment).to receive(:unlock!).
+        with(editor: editor, reason: reason, extra: 'context')
+      subject
+    end
+
+    it 'expires the attachment' do
+      expect(foi_attachment).to receive(:expire)
+      subject
+    end
+  end
+
   describe '#unlock!' do
     subject { foi_attachment.unlock!(editor: editor, reason: reason) }
 
