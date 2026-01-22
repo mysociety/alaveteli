@@ -91,13 +91,8 @@ class ApplicationController < ActionController::Base
 
   def store_gettext_locale
     # set the current stored locale to the requested_locale
-    locale = params[:locale].presence || AlaveteliLocalization.locale
-
-    if locale == AlaveteliLocalization.default_locale
-      cookies.delete(:locale)
-    else
-      cookies[:locale] = locale
-    end
+    locale = AlaveteliLocalization.locale
+    cookies[:locale] = locale
 
     # ensure current user locale attribute is up-to-date
     current_user.update_column(:locale, locale) if current_user
