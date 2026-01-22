@@ -208,6 +208,47 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#all_attachments_masked?' do
+    subject { message.all_attachments_masked? }
+
+    let(:message) { FactoryBot.create(:incoming_message) }
+
+    context 'when all attachments are masked' do
+      before do
+        allow(message).to receive(:foi_attachments).
+          and_return([double(masked?: true), double(masked?: true)])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when some attachments are not masked' do
+      before do
+        allow(message).to receive(:foi_attachments).
+          and_return([double(masked?: true), double(masked?: false)])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when no attachments are masked' do
+      before do
+        allow(message).to receive(:foi_attachments).
+          and_return([double(masked?: false), double(masked?: false)])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when there are no attachments' do
+      before do
+        message.foi_attachments.destroy_all
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#raw_email_erased?' do
     subject { message.raw_email_erased? }
 

@@ -16,6 +16,7 @@
 
 class RawEmail < ApplicationRecord
   class AlreadyErasedError < StandardError; end
+  class UnmaskedAttachmentsError < StandardError; end
 
   # deliberately don't strip_attributes, so keeps raw email properly
 
@@ -34,6 +35,7 @@ class RawEmail < ApplicationRecord
   delegate :expire, :log_event, to: :info_request
 
   delegate :lock_all_attachments, to: :incoming_message
+  delegate :all_attachments_masked?, to: :incoming_message
 
   def addresses(include_invalid: false)
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
@@ -80,8 +82,13 @@ class RawEmail < ApplicationRecord
     !file.attached? && erased_at.present?
   end
 
+  def erasable?
+    all_attachments_masked?
+  end
+
   def erase(editor:, reason:)
     raise AlreadyErasedError if erased?
+    raise UnmaskedAttachmentsError unless all_attachments_masked?
 
     transaction do |t|
       t.after_rollback { return false }

@@ -156,6 +156,10 @@ module IncomingMessage::Attachments
     false
   end
 
+  def all_attachments_masked?
+    foi_attachments.all?(&:masked?)
+  end
+
   private
 
   def _get_attachment_text_internal

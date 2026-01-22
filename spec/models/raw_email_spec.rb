@@ -196,6 +196,28 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#erasable?' do
+    subject { raw_email.erasable? }
+
+    let(:raw_email) { FactoryBot.build(:raw_email) }
+
+    context 'when all attachments are masked' do
+      before do
+        allow(raw_email).to receive(:all_attachments_masked?).and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when not all attachments are masked' do
+      before do
+        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#erased?' do
     subject { raw_email.erased? }
 
@@ -279,6 +301,17 @@ RSpec.describe RawEmail do
 
       it 'raises an error' do
         expect { subject }.to raise_error(described_class::AlreadyErasedError)
+      end
+    end
+
+    context 'when there are unmasked attachments' do
+      before do
+        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+      end
+
+      it 'raises an error' do
+        expect { subject }.
+          to raise_error(described_class::UnmaskedAttachmentsError)
       end
     end
 

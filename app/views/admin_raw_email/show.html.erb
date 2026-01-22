@@ -123,8 +123,17 @@
 
             <%= f.submit 'Erase',
                          class: 'btn btn-danger',
+                         disabled: !@raw_email.erasable?,
                          data: { confirm: 'Are you sure? This is irreversible.' } %>
           </div>
+
+          <% unless @raw_email.erasable? %>
+            <p class="help-inline">
+              <span class="muted">
+                All attachments must be masked before erasure.
+              </span>
+            </p>
+          <% end %>
         <% end %>
       </div>
     </div>

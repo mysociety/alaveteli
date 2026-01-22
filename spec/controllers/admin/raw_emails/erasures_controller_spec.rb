@@ -99,6 +99,22 @@ RSpec.describe Admin::RawEmails::ErasuresController do
       end
     end
 
+    context 'when there are unmasked attachments' do
+      before do
+        raw_email.erase(editor: admin_user, reason: 'Unmasked')
+      end
+
+      it 'returns an error' do
+        allow_any_instance_of(RawEmail).
+          to receive(:erase).and_raise(RawEmail::UnmaskedAttachmentsError)
+
+        post :create, params: params
+
+        expect(response).to redirect_to(admin_raw_email_path(raw_email))
+        expect(flash[:error]).to match(/Ensure all attachments are masked/)
+      end
+    end
+
     context 'without an erasure_reason' do
       let(:params) do
         {
