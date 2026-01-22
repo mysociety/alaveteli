@@ -10,6 +10,10 @@ module FoiAttachment::Lockable
     scope :unlocked, -> { where(locked: false) }
   end
 
+  def unlocked?
+    !locked?
+  end
+
   def locking?
     locked? && locked_changed?
   end
