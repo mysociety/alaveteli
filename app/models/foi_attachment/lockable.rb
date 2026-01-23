@@ -4,8 +4,6 @@ module FoiAttachment::Lockable
   extend ActiveSupport::Concern
 
   included do
-    before_save :handle_locked
-
     validate :must_be_unlockable_to_unlock, on: :update
 
     scope :locked, -> { where(locked: true) }
@@ -18,6 +16,7 @@ module FoiAttachment::Lockable
   def lock(...)
     lock!(...)
     expire
+    mask_later unless masked_at # TODO: want to use #mask instead of #mask_later
   end
 
   # Note that #unlock still raises on failure. This version also runs
@@ -26,6 +25,7 @@ module FoiAttachment::Lockable
   def unlock(...)
     unlock!(...)
     expire
+    mask_later unless masked_at # TODO: want to use #mask instead of #mask_later
   end
 
   def lock!(editor:, reason:, **event)
@@ -33,7 +33,8 @@ module FoiAttachment::Lockable
 
     update_and_log_event!(
       event: { **event, editor: editor, reason: reason },
-      locked: true
+      locked: true,
+      filename: redacted_filename
     )
 
     true
@@ -44,8 +45,22 @@ module FoiAttachment::Lockable
 
     update_and_log_event!(
       event: { **event, editor: editor, reason: reason },
-      locked: false
+      locked: false,
+      masked_at: nil
     )
+
+    if replaced?
+      file_blob.upload(StringIO.new(unmasked_body), identify: false)
+      file_blob.save
+
+      update!(
+        filename: mail_attributes[:filename],
+        replaced_at: nil,
+        replaced_reason: nil
+      )
+    end
+
+    ensure_filename!
 
     true
   end
@@ -76,29 +91,5 @@ module FoiAttachment::Lockable
     return if !unlocking? || unlockable?
 
     errors.add(:base, 'This attachment cannot be unlocked.')
-  end
-
-  def handle_locked
-    if unlocking? && replaced?
-      file_blob.upload(StringIO.new(unmasked_body), identify: false)
-      file_blob.save
-
-      self.replaced_at = nil
-      self.replaced_reason = nil
-    end
-
-    if unlocking?
-      self.masked_at = nil
-      self.filename = mail_attributes[:filename]
-      ensure_filename!
-    end
-
-    self.filename = redacted_filename if locking?
-
-    if locking? || unlocking?
-      mask_later unless masked_at
-    end
-
-    true
   end
 end
