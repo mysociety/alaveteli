@@ -6,6 +6,8 @@ FactoryBot.define do
     content_type { 'text/plain' }
     filename { 'attachment.txt' }
 
+    incoming_message
+
     transient do
       body { 'hereisthemaskedtext' }
     end

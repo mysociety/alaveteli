@@ -31,8 +31,15 @@ module FoiAttachment::Lockable
 
     update_and_log_event!(
       event: { **event, editor: editor, reason: reason },
-      locked: true
+      locked: true,
+      filename: redacted_filename
     )
+
+    #if locking?
+      #self.filename = redacted_filename
+    #end
+
+    mask_later unless masked_at
 
     true
   end
@@ -44,6 +51,23 @@ module FoiAttachment::Lockable
       event: { **event, editor: editor, reason: reason },
       locked: false
     )
+
+    #if unlocking? && replaced?
+    if replaced?
+      file_blob.upload(StringIO.new(unmasked_body), identify: false)
+      file_blob.save
+
+      self.replaced_at = nil
+      self.replaced_reason = nil
+    end
+
+    #if unlocking?
+      self.masked_at = nil
+      self.filename = mail_attributes[:filename]
+      ensure_filename!
+    #end
+
+    mask_later unless masked_at
 
     true
   end
@@ -63,26 +87,6 @@ module FoiAttachment::Lockable
   private
 
   def handle_locked
-    if unlocking? && replaced?
-      file_blob.upload(StringIO.new(unmasked_body), identify: false)
-      file_blob.save
-
-      self.replaced_at = nil
-      self.replaced_reason = nil
-    end
-
-    if unlocking?
-      self.masked_at = nil
-      self.filename = mail_attributes[:filename]
-      ensure_filename!
-    end
-
-    self.filename = redacted_filename if locking?
-
-    if locking? || unlocking?
-      mask_later unless masked_at
-    end
-
     true
   end
 end
