@@ -49,11 +49,12 @@ class PublicBodyChangeRequestsController < ApplicationController
   private
 
   def catch_spam
-    if params[:public_body_change_request].key?(:comment)
-      unless params[:public_body_change_request][:comment].empty?
-        redirect_to frontpage_url
-      end
-    end
+    return unless params[:public_body_change_request]
+
+    return unless params[:public_body_change_request].key?(:comment)
+    return if params[:public_body_change_request][:comment].empty?
+
+    redirect_to frontpage_url
   end
 
   def set_render_recaptcha
