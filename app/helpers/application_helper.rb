@@ -128,7 +128,7 @@ module ApplicationHelper
   end
 
   def cache_if_caching_fragments(key, *args)
-    return yield unless AlaveteliConfiguration.cache_fragments
+    return yield unless AlaveteliConfiguration.cache_fragments && key
 
     locale_key = Array(key) << AlaveteliLocalization.locale
     cache(locale_key, *args) { yield }
