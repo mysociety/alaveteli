@@ -253,7 +253,6 @@ RSpec.describe ApplicationHelper do
     before do
       allow(helper).to receive(:params).
         and_return(params.with_indifferent_access)
-      helper.instance_variable_set(:@view, 'all')
     end
 
     context 'when params contain only cacheable keys' do
@@ -262,7 +261,7 @@ RSpec.describe ApplicationHelper do
       end
 
       it 'returns a cache key' do
-        is_expected.to eq('request-list-all')
+        is_expected.to eq(['request-list', 'all'])
       end
     end
 
@@ -282,8 +281,8 @@ RSpec.describe ApplicationHelper do
     context 'when params are empty' do
       let(:params) { {} }
 
-      it 'returns a cache key' do
-        is_expected.to eq('request-list-all')
+      it 'returns nil' do
+        is_expected.to be_nil
       end
     end
   end
