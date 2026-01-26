@@ -264,6 +264,13 @@ when it really should be application/pdf.\n
       mail = Mail.new
       expect(get_auto_submitted(mail)).to be_nil
     end
+
+    it 'returns the first value when multiple auto-submitted headers exist' do
+      mail = Mail.new
+      mail['auto-submitted'] = 'auto-replied'
+      mail['auto-submitted'] = 'auto-generated'
+      expect(get_auto_submitted(mail)).to eq('auto-replied')
+    end
   end
 
   describe :expand_and_normalize_parts do
