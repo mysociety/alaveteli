@@ -114,9 +114,8 @@ RSpec.describe PublicBodyChangeRequestsController do
     end
 
     it 'handles missing public_body_change_request parameter gracefully' do
-      expect {
-        post :create, params: {}
-      }.not_to raise_error
+      post :create, params: {}
+      expect(response).to redirect_to(frontpage_url)
     end
 
     context 'when handling a request for an update to an existing authority' do

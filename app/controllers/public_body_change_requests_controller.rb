@@ -21,6 +21,11 @@ class PublicBodyChangeRequestsController < ApplicationController
   end
 
   def create
+    unless params[:public_body_change_request]
+      redirect_to frontpage_url
+      return
+    end
+
     @change_request =
       PublicBodyChangeRequest.
         from_params(params[:public_body_change_request], @user)
