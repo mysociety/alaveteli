@@ -246,4 +246,46 @@ RSpec.describe ApplicationHelper do
       end
     end
   end
+
+  describe '#request_list_cache_key' do
+    subject { helper.request_list_cache_key }
+
+    before do
+      allow(helper).to receive(:params).
+        and_return(params.with_indifferent_access)
+      helper.instance_variable_set(:@view, 'all')
+      helper.instance_variable_set(:@locale, 'en')
+    end
+
+    context 'when params contain only cacheable keys' do
+      let(:params) do
+        { controller: 'request', action: 'list', view: 'all', locale: 'en' }
+      end
+
+      it 'returns a cache key' do
+        is_expected.to eq('request-list-all-en')
+      end
+    end
+
+    context 'when params contain a non-cacheable key' do
+      let(:params) do
+        {
+          controller: 'request', action: 'list', view: 'all', locale: 'en',
+          page: '2'
+        }
+      end
+
+      it 'returns nil' do
+        is_expected.to be_nil
+      end
+    end
+
+    context 'when params are empty' do
+      let(:params) { {} }
+
+      it 'returns a cache key' do
+        is_expected.to eq('request-list-all-en')
+      end
+    end
+  end
 end
