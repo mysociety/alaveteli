@@ -143,15 +143,15 @@ module ApplicationHelper
     render message.deep_symbolize_keys
   end
 
-  # We only want to cache request lists that have a reasonable chance of not expiring
-  # before they're requested again. Don't cache lists returned from specific searches
-  # or anything except the first page of results, just the first page of the default
-  # views
+  # We only want to cache request lists that have a reasonable chance of not
+  # expiring before they're requested again. Don't cache lists returned from
+  # specific searches or anything except the first page of results, just the
+  # first page of the default views
   def request_list_cache_key
     cacheable_param_list = %w[controller action view]
-    if params.keys.all? { |key| cacheable_param_list.include?(key) }
-      "request-list-#{@view}"
-    end
+    return if params.empty? || (params.keys - cacheable_param_list).any?
+
+    ["request-list", params[:view]]
   end
 
   def event_description(event)
