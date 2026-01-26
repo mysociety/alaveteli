@@ -216,13 +216,13 @@ RSpec.describe ApplicationHelper do
       before do
         allow(AlaveteliConfiguration).to receive(:cache_fragments).
           and_return(true)
+        allow(AlaveteliLocalization).to receive(:locale).and_return('en')
         allow(self).to receive(:cache).and_yield.and_return(:cached_result)
       end
 
-      it 'calls cache with the provided arguments' do
+      it 'calls cache with the provided arguments and locale' do
         cache_if_caching_fragments('key') { block_result }
-
-        expect(self).to have_received(:cache).with('key')
+        expect(self).to have_received(:cache).with(['key', 'en'])
       end
 
       it 'yields the block within the cache block' do
@@ -254,23 +254,22 @@ RSpec.describe ApplicationHelper do
       allow(helper).to receive(:params).
         and_return(params.with_indifferent_access)
       helper.instance_variable_set(:@view, 'all')
-      helper.instance_variable_set(:@locale, 'en')
     end
 
     context 'when params contain only cacheable keys' do
       let(:params) do
-        { controller: 'request', action: 'list', view: 'all', locale: 'en' }
+        { controller: 'request', action: 'list', view: 'all' }
       end
 
       it 'returns a cache key' do
-        is_expected.to eq('request-list-all-en')
+        is_expected.to eq('request-list-all')
       end
     end
 
     context 'when params contain a non-cacheable key' do
       let(:params) do
         {
-          controller: 'request', action: 'list', view: 'all', locale: 'en',
+          controller: 'request', action: 'list', view: 'all',
           page: '2'
         }
       end
@@ -284,7 +283,7 @@ RSpec.describe ApplicationHelper do
       let(:params) { {} }
 
       it 'returns a cache key' do
-        is_expected.to eq('request-list-all-en')
+        is_expected.to eq('request-list-all')
       end
     end
   end

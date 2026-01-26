@@ -127,12 +127,11 @@ module ApplicationHelper
     !session[:using_admin].nil? || (!@user.nil? && @user.is_admin?)
   end
 
-  def cache_if_caching_fragments(*args)
-    if AlaveteliConfiguration.cache_fragments
-      cache(*args) { yield }
-    else
-      yield
-    end
+  def cache_if_caching_fragments(key, *args)
+    return yield unless AlaveteliConfiguration.cache_fragments
+
+    locale_key = Array(key) << AlaveteliLocalization.locale
+    cache(locale_key, *args) { yield }
   end
 
   def inside_layout(layout = 'application', &block)
@@ -149,9 +148,9 @@ module ApplicationHelper
   # or anything except the first page of results, just the first page of the default
   # views
   def request_list_cache_key
-    cacheable_param_list = %w[controller action locale view]
+    cacheable_param_list = %w[controller action view]
     if params.keys.all? { |key| cacheable_param_list.include?(key) }
-      "request-list-#{@view}-#{@locale}"
+      "request-list-#{@view}"
     end
   end
 
