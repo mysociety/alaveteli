@@ -30,11 +30,7 @@
 <div style="clear:both"></div>
 
 <div class="results_section">
-  <% if key = request_list_cache_key %>
-    <% cache_if_caching_fragments(key, :expires_in => 5.minutes) do %>
-      <%= render :partial => 'list_results' %>
-    <% end %>
-  <% else %>
+  <% cache_if_caching_fragments(request_list_cache_key, :expires_in => 5.minutes) do %>
     <%= render :partial => 'list_results' %>
   <% end %>
 </div>
