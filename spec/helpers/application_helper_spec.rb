@@ -204,4 +204,86 @@ RSpec.describe ApplicationHelper do
       expect(site_wide_announcement).to eq announcement
     end
   end
+
+  describe '#cache_if_caching_fragments' do
+    subject(:result) do
+      cache_if_caching_fragments('key') { block_result }
+    end
+
+    let(:block_result) { :block_result }
+
+    context 'when fragment caching is enabled' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:cache_fragments).
+          and_return(true)
+        allow(AlaveteliLocalization).to receive(:locale).and_return('en')
+        allow(self).to receive(:cache).and_yield.and_return(:cached_result)
+      end
+
+      it 'calls cache with the provided arguments and locale' do
+        cache_if_caching_fragments('key') { block_result }
+        expect(self).to have_received(:cache).with(['key', 'en'])
+      end
+
+      it 'yields the block within the cache block' do
+        expect(result).to eq(:cached_result)
+      end
+    end
+
+    context 'when fragment caching is disabled' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:cache_fragments).
+          and_return(false)
+      end
+
+      it 'does not call cache' do
+        cache_if_caching_fragments('key') { block_result }
+        expect(self).not_to receive(:cache)
+      end
+
+      it 'yields the block directly' do
+        expect(result).to eq(:block_result)
+      end
+    end
+  end
+
+  describe '#request_list_cache_key' do
+    subject { helper.request_list_cache_key }
+
+    before do
+      allow(helper).to receive(:params).
+        and_return(params.with_indifferent_access)
+    end
+
+    context 'when params contain only cacheable keys' do
+      let(:params) do
+        { controller: 'request', action: 'list', view: 'all' }
+      end
+
+      it 'returns a cache key' do
+        is_expected.to eq(['request-list', 'all'])
+      end
+    end
+
+    context 'when params contain a non-cacheable key' do
+      let(:params) do
+        {
+          controller: 'request', action: 'list', view: 'all',
+          page: '2'
+        }
+      end
+
+      it 'returns nil' do
+        is_expected.to be_nil
+      end
+    end
+
+    context 'when params are empty' do
+      let(:params) { {} }
+
+      it 'returns nil' do
+        is_expected.to be_nil
+      end
+    end
+  end
 end

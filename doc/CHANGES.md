@@ -1,3 +1,10 @@
+# 0.46.1.0
+
+## Highlighted Features
+
+* Fix request list page caching (Graeme Porteous)
+* Update locale cookie handling (Graeme Porteous)
+
 # 0.46.0.2
 
 ## Highlighted Features

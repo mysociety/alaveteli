@@ -30,6 +30,16 @@ RSpec.describe 'when generating URLs' do
     expect(response.headers['Content-Language']).to eq('en')
   end
 
+  it 'remembers user selection of default locale when browser prefers different language' do
+    get '/', params: { locale: 'es' }, headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    expect(response).to redirect_to('/')
+    follow_redirect!
+    expect(response.headers['Content-Language']).to eq('es')
+
+    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    expect(response.headers['Content-Language']).to eq('es')
+  end
+
   it 'sets correct Content-Language via underscored locale param' do
     get '/', params: { locale: 'en_GB' }
     expect(response).to redirect_to('/')
