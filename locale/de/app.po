@@ -43,6 +43,7 @@
 # Liz Conlan <liz@mysociety.org>, 2018
 # louisecrow <louise@mysociety.org>, 2014,2016
 # louisecrow <louise@mysociety.org>, 2014,2016
+# FOI_Monkey <mrshmcross@gmail.com>, 2025
 # Philipp Brocar <brocar@fra-uni.net>, 2015
 # stefanw <stefanwehrmeyer@gmail.com>, 2011
 msgid ""
@@ -51,7 +52,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-29 13:43+0000\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: stefanw <stefanwehrmeyer@gmail.com>, 2011\n"
+"Last-Translator: FOI_Monkey <mrshmcross@gmail.com>, 2025\n"
 "Language-Team: German (http://app.transifex.com/mysociety/alaveteli/language/d"
 "e/)\n"
 "MIME-Version: 1.0\n"
@@ -1429,7 +1430,7 @@ msgid "Here's your daily request summary from {{site_name}}:"
 msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
-msgstr "Hallo! Wir brauchen Ihre Hilfe. Die Person, welche die folgende Anfrage gestellt hat, hat uns nicht mitgeteilt ob diese erfolgreich war. Wäre es okaz für Sie sich einen Moment Zeit zu nehmen, um die Anfrage zu lesen und uns somit zu helfen die Zeite für jedermann aktuell zu halten?"
+msgstr "Hallo! Wir brauchen Ihre Hilfe. Die Person, welche die folgende Anfrage gestellt hat, hat uns nicht mitgeteilt, ob diese erfolgreich war. Wäre es okay für Sie sich einen Moment Zeit zu nehmen, um die Anfrage zu lesen und uns somit zu helfen die Seite für jedermann aktuell zu halten?"
 
 msgid "Hidden"
 msgstr ""
