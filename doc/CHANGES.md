@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix request list page caching (Graeme Porteous)
 * Update locale cookie handling (Graeme Porteous)
 * Restore logging of :email parameters (Gareth Rees)
 * Fix importing holidays from iCal feed (Gareth Rees)
