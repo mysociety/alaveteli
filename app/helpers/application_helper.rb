@@ -127,12 +127,11 @@ module ApplicationHelper
     !session[:using_admin].nil? || (!@user.nil? && @user.is_admin?)
   end
 
-  def cache_if_caching_fragments(*args)
-    if AlaveteliConfiguration.cache_fragments
-      cache(*args) { yield }
-    else
-      yield
-    end
+  def cache_if_caching_fragments(key, *args)
+    return yield unless AlaveteliConfiguration.cache_fragments && key
+
+    locale_key = Array(key) << AlaveteliLocalization.locale
+    cache(locale_key, *args) { yield }
   end
 
   def inside_layout(layout = 'application', &block)
@@ -144,15 +143,15 @@ module ApplicationHelper
     render message.deep_symbolize_keys
   end
 
-  # We only want to cache request lists that have a reasonable chance of not expiring
-  # before they're requested again. Don't cache lists returned from specific searches
-  # or anything except the first page of results, just the first page of the default
-  # views
+  # We only want to cache request lists that have a reasonable chance of not
+  # expiring before they're requested again. Don't cache lists returned from
+  # specific searches or anything except the first page of results, just the
+  # first page of the default views
   def request_list_cache_key
-    cacheable_param_list = %w[controller action locale view]
-    if params.keys.all? { |key| cacheable_param_list.include?(key) }
-      "request-list-#{@view}-#{@locale}"
-    end
+    cacheable_param_list = %w[controller action view]
+    return if params.empty? || (params.keys - cacheable_param_list).any?
+
+    ["request-list", params[:view]]
   end
 
   def event_description(event)

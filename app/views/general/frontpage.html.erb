@@ -1,4 +1,4 @@
-<% cache_if_caching_fragments("frontpage-#{@locale}", expires_in: 5.minutes) do %>
+<% cache_if_caching_fragments("frontpage", expires_in: 5.minutes) do %>
   <%= render partial: 'frontpage_how_it_works' %>
 
   <div id="frontpage_examples" class="frontpage_examples">
