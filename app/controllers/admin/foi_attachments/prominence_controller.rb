@@ -11,12 +11,12 @@ class Admin::FoiAttachments::ProminenceController < AdminController
 
       @foi_attachment.expire
 
-      redirect_to edit_admin_foi_attachment_path(@foi_attachment),
-                  notice: 'Prominence updated.'
+      flash[:notice] = 'Prominence updated.'
     else
-      flash.now[:error] = @foi_attachment.errors.full_messages.to_sentence
-      render 'admin/foi_attachments/edit'
+      flash[:error] = @foi_attachment.errors.full_messages.to_sentence
     end
+
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment)
   end
 
   private

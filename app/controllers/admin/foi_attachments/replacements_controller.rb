@@ -10,20 +10,19 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
       )
       @foi_attachment.expire
 
-      if @foi_attachment.locked? && !@foi_attachment.masked?
-        flash[:notice] = <<~TXT.squish
+      flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
+        <<~TXT.squish
           Attachment successfully updated and locked. Please wait for masking to
           complete before adding additional censor rules.
         TXT
       else
-        flash[:notice] = 'Attachment successfully updated.'
+        'Attachment successfully updated.'
       end
-      redirect_to edit_admin_foi_attachment_path(@foi_attachment)
-
     else
-      flash.now[:error] = @foi_attachment.errors.full_messages.to_sentence
-      render 'admin/foi_attachments/edit'
+      flash[:error] = @foi_attachment.errors.full_messages.to_sentence
     end
+
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment)
   end
 
   private

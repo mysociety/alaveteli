@@ -185,6 +185,7 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       before do
         allow(FoiAttachment).to receive(:find).and_return(attachment)
         allow(attachment).to receive(:update_and_log_event).and_return(false)
+        attachment.errors.add(:base, 'Cannot replace.')
       end
 
       it 'assigns the attachment' do
@@ -197,9 +198,16 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
         post :create, params: params
       end
 
-      it 'renders the edit template' do
+      it 'sets an error flash' do
         post :create, params: params
-        expect(response).to render_template(:edit)
+        expect(flash[:error]).to eq('Cannot replace.')
+      end
+
+      it 'redirects to the attachment edit page' do
+        post :create, params: params
+        expect(response).to redirect_to(
+          edit_admin_foi_attachment_path(attachment)
+        )
       end
     end
 
