@@ -1,9 +1,5 @@
 # develop
 
-## Highlighted Features
-
-* Fix request list page caching (Graeme Porteous)
-* Update locale cookie handling (Graeme Porteous)
 * Restore logging of :email parameters (Gareth Rees)
 * Fix importing holidays from iCal feed (Gareth Rees)
 * Ability to search users by tag in admin interface (Gareth Rees)
@@ -34,6 +30,19 @@ The following templates have been changed. Please use `script/reconcile-theme`
 to update overrides in your theme to match the new templates.
 
     None yet
+
+# 0.46.1.0
+
+## Highlighted Features
+
+* Fix request list page caching (Graeme Porteous)
+* Update locale cookie handling (Graeme Porteous)
+
+# 0.46.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
 
 # 0.46.0.1
 

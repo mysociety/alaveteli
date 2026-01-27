@@ -6,10 +6,10 @@
 # Translators:
 # louisecrow <louise@mysociety.org>, 2017
 # 1bb8f5eb4bc72723d4109decfd20c765, 2019
-# Mattias Axell <mattias@libertador.es>, 2023
 # Selsabeel Al Baqir, 2023
 # Graeme Porteous <graeme@mysociety.org>, 2024
-# Elenor Weijmar, 2025
+# Elenor Weijmar, 2026
+# Mattias Axell <mattias@libertador.es>, 2026
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-29 13:44+0000\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Elenor Weijmar, 2025\n"
+"Last-Translator: Mattias Axell <mattias@libertador.es>, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/mysociety/teams/33529/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,7 +184,7 @@ msgid "Add credibility"
 msgstr "Öka trovärdigheten "
 
 msgid "Add individual requests or entire batches you've created to this project. All items will be organized together for streamlined management, classification, and information extraction."
-msgstr ""
+msgstr "Lägg till enskilda förfrågningar eller hela serieförfrågningar som du har skapat till detta projekt. Alla objekt kommer att organiseras tillsammans för effektiv hantering, klassificering och informationsutvinning."
 
 msgid "Add question"
 msgstr "Lägg till fråga"
@@ -217,7 +217,7 @@ msgid "Allow blank"
 msgstr "Tillåt tomt fält"
 
 msgid "Allow multiple"
-msgstr ""
+msgstr "Tillåt flera"
 
 msgid "Also called {{other_name}}."
 msgstr "Även kallad {{other_name}}"
@@ -244,7 +244,7 @@ msgid "Automate FOI request management"
 msgstr "Automatisera hantering av förfrågningar"
 
 msgid "Back to project"
-msgstr ""
+msgstr "Tillbaka till projekt"
 
 msgid "Batch"
 msgstr "Serieförfrågningar"
@@ -286,7 +286,7 @@ msgid "Billing"
 msgstr "Betalning"
 
 msgid "Bringing facts about campaign overspending to light with the privacy features"
-msgstr ""
+msgstr "Ger fakta om kampanjer med överskott med sekretessfunktionerna"
 
 msgid "Browse by category"
 msgstr "Bläddra enligt kategori"
@@ -337,7 +337,7 @@ msgid "Classify responses"
 msgstr "Klassificera svaren"
 
 msgid "Collaborate with others by inviting contributors to help classify and extract data from your requests."
-msgstr ""
+msgstr "Samarbeta med andra genom att bjuda in fler personer att hjälpa till att klassificera och extrahera data från dina förfrågningar."
 
 msgid "Collapse all correspondence"
 msgstr "Dölj all korrespondens"
@@ -364,13 +364,13 @@ msgid "Create a new Project"
 msgstr "Skapa ett nytt projekt"
 
 msgid "Create questions to extract specific information from your requests. These questions will help you gather structured data consistently across all responses in your project."
-msgstr ""
+msgstr "Skapa frågor för att få fram specifik information från dina förfrågningar. Dessa frågor hjälper dig att samla in strukturerade data på ett konsekvent sätt från alla svar i ditt projekt."
 
 msgid "Created"
 msgstr "Skapad"
 
 msgid "Customer service was less than expected"
-msgstr ""
+msgstr "Supporten var sämre än förväntat"
 
 msgid "Dashboard"
 msgstr "Panelen"
@@ -412,7 +412,7 @@ msgid "Drafts"
 msgstr "Utkast"
 
 msgid "Ease of use was less than expected"
-msgstr ""
+msgstr "Användarvänligheten var mindre än förväntat"
 
 msgid "Edit your project"
 msgstr "Redigera ditt projekt"
@@ -541,7 +541,7 @@ msgid "How researchers are using Pro"
 msgstr "Hur forskare och researchers använder Pro"
 
 msgid "I don't use the service enough"
-msgstr ""
+msgstr "Jag använder inte tjänsten tillräckligt mycket"
 
 msgid "I have read and accepted these terms and conditions"
 msgstr "Jag har läst och godkänt dessa villkor"
@@ -550,10 +550,10 @@ msgid "I understand and still want to cancel"
 msgstr "Jag förstår och vill fortfarande avbryta"
 
 msgid "I'll do this later"
-msgstr ""
+msgstr "Jag gör detta senare"
 
 msgid "I'm switching to a different service"
-msgstr ""
+msgstr "Jag byter till en annan tjänst"
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
 msgstr "Om betalningen fortsätter att misslyckas återgår tyvärr ditt konto till ett gratis konto och du har inte längre tillgång till {{pro_site_name}}."
@@ -589,7 +589,7 @@ msgid "Invoices"
 msgstr "Fakturor"
 
 msgid "It's too expensive"
-msgstr ""
+msgstr "Det är för dyrt"
 
 msgid "I’m a campaigner"
 msgstr "För civilsamhälle"
@@ -769,7 +769,7 @@ msgid "Options"
 msgstr "Alternativ"
 
 msgid "Other reason"
-msgstr ""
+msgstr "Annan anledning "
 
 msgid "Overflowing inbox?"
 msgstr "Överfylld inkorg?"
@@ -802,7 +802,7 @@ msgid "Please remember that our <a href=\"{{terms_url}}\">terms and conditions</
 msgstr "Kom ihåg att följa plattformens <a href=\"{{terms_url}}\">användarvillkor</a>, för att få göra förfrågningar."
 
 msgid "Please select a cancellation reason..."
-msgstr ""
+msgstr "Välj en orsak för uppsägningen..."
 
 msgid "Please tell us if you want to get updates"
 msgstr "Vänligen berätta om du vill ha uppdateringar"
@@ -888,7 +888,7 @@ msgstr[0] "Publicera denna begäran eller håll den privat för en längre perio
 msgstr[1] "Publicera dessa förfrågningar eller håll dem privata för en längre period."
 
 msgid "Quality was less than expected"
-msgstr ""
+msgstr "Kvaliteten var sämre än förväntat"
 
 msgid "Read blog"
 msgstr "Läs blogg"
@@ -1061,7 +1061,7 @@ msgid "Simple, affordable pricing"
 msgstr "Enkelt och överkomligt pris"
 
 msgid "Some features are missing"
-msgstr ""
+msgstr "Vissa funktioner saknas"
 
 msgid "Sorry, no authorities matched that search"
 msgstr "Tyvärr, ingen myndighet matchade den sökningen"
@@ -1239,7 +1239,7 @@ msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
 msgstr "Avslöjar vilka brittiska råd som betalar orimliga LOBO-lån"
 
 msgid "Undo"
-msgstr ""
+msgstr "Ångra"
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
 msgstr "Såvida du inte väljer ett sekretessalternativ kommer förfrågningar i denna serie att omedelbart bli offentliga på {{site_name}}."
@@ -1265,7 +1265,7 @@ msgstr[0] "Uppdatera dess status."
 msgstr[1] "Uppdatera statusar."
 
 msgid "Update project"
-msgstr ""
+msgstr "Uppdatera projekt"
 
 msgid "Updated"
 msgstr "Uppdaterad"
@@ -1382,7 +1382,7 @@ msgid "You haven't added any authorities to your batch yet"
 msgstr "Du har inte uppgivit några myndigheter till dina förfrågningar"
 
 msgid "You haven't added any requests to your project yet"
-msgstr ""
+msgstr "Du har inte lagt till några förfrågningar i ditt projekt ännu"
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
 msgstr "Du vet vad som orsakade felet och kan <strong> föreslå en lösning</strong>, såsom en giltig e-postadress."
@@ -1616,4 +1616,4 @@ msgid "{{public_body_name}} became long overdue in responding to your request \"
 msgstr "{{public_body_name}} blev mycket försenad med att svara till din begäran \"{{info_request_title}}\"."
 
 msgid "{{site_name}} Projects helps manage large FOI investigations by grouping requests, coordinating contributors, and extracting structured data — making complex research faster and more collaborative."
-msgstr ""
+msgstr "{{site_name}} Projekt hjälper till att hantera stora utredningar genom att gruppera förfrågningar, samordna bidragsgivare och extrahera strukturerade data – vilket gör komplex forskning snabbare och mer samarbetsinriktad."
