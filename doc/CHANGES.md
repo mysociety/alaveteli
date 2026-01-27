@@ -1,4 +1,9 @@
-<<<<<<< HEAD
+# 0.46.0.2
+
+## Highlighted Features
+
+* Updated translations from Transifex (Graeme Porteous)
+
 # 0.46.0.1
 
 ## Highlighted Features
