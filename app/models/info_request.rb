@@ -942,8 +942,6 @@ class InfoRequest < ApplicationRecord
       defaults
     end
 
-    return unless receive_mail_from_source? opts[:source]
-
     # Is this request allowing responses?
     accepted =
       if opts[:override_stop_new_responses]
@@ -1855,18 +1853,6 @@ class InfoRequest < ApplicationRecord
     ActsAsXapian::Search.new([InfoRequestEvent], query, defaults.merge(opts))
   end
   private_class_method :search_events
-
-  def receive_mail_from_source?(source)
-    if source == :internal
-      true
-    elsif feature_enabled?(:accept_mail_from_anywhere)
-      true
-    elsif user.features.enabled?(:accept_mail_from_poller)
-      source == :poller
-    else
-      source == :mailin
-    end
-  end
 
   def accept_incoming?(mail, inbound_email)
     # See if new responses are prevented
