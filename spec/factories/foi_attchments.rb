@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :foi_attachment do
+    incoming_message
+
     sequence(:url_part_number) { |n| n + 1 }
     display_size { '0K' }
     masked_at { 1.day.ago }
