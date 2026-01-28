@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow erasure of underlying raw email data (Graeme Porteous, Gareth Rees)
 * Restore logging of :email parameters (Gareth Rees)
 * Fix importing holidays from iCal feed (Gareth Rees)
 * Ability to search users by tag in admin interface (Gareth Rees)
