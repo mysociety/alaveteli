@@ -4133,7 +4133,7 @@ RSpec.describe InfoRequest do
     inbound_email.gsub!('EMAIL_FROM', email_from)
 
     mail = MailHandler.mail_from_string(inbound_email)
-    [mail, inbound_email]
+    [mail, mail.raw_source]
   end
 
   describe '#state' do

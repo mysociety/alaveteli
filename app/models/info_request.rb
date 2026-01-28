@@ -1889,7 +1889,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def create_response!(_mail, inbound_email, rejected_reason = nil)
+  def create_response!(mail, _inbound_email, rejected_reason = nil)
     incoming_message = incoming_messages.build
 
     # To avoid a deadlock when simultaneously dealing with two
@@ -1900,7 +1900,10 @@ class InfoRequest < ApplicationRecord
       raw_email = RawEmail.new
       incoming_message.raw_email = raw_email
       incoming_message.save!
-      raw_email.data = inbound_email
+
+      data = mail.raw_source # If mail library is passed a string
+      data = mail.encoded if data.empty? # or if built using the DSL
+      raw_email.data = data
       raw_email.save!
 
       unless described_state == 'user_withdrawn'
