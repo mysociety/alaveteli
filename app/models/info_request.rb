@@ -942,33 +942,34 @@ class InfoRequest < ApplicationRecord
       defaults
     end
 
-    if receive_mail_from_source? opts[:source]
-      # Is this request allowing responses?
-      accepted =
-        if opts[:override_stop_new_responses]
-          true
-        else
-          accept_incoming?(mail, inbound_email)
-        end
+    return unless receive_mail_from_source? opts[:source]
 
-      if accepted
-        incoming_message =
-          create_response!(mail, inbound_email, opts[:rejected_reason])
-
-        # Notify the user that a new response has been received, unless the
-        # request is external
-        unless is_external?
-          if use_notifications?
-            info_request_event = info_request_events.find_by(
-              event_type: 'response',
-              incoming_message_id: incoming_message.id
-            )
-            user.notify(info_request_event)
-          else
-            RequestMailer.new_response(self, incoming_message).deliver_now
-          end
-        end
+    # Is this request allowing responses?
+    accepted =
+      if opts[:override_stop_new_responses]
+        true
+      else
+        accept_incoming?(mail, inbound_email)
       end
+
+    return unless accepted
+
+    incoming_message = create_response!(
+      mail, inbound_email, opts[:rejected_reason]
+    )
+
+    # Notify the user that a new response has been received, unless the
+    # request is external
+    return if is_external?
+
+    if use_notifications?
+      info_request_event = info_request_events.find_by(
+        event_type: 'response',
+        incoming_message_id: incoming_message.id
+      )
+      user.notify(info_request_event)
+    else
+      RequestMailer.new_response(self, incoming_message).deliver_now
     end
   end
 
