@@ -12,7 +12,7 @@ class InfoRequest
         if info_request == holding_pen
           false
         else
-          holding_pen.receive(mail, { rejected_reason: reason })
+          holding_pen.receive(mail, rejected_reason: reason)
         end
       end
     end

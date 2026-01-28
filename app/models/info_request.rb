@@ -929,31 +929,13 @@ class InfoRequest < ApplicationRecord
     incoming_messages.any? { mail.message_id == _1.message_id }
   end
 
-  def receive(mail, *args)
+  def receive(mail, override_stop_new_responses: false, rejected_reason: nil)
     return if already_received?(mail)
 
-    defaults = { override_stop_new_responses: false,
-                 rejected_reason: nil }
-
-    opts = if args.first.is_a?(Hash)
-      defaults.merge(args.shift)
-    else
-      defaults
-    end
-
-    # Is this request allowing responses?
-    accepted =
-      if opts[:override_stop_new_responses]
-        true
-      else
-        accept_incoming?(mail)
-      end
-
+    accepted = override_stop_new_responses || accept_incoming?(mail)
     return unless accepted
 
-    incoming_message = create_response!(
-      mail, opts[:rejected_reason]
-    )
+    incoming_message = create_response!(mail, rejected_reason: rejected_reason)
 
     # Notify the user that a new response has been received, unless the
     # request is external
@@ -971,8 +953,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def receive_redelivery(incoming_message, editor:)
-    receive(incoming_message.raw_email.mail,
-            { override_stop_new_responses: true })
+    receive(incoming_message.raw_email.mail, override_stop_new_responses: true)
 
     incoming_message.info_request.log_event(
       'redeliver_incoming',
@@ -1887,7 +1868,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def create_response!(mail, rejected_reason = nil)
+  def create_response!(mail, rejected_reason: nil)
     incoming_message = incoming_messages.build
 
     # To avoid a deadlock when simultaneously dealing with two
