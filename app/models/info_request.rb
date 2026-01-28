@@ -933,8 +933,7 @@ class InfoRequest < ApplicationRecord
     return if already_received?(mail)
 
     defaults = { override_stop_new_responses: false,
-                 rejected_reason: nil,
-                 source: :internal }
+                 rejected_reason: nil }
 
     opts = if args.first.is_a?(Hash)
       defaults.merge(args.shift)

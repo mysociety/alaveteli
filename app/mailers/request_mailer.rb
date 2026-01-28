@@ -221,12 +221,12 @@ class RequestMailer < ApplicationMailer
   # actual original mail sent by the authority in the admin interface (so
   # can check that attachment decoding failures are problems in the message,
   # not in our code). ]
-  def self.receive(inbound_email, source = :mailin)
+  def self.receive(inbound_email)
     unless logger.nil?
-      logger.debug "Received mail from #{source}:\n #{inbound_email}"
+      logger.debug "Received mail:\n #{inbound_email}"
     end
     mail = MailHandler.mail_from_string(inbound_email)
-    new.receive(mail, inbound_email, source)
+    new.receive(mail, inbound_email)
   end
 
   # Find which info requests the email is for
@@ -243,8 +243,8 @@ class RequestMailer < ApplicationMailer
   end
 
   # Member function, called on the new class made in self.receive above
-  def receive(mail, inbound_email, source = :mailin)
-    opts = { source: source }
+  def receive(mail, inbound_email)
+    opts = {}
 
     # Only check mail that doesn't have spam in the header
     return if SpamAddress.spam?(MailHandler.get_all_addresses(mail))
