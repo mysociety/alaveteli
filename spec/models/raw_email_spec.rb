@@ -5,16 +5,49 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime
 #  updated_at :datetime
+#  erased_at  :datetime
 #
 
 require 'spec_helper'
 
 RSpec.describe RawEmail do
+  include ActiveJob::TestHelper
+
   def roundtrip_data(raw_email, data)
     raw_email.data = data
     raw_email.save!
     raw_email.reload
     raw_email.data
+  end
+
+  describe '#expire' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
+
+    it 'delegates to info_request' do
+      expect(raw_email.info_request).to receive(:expire)
+      raw_email.expire
+    end
+  end
+
+  describe '#log_event' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
+
+    it 'delegates to info_request' do
+      expect(raw_email.info_request).to receive(:log_event).with('edit')
+      raw_email.log_event('edit')
+    end
+  end
+
+  describe '#lock_all_attachments' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:raw_email) { incoming_message.raw_email }
+
+    it 'delegates to incoming_message' do
+      expect(raw_email.incoming_message).to receive(:lock_all_attachments)
+      raw_email.lock_all_attachments
+    end
   end
 
   describe '#valid_to_reply_to?' do
@@ -137,13 +170,218 @@ RSpec.describe RawEmail do
   end
 
   describe '#data_as_text' do
-    it 'returns a utf-8 string with a valid encoding if the data is non-ascii and non-utf8' do
+    subject { raw_email.data_as_text }
+
+    let(:raw_email) do
       raw_email = FactoryBot.create(:incoming_message).raw_email
       roundtrip_data(raw_email, "\xA0ccc")
-      data_as_text = raw_email.data_as_text
-      expect(data_as_text).to eq("ccc")
-      expect(data_as_text.encoding.to_s).to eq('UTF-8')
-      expect(data_as_text.valid_encoding?).to be true
+      raw_email
+    end
+
+    it 'returns a utf-8 string with a valid encoding if the data is non-ascii and non-utf8' do
+      expect(subject).to eq("ccc")
+      expect(subject.encoding.to_s).to eq('UTF-8')
+      expect(subject.valid_encoding?).to be true
+    end
+
+    context 'when erased' do
+      before do
+        raw_email.erase(
+          editor: FactoryBot.create(:admin_user),
+          reason: 'PII'
+        )
+      end
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#erasable?' do
+    subject { raw_email.erasable? }
+
+    let(:raw_email) { FactoryBot.build(:raw_email) }
+
+    context 'when all attachments are masked' do
+      before do
+        allow(raw_email).to receive(:all_attachments_masked?).and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when not all attachments are masked' do
+      before do
+        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#erased?' do
+    subject { raw_email.erased? }
+
+    let(:raw_email) do
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      message.raw_email = FactoryBot.create(:raw_email, :with_file)
+      message.save!
+      message.raw_email
+    end
+
+    it { is_expected.to eq(false) }
+
+    context 'when erased' do
+      before do
+        raw_email.erase(
+          editor: FactoryBot.create(:admin_user),
+          reason: 'PII'
+        )
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#erase' do
+    subject { raw_email.erase(editor: editor, reason: reason) }
+
+    let(:raw_email) do
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      message.raw_email = FactoryBot.create(:raw_email, :with_file)
+      message.save!
+      message.raw_email
+    end
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Removing PII' }
+
+    it 'locks all attachments' do
+      expect(raw_email.incoming_message).to receive(:lock_all_attachments).with(
+        editor: editor,
+        reason: 'RawEmail#erase',
+        raw_email: raw_email
+      )
+      subject
+    end
+
+    it 'purges later' do
+      expect { subject }.to have_enqueued_job(ActiveStorage::PurgeJob)
+    end
+
+    it 'purges the attached file' do
+      subject
+      expect(raw_email.reload.file).not_to be_attached
+    end
+
+    it 'touches erased_at' do
+      expect { subject }.to change(raw_email, :erased_at).from(nil)
+      expect(raw_email.erased_at).to be_a(Time)
+    end
+
+    def last_event
+      raw_email.info_request.info_request_events.last
+    end
+
+    it 'logs an event on the associated info_request' do
+      expect { subject }.to change { last_event }
+      expect(last_event.event_type).to eq('erase_raw_email')
+    end
+
+    it 'expires the associated info_request' do
+      expect(raw_email.info_request).to receive(:expire)
+      subject
+    end
+
+    it { is_expected.to eq(true) }
+
+    context 'when already erased' do
+      before { allow(raw_email).to receive(:erased?).and_return(true) }
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(described_class::AlreadyErasedError)
+      end
+    end
+
+    context 'when there are unmasked attachments' do
+      before do
+        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+      end
+
+      it 'raises an error' do
+        expect { subject }.
+          to raise_error(described_class::UnmaskedAttachmentsError)
+      end
+    end
+
+    context 'when an attachment cannot be locked' do
+      before do
+        expect(raw_email).to receive(:lock_all_attachments).and_return(false)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when an event cannot be logged' do
+      before do
+        expect(raw_email).to receive(:log_event).and_return(false)
+      end
+
+      it 'does not erase the file' do
+        subject
+        perform_enqueued_jobs
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the file cannot be purged' do
+      before do
+        expect_any_instance_of(ActiveStorage::Attached::One).
+          to receive(:purge_later).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        perform_enqueued_jobs
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the record cannot be touched' do
+      before do
+        expect(raw_email).
+          to receive(:touch).and_raise(ActiveRecord::ActiveRecordError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the info request cannot be expired' do
+      before do
+        expect(raw_email).to receive(:expire).and_raise(StandardError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(raw_email.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
     end
   end
 

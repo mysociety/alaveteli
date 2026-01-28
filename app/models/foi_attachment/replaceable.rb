@@ -47,6 +47,7 @@ module FoiAttachment::Replaceable
     if replacing? || (replaced? && replaced_filename_changed?)
       self.filename = replaced_filename.presence ||
                       replacement_file&.original_filename ||
+                      filename ||
                       mail_attributes[:filename]
       ensure_filename!
     end

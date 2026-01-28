@@ -88,6 +88,207 @@ RSpec.describe IncomingMessage do
     it { is_expected.to eq(response_event) }
   end
 
+  describe '#parse_raw_email!' do
+    subject { message.parse_raw_email! }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'when the raw_email is erased' do
+      before do
+        allow(message).to receive(:raw_email).and_return(double(erased?: true))
+      end
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+      end
+    end
+  end
+
+  describe '#extract_attachments!' do
+    subject { message.extract_attachments! }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    context 'when the raw_email is erased' do
+      before do
+        allow(message).to receive(:raw_email).and_return(double(erased?: true))
+      end
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+      end
+    end
+  end
+
+  describe '#lock_all_attachments' do
+    subject { message.lock_all_attachments(editor: editor, reason: reason) }
+
+    let!(:message) { FactoryBot.create(:incoming_message) }
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'lock_all' }
+
+    let!(:attachment_1) do
+      FactoryBot.create(:pdf_attachment, :unlocked, incoming_message: message)
+    end
+
+    let!(:attachment_2) do
+      FactoryBot.create(:csv_attachment, :unlocked, incoming_message: message)
+    end
+
+    before { message.reload }
+
+    it 'locks all attachments' do
+      subject
+      expect([attachment_1, attachment_2].map(&:reload)).to all(be_locked)
+    end
+
+    it { is_expected.to eq(true) }
+
+    context 'when some attachments cannot be locked' do
+      before do
+        # Only stub attachment_2 to fail
+        allow_any_instance_of(FoiAttachment).
+          to receive(:lock!).and_wrap_original do |method, **args|
+            if method.receiver.id == attachment_2.id
+              raise ActiveRecord::RecordInvalid
+            else
+              method.call(**args)
+            end
+          end
+      end
+
+      it 'does not lock any of the attachments' do
+        subject
+        expect([attachment_1, attachment_2].map(&:reload)).to all(be_unlocked)
+      end
+
+      it 'does not expire any of the attachments' do
+        expect_any_instance_of(FoiAttachment).not_to receive(:expire)
+        subject
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when logging the event' do
+      subject do
+        message.lock_all_attachments(
+          editor: editor,
+          reason: reason,
+          extra: 'context'
+        )
+      end
+
+      def last_event_for(attachment)
+        attachment.
+          info_request.
+          info_request_events.
+          where(event_type: 'edit_attachment').
+          last
+      end
+
+      it 'logs the required editor parameter for all attachments' do
+        subject
+        expect(last_event_for(attachment_1).params[:editor]).to eq(editor)
+        expect(last_event_for(attachment_2).params[:editor]).to eq(editor)
+      end
+
+      it 'logs the required reason parameter for all attachments' do
+        subject
+        expect(last_event_for(attachment_1).params[:reason]).to eq(reason)
+        expect(last_event_for(attachment_2).params[:reason]).to eq(reason)
+      end
+
+      it 'logs the optional additional parameters for all attachments' do
+        subject
+        expect(last_event_for(attachment_1).params[:extra]).to eq('context')
+        expect(last_event_for(attachment_2).params[:extra]).to eq('context')
+      end
+    end
+  end
+
+  describe '#all_attachments_masked?' do
+    subject { message.all_attachments_masked? }
+
+    let(:message) { FactoryBot.create(:incoming_message) }
+
+    context 'when all attachments are masked' do
+      before do
+        allow(message).to receive(:foi_attachments).
+          and_return([double(masked?: true), double(masked?: true)])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when some attachments are not masked' do
+      before do
+        allow(message).to receive(:foi_attachments).
+          and_return([double(masked?: true), double(masked?: false)])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when no attachments are masked' do
+      before do
+        allow(message).to receive(:foi_attachments).
+          and_return([double(masked?: false), double(masked?: false)])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when there are no attachments' do
+      before do
+        message.foi_attachments.destroy_all
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#raw_email_erased?' do
+    subject { message.raw_email_erased? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    before do
+      allow(message).to receive(:raw_email).and_return(raw_email)
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(erased?: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the raw_email is not erased' do
+      let(:raw_email) { double(erased?: false) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#redeliverable?' do
+    subject { message.redeliverable? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    before do
+      allow(message).to receive(:raw_email).and_return(raw_email)
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(erased?: true) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the raw_email is not erased' do
+      let(:raw_email) { double(erased?: false) }
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#from_name' do
     it 'returns the name in the From: field of an email' do
       inbound_email = <<-EOF.strip_heredoc

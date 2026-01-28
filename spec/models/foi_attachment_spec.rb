@@ -75,6 +75,33 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe 'validation: must_be_unlockable_to_unlock' do
+    let(:foi_attachment) do
+      attachment = FactoryBot.create(:body_text, :locked)
+      attachment.incoming_message = FactoryBot.create(:plain_incoming_message)
+      attachment
+    end
+
+    # Attempt to unlock
+    before { foi_attachment.locked = false }
+
+    context 'when attempting to unlock an attachment that is not unlockable' do
+      before do
+        allow(foi_attachment).to receive(:unlockable?).and_return(false)
+        foi_attachment.valid?
+      end
+
+      it 'is invalid' do
+        expect(foi_attachment).not_to be_valid
+      end
+
+      it 'adds an error' do
+        msg = 'This attachment cannot be unlocked.'
+        expect(foi_attachment.errors[:base]).to include(msg)
+      end
+    end
+  end
+
   describe 'replacement attributes' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
 
@@ -1083,6 +1110,41 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#lockable?' do
+    subject { foi_attachment.lockable? }
+
+    context 'when it is unlocked' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :unlocked) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when it is already locked' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :locked) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#unlockable?' do
+    subject { foi_attachment.unlockable? }
+    let(:foi_attachment) { FactoryBot.build(:body_text) }
+
+    before do
+      allow(foi_attachment).
+        to receive(:incoming_message).
+        and_return(incoming_message)
+    end
+
+    context 'when the raw email is persisted' do
+      let(:incoming_message) { double(raw_email_erased?: false) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the raw email is erased' do
+      let(:incoming_message) { double(raw_email_erased?: true) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#locking?' do
     let(:foi_attachment) { FactoryBot.create(:body_text, locked: false) }
     subject { foi_attachment.locking? }
@@ -1246,6 +1308,9 @@ RSpec.describe FoiAttachment do
     before do
       allow(foi_attachment).to receive(:mail_attributes).
         and_return(body: original_body)
+
+      allow(foi_attachment).to receive(:incoming_message).
+        and_return(double(raw_email_erased?: false))
     end
 
     context 'when locking an unmasked attachment' do
@@ -1378,6 +1443,59 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.file_blob).to receive(:save)
         foi_attachment.replacement_body = new_body
         foi_attachment.save
+      end
+    end
+
+    context 'filename selection' do
+      let(:new_body) { 'Replacement content' }
+
+      before do
+        foi_attachment.filename = 'current.txt'
+        allow(foi_attachment).to receive(:mail_attributes).
+          and_return(body: 'Original', filename: 'attachment.txt')
+      end
+
+      context 'when replaced_filename is provided' do
+        it 'uses the replaced_filename' do
+          foi_attachment.replaced_filename = 'custom.txt'
+          foi_attachment.replacement_body = new_body
+          foi_attachment.save
+          expect(foi_attachment.filename).to eq('custom.txt')
+        end
+      end
+
+      context 'when replaced_filename is blank and replacement_file is present' do
+        let(:replacement) do
+          fixture_file_upload('interesting.csv', 'text/csv')
+        end
+
+        it 'uses the replacement file original_filename' do
+          foi_attachment.replaced_filename = ''
+          foi_attachment.replacement_file = replacement
+          foi_attachment.save
+          # FIXME: Ideally this would eq('interesting.csv')
+          # See https://github.com/mysociety/alaveteli/issues/9016
+          expect(foi_attachment.filename).to eq('interesting.csv.txt')
+        end
+      end
+
+      context 'when replaced_filename and replacement_file are blank' do
+        it 'uses the current filename' do
+          foi_attachment.replaced_filename = ''
+          foi_attachment.replacement_body = new_body
+          foi_attachment.save
+          expect(foi_attachment.filename).to eq('current.txt')
+        end
+      end
+
+      context 'when all other options are blank' do
+        it 'falls back to mail_attributes filename' do
+          foi_attachment.filename = nil
+          foi_attachment.replaced_filename = ''
+          foi_attachment.replacement_body = new_body
+          foi_attachment.save
+          expect(foi_attachment.filename).to eq('attachment.txt')
+        end
       end
     end
   end
