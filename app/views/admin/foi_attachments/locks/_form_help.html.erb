@@ -1,0 +1,20 @@
+<div class="help-block">
+  <p>
+    Attachments can be “<%= icon(:lock) %> locked” to prevent further
+    modification of their contents, either from automated parsing of the
+    underlying data or admin actions like applying/removing redactions.
+  </p>
+
+  <strong>When locking an attachment:</strong>
+
+  <ol>
+    <li>Attachment will be preserved with current applicable censor rules applied</li>
+    <li>New censor rules will not be applied</li>
+  </ol>
+
+  <strong>When unlocking an attachment:</strong>
+  <ol>
+    <li>All applicable censor rules at the point of unlocking will be re-applied to the original attachment</li>
+    <li>Any replacement will be removed and the attachment will revert back to the original copy</li>
+  </ol>
+</div>

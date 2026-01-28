@@ -10,6 +10,44 @@ module FoiAttachment::Lockable
     scope :unlocked, -> { where(locked: false) }
   end
 
+  # Note that #lock still raises on failure. This version also runs
+  # pre-and-post-locking steps, whereas #lock! omits these for more flexibility
+  # when composing with other actions.
+  def lock(...)
+    lock!(...)
+    expire
+  end
+
+  # Note that #unlock still raises on failure. This version also runs
+  # pre-and-post-unlocking steps, whereas #unlock! omits these for more
+  # flexibility when composing with other actions.
+  def unlock(...)
+    unlock!(...)
+    expire
+  end
+
+  def lock!(editor:, reason:, **event)
+    return true if locked?
+
+    update_and_log_event!(
+      event: { **event, editor: editor, reason: reason },
+      locked: true
+    )
+
+    true
+  end
+
+  def unlock!(editor:, reason:, **event)
+    return true if unlocked?
+
+    update_and_log_event!(
+      event: { **event, editor: editor, reason: reason },
+      locked: false
+    )
+
+    true
+  end
+
   def unlocked?
     !locked?
   end

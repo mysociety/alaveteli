@@ -4,43 +4,32 @@ class Admin::FoiAttachments::LocksController < AdminController
   before_action :check_info_request
 
   def create
-    if @foi_attachment.update_and_log_event(
-        locked: true,
-        event: { editor: admin_current_user }
-      )
-      @foi_attachment.expire
+    @foi_attachment.lock(editor: admin_current_user, reason: reason)
 
-      flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
-        <<~TXT.squish
-          Attachment locked. Please wait for masking to complete before adding
-          additional censor rules.
-        TXT
-      else
-        'Attachment locked.'
-      end
+    flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
+      <<~TXT.squish
+        Attachment locked. Please wait for masking to complete before adding
+        additional censor rules.
+      TXT
     else
-      flash[:error] = @foi_attachment.errors.full_messages.to_sentence
+      'Attachment locked.'
     end
 
     redirect_to edit_admin_foi_attachment_path(@foi_attachment)
   end
 
   def destroy
-    if @foi_attachment.update_and_log_event(
-        locked: false,
-        event: { editor: admin_current_user }
-      )
-      @foi_attachment.expire
+    @foi_attachment.unlock(editor: admin_current_user, reason: reason)
 
-      flash[:notice] = 'Attachment unlocked.'
-    else
-      flash[:error] = @foi_attachment.errors.full_messages.to_sentence
-    end
-
-    redirect_to edit_admin_foi_attachment_path(@foi_attachment)
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment),
+                notice: 'Attachment unlocked.'
   end
 
   private
+
+  def reason
+    params[:reason]
+  end
 
   def set_foi_attachment
     @foi_attachment = FoiAttachment.find(params[:foi_attachment_id])
