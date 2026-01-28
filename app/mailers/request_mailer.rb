@@ -226,7 +226,7 @@ class RequestMailer < ApplicationMailer
       logger.debug "Received mail:\n #{inbound_email}"
     end
     mail = MailHandler.mail_from_string(inbound_email)
-    new.receive(mail, inbound_email)
+    new.receive(mail)
   end
 
   # Find which info requests the email is for
@@ -235,15 +235,15 @@ class RequestMailer < ApplicationMailer
     InfoRequest.matching_incoming_email(addresses)
   end
 
-  def send_to_holding_pen(mail, inbound_email, opts)
+  def send_to_holding_pen(mail, opts)
     opts[:rejected_reason] =
       _("Could not identify the request from the email address")
     request = InfoRequest.holding_pen_request
-    request.receive(mail, inbound_email, opts)
+    request.receive(mail, opts)
   end
 
   # Member function, called on the new class made in self.receive above
-  def receive(mail, inbound_email)
+  def receive(mail)
     opts = {}
 
     # Only check mail that doesn't have spam in the header
@@ -255,7 +255,7 @@ class RequestMailer < ApplicationMailer
     if exact_info_requests.count > 0
       # Go through each exact info request and deliver the email
       exact_info_requests.each do |info_request|
-        info_request.receive(mail, inbound_email, opts)
+        info_request.receive(mail, opts)
       end
 
       return
@@ -273,11 +273,11 @@ class RequestMailer < ApplicationMailer
         editor: 'automatic',
         destination_request: info_request
       )
-      info_request.receive(mail, inbound_email, opts)
+      info_request.receive(mail, opts)
 
     else
       # Otherwise we send the mail to the holding pen
-      send_to_holding_pen(mail, inbound_email, opts)
+      send_to_holding_pen(mail, opts)
     end
   end
 

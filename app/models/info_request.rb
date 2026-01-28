@@ -929,7 +929,7 @@ class InfoRequest < ApplicationRecord
     incoming_messages.any? { mail.message_id == _1.message_id }
   end
 
-  def receive(mail, inbound_email, *args)
+  def receive(mail, *args)
     return if already_received?(mail)
 
     defaults = { override_stop_new_responses: false,
@@ -946,13 +946,13 @@ class InfoRequest < ApplicationRecord
       if opts[:override_stop_new_responses]
         true
       else
-        accept_incoming?(mail, inbound_email)
+        accept_incoming?(mail)
       end
 
     return unless accepted
 
     incoming_message = create_response!(
-      mail, inbound_email, opts[:rejected_reason]
+      mail, opts[:rejected_reason]
     )
 
     # Notify the user that a new response has been received, unless the
@@ -972,7 +972,6 @@ class InfoRequest < ApplicationRecord
 
   def receive_redelivery(incoming_message, editor:)
     receive(incoming_message.raw_email.mail,
-            incoming_message.raw_email.data,
             { override_stop_new_responses: true })
 
     incoming_message.info_request.log_event(
@@ -1853,7 +1852,7 @@ class InfoRequest < ApplicationRecord
   end
   private_class_method :search_events
 
-  def accept_incoming?(mail, inbound_email)
+  def accept_incoming?(mail)
     # See if new responses are prevented
     gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
     # Take action if the message looks like spam
@@ -1874,8 +1873,7 @@ class InfoRequest < ApplicationRecord
     # Figure out how to reject the mail if it was rejected
     response_rejection =
       if response_rejector
-        ResponseRejection.
-          for(response_rejector.rejection_action, self, mail, inbound_email)
+        ResponseRejection.for(response_rejector.rejection_action, self, mail)
       end
 
     will_be_rejected = (response_rejector && response_rejection) ? true : false
@@ -1889,7 +1887,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def create_response!(mail, _inbound_email, rejected_reason = nil)
+  def create_response!(mail, rejected_reason = nil)
     incoming_message = incoming_messages.build
 
     # To avoid a deadlock when simultaneously dealing with two
