@@ -101,9 +101,11 @@ RSpec.describe Admin::FoiAttachments::ProminenceController do
         expect(flash[:error]).to eq('Prominence is not included in the list')
       end
 
-      it 'renders the edit template' do
+      it 'redirects to the attachment edit page' do
         patch :update, params: params
-        expect(response).to render_template('admin/foi_attachments/edit')
+        expect(response).to redirect_to(
+          edit_admin_foi_attachment_path(attachment)
+        )
       end
     end
 
