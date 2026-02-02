@@ -1254,6 +1254,9 @@ Rails/EnumSyntax:
 Rails/EnumUniqueness:
   Enabled: false
 
+Rails/Env:
+  Enabled: false
+
 Rails/EnvLocal:
   Enabled: false
 
@@ -1300,6 +1303,9 @@ Rails/HttpPositionalArguments:
   Enabled: false
 
 Rails/HttpStatus:
+  Enabled: false
+
+Rails/HttpStatusNameConsistency:
   Enabled: false
 
 Rails/I18nLazyLookup:
@@ -1390,6 +1396,9 @@ Rails/RakeEnvironment:
   Enabled: false
 
 Rails/ReadWriteAttribute:
+  Enabled: false
+
+Rails/RedirectBackOrTo:
   Enabled: false
 
 Rails/RedundantActiveRecordAllMethod:
@@ -1756,6 +1765,9 @@ Style/EmptyBlockParameter:
 Style/EmptyCaseCondition:
   Enabled: true
 
+Style/EmptyClassDefinition:
+  Enabled: false
+
 Style/EmptyElse:
   Enabled: true
 
@@ -1862,6 +1874,9 @@ Style/HashFetchChain:
   Enabled: false
 
 Style/HashLikeCase:
+  Enabled: false
+
+Style/HashLookupMethod:
   Enabled: false
 
 Style/HashSlice:
@@ -2033,6 +2048,9 @@ Style/NegatedUnless:
 
 Style/NegatedWhile:
   Enabled: true
+
+Style/NegativeArrayIndex:
+  Enabled: false
 
 Style/NestedFileDirname:
   Enabled: false
@@ -2254,6 +2272,9 @@ Style/ReturnNil:
   Enabled: false
 
 Style/ReturnNilInPredicateMethodDefinition:
+  Enabled: false
+
+Style/ReverseFind:
   Enabled: false
 
 Style/SafeNavigation:
