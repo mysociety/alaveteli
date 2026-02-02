@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Allow responses to be received from any source (Graeme Porteous)
 * Allow erasure of underlying raw email data (Graeme Porteous, Gareth Rees)
 * Restore logging of :email parameters (Gareth Rees)
@@ -20,8 +21,21 @@
 ## Upgrade Notes
 
 * _Note:_ This release now allows responses to be received from any source,
-  1. Postfix/Exim `./script/mailin` pipe or 2. POP poller.
-  While you can have multiple sources configured we recommend using one only.
+  1. Postfix/Exim `./script/mailin` pipe, 2. POP poller or 3. ActionMailbox
+  While you can have multiple sources configured we recommend migrating to
+  ActionMailbox as the others are depreicated and will be removed in a future
+  release.
+  See: https://github.com/mysociety/alaveteli/wiki/ActionMailbox-Migration-Guide
+
+* _Required:_ After ActionMailbox migration please backup `config/master.key`.
+  This file gets generated automatically and is the private encryption key for
+  the credentials. Without it the application can't read credentials. If you
+  ever move servers or reinstall Alaveteli then you will need this file. See:
+  https://guides.rubyonrails.org/security.html#custom-credentials
+
+* _Required:_ Please update your `config/storage.yml` file to include a
+  production configuration for `inbound_emails`. See
+  `config/storage.yml-example` as an example.
 
 * _Optional:_ The new ATI Network Impacts Showcase page can be disabled by
   adding a configuration setting in the theme controller patches:
