@@ -114,7 +114,7 @@ fi
 configure_postfix() {
   ensure_line_present \
       "^ *alaveteli *unix *" \
-      "alaveteli unix  -       n       n       -       50      pipe flags=R user=$UNIX_USER argv=$REPOSITORY/script/mailin" \
+      "alaveteli unix  -       n       n       -       -       pipe flags=R user=$UNIX_USER argv=$REPOSITORY/bin/rails action_mailbox:ingress:postfix URL=https://$HOST/rails/action_mailbox/postfix/inbound_emails INGRESS_PASSWORD=$INGRESS_PASSWORD" \
       /etc/postfix/master.cf 644
 
   ensure_line_present \
@@ -191,9 +191,6 @@ EOF
   postfix reload
 }
 # (end of the Postfix configuration)
-
-install_postfix
-configure_postfix
 
 # Ensure we have required Ruby version from the current distribution package, if
 # not then install using rbenv
@@ -273,11 +270,15 @@ if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
         adduser --quiet --disabled-password --gecos "An incoming mail user for the site $SITE" "alaveteli-incoming"
         usermod --groups mail --password `openssl passwd -1 alaveteli-incoming` alaveteli-incoming
   fi
- elif [ x"$RETRIEVER_METHOD" = x"pop" ]; then
+elif [ x"$RETRIEVER_METHOD" = x"pop" ]; then
 
   echo "Warning: No POP server has been setup, please install your own securely"
   echo "or use a remote one."
 
+else
+  export INGRESS_PASSWORD=$(su -l -c "cd '$REPOSITORY' && bundle exec rails runner 'puts Rails.application.credentials.action_mailbox.ingress_password'" "$UNIX_USER")
+  install_postfix
+  configure_postfix
 fi
 
 cd "$REPOSITORY"
