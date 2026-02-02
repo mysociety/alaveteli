@@ -402,7 +402,7 @@ GEM
     prime (0.1.4)
       forwardable
       singleton
-    prism (1.8.0)
+    prism (1.9.0)
     pry (0.16.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -594,7 +594,7 @@ GEM
     timeout (0.6.0)
     trailblazer-option (0.1.2)
     tsort (0.2.0)
-    turbo-rails (2.0.21)
+    turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
     typhoeus (1.4.1)
@@ -732,7 +732,7 @@ DEPENDENCIES
   stripe (~> 13.5.1)
   stripe-ruby-mock (~> 5.0.0)
   syslog_protocol (~> 0.9.0)
-  turbo-rails (~> 2.0.21)
+  turbo-rails (~> 2.0.23)
   unicode (~> 0.4.4)
   unidecoder (~> 1.1.0)
   uri (~> 1.1.1)
