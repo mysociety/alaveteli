@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow responses to be received from any source (Graeme Porteous)
 * Allow erasure of underlying raw email data (Graeme Porteous, Gareth Rees)
 * Restore logging of :email parameters (Gareth Rees)
 * Fix importing holidays from iCal feed (Gareth Rees)
@@ -18,6 +19,9 @@
 
 ## Upgrade Notes
 
+* _Note:_ This release now allows responses to be received from any source,
+  1. Postfix/Exim `./script/mailin` pipe or 2. POP poller.
+  While you can have multiple sources configured we recommend using one only.
 
 * _Optional:_ The new ATI Network Impacts Showcase page can be disabled by
   adding a configuration setting in the theme controller patches:
