@@ -124,7 +124,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    annotaterb (4.20.0)
+    annotaterb (4.21.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
     ast (2.4.3)
@@ -402,7 +402,7 @@ GEM
     prime (0.1.4)
       forwardable
       singleton
-    prism (1.8.0)
+    prism (1.9.0)
     pry (0.16.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -650,7 +650,7 @@ DEPENDENCIES
   acts_as_versioned!
   addressable (~> 2.8.7)
   alaveteli_features!
-  annotaterb (~> 4.20.0)
+  annotaterb (~> 4.21.0)
   aws-sdk-s3
   bcrypt (~> 3.1.21)
   benchmark (~> 0.5.0)
