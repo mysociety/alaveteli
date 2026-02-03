@@ -1,34 +1,20 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags("public") %>
+<% end %>
+
 <h2><%= _("Act on what you've learnt") %></h2>
 
 <div class="act_link">
-  <i class="act-link-icon act-link-icon--twitter"></i>
-  <% tweet_link = "https://twitter.com/intent/post?" << {
-    :url => request.url,
-    :via => AlaveteliConfiguration.twitter_username,
-    :text => "'#{ info_request.title }'",
-    :related => _('mySociety:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
-    }.to_query
-  %>
-
-  <%= link_to _("Share on X"),
-              tweet_link,
-              :onclick => track_analytics_event(
-                AnalyticsEvent::Category::OUTBOUND,
-                AnalyticsEvent::Action::TWITTER_EXIT,
-                :label => "Request sidebar") %>
-</div>
-
-<div class="act_link">
-  <% share_link = "https://www.facebook.com/sharer/sharer.php?" << {
-        :u => request.url
-      }.to_query %>
-  <i class="act-link-icon act-link-icon--facebook"></i>
-  <%= link_to _("Share on Facebook"),
-              share_link,
-              :onclick => track_analytics_event(
-                AnalyticsEvent::Category::OUTBOUND,
-                AnalyticsEvent::Action::FACEBOOK_EXIT,
-                :label => "Request sidebar") %>
+  <i class="act-link-icon act-link-icon--web-share"></i>
+  <a href="<%= request.url %>"
+     class="share-button js-share-request"
+     role="button"
+     data-share-title="<%= info_request.title %>"
+     data-share-url="<%= request.url %>"
+     data-clipboard-text="<%= request.url %>"
+     data-clipboard-success="<%= _('Link copied!') %>">
+    <%= _("Share this request") %>
+  </a>
 </div>
 
 <div class="act_link">

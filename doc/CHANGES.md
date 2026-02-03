@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Added Web Share API option on request pages (Lucas Cumsille Montesinos)
 * Add prioritisation indication of admin summary todos (Gareth Rees)
 * Update Exim message ID matching (Graeme Porteous)
 * Allow erasure of underlying raw email data (Graeme Porteous, Gareth Rees)
