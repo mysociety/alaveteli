@@ -269,7 +269,7 @@ Layout/LineEndStringConcatenationIndentation:
 Layout/LineLength:
   Enabled: true
   Max: 80
-  IgnoreCopDirectives: false
+  AllowCopDirectives: true
   AllowedPatterns:
     - "^\\s*it\\s+.*do$"
     - "^\\s*context\\s+.*do$"
@@ -284,6 +284,7 @@ Layout/LineLength:
     - config/initializers/backtrace_silencers.rb
     - config/initializers/content_security_policy.rb
     - config/initializers/new_framework_defaults*
+    - db/migrate/*
 
 Layout/MultilineArrayBraceLayout:
   Enabled: true
@@ -386,6 +387,8 @@ Layout/SpaceInLambdaLiteral:
 
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: true
+  Exclude:
+    - db/migrate/*
 
 Layout/SpaceInsideArrayPercentLiteral:
   Enabled: true
