@@ -35,6 +35,12 @@ to update overrides in your theme to match the new templates.
 
     None yet
 
+# 0.46.1.1
+
+## Highlighted Features
+
+* Update Exim message ID matching (Graeme Porteous)
+
 # 0.46.1.0
 
 ## Highlighted Features
