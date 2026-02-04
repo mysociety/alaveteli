@@ -557,7 +557,7 @@ class OutgoingMessage < ApplicationRecord
                 try(:line)
     end
 
-    lines.compact.map { |line| line[/\w{6}-\w{6}-\w{2}/].strip }.compact
+    lines.compact.map { |line| line[/\b\w{6}-(?:\w{6}-\w{2}|\w{11}-\w{4})\b/].strip }.compact
   end
 
   def exim_mail_server_logs
