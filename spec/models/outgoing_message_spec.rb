@@ -1067,7 +1067,7 @@ RSpec.describe OutgoingMessage do
       end
 
       context 'a sent message' do
-        it 'returns one mta_id when a message has been sent once' do
+        it 'returns one mta_id when a message has older Exim message IDs' do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
@@ -1081,6 +1081,22 @@ RSpec.describe OutgoingMessage do
           EOF
 
           expect(message.mta_ids).to eq(['1ZsFHb-0004dK-SM'])
+        end
+
+        it 'returns one mta_id when a message has newer Exim message IDs' do
+          message = FactoryBot.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(html: false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          2026-02-04 09:28:16 [27817] 1vnK2E-00000002Cfc-2ahs => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+          2026-02-04 09:28:16 [27814] 1vnK2E-00000002Cfc-2ahs <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2026-02-04 09:28:15 [27814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+          EOF
+
+          expect(message.mta_ids).to eq(['1vnK2E-00000002Cfc-2ahs'])
         end
 
         it 'returns one mta_id when a message has syslog format logs' do
