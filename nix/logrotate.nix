@@ -64,6 +64,7 @@ in
           notifempty
           compress
           delaycompress
+          copytruncate
           su alaveteli alaveteli
       }
     '';
