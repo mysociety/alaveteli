@@ -16,12 +16,26 @@ in
     defaultConfig = ''
       mail.*                  -/var/log/mail/mail.log
       mail.err                 /var/log/mail/mail.err
+      local5.*                -/var/log/dovecot/dovecot.log
+      local5.warning;local5.error;local5.crit   -/var/log/dovecot/dovecot-errors.log
     '';
   };
 
   services.logrotate = {
     enable = true;
     configFile = pkgs.writeText "logrotate.conf" ''
+      /var/log/dovecot.log {
+        daily
+        rotate 180
+        missingok
+        notifempty
+        compress
+        delaycompress
+        sharedscripts
+        postrotate
+            doveadm log reopen
+        endscript
+      }
       /var/log/mail/mail.log
       {
           rotate 180

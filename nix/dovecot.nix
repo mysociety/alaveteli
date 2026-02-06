@@ -35,6 +35,8 @@ in
       # auth_debug = yes
       # auth_debug_passwords=yes
 
+      syslog_facility=local5
+
       service auth {
         # Postfix smtp-auth over submission port
         unix_listener /var/lib/postfix/queue/private/auth {
