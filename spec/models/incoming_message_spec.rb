@@ -26,7 +26,7 @@ require 'models/concerns/message_prominence'
 require 'models/concerns/taggable'
 
 def populate_raw_email(fixture)
-  mail = get_fixture_mail(fixture, to, from)
+  mail = get_fixture_mail(fixture, email_to: to, email_from: from)
   raw_email.update!(data: mail)
 end
 

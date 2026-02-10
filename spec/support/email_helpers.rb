@@ -9,7 +9,7 @@ def receive_incoming_mail(filename_or_string, **kwargs)
   )&.route
 end
 
-def get_fixture_mail(filename_or_string, email_to = nil, email_from = nil)
+def get_fixture_mail(filename_or_string, email_to: nil, email_from: nil)
   content = load_file_fixture(filename_or_string) || filename_or_string
   content = gsub_addresses(content, email_from: email_from, email_to: email_to)
   Mail.from_source(content)

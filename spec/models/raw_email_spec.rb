@@ -74,7 +74,9 @@ RSpec.describe RawEmail do
 
     context 'checking validity to reply to with real emails' do
       def test_real(fixture_file, expected)
-        mail = get_fixture_mail(fixture_file, 'a@example.com', 'b@example.net')
+        mail = get_fixture_mail(
+          fixture_file, email_to: 'a@example.com', email_from: 'b@example.net'
+        )
         raw_email = FactoryBot.create(:raw_email)
         FactoryBot.create(:incoming_message, raw_email: raw_email)
         raw_email.update!(data: mail)
@@ -389,8 +391,9 @@ RSpec.describe RawEmail do
     subject { raw_email.from_email_domain }
 
     let(:raw_email) do
-      mail =
-        get_fixture_mail('incoming-request-plain.eml', nil, 'b@example.net')
+      mail = get_fixture_mail(
+        'incoming-request-plain.eml', email_from: 'b@example.net'
+      )
       raw_email = FactoryBot.create(:raw_email)
       FactoryBot.create(:incoming_message, raw_email: raw_email)
       raw_email.update!(data: mail)
