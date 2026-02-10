@@ -1497,6 +1497,180 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#clear_replacement' do
+    subject do
+      foi_attachment.clear_replacement(
+        editor: editor, reason: reason, extra: 'context'
+      )
+    end
+
+    let(:foi_attachment) do
+      FactoryBot.create(:body_text, :replaced, replacement_body: 'New body')
+    end
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'No longer needed' }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:original_body) { 'The original body content' }
+
+    before do
+      allow(foi_attachment).to receive(:info_request).and_return(info_request)
+      allow(foi_attachment).to receive(:mail_attributes).
+        and_return(body: original_body, filename: 'original.txt')
+    end
+
+    it 'calls clear_replacement! with the given arguments' do
+      expect(foi_attachment).to receive(:clear_replacement!).
+        with(editor: editor, reason: reason, extra: 'context')
+      subject
+    end
+
+    it 'expires the attachment' do
+      expect(foi_attachment).to receive(:expire)
+      subject
+    end
+  end
+
+  describe '#clear_replacement!' do
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'No longer needed' }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:original_body) { 'The original body content' }
+
+    before do
+      allow(foi_attachment).to receive(:info_request).and_return(info_request)
+      allow(foi_attachment).to receive(:mail_attributes).
+        and_return(body: original_body, filename: 'original.txt')
+    end
+
+    def last_event
+      foi_attachment.info_request.info_request_events.last
+    end
+
+    context 'when it is replaced' do
+      subject do
+        foi_attachment.clear_replacement!(editor: editor, reason: reason)
+      end
+
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :replaced, replacement_body: 'New body')
+      end
+
+      it 'restores the original body' do
+        # ensure FoiAttachmentMaskJob isn't run when calling #body - it'll break
+        # due to there being no associated incoming_message/info_request
+        allow(foi_attachment).to receive(:masked?).and_return(true)
+
+        subject
+        expect(foi_attachment.body).to eq(original_body)
+      end
+
+      it 'clears replaced_at' do
+        subject
+        expect(foi_attachment.reload.replaced_at).to be_nil
+      end
+
+      it 'clears replaced_reason' do
+        subject
+        expect(foi_attachment.reload.replaced_reason).to be_nil
+      end
+
+      it 'clears masked_at' do
+        subject
+        expect(foi_attachment.reload.masked_at).to be_nil
+      end
+
+      it 'restores the original filename' do
+        subject
+        expect(foi_attachment.reload.filename).to eq('original.txt')
+      end
+
+      it 'keeps the attachment locked' do
+        subject
+        expect(foi_attachment.reload).to be_locked
+      end
+
+      it 'logs an event on the associated info_request' do
+        expect { subject }.to change { last_event }
+        expect(last_event.event_type).to eq('edit_attachment')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when it is not replaced' do
+      subject do
+        foi_attachment.clear_replacement!(editor: editor, reason: reason)
+      end
+
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      it 'does not log an event' do
+        expect { subject }.not_to change { last_event }
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when logging the event' do
+      subject do
+        foi_attachment.clear_replacement!(
+          editor: editor,
+          reason: reason,
+          extra: 'context'
+        )
+      end
+
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :replaced, replacement_body: 'New body')
+      end
+
+      it 'logs the required editor parameter' do
+        subject
+        expect(last_event.params[:editor]).to eq(editor)
+      end
+
+      it 'logs the required reason parameter' do
+        subject
+        expect(last_event.params[:reason]).to eq(reason)
+      end
+
+      it 'logs the optional additional parameters' do
+        subject
+        expect(last_event.params[:extra]).to eq('context')
+      end
+    end
+
+    context 'when clearing fails' do
+      subject do
+        foi_attachment.clear_replacement!(editor: editor, reason: reason)
+      end
+
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :replaced, replacement_body: 'New body')
+      end
+
+      before do
+        allow(foi_attachment).to receive(:update_and_log_event!).
+          and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises an exception' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'does not log an event' do
+        expect do
+          subject
+        rescue ActiveRecord::RecordInvalid
+          # expected
+        end.not_to change { last_event }
+      end
+    end
+  end
+
   describe '#replaced?' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     subject { foi_attachment.replaced? }
