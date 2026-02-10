@@ -1312,6 +1312,43 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#replace' do
+    subject do
+      foi_attachment.replace(
+        editor: editor,
+        reason: reason,
+        replacement_body: 'new body',
+        extra: 'context'
+      )
+    end
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'GDPR case' }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    before do
+      allow(foi_attachment).to receive(:info_request).and_return(info_request)
+    end
+
+    it 'calls replace! with the given arguments' do
+      expect(foi_attachment).to receive(:replace!).with(
+        editor: editor,
+        reason: reason,
+        replacement_body: 'new body',
+        extra: 'context'
+      )
+      subject
+    end
+
+    it 'expires the attachment' do
+      expect(foi_attachment).to receive(:expire)
+      subject
+    end
+  end
+
   describe '#replace!' do
     let(:editor) { FactoryBot.create(:admin_user) }
     let(:reason) { 'GDPR case' }

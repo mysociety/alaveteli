@@ -14,6 +14,14 @@ module FoiAttachment::Replaceable
     before_save :handle_replacements
   end
 
+  # Note that #replace still raises on failure. This version also runs
+  # pre-and-post-replacement steps, whereas #replace! omits these for more
+  # flexibility when composing with other actions.
+  def replace(...)
+    replace!(...)
+    expire
+  end
+
   def replace!(editor:, reason:, replacement_body: nil, replacement_file: nil, replaced_filename: nil, **event)
     attrs = { replacement_body: replacement_body,
               replacement_file: replacement_file,
