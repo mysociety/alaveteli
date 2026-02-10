@@ -22,6 +22,16 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
     redirect_to edit_admin_foi_attachment_path(@foi_attachment)
   end
 
+  def destroy
+    @foi_attachment.clear_replacement(
+      editor: admin_current_user,
+      reason: reason
+    )
+
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment),
+                notice: 'Replacement cleared.'
+  end
+
   private
 
   def reason

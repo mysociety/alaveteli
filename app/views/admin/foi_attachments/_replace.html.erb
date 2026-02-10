@@ -57,6 +57,7 @@
   <div class="form-actions">
     <div class="input-prepend">
       <%= f.submit 'Upload replacement', class: 'btn btn-warning' %>
+      <%= clear_replacement_button(@foi_attachment) %>
       <%= text_field_tag :reason, nil, placeholder: 'Reason', required: true, class: 'input-xlarge' %>
     </div>
 
