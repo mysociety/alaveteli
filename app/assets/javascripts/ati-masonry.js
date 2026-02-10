@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+
   const grid = document.querySelector('.js-gallery-grid');
+  const loadMoreBtn = document.getElementById('load-more');
+
+  if (!grid || !loadMoreBtn) return;
+
   const initialCards = parseInt(grid.getAttribute('masonry-initial-cards')) || 20;
   const cardsPerLoad = parseInt(grid.getAttribute('masonry-cards-per-load')) || 10;
-  const loadMoreBtn = document.getElementById('load-more');
-  if (!grid || !loadMoreBtn) return;
 
   const allCards = Array.from(grid.querySelectorAll('.gallery-grid--card'));
   let visibleCount = 0;
