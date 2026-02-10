@@ -1434,17 +1434,28 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:body_text) }
 
       before do
-        allow(foi_attachment).to receive(:update_and_log_event).and_return(false)
+        allow(foi_attachment).to receive(:update_and_log_event!).
+          and_raise(ActiveRecord::RecordInvalid)
       end
 
-      it { is_expected.to eq(false) }
+      it 'raises an exception' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
 
       it 'does not replace the attachment' do
-        expect { subject }.not_to change { foi_attachment.reload.body }
+        expect do
+          subject
+        rescue ActiveRecord::RecordInvalid
+          # expected
+        end.not_to change { foi_attachment.reload.body }
       end
 
       it 'does not log an event' do
-        expect { subject }.not_to change { last_event }
+        expect do
+          subject
+        rescue ActiveRecord::RecordInvalid
+          # expected
+        end.not_to change { last_event }
       end
     end
   end

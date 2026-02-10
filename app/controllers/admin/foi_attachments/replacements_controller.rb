@@ -4,23 +4,19 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
   before_action :check_info_request
 
   def create
-    if @foi_attachment.replace!(
-        **foi_attachment_params.to_h.symbolize_keys,
-        editor: admin_current_user,
-        reason: reason
-      )
-      @foi_attachment.expire
+    @foi_attachment.replace!(
+      **foi_attachment_params.to_h.symbolize_keys,
+      editor: admin_current_user,
+      reason: reason
+    ) && @foi_attachment.expire
 
-      flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
-        <<~TXT.squish
-          Attachment successfully updated and locked. Please wait for masking to
-          complete before adding additional censor rules.
-        TXT
-      else
-        'Attachment successfully updated.'
-      end
+    flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
+      <<~TXT.squish
+        Attachment successfully updated and locked. Please wait for masking to
+        complete before adding additional censor rules.
+      TXT
     else
-      flash[:error] = @foi_attachment.errors.full_messages.to_sentence
+      'Attachment successfully updated.'
     end
 
     redirect_to edit_admin_foi_attachment_path(@foi_attachment)

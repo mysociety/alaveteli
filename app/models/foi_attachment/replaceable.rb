@@ -20,7 +20,7 @@ module FoiAttachment::Replaceable
               replaced_filename: replaced_filename,
               replaced_reason: reason }.compact
 
-    return false unless update_and_log_event(
+    update_and_log_event!(
       event: { **event, editor: editor, reason: reason },
       **attrs
     )

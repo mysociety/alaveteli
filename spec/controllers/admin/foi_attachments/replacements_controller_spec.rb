@@ -171,7 +171,7 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       end
     end
 
-    context 'on an unsuccessful update' do
+    context 'on an unsuccessful replacement' do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
@@ -184,30 +184,14 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
 
       before do
         allow(FoiAttachment).to receive(:find).and_return(attachment)
-        allow(attachment).to receive(:replace!).and_return(false)
-        attachment.errors.add(:base, 'Cannot replace.')
+        allow(attachment).to receive(:replace!).
+          and_raise(ActiveRecord::RecordInvalid)
       end
 
-      it 'assigns the attachment' do
-        post :create, params: params
-        expect(assigns[:foi_attachment]).to eq(attachment)
-      end
-
-      it 'does not expire the attachment' do
-        expect(attachment).not_to receive(:expire)
-        post :create, params: params
-      end
-
-      it 'sets an error flash' do
-        post :create, params: params
-        expect(flash[:error]).to eq('Cannot replace.')
-      end
-
-      it 'redirects to the attachment edit page' do
-        post :create, params: params
-        expect(response).to redirect_to(
-          edit_admin_foi_attachment_path(attachment)
-        )
+      it 'raises ActiveRecord::RecordInvalid' do
+        expect {
+          post :create, params: params
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
