@@ -4,9 +4,10 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
   before_action :check_info_request
 
   def create
-    if @foi_attachment.update_and_log_event(
-        **foi_attachment_params,
-        event: { editor: admin_current_user }
+    if @foi_attachment.replace!(
+        **foi_attachment_params.to_h.symbolize_keys,
+        editor: admin_current_user,
+        reason: reason
       )
       @foi_attachment.expire
 
@@ -27,17 +28,14 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
 
   private
 
-  def replacement_params
-    { replacement_body: foi_attachment_params[:replacement_body],
-      replacement_file: foi_attachment_params[:replacement_file],
-      replaced_filename: foi_attachment_params[:replaced_filename],
-      replaced_reason: foi_attachment_params[:replaced_reason] }
+  def reason
+    params[:reason]
   end
 
   def foi_attachment_params
     params.require(:foi_attachment).permit(
       :replacement_body, :replacement_file,
-      :replaced_filename, :replaced_reason
+      :replaced_filename
     )
   end
 

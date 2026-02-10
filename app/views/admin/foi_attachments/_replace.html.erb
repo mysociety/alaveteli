@@ -57,7 +57,7 @@
   <div class="form-actions">
     <div class="input-prepend">
       <%= f.submit 'Upload replacement', class: 'btn btn-warning' %>
-      <%= f.text_field :replaced_reason, placeholder: 'Reason for replacement', required: true, class: 'input-xlarge' %>
+      <%= text_field_tag :reason, nil, placeholder: 'Reason', required: true, class: 'input-xlarge' %>
     </div>
 
     <p class="help-inline">

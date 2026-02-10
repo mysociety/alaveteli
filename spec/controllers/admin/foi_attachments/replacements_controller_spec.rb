@@ -15,9 +15,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'GDPR case',
           foi_attachment: {
-            replacement_body: 'This is the new replacement body',
-            replaced_reason: 'GDPR case'
+            replacement_body: 'This is the new replacement body'
           }
         }
       end
@@ -87,10 +87,10 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'Redacted version',
           foi_attachment: {
             replacement_file: uploaded_file,
-            replaced_filename: 'redacted_document.png',
-            replaced_reason: 'Redacted version'
+            replaced_filename: 'redacted_document.png'
           }
         }
       end
@@ -128,9 +128,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'Update',
           foi_attachment: {
-            replacement_body: 'New body content',
-            replaced_reason: 'Update'
+            replacement_body: 'New body content'
           }
         }
       end
@@ -153,9 +153,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'Update',
           foi_attachment: {
-            replacement_body: 'New body content',
-            replaced_reason: 'Update'
+            replacement_body: 'New body content'
           }
         }
       end
@@ -175,16 +175,16 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: '',
           foi_attachment: {
-            replacement_body: '',
-            replaced_reason: ''
+            replacement_body: ''
           }
         }
       end
 
       before do
         allow(FoiAttachment).to receive(:find).and_return(attachment)
-        allow(attachment).to receive(:update_and_log_event).and_return(false)
+        allow(attachment).to receive(:replace!).and_return(false)
         attachment.errors.add(:base, 'Cannot replace.')
       end
 
@@ -215,9 +215,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'GDPR',
           foi_attachment: {
-            replacement_body: 'Replacement content',
-            replaced_reason: 'GDPR'
+            replacement_body: 'Replacement content'
           }
         }
       end
