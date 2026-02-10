@@ -1312,6 +1312,143 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#replace!' do
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'GDPR case' }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    before do
+      allow(foi_attachment).to receive(:info_request).and_return(info_request)
+    end
+
+    def last_event
+      foi_attachment.info_request.info_request_events.last
+    end
+
+    context 'when replacing with body' do
+      subject do
+        foi_attachment.replace!(editor: editor, reason: reason, replacement_body: 'new body')
+      end
+
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      it 'replaces the attachment body' do
+        subject
+        expect(foi_attachment.reload.body).to eq('new body')
+      end
+
+      it 'locks the attachment' do
+        subject
+        expect(foi_attachment.reload).to be_locked
+      end
+
+      it 'sets replaced_at' do
+        subject
+        expect(foi_attachment.reload.replaced_at).to be_present
+      end
+
+      it 'sets the replaced reason' do
+        subject
+        expect(foi_attachment.reload.replaced_reason).to eq('GDPR case')
+      end
+
+      it 'logs an event on the associated info_request' do
+        expect { subject }.to change { last_event }
+        expect(last_event.event_type).to eq('edit_attachment')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when replacing with file' do
+      subject do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: reason,
+          replacement_file: fixture_file_upload('parrot.png', 'image/png'),
+          replaced_filename: 'redacted.png'
+        )
+      end
+
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      it 'locks the attachment' do
+        subject
+        expect(foi_attachment.reload).to be_locked
+      end
+
+      it 'replaces the attachment body' do
+        subject
+        expected = file_fixture('parrot.png').binread
+        expect(foi_attachment.reload.body).to eq(expected)
+      end
+
+      it 'sets the replaced filename' do
+        subject
+        # FIXME: See https://github.com/mysociety/alaveteli/issues/9016
+        expect(foi_attachment.reload.filename).to eq('redacted.png.txt')
+      end
+
+      it 'sets the replaced reason' do
+        subject
+        expect(foi_attachment.reload.replaced_reason).to eq('GDPR case')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when logging the event' do
+      subject do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: reason,
+          replacement_body: 'new body',
+          extra: 'context'
+        )
+      end
+
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      it 'logs the required editor parameter' do
+        subject
+        expect(last_event.params[:editor]).to eq(editor)
+      end
+
+      it 'logs the required reason parameter' do
+        subject
+        expect(last_event.params[:reason]).to eq(reason)
+      end
+
+      it 'logs the optional additional parameters' do
+        subject
+        expect(last_event.params[:extra]).to eq('context')
+      end
+    end
+
+    context 'when replacing fails' do
+      subject do
+        foi_attachment.replace!(editor: editor, reason: reason, replacement_body: 'new body')
+      end
+
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      before do
+        allow(foi_attachment).to receive(:update_and_log_event).and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+
+      it 'does not replace the attachment' do
+        expect { subject }.not_to change { foi_attachment.reload.body }
+      end
+
+      it 'does not log an event' do
+        expect { subject }.not_to change { last_event }
+      end
+    end
+  end
+
   describe '#replaced?' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     subject { foi_attachment.replaced? }

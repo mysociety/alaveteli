@@ -14,6 +14,20 @@ module FoiAttachment::Replaceable
     before_save :handle_replacements
   end
 
+  def replace!(editor:, reason:, replacement_body: nil, replacement_file: nil, replaced_filename: nil, **event)
+    attrs = { replacement_body: replacement_body,
+              replacement_file: replacement_file,
+              replaced_filename: replaced_filename,
+              replaced_reason: reason }.compact
+
+    return false unless update_and_log_event(
+      event: { **event, editor: editor, reason: reason },
+      **attrs
+    )
+
+    true
+  end
+
   def replacing?
     !erased? && !unlocking? &&
       (replacement_file_changed? || replacement_body_changed?)
