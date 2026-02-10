@@ -184,7 +184,7 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
 
       before do
         allow(FoiAttachment).to receive(:find).and_return(attachment)
-        allow(attachment).to receive(:replace!).
+        allow(attachment).to receive(:replace).
           and_raise(ActiveRecord::RecordInvalid)
       end
 

@@ -4,11 +4,11 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
   before_action :check_info_request
 
   def create
-    @foi_attachment.replace!(
+    @foi_attachment.replace(
       **foi_attachment_params.to_h.symbolize_keys,
       editor: admin_current_user,
       reason: reason
-    ) && @foi_attachment.expire
+    )
 
     flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
       <<~TXT.squish
