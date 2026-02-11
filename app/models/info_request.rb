@@ -1880,10 +1880,7 @@ class InfoRequest < ApplicationRecord
       incoming_message.raw_email = raw_email
       incoming_message.save!
 
-      data = mail.raw_source # If mail library is passed a string
-      data = mail.encoded if data.empty? # or if built using the DSL
-      raw_email.data = data
-      raw_email.save!
+      raw_email.update(mail: mail)
 
       unless described_state == 'user_withdrawn'
         self.awaiting_description = true

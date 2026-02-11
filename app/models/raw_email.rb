@@ -51,6 +51,17 @@ class RawEmail < ApplicationRecord
     mail.from_addrs.nil? || mail.from_addrs.empty?
   end
 
+  def mail=(new_mail)
+    @data = new_mail.raw_source # If mail library is passed a string
+    @data = new_mail.encoded if @data.empty? # or if built using the DSL
+
+    file.attach(
+      io: StringIO.new(@data),
+      filename: "#{incoming_message_id}.eml",
+      content_type: 'message/rfc822'
+    )
+  end
+
   def mail
     @mail ||= mail!
   end
@@ -59,13 +70,14 @@ class RawEmail < ApplicationRecord
     @mail = Mail.from_source(data)
   end
 
-  def data=(d)
-    @data = d.to_s
-    file.attach(
-      io: StringIO.new(@data),
-      filename: "#{incoming_message_id}.eml",
-      content_type: 'message/rfc822'
+  def data=(new_data)
+    new_mail = new_data if new_data.is_a?(Mail::Message)
+    new_mail ||= (
+      new_data.force_encoding(Encoding::BINARY)
+      Mail.new(new_data)
     )
+
+    self.mail = new_mail
   end
 
   def data

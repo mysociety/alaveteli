@@ -116,6 +116,58 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#mail=' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+
+    context 'when Mail::Message was parsed from a string' do
+      let(:inbound_email) do
+        <<~EML.strip_heredoc
+          From: alice@example.com
+          To: bob@example.com
+
+          This is the body
+        EML
+      end
+
+      let(:mail) { Mail.read_from_string(inbound_email) }
+
+      it 'stores the raw_source as data' do
+        raw_email.mail = mail
+        raw_email.save!
+        raw_email.reload
+        expect(raw_email.data).to eq(inbound_email)
+      end
+
+      it 'attaches the file' do
+        raw_email.mail = mail
+        raw_email.save!
+        expect(raw_email.file).to be_attached
+      end
+    end
+
+    context 'when Mail::Message was built using the DSL' do
+      let(:mail) do
+        Mail.new do
+          from 'a@example.com'
+          to 'b@example.com'
+        end
+      end
+
+      it 'stores the encoded version as data' do
+        raw_email.mail = mail
+        raw_email.save!
+        raw_email.reload
+        expect(raw_email.data).to eq(mail.encoded)
+      end
+
+      it 'attaches the file' do
+        raw_email.mail = mail
+        raw_email.save!
+        expect(raw_email.file).to be_attached
+      end
+    end
+  end
+
   describe '#mail!' do
     let(:inbound_email) do
       <<-EOF.strip_heredoc
