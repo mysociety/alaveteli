@@ -7,9 +7,9 @@ def receive_incoming_mail(filename_or_string, **kwargs)
   )&.route
 end
 
-def get_fixture_mail(filename_or_string, email_to: nil, email_from: nil)
+def get_fixture_mail(filename_or_string, **kwargs)
   content = load_file_fixture(filename_or_string) || filename_or_string
-  content = gsub_addresses(content, email_from: email_form, email_to: email_to)
+  content = gsub_addresses(content, **kwargs)
   Mail.from_source(content)
 end
 
@@ -32,14 +32,9 @@ def load_mail_server_logs(log)
 end
 
 def gsub_addresses(content, **kwargs)
-  content.gsub!('EMAIL_TO', kwargs[:email_to]) if kwargs[:email_to]
-  content.gsub!('EMAIL_FROM', kwargs[:email_from]) if kwargs[:email_from]
-  content.gsub!('EMAIL_CC', kwargs[:email_cc]) if kwargs[:email_cc]
-  content.gsub!('EMAIL_BCC', kwargs[:email_bcc]) if kwargs[:email_bcc]
-  if kwargs[:email_envelope_to]
-    content.gsub!('EMAIL_ENVELOPE_TO', kwargs[:email_envelope_to])
-  end
-  content
+  kwargs.slice(*%i[email_to email_from email_cc email_bcc email_envelope_to]).
+    transform_keys { |k| k.to_s.upcase }.
+    reduce(content) { |c, (k, v)| c.gsub(k, v) }
 end
 
 def build_incoming_message_mail(im)
