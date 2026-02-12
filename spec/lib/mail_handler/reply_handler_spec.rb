@@ -4,14 +4,13 @@ require 'mail_handler/reply_handler'
 RSpec.describe MailHandler::ReplyHandler do
   describe '.forward_on' do
     describe 'non-bounce mails' do
-      let(:inbound_email) { load_file_fixture('normal-contact-reply.eml') }
-      let(:mail) { Mail.from_source(inbound_email) }
+      let(:mail) { get_fixture_mail('normal-contact-reply.eml') }
 
       it 'forwards the mail to sendmail' do
         expect(IO).
           to receive(:popen).
           with('/usr/sbin/sendmail -i "user-support@localhost"', 'wb')
-        MailHandler::ReplyHandler.forward_on(inbound_email, mail)
+        MailHandler::ReplyHandler.forward_on(mail.raw_source, mail)
       end
     end
   end
