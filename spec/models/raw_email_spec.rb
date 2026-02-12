@@ -129,7 +129,7 @@ RSpec.describe RawEmail do
     let(:mock_mail) { Mail.new(inbound_email) }
 
     before do
-      allow(MailHandler).to receive(:mail_from_string).and_return(mock_mail)
+      allow(Mail).to receive(:from_source).and_return(mock_mail)
     end
 
     it 'parses the raw email data in to a structured mail object' do
@@ -142,7 +142,7 @@ RSpec.describe RawEmail do
 
       # Call mail! again to get a fresh cache
       updated = double('updated')
-      allow(MailHandler).to receive(:mail_from_string).and_return(updated)
+      allow(Mail).to receive(:from_source).and_return(updated)
       raw_email.mail!
 
       # Now when we call the safe mail, we should get the last cached

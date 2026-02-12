@@ -1,6 +1,6 @@
 class RequestMailbox < ApplicationMailbox
   def process
-    mail = MailHandler.mail_from_string(inbound_email.source)
+    mail = inbound_email.mail
 
     # Only check mail that doesn't have spam in the header
     return if SpamAddress.spam?(MailHandler.get_all_addresses(mail))

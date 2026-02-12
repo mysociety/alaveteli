@@ -3,7 +3,7 @@ require 'spec_helper'
 def create_message_from(from_field)
   mail_data = load_file_fixture('incoming-request-plain.eml')
   mail_data.gsub!('EMAIL_FROM', from_field)
-  mail = MailHandler.mail_from_string(mail_data)
+  mail = Mail.from_source(mail_data)
 end
 
 RSpec.describe 'when creating a mail object from raw data' do
@@ -138,7 +138,7 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
                     'Envelope-to: request-5555-xxxxxxxx@whatdotheyknow.com')
     mail_data.gsub!('Cc: request-5335-xxxxxxxx@whatdotheyknow.com',
                     'Cc: request-3333-xxxxxxxx@whatdotheyknow.com')
-    mail = MailHandler.mail_from_string(mail_data)
+    mail = Mail.from_source(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq(['request-5335-xxxxxxxx@whatdotheyknow.com',
                                                    'request-3333-xxxxxxxx@whatdotheyknow.com',
                                                    'request-5555-xxxxxxxx@whatdotheyknow.com'])
@@ -154,7 +154,7 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
     mail_data = load_file_fixture('autoresponse-header.eml')
     mail_data.gsub!('To: FOI Person <EMAIL_TO>',
                     'To: FOI Person <request-5555-xxxxxxxx@whatdotheyknow.com>')
-    mail = MailHandler.mail_from_string(mail_data)
+    mail = Mail.from_source(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq(["request-5555-xxxxxxxx@whatdotheyknow.com"])
   end
 
@@ -162,7 +162,7 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
     mail_data = load_file_fixture('autoresponse-header.eml')
     mail_data.gsub!('To: FOI Person <EMAIL_TO>',
                     'To: <request-5555-xxxxxxxx>')
-    mail = MailHandler.mail_from_string(mail_data)
+    mail = Mail.from_source(mail_data)
     expect(MailHandler.get_all_addresses(mail)).to eq([])
   end
 end

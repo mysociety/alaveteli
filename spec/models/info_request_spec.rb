@@ -4103,7 +4103,7 @@ RSpec.describe InfoRequest do
     inbound_email.gsub!('EMAIL_TO', email_to)
     inbound_email.gsub!('EMAIL_FROM', email_from)
 
-    mail = MailHandler.mail_from_string(inbound_email)
+    mail = Mail.from_source(inbound_email)
     info_request.receive(
       mail,
       rejected_reason: opts[:rejected_reason],

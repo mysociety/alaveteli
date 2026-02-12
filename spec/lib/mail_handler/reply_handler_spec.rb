@@ -5,7 +5,7 @@ RSpec.describe MailHandler::ReplyHandler do
   describe '.forward_on' do
     describe 'non-bounce mails' do
       let(:inbound_email) { load_file_fixture('normal-contact-reply.eml') }
-      let(:mail) { MailHandler.mail_from_string(inbound_email) }
+      let(:mail) { Mail.from_source(inbound_email) }
 
       it 'forwards the mail to sendmail' do
         expect(IO).
@@ -24,7 +24,7 @@ RSpec.describe MailHandler::ReplyHandler do
     let(:pro_mail) { get_fixture_mail('pro-contact-reply.eml') }
 
     let(:both_mail) do
-      MailHandler.mail_from_string(<<~EOF)
+      Mail.from_source(<<~EOF)
       To: #{ normal_contact_email }
       Cc: #{ pro_contact_email }
       From: bob@example.com
