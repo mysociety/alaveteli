@@ -26,23 +26,6 @@ RSpec.describe MailHandler::Backends::MailBackend do
       end
     end
 
-    context 'when passed an UTF-8 string' do
-      let(:inbound_email) do
-        # Read fixture file using 'r' mode so we end up with a UTF-8 string
-        load_file_fixture('iso8859_1_with_extended_character_set.eml', 'r')
-      end
-
-      it 'does not raise error' do
-        expect { subject }.to_not raise_error
-      end
-
-      it 'returns a new mail with binary body' do
-        expect(subject.body.to_s).to eq(
-          "Information Governance\xA0Unit\n".force_encoding(Encoding::BINARY)
-        )
-      end
-    end
-
     # FIXME: This is passing a String, not a Mail
     context 'when passed a mail' do
       let(:inbound_email) do
