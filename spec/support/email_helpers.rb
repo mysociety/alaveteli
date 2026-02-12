@@ -1,17 +1,15 @@
 def receive_incoming_mail(filename_or_string, **kwargs)
   kwargs[:email_from] ||= 'geraldinequango@localhost'
-  content = load_file_fixture(filename_or_string) || filename_or_string
-  content = gsub_addresses(content.dup, **kwargs)
-  content = ::Mail::Utilities.binary_unsafe_to_crlf(content)
+  mail = get_fixture_mail(filename_or_string, **kwargs)
 
   ActionMailbox::InboundEmail.create_and_extract_message_id!(
-    content, status: :processing
+    mail.raw_source, status: :processing
   )&.route
 end
 
 def get_fixture_mail(filename_or_string, email_to: nil, email_from: nil)
   content = load_file_fixture(filename_or_string) || filename_or_string
-  content = gsub_addresses(content, email_from: email_from, email_to: email_to)
+  content = gsub_addresses(content, email_from: email_form, email_to: email_to)
   Mail.from_source(content)
 end
 
