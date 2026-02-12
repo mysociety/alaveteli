@@ -14,6 +14,8 @@
 # config file ourselves.
 require 'active_support/all'
 
+$stdin.binmode
+
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
 $LOAD_PATH.push(File.join($alaveteli_dir, 'commonlib', 'rblib'))

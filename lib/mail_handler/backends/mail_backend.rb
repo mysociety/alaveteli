@@ -49,7 +49,6 @@ module MailHandler
       end
 
       def mail_from_string(data)
-        data = data.force_encoding(Encoding::BINARY) if data.is_a? String
         Mail.from_source(data)
       end
 
