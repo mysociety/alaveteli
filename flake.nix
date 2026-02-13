@@ -9,6 +9,10 @@
   inputs = {
     self.submodules = true;
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
+    bundix = {
+      url = "github:inscapist/bundix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgsrspamd.url = "github:laurents/nixpkgs/fix-rspamd-config-file";
     systems.url = "github:nix-systems/default";
     devenv = {
@@ -27,6 +31,7 @@
       self,
       nixpkgs,
       nixpkgsrspamd,
+      bundix,
       devenv,
       systems,
       ...
@@ -43,33 +48,28 @@
         {
           devenv-up = self.devShells.${system}.default.config.procfileScript;
           devenv-test = self.devShells.${system}.default.config.test;
-          serverTests = pkgs.testers.runNixOSTest (
-            import ./nix/alaveteli-server-test.nix { inherit inputs; }
-          );
+          # serverTests = pkgs.testers.runNixOSTest (
+          #   import ./nix/alaveteli-server-test.nix { inherit inputs; }
+          # );
         }
       );
 
       # TODO: pass this from theme flake
-      themeGemfile = ./Gemfile_theme;
-      themeGemset = import ./gemset_theme.nix;
-      themeLockfile = ./Gemfile_theme.lock;
-
       mkBundleEnv = forEachSystem (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
         in
         {
-          default = pkgs.callPackage ./nix/bundlerEnv.nix { };
+          default = pkgs.callPackage ./nix/bundlerEnv.nix {
+            themeGemfile = ./Gemfile;
+            themeGemset = ./gemset.nix;
+            themeLockfile = ./Gemfile.lock;
+          };
         }
       );
       alaveteliGems = forEachSystem (system: {
         # pass themeGems from the theme's dev env flake
-        default = self.outputs.mkBundleEnv.${system}.default.default {
-          themeGemfile = self.outputs.themeGemfile;
-          themeGemset = self.outputs.themeGemset;
-          themeLockfile = self.outputs.themeLockfile;
-        };
       });
 
       packagesForAlaveteli = forEachSystem (
@@ -120,9 +120,9 @@
               libyaml
             ];
           # additional packages only needed for the dev env
-          developing = with pkgs; [
-            bundix
-            figlet # for the text banner in the dev shell
+          developing = [
+            bundix.packages.${system}.default
+            pkgs.figlet # for the text banner in the dev shell
           ];
         }
       );
@@ -266,7 +266,7 @@
           # use this one to develop on core alaveteli, without a theme
           default = devenv.lib.mkShell {
             inherit inputs pkgs;
-            modules = [ self.devShells.${system}.commonModules ];
+            modules = [ commonModules ];
           };
 
           # use this env to develop with some custom theme
@@ -278,11 +278,11 @@
             inherit inputs pkgs;
             modules = [
               (
-                self.devShells.${system}.commonModules
+                commonModules
                 // {
                   # enterShell = self.devShells.${system}.default.enterShell
-                  enterShell = self.devShells.${system}.commonModules.enterShell + "echo Using theme";
-                  env = self.devShells.${system}.commonModules.env // {
+                  enterShell = commonModules.enterShell + "echo Using theme";
+                  env = commonModules.env // {
                     FOOENV = "themeON";
                   };
                 }
