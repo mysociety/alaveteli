@@ -415,7 +415,7 @@ GEM
     puma (7.2.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.21)
+    rack (2.2.22)
     rack-session (1.0.2)
       rack (< 3)
     rack-test (2.2.0)
@@ -702,7 +702,7 @@ DEPENDENCIES
   pry (~> 0.16.0)
   pstore (~> 0.2.0)
   puma (~> 7.2.0)
-  rack (~> 2.2.21)
+  rack (~> 2.2.22)
   rack-utf8_sanitizer (~> 1.11.1)
   rails (~> 8.0.4)
   rails-controller-testing
