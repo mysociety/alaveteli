@@ -82,7 +82,7 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" href="#new-authorities" data-toggle="collapse" data-parent="authority-things-to-do">
-            <span class="label label-important">
+            <span class="label <%= todo_list_label_style('new-authorities') %>">
               <%= @new_body_requests.size %>
             </span>
             <%= chevron_right %> Add new authorities
@@ -116,7 +116,7 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" href="#update-authorities" data-toggle="collapse" data-parent="authority-things-to-do">
-            <span class="label label-important">
+            <span class="label <%= todo_list_label_style('update-authorities') %>">
               <%= @body_update_requests.size %>
             </span>
             <%= chevron_right %> Update authorities

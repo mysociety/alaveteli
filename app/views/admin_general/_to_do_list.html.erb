@@ -3,7 +3,7 @@
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" href="#<%= id %>" data-toggle="collapse" data-parent="<%= parent %>">
-        <span class="label label-important">
+        <span class="label <%= todo_list_label_style(id) %>">
           <%= count %>
         </span>
         <%= chevron_right %> <%= label %>

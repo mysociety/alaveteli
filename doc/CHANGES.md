@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add prioritisation indication of admin summary todos (Gareth Rees)
 * Update Exim message ID matching (Graeme Porteous)
 * Allow erasure of underlying raw email data (Graeme Porteous, Gareth Rees)
 * Restore logging of :email parameters (Gareth Rees)
