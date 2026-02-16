@@ -322,6 +322,11 @@ table.table-debug {
   }
 }
 
+/* Rails helpers */
+form.button_to {
+  display: inline-block;
+}
+
 /* Bootstrap Extensions */
 /* These must come last because we @import bootstrap in .admin  */
 
