@@ -12,7 +12,7 @@
 
 <% if @raw_email.erased? %>
   <p>
-    <%= link_to 'Download', '', class: 'btn', disabled: true %>
+    <%= button_to 'Download', '', class: 'btn', disabled: true %>
     <span class="muted">Erased raw emails cannot be downloaded.</span>
   </p>
 <% else %>
