@@ -364,6 +364,29 @@ pre.error {
   border-color: #eed3d7;
 }
 
+/* Fix btn-group with mixed link and form buttons (via button_to helper) */
+.btn-group > .button_to {
+  margin: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.btn-group > .button_to .btn {
+  border-radius: 0;
+}
+
+.btn-group > .button_to:first-child .btn {
+  border-radius: 4px 0 0 4px;
+}
+
+.btn-group > .button_to:last-child .btn {
+  border-radius: 0 4px 4px 0;
+}
+
+.btn-group > .button_to:only-child .btn {
+  border-radius: 4px;
+}
+
 /* Classification Icons */
 .classification_icon {
   background-image: image-url('status/status-sprite.png');
