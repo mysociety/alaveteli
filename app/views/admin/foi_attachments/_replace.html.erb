@@ -17,6 +17,14 @@
             </strong> for this attachment.
           </p>
         </div>
+
+        <% if @foi_attachment.replaced? %>
+          <div class="help-block">
+            <span class="text-warning">
+              Attachment has been <strong>replaced</strong>.
+            </span>
+          </div>
+        <% end %>
       </div>
 
       <div class="control-group">
