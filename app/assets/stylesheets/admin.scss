@@ -322,6 +322,11 @@ table.table-debug {
   }
 }
 
+/* Rails helpers */
+form.button_to {
+  display: inline-block;
+}
+
 /* Bootstrap Extensions */
 /* These must come last because we @import bootstrap in .admin  */
 
@@ -357,6 +362,29 @@ pre.error {
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
+}
+
+/* Fix btn-group with mixed link and form buttons (via button_to helper) */
+.btn-group > .button_to {
+  margin: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.btn-group > .button_to .btn {
+  border-radius: 0;
+}
+
+.btn-group > .button_to:first-child .btn {
+  border-radius: 4px 0 0 4px;
+}
+
+.btn-group > .button_to:last-child .btn {
+  border-radius: 0 4px 4px 0;
+}
+
+.btn-group > .button_to:only-child .btn {
+  border-radius: 4px;
 }
 
 /* Classification Icons */
