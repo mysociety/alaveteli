@@ -1701,6 +1701,39 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#replacement_clearable?' do
+    subject { foi_attachment.replacement_clearable? }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    context 'when replaced and raw email is not erased' do
+      before do
+        allow(foi_attachment).to receive(:replaced?).and_return(true)
+        allow(foi_attachment).to receive(:erased?).and_return(false)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when replaced and raw email is erased' do
+      before do
+        allow(foi_attachment).to receive(:replaced?).and_return(true)
+        allow(foi_attachment).to receive(:erased?).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when not replaced' do
+      before do
+        allow(foi_attachment).to receive(:replaced?).and_return(false)
+        allow(foi_attachment).to receive(:erased?).and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#replacing_or_replaced?' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     subject { foi_attachment.replacing_or_replaced? }

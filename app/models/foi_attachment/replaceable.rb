@@ -62,6 +62,10 @@ module FoiAttachment::Replaceable
     true
   end
 
+  def replacement_clearable?
+    replaced? && !erased?
+  end
+
   def replacing?
     !erased? && !unlocking? &&
       (replacement_file_changed? || replacement_body_changed?)
