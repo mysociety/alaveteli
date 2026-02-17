@@ -319,6 +319,19 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       end
     end
 
+    context 'if the attachment is not clearable' do
+      before do
+        allow_any_instance_of(FoiAttachment).
+          to receive(:replacement_clearable?).and_return(false)
+      end
+
+      it 'raises StandardError' do
+        expect {
+          delete :destroy, params: params
+        }.to raise_error(StandardError)
+      end
+    end
+
     context 'if the request is embargoed', feature: :alaveteli_pro do
       before { info_request.create_embargo }
 

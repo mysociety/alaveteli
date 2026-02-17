@@ -2,6 +2,7 @@
 class Admin::FoiAttachments::ReplacementsController < AdminController
   before_action :set_foi_attachment, :set_incoming_message, :set_info_request
   before_action :check_info_request
+  before_action :check_clearable, only: :destroy
 
   def create
     @foi_attachment.replace(
@@ -62,5 +63,10 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
 
     raise ActiveRecord::RecordNotFound
   end
-end
 
+  def check_clearable
+    return if @foi_attachment.replacement_clearable?
+
+    raise StandardError, 'Attachment not clearable'
+  end
+end
