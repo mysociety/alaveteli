@@ -57,7 +57,7 @@
   <%= render partial: 'mask' %>
   <%= render partial: 'lock' %>
   <%= render partial: 'replace' %>
-  <%= render partial: 'erase' %>
+  <%= render partial: 'erase' if feature_enabled?(:foi_attachment_erase) %>
 <% end %>
 
 <% if @foi_attachment.main_body_part? %>
