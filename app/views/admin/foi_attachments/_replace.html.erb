@@ -1,0 +1,63 @@
+<%= form_for @foi_attachment, url: admin_foi_attachment_replacements_path(@foi_attachment), method: :post, class: 'form form-inline' do |f| %>
+  <fieldset class="form-horizontal">
+    <legend>Replacement</legend>
+
+      <div class="controls">
+        <div class="help-block">
+          <p>
+            A replacement attachment can be uploaded to provide an alternative
+            version that appears to users of the site. Once a replacement is
+            added, the original will only be available to admins. This may be
+            used to upload a version that fixes formatting errors, or apply
+            redactions that are difficult to do via censor rules, for example.
+          </p>
+
+          <p>
+            <strong>Uploading a replacement will automatically enable locking
+            </strong> for this attachment.
+          </p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :replacement_file, class: 'control-label' %>
+
+        <div class="controls">
+          <%= f.file_field :replacement_file %>
+        </div>
+      </div>
+
+      <% if @foi_attachment.main_body_part? %>
+        <div class="control-group">
+          <%= f.label :replacement_body, class: 'control-label' %>
+
+          <div class="controls">
+            <%= f.text_area :replacement_body, rows: 20, class: 'span9' %>
+          </div>
+        </div>
+      <% else %>
+        <div class="control-group">
+          <%= f.label :replaced_filename, class: 'control-label' %>
+
+          <div class="controls">
+            <%= f.text_field :replaced_filename %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="control-group">
+        <%= f.label :replaced_reason, class: 'control-label' %>
+
+        <div class="controls">
+          <%= f.text_field :replaced_reason %>
+          <span class="help-inline">
+            Private reason why attachment as been replaced, such as GDPR case reference
+          </span>
+        </div>
+      </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit 'Upload Replacement', class: 'btn btn-warning' %>
+  </div>
+<% end %>
