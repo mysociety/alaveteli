@@ -19,12 +19,15 @@
 #  locked                :boolean          default(FALSE)
 #  replaced_at           :datetime
 #  replaced_reason       :string
+#  erased_at             :datetime
 #
 
 require 'spec_helper'
 require 'models/concerns/message_prominence'
 
 RSpec.describe FoiAttachment do
+  include ActiveJob::TestHelper
+
   it_behaves_like 'concerns/message_prominence', :body_text
 
   describe '.binary' do
@@ -63,6 +66,16 @@ RSpec.describe FoiAttachment do
 
     it { is_expected.to_not include(locked_attachment) }
     it { is_expected.to include(unlocked_attachment) }
+  end
+
+  describe '.erased' do
+    subject { described_class.erased }
+
+    let!(:erased_attachment) { FactoryBot.create(:body_text, :erased) }
+    let!(:non_erased_attachment) { FactoryBot.create(:body_text) }
+
+    it { is_expected.to include(erased_attachment) }
+    it { is_expected.to_not include(non_erased_attachment) }
   end
 
   describe '.cached_urls' do
@@ -200,6 +213,15 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#body' do
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      it 'raises MissingAttachment error' do
+        expect { foi_attachment.body }.
+          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+      end
+    end
+
     context 'when locked' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :locked) }
       let(:locked_content) { "Test locked content" }
@@ -337,6 +359,15 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#body_as_text' do
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      it 'raises MissingAttachment error' do
+        expect { foi_attachment.body_as_text }.
+          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+      end
+    end
+
     it 'has a valid UTF-8 string when newly created' do
       foi_attachment = FactoryBot.create(:body_text)
       expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
@@ -364,6 +395,15 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#default_body' do
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      it 'raises MissingAttachment error' do
+        expect { foi_attachment.default_body }.
+          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+      end
+    end
+
     it 'returns valid UTF-8 for a text attachment' do
       foi_attachment = FactoryBot.create(:body_text)
       expect(foi_attachment.default_body.encoding.to_s).to eq('UTF-8')
@@ -383,6 +423,15 @@ RSpec.describe FoiAttachment do
     before do
       allow(foi_attachment).to receive(:raw_email).
         and_return(double(mail: Mail.new))
+    end
+
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      it 'raises MissingAttachment error' do
+        expect { foi_attachment.unmasked_body }.
+          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+      end
     end
 
     context 'when mail handler finds original attachment by hexdigest' do
@@ -511,12 +560,31 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#has_body_as_html?' do
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
+
+      it 'returns false' do
+        expect(foi_attachment.has_body_as_html?).to be false
+      end
+    end
+
     it 'should be true for a pdf attachment' do
       expect(FactoryBot.build(:pdf_attachment).has_body_as_html?).to be true
     end
 
     it 'should be false for an html attachment' do
       expect(FactoryBot.build(:html_attachment).has_body_as_html?).to be false
+    end
+  end
+
+  describe '#body_as_html' do
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
+
+      it 'raises MissingAttachment error' do
+        expect { foi_attachment.body_as_html }.
+          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+      end
     end
   end
 
@@ -1126,21 +1194,14 @@ RSpec.describe FoiAttachment do
 
   describe '#unlockable?' do
     subject { foi_attachment.unlockable? }
-    let(:foi_attachment) { FactoryBot.build(:body_text) }
 
-    before do
-      allow(foi_attachment).
-        to receive(:incoming_message).
-        and_return(incoming_message)
-    end
-
-    context 'when the raw email is persisted' do
-      let(:incoming_message) { double(raw_email_erased?: false) }
+    context 'when persisted' do
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
       it { is_expected.to eq(true) }
     end
 
-    context 'when the raw email is erased' do
-      let(:incoming_message) { double(raw_email_erased?: true) }
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :erased) }
       it { is_expected.to eq(false) }
     end
   end
@@ -1166,6 +1227,16 @@ RSpec.describe FoiAttachment do
 
       it { is_expected.to eq false }
     end
+
+    context 'when erased' do
+      subject { foi_attachment.locking? }
+
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unlocked, :erased) }
+
+      before { foi_attachment.locked = true }
+
+      it { is_expected.to eq false }
+    end
   end
 
   describe '#unlocking?' do
@@ -1186,6 +1257,16 @@ RSpec.describe FoiAttachment do
         foi_attachment.locked_will_change!
         foi_attachment.locked = true
       end
+
+      it { is_expected.to eq false }
+    end
+
+    context 'when erased' do
+      subject { foi_attachment.unlocking? }
+
+      let(:foi_attachment) { FactoryBot.create(:body_text, :locked, :erased) }
+
+      before { foi_attachment.locked = false }
 
       it { is_expected.to eq false }
     end
@@ -1214,6 +1295,21 @@ RSpec.describe FoiAttachment do
       before { foi_attachment.replacement_body = 'foo' }
       it { is_expected.to eq true }
     end
+
+    context 'when erased' do
+      subject { foi_attachment.replacing? }
+
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      before do
+        allow(foi_attachment).to receive(:replacement_file_changed?).
+          and_return(false)
+        allow(foi_attachment).to receive(:replacement_body_changed?).
+          and_return(true)
+      end
+
+      it { is_expected.to eq false }
+    end
   end
 
   describe '#replaced?' do
@@ -1227,6 +1323,21 @@ RSpec.describe FoiAttachment do
 
     context 'when replaced_at is unset' do
       before { foi_attachment.replaced_at = nil }
+      it { is_expected.to eq false }
+    end
+
+    context 'when erased' do
+      subject { foi_attachment.replaced? }
+
+      let(:foi_attachment) do
+        # Create first with replaced_reason, then set erased_at
+        attachment = FactoryBot.create(:body_text,
+                                       replaced_at: Time.zone.now,
+                                       replaced_reason: 'Test reason')
+        attachment.update_column(:erased_at, Time.zone.now)
+        attachment
+      end
+
       it { is_expected.to eq false }
     end
   end
@@ -1252,6 +1363,169 @@ RSpec.describe FoiAttachment do
       end
 
       it { is_expected.to eq false }
+    end
+
+    context 'when erased' do
+      subject { foi_attachment.replacing_or_replaced? }
+
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      before do
+        allow(foi_attachment).to receive(:replacing?).and_return(true)
+        allow(foi_attachment).to receive(:replaced?).and_return(true)
+      end
+
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#raw_email_erased?' do
+    let(:foi_attachment) { FactoryBot.build(:body_text) }
+
+    it 'delegates to info_request' do
+      expect(foi_attachment.incoming_message).to receive(:raw_email_erased?)
+      foi_attachment.raw_email_erased?
+    end
+  end
+
+  describe '#erased?' do
+    subject { foi_attachment.erased? }
+
+    context 'when erased_at is nil' do
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
+      it { is_expected.to be false }
+    end
+
+    context 'when erased_at is present' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :erased) }
+      it { is_expected.to be true }
+    end
+
+    context 'when erased_at is nil but raw email has been erased' do
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
+
+      before do
+        allow(foi_attachment).to receive(:raw_email_erased?).and_return(true)
+      end
+
+      it { is_expected.to be true }
+    end
+  end
+
+  describe '#erase' do
+    subject { foi_attachment.erase(editor: editor, reason: reason) }
+
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+
+    let(:foi_attachment) do
+      FactoryBot.create(
+        :body_text,
+        filename: 'bob.txt',
+        incoming_message: incoming_message
+      )
+    end
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Removing PII' }
+
+    it 'purges later' do
+      expect { subject }.to have_enqueued_job(ActiveStorage::PurgeJob)
+    end
+
+    it 'removes filename' do
+      expect { subject }.to change(foi_attachment, :filename).
+        from('bob.txt').to('attachment.txt')
+    end
+
+    it 'purges the attached file' do
+      subject
+      expect(foi_attachment.reload.file).not_to be_attached
+    end
+
+    it 'touches erased_at' do
+      expect { subject }.to change(foi_attachment, :erased_at).from(nil)
+      expect(foi_attachment.erased_at).to be_a(Time)
+    end
+
+    def last_event
+      info_request.info_request_events.last
+    end
+
+    it 'logs an event on the associated info_request' do
+      expect { subject }.to change { last_event }
+      expect(last_event.event_type).to eq('erase_attachment')
+    end
+
+    it 'expires the associated info_request' do
+      expect(foi_attachment.info_request).to receive(:expire)
+      subject
+    end
+
+    it { is_expected.to eq(true) }
+
+    context 'when already erased' do
+      before { allow(foi_attachment).to receive(:erased?).and_return(true) }
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(described_class::AlreadyErasedError)
+      end
+    end
+
+    context 'when an event cannot be logged' do
+      before do
+        expect(foi_attachment).to receive(:log_event).and_return(false)
+      end
+
+      it 'does not erase the file' do
+        subject
+        perform_enqueued_jobs
+        expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the file cannot be purged' do
+      before do
+        expect_any_instance_of(ActiveStorage::Attached::One).
+          to receive(:purge_later).and_raise(ActiveStorage::FileNotFoundError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        perform_enqueued_jobs
+        expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the record cannot be touched' do
+      before do
+        expect(foi_attachment).
+          to receive(:touch).and_raise(ActiveRecord::ActiveRecordError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the info request cannot be expired' do
+      before do
+        expect(foi_attachment).to receive(:expire).and_raise(StandardError)
+      end
+
+      it 'does not erase the file' do
+        subject
+        expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
     end
   end
 

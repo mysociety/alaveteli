@@ -44,6 +44,19 @@
               <% end %>
             </p>
 
+          <% elsif a.erased? %>
+            <p class="attachment__name">
+              <%= h a.display_filename %>
+            </p>
+
+            <p class="attachment__meta">
+              <em><%= _('This file has been erased.') %></em>
+
+              <% if @user.present? && @user.admin_page_links? %>
+                <%= link_to _('Admin'), edit_admin_foi_attachment_path(a) %>
+              <% end %>
+            </p>
+
           <% end %>
         <% end %>
       <% end %>

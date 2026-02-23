@@ -1,0 +1,7 @@
+<% if @foi_attachment.unlocked? %>
+  <%= render partial: 'admin/foi_attachments/locks/lock_form',
+             locals: { foi_attachment: @foi_attachment } %>
+<% else %>
+  <%= render partial: 'admin/foi_attachments/locks/unlock_form',
+             locals: { foi_attachment: @foi_attachment } %>
+<% end %>

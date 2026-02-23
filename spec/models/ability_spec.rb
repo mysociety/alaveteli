@@ -109,6 +109,22 @@ RSpec.describe Ability do
 
       it { expect(owner_ability).not_to be_able_to(:read, resource) }
     end
+
+    context 'when attachment is erased' do
+      let(:prominence) { 'normal' }
+      let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+      let(:incoming_message) { info_request.incoming_messages.first }
+      let(:resource) do
+        FactoryBot.create(:body_text,
+                          incoming_message: incoming_message,
+                          erased_at: Time.zone.now)
+      end
+      let(:owner_ability) { Ability.new(info_request.user) }
+
+      it 'prevents reading' do
+        expect(owner_ability).not_to be_able_to(:read, resource)
+      end
+    end
   end
 
   describe "reading IncomingMessages" do

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add ability to erase attachments (Graeme Porteous)
 * Added Web Share API option on request pages (Lucas Cumsille Montesinos)
 * Add prioritisation indication of admin summary todos (Gareth Rees)
 * Update Exim message ID matching (Graeme Porteous)

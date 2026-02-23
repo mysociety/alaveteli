@@ -59,15 +59,15 @@ module FoiAttachment::Lockable
   end
 
   def unlockable?
-    !incoming_message.raw_email_erased?
+    !erased?
   end
 
   def locking?
-    locked? && locked_changed?
+    !erased? && locked? && locked_changed?
   end
 
   def unlocking?
-    !locked? && locked_changed?
+    !erased? && !locked? && locked_changed?
   end
 
   private

@@ -53,6 +53,10 @@ FactoryBot.define do
       end
     end
 
+    trait :erased do
+      erased_at { 12.hours.ago }
+    end
+
     factory :body_text do
       content_type { 'text/plain' }
       body { 'hereisthetext' }

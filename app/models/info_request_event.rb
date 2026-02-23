@@ -42,6 +42,7 @@ class InfoRequestEvent < ApplicationRecord
     'edit_incoming', # incoming message edited (in admin interface)
     'edit_attachment', # attachment edited (in admin interface)
     'erase_raw_email', # Erase underlying response data
+    'erase_attachment', # erase underlying attachment data
     'move_request', # changed user or public body (in admin interface)
     'hide', # hid a request (in admin interface)
     'manual', # you did something in the db by hand
