@@ -1194,21 +1194,14 @@ RSpec.describe FoiAttachment do
 
   describe '#unlockable?' do
     subject { foi_attachment.unlockable? }
-    let(:foi_attachment) { FactoryBot.build(:body_text) }
 
-    before do
-      allow(foi_attachment).
-        to receive(:incoming_message).
-        and_return(incoming_message)
-    end
-
-    context 'when the raw email is persisted' do
-      let(:incoming_message) { double(raw_email_erased?: false) }
+    context 'when persisted' do
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
       it { is_expected.to eq(true) }
     end
 
-    context 'when the raw email is erased' do
-      let(:incoming_message) { double(raw_email_erased?: true) }
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :erased) }
       it { is_expected.to eq(false) }
     end
   end
@@ -1386,17 +1379,34 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#raw_email_erased?' do
+    let(:foi_attachment) { FactoryBot.build(:body_text) }
+
+    it 'delegates to info_request' do
+      expect(foi_attachment.incoming_message).to receive(:raw_email_erased?)
+      foi_attachment.raw_email_erased?
+    end
+  end
+
   describe '#erased?' do
     subject { foi_attachment.erased? }
 
     context 'when erased_at is nil' do
-      let(:foi_attachment) { FactoryBot.create(:body_text) }
-
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
       it { is_expected.to be false }
     end
 
     context 'when erased_at is present' do
-      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+      let(:foi_attachment) { FactoryBot.build(:body_text, :erased) }
+      it { is_expected.to be true }
+    end
+
+    context 'when erased_at is nil but raw email has been erased' do
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
+
+      before do
+        allow(foi_attachment).to receive(:raw_email_erased?).and_return(true)
+      end
 
       it { is_expected.to be true }
     end
