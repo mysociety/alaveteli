@@ -1,13 +1,31 @@
-def receive_incoming_mail(filename_or_string, **kwargs)
+def receive_incoming_mail(filename_or_string = nil, **kwargs)
   kwargs[:from] ||= 'geraldinequango@localhost'
   mail = get_fixture_mail(filename_or_string, **kwargs)
 
-  ActionMailbox::InboundEmail.create_and_extract_message_id!(
-    mail.raw_source, status: :processing
-  )&.route
+  if kwargs[:info_request]
+    kwargs[:info_request].receive(
+      mail,
+      rejected_reason: kwargs[:rejected_reason],
+      override_stop_new_responses: kwargs[:override_stop_new_responses] || false
+    )
+
+  else
+    ActionMailbox::InboundEmail.create_and_extract_message_id!(
+      mail.raw_source, status: :processing
+    )&.route
+  end
+
+  mail
 end
 
-def get_fixture_mail(filename_or_string, **kwargs)
+def get_fixture_mail(filename_or_string = nil, **kwargs)
+  filename_or_string ||= <<~EML
+    From: EMAIL_FROM
+    Subject: Basic Email
+
+    Hello, World
+  EML
+
   content = load_file_fixture(filename_or_string) || filename_or_string
   content = gsub_addresses(content, **kwargs)
   Mail.from_source(content)
