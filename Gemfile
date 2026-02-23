@@ -142,7 +142,7 @@ gem 'zip_tricks', '~> 5.6.0'
 gem 'benchmark', '~> 0.5.0'
 gem 'csv', '~> 3.3.5'
 gem 'drb', '~> 2.2.3'
-gem 'pstore', '~> 0.2.0'
+gem 'pstore', '~> 0.2.1'
 gem 'rdoc', '~> 7.1.0'
 gem 'uri', '~> 1.1.1'
 
