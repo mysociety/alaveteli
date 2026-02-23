@@ -117,8 +117,8 @@ RSpec.describe FollowupsController do
           allow_any_instance_of(IncomingMessage).
              to receive(:valid_to_reply_to?).and_return(true)
           receive_incoming_mail('incoming-request-plain.eml',
-                                email_to: request.incoming_email,
-                                email_from: 'Frob <frob@bonce.com>')
+                                to: request.incoming_email,
+                                from: 'Frob <frob@bonce.com>')
         end
 
         it "offers the opportunity to reply to the main address" do

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 def create_message_from(from_field)
-  get_fixture_mail('incoming-request-plain.eml', email_from: from_field)
+  get_fixture_mail('incoming-request-plain.eml', from: from_field)
 end
 
 RSpec.describe 'when creating a mail object from raw data' do
@@ -133,9 +133,9 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
   it 'should return an array containing the envelope-to address and the to address, and the cc address if there is one' do
     mail = get_fixture_mail(
       'incoming-request-plain.eml',
-      email_cc: 'request-3333-xxxxxxxx@whatdotheyknow.com',
-      email_bcc: 'request-4444-xxxxxxxx@whatdotheyknow.com',
-      email_envelope_to: 'request-5555-xxxxxxxx@whatdotheyknow.com'
+      cc: 'request-3333-xxxxxxxx@whatdotheyknow.com',
+      bcc: 'request-4444-xxxxxxxx@whatdotheyknow.com',
+      envelope_to: 'request-5555-xxxxxxxx@whatdotheyknow.com'
     )
     expect(MailHandler.get_all_addresses(mail)).to eq([
       'request-3333-xxxxxxxx@whatdotheyknow.com',
@@ -153,14 +153,14 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
   it 'should handle the absence of an envelope-to or cc field' do
     mail = get_fixture_mail(
       'autoresponse-header.eml',
-      email_to: 'request-5555-xxxxxxxx@whatdotheyknow.com'
+      to: 'request-5555-xxxxxxxx@whatdotheyknow.com'
     )
 
     expect(MailHandler.get_all_addresses(mail)).to eq(["request-5555-xxxxxxxx@whatdotheyknow.com"])
   end
 
   it 'should not return invalid addresses' do
-    mail = get_fixture_mail('autoresponse-header.eml', email_to: 'request-5555-xxxxxxxx')
+    mail = get_fixture_mail('autoresponse-header.eml', to: 'request-5555-xxxxxxxx')
 
     expect(MailHandler.get_all_addresses(mail)).to eq([])
   end

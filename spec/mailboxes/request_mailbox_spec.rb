@@ -10,7 +10,7 @@ RSpec.describe RequestMailbox do
       ir = info_requests(:fancy_dog_request)
       expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email)
+                            to: ir.incoming_email)
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
       expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
 
@@ -27,7 +27,7 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail(
         'incoming-request-plain.eml',
-        email_to: "request-#{ir.id}-#{ir.idhash}a@localhost"
+        to: "request-#{ir.id}-#{ir.idhash}a@localhost"
       )
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
       expect(ir.info_request_events[-1].incoming_message_id).not_to be_nil
@@ -54,13 +54,13 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail(
         inbound_email,
-        email_to: ir.incoming_email
+        to: ir.incoming_email
       )
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
       # send the email again
       receive_incoming_mail(
         inbound_email,
-        email_to: ir.incoming_email
+        to: ir.incoming_email
       )
       # this shouldn't add to the number of incoming mails
       expect(ir.incoming_messages.count).to eq(2)
@@ -75,7 +75,7 @@ RSpec.describe RequestMailbox do
       EML
       receive_incoming_mail(
         inbound_email,
-        email_to: ir.incoming_email
+        to: ir.incoming_email
       )
       # this should add to the number of incoming mails
       expect(ir.incoming_messages.count).to eq(3)
@@ -100,7 +100,7 @@ RSpec.describe RequestMailbox do
       # send email to one request
       receive_incoming_mail(
         inbound_email,
-        email_to: info_request_1.incoming_email
+        to: info_request_1.incoming_email
       )
 
       expect(info_request_1.incoming_messages.count).to eq(1)
@@ -110,7 +110,7 @@ RSpec.describe RequestMailbox do
       # request which hasn't already received the email
       receive_incoming_mail(
         inbound_email,
-        email_to: [
+        to: [
           info_request_1.incoming_email,
           info_request_2.incoming_email
         ].join(', ')
@@ -125,7 +125,7 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: 'dummy@localhost')
+                            to: 'dummy@localhost')
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.info_request_events.last
@@ -141,7 +141,7 @@ RSpec.describe RequestMailbox do
 
     it "puts messages with a malformed To: in the holding pen" do
       request = FactoryBot.create(:info_request)
-      receive_incoming_mail('incoming-request-plain.eml', email_to: 'asdfg')
+      receive_incoming_mail('incoming-request-plain.eml', to: 'asdfg')
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
     end
 
@@ -175,7 +175,7 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('apple-mail-with-attachments.eml',
-                            email_to: 'dummy@localhost')
+                            to: 'dummy@localhost')
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.info_request_events.last
@@ -209,8 +209,8 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.eml',
-                             email_to: ir.incoming_email,
-                             email_from: "")
+                             to: ir.incoming_email,
+                             from: "")
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.info_request_events.last
@@ -232,8 +232,8 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email,
-                            email_from: "frob@nowhere.com")
+                            to: ir.incoming_email,
+                            from: "frob@nowhere.com")
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
       last_event = InfoRequest.holding_pen_request.info_request_events.last
@@ -254,7 +254,7 @@ RSpec.describe RequestMailbox do
 
       it "recognises a spam address under the 'To' header" do
         receive_incoming_mail('incoming-request-plain.eml',
-                              email_to: @spam_address.email)
+                              to: @spam_address.email)
 
         deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(0)
@@ -263,7 +263,7 @@ RSpec.describe RequestMailbox do
 
       it "recognises a spam address under the 'CC' header" do
         receive_incoming_mail('incoming-request-plain.eml',
-                              email_cc: @spam_address.email)
+                              cc: @spam_address.email)
 
         deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(0)
@@ -272,7 +272,7 @@ RSpec.describe RequestMailbox do
 
       it "recognises a spam address under the 'BCC' header" do
         receive_incoming_mail('incoming-request-plain.eml',
-                              email_bcc: @spam_address.email)
+                              bcc: @spam_address.email)
 
         deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(0)
@@ -281,7 +281,7 @@ RSpec.describe RequestMailbox do
 
       it "recognises a spam email address under the 'envelope-to' header" do
         receive_incoming_mail('incoming-request-plain.eml',
-                              email_envelope_to: @spam_address.email)
+                              envelope_to: @spam_address.email)
 
         deliveries = ActionMailer::Base.deliveries
         expect(deliveries.size).to eq(0)
@@ -300,7 +300,7 @@ RSpec.describe RequestMailbox do
       # test what happens if something arrives
       expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email)
+                            to: ir.incoming_email)
       expect(ir.incoming_messages.count).to eq(1) # nothing should arrive
 
       # should be a message back to sender
@@ -324,8 +324,8 @@ RSpec.describe RequestMailbox do
       # (@localhost)
       expect(ir.incoming_messages.count).to eq(1) # in the fixture
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email,
-                            email_from: "Geraldine <geraldinequango@localhost>")
+                            to: ir.incoming_email,
+                            from: "Geraldine <geraldinequango@localhost>")
       expect(ir.incoming_messages.count).to eq(2) # one more arrives
 
       # ... should get "responses arrived" message for original requester
@@ -339,8 +339,8 @@ RSpec.describe RequestMailbox do
       # Test what happens if something arrives from another domain
       expect(ir.incoming_messages.count).to eq(2) # in fixture and above
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email,
-                            email_from: "dummy-address@dummy.localhost")
+                            to: ir.incoming_email,
+                            from: "dummy-address@dummy.localhost")
       expect(ir.incoming_messages.count).to eq(2) # nothing should arrive
 
       # ... should be a bounce message back to sender
@@ -359,8 +359,8 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1)
 
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email,
-                            email_from: "")
+                            to: ir.incoming_email,
+                            from: "")
       expect(ir.incoming_messages.count).to eq(1)
 
       deliveries = ActionMailer::Base.deliveries
@@ -380,7 +380,7 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email)
+                            to: ir.incoming_email)
       expect(ir.incoming_messages.count).to eq(1)
 
       # arrives in holding pen
@@ -410,7 +410,7 @@ RSpec.describe RequestMailbox do
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: ir.incoming_email)
+                            to: ir.incoming_email)
       expect(ir.incoming_messages.count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
 

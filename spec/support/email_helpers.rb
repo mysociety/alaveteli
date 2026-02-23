@@ -1,5 +1,5 @@
 def receive_incoming_mail(filename_or_string, **kwargs)
-  kwargs[:email_from] ||= 'geraldinequango@localhost'
+  kwargs[:from] ||= 'geraldinequango@localhost'
   mail = get_fixture_mail(filename_or_string, **kwargs)
 
   ActionMailbox::InboundEmail.create_and_extract_message_id!(
@@ -32,8 +32,8 @@ def load_mail_server_logs(log)
 end
 
 def gsub_addresses(content, **kwargs)
-  kwargs.slice(*%i[email_to email_from email_cc email_bcc email_envelope_to]).
-    transform_keys { |k| k.to_s.upcase }.
+  kwargs.slice(*%i[to from cc bcc envelope_to]).
+    transform_keys { |k| "EMAIL_#{k.to_s.upcase}" }.
     reduce(content) { |c, (k, v)| c.gsub(k, v) }
 end
 

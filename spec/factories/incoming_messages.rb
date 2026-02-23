@@ -78,7 +78,7 @@ FactoryBot.define do
     after(:create) do |incoming_message, _evaluator|
       mail = get_fixture_mail(
         'incoming-request-plain.eml',
-        email_from: 'Bob Responder <bob@example.com>'
+        from: 'Bob Responder <bob@example.com>'
       )
       incoming_message.raw_email.mail = mail
       incoming_message.raw_email.save!
