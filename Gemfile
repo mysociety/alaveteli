@@ -200,7 +200,7 @@ group :test, :development do
   gem 'bullet', '~> 8.1.0'
   gem 'factory_bot_rails', '~> 6.5.1'
   gem 'rspec-activemodel-mocks', '~> 1.3.0'
-  gem 'rspec-rails', '~> 8.0.2'
+  gem 'rspec-rails', '~> 8.0.3'
   gem 'pry', '~> 0.16.0'
 end
 
