@@ -252,6 +252,40 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#inbound_email' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+
+    context 'when message_id and message_checksum are present' do
+      let!(:inbound_email) do
+        ActionMailbox::InboundEmail.create!(
+          message_id: raw_email.message_id,
+          message_checksum: raw_email.message_checksum,
+          status: :delivered
+        )
+      end
+
+      it 'returns the matching InboundEmail' do
+        expect(raw_email.inbound_email).to eq(inbound_email)
+      end
+    end
+
+    context 'when message_id or message_checksum are not set' do
+      before do
+        raw_email.update_columns(message_id: nil, message_checksum: nil)
+      end
+
+      it 'returns nil' do
+        expect(raw_email.inbound_email).to be_nil
+      end
+    end
+
+    context 'when no matching InboundEmail exists' do
+      it 'returns nil' do
+        expect(raw_email.inbound_email).to be_nil
+      end
+    end
+  end
+
   describe '#erasable?' do
     subject { raw_email.erasable? }
 
@@ -348,6 +382,17 @@ RSpec.describe RawEmail do
     it 'expires the associated info_request' do
       expect(raw_email.info_request).to receive(:expire)
       subject
+    end
+
+    it 'destroys the associated inbound_email' do
+      inbound_email = ActionMailbox::InboundEmail.create!(
+        message_id: raw_email.message_id,
+        message_checksum: raw_email.message_checksum,
+        status: :delivered
+      )
+      expect { subject }.to change {
+        ActionMailbox::InboundEmail.exists?(inbound_email.id)
+      }.from(true).to(false)
     end
 
     it { is_expected.to eq(true) }

@@ -38,6 +38,13 @@ class RawEmail < ApplicationRecord
   delegate :lock_all_attachments, to: :incoming_message
   delegate :all_attachments_masked?, to: :incoming_message
 
+  def inbound_email
+    ActionMailbox::InboundEmail.find_by(
+      message_id: message_id,
+      message_checksum: message_checksum
+    ) if self[:message_id] && self[:message_checksum]
+  end
+
   def addresses(include_invalid: false)
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
   end
@@ -123,6 +130,7 @@ class RawEmail < ApplicationRecord
         )
 
       file.purge_later
+      inbound_email&.destroy
       touch(:erased_at)
 
       expire(preserve_database_cache: true)
