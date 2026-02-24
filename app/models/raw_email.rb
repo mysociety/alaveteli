@@ -2,10 +2,12 @@
 #
 # Table name: raw_emails
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime
-#  updated_at :datetime
-#  erased_at  :datetime
+#  id               :integer          not null, primary key
+#  created_at       :datetime
+#  updated_at       :datetime
+#  erased_at        :datetime
+#  message_id       :string
+#  message_checksum :string
 #
 
 # models/raw_email.rb:
@@ -28,7 +30,6 @@ class RawEmail < ApplicationRecord
   has_one_attached :file, service: :raw_emails
 
   delegate :date, to: :mail
-  delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
   delegate :parts, to: :mail
 
@@ -148,6 +149,29 @@ class RawEmail < ApplicationRecord
 
   def storage_key
     file.blob.key if file&.attached?
+  end
+
+  def message_id
+    return self[:message_id] if self[:message_id].present?
+
+    # taken from https://github.com/rails/rails/blob/624fe3c/actionmailbox/app/models/action_mailbox/inbound_email/message_id.rb#L27-L35
+    message_id = mail.message_id rescue nil
+    message_id ||= Mail::MessageIdField.new(
+      "<#{message_checksum}@#{::Socket.gethostname}.mail>"
+    ).message_id
+
+    update_column(:message_id, message_id)
+    message_id
+  end
+
+  def message_checksum
+    return self[:message_checksum] if self[:message_checksum].present?
+
+    # taken from https://github.com/rails/rails/blob/624fe3c/actionmailbox/app/models/action_mailbox/inbound_email/message_id.rb#L17
+    message_checksum = OpenSSL::Digest::SHA1.hexdigest(data)
+
+    update_column(:message_checksum, message_checksum)
+    message_checksum
   end
 
   private
