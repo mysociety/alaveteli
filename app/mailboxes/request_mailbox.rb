@@ -5,7 +5,7 @@ class RequestMailbox < ApplicationMailbox
     if exact_info_requests.count > 0
       # Go through each exact info request and deliver the email
       exact_info_requests.each do |info_request|
-        info_request.receive(mail)
+        info_request.receive(mail, **args)
       end
 
     elsif guessed_info_requests.count == 1
@@ -17,7 +17,7 @@ class RequestMailbox < ApplicationMailbox
         editor: 'automatic',
         destination_request: info_request
       )
-      info_request.receive(mail)
+      info_request.receive(mail, **args)
 
     else
       # Otherwise we send the mail to the holding pen
@@ -45,6 +45,15 @@ class RequestMailbox < ApplicationMailbox
 
   def send_to_holding_pen
     reason = _("Could not identify the request from the email address")
-    InfoRequest.holding_pen_request.receive(mail, rejected_reason: reason)
+    InfoRequest.holding_pen_request.receive(
+      mail, **args(rejected_reason: reason)
+    )
+  end
+
+  def args(**extra_args)
+    extra_args.merge(
+      message_id: inbound_email.message_id,
+      message_checksum: inbound_email.message_checksum
+    )
   end
 end

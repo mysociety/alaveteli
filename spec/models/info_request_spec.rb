@@ -651,6 +651,24 @@ RSpec.describe InfoRequest do
         to eq('rejected for testing')
     end
 
+    it 'stores message_id on the raw_email' do
+      info_request = FactoryBot.create(:info_request)
+      incoming_message = info_request.receive(
+        get_fixture_mail('incoming-request-plain.eml'),
+        message_id: '12345678'
+      )
+      expect(incoming_message.raw_email.message_id).to eq('12345678')
+    end
+
+    it 'stores message_checksum on the raw_email' do
+      info_request = FactoryBot.create(:info_request)
+      incoming_message = info_request.receive(
+        get_fixture_mail('incoming-request-plain.eml'),
+        message_checksum: 'abcdefgh'
+      )
+      expect(incoming_message.raw_email.message_checksum).to eq('abcdefgh')
+    end
+
     describe 'notifying the request owner' do
       context 'when the request has use_notifications: true' do
         let(:info_request) do

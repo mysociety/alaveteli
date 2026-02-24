@@ -418,5 +418,13 @@ RSpec.describe RequestMailbox do
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.size).to eq(0)
     end
+
+    it 'stores message_id and message_checksum on the raw_email' do
+      ir = FactoryBot.create(:info_request)
+      receive_incoming_mail('incoming-request-plain.eml', to: ir.incoming_email)
+      raw_email = ir.reload.incoming_messages.last.raw_email
+      expect(raw_email[:message_id]).to be_present
+      expect(raw_email[:message_checksum]).to be_present
+    end
   end
 end
