@@ -1,12 +1,6 @@
 class RequestMailbox < ApplicationMailbox
   def process
-    mail = inbound_email.mail
-
-    # Only check mail that doesn't have spam in the header
-    return if SpamAddress.spam?(MailHandler.get_all_addresses(mail))
-
-    # Find exact matches for info requests
-    exact_info_requests = requests_matching_email(mail)
+    return if spam?
 
     if exact_info_requests.count > 0
       # Go through each exact info request and deliver the email
@@ -14,13 +8,7 @@ class RequestMailbox < ApplicationMailbox
         info_request.receive(mail)
       end
 
-      return
-    end
-
-    # If there are no exact matches, find any guessed requests
-    guessed_info_requests = Guess.guessed_info_requests(mail)
-
-    if guessed_info_requests.count == 1
+    elsif guessed_info_requests.count == 1
       # If there one guess automatically redeliver the email to that and log it
       # as an event
       info_request = guessed_info_requests.first
@@ -33,19 +21,29 @@ class RequestMailbox < ApplicationMailbox
 
     else
       # Otherwise we send the mail to the holding pen
-      send_to_holding_pen(mail)
+      send_to_holding_pen
     end
   end
 
   private
 
-  # Find which info requests the email is for
-  def requests_matching_email(mail)
-    addresses = MailHandler.get_all_addresses(mail)
-    InfoRequest.matching_incoming_email(addresses)
+  def addresses
+    @addresses ||= MailHandler.get_all_addresses(mail)
   end
 
-  def send_to_holding_pen(mail)
+  def spam?
+    SpamAddress.spam?(addresses)
+  end
+
+  def exact_info_requests
+    @exact_info_requests ||= InfoRequest.matching_incoming_email(addresses)
+  end
+
+  def guessed_info_requests
+    @guessed_info_requests ||= Guess.guessed_info_requests(addresses)
+  end
+
+  def send_to_holding_pen
     reason = _("Could not identify the request from the email address")
     InfoRequest.holding_pen_request.receive(mail, rejected_reason: reason)
   end
