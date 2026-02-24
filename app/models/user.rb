@@ -436,34 +436,51 @@ class User < ApplicationRecord
     closed_at.present?
   end
 
-  def erase
-    erase!
+  def erase(...)
+    erase!(...)
   rescue ActiveRecord::RecordInvalid
     false
   end
 
-  def erase!
+  def erase!(editor:, reason:)
     raise ActiveRecord::RecordInvalid unless closed?
 
+    transaction do
+      destroy_associations
+      erase_account
+      erase_requests
+      censor_rules.destroy_all
+    end
+  end
+
+  def destroy_associations
+    slugs.destroy_all
+    sign_ins.destroy_all
+    email_histories.destroy_all
+    profile_photo&.destroy!
+  end
+
+  def erase_account
     sha = Digest::SHA1.hexdigest(rand.to_s)
 
-    transaction do
-      slugs.destroy_all
-      sign_ins.destroy_all
-      email_histories.destroy_all
-      profile_photo&.destroy!
+    update!(
+      name: _('[Name Removed]'),
+      email: "#{sha}@invalid",
+      url_name: sha,
+      about_me: '',
+      password: MySociety::Util.generate_token
+    )
+  end
 
-      outgoing_messages.update!(
-        from_name: _('[Name Removed]')
-      )
+  def erase_requests
+    return if info_requests.none?
 
-      update!(
-        name: _('[Name Removed]'),
-        email: "#{sha}@invalid",
-        url_name: sha,
-        about_me: '',
-        password: MySociety::Util.generate_token
-      )
+    outgoing_messages.update!(
+      from_name: _('[Name Removed]')
+    )
+
+    info_requests.each do |request|
+      request.erase_redacted_content
     end
   end
 

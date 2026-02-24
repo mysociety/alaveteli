@@ -35,6 +35,20 @@ class FoiAttachment < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  def redacted?
+    filename_redacted? || body_redacted?
+  end
+
+  # This is almost always going to return true until we implement more
+  # intelligent redaction application tracking.
+  def body_redacted?
+    unmasked_body != body
+  end
+
+  def filename_redacted?
+    filename != redacted_filename
+  end
+
   include MessageProminence
 
   include Eventable

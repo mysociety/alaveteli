@@ -157,7 +157,7 @@ module IncomingMessage::Attachments
   end
 
   def all_attachments_masked?
-    foi_attachments.all?(&:masked?)
+    foi_attachments.reload.all?(&:masked?)
   end
 
   private

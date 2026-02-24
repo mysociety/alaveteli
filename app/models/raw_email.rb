@@ -90,6 +90,9 @@ class RawEmail < ApplicationRecord
 
   def erase(editor:, reason:)
     raise AlreadyErasedError if erased?
+
+    # TODO: Refactor to cleaner method and remove guard
+    foi_attachments.reject(&:masked?).each(&:mask)
     raise UnmaskedAttachmentsError unless all_attachments_masked?
 
     transaction do |t|

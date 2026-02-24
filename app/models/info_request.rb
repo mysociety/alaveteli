@@ -41,6 +41,11 @@ require 'fileutils'
 class InfoRequest < ApplicationRecord
   OLD_AGE_IN_DAYS = 21.days
 
+  def erase_redacted_content
+    outgoing_messages.each(&:erase_if_redacted)
+    incoming_messages.each(&:erase_if_redacted)
+  end
+
   include Rails.application.routes.url_helpers
   include LinkToHelper
 

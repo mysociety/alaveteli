@@ -5,13 +5,8 @@ class Admin::Users::ErasuresController < AdminController
   before_action :set_erased_user
 
   def create
-    if erase
-      flash[:notice] = 'The user was erased.'
-    else
-      flash[:error] = 'Something went wrong. The user could not be erased.'
-    end
-
-    redirect_to admin_user_path(@erased_user)
+    @erased_user.erase!(editor: admin_current_user, reason: reason)
+    redirect_to admin_user_path(@erased_user), notice: 'Erasure queued'
   end
 
   private
@@ -20,7 +15,7 @@ class Admin::Users::ErasuresController < AdminController
     @erased_user = User.find(params[:user_id])
   end
 
-  def erase
-    @erased_user.erase
+  def reason
+    params[:reason]
   end
 end

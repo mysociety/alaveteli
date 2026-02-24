@@ -38,6 +38,33 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   class RawEmailErasedError < StandardError; end
 
+  def erase_if_redacted
+    erase if redacted?
+  end
+
+  def redacted?
+    from_name_redacted? ||
+      cached_main_body_redacted? ||
+      attachments_redacted?
+  end
+
+  def from_name_redacted?
+    safe_from_name != from_name
+  end
+
+  def cached_main_body_redacted?
+    replacements = info_request.applicable_censor_rules.pluck(:replacement)
+    replacements.any? { |r| cached_main_body_text_unfolded.to_s.include?(r) }
+  end
+
+  def attachments_redacted?
+    foi_attachments.any? { |a| a.redacted? }
+  end
+
+  def erase
+    raw_email.erase(editor: User.find(8), reason: 'tmp')
+  end
+
   include MessageProminence
   include Taggable
 

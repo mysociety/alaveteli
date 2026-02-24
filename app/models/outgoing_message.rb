@@ -32,6 +32,24 @@ class OutgoingMessage < ApplicationRecord
 
   include OutgoingMessage::DeliveryStatus
 
+  def erase_if_redacted
+    erase if redacted?
+  end
+
+  def redacted?
+    safe_from_name != from_name ||
+      clean_text(read_attribute(:body)) != body
+  end
+
+  def erase
+    update!(body: body)
+    log_event(
+      'edit_outgoing',
+      reason: 'test',
+      outgoing_message_id: id
+    )
+  end
+
   MESSAGE_TYPES = %w(initial_request followup).freeze
   WHAT_DOING_VALUES = %w(normal_sort
                          internal_review
