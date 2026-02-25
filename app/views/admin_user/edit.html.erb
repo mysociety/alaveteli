@@ -113,7 +113,7 @@
       </div>
       <hr>
 
-      <%= form_tag admin_users_account_anonymising_index_path(user_id: @admin_user.id), class: 'span3 form form-inline' do %>
+      <%= form_tag admin_user_anonymisation_path(@admin_user), class: 'span3 form form-inline' do %>
         <% disabled = !@admin_user.closed? %>
         <% submit_class = %w(btn btn-danger) %>
         <% submit_class << 'disabled' if disabled %>

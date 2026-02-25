@@ -1,7 +1,7 @@
 ##
 # Controller for anonymising user accounts
 #
-class AdminUsersAccountAnonymisingController < AdminController
+class Admin::Users::AnonymisationsController < AdminController
   before_action :set_anonymised_user
 
   def create

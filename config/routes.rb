@@ -811,11 +811,13 @@ Rails.application.routes.draw do
   end
   ####
 
-  #### AdminUsersAccountAnonymising controller
-  scope '/admin', :as => 'admin' do
-    resources :users_account_anonymising,
-          :controller => 'admin_users_account_anonymising',
-          :only => [:create]
+  #### Admin::Users::Anonymisations controller
+  namespace :admin do
+    resources :users, only: [] do
+      scope module: :users do
+        resource :anonymisation, only: [:create]
+      end
+    end
   end
   ####
 
