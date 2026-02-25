@@ -86,6 +86,10 @@ class User < ApplicationRecord
   has_many :info_request_events,
            -> { reorder(created_at: :desc) },
            through: :info_requests
+  has_many :incoming_messages,
+           through: :info_requests
+  has_many :foi_attachments,
+           through: :incoming_messages
   has_many :embargoes,
            inverse_of: :user,
            through: :info_requests
@@ -147,9 +151,6 @@ class User < ApplicationRecord
            dependent: :destroy,
            class_name: 'AlaveteliPro::RequestSummary'
   has_many :notifications,
-           inverse_of: :user,
-           dependent: :destroy
-  has_many :track_things_sent_emails,
            inverse_of: :user,
            dependent: :destroy
   has_many :track_things_sent_emails,

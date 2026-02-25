@@ -53,6 +53,8 @@ class IncomingMessage < ApplicationRecord
              inverse_of: :incoming_messages,
              counter_cache: true
 
+  has_one :user, through: :info_request
+
   has_many :outgoing_message_followups,
            inverse_of: :incoming_message_followup,
            foreign_key: 'incoming_message_followup_id',
