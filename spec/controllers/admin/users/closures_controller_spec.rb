@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe AdminUsersAccountClosingController do
+RSpec.describe Admin::Users::ClosuresController do
   describe 'POST #create' do
     let(:user) { FactoryBot.create(:user) }
 
@@ -43,7 +43,7 @@ RSpec.describe AdminUsersAccountClosingController do
     context 'with invalid params' do
       it 'renders a 404' do
         expect {
-          post :create
+          post :create, params: { user_id: 0 }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

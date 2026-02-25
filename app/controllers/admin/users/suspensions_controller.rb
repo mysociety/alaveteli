@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2018 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
-class AdminUsersAccountSuspensionsController < AdminController
+class Admin::Users::SuspensionsController < AdminController
   before_action :set_suspended_user
   before_action :set_suspension_reason
 
