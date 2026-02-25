@@ -156,9 +156,6 @@ class User < ApplicationRecord
   has_many :track_things_sent_emails,
            inverse_of: :user,
            dependent: :destroy
-  has_many :track_things_sent_emails,
-           inverse_of: :user,
-           dependent: :destroy
   has_many :announcements,
            inverse_of: :user
   has_many :announcement_dismissals,
