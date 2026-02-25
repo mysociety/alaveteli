@@ -795,11 +795,13 @@ Rails.application.routes.draw do
   end
   ####
 
-  #### AdminUsersAccountErasing controller
-  scope '/admin', :as => 'admin' do
-    resources :users_account_erasing,
-          :controller => 'admin_users_account_erasing',
-          :only => [:create]
+  #### Admin::Users::Erasures controller
+  namespace :admin do
+    resources :users, only: [] do
+      scope module: :users do
+        resource :erasure, only: [:create]
+      end
+    end
   end
   ####
 

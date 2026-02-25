@@ -1,7 +1,7 @@
 ##
 # Controller for erasing accounts
 #
-class AdminUsersAccountErasingController < AdminController
+class Admin::Users::ErasuresController < AdminController
   before_action :set_erased_user
 
   def create
