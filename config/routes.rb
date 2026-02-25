@@ -787,11 +787,13 @@ Rails.application.routes.draw do
   end
   ####
 
-  #### AdminUsersAccountSuspensions controller
-  scope '/admin', :as => 'admin' do
-    resources :users_account_suspensions,
-      :controller => 'admin_users_account_suspensions',
-      :only => [:create]
+  #### Admin::Users::Suspensions controller
+  namespace :admin do
+    resources :users, only: [] do
+      scope module: :users do
+        resource :suspension, only: [:create]
+      end
+    end
   end
   ####
 

@@ -120,7 +120,7 @@
 
         <% submit_class = %w(btn btn-danger) %>
         <% submit_class << 'disabled' if disabled %>
-        <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: _('Banned for spamming')), class: 'form form-inline' do %>
+        <%= form_tag admin_user_suspension_path(@admin_user, suspension_reason: _('Banned for spamming')), class: 'form form-inline' do %>
           <%= submit_tag 'Ban for spamming', class: submit_class, disabled: disabled %>
         <% end %>
 
@@ -140,7 +140,7 @@
 
           <% canned_ban_reasons.each do |data| %>
             <li>
-              <%= form_tag admin_users_account_suspensions_path(user_id: @admin_user.id, suspension_reason: data[:reason]), class: 'form form-inline' do %>
+              <%= form_tag admin_user_suspension_path(@admin_user, suspension_reason: data[:reason]), class: 'form form-inline' do %>
                 <%= submit_tag data[:button], class: submit_class, disabled: disabled %>
               <% end %>
             </li>
