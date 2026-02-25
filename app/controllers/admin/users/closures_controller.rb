@@ -1,7 +1,7 @@
 ##
 # Controller for closing user accounts
 #
-class AdminUsersAccountClosingController < AdminController
+class Admin::Users::ClosuresController < AdminController
   before_action :set_closed_user
 
   def create

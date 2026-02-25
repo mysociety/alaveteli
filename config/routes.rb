@@ -803,11 +803,13 @@ Rails.application.routes.draw do
   end
   ####
 
-  #### AdminUsersAccountClosing controller
-  scope '/admin', :as => 'admin' do
-    resources :users_account_closing,
-          :controller => 'admin_users_account_closing',
-          :only => [:create]
+  #### Admin::Users::Closures controller
+  namespace :admin do
+    resources :users, only: [] do
+      scope module: :users do
+        resource :closure, only: [:create]
+      end
+    end
   end
   ####
 
