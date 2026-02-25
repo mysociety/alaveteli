@@ -25,6 +25,8 @@ class RawEmail < ApplicationRecord
 
   has_one :info_request, through: :incoming_message
 
+  has_many :foi_attachments, through: :incoming_message
+
   has_one_attached :file, service: :raw_emails
 
   delegate :date, to: :mail

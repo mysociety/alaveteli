@@ -46,8 +46,9 @@ class FoiAttachment < ApplicationRecord
   AlreadyErasedError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
-  has_one :info_request, through: :incoming_message, source: :info_request
   has_one :raw_email, through: :incoming_message, source: :raw_email
+  has_one :info_request, through: :incoming_message, source: :info_request
+  has_one :user, through: :info_request
 
   has_one_attached :file, service: :attachments
 
