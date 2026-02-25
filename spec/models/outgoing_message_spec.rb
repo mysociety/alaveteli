@@ -674,6 +674,46 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe '#redacted?' do
+    subject { outgoing_message.redacted? }
+
+    let(:user) { FactoryBot.create(:user, name: 'Alice Smith') }
+
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    let(:outgoing_message) do
+      FactoryBot.create(:initial_request, info_request: info_request)
+    end
+
+    context 'when no redactions have been made' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule redacts the from_name' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          info_request: info_request,
+          text: 'Alice Smith'
+        )
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a censor rule redacts the body' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          info_request: info_request,
+          text: 'information'
+        )
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#apply_masks' do
     before(:each) do
       @message = FactoryBot.create(:initial_request)
