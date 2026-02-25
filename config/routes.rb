@@ -788,41 +788,15 @@ Rails.application.routes.draw do
   ####
 
   #### Admin::Users::Suspensions controller
-  namespace :admin do
-    resources :users, only: [] do
-      scope module: :users do
-        resource :suspension, only: [:create]
-      end
-    end
-  end
-  ####
-
+  #### Admin::Users::Closures controller
+  #### Admin::Users::Anonymisations controller
   #### Admin::Users::Erasures controller
   namespace :admin do
-    resources :users, only: [] do
-      scope module: :users do
-        resource :erasure, only: [:create]
-      end
-    end
-  end
-  ####
-
-  #### Admin::Users::Closures controller
-  namespace :admin do
-    resources :users, only: [] do
-      scope module: :users do
-        resource :closure, only: [:create]
-      end
-    end
-  end
-  ####
-
-  #### Admin::Users::Anonymisations controller
-  namespace :admin do
-    resources :users, only: [] do
-      scope module: :users do
-        resource :anonymisation, only: [:create]
-      end
+    resources :users, only: [], module: :users do
+      resource :suspension, only: [:create]
+      resource :closure, only: [:create]
+      resource :anonymisation, only: [:create]
+      resource :erasure, only: [:create]
     end
   end
   ####
