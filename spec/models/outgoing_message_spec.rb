@@ -714,6 +714,54 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe '#make_redactions_permanent' do
+    subject { outgoing_message.make_redactions_permanent }
+
+    let(:user) { FactoryBot.create(:user, name: 'Alice Smith') }
+
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    let(:outgoing_message) do
+      FactoryBot.create(:initial_request, info_request: info_request)
+    end
+
+    context 'when not redacted' do
+      it 'does not change from_name' do
+        expect { subject }.
+          not_to change { outgoing_message.reload.read_attribute(:from_name) }
+      end
+
+      it 'does not change body' do
+        expect { subject }.
+          not_to change { outgoing_message.reload.read_attribute(:body) }
+      end
+    end
+
+    context 'when both from_name and body are redacted' do
+      before do
+        FactoryBot.
+          create(:censor_rule, info_request: info_request, text: 'Smith')
+
+        FactoryBot.
+          create(:censor_rule, info_request: info_request, text: 'information')
+      end
+
+      before { subject }
+
+      it 'persists the redacted from_name' do
+        attr = outgoing_message.reload.read_attribute(:from_name)
+        expect(attr).to eq('Alice [REDACTED]')
+      end
+
+      it 'persists the redacted body' do
+        attr = outgoing_message.reload.read_attribute(:body)
+
+        expect(attr).not_to include('information')
+        expect(attr).to include('[REDACTED]')
+      end
+    end
+  end
+
   describe '#apply_masks' do
     before(:each) do
       @message = FactoryBot.create(:initial_request)

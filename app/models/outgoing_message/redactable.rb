@@ -5,6 +5,16 @@ module OutgoingMessage::Redactable
     from_name_redacted? || body_redacted?
   end
 
+  # TODO: Ideally should log an event for destructive edits
+  def make_redactions_permanent
+    return unless redacted?
+
+    self.from_name = safe_from_name if from_name_redacted?
+    self.body = body if body_redacted?
+
+    save!
+  end
+
   private
 
   def from_name_redacted?
