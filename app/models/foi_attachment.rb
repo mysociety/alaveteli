@@ -40,6 +40,7 @@ class FoiAttachment < ApplicationRecord
   include Eventable
   include Lockable
   include Maskable
+  include Redactable
   include Replaceable
 
   MissingError = Class.new(StandardError)
