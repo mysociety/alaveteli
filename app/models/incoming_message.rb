@@ -43,6 +43,7 @@ class IncomingMessage < ApplicationRecord
   include IncomingMessage::CacheAttributesFromRawEmail
   include IncomingMessage::MainBody
   include IncomingMessage::QuoteHandling
+  include IncomingMessage::Redactable
   include IncomingMessage::Refusals
 
   UnableToExtractAttachments = Class.new(StandardError)
