@@ -498,6 +498,58 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#redacted?' do
+    subject { foi_attachment.redacted? }
+
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    context 'when no redactions have been made' do
+      before { foi_attachment.mask }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule redacts the filename' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          text: 'attachment',
+          info_request: info_request
+        )
+
+        foi_attachment.mask
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a censor rule redacts the body' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          text: 'here',
+          info_request: info_request
+        )
+
+        foi_attachment.mask
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    # TODO: Not sure whether we need to test every redaction method
+    #context 'when the filename has been replaced' do
+      #before { foi_attachment.replaced_filename = 'redacted.txt' }
+      #it { is_expected.to eq(true) }
+    #end
+
+    #context 'when the body has been replaced' do
+      #before { foi_attachment.replacement_body = 'redacted' }
+      #it { is_expected.to eq(true) }
+    #end
+  end
+
   describe 'masked?' do
     let(:foi_attachment) do
       FoiAttachment.new(body: 'foo', masked_at: Time.zone.now)
