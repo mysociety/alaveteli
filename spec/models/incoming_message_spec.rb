@@ -342,6 +342,76 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#redacted?' do
+    subject { incoming_message.redacted? }
+
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:info_request) { incoming_message.info_request }
+
+    context 'when no redactions have been made' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule redacts the from_name' do
+      before do
+        incoming_message.update!(from_name: 'Alice Smith')
+
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: info_request,
+          text: 'Alice'
+        )
+
+        info_request.reload
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a censor rule redacts the cached main body' do
+      before do
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: info_request,
+          text: 'here'
+        )
+
+        info_request.reload
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a text mask redacts the cached main body' do
+      let(:incoming_message) do
+        inbound_email = <<~EMAIL
+          From: Authority <authority@example.com>
+          To: Request <request@example.net>
+          Subject: Response
+
+          Please contact info@authority.example.com for more details.
+        EMAIL
+
+        FactoryBot.create(:incoming_message).tap do |im|
+          im.raw_email.data = inbound_email
+          im.raw_email.save!
+          im.parse_raw_email!
+        end
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when an attachment has been redacted' do
+      before do
+        allow(incoming_message.foi_attachments.first).
+          to receive(:redacted?).and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#from_email' do
     it 'returns the email address in the From header' do
       inbound_email = <<-EOF.strip_heredoc
